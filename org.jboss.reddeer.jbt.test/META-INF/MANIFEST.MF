@@ -1,0 +1,12 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Red Deer JBT Componnet Tests
+Bundle-SymbolicName: org.jboss.reddeer.jbt.test
+Bundle-Version: 0.0.1.qualifier
+Bundle-Activator: org.jboss.reddeer.jbt.test.Activator
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.junit4;bundle-version="4.8.1",
+ org.jboss.reddeer.jbt;bundle-version="0.0.1"
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6

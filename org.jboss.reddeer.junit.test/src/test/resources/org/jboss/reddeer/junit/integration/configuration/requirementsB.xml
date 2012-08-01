@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testrun 
+	xmlns="http://www.jboss.org/NS/Req" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:java="http://www.jboss.org/NS/JavaReq"
+	xsi:schemaLocation="http://www.jboss.org/NS/Req RDRequirements.xsd http://www.jboss.org/NS/JavaReq JavaRequirements.xsd">
+
+	<requirements>
+	
+		<requirement class="org.jboss.reddeer.junit.integration.configuration.RequirementA" name="req1">
+			<property key="a" value="10" />
+		</requirement>
+		<requirement class="org.jboss.reddeer.junit.integration.configuration.RequirementB" name="req2">
+			<property key="b" value="20" />
+			<property key="a" value="30" />
+		</requirement>
+		
+		<java:java-requirement name="javaReq">
+			<java:runtime>/java</java:runtime>
+		</java:java-requirement>
+	</requirements>
+</testrun>

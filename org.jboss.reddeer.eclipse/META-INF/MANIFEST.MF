@@ -1,0 +1,16 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Red Deer Eclipse Component
+Bundle-SymbolicName: org.jboss.reddeer.eclipse
+Bundle-Version: 0.0.1.qualifier
+Bundle-Activator: org.jboss.reddeer.eclipse.Activator
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.jboss.reddeer.jface;bundle-version="0.0.1",
+ org.eclipse.wst.server.ui,
+ org.jboss.reddeer.swt;bundle-version="0.0.1",
+ org.apache.commons.logging;bundle-version="1.0.4"
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Export-Package: org.jboss.reddeer.eclipse.jst.server.tomcat.ui;uses:="org.jboss.reddeer.eclipse.jface.wizard",
+ org.jboss.reddeer.eclipse.wst.server;uses:="org.jboss.reddeer.eclipse.jface.wizard,org.jboss.reddeer.eclipse.jface.preference"

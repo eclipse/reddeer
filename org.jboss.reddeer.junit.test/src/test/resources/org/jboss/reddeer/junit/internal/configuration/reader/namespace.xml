@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<a
+	xmlns="http://www.jboss.org/test/b"
+	xmlns:c="http://www.jboss.org/test/c"
+	xmlns:d="http://www.jboss.org/test/d"
+>
+	<b attr="b"></b>
+	<c:b attr="c"></c:b>
+	<d:b attr="d"></d:b>
+</a>

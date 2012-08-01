@@ -1,0 +1,18 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Red Deer JUnit Support
+Bundle-SymbolicName: org.jboss.reddeer.junit
+Bundle-Version: 0.0.1.qualifier
+Bundle-Activator: org.jboss.reddeer.junit.Activator
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.junit;bundle-version="4.0.0",
+ org.hamcrest;bundle-version="1.1.0",
+ org.apache.commons.logging;bundle-version="1.0.4"
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-ClassPath: .,
+ lib/commons-beanutils-core-1.8.3.jar
+Export-Package: org.jboss.reddeer.junit,
+ org.jboss.reddeer.junit.requirement,
+ org.jboss.reddeer.junit.runner

@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Red Deer JFace Componnet
+Bundle-SymbolicName: org.jboss.reddeer.jface
+Bundle-Version: 0.0.1.qualifier
+Bundle-Activator: org.jboss.reddeer.jface.Activator
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.jboss.reddeer.swt;bundle-version="0.0.1",
+ org.apache.commons.logging;bundle-version="1.0.4"
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Export-Package: org.jboss.reddeer.eclipse.jface.preference,
+ org.jboss.reddeer.eclipse.jface.wizard

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+	<description>To install these features, point Eclipse at this site.</description>
+	<category-def label="RedDeer Update Site" name="RedDeer Update Site">
+		<description>RedDeer</description>
+	</category-def>
+	<feature url="org.jboss.reddeer.feature.qualifier" id="org.jboss.reddeer.feature" version="0.0.1.qualifier">
+		<category name="RedDeer Update Site"/>
+	</feature>
+</site>

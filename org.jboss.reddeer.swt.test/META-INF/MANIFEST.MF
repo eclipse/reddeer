@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Red Deer SWT Componnet Tests
+Bundle-SymbolicName: org.jboss.reddeer.swt.test
+Bundle-Version: 0.0.1.qualifier
+Bundle-Activator: org.jboss.reddeer.swt.test.Activator
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.junit4;bundle-version="4.8.1",
+ org.eclipse.swtbot.eclipse.finder;bundle-version="2.0.5",
+ org.jboss.reddeer.swt;bundle-version="0.0.1",
+ org.apache.log4j;bundle-version="1.2.15"
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
