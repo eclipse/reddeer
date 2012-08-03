@@ -4,8 +4,7 @@ import java.lang.annotation.Annotation;
 import java.util.Iterator;
 import java.util.List;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.jboss.reddeer.junit.requirement.Requirement;
 
 /**
@@ -17,7 +16,7 @@ import org.jboss.reddeer.junit.requirement.Requirement;
 public class Requirements implements Requirement<Annotation>, Iterable<Requirement<?>>{
 
 	private List<Requirement<?>> requirements;
-	private Log logger = LogFactory.getLog(Requirements.class);
+	private Logger log = Logger.getLogger(Requirements.class);
 	
 	public Requirements(List<Requirement<?>> requirements) {
 		super();
@@ -48,7 +47,7 @@ public class Requirements implements Requirement<Annotation>, Iterable<Requireme
 	@Override
 	public void fulfill() {
 		for (Requirement<?> r : requirements) {
-			logger.info("Fulfilling requirement of class " + r.getClass());
+			log.info("Fulfilling requirement of class " + r.getClass());
 			r.fulfill();
 		}
 	}

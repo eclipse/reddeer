@@ -1,13 +1,12 @@
 package org.jboss.reddeer.swt.impl.tree;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.jboss.reddeer.swt.api.Tree;
 
 public abstract class BasicTree implements Tree {
-	protected final Log logger = LogFactory.getLog(this.getClass());
+	protected final Logger logger = Logger.getLogger(this.getClass());
 	SWTBotTree tree;
 	
 	@Override

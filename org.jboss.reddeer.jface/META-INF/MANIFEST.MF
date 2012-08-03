@@ -7,8 +7,9 @@ Bundle-Activator: org.jboss.reddeer.jface.Activator
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  org.jboss.reddeer.swt;bundle-version="0.0.1",
- org.apache.commons.logging;bundle-version="1.0.4"
+ org.apache.log4j;bundle-version="1.2.0"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: org.jboss.reddeer.eclipse.jface.preference,
  org.jboss.reddeer.eclipse.jface.wizard
+Eclipse-RegisterBuddy: org.apache.log4j

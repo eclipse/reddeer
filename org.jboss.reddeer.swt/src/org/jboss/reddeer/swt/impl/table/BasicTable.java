@@ -1,7 +1,6 @@
 package org.jboss.reddeer.swt.impl.table;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTable;
 import org.jboss.reddeer.swt.api.Table;
 import org.jboss.reddeer.swt.util.Bot;
@@ -12,7 +11,7 @@ import org.jboss.reddeer.swt.util.Bot;
  *
  */
 public abstract class BasicTable implements Table {
-	protected final Log logger = LogFactory.getLog(BasicTable.class);
+	protected final Logger log = Logger.getLogger(BasicTable.class);
 	SWTBotTable table;
 	
 	@Override
@@ -29,7 +28,7 @@ public abstract class BasicTable implements Table {
 
 	@Override
 	public void select(int... indexes) {
-		if (logger.isDebugEnabled()){
+		if (log.isDebugEnabled()){
 		      StringBuffer sbIndexes = new StringBuffer();
 		      for (int index : indexes){
 		        if (sbIndexes.length() > 0) {
@@ -37,7 +36,7 @@ public abstract class BasicTable implements Table {
 		        }
 		        sbIndexes.append(index);
 		      }
-		  logger.debug("Select table row(s): " + sbIndexes.toString());
+		  log.debug("Select table row(s): " + sbIndexes.toString());
 		}
 		Bot.get().table().select(indexes);
 		

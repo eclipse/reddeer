@@ -6,8 +6,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.jboss.reddeer.junit.configuration.RedDeerConfigurationException;
 
 /**
@@ -26,7 +25,7 @@ public class SuiteConfiguration {
 	 * System property pointing either to the configuration file or to the configuration directory. 
 	 */
 	public static final String PROPERTY_CONFIG_LOC = "reddeer.config";
-    private final Log logger = LogFactory.getLog(SuiteConfiguration.class);
+    private final Logger log = Logger.getLogger(SuiteConfiguration.class);
 	private List<TestRunConfiguration> testRunConfigs;
 	
 	public List<TestRunConfiguration> getTestRunConfigurations(){
@@ -39,16 +38,16 @@ public class SuiteConfiguration {
 	private List<TestRunConfiguration> findTestRunConfigurations(){
 		List<TestRunConfiguration> configurations = new ArrayList<TestRunConfiguration>();
 		
-		logger.info("Finding Test Run Configuration");
+		log.info("Finding Test Run Configuration");
 		List<File> confFilesList = getConfigurationFiles();
 		if (confFilesList.isEmpty()){
-			logger.info("Added NullTestRunConfiguration");
+			log.info("Added NullTestRunConfiguration");
 			configurations.add(new NullTestRunConfiguration());
 			return configurations;
 		}
 		
 		for (File file :confFilesList){
-			logger.info("Added Test Run Confiration from file: " + file);
+			log.info("Added Test Run Confiration from file: " + file);
 			configurations.add(new TestRunConfigurationImpl(file));
 		}
 

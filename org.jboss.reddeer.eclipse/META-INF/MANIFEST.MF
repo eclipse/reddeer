@@ -9,8 +9,9 @@ Require-Bundle: org.eclipse.ui,
  org.jboss.reddeer.jface;bundle-version="0.0.1",
  org.eclipse.wst.server.ui,
  org.jboss.reddeer.swt;bundle-version="0.0.1",
- org.apache.commons.logging;bundle-version="1.0.4"
+ org.apache.log4j;bundle-version="1.2.0"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: org.jboss.reddeer.eclipse.jst.server.tomcat.ui;uses:="org.jboss.reddeer.eclipse.jface.wizard",
  org.jboss.reddeer.eclipse.wst.server;uses:="org.jboss.reddeer.eclipse.jface.wizard,org.jboss.reddeer.eclipse.jface.preference"
+Eclipse-RegisterBuddy: org.apache.log4j

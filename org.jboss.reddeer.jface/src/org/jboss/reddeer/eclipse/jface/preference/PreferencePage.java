@@ -1,9 +1,6 @@
 package org.jboss.reddeer.eclipse.jface.preference;
 
-
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.jboss.reddeer.swt.api.Button;
 import org.jboss.reddeer.swt.api.Menu;
 import org.jboss.reddeer.swt.api.Tree;
@@ -25,7 +22,7 @@ public abstract class PreferencePage {
 	public static final String DIALOG_TITLE = "Preferences";
 	
 	private String[] path;
-	protected final Log logger = LogFactory.getLog(this.getClass());
+	protected final Logger log = Logger.getLogger(this.getClass());
 	
 	public PreferencePage(String... path) {
 		this.path = path;
@@ -34,18 +31,18 @@ public abstract class PreferencePage {
 	public void open(){
 
 		// if preferences dialog is not open, open it
-		logger.info("Open Preferences dialog");	
+		log.info("Open Preferences dialog");	
 		try {
 			new ActiveShell(DIALOG_TITLE);
-			logger.debug("Preferences dialog was already opened.");
+			log.debug("Preferences dialog was already opened.");
 		} catch (WidgetNotAvailableException e) {
-			logger.debug("Preferences dialog was not already opened. Opening via menu.");
+			log.debug("Preferences dialog was not already opened. Opening via menu.");
 			Menu menu = new DefaultMenu();
 			menu.select("Window","Preferences");
 			new ActiveShell(DIALOG_TITLE);
 		}
 		
-		if (logger.isDebugEnabled()){
+		if (log.isDebugEnabled()){
 			  StringBuffer sbPath = new StringBuffer("");
 			  for (String pathItem : path){
 			    if (sbPath.length() > 0 ){
@@ -53,7 +50,7 @@ public abstract class PreferencePage {
 			    }
 			    sbPath.append(pathItem);
 			  }
-	        logger.debug("Select Preferences dialog treeitem: " + sbPath.toString());
+	        log.debug("Select Preferences dialog treeitem: " + sbPath.toString());
 		}   
 		Tree t = new DefaultTree();
 		t.select(path);
@@ -67,25 +64,25 @@ public abstract class PreferencePage {
 	
 	public void ok(){		
 		Button b = new PushButton("OK");
-		logger.info("Close Preferences dialog");
+		log.info("Close Preferences dialog");
 		b.click();		
 	}
 
 	public void cancel(){
 		Button b = new PushButton("Cancel");
-		logger.info("Cancel Preferences dialog");
+		log.info("Cancel Preferences dialog");
 		b.click();		
 	}
 	
 	public void apply(){
 		Button b = new PushButton("Apply");
-		logger.debug("Apply changes in Preferences dialog");
+		log.debug("Apply changes in Preferences dialog");
 		b.click();		
 	}
 	
 	public void restoreDefaults(){
 		Button b = new PushButton("Restore Defaults");
-		logger.debug("Restore default values in Preferences dialog");
+		log.debug("Restore default values in Preferences dialog");
 		b.click();
 	}
 }

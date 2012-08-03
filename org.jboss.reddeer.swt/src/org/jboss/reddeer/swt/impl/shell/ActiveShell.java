@@ -15,12 +15,12 @@ public class ActiveShell extends BasicShell implements Shell {
 
 	public ActiveShell(String title) {
 		this();
-		logger.info("Looking for shell with title:" + title);
+		log.info("Looking for shell with title:" + title);
 		if (!title.equals(shell.getText())) {			
 			String message = "Active shell title is "
 					+ shell.getText() + " but expected is " + title;
 			
-			logger.error(message);		
+			log.error(message);		
 			throw new WidgetNotAvailableException(message);
 		}
 	}
@@ -31,7 +31,7 @@ public class ActiveShell extends BasicShell implements Shell {
 			shell = Bot.get().activeShell();
 			shell.activate();
 			shell.setFocus();
-			logger.info("Active Shell found:" + shell.getText());
+			log.info("Active Shell found:" + shell.getText());
 		}
 		catch (WidgetNotFoundException e) {
 			throw new WidgetNotAvailableException("Active Shell is not available");

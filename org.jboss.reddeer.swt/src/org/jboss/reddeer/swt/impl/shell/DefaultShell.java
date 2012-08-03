@@ -15,7 +15,7 @@ public class DefaultShell extends BasicShell implements Shell {
 	public DefaultShell() {
 		try {
 			shell = Bot.get().shells()[0];
-			logger.info("Default [0] Shell found");
+			log.info("Default [0] Shell found");
 		}
 		catch (WidgetNotFoundException e) {
 			throw new WidgetNotAvailableException("No shell is available at the moment");
