@@ -1,7 +1,6 @@
 package org.jboss.reddeer.junit.internal.requirement.inject;
 
 import java.lang.reflect.Field;
-import java.util.Iterator;
 
 import org.jboss.reddeer.junit.internal.requirement.Requirements;
 import org.jboss.reddeer.junit.requirement.Requirement;
@@ -20,33 +19,33 @@ public class RequirementsInjector {
 		for (Field field : testInstance.getClass().getDeclaredFields()) {
 			if (field.isAnnotationPresent(InjectRequirement.class)) {
 				Requirement<?> requirement = loadProperRequirement(field, requirements);
-				if (requirement != null) {
-					field.setAccessible(true);
-					try {
-						field.set(testInstance, requirement);
-					} catch (IllegalArgumentException e) {
-						e.printStackTrace();
-					} catch (IllegalAccessException e) {
-						e.printStackTrace();
-					}
-				} else {
-					throw new RequirementInjectionException("Field type \"" + 
-								field.getType() + "\" cannot be injected. " +
-								"No corresponding requirement exists");
-				}
+				field.setAccessible(true);
+				setField(field, testInstance, requirement);
 			}
 		}
 	}
 	
 	private Requirement<?> loadProperRequirement(Field field, Requirements requirements) {
-		Iterator<Requirement<?>> iter = requirements.iterator();
-		while (iter.hasNext()) {
-			Requirement<?> requirement = iter.next();
+		for (Requirement<?> requirement : requirements) {
 			if (field.getType().equals(requirement.getClass())) {
 				return requirement;
 			}
 		}
-		return null;
+		throw new RequirementInjectionException("Field type \"" + 
+				field.getType() + "\" cannot be injected. " +
+				"No corresponding requirement exists");
+	}
+	
+	private void setField(Field field, Object testInstance, Requirement<?> requirement) {
+		try {
+			field.set(testInstance, requirement);
+		} catch (IllegalArgumentException e) {
+			throw new RequirementInjectionException("Cannot set field \"" + field +
+					"\" due to illegal argument issue. " + e.getLocalizedMessage());
+		} catch (IllegalAccessException e) {
+			throw new RequirementInjectionException("Cannot set field \"" + field +
+					"\" due to illegal access issue. " + e.getLocalizedMessage());
+		}
 	}
 
 }
