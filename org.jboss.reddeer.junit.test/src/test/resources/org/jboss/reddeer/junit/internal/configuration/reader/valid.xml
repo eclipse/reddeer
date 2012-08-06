@@ -1,16 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <testrun xmlns="http://www.jboss.org/NS/Req" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:user="http://www.jboss.org/NS/user-schema"
 	xsi:schemaLocation="http://www.jboss.org/NS/Req RedDeerSchema.xsd http://www.jboss.org/NS/user-schema user-schema.xsd">
 
 	<requirements>
-		<requirement
-			class="org.jboss.reddeer.junit.internal.configuration.reader.SimpleXml"
-			name="user-requirement-1">
-			<property key="name" value="USERS_ADMINISTRATION_1" />
-			<property key="ip" value="127.0.0.1" />
-		</requirement>
-		<user:user-requirement name="user-requirement-2">
-			<user:db-name>USERS_ADMINISTRATION_2</user:db-name>
+		<user:user-requirement name="user-requirement">
+			<user:db-name>USERS_ADMINISTRATION</user:db-name>
+			<user:ip>127.0.0.1</user:ip>
+			<user:port>1111</user:port>
+		</user:user-requirement>
+		<user:user-requirement name="user-requirement2">
+			<user:db-name>USERS_ADMINISTRATION2</user:db-name>
 			<user:ip>127.0.0.1</user:ip>
 			<user:port>9990</user:port>
 		</user:user-requirement>
