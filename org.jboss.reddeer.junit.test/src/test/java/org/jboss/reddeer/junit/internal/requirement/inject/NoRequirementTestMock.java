@@ -10,4 +10,9 @@ public class NoRequirementTestMock {
 	public void testNothing() {
 		
 	}
+	
+	public String getParam1() {
+		return param1;
+	}
+
 }

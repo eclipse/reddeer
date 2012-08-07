@@ -13,4 +13,8 @@ public class NonExistedRequirementTestMock {
 		
 	}
 	
+	public String getParam1() {
+		return param1;
+	}
+
 }

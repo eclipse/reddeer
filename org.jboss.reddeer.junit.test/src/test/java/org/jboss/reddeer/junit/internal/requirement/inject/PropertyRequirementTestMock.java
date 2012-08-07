@@ -13,4 +13,8 @@ public class PropertyRequirementTestMock {
 		
 	}
 	
+	public RequirementA getRequirementA() {
+		return requirementA;
+	}
+
 }

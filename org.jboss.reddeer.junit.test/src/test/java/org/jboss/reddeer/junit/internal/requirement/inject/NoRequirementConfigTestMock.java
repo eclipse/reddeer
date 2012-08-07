@@ -12,5 +12,9 @@ public class NoRequirementConfigTestMock {
 	public void testNothing() {
 		
 	}
+
+	public RequirementB getRequirementA() {
+		return requirementA;
+	}
 	
 }

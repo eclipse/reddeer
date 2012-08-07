@@ -16,4 +16,12 @@ public class MultiplePropertyRequirementTestMock {
 		
 	}
 	
+	public RequirementA getRequirementA1() {
+		return requirementA1;
+	}
+
+	public RequirementA getRequirementA2() {
+		return requirementA2;
+	}
+	
 }

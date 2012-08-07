@@ -16,7 +16,7 @@ import org.jboss.reddeer.junit.requirement.inject.RequirementInjectionException;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-public class RequirementsInjectionTest {
+public class RequirementsInjectorTest {
 	
 	private RequirementsInjector requirementsInjection = new RequirementsInjector();
 	
