@@ -1,5 +1,9 @@
 package org.jboss.reddeer.swt.impl.menu;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import org.apache.log4j.Logger;
 import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotMenu;
@@ -23,9 +27,18 @@ public abstract class BasicMenu implements Menu {
 		String current = "";
 		try {
 			log.info("Menu selection:");
-			for (String item : items) {
+			
+			current = items[0];
+			menu = Bot.get().menu(current);
+			
+			List<String> list = new ArrayList<String>(Arrays.asList(items));
+			list.remove(0);
+			String[] items2 = new String[items.length-1]; 
+			list.toArray(items2);
+			
+			for (String item : items2) {
 				current = item;
-				menu = Bot.get().menu(item);
+				menu = menu.menu(item);
 				log.info(item + " -> ");
 			}
 			menu.click();		
