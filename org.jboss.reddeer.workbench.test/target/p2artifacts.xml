@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<?artifactRepository version='1.1.0'?>
+<artifacts size='1'>
+  <artifact classifier='osgi.bundle' id='org.jboss.reddeer.workbench.test' version='0.0.1.201208081012'>
+    <properties size='5'>
+      <property name='artifact.size' value='3335'/>
+      <property name='download.size' value='3335'/>
+      <property name='maven-groupId' value='org.jboss.reddeer'/>
+      <property name='maven-artifactId' value='org.jboss.reddeer.workbench.test'/>
+      <property name='maven-version' value='0.0.1-SNAPSHOT'/>
+    </properties>
+  </artifact>
+</artifacts>

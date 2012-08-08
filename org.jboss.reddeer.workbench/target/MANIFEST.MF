@@ -1,0 +1,17 @@
+Manifest-Version: 1.0
+Export-Package: org.jboss.reddeer.workbench,org.jboss.reddeer.workbenc
+ h.view
+Require-Bundle: org.eclipse.ui,org.eclipse.core.runtime,org.eclipse.sw
+ tbot.eclipse.core;bundle-version="2.0.5",org.eclipse.swtbot.eclipse.f
+ inder;bundle-version="2.0.5",org.eclipse.swtbot.forms.finder;bundle-v
+ ersion="2.0.5",org.eclipse.swtbot.swt.finder;bundle-version="2.0.5",o
+ rg.jboss.reddeer.swt;bundle-version="0.0.1",org.hamcrest;bundle-versi
+ on="1.1.0",org.apache.log4j;bundle-version="1.2.13"
+Bundle-ActivationPolicy: lazy
+Bundle-Version: 0.0.1.201208081012
+Bundle-Name: Workbench
+Bundle-Activator: org.jboss.reddeer.workbench.Activator
+Bundle-ManifestVersion: 2
+Bundle-SymbolicName: org.jboss.reddeer.workbench
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+
