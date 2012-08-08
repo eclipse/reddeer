@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testrun>
+        <requirements>
+                <user:user-requirement name="user-requirement">
+                        <user:db-name>USERS_ADMINISTRATION</user:db-name>
+                        <user:ip>127.0.0.1</user:ip>
+                        <user:port>1111</user:port>
+                </user:user-requirement>
+        </requirements>
+</testrun>

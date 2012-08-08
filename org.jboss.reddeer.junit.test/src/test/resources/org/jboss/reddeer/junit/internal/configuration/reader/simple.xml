@@ -1,7 +1,16 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<a>
-	<b attr="c">
-	</b>
-	<b attr="d">
-	</b>
-</a>
+<testrun xmlns="http://www.jboss.org/NS/Req" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.jboss.org/NS/Req RedDeerSchema.xsd">
+
+	<requirements>
+		<requirement name="userRequirement1"
+			class="org.jboss.reddeer.junit.internal.configuration.reader.SimpleXML">
+			<property key="name" value="USERS_ADMINISTRATION1" />
+			<property key="ip" value="127.0.0.1" />
+		</requirement>
+		<requirement name="userRequirement2"
+			class="org.jboss.reddeer.junit.internal.configuration.reader.SimpleXML">
+			<property key="name" value="USERS_ADMINISTRATION2" />
+			<property key="ip" value="127.0.0.2" />
+		</requirement>
+	</requirements>
+</testrun>

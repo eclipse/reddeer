@@ -37,4 +37,9 @@ public class RequirementsRunner extends BlockJUnit4ClassRunner {
 		requirementsInjector.inject(testInstance, requirements);
 		return testInstance;
 	}
+
+	public void setRequirementsInjector(RequirementsInjector requirementsInjector) {
+		this.requirementsInjector = requirementsInjector;
+	}
+	
 }

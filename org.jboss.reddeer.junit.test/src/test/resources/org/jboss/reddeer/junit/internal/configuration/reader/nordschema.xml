@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testrun 
+        xmlns="http://www.jboss.org/NS/Req" 
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:user="http://www.jboss.org/NS/user-schema"
+        xsi:schemaLocation="http://www.jboss.org/NS/user-schema user-schema.xsd">
+
+        <requirements>
+                <user:user-requirement name="user-requirement">
+                        <user:db-name>USERS_ADMINISTRATION</user:db-name>
+                        <user:ip>127.0.0.1</user:ip>
+                        <user:port>1111</user:port>
+                </user:user-requirement>
+        </requirements>
+</testrun>

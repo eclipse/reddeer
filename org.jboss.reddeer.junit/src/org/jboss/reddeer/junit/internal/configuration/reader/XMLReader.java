@@ -12,9 +12,16 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.Source;
+import javax.xml.transform.stream.StreamSource;
+import javax.xml.validation.Schema;
+import javax.xml.validation.SchemaFactory;
+import javax.xml.validation.Validator;
 
 import org.jboss.reddeer.junit.configuration.RedDeerConfigurationException;
 import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
@@ -29,9 +36,15 @@ public class XMLReader {
 	private File file;
 
 	private Document doc;
+	
+	// TODO: change according to the real RedDeer namespace when published
+	// e.g. http://www.jboss.org/reddeer/schema
+	private static final String RED_DEER_NS = "http://www.jboss.org/NS/Req";
 
 	public XMLReader(File file) {
 		this.file = file;
+		
+		validateXmlConfiguration();
 	}
 	
 	public <T> List<T> getConfiguration(Class<T> clazz){
@@ -109,5 +122,62 @@ public class XMLReader {
 	
 	private RedDeerConfigurationException createCannotLoadException(File file, Exception e){
 		return new RedDeerConfigurationException("Cannot load XML configuration file " + file.getAbsolutePath(), e);
+	}
+	
+	/**
+	 * Validates xml configuration of requirements according to their xsd
+	 * schema.
+	 * 
+	 * @throws RedDeerConfigurationException
+	 *             when the xml configuration is not valid according to the
+	 *             specified xsd schema
+	 */
+	private void validateXmlConfiguration() {
+
+		if (!containsSchema(RED_DEER_NS)) {
+			throw new RedDeerConfigurationException(
+					"Xml requirements configuration does not use RedDeer schema.");
+		}
+
+		// if so, validate the xml configuration
+		try {
+			// 1. Lookup a factory for the W3C XML Schema language
+			SchemaFactory factory = SchemaFactory
+					.newInstance("http://www.w3.org/2001/XMLSchema");
+
+			// 2b. Compile custom schemas.
+			Schema schema = factory.newSchema();
+
+			// 3. Get validators from the schemas specified
+			Validator validator = schema.newValidator();
+
+			// 4. Parse the document you want to check.
+			Source source = new StreamSource(file);
+
+			validator.validate(source);
+
+			System.out.println("Requirement configuration " + file	+ " is valid.");
+		} catch (SAXException ex) {
+				throw new RedDeerConfigurationException(
+					"Xml configuration is not valid.", ex);
+		} catch (IOException e) {
+				throw new RedDeerConfigurationException(
+					"Xml configuration is not valid.", e);
+		}
+	}
+
+	private boolean containsSchema(String schemaNamespace) {
+		boolean containsNS = false;
+
+		Element rootEl = getDocument().getDocumentElement();
+
+		NamedNodeMap attribs = rootEl.getAttributes();
+		for (int i = 0; i < attribs.getLength(); i++) {
+			if (attribs.item(i).getNodeValue().equalsIgnoreCase(schemaNamespace)) {
+				containsNS = true;
+			}
+		}
+
+		return containsNS;
 	}
 }

@@ -3,12 +3,12 @@ package org.jboss.reddeer.junit.internal.configuration.reader;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement(name="b", namespace="")
+@XmlRootElement(name="requirement", namespace="http://www.jboss.org/NS/Req")
 public class SimpleXML {
 
 	private String attribute;
 
-	@XmlAttribute(name="attr")
+	@XmlAttribute(name="name")
 	public String getAttribute() {
 		return attribute;
 	}
