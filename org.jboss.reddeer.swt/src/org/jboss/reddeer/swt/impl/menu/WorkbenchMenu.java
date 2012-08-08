@@ -9,8 +9,10 @@ import org.jboss.reddeer.swt.api.Menu;
  */
 public class WorkbenchMenu extends AbstractMenu implements Menu {
 
+	
 
-	public WorkbenchMenu() {
+	public WorkbenchMenu(String... path) {
+		this.path = path;
 	}
 
 

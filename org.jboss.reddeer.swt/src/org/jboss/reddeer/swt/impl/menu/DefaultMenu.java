@@ -10,8 +10,8 @@ import org.jboss.reddeer.swt.api.Menu;
 public class DefaultMenu extends AbstractMenu implements Menu {
 
 
-	public DefaultMenu() {
-
+	public DefaultMenu(String... path) {
+		this.path = path;
 	}
 
 

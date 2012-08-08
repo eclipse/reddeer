@@ -26,11 +26,11 @@ public class ShellMenu extends AbstractMenu implements Menu {
 	 * @param shell
 	 */
 	public ShellMenu(Shell shell) {
-		
+
 	}
 	
 	/**
-	 * Shell menu based on regexSeq
+	 * Shell menu based on regexSeq (regular expression path)
 	 * @param regexSeq
 	 */
 	public ShellMenu(final RegexSeq regexSeq) {
@@ -50,29 +50,29 @@ public class ShellMenu extends AbstractMenu implements Menu {
 				// iterate through given path
 				String text = "";
 				Iterator<Pattern> iterator = regexSeq.getIterator();
-				items = s.getMenu().getItems(); 
+				items = s.getMenuBar().getItems(); 
 				
 				while (iterator.hasNext()) {
-					items = s.getMenu().getItems();
 					Pattern p = iterator.next();
-					log.info("Current pattern:" + p.pattern());
+					log.debug("Current pattern:" + p.pattern());
+					int itemIndex = 0;
+					
 					if (!found.get())
 						// 
 						break;
-					int itemIndex = 0;
 
 					// iterate through all available menu items
-					log.info("Items count: " + items.length);
+					log.debug("Items count: " + items.length);
 					for (MenuItem i : items) {
-						log.info("Available menuitem:" + i.getText());
+						log.debug("Available menuitem:" + i.getText());
 						// filter & 
 						text = i.getText().replaceAll("&", "");
-						log.info("Text:" + text);
+						log.debug("Text:" + text);
 						
 						// match
 						Matcher m =  p.matcher(text);
 						if (m.matches()) {
-							log.info("Attached menuitem:" + i.getText());
+							log.debug("Attached menuitem:" + i.getText());
 							// last level of regexes?
 							regexIndex++;							
 							if (regexIndex < regexSeq.getPatterns().size()) {
@@ -84,11 +84,12 @@ public class ShellMenu extends AbstractMenu implements Menu {
 						
 						// no mach, continue
 						itemIndex++;
-						log.info(itemIndex);
+						log.debug(itemIndex + "/" + items.length);
 						// last item reached
 						if (items.length == itemIndex) {
+							log.debug("Last item reached");
 							found.set(false);
-							log.debug("Not found pattern:" + iterator.next().pattern());
+							log.debug("Not found pattern:" + p.pattern());
 						}
 					}
 					

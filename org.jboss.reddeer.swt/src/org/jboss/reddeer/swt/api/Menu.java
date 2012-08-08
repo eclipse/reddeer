@@ -8,8 +8,6 @@ package org.jboss.reddeer.swt.api;
 
 public interface Menu {
 
-	void select(String... items);
-	
 	void select();
 			
 }

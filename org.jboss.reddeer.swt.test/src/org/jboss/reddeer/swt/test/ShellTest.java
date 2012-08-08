@@ -31,8 +31,8 @@ public class ShellTest {
 	@Test
 	public void foundRegexShellTest() {
 		new ActiveShell();
-		Menu m = new WorkbenchMenu();
-		m.select("Window","Preferences");
+		Menu m = new WorkbenchMenu("Window","Preferences");
+		m.select();
 		Shell s = new ActiveShell("Preferences");
 		Regex regex = new Regex("Prefer.*");
 		Shell shell = new ActiveShell(regex);
@@ -55,8 +55,8 @@ public class ShellTest {
 	@Test
 	public void multipleShell() {
 		new ActiveShell();
-		Menu m = new WorkbenchMenu();
-		m.select("Window","Preferences");
+		Menu m = new WorkbenchMenu("Window","Preferences");
+		m.select();
 		Shell s = new ActiveShell("Preferences");
 		try {		
 			Regex regex = new Regex(".*");
