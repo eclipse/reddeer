@@ -6,7 +6,7 @@ package org.jboss.reddeer.swt.impl.menu;
  * @author Jiri Peterka
  *
  */
-public class ToolbarMenu extends BasicMenu {
+public class ToolbarMenu extends AbstractMenu {
 
 
 

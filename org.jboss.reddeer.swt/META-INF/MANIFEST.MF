@@ -15,7 +15,8 @@ Require-Bundle: org.eclipse.ui,
  org.apache.log4j;bundle-version="1.2.13"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Export-Package: org.jboss.reddeer.swt,
+Export-Package: org.jboss.reddeeer.swt.regex,
+ org.jboss.reddeer.swt,
  org.jboss.reddeer.swt.api,
  org.jboss.reddeer.swt.exception,
  org.jboss.reddeer.swt.impl.button,
@@ -28,4 +29,5 @@ Export-Package: org.jboss.reddeer.swt,
  org.jboss.reddeer.swt.impl.tree,
  org.jboss.reddeer.swt.lookup.api,
  org.jboss.reddeer.swt.lookup.impl,
+ org.jboss.reddeer.swt.matcher,
  org.jboss.reddeer.swt.util

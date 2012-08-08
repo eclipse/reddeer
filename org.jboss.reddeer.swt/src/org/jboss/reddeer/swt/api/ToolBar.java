@@ -7,5 +7,5 @@ package org.jboss.reddeer.swt.api;
  */
 public interface ToolBar {
 
-	void select(String text);
+	
 }

@@ -8,7 +8,7 @@ import org.jboss.reddeer.swt.api.Menu;
  * @author Jiri Peterka
  *
  */
-public class ContextMenu extends BasicMenu implements Menu {
+public class ContextMenu extends AbstractMenu implements Menu {
 
 	
 

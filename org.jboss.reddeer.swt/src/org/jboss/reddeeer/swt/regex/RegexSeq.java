@@ -1,6 +1,7 @@
 package org.jboss.reddeeer.swt.regex;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -24,6 +25,10 @@ public class RegexSeq {
 	
 	public List<Pattern> getPatterns() {
 		return patterns;
+	}
+	
+	public Iterator<Pattern> getIterator() {
+		return patterns.iterator();
 	}
 	
 }

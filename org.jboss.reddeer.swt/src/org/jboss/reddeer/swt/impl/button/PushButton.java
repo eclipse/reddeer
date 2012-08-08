@@ -55,5 +55,4 @@ public class PushButton extends AbstractButton implements Button {
 	}
 
 	
-	
 }

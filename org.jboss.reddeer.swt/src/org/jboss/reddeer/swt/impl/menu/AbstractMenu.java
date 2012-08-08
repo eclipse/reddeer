@@ -16,7 +16,7 @@ import org.jboss.reddeer.swt.util.Bot;
  * @author Jiri Peterka
  *
  */
-public abstract class BasicMenu implements Menu {
+public abstract class AbstractMenu implements Menu {
 	
 	protected final Logger log = Logger.getLogger(this.getClass());
 	
@@ -39,13 +39,8 @@ public abstract class BasicMenu implements Menu {
 			
 			for (String item : items2) {
 				current = item;
-<<<<<<< HEAD
-				menu = Bot.get().menu(item);
-				log.debug(item + " -> ");
-=======
 				menu = menu.menu(item);
 				log.info(item + " -> ");
->>>>>>> 7382172d6093b9d36af3c8bde9b4ac0e96a2f768
 			}
 			menu.click();		
 			log.info("Last item clicked ");

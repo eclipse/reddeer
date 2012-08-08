@@ -7,7 +7,7 @@ import org.jboss.reddeer.swt.api.Menu;
  * @author Jiri Peterka
  *
  */
-public class WorkbenchMenu extends BasicMenu implements Menu {
+public class WorkbenchMenu extends AbstractMenu implements Menu {
 
 
 	public WorkbenchMenu() {

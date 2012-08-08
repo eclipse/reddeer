@@ -9,9 +9,6 @@ import org.jboss.reddeer.swt.api.ToolBar;
  */
 public class AbstractToolBar implements ToolBar {
 
-	public void select(String text) {
-		// TODO Auto-generated method stub
-		
-	}
+
 
 }

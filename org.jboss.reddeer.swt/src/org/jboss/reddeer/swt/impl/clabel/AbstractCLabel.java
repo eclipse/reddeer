@@ -8,7 +8,7 @@ import org.jboss.reddeer.swt.util.Bot;
  * @author Jiri Peterka
  *
  */
-public class BasicCLabel implements CLabel {
+public class AbstractCLabel implements CLabel {
 
 	@Override
 	public String getText() {
