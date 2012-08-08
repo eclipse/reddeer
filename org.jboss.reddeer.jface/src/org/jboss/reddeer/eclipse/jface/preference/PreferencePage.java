@@ -37,8 +37,8 @@ public abstract class PreferencePage {
 			log.debug("Preferences dialog was already opened.");
 		} catch (WidgetNotAvailableException e) {
 			log.debug("Preferences dialog was not already opened. Opening via menu.");
-			Menu menu = new DefaultMenu();
-			menu.select("Window","Preferences");
+			Menu menu = new DefaultMenu("Window","Preferences");
+			menu.select();
 			new ActiveShell(DIALOG_TITLE);
 		}
 		
