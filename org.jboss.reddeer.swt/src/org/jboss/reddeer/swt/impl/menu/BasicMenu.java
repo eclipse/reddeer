@@ -31,12 +31,9 @@ public abstract class BasicMenu implements Menu {
 			current = items[0];
 			menu = Bot.get().menu(current);
 			
-			List<String> list = new ArrayList<String>(Arrays.asList(items));
-			list.remove(0);
-			String[] items2 = new String[items.length-1]; 
-			list.toArray(items2);
+			String[] subMenuItems = removeElementInArray(items, 0);
 			
-			for (String item : items2) {
+			for (String item : subMenuItems) {
 				current = item;
 				menu = menu.menu(item);
 				log.info(item + " -> ");
@@ -50,5 +47,13 @@ public abstract class BasicMenu implements Menu {
 			log.error(message);
 			throw new WidgetNotAvailableException(message);
 		}
+	}
+	
+	private String[] removeElementInArray(String[] array, int position) {
+		List<String> list = new ArrayList<String>(Arrays.asList(array));
+		list.remove(position);
+		String[] temp = new String[array.length-1]; 
+		list.toArray(temp);
+		return temp;
 	}
 }
