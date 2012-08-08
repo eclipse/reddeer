@@ -13,8 +13,9 @@ import org.jboss.reddeer.swt.util.Bot;
  *
  */
 public abstract class BasicMenu implements Menu {
-
-	Logger log = Logger.getLogger(BasicMenu.class);
+	
+	protected final Logger log = Logger.getLogger(this.getClass());
+	
 	SWTBotMenu menu;
 	
 	@Override
@@ -26,7 +27,7 @@ public abstract class BasicMenu implements Menu {
 			for (String item : items) {
 				current = item;
 				menu = Bot.get().menu(item);
-				log.info(item + " -> ");
+				log.debug(item + " -> ");
 			}
 			menu.click();		
 			log.info("Last item clicked ");
@@ -38,4 +39,12 @@ public abstract class BasicMenu implements Menu {
 			throw new WidgetNotAvailableException(message);
 		}
 	}
+	
+	@Override
+	public void select() {
+		if (menu != null) {
+			menu.click();
+		}		
+	}
+	
 }

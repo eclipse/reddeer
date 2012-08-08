@@ -1,4 +1,5 @@
 Manifest-Version: 1.0
+Eclipse-RegisterBuddy: org.apache.log4j
 Bundle-ManifestVersion: 2
 Bundle-Name: Red Deer SWT Componnet Tests
 Bundle-SymbolicName: org.jboss.reddeer.swt.test

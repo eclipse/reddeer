@@ -10,7 +10,7 @@ import org.jboss.reddeer.swt.util.Display;
  * @author Jiri Peterka
  *
  */
-public class WorkbenchShell extends BasicShell implements Shell {
+public class WorkbenchShell extends AbstractShell implements Shell {
 
 	/**
 	 * Default Constructor for a WorkbenchShell

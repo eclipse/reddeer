@@ -1,7 +1,7 @@
 package org.jboss.reddeer.swt.api;
 
 /**
- * API For Button manipulation
+ * API For Button (Push, Radio, Toggle) manipulation
  * @author Jiri Peterka
  *
  */

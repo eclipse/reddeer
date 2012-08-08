@@ -8,7 +8,7 @@ import org.jboss.reddeer.swt.util.Bot;
  * @author Jiri Peterka
  *
  */
-public class TextWithLabel extends BasicText implements Text {
+public class TextWithLabel extends AbstractText implements Text {
 
 	public TextWithLabel(String label) {
 		text = Bot.get().textWithLabel(label);

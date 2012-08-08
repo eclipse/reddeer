@@ -10,7 +10,7 @@ import org.jboss.reddeer.swt.util.Bot;
  * @author Jiri Peterka
  *
  */
-public class DefaultShell extends BasicShell implements Shell {
+public class DefaultShell extends AbstractShell implements Shell {
 
 	public DefaultShell() {
 		try {

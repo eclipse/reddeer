@@ -8,7 +8,7 @@ import org.jboss.reddeer.swt.util.Bot;
  * @author Jiri Peterka
  *
  */
-public class DefaultTable extends BasicTable implements Table {
+public class DefaultTable extends AbstractTable implements Table {
 
 	public DefaultTable() {
 		table = Bot.get().table();

@@ -10,7 +10,7 @@ import org.jboss.reddeer.swt.util.Bot;
  * @author Jiri Peterka
  *
  */
-public class DefaultTree extends BasicTree implements Tree {
+public class DefaultTree extends AbstractTree implements Tree {
 
 	public DefaultTree() {
 		try {
