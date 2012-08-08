@@ -3,6 +3,7 @@ package org.jboss.reddeer.workbench.view;
 import org.apache.log4j.Logger;
 import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
 import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
+import org.jboss.reddeer.swt.api.Menu;
 import org.jboss.reddeer.swt.api.ToolBar;
 import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.menu.DefaultMenu;
@@ -37,7 +38,8 @@ public abstract class AbstractView {
 			log.debug(getText() + " view was already opened.");
 		} catch (WidgetNotFoundException ex) {
 			log.debug(getText() + " view was not already opened. Opening via menu.");
-			new DefaultMenu().select("Window", "Show View", "Other..."); 
+			Menu menu = new DefaultMenu("Window", "Show View", "Other...");
+			menu.select();
 			new ActiveShell(SHOW_VIEW);
 			new DefaultTree().select(path);
 			new PushButton("OK").click();
