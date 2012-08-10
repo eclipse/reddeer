@@ -9,6 +9,7 @@ import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.menu.DefaultMenu;
 import org.jboss.reddeer.swt.impl.shell.ActiveShell;
 import org.jboss.reddeer.swt.impl.tree.DefaultTree;
+import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
 import org.jboss.reddeer.swt.util.Bot;
 
 /**
@@ -41,7 +42,7 @@ public abstract class AbstractView {
 			Menu menu = new DefaultMenu("Window", "Show View", "Other...");
 			menu.select();
 			new ActiveShell(SHOW_VIEW);
-			new DefaultTree().select(path);
+			new DefaultTreeItem(path).select();
 			new PushButton("OK").click();
 			viewObject = Bot.get().activeView();
 		}

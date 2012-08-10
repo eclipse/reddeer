@@ -3,13 +3,13 @@ package org.jboss.reddeer.eclipse.jface.preference;
 import org.apache.log4j.Logger;
 import org.jboss.reddeer.swt.api.Button;
 import org.jboss.reddeer.swt.api.Menu;
-import org.jboss.reddeer.swt.api.Tree;
+import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.swt.exception.WidgetNotAvailableException;
 import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.clabel.DefaultCLabel;
 import org.jboss.reddeer.swt.impl.menu.DefaultMenu;
 import org.jboss.reddeer.swt.impl.shell.ActiveShell;
-import org.jboss.reddeer.swt.impl.tree.DefaultTree;
+import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
 
 /**
  * Represents a general preference page in the Preferences dialog. Subclasses should represent the concrete preference page. 
@@ -52,8 +52,8 @@ public abstract class PreferencePage {
 			  }
 	        log.debug("Select Preferences dialog treeitem: " + sbPath.toString());
 		}   
-		Tree t = new DefaultTree();
-		t.select(path);
+		TreeItem t = new DefaultTreeItem(path);
+		t.select();
 		
 	}
 	

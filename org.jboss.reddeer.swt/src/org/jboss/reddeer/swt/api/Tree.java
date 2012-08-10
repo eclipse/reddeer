@@ -7,6 +7,6 @@ package org.jboss.reddeer.swt.api;
  */
 public interface Tree {
 
-	void select(String... items);
+
 			
 }

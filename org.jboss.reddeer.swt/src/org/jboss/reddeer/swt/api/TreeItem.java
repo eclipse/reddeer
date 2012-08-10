@@ -1,18 +1,13 @@
 package org.jboss.reddeer.swt.api;
 
-
-/** 
- * API for Text manipulation
+/**
+ * API for Tree manipulation
  * @author Jiri Peterka
  *
  */
-public interface Text {
+public interface TreeItem {
 
-	/**
-	 * Set text to Text widget
-	 * @param text
-	 */
-	void setText(String text);
+	void select();
 	
 	/**
 	 * Gets text of the widget
@@ -25,4 +20,6 @@ public interface Text {
 	 * @return
 	 */
 	String getToolTipText();		
+
+			
 }
