@@ -8,7 +8,7 @@ import org.jboss.reddeer.swt.util.Bot;
  * @author jjankovi
  *
  */
-public class ActiveView extends AbstractView {
+public class ActiveView extends View {
 
 	public ActiveView() {
 		viewObject = Bot.get().activeView();

@@ -4,11 +4,9 @@ import org.apache.log4j.Logger;
 import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
 import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
 import org.jboss.reddeer.swt.api.Menu;
-import org.jboss.reddeer.swt.api.ToolBar;
 import org.jboss.reddeer.swt.impl.button.PushButton;
-import org.jboss.reddeer.swt.impl.menu.DefaultMenu;
+import org.jboss.reddeer.swt.impl.menu.WorkbenchMenu;
 import org.jboss.reddeer.swt.impl.shell.ActiveShell;
-import org.jboss.reddeer.swt.impl.tree.DefaultTree;
 import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
 import org.jboss.reddeer.swt.util.Bot;
 
@@ -18,7 +16,7 @@ import org.jboss.reddeer.swt.util.Bot;
  * @author jjankovi
  *
  */
-public abstract class AbstractView {
+public abstract class View {
 
 	protected final Logger log = Logger.getLogger(this.getClass());
 	protected SWTBotView viewObject;
@@ -27,7 +25,7 @@ public abstract class AbstractView {
 	private String[] path;
 	
 
-	public AbstractView(String... path) {
+	public View(String... path) {
 		this.path = path;
 	}
 	
@@ -39,7 +37,7 @@ public abstract class AbstractView {
 			log.debug(getText() + " view was already opened.");
 		} catch (WidgetNotFoundException ex) {
 			log.debug(getText() + " view was not already opened. Opening via menu.");
-			Menu menu = new DefaultMenu("Window", "Show View", "Other...");
+			Menu menu = new WorkbenchMenu("Window", "Show View", "Other...");
 			menu.select();
 			new ActiveShell(SHOW_VIEW);
 			new DefaultTreeItem(path).select();
@@ -55,10 +53,6 @@ public abstract class AbstractView {
 			return path[path.length-1];
 		}
 		return viewObject.getTitle();
-	}
-	
-	public ToolBar getToolbar() {
-		throw new UnsupportedOperationException("not implemented yet");
 	}
 	
 }
