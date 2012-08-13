@@ -2,6 +2,7 @@ package org.jboss.reddeer.junit.internal.configuration.configurator;
 
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.jboss.reddeer.junit.configuration.RedDeerConfigurationException;
 import org.jboss.reddeer.junit.internal.configuration.reader.XMLReader;
 import org.jboss.reddeer.junit.requirement.CustomConfiguration;
@@ -15,6 +16,8 @@ import org.jboss.reddeer.junit.requirement.Requirement;
  */
 public class CustomConfigurator implements RequirementConfigurator{
 
+	private static final Logger log = Logger.getLogger(CustomConfigurator.class);
+	
 	private XMLReader reader;
 	
 	public CustomConfigurator(XMLReader reader) {
@@ -29,8 +32,12 @@ public class CustomConfigurator implements RequirementConfigurator{
 			throw new IllegalArgumentException("The requirement does not implement " + CustomConfiguration.class);
 		}
 		
+		log.debug("Setting custom configuration to requirement " + requirement.getClass());
+		
 		@SuppressWarnings("unchecked")
 		CustomConfiguration<Object> customConfiguration = (CustomConfiguration<Object>) requirement;
+		
+		log.debug("Configuration object associated with requirement " + requirement.getClass() + " is " + customConfiguration.getConfigurationClass());
 		
 		List<Object> configs = reader.getConfiguration(customConfiguration.getConfigurationClass());
 		if (configs.isEmpty()){
@@ -42,5 +49,6 @@ public class CustomConfigurator implements RequirementConfigurator{
 		}
 		
 		customConfiguration.setConfiguration(configs.get(0));
+		log.debug("Configuration successfully set");
 	}
 }

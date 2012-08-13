@@ -1,8 +1,10 @@
 package org.jboss.reddeer.junit.internal.runner;
 
+import org.apache.log4j.Logger;
 import org.jboss.reddeer.junit.internal.requirement.Requirements;
 import org.jboss.reddeer.junit.internal.requirement.inject.RequirementsInjector;
 import org.junit.BeforeClass;
+import org.junit.runner.notification.RunNotifier;
 import org.junit.runners.BlockJUnit4ClassRunner;
 import org.junit.runners.model.InitializationError;
 import org.junit.runners.model.Statement;
@@ -15,6 +17,8 @@ import org.junit.runners.model.Statement;
  *
  */
 public class RequirementsRunner extends BlockJUnit4ClassRunner {
+	
+	private static final Logger log = Logger.getLogger(RequirementsRunner.class);
 	
 	private Requirements requirements;
 
@@ -34,10 +38,16 @@ public class RequirementsRunner extends BlockJUnit4ClassRunner {
 	@Override
 	protected Object createTest() throws Exception {
 		Object testInstance = super.createTest();
+		log.debug("Injecting fulfilled requirements into test instance");
 		requirementsInjector.inject(testInstance, requirements);
 		return testInstance;
 	}
 
+	@Override
+	public void run(RunNotifier arg0) {
+		log.info("Running test " + getTestClass().getName());
+		super.run(arg0);
+	}
 	public void setRequirementsInjector(RequirementsInjector requirementsInjector) {
 		this.requirementsInjector = requirementsInjector;
 	}

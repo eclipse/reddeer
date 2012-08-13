@@ -3,6 +3,7 @@ package org.jboss.reddeer.junit.runner;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.jboss.reddeer.junit.internal.configuration.SuiteConfiguration;
 import org.jboss.reddeer.junit.internal.configuration.TestRunConfiguration;
 import org.jboss.reddeer.junit.internal.runner.EmptySuite;
@@ -21,6 +22,8 @@ import org.junit.runners.model.RunnerBuilder;
  *
  */
 public class RedDeerSuite extends Suite {
+	
+	private static final Logger log = Logger.getLogger(RedDeerSuite.class);
 	
 	/**
 	 * Called by the JUnit framework. 
@@ -55,10 +58,12 @@ public class RedDeerSuite extends Suite {
 	 * @throws InitializationError
 	 */
 	protected static List<Runner> createSuite(Class<?> clazz, SuiteConfiguration config) throws InitializationError{
+		log.info("Creating RedDeer suite...");
 		List<Runner> configuredSuites = new ArrayList<Runner>();
 		boolean isSuite = isSuite(clazz);
 		
 		for (TestRunConfiguration testRunConfig : config.getTestRunConfigurations()){
+			log.info("Adding suite with name " + testRunConfig.getId() + " to RedDeer suite");
 			if (isSuite){
 				configuredSuites.add(new NamedSuite(clazz, new RequirementsRunnerBuilder(testRunConfig), testRunConfig.getId()));
 			} else {
@@ -66,6 +71,7 @@ public class RedDeerSuite extends Suite {
 			}
 		}
 		
+		log.info("RedDeer suite created");
 		return configuredSuites;
 	}
 	

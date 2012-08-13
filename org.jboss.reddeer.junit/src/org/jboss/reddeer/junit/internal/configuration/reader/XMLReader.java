@@ -18,6 +18,7 @@ import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.Validator;
 
+import org.apache.log4j.Logger;
 import org.jboss.reddeer.junit.configuration.RedDeerConfigurationException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -32,6 +33,8 @@ import org.xml.sax.SAXException;
  *
  */
 public class XMLReader {
+	
+	private static final Logger log = Logger.getLogger(XMLReader.class);
 
 	private File file;
 
@@ -48,6 +51,7 @@ public class XMLReader {
 	}
 	
 	public <T> List<T> getConfiguration(Class<T> clazz){
+		log.debug("Reading configuration for " + clazz);
 		XmlRootElement root = getRoot(clazz);
 		return getConfiguration(getNamespace(root), getName(root), clazz);
 	}
@@ -155,8 +159,6 @@ public class XMLReader {
 			Source source = new StreamSource(file);
 
 			validator.validate(source);
-
-			System.out.println("Requirement configuration " + file	+ " is valid.");
 		} catch (SAXException ex) {
 				throw new RedDeerConfigurationException(
 					"Xml configuration is not valid.", ex);

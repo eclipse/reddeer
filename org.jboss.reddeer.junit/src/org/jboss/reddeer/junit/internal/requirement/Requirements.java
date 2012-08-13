@@ -39,6 +39,8 @@ public class Requirements implements Requirement<Annotation>, Iterable<Requireme
 	public boolean canFulfill() {
 		boolean canFulfill = true;
 		for (Requirement<?> r : requirements) {
+			boolean canFulfillReq = r.canFulfill();
+			log.info("Requirement " + r.getClass() + " can be fulfilled: " + canFulfillReq);
 			canFulfill = canFulfill && r.canFulfill();
 		}
 		return canFulfill;
@@ -47,7 +49,7 @@ public class Requirements implements Requirement<Annotation>, Iterable<Requireme
 	@Override
 	public void fulfill() {
 		for (Requirement<?> r : requirements) {
-			log.info("Fulfilling requirement of class " + r.getClass());
+			log.info("Fulfilling requirement of " + r.getClass());
 			r.fulfill();
 		}
 	}
