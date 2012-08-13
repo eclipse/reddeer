@@ -23,8 +23,6 @@
 		<module>../org.jboss.reddeer.eclipse</module>
 		<module>../org.jboss.reddeer.eclipse.test</module>
 		<module>../org.jboss.reddeer.gef</module>
-		<module>../org.jboss.reddeer.jbt</module>
-		<module>../org.jboss.reddeer.jbt.test</module>
 		<module>../org.jboss.reddeer.direct</module>
 		<module>../org.jboss.reddeer.feature</module>
 		<module>../org.jboss.reddeer.junit</module>
