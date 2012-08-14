@@ -9,7 +9,7 @@ import org.jboss.reddeer.swt.api.Menu;
 import org.jboss.reddeer.swt.api.Shell;
 import org.jboss.reddeer.swt.exception.MultipleMatchException;
 import org.jboss.reddeer.swt.exception.WidgetNotAvailableException;
-import org.jboss.reddeer.swt.impl.menu.WorkbenchMenu;
+import org.jboss.reddeer.swt.impl.menu.ShellMenu;
 import org.jboss.reddeer.swt.impl.shell.ActiveShell;
 import org.jboss.reddeer.swt.impl.shell.WorkbenchShell;
 import org.junit.Test;
@@ -31,7 +31,7 @@ public class ShellTest {
 	@Test
 	public void foundRegexShellTest() {
 		new ActiveShell();
-		Menu m = new WorkbenchMenu("Window","Preferences");
+		Menu m = new ShellMenu("Window","Preferences");
 		m.select();
 		Shell s = new ActiveShell("Preferences");
 		Regex regex = new Regex("Prefer.*");
@@ -55,7 +55,7 @@ public class ShellTest {
 	@Test
 	public void multipleShell() {
 		new ActiveShell();
-		Menu m = new WorkbenchMenu("Window","Preferences");
+		Menu m = new ShellMenu("Window","Preferences");
 		m.select();
 		Shell s = new ActiveShell("Preferences");
 		try {		

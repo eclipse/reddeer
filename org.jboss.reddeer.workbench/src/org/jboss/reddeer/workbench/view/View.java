@@ -7,9 +7,10 @@ import org.eclipse.ui.views.IViewCategory;
 import org.eclipse.ui.views.IViewDescriptor;
 import org.jboss.reddeer.swt.api.Menu;
 import org.jboss.reddeer.swt.impl.button.PushButton;
-import org.jboss.reddeer.swt.impl.menu.WorkbenchMenu;
+import org.jboss.reddeer.swt.impl.menu.ShellMenu;
 import org.jboss.reddeer.swt.impl.shell.ActiveShell;
 import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
+import org.jboss.reddeer.swt.matcher.RegexMatchers;
 import org.jboss.reddeer.swt.util.Bot;
 import org.jboss.reddeer.workbench.exception.ViewNotFoundException;
 
@@ -40,7 +41,8 @@ public abstract class View {
 		log.info("Open " + viewTooltip() + " view");
 		if (viewObject == null) {
 			log.debug(viewTooltip() + " view was not already opened. Opening via menu.");
-			Menu menu = new WorkbenchMenu("Window", "Show View", "Other...");
+			RegexMatchers m = new RegexMatchers("Window.*", "Show View.*", "Other...*");
+			Menu menu = new ShellMenu(m.getMatchers());
 			menu.select();
 			new ActiveShell(SHOW_VIEW);
 			new DefaultTreeItem(path).select();
