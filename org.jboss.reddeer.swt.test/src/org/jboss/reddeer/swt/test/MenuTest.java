@@ -11,7 +11,6 @@ import org.jboss.reddeer.swt.api.Shell;
 import org.jboss.reddeer.swt.exception.WidgetNotAvailableException;
 import org.jboss.reddeer.swt.impl.menu.ContextMenu;
 import org.jboss.reddeer.swt.impl.menu.ShellMenu;
-import org.jboss.reddeer.swt.impl.menu.WorkbenchMenu;
 import org.jboss.reddeer.swt.impl.shell.ActiveShell;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.jboss.reddeer.swt.matcher.RegexMatchers;
@@ -36,7 +35,7 @@ public class MenuTest {
 	public void menuTest() {
 		log.info("menu test");
 		new ActiveShell();
-		Menu m = new WorkbenchMenu("Window", "Preferences");
+		Menu m = new ShellMenu("Window", "Preferences");
 		m.select();
 		Shell s = new ActiveShell("Preferences");
 		s.close();

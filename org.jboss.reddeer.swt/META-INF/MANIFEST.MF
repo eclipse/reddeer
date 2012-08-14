@@ -27,7 +27,6 @@ Export-Package: org.jboss.reddeeer.swt.regex,
  org.jboss.reddeer.swt.impl.text,
  org.jboss.reddeer.swt.impl.toolbar,
  org.jboss.reddeer.swt.impl.tree,
- org.jboss.reddeer.swt.lookup.api,
  org.jboss.reddeer.swt.lookup.impl,
  org.jboss.reddeer.swt.matcher,
  org.jboss.reddeer.swt.util

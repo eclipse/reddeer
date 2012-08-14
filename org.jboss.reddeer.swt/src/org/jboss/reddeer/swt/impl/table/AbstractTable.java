@@ -12,7 +12,7 @@ import org.jboss.reddeer.swt.util.Bot;
  */
 public abstract class AbstractTable implements Table {
 	protected final Logger log = Logger.getLogger(this.getClass());
-	SWTBotTable table;
+	protected SWTBotTable table;
 	
 	@Override
 	public String cell(int row, int column) {

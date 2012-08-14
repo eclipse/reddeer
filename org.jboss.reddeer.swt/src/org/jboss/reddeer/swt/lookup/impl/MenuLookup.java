@@ -6,6 +6,7 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
+import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Widget;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.swt.exception.WidgetNotAvailableException;
@@ -28,25 +29,35 @@ public class MenuLookup {
 	 * 
 	 * @param path
 	 */
-	public MenuItem lookFor(Matcher<String>... matchers) {
+	public MenuItem lookFor(MenuItem[] topItems, Matcher<String>... matchers) {		
 		Control c = getFocusControl();
-		Menu topMenuWidget = getTopMenuWidget(c);
-		MenuItem lastMenuItem = getMatchingMenuPath(topMenuWidget, matchers);
-		Menu lastMenu = getMenuFromMenuItem(lastMenuItem);
-		sendHide(lastMenu, true);
+		MenuItem lastMenuItem = getMatchingMenuPath(topItems, matchers);
+		// Menu lastMenu = getMenuFromMenuItem(lastMenuItem);
+		// sendHide(lastMenu, true);
 		setFocusControl(c);
-		return lastMenuItem;		
+		if (lastMenuItem == null) throw new WidgetNotAvailableException("");
+		return lastMenuItem;
 	}
-	
-	
-	public void select(Matcher<String>... matchers) {
-		Control c = getFocusControl();
-		Menu topMenuWidget = getTopMenuWidget(c);
-		MenuItem lastMenuItem = getMatchingMenuPath(topMenuWidget, matchers);
+
+	public void select(MenuItem[] topItems, Matcher<String>... matchers) {
+		MenuItem lastMenuItem = getMatchingMenuPath(topItems, matchers);
 		if (lastMenuItem == null) {
 			throw new WidgetNotAvailableException("Menu not found");
 		}
 		clickMenuItem(lastMenuItem);
+	}
+
+	public MenuItem[] getMenuBarItems(final Shell s) {
+
+		MenuItem[] items = Display.syncExec(new ResultRunnable<MenuItem[]>() {
+
+			@Override
+			public MenuItem[] run() {
+				MenuItem[] items = s.getMenuBar().getItems();
+				return items;
+			}
+		});
+		return items;
 	}
 
 	/**
@@ -66,30 +77,12 @@ public class MenuLookup {
 	}
 
 	/**
-	 * Return control with focus
-	 * 
-	 * @return
-	 */
-	private Control getFocusControl() {
-		Control c = Display.syncExec(new ResultRunnable<Control>() {
-
-			@Override
-			public Control run() {
-				Control focusControl = Display.getDisplay().getFocusControl();
-				return focusControl;
-			}
-
-		});
-		return c;
-	}
-
-	/**
 	 * Return top menuitem widget
 	 * 
 	 * @param control
 	 * @return
 	 */
-	private Menu getTopMenuWidget(final Control control) {
+	public Menu getTopMenuWidget(final Control control) {
 
 		Menu topMenu = null;
 		topMenu = Display.syncExec(new ResultRunnable<Menu>() {
@@ -101,11 +94,71 @@ public class MenuLookup {
 		});
 
 		if (topMenu == null) {
-			throw new WidgetNotAvailableException("Could not find top menu, menu doesn't exist or wrong focus");
+			throw new WidgetNotAvailableException(
+					"Could not find top menu, menu doesn't exist or wrong focus");
 		}
 
 		return topMenu;
 	}
+	
+	/**
+	 * Return top menuitem widget
+	 * 
+	 * @param control
+	 * @return
+	 */
+	public MenuItem[] getTopMenuMenuItemsFromFocus() {
+
+		final Control control  = getFocusControl();
+		MenuItem[] items = null;
+		final Menu menu = getControlMenu(control);
+		
+		items = Display.syncExec(new ResultRunnable<MenuItem[]>() {
+			@Override
+			public MenuItem[] run() {
+				sendShow(menu);				
+				MenuItem[] items = menu.getItems();
+				return items;
+			}
+		});
+
+		if (items == null) {
+			throw new WidgetNotAvailableException(
+					"Could not find top menu items, menu doesn't exist or wrong focus");
+		}
+
+		return items;
+	}
+
+	
+	private Menu getControlMenu(final Control c) {
+
+		Menu menu = Display.syncExec(new ResultRunnable<Menu>() {
+
+			@Override
+			public Menu run() {
+				Menu m = c.getMenu();
+				
+				return m;
+			}
+		});
+
+		if (menu == null) {
+			throw new WidgetNotAvailableException(
+					"No menu");
+		}
+
+		return menu;	
+	}
+	
+	
+	
+	public MenuItem[] getActiveShellTopMenuItems() {
+		ShellLookup sl = new ShellLookup();
+		Shell activeShell = sl.getActiveShell();
+		return getMenuBarItems(activeShell);
+	}
+
 
 	/**
 	 * Goes through given path through menus
@@ -114,29 +167,34 @@ public class MenuLookup {
 	 * @param path
 	 * @return
 	 */
-	private MenuItem getMatchingMenuPath(final Menu topMenu,
+	private MenuItem getMatchingMenuPath(final MenuItem[] topItems,
 			final Matcher<String>... matchers) {
 
 		MenuItem i = Display.syncExec(new ResultRunnable<MenuItem>() {
 
 			@Override
 			public MenuItem run() {
-				// show
-				MenuItem currentItem = null;
-				Menu currentMenu = topMenu;
+
+				Menu currentMenu = null;
+				MenuItem currentItem = null;;
+				MenuItem[] menuItems = topItems;
 				for (Matcher<String> m : matchers) {
 					currentItem = null;
-					sendShow(currentMenu);
-					MenuItem[] menuItems = currentMenu.getItems();
 					for (MenuItem i : menuItems) {
 						String normalized = i.getText().replace("&", "");
+						log.debug("Found menu:" + normalized);
 						if (m.matches(normalized)) {
-							log.info("Item found" + m);
+							log.info("Item match:" + normalized);
 							currentItem = i;
 							currentMenu = i.getMenu();
 							break;
-						}
+						} 
 					}
+					if (m != matchers[matchers.length-1]) {
+						currentMenu = currentItem.getMenu();
+						sendShow(currentMenu);
+						menuItems = currentMenu.getItems();
+					} 
 				}
 				return currentItem;
 			}
@@ -235,5 +293,23 @@ public class MenuLookup {
 			}
 		});
 	}
-	
+
+	/**
+	 * Return control with focus
+	 * 
+	 * @return
+	 */
+	private Control getFocusControl() {
+		Control c = Display.syncExec(new ResultRunnable<Control>() {
+
+			@Override
+			public Control run() {
+				Control focusControl = Display.getDisplay().getFocusControl();
+				return focusControl;
+			}
+
+		});
+		return c;
+	}
+
 }
