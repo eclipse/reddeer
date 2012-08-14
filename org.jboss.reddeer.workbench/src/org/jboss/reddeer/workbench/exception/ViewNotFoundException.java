@@ -1,8 +1,9 @@
 package org.jboss.reddeer.workbench.exception;
 
 /**
- * View is not registered
- * @author Jiri Peterka
+ * View is not found due to not registered in workbench or view category
+ * 
+ * @author jjankovi
  *
  */
 public class ViewNotFoundException extends RuntimeException {
