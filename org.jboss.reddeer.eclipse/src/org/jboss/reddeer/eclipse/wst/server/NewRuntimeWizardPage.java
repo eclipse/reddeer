@@ -11,9 +11,13 @@ import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
  *
  */
 public class NewRuntimeWizardPage extends WizardPage {
-
+  
+	public NewRuntimeWizardPage(RuntimeWizardDialog wizardDialog){
+		super(wizardDialog,0);
+	}
 	
 	public void selectType(String... type){
+		show();
 		TreeItem t = new DefaultTreeItem(type);
 		t.select();
 	}

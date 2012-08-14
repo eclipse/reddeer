@@ -61,6 +61,6 @@ public class RuntimePreferencePage extends PreferencePage {
 	
 	public NewRuntimeWizardPage addRuntime(){
 		new PushButton("Add...").click();
-		return new NewRuntimeWizardPage();
+		return new NewRuntimeWizardPage(new RuntimeWizardDialog());
 	}
 }

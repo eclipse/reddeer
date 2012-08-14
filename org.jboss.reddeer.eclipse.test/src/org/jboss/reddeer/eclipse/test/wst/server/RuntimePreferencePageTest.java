@@ -35,9 +35,9 @@ public class RuntimePreferencePageTest {
 	public void addRuntime() {
 		preferencePage.open();
 		
-		NewRuntimeWizardPage wizard = preferencePage.addRuntime();
-		wizard.selectType(SERVER_PATH, SERVER_NAME);
-		wizard.finish();
+		NewRuntimeWizardPage wizardPage = preferencePage.addRuntime();
+		wizardPage.selectType(SERVER_PATH, SERVER_NAME);
+		wizardPage.getWizardDialog().finish();
 		
 		List<Runtime> runtimes = preferencePage.getServerRuntimes();
 		assertThat(runtimes.size(), is(1));
@@ -48,13 +48,13 @@ public class RuntimePreferencePageTest {
 	public void removeRuntime() {
 		preferencePage.open();
 		
-		NewRuntimeWizardPage wizard = preferencePage.addRuntime();
-		wizard.selectType(SERVER_PATH, SERVER_NAME);
-		wizard.finish();
+		NewRuntimeWizardPage wizardPage = preferencePage.addRuntime();
+		wizardPage.selectType(SERVER_PATH, SERVER_NAME);
+		wizardPage.getWizardDialog().finish();
 		
-		wizard = preferencePage.addRuntime();
-		wizard.selectType(SERVER_PATH, SERVER_NAME);
-		wizard.finish();
+		wizardPage = preferencePage.addRuntime();
+		wizardPage.selectType(SERVER_PATH, SERVER_NAME);
+		wizardPage.getWizardDialog().finish();
 		
 		List<Runtime> runtimes = preferencePage.getServerRuntimes();
 		assertThat(runtimes.size(), is(2));
@@ -72,13 +72,13 @@ public class RuntimePreferencePageTest {
 	public void removeAllRuntime() {
 		preferencePage.open();
 		
-		NewRuntimeWizardPage wizard = preferencePage.addRuntime();
-		wizard.selectType(SERVER_PATH, SERVER_NAME);
-		wizard.finish();
+		NewRuntimeWizardPage wizardPage = preferencePage.addRuntime();
+		wizardPage.selectType(SERVER_PATH, SERVER_NAME);
+		wizardPage.getWizardDialog().finish();
 		
-		wizard = preferencePage.addRuntime();
-		wizard.selectType(SERVER_PATH, SERVER_NAME);
-		wizard.finish();
+		wizardPage = preferencePage.addRuntime();
+		wizardPage.selectType(SERVER_PATH, SERVER_NAME);
+		wizardPage.getWizardDialog().finish();
 		
 		List<Runtime> runtimes = preferencePage.getServerRuntimes();
 		assertThat(runtimes.size(), is(2));

@@ -6,5 +6,8 @@ package org.jboss.reddeer.swt.api;
  *
  */
 public interface Combo {
-
+  
+  public void setText(String str);
+  public boolean isEnabled();
+  
 }
