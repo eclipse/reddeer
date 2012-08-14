@@ -14,5 +14,11 @@ public class DefaultMenu extends AbstractMenu implements Menu {
 		this.path = path;
 	}
 
+	@Override
+	public String getText() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 }

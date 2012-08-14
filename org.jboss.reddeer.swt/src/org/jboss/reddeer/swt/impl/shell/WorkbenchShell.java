@@ -23,7 +23,9 @@ public class WorkbenchShell extends AbstractShell implements Shell {
 			public void run() {
 				org.eclipse.swt.widgets.Shell swtShell;
 				swtShell = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell();
+				swtShell.setFocus();
 				shell = new SWTBotShell(swtShell);
+				shell.setFocus();
 			}			
 		});
 	}

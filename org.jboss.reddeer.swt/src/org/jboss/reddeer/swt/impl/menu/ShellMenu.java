@@ -1,12 +1,11 @@
 package org.jboss.reddeer.swt.impl.menu;
 
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import org.eclipse.swt.widgets.MenuItem;
-import org.jboss.reddeeer.swt.regex.RegexSeq;
+import org.hamcrest.Matcher;
 import org.jboss.reddeer.swt.api.Menu;
 import org.jboss.reddeer.swt.api.Shell;
 import org.jboss.reddeer.swt.exception.WidgetNotAvailableException;
@@ -30,11 +29,10 @@ public class ShellMenu extends AbstractMenu implements Menu {
 	}
 	
 	/**
-	 * Shell menu based on regexSeq (regular expression path)
-	 * @param regexSeq
+	 * 
+	 * @param matchers
 	 */
-	public ShellMenu(final RegexSeq regexSeq) {
-
+	public ShellMenu(final Matcher<String>... matchers) {
 		
 		final AtomicBoolean found = new AtomicBoolean(true);
 
@@ -49,12 +47,11 @@ public class ShellMenu extends AbstractMenu implements Menu {
 				int regexIndex = 0;
 				// iterate through given path
 				String text = "";
-				Iterator<Pattern> iterator = regexSeq.getIterator();
+				Iterator<Matcher<String>> iterator = Arrays.asList(matchers).iterator();
 				items = s.getMenuBar().getItems(); 
 				
 				while (iterator.hasNext()) {
-					Pattern p = iterator.next();
-					log.debug("Current pattern:" + p.pattern());
+					Matcher<String> m = iterator.next();
 					int itemIndex = 0;
 					
 					if (!found.get())
@@ -70,12 +67,11 @@ public class ShellMenu extends AbstractMenu implements Menu {
 						log.debug("Text:" + text);
 						
 						// match
-						Matcher m =  p.matcher(text);
-						if (m.matches()) {
+						if (m.matches(text)) {
 							log.debug("Attached menuitem:" + i.getText());
 							// last level of regexes?
 							regexIndex++;							
-							if (regexIndex < regexSeq.getPatterns().size()) {
+							if (regexIndex < matchers.length) {
 								items = i.getMenu().getItems();
 							}
 							// skip to next requested path level
@@ -89,7 +85,6 @@ public class ShellMenu extends AbstractMenu implements Menu {
 						if (items.length == itemIndex) {
 							log.debug("Last item reached");
 							found.set(false);
-							log.debug("Not found pattern:" + p.pattern());
 						}
 					}
 					
@@ -105,7 +100,12 @@ public class ShellMenu extends AbstractMenu implements Menu {
 			throw new WidgetNotAvailableException(message);
 
 		}
-		
+	}
+
+	@Override
+	public String getText() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

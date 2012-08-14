@@ -4,13 +4,17 @@ import static org.junit.Assert.fail;
 
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
-import org.jboss.reddeeer.swt.regex.RegexSeq;
+import org.eclipse.swtbot.eclipse.finder.SWTWorkbenchBot;
+import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
 import org.jboss.reddeer.swt.api.Menu;
 import org.jboss.reddeer.swt.api.Shell;
 import org.jboss.reddeer.swt.exception.WidgetNotAvailableException;
+import org.jboss.reddeer.swt.impl.menu.ContextMenu;
 import org.jboss.reddeer.swt.impl.menu.ShellMenu;
 import org.jboss.reddeer.swt.impl.menu.WorkbenchMenu;
 import org.jboss.reddeer.swt.impl.shell.ActiveShell;
+import org.jboss.reddeer.swt.impl.shell.DefaultShell;
+import org.jboss.reddeer.swt.matcher.RegexMatchers;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -52,8 +56,8 @@ public class MenuTest {
 
 		log.info("regex menu test");
 		try {
-			RegexSeq regexSeq = new RegexSeq("Win.*", "Pref.*");
-			new ShellMenu(regexSeq);
+			RegexMatchers m = new RegexMatchers("Win.*", "Pref.*");
+			new ShellMenu(m.getMatchers());
 		} catch (WidgetNotAvailableException e) {
 			fail("there should be no exception");
 		}
@@ -64,12 +68,30 @@ public class MenuTest {
 	public void unavailableMenuTest() {
 		log.info("unavailable regex menu test");
 		try {
-			RegexSeq regexSeq = new RegexSeq("Win.*", "Prefz.*");
-			new ShellMenu(regexSeq);
+			RegexMatchers m = new RegexMatchers("Win.*", "Prefz.*");
+			new ShellMenu(m.getMatchers());
 			fail("exception should be thrown");
 		} catch (WidgetNotAvailableException e) { // do nothing
 
 		}
 	}
-
+	
+	@Test 
+	public void contextMenuTest() {
+		
+		SWTWorkbenchBot bot = new SWTWorkbenchBot();
+		SWTBotView v = bot.viewByTitle("Project Explorer");
+		v.setFocus();				
+		Menu menu = new ContextMenu("New","Project...");
+		menu.select();
+		Shell s = new DefaultShell("New Project");
+		s.close();
+	}
+	
+	@Test 
+	public void hundertscontextMenuTest() {
+		for (int i = 0; i < 100; i++) {
+			contextMenuTest();
+		}
+	}			
 }

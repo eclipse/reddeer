@@ -15,6 +15,7 @@ public class DefaultTree extends AbstractTree implements Tree {
 	public DefaultTree() {
 		try {
 			tree = Bot.get().tree();
+			tree.setFocus();
 		} catch (WidgetNotFoundException e) {
 			throw new WidgetNotAvailableException("No tree is available");
 		}

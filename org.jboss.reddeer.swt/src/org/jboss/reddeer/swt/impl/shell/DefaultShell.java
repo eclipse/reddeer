@@ -12,6 +12,17 @@ import org.jboss.reddeer.swt.util.Bot;
  */
 public class DefaultShell extends AbstractShell implements Shell {
 
+	
+	public DefaultShell(String title) {
+		try {
+			shell = Bot.get().shell(title);
+			log.info("Default " + title + " found");
+		}
+		catch (WidgetNotFoundException e) {
+			throw new WidgetNotAvailableException("No shell is available at the moment");
+		}
+	}
+
 	public DefaultShell() {
 		try {
 			shell = Bot.get().shells()[0];
