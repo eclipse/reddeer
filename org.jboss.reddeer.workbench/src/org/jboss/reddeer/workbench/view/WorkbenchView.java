@@ -1,17 +1,16 @@
 package org.jboss.reddeer.workbench.view;
 
-import org.jboss.reddeer.swt.util.Bot;
 
 /**
- * Represents view which is already opened in workbench
+ * Represents general workbench view
  * 
  * @author jjankovi
  *
  */
 public class WorkbenchView extends View {
 
-	public WorkbenchView(String title) {
-		viewObject = Bot.get().viewByTitle(title);
+	public WorkbenchView(String viewTitle) {
+		super(viewTitle);
 	}
 	
 }

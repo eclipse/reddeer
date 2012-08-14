@@ -1,6 +1,6 @@
 package org.jboss.reddeer.eclipse.ui.console;
 
-import org.jboss.reddeer.workbench.view.View;
+import org.jboss.reddeer.workbench.view.WorkbenchView;
 
 /**
  * Represents Console view in Eclipse
@@ -8,10 +8,10 @@ import org.jboss.reddeer.workbench.view.View;
  * @author jjankovi
  *
  */
-public class ConsoleView extends View {
+public class ConsoleView extends WorkbenchView {
 
 	public ConsoleView() {
-		super("General", "Console");
+		super("Console");
 	}
 	
 	/**
