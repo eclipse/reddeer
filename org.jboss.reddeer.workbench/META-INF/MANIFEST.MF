@@ -16,4 +16,5 @@ Require-Bundle: org.eclipse.ui,
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: org.jboss.reddeer.workbench,
+ org.jboss.reddeer.workbench.exception,
  org.jboss.reddeer.workbench.view

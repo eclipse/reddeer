@@ -1,4 +1,4 @@
-package org.jboss.reddeer.workbench.test;
+package org.jboss.reddeer.workbench.test.view;
 
 import org.jboss.reddeer.workbench.view.View;
 import org.jboss.reddeer.workbench.view.WorkbenchView;
