@@ -2,7 +2,7 @@ package org.jboss.reddeer.eclipse.jface.wizard;
 
 import org.apache.log4j.Logger;
 import org.jboss.reddeer.swt.api.Menu;
-import org.jboss.reddeer.swt.impl.menu.DefaultMenu;
+import org.jboss.reddeer.swt.impl.menu.ShellMenu;
 import org.jboss.reddeer.swt.impl.shell.ActiveShell;
 import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
 
@@ -28,7 +28,7 @@ public abstract class NewWizardDialog extends WizardDialog{
 	public void open(){
 		log.info("Open New Wizard");
 		super.open();
-		Menu menu = new DefaultMenu("File","New","Other...");
+		Menu menu = new ShellMenu("File","New","Other...");
 		menu.select();
 		new ActiveShell(DIALOG_TITLE);
 		if (path.length > 0){
