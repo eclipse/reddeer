@@ -3,6 +3,7 @@ package org.jboss.reddeer.jface.test.preference;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 import org.jboss.reddeer.eclipse.jface.preference.PreferencePage;
 import org.jboss.reddeer.swt.api.Shell;
@@ -14,18 +15,19 @@ import org.junit.Test;
 
 public class PreferencePageTest {
 
-	private static final String PAGE_NAME = "Search";
+	private static final String PAGE_NAME = TestingPreferencePage.TITLE;
 	
 	private PreferencePage preferencePage;
 
 	@Before
 	public void setup(){
-		preferencePage = new PreferencePageImpl("General", PAGE_NAME);
+		preferencePage = new PreferencePageImpl(TestingPreferencePage.TestTopCategory.TOP_CATEGORY, TestingPreferencePage.TestCategory.CATEGORY, PAGE_NAME);
 	}
 
 	@Test
 	public void open(){
 		preferencePage.open();
+		
 		Shell shell = new ActiveShell();		
 		assertThat(shell.getText(), is(PreferencePage.DIALOG_TITLE));
 		assertThat(preferencePage.getName(), is(PAGE_NAME));
@@ -36,6 +38,7 @@ public class PreferencePageTest {
 		preferencePage.open();
 		preferencePage.open();
 		Shell shell = new ActiveShell();
+		
 		assertThat(shell.getText(), is(PreferencePage.DIALOG_TITLE));
 		assertThat(preferencePage.getName(), is(PAGE_NAME));
 	}
@@ -44,34 +47,42 @@ public class PreferencePageTest {
 	public void ok(){
 		preferencePage.open();
 		preferencePage.ok();
+		
 		Shell shell = new ActiveShell();
 		assertThat(shell.getText(), is(not(PreferencePage.DIALOG_TITLE)));
+		assertTrue(TestingPreferencePage.performOkCalled);
 	}
 
 	@Test
 	public void cancel(){
 		preferencePage.open();
 		preferencePage.cancel();
+		
 		Shell shell = new ActiveShell();
 		assertThat(shell.getText(), is(not(PreferencePage.DIALOG_TITLE)));
+		assertTrue(TestingPreferencePage.performCancelCalled);
 	}
 	
 	@Test
 	public void apply(){
 		preferencePage.open();
 		preferencePage.apply();
+
 		Shell shell = new ActiveShell();
 		assertThat(shell.getText(), is(PreferencePage.DIALOG_TITLE));
 		assertThat(preferencePage.getName(), is(PAGE_NAME));
+		assertTrue(TestingPreferencePage.performApplyCalled);
 	}
 
 	@Test
 	public void restoreDefaults(){
 		preferencePage.open();
 		preferencePage.restoreDefaults();
+		
 		Shell shell = new ActiveShell();
 		assertThat(shell.getText(), is(PreferencePage.DIALOG_TITLE));
 		assertThat(preferencePage.getName(), is(PAGE_NAME));
+		assertTrue(TestingPreferencePage.performDefaultsCalled);
 	}
 	
 	@After
@@ -84,5 +95,12 @@ public class PreferencePageTest {
 			return;
 		}
 		shell.close();
+	}
+	
+	class PreferencePageImpl extends PreferencePage {
+
+		public PreferencePageImpl(String... path) {
+			super(path);
+		}
 	}
 }

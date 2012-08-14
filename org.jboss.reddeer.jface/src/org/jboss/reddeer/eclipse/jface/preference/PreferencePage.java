@@ -42,19 +42,8 @@ public abstract class PreferencePage {
 			new ActiveShell(DIALOG_TITLE);
 		}
 		
-		if (log.isDebugEnabled()){
-			  StringBuffer sbPath = new StringBuffer("");
-			  for (String pathItem : path){
-			    if (sbPath.length() > 0 ){
-			      sbPath.append(" > ");
-			    }
-			    sbPath.append(pathItem);
-			  }
-	        log.debug("Select Preferences dialog treeitem: " + sbPath.toString());
-		}   
 		TreeItem t = new DefaultTreeItem(path);
 		t.select();
-		
 	}
 	
 	public String getName(){
