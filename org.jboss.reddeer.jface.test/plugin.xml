@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+   
+   <extension point="org.eclipse.ui.preferencePages">
+     <page
+           category="org.jboss.tools.common.model.ui.MainPreferencePage"
+           class="org.jboss.reddeer.jface.test.preference.TestingPreferencePage$TestTopCategory"
+           id="org.jboss.reddeer.jface.test.preference.TestingPreferencePage.TestTopCategory"
+           name="Testing top category"/>
+           
+     <page
+           category="org.jboss.reddeer.jface.test.preference.TestingPreferencePage.TestTopCategory"
+           class="org.jboss.reddeer.jface.test.preference.TestingPreferencePage$TestCategory"
+           id="org.jboss.reddeer.jface.test.preference.TestingPreferencePage.TestCategory"
+           name="Testing category"/>
+           
+      <page
+           category="org.jboss.reddeer.jface.test.preference.TestingPreferencePage.TestCategory"
+           class="org.jboss.reddeer.jface.test.preference.TestingPreferencePage"
+           id="org.jboss.reddeer.jface.test.preference.TestingPreferencePage"
+           name="Testing preference page"/>
+           
+   </extension>
+</plugin>
