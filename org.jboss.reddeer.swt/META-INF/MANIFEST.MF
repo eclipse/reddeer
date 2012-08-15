@@ -18,6 +18,7 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: org.jboss.reddeeer.swt.regex,
  org.jboss.reddeer.swt,
  org.jboss.reddeer.swt.api,
+ org.jboss.reddeer.swt.condition,
  org.jboss.reddeer.swt.exception,
  org.jboss.reddeer.swt.impl.button,
  org.jboss.reddeer.swt.impl.clabel,
@@ -30,4 +31,5 @@ Export-Package: org.jboss.reddeeer.swt.regex,
  org.jboss.reddeer.swt.impl.tree,
  org.jboss.reddeer.swt.lookup.impl,
  org.jboss.reddeer.swt.matcher,
- org.jboss.reddeer.swt.util
+ org.jboss.reddeer.swt.util,
+ org.jboss.reddeer.swt.wait
