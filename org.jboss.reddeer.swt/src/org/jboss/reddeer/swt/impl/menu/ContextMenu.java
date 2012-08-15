@@ -1,12 +1,14 @@
 package org.jboss.reddeer.swt.impl.menu;
 
+import org.eclipse.swt.widgets.MenuItem;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.swt.api.Menu;
 import org.jboss.reddeer.swt.lookup.impl.MenuLookup;
 import org.jboss.reddeer.swt.matcher.TextMatchers;
 
 /**
- * Context Menu implementation
+ * Context Menu implementation for all context menu related to some Control.
+ * Control must have focus to provide context menu
  * 
  * @author Jiri Peterka
  * 
@@ -42,6 +44,9 @@ public class ContextMenu extends AbstractMenu implements Menu {
 	
 	@Override
 	public String getText() {
-		throw new UnsupportedOperationException("not yet implemented");
+		MenuLookup ml = new MenuLookup();
+		MenuItem i = ml.lookFor(ml.getTopMenuMenuItemsFromFocus(), matchers);
+		String text = ml.getMenuItemText(i);
+		return text;
 	}
 }

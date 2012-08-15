@@ -20,11 +20,6 @@ public abstract class AbstractMenu implements Menu {
 	String[] path;
 	Matcher<String>[] matchers;
 
-	@Override
-	public String getText() {
-		throw new UnsupportedOperationException("Not yet implemented");
-	}
-
 
 	@Override
 	public void select() 
@@ -32,5 +27,9 @@ public abstract class AbstractMenu implements Menu {
 		MenuLookup l = new MenuLookup();		
 		l.select(null, this.matchers);
 	}
-
+	
+	@Override
+	public String getText() {
+		throw new UnsupportedOperationException("not yet implemented");
+	}
 }

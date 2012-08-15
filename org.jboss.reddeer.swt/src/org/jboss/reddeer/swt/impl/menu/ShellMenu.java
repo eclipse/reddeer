@@ -1,5 +1,6 @@
 package org.jboss.reddeer.swt.impl.menu;
 
+import org.eclipse.swt.widgets.MenuItem;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.swt.api.Menu;
 import org.jboss.reddeer.swt.api.Shell;
@@ -45,8 +46,10 @@ public class ShellMenu extends AbstractMenu implements Menu {
 
 	@Override
 	public String getText() {
-		throw new UnsupportedOperationException();
-
+		MenuLookup ml = new MenuLookup();
+		MenuItem i = ml.lookFor(ml.getActiveShellTopMenuItems(), matchers);
+		String text = ml.getMenuItemText(i);
+		return text;
 	}
 
 }

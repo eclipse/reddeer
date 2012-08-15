@@ -1,5 +1,6 @@
 package org.jboss.reddeer.swt.test;
 
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import org.apache.log4j.Level;
@@ -92,5 +93,22 @@ public class MenuTest {
 		for (int i = 0; i < 100; i++) {
 			contextMenuTest();
 		}
-	}			
+	}	
+	
+	@Test 
+	public void contextMenuItemTextTest() {
+		SWTWorkbenchBot bot = new SWTWorkbenchBot();
+		SWTBotView v = bot.viewByTitle("Project Explorer");
+		v.setFocus();				
+		Menu menu = new ContextMenu("New","Project...");
+		assertTrue("Menuitem text not expected to be empty", !menu.getText().equals(""));
+	}
+	
+	
+	@Test 
+	public void shellMenuItemTextTest() {
+		new ActiveShell();
+		Menu menu = new ShellMenu("Window", "Preferences");
+		assertTrue("Menuitem text not expected to be empty", !menu.getText().equals(""));
+	}
 }

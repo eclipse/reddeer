@@ -25,9 +25,10 @@ public class MenuLookup {
 	Logger log = Logger.getLogger(this.getClass());
 
 	/**
-	 * Look for menu with given path matching pattern
-	 * 
-	 * @param path
+	 * Look for MenuItem matching matchers starting topLevel menuItems
+	 * @param topItems top level MenuItem[]
+	 * @param matchers menuitem text matchers
+	 * @return final MenuItem
 	 */
 	public MenuItem lookFor(MenuItem[] topItems, Matcher<String>... matchers) {		
 		Control c = getFocusControl();
@@ -39,6 +40,12 @@ public class MenuLookup {
 		return lastMenuItem;
 	}
 
+	/**
+	 * Selects (click) for MenuItem matching matchers starting topLevel menuItems
+	 * @param topItems top level MenuItem[]
+	 * @param matchers menuitem text matchers
+	 * @return final MenuItem
+	 */
 	public void select(MenuItem[] topItems, Matcher<String>... matchers) {
 		MenuItem lastMenuItem = getMatchingMenuPath(topItems, matchers);
 		if (lastMenuItem == null) {
@@ -47,7 +54,67 @@ public class MenuLookup {
 		clickMenuItem(lastMenuItem);
 	}
 
-	public MenuItem[] getMenuBarItems(final Shell s) {
+
+	/**
+	 * Returns top level menuitems from focused controls
+	 * @return
+	 */
+	public MenuItem[] getTopMenuMenuItemsFromFocus() {
+
+		final Control control  = getFocusControl();
+		MenuItem[] items = null;
+		final Menu menu = getControlMenu(control);
+		
+		items = Display.syncExec(new ResultRunnable<MenuItem[]>() {
+			@Override
+			public MenuItem[] run() {
+				sendShowUI(menu);				
+				MenuItem[] items = menu.getItems();
+				return items;
+			}
+		});
+
+		if (items == null) {
+			throw new WidgetNotAvailableException(
+					"Could not find top menu items, menu doesn't exist or wrong focus");
+		}
+
+		return items;
+	}
+	
+	/**
+	 * Returns menuitems from active shell menubar
+	 * @return
+	 */
+	public MenuItem[] getActiveShellTopMenuItems() {
+		ShellLookup sl = new ShellLookup();
+		Shell activeShell = sl.getActiveShell();
+		return getMenuBarItems(activeShell);
+	}
+
+	
+	/**
+	 * Returns menuitem text
+	 * @param i
+	 * @return
+	 */
+	public String getMenuItemText(final MenuItem i) {
+		String text = Display.syncExec(new ResultRunnable<String>() {
+			@Override
+			public String run() {
+				return i.getText();
+			}
+		});
+		log.debug("Queried MenuItem text:\"" + text + "\"");
+		return text;
+	}
+	
+	/**
+	 * Returns menubar items
+	 * @param s
+	 * @return
+	 */
+	private MenuItem[] getMenuBarItems(final Shell s) {
 
 		MenuItem[] items = Display.syncExec(new ResultRunnable<MenuItem[]>() {
 
@@ -61,7 +128,7 @@ public class MenuLookup {
 	}
 
 	/**
-	 * Return control with focus
+	 * Returns control with focus
 	 * 
 	 * @return
 	 */
@@ -75,62 +142,12 @@ public class MenuLookup {
 
 		});
 	}
-
-	/**
-	 * Return top menuitem widget
-	 * 
-	 * @param control
-	 * @return
-	 */
-	public Menu getTopMenuWidget(final Control control) {
-
-		Menu topMenu = null;
-		topMenu = Display.syncExec(new ResultRunnable<Menu>() {
-
-			@Override
-			public Menu run() {
-				return control.getMenu();
-			}
-		});
-
-		if (topMenu == null) {
-			throw new WidgetNotAvailableException(
-					"Could not find top menu, menu doesn't exist or wrong focus");
-		}
-
-		return topMenu;
-	}
 	
 	/**
-	 * Return top menuitem widget
-	 * 
-	 * @param control
+	 * Returns Menu of the given control
+	 * @param c
 	 * @return
 	 */
-	public MenuItem[] getTopMenuMenuItemsFromFocus() {
-
-		final Control control  = getFocusControl();
-		MenuItem[] items = null;
-		final Menu menu = getControlMenu(control);
-		
-		items = Display.syncExec(new ResultRunnable<MenuItem[]>() {
-			@Override
-			public MenuItem[] run() {
-				sendShow(menu);				
-				MenuItem[] items = menu.getItems();
-				return items;
-			}
-		});
-
-		if (items == null) {
-			throw new WidgetNotAvailableException(
-					"Could not find top menu items, menu doesn't exist or wrong focus");
-		}
-
-		return items;
-	}
-
-	
 	private Menu getControlMenu(final Control c) {
 
 		Menu menu = Display.syncExec(new ResultRunnable<Menu>() {
@@ -151,20 +168,13 @@ public class MenuLookup {
 		return menu;	
 	}
 	
-	
-	
-	public MenuItem[] getActiveShellTopMenuItems() {
-		ShellLookup sl = new ShellLookup();
-		Shell activeShell = sl.getActiveShell();
-		return getMenuBarItems(activeShell);
-	}
+
 
 
 	/**
-	 * Goes through given path through menus
-	 * 
-	 * @param topMenu
-	 * @param path
+	 * Goes through menus path and returns matching menu
+	 * @param topItems
+	 * @param matchers
 	 * @return
 	 */
 	private MenuItem getMatchingMenuPath(final MenuItem[] topItems,
@@ -192,7 +202,7 @@ public class MenuLookup {
 					}
 					if (m != matchers[matchers.length-1]) {
 						currentMenu = currentItem.getMenu();
-						sendShow(currentMenu);
+						sendShowUI(currentMenu);
 						menuItems = currentMenu.getItems();
 					} 
 				}
@@ -202,26 +212,15 @@ public class MenuLookup {
 		return i;
 	}
 
+
 	/**
-	 * Sends SWT.Show Event on a Widget
-	 * 
-	 * @param menuItem
-	 * @return
+	 * Sends SWT.Show on widget
+	 * @param widget
 	 */
-	private void sendShow(Widget widget) {
+	private void sendShowUI(Widget widget) {
 		widget.notifyListeners(SWT.Show, new Event());
 	}
-
-	private Menu getMenuFromMenuItem(final MenuItem menuItem) {
-		Menu menu = Display.syncExec(new ResultRunnable<Menu>() {
-
-			@Override
-			public Menu run() {
-				return menuItem.getParent();
-			}
-		});
-		return menu;
-	}
+		
 
 	/**
 	 * Hide menu
@@ -229,6 +228,7 @@ public class MenuLookup {
 	 * @param menu
 	 * @param recur
 	 */
+	@SuppressWarnings("unused")
 	private void sendHide(final Menu menu, final boolean recur) {
 		Display.syncExec(new Runnable() {
 
@@ -297,7 +297,7 @@ public class MenuLookup {
 	/**
 	 * Return control with focus
 	 * 
-	 * @return
+	 * @return control with focus
 	 */
 	private Control getFocusControl() {
 		Control c = Display.syncExec(new ResultRunnable<Control>() {
