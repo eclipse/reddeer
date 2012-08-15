@@ -4,7 +4,7 @@ import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotCheckBox;
 import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.menu.ContextMenu;
-import org.jboss.reddeer.swt.impl.shell.ActiveShell;
+import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
 import org.jboss.reddeer.swt.util.Bot;
 import org.jboss.reddeer.workbench.view.WorkbenchView;
@@ -40,7 +40,7 @@ public class PackageExplorer extends WorkbenchView {
 	public void deleteItem (String path, boolean deleteFromFileSystem){
 	  selectItem(path);
 	  new ContextMenu("Delete").select();
-	  new ActiveShell("Delete Resources");
+	  new DefaultShell("Delete Resources");
 	  SWTBotCheckBox chbDeleteFromFileSystem = Bot.get().checkBox();
 	  if ((chbDeleteFromFileSystem.isChecked() && !deleteFromFileSystem) ||
 	      (!chbDeleteFromFileSystem.isChecked() && deleteFromFileSystem)){

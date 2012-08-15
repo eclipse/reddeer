@@ -2,6 +2,8 @@ package org.jboss.reddeer.eclipse.test.ui.ide;
 
 import static org.junit.Assert.assertTrue;
 
+import java.io.File;
+
 import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.PackageExplorer;
 import org.jboss.reddeer.eclipse.ui.ide.NewGeneralProjectReferencesWizardPage;
 import org.jboss.reddeer.eclipse.ui.ide.NewGeneralProjectWizardDialog;
@@ -16,6 +18,9 @@ public class NewGeneralProjectWizardDialogTest {
   private static final String DEFAULT_PROJECT_NAME = "defaultGeneralProject";
   private static final String CUSTOMIZED_PROJECT_NAME = "customizedGeneralProject";
   private PackageExplorer packageExplorer;
+  private static final String CUSTOM_PROJECT_LOCATION = System.getProperty("java.io.tmpdir")
+	  + File.separator + "rdcustomprojectlocation"
+	  + System.currentTimeMillis();
   @Before
   public void setUp() {
     packageExplorer = new PackageExplorer();
@@ -39,8 +44,12 @@ public class NewGeneralProjectWizardDialogTest {
     NewGeneralProjectReferencesWizardPage projectReferencesPage =
         new NewGeneralProjectReferencesWizardPage(wizardDialog);
     projectPage.setProjectName(NewGeneralProjectWizardDialogTest.CUSTOMIZED_PROJECT_NAME);
-    final String tmpDir = System.getProperty("java.io.tmpdir");
-    projectPage.setProjectLocation(tmpDir);
+    File customProjectDir = new File(NewGeneralProjectWizardDialogTest.CUSTOM_PROJECT_LOCATION);
+    if (customProjectDir.exists()){
+    	customProjectDir.delete();
+    }
+    customProjectDir.mkdir();
+    projectPage.setProjectLocation(NewGeneralProjectWizardDialogTest.CUSTOM_PROJECT_LOCATION);
     try{
       projectPage.addProjectToWorkingSet("dummyws");  
     }catch (WidgetNotEnabledException wnee){
@@ -60,6 +69,9 @@ public class NewGeneralProjectWizardDialogTest {
 	      true);
 	  packageExplorer.deleteItem(NewGeneralProjectWizardDialogTest.DEFAULT_PROJECT_NAME,
 	      true);
+	  File customProjectDir = new File(NewGeneralProjectWizardDialogTest.CUSTOM_PROJECT_LOCATION);
+	  if (customProjectDir.exists()){
+	  	customProjectDir.delete();
+	  }
 	}
-	
 }
