@@ -7,8 +7,8 @@ import org.jboss.reddeer.swt.api.TreeItem;
 
 public abstract class AbstractTreeItem implements TreeItem {
 	protected final Logger logger = Logger.getLogger(this.getClass());
-	SWTBotTree tree;
-	SWTBotTreeItem item;
+	protected SWTBotTree tree;
+	protected SWTBotTreeItem item;
 	
 	@Override
 	public void select() {

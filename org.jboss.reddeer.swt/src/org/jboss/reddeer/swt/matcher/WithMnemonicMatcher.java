@@ -11,7 +11,7 @@ import org.hamcrest.Description;
  */
 public class WithMnemonicMatcher extends BaseMatcher<String> {
 
-	String text;
+	private String text;
 	
 	public WithMnemonicMatcher(String text ) {
 		this.text = text;

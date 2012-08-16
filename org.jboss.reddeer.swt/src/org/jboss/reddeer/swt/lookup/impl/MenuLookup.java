@@ -22,7 +22,7 @@ import org.jboss.reddeer.swt.util.ResultRunnable;
  */
 public class MenuLookup {
 
-	Logger log = Logger.getLogger(this.getClass());
+	private Logger log = Logger.getLogger(this.getClass());
 
 	/**
 	 * Look for MenuItem matching matchers starting topLevel menuItems
@@ -252,7 +252,7 @@ public class MenuLookup {
 	}
 
 	/**
-	 * Check wheather or not menuitem is enabled
+	 * Check weather or not menuitem is enabled
 	 * 
 	 * @param menuItem
 	 */

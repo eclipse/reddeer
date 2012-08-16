@@ -12,7 +12,7 @@ import java.util.regex.Pattern;
  */
 public class RegexSeq {
 
-	List<Pattern> patterns; 
+	private List<Pattern> patterns; 
 	
 	public  RegexSeq(String ... regexes) {
 		patterns = new ArrayList<Pattern>();

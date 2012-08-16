@@ -7,7 +7,7 @@ import org.jboss.reddeer.swt.api.Tree;
 public class AbstractTree implements Tree {
 
 	protected final Logger logger = Logger.getLogger(this.getClass());
-	SWTBotTree tree;
+	protected SWTBotTree tree;
 
 	
 }

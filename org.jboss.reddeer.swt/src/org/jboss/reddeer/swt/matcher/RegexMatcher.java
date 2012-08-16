@@ -11,7 +11,7 @@ import org.hamcrest.Description;
 
 public class RegexMatcher extends BaseMatcher<String> {
 
-	String regex;
+	private String regex;
 	
 	public RegexMatcher(String regex ) {
 		this.regex = regex;

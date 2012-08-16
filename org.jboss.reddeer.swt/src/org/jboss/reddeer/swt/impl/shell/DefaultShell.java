@@ -22,6 +22,7 @@ public class DefaultShell extends AbstractShell implements Shell {
 			throw new WidgetNotAvailableException("No shell is available at the moment");
 		}
 	}
+	
 
 	public DefaultShell() {
 		try {

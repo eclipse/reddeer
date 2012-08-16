@@ -16,9 +16,9 @@ public abstract class AbstractMenu implements Menu {
 
 	protected final Logger log = Logger.getLogger(this.getClass());
 
-	SWTBotMenu menu;
-	String[] path;
-	Matcher<String>[] matchers;
+	protected SWTBotMenu menu;
+	protected String[] path;
+	protected Matcher<String>[] matchers;
 
 
 	@Override

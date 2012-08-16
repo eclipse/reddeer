@@ -10,7 +10,7 @@ import org.jboss.reddeer.swt.api.Combo;
  */
 public abstract class AbstractCombo implements Combo {
 	protected final Logger log = Logger.getLogger(this.getClass());
-	SWTBotCombo combo;
+	protected SWTBotCombo combo;
 	
 	@Override
 	public void setText(String str) {

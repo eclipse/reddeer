@@ -10,7 +10,7 @@ import org.hamcrest.Description;
  */
 public class TextMatcher extends BaseMatcher<String> {
 
-	String text;
+	private String text;
 	
 	public TextMatcher(String text ) {
 		this.text = text;

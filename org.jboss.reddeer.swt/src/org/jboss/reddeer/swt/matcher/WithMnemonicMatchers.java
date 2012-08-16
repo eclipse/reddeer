@@ -13,7 +13,7 @@ import org.hamcrest.Matcher;
 public class WithMnemonicMatchers {
 
 
-	Matcher<String>[] matchers;
+	private Matcher<String>[] matchers;
 
 	public WithMnemonicMatchers(String... texts) {
 	

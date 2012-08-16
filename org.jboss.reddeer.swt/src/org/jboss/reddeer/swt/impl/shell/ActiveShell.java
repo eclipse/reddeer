@@ -13,6 +13,7 @@ import org.jboss.reddeer.swt.util.Bot;
 import org.jboss.reddeer.swt.util.Display;
 
 /**
+ * @deprecated consider DefaulShell or WorkbenchShell,... instead of it
  * Shell implementation of active shell
  * 
  * @author Jiri Peterka

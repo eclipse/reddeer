@@ -9,7 +9,7 @@ import java.util.regex.Pattern;
  */
 public class Regex {
 
-	Pattern pattern;
+	private Pattern pattern;
 	
 	public  Regex(String regex) {
 			pattern = Pattern.compile(regex);

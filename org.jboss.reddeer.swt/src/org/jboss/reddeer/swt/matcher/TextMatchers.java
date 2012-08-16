@@ -14,7 +14,7 @@ import org.hamcrest.Matcher;
 public class TextMatchers {
 
 
-	Matcher<String>[] matchers;
+	private Matcher<String>[] matchers;
 
 	public TextMatchers(String... texts) {
 	

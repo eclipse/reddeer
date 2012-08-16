@@ -11,7 +11,7 @@ import org.jboss.reddeer.swt.api.Button;
  */
 public abstract class AbstractButton implements Button {
 	protected final Logger log = Logger.getLogger(this.getClass());
-	SWTBotButton button;
+	protected SWTBotButton button;
 	
 	@Override
 	public void click() {
