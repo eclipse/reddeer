@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Red Deer Eclipse Componnet Tests
-Bundle-SymbolicName: org.jboss.reddeer.eclipse.test
+Bundle-SymbolicName: org.jboss.reddeer.eclipse.test;singleton:=true
 Bundle-Version: 0.0.1.qualifier
 Bundle-Activator: org.jboss.reddeer.eclipse.test.Activator
 Require-Bundle: org.eclipse.ui,
@@ -11,6 +11,8 @@ Require-Bundle: org.eclipse.ui,
  org.jboss.reddeer.jface;bundle-version="0.0.1",
  org.jboss.reddeer.workbench;bundle-version="0.0.1",
  org.eclipse.wst.server.http.ui;bundle-version="1.0.200",
- org.jboss.reddeer.swt;bundle-version="0.0.1"
+ org.jboss.reddeer.swt;bundle-version="0.0.1",
+ org.eclipse.swtbot.eclipse.finder;bundle-version="2.0.5",
+ org.eclipse.wst.server.core
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6

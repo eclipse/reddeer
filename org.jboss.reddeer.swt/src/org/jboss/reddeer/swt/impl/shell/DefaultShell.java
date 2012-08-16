@@ -26,11 +26,11 @@ public class DefaultShell extends AbstractShell implements Shell {
 
 	public DefaultShell() {
 		try {
-			shell = Bot.get().shells()[0];
-			log.info("Default [0] Shell found");
+			shell = Bot.get().activeShell();
+			log.info("No active shell found");
 		}
 		catch (WidgetNotFoundException e) {
-			throw new WidgetNotAvailableException("No shell is available at the moment");
+			throw new WidgetNotAvailableException("No active shell is available at the moment");
 		}
 	}
 	

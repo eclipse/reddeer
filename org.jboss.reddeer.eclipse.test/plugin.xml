@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+   <extension point="org.eclipse.wst.server.core.runtimeTypes">
+   		<runtimeType id="org.jboss.reddeer.eclipse.test.wst.server.testserverruntime" name="Test runtime" description="Testing runtime" facetRuntimeComponent="org.eclipse.wst.server.http.runtime" facetRuntimeVersion="1.0" class="org.jboss.reddeer.eclipse.test.wst.server.TestServerRuntime">
+   			<moduleType types="PHP" versions="1.0"/>
+   			<moduleType types="wst.web" versions="1.0"/>
+   		</runtimeType>
+   	</extension>
+   	<extension point="org.eclipse.wst.server.core.serverTypes">
+   		<serverType
+           behaviourClass="org.jboss.reddeer.eclipse.wst.server.ui.view.TestServerBehaviour"
+           class="org.jboss.reddeer.eclipse.wst.server.ui.view.TestServer"
+           description="Test server"
+           hasConfiguration="false"
+           id="org.jboss.reddeer.eclipse.wst.server.ui.view.testserver"
+           initialState="stopped"
+           name="Test server"
+           runtime="true"
+           runtimeTypeId="org.jboss.reddeer.eclipse.test.wst.server.testserverruntime"
+           supportsRemoteHosts="true"/>
+   	</extension>
+</plugin>
