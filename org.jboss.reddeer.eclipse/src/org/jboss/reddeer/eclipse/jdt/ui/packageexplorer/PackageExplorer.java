@@ -10,7 +10,7 @@ import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
 import org.jboss.reddeer.swt.util.Bot;
 import org.jboss.reddeer.swt.util.Jobs;
 import org.jboss.reddeer.swt.wait.WaitUntilCondition;
-import org.jboss.reddeer.workbench.view.WorkbenchView;
+import org.jboss.reddeer.workbench.view.impl.WorkbenchView;
 
 /**
  * Represents Package Explorer in Eclipse

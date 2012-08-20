@@ -1,14 +1,15 @@
 package org.jboss.reddeer.workbench.view;
 
-import org.apache.log4j.Logger;
 import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
+import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotWorkbenchPart;
+import org.eclipse.ui.IViewReference;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.views.IViewCategory;
 import org.eclipse.ui.views.IViewDescriptor;
 import org.jboss.reddeer.swt.api.Menu;
 import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.menu.ShellMenu;
-import org.jboss.reddeer.swt.impl.shell.ActiveShell;
+import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
 import org.jboss.reddeer.swt.matcher.RegexMatchers;
 import org.jboss.reddeer.swt.util.Bot;
@@ -20,37 +21,46 @@ import org.jboss.reddeer.workbench.exception.ViewNotFoundException;
  * @author jjankovi
  *
  */
-public abstract class View {
-
-	protected final Logger log = Logger.getLogger(this.getClass());
+public abstract class View extends WorkbenchPart {
 	
 	private static final String SHOW_VIEW = "Show View";
 	
-	private SWTBotView viewObject;
+	protected SWTBotView viewObject;
 	
 	private String[] path;
 	
 	public View(String viewToolTip) {
-		viewObject = viewByTitle(viewToolTip);
-		if (viewObject == null) {
-			path = findRegisteredViewPath(viewToolTip);
-		}
+		super();
+		path = findRegisteredViewPath(viewToolTip);
+	}
+	
+	public View(String category, String viewToolTip) {
+		super();
+		path = new String[2];
+		path[0] = category;
+		path[1] = viewToolTip;
 	}
 	
 	public void open() {
 		log.info("Open " + viewTooltip() + " view");
+		viewObject = viewByTitle(viewTooltip());
 		if (viewObject == null) {
 			log.debug(viewTooltip() + " view was not already opened. Opening via menu.");
 			RegexMatchers m = new RegexMatchers("Window.*", "Show View.*", "Other...*");
 			Menu menu = new ShellMenu(m.getMatchers());
 			menu.select();
-			new ActiveShell(SHOW_VIEW);
+			new DefaultShell(SHOW_VIEW);
 			new DefaultTreeItem(path).select();
 			new PushButton("OK").click();
 			viewObject = Bot.get().activeView();
 		}
 		viewObject.setFocus();
 		viewObject.show();
+	}
+	
+	@Override
+	protected SWTBotWorkbenchPart<IViewReference> workbenchPart() {
+		return viewObject;
 	}
 	
 	private SWTBotView viewByTitle(String viewTitle) {
@@ -105,10 +115,7 @@ public abstract class View {
 	}
 	
 	private String viewTooltip() {
-		if (viewObject == null) {
-			return path[path.length-1];
-		}
-		return viewObject.getTitle();
+		return path[path.length-1];
 	}
 	
 }

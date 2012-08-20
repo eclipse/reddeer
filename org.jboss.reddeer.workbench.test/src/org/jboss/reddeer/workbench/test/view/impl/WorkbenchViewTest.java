@@ -1,10 +1,10 @@
-package org.jboss.reddeer.workbench.test.view;
+package org.jboss.reddeer.workbench.test.view.impl;
 
 import org.jboss.reddeer.workbench.view.View;
-import org.jboss.reddeer.workbench.view.WorkbenchView;
+import org.jboss.reddeer.workbench.view.impl.WorkbenchView;
 import org.junit.Test;
 
-public class WorkbenchTest {
+public class WorkbenchViewTest {
 
 	@Test
 	public void testNotActiveView() {

@@ -1,6 +1,6 @@
 package org.jboss.reddeer.eclipse.ui.console;
 
-import org.jboss.reddeer.workbench.view.WorkbenchView;
+import org.jboss.reddeer.workbench.view.impl.WorkbenchView;
 
 /**
  * Represents Console view in Eclipse
