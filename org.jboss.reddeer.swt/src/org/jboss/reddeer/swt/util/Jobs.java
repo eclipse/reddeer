@@ -1,5 +1,8 @@
 package org.jboss.reddeer.swt.util;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.jobs.Job;
 
@@ -71,4 +74,16 @@ public class Jobs {
 			log.info(getFormattedJobDescription(job));
 		}
 	}
+    
+    public static String[] getAllRunningJobs(){
+    	log.info("Get All Jobs");
+    	Job[] jobs = Job.getJobManager().find(null);
+    	List<String> jobNames = new ArrayList<String>();
+    	for (Job job: jobs){
+    		if (isJobRunning(job)){
+    			jobNames.add(job.getName());
+    		}
+    	}
+    	return jobNames.toArray(new String[0]);
+    }
 }
