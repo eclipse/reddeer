@@ -24,8 +24,8 @@ public interface Browser {
 	void back();
 	
 	/**
-	 * Open given url in browser
+	 * Set given url in browser, browser then loads it asynchronously 
 	 */
-	void openURL(String url);
+	void setURL(String url);
 
 }
