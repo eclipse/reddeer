@@ -23,6 +23,11 @@ public abstract class AbstractButton implements Button {
 		
 	}
 	
+	@Override
+	public String getText() {
+		return button.getText();
+	
+	}
 	
 	
 }

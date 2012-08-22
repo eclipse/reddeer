@@ -168,9 +168,6 @@ public class MenuLookup {
 		return menu;	
 	}
 	
-
-
-
 	/**
 	 * Goes through menus path and returns matching menu
 	 * @param topItems

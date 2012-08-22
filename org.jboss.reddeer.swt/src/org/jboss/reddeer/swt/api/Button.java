@@ -7,6 +7,15 @@ package org.jboss.reddeer.swt.api;
  */
 public interface Button {
 
+	/**
+	 * Performs click on a button
+	 */
 	void click();
+
+	/**
+	 * Return text on given Button
+	 * @return
+	 */
+	String getText();
 			
 }

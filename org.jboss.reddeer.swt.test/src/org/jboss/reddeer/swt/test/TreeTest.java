@@ -4,7 +4,7 @@ import org.jboss.reddeer.swt.api.Menu;
 import org.jboss.reddeer.swt.api.Shell;
 import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.swt.impl.menu.ShellMenu;
-import org.jboss.reddeer.swt.impl.shell.ActiveShell;
+import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
 import org.junit.Test;
 
@@ -13,10 +13,10 @@ public class TreeTest {
 
 	@Test
 	public void foundRegexShellTest() {
-		new ActiveShell();
+		new DefaultShell();
 		Menu m = new ShellMenu("Window","Preferences");
 		m.select();
-		Shell s = new ActiveShell("Preferences");
+		Shell s = new DefaultShell("Preferences");
 		TreeItem item = new DefaultTreeItem("General","Appearance");
 		item.select();
 		s.close();

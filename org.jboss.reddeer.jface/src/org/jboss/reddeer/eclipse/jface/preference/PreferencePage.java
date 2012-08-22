@@ -8,7 +8,7 @@ import org.jboss.reddeer.swt.exception.WidgetNotAvailableException;
 import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.clabel.DefaultCLabel;
 import org.jboss.reddeer.swt.impl.menu.ShellMenu;
-import org.jboss.reddeer.swt.impl.shell.ActiveShell;
+import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
 
 /**
@@ -33,13 +33,13 @@ public abstract class PreferencePage {
 		// if preferences dialog is not open, open it
 		log.info("Open Preferences dialog");	
 		try {
-			new ActiveShell(DIALOG_TITLE);
+			new DefaultShell(DIALOG_TITLE);
 			log.debug("Preferences dialog was already opened.");
 		} catch (WidgetNotAvailableException e) {
 			log.debug("Preferences dialog was not already opened. Opening via menu.");
 			Menu menu = new ShellMenu("Window","Preferences");
 			menu.select();
-			new ActiveShell(DIALOG_TITLE);
+			new DefaultShell(DIALOG_TITLE);
 		}
 		
 		TreeItem t = new DefaultTreeItem(path);

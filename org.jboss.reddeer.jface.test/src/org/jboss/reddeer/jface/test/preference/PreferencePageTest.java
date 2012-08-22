@@ -8,7 +8,7 @@ import static org.junit.Assert.assertTrue;
 import org.jboss.reddeer.eclipse.jface.preference.PreferencePage;
 import org.jboss.reddeer.swt.api.Shell;
 import org.jboss.reddeer.swt.exception.WidgetNotAvailableException;
-import org.jboss.reddeer.swt.impl.shell.ActiveShell;
+import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -28,7 +28,7 @@ public class PreferencePageTest {
 	public void open(){
 		preferencePage.open();
 		
-		Shell shell = new ActiveShell();		
+		Shell shell = new DefaultShell();		
 		assertThat(shell.getText(), is(PreferencePage.DIALOG_TITLE));
 		assertThat(preferencePage.getName(), is(PAGE_NAME));
 	}
@@ -37,7 +37,7 @@ public class PreferencePageTest {
 	public void open_preferenceOpen(){
 		preferencePage.open();
 		preferencePage.open();
-		Shell shell = new ActiveShell();
+		Shell shell = new DefaultShell();
 		
 		assertThat(shell.getText(), is(PreferencePage.DIALOG_TITLE));
 		assertThat(preferencePage.getName(), is(PAGE_NAME));
@@ -48,7 +48,7 @@ public class PreferencePageTest {
 		preferencePage.open();
 		preferencePage.ok();
 		
-		Shell shell = new ActiveShell();
+		Shell shell = new DefaultShell();
 		assertThat(shell.getText(), is(not(PreferencePage.DIALOG_TITLE)));
 		assertTrue(TestingPreferencePage.performOkCalled);
 	}
@@ -58,7 +58,7 @@ public class PreferencePageTest {
 		preferencePage.open();
 		preferencePage.cancel();
 		
-		Shell shell = new ActiveShell();
+		Shell shell = new DefaultShell();
 		assertThat(shell.getText(), is(not(PreferencePage.DIALOG_TITLE)));
 		assertTrue(TestingPreferencePage.performCancelCalled);
 	}
@@ -68,7 +68,7 @@ public class PreferencePageTest {
 		preferencePage.open();
 		preferencePage.apply();
 
-		Shell shell = new ActiveShell();
+		Shell shell = new DefaultShell();
 		assertThat(shell.getText(), is(PreferencePage.DIALOG_TITLE));
 		assertThat(preferencePage.getName(), is(PAGE_NAME));
 		assertTrue(TestingPreferencePage.performApplyCalled);
@@ -79,7 +79,7 @@ public class PreferencePageTest {
 		preferencePage.open();
 		preferencePage.restoreDefaults();
 		
-		Shell shell = new ActiveShell();
+		Shell shell = new DefaultShell();
 		assertThat(shell.getText(), is(PreferencePage.DIALOG_TITLE));
 		assertThat(preferencePage.getName(), is(PAGE_NAME));
 		assertTrue(TestingPreferencePage.performDefaultsCalled);
@@ -89,7 +89,7 @@ public class PreferencePageTest {
 	public void forceClose(){
 		Shell shell = null;
 		try {
-			shell = new ActiveShell(PreferencePage.DIALOG_TITLE);
+			shell = new DefaultShell(PreferencePage.DIALOG_TITLE);
 		} catch (WidgetNotAvailableException e){
 			// not found, no action needed
 			return;

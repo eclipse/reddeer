@@ -12,7 +12,6 @@ import org.jboss.reddeer.swt.api.Shell;
 import org.jboss.reddeer.swt.exception.WidgetNotAvailableException;
 import org.jboss.reddeer.swt.impl.menu.ContextMenu;
 import org.jboss.reddeer.swt.impl.menu.ShellMenu;
-import org.jboss.reddeer.swt.impl.shell.ActiveShell;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.jboss.reddeer.swt.matcher.RegexMatchers;
 import org.junit.Before;
@@ -35,10 +34,10 @@ public class MenuTest {
 	@Test
 	public void menuTest() {
 		log.info("menu test");
-		new ActiveShell();
+		new DefaultShell();
 		Menu m = new ShellMenu("Window", "Preferences");
 		m.select();
-		Shell s = new ActiveShell("Preferences");
+		Shell s = new DefaultShell("Preferences");
 		s.close();
 	}
 
@@ -107,7 +106,7 @@ public class MenuTest {
 	
 	@Test 
 	public void shellMenuItemTextTest() {
-		new ActiveShell();
+		new DefaultShell();
 		Menu menu = new ShellMenu("Window", "Preferences");
 		assertTrue("Menuitem text not expected to be empty", !menu.getText().equals(""));
 	}
@@ -115,7 +114,7 @@ public class MenuTest {
 	@Test
 	public void menuWithMnemonicTest() {
 		log.info("menu with mnemonic test");
-		new ActiveShell();
+		new DefaultShell();
 		Menu m = new ShellMenu("File", "New" , "Other...");
 		m.select();
 		Shell s = new DefaultShell("New");

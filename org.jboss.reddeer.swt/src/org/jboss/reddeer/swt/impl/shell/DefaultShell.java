@@ -6,7 +6,9 @@ import org.jboss.reddeer.swt.exception.WidgetNotAvailableException;
 import org.jboss.reddeer.swt.util.Bot;
 
 /**
- * Default shell returns first available shell 
+ * Default shell returns active shell if available
+ * if not it returns first available shell
+ *  
  * @author Jiri Peterka
  *
  */
@@ -33,6 +35,7 @@ public class DefaultShell extends AbstractShell implements Shell {
 			throw new WidgetNotAvailableException("No active shell is available at the moment");
 		}
 	}
+		
 	
 }	
 	
