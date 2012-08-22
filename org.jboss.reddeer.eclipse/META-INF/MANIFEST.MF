@@ -20,7 +20,7 @@ Export-Package: org.jboss.reddeer.eclipse.exception,
  org.jboss.reddeer.eclipse.jdt.ui.packageexplorer,
  org.jboss.reddeer.eclipse.ui.console;uses:="org.jboss.reddeer.workbench.view",
  org.jboss.reddeer.eclipse.ui.ide,
- org.jboss.reddeer.eclipse.wst.server;uses:="org.jboss.reddeer.eclipse.jface.wizard,org.jboss.reddeer.eclipse.jface.preference",
+ org.jboss.reddeer.eclipse.wst.server.ui,
  org.jboss.reddeer.eclipse.wst.server.ui.view,
  org.jboss.reddeer.eclipse.wst.server.ui.wizard
 Eclipse-RegisterBuddy: org.apache.log4j

@@ -1,20 +1,20 @@
-package org.jboss.reddeer.eclipse.test.wst.server;
+package org.jboss.reddeer.eclipse.test.wst.server.ui;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
 import java.util.List;
 
-import org.jboss.reddeer.eclipse.wst.server.NewRuntimeWizardPage;
-import org.jboss.reddeer.eclipse.wst.server.Runtime;
-import org.jboss.reddeer.eclipse.wst.server.RuntimePreferencePage;
+import org.jboss.reddeer.eclipse.wst.server.ui.Runtime;
+import org.jboss.reddeer.eclipse.wst.server.ui.RuntimePreferencePage;
+import org.jboss.reddeer.eclipse.wst.server.ui.wizard.NewRuntimeWizardPage;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 public class RuntimePreferencePageTest {
 
-	private static final String SERVER_NAME = "HTTP Server";
+	private static final String SERVER_NAME = TestServerRuntime.NAME;
 	
 	private static final String SERVER_PATH = "Basic";
 
@@ -35,7 +35,7 @@ public class RuntimePreferencePageTest {
 	public void addRuntime() {
 		preferencePage.open();
 		
-		NewRuntimeWizardPage wizardPage = preferencePage.addRuntime();
+		NewRuntimeWizardPage wizardPage = preferencePage.addRuntime().getFirstPage();
 		wizardPage.selectType(SERVER_PATH, SERVER_NAME);
 		wizardPage.getWizardDialog().finish();
 		
@@ -48,11 +48,11 @@ public class RuntimePreferencePageTest {
 	public void removeRuntime() {
 		preferencePage.open();
 		
-		NewRuntimeWizardPage wizardPage = preferencePage.addRuntime();
+		NewRuntimeWizardPage wizardPage = preferencePage.addRuntime().getFirstPage();
 		wizardPage.selectType(SERVER_PATH, SERVER_NAME);
 		wizardPage.getWizardDialog().finish();
 		
-		wizardPage = preferencePage.addRuntime();
+		wizardPage = preferencePage.addRuntime().getFirstPage();
 		wizardPage.selectType(SERVER_PATH, SERVER_NAME);
 		wizardPage.getWizardDialog().finish();
 		
@@ -72,11 +72,11 @@ public class RuntimePreferencePageTest {
 	public void removeAllRuntime() {
 		preferencePage.open();
 		
-		NewRuntimeWizardPage wizardPage = preferencePage.addRuntime();
+		NewRuntimeWizardPage wizardPage = preferencePage.addRuntime().getFirstPage();
 		wizardPage.selectType(SERVER_PATH, SERVER_NAME);
 		wizardPage.getWizardDialog().finish();
 		
-		wizardPage = preferencePage.addRuntime();
+		wizardPage = preferencePage.addRuntime().getFirstPage();
 		wizardPage.selectType(SERVER_PATH, SERVER_NAME);
 		wizardPage.getWizardDialog().finish();
 		

@@ -1,4 +1,4 @@
-package org.jboss.reddeer.eclipse.wst.server;
+package org.jboss.reddeer.eclipse.wst.server.ui;
 
 /**
  * Server runtime basic information. 

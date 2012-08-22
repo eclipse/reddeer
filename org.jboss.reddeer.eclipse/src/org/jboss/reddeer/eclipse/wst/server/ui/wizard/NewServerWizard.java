@@ -7,7 +7,7 @@ import org.jboss.reddeer.eclipse.jface.wizard.WizardDialog;
 import org.jboss.reddeer.swt.util.Bot;
 
 /**
- * Represents the wizard for creating new servers. It provided access to the first wizard page {@link NewServerWizardPage}. 
+ * Represents the wizard for creating new servers. It provides access to the first wizard page {@link NewServerWizardPage}. 
  * Since the other pages depend on the selection of the concrete server type this wizard does not provide them.  
  * 
  * @author Lucia Jelinkova
