@@ -15,6 +15,7 @@ public class WizardDialog {
 	
 	public void finish(){
 		log.debug("Finish wizard dialog");
+
 		DefaultShell shell = new DefaultShell();
 		new PushButton("Finish").click();
 		new WaitWhileCondition(new ShellWithTextIsActive(shell.getText()));
@@ -23,7 +24,10 @@ public class WizardDialog {
 	
 	public void cancel(){
 		log.debug("Cancel wizard dialog");
+		DefaultShell shell = new DefaultShell();
 		new PushButton("Cancel").click();		
+		new WaitWhileCondition(new ShellWithTextIsActive(shell.getText()));
+		new WaitUntilCondition(new AllRunningJobsAreNotActive());
 	}
 	
 	public void next(){
