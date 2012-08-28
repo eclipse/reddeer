@@ -1,5 +1,8 @@
 package org.jboss.reddeer.swt.impl.tree;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import org.apache.log4j.Logger;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
@@ -25,5 +28,19 @@ public abstract class AbstractTreeItem implements TreeItem {
 	public String getToolTipText() {
 		String toolTipText = item.getToolTipText();
 		return toolTipText;
+	}
+	
+	public void expand(){
+		logger.debug("Expanding Tree Item");
+		item.expand();
+	}
+	
+	public List<AbstractTreeItem> getAllChildren(){
+		expand();
+		List<AbstractTreeItem> list = new LinkedList<AbstractTreeItem>();
+		for (SWTBotTreeItem treeItem : item.getItems()) {
+			list.add(new TreeItemForTree(treeItem, tree));
+		}
+		return list;
 	}
 }
