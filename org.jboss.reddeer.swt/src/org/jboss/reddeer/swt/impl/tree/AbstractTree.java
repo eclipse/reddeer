@@ -9,5 +9,7 @@ public class AbstractTree implements Tree {
 	protected final Logger logger = Logger.getLogger(this.getClass());
 	protected SWTBotTree tree;
 
-	
+	protected SWTBotTree getSWTBotTree(){
+		return tree;
+	}
 }

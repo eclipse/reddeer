@@ -30,6 +30,12 @@ public class DefaultTree extends AbstractTree implements Tree {
 		}
 	}
 	
+	/**
+	 * Returns all TreeItems from fully expanded tree
+	 * 
+	 * @return
+	 */
+	
 	public List<AbstractTreeItem> getAllItemsRecursive(){
 		List<AbstractTreeItem> list = new LinkedList<AbstractTreeItem>();
 		for (SWTBotTreeItem treeItem : tree.getAllItems()) {

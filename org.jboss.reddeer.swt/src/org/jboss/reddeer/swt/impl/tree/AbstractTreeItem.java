@@ -35,6 +35,12 @@ public abstract class AbstractTreeItem implements TreeItem {
 		item.expand();
 	}
 	
+	/**
+	 * Returns all (direct) subnodes of this TreeItem
+	 * 
+	 * @return
+	 */
+	
 	public List<AbstractTreeItem> getAllChildren(){
 		expand();
 		List<AbstractTreeItem> list = new LinkedList<AbstractTreeItem>();
