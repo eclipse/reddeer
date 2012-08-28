@@ -14,8 +14,7 @@ import org.jboss.reddeer.swt.impl.text.LabeledText;
 
 public class NewJavaProjectWizardPage extends WizardPage {
 
-	protected NewJavaProjectWizardPage(WizardDialog wizardDialog,
-			int pageIndex) {
+	public NewJavaProjectWizardPage(WizardDialog wizardDialog) {
 		super(wizardDialog, 1);		
 	}
 	

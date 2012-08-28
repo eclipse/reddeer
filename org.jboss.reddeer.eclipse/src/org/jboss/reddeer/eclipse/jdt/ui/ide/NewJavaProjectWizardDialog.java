@@ -22,14 +22,19 @@ public class NewJavaProjectWizardDialog extends NewWizardDialog{
 	public void finish(boolean openAssociatedPerspective) {
 		log.debug("Finish wizard dialog");
 		new PushButton("Finish").click();
-		if (new DefaultShell().getText().equals("Open Associated Perspective")){
+		new WaitUntilCondition(new ShellWithTextIsActive("Open Associated Perspective?"));
+		DefaultShell shell = new DefaultShell();
+		if (new DefaultShell().getText().equals("Open Associated Perspective?")){
 			if (openAssociatedPerspective){
 				new PushButton("Yes").click();
 			}else{
 				new PushButton("No").click();
 			}
+		}else{
+			log.info("Shell 'Open Associated Perspective' wasn't shown");
 		}
-		new WaitUntilCondition(new AllRunningJobsAreNotActive());
+		new WaitWhileCondition(new ShellWithTextIsActive(shell.getText()), 10000);
+		new WaitUntilCondition(new AllRunningJobsAreNotActive(), 30000);
 	}
 
 }
