@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Workbench
+Bundle-Name: Red Deer Workbench Component
 Bundle-SymbolicName: org.jboss.reddeer.workbench
 Bundle-Version: 0.0.1.qualifier
 Bundle-Activator: org.jboss.reddeer.workbench.Activator
