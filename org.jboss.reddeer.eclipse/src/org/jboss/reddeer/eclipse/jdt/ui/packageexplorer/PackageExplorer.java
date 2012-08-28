@@ -54,7 +54,7 @@ public class PackageExplorer extends WorkbenchView {
 	  }
 	  DefaultShell shell = new DefaultShell();
 	  new PushButton("OK").click();
-	  new WaitWhileCondition(new ShellWithTextIsActive(shell.getText()));
+	  new WaitWhileCondition(new ShellWithTextIsActive(shell.getText()), 10000);
 	  new WaitUntilCondition(new JobsAreNotActive(Jobs.BUILDING_WORKSPACE_JOB,
 		  Jobs.COMPACTING_RESOURCE_MODEL,
 		  Jobs.LOADING_JOB),

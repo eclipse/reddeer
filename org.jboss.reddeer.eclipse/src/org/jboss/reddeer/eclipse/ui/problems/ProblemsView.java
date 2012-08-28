@@ -1,11 +1,10 @@
 package org.jboss.reddeer.eclipse.ui.problems;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
-import org.eclipse.swtbot.swt.finder.SWTBot;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
-import org.jboss.reddeer.swt.util.Bot;
+import org.jboss.reddeer.swt.impl.tree.AbstractTreeItem;
+import org.jboss.reddeer.swt.impl.tree.DefaultTree;
 import org.jboss.reddeer.workbench.view.impl.WorkbenchView;
 
 public class ProblemsView extends WorkbenchView{
@@ -20,17 +19,49 @@ public class ProblemsView extends WorkbenchView{
 	 * @return
 	 */
 	
-	public List<String> getAllErrors(){
+	public List<AbstractTreeItem> getAllErrors(){
 		if (!viewObject.isActive()){
 			viewObject.setFocus();
 		}
-		SWTBot problemsBot = viewObject.bot();
-		SWTBotTree tree = problemsBot.tree();
-		if (!tree.hasItems() || !tree.getAllItems()[0].getText().contains("Errors")){
-			log.info("No errors found");
-			return new ArrayList<String>();
+		DefaultTree tree = new DefaultTree(viewObject.bot());
+		
+		return filter(tree.getAllItemsRecursive(), true);
+	}
+	
+	public List<AbstractTreeItem> getAllWarnings(){
+		if (!viewObject.isActive()){
+			viewObject.setFocus();
 		}
-		return tree.expandNode("Errors").getNodes();
+		DefaultTree tree = new DefaultTree(viewObject.bot());
+		
+		return filter(tree.getAllItemsRecursive(), false);
+	}
+	
+	/**
+	 * 		
+	 * @param list
+	 * @param errorsWarnings true to get errors, false to get warnings
+	 * @return
+	 */
+	
+	private List<AbstractTreeItem> filter(List<AbstractTreeItem> list, boolean errorsWarnings){
+		List<AbstractTreeItem> outputList = new LinkedList<AbstractTreeItem>();
+		boolean errors=false;
+		for (AbstractTreeItem abstractTreeItem : list) {
+			if (errors == errorsWarnings){
+				if (!(abstractTreeItem.getText().matches("^Errors \\(\\d+ item.*\\)")) && 
+					!(abstractTreeItem.getText().matches("^Warnings \\(\\d+ item.*\\)"))){
+						outputList.add(abstractTreeItem);
+				}
+			}
+			if (abstractTreeItem.getText().matches("^Errors \\(\\d+ item.*\\)")){
+				errors = true;
+			}else if (abstractTreeItem.getText().matches("^Warnings \\(\\d+ item.*\\)")) {
+				errors = false;
+			}
+		}
+		
+		return outputList;
 	}
 	
 }
