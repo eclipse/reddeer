@@ -12,19 +12,5 @@
 		<version>0.0.1-SNAPSHOT</version>
 		<relativePath>../org.jboss.reddeer.parent/pom.xml</relativePath>
 	</parent>
-	
-	<build>
-		<plugins>
-		<plugin>
-				<groupId>org.eclipse.tycho</groupId>
-				<artifactId>tycho-surefire-plugin</artifactId>
-				<configuration>
-					<includes>
-						<include>**/ServersViewTest.class</include>
-					</includes>
-					<parallel>true</parallel>
-				</configuration>
-			</plugin>
-		</plugins>	
-	</build>
+
 </project>
