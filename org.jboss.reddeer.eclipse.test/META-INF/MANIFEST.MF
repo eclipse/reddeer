@@ -6,6 +6,7 @@ Bundle-Version: 0.0.1.qualifier
 Bundle-Activator: org.jboss.reddeer.eclipse.test.Activator
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
+ org.eclipse.jdt.debug.ui,
  org.junit4;bundle-version="4.8.1",
  org.jboss.reddeer.eclipse;bundle-version="0.0.1",
  org.jboss.reddeer.jface;bundle-version="0.0.1",
@@ -15,3 +16,4 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.wst.server.core
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Import-Package: org.hamcrest
