@@ -42,7 +42,7 @@ public class CheckBox implements Button {
 	 */
 
 	public CheckBox(String label) {
-		checkBox = Bot.get().checkBoxWithLabel(label);
+		checkBox = Bot.get().checkBox(label);
 	}
 
 	public boolean isChecked() {
