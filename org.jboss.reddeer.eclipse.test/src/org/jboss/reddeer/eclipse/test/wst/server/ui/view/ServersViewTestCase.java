@@ -20,7 +20,7 @@ public class ServersViewTestCase {
 		}
 
 		for (Server server : serversView.getServers()){
-			server.delete();
+			server.delete(false);
 		}
 	}
 	

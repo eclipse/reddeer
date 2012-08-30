@@ -49,7 +49,7 @@ public class NewServerWizardPageTest {
 		
 		List<Server> servers = view.getServers();
 		assertThat(servers.size(), is(1));
-		assertThat(servers.get(0).getName(), is("ABC server"));
+		assertThat(servers.get(0).getLabel().getName(), is("ABC server"));
 	}
 	
 	@Test
@@ -65,7 +65,7 @@ public class NewServerWizardPageTest {
 		}
 
 		for (Server server : view.getServers()){
-			server.delete();
+			server.delete(false);
 		}
 	}
 }
