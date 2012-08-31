@@ -27,7 +27,7 @@ public abstract class NewWizardDialog extends WizardDialog{
 	 */
 	public void open(){
 		log.info("Open New Wizard");
-		super.open();
+		currentPage = 0;
 		Menu menu = new ShellMenu("File","New","Other...");
 		menu.select();
 		new DefaultShell(DIALOG_TITLE);

@@ -8,7 +8,7 @@ import java.util.List;
 import org.jboss.reddeer.eclipse.test.wst.server.ui.view.TestServer;
 import org.jboss.reddeer.eclipse.wst.server.ui.view.Server;
 import org.jboss.reddeer.eclipse.wst.server.ui.view.ServersView;
-import org.jboss.reddeer.eclipse.wst.server.ui.wizard.NewServerWizard;
+import org.jboss.reddeer.eclipse.wst.server.ui.wizard.NewServerWizardDialog;
 import org.jboss.reddeer.eclipse.wst.server.ui.wizard.NewServerWizardPage;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.junit.After;
@@ -23,7 +23,7 @@ public class NewServerWizardPageTest {
 	
 	private ServersView view;
 	
-	private NewServerWizard wizard;
+	private NewServerWizardDialog wizard;
 
 	private NewServerWizardPage wizardPage;
 	
@@ -60,7 +60,7 @@ public class NewServerWizardPageTest {
 	
 	@After
 	public void cleanup(){
-		if (wizard != null && NewServerWizard.TITLE.equals(new DefaultShell().getText())){
+		if (wizard != null && NewServerWizardDialog.TITLE.equals(new DefaultShell().getText())){
 			wizard.cancel();
 		}
 

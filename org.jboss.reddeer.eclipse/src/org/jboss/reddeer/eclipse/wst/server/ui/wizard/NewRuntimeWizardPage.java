@@ -5,14 +5,14 @@ import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
 
 /**
- * Represents the first page displayed when invoked {@link NewRuntimeWizard}
+ * Represents the first page displayed when invoked {@link NewRuntimeWizardDialog}
  * 
  * @author Lucia Jelinkova
  *
  */
 public class NewRuntimeWizardPage extends WizardPage {
   
-	public NewRuntimeWizardPage(NewRuntimeWizard wizardDialog){
+	public NewRuntimeWizardPage(NewRuntimeWizardDialog wizardDialog){
 		super(wizardDialog,0);
 	}
 	

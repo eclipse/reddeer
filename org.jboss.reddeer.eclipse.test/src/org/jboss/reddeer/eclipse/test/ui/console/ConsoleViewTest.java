@@ -8,7 +8,8 @@ import org.jboss.reddeer.eclipse.jdt.ui.ide.NewJavaProjectWizardDialog;
 import org.jboss.reddeer.eclipse.jdt.ui.ide.NewJavaProjectWizardPage;
 import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.PackageExplorer;
 import org.jboss.reddeer.eclipse.ui.console.ConsoleView;
-import org.jboss.reddeer.eclipse.ui.ide.NewJavaClassDialog;
+import org.jboss.reddeer.eclipse.ui.ide.NewJavaClassWizardDialog;
+import org.jboss.reddeer.eclipse.ui.ide.NewJavaClassWizardPage;
 import org.jboss.reddeer.swt.impl.menu.ShellMenu;
 import org.jboss.reddeer.swt.matcher.RegexMatchers;
 import org.jboss.reddeer.swt.util.Bot;
@@ -69,18 +70,20 @@ public class ConsoleViewTest {
 		NewJavaProjectWizardDialog javaProject = new NewJavaProjectWizardDialog();
 		javaProject.open();
 		
-		NewJavaProjectWizardPage javaWizardPage = new NewJavaProjectWizardPage(javaProject);
+		NewJavaProjectWizardPage javaWizardPage = javaProject.getFirstPage();
 		javaWizardPage.setProjectName(TEST_PROJECT_NAME);
 		
 		javaProject.finish(false);
 	}
 	
 	private void createJavaClass() {
-		NewJavaClassDialog javaClassDialog = new NewJavaClassDialog();
+		NewJavaClassWizardDialog javaClassDialog = new NewJavaClassWizardDialog();
 		javaClassDialog.open();
-		javaClassDialog.setName("TestClass");
-		javaClassDialog.setPackage("test");
-		javaClassDialog.setStaticMainMethod(true);
+		
+		NewJavaClassWizardPage wizardPage = javaClassDialog.getFirstPage();
+		wizardPage.setName("TestClass");
+		wizardPage.setPackage("test");
+		wizardPage.setStaticMainMethod(true);
 		javaClassDialog.finish();
 		
 		Bot.get().activeEditor().toTextEditor().

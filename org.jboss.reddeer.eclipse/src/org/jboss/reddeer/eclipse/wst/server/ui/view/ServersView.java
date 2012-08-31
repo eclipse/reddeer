@@ -14,7 +14,7 @@ import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.hamcrest.Description;
 import org.hamcrest.TypeSafeMatcher;
 import org.jboss.reddeer.eclipse.exception.EclipseLayerException;
-import org.jboss.reddeer.eclipse.wst.server.ui.wizard.NewServerWizard;
+import org.jboss.reddeer.eclipse.wst.server.ui.wizard.NewServerWizardDialog;
 import org.jboss.reddeer.swt.impl.menu.ContextMenu;
 import org.jboss.reddeer.swt.util.Bot;
 import org.jboss.reddeer.workbench.view.View;
@@ -34,10 +34,10 @@ public class ServersView extends View {
 		super(TITLE);
 	}
 
-	public NewServerWizard newServer(){
+	public NewServerWizardDialog newServer(){
 		open();
 		new ContextMenu("New", "Server").select();
-		return new NewServerWizard();
+		return new NewServerWizardDialog();
 	}
 
 	public List<Server> getServers(){

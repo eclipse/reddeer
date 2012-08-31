@@ -9,7 +9,7 @@ import org.jboss.reddeer.eclipse.jface.wizard.WizardDialog;
  * @author Lucia Jelinkova
  *
  */
-public class NewRuntimeWizard extends WizardDialog{
+public class NewRuntimeWizardDialog extends WizardDialog{
 
 	public static final String DIALOG_TITLE = "New Server Runtime Environment";
 

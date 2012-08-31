@@ -32,7 +32,7 @@ public class NewGeneralProjectWizardDialogTest {
 		    new NewGeneralProjectWizardDialog();
 		wizardDialog.open();
 		NewGeneralProjectWizardPage projectPage =
-		    new NewGeneralProjectWizardPage(wizardDialog);
+		    wizardDialog.getFirstPage();
 		projectPage.setProjectName(NewGeneralProjectWizardDialogTest.DEFAULT_PROJECT_NAME);
 		wizardDialog.finish();
 		assertTrue("Package Explorer has to contain project " +

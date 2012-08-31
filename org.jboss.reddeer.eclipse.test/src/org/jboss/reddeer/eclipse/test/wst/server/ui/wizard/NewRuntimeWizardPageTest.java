@@ -8,7 +8,7 @@ import java.util.List;
 import org.jboss.reddeer.eclipse.test.wst.server.ui.TestServerRuntime;
 import org.jboss.reddeer.eclipse.wst.server.ui.Runtime;
 import org.jboss.reddeer.eclipse.wst.server.ui.RuntimePreferencePage;
-import org.jboss.reddeer.eclipse.wst.server.ui.wizard.NewRuntimeWizard;
+import org.jboss.reddeer.eclipse.wst.server.ui.wizard.NewRuntimeWizardDialog;
 import org.jboss.reddeer.eclipse.wst.server.ui.wizard.NewRuntimeWizardPage;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,7 +17,7 @@ public class NewRuntimeWizardPageTest {
 
 	private RuntimePreferencePage preference;
 	
-	private NewRuntimeWizard wizard;
+	private NewRuntimeWizardDialog wizard;
 	
 	private NewRuntimeWizardPage wizardPage;
 

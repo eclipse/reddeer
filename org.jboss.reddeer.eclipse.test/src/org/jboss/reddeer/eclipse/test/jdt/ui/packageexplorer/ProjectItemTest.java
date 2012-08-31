@@ -7,7 +7,8 @@ import org.jboss.reddeer.eclipse.jdt.ui.ide.NewJavaProjectWizardDialog;
 import org.jboss.reddeer.eclipse.jdt.ui.ide.NewJavaProjectWizardPage;
 import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.PackageExplorer;
 import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.ProjectItem;
-import org.jboss.reddeer.eclipse.ui.ide.NewJavaClassDialog;
+import org.jboss.reddeer.eclipse.ui.ide.NewJavaClassWizardDialog;
+import org.jboss.reddeer.eclipse.ui.ide.NewJavaClassWizardPage;
 import org.jboss.reddeer.swt.condition.AllRunningJobsAreNotActive;
 import org.jboss.reddeer.swt.util.Bot;
 import org.jboss.reddeer.swt.wait.WaitUntilCondition;
@@ -26,7 +27,7 @@ public class ProjectItemTest {
 	public void setup(){
 		NewJavaProjectWizardDialog dialog = new NewJavaProjectWizardDialog();
 		dialog.open();
-		NewJavaProjectWizardPage page1 = new NewJavaProjectWizardPage(dialog); 
+		NewJavaProjectWizardPage page1 = dialog.getFirstPage(); 
 		page1.setProjectName(ProjectItemTest.PROJECT_NAME);
 		dialog.finish();
 		packageExplorer = new PackageExplorer();
@@ -53,10 +54,12 @@ public class ProjectItemTest {
 		packageExplorer.getProject(ProjectItemTest.PROJECT_NAME)
             .getProjectItem(ProjectItemTest.PROJECT_ITEM_TEXT)
             .select();
-		NewJavaClassDialog newJavaClassDialog = new NewJavaClassDialog();
+		NewJavaClassWizardDialog newJavaClassDialog = new NewJavaClassWizardDialog();
 		newJavaClassDialog.open();
+		
+		NewJavaClassWizardPage wizardPage = newJavaClassDialog.getFirstPage();
 		final String javaClassName = "TestClass";
-		newJavaClassDialog.setName(javaClassName);
+		wizardPage.setName(javaClassName);
 		newJavaClassDialog.finish();
 		new WaitUntilCondition(new AllRunningJobsAreNotActive(), 30000);
 		Bot.get().closeAllEditors();

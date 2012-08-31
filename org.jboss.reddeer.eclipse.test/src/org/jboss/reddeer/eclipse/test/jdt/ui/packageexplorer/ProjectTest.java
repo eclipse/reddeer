@@ -21,7 +21,7 @@ public class ProjectTest {
 	public void setup(){
 		NewJavaProjectWizardDialog dialog = new NewJavaProjectWizardDialog();
 		dialog.open();
-		NewJavaProjectWizardPage page1 = new NewJavaProjectWizardPage(dialog); 
+		NewJavaProjectWizardPage page1 = dialog.getFirstPage(); 
 		page1.setProjectName(ProjectTest.PROJECT_NAME);
 		dialog.finish();
 		packageExplorer = new PackageExplorer();

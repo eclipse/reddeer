@@ -9,11 +9,11 @@ import org.jboss.reddeer.eclipse.jface.wizard.WizardDialog;
  * @author Lucia Jelinkova
  *
  */
-public class NewServerWizard extends WizardDialog {
+public class NewServerWizardDialog extends WizardDialog {
 
 	public static final String TITLE = "New Server";
 	
-	public NewServerWizard() {
+	public NewServerWizardDialog() {
 	}
 
 	public NewServerWizardPage getFirstPage(){

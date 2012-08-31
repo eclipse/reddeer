@@ -5,14 +5,16 @@ import org.jboss.reddeer.swt.condition.AllRunningJobsAreNotActive;
 import org.jboss.reddeer.swt.condition.ShellWithTextIsActive;
 import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
-import org.jboss.reddeer.swt.util.Jobs;
 import org.jboss.reddeer.swt.wait.WaitUntilCondition;
 import org.jboss.reddeer.swt.wait.WaitWhileCondition;
 
-public class WizardDialog {
+public abstract class WizardDialog {
 
 	protected final Logger log = Logger.getLogger(this.getClass());
-	private int currentPage = 0;
+	
+	protected int currentPage = 0;
+	
+	public abstract WizardPage getFirstPage();
 	
 	public void finish(){
 		log.debug("Finish wizard dialog");
@@ -55,9 +57,5 @@ public class WizardDialog {
 	      }
 	    }
 	  }  
-	}
-	
-	public void open(){
-	  currentPage = 0;
 	}
 }

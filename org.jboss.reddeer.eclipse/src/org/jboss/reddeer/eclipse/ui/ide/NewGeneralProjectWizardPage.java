@@ -7,50 +7,54 @@ import org.jboss.reddeer.swt.exception.WidgetNotEnabledException;
 import org.jboss.reddeer.swt.impl.combo.ComboWithLabel;
 import org.jboss.reddeer.swt.impl.text.LabeledText;
 import org.jboss.reddeer.swt.util.Bot;
+
 /**
  * First page of New General Project wizard
+ * 
  * @author vpakan
- *
+ * 
  */
-public class NewGeneralProjectWizardPage extends WizardPage{
-  
-  private final Logger log = Logger.getLogger(NewGeneralProjectWizardPage.class);
-  
-  public NewGeneralProjectWizardPage(NewGeneralProjectWizardDialog wizardDialog) {
-    super(wizardDialog, 1);
-  }
+public class NewGeneralProjectWizardPage extends WizardPage {
 
-  public void setProjectName (String projectName){
-    show();
-    log.debug("Set General Project name to " + projectName);
-    new LabeledText("Project name:").setText(projectName);
-  }
-  
-  public void setProjectLocation (String projectLocation){
-    show();
-    log.debug("Set Project location to " + projectLocation);
-    SWTBotCheckBox chbLocation = Bot.get().checkBox("Use default location");
-    if (chbLocation.isChecked()){
-      chbLocation.click();
-    }
-    new LabeledText("Location:").setText(projectLocation);
-  }
-  
-  public void addProjectToWorkingSet (String workingSet){
-    show();
-    log.debug("Add Project to working set" + workingSet);
-    SWTBotCheckBox chbAddProjectToWorkingSet = Bot.get().checkBox("Add project to working sets");
-    if (!chbAddProjectToWorkingSet.isChecked()){
-      chbAddProjectToWorkingSet.click();
-    }
-    ComboWithLabel cmbWorkingSet = new ComboWithLabel("Working sets:");
-    if (cmbWorkingSet.isEnabled()){
-      cmbWorkingSet.setText(workingSet);  
-    }
-    else {
-      throw new WidgetNotEnabledException("Combo box with Working sets is not enabled." +
-      		" Probably no working set is defined");
-    }
-    
-  }
+	private final Logger log = Logger
+			.getLogger(NewGeneralProjectWizardPage.class);
+
+	public NewGeneralProjectWizardPage(
+			NewGeneralProjectWizardDialog wizardDialog) {
+		super(wizardDialog, 1);
+	}
+
+	public void setProjectName(String projectName) {
+		show();
+		log.debug("Set General Project name to " + projectName);
+		new LabeledText("Project name:").setText(projectName);
+	}
+
+	public void setProjectLocation(String projectLocation) {
+		show();
+		log.debug("Set Project location to " + projectLocation);
+		SWTBotCheckBox chbLocation = Bot.get().checkBox("Use default location");
+		if (chbLocation.isChecked()) {
+			chbLocation.click();
+		}
+		new LabeledText("Location:").setText(projectLocation);
+	}
+
+	public void addProjectToWorkingSet(String workingSet) {
+		show();
+		log.debug("Add Project to working set" + workingSet);
+		SWTBotCheckBox chbAddProjectToWorkingSet = Bot.get().checkBox(
+				"Add project to working sets");
+		if (!chbAddProjectToWorkingSet.isChecked()) {
+			chbAddProjectToWorkingSet.click();
+		}
+		ComboWithLabel cmbWorkingSet = new ComboWithLabel("Working sets:");
+		if (cmbWorkingSet.isEnabled()) {
+			cmbWorkingSet.setText(workingSet);
+		} else {
+			throw new WidgetNotEnabledException(
+					"Combo box with Working sets is not enabled."
+							+ " Probably no working set is defined");
+		}
+	}
 }

@@ -7,7 +7,7 @@ import org.jboss.reddeer.swt.impl.text.LabeledText;
 import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
 
 /**
- * Represents the first page displayed when invoked {@link NewServerWizard}
+ * Represents the first page displayed when invoked {@link NewServerWizardDialog}
  * 
  * @author Lucia Jelinkova
  *

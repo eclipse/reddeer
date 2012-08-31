@@ -15,6 +15,11 @@ public class NewJavaProjectWizardDialog extends NewWizardDialog{
 	}
 	
 	@Override
+	public NewJavaProjectWizardPage getFirstPage() {
+		return new NewJavaProjectWizardPage(this);
+	}
+	
+	@Override
 	public void finish(){
 		finish(false);
 	}

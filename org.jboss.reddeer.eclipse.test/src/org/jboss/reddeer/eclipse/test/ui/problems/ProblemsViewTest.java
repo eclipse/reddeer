@@ -5,7 +5,8 @@ import static org.junit.Assert.assertEquals;
 import org.jboss.reddeer.eclipse.jdt.ui.ide.NewJavaProjectWizardDialog;
 import org.jboss.reddeer.eclipse.jdt.ui.ide.NewJavaProjectWizardPage;
 import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.PackageExplorer;
-import org.jboss.reddeer.eclipse.ui.ide.NewJavaClassDialog;
+import org.jboss.reddeer.eclipse.ui.ide.NewJavaClassWizardDialog;
+import org.jboss.reddeer.eclipse.ui.ide.NewJavaClassWizardPage;
 import org.jboss.reddeer.eclipse.ui.problems.ProblemsView;
 import org.jboss.reddeer.swt.condition.AllRunningJobsAreNotActive;
 import org.jboss.reddeer.swt.util.Bot;
@@ -30,7 +31,7 @@ public class ProblemsViewTest {
 	public void setup(){
 		NewJavaProjectWizardDialog dialog = new NewJavaProjectWizardDialog();
 		dialog.open();
-		NewJavaProjectWizardPage page1 = new NewJavaProjectWizardPage(dialog); 
+		NewJavaProjectWizardPage page1 = dialog.getFirstPage(); 
 		page1.setProjectName("Test");
 		dialog.finish();
 		problemsView = new ProblemsView();
@@ -85,9 +86,11 @@ public class ProblemsViewTest {
 	private void createError(boolean error, boolean warning){
 		pkgExplorer.open();
 		pkgExplorer.getProject("Test").getProjectItem("src").select();
-		NewJavaClassDialog newJavaClassDialog = new NewJavaClassDialog();
+		NewJavaClassWizardDialog newJavaClassDialog = new NewJavaClassWizardDialog();
 		newJavaClassDialog.open();
-		newJavaClassDialog.setName("TestClass");
+		
+		NewJavaClassWizardPage wizardPage = newJavaClassDialog.getFirstPage();
+		wizardPage.setName("TestClass");
 		newJavaClassDialog.finish();
 		new WaitUntilCondition(new AllRunningJobsAreNotActive(), 30000);
 		if (error){

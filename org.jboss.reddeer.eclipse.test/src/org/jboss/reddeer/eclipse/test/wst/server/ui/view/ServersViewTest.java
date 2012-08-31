@@ -8,7 +8,7 @@ import java.util.List;
 
 import org.jboss.reddeer.eclipse.exception.EclipseLayerException;
 import org.jboss.reddeer.eclipse.wst.server.ui.view.Server;
-import org.jboss.reddeer.eclipse.wst.server.ui.wizard.NewServerWizard;
+import org.jboss.reddeer.eclipse.wst.server.ui.wizard.NewServerWizardDialog;
 import org.jboss.reddeer.swt.api.Shell;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.junit.Test;
@@ -20,7 +20,7 @@ public class ServersViewTest extends ServersViewTestCase{
 		wizardDialog = serversView.newServer();
 
 		Shell shell = new DefaultShell();
-		assertThat(shell.getText(), is(NewServerWizard.TITLE));
+		assertThat(shell.getText(), is(NewServerWizardDialog.TITLE));
 	}
 
 	@Test
