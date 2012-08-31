@@ -20,6 +20,18 @@ public interface TreeItem {
 	 * @return
 	 */
 	String getToolTipText();		
-
+	/**
+	 * Expands item
+	 */
+	public void expand();
+	/**
+	 * Double Click on item
+	 */
+	public void doubleClick();
+	/**
+	 * Returns true when Tree Item is selected
+	 * @return
+	 */
+	public boolean isSelected();
 			
 }

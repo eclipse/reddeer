@@ -42,7 +42,7 @@ public class ProblemsViewTest {
 	@After
 	public void teardown(){
 		pkgExplorer.open();
-		pkgExplorer.deleteItem("Test", true);
+		pkgExplorer.getProject("Test").delete(true);
 	}
 	
 	@Test
@@ -84,7 +84,7 @@ public class ProblemsViewTest {
 	
 	private void createError(boolean error, boolean warning){
 		pkgExplorer.open();
-		pkgExplorer.selectItem("Test", "src");
+		pkgExplorer.getProject("Test").getProjectItem("src").select();
 		NewJavaClassDialog newJavaClassDialog = new NewJavaClassDialog();
 		newJavaClassDialog.open();
 		newJavaClassDialog.setName("TestClass");

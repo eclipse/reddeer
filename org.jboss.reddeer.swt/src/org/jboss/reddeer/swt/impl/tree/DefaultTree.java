@@ -53,4 +53,16 @@ public class DefaultTree extends AbstractTree implements Tree {
 		}
 		return list;
 	}
+	/**
+	 * Returns all direct children of Tree. Tree Items of the Tree with level 0  
+	 * @return
+	 */
+	public List<AbstractTreeItem> getAllItems(){
+		List<AbstractTreeItem> list = new LinkedList<AbstractTreeItem>();
+		for (SWTBotTreeItem treeItem : tree.getAllItems()) {
+			AbstractTreeItem item = new TreeItemForTree(treeItem, tree);
+			list.add(item);
+		}
+		return list;	
+	}
 }

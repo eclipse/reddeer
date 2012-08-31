@@ -1,23 +1,17 @@
 package org.jboss.reddeer.eclipse.jdt.ui.packageexplorer;
 
-import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotCheckBox;
-import org.jboss.reddeer.swt.condition.JobsAreNotActive;
-import org.jboss.reddeer.swt.condition.ShellWithTextIsActive;
-import org.jboss.reddeer.swt.impl.button.PushButton;
-import org.jboss.reddeer.swt.impl.menu.ContextMenu;
-import org.jboss.reddeer.swt.impl.shell.DefaultShell;
-import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
-import org.jboss.reddeer.swt.util.Bot;
-import org.jboss.reddeer.swt.util.Jobs;
-import org.jboss.reddeer.swt.wait.WaitUntilCondition;
-import org.jboss.reddeer.swt.wait.WaitWhileCondition;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.jboss.reddeer.eclipse.exception.EclipseLayerException;
+import org.jboss.reddeer.swt.impl.tree.AbstractTreeItem;
+import org.jboss.reddeer.swt.impl.tree.DefaultTree;
 import org.jboss.reddeer.workbench.view.impl.WorkbenchView;
 
 /**
  * Represents Package Explorer in Eclipse
  * 
- * @author vpakan
+ * @author Vlado Pakan
  *
  */
 public class PackageExplorer extends WorkbenchView {
@@ -26,38 +20,44 @@ public class PackageExplorer extends WorkbenchView {
 		super("Package Explorer");
 	}
 	
-	public void selectItem (String... path){
-	  open();
-	  new DefaultTreeItem(path).select();
+	public Project selectProject (String projectName){
+		Project project = getProject(projectName);
+		project.select();
+		return project;
 	}
 	
-	public boolean contains (String... path){
+	public boolean containsProject (String projectName){
 	  boolean result = false;
 	  try{
-	    selectItem(path);
+		getProject(projectName);;
 	    result = true;
-	  } catch (WidgetNotFoundException wnfe){
+	  } catch (EclipseLayerException ele){
 	    result = false;
 	  }
 	  return result;
 	}
 	
-	public void deleteItem (String path, boolean deleteFromFileSystem){
-	  selectItem(path);
-	  log.debug("Delete item via Package Explorer");
-	  new ContextMenu("Delete").select();
-	  new DefaultShell("Delete Resources");
-	  SWTBotCheckBox chbDeleteFromFileSystem = Bot.get().checkBox();
-	  if ((chbDeleteFromFileSystem.isChecked() && !deleteFromFileSystem) ||
-	      (!chbDeleteFromFileSystem.isChecked() && deleteFromFileSystem)){
-	    chbDeleteFromFileSystem.click();
-	  }
-	  DefaultShell shell = new DefaultShell();
-	  new PushButton("OK").click();
-	  new WaitWhileCondition(new ShellWithTextIsActive(shell.getText()), 10000);
-	  new WaitUntilCondition(new JobsAreNotActive(Jobs.BUILDING_WORKSPACE_JOB,
-		  Jobs.COMPACTING_RESOURCE_MODEL,
-		  Jobs.LOADING_JOB),
-		  30000);
+	public List<Project> getProjects(){
+		List<Project> projects = new ArrayList<Project>();
+
+		for (AbstractTreeItem item : getPackageExplorerTree().getAllItems()){
+			projects.add(new Project(item));
+		}
+		return projects;
 	}
+	
+	public DefaultTree getPackageExplorerTree(){
+		open();
+		return new DefaultTree();
+	}
+	
+	public Project getProject(String projectName){
+		for (Project project : getProjects()){
+			if (project.getName().equals(projectName)){
+				return project;
+			}
+		}
+		throw new EclipseLayerException("There is no project with name " + projectName);
+	}	
+
 }

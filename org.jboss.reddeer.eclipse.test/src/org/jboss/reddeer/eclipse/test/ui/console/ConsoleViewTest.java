@@ -31,7 +31,7 @@ public class ConsoleViewTest {
 	
 	@AfterClass
 	public static void tearDown() {
-		new PackageExplorer().deleteItem(TEST_PROJECT_NAME, true);
+		new PackageExplorer().getProject(TEST_PROJECT_NAME).delete(true);
 	}
 	
 	@Test
@@ -58,11 +58,11 @@ public class ConsoleViewTest {
 	
 	private void createTestProject() {
 		PackageExplorer packageExplorer = new PackageExplorer();
-		if (!packageExplorer.contains(TEST_PROJECT_NAME)) {
+		if (!packageExplorer.containsProject(TEST_PROJECT_NAME)) {
 			createJavaProject();
 			createJavaClass();
 		}
-		packageExplorer.selectItem(TEST_PROJECT_NAME);
+		packageExplorer.selectProject(TEST_PROJECT_NAME);
 	}
 	
 	private void createJavaProject() {

@@ -38,7 +38,7 @@ public class NewGeneralProjectWizardDialogTest {
 		assertTrue("Package Explorer has to contain project " +
 		    NewGeneralProjectWizardDialogTest.DEFAULT_PROJECT_NAME +
 		    " but it doesn't",
-		  packageExplorer.contains(NewGeneralProjectWizardDialogTest.DEFAULT_PROJECT_NAME));
+		  packageExplorer.containsProject(NewGeneralProjectWizardDialogTest.DEFAULT_PROJECT_NAME));
 		// create customized project
     wizardDialog.open();
     NewGeneralProjectReferencesWizardPage projectReferencesPage =
@@ -61,14 +61,12 @@ public class NewGeneralProjectWizardDialogTest {
     assertTrue("Package Explorer has to contain project " +
         NewGeneralProjectWizardDialogTest.CUSTOMIZED_PROJECT_NAME +
         " but it doesn't",
-      packageExplorer.contains(NewGeneralProjectWizardDialogTest.CUSTOMIZED_PROJECT_NAME));
+      packageExplorer.containsProject(NewGeneralProjectWizardDialogTest.CUSTOMIZED_PROJECT_NAME));
   }
 	@After
 	public void deleteProjects(){
-	  packageExplorer.deleteItem(NewGeneralProjectWizardDialogTest.CUSTOMIZED_PROJECT_NAME,
-	      true);
-	  packageExplorer.deleteItem(NewGeneralProjectWizardDialogTest.DEFAULT_PROJECT_NAME,
-	      true);
+	  packageExplorer.getProject(NewGeneralProjectWizardDialogTest.CUSTOMIZED_PROJECT_NAME).delete(true);
+	  packageExplorer.getProject(NewGeneralProjectWizardDialogTest.DEFAULT_PROJECT_NAME).delete(true);
 	  File customProjectDir = new File(NewGeneralProjectWizardDialogTest.CUSTOM_PROJECT_LOCATION);
 	  if (customProjectDir.exists()){
 	  	customProjectDir.delete();
