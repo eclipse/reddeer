@@ -57,7 +57,7 @@ public class ServersView extends View {
 
 	public Server getServer(String name){
 		for (Server server : getServers()){
-			if (server.getName().equals(name)){
+			if (server.getLabel().getName().equals(name)){
 				return server;
 			}
 		}

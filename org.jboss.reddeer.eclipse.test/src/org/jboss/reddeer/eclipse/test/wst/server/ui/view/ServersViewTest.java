@@ -37,8 +37,8 @@ public class ServersViewTest extends ServersViewTestCase{
 
 		List<Server> servers = serversView.getServers();
 		assertThat(servers.size(), is(2));
-		assertThat(servers.get(0).getName(), is("Server A"));
-		assertThat(servers.get(1).getName(), is("Server AB"));
+		assertThat(servers.get(0).getLabel().getName(), is("Server A"));
+		assertThat(servers.get(1).getLabel().getName(), is("Server AB"));
 	}
 
 	@Test(expected=EclipseLayerException.class)
@@ -60,6 +60,6 @@ public class ServersViewTest extends ServersViewTestCase{
 
 		Server server = serversView.getServer("Server A");
 		assertNotNull(server);
-		assertThat(server.getName(), is("Server A"));
+		assertThat(server.getLabel().getName(), is("Server A"));
 	}
 }

@@ -3,10 +3,18 @@ package org.jboss.reddeer.eclipse.wst.server.ui.view;
 import java.util.List;
 
 import org.eclipse.swt.widgets.TreeItem;
+import org.eclipse.swt.widgets.Widget;
+import org.eclipse.swtbot.swt.finder.SWTBot;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
+import org.jboss.reddeer.eclipse.wst.server.ui.view.ServersViewEnums.ServerState;
+import org.jboss.reddeer.swt.condition.AllRunningJobsAreNotActive;
+import org.jboss.reddeer.swt.condition.IConditionWithDescription;
+import org.jboss.reddeer.swt.impl.button.CheckBox;
 import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.menu.ContextMenu;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
+import org.jboss.reddeer.swt.wait.WaitUntilCondition;
+import org.jboss.reddeer.swt.wait.WaitWhileCondition;
 
 /**
  * Represents a server on {@link ServersView}. Contains both, the server data
@@ -18,22 +26,17 @@ import org.jboss.reddeer.swt.impl.shell.DefaultShell;
  * 
  */
 public class Server {
-	
+
+	private static final int TIMEOUT = 20000;
+
 	private SWTBotTreeItem treeItem;
-	
-	private String name;
 
 	public Server(TreeItem treeItem) {
 		this.treeItem = new SWTBotTreeItem(treeItem);
-		name = parseName(this.treeItem.getText());
 	}
 
-	public String getState() {
-		throw new UnsupportedOperationException();
-	}
-
-	public String getStatus() {
-		throw new UnsupportedOperationException();
+	public ServerLabel getLabel(){
+		return new ServerLabel(treeItem.getText());
 	}
 
 	public List<ServerProject> getProjects() {
@@ -49,23 +52,53 @@ public class Server {
 	}
 
 	public void start() {
-		throw new UnsupportedOperationException();
+		if (!ServerState.STOPPED.equals(getLabel().getState())){
+			throw new ServersViewException("Cannot start server because it is not stopped");
+		}
+		operateServer("Start", ServerState.STARTED);
 	}
 
-	public void startInDebug() {
-		throw new UnsupportedOperationException();
+	public void debug() {
+		if (!ServerState.STOPPED.equals(getLabel().getState())){
+			throw new ServersViewException("Cannot debug server because it is not stopped");
+		}
+		operateServer("Debug", ServerState.DEBUGGING);
+	}
+
+	public void profile() {
+		if (!ServerState.STOPPED.equals(getLabel().getState())){
+			throw new ServersViewException("Cannot profile server because it is not stopped");
+		}
+		operateServer("Profile", ServerState.PROFILING);
 	}
 
 	public void restart() {
-		throw new UnsupportedOperationException();
+		if (!getLabel().getState().isRunningState()){
+			throw new ServersViewException("Cannot restart server because it is not running");
+		}
+		operateServer("Restart", ServerState.STARTED);
 	}
 
 	public void restartInDebug() {
-		throw new UnsupportedOperationException();
+		if (!getLabel().getState().isRunningState()){
+			throw new ServersViewException("Cannot restart server in debug because it is not running");
+		}
+		operateServer("Restart in Debug", ServerState.DEBUGGING);
+	}
+	
+	public void restartInProfile() {
+		if (!getLabel().getState().isRunningState()){
+			throw new ServersViewException("Cannot restart server in profile because it is not running");
+		}
+		operateServer("Restart in Profile", ServerState.PROFILING);
 	}
 
 	public void stop() {
-		throw new UnsupportedOperationException();
+		ServerState state = getLabel().getState();
+		if (!ServerState.STARTING.equals(state) && !state.isRunningState()){
+			throw new ServersViewException("Cannot stop server because it not running");
+		}
+		operateServer("Stop", ServerState.STOPPED);
 	}
 
 	public void publish() {
@@ -77,10 +110,19 @@ public class Server {
 	}
 
 	public void delete() {
+		delete(false);
+	}
+
+	public void delete(boolean stopFirst) {
 		select();
 		new ContextMenu("Delete").select();
 		new DefaultShell("Delete Server");
+		if (!ServerState.STOPPED.equals(getLabel().getState())){
+			new CheckBox().toggle(stopFirst);
+		}
 		new PushButton("OK").click();
+		new WaitUntilCondition(new WidgetIsDisposed(treeItem.widget), TIMEOUT);
+		new WaitUntilCondition(new AllRunningJobsAreNotActive(), TIMEOUT);
 	}
 
 	public void addAndRemoveProject() {
@@ -91,18 +133,68 @@ public class Server {
 		treeItem.select();
 	}
 
-	public String parseName(String label){
-		if (!label.contains("[")){
-			return label.trim();
-		}
-		return treeItem.getText().substring(0, treeItem.getText().indexOf("[")).trim();
-	}
-	
-	public String getName() {
-		return name;
+	protected void operateServer(String menuItem, ServerState resultState){
+		select();
+		new ContextMenu(menuItem).select();
+		new WaitUntilCondition(new NonSystemJobRunsCondition(), TIMEOUT);
+		new WaitUntilCondition(new ServerStateCondition(resultState), TIMEOUT);
+		new WaitWhileCondition(new NonSystemJobRunsCondition(), TIMEOUT);
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	private class ServerStateCondition implements IConditionWithDescription {
+
+		private ServerState expectedState;
+
+		private ServerStateCondition(ServerState expectedState) {
+			this.expectedState = expectedState;
+		}
+
+		@Override
+		public void init(SWTBot bot) {
+
+		}
+
+		@Override
+		public boolean test() throws Exception {
+			return expectedState.equals(getLabel().getState());
+		}
+
+		@Override
+		public String getFailureMessage() {
+			return null;
+		}
+
+		@Override
+		public String getDescription() {
+			return null;
+		}
+	}
+
+	private class WidgetIsDisposed implements IConditionWithDescription {
+
+		private Widget widget;
+
+		public WidgetIsDisposed(Widget widget) {
+			this.widget = widget;
+		}
+
+		@Override
+		public void init(SWTBot bot) {
+		}
+
+		@Override
+		public boolean test() throws Exception {
+			return widget.isDisposed();
+		}
+
+		@Override
+		public String getFailureMessage() {
+			return null;
+		}
+
+		@Override
+		public String getDescription() {
+			return null;
+		}
 	}
 }

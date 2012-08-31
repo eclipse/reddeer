@@ -1,7 +1,13 @@
 package org.jboss.reddeer.eclipse.jface.wizard;
 
 import org.apache.log4j.Logger;
+import org.jboss.reddeer.swt.condition.AllRunningJobsAreNotActive;
+import org.jboss.reddeer.swt.condition.ShellWithTextIsActive;
 import org.jboss.reddeer.swt.impl.button.PushButton;
+import org.jboss.reddeer.swt.impl.shell.DefaultShell;
+import org.jboss.reddeer.swt.util.Jobs;
+import org.jboss.reddeer.swt.wait.WaitUntilCondition;
+import org.jboss.reddeer.swt.wait.WaitWhileCondition;
 
 public class WizardDialog {
 
@@ -10,12 +16,19 @@ public class WizardDialog {
 	
 	public void finish(){
 		log.debug("Finish wizard dialog");
-		new PushButton("Finish").click();		
+
+		DefaultShell shell = new DefaultShell();
+		new PushButton("Finish").click();
+		new WaitWhileCondition(new ShellWithTextIsActive(shell.getText()), 10000);
+		new WaitUntilCondition(new AllRunningJobsAreNotActive(), 10000);
 	}
 	
 	public void cancel(){
 		log.debug("Cancel wizard dialog");
+		DefaultShell shell = new DefaultShell();
 		new PushButton("Cancel").click();		
+		new WaitWhileCondition(new ShellWithTextIsActive(shell.getText()));
+		new WaitUntilCondition(new AllRunningJobsAreNotActive());
 	}
 	
 	public void next(){

@@ -17,11 +17,12 @@ Require-Bundle: org.eclipse.ui,
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: org.jboss.reddeer.eclipse.exception,
+ org.jboss.reddeer.eclipse.jdt.ui.ide,
  org.jboss.reddeer.eclipse.jdt.ui.packageexplorer,
- org.jboss.reddeer.eclipse.jst.server.tomcat.ui;uses:="org.jboss.reddeer.eclipse.jface.wizard",
  org.jboss.reddeer.eclipse.ui.console;uses:="org.jboss.reddeer.workbench.view",
  org.jboss.reddeer.eclipse.ui.ide,
- org.jboss.reddeer.eclipse.wst.server;uses:="org.jboss.reddeer.eclipse.jface.wizard,org.jboss.reddeer.eclipse.jface.preference",
+ org.jboss.reddeer.eclipse.ui.problems,
+ org.jboss.reddeer.eclipse.wst.server.ui,
  org.jboss.reddeer.eclipse.wst.server.ui.view,
  org.jboss.reddeer.eclipse.wst.server.ui.wizard,
  org.jboss.reddeer.eclipse.ui.views.log

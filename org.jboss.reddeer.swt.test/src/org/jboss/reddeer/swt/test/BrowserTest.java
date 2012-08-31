@@ -30,7 +30,10 @@ public class BrowserTest {
 		try {
 			Browser b = new InternalBrowser();
 			b.setURL("http://www.google.com");
-			while (!b.isPageLoaded()) {
+			final int limit = 100; // 100 cycles maximum
+			int counter = 0;
+			while (!b.isPageLoaded() && counter < limit) {
+				counter++;
 				Bot.get().sleep(100);				
 			}
 		}

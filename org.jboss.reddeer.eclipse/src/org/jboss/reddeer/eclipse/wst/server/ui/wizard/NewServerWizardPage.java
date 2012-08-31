@@ -6,6 +6,12 @@ import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.swt.impl.text.LabeledText;
 import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
 
+/**
+ * Represents the first page displayed when invoked {@link NewServerWizard}
+ * 
+ * @author Lucia Jelinkova
+ *
+ */
 public class NewServerWizardPage extends WizardPage {
 
 	public NewServerWizardPage(WizardDialog parentDialog) {

@@ -6,6 +6,8 @@ import static org.junit.Assert.assertThat;
 import java.util.List;
 
 import org.jboss.reddeer.eclipse.wst.server.ui.view.Server;
+import org.jboss.reddeer.eclipse.wst.server.ui.view.ServersViewEnums.ServerState;
+import org.jboss.reddeer.eclipse.wst.server.ui.view.ServersViewException;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -26,25 +28,131 @@ public class ServerTest extends ServersViewTestCase {
 	}
 	
 	@Test
-	public void delete(){
-		server1.delete();
+	public void start_stoppedServer(){
+		server1.start();
+		
+		assertThat(server1.getLabel().getState(), is(ServerState.STARTED));
+	}
+	
+	@Test(expected=ServersViewException.class)
+	public void start_runningServer(){
+		server1.start();
+		server1.start();
+	}
+	
+	@Test
+	public void debug_stoppedServer(){
+		server1.debug();
+		
+		assertThat(server1.getLabel().getState(), is(ServerState.DEBUGGING));
+	}
+	
+	@Test(expected=ServersViewException.class)
+	public void debug_runningServer(){
+		server1.start();
+		server1.debug();
+	}
+	
+	@Test
+	public void profile_stoppedServer(){
+		server1.profile();
+		
+		assertThat(server1.getLabel().getState(), is(ServerState.PROFILING));
+	}
+	
+	@Test(expected=ServersViewException.class)
+	public void profile_runningServer(){
+		server1.start();
+		server1.profile();
+	}
+	
+	@Test(expected=ServersViewException.class)
+	public void restart_stoppedServer(){
+		server1.restart();
+	}
+	
+	@Test
+	public void restart_runningServer(){
+		server1.debug();
+		server1.restart();
+		
+		assertThat(server1.getLabel().getState(), is(ServerState.STARTED));
+	}
+	
+	@Test(expected=ServersViewException.class)
+	public void restartInDebug_stoppedServer(){
+		server1.restartInDebug();
+	}
+	
+	@Test
+	public void restartInDebug_runningServer(){
+		server1.debug();
+		server1.restartInDebug();
+		
+		assertThat(server1.getLabel().getState(), is(ServerState.DEBUGGING));
+	}
+	
+	@Test(expected=ServersViewException.class)
+	public void restartInProfile_stoppedServer(){
+		server1.restartInProfile();
+	}
+	
+	@Test
+	public void restartInProfile_runningServer(){
+		server1.profile();
+		server1.restartInProfile();
+		
+		assertThat(server1.getLabel().getState(), is(ServerState.PROFILING));
+	}
+	
+	@Test(expected=ServersViewException.class)
+	public void stop_stoppedServer(){
+		server1.stop();
+	}
+	
+	@Test
+	public void stop_runningServer(){
+		server1.start();
+		server1.stop();
+		
+		assertThat(server1.getLabel().getState(), is(ServerState.STOPPED));
+	}
+	
+	@Test
+	public void delete_runningServer(){
+		server1.start();
+		server1.delete(false);
 		
 		List<Server> servers = serversView.getServers();
 		assertThat(servers.size(), is(1));
-		assertThat(servers.get(0).getName(), is(SERVER_2));
+		assertThat(servers.get(0).getLabel().getName(), is(SERVER_2));
 	}
 	
 	@Test
-	public void parseName_withStatus(){
-		String name = server1.parseName("Server 1  [Started]");
+	public void delete_runningServerAndStop(){
+		server1.start();
+		server1.delete(true);
 		
-		assertThat(name, is(SERVER_1));
+		List<Server> servers = serversView.getServers();
+		assertThat(servers.size(), is(1));
+		assertThat(servers.get(0).getLabel().getName(), is(SERVER_2));
 	}
 	
 	@Test
-	public void parseName_noStatus(){
-		String name = server1.parseName("Server 1");
+	public void delete_stoppedServer(){
+		server1.delete(false);
 		
-		assertThat(name, is(SERVER_1));
+		List<Server> servers = serversView.getServers();
+		assertThat(servers.size(), is(1));
+		assertThat(servers.get(0).getLabel().getName(), is(SERVER_2));
+	}
+	
+	@Test
+	public void delete_stoppedServerAndStop(){
+		server1.delete(true);
+		
+		List<Server> servers = serversView.getServers();
+		assertThat(servers.size(), is(1));
+		assertThat(servers.get(0).getLabel().getName(), is(SERVER_2));
 	}
 }

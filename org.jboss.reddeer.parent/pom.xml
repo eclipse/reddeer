@@ -10,7 +10,7 @@
 	
 	<properties>
   	    <tycho-version>0.14.0</tycho-version>  	  
-		<jbosstools-target-site>http://download.jboss.org/jbosstools/updates/target-platform_3.3.indigo.SR2/latest/</jbosstools-target-site>
+		<jbosstools-target-site>http://download.jboss.org/jbosstools/updates/target-platform_3.4.juno.SR0/latest</jbosstools-target-site>
 	</properties>
 	
 	<modules>

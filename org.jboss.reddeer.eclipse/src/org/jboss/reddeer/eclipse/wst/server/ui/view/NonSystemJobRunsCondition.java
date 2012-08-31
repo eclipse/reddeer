@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.swtbot.swt.finder.SWTBot;
-import org.eclipse.swtbot.swt.finder.waits.ICondition;
+import org.jboss.reddeer.swt.condition.IConditionWithDescription;
 
 /**
  * Returns true, if there is a non system job running, false 
@@ -14,7 +14,7 @@ import org.eclipse.swtbot.swt.finder.waits.ICondition;
  * @author Lucia Jelinkova
  *
  */
-public class NonSystemJobRunsCondition implements ICondition {
+public class NonSystemJobRunsCondition implements IConditionWithDescription {
 
 	@Override
 	public boolean test() throws Exception {
@@ -42,5 +42,11 @@ public class NonSystemJobRunsCondition implements ICondition {
 			}
 		}
 		return jobs;
+	}
+	
+	@Override
+	public String getDescription() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
