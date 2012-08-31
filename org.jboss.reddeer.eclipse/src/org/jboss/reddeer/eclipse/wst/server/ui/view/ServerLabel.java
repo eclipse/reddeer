@@ -1,7 +1,7 @@
 package org.jboss.reddeer.eclipse.wst.server.ui.view;
 
 import org.jboss.reddeer.eclipse.wst.server.ui.view.ServersViewEnums.ServerState;
-import org.jboss.reddeer.eclipse.wst.server.ui.view.ServersViewEnums.ServerStatus;
+import org.jboss.reddeer.eclipse.wst.server.ui.view.ServersViewEnums.ServerPublishState;
 
 /**
  * Parses and holds information displayed in the server's label on 
@@ -16,7 +16,7 @@ public class ServerLabel {
 	
 	private ServerState state;
 	
-	private ServerStatus status;
+	private ServerPublishState status;
 	
 	public ServerLabel(String label) {
 		parse(label);
@@ -31,7 +31,7 @@ public class ServerLabel {
 		
 		if(label.matches(".*[.*,.*].*")){
 			state = ServerState.getByText(label.substring(label.indexOf("[") + 1, label.lastIndexOf(",")).trim());
-			status = ServerStatus.getByText(label.substring(label.indexOf(",") + 1, label.lastIndexOf("]")).trim());
+			status = ServerPublishState.getByText(label.substring(label.indexOf(",") + 1, label.lastIndexOf("]")).trim());
 		} else {
 			state = ServerState.getByText(label.substring(label.indexOf("[") + 1, label.lastIndexOf("]")).trim());
 		}
@@ -45,7 +45,7 @@ public class ServerLabel {
 		return state;
 	}
 	
-	public ServerStatus getStatus() {
+	public ServerPublishState getPublishState() {
 		return status;
 	}
 }

@@ -40,5 +40,11 @@ public class TestServerBehaviour extends ServerBehaviourDelegate {
 
 	protected void publishServer(int kind, org.eclipse.core.runtime.IProgressMonitor monitor) throws org.eclipse.core.runtime.CoreException {
 		setServerPublishState(IServer.PUBLISH_STATE_NONE);
+		try {
+			Thread.sleep(5000);
+		} catch (InterruptedException e) {
+			throw new RuntimeException(e);
+		}
+		setServerPublishState(IServer.PUBLISH_STATE_FULL);
 	}
 }

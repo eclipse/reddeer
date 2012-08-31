@@ -6,9 +6,12 @@ import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.swt.widgets.Widget;
 import org.eclipse.swtbot.swt.finder.SWTBot;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
+import org.jboss.reddeer.eclipse.wst.server.ui.view.ServersViewEnums.ServerPublishState;
 import org.jboss.reddeer.eclipse.wst.server.ui.view.ServersViewEnums.ServerState;
+import org.jboss.reddeer.swt.api.Shell;
 import org.jboss.reddeer.swt.condition.AllRunningJobsAreNotActive;
 import org.jboss.reddeer.swt.condition.IConditionWithDescription;
+import org.jboss.reddeer.swt.condition.ShellWithTextIsActive;
 import org.jboss.reddeer.swt.impl.button.CheckBox;
 import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.menu.ContextMenu;
@@ -55,42 +58,42 @@ public class Server {
 		if (!ServerState.STOPPED.equals(getLabel().getState())){
 			throw new ServersViewException("Cannot start server because it is not stopped");
 		}
-		operateServer("Start", ServerState.STARTED);
+		operateServerState("Start", ServerState.STARTED);
 	}
 
 	public void debug() {
 		if (!ServerState.STOPPED.equals(getLabel().getState())){
 			throw new ServersViewException("Cannot debug server because it is not stopped");
 		}
-		operateServer("Debug", ServerState.DEBUGGING);
+		operateServerState("Debug", ServerState.DEBUGGING);
 	}
 
 	public void profile() {
 		if (!ServerState.STOPPED.equals(getLabel().getState())){
 			throw new ServersViewException("Cannot profile server because it is not stopped");
 		}
-		operateServer("Profile", ServerState.PROFILING);
+		operateServerState("Profile", ServerState.PROFILING);
 	}
 
 	public void restart() {
 		if (!getLabel().getState().isRunningState()){
 			throw new ServersViewException("Cannot restart server because it is not running");
 		}
-		operateServer("Restart", ServerState.STARTED);
+		operateServerState("Restart", ServerState.STARTED);
 	}
 
 	public void restartInDebug() {
 		if (!getLabel().getState().isRunningState()){
 			throw new ServersViewException("Cannot restart server in debug because it is not running");
 		}
-		operateServer("Restart in Debug", ServerState.DEBUGGING);
+		operateServerState("Restart in Debug", ServerState.DEBUGGING);
 	}
 	
 	public void restartInProfile() {
 		if (!getLabel().getState().isRunningState()){
 			throw new ServersViewException("Cannot restart server in profile because it is not running");
 		}
-		operateServer("Restart in Profile", ServerState.PROFILING);
+		operateServerState("Restart in Profile", ServerState.PROFILING);
 	}
 
 	public void stop() {
@@ -98,15 +101,22 @@ public class Server {
 		if (!ServerState.STARTING.equals(state) && !state.isRunningState()){
 			throw new ServersViewException("Cannot stop server because it not running");
 		}
-		operateServer("Stop", ServerState.STOPPED);
+		operateServerState("Stop", ServerState.STOPPED);
 	}
 
 	public void publish() {
-		throw new UnsupportedOperationException();
+		select();
+		DefaultShell activeShell = new DefaultShell();
+		new ContextMenu("Publish").select();
+		waitForPublish(activeShell);
 	}
 
 	public void clean() {
-		throw new UnsupportedOperationException();
+		select();
+		DefaultShell activeShell = new DefaultShell();
+		new ContextMenu("Clean...").select();
+		new PushButton("OK").click();
+		waitForPublish(activeShell);
 	}
 
 	public void delete() {
@@ -133,11 +143,18 @@ public class Server {
 		treeItem.select();
 	}
 
-	protected void operateServer(String menuItem, ServerState resultState){
+	protected void operateServerState(String menuItem, ServerState resultState){
 		select();
 		new ContextMenu(menuItem).select();
 		new WaitUntilCondition(new NonSystemJobRunsCondition(), TIMEOUT);
 		new WaitUntilCondition(new ServerStateCondition(resultState), TIMEOUT);
+		new WaitWhileCondition(new NonSystemJobRunsCondition(), TIMEOUT);
+	}
+	
+	protected void waitForPublish(Shell activeShell){
+		new WaitWhileCondition(new ShellWithTextIsActive(activeShell.getText()), TIMEOUT);
+		new WaitUntilCondition(new ShellWithTextIsActive(activeShell.getText()), TIMEOUT);
+		new WaitWhileCondition(new ServerPublishStateCondition(ServerPublishState.PUBLISHING), TIMEOUT);
 		new WaitWhileCondition(new NonSystemJobRunsCondition(), TIMEOUT);
 	}
 
@@ -157,6 +174,35 @@ public class Server {
 		@Override
 		public boolean test() throws Exception {
 			return expectedState.equals(getLabel().getState());
+		}
+
+		@Override
+		public String getFailureMessage() {
+			return null;
+		}
+
+		@Override
+		public String getDescription() {
+			return null;
+		}
+	}
+	
+	private class ServerPublishStateCondition implements IConditionWithDescription {
+
+		private ServerPublishState expectedState;
+
+		private ServerPublishStateCondition(ServerPublishState expectedState) {
+			this.expectedState = expectedState;
+		}
+
+		@Override
+		public void init(SWTBot bot) {
+
+		}
+
+		@Override
+		public boolean test() throws Exception {
+			return expectedState.equals(getLabel().getPublishState());
 		}
 
 		@Override

@@ -6,6 +6,7 @@ import static org.junit.Assert.assertThat;
 import java.util.List;
 
 import org.jboss.reddeer.eclipse.wst.server.ui.view.Server;
+import org.jboss.reddeer.eclipse.wst.server.ui.view.ServersViewEnums.ServerPublishState;
 import org.jboss.reddeer.eclipse.wst.server.ui.view.ServersViewEnums.ServerState;
 import org.jboss.reddeer.eclipse.wst.server.ui.view.ServersViewException;
 import org.junit.Before;
@@ -116,6 +117,20 @@ public class ServerTest extends ServersViewTestCase {
 		server1.stop();
 		
 		assertThat(server1.getLabel().getState(), is(ServerState.STOPPED));
+	}
+	
+	@Test
+	public void publish(){
+		server1.publish();
+		
+		assertThat(server1.getLabel().getPublishState(), is(ServerPublishState.REPUBLISH));
+	}
+	
+	@Test
+	public void clean(){
+		server1.clean();
+		
+		assertThat(server1.getLabel().getPublishState(), is(ServerPublishState.REPUBLISH));
 	}
 	
 	@Test

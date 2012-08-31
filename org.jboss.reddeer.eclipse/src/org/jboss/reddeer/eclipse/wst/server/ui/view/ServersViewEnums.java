@@ -50,14 +50,14 @@ public class ServersViewEnums {
 		}
 	}
 
-	public enum ServerStatus {
+	public enum ServerPublishState {
 
-		SYNCHRONIZED("Synchronized"), PUBLISHING("Publishing"), RESTART("Restart"),
+		SYNCHRONIZED("Synchronized"), PUBLISHING("Publishing..."), RESTART("Restart"),
 		REPUBLISH("Republish"), RESTART_REPUBLISH("Restart and republish");
 
 		private String text;
 
-		private ServerStatus(String text) {
+		private ServerPublishState(String text) {
 			this.text = text;
 		}
 
@@ -65,8 +65,8 @@ public class ServersViewEnums {
 			return text;
 		}
 
-		public static ServerStatus getByText(String text){
-			for (ServerStatus status : ServerStatus.values()){
+		public static ServerPublishState getByText(String text){
+			for (ServerPublishState status : ServerPublishState.values()){
 				if (status.getText().equals(text)){
 					return status;
 				}

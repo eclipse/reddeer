@@ -6,7 +6,7 @@ import static org.junit.Assert.assertThat;
 
 import org.jboss.reddeer.eclipse.wst.server.ui.view.ServerLabel;
 import org.jboss.reddeer.eclipse.wst.server.ui.view.ServersViewEnums.ServerState;
-import org.jboss.reddeer.eclipse.wst.server.ui.view.ServersViewEnums.ServerStatus;
+import org.jboss.reddeer.eclipse.wst.server.ui.view.ServersViewEnums.ServerPublishState;
 import org.junit.Test;
 
 
@@ -18,7 +18,7 @@ public class ServerLabelTest {
 		
 		assertThat(label.getName(), is("Server 1"));
 		assertThat(label.getState(), nullValue());
-		assertThat(label.getStatus(), nullValue());
+		assertThat(label.getPublishState(), nullValue());
 	}
 
 	@Test
@@ -27,7 +27,7 @@ public class ServerLabelTest {
 		
 		assertThat(label.getName(), is("Server 1"));
 		assertThat(label.getState(), is(ServerState.STARTED));
-		assertThat(label.getStatus(), nullValue());
+		assertThat(label.getPublishState(), nullValue());
 	}
 	
 	@Test
@@ -36,6 +36,6 @@ public class ServerLabelTest {
 		
 		assertThat(label.getName(), is("Server 1"));
 		assertThat(label.getState(), is(ServerState.STARTED));
-		assertThat(label.getStatus(), is(ServerStatus.REPUBLISH));
+		assertThat(label.getPublishState(), is(ServerPublishState.REPUBLISH));
 	}
 }
