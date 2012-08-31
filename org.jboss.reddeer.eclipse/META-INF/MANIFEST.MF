@@ -23,5 +23,6 @@ Export-Package: org.jboss.reddeer.eclipse.exception,
  org.jboss.reddeer.eclipse.ui.ide,
  org.jboss.reddeer.eclipse.wst.server;uses:="org.jboss.reddeer.eclipse.jface.wizard,org.jboss.reddeer.eclipse.jface.preference",
  org.jboss.reddeer.eclipse.wst.server.ui.view,
- org.jboss.reddeer.eclipse.wst.server.ui.wizard
+ org.jboss.reddeer.eclipse.wst.server.ui.wizard,
+ org.jboss.reddeer.eclipse.ui.views.log
 Eclipse-RegisterBuddy: org.apache.log4j
