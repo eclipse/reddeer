@@ -1,12 +1,11 @@
 package org.jboss.reddeer.eclipse.test.wst.server.ui.view;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.nullValue;
 import static org.junit.Assert.assertThat;
 
 import org.jboss.reddeer.eclipse.wst.server.ui.view.ServerLabel;
-import org.jboss.reddeer.eclipse.wst.server.ui.view.ServersViewEnums.ServerState;
 import org.jboss.reddeer.eclipse.wst.server.ui.view.ServersViewEnums.ServerPublishState;
+import org.jboss.reddeer.eclipse.wst.server.ui.view.ServersViewEnums.ServerState;
 import org.junit.Test;
 
 
@@ -17,8 +16,8 @@ public class ServerLabelTest {
 		ServerLabel label = new ServerLabel("Server 1 ");
 		
 		assertThat(label.getName(), is("Server 1"));
-		assertThat(label.getState(), nullValue());
-		assertThat(label.getPublishState(), nullValue());
+		assertThat(label.getState(), is(ServerState.NONE));
+		assertThat(label.getPublishState(), is(ServerPublishState.NONE));
 	}
 
 	@Test
@@ -27,7 +26,7 @@ public class ServerLabelTest {
 		
 		assertThat(label.getName(), is("Server 1"));
 		assertThat(label.getState(), is(ServerState.STARTED));
-		assertThat(label.getPublishState(), nullValue());
+		assertThat(label.getPublishState(), is(ServerPublishState.NONE));
 	}
 	
 	@Test

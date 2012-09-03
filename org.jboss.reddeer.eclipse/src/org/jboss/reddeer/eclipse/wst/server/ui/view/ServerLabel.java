@@ -1,7 +1,7 @@
 package org.jboss.reddeer.eclipse.wst.server.ui.view;
 
-import org.jboss.reddeer.eclipse.wst.server.ui.view.ServersViewEnums.ServerState;
 import org.jboss.reddeer.eclipse.wst.server.ui.view.ServersViewEnums.ServerPublishState;
+import org.jboss.reddeer.eclipse.wst.server.ui.view.ServersViewEnums.ServerState;
 
 /**
  * Parses and holds information displayed in the server's label on 
@@ -14,9 +14,9 @@ public class ServerLabel {
 
 	private String name;
 	
-	private ServerState state;
+	private ServerState state = ServerState.NONE;
 	
-	private ServerPublishState status;
+	private ServerPublishState status = ServerPublishState.NONE;
 	
 	public ServerLabel(String label) {
 		parse(label);

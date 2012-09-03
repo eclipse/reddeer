@@ -125,9 +125,11 @@ public class Server {
 
 	public void delete(boolean stopFirst) {
 		select();
+		ServerState state = getLabel().getState();
+		
 		new ContextMenu("Delete").select();
 		new DefaultShell("Delete Server");
-		if (!ServerState.STOPPED.equals(getLabel().getState())){
+		if (!ServerState.STOPPED.equals(state) && !ServerState.NONE.equals(state)){
 			new CheckBox().toggle(stopFirst);
 		}
 		new PushButton("OK").click();

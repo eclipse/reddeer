@@ -20,7 +20,8 @@ public class ServersViewEnums {
 	public enum ServerState {
 
 		STARTING("Starting"), STARTED("Started"), DEBUGGING("Debugging"), 
-		PROFILING("Profiling"), STOPPING("Stopping"), STOPPED("Stopped");
+		PROFILING("Profiling"), STOPPING("Stopping"), STOPPED("Stopped"), 
+		NONE("");
 
 		private String text;
 
@@ -53,7 +54,7 @@ public class ServersViewEnums {
 	public enum ServerPublishState {
 
 		SYNCHRONIZED("Synchronized"), PUBLISHING("Publishing..."), RESTART("Restart"),
-		REPUBLISH("Republish"), RESTART_REPUBLISH("Restart and republish");
+		REPUBLISH("Republish"), RESTART_REPUBLISH("Restart and republish"), NONE("");
 
 		private String text;
 
