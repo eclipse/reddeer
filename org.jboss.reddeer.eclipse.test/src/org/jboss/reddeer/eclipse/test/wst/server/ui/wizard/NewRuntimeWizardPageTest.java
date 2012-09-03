@@ -10,6 +10,7 @@ import org.jboss.reddeer.eclipse.wst.server.ui.Runtime;
 import org.jboss.reddeer.eclipse.wst.server.ui.RuntimePreferencePage;
 import org.jboss.reddeer.eclipse.wst.server.ui.wizard.NewRuntimeWizardDialog;
 import org.jboss.reddeer.eclipse.wst.server.ui.wizard.NewRuntimeWizardPage;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -37,5 +38,10 @@ public class NewRuntimeWizardPageTest {
 		List<Runtime> runtimes = preference.getServerRuntimes();
 		assertThat(runtimes.size(), is(1));
 		assertThat(runtimes.get(0).getType(), is(TestServerRuntime.TYPE));
+	}
+	
+	@After
+	public void cleanup(){
+		preference.cancel();
 	}
 }
