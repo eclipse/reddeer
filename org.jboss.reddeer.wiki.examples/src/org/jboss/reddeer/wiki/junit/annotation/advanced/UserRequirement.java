@@ -28,7 +28,6 @@ public class UserRequirement implements Requirement<User> {
 		// create an admin user in the database if it does not exist yet
 	}
 	
-	@Override
 	public void setDeclaration(User user) {
 		this.user = user;
 	}

@@ -35,17 +35,14 @@ public class UserRequirement implements Requirement<User>, CustomConfiguration<U
 		// create an admin user in the database if it does not exist yet
 	}
 	
-	@Override
 	public void setDeclaration(User user) {
 		this.user = user;
 	}
 	
-	@Override
 	public Class<UserConfiguration> getConfigurationClass() {
 		return UserConfiguration.class;
 	}
 	
-	@Override
 	public void setConfiguration(UserConfiguration config) {
 		this.userConfiguration = config;
 	}

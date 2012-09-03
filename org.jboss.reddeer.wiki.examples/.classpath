@@ -1,12 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="src" path="resources"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/org.jboss.reddeer.junit"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/org.jboss.reddeer.eclipse"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/org.jboss.reddeer.jface"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/org.jboss.reddeer.workbench"/>
+	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
+	<classpathentry kind="src" path="src/"/>
+	<classpathentry kind="src" path="resources/"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
