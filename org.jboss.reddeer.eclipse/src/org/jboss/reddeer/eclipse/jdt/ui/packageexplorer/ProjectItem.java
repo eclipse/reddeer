@@ -8,8 +8,9 @@ import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.menu.ContextMenu;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.jboss.reddeer.swt.util.Jobs;
-import org.jboss.reddeer.swt.wait.WaitUntilCondition;
-import org.jboss.reddeer.swt.wait.WaitWhileCondition;
+import org.jboss.reddeer.swt.wait.Timeout;
+import org.jboss.reddeer.swt.wait.WaitUntil;
+import org.jboss.reddeer.swt.wait.WaitWhile;
 
 /**
  * Represents a project item of {@link Project}.
@@ -42,11 +43,11 @@ public class ProjectItem {
 	    new ContextMenu("Delete").select();
 		DefaultShell shell = new DefaultShell("Confirm Delete");
 		new PushButton("OK").click();
-		new WaitWhileCondition(new ShellWithTextIsActive(shell.getText()), 10000);
-		new WaitUntilCondition(new JobsAreNotActive(Jobs.BUILDING_WORKSPACE_JOB,
+		new WaitWhile(new ShellWithTextIsActive(shell.getText()));
+		new WaitUntil(new JobsAreNotActive(Jobs.BUILDING_WORKSPACE_JOB,
           Jobs.COMPACTING_RESOURCE_MODEL,
 		  Jobs.LOADING_JOB),
-		  30000);
+		  Timeout.LONG);
 	}
 
 	public void select() {

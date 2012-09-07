@@ -4,8 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.core.runtime.jobs.Job;
-import org.eclipse.swtbot.swt.finder.SWTBot;
-import org.jboss.reddeer.swt.condition.IConditionWithDescription;
+import org.jboss.reddeer.swt.condition.WaitCondition;
 
 /**
  * Returns true, if there is a non system job running, false 
@@ -14,15 +13,11 @@ import org.jboss.reddeer.swt.condition.IConditionWithDescription;
  * @author Lucia Jelinkova
  *
  */
-public class NonSystemJobRunsCondition implements IConditionWithDescription {
+public class NonSystemJobRunsCondition implements WaitCondition {
 
 	@Override
-	public boolean test() throws Exception {
+	public boolean test() {
 		return getJobs().size() != 0;
-	}
-	
-	@Override
-	public void init(SWTBot bot) {
 	}
 	
 	@Override
@@ -42,11 +37,5 @@ public class NonSystemJobRunsCondition implements IConditionWithDescription {
 			}
 		}
 		return jobs;
-	}
-	
-	@Override
-	public String getDescription() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 }

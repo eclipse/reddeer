@@ -3,7 +3,8 @@ package org.jboss.reddeer.eclipse.ui.console;
 import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotToolbarButton;
 import org.jboss.reddeer.swt.condition.AllRunningJobsAreNotActive;
-import org.jboss.reddeer.swt.wait.WaitUntilCondition;
+import org.jboss.reddeer.swt.wait.Timeout;
+import org.jboss.reddeer.swt.wait.WaitUntil;
 import org.jboss.reddeer.workbench.view.impl.WorkbenchView;
 
 /**
@@ -61,8 +62,8 @@ public class ConsoleView extends WorkbenchView {
 			SWTBotToolbarButton button = getToolBar("Clear Console");
 			if (button.isEnabled()) {
 				button.click();
-				new WaitUntilCondition(
-						new AllRunningJobsAreNotActive(), 30000);
+				new WaitUntil(
+						new AllRunningJobsAreNotActive(), Timeout.NORMAL);
 				log.info("Console was cleared");
 			} else {
 				log.warn("Console was not cleared, button is not enabled");

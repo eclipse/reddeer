@@ -2,20 +2,20 @@ package org.jboss.reddeer.eclipse.wst.server.ui.view;
 
 import java.util.List;
 
-import org.eclipse.swtbot.swt.finder.SWTBot;
 import org.jboss.reddeer.eclipse.wst.server.ui.view.ServersViewEnums.ServerPublishState;
 import org.jboss.reddeer.eclipse.wst.server.ui.view.ServersViewEnums.ServerState;
 import org.jboss.reddeer.swt.api.Shell;
 import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.swt.condition.AllRunningJobsAreNotActive;
-import org.jboss.reddeer.swt.condition.IConditionWithDescription;
 import org.jboss.reddeer.swt.condition.ShellWithTextIsActive;
+import org.jboss.reddeer.swt.condition.WaitCondition;
 import org.jboss.reddeer.swt.impl.button.CheckBox;
 import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.menu.ContextMenu;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
-import org.jboss.reddeer.swt.wait.WaitUntilCondition;
-import org.jboss.reddeer.swt.wait.WaitWhileCondition;
+import org.jboss.reddeer.swt.wait.Timeout;
+import org.jboss.reddeer.swt.wait.WaitUntil;
+import org.jboss.reddeer.swt.wait.WaitWhile;
 
 /**
  * Represents a server on {@link ServersView}. Contains both, the server data
@@ -28,7 +28,7 @@ import org.jboss.reddeer.swt.wait.WaitWhileCondition;
  */
 public class Server {
 
-	private static final int TIMEOUT = 20000;
+	private static final Timeout TIMEOUT = Timeout.VERY_LONG;
 
 	private TreeItem treeItem;
 
@@ -131,8 +131,8 @@ public class Server {
 			new CheckBox().toggle(stopFirst);
 		}
 		new PushButton("OK").click();
-		new WaitUntilCondition(new TreeItemIsDisposed(treeItem), TIMEOUT);
-		new WaitUntilCondition(new AllRunningJobsAreNotActive(), TIMEOUT);
+		new WaitUntil(new TreeItemIsDisposed(treeItem), TIMEOUT);
+		new WaitUntil(new AllRunningJobsAreNotActive(), TIMEOUT);
 	}
 
 	public void addAndRemoveProject() {
@@ -146,19 +146,19 @@ public class Server {
 	protected void operateServerState(String menuItem, ServerState resultState){
 		select();
 		new ContextMenu(menuItem).select();
-		new WaitUntilCondition(new NonSystemJobRunsCondition(), TIMEOUT);
-		new WaitUntilCondition(new ServerStateCondition(resultState), TIMEOUT);
-		new WaitWhileCondition(new NonSystemJobRunsCondition(), TIMEOUT);
+		new WaitUntil(new NonSystemJobRunsCondition(), TIMEOUT);
+		new WaitUntil(new ServerStateCondition(resultState), TIMEOUT);
+		new WaitWhile(new NonSystemJobRunsCondition(), TIMEOUT);
 	}
 	
 	protected void waitForPublish(Shell activeShell){
-		new WaitWhileCondition(new ShellWithTextIsActive(activeShell.getText()), TIMEOUT);
-		new WaitUntilCondition(new ShellWithTextIsActive(activeShell.getText()), TIMEOUT);
-		new WaitWhileCondition(new ServerPublishStateCondition(ServerPublishState.PUBLISHING), TIMEOUT);
-		new WaitWhileCondition(new NonSystemJobRunsCondition(), TIMEOUT);
+		new WaitWhile(new ShellWithTextIsActive(activeShell.getText()), TIMEOUT);
+		new WaitUntil(new ShellWithTextIsActive(activeShell.getText()), TIMEOUT);
+		new WaitWhile(new ServerPublishStateCondition(ServerPublishState.PUBLISHING), TIMEOUT);
+		new WaitWhile(new NonSystemJobRunsCondition(), TIMEOUT);
 	}
 
-	private class ServerStateCondition implements IConditionWithDescription {
+	private class ServerStateCondition implements WaitCondition {
 
 		private ServerState expectedState;
 
@@ -167,12 +167,7 @@ public class Server {
 		}
 
 		@Override
-		public void init(SWTBot bot) {
-
-		}
-
-		@Override
-		public boolean test() throws Exception {
+		public boolean test() {
 			return expectedState.equals(getLabel().getState());
 		}
 
@@ -180,14 +175,9 @@ public class Server {
 		public String getFailureMessage() {
 			return null;
 		}
-
-		@Override
-		public String getDescription() {
-			return null;
-		}
 	}
 	
-	private class ServerPublishStateCondition implements IConditionWithDescription {
+	private class ServerPublishStateCondition implements WaitCondition {
 
 		private ServerPublishState expectedState;
 
@@ -196,12 +186,7 @@ public class Server {
 		}
 
 		@Override
-		public void init(SWTBot bot) {
-
-		}
-
-		@Override
-		public boolean test() throws Exception {
+		public boolean test() {
 			return expectedState.equals(getLabel().getPublishState());
 		}
 
@@ -209,14 +194,9 @@ public class Server {
 		public String getFailureMessage() {
 			return null;
 		}
-
-		@Override
-		public String getDescription() {
-			return null;
-		}
 	}
 
-	private class TreeItemIsDisposed implements IConditionWithDescription {
+	private class TreeItemIsDisposed implements WaitCondition {
 
 		private TreeItem treeItem;
 
@@ -225,21 +205,12 @@ public class Server {
 		}
 
 		@Override
-		public void init(SWTBot bot) {
-		}
-
-		@Override
-		public boolean test() throws Exception {
+		public boolean test() {
 			return treeItem.isDisposed();
 		}
 
 		@Override
 		public String getFailureMessage() {
-			return null;
-		}
-
-		@Override
-		public String getDescription() {
 			return null;
 		}
 	}

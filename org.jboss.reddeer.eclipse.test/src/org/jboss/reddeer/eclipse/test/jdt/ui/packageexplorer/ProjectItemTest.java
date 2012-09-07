@@ -11,7 +11,8 @@ import org.jboss.reddeer.eclipse.ui.ide.NewJavaClassWizardDialog;
 import org.jboss.reddeer.eclipse.ui.ide.NewJavaClassWizardPage;
 import org.jboss.reddeer.swt.condition.AllRunningJobsAreNotActive;
 import org.jboss.reddeer.swt.util.Bot;
-import org.jboss.reddeer.swt.wait.WaitUntilCondition;
+import org.jboss.reddeer.swt.wait.Timeout;
+import org.jboss.reddeer.swt.wait.WaitUntil;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -61,7 +62,7 @@ public class ProjectItemTest {
 		final String javaClassName = "TestClass";
 		wizardPage.setName(javaClassName);
 		newJavaClassDialog.finish();
-		new WaitUntilCondition(new AllRunningJobsAreNotActive(), 30000);
+		new WaitUntil(new AllRunningJobsAreNotActive(), Timeout.LONG);
 		Bot.get().closeAllEditors();
 		final String javaClassFileName = javaClassName + ".java";
 		packageExplorer.getProject(ProjectItemTest.PROJECT_NAME)

@@ -5,8 +5,9 @@ import org.jboss.reddeer.swt.condition.AllRunningJobsAreNotActive;
 import org.jboss.reddeer.swt.condition.ShellWithTextIsActive;
 import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
-import org.jboss.reddeer.swt.wait.WaitUntilCondition;
-import org.jboss.reddeer.swt.wait.WaitWhileCondition;
+import org.jboss.reddeer.swt.wait.Timeout;
+import org.jboss.reddeer.swt.wait.WaitUntil;
+import org.jboss.reddeer.swt.wait.WaitWhile;
 
 public abstract class WizardDialog {
 
@@ -21,16 +22,16 @@ public abstract class WizardDialog {
 
 		DefaultShell shell = new DefaultShell();
 		new PushButton("Finish").click();
-		new WaitWhileCondition(new ShellWithTextIsActive(shell.getText()), 10000);
-		new WaitUntilCondition(new AllRunningJobsAreNotActive(), 10000);
+		new WaitWhile(new ShellWithTextIsActive(shell.getText()), Timeout.LONG);
+		new WaitUntil(new AllRunningJobsAreNotActive(), Timeout.LONG);
 	}
 	
 	public void cancel(){
 		log.debug("Cancel wizard dialog");
 		DefaultShell shell = new DefaultShell();
 		new PushButton("Cancel").click();		
-		new WaitWhileCondition(new ShellWithTextIsActive(shell.getText()));
-		new WaitUntilCondition(new AllRunningJobsAreNotActive());
+		new WaitWhile(new ShellWithTextIsActive(shell.getText()));
+		new WaitUntil(new AllRunningJobsAreNotActive());
 	}
 	
 	public void next(){

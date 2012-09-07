@@ -11,8 +11,9 @@ import org.jboss.reddeer.swt.impl.menu.ContextMenu;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.jboss.reddeer.swt.util.Bot;
 import org.jboss.reddeer.swt.util.Jobs;
-import org.jboss.reddeer.swt.wait.WaitUntilCondition;
-import org.jboss.reddeer.swt.wait.WaitWhileCondition;
+import org.jboss.reddeer.swt.wait.Timeout;
+import org.jboss.reddeer.swt.wait.WaitUntil;
+import org.jboss.reddeer.swt.wait.WaitWhile;
 
 /**
  * Represents a project on {@link PackageExplorer}.
@@ -44,11 +45,11 @@ public class Project {
 		}
 		DefaultShell shell = new DefaultShell();
 		new PushButton("OK").click();
-		new WaitWhileCondition(new ShellWithTextIsActive(shell.getText()), 10000);
-		new WaitUntilCondition(new JobsAreNotActive(Jobs.BUILDING_WORKSPACE_JOB,
+		new WaitWhile(new ShellWithTextIsActive(shell.getText()));
+		new WaitUntil(new JobsAreNotActive(Jobs.BUILDING_WORKSPACE_JOB,
           Jobs.COMPACTING_RESOURCE_MODEL,
 		  Jobs.LOADING_JOB),
-		  30000);
+		  Timeout.LONG);
 	}
 
 	public void select() {
