@@ -3,12 +3,12 @@ package org.jboss.reddeer.eclipse.jdt.ui.packageexplorer;
 import org.apache.log4j.Logger;
 import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotCheckBox;
+import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.swt.condition.JobsAreNotActive;
 import org.jboss.reddeer.swt.condition.ShellWithTextIsActive;
 import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.menu.ContextMenu;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
-import org.jboss.reddeer.swt.impl.tree.AbstractTreeItem;
 import org.jboss.reddeer.swt.util.Bot;
 import org.jboss.reddeer.swt.util.Jobs;
 import org.jboss.reddeer.swt.wait.WaitUntilCondition;
@@ -23,11 +23,11 @@ import org.jboss.reddeer.swt.wait.WaitWhileCondition;
 public class Project {
 	protected final Logger log = Logger.getLogger(Project.class);
 	
-	private AbstractTreeItem treeItem;
+	private TreeItem treeItem;
 	
 	private String name;
 
-	public Project(AbstractTreeItem treeItem) {
+	public Project(TreeItem treeItem) {
 		this.treeItem = treeItem;
 		name = parseName(this.treeItem.getText());
 	}
@@ -66,7 +66,7 @@ public class Project {
 		return name;
 	}
 	
-	public AbstractTreeItem getTreeItem (){
+	public TreeItem getTreeItem (){
 		return treeItem;
 	}
 
@@ -82,10 +82,10 @@ public class Project {
 	}
 	
 	public ProjectItem getProjectItem(String... path){
-		AbstractTreeItem item = treeItem;
+		TreeItem item = treeItem;
 		int index = 0;
 		while (index < path.length){
-			item = item.getChild(path[index]);
+			item = item.getItem(path[index]);
 			index++;
 		}
 		return new ProjectItem(item, this, path);

@@ -82,6 +82,10 @@ public abstract class View extends WorkbenchPart {
 		viewObject.show();
 	}
 	
+	public String getTitle(){
+		return viewObject.getTitle();
+	}
+	
 	public SWTBotToolbarButton getToolBar(String toolbarToolTip) {
 		List<SWTBotToolbarButton> toolbarButtons = getToolbarButtons();
 		for (SWTBotToolbarButton button : toolbarButtons) {

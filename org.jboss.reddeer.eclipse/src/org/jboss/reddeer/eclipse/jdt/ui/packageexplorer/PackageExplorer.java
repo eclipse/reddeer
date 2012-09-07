@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.jboss.reddeer.eclipse.exception.EclipseLayerException;
-import org.jboss.reddeer.swt.impl.tree.AbstractTreeItem;
+import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.swt.impl.tree.DefaultTree;
 import org.jboss.reddeer.workbench.view.impl.WorkbenchView;
 
@@ -40,7 +40,7 @@ public class PackageExplorer extends WorkbenchView {
 	public List<Project> getProjects(){
 		List<Project> projects = new ArrayList<Project>();
 
-		for (AbstractTreeItem item : getPackageExplorerTree().getAllItems()){
+		for (TreeItem item : getPackageExplorerTree().getItems()){
 			projects.add(new Project(item));
 		}
 		return projects;

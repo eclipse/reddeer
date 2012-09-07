@@ -3,21 +3,14 @@ package org.jboss.reddeer.eclipse.wst.server.ui.view;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.swt.custom.CTabFolder;
-import org.eclipse.swt.custom.CTabItem;
-import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Tree;
-import org.eclipse.swt.widgets.Widget;
-import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
-import org.hamcrest.Description;
-import org.hamcrest.TypeSafeMatcher;
 import org.jboss.reddeer.eclipse.exception.EclipseLayerException;
 import org.jboss.reddeer.eclipse.wst.server.ui.wizard.NewServerWizardDialog;
+import org.jboss.reddeer.swt.api.TreeItem;
+import org.jboss.reddeer.swt.exception.WidgetNotAvailableException;
 import org.jboss.reddeer.swt.impl.menu.ContextMenu;
-import org.jboss.reddeer.swt.util.Bot;
+import org.jboss.reddeer.swt.impl.tree.DefaultTree;
 import org.jboss.reddeer.workbench.view.View;
+import org.jboss.reddeer.workbench.view.ViewMatcher;
 
 /**
  * Represents the Servers view. This class contains methods that can be invoked even 
@@ -43,14 +36,14 @@ public class ServersView extends View {
 	public List<Server> getServers(){
 		List<Server> servers = new ArrayList<Server>();
 
-		SWTBotTree tree;
+		DefaultTree tree;
 		try {
-			tree = new SWTBotTree(getServersTree());
-		} catch (WidgetNotFoundException e){
+			tree = getServersTree();
+		} catch (WidgetNotAvailableException e){
 			return new ArrayList<Server>();
 		}
-		for (SWTBotTreeItem item : tree.getAllItems()){
-			servers.add(new Server(item.widget));
+		for (TreeItem item : tree.getItems()){
+			servers.add(new Server(item));
 		}
 		return servers;
 	}
@@ -64,51 +57,8 @@ public class ServersView extends View {
 		throw new EclipseLayerException("There is no server with name " + name);
 	}
 
-	public Tree getServersTree(){
+	protected DefaultTree getServersTree(){
 		open();
-		return ((Tree) Bot.get().widget(new ServerTreeMatcher()));
-	}
-
-	class ServerTreeMatcher extends TypeSafeMatcher<Widget> {
-
-		@Override
-		public void describeTo(Description description) {
-			// TODO Auto-generated method stub
-
-		}
-
-		@Override
-		public boolean matchesSafely(Widget item) {
-			if (!(item instanceof Tree)) {
-				return false;
-			}
-
-			return isInServerView((Tree) item);
-		}
-
-		private boolean isInServerView(Tree tree) {
-			CTabFolder folder = findTabFolder(tree);
-			if (folder == null){
-				return false;
-			}
-
-			CTabItem tabItem = folder.getSelection();
-			if (tabItem.getText().equals("Servers")){
-				return true;
-			}
-			return false;
-		}
-
-		private CTabFolder findTabFolder(Composite composite){
-			if (composite == null){
-				return null;
-			}
-
-			if (composite instanceof CTabFolder) {
-				return (CTabFolder) composite;
-			}
-
-			return findTabFolder(composite.getParent());
-		}
+		return new DefaultTree(new ViewMatcher(this));
 	}
 }

@@ -1,68 +1,34 @@
 package org.jboss.reddeer.swt.impl.tree;
 
-import java.util.LinkedList;
-import java.util.List;
+import static org.eclipse.swtbot.swt.finder.matchers.WidgetMatcherFactory.allOf;
+import static org.eclipse.swtbot.swt.finder.matchers.WidgetMatcherFactory.widgetOfType;
 
-import org.eclipse.swtbot.swt.finder.SWTBot;
+import org.eclipse.swt.widgets.Tree;
+import org.eclipse.swt.widgets.Widget;
 import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
-import org.jboss.reddeer.swt.api.Tree;
+import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
+import org.hamcrest.Matcher;
 import org.jboss.reddeer.swt.exception.WidgetNotAvailableException;
 import org.jboss.reddeer.swt.util.Bot;
 
 /**
- * First available Tree implementation
+ * Default tree implementation.
+ * 
  * @author Jiri Peterka
  *
  */
-public class DefaultTree extends AbstractTree implements Tree {
+public class DefaultTree extends AbstractTree {
 
 	public DefaultTree() {
-		this(Bot.get());
+		tree = Bot.get().tree();
+		tree.setFocus();
 	}
-	
-	public DefaultTree(SWTBot bot) {
+
+	public DefaultTree(Matcher<Widget> matcher){
 		try {
-			tree = bot.tree();
-			tree.setFocus();
-		} catch (WidgetNotFoundException e) {
-			throw new WidgetNotAvailableException("No tree is available");
+			tree = new SWTBotTree((org.eclipse.swt.widgets.Tree) Bot.get().widget(allOf(widgetOfType(Tree.class), matcher)));
+		} catch (WidgetNotFoundException e){
+			throw new WidgetNotAvailableException("No matching tree available");
 		}
-	}
-	
-	/**
-	 * Returns all TreeItems from fully expanded tree
-	 * 
-	 * @return
-	 */
-	
-	public List<AbstractTreeItem> getAllItemsRecursive(){
-		List<AbstractTreeItem> list = new LinkedList<AbstractTreeItem>();
-		for (SWTBotTreeItem treeItem : tree.getAllItems()) {
-			AbstractTreeItem item = new TreeItemForTree(treeItem, tree);
-			list.addAll(getAllItemsRecursive(item));
-		}
-		return list;	
-	}
-	
-	private List<AbstractTreeItem> getAllItemsRecursive(AbstractTreeItem parentItem){
-		List<AbstractTreeItem> list = new LinkedList<AbstractTreeItem>();
-		list.add(parentItem);
-		for (AbstractTreeItem abstractTreeItem : parentItem.getAllChildren()) {
-			list.addAll(getAllItemsRecursive(abstractTreeItem));
-		}
-		return list;
-	}
-	/**
-	 * Returns all direct children of Tree. Tree Items of the Tree with level 0  
-	 * @return
-	 */
-	public List<AbstractTreeItem> getAllItems(){
-		List<AbstractTreeItem> list = new LinkedList<AbstractTreeItem>();
-		for (SWTBotTreeItem treeItem : tree.getAllItems()) {
-			AbstractTreeItem item = new TreeItemForTree(treeItem, tree);
-			list.add(item);
-		}
-		return list;	
 	}
 }

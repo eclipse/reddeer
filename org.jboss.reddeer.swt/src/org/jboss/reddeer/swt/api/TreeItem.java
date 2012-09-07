@@ -1,37 +1,41 @@
 package org.jboss.reddeer.swt.api;
 
+import java.util.List;
+
 /**
- * API for Tree manipulation
+ * API for Tree item manipulation
+ * 
  * @author Jiri Peterka
  *
  */
 public interface TreeItem {
 
-	void select();
-	
-	/**
-	 * Gets text of the widget
-	 * @return
-	 */
 	String getText();
 	
+	String getToolTipText();
+
 	/**
-	 * Get tooltip of the
+	 * Returns all direct tree items. 
+	 * 
 	 * @return
 	 */
-	String getToolTipText();		
+	List<TreeItem> getItems();
+	
 	/**
-	 * Expands item
-	 */
-	public void expand();
-	/**
-	 * Double Click on item
-	 */
-	public void doubleClick();
-	/**
-	 * Returns true when Tree Item is selected
+	 * Returns the direct tree item with the specified label.
+	 * 
+	 * @param text
 	 * @return
 	 */
-	public boolean isSelected();
-			
+	TreeItem getItem (String text);
+	
+	boolean isSelected();
+	
+	boolean isDisposed();
+	
+	void select();
+	
+	void expand();
+
+	void doubleClick();
 }

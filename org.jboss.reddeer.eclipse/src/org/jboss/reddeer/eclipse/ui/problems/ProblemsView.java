@@ -3,8 +3,9 @@ package org.jboss.reddeer.eclipse.ui.problems;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.jboss.reddeer.swt.impl.tree.AbstractTreeItem;
+import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.swt.impl.tree.DefaultTree;
+import org.jboss.reddeer.workbench.view.ViewMatcher;
 import org.jboss.reddeer.workbench.view.impl.WorkbenchView;
 
 public class ProblemsView extends WorkbenchView{
@@ -19,22 +20,22 @@ public class ProblemsView extends WorkbenchView{
 	 * @return
 	 */
 	
-	public List<AbstractTreeItem> getAllErrors(){
+	public List<TreeItem> getAllErrors(){
 		if (!viewObject.isActive()){
 			viewObject.setFocus();
 		}
-		DefaultTree tree = new DefaultTree(viewObject.bot());
+		DefaultTree tree = new DefaultTree(new ViewMatcher(this));
 		
-		return filter(tree.getAllItemsRecursive(), true);
+		return filter(tree.getAllItems(), true);
 	}
 	
-	public List<AbstractTreeItem> getAllWarnings(){
+	public List<TreeItem> getAllWarnings(){
 		if (!viewObject.isActive()){
 			viewObject.setFocus();
 		}
-		DefaultTree tree = new DefaultTree(viewObject.bot());
+		DefaultTree tree = new DefaultTree(new ViewMatcher(this));
 		
-		return filter(tree.getAllItemsRecursive(), false);
+		return filter(tree.getAllItems(), false);
 	}
 	
 	/**
@@ -44,10 +45,10 @@ public class ProblemsView extends WorkbenchView{
 	 * @return
 	 */
 	
-	private List<AbstractTreeItem> filter(List<AbstractTreeItem> list, boolean errorsWarnings){
-		List<AbstractTreeItem> outputList = new LinkedList<AbstractTreeItem>();
+	private List<TreeItem> filter(List<TreeItem> list, boolean errorsWarnings){
+		List<TreeItem> outputList = new LinkedList<TreeItem>();
 		boolean errors=false;
-		for (AbstractTreeItem abstractTreeItem : list) {
+		for (TreeItem abstractTreeItem : list) {
 			if (errors == errorsWarnings){
 				if (!(abstractTreeItem.getText().matches("^Errors \\(\\d+ item.*\\)")) && 
 					!(abstractTreeItem.getText().matches("^Warnings \\(\\d+ item.*\\)"))){

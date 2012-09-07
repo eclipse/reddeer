@@ -1,12 +1,12 @@
 package org.jboss.reddeer.eclipse.jdt.ui.packageexplorer;
 
 import org.apache.log4j.Logger;
+import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.swt.condition.JobsAreNotActive;
 import org.jboss.reddeer.swt.condition.ShellWithTextIsActive;
 import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.menu.ContextMenu;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
-import org.jboss.reddeer.swt.impl.tree.AbstractTreeItem;
 import org.jboss.reddeer.swt.util.Jobs;
 import org.jboss.reddeer.swt.wait.WaitUntilCondition;
 import org.jboss.reddeer.swt.wait.WaitWhileCondition;
@@ -20,12 +20,12 @@ import org.jboss.reddeer.swt.wait.WaitWhileCondition;
 public class ProjectItem {
 	protected final Logger log = Logger.getLogger(ProjectItem.class);
 	
-	private AbstractTreeItem treeItem;
+	private TreeItem treeItem;
 	private Project project;
 	private String[] path;
 	
 
-	public ProjectItem(AbstractTreeItem treeItem, Project project, String... path) {
+	public ProjectItem(TreeItem treeItem, Project project, String... path) {
 		this.treeItem = treeItem;
 		this.path = path;
 		this.project = project;
@@ -50,10 +50,10 @@ public class ProjectItem {
 	}
 
 	public void select() {
-		AbstractTreeItem item = project.getTreeItem();
+		TreeItem item = project.getTreeItem();
 		int index = 0;
 		while (index < path.length){
-			item = item.getChild(path[index]);
+			item = item.getItem(path[index]);
 			index++;
 		}
 		item.select();
@@ -75,6 +75,6 @@ public class ProjectItem {
 		String[] childPath = new String[path.length + 1];
 		System.arraycopy(path, 0, childPath, 0, path.length);
 		childPath[childPath.length - 1] = text;
-		return new ProjectItem(treeItem.getChild(text), project, path);
+		return new ProjectItem(treeItem.getItem(text), project, path);
 	}
 }

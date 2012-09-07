@@ -5,27 +5,24 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.jboss.reddeer.swt.api.TreeItem;
 
 public abstract class AbstractTreeItem implements TreeItem {
+
 	protected final Logger logger = Logger.getLogger(this.getClass());
-	protected SWTBotTree tree;
+	
 	protected SWTBotTreeItem item;
 	
-	@Override
 	public void select() {
 		item.select();
 	}
 	
-	@Override
 	public String getText() {
 		String text = item.getText();
 		return text;
 	}
 	
-	@Override
 	public String getToolTipText() {
 		String toolTipText = item.getToolTipText();
 		return toolTipText;
@@ -41,16 +38,16 @@ public abstract class AbstractTreeItem implements TreeItem {
 	 * 
 	 * @return
 	 */
-	
-	public List<AbstractTreeItem> getAllChildren(){
+	public List<TreeItem> getItems(){
 		expand();
-		List<AbstractTreeItem> list = new LinkedList<AbstractTreeItem>();
+		List<TreeItem> list = new LinkedList<TreeItem>();
 		for (SWTBotTreeItem treeItem : item.getItems()) {
-			list.add(new TreeItemForTree(treeItem, tree));
+			list.add(new DefaultTreeItem(treeItem.widget));
 		}
 		return list;
 	}
-	public AbstractTreeItem getChild (String text){
+	
+	public TreeItem getItem (String text){
 		item.expand();
 		SWTBotTreeItem[] items = item.getItems();
 		int index = 0;
@@ -58,7 +55,7 @@ public abstract class AbstractTreeItem implements TreeItem {
 			index++;
 		}
 		if (index < items.length){
-			return new TreeItemForTree(items[index],tree);
+			return new DefaultTreeItem(items[index].widget);
 		}
 		else{
 			throw new WidgetNotFoundException("There is no Tree Item with text " + text);
@@ -72,5 +69,10 @@ public abstract class AbstractTreeItem implements TreeItem {
 	
 	public boolean isSelected(){
 		return item.isSelected();
+	}
+	
+	@Override
+	public boolean isDisposed() {
+		return item.widget.isDisposed();
 	}
 }

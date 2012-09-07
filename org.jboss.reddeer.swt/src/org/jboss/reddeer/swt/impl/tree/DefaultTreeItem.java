@@ -1,6 +1,7 @@
 package org.jboss.reddeer.swt.impl.tree;
 
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
+import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.jboss.reddeer.swt.api.Tree;
 import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.swt.util.Bot;
@@ -29,13 +30,13 @@ public class DefaultTreeItem extends AbstractTreeItem implements TreeItem {
 	      logger.debug("Select treeitem: " + sbPath.toString());
 	    }
 		item.select();
-
-		
-	
 	}
 	
 	public DefaultTreeItem(Tree tree, String... path) {
 		this(path);
-		
+	}
+	
+	protected DefaultTreeItem(org.eclipse.swt.widgets.TreeItem treeItem){
+		this.item = new SWTBotTreeItem(treeItem);
 	}
 }

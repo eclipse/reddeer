@@ -2,13 +2,11 @@ package org.jboss.reddeer.eclipse.wst.server.ui.view;
 
 import java.util.List;
 
-import org.eclipse.swt.widgets.TreeItem;
-import org.eclipse.swt.widgets.Widget;
 import org.eclipse.swtbot.swt.finder.SWTBot;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.jboss.reddeer.eclipse.wst.server.ui.view.ServersViewEnums.ServerPublishState;
 import org.jboss.reddeer.eclipse.wst.server.ui.view.ServersViewEnums.ServerState;
 import org.jboss.reddeer.swt.api.Shell;
+import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.swt.condition.AllRunningJobsAreNotActive;
 import org.jboss.reddeer.swt.condition.IConditionWithDescription;
 import org.jboss.reddeer.swt.condition.ShellWithTextIsActive;
@@ -32,10 +30,10 @@ public class Server {
 
 	private static final int TIMEOUT = 20000;
 
-	private SWTBotTreeItem treeItem;
+	private TreeItem treeItem;
 
 	public Server(TreeItem treeItem) {
-		this.treeItem = new SWTBotTreeItem(treeItem);
+		this.treeItem = treeItem;
 	}
 
 	public ServerLabel getLabel(){
@@ -133,7 +131,7 @@ public class Server {
 			new CheckBox().toggle(stopFirst);
 		}
 		new PushButton("OK").click();
-		new WaitUntilCondition(new WidgetIsDisposed(treeItem.widget), TIMEOUT);
+		new WaitUntilCondition(new TreeItemIsDisposed(treeItem), TIMEOUT);
 		new WaitUntilCondition(new AllRunningJobsAreNotActive(), TIMEOUT);
 	}
 
@@ -218,12 +216,12 @@ public class Server {
 		}
 	}
 
-	private class WidgetIsDisposed implements IConditionWithDescription {
+	private class TreeItemIsDisposed implements IConditionWithDescription {
 
-		private Widget widget;
+		private TreeItem treeItem;
 
-		public WidgetIsDisposed(Widget widget) {
-			this.widget = widget;
+		public TreeItemIsDisposed(TreeItem treeItem) {
+			this.treeItem = treeItem;
 		}
 
 		@Override
@@ -232,7 +230,7 @@ public class Server {
 
 		@Override
 		public boolean test() throws Exception {
-			return widget.isDisposed();
+			return treeItem.isDisposed();
 		}
 
 		@Override
