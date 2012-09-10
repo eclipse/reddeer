@@ -6,13 +6,13 @@ package org.jboss.reddeer.swt.wait;
  * @author Lucia Jelinkova
  *
  */
-public enum Timeout {
+public enum TimePeriod {
 
 	NORMAL(10), LONG(60), VERY_LONG(300);
 	
 	private long seconds;
 	
-	private Timeout(long seconds) {
+	private TimePeriod(long seconds) {
 		this.seconds = seconds;
 	}
 	

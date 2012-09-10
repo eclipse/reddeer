@@ -17,20 +17,20 @@ public abstract class AbstractWait {
 	
 	protected final Logger log = Logger.getLogger(this.getClass());
 	
-	private Timeout timeout;
+	private TimePeriod timeout;
 		
 	public AbstractWait(WaitCondition condition){
-		this(condition, Timeout.NORMAL);
+		this(condition, TimePeriod.NORMAL);
 	}
 	
-	public AbstractWait(WaitCondition condition, Timeout timeout){
+	public AbstractWait(WaitCondition condition, TimePeriod timeout){
 		this.timeout = timeout;
 		wait(condition);
 	}
 	
 	protected abstract void wait(WaitCondition condition);
 	
-	protected Timeout getTimeout() {
+	protected TimePeriod getTimeout() {
 		return timeout;
 	}
 	

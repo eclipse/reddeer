@@ -11,7 +11,7 @@ import org.jboss.reddeer.swt.impl.menu.ContextMenu;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.jboss.reddeer.swt.util.Bot;
 import org.jboss.reddeer.swt.util.Jobs;
-import org.jboss.reddeer.swt.wait.Timeout;
+import org.jboss.reddeer.swt.wait.TimePeriod;
 import org.jboss.reddeer.swt.wait.WaitUntil;
 import org.jboss.reddeer.swt.wait.WaitWhile;
 
@@ -49,7 +49,7 @@ public class Project {
 		new WaitUntil(new JobsAreNotActive(Jobs.BUILDING_WORKSPACE_JOB,
           Jobs.COMPACTING_RESOURCE_MODEL,
 		  Jobs.LOADING_JOB),
-		  Timeout.LONG);
+		  TimePeriod.LONG);
 	}
 
 	public void select() {

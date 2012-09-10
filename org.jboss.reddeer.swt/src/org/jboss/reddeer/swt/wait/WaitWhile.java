@@ -16,7 +16,7 @@ public class WaitWhile extends AbstractWait {
 		super(condition);
 	}
 	
-	public WaitWhile(WaitCondition condition, Timeout timeout) {
+	public WaitWhile(WaitCondition condition, TimePeriod timeout) {
 		super(condition, timeout);
 	}
 	

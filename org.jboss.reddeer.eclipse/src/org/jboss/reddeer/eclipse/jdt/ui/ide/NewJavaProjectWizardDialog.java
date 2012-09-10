@@ -5,7 +5,7 @@ import org.jboss.reddeer.swt.condition.AllRunningJobsAreNotActive;
 import org.jboss.reddeer.swt.condition.ShellWithTextIsActive;
 import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
-import org.jboss.reddeer.swt.wait.Timeout;
+import org.jboss.reddeer.swt.wait.TimePeriod;
 import org.jboss.reddeer.swt.wait.WaitUntil;
 import org.jboss.reddeer.swt.wait.WaitWhile;
 
@@ -39,8 +39,8 @@ public class NewJavaProjectWizardDialog extends NewWizardDialog{
 		}else{
 			log.info("Shell 'Open Associated Perspective' wasn't shown");
 		}
-		new WaitWhile(new ShellWithTextIsActive(shell.getText()), Timeout.LONG);
-		new WaitUntil(new AllRunningJobsAreNotActive(), Timeout.LONG);
+		new WaitWhile(new ShellWithTextIsActive(shell.getText()), TimePeriod.LONG);
+		new WaitUntil(new AllRunningJobsAreNotActive(), TimePeriod.LONG);
 	}
 
 }

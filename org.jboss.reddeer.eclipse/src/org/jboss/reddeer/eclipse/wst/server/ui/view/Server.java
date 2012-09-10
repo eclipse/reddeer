@@ -13,7 +13,7 @@ import org.jboss.reddeer.swt.impl.button.CheckBox;
 import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.menu.ContextMenu;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
-import org.jboss.reddeer.swt.wait.Timeout;
+import org.jboss.reddeer.swt.wait.TimePeriod;
 import org.jboss.reddeer.swt.wait.WaitUntil;
 import org.jboss.reddeer.swt.wait.WaitWhile;
 
@@ -28,7 +28,7 @@ import org.jboss.reddeer.swt.wait.WaitWhile;
  */
 public class Server {
 
-	private static final Timeout TIMEOUT = Timeout.VERY_LONG;
+	private static final TimePeriod TIMEOUT = TimePeriod.VERY_LONG;
 
 	private TreeItem treeItem;
 

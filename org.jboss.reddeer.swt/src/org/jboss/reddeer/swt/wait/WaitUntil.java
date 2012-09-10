@@ -15,7 +15,7 @@ public class WaitUntil extends AbstractWait {
 		super(condition);
 	}
 	
-	public WaitUntil(WaitCondition condition, Timeout timeout) {
+	public WaitUntil(WaitCondition condition, TimePeriod timeout) {
 		super(condition, timeout);
 	}
 	

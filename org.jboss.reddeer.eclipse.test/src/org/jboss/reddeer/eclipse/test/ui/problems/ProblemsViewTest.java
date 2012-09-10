@@ -10,7 +10,7 @@ import org.jboss.reddeer.eclipse.ui.ide.NewJavaClassWizardPage;
 import org.jboss.reddeer.eclipse.ui.problems.ProblemsView;
 import org.jboss.reddeer.swt.condition.AllRunningJobsAreNotActive;
 import org.jboss.reddeer.swt.util.Bot;
-import org.jboss.reddeer.swt.wait.Timeout;
+import org.jboss.reddeer.swt.wait.TimePeriod;
 import org.jboss.reddeer.swt.wait.WaitUntil;
 import org.junit.After;
 import org.junit.Before;
@@ -93,7 +93,7 @@ public class ProblemsViewTest {
 		NewJavaClassWizardPage wizardPage = newJavaClassDialog.getFirstPage();
 		wizardPage.setName("TestClass");
 		newJavaClassDialog.finish();
-		new WaitUntil(new AllRunningJobsAreNotActive(), Timeout.LONG);
+		new WaitUntil(new AllRunningJobsAreNotActive(), TimePeriod.LONG);
 		if (error){
 			Bot.get().activeEditor().toTextEditor().insertText(2, 1, "test error;\n"); //this should generate error
 		}
@@ -102,7 +102,7 @@ public class ProblemsViewTest {
 		}
 		Bot.get().activeEditor().save();
 		problemsView.open();
-		new WaitUntil(new AllRunningJobsAreNotActive(), Timeout.LONG);
+		new WaitUntil(new AllRunningJobsAreNotActive(), TimePeriod.LONG);
 		Bot.get().sleep(1000);
 	}
 }
