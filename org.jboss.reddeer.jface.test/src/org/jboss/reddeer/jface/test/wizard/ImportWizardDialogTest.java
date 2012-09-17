@@ -3,33 +3,33 @@ package org.jboss.reddeer.jface.test.wizard;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
-import org.jboss.reddeer.eclipse.jface.wizard.NewWizardDialog;
+import org.jboss.reddeer.eclipse.jface.wizard.ImportWizardDialog;
 import org.jboss.reddeer.eclipse.jface.wizard.WizardPage;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.junit.After;
 import org.junit.Test;
 
-public class NewWizardDialogTest {
+public class ImportWizardDialogTest {
 
-	private NewWizardDialogImpl newWizardDialog = new NewWizardDialogImpl();
+	private ImportWizardDialogImpl importWizardDialog = new ImportWizardDialogImpl();
 
 	@Test
 	public void open() {
-		newWizardDialog.open();
+		importWizardDialog.open();
 
 		String wizardDialogText = new DefaultShell().getText();
-		assertThat(wizardDialogText, is(TestingNewWizard.NAME));
+		assertThat(wizardDialogText, is(TestingImportWizard.NAME));
 	}
 
 	@After
 	public void cleanup(){
-		newWizardDialog.cancel();
+		importWizardDialog.cancel();
 	}
 	
-	private class NewWizardDialogImpl extends NewWizardDialog {
+	private class ImportWizardDialogImpl extends ImportWizardDialog {
 
-		public NewWizardDialogImpl() {
-			super(TestingNewWizard.CATEGORY, TestingNewWizard.NAME);
+		public ImportWizardDialogImpl() {
+			super(TestingImportWizard.CATEGORY, TestingImportWizard.NAME);
 		}
 		
 		@Override

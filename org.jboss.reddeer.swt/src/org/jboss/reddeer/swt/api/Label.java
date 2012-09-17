@@ -7,4 +7,5 @@ package org.jboss.reddeer.swt.api;
  */
 public interface Label {
 
+	String getText();
 }

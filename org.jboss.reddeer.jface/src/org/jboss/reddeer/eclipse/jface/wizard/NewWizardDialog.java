@@ -1,40 +1,28 @@
 package org.jboss.reddeer.eclipse.jface.wizard;
 
-import org.apache.log4j.Logger;
-import org.jboss.reddeer.swt.api.Menu;
-import org.jboss.reddeer.swt.impl.menu.ShellMenu;
-import org.jboss.reddeer.swt.impl.shell.DefaultShell;
-import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
 
 /**
- * Abstract class to manage new wizard dialog
+ * Superclass for new object wizard dialogs. It opens the new object wizard by clicking File -> New -> Other... 
+ * and selects an appropriate wizard in the dialog. 
+ * 
  * @author vpakan
  *
  */
-public abstract class NewWizardDialog extends WizardDialog{
+public abstract class NewWizardDialog extends TopMenuWizardDialog {
+	
 	public static final String DIALOG_TITLE = "New";
-	private String[] path;
-	protected final Logger log = Logger.getLogger(this.getClass());
-	/**
-	 * @param path - path to new object to be created within tree widget 
-	 * inside New wizard dialog
-	 */
+	
 	public NewWizardDialog(String... path) {
-		this.path = path;
+		super(path);
 	}
-	/**
-	 * Opens wizard for new object to be created
-	 */
-	public void open(){
-		log.info("Open New Wizard");
-		currentPage = 0;
-		Menu menu = new ShellMenu("File","New","Other...");
-		menu.select();
-		new DefaultShell(DIALOG_TITLE);
-		if (path.length > 0){
-		  new DefaultTreeItem(path).select();
-	    next();
-		}
-		
+	
+	@Override
+	protected String getDialogTitle() {
+		return DIALOG_TITLE;
+	}
+	
+	@Override
+	protected String[] getMenuPath() {
+		return new String[]{"File", "New", "Other..."};
 	}
 }

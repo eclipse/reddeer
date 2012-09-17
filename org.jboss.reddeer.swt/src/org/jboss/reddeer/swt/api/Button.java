@@ -18,4 +18,5 @@ public interface Button {
 	 */
 	String getText();
 			
+	boolean isEnabled();
 }

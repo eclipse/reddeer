@@ -11,6 +11,7 @@ Require-Bundle: org.eclipse.ui,
  org.hamcrest;bundle-version="1.1.0"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Export-Package: org.jboss.reddeer.eclipse.jface.preference,
+Export-Package: org.jboss.reddeer.eclipse.jface.exception,
+ org.jboss.reddeer.eclipse.jface.preference,
  org.jboss.reddeer.eclipse.jface.wizard
 Eclipse-RegisterBuddy: org.apache.log4j

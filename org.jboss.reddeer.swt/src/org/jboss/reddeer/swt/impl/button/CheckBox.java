@@ -84,4 +84,8 @@ public class CheckBox implements Button {
 		return checkBox.getText();
 	}
 
+	@Override
+	public boolean isEnabled() {
+		return checkBox.isEnabled();
+	}
 }

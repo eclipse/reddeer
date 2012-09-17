@@ -29,5 +29,8 @@ public abstract class AbstractButton implements Button {
 	
 	}
 	
-	
+	@Override
+	public boolean isEnabled() {
+		return button.isEnabled();
+	}
 }
