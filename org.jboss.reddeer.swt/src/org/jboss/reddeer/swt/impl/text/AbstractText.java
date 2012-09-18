@@ -17,7 +17,7 @@ public abstract class AbstractText implements Text {
 	public void setText(String str) {
 		log.debug("Set text of Text widget to: " + str);
 		botText.setText(str);
-		
+		botText.setFocus();
 	}
 	
 	

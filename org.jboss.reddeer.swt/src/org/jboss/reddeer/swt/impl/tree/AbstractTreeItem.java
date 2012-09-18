@@ -75,4 +75,13 @@ public abstract class AbstractTreeItem implements TreeItem {
 	public boolean isDisposed() {
 		return item.widget.isDisposed();
 	}
+	
+	@Override
+	public void check() {
+		item.check();
+	}
+	
+	public boolean isChecked() {
+		return item.isChecked();
+	}
 }

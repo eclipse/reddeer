@@ -38,4 +38,8 @@ public interface TreeItem {
 	void expand();
 
 	void doubleClick();
+	
+	void check();
+	
+	boolean isChecked();
 }
