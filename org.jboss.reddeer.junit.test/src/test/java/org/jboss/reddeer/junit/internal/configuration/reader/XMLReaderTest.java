@@ -61,21 +61,29 @@ public class XMLReaderTest {
 	@Test(expected = RedDeerConfigurationException.class)
 	public void noRedDeerSchema() {
 		reader = new XMLReader(new File(CONFIG_DIR_ROOT + "noschema.xml"));
+		
+		reader.getConfiguration(UserConfiguration.class);
 	}
 
 	@Test(expected = RedDeerConfigurationException.class)
 	public void noRedDeerSchemaWithCustomSchema() {
 		reader = new XMLReader(new File(CONFIG_DIR_ROOT + "nordschema.xml"));
+		
+		reader.getConfiguration(UserConfiguration.class);
 	}
 
 	@Test(expected = RedDeerConfigurationException.class)
 	public void noCustomSchemaWithRedDeerSchema() {
 		reader = new XMLReader(new File(CONFIG_DIR_ROOT + "nocustomschema.xml"));
+		
+		reader.getConfiguration(UserConfiguration.class);
 	}
 
 	@Test(expected = RedDeerConfigurationException.class)
 	public void nonValidCustomRequirement() {
 		reader = new XMLReader(new File(CONFIG_DIR_ROOT + "nonvalid.xml"));
+		
+		reader.getConfiguration(UserConfiguration.class);
 	}
 
 	@Test
