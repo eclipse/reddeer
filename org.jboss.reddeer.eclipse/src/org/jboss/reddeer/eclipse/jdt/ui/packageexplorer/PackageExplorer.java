@@ -6,6 +6,7 @@ import java.util.List;
 import org.jboss.reddeer.eclipse.exception.EclipseLayerException;
 import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.swt.impl.tree.DefaultTree;
+import org.jboss.reddeer.workbench.view.ViewMatcher;
 import org.jboss.reddeer.workbench.view.impl.WorkbenchView;
 
 /**
@@ -48,7 +49,7 @@ public class PackageExplorer extends WorkbenchView {
 	
 	public DefaultTree getPackageExplorerTree(){
 		open();
-		return new DefaultTree();
+		return new DefaultTree(new ViewMatcher(this));
 	}
 	
 	public Project getProject(String projectName){

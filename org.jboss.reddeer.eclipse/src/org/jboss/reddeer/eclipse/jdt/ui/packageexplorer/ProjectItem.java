@@ -60,11 +60,7 @@ public class ProjectItem {
 		item.select();
 	}
 	
-	public String[] getPath() {
-		return path;
-	}
-	
-	public Project getProject() {
+	public Project getProject1() {
 		return project;
 	}
 	
@@ -77,5 +73,9 @@ public class ProjectItem {
 		System.arraycopy(path, 0, childPath, 0, path.length);
 		childPath[childPath.length - 1] = text;
 		return new ProjectItem(treeItem.getItem(text), project, path);
+	}
+	
+	public String getText (){
+		return treeItem.getText();
 	}
 }

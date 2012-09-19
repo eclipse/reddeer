@@ -56,7 +56,7 @@ public class Project {
 		treeItem.select();
 	}
 
-	public String parseName(String label){
+	protected String parseName(String label){
 		if (!label.contains("[")){
 			return label.trim();
 		}
@@ -67,7 +67,7 @@ public class Project {
 		return name;
 	}
 	
-	public TreeItem getTreeItem (){
+	protected TreeItem getTreeItem (){
 		return treeItem;
 	}
 
@@ -94,5 +94,9 @@ public class Project {
 	
 	public boolean isSelected(){
 		return treeItem.isSelected();
+	}
+	
+	public String getText (){
+		return treeItem.getText();
 	}
 }

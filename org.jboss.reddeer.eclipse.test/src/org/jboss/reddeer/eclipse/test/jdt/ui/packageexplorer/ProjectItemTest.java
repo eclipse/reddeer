@@ -21,6 +21,7 @@ public class ProjectItemTest {
 
 	private static final String PROJECT_NAME = "TestProject";
 	private static final String PROJECT_ITEM_TEXT = "src";
+	private static final String DEFAULT_PACKAGE_TEXT = "(default package)";
 	private PackageExplorer packageExplorer;
 	private ProjectItem projectItem;
 		
@@ -66,10 +67,31 @@ public class ProjectItemTest {
 		Bot.get().closeAllEditors();
 		final String javaClassFileName = javaClassName + ".java";
 		packageExplorer.getProject(ProjectItemTest.PROJECT_NAME)
-          .getProjectItem(ProjectItemTest.PROJECT_ITEM_TEXT,"(default package)",javaClassFileName)
+          .getProjectItem(ProjectItemTest.PROJECT_ITEM_TEXT,ProjectItemTest.DEFAULT_PACKAGE_TEXT,javaClassFileName)
           .open();
 		assertTrue("Active Editor has to have title " + javaClassFileName,
 			Bot.get().activeEditor().getTitle().equals(javaClassFileName));
+	}
+	@Test
+	public void getChild(){
+		packageExplorer.getProject(ProjectItemTest.PROJECT_NAME)
+            .getProjectItem(ProjectItemTest.PROJECT_ITEM_TEXT)
+            .select();
+		NewJavaClassWizardDialog newJavaClassDialog = new NewJavaClassWizardDialog();
+		newJavaClassDialog.open();
+		
+		NewJavaClassWizardPage wizardPage = newJavaClassDialog.getFirstPage();
+		final String javaClassName = "TestClass";
+		wizardPage.setName(javaClassName);
+		newJavaClassDialog.finish();
+		new WaitUntil(new AllRunningJobsAreNotActive(), TimePeriod.LONG);
+		ProjectItem piDefaultPackage = packageExplorer.getProject(ProjectItemTest.PROJECT_NAME)
+          .getProjectItem(ProjectItemTest.PROJECT_ITEM_TEXT)
+          .getChild(ProjectItemTest.DEFAULT_PACKAGE_TEXT);
+          
+		assertTrue("Found Project Item has to have text " + ProjectItemTest.DEFAULT_PACKAGE_TEXT
+				  + " but is " + piDefaultPackage.getText(),
+				piDefaultPackage.getText().equals(ProjectItemTest.DEFAULT_PACKAGE_TEXT));
 	}
 	@After
 	public void teardown(){
