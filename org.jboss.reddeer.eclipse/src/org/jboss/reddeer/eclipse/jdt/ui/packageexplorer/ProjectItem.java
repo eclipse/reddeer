@@ -60,10 +60,6 @@ public class ProjectItem {
 		item.select();
 	}
 	
-	public Project getProject1() {
-		return project;
-	}
-	
 	public boolean isSelected(){
 		return treeItem.isSelected();
 	}
