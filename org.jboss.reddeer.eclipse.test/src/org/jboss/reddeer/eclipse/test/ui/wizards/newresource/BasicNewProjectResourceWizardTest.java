@@ -1,4 +1,4 @@
-package org.jboss.reddeer.eclipse.test.ui.ide;
+package org.jboss.reddeer.eclipse.test.ui.wizards.newresource;
 
 import static org.junit.Assert.assertTrue;
 
