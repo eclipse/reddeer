@@ -1,9 +1,10 @@
-package org.jboss.reddeer.eclipse.ui.ide;
+package org.jboss.reddeer.eclipse.ui.dialogs;
 
 import org.apache.log4j.Logger;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTable;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTableItem;
 import org.jboss.reddeer.eclipse.jface.wizard.WizardPage;
+import org.jboss.reddeer.eclipse.ui.wizards.newresource.BasicNewProjectResourceWizard;
 import org.jboss.reddeer.swt.util.Bot;
 
 /**
@@ -12,13 +13,13 @@ import org.jboss.reddeer.swt.util.Bot;
  * @author vpakan
  * 
  */
-public class NewGeneralProjectReferencesWizardPage extends WizardPage {
+public class WizardNewProjectReferencePage extends WizardPage {
 	
 	private final Logger log = Logger
-			.getLogger(NewGeneralProjectReferencesWizardPage.class);
+			.getLogger(WizardNewProjectReferencePage.class);
 
-	public NewGeneralProjectReferencesWizardPage(
-			NewGeneralProjectWizardDialog wizardDialog) {
+	public WizardNewProjectReferencePage(
+			BasicNewProjectResourceWizard wizardDialog) {
 		super(wizardDialog, 2);
 	}
 

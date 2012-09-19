@@ -1,8 +1,9 @@
-package org.jboss.reddeer.eclipse.ui.ide;
+package org.jboss.reddeer.eclipse.ui.dialogs;
 
 import org.apache.log4j.Logger;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotCheckBox;
 import org.jboss.reddeer.eclipse.jface.wizard.WizardPage;
+import org.jboss.reddeer.eclipse.ui.wizards.newresource.BasicNewProjectResourceWizard;
 import org.jboss.reddeer.swt.exception.WidgetNotEnabledException;
 import org.jboss.reddeer.swt.impl.combo.ComboWithLabel;
 import org.jboss.reddeer.swt.impl.text.LabeledText;
@@ -14,13 +15,13 @@ import org.jboss.reddeer.swt.util.Bot;
  * @author vpakan
  * 
  */
-public class NewGeneralProjectWizardPage extends WizardPage {
+public class WizardNewProjectCreationPage extends WizardPage {
 
 	private final Logger log = Logger
-			.getLogger(NewGeneralProjectWizardPage.class);
+			.getLogger(WizardNewProjectCreationPage.class);
 
-	public NewGeneralProjectWizardPage(
-			NewGeneralProjectWizardDialog wizardDialog) {
+	public WizardNewProjectCreationPage(
+			BasicNewProjectResourceWizard wizardDialog) {
 		super(wizardDialog, 1);
 	}
 
