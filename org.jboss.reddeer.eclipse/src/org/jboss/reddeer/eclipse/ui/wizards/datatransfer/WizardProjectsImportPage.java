@@ -5,8 +5,6 @@ import java.util.List;
 
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.Widget;
-import org.eclipse.swtbot.swt.finder.keyboard.KeyboardFactory;
-import org.eclipse.swtbot.swt.finder.keyboard.Keystrokes;
 import org.hamcrest.Description;
 import org.hamcrest.TypeSafeMatcher;
 import org.jboss.reddeer.eclipse.exception.EclipseLayerException;
@@ -97,7 +95,6 @@ public class WizardProjectsImportPage extends WizardPage {
 	public void setPath(String radioText, String path){
 		new RadioButton(radioText).click();
 		new DefaultText(new EnabledTextMatcher()).setText(path);
-		KeyboardFactory.getAWTKeyboard().pressShortcut(Keystrokes.TAB);
 		new WaitUntil(new ProjectIsLoaded(getProjectsTree()));
 	}
 	
