@@ -133,7 +133,7 @@ public class WizardProjectsImportPage extends WizardPage {
 		}
 
 		@Override
-		public String getFailureMessage() {
+		public String description() {
 			return "At least one project is loaded";
 		}
 	}

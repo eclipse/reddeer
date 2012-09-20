@@ -172,7 +172,7 @@ public class Server {
 		}
 
 		@Override
-		public String getFailureMessage() {
+		public String description() {
 			return null;
 		}
 	}
@@ -191,7 +191,7 @@ public class Server {
 		}
 
 		@Override
-		public String getFailureMessage() {
+		public String description() {
 			return null;
 		}
 	}
@@ -210,7 +210,7 @@ public class Server {
 		}
 
 		@Override
-		public String getFailureMessage() {
+		public String description() {
 			return null;
 		}
 	}

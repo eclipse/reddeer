@@ -21,7 +21,7 @@ public class NonSystemJobRunsCondition implements WaitCondition {
 	}
 	
 	@Override
-	public String getFailureMessage() {
+	public String description() {
 		StringBuilder msg = new StringBuilder("Expected no running jobs, found the following jobs: \n");
 		for (Job job : getJobs()){
 			msg.append(job.getName() + "\n");

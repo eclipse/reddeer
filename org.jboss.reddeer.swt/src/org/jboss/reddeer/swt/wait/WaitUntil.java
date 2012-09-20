@@ -23,4 +23,9 @@ public class WaitUntil extends AbstractWait {
 	protected void wait(WaitCondition condition) {
 		Bot.get().waitUntil(wrapCondition(condition), getTimeout().getSeconds() * 1000);
 	}
+	
+	@Override
+	protected String description() {
+		return "waiting until: ";
+	}
 }

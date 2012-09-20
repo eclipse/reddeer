@@ -24,4 +24,9 @@ public class WaitWhile extends AbstractWait {
 	protected void wait(WaitCondition condition) {
 		Bot.get().waitWhile(wrapCondition(condition), getTimeout().getSeconds() * 1000);
 	}
+	
+	@Override
+	protected String description() {
+		return "waiting while: ";
+	}
 }

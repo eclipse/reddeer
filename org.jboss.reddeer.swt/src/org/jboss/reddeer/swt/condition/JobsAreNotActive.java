@@ -33,13 +33,13 @@ public class JobsAreNotActive implements WaitCondition{
 			return true;
 		}
 		else{
-			log.debug(getFailureMessage());
+			log.debug(description());
 			return false;	
 		}
 		
 	}
 
-	public String getFailureMessage() {
+	public String description() {
 		StringBuffer sb = new StringBuffer("Still have to wait for these matched active jobs\n");
 		for (Job job : matchedActiveJobs){
 			sb.append(Jobs.getFormattedJobDescription(job));

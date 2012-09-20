@@ -30,6 +30,8 @@ public abstract class AbstractWait {
 	
 	protected abstract void wait(WaitCondition condition);
 	
+	protected abstract String description();
+	
 	protected TimePeriod getTimeout() {
 		return timeout;
 	}
@@ -48,7 +50,7 @@ public abstract class AbstractWait {
 			
 			@Override
 			public String getFailureMessage() {
-				return condition.getFailureMessage();
+				return "Failed " + AbstractWait.this.description() + ": " + condition.description();
 			}
 		};
 	}

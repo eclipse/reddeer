@@ -5,5 +5,5 @@ public interface WaitCondition {
 
 	boolean test();
 	
-	String getFailureMessage();
+	String description();
 }
