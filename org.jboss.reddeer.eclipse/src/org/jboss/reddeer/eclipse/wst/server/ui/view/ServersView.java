@@ -3,6 +3,7 @@ package org.jboss.reddeer.eclipse.wst.server.ui.view;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.jboss.reddeer.eclipse.exception.EclipseLayerException;
 import org.jboss.reddeer.eclipse.wst.server.ui.wizard.NewServerWizardDialog;
 import org.jboss.reddeer.swt.api.TreeItem;
@@ -23,11 +24,14 @@ public class ServersView extends View {
 	
 	public static final String TITLE = "Servers";
 
+	private static final Logger log = Logger.getLogger(ServersView.class);
+	
 	public ServersView() {
 		super(TITLE);
 	}
 
 	public NewServerWizardDialog newServer(){
+		log.info("Creating new server");
 		open();
 		new ContextMenu("New", "Server").select();
 		return new NewServerWizardDialog();

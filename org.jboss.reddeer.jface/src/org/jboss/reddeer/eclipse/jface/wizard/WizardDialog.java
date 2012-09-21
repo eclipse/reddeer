@@ -25,7 +25,7 @@ public abstract class WizardDialog {
 	public abstract WizardPage getFirstPage();
 	
 	public void finish(){
-		log.debug("Finish wizard dialog");
+		log.info("Finish wizard");
 
 		DefaultShell shell = new DefaultShell();
 		Button button = new PushButton("Finish");
@@ -37,7 +37,7 @@ public abstract class WizardDialog {
 	}
 	
 	public void cancel(){
-		log.debug("Cancel wizard dialog");
+		log.info("Cancel wizard");
 		
 		DefaultShell shell = new DefaultShell();
 		new PushButton("Cancel").click();		
@@ -47,7 +47,7 @@ public abstract class WizardDialog {
 	}
 	
 	public void next(){
-		log.debug("Go to next wizard page");
+		log.info("Go to next wizard page");
 		
 		Button button = new PushButton("Next >");
 		checkButtonEnabled(button);
@@ -56,7 +56,7 @@ public abstract class WizardDialog {
 	}
 	
 	public void back(){
-		log.debug("Go to previous wizard page");
+		log.info("Go to previous wizard page");
 		Button button = new PushButton("< Back");
 		checkButtonEnabled(button);
 		button.click();

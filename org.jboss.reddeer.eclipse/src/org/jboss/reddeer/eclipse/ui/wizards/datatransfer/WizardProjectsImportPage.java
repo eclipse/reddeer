@@ -3,6 +3,7 @@ package org.jboss.reddeer.eclipse.ui.wizards.datatransfer;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.Widget;
 import org.hamcrest.Description;
@@ -26,6 +27,8 @@ import org.jboss.reddeer.swt.wait.WaitUntil;
  *
  */
 public class WizardProjectsImportPage extends WizardPage {
+	
+	private static final Logger log = Logger.getLogger(WizardProjectsImportPage.class);
 
 	public WizardProjectsImportPage(WizardDialog wizardDialog, int pageIndex) {
 		super(wizardDialog, pageIndex);
@@ -44,14 +47,17 @@ public class WizardProjectsImportPage extends WizardPage {
 	}
 
 	public void setRootDirectory(String directory){
+		log.info("Setting root directory to " + directory);
 		setPath("Select root directory:", directory);
 	}
 	
 	public void setArchiveFile(String file){
+		log.info("Settig archive file to " + file);
 		setPath("Select archive file:", file);
 	}
 
 	public void copyProjectsIntoWorkspace(boolean copy){
+		log.info("Setting copy checkbox to " + copy);
 		if (isFileSystem()){
 			new CheckBox("Copy projects into workspace").toggle(copy);
 		} else {
@@ -74,6 +80,7 @@ public class WizardProjectsImportPage extends WizardPage {
 	}
 	
 	public void selectProjects(String... projects){
+		log.info("Selecting projects");
 		deselectAllProjects();
 		DefaultTree projectsTree = getProjectsTree();
 		
@@ -84,15 +91,17 @@ public class WizardProjectsImportPage extends WizardPage {
 	}
 	
 	public void selectAllProjects(){
+		log.info("Selecting all projects");
 		new PushButton("Select All").click();
 	}
 	
 	public void deselectAllProjects(){
+		log.info("Deselecting all projects");
 		new PushButton("Deselect All").click();
 	}
 	
 	@SuppressWarnings("unchecked")
-	public void setPath(String radioText, String path){
+	protected void setPath(String radioText, String path){
 		new RadioButton(radioText).click();
 		new DefaultText(new EnabledTextMatcher()).setText(path);
 		new WaitUntil(new ProjectIsLoaded(getProjectsTree()));

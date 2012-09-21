@@ -64,11 +64,11 @@ public abstract class View extends WorkbenchPart {
 	}
 
 	public void open() {
-		log.info("Open " + viewTooltip() + " view");
+		log.debug("Showing " + viewTooltip() + " view");
 		viewObject = viewByTitle(viewTooltip());
 		if (viewObject == null) {
-			log.debug(viewTooltip()
-					+ " view was not already opened. Opening via menu.");
+			log.info("Opening " + viewTooltip()
+					+ " view via menu.");
 			RegexMatchers m = new RegexMatchers("Window.*", "Show View.*",
 					"Other...*");
 			Menu menu = new ShellMenu(m.getMatchers());

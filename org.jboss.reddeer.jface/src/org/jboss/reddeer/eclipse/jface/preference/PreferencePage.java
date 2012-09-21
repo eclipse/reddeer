@@ -65,13 +65,13 @@ public abstract class PreferencePage {
 	
 	public void apply(){
 		Button b = new PushButton("Apply");
-		log.debug("Apply changes in Preferences dialog");
+		log.info("Apply changes in Preferences dialog");
 		b.click();		
 	}
 	
 	public void restoreDefaults(){
 		Button b = new PushButton("Restore Defaults");
-		log.debug("Restore default values in Preferences dialog");
+		log.info("Restore default values in Preferences dialog");
 		b.click();
 	}
 }

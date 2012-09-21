@@ -191,7 +191,7 @@ public class MenuLookup {
 						String normalized = i.getText().replace("&", "");
 						log.debug("Found menu:" + normalized);
 						if (m.matches(normalized)) {
-							log.info("Item match:" + normalized);
+							log.debug("Item match:" + normalized);
 							currentItem = i;
 							currentMenu = i.getMenu();
 							break;

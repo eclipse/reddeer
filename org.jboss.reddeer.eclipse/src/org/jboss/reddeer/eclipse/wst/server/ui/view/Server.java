@@ -2,6 +2,7 @@ package org.jboss.reddeer.eclipse.wst.server.ui.view;
 
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.jboss.reddeer.eclipse.wst.server.ui.view.ServersViewEnums.ServerPublishState;
 import org.jboss.reddeer.eclipse.wst.server.ui.view.ServersViewEnums.ServerState;
 import org.jboss.reddeer.swt.api.Shell;
@@ -30,6 +31,8 @@ public class Server {
 
 	private static final TimePeriod TIMEOUT = TimePeriod.VERY_LONG;
 
+	private static final Logger log = Logger.getLogger(Server.class);
+	
 	private TreeItem treeItem;
 
 	public Server(TreeItem treeItem) {
@@ -53,6 +56,7 @@ public class Server {
 	}
 
 	public void start() {
+		log.info("Starting server " + getLabel().getName());
 		if (!ServerState.STOPPED.equals(getLabel().getState())){
 			throw new ServersViewException("Cannot start server because it is not stopped");
 		}
@@ -60,6 +64,7 @@ public class Server {
 	}
 
 	public void debug() {
+		log.info("Starting server in debug" + getLabel().getName());
 		if (!ServerState.STOPPED.equals(getLabel().getState())){
 			throw new ServersViewException("Cannot debug server because it is not stopped");
 		}
@@ -67,6 +72,7 @@ public class Server {
 	}
 
 	public void profile() {
+		log.info("Starting server in profiling mode" + getLabel().getName());
 		if (!ServerState.STOPPED.equals(getLabel().getState())){
 			throw new ServersViewException("Cannot profile server because it is not stopped");
 		}
@@ -74,6 +80,7 @@ public class Server {
 	}
 
 	public void restart() {
+		log.info("Restarting server " + getLabel().getName());
 		if (!getLabel().getState().isRunningState()){
 			throw new ServersViewException("Cannot restart server because it is not running");
 		}
@@ -81,6 +88,7 @@ public class Server {
 	}
 
 	public void restartInDebug() {
+		log.info("Restarting server in debug" + getLabel().getName());
 		if (!getLabel().getState().isRunningState()){
 			throw new ServersViewException("Cannot restart server in debug because it is not running");
 		}
@@ -88,6 +96,7 @@ public class Server {
 	}
 	
 	public void restartInProfile() {
+		log.info("Restarting server in profile" + getLabel().getName());
 		if (!getLabel().getState().isRunningState()){
 			throw new ServersViewException("Cannot restart server in profile because it is not running");
 		}
@@ -95,6 +104,7 @@ public class Server {
 	}
 
 	public void stop() {
+		log.info("Stopping server " + getLabel().getName());
 		ServerState state = getLabel().getState();
 		if (!ServerState.STARTING.equals(state) && !state.isRunningState()){
 			throw new ServersViewException("Cannot stop server because it not running");
@@ -103,6 +113,7 @@ public class Server {
 	}
 
 	public void publish() {
+		log.info("Publishing server " + getLabel().getName());
 		select();
 		DefaultShell activeShell = new DefaultShell();
 		new ContextMenu("Publish").select();
@@ -110,6 +121,7 @@ public class Server {
 	}
 
 	public void clean() {
+		log.info("Cleaning server " + getLabel().getName());
 		select();
 		DefaultShell activeShell = new DefaultShell();
 		new ContextMenu("Clean...").select();
@@ -122,6 +134,7 @@ public class Server {
 	}
 
 	public void delete(boolean stopFirst) {
+		log.info("Deleting server " + getLabel().getName() + ". Stopping server first: " + stopFirst);
 		select();
 		ServerState state = getLabel().getState();
 		

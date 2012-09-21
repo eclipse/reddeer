@@ -10,23 +10,22 @@ import org.jboss.reddeer.swt.api.Button;
  *
  */
 public abstract class AbstractButton implements Button {
+	
 	protected final Logger log = Logger.getLogger(this.getClass());
+	
 	protected SWTBotButton button;
 	
 	@Override
 	public void click() {
-		log.debug("Click on the button " + 
-			      button.getText() != null ? button.getText() : 
-			        (button.getToolTipText() != null ? button.getToolTipText(): "with no text or tooltip") +
-			      " instance of class " + button.getClass());
+		log.info("Click on the button " + 
+			     (button.getText() != null ? button.getText() : 
+			        (button.getToolTipText() != null ? button.getToolTipText(): "with no text or tooltip")));
 		button.click();
-		
 	}
 	
 	@Override
 	public String getText() {
 		return button.getText();
-	
 	}
 	
 	@Override

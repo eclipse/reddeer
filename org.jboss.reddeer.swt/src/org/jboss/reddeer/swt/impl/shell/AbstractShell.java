@@ -23,7 +23,7 @@ public abstract class AbstractShell implements Shell {
 	
 	@Override
 	public void close() {
+		log.info("Closing shell " + shell.getText());
 		shell.close();		
 	}
-
 }

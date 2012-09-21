@@ -18,7 +18,7 @@ public class DefaultShell extends AbstractShell implements Shell {
 	public DefaultShell(String title) {
 		try {
 			shell = Bot.get().shell(title);
-			log.info("Default " + title + " found");
+			log.info("Shell with title '" + title + "' found");
 		}
 		catch (WidgetNotFoundException e) {
 			throw new WidgetNotAvailableException("No shell is available at the moment");
@@ -29,14 +29,12 @@ public class DefaultShell extends AbstractShell implements Shell {
 	public DefaultShell() {
 		try {
 			shell = Bot.get().activeShell();
-			log.info("No active shell found");
+			log.info("Active shell with title '" + shell.getText() + "' found");
 		}
 		catch (WidgetNotFoundException e) {
 			throw new WidgetNotAvailableException("No active shell is available at the moment");
 		}
 	}
-		
-	
 }	
 	
 

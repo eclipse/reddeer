@@ -15,6 +15,7 @@ import org.jboss.reddeer.swt.util.Bot;
 public class CheckBox implements Button {
 
 	protected final Logger log = Logger.getLogger(this.getClass());
+	
 	private SWTBotCheckBox checkBox;
 
 	/**
@@ -40,7 +41,6 @@ public class CheckBox implements Button {
 	 * 
 	 * @param label
 	 */
-
 	public CheckBox(String label) {
 		checkBox = Bot.get().checkBox(label);
 	}
@@ -54,17 +54,18 @@ public class CheckBox implements Button {
 	 * 
 	 * @param checked
 	 */
-	
 	public void toggle(boolean checked){
 		if (checked){
 			if (checkBox.isChecked()) {
 				log.debug("Checkbox already checked");
 				return;
 			}else{
+				log.info("Checking checkbox " + checkBox.getText());
 				click();
 			}
 		}else{
 			if (checkBox.isChecked()) {
+				log.info("Unchecking checkbox " + checkBox.getText());
 				click();
 			}else{
 				log.debug("Checkbox already unchecked");

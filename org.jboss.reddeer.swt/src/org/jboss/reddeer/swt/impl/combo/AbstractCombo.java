@@ -14,9 +14,8 @@ public abstract class AbstractCombo implements Combo {
 	
 	@Override
 	public void setText(String str) {
-		log.debug("Set text of Combo widget to: " + str);
+		log.info("Set text of Combo " + combo.getText() + " to: " + str);
 		combo.setText(str);
-		
 	}
 
   @Override

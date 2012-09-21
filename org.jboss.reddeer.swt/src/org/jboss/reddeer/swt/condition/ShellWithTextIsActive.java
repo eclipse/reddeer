@@ -25,11 +25,9 @@ public class ShellWithTextIsActive implements WaitCondition{
 		if (activeShell != null 
 			&& activeShell.getText() != null
 			&& activeShell.getText().equals(text)){
-			log.debug("Shell with text " + text + " is active");
 			return true;
 		}
 		else{
-			log.debug("Shell with text " + text + " is not active");
 			return false;
 		}
 	}

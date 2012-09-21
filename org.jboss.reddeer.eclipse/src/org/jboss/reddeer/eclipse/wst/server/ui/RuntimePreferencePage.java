@@ -3,6 +3,7 @@ package org.jboss.reddeer.eclipse.wst.server.ui;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.jboss.reddeer.eclipse.jface.preference.PreferencePage;
 import org.jboss.reddeer.eclipse.wst.server.ui.wizard.NewRuntimeWizardDialog;
 import org.jboss.reddeer.swt.api.Table;
@@ -19,6 +20,8 @@ import org.jboss.reddeer.swt.impl.table.DefaultTable;
 public class RuntimePreferencePage extends PreferencePage {
 
 	public static final String PAGE_NAME = "Runtime Environments";
+
+	private static final Logger log = Logger.getLogger(RuntimePreferencePage.class);
 	
 	public RuntimePreferencePage() {
 		super("Server", PAGE_NAME);
@@ -39,11 +42,13 @@ public class RuntimePreferencePage extends PreferencePage {
 	}
 	
 	public void removeRuntime(Runtime runtime){
+		log.info("Removing runtime " + runtime);
 		selectRuntime(runtime.getName());
 		new PushButton("Remove").click();
 	}
 	
 	public void removeAllRuntimes(){
+		log.info("Removing all runtimes");
 		for (Runtime runtime : getServerRuntimes()){
 			removeRuntime(runtime);
 		}
@@ -61,6 +66,7 @@ public class RuntimePreferencePage extends PreferencePage {
 	}
 	
 	public NewRuntimeWizardDialog addRuntime(){
+		log.info("Adding new runtime");
 		new PushButton("Add...").click();
 		return new NewRuntimeWizardDialog();
 	}
