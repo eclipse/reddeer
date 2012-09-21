@@ -6,7 +6,7 @@ import org.jboss.reddeer.eclipse.wst.server.ui.view.ServersViewEnums.ServerPubli
 import org.jboss.reddeer.eclipse.wst.server.ui.view.ServersViewEnums.ServerState;
 import org.jboss.reddeer.swt.api.Shell;
 import org.jboss.reddeer.swt.api.TreeItem;
-import org.jboss.reddeer.swt.condition.AllRunningJobsAreNotActive;
+import org.jboss.reddeer.swt.condition.JobIsRunning;
 import org.jboss.reddeer.swt.condition.ShellWithTextIsActive;
 import org.jboss.reddeer.swt.condition.WaitCondition;
 import org.jboss.reddeer.swt.impl.button.CheckBox;
@@ -132,7 +132,7 @@ public class Server {
 		}
 		new PushButton("OK").click();
 		new WaitUntil(new TreeItemIsDisposed(treeItem), TIMEOUT);
-		new WaitUntil(new AllRunningJobsAreNotActive(), TIMEOUT);
+		new WaitWhile(new JobIsRunning(), TIMEOUT);
 	}
 
 	public void addAndRemoveProject() {
@@ -146,16 +146,16 @@ public class Server {
 	protected void operateServerState(String menuItem, ServerState resultState){
 		select();
 		new ContextMenu(menuItem).select();
-		new WaitUntil(new NonSystemJobRunsCondition(), TIMEOUT);
+		new WaitUntil(new JobIsRunning(), TIMEOUT);
 		new WaitUntil(new ServerStateCondition(resultState), TIMEOUT);
-		new WaitWhile(new NonSystemJobRunsCondition(), TIMEOUT);
+		new WaitWhile(new JobIsRunning(), TIMEOUT);
 	}
 	
 	protected void waitForPublish(Shell activeShell){
 		new WaitWhile(new ShellWithTextIsActive(activeShell.getText()), TIMEOUT);
 		new WaitUntil(new ShellWithTextIsActive(activeShell.getText()), TIMEOUT);
 		new WaitWhile(new ServerPublishStateCondition(ServerPublishState.PUBLISHING), TIMEOUT);
-		new WaitWhile(new NonSystemJobRunsCondition(), TIMEOUT);
+		new WaitWhile(new JobIsRunning(), TIMEOUT);
 	}
 
 	private class ServerStateCondition implements WaitCondition {
@@ -173,7 +173,7 @@ public class Server {
 
 		@Override
 		public String description() {
-			return null;
+			return "Server's state is: " + expectedState.getText();
 		}
 	}
 	
@@ -192,7 +192,7 @@ public class Server {
 
 		@Override
 		public String description() {
-			return null;
+			return "Server's publish state is " + expectedState.getText();
 		}
 	}
 
@@ -211,7 +211,7 @@ public class Server {
 
 		@Override
 		public String description() {
-			return null;
+			return "Server tree item is disposed";
 		}
 	}
 }

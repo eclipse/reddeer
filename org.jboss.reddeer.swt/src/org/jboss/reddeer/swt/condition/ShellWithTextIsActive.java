@@ -36,6 +36,6 @@ public class ShellWithTextIsActive implements WaitCondition{
 
 	@Override
 	public String description() {
-		return "Shell with text " + text + " is not active";
+		return "Shell with text " + text + " is active";
 	}
 }

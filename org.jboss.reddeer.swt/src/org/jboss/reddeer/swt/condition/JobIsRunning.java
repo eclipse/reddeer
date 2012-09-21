@@ -1,10 +1,9 @@
-package org.jboss.reddeer.eclipse.wst.server.ui.view;
+package org.jboss.reddeer.swt.condition;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.core.runtime.jobs.Job;
-import org.jboss.reddeer.swt.condition.WaitCondition;
 
 /**
  * Returns true, if there is a non system job running, false 
@@ -13,7 +12,7 @@ import org.jboss.reddeer.swt.condition.WaitCondition;
  * @author Lucia Jelinkova
  *
  */
-public class NonSystemJobRunsCondition implements WaitCondition {
+public class JobIsRunning implements WaitCondition {
 
 	@Override
 	public boolean test() {
@@ -22,7 +21,7 @@ public class NonSystemJobRunsCondition implements WaitCondition {
 	
 	@Override
 	public String description() {
-		StringBuilder msg = new StringBuilder("Expected no running jobs, found the following jobs: \n");
+		StringBuilder msg = new StringBuilder("At least one job is running. Currently running jobs: \n");
 		for (Job job : getJobs()){
 			msg.append(job.getName() + "\n");
 		}

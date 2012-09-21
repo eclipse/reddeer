@@ -9,10 +9,10 @@ import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.PackageExplorer;
 import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.ProjectItem;
 import org.jboss.reddeer.eclipse.ui.ide.NewJavaClassWizardDialog;
 import org.jboss.reddeer.eclipse.ui.ide.NewJavaClassWizardPage;
-import org.jboss.reddeer.swt.condition.AllRunningJobsAreNotActive;
+import org.jboss.reddeer.swt.condition.JobIsRunning;
 import org.jboss.reddeer.swt.util.Bot;
 import org.jboss.reddeer.swt.wait.TimePeriod;
-import org.jboss.reddeer.swt.wait.WaitUntil;
+import org.jboss.reddeer.swt.wait.WaitWhile;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -63,7 +63,7 @@ public class ProjectItemTest {
 		final String javaClassName = "TestClass";
 		wizardPage.setName(javaClassName);
 		newJavaClassDialog.finish();
-		new WaitUntil(new AllRunningJobsAreNotActive(), TimePeriod.LONG);
+		new WaitWhile(new JobIsRunning(), TimePeriod.LONG);
 		Bot.get().closeAllEditors();
 		final String javaClassFileName = javaClassName + ".java";
 		packageExplorer.getProject(ProjectItemTest.PROJECT_NAME)
@@ -84,7 +84,7 @@ public class ProjectItemTest {
 		final String javaClassName = "TestClass";
 		wizardPage.setName(javaClassName);
 		newJavaClassDialog.finish();
-		new WaitUntil(new AllRunningJobsAreNotActive(), TimePeriod.LONG);
+		new WaitWhile(new JobIsRunning(), TimePeriod.LONG);
 		ProjectItem piDefaultPackage = packageExplorer.getProject(ProjectItemTest.PROJECT_NAME)
           .getProjectItem(ProjectItemTest.PROJECT_ITEM_TEXT)
           .getChild(ProjectItemTest.DEFAULT_PACKAGE_TEXT);

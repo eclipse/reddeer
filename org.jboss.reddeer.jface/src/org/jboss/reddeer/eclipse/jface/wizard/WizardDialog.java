@@ -3,12 +3,11 @@ package org.jboss.reddeer.eclipse.jface.wizard;
 import org.apache.log4j.Logger;
 import org.jboss.reddeer.eclipse.jface.exception.JFaceLayerException;
 import org.jboss.reddeer.swt.api.Button;
-import org.jboss.reddeer.swt.condition.AllRunningJobsAreNotActive;
+import org.jboss.reddeer.swt.condition.JobIsRunning;
 import org.jboss.reddeer.swt.condition.ShellWithTextIsActive;
 import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.jboss.reddeer.swt.wait.TimePeriod;
-import org.jboss.reddeer.swt.wait.WaitUntil;
 import org.jboss.reddeer.swt.wait.WaitWhile;
 
 /**
@@ -34,7 +33,7 @@ public abstract class WizardDialog {
 		button.click();
 		
 		new WaitWhile(new ShellWithTextIsActive(shell.getText()), TimePeriod.LONG);
-		new WaitUntil(new AllRunningJobsAreNotActive(), TimePeriod.LONG);
+		new WaitWhile(new JobIsRunning(), TimePeriod.LONG);
 	}
 	
 	public void cancel(){
@@ -44,7 +43,7 @@ public abstract class WizardDialog {
 		new PushButton("Cancel").click();		
 		
 		new WaitWhile(new ShellWithTextIsActive(shell.getText()));
-		new WaitUntil(new AllRunningJobsAreNotActive());
+		new WaitWhile(new JobIsRunning());
 	}
 	
 	public void next(){
