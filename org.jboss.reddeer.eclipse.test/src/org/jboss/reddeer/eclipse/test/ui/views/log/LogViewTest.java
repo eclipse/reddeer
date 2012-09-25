@@ -2,11 +2,11 @@ package org.jboss.reddeer.eclipse.test.ui.views.log;
 
 import static org.junit.Assert.assertTrue;
 
-import java.text.ParseException;
 import java.util.List;
 
 import org.eclipse.core.runtime.ILog;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
 import org.jboss.reddeer.eclipse.test.Activator;
 import org.jboss.reddeer.eclipse.ui.views.log.LogMessage;
@@ -53,7 +53,7 @@ public class LogViewTest {
 	
 	@BeforeClass
 	public static void setup(){
-		ILog log = Activator.getDefault().getLog();
+		ILog log= Platform.getLog(Platform.getBundle(Activator.PLUGIN_ID));
 		log.log(new Status(IStatus.ERROR,ERROR_ID_1,ERROR_MESSAGE_1,new NullPointerException(ERROR_STACK_1)));
 		log.log(new Status(IStatus.ERROR,ERROR_ID_2,ERROR_MESSAGE_2,new NullPointerException(ERROR_STACK_2)));
 		
