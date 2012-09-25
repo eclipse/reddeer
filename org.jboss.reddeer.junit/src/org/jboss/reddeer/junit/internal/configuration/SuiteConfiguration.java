@@ -101,9 +101,17 @@ public class SuiteConfiguration {
 
 	private static class RequirementFileFilter implements FileFilter {
 
+		/*
+		 * Accept only *.xml files
+		 * @see java.io.FileFilter#accept(java.io.File)
+		 */
 		@Override
 		public boolean accept(File pathname) {
-			return pathname.isFile();
+			if (pathname.isFile() && pathname.toString().endsWith(".xml")) {
+				return true;
+			} else {
+				return false;
+			}
 		}
 	}
 }

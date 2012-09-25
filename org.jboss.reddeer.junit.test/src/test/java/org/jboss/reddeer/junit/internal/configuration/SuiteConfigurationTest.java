@@ -38,8 +38,8 @@ public class SuiteConfigurationTest {
 		Collections.sort(result, new TestRunComparator());
 		
 		assertThat(result.size(), is(2));
-		assertThat(result.get(0).getId(), is("fileA"));
-		assertThat(result.get(1).getId(), is("fileB"));
+		assertThat(result.get(0).getId(), is("correct_fileA.xml"));
+		assertThat(result.get(1).getId(), is("correct_fileB.xml"));
 	}
 	
 	@Test
@@ -98,10 +98,10 @@ public class SuiteConfigurationTest {
 
 		List<File> result = config.getConfigurationFiles();
 		Collections.sort(result);
-		
+
 		assertThat(result.size(), is(2));
-		assertThat(result.get(0).getPath(), endsWith(LOCATIONS_ROOT_DIR + "dirWithFiles/fileA"));
-		assertThat(result.get(1).getPath(), endsWith(LOCATIONS_ROOT_DIR + "dirWithFiles/fileB"));
+		assertThat(result.get(0).getPath(), endsWith(LOCATIONS_ROOT_DIR + "dirWithFiles/correct_fileA.xml"));
+		assertThat(result.get(1).getPath(), endsWith(LOCATIONS_ROOT_DIR + "dirWithFiles/correct_fileB.xml"));
 	}
 
 	@Test(expected=RedDeerConfigurationException.class)
