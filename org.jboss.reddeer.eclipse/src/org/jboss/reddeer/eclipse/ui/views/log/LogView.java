@@ -11,6 +11,12 @@ import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.jboss.reddeer.swt.impl.menu.ToolbarMenu;
 import org.jboss.reddeer.workbench.view.impl.WorkbenchView;
 
+/**
+ * Represents Error Log view
+ * 
+ * @author rawagner
+ *
+ */
 public class LogView extends WorkbenchView{
 	
 	public static final String OK_SEVERITY="OK";
@@ -22,6 +28,11 @@ public class LogView extends WorkbenchView{
 		super("Error Log");
 	}
 	
+	/**
+	 * 
+	 * @return list of messages with severity OK (according to IStatus)
+	 */
+	
 	public List<LogMessage> getOKMessages() {
 		setFilter(OK_SEVERITY);
 		SWTBotTreeItem[] items = viewObject.bot().tree().getAllItems();
@@ -32,7 +43,10 @@ public class LogView extends WorkbenchView{
 		return messages;
 	}
 	
-	
+	/**
+	 * 
+	 * @return list of messages with severity INFO (according to IStatus)
+	 */
 	public List<LogMessage> getInfoMessages() {
 		setFilter(INFORMATION_SEVERITY);
 		SWTBotTreeItem[] items = viewObject.bot().tree().getAllItems();
@@ -42,7 +56,10 @@ public class LogView extends WorkbenchView{
 		}
 		return messages;
 	}
-	
+	/**
+	 * 
+	 * @return list of messages with severity WARNING (according to IStatus)
+	 */
 	public List<LogMessage> getWarningMessages() {
 		setFilter(WARNING_SEVERITY);
 		SWTBotTreeItem[] items = viewObject.bot().tree().getAllItems();
@@ -52,7 +69,10 @@ public class LogView extends WorkbenchView{
 		}
 		return messages;
 	}
-	
+	/**
+	 * 
+	 * @return list of messages with severity ERROR (according to IStatus)
+	 */
 	public List<LogMessage> getErrorMessages() {
 		setFilter(ERROR_SEVERITY);
 		SWTBotTreeItem[] items = viewObject.bot().tree().getAllItems();

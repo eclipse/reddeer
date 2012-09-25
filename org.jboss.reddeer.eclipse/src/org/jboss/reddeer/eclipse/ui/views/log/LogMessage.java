@@ -7,6 +7,12 @@ import org.eclipse.swtbot.swt.finder.SWTBot;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.eclipse.swt.widgets.TreeItem;
 
+
+/**
+ * Represents Log message in Error log
+ * @author rawagner
+ *
+ */
 public class LogMessage {
 	
 	private SWTBotTreeItem treeItem;
