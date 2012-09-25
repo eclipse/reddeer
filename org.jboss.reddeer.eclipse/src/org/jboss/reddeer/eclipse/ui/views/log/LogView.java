@@ -8,6 +8,7 @@ import java.util.List;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.swtbot.swt.finder.SWTBot;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
+import org.jboss.reddeer.swt.impl.menu.ToolbarMenu;
 import org.jboss.reddeer.workbench.view.impl.WorkbenchView;
 
 public class LogView extends WorkbenchView{
@@ -63,7 +64,8 @@ public class LogView extends WorkbenchView{
 	}
 	
 	private void setFilter(String severity){
-		viewObject.menu("Filters...").click();
+		ToolbarMenu tmenu = new ToolbarMenu("Filters...");
+		tmenu.select();
 		viewObject.bot().waitUntil(shellIsActive("Log Filters"));
 		SWTBot filtersBot = viewObject.bot().activeShell().bot();
 		filtersBot.checkBoxInGroup(OK_SEVERITY, "Event Types").deselect();
