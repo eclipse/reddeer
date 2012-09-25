@@ -89,7 +89,7 @@ public abstract class View extends WorkbenchPart {
 	public SWTBotToolbarButton getToolBar(String toolbarToolTip) {
 		List<SWTBotToolbarButton> toolbarButtons = getToolbarButtons();
 		for (SWTBotToolbarButton button : toolbarButtons) {
-			if (button.isEnabled() && button.getToolTipText().equals(toolbarToolTip)) {
+			if (button.getToolTipText().equals(toolbarToolTip)) {
 				return button;
 			}
 		}

@@ -14,17 +14,17 @@ import org.jboss.reddeer.swt.impl.menu.ShellMenu;
 import org.jboss.reddeer.swt.matcher.RegexMatchers;
 import org.jboss.reddeer.swt.util.Bot;
 import org.junit.AfterClass;
-import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class ConsoleViewTest {
 
-	private ConsoleView consoleView;
+	private static ConsoleView consoleView;
 	
 	private static final String TEST_PROJECT_NAME = "Project";
 	
-	@Before
-	public void setup() {
+	@BeforeClass
+	public static void setup() {
 		consoleView = new ConsoleView();
 		consoleView.open();
 		runTestProject();
@@ -46,18 +46,18 @@ public class ConsoleViewTest {
 	@Test
 	public void clearConsole() {
 		consoleView = new ConsoleView();
-		consoleView.clearConsole();
+		consoleView.clearConsole();		
 		String text = consoleView.getConsoleText();
 		assertThat(text, IsEqual.equalTo(""));
 	}
 	
-	private void runTestProject() {
+	private static void runTestProject() {
 		createTestProject();
 		RegexMatchers m = new RegexMatchers("Run.*", "Run As.*", ".*Java Application.*");
 		new ShellMenu(m.getMatchers()).select();
 	}
 	
-	private void createTestProject() {
+	private static void createTestProject() {
 		PackageExplorer packageExplorer = new PackageExplorer();
 		if (!packageExplorer.containsProject(TEST_PROJECT_NAME)) {
 			createJavaProject();
@@ -66,7 +66,7 @@ public class ConsoleViewTest {
 		packageExplorer.selectProject(TEST_PROJECT_NAME);
 	}
 	
-	private void createJavaProject() {
+	private static void createJavaProject() {
 		NewJavaProjectWizardDialog javaProject = new NewJavaProjectWizardDialog();
 		javaProject.open();
 		
@@ -76,7 +76,7 @@ public class ConsoleViewTest {
 		javaProject.finish(false);
 	}
 	
-	private void createJavaClass() {
+	private static void createJavaClass() {
 		NewJavaClassWizardDialog javaClassDialog = new NewJavaClassWizardDialog();
 		javaClassDialog.open();
 		
