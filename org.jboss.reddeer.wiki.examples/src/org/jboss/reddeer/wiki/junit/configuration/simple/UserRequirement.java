@@ -30,6 +30,7 @@ public class UserRequirement implements Requirement<User>, PropertyConfiguration
 
 	public void fulfill() {
 		user.name();
+		System.out.println("Name: " + name + ", ip: " + ip);
 		// create an admin user in the database if it does not exist yet
 	}
 	

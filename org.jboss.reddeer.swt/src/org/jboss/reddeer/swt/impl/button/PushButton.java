@@ -32,7 +32,7 @@ public class PushButton extends AbstractButton implements Button {
 	 * Push button with given matcher(s)
 	 * @param text
 	 */
-	public PushButton(Matcher... matchers) {
+	public PushButton(Matcher<?>... matchers) {
 		
 	}
 
@@ -41,7 +41,7 @@ public class PushButton extends AbstractButton implements Button {
 	 * @param timeout
 	 * @param matchers
 	 */
-	public PushButton(int timeout, Matcher matchers) {
+	public PushButton(int timeout, Matcher<?> matchers) {
 		
 	}
 	
@@ -50,7 +50,7 @@ public class PushButton extends AbstractButton implements Button {
 	}
 	
 	
-	public PushButton(Condition c, Matcher... matchers) {
+	public PushButton(Condition c, Matcher<?>... matchers) {
 		
 	}
 

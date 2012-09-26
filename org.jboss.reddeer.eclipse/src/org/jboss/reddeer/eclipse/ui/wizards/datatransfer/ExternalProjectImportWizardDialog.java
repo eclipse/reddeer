@@ -1,7 +1,6 @@
 package org.jboss.reddeer.eclipse.ui.wizards.datatransfer;
 
 import org.jboss.reddeer.eclipse.jface.wizard.ImportWizardDialog;
-import org.jboss.reddeer.eclipse.jface.wizard.WizardPage;
 
 /**
  * Wizard for importing external projects into the workspace. 
