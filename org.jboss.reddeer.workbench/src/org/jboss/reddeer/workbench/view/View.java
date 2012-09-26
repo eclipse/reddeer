@@ -43,6 +43,7 @@ import org.jboss.reddeer.workbench.exception.ViewNotFoundException;
  * @author jjankovi
  * 
  */
+@SuppressWarnings("restriction")
 public abstract class View extends WorkbenchPart {
 
 	private static final String SHOW_VIEW = "Show View";

@@ -6,7 +6,6 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import org.jboss.reddeer.junit.integration.runner.order.TestSequence;
 import org.jboss.reddeer.junit.requirement.Requirement;
 
 public class RunnerIntegrationPropertyRequirement2 implements Requirement<Annotation> {

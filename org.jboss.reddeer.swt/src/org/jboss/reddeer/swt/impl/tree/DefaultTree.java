@@ -24,6 +24,7 @@ public class DefaultTree extends AbstractTree {
 		tree.setFocus();
 	}
 
+	@SuppressWarnings("unchecked")
 	public DefaultTree(Matcher<Widget> matcher){
 		try {
 			tree = new SWTBotTree((org.eclipse.swt.widgets.Tree) Bot.get().widget(allOf(widgetOfType(Tree.class), matcher)));

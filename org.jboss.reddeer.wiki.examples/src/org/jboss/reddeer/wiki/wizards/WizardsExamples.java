@@ -9,7 +9,7 @@ public class WizardsExamples {
 		
 	}
 	
-	private void javaWizard(){
+	public void javaWizard(){
 		NewJavaClassWizardDialog javaClassWizardDialog = new NewJavaClassWizardDialog();
 		javaClassWizardDialog.open();
 		

@@ -2,28 +2,21 @@ package org.jboss.reddeer.swt.impl.menu;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.jface.action.ActionContributionItem;
-import org.eclipse.jface.action.ContributionItem;
 import org.eclipse.jface.action.IContributionItem;
 import org.eclipse.jface.action.IMenuManager;
-import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.action.MenuManager;
-import org.eclipse.jface.action.ToolBarManager;
-import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
 import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotViewMenu;
 import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotToolbarButton;
 import org.eclipse.ui.IViewSite;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.internal.WorkbenchPartReference;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.swt.api.Menu;
 import org.jboss.reddeer.swt.exception.WidgetNotAvailableException;
-import org.jboss.reddeer.swt.lookup.impl.MenuLookup;
 import org.jboss.reddeer.swt.matcher.WithMnemonicMatchers;
 import org.jboss.reddeer.swt.util.Bot;
 import org.jboss.reddeer.swt.util.Display;
@@ -35,6 +28,7 @@ import org.jboss.reddeer.swt.util.ResultRunnable;
  * @author Rastislav Wagner
  *
  */
+@SuppressWarnings("restriction")
 public class ToolbarMenu extends AbstractMenu implements Menu{
 	
 	protected SWTBotViewMenu viewMenu;

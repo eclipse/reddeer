@@ -17,10 +17,12 @@ public class Server {
 	}
 
 	public void start() {
+		System.out.println("Starting server: " + treeItem.getText());
 		// implementation
 	}
 
 	public void stop() {
+		System.out.println("Stopping server: " + treeItem.getText());
 		// implementation
 	}
 }

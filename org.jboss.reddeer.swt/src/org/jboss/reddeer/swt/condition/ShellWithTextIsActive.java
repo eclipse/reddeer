@@ -1,6 +1,5 @@
 package org.jboss.reddeer.swt.condition;
 
-import org.apache.log4j.Logger;
 import org.eclipse.swtbot.swt.finder.SWTBot;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.jboss.reddeer.swt.util.Bot;
@@ -11,7 +10,6 @@ import org.jboss.reddeer.swt.util.Bot;
  */
 public class ShellWithTextIsActive implements WaitCondition{
 	
-	private final Logger log = Logger.getLogger(ShellWithTextIsActive.class);
 	private String text;
     private SWTBot bot;
     
