@@ -29,6 +29,7 @@
 		<module>../org.jboss.reddeer.junit.test</module>
 		<module>../org.jboss.reddeer.selenium</module>
 		<module>../org.jboss.reddeer.wiki.examples</module>
+		<module>../org.jboss.reddeer.site</module>
 	</modules>
 	
 	<build>
