@@ -120,7 +120,11 @@ public class MenuLookup {
 
 			@Override
 			public MenuItem[] run() {
-				MenuItem[] items = s.getMenuBar().getItems();
+				Menu menu = s.getMenuBar();
+				if (menu == null){
+					throw new WidgetNotAvailableException("Cannot find a menu bar of shell " + s.getText());
+				}
+				MenuItem[] items = menu.getItems();
 				return items;
 			}
 		});
