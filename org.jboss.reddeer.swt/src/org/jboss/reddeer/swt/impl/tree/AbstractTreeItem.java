@@ -84,4 +84,9 @@ public abstract class AbstractTreeItem implements TreeItem {
 	public boolean isChecked() {
 		return item.isChecked();
 	}
+	
+	@Override
+	public org.eclipse.swt.widgets.TreeItem getSWTWidget() {
+		return item.widget;
+	}
 }

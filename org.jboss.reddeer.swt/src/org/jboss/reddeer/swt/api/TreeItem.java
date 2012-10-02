@@ -42,4 +42,6 @@ public interface TreeItem {
 	void check();
 	
 	boolean isChecked();
+	
+	org.eclipse.swt.widgets.TreeItem getSWTWidget();
 }
