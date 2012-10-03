@@ -61,7 +61,7 @@ public class ServerLabel {
 	 * @return
 	 */
 	private boolean isStyled(org.eclipse.swt.widgets.TreeItem swtItem){
-		return swtItem.getData("org.eclipse.jfacestyled_label_key_0") != null;
+		return getStyle(swtItem) == null;
 	}
 	
 	/**
@@ -72,6 +72,10 @@ public class ServerLabel {
 	private StyleRange getStyle(org.eclipse.swt.widgets.TreeItem swtItem){
 		Object data = swtItem.getData("org.eclipse.jfacestyled_label_key_0");
 		
+		if (data == null) {
+			return null;
+		}
+		
 		if (!(data instanceof StyleRange[])){
 			throw new EclipseLayerException("Cannot parse server label. Data for key 'org.eclipse.jfacestyled_label_key_0' are " +
 					"expected to be of type " + StyleRange[].class + " but are " + data.getClass());
@@ -80,7 +84,7 @@ public class ServerLabel {
 		StyleRange[] styles = (StyleRange[]) data;
 		
 		if (styles.length == 0) {
-			throw new EclipseLayerException("Cannot parse server label. No style information found.");
+			return null;
 		}
 		
 		if (styles.length != 1) {
