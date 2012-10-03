@@ -86,7 +86,7 @@ public class WizardProjectsImportPage extends WizardPage {
 		
 		for (String projectName : projects){
 			TreeItem  projectItem = getProjectTreeItem(projectsTree, projectName);
-			projectItem.check();
+			projectItem.setChecked(true);
 		}
 	}
 	
