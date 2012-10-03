@@ -61,7 +61,7 @@ public class ServerLabel {
 	 * @return
 	 */
 	private boolean isStyled(org.eclipse.swt.widgets.TreeItem swtItem){
-		return getStyle(swtItem) == null;
+		return getStyle(swtItem) != null;
 	}
 	
 	/**
