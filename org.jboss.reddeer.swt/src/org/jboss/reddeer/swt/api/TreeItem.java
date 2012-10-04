@@ -13,6 +13,8 @@ public interface TreeItem {
 	String getText();
 	
 	String getToolTipText();
+	
+	String getCell(int index);
 
 	/**
 	 * Returns all direct tree items. 
@@ -39,7 +41,9 @@ public interface TreeItem {
 
 	void doubleClick();
 	
-	void check();
+	void setChecked(boolean check);
 	
 	boolean isChecked();
+	
+	org.eclipse.swt.widgets.TreeItem getSWTWidget();
 }

@@ -28,6 +28,11 @@ public abstract class AbstractTreeItem implements TreeItem {
 		return toolTipText;
 	}
 	
+	@Override
+	public String getCell(int index) {
+		return item.cell(index);
+	}
+	
 	public void expand(){
 		logger.debug("Expanding Tree Item");
 		item.expand();
@@ -77,11 +82,21 @@ public abstract class AbstractTreeItem implements TreeItem {
 	}
 	
 	@Override
-	public void check() {
-		item.check();
+	public void setChecked(boolean check) {
+		if (check){
+			item.check();	
+		} else {
+			item.uncheck();
+		}
+		
 	}
 	
 	public boolean isChecked() {
 		return item.isChecked();
+	}
+	
+	@Override
+	public org.eclipse.swt.widgets.TreeItem getSWTWidget() {
+		return item.widget;
 	}
 }

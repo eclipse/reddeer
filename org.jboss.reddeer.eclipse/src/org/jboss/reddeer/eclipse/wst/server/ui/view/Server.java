@@ -40,7 +40,7 @@ public class Server {
 	}
 
 	public ServerLabel getLabel(){
-		return new ServerLabel(treeItem.getText());
+		return new ServerLabel(treeItem);
 	}
 
 	public List<ServerProject> getProjects() {

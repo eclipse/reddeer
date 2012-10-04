@@ -31,11 +31,7 @@ public class MenuLookup {
 	 * @return final MenuItem
 	 */
 	public MenuItem lookFor(MenuItem[] topItems, Matcher<String>... matchers) {		
-		Control c = getFocusControl();
 		MenuItem lastMenuItem = getMatchingMenuPath(topItems, matchers);
-		// Menu lastMenu = getMenuFromMenuItem(lastMenuItem);
-		// sendHide(lastMenu, true);
-		setFocusControl(c);
 		if (lastMenuItem == null) throw new WidgetNotAvailableException("");
 		return lastMenuItem;
 	}
@@ -120,29 +116,17 @@ public class MenuLookup {
 
 			@Override
 			public MenuItem[] run() {
-				MenuItem[] items = s.getMenuBar().getItems();
+				Menu menu = s.getMenuBar();
+				if (menu == null){
+					throw new WidgetNotAvailableException("Cannot find a menu bar of shell " + s.getText());
+				}
+				MenuItem[] items = menu.getItems();
 				return items;
 			}
 		});
 		return items;
 	}
 
-	/**
-	 * Returns control with focus
-	 * 
-	 * @return
-	 */
-	private void setFocusControl(final Control c) {
-		Display.syncExec(new Runnable() {
-
-			@Override
-			public void run() {
-				c.setFocus();
-			}
-
-		});
-	}
-	
 	/**
 	 * Returns Menu of the given control
 	 * @param c
