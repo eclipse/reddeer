@@ -22,6 +22,13 @@ public class DefaultText extends AbstractText implements Text {
 	public DefaultText(String text) {
 		botText = Bot.get().text(text);
 	}
+	/**
+	 * Default text given by it's index
+	 * @param index
+	 */
+	public DefaultText(int index) {
+		botText = Bot.get().text(index);
+	}
 	
 	public DefaultText(Matcher<Widget>... matchers){
 		botText = new SWTBotText((org.eclipse.swt.widgets.Text) Bot.get().widget(allOf(matchers)));
