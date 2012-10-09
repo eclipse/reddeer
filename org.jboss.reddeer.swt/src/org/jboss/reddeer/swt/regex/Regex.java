@@ -1,4 +1,4 @@
-package org.jboss.reddeeer.swt.regex;
+package org.jboss.reddeer.swt.regex;
 
 import java.util.regex.Pattern;
 

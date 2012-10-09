@@ -1,8 +1,8 @@
 package org.jboss.reddeer.swt.impl.button;
 
 import org.hamcrest.Matcher;
-import org.jboss.reddeeer.swt.regex.RegexSeq;
 import org.jboss.reddeer.swt.api.Button;
+import org.jboss.reddeer.swt.regex.RegexSeq;
 import org.jboss.reddeer.swt.util.Bot;
 
 /**
