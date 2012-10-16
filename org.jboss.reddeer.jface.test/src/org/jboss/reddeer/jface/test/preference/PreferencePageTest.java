@@ -7,6 +7,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.jboss.reddeer.eclipse.jface.preference.PreferencePage;
 import org.jboss.reddeer.swt.api.Shell;
+import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.exception.WidgetNotAvailableException;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.junit.After;
@@ -90,7 +91,7 @@ public class PreferencePageTest {
 		Shell shell = null;
 		try {
 			shell = new DefaultShell(PreferencePage.DIALOG_TITLE);
-		} catch (WidgetNotAvailableException e){
+		} catch (SWTLayerException e){
 			// not found, no action needed
 			return;
 		}

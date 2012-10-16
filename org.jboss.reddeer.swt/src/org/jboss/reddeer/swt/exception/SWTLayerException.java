@@ -1,8 +1,8 @@
 package org.jboss.reddeer.swt.exception;
 
 /**
- * WidgetNotEnabledException means widget is not enabled
- * @author Vlado Pakan
+ * SWT Layer Exception that indicates something wrong went on SWT Layer
+ * @author Jiri Peterka
  *
  */
 public class SWTLayerException extends RuntimeException {

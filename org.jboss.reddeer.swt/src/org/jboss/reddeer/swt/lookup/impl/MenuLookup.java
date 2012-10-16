@@ -9,7 +9,7 @@ import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Widget;
 import org.hamcrest.Matcher;
-import org.jboss.reddeer.swt.exception.WidgetNotAvailableException;
+import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.util.Display;
 import org.jboss.reddeer.swt.util.ResultRunnable;
 
@@ -32,7 +32,7 @@ public class MenuLookup {
 	 */
 	public MenuItem lookFor(MenuItem[] topItems, Matcher<String>... matchers) {		
 		MenuItem lastMenuItem = getMatchingMenuPath(topItems, matchers);
-		if (lastMenuItem == null) throw new WidgetNotAvailableException("");
+		if (lastMenuItem == null) throw new SWTLayerException("");
 		return lastMenuItem;
 	}
 
@@ -45,7 +45,7 @@ public class MenuLookup {
 	public void select(MenuItem[] topItems, Matcher<String>... matchers) {
 		MenuItem lastMenuItem = getMatchingMenuPath(topItems, matchers);
 		if (lastMenuItem == null) {
-			throw new WidgetNotAvailableException("Menu not found");
+			throw new SWTLayerException("Menu not found");
 		}
 		clickMenuItem(lastMenuItem);
 	}
@@ -71,7 +71,7 @@ public class MenuLookup {
 		});
 
 		if (items == null) {
-			throw new WidgetNotAvailableException(
+			throw new SWTLayerException(
 					"Could not find top menu items, menu doesn't exist or wrong focus");
 		}
 
@@ -118,7 +118,7 @@ public class MenuLookup {
 			public MenuItem[] run() {
 				Menu menu = s.getMenuBar();
 				if (menu == null){
-					throw new WidgetNotAvailableException("Cannot find a menu bar of shell " + s.getText());
+					throw new SWTLayerException("Cannot find a menu bar of shell " + s.getText());
 				}
 				MenuItem[] items = menu.getItems();
 				return items;
@@ -145,7 +145,7 @@ public class MenuLookup {
 		});
 
 		if (menu == null) {
-			throw new WidgetNotAvailableException(
+			throw new SWTLayerException(
 					"No menu");
 		}
 
@@ -269,7 +269,7 @@ public class MenuLookup {
 					menuItem.notifyListeners(SWT.Selection, event);
 
 				} else {
-					new WidgetNotAvailableException("Menu item is not enabled");
+					new SWTLayerException("Menu item is not enabled");
 				}
 			}
 		});

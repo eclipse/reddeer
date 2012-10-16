@@ -2,7 +2,7 @@ package org.jboss.reddeer.swt.impl.browser;
 
 import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotBrowser;
-import org.jboss.reddeer.swt.exception.WidgetNotAvailableException;
+import org.jboss.reddeer.swt.exception.SWTLayerException;
 
 /**
  * Abstract class for all Browsers implementations
@@ -16,7 +16,7 @@ public class AbstractBrowser {
 			browser.setFocus();
 		}
 		catch (WidgetNotFoundException e) {
-			new WidgetNotAvailableException("Browser is not available");
+			new SWTLayerException("Browser is not available");
 		}
 	}
 	protected SWTBotBrowser browser;

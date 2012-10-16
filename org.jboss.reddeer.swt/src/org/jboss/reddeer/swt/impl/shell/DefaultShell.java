@@ -2,7 +2,7 @@ package org.jboss.reddeer.swt.impl.shell;
 
 import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
 import org.jboss.reddeer.swt.api.Shell;
-import org.jboss.reddeer.swt.exception.WidgetNotAvailableException;
+import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.util.Bot;
 
 /**
@@ -21,7 +21,7 @@ public class DefaultShell extends AbstractShell implements Shell {
 			log.info("Shell with title '" + title + "' found");
 		}
 		catch (WidgetNotFoundException e) {
-			throw new WidgetNotAvailableException("No shell is available at the moment");
+			throw new SWTLayerException("No shell is available at the moment");
 		}
 	}
 	
@@ -32,7 +32,7 @@ public class DefaultShell extends AbstractShell implements Shell {
 			log.info("Active shell with title '" + shell.getText() + "' found");
 		}
 		catch (WidgetNotFoundException e) {
-			throw new WidgetNotAvailableException("No active shell is available at the moment");
+			throw new SWTLayerException("No active shell is available at the moment");
 		}
 	}
 }	

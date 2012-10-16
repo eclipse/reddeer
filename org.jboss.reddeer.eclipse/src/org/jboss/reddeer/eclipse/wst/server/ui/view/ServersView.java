@@ -7,6 +7,7 @@ import org.apache.log4j.Logger;
 import org.jboss.reddeer.eclipse.exception.EclipseLayerException;
 import org.jboss.reddeer.eclipse.wst.server.ui.wizard.NewServerWizardDialog;
 import org.jboss.reddeer.swt.api.TreeItem;
+import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.exception.WidgetNotAvailableException;
 import org.jboss.reddeer.swt.impl.menu.ContextMenu;
 import org.jboss.reddeer.swt.impl.tree.DefaultTree;
@@ -43,7 +44,7 @@ public class ServersView extends View {
 		DefaultTree tree;
 		try {
 			tree = getServersTree();
-		} catch (WidgetNotAvailableException e){
+		} catch (SWTLayerException e){
 			return new ArrayList<Server>();
 		}
 		for (TreeItem item : tree.getItems()){

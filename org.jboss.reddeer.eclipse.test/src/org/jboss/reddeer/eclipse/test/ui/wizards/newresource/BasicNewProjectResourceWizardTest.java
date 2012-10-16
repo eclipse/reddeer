@@ -4,11 +4,11 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 
+import org.jboss.reddeer.eclipse.exception.EclipseLayerException;
 import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.PackageExplorer;
 import org.jboss.reddeer.eclipse.ui.dialogs.WizardNewProjectCreationPage;
 import org.jboss.reddeer.eclipse.ui.dialogs.WizardNewProjectReferencePage;
 import org.jboss.reddeer.eclipse.ui.wizards.newresource.BasicNewProjectResourceWizard;
-import org.jboss.reddeer.swt.exception.WidgetNotEnabledException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -53,7 +53,7 @@ public class BasicNewProjectResourceWizardTest {
 				.setProjectLocation(BasicNewProjectResourceWizardTest.CUSTOM_PROJECT_LOCATION);
 		try {
 			projectPage.addProjectToWorkingSet("dummyws");
-		} catch (WidgetNotEnabledException wnee) {
+		} catch (EclipseLayerException wnee) {
 			// do nothing this exception means there is no Working set
 			// defined but all widgets were found
 		}

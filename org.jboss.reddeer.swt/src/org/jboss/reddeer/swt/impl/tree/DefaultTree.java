@@ -8,6 +8,7 @@ import org.eclipse.swt.widgets.Widget;
 import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
 import org.hamcrest.Matcher;
+import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.exception.WidgetNotAvailableException;
 import org.jboss.reddeer.swt.util.Bot;
 
@@ -29,7 +30,7 @@ public class DefaultTree extends AbstractTree {
 		try {
 			tree = new SWTBotTree((org.eclipse.swt.widgets.Tree) Bot.get().widget(allOf(widgetOfType(Tree.class), matcher)));
 		} catch (WidgetNotFoundException e){
-			throw new WidgetNotAvailableException("No matching tree available");
+			throw new SWTLayerException("No matching tree available");
 		}
 	}
 }

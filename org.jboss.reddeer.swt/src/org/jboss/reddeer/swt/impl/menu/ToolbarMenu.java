@@ -16,6 +16,7 @@ import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.internal.WorkbenchPartReference;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.swt.api.Menu;
+import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.exception.WidgetNotAvailableException;
 import org.jboss.reddeer.swt.matcher.WithMnemonicMatchers;
 import org.jboss.reddeer.swt.util.Bot;
@@ -52,7 +53,7 @@ public class ToolbarMenu extends AbstractMenu implements Menu{
 			menuContributionItems.addAll(Arrays.asList(((MenuManager) m).getItems()));
 		}
 		if(menuContributionItems.isEmpty()){
-			throw new WidgetNotAvailableException("No Menu found in " +view.getTitle());
+			throw new SWTLayerException("No Menu found in " +view.getTitle());
 		}
 		return menuContributionItems;
 	}

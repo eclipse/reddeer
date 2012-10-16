@@ -4,6 +4,7 @@ import org.apache.log4j.Logger;
 import org.jboss.reddeer.swt.api.Button;
 import org.jboss.reddeer.swt.api.Menu;
 import org.jboss.reddeer.swt.api.TreeItem;
+import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.exception.WidgetNotAvailableException;
 import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.clabel.DefaultCLabel;
@@ -35,7 +36,7 @@ public abstract class PreferencePage {
 		try {
 			new DefaultShell(DIALOG_TITLE);
 			log.debug("Preferences dialog was already opened.");
-		} catch (WidgetNotAvailableException e) {
+		} catch (SWTLayerException e) {
 			log.debug("Preferences dialog was not already opened. Opening via menu.");
 			Menu menu = new ShellMenu("Window","Preferences");
 			menu.select();

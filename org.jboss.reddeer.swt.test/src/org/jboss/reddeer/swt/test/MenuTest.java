@@ -9,6 +9,7 @@ import org.eclipse.swtbot.eclipse.finder.SWTWorkbenchBot;
 import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
 import org.jboss.reddeer.swt.api.Menu;
 import org.jboss.reddeer.swt.api.Shell;
+import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.exception.WidgetNotAvailableException;
 import org.jboss.reddeer.swt.impl.menu.ContextMenu;
 import org.jboss.reddeer.swt.impl.menu.ShellMenu;
@@ -57,7 +58,7 @@ public class MenuTest {
 		try {
 			RegexMatchers m = new RegexMatchers("Win.*", "Pref.*");
 			new ShellMenu(m.getMatchers());
-		} catch (WidgetNotAvailableException e) {
+		} catch (SWTLayerException e) {
 			fail("there should be no exception");
 		}
 
@@ -70,7 +71,7 @@ public class MenuTest {
 			RegexMatchers m = new RegexMatchers("Win.*", "Prefz.*");
 			new ShellMenu(m.getMatchers());
 			fail("exception should be thrown");
-		} catch (WidgetNotAvailableException e) { // do nothing
+		} catch (SWTLayerException e) { // do nothing
 
 		}
 	}
