@@ -1,8 +1,8 @@
 Manifest-Version: 1.0
 Eclipse-RegisterBuddy: org.apache.log4j
 Bundle-ManifestVersion: 2
-Bundle-Name: Red Deer SWT Componnet Tests
-Bundle-SymbolicName: org.jboss.reddeer.swt.test
+Bundle-Name: Red Deer SWT Component Tests
+Bundle-SymbolicName: org.jboss.reddeer.swt.test;singleton:=true
 Bundle-Version: 0.0.1.qualifier
 Bundle-Activator: org.jboss.reddeer.swt.test.Activator
 Require-Bundle: org.eclipse.ui,
@@ -10,8 +10,9 @@ Require-Bundle: org.eclipse.ui,
  org.junit4;bundle-version="4.8.1",
  org.eclipse.swtbot.eclipse.finder;bundle-version="2.0.5",
  org.jboss.reddeer.swt;bundle-version="0.0.1",
- org.apache.log4j;bundle-version="1.2.15",
  org.jboss.reddeer.workbench;bundle-version="0.0.1",
- org.hamcrest;bundle-version="1.1.0"
+ org.hamcrest;bundle-version="1.1.0",
+ org.apache.log4j;bundle-version="1.2.12",
+ org.eclipse.core.expressions
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6

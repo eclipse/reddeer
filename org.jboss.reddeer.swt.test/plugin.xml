@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.views">
+      <category
+            id="org.jboss.reddeer.swt.test.swtcat"
+            name="RedDeer SWT">
+      </category>
+      <view
+            category="org.jboss.reddeer.swt.test.swtcat"
+            class="org.jboss.reddeer.swt.test.prereq.PrereqView"
+            id="org.jboss.reddeer.swt.test.swtview"
+            name="RedDeer SWT"
+            restorable="true">
+      </view>
+   </extension>
+   <extension
+         id="org.jboss.reddeer.swt.test.commands"
+         name="RedDeer SWT Commands"
+         point="org.eclipse.ui.commands">
+      <command
+            categoryId="org.jboss.reddeer.swt.test.commands"
+            defaultHandler="org.jboss.reddeer.swt.test.handler.TestHandler"
+            description="RedDeer SWT Test Command"
+            id="org.jboss.reddeer.swt.test.command.testCommand"
+            name="Test Command">
+      </command>
+      <category
+            id="org.jboss.reddeer.swt.test.commands.category"
+            name="Sample Category">
+      </category>
+      <command
+            categoryId="org.jboss.reddeer.swt.test.commands.category"
+            id="org.jboss.reddeer.swt.test.commands.sampleCommand"
+            name="Sample Command">
+      </command>
+   </extension>
+   <extension
+         point="org.eclipse.ui.handlers">
+      <handler
+            class="org.jboss.reddeer.swt.test.handler.TestHandler"
+            commandId="org.jboss.reddeer.swt.test.command.rdswtcommand">
+      </handler>
+      <handler
+            class="org.jboss.reddeer.swt.test.handlers.SampleHandler"
+            commandId="org.jboss.reddeer.swt.test.commands.sampleCommand">
+      </handler>
+   </extension>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            allPopups="true"
+            locationURI="toolbar:org.eclipse.ui.views.ContentOutline?after=additions">
+         <command
+               commandId="org.jboss.reddeer.swt.test.command.testCommand"
+               disabledIcon="icons/sample.gif"
+               icon="icons/sample.gif"
+               label="SWTTest"
+               mnemonic="RD Test"
+               style="push"
+               tooltip="SWT Test Tooltip">
+         </command>
+      </menuContribution>
+      <menuContribution
+            allPopups="false"
+            locationURI="menu:org.eclipse.ui.main.menu">
+         <menu
+               id="reddeerMenu"
+               label="RedDeer">
+            <command
+                  commandId="org.jboss.reddeer.swt.test.command.testCommand"
+                  icon="icons/sample.gif"
+                  label="Test"
+                  mnemonic="abcd"
+                  style="push"
+                  tooltip="abcd">
+            </command>
+         </menu>
+         <toolbar
+               id="org.jboss.reddeer.swt.test.toolbar2"
+               label="abcde">
+            <command
+                  commandId="org.jboss.reddeer.swt.test.command.testCommand"
+                  style="push">
+            </command>
+         </toolbar>
+      </menuContribution>
+      <menuContribution
+            allPopups="false"
+            locationURI="toolbar:org.jboss.reddeer.swt.test.swtview">
+         <command
+               commandId="org.jboss.reddeer.swt.test.command.testCommand"
+               icon="icons/sample.gif"
+               label="Test"
+               mnemonic="abcd"
+               style="push"
+               tooltip="RedDeer SWT ToolItem">
+         </command>
+      </menuContribution>
+      <menuContribution
+            locationURI="menu:org.eclipse.ui.main.menu?after=additions">
+         <menu
+               id="org.jboss.reddeer.swt.test.menus.sampleMenu"
+               label="Sample Menu"
+               mnemonic="M">
+            <command
+                  commandId="org.jboss.reddeer.swt.test.commands.sampleCommand"
+                  id="org.jboss.reddeer.swt.test.menus.sampleCommand"
+                  mnemonic="S">
+            </command>
+         </menu>
+      </menuContribution>
+      <menuContribution
+            locationURI="toolbar:org.eclipse.ui.main.toolbar?after=additions">
+         <toolbar
+               id="org.jboss.reddeer.swt.test.toolbars.sampleToolbar">
+            <command
+                  commandId="org.jboss.reddeer.swt.test.commands.sampleCommand"
+                  icon="icons/sample.gif"
+                  id="org.jboss.reddeer.swt.test.toolbars.sampleCommand"
+                  tooltip="Say hello world">
+            </command>
+         </toolbar>
+      </menuContribution>
+   </extension>
+   <extension
+         point="org.eclipse.ui.bindings">
+      <key
+            commandId="org.jboss.reddeer.swt.test.commands.sampleCommand"
+            contextId="org.eclipse.ui.contexts.window"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            sequence="M1+6">
+      </key>
+   </extension>
+
+</plugin>

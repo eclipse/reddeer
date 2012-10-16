@@ -7,5 +7,4 @@ package org.jboss.reddeer.swt.api;
  */
 public interface ToolBar {
 
-	
 }
