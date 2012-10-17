@@ -15,54 +15,43 @@ public class ProblemsView extends WorkbenchView{
 	}
 
 	/**
-	 * Returns array of all errors
+	 * Return list of error problem markers
 	 * 
 	 * @return
 	 */
-	
 	public List<TreeItem> getAllErrors(){
 		if (!viewObject.isActive()){
 			viewObject.setFocus();
 		}
 		DefaultTree tree = new DefaultTree(new ViewMatcher(this));
 		
-		return filter(tree.getAllItems(), true);
+		return filter(tree.getItems(), true);
 	}
 	
+	/**
+	 * Return list of warnings problem markers
+	 * 
+	 * @return
+	 */
 	public List<TreeItem> getAllWarnings(){
 		if (!viewObject.isActive()){
 			viewObject.setFocus();
 		}
 		DefaultTree tree = new DefaultTree(new ViewMatcher(this));
 		
-		return filter(tree.getAllItems(), false);
+		return filter(tree.getItems(), false);
 	}
 	
-	/**
-	 * 		
-	 * @param list
-	 * @param errorsWarnings true to get errors, false to get warnings
-	 * @return
-	 */
-	
-	private List<TreeItem> filter(List<TreeItem> list, boolean errorsWarnings){
-		List<TreeItem> outputList = new LinkedList<TreeItem>();
-		boolean errors=false;
+	private List<TreeItem> filter(List<TreeItem> list, boolean errors){
 		for (TreeItem abstractTreeItem : list) {
-			if (errors == errorsWarnings){
-				if (!(abstractTreeItem.getText().matches("^Errors \\(\\d+ item.*\\)")) && 
-					!(abstractTreeItem.getText().matches("^Warnings \\(\\d+ item.*\\)"))){
-						outputList.add(abstractTreeItem);
-				}
-			}
-			if (abstractTreeItem.getText().matches("^Errors \\(\\d+ item.*\\)")){
-				errors = true;
-			}else if (abstractTreeItem.getText().matches("^Warnings \\(\\d+ item.*\\)")) {
-				errors = false;
+			if (abstractTreeItem.getText().matches("^Errors \\(\\d+ item.*\\)") && errors) {
+				return abstractTreeItem.getItems();
+			} 
+			if (abstractTreeItem.getText().matches("^Warnings \\(\\d+ item.*\\)") && !errors) {
+				return abstractTreeItem.getItems();
 			}
 		}
-		
-		return outputList;
+		return new LinkedList<TreeItem>();
 	}
 	
 }

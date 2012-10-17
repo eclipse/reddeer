@@ -2,6 +2,8 @@ package org.jboss.reddeer.eclipse.test.ui.problems;
 
 import static org.junit.Assert.assertEquals;
 
+import org.eclipse.swtbot.swt.finder.widgets.TimeoutException;
+import org.jboss.reddeer.eclipse.condition.ProblemsExists;
 import org.jboss.reddeer.eclipse.jdt.ui.ide.NewJavaProjectWizardDialog;
 import org.jboss.reddeer.eclipse.jdt.ui.ide.NewJavaProjectWizardPage;
 import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.PackageExplorer;
@@ -11,6 +13,7 @@ import org.jboss.reddeer.eclipse.ui.problems.ProblemsView;
 import org.jboss.reddeer.swt.condition.JobIsRunning;
 import org.jboss.reddeer.swt.util.Bot;
 import org.jboss.reddeer.swt.wait.TimePeriod;
+import org.jboss.reddeer.swt.wait.WaitUntil;
 import org.jboss.reddeer.swt.wait.WaitWhile;
 import org.junit.After;
 import org.junit.Before;
@@ -20,13 +23,14 @@ import org.junit.Test;
  * Just a draft.
  * 
  * @author rhopp
+ * @author jjankovi
  *
  */
 
 public class ProblemsViewTest {
 	
 	private PackageExplorer pkgExplorer;
-	private ProblemsView problemsView;
+	private ProblemsView problemsView;	
 	
 	@Before
 	public void setup(){
@@ -47,61 +51,65 @@ public class ProblemsViewTest {
 		pkgExplorer.getProject("Test").delete(true);
 	}
 	
-	@Test
-	public void getAllErrorsNoErrorsNoWarnings(){
+	@Test(expected=TimeoutException.class)
+	public void testNoErrorNoWarning() {
 		problemsView.open();
-		Bot.get().sleep(10000);
+		new WaitUntil(new ProblemsExists(), TimePeriod.NORMAL);
+	}
+	
+	@Test
+	public void testOneErrorNoWarning() {
+		createError();
+		assertEquals("Errors node should contain one error", problemsView.getAllErrors().size(), 1);
+		assertEquals("Warnings node should be empty", problemsView.getAllWarnings().size(), 0);
+	}
+	
+	@Test
+	public void testNoErrorOneWarning() {
+		createWarning();
 		assertEquals("Errors node should be empty", problemsView.getAllErrors().size(), 0);
+		assertEquals("Warnings node should contain one warning", problemsView.getAllWarnings().size(), 1);
 	}
 	
 	@Test
-	public void getAllErrorsNoErrorsWithWarnings(){
-		createError(false, true);
-		assertEquals("Errors node should be empty", problemsView.getAllErrors().size(), 0);
+	public void testOneErrorOneWarning() {
+		createError();
+		createWarning();
+		new WaitUntil(new ProblemsExists(true), TimePeriod.NORMAL);
+		assertEquals("Errors node should contain one error", problemsView.getAllErrors().size(), 1);
+		assertEquals("Warnings node should contain one warning", problemsView.getAllWarnings().size(), 1);
 	}
 	
-	@Test
-	public void getAllErrorsWithErrorsNoWarnings(){
-		createError(true, false);
-		assertEquals("There should be one record in Errors", problemsView.getAllErrors().size(), 1);
+	private void createError() {
+		createProblem(true);
 	}
 	
-	@Test
-	public void getAllWarningsNoWarningsNoErrors(){
-		createError(false, false);
-		assertEquals("There should be no record in Warnings", problemsView.getAllWarnings().size(), 0);
+	private void createWarning() {
+		createProblem(false);
 	}
 	
-	@Test
-	public void getAllWarningsWithWarningsNoErrors(){
-		createError(false, true);
-		assertEquals("There should be one record in Warnings", problemsView.getAllWarnings().size(), 1);
-	}
-	
-	@Test
-	public void getAllWarningsNoWarningsWithErrors(){
-		createError(true, false);
-		assertEquals("There should no record in Warnings", problemsView.getAllWarnings().size(), 0);
-	}
-	
-	private void createError(boolean error, boolean warning){
+	private void createProblem(boolean error){
 		pkgExplorer.open();
 		pkgExplorer.getProject("Test").getProjectItem("src").select();
 		NewJavaClassWizardDialog newJavaClassDialog = new NewJavaClassWizardDialog();
 		newJavaClassDialog.open();
 		
 		NewJavaClassWizardPage wizardPage = newJavaClassDialog.getFirstPage();
-		wizardPage.setName("TestClass");
+		if (error) {
+			wizardPage.setName("ErrorTestClass");
+		} else {
+			wizardPage.setName("WarningTestClass");
+		}
 		newJavaClassDialog.finish();
 		new WaitWhile(new JobIsRunning(), TimePeriod.LONG);
 		if (error){
 			Bot.get().activeEditor().toTextEditor().insertText(2, 1, "test error;\n"); //this should generate error
 		}
-		if (warning){
-			Bot.get().activeEditor().toTextEditor().insertText(2, 1, "public void test(){String test;}\n"); //this should generate warning
+		else {
+			Bot.get().activeEditor().toTextEditor().insertText(2, 1, "private int value;\n"); //this should generate warning
 		}
 		Bot.get().activeEditor().save();
 		problemsView.open();
-		new WaitWhile(new JobIsRunning(), TimePeriod.LONG);
+		new WaitUntil(new ProblemsExists(), TimePeriod.NORMAL);
 	}
 }
