@@ -19,6 +19,14 @@ public class PushButton extends AbstractButton implements Button {
 	public PushButton(String text) {
 		button = Bot.get().button(text);
 	}
+	
+	/**
+	 * Push button with given index
+	 * @param index
+	 */
+	public PushButton(int index) {
+		button = Bot.get().button(index);
+	}
 
 	/**
 	 * Push button with given regex pattern

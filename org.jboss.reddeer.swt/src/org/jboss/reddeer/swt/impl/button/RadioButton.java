@@ -19,6 +19,10 @@ public class RadioButton implements Button {
 		radioButton = Bot.get().radio(text);
 	}
 	
+	public RadioButton(int index){
+		radioButton	= Bot.get().radio(index);
+	}
+	
 	@Override
 	public void click() {
 		log.info("Clicking radio button " + getText());
