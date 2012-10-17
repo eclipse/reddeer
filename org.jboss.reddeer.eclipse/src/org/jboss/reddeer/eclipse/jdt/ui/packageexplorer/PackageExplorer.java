@@ -6,6 +6,7 @@ import java.util.List;
 import org.jboss.reddeer.eclipse.exception.EclipseLayerException;
 import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.swt.impl.tree.DefaultTree;
+import org.jboss.reddeer.swt.util.Bot;
 import org.jboss.reddeer.workbench.view.ViewMatcher;
 import org.jboss.reddeer.workbench.view.impl.WorkbenchView;
 
@@ -25,6 +26,13 @@ public class PackageExplorer extends WorkbenchView {
 		Project project = getProject(projectName);
 		project.select();
 		return project;
+	}
+	
+	public void selectProjects(String... projectName){
+		for(String pname: projectName){
+			getProject(pname); //check if project exists
+		}
+		Bot.get().tree().select(projectName);
 	}
 	
 	public boolean containsProject (String projectName){
