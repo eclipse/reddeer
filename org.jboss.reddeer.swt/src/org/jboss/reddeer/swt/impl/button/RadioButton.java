@@ -11,16 +11,41 @@ public class RadioButton implements Button {
 	
 	private SWTBotRadio radioButton;
 	
+	
 	public RadioButton() {
 		radioButton = Bot.get().radio();
 	}
-
+	
+	/**
+	 * Radio button with given text
+	 * @param text
+	 */
 	public RadioButton(String text) {
 		radioButton = Bot.get().radio(text);
 	}
-	
+	/**
+	 * Radio button with given index
+	 * @param text
+	 */
 	public RadioButton(int index){
 		radioButton	= Bot.get().radio(index);
+	}
+	
+	/**
+	 * Radio button with given index in given Group
+	 * @param index of button
+	 * @param inGroup in group
+	 */
+	public RadioButton(String inGroup, int index){
+		radioButton = Bot.get().radioInGroup(inGroup, index);
+	}
+	/**
+	 * Radio button with given text in given Group
+	 * @param text of button
+	 * @param inGroup in group
+	 */
+	public RadioButton(String inGroup, String text){
+		radioButton = Bot.get().radioInGroup(inGroup, text);
 	}
 	
 	@Override

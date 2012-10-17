@@ -35,6 +35,23 @@ public class CheckBox implements Button {
 	public CheckBox(int index){
 		checkBox = Bot.get().checkBox(index);
 	}
+	
+	/**
+	 * CheckBox button with given index in given Group
+	 * @param index of button
+	 * @param inGroup in group
+	 */
+	public CheckBox(String inGroup, int index){
+		checkBox = Bot.get().checkBoxInGroup(inGroup, index);
+	}
+	/**
+	 * CheckBox button with given text in given Group
+	 * @param text of button
+	 * @param inGroup in group
+	 */
+	public CheckBox(String inGroup, String text){
+		checkBox = Bot.get().checkBoxInGroup(inGroup, text);
+	}
 
 	/**
 	 * Checkbox with given label

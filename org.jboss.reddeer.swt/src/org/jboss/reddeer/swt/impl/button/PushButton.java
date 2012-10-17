@@ -27,6 +27,23 @@ public class PushButton extends AbstractButton implements Button {
 	public PushButton(int index) {
 		button = Bot.get().button(index);
 	}
+	
+	/**
+	 * Push button with given index in given Group
+	 * @param index of button
+	 * @param inGroup in group
+	 */
+	public PushButton(String inGroup, int index){
+		button = Bot.get().buttonInGroup(inGroup, index);
+	}
+	/**
+	 * Radio button with given text in given Group
+	 * @param text of button
+	 * @param inGroup in group
+	 */
+	public PushButton(String inGroup, String text){
+		button = Bot.get().buttonInGroup(inGroup, text);
+	}
 
 	/**
 	 * Push button with given regex pattern

@@ -41,4 +41,13 @@ public class DefaultTree extends AbstractTree {
 		}
 		tree.setFocus();
 	}
+	
+	/**
+	 * Tree with given index in given Group
+	 * @param index of tree
+	 * @param inGroup in group
+	 */
+	public DefaultTree(String inGroup, int index){
+		tree = Bot.get().treeInGroup(inGroup, index);
+	}
 }
