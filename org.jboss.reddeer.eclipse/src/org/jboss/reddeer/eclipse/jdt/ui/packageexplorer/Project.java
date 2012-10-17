@@ -11,6 +11,7 @@ import org.jboss.reddeer.swt.impl.menu.ContextMenu;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.jboss.reddeer.swt.util.Bot;
 import org.jboss.reddeer.swt.wait.TimePeriod;
+import org.jboss.reddeer.swt.wait.WaitUntil;
 import org.jboss.reddeer.swt.wait.WaitWhile;
 
 /**
@@ -35,6 +36,7 @@ public class Project {
 		select();
         log.debug("Delete project " + name + " via Package Explorer");
 	    new ContextMenu("Delete").select();
+	    new WaitUntil(new ShellWithTextIsActive("Delete Resources"),TimePeriod.NORMAL);
 		new DefaultShell("Delete Resources");
 		SWTBotCheckBox chbDeleteFromFileSystem = Bot.get().checkBox();
 		if ((chbDeleteFromFileSystem.isChecked() && !deleteFromFileSystem) ||
