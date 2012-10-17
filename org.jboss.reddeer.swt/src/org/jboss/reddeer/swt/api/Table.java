@@ -27,6 +27,11 @@ public interface Table {
 	 * @param index given row indexes
 	 */
 	void select(int... indexes);
+	/**
+	 * Select rows
+	 * @param items to be selected
+	 */
+	void select(String... items);
 	
 	
 }
