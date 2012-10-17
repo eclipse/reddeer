@@ -9,7 +9,6 @@ import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
-import org.jboss.reddeer.swt.exception.WidgetNotAvailableException;
 import org.jboss.reddeer.swt.util.Bot;
 
 /**
@@ -32,5 +31,14 @@ public class DefaultTree extends AbstractTree {
 		} catch (WidgetNotFoundException e){
 			throw new SWTLayerException("No matching tree available");
 		}
+	}
+
+	public DefaultTree(int index){
+		try {
+			tree = Bot.get().tree(index);
+		} catch (WidgetNotFoundException e){
+			throw new SWTLayerException("No matching tree available");
+		}
+		tree.setFocus();
 	}
 }
