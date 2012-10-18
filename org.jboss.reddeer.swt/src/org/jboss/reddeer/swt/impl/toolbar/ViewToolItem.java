@@ -22,8 +22,8 @@ public class ViewToolItem extends AbstractToolItem {
 	public ViewToolItem(String tooltip) {
 		ToolBarLookup tl = new ToolBarLookup();
 		ToolBar workbenchToolBar = tl.getViewToolbar();
-		ToolItem toolItem = tl.getToolItem(workbenchToolBar, tooltip);
+		ToolItem ti = tl.getToolItem(workbenchToolBar, tooltip);
 		Thrower.objectIsNull(tl, "ToolItem with toolTip " + tooltip + " cannot be found" );
-		botToolItem = new SWTBotToolbarPushButton(toolItem);
+		toolItem = ti;
 	}
 }

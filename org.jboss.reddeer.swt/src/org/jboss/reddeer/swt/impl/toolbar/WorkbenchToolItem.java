@@ -4,7 +4,6 @@ import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
 import org.jboss.reddeer.swt.exception.Thrower;
 import org.jboss.reddeer.swt.lookup.impl.ToolBarLookup;
-import org.jboss.reddeer.swt.lookup.impl.WidgetLookup;
 
 /**
  * Workbench Tool Item implementation 
@@ -29,11 +28,5 @@ public class WorkbenchToolItem extends AbstractToolItem {
 		}
 		Thrower.objectIsNull(ti, "ToolItem with toolTip " + toolTip + " cannot be found" );
 		toolItem = ti; 
-	}
-	
-	@Override
-	public void click() {
-		Thrower.objectIsNull(toolItem, "ToolItem is null" );
-		WidgetLookup.getInstance().sendClickNotifications(toolItem);
-	}
+	}	
 }
