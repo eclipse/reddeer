@@ -2,6 +2,7 @@ package org.jboss.reddeer.swt.test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import org.jboss.reddeer.swt.api.Menu;
 import org.jboss.reddeer.swt.api.ToolBar;
@@ -12,11 +13,18 @@ import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.jboss.reddeer.swt.impl.shell.WorkbenchShell;
 import org.jboss.reddeer.swt.impl.toolbar.ViewToolBar;
 import org.jboss.reddeer.swt.impl.toolbar.ViewToolItem;
+import org.jboss.reddeer.swt.impl.toolbar.WorkbenchToolItem;
 import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
 import org.jboss.reddeer.swt.matcher.RegexMatchers;
+import org.jboss.tools.reddeer.swt.test.model.TestModel;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+/**
+ * Tests for various toolbar implementations
+ * @author Jiri Peterka
+ *
+ */
 public class ToolBarTest {
 
 	@BeforeClass
@@ -37,6 +45,14 @@ public class ToolBarTest {
 		new DefaultShell(title);
 	}
 	
+	@Test 
+	public void workbenchToolBarTest() {
+		
+		ToolItem i = new WorkbenchToolItem("RedDeer SWT WorkbenchToolItem");
+		i.click();
+		assertTrue(TestModel.getClickedAndReset());
+	}
+
 	@Test
 	public void testToolBar() {
 		new WorkbenchShell();
@@ -46,14 +62,15 @@ public class ToolBarTest {
 
 	@Test
 	public void testToolItemInViewToolBarFound() {
-		ToolItem i = new ViewToolItem("RedDeer SWT ToolItem");
-		assertEquals("RedDeer SWT ToolItem", i.getToolTipText()); 
+		ToolItem i = new ViewToolItem("RedDeer SWT ViewToolItem");
+		assertEquals("RedDeer SWT ViewToolItem", i.getToolTipText());
 	}
 
 	@Test
 	public void testToolItemInViewToolBarClicked() {
-		ToolItem i = new ViewToolItem("RedDeer SWT ToolItem");
+		ToolItem i = new ViewToolItem("RedDeer SWT ViewToolItem");
 		i.click();
+		assertTrue(TestModel.getClickedAndReset());		
 	}
 
 }
