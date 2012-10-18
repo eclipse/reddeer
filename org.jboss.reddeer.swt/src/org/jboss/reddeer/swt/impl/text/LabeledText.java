@@ -18,13 +18,4 @@ public class LabeledText extends AbstractText implements Text {
 		botText = Bot.get().textWithLabel(label);
 	}
 	
-	/**
-	 * Text with given index in given Group
-	 * @param index of text
-	 * @param inGroup in group
-	 */
-	public LabeledText(String inGroup, int index){
-		botText = Bot.get().textInGroup(inGroup, index);
-	}
-	
 }
