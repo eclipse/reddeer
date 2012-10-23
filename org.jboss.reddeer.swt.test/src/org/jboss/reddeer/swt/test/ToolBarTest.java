@@ -31,7 +31,7 @@ public class ToolBarTest {
 
 	@BeforeClass
 	public static void prepare() {
-		
+			
 		WorkbenchShell ws = new WorkbenchShell();
 		String title = ws.getText();
 		
@@ -45,6 +45,7 @@ public class ToolBarTest {
 		new PushButton("OK").click();
 		
 		new DefaultShell(title);
+			
 	}
 	
 	@Test 
@@ -52,7 +53,6 @@ public class ToolBarTest {
 		
 		ToolItem i = new WorkbenchToolItem("RedDeer SWT WorkbenchToolItem");
 		i.click();
-		//Bot.get().sleep(10000);
 		assertTrue("ToolItem should be clicked", TestModel.getClickedAndReset());
 	}
 	
@@ -62,7 +62,6 @@ public class ToolBarTest {
 		RegexMatcher rm = new RegexMatcher("RedDeer SWT Workbench.*");
 		ToolItem i = new WorkbenchToolItem(rm);
 		i.click();
-//		Bot.get().sleep(10000);
 		assertTrue("ToolItem should be clicked", TestModel.getClickedAndReset());
 	}
 

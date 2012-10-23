@@ -1,5 +1,6 @@
 package org.jboss.tools.reddeer.swt.test.model;
 
+
 public class TestModel {
 
 	private static boolean clicked = false;
@@ -8,7 +9,8 @@ public class TestModel {
 		clicked = true;
 	}
 	
-	public static boolean getClickedAndReset() {		
+	public static boolean getClickedAndReset() {
+
 		boolean ret = clicked;
 		clicked = false;
 		return ret;
