@@ -10,9 +10,12 @@ import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.PackageExplorer;
 import org.jboss.reddeer.eclipse.ui.console.ConsoleView;
 import org.jboss.reddeer.eclipse.ui.ide.NewJavaClassWizardDialog;
 import org.jboss.reddeer.eclipse.ui.ide.NewJavaClassWizardPage;
+import org.jboss.reddeer.swt.condition.JobIsRunning;
 import org.jboss.reddeer.swt.impl.menu.ShellMenu;
 import org.jboss.reddeer.swt.matcher.RegexMatchers;
 import org.jboss.reddeer.swt.util.Bot;
+import org.jboss.reddeer.swt.wait.TimePeriod;
+import org.jboss.reddeer.swt.wait.WaitWhile;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -25,8 +28,7 @@ public class ConsoleViewTest {
 	
 	@BeforeClass
 	public static void setup() {
-		consoleView = new ConsoleView();
-		consoleView.open();
+		createTestProject();
 		runTestProject();
 	}
 	
@@ -38,6 +40,7 @@ public class ConsoleViewTest {
 	@Test
 	public void getConsoleText() {
 		consoleView = new ConsoleView();
+		consoleView.open();
 		String text = consoleView.getConsoleText();
 		assertThat(text, IsNull.notNullValue());
 		assertThat(text, IsEqual.equalTo("Hello World"));
@@ -46,15 +49,10 @@ public class ConsoleViewTest {
 	@Test
 	public void clearConsole() {
 		consoleView = new ConsoleView();
+		consoleView.open();
 		consoleView.clearConsole();		
 		String text = consoleView.getConsoleText();
 		assertThat(text, IsEqual.equalTo(""));
-	}
-	
-	private static void runTestProject() {
-		createTestProject();
-		RegexMatchers m = new RegexMatchers("Run.*", "Run As.*", ".*Java Application.*");
-		new ShellMenu(m.getMatchers()).select();
 	}
 	
 	private static void createTestProject() {
@@ -89,5 +87,12 @@ public class ConsoleViewTest {
 		Bot.get().activeEditor().toTextEditor().
 			insertText(9, 0, "System.out.print(\"Hello World\");");
 		Bot.get().activeEditor().toTextEditor().save();
+	}
+	
+	private static void runTestProject() {
+		new PackageExplorer().getProject(TEST_PROJECT_NAME).select();
+		RegexMatchers m = new RegexMatchers("Run.*", "Run As.*", ".*Java Application.*");
+		new ShellMenu(m.getMatchers()).select();
+		new WaitWhile(new JobIsRunning(), TimePeriod.NORMAL);
 	}
 }
