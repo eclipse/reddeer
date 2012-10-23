@@ -17,6 +17,13 @@ public abstract class AbstractCombo implements Combo {
 		log.info("Set text of Combo " + combo.getText() + " to: " + str);
 		combo.setText(str);
 	}
+	
+	@Override
+	public void setSelection(int index) {
+		log.info("Set selection of Combo " + combo.getText() + " to index: " + index);
+		combo.setSelection(index);
+	}
+
 
   @Override
   public boolean isEnabled() {
