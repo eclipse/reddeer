@@ -16,14 +16,15 @@ Require-Bundle: org.eclipse.ui,
  org.hamcrest;bundle-version="1.1.0"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Export-Package: org.jboss.reddeer.eclipse.exception,
- org.jboss.reddeer.eclipse.condition,
+Export-Package: org.jboss.reddeer.eclipse.condition,
+ org.jboss.reddeer.eclipse.exception,
  org.jboss.reddeer.eclipse.jdt.ui.ide,
  org.jboss.reddeer.eclipse.jdt.ui.packageexplorer,
  org.jboss.reddeer.eclipse.ui.console;uses:="org.jboss.reddeer.workbench.view",
  org.jboss.reddeer.eclipse.ui.dialogs,
  org.jboss.reddeer.eclipse.ui.ide,
  org.jboss.reddeer.eclipse.ui.problems,
+ org.jboss.reddeer.eclipse.ui.views.contentoutline,
  org.jboss.reddeer.eclipse.ui.views.log,
  org.jboss.reddeer.eclipse.ui.wizards.datatransfer,
  org.jboss.reddeer.eclipse.ui.wizards.newresource,
