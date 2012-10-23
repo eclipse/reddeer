@@ -5,6 +5,7 @@ import static org.eclipse.swtbot.swt.finder.matchers.WidgetMatcherFactory.widget
 
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.Widget;
+import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotWorkbenchPart;
 import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
 import org.hamcrest.Matcher;
@@ -49,5 +50,14 @@ public class DefaultTree extends AbstractTree {
 	 */
 	public DefaultTree(String inGroup, int index){
 		tree = Bot.get().treeInGroup(inGroup, index);
+	}
+	
+	/**
+	 * Tree for given workbenchPart
+	 * 
+	 * @param workbenchPart
+	 */
+	public DefaultTree(SWTBotWorkbenchPart<?> workbenchPart) {
+		tree = workbenchPart.bot().tree();
 	}
 }

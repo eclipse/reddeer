@@ -15,7 +15,9 @@ import org.jboss.reddeer.swt.impl.toolbar.ViewToolBar;
 import org.jboss.reddeer.swt.impl.toolbar.ViewToolItem;
 import org.jboss.reddeer.swt.impl.toolbar.WorkbenchToolItem;
 import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
+import org.jboss.reddeer.swt.matcher.RegexMatcher;
 import org.jboss.reddeer.swt.matcher.RegexMatchers;
+import org.jboss.reddeer.swt.util.Bot;
 import org.jboss.tools.reddeer.swt.test.model.TestModel;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -29,7 +31,7 @@ public class ToolBarTest {
 
 	@BeforeClass
 	public static void prepare() {
-		
+			
 		WorkbenchShell ws = new WorkbenchShell();
 		String title = ws.getText();
 		
@@ -43,6 +45,7 @@ public class ToolBarTest {
 		new PushButton("OK").click();
 		
 		new DefaultShell(title);
+			
 	}
 	
 	@Test 
@@ -50,7 +53,16 @@ public class ToolBarTest {
 		
 		ToolItem i = new WorkbenchToolItem("RedDeer SWT WorkbenchToolItem");
 		i.click();
-		assertTrue(TestModel.getClickedAndReset());
+		assertTrue("ToolItem should be clicked", TestModel.getClickedAndReset());
+	}
+	
+	@Test 
+	public void workbenchToolBarRegexTest() {
+		
+		RegexMatcher rm = new RegexMatcher("RedDeer SWT Workbench.*");
+		ToolItem i = new WorkbenchToolItem(rm);
+		i.click();
+		assertTrue("ToolItem should be clicked", TestModel.getClickedAndReset());
 	}
 
 	@Test
@@ -69,8 +81,15 @@ public class ToolBarTest {
 	@Test
 	public void testToolItemInViewToolBarClicked() {
 		ToolItem i = new ViewToolItem("RedDeer SWT ViewToolItem");
-		i.click();
-		assertTrue(TestModel.getClickedAndReset());		
+		i.click();		
+		assertTrue("ToolItem should be clicked", TestModel.getClickedAndReset());		
 	}
 
+	@Test
+	public void testToolItemInViewToolBarRegexClicked() {
+		RegexMatcher rm = new RegexMatcher("RedDeer SWT View.*");
+		ToolItem i = new ViewToolItem(rm);
+		i.click();
+		assertTrue("ToolItem should be clicked", TestModel.getClickedAndReset());		
+	}
 }

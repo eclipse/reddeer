@@ -18,6 +18,7 @@ import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.internal.CoolBarToTrimManager;
 import org.eclipse.ui.internal.WorkbenchWindow;
+import org.hamcrest.Matcher;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.exception.Thrower;
 import org.jboss.reddeer.swt.util.Display;
@@ -117,12 +118,12 @@ public class ToolBarLookup {
 	}
 
 	/**
-	 * Returns ToolItem from given toolbar with given tooltipText
+	 * Returns ToolItem from given toolbar with given matcher
 	 * @param toolBar
 	 * @param text
 	 * @return
 	 */
-	public ToolItem getToolItem(final ToolBar toolBar, final String toolTipText) {
+	public ToolItem getToolItem(final ToolBar toolBar, final Matcher<String> matcher) {
 
 		ToolItem item = Display.syncExec(new ResultRunnable<ToolItem>() {
 
@@ -132,7 +133,7 @@ public class ToolBarLookup {
 				ToolItem[] items = toolBar.getItems();
 				for (ToolItem item : items) {
 					if ((item == null) || (item.getToolTipText() == null)) continue;
-					if (item.getToolTipText().equals(toolTipText)) {						
+					if (matcher.matches(item.getToolTipText())) {						
 						return item;
 					}
 				}
