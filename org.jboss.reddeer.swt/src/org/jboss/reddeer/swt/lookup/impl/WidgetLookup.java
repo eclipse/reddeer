@@ -2,6 +2,7 @@ package org.jboss.reddeer.swt.lookup.impl;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Event;
+import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Widget;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.util.Display;
@@ -69,7 +70,7 @@ public class WidgetLookup {
 	private void notify(final int eventType, final Event createEvent, final Widget widget) {
 		createEvent.type = eventType;
 		
-		Display.asyncExec(new Runnable() {
+		Display.syncExec(new Runnable() {
 			public void run() {
 				if ((widget == null) || widget.isDisposed()) {
 					return;
@@ -77,6 +78,7 @@ public class WidgetLookup {
 				if (!WidgetLookup.getInstance().isEnabled(widget)) {
 					throw new SWTLayerException("Widget is not enabled");
 				}
+				
 				widget.notifyListeners(eventType, createEvent);
 			}
 		});

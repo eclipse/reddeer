@@ -21,7 +21,6 @@
          point="org.eclipse.ui.commands">
       <command
             categoryId="org.jboss.reddeer.swt.test.commands"
-            defaultHandler="org.jboss.reddeer.swt.test.handler.TestHandler"
             description="RedDeer SWT Test Command"
             id="org.jboss.reddeer.swt.test.command.testCommand"
             name="Test Command">

@@ -26,6 +26,7 @@ import org.junit.Test;
 public class MenuTest {
 
 	protected final Logger log = Logger.getLogger(this.getClass());
+	private static int limit = 20;
 
 	@Before
 	public void before() {
@@ -90,7 +91,7 @@ public class MenuTest {
 	
 	@Test 
 	public void hundertscontextMenuTest() {
-		for (int i = 0; i < 100; i++) {
+		for (int i = 0; i < limit; i++) {
 			contextMenuTest();
 		}
 	}	
