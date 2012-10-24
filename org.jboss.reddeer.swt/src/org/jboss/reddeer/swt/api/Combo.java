@@ -10,6 +10,8 @@ public interface Combo {
   public void setText(String str);
   public void setSelection(int index);
   public void setSelection(String selection);
+  public String getSelection();
+  public int getSelectionIndex();
   public boolean isEnabled();
   
 }
