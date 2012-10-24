@@ -4,11 +4,11 @@ import static org.junit.Assert.assertEquals;
 
 import org.eclipse.swtbot.swt.finder.widgets.TimeoutException;
 import org.jboss.reddeer.eclipse.condition.ProblemsExists;
+import org.jboss.reddeer.eclipse.jdt.ui.NewJavaClassWizardDialog;
+import org.jboss.reddeer.eclipse.jdt.ui.NewJavaClassWizardPage;
 import org.jboss.reddeer.eclipse.jdt.ui.ide.NewJavaProjectWizardDialog;
 import org.jboss.reddeer.eclipse.jdt.ui.ide.NewJavaProjectWizardPage;
 import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.PackageExplorer;
-import org.jboss.reddeer.eclipse.ui.ide.NewJavaClassWizardDialog;
-import org.jboss.reddeer.eclipse.ui.ide.NewJavaClassWizardPage;
 import org.jboss.reddeer.eclipse.ui.problems.ProblemsView;
 import org.jboss.reddeer.swt.condition.JobIsRunning;
 import org.jboss.reddeer.swt.util.Bot;

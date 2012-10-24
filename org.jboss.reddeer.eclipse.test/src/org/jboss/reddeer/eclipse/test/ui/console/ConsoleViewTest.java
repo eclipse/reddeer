@@ -4,12 +4,12 @@ import static org.junit.Assert.assertThat;
 
 import org.hamcrest.core.IsEqual;
 import org.hamcrest.core.IsNull;
+import org.jboss.reddeer.eclipse.jdt.ui.NewJavaClassWizardDialog;
+import org.jboss.reddeer.eclipse.jdt.ui.NewJavaClassWizardPage;
 import org.jboss.reddeer.eclipse.jdt.ui.ide.NewJavaProjectWizardDialog;
 import org.jboss.reddeer.eclipse.jdt.ui.ide.NewJavaProjectWizardPage;
 import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.PackageExplorer;
 import org.jboss.reddeer.eclipse.ui.console.ConsoleView;
-import org.jboss.reddeer.eclipse.ui.ide.NewJavaClassWizardDialog;
-import org.jboss.reddeer.eclipse.ui.ide.NewJavaClassWizardPage;
 import org.jboss.reddeer.swt.condition.JobIsRunning;
 import org.jboss.reddeer.swt.impl.menu.ShellMenu;
 import org.jboss.reddeer.swt.matcher.RegexMatchers;
