@@ -2,9 +2,7 @@ package org.jboss.reddeer.swt.lookup.impl;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Event;
-import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Widget;
-import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.util.Display;
 import org.jboss.reddeer.swt.util.ObjectUtil;
 
@@ -76,7 +74,7 @@ public class WidgetLookup {
 					return;
 				}
 				if (!WidgetLookup.getInstance().isEnabled(widget)) {
-					throw new SWTLayerException("Widget is not enabled");
+					// do nothing here (it may be expected state (e.g Clear Console))
 				}
 				
 				widget.notifyListeners(eventType, createEvent);

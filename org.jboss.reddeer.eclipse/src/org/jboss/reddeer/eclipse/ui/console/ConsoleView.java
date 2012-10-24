@@ -1,9 +1,7 @@
 package org.jboss.reddeer.eclipse.ui.console;
 
 import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
-import org.jboss.reddeer.swt.condition.JobIsRunning;
 import org.jboss.reddeer.swt.impl.toolbar.ViewToolItem;
-import org.jboss.reddeer.swt.wait.WaitWhile;
 import org.jboss.reddeer.workbench.view.impl.WorkbenchView;
 
 /**
@@ -22,7 +20,6 @@ public class ConsoleView extends WorkbenchView {
 		/**
 		 * how it should look:
 		 * 
-		 * open();
 		 * return new StyledText().getText();
 		 * 
 		 * there will not be any try-catch, because constructor 
@@ -36,14 +33,12 @@ public class ConsoleView extends WorkbenchView {
 			log.warn("There is no text in Console view");
 			consoleText = null;
 		}
-
 		return consoleText;
 	}
 	
 	public void clearConsole() {
 		log.info("Clearing console");
 		new ViewToolItem("Clear Console").click();
-		new WaitWhile(new JobIsRunning());
 		log.info("Console cleared");
 	}
 	
