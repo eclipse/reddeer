@@ -41,12 +41,12 @@ public abstract class AbstractTable implements Table {
 		      }
 		  log.debug("Select table row(s): " + sbIndexes.toString());
 		}
-		Bot.get().table().select(indexes);
+		table.select(indexes);
 		
 	}
 	
 	public void select(String... items) {
-		Bot.get().table().select(items);
+		table.select(items);
 	}
 		
 }
