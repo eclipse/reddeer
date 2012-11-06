@@ -22,7 +22,7 @@ public class ObjectUtil {
 			method = object.getClass().getMethod(methodName,
 					new Class[0]);
 		} catch (Exception e) {
-			throw new SWTLayerException("Cannot get method : " + e.getMessage());
+			throw new RuntimeException("Cannot get method : " + e.getMessage());
 		}
 		Widget widget = null;
 		final Object result;
@@ -31,18 +31,25 @@ public class ObjectUtil {
 			result = UIThreadRunnable.syncExec(widget.getDisplay(),
 					new Result<Object>() {
 						public Object run() {
+							Object o = null;
 							try {
-								return method.invoke(object, new Object[0]);
-							} catch (Exception niceTry) {
+								o = method.invoke(object, new Object[0]);
+							} catch (Exception e) {
+								try {
+									throw new RuntimeException("Cannot invoke method : " + e.getMessage());
+								} catch (Exception e1) {
+									// TODO Auto-generated catch block
+									e1.printStackTrace();
+								}
 							}
-							return null;
+							return o;
 						}
 					});
 		} else
 			try {
 				result = method.invoke(object, new Object[0]);
 			} catch (Exception e) {
-				throw new SWTLayerException("Cannot invoke method : " + e.getMessage());
+				throw new RuntimeException("Cannot invoke method : " + e.getMessage());
 			}
 
 		return result;

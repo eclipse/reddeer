@@ -29,8 +29,11 @@ public class ViewToolItem extends AbstractToolItem {
 	public ViewToolItem(Matcher<String> matcher) {
 		ToolBarLookup tl = new ToolBarLookup();
 		ToolBar workbenchToolBar = tl.getViewToolbar();
-		ToolItem ti = tl.getToolItem(workbenchToolBar, matcher);
-		Thrower.objectIsNull(tl, "ToolItem with toolTip " + matcher.toString() + " cannot be found" );
+
+		ToolItem ti = null;
+		ti = tl.getToolItem(workbenchToolBar, matcher);			
+		
+		Thrower.objectIsNull(ti, "ToolItem with toolTip " + matcher.toString() + " cannot be found" );
 		toolItem = ti;
 	}
 }

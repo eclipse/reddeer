@@ -29,7 +29,17 @@ public class WidgetLookup {
 	 * @return
 	 */
 	public boolean isEnabled(Widget widget) {
-		boolean ret = ((Boolean) ObjectUtil.invokeMethod(widget, "isEnabled")).booleanValue();
+		boolean ret = true;
+		Object o = null;
+		try {
+			o = ObjectUtil.invokeMethod(widget, "isEnabled");
+		} catch (RuntimeException e) {
+			return true;
+		}
+		if (o == null) return ret;
+		if (o instanceof Boolean) {
+			ret = ((Boolean)o).booleanValue();
+		}
 		return ret;
 	}
 	

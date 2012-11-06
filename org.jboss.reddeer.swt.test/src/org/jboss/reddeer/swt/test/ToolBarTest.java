@@ -4,12 +4,12 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
 import org.jboss.reddeer.swt.api.Menu;
 import org.jboss.reddeer.swt.api.ToolBar;
 import org.jboss.reddeer.swt.api.ToolItem;
 import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.menu.ShellMenu;
-import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.jboss.reddeer.swt.impl.shell.WorkbenchShell;
 import org.jboss.reddeer.swt.impl.toolbar.ViewToolBar;
 import org.jboss.reddeer.swt.impl.toolbar.ViewToolItem;
@@ -32,8 +32,7 @@ public class ToolBarTest {
 	@BeforeClass
 	public static void prepare() {
 			
-		WorkbenchShell ws = new WorkbenchShell();
-		String title = ws.getText();
+		new WorkbenchShell();
 		
 		RegexMatchers m = new RegexMatchers("Window.*", "Show View.*",
 				"Other...*");
@@ -44,8 +43,10 @@ public class ToolBarTest {
 		item.select();
 		new PushButton("OK").click();
 		
-		new DefaultShell(title);
-			
+		new WorkbenchShell();
+		SWTBotView viewObject = Bot.getNew().viewByTitle("RedDeer SWT");
+		viewObject.show();
+		viewObject.setFocus();
 	}
 	
 	@Test 
