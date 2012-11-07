@@ -4,17 +4,17 @@ import org.jboss.reddeer.eclipse.wst.server.ui.view.Server;
 import org.jboss.reddeer.eclipse.wst.server.ui.view.ServersView;
 import org.jboss.reddeer.eclipse.wst.server.ui.wizard.NewServerWizardDialog;
 import org.jboss.reddeer.eclipse.wst.server.ui.wizard.NewServerWizardPage;
+import org.jboss.reddeer.swt.test.RedDeerTest;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
-import org.junit.After;
 
-public class ServersViewTestCase {
+public class ServersViewTestCase extends RedDeerTest {
 
 	protected ServersView serversView = new ServersView();
 
 	protected NewServerWizardDialog wizardDialog;
 	
-	@After
-	public void cleanup(){
+	@Override
+	protected void tearDown(){
 		if (wizardDialog != null && NewServerWizardDialog.TITLE.equals(new DefaultShell().getText())){
 			wizardDialog.cancel();
 		}
@@ -22,6 +22,8 @@ public class ServersViewTestCase {
 		for (Server server : serversView.getServers()){
 			server.delete(false);
 		}
+		
+		super.tearDown();
 	}
 	
 	protected void createServer(String name) {

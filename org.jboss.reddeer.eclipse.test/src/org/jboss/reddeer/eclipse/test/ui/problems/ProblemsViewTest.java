@@ -10,13 +10,12 @@ import org.jboss.reddeer.eclipse.jdt.ui.ide.NewJavaProjectWizardDialog;
 import org.jboss.reddeer.eclipse.jdt.ui.ide.NewJavaProjectWizardPage;
 import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.PackageExplorer;
 import org.jboss.reddeer.eclipse.ui.problems.ProblemsView;
+import org.jboss.reddeer.swt.test.RedDeerTest;
 import org.jboss.reddeer.swt.condition.JobIsRunning;
 import org.jboss.reddeer.swt.util.Bot;
 import org.jboss.reddeer.swt.wait.TimePeriod;
 import org.jboss.reddeer.swt.wait.WaitUntil;
 import org.jboss.reddeer.swt.wait.WaitWhile;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 
 /**
@@ -27,13 +26,14 @@ import org.junit.Test;
  *
  */
 
-public class ProblemsViewTest {
+public class ProblemsViewTest extends RedDeerTest{
 	
 	private PackageExplorer pkgExplorer;
 	private ProblemsView problemsView;	
 	
-	@Before
-	public void setup(){
+	@Override
+	protected void setUp(){
+	  super.setUp();
 		NewJavaProjectWizardDialog dialog = new NewJavaProjectWizardDialog();
 		dialog.open();
 		NewJavaProjectWizardPage page1 = dialog.getFirstPage(); 
@@ -45,10 +45,11 @@ public class ProblemsViewTest {
 		pkgExplorer.open();
 	}
 	
-	@After
-	public void teardown(){
+	@Override
+	protected void tearDown(){
 		pkgExplorer.open();
 		pkgExplorer.getProject("Test").delete(true);
+		super.tearDown();
 	}
 	
 	@Test(expected=TimeoutException.class)

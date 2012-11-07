@@ -9,15 +9,14 @@ import org.jboss.reddeer.eclipse.jdt.ui.ide.NewJavaProjectWizardDialog;
 import org.jboss.reddeer.eclipse.jdt.ui.ide.NewJavaProjectWizardPage;
 import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.PackageExplorer;
 import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.ProjectItem;
+import org.jboss.reddeer.swt.test.RedDeerTest;
 import org.jboss.reddeer.swt.condition.JobIsRunning;
 import org.jboss.reddeer.swt.util.Bot;
 import org.jboss.reddeer.swt.wait.TimePeriod;
 import org.jboss.reddeer.swt.wait.WaitWhile;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 
-public class ProjectItemTest {
+public class ProjectItemTest extends RedDeerTest{
 
 	private static final String PROJECT_NAME = "TestProject";
 	private static final String PROJECT_ITEM_TEXT = "src";
@@ -25,8 +24,9 @@ public class ProjectItemTest {
 	private PackageExplorer packageExplorer;
 	private ProjectItem projectItem;
 		
-	@Before
-	public void setup(){
+	@Override
+	protected void setUp(){
+	  super.setUp();
 		NewJavaProjectWizardDialog dialog = new NewJavaProjectWizardDialog();
 		dialog.open();
 		NewJavaProjectWizardPage page1 = dialog.getFirstPage(); 
@@ -93,8 +93,9 @@ public class ProjectItemTest {
 				  + " but is " + piDefaultPackage.getText(),
 				piDefaultPackage.getText().equals(ProjectItemTest.DEFAULT_PACKAGE_TEXT));
 	}
-	@After
-	public void teardown(){
+	@Override
+	protected void tearDown(){
 		packageExplorer.getProject(ProjectItemTest.PROJECT_NAME).delete(true);
+		super.tearDown();
 	}
 }

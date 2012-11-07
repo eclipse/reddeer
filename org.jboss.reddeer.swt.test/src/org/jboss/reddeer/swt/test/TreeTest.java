@@ -1,5 +1,6 @@
 package org.jboss.reddeer.swt.test;
 
+import org.jboss.reddeer.swt.test.RedDeerTest;
 import org.jboss.reddeer.swt.api.Menu;
 import org.jboss.reddeer.swt.api.Shell;
 import org.jboss.reddeer.swt.api.TreeItem;
@@ -8,7 +9,7 @@ import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
 import org.junit.Test;
 
-public class TreeTest {
+public class TreeTest extends RedDeerTest {
 
 
 	@Test

@@ -4,11 +4,12 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import org.jboss.reddeer.eclipse.jface.preference.FoldingPreferencePage;
+import org.jboss.reddeer.swt.test.RedDeerTest;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-public class FoldingPreferencePageTest {
+public class FoldingPreferencePageTest extends RedDeerTest{
 
 	private static FoldingPreferencePage page = new FoldingPreferencePage();
 	

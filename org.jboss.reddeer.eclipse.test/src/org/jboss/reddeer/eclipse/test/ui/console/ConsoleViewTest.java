@@ -10,6 +10,7 @@ import org.jboss.reddeer.eclipse.jdt.ui.ide.NewJavaProjectWizardDialog;
 import org.jboss.reddeer.eclipse.jdt.ui.ide.NewJavaProjectWizardPage;
 import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.PackageExplorer;
 import org.jboss.reddeer.eclipse.ui.console.ConsoleView;
+import org.jboss.reddeer.swt.test.RedDeerTest;
 import org.jboss.reddeer.swt.condition.JobIsRunning;
 import org.jboss.reddeer.swt.impl.menu.ShellMenu;
 import org.jboss.reddeer.swt.matcher.RegexMatchers;
@@ -20,20 +21,20 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-public class ConsoleViewTest {
+public class ConsoleViewTest extends RedDeerTest{
 
 	private static ConsoleView consoleView;
 	
 	private static final String TEST_PROJECT_NAME = "Project";
 	
 	@BeforeClass
-	public static void setup() {
+	public static void setupClass() {
 		createTestProject();
 		runTestProject();
 	}
 	
 	@AfterClass
-	public static void tearDown() {
+	public static void tearDownClass() {
 		new PackageExplorer().getProject(TEST_PROJECT_NAME).delete(true);
 	}
 	

@@ -4,11 +4,17 @@ import static org.junit.Assert.*;
 
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
+import org.jboss.reddeer.swt.test.RedDeerTest;
 import org.jboss.reddeer.swt.api.Browser;
+import org.jboss.reddeer.swt.api.Menu;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.impl.browser.InternalBrowser;
+import org.jboss.reddeer.swt.impl.button.PushButton;
+import org.jboss.reddeer.swt.impl.menu.ShellMenu;
+import org.jboss.reddeer.swt.impl.shell.DefaultShell;
+import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
+import org.jboss.reddeer.swt.matcher.RegexMatchers;
 import org.jboss.reddeer.swt.util.Bot;
-import org.junit.Before;
 import org.junit.Test;
 
 /**
@@ -16,13 +22,23 @@ import org.junit.Test;
  * @author Jiri Peterka
  *
  */
-public class BrowserTest {
+public class BrowserTest extends RedDeerTest {
 
 	protected final Logger log = Logger.getLogger(this.getClass());
 
-	@Before
-	public void before() {
+	@Override
+	public void setUp() {
+	  super.setUp();
 		Logger.getRootLogger().setLevel(Level.DEBUG);
+		// Open Internal Web Browser
+		// TODO: should be replaced with Internal Web Browses view once it's implemented
+    RegexMatchers m = new RegexMatchers("Window.*", "Show View.*",
+        "Other...*");
+    Menu menu = new ShellMenu(m.getMatchers());
+    menu.select();
+    new DefaultShell("Show View");
+    new DefaultTreeItem("General", "Internal Web Browser").select();
+    new PushButton("OK").click();
 	}
 	
 	@Test

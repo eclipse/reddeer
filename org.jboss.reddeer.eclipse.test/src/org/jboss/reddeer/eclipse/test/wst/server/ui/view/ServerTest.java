@@ -9,7 +9,6 @@ import org.jboss.reddeer.eclipse.wst.server.ui.view.Server;
 import org.jboss.reddeer.eclipse.wst.server.ui.view.ServersViewEnums.ServerPublishState;
 import org.jboss.reddeer.eclipse.wst.server.ui.view.ServersViewEnums.ServerState;
 import org.jboss.reddeer.eclipse.wst.server.ui.view.ServersViewException;
-import org.junit.Before;
 import org.junit.Test;
 
 public class ServerTest extends ServersViewTestCase {
@@ -20,8 +19,9 @@ public class ServerTest extends ServersViewTestCase {
 	
 	private Server server1;
 	
-	@Before
-	public void createServers(){
+	@Override
+	protected void setUp(){
+	  super.setUp();
 		createServer(SERVER_1);
 		createServer(SERVER_2);
 		

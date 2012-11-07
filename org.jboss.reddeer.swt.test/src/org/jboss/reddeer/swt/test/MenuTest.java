@@ -7,15 +7,14 @@ import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.eclipse.swtbot.eclipse.finder.SWTWorkbenchBot;
 import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
+import org.jboss.reddeer.swt.test.RedDeerTest;
 import org.jboss.reddeer.swt.api.Menu;
 import org.jboss.reddeer.swt.api.Shell;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
-import org.jboss.reddeer.swt.exception.WidgetNotAvailableException;
 import org.jboss.reddeer.swt.impl.menu.ContextMenu;
 import org.jboss.reddeer.swt.impl.menu.ShellMenu;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.jboss.reddeer.swt.matcher.RegexMatchers;
-import org.junit.Before;
 import org.junit.Test;
 
 /**
@@ -23,13 +22,14 @@ import org.junit.Test;
  * @author Jiri Peterka
  *
  */
-public class MenuTest {
+public class MenuTest extends RedDeerTest {
 
 	protected final Logger log = Logger.getLogger(this.getClass());
 	private static int limit = 20;
 
-	@Before
-	public void before() {
+	@Override
+	protected void setUp() {
+	  super.setUp();
 		Logger.getRootLogger().setLevel(Level.DEBUG);
 	}
 	

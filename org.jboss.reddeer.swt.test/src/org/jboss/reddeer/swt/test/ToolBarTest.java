@@ -5,6 +5,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
+import org.jboss.reddeer.swt.test.RedDeerTest;
 import org.jboss.reddeer.swt.api.Menu;
 import org.jboss.reddeer.swt.api.ToolBar;
 import org.jboss.reddeer.swt.api.ToolItem;
@@ -27,7 +28,7 @@ import org.junit.Test;
  * @author Jiri Peterka
  *
  */
-public class ToolBarTest {
+public class ToolBarTest extends RedDeerTest {
 
 	@BeforeClass
 	public static void prepare() {

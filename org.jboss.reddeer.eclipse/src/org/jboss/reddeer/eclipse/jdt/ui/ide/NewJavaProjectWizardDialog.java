@@ -1,5 +1,6 @@
 package org.jboss.reddeer.eclipse.jdt.ui.ide;
 
+import org.eclipse.swtbot.swt.finder.widgets.TimeoutException;
 import org.jboss.reddeer.eclipse.jface.wizard.NewWizardDialog;
 import org.jboss.reddeer.swt.condition.JobIsRunning;
 import org.jboss.reddeer.swt.condition.ShellWithTextIsActive;
@@ -28,18 +29,20 @@ public class NewJavaProjectWizardDialog extends NewWizardDialog{
 	public void finish(boolean openAssociatedPerspective) {
 		log.debug("Finish wizard dialog");
 		new PushButton("Finish").click();
-		new WaitUntil(new ShellWithTextIsActive("Open Associated Perspective?"));
-		DefaultShell shell = new DefaultShell();
-		if (new DefaultShell().getText().equals("Open Associated Perspective?")){
-			if (openAssociatedPerspective){
-				new PushButton("Yes").click();
-			}else{
-				new PushButton("No").click();
+		try {
+			new WaitUntil(new ShellWithTextIsActive("Open Associated Perspective?"));
+			DefaultShell shell = new DefaultShell();
+			if (new DefaultShell().getText().equals("Open Associated Perspective?")) {
+				if (openAssociatedPerspective) {
+					new PushButton("Yes").click();
+				} else {
+					new PushButton("No").click();
+				}
+				new WaitWhile(new ShellWithTextIsActive(shell.getText()), TimePeriod.LONG);
 			}
-		}else{
+		} catch (TimeoutException te) {
 			log.info("Shell 'Open Associated Perspective' wasn't shown");
 		}
-		new WaitWhile(new ShellWithTextIsActive(shell.getText()), TimePeriod.LONG);
 		new WaitWhile(new JobIsRunning(), TimePeriod.LONG);
 	}
 

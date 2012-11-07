@@ -5,11 +5,11 @@ import static org.junit.Assert.assertThat;
 
 import org.jboss.reddeer.eclipse.jface.wizard.ExportWizardDialog;
 import org.jboss.reddeer.eclipse.jface.wizard.WizardPage;
+import org.jboss.reddeer.swt.test.RedDeerTest;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
-import org.junit.After;
 import org.junit.Test;
 
-public class ExportWizardDialogTest {
+public class ExportWizardDialogTest extends RedDeerTest {
 
 	private ExportWizardDialogImpl exportWizardDialog = new ExportWizardDialogImpl();
 
@@ -21,9 +21,10 @@ public class ExportWizardDialogTest {
 		assertThat(wizardDialogText, is(TestingExportWizard.NAME));
 	}
 
-	@After
-	public void cleanup(){
+	@Override
+	protected void tearDown(){
 		exportWizardDialog.cancel();
+		super.tearDown();
 	}
 	
 	private class ExportWizardDialogImpl extends ExportWizardDialog {

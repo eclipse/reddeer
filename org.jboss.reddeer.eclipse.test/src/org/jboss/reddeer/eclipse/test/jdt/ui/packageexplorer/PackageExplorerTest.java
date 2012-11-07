@@ -3,10 +3,11 @@ package org.jboss.reddeer.eclipse.test.jdt.ui.packageexplorer;
 import static org.junit.Assert.assertTrue;
 
 import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.PackageExplorer;
+import org.jboss.reddeer.swt.test.RedDeerTest;
 import org.jboss.reddeer.swt.util.Bot;
 import org.junit.Test;
 
-public class PackageExplorerTest {
+public class PackageExplorerTest extends RedDeerTest{
 
 	private PackageExplorer packageExplorer;
 	

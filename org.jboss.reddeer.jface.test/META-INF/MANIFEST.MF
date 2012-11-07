@@ -8,6 +8,7 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  org.jboss.reddeer.jface;bundle-version="0.0.1",
  org.junit4;bundle-version="4.8.1",
- org.jboss.reddeer.swt;bundle-version="0.0.1"
+ org.jboss.reddeer.swt;bundle-version="0.0.1",
+ org.jboss.reddeer.swt.test;bundle-version="0.0.1"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
