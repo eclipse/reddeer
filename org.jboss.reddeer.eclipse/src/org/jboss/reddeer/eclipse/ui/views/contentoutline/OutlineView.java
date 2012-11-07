@@ -3,10 +3,10 @@ package org.jboss.reddeer.eclipse.ui.views.contentoutline;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
 import org.jboss.reddeer.swt.api.TreeItem;
+import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.impl.toolbar.ViewToolItem;
-import org.jboss.reddeer.swt.impl.tree.DefaultTree;
+import org.jboss.reddeer.swt.impl.tree.ViewTree;
 import org.jboss.reddeer.swt.matcher.RegexMatcher;
 import org.jboss.reddeer.workbench.view.impl.WorkbenchView;
 
@@ -56,9 +56,9 @@ public class OutlineView extends WorkbenchView {
 	
 	private Collection<TreeItem>getTreeForView() {
 		try {
-			DefaultTree tree = new DefaultTree(viewObject);
+			ViewTree tree = new ViewTree();
 			return tree.getItems();
-		} catch (WidgetNotFoundException exc) {
+		} catch (SWTLayerException exc) {
 			return new ArrayList<TreeItem>();
 		}
 		

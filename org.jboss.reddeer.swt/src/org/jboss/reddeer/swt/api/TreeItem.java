@@ -14,6 +14,8 @@ public interface TreeItem {
 	
 	String getToolTipText();
 	
+	String[] getPath();
+	
 	String getCell(int index);
 
 	/**
@@ -38,7 +40,9 @@ public interface TreeItem {
 	void select();
 	
 	void expand();
-
+	
+	void collapse();
+	
 	void doubleClick();
 	
 	void setChecked(boolean check);

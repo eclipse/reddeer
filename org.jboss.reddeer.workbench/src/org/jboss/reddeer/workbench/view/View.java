@@ -10,7 +10,7 @@ import org.jboss.reddeer.swt.api.Menu;
 import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.menu.ShellMenu;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
-import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
+import org.jboss.reddeer.swt.impl.tree.ShellTreeItem;
 import org.jboss.reddeer.swt.matcher.RegexMatchers;
 import org.jboss.reddeer.swt.util.Bot;
 import org.jboss.reddeer.workbench.exception.ViewNotFoundException;
@@ -53,7 +53,7 @@ public abstract class View extends WorkbenchPart {
 			Menu menu = new ShellMenu(m.getMatchers());
 			menu.select();
 			new DefaultShell(SHOW_VIEW);
-			new DefaultTreeItem(path).select();
+			new ShellTreeItem(path).select();
 			new PushButton("OK").click();
 			viewObject = Bot.get().activeView();
 		}

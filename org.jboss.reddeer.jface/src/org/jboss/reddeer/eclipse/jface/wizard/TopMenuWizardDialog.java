@@ -2,7 +2,7 @@ package org.jboss.reddeer.eclipse.jface.wizard;
 
 import org.jboss.reddeer.swt.impl.menu.ShellMenu;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
-import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
+import org.jboss.reddeer.swt.impl.tree.ShellTreeItem;
 
 /**
  * Superclass for wizard dialogs that can be opened by the workbench top menu. 
@@ -31,7 +31,7 @@ public abstract class TopMenuWizardDialog extends WizardDialog {
 		currentPage = 0;
 		new ShellMenu(getMenuPath()).select();
 		new DefaultShell(getDialogTitle());
-		new DefaultTreeItem(path).select();
+		new ShellTreeItem(path).select();
 	    next();
 	}
 }

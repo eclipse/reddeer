@@ -9,7 +9,7 @@ import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.clabel.DefaultCLabel;
 import org.jboss.reddeer.swt.impl.menu.ShellMenu;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
-import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
+import org.jboss.reddeer.swt.impl.tree.ShellTreeItem;
 
 /**
  * Represents a general preference page in the Preferences dialog. Subclasses should represent the concrete preference page. 
@@ -42,7 +42,7 @@ public abstract class PreferencePage {
 			new DefaultShell(DIALOG_TITLE);
 		}
 		
-		TreeItem t = new DefaultTreeItem(path);
+		TreeItem t = new ShellTreeItem(path);
 		t.select();
 	}
 	

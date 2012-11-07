@@ -12,19 +12,25 @@ import org.jboss.reddeer.eclipse.ui.views.contentoutline.OutlineView;
 import org.jboss.reddeer.swt.test.RedDeerTest;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.util.Bot;
+import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class OutlineViewTest extends RedDeerTest{
 
 	private OutlineView outlineView;
-	private PackageExplorer packageExplorer;
+	private static PackageExplorer packageExplorer;
 	private static final String TEST_PROJECT_NAME = "prj";
 	
 	@BeforeClass
 	public static void prepareWS() {
 		createJavaProject();
 		createJavaClass();
+	}
+	
+	@AfterClass
+	public static void cleanup() {
+		packageExplorer.getProject(TEST_PROJECT_NAME).delete(true);
 	}
 	
 	@Test

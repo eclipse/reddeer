@@ -70,5 +70,17 @@
          </toolbar>
       </menuContribution>
    </extension>
+   
+   	<extension point="org.eclipse.ui.views">
+   		<category 
+           id="org.jboss.reddeer.swt.test.ui.category"
+           name="Test Category">
+        </category>
+    	<view id="org.jboss.reddeer.swt.test.ui.views.customview"
+        	name="Custom View"
+        	category="org.jboss.reddeer.swt.test.ui.category"
+        	class="org.jboss.reddeer.swt.test.ui.views.CustomView" />
+	</extension>
+
 
 </plugin>
