@@ -106,7 +106,7 @@ public abstract class AbstractTreeItem implements TreeItem {
 		item.collapse();
 	}
 
-	public List<TreeItem> getItems(boolean shellItem) {
+	protected List<TreeItem> getItems(boolean shellItem) {
 		expand();
 		List<TreeItem> items = new LinkedList<TreeItem>();
 		for (SWTBotTreeItem childrenTreeItem : item.getItems()) {
@@ -120,7 +120,7 @@ public abstract class AbstractTreeItem implements TreeItem {
 		return items;
 	}
 	
-	public TreeItem getItem (String text, boolean shellTreeItem){
+	protected TreeItem getItem (String text, boolean shellTreeItem){
 		expand();
 		SWTBotTreeItem[] items = item.getItems();
 		int index = 0;

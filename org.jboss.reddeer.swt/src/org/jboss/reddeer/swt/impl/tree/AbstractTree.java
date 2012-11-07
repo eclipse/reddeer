@@ -40,7 +40,7 @@ public abstract class AbstractTree implements Tree {
 				activeWidget(matcher, control, index));
 	}
 	
-	public List<TreeItem> getItems(boolean shellItem){
+	protected List<TreeItem> getItems(boolean shellItem){
 		List<TreeItem> list = new LinkedList<TreeItem>();
 		for (SWTBotTreeItem treeItem : tree.getAllItems()) {
 			TreeItem item = null;
