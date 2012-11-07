@@ -12,7 +12,7 @@ import org.jboss.reddeer.swt.impl.browser.InternalBrowser;
 import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.menu.ShellMenu;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
-import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
+import org.jboss.reddeer.swt.impl.tree.ShellTreeItem;
 import org.jboss.reddeer.swt.matcher.RegexMatchers;
 import org.jboss.reddeer.swt.util.Bot;
 import org.junit.Test;
@@ -37,7 +37,7 @@ public class BrowserTest extends RedDeerTest {
     Menu menu = new ShellMenu(m.getMatchers());
     menu.select();
     new DefaultShell("Show View");
-    new DefaultTreeItem("General", "Internal Web Browser").select();
+    new ShellTreeItem("General", "Internal Web Browser").select();
     new PushButton("OK").click();
 	}
 	
