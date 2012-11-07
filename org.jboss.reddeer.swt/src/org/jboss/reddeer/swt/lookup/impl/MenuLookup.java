@@ -57,7 +57,7 @@ public class MenuLookup {
 	 */
 	public MenuItem[] getTopMenuMenuItemsFromFocus() {
 
-		final Control control  = getFocusControl();
+		final Control control  = WidgetLookup.getInstance().getFocusControl();
 		MenuItem[] items = null;
 		final Menu menu = getControlMenu(control);
 		
@@ -273,24 +273,6 @@ public class MenuLookup {
 				}
 			}
 		});
-	}
-
-	/**
-	 * Return control with focus
-	 * 
-	 * @return control with focus
-	 */
-	private Control getFocusControl() {
-		Control c = Display.syncExec(new ResultRunnable<Control>() {
-
-			@Override
-			public Control run() {
-				Control focusControl = Display.getDisplay().getFocusControl();
-				return focusControl;
-			}
-
-		});
-		return c;
 	}
 
 }

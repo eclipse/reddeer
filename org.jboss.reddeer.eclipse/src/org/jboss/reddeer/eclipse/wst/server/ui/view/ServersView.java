@@ -8,11 +8,9 @@ import org.jboss.reddeer.eclipse.exception.EclipseLayerException;
 import org.jboss.reddeer.eclipse.wst.server.ui.wizard.NewServerWizardDialog;
 import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
-import org.jboss.reddeer.swt.exception.WidgetNotAvailableException;
 import org.jboss.reddeer.swt.impl.menu.ContextMenu;
-import org.jboss.reddeer.swt.impl.tree.DefaultTree;
+import org.jboss.reddeer.swt.impl.tree.ViewTree;
 import org.jboss.reddeer.workbench.view.View;
-import org.jboss.reddeer.workbench.view.ViewMatcher;
 
 /**
  * Represents the Servers view. This class contains methods that can be invoked even 
@@ -41,7 +39,7 @@ public class ServersView extends View {
 	public List<Server> getServers(){
 		List<Server> servers = new ArrayList<Server>();
 
-		DefaultTree tree;
+		ViewTree tree;
 		try {
 			tree = getServersTree();
 		} catch (SWTLayerException e){
@@ -62,8 +60,9 @@ public class ServersView extends View {
 		throw new EclipseLayerException("There is no server with name " + name);
 	}
 
-	protected DefaultTree getServersTree(){
+	protected ViewTree getServersTree(){
 		open();
-		return new DefaultTree(new ViewMatcher(this));
+		return new ViewTree();
+//		return new DefaultTree(new ViewMatcher(this));
 	}
 }

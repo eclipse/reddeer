@@ -1,10 +1,17 @@
 package org.jboss.reddeer.swt.lookup.impl;
 
+import java.util.List;
+
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Widget;
+import org.eclipse.swtbot.swt.finder.finders.ControlFinder;
+import org.hamcrest.Matcher;
+import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.util.Display;
 import org.jboss.reddeer.swt.util.ObjectUtil;
+import org.jboss.reddeer.swt.util.ResultRunnable;
 
 /**
  * Widget Lookup methods
@@ -97,6 +104,52 @@ public class WidgetLookup {
 				// do nothing here
 			}
 		});
+	}
+	
+	public Widget activeShellWidget(Matcher<? extends Widget> matcher, int index) {
+		List<? extends Widget> widgets = activeWidgets(new ShellLookup().getActiveShell(), matcher);
+		return getProperWidget(widgets, index);
+	}
+
+	public Widget activeViewWidget(Matcher<? extends Widget> matcher, int index) {
+		List<? extends Widget> widgets = activeWidgets(getFocusControl(), matcher);
+		return getProperWidget(widgets, index);
+	}
+	
+	public Widget activeWidget(Matcher<? extends Widget> matcher, Control activeControl, int index) {
+		List<? extends Widget> widgets = activeWidgets(activeControl, matcher);
+		return getProperWidget(widgets, index);
+	}
+	
+	private Widget getProperWidget(List<? extends Widget> widgets, int index) {
+		if (widgets.size() - index < 1) {
+			throw new SWTLayerException("No matching widget found");
+		}
+		return widgets.get(index);
+	}
+	
+	private List<? extends Widget> activeWidgets(Control activeControl, Matcher<? extends Widget> matcher) {
+		ControlFinder finder = new ControlFinder();
+		List<? extends Widget> widgets = finder.findControls(activeControl, matcher, true);
+		return widgets;
+	}
+
+	/**
+	 * Return control with focus
+	 * 
+	 * @return control with focus
+	 */
+	public Control getFocusControl() {
+		Control c = Display.syncExec(new ResultRunnable<Control>() {
+
+			@Override
+			public Control run() {
+				Control focusControl = Display.getDisplay().getFocusControl();
+				return focusControl;
+			}
+
+		});
+		return c;
 	}
 
 }

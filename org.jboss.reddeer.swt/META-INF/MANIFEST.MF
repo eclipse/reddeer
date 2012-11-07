@@ -6,6 +6,7 @@ Bundle-SymbolicName: org.jboss.reddeer.swt
 Bundle-Version: 0.0.1.qualifier
 Bundle-Activator: org.jboss.reddeer.swt.Activator
 Require-Bundle: org.eclipse.ui,
+ org.eclipse.ui.workbench,
  org.eclipse.core.runtime,
  org.eclipse.swtbot.eclipse.core;bundle-version="2.0.5",
  org.eclipse.swtbot.eclipse.finder;bundle-version="2.0.5",

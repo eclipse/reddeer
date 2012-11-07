@@ -14,7 +14,7 @@ import org.jboss.reddeer.swt.impl.shell.WorkbenchShell;
 import org.jboss.reddeer.swt.impl.toolbar.ViewToolBar;
 import org.jboss.reddeer.swt.impl.toolbar.ViewToolItem;
 import org.jboss.reddeer.swt.impl.toolbar.WorkbenchToolItem;
-import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
+import org.jboss.reddeer.swt.impl.tree.ShellTreeItem;
 import org.jboss.reddeer.swt.matcher.RegexMatcher;
 import org.jboss.reddeer.swt.matcher.RegexMatchers;
 import org.jboss.reddeer.swt.util.Bot;
@@ -39,7 +39,7 @@ public class ToolBarTest {
 		Menu menu = new ShellMenu(m.getMatchers());
 		menu.select();
 				
-		DefaultTreeItem item = new DefaultTreeItem("RedDeer SWT","RedDeer SWT");
+		ShellTreeItem item = new ShellTreeItem("RedDeer SWT","RedDeer SWT");
 		item.select();
 		new PushButton("OK").click();
 		

@@ -1,18 +1,77 @@
 package org.jboss.reddeer.swt.impl.tree;
 
+import static org.eclipse.swtbot.swt.finder.matchers.WidgetMatcherFactory.allOf;
+import static org.eclipse.swtbot.swt.finder.matchers.WidgetMatcherFactory.widgetOfType;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.eclipse.swt.widgets.Control;
 import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
+import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.jboss.reddeer.swt.api.TreeItem;
+import org.jboss.reddeer.swt.exception.SWTLayerException;
+import org.jboss.reddeer.swt.lookup.impl.WidgetLookup;
 
 public abstract class AbstractTreeItem implements TreeItem {
 
 	protected final Logger logger = Logger.getLogger(this.getClass());
 	
 	protected SWTBotTreeItem item;
+	
+	protected String[] path;
+	
+	public AbstractTreeItem(Control control) {
+		this(control, 0);
+	}
+	
+	public AbstractTreeItem(Control control, String... treeItemPath) {
+		this(control, 0, treeItemPath);
+	}
+	
+	public AbstractTreeItem(Control control, int treeIndex, String... treeItemPath) {
+		this(control, treeIndex, 0, treeItemPath);
+	}
+	
+	public AbstractTreeItem(Control control, int treeItemIndex) {
+		this(control, 0, treeItemIndex);
+	}
+	
+	public AbstractTreeItem(Control control, int treeIndex, int treeItemIndex) {
+		this(control, treeIndex, treeItemIndex, (String[]) null);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public AbstractTreeItem(Control control, int treeIndex, int treeItemIndex, String... treeItemPath) {
+		SWTBotTree tree = new SWTBotTree((org.eclipse.swt.widgets.Tree) 
+				WidgetLookup.getInstance().
+				activeWidget(allOf(widgetOfType(org.eclipse.swt.widgets.Tree.class)), control, treeIndex));
+		
+		int size = tree.getAllItems().length;
+		if (size - treeItemIndex < 1) {
+			throw new SWTLayerException("No matching tree item found");
+		}
+		if (treeItemPath == null) {
+			item = tree.getAllItems()[treeIndex];
+			path = new String[] {item.getText()};
+		} else {
+			List<String> tiPath = new ArrayList<String>(Arrays.asList(treeItemPath));
+			// wait method maybe will be needed here
+			item = tree.getTreeItem(tiPath.get(0));
+			tiPath.remove(0);
+			for (String treeItemNode : tiPath) {
+				item.expand();
+				// wait method maybe will be needed here
+				item = item.getNode(treeItemNode);
+			}
+			path = treeItemPath;
+		}
+		
+	}
 	
 	public void select() {
 		item.select();
@@ -33,34 +92,48 @@ public abstract class AbstractTreeItem implements TreeItem {
 		return item.cell(index);
 	}
 	
+	public String[] getPath() {
+		return path;
+	}
+	
 	public void expand(){
 		logger.debug("Expanding Tree Item");
 		item.expand();
 	}
 	
-	/**
-	 * Returns all (direct) subnodes of this TreeItem
-	 * 
-	 * @return
-	 */
-	public List<TreeItem> getItems(){
+	public void collapse() {
+		logger.debug("Collapsing Tree Item");
+		item.collapse();
+	}
+
+	public List<TreeItem> getItems(boolean shellItem) {
 		expand();
-		List<TreeItem> list = new LinkedList<TreeItem>();
-		for (SWTBotTreeItem treeItem : item.getItems()) {
-			list.add(new DefaultTreeItem(treeItem.widget));
+		List<TreeItem> items = new LinkedList<TreeItem>();
+		for (SWTBotTreeItem childrenTreeItem : item.getItems()) {
+			String[] treeItemPath = new String[] {childrenTreeItem.getText()};
+			if (shellItem) {
+				items.add(new ShellTreeItem(joinTwoArrays(getPath(), treeItemPath)));
+			} else {
+				items.add(new ViewTreeItem(joinTwoArrays(getPath(), treeItemPath)));
+			}
 		}
-		return list;
+		return items;
 	}
 	
-	public TreeItem getItem (String text){
-		item.expand();
+	public TreeItem getItem (String text, boolean shellTreeItem){
+		expand();
 		SWTBotTreeItem[] items = item.getItems();
 		int index = 0;
 		while (index < items.length && !items[index].getText().equals(text)){
 			index++;
 		}
 		if (index < items.length){
-			return new DefaultTreeItem(items[index].widget);
+			String[] treeItemPath = new String[] {text};
+			if (shellTreeItem) {
+				return new ShellTreeItem(joinTwoArrays(getPath(), treeItemPath));
+			} else {
+				return new ViewTreeItem(joinTwoArrays(getPath(), treeItemPath));
+			}
 		}
 		else{
 			throw new WidgetNotFoundException("There is no Tree Item with text " + text);
@@ -88,15 +161,20 @@ public abstract class AbstractTreeItem implements TreeItem {
 		} else {
 			item.uncheck();
 		}
-		
 	}
 	
 	public boolean isChecked() {
 		return item.isChecked();
 	}
 	
-	@Override
 	public org.eclipse.swt.widgets.TreeItem getSWTWidget() {
 		return item.widget;
+	}
+	
+	private String[] joinTwoArrays(String[] array1, String[] array2) {
+		String[] finalArray= new String[array1.length + array2.length];
+		System.arraycopy(array1, 0, finalArray, 0, array1.length);
+		System.arraycopy(array2, 0, finalArray, array1.length, array2.length);
+		return finalArray;
 	}
 }

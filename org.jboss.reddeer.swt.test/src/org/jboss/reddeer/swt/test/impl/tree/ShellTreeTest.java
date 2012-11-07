@@ -1,4 +1,4 @@
-package org.jboss.reddeer.swt.impl.tree;
+package org.jboss.reddeer.swt.test.impl.tree;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
@@ -14,14 +14,15 @@ import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swtbot.swt.finder.finders.UIThreadRunnable;
 import org.eclipse.swtbot.swt.finder.results.Result;
 import org.eclipse.swtbot.swt.finder.results.VoidResult;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
 import org.hamcrest.Description;
 import org.hamcrest.TypeSafeMatcher;
 import org.jboss.reddeer.swt.api.TreeItem;
+import org.jboss.reddeer.swt.impl.tree.AbstractTree;
+import org.jboss.reddeer.swt.lookup.impl.ShellLookup;
 import org.junit.Before;
 import org.junit.Test;
 
-public class AbstractTreeTest {
+public class ShellTreeTest {
 
 	private Tree swtTree;
 
@@ -36,10 +37,12 @@ public class AbstractTreeTest {
 				Display display = Display.getDefault();
 				Shell shell = new Shell(display);
 				swtTree = new Tree(shell, SWT.BORDER);
+				shell.open();
+				shell.setFocus();
 			}
 		});
 
-		tree = new AbstractTreeImpl(swtTree);
+		tree = new ShellTreeImpl();
 	}
 
 	@Test
@@ -115,10 +118,15 @@ public class AbstractTreeTest {
 		});
 	}
 	
-	class AbstractTreeImpl extends AbstractTree {
+	class ShellTreeImpl extends AbstractTree {
 
-		public AbstractTreeImpl(Tree swtTree) {
-			this.tree = new SWTBotTree(swtTree);
+		public ShellTreeImpl() {
+			super(new ShellLookup().getActiveShell());
+		}
+
+		@Override
+		public List<TreeItem> getItems() {
+			return getItems(true);
 		}
 	}
 	
