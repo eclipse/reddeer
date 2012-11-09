@@ -1,4 +1,4 @@
-package org.jboss.tools.mylyn.ui.bot.test;
+package org.jboss.reddeer.swt.condition;
 
 import org.eclipse.swtbot.swt.finder.SWTBot;
 import org.jboss.reddeer.swt.util.Bot;
