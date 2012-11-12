@@ -10,12 +10,33 @@ import java.util.List;
  */
 public interface TreeItem {
 
+	/**
+	 * Return the text of tree item
+	 * 
+	 * @return
+	 */
 	String getText();
 	
+	/**
+	 * Return the tool tip text of tree item
+	 * 
+	 * @return
+	 */
 	String getToolTipText();
 	
+	/**
+	 * Return the tree item path
+	 * 
+	 * @return
+	 */
 	String[] getPath();
 	
+	/**
+	 * Return the specific cell on index
+	 * 
+	 * @param index
+	 * @return
+	 */
 	String getCell(int index);
 
 	/**
@@ -33,20 +54,52 @@ public interface TreeItem {
 	 */
 	TreeItem getItem (String text);
 	
+	/**
+	 * Return the state of selection of tree item
+	 * 
+	 * @return
+	 */
 	boolean isSelected();
 	
+	/**
+	 * Return the state of disposal of tree item
+	 * 
+	 * @return
+	 */
 	boolean isDisposed();
 	
+	/**
+	 * Select tree item
+	 */
 	void select();
 	
+	/**
+	 * Expand tree item
+	 */
 	void expand();
 	
+	/**
+	 * Collapse tree item
+	 */
 	void collapse();
 	
+	/**
+	 * Double click on tree item
+	 */
 	void doubleClick();
 	
+	/**
+	 * Set is being checked state of tree item according to parameter check
+	 * 
+	 * @param check
+	 */
 	void setChecked(boolean check);
 	
+	/**
+	 * Return the state of being checked of tree item
+	 * 
+	 * @return
+	 */
 	boolean isChecked();
 	
 	org.eclipse.swt.widgets.TreeItem getSWTWidget();
