@@ -17,6 +17,9 @@ Require-Bundle: org.eclipse.ui,
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: org.jboss.reddeer.eclipse.condition,
+ org.jboss.reddeer.eclipse.datatools.ui,
+ org.jboss.reddeer.eclipse.datatools.ui.preference,
+ org.jboss.reddeer.eclipse.datatools.ui.wizard,
  org.jboss.reddeer.eclipse.exception,
  org.jboss.reddeer.eclipse.jdt.internal.ui,
  org.jboss.reddeer.eclipse.jdt.ui,
