@@ -22,6 +22,7 @@ public abstract class AbstractTreeItem implements TreeItem {
 	protected final Logger logger = Logger.getLogger(this.getClass());
 	
 	protected SWTBotTreeItem item;
+	private int treeIndex;
 	
 	protected String[] path;
 	
@@ -50,7 +51,7 @@ public abstract class AbstractTreeItem implements TreeItem {
 		SWTBotTree tree = new SWTBotTree((org.eclipse.swt.widgets.Tree) 
 				WidgetLookup.getInstance().
 				activeWidget(allOf(widgetOfType(org.eclipse.swt.widgets.Tree.class)), control, treeIndex));
-		
+		this.treeIndex=treeIndex;
 		int size = tree.getAllItems().length;
 		if (size - treeItemIndex < 1) {
 			throw new SWTLayerException("No matching tree item found");
@@ -112,9 +113,9 @@ public abstract class AbstractTreeItem implements TreeItem {
 		for (SWTBotTreeItem childrenTreeItem : item.getItems()) {
 			String[] treeItemPath = new String[] {childrenTreeItem.getText()};
 			if (shellItem) {
-				items.add(new ShellTreeItem(joinTwoArrays(getPath(), treeItemPath)));
+				items.add(new ShellTreeItem(treeIndex,joinTwoArrays(getPath(), treeItemPath)));
 			} else {
-				items.add(new ViewTreeItem(joinTwoArrays(getPath(), treeItemPath)));
+				items.add(new ViewTreeItem(treeIndex,joinTwoArrays(getPath(), treeItemPath)));
 			}
 		}
 		return items;
@@ -130,9 +131,9 @@ public abstract class AbstractTreeItem implements TreeItem {
 		if (index < items.length){
 			String[] treeItemPath = new String[] {text};
 			if (shellTreeItem) {
-				return new ShellTreeItem(joinTwoArrays(getPath(), treeItemPath));
+				return new ShellTreeItem(treeIndex,joinTwoArrays(getPath(), treeItemPath));
 			} else {
-				return new ViewTreeItem(joinTwoArrays(getPath(), treeItemPath));
+				return new ViewTreeItem(treeIndex,joinTwoArrays(getPath(), treeItemPath));
 			}
 		}
 		else{
