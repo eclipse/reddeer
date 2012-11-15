@@ -13,6 +13,8 @@ import org.jboss.reddeer.swt.matcher.WithMnemonicMatchers;
  *
  */
 public class ShellMenu extends AbstractMenu implements Menu {
+	
+	private MenuItem menuItem;
 
 	/**
 	 * Create Menu instance from menu of given shell
@@ -36,7 +38,7 @@ public class ShellMenu extends AbstractMenu implements Menu {
 	public ShellMenu(final Matcher<String>... matchers) {
 		
 		MenuLookup ml = new MenuLookup();
-		ml.lookFor(ml.getActiveShellTopMenuItems(), matchers);		
+		menuItem = ml.lookFor(ml.getActiveShellTopMenuItems(), matchers);		
 		this.matchers = matchers;
 
 	}
@@ -44,7 +46,7 @@ public class ShellMenu extends AbstractMenu implements Menu {
 	@Override
 	public void select() {
 		MenuLookup ml = new MenuLookup();
-		ml.select(ml.getActiveShellTopMenuItems(), matchers);
+		ml.select(menuItem);
 	}
 	
 

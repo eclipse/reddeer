@@ -1,6 +1,14 @@
 package org.jboss.reddeer.swt.lookup.impl;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import org.apache.log4j.Logger;
+import org.eclipse.jface.action.ActionContributionItem;
+import org.eclipse.jface.action.IContributionItem;
+import org.eclipse.jface.action.IMenuManager;
+import org.eclipse.jface.action.MenuManager;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Event;
@@ -8,8 +16,13 @@ import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Widget;
+import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
+import org.eclipse.ui.IViewSite;
+import org.eclipse.ui.IWorkbenchPart;
+import org.eclipse.ui.internal.WorkbenchPartReference;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
+import org.jboss.reddeer.swt.util.Bot;
 import org.jboss.reddeer.swt.util.Display;
 import org.jboss.reddeer.swt.util.ResultRunnable;
 
@@ -18,11 +31,98 @@ import org.jboss.reddeer.swt.util.ResultRunnable;
  * also with dynamic menus (inspired by bot.ext helper)
  * 
  * @author Jiri Peterka
+ * @author Rastislav Wagner
  * 
  */
 public class MenuLookup {
 
 	private Logger log = Logger.getLogger(this.getClass());
+	
+	public List<IContributionItem> getToolbarMenus(){
+		SWTBotView view = Bot.get().activeView();
+		IWorkbenchPart obj = ((WorkbenchPartReference) view.getReference()).getPart(false);
+		List<IContributionItem> menuContributionItems = new ArrayList<IContributionItem>();
+		IMenuManager m = ((IViewSite) obj.getSite()).getActionBars().getMenuManager();
+		if (m instanceof MenuManager) {
+			menuContributionItems.addAll(Arrays.asList(((MenuManager) m).getItems()));
+		}
+		if(menuContributionItems.isEmpty()){
+			throw new SWTLayerException("No Menu found in " +view.getTitle());
+		}
+		return menuContributionItems;
+	}
+	
+	/**
+	 * Look for ActionContributionItem matching matchers
+	 * @param cintItems items which will be matched with matchers
+	 * @param matchers menuitem text matchers
+	 * @return final ActionContibutionItem
+	 */
+	public ActionContributionItem lookFor(final List<IContributionItem> contItems, final Matcher<String>... matchers) {	
+		ActionContributionItem contItem = Display.syncExec(new ResultRunnable<ActionContributionItem>(){
+
+			@Override
+			public ActionContributionItem run() {
+				ActionContributionItem currentItem = null;
+				List<IContributionItem> currentMenuContributionItems = contItems;
+				for (Matcher<String> m : matchers) {
+					currentItem = null;
+					for (IContributionItem i : currentMenuContributionItems) {
+						if(i instanceof ActionContributionItem){
+							String normalized = ((ActionContributionItem)i).getAction().getText().replace("&", "");
+							log.debug("Found item:" + normalized);
+							if (m.matches(normalized)) {
+								log.info("Item match:" + normalized);
+								currentItem =(ActionContributionItem)i;
+								break;
+							} 
+						} else if(i instanceof MenuManager){
+							String normalized =((MenuManager)i).getMenuText().replace("&", "");
+							log.debug("Found Menu Manager:" + normalized);
+							if (m.matches(normalized)) {
+								log.debug("Menu Manager match:" + normalized);
+								currentMenuContributionItems = Arrays.asList(((MenuManager) i).getItems());
+							}
+						}
+					}
+			
+				}
+				return currentItem;
+			}
+		});
+		return contItem;
+	}
+
+	
+	/**
+	 * Returns ContributionItems from focused control
+	 * Use if menu can contain dynamic menu from e4
+	 */
+	public List<IContributionItem> getMenuContributionItems() {
+		List<IContributionItem> contItems = new ArrayList<IContributionItem>();
+		final Control control  = WidgetLookup.getInstance().getFocusControl();
+		final Menu menu = getControlMenu(control);
+		
+		contItems = Display.syncExec(new ResultRunnable<List<IContributionItem>>() {
+			@Override
+			public List<IContributionItem> run() {
+				List<IContributionItem> contItemsRun = new ArrayList<IContributionItem>();
+				sendHide(menu, true);
+				sendShowUI(menu);
+				if(menu.getData() != null && menu.getData() instanceof MenuManager){
+					contItemsRun.addAll(Arrays.asList(((MenuManager)menu.getData()).getItems()));
+					log.info("Menu manager found");
+				} else {
+					log.info("Menu manager not found");
+				}
+	
+				return contItemsRun;
+			}
+		});
+		return contItems;
+	}
+	
+	
 
 	/**
 	 * Look for MenuItem matching matchers starting topLevel menuItems
@@ -37,22 +137,64 @@ public class MenuLookup {
 	}
 
 	/**
-	 * Selects (click) for MenuItem matching matchers starting topLevel menuItems
-	 * @param topItems top level MenuItem[]
-	 * @param matchers menuitem text matchers
-	 * @return final MenuItem
+	 * Selects (click) for MenuItem
+	 * @param item to click
 	 */
-	public void select(MenuItem[] topItems, Matcher<String>... matchers) {
-		MenuItem lastMenuItem = getMatchingMenuPath(topItems, matchers);
-		if (lastMenuItem == null) {
-			throw new SWTLayerException("Menu not found");
+	public void select(final MenuItem item) {
+		
+		Boolean enabled = Display.syncExec(new ResultRunnable<Boolean>() {
+			
+			@Override
+			public Boolean run(){
+				return isMenuEnabled(item);
+			}
+		});
+		
+		if(!enabled){
+			throw new SWTLayerException("Menu item is not enabled");
+		} else {
+			Display.asyncExec(new Runnable() {
+
+				@Override
+				public void run() {
+					final Event event = new Event();
+					event.time = (int) System.currentTimeMillis();
+					event.widget = item;
+					event.display = item.getDisplay();
+					event.type = SWT.Selection;
+
+					log.info("Click on menu item: " + item.getText());
+					item.notifyListeners(SWT.Selection, event);
+				}
+			});
 		}
-		clickMenuItem(lastMenuItem);
+	}
+	/**
+	 * Selects (click) for ActionContributionItem
+	 * @param item to click
+	 */
+	public void select(final ActionContributionItem item){
+		String actionNormalized = item.getAction().getText().replace("&", "");
+		if(!item.isEnabled()){
+			throw new SWTLayerException("Menu item " +actionNormalized+" is not enabled");
+		} else if(!item.isVisible()){
+			throw new SWTLayerException("Menu item " +actionNormalized+" is not visible");
+		} else{
+			log.info("Click on contribution item: " + actionNormalized);
+			Display.asyncExec(new Runnable() {
+				@Override
+				public void run() {
+					item.getAction().run();
+				}
+			});
+		}
 	}
 
 
 	/**
 	 * Returns top level menuitems from focused controls
+	 * Does not work with dynamic menus from e4 @see MenuLookup.getMenuContributionItems()
+	 *
 	 * @return
 	 */
 	public MenuItem[] getTopMenuMenuItemsFromFocus() {
@@ -64,9 +206,9 @@ public class MenuLookup {
 		items = Display.syncExec(new ResultRunnable<MenuItem[]>() {
 			@Override
 			public MenuItem[] run() {
+				sendHide(menu, true);
 				sendShowUI(menu);				
-				MenuItem[] items = menu.getItems();
-				return items;
+				return menu.getItems();
 			}
 		});
 
@@ -139,7 +281,6 @@ public class MenuLookup {
 			@Override
 			public Menu run() {
 				Menu m = c.getMenu();
-				
 				return m;
 			}
 		});
@@ -160,12 +301,10 @@ public class MenuLookup {
 	 */
 	private MenuItem getMatchingMenuPath(final MenuItem[] topItems,
 			final Matcher<String>... matchers) {
-
 		MenuItem i = Display.syncExec(new ResultRunnable<MenuItem>() {
 
 			@Override
 			public MenuItem run() {
-
 				Menu currentMenu = null;
 				MenuItem currentItem = null;;
 				MenuItem[] menuItems = topItems;
@@ -175,7 +314,7 @@ public class MenuLookup {
 						String normalized = i.getText().replace("&", "");
 						log.debug("Found menu:" + normalized);
 						if (m.matches(normalized)) {
-							log.debug("Item match:" + normalized);
+							log.info("Item match:" + normalized);
 							currentItem = i;
 							currentMenu = i.getMenu();
 							break;
@@ -209,7 +348,6 @@ public class MenuLookup {
 	 * @param menu
 	 * @param recur
 	 */
-	@SuppressWarnings("unused")
 	private void sendHide(final Menu menu, final boolean recur) {
 		Display.syncExec(new Runnable() {
 
@@ -245,34 +383,6 @@ public class MenuLookup {
 		});
 
 		return enabled;
-	}
-
-	/**
-	 * Click on menuitem when enable, throw an exception when not
-	 * 
-	 * @param menuItem
-	 */
-	private void clickMenuItem(final MenuItem menuItem) {
-		Display.asyncExec(new Runnable() {
-
-			@Override
-			public void run() {
-
-				if (isMenuEnabled(menuItem)) {
-					final Event event = new Event();
-					event.time = (int) System.currentTimeMillis();
-					event.widget = menuItem;
-					event.display = menuItem.getDisplay();
-					event.type = SWT.Selection;
-
-					log.info("Click on menu item: " + menuItem.getText());
-					menuItem.notifyListeners(SWT.Selection, event);
-
-				} else {
-					new SWTLayerException("Menu item is not enabled");
-				}
-			}
-		});
 	}
 
 }
