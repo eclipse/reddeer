@@ -20,6 +20,7 @@ public abstract class AbstractTree implements Tree {
 	protected final Logger logger = Logger.getLogger(this.getClass());
 	
 	protected SWTBotTree tree;
+	private int index;
 
 	public AbstractTree(Control control) {
 		this(control, 0);
@@ -38,6 +39,7 @@ public abstract class AbstractTree implements Tree {
 		tree = new SWTBotTree((org.eclipse.swt.widgets.Tree) 
 				WidgetLookup.getInstance().
 				activeWidget(matcher, control, index));
+		this.index = index;
 	}
 	
 	protected List<TreeItem> getItems(boolean shellItem){
@@ -45,9 +47,9 @@ public abstract class AbstractTree implements Tree {
 		for (SWTBotTreeItem treeItem : tree.getAllItems()) {
 			TreeItem item = null;
 			if (shellItem) {
-				item = new ShellTreeItem(treeItem.getText());
+				item = new ShellTreeItem(index,treeItem.getText());
 			} else {
-				item = new ViewTreeItem(treeItem.getText());
+				item = new ViewTreeItem(index,treeItem.getText());
 			}
 			list.add(item);
 		}
