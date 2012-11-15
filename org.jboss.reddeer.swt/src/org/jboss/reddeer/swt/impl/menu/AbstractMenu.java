@@ -4,7 +4,6 @@ import org.apache.log4j.Logger;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotMenu;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.swt.api.Menu;
-import org.jboss.reddeer.swt.lookup.impl.MenuLookup;
 
 /**
  * Abstract class for all Menu implementations
@@ -22,11 +21,7 @@ public abstract class AbstractMenu implements Menu {
 
 
 	@Override
-	public void select() 
-	{	
-		MenuLookup l = new MenuLookup();		
-		l.select(null, this.matchers);
-	}
+	public abstract void select();
 	
 	@Override
 	public String getText() {
