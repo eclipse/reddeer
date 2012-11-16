@@ -32,7 +32,7 @@ public class ShellTreeItem extends AbstractTreeItem implements TreeItem {
 	}
 	
 	public List<TreeItem> getItems() {
-		return getItems(false);
+		return getItems(true);
 	}
 
 	@Override
