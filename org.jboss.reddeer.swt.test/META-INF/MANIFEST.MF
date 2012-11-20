@@ -13,7 +13,9 @@ Require-Bundle: org.eclipse.ui,
  org.jboss.reddeer.workbench;bundle-version="0.0.1",
  org.hamcrest;bundle-version="1.1.0",
  org.apache.log4j;bundle-version="1.2.12",
- org.eclipse.core.expressions
+ org.eclipse.core.expressions,
+ org.eclipse.ui.views.log,
+ org.eclipse.m2e.core.ui
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: org.jboss.reddeer.swt.test

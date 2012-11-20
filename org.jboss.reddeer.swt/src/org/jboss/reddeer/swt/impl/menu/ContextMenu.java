@@ -7,6 +7,8 @@ import org.jboss.reddeer.swt.api.Menu;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.lookup.impl.MenuLookup;
 import org.jboss.reddeer.swt.matcher.WithMnemonicMatchers;
+import org.jboss.reddeer.swt.util.Display;
+import org.jboss.reddeer.swt.util.ResultRunnable;
 
 /**
  * Context Menu implementation for all context menu related to some Control.
@@ -63,6 +65,17 @@ public class ContextMenu extends AbstractMenu implements Menu {
 	
 	@Override
 	public String getText() {
-		return item.getAction().getText().replace("&", "");
+		if(item != null){
+			return item.getAction().getText().replace("&", "");
+		} else {
+			return Display.syncExec(new ResultRunnable<String>() {
+				
+				@Override
+				public String run() {
+					return menuItem.getText().replace("&", "");
+					
+				}
+			});
+		}
 	}
 }
