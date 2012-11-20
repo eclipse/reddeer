@@ -42,7 +42,7 @@ public class CheckBox implements Button {
 	 * @param inGroup in group
 	 */
 	public CheckBox(String inGroup, int index){
-	    checkBox = Bot.get().checkBoxInGroup(index, inGroup);
+	    checkBox = Bot.get().checkBoxInGroup(inGroup, index);
 	}
 	/**
 	 * CheckBox button with given text in given Group
@@ -50,7 +50,7 @@ public class CheckBox implements Button {
 	 * @param inGroup in group
 	 */
 	public CheckBox(String inGroup, String text){
-		checkBox = Bot.get().checkBoxInGroup(inGroup, text);
+		checkBox = Bot.get().checkBoxInGroup(text, inGroup);
 	}
 
 	/**
