@@ -1,6 +1,7 @@
 package org.jboss.reddeer.swt.test;
 
 import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
+import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
 import org.jboss.reddeer.swt.util.Bot;
 import org.junit.After;
 import org.junit.Before;
@@ -21,10 +22,15 @@ public class RedDeerTest {
   // Default setup for each test   
 	protected void setUp(){
 	  // close Welcome screen
-	  SWTBotView activeView = Bot.get().activeView();
-	  if (activeView != null && activeView.getTitle().equals("Welcome")){
-	    activeView.close();  
-	  }		
+	  try {
+		  SWTBotView activeView = Bot.get().activeView();
+		  if (activeView != null && activeView.getTitle().equals("Welcome")){
+			    activeView.close();  
+			  }
+	  } catch (WidgetNotFoundException exc) {
+		  // welcome screen not found, no need to close it
+	  }
+	  		
 	}
   //  Default tearDown for each test
 	protected void tearDown(){
