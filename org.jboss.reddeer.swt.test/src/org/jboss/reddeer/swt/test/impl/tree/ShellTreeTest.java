@@ -19,6 +19,7 @@ import org.hamcrest.TypeSafeMatcher;
 import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.swt.impl.tree.AbstractTree;
 import org.jboss.reddeer.swt.lookup.impl.ShellLookup;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -36,6 +37,7 @@ public class ShellTreeTest {
 			public void run() {
 				Display display = Display.getDefault();
 				Shell shell = new Shell(display);
+				shell.setText("Testing shell");
 				swtTree = new Tree(shell, SWT.BORDER);
 				shell.open();
 				shell.setFocus();
@@ -44,7 +46,24 @@ public class ShellTreeTest {
 
 		tree = new ShellTreeImpl();
 	}
+	
+	@After
+	public void cleanup() {
+		UIThreadRunnable.syncExec(new VoidResult() {
 
+			@Override
+			public void run() {
+				for (Shell shell : org.jboss.reddeer.swt.
+						util.Display.getDisplay().getShells()) {
+					if (shell.getText().equals("Testing shell")) {
+						shell.dispose();
+						break;
+					}
+				}
+			}
+		});
+	}
+	
 	@Test
 	public void getItems_noItems() {
 		List<TreeItem> items = tree.getItems();
