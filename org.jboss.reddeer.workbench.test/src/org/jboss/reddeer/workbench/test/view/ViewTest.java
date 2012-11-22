@@ -32,7 +32,7 @@ public class ViewTest extends RedDeerTest{
 	@Test
 	public void testOpenViewFullPath() {
 		
-		View customView = new WorkbenchView("Other", "Label View");
+		View customView = new WorkbenchView("View Category", "Label View");
 		customView.open();
 		
 	}
