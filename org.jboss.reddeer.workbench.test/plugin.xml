@@ -4,10 +4,10 @@
    	<extension point="org.eclipse.ui.views">
    		<category 
            id="org.jboss.reddeer.workbench.test.ui.category"
-           name="Test Category">
+           name="Red Deer Test Workbench">
         </category>
     	<view id="org.jboss.reddeer.workbench.test.ui.views.labelview"
-        	name="Label View"
+        	name="Workbench Test"
         	category="org.jboss.reddeer.workbench.test.ui.category"
         	class="org.jboss.reddeer.workbench.test.ui.views.LabelView" />
 	</extension>
