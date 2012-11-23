@@ -68,7 +68,7 @@ public class ViewTreeTest {
 	
 	class CustomViewImpl extends WorkbenchView {
 
-		private static final String TEST_CATEGORY = "Test Category";
+		private static final String TEST_CATEGORY = "Red Deer Test SWT";
 		
 		private static final String VIEW_TEXT = "Custom View";
 		

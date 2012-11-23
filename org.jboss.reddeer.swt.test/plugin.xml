@@ -74,7 +74,7 @@
    	<extension point="org.eclipse.ui.views">
    		<category 
            id="org.jboss.reddeer.swt.test.ui.category"
-           name="Test Category">
+           name="Red Deer Test SWT">
         </category>
     	<view id="org.jboss.reddeer.swt.test.ui.views.customview"
         	name="Custom View"
