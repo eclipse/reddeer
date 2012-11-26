@@ -69,4 +69,8 @@ public class ProjectItem {
 	public String getText (){
 		return treeItem.getText();
 	}
+	
+	public Project getProject() {
+		return project;
+	}
 }
