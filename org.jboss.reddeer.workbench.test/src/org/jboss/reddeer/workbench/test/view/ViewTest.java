@@ -22,25 +22,18 @@ public class ViewTest extends RedDeerTest{
 	}
 	
 	@Test
-	public void testOpenView() {
+	public void testOpenAndCloseView() {
 		
 		View customView = new WorkbenchView("Workbench Test");
 		customView.open();
+		customView.close();
 		
 	}
 	
 	@Test
-	public void testOpenViewFullPath() {
+	public void testOpenAndCloseViewFullPath() {
 		
 		View customView = new WorkbenchView("Red Deer Test Workbench", "Workbench Test");
-		customView.open();
-		
-	}
-	
-	@Test
-	public void testCloseView() {
-		
-		View customView = new WorkbenchView("Workbench Test");
 		customView.open();
 		customView.close();
 		
@@ -54,7 +47,7 @@ public class ViewTest extends RedDeerTest{
 		customView.close();
 		
 		customView.open();
-		
+		customView.close();
 	}
 	
 	@Test
@@ -66,6 +59,7 @@ public class ViewTest extends RedDeerTest{
 		markersView.open();
 		
 		customView.close();
+		markersView.close();
 	}
 	
 	@Test(expected=java.lang.UnsupportedOperationException.class)
