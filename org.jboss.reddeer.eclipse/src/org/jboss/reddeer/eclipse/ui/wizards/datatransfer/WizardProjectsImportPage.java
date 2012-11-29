@@ -105,6 +105,7 @@ public class WizardProjectsImportPage extends WizardPage {
 	protected void setPath(String radioText, String path){
 		new RadioButton(radioText).click();
 		new DefaultText(new EnabledTextMatcher()).setText(path);
+		new PushButton("Refresh").click();
 		new WaitUntil(new ProjectIsLoaded(getProjectsTree()), TimePeriod.NORMAL);
 	}
 	
