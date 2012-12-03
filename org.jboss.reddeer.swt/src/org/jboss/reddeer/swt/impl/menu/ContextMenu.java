@@ -1,19 +1,28 @@
 package org.jboss.reddeer.swt.impl.menu;
 
+import org.eclipse.jface.action.ActionContributionItem;
 import org.eclipse.swt.widgets.MenuItem;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.swt.api.Menu;
+import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.lookup.impl.MenuLookup;
 import org.jboss.reddeer.swt.matcher.WithMnemonicMatchers;
+import org.jboss.reddeer.swt.util.Display;
+import org.jboss.reddeer.swt.util.ResultRunnable;
 
 /**
  * Context Menu implementation for all context menu related to some Control.
  * Control must have focus to provide context menu
  * 
  * @author Jiri Peterka
+ * @author Rastislav Wagner
  * 
  */
 public class ContextMenu extends AbstractMenu implements Menu {
+	
+	private ActionContributionItem item;
+	private MenuItem menuItem;
+	
 
 	/**
 	 * Context menu given by String path
@@ -30,9 +39,15 @@ public class ContextMenu extends AbstractMenu implements Menu {
 	 * @param matchers
 	 */
 	public ContextMenu(Matcher<String>... matchers) {
-		
 		MenuLookup l = new MenuLookup();
-		l.lookFor(l.getTopMenuMenuItemsFromFocus(), matchers);
+		menuItem = l.lookFor(l.getTopMenuMenuItemsFromFocus(),matchers);
+		if(menuItem == null){
+			log.info("No menu item found, looking for contribution item");
+			item = l.lookFor(l.getMenuContributionItems(), matchers);
+			if (item == null){
+				throw new SWTLayerException("Contribution item not found");
+			}
+		}
 		this.matchers = matchers;
 		
 	}	
@@ -40,15 +55,27 @@ public class ContextMenu extends AbstractMenu implements Menu {
 	@Override
 	public void select() {
 		MenuLookup l = new MenuLookup();
-		l.select(l.getTopMenuMenuItemsFromFocus(), matchers);
+		if(menuItem != null){
+			l.select(menuItem);
+		} else {
+			l.select(item);
+		}
 	}
-
+	
 	
 	@Override
 	public String getText() {
-		MenuLookup ml = new MenuLookup();
-		MenuItem i = ml.lookFor(ml.getTopMenuMenuItemsFromFocus(), matchers);
-		String text = ml.getMenuItemText(i);
-		return text;
+		if(item != null){
+			return item.getAction().getText().replace("&", "");
+		} else {
+			return Display.syncExec(new ResultRunnable<String>() {
+				
+				@Override
+				public String run() {
+					return menuItem.getText().replace("&", "");
+					
+				}
+			});
+		}
 	}
 }

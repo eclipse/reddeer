@@ -8,3 +8,5 @@
  *.DS_Store
  *.swp
  *.out
+ *.
+ !/.gitignore

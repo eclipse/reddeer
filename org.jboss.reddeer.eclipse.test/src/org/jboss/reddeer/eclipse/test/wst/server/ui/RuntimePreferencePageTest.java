@@ -8,11 +8,10 @@ import java.util.List;
 import org.jboss.reddeer.eclipse.wst.server.ui.Runtime;
 import org.jboss.reddeer.eclipse.wst.server.ui.RuntimePreferencePage;
 import org.jboss.reddeer.eclipse.wst.server.ui.wizard.NewRuntimeWizardPage;
-import org.junit.After;
-import org.junit.Before;
+import org.jboss.reddeer.swt.test.RedDeerTest;
 import org.junit.Test;
 
-public class RuntimePreferencePageTest {
+public class RuntimePreferencePageTest extends RedDeerTest{
 
 	private static final String SERVER_NAME = TestServerRuntime.NAME;
 	
@@ -20,8 +19,9 @@ public class RuntimePreferencePageTest {
 
 	private RuntimePreferencePage preferencePage;
 
-	@Before
-	public void setup(){
+	@Override
+	protected void setUp(){
+	  super.setUp();
 		preferencePage = new RuntimePreferencePage();
 	}
 
@@ -88,10 +88,11 @@ public class RuntimePreferencePageTest {
 		assertThat(runtimes.size(), is(0));
 	}
 	
-	@After
-	public void removeRuntimes(){
+	@Override
+	protected void tearDown(){
 		preferencePage.open();
 		preferencePage.removeAllRuntimes();
 		preferencePage.cancel();
+		super.tearDown();
 	}
 }

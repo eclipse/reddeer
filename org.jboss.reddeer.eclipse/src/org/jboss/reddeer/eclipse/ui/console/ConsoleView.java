@@ -1,9 +1,7 @@
 package org.jboss.reddeer.eclipse.ui.console;
 
 import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotToolbarButton;
-import org.jboss.reddeer.swt.condition.JobIsRunning;
-import org.jboss.reddeer.swt.wait.WaitWhile;
+import org.jboss.reddeer.swt.impl.toolbar.ViewToolItem;
 import org.jboss.reddeer.workbench.view.impl.WorkbenchView;
 
 /**
@@ -22,14 +20,12 @@ public class ConsoleView extends WorkbenchView {
 		/**
 		 * how it should look:
 		 * 
-		 * open();
 		 * return new StyledText().getText();
 		 * 
 		 * there will not be any try-catch, because constructor 
 		 * StyledText should solve this
 		 */
 		
-		open();
 		String consoleText = null;
 		try {
 			consoleText = viewObject.bot().styledText().getText();
@@ -37,39 +33,13 @@ public class ConsoleView extends WorkbenchView {
 			log.warn("There is no text in Console view");
 			consoleText = null;
 		}
-
 		return consoleText;
 	}
 	
 	public void clearConsole() {
-		
-		/**
-		 * how it should look:
-		 * 
-		 * open();
-		 * new ToolbarButton("Clear Console").click();
-		 * 
-		 * if toolbarbutton is not enabled, therefore clicking on it wont work
-		 * this situation should be solved in lower layer. Also there will not 
-		 * be any try-catch, because constructor ToolbarButton should solve this 
-		 * either
-		 */
-		
-		open();
 		log.info("Clearing console");
-		try {
-			SWTBotToolbarButton button = getToolBar("Clear Console");
-			if (button.isEnabled()) {
-				button.click();
-				new WaitWhile(new JobIsRunning());
-				log.info("Console was cleared");
-			} else {
-				log.warn("Console was not cleared, button is not enabled");
-			}
-		} catch (WidgetNotFoundException wnfe) {
-			log.warn("There is no 'Clear console' button in Console view");
-		}
-		
+		new ViewToolItem("Clear Console").click();
+		log.info("Console cleared");
 	}
 	
 }

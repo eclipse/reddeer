@@ -2,10 +2,10 @@ package org.jboss.reddeer.eclipse.ui.dialogs;
 
 import org.apache.log4j.Logger;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotCheckBox;
+import org.jboss.reddeer.eclipse.exception.EclipseLayerException;
 import org.jboss.reddeer.eclipse.jface.wizard.WizardPage;
 import org.jboss.reddeer.eclipse.ui.wizards.newresource.BasicNewProjectResourceWizard;
-import org.jboss.reddeer.swt.exception.WidgetNotEnabledException;
-import org.jboss.reddeer.swt.impl.combo.ComboWithLabel;
+import org.jboss.reddeer.swt.impl.combo.DefaultCombo;
 import org.jboss.reddeer.swt.impl.text.LabeledText;
 import org.jboss.reddeer.swt.util.Bot;
 
@@ -49,11 +49,11 @@ public class WizardNewProjectCreationPage extends WizardPage {
 		if (!chbAddProjectToWorkingSet.isChecked()) {
 			chbAddProjectToWorkingSet.click();
 		}
-		ComboWithLabel cmbWorkingSet = new ComboWithLabel("Working sets:");
+		DefaultCombo cmbWorkingSet = new DefaultCombo("Working sets:");
 		if (cmbWorkingSet.isEnabled()) {
 			cmbWorkingSet.setText(workingSet);
 		} else {
-			throw new WidgetNotEnabledException(
+			throw new EclipseLayerException(
 					"Combo box with Working sets is not enabled."
 							+ " Probably no working set is defined");
 		}

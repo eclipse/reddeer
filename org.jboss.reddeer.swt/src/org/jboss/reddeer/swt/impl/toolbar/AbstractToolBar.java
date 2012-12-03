@@ -9,6 +9,8 @@ import org.jboss.reddeer.swt.api.ToolBar;
  */
 public class AbstractToolBar implements ToolBar {
 
-
-
+		
+	protected org.eclipse.swt.widgets.ToolBar toolBar;
+	
+	
 }

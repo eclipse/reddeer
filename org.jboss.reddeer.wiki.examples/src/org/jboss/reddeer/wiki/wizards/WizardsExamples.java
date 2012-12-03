@@ -1,7 +1,7 @@
 package org.jboss.reddeer.wiki.wizards;
 
-import org.jboss.reddeer.eclipse.ui.ide.NewJavaClassWizardDialog;
-import org.jboss.reddeer.eclipse.ui.ide.NewJavaClassWizardPage;
+import org.jboss.reddeer.eclipse.jdt.ui.NewJavaClassWizardDialog;
+import org.jboss.reddeer.eclipse.jdt.ui.NewJavaClassWizardPage;
 
 public class WizardsExamples {
 

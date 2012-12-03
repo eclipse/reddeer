@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.views">
+      <category
+            id="org.jboss.reddeer.swt.test.swtcat"
+            name="RedDeer SWT">
+      </category>
+      <view
+            category="org.jboss.reddeer.swt.test.swtcat"
+            class="org.jboss.reddeer.swt.test.prereq.PrereqView"
+            id="org.jboss.reddeer.swt.test.swtview"
+            name="RedDeer SWT"
+            restorable="true">
+      </view>
+   </extension>
+   <extension
+         id="org.jboss.reddeer.swt.test.commands"
+         name="RedDeer SWT Commands"
+         point="org.eclipse.ui.commands">
+      <command
+            categoryId="org.jboss.reddeer.swt.test.commands"
+            description="RedDeer SWT Test Command"
+            id="org.jboss.reddeer.swt.test.command.testCommand"
+            name="Test Command">
+      </command>
+      <category
+            id="org.jboss.reddeer.swt.test.commands.category"
+            name="Sample Category">
+      </category>
+      <command
+            categoryId="org.jboss.reddeer.swt.test.commands.category"
+            id="org.jboss.reddeer.swt.test.commands.sampleCommand"
+            name="Sample Command">
+      </command>
+   </extension>
+   <extension
+         point="org.eclipse.ui.handlers">
+      <handler
+            class="org.jboss.reddeer.swt.test.handlers.TestHandler"
+            commandId="org.jboss.reddeer.swt.test.command.testCommand">
+      </handler>
+   </extension>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            allPopups="false"
+            locationURI="toolbar:org.jboss.reddeer.swt.test.swtview">
+         <command
+               commandId="org.jboss.reddeer.swt.test.command.testCommand"
+               icon="icons/sample.gif"
+               label="Test"
+               mnemonic="RedDeer SWT ViewToolItem"
+               style="push"
+               tooltip="RedDeer SWT ViewToolItem">
+         </command>
+      </menuContribution>
+      <menuContribution
+            locationURI="toolbar:org.eclipse.ui.main.toolbar?after=additions">
+         <toolbar
+               id="org.jboss.reddeer.swt.test.toolbars.sampleToolbar">
+            <command
+                  commandId="org.jboss.reddeer.swt.test.command.testCommand"
+                  icon="icons/sample.gif"
+                  id="org.jboss.reddeer.swt.test.toolbars.sampleCommand"
+                  mnemonic="RedDeer SWT WorkbenchToolItem"
+                  tooltip="RedDeer SWT WorkbenchToolItem">
+            </command>
+         </toolbar>
+      </menuContribution>
+   </extension>
+   
+   	<extension point="org.eclipse.ui.views">
+   		<category 
+           id="org.jboss.reddeer.swt.test.ui.category"
+           name="Red Deer Test SWT">
+        </category>
+    	<view id="org.jboss.reddeer.swt.test.ui.views.customview"
+        	name="Custom View"
+        	category="org.jboss.reddeer.swt.test.ui.category"
+        	class="org.jboss.reddeer.swt.test.ui.views.CustomView" />
+	</extension>
+
+
+</plugin>

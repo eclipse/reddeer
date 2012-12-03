@@ -1,37 +1,16 @@
 package org.jboss.reddeer.workbench.view;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.eclipse.jface.action.IToolBarManager;
-import org.eclipse.jface.action.ToolBarManager;
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.widgets.ToolBar;
-import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
 import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotWorkbenchPart;
-import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
-import org.eclipse.swtbot.swt.finder.finders.UIThreadRunnable;
-import org.eclipse.swtbot.swt.finder.results.ListResult;
-import org.eclipse.swtbot.swt.finder.utils.SWTUtils;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotToolbarButton;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotToolbarDropDownButton;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotToolbarPushButton;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotToolbarRadioButton;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotToolbarSeparatorButton;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotToolbarToggleButton;
 import org.eclipse.ui.IViewReference;
-import org.eclipse.ui.IViewSite;
-import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PlatformUI;
-import org.eclipse.ui.internal.WorkbenchPartReference;
 import org.eclipse.ui.views.IViewCategory;
 import org.eclipse.ui.views.IViewDescriptor;
 import org.jboss.reddeer.swt.api.Menu;
 import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.menu.ShellMenu;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
-import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
+import org.jboss.reddeer.swt.impl.tree.ShellTreeItem;
 import org.jboss.reddeer.swt.matcher.RegexMatchers;
 import org.jboss.reddeer.swt.util.Bot;
 import org.jboss.reddeer.workbench.exception.ViewNotFoundException;
@@ -43,7 +22,6 @@ import org.jboss.reddeer.workbench.exception.ViewNotFoundException;
  * @author jjankovi
  * 
  */
-@SuppressWarnings("restriction")
 public abstract class View extends WorkbenchPart {
 
 	private static final String SHOW_VIEW = "Show View";
@@ -75,7 +53,7 @@ public abstract class View extends WorkbenchPart {
 			Menu menu = new ShellMenu(m.getMatchers());
 			menu.select();
 			new DefaultShell(SHOW_VIEW);
-			new DefaultTreeItem(path).select();
+			new ShellTreeItem(path).select();
 			new PushButton("OK").click();
 			viewObject = Bot.get().activeView();
 		}
@@ -85,64 +63,6 @@ public abstract class View extends WorkbenchPart {
 	
 	public String getTitle(){
 		return viewObject.getTitle();
-	}
-	
-	public SWTBotToolbarButton getToolBar(String toolbarToolTip) {
-		List<SWTBotToolbarButton> toolbarButtons = getToolbarButtons();
-		for (SWTBotToolbarButton button : toolbarButtons) {
-			if (button.getToolTipText().equals(toolbarToolTip)) {
-				return button;
-			}
-		}
-		throw new WidgetNotFoundException("Toolbar button '" + toolbarToolTip + "' was not " +
-				"found or enabled");
-	}
-
-	/**
-	 * Get toolbar buttons contained within view It's workaround for Eclipse
-	 * Juno where SWTBot is not able to find toolbar buttons of view
-	 * 
-	 * @return
-	 */
-	private List<SWTBotToolbarButton> getToolbarButtons() {
-		return UIThreadRunnable.syncExec(new ListResult<SWTBotToolbarButton>() {
-
-			public List<SWTBotToolbarButton> run() {
-				IWorkbenchPart obj = ((WorkbenchPartReference) viewObject
-						.getReference()).getPart(false);
-				ToolBar toolbar = null;
-				IToolBarManager t = ((IViewSite) obj.getSite()).getActionBars()
-						.getToolBarManager();
-				if (t instanceof ToolBarManager) {
-					toolbar = ((ToolBarManager) t).getControl();
-				}
-				final List<SWTBotToolbarButton> l = new ArrayList<SWTBotToolbarButton>();
-
-				if (toolbar == null)
-					return l;
-
-				ToolItem[] items = toolbar.getItems();
-				for (int i = 0; i < items.length; i++) {
-					try {
-						if (SWTUtils.hasStyle(items[i], SWT.PUSH))
-							l.add(new SWTBotToolbarPushButton(items[i]));
-						else if (SWTUtils.hasStyle(items[i], SWT.CHECK))
-							l.add(new SWTBotToolbarToggleButton(items[i]));
-						else if (SWTUtils.hasStyle(items[i], SWT.RADIO))
-							l.add(new SWTBotToolbarRadioButton(items[i]));
-						else if (SWTUtils.hasStyle(items[i], SWT.DROP_DOWN))
-							l.add(new SWTBotToolbarDropDownButton(items[i]));
-						else if (SWTUtils.hasStyle(items[i], SWT.SEPARATOR))
-							l.add(new SWTBotToolbarSeparatorButton(items[i]));
-					} catch (WidgetNotFoundException e) {
-						e.printStackTrace();
-					}
-				}
-
-				return l;
-
-			}
-		});
 	}
 
 	@Override

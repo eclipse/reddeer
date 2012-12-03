@@ -7,18 +7,18 @@ import org.jboss.reddeer.eclipse.jdt.ui.ide.NewJavaProjectWizardDialog;
 import org.jboss.reddeer.eclipse.jdt.ui.ide.NewJavaProjectWizardPage;
 import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.PackageExplorer;
 import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.Project;
-import org.junit.After;
-import org.junit.Before;
+import org.jboss.reddeer.swt.test.RedDeerTest;
 import org.junit.Test;
 
-public class ProjectTest {
+public class ProjectTest extends RedDeerTest {
 
 	private static final String PROJECT_NAME = "TestProject";
 	private PackageExplorer packageExplorer;
 	private Project project;
 		
-	@Before
-	public void setup(){
+	@Override
+	protected void setUp(){
+		super.setUp();
 		NewJavaProjectWizardDialog dialog = new NewJavaProjectWizardDialog();
 		dialog.open();
 		NewJavaProjectWizardPage page1 = dialog.getFirstPage(); 
@@ -40,12 +40,14 @@ public class ProjectTest {
 		assertFalse("Package Explorer contains project " + ProjectTest.PROJECT_NAME +
 				" but it should be deleted.",
 			packageExplorer.containsProject(ProjectTest.PROJECT_NAME));
+		/*super.tearDown();*/
 	}
 	
-	@After
-	public void teardown(){
+	@Override
+	protected void tearDown(){
 		if (packageExplorer.containsProject(ProjectTest.PROJECT_NAME)){
 			packageExplorer.getProject(ProjectTest.PROJECT_NAME).delete(true);
 		}
+		super.tearDown();
 	}
 }

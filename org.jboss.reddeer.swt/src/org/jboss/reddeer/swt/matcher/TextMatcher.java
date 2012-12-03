@@ -37,5 +37,10 @@ public class TextMatcher extends BaseMatcher<String> {
 		}
 		return false;
 	}
+	
+	@Override
+	public String toString() {
+		return "Matcher matching text \"" + text +"\"";
+	}
 
 }

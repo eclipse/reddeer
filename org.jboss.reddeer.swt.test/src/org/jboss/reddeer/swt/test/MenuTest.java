@@ -7,14 +7,20 @@ import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.eclipse.swtbot.eclipse.finder.SWTWorkbenchBot;
 import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
+import org.jboss.reddeer.swt.test.RedDeerTest;
+import org.jboss.reddeer.swt.wait.TimePeriod;
+import org.jboss.reddeer.swt.wait.WaitUntil;
 import org.jboss.reddeer.swt.api.Menu;
 import org.jboss.reddeer.swt.api.Shell;
-import org.jboss.reddeer.swt.exception.WidgetNotAvailableException;
+import org.jboss.reddeer.swt.condition.ShellWithTextIsActive;
+import org.jboss.reddeer.swt.exception.SWTLayerException;
+import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.menu.ContextMenu;
 import org.jboss.reddeer.swt.impl.menu.ShellMenu;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
+import org.jboss.reddeer.swt.impl.tree.ShellTreeItem;
 import org.jboss.reddeer.swt.matcher.RegexMatchers;
-import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
@@ -22,13 +28,23 @@ import org.junit.Test;
  * @author Jiri Peterka
  *
  */
-public class MenuTest {
+public class MenuTest extends RedDeerTest {
 
 	protected final Logger log = Logger.getLogger(this.getClass());
+	private static int limit = 20;
 
-	@Before
-	public void before() {
+	@Override
+	protected void setUp() {
+	  super.setUp();
 		Logger.getRootLogger().setLevel(Level.DEBUG);
+	}
+	
+	@BeforeClass
+	public static void openExplorer(){
+		new ShellMenu("Window","Show View","Other...").select();
+		new WaitUntil(new ShellWithTextIsActive("Show View"),TimePeriod.NORMAL);
+		new ShellTreeItem("General","Project Explorer").select();
+		new PushButton("OK").click();
 	}
 	
 	@Test
@@ -57,7 +73,7 @@ public class MenuTest {
 		try {
 			RegexMatchers m = new RegexMatchers("Win.*", "Pref.*");
 			new ShellMenu(m.getMatchers());
-		} catch (WidgetNotAvailableException e) {
+		} catch (SWTLayerException e) {
 			fail("there should be no exception");
 		}
 
@@ -70,7 +86,7 @@ public class MenuTest {
 			RegexMatchers m = new RegexMatchers("Win.*", "Prefz.*");
 			new ShellMenu(m.getMatchers());
 			fail("exception should be thrown");
-		} catch (WidgetNotAvailableException e) { // do nothing
+		} catch (SWTLayerException e) { // do nothing
 
 		}
 	}
@@ -89,7 +105,7 @@ public class MenuTest {
 	
 	@Test 
 	public void hundertscontextMenuTest() {
-		for (int i = 0; i < 100; i++) {
+		for (int i = 0; i < limit; i++) {
 			contextMenuTest();
 		}
 	}	
@@ -98,7 +114,7 @@ public class MenuTest {
 	public void contextMenuItemTextTest() {
 		SWTWorkbenchBot bot = new SWTWorkbenchBot();
 		SWTBotView v = bot.viewByTitle("Project Explorer");
-		v.setFocus();				
+		v.setFocus();
 		Menu menu = new ContextMenu("New","Project...");
 		assertTrue("Menuitem text not expected to be empty", !menu.getText().equals(""));
 	}

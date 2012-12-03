@@ -1,15 +1,16 @@
 package org.jboss.reddeer.workbench.test.view;
 
+import org.jboss.reddeer.swt.test.RedDeerTest;
 import org.jboss.reddeer.workbench.view.View;
 import org.jboss.reddeer.workbench.view.impl.WorkbenchView;
 import org.junit.Test;
 
-public class ViewTest {
+public class ViewTest extends RedDeerTest{
 	
 	@Test
 	public void testInitializeRegisteredView() {
 		
-		new WorkbenchView("Label View");
+		new WorkbenchView("Workbench Test");
 		
 	}
 	
@@ -23,7 +24,7 @@ public class ViewTest {
 	@Test
 	public void testOpenView() {
 		
-		View customView = new WorkbenchView("Label View");
+		View customView = new WorkbenchView("Workbench Test");
 		customView.open();
 		
 	}
@@ -31,7 +32,7 @@ public class ViewTest {
 	@Test
 	public void testOpenViewFullPath() {
 		
-		View customView = new WorkbenchView("Other", "Label View");
+		View customView = new WorkbenchView("Red Deer Test Workbench", "Workbench Test");
 		customView.open();
 		
 	}
@@ -39,7 +40,7 @@ public class ViewTest {
 	@Test
 	public void testCloseView() {
 		
-		View customView = new WorkbenchView("Label View");
+		View customView = new WorkbenchView("Workbench Test");
 		customView.open();
 		customView.close();
 		
@@ -48,7 +49,7 @@ public class ViewTest {
 	@Test
 	public void testOpenClosedView() {
 		
-		View customView = new WorkbenchView("Label View");
+		View customView = new WorkbenchView("Workbench Test");
 		customView.open();
 		customView.close();
 		
@@ -59,7 +60,7 @@ public class ViewTest {
 	@Test
 	public void testCloseNonFocusedView() {
 		
-		View customView = new WorkbenchView("Label View");
+		View customView = new WorkbenchView("Workbench Test");
 		customView.open();
 		View markersView = new WorkbenchView("Markers");
 		markersView.open();
@@ -70,7 +71,7 @@ public class ViewTest {
 	@Test(expected=java.lang.UnsupportedOperationException.class)
 	public void testCloseNoninitializedView() {
 		
-		View customView = new WorkbenchView("Label View");
+		View customView = new WorkbenchView("Workbench Test");
 		customView.close();
 		
 	}

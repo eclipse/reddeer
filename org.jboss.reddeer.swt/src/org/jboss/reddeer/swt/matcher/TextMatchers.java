@@ -28,4 +28,5 @@ public class TextMatchers {
 	public Matcher<String>[] getMatchers() {
 		return matchers;
 	}
+	
 }

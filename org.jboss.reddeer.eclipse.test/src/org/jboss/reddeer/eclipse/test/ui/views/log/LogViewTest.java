@@ -11,10 +11,11 @@ import org.eclipse.core.runtime.Status;
 import org.jboss.reddeer.eclipse.test.Activator;
 import org.jboss.reddeer.eclipse.ui.views.log.LogMessage;
 import org.jboss.reddeer.eclipse.ui.views.log.LogView;
+import org.jboss.reddeer.swt.test.RedDeerTest;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-public class LogViewTest {
+public class LogViewTest extends RedDeerTest{
 
 	public static final String OK_ID_1="fake_ID_OK_1";
 	public static final String OK_MESSAGE_1="fake_OK_1";

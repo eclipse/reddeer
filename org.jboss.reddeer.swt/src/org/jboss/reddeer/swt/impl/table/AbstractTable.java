@@ -1,6 +1,8 @@
 package org.jboss.reddeer.swt.impl.table;
 
 import org.apache.log4j.Logger;
+import org.eclipse.swtbot.swt.finder.utils.TableCollection;
+import org.eclipse.swtbot.swt.finder.utils.TableRow;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTable;
 import org.jboss.reddeer.swt.api.Table;
 import org.jboss.reddeer.swt.util.Bot;
@@ -8,6 +10,7 @@ import org.jboss.reddeer.swt.util.Bot;
 /**
  * Basic abstract class implementation for a table
  * @author Jiri Peterka
+ * @author Rastislav Wagner
  *
  */
 public abstract class AbstractTable implements Table {
@@ -38,8 +41,12 @@ public abstract class AbstractTable implements Table {
 		      }
 		  log.debug("Select table row(s): " + sbIndexes.toString());
 		}
-		Bot.get().table().select(indexes);
+		table.select(indexes);
 		
+	}
+	
+	public void select(String... items) {
+		table.select(items);
 	}
 		
 }

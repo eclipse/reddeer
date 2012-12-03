@@ -15,11 +15,10 @@ import org.jboss.reddeer.eclipse.test.Activator;
 import org.jboss.reddeer.eclipse.ui.wizards.datatransfer.ExternalProjectImportWizardDialog;
 import org.jboss.reddeer.eclipse.ui.wizards.datatransfer.WizardProjectsImportPage;
 import org.jboss.reddeer.eclipse.ui.wizards.datatransfer.WizardProjectsImportPage.ImportProject;
-import org.junit.After;
-import org.junit.Before;
+import org.jboss.reddeer.swt.test.RedDeerTest;
 import org.junit.Test;
 
-public class ExternalProjectImportWizardDialogTest {
+public class ExternalProjectImportWizardDialogTest extends RedDeerTest {
 
 	private static final File RESOURCES_DIR = new File(Activator.getTestResourcesLocation(ExternalProjectImportWizardDialogTest.class), "projectImport");
 	
@@ -33,8 +32,9 @@ public class ExternalProjectImportWizardDialogTest {
 	
 	private WizardProjectsImportPage wizardPage;
 	
-	@Before
-	public void setup(){
+	@Override
+	protected void setUp(){
+	  super.setUp();
 		wizard  = new ExternalProjectImportWizardDialog();
 		wizard.open();
 		
@@ -125,9 +125,10 @@ public class ExternalProjectImportWizardDialogTest {
 		assertTrue(projects.isEmpty());
 	}
 	
-	@After
-	public void cleanup(){
+	@Override
+	protected void tearDown(){
 		wizard.cancel();
+		super.tearDown();
 	}
 	
 	@SuppressWarnings("unchecked")

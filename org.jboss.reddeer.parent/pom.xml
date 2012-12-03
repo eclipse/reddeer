@@ -5,12 +5,12 @@
 	<groupId>org.jboss.reddeer</groupId>
 	<artifactId>parent</artifactId>
 	<name>Red Deer Parent POM File</name>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.1.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	
 	<properties>
   	    <tycho-version>0.14.0</tycho-version>  	  
-		<jbosstools-target-site>http://download.jboss.org/jbosstools/updates/target-platform_3.4.juno.SR0/latest</jbosstools-target-site>
+		<jbosstools-target-site>http://download.jboss.org/jbosstools/updates/juno/SR1a/REPO</jbosstools-target-site>
 	</properties>
 	
 	<modules>
@@ -149,5 +149,12 @@
 				</releases>
 		</repository>
 	</repositories>
-	
+	<profiles>
+		<profile>
+			<id>mvn-debug</id>
+			<properties>
+				<systemProperties>-Xdebug -Xrunjdwp:transport=dt_socket,address=8001,server=y,suspend=y</systemProperties>
+			</properties>
+		</profile>
+	</profiles>	
 </project>

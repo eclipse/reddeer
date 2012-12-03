@@ -1,6 +1,7 @@
 package org.jboss.reddeer.swt.impl.label;
 
 import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
+import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.exception.WidgetNotAvailableException;
 import org.jboss.reddeer.swt.util.Bot;
 
@@ -10,7 +11,7 @@ public class DefaultLabel extends AbstractLabel {
 		try {
 			label = Bot.get().label();
 		} catch (WidgetNotFoundException e){
-			throw new WidgetNotAvailableException("No label found");
+			throw new SWTLayerException("No label found");
 		}
 	}
 
@@ -18,7 +19,7 @@ public class DefaultLabel extends AbstractLabel {
 		try {
 			label = Bot.get().label(text);
 		} catch (WidgetNotFoundException e){
-			throw new WidgetNotAvailableException("No label with text '" + text + "' found");
+			throw new SWTLayerException("No label with text '" + text + "' found");
 		}
 	}
 }

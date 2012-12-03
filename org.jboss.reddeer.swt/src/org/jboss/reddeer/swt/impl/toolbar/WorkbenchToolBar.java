@@ -1,7 +1,7 @@
 package org.jboss.reddeer.swt.impl.toolbar;
 
 /**
- * Workbench toolbar implementations
+ * Workbench ToolBar implementation
  * @author Jiri Peterka
  *
  */

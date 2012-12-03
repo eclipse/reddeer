@@ -7,6 +7,7 @@ import static org.junit.Assert.assertTrue;
 import org.jboss.reddeer.eclipse.jface.exception.JFaceLayerException;
 import org.jboss.reddeer.eclipse.jface.wizard.WizardDialog;
 import org.jboss.reddeer.eclipse.jface.wizard.WizardPage;
+import org.jboss.reddeer.swt.test.RedDeerTest;
 import org.jboss.reddeer.swt.api.CLabel;
 import org.jboss.reddeer.swt.api.Shell;
 import org.jboss.reddeer.swt.condition.ShellWithTextIsActive;
@@ -15,11 +16,9 @@ import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.jboss.reddeer.swt.impl.shell.WorkbenchShell;
 import org.jboss.reddeer.swt.util.Display;
 import org.jboss.reddeer.swt.wait.WaitUntil;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 
-public class WizardDialogTest {
+public class WizardDialogTest extends RedDeerTest {
 
 	private org.eclipse.swt.widgets.Shell shell;
 
@@ -27,8 +26,9 @@ public class WizardDialogTest {
 	
 	private WizardDialog wizardDialog;
 	
-	@Before
-	public void openWizard(){
+	@Override
+	protected void setUp(){
+	  super.setUp();
 		org.jboss.reddeer.swt.util.Display.asyncExec(new Runnable() {
 
 			@Override
@@ -96,8 +96,8 @@ public class WizardDialogTest {
 		assertTrue(shell.getText().equals(new WorkbenchShell().getText()));
 	}
 
-	@After
-	public void cancelWizard(){
+	@Override
+	protected void tearDown(){
 		if (!shell.isDisposed()){
 			Display.syncExec(new Runnable() {
 
@@ -107,6 +107,7 @@ public class WizardDialogTest {
 				}
 			});
 		}
+		super.tearDown();
 	}
 
 	private class WizardDialogImpl extends WizardDialog {

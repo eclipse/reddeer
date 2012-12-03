@@ -6,21 +6,21 @@ import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
 import org.jboss.reddeer.eclipse.jface.preference.PreferencePage;
+import org.jboss.reddeer.swt.test.RedDeerTest;
 import org.jboss.reddeer.swt.api.Shell;
-import org.jboss.reddeer.swt.exception.WidgetNotAvailableException;
+import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 
-public class PreferencePageTest {
+public class PreferencePageTest extends RedDeerTest{
 
 	private static final String PAGE_NAME = TestingPreferencePage.TITLE;
 	
 	private PreferencePage preferencePage;
 
-	@Before
-	public void setup(){
+	@Override
+	protected void setUp(){
+	  super.setUp();
 		preferencePage = new PreferencePageImpl(TestingPreferencePage.TestTopCategory.TOP_CATEGORY, TestingPreferencePage.TestCategory.CATEGORY, PAGE_NAME);
 	}
 
@@ -85,16 +85,17 @@ public class PreferencePageTest {
 		assertTrue(TestingPreferencePage.performDefaultsCalled);
 	}
 	
-	@After
-	public void forceClose(){
+	@Override
+	protected void tearDown(){
 		Shell shell = null;
 		try {
 			shell = new DefaultShell(PreferencePage.DIALOG_TITLE);
-		} catch (WidgetNotAvailableException e){
+		} catch (SWTLayerException e){
 			// not found, no action needed
 			return;
 		}
 		shell.close();
+		super.tearDown();
 	}
 	
 	class PreferencePageImpl extends PreferencePage {

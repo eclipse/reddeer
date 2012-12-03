@@ -17,7 +17,7 @@ public class LabelView extends ViewPart {
 
 	public void createPartControl(Composite parent) {
 		label = new Label(parent, 0);
-		label.setText("Hello World");
+		label.setText("Workbench Test View");
 	}
 
 }

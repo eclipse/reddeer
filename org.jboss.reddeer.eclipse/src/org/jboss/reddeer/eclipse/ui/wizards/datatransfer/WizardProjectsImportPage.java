@@ -17,7 +17,8 @@ import org.jboss.reddeer.swt.impl.button.CheckBox;
 import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.button.RadioButton;
 import org.jboss.reddeer.swt.impl.text.DefaultText;
-import org.jboss.reddeer.swt.impl.tree.DefaultTree;
+import org.jboss.reddeer.swt.impl.tree.ShellTree;
+import org.jboss.reddeer.swt.wait.TimePeriod;
 import org.jboss.reddeer.swt.wait.WaitUntil;
 
 /**
@@ -68,7 +69,7 @@ public class WizardProjectsImportPage extends WizardPage {
 	public List<ImportProject> getProjects(){
 		List<ImportProject> projects = new ArrayList<ImportProject>();
 		
-		DefaultTree projectsTree = getProjectsTree();
+		ShellTree projectsTree = getProjectsTree();
 		for (TreeItem item : projectsTree.getItems()){
 			ImportProject project = new ImportProject();
 			project.isChecked = item.isChecked();
@@ -82,7 +83,7 @@ public class WizardProjectsImportPage extends WizardPage {
 	public void selectProjects(String... projects){
 		log.info("Selecting projects");
 		deselectAllProjects();
-		DefaultTree projectsTree = getProjectsTree();
+		ShellTree projectsTree = getProjectsTree();
 		
 		for (String projectName : projects){
 			TreeItem  projectItem = getProjectTreeItem(projectsTree, projectName);
@@ -104,18 +105,19 @@ public class WizardProjectsImportPage extends WizardPage {
 	protected void setPath(String radioText, String path){
 		new RadioButton(radioText).click();
 		new DefaultText(new EnabledTextMatcher()).setText(path);
-		new WaitUntil(new ProjectIsLoaded(getProjectsTree()));
+		new PushButton("Refresh").click();
+		new WaitUntil(new ProjectIsLoaded(getProjectsTree()), TimePeriod.NORMAL);
 	}
 	
 	private boolean isFileSystem() {
 		return new RadioButton("Select root directory:").isSelected();
 	}
 	
-	private DefaultTree getProjectsTree() {
-		return new DefaultTree();
+	private ShellTree getProjectsTree() {
+		return new ShellTree();
 	}
 	
-	private TreeItem getProjectTreeItem(DefaultTree projectsTree, String projectName) {
+	private TreeItem getProjectTreeItem(ShellTree projectsTree, String projectName) {
 		for (TreeItem item : projectsTree.getItems()){
 			if (projectName.equals(getProjectLabel(item.getText()))){
 				return item;
@@ -130,9 +132,9 @@ public class WizardProjectsImportPage extends WizardPage {
 	
 	private class ProjectIsLoaded implements WaitCondition {
 
-		private DefaultTree tree;
+		private ShellTree tree;
 		
-		private ProjectIsLoaded(DefaultTree tree) {
+		private ProjectIsLoaded(ShellTree tree) {
 			this.tree = tree;
 		}
 		

@@ -4,12 +4,12 @@ import org.apache.log4j.Logger;
 import org.jboss.reddeer.swt.api.Button;
 import org.jboss.reddeer.swt.api.Menu;
 import org.jboss.reddeer.swt.api.TreeItem;
-import org.jboss.reddeer.swt.exception.WidgetNotAvailableException;
+import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.clabel.DefaultCLabel;
 import org.jboss.reddeer.swt.impl.menu.ShellMenu;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
-import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
+import org.jboss.reddeer.swt.impl.tree.ShellTreeItem;
 
 /**
  * Represents a general preference page in the Preferences dialog. Subclasses should represent the concrete preference page. 
@@ -35,14 +35,14 @@ public abstract class PreferencePage {
 		try {
 			new DefaultShell(DIALOG_TITLE);
 			log.debug("Preferences dialog was already opened.");
-		} catch (WidgetNotAvailableException e) {
+		} catch (SWTLayerException e) {
 			log.debug("Preferences dialog was not already opened. Opening via menu.");
 			Menu menu = new ShellMenu("Window","Preferences");
 			menu.select();
 			new DefaultShell(DIALOG_TITLE);
 		}
 		
-		TreeItem t = new DefaultTreeItem(path);
+		TreeItem t = new ShellTreeItem(path);
 		t.select();
 	}
 	

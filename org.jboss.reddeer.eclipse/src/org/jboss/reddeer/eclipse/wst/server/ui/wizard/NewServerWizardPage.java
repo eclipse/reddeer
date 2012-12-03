@@ -4,7 +4,7 @@ import org.jboss.reddeer.eclipse.jface.wizard.WizardDialog;
 import org.jboss.reddeer.eclipse.jface.wizard.WizardPage;
 import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.swt.impl.text.LabeledText;
-import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
+import org.jboss.reddeer.swt.impl.tree.ShellTreeItem;
 
 /**
  * Represents the first page displayed when invoked {@link NewServerWizardDialog}
@@ -19,8 +19,8 @@ public class NewServerWizardPage extends WizardPage {
 	}
 
 	public void selectType(String... type){
-		show();
-		TreeItem t = new DefaultTreeItem(type);
+		show();	
+		TreeItem t = new ShellTreeItem(type);
 		t.select();
 	}
 
