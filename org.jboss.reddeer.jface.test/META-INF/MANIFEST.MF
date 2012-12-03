@@ -2,13 +2,13 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Red Deer JFace Componnet Tests
 Bundle-SymbolicName: org.jboss.reddeer.jface.test;singleton:=true
-Bundle-Version: 0.1.0.qualifier
+Bundle-Version: 0.2.0.qualifier
 Bundle-Activator: org.jboss.reddeer.jface.test.Activator
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
- org.jboss.reddeer.jface;bundle-version="0.1.0",
+ org.jboss.reddeer.jface;bundle-version="0.2.0",
  org.junit4;bundle-version="4.8.1",
- org.jboss.reddeer.swt;bundle-version="0.1.0",
- org.jboss.reddeer.swt.test;bundle-version="0.1.0"
+ org.jboss.reddeer.swt;bundle-version="0.2.0",
+ org.jboss.reddeer.swt.test;bundle-version="0.2.0"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6

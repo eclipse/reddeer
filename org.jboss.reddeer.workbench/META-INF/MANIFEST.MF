@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Red Deer Workbench Component
 Bundle-SymbolicName: org.jboss.reddeer.workbench
-Bundle-Version: 0.1.0.qualifier
+Bundle-Version: 0.2.0.qualifier
 Bundle-Activator: org.jboss.reddeer.workbench.Activator
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
@@ -10,7 +10,7 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.swtbot.eclipse.finder;bundle-version="2.0.5",
  org.eclipse.swtbot.forms.finder;bundle-version="2.0.5",
  org.eclipse.swtbot.swt.finder;bundle-version="2.0.5",
- org.jboss.reddeer.swt;bundle-version="0.1.0",
+ org.jboss.reddeer.swt;bundle-version="0.2.0",
  org.hamcrest;bundle-version="1.1.0",
  org.apache.log4j;bundle-version="1.2.13"
 Bundle-ActivationPolicy: lazy
