@@ -3,7 +3,7 @@ Eclipse-RegisterBuddy: org.apache.log4j
 Bundle-ManifestVersion: 2
 Bundle-Name: Red Deer SWT Component
 Bundle-SymbolicName: org.jboss.reddeer.swt
-Bundle-Version: 0.0.1.qualifier
+Bundle-Version: 0.1.0.qualifier
 Bundle-Activator: org.jboss.reddeer.swt.Activator
 Require-Bundle: org.eclipse.ui,
  org.eclipse.ui.workbench,
