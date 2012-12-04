@@ -66,8 +66,15 @@ public abstract class AbstractTreeItem implements TreeItem {
 			tiPath.remove(0);
 			for (String treeItemNode : tiPath) {
 				item.expand();
+				
 				// wait method maybe will be needed here
-				item = item.getNode(treeItemNode);
+				try {
+					item = item.getNode(treeItemNode);
+				} catch (WidgetNotFoundException wnfe) {
+					/* workaround when item was not expanded */
+					item.collapse();
+					item.expand();
+				}
 			}
 			path = treeItemPath;
 		}
