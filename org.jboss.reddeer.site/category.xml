@@ -4,7 +4,7 @@
 	<category-def label="RedDeer Update Site" name="RedDeer Update Site">
 		<description>RedDeer</description>
 	</category-def>
-	<feature url="org.jboss.reddeer.feature.qualifier" id="org.jboss.reddeer.feature" version="0.1.0.qualifier">
+	<feature url="org.jboss.reddeer.feature.qualifier" id="org.jboss.reddeer.feature" version="0.2.0.qualifier">
 		<category name="RedDeer Update Site"/>
 	</feature>
 </site>
