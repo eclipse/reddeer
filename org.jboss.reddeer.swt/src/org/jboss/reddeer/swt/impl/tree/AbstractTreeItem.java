@@ -57,7 +57,7 @@ public abstract class AbstractTreeItem implements TreeItem {
 			throw new SWTLayerException("No matching tree item found");
 		}
 		if (treeItemPath == null) {
-			item = tree.getAllItems()[treeIndex];
+			item = tree.getAllItems()[treeItemIndex];
 			path = new String[] {item.getText()};
 		} else {
 			List<String> tiPath = new ArrayList<String>(Arrays.asList(treeItemPath));
