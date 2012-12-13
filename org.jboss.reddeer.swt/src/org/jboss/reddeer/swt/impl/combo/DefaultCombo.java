@@ -32,6 +32,6 @@ public class DefaultCombo extends AbstractCombo implements Combo {
 	 * @param inGroup in group
 	 */
 	public DefaultCombo(String inGroup, String label){
-		combo = Bot.get().comboBoxInGroup(inGroup, label);
+		combo = Bot.get().comboBoxWithLabelInGroup(label, inGroup);
 	}
 }
