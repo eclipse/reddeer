@@ -14,8 +14,10 @@ import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.jboss.reddeer.swt.api.TreeItem;
+import org.jboss.reddeer.swt.condition.WaitCondition;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.lookup.impl.WidgetLookup;
+import org.jboss.reddeer.swt.wait.WaitUntil;
 
 public abstract class AbstractTreeItem implements TreeItem {
 
@@ -65,16 +67,8 @@ public abstract class AbstractTreeItem implements TreeItem {
 			item = tree.getTreeItem(tiPath.get(0));
 			tiPath.remove(0);
 			for (String treeItemNode : tiPath) {
-				item.expand();
-				
-				// wait method maybe will be needed here
-				try {
-					item = item.getNode(treeItemNode);
-				} catch (WidgetNotFoundException wnfe) {
-					/* workaround when item was not expanded */
-					item.collapse();
-					item.expand();
-				}
+				new WaitUntil(new TreeItemFoundAfterExpanding(item, treeItemNode));
+				item = item.getNode(treeItemNode);
 			}
 			path = treeItemPath;
 		}
@@ -82,7 +76,7 @@ public abstract class AbstractTreeItem implements TreeItem {
 	}
 	
 	public void select() {
-		item.select();
+		new WaitUntil(new TreeItemIsSelected(item));
 	}
 	
 	public String getText() {
@@ -185,4 +179,64 @@ public abstract class AbstractTreeItem implements TreeItem {
 		System.arraycopy(array2, 0, finalArray, array1.length, array2.length);
 		return finalArray;
 	}
+	
+}
+
+class TreeItemFoundAfterExpanding implements WaitCondition {
+
+	private String treeItemNode;
+	private SWTBotTreeItem item;
+	
+	public TreeItemFoundAfterExpanding(SWTBotTreeItem item, String treeItemNode) {
+		super();
+		this.treeItemNode = treeItemNode;
+		this.item = item;
+	}
+	
+	@Override
+	public boolean test() {
+		item.expand();
+		return nodeIsFound(treeItemNode);		
+	}
+
+	@Override
+	public String description() {
+		return "Tree item '" + treeItemNode + "' not found.";
+	}
+	
+	private boolean nodeIsFound(String treeItemNode) {
+		
+		try {
+			item.getNode(treeItemNode);
+			System.out.println(treeItemNode + " was found");
+			return true;
+		} catch (WidgetNotFoundException wnfe) {
+			item.collapse();
+			return false;
+		}
+		
+	}
+	
+}
+
+class TreeItemIsSelected implements WaitCondition {
+
+	private SWTBotTreeItem item; 
+	
+	public TreeItemIsSelected(SWTBotTreeItem item) {
+		super();
+		this.item = item;
+	}
+
+	@Override
+	public boolean test() {
+		item.select();
+		return item.isSelected();
+	}
+
+	@Override
+	public String description() {
+		return "Tree item '" + item.getText() + "' cannot be selected.";
+	}
+	
 }
