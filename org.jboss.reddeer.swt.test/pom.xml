@@ -26,15 +26,5 @@
 		</plugins>
 	</build>	
 
-	<profiles>
-		<profile>
-			<id>mvn-debug</id>
-			<properties>
-				<memoryOptions1>-Xdebug -Xrunjdwp:transport=dt_socket,address=8001,server=y,suspend=y</memoryOptions1>
-				<systemProperties>-Xdebug -Xrunjdwp:transport=dt_socket,address=8001,server=y,suspend=y</systemProperties>
-			</properties>
-		</profile>
-	</profiles>
-
 
 </project>
