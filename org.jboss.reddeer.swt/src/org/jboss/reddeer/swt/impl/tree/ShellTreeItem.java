@@ -5,6 +5,11 @@ import java.util.List;
 import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.swt.lookup.impl.ShellLookup;
 
+/**
+ * ShellTreeItem simulates tree item found in shell environment
+ * @author jjankovi
+ *
+ */
 public class ShellTreeItem extends AbstractTreeItem implements TreeItem {
 	
 	public ShellTreeItem() {
@@ -31,6 +36,7 @@ public class ShellTreeItem extends AbstractTreeItem implements TreeItem {
 		super(new ShellLookup().getActiveShell(), treeIndex, treeItemIndex, treeItemPath);
 	}
 	
+	@Override
 	public List<TreeItem> getItems() {
 		return getItems(true);
 	}

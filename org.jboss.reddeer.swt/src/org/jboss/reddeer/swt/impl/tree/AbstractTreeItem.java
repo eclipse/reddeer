@@ -19,6 +19,11 @@ import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.lookup.impl.WidgetLookup;
 import org.jboss.reddeer.swt.wait.WaitUntil;
 
+/**
+ * Basic TreeItem class is abstract class for all Tree Item implementations
+ * @author jjankovi
+ *
+ */
 public abstract class AbstractTreeItem implements TreeItem {
 
 	protected final Logger logger = Logger.getLogger(this.getClass());
@@ -75,15 +80,18 @@ public abstract class AbstractTreeItem implements TreeItem {
 		
 	}
 	
+	@Override
 	public void select() {
 		new WaitUntil(new TreeItemIsSelected(item));
 	}
 	
+	@Override
 	public String getText() {
 		String text = item.getText();
 		return text;
 	}
 	
+	@Override
 	public String getToolTipText() {
 		String toolTipText = item.getToolTipText();
 		return toolTipText;
@@ -94,20 +102,29 @@ public abstract class AbstractTreeItem implements TreeItem {
 		return item.cell(index);
 	}
 	
+	@Override
 	public String[] getPath() {
 		return path;
 	}
 	
+	@Override
 	public void expand(){
 		logger.debug("Expanding Tree Item");
 		item.expand();
 	}
 	
+	@Override
 	public void collapse() {
 		logger.debug("Collapsing Tree Item");
 		item.collapse();
 	}
-
+	
+	/**
+	 * Returns all direct descendants from current tree item
+	 * @param shellItem			help to decide if child tree 
+	 * 							item is from shell/view environment 
+	 * @return					list of all direct descendants
+	 */
 	protected List<TreeItem> getItems(boolean shellItem) {
 		expand();
 		List<TreeItem> items = new LinkedList<TreeItem>();
@@ -122,6 +139,13 @@ public abstract class AbstractTreeItem implements TreeItem {
 		return items;
 	}
 	
+	/**
+	 * Return direct descendant specified with parameters
+	 * @param text				text of tree item which should be returned	
+	 * @param shellTreeItem		specifies if returned tree item 
+	 * 							is from shell/view environment
+	 * @return					direct descendant specified with parameters
+	 */
 	protected TreeItem getItem (String text, boolean shellTreeItem){
 		expand();
 		SWTBotTreeItem[] items = item.getItems();
@@ -142,11 +166,13 @@ public abstract class AbstractTreeItem implements TreeItem {
 		}
 	}
 	
+	@Override
 	public void doubleClick(){
 		logger.debug("Double Click Tree Item " + item.getText());
 		item.doubleClick();
 	}
 	
+	@Override
 	public boolean isSelected(){
 		return item.isSelected();
 	}
@@ -165,10 +191,14 @@ public abstract class AbstractTreeItem implements TreeItem {
 		}
 	}
 	
+	@Override
 	public boolean isChecked() {
 		return item.isChecked();
 	}
 	
+	/**
+	 * Return swt widget of Tree Item 
+	 */
 	public org.eclipse.swt.widgets.TreeItem getSWTWidget() {
 		return item.widget;
 	}
@@ -182,6 +212,12 @@ public abstract class AbstractTreeItem implements TreeItem {
 	
 }
 
+/**
+ * Condition is fulfilled when tree item node is found after expanding 
+ * 
+ * @author jjankovi
+ *
+ */
 class TreeItemFoundAfterExpanding implements WaitCondition {
 
 	private String treeItemNode;
@@ -219,6 +255,12 @@ class TreeItemFoundAfterExpanding implements WaitCondition {
 	
 }
 
+/**
+ * Condition is fulfilled when tree item is selected
+ * 
+ * @author jjankovi
+ *
+ */
 class TreeItemIsSelected implements WaitCondition {
 
 	private SWTBotTreeItem item; 
