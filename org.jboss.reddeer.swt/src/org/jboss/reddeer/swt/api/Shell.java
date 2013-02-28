@@ -20,5 +20,18 @@ public interface Shell {
 	 * Closes shell
 	 */
 	void close();
+	
+	/**
+	 * Transfers shell to the front and focuses it.
+	 */
+	
+	void activate();
+	
+	/**
+	 * 
+	 * @return true if shell is active
+	 */
+	
+	boolean isActive();
 			
 }
