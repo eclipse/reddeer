@@ -7,6 +7,7 @@ import org.apache.log4j.Logger;
 import org.jboss.reddeer.eclipse.jface.preference.PreferencePage;
 import org.jboss.reddeer.eclipse.wst.server.ui.wizard.NewRuntimeWizardDialog;
 import org.jboss.reddeer.swt.api.Table;
+import org.jboss.reddeer.swt.condition.ShellWithTextIsActive;
 import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.table.DefaultTable;
 
@@ -45,6 +46,9 @@ public class RuntimePreferencePage extends PreferencePage {
 		log.info("Removing runtime " + runtime);
 		selectRuntime(runtime.getName());
 		new PushButton("Remove").click();
+		if(new ShellWithTextIsActive("Server").test()){
+			new PushButton("OK").click();
+		}
 	}
 	
 	public void removeAllRuntimes(){
