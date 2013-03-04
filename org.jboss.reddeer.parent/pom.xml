@@ -10,7 +10,7 @@
 	
 	<properties>
   	    <tycho-version>0.14.0</tycho-version>  	  
-		<jbosstools-target-site>http://download.jboss.org/jbosstools/updates/juno/SR1a/REPO</jbosstools-target-site>
+		<jbosstools-target-site>http://download.jboss.org/jbosstools/updates/kepler/M4/REPO</jbosstools-target-site>
 	</properties>
 	
 	<modules>
