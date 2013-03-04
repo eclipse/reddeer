@@ -4,7 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.jboss.reddeer.swt.api.TreeItem;
-import org.jboss.reddeer.swt.impl.tree.ViewTree;
+import org.jboss.reddeer.swt.impl.tree.DefaultTree;
 import org.jboss.reddeer.workbench.view.impl.WorkbenchView;
 
 public class ProblemsView extends WorkbenchView{
@@ -23,7 +23,7 @@ public class ProblemsView extends WorkbenchView{
 			viewObject.setFocus();
 		}
 		
-		ViewTree tree = new ViewTree();
+		DefaultTree tree = new DefaultTree();
 		return filter(tree.getItems(), true);
 	}
 	
@@ -36,7 +36,7 @@ public class ProblemsView extends WorkbenchView{
 		if (!viewObject.isActive()){
 			viewObject.setFocus();
 		}
-		ViewTree tree = new ViewTree();
+		DefaultTree tree = new DefaultTree();
 		return filter(tree.getItems(), false);
 	}
 	

@@ -7,70 +7,51 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
-import org.eclipse.swt.widgets.Control;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
-import org.hamcrest.Matcher;
 import org.jboss.reddeer.swt.api.Tree;
 import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.swt.lookup.impl.WidgetLookup;
 
-public abstract class AbstractTree implements Tree {
+/**
+ * Default Tree implementation
+ * 
+ * @author jjankovi
+ *
+ */
+public class DefaultTree implements Tree {
 
 	protected final Logger logger = Logger.getLogger(this.getClass());
 	
-	protected SWTBotTree tree;
+	private SWTBotTree tree;
 	private int index;
+	
+	/**
+	 * Default parameter-less constructor
+	 */
+	public DefaultTree() {
+		this(0);
+	}
 
 	/**
-	 * @deprecated As of release 0.4, replaced by 
-	 * {@link org.jboss.reddeer.swt.impl.tree.DefaultTree}
+	 * Tree with specified index will be constructed 
+	 * 
+	 * @param index
 	 */
-	@Deprecated
-	public AbstractTree(Control control) {
-		this(control, 0);
-	}
-	
-	/**
-	 * @deprecated As of release 0.4, replaced by 
-	 * {@link org.jboss.reddeer.swt.impl.tree.DefaultTree}
-	 */
-	@Deprecated
 	@SuppressWarnings("unchecked")
-	public AbstractTree(Control control, int index) {
-		this(allOf(widgetOfType(org.eclipse.swt.widgets.Tree.class)), control, index);
-	}
-	
-	/**
-	 * @deprecated As of release 0.4, replaced by 
-	 * {@link org.jboss.reddeer.swt.impl.tree.DefaultTree}
-	 */
-	@Deprecated
-	public AbstractTree(Matcher<org.eclipse.swt.widgets.Tree> matcher, Control control) {
-		this(matcher, control, 0);
-	}
-		
-	/**
-	 * @deprecated As of release 0.4, replaced by 
-	 * {@link org.jboss.reddeer.swt.impl.tree.DefaultTree}
-	 */
-	@Deprecated
-	public AbstractTree(Matcher<org.eclipse.swt.widgets.Tree> matcher, Control control, int index) {
+	public DefaultTree(int index) {
 		tree = new SWTBotTree((org.eclipse.swt.widgets.Tree) 
 				WidgetLookup.getInstance().
-				activeWidget(matcher, control, index));
+				activeWidget(allOf(widgetOfType(
+						org.eclipse.swt.widgets.Tree.class)), index));
 		this.index = index;
 	}
 	
-	protected List<TreeItem> getItems(boolean shellItem){
+	public List<TreeItem> getItems(){
 		List<TreeItem> list = new LinkedList<TreeItem>();
 		for (SWTBotTreeItem treeItem : tree.getAllItems()) {
 			TreeItem item = null;
-			if (shellItem) {
-				item = new ShellTreeItem(index,treeItem.getText());
-			} else {
-				item = new ViewTreeItem(index,treeItem.getText());
-			}
+			item = new DefaultTreeItem(index,treeItem.getText());
 			list.add(item);
 		}
 		return list;	
@@ -91,4 +72,5 @@ public abstract class AbstractTree implements Tree {
 		}
 		return list;
 	}
+	
 }

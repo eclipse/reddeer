@@ -9,7 +9,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
-import org.eclipse.swt.widgets.Control;
 import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
@@ -20,13 +19,14 @@ import org.jboss.reddeer.swt.lookup.impl.WidgetLookup;
 import org.jboss.reddeer.swt.wait.WaitUntil;
 
 /**
- * Basic TreeItem class is abstract class for all Tree Item implementations
+ * 
+ * 
  * @author jjankovi
  *
  */
-public abstract class AbstractTreeItem implements TreeItem {
+public class DefaultTreeItem implements TreeItem {
 
-	protected final Logger logger = Logger.getLogger(this.getClass());
+protected final Logger logger = Logger.getLogger(this.getClass());
 	
 	protected SWTBotTreeItem item;
 	private int treeIndex;
@@ -34,61 +34,58 @@ public abstract class AbstractTreeItem implements TreeItem {
 	protected String[] path;
 	
 	/**
-	 * @deprecated As of release 0.4, replaced by 
-	 * {@link org.jboss.reddeer.swt.impl.tree.DefaultTreeItem}
+	 * 
 	 */
-	@Deprecated
-	public AbstractTreeItem(Control control) {
-		this(control, 0);
+	public DefaultTreeItem() {
+		this(0);
 	}
 	
 	/**
-	 * @deprecated As of release 0.4, replaced by 
-	 * {@link org.jboss.reddeer.swt.impl.tree.DefaultTreeItem}
+	 * 
+	 * @param treeItemPath
 	 */
-	@Deprecated
-	public AbstractTreeItem(Control control, String... treeItemPath) {
-		this(control, 0, treeItemPath);
+	public DefaultTreeItem(String... treeItemPath) {
+		this(0, treeItemPath);
 	}
 	
 	/**
-	 * @deprecated As of release 0.4, replaced by 
-	 * {@link org.jboss.reddeer.swt.impl.tree.DefaultTreeItem}
+	 * 
+	 * @param treeIndex
+	 * @param treeItemPath
 	 */
-	@Deprecated
-	public AbstractTreeItem(Control control, int treeIndex, String... treeItemPath) {
-		this(control, treeIndex, 0, treeItemPath);
+	public DefaultTreeItem(int treeIndex, String... treeItemPath) {
+		this(treeIndex, 0, treeItemPath);
 	}
 	
 	/**
-	 * @deprecated As of release 0.4, replaced by 
-	 * {@link org.jboss.reddeer.swt.impl.tree.DefaultTreeItem}
+	 * 
+	 * @param treeItemIndex
 	 */
-	@Deprecated
-	public AbstractTreeItem(Control control, int treeItemIndex) {
-		this(control, 0, treeItemIndex);
+	public DefaultTreeItem(int treeItemIndex) {
+		this(0, treeItemIndex);
 	}
 	
 	/**
-	 * @deprecated As of release 0.4, replaced by 
-	 * {@link org.jboss.reddeer.swt.impl.tree.DefaultTreeItem}
+	 * 
+	 * @param treeIndex
+	 * @param treeItemIndex
 	 */
-	@Deprecated
-	public AbstractTreeItem(Control control, int treeIndex, int treeItemIndex) {
-		this(control, treeIndex, treeItemIndex, (String[]) null);
+	public DefaultTreeItem(int treeIndex, int treeItemIndex) {
+		this(treeIndex, treeItemIndex, (String[]) null);
 	}
 	
 	/**
-	 * @deprecated As of release 0.4, replaced by 
-	 * {@link org.jboss.reddeer.swt.impl.tree.DefaultTreeItem}
+	 * 
+	 * @param treeIndex
+	 * @param treeItemIndex
+	 * @param treeItemPath
 	 */
-	@Deprecated
 	@SuppressWarnings("unchecked")
-	public AbstractTreeItem(Control control, int treeIndex, int treeItemIndex, String... treeItemPath) {
+	public DefaultTreeItem(int treeIndex, int treeItemIndex, String... treeItemPath) {
 		SWTBotTree tree = new SWTBotTree((org.eclipse.swt.widgets.Tree) 
 				WidgetLookup.getInstance().
 				activeWidget(allOf(widgetOfType(
-						org.eclipse.swt.widgets.Tree.class)), control, treeIndex));
+						org.eclipse.swt.widgets.Tree.class)), treeIndex));
 		this.treeIndex=treeIndex;
 		int size = tree.getAllItems().length;
 		if (size - treeItemIndex < 1) {
@@ -103,7 +100,7 @@ public abstract class AbstractTreeItem implements TreeItem {
 			item = tree.getTreeItem(tiPath.get(0));
 			tiPath.remove(0);
 			for (String treeItemNode : tiPath) {
-				new WaitUntil(new TreeItemFoundAfterExpanding(item, treeItemNode));
+				new WaitUntil(new TreeHasChildren(item));
 				item = item.getNode(treeItemNode);
 			}
 			path = treeItemPath;
@@ -156,16 +153,13 @@ public abstract class AbstractTreeItem implements TreeItem {
 	 * 							item is from shell/view environment 
 	 * @return					list of all direct descendants
 	 */
-	protected List<TreeItem> getItems(boolean shellItem) {
+	public List<TreeItem> getItems() {
 		expand();
 		List<TreeItem> items = new LinkedList<TreeItem>();
 		for (SWTBotTreeItem childrenTreeItem : item.getItems()) {
 			String[] treeItemPath = new String[] {childrenTreeItem.getText()};
-			if (shellItem) {
-				items.add(new ShellTreeItem(treeIndex,joinTwoArrays(getPath(), treeItemPath)));
-			} else {
-				items.add(new ViewTreeItem(treeIndex,joinTwoArrays(getPath(), treeItemPath)));
-			}
+			items.add(new DefaultTreeItem(treeIndex,joinTwoArrays(getPath(), treeItemPath)));
+			
 		}
 		return items;
 	}
@@ -177,7 +171,7 @@ public abstract class AbstractTreeItem implements TreeItem {
 	 * 							is from shell/view environment
 	 * @return					direct descendant specified with parameters
 	 */
-	protected TreeItem getItem (String text, boolean shellTreeItem){
+	public TreeItem getItem(String text){
 		expand();
 		SWTBotTreeItem[] items = item.getItems();
 		int index = 0;
@@ -186,11 +180,7 @@ public abstract class AbstractTreeItem implements TreeItem {
 		}
 		if (index < items.length){
 			String[] treeItemPath = new String[] {text};
-			if (shellTreeItem) {
-				return new ShellTreeItem(treeIndex,joinTwoArrays(getPath(), treeItemPath));
-			} else {
-				return new ViewTreeItem(treeIndex,joinTwoArrays(getPath(), treeItemPath));
-			}
+			return new DefaultTreeItem(treeIndex,joinTwoArrays(getPath(), treeItemPath));
 		}
 		else{
 			throw new WidgetNotFoundException("There is no Tree Item with text " + text);
@@ -240,7 +230,7 @@ public abstract class AbstractTreeItem implements TreeItem {
 		System.arraycopy(array2, 0, finalArray, array1.length, array2.length);
 		return finalArray;
 	}
-	
+
 }
 
 /**
@@ -249,67 +239,52 @@ public abstract class AbstractTreeItem implements TreeItem {
  * @author jjankovi
  *
  */
-class TreeItemFoundAfterExpanding implements WaitCondition {
+class TreeHasChildren implements WaitCondition {
 
-	private String treeItemNode;
 	private SWTBotTreeItem item;
 	
-	public TreeItemFoundAfterExpanding(SWTBotTreeItem item, String treeItemNode) {
+	public TreeHasChildren(SWTBotTreeItem item) {
 		super();
-		this.treeItemNode = treeItemNode;
 		this.item = item;
 	}
 	
 	@Override
 	public boolean test() {
 		item.expand();
-		return nodeIsFound(treeItemNode);		
+		return item.getItems().length > 0;		
 	}
 
 	@Override
 	public String description() {
-		return "Tree item '" + treeItemNode + "' not found.";
-	}
-	
-	private boolean nodeIsFound(String treeItemNode) {
-		
-		try {
-			item.getNode(treeItemNode);
-			System.out.println(treeItemNode + " was found");
-			return true;
-		} catch (WidgetNotFoundException wnfe) {
-			item.collapse();
-			return false;
-		}
-		
+		return "Tree item '" + item + "' has no children.";
 	}
 	
 }
 
-///**
-// * Condition is fulfilled when tree item is selected
-// * 
-// * @author jjankovi
-// *
-// */
-//class TreeItemIsSelected implements WaitCondition {
-//
-//	private SWTBotTreeItem item; 
-//	
-//	public TreeItemIsSelected(SWTBotTreeItem item) {
-//		super();
-//		this.item = item;
-//	}
-//
-//	@Override
-//	public boolean test() {
-//		item.select();
-//		return item.isSelected();
-//	}
-//
-//	@Override
-//	public String description() {
-//		return "Tree item '" + item.getText() + "' cannot be selected.";
-//	}
-//	
-//}
+/**
+ * Condition is fulfilled when tree item is selected
+ * 
+ * @author jjankovi
+ *
+ */
+class TreeItemIsSelected implements WaitCondition {
+
+	private SWTBotTreeItem item; 
+	
+	public TreeItemIsSelected(SWTBotTreeItem item) {
+		super();
+		this.item = item;
+	}
+
+	@Override
+	public boolean test() {
+		item.select();
+		return item.isSelected();
+	}
+
+	@Override
+	public String description() {
+		return "Tree item '" + item.getText() + "' cannot be selected.";
+	}
+	
+}

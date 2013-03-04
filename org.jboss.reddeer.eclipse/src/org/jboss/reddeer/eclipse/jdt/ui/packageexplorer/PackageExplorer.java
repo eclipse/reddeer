@@ -5,8 +5,8 @@ import java.util.List;
 
 import org.jboss.reddeer.eclipse.exception.EclipseLayerException;
 import org.jboss.reddeer.swt.api.TreeItem;
-import org.jboss.reddeer.swt.impl.tree.ViewTree;
-import org.jboss.reddeer.swt.impl.tree.ViewTreeItem;
+import org.jboss.reddeer.swt.impl.tree.DefaultTree;
+import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
 import org.jboss.reddeer.workbench.view.impl.WorkbenchView;
 
 /**
@@ -31,7 +31,7 @@ public class PackageExplorer extends WorkbenchView {
 		for(String pname: projectName){
 			getProject(pname); //check if project exists
 		}
-		new ViewTreeItem(projectName).select();
+		new DefaultTreeItem(projectName).select();
 	}
 	
 	public boolean containsProject (String projectName){
@@ -54,9 +54,9 @@ public class PackageExplorer extends WorkbenchView {
 		return projects;
 	}
 	
-	public ViewTree getPackageExplorerTree(){
+	public DefaultTree getPackageExplorerTree(){
 		open();
-		return new ViewTree();
+		return new DefaultTree();
 	}
 	
 	public Project getProject(String projectName){

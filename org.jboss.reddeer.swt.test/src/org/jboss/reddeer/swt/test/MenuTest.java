@@ -7,9 +7,6 @@ import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.eclipse.swtbot.eclipse.finder.SWTWorkbenchBot;
 import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
-import org.jboss.reddeer.swt.test.RedDeerTest;
-import org.jboss.reddeer.swt.wait.TimePeriod;
-import org.jboss.reddeer.swt.wait.WaitUntil;
 import org.jboss.reddeer.swt.api.Menu;
 import org.jboss.reddeer.swt.api.Shell;
 import org.jboss.reddeer.swt.condition.ShellWithTextIsActive;
@@ -18,8 +15,10 @@ import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.menu.ContextMenu;
 import org.jboss.reddeer.swt.impl.menu.ShellMenu;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
-import org.jboss.reddeer.swt.impl.tree.ShellTreeItem;
+import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
 import org.jboss.reddeer.swt.matcher.RegexMatchers;
+import org.jboss.reddeer.swt.wait.TimePeriod;
+import org.jboss.reddeer.swt.wait.WaitUntil;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -43,7 +42,7 @@ public class MenuTest extends RedDeerTest {
 	public static void openExplorer(){
 		new ShellMenu("Window","Show View","Other...").select();
 		new WaitUntil(new ShellWithTextIsActive("Show View"),TimePeriod.NORMAL);
-		new ShellTreeItem("General","Project Explorer").select();
+		new DefaultTreeItem("General","Project Explorer").select();
 		new PushButton("OK").click();
 	}
 	

@@ -5,8 +5,12 @@ import java.util.List;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Event;
+import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Widget;
 import org.eclipse.swtbot.swt.finder.finders.ControlFinder;
+import org.eclipse.ui.IViewReference;
+import org.eclipse.ui.IWorkbenchPart;
+import org.eclipse.ui.IWorkbenchSite;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.util.Display;
@@ -106,21 +110,64 @@ public class WidgetLookup {
 		});
 	}
 	
+	/**
+	 * @deprecated As of release 0.4, replaced by {@link #activeWidgets(Control, Matcher)}
+	 */
+	@Deprecated
 	public Widget activeShellWidget(Matcher<? extends Widget> matcher, int index) {
 		List<? extends Widget> widgets = activeWidgets(new ShellLookup().getActiveShell(), matcher);
 		return getProperWidget(widgets, index);
 	}
 
+	/**
+	 * @deprecated As of release 0.4, replaced by {@link #activeWidgets(Control, Matcher)}
+	 */
+	@Deprecated
 	public Widget activeViewWidget(Matcher<? extends Widget> matcher, int index) {
 		List<? extends Widget> widgets = activeWidgets(getFocusControl(), matcher);
 		return getProperWidget(widgets, index);
 	}
 	
+	/**
+	 * @deprecated As of release 0.4, replaced by {@link #activeWidgets(Control, Matcher)}
+	 */
+	@Deprecated
 	public Widget activeWidget(Matcher<? extends Widget> matcher, Control activeControl, int index) {
 		List<? extends Widget> widgets = activeWidgets(activeControl, matcher);
 		return getProperWidget(widgets, index);
 	}
 	
+	public Widget activeWidget(Matcher<? extends Widget> matcher, int index) {
+		List<? extends Widget> widgets = activeWidgets(getActiveWidgetParentControl(), matcher);
+		return getProperWidget(widgets, index);
+	}
+	
+	private Control getActiveWidgetParentControl() {
+		IViewReference activeViewReference = WorkbenchLookup.findActiveView();
+		Shell activeViewParentShell = getShellForActiveView(activeViewReference);
+		Shell activeShell = new ShellLookup().getActiveShell();
+		if (activeViewParentShell == null || activeViewParentShell != activeShell)
+			return activeShell;
+		else {
+			return getFocusControl();
+		} 
+	}
+	
+	private Shell getShellForActiveView(IViewReference viewReference) {
+		if (viewReference == null) {
+			return null;
+		}
+		IWorkbenchPart wPart = viewReference.getPart(true);
+		if (wPart == null) {
+			return null;
+		}
+		IWorkbenchSite wSite = wPart.getSite();
+		if (wSite == null) {
+			return null;
+		}
+		return wSite.getShell();
+	}
+
 	private Widget getProperWidget(List<? extends Widget> widgets, int index) {
 		if (widgets.size() - index < 1) {
 			throw new SWTLayerException("No matching widget found");

@@ -6,10 +6,11 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.jboss.reddeer.eclipse.exception.EclipseLayerException;
 import org.jboss.reddeer.eclipse.wst.server.ui.wizard.NewServerWizardDialog;
+import org.jboss.reddeer.swt.api.Tree;
 import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.impl.menu.ContextMenu;
-import org.jboss.reddeer.swt.impl.tree.ViewTree;
+import org.jboss.reddeer.swt.impl.tree.DefaultTree;
 import org.jboss.reddeer.workbench.view.View;
 
 /**
@@ -39,7 +40,7 @@ public class ServersView extends View {
 	public List<Server> getServers(){
 		List<Server> servers = new ArrayList<Server>();
 
-		ViewTree tree;
+		Tree tree;
 		try {
 			tree = getServersTree();
 		} catch (SWTLayerException e){
@@ -60,9 +61,8 @@ public class ServersView extends View {
 		throw new EclipseLayerException("There is no server with name " + name);
 	}
 
-	protected ViewTree getServersTree(){
+	protected Tree getServersTree(){
 		open();
-		return new ViewTree();
-//		return new DefaultTree(new ViewMatcher(this));
+		return new DefaultTree();
 	}
 }

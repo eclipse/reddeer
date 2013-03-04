@@ -17,8 +17,7 @@ import org.eclipse.swtbot.swt.finder.results.VoidResult;
 import org.hamcrest.Description;
 import org.hamcrest.TypeSafeMatcher;
 import org.jboss.reddeer.swt.api.TreeItem;
-import org.jboss.reddeer.swt.impl.tree.AbstractTree;
-import org.jboss.reddeer.swt.lookup.impl.ShellLookup;
+import org.jboss.reddeer.swt.impl.tree.DefaultTree;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -27,7 +26,7 @@ public class ShellTreeTest {
 
 	private Tree swtTree;
 
-	private AbstractTree tree;
+	private org.jboss.reddeer.swt.api.Tree tree;
 
 	@Before
 	public void setup(){
@@ -44,7 +43,7 @@ public class ShellTreeTest {
 			}
 		});
 
-		tree = new ShellTreeImpl();
+		tree = new DefaultTree();
 	}
 	
 	@After
@@ -135,18 +134,6 @@ public class ShellTreeTest {
 				return item;
 			}
 		});
-	}
-	
-	class ShellTreeImpl extends AbstractTree {
-
-		public ShellTreeImpl() {
-			super(new ShellLookup().getActiveShell());
-		}
-
-		@Override
-		public List<TreeItem> getItems() {
-			return getItems(true);
-		}
 	}
 	
 	private TreeItemTextMatcher item(String text){
