@@ -6,7 +6,7 @@ import java.util.Collection;
 import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.impl.toolbar.ViewToolItem;
-import org.jboss.reddeer.swt.impl.tree.ViewTree;
+import org.jboss.reddeer.swt.impl.tree.DefaultTree;
 import org.jboss.reddeer.swt.matcher.RegexMatcher;
 import org.jboss.reddeer.workbench.view.impl.WorkbenchView;
 
@@ -56,7 +56,7 @@ public class OutlineView extends WorkbenchView {
 	
 	private Collection<TreeItem>getTreeForView() {
 		try {
-			ViewTree tree = new ViewTree();
+			DefaultTree tree = new DefaultTree();
 			return tree.getItems();
 		} catch (SWTLayerException exc) {
 			return new ArrayList<TreeItem>();

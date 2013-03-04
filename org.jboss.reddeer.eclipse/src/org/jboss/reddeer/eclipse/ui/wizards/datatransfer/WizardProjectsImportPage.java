@@ -11,13 +11,14 @@ import org.hamcrest.TypeSafeMatcher;
 import org.jboss.reddeer.eclipse.exception.EclipseLayerException;
 import org.jboss.reddeer.eclipse.jface.wizard.WizardDialog;
 import org.jboss.reddeer.eclipse.jface.wizard.WizardPage;
+import org.jboss.reddeer.swt.api.Tree;
 import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.swt.condition.WaitCondition;
 import org.jboss.reddeer.swt.impl.button.CheckBox;
 import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.button.RadioButton;
 import org.jboss.reddeer.swt.impl.text.DefaultText;
-import org.jboss.reddeer.swt.impl.tree.ShellTree;
+import org.jboss.reddeer.swt.impl.tree.DefaultTree;
 import org.jboss.reddeer.swt.wait.TimePeriod;
 import org.jboss.reddeer.swt.wait.WaitUntil;
 
@@ -69,7 +70,7 @@ public class WizardProjectsImportPage extends WizardPage {
 	public List<ImportProject> getProjects(){
 		List<ImportProject> projects = new ArrayList<ImportProject>();
 		
-		ShellTree projectsTree = getProjectsTree();
+		Tree projectsTree = getProjectsTree();
 		for (TreeItem item : projectsTree.getItems()){
 			ImportProject project = new ImportProject();
 			project.isChecked = item.isChecked();
@@ -83,7 +84,7 @@ public class WizardProjectsImportPage extends WizardPage {
 	public void selectProjects(String... projects){
 		log.info("Selecting projects");
 		deselectAllProjects();
-		ShellTree projectsTree = getProjectsTree();
+		Tree projectsTree = getProjectsTree();
 		
 		for (String projectName : projects){
 			TreeItem  projectItem = getProjectTreeItem(projectsTree, projectName);
@@ -113,11 +114,11 @@ public class WizardProjectsImportPage extends WizardPage {
 		return new RadioButton("Select root directory:").isSelected();
 	}
 	
-	private ShellTree getProjectsTree() {
-		return new ShellTree();
+	private Tree getProjectsTree() {
+		return new DefaultTree();
 	}
 	
-	private TreeItem getProjectTreeItem(ShellTree projectsTree, String projectName) {
+	private TreeItem getProjectTreeItem(Tree projectsTree, String projectName) {
 		for (TreeItem item : projectsTree.getItems()){
 			if (projectName.equals(getProjectLabel(item.getText()))){
 				return item;
@@ -132,9 +133,9 @@ public class WizardProjectsImportPage extends WizardPage {
 	
 	private class ProjectIsLoaded implements WaitCondition {
 
-		private ShellTree tree;
+		private Tree tree;
 		
-		private ProjectIsLoaded(ShellTree tree) {
+		private ProjectIsLoaded(Tree tree) {
 			this.tree = tree;
 		}
 		

@@ -9,7 +9,7 @@ import java.util.List;
 import org.hamcrest.Description;
 import org.hamcrest.TypeSafeMatcher;
 import org.jboss.reddeer.swt.api.TreeItem;
-import org.jboss.reddeer.swt.impl.tree.ViewTree;
+import org.jboss.reddeer.swt.impl.tree.DefaultTree;
 import org.jboss.reddeer.workbench.view.impl.WorkbenchView;
 import org.junit.Before;
 import org.junit.Test;
@@ -26,7 +26,8 @@ public class ViewTreeTest {
 	@SuppressWarnings("unchecked")
 	@Test
 	public void getItems() {
-		List<TreeItem> items = new ViewTree().getItems();
+		
+		List<TreeItem> items = new DefaultTree().getItems();
 		assertThat(items.size(), is(3));
 		assertThat(items, hasItems(item("A"), item("B"), item("C")));
 	}
@@ -34,7 +35,7 @@ public class ViewTreeTest {
 	@SuppressWarnings("unchecked")
 	@Test
 	public void getAllItems() {
-		List<TreeItem> items = new ViewTree().getAllItems();
+		List<TreeItem> items = new DefaultTree().getAllItems();
 		assertThat(items.size(), is(7));
 		assertThat(items, hasItems(
 				item("A"), item("AA"), item("AAA"), item("AAB"), 

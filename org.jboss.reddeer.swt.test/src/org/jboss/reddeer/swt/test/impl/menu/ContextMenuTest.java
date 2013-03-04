@@ -8,7 +8,7 @@ import org.jboss.reddeer.swt.impl.menu.ContextMenu;
 import org.jboss.reddeer.swt.impl.menu.ShellMenu;
 import org.jboss.reddeer.swt.impl.table.DefaultTable;
 import org.jboss.reddeer.swt.impl.text.LabeledText;
-import org.jboss.reddeer.swt.impl.tree.ShellTreeItem;
+import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
 import org.jboss.reddeer.swt.wait.TimePeriod;
 import org.jboss.reddeer.swt.wait.WaitUntil;
 import org.junit.BeforeClass;
@@ -26,7 +26,7 @@ public class ContextMenuTest {
 		new PushButton("OK").click();
 		new ShellMenu("File","New","Other...").select();
 		new WaitUntil(new ShellWithTextIsActive("New"),TimePeriod.NORMAL);
-		new ShellTreeItem("General","Project").select();
+		new DefaultTreeItem("General","Project").select();
 		new PushButton("Next >").click();
 		new WaitUntil(new ShellWithTextIsActive("New Project"),TimePeriod.NORMAL);
 		new LabeledText("Project name:").setText(projectName);

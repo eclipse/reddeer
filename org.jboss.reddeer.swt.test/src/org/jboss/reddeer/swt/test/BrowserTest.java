@@ -1,10 +1,9 @@
 package org.jboss.reddeer.swt.test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.fail;
 
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
-import org.jboss.reddeer.swt.test.RedDeerTest;
 import org.jboss.reddeer.swt.api.Browser;
 import org.jboss.reddeer.swt.api.Menu;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
@@ -12,7 +11,7 @@ import org.jboss.reddeer.swt.impl.browser.InternalBrowser;
 import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.menu.ShellMenu;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
-import org.jboss.reddeer.swt.impl.tree.ShellTreeItem;
+import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
 import org.jboss.reddeer.swt.matcher.RegexMatchers;
 import org.jboss.reddeer.swt.util.Bot;
 import org.junit.Test;
@@ -37,7 +36,7 @@ public class BrowserTest extends RedDeerTest {
     Menu menu = new ShellMenu(m.getMatchers());
     menu.select();
     new DefaultShell("Show View");
-    new ShellTreeItem("General", "Internal Web Browser").select();
+    new DefaultTreeItem("General", "Internal Web Browser").select();
     new PushButton("OK").click();
 	}
 	

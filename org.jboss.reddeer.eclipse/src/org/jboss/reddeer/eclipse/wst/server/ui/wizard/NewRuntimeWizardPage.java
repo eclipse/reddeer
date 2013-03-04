@@ -2,7 +2,7 @@ package org.jboss.reddeer.eclipse.wst.server.ui.wizard;
 
 import org.jboss.reddeer.eclipse.jface.wizard.WizardPage;
 import org.jboss.reddeer.swt.api.TreeItem;
-import org.jboss.reddeer.swt.impl.tree.ShellTreeItem;
+import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
 
 /**
  * Represents the first page displayed when invoked {@link NewRuntimeWizardDialog}
@@ -18,7 +18,7 @@ public class NewRuntimeWizardPage extends WizardPage {
 	
 	public void selectType(String... type){
 		show();
-		TreeItem t = new ShellTreeItem(type);
+		TreeItem t = new DefaultTreeItem(type);
 		t.select();
 	}
 }

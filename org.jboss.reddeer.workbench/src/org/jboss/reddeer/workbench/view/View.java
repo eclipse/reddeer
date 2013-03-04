@@ -12,7 +12,7 @@ import org.jboss.reddeer.swt.condition.ShellWithTextIsActive;
 import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.menu.ShellMenu;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
-import org.jboss.reddeer.swt.impl.tree.ShellTreeItem;
+import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
 import org.jboss.reddeer.swt.matcher.RegexMatchers;
 import org.jboss.reddeer.swt.util.Bot;
 import org.jboss.reddeer.swt.wait.TimePeriod;
@@ -58,7 +58,7 @@ public abstract class View extends WorkbenchPart {
 			menu.select();
 			new WaitUntil(new ShellWithTextIsActive(SHOW_VIEW), TimePeriod.NORMAL);
 			new DefaultShell(SHOW_VIEW);
-			new ShellTreeItem(path).select();
+			new DefaultTreeItem(path).select();
 			new WaitUntil(new ButtonWithTextIsActive("OK"), TimePeriod.NORMAL);
 			new PushButton("OK").click();
 			viewObject = Bot.get().activeView();

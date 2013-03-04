@@ -10,7 +10,7 @@ import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.tab.DefaultTabItem;
 import org.jboss.reddeer.swt.impl.text.LabeledText;
-import org.jboss.reddeer.swt.impl.tree.ShellTree;
+import org.jboss.reddeer.swt.impl.tree.DefaultTree;
 import org.jboss.reddeer.swt.util.Bot;
 
 /**
@@ -51,7 +51,7 @@ public class DriverDefinitionPage extends WizardPage {
 	 */
 	public void selectDriverTemplate(String type, String version) {
 		selectTab(TAB_NAME_TYPE);
-		Tree tree = new ShellTree();
+		Tree tree = new DefaultTree();
 		// Database
 		TreeItem root = tree.getItems().get(0);
 		for (TreeItem item : root.getItems()) {

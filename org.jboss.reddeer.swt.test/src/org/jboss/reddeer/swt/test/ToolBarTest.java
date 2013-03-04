@@ -5,17 +5,17 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
-import org.jboss.reddeer.swt.test.RedDeerTest;
 import org.jboss.reddeer.swt.api.Menu;
 import org.jboss.reddeer.swt.api.ToolBar;
 import org.jboss.reddeer.swt.api.ToolItem;
+import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.menu.ShellMenu;
 import org.jboss.reddeer.swt.impl.shell.WorkbenchShell;
 import org.jboss.reddeer.swt.impl.toolbar.ViewToolBar;
 import org.jboss.reddeer.swt.impl.toolbar.ViewToolItem;
 import org.jboss.reddeer.swt.impl.toolbar.WorkbenchToolItem;
-import org.jboss.reddeer.swt.impl.tree.ShellTreeItem;
+import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
 import org.jboss.reddeer.swt.matcher.RegexMatcher;
 import org.jboss.reddeer.swt.matcher.RegexMatchers;
 import org.jboss.reddeer.swt.util.Bot;
@@ -40,7 +40,7 @@ public class ToolBarTest extends RedDeerTest {
 		Menu menu = new ShellMenu(m.getMatchers());
 		menu.select();
 				
-		ShellTreeItem item = new ShellTreeItem("RedDeer SWT","RedDeer SWT");
+		TreeItem item = new DefaultTreeItem("RedDeer SWT","RedDeer SWT");
 		item.select();
 		new PushButton("OK").click();
 		
