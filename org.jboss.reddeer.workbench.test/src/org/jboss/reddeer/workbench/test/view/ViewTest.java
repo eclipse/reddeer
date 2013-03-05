@@ -62,7 +62,7 @@ public class ViewTest extends RedDeerTest{
 		markersView.close();
 	}
 	
-	@Test(expected=java.lang.UnsupportedOperationException.class)
+	@Test(expected=org.jboss.reddeer.swt.exception.SWTLayerException.class)
 	public void testCloseNoninitializedView() {
 		
 		View customView = new WorkbenchView("Workbench Test");
