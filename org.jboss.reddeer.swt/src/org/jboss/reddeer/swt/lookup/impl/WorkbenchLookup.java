@@ -41,9 +41,25 @@ public class WorkbenchLookup {
 			}
 		});
 	}
+	
+	/**
+	 * Returns all view references from current active workbench window
+	 * @return all view references
+	 */
+	public static IViewReference[] findAllViews() {
+		return syncExec(new Result<IViewReference[]>() {
+			public IViewReference[] run() {
+				return findActiveViewsInternal();
+			}
+		});
+	}
 
 	private static IWorkbenchPage activePageInternal() {
 		return activeWorkbenchWindow().getActivePage();
+	}
+	
+	private static IViewReference[] findActiveViewsInternal() {
+		return activePageInternal().getViewReferences();
 	}
 	
 	private static IViewReference findActiveViewInternal() {
