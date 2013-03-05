@@ -33,5 +33,11 @@ public interface Table {
 	 */
 	void select(String... items);
 	
+	/**
+	 * Select rows according to given column index
+	 * @param item to select
+	 * @param columnIndex ondex of column
+	 */
+	void select(String item, int columnIndex);
 	
 }

@@ -1,11 +1,8 @@
 package org.jboss.reddeer.swt.impl.table;
 
 import org.apache.log4j.Logger;
-import org.eclipse.swtbot.swt.finder.utils.TableCollection;
-import org.eclipse.swtbot.swt.finder.utils.TableRow;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTable;
 import org.jboss.reddeer.swt.api.Table;
-import org.jboss.reddeer.swt.util.Bot;
 
 /**
  * Basic abstract class implementation for a table
@@ -45,8 +42,14 @@ public abstract class AbstractTable implements Table {
 		
 	}
 	
+	@Override
 	public void select(String... items) {
 		table.select(items);
+	}
+	
+	@Override
+	public void select(String item, int columnIndex){
+		select(table.indexOf(item, columnIndex));
 	}
 		
 }
