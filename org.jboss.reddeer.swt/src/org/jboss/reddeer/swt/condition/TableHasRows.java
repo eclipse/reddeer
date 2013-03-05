@@ -1,7 +1,7 @@
 package org.jboss.reddeer.swt.condition;
 
+import org.jboss.reddeer.swt.api.Table;
 import org.jboss.reddeer.swt.condition.WaitCondition;
-import org.jboss.reddeer.swt.impl.table.DefaultTable;
 
 
 /**
@@ -10,9 +10,9 @@ import org.jboss.reddeer.swt.impl.table.DefaultTable;
  *
  */
 public class TableHasRows implements WaitCondition {
-	private final DefaultTable table;
+	private final Table table;
 
-	public TableHasRows(DefaultTable table) {
+	public TableHasRows(Table table) {
 		this.table = table;
 	}
 
