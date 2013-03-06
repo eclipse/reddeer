@@ -19,7 +19,7 @@ import org.jboss.reddeer.swt.lookup.impl.WidgetLookup;
 import org.jboss.reddeer.swt.wait.WaitUntil;
 
 /**
- * 
+ * Default tree item implementation
  * 
  * @author jjankovi
  *
@@ -34,13 +34,14 @@ protected final Logger logger = Logger.getLogger(this.getClass());
 	protected String[] path;
 	
 	/**
-	 * 
+	 * Default parameter-less constructor
 	 */
 	public DefaultTreeItem() {
 		this(0);
 	}
 	
 	/**
+	 * Tree item with specified path will be constructed 
 	 * 
 	 * @param treeItemPath
 	 */
@@ -49,6 +50,7 @@ protected final Logger logger = Logger.getLogger(this.getClass());
 	}
 	
 	/**
+	 * Tree item with specified tree index and path will be constructed
 	 * 
 	 * @param treeIndex
 	 * @param treeItemPath
@@ -58,6 +60,7 @@ protected final Logger logger = Logger.getLogger(this.getClass());
 	}
 	
 	/**
+	 * Tree item with specified tree item index will be constructed
 	 * 
 	 * @param treeItemIndex
 	 */
@@ -66,6 +69,7 @@ protected final Logger logger = Logger.getLogger(this.getClass());
 	}
 	
 	/**
+	 * Tree item with specified tree and tree item index will be constructed
 	 * 
 	 * @param treeIndex
 	 * @param treeItemIndex
@@ -75,6 +79,8 @@ protected final Logger logger = Logger.getLogger(this.getClass());
 	}
 	
 	/**
+	 * Tree item with specified tree index, tree item index and tree item path 
+	 * will be constructed
 	 * 
 	 * @param treeIndex
 	 * @param treeItemIndex
@@ -92,15 +98,16 @@ protected final Logger logger = Logger.getLogger(this.getClass());
 			throw new SWTLayerException("No matching tree item found");
 		}
 		if (treeItemPath == null) {
+			new WaitUntil(new TreeHasChildren(tree));
 			item = tree.getAllItems()[treeItemIndex];
 			path = new String[] {item.getText()};
 		} else {
 			List<String> tiPath = new ArrayList<String>(Arrays.asList(treeItemPath));
-			// wait method maybe will be needed here
+			new WaitUntil(new TreeHasChildren(tree));
 			item = tree.getTreeItem(tiPath.get(0));
 			tiPath.remove(0);
 			for (String treeItemNode : tiPath) {
-				new WaitUntil(new TreeHasChildren(item));
+				new WaitUntil(new TreeItemHasChildren(item));
 				item = item.getNode(treeItemNode);
 			}
 			path = treeItemPath;
@@ -234,22 +241,23 @@ protected final Logger logger = Logger.getLogger(this.getClass());
 }
 
 /**
- * Condition is fulfilled when tree item node is found after expanding 
+ * Condition is fulfilled when tree item has children 
  * 
  * @author jjankovi
  *
  */
-class TreeHasChildren implements WaitCondition {
+class TreeItemHasChildren implements WaitCondition {
 
 	private SWTBotTreeItem item;
 	
-	public TreeHasChildren(SWTBotTreeItem item) {
+	public TreeItemHasChildren(SWTBotTreeItem item) {
 		super();
 		this.item = item;
 	}
 	
 	@Override
 	public boolean test() {
+		item.collapse();
 		item.expand();
 		return item.getItems().length > 0;		
 	}
@@ -257,6 +265,33 @@ class TreeHasChildren implements WaitCondition {
 	@Override
 	public String description() {
 		return "Tree item '" + item + "' has no children.";
+	}
+	
+}
+
+/**
+ * Condition is fulfilled when tree has children 
+ * 
+ * @author jjankovi
+ *
+ */
+class TreeHasChildren implements WaitCondition {
+
+	private SWTBotTree tree;
+	
+	public TreeHasChildren(SWTBotTree tree) {
+		super();
+		this.tree = tree;
+	}
+	
+	@Override
+	public boolean test() {
+		return tree.getAllItems().length > 0;		
+	}
+
+	@Override
+	public String description() {
+		return "Tree has no childre";
 	}
 	
 }

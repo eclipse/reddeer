@@ -2,8 +2,10 @@ package org.jboss.reddeer.swt.impl.shell;
 
 import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
 import org.jboss.reddeer.swt.api.Shell;
+import org.jboss.reddeer.swt.condition.ShellWithTextIsActive;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.util.Bot;
+import org.jboss.reddeer.swt.wait.WaitUntil;
 
 /**
  * Default shell returns active shell if available
@@ -17,11 +19,12 @@ public class DefaultShell extends AbstractShell implements Shell {
 	
 	public DefaultShell(String title) {
 		try {
+			new WaitUntil(new ShellWithTextIsActive(title));
 			shell = Bot.get().shell(title);
 			shell.setFocus();
 			log.info("Shell with title '" + title + "' found");
 		}
-		catch (WidgetNotFoundException e) {
+		catch (Exception e) {
 			throw new SWTLayerException("No shell is available at the moment");
 		}
 	}
