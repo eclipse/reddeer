@@ -39,7 +39,12 @@ public class ConsoleViewTest extends RedDeerTest{
 	}
 	
 	@Test
-	public void getConsoleText() {
+	public void testConsoleView() {
+		testGettingConsoleTest();
+		testClearConsole();
+	}
+	
+	private void testGettingConsoleTest() {
 		consoleView = new ConsoleView();
 		consoleView.open();
 		String text = consoleView.getConsoleText();
@@ -47,8 +52,7 @@ public class ConsoleViewTest extends RedDeerTest{
 		assertThat(text, IsEqual.equalTo("Hello World"));
 	}
 	
-	@Test
-	public void clearConsole() {
+	private void testClearConsole() {
 		consoleView = new ConsoleView();
 		consoleView.open();
 		consoleView.clearConsole();		
@@ -86,7 +90,7 @@ public class ConsoleViewTest extends RedDeerTest{
 		javaClassDialog.finish();
 		
 		Bot.get().activeEditor().toTextEditor().
-			insertText(9, 0, "System.out.print(\"Hello World\");");
+			insertText(7, 0, "System.out.print(\"Hello World\");");
 		Bot.get().activeEditor().toTextEditor().save();
 	}
 	
