@@ -3,6 +3,8 @@ package org.jboss.reddeer.swt.impl.shell;
 import org.apache.log4j.Logger;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.jboss.reddeer.swt.api.Shell;
+import org.jboss.reddeer.swt.condition.ShellWithTextIsActive;
+import org.jboss.reddeer.swt.wait.WaitWhile;
 
 /**
  * Abstract class for all Shells
@@ -24,6 +26,7 @@ public abstract class AbstractShell implements Shell {
 	@Override
 	public void close() {
 		log.info("Closing shell " + shell.getText());
-		shell.close();		
+		shell.close();
+		new WaitWhile(new ShellWithTextIsActive(shell.getText()));
 	}
 }

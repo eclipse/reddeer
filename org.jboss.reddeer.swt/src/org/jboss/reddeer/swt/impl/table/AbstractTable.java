@@ -1,11 +1,10 @@
 package org.jboss.reddeer.swt.impl.table;
 
 import org.apache.log4j.Logger;
-import org.eclipse.swtbot.swt.finder.utils.TableCollection;
-import org.eclipse.swtbot.swt.finder.utils.TableRow;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTable;
 import org.jboss.reddeer.swt.api.Table;
-import org.jboss.reddeer.swt.util.Bot;
+import org.jboss.reddeer.swt.condition.TableHasRows;
+import org.jboss.reddeer.swt.wait.WaitUntil;
 
 /**
  * Basic abstract class implementation for a table
@@ -19,6 +18,7 @@ public abstract class AbstractTable implements Table {
 	
 	@Override
 	public String cell(int row, int column) {
+		new WaitUntil(new TableHasRows(this));
 		String ret = table.cell(row, column);
 		return ret;		
 	}
@@ -41,11 +41,13 @@ public abstract class AbstractTable implements Table {
 		      }
 		  log.debug("Select table row(s): " + sbIndexes.toString());
 		}
+		new WaitUntil(new TableHasRows(this));
 		table.select(indexes);
 		
 	}
 	
 	public void select(String... items) {
+		new WaitUntil(new TableHasRows(this));
 		table.select(items);
 	}
 		
