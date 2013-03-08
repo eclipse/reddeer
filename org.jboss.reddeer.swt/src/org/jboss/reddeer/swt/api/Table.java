@@ -40,4 +40,11 @@ public interface Table {
 	 */
 	void select(String item, int columnIndex);
 	
+	
+	/**
+	 * Check the table item
+	 * @param item to check
+	 */
+	void check(String item);
+	
 }
