@@ -51,5 +51,15 @@ public abstract class AbstractTable implements Table {
 	public void select(String item, int columnIndex){
 		select(table.indexOf(item, columnIndex));
 	}
+	
+	@Override
+	public void check(String item){
+		table.getTableItem(item).check();
+	}
+	
+	@Override
+	public void check(int itemIndex){
+		table.getTableItem(itemIndex).check();
+	}
 		
 }
