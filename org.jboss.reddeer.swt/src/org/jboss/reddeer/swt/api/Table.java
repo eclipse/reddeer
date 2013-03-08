@@ -47,4 +47,10 @@ public interface Table {
 	 */
 	void check(String item);
 	
+	/**
+	 * Check the table item
+	 * @param itemIndex table item identified by its index to check
+	 */
+	void check(int itemIndex);
+	
 }
