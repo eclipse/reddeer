@@ -2,16 +2,24 @@ package org.jboss.reddeer.swt.test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
 import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
+import org.hamcrest.core.Is;
+import org.hamcrest.core.IsNot;
 import org.jboss.reddeer.swt.api.Menu;
 import org.jboss.reddeer.swt.api.ToolBar;
 import org.jboss.reddeer.swt.api.ToolItem;
 import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.swt.impl.button.PushButton;
+import org.jboss.reddeer.swt.impl.clabel.DefaultCLabel;
+import org.jboss.reddeer.swt.impl.label.DefaultLabel;
 import org.jboss.reddeer.swt.impl.menu.ShellMenu;
+import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.jboss.reddeer.swt.impl.shell.WorkbenchShell;
+import org.jboss.reddeer.swt.impl.toolbar.ShellToolBar;
+import org.jboss.reddeer.swt.impl.toolbar.ShellToolItem;
 import org.jboss.reddeer.swt.impl.toolbar.ViewToolBar;
 import org.jboss.reddeer.swt.impl.toolbar.ViewToolItem;
 import org.jboss.reddeer.swt.impl.toolbar.WorkbenchToolItem;
@@ -93,5 +101,54 @@ public class ToolBarTest extends RedDeerTest {
 		ToolItem i = new ViewToolItem(rm);
 		i.click();
 		assertTrue("ToolItem should be clicked", TestModel.getClickedAndReset());		
+	}
+	
+	@Test
+	public void testShellToolBar() {
+		openPreferences();
+		ToolBar t = new ShellToolBar();
+		assertNotNull(t);
+		closePreferences();	
+	}
+	
+	@Test
+	public void testToolItemInShellToolBarFound() {
+		openPreferences();
+		ToolItem ti = new ShellToolItem();
+		assertNotNull(ti);
+		closePreferences();	
+	}
+	
+	@Test
+	public void testToolItemInShellToolBarClicked() {
+		openPreferences();
+		assertThat(new DefaultCLabel().getText(), Is.is("General"));
+		new DefaultTreeItem(1).select();
+		assertThat(new DefaultLabel().getText(), IsNot.not("General"));
+		ToolItem ti = new ShellToolItem();
+		ti.click();
+		assertThat(new DefaultCLabel().getText(), Is.is("General"));
+		closePreferences();		
+	}
+
+	@Test
+	public void testToolItemInShellToolBarRegexClicked() {
+		openPreferences();
+		new DefaultTreeItem(1).select();
+		ToolItem ti = new ShellToolItem(new RegexMatcher(".*ack.*"));
+		assertNotNull(ti);
+		closePreferences();			
+	}
+	
+	private void openPreferences() {
+		RegexMatchers m = new RegexMatchers("Window.*", "Preferences.*");
+		Menu menu = new ShellMenu(m.getMatchers());
+		menu.select();
+		new DefaultShell("Preferences");
+	}
+	
+	private void closePreferences() {
+		new DefaultTreeItem(0).select();
+		new PushButton("Cancel").click();
 	}
 }

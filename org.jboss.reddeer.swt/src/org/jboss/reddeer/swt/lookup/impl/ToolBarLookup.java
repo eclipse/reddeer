@@ -1,5 +1,8 @@
 package org.jboss.reddeer.swt.lookup.impl;
 
+import static org.eclipse.swtbot.swt.finder.matchers.WidgetMatcherFactory.widgetOfType;
+import static org.hamcrest.Matchers.allOf;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,11 +11,8 @@ import org.eclipse.jface.action.ICoolBarManager;
 import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.action.ToolBarContributionItem;
 import org.eclipse.jface.action.ToolBarManager;
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
-import org.eclipse.swt.widgets.Widget;
 import org.eclipse.ui.IViewSite;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
@@ -30,6 +30,7 @@ import org.jboss.reddeer.swt.util.ResultRunnable;
  * @author Jiri Peterka
  * 
  */
+@SuppressWarnings("restriction")
 public class ToolBarLookup {
 
 	/**
@@ -63,6 +64,25 @@ public class ToolBarLookup {
 			throw new SWTLayerException("Active workbench toolbar is null");
 		return toolbar;
 	}
+	
+	/**
+	 * Returns active shell toolbar
+	 * 
+	 * @return active shell toolbar
+	 */
+	public ToolBar getShellToolBars() {
+		ToolBar toolbar = Display.syncExec(new ResultRunnable<ToolBar>() {
+			@SuppressWarnings("unchecked")
+			@Override
+			public ToolBar run() {
+				ToolBar toolbar = (ToolBar)WidgetLookup.getInstance()
+						.activeWidget(allOf(widgetOfType(ToolBar.class)), 0);
+				
+				return toolbar;
+			}
+		});
+		return toolbar;
+	}
 
 	/**
 	 * Returns active workbench toolbars, if null, SWTLayerException is thrown.
@@ -74,7 +94,6 @@ public class ToolBarLookup {
 
 		ToolBar[] toolbars = Display.syncExec(new ResultRunnable<ToolBar[]>() {
 
-			@SuppressWarnings("restriction")
 			@Override
 			public ToolBar[] run() {
 				List<ToolBar> toolBars = new ArrayList<ToolBar>();
@@ -124,17 +143,37 @@ public class ToolBarLookup {
 	 * @return
 	 */
 	public ToolItem getToolItem(final ToolBar toolBar, final Matcher<String> matcher) {
+		return getToolItem(toolBar, matcher, 0);
+	}
+	
+	/**
+	 * Returns ToolItem from given toolbar with given matcher and index
+	 * @param toolBar
+	 * @param text
+	 * @return
+	 */
+	public ToolItem getToolItem(final ToolBar toolBar, final Matcher<String> matcher, final int index) {
 
 		ToolItem item = Display.syncExec(new ResultRunnable<ToolItem>() {
 
 			@Override
 			public ToolItem run() {
-
+				int counter = 0;
 				ToolItem[] items = toolBar.getItems();
 				for (ToolItem item : items) {
-					if ((item == null) || (item.getToolTipText() == null)) continue;
-					if (matcher.matches(item.getToolTipText())) {						
-						return item;
+					if (matcher != null) {
+						if ((item == null) || (item.getToolTipText() == null)) continue;
+						if (matcher.matches(item.getToolTipText())) {
+							if (counter == index) {
+								return item;
+							}
+							counter++;
+						}
+					}else {
+						if (counter == index) {
+							return item;
+						}
+						counter++;
 					}
 				}
 				return null;
