@@ -107,7 +107,7 @@ protected final Logger logger = Logger.getLogger(this.getClass());
 			item = tree.getTreeItem(tiPath.get(0));
 			tiPath.remove(0);
 			for (String treeItemNode : tiPath) {
-				new WaitUntil(new TreeItemHasChildren(item));
+				new WaitUntil(new TreeItemFoundAfterExpanding(item, treeItemNode));
 				item = item.getNode(treeItemNode);
 			}
 			path = treeItemPath;
@@ -246,12 +246,14 @@ protected final Logger logger = Logger.getLogger(this.getClass());
  * @author jjankovi
  *
  */
-class TreeItemHasChildren implements WaitCondition {
+class TreeItemFoundAfterExpanding implements WaitCondition {
 
+	private String treeItemNode;
 	private SWTBotTreeItem item;
 	
-	public TreeItemHasChildren(SWTBotTreeItem item) {
+	public TreeItemFoundAfterExpanding(SWTBotTreeItem item, String treeItemNode) {
 		super();
+		this.treeItemNode = treeItemNode;
 		this.item = item;
 	}
 	
@@ -259,12 +261,25 @@ class TreeItemHasChildren implements WaitCondition {
 	public boolean test() {
 		item.collapse();
 		item.expand();
-		return item.getItems().length > 0;		
+		return nodeIsFound(treeItemNode);		
 	}
 
 	@Override
 	public String description() {
-		return "Tree item '" + item + "' has no children.";
+		return "Tree item '" + treeItemNode + "' not found.";
+	}
+	
+	private boolean nodeIsFound(String treeItemNode) {
+		
+		try {
+			item.getNode(treeItemNode);
+			System.out.println(treeItemNode + " was found");
+			return true;
+		} catch (WidgetNotFoundException wnfe) {
+			item.collapse();
+			return false;
+		}
+		
 	}
 	
 }
