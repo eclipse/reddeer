@@ -8,9 +8,10 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Widget;
 import org.eclipse.swtbot.swt.finder.finders.ControlFinder;
-import org.eclipse.ui.IViewReference;
 import org.eclipse.ui.IWorkbenchPart;
+import org.eclipse.ui.IWorkbenchPartReference;
 import org.eclipse.ui.IWorkbenchSite;
+import org.eclipse.ui.internal.WorkbenchPartReference;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.util.Display;
@@ -129,7 +130,7 @@ public class WidgetLookup {
 	}
 	
 	/**
-	 * @deprecated As of release 0.4, replaced by {@link #activeWidgets(Control, Matcher)}
+	 * @deprecated As of release 0.4, replaced by {@link #activeWidget(Matcher, int)}
 	 */
 	@Deprecated
 	public Widget activeWidget(Matcher<? extends Widget> matcher, Control activeControl, int index) {
@@ -138,26 +139,35 @@ public class WidgetLookup {
 	}
 	
 	public Widget activeWidget(Matcher<? extends Widget> matcher, int index) {
-		List<? extends Widget> widgets = activeWidgets(getActiveWidgetParentControl(), matcher);
-		return getProperWidget(widgets, index);
+		return getProperWidget(activeWidgets(matcher), index);
+	}
+	
+	public List<? extends Widget> activeWidgets(Matcher<? extends Widget> matcher) {
+		return activeWidgets(getActiveWidgetParentControl(), matcher);
+	}
+	
+	private List<? extends Widget> activeWidgets(Control activeControl, Matcher<? extends Widget> matcher) {
+		ControlFinder finder = new ControlFinder();
+		List<? extends Widget> widgets = finder.findControls(activeControl, matcher, true);
+		return widgets;
 	}
 	
 	private Control getActiveWidgetParentControl() {
-		IViewReference activeViewReference = WorkbenchLookup.findActiveView();
-		Shell activeViewParentShell = getShellForActiveView(activeViewReference);
+		IWorkbenchPartReference activeWorkbenchReference = WorkbenchLookup.findActiveWorkbenchPart();
+		Shell activeWorkbenchParentShell = getShellForActiveWorkbench(activeWorkbenchReference);
 		Shell activeShell = new ShellLookup().getActiveShell();
-		if (activeViewParentShell == null || activeViewParentShell != activeShell)
+		if (activeWorkbenchParentShell == null || activeWorkbenchParentShell != activeShell)
 			return activeShell;
 		else {
-			return getFocusControl();
+			return getWorkbenchControl(activeWorkbenchReference);
 		} 
 	}
-	
-	private Shell getShellForActiveView(IViewReference viewReference) {
-		if (viewReference == null) {
+
+	private Shell getShellForActiveWorkbench(IWorkbenchPartReference workbenchReference) {
+		if (workbenchReference == null) {
 			return null;
 		}
-		IWorkbenchPart wPart = viewReference.getPart(true);
+		IWorkbenchPart wPart = workbenchReference.getPart(true);
 		if (wPart == null) {
 			return null;
 		}
@@ -175,10 +185,23 @@ public class WidgetLookup {
 		return widgets.get(index);
 	}
 	
-	private List<? extends Widget> activeWidgets(Control activeControl, Matcher<? extends Widget> matcher) {
-		ControlFinder finder = new ControlFinder();
-		List<? extends Widget> widgets = finder.findControls(activeControl, matcher, true);
-		return widgets;
+	/**
+	 * Return control object associated to active workbench
+	 * @param activeWorkbenchReference
+	 * @return
+	 */
+	@SuppressWarnings("restriction")
+	private Control getWorkbenchControl(
+			final IWorkbenchPartReference activeWorkbenchReference) {
+		return Display.syncExec(new ResultRunnable<Control>() {
+
+			@Override
+			public Control run() {
+				return ((WorkbenchPartReference)activeWorkbenchReference)
+						.getPane()
+						.getControl();
+			}
+		});
 	}
 
 	/**
@@ -188,13 +211,11 @@ public class WidgetLookup {
 	 */
 	public Control getFocusControl() {
 		Control c = Display.syncExec(new ResultRunnable<Control>() {
-
 			@Override
 			public Control run() {
 				Control focusControl = Display.getDisplay().getFocusControl();
 				return focusControl;
 			}
-
 		});
 		return c;
 	}
