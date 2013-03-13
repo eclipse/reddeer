@@ -1,13 +1,19 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Red Deer Eclipse Component
-Bundle-SymbolicName: org.jboss.reddeer.eclipse
+Bundle-SymbolicName: org.jboss.reddeer.eclipse;singleton:=true
 Bundle-Version: 0.2.0.qualifier
 Bundle-Activator: org.jboss.reddeer.eclipse.Activator
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  org.eclipse.wst.server.ui,
  org.eclipse.ui.console,
+ org.eclipse.jdt.core,
+ org.eclipse.jdt.junit,
+ org.eclipse.jdt.junit.runtime,
+ org.eclipse.jdt.launching,
+ org.eclipse.debug.ui,
+ org.eclipse.pde.ui,
  org.jboss.reddeer.jface;bundle-version="0.2.0",
  org.jboss.reddeer.swt;bundle-version="0.2.0",
  org.jboss.reddeer.workbench;bundle-version="0.2.0",
