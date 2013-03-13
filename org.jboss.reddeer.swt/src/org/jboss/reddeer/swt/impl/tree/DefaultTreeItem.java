@@ -117,6 +117,7 @@ protected final Logger logger = Logger.getLogger(this.getClass());
 	
 	@Override
 	public void select() {
+		item.select();
 		new WaitUntil(new TreeItemIsSelected(item));
 	}
 	
@@ -313,7 +314,6 @@ class TreeItemIsSelected implements WaitCondition {
 
 	@Override
 	public boolean test() {
-		item.select();
 		return item.isSelected();
 	}
 
