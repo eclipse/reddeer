@@ -44,6 +44,33 @@ public class WorkbenchLookup {
 	}
 	
 	/**
+	 * Returns all active views references 
+	 * @return all active views references
+	 */
+	public static IViewReference[] findAllViews() {
+		return syncExec(new Result<IViewReference[]>() {
+			@Override
+			public IViewReference[] run() {
+				return activeWorkbenchWindow().getActivePage().getViewReferences();
+			}
+		});
+	}
+	
+	/**
+	 * Returns all active editor references
+	 * @return all active editor references
+	 */
+	public static IEditorReference[] findAllEditors() {
+		return syncExec(new Result<IEditorReference[]>() {
+			@Override
+			public IEditorReference[] run() {
+				return activeWorkbenchWindow().getActivePage().getEditorReferences();
+			}
+		});
+	}
+	
+	
+	/**
 	 * Returns active view reference from current active workbench window
 	 * @return active view reference
 	 */
