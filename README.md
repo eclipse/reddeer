@@ -1,4 +1,2 @@
-reddeer
-=======
-
-RedDeer Project
+JBoss RedDeer Project
+=====================
