@@ -10,7 +10,8 @@
 	
 	<properties>
   	    <tycho-version>0.14.0</tycho-version>  	  
-		<jbosstools-target-site>http://download.jboss.org/jbosstools/updates/kepler/M4/REPO</jbosstools-target-site>
+		<eclipse-target-site>http://download.eclipse.org/releases/kepler</eclipse-target-site>
+		<swtbot-update-site>http://download.eclipse.org/technology/swtbot/helios/dev-build/update-site</swtbot-update-site>
 	</properties>
 	
 	<modules>
@@ -138,8 +139,19 @@
 	</build>
 	<repositories>
 		<repository>
-			<id>jbosstools-target-site</id>
-			<url>${jbosstools-target-site}</url>
+			<id>eclipse-target-site</id>
+			<url>${eclipse-target-site}</url>
+			<layout>p2</layout>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+			<releases>
+				<enabled>true</enabled>
+				</releases>
+		</repository>
+		<repository>
+			<id>swtbot-update-site</id>
+			<url>${swtbot-update-site}</url>
 			<layout>p2</layout>
 			<snapshots>
 				<enabled>true</enabled>
