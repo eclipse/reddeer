@@ -15,7 +15,6 @@ public class InternalBrowser extends AbstractBrowser implements Browser {
 		setReady();
 	}
 	
-	
 	@Override
 	public boolean isPageLoaded() {
 		return browser.isPageLoaded();
@@ -37,4 +36,10 @@ public class InternalBrowser extends AbstractBrowser implements Browser {
 	public void setURL(String url) {
 		browser.setUrl(url);	
 	}
+	
+	@Override
+	public String getURL() {
+		return browser.getUrl();	
+	}
+
 }
