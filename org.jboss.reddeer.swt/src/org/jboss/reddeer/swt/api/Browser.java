@@ -27,5 +27,10 @@ public interface Browser {
 	 * Set given url in browser, browser then loads it asynchronously 
 	 */
 	void setURL(String url);
+	
+	/**
+	 * Get url from browser 
+	 */
+	String getURL();
 
 }
