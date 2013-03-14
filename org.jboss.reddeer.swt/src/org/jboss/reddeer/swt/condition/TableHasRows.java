@@ -17,7 +17,7 @@ public class TableHasRows implements WaitCondition {
 	}
 
 	public boolean test() {
-		return table.rowCount() > 1;
+		return table.rowCount() > 0;
 	}
 
 	@Override
