@@ -12,6 +12,7 @@
  	   	<tycho-version>0.14.0</tycho-version>  	  
 		<eclipse-target-site>http://download.eclipse.org/releases/kepler</eclipse-target-site>
 		<swtbot-update-site>http://download.eclipse.org/technology/swtbot/helios/dev-build/update-site</swtbot-update-site>
+		<platformSystemProperties></platformSystemProperties>
 	</properties>
 	
 	<modules>
