@@ -12,6 +12,12 @@ import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 
+/**
+ * Helper class to generate RedDeer project default content.
+ * 
+ * @author sbunciak
+ *
+ */
 public class ProjectCreator {
 
 	private final String pluginId;
@@ -29,6 +35,11 @@ public class ProjectCreator {
 		this.root = root;
 	}
 
+	/**
+	 * Create default project structure in workspace after wizard end.
+	 * 
+	 * @throws CoreException
+	 */
 	public void create() throws CoreException {
 		IProject project = getProject();
 		project.create(null);
@@ -49,6 +60,9 @@ public class ProjectCreator {
 		project.getFolder("src").create(true, true, null);
 	}
 
+	/**
+	 * Delete project from workspace
+	 */
 	public void delete() {
 		IProject project = ResourcesPlugin.getWorkspace().getRoot()
 				.getProject(pluginId);

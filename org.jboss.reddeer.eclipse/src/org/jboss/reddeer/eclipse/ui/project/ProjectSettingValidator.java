@@ -5,6 +5,12 @@ import java.util.List;
 import org.jboss.reddeer.eclipse.ui.wizards.WizardPageSettings;
 import org.osgi.framework.Version;
 
+/**
+ * Project validator within RedDeer wizard page.
+ * 
+ * @author sbunciak
+ * 
+ */
 public class ProjectSettingValidator {
 
 	private final String pluginId;
@@ -15,8 +21,8 @@ public class ProjectSettingValidator {
 	private final List<String> projectNames;
 
 	public ProjectSettingValidator(String pluginId, String pluginName,
-			String pluginVersion, String pluginProvider, List<String> projectNames,
-			WizardPageSettings wizardPage) {
+			String pluginVersion, String pluginProvider,
+			List<String> projectNames, WizardPageSettings wizardPage) {
 		this.pluginId = pluginId;
 		this.pluginName = pluginName;
 		this.pluginVersion = pluginVersion;
@@ -25,6 +31,18 @@ public class ProjectSettingValidator {
 		this.wizardPage = wizardPage;
 	}
 
+	/**
+	 * Validate the RedDeer wizard page text inputs and set appropriate error
+	 * messages.
+	 * <br/>
+	 * <ul>
+	 * <li>Plugin name - cannot be empty, must be unique</li>
+	 * <li>Plugin id - cannot be empty, must contain alphanumeric chars</li>
+	 * <li>Plugin provider - cannot be empty</li>
+	 * <li>Plugin version - numbers in (major.minor.micro.qualifier)</li>
+	 * </ul>
+	 * 
+	 */
 	public void validate() {
 
 		wizardPage.setPageComplete(true);
@@ -55,9 +73,10 @@ public class ProjectSettingValidator {
 			wizardPage.setPageComplete(false);
 			return;
 		}
-		
+
 		if (pluginProvider.trim().length() == 0) {
-			wizardPage.setErrorMessage("Please specify plugin provider company.");
+			wizardPage
+					.setErrorMessage("Please specify plugin provider company.");
 			wizardPage.setPageComplete(false);
 			return;
 		}

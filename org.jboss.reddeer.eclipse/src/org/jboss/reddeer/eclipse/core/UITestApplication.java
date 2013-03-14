@@ -27,8 +27,7 @@ public class UITestApplication implements IApplication, ITestHarness {
 	private TestableObject fTestableObject;
 	private IApplication fApplication;
 
-	/*
-	 * (non-Javadoc)
+	/**
 	 * 
 	 * @see org.eclipse.equinox.app.IApplication#start(org.eclipse.equinox.app.
 	 * IApplicationContext)
@@ -51,9 +50,7 @@ public class UITestApplication implements IApplication, ITestHarness {
 				+ getApplicationToRun(args));
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
+	/**
 	 * @see org.eclipse.equinox.app.IApplication#stop()
 	 */
 	public void stop() {
@@ -110,9 +107,7 @@ public class UITestApplication implements IApplication, ITestHarness {
 		return DEFAULT_APP_3_0;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
+	/**
 	 * @see org.eclipse.ui.testing.ITestHarness#runTests()
 	 */
 	public void runTests() {

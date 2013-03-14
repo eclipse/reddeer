@@ -1,5 +1,11 @@
 package org.jboss.reddeer.eclipse.ui.project;
 
+/**
+ * Utility class to provide appropriate content of plugin files. 
+ * 
+ * @author sbunciak
+ *
+ */
 public class Templatizer {
 
 	private final String pluginId;
@@ -15,6 +21,10 @@ public class Templatizer {
 		this.pluginProvider = pluginProvider;
 	}
 
+	/**
+	 * @param File contents
+	 * @return Replaced placeholders with specified values.
+	 */
 	public String templatize(String contents) {
 		return contents.replaceAll("@PLUGIN_NAME@", pluginName)
 				.replaceAll("@PLUGIN_ID@", pluginId)

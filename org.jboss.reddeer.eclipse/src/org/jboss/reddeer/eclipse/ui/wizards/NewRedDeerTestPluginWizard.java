@@ -9,6 +9,12 @@ import org.eclipse.ui.INewWizard;
 import org.eclipse.ui.IWorkbench;
 import org.jboss.reddeer.eclipse.ui.project.ProjectCreator;
 
+/**
+ * Wizard for creating new RedDeer Test Plugin Project in workspace.
+ * 
+ * @author sbunciak
+ * @since 0.2
+ */
 public class NewRedDeerTestPluginWizard extends Wizard implements INewWizard {
 	
 	private final NewRedDeerTestPluginWizardPage wizardPage;
@@ -22,6 +28,11 @@ public class NewRedDeerTestPluginWizard extends Wizard implements INewWizard {
 		addPage(wizardPage);
 	}
 
+	/**
+	 * Starts the project creation process.
+	 * 
+	 * @see {@link org.eclipse.jface.wizard.performFinish}
+	 */
 	@Override
 	public boolean performFinish() {
 		String pluginName = wizardPage.pluginName();
@@ -41,7 +52,11 @@ public class NewRedDeerTestPluginWizard extends Wizard implements INewWizard {
 		}
 	}
 
-	public void init(IWorkbench workbench, IStructuredSelection selection) {
 
+	/**
+	 * @see {@link org.eclipse.ui.iWorkbenchWizard.init}
+	 */
+	public void init(IWorkbench workbench, IStructuredSelection selection) {
+		// intentionally left blank
 	}
 }

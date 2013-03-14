@@ -3,6 +3,7 @@ package org.jboss.reddeer.eclipse.ui.launcher;
 import org.eclipse.pde.ui.launcher.JUnitWorkbenchLaunchShortcut;
 
 /**
+ * Enhances the {@link JUnitWorkbenchLaunchShortcut} to launch RedDeer's launch configuration. 
  * 
  * @author sbunciak
  *

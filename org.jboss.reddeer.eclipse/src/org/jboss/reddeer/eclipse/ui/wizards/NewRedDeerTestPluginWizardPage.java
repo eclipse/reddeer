@@ -27,6 +27,14 @@ import org.eclipse.swt.widgets.Text;
 import org.jboss.reddeer.eclipse.Activator;
 import org.jboss.reddeer.eclipse.ui.project.ProjectSettingValidator;
 
+/**
+ * Wizard page for the RedDeer New Test Plugin wizard.<br/>
+ * Sets wizard page title, description and image descriptor.
+ * 
+ * @author sbunciak
+ * @since 0.2
+ *
+ */
 public class NewRedDeerTestPluginWizardPage extends WizardPage implements
 		WizardPageSettings {
 
@@ -52,6 +60,16 @@ public class NewRedDeerTestPluginWizardPage extends WizardPage implements
 
 	}
 
+	/**
+	 * 
+	 * Create wizard page controls: <br/>
+	 * <ul>
+	 * <li> Plugin name</li>
+	 * <li> Plugin id</li>
+	 * <li> Plugin version</li>
+	 * <li> Plugin provider company</li>
+	 * </ul>
+	 */
 	public void createControl(Composite parent) {
 		Composite composite = new Composite(parent, SWT.NONE);
 		composite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
