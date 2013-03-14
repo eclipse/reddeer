@@ -13,7 +13,7 @@ public class CustomView extends ViewPart {
 	
 	@Override
 	public void createPartControl(Composite composite) {
-		tree = new Tree(composite, SWT.BORDER);
+		tree = new Tree(composite, SWT.BORDER | SWT.MULTI);
 		tree.setVisible(true);
 		createTreeItems(tree);
 	}

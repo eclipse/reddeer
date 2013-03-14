@@ -20,7 +20,11 @@ public class ProjectItem {
 	protected final Logger log = Logger.getLogger(ProjectItem.class);
 	
 	private TreeItem treeItem;
-	private Project project;
+	public TreeItem getTreeItem() {
+    return treeItem;
+  }
+
+  private Project project;
 	private String[] path;
 	
 

@@ -1,12 +1,12 @@
 package org.jboss.reddeer.eclipse.jdt.ui.packageexplorer;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.jboss.reddeer.eclipse.exception.EclipseLayerException;
 import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.swt.impl.tree.DefaultTree;
-import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
 import org.jboss.reddeer.workbench.view.impl.WorkbenchView;
 
 /**
@@ -28,10 +28,11 @@ public class PackageExplorer extends WorkbenchView {
 	}
 	
 	public void selectProjects(String... projectName){
+	  LinkedList<TreeItem> itemsToSelect = new LinkedList<TreeItem>();
 		for(String pname: projectName){
-			getProject(pname); //check if project exists
+		  itemsToSelect.add(getProject(pname).getTreeItem()); //check if project exists
 		}
-		new DefaultTreeItem(projectName).select();
+		new DefaultTree().selectItems(itemsToSelect.toArray(new TreeItem[]{}));
 	}
 	
 	public boolean containsProject (String projectName){
