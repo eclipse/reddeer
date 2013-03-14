@@ -9,8 +9,9 @@
 	<packaging>pom</packaging>
 	
 	<properties>
-  	    <tycho-version>0.14.0</tycho-version>  	  
+  		<tycho-version>0.14.0</tycho-version>  	  
 		<jbosstools-target-site>http://download.jboss.org/jbosstools/updates/kepler/M4/REPO</jbosstools-target-site>
+		<platformSystemProperties></platformSystemProperties>
 	</properties>
 	
 	<modules>
@@ -103,7 +104,7 @@
 					<useUIHarness>true</useUIHarness>
 					<useUIThread>false</useUIThread>
 					<!-- THE FOLLOWING LINE MUST NOT BE BROKEN BY AUTOFORMATTING -->
-					<argLine> -XX:MaxPermSize=512m</argLine>
+					<argLine>${platformSystemProperties} -XX:MaxPermSize=512m</argLine>
 					<product>org.eclipse.platform.ide</product>
 					<application>org.eclipse.ui.ide.workbench</application>
 					<dependencies>
@@ -136,6 +137,23 @@
 			</plugin>
 		</plugins>	
 	</build>
+
+	<profiles>
+		<profile>
+			<!-- Workaround for https://bugs.eclipse.org/bugs/show_bug.cgi?id=388084 -->
+			<id>osx</id>
+			<activation>
+				<os>
+					<family>mac</family>
+				</os>
+			</activation>
+			<properties>
+				<!-- THE FOLLOWING LINE MUST NOT BE BROKEN BY AUTOFORMATTING -->
+				<platformSystemProperties> -XstartOnFirstThread </platformSystemProperties>
+			</properties>
+		</profile>
+	</profiles>
+
 	<repositories>
 		<repository>
 			<id>jbosstools-target-site</id>
