@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Red Deer Eclipse Component
-Bundle-SymbolicName: org.jboss.reddeer.eclipse;singleton:=true
+Bundle-SymbolicName: org.jboss.reddeer.eclipse
 Bundle-Version: 0.2.0.qualifier
 Bundle-Activator: org.jboss.reddeer.eclipse.Activator
 Require-Bundle: org.eclipse.ui,

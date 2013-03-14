@@ -2,7 +2,7 @@ package org.jboss.reddeer.eclipse.ui.launcher;
 
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.pde.ui.launcher.JUnitLaunchConfigurationDelegate;
-import org.jboss.reddeer.eclipse.Activator;
+import org.jboss.reddeer.ui.Activator;
 
 /**
  * A launch delegate for launching JUnit Plug-in tests.
