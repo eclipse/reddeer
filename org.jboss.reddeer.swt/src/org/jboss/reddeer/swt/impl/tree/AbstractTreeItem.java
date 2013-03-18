@@ -112,6 +112,7 @@ public abstract class AbstractTreeItem implements TreeItem {
 	
 	@Override
 	public void select() {
+		item.select();
 		new WaitUntil(new TreeItemIsSelected(item));
 	}
 	
