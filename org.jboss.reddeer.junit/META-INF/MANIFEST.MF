@@ -1,6 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Red Deer JUnit Support
+Bundle-Name: RedDeer JUnit Support
+Bundle-Vendor: JBoss by Red Hat
 Bundle-SymbolicName: org.jboss.reddeer.junit
 Bundle-Version: 0.2.0.qualifier
 Bundle-Activator: org.jboss.reddeer.junit.Activator

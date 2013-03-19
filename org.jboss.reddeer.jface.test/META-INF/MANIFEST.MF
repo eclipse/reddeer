@@ -1,6 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Red Deer JFace Componnet Tests
+Bundle-Name: RedDeer JFace Componnet Tests
+Bundle-Vendor: JBoss by Red Hat
 Bundle-SymbolicName: org.jboss.reddeer.jface.test;singleton:=true
 Bundle-Version: 0.2.0.qualifier
 Bundle-Activator: org.jboss.reddeer.jface.test.Activator

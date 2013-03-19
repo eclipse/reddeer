@@ -1,7 +1,8 @@
 Manifest-Version: 1.0
 Eclipse-RegisterBuddy: org.apache.log4j
 Bundle-ManifestVersion: 2
-Bundle-Name: Red Deer SWT Component
+Bundle-Name: RedDeer SWT Component
+Bundle-Vendor: JBoss by Red Hat
 Bundle-SymbolicName: org.jboss.reddeer.swt
 Bundle-Version: 0.2.0.qualifier
 Bundle-Activator: org.jboss.reddeer.swt.Activator
