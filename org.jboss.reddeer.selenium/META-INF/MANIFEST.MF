@@ -1,6 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Red Deer Selenium Component
+Bundle-Name: RedDeer Selenium Component
+Bundle-Vendor: JBoss by Red Hat
 Bundle-SymbolicName: org.jboss.reddeer.selenium
 Bundle-Version: 0.2.0.qualifier
 Bundle-Activator: org.jboss.redderr.bot.selenium.Activator

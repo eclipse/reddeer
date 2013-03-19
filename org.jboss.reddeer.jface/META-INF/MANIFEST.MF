@@ -1,6 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Red Deer JFace Componnet
+Bundle-Name: RedDeer JFace Componnet
+Bundle-Vendor: JBoss by Red Hat
 Bundle-SymbolicName: org.jboss.reddeer.jface
 Bundle-Version: 0.2.0.qualifier
 Bundle-Activator: org.jboss.reddeer.jface.Activator
