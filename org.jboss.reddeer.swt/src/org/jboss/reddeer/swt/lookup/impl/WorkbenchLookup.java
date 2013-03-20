@@ -2,12 +2,16 @@ package org.jboss.reddeer.swt.lookup.impl;
 
 import static org.eclipse.swtbot.swt.finder.finders.UIThreadRunnable.syncExec;
 
+import org.eclipse.swt.widgets.Control;
 import org.eclipse.swtbot.swt.finder.results.Result;
 import org.eclipse.ui.IEditorReference;
 import org.eclipse.ui.IViewReference;
 import org.eclipse.ui.IWorkbenchPartReference;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.internal.WorkbenchPartReference;
+import org.jboss.reddeer.swt.util.Display;
+import org.jboss.reddeer.swt.util.ResultRunnable;
 
 /**
  * Workbench lookup class. Provides access to active workbench 
@@ -16,6 +20,7 @@ import org.eclipse.ui.PlatformUI;
  * @author jjankovi
  *
  */
+@SuppressWarnings("restriction")
 public class WorkbenchLookup {
 
 	/**
@@ -90,6 +95,24 @@ public class WorkbenchLookup {
 		return syncExec(new Result<IEditorReference>() {
 			public IEditorReference run() {
 				return findActiveEditorInternal();
+			}
+		});
+	}
+	
+	/**
+	 * Return control object associated to active workbench
+	 * @param activeWorkbenchReference
+	 * @return
+	 */
+	public static Control getWorkbenchControl(
+			final IWorkbenchPartReference activeWorkbenchReference) {
+		return Display.syncExec(new ResultRunnable<Control>() {
+
+			@Override
+			public Control run() {
+				return ((WorkbenchPartReference)activeWorkbenchReference)
+						.getPane()
+						.getControl();
 			}
 		});
 	}

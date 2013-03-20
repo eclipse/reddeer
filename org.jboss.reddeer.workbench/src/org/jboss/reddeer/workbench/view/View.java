@@ -11,6 +11,8 @@ import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.menu.ShellMenu;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
+import org.jboss.reddeer.swt.locate.CompositeWidgetLocator;
+import org.jboss.reddeer.swt.lookup.impl.WorkbenchLookup;
 import org.jboss.reddeer.swt.matcher.RegexMatchers;
 import org.jboss.reddeer.swt.util.Bot;
 import org.jboss.reddeer.swt.wait.WaitUntil;
@@ -62,6 +64,7 @@ public abstract class View extends WorkbenchPart {
 		}
 		viewObject.setFocus();
 		viewObject.show();
+		setCompositeWidget();
 	}
 	
 	public String getTitle(){
@@ -129,5 +132,5 @@ public abstract class View extends WorkbenchPart {
 	private String viewTooltip() {
 		return path[path.length - 1];
 	}
-
+	
 }

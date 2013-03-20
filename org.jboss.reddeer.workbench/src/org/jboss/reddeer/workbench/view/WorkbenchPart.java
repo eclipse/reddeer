@@ -5,6 +5,8 @@ import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotWorkbenchPart;
 import org.eclipse.ui.IViewReference;
 import org.jboss.reddeer.swt.condition.WaitCondition;
 import org.jboss.reddeer.swt.exception.Thrower;
+import org.jboss.reddeer.swt.locate.CompositeWidget;
+import org.jboss.reddeer.swt.locate.CompositeWidgetLocator;
 import org.jboss.reddeer.swt.wait.WaitWhile;
 
 /**
@@ -14,10 +16,15 @@ import org.jboss.reddeer.swt.wait.WaitWhile;
  * @author jjankovi
  * 
  */
-public abstract class WorkbenchPart {
+public abstract class WorkbenchPart implements CompositeWidget {
 
 	protected final Logger log = Logger.getLogger(this.getClass());
 
+	@Override
+	public void setCompositeWidget() {
+		CompositeWidgetLocator.setCompositeWidget(null);
+	}
+	
 	public void close() {
 		closeWorkbenchPart();
 	}
