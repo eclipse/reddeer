@@ -1,11 +1,7 @@
 package org.jboss.reddeer.swt.lookup.impl;
 
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.swt.widgets.ToolBar;
-import org.eclipse.ui.PlatformUI;
-import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.util.Display;
-import org.jboss.reddeer.swt.util.ResultRunnable;
 
 /**
  * Shell Lookup, this contains routines for ToolBar implementation that have are widely used 

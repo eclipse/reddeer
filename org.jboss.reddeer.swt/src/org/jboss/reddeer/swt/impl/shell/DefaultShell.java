@@ -4,6 +4,8 @@ import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
 import org.jboss.reddeer.swt.api.Shell;
 import org.jboss.reddeer.swt.condition.ShellWithTextIsActive;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
+import org.jboss.reddeer.swt.locate.CompositeWidget;
+import org.jboss.reddeer.swt.locate.CompositeWidgetLocator;
 import org.jboss.reddeer.swt.util.Bot;
 import org.jboss.reddeer.swt.wait.WaitUntil;
 
@@ -14,7 +16,7 @@ import org.jboss.reddeer.swt.wait.WaitUntil;
  * @author Jiri Peterka
  *
  */
-public class DefaultShell extends AbstractShell implements Shell {
+public class DefaultShell extends AbstractShell implements Shell, CompositeWidget {
 
 	
 	public DefaultShell(String title) {
@@ -39,6 +41,11 @@ public class DefaultShell extends AbstractShell implements Shell {
 		catch (WidgetNotFoundException e) {
 			throw new SWTLayerException("No active shell is available at the moment");
 		}
+	}
+
+	@Override
+	public void setCompositeWidget() {
+		CompositeWidgetLocator.setCompositeWidget(null);
 	}
 }	
 	

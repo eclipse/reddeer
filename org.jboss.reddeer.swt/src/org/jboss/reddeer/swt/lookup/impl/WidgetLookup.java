@@ -11,9 +11,9 @@ import org.eclipse.swtbot.swt.finder.finders.ControlFinder;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.IWorkbenchPartReference;
 import org.eclipse.ui.IWorkbenchSite;
-import org.eclipse.ui.internal.WorkbenchPartReference;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
+import org.jboss.reddeer.swt.locate.CompositeWidgetLocator;
 import org.jboss.reddeer.swt.util.Display;
 import org.jboss.reddeer.swt.util.ObjectUtil;
 import org.jboss.reddeer.swt.util.ResultRunnable;
@@ -153,13 +153,17 @@ public class WidgetLookup {
 	}
 	
 	private Control getActiveWidgetParentControl() {
+		Control compositeWidget = CompositeWidgetLocator.getCompositeWidget();
+		if (compositeWidget != null) {
+			return compositeWidget;
+		}
 		IWorkbenchPartReference activeWorkbenchReference = WorkbenchLookup.findActiveWorkbenchPart();
 		Shell activeWorkbenchParentShell = getShellForActiveWorkbench(activeWorkbenchReference);
 		Shell activeShell = new ShellLookup().getActiveShell();
 		if (activeWorkbenchParentShell == null || activeWorkbenchParentShell != activeShell)
 			return activeShell;
 		else {
-			return getWorkbenchControl(activeWorkbenchReference);
+			return WorkbenchLookup.getWorkbenchControl(activeWorkbenchReference);
 		} 
 	}
 
@@ -183,25 +187,6 @@ public class WidgetLookup {
 			throw new SWTLayerException("No matching widget found");
 		}
 		return widgets.get(index);
-	}
-	
-	/**
-	 * Return control object associated to active workbench
-	 * @param activeWorkbenchReference
-	 * @return
-	 */
-	@SuppressWarnings("restriction")
-	private Control getWorkbenchControl(
-			final IWorkbenchPartReference activeWorkbenchReference) {
-		return Display.syncExec(new ResultRunnable<Control>() {
-
-			@Override
-			public Control run() {
-				return ((WorkbenchPartReference)activeWorkbenchReference)
-						.getPane()
-						.getControl();
-			}
-		});
 	}
 
 	/**
