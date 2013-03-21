@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
 	<description>To install these features, point Eclipse at this site.</description>
-	<category-def label="RedDeer Update Site" name="RedDeer Update Site">
-		<description>RedDeer</description>
+	<category-def label="RedDeer Update Site" name="AllFeatures">
+		<description>RedDeer Update Site: contains the RedDeer feature of this build.</description>
 	</category-def>
-	<feature url="org.jboss.reddeer.feature.qualifier" id="org.jboss.reddeer.feature" version="0.2.0.qualifier">
-		<category name="RedDeer Update Site"/>
+	<category-def label="RedDeer Update Site" name="AllSources">
+		<description>RedDeer Update Site: contains the RedDeer source feature of this build.</description>
+	</category-def>
+	<feature url="org.jboss.reddeer.feature.qualifier" id="org.jboss.reddeer.feature" version="0.0.0">
+		<category name="AllFeatures"/>
+	</feature>
+	<feature url="org.jboss.reddeer.feature.source.qualifier" id="org.jboss.reddeer.feature.source" version="0.0.0">
+		<category name="AllSources"/>
 	</feature>
 </site>
