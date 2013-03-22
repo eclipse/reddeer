@@ -18,5 +18,8 @@ Bundle-ClassPath: .,
 Export-Package: org.jboss.reddeer.junit,
  org.jboss.reddeer.junit.requirement,
  org.jboss.reddeer.junit.requirement.inject,
- org.jboss.reddeer.junit.runner
+ org.jboss.reddeer.junit.runner,
+ org.jboss.reddeer.junit.internal.runner;x-friends:=org.jboss.reddeer.requirements.test,
+ org.jboss.reddeer.junit.internal.configuration;x-friends:=org.jboss.reddeer.requirements.test,
+ org.jboss.reddeer.junit.internal.requirement;x-friends:=org.jboss.reddeer.requirements.test
 Eclipse-RegisterBuddy: org.apache.log4j
