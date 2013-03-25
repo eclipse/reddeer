@@ -9,8 +9,8 @@
 	<packaging>pom</packaging>
 	
 	<properties>
- 	   	<tycho-version>0.16.0</tycho-version>  	  
-		<tychoExtrasVersion>0.16.0</tychoExtrasVersion>
+ 	   	<tycho-version>0.17.0</tycho-version>  	  
+		<tychoExtrasVersion>${tycho-version}</tychoExtrasVersion>
 		<eclipse-target-site>http://download.eclipse.org/releases/kepler</eclipse-target-site>
 		<swtbot-update-site>http://download.eclipse.org/technology/swtbot/helios/dev-build/update-site</swtbot-update-site>
 		<platformSystemProperties></platformSystemProperties>
