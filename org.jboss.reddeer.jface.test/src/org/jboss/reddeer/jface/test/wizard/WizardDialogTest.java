@@ -7,13 +7,15 @@ import static org.junit.Assert.assertTrue;
 import org.jboss.reddeer.eclipse.jface.exception.JFaceLayerException;
 import org.jboss.reddeer.eclipse.jface.wizard.WizardDialog;
 import org.jboss.reddeer.eclipse.jface.wizard.WizardPage;
-import org.jboss.reddeer.swt.test.RedDeerTest;
+import org.jboss.reddeer.eclipse.jface.wizard.WizardPageProperty;
 import org.jboss.reddeer.swt.api.CLabel;
 import org.jboss.reddeer.swt.api.Shell;
 import org.jboss.reddeer.swt.condition.ShellWithTextIsActive;
 import org.jboss.reddeer.swt.impl.clabel.DefaultCLabel;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.jboss.reddeer.swt.impl.shell.WorkbenchShell;
+import org.jboss.reddeer.swt.impl.text.LabeledText;
+import org.jboss.reddeer.swt.test.RedDeerTest;
 import org.jboss.reddeer.swt.util.Display;
 import org.jboss.reddeer.swt.wait.WaitUntil;
 import org.junit.Test;
@@ -42,7 +44,7 @@ public class WizardDialogTest extends RedDeerTest {
 			}
 		});
 		new WaitUntil(new ShellWithTextIsActive(""));
-		wizardDialog = new WizardDialogImpl();
+		wizardDialog = new MultiPageWizardDialog();
 	}
 
 	@Test
@@ -95,6 +97,23 @@ public class WizardDialogTest extends RedDeerTest {
 		Shell shell = new DefaultShell();
 		assertTrue(shell.getText().equals(new WorkbenchShell().getText()));
 	}
+	
+	@Test
+	public void multiPageWizardTest() {
+		// fill name
+		wizardDialog.getWizardPage().fillWizardPage("name");
+		// on next page you should see a text box for age 
+		wizardDialog.next();
+		wizardDialog.getWizardPage().fillWizardPage("100");
+	}
+	
+	@Test
+	public void multiPageWizardTest2() {
+		// don't fill name
+		// on next page you should see a text box for name again
+		wizardDialog.next();
+		wizardDialog.getWizardPage().fillWizardPage("name");
+	}
 
 	@Override
 	protected void tearDown(){
@@ -109,12 +128,44 @@ public class WizardDialogTest extends RedDeerTest {
 		}
 		super.tearDown();
 	}
+	
+	private class MultiPageWizardDialog extends WizardDialog {
+		
+		public MultiPageWizardDialog() {
+			// the first page
+			addWizardPage(new NameWizardPage(), 0);
+			// if name is null
+			addWizardPage(new NameWizardPage(), 1, new WizardPageProperty("name", null));
+			// if name was specified
+			addWizardPage(new AgeWizardPage(), 1, new WizardPageProperty("name", "name"));
+		}
+		
+	}
+	
+	private class NameWizardPage extends WizardPage {
 
-	private class WizardDialogImpl extends WizardDialog {
+		public void setName(String name) {
+			new LabeledText("Name:").setText(name);
+			getWizardDialog().setProperty("name", name);
+		}
+		
+		@Override
+		public void fillWizardPage(Object... obj) {
+			if(obj.length > 0 && obj[0] instanceof String) {
+				setName((String) obj[0]);
+			}
+		}
+		
+	}
+	
+	private class AgeWizardPage extends WizardPage {
 
 		@Override
-		public WizardPage getFirstPage() {
-			return null;
+		public void fillWizardPage(Object... obj) {
+			if(obj.length > 0 && obj[0] instanceof String) {
+				new LabeledText("Age:").setText((String) obj[0]);
+			}
 		}
+		
 	}
 }
