@@ -64,7 +64,7 @@ public class Project {
 		return name;
 	}
 	
-	protected TreeItem getTreeItem (){
+	public TreeItem getTreeItem (){
 		return treeItem;
 	}
 
