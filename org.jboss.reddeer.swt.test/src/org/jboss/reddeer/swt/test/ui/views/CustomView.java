@@ -1,7 +1,10 @@
 package org.jboss.reddeer.swt.test.ui.views;
 
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swtbot.swt.finder.finders.UIThreadRunnable;
 import org.eclipse.swtbot.swt.finder.results.Result;
@@ -10,9 +13,17 @@ import org.eclipse.ui.part.ViewPart;
 public class CustomView extends ViewPart {
 
 	private Tree tree;
+	private Label label;
+	private Text text;
 	
 	@Override
 	public void createPartControl(Composite composite) {
+		
+		label = new Label(composite, SWT.NONE);
+		label.setText("Name:");
+		text = new Text(composite, SWT.NONE);
+		text.setText("Original text");
+		
 		tree = new Tree(composite, SWT.BORDER);
 		tree.setVisible(true);
 		createTreeItems(tree);
