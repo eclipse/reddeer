@@ -7,12 +7,11 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.views.IViewCategory;
 import org.eclipse.ui.views.IViewDescriptor;
 import org.jboss.reddeer.swt.api.Menu;
+import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.menu.ShellMenu;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
-import org.jboss.reddeer.swt.locate.CompositeWidgetLocator;
-import org.jboss.reddeer.swt.lookup.impl.WorkbenchLookup;
 import org.jboss.reddeer.swt.matcher.RegexMatchers;
 import org.jboss.reddeer.swt.util.Bot;
 import org.jboss.reddeer.swt.wait.WaitUntil;
@@ -58,7 +57,14 @@ public abstract class View extends WorkbenchPart {
 			menu.select();
 			new DefaultShell(SHOW_VIEW);
 			new DefaultTreeItem(path).select();
-			new PushButton("OK").click();
+			// Eclipse bug in 4.2.1, fixed in 4.2.2
+			// https://bugs.eclipse.org/bugs/show_bug.cgi?id=395913
+			try {
+				new PushButton("OK").click();
+			}
+			catch (RuntimeException e) {
+				new PushButton("ok").click();
+			}
 			new WaitUntil(new ViewWithToolTipIsActive(viewTooltip()));
 			viewObject = Bot.get().activeView();
 		}
