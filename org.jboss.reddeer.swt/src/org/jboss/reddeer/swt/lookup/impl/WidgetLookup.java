@@ -1,25 +1,28 @@
 package org.jboss.reddeer.swt.lookup.impl;
 
+import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Widget;
-import org.eclipse.swtbot.swt.finder.finders.ControlFinder;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.IWorkbenchPartReference;
 import org.eclipse.ui.IWorkbenchSite;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.locate.CompositeWidgetLocator;
+import org.jboss.reddeer.swt.lookup.WidgetResolver;
 import org.jboss.reddeer.swt.util.Display;
 import org.jboss.reddeer.swt.util.ObjectUtil;
 import org.jboss.reddeer.swt.util.ResultRunnable;
 
 /**
- * Widget Lookup methods
+ * Widget Lookup methods contains core lookup and resolving widgets
  * @author Jiri Peterka
  *
  */
@@ -147,12 +150,12 @@ public class WidgetLookup {
 	}
 	
 	private List<? extends Widget> activeWidgets(Control activeControl, Matcher<? extends Widget> matcher) {
-		ControlFinder finder = new ControlFinder();
-		List<? extends Widget> widgets = finder.findControls(activeControl, matcher, true);
+	//	ControlFinder finder = new ControlFinder();
+		List<? extends Widget> widgets = findControls(activeControl, matcher, true);
 		return widgets;
 	}
 	
-	private Control getActiveWidgetParentControl() {
+	public Control getActiveWidgetParentControl() {
 		Control compositeWidget = CompositeWidgetLocator.getCompositeWidget();
 		if (compositeWidget != null) {
 			return compositeWidget;
@@ -188,6 +191,24 @@ public class WidgetLookup {
 		}
 		return widgets.get(index);
 	}
+	
+	/**
+	 * Find Controls for parent widget matching
+	 * @param parentWidget
+	 * @param matcher
+	 * @param recursive
+	 * @return
+	 */
+	public <T extends Widget> List<T> findControls(final Widget parentWidget, final Matcher<T> matcher, final boolean recursive) {
+		List<T> ret = Display.syncExec(new ResultRunnable<List<T>>() {
+
+			@Override
+			public List<T> run() {
+				return findControlsUI(parentWidget, matcher, recursive);
+			}
+		});
+		return ret;
+	}
 
 	/**
 	 * Return control with focus
@@ -204,5 +225,75 @@ public class WidgetLookup {
 		});
 		return c;
 	}
+	
+	
+	/**
+	 * Create lists of widget matching matcher (can be called recursively)
+	 * @param parentWidget parent widget
+	 * @param matcher
+	 * @param recursive
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	private <T extends Widget> List<T> findControlsUI(final Widget parentWidget, final Matcher<T> matcher, final boolean recursive) {
+		
+	
+		if ((parentWidget == null) || parentWidget.isDisposed())
+			return new ArrayList<T>();
+		
+		
+		if (!visible(parentWidget) && (!isComposite(parentWidget))) {
+				// log not visible, not composite
+			return new ArrayList<T>();
+		}
+		
+		LinkedHashSet<T> controls = new LinkedHashSet<T>();
+		
+		if (matcher.matches(parentWidget) && !controls.contains(parentWidget))
+			try {
+				controls.add((T) parentWidget);
+			} catch (ClassCastException exception) {
+				throw new IllegalArgumentException("The specified matcher should only match against is declared type.", exception);
+			}
+		if (recursive) {
+			List<Widget> children = WidgetResolver.getInstance().getChildren(parentWidget);
+			controls.addAll(findControlsUI(children, matcher, recursive));
+		}
+		return new ArrayList<T>(controls);
+	}
 
+	/**
+	 * Creates matching list of widgets from given list of widgets matching matcher, can find recursively in each child
+	 * Note: Must be used in UI Thread
+	 * @param widgets - given list of widgets
+	 * @param matcher - given hamcrest matcher
+	 * @param recursive - recursive switch for searching in children
+	 * @return
+	 */
+	private <T extends Widget> List<T> findControlsUI(final List<Widget> widgets, final Matcher<T> matcher, final boolean recursive) {
+		LinkedHashSet<T> list = new LinkedHashSet<T>();
+		for (Widget w : widgets) {
+			list.addAll(findControlsUI(w, matcher, recursive));
+		}
+		return new ArrayList<T>(list);
+	}
+	
+	/**
+	 * Returns true if instance is visible
+	 * @param w
+	 * @return
+	 */
+	private boolean visible(Widget w) {
+		return !((w instanceof Control) && !((Control) w).getVisible());
+	}
+
+	/**
+	 * Returns true if instance is composite
+	 * @param w
+	 * @return
+	 */
+	private boolean isComposite(Widget parentWidget) {
+		return parentWidget.getClass().equals(Composite.class);
+	}
 }
+

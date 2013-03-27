@@ -15,7 +15,7 @@ public class TextMatchers {
 
 
 	private Matcher<String>[] matchers;
-
+	
 	public TextMatchers(String... texts) {
 	
 		matchers = new TextMatcher[texts.length];

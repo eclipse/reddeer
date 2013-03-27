@@ -14,6 +14,13 @@
             name="RedDeer SWT"
             restorable="true">
       </view>
+      <view
+            category="org.jboss.reddeer.swt.test.swtcat"
+            class="org.jboss.reddeer.swt.test.ui.views.SWTControlsView"
+            id="org.jboss.reddeer.swt.test.swtview"
+            name="RedDeer SWT Controls"
+            restorable="true">
+      </view>
    </extension>
    <extension
          id="org.jboss.reddeer.swt.test.commands"
