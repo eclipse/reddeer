@@ -1,4 +1,4 @@
-package org.jboss.redder.direct;
+package org.jboss.reddeer.direct;
 
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
