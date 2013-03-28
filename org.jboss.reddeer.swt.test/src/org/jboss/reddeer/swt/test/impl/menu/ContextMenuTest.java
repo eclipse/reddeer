@@ -37,6 +37,8 @@ public class ContextMenuTest {
 	@Test(expected=SWTLayerException.class)
 	public void disabledAction() throws InterruptedException {
 
+		
+		
 		PackageExplorer pex = new PackageExplorer();
 		pex.open();
 		pex.getProject(projectName).select();

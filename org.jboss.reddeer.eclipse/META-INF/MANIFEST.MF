@@ -17,7 +17,8 @@ Require-Bundle: org.eclipse.ui,
  org.hamcrest;bundle-version="1.1.0"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Export-Package: org.jboss.reddeer.eclipse.condition,
+Export-Package: org.jboss.reddeer.eclipse,
+ org.jboss.reddeer.eclipse.condition,
  org.jboss.reddeer.eclipse.datatools.ui,
  org.jboss.reddeer.eclipse.datatools.ui.preference,
  org.jboss.reddeer.eclipse.datatools.ui.wizard,
