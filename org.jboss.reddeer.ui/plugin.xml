@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+	<extension
+         point="org.eclipse.debug.core.launchConfigurationTypes">
+      <launchConfigurationType
+            delegate="org.jboss.reddeer.eclipse.ui.launcher.RedDeerLaunchConfigurationDelegate"
+            delegateDescription="This test launcher is used to run and debug RedDeer tests"
+            delegateName="RedDeer Test Launcher"
+            id="org.jboss.reddeer.eclipse.ui.launcher.JunitLaunchConfig"
+            migrationDelegate="org.eclipse.pde.internal.ui.launcher.PDEMigrationDelegate"
+            modes="run, debug"
+            name="RedDeer Test"
+            sourceLocatorId="org.eclipse.pde.ui.launcher.PDESourceLookupDirector"
+            sourcePathComputerId="org.eclipse.jdt.launching.sourceLookup.javaSourcePathComputer">
+      </launchConfigurationType>
+   </extension>
+   
+   <extension
+         point="org.eclipse.debug.ui.launchConfigurationTabGroups">
+      <launchConfigurationTabGroup
+            type="org.jboss.reddeer.eclipse.ui.launcher.JunitLaunchConfig"
+            class="org.jboss.reddeer.eclipse.ui.launcher.RedDeerJUnitTabGroup"
+            id="org.jboss.reddeer.eclipse.ui.launcher.JUnitTabGroup">
+         <launchMode
+               description="Create a configuration that will launch a RedDeer test in debug mode."
+               perspective="org.eclipse.debug.ui.DebugPerspective"
+               mode="debug">
+         </launchMode>
+         <launchMode
+               description="Create a configuration that will launch a RedDeer test."
+               mode="run">
+         </launchMode>
+      </launchConfigurationTabGroup>
+   </extension>
+   
+   <extension
+         point="org.eclipse.debug.ui.launchConfigurationTypeImages">
+      <launchConfigurationTypeImage
+            configTypeID="org.jboss.reddeer.eclipse.ui.launcher.JunitLaunchConfig"
+            icon="resources/reddeer_icon.png"
+            id="org.jboss.reddeer.eclipse.ui.launchConfigurationTypeImage">
+      </launchConfigurationTypeImage>
+   </extension>
+   
+   <extension
+         point="org.eclipse.jdt.junit.junitLaunchConfigs">
+      <launchConfigType
+            configTypeID="org.jboss.reddeer.eclipse.ui.launcher.JunitLaunchConfig">
+      </launchConfigType>
+   </extension>
+
+   <extension
+         point="org.eclipse.ui.commands">
+      <command
+            name="RedDeer Test"
+            description="RedDeer Test"
+            categoryId="org.eclipse.debug.ui.category.run"
+            id="org.jboss.reddeer.eclipse.ui.junitShortcut.run">
+      </command>
+      <command
+            name="RedDeer Test"
+            description="RedDeer Test"
+            categoryId="org.eclipse.debug.ui.category.run"
+            id="org.jboss.reddeer.eclipse.ui.junitShortcut.debug">
+      </command>
+   </extension>
+   
+    <extension
+         point="org.eclipse.ui.bindings">
+      <key
+            sequence="M3+M2+X S"
+            commandId="org.jboss.reddeer.eclipse.ui.junitShortcut.run"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"/>
+      <key
+            sequence="M3+M2+D S"
+            commandId="org.jboss.reddeer.eclipse.ui.junitShortcut.debug"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"/>
+   </extension>
+   
+   <extension
+         point="org.eclipse.debug.ui.launchShortcuts">
+      <shortcut
+            class="org.jboss.reddeer.eclipse.ui.launcher.RedDeerLaunchShortcut"
+            description="Launch an RedDeer Test"
+            icon="resources/reddeer_icon.png"
+            id="org.jboss.reddeer.eclipse.ui.junitShortcut"
+            label="RedDeer Test"
+            modes="run, debug">
+            <contextualLaunch>
+            <enablement>
+            	<with variable="selection">
+                <count value="1"/>
+                <iterate>
+                   	<adapt type="org.eclipse.jdt.core.IJavaElement">
+						<test property="org.eclipse.jdt.core.isInJavaProjectWithNature" value="org.eclipse.pde.PluginNature"/>
+						<test property="org.eclipse.jdt.core.hasTypeOnClasspath" value="junit.framework.Test"/>
+						<test property="org.eclipse.jdt.junit.canLaunchAsJUnit" forcePluginActivation="true"/>
+					</adapt>
+				</iterate>
+               	</with>
+            </enablement>
+         </contextualLaunch>
+            <configurationType
+                  id="org.jboss.reddeer.eclipse.ui.launcher.JunitLaunchConfig"></configurationType>
+      </shortcut>
+   </extension>
+   
+   <extension
+         point="org.eclipse.ui.newWizards">
+      <wizard
+            class="org.jboss.reddeer.eclipse.ui.wizards.NewRedDeerTestPluginWizard"
+            finalPerspective="org.eclipse.jdt.ui.JavaPerspective"
+            icon="resources/reddeer_icon.png"
+            id="org.jboss.reddeer.eclipse.ui.wizards.NewRedDeerTestPluginWizard"
+            name="New RedDeer Test Plug-in"
+            project="true">
+      </wizard>
+   </extension>
+   
+	<extension
+         id="reddeertestapplication"
+         point="org.eclipse.core.runtime.applications">
+      <application visible="false">
+         <run
+               class="org.jboss.reddeer.eclipse.core.UITestApplication">
+         </run>
+      </application>
+   	</extension>
+</plugin>
