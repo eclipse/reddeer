@@ -1,6 +1,9 @@
 package org.jboss.reddeer.eclipse.ui.perspectives;
 
 import org.apache.log4j.Logger;
+import org.eclipse.ui.IPerspectiveDescriptor;
+import org.eclipse.ui.PlatformUI;
+import org.jboss.reddeer.eclipse.exception.EclipseLayerException;
 import org.jboss.reddeer.swt.api.Menu;
 import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.menu.ShellMenu;
@@ -24,6 +27,9 @@ public abstract class AbstractPerspective {
   public AbstractPerspective(String perspectiveLabel) {
     super();
     this.perspectiveLabel = perspectiveLabel;
+    if (!isPerspectiveAvailable()){
+    	throw new EclipseLayerException("Perspective "+perspectiveLabel+" isn't available");
+    }
   }
 
   public void open() {
@@ -53,5 +59,12 @@ public abstract class AbstractPerspective {
   public String getPerspectiveLabel() {
     return perspectiveLabel;
   }
-
+	
+	private boolean isPerspectiveAvailable(){
+		IPerspectiveDescriptor perspective = PlatformUI.getWorkbench().getPerspectiveRegistry().findPerspectiveWithLabel(perspectiveLabel);
+		if (perspective == null){
+			return false;
+		}
+		return true;
+	}
 }

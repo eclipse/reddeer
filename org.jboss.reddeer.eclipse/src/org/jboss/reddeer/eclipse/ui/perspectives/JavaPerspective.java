@@ -1,6 +1,5 @@
-package org.jboss.reddeer.eclipse.jdt.internal.ui;
+package org.jboss.reddeer.eclipse.ui.perspectives;
 
-import org.jboss.reddeer.eclipse.ui.perspectives.AbstractPerspective;
 /**
  * Java Perspective implementation
  * @author vlado pakan

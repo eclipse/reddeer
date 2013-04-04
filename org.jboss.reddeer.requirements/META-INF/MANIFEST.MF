@@ -8,8 +8,11 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  org.jboss.reddeer.junit;bundle-version="0.2.0",
  org.jboss.reddeer.eclipse;bundle-version="0.2.0",
- org.jboss.reddeer.workbench;bundle-version="0.2.0"
+ org.jboss.reddeer.workbench;bundle-version="0.2.0",
+ org.apache.log4j;bundle-version="1.2.15"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
 Bundle-Vendor: JBoss by Red Hat
-Export-Package: org.jboss.reddeer.requirements.cleanworkspace
+Export-Package: org.jboss.reddeer.requirements.cleanworkspace,
+ org.jboss.reddeer.requirements.exception,
+ org.jboss.reddeer.requirements.openperspective

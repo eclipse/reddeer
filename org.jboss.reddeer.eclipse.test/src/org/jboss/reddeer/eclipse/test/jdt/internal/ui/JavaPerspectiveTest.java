@@ -2,7 +2,7 @@ package org.jboss.reddeer.eclipse.test.jdt.internal.ui;
 
 import static org.junit.Assert.assertTrue;
 
-import org.jboss.reddeer.eclipse.jdt.internal.ui.JavaPerspective;
+import org.jboss.reddeer.eclipse.ui.perspectives.JavaPerspective;
 import org.jboss.reddeer.swt.test.RedDeerTest;
 import org.jboss.reddeer.swt.util.Bot;
 import org.junit.Test;
