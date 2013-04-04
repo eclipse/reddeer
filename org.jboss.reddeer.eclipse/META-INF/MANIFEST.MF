@@ -14,7 +14,8 @@ Require-Bundle: org.eclipse.ui,
  org.jboss.reddeer.workbench;bundle-version="0.2.0",
  org.apache.log4j;bundle-version="1.2.0",
  org.eclipse.swtbot.eclipse.finder;bundle-version="2.0.5",
- org.hamcrest;bundle-version="1.1.0"
+ org.hamcrest;bundle-version="1.1.0",
+ org.eclipse.ui.workbench
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: org.jboss.reddeer.eclipse,
@@ -23,7 +24,6 @@ Export-Package: org.jboss.reddeer.eclipse,
  org.jboss.reddeer.eclipse.datatools.ui.preference,
  org.jboss.reddeer.eclipse.datatools.ui.wizard,
  org.jboss.reddeer.eclipse.exception,
- org.jboss.reddeer.eclipse.jdt.internal.ui,
  org.jboss.reddeer.eclipse.jdt.ui,
  org.jboss.reddeer.eclipse.jdt.ui.ide,
  org.jboss.reddeer.eclipse.jdt.ui.packageexplorer,
