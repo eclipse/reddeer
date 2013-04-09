@@ -45,7 +45,7 @@ public class ProjectItemTest extends RedDeerTest{
 	
 	@Test
 	public void delete(){
-		projectItem.delete(true);
+		projectItem.delete();
 		assertFalse("Project " + ProjectItemTest.PROJECT_NAME + " contains project item " + ProjectItemTest.PROJECT_ITEM_TEXT +
 				" but it should be deleted.",
 			packageExplorer.getProject(ProjectItemTest.PROJECT_NAME).containsItem(ProjectItemTest.PROJECT_NAME));
