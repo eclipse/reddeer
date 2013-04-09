@@ -35,6 +35,7 @@
 		<module>../org.jboss.reddeer.site</module>
 		<module>../org.jboss.reddeer.requirements</module>
 		<module>../org.jboss.reddeer.requirements.test</module>
+		<module>../org.jboss.reddeer.ui</module>
 	</modules>
 	
 	<build>
