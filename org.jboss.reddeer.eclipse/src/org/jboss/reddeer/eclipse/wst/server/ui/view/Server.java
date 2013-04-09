@@ -125,7 +125,9 @@ public class Server {
 		select();
 		DefaultShell activeShell = new DefaultShell();
 		new ContextMenu("Clean...").select();
+		new WaitUntil(new ShellWithTextIsActive("Sever"),TimePeriod.NORMAL);
 		new PushButton("OK").click();
+		new WaitWhile(new ShellWithTextIsActive("Sever"),TimePeriod.NORMAL);
 		waitForPublish(activeShell);
 	}
 
@@ -138,8 +140,8 @@ public class Server {
 		select();
 		ServerState state = getLabel().getState();
 		
-		new ContextMenu("Delete").select();
-		new DefaultShell("Delete Server");
+		new ContextMenu("Delete").select();	
+		new WaitUntil(new ShellWithTextIsActive("Delete Server"),TimePeriod.NORMAL);
 		if (!ServerState.STOPPED.equals(state) && !ServerState.NONE.equals(state)){
 			new CheckBox().toggle(stopFirst);
 		}
