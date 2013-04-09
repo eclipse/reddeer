@@ -70,7 +70,7 @@ public abstract class View extends WorkbenchPart {
 		}
 		viewObject.setFocus();
 		viewObject.show();
-		setCompositeWidget();
+		setAsReference();
 	}
 	
 	public String getTitle(){

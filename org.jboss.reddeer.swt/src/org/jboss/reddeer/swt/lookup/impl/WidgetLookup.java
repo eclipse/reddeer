@@ -15,8 +15,8 @@ import org.eclipse.ui.IWorkbenchPartReference;
 import org.eclipse.ui.IWorkbenchSite;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
-import org.jboss.reddeer.swt.locate.CompositeWidgetLocator;
 import org.jboss.reddeer.swt.lookup.WidgetResolver;
+import org.jboss.reddeer.swt.reference.ReferenceComposite;
 import org.jboss.reddeer.swt.util.Display;
 import org.jboss.reddeer.swt.util.ObjectUtil;
 import org.jboss.reddeer.swt.util.ResultRunnable;
@@ -156,7 +156,7 @@ public class WidgetLookup {
 	}
 	
 	public Control getActiveWidgetParentControl() {
-		Control compositeWidget = CompositeWidgetLocator.getCompositeWidget();
+		Control compositeWidget = ReferenceComposite.getComposite();
 		if (compositeWidget != null) {
 			return compositeWidget;
 		}
