@@ -32,6 +32,7 @@
 		<module>../org.jboss.reddeer.selenium</module>
 		<module>../org.jboss.reddeer.wiki.examples</module>
 		<module>../org.jboss.reddeer.site</module>
+		<module>../org.jboss.reddeer.ui</module>
 	</modules>
 	
 	<build>
