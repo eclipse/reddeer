@@ -1,4 +1,4 @@
-package org.jboss.reddeer.swt.locate;
+package org.jboss.reddeer.swt.reference;
 
 import org.eclipse.swt.widgets.Control;
 
@@ -7,13 +7,14 @@ import org.eclipse.swt.widgets.Control;
  * performed. 
  *  
  * @author jjankovi
+ * @author Jiri Peterka
  *
  */
-public class CompositeWidgetLocator {
+public class ReferenceComposite {
 
 	private static Control compositeWidget = null;
 	
-	private CompositeWidgetLocator() {
+	private ReferenceComposite() {
 		// this is static class without possibility to be instantiated
 	}
 
@@ -22,7 +23,7 @@ public class CompositeWidgetLocator {
 	 * active shell 
 	 * @return 
 	 */
-	public static Control getCompositeWidget() {
+	public static Control getComposite() {
 		return compositeWidget;
 	}
 
@@ -31,8 +32,8 @@ public class CompositeWidgetLocator {
 	 * widgets 
 	 * @param compositeWidget
 	 */
-	public static void setCompositeWidget(Control compositeWidget) {
-		CompositeWidgetLocator.compositeWidget = compositeWidget;
+	public static void setComposite(Control compositeWidget) {
+		ReferenceComposite.compositeWidget = compositeWidget;
 	}
 	
 }
