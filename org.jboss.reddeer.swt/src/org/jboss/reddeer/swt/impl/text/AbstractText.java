@@ -1,8 +1,8 @@
 package org.jboss.reddeer.swt.impl.text;
 
 import org.apache.log4j.Logger;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotText;
 import org.jboss.reddeer.swt.api.Text;
+import org.jboss.reddeer.swt.handler.WidgetHandler;
 
 /**
  * Abstract class for all Text implementations
@@ -10,27 +10,27 @@ import org.jboss.reddeer.swt.api.Text;
  *
  */
 public abstract class AbstractText implements Text {
+	
+	protected org.eclipse.swt.widgets.Text w;
 	protected final Logger log = Logger.getLogger(this.getClass());
-	protected SWTBotText botText;
 	
 	@Override
 	public void setText(String str) {
-		log.info("Set text of Text widget to: " + str);
-		botText.setText(str);
-		botText.setFocus();
+		log.info("Text set to: " + str);
+		WidgetHandler.getInstance().setText(w, str);
 	}
 	
 	
 	@Override
 	public String getText() {
-		String text = botText.getText();
+		String text = WidgetHandler.getInstance().getText(w);
 		return text;
 	}
 	
 	
 	@Override
 	public String getToolTipText() {
-		String tooltipText = botText.getToolTipText();
+		String tooltipText = WidgetHandler.getInstance().getToolTipText(w);
 		return tooltipText;
 	}
 }

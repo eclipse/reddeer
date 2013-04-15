@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.xml.soap.Text;
+
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.custom.CTabItem;
 import org.eclipse.swt.widgets.Composite;
@@ -58,6 +60,7 @@ public class WidgetResolver  {
 		ToolBar.class,
 		Composite.class,
 		Control.class,
+		Text.class
 	};
 	
 	private TabItem[] items;
@@ -111,6 +114,9 @@ public class WidgetResolver  {
 					return items[index];
 				}
 				return parent;
+			}
+			else if (w instanceof Control) {
+				return ((Control) w).getParent();
 			}
 		}
 		return null;
