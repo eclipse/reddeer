@@ -5,7 +5,9 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.List;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Widget;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
+import org.jboss.reddeer.swt.lookup.WidgetResolver;
 import org.jboss.reddeer.swt.util.Display;
 import org.jboss.reddeer.swt.util.ResultRunnable;
 
@@ -76,6 +78,9 @@ public class WidgetHandler {
 			public String run() {
 				if (w instanceof Text)
 					return ((Text) w).getText();
+				else if (w instanceof Label) {
+					return ((Label) w).getText();
+				}
 				else
 					throw new SWTLayerException("Unuspported type");
 			}
@@ -266,28 +271,22 @@ public class WidgetHandler {
 
 			@Override
 			public String run() {
-				if (w instanceof List) {
-					List widget = (List) w;
-					for(String i: widget.getItems()){
-					System.out.println(i);
-					}
-					Control[] controls = widget.getParent().getChildren();
-					for (int i = 0; i < controls.length; i++) {
-						System.out.println(controls[i].getClass());
-						if(controls[i] instanceof Label){
-							System.out.println(((Label) controls[i]).getText());
-						}
-						if (controls[i] instanceof Label
-								&& controls[i + 1].equals(widget)) {
-							return ((Label) controls[i]).getText();
+				if ((w instanceof List) || (w instanceof Text)) {
+					Widget parent = ((Control)w).getParent();;
+					java.util.List<Widget> children = WidgetResolver.getInstance().getChildren(parent);
+					for (int i = 1; i < children.size() ; i++) {
+						if (children.get(i) != null
+								&& children.get(i - 1) instanceof Label
+								&& children.get(i).equals(w)) {
+							return ((Label)children.get(i - 1)).getText();
 						}
 					}
-					throw new SWTLayerException(
-							"Widget does not have any label");
-				} else
-					throw new SWTLayerException("Unuspported type");
-			}
-		});
+				}
+				else {
+					throw new SWTLayerException("Unsupported type");
+				}
+				return null;
+			}});
 		return label;
 	}
 

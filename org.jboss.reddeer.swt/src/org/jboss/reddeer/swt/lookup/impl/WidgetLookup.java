@@ -193,6 +193,16 @@ public class WidgetLookup {
 	}
 	
 	/**
+	 * Finds Control for active parent control
+	 * @param matcher
+	 * @param recursive
+	 * @return
+	 */
+	public<T extends Widget> List<T> findActiveParentControls(final Matcher<T> matcher, final boolean recursive) {
+		return findControls(getActiveWidgetParentControl(), matcher, recursive);
+	}
+	
+	/**
 	 * Find Controls for parent widget matching
 	 * @param parentWidget
 	 * @param matcher

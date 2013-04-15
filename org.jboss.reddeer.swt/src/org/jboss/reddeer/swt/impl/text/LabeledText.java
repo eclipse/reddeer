@@ -1,9 +1,9 @@
 package org.jboss.reddeer.swt.impl.text;
 
-import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
 import org.jboss.reddeer.swt.api.Text;
-import org.jboss.reddeer.swt.exception.SWTLayerException;
-import org.jboss.reddeer.swt.util.Bot;
+import org.jboss.reddeer.swt.matcher.GroupMatcher;
+import org.jboss.reddeer.swt.matcher.LabelMatcher;
+import org.jboss.reddeer.swt.matcher.TextLookup;
 
 /**
  * Text with label implementation
@@ -17,11 +17,9 @@ public class LabeledText extends AbstractText implements Text {
 	 * @param label
 	 */
 	public LabeledText(String label) {
-		try{
-			botText = Bot.get().textWithLabel(label);
-		} catch (WidgetNotFoundException e){
-			throw new SWTLayerException("Text with label " + label + " was not found");
-		}
+		
+		LabelMatcher lm = new LabelMatcher(label);
+		w = TextLookup.getInstance().getText(0, lm);
 	}
 	
 	/**
@@ -30,11 +28,9 @@ public class LabeledText extends AbstractText implements Text {
 	 * @param group in group
 	 */
 	public LabeledText(String label, String group){
-		try{
-			botText = Bot.get().textWithLabelInGroup(label, group);
-		} catch (WidgetNotFoundException e){
-			throw new SWTLayerException("Text with label " + label + " in group "+group+" was not found");
-		}
+		GroupMatcher gm = new GroupMatcher(group);
+		LabelMatcher lm = new LabelMatcher(label);
+		w = TextLookup.getInstance().getText(0, gm, lm);
 	}
 	
 }

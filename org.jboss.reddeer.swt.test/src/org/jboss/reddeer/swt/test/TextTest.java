@@ -7,6 +7,7 @@ import org.jboss.reddeer.swt.condition.ShellWithTextIsActive;
 import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.menu.ShellMenu;
 import org.jboss.reddeer.swt.impl.text.DefaultText;
+import org.jboss.reddeer.swt.impl.text.LabeledText;
 import org.jboss.reddeer.swt.wait.WaitUntil;
 import org.jboss.reddeer.workbench.view.impl.WorkbenchView;
 import org.junit.BeforeClass;
@@ -28,6 +29,7 @@ public class TextTest extends RedDeerTest {
 		assertTrue(new DefaultText(0).getText().equals("New text"));
 		assertTrue(text.getText().equals("New text"));
 		assertTrue(new DefaultText("New text").getText().equals("New text"));
+		text.setText("Original text");
 	}
 	
 	@Test
@@ -38,5 +40,15 @@ public class TextTest extends RedDeerTest {
 		t.setText("myvalue");
 		assertTrue(t.getText().equals("myvalue"));
 		new PushButton("Cancel").click();
-	}	
+	}
+
+	@Test
+	public void labeledTextTest() {
+		assertTrue(new LabeledText("Name:").getText().equals("Original text"));
+		Text text = new LabeledText("Name:");
+		assertTrue(text.getText().equals("Original text"));
+		text.setText("New text");
+		assertTrue(text.getText().equals("New text"));
+		text.setText("Original text");
+	}
 }
