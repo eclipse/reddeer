@@ -17,6 +17,9 @@ import org.hamcrest.Matcher;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.lookup.WidgetResolver;
 import org.jboss.reddeer.swt.reference.ReferenceComposite;
+import org.jboss.reddeer.swt.matcher.AndMatcher;
+import org.jboss.reddeer.swt.matcher.ClassMatcher;
+import org.jboss.reddeer.swt.matcher.MatcherBuilder;
 import org.jboss.reddeer.swt.util.Display;
 import org.jboss.reddeer.swt.util.ObjectUtil;
 import org.jboss.reddeer.swt.util.ResultRunnable;
@@ -24,6 +27,7 @@ import org.jboss.reddeer.swt.util.ResultRunnable;
 /**
  * Widget Lookup methods contains core lookup and resolving widgets
  * @author Jiri Peterka
+ * @author Jaroslav Jankovic
  *
  */
 public class WidgetLookup {
@@ -115,7 +119,7 @@ public class WidgetLookup {
 	}
 	
 	/**
-	 * @deprecated As of release 0.4, replaced by {@link #activeWidgets(Control, Matcher)}
+	 * @deprecated As of release 0.4, replaced by {@link #activeWidget(Class, int, Matcher...)}
 	 */
 	@Deprecated
 	public Widget activeShellWidget(Matcher<? extends Widget> matcher, int index) {
@@ -124,7 +128,7 @@ public class WidgetLookup {
 	}
 
 	/**
-	 * @deprecated As of release 0.4, replaced by {@link #activeWidgets(Control, Matcher)}
+	 * @deprecated As of release 0.4, replaced by {@link #activeWidget(Class, int, Matcher...)}
 	 */
 	@Deprecated
 	public Widget activeViewWidget(Matcher<? extends Widget> matcher, int index) {
@@ -133,7 +137,7 @@ public class WidgetLookup {
 	}
 	
 	/**
-	 * @deprecated As of release 0.4, replaced by {@link #activeWidget(Matcher, int)}
+	 * @deprecated As of release 0.4, replaced by {@link #activeWidget(Class, int, Matcher...)}
 	 */
 	@Deprecated
 	public Widget activeWidget(Matcher<? extends Widget> matcher, Control activeControl, int index) {
@@ -141,22 +145,36 @@ public class WidgetLookup {
 		return getProperWidget(widgets, index);
 	}
 	
+	/**
+	 * @deprecated As of release 0.4, replaced by {@link #activeWidget(Class, int, Matcher...)}}
+	 */
+	@Deprecated
 	public Widget activeWidget(Matcher<? extends Widget> matcher, int index) {
 		return getProperWidget(activeWidgets(matcher), index);
 	}
 	
-	public List<? extends Widget> activeWidgets(Matcher<? extends Widget> matcher) {
+	@SuppressWarnings({ "rawtypes" })
+	public Widget activeWidget(Class<? extends Widget> clazz, int index, Matcher... matchers) {
+		ClassMatcher cm = new ClassMatcher(clazz);
+		Matcher[] allMatchers = MatcherBuilder.getInstance().addMatcher(matchers, cm);
+		AndMatcher am  = new AndMatcher(allMatchers);
+		return getProperWidget(activeWidgets(am), index);
+	}
+	
+	@SuppressWarnings("rawtypes")
+	private List<? extends Widget> activeWidgets(Matcher matcher) {
 		return activeWidgets(getActiveWidgetParentControl(), matcher);
 	}
 	
-	private List<? extends Widget> activeWidgets(Control activeControl, Matcher<? extends Widget> matcher) {
-	//	ControlFinder finder = new ControlFinder();
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	private List<? extends Widget> activeWidgets(Control activeControl, Matcher matcher) {
 		List<? extends Widget> widgets = findControls(activeControl, matcher, true);
 		return widgets;
 	}
 	
 	public Control getActiveWidgetParentControl() {
 		Control compositeWidget = ReferenceComposite.getComposite();
+
 		if (compositeWidget != null) {
 			return compositeWidget;
 		}
@@ -186,10 +204,14 @@ public class WidgetLookup {
 	}
 
 	private Widget getProperWidget(List<? extends Widget> widgets, int index) {
-		if (widgets.size() - index < 1) {
+		Widget widget = null;
+		if (widgets.size() > index)
+			widget = widgets.get(index);
+		else
 			throw new SWTLayerException("No matching widget found");
-		}
-		return widgets.get(index);
+		
+		if (widget == null) throw new SWTLayerException("Matching widget was null");
+		return widget;
 	}
 	
 	/**
@@ -209,7 +231,8 @@ public class WidgetLookup {
 	 * @param recursive
 	 * @return
 	 */
-	public <T extends Widget> List<T> findControls(final Widget parentWidget, final Matcher<T> matcher, final boolean recursive) {
+	private <T extends Widget> List<T> findControls(final Widget parentWidget, 
+			final Matcher<T> matcher, final boolean recursive) {
 		List<T> ret = Display.syncExec(new ResultRunnable<List<T>>() {
 
 			@Override
