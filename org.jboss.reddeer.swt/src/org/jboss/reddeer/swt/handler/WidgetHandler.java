@@ -2,9 +2,9 @@ package org.jboss.reddeer.swt.handler;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.Text;
-import org.eclipse.swt.widgets.List;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.List;
+import org.eclipse.swt.widgets.Text;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.util.Display;
 import org.jboss.reddeer.swt.util.ResultRunnable;
@@ -19,6 +19,7 @@ import org.jboss.reddeer.swt.util.ResultRunnable;
  * 
  * @author Jiri Peterka
  * @author Rastislav Wagner
+ * @author Jaroslav Jankovic
  */
 public class WidgetHandler {
 
@@ -309,6 +310,17 @@ public class WidgetHandler {
 			}
 		});
 		return text;
+	}
+	
+	public <T> void setFocus(final T w) {
+		Display.syncExec(new Runnable() {
+			
+			@Override
+			public void run() {
+				if (w instanceof Control) ((Control)w).setFocus();
+				else throw new SWTLayerException("Unuspported type");
+			}
+		});
 	}
 
 }
