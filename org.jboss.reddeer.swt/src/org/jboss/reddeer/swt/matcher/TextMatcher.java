@@ -1,6 +1,5 @@
 package org.jboss.reddeer.swt.matcher;
 
-import org.eclipse.swt.widgets.Text;
 import org.hamcrest.BaseMatcher;
 import org.hamcrest.Description;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
@@ -36,17 +35,21 @@ public class TextMatcher extends BaseMatcher<String> {
 	@Override
 	public boolean matches(Object item) {
 		
-		if (item instanceof Text) {
-			String widgetText = WidgetHandler.getInstance().getText(item);
-			if (widgetText.equals(text))
-				return true;
-		}
-		else if (item instanceof String) {
+		if (item instanceof String) {
 			String textToMatch = (String)item;
 			if (textToMatch.equals(text)) {
 				return true;
 			}
+		} else {
+			try {
+				String widgetText = WidgetHandler.getInstance().getText(item);
+				if (widgetText.equals(text))
+					return true;
+			} catch (SWTLayerException sle) {
+				// object is not supported by widget handler mechanism 'getText' 
+			}
 		}
+		
 		return false;
 	}
 	
