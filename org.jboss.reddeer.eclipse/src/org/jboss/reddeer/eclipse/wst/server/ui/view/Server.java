@@ -125,9 +125,8 @@ public class Server {
 		select();
 		DefaultShell activeShell = new DefaultShell();
 		new ContextMenu("Clean...").select();
-		new WaitUntil(new ShellWithTextIsActive("Sever"),TimePeriod.NORMAL);
+		new DefaultShell("Server");
 		new PushButton("OK").click();
-		new WaitWhile(new ShellWithTextIsActive("Sever"),TimePeriod.NORMAL);
 		waitForPublish(activeShell);
 	}
 

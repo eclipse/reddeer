@@ -11,6 +11,7 @@ import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.swt.condition.ShellWithTextIsActive;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.impl.menu.ContextMenu;
+import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.jboss.reddeer.swt.impl.tree.DefaultTree;
 import org.jboss.reddeer.swt.wait.TimePeriod;
 import org.jboss.reddeer.swt.wait.WaitUntil;
@@ -37,7 +38,7 @@ public class ServersView extends View {
 		log.info("Creating new server");
 		open();
 		new ContextMenu("New","Server").select();
-		new WaitUntil(new ShellWithTextIsActive("New Server"),TimePeriod.NORMAL);
+		new DefaultShell("New Server");
 		return new NewServerWizardDialog();
 	}
 

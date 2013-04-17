@@ -7,7 +7,6 @@ import org.jboss.reddeer.swt.condition.ShellWithTextIsActive;
 import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.jboss.reddeer.swt.wait.TimePeriod;
-import org.jboss.reddeer.swt.wait.WaitUntil;
 import org.jboss.reddeer.swt.wait.WaitWhile;
 
 public class NewJavaProjectWizardDialog extends NewWizardDialog{
@@ -30,8 +29,7 @@ public class NewJavaProjectWizardDialog extends NewWizardDialog{
 		log.debug("Finish wizard dialog");
 		new PushButton("Finish").click();
 		try {
-			new WaitUntil(new ShellWithTextIsActive("Open Associated Perspective?"));
-			DefaultShell shell = new DefaultShell();
+			DefaultShell shell = new DefaultShell("Open Associated Perspective?");
 			if (new DefaultShell().getText().equals("Open Associated Perspective?")) {
 				if (openAssociatedPerspective) {
 					new PushButton("Yes").click();
