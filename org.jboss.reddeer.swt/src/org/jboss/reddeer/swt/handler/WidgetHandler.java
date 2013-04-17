@@ -6,6 +6,8 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.List;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.Widget;
+import org.eclipse.ui.forms.widgets.Hyperlink;
+import org.eclipse.ui.forms.widgets.Section;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.lookup.WidgetResolver;
 import org.jboss.reddeer.swt.util.Display;
@@ -59,7 +61,7 @@ public class WidgetHandler {
 				if (w instanceof Text)
 					((Text) w).setText(text);
 				else
-					throw new SWTLayerException("Unuspported type");
+					throw new SWTLayerException("Unsupported type");
 
 			}
 		});
@@ -79,11 +81,14 @@ public class WidgetHandler {
 			public String run() {
 				if (w instanceof Text)
 					return ((Text) w).getText();
-				else if (w instanceof Label) {
+				else if (w instanceof Label)
 					return ((Label) w).getText();
-				}
+				else if (w instanceof Hyperlink)
+					return ((Hyperlink) w).getText();
+				else if (w instanceof Section)
+					return ((Section) w).getText();
 				else
-					throw new SWTLayerException("Unuspported type");
+					throw new SWTLayerException("Unsupported type");
 			}
 		});
 		return text;
@@ -104,7 +109,7 @@ public class WidgetHandler {
 				if (w instanceof List)
 					return ((List) w).getItems();
 				else
-					throw new SWTLayerException("Unuspported type");
+					throw new SWTLayerException("Unsupported type");
 			}
 		});
 		return text;
@@ -123,7 +128,7 @@ public class WidgetHandler {
 				if (w instanceof List)
 					((List) w).deselectAll();
 				else
-					throw new SWTLayerException("Unuspported type");
+					throw new SWTLayerException("Unsupported type");
 			}
 		});
 	}
@@ -147,7 +152,7 @@ public class WidgetHandler {
 					}
 				}
 				else
-					throw new SWTLayerException("Unuspported type");
+					throw new SWTLayerException("Unsupported type");
 			}
 		});
 	}
@@ -172,7 +177,7 @@ public class WidgetHandler {
 					widget.select(widget.indexOf(item));
 				}
 				else{
-					throw new SWTLayerException("Unuspported type");
+					throw new SWTLayerException("Unsupported type");
 				}
 			}
 		});
@@ -204,7 +209,7 @@ public class WidgetHandler {
 					}
 				}
 				else{
-					throw new SWTLayerException("Unuspported type");
+					throw new SWTLayerException("Unsupported type");
 				}
 			}
 		});
@@ -230,7 +235,7 @@ public class WidgetHandler {
 					}
 				}
 				else{
-					throw new SWTLayerException("Unuspported type");
+					throw new SWTLayerException("Unsupported type");
 				}
 			}
 		});
@@ -255,7 +260,7 @@ public class WidgetHandler {
 					widget.select(index);
 				}
 				else{
-					throw new SWTLayerException("Unuspported type");
+					throw new SWTLayerException("Unsupported type");
 				}
 			}
 		});
@@ -305,7 +310,7 @@ public class WidgetHandler {
 				if (w instanceof Text)
 					return ((Text) w).getToolTipText();
 				else
-					throw new SWTLayerException("Unuspported type");
+					throw new SWTLayerException("Unsupported type");
 			}
 		});
 		return text;
@@ -317,7 +322,7 @@ public class WidgetHandler {
 			@Override
 			public void run() {
 				if (w instanceof Control) ((Control)w).setFocus();
-				else throw new SWTLayerException("Unuspported type");
+				else throw new SWTLayerException("Unsupported type");
 			}
 		});
 	}

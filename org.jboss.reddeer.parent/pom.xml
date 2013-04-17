@@ -21,6 +21,8 @@
 		<module>../org.jboss.reddeer.swt.test</module>
 		<module>../org.jboss.reddeer.workbench</module>
 		<module>../org.jboss.reddeer.workbench.test</module>
+		<module>../org.jboss.reddeer.uiforms</module>
+		<module>../org.jboss.reddeer.uiforms.test</module>
 		<module>../org.jboss.reddeer.jface</module>
 		<module>../org.jboss.reddeer.jface.test</module>
 		<module>../org.jboss.reddeer.eclipse</module>
