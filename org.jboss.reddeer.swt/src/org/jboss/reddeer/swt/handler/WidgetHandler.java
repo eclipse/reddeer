@@ -292,7 +292,11 @@ public class WidgetHandler {
 					throw new SWTLayerException("Unsupported type");
 				}
 				return null;
-			}});
+			}}
+		);
+		if(label != null) {
+			label = label.replaceAll("&", "").split("\t")[0];
+		}
 		return label;
 	}
 

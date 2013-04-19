@@ -1,13 +1,10 @@
 package org.jboss.reddeer.swt.matcher;
 
-import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.List;
 import org.eclipse.swt.widgets.Text;
-import org.eclipse.swt.widgets.Widget;
 import org.hamcrest.BaseMatcher;
 import org.hamcrest.Description;
 import org.jboss.reddeer.swt.handler.WidgetHandler;
-import org.jboss.reddeer.swt.lookup.WidgetResolver;
 
 /**
  * Label matcher
@@ -40,7 +37,7 @@ public class LabelMatcher extends BaseMatcher<String> {
 	public boolean matches(Object item) {
 		
 		if ((item instanceof List) || (item instanceof Text)) {
-			String widgetLabel = WidgetHandler.getInstance().getLabel(item).replaceAll("&", "").split("\t")[0];;
+			String widgetLabel = WidgetHandler.getInstance().getLabel(item);
 			if (widgetLabel != null && widgetLabel.equals(label)) {
 				return true;
 			}
