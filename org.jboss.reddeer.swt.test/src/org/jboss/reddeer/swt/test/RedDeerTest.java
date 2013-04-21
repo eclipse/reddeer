@@ -15,6 +15,8 @@ import org.junit.Before;
  * @author Jiri Peterka
  */
 public class RedDeerTest {
+
+	Logger log = Logger.getLogger(RedDeerTest.class);
 	
 	@Before
 	public void setUpRDT(){
@@ -27,14 +29,15 @@ public class RedDeerTest {
 		String PATTERN = "%-5p [%t][%C{1}] %m%n";
 		console.setLayout(new PatternLayout(PATTERN));
 		// if you want to enable just add vm argument -Dlog.debug=true
-		if (System.getProperty("log.debug").equalsIgnoreCase("true")) {
+		String debugProp = System.getProperty("log.debug");
+		if (debugProp != null && debugProp.equalsIgnoreCase("true")) {
 			console.setThreshold(Level.DEBUG);
-		}
-		else {
+		} else {
 			console.setThreshold(Level.INFO);
 		}
 		console.activateOptions();
 		Logger.getRootLogger().addAppender(console);
+		log.info("Logging threshold set to " + console.getThreshold());
 	}
 
 	@After
