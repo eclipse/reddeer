@@ -1,0 +1,15 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: RedDeer Examples
+Bundle-Vendor: JBoss by Red Hat
+Bundle-SymbolicName: org.jboss.reddeer.examples
+Bundle-Version: 0.2.0.qualifier
+Require-Bundle: org.jboss.reddeer.eclipse,
+ org.jboss.reddeer.jface,
+ org.jboss.reddeer.junit,
+ org.junit4;bundle-version="4.8.1",
+ org.jboss.reddeer.swt,
+ org.jboss.reddeer.workbench,
+ org.eclipse.swtbot.eclipse.finder,
+ org.eclipse.ui.workbench
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
