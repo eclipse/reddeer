@@ -10,11 +10,12 @@ import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.jboss.reddeer.swt.impl.table.DefaultTable;
 import org.jboss.reddeer.swt.impl.text.LabeledText;
 import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
+import org.jboss.reddeer.swt.test.RedDeerTest;
 import org.jboss.reddeer.swt.wait.WaitWhile;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-public class ContextMenuTest {
+public class ContextMenuTest extends RedDeerTest {
 	
 	private static String projectName = "test";
 	

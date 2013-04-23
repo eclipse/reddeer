@@ -5,12 +5,12 @@ import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.menu.ShellMenu;
 import org.jboss.reddeer.swt.impl.menu.ToolbarMenu;
 import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
-import org.jboss.reddeer.swt.util.Debugger;
+import org.jboss.reddeer.swt.test.RedDeerTest;
 import org.jboss.reddeer.swt.wait.TimePeriod;
 import org.jboss.reddeer.swt.wait.WaitUntil;
 import org.junit.Test;
 
-public class ToolBarMenuTest {
+public class ToolBarMenuTest extends RedDeerTest {
 	
 	@Test
 	public void testErrorLogMenu(){
