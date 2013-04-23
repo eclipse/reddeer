@@ -4,15 +4,17 @@ import org.apache.log4j.ConsoleAppender;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PatternLayout;
-import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
-import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
-import org.jboss.reddeer.swt.util.Bot;
+import org.eclipse.ui.IViewReference;
+import org.jboss.reddeer.swt.lookup.impl.WorkbenchLookup;
+import org.jboss.reddeer.swt.util.Display;
 import org.junit.After;
 import org.junit.Before;
 /**
  * Parent test for each test of Red Deer
  * @author Vlado Pakan
  * @author Jiri Peterka
+ * @author jjankovi
+ *
  */
 public class RedDeerTest {
 
@@ -45,18 +47,22 @@ public class RedDeerTest {
 		tearDown();
 	}
   // Default setup for each test   
-	protected void setUp(){
+	protected void setUp() {
 	  // close Welcome screen
-	  try {
-		  SWTBotView activeView = Bot.get().activeView();
-		  if (activeView != null && activeView.getTitle().equals("Welcome")){
-			    activeView.close();  
-			  }
-	  } catch (WidgetNotFoundException exc) {
-		  // welcome screen not found, no need to close it
-	  }
-	  		
-	}
+		for (IViewReference viewReference : WorkbenchLookup.findAllViews()) {
+			if (viewReference.getPartName().equals("Welcome")) {
+				final IViewReference iViewReference = viewReference;
+				Display.syncExec(new Runnable() {
+					@Override
+					public void run() {
+						iViewReference.getPage().hideView(iViewReference);
+					}
+				});
+				break;
+			}
+		}
+	}	
+
   //  Default tearDown for each test
 	protected void tearDown(){
 		// empty for now can be overridden by child classes
