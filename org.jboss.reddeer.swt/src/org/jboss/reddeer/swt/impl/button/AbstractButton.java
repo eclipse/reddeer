@@ -5,6 +5,7 @@ import org.eclipse.swtbot.swt.finder.widgets.SWTBotButton;
 import org.eclipse.swtbot.swt.finder.widgets.TimeoutException;
 import org.jboss.reddeer.swt.api.Button;
 import org.jboss.reddeer.swt.condition.WaitCondition;
+import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.util.Display;
 import org.jboss.reddeer.swt.util.ResultRunnable;
 import org.jboss.reddeer.swt.wait.WaitUntil;
@@ -48,24 +49,28 @@ public abstract class AbstractButton implements Button {
 	}
 
 	private void waitUntilButtonIsActive() {
-		new WaitUntil(new WaitCondition() {
+		try {
+			new WaitUntil(new WaitCondition() {
 
-			@Override
-			public boolean test() {
-				return Display.syncExec(new ResultRunnable<Boolean>() {
+				@Override
+				public boolean test() {
+					return Display.syncExec(new ResultRunnable<Boolean>() {
 
-					@Override
-					public Boolean run() {
-						return ((org.eclipse.swt.widgets.Button) button.widget)
-								.isEnabled();
-					}
-				});
-			}
+						@Override
+						public Boolean run() {
+							return ((org.eclipse.swt.widgets.Button) button.widget)
+									.isEnabled();
+						}
+					});
+				}
 
-			@Override
-			public String description() {
-				return "Button '" + getText() + "' was not enabled";
-			}
-		});
+				@Override
+				public String description() {
+					return "Button '" + getText() + "' was not enabled";
+				}
+			});
+		} catch (TimeoutException te) {
+			throw new SWTLayerException(te.getLocalizedMessage());
+		}
 	}
 }

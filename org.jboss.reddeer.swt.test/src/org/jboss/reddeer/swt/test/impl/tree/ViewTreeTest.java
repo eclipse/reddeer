@@ -10,16 +10,17 @@ import org.hamcrest.Description;
 import org.hamcrest.TypeSafeMatcher;
 import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.swt.impl.tree.DefaultTree;
+import org.jboss.reddeer.swt.test.RedDeerTest;
 import org.jboss.reddeer.workbench.view.impl.WorkbenchView;
-import org.junit.Before;
 import org.junit.Test;
 
-public class ViewTreeTest {
+public class ViewTreeTest extends RedDeerTest {
 	
 	private CustomViewImpl customView = new CustomViewImpl();
 	
-	@Before
-	public void openView() {
+	@Override
+	public void setUp() {
+		super.setUp();
 		customView.open();
 	}
 	

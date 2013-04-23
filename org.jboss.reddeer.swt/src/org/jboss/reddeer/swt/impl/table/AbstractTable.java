@@ -2,8 +2,10 @@ package org.jboss.reddeer.swt.impl.table;
 
 import org.apache.log4j.Logger;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTable;
+import org.eclipse.swtbot.swt.finder.widgets.TimeoutException;
 import org.jboss.reddeer.swt.api.Table;
 import org.jboss.reddeer.swt.condition.TableHasRows;
+import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.wait.WaitUntil;
 
 /**
@@ -18,11 +20,11 @@ public abstract class AbstractTable implements Table {
 	
 	@Override
 	public String cell(int row, int column) {
-		new WaitUntil(new TableHasRows(this));
+		waitUntilTableHasRows(this);
 		String ret = table.cell(row, column);
 		return ret;		
 	}
-	
+
 	@Override
 	public int rowCount() {
 		int count = table.rowCount();
@@ -41,7 +43,7 @@ public abstract class AbstractTable implements Table {
 		      }
 		  log.debug("Select table row(s): " + sbIndexes.toString());
 		}
-		new WaitUntil(new TableHasRows(this));
+		waitUntilTableHasRows(this);
 		table.select(indexes);
 		
 	}
@@ -65,6 +67,14 @@ public abstract class AbstractTable implements Table {
 	@Override
 	public void check(int itemIndex){
 		table.getTableItem(itemIndex).check();
+	}
+	
+	private void waitUntilTableHasRows(Table table) {
+		try {
+			new WaitUntil(new TableHasRows(table));
+		}catch (TimeoutException te) {
+			throw new SWTLayerException(te.getLocalizedMessage());
+		}
 	}
 		
 }

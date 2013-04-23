@@ -18,18 +18,19 @@ import org.hamcrest.Description;
 import org.hamcrest.TypeSafeMatcher;
 import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.swt.impl.tree.DefaultTree;
+import org.jboss.reddeer.swt.test.RedDeerTest;
 import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 
-public class ShellTreeTest {
+public class ShellTreeTest extends RedDeerTest {
 
 	private Tree swtTree;
 
 	private org.jboss.reddeer.swt.api.Tree tree;
 
-	@Before
-	public void setup(){
+	@Override
+	public void setUp() {
+		super.setUp();
 		UIThreadRunnable.syncExec(new VoidResult() {
 
 			@Override

@@ -10,13 +10,11 @@ import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
 import org.jboss.reddeer.swt.api.Menu;
 import org.jboss.reddeer.swt.api.Shell;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
-import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.menu.ContextMenu;
 import org.jboss.reddeer.swt.impl.menu.ShellMenu;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
-import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
 import org.jboss.reddeer.swt.matcher.RegexMatchers;
-import org.junit.BeforeClass;
+import org.jboss.reddeer.workbench.view.View;
 import org.junit.Test;
 
 /**
@@ -27,20 +25,14 @@ import org.junit.Test;
 public class MenuTest extends RedDeerTest {
 
 	protected final Logger log = Logger.getLogger(this.getClass());
+	private ProjectExplorer explorer = new ProjectExplorer();
 	private static int limit = 20;
 
 	@Override
 	protected void setUp() {
-	  super.setUp();
+		super.setUp();
+		explorer.open();
 		Logger.getRootLogger().setLevel(Level.DEBUG);
-	}
-	
-	@BeforeClass
-	public static void openExplorer(){
-		new ShellMenu("Window","Show View","Other...").select();
-		new DefaultShell("Show View");
-		new DefaultTreeItem("General","Project Explorer").select();
-		new PushButton("OK").click();
 	}
 	
 	@Test
@@ -131,5 +123,11 @@ public class MenuTest extends RedDeerTest {
 		m.select();
 		Shell s = new DefaultShell("New");
 		s.close();
+	}
+	
+	private class ProjectExplorer extends View {
+		public ProjectExplorer() {
+			super("General","Project Explorer");
+		}
 	}
 }

@@ -17,7 +17,7 @@
       <view
             category="org.jboss.reddeer.swt.test.swtcat"
             class="org.jboss.reddeer.swt.test.ui.views.SWTControlsView"
-            id="org.jboss.reddeer.swt.test.swtview"
+            id="org.jboss.reddeer.swt.test.swtview.controls"
             name="RedDeer SWT Controls"
             restorable="true">
       </view>
