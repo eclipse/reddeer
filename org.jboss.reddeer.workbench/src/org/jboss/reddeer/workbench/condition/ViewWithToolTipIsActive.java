@@ -22,7 +22,7 @@ public class ViewWithToolTipIsActive implements WaitCondition {
 	@Override
 	public boolean test() {
 		for (IViewReference view : WorkbenchLookup.findAllViews()) {
-			if (view.getTitle().equals(toolTip)) {
+			if (view.getPartName().equals(toolTip)) {
 				return true;
 			}
 		}
