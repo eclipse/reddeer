@@ -2,6 +2,7 @@ package org.jboss.reddeer.swt.impl.button;
 
 import org.apache.log4j.Logger;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotButton;
+import org.eclipse.swtbot.swt.finder.widgets.TimeoutException;
 import org.jboss.reddeer.swt.api.Button;
 import org.jboss.reddeer.swt.condition.WaitCondition;
 import org.jboss.reddeer.swt.util.Display;
@@ -37,6 +38,12 @@ public abstract class AbstractButton implements Button {
 
 	@Override
 	public boolean isEnabled() {
+		// TODO waits need to completely rewritten 
+		try {
+			waitUntilButtonIsActive();
+		} catch (TimeoutException e){
+		}
+		
 		return button.isEnabled();
 	}
 
