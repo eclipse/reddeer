@@ -15,13 +15,17 @@ import org.junit.Test;
 public class PreferencePageTest extends RedDeerTest{
 
 	private static final String PAGE_NAME = TestingPreferencePage.TITLE;
+	private static final String JBOSS_TOOLS_CATEGORY = "JBoss Tools"; 
 	
 	private PreferencePage preferencePage;
 
 	@Override
 	protected void setUp(){
 	  super.setUp();
-		preferencePage = new PreferencePageImpl(TestingPreferencePage.TestTopCategory.TOP_CATEGORY, TestingPreferencePage.TestCategory.CATEGORY, PAGE_NAME);
+		preferencePage = new PreferencePageImpl(
+				JBOSS_TOOLS_CATEGORY, 
+				TestingPreferencePage.TestTopCategory.TOP_CATEGORY, 
+				TestingPreferencePage.TestCategory.CATEGORY, PAGE_NAME);
 	}
 
 	@Test
