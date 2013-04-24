@@ -1,7 +1,7 @@
 package org.jboss.reddeer.swt.lookup.impl;
 
 import static org.eclipse.swtbot.swt.finder.matchers.WidgetMatcherFactory.widgetOfType;
-import static org.hamcrest.Matchers.allOf;
+import static org.hamcrest.core.AllOf.allOf;
 
 import java.util.ArrayList;
 import java.util.List;

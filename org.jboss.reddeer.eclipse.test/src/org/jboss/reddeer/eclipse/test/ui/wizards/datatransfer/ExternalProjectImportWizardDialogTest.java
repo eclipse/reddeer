@@ -1,8 +1,8 @@
 package org.jboss.reddeer.eclipse.test.ui.wizards.datatransfer;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.hasItems;
-import static org.hamcrest.Matchers.is;
+import static org.hamcrest.core.IsCollectionContaining.hasItems;
+import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;

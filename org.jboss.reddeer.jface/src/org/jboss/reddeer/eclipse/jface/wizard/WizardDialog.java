@@ -1,6 +1,6 @@
 package org.jboss.reddeer.eclipse.jface.wizard;
 
-import static org.hamcrest.Matchers.allOf;
+import static org.hamcrest.core.AllOf.allOf;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -94,7 +94,6 @@ public class WizardDialog {
 	 * @param matcher
 	 *            matcher when the wizard page will be displayed
 	 */
-	@SuppressWarnings("unchecked")
 	public void addWizardPage(WizardPage page, int pageIndex, Matcher<WizardDialog> matcher) {
 		page.setWizardDialog(this);
 		wizardPageMap.put(page, allOf(new WizardPageIndex(pageIndex), matcher));
