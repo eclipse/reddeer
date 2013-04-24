@@ -9,7 +9,7 @@ Require-Bundle: org.eclipse.ui,
  org.jboss.reddeer.workbench;bundle-version="0.2.0",
  org.jboss.reddeer.swt;bundle-version="0.2.0",
  org.eclipse.core.runtime,
- org.junit4;bundle-version="4.8.1",
+ org.junit;bundle-version="4.11.0",
  org.jboss.reddeer.swt.test;bundle-version="0.2.0"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6

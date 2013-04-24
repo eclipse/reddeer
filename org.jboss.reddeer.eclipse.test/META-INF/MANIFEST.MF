@@ -8,7 +8,7 @@ Bundle-Activator: org.jboss.reddeer.eclipse.test.Activator
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  org.eclipse.jdt.debug.ui,
- org.junit4;bundle-version="4.8.1",
+ org.junit;bundle-version="4.11.0",
  org.jboss.reddeer.eclipse;bundle-version="0.2.0",
  org.jboss.reddeer.jface;bundle-version="0.2.0",
  org.jboss.reddeer.workbench;bundle-version="0.2.0",
@@ -21,4 +21,4 @@ Require-Bundle: org.eclipse.ui,
  org.jboss.reddeer.swt.test;bundle-version="0.2.0"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Import-Package: org.hamcrest
+Import-Package: org.hamcrest.core

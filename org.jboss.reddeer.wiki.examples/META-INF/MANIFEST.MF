@@ -7,7 +7,7 @@ Bundle-Version: 0.2.0.qualifier
 Require-Bundle: org.jboss.reddeer.eclipse,
  org.jboss.reddeer.jface,
  org.jboss.reddeer.junit,
- org.junit4;bundle-version="4.8.1",
+ org.junit;bundle-version="4.11.0",
  org.jboss.reddeer.swt,
  org.jboss.reddeer.workbench,
  org.eclipse.swtbot.eclipse.finder,
