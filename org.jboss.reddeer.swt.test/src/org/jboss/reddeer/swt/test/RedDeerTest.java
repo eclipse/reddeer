@@ -25,7 +25,10 @@ public class RedDeerTest {
 	}
 	
 	private void configureLogging() {
+		if (Logger.getRootLogger().getAppender("console") != null)  return;
+			
 		ConsoleAppender console = new ConsoleAppender();
+		console.setName("console");
 		String PATTERN = "%-5p [%t][%C{1}] %m%n";
 		console.setLayout(new PatternLayout(PATTERN));
 		// if you want to enable just add vm argument -Dlog.debug=true
