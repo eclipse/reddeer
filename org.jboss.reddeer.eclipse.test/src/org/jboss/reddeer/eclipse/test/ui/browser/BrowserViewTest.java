@@ -1,7 +1,7 @@
 package org.jboss.reddeer.eclipse.test.ui.browser;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.is;
+import static org.hamcrest.core.Is.is;
 
 import org.jboss.reddeer.eclipse.ui.browser.BrowserView;
 import org.jboss.reddeer.swt.test.RedDeerTest;
