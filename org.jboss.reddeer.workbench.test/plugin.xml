@@ -11,4 +11,13 @@
         	category="org.jboss.reddeer.workbench.test.ui.category"
         	class="org.jboss.reddeer.workbench.test.ui.views.LabelView" />
 	</extension>
+	<extension
+         point="org.eclipse.ui.editors">
+      <editor
+            name="Simple Editor"
+            extensions="min"
+            class="org.jboss.reddeer.workbench.test.ui.editor.SimpleEditor"
+            id="org.jboss.reddeer.workbench.test.ui.editor.SimpleEditor">
+      </editor>
+   </extension>
 </plugin>
