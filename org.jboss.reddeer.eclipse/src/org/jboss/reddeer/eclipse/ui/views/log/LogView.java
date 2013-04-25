@@ -1,14 +1,16 @@
 package org.jboss.reddeer.eclipse.ui.views.log;
 
-import static org.eclipse.swtbot.swt.finder.waits.Conditions.shellIsActive;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.core.runtime.IStatus;
-import org.eclipse.swtbot.swt.finder.SWTBot;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
+import org.jboss.reddeer.swt.api.TreeItem;
+import org.jboss.reddeer.swt.condition.ShellWithTextIsActive;
+import org.jboss.reddeer.swt.impl.button.CheckBox;
+import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.menu.ToolbarMenu;
+import org.jboss.reddeer.swt.impl.tree.DefaultTree;
+import org.jboss.reddeer.swt.wait.WaitUntil;
 import org.jboss.reddeer.workbench.view.impl.WorkbenchView;
 
 /**
@@ -34,11 +36,14 @@ public class LogView extends WorkbenchView{
 	 */
 	
 	public List<LogMessage> getOKMessages() {
+		open();
 		setFilter(OK_SEVERITY);
-		SWTBotTreeItem[] items = viewObject.bot().tree().getAllItems();
+		open();
+		DefaultTree tree = new DefaultTree();
+		List<TreeItem> treeItems = tree.getAllItems();
 		List<LogMessage> messages = new ArrayList<LogMessage>();
-		for(SWTBotTreeItem item : items){
-			messages.add(new LogMessage(item.widget, IStatus.OK));
+		for(TreeItem item : treeItems){
+			messages.add(new LogMessage(item.getSWTWidget(), IStatus.OK));
 		}
 		return messages;
 	}
@@ -48,11 +53,14 @@ public class LogView extends WorkbenchView{
 	 * @return list of messages with severity INFO (according to IStatus)
 	 */
 	public List<LogMessage> getInfoMessages() {
+		open();
 		setFilter(INFORMATION_SEVERITY);
-		SWTBotTreeItem[] items = viewObject.bot().tree().getAllItems();
+		open();
+		DefaultTree tree = new DefaultTree();
+		List<TreeItem> treeItems = tree.getAllItems();
 		List<LogMessage> messages = new ArrayList<LogMessage>();
-		for(SWTBotTreeItem item : items){
-			messages.add(new LogMessage(item.widget, IStatus.INFO));
+		for(TreeItem item : treeItems){
+			messages.add(new LogMessage(item.getSWTWidget(), IStatus.INFO));
 		}
 		return messages;
 	}
@@ -61,11 +69,14 @@ public class LogView extends WorkbenchView{
 	 * @return list of messages with severity WARNING (according to IStatus)
 	 */
 	public List<LogMessage> getWarningMessages() {
+		open();
 		setFilter(WARNING_SEVERITY);
-		SWTBotTreeItem[] items = viewObject.bot().tree().getAllItems();
+		open();
+		DefaultTree tree = new DefaultTree();
+		List<TreeItem> treeItems = tree.getAllItems();
 		List<LogMessage> messages = new ArrayList<LogMessage>();
-		for(SWTBotTreeItem item : items){
-			messages.add(new LogMessage(item.widget, IStatus.WARNING));
+		for(TreeItem item : treeItems){
+			messages.add(new LogMessage(item.getSWTWidget(), IStatus.WARNING));
 		}
 		return messages;
 	}
@@ -74,11 +85,14 @@ public class LogView extends WorkbenchView{
 	 * @return list of messages with severity ERROR (according to IStatus)
 	 */
 	public List<LogMessage> getErrorMessages() {
+		open();
 		setFilter(ERROR_SEVERITY);
-		SWTBotTreeItem[] items = viewObject.bot().tree().getAllItems();
+		open();
+		DefaultTree tree = new DefaultTree();
+		List<TreeItem> treeItems = tree.getAllItems();
 		List<LogMessage> messages = new ArrayList<LogMessage>();
-		for(SWTBotTreeItem item : items){
-			messages.add(new LogMessage(item.widget, IStatus.ERROR));
+		for(TreeItem item : treeItems){
+			messages.add(new LogMessage(item.getSWTWidget(), IStatus.ERROR));
 		}
 		return messages;
 	}
@@ -86,18 +100,13 @@ public class LogView extends WorkbenchView{
 	private void setFilter(String severity){
 		ToolbarMenu tmenu = new ToolbarMenu("Filters...");
 		tmenu.select();
-		viewObject.bot().waitUntil(shellIsActive("Log Filters"));
-		SWTBot filtersBot = viewObject.bot().activeShell().bot();
-		filtersBot.checkBoxInGroup(OK_SEVERITY, "Event Types").deselect();
-		filtersBot.checkBoxInGroup(INFORMATION_SEVERITY, "Event Types").deselect();
-		filtersBot.checkBoxInGroup(WARNING_SEVERITY, "Event Types").deselect();
-		filtersBot.checkBoxInGroup(ERROR_SEVERITY, "Event Types").deselect();
-		filtersBot.checkBoxInGroup(severity, "Event Types").select();
-		
-		filtersBot.checkBox("Limit visible events to:").deselect();
-		filtersBot.button("OK").click();
+		new WaitUntil(new ShellWithTextIsActive("Log Filters"));
+		new CheckBox("Event Types", OK_SEVERITY).toggle(false);
+		new CheckBox("Event Types", INFORMATION_SEVERITY).toggle(false);
+		new CheckBox("Event Types", WARNING_SEVERITY).toggle(false);
+		new CheckBox("Event Types", ERROR_SEVERITY).toggle(false);
+		new CheckBox("Event Types", severity).toggle(true);
+		new CheckBox("Limit visible events to:").toggle(false);
+		new PushButton("OK").click();
 	}
-	
-	
-	
 }
