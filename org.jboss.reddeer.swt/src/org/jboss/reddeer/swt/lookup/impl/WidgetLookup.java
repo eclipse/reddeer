@@ -275,8 +275,7 @@ public class WidgetLookup {
 			return new ArrayList<T>();
 		
 		
-		if (!visible(parentWidget) && (!isComposite(parentWidget))) {
-				// log not visible, not composite
+		if (!visible(parentWidget)) {
 			return new ArrayList<T>();
 		}
 		
