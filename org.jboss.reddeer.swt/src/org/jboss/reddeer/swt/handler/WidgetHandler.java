@@ -1,6 +1,7 @@
 package org.jboss.reddeer.swt.handler;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.StyledText;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.List;
@@ -60,6 +61,8 @@ public class WidgetHandler {
 			public void run() {
 				if (w instanceof Text)
 					((Text) w).setText(text);
+				else if (w instanceof StyledText)
+					((StyledText) w).setText(text);
 				else
 					throw new SWTLayerException("Unsupported type");
 
@@ -87,6 +90,8 @@ public class WidgetHandler {
 					return ((Hyperlink) w).getText();
 				else if (w instanceof Section)
 					return ((Section) w).getText();
+				else if (w instanceof StyledText)
+					return ((StyledText) w).getText();
 				else
 					throw new SWTLayerException("Unsupported type");
 			}

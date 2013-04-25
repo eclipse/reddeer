@@ -7,4 +7,25 @@ package org.jboss.reddeer.swt.api;
  */
 public interface StyledText {
 
+	/**
+	 * 
+	 * @return text of this StyledText
+	 */
+	
+	public String getText();
+	
+	/**
+	 * Sets text of this StyledText
+	 */
+	
+	public void setText(String text);
+
+	
+	/**
+	 * 
+	 * @return Tooltip text of this StyledText
+	 */
+	
+	public String getToolTipText();
+	
 }
