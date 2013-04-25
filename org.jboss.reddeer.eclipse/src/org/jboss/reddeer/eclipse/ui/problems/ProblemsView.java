@@ -19,10 +19,7 @@ public class ProblemsView extends WorkbenchView{
 	 * @return
 	 */
 	public List<TreeItem> getAllErrors(){
-		if (!viewObject.isActive()){
-			viewObject.setFocus();
-		}
-		
+		open();
 		DefaultTree tree = new DefaultTree();
 		return filter(tree.getItems(), true);
 	}
@@ -33,9 +30,7 @@ public class ProblemsView extends WorkbenchView{
 	 * @return
 	 */
 	public List<TreeItem> getAllWarnings(){
-		if (!viewObject.isActive()){
-			viewObject.setFocus();
-		}
+		open();
 		DefaultTree tree = new DefaultTree();
 		return filter(tree.getItems(), false);
 	}

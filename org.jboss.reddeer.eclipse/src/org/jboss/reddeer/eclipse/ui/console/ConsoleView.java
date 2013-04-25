@@ -1,6 +1,6 @@
 package org.jboss.reddeer.eclipse.ui.console;
 
-import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
+import org.jboss.reddeer.swt.impl.styledtext.DefaultStyledText;
 import org.jboss.reddeer.swt.impl.toolbar.ViewToolItem;
 import org.jboss.reddeer.workbench.view.impl.WorkbenchView;
 
@@ -17,23 +17,8 @@ public class ConsoleView extends WorkbenchView {
 	}
 	
 	public String getConsoleText() {
-		/**
-		 * how it should look:
-		 * 
-		 * return new StyledText().getText();
-		 * 
-		 * there will not be any try-catch, because constructor 
-		 * StyledText should solve this
-		 */
-		
-		String consoleText = null;
-		try {
-			consoleText = viewObject.bot().styledText().getText();
-		} catch (WidgetNotFoundException wnfe) {
-			log.warn("There is no text in Console view");
-			consoleText = null;
-		}
-		return consoleText;
+		open();
+		return new DefaultStyledText().getText();
 	}
 	
 	public void clearConsole() {

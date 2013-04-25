@@ -1,8 +1,8 @@
 package org.jboss.reddeer.workbench.view;
 
-import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
-import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotWorkbenchPart;
+import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.IViewReference;
+import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.views.IViewCategory;
 import org.eclipse.ui.views.IViewDescriptor;
@@ -13,9 +13,10 @@ import org.jboss.reddeer.swt.impl.menu.ShellMenu;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
 import org.jboss.reddeer.swt.matcher.RegexMatchers;
-import org.jboss.reddeer.swt.util.Bot;
+import org.jboss.reddeer.swt.util.Display;
+import org.jboss.reddeer.swt.util.ResultRunnable;
 import org.jboss.reddeer.swt.wait.WaitUntil;
-import org.jboss.reddeer.workbench.condition.ViewWithToolTipIsActive;
+import org.jboss.reddeer.workbench.WorkbenchPart;
 import org.jboss.reddeer.workbench.exception.ViewNotFoundException;
 
 /**
@@ -23,18 +24,17 @@ import org.jboss.reddeer.workbench.exception.ViewNotFoundException;
  * represent the concrete views
  * 
  * @author jjankovi
+ * @author rhopp
  * 
  */
 public abstract class View extends WorkbenchPart {
 
 	private static final String SHOW_VIEW = "Show View";
 
-	protected SWTBotView viewObject;
-
 	private String[] path;
 
 	public View(String viewToolTip) {
-		super();
+		super(viewToolTip);
 		path = findRegisteredViewPath(viewToolTip);
 	}
 
@@ -45,12 +45,39 @@ public abstract class View extends WorkbenchPart {
 		path[1] = viewToolTip;
 	}
 
+	/**
+	 * Closes this view. UnsupportedOperationException is thrown, when view
+	 * wasn't opened yet.
+	 */
+
+	@Override
+	public void close() {
+		if (workbenchPart == null) {
+			throw new UnsupportedOperationException(
+					"Cannot close workbench part "
+							+ "before initialization provided by open method");
+		}
+		log.info("Hiding view " + getTitle());
+		Display.syncExec(new Runnable() {
+
+			@Override
+			public void run() {
+				PlatformUI.getWorkbench().getActiveWorkbenchWindow()
+						.getActivePage().hideView(getViewPart());
+			}
+		});
+	}
+
+	/**
+	 * Opens this view and set focus to it. If it's already open, the view just
+	 * gains focus.
+	 */
+
 	public void open() {
-		log.debug("Showing " + viewTooltip() + " view");
-		viewObject = viewByTitle(viewTooltip());
-		if (viewObject == null) {
-			log.info("Opening " + viewTooltip()
-					+ " view via menu.");
+		log.debug("Showing " + viewTitle() + " view");
+		workbenchPart = getPartByTitle(viewTitle());
+		if (workbenchPart == null) {
+			log.info("Opening " + viewTitle() + " view via menu.");
 			RegexMatchers m = new RegexMatchers("Window.*", "Show View.*",
 					"Other...*");
 			Menu menu = new ShellMenu(m.getMatchers());
@@ -65,50 +92,45 @@ public abstract class View extends WorkbenchPart {
 			catch (RuntimeException e) {
 				new PushButton("ok").click();
 			}
-			new WaitUntil(new ViewWithToolTipIsActive(viewTooltip()));
-			viewObject = Bot.get().activeView();
+			workbenchPart = getActiveWorkbenchPart();
 		}
-		viewObject.setFocus();
-		viewObject.show();
-		setAsReference();
-	}
-	
-	public String getTitle(){
-		return viewObject.getTitle();
-	}
+		Display.syncExec(new Runnable() {
 
-	@Override
-	protected SWTBotWorkbenchPart<IViewReference> workbenchPart() {
-		return viewObject;
-	}
-
-	private SWTBotView viewByTitle(String viewTitle) {
-		for (SWTBotView view : Bot.get().views()) {
-			if (view.getTitle().equals(viewTitle)) {
-				return view;
+			@Override
+			public void run() {
+				PlatformUI.getWorkbench().getActiveWorkbenchWindow()
+						.getActivePage().activate(workbenchPart);
+				workbenchPart.setFocus();
 			}
-		}
-		return null;
+		});
 	}
 
-	private String[] findRegisteredViewPath(String viewTooltip) {
+	/**
+	 * @return Title of this view
+	 */
 
-		IViewDescriptor viewDescriptor = findView(viewTooltip);
+	public String getTitle() {
+		return workbenchPart.getTitle();
+	}
+
+	private String[] findRegisteredViewPath(String title) {
+
+		IViewDescriptor viewDescriptor = findView(title);
 		IViewCategory categoryDescriptor = findViewCategory(viewDescriptor);
 		return pathForView(viewDescriptor, categoryDescriptor);
 
 	}
 
-	private IViewDescriptor findView(String viewTooltip) {
+	private IViewDescriptor findView(String title) {
 		IViewDescriptor[] views = PlatformUI.getWorkbench().getViewRegistry()
 				.getViews();
 		for (IViewDescriptor view : views) {
-			if (view.getLabel().equals(viewTooltip)) {
+			if (view.getLabel().equals(title)) {
 				return view;
 			}
 		}
 
-		throw new ViewNotFoundException("View \"" + viewTooltip
+		throw new ViewNotFoundException("View \"" + title
 				+ "\" is not registered in workbench");
 	}
 
@@ -135,8 +157,37 @@ public abstract class View extends WorkbenchPart {
 		return path;
 	}
 
-	private String viewTooltip() {
+	private String viewTitle() {
 		return path[path.length - 1];
 	}
-	
+
+	protected IViewPart getViewPart() {
+		if (workbenchPart == null) {
+			throw new RuntimeException("workbenchPart is null");
+		}
+		if (!(workbenchPart instanceof IViewPart)) {
+			throw new RuntimeException(
+					"workbenchPart isn't instance of IViewPart");
+		}
+		return (IViewPart) workbenchPart;
+	}
+
+	@Override
+	protected IWorkbenchPart getPartByTitle(final String title) {
+		return Display.syncExec(new ResultRunnable<IWorkbenchPart>() {
+
+			@Override
+			public IWorkbenchPart run() {
+				IViewReference[] views = PlatformUI.getWorkbench()
+						.getActiveWorkbenchWindow().getActivePage()
+						.getViewReferences();
+				for (IViewReference iViewReference : views) {
+					if (iViewReference.getTitle().matches(title + ".*")) {
+						return iViewReference.getView(false);
+					}
+				}
+				return null;
+			}
+		});
+	}
 }
