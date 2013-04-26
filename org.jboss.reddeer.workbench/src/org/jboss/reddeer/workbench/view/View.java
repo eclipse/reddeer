@@ -7,15 +7,15 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.views.IViewCategory;
 import org.eclipse.ui.views.IViewDescriptor;
 import org.jboss.reddeer.swt.api.Menu;
-import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.menu.ShellMenu;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
 import org.jboss.reddeer.swt.matcher.RegexMatchers;
+import org.jboss.reddeer.swt.reference.ReferenceComposite;
+import org.jboss.reddeer.swt.reference.ReferencedComposite;
 import org.jboss.reddeer.swt.util.Display;
 import org.jboss.reddeer.swt.util.ResultRunnable;
-import org.jboss.reddeer.swt.wait.WaitUntil;
 import org.jboss.reddeer.workbench.WorkbenchPart;
 import org.jboss.reddeer.workbench.exception.ViewNotFoundException;
 
@@ -27,7 +27,7 @@ import org.jboss.reddeer.workbench.exception.ViewNotFoundException;
  * @author rhopp
  * 
  */
-public abstract class View extends WorkbenchPart {
+public abstract class View extends WorkbenchPart implements ReferencedComposite {
 
 	private static final String SHOW_VIEW = "Show View";
 
@@ -103,8 +103,9 @@ public abstract class View extends WorkbenchPart {
 				workbenchPart.setFocus();
 			}
 		});
+		setAsReference();
 	}
-
+	
 	/**
 	 * @return Title of this view
 	 */
@@ -189,5 +190,10 @@ public abstract class View extends WorkbenchPart {
 				return null;
 			}
 		});
+	}
+	
+	@Override
+	public void setAsReference() {
+		ReferenceComposite.setComposite(null);
 	}
 }
