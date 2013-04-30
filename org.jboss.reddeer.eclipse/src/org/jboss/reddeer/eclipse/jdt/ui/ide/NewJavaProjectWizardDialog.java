@@ -38,7 +38,8 @@ public class NewJavaProjectWizardDialog extends NewWizardDialog{
 				}
 				new WaitWhile(new ShellWithTextIsActive(shell.getText()), TimePeriod.LONG);
 			}
-		} catch (TimeoutException te) {
+		// TODO WaitWhile needs to be overwritten to throw SWTLayerException
+		} catch (RuntimeException te) {
 			log.info("Shell 'Open Associated Perspective' wasn't shown");
 		}
 		new WaitWhile(new JobIsRunning(), TimePeriod.LONG);
