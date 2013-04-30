@@ -145,6 +145,8 @@ public class ToolBarTest extends RedDeerTest {
 		Menu menu = new ShellMenu(m.getMatchers());
 		menu.select();
 		new DefaultShell("Preferences");
+		TreeItem item = new DefaultTreeItem("General");
+		item.select();
 	}
 	
 	private void closePreferences() {

@@ -4,6 +4,7 @@ import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
 import org.eclipse.swtbot.swt.finder.widgets.TimeoutException;
 import org.jboss.reddeer.swt.api.Shell;
 import org.jboss.reddeer.swt.condition.ShellWithTextIsActive;
+import org.jboss.reddeer.swt.condition.ShellIsActive;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.reference.ReferenceComposite;
 import org.jboss.reddeer.swt.reference.ReferencedComposite;
@@ -34,6 +35,7 @@ public class DefaultShell extends AbstractShell implements Shell, ReferencedComp
 
 	public DefaultShell() {
 		try {
+			waitForShell(null);
 			shell = Bot.get().activeShell();
 			shell.setFocus();
 			log.info("Active shell with title '" + shell.getText() + "' found");
@@ -50,7 +52,11 @@ public class DefaultShell extends AbstractShell implements Shell, ReferencedComp
 	
 	private void waitForShell(String title) {
 		try {
-			new WaitUntil(new ShellWithTextIsActive(title));
+			if(title == null){
+				new WaitUntil(new ShellIsActive());
+			} else {
+				new WaitUntil(new ShellWithTextIsActive(title));
+			}
 		}catch(TimeoutException te) {
 			throw new SWTLayerException(te.getLocalizedMessage());
 		}
