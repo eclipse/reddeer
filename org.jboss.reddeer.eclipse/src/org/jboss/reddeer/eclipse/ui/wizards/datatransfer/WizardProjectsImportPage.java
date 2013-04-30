@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.Widget;
 import org.hamcrest.Description;
@@ -17,6 +18,7 @@ import org.jboss.reddeer.swt.condition.WaitCondition;
 import org.jboss.reddeer.swt.impl.button.CheckBox;
 import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.button.RadioButton;
+import org.jboss.reddeer.swt.impl.combo.DefaultCombo;
 import org.jboss.reddeer.swt.impl.text.DefaultText;
 import org.jboss.reddeer.swt.impl.tree.DefaultTree;
 import org.jboss.reddeer.swt.wait.TimePeriod;
@@ -102,10 +104,13 @@ public class WizardProjectsImportPage extends WizardPage {
 		new PushButton("Deselect All").click();
 	}
 	
-	@SuppressWarnings("unchecked")
 	protected void setPath(String radioText, String path){
 		new RadioButton(radioText).click();
-		new DefaultText(new EnabledTextMatcher()).setText(path);
+		if(radioText.equals("Select root directory:")){
+			new DefaultCombo(0).setText(path);
+		} else {
+			new DefaultCombo(1).setText(path);
+		}
 		new PushButton("Refresh").click();
 		new WaitUntil(new ProjectIsLoaded(getProjectsTree()), TimePeriod.NORMAL);
 	}
@@ -147,18 +152,6 @@ public class WizardProjectsImportPage extends WizardPage {
 		@Override
 		public String description() {
 			return "At least one project is loaded";
-		}
-	}
-	
-	private class EnabledTextMatcher extends TypeSafeMatcher<Widget> {
-
-		@Override
-		public void describeTo(Description description) {
-		}
-
-		@Override
-		public boolean matchesSafely(Widget w) {
-			return w instanceof Text && ((Text) w).isEnabled();
 		}
 	}
 }

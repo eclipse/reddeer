@@ -23,6 +23,9 @@ public class RuntimePreferencePageTest extends RedDeerTest{
 	protected void setUp(){
 	  super.setUp();
 		preferencePage = new RuntimePreferencePage();
+		preferencePage.open();
+		preferencePage.removeAllRuntimes();
+		preferencePage.ok();
 	}
 
 	@Test
@@ -47,7 +50,6 @@ public class RuntimePreferencePageTest extends RedDeerTest{
 	@Test
 	public void removeRuntime() {
 		preferencePage.open();
-		
 		NewRuntimeWizardPage wizardPage = preferencePage.addRuntime().getFirstPage();
 		wizardPage.selectType(SERVER_PATH, SERVER_NAME);
 		wizardPage.getWizardDialog().finish();

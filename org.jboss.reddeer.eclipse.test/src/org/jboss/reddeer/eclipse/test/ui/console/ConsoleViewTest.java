@@ -11,12 +11,9 @@ import org.jboss.reddeer.eclipse.jdt.ui.ide.NewJavaProjectWizardPage;
 import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.PackageExplorer;
 import org.jboss.reddeer.eclipse.ui.console.ConsoleView;
 import org.jboss.reddeer.swt.test.RedDeerTest;
-import org.jboss.reddeer.swt.condition.JobIsRunning;
 import org.jboss.reddeer.swt.impl.menu.ShellMenu;
 import org.jboss.reddeer.swt.matcher.RegexMatchers;
 import org.jboss.reddeer.swt.util.Bot;
-import org.jboss.reddeer.swt.wait.TimePeriod;
-import org.jboss.reddeer.swt.wait.WaitWhile;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -66,7 +63,7 @@ public class ConsoleViewTest extends RedDeerTest{
 			createJavaProject();
 			createJavaClass();
 		}
-		packageExplorer.selectProject(TEST_PROJECT_NAME);
+		packageExplorer.getProject(TEST_PROJECT_NAME).select();
 	}
 	
 	private static void createJavaProject() {
@@ -98,6 +95,5 @@ public class ConsoleViewTest extends RedDeerTest{
 		new PackageExplorer().getProject(TEST_PROJECT_NAME).select();
 		RegexMatchers m = new RegexMatchers("Run.*", "Run As.*", ".*Java Application.*");
 		new ShellMenu(m.getMatchers()).select();
-		new WaitWhile(new JobIsRunning(), TimePeriod.NORMAL);
 	}
 }
