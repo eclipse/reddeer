@@ -227,6 +227,9 @@ public class MenuLookup {
 	public MenuItem[] getActiveShellTopMenuItems() {
 		ShellLookup sl = new ShellLookup();
 		Shell activeShell = sl.getActiveShell();
+		if(activeShell == null){
+			throw new SWTLayerException("Cannot find menu bar because there's no active shell");
+		}
 		return getMenuBarItems(activeShell);
 	}
 

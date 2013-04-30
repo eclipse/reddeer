@@ -31,6 +31,7 @@ public class BrowserTest extends RedDeerTest {
 		Logger.getRootLogger().setLevel(Level.DEBUG);
 		// Open Internal Web Browser
 		// TODO: should be replaced with Internal Web Browses view once it's implemented
+    new DefaultShell();
     RegexMatchers m = new RegexMatchers("Window.*", "Show View.*",
         "Other...*");
     Menu menu = new ShellMenu(m.getMatchers());
