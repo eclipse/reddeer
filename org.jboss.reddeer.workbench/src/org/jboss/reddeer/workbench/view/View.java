@@ -7,6 +7,8 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.views.IViewCategory;
 import org.eclipse.ui.views.IViewDescriptor;
 import org.jboss.reddeer.swt.api.Menu;
+import org.jboss.reddeer.swt.condition.JobIsRunning;
+import org.jboss.reddeer.swt.condition.ShellWithTextIsActive;
 import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.menu.ShellMenu;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
@@ -16,6 +18,8 @@ import org.jboss.reddeer.swt.reference.ReferenceComposite;
 import org.jboss.reddeer.swt.reference.ReferencedComposite;
 import org.jboss.reddeer.swt.util.Display;
 import org.jboss.reddeer.swt.util.ResultRunnable;
+import org.jboss.reddeer.swt.wait.WaitUntil;
+import org.jboss.reddeer.swt.wait.WaitWhile;
 import org.jboss.reddeer.workbench.WorkbenchPart;
 import org.jboss.reddeer.workbench.exception.ViewNotFoundException;
 
@@ -92,8 +96,10 @@ public abstract class View extends WorkbenchPart implements ReferencedComposite 
 			catch (RuntimeException e) {
 				new PushButton("ok").click();
 			}
+			new WaitWhile(new ShellWithTextIsActive(SHOW_VIEW));
 			workbenchPart = getActiveWorkbenchPart();
 		}
+		
 		Display.syncExec(new Runnable() {
 
 			@Override
@@ -103,6 +109,7 @@ public abstract class View extends WorkbenchPart implements ReferencedComposite 
 				workbenchPart.setFocus();
 			}
 		});
+		
 		setAsReference();
 	}
 	
