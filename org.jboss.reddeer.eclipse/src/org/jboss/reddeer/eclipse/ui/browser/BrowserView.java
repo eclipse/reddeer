@@ -5,6 +5,7 @@ import org.jboss.reddeer.swt.condition.WaitCondition;
 import org.jboss.reddeer.swt.impl.browser.InternalBrowser;
 import org.jboss.reddeer.swt.wait.TimePeriod;
 import org.jboss.reddeer.swt.wait.WaitUntil;
+import org.jboss.reddeer.swt.wait.WaitWhile;
 import org.jboss.reddeer.workbench.exception.ViewNotFoundException;
 import org.jboss.reddeer.workbench.view.impl.WorkbenchView;
 
@@ -61,7 +62,9 @@ public class BrowserView extends WorkbenchView {
 	 * Go to the previous page in browser
 	 */
 	public void back() {
+		String prevUrl = browser.getURL();
 		browser.back();
+		new WaitWhile(new BrowserHasURL(browser, prevUrl), TIMEOUT);
 		new WaitUntil(new PageIsLoaded(browser), TIMEOUT);
 	}
 
@@ -69,7 +72,9 @@ public class BrowserView extends WorkbenchView {
 	 * Go to the next page in browser
 	 */
 	public void forward() {
+		String prevUrl = browser.getURL();
 		browser.forward();
+		new WaitWhile(new BrowserHasURL(browser, prevUrl), TIMEOUT);
 		new WaitUntil(new PageIsLoaded(browser), TIMEOUT);
 	}
 
@@ -101,6 +106,27 @@ public class BrowserView extends WorkbenchView {
 		@Override
 		public String description() {
 			return "Page is loaded in browser.";
+		}
+	}
+	
+	private class BrowserHasURL implements WaitCondition {
+
+		private Browser browser;
+		private String URL;
+
+		private BrowserHasURL(Browser browser,String URL) {
+			this.browser = browser;
+			this.URL = URL;
+		}
+
+		@Override
+		public boolean test() {
+			return browser.getURL().equals(URL);
+		}
+
+		@Override
+		public String description() {
+			return "Browser is pointed to URL: "+URL;
 		}
 	}
 
