@@ -115,19 +115,17 @@ public class Server {
 	public void publish() {
 		log.info("Publishing server " + getLabel().getName());
 		select();
-		DefaultShell activeShell = new DefaultShell();
 		new ContextMenu("Publish").select();
-		waitForPublish(activeShell);
+		waitForPublish();
 	}
 
 	public void clean() {
 		log.info("Cleaning server " + getLabel().getName());
 		select();
-		DefaultShell activeShell = new DefaultShell();
 		new ContextMenu("Clean...").select();
 		new DefaultShell("Server");
 		new PushButton("OK").click();
-		waitForPublish(activeShell);
+		waitForPublish();
 	}
 
 	public void delete() {
@@ -165,9 +163,8 @@ public class Server {
 		new WaitWhile(new JobIsRunning(), TIMEOUT);
 	}
 	
-	protected void waitForPublish(Shell activeShell){
-		new WaitWhile(new ShellWithTextIsActive(activeShell.getText()), TIMEOUT);
-		new WaitUntil(new ShellWithTextIsActive(activeShell.getText()), TIMEOUT);
+	protected void waitForPublish(){
+		new WaitUntil(new JobIsRunning(), TIMEOUT);
 		new WaitWhile(new ServerPublishStateCondition(ServerPublishState.PUBLISHING), TIMEOUT);
 		new WaitWhile(new JobIsRunning(), TIMEOUT);
 	}
