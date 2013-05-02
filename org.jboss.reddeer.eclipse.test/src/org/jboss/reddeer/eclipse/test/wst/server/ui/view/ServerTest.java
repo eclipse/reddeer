@@ -123,14 +123,14 @@ public class ServerTest extends ServersViewTestCase {
 	public void publish(){
 		server1.publish();
 		
-		assertThat(server1.getLabel().getPublishState(), is(ServerPublishState.REPUBLISH));
+		assertThat(server1.getLabel().getPublishState(), is(ServerPublishState.SYNCHRONIZED));
 	}
 	
 	@Test
 	public void clean(){
 		server1.clean();
 		
-		assertThat(server1.getLabel().getPublishState(), is(ServerPublishState.REPUBLISH));
+		assertThat(server1.getLabel().getPublishState(), is(ServerPublishState.SYNCHRONIZED));
 	}
 	
 	@Test

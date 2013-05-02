@@ -17,7 +17,7 @@ public class ComplexConfigurationTest {
 
 	@Before
 	public void setup(){
-		System.setProperty(SuiteConfiguration.PROPERTY_CONFIG_LOC, "src/test/resources//org/jboss/reddeer/junit/integration/configuration");
+		System.setProperty(SuiteConfiguration.PROPERTY_CONFIG_LOC, "src/test/resources/org/jboss/reddeer/junit/integration/configuration");
 	}
 	
 	@Test
