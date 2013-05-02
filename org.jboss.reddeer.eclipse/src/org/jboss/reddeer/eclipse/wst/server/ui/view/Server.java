@@ -166,7 +166,7 @@ public class Server {
 	protected void waitForPublish(){
 		new WaitUntil(new JobIsRunning(), TIMEOUT);
 		new WaitWhile(new ServerPublishStateCondition(ServerPublishState.PUBLISHING), TIMEOUT);
-		new WaitWhile(new JobIsRunning(), TIMEOUT);
+		new WaitUntil(new ServerPublishStateCondition(ServerPublishState.SYNCHRONIZED), TIMEOUT);
 	}
 
 	private class ServerStateCondition implements WaitCondition {
@@ -226,3 +226,4 @@ public class Server {
 		}
 	}
 }
+
