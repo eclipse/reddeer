@@ -8,7 +8,7 @@
 	<parent>
 		<groupId>org.jboss.reddeer</groupId>
 		<artifactId>parent</artifactId>
-		<version>0.2.0-SNAPSHOT</version>
+		<version>0.2.0</version>
 		<relativePath>../org.jboss.reddeer.parent/pom.xml</relativePath>
 	</parent>
 
@@ -45,7 +45,7 @@
 		<dependency>
 			<groupId>org.jboss.reddeer</groupId>
 			<artifactId>org.jboss.reddeer.junit</artifactId>
-			<version>0.2.0-SNAPSHOT</version>
+			<version>0.2.0</version>
 			<type>eclipse-plugin</type>
 		</dependency>
 
