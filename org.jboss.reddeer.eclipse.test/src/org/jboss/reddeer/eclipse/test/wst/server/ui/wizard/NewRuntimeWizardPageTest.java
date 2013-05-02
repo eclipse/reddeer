@@ -26,6 +26,7 @@ public class NewRuntimeWizardPageTest extends RedDeerTest{
 	  super.setUp();
 		preference = new RuntimePreferencePage();
 		preference.open();
+		preference.removeAllRuntimes();
 		wizard = preference.addRuntime();
 		wizardPage = wizard.getFirstPage();
 	}
@@ -42,6 +43,7 @@ public class NewRuntimeWizardPageTest extends RedDeerTest{
 	
 	@Override
 	public void tearDown(){
+		preference.removeAllRuntimes();
 		preference.cancel();
 		super.tearDown();
 	}
