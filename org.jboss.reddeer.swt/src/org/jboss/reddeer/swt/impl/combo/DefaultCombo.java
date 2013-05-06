@@ -1,7 +1,9 @@
 package org.jboss.reddeer.swt.impl.combo;
 
+import org.hamcrest.Matcher;
 import org.jboss.reddeer.swt.api.Combo;
-import org.jboss.reddeer.swt.util.Bot;
+import org.jboss.reddeer.swt.matcher.ComboLookup;
+import org.jboss.reddeer.swt.matcher.LabelMatcher;
 
 /**
  * Combo with label implementation
@@ -11,27 +13,16 @@ import org.jboss.reddeer.swt.util.Bot;
 public class DefaultCombo extends AbstractCombo implements Combo {
 
 	public DefaultCombo(String label) {
-		combo = Bot.get().comboBoxWithLabel(label);
+		w = ComboLookup.getInstance().getCombo(0, new LabelMatcher(label));
 	}
 	
 	public DefaultCombo(int index) {
-		combo = Bot.get().comboBox(index);
+		w = ComboLookup.getInstance().getCombo(index);
 	}
 	
-	/**
-	 * Combo with given index in given Group
-	 * @param index of combo
-	 * @param inGroup in group
-	 */
-	public DefaultCombo(String inGroup, int index){
-		combo = Bot.get().comboBoxInGroup(inGroup, index);
+	@SuppressWarnings("rawtypes")
+	public DefaultCombo(Matcher... matchers) {
+		w = ComboLookup.getInstance().getCombo(0, matchers);
 	}
-	/**
-	 * Combo with given text in given Group
-	 * @param label of combo
-	 * @param inGroup in group
-	 */
-	public DefaultCombo(String inGroup, String label){
-		combo = Bot.get().comboBoxWithLabelInGroup(label, inGroup);
-	}
+
 }
