@@ -2,6 +2,7 @@ package org.jboss.reddeer.swt.lookup.impl;
 
 import org.eclipse.swt.widgets.Shell;
 import org.jboss.reddeer.swt.util.Display;
+import org.jboss.reddeer.swt.util.ResultRunnable;
 
 /**
  * Shell Lookup, this contains routines for ToolBar implementation that have are widely used 
@@ -37,6 +38,17 @@ public class ShellLookup {
 		return s[0];
 	}
 	
+	public Shell[] getShells() {
+		
+		return Display.syncExec(new ResultRunnable<Shell[]>() {
+			
+			@Override
+			public Shell[] run() {
+				return Display.getDisplay().getShells();
+			}
+			
+		});
+	}
 	
 }
 
