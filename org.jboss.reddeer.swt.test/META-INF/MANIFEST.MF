@@ -4,7 +4,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: RedDeer SWT Component Tests
 Bundle-Vendor: JBoss by Red Hat
 Bundle-SymbolicName: org.jboss.reddeer.swt.test;singleton:=true
-Bundle-Version: 0.3.0
+Bundle-Version: 0.3.1.qualifier
 Bundle-Activator: org.jboss.reddeer.swt.test.Activator
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
