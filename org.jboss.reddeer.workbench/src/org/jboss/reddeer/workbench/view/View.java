@@ -1,5 +1,7 @@
 package org.jboss.reddeer.workbench.view;
 
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
 import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.IViewReference;
 import org.eclipse.ui.IWorkbenchPart;
@@ -7,18 +9,18 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.views.IViewCategory;
 import org.eclipse.ui.views.IViewDescriptor;
 import org.jboss.reddeer.swt.api.Menu;
-import org.jboss.reddeer.swt.condition.JobIsRunning;
 import org.jboss.reddeer.swt.condition.ShellWithTextIsActive;
 import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.menu.ShellMenu;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
+import org.jboss.reddeer.swt.lookup.impl.WidgetLookup;
+import org.jboss.reddeer.swt.lookup.impl.WorkbenchLookup;
 import org.jboss.reddeer.swt.matcher.RegexMatchers;
 import org.jboss.reddeer.swt.reference.ReferenceComposite;
 import org.jboss.reddeer.swt.reference.ReferencedComposite;
 import org.jboss.reddeer.swt.util.Display;
 import org.jboss.reddeer.swt.util.ResultRunnable;
-import org.jboss.reddeer.swt.wait.WaitUntil;
 import org.jboss.reddeer.swt.wait.WaitWhile;
 import org.jboss.reddeer.workbench.WorkbenchPart;
 import org.jboss.reddeer.workbench.exception.ViewNotFoundException;
@@ -101,7 +103,6 @@ public abstract class View extends WorkbenchPart implements ReferencedComposite 
 		}
 		
 		Display.syncExec(new Runnable() {
-
 			@Override
 			public void run() {
 				PlatformUI.getWorkbench().getActiveWorkbenchWindow()
@@ -111,12 +112,32 @@ public abstract class View extends WorkbenchPart implements ReferencedComposite 
 		});
 		
 		setAsReference();
+		focusChildControl();
 	}
 	
+	private void focusChildControl() {
+		/** get active workbench part control (active view) **/
+		final Control workbenchControl = WorkbenchLookup
+				.getWorkbenchControl(WorkbenchLookup.findActiveWorkbenchPart());
+		/** check if actual focused control belongs to the active view **/
+		final Control focusedControl = WidgetLookup.getInstance().getFocusControl();
+		if (hasControlSpecificParent(focusedControl, workbenchControl)) {
+			return;
+		}
+		log.error("No control in opened view has a focus!");
+		log.error("Setting implicit focus...");
+		/**
+		 * focused control is not the one in active view, set focus on
+		 * first child control in active view
+		 */
+		setFocusOnControlChild(workbenchControl);
+	}
+
+	
+
 	/**
 	 * @return Title of this view
 	 */
-
 	public String getTitle() {
 		return workbenchPart.getTitle();
 	}
@@ -202,5 +223,36 @@ public abstract class View extends WorkbenchPart implements ReferencedComposite 
 	@Override
 	public void setAsReference() {
 		ReferenceComposite.setComposite(null);
+	}
+	
+	private boolean hasControlSpecificParent(final Control focusedControl,
+			final Control workbenchControl) {
+		Control parent = Display.syncExec(new ResultRunnable<Control>() {
+			@Override
+			public Control run() {
+				Control parent = focusedControl;
+				while (parent != workbenchControl && parent != null) {
+					parent = parent.getParent();
+				}
+				return parent; 
+			}
+		});
+		return parent != null;
+	}
+	
+	private void setFocusOnControlChild(final Control workbenchControl) {
+		Display.syncExec(new Runnable() {
+			@Override
+			public void run() {
+				Control[] childrenControls= ((Composite) workbenchControl).getChildren();
+				if (childrenControls.length > 0) {
+					Control firstChildControl = childrenControls[0];
+					firstChildControl.setFocus();
+				} else {
+					log.warn("View with title '" + workbenchControl.getToolTipText() + "' has "
+							+ "no children!");
+				}
+			}
+		});
 	}
 }
