@@ -42,6 +42,7 @@ public abstract class View extends WorkbenchPart implements ReferencedComposite 
 	public View(String viewToolTip) {
 		super(viewToolTip);
 		path = findRegisteredViewPath(viewToolTip);
+		setFocusIfViewIsOpened();
 	}
 
 	public View(String category, String viewToolTip) {
@@ -49,6 +50,7 @@ public abstract class View extends WorkbenchPart implements ReferencedComposite 
 		path = new String[2];
 		path[0] = category;
 		path[1] = viewToolTip;
+		setFocusIfViewIsOpened();
 	}
 
 	/**
@@ -72,6 +74,7 @@ public abstract class View extends WorkbenchPart implements ReferencedComposite 
 						.getActivePage().hideView(getViewPart());
 			}
 		});
+		workbenchPart = null;
 	}
 
 	/**
@@ -81,7 +84,9 @@ public abstract class View extends WorkbenchPart implements ReferencedComposite 
 
 	public void open() {
 		log.debug("Showing " + viewTitle() + " view");
-		workbenchPart = getPartByTitle(viewTitle());
+		setFocusIfViewIsOpened();
+		
+		/* view is not opened, it has to be opened via menu */
 		if (workbenchPart == null) {
 			log.info("Opening " + viewTitle() + " view via menu.");
 			RegexMatchers m = new RegexMatchers("Window.*", "Show View.*",
@@ -101,18 +106,24 @@ public abstract class View extends WorkbenchPart implements ReferencedComposite 
 			new WaitWhile(new ShellWithTextIsActive(SHOW_VIEW));
 			workbenchPart = getActiveWorkbenchPart();
 		}
-		
-		Display.syncExec(new Runnable() {
-			@Override
-			public void run() {
-				PlatformUI.getWorkbench().getActiveWorkbenchWindow()
-						.getActivePage().activate(workbenchPart);
-				workbenchPart.setFocus();
-			}
-		});
-		
-		setAsReference();
-		focusChildControl();
+
+	}
+	
+	private void setFocusIfViewIsOpened() {
+		workbenchPart = getPartByTitle(viewTitle());
+		if (workbenchPart != null) {
+			Display.syncExec(new Runnable() {
+
+				@Override
+				public void run() {
+					PlatformUI.getWorkbench().getActiveWorkbenchWindow()
+							.getActivePage().activate(workbenchPart);
+					workbenchPart.setFocus();
+				}
+			});
+			setAsReference();
+			focusChildControl();
+		}
 	}
 	
 	private void focusChildControl() {
@@ -132,8 +143,6 @@ public abstract class View extends WorkbenchPart implements ReferencedComposite 
 		 */
 		setFocusOnControlChild(workbenchControl);
 	}
-
-	
 
 	/**
 	 * @return Title of this view
