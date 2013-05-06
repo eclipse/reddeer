@@ -285,11 +285,17 @@ public class WidgetHandler {
 				if ((w instanceof List) || (w instanceof Text)) {
 					Widget parent = ((Control)w).getParent();;
 					java.util.List<Widget> children = WidgetResolver.getInstance().getChildren(parent);
-					for (int i = 1; i < children.size() ; i++) {
-						if (children.get(i) != null
-								&& children.get(i - 1) instanceof Label
-								&& children.get(i).equals(w)) {
-							return ((Label)children.get(i - 1)).getText();
+					for (int i = 1; i < children.size() ; i++) {						
+						if (children.get(i) != null && children.get(i).equals(w)) {
+							for(int y=1; i-y>=0 ;y++){
+								if(children.get(i - y) instanceof Label){
+									if(((Label)children.get(i - y)).getImage() == null){
+										return ((Label)children.get(i - y)).getText();
+									}
+								} else {
+									return null;
+								}
+							}
 						}
 					}
 				}
