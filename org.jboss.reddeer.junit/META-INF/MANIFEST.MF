@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: RedDeer JUnit Support
 Bundle-Vendor: JBoss by Red Hat
 Bundle-SymbolicName: org.jboss.reddeer.junit
-Bundle-Version: 0.3.1.qualifier
+Bundle-Version: 0.3.1
 Bundle-Activator: org.jboss.reddeer.junit.Activator
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
