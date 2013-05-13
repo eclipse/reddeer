@@ -5,12 +5,14 @@ import org.eclipse.ui.IPerspectiveDescriptor;
 import org.eclipse.ui.PlatformUI;
 import org.jboss.reddeer.eclipse.exception.EclipseLayerException;
 import org.jboss.reddeer.swt.api.Menu;
+import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.menu.ShellMenu;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.jboss.reddeer.swt.impl.table.DefaultTable;
 import org.jboss.reddeer.swt.matcher.RegexMatchers;
-import org.jboss.reddeer.swt.util.Bot;
+import org.jboss.reddeer.swt.util.Display;
+import org.jboss.reddeer.swt.util.ResultRunnable;
 
 /**
  * Abstract parent for each Perspective implementation
@@ -34,7 +36,7 @@ public abstract class AbstractPerspective {
 
   public void open() {
     log.info("Open perspective: " + getPerspectiveLabel());
-    if (Bot.get().activePerspective().getLabel().equals(getPerspectiveLabel())){
+    if (isOpened()){
       log.debug("Perspective " + getPerspectiveLabel() + " is already opened.");
     }
     else{
@@ -48,7 +50,7 @@ public abstract class AbstractPerspective {
       try{
         // Try to select perspective label within available perspectives
         table.select(getPerspectiveLabel());
-      } catch (IllegalArgumentException iae){
+      } catch (SWTLayerException swtLayerException){
         // Try to select perspective label within available perspectives with "(default)" suffix
         table.select(getPerspectiveLabel() + " (default)");
       }
@@ -59,6 +61,15 @@ public abstract class AbstractPerspective {
   public String getPerspectiveLabel() {
     return perspectiveLabel;
   }
+  
+  	 public boolean isOpened(){
+		return Display.syncExec(new ResultRunnable<Boolean>() {
+			@Override
+			public Boolean run() {
+				return getActivePerspective().getLabel().equals(perspectiveLabel);
+			}
+		});
+	  }
 	
 	private boolean isPerspectiveAvailable(){
 		IPerspectiveDescriptor perspective = PlatformUI.getWorkbench().getPerspectiveRegistry().findPerspectiveWithLabel(perspectiveLabel);
@@ -66,5 +77,9 @@ public abstract class AbstractPerspective {
 			return false;
 		}
 		return true;
+}
+	
+	private IPerspectiveDescriptor getActivePerspective(){
+		return PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getPerspective();
 	}
 }
