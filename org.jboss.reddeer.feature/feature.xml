@@ -6,11 +6,11 @@
       provider-name="JBoss by Red Hat">
 
    <description url="https://github.com/jboss-reddeer/reddeer/wiki">
-An extendable framework to support building automated Eclipse tests.
+      An extendable framework to support building automated Eclipse tests.
    </description>
 
    <copyright>
-JBoss, Home of Professional Open Source
+      JBoss, Home of Professional Open Source
 Copyright (c) Red Hat, Inc., and individual contributors as indicated
 by the @authors tag, 2012-2013. See the copyright.txt in the distribution
 for a full listing of individual contributors.
@@ -25,7 +25,6 @@ source licenses. For precise licensing details, consult the corresponding
 source code, or contact Red Hat Legal Affairs, 1801 Varsity Drive,
 Raleigh NC 27606 USA.
    </license>
-
 
    <plugin
          id="org.jboss.reddeer.swt"
@@ -47,7 +46,7 @@ Raleigh NC 27606 USA.
          install-size="0"
          version="0.0.0"
          unpack="false"/>
-         
+
    <plugin
          id="org.jboss.reddeer.uiforms"
          download-size="0"
@@ -92,6 +91,13 @@ Raleigh NC 27606 USA.
 
    <plugin
          id="org.jboss.reddeer.ui"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.jboss.reddeer.requirements"
          download-size="0"
          install-size="0"
          version="0.0.0"
