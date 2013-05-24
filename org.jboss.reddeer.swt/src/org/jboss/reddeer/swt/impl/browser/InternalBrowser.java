@@ -41,5 +41,10 @@ public class InternalBrowser extends AbstractBrowser implements Browser {
 	public String getURL() {
 		return browser.getUrl();	
 	}
+	
+	@Override
+	public String getText() {
+		return browser.getText();	
+	}
 
 }

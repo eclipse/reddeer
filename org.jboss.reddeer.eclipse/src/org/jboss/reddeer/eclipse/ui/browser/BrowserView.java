@@ -86,6 +86,15 @@ public class BrowserView extends WorkbenchView {
 	public String getPageURL() {
 		return browser.getURL();
 	}
+	
+	/**
+	 * Gets Text of the currently opened page
+	 * 
+	 * @return String Text of the current page
+	 */
+	public String getText() {
+		return browser.getText();
+	}
 
 	/**
 	 * WaitCondition to test whether page is already loaded into browser

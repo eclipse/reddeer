@@ -32,5 +32,10 @@ public interface Browser {
 	 * Get url from browser 
 	 */
 	String getURL();
+	
+	/**
+	 * Get text from page in browser 
+	 */
+	String getText();
 
 }
