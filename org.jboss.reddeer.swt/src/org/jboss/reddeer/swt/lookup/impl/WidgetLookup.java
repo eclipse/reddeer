@@ -16,10 +16,10 @@ import org.eclipse.ui.IWorkbenchSite;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.lookup.WidgetResolver;
-import org.jboss.reddeer.swt.reference.ReferenceComposite;
 import org.jboss.reddeer.swt.matcher.AndMatcher;
 import org.jboss.reddeer.swt.matcher.ClassMatcher;
 import org.jboss.reddeer.swt.matcher.MatcherBuilder;
+import org.jboss.reddeer.swt.reference.ReferenceComposite;
 import org.jboss.reddeer.swt.util.Display;
 import org.jboss.reddeer.swt.util.ObjectUtil;
 import org.jboss.reddeer.swt.util.ResultRunnable;
@@ -80,7 +80,7 @@ public class WidgetLookup {
 		notify(SWT.FocusOut, widget);
 	}
 
-	private void notify(int eventType, Widget widget) {
+	public void notify(int eventType, Widget widget) {
 		Event event = createEvent(widget);
 		notify(eventType, event, widget);
 		
