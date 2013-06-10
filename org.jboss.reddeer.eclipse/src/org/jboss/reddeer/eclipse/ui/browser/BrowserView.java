@@ -1,5 +1,6 @@
 package org.jboss.reddeer.eclipse.ui.browser;
 
+import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
 import org.jboss.reddeer.swt.api.Browser;
 import org.jboss.reddeer.swt.condition.WaitCondition;
 import org.jboss.reddeer.swt.impl.browser.InternalBrowser;
@@ -36,7 +37,9 @@ public class BrowserView extends WorkbenchView {
 	 */
 	@Override
 	public void open() {
-		super.open();
+		if(!isOpen()){
+			super.open();
+		}
 		browser = new InternalBrowser();
 	};
 
@@ -86,6 +89,27 @@ public class BrowserView extends WorkbenchView {
 	public String getPageURL() {
 		return browser.getURL();
 	}
+	
+	/**
+	 * Gets Text of the currently opened page
+	 * 
+	 * @return String Text of the current page
+	 */
+	public String getText() {
+		return browser.getText();
+	}
+	
+	/**
+	 * Checks if browser is already open
+	 */
+	public boolean isOpen() {
+		try{
+			new InternalBrowser(); 
+			return true;  // browser is already opened
+		}catch(WidgetNotFoundException ex){
+			return false;
+		}
+	};
 
 	/**
 	 * WaitCondition to test whether page is already loaded into browser
