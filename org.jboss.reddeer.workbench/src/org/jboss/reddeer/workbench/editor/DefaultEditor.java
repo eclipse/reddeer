@@ -7,10 +7,13 @@ import org.eclipse.ui.IEditorReference;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
+import org.jboss.reddeer.swt.condition.ShellIsActive;
+import org.jboss.reddeer.swt.condition.ShellWithTextIsActive;
 import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.jboss.reddeer.swt.util.Display;
 import org.jboss.reddeer.swt.util.ResultRunnable;
+import org.jboss.reddeer.swt.wait.WaitWhile;
 import org.jboss.reddeer.workbench.WorkbenchPart;
 import org.jboss.reddeer.workbench.exception.EditorNotFoundException;
 
@@ -101,19 +104,31 @@ public class DefaultEditor extends WorkbenchPart implements Editor {
 	public void close(final boolean save) {
 
 		log.info("Closing editor " + getTitle());
-		Display.asyncExec(new Runnable() {
-
-			@Override
-			public void run() {
-				IWorkbenchWindow activeWorkbenchWindow = PlatformUI
-						.getWorkbench().getActiveWorkbenchWindow();
-				activeWorkbenchWindow.getActivePage().closeEditor(
-						getEditorPart(), save);
-			}
-		});
-		if (isDirty() && save) {
+		if (isDirty() && save){
+			Display.asyncExec(new Runnable() {
+				
+				@Override
+				public void run() {
+					IWorkbenchWindow activeWorkbenchWindow = PlatformUI
+							.getWorkbench().getActiveWorkbenchWindow();
+					activeWorkbenchWindow.getActivePage().closeEditor(
+							getEditorPart(), save);
+				}
+			});
 			new DefaultShell("Save Resource");
 			new PushButton("Yes").click();
+			new WaitWhile(new ShellWithTextIsActive("Save Resource"));
+		}else{
+			Display.syncExec(new Runnable() {
+	
+				@Override
+				public void run() {
+					IWorkbenchWindow activeWorkbenchWindow = PlatformUI
+							.getWorkbench().getActiveWorkbenchWindow();
+					activeWorkbenchWindow.getActivePage().closeEditor(
+							getEditorPart(), save);
+				}
+			});
 		}
 		log.info("Editor " + getTitle() + " is closed");
 	}
