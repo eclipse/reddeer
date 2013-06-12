@@ -101,6 +101,10 @@ public interface TreeItem {
 	 * @return
 	 */
 	boolean isChecked();
-	
+	Tree getParent();
+	/**
+	 * Returns SWT TreeItem enclosed by this Tree Item
+	 * @return
+	 */
 	org.eclipse.swt.widgets.TreeItem getSWTWidget();
 }

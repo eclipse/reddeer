@@ -6,6 +6,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.Tree;
+import org.eclipse.swt.widgets.TreeColumn;
 import org.eclipse.swtbot.swt.finder.finders.UIThreadRunnable;
 import org.eclipse.swtbot.swt.finder.results.Result;
 import org.eclipse.ui.part.ViewPart;
@@ -24,8 +25,11 @@ public class CustomView extends ViewPart {
 		text = new Text(composite, SWT.NONE);
 		text.setText("Original text");
 		
-		tree = new Tree(composite, SWT.BORDER);
+		tree = new Tree(composite, SWT.BORDER|SWT.CHECK| SWT.MULTI);
 		tree.setVisible(true);
+    TreeColumn column = new TreeColumn(tree, SWT.LEFT);
+    column.setWidth(200);
+
 		createTreeItems(tree);
 	}
 

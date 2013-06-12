@@ -1,79 +1,31 @@
 package org.jboss.reddeer.swt.impl.tree;
 
-import static org.eclipse.swtbot.swt.finder.matchers.WidgetMatcherFactory.allOf;
-import static org.eclipse.swtbot.swt.finder.matchers.WidgetMatcherFactory.widgetOfType;
-
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
-import org.eclipse.swt.widgets.Control;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
-import org.hamcrest.Matcher;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.Event;
 import org.jboss.reddeer.swt.api.Tree;
 import org.jboss.reddeer.swt.api.TreeItem;
-import org.jboss.reddeer.swt.lookup.impl.WidgetLookup;
+import org.jboss.reddeer.swt.exception.SWTLayerException;
+import org.jboss.reddeer.swt.util.Display;
+import org.jboss.reddeer.swt.util.ResultRunnable;
 
 public abstract class AbstractTree implements Tree {
 
 	protected final Logger logger = Logger.getLogger(this.getClass());
 	
-	protected SWTBotTree tree;
-	private int index;
-
-	/**
-	 * @deprecated As of release 0.4, replaced by 
-	 * {@link org.jboss.reddeer.swt.impl.tree.DefaultTree}
-	 */
-	@Deprecated
-	public AbstractTree(Control control) {
-		this(control, 0);
-	}
+	protected org.eclipse.swt.widgets.Tree swtTree;
 	
-	/**
-	 * @deprecated As of release 0.4, replaced by 
-	 * {@link org.jboss.reddeer.swt.impl.tree.DefaultTree}
-	 */
-	@Deprecated
-	@SuppressWarnings("unchecked")
-	public AbstractTree(Control control, int index) {
-		this(allOf(widgetOfType(org.eclipse.swt.widgets.Tree.class)), control, index);
-	}
-	
-	/**
-	 * @deprecated As of release 0.4, replaced by 
-	 * {@link org.jboss.reddeer.swt.impl.tree.DefaultTree}
-	 */
-	@Deprecated
-	public AbstractTree(Matcher<org.eclipse.swt.widgets.Tree> matcher, Control control) {
-		this(matcher, control, 0);
-	}
-		
-	/**
-	 * @deprecated As of release 0.4, replaced by 
-	 * {@link org.jboss.reddeer.swt.impl.tree.DefaultTree}
-	 */
-	@Deprecated
-	public AbstractTree(Matcher<org.eclipse.swt.widgets.Tree> matcher, Control control, int index) {
-		tree = new SWTBotTree((org.eclipse.swt.widgets.Tree) 
-				WidgetLookup.getInstance().
-				activeWidget(matcher, control, index));
-		this.index = index;
-	}
-	
-	protected List<TreeItem> getItems(boolean shellItem){
-		List<TreeItem> list = new LinkedList<TreeItem>();
-		for (SWTBotTreeItem treeItem : tree.getAllItems()) {
-			TreeItem item = null;
-			if (shellItem) {
-				item = new ShellTreeItem(index,treeItem.getText());
-			} else {
-				item = new ViewTreeItem(index,treeItem.getText());
-			}
-			list.add(item);
-		}
-		return list;	
+	protected AbstractTree (org.eclipse.swt.widgets.Tree swtTree){
+	  if (swtTree != null){
+	    this.swtTree = swtTree;  
+	  }
+	  else {
+	     throw new SWTLayerException("SWT Tree passed to constructor is null");
+	  }	  
 	}
 	
 	public List<TreeItem> getAllItems(){
@@ -91,4 +43,79 @@ public abstract class AbstractTree implements Tree {
 		}
 		return list;
 	}
+
+	public List<TreeItem> getItems() {
+	  return Display.syncExec(new ResultRunnable<List<TreeItem>>() {
+      @Override
+      public List<TreeItem> run() {
+        LinkedList<TreeItem> result = new LinkedList<TreeItem>();
+        for (org.eclipse.swt.widgets.TreeItem swtTreeItem : swtTree.getItems()){
+          result.addLast(new BasicTreeItem(swtTreeItem));
+        }
+        return result;
+      }
+    });
+  }
+	
+  public void selectItems(final TreeItem... treeItems){
+    setFocus();
+    Display.syncExec(new Runnable() {
+      public void run() {
+        List<org.eclipse.swt.widgets.TreeItem> selection = new ArrayList<org.eclipse.swt.widgets.TreeItem>();
+        for (TreeItem treeItem : treeItems) {
+          selection.add(treeItem.getSWTWidget());
+        }
+        if (!(SWT.MULTI == (swtTree.getStyle() & SWT.MULTI)) && treeItems.length > 1)
+          logger.warn("Tree does not support SWT.MULTI, cannot make multiple selections"); //$NON-NLS-1$
+        swtTree.setSelection(selection.toArray(new org.eclipse.swt.widgets.TreeItem[] {}));
+      }
+    });
+    notifySelect();  
+  }
+  
+  public void setFocus(){
+    Display.syncExec(new Runnable() {
+      public void run() {
+        if (!swtTree.isFocusControl()){
+          swtTree.forceFocus();
+        }
+      }
+    });
+  }
+
+  public void unselectAllItems(){
+    Display.syncExec(new Runnable() {
+      public void run() {
+        swtTree.deselectAll();
+      }
+    });    
+    notifySelect();
+  }
+  
+	public org.eclipse.swt.widgets.Tree getSWTWidget(){
+	  return swtTree;
+	}
+  /**
+   * Notifies listeners about selection event
+   * 
+   */
+  private void notifySelect() {
+    Display.syncExec(new Runnable() {
+      public void run() {
+        swtTree.notifyListeners(SWT.Selection, createSelectionEvent());
+      }
+    });
+  }
+  /**
+   * Creates selection event 
+   * @return
+   */
+  private Event createSelectionEvent() {
+    Event event = new Event();
+    event.display = Display.getDisplay();
+    event.time = (int) System.currentTimeMillis();
+    event.widget = swtTree;
+    event.type = SWT.Selection;
+    return event;
+  }
 }

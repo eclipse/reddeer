@@ -5,7 +5,6 @@ import java.util.LinkedHashSet;
 import java.util.List;
 
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Shell;
@@ -153,12 +152,12 @@ public class WidgetLookup {
 		return getProperWidget(activeWidgets(matcher), index);
 	}
 	
-	@SuppressWarnings({ "rawtypes" })
-	public Widget activeWidget(Class<? extends Widget> clazz, int index, Matcher... matchers) {
+	@SuppressWarnings({ "rawtypes","unchecked" })
+	public <T extends Widget> T activeWidget(Class<T> clazz, int index, Matcher... matchers) {
 		ClassMatcher cm = new ClassMatcher(clazz);
 		Matcher[] allMatchers = MatcherBuilder.getInstance().addMatcher(matchers, cm);
 		AndMatcher am  = new AndMatcher(allMatchers);
-		return getProperWidget(activeWidgets(am), index);
+		return (T)getProperWidget(activeWidgets(am), index);
 	}
 	
 	@SuppressWarnings("rawtypes")
@@ -203,8 +202,8 @@ public class WidgetLookup {
 		return wSite.getShell();
 	}
 
-	private Widget getProperWidget(List<? extends Widget> widgets, int index) {
-		Widget widget = null;
+	private <T extends Widget> T getProperWidget(List<T> widgets, int index) {
+		T widget = null;
 		if (widgets.size() > index)
 			widget = widgets.get(index);
 		else
@@ -317,15 +316,6 @@ public class WidgetLookup {
 	 */
 	private boolean visible(Widget w) {
 		return !((w instanceof Control) && !((Control) w).getVisible());
-	}
-
-	/**
-	 * Returns true if instance is composite
-	 * @param w
-	 * @return
-	 */
-	private boolean isComposite(Widget parentWidget) {
-		return parentWidget.getClass().equals(Composite.class);
 	}
 }
 
