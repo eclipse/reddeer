@@ -6,6 +6,7 @@ import org.eclipse.swtbot.swt.finder.widgets.SWTBotCheckBox;
 import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.swt.condition.JobIsRunning;
 import org.jboss.reddeer.swt.condition.ShellWithTextIsActive;
+import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.menu.ContextMenu;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
@@ -71,7 +72,7 @@ public class Project {
 		try {
 			getProjectItem(path);
 			result = true;
-		} catch (WidgetNotFoundException wnf) {
+		} catch (SWTLayerException swtle) {
 			result = false;
 		}
 		return result;
