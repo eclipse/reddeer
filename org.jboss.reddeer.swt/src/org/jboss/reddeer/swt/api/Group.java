@@ -6,5 +6,11 @@ package org.jboss.reddeer.swt.api;
  *
  */
 public interface Group {
+	
+	/**
+	 * @since 0.4
+	 * @return Text of group
+	 */
+	String getText();
 
 }
