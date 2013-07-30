@@ -2,10 +2,10 @@ package org.jboss.reddeer.swt.impl.table;
 
 import org.apache.log4j.Logger;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTable;
-import org.eclipse.swtbot.swt.finder.widgets.TimeoutException;
 import org.jboss.reddeer.swt.api.Table;
 import org.jboss.reddeer.swt.condition.TableHasRows;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
+import org.jboss.reddeer.swt.exception.WaitTimeoutExpiredException;
 import org.jboss.reddeer.swt.wait.WaitUntil;
 
 /**
@@ -72,8 +72,8 @@ public abstract class AbstractTable implements Table {
 	private void waitUntilTableHasRows(Table table) {
 		try {
 			new WaitUntil(new TableHasRows(table));
-		}catch (TimeoutException te) {
-			throw new SWTLayerException(te.getLocalizedMessage());
+		}catch (WaitTimeoutExpiredException wtee) {
+			throw new SWTLayerException(wtee.getLocalizedMessage());
 		}
 	}
 		

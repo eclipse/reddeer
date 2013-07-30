@@ -1,9 +1,10 @@
 package org.jboss.reddeer.eclipse.jdt.ui.ide;
 
-import org.eclipse.swtbot.swt.finder.widgets.TimeoutException;
 import org.jboss.reddeer.eclipse.jface.wizard.NewWizardDialog;
 import org.jboss.reddeer.swt.condition.JobIsRunning;
 import org.jboss.reddeer.swt.condition.ShellWithTextIsActive;
+import org.jboss.reddeer.swt.exception.SWTLayerException;
+import org.jboss.reddeer.swt.exception.WaitTimeoutExpiredException;
 import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.jboss.reddeer.swt.wait.TimePeriod;
@@ -38,10 +39,11 @@ public class NewJavaProjectWizardDialog extends NewWizardDialog{
 				}
 				new WaitWhile(new ShellWithTextIsActive(shell.getText()), TimePeriod.LONG);
 			}
-		// TODO WaitWhile needs to be overwritten to throw SWTLayerException
-		} catch (RuntimeException te) {
+		} catch (WaitTimeoutExpiredException wtee) {
 			log.info("Shell 'Open Associated Perspective' wasn't shown");
-		}
+		} catch (SWTLayerException sle) {
+      log.info("Shell 'Open Associated Perspective' wasn't shown");
+    }
 		new WaitWhile(new JobIsRunning(), TimePeriod.LONG);
 	}
 

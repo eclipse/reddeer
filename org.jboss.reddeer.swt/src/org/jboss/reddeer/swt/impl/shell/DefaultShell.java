@@ -1,11 +1,11 @@
 package org.jboss.reddeer.swt.impl.shell;
 
 import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
-import org.eclipse.swtbot.swt.finder.widgets.TimeoutException;
 import org.jboss.reddeer.swt.api.Shell;
 import org.jboss.reddeer.swt.condition.ShellWithTextIsActive;
 import org.jboss.reddeer.swt.condition.ShellIsActive;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
+import org.jboss.reddeer.swt.exception.WaitTimeoutExpiredException;
 import org.jboss.reddeer.swt.reference.ReferenceComposite;
 import org.jboss.reddeer.swt.reference.ReferencedComposite;
 import org.jboss.reddeer.swt.util.Bot;
@@ -59,8 +59,8 @@ public class DefaultShell extends AbstractShell implements Shell, ReferencedComp
 			} else {
 				new WaitUntil(new ShellWithTextIsActive(title));
 			}
-		}catch(TimeoutException te) {
-			throw new SWTLayerException(te.getLocalizedMessage());
+		}catch(WaitTimeoutExpiredException wtee) {
+			throw new SWTLayerException(wtee.getLocalizedMessage());
 		}
 
 	}

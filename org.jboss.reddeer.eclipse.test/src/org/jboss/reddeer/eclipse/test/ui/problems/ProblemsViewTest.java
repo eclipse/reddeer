@@ -2,7 +2,6 @@ package org.jboss.reddeer.eclipse.test.ui.problems;
 
 import static org.junit.Assert.assertEquals;
 
-import org.eclipse.swtbot.swt.finder.widgets.TimeoutException;
 import org.jboss.reddeer.eclipse.condition.ProblemsExists;
 import org.jboss.reddeer.eclipse.jdt.ui.NewJavaClassWizardDialog;
 import org.jboss.reddeer.eclipse.jdt.ui.NewJavaClassWizardPage;
@@ -12,6 +11,7 @@ import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.PackageExplorer;
 import org.jboss.reddeer.eclipse.ui.problems.ProblemsView;
 import org.jboss.reddeer.swt.test.RedDeerTest;
 import org.jboss.reddeer.swt.condition.JobIsRunning;
+import org.jboss.reddeer.swt.exception.WaitTimeoutExpiredException;
 import org.jboss.reddeer.swt.util.Bot;
 import org.jboss.reddeer.swt.wait.TimePeriod;
 import org.jboss.reddeer.swt.wait.WaitUntil;
@@ -52,7 +52,7 @@ public class ProblemsViewTest extends RedDeerTest{
 		super.tearDown();
 	}
 	
-	@Test(expected=TimeoutException.class)
+	@Test(expected=WaitTimeoutExpiredException.class)
 	public void testNoErrorNoWarning() {
 		problemsView.open();
 		new WaitUntil(new ProblemsExists(), TimePeriod.NORMAL);
