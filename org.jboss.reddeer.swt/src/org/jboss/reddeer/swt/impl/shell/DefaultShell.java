@@ -26,6 +26,7 @@ public class DefaultShell extends AbstractShell implements Shell, ReferencedComp
 			waitForShell(title);
 			shell = Bot.get().shell(title);
 			shell.setFocus();
+			setAsReference();
 			log.info("Shell with title '" + title + "' found");
 		}
 		catch (Exception e) {
@@ -38,6 +39,7 @@ public class DefaultShell extends AbstractShell implements Shell, ReferencedComp
 			waitForShell(null);
 			shell = Bot.get().activeShell();
 			shell.setFocus();
+			setAsReference();
 			log.info("Active shell with title '" + shell.getText() + "' found");
 		}
 		catch (WidgetNotFoundException e) {
