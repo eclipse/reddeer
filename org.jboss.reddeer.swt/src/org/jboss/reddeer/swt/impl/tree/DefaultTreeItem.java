@@ -12,6 +12,7 @@ import org.apache.log4j.Logger;
 import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
+import org.eclipse.swtbot.swt.finder.widgets.TimeoutException;
 import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.swt.condition.WaitCondition;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
@@ -98,29 +99,29 @@ protected final Logger logger = Logger.getLogger(this.getClass());
 			throw new SWTLayerException("No matching tree item found");
 		}
 		if (treeItemPath == null) {
-			new WaitUntil(new TreeHasChildren(tree));
+			handleWaitingForTreeChildren(tree);
 			item = tree.getAllItems()[treeItemIndex];
 			path = new String[] {item.getText()};
 		} else {
 			List<String> tiPath = new ArrayList<String>(Arrays.asList(treeItemPath));
-			new WaitUntil(new TreeHasChildren(tree));
+			handleWaitingForTreeChildren(tree);
 			item = tree.getTreeItem(tiPath.get(0));
 			tiPath.remove(0);
 			for (String treeItemNode : tiPath) {
-				new WaitUntil(new TreeItemFoundAfterExpanding(item, treeItemNode));
+				handleWaitingForTreeItemExpand(item, treeItemNode);
 				item = item.getNode(treeItemNode);
 			}
 			path = treeItemPath;
 		}
 		
 	}
-	
+
 	@Override
 	public void select() {
 		item.select();
-		new WaitUntil(new TreeItemIsSelected(item));
+		handleWaitingForTreeItemSelection(item);
 	}
-	
+
 	@Override
 	public String getText() {
 		String text = item.getText();
@@ -191,7 +192,7 @@ protected final Logger logger = Logger.getLogger(this.getClass());
 			return new DefaultTreeItem(treeIndex,joinTwoArrays(getPath(), treeItemPath));
 		}
 		else{
-			throw new WidgetNotFoundException("There is no Tree Item with text " + text);
+			throw new SWTLayerException("There is no Tree Item with text " + text);
 		}
 	}
 	
@@ -238,6 +239,31 @@ protected final Logger logger = Logger.getLogger(this.getClass());
 		System.arraycopy(array2, 0, finalArray, array1.length, array2.length);
 		return finalArray;
 	}
+	
+	private void handleWaitingForTreeChildren(SWTBotTree tree) {
+		try {
+			new WaitUntil(new TreeHasChildren(tree));
+		} catch (TimeoutException te) {
+			throw new SWTLayerException(te.getLocalizedMessage());
+		}
+	}
+	
+	private void handleWaitingForTreeItemExpand(SWTBotTreeItem item,
+			String treeItemNode) {
+		try {
+			new WaitUntil(new TreeItemFoundAfterExpanding(item, treeItemNode));
+		} catch (TimeoutException te) {
+			throw new SWTLayerException(te.getLocalizedMessage());
+		}
+	}
+	
+	private void handleWaitingForTreeItemSelection(SWTBotTreeItem item) {
+		try {
+			new WaitUntil(new TreeItemIsSelected(item));
+		} catch (TimeoutException te) {
+			throw new SWTLayerException(te.getLocalizedMessage());
+		}
+	}
 
 }
 
@@ -274,7 +300,6 @@ class TreeItemFoundAfterExpanding implements WaitCondition {
 		
 		try {
 			item.getNode(treeItemNode);
-			System.out.println(treeItemNode + " was found");
 			return true;
 		} catch (WidgetNotFoundException wnfe) {
 			item.collapse();
@@ -307,7 +332,7 @@ class TreeHasChildren implements WaitCondition {
 
 	@Override
 	public String description() {
-		return "Tree has no childre";
+		return "Tree has no children";
 	}
 	
 }
