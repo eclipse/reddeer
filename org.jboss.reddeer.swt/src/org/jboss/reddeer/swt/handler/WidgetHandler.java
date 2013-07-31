@@ -2,6 +2,7 @@ package org.jboss.reddeer.swt.handler;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.StyledText;
+import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.List;
@@ -11,6 +12,7 @@ import org.eclipse.ui.forms.widgets.Hyperlink;
 import org.eclipse.ui.forms.widgets.Section;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.lookup.WidgetResolver;
+import org.jboss.reddeer.swt.lookup.impl.WidgetLookup;
 import org.jboss.reddeer.swt.util.Display;
 import org.jboss.reddeer.swt.util.ResultRunnable;
 
@@ -44,6 +46,63 @@ public class WidgetHandler {
 			instance = new WidgetHandler();
 		}
 		return instance;
+	}
+	
+	/**
+	 * Click for supported widget type
+	 * 
+	 * @param w given widgets
+	 */
+	public <T> void click(final T w) {
+		Display.syncExec(new Runnable() {
+
+			@Override
+			public void run() {
+				if (w instanceof Button) {
+					final Button button = (Button) w;
+					WidgetLookup.getInstance().sendClickNotifications(button);
+					handleNotSelectedRadioButton(button);
+				} else {
+					throw new SWTLayerException("Unsupported type");
+				}
+			}
+
+			private void handleNotSelectedRadioButton(final Button button) {
+				if ((button.getStyle() & SWT.RADIO) == 0
+						|| button.getSelection()) {
+					return;
+				}
+
+				deselectSelectedSiblingRadio(button);
+				selectRadio(button);
+			}
+
+			private void deselectSelectedSiblingRadio(final Button button) {
+				if ((button.getParent().getStyle() & SWT.NO_RADIO_GROUP) != 0) {
+					return;
+				}
+				
+				Widget[] siblings = button.getParent().getChildren();
+				for (Widget widget : siblings) {
+					if (widget instanceof Button) {
+						Button sibling = (Button) widget;
+						if ((sibling.getStyle() & SWT.RADIO) != 0 && 
+								sibling.getSelection()) {
+							WidgetLookup.getInstance().notify(SWT.Deactivate, sibling);
+							sibling.setSelection(false);
+						}
+					}	
+				}
+			}
+			
+			private void selectRadio(Button button) {
+				WidgetLookup.getInstance().notify(SWT.Activate, button);
+				WidgetLookup.getInstance().notify(SWT.MouseDown, button);
+				WidgetLookup.getInstance().notify(SWT.MouseUp, button);
+				button.setSelection(true);
+				WidgetLookup.getInstance().notify(SWT.Selection, button);
+			}
+		});
 	}
 
 	/**
@@ -92,11 +151,33 @@ public class WidgetHandler {
 					return ((Section) w).getText();
 				else if (w instanceof StyledText)
 					return ((StyledText) w).getText();
+				else if (w instanceof Button)
+					return ((Button) w).getText();
 				else
 					throw new SWTLayerException("Unsupported type");
 			}
 		});
 		return text;
+	}
+	
+	/**
+	 * Gets style for supported widget type
+	 * 
+	 * @param w given widget
+	 * @return	returns widget style
+	 */
+	public <T> int getStyle(final T w) {
+		int style = Display.syncExec(new ResultRunnable<Integer>() {
+
+			@Override
+			public Integer run() {
+				if (w instanceof Widget)
+					return ((Widget) w).getStyle();
+				else
+					throw new SWTLayerException("Unsupported type");
+			}
+		});
+		return style;
 	}
 
 	/**
@@ -269,6 +350,26 @@ public class WidgetHandler {
 				}
 			}
 		});
+	}
+	
+	/**
+	 * Checks if supported widget is selected
+	 * 
+	 * @param w	given widget
+	 * @return	returns widget label text
+	 */
+	public <T> boolean isSelected(final T w) {
+		boolean selectionState = Display.syncExec(new ResultRunnable<Boolean>() {
+			
+			@Override
+			public Boolean run() {
+				if (w instanceof Button)
+					return ((Button) w).getSelection();
+				else
+					throw new SWTLayerException("Unsupported type");
+			}
+		});
+		return selectionState;
 	}
 	
 	/**
