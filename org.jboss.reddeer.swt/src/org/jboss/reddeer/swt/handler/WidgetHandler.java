@@ -3,6 +3,7 @@ package org.jboss.reddeer.swt.handler;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.StyledText;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.List;
 import org.eclipse.swt.widgets.Text;
@@ -92,6 +93,8 @@ public class WidgetHandler {
 					return ((Section) w).getText();
 				else if (w instanceof StyledText)
 					return ((StyledText) w).getText();
+				else if (w instanceof Group)
+					return ((Group) w).getText();
 				else
 					throw new SWTLayerException("Unsupported type");
 			}
