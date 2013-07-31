@@ -7,8 +7,10 @@ import org.jboss.reddeer.eclipse.ui.browser.BrowserView;
 import org.jboss.reddeer.swt.test.RedDeerTest;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
+@Ignore	// https://github.com/jboss-reddeer/reddeer/issues/219
 public class BrowserViewTest extends RedDeerTest{
 
 	private static BrowserView browserView;

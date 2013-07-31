@@ -14,6 +14,7 @@ import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
 import org.jboss.reddeer.swt.matcher.RegexMatchers;
 import org.jboss.reddeer.swt.util.Bot;
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -21,6 +22,7 @@ import org.junit.Test;
  * @author Jiri Peterka
  *
  */
+@Ignore	// https://github.com/jboss-reddeer/reddeer/issues/219
 public class BrowserTest extends RedDeerTest {
 
 	protected final Logger log = Logger.getLogger(this.getClass());
