@@ -12,9 +12,11 @@ import org.junit.Test;
 
 public class ProjectTest extends RedDeerTest {
 
-	private static final String PROJECT_NAME = "TestProject";
+	private static final String PROJECT_NAME_0 = "TestProject0";
+	private static final String PROJECT_NAME_1 = "TestProject1";
+	private static final String PROJECT_NAME_2 = "TestProject2";
 	private PackageExplorer packageExplorer;
-	private Project project;
+	private Project project0;
 		
 	@Override
 	protected void setUp(){
@@ -22,31 +24,56 @@ public class ProjectTest extends RedDeerTest {
 		NewJavaProjectWizardDialog dialog = new NewJavaProjectWizardDialog();
 		dialog.open();
 		NewJavaProjectWizardPage page1 = dialog.getFirstPage(); 
-		page1.setProjectName(ProjectTest.PROJECT_NAME);
+		page1.setProjectName(ProjectTest.PROJECT_NAME_0);
 		dialog.finish();
+
 		packageExplorer = new PackageExplorer();
-		project = packageExplorer.getProject(ProjectTest.PROJECT_NAME);
+		project0 = packageExplorer.getProject(ProjectTest.PROJECT_NAME_0);
 	}
 
 	@Test
-	public void select(){
-		project.select();
-		assertTrue("Project is not selected" , project.isSelected());
+	public void select() {
+		NewJavaProjectWizardDialog dialog = new NewJavaProjectWizardDialog();
+		dialog.open();
+		NewJavaProjectWizardPage page1 = dialog.getFirstPage();
+		page1.setProjectName(ProjectTest.PROJECT_NAME_1);
+		dialog.finish();
+		dialog = new NewJavaProjectWizardDialog();
+		dialog.open();
+		page1 = dialog.getFirstPage();
+		page1.setProjectName(ProjectTest.PROJECT_NAME_2);
+		dialog.finish();
+		final Project project1;
+		project1 = packageExplorer.getProject(ProjectTest.PROJECT_NAME_1);
+		final Project project2;
+		project2 = packageExplorer.getProject(ProjectTest.PROJECT_NAME_2);
+		project1.select();
+		assertTrue("Project " + project1.getName() + " is not selected",
+				project1.isSelected());
+		assertTrue("Project " + project0.getName() + " is selected",
+				!project0.isSelected());
+		assertTrue("Project " + project2.getName() + " is selected",
+				!project2.isSelected());
 	}
 	
 	@Test
 	public void delete(){
-		project.delete(true);
-		assertFalse("Package Explorer contains project " + ProjectTest.PROJECT_NAME +
+		project0.delete(true);
+		assertFalse("Package Explorer contains project " + ProjectTest.PROJECT_NAME_0 +
 				" but it should be deleted.",
-			packageExplorer.containsProject(ProjectTest.PROJECT_NAME));
-		/*super.tearDown();*/
+			packageExplorer.containsProject(ProjectTest.PROJECT_NAME_0));
 	}
 	
 	@Override
-	protected void tearDown(){
-		if (packageExplorer.containsProject(ProjectTest.PROJECT_NAME)){
-			packageExplorer.getProject(ProjectTest.PROJECT_NAME).delete(true);
+	protected void tearDown() {
+		if (packageExplorer.containsProject(ProjectTest.PROJECT_NAME_0)) {
+			packageExplorer.getProject(ProjectTest.PROJECT_NAME_0).delete(true);
+		}
+		if (packageExplorer.containsProject(ProjectTest.PROJECT_NAME_1)) {
+			packageExplorer.getProject(ProjectTest.PROJECT_NAME_1).delete(true);
+		}
+		if (packageExplorer.containsProject(ProjectTest.PROJECT_NAME_2)) {
+			packageExplorer.getProject(ProjectTest.PROJECT_NAME_2).delete(true);
 		}
 		super.tearDown();
 	}

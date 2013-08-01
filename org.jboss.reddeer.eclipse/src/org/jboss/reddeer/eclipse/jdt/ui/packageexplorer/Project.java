@@ -1,7 +1,6 @@
 package org.jboss.reddeer.eclipse.jdt.ui.packageexplorer;
 
 import org.apache.log4j.Logger;
-import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotCheckBox;
 import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.swt.condition.JobIsRunning;
@@ -26,12 +25,18 @@ public class Project {
 	private TreeItem treeItem;
 	
 	private String name;
-
+	/**
+	 * Creates project represented by treeItem
+	 * @param treeItem
+	 */
 	public Project(TreeItem treeItem) {
 		this.treeItem = treeItem;
 		name = parseName(this.treeItem.getText());
 	}
-
+	/**
+	 * Deletes project
+	 * @param deleteFromFileSystem
+	 */
 	public void delete(boolean deleteFromFileSystem) {
 		select();
         log.debug("Delete project " + name + " via Package Explorer");
@@ -47,26 +52,43 @@ public class Project {
 		new WaitWhile(new ShellWithTextIsActive(shell.getText()));
 		new WaitWhile(new JobIsRunning(), TimePeriod.LONG);
 	}
-
+	/**
+	 * Selects project
+	 */
 	public void select() {
 		treeItem.select();
 	}
-
+	/**
+	 * Parses project name and returns project name striped from additional info
+	 * displayed in explorer
+	 * @param label
+	 * @return
+	 */
 	protected String parseName(String label){
 		if (!label.contains("[")){
 			return label.trim();
 		}
 		return treeItem.getText().substring(0, treeItem.getText().indexOf("[")).trim();
 	}
-	
+	/**
+	 * Returns project name 
+	 * @return
+	 */
 	public String getName() {
 		return name;
 	}
-	
-	protected TreeItem getTreeItem (){
+	/**
+	 * Returns Tree Item representing project
+	 * @return 
+	 */
+	public TreeItem getTreeItem (){
 		return treeItem;
 	}
-
+	/**
+	 * Returns true when project contains item specified by path
+	 * @param path
+	 * @return
+	 */
 	public boolean containsItem(String... path) {
 		boolean result = false;
 		try {
@@ -77,7 +99,11 @@ public class Project {
 		}
 		return result;
 	}
-	
+	/**
+	 * Returns Project Item specified by path 
+	 * @param path
+	 * @return
+	 */
 	public ProjectItem getProjectItem(String... path){
 		TreeItem item = treeItem;
 		int index = 0;
@@ -87,11 +113,17 @@ public class Project {
 		}
 		return new ProjectItem(item, this, path);
 	}
-	
+	/**
+	 * Returns true when project is selected 
+	 * @return
+	 */
 	public boolean isSelected(){
 		return treeItem.isSelected();
 	}
-	
+	/**
+	 * Returns text of Project displayed in explorer
+	 * @return
+	 */
 	public String getText (){
 		return treeItem.getText();
 	}
