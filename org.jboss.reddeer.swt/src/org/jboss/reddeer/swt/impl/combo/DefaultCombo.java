@@ -1,37 +1,35 @@
 package org.jboss.reddeer.swt.impl.combo;
 
+import org.hamcrest.Matcher;
 import org.jboss.reddeer.swt.api.Combo;
-import org.jboss.reddeer.swt.util.Bot;
-
+import org.jboss.reddeer.swt.matcher.ComboLookup;
+import org.jboss.reddeer.swt.matcher.LabelMatcher;
 /**
  * Combo with label implementation
  * @author Vlado Pakan
  *
  */
 public class DefaultCombo extends AbstractCombo implements Combo {
-
+    /**
+     * Searches for combo with label 
+     * @param label
+     */
 	public DefaultCombo(String label) {
-		combo = Bot.get().comboBoxWithLabel(label);
+	  w = ComboLookup.getInstance().getCombo(0, new LabelMatcher(label));
 	}
-	
+	/**
+     * Searches for combo with index 
+     * @param index
+     */
 	public DefaultCombo(int index) {
-		combo = Bot.get().comboBox(index);
-	}
-	
-	/**
-	 * Combo with given index in given Group
-	 * @param index of combo
-	 * @param inGroup in group
-	 */
-	public DefaultCombo(String inGroup, int index){
-		combo = Bot.get().comboBoxInGroup(inGroup, index);
+	  w = ComboLookup.getInstance().getCombo(index);
 	}
 	/**
-	 * Combo with given text in given Group
-	 * @param label of combo
-	 * @param inGroup in group
-	 */
-	public DefaultCombo(String inGroup, String label){
-		combo = Bot.get().comboBoxWithLabelInGroup(label, inGroup);
+     * Searches for combo matching all matchers  
+     * @param matchers
+     */
+	@SuppressWarnings("rawtypes")
+	public DefaultCombo(Matcher... matchers) {
+	  w = ComboLookup.getInstance().getCombo(0, matchers);
 	}
 }
