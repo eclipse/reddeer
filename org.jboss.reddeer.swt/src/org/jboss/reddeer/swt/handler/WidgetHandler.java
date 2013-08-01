@@ -1,7 +1,11 @@
 package org.jboss.reddeer.swt.handler;
 
+import java.util.Arrays;
+
+import org.apache.log4j.Logger;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.StyledText;
+import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
@@ -29,6 +33,8 @@ import org.jboss.reddeer.swt.util.ResultRunnable;
  */
 public class WidgetHandler {
 
+	private final Logger log = Logger.getLogger(this.getClass());
+	
 	private static WidgetHandler instance;
 
 	private WidgetHandler() {
@@ -64,6 +70,9 @@ public class WidgetHandler {
 					((Text) w).setText(text);
 				else if (w instanceof StyledText)
 					((StyledText) w).setText(text);
+				else if(w instanceof Combo){
+					((Combo)w).setText(text);
+				}
 				else
 					throw new SWTLayerException("Unsupported type");
 
@@ -101,7 +110,102 @@ public class WidgetHandler {
 		});
 		return text;
 	}
-
+	
+	/**
+	 * Sets selection with given index for supported widget type
+	 * 
+	 * @param index
+	 */
+	public <T> void setSelection(final T w, final int index) {
+		Display.syncExec(new Runnable() {
+			
+			@Override
+			public void run() {
+				if (w instanceof Combo) {
+					int itemsLength = getItems(w).length;
+					if (index >= itemsLength) {
+						log.error("Combo does not have " + index + 1 + "items!");
+						log.info("Combo has " + itemsLength + " items");
+						throw new SWTLayerException("Nonexisted item in combo was requested");
+					} else {
+						((Combo)w).select(index);
+					}
+				}
+				else 
+					throw new SWTLayerException("Unsupported type");
+			}
+		});
+	}
+	
+	/**
+	 * Sets selection with given text for supported widget type
+	 * 
+	 * @param index
+	 */
+	public <T> void setSelection(final T w, final String text) {
+		Display.syncExec(new Runnable() {
+			
+			@Override
+			public void run() {
+				if (w instanceof Combo) {
+					String[] items = getItems(w);
+					int index = Arrays.asList(items).indexOf(text); 
+					if (index == -1) {
+						log.error("'" + text + "' is not "
+								+ "contained in combo items");
+						log.info("Items present in combo:");
+						int i = 0;
+						for (String item : items) {
+							log.info("    " + item + "(index " + i);
+							i++;
+						}
+						throw new SWTLayerException("Nonexisted item in combo was requested");
+					}else {
+						((Combo)w).select(index);
+					}
+				}
+			}
+		});
+	}
+	
+	/**
+	 * Gets selection text for supported widget type
+	 * 
+	 * @param index
+	 */
+	public <T> String getSelection(final T w) {
+		return Display.syncExec(new ResultRunnable<String>() {
+			
+			@Override
+			public String run() {
+				if (w instanceof Combo) {
+					return ((Combo)w).getItem(getSelectionIndex(w));
+				}
+				else 
+					throw new SWTLayerException("Unsupported type");
+			}
+		});
+	}
+	 
+	/**
+	 * Gets selection index for supported widget type
+	 * 
+	 * @param index
+	 */
+	public <T> int getSelectionIndex(final T w) {
+		return Display.syncExec(new ResultRunnable<Integer>() {
+			
+			@Override
+			public Integer run() {
+				if (w instanceof Combo) {
+					return ((Combo)w).getSelectionIndex();
+				}
+				else 
+					throw new SWTLayerException("Unsupported type");
+			}
+		});
+	}
+	 
 	/**
 	 * Gets items for supported widget type
 	 * 
@@ -116,6 +220,9 @@ public class WidgetHandler {
 			public String[] run() {
 				if (w instanceof List)
 					return ((List) w).getItems();
+				else if (w instanceof Combo) {
+					return ((Combo) w).getItems();
+				}
 				else
 					throw new SWTLayerException("Unsupported type");
 			}
@@ -285,7 +392,7 @@ public class WidgetHandler {
 
 			@Override
 			public String run() {
-				if ((w instanceof List) || (w instanceof Text)) {
+				if ((w instanceof List) || (w instanceof Text) || (w instanceof Combo)) {
 					Widget parent = ((Control)w).getParent();;
 					java.util.List<Widget> children = WidgetResolver.getInstance().getChildren(parent);
 					for (int i = 1; i < children.size() ; i++) {						
