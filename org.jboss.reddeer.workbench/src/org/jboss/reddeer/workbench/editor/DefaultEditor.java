@@ -130,6 +130,7 @@ public class DefaultEditor extends WorkbenchPart implements Editor {
 				}
 			});
 		}
+		setAsReference();
 	}
 
 	protected boolean isActive() {
