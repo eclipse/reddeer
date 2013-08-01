@@ -17,8 +17,6 @@ import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
 import org.jboss.reddeer.swt.lookup.impl.WidgetLookup;
 import org.jboss.reddeer.swt.lookup.impl.WorkbenchLookup;
 import org.jboss.reddeer.swt.matcher.RegexMatchers;
-import org.jboss.reddeer.swt.reference.ReferenceComposite;
-import org.jboss.reddeer.swt.reference.ReferencedComposite;
 import org.jboss.reddeer.swt.util.Display;
 import org.jboss.reddeer.swt.util.ResultRunnable;
 import org.jboss.reddeer.swt.wait.WaitWhile;
@@ -33,7 +31,7 @@ import org.jboss.reddeer.workbench.exception.ViewNotFoundException;
  * @author rhopp
  * 
  */
-public abstract class View extends WorkbenchPart implements ReferencedComposite {
+public abstract class View extends WorkbenchPart{
 
 	private static final String SHOW_VIEW = "Show View";
 
@@ -229,10 +227,7 @@ public abstract class View extends WorkbenchPart implements ReferencedComposite 
 		});
 	}
 	
-	@Override
-	public void setAsReference() {
-		ReferenceComposite.setComposite(null);
-	}
+	
 	
 	private boolean hasControlSpecificParent(final Control focusedControl,
 			final Control workbenchControl) {
