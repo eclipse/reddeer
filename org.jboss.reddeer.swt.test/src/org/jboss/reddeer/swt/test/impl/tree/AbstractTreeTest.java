@@ -11,21 +11,29 @@ import static org.hamcrest.core.IsCollectionContaining.hasItems;
 import java.util.Arrays;
 import java.util.List;
 
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.TreeEvent;
+import org.eclipse.swt.events.TreeListener;
 import org.eclipse.swt.widgets.Tree;
 import org.hamcrest.Description;
 import org.hamcrest.TypeSafeMatcher;
 import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
+import org.jboss.reddeer.swt.exception.WaitTimeoutExpiredException;
 import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
 import org.jboss.reddeer.swt.test.RedDeerTest;
 import org.jboss.reddeer.swt.test.ui.views.TreeEventsListener;
 import org.jboss.reddeer.swt.util.Display;
 import org.jboss.reddeer.swt.util.ResultRunnable;
+import org.jboss.reddeer.swt.wait.TimePeriod;
+import org.junit.After;
 import org.junit.Test;
 
 public class AbstractTreeTest extends RedDeerTest {
 
 	protected org.jboss.reddeer.swt.api.Tree tree;
+	private boolean threadAlreadyRunning = false;
+	private Thread generateDynamicTreeItems = null;
 
 	@Override
 	public void setUp() {
@@ -344,5 +352,111 @@ public class AbstractTreeTest extends RedDeerTest {
 			return item.getText().equals(expectedText);
 		}
 		
+	}
+	
+	private void createDynamicTreeItems(final Tree tree, final int initSleep,
+			final int delay, final int count) {
+		removeTreeItems(tree);
+		createTreeItem(tree, "A");
+		Display.syncExec(new Runnable() {
+			@Override
+			public void run() {
+				tree.addTreeListener(new TreeListener() {
+					@Override
+					public void treeExpanded(TreeEvent arg0) {
+						addDynamicTreeItems(
+								(org.eclipse.swt.widgets.TreeItem) arg0.item,
+								initSleep, delay, count);
+					}
+
+					@Override
+					public void treeCollapsed(TreeEvent arg0) {
+					}
+				});
+			}
+		});
+	}
+
+	@Test
+	public void testDynamicExpand() {
+		createDynamicTreeItems(tree.getSWTWidget(), 2000, 1000, 5);
+		DefaultTreeItem dfi = new DefaultTreeItem("A");
+		if (dfi.isExpanded()) {
+			dfi.collapse();
+		}
+		int expectedNumItems= 3;
+		dfi.expand(expectedNumItems,TimePeriod.getCustom(10));
+		int numItems = dfi.getItems().size();
+		assertTrue("Tree Item " + dfi.getText() + " has to have " 
+				+ expectedNumItems + " but has " + numItems,
+			numItems >= expectedNumItems);
+		// stops thread generating tree items
+		if (generateDynamicTreeItems != null){
+			generateDynamicTreeItems.interrupt();
+		}
+		// check if wait fails when short time out is used
+		createDynamicTreeItems(tree.getSWTWidget(), 2000, 1000, 5);
+		dfi = new DefaultTreeItem("A");
+		if (dfi.isExpanded()) {
+			dfi.collapse();
+		}
+		boolean wasException = false;
+		try{
+		  dfi.expand(expectedNumItems,TimePeriod.getCustom(3));
+		} catch (WaitTimeoutExpiredException wtee){
+			wasException = true;
+		}
+		assertTrue("WaitTimeoutExpiredException was not thrown" ,
+			wasException);
+	}
+
+	private void addDynamicTreeItems(
+			final org.eclipse.swt.widgets.TreeItem tiExpanded,
+			final int initSleep, final int delay, final int count) {
+		if (!isThreadAlreadyRunning()){
+			setThreadAlreadyRunning(true);
+			generateDynamicTreeItems = new Thread (new Runnable() {
+				@Override
+				public void run() {
+					try {
+						Thread.sleep(initSleep);
+						for (int index = 0; index < count; index++) {
+							Thread.sleep(delay);
+							final String itemLabel = "A" + index;
+							if (Display.getDisplay() != null){
+								Display.syncExec(new Runnable() {
+									@Override
+									public void run() {
+										org.eclipse.swt.widgets.TreeItem item = new org.eclipse.swt.widgets.TreeItem(
+											tiExpanded, SWT.None);
+										item.setText(itemLabel);
+										if (itemLabel.equals("A0")){
+											tiExpanded.setExpanded(true);
+										}
+									}
+								});
+							}
+						}	
+						setThreadAlreadyRunning(false);
+					} catch (InterruptedException e) {
+					}
+				}
+			});
+			generateDynamicTreeItems.start();
+		}
+	}
+
+	public boolean isThreadAlreadyRunning() {
+		return threadAlreadyRunning;
+	}
+
+	public synchronized void setThreadAlreadyRunning(boolean threadAlreadyRunning) {
+		this.threadAlreadyRunning = threadAlreadyRunning;
+	}
+	@After
+	public void cleanUp(){
+		if (generateDynamicTreeItems != null){
+			generateDynamicTreeItems.interrupt();
+		}
 	}
 }

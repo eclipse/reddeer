@@ -2,6 +2,8 @@ package org.jboss.reddeer.swt.api;
 
 import java.util.List;
 
+import org.jboss.reddeer.swt.wait.TimePeriod;
+
 /**
  * API for Tree item manipulation
  * 
@@ -74,7 +76,7 @@ public interface TreeItem {
 	void select();
 	
 	/**
-	 * Expand tree item
+	 * Expand tree item and waits with default time period
 	 */
 	void expand();
 	
@@ -107,4 +109,27 @@ public interface TreeItem {
 	 * @return
 	 */
 	org.eclipse.swt.widgets.TreeItem getSWTWidget();
+	/**
+	 * Expands tree item and waits with default timePeriod until expanded tree item
+	 * has minItemsCount children
+	 * @param minItemsCount
+	 */
+	void expand(int minItemsCount);
+	/**
+	 * Expands tree item and waits with timePeriod until expanded tree item
+	 * has minItemsCount children
+	 * @param minItemsCount
+	 * @param timePeriod
+	 */
+	void expand(int minItemsCount , TimePeriod timePeriod);
+	/**
+	 * Expands tree item and waits with timePeriod
+	 * @param timePeriod
+	 */
+	void expand(TimePeriod timePeriod);
+	/**
+	 * Returns true when item is expanded 
+	 * @return
+	 */
+	 boolean isExpanded();
 }

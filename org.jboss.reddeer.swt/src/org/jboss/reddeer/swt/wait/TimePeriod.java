@@ -9,7 +9,7 @@ package org.jboss.reddeer.swt.wait;
  */
 public enum TimePeriod {
 
-	NORMAL(10), LONG(60), VERY_LONG(300), CUSTOM(-1);
+	NONE(0),SHORT(1),NORMAL(10), LONG(60), VERY_LONG(300), CUSTOM(-1);
 	
 	private long seconds;
 	
