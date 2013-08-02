@@ -166,6 +166,7 @@ public class AbstractTreeTest extends RedDeerTest {
     DefaultTreeItem dfi1 = new DefaultTreeItem("B","BB");
     DefaultTreeItem dfi2 = new DefaultTreeItem("A","AA","AAB");
     DefaultTreeItem dfi3 = new DefaultTreeItem("C");
+    DefaultTreeItem dfiNotSelected = new DefaultTreeItem("A","AA");
     TreeEventsListener treeEventsListener = new TreeEventsListener(dfi0.getParent().getSWTWidget());
     treeEventsListener.addListeners();
     dfi0.getParent().selectItems(dfi0,dfi1,dfi2,dfi3);
@@ -177,6 +178,8 @@ public class AbstractTreeTest extends RedDeerTest {
         + " is not selected",dfi2.isSelected());
     assertTrue("TreeItem " + printFormattedStringArray(dfi3.getPath())
         + " is not selected",dfi3.isSelected());
+    assertFalse("TreeItem " + printFormattedStringArray(dfi3.getPath())
+            + " is selected",dfiNotSelected.isSelected());
     assertTrue("Selection event was not fired",treeEventsListener.wasSelectionEvent());
     assertFalse("Selection event has been check event",
         treeEventsListener.wasCheckEvent());
@@ -192,6 +195,9 @@ public class AbstractTreeTest extends RedDeerTest {
         + " is selected",dfi2.isSelected());
     assertFalse("TreeItem " + printFormattedStringArray(dfi3.getPath())
         + " is selected",dfi3.isSelected());
+    assertFalse("TreeItem " + printFormattedStringArray(dfi3.getPath())
+            + " is selected",dfiNotSelected.isSelected());
+
     treeEventsListener.removeListeners();
   }
   @Test
