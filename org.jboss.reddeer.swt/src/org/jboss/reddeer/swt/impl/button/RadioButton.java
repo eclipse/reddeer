@@ -1,70 +1,80 @@
 package org.jboss.reddeer.swt.impl.button;
 
 import org.apache.log4j.Logger;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotRadio;
+import org.eclipse.swt.SWT;
 import org.jboss.reddeer.swt.api.Button;
-import org.jboss.reddeer.swt.util.Bot;
+import org.jboss.reddeer.swt.handler.WidgetHandler;
+import org.jboss.reddeer.swt.lookup.impl.WidgetLookup;
+import org.jboss.reddeer.swt.matcher.ButtonLookup;
+import org.jboss.reddeer.swt.matcher.StyleMatcher;
+import org.jboss.reddeer.swt.matcher.TextMatcher;
+import org.jboss.reddeer.swt.matcher.WithMnemonicMatcher;
 
+/**
+ * RadioButton is button implementation that can be selected
+ * @author jjankovi
+ *
+ */
 public class RadioButton implements Button {
 
 	private static final Logger log = Logger.getLogger(RadioButton.class);
 	
-	private SWTBotRadio radioButton;
+	private org.eclipse.swt.widgets.Button radioButton;
 	
-	
+	/**
+	 * Creates Radio button
+	 */
 	public RadioButton() {
-		radioButton = Bot.get().radio();
+		this(0);
 	}
 	
 	/**
-	 * Radio button with given text
+	 * Creates Radio button with given text
 	 * @param text
 	 */
 	public RadioButton(String text) {
-		radioButton = Bot.get().radio(text);
+		this(0, text);
 	}
 	/**
-	 * Radio button with given index
+	 * Creates Radio button with given index
 	 * @param text
 	 */
-	public RadioButton(int index){
-		radioButton	= Bot.get().radio(index);
+	public RadioButton(int index) {
+		this(index, null);
 	}
 	
 	/**
-	 * Radio button with given index in given Group
+	 * Creates Radio button with given index and label
 	 * @param index of button
-	 * @param inGroup in group
+	 * @param label of button
 	 */
-	public RadioButton(String inGroup, int index){
-		radioButton = Bot.get().radioInGroup(inGroup, index);
-	}
-	/**
-	 * Radio button with given text in given Group
-	 * @param text of button
-	 * @param inGroup in group
-	 */
-	public RadioButton(String inGroup, String text){
-		radioButton = Bot.get().radioInGroup(inGroup, text);
+	public RadioButton(int index, String text) {
+		if (text != null && !text.isEmpty()) {
+			radioButton = ButtonLookup.getInstance().getButton(
+					index, new WithMnemonicMatcher(text), new StyleMatcher(SWT.RADIO));
+		} else {
+			radioButton = ButtonLookup.getInstance().getButton(
+					index, new StyleMatcher(SWT.RADIO));
+		}
 	}
 	
 	@Override
 	public void click() {
 		log.info("Clicking radio button " + getText());
-		radioButton.click();
+		WidgetHandler.getInstance().click(radioButton);
 	}
 
 	@Override
 	public String getText() {
-		return radioButton.getText();
+		return WidgetHandler.getInstance().getText(radioButton);
 	}
 
 	@Override
 	public boolean isEnabled() {
-		return radioButton.isEnabled();
+		return WidgetLookup.getInstance().isEnabled(radioButton);
 	}
 
 	public boolean isSelected() {
-		return radioButton.isSelected();
+		return WidgetHandler.getInstance().isSelected(radioButton);
 	}
 }

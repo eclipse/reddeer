@@ -79,7 +79,7 @@ public class WidgetLookup {
 		notify(SWT.FocusOut, widget);
 	}
 
-	private void notify(int eventType, Widget widget) {
+	public void notify(int eventType, Widget widget) {
 		Event event = createEvent(widget);
 		notify(eventType, event, widget);
 		
@@ -268,7 +268,6 @@ public class WidgetLookup {
 	 */
 	@SuppressWarnings("unchecked")
 	private <T extends Widget> List<T> findControlsUI(final Widget parentWidget, final Matcher<T> matcher, final boolean recursive) {
-		
 	
 		if ((parentWidget == null) || parentWidget.isDisposed())
 			return new ArrayList<T>();

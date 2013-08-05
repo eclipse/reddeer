@@ -2,6 +2,8 @@ package org.jboss.reddeer.swt.matcher;
 
 import org.hamcrest.BaseMatcher;
 import org.hamcrest.Description;
+import org.jboss.reddeer.swt.exception.SWTLayerException;
+import org.jboss.reddeer.swt.handler.WidgetHandler;
 
 /**
  * With Mnemonic matcher. Should be used for menu item label matching.
@@ -35,6 +37,15 @@ public class WithMnemonicMatcher extends BaseMatcher<String> {
 				return true;
 			}
 			
+		} else {
+			try {
+				String widgetText = WidgetHandler.getInstance().getText(item);
+				String textToMatch = (widgetText).replaceAll("&", "").split("\t")[0];
+				if (textToMatch.equals(text))
+					return true;
+			} catch (SWTLayerException sle) {
+				// object is not supported by widget handler mechanism 'getText' 
+			}
 		}
 		return false;
 	}
