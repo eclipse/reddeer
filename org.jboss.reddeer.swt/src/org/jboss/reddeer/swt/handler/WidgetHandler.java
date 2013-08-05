@@ -4,6 +4,7 @@ import java.util.Arrays;
 
 import org.apache.log4j.Logger;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.CTabItem;
 import org.eclipse.swt.custom.StyledText;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Combo;
@@ -207,6 +208,8 @@ public class WidgetHandler {
 					return ((Combo) w).getText();
 				else if (w instanceof Button)
 					return ((Button) w).getText();
+				else if (w instanceof CTabItem)
+					return ((CTabItem) w).getText();
 				else
 					throw new SWTLayerException("Unsupported type");
 			}
@@ -455,7 +458,9 @@ public class WidgetHandler {
 				if (w instanceof Text)
 					return ((Text) w).getToolTipText();
 				else if (w instanceof Combo)
-          return ((Combo) w).getToolTipText();
+					return ((Combo) w).getToolTipText();
+				else if (w instanceof CTabItem)
+					return ((CTabItem) w).getToolTipText();
 				else
 					throw new SWTLayerException("Unsupported type");
 			}
