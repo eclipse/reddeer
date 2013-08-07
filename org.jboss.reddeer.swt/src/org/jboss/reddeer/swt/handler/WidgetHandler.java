@@ -6,6 +6,7 @@ import org.apache.log4j.Logger;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CTabItem;
 import org.eclipse.swt.custom.StyledText;
+import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Control;
@@ -526,7 +527,7 @@ public class WidgetHandler {
 	            log.info("    " + item + "(index " + i);
 	            i++;
 	          }
-	          throw new SWTLayerException("Nonexisted item in combo was requested");
+	          throw new SWTLayerException("Nonexisting item in combo was requested");
 	        }else {
 	          ((Combo)w).select(index);
 	        }
@@ -546,7 +547,14 @@ public class WidgetHandler {
 	    @Override
 	    public String run() {
 	      if (w instanceof Combo) {
-	        return ((Combo)w).getItem(getSelectionIndex(w));
+	    	Combo combo = (Combo)w;
+	    	Point selection = combo.getSelection();
+	    	String comboText = combo.getText();
+	    	String selectionText = "";
+	    	if (selection.y > selection.x){
+	    		selectionText = comboText.substring(selection.x , selection.y);
+	    	}
+	        return selectionText;
 	      }
 	      else 
 	        throw new SWTLayerException("Unsupported type");

@@ -27,7 +27,7 @@ public interface Combo {
    */
   public void setSelection(String selection);
   /**
-   * Returns text of selected item within combo
+   * Returns selected text in combo widget
    * @return
    */
   public String getSelection();
