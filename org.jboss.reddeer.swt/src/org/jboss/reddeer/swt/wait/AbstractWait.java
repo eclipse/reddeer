@@ -76,7 +76,7 @@ public abstract class AbstractWait {
 	 * @param millis
 	 *            the time in milliseconds to sleep
 	 */
-	protected static void sleep(long millis) {
+	public static void sleep(long millis) {
 		try {
 			Thread.sleep(millis);
 		} catch (InterruptedException e) {

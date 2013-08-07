@@ -13,6 +13,7 @@ import org.jboss.reddeer.swt.condition.TreeItemHasMinChildren;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.util.Display;
 import org.jboss.reddeer.swt.util.ResultRunnable;
+import org.jboss.reddeer.swt.wait.AbstractWait;
 import org.jboss.reddeer.swt.wait.TimePeriod;
 import org.jboss.reddeer.swt.wait.WaitUntil;
 
@@ -132,11 +133,7 @@ public abstract class AbstractTreeItem implements TreeItem {
 					swtTreeItem.setExpanded(true);
 				}
 			});
-			try {
-				Thread.sleep(timePeriod.getSeconds()*1000);
-			} catch (InterruptedException e) {
-				// do nothing
-			}
+			AbstractWait.sleep(timePeriod.getSeconds()*1000);
 		} else {
 			logger.debug("Tree Item " + getText()
 					+ " is already expanded. No action performed");
