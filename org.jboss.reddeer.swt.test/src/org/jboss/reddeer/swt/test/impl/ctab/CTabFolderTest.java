@@ -73,8 +73,8 @@ public class CTabFolderTest extends RedDeerTest{
 		new DefaultCTabItem(index).activate();
 		String expectedCTabItemContent = CTabFolderTest.CONTENT_PREFIX + index;
 		String cTabItemContent = new DefaultText(0).getText(); 
-		assertTrue("cTabItem content is " + expectedCTabItemContent
-				+ "\nbut expectedCTabItem content is " + cTabItemContent,
+		assertTrue("cTabItem content is " + cTabItemContent
+				+ "\nbut expected CTabItem content is " + expectedCTabItemContent,
 			cTabItemContent.equals(expectedCTabItemContent));
 	}
 	@Test
@@ -83,8 +83,8 @@ public class CTabFolderTest extends RedDeerTest{
 		new DefaultCTabItem(CTabFolderTest.ITEM_LABEL_PREFIX + index).activate();
 		String expectedCTabItemContent = CTabFolderTest.CONTENT_PREFIX + index;
 		String cTabItemContent = new DefaultText(0).getText(); 
-		assertTrue("cTabItem content is " + expectedCTabItemContent
-				+ "\nbut expectedCTabItem content is " + cTabItemContent,
+		assertTrue("cTabItem content is " + cTabItemContent
+				+ "\nbut expected CTabItem content is " + expectedCTabItemContent,
 			cTabItemContent.equals(expectedCTabItemContent));
 	}
 	@Test(expected = SWTLayerException.class)

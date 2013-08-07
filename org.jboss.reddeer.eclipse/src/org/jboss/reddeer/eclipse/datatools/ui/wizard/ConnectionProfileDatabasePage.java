@@ -22,7 +22,7 @@ public abstract class ConnectionProfileDatabasePage extends WizardPage {
 	}
 
 	public String getDriver() {
-		return new DefaultCombo(LABEL_DRIVER).getSelection();
+		return new DefaultCombo(LABEL_DRIVER).getText();
 	}
 
 	public void setDriver(String driver) {

@@ -15,14 +15,14 @@ public class DefaultCombo extends AbstractCombo implements Combo {
      * @param label
      */
 	public DefaultCombo(String label) {
-	  w = ComboLookup.getInstance().getCombo(0, new LabelMatcher(label));
+	  swtCombo = ComboLookup.getInstance().getCombo(0, new LabelMatcher(label));
 	}
 	/**
      * Searches for combo with index 
      * @param index
      */
 	public DefaultCombo(int index) {
-	  w = ComboLookup.getInstance().getCombo(index);
+	  swtCombo = ComboLookup.getInstance().getCombo(index);
 	}
 	/**
      * Searches for combo matching all matchers  
@@ -30,6 +30,6 @@ public class DefaultCombo extends AbstractCombo implements Combo {
      */
 	@SuppressWarnings("rawtypes")
 	public DefaultCombo(Matcher... matchers) {
-	  w = ComboLookup.getInstance().getCombo(0, matchers);
+	  swtCombo = ComboLookup.getInstance().getCombo(0, matchers);
 	}
 }
