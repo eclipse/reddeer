@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Event;
@@ -12,6 +13,7 @@ import org.eclipse.swt.widgets.Widget;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.IWorkbenchPartReference;
 import org.eclipse.ui.IWorkbenchSite;
+import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.lookup.WidgetResolver;
@@ -32,6 +34,7 @@ import org.jboss.reddeer.swt.util.ResultRunnable;
 public class WidgetLookup {
 	
 	private static WidgetLookup instance = null;
+	protected final Logger logger = Logger.getLogger(this.getClass());
 	
 	private WidgetLookup() {
 	}
@@ -163,6 +166,11 @@ public class WidgetLookup {
 		ClassMatcher cm = new ClassMatcher(clazz);
 		Matcher[] allMatchers = MatcherBuilder.getInstance().addMatcher(matchers, cm);
 		AndMatcher am  = new AndMatcher(allMatchers);
+		logger.debug("Search for activeWidget of class: " + clazz.getName()
+				+  "\n  index: " + index);
+		for (int ind = 0 ; ind < matchers.length ; ind++ ){
+			logger.debug("Matcher: " + matchers[ind].getClass());
+		}
 		return (T)getProperWidget(activeWidgets(am), index);
 	}
 	
