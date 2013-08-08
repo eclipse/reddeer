@@ -58,25 +58,33 @@ public abstract class AbstractTree implements Tree {
   }
 	
   public void selectItems(final TreeItem... treeItems){
+	logger.debug("Selecting tree items: ");
     setFocus();
     Display.syncExec(new Runnable() {
       public void run() {
         List<org.eclipse.swt.widgets.TreeItem> selection = new ArrayList<org.eclipse.swt.widgets.TreeItem>();
         for (TreeItem treeItem : treeItems) {
+          logger.debug("Tree item to add to selection: " + treeItem.getSWTWidget().getText());
           selection.add(treeItem.getSWTWidget());
         }
         if (!(SWT.MULTI == (swtTree.getStyle() & SWT.MULTI)) && treeItems.length > 1)
           logger.warn("Tree does not support SWT.MULTI, cannot make multiple selections"); //$NON-NLS-1$
+        logger.debug("Setting Tree selection");
         swtTree.setSelection(selection.toArray(new org.eclipse.swt.widgets.TreeItem[] {}));
       }
     });
-    notifySelect();  
+    notifySelect();
+    logger.info("Selected Tree Items:");
+    for (TreeItem treeItem : treeItems){
+    	logger.info("  " + treeItem);
+    }
   }
   
   public void setFocus(){
     Display.syncExec(new Runnable() {
       public void run() {
         if (!swtTree.isFocusControl()){
+          logger.debug("Setting focus to Tree");	
           swtTree.forceFocus();
         }
       }
@@ -86,10 +94,12 @@ public abstract class AbstractTree implements Tree {
   public void unselectAllItems(){
     Display.syncExec(new Runnable() {
       public void run() {
+    	logger.debug("Unselect all tree items");
         swtTree.deselectAll();
       }
     });    
     notifySelect();
+    logger.info("All tree items unselected");
   }
   
 	public org.eclipse.swt.widgets.Tree getSWTWidget(){
@@ -102,6 +112,7 @@ public abstract class AbstractTree implements Tree {
   private void notifySelect() {
     Display.syncExec(new Runnable() {
       public void run() {
+    	logger.debug("Notify Tree about selection event");
         swtTree.notifyListeners(SWT.Selection, createSelectionEvent());
       }
     });

@@ -1,8 +1,11 @@
 package org.jboss.reddeer.swt.lookup.impl;
 
 import org.eclipse.swt.widgets.Shell;
+import org.jboss.reddeer.swt.condition.ShellIsActive;
 import org.jboss.reddeer.swt.util.Display;
 import org.jboss.reddeer.swt.util.ResultRunnable;
+import org.jboss.reddeer.swt.wait.TimePeriod;
+import org.jboss.reddeer.swt.wait.WaitUntil;
 
 /**
  * Shell Lookup, this contains routines for ToolBar implementation that have are widely used 
@@ -13,7 +16,7 @@ import org.jboss.reddeer.swt.util.ResultRunnable;
 public class ShellLookup {
 
 	public Shell getActiveShell() {
-
+		new WaitUntil(new ShellIsActive(),TimePeriod.NORMAL, false);
 		final Shell[] s = new Shell[1];
 		Display.syncExec(new Runnable() {
 

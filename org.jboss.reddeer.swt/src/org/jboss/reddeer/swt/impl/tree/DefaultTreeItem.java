@@ -19,7 +19,7 @@ import org.jboss.reddeer.swt.wait.WaitUntil;
  */
 public class DefaultTreeItem extends AbstractTreeItem {
 
-protected final Logger logger = Logger.getLogger(this.getClass());
+protected static final Logger logger = Logger.getLogger(DefaultTreeItem.class);
 	/**
 	 * Default parameter-less constructor
 	 */
@@ -81,9 +81,17 @@ protected final Logger logger = Logger.getLogger(this.getClass());
   private static org.eclipse.swt.widgets.TreeItem findTreeItem(int treeIndex, int treeItemIndex){
     Tree tree = new DefaultTree(treeIndex);
     new WaitUntil(new TreeHasChildren(tree));
-    int size = tree.getItems().size();
-    if (size < treeItemIndex + 1) {
-      throw new SWTLayerException("No matching tree item found");
+    logger.debug("Searching for tree item with index: " + treeIndex);
+    List<TreeItem> items = tree.getItems();
+    if (items.size() < treeItemIndex + 1) {
+    	SWTLayerException exception = new SWTLayerException("No matching tree item found");
+    	exception.addMessageDetail("Tree Index: " + treeIndex);
+    	exception.addMessageDetail("Tree Item Index: " + treeItemIndex);
+    	exception.addMessageDetail("Tree has these " + items.size()  +" Tree Items:");
+    	for (TreeItem treeItem : items){
+			exception.addMessageDetail("  " + treeItem.getText());
+		}
+      throw exception;
     }
     else{
       return tree.getItems().get(treeItemIndex).getSWTWidget();
@@ -104,6 +112,7 @@ protected final Logger logger = Logger.getLogger(this.getClass());
     int index = 0;
     while (index < treeItemPath.length){
       String pathItem = treeItemPath[index];
+      logger.debug("Searching for tree item with label: " + pathItem);
       TreeItem tiItem = null;
       boolean isFound = false;
       Iterator<TreeItem> itTreeItem = items.iterator();
@@ -123,55 +132,27 @@ protected final Logger logger = Logger.getLogger(this.getClass());
         }  
       }
       else{
-        throw new SWTLayerException("No matching tree item found");
+    	SWTLayerException exception = new SWTLayerException("No matching tree item found");
+      	exception.addMessageDetail("Tree Index: " + treeIndex);
+      	StringBuffer sbPath = new StringBuffer("");
+      	for (String treeItem : treeItemPath){
+      		if (sbPath.length() > 0){
+      			sbPath.append(" > ");
+      		}	
+      		sbPath.append(treeItem);
+  		}
+      	exception.addMessageDetail("Tree Item Path: " + sbPath.toString());
+      	exception.addMessageDetail("Unalbe to find path item with text: " + pathItem);
+      	exception.addMessageDetail("These Tree Items have been found at level where path item " + pathItem + " was expected:");
+      	for (TreeItem treeItem : items){
+      		exception.addMessageDetail("  " + treeItem.getText());	
+      	}
+      	throw exception;
       }
       index++;
     }
     return result;
   }
-}
-
-/**
- * Condition is fulfilled when tree item has children 
- * 
- * @author jjankovi
- *
- */
-class TreeItemFoundAfterExpanding implements WaitCondition {
-  protected final Logger logger = Logger.getLogger(this.getClass());
-  
-	private String treeItemNode;
-	private TreeItem item;
-	
-	public TreeItemFoundAfterExpanding(TreeItem item, String treeItemNode) {
-		super();
-		this.treeItemNode = treeItemNode;
-		this.item = item;
-	}
-	
-	@Override
-	public boolean test() {
-		item.collapse();
-		item.expand();
-		return nodeIsFound(treeItemNode);		
-	}
-
-	@Override
-	public String description() {
-		return "Tree item '" + treeItemNode + "' not found.";
-	}
-	
-	private boolean nodeIsFound(String treeItemNode) {
-		
-		try {
-			item.getItem(treeItemNode);
-			logger.info(treeItemNode + " was found");
-			return true;
-		} catch (SWTLayerException swtle) {
-			item.collapse();
-			return false;
-		}
-	}
 }
 
 /**
@@ -197,31 +178,4 @@ class TreeHasChildren implements WaitCondition {
 		return "Tree has no children";
 	}
 	
-}
-
-/**
- * Condition is fulfilled when tree item is selected
- * 
- * @author jjankovi
- *
- */
-class TreeItemIsSelected implements WaitCondition {
-
-	private TreeItem item; 
-	
-	public TreeItemIsSelected(TreeItem item) {
-		super();
-		this.item = item;
-	}
-
-	@Override
-	public boolean test() {
-		return item.isSelected();
-	}
-
-	@Override
-	public String description() {
-		return "Tree item '" + item.getText() + "' cannot be selected.";
-	}
-
 }

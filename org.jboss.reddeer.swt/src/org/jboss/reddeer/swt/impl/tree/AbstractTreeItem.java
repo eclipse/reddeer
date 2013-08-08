@@ -49,11 +49,14 @@ public abstract class AbstractTreeItem implements TreeItem {
 		Display.syncExec(new Runnable() {
 			@Override
 			public void run() {
+				logger.debug("Selecting tree item: " + swtTreeItem.getText());
 				swtTreeItem.getParent().setFocus();
 				swtTreeItem.getParent().setSelection(swtTreeItem);
 			}
 		});
+		logger.debug("Notify tree item " + getText() + " about selection");
 		notifyTree(createEventForTree(SWT.Selection));
+		logger.info("Selected: " + this);
 	}
 
 	/**
@@ -126,24 +129,27 @@ public abstract class AbstractTreeItem implements TreeItem {
 	 */
 	@Override
 	public void expand(TimePeriod timePeriod) {
-		logger.info("Expanding Tree Item " + getText());
+		logger.debug("Expanding Tree Item " + getText());
 		if (!isExpanded()) {
-			if (!Utils.isRunningOS(OS.WINDOWS)){
-				notifyTree(createEventForTree(SWT.Expand));
-			}
-			Display.syncExec(new Runnable() {
-				@Override
-				public void run() {
-					swtTreeItem.setExpanded(true);
+			if (!isExpanded()) {
+				if (!Utils.isRunningOS(OS.WINDOWS)){
+					notifyTree(createEventForTree(SWT.Expand));
 				}
-			});
-			if (Utils.isRunningOS(OS.WINDOWS)){
-				notifyTree(createEventForTree(SWT.Expand));
+				Display.syncExec(new Runnable() {
+					@Override
+					public void run() {
+						swtTreeItem.setExpanded(true);
+					}
+				});
+				if (Utils.isRunningOS(OS.WINDOWS)){
+					notifyTree(createEventForTree(SWT.Expand));
+				}
+				AbstractWait.sleep(timePeriod.getSeconds()*1000);
+				logger.info("Expanded: " + this);
+			} else {
+				logger.debug("Tree Item " + getText()
+						+ " is already expanded. No action performed");
 			}
-			AbstractWait.sleep(timePeriod.getSeconds()*1000);
-		} else {
-			logger.info("Tree Item " + getText()
-					+ " is already expanded. No action performed");
 		}
 	}
 	/**
@@ -156,14 +162,17 @@ public abstract class AbstractTreeItem implements TreeItem {
 			Display.syncExec(new Runnable() {
 				@Override
 				public void run() {
+					logger.debug("Setting tree item " + swtTreeItem.getText() + " collapsed");
 					swtTreeItem.setExpanded(false);
 				}
 			});
+			logger.debug("Notify tree about collapse event");
 			notifyTree(createEventForTree(SWT.Collapse));
 		} else {
 			logger.debug("Tree Item " + getText()
 					+ " is already collapsed. No action performed");
 		}
+		logger.info("Collapsed: " + this);
 	}
 
 	/**
@@ -174,6 +183,7 @@ public abstract class AbstractTreeItem implements TreeItem {
 	 * @return direct descendant specified with parameters
 	 */
 	public TreeItem getItem(final String text) {
+		logger.debug("Getting child tree item " + text + " of tree item " + getText());
 		expand();
 		TreeItem result = Display.syncExec(new ResultRunnable<TreeItem>() {
 			@Override
@@ -199,8 +209,13 @@ public abstract class AbstractTreeItem implements TreeItem {
 		if (result != null) {
 			return result;
 		} else {
-			throw new SWTLayerException("There is no Tree Item with text "
-					+ text);
+			SWTLayerException exception = new SWTLayerException("Tree Item " + this 
+				+ " has no Tree Item with text " + text);
+			exception.addMessageDetail("Tree Item " + this + " has these direct children:");
+			for (TreeItem treeItem : this.getItems()){
+				exception.addMessageDetail("  " + treeItem.getText());
+			}
+			throw exception;
 		}
 	}
 
@@ -211,8 +226,11 @@ public abstract class AbstractTreeItem implements TreeItem {
 	public void doubleClick() {
 		logger.debug("Double Click Tree Item " + getText());
 		select();
+		logger.debug("Notify tree about mouse double click event");
 		notifyTree(createEventForTree(SWT.MouseDoubleClick));
+		logger.debug("Notify tree about default selection event");
 		notifyTree(createEventForTree(SWT.DefaultSelection));
+		logger.info("Double Clicked on: " + this);
 	}
 
 	/**
@@ -250,7 +268,9 @@ public abstract class AbstractTreeItem implements TreeItem {
 				swtTreeItem.setChecked(check);
 			}
 		});
+		logger.debug("Notify tree about check event");
 		notifyTree(createEventForTree(SWT.Selection, SWT.CHECK));
+		logger.info((check ? "Checked: " : "Unchecked: ") + this);
 	}
 
 	/**
@@ -354,7 +374,6 @@ public abstract class AbstractTreeItem implements TreeItem {
 	 */
 	@Override
 	public boolean isExpanded() {
-		logger.debug("Expanding Tree Item " + getText());
 		return Display.syncExec(new ResultRunnable<Boolean>() {
 			@Override
 			public Boolean run() {
@@ -376,5 +395,20 @@ public abstract class AbstractTreeItem implements TreeItem {
 	public void expand(int minItemsCount , TimePeriod timePeriod) {
 		expand();
 		new WaitUntil(new TreeItemHasMinChildren(this, minItemsCount), timePeriod);
+	}
+	@Override
+	public String toString(){
+		StringBuffer result = new StringBuffer("TreeItem: ");
+		boolean isFirst = true;
+		for (String pathItem : this.getPath()){
+			if (isFirst){
+				isFirst = false;
+			} else{
+				result.append(" > ");	
+			}
+			result.append(pathItem);
+			
+		}
+		return result.toString();
 	}
 }
