@@ -91,7 +91,13 @@ public class DefaultEditor extends WorkbenchPart implements Editor {
 	public void save() {
 		activate();
 		log.info("Saving editor");
-		getEditorPart().doSave(new NullProgressMonitor());
+		Display.syncExec(new Runnable() {
+			
+			@Override
+			public void run() {
+				getEditorPart().doSave(new NullProgressMonitor());
+			}
+		});
 	}
 
 	/**
