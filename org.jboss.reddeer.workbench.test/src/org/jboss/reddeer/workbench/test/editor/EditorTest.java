@@ -6,10 +6,13 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.lang.reflect.Field;
+import java.util.List;
 
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.PlatformUI;
+import org.jboss.reddeer.eclipse.jdt.ui.ProjectExplorer;
 import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.PackageExplorer;
+import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.Project;
 import org.jboss.reddeer.eclipse.ui.ide.NewFileCreationWizardDialog;
 import org.jboss.reddeer.eclipse.ui.ide.NewFileCreationWizardPage;
 import org.jboss.reddeer.eclipse.ui.wizards.newresource.BasicNewProjectResourceWizard;
@@ -22,6 +25,7 @@ import org.jboss.reddeer.workbench.editor.Editor;
 import org.jboss.reddeer.workbench.exception.EditorNotFoundException;
 import org.jboss.reddeer.workbench.test.ui.editor.SimpleEditor;
 import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -63,6 +67,14 @@ public class EditorTest extends RedDeerTest {
 			new DefaultEditor().close(false);
 		} catch (EditorNotFoundException ex) {
 			// do nothing. We just want to have clean workspace
+		}
+	}
+	
+	@AfterClass
+	public static void teardownClass(){
+		List<Project> projects = new ProjectExplorer().getProjects();
+		for (Project p: projects){
+			p.delete(true);
 		}
 	}
 
