@@ -21,10 +21,14 @@ import org.eclipse.ui.IViewSite;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.internal.WorkbenchPartReference;
 import org.hamcrest.Matcher;
+import org.jboss.reddeer.swt.condition.ShellWithTextIsActive;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
+import org.jboss.reddeer.swt.handler.WidgetHandler;
 import org.jboss.reddeer.swt.util.Bot;
 import org.jboss.reddeer.swt.util.Display;
 import org.jboss.reddeer.swt.util.ResultRunnable;
+import org.jboss.reddeer.swt.wait.TimePeriod;
+import org.jboss.reddeer.swt.wait.WaitWhile;
 
 /**
  * Menu lookup provides menu and contextmenu routines for menuitems lookup Works
@@ -230,7 +234,22 @@ public class MenuLookup {
 		if(activeShell == null){
 			throw new SWTLayerException("Cannot find menu bar because there's no active shell");
 		}
-		return getMenuBarItems(activeShell);
+		String activeShellText = WidgetHandler.getInstance().getText(activeShell);
+		MenuItem[] result = null;
+		try{
+			result = getMenuBarItems(activeShell);	
+		} catch (SWTLayerException swtle) {
+			// there is a chance that some non expected shell was opened
+			// e.g. Progress Dialog
+			new WaitWhile(new ShellWithTextIsActive(activeShellText),TimePeriod.NORMAL,false);
+			if (!activeShellText.equals(WidgetHandler.getInstance().getText(activeShell))){
+				result = getMenuBarItems(activeShell);
+			}
+			else{
+				throw swtle;
+			}
+		}		
+		return result;		
 	}
 
 	
@@ -261,6 +280,7 @@ public class MenuLookup {
 
 			@Override
 			public MenuItem[] run() {
+				log.info("Getting Menu Bar of shell " + s.getText());
 				Menu menu = s.getMenuBar();
 				if (menu == null){
 					throw new SWTLayerException("Cannot find a menu bar of shell " + s.getText());

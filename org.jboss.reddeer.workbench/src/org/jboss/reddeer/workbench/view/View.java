@@ -19,8 +19,11 @@ import org.jboss.reddeer.swt.lookup.impl.WorkbenchLookup;
 import org.jboss.reddeer.swt.matcher.RegexMatchers;
 import org.jboss.reddeer.swt.util.Display;
 import org.jboss.reddeer.swt.util.ResultRunnable;
+import org.jboss.reddeer.swt.wait.TimePeriod;
+import org.jboss.reddeer.swt.wait.WaitUntil;
 import org.jboss.reddeer.swt.wait.WaitWhile;
 import org.jboss.reddeer.workbench.WorkbenchPart;
+import org.jboss.reddeer.workbench.condition.ActiveFocusControlIsInActiveView;
 import org.jboss.reddeer.workbench.exception.ViewNotFoundException;
 
 /**
@@ -81,10 +84,9 @@ public abstract class View extends WorkbenchPart{
 	 */
 
 	public void open() {
-		log.debug("Showing " + viewTitle() + " view");
-		setFocusIfViewIsOpened();
-		
-		/* view is not opened, it has to be opened via menu */
+		log.info("Showing " + viewTitle() + " view");
+		workbenchPart = getPartByTitle(viewTitle());
+		// view is not opened, it has to be opened via menu
 		if (workbenchPart == null) {
 			log.info("Opening " + viewTitle() + " view via menu.");
 			RegexMatchers m = new RegexMatchers("Window.*", "Show View.*",
@@ -104,6 +106,7 @@ public abstract class View extends WorkbenchPart{
 			new WaitWhile(new ShellWithTextIsActive(SHOW_VIEW));
 			workbenchPart = getActiveWorkbenchPart();
 		}
+		setFocusIfViewIsOpened();
 
 	}
 	
@@ -111,7 +114,6 @@ public abstract class View extends WorkbenchPart{
 		workbenchPart = getPartByTitle(viewTitle());
 		if (workbenchPart != null) {
 			Display.syncExec(new Runnable() {
-
 				@Override
 				public void run() {
 					PlatformUI.getWorkbench().getActiveWorkbenchWindow()
@@ -120,25 +122,21 @@ public abstract class View extends WorkbenchPart{
 				}
 			});
 			setAsReference();
+			new WaitUntil(new ActiveFocusControlIsInActiveView(),TimePeriod.NORMAL,false);
 			focusChildControl();
 		}
 	}
-	
+
 	private void focusChildControl() {
-		/** get active workbench part control (active view) **/
 		final Control workbenchControl = WorkbenchLookup
 				.getWorkbenchControl(WorkbenchLookup.findActiveWorkbenchPart());
-		/** check if actual focused control belongs to the active view **/
-		final Control focusedControl = WidgetLookup.getInstance().getFocusControl();
+		final Control focusedControl = WidgetLookup.getInstance()
+				.getFocusControl();
 		if (hasControlSpecificParent(focusedControl, workbenchControl)) {
 			return;
 		}
 		log.error("No control in opened view has a focus!");
 		log.error("Setting implicit focus...");
-		/**
-		 * focused control is not the one in active view, set focus on
-		 * first child control in active view
-		 */
 		setFocusOnControlChild(workbenchControl);
 	}
 
@@ -259,4 +257,5 @@ public abstract class View extends WorkbenchPart{
 			}
 		});
 	}
+	
 }

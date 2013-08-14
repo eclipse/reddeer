@@ -4,7 +4,9 @@ import org.jboss.reddeer.swt.condition.WaitCondition;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.impl.styledtext.DefaultStyledText;
 import org.jboss.reddeer.swt.impl.toolbar.ViewToolItem;
+import org.jboss.reddeer.swt.wait.TimePeriod;
 import org.jboss.reddeer.swt.wait.WaitUntil;
+import org.jboss.reddeer.swt.wait.WaitWhile;
 import org.jboss.reddeer.workbench.view.impl.WorkbenchView;
 
 /**
@@ -21,12 +23,15 @@ public class ConsoleView extends WorkbenchView {
 	
 	public String getConsoleText() {
 		new WaitUntil(new ConsoleHasTextWidget());
+		// wait for text to appear
+		new WaitWhile(new ConsoleHasText(""),TimePeriod.SHORT,false);
 		return new DefaultStyledText().getText();
 	}
 	
 	public void clearConsole() {
 		log.info("Clearing console");
 		new ViewToolItem("Clear Console").click();
+		new WaitUntil(new ConsoleHasText(""));
 		log.info("Console cleared");
 	}
 	
@@ -48,5 +53,28 @@ public class ConsoleView extends WorkbenchView {
 		}
 		
 	}
-	
+
+	private class ConsoleHasText implements WaitCondition {
+		private String consoleText;
+
+		public ConsoleHasText(String consoleText) {
+			this.consoleText = consoleText;
+		}
+
+		@Override
+		public boolean test() {
+			try {
+				DefaultStyledText dstConsole = new DefaultStyledText();
+				return dstConsole.getText().equals(this.consoleText);
+			} catch (SWTLayerException ex) {
+				return false;
+			}
+		}
+
+		@Override
+		public String description() {
+			return "Console text is not \"" + this.consoleText + "\"";
+		}
+
+	}
 }

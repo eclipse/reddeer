@@ -96,19 +96,26 @@ public class ProblemsViewTest extends RedDeerTest{
 		newJavaClassDialog.open();
 		
 		NewJavaClassWizardPage wizardPage = newJavaClassDialog.getFirstPage();
-		if (error) {
-			wizardPage.setName("ErrorTestClass");
-		} else {
-			wizardPage.setName("WarningTestClass");
-		}
+		final String newClassName = error ? "ErrorTestClass" : "WarningTestClass";
+		wizardPage.setName(newClassName);
 		newJavaClassDialog.finish();
 		new WaitWhile(new JobIsRunning(), TimePeriod.LONG);
+		StringBuilder sbJavaCode = new StringBuilder("");
 		if (error){
-			Bot.get().activeEditor().toTextEditor().insertText(2, 1, "test error;\n"); //this should generate error
+			sbJavaCode.append("testError\n");
+			sbJavaCode.append("public class ");
+			sbJavaCode.append(newClassName);
+			sbJavaCode.append("{\n");
+			sbJavaCode.append("}\n");
 		}
 		else {
-			Bot.get().activeEditor().toTextEditor().insertText(2, 1, "private int value;\n"); //this should generate warning
+			sbJavaCode.append("public class ");
+			sbJavaCode.append(newClassName);
+			sbJavaCode.append("{\n");
+			sbJavaCode.append("  private int i;\n");
+			sbJavaCode.append("}\n");		
 		}
+		Bot.get().activeEditor().toTextEditor().setText(sbJavaCode.toString());
 		Bot.get().activeEditor().save();
 		problemsView.open();
 		new WaitUntil(new ProblemsExists(), TimePeriod.NORMAL);

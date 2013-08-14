@@ -48,8 +48,9 @@ public class Project {
 		    chbDeleteFromFileSystem.click();
 		}
 		DefaultShell shell = new DefaultShell();
+		String deleteShellText = shell.getText();
 		new PushButton("OK").click();
-		new WaitWhile(new ShellWithTextIsActive(shell.getText()));
+		new WaitWhile(new ShellWithTextIsActive(deleteShellText),TimePeriod.LONG);
 		new WaitWhile(new JobIsRunning(), TimePeriod.LONG);
 	}
 	/**
