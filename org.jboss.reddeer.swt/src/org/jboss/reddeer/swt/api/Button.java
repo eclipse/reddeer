@@ -17,6 +17,11 @@ public interface Button {
 	 * @return
 	 */
 	String getText();
+	/**
+	 * Return tooltip of given Button
+	 * @return
+	 */
+	String getToolTipText();
 			
 	boolean isEnabled();
 }

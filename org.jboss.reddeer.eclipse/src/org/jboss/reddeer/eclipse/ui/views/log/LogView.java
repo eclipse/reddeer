@@ -101,11 +101,11 @@ public class LogView extends WorkbenchView{
 		ToolbarMenu tmenu = new ToolbarMenu("Filters...");
 		tmenu.select();
 		new WaitUntil(new ShellWithTextIsActive("Log Filters"));
-		new CheckBox("Event Types", OK_SEVERITY).toggle(false);
-		new CheckBox("Event Types", INFORMATION_SEVERITY).toggle(false);
-		new CheckBox("Event Types", WARNING_SEVERITY).toggle(false);
-		new CheckBox("Event Types", ERROR_SEVERITY).toggle(false);
-		new CheckBox("Event Types", severity).toggle(true);
+		new CheckBox(OK_SEVERITY).toggle(false);
+		new CheckBox(INFORMATION_SEVERITY).toggle(false);
+		new CheckBox( WARNING_SEVERITY).toggle(false);
+		new CheckBox(ERROR_SEVERITY).toggle(false);
+		new CheckBox(severity).toggle(true);
 		new CheckBox("Limit visible events to:").toggle(false);
 		new PushButton("OK").click();
 	}

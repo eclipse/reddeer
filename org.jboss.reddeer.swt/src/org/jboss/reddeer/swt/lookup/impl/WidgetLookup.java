@@ -66,17 +66,7 @@ public class WidgetLookup {
 	 * @param widget
 	 */
 	public void sendClickNotifications(Widget widget) {
-		notify(SWT.MouseEnter, widget);
-		notify(SWT.MouseMove, widget);
-		notify(SWT.Activate, widget);
-		notify(SWT.MouseDown, widget);
-		notify(SWT.MouseUp, widget);
-		notify(SWT.Selection, widget);
-		notify(SWT.MouseHover, widget);
-		notify(SWT.MouseMove, widget);
-		notify(SWT.MouseExit, widget);
-		notify(SWT.Deactivate, widget);
-		notify(SWT.FocusOut, widget);
+		notify(SWT.Selection,widget);
 	}
 
 	public void notify(int eventType, Widget widget) {
@@ -96,15 +86,12 @@ public class WidgetLookup {
 	private void notify(final int eventType, final Event createEvent, final Widget widget) {
 		createEvent.type = eventType;
 		
-		Display.syncExec(new Runnable() {
+		Display.asyncExec(new Runnable() {
 			public void run() {
 				if ((widget == null) || widget.isDisposed()) {
 					return;
 				}
-				if (!WidgetLookup.getInstance().isEnabled(widget)) {
-					// do nothing here (it may be expected state (e.g Clear Console))
-				}
-				
+								
 				widget.notifyListeners(eventType, createEvent);
 			}
 		});
