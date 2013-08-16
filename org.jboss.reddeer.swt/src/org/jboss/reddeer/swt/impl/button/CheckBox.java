@@ -1,10 +1,8 @@
 package org.jboss.reddeer.swt.impl.button;
 
 import org.apache.log4j.Logger;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotCheckBox;
-import org.jboss.reddeer.swt.api.Button;
-import org.jboss.reddeer.swt.util.Bot;
-
+import org.eclipse.swt.SWT;
+import org.jboss.reddeer.swt.handler.WidgetHandler;
 /**
  * Class represents Button with type Toggle (Checkbox)
  * 
@@ -12,18 +10,16 @@ import org.jboss.reddeer.swt.util.Bot;
  * 
  */
 
-public class CheckBox implements Button {
+public class CheckBox extends AbstractButton {
 
 	protected final Logger log = Logger.getLogger(this.getClass());
 	
-	private SWTBotCheckBox checkBox;
-
 	/**
 	 * Default constructor
 	 */
 
 	public CheckBox() {
-		checkBox = Bot.get().checkBox();
+		this(0);
 	}
 	
 	/**
@@ -33,37 +29,30 @@ public class CheckBox implements Button {
 	 */
 	
 	public CheckBox(int index){
-		checkBox = Bot.get().checkBox(index);
-	}
-	
-	/**
-	 * CheckBox button with given index in given Group
-	 * @param index of button
-	 * @param inGroup in group
-	 */
-	public CheckBox(String inGroup, int index){
-	    checkBox = Bot.get().checkBoxInGroup(inGroup, index);
+		this(index,"");
 	}
 	/**
-	 * CheckBox button with given text in given Group
-	 * @param text of button
-	 * @param inGroup in group
-	 */
-	public CheckBox(String inGroup, String text){
-		checkBox = Bot.get().checkBoxInGroup(text, inGroup);
-	}
-
-	/**
-	 * Checkbox with given label
+	 * Checkbox with given text
 	 * 
-	 * @param label
+	 * @param text
 	 */
-	public CheckBox(String label) {
-		checkBox = Bot.get().checkBox(label);
+	public CheckBox(String text) {
+		this(0,text);
 	}
-
+	/**
+	 * Check Box with given index and text
+	 * @param index
+	 * @param text
+	 */
+	public CheckBox (int index , String text){
+		super(index,text,SWT.CHECK);
+	}
+	/**
+	 * Returns true when Check Box is checked
+	 * @return
+	 */
 	public boolean isChecked() {
-		return checkBox.isChecked();
+		return WidgetHandler.getInstance().isSelected(swtButton);
 	}
 	
 	/**
@@ -73,37 +62,21 @@ public class CheckBox implements Button {
 	 */
 	public void toggle(boolean checked){
 		if (checked){
-			if (checkBox.isChecked()) {
+			if (isChecked()) {
 				log.debug("Checkbox already checked");
 				return;
 			}else{
-				log.info("Checking checkbox " + checkBox.getText());
+				log.info("Checking checkbox " + getText());
 				click();
 			}
 		}else{
-			if (checkBox.isChecked()) {
-				log.info("Unchecking checkbox " + checkBox.getText());
+			if (isChecked()) {
+				log.info("Unchecking checkbox " + getText());
 				click();
 			}else{
 				log.debug("Checkbox already unchecked");
 				return;
 			}
 		}
-	}
-
-	@Override
-	public void click() {
-		log.debug("Clicking on checkbox");
-		checkBox.click();
-	}
-
-	@Override
-	public String getText() {
-		return checkBox.getText();
-	}
-
-	@Override
-	public boolean isEnabled() {
-		return checkBox.isEnabled();
 	}
 }

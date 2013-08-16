@@ -2,25 +2,14 @@ package org.jboss.reddeer.swt.impl.button;
 
 import org.apache.log4j.Logger;
 import org.eclipse.swt.SWT;
-import org.jboss.reddeer.swt.api.Button;
 import org.jboss.reddeer.swt.handler.WidgetHandler;
-import org.jboss.reddeer.swt.lookup.impl.WidgetLookup;
-import org.jboss.reddeer.swt.matcher.ButtonLookup;
-import org.jboss.reddeer.swt.matcher.StyleMatcher;
-import org.jboss.reddeer.swt.matcher.TextMatcher;
-import org.jboss.reddeer.swt.matcher.WithMnemonicMatcher;
-
 /**
  * RadioButton is button implementation that can be selected
  * @author jjankovi
  *
  */
-public class RadioButton implements Button {
-
-	private static final Logger log = Logger.getLogger(RadioButton.class);
-	
-	private org.eclipse.swt.widgets.Button radioButton;
-	
+public class RadioButton extends AbstractButton {
+	protected final Logger log = Logger.getLogger(this.getClass());
 	/**
 	 * Creates Radio button
 	 */
@@ -49,32 +38,37 @@ public class RadioButton implements Button {
 	 * @param label of button
 	 */
 	public RadioButton(int index, String text) {
-		if (text != null && !text.isEmpty()) {
-			radioButton = ButtonLookup.getInstance().getButton(
-					index, new WithMnemonicMatcher(text), new StyleMatcher(SWT.RADIO));
-		} else {
-			radioButton = ButtonLookup.getInstance().getButton(
-					index, new StyleMatcher(SWT.RADIO));
-		}
+		super(index,text,SWT.RADIO);
 	}
-	
-	@Override
-	public void click() {
-		log.info("Clicking radio button " + getText());
-		WidgetHandler.getInstance().click(radioButton);
-	}
-
-	@Override
-	public String getText() {
-		return WidgetHandler.getInstance().getText(radioButton);
-	}
-
-	@Override
-	public boolean isEnabled() {
-		return WidgetLookup.getInstance().isEnabled(radioButton);
-	}
-
+	/**
+	 * Returns true when Radio Button is selected	
+	 * @return
+	 */
 	public boolean isSelected() {
-		return WidgetHandler.getInstance().isSelected(radioButton);
+		return WidgetHandler.getInstance().isSelected(swtButton);
+	}
+	/**
+	 * Sets Radio Button to state 'checked'
+	 * 
+	 * @param checked
+	 */
+	public void toggle(boolean checked){
+		if (checked){
+			if (isSelected()) {
+				log.debug("Radio Button already checked");
+				return;
+			}else{
+				log.info("Checking Radio Button " + getText());
+				click();
+			}
+		}else{
+			if (isSelected()) {
+				log.info("Unchecking Radio Button " + getText());
+				click();
+			}else{
+				log.debug("Radio Button already unchecked");
+				return;
+			}
+		}
 	}
 }

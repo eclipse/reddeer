@@ -64,20 +64,34 @@ public class WidgetHandler {
 	 * 
 	 * @param w given widgets
 	 */
-	public <T> void click(final T w) {
+	public <T extends Widget> void click(final T w) {
 		Display.syncExec(new Runnable() {
-
 			@Override
 			public void run() {
 				if (w instanceof Button) {
 					final Button button = (Button) w;
-					WidgetLookup.getInstance().sendClickNotifications(button);
-					handleNotSelectedRadioButton(button);
-				} else {
+					if (((button.getStyle() & SWT.TOGGLE) != 0) ||
+						((button.getStyle() & SWT.CHECK) != 0)) {
+						button.setSelection(!button.getSelection());
+					}
+				}else {
 					throw new SWTLayerException("Unsupported type");
 				}
 			}
-
+		});
+		WidgetLookup.getInstance().sendClickNotifications(w);
+		Display.syncExec(new Runnable() {
+			@Override
+			public void run() {
+				if (w != null && !w.isDisposed()){
+					if (w instanceof Button) {
+						final Button button = (Button) w;
+						handleNotSelectedRadioButton(button);
+					}else {
+						throw new SWTLayerException("Unsupported type");
+					}
+				}
+			}
 			private void handleNotSelectedRadioButton(final Button button) {
 				if ((button.getStyle() & SWT.RADIO) == 0
 						|| button.getSelection()) {
@@ -113,6 +127,7 @@ public class WidgetHandler {
 				button.setSelection(true);
 				WidgetLookup.getInstance().notify(SWT.Selection, button);
 			}
+
 		});
 	}
 	
@@ -455,7 +470,7 @@ public class WidgetHandler {
 	 * @return widget text
 	 */
 	public <T> String getToolTipText(final T w) {
-		String text = Display.asynExec(new ResultRunnable<String>() {
+		String text = Display.syncExec(new ResultRunnable<String>() {
 
 			@Override
 			public String run() {
@@ -465,6 +480,10 @@ public class WidgetHandler {
 					return ((Combo) w).getToolTipText();
 				else if (w instanceof CTabItem)
 					return ((CTabItem) w).getToolTipText();
+				else if (w instanceof Button){
+					String text = ((Button) w).getToolTipText();
+					return text;
+				}
 				else
 					throw new SWTLayerException("Unsupported type");
 			}

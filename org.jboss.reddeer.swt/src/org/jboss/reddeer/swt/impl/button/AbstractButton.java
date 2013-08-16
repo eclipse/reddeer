@@ -1,12 +1,14 @@
 package org.jboss.reddeer.swt.impl.button;
 
 import org.apache.log4j.Logger;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotButton;
 import org.jboss.reddeer.swt.api.Button;
 import org.jboss.reddeer.swt.condition.WaitCondition;
 import org.jboss.reddeer.swt.exception.WaitTimeoutExpiredException;
-import org.jboss.reddeer.swt.util.Display;
-import org.jboss.reddeer.swt.util.ResultRunnable;
+import org.jboss.reddeer.swt.handler.WidgetHandler;
+import org.jboss.reddeer.swt.lookup.impl.WidgetLookup;
+import org.jboss.reddeer.swt.matcher.ButtonLookup;
+import org.jboss.reddeer.swt.matcher.StyleMatcher;
+import org.jboss.reddeer.swt.matcher.WithMnemonicMatcher;
 import org.jboss.reddeer.swt.wait.WaitUntil;
 
 /**
@@ -19,23 +21,40 @@ public abstract class AbstractButton implements Button {
 
 	protected final Logger log = Logger.getLogger(this.getClass());
 
-	protected SWTBotButton button;
-
+	protected org.eclipse.swt.widgets.Button swtButton;
+	
+	protected AbstractButton (int index , String text, int style){
+		log.info("Searching for Button:"
+				+ "\n  index: " + index
+				+ "\n  label: " + text
+				+ "\n  style: " + style);
+			if (text != null && !text.isEmpty()) {
+				swtButton = ButtonLookup.getInstance().getButton(
+						index, new WithMnemonicMatcher(text), new StyleMatcher(style));
+			} else {
+				swtButton = ButtonLookup.getInstance().getButton(
+						index, new StyleMatcher(style));
+			}
+	}
 	@Override
 	public void click() {
 		log.info("Click on the button "
-				+ (button.getText() != null ? button.getText() : (button
-						.getToolTipText() != null ? button.getToolTipText()
+				+ (getText() != null ? getText() : (
+						getToolTipText() != null ? getToolTipText()
 						: "with no text or tooltip")));
 		waitUntilButtonIsActive();
-		button.click();
+		WidgetHandler.getInstance().click(swtButton);
 	}
-
+	/**
+	 * See {@link Button}
+	 */
 	@Override
 	public String getText() {
-		return button.getText();
+		return WidgetHandler.getInstance().getText(swtButton);
 	}
-
+	/**
+	 * See {@link Button}
+	 */
 	@Override
 	public boolean isEnabled() {
 		// TODO waits need to completely rewritten
@@ -44,7 +63,14 @@ public abstract class AbstractButton implements Button {
 		} catch (WaitTimeoutExpiredException wtee) {
 		}
 
-		return button.isEnabled();
+		return WidgetLookup.getInstance().isEnabled(swtButton);
+	}
+	/**
+	 * See {@link Button}
+	 */
+	@Override
+	public String getToolTipText() {
+		return WidgetHandler.getInstance().getToolTipText(swtButton);
 	}
 
 	private void waitUntilButtonIsActive() {
@@ -53,14 +79,7 @@ public abstract class AbstractButton implements Button {
 
 			@Override
 			public boolean test() {
-				return Display.syncExec(new ResultRunnable<Boolean>() {
-
-					@Override
-					public Boolean run() {
-						return ((org.eclipse.swt.widgets.Button) button.widget)
-								.isEnabled();
-					}
-				});
+				return WidgetLookup.getInstance().isEnabled(swtButton);
 			}
 
 			@Override
