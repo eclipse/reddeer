@@ -12,7 +12,9 @@ import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.swt.condition.TreeItemHasMinChildren;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.util.Display;
+import org.jboss.reddeer.swt.util.OS;
 import org.jboss.reddeer.swt.util.ResultRunnable;
+import org.jboss.reddeer.swt.util.Utils;
 import org.jboss.reddeer.swt.wait.AbstractWait;
 import org.jboss.reddeer.swt.wait.TimePeriod;
 import org.jboss.reddeer.swt.wait.WaitUntil;
@@ -124,18 +126,23 @@ public abstract class AbstractTreeItem implements TreeItem {
 	 */
 	@Override
 	public void expand(TimePeriod timePeriod) {
-		logger.debug("Expanding Tree Item " + getText());
+		logger.info("Expanding Tree Item " + getText());
 		if (!isExpanded()) {
-			notifyTree(createEventForTree(SWT.Expand));
+			if (!Utils.isRunningOS(OS.WINDOWS)){
+				notifyTree(createEventForTree(SWT.Expand));
+			}
 			Display.syncExec(new Runnable() {
 				@Override
 				public void run() {
 					swtTreeItem.setExpanded(true);
 				}
 			});
+			if (Utils.isRunningOS(OS.WINDOWS)){
+				notifyTree(createEventForTree(SWT.Expand));
+			}
 			AbstractWait.sleep(timePeriod.getSeconds()*1000);
 		} else {
-			logger.debug("Tree Item " + getText()
+			logger.info("Tree Item " + getText()
 					+ " is already expanded. No action performed");
 		}
 	}
@@ -273,7 +280,7 @@ public abstract class AbstractTreeItem implements TreeItem {
 	 */
 	@Override
 	public List<TreeItem> getItems() {
-		expand();
+		expand(TimePeriod.SHORT);
 		return Display.syncExec(new ResultRunnable<List<TreeItem>>() {
 			@Override
 			public List<TreeItem> run() {

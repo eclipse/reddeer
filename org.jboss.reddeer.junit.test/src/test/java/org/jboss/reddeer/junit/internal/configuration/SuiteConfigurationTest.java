@@ -21,10 +21,32 @@ import org.junit.Test;
 
 public class SuiteConfigurationTest {
 
-	private String LOCATIONS_ROOT_DIR = "src/test/resources/org/jboss/reddeer/junit/internal/configuration/";
+	private static final String LOCATIONS_ROOT_DIR;
 
 	private SuiteConfiguration config;
 
+	static{
+		StringBuffer sbRootDir = new StringBuffer("");
+		sbRootDir.append("src");
+		sbRootDir.append(File.separator);
+		sbRootDir.append("test");
+		sbRootDir.append(File.separator);
+		sbRootDir.append("resources");
+		sbRootDir.append(File.separator);
+		sbRootDir.append("org");
+		sbRootDir.append(File.separator);
+		sbRootDir.append("jboss");
+		sbRootDir.append(File.separator);
+		sbRootDir.append("reddeer");
+		sbRootDir.append(File.separator);
+		sbRootDir.append("junit");
+		sbRootDir.append(File.separator);
+		sbRootDir.append("internal");
+		sbRootDir.append(File.separator);
+		sbRootDir.append("configuration");
+		sbRootDir.append(File.separator);
+		LOCATIONS_ROOT_DIR = sbRootDir.toString();
+	}
 	@Before
 	public void setup(){
 		config = new SuiteConfiguration();
@@ -32,7 +54,7 @@ public class SuiteConfigurationTest {
 	
 	@Test
 	public void getTestRunConfigurations(){
-		System.setProperty(SuiteConfiguration.PROPERTY_CONFIG_LOC, LOCATIONS_ROOT_DIR + "dirWithFiles");
+		System.setProperty(SuiteConfiguration.PROPERTY_CONFIG_LOC, SuiteConfigurationTest.LOCATIONS_ROOT_DIR + "dirWithFiles");
 
 		List<TestRunConfiguration> result = config.getTestRunConfigurations();
 		Collections.sort(result, new TestRunComparator());
@@ -44,7 +66,7 @@ public class SuiteConfigurationTest {
 	
 	@Test
 	public void getTestRunConfigurations_caching(){
-		System.setProperty(SuiteConfiguration.PROPERTY_CONFIG_LOC, LOCATIONS_ROOT_DIR + "dirWithFiles");
+		System.setProperty(SuiteConfiguration.PROPERTY_CONFIG_LOC, SuiteConfigurationTest.LOCATIONS_ROOT_DIR + "dirWithFiles");
 
 		List<TestRunConfiguration> result1 = config.getTestRunConfigurations();
 		List<TestRunConfiguration> result2 = config.getTestRunConfigurations();
@@ -84,29 +106,29 @@ public class SuiteConfigurationTest {
 
 	@Test
 	public void getTestRunConfigurations_file() {
-		System.setProperty(SuiteConfiguration.PROPERTY_CONFIG_LOC, LOCATIONS_ROOT_DIR + "emptyFile");
+		System.setProperty(SuiteConfiguration.PROPERTY_CONFIG_LOC, SuiteConfigurationTest.LOCATIONS_ROOT_DIR + "emptyFile");
 
 		List<File> result = config.getConfigurationFiles();
 
 		assertThat(result.size(), is(1));
-		assertThat(result.get(0).getPath(), endsWith(LOCATIONS_ROOT_DIR + "emptyFile"));
+		assertThat(result.get(0).getPath(), endsWith(SuiteConfigurationTest.LOCATIONS_ROOT_DIR + "emptyFile"));
 	}
 
 	@Test
 	public void getTestRunConfigurations_directory() {
-		System.setProperty(SuiteConfiguration.PROPERTY_CONFIG_LOC, LOCATIONS_ROOT_DIR + "dirWithFiles");
+		System.setProperty(SuiteConfiguration.PROPERTY_CONFIG_LOC, SuiteConfigurationTest.LOCATIONS_ROOT_DIR + "dirWithFiles");
 
 		List<File> result = config.getConfigurationFiles();
 		Collections.sort(result);
 
 		assertThat(result.size(), is(2));
-		assertThat(result.get(0).getPath(), endsWith(LOCATIONS_ROOT_DIR + "dirWithFiles/correct_fileA.xml"));
-		assertThat(result.get(1).getPath(), endsWith(LOCATIONS_ROOT_DIR + "dirWithFiles/correct_fileB.xml"));
+		assertThat(result.get(0).getPath(), endsWith(SuiteConfigurationTest.LOCATIONS_ROOT_DIR + "dirWithFiles" + File.separator + "correct_fileA.xml"));
+		assertThat(result.get(1).getPath(), endsWith(SuiteConfigurationTest.LOCATIONS_ROOT_DIR + "dirWithFiles" + File.separator + "correct_fileB.xml"));
 	}
 
 	@Test(expected=RedDeerConfigurationException.class)
 	public void getTestRunConfigurationss_noFilesInDirectory() {
-		System.setProperty(SuiteConfiguration.PROPERTY_CONFIG_LOC, LOCATIONS_ROOT_DIR + "emptyDir");
+		System.setProperty(SuiteConfiguration.PROPERTY_CONFIG_LOC, SuiteConfigurationTest.LOCATIONS_ROOT_DIR + "emptyDir");
 
 		config.getConfigurationFiles();
 	}

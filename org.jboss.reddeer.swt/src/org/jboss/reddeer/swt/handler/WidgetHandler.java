@@ -13,6 +13,7 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.List;
+import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.Widget;
 import org.eclipse.ui.forms.widgets.Hyperlink;
@@ -211,6 +212,8 @@ public class WidgetHandler {
 					return ((Button) w).getText();
 				else if (w instanceof CTabItem)
 					return ((CTabItem) w).getText();
+				else if (w instanceof Shell)
+					return ((Shell) w).getText();
 				else
 					throw new SWTLayerException("Unsupported type");
 			}

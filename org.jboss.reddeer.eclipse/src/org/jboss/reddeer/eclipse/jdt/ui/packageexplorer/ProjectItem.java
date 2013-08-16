@@ -41,7 +41,7 @@ public class ProjectItem {
 	    new ContextMenu("Delete").select();
 	    new DefaultShell("Delete");
 		new PushButton("OK").click();
-		new WaitWhile(new ShellWithTextIsActive("Delete"),TimePeriod.NORMAL);
+		new WaitWhile(new ShellWithTextIsActive("Delete"),TimePeriod.LONG);
 		new WaitWhile(new JobIsRunning(), TimePeriod.LONG);
 	}
 
