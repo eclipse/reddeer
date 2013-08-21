@@ -14,11 +14,14 @@ import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.List;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.widgets.Table;
+import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.Widget;
 import org.eclipse.ui.forms.widgets.Hyperlink;
 import org.eclipse.ui.forms.widgets.Section;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
+import org.jboss.reddeer.swt.impl.table.internal.BasicTable;
 import org.jboss.reddeer.swt.lookup.WidgetResolver;
 import org.jboss.reddeer.swt.lookup.impl.WidgetLookup;
 import org.jboss.reddeer.swt.util.Display;
@@ -39,7 +42,7 @@ import org.jboss.reddeer.swt.util.ResultRunnable;
  */
 public class WidgetHandler {
   
-  private final Logger log = Logger.getLogger(this.getClass());
+	private final Logger log = Logger.getLogger(this.getClass());
   
 	private static WidgetHandler instance;
 
@@ -164,7 +167,14 @@ public class WidgetHandler {
 			public Boolean run() {
 				if (w instanceof Button)
 					return ((Button) w).getSelection();
-				else
+				else if (w instanceof TableItem){
+					for(TableItem i: ((TableItem) w).getParent().getSelection()){
+						if(i.equals(w)){
+							return true;
+						}
+					}
+					return false;
+				} else
 					throw new SWTLayerException("Unsupported type");
 			}
 		});
@@ -196,7 +206,27 @@ public class WidgetHandler {
 			}
 		});
 	}
-
+	/**
+	 * Gets text on given cell index for supported widget type 
+	 * 
+	 * @param w given widget
+	 * @Param cellIndex index of cell
+	 * @return returns widget text
+	 */
+	public <T> String getText(final T w, final int cellIndex) {
+		String text = Display.syncExec(new ResultRunnable<String>() {
+			@Override
+			public String run() {
+				if(w instanceof TableItem){
+					return ((TableItem)w).getText(cellIndex);
+				}else {
+					throw new SWTLayerException("Unsupported type");
+				}
+			}
+		});
+		return text;
+	}
+	
 	/**
 	 * Gets text for supported widget type
 	 * 
@@ -229,6 +259,8 @@ public class WidgetHandler {
 					return ((CTabItem) w).getText();
 				else if (w instanceof Shell)
 					return ((Shell) w).getText();
+				else if (w instanceof TableItem)
+					return ((TableItem) w).getText();
 				else
 					throw new SWTLayerException("Unsupported type");
 			}
@@ -236,6 +268,36 @@ public class WidgetHandler {
 		return text;
 	}
 
+	/**
+	 * Checks item for supported widget type
+	 * 
+	 * @param w given widget
+	 * @param itemIndex item index to check
+	 */
+	public <T> void check(final T w,final int itemIndex) {
+		Display.syncExec(new Runnable() {
+
+			@Override
+			public void run() {
+				if (w instanceof Table){
+					Table widget = (Table)w;
+					if(itemIndex == -1){
+						throw new SWTLayerException("Unable to check item with index "+itemIndex+" because it does not exist");
+					}
+					if((widget.getStyle() & SWT.CHECK) != SWT.CHECK){
+						throw new SWTLayerException("Unable to check item because table does not have SWT.CHECK style");
+						
+					} 
+					widget.getItem(itemIndex).setChecked(true);
+					WidgetLookup.getInstance().notifyItem(SWT.Selection, SWT.CHECK, widget, widget.getItem(itemIndex));
+				}
+				else{
+					throw new SWTLayerException("Unsupported type");
+				}
+			}
+		});
+	}
+	
 	/**
 	 * Gets items for supported widget type
 	 * 
@@ -257,6 +319,46 @@ public class WidgetHandler {
 			}
 		});
 		return text;
+	}
+	
+	/**
+	 * Gets swt items for supported widget type
+	 * 
+	 * @param w
+	 *            given widget
+	 * @return array of items in widget
+	 */
+	public <T> Object[] getSWTItems(final T w) {
+		return Display.syncExec(new ResultRunnable<Object[]>() {
+
+			@Override
+			public Object[] run() {
+				if (w instanceof Table)
+					return ((Table) w).getItems();
+				else
+					throw new SWTLayerException("Unsupported type");
+			}
+		});
+	}
+	
+	/**
+	 * Gets swt items for supported widget type
+	 * 
+	 * @param w
+	 *            given widget
+	 * @return array of items in widget
+	 */
+	public <T> Object getSWTItem(final T w, final int index) {
+		return Display.syncExec(new ResultRunnable<Object>() {
+
+			@Override
+			public Object run() {
+				if (w instanceof Table)
+					return ((Table) w).getItem(index);
+				else
+					throw new SWTLayerException("Unsupported type");
+			}
+		});
 	}
 	
 	/**
@@ -291,8 +393,17 @@ public class WidgetHandler {
 					List widget = (List)w;
 					if((widget.getStyle() & SWT.MULTI) !=0){
 						((List) w).selectAll();
+						WidgetLookup.getInstance().notify(SWT.Selection, (List)w);
 					} else {
 						throw new SWTLayerException("List does not support multi selection - it does not have SWT MULTI style");
+					}
+				} else if (w instanceof Table){
+					Table widget = (Table)w;
+					if((widget.getStyle() & SWT.MULTI) !=0){
+						((Table) w).selectAll();
+						WidgetLookup.getInstance().notify(SWT.Selection, (Table)w);
+					} else {
+						throw new SWTLayerException("Table does not support multi selection - it does not have SWT MULTI style");
 					}
 				}
 				else
@@ -320,14 +431,83 @@ public class WidgetHandler {
 					}
 					widget.select(widget.indexOf(item));
 				}else if (w instanceof Combo){
-          Combo widget = (Combo)w;
-          int index = (widget.indexOf(item))  ;
-          if(index == -1){
-            throw new SWTLayerException("Unable to select item "+item+" because it does not exist");
-          }
-          widget.select(widget.indexOf(item));
-        }
+					Combo widget = (Combo)w;
+					int index = (widget.indexOf(item))  ;
+					if(index == -1){
+						throw new SWTLayerException("Unable to select item "+item+" because it does not exist");
+					}
+					widget.select(widget.indexOf(item));
+				}
 				else{
+					throw new SWTLayerException("Unsupported type");
+				}
+			}
+		});
+	}
+	
+	/**
+	 * Selects item for supported widget type
+	 * 
+	 * @param w given widget
+	 * @param item to select
+	 */
+	public <T> void select(final T wItem) {
+		Display.syncExec(new Runnable() {
+			
+			@Override
+			public void run() {
+				if(wItem instanceof TableItem){
+					TableItem swtTableItem = (TableItem)wItem;
+					swtTableItem.getParent().setFocus();
+					swtTableItem.getParent().setSelection(swtTableItem);
+					WidgetLookup.getInstance().notifyItem(SWT.Selection, SWT.NONE, swtTableItem.getParent(), swtTableItem);
+				} else {
+					throw new SWTLayerException("Unsupported type");
+				}
+			}
+		});
+	}
+	
+	/**
+	 * Checks item for supported widget type
+	 * 
+	 * @param w given widget
+	 * @param item to check
+	 */
+	public <T> void setChecked(final T wItem, final boolean check) {
+		Display.syncExec(new Runnable() {
+			
+			@Override
+			public void run() {
+				if(wItem instanceof TableItem){
+					TableItem swtTableItem = (TableItem)wItem;
+					if((swtTableItem.getParent().getStyle() & SWT.CHECK) != SWT.CHECK){
+						throw new SWTLayerException("Unable to check table item "+swtTableItem.getText()+" because table does not have SWT.CHECK style");
+					}
+					swtTableItem.getParent().setFocus();
+					swtTableItem.setChecked(check);
+					WidgetLookup.getInstance().notifyItem(SWT.Selection, SWT.CHECK, swtTableItem.getParent(), swtTableItem);
+				} else {
+					throw new SWTLayerException("Unsupported type");
+				}
+			}
+		});
+	}
+	
+	/**
+	 * Checks if widget is checked
+	 * 
+	 * @param w given widget
+	 */
+	public <T> boolean isChecked(final T w) {
+		return Display.syncExec(new ResultRunnable<Boolean>() {
+			
+			@Override
+			public Boolean run() {
+				if(w instanceof TableItem){
+					TableItem swtTableItem = (TableItem)w;
+					return swtTableItem.getChecked();
+				} else {
 					throw new SWTLayerException("Unsupported type");
 				}
 			}
@@ -354,12 +534,12 @@ public class WidgetHandler {
 								throw new SWTLayerException("Unable to select item "+item+" because it does not exist");
 							}
 							widget.select(widget.indexOf(item));
+							WidgetLookup.getInstance().notify(SWT.Selection, widget);
 						}
 					} else {
 						throw new SWTLayerException("List does not support multi selection - it does not have SWT MULTI style");
 					}
-				}
-				else{
+				} else{
 					throw new SWTLayerException("Unsupported type");
 				}
 			}
@@ -381,8 +561,17 @@ public class WidgetHandler {
 					List widget = (List)w;
 					if((widget.getStyle() & SWT.MULTI) !=0){
 						widget.select(indices);
+						WidgetLookup.getInstance().notify(SWT.Selection, widget);
 					} else {
 						throw new SWTLayerException("List does not support multi selection - it does not have SWT MULTI style");
+					}
+				} else if (w instanceof Table){
+					Table widget = (Table)w;
+					if((widget.getStyle() & SWT.MULTI) !=0){
+						widget.select(indices);
+						WidgetLookup.getInstance().notify(SWT.Selection, widget);
+					} else {
+						throw new SWTLayerException("Table does not support multi selection - it does not have SWT MULTI style");
 					}
 				}
 				else{
@@ -409,13 +598,22 @@ public class WidgetHandler {
 						throw new SWTLayerException("Unable to select item with index "+index+" because it does not exist");
 					}
 					widget.select(index);
+					WidgetLookup.getInstance().notify(SWT.Selection, widget);
 				} else if (w instanceof Combo){
-          Combo widget = (Combo)w;
-          if(widget.getItemCount()-1 < index){
-            throw new SWTLayerException("Unable to select item with index "+index+" because it does not exist");
-          }
-          widget.select(index);
-        }
+					Combo widget = (Combo)w;
+					if(widget.getItemCount()-1 < index){
+						throw new SWTLayerException("Unable to select item with index "+index+" because it does not exist");
+					}
+					widget.select(index);
+					WidgetLookup.getInstance().notify(SWT.Selection, widget);
+				} else if (w instanceof Table){
+					Table widget = (Table)w;
+					if(widget.getItemCount()-1 < index){
+						throw new SWTLayerException("Unable to select item with index "+index+" because it does not exist");
+					}
+					widget.select(index);
+					WidgetLookup.getInstance().notify(SWT.Selection, widget);
+				}
 				else{
 					throw new SWTLayerException("Unsupported type");
 				}
@@ -481,14 +679,25 @@ public class WidgetHandler {
 				else if (w instanceof CTabItem)
 					return ((CTabItem) w).getToolTipText();
 				else if (w instanceof Button){
-					String text = ((Button) w).getToolTipText();
-					return text;
-				}
-				else
+					return ((Button) w).getToolTipText();
+				} else
 					throw new SWTLayerException("Unsupported type");
 			}
 		});
 		return text;
+	}
+	
+	public <T> Object getParent(final T w){
+		return Display.syncExec(new ResultRunnable<Object>() {
+			@Override
+			public Object run() {
+				if(w instanceof TableItem){
+					return new BasicTable(((TableItem)w).getParent());
+				} else {
+					throw new SWTLayerException("Unsupported type");
+				}
+			}
+		});
 	}
 	
 	public <T> void setFocus(final T w) {

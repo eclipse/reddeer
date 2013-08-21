@@ -1,5 +1,7 @@
 package org.jboss.reddeer.swt.api;
 
+import java.util.List;
+
 
 /**
  * API for Table manipulation
@@ -9,15 +11,7 @@ package org.jboss.reddeer.swt.api;
 public interface Table {
 
 	/**
-	 * Retursn cell string on given position
-	 * @param row table row
-	 * @param column table column
-	 * @return text on given position
-	 */
-	String cell(int row, int column);
-
-	/**
-	 * Returns tabler row count
+	 * Returns table row count
 	 * @return row count
 	 */
 	int rowCount();
@@ -34,23 +28,28 @@ public interface Table {
 	void select(String... items);
 	
 	/**
-	 * Select rows according to given column index
-	 * @param item to select
-	 * @param columnIndex ondex of column
+	 * Selects all table items
 	 */
-	void select(String item, int columnIndex);
-	
+	void selectAll();
 	
 	/**
-	 * Check the table item
-	 * @param item to check
+	 * Returns item in row
+	 * @param row
+	 * @return
 	 */
-	void check(String item);
+	TableItem getItem(final int row);
 	
 	/**
-	 * Check the table item
-	 * @param itemIndex table item identified by its index to check
+	 * Returns item with given text
+	 * @param itemText
+	 * @return
 	 */
-	void check(int itemIndex);
+	TableItem getItem(final String itemText);
+	
+	/**
+	 * Returns all table items
+	 * @return list of all table items
+	 */
+	List<TableItem> getItems();
 	
 }

@@ -27,6 +27,7 @@ import org.jboss.reddeer.swt.handler.WidgetHandler;
 import org.jboss.reddeer.swt.util.Bot;
 import org.jboss.reddeer.swt.util.Display;
 import org.jboss.reddeer.swt.util.ResultRunnable;
+import org.jboss.reddeer.swt.wait.AbstractWait;
 import org.jboss.reddeer.swt.wait.TimePeriod;
 import org.jboss.reddeer.swt.wait.WaitWhile;
 
@@ -231,6 +232,15 @@ public class MenuLookup {
 	public MenuItem[] getActiveShellTopMenuItems() {
 		ShellLookup sl = new ShellLookup();
 		Shell activeShell = sl.getActiveShell();
+		int i= 0;
+		while(i<5){
+			if(activeShell != null){
+				break;
+			}
+			i++;
+			AbstractWait.sleep(100);
+			activeShell = sl.getActiveShell();
+		}
 		if(activeShell == null){
 			throw new SWTLayerException("Cannot find menu bar because there's no active shell");
 		}

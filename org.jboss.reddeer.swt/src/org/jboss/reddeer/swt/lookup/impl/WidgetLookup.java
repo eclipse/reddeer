@@ -74,6 +74,12 @@ public class WidgetLookup {
 		notify(eventType, event, widget);
 		
 	}
+	
+	public void notifyItem(int eventType, int detail, Widget widget, Widget widgetItem) {
+		Event event = createEventItem(eventType, detail, widget, widgetItem);
+		notify(eventType, event, widget);
+		
+	}
 
 	private Event createEvent(Widget widget) {
 		Event event = new Event();
@@ -82,6 +88,19 @@ public class WidgetLookup {
 		event.display = Display.getDisplay();
 		return event;
 	}
+	
+	private Event createEventItem(int eventType, int detail, Widget widget, Widget widgetItem) {
+		Event event = new Event();
+		event.display = Display.getDisplay();
+		event.time = (int) System.currentTimeMillis();
+		event.item = widgetItem;
+		event.widget = widget;
+		event.detail = detail;
+		event.type = eventType;
+		return event;
+	}
+	
+	
 	
 	private void notify(final int eventType, final Event createEvent, final Widget widget) {
 		createEvent.type = eventType;
