@@ -1,11 +1,17 @@
 package org.jboss.reddeer.swt.impl.table;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.log4j.Logger;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotTable;
 import org.jboss.reddeer.swt.api.Table;
+import org.jboss.reddeer.swt.api.TableItem;
 import org.jboss.reddeer.swt.condition.TableHasRows;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
-import org.jboss.reddeer.swt.exception.WaitTimeoutExpiredException;
+import org.jboss.reddeer.swt.handler.TableHandler;
+import org.jboss.reddeer.swt.handler.WidgetHandler;
+import org.jboss.reddeer.swt.impl.table.internal.BasicTableItem;
+import org.jboss.reddeer.swt.wait.TimePeriod;
 import org.jboss.reddeer.swt.wait.WaitUntil;
 
 /**
@@ -16,23 +22,50 @@ import org.jboss.reddeer.swt.wait.WaitUntil;
  */
 public abstract class AbstractTable implements Table {
 	protected final Logger log = Logger.getLogger(this.getClass());
-	protected SWTBotTable table;
+	protected org.eclipse.swt.widgets.Table table;
+	
+	protected AbstractTable (org.eclipse.swt.widgets.Table swtTable){
+		  if (swtTable != null){
+		    this.table = swtTable;  
+		  }
+		  else {
+		     throw new SWTLayerException("SWT Table passed to constructor is null");
+		  }	  
+	}
 	
 	@Override
-	public String cell(int row, int column) {
-		waitUntilTableHasRows(this);
-		String ret = table.cell(row, column);
-		return ret;		
+	public List<TableItem> getItems(){
+		waitUntilTableHasRows();
+		org.eclipse.swt.widgets.TableItem[] items = (org.eclipse.swt.widgets.TableItem[])WidgetHandler.getInstance().getSWTItems(table);
+		List<TableItem> tableItems = new ArrayList<TableItem>();
+		for(org.eclipse.swt.widgets.TableItem i: items){
+			tableItems.add(new BasicTableItem(i));
+		}
+		return tableItems;
+	}
+	
+	@Override
+	public TableItem getItem(final int row) {
+		waitUntilTableHasRows();
+		org.eclipse.swt.widgets.TableItem tItem = (org.eclipse.swt.widgets.TableItem)WidgetHandler.getInstance().getSWTItem(table, row);
+		return new BasicTableItem(tItem);
+	}
+	
+	@Override
+	public TableItem getItem(final String itemText) {
+		waitUntilTableHasRows();
+		int row = TableHandler.getInstance().indexOf(table, itemText, 0);
+		org.eclipse.swt.widgets.TableItem tItem = (org.eclipse.swt.widgets.TableItem)WidgetHandler.getInstance().getSWTItem(table, row);
+		return new BasicTableItem(tItem);
 	}
 
 	@Override
 	public int rowCount() {
-		int count = table.rowCount();
-		return count;
+		return TableHandler.getInstance().rowCount(table);
 	}
 
 	@Override
-	public void select(int... indexes) {
+	public void select(final int... indexes) {
 		if (log.isDebugEnabled()){
 		      StringBuffer sbIndexes = new StringBuffer();
 		      for (int index : indexes){
@@ -43,38 +76,33 @@ public abstract class AbstractTable implements Table {
 		      }
 		  log.debug("Select table row(s): " + sbIndexes.toString());
 		}
-		waitUntilTableHasRows(this);
-		table.select(indexes);
+		waitUntilTableHasRows();
+		if(indexes.length == 1){
+			WidgetHandler.getInstance().select(table, indexes[0]);
+		} else {
+			WidgetHandler.getInstance().select(table, indexes);
+		}
 		
 	}
 	
 	@Override
 	public void select(String... items) {
-		new WaitUntil(new TableHasRows(this));
-		table.select(items);
-	}
-	
-	@Override
-	public void select(String item, int columnIndex){
-		select(table.indexOf(item, columnIndex));
-	}
-	
-	@Override
-	public void check(String item){
-		table.getTableItem(item).check();
-	}
-	
-	@Override
-	public void check(int itemIndex){
-		table.getTableItem(itemIndex).check();
-	}
-	
-	private void waitUntilTableHasRows(Table table) {
-		try {
-			new WaitUntil(new TableHasRows(table));
-		}catch (WaitTimeoutExpiredException wtee) {
-			throw new SWTLayerException(wtee.getLocalizedMessage());
+		waitUntilTableHasRows();
+		int[] indicies = new int[items.length];
+		for(int i =0;i<items.length;i++){
+			indicies[i] = TableHandler.getInstance().indexOf(table, items[i], 0);
 		}
+		select(indicies);
 	}
-		
+	
+	@Override
+	public void selectAll(){
+		waitUntilTableHasRows();
+		WidgetHandler.getInstance().selectAll(table);
+	}
+	
+	private void waitUntilTableHasRows() {
+		new WaitUntil(new TableHasRows(this), TimePeriod.NORMAL, false);
+	}
+	
 }

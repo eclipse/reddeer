@@ -8,6 +8,7 @@ import org.jboss.reddeer.swt.condition.ShellWithTextIsActive;
 import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.jboss.reddeer.swt.impl.table.DefaultTable;
+import org.jboss.reddeer.swt.impl.table.DefaultTableItem;
 import org.jboss.reddeer.swt.wait.WaitWhile;
 
 /**
@@ -36,7 +37,7 @@ public class QuickFixDialog extends DefaultShell {
 		Table fixesTable = new DefaultTable(0); 
 		int count = fixesTable.rowCount();
 		for (int i = 0; i < count; i++) {
-			fixes.add(fixesTable.cell(i, 0));
+			fixes.add(fixesTable.getItem(i).getText());
 		}
 		return fixes;
 	}
@@ -57,7 +58,7 @@ public class QuickFixDialog extends DefaultShell {
 		Table fixTable = new DefaultTable(0);
 		int count = fixTable.rowCount();
 		for (int i = 0; i < count; i++) {
-			String fixInTable = fixTable.cell(i, 0);
+			String fixInTable = fixTable.getItem(i).getText();
 			if (fixInTable.contains(fix)) {
 				fixTable.select(fixInTable);
 				break;
@@ -74,7 +75,7 @@ public class QuickFixDialog extends DefaultShell {
 		Table resourcesTable = new DefaultTable(1);
 		int count = resourcesTable.rowCount();
 		for (int i = 0; i < count; i++) {
-			resources.add(resourcesTable.cell(i, 0));
+			resources.add(resourcesTable.getItem(i).getText());
 		}
 		return resources;
 	}
@@ -84,7 +85,7 @@ public class QuickFixDialog extends DefaultShell {
 	 * @param resource
 	 */
 	public void setResource(String resource) {
-		new DefaultTable(1).check(resource);
+		new DefaultTableItem(1,resource).setChecked(true);
 	}
 	
 	/**

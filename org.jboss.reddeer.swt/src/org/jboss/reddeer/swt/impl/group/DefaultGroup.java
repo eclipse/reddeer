@@ -4,6 +4,7 @@ import org.eclipse.swt.widgets.Group;
 import org.jboss.reddeer.swt.handler.WidgetHandler;
 import org.jboss.reddeer.swt.lookup.impl.WidgetLookup;
 import org.jboss.reddeer.swt.matcher.TextMatcher;
+import org.jboss.reddeer.swt.matcher.WithMnemonicMatcher;
 import org.jboss.reddeer.swt.reference.ReferenceComposite;
 import org.jboss.reddeer.swt.reference.ReferencedComposite;
 
@@ -47,7 +48,7 @@ public class DefaultGroup implements org.jboss.reddeer.swt.api.Group,ReferencedC
 	 */
 	public DefaultGroup(int index,String text){
 		if (text != null && !text.isEmpty()) {
-			group = (Group)WidgetLookup.getInstance().activeWidget(Group.class, index, new TextMatcher(text));
+			group = (Group)WidgetLookup.getInstance().activeWidget(Group.class, index,new WithMnemonicMatcher(text));
 		} else {
 			group = (Group)WidgetLookup.getInstance().activeWidget(Group.class, index);
 		}

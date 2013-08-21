@@ -2,7 +2,9 @@ package org.jboss.reddeer.swt.util;
 
 import java.util.ArrayList;
 
+import org.eclipse.swt.SWTException;
 import org.eclipse.swtbot.swt.finder.utils.SWTUtils;
+import org.jboss.reddeer.swt.exception.SWTLayerException;
 
 /**
  * Reddeer display provider
@@ -12,12 +14,29 @@ import org.eclipse.swtbot.swt.finder.utils.SWTUtils;
 public class Display {
 	
 	public static void syncExec(Runnable runnable) {
-		SWTUtils.display().syncExec(runnable);
+		try{
+			SWTUtils.display().syncExec(runnable);
+		}catch(SWTException ex){
+			if(ex.getCause() instanceof SWTLayerException){
+				throw (SWTLayerException) ex.getCause();
+			} else {
+				throw ex;
+			}
+		}
 	}
 
 	public static void asyncExec(Runnable runnable) {
-		SWTUtils.display().asyncExec(runnable);
+		try{
+			SWTUtils.display().asyncExec(runnable);
+		}catch(SWTException ex){
+			if(ex.getCause() instanceof SWTLayerException){
+				throw (SWTLayerException) ex.getCause();
+			} else {
+				throw ex;
+			}
+		}
 	}
+		
 	
 	public static org.eclipse.swt.widgets.Display getDisplay() {
 		return SWTUtils.display();
@@ -29,16 +48,24 @@ public class Display {
 	 * @return 
 	 */	
 	public static <T> T syncExec(final ResultRunnable<T> runnable) {
-		final ArrayList<T> list = new ArrayList<T>();		
-		Display.getDisplay().syncExec(new Runnable()  {
-
-			@Override
-			public void run() {
-				T res = runnable.run();
-				list.add(res);
+		final ArrayList<T> list = new ArrayList<T>();	
+		try{
+			Display.getDisplay().syncExec(new Runnable()  {
 				
+				@Override
+				public void run() {
+					T res = runnable.run();
+					list.add(res);
+				
+				}
+			});
+		}catch(SWTException ex){
+			if(ex.getCause() instanceof SWTLayerException){
+				throw (SWTLayerException) ex.getCause();
+			} else {
+				throw ex;
 			}
-		});
+		}
 		return list.get(0);
 		
 	}
@@ -50,15 +77,23 @@ public class Display {
 	 */
 	public static <T> T asynExec(final ResultRunnable<T> runnable) {
 		final ArrayList<T> list = new ArrayList<T>();		
-		Display.getDisplay().asyncExec(new Runnable()  {
+		try{
+			Display.getDisplay().asyncExec(new Runnable()  {
 
-			@Override
-			public void run() {
-				T res = runnable.run();
-				list.add(res);
+				@Override
+				public void run() {
+					T res = runnable.run();
+					list.add(res);
 				
+				}
+			});
+		}catch(SWTException ex){
+			if(ex.getCause() instanceof SWTLayerException){
+				throw (SWTLayerException) ex.getCause();
+			} else {
+				throw ex;
 			}
-		});
+		}
 		return list.get(0);
 		
 	}

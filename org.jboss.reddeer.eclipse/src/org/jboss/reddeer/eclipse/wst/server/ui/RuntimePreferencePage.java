@@ -32,11 +32,12 @@ public class RuntimePreferencePage extends PreferencePage {
 		List<Runtime> runtimes = new ArrayList<Runtime>();
 		
 		Table table = new DefaultTable();
+		int rows = table.rowCount();
 		
-		for (int i = 0; i < table.rowCount(); i++){
+		for (int i = 0; i < rows; i++){
 			Runtime runtime = new Runtime();
-			runtime.setName(table.cell(i, 0));
-			runtime.setType(table.cell(i, 1));
+			runtime.setName(table.getItem(i).getText());
+			runtime.setType(table.getItem(i).getText(1));
 			runtimes.add(runtime);
 		}
 		return runtimes;
@@ -63,7 +64,7 @@ public class RuntimePreferencePage extends PreferencePage {
 		Table table = new DefaultTable();
 		
 		for (int i = 0; i < table.rowCount(); i++){
-			if (table.cell(i, 0).equals(name)){
+			if (table.getItem(i).getText().equals(name)){
 				table.select(i);
 			}
 		}
