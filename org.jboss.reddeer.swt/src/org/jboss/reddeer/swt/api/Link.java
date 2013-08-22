@@ -6,5 +6,16 @@ package org.jboss.reddeer.swt.api;
  *
  */
 public interface Link {
+	
+	/**
+	 * Returns text of link
+	 * @return
+	 */
+	String getText();
+	
+	/**
+	 * Clicks on link
+	 */
+	void click();
 
 }

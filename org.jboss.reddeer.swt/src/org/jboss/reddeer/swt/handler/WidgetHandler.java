@@ -14,6 +14,7 @@ import org.eclipse.swt.widgets.ExpandBar;
 import org.eclipse.swt.widgets.ExpandItem;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Link;
 import org.eclipse.swt.widgets.List;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
@@ -265,6 +266,11 @@ public class WidgetHandler {
 					return ((TableItem) w).getText();
 				else if (w instanceof ExpandItem)
 					return ((ExpandItem) w).getText();
+				else if (w instanceof Link){
+					String[] split1 = ((Link) w).getText().split(".*<[aA]>");
+					String[] split2 = split1[split1.length-1].split("</[aA]>.*");
+					return split2[0];
+				}
 				else
 					throw new SWTLayerException("Unsupported type");
 			}
@@ -700,6 +706,31 @@ public class WidgetHandler {
 					((Control)w).setFocus();
 				} else if (w instanceof ExpandBar){
 					((ExpandBar)w).setFocus();
+				}
+				else throw new SWTLayerException("Unsupported type");
+			}
+		});
+	}
+	
+	/**
+	 * Activates widget - link/hyperlink etc
+	 * @param w widget to activate
+	 */
+	public <T> void activate(final T w) {
+		Display.syncExec(new Runnable() {
+			
+			@Override
+			public void run() {
+				if (w instanceof Link) {
+					((Link)w).setFocus();
+					WidgetLookup.getInstance().notify(SWT.MouseDown, (Link)w);
+					WidgetLookup.getInstance().notify(SWT.Selection, (Link)w);
+					WidgetLookup.getInstance().notify(SWT.MouseUp, (Link)w);
+				} else if (w instanceof Hyperlink) {
+					((Hyperlink)w).setFocus();
+					WidgetLookup.getInstance().notifyHyperlink(SWT.MouseEnter, (Hyperlink)w);
+					WidgetLookup.getInstance().notifyHyperlink(SWT.MouseDown, (Hyperlink)w);
+					WidgetLookup.getInstance().notifyHyperlink(SWT.MouseUp, (Hyperlink)w);
 				}
 				else throw new SWTLayerException("Unsupported type");
 			}

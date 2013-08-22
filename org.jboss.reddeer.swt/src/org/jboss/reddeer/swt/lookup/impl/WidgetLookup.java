@@ -99,6 +99,12 @@ public class WidgetLookup {
 		
 	}
 	
+	public void notifyHyperlink(int eventType, Widget widget) {
+		Event event = createHyperlinkEvent(widget);
+		notify(eventType, event, widget);
+		
+	}
+	
 	public void notifyItem(int eventType, int detail, Widget widget, Widget widgetItem) {
 		Event event = createEventItem(eventType, detail, widget, widgetItem);
 		notify(eventType, event, widget);
@@ -110,6 +116,17 @@ public class WidgetLookup {
 		event.time = (int) System.currentTimeMillis();
 		event.widget = widget;
 		event.display = Display.getDisplay();
+		return event;
+	}
+	
+	private Event createHyperlinkEvent(Widget widget){
+		Event event = new Event();
+		event.time = (int) System.currentTimeMillis();
+		event.widget = widget;
+		event.display = Display.getDisplay();
+		event.button=1;
+		event.x=0;
+		event.y=0;
 		return event;
 	}
 	
