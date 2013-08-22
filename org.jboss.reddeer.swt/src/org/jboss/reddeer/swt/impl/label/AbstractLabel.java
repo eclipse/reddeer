@@ -1,17 +1,30 @@
 package org.jboss.reddeer.swt.impl.label;
 
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotLabel;
 import org.jboss.reddeer.swt.api.Label;
+import org.jboss.reddeer.swt.handler.WidgetHandler;
+import org.jboss.reddeer.swt.lookup.impl.WidgetLookup;
 
 public abstract class AbstractLabel implements Label {
 
-	protected SWTBotLabel label; 
+	protected org.eclipse.swt.widgets.Label w;		
 	
-	public AbstractLabel() {
-	}
-
 	@Override
+	/*
+	 * (non-Javadoc)
+	 * @see org.jboss.reddeer.swt.api.Label#getText()
+	 */
 	public String getText() {
-		return label.getText();
+		String text = WidgetHandler.getInstance().getText(w);
+		return text;
+	}
+	
+	@Override
+	/*
+	 * (non-Javadoc)
+	 * @see org.jboss.reddeer.swt.api.Label#isVisible()
+	 */
+	public boolean isVisible() {
+		boolean ret = WidgetLookup.getInstance().isVisible(w);
+		return ret;
 	}
 }
