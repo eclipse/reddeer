@@ -1,8 +1,8 @@
-package org.jboss.reddeer.swt.matcher;
+package org.jboss.reddeer.swt.lookup;
 
 import org.eclipse.swt.widgets.Combo;
 import org.hamcrest.Matcher;
-import org.jboss.reddeer.swt.lookup.impl.WidgetLookup;
+import org.jboss.reddeer.swt.lookup.WidgetLookup;
 
 /**
  * Combo lookup containing lookup routines for Combo widget type

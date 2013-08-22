@@ -1,8 +1,8 @@
-package org.jboss.reddeer.swt.matcher;
+package org.jboss.reddeer.swt.lookup;
 
 import org.eclipse.swt.widgets.List;
 import org.hamcrest.Matcher;
-import org.jboss.reddeer.swt.lookup.impl.WidgetLookup;
+import org.jboss.reddeer.swt.lookup.WidgetLookup;
 
 
 /**

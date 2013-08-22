@@ -1,7 +1,7 @@
 package org.jboss.reddeer.swt.impl.table;
 
 import org.jboss.reddeer.swt.api.Table;
-import org.jboss.reddeer.swt.lookup.impl.WidgetLookup;
+import org.jboss.reddeer.swt.lookup.WidgetLookup;
 
 /**
  * Default Table implementation
