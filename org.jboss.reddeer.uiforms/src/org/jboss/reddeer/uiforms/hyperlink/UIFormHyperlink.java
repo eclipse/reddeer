@@ -3,6 +3,7 @@ package org.jboss.reddeer.uiforms.hyperlink;
 import org.eclipse.ui.forms.widgets.Hyperlink;
 import org.jboss.reddeer.swt.handler.WidgetHandler;
 import org.jboss.reddeer.swt.matcher.TextMatcher;
+import org.jboss.reddeer.swt.matcher.WithMnemonicMatcher;
 import org.jboss.reddeer.uiforms.lookup.UIFormHyperlinkLookup;
 
 
@@ -46,7 +47,7 @@ public class UIFormHyperlink {
 	 */
 	public UIFormHyperlink(int index, String text) {
 		if (text != null && !text.isEmpty()) {
-			hyperLink = UIFormHyperlinkLookup.getInstance().getHyperlink(index, new TextMatcher(text));
+			hyperLink = UIFormHyperlinkLookup.getInstance().getHyperlink(index, new WithMnemonicMatcher(text));
 		} else {
 			hyperLink = UIFormHyperlinkLookup.getInstance().getHyperlink(index);
 		}
@@ -65,5 +66,10 @@ public class UIFormHyperlink {
 	private void setFocus() {
 		WidgetHandler.getInstance().setFocus(hyperLink);
 	}
+	
+	public void activate() {
+		WidgetHandler.getInstance().activate(hyperLink);
+	}
+
 	
 }

@@ -3,6 +3,7 @@ package org.jboss.reddeer.uiforms.section;
 import org.eclipse.ui.forms.widgets.Section;
 import org.jboss.reddeer.swt.handler.WidgetHandler;
 import org.jboss.reddeer.swt.matcher.TextMatcher;
+import org.jboss.reddeer.swt.matcher.WithMnemonicMatcher;
 import org.jboss.reddeer.swt.reference.ReferenceComposite;
 import org.jboss.reddeer.swt.reference.ReferencedComposite;
 import org.jboss.reddeer.uiforms.lookup.UIFormSectionLookup;
@@ -47,7 +48,7 @@ public class UIFormSection implements ReferencedComposite {
 	 */
 	public UIFormSection(int index, String text) {
 		if (text != null && !text.isEmpty()) {
-			section = UIFormSectionLookup.getInstance().getSection(index, new TextMatcher(text));
+			section = UIFormSectionLookup.getInstance().getSection(index, new WithMnemonicMatcher(text));
 		}else {
 			section = UIFormSectionLookup.getInstance().getSection(index);
 		}

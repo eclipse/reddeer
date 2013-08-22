@@ -1,7 +1,9 @@
 package org.jboss.reddeer.uiforms.lookup;
 
 import org.eclipse.ui.forms.widgets.Hyperlink;
+import org.eclipse.ui.forms.widgets.ImageHyperlink;
 import org.hamcrest.Matcher;
+import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.lookup.impl.WidgetLookup;
 
 /**
@@ -35,7 +37,13 @@ public class UIFormHyperlinkLookup {
 	 */
 	@SuppressWarnings({ "rawtypes" })
 	public Hyperlink getHyperlink(int index, Matcher... matchers) {
-		return (Hyperlink)WidgetLookup.getInstance().activeWidget(Hyperlink.class, index, matchers);
+		Hyperlink link;
+		try{
+			link= (Hyperlink)WidgetLookup.getInstance().activeWidget(Hyperlink.class, index, matchers);
+		} catch(SWTLayerException ex){
+			link= (Hyperlink)WidgetLookup.getInstance().activeWidget(ImageHyperlink.class, index, matchers);
+		}
+		return link;
 	}
 	
 }
