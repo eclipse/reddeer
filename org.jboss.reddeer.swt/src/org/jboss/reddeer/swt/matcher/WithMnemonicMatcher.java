@@ -40,9 +40,12 @@ public class WithMnemonicMatcher extends BaseMatcher<String> {
 		} else {
 			try {
 				String widgetText = WidgetHandler.getInstance().getText(item);
-				String textToMatch = (widgetText).replaceAll("&", "").split("\t")[0];
-				if (textToMatch.equals(text))
-					return true;
+				if(widgetText != null){
+					String textToMatch = widgetText.replaceAll("&", "").split("\t")[0];
+					if (textToMatch.equals(text))
+						return true;
+					}
+
 			} catch (SWTLayerException sle) {
 				// object is not supported by widget handler mechanism 'getText' 
 			}
