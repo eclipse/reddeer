@@ -1,4 +1,4 @@
-package org.jboss.reddeer.swt.lookup.impl;
+package org.jboss.reddeer.swt.lookup;
 
 import static org.eclipse.swtbot.swt.finder.finders.UIThreadRunnable.syncExec;
 

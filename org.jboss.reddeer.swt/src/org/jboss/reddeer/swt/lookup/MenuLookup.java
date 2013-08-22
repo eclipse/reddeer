@@ -1,4 +1,4 @@
-package org.jboss.reddeer.swt.lookup.impl;
+package org.jboss.reddeer.swt.lookup;
 
 import java.util.ArrayList;
 import java.util.Arrays;

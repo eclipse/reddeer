@@ -2,7 +2,7 @@ package org.jboss.reddeer.swt.impl.combo;
 
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.swt.api.Combo;
-import org.jboss.reddeer.swt.matcher.ComboLookup;
+import org.jboss.reddeer.swt.lookup.ComboLookup;
 import org.jboss.reddeer.swt.matcher.LabelMatcher;
 /**
  * Combo with label implementation

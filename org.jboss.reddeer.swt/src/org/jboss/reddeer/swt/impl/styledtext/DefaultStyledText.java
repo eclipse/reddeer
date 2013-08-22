@@ -4,8 +4,8 @@ import org.apache.log4j.Logger;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.swt.api.StyledText;
 import org.jboss.reddeer.swt.handler.WidgetHandler;
+import org.jboss.reddeer.swt.lookup.StyledTextLookup;
 import org.jboss.reddeer.swt.matcher.GroupMatcher;
-import org.jboss.reddeer.swt.matcher.StyledTextLookup;
 import org.jboss.reddeer.swt.matcher.TextMatcher;
 
 /**

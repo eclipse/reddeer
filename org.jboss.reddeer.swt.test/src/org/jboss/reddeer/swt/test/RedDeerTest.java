@@ -5,7 +5,7 @@ import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PatternLayout;
 import org.eclipse.ui.IViewReference;
-import org.jboss.reddeer.swt.lookup.impl.WorkbenchLookup;
+import org.jboss.reddeer.swt.lookup.WorkbenchLookup;
 import org.jboss.reddeer.swt.util.Display;
 import org.junit.After;
 import org.junit.Before;

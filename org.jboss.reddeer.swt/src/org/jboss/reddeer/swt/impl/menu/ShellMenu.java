@@ -4,7 +4,7 @@ import org.eclipse.swt.widgets.MenuItem;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.swt.api.Menu;
 import org.jboss.reddeer.swt.api.Shell;
-import org.jboss.reddeer.swt.lookup.impl.MenuLookup;
+import org.jboss.reddeer.swt.lookup.MenuLookup;
 import org.jboss.reddeer.swt.matcher.WithMnemonicMatchers;
 
 /**

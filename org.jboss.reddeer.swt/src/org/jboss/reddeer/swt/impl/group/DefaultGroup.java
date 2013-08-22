@@ -2,8 +2,7 @@ package org.jboss.reddeer.swt.impl.group;
 
 import org.eclipse.swt.widgets.Group;
 import org.jboss.reddeer.swt.handler.WidgetHandler;
-import org.jboss.reddeer.swt.lookup.impl.WidgetLookup;
-import org.jboss.reddeer.swt.matcher.TextMatcher;
+import org.jboss.reddeer.swt.lookup.WidgetLookup;
 import org.jboss.reddeer.swt.matcher.WithMnemonicMatcher;
 import org.jboss.reddeer.swt.reference.ReferenceComposite;
 import org.jboss.reddeer.swt.reference.ReferencedComposite;

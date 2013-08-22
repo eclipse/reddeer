@@ -1,8 +1,8 @@
-package org.jboss.reddeer.swt.lookup.impl;
+package org.jboss.reddeer.swt.lookup;
 
 import org.eclipse.swt.custom.CTabItem;
 import org.hamcrest.Matcher;
-import org.jboss.reddeer.swt.lookup.impl.WidgetLookup;
+import org.jboss.reddeer.swt.lookup.WidgetLookup;
 
 /**
  * CTabItem lookup containing lookup routines for CTabItem widget type

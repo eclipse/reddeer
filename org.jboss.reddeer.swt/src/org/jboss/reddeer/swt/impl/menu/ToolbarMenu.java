@@ -2,7 +2,7 @@ package org.jboss.reddeer.swt.impl.menu;
 import org.eclipse.jface.action.ActionContributionItem;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.swt.api.Menu;
-import org.jboss.reddeer.swt.lookup.impl.MenuLookup;
+import org.jboss.reddeer.swt.lookup.MenuLookup;
 import org.jboss.reddeer.swt.matcher.WithMnemonicMatchers;
 
 /**
