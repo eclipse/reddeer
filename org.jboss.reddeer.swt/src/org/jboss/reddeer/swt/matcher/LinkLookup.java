@@ -2,7 +2,7 @@ package org.jboss.reddeer.swt.matcher;
 
 import org.eclipse.swt.widgets.Link;
 import org.hamcrest.Matcher;
-import org.jboss.reddeer.swt.lookup.impl.WidgetLookup;
+import org.jboss.reddeer.swt.lookup.WidgetLookup;
 
 public class LinkLookup {
 	

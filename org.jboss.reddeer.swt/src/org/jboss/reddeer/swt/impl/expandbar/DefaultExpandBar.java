@@ -1,6 +1,6 @@
 package org.jboss.reddeer.swt.impl.expandbar;
 
-import org.jboss.reddeer.swt.lookup.impl.ExpandBarLookup;
+import org.jboss.reddeer.swt.lookup.ExpandBarLookup;
 
 /**
  * Default Expand Bar implementation

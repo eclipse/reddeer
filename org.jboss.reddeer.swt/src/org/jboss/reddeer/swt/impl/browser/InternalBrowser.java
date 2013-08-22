@@ -1,6 +1,6 @@
 package org.jboss.reddeer.swt.impl.browser;
 
-import org.jboss.reddeer.swt.lookup.impl.WidgetLookup;
+import org.jboss.reddeer.swt.lookup.WidgetLookup;
 import org.jboss.reddeer.swt.matcher.LabelMatcher;
 /**
  * Implements SWT Browser manipulations

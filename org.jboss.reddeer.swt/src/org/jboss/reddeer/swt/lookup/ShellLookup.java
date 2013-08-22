@@ -1,4 +1,4 @@
-package org.jboss.reddeer.swt.lookup.impl;
+package org.jboss.reddeer.swt.lookup;
 
 import org.eclipse.swt.widgets.Shell;
 import org.jboss.reddeer.swt.condition.ShellIsActive;

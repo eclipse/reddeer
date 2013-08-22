@@ -2,7 +2,7 @@ package org.jboss.reddeer.swt.impl.label;
 
 import org.jboss.reddeer.swt.api.Label;
 import org.jboss.reddeer.swt.handler.WidgetHandler;
-import org.jboss.reddeer.swt.lookup.impl.WidgetLookup;
+import org.jboss.reddeer.swt.lookup.WidgetLookup;
 
 public abstract class AbstractLabel implements Label {
 

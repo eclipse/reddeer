@@ -1,6 +1,6 @@
 package org.jboss.reddeer.swt.impl.toolbar;
 
-import org.jboss.reddeer.swt.lookup.impl.ToolBarLookup;
+import org.jboss.reddeer.swt.lookup.ToolBarLookup;
 
 /**
  * Workbench toolbar implementation

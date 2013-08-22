@@ -1,9 +1,9 @@
 package org.jboss.reddeer.swt.impl.list;
 
 import org.jboss.reddeer.swt.api.List;
+import org.jboss.reddeer.swt.lookup.ListLookup;
 import org.jboss.reddeer.swt.matcher.GroupMatcher;
 import org.jboss.reddeer.swt.matcher.LabelMatcher;
-import org.jboss.reddeer.swt.matcher.ListLookup;
 
 
 /**

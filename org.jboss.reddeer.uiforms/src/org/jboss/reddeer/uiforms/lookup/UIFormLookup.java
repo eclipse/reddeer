@@ -2,7 +2,7 @@ package org.jboss.reddeer.uiforms.lookup;
 
 import org.eclipse.ui.forms.widgets.Form;
 import org.hamcrest.Matcher;
-import org.jboss.reddeer.swt.lookup.impl.WidgetLookup;
+import org.jboss.reddeer.swt.lookup.WidgetLookup;
 
 /**
  * UIForm Lookup containing lookup routines for Eclipse Form widget type

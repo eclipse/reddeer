@@ -1,6 +1,6 @@
 package org.jboss.reddeer.swt.condition;
 
-import org.jboss.reddeer.swt.lookup.impl.ShellLookup;
+import org.jboss.reddeer.swt.lookup.ShellLookup;
 
 public class ShellIsActive implements WaitCondition{
 	@Override

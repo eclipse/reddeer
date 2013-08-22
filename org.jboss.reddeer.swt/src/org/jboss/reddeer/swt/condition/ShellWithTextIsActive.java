@@ -3,7 +3,7 @@ package org.jboss.reddeer.swt.condition;
 import org.apache.log4j.Logger;
 import org.eclipse.swt.widgets.Shell;
 import org.jboss.reddeer.swt.handler.WidgetHandler;
-import org.jboss.reddeer.swt.lookup.impl.ShellLookup;
+import org.jboss.reddeer.swt.lookup.ShellLookup;
 
 /**
  * Condition is fulfilled when shell with text is active

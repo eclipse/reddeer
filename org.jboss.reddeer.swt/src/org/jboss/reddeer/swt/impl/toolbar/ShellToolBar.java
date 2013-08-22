@@ -1,6 +1,6 @@
 package org.jboss.reddeer.swt.impl.toolbar;
 
-import org.jboss.reddeer.swt.lookup.impl.ToolBarLookup;
+import org.jboss.reddeer.swt.lookup.ToolBarLookup;
 
 /**
  * ShellToolBar implementation. It expects shell where toolbar should be found on

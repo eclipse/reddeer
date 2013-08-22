@@ -1,6 +1,6 @@
 package org.jboss.reddeer.swt.impl.ctab;
 
-import org.jboss.reddeer.swt.lookup.impl.CTabItemLookup;
+import org.jboss.reddeer.swt.lookup.CTabItemLookup;
 import org.jboss.reddeer.swt.matcher.WithMnemonicMatcher;
 
 /**

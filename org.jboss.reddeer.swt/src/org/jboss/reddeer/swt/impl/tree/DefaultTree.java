@@ -1,7 +1,7 @@
 package org.jboss.reddeer.swt.impl.tree;
 
 import org.apache.log4j.Logger;
-import org.jboss.reddeer.swt.lookup.impl.WidgetLookup;
+import org.jboss.reddeer.swt.lookup.WidgetLookup;
 /**
  * Default Tree implementation
  * 

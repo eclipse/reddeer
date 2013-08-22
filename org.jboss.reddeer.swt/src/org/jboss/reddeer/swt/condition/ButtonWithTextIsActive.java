@@ -2,8 +2,8 @@ package org.jboss.reddeer.swt.condition;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Button;
-import org.jboss.reddeer.swt.lookup.impl.WidgetLookup;
-import org.jboss.reddeer.swt.matcher.ButtonLookup;
+import org.jboss.reddeer.swt.lookup.WidgetLookup;
+import org.jboss.reddeer.swt.lookup.ButtonLookup;
 import org.jboss.reddeer.swt.matcher.StyleMatcher;
 import org.jboss.reddeer.swt.matcher.WithMnemonicMatcher;
 import org.jboss.reddeer.swt.condition.WaitCondition;

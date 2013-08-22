@@ -5,7 +5,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import org.eclipse.ui.IViewReference;
 import org.hamcrest.core.Is;
 import org.hamcrest.core.IsNot;
-import org.jboss.reddeer.swt.lookup.impl.WorkbenchLookup;
+import org.jboss.reddeer.swt.lookup.WorkbenchLookup;
 import org.jboss.reddeer.swt.test.RedDeerTest;
 import org.jboss.reddeer.workbench.view.View;
 import org.jboss.reddeer.workbench.view.impl.WorkbenchView;

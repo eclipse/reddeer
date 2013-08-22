@@ -4,8 +4,9 @@ import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.swt.exception.Thrower;
-import org.jboss.reddeer.swt.lookup.impl.ToolBarLookup;
+import org.jboss.reddeer.swt.lookup.ToolBarLookup;
 import org.jboss.reddeer.swt.matcher.TextMatcher;
+
 /**
  * ViewToolItem implementation. It expect view where toolbar should be found has 
  * @author Jiri Peterka
