@@ -1,5 +1,6 @@
 package org.jboss.reddeer.swt.matcher;
 
+import org.eclipse.swt.widgets.Widget;
 import org.hamcrest.BaseMatcher;
 import org.hamcrest.Description;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
@@ -23,14 +24,16 @@ public class StyleMatcher extends BaseMatcher<Integer>{
 		if (item instanceof Integer) {
 			Integer integerToMatch = (Integer)item;
 			return integerToMatch.compareTo(style) == 0;
-		} else {
+		} else if (item instanceof Widget){
 			try {
-				Integer widgetStyle = WidgetHandler.getInstance().getStyle(item);
+				Integer widgetStyle = WidgetHandler.getInstance().getStyle((Widget)item);
 				return (widgetStyle.intValue() & style) != 0;
 			} catch (SWTLayerException sle) {
 				// object is not supported by widget handler mechanism 'getStyle'
 				return false;
 			}
+		} else {
+			return false;
 		}
 	}
 

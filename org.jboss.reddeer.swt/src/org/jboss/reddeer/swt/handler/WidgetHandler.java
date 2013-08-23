@@ -10,6 +10,8 @@ import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.ExpandBar;
+import org.eclipse.swt.widgets.ExpandItem;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.List;
@@ -17,11 +19,11 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.swt.widgets.Widget;
 import org.eclipse.ui.forms.widgets.Hyperlink;
 import org.eclipse.ui.forms.widgets.Section;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
-import org.jboss.reddeer.swt.impl.table.internal.BasicTable;
 import org.jboss.reddeer.swt.lookup.WidgetResolver;
 import org.jboss.reddeer.swt.lookup.impl.WidgetLookup;
 import org.jboss.reddeer.swt.util.Display;
@@ -140,7 +142,7 @@ public class WidgetHandler {
 	 * @param w given widget
 	 * @return	returns widget style
 	 */
-	public <T> int getStyle(final T w) {
+	public <T extends Widget> int getStyle(final T w) {
 		int style = Display.syncExec(new ResultRunnable<Integer>() {
 
 			@Override
@@ -160,7 +162,7 @@ public class WidgetHandler {
 	 * @param w	given widget
 	 * @return	returns widget label text
 	 */
-	public <T> boolean isSelected(final T w) {
+	public <T extends Widget> boolean isSelected(final T w) {
 		boolean selectionState = Display.syncExec(new ResultRunnable<Boolean>() {
 			
 			@Override
@@ -189,7 +191,7 @@ public class WidgetHandler {
 	 * @param text
 	 *            text to be set
 	 */
-	public <T> void setText(final T w, final String text) {
+	public <T extends Widget> void setText(final T w, final String text) {
 		Display.syncExec(new Runnable() {
 
 			@Override
@@ -234,7 +236,7 @@ public class WidgetHandler {
 	 *            given widget
 	 * @return returns widget text
 	 */
-	public <T> String getText(final T w) {
+	public <T extends Widget> String getText(final T w) {
 		String text = Display.syncExec(new ResultRunnable<String>() {
 
 			@Override
@@ -261,6 +263,8 @@ public class WidgetHandler {
 					return ((Shell) w).getText();
 				else if (w instanceof TableItem)
 					return ((TableItem) w).getText();
+				else if (w instanceof ExpandItem)
+					return ((ExpandItem) w).getText();
 				else
 					throw new SWTLayerException("Unsupported type");
 			}
@@ -305,7 +309,7 @@ public class WidgetHandler {
 	 *            given widget
 	 * @return array of items in widget
 	 */
-	public <T> String[] getItems(final T w) {
+	public <T extends Widget> String[] getItems(final T w) {
 		String[] text = Display.syncExec(new ResultRunnable<String[]>() {
 
 			@Override
@@ -366,7 +370,7 @@ public class WidgetHandler {
 	 * 
 	 * @param w given widget
 	 */
-	public <T> void deselect(final T w) {
+	public <T extends Widget> void deselect(final T w) {
 		Display.syncExec(new Runnable() {
 
 			@Override
@@ -384,7 +388,7 @@ public class WidgetHandler {
 	 * 
 	 * @param w given widget
 	 */
-	public <T> void selectAll(final T w) {
+	public <T extends Widget> void selectAll(final T w) {
 		Display.syncExec(new Runnable() {
 
 			@Override
@@ -418,7 +422,7 @@ public class WidgetHandler {
 	 * @param w given widget
 	 * @param item to select
 	 */
-	public <T> void select(final T w,final String item) {
+	public <T extends Widget> void select(final T w,final String item) {
 		Display.syncExec(new Runnable() {
 
 			@Override
@@ -520,7 +524,7 @@ public class WidgetHandler {
 	 * @param w given widget
 	 * @param items to select
 	 */
-	public <T> void select(final T w,final String[] items) {
+	public <T extends Widget> void select(final T w,final String[] items) {
 		Display.syncExec(new Runnable() {
 
 			@Override
@@ -552,7 +556,7 @@ public class WidgetHandler {
 	 * @param w given widget
 	 * @param indices of items to select
 	 */
-	public <T> void select(final T w,final int[] indices) {
+	public <T extends Widget> void select(final T w,final int[] indices) {
 		Display.syncExec(new Runnable() {
 
 			@Override
@@ -587,7 +591,7 @@ public class WidgetHandler {
 	 * @param w given widget
 	 * @param index of item to select
 	 */
-	public <T> void select(final T w,final int index) {
+	public <T extends Widget> void select(final T w,final int index) {
 		Display.syncExec(new Runnable() {
 
 			@Override
@@ -627,7 +631,7 @@ public class WidgetHandler {
 	 * @param w given widget
 	 * @return returns widget label text
 	 */
-	public <T> String getLabel(final T w) {
+	public <T extends Widget> String getLabel(final T w) {
 		String label = Display.syncExec(new ResultRunnable<String>() {
 
 			@Override
@@ -667,9 +671,8 @@ public class WidgetHandler {
 	 * @param widget
 	 * @return widget text
 	 */
-	public <T> String getToolTipText(final T w) {
+	public <T extends Widget> String getToolTipText(final T w) {
 		String text = Display.syncExec(new ResultRunnable<String>() {
-
 			@Override
 			public String run() {
 				if (w instanceof Text)
@@ -680,32 +683,24 @@ public class WidgetHandler {
 					return ((CTabItem) w).getToolTipText();
 				else if (w instanceof Button){
 					return ((Button) w).getToolTipText();
-				} else
+				}else if (w instanceof ExpandItem)
+					return ((ExpandItem) w).getParent().getToolTipText();
+				else
 					throw new SWTLayerException("Unsupported type");
 			}
 		});
 		return text;
 	}
 	
-	public <T> Object getParent(final T w){
-		return Display.syncExec(new ResultRunnable<Object>() {
-			@Override
-			public Object run() {
-				if(w instanceof TableItem){
-					return new BasicTable(((TableItem)w).getParent());
-				} else {
-					throw new SWTLayerException("Unsupported type");
-				}
-			}
-		});
-	}
-	
-	public <T> void setFocus(final T w) {
+	public <T extends Widget> void setFocus(final T w) {
 		Display.syncExec(new Runnable() {
-			
 			@Override
 			public void run() {
-				if (w instanceof Control) ((Control)w).setFocus();
+				if (w instanceof Control) {
+					((Control)w).setFocus();
+				} else if (w instanceof ExpandBar){
+					((ExpandBar)w).setFocus();
+				}
 				else throw new SWTLayerException("Unsupported type");
 			}
 		});
@@ -715,7 +710,7 @@ public class WidgetHandler {
 	  * 
 	  * @param index
 	  */
-	 public <T> void setSelection(final T w, final int index) {
+	 public <T extends Widget> void setSelection(final T w, final int index) {
 	   Display.syncExec(new Runnable() {
 	    
 	    @Override
@@ -741,7 +736,7 @@ public class WidgetHandler {
 	 * 
 	 * @param index
 	 */
-	public <T> void setSelection(final T w, final String text) {
+	public <T extends Widget> void setSelection(final T w, final String text) {
 	  Display.syncExec(new Runnable() {
 	    
 	    @Override
@@ -772,7 +767,7 @@ public class WidgetHandler {
 	 * 
 	 * @param index
 	 */
-	public <T> String getSelection(final T w) {
+	public <T extends Widget> String getSelection(final T w) {
 	  return Display.syncExec(new ResultRunnable<String>() {
 	    
 	    @Override
@@ -798,7 +793,7 @@ public class WidgetHandler {
 	 * 
 	 * @param index
 	 */
-	public <T> int getSelectionIndex(final T w) {
+	public <T extends Widget> int getSelectionIndex(final T w) {
 	  return Display.syncExec(new ResultRunnable<Integer>() {
 	    
 	    @Override
@@ -810,5 +805,51 @@ public class WidgetHandler {
 	        throw new SWTLayerException("Unsupported type");
 	    }
 	  });
+	}
+	/**
+	 * Checks if supported widget is expanded
+	 * 
+	 * @param w	given widget
+	 * @return	true if widget is expanded
+	 */
+	public <T extends Widget> boolean isExpanded(final T w) {
+		boolean selectionState = Display.syncExec(new ResultRunnable<Boolean>() {
+			
+			@Override
+			public Boolean run() {
+				if (w instanceof ExpandItem)
+					return ((ExpandItem) w).getExpanded();
+				else if (w instanceof TreeItem)
+					return ((TreeItem) w).getExpanded();
+				else
+					throw new SWTLayerException("Unsupported type");
+			}
+		});
+		return selectionState;
+	}
+	/**
+	 * Returns parent for supported widget
+	 * 
+	 * @param w	given widget
+	 * @return	parent widget
+	 */
+	@SuppressWarnings("unchecked")
+	public <T extends Widget,R extends Widget> R getParent(final T w) {
+		R parent = Display.syncExec(new ResultRunnable<R>() {
+			@Override
+			public R run() {
+				Widget parent = null;
+				if (w instanceof ExpandItem)
+					parent = ((ExpandItem) w).getParent();
+				else if (w instanceof TreeItem)
+					parent = ((TreeItem) w).getParent();
+				else if (w instanceof TableItem)
+					parent = ((TableItem) w).getParent();
+				else
+					throw new SWTLayerException("Unsupported type");
+				return (R)parent;
+			}
+		});
+		return parent;
 	}
 }

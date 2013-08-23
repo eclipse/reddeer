@@ -3,6 +3,7 @@ package org.jboss.reddeer.swt.matcher;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.List;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.swt.widgets.Widget;
 import org.hamcrest.BaseMatcher;
 import org.hamcrest.Description;
 import org.jboss.reddeer.swt.handler.WidgetHandler;
@@ -38,7 +39,7 @@ public class LabelMatcher extends BaseMatcher<String> {
 	public boolean matches(Object item) {
 		
 		if ((item instanceof List) || (item instanceof Text) || (item instanceof Combo)) {
-			String widgetLabel = WidgetHandler.getInstance().getLabel(item);
+			String widgetLabel = WidgetHandler.getInstance().getLabel((Widget)item);
 			if (widgetLabel != null && widgetLabel.equals(label)) {
 				return true;
 			}
