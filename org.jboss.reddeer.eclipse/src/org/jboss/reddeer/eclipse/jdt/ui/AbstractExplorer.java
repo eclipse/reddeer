@@ -6,7 +6,6 @@ import java.util.List;
 import org.jboss.reddeer.eclipse.exception.EclipseLayerException;
 import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.Project;
 import org.jboss.reddeer.swt.api.TreeItem;
-import org.jboss.reddeer.swt.impl.tree.BasicTree;
 import org.jboss.reddeer.swt.impl.tree.DefaultTree;
 import org.jboss.reddeer.workbench.view.impl.WorkbenchView;
 
@@ -39,13 +38,13 @@ public class AbstractExplorer extends WorkbenchView {
 	 * @param projectName
 	 */
 	public void selectProjects(String... projectName){
+		
 		ArrayList<TreeItem> selectTreeItems = new ArrayList<TreeItem>();
 		for(String pname: projectName){
 			selectTreeItems.add(getProject(pname).getTreeItem()); //check if project exists
 		}
 		if (selectTreeItems.size() > 0){
-			new BasicTree(getTree().getSWTWidget())
-				.selectItems(selectTreeItems.toArray(new TreeItem[]{}));
+			getTree().selectItems(selectTreeItems.toArray(new TreeItem[]{}));
 		}
 	}
 	
