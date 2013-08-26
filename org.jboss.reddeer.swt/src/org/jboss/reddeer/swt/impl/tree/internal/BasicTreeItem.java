@@ -1,6 +1,7 @@
-package org.jboss.reddeer.swt.impl.tree;
+package org.jboss.reddeer.swt.impl.tree.internal;
 
 import org.eclipse.swt.widgets.TreeItem;
+import org.jboss.reddeer.swt.impl.tree.AbstractTreeItem;
 /**
  * Basic Tree implementation enclosing SWT Tree object
  * @author vpakan

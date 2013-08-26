@@ -1,4 +1,4 @@
-package org.jboss.reddeer.swt.internal;
+package org.jboss.reddeer.swt.impl.expandbar.internal;
 
 import org.eclipse.swt.widgets.ExpandBar;
 import org.jboss.reddeer.swt.impl.expandbar.AbstractExpandBar;

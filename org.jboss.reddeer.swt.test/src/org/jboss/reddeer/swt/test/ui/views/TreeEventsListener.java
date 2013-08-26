@@ -12,7 +12,7 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Tree;
 import org.jboss.reddeer.swt.api.TreeItem;
-import org.jboss.reddeer.swt.impl.tree.BasicTreeItem;
+import org.jboss.reddeer.swt.impl.tree.AbstractTreeItem;
 import org.jboss.reddeer.swt.util.Display;
 /**
  * Defines Tree listeners for tests of Tree and TreeItem
@@ -80,20 +80,20 @@ public class TreeEventsListener implements SelectionListener, TreeListener, Focu
   @Override
   public void treeCollapsed(TreeEvent arg0) {
     logger.debug("Calling method treeCollapsed()");
-    collapsedTreeItem = new BasicTreeItem((org.eclipse.swt.widgets.TreeItem)arg0.item);
+    collapsedTreeItem = new TestTreeItem((org.eclipse.swt.widgets.TreeItem)arg0.item);
   }
 
   @Override
   public void treeExpanded(TreeEvent arg0) {
     logger.debug("Calling method treeExpanded()");
-    expandedTreeItem = new BasicTreeItem((org.eclipse.swt.widgets.TreeItem)arg0.item);    
+    expandedTreeItem = new TestTreeItem((org.eclipse.swt.widgets.TreeItem)arg0.item);    
   }
 
   @Override
   public void widgetDefaultSelected(SelectionEvent arg0) {
     logger.debug("Calling method widgetDefaultSelected()");
     if (arg0.item != null){
-      defaultSelectedTreeItem = new BasicTreeItem((org.eclipse.swt.widgets.TreeItem)arg0.item);    
+      defaultSelectedTreeItem = new TestTreeItem((org.eclipse.swt.widgets.TreeItem)arg0.item);    
     }
     else{
       defaultSelectedTreeItem = null;
@@ -106,7 +106,7 @@ public class TreeEventsListener implements SelectionListener, TreeListener, Focu
     checkEvent = arg0.detail == SWT.CHECK;
     logger.debug("It was check event: " + checkEvent);
     if (arg0.item != null){
-      selectedTreeItem = new BasicTreeItem((org.eclipse.swt.widgets.TreeItem)arg0.item);
+      selectedTreeItem = new TestTreeItem((org.eclipse.swt.widgets.TreeItem)arg0.item);
     }
     else{
       selectedTreeItem = null;
@@ -165,5 +165,12 @@ public class TreeEventsListener implements SelectionListener, TreeListener, Focu
     default:
       break;
     }
+  }
+  private class TestTreeItem extends AbstractTreeItem {
+
+	  public TestTreeItem (org.eclipse.swt.widgets.TreeItem swtTreeItem){
+	    super(swtTreeItem);
+	  }
+
   }
 }

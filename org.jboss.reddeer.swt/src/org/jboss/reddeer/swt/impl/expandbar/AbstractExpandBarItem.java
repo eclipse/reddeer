@@ -6,7 +6,7 @@ import org.jboss.reddeer.swt.api.ExpandBarItem;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.handler.ExpandBarItemHandler;
 import org.jboss.reddeer.swt.handler.WidgetHandler;
-import org.jboss.reddeer.swt.internal.BasicExpandBar;
+import org.jboss.reddeer.swt.impl.expandbar.internal.BasicExpandBar;
 import org.jboss.reddeer.swt.reference.ReferenceComposite;
 import org.jboss.reddeer.swt.reference.ReferencedComposite;
 import org.jboss.reddeer.swt.wait.TimePeriod;

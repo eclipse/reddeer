@@ -11,6 +11,8 @@ import org.jboss.reddeer.swt.api.Tree;
 import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.swt.condition.TreeItemHasMinChildren;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
+import org.jboss.reddeer.swt.impl.tree.internal.BasicTree;
+import org.jboss.reddeer.swt.impl.tree.internal.BasicTreeItem;
 import org.jboss.reddeer.swt.util.Display;
 import org.jboss.reddeer.swt.util.OS;
 import org.jboss.reddeer.swt.util.ResultRunnable;

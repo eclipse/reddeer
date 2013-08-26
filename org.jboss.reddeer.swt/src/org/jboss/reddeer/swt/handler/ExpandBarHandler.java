@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.jboss.reddeer.swt.api.ExpandBar;
 import org.jboss.reddeer.swt.api.ExpandBarItem;
-import org.jboss.reddeer.swt.internal.BasicExpandBarItem;
+import org.jboss.reddeer.swt.impl.expandbar.internal.BasicExpandBarItem;
 import org.jboss.reddeer.swt.util.Display;
 import org.jboss.reddeer.swt.util.ResultRunnable;
 
