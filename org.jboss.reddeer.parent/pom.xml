@@ -14,6 +14,7 @@
 		<eclipse-target-site>http://download.eclipse.org/releases/kepler</eclipse-target-site>
 		<swtbot-update-site>http://download.eclipse.org/technology/swtbot/snapshots</swtbot-update-site>
 		<platformSystemProperties></platformSystemProperties>
+		<log.debug>true</log.debug>
 	</properties>
 	
 	<modules>
@@ -100,18 +101,19 @@
 						</environment>
 					</environments>
 				</configuration>
-			</plugin>				
+			</plugin>
 			<plugin>
 				<groupId>org.eclipse.tycho</groupId>
 				<artifactId>tycho-surefire-plugin</artifactId>
 				<version>${tycho-version}</version>
+		
 				<configuration>
 					<surefire.timeout>2400</surefire.timeout>
 					<forkedProcessTimeoutInSeconds>2400</forkedProcessTimeoutInSeconds>
 					<useUIHarness>true</useUIHarness>
 					<useUIThread>false</useUIThread>
 					<!-- THE FOLLOWING LINE MUST NOT BE BROKEN BY AUTOFORMATTING -->
-					<argLine>${platformSystemProperties} -XX:MaxPermSize=512m</argLine>
+					<argLine>-Dlog.debug=${log.debug} ${platformSystemProperties} -XX:MaxPermSize=512m</argLine>
 					<product>org.eclipse.platform.ide</product>
 					<application>org.eclipse.ui.ide.workbench</application>
 					<dependencies>
@@ -141,21 +143,21 @@
 					</includes>
 				</configuration>
 			</plugin>
-                        <!-- source for bundles -->
-                        <plugin>
-                                <groupId>org.eclipse.tycho</groupId>
-                                <artifactId>tycho-source-plugin</artifactId>
-                                <version>${tycho-version}</version>
-                                <executions>
-                                        <execution>
-                                                <id>plugin-source</id>
-                                                <goals>
-                                                        <goal>plugin-source</goal>
-                                                </goals>
-                                        </execution>
-                                </executions>
-                        </plugin>
-		</plugins>	
+            <!-- source for bundles -->
+            <plugin>
+                    <groupId>org.eclipse.tycho</groupId>
+                    <artifactId>tycho-source-plugin</artifactId>
+                    <version>${tycho-version}</version>
+                    <executions>
+                            <execution>
+                                    <id>plugin-source</id>
+                                    <goals>
+                                            <goal>plugin-source</goal>
+                                    </goals>
+                            </execution>
+                    </executions>
+            </plugin>
+		</plugins>
 	</build>
 
 	<profiles>

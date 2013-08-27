@@ -35,10 +35,10 @@ public class RedDeerTest {
 		console.setLayout(new PatternLayout(PATTERN));
 		// if you want to enable just add vm argument -Dlog.debug=true
 		String debugProp = System.getProperty("log.debug");
-		if (debugProp != null && debugProp.equalsIgnoreCase("true")) {
-			console.setThreshold(Level.DEBUG);
-		} else {
+		if (debugProp != null && debugProp.equalsIgnoreCase("false")) {
 			console.setThreshold(Level.INFO);
+		} else {
+			console.setThreshold(Level.DEBUG);
 		}
 		console.activateOptions();
 		Logger.getRootLogger().addAppender(console);
