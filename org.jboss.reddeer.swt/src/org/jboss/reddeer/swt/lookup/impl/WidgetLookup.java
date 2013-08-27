@@ -62,6 +62,27 @@ public class WidgetLookup {
 	}
 	
 	/**
+	 * Checks if widget is visible
+	 * @param widget given widget
+	 * @return true if wideget is visible, false otherwise
+	 */
+	public boolean isVisible(Widget widget) {
+		boolean ret = true;
+		Object o = null;
+		try {
+			o = ObjectUtil.invokeMethod(widget, "isVisible");
+		} catch (RuntimeException e) {
+			throw new SWTLayerException("Runtime error during checking widget visibility");
+		}
+		if (o == null) return ret;
+		if (o instanceof Boolean) {
+			ret = ((Boolean)o).booleanValue();
+		}
+		return ret;
+	}
+	
+	
+	/**
 	 * Send click notification to a widget
 	 * @param widget
 	 */
