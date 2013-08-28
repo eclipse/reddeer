@@ -54,6 +54,12 @@ public class ConsoleView extends WorkbenchView {
 		
 	}
 
+	/**
+	 * 
+	 * This is not exactly a condition for checking if the console contains text.
+	 * For this purpose use org.jboss.reddeer.eclipse.condition.ConsoleHasText
+	 *
+	 */
 	private class ConsoleHasText implements WaitCondition {
 		private String consoleText;
 
