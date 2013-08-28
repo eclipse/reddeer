@@ -76,16 +76,12 @@ public class LogViewTest extends RedDeerTest{
 		assertTrue("No OK messages found!", !messages.isEmpty());
 		
 		//test OK Message no.1
-		assertTrue(messages.get(1).getSeverity() == IStatus.OK);
-		assertTrue(messages.get(1).getPlugin().equals(OK_ID_1));
-		assertTrue(messages.get(1).getMessage().equals(OK_MESSAGE_1));
-		assertTrue(messages.get(1).getStackTrace().equals("An exception stack trace is not available."));
-		
+		assertTrue(messageIsAvailable(messages, IStatus.OK, OK_ID_1,
+				OK_MESSAGE_1, "An exception stack trace is not available."));
+
 		//test OK Message no.2
-		assertTrue(messages.get(0).getSeverity() == IStatus.OK);
-		assertTrue(messages.get(0).getPlugin().equals(OK_ID_2));
-		assertTrue(messages.get(0).getMessage().equals(OK_MESSAGE_2));
-		assertTrue(messages.get(0).getStackTrace().contains(OK_STACK_2));
+		assertTrue(messageIsAvailable(messages, IStatus.OK, OK_ID_2,
+				OK_MESSAGE_2, OK_STACK_2));		
 	}
 	
 	@Test
@@ -96,16 +92,12 @@ public class LogViewTest extends RedDeerTest{
 		assertTrue("No INFO messages found!", !messages.isEmpty());
 		
 		//test INFO Message no.1
-		assertTrue(messages.get(1).getSeverity() == IStatus.INFO);
-		assertTrue(messages.get(1).getPlugin().equals(INFO_ID_1));
-		assertTrue(messages.get(1).getMessage().equals(INFO_MESSAGE_1));
-		assertTrue(messages.get(1).getStackTrace().equals("An exception stack trace is not available."));
+		assertTrue(messageIsAvailable(messages, IStatus.INFO, INFO_ID_1,
+				INFO_MESSAGE_1, "An exception stack trace is not available."));
 				
 		//test INFO Message no.2
-		assertTrue(messages.get(0).getSeverity() == IStatus.INFO);
-		assertTrue(messages.get(0).getPlugin().equals(INFO_ID_2));
-		assertTrue(messages.get(0).getMessage().equals(INFO_MESSAGE_2));
-		assertTrue(messages.get(0).getStackTrace().contains(INFO_STACK_2));
+		assertTrue(messageIsAvailable(messages, IStatus.INFO, INFO_ID_2,
+				INFO_MESSAGE_2, INFO_STACK_2));
 	}
 	
 	@Test
@@ -116,16 +108,12 @@ public class LogViewTest extends RedDeerTest{
 		assertTrue("No WARNING messages found!", !messages.isEmpty());
 		
 		//test WARNING Message no.1
-		assertTrue(messages.get(1).getSeverity() == IStatus.WARNING);
-		assertTrue(messages.get(1).getPlugin().equals(WARNING_ID_1));
-		assertTrue(messages.get(1).getMessage().equals(WARNING_MESSAGE_1));
-		assertTrue(messages.get(1).getStackTrace().contains(WARNING_STACK_1));
+		assertTrue(messageIsAvailable(messages, IStatus.WARNING, WARNING_ID_1,
+				WARNING_MESSAGE_1, WARNING_STACK_1));
 				
 		//test WARNING Message no.2
-		assertTrue(messages.get(0).getSeverity() == IStatus.WARNING);
-		assertTrue(messages.get(0).getPlugin().equals(WARNING_ID_2));
-		assertTrue(messages.get(0).getMessage().equals(WARNING_MESSAGE_2));
-		assertTrue(messages.get(0).getStackTrace().contains(WARNING_STACK_2));
+		assertTrue(messageIsAvailable(messages, IStatus.WARNING, WARNING_ID_2,
+				WARNING_MESSAGE_2, WARNING_STACK_2));
 	}
 	
 	@Test
@@ -136,16 +124,22 @@ public class LogViewTest extends RedDeerTest{
 		assertTrue("No ERROR messages found!", !messages.isEmpty());
 		
 		//test ERROR Message no.1
-		assertTrue(messages.get(1).getSeverity() == IStatus.ERROR);
-		assertTrue(messages.get(1).getPlugin().equals(ERROR_ID_1));
-		assertTrue(messages.get(1).getMessage().equals(ERROR_MESSAGE_1));
-		assertTrue(messages.get(1).getStackTrace().contains(ERROR_STACK_1));
-						
+		assertTrue(messageIsAvailable(messages, IStatus.ERROR, ERROR_ID_1,
+				ERROR_MESSAGE_1, ERROR_STACK_1));
+				
 		//test ERROR Message no.2
-		assertTrue(messages.get(0).getSeverity() == IStatus.ERROR);
-		assertTrue(messages.get(0).getPlugin().equals(ERROR_ID_2));
-		assertTrue(messages.get(0).getMessage().equals(ERROR_MESSAGE_2));
-		assertTrue(messages.get(0).getStackTrace().contains(ERROR_STACK_2));
+		assertTrue(messageIsAvailable(messages, IStatus.ERROR, ERROR_ID_2,
+				ERROR_MESSAGE_2, ERROR_STACK_2));
+	}
+
+	private boolean messageIsAvailable(List<LogMessage> messages, int severity, String plugin, String message,String stackTrace) {
+		for (LogMessage m : messages) {
+			if (m.getSeverity() == severity && m.getPlugin().equals(plugin) && m.getMessage().equals(message)) {
+				return true;
+			}
+		}
+		
+		return false;
 	}
 	
 }
