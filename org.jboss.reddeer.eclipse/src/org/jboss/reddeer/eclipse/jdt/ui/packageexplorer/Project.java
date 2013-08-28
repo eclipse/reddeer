@@ -2,6 +2,7 @@ package org.jboss.reddeer.eclipse.jdt.ui.packageexplorer;
 
 import org.apache.log4j.Logger;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotCheckBox;
+import org.jboss.reddeer.direct.condition.ProjectExists;
 import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.swt.condition.JobIsRunning;
 import org.jboss.reddeer.swt.condition.ShellWithTextIsActive;
@@ -51,6 +52,7 @@ public class Project {
 		String deleteShellText = shell.getText();
 		new PushButton("OK").click();
 		new WaitWhile(new ShellWithTextIsActive(deleteShellText),TimePeriod.LONG);
+		new WaitWhile(new ProjectExists(name));
 		new WaitWhile(new JobIsRunning(), TimePeriod.LONG);
 	}
 	/**

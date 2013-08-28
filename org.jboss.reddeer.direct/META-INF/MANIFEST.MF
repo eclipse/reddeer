@@ -9,3 +9,6 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Import-Package: org.eclipse.core.resources,
+ org.jboss.reddeer.swt.condition
+Export-Package: org.jboss.reddeer.direct.condition
