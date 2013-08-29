@@ -10,6 +10,5 @@ Require-Bundle: org.jboss.reddeer.eclipse,
  org.junit;bundle-version="4.11.0",
  org.jboss.reddeer.swt,
  org.jboss.reddeer.workbench,
- org.eclipse.swtbot.eclipse.finder,
  org.eclipse.ui.workbench
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
