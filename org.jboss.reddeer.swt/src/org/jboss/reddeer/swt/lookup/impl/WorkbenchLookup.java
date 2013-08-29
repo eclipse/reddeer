@@ -1,9 +1,6 @@
 package org.jboss.reddeer.swt.lookup.impl;
 
-import static org.eclipse.swtbot.swt.finder.finders.UIThreadRunnable.syncExec;
-
 import org.eclipse.swt.widgets.Control;
-import org.eclipse.swtbot.swt.finder.results.Result;
 import org.eclipse.ui.IEditorReference;
 import org.eclipse.ui.IViewReference;
 import org.eclipse.ui.IWorkbenchPartReference;
@@ -28,7 +25,7 @@ public class WorkbenchLookup {
 	 * @return active workbench window
 	 */
 	public static IWorkbenchWindow activeWorkbenchWindow() {
-		return syncExec(new Result<IWorkbenchWindow>() {
+		return Display.syncExec(new ResultRunnable<IWorkbenchWindow>() {
 			public IWorkbenchWindow run() {
 				return PlatformUI.getWorkbench().getActiveWorkbenchWindow();
 			}
@@ -40,7 +37,7 @@ public class WorkbenchLookup {
 	 * @return active workbench part reference
 	 */
 	public static IWorkbenchPartReference findActiveWorkbenchPart() {
-		return syncExec(new Result<IWorkbenchPartReference>() {
+		return Display.syncExec(new ResultRunnable<IWorkbenchPartReference>() {
 			@Override
 			public IWorkbenchPartReference run() {
 				return activeWorkbenchWindow().getActivePage().getActivePartReference();
@@ -53,7 +50,7 @@ public class WorkbenchLookup {
 	 * @return all active views references
 	 */
 	public static IViewReference[] findAllViews() {
-		return syncExec(new Result<IViewReference[]>() {
+		return Display.syncExec(new ResultRunnable<IViewReference[]>() {
 			@Override
 			public IViewReference[] run() {
 				return activeWorkbenchWindow().getActivePage().getViewReferences();
@@ -66,7 +63,7 @@ public class WorkbenchLookup {
 	 * @return all active editor references
 	 */
 	public static IEditorReference[] findAllEditors() {
-		return syncExec(new Result<IEditorReference[]>() {
+		return Display.syncExec(new ResultRunnable<IEditorReference[]>() {
 			@Override
 			public IEditorReference[] run() {
 				return activeWorkbenchWindow().getActivePage().getEditorReferences();
@@ -80,7 +77,7 @@ public class WorkbenchLookup {
 	 * @return active view reference
 	 */
 	public static IViewReference findActiveView() {
-		return syncExec(new Result<IViewReference>() {
+		return Display.syncExec(new ResultRunnable<IViewReference>() {
 			public IViewReference run() {
 				return findActiveViewInternal();
 			}
@@ -92,7 +89,7 @@ public class WorkbenchLookup {
 	 * @return active editor reference
 	 */
 	public static IEditorReference findActiveEditor() {
-		return syncExec(new Result<IEditorReference>() {
+		return Display.syncExec(new ResultRunnable<IEditorReference>() {
 			public IEditorReference run() {
 				return findActiveEditorInternal();
 			}
