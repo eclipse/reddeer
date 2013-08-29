@@ -14,7 +14,8 @@
 		<eclipse-target-site>http://download.eclipse.org/releases/kepler</eclipse-target-site>
 		<swtbot-update-site>http://download.eclipse.org/technology/swtbot/snapshots</swtbot-update-site>
 		<platformSystemProperties></platformSystemProperties>
-		<log.debug>true</log.debug>
+		<logDebug>true</logDebug>
+		<pauseFailedTest>false</pauseFailedTest>
 	</properties>
 	
 	<modules>
@@ -113,7 +114,7 @@
 					<useUIHarness>true</useUIHarness>
 					<useUIThread>false</useUIThread>
 					<!-- THE FOLLOWING LINE MUST NOT BE BROKEN BY AUTOFORMATTING -->
-					<argLine>-Dlog.debug=${log.debug} ${platformSystemProperties} -XX:MaxPermSize=512m</argLine>
+					<argLine>-DlogDebug=${log.debug} -DpauseFailedTest=${pauseFailedTest} ${platformSystemProperties} -XX:MaxPermSize=512m</argLine>
 					<product>org.eclipse.platform.ide</product>
 					<application>org.eclipse.ui.ide.workbench</application>
 					<dependencies>
