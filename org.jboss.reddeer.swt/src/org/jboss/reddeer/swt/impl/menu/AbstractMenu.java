@@ -1,7 +1,6 @@
 package org.jboss.reddeer.swt.impl.menu;
 
 import org.apache.log4j.Logger;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotMenu;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.swt.api.Menu;
 
@@ -15,10 +14,8 @@ public abstract class AbstractMenu implements Menu {
 
 	protected final Logger log = Logger.getLogger(this.getClass());
 
-	protected SWTBotMenu menu;
 	protected String[] path;
 	protected Matcher<String>[] matchers;
-
 
 	@Override
 	public abstract void select();
