@@ -1,9 +1,13 @@
 package org.jboss.reddeer.swt.condition;
 
-import org.eclipse.swtbot.swt.finder.SWTBot;
-import org.jboss.reddeer.swt.util.Bot;
-import org.jboss.reddeer.swt.impl.button.PushButton;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.Button;
+import org.jboss.reddeer.swt.lookup.impl.WidgetLookup;
+import org.jboss.reddeer.swt.matcher.ButtonLookup;
+import org.jboss.reddeer.swt.matcher.StyleMatcher;
+import org.jboss.reddeer.swt.matcher.WithMnemonicMatcher;
 import org.jboss.reddeer.swt.condition.WaitCondition;
+import org.jboss.reddeer.swt.exception.SWTLayerException;
 /**
  * Condition is fulfilled when button with text is active
  * @author Vlado Pakan / Len DiMaggio
@@ -12,24 +16,27 @@ import org.jboss.reddeer.swt.condition.WaitCondition;
 public class ButtonWithTextIsActive implements WaitCondition {
 	
     private String text;
-    private SWTBot bot;
     
     public ButtonWithTextIsActive(String text){
     	this.text = text;
-    	bot = Bot.get();
  	}
 
 	@Override
 	public boolean test() {
-		
-		if (new PushButton(text).isEnabled() ) {
-			return true;
-		}
-		else {
+		try{
+			final Button swtButton = ButtonLookup.getInstance().getButton(0,
+					new WithMnemonicMatcher(text),
+					new StyleMatcher(SWT.PUSH | SWT.RADIO | SWT.TOGGLE | SWT.CHECK));
+			if (swtButton != null){
+				return WidgetLookup.getInstance().isEnabled(swtButton);
+			}
+			else{
+				return false;
+			}
+		} catch (SWTLayerException swtle){
 			return false;
 		}
 	}
-
 	@Override
 	public String description() {
 		return "Button with text " + text + " is active";
