@@ -18,10 +18,10 @@ public class BasicNewProjectResourceWizard extends NewWizardDialog {
 	
 	@Override
 	public WizardNewProjectCreationPage getFirstPage() {
-		return new WizardNewProjectCreationPage(this);
+		return new WizardNewProjectCreationPage();
 	}
 	
 	public WizardNewProjectReferencePage getSecondPage(){
-		return new WizardNewProjectReferencePage(this);
+		return new WizardNewProjectReferencePage();
 	}
 }
