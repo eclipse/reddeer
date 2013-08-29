@@ -16,15 +16,17 @@ import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Widget;
-import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
 import org.eclipse.ui.IViewSite;
+import org.eclipse.ui.IWorkbench;
+import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchPart;
-import org.eclipse.ui.internal.WorkbenchPartReference;
+import org.eclipse.ui.IWorkbenchPartReference;
+import org.eclipse.ui.IWorkbenchWindow;
+import org.eclipse.ui.PlatformUI;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.swt.condition.ShellWithTextIsActive;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.handler.WidgetHandler;
-import org.jboss.reddeer.swt.util.Bot;
 import org.jboss.reddeer.swt.util.Display;
 import org.jboss.reddeer.swt.util.ResultRunnable;
 import org.jboss.reddeer.swt.wait.AbstractWait;
@@ -43,16 +45,20 @@ public class MenuLookup {
 
 	private Logger log = Logger.getLogger(this.getClass());
 	
-	public List<IContributionItem> getToolbarMenus(){
-		SWTBotView view = Bot.get().activeView();
-		IWorkbenchPart obj = ((WorkbenchPartReference) view.getReference()).getPart(false);
+	/**
+	 * Provide lookup for ToolBar menu items 
+	 * @return list of MenuManager instances related to toolbar menus
+	 */
+	public List<IContributionItem> getToolbarMenus(){	
+		IWorkbenchPart part = getActivePart(false);
+		
 		List<IContributionItem> menuContributionItems = new ArrayList<IContributionItem>();
-		IMenuManager m = ((IViewSite) obj.getSite()).getActionBars().getMenuManager();
+		IMenuManager m = ((IViewSite) part.getSite()).getActionBars().getMenuManager();
 		if (m instanceof MenuManager) {
 			menuContributionItems.addAll(Arrays.asList(((MenuManager) m).getItems()));
 		}
 		if(menuContributionItems.isEmpty()){
-			throw new SWTLayerException("No Menu found in " +view.getTitle());
+			throw new SWTLayerException("No Menu found in toolbar");
 		}
 		return menuContributionItems;
 	}
@@ -416,6 +422,22 @@ public class MenuLookup {
 		});
 
 		return enabled;
+	}
+	
+	private IWorkbenchPart getActivePart(final boolean restore) {
+		IWorkbenchPart result = Display.syncExec(new ResultRunnable<IWorkbenchPart>() {
+
+			@Override
+			public IWorkbenchPart run() {
+				IWorkbench workbench = PlatformUI.getWorkbench();
+				IWorkbenchWindow activeWorkbenchWindow = workbench.getActiveWorkbenchWindow();
+				IWorkbenchPage activePage = activeWorkbenchWindow.getActivePage();
+				IWorkbenchPartReference activePartReference = activePage.getActivePartReference();
+				IWorkbenchPart part = activePartReference.getPart(restore);
+				return part;
+			}		
+		});
+		return result;		
 	}
 
 }
