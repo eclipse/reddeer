@@ -5,10 +5,13 @@ import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PatternLayout;
 import org.eclipse.ui.IViewReference;
+import org.jboss.reddeer.junit.ExecutionSetting;
+import org.jboss.reddeer.junit.watcher.RedDeerWatchdog;
 import org.jboss.reddeer.swt.lookup.impl.WorkbenchLookup;
 import org.jboss.reddeer.swt.util.Display;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Rule;
 /**
  * Parent test for each test of Red Deer
  * @author Vlado Pakan
@@ -18,6 +21,9 @@ import org.junit.Before;
  */
 public class RedDeerTest {
 
+	@Rule 
+    public RedDeerWatchdog rule = new RedDeerWatchdog();
+	
 	Logger log = Logger.getLogger(RedDeerTest.class);
 	
 	@Before
@@ -33,12 +39,10 @@ public class RedDeerTest {
 		console.setName("console");
 		String PATTERN = "%-5p [%t][%C{1}] %m%n";
 		console.setLayout(new PatternLayout(PATTERN));
-		// if you want to enable just add vm argument -Dlog.debug=true
-		String debugProp = System.getProperty("log.debug");
-		if (debugProp != null && debugProp.equalsIgnoreCase("false")) {
-			console.setThreshold(Level.INFO);
-		} else {
+		if (ExecutionSetting.getInstance().isPauseFailedTest()) {			
 			console.setThreshold(Level.DEBUG);
+		} else {
+			console.setThreshold(Level.INFO);
 		}
 		console.activateOptions();
 		Logger.getRootLogger().addAppender(console);
