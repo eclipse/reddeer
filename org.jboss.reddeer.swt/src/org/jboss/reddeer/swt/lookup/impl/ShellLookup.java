@@ -14,31 +14,45 @@ import org.jboss.reddeer.swt.wait.WaitUntil;
  * 
  */
 public class ShellLookup {
-
+	/**
+	 * Returns active shell
+	 * Waits for shell to become active in case there is no active shell at the moment
+	 * If there is no active shell even after waiting has finished then shell with focus is returned 
+	 * @return
+	 */
 	public Shell getActiveShell() {
-		new WaitUntil(new ShellIsActive(),TimePeriod.NORMAL, false);
-		final Shell[] s = new Shell[1];
-		Display.syncExec(new Runnable() {
-
-			@Override
-			public void run() {
-				// find active shell
-				s[0] = Display.getDisplay().getActiveShell();
-				if (s[0] != null)
-					return;
-				// at least try to find shell with focus 
-				Shell[] ss = Display.getDisplay().getShells();
-				for (Shell shell : ss) {
-					if (shell.isFocusControl()) {
-						s[0] = shell;
-						return;
+		new WaitUntil(new ShellIsActive(), TimePeriod.NORMAL, false);
+		Shell activeShell = getCurrentActiveShell();
+		// try to find shell with focus
+		if (activeShell == null) {
+			activeShell = Display.syncExec(new ResultRunnable<Shell>() {
+				@Override
+				public Shell run() {
+					Shell[] ss = Display.getDisplay().getShells();
+					for (Shell shell : ss) {
+						if (shell.isFocusControl()) {
+							return shell;
+						}
 					}
+					return null;
 				}
-				s[0] = null;
-				return;
+			});
+		}
+
+		return activeShell;
+	}
+	/**
+	 * Returns current Active Shell without waiting for shell to become active
+	 * Can return null
+	 * @return
+	 */
+	public Shell getCurrentActiveShell () {
+		return Display.syncExec(new ResultRunnable<Shell>() {
+			@Override
+			public Shell run() {
+				return Display.getDisplay().getActiveShell();
 			}
 		});
-		return s[0];
 	}
 	
 	public Shell[] getShells() {

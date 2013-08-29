@@ -1,8 +1,9 @@
 package org.jboss.reddeer.swt.condition;
 
-import org.eclipse.swtbot.swt.finder.SWTBot;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
-import org.jboss.reddeer.swt.util.Bot;
+import org.eclipse.swt.widgets.Shell;
+import org.jboss.reddeer.swt.handler.WidgetHandler;
+import org.jboss.reddeer.swt.lookup.impl.ShellLookup;
+
 /**
  * Condition is fulfilled when shell with text is active
  * @author Vlado Pakan
@@ -11,23 +12,19 @@ import org.jboss.reddeer.swt.util.Bot;
 public class ShellWithTextIsActive implements WaitCondition{
 	
 	private String text;
-    private SWTBot bot;
     
     public ShellWithTextIsActive(String text){
     	this.text = text;
-    	bot = Bot.get();
     }
 	@Override
 	public boolean test() {
-		SWTBotShell activeShell = bot.activeShell();
-		if (activeShell != null 
-			&& activeShell.getText() != null
-			&& activeShell.getText().equals(text)){
-			return true;
+		boolean result = false;
+		Shell activeShell = new ShellLookup().getCurrentActiveShell();
+		if (activeShell != null){
+			String shellText = WidgetHandler.getInstance().getText(activeShell);
+			result = shellText != null && shellText.equals(text);
 		}
-		else{
-			return false;
-		}
+		return result;
 	}
 
 	@Override

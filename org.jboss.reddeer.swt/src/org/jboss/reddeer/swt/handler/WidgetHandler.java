@@ -242,37 +242,42 @@ public class WidgetHandler {
 
 			@Override
 			public String run() {
-				if (w instanceof Text)
-					return ((Text) w).getText();
-				else if (w instanceof Label)
-					return ((Label) w).getText();
-				else if (w instanceof Hyperlink)
-					return ((Hyperlink) w).getText();
-				else if (w instanceof Section)
-					return ((Section) w).getText();
-				else if (w instanceof StyledText)
-					return ((StyledText) w).getText();
-				else if (w instanceof Group)
-					return ((Group) w).getText();
-				else if (w instanceof Combo)
-					return ((Combo) w).getText();
-				else if (w instanceof Button)
-					return ((Button) w).getText();
-				else if (w instanceof CTabItem)
-					return ((CTabItem) w).getText();
-				else if (w instanceof Shell)
-					return ((Shell) w).getText();
-				else if (w instanceof TableItem)
-					return ((TableItem) w).getText();
-				else if (w instanceof ExpandItem)
-					return ((ExpandItem) w).getText();
-				else if (w instanceof Link){
-					String[] split1 = ((Link) w).getText().split(".*<[aA]>");
-					String[] split2 = split1[split1.length-1].split("</[aA]>.*");
-					return split2[0];
+				if (!w.isDisposed()){
+					if (w instanceof Text)
+						return ((Text) w).getText();
+					else if (w instanceof Label)
+						return ((Label) w).getText();
+					else if (w instanceof Hyperlink)
+						return ((Hyperlink) w).getText();
+					else if (w instanceof Section)
+						return ((Section) w).getText();
+					else if (w instanceof StyledText)
+						return ((StyledText) w).getText();
+					else if (w instanceof Group)
+						return ((Group) w).getText();
+					else if (w instanceof Combo)
+						return ((Combo) w).getText();
+					else if (w instanceof Button)
+						return ((Button) w).getText();
+					else if (w instanceof CTabItem)
+						return ((CTabItem) w).getText();
+					else if (w instanceof Shell)
+						return ((Shell) w).getText();
+					else if (w instanceof TableItem)
+						return ((TableItem) w).getText();
+					else if (w instanceof ExpandItem)
+						return ((ExpandItem) w).getText();
+					else if (w instanceof Link){
+						String[] split1 = ((Link) w).getText().split(".*<[aA]>");
+						String[] split2 = split1[split1.length-1].split("</[aA]>.*");
+						return split2[0];
+					}
+					else
+						throw new SWTLayerException("Unsupported type");
 				}
-				else
-					throw new SWTLayerException("Unsupported type");
+				else{
+					return null;
+				}
 			}
 		});
 		return text;

@@ -1,22 +1,12 @@
 package org.jboss.reddeer.swt.condition;
 
-import org.eclipse.swtbot.swt.finder.SWTBot;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
-import org.jboss.reddeer.swt.util.Bot;
+import org.jboss.reddeer.swt.lookup.impl.ShellLookup;
 
 public class ShellIsActive implements WaitCondition{
-	
-    private SWTBot bot;
-    
-    public ShellIsActive(){
-    	bot = Bot.get();
-    }
 	@Override
 	public boolean test() {
-		SWTBotShell activeShell = bot.activeShell();
-		return activeShell!= null;
+		return new ShellLookup().getCurrentActiveShell() != null;
 	}
-
 	@Override
 	public String description() {
 		return "Shell is active";
