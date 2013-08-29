@@ -39,8 +39,6 @@ public class BasicNewProjectResourceWizardTest extends RedDeerTest{
 		wizardDialog.finish();
 		// create customized project
 		wizardDialog.open();
-		WizardNewProjectReferencePage projectReferencesPage = new WizardNewProjectReferencePage(
-				wizardDialog);
 		projectPage
 				.setProjectName(BasicNewProjectResourceWizardTest.CUSTOMIZED_PROJECT_NAME);
 		File customProjectDir = new File(
@@ -57,7 +55,8 @@ public class BasicNewProjectResourceWizardTest extends RedDeerTest{
 			// do nothing this exception means there is no Working set
 			// defined but all widgets were found
 		}
-		projectReferencesPage
+		wizardDialog.next();
+		new WizardNewProjectReferencePage()
 				.setProjectReferences(BasicNewProjectResourceWizardTest.DEFAULT_PROJECT_NAME);
 		wizardDialog.finish();
 		assertTrue(
