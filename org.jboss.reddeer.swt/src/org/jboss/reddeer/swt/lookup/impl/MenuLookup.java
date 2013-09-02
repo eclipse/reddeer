@@ -252,6 +252,7 @@ public class MenuLookup {
 			// there is a chance that some non expected shell was opened
 			// e.g. Progress Dialog
 			new WaitWhile(new ShellWithTextIsActive(activeShellText),TimePeriod.NORMAL,false);
+			activeShell = sl.getActiveShell();
 			if (!activeShellText.equals(WidgetHandler.getInstance().getText(activeShell))){
 				result = getMenuBarItems(activeShell);
 			}
