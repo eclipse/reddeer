@@ -20,6 +20,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.swt.widgets.Widget;
 import org.eclipse.ui.forms.widgets.Hyperlink;
@@ -80,6 +81,13 @@ public class WidgetHandler {
 						((button.getStyle() & SWT.CHECK) != 0)) {
 						button.setSelection(!button.getSelection());
 					}
+				}else if (w instanceof ToolItem) {
+					final ToolItem toolItem = (ToolItem) w;
+					if (((toolItem.getStyle() & SWT.TOGGLE) != 0) ||
+						((toolItem.getStyle() & SWT.CHECK) != 0) ||
+						((toolItem.getStyle() & SWT.RADIO) != 0)) {
+						toolItem.setSelection(!toolItem.getSelection());
+					}
 				}else {
 					throw new SWTLayerException("Unsupported type");
 				}
@@ -93,6 +101,8 @@ public class WidgetHandler {
 					if (w instanceof Button) {
 						final Button button = (Button) w;
 						handleNotSelectedRadioButton(button);
+					}else if (w instanceof ToolItem) {
+						// do nothing toolItem is supported type
 					}else {
 						throw new SWTLayerException("Unsupported type");
 					}
@@ -177,7 +187,9 @@ public class WidgetHandler {
 						}
 					}
 					return false;
-				} else
+				}else if (w instanceof ToolItem)
+					return ((ToolItem) w).getSelection(); 
+				else
 					throw new SWTLayerException("Unsupported type");
 			}
 		});

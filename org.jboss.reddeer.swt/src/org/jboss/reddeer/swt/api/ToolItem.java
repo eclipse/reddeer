@@ -7,14 +7,22 @@ package org.jboss.reddeer.swt.api;
  */
 public interface ToolItem {
 
-	/*
+	/**
 	 * Click a Toolbar item 
 	 */
 	void click();
 	
 	
-	/*
+	/**
 	 * Returns ToolItem tooltip text
 	 */
-	String getToolTipText();  
+	String getToolTipText();
+	/**
+	 * Returns true when button is selected
+	 */
+	boolean isSelected();
+	/**
+	 * Returns ToolItem tooltip text
+	 */
+	void toggle(boolean toggle);
 }

@@ -8,6 +8,7 @@ import org.jboss.reddeer.swt.exception.WaitTimeoutExpiredException;
 import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.jboss.reddeer.swt.wait.TimePeriod;
+import org.jboss.reddeer.swt.wait.WaitUntil;
 import org.jboss.reddeer.swt.wait.WaitWhile;
 
 public class NewJavaProjectWizardDialog extends NewWizardDialog{
@@ -25,25 +26,27 @@ public class NewJavaProjectWizardDialog extends NewWizardDialog{
 	public void finish(){
 		finish(false);
 	}
-	
+	@SuppressWarnings("unused")
 	public void finish(boolean openAssociatedPerspective) {
 		log.debug("Finish wizard dialog");
 		new PushButton("Finish").click();
+		final String openAssociatedPerspectiveShellText = "Open Associated Perspective?";
 		try {
-			DefaultShell shell = new DefaultShell("Open Associated Perspective?");
-			if (new DefaultShell().getText().equals("Open Associated Perspective?")) {
-				if (openAssociatedPerspective) {
-					new PushButton("Yes").click();
-				} else {
-					new PushButton("No").click();
-				}
-				new WaitWhile(new ShellWithTextIsActive(shell.getText()), TimePeriod.LONG);
+			new WaitUntil(new ShellWithTextIsActive(openAssociatedPerspectiveShellText));
+			DefaultShell shell = new DefaultShell(openAssociatedPerspectiveShellText);
+			if (openAssociatedPerspective) {
+				new PushButton("Yes").click();
+			} else {
+				new PushButton("No").click();
 			}
+			new WaitWhile(new ShellWithTextIsActive(openAssociatedPerspectiveShellText),
+				TimePeriod.LONG);
 		} catch (WaitTimeoutExpiredException wtee) {
 			log.info("Shell 'Open Associated Perspective' wasn't shown");
 		} catch (SWTLayerException sle) {
-      log.info("Shell 'Open Associated Perspective' wasn't shown");
-    }
+			log.info("Shell 'Open Associated Perspective' wasn't shown");
+		}
+		new WaitWhile(new ShellWithTextIsActive("New Java Project"));
 		new WaitWhile(new JobIsRunning(), TimePeriod.LONG);
 	}
 
