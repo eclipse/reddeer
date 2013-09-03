@@ -26,12 +26,6 @@ public class PropertiesViewProperty {
 	public String getPropertyName(){
 		return treeItem.getCell(0);
 	}
-	/**
-	 * Click on lookup button of property
-	 */
-	public void clickLookupButton(){
-		
-	}
 	@Override
 	public String toString() {
 		return getPropertyName() + "=" + getPropertyValue();
