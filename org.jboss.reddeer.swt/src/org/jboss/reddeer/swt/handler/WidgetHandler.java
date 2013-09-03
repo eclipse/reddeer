@@ -4,6 +4,7 @@ import java.util.Arrays;
 
 import org.apache.log4j.Logger;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.browser.Browser;
 import org.eclipse.swt.custom.CTabItem;
 import org.eclipse.swt.custom.StyledText;
 import org.eclipse.swt.graphics.Point;
@@ -284,6 +285,8 @@ public class WidgetHandler {
 						String[] split2 = split1[split1.length-1].split("</[aA]>.*");
 						return split2[0];
 					}
+					else if (w instanceof Browser)
+						return ((Browser) w).getText();
 					else
 						throw new SWTLayerException("Unsupported type");
 				}
@@ -723,6 +726,8 @@ public class WidgetHandler {
 					((Control)w).setFocus();
 				} else if (w instanceof ExpandBar){
 					((ExpandBar)w).setFocus();
+				} else if (w instanceof Browser){
+					((Browser)w).setFocus();
 				}
 				else throw new SWTLayerException("Unsupported type");
 			}
