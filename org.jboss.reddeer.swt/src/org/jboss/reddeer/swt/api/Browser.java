@@ -37,5 +37,13 @@ public interface Browser {
 	 * Get text from page in browser 
 	 */
 	String getText();
-
+	/**
+	 * Return swt widget of Browser
+	 */
+	org.eclipse.swt.browser.Browser getSWTWidget();
+	/**
+	 * Refreshes loaded page
+	 */
+	void refresh();
+	
 }

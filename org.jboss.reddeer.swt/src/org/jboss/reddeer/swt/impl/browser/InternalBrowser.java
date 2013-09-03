@@ -1,50 +1,36 @@
 package org.jboss.reddeer.swt.impl.browser;
 
-import org.jboss.reddeer.swt.api.Browser;
-import org.jboss.reddeer.swt.util.Bot;
-
-public class InternalBrowser extends AbstractBrowser implements Browser {
-
+import org.jboss.reddeer.swt.lookup.impl.WidgetLookup;
+import org.jboss.reddeer.swt.matcher.LabelMatcher;
+/**
+ * Implements SWT Browser manipulations
+ * @author Jiri Peterka, Vlado Pakan
+ *
+ */
+public class InternalBrowser extends AbstractBrowser{
+	/**
+	 * Finds first Browser
+	 */
 	public InternalBrowser() {
-		browser = Bot.get().browser();
+		this (0);
+	}
+	/**
+	 * Finds Browser specified by index
+	 * @param index
+	 */
+	public InternalBrowser(int index) {
+		super(WidgetLookup.getInstance().activeWidget(org.eclipse.swt.browser.Browser.class,index));
 		setReady();
 		}
-	
+	/**
+	 * Finds Browser specified by label
+	 * @param label
+	 */
 	public InternalBrowser(String label) {
-		browser = Bot.get().browserWithLabel(label);
+		super(WidgetLookup.getInstance().activeWidget(org.eclipse.swt.browser.Browser.class,
+				0,
+				new LabelMatcher(label)));
 		setReady();
-	}
-	
-	@Override
-	public boolean isPageLoaded() {
-		return browser.isPageLoaded();
-	}
-
-	@Override
-	public void forward() {
-		browser.forward();
-		
-	}
-
-	@Override
-	public void back() {
-		browser.back();
-		
-	}
-
-	@Override
-	public void setURL(String url) {
-		browser.setUrl(url);	
-	}
-	
-	@Override
-	public String getURL() {
-		return browser.getUrl();	
-	}
-	
-	@Override
-	public String getText() {
-		return browser.getText();	
 	}
 
 }
