@@ -140,13 +140,6 @@ public abstract class View extends WorkbenchPart{
 		setFocusOnControlChild(workbenchControl);
 	}
 
-	/**
-	 * @return Title of this view
-	 */
-	public String getTitle() {
-		return workbenchPart.getTitle();
-	}
-
 	private String[] findRegisteredViewPath(String title) {
 
 		IViewDescriptor viewDescriptor = findView(title);
