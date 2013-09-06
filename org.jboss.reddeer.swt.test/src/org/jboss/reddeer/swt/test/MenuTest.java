@@ -7,21 +7,26 @@ import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.eclipse.swtbot.eclipse.finder.SWTWorkbenchBot;
 import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
+import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.swt.api.Menu;
 import org.jboss.reddeer.swt.api.Shell;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.impl.menu.ContextMenu;
 import org.jboss.reddeer.swt.impl.menu.ShellMenu;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
+import org.jboss.reddeer.swt.matcher.RegexMatcher;
 import org.jboss.reddeer.swt.matcher.RegexMatchers;
+import org.jboss.reddeer.swt.matcher.WithMnemonicMatcher;
 import org.jboss.reddeer.workbench.view.View;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 /**
  * 
  * @author Jiri Peterka
  *
  */
+@RunWith(RedDeerSuite.class)
 public class MenuTest extends RedDeerTest {
 
 	protected final Logger log = Logger.getLogger(this.getClass());
@@ -36,12 +41,24 @@ public class MenuTest extends RedDeerTest {
 	}
 	
 	@Test
-	public void menuTest() {
-		log.info("menu test");
+	public void preferencesMenuTest() {
+		log.info("Preferences menu test");
 		new DefaultShell();
 		Menu m = new ShellMenu("Window", "Preferences");
 		m.select();
 		Shell s = new DefaultShell("Preferences");
+		s.close();
+	}
+	
+	@Test
+	public void aboutMenuTest() {
+		log.info("About menu test");
+		new DefaultShell();
+		@SuppressWarnings("unchecked")
+		Menu m = new ShellMenu(new WithMnemonicMatcher("Help"),
+			new RegexMatcher("About.*"));
+		m.select();
+		Shell s = new DefaultShell();
 		s.close();
 	}
 
