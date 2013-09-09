@@ -31,7 +31,12 @@ public interface Table {
 	 * Selects all table items
 	 */
 	void selectAll();
-	
+
+	/**
+	 * Deselects all table items
+	 */
+	void deselect();
+
 	/**
 	 * Returns item in row
 	 * @param row
