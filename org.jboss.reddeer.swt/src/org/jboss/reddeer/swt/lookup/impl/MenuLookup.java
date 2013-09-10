@@ -178,6 +178,12 @@ public class MenuLookup {
 					item.notifyListeners(SWT.Selection, event);
 				}
 			});
+			Display.syncExec(new Runnable() {
+				@Override
+				public void run() {
+					// do nothing just process events				
+				}
+			});
 		}
 	}
 	/**

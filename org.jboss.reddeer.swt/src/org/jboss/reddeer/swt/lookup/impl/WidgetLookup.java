@@ -13,7 +13,6 @@ import org.eclipse.swt.widgets.Widget;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.IWorkbenchPartReference;
 import org.eclipse.ui.IWorkbenchSite;
-import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.lookup.WidgetResolver;
@@ -219,6 +218,9 @@ public class WidgetLookup {
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	private List<? extends Widget> activeWidgets(Control activeControl, Matcher matcher) {
+		if (activeControl == null){
+			logger.warn("Unable to find active control");
+		}
 		List<? extends Widget> widgets = findControls(activeControl, matcher, true);
 		return widgets;
 	}
@@ -232,8 +234,15 @@ public class WidgetLookup {
 		IWorkbenchPartReference activeWorkbenchReference = WorkbenchLookup.findActiveWorkbenchPart();
 		Shell activeWorkbenchParentShell = getShellForActiveWorkbench(activeWorkbenchReference);
 		Shell activeShell = new ShellLookup().getActiveShell();
-		if (activeWorkbenchParentShell == null || activeWorkbenchParentShell != activeShell)
-			return activeShell;
+		if (activeWorkbenchParentShell == null || activeWorkbenchParentShell != activeShell){
+			if (activeShell != null){
+				return activeShell;	
+			}
+			else{
+				// try to find active shell one more time
+				return new ShellLookup().getActiveShell();
+			}
+		}			
 		else {
 			return WorkbenchLookup.getWorkbenchControl(activeWorkbenchReference);
 		} 
