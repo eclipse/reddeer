@@ -1,5 +1,6 @@
 package org.jboss.reddeer.swt.condition;
 
+import org.apache.log4j.Logger;
 import org.eclipse.swt.widgets.Shell;
 import org.jboss.reddeer.swt.handler.WidgetHandler;
 import org.jboss.reddeer.swt.lookup.impl.ShellLookup;
@@ -12,6 +13,7 @@ import org.jboss.reddeer.swt.lookup.impl.ShellLookup;
 public class ShellWithTextIsActive implements WaitCondition{
 	
 	private String text;
+	private final Logger log = Logger.getLogger(this.getClass());
     
     public ShellWithTextIsActive(String text){
     	this.text = text;
@@ -20,8 +22,10 @@ public class ShellWithTextIsActive implements WaitCondition{
 	public boolean test() {
 		boolean result = false;
 		Shell activeShell = new ShellLookup().getCurrentActiveShell();
+		log.debug("Active shell : " + activeShell);		
 		if (activeShell != null){
 			String shellText = WidgetHandler.getInstance().getText(activeShell);
+			log.debug("Active shell text: " + shellText);			
 			result = shellText != null && shellText.equals(text);
 		}
 		return result;
