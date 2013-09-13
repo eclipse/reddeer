@@ -33,4 +33,11 @@ public abstract class AbstractText implements Text {
 		String tooltipText = WidgetHandler.getInstance().getToolTipText(w);
 		return tooltipText;
 	}
+
+	@Override
+	public void setFocus() {
+		log.info("Setting focus to Text");
+		WidgetHandler.getInstance().setFocus(w);
+	}
+	
 }
