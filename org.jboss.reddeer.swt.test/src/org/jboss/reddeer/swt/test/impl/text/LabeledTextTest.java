@@ -1,8 +1,11 @@
 package org.jboss.reddeer.swt.test.impl.text;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.FocusEvent;
+import org.eclipse.swt.events.FocusListener;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
@@ -12,6 +15,7 @@ import org.eclipse.swtbot.swt.finder.results.VoidResult;
 import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.PlatformUI;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
+import org.jboss.reddeer.swt.impl.text.DefaultText;
 import org.jboss.reddeer.swt.impl.text.LabeledText;
 import org.jboss.reddeer.swt.test.RedDeerTest;
 import org.junit.After;
@@ -49,6 +53,24 @@ public class LabeledTextTest extends RedDeerTest{
 		swtText.setText("Test text");
 		swtText.setSize(100,30);
 		swtText.setLocation(100,150);
+		
+		final Text swtTextStatus= new Text(shell, SWT.BORDER);
+		swtTextStatus.setText("Status");
+		swtTextStatus.setSize(100,30);
+		swtTextStatus.setLocation(100, 200);
+
+		swtText.addFocusListener(new FocusListener() {
+			
+			@Override
+			public void focusLost(FocusEvent arg0) {
+				swtTextStatus.setText("focusLost");
+			}
+			
+			@Override
+			public void focusGained(FocusEvent arg0) {
+				swtTextStatus.setText("focusGained");
+			}
+		});
 		
 		Label swtLabel1= new Label(shell, SWT.BORDER);
 		swtLabel1.setText("Test label1");
@@ -114,6 +136,17 @@ public class LabeledTextTest extends RedDeerTest{
 	public void findLabeledTextWithoutIcon(){
 		new DefaultShell("Testing shell");
 		assertTrue(new LabeledText("Test label1").getText().equals("Test text1"));
+	}
+	
+	@Test
+	public void setFocusTest() {
+		new DefaultShell("Testing shell");
+		new LabeledText("Test label").setFocus();
+		assertEquals("focusGained", new DefaultText(1).getText());
+		new LabeledText("Test label1").setFocus();
+		assertEquals("focusLost", new DefaultText(1).getText());
+		new LabeledText("Test label").setFocus();
+		assertEquals("focusGained", new DefaultText(1).getText());
 	}
 
 }

@@ -24,5 +24,10 @@ public interface Text {
 	 * Get tooltip of the
 	 * @return
 	 */
-	String getToolTipText();		
+	String getToolTipText();
+	
+	/**
+	 * Sets focus to text
+	 */
+	void setFocus();
 }
