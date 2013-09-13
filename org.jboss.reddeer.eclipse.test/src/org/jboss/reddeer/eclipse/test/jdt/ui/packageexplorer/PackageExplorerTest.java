@@ -7,10 +7,12 @@ import org.jboss.reddeer.eclipse.jdt.ui.ide.NewJavaProjectWizardDialog;
 import org.jboss.reddeer.eclipse.jdt.ui.ide.NewJavaProjectWizardPage;
 import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.PackageExplorer;
 import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.Project;
+import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.swt.test.RedDeerTest;
 import org.jboss.reddeer.swt.util.Bot;
 import org.junit.Test;
-
+import org.junit.runner.RunWith;
+@RunWith(RedDeerSuite.class)
 public class PackageExplorerTest extends RedDeerTest {
 
 	private static final String PROJECT_NAME_0 = "TestProject0";
@@ -107,17 +109,19 @@ public class PackageExplorerTest extends RedDeerTest {
 
 	@Override
 	protected void tearDown() {
-		if (packageExplorer.containsProject(PackageExplorerTest.PROJECT_NAME_0)) {
-			packageExplorer.getProject(PackageExplorerTest.PROJECT_NAME_0)
-					.delete(true);
-		}
-		if (packageExplorer.containsProject(PackageExplorerTest.PROJECT_NAME_1)) {
-			packageExplorer.getProject(PackageExplorerTest.PROJECT_NAME_1)
-					.delete(true);
-		}
-		if (packageExplorer.containsProject(PackageExplorerTest.PROJECT_NAME_2)) {
-			packageExplorer.getProject(PackageExplorerTest.PROJECT_NAME_2)
-					.delete(true);
+		if (packageExplorer != null){
+			if (packageExplorer.containsProject(PackageExplorerTest.PROJECT_NAME_0)) {
+				packageExplorer.getProject(PackageExplorerTest.PROJECT_NAME_0)
+						.delete(true);
+			}
+			if (packageExplorer.containsProject(PackageExplorerTest.PROJECT_NAME_1)) {
+				packageExplorer.getProject(PackageExplorerTest.PROJECT_NAME_1)
+						.delete(true);
+			}
+			if (packageExplorer.containsProject(PackageExplorerTest.PROJECT_NAME_2)) {
+				packageExplorer.getProject(PackageExplorerTest.PROJECT_NAME_2)
+						.delete(true);
+			}
 		}
 		super.tearDown();
 	}
