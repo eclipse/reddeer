@@ -6,12 +6,15 @@ import org.apache.log4j.Logger;
 import org.apache.log4j.PatternLayout;
 import org.eclipse.ui.IViewReference;
 import org.jboss.reddeer.junit.ExecutionSetting;
+import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.junit.watcher.RedDeerWatchdog;
 import org.jboss.reddeer.swt.lookup.impl.WorkbenchLookup;
 import org.jboss.reddeer.swt.util.Display;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Rule;
+import org.junit.runner.RunWith;
 /**
  * Parent test for each test of Red Deer
  * @author Vlado Pakan
@@ -19,6 +22,8 @@ import org.junit.Rule;
  * @author jjankovi
  *
  */
+@RunWith(RedDeerSuite.class)
+@Ignore
 public class RedDeerTest {
 
 	@Rule 
@@ -38,12 +43,13 @@ public class RedDeerTest {
 		ConsoleAppender console = new ConsoleAppender();
 		console.setName("console");
 		String PATTERN = "%-5p [%t][%C{1}] %m%n";
-		console.setLayout(new PatternLayout(PATTERN));
-		if (ExecutionSetting.getInstance().isPauseFailedTest()) {			
+		if (ExecutionSetting.getInstance().isDebugEnabled()) {
+			PATTERN = "%d{HH:mm:ss,SSS} " + PATTERN;
 			console.setThreshold(Level.DEBUG);
 		} else {
 			console.setThreshold(Level.INFO);
 		}
+		console.setLayout(new PatternLayout(PATTERN));
 		console.activateOptions();
 		Logger.getRootLogger().addAppender(console);
 		log.info("Logging threshold set to " + console.getThreshold());
