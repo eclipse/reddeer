@@ -39,7 +39,7 @@
          point="org.eclipse.debug.ui.launchConfigurationTypeImages">
       <launchConfigurationTypeImage
             configTypeID="org.jboss.reddeer.eclipse.ui.launcher.JunitLaunchConfig"
-            icon="resources/reddeer_icon.png"
+            icon="resources/reddeer_runner.png"
             id="org.jboss.reddeer.eclipse.ui.launchConfigurationTypeImage">
       </launchConfigurationTypeImage>
    </extension>
@@ -84,7 +84,7 @@
       <shortcut
             class="org.jboss.reddeer.eclipse.ui.launcher.RedDeerLaunchShortcut"
             description="Launch an RedDeer Test"
-            icon="resources/reddeer_icon.png"
+            icon="resources/reddeer_runner.png"
             id="org.jboss.reddeer.eclipse.ui.junitShortcut"
             label="RedDeer Test"
             modes="run, debug">
@@ -112,7 +112,7 @@
       <wizard
             class="org.jboss.reddeer.eclipse.ui.wizards.NewRedDeerTestPluginWizard"
             finalPerspective="org.eclipse.jdt.ui.JavaPerspective"
-            icon="resources/reddeer_icon.png"
+            icon="resources/reddeer_runner.png"
             id="org.jboss.reddeer.eclipse.ui.wizards.NewRedDeerTestPluginWizard"
             name="New RedDeer Test Plug-in"
             project="true">
