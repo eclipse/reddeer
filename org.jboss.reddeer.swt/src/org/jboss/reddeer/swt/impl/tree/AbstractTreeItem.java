@@ -337,7 +337,7 @@ public abstract class AbstractTreeItem implements TreeItem {
 	 * @param event
 	 */
 	private void notifyTree(final Event event) {
-		Display.syncExec(new Runnable() {
+		Display.asyncExec(new Runnable() {
 			public void run() {
 				swtTreeItem.getParent().notifyListeners(event.type, event);
 			}

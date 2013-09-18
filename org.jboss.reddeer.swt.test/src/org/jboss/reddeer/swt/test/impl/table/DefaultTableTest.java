@@ -1,5 +1,9 @@
 package org.jboss.reddeer.swt.test.impl.table;
 
+import static org.junit.Assert.assertTrue;
+
+import java.util.List;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -165,7 +169,32 @@ public class DefaultTableTest extends RedDeerTest{
 	public void testSingleSelectionTable(){
 		new DefaultTable(1).select(1);
 	}
-	
+
+	@Test
+	public void testDeselect() {
+		DefaultTable table = new DefaultTable();
+
+		/* select at least something */
+		table.select(1);
+
+		int selected = 0;
+		List<org.jboss.reddeer.swt.api.TableItem> items = table.getItems();
+		for(int i = 0; i < items.size(); i++)
+			selected += (items.get(i).isSelected() ? 1 : 0);
+
+		assertTrue("Table should have at least one selected item", selected >= 1);
+
+		/* deselect all */
+		table.deselect();
+
+		selected = 0;
+		items = table.getItems();
+		for(int i = 0; i < items.size(); i++)
+			selected += (items.get(i).isSelected() ? 1 : 0);
+
+		assertTrue("Table should have no selected items", selected == 0);
+	}
+
 	@Test(expected = SWTLayerException.class)
 	public void testSingleSelectionTableWithMultiSelection(){
 		new DefaultTable(1).select(1,2,3,4);

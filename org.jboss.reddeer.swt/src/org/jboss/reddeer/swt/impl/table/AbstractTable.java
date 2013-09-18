@@ -100,7 +100,13 @@ public abstract class AbstractTable implements Table {
 		waitUntilTableHasRows();
 		WidgetHandler.getInstance().selectAll(table);
 	}
-	
+
+	@Override
+	public void deselect() {
+		waitUntilTableHasRows();
+		WidgetHandler.getInstance().deselect(table);
+	}
+
 	private void waitUntilTableHasRows() {
 		new WaitUntil(new TableHasRows(this), TimePeriod.NORMAL, false);
 	}

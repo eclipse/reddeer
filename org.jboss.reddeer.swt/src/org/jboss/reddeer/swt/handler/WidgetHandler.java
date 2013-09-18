@@ -403,6 +403,8 @@ public class WidgetHandler {
 			public void run() {
 				if (w instanceof List)
 					((List) w).deselectAll();
+				else if (w instanceof Table)
+					((Table) w).deselectAll();
 				else
 					throw new SWTLayerException("Unsupported type");
 			}
