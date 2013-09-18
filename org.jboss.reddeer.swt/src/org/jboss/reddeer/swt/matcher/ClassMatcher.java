@@ -15,7 +15,7 @@ public class ClassMatcher extends BaseMatcher {
 	
 	@Override
 	public boolean matches(Object item) {
-		return  item.getClass() == c;
+		return c.isAssignableFrom(item.getClass());
 	}
 
 	@Override
