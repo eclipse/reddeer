@@ -40,6 +40,8 @@ public class Project {
 	public void delete(boolean deleteFromFileSystem) {
 		select();
         log.debug("Delete project " + name + " via Package Explorer");
+        new ContextMenu("Refresh").select();
+        new WaitWhile(new JobIsRunning());
 	    new ContextMenu("Delete").select();
 		new DefaultShell("Delete Resources");
 		SWTBotCheckBox chbDeleteFromFileSystem = Bot.get().checkBox();
