@@ -43,7 +43,7 @@ public class LogView extends WorkbenchView{
 		List<TreeItem> treeItems = tree.getAllItems();
 		List<LogMessage> messages = new ArrayList<LogMessage>();
 		for(TreeItem item : treeItems){
-			messages.add(new LogMessage(item.getSWTWidget(), IStatus.OK));
+			messages.add(new LogMessage(item, IStatus.OK));
 		}
 		return messages;
 	}
@@ -60,7 +60,7 @@ public class LogView extends WorkbenchView{
 		List<TreeItem> treeItems = tree.getAllItems();
 		List<LogMessage> messages = new ArrayList<LogMessage>();
 		for(TreeItem item : treeItems){
-			messages.add(new LogMessage(item.getSWTWidget(), IStatus.INFO));
+			messages.add(new LogMessage(item, IStatus.INFO));
 		}
 		return messages;
 	}
@@ -76,7 +76,7 @@ public class LogView extends WorkbenchView{
 		List<TreeItem> treeItems = tree.getAllItems();
 		List<LogMessage> messages = new ArrayList<LogMessage>();
 		for(TreeItem item : treeItems){
-			messages.add(new LogMessage(item.getSWTWidget(), IStatus.WARNING));
+			messages.add(new LogMessage(item, IStatus.WARNING));
 		}
 		return messages;
 	}
@@ -92,7 +92,7 @@ public class LogView extends WorkbenchView{
 		List<TreeItem> treeItems = tree.getAllItems();
 		List<LogMessage> messages = new ArrayList<LogMessage>();
 		for(TreeItem item : treeItems){
-			messages.add(new LogMessage(item.getSWTWidget(), IStatus.ERROR));
+			messages.add(new LogMessage(item, IStatus.ERROR));
 		}
 		return messages;
 	}
