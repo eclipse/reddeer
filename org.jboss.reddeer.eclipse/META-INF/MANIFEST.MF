@@ -43,3 +43,4 @@ Export-Package: org.jboss.reddeer.eclipse,
  org.jboss.reddeer.eclipse.wst.server.ui.view,
  org.jboss.reddeer.eclipse.wst.server.ui.wizard
 Eclipse-RegisterBuddy: org.apache.log4j
+Import-Package: org.jboss.reddeer.direct.condition
