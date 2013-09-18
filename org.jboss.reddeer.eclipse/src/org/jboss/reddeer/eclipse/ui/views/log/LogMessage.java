@@ -1,11 +1,11 @@
 package org.jboss.reddeer.eclipse.ui.views.log;
 
-
-import static org.eclipse.swtbot.swt.finder.waits.Conditions.shellIsActive;
-
-import org.eclipse.swtbot.swt.finder.SWTBot;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
-import org.eclipse.swt.widgets.TreeItem;
+import org.jboss.reddeer.swt.api.TreeItem;
+import org.jboss.reddeer.swt.condition.ShellWithTextIsActive;
+import org.jboss.reddeer.swt.impl.button.PushButton;
+import org.jboss.reddeer.swt.impl.menu.ContextMenu;
+import org.jboss.reddeer.swt.impl.text.LabeledText;
+import org.jboss.reddeer.swt.wait.WaitUntil;
 
 
 /**
@@ -15,11 +15,11 @@ import org.eclipse.swt.widgets.TreeItem;
  */
 public class LogMessage {
 	
-	private SWTBotTreeItem treeItem;
+	private TreeItem treeItem;
 	private int severity;
 	
 	public LogMessage(TreeItem treeItem, int severity){
-		this.treeItem = new SWTBotTreeItem(treeItem);
+		this.treeItem = treeItem;
 		this.severity = severity;
 	}
 	
@@ -28,33 +28,33 @@ public class LogMessage {
 	}
 	
 	public String getMessage() {
-		return treeItem.cell(0);
+		return treeItem.getCell(0);
 	}
 
 	public String getPlugin() {
-		return treeItem.cell(1);
+		return treeItem.getCell(1);
 	}
 
 
 	public String getDate() {
-		return treeItem.cell(2);
+		return treeItem.getCell(2);
 	}
 	
 	public String getStackTrace(){
-		treeItem.contextMenu("Event Details").click();
-		SWTBot bot = new SWTBot();
-		bot.waitUntil(shellIsActive("Event Details"));
-		String stackTrace = bot.textWithLabel("Exception Stack Trace:").getText();
-		bot.button("OK").click();
+		treeItem.select();
+		new ContextMenu("Event Details").select();
+		new WaitUntil(new ShellWithTextIsActive("Event Details"));
+		String stackTrace = new LabeledText("Exception Stack Trace:").getText();
+		new PushButton("OK").click();
 		return stackTrace;
 	}
 	
 	public String getSessionData(){
-		treeItem.contextMenu("Event Details").click();
-		SWTBot bot = new SWTBot();
-		bot.waitUntil(shellIsActive("Event Details"));
-		String sessionData = bot.textWithLabel("Session Data:").getText();
-		bot.button("OK").click();
+		treeItem.select();
+		new ContextMenu("Event Details").select();
+		new WaitUntil(new ShellWithTextIsActive("Event Details"));
+		String sessionData = new LabeledText("Session Data:").getText();
+		new PushButton("OK").click();
 		return sessionData;
 	}
 	
