@@ -17,6 +17,7 @@ import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Link;
 import org.eclipse.swt.widgets.List;
+import org.eclipse.swt.widgets.Scale;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
@@ -728,8 +729,9 @@ public class WidgetHandler {
 					((ExpandBar)w).setFocus();
 				} else if (w instanceof Browser){
 					((Browser)w).setFocus();
-				}
-				else throw new SWTLayerException("Unsupported type");
+				} else if (w instanceof Scale){
+					((Scale)w).setFocus();
+				} else throw new SWTLayerException("Unsupported type");
 			}
 		});
 	}
