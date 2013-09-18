@@ -54,7 +54,27 @@ public abstract class WorkbenchPart{
 	 */
 	
 	public String getTitle() {
-		return workbenchPart.getTitle();
+		return Display.syncExec(new ResultRunnable<String>() {
+
+			@Override
+			public String run() {
+				return workbenchPart.getTitle();
+			}
+		});
+	}
+	
+	/**
+	 * 
+	 * @return the workbench part title tool tip (not {@code null})
+	 */
+	public String getTitleToolTip() {
+		return Display.syncExec(new ResultRunnable<String>() {
+
+			@Override
+			public String run() {
+				return workbenchPart.getTitleToolTip();
+			}
+		});
 	}
 
 	public void minimize() {
