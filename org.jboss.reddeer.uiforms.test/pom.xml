@@ -13,6 +13,34 @@
 		<relativePath>../org.jboss.reddeer.parent/pom.xml</relativePath>
 	</parent>
 
+	<profiles>
+		<profile>
+			<id>add-jdt-feature</id>
+			<activation>
+				<os>
+					<family>mac</family>
+				</os>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.eclipse.tycho</groupId>
+						<artifactId>tycho-surefire-plugin</artifactId>
+						<configuration>
+							<dependencies combine.children="append">
+								<!-- This entry should enable creating of default JDK on Mac -->
+								<dependency>
+									<type>p2-installable-unit</type>
+									<artifactId>org.eclipse.jdt.feature.group</artifactId>
+									<version>0.0.0</version>
+								</dependency>
+							</dependencies>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 
 	<build>
 		<plugins>
@@ -21,18 +49,8 @@
 				<artifactId>tycho-surefire-plugin</artifactId>
 				<configuration>
 					<useUIThread>false</useUIThread>
-					<dependencies combine.children="append">
-						<!-- This entry should enable creating of default JDK on Mac -->
-						<dependency>
-							<type>p2-installable-unit</type>
-							<artifactId>org.eclipse.jdt.feature.group</artifactId>
-							<version>0.0.0</version>
-						</dependency>
-					</dependencies>
 				</configuration>
 			</plugin>
 		</plugins>
 	</build>
-
-
 </project>
