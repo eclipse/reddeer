@@ -1,0 +1,31 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	
+	<modelVersion>4.0.0</modelVersion>
+        <parent>
+                <groupId>org.jboss.reddeer</groupId>
+                <artifactId>parent</artifactId>
+                <version>0.4.0-SNAPSHOT</version>
+        </parent>
+	<groupId>org.jboss.reddeer</groupId>
+	<artifactId>plugins</artifactId>
+	<name>Red Deer Plugins</name>
+	<packaging>pom</packaging>
+	
+	
+	<modules>
+		<module>org.jboss.reddeer.swt</module>
+		<module>org.jboss.reddeer.workbench</module>
+		<module>org.jboss.reddeer.uiforms</module>
+		<module>org.jboss.reddeer.jface</module>
+		<module>org.jboss.reddeer.eclipse</module>
+		<module>org.jboss.reddeer.gef</module>
+		<module>org.jboss.reddeer.direct</module>
+		<module>org.jboss.reddeer.junit</module>
+		<module>org.jboss.reddeer.selenium</module>
+		<module>org.jboss.reddeer.examples</module>
+		<module>org.jboss.reddeer.requirements</module>
+		<module>org.jboss.reddeer.ui</module>
+	</modules>
+	
+</project>
