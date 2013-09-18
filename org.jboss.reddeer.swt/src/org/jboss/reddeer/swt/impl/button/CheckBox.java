@@ -54,29 +54,18 @@ public class CheckBox extends AbstractButton {
 	public boolean isChecked() {
 		return WidgetHandler.getInstance().isSelected(swtButton);
 	}
-	
+
 	/**
 	 * Sets checkbox to state 'checked'
 	 * 
 	 * @param checked
 	 */
 	public void toggle(boolean checked){
-		if (checked){
-			if (isChecked()) {
-				log.debug("Checkbox already checked");
-				return;
-			}else{
-				log.info("Checking checkbox " + getText());
-				click();
-			}
-		}else{
-			if (isChecked()) {
-				log.info("Unchecking checkbox " + getText());
-				click();
-			}else{
-				log.debug("Checkbox already unchecked");
-				return;
-			}
+		log.info("Setting checkbox to " + (checked ? "checked" : "unchecked"));
+
+		if (isChecked() != checked) {
+			log.info(String.format("  Click checkbox to match state (%s => %s)", (isChecked() ? "checked" : "unchecked"), (checked ? "checked" : "unchecked")));
+			click();
 		}
 	}
 }
