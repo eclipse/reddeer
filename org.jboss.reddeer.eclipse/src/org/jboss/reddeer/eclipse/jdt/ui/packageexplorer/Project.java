@@ -1,15 +1,14 @@
 package org.jboss.reddeer.eclipse.jdt.ui.packageexplorer;
 
 import org.apache.log4j.Logger;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotCheckBox;
 import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.swt.condition.JobIsRunning;
 import org.jboss.reddeer.swt.condition.ShellWithTextIsActive;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
+import org.jboss.reddeer.swt.impl.button.CheckBox;
 import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.menu.ContextMenu;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
-import org.jboss.reddeer.swt.util.Bot;
 import org.jboss.reddeer.swt.wait.TimePeriod;
 import org.jboss.reddeer.swt.wait.WaitWhile;
 
@@ -42,11 +41,7 @@ public class Project {
         log.debug("Delete project " + name + " via Package Explorer");
 	    new ContextMenu("Delete").select();
 		new DefaultShell("Delete Resources");
-		SWTBotCheckBox chbDeleteFromFileSystem = Bot.get().checkBox();
-		if ((chbDeleteFromFileSystem.isChecked() && !deleteFromFileSystem) ||
-		    (!chbDeleteFromFileSystem.isChecked() && deleteFromFileSystem)){
-		    chbDeleteFromFileSystem.click();
-		}
+		new CheckBox().toggle(deleteFromFileSystem);
 		DefaultShell shell = new DefaultShell();
 		String deleteShellText = shell.getText();
 		new PushButton("OK").click();
