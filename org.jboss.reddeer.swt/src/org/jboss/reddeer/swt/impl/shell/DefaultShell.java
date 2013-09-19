@@ -1,13 +1,10 @@
 package org.jboss.reddeer.swt.impl.shell;
 
 import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
-import org.jboss.reddeer.swt.api.Shell;
 import org.jboss.reddeer.swt.condition.ShellWithTextIsActive;
 import org.jboss.reddeer.swt.condition.ShellIsActive;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.exception.WaitTimeoutExpiredException;
-import org.jboss.reddeer.swt.reference.ReferenceComposite;
-import org.jboss.reddeer.swt.reference.ReferencedComposite;
 import org.jboss.reddeer.swt.util.Bot;
 import org.jboss.reddeer.swt.wait.WaitUntil;
 
@@ -18,7 +15,7 @@ import org.jboss.reddeer.swt.wait.WaitUntil;
  * @author Jiri Peterka
  *
  */
-public class DefaultShell extends AbstractShell implements Shell, ReferencedComposite {
+public class DefaultShell extends AbstractShell{
 
 	
 	public DefaultShell(String title) {
@@ -26,7 +23,6 @@ public class DefaultShell extends AbstractShell implements Shell, ReferencedComp
 			waitForShell(title);
 			shell = Bot.get().shell(title);
 			shell.setFocus();
-			setAsReference();
 			log.info("Shell with title '" + title + "' found");
 		}
 		catch (Exception e) {
@@ -39,17 +35,11 @@ public class DefaultShell extends AbstractShell implements Shell, ReferencedComp
 			waitForShell(null);
 			shell = Bot.get().activeShell();
 			shell.setFocus();
-			setAsReference();
 			log.info("Active shell with title '" + shell.getText() + "' found");
 		}
 		catch (WidgetNotFoundException e) {
 			throw new SWTLayerException("No active shell is available at the moment");
 		}
-	}
-
-	@Override
-	public void setAsReference() {
-		ReferenceComposite.setComposite(null);
 	}
 	
 	private void waitForShell(String title) {
@@ -64,6 +54,7 @@ public class DefaultShell extends AbstractShell implements Shell, ReferencedComp
 		}
 
 	}
+
 }	
 	
 

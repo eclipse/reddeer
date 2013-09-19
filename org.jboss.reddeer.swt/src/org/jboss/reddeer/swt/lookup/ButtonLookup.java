@@ -3,6 +3,7 @@ package org.jboss.reddeer.swt.lookup;
 import org.eclipse.swt.widgets.Button;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.swt.lookup.WidgetLookup;
+import org.jboss.reddeer.swt.reference.ReferencedComposite;
 
 /**
  * Button lookup containing lookup routines for Button widget type
@@ -34,8 +35,8 @@ public class ButtonLookup {
 	 * @return Button Widget matching criteria
 	 */
 	@SuppressWarnings({ "rawtypes" })
-	public Button getButton(int index, Matcher... matchers) {
-		return (Button)WidgetLookup.getInstance().activeWidget(Button.class, index, matchers);
+	public Button getButton(ReferencedComposite refComposite, int index, Matcher... matchers) {
+		return (Button)WidgetLookup.getInstance().activeWidget(refComposite, Button.class, index, matchers);
 	}
 	
 }

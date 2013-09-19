@@ -2,6 +2,7 @@ package org.jboss.reddeer.swt.impl.tree;
 
 import org.apache.log4j.Logger;
 import org.jboss.reddeer.swt.lookup.WidgetLookup;
+import org.jboss.reddeer.swt.reference.ReferencedComposite;
 /**
  * Default Tree implementation
  * 
@@ -18,6 +19,14 @@ public class DefaultTree extends AbstractTree {
 	public DefaultTree() {
 		this(0);
 	}
+	
+	/**
+	 * Tree inside given composite
+	 * @param referencedComposite
+	 */
+	public DefaultTree(ReferencedComposite referencedComposite) {
+		this(referencedComposite, 0);
+	}
 
 	/**
 	 * Tree with specified index will be constructed 
@@ -25,7 +34,17 @@ public class DefaultTree extends AbstractTree {
 	 * @param index
 	 */
 	public DefaultTree(int index) {
-	  super(WidgetLookup.getInstance().activeWidget(org.eclipse.swt.widgets.Tree.class, index));
+	  this(null,index);
+	}
+	
+	
+	/**
+	 * Tree with specified index will be constructed inside given composite
+	 * @param referencedComposite
+	 * @param index
+	 */
+	public DefaultTree(ReferencedComposite referencedComposite, int index) {
+	  super(WidgetLookup.getInstance().activeWidget(referencedComposite, org.eclipse.swt.widgets.Tree.class, index));
 	}
 	
 }

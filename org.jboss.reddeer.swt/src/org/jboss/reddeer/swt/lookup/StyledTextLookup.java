@@ -3,6 +3,7 @@ package org.jboss.reddeer.swt.lookup;
 import org.eclipse.swt.custom.StyledText;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.swt.lookup.WidgetLookup;
+import org.jboss.reddeer.swt.reference.ReferencedComposite;
 
 /**
  * Text lookup containing lookup routines for StyledText widget type
@@ -32,8 +33,8 @@ public class StyledTextLookup {
 	 * @return StyledText Widget matching criteria
 	 */
 	@SuppressWarnings({ "rawtypes" })
-	public StyledText getStyledText(int index, Matcher... matchers) {
-		return (StyledText)WidgetLookup.getInstance().activeWidget(StyledText.class, index, matchers);
+	public StyledText getStyledText(ReferencedComposite refComposite, int index, Matcher... matchers) {
+		return (StyledText)WidgetLookup.getInstance().activeWidget(refComposite, StyledText.class, index, matchers);
 	}
 	
 }

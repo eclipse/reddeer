@@ -3,6 +3,7 @@ package org.jboss.reddeer.swt.lookup;
 import org.eclipse.swt.widgets.Text;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.swt.lookup.WidgetLookup;
+import org.jboss.reddeer.swt.reference.ReferencedComposite;
 
 /**
  * Text lookup containing lookup routines for Text widget type
@@ -31,7 +32,7 @@ public class TextLookup {
 	 * @return Text Widget matching criteria
 	 */
 	@SuppressWarnings({ "rawtypes" })
-	public Text getText(int index, Matcher... matchers) {
-		return (Text)WidgetLookup.getInstance().activeWidget(Text.class, index, matchers);
+	public Text getText(ReferencedComposite refComposite, int index, Matcher... matchers) {
+		return (Text)WidgetLookup.getInstance().activeWidget(refComposite, Text.class, index, matchers);
 	}
 }

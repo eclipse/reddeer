@@ -1,8 +1,8 @@
-package org.jboss.reddeer.swt.matcher;
+package org.jboss.reddeer.swt.lookup;
 
 import org.eclipse.swt.widgets.Link;
 import org.hamcrest.Matcher;
-import org.jboss.reddeer.swt.lookup.WidgetLookup;
+import org.jboss.reddeer.swt.reference.ReferencedComposite;
 
 public class LinkLookup {
 	
@@ -29,8 +29,8 @@ public class LinkLookup {
 	 * @return Link Widget matching criteria
 	 */
 	@SuppressWarnings({ "rawtypes" })
-	public Link getLink(int index, Matcher... matchers) {
-		return (Link)WidgetLookup.getInstance().activeWidget(Link.class, index, matchers);
+	public Link getLink(ReferencedComposite referencedComposite, int index, Matcher... matchers) {
+		return (Link)WidgetLookup.getInstance().activeWidget(referencedComposite, Link.class, index, matchers);
 	}
 
 

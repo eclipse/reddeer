@@ -3,8 +3,6 @@ package org.jboss.reddeer.workbench;
 import org.apache.log4j.Logger;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PlatformUI;
-import org.jboss.reddeer.swt.reference.ReferenceComposite;
-import org.jboss.reddeer.swt.reference.ReferencedComposite;
 import org.jboss.reddeer.swt.util.Display;
 import org.jboss.reddeer.swt.util.ResultRunnable;
 import org.jboss.reddeer.workbench.exception.WorkbenchPartNotFound;
@@ -17,7 +15,7 @@ import org.jboss.reddeer.workbench.exception.WorkbenchPartNotFound;
  * @author rhopp
  * 
  */
-public abstract class WorkbenchPart implements ReferencedComposite{
+public abstract class WorkbenchPart{
 
 	protected IWorkbenchPart workbenchPart;
 
@@ -80,8 +78,4 @@ public abstract class WorkbenchPart implements ReferencedComposite{
 		});
 	}
 	
-	@Override
-	public void setAsReference() {
-		ReferenceComposite.setComposite(null);
-	}
 }

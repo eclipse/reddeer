@@ -121,7 +121,6 @@ public abstract class View extends WorkbenchPart{
 					workbenchPart.setFocus();
 				}
 			});
-			setAsReference();
 			new WaitUntil(new ActiveFocusControlIsInActiveView(),TimePeriod.NORMAL,false);
 			focusChildControl();
 		}

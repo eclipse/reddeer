@@ -7,6 +7,7 @@ import org.jboss.reddeer.swt.handler.WidgetHandler;
 import org.jboss.reddeer.swt.lookup.StyledTextLookup;
 import org.jboss.reddeer.swt.matcher.GroupMatcher;
 import org.jboss.reddeer.swt.matcher.TextMatcher;
+import org.jboss.reddeer.swt.reference.ReferencedComposite;
 
 /**
  * Default class for representing StyledText
@@ -23,7 +24,15 @@ public class DefaultStyledText implements StyledText {
 	 * StyledText
 	 */
 	public DefaultStyledText() {
-		styledText = StyledTextLookup.getInstance().getStyledText(0);
+		styledText = StyledTextLookup.getInstance().getStyledText(null, 0);
+	}
+	
+	/**
+	 * StyledText inside given composite
+	 * @param referencedComposite
+	 */
+	public DefaultStyledText(ReferencedComposite referencedComposite) {
+		styledText = StyledTextLookup.getInstance().getStyledText(referencedComposite, 0);
 	}
 
 	/**
@@ -31,21 +40,17 @@ public class DefaultStyledText implements StyledText {
 	 * 
 	 * @param index
 	 */
-
 	public DefaultStyledText(int index) {
-		styledText = StyledTextLookup.getInstance().getStyledText(index);
+		styledText = StyledTextLookup.getInstance().getStyledText(null, index);
 	}
-
+	
 	/**
-	 * StyledText on given index and in given goup
-	 * 
-	 * @param inGroup
+	 * StyledText on given index inside given composite
+	 * @param referencedComposite
 	 * @param index
 	 */
-
-	public DefaultStyledText(String inGroup, int index) {
-		styledText = StyledTextLookup.getInstance().getStyledText(index,
-				new GroupMatcher(inGroup));
+	public DefaultStyledText(ReferencedComposite referencedComposite, int index) {
+		styledText = StyledTextLookup.getInstance().getStyledText(referencedComposite, index);
 	}
 
 	/**
@@ -53,9 +58,17 @@ public class DefaultStyledText implements StyledText {
 	 * 
 	 * @param text
 	 */
-
 	public DefaultStyledText(String text) {
-		styledText = StyledTextLookup.getInstance().getStyledText(0, new TextMatcher(text));
+		styledText = StyledTextLookup.getInstance().getStyledText(null, 0, new TextMatcher(text));
+	}
+	
+	/**
+	 * StyledText with given text inside given composite
+	 * @param referencedComposite
+	 * @param text
+	 */
+	public DefaultStyledText(ReferencedComposite referencedComposite, String text) {
+		styledText = StyledTextLookup.getInstance().getStyledText(referencedComposite, 0, new TextMatcher(text));
 	}
 
 	/**
@@ -63,10 +76,19 @@ public class DefaultStyledText implements StyledText {
 	 * 
 	 * @param matchers
 	 */
-
 	@SuppressWarnings("rawtypes")
 	public DefaultStyledText(Matcher... matchers) {
-		styledText = StyledTextLookup.getInstance().getStyledText(0, matchers);
+		styledText = StyledTextLookup.getInstance().getStyledText(null, 0, matchers);
+	}
+	
+	/**
+	 * StyledText matching given matchers
+	 * 
+	 * @param matchers
+	 */
+	@SuppressWarnings("rawtypes")
+	public DefaultStyledText(ReferencedComposite referencedComposite, Matcher... matchers) {
+		styledText = StyledTextLookup.getInstance().getStyledText(referencedComposite, 0, matchers);
 	}
 
 	/**
@@ -92,7 +114,6 @@ public class DefaultStyledText implements StyledText {
 	 * 
 	 * @return Tooltip text of this StyledText
 	 */
-
 	@Override
 	public String getToolTipText() {
 		String tooltipText = WidgetHandler.getInstance().getToolTipText(

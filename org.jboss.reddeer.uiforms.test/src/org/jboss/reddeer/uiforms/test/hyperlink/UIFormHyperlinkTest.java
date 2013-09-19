@@ -27,53 +27,42 @@ public class UIFormHyperlinkTest extends RedDeerTest {
 	
 	@Test
 	public void testValidInstanceParamLess() {
-		uiForm.setAsReference();
-		
-		new UIFormSection();
-		UIFormHyperlink hyperlink = new UIFormHyperlink();
+		UIFormSection sec = new UIFormSection(uiForm);
+		UIFormHyperlink hyperlink = new UIFormHyperlink(sec);
 		assertThat(hyperlink.getText(), Is.is("Section 1 Hyperlink"));
-		
-		uiForm.setAsReference();
-		new UIFormSection(1);
-		hyperlink = new UIFormHyperlink();
+
+		sec = new UIFormSection(uiForm, 1);
+		hyperlink = new UIFormHyperlink(sec);
 		assertThat(hyperlink.getText(), Is.is("Section 2 Hyperlink"));
 	}
 	
 	@Test
 	public void testValidInstanceWithIndex() {
-		uiForm.setAsReference();
-		
-		new UIFormSection();
-		UIFormHyperlink hyperlink = new UIFormHyperlink(0);
+		UIFormSection sec =new UIFormSection(uiForm);
+		UIFormHyperlink hyperlink = new UIFormHyperlink(sec, 0);
 		assertThat(hyperlink.getText(), Is.is("Section 1 Hyperlink"));
 		
-		uiForm.setAsReference();
-		new UIFormSection(1);
-		hyperlink = new UIFormHyperlink(0);
+		sec = new UIFormSection(uiForm, 1);
+		hyperlink = new UIFormHyperlink(sec, 0);
 		assertThat(hyperlink.getText(), Is.is("Section 2 Hyperlink"));
 	}
 	
 	@Test
 	public void testValidInstanceWithText() {
-		uiForm.setAsReference();
-		
-		new UIFormSection();
-		UIFormHyperlink hyperlink = new UIFormHyperlink("Section 1 Hyperlink");
+		UIFormSection sec =new UIFormSection(uiForm);
+		UIFormHyperlink hyperlink = new UIFormHyperlink(sec, "Section 1 Hyperlink");
 		assertNotNull(hyperlink);
-		
-		uiForm.setAsReference();
-		new UIFormSection(1);
-		hyperlink = new UIFormHyperlink("Section 2 Hyperlink");
+
+		sec= new UIFormSection(uiForm, 1);
+		hyperlink = new UIFormHyperlink(sec, "Section 2 Hyperlink");
 		assertNotNull(hyperlink);
 	}
 	
 	@Test(expected=SWTLayerException.class)
 	public void testInvalidInstance() {
-		uiForm.setAsReference();
-		
-		new UIFormSection();
-		new UIFormHyperlink(0);
-		new UIFormHyperlink(1);
+		UIFormSection sec = new UIFormSection(uiForm);
+		new UIFormHyperlink(sec,0);
+		new UIFormHyperlink(sec,1);
 	}
 	
 }

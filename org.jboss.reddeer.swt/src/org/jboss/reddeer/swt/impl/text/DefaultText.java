@@ -3,8 +3,8 @@ package org.jboss.reddeer.swt.impl.text;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.swt.api.Text;
 import org.jboss.reddeer.swt.lookup.TextLookup;
-import org.jboss.reddeer.swt.matcher.GroupMatcher;
 import org.jboss.reddeer.swt.matcher.TextMatcher;
+import org.jboss.reddeer.swt.reference.ReferencedComposite;
 
 /**
  * Default Text implementation. Most standard Text implementation
@@ -12,31 +12,22 @@ import org.jboss.reddeer.swt.matcher.TextMatcher;
  *
  */
 public class DefaultText extends AbstractText implements Text {
-	
-	/**
-	 * Text with given index in given Group
-	 * @param index of text
-	 * @param inGroup in group
-	 */
-	public DefaultText(String inGroup, int index){
-		w = TextLookup.getInstance().getText(index, new GroupMatcher(inGroup));
-	}
 		
-	/**
-	 * Text with given text in given Group
-	 * @param text of text
-	 * @param inGroup in group
-	 */
-	public DefaultText(String inGroup, String text){
-		w = TextLookup.getInstance().getText(0, new GroupMatcher(inGroup), new TextMatcher(text));
-	}
-	
 	/**
 	 * Text with given index
 	 * @param index
 	 */
 	public DefaultText(int index){
-		w = TextLookup.getInstance().getText(index);
+		w = TextLookup.getInstance().getText(null, index);
+	}
+	
+	/**
+	 * Text with given index inside given composite
+	 * @param referencedComposite
+	 * @param index
+	 */
+	public DefaultText(ReferencedComposite referencedComposite, int index){
+		w = TextLookup.getInstance().getText(referencedComposite, index);
 	}
 	
 	@SuppressWarnings("rawtypes")
@@ -45,7 +36,17 @@ public class DefaultText extends AbstractText implements Text {
 	 * @param matchers
 	 */
 	public DefaultText(Matcher... matchers){
-		w = TextLookup.getInstance().getText(0, matchers);
+		w = TextLookup.getInstance().getText(null, 0, matchers);
+	}
+	
+	@SuppressWarnings("rawtypes")
+	/**
+	 * Text with given matchers inside given composite
+	 * @param referencedComposite
+	 * @param matchers
+	 */
+	public DefaultText(ReferencedComposite referencedComposite, Matcher... matchers){
+		w = TextLookup.getInstance().getText(referencedComposite, 0, matchers);
 	}
 	
 	/**
@@ -53,6 +54,15 @@ public class DefaultText extends AbstractText implements Text {
 	 * @param title
 	 */
 	public DefaultText(String title) {
-		w = TextLookup.getInstance().getText(0, new TextMatcher(title));
+		w = TextLookup.getInstance().getText(null, 0, new TextMatcher(title));
+	}
+	
+	/**
+	 * Text with text value inside given composite
+	 * @param referencedComposite
+	 * @param title
+	 */
+	public DefaultText(ReferencedComposite referencedComposite, String title) {
+		w = TextLookup.getInstance().getText(referencedComposite, 0, new TextMatcher(title));
 	}
 }

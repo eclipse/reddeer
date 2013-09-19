@@ -1,14 +1,13 @@
 package org.jboss.reddeer.swt.impl.expandbar;
 
 import org.apache.log4j.Logger;
+import org.eclipse.swt.widgets.Control;
 import org.jboss.reddeer.swt.api.ExpandBar;
 import org.jboss.reddeer.swt.api.ExpandBarItem;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.handler.ExpandBarItemHandler;
 import org.jboss.reddeer.swt.handler.WidgetHandler;
 import org.jboss.reddeer.swt.impl.expandbar.internal.BasicExpandBar;
-import org.jboss.reddeer.swt.reference.ReferenceComposite;
-import org.jboss.reddeer.swt.reference.ReferencedComposite;
 import org.jboss.reddeer.swt.wait.TimePeriod;
 
 /**
@@ -17,7 +16,7 @@ import org.jboss.reddeer.swt.wait.TimePeriod;
  * @author Vlado Pakan
  * 
  */
-public abstract class AbstractExpandBarItem implements ExpandBarItem , ReferencedComposite {
+public abstract class AbstractExpandBarItem implements ExpandBarItem {
 
 	protected final Logger logger = Logger.getLogger(this.getClass());
 
@@ -40,10 +39,6 @@ public abstract class AbstractExpandBarItem implements ExpandBarItem , Reference
 	@Override
 	public String getText() {
 		return WidgetHandler.getInstance().getText(this.swtExpandItem);
-	}
-	@Override
-	public void setAsReference() {
-		ReferenceComposite.setComposite(swtParent);
 	}
 
 	/**
@@ -81,6 +76,14 @@ public abstract class AbstractExpandBarItem implements ExpandBarItem , Reference
 	@Override
 	public org.eclipse.swt.widgets.ExpandItem getSWTWidget() {
 		return swtExpandItem;
+	}
+	
+	/**
+	 * Return control of Expand Bar Item
+	 */
+	@Override
+	public Control getControl() {
+		return swtExpandItem.getControl();
 	}
 	/**
 	 * Return swt widget of Expand Bar Item

@@ -3,6 +3,7 @@ package org.jboss.reddeer.swt.lookup;
 import org.eclipse.swt.custom.CTabItem;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.swt.lookup.WidgetLookup;
+import org.jboss.reddeer.swt.reference.ReferencedComposite;
 
 /**
  * CTabItem lookup containing lookup routines for CTabItem widget type
@@ -31,8 +32,8 @@ public class CTabItemLookup {
    * @return Combo Widget matching criteria
    */
   @SuppressWarnings({ "rawtypes" })
-  public CTabItem getCTabItem(int index, Matcher... matchers) {
-    return (CTabItem)WidgetLookup.getInstance().activeWidget(CTabItem.class, index, matchers);
+  public CTabItem getCTabItem(ReferencedComposite refComposite, int index, Matcher... matchers) {
+    return (CTabItem)WidgetLookup.getInstance().activeWidget(refComposite, CTabItem.class, index, matchers);
   }
   
 }
