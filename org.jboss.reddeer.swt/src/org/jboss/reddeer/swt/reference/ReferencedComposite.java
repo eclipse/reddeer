@@ -1,5 +1,7 @@
 package org.jboss.reddeer.swt.reference;
 
+import org.eclipse.swt.widgets.Control;
+
 /**
  * Classes implementing this interface can be used
  * as composite widget parent from which children are
@@ -8,10 +10,7 @@ package org.jboss.reddeer.swt.reference;
  * @author Jiri Peterka
  */
 public interface ReferencedComposite {
-
-	/**
-	 * Update the reference of composite widget parent 
-	 */
-	void setAsReference();
+	
+	Control getControl();
 	
 }

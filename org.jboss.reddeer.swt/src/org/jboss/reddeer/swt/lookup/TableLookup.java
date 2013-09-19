@@ -2,6 +2,7 @@ package org.jboss.reddeer.swt.lookup;
 
 import org.eclipse.swt.widgets.Table;
 import org.jboss.reddeer.swt.lookup.WidgetLookup;
+import org.jboss.reddeer.swt.reference.ReferencedComposite;
 
 
 /**
@@ -33,8 +34,8 @@ public class TableLookup {
 	 * @param index table index
 	 * @return Table Widget matching criteria
 	 */
-	public Table getTable(int index) {
-		return (Table)WidgetLookup.getInstance().activeWidget(Table.class, index);
+	public Table getTable(ReferencedComposite refComposite, int index) {
+		return (Table)WidgetLookup.getInstance().activeWidget(refComposite, Table.class, index);
 	}
 
 }

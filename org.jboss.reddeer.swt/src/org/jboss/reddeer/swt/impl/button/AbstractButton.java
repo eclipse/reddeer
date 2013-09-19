@@ -9,6 +9,7 @@ import org.jboss.reddeer.swt.lookup.ButtonLookup;
 import org.jboss.reddeer.swt.lookup.WidgetLookup;
 import org.jboss.reddeer.swt.matcher.StyleMatcher;
 import org.jboss.reddeer.swt.matcher.WithMnemonicMatcher;
+import org.jboss.reddeer.swt.reference.ReferencedComposite;
 import org.jboss.reddeer.swt.wait.WaitUntil;
 
 /**
@@ -23,16 +24,16 @@ public abstract class AbstractButton implements Button {
 
 	protected org.eclipse.swt.widgets.Button swtButton;
 	
-	protected AbstractButton (int index , String text, int style){
+	protected AbstractButton (ReferencedComposite refComposite, int index , String text, int style){
 		log.info("Searching for Button:"
 				+ "\n  index: " + index
 				+ "\n  label: " + text
 				+ "\n  style: " + style);
 			if (text != null && !text.isEmpty()) {
-				swtButton = ButtonLookup.getInstance().getButton(
+				swtButton = ButtonLookup.getInstance().getButton(refComposite,
 						index, new WithMnemonicMatcher(text), new StyleMatcher(style));
 			} else {
-				swtButton = ButtonLookup.getInstance().getButton(
+				swtButton = ButtonLookup.getInstance().getButton(refComposite,
 						index, new StyleMatcher(style));
 			}
 	}

@@ -1,10 +1,10 @@
 package org.jboss.reddeer.uiforms.section;
 
+
+import org.eclipse.swt.widgets.Control;
 import org.eclipse.ui.forms.widgets.Section;
 import org.jboss.reddeer.swt.handler.WidgetHandler;
-import org.jboss.reddeer.swt.matcher.TextMatcher;
 import org.jboss.reddeer.swt.matcher.WithMnemonicMatcher;
-import org.jboss.reddeer.swt.reference.ReferenceComposite;
 import org.jboss.reddeer.swt.reference.ReferencedComposite;
 import org.jboss.reddeer.uiforms.lookup.UIFormSectionLookup;
 
@@ -26,11 +26,28 @@ public class UIFormSection implements ReferencedComposite {
 	}
 	
 	/**
+	 * Create UIFormSection inside given composite
+	 * @param referencedComposite 
+	 */
+	public UIFormSection(ReferencedComposite referencedComposite) {
+		this(referencedComposite, 0);
+	}
+	
+	/**
 	 * Create UIFormSection with given index
 	 * @param index
 	 */
 	public UIFormSection(int index) {
 		this(index, null);
+	}
+	
+	/**
+	 * Create UIFormSection with given index inside given composite
+	 * @param referencedComposite
+	 * @param index
+	 */
+	public UIFormSection(ReferencedComposite referencedComposite, int index) {
+		this(referencedComposite, index, null);
 	}
 	
 	/**
@@ -42,19 +59,43 @@ public class UIFormSection implements ReferencedComposite {
 	}
 	
 	/**
+	 * Create UIFormSection with given toolTipText inside given composite
+	 * @param referencedComposite
+	 * @param toolTipText
+	 */
+	public UIFormSection(ReferencedComposite referencedComposite, String text) {
+		this(referencedComposite, 0, text);
+	}
+	
+	/**
 	 * Create UIFormSection with given toolTipText and index
 	 * @param toolTipText
 	 * @param index
 	 */
 	public UIFormSection(int index, String text) {
 		if (text != null && !text.isEmpty()) {
-			section = UIFormSectionLookup.getInstance().getSection(index, new WithMnemonicMatcher(text));
+			section = UIFormSectionLookup.getInstance().getSection(null, index, new WithMnemonicMatcher(text));
 		}else {
-			section = UIFormSectionLookup.getInstance().getSection(index);
+			section = UIFormSectionLookup.getInstance().getSection(null, index);
 		}
 		
 		setFocus();
-		setAsReference();
+	}
+	
+	/**
+	 * Create UIFormSection with given toolTipText and index inside given composite
+	 * @param referencedComposite
+	 * @param toolTipText
+	 * @param index
+	 */
+	public UIFormSection(ReferencedComposite referencedComposite, int index, String text) {
+		if (text != null && !text.isEmpty()) {
+			section = UIFormSectionLookup.getInstance().getSection(referencedComposite, index, new WithMnemonicMatcher(text));
+		}else {
+			section = UIFormSectionLookup.getInstance().getSection(referencedComposite, index);
+		}
+		
+		setFocus();
 	}
 	
 	/**
@@ -64,14 +105,14 @@ public class UIFormSection implements ReferencedComposite {
 	public String getText() {
 		return WidgetHandler.getInstance().getText(section);
 	}
-
-	@Override
-	public void setAsReference() {
-		ReferenceComposite.setComposite(section);
-	}
 	
 	private void setFocus() {
 		WidgetHandler.getInstance().setFocus(section);
+	}
+
+	@Override
+	public Control getControl() {
+		return section;
 	}
 	
 }

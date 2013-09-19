@@ -3,6 +3,7 @@ package org.jboss.reddeer.swt.lookup;
 import org.eclipse.swt.widgets.List;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.swt.lookup.WidgetLookup;
+import org.jboss.reddeer.swt.reference.ReferencedComposite;
 
 
 /**
@@ -35,8 +36,8 @@ public class ListLookup {
 	 * @return List Widget matching criteria
 	 */
 	@SuppressWarnings({ "rawtypes" })
-	public List getList(int index, Matcher... matchers) {
-		return (List)WidgetLookup.getInstance().activeWidget(List.class, index, matchers);
+	public List getList(ReferencedComposite refComposite, int index, Matcher... matchers) {
+		return (List)WidgetLookup.getInstance().activeWidget(refComposite, List.class, index, matchers);
 	}
 
 }

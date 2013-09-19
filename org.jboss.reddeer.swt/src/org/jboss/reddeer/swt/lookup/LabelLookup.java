@@ -3,6 +3,7 @@ package org.jboss.reddeer.swt.lookup;
 import org.eclipse.swt.widgets.Label;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.swt.lookup.WidgetLookup;
+import org.jboss.reddeer.swt.reference.ReferencedComposite;
 
 /**
  * Label lookup containing lookup routines for Label widget type
@@ -31,7 +32,7 @@ public class LabelLookup {
 	 * @return Label Widget matching criteria
 	 */
 	@SuppressWarnings({ "rawtypes" })
-	public Label getLabel(int index, Matcher... matchers) {
-		return (Label)WidgetLookup.getInstance().activeWidget(Label.class, index, matchers);
+	public Label getLabel(ReferencedComposite refComposite, int index, Matcher... matchers) {
+		return (Label)WidgetLookup.getInstance().activeWidget(refComposite, Label.class, index, matchers);
 	}
 }

@@ -5,10 +5,12 @@ import org.eclipse.swt.widgets.Widget;
 import org.hamcrest.BaseMatcher;
 import org.hamcrest.Description;
 import org.jboss.reddeer.swt.lookup.WidgetResolver;
+import org.jboss.reddeer.swt.reference.ReferencedComposite;
 
 /**
  * Group matcher for matching widgets in group
  * @author jpeterka
+ * @deprecated in 0.4, use {@link ReferencedComposite}
  *
  */
 public class GroupMatcher extends BaseMatcher<String> {

@@ -1,5 +1,6 @@
 package org.jboss.reddeer.swt.api;
 
+import org.jboss.reddeer.swt.reference.ReferencedComposite;
 import org.jboss.reddeer.swt.wait.TimePeriod;
 
 /**
@@ -7,7 +8,7 @@ import org.jboss.reddeer.swt.wait.TimePeriod;
  * @author Vlado Pakan
  *
  */
-public interface ExpandBarItem {
+public interface ExpandBarItem extends ReferencedComposite{
 	/**
 	 * Returns the text of expand bar item
 	 * 

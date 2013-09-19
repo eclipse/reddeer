@@ -16,7 +16,7 @@ import org.eclipse.ui.IWorkbenchSite;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.lookup.WidgetResolver;
-import org.jboss.reddeer.swt.reference.ReferenceComposite;
+import org.jboss.reddeer.swt.reference.ReferencedComposite;
 import org.jboss.reddeer.swt.matcher.AndMatcher;
 import org.jboss.reddeer.swt.matcher.ClassMatcher;
 import org.jboss.reddeer.swt.matcher.MatcherBuilder;
@@ -195,11 +195,11 @@ public class WidgetLookup {
 	 */
 	@Deprecated
 	public Widget activeWidget(Matcher<? extends Widget> matcher, int index) {
-		return getProperWidget(activeWidgets(matcher), index);
+		return getProperWidget(activeWidgets(null, matcher), index);
 	}
 	
 	@SuppressWarnings({ "rawtypes","unchecked" })
-	public <T extends Widget> T activeWidget(Class<T> clazz, int index, Matcher... matchers) {
+	public <T extends Widget> T activeWidget(ReferencedComposite refComposite, Class<T> clazz, int index, Matcher... matchers) {
 		ClassMatcher cm = new ClassMatcher(clazz);
 		Matcher[] allMatchers = MatcherBuilder.getInstance().addMatcher(matchers, cm);
 		AndMatcher am  = new AndMatcher(allMatchers);
@@ -208,29 +208,26 @@ public class WidgetLookup {
 		for (int ind = 0 ; ind < matchers.length ; ind++ ){
 			logger.debug("Matcher: " + matchers[ind].getClass());
 		}
-		return (T)getProperWidget(activeWidgets(am), index);
+		if(refComposite == null){
+			return (T)getProperWidget(activeWidgets(null, am), index);
+		}
+		return (T)getProperWidget(activeWidgets(refComposite.getControl(), am), index);
 	}
-	
-	@SuppressWarnings("rawtypes")
-	private List<? extends Widget> activeWidgets(Matcher matcher) {
-		return activeWidgets(getActiveWidgetParentControl(), matcher);
-	}
-	
+
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	private List<? extends Widget> activeWidgets(Control activeControl, Matcher matcher) {
-		if (activeControl == null){
+	private List<? extends Widget> activeWidgets(Control refComposite, Matcher matcher) {
+		if(refComposite == null){
+			refComposite = getActiveWidgetParentControl();
+		}
+
+		if (refComposite == null){
 			logger.warn("Unable to find active control");
 		}
-		List<? extends Widget> widgets = findControls(activeControl, matcher, true);
+		List<? extends Widget> widgets = findControls(refComposite, matcher, true);
 		return widgets;
 	}
 	
 	public Control getActiveWidgetParentControl() {
-		Control compositeWidget = ReferenceComposite.getComposite();
-
-		if (compositeWidget != null) {
-			return compositeWidget;
-		}
 		IWorkbenchPartReference activeWorkbenchReference = WorkbenchLookup.findActiveWorkbenchPart();
 		Shell activeWorkbenchParentShell = getShellForActiveWorkbench(activeWorkbenchReference);
 		Shell activeShell = new ShellLookup().getActiveShell();

@@ -3,6 +3,7 @@ package org.jboss.reddeer.swt.impl.button;
 import org.apache.log4j.Logger;
 import org.eclipse.swt.SWT;
 import org.jboss.reddeer.swt.handler.WidgetHandler;
+import org.jboss.reddeer.swt.reference.ReferencedComposite;
 /**
  * Class represents Button with type Toggle (Checkbox)
  * 
@@ -17,9 +18,16 @@ public class CheckBox extends AbstractButton {
 	/**
 	 * Default constructor
 	 */
-
 	public CheckBox() {
 		this(0);
+	}
+	
+	/**
+	 * Checkbox inside given referencedComposite
+	 * @param referencedComposite
+	 */
+	public CheckBox(ReferencedComposite referencedComposite) {
+		this(referencedComposite, 0);
 	}
 	
 	/**
@@ -27,26 +35,47 @@ public class CheckBox extends AbstractButton {
 	 * 
 	 * @param index
 	 */
-	
 	public CheckBox(int index){
-		this(index,"");
+		this(null, index,"");
 	}
+	
+	/**
+	 * Checkbox with given index inside given referencedComposite
+	 * @param referencedComposite
+	 * @param index
+	 */
+	public CheckBox(ReferencedComposite referencedComposite, int index){
+		this(referencedComposite, index,"");
+	}
+	
 	/**
 	 * Checkbox with given text
 	 * 
 	 * @param text
 	 */
 	public CheckBox(String text) {
-		this(0,text);
+		this(null, 0,text);
 	}
+	
 	/**
-	 * Check Box with given index and text
-	 * @param index
+	 * Checkbox with given text inside given referencedComposite
+	 * @param referencedComposite
 	 * @param text
 	 */
-	public CheckBox (int index , String text){
-		super(index,text,SWT.CHECK);
+	public CheckBox(ReferencedComposite referencedComposite,String text) {
+		this(referencedComposite, 0,text);
 	}
+	
+	/**
+	 * Check Box with given index and text inside given referencedComposite
+	 * @param index
+	 * @param text
+	 * @param referencedComposite
+	 */
+	public CheckBox (ReferencedComposite referencedComposite, int index , String text){
+		super(referencedComposite, index,text,SWT.CHECK);
+	}
+	
 	/**
 	 * Returns true when Check Box is checked
 	 * @return

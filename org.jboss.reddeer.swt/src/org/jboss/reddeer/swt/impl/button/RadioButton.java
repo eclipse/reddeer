@@ -3,6 +3,8 @@ package org.jboss.reddeer.swt.impl.button;
 import org.apache.log4j.Logger;
 import org.eclipse.swt.SWT;
 import org.jboss.reddeer.swt.handler.WidgetHandler;
+import org.jboss.reddeer.swt.reference.ReferencedComposite;
+
 /**
  * RadioButton is button implementation that can be selected
  * @author jjankovi
@@ -10,6 +12,7 @@ import org.jboss.reddeer.swt.handler.WidgetHandler;
  */
 public class RadioButton extends AbstractButton {
 	protected final Logger log = Logger.getLogger(this.getClass());
+	
 	/**
 	 * Creates Radio button
 	 */
@@ -18,27 +21,55 @@ public class RadioButton extends AbstractButton {
 	}
 	
 	/**
+	 * Creates Radio button inside given composite
+	 * @param referencedComposite
+	 */
+	public RadioButton(ReferencedComposite referencedComposite) {
+		this(referencedComposite,0);
+	}
+	
+	/**
 	 * Creates Radio button with given text
 	 * @param text
 	 */
 	public RadioButton(String text) {
-		this(0, text);
+		this(null, 0, text);
 	}
+	
+	/**
+	 * Creates Radio button with given text inside given composite
+	 * @param referencedComposite
+	 * @param text
+	 */
+	public RadioButton(ReferencedComposite referencedComposite, String text) {
+		this(referencedComposite, 0, text);
+	}
+	
 	/**
 	 * Creates Radio button with given index
 	 * @param text
 	 */
 	public RadioButton(int index) {
-		this(index, null);
+		this(null, index, null);
 	}
 	
 	/**
-	 * Creates Radio button with given index and label
+	 * Creates Radio button with given index inside given composite
+	 * @param referencedComposite
+	 * @param text
+	 */
+	public RadioButton(ReferencedComposite referencedComposite, int index) {
+		this(referencedComposite, index, null);
+	}
+	
+	/**
+	 * Creates Radio button with given index and label inside given composite
+	 * @param referencedComposite
 	 * @param index of button
 	 * @param label of button
 	 */
-	public RadioButton(int index, String text) {
-		super(index,text,SWT.RADIO);
+	public RadioButton(ReferencedComposite referencedComposite, int index, String text) {
+		super(referencedComposite, index,text,SWT.RADIO);
 	}
 	/**
 	 * Returns true when Radio Button is selected	

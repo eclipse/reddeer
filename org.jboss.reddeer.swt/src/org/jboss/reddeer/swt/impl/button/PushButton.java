@@ -2,6 +2,7 @@ package org.jboss.reddeer.swt.impl.button;
 
 import org.eclipse.swt.SWT;
 import org.jboss.reddeer.swt.api.Button;
+import org.jboss.reddeer.swt.reference.ReferencedComposite;
 
 /**
  * PushButton is simple button implementation that can be pushed
@@ -15,22 +16,40 @@ public class PushButton extends AbstractButton implements Button {
 	 * @param text
 	 */
 	public PushButton(String text) {
-		this(0,text);
+		this(null, 0,text);
+	}
+	
+	/**
+	 * Push button with given text inside given composite
+	 * @param referencedComposite
+	 * @param text
+	 */
+	public PushButton(ReferencedComposite referencedComposite, String text) {
+		this(referencedComposite, 0,text);
 	}
 	/**
 	 * Push button with given index
 	 * @param index
 	 */
 	public PushButton(int index) {
-		this(index,"");
+		this(null, index,"");
 	}
 	/**
-	 * Push Button with given index and text
+	 * Push button with given index inside given composite
+	 * @param referencedComposite
+	 * @param index
+	 */
+	public PushButton(ReferencedComposite referencedComposite,int index) {
+		this(referencedComposite, index,"");
+	}
+	/**
+	 * Push Button with given index and text inside given composite
+	 * @param referencedComposite
 	 * @param index
 	 * @param text
 	 */
-	public PushButton (int index , String text){
-		super(index,text,SWT.PUSH);
+	public PushButton (ReferencedComposite referencedComposite, int index , String text){
+		super(referencedComposite, index,text,SWT.PUSH);
 	}
 	
 }

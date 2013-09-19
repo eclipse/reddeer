@@ -46,15 +46,13 @@ public class UIFormSectionTest extends RedDeerTest {
 	
 	@Test(expected=SWTLayerException.class)
 	public void testInvalidInstance() {
-		new UIFormSection();
-		new UIFormSection("Section 2");
+		UIFormSection section = new UIFormSection();
+		new UIFormSection(section, "Section 2");
 	}
 	
 	@Test
 	public void testValidReinstance() {
-		UIForm uiForm = new UIForm();
 		new UIFormSection("Section 1");
-		uiForm.setAsReference();
 		new UIFormSection("Section 2");
 	}
 	

@@ -11,7 +11,7 @@ import org.jboss.reddeer.swt.util.Display;
  * @author Jiri Peterka
  *
  */
-public class WorkbenchShell extends AbstractShell implements Shell {
+public class WorkbenchShell extends AbstractShell{
 
 	private Logger log = Logger.getLogger(WorkbenchShell.class);
 	

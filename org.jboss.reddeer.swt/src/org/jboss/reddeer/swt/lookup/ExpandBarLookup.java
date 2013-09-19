@@ -2,6 +2,7 @@ package org.jboss.reddeer.swt.lookup;
 
 import org.eclipse.swt.widgets.ExpandBar;
 import org.hamcrest.Matcher;
+import org.jboss.reddeer.swt.reference.ReferencedComposite;
 
 /**
  * Expand Bar lookup containing lookup routines for ExpandBar widget type
@@ -30,8 +31,8 @@ public class ExpandBarLookup {
    * @return ExpandBar Widget matching criteria
    */
   @SuppressWarnings({ "rawtypes" })
-  public ExpandBar getExpandBar(int index, Matcher... matchers) {
-    return (ExpandBar)WidgetLookup.getInstance().activeWidget(ExpandBar.class, index, matchers);
+  public ExpandBar getExpandBar(ReferencedComposite refComposite, int index, Matcher... matchers) {
+    return (ExpandBar)WidgetLookup.getInstance().activeWidget(refComposite, ExpandBar.class, index, matchers);
   }
   
 }
