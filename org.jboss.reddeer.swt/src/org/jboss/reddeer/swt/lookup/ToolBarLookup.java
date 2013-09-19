@@ -1,8 +1,5 @@
 package org.jboss.reddeer.swt.lookup;
 
-import static org.eclipse.swtbot.swt.finder.matchers.WidgetMatcherFactory.widgetOfType;
-import static org.hamcrest.core.AllOf.allOf;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -72,11 +69,9 @@ public class ToolBarLookup {
 	 */
 	public ToolBar getShellToolBars() {
 		ToolBar toolbar = Display.syncExec(new ResultRunnable<ToolBar>() {
-			@SuppressWarnings("unchecked")
 			@Override
 			public ToolBar run() {
-				ToolBar toolbar = (ToolBar)WidgetLookup.getInstance()
-						.activeWidget(allOf(widgetOfType(ToolBar.class)), 0);
+				ToolBar toolbar = (ToolBar)WidgetLookup.getInstance().activeWidget(null, ToolBar.class, 0);
 				
 				return toolbar;
 			}
@@ -182,6 +177,4 @@ public class ToolBarLookup {
 
 		return item;
 	}
-	
-	
 }
