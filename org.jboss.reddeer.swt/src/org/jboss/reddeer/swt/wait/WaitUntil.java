@@ -1,5 +1,6 @@
 package org.jboss.reddeer.swt.wait;
 
+import org.apache.log4j.Logger;
 import org.jboss.reddeer.swt.condition.WaitCondition;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.exception.WaitTimeoutExpiredException;
@@ -12,6 +13,7 @@ import org.jboss.reddeer.swt.exception.WaitTimeoutExpiredException;
  * 
  */
 public class WaitUntil extends AbstractWait {
+	private final Logger log = Logger.getLogger(this.getClass());
 	/**
 	 * Waits until condition is fulfilled with default timeout
 	 * Throws WaitTimeoutExpiredException when timeout had expired
@@ -58,7 +60,8 @@ public class WaitUntil extends AbstractWait {
 				if (condition.test())
 					return;
 			} catch (Throwable e) {
-				// do nothing
+				log.warn("Error during evaluating wait condition " + condition.description() 
+					+ " " + e);
 			}
 			sleep(AbstractWait.WAIT_DELAY);
 			if (System.currentTimeMillis() > limit) {
