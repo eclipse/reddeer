@@ -49,7 +49,8 @@ public abstract class AbstractWait {
 			boolean throwRuntimeException) {
 		this.timeout = timeout;
 		this.throwWaitTimeoutExpiredException = throwRuntimeException;
-		log.info("Waiting with condition: " + condition.description()
+		log.info(description()
+				+ "\n  Condition=" + condition.description()
 				+ "\n  Timeout=" + timeout.getSeconds() + " seconds"
 				+ "\n  Delay= " + AbstractWait.WAIT_DELAY + " milliseconds"
 				+ "\n  Throw WaitTimeoutExpiredException="
