@@ -1,6 +1,6 @@
 package org.jboss.reddeer.eclipse.jface.wizard;
 
-import org.apache.log4j.Logger;
+import org.jboss.reddeer.junit.logging.Logger;
 
 /**
  * Wizard page

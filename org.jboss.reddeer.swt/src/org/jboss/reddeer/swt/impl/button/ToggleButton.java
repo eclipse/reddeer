@@ -1,6 +1,6 @@
 package org.jboss.reddeer.swt.impl.button;
 
-import org.apache.log4j.Logger;
+import org.jboss.reddeer.junit.logging.Logger;
 import org.eclipse.swt.SWT;
 import org.jboss.reddeer.swt.handler.WidgetHandler;
 import org.jboss.reddeer.swt.reference.ReferencedComposite;

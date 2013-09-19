@@ -3,7 +3,7 @@ package org.jboss.reddeer.swt.test;
 import static org.junit.Assert.fail;
 
 import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
+import org.jboss.reddeer.junit.logging.Logger;
 import org.jboss.reddeer.swt.api.Browser;
 import org.jboss.reddeer.swt.api.Menu;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
@@ -30,9 +30,8 @@ public class BrowserTest extends RedDeerTest {
 	@Override
 	public void setUp() {
 	  super.setUp();
-		Logger.getRootLogger().setLevel(Level.DEBUG);
-		// Open Internal Web Browser
-		// TODO: should be replaced with Internal Web Browses view once it's implemented
+	// Open Internal Web Browser
+	// TODO: should be replaced with Internal Web Browses view once it's implemented
     new DefaultShell();
     RegexMatchers m = new RegexMatchers("Window.*", "Show View.*",
         "Other...*");

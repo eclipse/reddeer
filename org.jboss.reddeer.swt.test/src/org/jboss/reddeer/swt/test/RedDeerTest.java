@@ -1,11 +1,7 @@
 package org.jboss.reddeer.swt.test;
 
-import org.apache.log4j.ConsoleAppender;
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
-import org.apache.log4j.PatternLayout;
 import org.eclipse.ui.IViewReference;
-import org.jboss.reddeer.junit.ExecutionSetting;
+import org.jboss.reddeer.junit.logging.Logger;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.junit.watcher.RedDeerWatchdog;
 import org.jboss.reddeer.swt.lookup.WorkbenchLookup;
@@ -33,27 +29,9 @@ public class RedDeerTest {
 	
 	@Before
 	public void setUpRDT(){
-		configureLogging();
 		setUp();
 	}
 	
-	private void configureLogging() {
-		if (Logger.getRootLogger().getAppender("console") != null)  return;
-			
-		ConsoleAppender console = new ConsoleAppender();
-		console.setName("console");
-		String PATTERN = "%-5p [%t][%C{1}] %m%n";
-		if (ExecutionSetting.getInstance().isDebugEnabled()) {
-			PATTERN = "%d{HH:mm:ss,SSS} " + PATTERN;
-			console.setThreshold(Level.DEBUG);
-		} else {
-			console.setThreshold(Level.INFO);
-		}
-		console.setLayout(new PatternLayout(PATTERN));
-		console.activateOptions();
-		Logger.getRootLogger().addAppender(console);
-		log.info("Logging threshold set to " + console.getThreshold());
-	}
 
 	@After
 	public void tearDownRDT(){

@@ -1,6 +1,6 @@
 package org.jboss.reddeer.workbench;
 
-import org.apache.log4j.Logger;
+import org.jboss.reddeer.junit.logging.Logger;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PlatformUI;
 import org.jboss.reddeer.swt.util.Display;

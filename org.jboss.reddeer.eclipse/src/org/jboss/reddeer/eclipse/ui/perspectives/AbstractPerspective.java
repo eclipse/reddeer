@@ -1,6 +1,6 @@
 package org.jboss.reddeer.eclipse.ui.perspectives;
 
-import org.apache.log4j.Logger;
+import org.jboss.reddeer.junit.logging.Logger;
 import org.eclipse.ui.IPerspectiveDescriptor;
 import org.eclipse.ui.PlatformUI;
 import org.jboss.reddeer.eclipse.exception.EclipseLayerException;

@@ -1,6 +1,6 @@
 package org.jboss.reddeer.swt.handler;
 
-import org.apache.log4j.Logger;
+import org.jboss.reddeer.junit.logging.Logger;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Event;
 import org.jboss.reddeer.swt.api.ExpandBarItem;

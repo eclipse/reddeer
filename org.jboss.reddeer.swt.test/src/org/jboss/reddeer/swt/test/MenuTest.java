@@ -4,7 +4,7 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
+import org.jboss.reddeer.junit.logging.Logger;
 import org.eclipse.swtbot.eclipse.finder.SWTWorkbenchBot;
 import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
@@ -37,7 +37,6 @@ public class MenuTest extends RedDeerTest {
 	protected void setUp() {
 		super.setUp();
 		explorer.open();
-		Logger.getRootLogger().setLevel(Level.DEBUG);
 	}
 	
 	@Test

@@ -2,7 +2,7 @@ package org.jboss.reddeer.junit.internal.configuration.configurator;
 
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.jboss.reddeer.junit.logging.Logger;
 import org.jboss.reddeer.junit.configuration.RedDeerConfigurationException;
 import org.jboss.reddeer.junit.internal.configuration.reader.XMLReader;
 import org.jboss.reddeer.junit.requirement.CustomConfiguration;

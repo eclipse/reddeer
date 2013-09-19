@@ -2,7 +2,7 @@ package org.jboss.reddeer.junit.watcher;
 
 import java.io.IOException;
 
-import org.apache.log4j.Logger;
+import org.jboss.reddeer.junit.logging.Logger;
 import org.jboss.reddeer.junit.ExecutionSetting;
 import org.junit.rules.TestWatcher;
 import org.junit.runner.Description;
