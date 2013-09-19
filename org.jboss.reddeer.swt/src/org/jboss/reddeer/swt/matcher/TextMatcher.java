@@ -44,8 +44,12 @@ public class TextMatcher extends BaseMatcher<String> {
 		} else  if (item instanceof Widget) {
 			try {
 				String widgetText = WidgetHandler.getInstance().getText((Widget)item);
-				if (widgetText.equals(text))
-					return true;
+				if (widgetText != null){
+					return widgetText.equals(text); 
+				}
+				else{
+					return text == null;
+				}					
 			} catch (SWTLayerException sle) {
 				// object is not supported by widget handler mechanism 'getText' 
 			}
