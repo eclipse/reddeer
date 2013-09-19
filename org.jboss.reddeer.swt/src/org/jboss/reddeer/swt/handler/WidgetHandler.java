@@ -398,7 +398,7 @@ public class WidgetHandler {
 	 * 
 	 * @param w given widget
 	 */
-	public <T extends Widget> void deselect(final T w) {
+	public <T extends Widget> void deselectAll(final T w) {
 		Display.syncExec(new Runnable() {
 
 			@Override

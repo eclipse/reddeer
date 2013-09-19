@@ -28,8 +28,8 @@ public abstract class AbstractList implements List {
 		return WidgetHandler.getInstance().getItems(list);
 	}
 
-	public void deselect() {
-		WidgetHandler.getInstance().deselect(list);
+	public void deselectAll() {
+		WidgetHandler.getInstance().deselectAll(list);
 	}
 	
 	public void selectAll() {

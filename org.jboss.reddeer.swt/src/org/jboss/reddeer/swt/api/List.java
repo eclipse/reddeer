@@ -27,9 +27,9 @@ public interface List {
 	String[] getListItems();
 	
 	/**
-	 * Unselects all list items
+	 * Deselects all list items
 	 */
-	void deselect();
+	void deselectAll();
 	
 	/**
 	 * Selects items in list

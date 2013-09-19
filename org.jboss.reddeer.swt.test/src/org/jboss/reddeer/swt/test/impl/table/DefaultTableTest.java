@@ -185,7 +185,7 @@ public class DefaultTableTest extends RedDeerTest{
 		assertTrue("Table should have at least one selected item", selected >= 1);
 
 		/* deselect all */
-		table.deselect();
+		table.deselectAll();
 
 		selected = 0;
 		items = table.getItems();
