@@ -1,9 +1,7 @@
 package org.jboss.reddeer.swt.impl.shell;
 
 import org.apache.log4j.Logger;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.eclipse.ui.PlatformUI;
-import org.jboss.reddeer.swt.api.Shell;
 import org.jboss.reddeer.swt.util.Display;
 
 /**
@@ -24,14 +22,11 @@ public class WorkbenchShell extends AbstractShell{
 
 			@Override
 			public void run() {
-				org.eclipse.swt.widgets.Shell swtShell;
 				swtShell = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell();
 				swtShell.setFocus();
-				shell = new SWTBotShell(swtShell);
-				shell.setFocus();
 			}			
 		});
 		
-		log.info("Workbench shell has title '" + shell.getText() + "'");
+		log.info("Workbench shell has title '" + getText() + "'");
 	}
 }

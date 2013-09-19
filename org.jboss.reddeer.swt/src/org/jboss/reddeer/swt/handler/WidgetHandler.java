@@ -28,7 +28,6 @@ import org.eclipse.swt.widgets.Widget;
 import org.eclipse.ui.forms.widgets.Hyperlink;
 import org.eclipse.ui.forms.widgets.Section;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
-import org.jboss.reddeer.swt.impl.table.internal.BasicTable;
 import org.jboss.reddeer.swt.lookup.WidgetLookup;
 import org.jboss.reddeer.swt.lookup.WidgetResolver;
 import org.jboss.reddeer.swt.util.Display;
@@ -734,6 +733,8 @@ public class WidgetHandler {
 					((Browser)w).setFocus();
 				} else if (w instanceof Scale){
 					((Scale)w).setFocus();
+				} else if(w instanceof Shell) {
+					((Shell)w).setFocus();
 				} else throw new SWTLayerException("Unsupported type");
 			}
 		});
@@ -910,4 +911,5 @@ public class WidgetHandler {
 		});
 		return parent;
 	}
+	
 }
