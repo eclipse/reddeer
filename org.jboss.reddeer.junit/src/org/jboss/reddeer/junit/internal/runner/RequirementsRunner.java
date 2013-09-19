@@ -1,6 +1,6 @@
 package org.jboss.reddeer.junit.internal.runner;
 
-import org.apache.log4j.Logger;
+import org.jboss.reddeer.junit.logging.Logger;
 import org.jboss.reddeer.junit.internal.requirement.Requirements;
 import org.jboss.reddeer.junit.internal.requirement.inject.RequirementsInjector;
 import org.junit.BeforeClass;

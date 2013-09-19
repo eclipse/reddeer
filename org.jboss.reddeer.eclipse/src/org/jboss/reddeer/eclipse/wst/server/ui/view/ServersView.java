@@ -3,7 +3,7 @@ package org.jboss.reddeer.eclipse.wst.server.ui.view;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.jboss.reddeer.junit.logging.Logger;
 import org.jboss.reddeer.eclipse.exception.EclipseLayerException;
 import org.jboss.reddeer.eclipse.wst.server.ui.wizard.NewServerWizardDialog;
 import org.jboss.reddeer.swt.api.Tree;

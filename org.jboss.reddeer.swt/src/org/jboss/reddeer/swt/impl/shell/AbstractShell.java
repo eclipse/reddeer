@@ -1,6 +1,6 @@
 package org.jboss.reddeer.swt.impl.shell;
 
-import org.apache.log4j.Logger;
+import org.jboss.reddeer.junit.logging.Logger;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.jboss.reddeer.swt.api.Shell;

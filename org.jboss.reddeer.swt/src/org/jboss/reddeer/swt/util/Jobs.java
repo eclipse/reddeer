@@ -3,7 +3,7 @@ package org.jboss.reddeer.swt.util;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.jboss.reddeer.junit.logging.Logger;
 import org.eclipse.core.runtime.jobs.Job;
 
 /**

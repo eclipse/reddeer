@@ -2,7 +2,7 @@ package org.jboss.reddeer.swt.handler;
 
 import java.util.Arrays;
 
-import org.apache.log4j.Logger;
+import org.jboss.reddeer.junit.logging.Logger;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.browser.Browser;
 import org.eclipse.swt.custom.CTabItem;

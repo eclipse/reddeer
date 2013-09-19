@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.jboss.reddeer.junit.logging.Logger;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Event;
 import org.jboss.reddeer.swt.api.Tree;

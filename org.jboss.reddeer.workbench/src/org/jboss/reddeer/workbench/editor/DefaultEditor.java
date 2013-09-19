@@ -1,6 +1,6 @@
 package org.jboss.reddeer.workbench.editor;
 
-import org.apache.log4j.Logger;
+import org.jboss.reddeer.junit.logging.Logger;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IEditorReference;
