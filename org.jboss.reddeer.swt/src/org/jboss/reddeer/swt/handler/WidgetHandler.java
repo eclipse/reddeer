@@ -5,6 +5,7 @@ import java.util.Arrays;
 import org.apache.log4j.Logger;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.browser.Browser;
+import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.custom.CTabItem;
 import org.eclipse.swt.custom.StyledText;
 import org.eclipse.swt.graphics.Point;
@@ -28,7 +29,6 @@ import org.eclipse.swt.widgets.Widget;
 import org.eclipse.ui.forms.widgets.Hyperlink;
 import org.eclipse.ui.forms.widgets.Section;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
-import org.jboss.reddeer.swt.impl.table.internal.BasicTable;
 import org.jboss.reddeer.swt.lookup.WidgetLookup;
 import org.jboss.reddeer.swt.lookup.WidgetResolver;
 import org.jboss.reddeer.swt.util.Display;
@@ -289,6 +289,9 @@ public class WidgetHandler {
 					}
 					else if (w instanceof Browser)
 						return ((Browser) w).getText();
+					else if (w instanceof CLabel){
+						return ((CLabel) w).getText();
+					}
 					else
 						throw new SWTLayerException("Unsupported type");
 				}
@@ -715,7 +718,9 @@ public class WidgetHandler {
 					return ((Button) w).getToolTipText();
 				}else if (w instanceof ExpandItem)
 					return ((ExpandItem) w).getParent().getToolTipText();
-				else
+				else if (w instanceof CLabel){
+					return ((CLabel)w).getToolTipText();
+				}else
 					throw new SWTLayerException("Unsupported type");
 			}
 		});
