@@ -102,9 +102,9 @@ public abstract class AbstractTable implements Table {
 	}
 
 	@Override
-	public void deselect() {
+	public void deselectAll() {
 		waitUntilTableHasRows();
-		WidgetHandler.getInstance().deselect(table);
+		WidgetHandler.getInstance().deselectAll(table);
 	}
 
 	private void waitUntilTableHasRows() {

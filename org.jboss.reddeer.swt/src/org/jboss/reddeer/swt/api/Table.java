@@ -35,7 +35,7 @@ public interface Table {
 	/**
 	 * Deselects all table items
 	 */
-	void deselect();
+	void deselectAll();
 
 	/**
 	 * Returns item in row
