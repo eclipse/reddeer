@@ -17,6 +17,6 @@ public class ProgressBarLookup {
 	
 	@SuppressWarnings("rawtypes")
 	public ProgressBar getProgressBar(int index, Matcher... matchers){
-		return (ProgressBar)WidgetLookup.getInstance().activeWidget(ProgressBar.class, index, matchers);
+		return (ProgressBar)WidgetLookup.getInstance().activeWidget(null, ProgressBar.class, index, matchers);
 	}
 }
