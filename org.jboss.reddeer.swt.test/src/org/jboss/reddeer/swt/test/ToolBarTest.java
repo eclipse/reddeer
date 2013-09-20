@@ -5,7 +5,6 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
-import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
 import org.hamcrest.core.Is;
 import org.hamcrest.core.IsNot;
 import org.jboss.reddeer.swt.api.Menu;
@@ -26,9 +25,9 @@ import org.jboss.reddeer.swt.impl.toolbar.WorkbenchToolItem;
 import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
 import org.jboss.reddeer.swt.matcher.RegexMatcher;
 import org.jboss.reddeer.swt.matcher.RegexMatchers;
-import org.jboss.reddeer.swt.util.Bot;
+import org.jboss.reddeer.workbench.view.impl.WorkbenchView;
 import org.jboss.tools.reddeer.swt.test.model.TestModel;
-import org.junit.BeforeClass;
+import org.junit.Before;
 import org.junit.Test;
 
 /**
@@ -38,24 +37,9 @@ import org.junit.Test;
  */
 public class ToolBarTest extends RedDeerTest {
 
-	@BeforeClass
-	public static void prepare() {
-			
-		new WorkbenchShell();
-		
-		RegexMatchers m = new RegexMatchers("Window.*", "Show View.*",
-				"Other...*");
-		Menu menu = new ShellMenu(m.getMatchers());
-		menu.select();
-				
-		TreeItem item = new DefaultTreeItem("RedDeer SWT","RedDeer SWT");
-		item.select();
-		new PushButton("OK").click();
-		
-		new WorkbenchShell();
-		SWTBotView viewObject = Bot.getNew().viewByTitle("RedDeer SWT");
-		viewObject.show();
-		viewObject.setFocus();
+	@Before
+	public void prepare() {
+		new WorkbenchView("RedDeer SWT").open();
 	}
 	
 	@Test 
