@@ -739,6 +739,8 @@ public class WidgetHandler {
 					((Browser)w).setFocus();
 				} else if (w instanceof Scale){
 					((Scale)w).setFocus();
+				} else if(w instanceof Shell) {
+					((Shell)w).setFocus();
 				} else throw new SWTLayerException("Unsupported type");
 			}
 		});
@@ -915,4 +917,5 @@ public class WidgetHandler {
 		});
 		return parent;
 	}
+	
 }

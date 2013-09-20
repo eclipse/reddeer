@@ -1,6 +1,7 @@
 package org.jboss.reddeer.swt.lookup;
 
 import org.eclipse.swt.widgets.Shell;
+import org.hamcrest.Matcher;
 import org.jboss.reddeer.swt.condition.ShellIsActive;
 import org.jboss.reddeer.swt.util.Display;
 import org.jboss.reddeer.swt.util.ResultRunnable;
@@ -14,6 +15,20 @@ import org.jboss.reddeer.swt.wait.WaitUntil;
  * 
  */
 public class ShellLookup {
+	
+	private static ShellLookup instance = null;
+
+	/**
+	 * Creates and returns instance of Shell Lookup
+	 * 
+	 * @return ButtonLookup instance
+	 */
+	public static ShellLookup getInstance() {
+		if (instance == null)
+			instance = new ShellLookup();
+		return instance;
+	}
+	
 	/**
 	 * Returns active shell
 	 * Waits for shell to become active in case there is no active shell at the moment
@@ -67,6 +82,23 @@ public class ShellLookup {
 		});
 	}
 	
+	public Shell getShell(final Matcher<String> matcher) {
+		
+		return Display.syncExec(new ResultRunnable<Shell>() {
+			
+			@Override
+			public Shell run() {
+				Shell[] shell = Display.getDisplay().getShells(); 
+				for (int i = 0; i < shell.length; i++) {
+					if(matcher.matches(shell[i])) {
+						return shell[i];
+					}
+				}
+				return null;
+			}
+			
+		});
+	}
 }
 
 
