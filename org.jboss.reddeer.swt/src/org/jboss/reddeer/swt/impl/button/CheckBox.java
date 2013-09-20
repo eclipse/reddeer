@@ -67,6 +67,15 @@ public class CheckBox extends AbstractButton {
 	}
 	
 	/**
+	 * Check Box with given index and text
+	 * @param index
+	 * @param text
+	 */
+	public CheckBox (int index , String text){
+		super(null, index,text,SWT.CHECK);
+	}
+	
+	/**
 	 * Check Box with given index and text inside given referencedComposite
 	 * @param index
 	 * @param text
