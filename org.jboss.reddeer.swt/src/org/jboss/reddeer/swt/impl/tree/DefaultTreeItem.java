@@ -7,9 +7,11 @@ import java.util.List;
 import org.jboss.reddeer.junit.logging.Logger;
 import org.jboss.reddeer.swt.api.Tree;
 import org.jboss.reddeer.swt.api.TreeItem;
+import org.jboss.reddeer.swt.condition.TreeItemHasMinChildren;
 import org.jboss.reddeer.swt.condition.WaitCondition;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.reference.ReferencedComposite;
+import org.jboss.reddeer.swt.wait.TimePeriod;
 import org.jboss.reddeer.swt.wait.WaitUntil;
 
 /**
@@ -161,6 +163,7 @@ protected static final Logger logger = Logger.getLogger(DefaultTreeItem.class);
 			if (isFound) {
 				// It's not last item of Tree Item Path
 				if (index < (treeItemPath.length - 1)){
+					new WaitUntil(new TreeItemHasMinChildren(tiItem,1),TimePeriod.NORMAL,false);
 					items = tiItem.getItems();
 				}
 				else{       
