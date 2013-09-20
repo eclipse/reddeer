@@ -12,4 +12,11 @@ public interface TabItem {
 	 * Activate this tab.
 	 */
 	void activate();
+
+	/**
+	 * Returns the text of tab item
+	 * 
+	 * @return
+	 */
+	String getText();
 }
