@@ -63,6 +63,15 @@ public class RadioButton extends AbstractButton {
 	}
 	
 	/**
+	 * Creates Radio button with given index and label
+	 * @param index of button
+	 * @param label of button
+	 */
+	public RadioButton(int index, String text) {
+		super(null, index,text,SWT.RADIO);
+	}
+	
+	/**
 	 * Creates Radio button with given index and label inside given composite
 	 * @param referencedComposite
 	 * @param index of button

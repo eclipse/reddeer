@@ -42,6 +42,16 @@ public class PushButton extends AbstractButton implements Button {
 	public PushButton(ReferencedComposite referencedComposite,int index) {
 		this(referencedComposite, index,"");
 	}
+	
+	/**
+	 * Push Button with given index and text
+	 * @param index
+	 * @param text
+	 */
+	public PushButton (int index , String text){
+		super(null, index,text,SWT.PUSH);
+	}
+	
 	/**
 	 * Push Button with given index and text inside given composite
 	 * @param referencedComposite
