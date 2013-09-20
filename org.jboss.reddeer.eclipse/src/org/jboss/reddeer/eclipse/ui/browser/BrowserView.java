@@ -1,8 +1,8 @@
 package org.jboss.reddeer.eclipse.ui.browser;
 
-import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
 import org.jboss.reddeer.swt.api.Browser;
 import org.jboss.reddeer.swt.condition.WaitCondition;
+import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.impl.browser.InternalBrowser;
 import org.jboss.reddeer.swt.wait.TimePeriod;
 import org.jboss.reddeer.swt.wait.WaitUntil;
@@ -106,7 +106,7 @@ public class BrowserView extends WorkbenchView {
 		try{
 			new InternalBrowser(); 
 			return true;  // browser is already opened
-		}catch(WidgetNotFoundException ex){
+		}catch(SWTLayerException ex){
 			return false;
 		}
 	};
