@@ -470,6 +470,7 @@ public class WidgetHandler {
 						throw new SWTLayerException("Unable to select item "+item+" because it does not exist");
 					}
 					widget.select(widget.indexOf(item));
+					WidgetLookup.getInstance().sendClickNotifications(w);
 				}else if (w instanceof Combo){
 					Combo widget = (Combo)w;
 					int index = (widget.indexOf(item))  ;

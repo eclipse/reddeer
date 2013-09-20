@@ -1,17 +1,15 @@
 package org.jboss.reddeer.eclipse.datatools.ui.wizard;
 
-import static org.eclipse.swtbot.swt.finder.finders.UIThreadRunnable.syncExec;
-
-import org.eclipse.swtbot.swt.finder.results.VoidResult;
 import org.jboss.reddeer.eclipse.jface.wizard.WizardDialog;
 import org.jboss.reddeer.eclipse.jface.wizard.WizardPage;
 import org.jboss.reddeer.swt.api.Tree;
 import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.swt.impl.button.PushButton;
+import org.jboss.reddeer.swt.impl.list.DefaultList;
 import org.jboss.reddeer.swt.impl.tab.DefaultTabItem;
 import org.jboss.reddeer.swt.impl.text.LabeledText;
 import org.jboss.reddeer.swt.impl.tree.DefaultTree;
-import org.jboss.reddeer.swt.util.Bot;
+import org.jboss.reddeer.swt.util.Display;
 
 /**
  * A wizard page in a driver definition wizard.
@@ -96,7 +94,7 @@ public class DriverDefinitionPage extends WizardPage {
 	 * @param driverLocation
 	 */
 	public void removeDriverLibrary(String driverLocation) {
-		Bot.get().list().select(driverLocation);
+		new DefaultList().select(driverLocation);	
 		new PushButton(BUTTON_REMOVE_JAR).click();
 	}
 
@@ -107,18 +105,45 @@ public class DriverDefinitionPage extends WizardPage {
 		new PushButton(BUTTON_CLEAR_ALL).click();
 	}
 
+	/**
+	 * Select a given tab
+	 * 
+	 * @param label
+	 */
 	public void selectTab(String label) {
 		new DefaultTabItem(label).activate();
 	}
 
-	private void addItem(final String item) {
-		syncExec(new VoidResult() {
+	/**
+	 * Directly add an item to the list
+	 * 
+	 * @param item
+	 */
+	private void addItem(String item) {
+		new ExtendedDeafultList().addItem(item);
+	}
 
-			@Override
-			public void run() {
-				Bot.get().list().widget.add(item);
-			}
-		});
+	/**
+	 * DefaultList extended by directly adding an item to the list
+	 * 
+	 * @author apodhrad
+	 *
+	 */
+	private class ExtendedDeafultList extends DefaultList {
+		
+		public ExtendedDeafultList() {
+			super();
+		}
+		
+		public void addItem(final String item) {
+			Display.syncExec(new Runnable() {
+				
+				@Override
+				public void run() {
+					list.add(item);
+				}
+			});
+		}
 	}
 
 }
