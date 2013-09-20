@@ -2,7 +2,6 @@ package org.jboss.reddeer.swt.test;
 
 import static org.junit.Assert.fail;
 
-import org.apache.log4j.Level;
 import org.jboss.reddeer.junit.logging.Logger;
 import org.jboss.reddeer.swt.api.Browser;
 import org.jboss.reddeer.swt.api.Menu;
@@ -13,7 +12,7 @@ import org.jboss.reddeer.swt.impl.menu.ShellMenu;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
 import org.jboss.reddeer.swt.matcher.RegexMatchers;
-import org.jboss.reddeer.swt.util.Bot;
+import org.jboss.reddeer.swt.wait.AbstractWait;
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -51,7 +50,7 @@ public class BrowserTest extends RedDeerTest {
 			int counter = 0;
 			while (!b.isPageLoaded() && counter < limit) {
 				counter++;
-				Bot.get().sleep(100);				
+				AbstractWait.sleep(100);
 			}
 		}
 		catch (SWTLayerException e) {
