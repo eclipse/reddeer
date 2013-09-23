@@ -86,7 +86,8 @@ public class Logger {
 	 * @param t throwable
 	 */
 	public void error(String msg, Throwable t) {
-		print(error,msg + t.getStackTrace());
+		print(error,msg);
+		printStackTraceRecursive(t);
 	}
 	
 	/**
@@ -132,6 +133,13 @@ public class Logger {
 	
 	private String getThreadName() {
 		return Thread.currentThread().getName();
+	}
+	
+	private void printStackTraceRecursive(Throwable t) {
+		if ((t != null) && ( t.getStackTrace() != null)) {
+			t.printStackTrace();
+			printStackTraceRecursive(t.getCause());
+		}
 	}
 
 	public boolean isDebugEnabled() {
