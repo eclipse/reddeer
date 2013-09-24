@@ -20,6 +20,7 @@ import org.eclipse.swt.widgets.Link;
 import org.eclipse.swt.widgets.List;
 import org.eclipse.swt.widgets.Scale;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.widgets.TabItem;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
@@ -276,6 +277,8 @@ public class WidgetHandler {
 						return ((Button) w).getText();
 					else if (w instanceof CTabItem)
 						return ((CTabItem) w).getText();
+					else if (w instanceof TabItem)
+						return ((TabItem) w).getText();
 					else if (w instanceof Shell)
 						return ((Shell) w).getText();
 					else if (w instanceof TableItem)
