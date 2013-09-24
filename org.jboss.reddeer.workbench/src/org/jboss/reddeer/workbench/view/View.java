@@ -208,7 +208,7 @@ public abstract class View extends WorkbenchPart{
 						.getActiveWorkbenchWindow().getActivePage()
 						.getViewReferences();
 				for (IViewReference iViewReference : views) {
-					if (iViewReference.getTitle().equals(title)) {
+					if (iViewReference.getPartName().equals(title)) {
 						return iViewReference.getView(false);
 					}
 				}
