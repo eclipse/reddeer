@@ -20,6 +20,7 @@ import org.eclipse.swt.widgets.Link;
 import org.eclipse.swt.widgets.List;
 import org.eclipse.swt.widgets.Scale;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.widgets.Spinner;
 import org.eclipse.swt.widgets.TabItem;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
@@ -673,7 +674,7 @@ public class WidgetHandler {
 
 			@Override
 			public String run() {
-				if ((w instanceof List) || (w instanceof Text) || (w instanceof Combo)) {
+				if ((w instanceof List) || (w instanceof Text) || (w instanceof Combo) || (w instanceof Spinner)) {
 					Widget parent = ((Control)w).getParent();;
 					java.util.List<Widget> children = WidgetResolver.getInstance().getChildren(parent);
 					for (int i = 1; i < children.size() ; i++) {						
