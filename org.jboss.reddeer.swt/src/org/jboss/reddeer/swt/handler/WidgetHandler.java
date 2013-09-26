@@ -745,7 +745,9 @@ public class WidgetHandler {
 				} else if (w instanceof Scale){
 					((Scale)w).setFocus();
 				} else if(w instanceof Shell) {
-					((Shell)w).setFocus();
+					Shell shell =(Shell) w; 
+					shell.forceActive();
+					shell.forceFocus();
 				} else throw new SWTLayerException("Unsupported type");
 			}
 		});
