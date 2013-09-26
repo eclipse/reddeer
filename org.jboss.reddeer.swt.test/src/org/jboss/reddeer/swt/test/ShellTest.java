@@ -1,6 +1,7 @@
 package org.jboss.reddeer.swt.test;
 
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import org.jboss.reddeer.swt.api.Shell;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
@@ -38,6 +39,16 @@ public class ShellTest extends RedDeerTest {
 		
 		Shell dummyShell = new DefaultShell("Dummy shell");
 		dummyShell.close();
+	}
+	
+	@Test
+	public void maximizeWorkbenshShellTest() {
+		WorkbenchShell workbenchShell = new WorkbenchShell();
+		assertFalse(workbenchShell.isMaximized());
+		workbenchShell.maximize();
+		assertTrue(workbenchShell.isMaximized());
+		workbenchShell.restore();
+		assertFalse(workbenchShell.isMaximized());
 	}
 
 }
