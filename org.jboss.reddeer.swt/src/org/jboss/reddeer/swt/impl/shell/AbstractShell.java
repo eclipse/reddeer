@@ -5,6 +5,7 @@ import org.jboss.reddeer.swt.api.Shell;
 import org.jboss.reddeer.swt.condition.ShellWithTextIsActive;
 import org.jboss.reddeer.swt.handler.WidgetHandler;
 import org.jboss.reddeer.swt.util.Display;
+import org.jboss.reddeer.swt.wait.WaitUntil;
 import org.jboss.reddeer.swt.wait.WaitWhile;
 
 /**
@@ -26,6 +27,14 @@ public abstract class AbstractShell implements Shell {
 	}
 
 	@Override
+	public void setFocus() {
+		String text = getText();
+		log.info("Setting focus to Shell");
+		WidgetHandler.getInstance().setFocus(swtShell);
+		new WaitUntil(new ShellWithTextIsActive(text));
+	}
+
+	@Override
 	public void close() {
 		String text = getText();
 		log.info("Closing shell " + text);
@@ -40,5 +49,5 @@ public abstract class AbstractShell implements Shell {
 
 		new WaitWhile(new ShellWithTextIsActive(text));
 	}
-	
+
 }
