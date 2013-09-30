@@ -18,6 +18,7 @@ import org.jboss.reddeer.swt.lookup.WidgetLookup;
 import org.jboss.reddeer.swt.lookup.WorkbenchLookup;
 import org.jboss.reddeer.swt.matcher.RegexMatchers;
 import org.jboss.reddeer.swt.util.Display;
+import org.jboss.reddeer.swt.util.ObjectUtil;
 import org.jboss.reddeer.swt.util.ResultRunnable;
 import org.jboss.reddeer.swt.wait.TimePeriod;
 import org.jboss.reddeer.swt.wait.WaitUntil;
@@ -116,6 +117,7 @@ public abstract class View extends WorkbenchPart{
 			Display.syncExec(new Runnable() {
 				@Override
 				public void run() {
+					log.debug("Setting focus to workbench part with title=" + workbenchPart.getTitle());
 					PlatformUI.getWorkbench().getActiveWorkbenchWindow()
 							.getActivePage().activate(workbenchPart);
 					workbenchPart.setFocus();
@@ -129,8 +131,12 @@ public abstract class View extends WorkbenchPart{
 	private void focusChildControl() {
 		final Control workbenchControl = WorkbenchLookup
 				.getWorkbenchControl(WorkbenchLookup.findActiveWorkbenchPart());
+		log.debug("Active workbench control=" 
+			+ (workbenchControl == null ? "null" : getControlDesc(workbenchControl)));
 		final Control focusedControl = WidgetLookup.getInstance()
 				.getFocusControl();
+		log.debug("Focused control="
+			+ (focusedControl == null ? "null" : getControlDesc(focusedControl)));
 		if (hasControlSpecificParent(focusedControl, workbenchControl)) {
 			return;
 		}
@@ -250,4 +256,25 @@ public abstract class View extends WorkbenchPart{
 		});
 	}
 	
+	private String getControlDesc(Control control) {
+		StringBuffer sbDesc = new StringBuffer("Class=");
+		sbDesc.append(control.getClass().getName());
+		sbDesc.append(" Text=");
+		String value;
+		try {
+			value = (String)ObjectUtil.invokeMethod(control, "getText");
+		} catch (RuntimeException re) {
+			value = "<unavailable>";
+		}
+		sbDesc.append(value);
+		sbDesc.append(" TooltipText=");
+		try {
+			value = (String)ObjectUtil.invokeMethod(control, "getToolTipText");
+		} catch (RuntimeException re) {
+			value = "<unavailable>";
+		}
+		sbDesc.append(value);
+		
+		return sbDesc.toString();
+	}
 }

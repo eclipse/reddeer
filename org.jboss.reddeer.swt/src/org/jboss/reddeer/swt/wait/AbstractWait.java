@@ -55,11 +55,19 @@ public abstract class AbstractWait {
 				+ "\n  Delay= " + AbstractWait.WAIT_DELAY + " milliseconds"
 				+ "\n  Throw WaitTimeoutExpiredException="
 				+ throwWaitTimeoutExpiredException);
-		wait(condition);
-		log.info("Waiting finished");
+		if (wait(condition)) {
+			log.info("Waiting finished successfully:"
+				+ "\n  Description=" + description()
+				+ "\n  Condition=" + condition.description());
+		}
+		else{
+			log.info("Waiting finished unsuccessfully:"
+				+ "\n  Description=" + description()
+				+ "\n  Condition=" + condition.description());
+		}
 	}
 
-	protected abstract void wait(WaitCondition condition);
+	protected abstract boolean wait(WaitCondition condition);
 
 	protected abstract String description();
 
