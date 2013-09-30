@@ -102,22 +102,22 @@ public class WizardDialog {
 	public void finish() {
 		log.info("Finish wizard");
 
-		DefaultShell shell = new DefaultShell();
+		String shellText = new DefaultShell().getText();
 		Button button = new PushButton("Finish");
 		checkButtonEnabled(button);
 		button.click();
 
-		new WaitWhile(new ShellWithTextIsActive(shell.getText()), TimePeriod.LONG);
+		new WaitWhile(new ShellWithTextIsActive(shellText), TimePeriod.LONG);
 		new WaitWhile(new JobIsRunning(), TimePeriod.LONG);
 	}
 
 	public void cancel() {
 		log.info("Cancel wizard");
 
-		DefaultShell shell = new DefaultShell();
+		String shellText = new DefaultShell().getText();
 		new PushButton("Cancel").click();
 
-		new WaitWhile(new ShellWithTextIsActive(shell.getText()));
+		new WaitWhile(new ShellWithTextIsActive(shellText));
 		new WaitWhile(new JobIsRunning());
 	}
 
