@@ -55,9 +55,10 @@ public class WaitWhile extends AbstractWait {
 	 * @param condition
 	 * @param timeout
 	 * @param throwWaitTimeoutExpiredException
+	 * @return returns true when waiting finished successfully
 	 */
 	@Override
-	protected void wait(WaitCondition condition) {
+	protected boolean wait(WaitCondition condition) {
 		final long timeout = getTimeout().getSeconds() * 1000;
 		if (timeout < 0) {
 			throw new SWTLayerException("timeout value is negative");
@@ -70,7 +71,7 @@ public class WaitWhile extends AbstractWait {
 		while (continueSleep) {
 			try {
 				if (!condition.test())
-					return;
+					return true;
 			} catch (Throwable e) {
 				log.warn("Error during evaluating wait condition " + condition.description() 
 						+ " " + e);
@@ -84,6 +85,7 @@ public class WaitWhile extends AbstractWait {
 				}
 			}
 		}
+		return false;
 	}
 
 	@Override

@@ -2,7 +2,7 @@ package org.jboss.reddeer.junit.logging;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
+import java.util.Date;
 
 import org.jboss.reddeer.junit.ExecutionSetting;
 
@@ -13,10 +13,8 @@ import org.jboss.reddeer.junit.ExecutionSetting;
  */
 public class Logger {
 
-	private DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss.ms");
-	private Calendar cal = Calendar.getInstance();
-
-	
+	private DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss.SSS");
+		
 	private static final String error = "ERROR";
 	private static final String warning = "WARNING";
 	private static final String debug = "DEBUG";
@@ -117,7 +115,7 @@ public class Logger {
 	private void print(String severity, String msg) {
 		StringBuilder sb = new StringBuilder();
 		if (ExecutionSetting.getInstance().isDebugEnabled()) {
-			sb.append(dateFormat.format(cal.getTime()) + " "); 
+			sb.append(dateFormat.format(new Date()) + " "); 
 		}				
 		
 		sb.append(severity);
