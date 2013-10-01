@@ -1,5 +1,8 @@
 package org.jboss.reddeer.swt.test.impl.tree;
 
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.Tree;
+import org.eclipse.swt.widgets.TreeColumn;
 import org.jboss.reddeer.swt.impl.tree.DefaultTree;
 import org.jboss.reddeer.workbench.view.impl.WorkbenchView;
 import org.junit.Test;
@@ -11,7 +14,19 @@ public class ViewTreeTest extends AbstractTreeTest {
 	public void setUp() {
 		super.setUp();
 		customView.open();
+
 		tree = new DefaultTree();
+		final Tree swtTree = tree.getSWTWidget();
+
+		org.jboss.reddeer.swt.util.Display.syncExec(new Runnable() {
+			@Override
+			public void run() {
+				TreeColumn column = new TreeColumn(swtTree, SWT.LEFT);
+				column.setWidth(200);
+				column = new TreeColumn(swtTree, SWT.LEFT);
+				column.setWidth(200);
+			}
+		});
 	}
 	
 	@Test
