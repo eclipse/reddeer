@@ -3,10 +3,7 @@ package org.jboss.reddeer.swt.test;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-import org.apache.log4j.Level;
 import org.jboss.reddeer.junit.logging.Logger;
-import org.eclipse.swtbot.eclipse.finder.SWTWorkbenchBot;
-import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.swt.api.Menu;
 import org.jboss.reddeer.swt.api.Shell;
@@ -98,9 +95,9 @@ public class MenuTest extends RedDeerTest {
 	@Test 
 	public void contextMenuTest() {
 		
-		SWTWorkbenchBot bot = new SWTWorkbenchBot();
-		SWTBotView v = bot.viewByTitle("Project Explorer");
-		v.setFocus();				
+		ProjectExplorer pe = new ProjectExplorer();
+		pe.open();
+			
 		Menu menu = new ContextMenu("New","Project...");
 		menu.select();
 		Shell s = new DefaultShell("New Project");
@@ -116,9 +113,9 @@ public class MenuTest extends RedDeerTest {
 	
 	@Test 
 	public void contextMenuItemTextTest() {
-		SWTWorkbenchBot bot = new SWTWorkbenchBot();
-		SWTBotView v = bot.viewByTitle("Project Explorer");
-		v.setFocus();
+		ProjectExplorer pe = new ProjectExplorer();
+		pe.open();
+
 		Menu menu = new ContextMenu("New","Project...");
 		assertTrue("Menuitem text not expected to be empty", !menu.getText().equals(""));
 	}
