@@ -45,6 +45,14 @@ public class TextEditor extends DefaultEditor{
 		return getTextEditorPart().getDocumentProvider().getDocument(getTextEditorPart().getEditorInput()).get();
 	}
 	
+	/**
+	 * Set text text into editor
+	 * @param text given test that will be set as editor text
+	 */
+	public void setText(String text) {
+		getTextEditorPart().getDocumentProvider().getDocument(getTextEditorPart().getEditorInput()).set(text);
+	}
+	
 	protected ITextEditor getTextEditorPart(){
 		return (ITextEditor) getEditorPart();
 	}

@@ -28,4 +28,12 @@ public interface StyledText {
 	
 	public String getToolTipText();
 	
+
+	/**
+	 * Insert text into styledtext
+	 * @param line given line 
+	 * @param column given column 
+	 * @param text to insert
+	 */
+	public void insertText(int line, int column, String text);
 }

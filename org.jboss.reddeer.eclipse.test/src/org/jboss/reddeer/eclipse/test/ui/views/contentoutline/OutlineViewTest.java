@@ -11,7 +11,7 @@ import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.PackageExplorer;
 import org.jboss.reddeer.eclipse.ui.views.contentoutline.OutlineView;
 import org.jboss.reddeer.swt.test.RedDeerTest;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
-import org.jboss.reddeer.swt.util.Bot;
+import org.jboss.reddeer.swt.handler.WorkbenchHandler;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -35,7 +35,7 @@ public class OutlineViewTest extends RedDeerTest{
 	
 	@Test
 	public void testElementsInEmptyOutlineView() {
-		Bot.get().closeAllEditors();
+		WorkbenchHandler.getInstance().closeAllEditors();
 		
 		outlineView = new OutlineView();
 		outlineView.open();
@@ -44,7 +44,7 @@ public class OutlineViewTest extends RedDeerTest{
 	
 	@Test(expected=SWTLayerException.class)
 	public void testCollapseInEmptyOutlineView() {
-		Bot.get().closeAllEditors();
+		WorkbenchHandler.getInstance().closeAllEditors();
 		
 		outlineView = new OutlineView();
 		outlineView.open();
@@ -53,7 +53,7 @@ public class OutlineViewTest extends RedDeerTest{
 	
 	@Test(expected=SWTLayerException.class)
 	public void testSortInEmptyOutlineView() {
-		Bot.get().closeAllEditors();
+		WorkbenchHandler.getInstance().closeAllEditors();
 		
 		outlineView = new OutlineView();
 		outlineView.open();
@@ -62,7 +62,7 @@ public class OutlineViewTest extends RedDeerTest{
 	
 	@Test(expected=SWTLayerException.class)
 	public void testHideFieldsInEmptyOutlineView() {
-		Bot.get().closeAllEditors();
+		WorkbenchHandler.getInstance().closeAllEditors();
 		
 		outlineView = new OutlineView();
 		outlineView.open();
@@ -71,7 +71,7 @@ public class OutlineViewTest extends RedDeerTest{
 	
 	@Test(expected=SWTLayerException.class)
 	public void testHideStaticFieldsAndMethodsInEmptyOutlineView() {
-		Bot.get().closeAllEditors();
+		WorkbenchHandler.getInstance().closeAllEditors();
 		
 		outlineView = new OutlineView();
 		outlineView.open();
@@ -80,7 +80,7 @@ public class OutlineViewTest extends RedDeerTest{
 	
 	@Test(expected=SWTLayerException.class)
 	public void testHideNonPublicMembersInEmptyOutlineView() {
-		Bot.get().closeAllEditors();
+		WorkbenchHandler.getInstance().closeAllEditors();
 		
 		outlineView = new OutlineView();
 		outlineView.open();
@@ -89,7 +89,7 @@ public class OutlineViewTest extends RedDeerTest{
 	
 	@Test(expected=SWTLayerException.class)
 	public void testHideLocalTypesInEmptyOutlineView() {
-		Bot.get().closeAllEditors();
+		WorkbenchHandler.getInstance().closeAllEditors();
 		
 		outlineView = new OutlineView();
 		outlineView.open();
@@ -98,7 +98,7 @@ public class OutlineViewTest extends RedDeerTest{
 	
 	@Test(expected=SWTLayerException.class)
 	public void testLinkWithEditorInEmptyOutlineView() {
-		Bot.get().closeAllEditors();
+		WorkbenchHandler.getInstance().closeAllEditors();
 		
 		outlineView = new OutlineView();
 		outlineView.open();
