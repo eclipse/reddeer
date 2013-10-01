@@ -7,15 +7,13 @@ import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.swtbot.swt.finder.finders.UIThreadRunnable;
-import org.eclipse.swtbot.swt.finder.results.VoidResult;
 import org.jboss.reddeer.swt.api.Combo;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.impl.combo.DefaultCombo;
 import org.jboss.reddeer.swt.impl.text.DefaultText;
 import org.jboss.reddeer.swt.test.RedDeerTest;
+import org.jboss.reddeer.swt.util.Display;
 import org.junit.After;
 import org.junit.Test;
 /**
@@ -30,12 +28,11 @@ public class ComboTest extends RedDeerTest{
 	@Override
 	public void setUp() {
 		super.setUp();
-		UIThreadRunnable.syncExec(new VoidResult() {
+		Display.syncExec(new Runnable() {
 
 			@Override
 			public void run() {
-				Display display = Display.getDefault();
-				Shell shell = new Shell(display);
+				Shell shell = new Shell(org.eclipse.swt.widgets.Display.getDefault());  
 				shell.setText("Testing shell");
 				createControls(shell);
 				shell.open();
@@ -73,7 +70,7 @@ public class ComboTest extends RedDeerTest{
 	}
 	@After
 	public void cleanup() {
-		UIThreadRunnable.syncExec(new VoidResult() {
+		Display.syncExec(new Runnable() {
 			@Override
 			public void run() {
 				for (Shell shell : org.jboss.reddeer.swt.
