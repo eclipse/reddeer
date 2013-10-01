@@ -19,8 +19,6 @@ import org.junit.runner.RunWith;
 
 @RunWith(RedDeerSuite.class)
 public class BrowserTest extends RedDeerTest{
-	private static final String JBOSS_URL = "http://www.jboss.org";
-	private static final String GIT_HUB_URL = "http://www.github.com";
 	private static final String BROWSER_LABEL = "Test browser:";
 	@Override
 	public void setUp() {
@@ -78,13 +76,18 @@ public class BrowserTest extends RedDeerTest{
 	@Test
 	public void navigate(){
 		Browser browser = new InternalBrowser(0);
-		browser.setURL(BrowserTest.JBOSS_URL);
-		assertTrue("Browser has to contain text 'jboss.org' but it doesn't",browser.getText().contains("jboss.org"));
-		browser.setURL(BrowserTest.GIT_HUB_URL);
-		assertTrue("Browser has to contain text 'github.com' but it doesn't",browser.getText().contains("github.com"));
+		browser.setURL("http://www.eclipse.org/swt/snippets/");
+		final String snippetsPageContent = "<title>SWT Snippets</title>";
+		assertTrue("Browser has to contain text '" + snippetsPageContent + "' but it doesn't",
+			browser.getText().contains(snippetsPageContent));
+		browser.setURL("http://www.eclipse.org/swt/widgets/");
+		final String widgetsPageContent = "<title>SWT Widgets</title>";
+		assertTrue("Browser has to contain text '" + widgetsPageContent + "' but it doesn't",
+			browser.getText().contains(widgetsPageContent));
 		browser.back();
-		assertTrue("Browser has to contain text 'jboss.org' but it doesn't",browser.getText().contains("jboss.org"));
+		assertTrue("Browser has to contain text '" + snippetsPageContent + "' but it doesn't",
+				browser.getText().contains(snippetsPageContent));
 		browser.forward();
-		assertTrue("Browser has to contain text 'github.com' but it doesn't",browser.getText().contains("github.com"));
-	}
+		assertTrue("Browser has to contain text '" + widgetsPageContent + "' but it doesn't",
+				browser.getText().contains(widgetsPageContent));	}
 }
