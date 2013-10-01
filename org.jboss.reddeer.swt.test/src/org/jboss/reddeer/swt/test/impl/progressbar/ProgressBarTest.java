@@ -5,15 +5,13 @@ import static org.junit.Assert.assertEquals;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.ProgressBar;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.swtbot.swt.finder.finders.UIThreadRunnable;
-import org.eclipse.swtbot.swt.finder.results.VoidResult;
 import org.jboss.reddeer.swt.impl.progressbar.HorizontalProgressBar;
 import org.jboss.reddeer.swt.impl.progressbar.IndeterminateProgressBar;
 import org.jboss.reddeer.swt.impl.progressbar.VerticalProgressBar;
 import org.jboss.reddeer.swt.test.RedDeerTest;
+import org.jboss.reddeer.swt.util.Display;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.junit.After;
 import org.junit.Test;
@@ -27,12 +25,11 @@ public class ProgressBarTest extends RedDeerTest{
 	@Override
 	protected void setUp() {
 		super.setUp();
-		UIThreadRunnable.syncExec(new VoidResult() {
+		Display.syncExec(new Runnable() {
 
 			@Override
 			public void run() {
-				Display display = Display.getDefault();
-				Shell shell = new Shell(display);
+				Shell shell = new Shell(org.eclipse.swt.widgets.Display.getDefault());				
 				shell.setLayout(new GridLayout());
 				shell.setText("Testing shell");
 				createControls(shell);
@@ -59,7 +56,7 @@ public class ProgressBarTest extends RedDeerTest{
 
 	@After
 	public void cleanup() {
-		UIThreadRunnable.syncExec(new VoidResult() {
+		Display.syncExec(new Runnable() {
 
 			@Override
 			public void run() {
