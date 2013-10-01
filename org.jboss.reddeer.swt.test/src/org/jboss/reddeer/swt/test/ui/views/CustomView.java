@@ -7,9 +7,9 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeColumn;
-import org.eclipse.swtbot.swt.finder.finders.UIThreadRunnable;
-import org.eclipse.swtbot.swt.finder.results.Result;
 import org.eclipse.ui.part.ViewPart;
+import org.jboss.reddeer.swt.util.Display;
+import org.jboss.reddeer.swt.util.ResultRunnable;
 
 public class CustomView extends ViewPart {
 
@@ -51,8 +51,8 @@ public class CustomView extends ViewPart {
 	}
 	
 	private org.eclipse.swt.widgets.TreeItem createTreeItem(final Tree tree, final String text){
-		return UIThreadRunnable.syncExec(new Result<org.eclipse.swt.widgets.TreeItem>() {
 
+		return Display.syncExec(new ResultRunnable<org.eclipse.swt.widgets.TreeItem>() {
 			@Override
 			public org.eclipse.swt.widgets.TreeItem run() {
 				org.eclipse.swt.widgets.TreeItem item = new org.eclipse.swt.widgets.TreeItem(tree, 0);
@@ -63,7 +63,7 @@ public class CustomView extends ViewPart {
 	}
 	
 	private org.eclipse.swt.widgets.TreeItem createTreeItem(final org.eclipse.swt.widgets.TreeItem treeItem, final String text){
-		return UIThreadRunnable.syncExec(new Result<org.eclipse.swt.widgets.TreeItem>() {
+		return Display.syncExec(new ResultRunnable<org.eclipse.swt.widgets.TreeItem>() {
 
 			@Override
 			public org.eclipse.swt.widgets.TreeItem run() {
