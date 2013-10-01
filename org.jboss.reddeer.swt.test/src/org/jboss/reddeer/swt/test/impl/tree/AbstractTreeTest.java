@@ -21,6 +21,7 @@ import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.exception.WaitTimeoutExpiredException;
+import org.jboss.reddeer.swt.impl.tree.DefaultTree;
 import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
 import org.jboss.reddeer.swt.test.RedDeerTest;
 import org.jboss.reddeer.swt.test.ui.views.TreeEventsListener;
@@ -76,6 +77,22 @@ public class AbstractTreeTest extends RedDeerTest {
 	      + " but has " + dfi.getText(),
 	    dfi.getText().equals(expectedTreeItemText));
 	}
+
+	@Test
+	public void testFindExistingItemByTreeAndPathAndCell() {
+		int cellIndex = 1;
+
+		createTreeItems(tree.getSWTWidget(), cellIndex);
+
+		String expectedText = "AAB";
+
+		DefaultTree dt = new DefaultTree();
+		DefaultTreeItem dfi = new DefaultTreeItem(dt, cellIndex, "A", "AA", "AAB");
+		assertTrue(String.format("Found Tree Item has to have text '%s', '%s' found instead",
+				expectedText, dfi.getCell(cellIndex)),
+				dfi.getCell(cellIndex).equals(expectedText));
+	}
+
 	@SuppressWarnings("unused")
 	@Test(expected = SWTLayerException.class)
   public void testFindNonExistingItemByPath(){
@@ -287,44 +304,58 @@ public class AbstractTreeTest extends RedDeerTest {
     });
   }
 
-  private void createTreeItems(Tree tree){
-    removeTreeItems(tree);
-    org.eclipse.swt.widgets.TreeItem itemA = createTreeItem(tree, "A");
-    org.eclipse.swt.widgets.TreeItem itemAA = createTreeItem(itemA, "AA");
-    createTreeItem(itemAA, "AAA");
-    createTreeItem(itemAA, "AAB");
-    
-    org.eclipse.swt.widgets.TreeItem itemB = createTreeItem(tree, "B");
-    createTreeItem(itemB, "BB");
-    
-    createTreeItem(tree, "C");
-  }
-  
-  private org.eclipse.swt.widgets.TreeItem createTreeItem(final Tree tree, final String text){
-    return Display.syncExec(new ResultRunnable<org.eclipse.swt.widgets.TreeItem>() {
-      @Override
-      public org.eclipse.swt.widgets.TreeItem run() {
-        org.eclipse.swt.widgets.TreeItem item = new org.eclipse.swt.widgets.TreeItem(tree, 0);
-        item.setText(new String[]{text});
-        return item;
-      }
-    });
-  }
-  
-  private org.eclipse.swt.widgets.TreeItem createTreeItem(
-      final org.eclipse.swt.widgets.TreeItem treeItem, final String text) {
-    return Display.syncExec(new ResultRunnable<org.eclipse.swt.widgets.TreeItem>() {
-          @Override
-          public org.eclipse.swt.widgets.TreeItem run() {
-            org.eclipse.swt.widgets.TreeItem item = new org.eclipse.swt.widgets.TreeItem(
-                treeItem, 0);
-            item.setText(text);
-            return item;
-          }
-        });
+  private void createTreeItems(Tree tree, int cellIndex) {
+  		removeTreeItems(tree);
 
+	    org.eclipse.swt.widgets.TreeItem itemA = createTreeItem(tree, "A", cellIndex);
+	    org.eclipse.swt.widgets.TreeItem itemAA = createTreeItem(itemA, "AA", cellIndex);
+	    createTreeItem(itemAA, "AAA", cellIndex);
+	    createTreeItem(itemAA, "AAB", cellIndex);
+
+	    org.eclipse.swt.widgets.TreeItem itemB = createTreeItem(tree, "B", cellIndex);
+	    createTreeItem(itemB, "BB", cellIndex);
+
+	    createTreeItem(tree, "C", cellIndex);
   }
-  
+
+  private void createTreeItems(Tree tree) {
+	  createTreeItems(tree, 0);
+  }
+
+  private org.eclipse.swt.widgets.TreeItem createTreeItem(
+		  final Tree tree, final String text, final int cellIndex) {
+	  return Display.syncExec(new ResultRunnable<org.eclipse.swt.widgets.TreeItem>() {
+		  @Override
+		  public org.eclipse.swt.widgets.TreeItem run() {
+			  org.eclipse.swt.widgets.TreeItem item = new org.eclipse.swt.widgets.TreeItem(tree, 0);
+			  item.setText(cellIndex, text);
+			  return item;
+		  }
+	  });
+  }
+
+  private org.eclipse.swt.widgets.TreeItem createTreeItem(final Tree tree, final String text) {
+	  return createTreeItem(tree, text, 0);
+  }
+
+  private org.eclipse.swt.widgets.TreeItem createTreeItem(
+		  final org.eclipse.swt.widgets.TreeItem treeItem, final String text, final int cellIndex) {
+	    return Display.syncExec(new ResultRunnable<org.eclipse.swt.widgets.TreeItem>() {
+	          @Override
+	          public org.eclipse.swt.widgets.TreeItem run() {
+	        	  org.eclipse.swt.widgets.TreeItem item = new org.eclipse.swt.widgets.TreeItem(treeItem, 0);
+	        	  item.setText(cellIndex, text);
+	        	  return item;
+	          }
+	        });
+
+	  }
+
+  private org.eclipse.swt.widgets.TreeItem createTreeItem(
+	      final org.eclipse.swt.widgets.TreeItem treeItem, final String text) {
+	  return createTreeItem(treeItem, text, 0);
+  }
+
   private String printFormattedStringArray (String[] array){
     StringBuffer sb = new StringBuffer();
     for (String item : array){
