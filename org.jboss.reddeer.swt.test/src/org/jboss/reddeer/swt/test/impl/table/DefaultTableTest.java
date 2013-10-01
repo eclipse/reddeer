@@ -7,16 +7,14 @@ import java.util.List;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
-import org.eclipse.swtbot.swt.finder.finders.UIThreadRunnable;
-import org.eclipse.swtbot.swt.finder.results.VoidResult;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.impl.table.DefaultTable;
 import org.jboss.reddeer.swt.test.RedDeerTest;
+import org.jboss.reddeer.swt.util.Display;
 import org.junit.After;
 import org.junit.Test;
 
@@ -25,12 +23,11 @@ public class DefaultTableTest extends RedDeerTest{
 	@Override
 	public void setUp() {
 		super.setUp();
-		UIThreadRunnable.syncExec(new VoidResult() {
+		Display.syncExec(new Runnable() {
 
 			@Override
 			public void run() {
-				Display display = Display.getDefault();
-				Shell shell = new Shell(display);
+				Shell shell = new Shell(org.eclipse.swt.widgets.Display.getDefault());
 				shell.setLayout(new GridLayout());
 				shell.setText("Testing shell");
 				createControls(shell);
@@ -135,7 +132,7 @@ public class DefaultTableTest extends RedDeerTest{
 	
 	@After
 	public void cleanup() {
-		UIThreadRunnable.syncExec(new VoidResult() {
+		Display.syncExec(new Runnable() {
 
 			@Override
 			public void run() {
