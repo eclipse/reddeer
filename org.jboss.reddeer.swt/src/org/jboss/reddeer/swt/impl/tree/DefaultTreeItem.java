@@ -45,7 +45,7 @@ protected static final Logger logger = Logger.getLogger(DefaultTreeItem.class);
 	 * @param treeItemPath
 	 */
 	public DefaultTreeItem(String... treeItemPath) {
-		this(null, 0, treeItemPath);
+		this((ReferencedComposite)null, 0, treeItemPath);
 	}
 	
 	/**
@@ -64,7 +64,7 @@ protected static final Logger logger = Logger.getLogger(DefaultTreeItem.class);
 	 * @param treeItemPath
 	 */
 	public DefaultTreeItem(int treeIndex, String... treeItemPath) {
-		super(findTreeItem(null, treeIndex, treeItemPath));
+		super(findTreeItem((ReferencedComposite)null, treeIndex, treeItemPath));
 	}
 	
 	/**
@@ -114,85 +114,146 @@ protected static final Logger logger = Logger.getLogger(DefaultTreeItem.class);
 	public DefaultTreeItem(ReferencedComposite referencedComposite, int treeIndex, int treeItemIndex) {
 		super(findTreeItem(referencedComposite, treeIndex, treeItemIndex));
 	}
-	
+
+	/**
+	 * Tree item with specified tree index and path inside given composite will be constructed
+	 * Tree item with specified tree and path inside this tree will be constructed. Text from
+	 * specified cell will be used instead of item's text.
+	 *
+	 * @param tree
+	 * @param cellIndex
+	 * @param treeItemPath
+	 */
+	public DefaultTreeItem(Tree tree, int cellIndex, String... treeItemPath) {
+		super(findTreeItem(tree, cellIndex, treeItemPath));
+	}
+
 	/**
 	 * Return swt widget of Tree Item 
 	 */
 	public org.eclipse.swt.widgets.TreeItem getSWTWidget() {
 		return swtTreeItem;
 	}
-	
-	private static org.eclipse.swt.widgets.TreeItem findTreeItem(ReferencedComposite referencedComposite, int treeIndex, int treeItemIndex){
-		Tree tree = new DefaultTree(referencedComposite, treeIndex);
-		new WaitUntil(new TreeHasChildren(tree));
-		logger.debug("Searching for tree item with index: " + treeIndex);
-		List<TreeItem> items = tree.getItems();
-		if (items.size() < treeItemIndex + 1) {
-			SWTLayerException exception = new SWTLayerException("No matching tree item found");
-			exception.addMessageDetail("Tree Index: " + treeIndex);
-			exception.addMessageDetail("Tree Item Index: " + treeItemIndex);
-			exception.addMessageDetail("Tree has these " + items.size()  +" Tree Items:");
-			for (TreeItem treeItem : items){
-				exception.addMessageDetail("  " + treeItem.getText());
+
+	private static SWTLayerException createItemNotFoundException(List<TreeItem> items, int cellIndex, String pathItem, String[] treeItemPath, Integer treeItemIndex) {
+		SWTLayerException exception = new SWTLayerException("No matching tree item found");
+
+		if (treeItemPath != null) {
+			StringBuffer sbPath = new StringBuffer("");
+			for (String treeItem : treeItemPath) {
+				if (sbPath.length() > 0)
+					sbPath.append(" > ");
+				sbPath.append(treeItem);
 			}
-			throw exception;
+
+			exception.addMessageDetail("Tree Item Path: " + sbPath.toString());
 		}
-		else{
-			return tree.getItems().get(treeItemIndex).getSWTWidget();
+
+		if (treeItemIndex != null)
+			exception.addMessageDetail("Tree Item Index: " + treeItemIndex);
+
+		if (pathItem != null)
+			exception.addMessageDetail("Unable to find path item with text: " + pathItem);
+
+		if (items != null) {
+			exception.addMessageDetail("These Tree Items have been found at current level:");
+			for (TreeItem treeItem : items)
+				exception.addMessageDetail("  " + treeItem.getCell(cellIndex));
 		}
+
+		return exception;
 	}
-  
-	private static org.eclipse.swt.widgets.TreeItem findTreeItem(ReferencedComposite referencedComposite, int treeIndex, String... treeItemPath){
-		org.eclipse.swt.widgets.TreeItem result = null;
-		Tree tree = new DefaultTree(referencedComposite, treeIndex);
+
+	/**
+	 * Find tree item by its path
+	 *
+	 * @param tree Tree to search for item
+	 * @param cellIndex Compare treeItemPath entries to cell specified by this argument. Remember, TreeItem.getText() is in fact doing TreeItem.getCell(0)
+	 * @param treeItemPath
+	 * @return
+	 */
+	private static org.eclipse.swt.widgets.TreeItem findTreeItem(Tree tree, int cellIndex, String... treeItemPath) {
+		logger.debug(String.format("Search for tree item: cellIndex=%d, treeItemPath='%s'", cellIndex, treeItemPath.toString()));
+
+		/*
+		 * Walk down the treeItemPath array, and try to match each entry
+		 * with existing tree items in the current level of tree. When
+		 * treeItemPath entry matches a tree item, use such a item in
+		 * the next iteration. Throw exception otherwise, also throw one
+		 * if we run out of treeItemPath entries without matching any item.
+		 */
+
 		new WaitUntil(new TreeHasChildren(tree));
 		List<TreeItem> items = tree.getItems();
-		int index = 0;
-		while (index < treeItemPath.length){
+
+		for(int index = 0; index < treeItemPath.length; index++) {
 			String pathItem = treeItemPath[index];
-			logger.debug("Searching for tree item with label: " + pathItem);
+
+			logger.debug(String.format("  pathItem='%s'", pathItem));
+
 			TreeItem tiItem = null;
 			boolean isFound = false;
+
 			Iterator<TreeItem> itTreeItem = items.iterator();
-			while (itTreeItem.hasNext() && (!isFound)){
+			while (itTreeItem.hasNext()) {
 				tiItem = itTreeItem.next();
-				if (tiItem.getText().equals(pathItem)){
+				logger.debug(String.format("    consider item '%s'", tiItem.getCell(cellIndex)));
+
+				if (tiItem.getCell(cellIndex).equals(pathItem)) {
+					logger.debug("      item matched!");
+
 					isFound = true;
+					break;
 				}
 			}
-			if (isFound) {
-				// It's not last item of Tree Item Path
-				if (index < (treeItemPath.length - 1)){
-					new WaitUntil(new TreeItemHasMinChildren(tiItem,1),TimePeriod.NORMAL,false);
-					items = tiItem.getItems();
-				}
-				else{       
-					result = tiItem.getSWTWidget();
-				}  
-			}
-			else{
-				SWTLayerException exception = new SWTLayerException("No matching tree item found");
-				exception.addMessageDetail("Tree Index: " + treeIndex);
-				StringBuffer sbPath = new StringBuffer("");
-				for (String treeItem : treeItemPath){
-					if (sbPath.length() > 0){
-						sbPath.append(" > ");
-					}	
-					sbPath.append(treeItem);
-				}
-				exception.addMessageDetail("Tree Item Path: " + sbPath.toString());
-				exception.addMessageDetail("Unalbe to find path item with text: " + pathItem);
-				exception.addMessageDetail("These Tree Items have been found at level where path item " + pathItem + " was expected:");
-				for (TreeItem treeItem : items){
-					exception.addMessageDetail("  " + treeItem.getText());	
-				}
-				throw exception;
-			}
-			index++;
+
+			/* None of items on this level matched */
+			if (!isFound)
+				throw createItemNotFoundException(items, cellIndex, pathItem, treeItemPath, null);
+
+			/*
+			 * If this is the last iteration of the loop, return the latest
+			 * found item - we are at the end of treeItemPath
+			 */
+			if (index == treeItemPath.length - 1)
+				return tiItem.getSWTWidget();
+
+			/* Dive one level deeper */
+			new WaitUntil(new TreeItemHasMinChildren(tiItem, 1), TimePeriod.NORMAL, false);
+			items = tiItem.getItems();
 		}
-		return result;
+
+		/* Out of treeItemPath entries and no item matched */
+		throw createItemNotFoundException(items, cellIndex, null, treeItemPath, null);
 	}
+
+	/**
+	 * Find tree item by its index
+	 *
+	 * @param tree Tree to search for item
+	 * @param treeItemIndex Index of desired item (zero-based)
+	 * @return
+	 */
+	private static org.eclipse.swt.widgets.TreeItem findTreeItem(Tree tree, int treeItemIndex) {
+		logger.debug(String.format("Search for tree item: treeItemIndex=%d", treeItemIndex));
+
+		new WaitUntil(new TreeHasChildren(tree));
+
+		List<TreeItem> items = tree.getItems();
+		if (items.size() < treeItemIndex + 1)
+			throw createItemNotFoundException(items, 0, null, null, treeItemIndex);
+
+		return tree.getItems().get(treeItemIndex).getSWTWidget();
 	}
+
+	private static org.eclipse.swt.widgets.TreeItem findTreeItem(ReferencedComposite referencedComposite, int treeIndex, int treeItemIndex) {
+		return findTreeItem(new DefaultTree(referencedComposite, treeIndex), treeItemIndex);
+	}
+
+	private static org.eclipse.swt.widgets.TreeItem findTreeItem(ReferencedComposite referencedComposite, int treeIndex, String... treeItemPath){
+		return findTreeItem(new DefaultTree(referencedComposite, treeIndex), 0, treeItemPath);
+	}
+}
 
 /**
  * Condition is fulfilled when tree has children 
