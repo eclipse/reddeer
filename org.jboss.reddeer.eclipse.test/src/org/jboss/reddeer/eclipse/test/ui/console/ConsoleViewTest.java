@@ -11,9 +11,12 @@ import org.jboss.reddeer.eclipse.jdt.ui.ide.NewJavaProjectWizardPage;
 import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.PackageExplorer;
 import org.jboss.reddeer.eclipse.ui.console.ConsoleView;
 import org.jboss.reddeer.swt.test.RedDeerTest;
+import org.jboss.reddeer.swt.api.StyledText;
 import org.jboss.reddeer.swt.impl.menu.ShellMenu;
+import org.jboss.reddeer.swt.impl.styledtext.DefaultStyledText;
 import org.jboss.reddeer.swt.matcher.RegexMatchers;
-import org.jboss.reddeer.swt.util.Bot;
+import org.jboss.reddeer.workbench.editor.DefaultEditor;
+import org.jboss.reddeer.workbench.editor.TextEditor;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -86,9 +89,9 @@ public class ConsoleViewTest extends RedDeerTest{
 		wizardPage.setStaticMainMethod(true);
 		javaClassDialog.finish();
 		
-		Bot.get().activeEditor().toTextEditor().
-			insertText(7, 0, "System.out.print(\"Hello World\");");
-		Bot.get().activeEditor().toTextEditor().save();
+		StyledText dst = new DefaultStyledText();
+		dst.insertText(7, 0, "System.out.print(\"Hello World\");");
+		new DefaultEditor().save();
 	}
 	
 	private static void runTestProject() {

@@ -12,10 +12,12 @@ import org.jboss.reddeer.eclipse.ui.problems.ProblemsView;
 import org.jboss.reddeer.swt.test.RedDeerTest;
 import org.jboss.reddeer.swt.condition.JobIsRunning;
 import org.jboss.reddeer.swt.exception.WaitTimeoutExpiredException;
-import org.jboss.reddeer.swt.util.Bot;
 import org.jboss.reddeer.swt.wait.TimePeriod;
 import org.jboss.reddeer.swt.wait.WaitUntil;
 import org.jboss.reddeer.swt.wait.WaitWhile;
+import org.jboss.reddeer.workbench.editor.DefaultEditor;
+import org.jboss.reddeer.workbench.editor.Editor;
+import org.jboss.reddeer.workbench.editor.TextEditor;
 import org.junit.Test;
 
 /**
@@ -115,8 +117,10 @@ public class ProblemsViewTest extends RedDeerTest{
 			sbJavaCode.append("  private int i;\n");
 			sbJavaCode.append("}\n");		
 		}
-		Bot.get().activeEditor().toTextEditor().setText(sbJavaCode.toString());
-		Bot.get().activeEditor().save();
+		TextEditor textEditor = new TextEditor();		
+		textEditor.setText(sbJavaCode.toString());
+		textEditor.save();
+		
 		problemsView.open();
 		new WaitUntil(new ProblemsExists(), TimePeriod.NORMAL);
 	}

@@ -11,9 +11,10 @@ import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.PackageExplorer;
 import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.ProjectItem;
 import org.jboss.reddeer.swt.test.RedDeerTest;
 import org.jboss.reddeer.swt.condition.JobIsRunning;
-import org.jboss.reddeer.swt.util.Bot;
+import org.jboss.reddeer.swt.handler.WorkbenchHandler;
 import org.jboss.reddeer.swt.wait.TimePeriod;
 import org.jboss.reddeer.swt.wait.WaitWhile;
+import org.jboss.reddeer.workbench.editor.DefaultEditor;
 import org.junit.Test;
 
 public class ProjectItemTest extends RedDeerTest{
@@ -64,13 +65,13 @@ public class ProjectItemTest extends RedDeerTest{
 		wizardPage.setName(javaClassName);
 		newJavaClassDialog.finish();
 		new WaitWhile(new JobIsRunning(), TimePeriod.LONG);
-		Bot.get().closeAllEditors();
+		WorkbenchHandler.getInstance().closeAllEditors();
 		final String javaClassFileName = javaClassName + ".java";
 		packageExplorer.getProject(ProjectItemTest.PROJECT_NAME)
           .getProjectItem(ProjectItemTest.PROJECT_ITEM_TEXT,ProjectItemTest.DEFAULT_PACKAGE_TEXT,javaClassFileName)
           .open();
 		assertTrue("Active Editor has to have title " + javaClassFileName,
-			Bot.get().activeEditor().getTitle().equals(javaClassFileName));
+			new DefaultEditor().getTitle().equals(javaClassFileName));
 	}
 	@Test
 	public void getChild(){

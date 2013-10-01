@@ -8,8 +8,8 @@ import org.jboss.reddeer.eclipse.jdt.ui.ide.NewJavaProjectWizardPage;
 import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.PackageExplorer;
 import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.Project;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
+import org.jboss.reddeer.swt.handler.WorkbenchHandler;
 import org.jboss.reddeer.swt.test.RedDeerTest;
-import org.jboss.reddeer.swt.util.Bot;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 @RunWith(RedDeerSuite.class)
@@ -39,10 +39,9 @@ public class PackageExplorerTest extends RedDeerTest {
 	public void open() {
 		packageExplorer = new PackageExplorer();
 		packageExplorer.open();
+		String currentViewTitle = WorkbenchHandler.getInstance().getActiveViewTitle();
 		assertTrue("Active View has to be Package Explorer but is "
-				+ Bot.get().activeView().getTitle(), Bot.get().activeView()
-				.getTitle().equals("Package Explorer"));
-
+				+ currentViewTitle, currentViewTitle.equals("Package Explorer"));
 	}
 
 	@Test
