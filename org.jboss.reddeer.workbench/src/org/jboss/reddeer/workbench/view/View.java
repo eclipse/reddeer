@@ -5,11 +5,13 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.IViewReference;
 import org.eclipse.ui.IWorkbenchPart;
+import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.views.IViewCategory;
 import org.eclipse.ui.views.IViewDescriptor;
 import org.jboss.reddeer.swt.api.Menu;
 import org.jboss.reddeer.swt.condition.ShellWithTextIsActive;
+import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.menu.ShellMenu;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
@@ -120,6 +122,13 @@ public abstract class View extends WorkbenchPart{
 					log.debug("Setting focus to workbench part with title=" + workbenchPart.getTitle());
 					PlatformUI.getWorkbench().getActiveWorkbenchWindow()
 							.getActivePage().activate(workbenchPart);
+					try {
+						PlatformUI.getWorkbench().getActiveWorkbenchWindow()
+								.getActivePage().showView(getViewRefrenceByTitle(viewTitle()).getId());
+					} catch (PartInitException pie) {
+						throw new SWTLayerException("Unable to show view " + workbenchPart.getTitle(),
+							pie);
+					}
 					workbenchPart.setFocus();
 				}
 			});
@@ -276,5 +285,22 @@ public abstract class View extends WorkbenchPart{
 		sbDesc.append(value);
 		
 		return sbDesc.toString();
+	}
+	
+	private IViewReference getViewRefrenceByTitle(final String title) {
+		return Display.syncExec(new ResultRunnable<IViewReference>() {
+			@Override
+			public IViewReference run() {
+				IViewReference[] views = PlatformUI.getWorkbench()
+						.getActiveWorkbenchWindow().getActivePage()
+						.getViewReferences();
+				for (IViewReference iViewReference : views) {
+					if (iViewReference.getPartName().equals(title)) {
+						return iViewReference;
+					}
+				}
+				return null;
+			}
+		});
 	}
 }
