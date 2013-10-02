@@ -1,5 +1,4 @@
 Manifest-Version: 1.0
-Eclipse-RegisterBuddy: org.apache.log4j
 Bundle-ManifestVersion: 2
 Bundle-Name: RedDeer UI Component
 Bundle-SymbolicName: org.jboss.reddeer.ui;singleton:=true
@@ -19,6 +18,5 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.pde.ui,
  org.jboss.reddeer.jface;bundle-version="0.2.0",
  org.jboss.reddeer.swt;bundle-version="0.2.0",
- org.jboss.reddeer.workbench;bundle-version="0.2.0",
- org.apache.log4j;bundle-version="1.2.0"
+ org.jboss.reddeer.workbench;bundle-version="0.2.0"
 
