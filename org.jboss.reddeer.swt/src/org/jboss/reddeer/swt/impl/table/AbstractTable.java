@@ -58,6 +58,14 @@ public abstract class AbstractTable implements Table {
 		org.eclipse.swt.widgets.TableItem tItem = (org.eclipse.swt.widgets.TableItem)WidgetHandler.getInstance().getSWTItem(table, row);
 		return new BasicTableItem(tItem);
 	}
+	
+	@Override
+	public TableItem getItem(final String itemText, int column) {
+		waitUntilTableHasRows();
+		int row = TableHandler.getInstance().indexOf(table, itemText, column);
+		org.eclipse.swt.widgets.TableItem tItem = (org.eclipse.swt.widgets.TableItem)WidgetHandler.getInstance().getSWTItem(table, row);
+		return new BasicTableItem(tItem);
+	}
 
 	@Override
 	public int rowCount() {
