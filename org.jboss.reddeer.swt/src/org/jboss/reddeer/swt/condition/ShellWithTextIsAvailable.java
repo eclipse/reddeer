@@ -1,6 +1,6 @@
 package org.jboss.reddeer.swt.condition;
 
-import org.apache.log4j.Logger;
+import org.jboss.reddeer.junit.logging.Logger;
 import org.eclipse.swt.widgets.Shell;
 import org.hamcrest.Matcher;
 import org.hamcrest.core.IsEqual;
