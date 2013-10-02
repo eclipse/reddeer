@@ -3,7 +3,7 @@ package org.jboss.reddeer.swt.condition;
 import org.eclipse.swt.widgets.Shell;
 import org.hamcrest.core.IsEqual;
 import org.jboss.reddeer.junit.logging.Logger;
-import org.jboss.reddeer.swt.impl.shell.AbstractShell;
+import org.jboss.reddeer.swt.handler.WidgetHandler;
 import org.jboss.reddeer.swt.lookup.ShellLookup;
 import org.jboss.reddeer.swt.util.Utils;
 
@@ -37,12 +37,11 @@ public class ShellWithTextIsActive implements WaitCondition {
 
 	@Override
 	public boolean test() {
-		Shell swtShell = ShellLookup.getInstance().getCurrentActiveShell();
-		if (swtShell == null) {
+		Shell currentActiveShell = ShellLookup.getInstance().getCurrentActiveShell();
+		if (currentActiveShell == null) {
 			return false;
 		}
-		BasicShell activeShell = new BasicShell(swtShell);
-		String activeText = activeShell.getText();
+		String activeText = WidgetHandler.getInstance().getText(currentActiveShell);
 		log.debug("Active shell: " + activeText + " / Expected shell: " + matcher);
 		boolean matches = matcher.matches(activeText);
 		return matches;
@@ -53,10 +52,4 @@ public class ShellWithTextIsActive implements WaitCondition {
 		return "Shell with text matching" + matcher.toString() + " is active";
 	}
 
-	private class BasicShell extends AbstractShell {
-
-		public BasicShell(Shell swtShell) {
-			this.swtShell = swtShell;
-		}
-	}
 }
