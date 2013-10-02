@@ -50,6 +50,6 @@ public class ShellWithTextIsAvailable implements WaitCondition {
 
 	@Override
 	public String description() {
-		return "Shell with title matching " + matcher + " is not available";
+		return "Shell with title matching " + matcher + " is available";
 	}
 }
