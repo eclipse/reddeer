@@ -57,4 +57,12 @@ public interface Table {
 	 */
 	List<TableItem> getItems();
 	
+	/**
+	 * Returns item with given text in given column
+	 * @param itemText
+	 * @param column
+	 * @return
+	 */
+	TableItem getItem(final String itemText, int column);
+	
 }

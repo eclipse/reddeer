@@ -201,6 +201,12 @@ public class DefaultTableTest extends RedDeerTest{
 	public void testSingleSelectionTableCheck(){
 		new DefaultTable(1).getItem(1).setChecked(true);
 	}
+
+	@Test
+	public void testSelectTableItem(){
+		new DefaultTable(1).getItem("line " + 100 + " in nowhere",6).select();
+		assertTrue(new DefaultTable(1).getItem("line " + 100 + " in nowhere",6).isSelected());
+	}
 	
 	@Test
 	public void testCheckTableSelection(){
