@@ -84,36 +84,7 @@ public class Display {
 		return list.get(0);
 		
 	}
-	
-	/**
-	 * Run asynchronously in UI Thread 
-	 * @param runnable
-	 * @return 
-	 */
-	public static <T> T asynExec(final ResultRunnable<T> runnable) {
-		final ArrayList<T> list = new ArrayList<T>();		
-		try{
-			Display.getDisplay().asyncExec(new Runnable()  {
-
-				@Override
-				public void run() {
-					T res = runnable.run();
-					list.add(res);
-				
-				}
-			});
-		}catch(SWTException ex){
-			if(ex.getCause() instanceof SWTLayerException){
-				throw (SWTLayerException) ex.getCause();
-			} else {
-				throw ex;
-			}
-		}
-		return list.get(0);
 		
-	}
-	
-	
 	private static Thread[] allThreads() {
 		ThreadGroup threadGroup = primaryThreadGroup();
 
