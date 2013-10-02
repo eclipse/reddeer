@@ -6,9 +6,9 @@ Bundle-Version: 0.4.0.qualifier
 Bundle-Activator: org.jboss.reddeer.requirements.Activator
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
- org.jboss.reddeer.junit;bundle-version="0.2.0",
- org.jboss.reddeer.eclipse;bundle-version="0.2.0",
- org.jboss.reddeer.workbench;bundle-version="0.2.0"
+ org.jboss.reddeer.junit;bundle-version="0.4.0",
+ org.jboss.reddeer.eclipse;bundle-version="0.4.0",
+ org.jboss.reddeer.workbench;bundle-version="0.4.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
 Bundle-Vendor: JBoss by Red Hat
