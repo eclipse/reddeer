@@ -163,40 +163,6 @@ public class WidgetLookup {
 		});
 	}
 	
-	/**
-	 * @deprecated As of release 0.4, replaced by {@link #activeWidget(Class, int, Matcher...)}
-	 */
-	@Deprecated
-	public Widget activeShellWidget(Matcher<? extends Widget> matcher, int index) {
-		List<? extends Widget> widgets = activeWidgets(new ShellLookup().getActiveShell(), matcher);
-		return getProperWidget(widgets, index);
-	}
-
-	/**
-	 * @deprecated As of release 0.4, replaced by {@link #activeWidget(Class, int, Matcher...)}
-	 */
-	@Deprecated
-	public Widget activeViewWidget(Matcher<? extends Widget> matcher, int index) {
-		List<? extends Widget> widgets = activeWidgets(getFocusControl(), matcher);
-		return getProperWidget(widgets, index);
-	}
-	
-	/**
-	 * @deprecated As of release 0.4, replaced by {@link #activeWidget(Class, int, Matcher...)}
-	 */
-	@Deprecated
-	public Widget activeWidget(Matcher<? extends Widget> matcher, Control activeControl, int index) {
-		List<? extends Widget> widgets = activeWidgets(activeControl, matcher);
-		return getProperWidget(widgets, index);
-	}
-	
-	/**
-	 * @deprecated As of release 0.4, replaced by {@link #activeWidget(Class, int, Matcher...)}}
-	 */
-	@Deprecated
-	public Widget activeWidget(Matcher<? extends Widget> matcher, int index) {
-		return getProperWidget(activeWidgets(null, matcher), index);
-	}
 	
 	@SuppressWarnings({ "rawtypes","unchecked" })
 	public <T extends Widget> T activeWidget(ReferencedComposite refComposite, Class<T> clazz, int index, Matcher... matchers) {
