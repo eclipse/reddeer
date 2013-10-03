@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: RedDeer SWT Component
 Bundle-Vendor: JBoss by Red Hat
 Bundle-SymbolicName: org.jboss.reddeer.swt
-Bundle-Version: 0.4.0
+Bundle-Version: 0.5.0.qualifier
 Bundle-Activator: org.jboss.reddeer.swt.Activator
 Require-Bundle: org.eclipse.ui,
  org.eclipse.ui.workbench,
