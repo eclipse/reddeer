@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
-      id="org.jboss.reddeer.feature"
+      id="org.jboss.reddeer.rcp.feature"
       label="%featureName"
       version="0.4.0.qualifier"
       provider-name="JBoss by Red Hat">
@@ -55,13 +55,6 @@ Raleigh NC 27606 USA.
          unpack="false"/>
 
    <plugin
-         id="org.jboss.reddeer.eclipse"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
          id="org.jboss.reddeer.gef"
          download-size="0"
          install-size="0"
@@ -84,20 +77,6 @@ Raleigh NC 27606 USA.
 
    <plugin
          id="org.jboss.reddeer.selenium"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.jboss.reddeer.ui"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.jboss.reddeer.requirements"
          download-size="0"
          install-size="0"
          version="0.0.0"
