@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: RedDeer Direct
 Bundle-Vendor: JBoss by Red Hat
 Bundle-SymbolicName: org.jboss.reddeer.direct
-Bundle-Version: 0.4.0.qualifier
+Bundle-Version: 0.4.0
 Bundle-Activator: org.jboss.reddeer.direct.Activator
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime
