@@ -173,8 +173,8 @@ public class Server {
 		select();
 		new ContextMenu(menuItem).select();
 		AbstractWait.sleep(TimePeriod.SHORT.getSeconds() * 1000);
-		new WaitUntil(new JobIsRunning(), TIMEOUT);
-		new WaitUntil(new ServerStateCondition(resultState), TIMEOUT);
+		final TimePeriod DOUBLED_TIMEOUT = TimePeriod.getCustom(TIMEOUT.getSeconds() * 2);
+		new WaitUntil(new ServerStateCondition(resultState), DOUBLED_TIMEOUT);
 		new WaitWhile(new JobIsRunning(), TIMEOUT);
 	}
 	
