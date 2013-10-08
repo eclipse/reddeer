@@ -1,6 +1,6 @@
 package org.jboss.reddeer.eclipse.mylyn.tasks.ui.view;
 
-import org.apache.log4j.Logger;
+import org.jboss.reddeer.junit.logging.Logger;
 import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.swt.condition.JobIsRunning;
 import org.jboss.reddeer.swt.condition.WaitCondition;
@@ -19,8 +19,8 @@ import org.jboss.reddeer.swt.wait.WaitWhile;
 	public class TaskRepository {
 
 		private static final TimePeriod TIMEOUT = TimePeriod.VERY_LONG;
-
-		private static final Logger log = Logger.getLogger(TaskRepository.class);
+		
+		protected final Logger log = Logger.getLogger(this.getClass());
 		
 		private TreeItem treeItem;
 
