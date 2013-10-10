@@ -736,18 +736,18 @@ public class WidgetHandler {
 		Display.syncExec(new Runnable() {
 			@Override
 			public void run() {
-				if (w instanceof Control) {
-					((Control)w).setFocus();
-				} else if (w instanceof ExpandBar){
+				if (w instanceof ExpandBar){
 					((ExpandBar)w).setFocus();
 				} else if (w instanceof Browser){
 					((Browser)w).setFocus();
 				} else if (w instanceof Scale){
 					((Scale)w).setFocus();
 				} else if(w instanceof Shell) {
-					Shell shell =(Shell) w; 
+					Shell shell = (Shell) w; 
 					shell.forceActive();
 					shell.forceFocus();
+				} else if (w instanceof Control) {
+					((Control)w).setFocus();
 				} else throw new SWTLayerException("Unsupported type");
 			}
 		});
