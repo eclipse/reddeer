@@ -16,6 +16,7 @@
 		<platformSystemProperties></platformSystemProperties>
 		<logDebug>true</logDebug>
 		<pauseFailedTest>false</pauseFailedTest>
+		<recordScreenCast>false</recordScreenCast>
 	</properties>
 	
 	<modules>
@@ -97,7 +98,7 @@
 					<useUIHarness>true</useUIHarness>
 					<useUIThread>false</useUIThread>
 					<!-- THE FOLLOWING LINE MUST NOT BE BROKEN BY AUTOFORMATTING -->
-					<argLine>-DlogDebug=${log.debug} -DpauseFailedTest=${pauseFailedTest} ${platformSystemProperties} -XX:MaxPermSize=512m</argLine>
+					<argLine>-DlogDebug=${log.debug} -DpauseFailedTest=${pauseFailedTest} -DrecordScreenCast=${recordScreenCast} ${platformSystemProperties} -XX:MaxPermSize=512m</argLine>
 					<product>org.eclipse.platform.ide</product>
 					<application>org.eclipse.ui.ide.workbench</application>
 					<dependencies>
