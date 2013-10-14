@@ -4,12 +4,14 @@ import java.util.List;
 
 import org.jboss.reddeer.junit.logging.Logger;
 import org.jboss.reddeer.eclipse.condition.ServerExists;
+import org.jboss.reddeer.eclipse.exception.EclipseLayerException;
 import org.jboss.reddeer.eclipse.wst.server.ui.view.ServersViewEnums.ServerPublishState;
 import org.jboss.reddeer.eclipse.wst.server.ui.view.ServersViewEnums.ServerState;
 import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.swt.condition.JobIsRunning;
 import org.jboss.reddeer.swt.condition.ShellWithTextIsActive;
 import org.jboss.reddeer.swt.condition.WaitCondition;
+import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.impl.button.CheckBox;
 import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.menu.ContextMenu;
@@ -31,6 +33,8 @@ import org.jboss.reddeer.swt.wait.WaitWhile;
 public class Server {
 
 	private static final TimePeriod TIMEOUT = TimePeriod.VERY_LONG;
+	
+	private static final String ADD_AND_REMOVE = "Add and Remove...";
 
 	private static final Logger log = Logger.getLogger(Server.class);
 	
@@ -150,7 +154,15 @@ public class Server {
 	}
 
 	public void addAndRemoveProject() {
-		throw new UnsupportedOperationException();
+		select();
+		new ContextMenu(ADD_AND_REMOVE).select();
+		try{
+			new DefaultShell(ADD_AND_REMOVE);
+		}catch(SWTLayerException ex){
+			new DefaultShell("Server").close();
+			throw new EclipseLayerException("There are no resources that can be added"
+					+ " or removed from the server.", ex);
+		}
 	}
 
 	protected void select() {
