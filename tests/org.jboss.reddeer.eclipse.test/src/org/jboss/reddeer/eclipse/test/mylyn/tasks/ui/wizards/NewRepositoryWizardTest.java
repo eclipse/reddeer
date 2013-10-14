@@ -19,6 +19,7 @@ public class NewRepositoryWizardTest extends RedDeerTest {
 		NewRepositoryWizard theWizard = new NewRepositoryWizard();
 		theWizard.open();
 		assertTrue ("the index is 1", new Integer (theWizard.getPageIndex()).equals(1));
+		theWizard.cancel();
 	
 	}
 }
