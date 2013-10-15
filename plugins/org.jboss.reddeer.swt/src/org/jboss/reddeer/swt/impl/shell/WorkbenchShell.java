@@ -1,8 +1,10 @@
 package org.jboss.reddeer.swt.impl.shell;
 
-import org.jboss.reddeer.junit.logging.Logger;
 import org.eclipse.ui.PlatformUI;
 import org.jboss.reddeer.swt.handler.WidgetHandler;
+import org.jboss.reddeer.junit.logging.Logger;
+import org.jboss.reddeer.swt.lookup.ShellLookup;
+import org.jboss.reddeer.swt.lookup.WidgetLookup;
 import org.jboss.reddeer.swt.util.Display;
 import org.jboss.reddeer.swt.util.ResultRunnable;
 
@@ -69,5 +71,22 @@ public class WorkbenchShell extends AbstractShell {
 				return swtShell.getMaximized();
 			}
 		});
+	}
+
+	/**
+	 * Close all open shells except current workbench shell
+	 */
+	public void closeAllShells() {
+		log.info("Closing all shells...");
+		org.eclipse.swt.widgets.Shell[] shell = ShellLookup.getInstance().getShells();
+		for (int i = 0; i < shell.length; i++) {
+			WidgetHandler widgetHandler = WidgetHandler.getInstance();
+			WidgetLookup widgetLookup = WidgetLookup.getInstance();
+			if (shell[i] != null && shell[i] != swtShell) {
+				if(widgetLookup.isVisible(shell[i])) {
+					new DefaultShell(widgetHandler.getText(shell[i])).close();
+				}
+			}
+		}
 	}
 }
