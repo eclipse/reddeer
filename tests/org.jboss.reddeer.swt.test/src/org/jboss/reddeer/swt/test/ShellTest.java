@@ -79,6 +79,28 @@ public class ShellTest extends RedDeerTest {
 
 	}
 
+	@Test
+	public void closeAllShellsTest() {
+		createSimpleShell("Shell 1");
+		createSimpleShell("Shell 2");
+		
+		new WorkbenchShell().closeAllShells();
+		
+		try {
+			new DefaultShell("Shell 1");
+			fail("'Shell 1' should be closed");
+		} catch (SWTLayerException e) {
+			// ok
+		}
+
+		try {
+			new DefaultShell("Shell 2");
+			fail("'Shell 2' should be closed");
+		} catch (SWTLayerException e) {
+			// ok
+		}
+	}
+	
 	private static void createSimpleShell(final String title) {
 		Display.syncExec(new Runnable() {
 
