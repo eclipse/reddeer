@@ -3,12 +3,10 @@ package org.jboss.reddeer.eclipse.test.ui.ide;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.jboss.reddeer.eclipse.mylyn.tasks.ui.wizards.NewRepositoryWizard;
 import org.jboss.reddeer.eclipse.ui.ide.RepoConnectionDialog;
 import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.menu.ShellMenu;
-import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.jboss.reddeer.swt.impl.text.LabeledText;
 import org.jboss.reddeer.swt.impl.tree.DefaultTree;
 import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
@@ -25,7 +23,7 @@ import static org.junit.Assert.assertTrue;
  * 
  */
 public class RepoConnectionDialogTest extends RedDeerTest {
-
+	RepoConnectionDialog repoConnectionDialog = null;
 	@Test
 	public void getDialogTest() {
 		
@@ -44,18 +42,29 @@ public class RepoConnectionDialogTest extends RedDeerTest {
 		for (TreeItem item : repoItems) {
 			repoList.add(i++, item.getText());
 		}
-		int elementIndex = repoList.indexOf("Red Hat Bugzilla");
+		int elementIndex = repoList.indexOf("Eclipse.org");
 		
 		repoItems.get(elementIndex).select();	
 		new ShellMenu("File", "Properties").select();  
 		
-		RepoConnectionDialog theRepoDialog = new RepoConnectionDialog();
-		assertTrue ("Properties title matches", theRepoDialog.getText().equals("Properties for Task Repository"));
+		repoConnectionDialog = new RepoConnectionDialog();
 		
-		theRepoDialog.validateSettings();
+		assertTrue ("Properties title matches", repoConnectionDialog.getText().equals("Properties for Task Repository"));
+		
+		repoConnectionDialog.validateSettings();
+
 		assertTrue("Repo Connection Properties Invalid", new LabeledText("Bugzilla Repository Settings").getText().contains("Repository is valid"));
 	
-		theRepoDialog.close();
+		repoConnectionDialog.close();
 		
+		repoConnectionDialog = null;
+		
+	}
+	
+	@Override
+	public void tearDown(){
+		if (repoConnectionDialog != null){
+			repoConnectionDialog.close();
+		}
 	}
 }
