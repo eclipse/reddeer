@@ -5,22 +5,22 @@ import static org.junit.Assert.assertTrue;
 
 import org.jboss.reddeer.eclipse.jface.preference.FoldingPreferencePage;
 import org.jboss.reddeer.swt.test.RedDeerTest;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
-public class FoldingPreferencePageTest extends RedDeerTest{
+public class FoldingPreferencePageTest extends RedDeerTest {
 
 	private static FoldingPreferencePage page = new FoldingPreferencePage();
-	
-	@BeforeClass
-	public static void openPreferencePage() {
+
+	@Override
+	protected void setUp() {
+		super.setUp();
 		page.open();
 	}
-	
-	@AfterClass
-	public static void closePreferencePage() {
+
+	@Override
+	protected void tearDown() {
 		page.cancel();
+		super.tearDown();
 	}
 
 	@Test
@@ -30,16 +30,16 @@ public class FoldingPreferencePageTest extends RedDeerTest{
 		page.enableFolding();
 		assertTrue(page.isFoldingChecked());
 	}
-	
+
 	@Test
 	public void testComments() {
 		page.enableComments();
 		assertTrue(page.isCommentsChecked());
 		page.disableComments();
 		assertFalse(page.isCommentsChecked());
-		
+
 	}
-	
+
 	@Test
 	public void testHeaderComments() {
 		page.disableHeaderComments();
@@ -47,7 +47,7 @@ public class FoldingPreferencePageTest extends RedDeerTest{
 		page.enableHeaderComments();
 		assertTrue(page.isHeaderCommentsChecked());
 	}
-	
+
 	@Test
 	public void testInnerTypes() {
 		page.enableInnerTypes();
@@ -55,7 +55,7 @@ public class FoldingPreferencePageTest extends RedDeerTest{
 		page.disableInnerTypes();
 		assertFalse(page.isInnerTypesChecked());
 	}
-	
+
 	@Test
 	public void testMembers() {
 		page.enableMembers();
@@ -63,7 +63,7 @@ public class FoldingPreferencePageTest extends RedDeerTest{
 		page.disableMembers();
 		assertFalse(page.isMembersChecked());
 	}
-	
+
 	@Test
 	public void testImports() {
 		page.enableImports();
