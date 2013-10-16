@@ -172,10 +172,12 @@ public class Server {
 	protected void operateServerState(String menuItem, ServerState resultState){
 		select();
 		new ContextMenu(menuItem).select();
-		AbstractWait.sleep(TimePeriod.SHORT.getSeconds() * 1000);
-		final TimePeriod DOUBLED_TIMEOUT = TimePeriod.getCustom(TIMEOUT.getSeconds() * 2);
-		new WaitUntil(new ServerStateCondition(resultState), DOUBLED_TIMEOUT);
+		new WaitUntil(new JobIsRunning(), TIMEOUT);
+		new WaitUntil(new ServerStateCondition(resultState), TIMEOUT);
 		new WaitWhile(new JobIsRunning(), TIMEOUT);
+		
+		//check if the server has expected state after jobs are done
+		new WaitUntil(new ServerStateCondition(resultState), TIMEOUT);
 	}
 	
 	protected void waitForPublish(){
