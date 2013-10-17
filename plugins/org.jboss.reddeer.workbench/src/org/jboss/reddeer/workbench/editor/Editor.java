@@ -32,4 +32,10 @@ public interface Editor {
 	
 	void close(boolean save);
 
+	/**
+	 * 
+	 * @return whether is this editor currently active and has focus.
+	 */
+	
+	boolean isActive();
 }
