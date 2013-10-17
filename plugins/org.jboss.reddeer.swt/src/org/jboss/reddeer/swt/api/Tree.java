@@ -34,4 +34,6 @@ public interface Tree {
   public void unselectAllItems();
   
 	org.eclipse.swt.widgets.Tree getSWTWidget();
+
+	public int getColumnCount();
 }

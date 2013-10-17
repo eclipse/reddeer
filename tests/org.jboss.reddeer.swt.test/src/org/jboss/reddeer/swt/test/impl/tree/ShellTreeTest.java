@@ -25,10 +25,10 @@ public class ShellTreeTest extends AbstractTreeTest {
 				shell.setLayout(new FillLayout());
 				swtTree = new Tree(shell, SWT.BORDER|SWT.CHECK|SWT.MULTI);
 
-				TreeColumn column = new TreeColumn(swtTree, SWT.LEFT);
-				column.setWidth(200);
-				column = new TreeColumn(swtTree, SWT.LEFT);
-				column.setWidth(200);
+				for(int i = 0; i < TREE_COLUMN_COUNT; i++) {
+					TreeColumn column = new TreeColumn(swtTree, SWT.LEFT);
+					column.setWidth(200);
+				}
 
 				shell.open();
 				shell.setFocus();
