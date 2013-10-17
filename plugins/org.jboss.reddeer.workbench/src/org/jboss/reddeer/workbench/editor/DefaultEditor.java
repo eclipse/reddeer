@@ -1,13 +1,12 @@
 package org.jboss.reddeer.workbench.editor;
 
-import org.jboss.reddeer.junit.logging.Logger;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IEditorReference;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
-import org.jboss.reddeer.swt.condition.ShellIsActive;
+import org.jboss.reddeer.junit.logging.Logger;
 import org.jboss.reddeer.swt.condition.ShellWithTextIsActive;
 import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
@@ -139,6 +138,23 @@ public class DefaultEditor extends WorkbenchPart implements Editor {
 		log.info("Editor " + getTitle() + " is closed");
 	}
 
+	/**
+	 * 
+	 * @return whether is this editor currently active and has focus.
+	 */
+	
+	@Override
+	public boolean isActive() {
+		return Display.syncExec(new ResultRunnable<Boolean>() {
+			@Override
+			public Boolean run() {
+				return (getEditorPart() == PlatformUI.getWorkbench()
+						.getActiveWorkbenchWindow().getActivePage()
+						.getActivePart());
+			}
+		});
+	}
+
 	protected void activate() {
 		if (!isActive()) {
 			log.info("Activating editor " + getTitle());
@@ -148,20 +164,10 @@ public class DefaultEditor extends WorkbenchPart implements Editor {
 				public void run() {
 					PlatformUI.getWorkbench().getActiveWorkbenchWindow()
 							.getActivePage().activate(getEditorPart());
+					getEditorPart().setFocus();
 				}
 			});
 		}
-	}
-
-	protected boolean isActive() {
-		return Display.syncExec(new ResultRunnable<Boolean>() {
-			@Override
-			public Boolean run() {
-				return (getEditorPart() == PlatformUI.getWorkbench()
-						.getActiveWorkbenchWindow().getActivePage()
-						.getActiveEditor());
-			}
-		});
 	}
 
 	@Override
