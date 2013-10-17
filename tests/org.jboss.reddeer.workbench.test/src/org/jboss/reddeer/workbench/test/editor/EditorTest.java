@@ -8,18 +8,15 @@ import static org.junit.Assert.assertTrue;
 import java.lang.reflect.Field;
 import java.util.List;
 
-import org.eclipse.ui.IEditorPart;
-import org.eclipse.ui.PlatformUI;
 import org.jboss.reddeer.eclipse.jdt.ui.ProjectExplorer;
 import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.PackageExplorer;
 import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.Project;
 import org.jboss.reddeer.eclipse.ui.ide.NewFileCreationWizardDialog;
 import org.jboss.reddeer.eclipse.ui.ide.NewFileCreationWizardPage;
+import org.jboss.reddeer.eclipse.ui.problems.ProblemsView;
 import org.jboss.reddeer.eclipse.ui.wizards.newresource.BasicNewProjectResourceWizard;
 import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.test.RedDeerTest;
-import org.jboss.reddeer.swt.util.Display;
-import org.jboss.reddeer.swt.util.ResultRunnable;
 import org.jboss.reddeer.workbench.editor.DefaultEditor;
 import org.jboss.reddeer.workbench.editor.Editor;
 import org.jboss.reddeer.workbench.exception.EditorNotFoundException;
@@ -156,8 +153,8 @@ public class EditorTest extends RedDeerTest {
 	public void switchEditorTest() {
 		new PackageExplorer().getProject("testProject")
 				.getProjectItem("editorTest1.min").open();
-		assertTrue(isActive(new DefaultEditor()));
-		assertTrue(isActive(new DefaultEditor("editorTest.min"))); // should
+		assertTrue(new DefaultEditor().isActive());
+		assertTrue(new DefaultEditor("editorTest.min").isActive()); // should
 																	// switch
 																	// editors
 	}
@@ -170,34 +167,28 @@ public class EditorTest extends RedDeerTest {
 		editor.close(false);
 		new DefaultEditor("editorTest.min"); // should be closed now
 	}
+	
+	@Test
+	public void isNotActiveTest(){
+		DefaultEditor editor = new DefaultEditor();
+		new ProblemsView().open();
+		assertFalse(editor.isActive());
+		assertTrue(new DefaultEditor().isActive());
+	}
 
 	private SimpleEditor getEditorPart(Editor editor) {
-		Field editorField = null;
-		try {
-			editorField = editor.getClass().getSuperclass()
-					.getDeclaredField("workbenchPart");
-			editorField.setAccessible(true);
-			return (SimpleEditor) editorField.get(editor);
-		} catch (NoSuchFieldException e) {
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
-
-	private boolean isActive(Editor editor) {
-		final IEditorPart editorPart = getEditorPart(editor);
-		return Display.syncExec(new ResultRunnable<Boolean>() {
-
-			@Override
-			public Boolean run() {
-				return editorPart == PlatformUI.getWorkbench()
-						.getActiveWorkbenchWindow().getActivePage()
-						.getActiveEditor();
-			}
-
-		});
-	}
-
+        Field editorField = null;
+        try {
+                editorField = editor.getClass().getSuperclass()
+                                .getDeclaredField("workbenchPart");
+                editorField.setAccessible(true);
+                return (SimpleEditor) editorField.get(editor);
+        } catch (NoSuchFieldException e) {
+                e.printStackTrace();
+        } catch (IllegalAccessException e) {
+                e.printStackTrace();
+        }
+        return null;
+}
+	
 }
