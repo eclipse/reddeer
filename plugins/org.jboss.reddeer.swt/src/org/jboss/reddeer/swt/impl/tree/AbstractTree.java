@@ -92,6 +92,15 @@ public abstract class AbstractTree implements Tree {
     });
   }
 
+  public int getColumnCount () {
+	  return Display.syncExec(new ResultRunnable<Integer>() {
+		 @Override
+		 public Integer run() {
+			 return swtTree.getColumnCount();
+		 }
+	  });
+	}
+
   public void unselectAllItems(){
     Display.syncExec(new Runnable() {
       public void run() {

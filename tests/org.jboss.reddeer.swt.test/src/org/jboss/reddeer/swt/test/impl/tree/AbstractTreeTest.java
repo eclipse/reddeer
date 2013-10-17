@@ -36,6 +36,10 @@ import org.junit.runner.RunWith;
 public class AbstractTreeTest extends RedDeerTest {
 
 	protected org.jboss.reddeer.swt.api.Tree tree;
+
+	/* Any number > 1 would do */
+	protected static final int TREE_COLUMN_COUNT = 3;
+
 	private boolean threadAlreadyRunning = false;
 	private Thread generateDynamicTreeItems = null;
 
@@ -91,6 +95,16 @@ public class AbstractTreeTest extends RedDeerTest {
 		assertTrue(String.format("Found Tree Item has to have text '%s', '%s' found instead",
 				expectedText, dfi.getCell(cellIndex)),
 				dfi.getCell(cellIndex).equals(expectedText));
+	}
+
+	@Test
+	public void testColumnCount() {
+		createTreeItems(tree.getSWTWidget());
+
+		DefaultTree dt = new DefaultTree();
+
+		assertTrue(String.format("DefaultTree should have %d columns, %d reported",
+				TREE_COLUMN_COUNT, dt.getColumnCount()), dt.getColumnCount() == TREE_COLUMN_COUNT);
 	}
 
 	@SuppressWarnings("unused")
@@ -305,7 +319,10 @@ public class AbstractTreeTest extends RedDeerTest {
   }
 
   private void createTreeItems(Tree tree, int cellIndex) {
-  		removeTreeItems(tree);
+	  assertTrue(String.format("cellIndex set to %d, cannot fit into testing tree with %d columns",
+				cellIndex, TREE_COLUMN_COUNT), cellIndex < TREE_COLUMN_COUNT);
+
+	  removeTreeItems(tree);
 
 	    org.eclipse.swt.widgets.TreeItem itemA = createTreeItem(tree, "A", cellIndex);
 	    org.eclipse.swt.widgets.TreeItem itemAA = createTreeItem(itemA, "AA", cellIndex);
