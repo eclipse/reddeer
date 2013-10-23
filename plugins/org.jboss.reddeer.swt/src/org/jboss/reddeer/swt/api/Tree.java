@@ -35,5 +35,8 @@ public interface Tree {
   
 	org.eclipse.swt.widgets.Tree getSWTWidget();
 
+	/**
+	 * @return Number of columns of this tree
+	 */
 	public int getColumnCount();
 }
