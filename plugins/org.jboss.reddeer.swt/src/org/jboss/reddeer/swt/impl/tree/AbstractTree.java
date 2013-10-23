@@ -92,6 +92,10 @@ public abstract class AbstractTree implements Tree {
     });
   }
 
+
+  /**
+   * @see Tree#getColumnCount()
+   */
   public int getColumnCount () {
 	  return Display.syncExec(new ResultRunnable<Integer>() {
 		 @Override
