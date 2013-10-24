@@ -38,6 +38,10 @@ public class WidgetLookup {
 	private WidgetLookup() {
 	}
 	
+	/**
+	 * Returns WidgetLookup instance
+	 * @return widgetLookup instance
+	 */
 	public static WidgetLookup getInstance() {
 		if (instance == null) instance = new WidgetLookup();
 		return instance;
@@ -92,6 +96,11 @@ public class WidgetLookup {
 		notify(SWT.Selection,widget);
 	}
 
+	/**
+	 * Notifies widget with given event type
+	 * @param eventType given event type
+	 * @param widget target widget
+	 */
 	public void notify(int eventType, Widget widget) {
 		Event event = createEvent(widget);
 		notify(eventType, event, widget);
@@ -164,20 +173,33 @@ public class WidgetLookup {
 	}
 	
 	
+	/**
+	 * Mehod looks for active widget matching given criteria like reference composite, class, etc.
+	 * @param refComposite reference composite within lookup will be performed
+	 * @param clazz given class for a lookup
+	 * @param index widget index for a lookup
+	 * @param matchers additional matchers
+	 * @return returns matching widget
+	 */
 	@SuppressWarnings({ "rawtypes","unchecked" })
-	public <T extends Widget> T activeWidget(ReferencedComposite refComposite, Class<T> clazz, int index, Matcher... matchers) {
+	public <T extends Widget> T activeWidget(ReferencedComposite refComposite, Class<T> clazz, int index, Matcher... matchers) {		
+		Widget properWidget = null;
+		
 		ClassMatcher cm = new ClassMatcher(clazz);
 		Matcher[] allMatchers = MatcherBuilder.getInstance().addMatcher(matchers, cm);
 		AndMatcher am  = new AndMatcher(allMatchers);
+		
 		logger.debug("Search for activeWidget of class: " + clazz.getName()
 				+  "\n  index: " + index);
 		for (int ind = 0 ; ind < matchers.length ; ind++ ){
 			logger.debug("Matcher: " + matchers[ind].getClass());
 		}
-		if(refComposite == null){
-			return (T)getProperWidget(activeWidgets(null, am), index);
+		if (refComposite == null) {
+			properWidget = getProperWidget(activeWidgets(null, am), index); 
+			return (T)properWidget;
 		}
-		return (T)getProperWidget(activeWidgets(refComposite.getControl(), am), index);
+		properWidget = getProperWidget(activeWidgets(refComposite.getControl(), am), index);		
+		return (T)properWidget;
 	}
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
@@ -193,22 +215,31 @@ public class WidgetLookup {
 		return widgets;
 	}
 	
+	
+	/**
+	 * Looks for active parent control. Either finds activeWorkbenchReference control or activeShell 
+	 * @return active workbench control or active shell
+	 */
 	public Control getActiveWidgetParentControl() {
+		Control control = null;
+		
 		IWorkbenchPartReference activeWorkbenchReference = WorkbenchLookup.findActiveWorkbenchPart();
 		Shell activeWorkbenchParentShell = getShellForActiveWorkbench(activeWorkbenchReference);
+		
 		Shell activeShell = new ShellLookup().getActiveShell();
 		if (activeWorkbenchParentShell == null || activeWorkbenchParentShell != activeShell){
 			if (activeShell != null){
-				return activeShell;	
+				control = activeShell;	
 			}
 			else{
 				// try to find active shell one more time
-				return new ShellLookup().getActiveShell();
+				control =  ShellLookup.getInstance().getActiveShell();
 			}
 		}			
 		else {
-			return WorkbenchLookup.getWorkbenchControl(activeWorkbenchReference);
-		} 
+			control = WorkbenchLookup.getWorkbenchControl(activeWorkbenchReference);
+		}
+		return control;
 	}
 
 	private Shell getShellForActiveWorkbench(IWorkbenchPartReference workbenchReference) {
@@ -238,21 +269,22 @@ public class WidgetLookup {
 	}
 	
 	/**
-	 * Finds Control for active parent control
-	 * @param matcher
-	 * @param recursive
+	 * Finds Control for active parent
+	 * @param matcher criteria matcher
+	 * @param recursive true for recursive lookup
 	 * @return
 	 */
 	public<T extends Widget> List<T> findActiveParentControls(final Matcher<T> matcher, final boolean recursive) {
-		return findControls(getActiveWidgetParentControl(), matcher, recursive);
+		List<T> findControls = findControls(getActiveWidgetParentControl(), matcher, recursive);
+		return findControls;
 	}
 	
 	/**
 	 * Find Controls for parent widget matching
-	 * @param parentWidget
-	 * @param matcher
-	 * @param recursive
-	 * @return
+	 * @param parentWidget given parent widget - root for lookup
+	 * @param matcher criteria matcher
+	 * @param recursive true if search should be recursive
+	 * @return list of matching widgets
 	 */
 	private <T extends Widget> List<T> findControls(final Widget parentWidget, 
 			final Matcher<T> matcher, final boolean recursive) {
@@ -260,7 +292,8 @@ public class WidgetLookup {
 
 			@Override
 			public List<T> run() {
-				return findControlsUI(parentWidget, matcher, recursive);
+				 List<T> findControlsUI = findControlsUI(parentWidget, matcher, recursive);
+				 return findControlsUI;
 			}
 		});
 		return ret;
