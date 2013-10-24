@@ -22,7 +22,7 @@ public class DefaultGroup implements org.jboss.reddeer.swt.api.Group {
 	 * Default group constructor
 	 */
 	public DefaultGroup(){
-		new DefaultGroup(null, 0);
+		this(null, 0);		
 	}
 	
 	/**
@@ -30,7 +30,7 @@ public class DefaultGroup implements org.jboss.reddeer.swt.api.Group {
 	 * @param referencedComposite
 	 */
 	public DefaultGroup(ReferencedComposite referencedComposite){
-		new DefaultGroup(referencedComposite, 0);
+		this(referencedComposite, 0);
 	}
 	
 	/**
@@ -38,7 +38,7 @@ public class DefaultGroup implements org.jboss.reddeer.swt.api.Group {
 	 * @param index group index
 	 */
 	public DefaultGroup(int index){
-		new DefaultGroup(null, index,null);
+		this(null, index,null);
 	}
 	
 	/**
@@ -47,7 +47,7 @@ public class DefaultGroup implements org.jboss.reddeer.swt.api.Group {
 	 * @param index group index 
 	 */
 	public DefaultGroup(ReferencedComposite referencedComposite, int index){
-		new DefaultGroup(referencedComposite, index,null);
+		this(referencedComposite, index,null);
 	}
 
 	/**
@@ -55,7 +55,7 @@ public class DefaultGroup implements org.jboss.reddeer.swt.api.Group {
 	 * @param text group text
 	 */
 	public DefaultGroup(String text){
-		new DefaultGroup(null, 0,text);
+		this(null, 0,text);
 	}
 	
 	/**
@@ -64,7 +64,7 @@ public class DefaultGroup implements org.jboss.reddeer.swt.api.Group {
 	 * @param text group text
 	 */
 	public DefaultGroup(ReferencedComposite referencedComposite, String text){
-		new DefaultGroup(referencedComposite, 0,text);
+		this(referencedComposite, 0,text);
 	}
 	
 	/**
@@ -80,6 +80,7 @@ public class DefaultGroup implements org.jboss.reddeer.swt.api.Group {
 			group = (Group)WidgetLookup.getInstance().activeWidget(referencedComposite, Group.class, index);
 		}
 		setFocus();
+		System.out.println("");
 	}
 	
 	/**
@@ -94,6 +95,7 @@ public class DefaultGroup implements org.jboss.reddeer.swt.api.Group {
 			group = (Group)WidgetLookup.getInstance().activeWidget(null, Group.class, index);
 		}
 		setFocus();
+		
 	}
 	
 	@Override
