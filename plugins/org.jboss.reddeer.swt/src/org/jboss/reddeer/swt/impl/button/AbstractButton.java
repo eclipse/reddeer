@@ -36,6 +36,7 @@ public abstract class AbstractButton implements Button {
 				swtButton = ButtonLookup.getInstance().getButton(refComposite,
 						index, new StyleMatcher(style));
 			}
+			WidgetHandler.getInstance().setFocus(swtButton);
 	}
 	@Override
 	public void click() {
