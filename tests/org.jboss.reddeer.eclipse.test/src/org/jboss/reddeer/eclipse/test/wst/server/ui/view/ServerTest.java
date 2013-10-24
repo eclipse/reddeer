@@ -5,6 +5,7 @@ import static org.junit.Assert.assertThat;
 
 import java.util.List;
 
+import org.jboss.reddeer.eclipse.exception.EclipseLayerException;
 import org.jboss.reddeer.eclipse.wst.server.ui.view.Server;
 import org.jboss.reddeer.eclipse.wst.server.ui.view.ServersViewEnums.ServerPublishState;
 import org.jboss.reddeer.eclipse.wst.server.ui.view.ServersViewEnums.ServerState;
@@ -170,4 +171,10 @@ public class ServerTest extends ServersViewTestCase {
 		assertThat(servers.size(), is(1));
 		assertThat(servers.get(0).getLabel().getName(), is(SERVER_2));
 	}
+	
+	@Test(expected=EclipseLayerException.class)
+	public void addAndRemoveProjectTest(){
+		server1.addAndRemoveProject();
+	}
+	
 }
