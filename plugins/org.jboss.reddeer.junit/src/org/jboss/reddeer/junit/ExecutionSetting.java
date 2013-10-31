@@ -44,6 +44,11 @@ public class ExecutionSetting {
 		return debugEnabled;
 	}
 
+	/**
+	 * Turn debugging on or off
+	 *
+	 * @param enabled
+	 */
 	public void setDebugEnabled(boolean enabled) {
 		debugEnabled = enabled;
 	}
