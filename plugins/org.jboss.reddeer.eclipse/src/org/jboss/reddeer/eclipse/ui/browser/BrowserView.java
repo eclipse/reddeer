@@ -31,16 +31,28 @@ public class BrowserView extends WorkbenchView {
 	public BrowserView() {
 		super("Internal Web Browser");
 	}
+	
+	/**
+	 * Constructor of BrowserView Class
+	 * 
+	 * @param browser Browser to reuse
+	 */
+	public BrowserView(InternalBrowser browser) {
+		this();
+
+		this.browser = browser;
+	}
 
 	/**
 	 * Opens Internal Web Browser view
 	 */
 	@Override
 	public void open() {
-		if(!isOpen()){
+		if(!isOpen())
 			super.open();
-		}
-		browser = new InternalBrowser();
+
+		if (browser == null)
+			browser = new InternalBrowser();
 	};
 
 	/**
@@ -103,6 +115,12 @@ public class BrowserView extends WorkbenchView {
 	 * Checks if browser is already open
 	 */
 	public boolean isOpen() {
+		/* if InternalBrowser instance exists already, lets assume browser is opened
+		 * - either browser was set in BrowserView(InternalBrowser) constructor and therefore
+		 * it's opened (caller's responsibility) or it was set in open() */
+		if (browser != null)
+			return true;
+
 		try{
 			new InternalBrowser(); 
 			return true;  // browser is already opened
