@@ -43,7 +43,16 @@ public class ExecutionSetting {
 	public boolean isDebugEnabled() {
 		return debugEnabled;
 	}
-	
+
+	/**
+	 * Turn debugging on or off
+	 *
+	 * @param enabled
+	 */
+	public void setDebugEnabled(boolean enabled) {
+		debugEnabled = enabled;
+	}
+
 	/**
 	 * pauseFailedTest getter
 	 * @return true if -DpauseFailingTest=true, false otherwise (default)
