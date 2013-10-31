@@ -12,11 +12,10 @@ import org.junit.Test;
 
 @Ignore	// https://github.com/jboss-reddeer/reddeer/issues/219
 public class BrowserViewTest extends RedDeerTest{
+	protected static BrowserView browserView;
 
-	private static BrowserView browserView;
-	
-	private static final String FIRST_PAGE = "http://www.redhat.com/";
-	private static final String SECOND_PAGE = "http://www.redhat.com/contact/";
+	protected static final String FIRST_PAGE = "http://www.redhat.com/";
+	protected static final String SECOND_PAGE = "http://www.redhat.com/contact/";
 	
 	@Before
 	public void openBrowser(){
