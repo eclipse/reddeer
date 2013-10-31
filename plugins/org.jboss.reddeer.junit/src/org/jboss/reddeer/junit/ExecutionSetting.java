@@ -43,7 +43,11 @@ public class ExecutionSetting {
 	public boolean isDebugEnabled() {
 		return debugEnabled;
 	}
-	
+
+	public void setDebugEnabled(boolean enabled) {
+		debugEnabled = enabled;
+	}
+
 	/**
 	 * pauseFailedTest getter
 	 * @return true if -DpauseFailingTest=true, false otherwise (default)
