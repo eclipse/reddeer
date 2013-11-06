@@ -4,12 +4,14 @@ package org.jboss.reddeer.swt.impl.tree;
 import java.util.Iterator;
 import java.util.List;
 
+import org.hamcrest.Matcher;
 import org.jboss.reddeer.junit.logging.Logger;
 import org.jboss.reddeer.swt.api.Tree;
 import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.swt.condition.TreeItemHasMinChildren;
 import org.jboss.reddeer.swt.condition.WaitCondition;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
+import org.jboss.reddeer.swt.matcher.TextMatcher;
 import org.jboss.reddeer.swt.reference.ReferencedComposite;
 import org.jboss.reddeer.swt.wait.TimePeriod;
 import org.jboss.reddeer.swt.wait.WaitUntil;
@@ -47,13 +49,31 @@ protected static final Logger logger = Logger.getLogger(DefaultTreeItem.class);
 	public DefaultTreeItem(String... treeItemPath) {
 		this((ReferencedComposite)null, 0, treeItemPath);
 	}
-	
+
+	/**
+	 * Tree item with specified path will be constructed
+	 *
+	 * @param treeItemPath
+	 */
+	public DefaultTreeItem(Matcher<String>... treeItemPath) {
+		this((ReferencedComposite)null, 0, treeItemPath);
+	}
+
 	/**
 	 * Tree item with specified path inside given composite will be constructed
 	 * @param referencedComposite
 	 * @param treeItemPath
 	 */
 	public DefaultTreeItem(ReferencedComposite referencedComposite, String... treeItemPath) {
+		this(referencedComposite, 0, treeItemPath);
+	}
+
+	/**
+	 * Tree item with specified path inside given composite will be constructed
+	 * @param referencedComposite
+	 * @param treeItemPath
+	 */
+	public DefaultTreeItem(ReferencedComposite referencedComposite, Matcher<String>... treeItemPath) {
 		this(referencedComposite, 0, treeItemPath);
 	}
 	
@@ -66,6 +86,16 @@ protected static final Logger logger = Logger.getLogger(DefaultTreeItem.class);
 	public DefaultTreeItem(int treeIndex, String... treeItemPath) {
 		super(findTreeItem((ReferencedComposite)null, treeIndex, treeItemPath));
 	}
+
+	/**
+	 * Tree item with specified tree index and path will be constructed
+	 *
+	 * @param treeIndex
+	 * @param treeItemPath
+	 */
+	public DefaultTreeItem(int treeIndex, Matcher<String>... treeItemPath) {
+		super(findTreeItem((ReferencedComposite)null, treeIndex, treeItemPath));
+	}
 	
 	/**
 	 * Tree item with specified tree index and path inside given composite will be constructed 
@@ -76,7 +106,17 @@ protected static final Logger logger = Logger.getLogger(DefaultTreeItem.class);
 	public DefaultTreeItem(ReferencedComposite referencedComposite, int treeIndex, String... treeItemPath) {
 		super(findTreeItem(referencedComposite, treeIndex, treeItemPath));
 	}
-	
+
+	/**
+	 * Tree item with specified tree index and path inside given composite will be constructed
+	 * @param referencedComposite
+	 * @param treeIndex
+	 * @param treeItemPath
+	 */
+	public DefaultTreeItem(ReferencedComposite referencedComposite, int treeIndex, Matcher<String>... treeItemPath) {
+		super(findTreeItem(referencedComposite, treeIndex, treeItemPath));
+	}
+
 	/**
 	 * Tree item with specified tree item index will be constructed
 	 * 
@@ -116,7 +156,6 @@ protected static final Logger logger = Logger.getLogger(DefaultTreeItem.class);
 	}
 
 	/**
-	 * Tree item with specified tree index and path inside given composite will be constructed
 	 * Tree item with specified tree and path inside this tree will be constructed. Text from
 	 * specified cell will be used instead of item's text.
 	 *
@@ -129,21 +168,33 @@ protected static final Logger logger = Logger.getLogger(DefaultTreeItem.class);
 	}
 
 	/**
+	 * Tree item with specified tree and path inside this tree will be constructed. Text from
+	 * specified cell will be used instead of item's text.
+	 *
+	 * @param tree
+	 * @param cellIndex
+	 * @param treeItemPath
+	 */
+	public DefaultTreeItem(Tree tree, int cellIndex, Matcher<String>... treeItemPath) {
+		super(findTreeItem(tree, cellIndex, treeItemPath));
+	}
+
+	/**
 	 * Return swt widget of Tree Item 
 	 */
 	public org.eclipse.swt.widgets.TreeItem getSWTWidget() {
 		return swtTreeItem;
 	}
 
-	private static SWTLayerException createItemNotFoundException(List<TreeItem> items, int cellIndex, String pathItem, String[] treeItemPath, Integer treeItemIndex) {
+	private static SWTLayerException createItemNotFoundException(List<TreeItem> items, int cellIndex, Matcher<String> pathItem, Matcher<String>[] treeItemPath, Integer treeItemIndex) {
 		SWTLayerException exception = new SWTLayerException("No matching tree item found");
 
 		if (treeItemPath != null) {
 			StringBuffer sbPath = new StringBuffer("");
-			for (String treeItem : treeItemPath) {
+			for (Matcher<String> treeItem : treeItemPath) {
 				if (sbPath.length() > 0)
 					sbPath.append(" > ");
-				sbPath.append(treeItem);
+				sbPath.append(treeItem.toString());
 			}
 
 			exception.addMessageDetail("Tree Item Path: " + sbPath.toString());
@@ -153,7 +204,7 @@ protected static final Logger logger = Logger.getLogger(DefaultTreeItem.class);
 			exception.addMessageDetail("Tree Item Index: " + treeItemIndex);
 
 		if (pathItem != null)
-			exception.addMessageDetail("Unable to find path item with text: " + pathItem);
+			exception.addMessageDetail("Unable to find path item with text: " + pathItem.toString());
 
 		if (items != null) {
 			exception.addMessageDetail("These Tree Items have been found at current level:");
@@ -172,7 +223,7 @@ protected static final Logger logger = Logger.getLogger(DefaultTreeItem.class);
 	 * @param treeItemPath
 	 * @return
 	 */
-	private static org.eclipse.swt.widgets.TreeItem findTreeItem(Tree tree, int cellIndex, String... treeItemPath) {
+	private static org.eclipse.swt.widgets.TreeItem findTreeItem(Tree tree, int cellIndex, Matcher<String>... treeItemPath) {
 		logger.debug(String.format("Search for tree item: cellIndex=%d, treeItemPath='%s'", cellIndex, treeItemPath.toString()));
 
 		/*
@@ -181,15 +232,20 @@ protected static final Logger logger = Logger.getLogger(DefaultTreeItem.class);
 		 * treeItemPath entry matches a tree item, use such a item in
 		 * the next iteration. Throw exception otherwise, also throw one
 		 * if we run out of treeItemPath entries without matching any item.
+		 *
+		 * If constructor was called to create DefaultTreeItem using String
+		 * array as treeItemPath, it's responsibility of caller of this method
+		 * to convert each item from String to Matcher<String> (most probably
+		 * using TextMatcher)
 		 */
 
 		new WaitUntil(new TreeHasChildren(tree));
 		List<TreeItem> items = tree.getItems();
 
 		for(int index = 0; index < treeItemPath.length; index++) {
-			String pathItem = treeItemPath[index];
+			Matcher<String> pathItem = treeItemPath[index];
 
-			logger.debug(String.format("  pathItem='%s'", pathItem));
+			logger.debug(String.format("  pathItem='%s'", pathItem.toString()));
 
 			TreeItem tiItem = null;
 			boolean isFound = false;
@@ -199,7 +255,7 @@ protected static final Logger logger = Logger.getLogger(DefaultTreeItem.class);
 				tiItem = itTreeItem.next();
 				logger.debug(String.format("    consider item '%s'", tiItem.getCell(cellIndex)));
 
-				if (tiItem.getCell(cellIndex).equals(pathItem)) {
+				if (pathItem.matches(tiItem.getCell(cellIndex))) {
 					logger.debug("      item matched!");
 
 					isFound = true;
@@ -228,6 +284,24 @@ protected static final Logger logger = Logger.getLogger(DefaultTreeItem.class);
 	}
 
 	/**
+	 * Find tree item by its path. Item path is converted to array of TextMatcher,
+	 * so its literal is used for matching.
+	 *
+	 * @param tree Tree to search for item
+	 * @param cellIndex Compare treeItemPath entries to cell specified by this argument. Remember, TreeItem.getText() is in fact doing TreeItem.getCell(0)
+	 * @param treeItemPath
+	 * @return
+	 */
+	private static org.eclipse.swt.widgets.TreeItem findTreeItem(Tree tree, int cellIndex, String... treeItemPath) {
+		TextMatcher treeItemPathMatchers[] = new TextMatcher[treeItemPath.length];
+
+		for(int i = 0; i < treeItemPath.length; i++)
+			treeItemPathMatchers[i] = new TextMatcher(treeItemPath[i]);
+
+		return findTreeItem(tree, cellIndex, treeItemPathMatchers);
+	}
+
+	/**
 	 * Find tree item by its index
 	 *
 	 * @param tree Tree to search for item
@@ -250,7 +324,11 @@ protected static final Logger logger = Logger.getLogger(DefaultTreeItem.class);
 		return findTreeItem(new DefaultTree(referencedComposite, treeIndex), treeItemIndex);
 	}
 
-	private static org.eclipse.swt.widgets.TreeItem findTreeItem(ReferencedComposite referencedComposite, int treeIndex, String... treeItemPath){
+	private static org.eclipse.swt.widgets.TreeItem findTreeItem(ReferencedComposite referencedComposite, int treeIndex, String... treeItemPath) {
+		return findTreeItem(new DefaultTree(referencedComposite, treeIndex), 0, treeItemPath);
+	}
+
+	private static org.eclipse.swt.widgets.TreeItem findTreeItem(ReferencedComposite referencedComposite, int treeIndex, Matcher<String>... treeItemPath) {
 		return findTreeItem(new DefaultTree(referencedComposite, treeIndex), 0, treeItemPath);
 	}
 }
