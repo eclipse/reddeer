@@ -1,6 +1,7 @@
 package org.jboss.reddeer.swt.test.impl.tree;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
@@ -23,6 +24,7 @@ import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.exception.WaitTimeoutExpiredException;
 import org.jboss.reddeer.swt.impl.tree.DefaultTree;
 import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
+import org.jboss.reddeer.swt.matcher.RegexMatcher;
 import org.jboss.reddeer.swt.test.RedDeerTest;
 import org.jboss.reddeer.swt.test.ui.views.TreeEventsListener;
 import org.jboss.reddeer.swt.util.Display;
@@ -294,7 +296,25 @@ public class AbstractTreeTest extends RedDeerTest {
     assertTrue("Cell [1] of tree item has to be empty but is" + cellLabel,
       cellLabel.length() == 0);
   }
-  
+
+	@Test
+	public void testFindUsingRegexMatcher() {
+		createTreeItems(tree.getSWTWidget());
+
+		String expected;
+		DefaultTreeItem dfi;
+
+		expected = "AA";
+		dfi = new DefaultTreeItem(new RegexMatcher("A"), new RegexMatcher("A+"));
+		assertEquals(String.format("Found item with text '%s', '%s' expected", dfi.getText(), expected),
+				expected, dfi.getText());
+
+		expected = "AAB";
+		dfi = new DefaultTreeItem(new RegexMatcher("A"), new RegexMatcher("A+"), new RegexMatcher("A+B"));
+		assertEquals(String.format("Found item with text '%s', '%s' expected", dfi.getText(), expected),
+				expected, dfi.getText());
+	}
+
   private void removeTreeItems (final Tree tree){
     Display.syncExec(new Runnable() {
       @Override
