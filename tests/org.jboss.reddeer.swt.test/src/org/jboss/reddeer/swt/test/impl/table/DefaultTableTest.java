@@ -1,10 +1,13 @@
 package org.jboss.reddeer.swt.test.impl.table;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.MouseEvent;
+import org.eclipse.swt.events.MouseListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Shell;
@@ -99,7 +102,30 @@ public class DefaultTableTest extends RedDeerTest{
 		}
 		for (int i=0; i<titles.length; i++) {
 			table2.getColumn (i).pack();
-		}	
+		}
+		
+		table2.addMouseListener(new MouseListener() {
+			
+			@Override
+			public void mouseUp(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseDown(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseDoubleClick(MouseEvent arg0) {
+				Table table = ((Table)arg0.widget);
+				int index = table.getSelectionIndex();
+				TableItem doubleClickedItem = table.getItem(index);
+				doubleClickedItem.setText(0,"double click");
+			}
+		});
 	}
 	
 	private void createCHECKTable(Shell shell){
@@ -221,5 +247,13 @@ public class DefaultTableTest extends RedDeerTest{
 	@Test
 	public void testCheckTable(){
 		new DefaultTable(2).getItem(1).setChecked(true);
+	}
+	
+	@Test
+	public void doubleClickOnTableItem(){
+		org.jboss.reddeer.swt.api.TableItem item = new DefaultTable(1).getItem(0);
+		assertEquals("x",item.getText());
+		item.doubleClick();
+		assertEquals("double click",item.getText());
 	}
 }

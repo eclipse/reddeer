@@ -65,5 +65,16 @@ public interface TableItem {
 	 * @return true if item is grayed, false otherwise
 	 */
 	boolean isGrayed();
+	
+	/**
+	 * Doubleclicks on table item
+	 */
+	void doubleClick();
+	
+	/**
+	 * Doubleclicks on table item's specified column
+	 * @param column to click on 
+	 */
+	void doubleClick(int column);
 
 }
