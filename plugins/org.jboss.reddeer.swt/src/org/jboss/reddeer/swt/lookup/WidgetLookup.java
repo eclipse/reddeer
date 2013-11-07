@@ -115,8 +115,12 @@ public class WidgetLookup {
 	
 	public void notifyItem(int eventType, int detail, Widget widget, Widget widgetItem) {
 		Event event = createEventItem(eventType, detail, widget, widgetItem);
-		notify(eventType, event, widget);
-		
+		notify(eventType, event, widget);	
+	}
+	
+	public void notifyItemMouse(int eventType, int detail, Widget widget, Widget widgetItem, int x, int y, int button) {
+		Event event = createMouseItemEvent(eventType, detail, widget, widgetItem, x, y, button);
+		notify(eventType, event, widget);	
 	}
 
 	private Event createEvent(Widget widget) {
@@ -135,6 +139,20 @@ public class WidgetLookup {
 		event.button=1;
 		event.x=0;
 		event.y=0;
+		return event;
+	}
+	
+	private Event createMouseItemEvent(int eventType, int detail, Widget widget, Widget widgetItem, int x, int y, int button){
+		Event event = new Event();
+		event.display = Display.getDisplay();
+		event.time = (int) System.currentTimeMillis();
+		event.item = widgetItem;
+		event.widget = widget;
+		event.detail = detail;
+		event.type = eventType;
+		event.button=button;
+		event.x=x;
+		event.y=y;
 		return event;
 	}
 	
