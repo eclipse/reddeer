@@ -71,6 +71,16 @@ public class AbstractTableItem implements TableItem {
 	public Table getParent() {
 		return (Table)WidgetHandler.getInstance().getParent(tableItem);
 	}
+	
+	@Override
+	public void doubleClick(){
+		TableHandler.getInstance().doubleClick(tableItem, 0);
+	}
+	
+	@Override
+	public void doubleClick(int column){
+		TableHandler.getInstance().doubleClick(tableItem, column);
+	}
 
 	@Override
 	public org.eclipse.swt.widgets.TableItem getSWTWidget() {

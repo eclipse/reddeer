@@ -1,9 +1,12 @@
 package org.jboss.reddeer.swt.handler;
 
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
+import org.jboss.reddeer.swt.lookup.WidgetLookup;
 import org.jboss.reddeer.swt.util.Display;
 import org.jboss.reddeer.swt.util.ResultRunnable;
 
@@ -76,6 +79,21 @@ public class TableHandler {
 			}
 		}
 		throw new SWTLayerException("Item "+item+" does not exist in table");
+	}
+	
+	public void doubleClick(final TableItem tableItem, final int column){
+		Display.syncExec(new Runnable() {
+			
+			@Override
+			public void run() {
+				WidgetHandler.getInstance().select(tableItem);
+				Rectangle rectangle = tableItem.getBounds(column);
+				int x = rectangle.x + (rectangle.width/2);
+				int y = rectangle.y + (rectangle.height/2);
+				WidgetLookup.getInstance().notifyItemMouse(SWT.MouseDoubleClick,SWT.NONE , tableItem.getParent(), tableItem, x, y, 1);
+				
+			}
+		});
 	}
 
 }
