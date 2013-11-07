@@ -43,6 +43,12 @@ public class BrowserView extends WorkbenchView {
 		this.browser = browser;
 	}
 
+	public BrowserView(InternalBrowser browser) {
+		this();
+
+		this.browser = browser;
+	}
+
 	/**
 	 * Opens Internal Web Browser view
 	 */
