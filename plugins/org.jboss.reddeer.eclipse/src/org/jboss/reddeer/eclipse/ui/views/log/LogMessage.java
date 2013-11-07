@@ -1,5 +1,8 @@
 package org.jboss.reddeer.eclipse.ui.views.log;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.swt.condition.ShellWithTextIsActive;
 import org.jboss.reddeer.swt.impl.button.PushButton;
@@ -58,5 +61,13 @@ public class LogMessage {
 		return sessionData;
 	}
 	
+	public List<LogMessage> getSubLogMessages(){
+		List<LogMessage> lm = new ArrayList<LogMessage>();
+		for(TreeItem i: treeItem.getItems()){
+			LogMessage l = new LogMessage(i, severity);
+			lm.add(l);
+		}
+		return lm;
+	}
 
 }
