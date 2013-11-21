@@ -1,6 +1,7 @@
 package org.jboss.reddeer.workbench.editor;
 
 import org.eclipse.ui.texteditor.ITextEditor;
+import org.jboss.reddeer.swt.util.Display;
 import org.jboss.reddeer.workbench.exception.EditorNotFoundException;
 
 /**
@@ -49,8 +50,17 @@ public class TextEditor extends DefaultEditor{
 	 * Set text text into editor
 	 * @param text given test that will be set as editor text
 	 */
-	public void setText(String text) {
-		getTextEditorPart().getDocumentProvider().getDocument(getTextEditorPart().getEditorInput()).set(text);
+	public void setText(final String text) {
+		
+		Display.syncExec(new Runnable() {
+
+			@Override
+			public void run() {
+				getTextEditorPart().getDocumentProvider().getDocument(getTextEditorPart().getEditorInput()).set(text);				
+			}
+			
+		});
+		
 	}
 	
 	protected ITextEditor getTextEditorPart(){
