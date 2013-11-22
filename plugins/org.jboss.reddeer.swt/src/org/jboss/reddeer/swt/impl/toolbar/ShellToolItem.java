@@ -10,6 +10,7 @@ import org.jboss.reddeer.swt.matcher.TextMatcher;
 /**
  * ShellToolItem implementation. It expects shell where toolbar should be found on
  * @author jjankovi
+ * @deprecated use DefaultToolItem instead
  *
  */
 public class ShellToolItem extends AbstractToolItem {
@@ -51,7 +52,7 @@ public class ShellToolItem extends AbstractToolItem {
 	 */
 	public ShellToolItem(Matcher<String> matcher, int index) {
 		ToolBarLookup tl = new ToolBarLookup();
-		final ToolBar shellToolbar = tl.getShellToolBars();
+		final ToolBar shellToolbar = tl.getShellToolBar();
 		ToolItem ti = null;
 		ti = tl.getToolItem(shellToolbar, matcher, index);			
 		Thrower.objectIsNull(ti, "ToolItem " + 

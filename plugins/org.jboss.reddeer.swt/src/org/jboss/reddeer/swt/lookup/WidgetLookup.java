@@ -236,6 +236,22 @@ public class WidgetLookup {
 		List<? extends Widget> widgets = findControls(refComposite, matcher, true);
 		return widgets;
 	}
+
+
+	/**
+	 * Checks is extra shell (shell outside workbench) active 
+	 * @return true if extra shell is active
+	 */
+	public boolean isExtraShellActive() {
+		IWorkbenchPartReference activeWorkbenchReference = WorkbenchLookup.findActiveWorkbenchPart();
+		Shell activeWorkbenchParentShell = getShellForActiveWorkbench(activeWorkbenchReference);
+
+		Shell activeShell = ShellLookup.getInstance().getActiveShell();
+		if (activeWorkbenchParentShell == null || activeWorkbenchParentShell != activeShell){
+			return true;
+		}
+		return false;
+	}
 	
 	
 	/**

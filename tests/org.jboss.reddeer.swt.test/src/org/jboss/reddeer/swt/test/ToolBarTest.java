@@ -17,6 +17,7 @@ import org.jboss.reddeer.swt.impl.label.DefaultLabel;
 import org.jboss.reddeer.swt.impl.menu.ShellMenu;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.jboss.reddeer.swt.impl.shell.WorkbenchShell;
+import org.jboss.reddeer.swt.impl.toolbar.DefaultToolItem;
 import org.jboss.reddeer.swt.impl.toolbar.ShellToolBar;
 import org.jboss.reddeer.swt.impl.toolbar.ShellToolItem;
 import org.jboss.reddeer.swt.impl.toolbar.ViewToolBar;
@@ -68,13 +69,13 @@ public class ToolBarTest extends RedDeerTest {
 
 	@Test
 	public void testToolItemInViewToolBarFound() {
-		ToolItem i = new ViewToolItem("RedDeer SWT ViewToolItem");
+		ToolItem i = new DefaultToolItem("RedDeer SWT ViewToolItem");
 		assertEquals("RedDeer SWT ViewToolItem", i.getToolTipText());
 	}
 
 	@Test
 	public void testToolItemInViewToolBarClicked() {
-		ToolItem i = new ViewToolItem("RedDeer SWT ViewToolItem");
+		ToolItem i = new DefaultToolItem("RedDeer SWT ViewToolItem");
 		i.click();		
 		assertTrue("ToolItem should be clicked", TestModel.getClickedAndReset());		
 	}
