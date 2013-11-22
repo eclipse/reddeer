@@ -222,6 +222,7 @@ public class DefaultEditor extends WorkbenchPart implements Editor {
 				IEditorReference[] editors = activeWorkbenchWindow
 						.getActivePage().getEditorReferences();
 				for (IEditorReference iEditorReference : editors) {
+
 					if (title.matches(iEditorReference.getEditor(false).getEditorInput().getName())) {
 						return iEditorReference.getEditor(false);
 					} else if (title.matches(iEditorReference.getEditor(false).getEditorInput().getToolTipText())) {

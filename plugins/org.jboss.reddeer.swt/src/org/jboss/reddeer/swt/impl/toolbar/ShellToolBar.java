@@ -13,7 +13,7 @@ public class ShellToolBar extends AbstractToolBar {
 	 * Lookup for ShellToolBar
 	 */
 	public ShellToolBar() {
-		toolBar = new ToolBarLookup().getShellToolBars();
+		toolBar = new ToolBarLookup().getShellToolBar();
 	}
 	
 }
