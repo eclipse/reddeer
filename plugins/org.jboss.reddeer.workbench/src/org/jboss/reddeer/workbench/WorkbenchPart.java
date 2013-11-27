@@ -1,10 +1,12 @@
 package org.jboss.reddeer.workbench;
 
+import org.hamcrest.Matcher;
 import org.jboss.reddeer.junit.logging.Logger;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PlatformUI;
 import org.jboss.reddeer.swt.condition.WaitCondition;
 import org.jboss.reddeer.swt.exception.WaitTimeoutExpiredException;
+import org.jboss.reddeer.swt.matcher.TextMatcher;
 import org.jboss.reddeer.swt.util.Display;
 import org.jboss.reddeer.swt.util.ResultRunnable;
 import org.jboss.reddeer.swt.wait.WaitUntil;
@@ -44,8 +46,25 @@ public abstract class WorkbenchPart{
 	 * 
 	 * @param title title of part to initialize
 	 */
-	
 	public WorkbenchPart(final String title) throws WorkbenchPartNotFound{
+		PartIsFound found = new PartIsFound(title);
+		try{
+			new WaitUntil(found);
+		} catch (WaitTimeoutExpiredException ex){
+			if(needsOpenedView()){
+				throw new WorkbenchPartNotFound("Unable to find Workbench part with title "+title);
+			}
+		}
+		workbenchPart = found.getPart();
+	}
+	
+	/**
+	 * Initialize part given title matcher
+	 * 
+	 * @param title title of part to initialize
+	 */
+	
+	public WorkbenchPart(final Matcher<String> title) throws WorkbenchPartNotFound{
 		PartIsFound found = new PartIsFound(title);
 		try{
 			new WaitUntil(found);
@@ -103,7 +122,7 @@ public abstract class WorkbenchPart{
 		throw new UnsupportedOperationException("not implemented yet");
 	}
 
-	abstract protected IWorkbenchPart getPartByTitle(String title);
+	abstract protected IWorkbenchPart getPartByTitle(Matcher<String> title);
 
 	protected IWorkbenchPart getActiveWorkbenchPart() {
 		return Display.syncExec(new ResultRunnable<IWorkbenchPart>() {
@@ -119,15 +138,25 @@ public abstract class WorkbenchPart{
 	class PartIsFound implements WaitCondition{
 		
 		private String title;
+		private Matcher<String> titleMatcher;
 		private IWorkbenchPart part;
 		
 		public PartIsFound(String title){
 			this.title = title;
 		}
 
+		public PartIsFound(Matcher<String> title){
+			this.titleMatcher = title;
+		}
+
 		@Override
 		public boolean test() {
-			part = getPartByTitle(title);
+			if(title != null){
+				Matcher<String> titleM = new TextMatcher(title);
+				part = getPartByTitle(titleM);
+			} else {
+				part = getPartByTitle(titleMatcher);
+			}
 			if(part == null){
 				return false;
 			}
@@ -136,7 +165,10 @@ public abstract class WorkbenchPart{
 
 		@Override
 		public String description() {
-			return "WorkbenchPart with title "+title+" is found.";
+			if(title != null){
+				return "WorkbenchPart with title "+title+" is found.";
+			}
+			return "WorkbenchPart with title "+titleMatcher+" is found.";
 		}
 		
 		public IWorkbenchPart getPart(){
@@ -144,5 +176,4 @@ public abstract class WorkbenchPart{
 		}
 		
 	}
-	
 }
