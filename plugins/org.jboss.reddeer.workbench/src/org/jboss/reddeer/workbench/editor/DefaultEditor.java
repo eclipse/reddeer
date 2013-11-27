@@ -7,6 +7,7 @@ import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.actions.ActionFactory;
+import org.hamcrest.Matcher;
 import org.jboss.reddeer.junit.logging.Logger;
 import org.jboss.reddeer.swt.condition.ShellWithTextIsActive;
 import org.jboss.reddeer.swt.impl.button.PushButton;
@@ -64,6 +65,21 @@ public class DefaultEditor extends WorkbenchPart implements Editor {
 
 	public DefaultEditor(final String title) {
 		super(title);
+		if (!(workbenchPart instanceof IEditorPart)) {
+			throw new WorkbenchPartNotFound();
+		}
+		activate();
+	}
+	
+	/**
+	 * Initialize editor with given title matcher.
+	 * 
+	 * @param title
+	 *            Title of editor to initialize and activate
+	 */
+
+	public DefaultEditor(final Matcher<String> titleMatcher) {
+		super(titleMatcher);
 		if (!(workbenchPart instanceof IEditorPart)) {
 			throw new WorkbenchPartNotFound();
 		}
@@ -196,7 +212,7 @@ public class DefaultEditor extends WorkbenchPart implements Editor {
 	}
 
 	@Override
-	protected IWorkbenchPart getPartByTitle(final String title) {
+	protected IWorkbenchPart getPartByTitle(final Matcher<String> title) {
 		return Display.syncExec(new ResultRunnable<IEditorPart>() {
 
 			@Override
@@ -206,10 +222,13 @@ public class DefaultEditor extends WorkbenchPart implements Editor {
 				IEditorReference[] editors = activeWorkbenchWindow
 						.getActivePage().getEditorReferences();
 				for (IEditorReference iEditorReference : editors) {
-					if (iEditorReference.getEditor(false).getEditorInput()
-							.getName().equals(title)) {
+					if (title.matches(iEditorReference.getEditor(false).getEditorInput().getName())) {
+						return iEditorReference.getEditor(false);
+					} else if (title.matches(iEditorReference.getEditor(false).getEditorInput().getToolTipText())) {
 						return iEditorReference.getEditor(false);
 					}
+					System.out.println(iEditorReference.getEditor(false).getEditorInput().getToolTipText());
+					System.out.println(title.matches(iEditorReference.getEditor(false).getEditorInput().getToolTipText()));
 				}
 				return null;
 			}

@@ -11,6 +11,7 @@ import org.eclipse.ui.actions.ActionFactory;
 import org.eclipse.ui.actions.ActionFactory.IWorkbenchAction;
 import org.eclipse.ui.views.IViewCategory;
 import org.eclipse.ui.views.IViewDescriptor;
+import org.hamcrest.Matcher;
 import org.jboss.reddeer.swt.api.Menu;
 import org.jboss.reddeer.swt.condition.ShellWithTextIsActive;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
@@ -21,6 +22,7 @@ import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
 import org.jboss.reddeer.swt.lookup.WidgetLookup;
 import org.jboss.reddeer.swt.lookup.WorkbenchLookup;
 import org.jboss.reddeer.swt.matcher.RegexMatchers;
+import org.jboss.reddeer.swt.matcher.TextMatcher;
 import org.jboss.reddeer.swt.util.Display;
 import org.jboss.reddeer.swt.util.ObjectUtil;
 import org.jboss.reddeer.swt.util.ResultRunnable;
@@ -94,7 +96,7 @@ public abstract class View extends WorkbenchPart{
 
 	public void open() {
 		log.info("Showing " + viewTitle() + " view");
-		workbenchPart = getPartByTitle(viewTitle());
+		workbenchPart = getPartByTitle(new TextMatcher(viewTitle()));
 		// view is not opened, it has to be opened via menu
 		if (workbenchPart == null) {
 			log.info("Opening " + viewTitle() + " view via menu.");
@@ -142,7 +144,7 @@ public abstract class View extends WorkbenchPart{
 	}
 	
 	private void setFocusIfViewIsOpened() {
-		workbenchPart = getPartByTitle(viewTitle());
+		workbenchPart = getPartByTitle(new TextMatcher(viewTitle()));
 		if (workbenchPart != null) {
 			Display.syncExec(new Runnable() {
 				@Override
@@ -242,7 +244,7 @@ public abstract class View extends WorkbenchPart{
 	}
 
 	@Override
-	protected IWorkbenchPart getPartByTitle(final String title) {
+	protected IWorkbenchPart getPartByTitle(final Matcher<String> title) {
 		return Display.syncExec(new ResultRunnable<IWorkbenchPart>() {
 
 			@Override
@@ -251,7 +253,7 @@ public abstract class View extends WorkbenchPart{
 						.getActiveWorkbenchWindow().getActivePage()
 						.getViewReferences();
 				for (IViewReference iViewReference : views) {
-					if (iViewReference.getPartName().equals(title)) {
+					if (title.matches(iViewReference.getPartName())) {
 						return iViewReference.getView(false);
 					}
 				}
