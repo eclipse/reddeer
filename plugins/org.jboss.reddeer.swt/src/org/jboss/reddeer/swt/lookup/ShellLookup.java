@@ -3,6 +3,7 @@ package org.jboss.reddeer.swt.lookup;
 import org.eclipse.swt.widgets.Shell;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.swt.condition.ShellIsActive;
+import org.jboss.reddeer.swt.condition.WaitCondition;
 import org.jboss.reddeer.swt.util.Display;
 import org.jboss.reddeer.swt.util.ResultRunnable;
 import org.jboss.reddeer.swt.wait.TimePeriod;
@@ -17,6 +18,10 @@ import org.jboss.reddeer.swt.wait.WaitUntil;
 public class ShellLookup {
 	
 	private static ShellLookup instance = null;
+	
+	private ShellLookup(){
+		
+	}
 
 	/**
 	 * Creates and returns instance of Shell Lookup
@@ -36,24 +41,13 @@ public class ShellLookup {
 	 * @return
 	 */
 	public Shell getActiveShell() {
-		new WaitUntil(new ShellIsActive(), TimePeriod.NORMAL, false);
+		new WaitUntil(new ShellIsActive(), TimePeriod.SHORT, false);
 		Shell activeShell = getCurrentActiveShell();
 		// try to find shell with focus
 		if (activeShell == null) {
-			activeShell = Display.syncExec(new ResultRunnable<Shell>() {
-				@Override
-				public Shell run() {
-					Shell[] ss = Display.getDisplay().getShells();
-					for (Shell shell : ss) {
-						if (shell.isFocusControl()) {
-							return shell;
-						}
-					}
-					return null;
-				}
-			});
+			new WaitUntil(new ShellIsFocused(), TimePeriod.SHORT, false);
+			activeShell = getCurrentFocusShell();
 		}
-
 		return activeShell;
 	}
 	/**
@@ -63,9 +57,35 @@ public class ShellLookup {
 	 */
 	public Shell getCurrentActiveShell () {
 		return Display.syncExec(new ResultRunnable<Shell>() {
+			
 			@Override
 			public Shell run() {
-				return Display.getDisplay().getActiveShell();
+				Shell s = Display.getDisplay().getActiveShell();
+				if(s!=null && s.isVisible()){
+					return s;
+				}
+				return null;
+			}
+		});
+	}
+	
+	/**
+	 * Returns current Focused Shell
+	 * Can return null
+	 * @return
+	 */
+	public Shell getCurrentFocusShell () {
+		return Display.syncExec(new ResultRunnable<Shell>() {
+			
+			@Override
+			public Shell run() {
+				Shell[] ss = Display.getDisplay().getShells();
+				for (Shell shell : ss) {
+					if (shell.isFocusControl() && shell.isVisible()) {
+						return shell;
+					}
+				}
+				return null;
 			}
 		});
 	}
@@ -98,6 +118,19 @@ public class ShellLookup {
 			}
 			
 		});
+	}
+	
+	class ShellIsFocused implements WaitCondition{
+		
+		@Override
+		public boolean test() {
+			return getCurrentFocusShell() != null;
+		}
+		
+		@Override
+		public String description() {
+			return "Shell is focused";
+		}
 	}
 }
 

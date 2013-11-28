@@ -3,7 +3,6 @@ package org.jboss.reddeer.swt.impl.browser;
 import org.jboss.reddeer.swt.api.Browser;
 import org.jboss.reddeer.swt.condition.PageIsLoaded;
 import org.jboss.reddeer.swt.handler.BrowserHandler;
-import org.jboss.reddeer.swt.handler.WidgetHandler;
 import org.jboss.reddeer.swt.impl.browser.internal.BrowserProgressListener;
 import org.jboss.reddeer.swt.wait.AbstractWait;
 import org.jboss.reddeer.swt.wait.TimePeriod;
@@ -21,9 +20,6 @@ public class AbstractBrowser implements Browser{
 	public AbstractBrowser(org.eclipse.swt.browser.Browser browser) {
 		this.swtBrowser = browser;
 		this.browserProgressListener = new BrowserProgressListener(this);
-	}
-	protected void setReady() {
-		WidgetHandler.getInstance().setFocus(swtBrowser);
 	}
 	
 	@Override

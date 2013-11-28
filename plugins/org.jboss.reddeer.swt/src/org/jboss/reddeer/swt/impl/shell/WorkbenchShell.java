@@ -2,6 +2,7 @@ package org.jboss.reddeer.swt.impl.shell;
 
 import org.jboss.reddeer.junit.logging.Logger;
 import org.eclipse.ui.PlatformUI;
+import org.jboss.reddeer.swt.handler.WidgetHandler;
 import org.jboss.reddeer.swt.util.Display;
 import org.jboss.reddeer.swt.util.ResultRunnable;
 
@@ -25,7 +26,7 @@ public class WorkbenchShell extends AbstractShell {
 			@Override
 			public void run() {
 				swtShell = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell();
-				swtShell.setFocus();
+				WidgetHandler.getInstance().setFocus(swtShell);
 			}
 		});
 

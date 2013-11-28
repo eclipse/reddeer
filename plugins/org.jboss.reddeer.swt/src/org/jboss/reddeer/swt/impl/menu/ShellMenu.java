@@ -85,7 +85,7 @@ public class ShellMenu extends AbstractMenu implements Menu {
 		Display.asyncExec(new Runnable() {
 			@Override
 			public void run() {
-				 new AboutDialog(new ShellLookup().getActiveShell()).open();
+				 new AboutDialog(ShellLookup.getInstance().getActiveShell()).open();
 			}
 		});
 		Display.syncExec(new Runnable() {

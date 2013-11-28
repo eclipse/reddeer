@@ -38,7 +38,7 @@ public abstract class PreferencePage {
 		log.info("Open Preferences dialog");
 		
 		boolean openedShell = false;
-		for (Shell s: new ShellLookup().getShells()) {
+		for (Shell s: ShellLookup.getInstance().getShells()) {
 			final Shell shell = s;
 			String text = Display.syncExec(new ResultRunnable<String>() {
 				@Override
