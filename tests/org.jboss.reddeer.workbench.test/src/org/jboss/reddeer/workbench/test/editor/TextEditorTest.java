@@ -18,10 +18,10 @@ import org.jboss.reddeer.eclipse.ui.wizards.newresource.BasicNewProjectResourceW
 import org.jboss.reddeer.swt.test.RedDeerTest;
 import org.jboss.reddeer.swt.util.Display;
 import org.jboss.reddeer.workbench.editor.TextEditor;
-import org.jboss.reddeer.workbench.exception.EditorNotFoundException;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.jboss.reddeer.workbench.exception.WorkbenchPartNotFound;
 
 public class TextEditorTest extends RedDeerTest {
 
@@ -42,7 +42,7 @@ public class TextEditorTest extends RedDeerTest {
 		}
 	}
 	
-	@Test(expected=EditorNotFoundException.class)
+	@Test(expected=WorkbenchPartNotFound.class)
 	public void notTextEditorTest(){
 		
 		NewFileCreationWizardDialog newFileDialog = new NewFileCreationWizardDialog();

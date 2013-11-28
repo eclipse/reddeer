@@ -14,7 +14,9 @@ import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.IWorkbenchPartReference;
 import org.eclipse.ui.IWorkbenchSite;
 import org.hamcrest.Matcher;
+import org.jboss.reddeer.swt.condition.WaitCondition;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
+import org.jboss.reddeer.swt.exception.WaitTimeoutExpiredException;
 import org.jboss.reddeer.swt.lookup.WidgetResolver;
 import org.jboss.reddeer.swt.reference.ReferencedComposite;
 import org.jboss.reddeer.swt.matcher.AndMatcher;
@@ -23,6 +25,8 @@ import org.jboss.reddeer.swt.matcher.MatcherBuilder;
 import org.jboss.reddeer.swt.util.Display;
 import org.jboss.reddeer.swt.util.ObjectUtil;
 import org.jboss.reddeer.swt.util.ResultRunnable;
+import org.jboss.reddeer.swt.wait.TimePeriod;
+import org.jboss.reddeer.swt.wait.WaitUntil;
 
 /**
  * Widget Lookup methods contains core lookup and resolving widgets
@@ -192,7 +196,7 @@ public class WidgetLookup {
 	
 	
 	/**
-	 * Mehod looks for active widget matching given criteria like reference composite, class, etc.
+	 * Method looks for active widget matching given criteria like reference composite, class, etc.
 	 * @param refComposite reference composite within lookup will be performed
 	 * @param clazz given class for a lookup
 	 * @param index widget index for a lookup
@@ -200,9 +204,7 @@ public class WidgetLookup {
 	 * @return returns matching widget
 	 */
 	@SuppressWarnings({ "rawtypes","unchecked" })
-	public <T extends Widget> T activeWidget(ReferencedComposite refComposite, Class<T> clazz, int index, Matcher... matchers) {		
-		Widget properWidget = null;
-		
+	public <T extends Widget> T activeWidget(ReferencedComposite refComposite, Class<T> clazz, int index, Matcher... matchers) {				
 		ClassMatcher cm = new ClassMatcher(clazz);
 		Matcher[] allMatchers = MatcherBuilder.getInstance().addMatcher(matchers, cm);
 		AndMatcher am  = new AndMatcher(allMatchers);
@@ -212,12 +214,13 @@ public class WidgetLookup {
 		for (int ind = 0 ; ind < matchers.length ; ind++ ){
 			logger.debug("Matcher: " + matchers[ind].getClass());
 		}
-		if (refComposite == null) {
-			properWidget = getProperWidget(activeWidgets(null, am), index); 
-			return (T)properWidget;
+		WidgetIsFound found = new WidgetIsFound(refComposite, am, index);
+		try{
+			new WaitUntil(found);
+		} catch (WaitTimeoutExpiredException ex){
+			throw new SWTLayerException("No matching widget found", ex);
 		}
-		properWidget = getProperWidget(activeWidgets(refComposite.getControl(), am), index);		
-		return (T)properWidget;
+		return (T)found.getWidget();
 	}
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
@@ -390,6 +393,42 @@ public class WidgetLookup {
 	 */
 	private boolean visible(Widget w) {
 		return !((w instanceof Control) && !((Control) w).getVisible());
+	}
+	
+	class WidgetIsFound implements WaitCondition {
+		
+		private ReferencedComposite refComposite;
+		private AndMatcher am;
+		private int index;
+		private Widget properWidget;
+
+		public <T extends Widget> WidgetIsFound(ReferencedComposite refComposite, AndMatcher am, int index) {
+			this.refComposite =refComposite;
+			this.am=am;
+			this.index=index;
+		}
+
+		public boolean test() {
+			try{
+				if(refComposite == null){
+					properWidget = getProperWidget(activeWidgets(null, am), index);
+				} else {
+					properWidget = getProperWidget(activeWidgets(refComposite.getControl(), am), index);
+				}
+			} catch (SWTLayerException ex){
+				return false;
+			}
+			return true;
+		}
+		
+		public Widget getWidget(){
+			return properWidget;
+		}
+
+		@Override
+		public String description() {
+			return "Widget is found";
+		}
 	}
 }
 
