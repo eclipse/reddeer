@@ -27,7 +27,7 @@ import org.jboss.reddeer.swt.wait.WaitUntil;
 import org.jboss.reddeer.swt.wait.WaitWhile;
 import org.jboss.reddeer.workbench.WorkbenchPart;
 import org.jboss.reddeer.workbench.condition.ActiveFocusControlIsInActiveView;
-import org.jboss.reddeer.workbench.exception.ViewNotFoundException;
+import org.jboss.reddeer.workbench.exception.WorkbenchPartNotFound;
 
 /**
  * Represents general view with ability to be opened. Subclasses should
@@ -79,6 +79,10 @@ public abstract class View extends WorkbenchPart{
 			}
 		});
 		workbenchPart = null;
+	}
+	
+	protected boolean needsOpenedView(){
+		return false;
 	}
 
 	/**
@@ -171,7 +175,7 @@ public abstract class View extends WorkbenchPart{
 			}
 		}
 
-		throw new ViewNotFoundException("View \"" + title
+		throw new WorkbenchPartNotFound("View \"" + title
 				+ "\" is not registered in workbench");
 	}
 
@@ -186,7 +190,7 @@ public abstract class View extends WorkbenchPart{
 			}
 		}
 
-		throw new ViewNotFoundException("View \"" + viewDescriptor.getLabel()
+		throw new WorkbenchPartNotFound("View \"" + viewDescriptor.getLabel()
 				+ "\" is not registered in any category");
 	}
 
