@@ -5,7 +5,7 @@ import org.jboss.reddeer.swt.lookup.ShellLookup;
 public class ShellIsActive implements WaitCondition{
 	@Override
 	public boolean test() {
-		return new ShellLookup().getCurrentActiveShell() != null;
+		return ShellLookup.getInstance().getCurrentActiveShell() != null;
 	}
 	@Override
 	public String description() {

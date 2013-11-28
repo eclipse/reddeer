@@ -79,8 +79,6 @@ public class DefaultGroup implements org.jboss.reddeer.swt.api.Group {
 		} else {
 			group = (Group)WidgetLookup.getInstance().activeWidget(referencedComposite, Group.class, index);
 		}
-		setFocus();
-		System.out.println("");
 	}
 	
 	/**
@@ -94,17 +92,11 @@ public class DefaultGroup implements org.jboss.reddeer.swt.api.Group {
 		} else {
 			group = (Group)WidgetLookup.getInstance().activeWidget(null, Group.class, index);
 		}
-		setFocus();
-		
 	}
 	
 	@Override
 	public String getText() {
 		return WidgetHandler.getInstance().getText(group);
-	}
-	
-	private void setFocus() {
-		WidgetHandler.getInstance().setFocus(group);
 	}
 
 	@Override

@@ -31,7 +31,6 @@ public class InternalBrowser extends AbstractBrowser{
 	 */
 	public InternalBrowser(int index) {
 		super(WidgetLookup.getInstance().activeWidget(null, org.eclipse.swt.browser.Browser.class,index));
-		setReady();
 	}
 	
 	/**
@@ -41,7 +40,6 @@ public class InternalBrowser extends AbstractBrowser{
 	 */
 	public InternalBrowser(ReferencedComposite referencedComposite, int index) {
 		super(WidgetLookup.getInstance().activeWidget(referencedComposite, org.eclipse.swt.browser.Browser.class,index));
-		setReady();
 	}
 	
 	/**
@@ -52,7 +50,6 @@ public class InternalBrowser extends AbstractBrowser{
 		super(WidgetLookup.getInstance().activeWidget(null, org.eclipse.swt.browser.Browser.class,
 				0,
 				new LabelMatcher(label)));
-		setReady();
 	}
 	
 	/**
@@ -64,7 +61,6 @@ public class InternalBrowser extends AbstractBrowser{
 		super(WidgetLookup.getInstance().activeWidget(referencedComposite, org.eclipse.swt.browser.Browser.class,
 				0,
 				new LabelMatcher(label)));
-		setReady();
 	}
 
 }

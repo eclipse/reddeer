@@ -3,9 +3,9 @@ package org.jboss.reddeer.swt.lookup;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
-
 import org.jboss.reddeer.junit.logging.Logger;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Shell;
@@ -17,17 +17,18 @@ import org.hamcrest.Matcher;
 import org.jboss.reddeer.swt.condition.WaitCondition;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.exception.WaitTimeoutExpiredException;
+import org.jboss.reddeer.swt.handler.WidgetHandler;
 import org.jboss.reddeer.swt.lookup.WidgetResolver;
 import org.jboss.reddeer.swt.reference.ReferencedComposite;
 import org.jboss.reddeer.swt.matcher.AndMatcher;
 import org.jboss.reddeer.swt.matcher.ClassMatcher;
 import org.jboss.reddeer.swt.matcher.MatcherBuilder;
 import org.jboss.reddeer.swt.util.Display;
+import org.jboss.reddeer.swt.util.OS;
 import org.jboss.reddeer.swt.util.ObjectUtil;
 import org.jboss.reddeer.swt.util.ResultRunnable;
-import org.jboss.reddeer.swt.wait.TimePeriod;
 import org.jboss.reddeer.swt.wait.WaitUntil;
-
+import org.jboss.reddeer.swt.util.Utils;
 /**
  * Widget Lookup methods contains core lookup and resolving widgets
  * @author Jiri Peterka
@@ -230,7 +231,7 @@ public class WidgetLookup {
 		}
 
 		if (refComposite == null){
-			logger.warn("Unable to find active control");
+			throw new SWTLayerException("Unable to find active composite");
 		}
 		List<? extends Widget> widgets = findControls(refComposite, matcher, true);
 		return widgets;
@@ -246,15 +247,11 @@ public class WidgetLookup {
 		
 		IWorkbenchPartReference activeWorkbenchReference = WorkbenchLookup.findActiveWorkbenchPart();
 		Shell activeWorkbenchParentShell = getShellForActiveWorkbench(activeWorkbenchReference);
-		
-		Shell activeShell = new ShellLookup().getActiveShell();
+
+		Shell activeShell = ShellLookup.getInstance().getActiveShell();
 		if (activeWorkbenchParentShell == null || activeWorkbenchParentShell != activeShell){
 			if (activeShell != null){
 				control = activeShell;	
-			}
-			else{
-				// try to find active shell one more time
-				control =  ShellLookup.getInstance().getActiveShell();
 			}
 		}			
 		else {
@@ -280,12 +277,9 @@ public class WidgetLookup {
 
 	private <T extends Widget> T getProperWidget(List<T> widgets, int index) {
 		T widget = null;
-		if (widgets.size() > index)
+		if (widgets.size() > index){
 			widget = widgets.get(index);
-		else
-			throw new SWTLayerException("No matching widget found");
-		
-		if (widget == null) throw new SWTLayerException("Matching widget was null");
+		}
 		return widget;
 	}
 	
@@ -409,25 +403,34 @@ public class WidgetLookup {
 		}
 
 		public boolean test() {
-			try{
-				if(refComposite == null){
-					properWidget = getProperWidget(activeWidgets(null, am), index);
-				} else {
-					properWidget = getProperWidget(activeWidgets(refComposite.getControl(), am), index);
-				}
-			} catch (SWTLayerException ex){
+			if(refComposite == null){
+				properWidget = getProperWidget(activeWidgets(null, am), index);
+			} else {
+				properWidget = getProperWidget(activeWidgets(refComposite.getControl(), am), index);
+			}
+			if(properWidget == null){
 				return false;
 			}
 			return true;
 		}
 		
 		public Widget getWidget(){
+			setFocus();
 			return properWidget;
 		}
 
 		@Override
 		public String description() {
 			return "Widget is found";
+		}
+		
+		private void setFocus(){
+			if (Utils.isRunningOS(OS.WINDOWS) && properWidget instanceof Button &&
+					((WidgetHandler.getInstance().getStyle((Button)properWidget) & SWT.RADIO) != 0)){
+					// do not set focus because it also select radio button on Windows
+			} else {
+				WidgetHandler.getInstance().setFocus(properWidget);
+			}
 		}
 	}
 }

@@ -1,6 +1,5 @@
 package org.jboss.reddeer.swt.impl.button;
 
-import org.eclipse.swt.SWT;
 import org.jboss.reddeer.junit.logging.Logger;
 import org.jboss.reddeer.swt.api.Button;
 import org.jboss.reddeer.swt.condition.WaitCondition;
@@ -11,8 +10,6 @@ import org.jboss.reddeer.swt.lookup.WidgetLookup;
 import org.jboss.reddeer.swt.matcher.StyleMatcher;
 import org.jboss.reddeer.swt.matcher.WithMnemonicMatcher;
 import org.jboss.reddeer.swt.reference.ReferencedComposite;
-import org.jboss.reddeer.swt.util.OS;
-import org.jboss.reddeer.swt.util.Utils;
 import org.jboss.reddeer.swt.wait.WaitUntil;
 
 /**
@@ -38,15 +35,9 @@ public abstract class AbstractButton implements Button {
 			} else {
 				swtButton = ButtonLookup.getInstance().getButton(refComposite,
 						index, new StyleMatcher(style));
-			}
-			if (Utils.isRunningOS(OS.WINDOWS) &&
-				((WidgetHandler.getInstance().getStyle(swtButton) & SWT.RADIO) != 0)){
-				// do not set focus because it also select radio button on Windows
-			}
-			else{
-				WidgetHandler.getInstance().setFocus(swtButton);	
-			}			
+			}		
 	}
+	
 	@Override
 	public void click() {
 		log.info("Click on the button "
@@ -56,6 +47,7 @@ public abstract class AbstractButton implements Button {
 		waitUntilButtonIsActive();
 		WidgetHandler.getInstance().click(swtButton);
 	}
+	
 	/**
 	 * See {@link Button}
 	 */
@@ -63,6 +55,7 @@ public abstract class AbstractButton implements Button {
 	public String getText() {
 		return WidgetHandler.getInstance().getText(swtButton);
 	}
+	
 	/**
 	 * See {@link Button}
 	 */
@@ -76,6 +69,7 @@ public abstract class AbstractButton implements Button {
 
 		return WidgetLookup.getInstance().isEnabled(swtButton);
 	}
+	
 	/**
 	 * See {@link Button}
 	 */

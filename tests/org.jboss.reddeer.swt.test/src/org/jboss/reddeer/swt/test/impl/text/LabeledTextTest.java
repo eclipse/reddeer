@@ -138,12 +138,13 @@ public class LabeledTextTest extends RedDeerTest{
 	@Test
 	public void setFocusTest() {
 		new DefaultShell("Testing shell");
-		new LabeledText("Test label").setFocus();
-		assertEquals("focusGained", new DefaultText(1).getText());
-		new LabeledText("Test label1").setFocus();
-		assertEquals("focusLost", new DefaultText(1).getText());
-		new LabeledText("Test label").setFocus();
-		assertEquals("focusGained", new DefaultText(1).getText());
+		DefaultText text = new DefaultText(1);
+		new LabeledText("Test label");
+		assertEquals("focusGained", text.getText());
+		new LabeledText("Test label1");
+		assertEquals("focusLost", text.getText());
+		new LabeledText("Test label");
+		assertEquals("focusGained", text.getText());
 	}
 
 }
