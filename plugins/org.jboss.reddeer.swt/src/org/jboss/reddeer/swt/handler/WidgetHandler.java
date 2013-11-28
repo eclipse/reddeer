@@ -7,6 +7,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.browser.Browser;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.custom.CTabItem;
+import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.custom.StyledText;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Button;
@@ -21,6 +22,7 @@ import org.eclipse.swt.widgets.List;
 import org.eclipse.swt.widgets.Scale;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Spinner;
+import org.eclipse.swt.widgets.TabFolder;
 import org.eclipse.swt.widgets.TabItem;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
@@ -742,6 +744,16 @@ public class WidgetHandler {
 					((Browser)w).setFocus();
 				} else if (w instanceof Scale){
 					((Scale)w).setFocus();
+				} else if(w instanceof CTabItem) {
+					CTabItem ctabItem = (CTabItem) w; 
+					ctabItem.getParent().forceFocus();
+				} else if(w instanceof CTabFolder) {
+					((CTabFolder) w).forceFocus(); 
+				}else if(w instanceof TabItem) {
+					TabItem tabItem = (TabItem) w; 
+					tabItem.getParent().forceFocus();
+				} else if(w instanceof TabFolder) {
+					((TabFolder) w).forceFocus(); 	
 				} else if(w instanceof Shell) {
 					Shell shell = (Shell) w; 
 					shell.forceActive();

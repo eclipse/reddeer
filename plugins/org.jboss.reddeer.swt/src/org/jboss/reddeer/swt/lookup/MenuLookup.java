@@ -29,7 +29,6 @@ import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.handler.WidgetHandler;
 import org.jboss.reddeer.swt.util.Display;
 import org.jboss.reddeer.swt.util.ResultRunnable;
-import org.jboss.reddeer.swt.wait.AbstractWait;
 import org.jboss.reddeer.swt.wait.TimePeriod;
 import org.jboss.reddeer.swt.wait.WaitWhile;
 
@@ -242,17 +241,7 @@ public class MenuLookup {
 	 * @return
 	 */
 	public MenuItem[] getActiveShellTopMenuItems() {
-		ShellLookup sl = new ShellLookup();
-		Shell activeShell = sl.getActiveShell();
-		int i= 0;
-		while(i<5){
-			if(activeShell != null){
-				break;
-			}
-			i++;
-			AbstractWait.sleep(100);
-			activeShell = sl.getActiveShell();
-		}
+		Shell activeShell = ShellLookup.getInstance().getActiveShell();
 		if(activeShell == null){
 			throw new SWTLayerException("Cannot find menu bar because there's no active shell");
 		}
@@ -264,11 +253,10 @@ public class MenuLookup {
 			// there is a chance that some non expected shell was opened
 			// e.g. Progress Dialog
 			new WaitWhile(new ShellWithTextIsActive(activeShellText),TimePeriod.NORMAL,false);
-			activeShell = sl.getActiveShell();
-			if (!activeShellText.equals(WidgetHandler.getInstance().getText(activeShell))){
+			activeShell = ShellLookup.getInstance().getActiveShell();
+			if (activeShellText.equals(WidgetHandler.getInstance().getText(activeShell))){
 				result = getMenuBarItems(activeShell);
-			}
-			else{
+			} else{
 				throw swtle;
 			}
 		}		
@@ -333,7 +321,7 @@ public class MenuLookup {
 
 		if (menu == null) {
 			throw new SWTLayerException(
-					"No menu");
+					c.getClass() +" Has no menu");
 		}
 
 		return menu;	
