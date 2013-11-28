@@ -19,7 +19,7 @@ import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.test.RedDeerTest;
 import org.jboss.reddeer.workbench.editor.DefaultEditor;
 import org.jboss.reddeer.workbench.editor.Editor;
-import org.jboss.reddeer.workbench.exception.EditorNotFoundException;
+import org.jboss.reddeer.workbench.exception.WorkbenchPartNotFound;
 import org.jboss.reddeer.workbench.test.ui.editor.SimpleEditor;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -62,7 +62,7 @@ public class EditorTest extends RedDeerTest {
 		try {
 			new DefaultEditor().close(false);
 			new DefaultEditor().close(false);
-		} catch (EditorNotFoundException ex) {
+		} catch (WorkbenchPartNotFound ex) {
 			// do nothing. We just want to have clean workspace
 		}
 	}
@@ -75,7 +75,7 @@ public class EditorTest extends RedDeerTest {
 		}
 	}
 
-	@Test(expected = EditorNotFoundException.class)
+	@Test(expected = WorkbenchPartNotFound.class)
 	public void noEditorOpenedTest() {
 		new DefaultEditor().close(false);
 		new DefaultEditor();
@@ -144,7 +144,7 @@ public class EditorTest extends RedDeerTest {
 		assertNotNull(editor);
 	}
 
-	@Test(expected = EditorNotFoundException.class)
+	@Test(expected = WorkbenchPartNotFound.class)
 	public void getEditorByTitleWrongTest() {
 		new DefaultEditor("Wrong Name Of Editor");
 	}
@@ -159,7 +159,7 @@ public class EditorTest extends RedDeerTest {
 																	// editors
 	}
 
-	@Test(expected = EditorNotFoundException.class)
+	@Test(expected = WorkbenchPartNotFound.class)
 	public void closeNotActiveEditorTest() {
 		Editor editor = new DefaultEditor();
 		new PackageExplorer().getProject("testProject")

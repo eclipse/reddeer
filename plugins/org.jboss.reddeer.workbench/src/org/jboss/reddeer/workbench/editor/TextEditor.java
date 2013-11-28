@@ -2,7 +2,7 @@ package org.jboss.reddeer.workbench.editor;
 
 import org.eclipse.ui.texteditor.ITextEditor;
 import org.jboss.reddeer.swt.util.Display;
-import org.jboss.reddeer.workbench.exception.EditorNotFoundException;
+import org.jboss.reddeer.workbench.exception.WorkbenchPartNotFound;
 
 /**
  * Represents text editors (implementing interface ITextEditor)
@@ -21,7 +21,7 @@ public class TextEditor extends DefaultEditor{
 	public TextEditor() {
 		super();
 		if (!(workbenchPart instanceof ITextEditor)){
-			throw new EditorNotFoundException("Given editor is not instance of ITextEditor");
+			throw new WorkbenchPartNotFound("Given editor is not instance of ITextEditor");
 		}
 	}
 	
@@ -34,7 +34,7 @@ public class TextEditor extends DefaultEditor{
 	public TextEditor(final String title){
 		super(title);
 		if (!(workbenchPart instanceof ITextEditor)){
-			throw new EditorNotFoundException("Given editor is not instance of ITextEditor");
+			throw new WorkbenchPartNotFound("Given editor is not instance of ITextEditor");
 		}
 	}
 	

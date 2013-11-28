@@ -3,8 +3,11 @@ package org.jboss.reddeer.workbench;
 import org.jboss.reddeer.junit.logging.Logger;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PlatformUI;
+import org.jboss.reddeer.swt.condition.WaitCondition;
+import org.jboss.reddeer.swt.exception.WaitTimeoutExpiredException;
 import org.jboss.reddeer.swt.util.Display;
 import org.jboss.reddeer.swt.util.ResultRunnable;
+import org.jboss.reddeer.swt.wait.WaitUntil;
 import org.jboss.reddeer.workbench.exception.WorkbenchPartNotFound;
 
 /**
@@ -42,9 +45,24 @@ public abstract class WorkbenchPart{
 	 * @param title title of part to initialize
 	 */
 	
-	public WorkbenchPart(final String title) {
-		workbenchPart = getPartByTitle(title);
+	public WorkbenchPart(final String title) throws WorkbenchPartNotFound{
+		PartIsFound found = new PartIsFound(title);
+		try{
+			new WaitUntil(found);
+		} catch (WaitTimeoutExpiredException ex){
+			if(needsOpenedView()){
+				throw new WorkbenchPartNotFound("Unable to find Workbench part with title "+title);
+			}
+		}
+		workbenchPart = found.getPart();
 	}
+	
+	/**
+	 * Declares whether particular View implementation requires view 
+	 * to be opened (returns true ) or is able to open View by itself (return false)
+	 * @return false if opened View is needed, true otherwise
+	 */
+	abstract protected boolean needsOpenedView();
 
 	abstract public void close();
 
@@ -96,6 +114,35 @@ public abstract class WorkbenchPart{
 						.getActivePage().getActivePart();
 			}
 		});
+	}
+	
+	class PartIsFound implements WaitCondition{
+		
+		private String title;
+		private IWorkbenchPart part;
+		
+		public PartIsFound(String title){
+			this.title = title;
+		}
+
+		@Override
+		public boolean test() {
+			part = getPartByTitle(title);
+			if(part == null){
+				return false;
+			}
+			return true;
+		}
+
+		@Override
+		public String description() {
+			return "WorkbenchPart with title "+title+" is found.";
+		}
+		
+		public IWorkbenchPart getPart(){
+			return part;
+		}
+		
 	}
 	
 }

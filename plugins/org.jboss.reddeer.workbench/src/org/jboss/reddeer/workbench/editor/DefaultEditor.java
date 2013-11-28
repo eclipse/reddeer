@@ -14,7 +14,7 @@ import org.jboss.reddeer.swt.util.Display;
 import org.jboss.reddeer.swt.util.ResultRunnable;
 import org.jboss.reddeer.swt.wait.WaitWhile;
 import org.jboss.reddeer.workbench.WorkbenchPart;
-import org.jboss.reddeer.workbench.exception.EditorNotFoundException;
+import org.jboss.reddeer.workbench.exception.WorkbenchPartNotFound;
 
 /**
  * Represents general editor with basic operations implemented.
@@ -45,9 +45,13 @@ public class DefaultEditor extends WorkbenchPart implements Editor {
 			});
 		}
 		if (workbenchPart == null) {
-			throw new EditorNotFoundException();
+			throw new WorkbenchPartNotFound();
 		}
 		activate();
+	}
+	
+	protected boolean needsOpenedView(){
+		return true;
 	}
 
 	/**
@@ -60,7 +64,7 @@ public class DefaultEditor extends WorkbenchPart implements Editor {
 	public DefaultEditor(final String title) {
 		super(title);
 		if (!(workbenchPart instanceof IEditorPart)) {
-			throw new EditorNotFoundException();
+			throw new WorkbenchPartNotFound();
 		}
 		activate();
 	}
