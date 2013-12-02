@@ -3,6 +3,8 @@ package org.jboss.reddeer.eclipse.test.jdt.ui.packageexplorer;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.util.List;
+
 import org.jboss.reddeer.eclipse.jdt.ui.NewJavaClassWizardDialog;
 import org.jboss.reddeer.eclipse.jdt.ui.NewJavaClassWizardPage;
 import org.jboss.reddeer.eclipse.jdt.ui.ide.NewJavaProjectWizardDialog;
@@ -17,7 +19,7 @@ import org.jboss.reddeer.swt.wait.WaitWhile;
 import org.jboss.reddeer.workbench.editor.DefaultEditor;
 import org.junit.Test;
 
-public class ProjectItemTest extends RedDeerTest{
+public class ProjectItemTest extends RedDeerTest {
 
 	private static final String PROJECT_NAME = "TestProject";
 	private static final String PROJECT_ITEM_TEXT = "src";
@@ -26,7 +28,7 @@ public class ProjectItemTest extends RedDeerTest{
 	private ProjectItem projectItem;
 		
 	@Override
-	protected void setUp(){
+	protected void setUp() {
 	  super.setUp();
 		NewJavaProjectWizardDialog dialog = new NewJavaProjectWizardDialog();
 		dialog.open();
@@ -39,13 +41,13 @@ public class ProjectItemTest extends RedDeerTest{
 	}
 
 	@Test
-	public void select(){
+	public void select() {
 		projectItem.select();
 		assertTrue("Project item " + ProjectItemTest.PROJECT_ITEM_TEXT + " is not selected" , projectItem.isSelected());
 	}
 	
 	@Test
-	public void delete(){
+	public void delete() {
 		projectItem.delete();
 		assertFalse("Project " + ProjectItemTest.PROJECT_NAME + " contains project item " + ProjectItemTest.PROJECT_ITEM_TEXT +
 				" but it should be deleted.",
@@ -53,18 +55,14 @@ public class ProjectItemTest extends RedDeerTest{
 	}
 	
 	@Test
-	public void open(){
+	public void open() {
 		packageExplorer.getProject(ProjectItemTest.PROJECT_NAME)
             .getProjectItem(ProjectItemTest.PROJECT_ITEM_TEXT)
             .select();
-		NewJavaClassWizardDialog newJavaClassDialog = new NewJavaClassWizardDialog();
-		newJavaClassDialog.open();
 		
-		NewJavaClassWizardPage wizardPage = newJavaClassDialog.getFirstPage();
 		final String javaClassName = "TestClass";
-		wizardPage.setName(javaClassName);
-		newJavaClassDialog.finish();
-		new WaitWhile(new JobIsRunning(), TimePeriod.LONG);
+		createJavaClass(javaClassName);
+		
 		WorkbenchHandler.getInstance().closeAllEditors();
 		final String javaClassFileName = javaClassName + ".java";
 		packageExplorer.getProject(ProjectItemTest.PROJECT_NAME)
@@ -73,19 +71,16 @@ public class ProjectItemTest extends RedDeerTest{
 		assertTrue("Active Editor has to have title " + javaClassFileName,
 			new DefaultEditor().getTitle().equals(javaClassFileName));
 	}
+	
 	@Test
-	public void getChild(){
+	public void getChild() {
 		packageExplorer.getProject(ProjectItemTest.PROJECT_NAME)
             .getProjectItem(ProjectItemTest.PROJECT_ITEM_TEXT)
             .select();
-		NewJavaClassWizardDialog newJavaClassDialog = new NewJavaClassWizardDialog();
-		newJavaClassDialog.open();
 		
-		NewJavaClassWizardPage wizardPage = newJavaClassDialog.getFirstPage();
 		final String javaClassName = "TestClass";
-		wizardPage.setName(javaClassName);
-		newJavaClassDialog.finish();
-		new WaitWhile(new JobIsRunning(), TimePeriod.LONG);
+		createJavaClass(javaClassName);
+		
 		ProjectItem piDefaultPackage = packageExplorer.getProject(ProjectItemTest.PROJECT_NAME)
           .getProjectItem(ProjectItemTest.PROJECT_ITEM_TEXT)
           .getChild(ProjectItemTest.DEFAULT_PACKAGE_TEXT);
@@ -94,8 +89,61 @@ public class ProjectItemTest extends RedDeerTest{
 				  + " but is " + piDefaultPackage.getText(),
 				piDefaultPackage.getText().equals(ProjectItemTest.DEFAULT_PACKAGE_TEXT));
 	}
+	
+	@Test
+	public void getChildren() {
+		packageExplorer.getProject(ProjectItemTest.PROJECT_NAME)
+				.getProjectItem(ProjectItemTest.PROJECT_ITEM_TEXT).select();
+
+		final String[] javaClassNames = new String[] { "TestClass01",
+				"TestClass02" };
+
+		createJavaClass(javaClassNames[0]);
+		createJavaClass(javaClassNames[1]);
+
+		List<ProjectItem> srcChildrens = projectItem.getChildren();
+
+		/* src folder has to contain default package*/
+		assertTrue(PROJECT_ITEM_TEXT + " has to contain only 1 Project Item"
+				+ " but there are " + srcChildrens.size() + " Project Items",
+				srcChildrens.size() == 1);
+
+		ProjectItem piDefaultPackage = srcChildrens.get(0);
+		assertTrue("Found Project Item has to have text "
+				+ ProjectItemTest.DEFAULT_PACKAGE_TEXT + " but is "
+				+ piDefaultPackage.getText(), piDefaultPackage.getText()
+				.equals(DEFAULT_PACKAGE_TEXT));
+
+		/* default package has to contain created classes */
+		List<ProjectItem> defaultPackageChildrens = piDefaultPackage
+				.getChildren();
+		assertTrue(PROJECT_ITEM_TEXT + " has to contain "
+				+ javaClassNames.length + " Project Items" + " but there are "
+				+ defaultPackageChildrens.size() + " Project Items",
+				defaultPackageChildrens.size() == javaClassNames.length);
+
+		for (int i = 0; i < javaClassNames.length; i++) {
+			ProjectItem pi = defaultPackageChildrens.get(i);
+			String javaClassFileName = javaClassNames[i] + ".java";
+			assertTrue("Found Project Item has to have text "
+					+ javaClassFileName + " but is " + pi.getText(), pi
+					.getText().equals(javaClassFileName));
+		}
+	}
+	
+	private void createJavaClass(final String javaClassName) {
+		NewJavaClassWizardDialog newJavaClassDialog = new NewJavaClassWizardDialog();
+		newJavaClassDialog.open();
+		
+		NewJavaClassWizardPage wizardPage = newJavaClassDialog.getFirstPage();
+		wizardPage.setName(javaClassName);
+		newJavaClassDialog.finish();
+		
+		new WaitWhile(new JobIsRunning(), TimePeriod.LONG);
+	}
+	
 	@Override
-	protected void tearDown(){
+	protected void tearDown() {
 		packageExplorer.getProject(ProjectItemTest.PROJECT_NAME).delete(true);
 		super.tearDown();
 	}
