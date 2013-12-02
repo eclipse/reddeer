@@ -1,5 +1,8 @@
 package org.jboss.reddeer.eclipse.jdt.ui.packageexplorer;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.jboss.reddeer.junit.logging.Logger;
 import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.swt.condition.JobIsRunning;
@@ -55,22 +58,30 @@ public class ProjectItem {
 		item.select();
 	}
 	
-	public boolean isSelected(){
+	public boolean isSelected() {
 		return treeItem.isSelected();
 	}
 	
-	public ProjectItem getChild (String text){
+	public ProjectItem getChild(String text) {
 		String[] childPath = new String[path.length + 1];
 		System.arraycopy(path, 0, childPath, 0, path.length);
 		childPath[childPath.length - 1] = text;
 		return new ProjectItem(treeItem.getItem(text), project, path);
 	}
 	
-	public String getText (){
+	public String getText() {
 		return treeItem.getText();
 	}
 	
 	public Project getProject() {
 		return project;
+	}
+	
+	public List<ProjectItem> getChildren() {
+		List<ProjectItem> childrens = new ArrayList<ProjectItem>();
+		for(TreeItem ti : treeItem.getItems()) {
+			childrens.add(getChild(ti.getText()));
+		}
+		return childrens;
 	}
 }
