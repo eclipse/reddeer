@@ -12,6 +12,10 @@
 		<version>0.4.1-SNAPSHOT</version>
 	</parent>
 
+	<properties>
+		<surefire.timeout>3000</surefire.timeout>
+	</properties>
+
 	<dependencies>
 		<dependency>
 			<groupId>hsqldb</groupId>
