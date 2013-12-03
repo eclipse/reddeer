@@ -66,6 +66,7 @@ public class ButtonTest extends RedDeerTest{
 		createButtons(ButtonTest.RADIO_BUTTON_LABEL_PREFIX, SWT.RADIO, shell);
 		createButtons(ButtonTest.CHECK_BOX_LABEL_PREFIX, SWT.CHECK, shell);
 		createButtons(ButtonTest.ARROW_BUTTON_LABEL_PREFIX, SWT.ARROW, shell);
+		
 		org.eclipse.swt.widgets.Text txSelection = new org.eclipse.swt.widgets.Text(shell,SWT.BORDER);
 		txSelection.setText("<text of selected button>");
 	}
@@ -160,6 +161,11 @@ public class ButtonTest extends RedDeerTest{
 		String label = ButtonTest.PUSH_BUTTON_LABEL_PREFIX + 0;
 		checkButton(label, new PushButton(label));
 	}
+	@Test
+	public void findOkButtonByAndCheck(){
+		String label = ButtonTest.PUSH_BUTTON_LABEL_PREFIX + 0;
+		checkButton(label, new PushButton(label));
+	}	
 	/**
 	 * Finds Radio Button by label and check getText(), getToolTipText() and click() methods
 	 */

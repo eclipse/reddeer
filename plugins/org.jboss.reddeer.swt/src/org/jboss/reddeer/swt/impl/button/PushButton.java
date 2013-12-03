@@ -61,5 +61,5 @@ public class PushButton extends AbstractButton implements Button {
 	public PushButton (ReferencedComposite referencedComposite, int index , String text){
 		super(referencedComposite, index,text,SWT.PUSH);
 	}
-	
+		
 }
