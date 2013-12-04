@@ -66,7 +66,7 @@ public class ProjectItem {
 		String[] childPath = new String[path.length + 1];
 		System.arraycopy(path, 0, childPath, 0, path.length);
 		childPath[childPath.length - 1] = text;
-		return new ProjectItem(treeItem.getItem(text), project, path);
+		return new ProjectItem(treeItem.getItem(text), project, childPath);
 	}
 	
 	public String getText() {
