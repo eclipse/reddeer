@@ -3,6 +3,8 @@ package org.jboss.reddeer.workbench;
 import org.jboss.reddeer.junit.logging.Logger;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.actions.ActionFactory;
+import org.eclipse.ui.actions.ActionFactory.IWorkbenchAction;
 import org.jboss.reddeer.swt.condition.WaitCondition;
 import org.jboss.reddeer.swt.exception.WaitTimeoutExpiredException;
 import org.jboss.reddeer.swt.util.Display;
@@ -95,13 +97,19 @@ public abstract class WorkbenchPart{
 		});
 	}
 
-	public void minimize() {
-		throw new UnsupportedOperationException("not implemented yet");
-	}
+	/**
+	 * Minimizes this workbench part (editor/view) 
+	 * 
+	 */
+	
+	public abstract void minimize();
 
-	public void maximize() {
-		throw new UnsupportedOperationException("not implemented yet");
-	}
+	/**
+	 * Maximizes this workbench part (editor/view)
+	 * 
+	 */
+	
+	public abstract void maximize();
 
 	abstract protected IWorkbenchPart getPartByTitle(String title);
 
@@ -112,6 +120,17 @@ public abstract class WorkbenchPart{
 			public IWorkbenchPart run() {
 				return PlatformUI.getWorkbench().getActiveWorkbenchWindow()
 						.getActivePage().getActivePart();
+			}
+		});
+	}
+	
+	protected void performAction(final ActionFactory actionFactory){
+		Display.syncExec(new Runnable() {
+			
+			@Override
+			public void run() {
+				IWorkbenchAction action= actionFactory.create(PlatformUI.getWorkbench().getActiveWorkbenchWindow());
+				action.run();
 			}
 		});
 	}
