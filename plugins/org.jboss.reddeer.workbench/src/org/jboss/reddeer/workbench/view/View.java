@@ -7,6 +7,8 @@ import org.eclipse.ui.IViewReference;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.actions.ActionFactory;
+import org.eclipse.ui.actions.ActionFactory.IWorkbenchAction;
 import org.eclipse.ui.views.IViewCategory;
 import org.eclipse.ui.views.IViewDescriptor;
 import org.jboss.reddeer.swt.api.Menu;
@@ -115,6 +117,28 @@ public abstract class View extends WorkbenchPart{
 		}
 		setFocusIfViewIsOpened();
 
+	}
+	
+	/**
+	 * Tries to set focus to this view and maximize it.
+	 * @throws SWTLayerException when there was problem activating this view
+	 */
+	
+	@Override
+	public void maximize() {
+		setFocusIfViewIsOpened();
+		performAction(ActionFactory.MAXIMIZE);
+	}
+	
+	/**
+	 * Tries to set focus to this view and minimize it.
+	 * @throws SWTLayerException when there was problem activating this view
+	 */
+	
+	@Override
+	public void minimize() {
+		setFocusIfViewIsOpened();
+		performAction(ActionFactory.MINIMIZE);
 	}
 	
 	private void setFocusIfViewIsOpened() {
