@@ -1,0 +1,18 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: org.jboss.reddeer.recorder Core Plugin
+Bundle-SymbolicName: org.jboss.reddeer.recorder;singleton:=true
+Bundle-Version: 0.5.0.qualifier
+Bundle-Activator: org.jboss.reddeer.recorder.core.Activator
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.eclipse.ui.forms;resolution:=optional,
+ org.eclipse.swt,
+ org.eclipse.swtbot.generator,
+ org.eclipse.swtbot.generator.jdt,
+ org.eclipse.swtbot.generator.ui
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Export-Package: org.jboss.reddeer.swt.generator.framework.rules,
+ org.jboss.reddeer.swt.generator.framework.rules.complex,
+ org.jboss.reddeer.swt.generator.framework.rules.simple

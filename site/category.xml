@@ -32,6 +32,10 @@
 		<category name="AllFeatures"/>
 	</feature>
 
+	<feature url="org.jboss.reddeer.recorder.feature.qualifier" id="org.jboss.reddeer.recorder.feature" version="0.0.0">
+		<category name="AllFeatures"/>
+	</feature>
+
 	<feature url="org.jboss.reddeer.eclipse.feature.source.qualifier" id="org.jboss.reddeer.eclipse.feature.source" version="0.0.0">
 		<category name="AllSources"/>
 	</feature>

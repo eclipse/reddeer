@@ -20,6 +20,7 @@
 		<module>org.jboss.reddeer.swt.feature</module>
 		<module>org.jboss.reddeer.tests.feature</module>
 		<module>org.jboss.reddeer.ui.feature</module>
+		<module>org.jboss.reddeer.recorder.feature</module>
 	</modules>
 	
 </project>
