@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: RedDeer JUnit Support
 Bundle-Vendor: JBoss by Red Hat
 Bundle-SymbolicName: org.jboss.reddeer.junit
-Bundle-Version: 0.4.1.qualifier
+Bundle-Version: 0.4.1
 Bundle-Activator: org.jboss.reddeer.junit.Activator
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
@@ -15,12 +15,11 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ClassPath: .,
  lib/commons-beanutils-core-1.8.3.jar,
  lib/ScreenRecorder.jar
-Export-Package: org.jboss.reddeer.junit,
- org.jboss.reddeer.junit.internal.configuration;x-friends:="org.jboss.reddeer.requirements.test",
- org.jboss.reddeer.junit.internal.requirement;x-friends:="org.jboss.reddeer.requirements.test",
- org.jboss.reddeer.junit.internal.runner;x-friends:="org.jboss.reddeer.requirements.test",
- org.jboss.reddeer.junit.logging,
- org.jboss.reddeer.junit.requirement,
- org.jboss.reddeer.junit.requirement.inject,
- org.jboss.reddeer.junit.runner,
- org.jboss.reddeer.junit.watcher
+Export-Package: org.jboss.reddeer.junit,org.jboss.reddeer.junit.intern
+ al.configuration;x-friends:="org.jboss.reddeer.requirements.test",org
+ .jboss.reddeer.junit.internal.requirement;x-friends:="org.jboss.redde
+ er.requirements.test",org.jboss.reddeer.junit.internal.runner;x-frien
+ ds:="org.jboss.reddeer.requirements.test",org.jboss.reddeer.junit.log
+ ging,org.jboss.reddeer.junit.requirement,org.jboss.reddeer.junit.requ
+ irement.inject,org.jboss.reddeer.junit.runner,org.jboss.reddeer.junit
+ .watcher

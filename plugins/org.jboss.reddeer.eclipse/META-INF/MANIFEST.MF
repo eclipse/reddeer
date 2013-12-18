@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: RedDeer Eclipse Component
 Bundle-Vendor: JBoss by Red Hat
 Bundle-SymbolicName: org.jboss.reddeer.eclipse
-Bundle-Version: 0.4.1.qualifier
+Bundle-Version: 0.4.1
 Bundle-Activator: org.jboss.reddeer.eclipse.Activator
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
@@ -17,31 +17,22 @@ Require-Bundle: org.eclipse.ui,
  org.jboss.reddeer.junit;bundle-version="0.4.0"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Export-Package: org.jboss.reddeer.eclipse,
- org.jboss.reddeer.eclipse.condition,
- org.jboss.reddeer.eclipse.datatools.ui,
- org.jboss.reddeer.eclipse.datatools.ui.preference,
- org.jboss.reddeer.eclipse.datatools.ui.wizard,
- org.jboss.reddeer.eclipse.exception,
- org.jboss.reddeer.eclipse.jdt.ui,
- org.jboss.reddeer.eclipse.jdt.ui.ide,
- org.jboss.reddeer.eclipse.jdt.ui.junit,
- org.jboss.reddeer.eclipse.jdt.ui.packageexplorer,
- org.jboss.reddeer.eclipse.mylyn.tasks.ui.view,
- org.jboss.reddeer.eclipse.mylyn.tasks.ui.wizards,
- org.jboss.reddeer.eclipse.ui.browser,
- org.jboss.reddeer.eclipse.ui.console;uses:="org.jboss.reddeer.workbench.view",
- org.jboss.reddeer.eclipse.ui.dialogs,
- org.jboss.reddeer.eclipse.ui.ide,
- org.jboss.reddeer.eclipse.ui.perspectives,
- org.jboss.reddeer.eclipse.ui.problems,
- org.jboss.reddeer.eclipse.ui.views.contentoutline,
- org.jboss.reddeer.eclipse.ui.views.log,
- org.jboss.reddeer.eclipse.ui.views.navigator,
- org.jboss.reddeer.eclipse.ui.views.properties,
- org.jboss.reddeer.eclipse.ui.wizards.datatransfer,
- org.jboss.reddeer.eclipse.ui.wizards.newresource,
- org.jboss.reddeer.eclipse.wst.server.ui,
- org.jboss.reddeer.eclipse.wst.server.ui.view,
- org.jboss.reddeer.eclipse.wst.server.ui.wizard
+Export-Package: org.jboss.reddeer.eclipse,org.jboss.reddeer.eclipse.co
+ ndition,org.jboss.reddeer.eclipse.datatools.ui,org.jboss.reddeer.ecli
+ pse.datatools.ui.preference,org.jboss.reddeer.eclipse.datatools.ui.wi
+ zard,org.jboss.reddeer.eclipse.exception,org.jboss.reddeer.eclipse.jd
+ t.ui,org.jboss.reddeer.eclipse.jdt.ui.ide,org.jboss.reddeer.eclipse.j
+ dt.ui.junit,org.jboss.reddeer.eclipse.jdt.ui.packageexplorer,org.jbos
+ s.reddeer.eclipse.mylyn.tasks.ui.view,org.jboss.reddeer.eclipse.mylyn
+ .tasks.ui.wizards,org.jboss.reddeer.eclipse.ui.browser,org.jboss.redd
+ eer.eclipse.ui.console;uses:="org.jboss.reddeer.workbench.view",org.j
+ boss.reddeer.eclipse.ui.dialogs,org.jboss.reddeer.eclipse.ui.ide,org.
+ jboss.reddeer.eclipse.ui.perspectives,org.jboss.reddeer.eclipse.ui.pr
+ oblems,org.jboss.reddeer.eclipse.ui.views.contentoutline,org.jboss.re
+ ddeer.eclipse.ui.views.log,org.jboss.reddeer.eclipse.ui.views.navigat
+ or,org.jboss.reddeer.eclipse.ui.views.properties,org.jboss.reddeer.ec
+ lipse.ui.wizards.datatransfer,org.jboss.reddeer.eclipse.ui.wizards.ne
+ wresource,org.jboss.reddeer.eclipse.wst.server.ui,org.jboss.reddeer.e
+ clipse.wst.server.ui.view,org.jboss.reddeer.eclipse.wst.server.ui.wiz
+ ard
 Import-Package: org.junit
