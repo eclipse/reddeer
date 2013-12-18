@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Reddeer Requirements support
 Bundle-SymbolicName: org.jboss.reddeer.requirements
-Bundle-Version: 0.4.0
+Bundle-Version: 0.4.1.qualifier
 Bundle-Activator: org.jboss.reddeer.requirements.Activator
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
@@ -12,6 +12,6 @@ Require-Bundle: org.eclipse.ui,
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
 Bundle-Vendor: JBoss by Red Hat
-Export-Package: org.jboss.reddeer.requirements.cleanworkspace,
- org.jboss.reddeer.requirements.exception,
- org.jboss.reddeer.requirements.openperspective
+Export-Package: org.jboss.reddeer.requirements.cleanworkspace,org.jbos
+ s.reddeer.requirements.exception,org.jboss.reddeer.requirements.openp
+ erspective

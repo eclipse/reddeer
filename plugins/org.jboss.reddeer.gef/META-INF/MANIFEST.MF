@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: RedDeer GEF Component
 Bundle-Vendor: JBoss by Red Hat
 Bundle-SymbolicName: org.jboss.reddeer.gef
-Bundle-Version: 0.4.0
+Bundle-Version: 0.4.1.qualifier
 Bundle-Activator: org.jboss.reddeer.gef.Activator
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime

@@ -2,7 +2,7 @@
 <feature
       id="org.jboss.reddeer.ui.feature"
       label="%featureName"
-      version="0.4.0"
+      version="0.4.1.qualifier"
       provider-name="JBoss by Red Hat">
 
    <description url="https://github.com/jboss-reddeer/reddeer/wiki">
