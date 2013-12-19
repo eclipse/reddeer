@@ -5,9 +5,9 @@ import org.jboss.reddeer.junit.logging.Logger;
 import org.jboss.reddeer.swt.api.Shell;
 import org.jboss.reddeer.swt.condition.ShellWithTextIsActive;
 import org.jboss.reddeer.swt.condition.ShellWithTextIsAvailable;
+import org.jboss.reddeer.swt.handler.ShellHandler;
 import org.jboss.reddeer.swt.handler.WidgetHandler;
 import org.jboss.reddeer.swt.lookup.WidgetLookup;
-import org.jboss.reddeer.swt.util.Display;
 import org.jboss.reddeer.swt.wait.WaitUntil;
 import org.jboss.reddeer.swt.wait.WaitWhile;
 
@@ -42,14 +42,7 @@ public abstract class AbstractShell implements Shell {
 		String text = getText();
 		log.info("Closing shell " + text);
 		WidgetLookup.getInstance().notify(SWT.Close, swtShell);
-		Display.syncExec(new Runnable() {
-			@Override
-			public void run() {
-				if (swtShell != null && !swtShell.isDisposed()){
-					swtShell.close();
-				}
-			}
-		});
+		ShellHandler.getInstance().closeShell(swtShell);
 		new WaitWhile(new ShellWithTextIsAvailable(text));
 	}
 
