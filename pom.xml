@@ -11,7 +11,7 @@
 	<properties>
  	   	<tycho-version>0.18.0</tycho-version>  	  
 		<tychoExtrasVersion>${tycho-version}</tychoExtrasVersion>
-		<eclipse-target-site>http://download.eclipse.org/releases/kepler</eclipse-target-site>
+		<eclipse-target-site>http://download.eclipse.org/releases/luna</eclipse-target-site>
 		<swtbot-update-site>http://download.eclipse.org/technology/swtbot/snapshots</swtbot-update-site>
 		<platformSystemProperties></platformSystemProperties>
 		<logDebug>true</logDebug>
