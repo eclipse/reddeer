@@ -3,11 +3,11 @@ package org.jboss.reddeer.swt.impl.styledtext;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.junit.logging.Logger;
 import org.jboss.reddeer.swt.api.StyledText;
+import org.jboss.reddeer.swt.handler.StyledTextHandler;
 import org.jboss.reddeer.swt.handler.WidgetHandler;
 import org.jboss.reddeer.swt.lookup.StyledTextLookup;
 import org.jboss.reddeer.swt.matcher.TextMatcher;
 import org.jboss.reddeer.swt.reference.ReferencedComposite;
-import org.jboss.reddeer.swt.util.Display;
 
 /**
  * Default class for representing StyledText
@@ -127,22 +127,6 @@ public class DefaultStyledText implements StyledText {
 	 */
 	@Override
 	public void insertText(final int line, final int column, final String text) {
-		Display.syncExec(new Runnable() {
-		
-			@Override
-			public void run() {
-				int offset = styledText.getContent().getOffsetAtLine(line) + column;
-				styledText.setSelection(offset);
-			}
-		});
-		
-		Display.syncExec(new Runnable() {
-
-			@Override
-			public void run() {
-				styledText.insert(text);
-				
-			}		
-		});
+		StyledTextHandler.getInstance().insertText(styledText, line,column,text);
 	}
 }
