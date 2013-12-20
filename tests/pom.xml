@@ -22,5 +22,22 @@
 		<module>org.jboss.reddeer.junit.test</module>
 		<module>org.jboss.reddeer.requirements.test</module>
 	</modules>
-	
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-surefire-plugin</artifactId>
+				<configuration>
+    				<useUIThread>false</useUIThread>
+					<dependencies combine.children="append">
+						<dependency>
+							<type>p2-installable-unit</type>
+							<artifactId>org.eclipse.e4.rcp.feature.group</artifactId>
+							<version>0.0.0</version>
+						</dependency>
+					</dependencies>					
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 </project>
