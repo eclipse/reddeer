@@ -44,7 +44,7 @@ public class TextRule extends GenerationSimpleRule{
 		if(label != null){
 			builder.append("new LabeledText(");
 			builder.append(RedDeerUtils.getReferencedCompositeString(composites));
-			builder.append("\"label\"");
+			builder.append(label);
 		} else {
 			builder.append("new DefaultText(");
 			builder.append(RedDeerUtils.getReferencedCompositeString(composites));
