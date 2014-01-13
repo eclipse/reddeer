@@ -9,6 +9,20 @@ import java.util.List;
  *
  */
 public interface Table {
+	
+	/**
+	 * Returns true if table contains item with specified text
+	 * @param item item text to find
+	 */
+	boolean containsItem(String item);
+	
+	
+	/**
+	 * Returns true if table contains item with specified text in given cell 
+	 * @param item item text to find
+	 * @param cellIndex index of cell 
+	 */
+	boolean containsItem(String item, int cellIndex);
 
 	/**
 	 * Returns table row count

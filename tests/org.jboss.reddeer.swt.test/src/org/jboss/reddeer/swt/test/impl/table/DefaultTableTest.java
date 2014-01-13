@@ -1,6 +1,7 @@
 package org.jboss.reddeer.swt.test.impl.table;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.util.List;
@@ -191,6 +192,13 @@ public class DefaultTableTest extends RedDeerTest{
 	@Test
 	public void testSingleSelectionTable(){
 		new DefaultTable(1).select(1);
+	}
+	
+	@Test
+	public void testTableContainsItem(){
+		assertTrue(new DefaultTable(1).containsItem("x"));
+		assertTrue(new DefaultTable(1).containsItem("line 5 in nowhere",6));
+		assertFalse(new DefaultTable(1).containsItem("this is not in table"));
 	}
 
 	@Test
