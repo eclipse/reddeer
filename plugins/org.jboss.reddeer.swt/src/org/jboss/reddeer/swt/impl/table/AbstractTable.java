@@ -34,6 +34,26 @@ public abstract class AbstractTable implements Table {
 	}
 	
 	@Override
+	public boolean containsItem(String item){
+		for(TableItem it: getItems()){
+			if(it.getText().equals(item)){
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	@Override
+	public boolean containsItem(String item, int cellIndex){
+		for(TableItem it: getItems()){
+			if(it.getText(cellIndex).equals(item)){
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	@Override
 	public List<TableItem> getItems(){
 		waitUntilTableHasRows();
 		org.eclipse.swt.widgets.TableItem[] items = (org.eclipse.swt.widgets.TableItem[])WidgetHandler.getInstance().getSWTItems(table);
