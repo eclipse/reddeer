@@ -241,7 +241,10 @@ public class WidgetHandler {
 			public String run() {
 				if(w instanceof TableItem){
 					return ((TableItem)w).getText(cellIndex);
-				}else {
+				}else if(w instanceof TreeItem){
+					return ((TreeItem)w).getText(cellIndex);
+				}
+				else{
 					throw new SWTLayerException("Unsupported type");
 				}
 			}
@@ -297,6 +300,8 @@ public class WidgetHandler {
 						return ((Browser) w).getText();
 					else if (w instanceof CLabel){
 						return ((CLabel) w).getText();
+					}else if (w instanceof TreeItem){
+						return ((TreeItem) w).getText();
 					}
 					else
 						throw new SWTLayerException("Unsupported type");
@@ -727,6 +732,8 @@ public class WidgetHandler {
 					return ((ExpandItem) w).getParent().getToolTipText();
 				else if (w instanceof CLabel){
 					return ((CLabel)w).getToolTipText();
+				}else if (w instanceof TreeItem){
+					return ((TreeItem)w).getParent().getToolTipText();
 				}else
 					throw new SWTLayerException("Unsupported type");
 			}
