@@ -13,7 +13,7 @@
 	</parent>
 
 	<properties>
-		<surefire.timeout>3000</surefire.timeout>
+		<surefire.timeout>3600</surefire.timeout>
 	</properties>
 
 	<dependencies>
