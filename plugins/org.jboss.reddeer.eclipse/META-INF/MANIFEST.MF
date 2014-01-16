@@ -43,5 +43,6 @@ Export-Package: org.jboss.reddeer.eclipse,
  org.jboss.reddeer.eclipse.ui.wizards.newresource,
  org.jboss.reddeer.eclipse.wst.server.ui,
  org.jboss.reddeer.eclipse.wst.server.ui.view,
- org.jboss.reddeer.eclipse.wst.server.ui.wizard
+ org.jboss.reddeer.eclipse.wst.server.ui.wizard,
+ org.jboss.reddeer.eclipse.jst.servlet.ui
 Import-Package: org.junit
