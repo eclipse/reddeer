@@ -10,6 +10,7 @@ import org.eclipse.swt.custom.CTabItem;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swtbot.generator.framework.WidgetUtils;
 import org.eclipse.ui.PlatformUI;
 import org.jboss.reddeer.swt.generator.framework.referencedComposite.GroupRule;
 import org.jboss.reddeer.swt.generator.framework.referencedComposite.ReferencedComposite;
@@ -48,7 +49,7 @@ public class RedDeerUtils {
 		}
 		Collections.reverse(composites);
 		for(int i =0; i<composites.size();i++){
-			builder.append("\""+composites.get(i).getText()+"\"),");
+			builder.append("\""+WidgetUtils.cleanText(composites.get(i).getText())+"\"),");
 		}
 		return builder.toString();
 	}
