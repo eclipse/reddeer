@@ -21,7 +21,8 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.ui.browser,
  org.eclipse.mylyn.tasks.ui,
  org.eclipse.mylyn.bugzilla.ui,
- org.eclipse.mylyn.bugzilla.ide
+ org.eclipse.mylyn.bugzilla.ide,
+ org.jboss.reddeer.requirements
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Import-Package: org.hamcrest.core
