@@ -6,6 +6,7 @@ import org.eclipse.ui.IEditorReference;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.actions.ActionFactory;
 import org.jboss.reddeer.junit.logging.Logger;
 import org.jboss.reddeer.swt.condition.ShellWithTextIsActive;
 import org.jboss.reddeer.swt.impl.button.PushButton;
@@ -157,6 +158,26 @@ public class DefaultEditor extends WorkbenchPart implements Editor {
 						.getActivePart());
 			}
 		});
+	}
+	
+	/**
+	 * Sets focus to this editor and maximizes it
+	 */
+	
+	@Override
+	public void maximize() {
+		activate();
+		performAction(ActionFactory.MAXIMIZE);
+	}
+	
+	/**
+	 * Sets focus to this editor and minimizes it
+	 */
+	
+	@Override
+	public void minimize() {
+		activate();
+		performAction(ActionFactory.MAXIMIZE);
 	}
 
 	protected void activate() {
