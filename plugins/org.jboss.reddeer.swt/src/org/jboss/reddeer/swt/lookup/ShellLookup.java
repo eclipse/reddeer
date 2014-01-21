@@ -37,7 +37,8 @@ public class ShellLookup {
 	/**
 	 * Returns active shell
 	 * Waits for shell to become active in case there is no active shell at the moment
-	 * If there is no active shell even after waiting has finished then shell with focus is returned 
+	 * If there is no active shell even after waiting has finished then shell with focus is returned
+	 * If there still is no active shell, shell with highest index is returned (@link{org.eclipse.swt.widgets.Display.getShells()})
 	 * @return
 	 */
 	public Shell getActiveShell() {
@@ -48,8 +49,13 @@ public class ShellLookup {
 			new WaitUntil(new ShellIsFocused(), TimePeriod.SHORT, false);
 			activeShell = getCurrentFocusShell();
 		}
+		// if still no shell found, last visible shell will be returned
+		if (activeShell == null) {
+			activeShell = getLastVisibleShell();
+		}
 		return activeShell;
 	}
+
 	/**
 	 * Returns current Active Shell without waiting for shell to become active
 	 * Can return null
@@ -117,6 +123,19 @@ public class ShellLookup {
 				return null;
 			}
 			
+		});
+	}
+	
+	private Shell getLastVisibleShell() {
+		return Display.syncExec(new ResultRunnable<Shell>() {
+			@Override
+			public Shell run() {
+				Shell[] shells = Display.getDisplay().getShells();
+				for (int i = shells.length - 1; i>=0; i--){
+					if (shells[i].isVisible()) return shells[i];
+				}
+				return null;
+			}
 		});
 	}
 	
