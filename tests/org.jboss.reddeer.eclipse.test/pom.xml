@@ -13,7 +13,7 @@
 	</parent>
 
 	<properties>
-		<surefire.timeout>3600</surefire.timeout>
+		<surefire.timeout>4500</surefire.timeout>
 	</properties>
 
 	<dependencies>
@@ -64,6 +64,11 @@
 						<dependency>
 							<type>p2-installable-unit</type>
 							<artifactId>org.eclipse.datatools.enablement.hsqldb.dbdefinition</artifactId>
+							<version>0.0.0</version>
+						</dependency>
+						<dependency>
+							<type>p2-installable-unit</type>
+							<artifactId>org.eclipse.wst.web.ui</artifactId>
 							<version>0.0.0</version>
 						</dependency>
 					</dependencies>
