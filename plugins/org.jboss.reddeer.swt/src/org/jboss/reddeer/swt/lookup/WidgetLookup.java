@@ -226,6 +226,7 @@ public class WidgetLookup {
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	private List<? extends Widget> activeWidgets(Control refComposite, Matcher matcher) {
 		if(refComposite == null){
+			logger.info("Referenced composite is null, finding one");
 			refComposite = getActiveWidgetParentControl();
 		}
 
@@ -258,18 +259,21 @@ public class WidgetLookup {
 	 * @return active workbench control or active shell
 	 */
 	public Control getActiveWidgetParentControl() {
+		logger.info("Finding active parent control");
 		Control control = null;
 		
 		IWorkbenchPartReference activeWorkbenchReference = WorkbenchLookup.findActiveWorkbenchPart();
 		Shell activeWorkbenchParentShell = getShellForActiveWorkbench(activeWorkbenchReference);
-
 		Shell activeShell = ShellLookup.getInstance().getActiveShell();
-		if (activeWorkbenchParentShell == null || activeWorkbenchParentShell != activeShell){
+		
+		if (activeWorkbenchParentShell == null || !activeWorkbenchParentShell.equals(activeShell)){
 			if (activeShell != null){
+				logger.info("Setting active shell as the parent");
 				control = activeShell;	
 			}
 		}			
 		else {
+			logger.info("Setting workbench control as the parent");
 			control = WorkbenchLookup.getWorkbenchControl(activeWorkbenchReference);
 		}
 		return control;

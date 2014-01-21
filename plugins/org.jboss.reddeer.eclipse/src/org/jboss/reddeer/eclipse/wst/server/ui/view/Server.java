@@ -1,22 +1,26 @@
 package org.jboss.reddeer.eclipse.wst.server.ui.view;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import org.jboss.reddeer.junit.logging.Logger;
+import org.eclipse.wst.server.core.IModule;
+import org.eclipse.wst.server.ui.IServerModule;
 import org.jboss.reddeer.eclipse.condition.ServerExists;
 import org.jboss.reddeer.eclipse.exception.EclipseLayerException;
+import org.jboss.reddeer.eclipse.wst.server.ui.editor.ServerEditor;
 import org.jboss.reddeer.eclipse.wst.server.ui.view.ServersViewEnums.ServerPublishState;
 import org.jboss.reddeer.eclipse.wst.server.ui.view.ServersViewEnums.ServerState;
+import org.jboss.reddeer.eclipse.wst.server.ui.wizard.ModifyModulesDialog;
+import org.jboss.reddeer.junit.logging.Logger;
 import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.swt.condition.JobIsRunning;
 import org.jboss.reddeer.swt.condition.ShellWithTextIsActive;
 import org.jboss.reddeer.swt.condition.WaitCondition;
-import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.impl.button.CheckBox;
 import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.menu.ContextMenu;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
-import org.jboss.reddeer.swt.wait.AbstractWait;
+import org.jboss.reddeer.swt.util.Display;
 import org.jboss.reddeer.swt.wait.TimePeriod;
 import org.jboss.reddeer.swt.wait.WaitUntil;
 import org.jboss.reddeer.swt.wait.WaitWhile;
@@ -25,7 +29,7 @@ import org.jboss.reddeer.swt.wait.WaitWhile;
  * Represents a server on {@link ServersView}. Contains both, the server data
  * (name, state, status) and operations that can be invoked on server (Start,
  * Stop, Delete etc.). For operations that can be invoked on project added to
- * server see {@link ServerProject}
+ * server see {@link ServerModule}
  * 
  * @author Lucia Jelinkova
  * 
@@ -33,12 +37,12 @@ import org.jboss.reddeer.swt.wait.WaitWhile;
 public class Server {
 
 	private static final TimePeriod TIMEOUT = TimePeriod.VERY_LONG;
-	
+
 	private static final String ADD_AND_REMOVE = "Add and Remove...";
 
 	private static final Logger log = Logger.getLogger(Server.class);
-	
-	private TreeItem treeItem;
+
+	protected TreeItem treeItem;
 
 	public Server(TreeItem treeItem) {
 		this.treeItem = treeItem;
@@ -48,16 +52,45 @@ public class Server {
 		return new ServerLabel(treeItem);
 	}
 
-	public List<ServerProject> getProjects() {
-		throw new UnsupportedOperationException();
+	public List<ServerModule> getModules() {
+		final List<ServerModule> modules = new ArrayList<ServerModule>();
+
+		Display.syncExec(new Runnable() {
+
+			@Override
+			public void run() {
+				for (TreeItem item : treeItem.getItems()){
+					org.eclipse.swt.widgets.TreeItem swtItem = item.getSWTWidget();
+					Object data = swtItem.getData();
+					if (data instanceof IModule || data instanceof IServerModule){
+						modules.add(createServerModule(item));
+					}
+				}				
+			}
+		});
+
+		return modules;
 	}
 
-	public ServerProject getProject() {
-		throw new UnsupportedOperationException();
+	public ServerModule getModule(String name) {
+		for (ServerModule module : getModules()){
+			if (module.getLabel().getName().equals(name)){
+				return module;
+			}
+		}
+		throw new EclipseLayerException("There is no module with name " + name + " on server " + getLabel().getName());
 	}
 
-	public void open() {
-		throw new UnsupportedOperationException();
+	public ModifyModulesDialog addAndRemoveModules() {
+		select();
+		new ContextMenu(ADD_AND_REMOVE).select();
+		return new ModifyModulesDialog();
+	}
+	
+	public ServerEditor open() {
+		select();
+		new ContextMenu("Open").select();
+		return createServerEditor(getLabel().getName());
 	}
 
 	public void start() {
@@ -99,7 +132,7 @@ public class Server {
 		}
 		operateServerState("Restart in Debug", ServerState.DEBUGGING);
 	}
-	
+
 	public void restartInProfile() {
 		log.info("Restarting server in profile" + getLabel().getName());
 		if (!getLabel().getState().isRunningState()){
@@ -142,7 +175,7 @@ public class Server {
 		log.info("Deleting server " + name + ". Stopping server first: " + stopFirst);
 		select();
 		ServerState state = getLabel().getState();
-		
+
 		new ContextMenu("Delete").select();	
 		new WaitUntil(new ShellWithTextIsActive("Delete Server"),TimePeriod.NORMAL);
 		if (!ServerState.STOPPED.equals(state) && !ServerState.NONE.equals(state)){
@@ -151,18 +184,6 @@ public class Server {
 		new PushButton("OK").click();
 		new WaitWhile(new ServerExists(name), TIMEOUT);
 		new WaitWhile(new JobIsRunning(), TIMEOUT);
-	}
-
-	public void addAndRemoveProject() {
-		select();
-		new ContextMenu(ADD_AND_REMOVE).select();
-		try{
-			new DefaultShell(ADD_AND_REMOVE);
-		}catch(SWTLayerException ex){
-			new DefaultShell("Server").close();
-			throw new EclipseLayerException("There are no resources that can be added"
-					+ " or removed from the server.", ex);
-		}
 	}
 
 	protected void select() {
@@ -175,15 +196,23 @@ public class Server {
 		new WaitUntil(new JobIsRunning(), TIMEOUT);
 		new WaitUntil(new ServerStateCondition(resultState), TIMEOUT);
 		new WaitWhile(new JobIsRunning(), TIMEOUT);
-		
+
 		//check if the server has expected state after jobs are done
 		new WaitUntil(new ServerStateCondition(resultState), TIMEOUT);
 	}
-	
+
 	protected void waitForPublish(){
 		new WaitUntil(new JobIsRunning(), TIMEOUT);
 		new WaitWhile(new ServerPublishStateCondition(ServerPublishState.PUBLISHING), TIMEOUT);
 		new WaitUntil(new ServerPublishStateCondition(ServerPublishState.SYNCHRONIZED), TIMEOUT);
+	}
+	
+	protected ServerModule createServerModule(TreeItem item){
+		return new ServerModule(item);
+	}
+	
+	protected ServerEditor createServerEditor(String title){
+		return new ServerEditor(title);
 	}
 
 	private class ServerStateCondition implements WaitCondition {
@@ -204,7 +233,7 @@ public class Server {
 			return "Server's state is: " + expectedState.getText();
 		}
 	}
-	
+
 	private class ServerPublishStateCondition implements WaitCondition {
 
 		private ServerPublishState expectedState;

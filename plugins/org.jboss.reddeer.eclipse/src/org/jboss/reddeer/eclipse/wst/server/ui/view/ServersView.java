@@ -3,9 +3,9 @@ package org.jboss.reddeer.eclipse.wst.server.ui.view;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.jboss.reddeer.junit.logging.Logger;
 import org.jboss.reddeer.eclipse.exception.EclipseLayerException;
 import org.jboss.reddeer.eclipse.wst.server.ui.wizard.NewServerWizardDialog;
+import org.jboss.reddeer.junit.logging.Logger;
 import org.jboss.reddeer.swt.api.Tree;
 import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
@@ -22,11 +22,11 @@ import org.jboss.reddeer.workbench.view.View;
  *
  */
 public class ServersView extends View {
-	
+
 	public static final String TITLE = "Servers";
 
 	private static final Logger log = Logger.getLogger(ServersView.class);
-	
+
 	public ServersView() {
 		super(TITLE);
 	}
@@ -49,7 +49,7 @@ public class ServersView extends View {
 			return new ArrayList<Server>();
 		}
 		for (TreeItem item : tree.getItems()){
-			servers.add(new Server(item));
+			servers.add(createServer(item));
 		}
 		return servers;
 	}
@@ -66,5 +66,9 @@ public class ServersView extends View {
 	protected Tree getServersTree(){
 		open();
 		return new DefaultTree();
+	}
+
+	protected Server createServer(TreeItem item){
+		return new Server(item);
 	}
 }

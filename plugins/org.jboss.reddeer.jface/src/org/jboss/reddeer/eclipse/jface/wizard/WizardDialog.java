@@ -6,9 +6,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
-import org.jboss.reddeer.junit.logging.Logger;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.eclipse.jface.exception.JFaceLayerException;
+import org.jboss.reddeer.junit.logging.Logger;
 import org.jboss.reddeer.swt.api.Button;
 import org.jboss.reddeer.swt.condition.JobIsRunning;
 import org.jboss.reddeer.swt.condition.ShellWithTextIsActive;
@@ -105,6 +105,7 @@ public class WizardDialog {
 		String shellText = new DefaultShell().getText();
 		Button button = new PushButton("Finish");
 		checkButtonEnabled(button);
+		new WaitWhile(new JobIsRunning());
 		button.click();
 
 		new WaitWhile(new ShellWithTextIsActive(shellText), TimePeriod.LONG);
@@ -115,6 +116,7 @@ public class WizardDialog {
 		log.info("Cancel wizard");
 
 		String shellText = new DefaultShell().getText();
+		new WaitWhile(new JobIsRunning());
 		new PushButton("Cancel").click();
 
 		new WaitWhile(new ShellWithTextIsActive(shellText));
