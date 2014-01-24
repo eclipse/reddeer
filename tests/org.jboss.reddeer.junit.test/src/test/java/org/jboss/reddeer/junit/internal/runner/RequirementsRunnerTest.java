@@ -16,7 +16,7 @@ public class RequirementsRunnerTest {
 	public void testInjectMethodInvocation() throws Exception {
 		
 		Requirements requirements = mock(Requirements.class);
-		requirementsRunner = new RequirementsRunner(SimpleTest.class, requirements);
+		requirementsRunner = new RequirementsRunner(SimpleTest.class, requirements, "no config");
 		
 		RequirementsInjector reqInjector = mock(RequirementsInjector.class);
 		requirementsRunner.setRequirementsInjector(reqInjector);

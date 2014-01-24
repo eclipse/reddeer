@@ -32,7 +32,7 @@ public class RequirementsRunnerBuilder extends RunnerBuilder {
 		Requirements requirements = requirementsBuilder.build(clazz, config.getRequirementConfiguration());
 		if (requirements.canFulfill()){
 			log.info("All requirements can be fulfilled, the test will run");
-			return new RequirementsRunner(clazz, requirements);
+			return new RequirementsRunner(clazz, requirements, config.getId());
 		} else {
 			log.info("All requirements cannot be fulfilled, the test will NOT run");
 			return null;
