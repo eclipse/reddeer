@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.IOException;
 
 import org.jboss.reddeer.junit.logging.Logger;
+import org.jboss.reddeer.junit.internal.configuration.TestRunConfiguration;
 import org.jboss.reddeer.junit.internal.requirement.Requirements;
 import org.jboss.reddeer.junit.internal.requirement.inject.RequirementsInjector;
 import org.jboss.reddeer.junit.internal.screenrecorder.ScreenRecorderExt;
@@ -14,6 +15,7 @@ import org.junit.runner.notification.Failure;
 import org.junit.runner.notification.RunListener;
 import org.junit.runner.notification.RunNotifier;
 import org.junit.runners.BlockJUnit4ClassRunner;
+import org.junit.runners.model.FrameworkMethod;
 import org.junit.runners.model.InitializationError;
 import org.junit.runners.model.Statement;
 
@@ -34,11 +36,14 @@ public class RequirementsRunner extends BlockJUnit4ClassRunner {
 
 	private RequirementsInjector requirementsInjector = new RequirementsInjector();
 	
+	private String configId;
+
 	private static boolean SAVE_SCREENCAST = System.getProperty("recordScreenCast","false").equalsIgnoreCase("true");
 	
-	public RequirementsRunner(Class<?> clazz, Requirements requirements) throws InitializationError {
+	public RequirementsRunner(Class<?> clazz, Requirements requirements, String configId) throws InitializationError {
 		super(clazz);
 		this.requirements = requirements;
+		this.configId = configId;
 	}
 
 	@Override
@@ -54,7 +59,12 @@ public class RequirementsRunner extends BlockJUnit4ClassRunner {
 		requirementsInjector.inject(testInstance, requirements);
 		return testInstance;
 	}
-
+	
+	@Override
+	protected String testName(FrameworkMethod method) {
+		return method.getName()+" "+configId;
+	}
+	
 	@Override
 	public void run(RunNotifier arg0) {
 		LoggingRunListener loggingRunListener = new LoggingRunListener();
