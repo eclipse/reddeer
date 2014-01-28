@@ -88,6 +88,10 @@ public class ProjectItemTest extends RedDeerTest {
 		assertTrue("Found Project Item has to have text " + ProjectItemTest.DEFAULT_PACKAGE_TEXT
 				  + " but is " + piDefaultPackage.getText(),
 				piDefaultPackage.getText().equals(ProjectItemTest.DEFAULT_PACKAGE_TEXT));
+		
+		/* select default package */
+		piDefaultPackage.select();
+		assertTrue("Project item " + ProjectItemTest.DEFAULT_PACKAGE_TEXT + " is not selected" , piDefaultPackage.isSelected());
 	}
 	
 	@Test
