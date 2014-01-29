@@ -6,6 +6,7 @@ import org.jboss.reddeer.junit.logging.Logger;
 import org.jboss.reddeer.swt.handler.WidgetHandler;
 import org.jboss.reddeer.swt.lookup.ShellLookup;
 import org.jboss.reddeer.swt.util.Utils;
+import org.jboss.reddeer.swt.util.internal.InstanceValidator;
 
 /**
  * Condition is fulfilled when shell with text is active
@@ -23,7 +24,7 @@ public class ShellWithTextIsActive implements WaitCondition {
 	 * @throws IllegalArgumentException if {@code text} is {@code null}
 	 */
 	public ShellWithTextIsActive(String text) {
-		Utils.checkNotNull(text, "text");
+		InstanceValidator.checkNotNull(text, "text");
 		this.matcher = new IsEqual<String>(text);
 	}
 	
@@ -31,7 +32,7 @@ public class ShellWithTextIsActive implements WaitCondition {
 	 * @throws IllegalArgumentException if {@code matcher} is {@code null}
 	 */
 	public ShellWithTextIsActive(org.hamcrest.Matcher<String> matcher) {
-		Utils.checkNotNull(matcher, "matcher");
+		InstanceValidator.checkNotNull(matcher, "matcher");
 		this.matcher = matcher;
 	}
 

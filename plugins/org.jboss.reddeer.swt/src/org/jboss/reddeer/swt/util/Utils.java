@@ -5,6 +5,7 @@ import org.eclipse.core.runtime.Platform;
 /**
  * Provides common utils
  * @author Vlado Pakan
+ * @deprecated use ExecutionContext for OS related methods and 
  *
  */
 public class Utils {
@@ -13,6 +14,7 @@ public class Utils {
 	 * Returns true when machine operating system is os
 	 * @param os
 	 * @return
+	 * @deprecated will be removed with 0.5.0
 	 */
 	public static boolean isRunningOS (OS os){
 		
@@ -36,6 +38,7 @@ public class Utils {
 	 * @param argument to check
 	 * @param argumentName for exception message
 	 * @throws IllegalArgumentException if {@code argument} is {@code null}
+	 * @deprecated will be removed with 0.5.0 
 	 */
 	public static void checkNotNull(Object argument, String argumentName) {
 		if (argument == null) {

@@ -5,6 +5,7 @@ import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.ui.dialogs.PreferencesUtil;
 import org.eclipse.ui.internal.dialogs.AboutDialog;
 import org.hamcrest.Matcher;
+import org.jboss.reddeer.direct.platform.RunningPlatform;
 import org.jboss.reddeer.swt.api.Menu;
 import org.jboss.reddeer.swt.api.Shell;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
@@ -12,7 +13,6 @@ import org.jboss.reddeer.swt.lookup.ShellLookup;
 import org.jboss.reddeer.swt.lookup.MenuLookup;
 import org.jboss.reddeer.swt.matcher.WithMnemonicMatchers;
 import org.jboss.reddeer.swt.util.Display;
-import org.jboss.reddeer.swt.util.OS;
 import org.jboss.reddeer.swt.util.Utils;
 
 /**
@@ -127,7 +127,7 @@ public class ShellMenu extends AbstractMenu implements Menu {
 	private void setMacOsMenuProperties(){
 		isSubmenuOfMacEclipseMenu = false;
 		macEclipseMenuCommand = null;
-		if (Utils.isRunningOS(OS.MACOSX)&& 
+		if (RunningPlatform.isOSX() && 
 			matchers.length == 2){
 			if (matchers[0].matches("Window") && matchers[1].matches(MacEclipseMenuCommand.PREFERENCES.text)){
 				isSubmenuOfMacEclipseMenu = true;
