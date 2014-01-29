@@ -7,6 +7,7 @@ import org.hamcrest.core.IsEqual;
 import org.jboss.reddeer.swt.lookup.ShellLookup;
 import org.jboss.reddeer.swt.matcher.ObjectToStingMatcherDecorator;
 import org.jboss.reddeer.swt.util.Utils;
+import org.jboss.reddeer.swt.util.internal.InstanceValidator;
 
 /**
  * Condition is fulfilled when shell with title is available
@@ -24,7 +25,7 @@ public class ShellWithTextIsAvailable implements WaitCondition {
 	 * @throws IllegalArgumentException if {@code title} is {@code null}
 	 */
 	public ShellWithTextIsAvailable(String title) {
-		Utils.checkNotNull(title, "title");
+		InstanceValidator.checkNotNull(title, "title");
 		this.matcher = wrapStringMatcher(new IsEqual<String>(title));
 	}
 
@@ -32,7 +33,7 @@ public class ShellWithTextIsAvailable implements WaitCondition {
 	 * @throws IllegalArgumentException if {@code matcher} is {@code null}
 	 */
 	public ShellWithTextIsAvailable(Matcher<String> matcher) {
-		Utils.checkNotNull(matcher, "matcher");
+		InstanceValidator.checkNotNull(matcher, "matcher");
 		this.matcher = wrapStringMatcher(matcher);
 	}
 	

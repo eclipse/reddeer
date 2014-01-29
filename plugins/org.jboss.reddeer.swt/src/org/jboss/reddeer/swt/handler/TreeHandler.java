@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Event;
+import org.jboss.reddeer.direct.platform.RunningPlatform;
 import org.jboss.reddeer.junit.logging.Logger;
 import org.jboss.reddeer.swt.api.Tree;
 import org.jboss.reddeer.swt.api.TreeItem;
@@ -14,9 +15,7 @@ import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.impl.tree.internal.BasicTree;
 import org.jboss.reddeer.swt.impl.tree.internal.BasicTreeItem;
 import org.jboss.reddeer.swt.util.Display;
-import org.jboss.reddeer.swt.util.OS;
 import org.jboss.reddeer.swt.util.ResultRunnable;
-import org.jboss.reddeer.swt.util.Utils;
 import org.jboss.reddeer.swt.wait.AbstractWait;
 import org.jboss.reddeer.swt.wait.TimePeriod;
 
@@ -208,7 +207,7 @@ public class TreeHandler {
 		logger.debug("Expanding Tree Item "
 				+ WidgetHandler.getInstance().getText(swtTreeItem));
 		if (!isExpanded(swtTreeItem)) {
-			if (!Utils.isRunningOS(OS.WINDOWS)) {
+			if (!RunningPlatform.isWindows()) {
 				notifyTree(swtTreeItem,
 						createEventForTree(swtTreeItem, SWT.Expand));
 			}
@@ -218,7 +217,7 @@ public class TreeHandler {
 					swtTreeItem.setExpanded(true);
 				}
 			});
-			if (Utils.isRunningOS(OS.WINDOWS)) {
+			if (RunningPlatform.isWindows()) {
 				notifyTree(swtTreeItem,
 						createEventForTree(swtTreeItem, SWT.Expand));
 			}
