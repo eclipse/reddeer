@@ -15,18 +15,19 @@ public class NewJavaProjectWizardDialog extends NewWizardDialog{
 	
 	public NewJavaProjectWizardDialog() {
 		super("Java", "Java Project");
+		addWizardPage(new NewJavaProjectWizardPage(), 0);
 	}
 	
 	@Override
 	public NewJavaProjectWizardPage getFirstPage() {
-		return new NewJavaProjectWizardPage(this);
+		return new NewJavaProjectWizardPage();
 	}
 	
 	@Override
 	public void finish(){
 		finish(false);
 	}
-	@SuppressWarnings("unused")
+	
 	public void finish(boolean openAssociatedPerspective) {
 		log.debug("Finish wizard dialog");
 		new PushButton("Finish").click();
