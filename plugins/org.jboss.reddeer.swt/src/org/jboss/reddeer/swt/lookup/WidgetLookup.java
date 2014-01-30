@@ -3,7 +3,7 @@ package org.jboss.reddeer.swt.lookup;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
-import org.jboss.reddeer.junit.logging.Logger;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Control;
@@ -14,21 +14,20 @@ import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.IWorkbenchPartReference;
 import org.eclipse.ui.IWorkbenchSite;
 import org.hamcrest.Matcher;
+import org.jboss.reddeer.direct.platform.RunningPlatform;
+import org.jboss.reddeer.junit.logging.Logger;
 import org.jboss.reddeer.swt.condition.WaitCondition;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.exception.WaitTimeoutExpiredException;
 import org.jboss.reddeer.swt.handler.WidgetHandler;
-import org.jboss.reddeer.swt.lookup.WidgetResolver;
-import org.jboss.reddeer.swt.reference.ReferencedComposite;
 import org.jboss.reddeer.swt.matcher.AndMatcher;
 import org.jboss.reddeer.swt.matcher.ClassMatcher;
 import org.jboss.reddeer.swt.matcher.MatcherBuilder;
+import org.jboss.reddeer.swt.reference.ReferencedComposite;
 import org.jboss.reddeer.swt.util.Display;
-import org.jboss.reddeer.swt.util.OS;
 import org.jboss.reddeer.swt.util.ObjectUtil;
 import org.jboss.reddeer.swt.util.ResultRunnable;
 import org.jboss.reddeer.swt.wait.WaitUntil;
-import org.jboss.reddeer.swt.util.Utils;
 /**
  * Widget Lookup methods contains core lookup and resolving widgets
  * @author Jiri Peterka
@@ -425,7 +424,7 @@ public class WidgetLookup {
 		}
 		
 		private void setFocus(){
-			if (Utils.isRunningOS(OS.WINDOWS) && properWidget instanceof Button &&
+			if (RunningPlatform.isWindows() && properWidget instanceof Button &&
 					((WidgetHandler.getInstance().getStyle((Button)properWidget) & SWT.RADIO) != 0)){
 					// do not set focus because it also select radio button on Windows
 			} else {

@@ -47,3 +47,4 @@ Export-Package: org.jboss.reddeer.swt,
  org.jboss.reddeer.swt.regex,
  org.jboss.reddeer.swt.util,
  org.jboss.reddeer.swt.wait
+Import-Package: org.jboss.reddeer.direct.platform
