@@ -10,6 +10,7 @@ import org.jboss.reddeer.junit.internal.runner.EmptySuite;
 import org.jboss.reddeer.junit.internal.runner.NamedSuite;
 import org.jboss.reddeer.junit.internal.runner.RequirementsRunnerBuilder;
 import org.junit.runner.Runner;
+import org.junit.runner.notification.RunListener;
 import org.junit.runners.Suite;
 import org.junit.runners.model.InitializationError;
 import org.junit.runners.model.RunnerBuilder;
@@ -24,6 +25,9 @@ import org.junit.runners.model.RunnerBuilder;
 public class RedDeerSuite extends Suite {
 	
 	private static final Logger log = Logger.getLogger(RedDeerSuite.class);
+	// this variable has to set within static initialization block in child class
+	// in order to add custom listeners
+	protected static RunListener[] runListeners;
 	
 	/**
 	 * Called by the JUnit framework. 
@@ -65,9 +69,9 @@ public class RedDeerSuite extends Suite {
 		for (TestRunConfiguration testRunConfig : config.getTestRunConfigurations()){
 			log.info("Adding suite with name " + testRunConfig.getId() + " to RedDeer suite");
 			if (isSuite){
-				configuredSuites.add(new NamedSuite(clazz, new RequirementsRunnerBuilder(testRunConfig), testRunConfig.getId()));
+				configuredSuites.add(new NamedSuite(clazz, new RequirementsRunnerBuilder(testRunConfig,runListeners), testRunConfig.getId()));
 			} else {
-				configuredSuites.add(new NamedSuite(new Class[]{clazz}, new RequirementsRunnerBuilder(testRunConfig), testRunConfig.getId()));				
+				configuredSuites.add(new NamedSuite(new Class[]{clazz}, new RequirementsRunnerBuilder(testRunConfig,runListeners), testRunConfig.getId()));				
 			}
 		}
 		
@@ -84,4 +88,5 @@ public class RedDeerSuite extends Suite {
 	protected String getName() {
 		return "Red Deer Suite";
 	}
+	
 }

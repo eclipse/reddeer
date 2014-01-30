@@ -5,6 +5,7 @@ import org.jboss.reddeer.junit.internal.configuration.TestRunConfiguration;
 import org.jboss.reddeer.junit.internal.requirement.Requirements;
 import org.jboss.reddeer.junit.internal.requirement.RequirementsBuilder;
 import org.junit.runner.Runner;
+import org.junit.runner.notification.RunListener;
 import org.junit.runners.model.RunnerBuilder;
 
 /**
@@ -22,8 +23,15 @@ public class RequirementsRunnerBuilder extends RunnerBuilder {
 	
 	private TestRunConfiguration config;
 	
+	private RunListener[] runListeners;
+	
 	public RequirementsRunnerBuilder(TestRunConfiguration config) {
+		this(config,null);
+	}
+	
+	public RequirementsRunnerBuilder(TestRunConfiguration config , RunListener[] runListeners) {
 		this.config = config;
+		this.runListeners = runListeners;
 	}
 
 	@Override
@@ -32,7 +40,7 @@ public class RequirementsRunnerBuilder extends RunnerBuilder {
 		Requirements requirements = requirementsBuilder.build(clazz, config.getRequirementConfiguration());
 		if (requirements.canFulfill()){
 			log.info("All requirements can be fulfilled, the test will run");
-			return new RequirementsRunner(clazz, requirements, config.getId());
+			return new RequirementsRunner(clazz, requirements, config.getId(),runListeners);
 		} else {
 			log.info("All requirements cannot be fulfilled, the test will NOT run");
 			return null;
