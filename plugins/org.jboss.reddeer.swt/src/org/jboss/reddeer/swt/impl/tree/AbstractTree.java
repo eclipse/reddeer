@@ -8,6 +8,7 @@ import org.jboss.reddeer.swt.api.Tree;
 import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.handler.TreeHandler;
+import org.jboss.reddeer.swt.lookup.WidgetLookup;
 
 public abstract class AbstractTree implements Tree {
 
@@ -69,4 +70,8 @@ public abstract class AbstractTree implements Tree {
 		return swtTree;
 	}
 
+	@Override
+	public boolean isEnabled() {
+		return WidgetLookup.getInstance().isEnabled(swtTree);
+	}
 }

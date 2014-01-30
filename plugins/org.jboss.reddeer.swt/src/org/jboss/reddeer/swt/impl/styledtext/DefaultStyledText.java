@@ -6,6 +6,7 @@ import org.jboss.reddeer.swt.api.StyledText;
 import org.jboss.reddeer.swt.handler.StyledTextHandler;
 import org.jboss.reddeer.swt.handler.WidgetHandler;
 import org.jboss.reddeer.swt.lookup.StyledTextLookup;
+import org.jboss.reddeer.swt.lookup.WidgetLookup;
 import org.jboss.reddeer.swt.matcher.TextMatcher;
 import org.jboss.reddeer.swt.reference.ReferencedComposite;
 
@@ -128,5 +129,14 @@ public class DefaultStyledText implements StyledText {
 	@Override
 	public void insertText(final int line, final int column, final String text) {
 		StyledTextHandler.getInstance().insertText(styledText, line,column,text);
+	}
+	
+	public org.eclipse.swt.custom.StyledText getSWTWidget(){
+		return styledText;
+	}
+	
+	@Override
+	public boolean isEnabled() {
+		return WidgetLookup.getInstance().isEnabled(styledText);
 	}
 }

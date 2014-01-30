@@ -2,37 +2,42 @@ package org.jboss.reddeer.swt.api;
 
 import java.util.List;
 
+import org.jboss.reddeer.swt.widgets.Widget;
+
 /**
  * API for Tree manipulation
+ * 
  * @author Jiri Peterka
- *
+ * 
  */
-public interface Tree {
+public interface Tree extends Widget {
 
 	/**
-	 * @return Top level tree items. 
-	 *  
+	 * @return Top level tree items.
+	 * 
 	 */
 	List<TreeItem> getItems();
-			
-	/** 
+
+	/**
 	 * @return All tree items recursively.
 	 */
 	List<TreeItem> getAllItems();
-	
-	/** 
-   * @return Selects items.
-   */
-  void selectItems(TreeItem... treeItems);
-  /**
-   * Sets focus to tree
-   */
-  void setFocus();
-  /**
-   * Unselects all selected items
-   */
-  public void unselectAllItems();
-  
+
+	/**
+	 * @return Selects items.
+	 */
+	void selectItems(TreeItem... treeItems);
+
+	/**
+	 * Sets focus to tree
+	 */
+	void setFocus();
+
+	/**
+	 * Unselects all selected items
+	 */
+	public void unselectAllItems();
+
 	org.eclipse.swt.widgets.Tree getSWTWidget();
 
 	/**

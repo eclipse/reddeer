@@ -1,11 +1,13 @@
 package org.jboss.reddeer.swt.api;
 
+import org.jboss.reddeer.swt.widgets.Widget;
+
 /**
  * API For HTML Browser manipulation
  * @author Jiri Peterka
  *
  */
-public interface Browser {
+public interface Browser extends Widget{
 	
 	/**
 	 * Indicates wheather page is loaded or not
@@ -37,13 +39,12 @@ public interface Browser {
 	 * Get text from page in browser 
 	 */
 	String getText();
-	/**
-	 * Return swt widget of Browser
-	 */
-	org.eclipse.swt.browser.Browser getSWTWidget();
+	
 	/**
 	 * Refreshes loaded page
 	 */
 	void refresh();
+	
+	org.eclipse.swt.browser.Browser getSWTWidget();
 	
 }

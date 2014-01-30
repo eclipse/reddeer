@@ -3,6 +3,7 @@ package org.jboss.reddeer.swt.impl.progressbar;
 import org.jboss.reddeer.junit.logging.Logger;
 import org.jboss.reddeer.swt.api.ProgressBar;
 import org.jboss.reddeer.swt.lookup.ProgressBarLookup;
+import org.jboss.reddeer.swt.lookup.WidgetLookup;
 import org.jboss.reddeer.swt.matcher.StyleMatcher;
 import org.jboss.reddeer.swt.util.Display;
 import org.jboss.reddeer.swt.util.ResultRunnable;
@@ -18,7 +19,7 @@ public abstract class AbstractProgressBar implements ProgressBar {
 	
 	protected final Logger log = Logger.getLogger(this.getClass());
 	
-	org.eclipse.swt.widgets.ProgressBar widget;
+	protected org.eclipse.swt.widgets.ProgressBar widget;
 
 	protected AbstractProgressBar(int index, int style) {
 		log.info("Searching for ProgressBar:"
@@ -40,6 +41,15 @@ public abstract class AbstractProgressBar implements ProgressBar {
 				return widget.getState();
 			}
 		});
+	}
+	
+	public org.eclipse.swt.widgets.ProgressBar getSWTWidget(){
+		return widget;
+	}
+	
+	@Override
+	public boolean isEnabled() {
+		return WidgetLookup.getInstance().isEnabled(widget);
 	}
 
 }

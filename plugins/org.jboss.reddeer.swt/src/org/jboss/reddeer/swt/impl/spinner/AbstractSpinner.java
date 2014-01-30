@@ -2,6 +2,9 @@ package org.jboss.reddeer.swt.impl.spinner;
 
 import org.jboss.reddeer.swt.api.Spinner;
 import org.jboss.reddeer.swt.handler.WidgetHandler;
+import org.jboss.reddeer.swt.lookup.WidgetLookup;
+import org.jboss.reddeer.swt.util.Display;
+import org.jboss.reddeer.swt.util.ResultRunnable;
 
 /**
  * Abstract class for all Spinner implementations
@@ -21,6 +24,15 @@ public abstract class AbstractSpinner implements Spinner {
 	@Override
 	public void setValue(int value) {
 		WidgetHandler.getInstance().setValue(swtSpinner, value);
+	}
+	
+	public org.eclipse.swt.widgets.Spinner getSWTWidget(){
+		return swtSpinner;
+	}
+	
+	@Override
+	public boolean isEnabled() {
+		return WidgetLookup.getInstance().isEnabled(swtSpinner);
 	}
 
 }

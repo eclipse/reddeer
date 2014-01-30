@@ -1,11 +1,13 @@
 package org.jboss.reddeer.swt.api;
 
+import org.jboss.reddeer.swt.widgets.Widget;
+
 /**
  * API For Link manipulation
  * @author Jiri Peterka
  *
  */
-public interface Link {
+public interface Link extends Widget{
 	
 	/**
 	 * Returns text of link
@@ -17,5 +19,7 @@ public interface Link {
 	 * Clicks on link
 	 */
 	void click();
+	
+	org.eclipse.swt.widgets.Link getSWTWidget();
 
 }

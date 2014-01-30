@@ -1,11 +1,13 @@
 package org.jboss.reddeer.swt.api;
 
+import org.jboss.reddeer.swt.widgets.Widget;
+
 /**
  * API for CLabel manipulation
  * @author Jiri Peterka
  *
  */
-public interface CLabel {
+public interface CLabel extends Widget{
 	/**
 	 * Returns text
 	 * @return
@@ -26,9 +28,6 @@ public interface CLabel {
 	 * @return
 	 */
 	boolean hasImage();
-	/**
-	 * Returns underlying CLabel SWT widget
-	 * @return
-	 */
+	
 	org.eclipse.swt.custom.CLabel getSWTWidget();
 }

@@ -6,6 +6,7 @@ import org.jboss.reddeer.swt.api.TabItem;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.handler.TabItemHandler;
 import org.jboss.reddeer.swt.handler.WidgetHandler;
+import org.jboss.reddeer.swt.lookup.WidgetLookup;
 
 /**
  * Abstract class for all TabItem implementations
@@ -14,7 +15,7 @@ import org.jboss.reddeer.swt.handler.WidgetHandler;
  * @author Vlado Pakan
  * 
  */
-public class AbstractTabItem implements TabItem {
+public abstract class AbstractTabItem implements TabItem {
 
 	protected final Logger logger = Logger.getLogger(this.getClass());
 
@@ -48,5 +49,14 @@ public class AbstractTabItem implements TabItem {
 	@Override
 	public String getText() {
 		return WidgetHandler.getInstance().getText(swtTabItem);
+	}
+	
+	public org.eclipse.swt.widgets.TabItem getSWTWidget(){
+		return swtTabItem;
+	}
+	
+	@Override
+	public boolean isEnabled() {
+		return WidgetLookup.getInstance().isEnabled(swtParent);
 	}
 }

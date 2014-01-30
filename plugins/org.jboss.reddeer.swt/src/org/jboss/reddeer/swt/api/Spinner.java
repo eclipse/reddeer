@@ -1,12 +1,14 @@
 package org.jboss.reddeer.swt.api;
 
+import org.jboss.reddeer.swt.widgets.Widget;
+
 /**
  * API For Spinner manipulation
  * 
  * @author Andrej Podhradsky
  * 
  */
-public interface Spinner {
+public interface Spinner extends Widget{
 
 	/**
 	 * Get Value of the spinner
@@ -21,4 +23,6 @@ public interface Spinner {
 	 * @param value
 	 */
 	void setValue(int value);
+	
+	org.eclipse.swt.widgets.Spinner getSWTWidget();
 }

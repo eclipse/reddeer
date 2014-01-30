@@ -1,7 +1,10 @@
 package org.jboss.reddeer.swt.impl.menu;
+
 import org.eclipse.jface.action.ActionContributionItem;
+import org.eclipse.swt.widgets.MenuItem;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.swt.api.Menu;
+import org.jboss.reddeer.swt.handler.ActionContributionItemHandler;
 import org.jboss.reddeer.swt.lookup.MenuLookup;
 import org.jboss.reddeer.swt.matcher.WithMnemonicMatchers;
 
@@ -28,7 +31,6 @@ public class ToolbarMenu extends AbstractMenu implements Menu{
 	public void select() {
 		MenuLookup l = new MenuLookup();
 		l.select(item);
-		
 	}
 
 
@@ -36,6 +38,15 @@ public class ToolbarMenu extends AbstractMenu implements Menu{
 	@Override
 	public String getText() {
 		return item.getAction().getText().replace("&", "");
+	}
+	
+	public MenuItem getSWTWidget(){
+		return null;
+	}
+	
+	@Override
+	public boolean isEnabled() {
+		return ActionContributionItemHandler.getInstance().isEnabled(item);
 	}
 
 	

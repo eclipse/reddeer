@@ -14,9 +14,10 @@ public class NewServerWizardDialog extends WizardDialog {
 	public static final String TITLE = "New Server";
 	
 	public NewServerWizardDialog() {
+		addWizardPage(new NewServerWizardPage(), 0);
 	}
 
 	public NewServerWizardPage getFirstPage(){
-		return new NewServerWizardPage(this);
+		return new NewServerWizardPage();
 	}
 }

@@ -106,7 +106,7 @@ public class DefaultTableItem extends AbstractTableItem{
 	    new WaitUntil(new TableHasRows(table));
 	    List<TableItem> items = table.getItems();
 	    if(items.size() < itemIndex){
-	    	return items.get(itemIndex).getSWTWidget();
+	    	return (org.eclipse.swt.widgets.TableItem)items.get(itemIndex).getSWTWidget();
 	    }
 	    throw new SWTLayerException("Table with index " +tableIndex+ " does not contain table item with index "+itemIndex);
 	}
@@ -117,7 +117,7 @@ public class DefaultTableItem extends AbstractTableItem{
 	    List<TableItem> items = table.getItems();
 	    for(TableItem i: items){
 	    	if(i.getText().equals(tableItem)){
-	    		return i.getSWTWidget();
+	    		return (org.eclipse.swt.widgets.TableItem)i.getSWTWidget();
 	    	}
 	    }
 	    throw new SWTLayerException("Table with index " +tableIndex+ " does not contain table item "+tableItem);

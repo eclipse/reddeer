@@ -45,5 +45,14 @@ public abstract class AbstractShell implements Shell {
 		ShellHandler.getInstance().closeShell(swtShell);
 		new WaitWhile(new ShellWithTextIsAvailable(text));
 	}
+	
+	public org.eclipse.swt.widgets.Shell getSWTWidget(){
+		return swtShell;
+	}
+	
+	@Override
+	public boolean isEnabled() {
+		return WidgetLookup.getInstance().isEnabled(swtShell);
+	}
 
 }

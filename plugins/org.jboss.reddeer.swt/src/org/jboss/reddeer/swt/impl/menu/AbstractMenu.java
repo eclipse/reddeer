@@ -24,4 +24,5 @@ public abstract class AbstractMenu implements Menu {
 	public String getText() {
 		throw new UnsupportedOperationException("not yet implemented");
 	}
+	
 }

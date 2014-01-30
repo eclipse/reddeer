@@ -2,13 +2,15 @@ package org.jboss.reddeer.swt.api;
 
 import java.util.List;
 
+import org.jboss.reddeer.swt.widgets.Widget;
+
 
 /**
  * API for Table manipulation
  * @author Jiri Peterka
  *
  */
-public interface Table {
+public interface Table extends Widget{
 	
 	/**
 	 * Returns true if table contains item with specified text
@@ -78,5 +80,7 @@ public interface Table {
 	 * @return
 	 */
 	TableItem getItem(final String itemText, int column);
+	
+	org.eclipse.swt.widgets.Table getSWTWidget();
 	
 }

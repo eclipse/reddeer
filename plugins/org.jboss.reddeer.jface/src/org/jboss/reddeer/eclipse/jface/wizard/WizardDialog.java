@@ -7,7 +7,6 @@ import java.util.Map;
 import java.util.Properties;
 
 import org.hamcrest.Matcher;
-import org.jboss.reddeer.eclipse.jface.exception.JFaceLayerException;
 import org.jboss.reddeer.junit.logging.Logger;
 import org.jboss.reddeer.swt.api.Button;
 import org.jboss.reddeer.swt.condition.JobIsRunning;
@@ -107,7 +106,6 @@ public class WizardDialog {
 
 		String shellText = new DefaultShell().getText();
 		Button button = new PushButton("Finish");
-		checkButtonEnabled(button);
 		new WaitWhile(new JobIsRunning());
 		button.click();
 
@@ -130,7 +128,6 @@ public class WizardDialog {
 		log.info("Go to next wizard page");
 
 		Button button = new PushButton("Next >");
-		checkButtonEnabled(button);
 		button.click();
 		currentPage++;
 	}
@@ -138,15 +135,8 @@ public class WizardDialog {
 	public void back() {
 		log.info("Go to previous wizard page");
 		Button button = new PushButton("< Back");
-		checkButtonEnabled(button);
 		button.click();
 		currentPage--;
-	}
-
-	protected void checkButtonEnabled(Button button) {
-		if (!button.isEnabled()) {
-			throw new JFaceLayerException("Button '" + button.getText() + "' is not enabled");
-		}
 	}
 
 	public void selectPage(int pageIndex) {

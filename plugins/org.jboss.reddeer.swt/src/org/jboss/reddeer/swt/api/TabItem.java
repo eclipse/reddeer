@@ -1,12 +1,14 @@
 package org.jboss.reddeer.swt.api;
 
+import org.jboss.reddeer.swt.widgets.Widget;
+
 /**
  * API for TabItem manipulation.
  * 
  * @author apodhrad
  * 
  */
-public interface TabItem {
+public interface TabItem extends Widget{
 
 	/**
 	 * Activate this tab.
@@ -19,4 +21,6 @@ public interface TabItem {
 	 * @return
 	 */
 	String getText();
+	
+	org.eclipse.swt.widgets.TabItem getSWTWidget();
 }

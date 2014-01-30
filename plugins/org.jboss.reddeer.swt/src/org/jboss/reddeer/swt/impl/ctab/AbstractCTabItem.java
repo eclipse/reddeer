@@ -6,6 +6,7 @@ import org.jboss.reddeer.swt.api.CTabItem;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.handler.CTabItemHandler;
 import org.jboss.reddeer.swt.handler.WidgetHandler;
+import org.jboss.reddeer.swt.lookup.WidgetLookup;
 
 /**
  * Abstract class for all CTabItem implementations
@@ -13,7 +14,7 @@ import org.jboss.reddeer.swt.handler.WidgetHandler;
  * @author Vlado Pakan
  * 
  */
-public class AbstractCTabItem implements CTabItem {
+public abstract class AbstractCTabItem implements CTabItem {
 
 	protected final Logger logger = Logger.getLogger(this.getClass());
 
@@ -79,4 +80,14 @@ public class AbstractCTabItem implements CTabItem {
 	public boolean isShowClose() {
 		return cTabItemHandler.isShowClose(swtCTabItem);
 	}
+	
+	public org.eclipse.swt.custom.CTabItem getSWTWidget(){
+		return swtCTabItem;
+	}
+	
+	@Override
+	public boolean isEnabled() {
+		return WidgetLookup.getInstance().isEnabled(swtParent);
+	}
+	
 }

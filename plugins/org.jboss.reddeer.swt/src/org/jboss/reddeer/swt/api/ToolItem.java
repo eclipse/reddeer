@@ -1,11 +1,13 @@
 package org.jboss.reddeer.swt.api;
 
+import org.jboss.reddeer.swt.widgets.Widget;
+
 /**
  * API for Toolbar manipulation
  * @author Jiri Peterka
  *
  */
-public interface ToolItem {
+public interface ToolItem extends Widget{
 
 	/**
 	 * Click a Toolbar item 
@@ -25,4 +27,6 @@ public interface ToolItem {
 	 * Returns ToolItem tooltip text
 	 */
 	void toggle(boolean toggle);
+	
+	 org.eclipse.swt.widgets.ToolItem getSWTWidget();
 }

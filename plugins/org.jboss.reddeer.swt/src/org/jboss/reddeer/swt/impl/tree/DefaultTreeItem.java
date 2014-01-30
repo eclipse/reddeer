@@ -272,7 +272,7 @@ protected static final Logger logger = Logger.getLogger(DefaultTreeItem.class);
 			 * found item - we are at the end of treeItemPath
 			 */
 			if (index == treeItemPath.length - 1)
-				return tiItem.getSWTWidget();
+				return (org.eclipse.swt.widgets.TreeItem)tiItem.getSWTWidget();
 
 			/* Dive one level deeper */
 			new WaitUntil(new TreeItemHasMinChildren(tiItem, 1), TimePeriod.NORMAL, false);
@@ -317,7 +317,7 @@ protected static final Logger logger = Logger.getLogger(DefaultTreeItem.class);
 		if (items.size() < treeItemIndex + 1)
 			throw createItemNotFoundException(items, 0, null, null, treeItemIndex);
 
-		return tree.getItems().get(treeItemIndex).getSWTWidget();
+		return (org.eclipse.swt.widgets.TreeItem)tree.getItems().get(treeItemIndex).getSWTWidget();
 	}
 
 	private static org.eclipse.swt.widgets.TreeItem findTreeItem(ReferencedComposite referencedComposite, int treeIndex, int treeItemIndex) {
