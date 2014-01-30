@@ -1,6 +1,7 @@
 package org.jboss.reddeer.swt.impl.spinner;
 
 import org.jboss.reddeer.swt.api.Spinner;
+import org.jboss.reddeer.swt.lookup.WidgetLookup;
 import org.jboss.reddeer.swt.util.Display;
 import org.jboss.reddeer.swt.util.ResultRunnable;
 
@@ -34,6 +35,15 @@ public abstract class AbstractSpinner implements Spinner {
 				swtSpinner.setSelection(value);
 			}
 		});
+	}
+	
+	public org.eclipse.swt.widgets.Spinner getSWTWidget(){
+		return swtSpinner;
+	}
+	
+	@Override
+	public boolean isEnabled() {
+		return WidgetLookup.getInstance().isEnabled(swtSpinner);
 	}
 
 }

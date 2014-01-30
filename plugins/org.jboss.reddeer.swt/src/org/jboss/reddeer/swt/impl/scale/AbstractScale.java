@@ -3,6 +3,7 @@ package org.jboss.reddeer.swt.impl.scale;
 import org.jboss.reddeer.swt.api.Scale;
 import org.jboss.reddeer.swt.handler.ScaleHandler;
 import org.jboss.reddeer.swt.handler.WidgetHandler;
+import org.jboss.reddeer.swt.lookup.WidgetLookup;
 /**
  * Abstract class for each Scale implementation
  * @author Vlado Pakan
@@ -54,5 +55,10 @@ public abstract class AbstractScale implements Scale {
 	@Override
 	public org.eclipse.swt.widgets.Scale getSWTWidget() {
 		return swtScale;
+	}
+	
+	@Override
+	public boolean isEnabled() {
+		return WidgetLookup.getInstance().isEnabled(swtScale);
 	}
 }

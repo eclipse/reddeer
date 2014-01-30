@@ -1,9 +1,10 @@
 package org.jboss.reddeer.swt.api;
 
 import org.eclipse.swt.graphics.Image;
+import org.jboss.reddeer.swt.widgets.Widget;
 
 
-public interface TableItem {
+public interface TableItem extends Widget{
 	
 	/**
 	 * Return the text of table item
@@ -48,11 +49,6 @@ public interface TableItem {
 	 */
 	String getText(int cellIndex);
 	
-	/**
-	 * Returns SWT TableItem enclosed by this Tree Item
-	 * @return
-	 */
-	org.eclipse.swt.widgets.TableItem getSWTWidget();
 	
 	/**
 	 * Returns Image with given index
@@ -77,4 +73,5 @@ public interface TableItem {
 	 */
 	void doubleClick(int column);
 
+	org.eclipse.swt.widgets.TableItem getSWTWidget();
 }

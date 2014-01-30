@@ -10,6 +10,7 @@ import org.jboss.reddeer.swt.condition.TreeItemHasMinChildren;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.handler.TreeHandler;
 import org.jboss.reddeer.swt.handler.WidgetHandler;
+import org.jboss.reddeer.swt.lookup.WidgetLookup;
 import org.jboss.reddeer.swt.wait.TimePeriod;
 import org.jboss.reddeer.swt.wait.WaitUntil;
 
@@ -217,5 +218,10 @@ public abstract class AbstractTreeItem implements TreeItem {
 			
 		}
 		return result.toString();
+	}
+	
+	@Override
+	public boolean isEnabled() {
+		return WidgetLookup.getInstance().isEnabled(swtTreeItem);
 	}
 }

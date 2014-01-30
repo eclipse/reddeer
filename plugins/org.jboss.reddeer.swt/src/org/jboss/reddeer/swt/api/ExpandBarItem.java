@@ -2,13 +2,14 @@ package org.jboss.reddeer.swt.api;
 
 import org.jboss.reddeer.swt.reference.ReferencedComposite;
 import org.jboss.reddeer.swt.wait.TimePeriod;
+import org.jboss.reddeer.swt.widgets.Widget;
 
 /**
  * API For ExpandBarItem manipulation
  * @author Vlado Pakan
  *
  */
-public interface ExpandBarItem extends ReferencedComposite{
+public interface ExpandBarItem extends ReferencedComposite, Widget{
 	/**
 	 * Returns the text of expand bar item
 	 * 
@@ -38,20 +39,19 @@ public interface ExpandBarItem extends ReferencedComposite{
 	 * Returns enclosing Expand Bar
 	 * @return
 	 */
-	ExpandBar getParent();
-	/**
-	 * Returns SWT Expand Item enclosed by this Expand Bar Item
-	 * @return
-	 */
-	org.eclipse.swt.widgets.ExpandItem getSWTWidget();
-	/**
-	 * Returns SWT Expand Item enclosed by this Expand Bar Item
-	 * @return
-	 */
 	org.eclipse.swt.widgets.ExpandBar getSWTParent();
+	
+	/**
+	 * Returns Expand Bar
+	 * @return
+	 */
+	ExpandBar getParent();
+
 	/**
 	 * Returns true when Expand Bar Item is expanded 
 	 * @return
 	 */
-	 boolean isExpanded();
+	boolean isExpanded();
+	 
+	org.eclipse.swt.widgets.ExpandItem getSWTWidget();
 }

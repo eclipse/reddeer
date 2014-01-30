@@ -104,4 +104,14 @@ public class DefaultGroup implements org.jboss.reddeer.swt.api.Group {
 		return group;
 	}
 
+
+	public Group getSWTWidget() {
+		return group;
+	}
+	
+	@Override
+	public boolean isEnabled() {
+		return WidgetLookup.getInstance().isEnabled(group);
+	}
+
 }

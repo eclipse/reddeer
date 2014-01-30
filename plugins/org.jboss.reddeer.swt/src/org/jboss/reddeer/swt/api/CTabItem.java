@@ -1,11 +1,13 @@
 package org.jboss.reddeer.swt.api;
 
+import org.jboss.reddeer.swt.widgets.Widget;
+
 /**
  * API For CTabItem manipulation
  * @author Vlado Pakan
  *
  */
-public interface CTabItem {
+public interface CTabItem extends Widget{
 	/**
 	 * Activates CTabItem
 	 */
@@ -31,4 +33,6 @@ public interface CTabItem {
 	 * Returns true when close button should be displayed
 	 */
 	boolean isShowClose();
+	
+	org.eclipse.swt.custom.CTabItem getSWTWidget();
 }

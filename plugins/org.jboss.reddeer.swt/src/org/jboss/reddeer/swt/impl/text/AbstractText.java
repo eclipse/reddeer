@@ -3,6 +3,7 @@ package org.jboss.reddeer.swt.impl.text;
 import org.jboss.reddeer.junit.logging.Logger;
 import org.jboss.reddeer.swt.api.Text;
 import org.jboss.reddeer.swt.handler.WidgetHandler;
+import org.jboss.reddeer.swt.lookup.WidgetLookup;
 
 /**
  * Abstract class for all Text implementations
@@ -38,6 +39,15 @@ public abstract class AbstractText implements Text {
 	public void setFocus() {
 		log.info("Setting focus to Text");
 		WidgetHandler.getInstance().setFocus(w);
+	}
+	
+	public org.eclipse.swt.widgets.Text getSWTWidget(){
+		return w;
+	}
+	
+	@Override
+	public boolean isEnabled() {
+		return WidgetLookup.getInstance().isEnabled(w);
 	}
 	
 }

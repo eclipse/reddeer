@@ -1,45 +1,49 @@
 package org.jboss.reddeer.swt.api;
 
+import org.jboss.reddeer.swt.widgets.Widget;
+
 /**
  * API For Combo (Combobox) manipulation
  * @author Jiri Peterka
  *
  */
-public interface Combo {
+public interface Combo extends Widget{
   /**
    * Sets combo text to str
    * @param str
    */
-  public void setText(String str);
+  void setText(String str);
   /**
    * Returns combo text
    * @return
    */
-  public String getText();
+  String getText();
   /**
    * Sets combo selection to item with index
    * @param index
    */
-  public void setSelection(int index);
+  void setSelection(int index);
   /**
    * Sets combo selection to selection
    * @param selection
    */
-  public void setSelection(String selection);
+  void setSelection(String selection);
   /**
    * Returns selected text in combo widget
    * @return
    */
-  public String getSelection();
+  String getSelection();
   /**
    * Returns index of selected item within combo
    * @return
    */
-  public int getSelectionIndex();
+  int getSelectionIndex();
   /**
    * Returns true when combo is enabled
    * @return
    */
-  public boolean isEnabled();
+  boolean isEnabled();
+  
+  org.eclipse.swt.widgets.Combo getSWTWidget();
   
 }

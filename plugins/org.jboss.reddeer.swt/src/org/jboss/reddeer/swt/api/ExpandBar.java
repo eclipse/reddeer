@@ -2,12 +2,14 @@ package org.jboss.reddeer.swt.api;
 
 import java.util.List;
 
+import org.jboss.reddeer.swt.widgets.Widget;
+
 /**
  * API For ExpandBar manipulation
  * @author Vlado Pakan
  *
  */
-public interface ExpandBar {
+public interface ExpandBar extends Widget{
 	/**
 	 * Returns number of contained Expand Bar items 
 	 * @return
@@ -30,9 +32,6 @@ public interface ExpandBar {
 	 * Collapses all Expand Bar Items
 	 */
 	void collapseAll();
-	/**
-	 * Returns swt widget of Expand Bar
-	 * @return
-	 */
+	
 	org.eclipse.swt.widgets.ExpandBar getSWTWidget();
 }

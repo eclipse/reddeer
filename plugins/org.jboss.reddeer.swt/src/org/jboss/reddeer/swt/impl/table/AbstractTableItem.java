@@ -8,6 +8,7 @@ import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.handler.TableHandler;
 import org.jboss.reddeer.swt.handler.WidgetHandler;
+import org.jboss.reddeer.swt.lookup.WidgetLookup;
 
 public class AbstractTableItem implements TableItem {
 	protected final Logger log = Logger.getLogger(this.getClass());
@@ -85,6 +86,11 @@ public class AbstractTableItem implements TableItem {
 	@Override
 	public org.eclipse.swt.widgets.TableItem getSWTWidget() {
 		return tableItem;
+	}
+	
+	@Override
+	public boolean isEnabled() {
+		return WidgetLookup.getInstance().isEnabled(tableItem);
 	}
 
 }

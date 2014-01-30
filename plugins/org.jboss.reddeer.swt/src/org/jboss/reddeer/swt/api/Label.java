@@ -1,11 +1,13 @@
 package org.jboss.reddeer.swt.api;
 
+import org.jboss.reddeer.swt.widgets.Widget;
+
 /**
  * API For Label manipulation
  * @author Jiri Peterka
  *
  */
-public interface Label {
+public interface Label extends Widget{
 
 	/**
 	 * Returns text of the label
@@ -18,5 +20,7 @@ public interface Label {
 	 * @return true if label is visible, false otherwise
 	 */
 	boolean isVisible();
+	
+	org.eclipse.swt.widgets.Label getSWTWidget();
 	
 }

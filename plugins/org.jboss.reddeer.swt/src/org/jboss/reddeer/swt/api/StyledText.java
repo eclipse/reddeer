@@ -1,11 +1,13 @@
 package org.jboss.reddeer.swt.api;
 
+import org.jboss.reddeer.swt.widgets.Widget;
+
 /**
  * API For StyledText manipulation
  * @author Jiri Peterka
  *
  */
-public interface StyledText {
+public interface StyledText extends Widget{
 
 	/**
 	 * 
@@ -36,4 +38,6 @@ public interface StyledText {
 	 * @param text to insert
 	 */
 	public void insertText(int line, int column, String text);
+	
+	org.eclipse.swt.custom.StyledText getSWTWidget();
 }

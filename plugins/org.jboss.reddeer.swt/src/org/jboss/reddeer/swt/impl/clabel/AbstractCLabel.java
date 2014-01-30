@@ -2,6 +2,7 @@ package org.jboss.reddeer.swt.impl.clabel;
 
 import org.jboss.reddeer.swt.api.CLabel;
 import org.jboss.reddeer.swt.handler.WidgetHandler;
+import org.jboss.reddeer.swt.lookup.WidgetLookup;
 import org.jboss.reddeer.swt.util.ObjectUtil;
 /**
  * Abstract class for all CLabel implementations
@@ -39,11 +40,13 @@ public abstract class AbstractCLabel implements CLabel {
 	public boolean hasImage() {
 		return ObjectUtil.invokeMethod(cLabel, "getImage") != null;
 	}
-	/**
-	 * See {@link CLabel}
-	 */
-	@Override
+
 	public org.eclipse.swt.custom.CLabel getSWTWidget() {
 		return cLabel;
+	}
+	
+	@Override
+	public boolean isEnabled() {
+		return WidgetLookup.getInstance().isEnabled(cLabel);
 	}
 }

@@ -4,13 +4,13 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
-import org.jboss.reddeer.eclipse.jface.exception.JFaceLayerException;
 import org.jboss.reddeer.eclipse.jface.wizard.WizardDialog;
 import org.jboss.reddeer.eclipse.jface.wizard.WizardPage;
 import org.jboss.reddeer.eclipse.jface.wizard.WizardPageProperty;
 import org.jboss.reddeer.swt.api.CLabel;
 import org.jboss.reddeer.swt.api.Shell;
 import org.jboss.reddeer.swt.condition.ShellWithTextIsActive;
+import org.jboss.reddeer.swt.exception.WaitTimeoutExpiredException;
 import org.jboss.reddeer.swt.impl.clabel.DefaultCLabel;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.jboss.reddeer.swt.impl.shell.WorkbenchShell;
@@ -55,7 +55,7 @@ public class WizardDialogTest extends RedDeerTest {
 		assertThat(label.getText(), is("B"));
 	}
 
-	@Test(expected=JFaceLayerException.class)
+	@Test(expected=WaitTimeoutExpiredException.class)
 	public void next_notEnabled() {
 		wizardDialog.next();
 		wizardDialog.next();
@@ -70,7 +70,7 @@ public class WizardDialogTest extends RedDeerTest {
 		assertThat(label.getText(), is("A"));
 	}
 
-	@Test(expected=JFaceLayerException.class)
+	@Test(expected=WaitTimeoutExpiredException.class)
 	public void back_notEnabled() {
 		wizardDialog.back();
 	}
@@ -83,7 +83,7 @@ public class WizardDialogTest extends RedDeerTest {
 		assertTrue(shell.getText().equals(new WorkbenchShell().getText()));
 	}
 
-	@Test(expected=JFaceLayerException.class)
+	@Test(expected=WaitTimeoutExpiredException.class)
 	public void finish_notEnabled() {
 		wizard.setFinishEnabled(false);
 		

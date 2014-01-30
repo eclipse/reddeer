@@ -11,6 +11,7 @@ import org.jboss.reddeer.swt.api.Shell;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.lookup.ShellLookup;
 import org.jboss.reddeer.swt.lookup.MenuLookup;
+import org.jboss.reddeer.swt.lookup.WidgetLookup;
 import org.jboss.reddeer.swt.matcher.WithMnemonicMatchers;
 import org.jboss.reddeer.swt.util.Display;
 import org.jboss.reddeer.swt.util.Utils;
@@ -137,5 +138,14 @@ public class ShellMenu extends AbstractMenu implements Menu {
 				macEclipseMenuCommand = MacEclipseMenuCommand.ABOUT;				
 			}
 		}
+	}
+	
+	public MenuItem getSWTWidget(){
+		return menuItem;
+	}
+	
+	@Override
+	public boolean isEnabled() {
+		return WidgetLookup.getInstance().isEnabled(menuItem);
 	}
 }
