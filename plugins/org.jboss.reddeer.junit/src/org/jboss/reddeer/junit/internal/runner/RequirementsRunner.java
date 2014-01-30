@@ -5,7 +5,6 @@ import java.io.File;
 import java.io.IOException;
 
 import org.jboss.reddeer.junit.logging.Logger;
-import org.jboss.reddeer.junit.internal.configuration.TestRunConfiguration;
 import org.jboss.reddeer.junit.internal.requirement.Requirements;
 import org.jboss.reddeer.junit.internal.requirement.inject.RequirementsInjector;
 import org.jboss.reddeer.junit.internal.screenrecorder.ScreenRecorderExt;
@@ -33,6 +32,8 @@ public class RequirementsRunner extends BlockJUnit4ClassRunner {
 	private static ScreenRecorderExt screenRecorderExt = null;
 	
 	private Requirements requirements;
+	
+	private RunListener[] runListeners;
 
 	private RequirementsInjector requirementsInjector = new RequirementsInjector();
 	
@@ -40,10 +41,15 @@ public class RequirementsRunner extends BlockJUnit4ClassRunner {
 
 	private static boolean SAVE_SCREENCAST = System.getProperty("recordScreenCast","false").equalsIgnoreCase("true");
 	
-	public RequirementsRunner(Class<?> clazz, Requirements requirements, String configId) throws InitializationError {
+	public RequirementsRunner(Class<?> clazz, Requirements requirements, String configId, RunListener[] runListeners) throws InitializationError {
 		super(clazz);
 		this.requirements = requirements;
 		this.configId = configId;
+		this.runListeners = runListeners;
+	}
+
+	public RequirementsRunner(Class<?> clazz, Requirements requirements, String configId) throws InitializationError {
+		this(clazz,requirements,configId,null);
 	}
 
 	@Override
@@ -71,7 +77,17 @@ public class RequirementsRunner extends BlockJUnit4ClassRunner {
 		ScreenCastingRunListener screenCastingRunListener = new ScreenCastingRunListener();
 		arg0.addListener(loggingRunListener);
 		arg0.addListener(screenCastingRunListener);
+		if (runListeners != null){
+			for (RunListener listener : runListeners){
+				arg0.addListener(listener);
+			}
+		}
 		super.run(arg0);
+		if (runListeners != null){
+			for (RunListener listener : runListeners){
+				arg0.removeListener(listener);
+			}
+		}
 		arg0.removeListener(screenCastingRunListener);
 		arg0.removeListener(loggingRunListener);
 	}
