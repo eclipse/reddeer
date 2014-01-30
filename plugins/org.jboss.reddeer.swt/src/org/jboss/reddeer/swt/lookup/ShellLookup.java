@@ -1,5 +1,8 @@
 package org.jboss.reddeer.swt.lookup;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.eclipse.swt.widgets.Shell;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.swt.condition.ShellIsActive;
@@ -76,7 +79,7 @@ public class ShellLookup {
 	}
 	
 	/**
-	 * Returns current Focused Shell
+	 * Returns current focused (and visible) Shell
 	 * Can return null
 	 * @return
 	 */
@@ -96,13 +99,24 @@ public class ShellLookup {
 		});
 	}
 	
+	/**
+	 * Returns all visible shells
+	 * @return all visible shells as an shell array
+	 */
 	public Shell[] getShells() {
 		
 		return Display.syncExec(new ResultRunnable<Shell[]>() {
 			
 			@Override
 			public Shell[] run() {
-				return Display.getDisplay().getShells();
+				List<Shell> visibleShells = new ArrayList<Shell>();
+				Shell[] shells = Display.getDisplay().getShells();
+				for (Shell s : shells) {
+					if (s.isVisible()) {
+						visibleShells.add(s);
+					}
+				}
+				return visibleShells.toArray(new Shell[visibleShells.size()]);
 			}
 			
 		});
@@ -117,7 +131,8 @@ public class ShellLookup {
 				Shell[] shell = Display.getDisplay().getShells(); 
 				for (int i = 0; i < shell.length; i++) {
 					if(matcher.matches(shell[i])) {
-						return shell[i];
+						if (shell[i].isVisible())
+							return shell[i];
 					}
 				}
 				return null;
