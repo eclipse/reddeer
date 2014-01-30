@@ -51,7 +51,7 @@ public class ShellToolItem extends AbstractToolItem {
 	 */
 	public ShellToolItem(Matcher<String> matcher, int index) {
 		ToolBarLookup tl = new ToolBarLookup();
-		final ToolBar shellToolbar = tl.getShellToolBars();
+		final ToolBar shellToolbar = tl.getShellToolBar();
 		ToolItem ti = null;
 		ti = tl.getToolItem(shellToolbar, matcher, index);			
 		Thrower.objectIsNull(ti, "ToolItem " + 

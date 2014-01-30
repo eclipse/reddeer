@@ -51,14 +51,12 @@ public class TextEditor extends DefaultEditor{
 	 * @param text given test that will be set as editor text
 	 */
 	public void setText(final String text) {
-		
 		Display.syncExec(new Runnable() {
 
 			@Override
 			public void run() {
 				getTextEditorPart().getDocumentProvider().getDocument(getTextEditorPart().getEditorInput()).set(text);				
-			}
-			
+			}			
 		});
 		
 	}

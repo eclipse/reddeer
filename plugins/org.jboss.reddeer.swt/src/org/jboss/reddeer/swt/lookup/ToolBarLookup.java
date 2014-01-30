@@ -10,7 +10,9 @@ import org.eclipse.jface.action.ToolBarContributionItem;
 import org.eclipse.jface.action.ToolBarManager;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
+import org.eclipse.ui.IEditorSite;
 import org.eclipse.ui.IViewSite;
+import org.eclipse.ui.IWorkbenchPartSite;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.internal.CoolBarToTrimManager;
@@ -30,12 +32,29 @@ import org.jboss.reddeer.swt.util.ResultRunnable;
 @SuppressWarnings("restriction")
 public class ToolBarLookup {
 
+	
 	/**
-	 * Returns active view toolbar, if null, SWTLayerException is thrown
-	 * 
-	 * @return active workbench toolbar
+	 * Returns either shell toolbar if shell is active or part toolbar (editor or view). For workbench use getWorkbenchToolbar
+	 * @return default toolbar (shell, view or editor)
 	 */
-	public ToolBar getViewToolbar() {
+	public ToolBar getDefaultToolbar() {
+		ToolBar toolbar  = null;
+		if (WidgetLookup.getInstance().isExtraShellActive()) {
+			ToolBarLookup tl = new ToolBarLookup();
+			toolbar = tl.getShellToolBar();
+		} else {
+			toolbar = getPartToolbar();
+		}
+		
+		return toolbar;
+	}
+	
+	/**
+	 * Returns active part toolbar, if null, SWTLayerException is thrown
+	 * 
+	 * @return active part (editor or view) toolbar
+	 */	
+	public ToolBar getPartToolbar() {
 
 		ToolBar toolbar = Display.syncExec(new ResultRunnable<ToolBar>() {
 
@@ -43,11 +62,28 @@ public class ToolBarLookup {
 			public ToolBar run() {
 				ToolBar toolBar = null;
 
-				IViewSite site = (IViewSite) PlatformUI.getWorkbench()
+				
+				IWorkbenchPartSite site = PlatformUI.getWorkbench()
 						.getActiveWorkbenchWindow().getActivePage()
 						.getActivePart().getSite();
-				IToolBarManager toolBarManager = site.getActionBars()
+
+				IViewSite viewSite = null;
+				IEditorSite editorSite = null;
+				if (site instanceof IViewSite) {
+					viewSite = (IViewSite)site;
+				} else if (site instanceof IEditorSite) {
+					editorSite = (IEditorSite)site;
+				}
+				
+				IToolBarManager toolBarManager = null;
+				if (viewSite != null) {				
+					toolBarManager = viewSite.getActionBars()
 						.getToolBarManager();
+				} else {					
+					ToolBar tb = (ToolBar)WidgetLookup.getInstance().activeWidget(null, ToolBar.class, 0);
+					return tb;
+				}
+				
 				if (toolBarManager instanceof ToolBarManager) {
 					toolBar = ((ToolBarManager) toolBarManager).getControl();
 				}
@@ -67,7 +103,7 @@ public class ToolBarLookup {
 	 * 
 	 * @return active shell toolbar
 	 */
-	public ToolBar getShellToolBars() {
+	public ToolBar getShellToolBar() {
 		ToolBar toolbar = Display.syncExec(new ResultRunnable<ToolBar>() {
 			@Override
 			public ToolBar run() {

@@ -88,6 +88,37 @@
         	category="org.jboss.reddeer.swt.test.ui.category"
         	class="org.jboss.reddeer.swt.test.ui.views.CustomView" />
 	</extension>
+    <extension
+          id="org.jboss.reddeer.swt.test.editors"
+          point="org.eclipse.ui.editors">
+             <editor name="Toolbar Editor" extensions="tlb" icon="icons/sample.gif" class="org.jboss.reddeer.swt.test.ui.editor.ToolBarEditor" id="org.jboss.reddeer.swt.test.editors.toolbarEditor">   </editor>
+    </extension>
+    
+<!-- Editor toolbar test extensions -->
+<extension point="org.eclipse.ui.actionSets">
+      <actionSet
+             id="org.jboss.reddeer.swt.test.ui.actionset"
+             label="HQL"
+             visible="false">
+          <action
+                allowLabelUpdate="true"
+                icon="icons/images/execute.gif"
+                id="org.jboss.reddeer.swt.test.ui.editor.ToolbarTestAction"
+                definitionId="org.hibernate.eclipse.console.actions.ExecuteHQLActionCommand"
+                label="Run Query"
+                retarget="true"
+                tooltip="Run HQL Query from current editor">
+         </action>
+       </actionSet>
+</extension>       
+    <extension
+      point="org.eclipse.ui.commands">
+   <command
+         categoryId="org.eclipse.ui.category.edit"
+         id="org.hibernate.eclipse.console.actions.ExecuteHQLActionCommand"
+         name="Run Query command"/>
+         
+</extension>    
 
 
 </plugin>

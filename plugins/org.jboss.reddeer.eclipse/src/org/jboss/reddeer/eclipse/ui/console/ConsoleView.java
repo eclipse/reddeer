@@ -3,6 +3,7 @@ package org.jboss.reddeer.eclipse.ui.console;
 import org.jboss.reddeer.swt.condition.WaitCondition;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.impl.styledtext.DefaultStyledText;
+import org.jboss.reddeer.swt.impl.toolbar.DefaultToolItem;
 import org.jboss.reddeer.swt.impl.toolbar.ViewToolItem;
 import org.jboss.reddeer.swt.wait.TimePeriod;
 import org.jboss.reddeer.swt.wait.WaitUntil;
@@ -30,7 +31,7 @@ public class ConsoleView extends WorkbenchView {
 	
 	public void clearConsole() {
 		log.info("Clearing console");
-		new ViewToolItem("Clear Console").click();
+		new DefaultToolItem("Clear Console").click();
 		new WaitUntil(new ConsoleHasText(""));
 		log.info("Console cleared");
 	}
