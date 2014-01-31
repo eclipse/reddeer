@@ -41,7 +41,7 @@ public class Requirements implements Requirement<Annotation>, Iterable<Requireme
 		for (Requirement<?> r : requirements) {
 			boolean canFulfillReq = r.canFulfill();
 			log.info("Requirement " + r.getClass() + " can be fulfilled: " + canFulfillReq);
-			canFulfill = canFulfill && r.canFulfill();
+			canFulfill = canFulfill && canFulfillReq;
 		}
 		return canFulfill;
 	}
