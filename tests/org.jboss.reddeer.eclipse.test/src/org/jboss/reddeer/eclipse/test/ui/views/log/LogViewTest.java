@@ -1,6 +1,6 @@
 package org.jboss.reddeer.eclipse.test.ui.views.log;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import java.util.List;
 
@@ -11,7 +11,10 @@ import org.eclipse.core.runtime.Status;
 import org.jboss.reddeer.eclipse.test.Activator;
 import org.jboss.reddeer.eclipse.ui.views.log.LogMessage;
 import org.jboss.reddeer.eclipse.ui.views.log.LogView;
+import org.jboss.reddeer.swt.impl.tree.DefaultTree;
 import org.jboss.reddeer.swt.test.RedDeerTest;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -52,9 +55,10 @@ public class LogViewTest extends RedDeerTest{
 	
 	private LogView logView;
 	
-	@BeforeClass
-	public static void setup(){
+	@Before
+	public void setup(){
 		ILog log= Platform.getLog(Platform.getBundle(Activator.PLUGIN_ID));
+		
 		log.log(new Status(IStatus.ERROR,ERROR_ID_1,ERROR_MESSAGE_1,new NullPointerException(ERROR_STACK_1)));
 		log.log(new Status(IStatus.ERROR,ERROR_ID_2,ERROR_MESSAGE_2,new NullPointerException(ERROR_STACK_2)));
 		
@@ -132,6 +136,29 @@ public class LogViewTest extends RedDeerTest{
 				ERROR_MESSAGE_2, ERROR_STACK_2));
 	}
 
+	@Test
+	public void testClearAndRestore(){ 
+		logView = new LogView();
+		logView.open();
+		assertFalse("There must be messages", logView.getErrorMessages().isEmpty());
+		logView.clearLog();				
+		assertFalse("There should be messages", logView.getErrorMessages().isEmpty());
+		logView.restoreLog();				
+		assertFalse("There should be messages", logView.getErrorMessages().isEmpty());			
+	}
+	
+	@Test
+	public void testDelete(){ 
+		logView = new LogView();
+		logView.open();
+		assertFalse("There must be messages", logView.getErrorMessages().isEmpty());
+		logView.deleteLog();				
+		assertTrue("There should be no messages", logView.getErrorMessages().isEmpty());
+		logView.restoreLog();				
+		assertTrue("There should be no messages", logView.getErrorMessages().isEmpty());
+	}
+
+	
 	private boolean messageIsAvailable(List<LogMessage> messages, int severity, String plugin, String message,String stackTrace) {
 		for (LogMessage m : messages) {
 			if (m.getSeverity() == severity && m.getPlugin().equals(plugin) && m.getMessage().equals(message)) {
@@ -140,6 +167,11 @@ public class LogViewTest extends RedDeerTest{
 		}
 		
 		return false;
+	}
+	
+	@After
+	public void cleanup() {
+		Platform.getLogFileLocation().toFile().delete();
 	}
 	
 }

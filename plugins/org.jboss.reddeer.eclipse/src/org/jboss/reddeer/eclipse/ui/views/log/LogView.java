@@ -4,13 +4,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.core.runtime.IStatus;
+import org.jboss.reddeer.swt.api.Menu;
 import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.swt.condition.ShellWithTextIsActive;
 import org.jboss.reddeer.swt.impl.button.CheckBox;
+import org.jboss.reddeer.swt.impl.button.OkButton;
 import org.jboss.reddeer.swt.impl.button.PushButton;
+import org.jboss.reddeer.swt.impl.menu.ContextMenu;
 import org.jboss.reddeer.swt.impl.menu.ToolbarMenu;
+import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.jboss.reddeer.swt.impl.tree.DefaultTree;
 import org.jboss.reddeer.swt.wait.WaitUntil;
+import org.jboss.reddeer.swt.wait.WaitWhile;
 import org.jboss.reddeer.workbench.view.impl.WorkbenchView;
 
 /**
@@ -20,6 +25,12 @@ import org.jboss.reddeer.workbench.view.impl.WorkbenchView;
  *
  */
 public class LogView extends WorkbenchView{
+
+	private final String DELETE_LOG = "Delete Log";
+	private final String CLEAR_LOG = "Clear Log Viewer";
+	private final String RESTORE_LOG = "Restore Log";
+	private final String CONFIRM_DLG = "Confirm Delete";
+
 	
 	public static final String OK_SEVERITY="OK";
 	public static final String INFORMATION_SEVERITY="Information";
@@ -97,6 +108,40 @@ public class LogView extends WorkbenchView{
 		return messages;
 	}
 	
+	/**
+	 * Clears Error lLog messages
+	 */
+	public void clearLog() {
+		open();
+		new DefaultTree().setFocus();
+		Menu cm = new ContextMenu(CLEAR_LOG);
+		cm.select();	
+	}
+
+	/**
+	 * Deletes Error log messages
+	 */
+	public void deleteLog() {
+		open();
+		new DefaultTree().setFocus();
+		Menu cm = new ContextMenu(DELETE_LOG);
+		cm.select();
+		new DefaultShell(CONFIRM_DLG);
+		new OkButton().click();
+		new WaitWhile(new ShellWithTextIsActive(CONFIRM_DLG));
+	}
+
+	/**
+	 * Restores Error log messages
+	 */
+	public void restoreLog() {
+		open();
+		new DefaultTree().setFocus();
+		Menu cm = new ContextMenu(RESTORE_LOG);
+		cm.select();			
+	}
+	
+
 	private void setFilter(String severity){
 		ToolbarMenu tmenu = new ToolbarMenu("Filters...");
 		tmenu.select();
