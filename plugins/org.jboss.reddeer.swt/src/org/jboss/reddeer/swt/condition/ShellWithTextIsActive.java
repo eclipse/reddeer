@@ -43,7 +43,7 @@ public class ShellWithTextIsActive implements WaitCondition {
 			return false;
 		}
 		String activeText = WidgetHandler.getInstance().getText(currentActiveShell);
-		log.debug("Active shell: " + activeText + " / Expected shell: " + matcher);
+		log.debug("Active shell: " + "\"" + activeText + "\"" + " / Expected shell: " + matcher);
 		boolean matches = matcher.matches(activeText);
 		return matches;
 	}
