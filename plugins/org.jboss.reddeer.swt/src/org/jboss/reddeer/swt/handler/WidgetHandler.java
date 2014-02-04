@@ -734,6 +734,8 @@ public class WidgetHandler {
 					return ((CLabel)w).getToolTipText();
 				}else if (w instanceof TreeItem){
 					return ((TreeItem)w).getParent().getToolTipText();
+				}else if (w instanceof ToolItem){
+					return ((ToolItem)w).getToolTipText();					
 				}else
 					throw new SWTLayerException("Unsupported type");
 			}

@@ -3,8 +3,6 @@ package org.jboss.reddeer.swt.impl.toolbar;
 import org.jboss.reddeer.swt.api.ToolItem;
 import org.jboss.reddeer.swt.exception.Thrower;
 import org.jboss.reddeer.swt.handler.WidgetHandler;
-import org.jboss.reddeer.swt.util.Display;
-import org.jboss.reddeer.swt.util.ResultRunnable;
 
 /**
  * Abstract class for all Toolbar implementations
@@ -26,15 +24,10 @@ public class AbstractToolItem implements ToolItem {
 	 * See {@link ToolItem}}
 	 */
 	@Override
-	public String getToolTipText() {
-		return Display.syncExec(new ResultRunnable<String>() {
-
-			@Override
-			public String run() {
-				return toolItem.getToolTipText();
-			}
-			
-		});
+	public String getToolTipText() {	
+		String tooltipText;
+		tooltipText = WidgetHandler.getInstance().getToolTipText(toolItem);
+		return tooltipText;
 	}
 	/**
 	 * See {@link ToolItem}}
