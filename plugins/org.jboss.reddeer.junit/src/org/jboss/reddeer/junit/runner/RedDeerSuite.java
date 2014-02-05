@@ -3,6 +3,7 @@ package org.jboss.reddeer.junit.runner;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.jboss.reddeer.junit.listener.ScreenshotCaptureListener;
 import org.jboss.reddeer.junit.logging.Logger;
 import org.jboss.reddeer.junit.internal.configuration.SuiteConfiguration;
 import org.jboss.reddeer.junit.internal.configuration.TestRunConfiguration;
@@ -62,6 +63,10 @@ public class RedDeerSuite extends Suite {
 	 * @throws InitializationError
 	 */
 	protected static List<Runner> createSuite(Class<?> clazz, SuiteConfiguration config) throws InitializationError{
+		// add screenshot listener
+		runListeners = new RunListener[1];
+		runListeners[0] = new ScreenshotCaptureListener();
+		
 		log.info("Creating RedDeer suite...");
 		List<Runner> configuredSuites = new ArrayList<Runner>();
 		boolean isSuite = isSuite(clazz);
