@@ -10,6 +10,7 @@ import org.jboss.reddeer.junit.extensionpoint.IBeforeTest;
 import org.jboss.reddeer.junit.internal.requirement.Requirements;
 import org.jboss.reddeer.junit.internal.requirement.inject.RequirementsInjector;
 import org.jboss.reddeer.junit.internal.screenrecorder.ScreenRecorderExt;
+import org.jboss.reddeer.junit.internal.screenshot.CaptureScreenshot;
 import org.junit.BeforeClass;
 import org.junit.runner.Description;
 import org.junit.runner.notification.Failure;
@@ -257,5 +258,30 @@ public class RequirementsRunner extends BlockJUnit4ClassRunner {
 			}
 		}
 	}
+	
+	private class InvokeMethodWithException extends Statement {
+	    private final FrameworkMethod fTestMethod;
+	    private Object fTarget;
 
+	    public InvokeMethodWithException(FrameworkMethod testMethod, Object target) {
+	        fTestMethod = testMethod;
+	        fTarget = target;
+	    }
+
+	    @Override
+	    public void evaluate() throws Throwable {
+	    	try{
+	    		fTestMethod.invokeExplosively(fTarget);	
+	    	} catch (Throwable t){
+	    		CaptureScreenshot.captureScreenshot(fTarget.getClass().getCanonicalName() + " " + fTestMethod.getName());
+	    		throw t;
+	    	}
+	        
+	    }
+	}
+	
+	@Override
+	protected Statement methodInvoker(FrameworkMethod method, Object test) {
+	    return new InvokeMethodWithException(method, test);
+	}
 }
