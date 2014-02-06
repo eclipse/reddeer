@@ -1,5 +1,6 @@
 package org.jboss.reddeer.swt.test.impl.menu;
 
+import org.jboss.reddeer.eclipse.jdt.ui.ProjectExplorer;
 import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.PackageExplorer;
 import org.jboss.reddeer.swt.condition.ShellWithTextIsActive;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
@@ -12,12 +13,13 @@ import org.jboss.reddeer.swt.impl.text.LabeledText;
 import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
 import org.jboss.reddeer.swt.test.RedDeerTest;
 import org.jboss.reddeer.swt.wait.WaitWhile;
+import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class ContextMenuTest extends RedDeerTest {
 	
-	private static String projectName = "test";
+	private static String projectName = "ContextMenuTest-test";
 	
 	@BeforeClass
 	public static void createProject() throws InterruptedException{
@@ -35,11 +37,15 @@ public class ContextMenuTest extends RedDeerTest {
 		new WaitWhile(new ShellWithTextIsActive("New Project"));
 	}
 	
+	@AfterClass
+	public static void deleteProject(){
+		ProjectExplorer pe = new ProjectExplorer();
+		pe.open();
+		pe.getProject(projectName).delete(true);;
+	}
+	
 	@Test(expected=SWTLayerException.class)
 	public void disabledAction() throws InterruptedException {
-
-		
-		
 		PackageExplorer pex = new PackageExplorer();
 		pex.open();
 		pex.getProject(projectName).select();

@@ -40,7 +40,7 @@ public class Project {
 		select();
         log.debug("Delete project " + name + " via Package Explorer");
         new ContextMenu("Refresh").select();
-        new WaitWhile(new JobIsRunning());
+        new WaitWhile(new JobIsRunning(), TimePeriod.LONG);
 	    new ContextMenu("Delete").select();
 		new DefaultShell("Delete Resources");
 		new CheckBox().toggle(deleteFromFileSystem);
