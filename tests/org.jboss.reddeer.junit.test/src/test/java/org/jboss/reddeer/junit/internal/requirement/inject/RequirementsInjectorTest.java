@@ -56,6 +56,17 @@ public class RequirementsInjectorTest {
 		assertThat(testInstance.getRequirementA2().getA(), is("1"));
 	}
 	
+	@Test
+	public void testClassHierarchyRequirementInjection() {
+		ChildRequirementTestMock testInstance = new ChildRequirementTestMock();
+		
+		requirementsInjection.inject(testInstance, requirements);
+		
+		assertThat(testInstance.getRequirementA1().getA(), is("1"));
+		
+		assertThat(testInstance.getRequirementA2().getA(), is("1"));
+	}
+	
 	@Test(expected=org.jboss.reddeer.junit.requirement.inject.RequirementInjectionException.class)
 	public void testNonConfiguredRequirementInjection() {
 		NoRequirementConfigTestMock testInstance = new NoRequirementConfigTestMock();
