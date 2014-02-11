@@ -1,6 +1,9 @@
 package org.jboss.reddeer.junit.internal.requirement.inject;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import org.jboss.reddeer.junit.internal.requirement.Requirements;
 import org.jboss.reddeer.junit.requirement.Requirement;
@@ -16,7 +19,7 @@ import org.jboss.reddeer.junit.requirement.inject.RequirementInjectionException;
 public class RequirementsInjector {
 
 	public void inject(Object testInstance, Requirements requirements) {
-		for (Field field : testInstance.getClass().getDeclaredFields()) {
+		for (Field field : getFields(testInstance.getClass())) {
 			if (field.isAnnotationPresent(InjectRequirement.class)) {
 				Requirement<?> requirement = loadProperRequirement(field, requirements);
 				field.setAccessible(true);
@@ -24,7 +27,18 @@ public class RequirementsInjector {
 			}
 		}
 	}
-	
+
+	private List<Field> getFields(Class<?> clazz){
+		List<Field> fields = new ArrayList<Field>();
+		
+		do {
+			fields.addAll(Arrays.asList(clazz.getDeclaredFields()));
+			clazz = clazz.getSuperclass();
+		} while (clazz != null);
+		
+		return fields;
+	}
+
 	private Requirement<?> loadProperRequirement(Field field, Requirements requirements) {
 		for (Requirement<?> requirement : requirements) {
 			if (field.getType().equals(requirement.getClass())) {
@@ -35,7 +49,7 @@ public class RequirementsInjector {
 				field.getType() + "\" cannot be injected. " +
 				"No corresponding requirement exists");
 	}
-	
+
 	private void setField(Field field, Object testInstance, Requirement<?> requirement) {
 		try {
 			field.set(testInstance, requirement);
