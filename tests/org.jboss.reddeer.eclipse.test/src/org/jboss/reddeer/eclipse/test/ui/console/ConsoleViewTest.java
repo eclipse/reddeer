@@ -1,6 +1,7 @@
 package org.jboss.reddeer.eclipse.test.ui.console;
 
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.fail;
 
 import org.hamcrest.core.IsEqual;
 import org.hamcrest.core.IsNull;
@@ -10,14 +11,14 @@ import org.jboss.reddeer.eclipse.jdt.ui.ide.NewJavaProjectWizardDialog;
 import org.jboss.reddeer.eclipse.jdt.ui.ide.NewJavaProjectWizardPage;
 import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.PackageExplorer;
 import org.jboss.reddeer.eclipse.ui.console.ConsoleView;
-import org.jboss.reddeer.swt.test.RedDeerTest;
 import org.jboss.reddeer.swt.api.StyledText;
 import org.jboss.reddeer.swt.impl.menu.ShellMenu;
 import org.jboss.reddeer.swt.impl.styledtext.DefaultStyledText;
 import org.jboss.reddeer.swt.matcher.RegexMatchers;
+import org.jboss.reddeer.swt.test.RedDeerTest;
 import org.jboss.reddeer.workbench.editor.DefaultEditor;
-import org.jboss.reddeer.workbench.editor.TextEditor;
 import org.junit.AfterClass;
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -30,7 +31,6 @@ public class ConsoleViewTest extends RedDeerTest{
 	@BeforeClass
 	public static void setupClass() {
 		createTestProject();
-		runTestProject();
 	}
 	
 	@AfterClass
@@ -38,10 +38,47 @@ public class ConsoleViewTest extends RedDeerTest{
 		new PackageExplorer().getProject(TEST_PROJECT_NAME).delete(true);
 	}
 	
+	@Before
+	public void setupTest() {
+		runTestProject();
+	}
+	
 	@Test
 	public void testConsoleView() {
 		testGettingConsoleTest();
 		testClearConsole();
+	}
+	
+	@Test
+	public void testRemoveLaunch() {
+		consoleView = new ConsoleView();
+		consoleView.open();
+		// make sure console has a launch
+		new DefaultStyledText();
+
+		consoleView.removeLaunch();
+		try {
+			new DefaultStyledText();
+			fail("Some launches remain");
+		} catch (Exception ex) {
+			// ok, no styled text can be found
+		}
+	}
+	
+	@Test
+	public void testRemoveAllTerminatedLaunches() {
+		consoleView = new ConsoleView();
+		consoleView.open();
+		// make sure console has a launch
+		new DefaultStyledText();
+
+		consoleView.removeAllTerminatedLaunches();
+		try {
+			new DefaultStyledText();
+			fail("Some launches remain");
+		} catch (Exception ex) {
+			// ok, no styled text can be found
+		}
 	}
 	
 	private void testGettingConsoleTest() {
