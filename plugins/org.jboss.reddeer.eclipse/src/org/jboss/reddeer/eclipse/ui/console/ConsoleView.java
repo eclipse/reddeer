@@ -4,7 +4,6 @@ import org.jboss.reddeer.swt.condition.WaitCondition;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.impl.styledtext.DefaultStyledText;
 import org.jboss.reddeer.swt.impl.toolbar.DefaultToolItem;
-import org.jboss.reddeer.swt.impl.toolbar.ViewToolItem;
 import org.jboss.reddeer.swt.wait.TimePeriod;
 import org.jboss.reddeer.swt.wait.WaitUntil;
 import org.jboss.reddeer.swt.wait.WaitWhile;
@@ -34,6 +33,19 @@ public class ConsoleView extends WorkbenchView {
 		new DefaultToolItem("Clear Console").click();
 		new WaitUntil(new ConsoleHasText(""));
 		log.info("Console cleared");
+	}
+	
+	public void removeLaunch() {
+		log.info("Removing launch from console");
+		new DefaultToolItem("Remove Launch").click();
+		log.info("Launch removed");
+	}
+	
+	public void removeAllTerminatedLaunches() {
+		log.info("Removing terminated launches from console");
+		new DefaultToolItem("Remove All Terminated Launches").click();
+		new WaitWhile(new ConsoleHasTextWidget());
+		log.info("Terminated launches cleared");
 	}
 	
 	private class ConsoleHasTextWidget implements WaitCondition{
