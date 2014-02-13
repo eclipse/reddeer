@@ -38,11 +38,10 @@ public class ShellMenu extends AbstractMenu implements Menu {
 	}
 	/**
 	 * Create Menu instance from menu of given shell
-	 * 
+	 * @deprecated - should not be used at all, will be removed during 0.6
 	 * @param shell
 	 */
 	public ShellMenu(Shell shell) {
-
 	}
 	
 	/**
