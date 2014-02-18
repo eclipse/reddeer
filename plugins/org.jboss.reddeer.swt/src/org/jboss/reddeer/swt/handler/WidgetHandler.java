@@ -216,8 +216,13 @@ public class WidgetHandler {
 
 			@Override
 			public void run() {
-				if (w instanceof Text)
-					((Text) w).setText(text);
+				if (w instanceof Text) {
+					Text textField = (Text) w;
+					if(!textField.getEditable()) {
+						throw new SWTLayerException("Text field is not editable");
+					}
+					textField.setText(text);
+				}
 				else if (w instanceof StyledText)
 					((StyledText) w).setText(text);
 				else if (w instanceof Combo)
