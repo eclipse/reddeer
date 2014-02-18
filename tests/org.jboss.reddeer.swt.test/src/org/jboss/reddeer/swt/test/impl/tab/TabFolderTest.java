@@ -1,12 +1,14 @@
 package org.jboss.reddeer.swt.test.impl.tab;
 
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
+import org.jboss.reddeer.swt.impl.tab.DefaultTabFolder;
 import org.jboss.reddeer.swt.impl.tab.DefaultTabItem;
 import org.jboss.reddeer.swt.impl.text.DefaultText;
 import org.jboss.reddeer.swt.test.RedDeerTest;
@@ -100,6 +102,16 @@ public class TabFolderTest extends RedDeerTest {
 	@Test(expected = SWTLayerException.class)
 	public void findNonExistingByLabel() {
 		new DefaultTabItem("NON_EXISTING_#$");
+	}
+	
+	@Test
+	public void tabFolderTest() {
+		String[] tabItemLabel = new DefaultTabFolder().getTabItemLabels();
+		assertEquals(4, tabItemLabel.length);
+		assertEquals("Item 0", tabItemLabel[0]);
+		assertEquals("Item 1", tabItemLabel[1]);
+		assertEquals("Item 2", tabItemLabel[2]);
+		assertEquals("Item 3", tabItemLabel[3]);
 	}
 
 }
