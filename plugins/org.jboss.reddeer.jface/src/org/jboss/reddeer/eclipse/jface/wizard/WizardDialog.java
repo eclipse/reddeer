@@ -50,6 +50,9 @@ public class WizardDialog {
 	 * Returns the first wizard page
 	 * 
 	 * @return first wizard page
+	 * 
+	 * @deprecated Use getWizardPage
+	 * @see issue#359
 	 */
 	public WizardPage getFirstPage() {
 		return getWizardPage();
