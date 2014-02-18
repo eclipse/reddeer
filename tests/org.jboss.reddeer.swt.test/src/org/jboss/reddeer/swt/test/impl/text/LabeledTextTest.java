@@ -11,6 +11,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.PlatformUI;
+import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.jboss.reddeer.swt.impl.text.DefaultText;
 import org.jboss.reddeer.swt.impl.text.LabeledText;
@@ -98,6 +99,7 @@ public class LabeledTextTest extends RedDeerTest{
 		swtText2.setText("Test text2");
 		swtText2.setSize(100,30);
 		swtText2.setLocation(400,200);
+		swtText2.setEditable(false);
 	}
 	
 	@After
@@ -146,5 +148,17 @@ public class LabeledTextTest extends RedDeerTest{
 		new LabeledText("Test label");
 		assertEquals("focusGained", text.getText());
 	}
+	
+	@Test
+	public void setTextTest() {
+		new DefaultShell("Testing shell");
+		new LabeledText("Test label1").setText("funny text");
+		assertEquals("funny text", new LabeledText("Test label1").getText());
+	}
 
+	@Test(expected = SWTLayerException.class)
+	public void setNonEditableTextTest() {
+		new DefaultShell("Testing shell");
+		new LabeledText("Test label2").setText("funny text");
+	}
 }
