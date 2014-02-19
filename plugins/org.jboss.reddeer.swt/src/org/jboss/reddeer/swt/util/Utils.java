@@ -5,7 +5,7 @@ import org.eclipse.core.runtime.Platform;
 /**
  * Provides common utils
  * @author Vlado Pakan
- * @deprecated use ExecutionContext for OS related methods and 
+ * @deprecated use RunningPlatform from org.jboss.reddeer.direct plugin for OS related methods and 
  *
  */
 public class Utils {
