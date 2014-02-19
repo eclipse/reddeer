@@ -18,6 +18,7 @@
 		<pauseFailedTest>false</pauseFailedTest>
 		<recordScreenCast>false</recordScreenCast>
 		<surefire.timeout>2400</surefire.timeout>
+		<maven.test.failure.ignore>true</maven.test.failure.ignore>
 	</properties>
 	
 	<modules>
