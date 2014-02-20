@@ -36,6 +36,10 @@
 		<category name="AllFeatures"/>
 	</feature>
 
+	<feature url="org.jboss.reddeer.junit.eclipseext.feature.qualifier" id="org.jboss.reddeer.junit.eclipseext.feature" version="0.0.0">
+		<category name="AllFeatures"/>
+	</feature>
+
 	<feature url="org.jboss.reddeer.eclipse.feature.source.qualifier" id="org.jboss.reddeer.eclipse.feature.source" version="0.0.0">
 		<category name="AllSources"/>
 	</feature>
@@ -57,6 +61,10 @@
 	</feature>
 
 	<feature url="org.jboss.reddeer.examples.feature.source.qualifier" id="org.jboss.reddeer.examples.feature.source" version="0.0.0">
+		<category name="AllSources"/>
+	</feature>
+	
+	<feature url="org.jboss.reddeer.junit.eclipseext.feature.source.qualifier" id="org.jboss.reddeer.junit.eclipseext.feature.source" version="0.0.0">
 		<category name="AllSources"/>
 	</feature>
 
