@@ -1,8 +1,9 @@
 package org.jboss.reddeer.jface.test.wizard;
 
-import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
+import static org.hamcrest.core.IsInstanceOf.instanceOf;
+import static org.hamcrest.core.Is.is;
 
 import org.jboss.reddeer.eclipse.jface.wizard.WizardDialog;
 import org.jboss.reddeer.eclipse.jface.wizard.WizardPage;
@@ -101,10 +102,10 @@ public class WizardDialogTest extends RedDeerTest {
 	@Test
 	public void multiPageWizardTest() {
 		// fill name
-		wizardDialog.getWizardPage().fillWizardPage("name");
+		wizardDialog.getCurrentWizardPage().fillWizardPage("name");
 		// on next page you should see a text box for age 
 		wizardDialog.next();
-		wizardDialog.getWizardPage().fillWizardPage("100");
+		wizardDialog.getCurrentWizardPage().fillWizardPage("100");
 	}
 	
 	@Test
@@ -112,7 +113,18 @@ public class WizardDialogTest extends RedDeerTest {
 		// don't fill name
 		// on next page you should see a text box for name again
 		wizardDialog.next();
-		wizardDialog.getWizardPage().fillWizardPage("name");
+		wizardDialog.getCurrentWizardPage().fillWizardPage("name");
+	}
+	
+	@Test
+	public void getWizardPageTest(){
+		WizardPage page = wizardDialog.getWizardPage(1);
+		assertThat(page, instanceOf(NameWizardPage.class));
+		page.fillWizardPage("name");
+		page = wizardDialog.getWizardPage(0);
+		assertThat(page, instanceOf(NameWizardPage.class));
+		page = wizardDialog.getWizardPage(1);
+		assertThat(page, instanceOf(AgeWizardPage.class));
 	}
 
 	@Override
