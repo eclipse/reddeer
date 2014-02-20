@@ -4,7 +4,11 @@ import java.awt.AWTException;
 import java.io.File;
 import java.io.IOException;
 
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IConfigurationElement;
+import org.eclipse.core.runtime.Platform;
 import org.jboss.reddeer.junit.logging.Logger;
+import org.jboss.reddeer.junit.extensionpoint.IBeforeTest;
 import org.jboss.reddeer.junit.internal.requirement.Requirements;
 import org.jboss.reddeer.junit.internal.requirement.inject.RequirementsInjector;
 import org.jboss.reddeer.junit.internal.screenrecorder.ScreenRecorderExt;
@@ -55,6 +59,7 @@ public class RequirementsRunner extends BlockJUnit4ClassRunner {
 	@Override
 	protected Statement withBeforeClasses(Statement statement) {
 		Statement s = super.withBeforeClasses(statement);
+		runBeforeTest();
 		return new FulfillRequirementsStatement(requirements, s);
 	}
 	
@@ -236,6 +241,35 @@ public class RequirementsRunner extends BlockJUnit4ClassRunner {
 				outputVideoFile = RequirementsRunner.startScreenRecorder(description.toString());
 			}
 			super.testStarted(description);
+		}
+	}
+
+	/**
+	 * Method is called before first test is run.
+	 * Manages org.jbossreddeer.junit.before.test extensions
+	 */
+	private void runBeforeTest() {
+		final String beforeTestExtensionID = "org.jboss.reddeer.junit.before.test";
+		IConfigurationElement[] configElements = Platform.getExtensionRegistry()
+				.getConfigurationElementsFor(beforeTestExtensionID);
+		try {
+			log.debug("Number of found extensions for extension point " + beforeTestExtensionID + "="
+				+ configElements.length);
+			for (IConfigurationElement e : configElements) {
+				final Object o = e.createExecutableExtension("class");
+				if (o instanceof IBeforeTest) {
+					log.debug("Run method runBeforeTest() of class" + o.getClass().getCanonicalName());
+					((IBeforeTest) o).runBeforeTest();
+				}
+				else{
+					log.warn("Invalid class used for extension point " + beforeTestExtensionID
+						+ ":" + o.getClass());
+				}
+			}
+		} catch (CoreException ex) {
+			log.error(
+					"Error when processing extension for org.jbossreddeer.junit.before.test",
+					ex.getMessage());
 		}
 	}
 }
