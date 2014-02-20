@@ -1,14 +1,24 @@
 package org.jboss.reddeer.eclipse.jdt.ui.packageexplorer;
 
+import org.eclipse.swt.widgets.Control;
+import org.hamcrest.BaseMatcher;
+import org.hamcrest.Description;
+import org.hamcrest.Matcher;
 import org.jboss.reddeer.junit.logging.Logger;
 import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.swt.condition.JobIsRunning;
 import org.jboss.reddeer.swt.condition.ShellWithTextIsActive;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
+import org.jboss.reddeer.swt.exception.WaitTimeoutExpiredException;
 import org.jboss.reddeer.swt.impl.button.CheckBox;
 import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.menu.ContextMenu;
+import org.jboss.reddeer.swt.impl.shell.AbstractShell;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
+import org.jboss.reddeer.swt.lookup.ShellLookup;
+import org.jboss.reddeer.swt.matcher.AndMatcher;
+import org.jboss.reddeer.swt.matcher.TextMatcher;
+import org.jboss.reddeer.swt.reference.ReferencedComposite;
 import org.jboss.reddeer.swt.wait.TimePeriod;
 import org.jboss.reddeer.swt.wait.WaitWhile;
 
@@ -47,7 +57,13 @@ public class Project {
 		DefaultShell shell = new DefaultShell();
 		String deleteShellText = shell.getText();
 		new PushButton("OK").click();
-		new WaitWhile(new ShellWithTextIsActive(deleteShellText),TimePeriod.LONG);
+		try {
+			new WaitWhile(new ShellWithTextIsActive(deleteShellText),TimePeriod.LONG);
+		} catch(WaitTimeoutExpiredException e) {
+			new ShellWithButton(deleteShellText, "Continue");
+			new PushButton("Continue");
+			new WaitWhile(new ShellWithTextIsActive(deleteShellText),TimePeriod.LONG);
+		}
 		new WaitWhile(new JobIsRunning(), TimePeriod.LONG);
 	}
 	/**
@@ -124,5 +140,63 @@ public class Project {
 	 */
 	public String getText (){
 		return treeItem.getText();
+	}
+	
+	/**
+	 * Returns shell with a given title and containing a button with specified label.
+	 * This is used only when deleting a project.
+	 */
+	private class ShellWithButton extends AbstractShell {
+		
+		public ShellWithButton(String title, String buttonLabel) {
+			Matcher<String> titleMatcher = new TextMatcher(title);
+			Matcher<String> buttonMatcher = new ContainsButton(buttonLabel);
+			@SuppressWarnings("unchecked")
+			Matcher<String> matcher = new AndMatcher(titleMatcher, buttonMatcher);
+			try {
+				swtShell = ShellLookup.getInstance().getShell(matcher);
+				setFocus();
+			} catch (Exception e) {
+				throw new SWTLayerException("No shell with title '" + title + "' and button '" + buttonLabel + "' is available", e);
+			}	
+		}
+	}
+	
+	/**
+	 * Matcher for control widget containing a button with a specified label.
+	 */
+	private class ContainsButton extends BaseMatcher<String> {
+
+		private String buttonLabel;
+		
+		public ContainsButton(String buttonLabel) {
+			this.buttonLabel = buttonLabel;
+		}
+		
+		@Override
+		public boolean matches(Object obj) {
+			if(obj instanceof Control) {
+				final Control control = (Control) obj;
+				ReferencedComposite ref = new ReferencedComposite() {
+					@Override
+					public Control getControl() {
+						return control;
+					}
+				};
+				try {
+					new PushButton(ref, buttonLabel);
+					return true;
+				} catch (SWTLayerException e) {
+					// ok, this control doesn't contain the button
+				}
+			}
+			return false;
+		}
+
+		@Override
+		public void describeTo(Description description) {
+			description.appendText("containing button '" + buttonLabel + "'");
+		}
+		
 	}
 }
