@@ -21,6 +21,7 @@
 		<module>org.jboss.reddeer.tests.feature</module>
 		<module>org.jboss.reddeer.ui.feature</module>
 		<module>org.jboss.reddeer.recorder.feature</module>
+		<module>org.jboss.reddeer.junit.eclipseext.feature</module>
 	</modules>
 	
 </project>
