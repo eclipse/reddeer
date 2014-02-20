@@ -245,7 +245,7 @@ public class RequirementsRunner extends BlockJUnit4ClassRunner {
 	}
 
 	/**
-	 * Method is called before first test is run.
+	 * Method is called before test is run.
 	 * Manages org.jbossreddeer.junit.before.test extensions
 	 */
 	private void runBeforeTest() {
