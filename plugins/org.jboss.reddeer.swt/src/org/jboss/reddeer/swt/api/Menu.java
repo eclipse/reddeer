@@ -1,12 +1,15 @@
 package org.jboss.reddeer.swt.api;
 
+import org.eclipse.swt.widgets.MenuItem;
+import org.jboss.reddeer.swt.widgets.Widget;
+
 /**
  * API for Menu (MenuItem) manipulation
  * @author Jiri Peterka
  *
  */
 
-public interface Menu {
+public interface Menu extends Widget{
 
 	/**
 	 * Select Menu (MenuItem) instance
@@ -18,5 +21,7 @@ public interface Menu {
 	 * @return menu text
 	 */
 	String getText();
+	
+	MenuItem getSWTWidget();
 			
 }

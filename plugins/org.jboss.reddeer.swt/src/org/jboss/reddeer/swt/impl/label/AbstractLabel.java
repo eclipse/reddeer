@@ -27,4 +27,13 @@ public abstract class AbstractLabel implements Label {
 		boolean ret = WidgetLookup.getInstance().isVisible(w);
 		return ret;
 	}
+	
+	public org.eclipse.swt.widgets.Label getSWTWidget(){
+		return w;
+	}
+	
+	@Override
+	public boolean isEnabled() {
+		return WidgetLookup.getInstance().isEnabled(w);
+	}
 }

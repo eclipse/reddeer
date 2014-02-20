@@ -127,7 +127,7 @@ public class DefaultExpandBarItem extends AbstractExpandBarItem {
 		if (items.size() < expandBarItemIndex + 1) {
 			throw new SWTLayerException("No matching Expand Bar Item found");
 		} else {
-			return items.get(expandBarItemIndex).getSWTWidget();
+			return (org.eclipse.swt.widgets.ExpandItem)items.get(expandBarItemIndex).getSWTWidget();
 		}
 	}
 	
@@ -148,7 +148,7 @@ public class DefaultExpandBarItem extends AbstractExpandBarItem {
 		if (items.size() < expandBarItemIndex + 1) {
 			throw new SWTLayerException("No matching Expand Bar Item found");
 		} else {
-			return items.get(expandBarItemIndex).getSWTWidget();
+			return (org.eclipse.swt.widgets.ExpandItem)items.get(expandBarItemIndex).getSWTWidget();
 		}
 	}
 
@@ -176,7 +176,7 @@ public class DefaultExpandBarItem extends AbstractExpandBarItem {
 			}
 		}
 		if (isFound) {
-			result = expandBarItem.getSWTWidget();
+			result = (org.eclipse.swt.widgets.ExpandItem)expandBarItem.getSWTWidget();
 		}
 		else {
 			throw new SWTLayerException("No matching Expand Bar item found");
@@ -208,7 +208,7 @@ public class DefaultExpandBarItem extends AbstractExpandBarItem {
 			}
 		}
 		if (isFound) {
-			result = expandBarItem.getSWTWidget();
+			result = (org.eclipse.swt.widgets.ExpandItem)expandBarItem.getSWTWidget();
 		}
 		else {
 			throw new SWTLayerException("No matching Expand Bar item found");

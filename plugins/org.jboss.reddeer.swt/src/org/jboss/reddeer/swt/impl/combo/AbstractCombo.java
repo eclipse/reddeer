@@ -16,7 +16,7 @@ import org.jboss.reddeer.swt.util.Display;
  */
 public abstract class AbstractCombo implements Combo {
 	protected final Logger log = Logger.getLogger(this.getClass());
-	org.eclipse.swt.widgets.Combo swtCombo;
+	protected org.eclipse.swt.widgets.Combo swtCombo;
 
 	/**
 	 * See {@link Combo}
@@ -105,5 +105,9 @@ public abstract class AbstractCombo implements Combo {
 				swtCombo.notifyListeners(event.type, event);
 			}
 		});
+	}
+	
+	public org.eclipse.swt.widgets.Combo getSWTWidget(){
+		return swtCombo;
 	}
 }

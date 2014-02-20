@@ -1,12 +1,14 @@
 package org.jboss.reddeer.swt.api;
 
+import org.jboss.reddeer.swt.widgets.Widget;
+
 
 /**
  * API For List manipulation
  * @author Jiri Peterka
  *
  */
-public interface List {
+public interface List extends Widget{
 	
 	/**
 	 * Selects item in list
@@ -47,5 +49,7 @@ public interface List {
 	 * Selects all list items
 	 */
 	void selectAll();
+	
+	org.eclipse.swt.widgets.List getSWTWidget();
 
 }

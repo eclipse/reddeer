@@ -3,6 +3,7 @@ package org.jboss.reddeer.swt.api;
 import java.util.List;
 
 import org.jboss.reddeer.swt.wait.TimePeriod;
+import org.jboss.reddeer.swt.widgets.Widget;
 
 /**
  * API for Tree item manipulation
@@ -10,7 +11,7 @@ import org.jboss.reddeer.swt.wait.TimePeriod;
  * @author Jiri Peterka
  *
  */
-public interface TreeItem {
+public interface TreeItem extends Widget{
 
 	/**
 	 * Return the text of tree item
@@ -104,11 +105,7 @@ public interface TreeItem {
 	 */
 	boolean isChecked();
 	Tree getParent();
-	/**
-	 * Returns SWT TreeItem enclosed by this Tree Item
-	 * @return
-	 */
-	org.eclipse.swt.widgets.TreeItem getSWTWidget();
+
 	/**
 	 * Expands tree item and waits with default timePeriod until expanded tree item
 	 * has minItemsCount children
@@ -132,4 +129,6 @@ public interface TreeItem {
 	 * @return
 	 */
 	 boolean isExpanded();
+	 
+	 org.eclipse.swt.widgets.TreeItem getSWTWidget();
 }

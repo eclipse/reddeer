@@ -1,8 +1,6 @@
 package org.jboss.reddeer.swt.handler;
 
-import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Shell;
-import org.jboss.reddeer.swt.lookup.WidgetLookup;
 import org.jboss.reddeer.swt.util.Display;
 
 /**

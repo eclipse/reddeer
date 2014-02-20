@@ -8,6 +8,7 @@ import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.handler.ExpandBarItemHandler;
 import org.jboss.reddeer.swt.handler.WidgetHandler;
 import org.jboss.reddeer.swt.impl.expandbar.internal.BasicExpandBar;
+import org.jboss.reddeer.swt.lookup.WidgetLookup;
 import org.jboss.reddeer.swt.wait.TimePeriod;
 
 /**
@@ -85,10 +86,7 @@ public abstract class AbstractExpandBarItem implements ExpandBarItem {
 	public Control getControl() {
 		return swtExpandItem.getControl();
 	}
-	/**
-	 * Return swt widget of Expand Bar Item
-	 */
-	@Override
+
 	public org.eclipse.swt.widgets.ExpandBar getSWTParent() {
 		return swtParent;
 	}
@@ -105,5 +103,10 @@ public abstract class AbstractExpandBarItem implements ExpandBarItem {
 	@Override
 	public boolean isExpanded() {
 		return WidgetHandler.getInstance().isExpanded(this.swtExpandItem);
+	}
+	
+	@Override
+	public boolean isEnabled() {
+		return WidgetLookup.getInstance().isEnabled(swtParent);
 	}
 }

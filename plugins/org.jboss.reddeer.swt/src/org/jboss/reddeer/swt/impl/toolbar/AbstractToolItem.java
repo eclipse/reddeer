@@ -3,6 +3,7 @@ package org.jboss.reddeer.swt.impl.toolbar;
 import org.jboss.reddeer.swt.api.ToolItem;
 import org.jboss.reddeer.swt.exception.Thrower;
 import org.jboss.reddeer.swt.handler.WidgetHandler;
+import org.jboss.reddeer.swt.lookup.WidgetLookup;
 import org.jboss.reddeer.swt.util.Display;
 import org.jboss.reddeer.swt.util.ResultRunnable;
 
@@ -11,7 +12,7 @@ import org.jboss.reddeer.swt.util.ResultRunnable;
  * @author Jiri Peterka
  *
  */
-public class AbstractToolItem implements ToolItem {
+public abstract class AbstractToolItem implements ToolItem {
 
 	protected org.eclipse.swt.widgets.ToolItem toolItem;
 	/**
@@ -51,5 +52,14 @@ public class AbstractToolItem implements ToolItem {
 		if (isSelected() != toggle){
 			click();
 		}		
+	}
+	
+	public org.eclipse.swt.widgets.ToolItem getSWTWidget(){
+		return toolItem;
+	}
+	
+	@Override
+	public boolean isEnabled() {
+		return WidgetLookup.getInstance().isEnabled(toolItem);
 	}
 }

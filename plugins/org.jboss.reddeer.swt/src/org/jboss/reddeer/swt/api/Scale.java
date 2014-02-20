@@ -1,11 +1,13 @@
 package org.jboss.reddeer.swt.api;
 
+import org.jboss.reddeer.swt.widgets.Widget;
+
 /**
  * API For Scale manipulation
  * @author Jiri Peterka
  *
  */
-public interface Scale {
+public interface Scale extends Widget{
 	/**
 	 * Returns minimum value of Scale
 	 * @return
@@ -31,9 +33,6 @@ public interface Scale {
 	 * @param value
 	 */	
 	void setFocus();
-	/**
-	 * Returns underlying swt widget
-	 * @return
-	 */
+	
 	org.eclipse.swt.widgets.Scale getSWTWidget();
 }

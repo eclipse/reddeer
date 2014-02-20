@@ -9,8 +9,7 @@ import org.hamcrest.Matcher;
 import org.jboss.reddeer.direct.platform.RunningPlatform;
 import org.jboss.reddeer.junit.logging.Logger;
 import org.jboss.reddeer.swt.api.Button;
-import org.jboss.reddeer.swt.condition.WaitCondition;
-import org.jboss.reddeer.swt.exception.WaitTimeoutExpiredException;
+import org.jboss.reddeer.swt.condition.WidgetIsEnabled;
 import org.jboss.reddeer.swt.handler.WidgetHandler;
 import org.jboss.reddeer.swt.lookup.ButtonLookup;
 import org.jboss.reddeer.swt.lookup.WidgetLookup;
@@ -55,9 +54,8 @@ public abstract class AbstractButton implements Button {
         if (RunningPlatform.isWindows() &&
                 ((WidgetHandler.getInstance().getStyle(swtButton) & SWT.RADIO) != 0)){
                 // do not set focus because it also select radio button on Windows
-        }
-        else{
-                WidgetHandler.getInstance().setFocus(swtButton);        
+        } else{
+        	WidgetHandler.getInstance().setFocus(swtButton);        
         }   
 	}
 
@@ -67,7 +65,7 @@ public abstract class AbstractButton implements Button {
 				+ (getText() != null ? getText() : (
 						getToolTipText() != null ? getToolTipText()
 						: "with no text or tooltip")));
-		waitUntilButtonIsActive();
+		new WaitUntil(new WidgetIsEnabled(this));
 		WidgetHandler.getInstance().click(swtButton);
 	}
 	
@@ -84,12 +82,6 @@ public abstract class AbstractButton implements Button {
 	 */
 	@Override
 	public boolean isEnabled() {
-		// TODO waits need to completely rewritten
-		try {
-			waitUntilButtonIsActive();
-		} catch (WaitTimeoutExpiredException wtee) {
-		}
-
 		return WidgetLookup.getInstance().isEnabled(swtButton);
 	}
 	
@@ -101,20 +93,7 @@ public abstract class AbstractButton implements Button {
 		return WidgetHandler.getInstance().getToolTipText(swtButton);
 	}
 
-	private void waitUntilButtonIsActive() {
-
-		new WaitUntil(new WaitCondition() {
-
-			@Override
-			public boolean test() {
-				return WidgetLookup.getInstance().isEnabled(swtButton);
-			}
-
-			@Override
-			public String description() {
-				return "Button '" + getText() + "' was not enabled";
-			}
-		});
-
+	public org.eclipse.swt.widgets.Button getSWTWidget(){
+		return swtButton;
 	}
 }

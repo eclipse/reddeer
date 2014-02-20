@@ -4,6 +4,7 @@ import org.jboss.reddeer.swt.api.Browser;
 import org.jboss.reddeer.swt.condition.PageIsLoaded;
 import org.jboss.reddeer.swt.handler.BrowserHandler;
 import org.jboss.reddeer.swt.impl.browser.internal.BrowserProgressListener;
+import org.jboss.reddeer.swt.lookup.WidgetLookup;
 import org.jboss.reddeer.swt.wait.AbstractWait;
 import org.jboss.reddeer.swt.wait.TimePeriod;
 import org.jboss.reddeer.swt.wait.WaitUntil;
@@ -13,7 +14,7 @@ import org.jboss.reddeer.swt.wait.WaitUntil;
  * @author Jiri Peterka
  *
  */
-public class AbstractBrowser implements Browser{
+public abstract class AbstractBrowser implements Browser{
 	protected org.eclipse.swt.browser.Browser swtBrowser;
 	private BrowserProgressListener browserProgressListener;
 	
@@ -88,5 +89,10 @@ public class AbstractBrowser implements Browser{
 	private void resetProgressListener (){
 		BrowserHandler.removeProgressListener(this, browserProgressListener);
 		browserProgressListener.setDone(true);
+	}
+
+	@Override
+	public boolean isEnabled() {
+		return WidgetLookup.getInstance().isEnabled(swtBrowser);
 	}
 }
