@@ -951,4 +951,42 @@ public class WidgetHandler {
 		return parent;
 	}
 	
+	/**
+	 * Get value of supported widget
+	 * 
+	 * @param w widget
+	 * @return value of the widget
+	 */
+	public <T extends Widget> int getValue(final T w) {
+		return Display.syncExec(new ResultRunnable<Integer>() {
+
+			@Override
+			public Integer run() {
+				if(w instanceof Spinner)
+					return ((Spinner) w).getSelection();
+				else
+					throw new SWTLayerException("Unsupported type");
+			}
+		});
+	}
+
+	/**
+	 * Set value of supported widget
+	 * 
+	 * @param w widget
+	 * @param value value of the widget
+	 */
+	public <T extends Widget> void setValue(final T w, final int value) {
+		Display.syncExec(new Runnable() {
+
+			@Override
+			public void run() {
+				if(w instanceof Spinner)
+					((Spinner) w).setSelection(value);
+				else
+					throw new SWTLayerException("Unsupported type");
+			}
+		});
+	}
+	
 }

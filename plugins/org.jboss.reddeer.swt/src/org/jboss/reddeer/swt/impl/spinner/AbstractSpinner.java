@@ -1,8 +1,7 @@
 package org.jboss.reddeer.swt.impl.spinner;
 
 import org.jboss.reddeer.swt.api.Spinner;
-import org.jboss.reddeer.swt.util.Display;
-import org.jboss.reddeer.swt.util.ResultRunnable;
+import org.jboss.reddeer.swt.handler.WidgetHandler;
 
 /**
  * Abstract class for all Spinner implementations
@@ -16,24 +15,12 @@ public abstract class AbstractSpinner implements Spinner {
 
 	@Override
 	public int getValue() {
-		return Display.syncExec(new ResultRunnable<Integer>() {
-
-			@Override
-			public Integer run() {
-				return swtSpinner.getSelection();
-			}
-		});
+		return WidgetHandler.getInstance().getValue(swtSpinner);
 	}
 
 	@Override
-	public void setValue(final int value) {
-		Display.syncExec(new Runnable() {
-
-			@Override
-			public void run() {
-				swtSpinner.setSelection(value);
-			}
-		});
+	public void setValue(int value) {
+		WidgetHandler.getInstance().setValue(swtSpinner, value);
 	}
 
 }
