@@ -202,6 +202,30 @@ public class WidgetHandler {
 		});
 		return selectionState;
 	}
+	
+	/**
+	 * Checks if supported widget is enabled
+	 * 
+	 * @param w	given widget
+	 * @return	returns widget label text
+	 */
+	public <T extends Widget> boolean isEnabled(final T w) {
+		boolean selectionState = Display.syncExec(new ResultRunnable<Boolean>() {
+			
+			@Override
+			public Boolean run() {
+				if (w instanceof Button)
+					return ((Button) w).getEnabled();
+				else if (w instanceof TableItem)
+					return ((TableItem) w).getParent().getEnabled();
+				else if (w instanceof ToolItem)
+					return ((ToolItem) w).getEnabled(); 
+				else
+					throw new SWTLayerException("Unsupported type");
+			}
+		});
+		return selectionState;
+	}
 
 	/**
 	 * Set text for supported widget type

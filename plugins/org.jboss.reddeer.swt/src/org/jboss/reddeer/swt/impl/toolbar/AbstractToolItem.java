@@ -35,6 +35,13 @@ public class AbstractToolItem implements ToolItem {
 	@Override
 	public boolean isSelected() {
 		return WidgetHandler.getInstance().isSelected(toolItem);
+	}	
+	/**
+	 * See {@link ToolItem}
+	 */
+	@Override
+	public boolean isEnabled() {
+		return WidgetHandler.getInstance().isEnabled(toolItem);
 	}
 	/**
 	 * See {@link ToolItem}}

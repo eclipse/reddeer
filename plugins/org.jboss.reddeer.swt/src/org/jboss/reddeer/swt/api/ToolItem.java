@@ -22,6 +22,10 @@ public interface ToolItem {
 	 */
 	boolean isSelected();
 	/**
+	 * Returns true when button is enabled
+	 */
+	boolean isEnabled();
+	/**
 	 * Returns ToolItem tooltip text
 	 */
 	void toggle(boolean toggle);

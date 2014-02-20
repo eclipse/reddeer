@@ -4,7 +4,6 @@ import org.jboss.reddeer.swt.condition.WaitCondition;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.impl.styledtext.DefaultStyledText;
 import org.jboss.reddeer.swt.impl.toolbar.DefaultToolItem;
-import org.jboss.reddeer.swt.impl.toolbar.ViewToolItem;
 import org.jboss.reddeer.swt.wait.TimePeriod;
 import org.jboss.reddeer.swt.wait.WaitUntil;
 import org.jboss.reddeer.swt.wait.WaitWhile;
@@ -34,6 +33,17 @@ public class ConsoleView extends WorkbenchView {
 		new DefaultToolItem("Clear Console").click();
 		new WaitUntil(new ConsoleHasText(""));
 		log.info("Console cleared");
+	}
+	
+	public void terminateConsole() {
+		log.info("Terminating console");
+		DefaultToolItem terminate = new DefaultToolItem("Terminate");
+		if (terminate.isEnabled()) {
+			terminate.click();
+			log.info("Console terminated");
+		} else {
+			log.info("Console was terminated earlier");
+		}
 	}
 	
 	private class ConsoleHasTextWidget implements WaitCondition{
