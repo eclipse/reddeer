@@ -28,7 +28,7 @@
 			<groupId>${swt.groupId}</groupId>
 			<artifactId>${swt.artifactId}</artifactId>
 			<version>4.3</version>
-			<scope>compile</scope>
+			<scope>runtime</scope>
 		</dependency>
 	</dependencies>
 	<profiles>
