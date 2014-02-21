@@ -1,4 +1,4 @@
-package org.jboss.reddeer.junit.eclipseext;
+package org.jboss.reddeer.junit.extension;
 
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;

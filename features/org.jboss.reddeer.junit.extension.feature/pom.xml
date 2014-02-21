@@ -2,8 +2,8 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
-	<artifactId>org.jboss.reddeer.junit.eclipseext.feature</artifactId>
-	<name>Red Deer JUnit Extensions for Eclipse Feature</name>
+	<artifactId>org.jboss.reddeer.junit.extension.feature</artifactId>
+	<name>Red Deer JUnit Extensions Feature</name>
 	<packaging>eclipse-feature</packaging>
 	
 	<parent>

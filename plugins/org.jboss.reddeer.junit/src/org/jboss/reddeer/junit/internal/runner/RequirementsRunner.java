@@ -3,10 +3,8 @@ package org.jboss.reddeer.junit.internal.runner;
 import java.awt.AWTException;
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
-import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IConfigurationElement;
-import org.eclipse.core.runtime.Platform;
 import org.jboss.reddeer.junit.logging.Logger;
 import org.jboss.reddeer.junit.extensionpoint.IBeforeTest;
 import org.jboss.reddeer.junit.internal.requirement.Requirements;
@@ -42,18 +40,21 @@ public class RequirementsRunner extends BlockJUnit4ClassRunner {
 	private RequirementsInjector requirementsInjector = new RequirementsInjector();
 	
 	private String configId;
+	
+	private List<IBeforeTest> beforeTestExtensions;
 
 	private static boolean SAVE_SCREENCAST = System.getProperty("recordScreenCast","false").equalsIgnoreCase("true");
 	
-	public RequirementsRunner(Class<?> clazz, Requirements requirements, String configId, RunListener[] runListeners) throws InitializationError {
+	public RequirementsRunner(Class<?> clazz, Requirements requirements, String configId, RunListener[] runListeners,List<IBeforeTest> beforeTestExtensions) throws InitializationError {
 		super(clazz);
 		this.requirements = requirements;
 		this.configId = configId;
 		this.runListeners = runListeners;
+		this.beforeTestExtensions = beforeTestExtensions;
 	}
 
 	public RequirementsRunner(Class<?> clazz, Requirements requirements, String configId) throws InitializationError {
-		this(clazz,requirements,configId,null);
+		this(clazz,requirements,configId,null,null);
 	}
 
 	@Override
@@ -249,27 +250,12 @@ public class RequirementsRunner extends BlockJUnit4ClassRunner {
 	 * Manages org.jbossreddeer.junit.before.test extensions
 	 */
 	private void runBeforeTest() {
-		final String beforeTestExtensionID = "org.jboss.reddeer.junit.before.test";
-		IConfigurationElement[] configElements = Platform.getExtensionRegistry()
-				.getConfigurationElementsFor(beforeTestExtensionID);
-		try {
-			log.debug("Number of found extensions for extension point " + beforeTestExtensionID + "="
-				+ configElements.length);
-			for (IConfigurationElement e : configElements) {
-				final Object o = e.createExecutableExtension("class");
-				if (o instanceof IBeforeTest) {
-					log.debug("Run method runBeforeTest() of class" + o.getClass().getCanonicalName());
-					((IBeforeTest) o).runBeforeTest();
-				}
-				else{
-					log.warn("Invalid class used for extension point " + beforeTestExtensionID
-						+ ":" + o.getClass());
-				}
+		for (IBeforeTest beforeTestExtension : beforeTestExtensions){
+			if (beforeTestExtension.hasToRun()){
+				log.debug("Run method runBeforeTest() of class " + beforeTestExtension.getClass().getCanonicalName());
+				beforeTestExtension.runBeforeTest();
 			}
-		} catch (CoreException ex) {
-			log.error(
-					"Error when processing extension for org.jbossreddeer.junit.before.test",
-					ex.getMessage());
 		}
 	}
+
 }
