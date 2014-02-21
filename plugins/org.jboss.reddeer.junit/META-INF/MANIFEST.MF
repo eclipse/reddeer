@@ -7,6 +7,7 @@ Bundle-Version: 0.5.0.qualifier
 Bundle-Activator: org.jboss.reddeer.junit.Activator
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
+ org.eclipse.swt,
  org.junit;bundle-version="4.0.0",
  org.hamcrest.core;bundle-version="1.3.0",
  org.apache.commons.logging;bundle-version="1.1.1"
@@ -20,6 +21,7 @@ Export-Package: org.jboss.reddeer.junit,
  org.jboss.reddeer.junit.internal.configuration;x-friends:="org.jboss.reddeer.requirements.test",
  org.jboss.reddeer.junit.internal.requirement;x-friends:="org.jboss.reddeer.requirements.test",
  org.jboss.reddeer.junit.internal.runner;x-friends:="org.jboss.reddeer.requirements.test",
+ org.jboss.reddeer.junit.internal.screenshot,
  org.jboss.reddeer.junit.logging,
  org.jboss.reddeer.junit.requirement,
  org.jboss.reddeer.junit.requirement.inject,
