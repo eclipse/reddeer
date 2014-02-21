@@ -31,16 +31,11 @@ public class MavenPreferencePage extends PreferencePage {
 		return new CheckBox(MavenPreferencePage.OFFLINE).isChecked();
 	}
 	/**
-	 * Check Offline checkbox 
+	 * Sets Offline checkbox 
+	 * @param check
 	 */
-	public void enableOffline() {
-		new CheckBox(MavenPreferencePage.OFFLINE).toggle(true);
-	}
-	/**
-	 * Uncheck Offline checkbox 
-	 */
-	public void disableOffline() {
-		new CheckBox(MavenPreferencePage.OFFLINE).toggle(false);
+	public void setOffline(boolean check) {
+		new CheckBox(MavenPreferencePage.OFFLINE).toggle(check);
 	}
 	/**
 	 * Returns true when Do not automatically update dependencies from remote repositories checkbox is checked 
@@ -50,16 +45,11 @@ public class MavenPreferencePage extends PreferencePage {
 		return new CheckBox(MavenPreferencePage.DO_NOT_AUTO_UPDATE_DEPS).isChecked();
 	}
 	/**
-	 * Check Offline Do not automatically update dependencies from remote repositories 
+	 * Sets Offline Do not automatically update dependencies from remote repositories 
+	 * @param check
 	 */
-	public void enableDoNotAutoUpdateDeps() {
-		new CheckBox(MavenPreferencePage.DO_NOT_AUTO_UPDATE_DEPS).toggle(true);
-	}
-	/**
-	 * Uncheck Do not automatically update dependencies from remote repositories checkbox 
-	 */
-	public void disableDoNotAutoUpdateDeps() {
-		new CheckBox(MavenPreferencePage.DO_NOT_AUTO_UPDATE_DEPS).toggle(false);
+	public void setDoNotAutoUpdateDeps(boolean check) {
+		new CheckBox(MavenPreferencePage.DO_NOT_AUTO_UPDATE_DEPS).toggle(check);
 	}
 	/**
 	 * Returns true when Debug Output checkbox is checked 
@@ -69,16 +59,11 @@ public class MavenPreferencePage extends PreferencePage {
 		return new CheckBox(MavenPreferencePage.DEBUG_OUTPUT).isChecked();
 	}
 	/**
-	 * Check Debug Output checkbox 
+	 * Sets Debug Output checkbox 
+	 * @param check
 	 */
-	public void enableDebugOutput() {
-		new CheckBox(MavenPreferencePage.DEBUG_OUTPUT).toggle(true);
-	}
-	/**
-	 * Uncheck Debug Output checkbox 
-	 */
-	public void disableDebugOutput() {
-		new CheckBox(MavenPreferencePage.DEBUG_OUTPUT).toggle(false);
+	public void setDebugOutput(boolean check) {
+		new CheckBox(MavenPreferencePage.DEBUG_OUTPUT).toggle(check);
 	}
 	/**
 	 * Returns true when Download Artifact Sources checkbox is checked 
@@ -88,16 +73,11 @@ public class MavenPreferencePage extends PreferencePage {
 		return new CheckBox(MavenPreferencePage.DOWNLOAD_ARTIFACT_SOURCES).isChecked();
 	}
 	/**
-	 * Check Download Artifact Sources checkbox 
+	 * Sets Download Artifact Sources checkbox 
+	 * @param check
 	 */	
-	public void enableDownloadArtifactSources() {
-		new CheckBox(MavenPreferencePage.DOWNLOAD_ARTIFACT_SOURCES).toggle(true);
-	}
-	/**
-	 * Uncheck Download Artifact Sources checkbox 
-	 */
-	public void disableDownloadArtifactSources() {
-		new CheckBox(MavenPreferencePage.DOWNLOAD_ARTIFACT_SOURCES).toggle(false);
+	public void setDownloadArtifactSources(boolean check) {
+		new CheckBox(MavenPreferencePage.DOWNLOAD_ARTIFACT_SOURCES).toggle(check);
 	}
 	/**
 	 * Returns true when Download Artifact JavaDoc checkbox is checked 
@@ -107,16 +87,11 @@ public class MavenPreferencePage extends PreferencePage {
 		return new CheckBox(MavenPreferencePage.DOWNLOAD_ARTIFACT_JAVADOC).isChecked();
 	}
 	/**
-	 * Check Download Artifact JavaDoc checkbox 
+	 * Sets Download Artifact JavaDoc checkbox 
+	 * @param check
 	 */
-	public void enableDownloadArtifactJavadoc() {
-		new CheckBox(MavenPreferencePage.DOWNLOAD_ARTIFACT_JAVADOC).toggle(true);
-	}
-	/**
-	 * Uncheck Download Artifact JavaDoc checkbox 
-	 */
-	public void disableDownloadArtifactJavadoc() {
-		new CheckBox(MavenPreferencePage.DOWNLOAD_ARTIFACT_JAVADOC).toggle(false);
+	public void setDownloadArtifactJavadoc(boolean check) {
+		new CheckBox(MavenPreferencePage.DOWNLOAD_ARTIFACT_JAVADOC).toggle(check);
 	}
 	/**
 	 * Returns true when Download repository index updates on startup checkbox is checked 
@@ -126,16 +101,11 @@ public class MavenPreferencePage extends PreferencePage {
 		return new CheckBox(MavenPreferencePage.DOWNLOAD_REPO_INDEX_UPDATES_ON_STARTUP).isChecked();
 	}
 	/**
-	 * Check Download repository index updates on startup checkbox 
+	 * Sets Download repository index updates on startup checkbox 
+	 * @param check
 	 */
-	public void enableDownloadRepoIndexOnStartup() {
-		new CheckBox(MavenPreferencePage.DOWNLOAD_REPO_INDEX_UPDATES_ON_STARTUP).toggle(true);
-	}
-	/**
-	 * Uncheck Download repository index updates on startup checkbox 
-	 */
-	public void disableDownloadRepoIndexOnStartup() {
-		new CheckBox(MavenPreferencePage.DOWNLOAD_REPO_INDEX_UPDATES_ON_STARTUP).toggle(false);
+	public void setDownloadRepoIndexOnStartup(boolean check) {
+		new CheckBox(MavenPreferencePage.DOWNLOAD_REPO_INDEX_UPDATES_ON_STARTUP).toggle(check);
 	}
 	/**
 	 * Returns true when Update Maven projects on startup checkbox is checked 
@@ -145,16 +115,11 @@ public class MavenPreferencePage extends PreferencePage {
 		return new CheckBox(MavenPreferencePage.UPDATE_MAVEN_PROJECTS_ON_STARTUP).isChecked();
 	}
 	/**
-	 * Check Update Maven projects on startup checkbox 
+	 * Sets Update Maven projects on startup checkbox 
+	 * @param check
 	 */
-	public void enableUpdateMavenProjectsOnStartup() {
-		new CheckBox(MavenPreferencePage.UPDATE_MAVEN_PROJECTS_ON_STARTUP).toggle(true);
-	}
-	/**
-	 * Uncheck Update Maven projects on startup checkbox 
-	 */
-	public void disableUpdateMavenProjectsOnStartup() {
-		new CheckBox(MavenPreferencePage.UPDATE_MAVEN_PROJECTS_ON_STARTUP).toggle(false);
+	public void setUpdateMavenProjectsOnStartup(boolean check) {
+		new CheckBox(MavenPreferencePage.UPDATE_MAVEN_PROJECTS_ON_STARTUP).toggle(check);
 	}
 	/**
 	 * Returns true when Hide folders of physically nested modules checkbox is checked 
@@ -164,15 +129,10 @@ public class MavenPreferencePage extends PreferencePage {
 		return new CheckBox(MavenPreferencePage.HIDE_FOLDERS_OF_PHYSICALLY_NESTED_MODULES).isChecked();
 	}
 	/**
-	 * Check Hide folders of physically nested modules checkbox 
+	 * Sets Hide folders of physically nested modules checkbox 
+	 * @param check
 	 */
-	public void enableHideFoldersOfPhysicalyNestedModules() {
-		new CheckBox(MavenPreferencePage.HIDE_FOLDERS_OF_PHYSICALLY_NESTED_MODULES).toggle(true);
-	}
-	/**
-	 * Uncheck Hide folders of physically nested modules checkbox 
-	 */
-	public void disableHideFoldersOfPhysicalyNestedModules() {
-		new CheckBox(MavenPreferencePage.HIDE_FOLDERS_OF_PHYSICALLY_NESTED_MODULES).toggle(false);
+	public void setHideFoldersOfPhysicalyNestedModules(boolean check) {
+		new CheckBox(MavenPreferencePage.HIDE_FOLDERS_OF_PHYSICALLY_NESTED_MODULES).toggle(check);
 	}
 }

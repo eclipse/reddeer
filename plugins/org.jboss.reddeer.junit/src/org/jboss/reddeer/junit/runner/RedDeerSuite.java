@@ -1,11 +1,14 @@
 package org.jboss.reddeer.junit.runner;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.jboss.reddeer.junit.logging.Logger;
+import org.jboss.reddeer.junit.extensionpoint.IBeforeTest;
 import org.jboss.reddeer.junit.internal.configuration.SuiteConfiguration;
 import org.jboss.reddeer.junit.internal.configuration.TestRunConfiguration;
+import org.jboss.reddeer.junit.internal.extensionpoint.BeforeTestInitialization;
 import org.jboss.reddeer.junit.internal.runner.EmptySuite;
 import org.jboss.reddeer.junit.internal.runner.NamedSuite;
 import org.jboss.reddeer.junit.internal.runner.RequirementsRunnerBuilder;
@@ -29,6 +32,8 @@ public class RedDeerSuite extends Suite {
 	// in order to add custom listeners
 	protected static RunListener[] runListeners;
 	
+	// private static List<IBeforeTest> beforeTestExtensions = RedDeerSuite.initializeBeforeTestExtensions();
+	private static List<IBeforeTest> beforeTestExtensions = RedDeerSuite.initializeBeforeTestExtensions();
 	/**
 	 * Called by the JUnit framework. 
 	 * 
@@ -69,9 +74,9 @@ public class RedDeerSuite extends Suite {
 		for (TestRunConfiguration testRunConfig : config.getTestRunConfigurations()){
 			log.info("Adding suite with name " + testRunConfig.getId() + " to RedDeer suite");
 			if (isSuite){
-				configuredSuites.add(new NamedSuite(clazz, new RequirementsRunnerBuilder(testRunConfig,runListeners), testRunConfig.getId()));
+				configuredSuites.add(new NamedSuite(clazz, new RequirementsRunnerBuilder(testRunConfig,runListeners,beforeTestExtensions), testRunConfig.getId()));
 			} else {
-				configuredSuites.add(new NamedSuite(new Class[]{clazz}, new RequirementsRunnerBuilder(testRunConfig,runListeners), testRunConfig.getId()));				
+				configuredSuites.add(new NamedSuite(new Class[]{clazz}, new RequirementsRunnerBuilder(testRunConfig,runListeners,beforeTestExtensions), testRunConfig.getId()));				
 			}
 		}
 		
@@ -87,6 +92,23 @@ public class RedDeerSuite extends Suite {
 	@Override
 	protected String getName() {
 		return "Red Deer Suite";
+	}
+	/**
+	 * Initializes all Before Test extensions
+	 */
+	private static List<IBeforeTest> initializeBeforeTestExtensions(){
+		List<IBeforeTest> beforeTestExts;
+		// check if eclipse is running
+		try {
+			Class.forName("org.eclipse.core.runtime.Platform");
+			log.debug("Eclipse is running");
+			beforeTestExts = BeforeTestInitialization.initialize();
+		} catch (ClassNotFoundException e) {
+			// do nothing extension is implemented only for eclipse right now
+			log.debug("Eclipse is not running");
+			beforeTestExts = new LinkedList<IBeforeTest>();
+		}
+		return beforeTestExts;
 	}
 	
 }

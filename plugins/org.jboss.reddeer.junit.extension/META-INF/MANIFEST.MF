@@ -1,10 +1,10 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: RedDeer JUnit Extensions for Eclipse
+Bundle-Name: RedDeer JUnit Extensions
 Bundle-Vendor: JBoss by Red Hat
-Bundle-SymbolicName: org.jboss.reddeer.junit.eclipseext;singleton:=true
+Bundle-SymbolicName: org.jboss.reddeer.junit.extension;singleton:=true
 Bundle-Version: 0.5.0.qualifier
-Bundle-Activator: org.jboss.reddeer.junit.eclipseext.Activator
+Bundle-Activator: org.jboss.reddeer.junit.extension.Activator
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  org.apache.commons.logging;bundle-version="1.1.1",

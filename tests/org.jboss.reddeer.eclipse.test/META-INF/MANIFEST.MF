@@ -20,9 +20,8 @@ Require-Bundle: org.eclipse.ui,
  org.jboss.reddeer.swt.test;bundle-version="0.4.0",
  org.eclipse.ui.browser,
  org.eclipse.mylyn.tasks.ui,
- org.eclipse.mylyn.bugzilla.ui,
- org.eclipse.mylyn.bugzilla.ide,
- org.jboss.reddeer.requirements
+ org.jboss.reddeer.requirements,
+ org.jboss.reddeer.junit.extension;bundle-version="0.5.0"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Import-Package: org.hamcrest.core

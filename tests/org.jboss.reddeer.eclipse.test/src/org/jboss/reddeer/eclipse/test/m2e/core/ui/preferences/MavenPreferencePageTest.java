@@ -16,14 +16,14 @@ public class MavenPreferencePageTest extends RedDeerTest{
 	public void checkAllPreferences() {
 		mavenPreferencePage.open();
 		
-		mavenPreferencePage.enableDebugOutput();
-		mavenPreferencePage.enableDoNotAutoUpdateDeps();
-		mavenPreferencePage.enableDownloadArtifactJavadoc();
-		mavenPreferencePage.enableDownloadArtifactSources();
-		mavenPreferencePage.enableDownloadRepoIndexOnStartup();
-		mavenPreferencePage.enableHideFoldersOfPhysicalyNestedModules();
-		mavenPreferencePage.enableOffline();
-		mavenPreferencePage.enableUpdateMavenProjectsOnStartup();
+		mavenPreferencePage.setDebugOutput(true);
+		mavenPreferencePage.setDoNotAutoUpdateDeps(true);
+		mavenPreferencePage.setDownloadArtifactJavadoc(true);
+		mavenPreferencePage.setDownloadArtifactSources(true);
+		mavenPreferencePage.setDownloadRepoIndexOnStartup(true);
+		mavenPreferencePage.setHideFoldersOfPhysicalyNestedModules(true);
+		mavenPreferencePage.setOffline(true);
+		mavenPreferencePage.setUpdateMavenProjectsOnStartup(true);
 		
 		assertTrue(mavenPreferencePage.isDebugOutputChecked());
 		assertTrue(mavenPreferencePage.isDoNotAutoUpdateDepsChecked());
@@ -41,14 +41,14 @@ public class MavenPreferencePageTest extends RedDeerTest{
 	public void uncheckAllPreferences() {
 		mavenPreferencePage.open();
 		
-		mavenPreferencePage.disableDebugOutput();
-		mavenPreferencePage.disableDoNotAutoUpdateDeps();
-		mavenPreferencePage.disableDownloadArtifactJavadoc();
-		mavenPreferencePage.disableDownloadArtifactSources();
-		mavenPreferencePage.disableDownloadRepoIndexOnStartup();
-		mavenPreferencePage.disableHideFoldersOfPhysicalyNestedModules();
-		mavenPreferencePage.disableOffline();
-		mavenPreferencePage.disableUpdateMavenProjectsOnStartup();
+		mavenPreferencePage.setDebugOutput(false);
+		mavenPreferencePage.setDoNotAutoUpdateDeps(false);
+		mavenPreferencePage.setDownloadArtifactJavadoc(false);
+		mavenPreferencePage.setDownloadArtifactSources(false);
+		mavenPreferencePage.setDownloadRepoIndexOnStartup(false);
+		mavenPreferencePage.setHideFoldersOfPhysicalyNestedModules(false);
+		mavenPreferencePage.setOffline(false);
+		mavenPreferencePage.setUpdateMavenProjectsOnStartup(false);
 		
 		assertFalse(mavenPreferencePage.isDebugOutputChecked());
 		assertFalse(mavenPreferencePage.isDoNotAutoUpdateDepsChecked());

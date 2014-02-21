@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.jboss.reddeer.junit.before.test">
+      <client
+            class="org.jboss.reddeer.junit.extension.before.test.impl.CloseWelcomeScreenExt">
+      </client>
+      <client
+            class="org.jboss.reddeer.junit.extension.before.test.impl.DoNotDownloadMavenIndexesExt">
+      </client>
+   </extension>
+
+</plugin>
