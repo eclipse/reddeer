@@ -24,6 +24,10 @@ public interface ToolItem extends Widget{
 	 */
 	boolean isSelected();
 	/**
+	 * Returns true when button is enabled
+	 */
+	boolean isEnabled();
+	/**
 	 * Returns ToolItem tooltip text
 	 */
 	void toggle(boolean toggle);
