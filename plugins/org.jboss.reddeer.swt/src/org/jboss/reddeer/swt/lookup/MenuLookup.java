@@ -145,6 +145,19 @@ public class MenuLookup {
 		if (lastMenuItem == null) throw new SWTLayerException("");
 		return lastMenuItem;
 	}
+	
+	public boolean isSelected(final MenuItem item){
+		return Display.syncExec(new ResultRunnable<Boolean>() {
+
+			@Override
+			public Boolean run() {
+				if(((item.getStyle() & SWT.RADIO) != 0) || ((item.getStyle() & SWT.CHECK) != 0)){
+					return item.getSelection();
+				}
+				return false;
+			}
+		});
+	}
 
 	/**
 	 * Selects (click) for MenuItem
@@ -163,6 +176,16 @@ public class MenuLookup {
 		if(!enabled){
 			throw new SWTLayerException("Menu item is not enabled");
 		} else {
+			Display.syncExec(new Runnable() {
+
+				@Override
+				public void run() {
+					if(((item.getStyle() & SWT.RADIO) != 0) || ((item.getStyle() & SWT.CHECK) != 0)){
+						item.setSelection(!item.getSelection());
+					}
+				}
+			});
+			
 			Display.asyncExec(new Runnable() {
 
 				@Override
@@ -170,9 +193,10 @@ public class MenuLookup {
 					final Event event = new Event();
 					event.time = (int) System.currentTimeMillis();
 					event.widget = item;
+					event.item = item;
 					event.display = item.getDisplay();
 					event.type = SWT.Selection;
-
+					
 					log.info("Click on menu item: " + item.getText());
 					item.notifyListeners(SWT.Selection, event);
 				}
@@ -180,7 +204,7 @@ public class MenuLookup {
 			Display.syncExec(new Runnable() {
 				@Override
 				public void run() {
-					// do nothing just process events				
+
 				}
 			});
 		}

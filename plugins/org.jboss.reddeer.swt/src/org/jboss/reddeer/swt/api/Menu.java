@@ -15,6 +15,12 @@ public interface Menu extends Widget{
 	 * Select Menu (MenuItem) instance
 	 */
 	void select();
+	
+	/**
+	 * Checks if menu is selected - related only to CHECK and RADIO styled menus
+	 * @return true if menu is selected, false otherwise
+	 */
+	boolean isSelected();
 
 	/**
 	 * Returns Menu (MenuItem) title text

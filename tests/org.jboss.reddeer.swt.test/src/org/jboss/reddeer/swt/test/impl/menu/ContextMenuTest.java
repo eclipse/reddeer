@@ -1,9 +1,12 @@
 package org.jboss.reddeer.swt.test.impl.menu;
 
+import static org.junit.Assert.assertTrue;
+
 import org.jboss.reddeer.eclipse.jdt.ui.ProjectExplorer;
 import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.PackageExplorer;
 import org.jboss.reddeer.swt.condition.ShellWithTextIsActive;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
+import org.jboss.reddeer.swt.impl.button.CheckBox;
 import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.menu.ContextMenu;
 import org.jboss.reddeer.swt.impl.menu.ShellMenu;
@@ -13,6 +16,7 @@ import org.jboss.reddeer.swt.impl.text.LabeledText;
 import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
 import org.jboss.reddeer.swt.test.RedDeerTest;
 import org.jboss.reddeer.swt.wait.WaitWhile;
+import org.jboss.reddeer.workbench.editor.DefaultEditor;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -29,12 +33,22 @@ public class ContextMenuTest extends RedDeerTest {
 		new PushButton("OK").click();
 		new ShellMenu("File","New","Other...").select();
 		new DefaultShell("New");
-		new DefaultTreeItem("General","Project").select();
+		new DefaultTreeItem("Java","Java Project").select();
 		new PushButton("Next >").click();
-		new DefaultShell("New Project");
+		new DefaultShell("New Java Project");
 		new LabeledText("Project name:").setText(projectName);
 		new PushButton("Finish").click();
-		new WaitWhile(new ShellWithTextIsActive("New Project"));
+		new WaitWhile(new ShellWithTextIsActive("New Java Project"));
+		new ShellMenu("File","New","Other...").select();
+		new DefaultShell("New");
+		new DefaultTreeItem("Java","Class").select(); 
+		new PushButton("Next >").click();
+		new DefaultShell("New Java Class");
+		new LabeledText("Name:").setText("TestClass");
+		new CheckBox("public static void main(String[] args)").toggle(true);
+		new PushButton("Finish").click();
+		new WaitWhile(new ShellWithTextIsActive("New Java Class"));
+		
 	}
 	
 	@AfterClass
@@ -60,5 +74,14 @@ public class ContextMenuTest extends RedDeerTest {
 		new ContextMenu("Configure","Convert to Maven Project").select();
 		new DefaultShell("Create new POM");
 		new PushButton("Cancel").click();
+	}
+	
+	@Test
+	public void testOpenWithCheck(){
+		PackageExplorer pex = new PackageExplorer();
+		pex.open();
+		pex.getProject(projectName).getProjectItem("src","(default package)","TestClass.java").select();
+		new ContextMenu("Open With","Text Editor").select();
+		assertTrue(new ContextMenu("Open With","Text Editor").isSelected());
 	}
 }

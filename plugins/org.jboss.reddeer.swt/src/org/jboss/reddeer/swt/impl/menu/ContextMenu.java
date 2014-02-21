@@ -64,6 +64,16 @@ public class ContextMenu extends AbstractMenu implements Menu {
 		}
 	}
 	
+	@Override
+	public boolean isSelected() {
+		MenuLookup l = new MenuLookup();
+		if(menuItem != null){
+			return l.isSelected(menuItem);
+		} else {
+			return false;
+		}
+	}
+	
 	
 	@Override
 	public String getText() {

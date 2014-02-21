@@ -14,7 +14,6 @@ import org.jboss.reddeer.swt.lookup.MenuLookup;
 import org.jboss.reddeer.swt.lookup.WidgetLookup;
 import org.jboss.reddeer.swt.matcher.WithMnemonicMatchers;
 import org.jboss.reddeer.swt.util.Display;
-import org.jboss.reddeer.swt.util.Utils;
 
 /**
  * Shell menu implementation
@@ -77,6 +76,16 @@ public class ShellMenu extends AbstractMenu implements Menu {
 			} else {
 				throw new SWTLayerException("Unsupported Mac Eclispe menu command: " + macEclipseMenuCommand);
 			}
+		}
+	}
+	
+	@Override
+	public boolean isSelected() {
+		MenuLookup l = new MenuLookup();
+		if(menuItem != null){
+			return l.isSelected(menuItem);
+		} else {
+			return false;
 		}
 	}
 	
