@@ -26,6 +26,11 @@ public class RequirementsRunnerBuilder extends RunnerBuilder {
 		this.config = config;
 	}
 
+	/**
+	 * Checks if the requirements on the test class can be fulfilled and creates a runner for the test class
+	 * @return runner for the test class
+	 * @throws Throwable
+	 */
 	@Override
 	public Runner runnerForClass(Class<?> clazz) throws Throwable {
 		log.info("Found test " + clazz);

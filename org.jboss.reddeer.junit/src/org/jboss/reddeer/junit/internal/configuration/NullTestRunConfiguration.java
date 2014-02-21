@@ -6,8 +6,6 @@ package org.jboss.reddeer.junit.internal.configuration;
  * @author rhopp
  *
  */
-
-
 public class NullTestRunConfiguration implements TestRunConfiguration {
 
 	private RequirementsConfiguration requirementsConfiguration;
@@ -17,6 +15,9 @@ public class NullTestRunConfiguration implements TestRunConfiguration {
 		return "default";
 	}
 
+	/**
+	 * @return RequirementsConfiguration
+	 */
 	@Override
 	public RequirementsConfiguration getRequirementConfiguration() {
 		if (requirementsConfiguration == null){

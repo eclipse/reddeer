@@ -30,6 +30,10 @@ public class SuiteConfiguration {
 	
     private List<TestRunConfiguration> testRunConfigs;
     
+    /**
+     * 
+     * @return List of test run configurations
+     */
 	public List<TestRunConfiguration> getTestRunConfigurations(){
 		if (testRunConfigs == null){
 			testRunConfigs = findTestRunConfigurations();

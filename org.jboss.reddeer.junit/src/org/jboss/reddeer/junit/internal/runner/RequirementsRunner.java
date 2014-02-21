@@ -24,6 +24,12 @@ public class RequirementsRunner extends BlockJUnit4ClassRunner {
 
 	private RequirementsInjector requirementsInjector = new RequirementsInjector();
 	
+	/**
+	 * Constructor
+	 * @param clazz
+	 * @param requirements
+	 * @throws InitializationError
+	 */
 	public RequirementsRunner(Class<?> clazz, Requirements requirements) throws InitializationError {
 		super(clazz);
 		this.requirements = requirements;

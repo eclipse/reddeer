@@ -18,11 +18,17 @@ public class NullRequirementsConfiguration implements
 	
 	private NullConfigurator voidConfigurator;
 
+	/**
+	 * Constructor
+	 */
 	public NullRequirementsConfiguration() {
 		super();
 		this.voidConfigurator = new NullConfigurator();
 	}
 	
+	/**
+	 * @throws RedDeerConfigurationException
+	 */
 	@Override
 	public void configure(Requirement<?> requirement) {
 		if (requirement instanceof PropertyConfiguration || requirement instanceof CustomConfiguration){

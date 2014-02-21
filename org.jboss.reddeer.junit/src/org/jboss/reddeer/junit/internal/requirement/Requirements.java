@@ -18,6 +18,10 @@ public class Requirements implements Requirement<Annotation>, Iterable<Requireme
 	private List<Requirement<?>> requirements;
 	private Logger log = Logger.getLogger(Requirements.class);
 	
+	/**
+	 * Constructor
+	 * @param requirements
+	 */
 	public Requirements(List<Requirement<?>> requirements) {
 		super();
 		if (requirements == null){

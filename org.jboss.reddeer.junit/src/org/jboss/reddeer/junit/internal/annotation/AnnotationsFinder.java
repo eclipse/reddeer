@@ -17,11 +17,20 @@ public class AnnotationsFinder {
 
 	private Matcher<Annotation> annotationMatcher;
 	
+	/**
+	 * Constructor
+	 * @param annotationMatcher
+	 */
 	public AnnotationsFinder(Matcher<Annotation> annotationMatcher) {
 		super();
 		this.annotationMatcher = annotationMatcher;
 	}
 
+	/**
+	 * 
+	 * @param clazz
+	 * @return List of annotations matching the matcher
+	 */
 	public List<Annotation> find(Class<?> clazz){
 		List<Annotation> annotations = new ArrayList<Annotation>();
 		

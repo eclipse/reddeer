@@ -14,6 +14,10 @@ import org.jboss.reddeer.junit.requirement.Requirement;
  */
 public class RequirementAnnotationMatcher extends TypeSafeMatcher<Annotation> {
 
+	/**
+	 * @param annotation
+	 * @return true if annotation is matched safely
+	 */
 	@Override
 	public boolean matchesSafely(Annotation annotation) {
 		Class<?> enclosingType = annotation.annotationType().getEnclosingClass();

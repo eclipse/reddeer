@@ -36,6 +36,10 @@ public class RequirementsConfigurationImpl implements RequirementsConfiguration{
 		this.customConfigurator = new CustomConfigurator(reader);
 	}
 	
+	/**
+	 * Configures the requirement
+	 * @param requirement
+	 */
 	public void configure(Requirement<?> requirement){
 		getConfigurator(requirement).configure(requirement);
 	}

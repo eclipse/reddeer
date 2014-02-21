@@ -8,7 +8,6 @@ import org.jboss.reddeer.junit.requirement.Requirement;
  * @author rhopp
  *
  */
-
 public interface RequirementsConfiguration {
 
 	

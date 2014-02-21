@@ -15,6 +15,11 @@ import org.jboss.reddeer.junit.requirement.inject.RequirementInjectionException;
  */
 public class RequirementsInjector {
 
+	/**
+	 * Injects requirements to the test instance.
+	 * @param testInstance
+	 * @param requirements
+	 */
 	public void inject(Object testInstance, Requirements requirements) {
 		for (Field field : testInstance.getClass().getDeclaredFields()) {
 			if (field.isAnnotationPresent(InjectRequirement.class)) {
