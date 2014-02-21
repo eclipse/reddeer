@@ -21,6 +21,9 @@ public abstract class AbstractMenu implements Menu {
 	public abstract void select();
 	
 	@Override
+	public abstract boolean isSelected();
+	
+	@Override
 	public String getText() {
 		throw new UnsupportedOperationException("not yet implemented");
 	}

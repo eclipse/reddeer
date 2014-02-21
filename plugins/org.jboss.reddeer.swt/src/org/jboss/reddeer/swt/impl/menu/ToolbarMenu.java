@@ -32,8 +32,11 @@ public class ToolbarMenu extends AbstractMenu implements Menu{
 		MenuLookup l = new MenuLookup();
 		l.select(item);
 	}
-
-
+	
+	@Override
+	public boolean isSelected() {
+		return false;
+	}
 
 	@Override
 	public String getText() {
