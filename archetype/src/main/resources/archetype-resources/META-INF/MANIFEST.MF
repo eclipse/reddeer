@@ -1,0 +1,27 @@
+#set( $symbol_pound = '#' )
+#set( $symbol_dollar = '$' )
+#set( $symbol_escape = '\' )
+#if ($version.endsWith('-SNAPSHOT'))
+#set ($futureVersion = $version.substring(0,$version.indexOf('-SNAPSHOT')))
+#else 
+#set ($futureVersion = $version)
+#end
+#if ($reddeer_version == "0.4.0")
+#set ($rd_version = ';bundle-version="0.4.0"')
+#else
+#set ($rd_version = '')
+#end
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: ${artifactId} Reddeer Test
+Bundle-SymbolicName: ${artifactId}.reddeer.test
+Bundle-Version: ${futureVersion}.qualifier
+Bundle-Activator: ${package}.reddeer.test.Activator
+Bundle-RequiredExecutionEnvironment: J2SE-1.5,
+ JavaSE-1.6
+Require-Bundle: org.junit,
+ org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.hamcrest.core,
+ org.jboss.reddeer.junit${rd_version},
+ org.jboss.reddeer.swt${rd_version}

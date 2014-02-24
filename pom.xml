@@ -25,6 +25,7 @@
                 <module>tests</module>
                 <module>features</module>
                 <module>site</module>
+		<module>archetype</module>
 	</modules>
 	
 	<build>

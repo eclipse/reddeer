@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?><archetype-descriptor name="eclipse.plugin.archetype">
+  <requiredProperties>
+    <requiredProperty key="tycho_version">
+      <defaultValue>0.18.1</defaultValue>
+    </requiredProperty>
+    <requiredProperty key="eclipse_platform">
+      <defaultValue>luna</defaultValue>
+    </requiredProperty>
+    <requiredProperty key="reddeer_version">
+      <defaultValue>0.5.0</defaultValue>
+    </requiredProperty>
+    <requiredProperty key="version">
+       <defaultValue>1.0.0-SNAPSHOT</defaultValue>
+    </requiredProperty>
+  </requiredProperties>
+  <fileSets>
+        <fileSet filtered="true" packaged="true" encoding="UTF-8">
+          <directory>src/</directory>
+          <includes>
+            <include>**/*.java</include>
+          </includes>
+        </fileSet>
+        <fileSet filtered="true" encoding="UTF-8">
+          <directory>META-INF</directory>
+          <includes>
+            <include>**/*.MF</include>
+          </includes>
+        </fileSet>
+        <fileSet filtered="true" encoding="UTF-8">
+          <directory></directory>
+          <includes>
+            <include>build.properties</include>
+          </includes>
+        </fileSet>
+      </fileSets>
+</archetype-descriptor>
