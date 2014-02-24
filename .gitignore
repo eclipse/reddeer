@@ -3,6 +3,8 @@
 #netbeans ignore personal stuff
 nbproject/private/
 ## generic files to ignore
+bin
+target
 *~
 *.lock
 *.DS_Store
