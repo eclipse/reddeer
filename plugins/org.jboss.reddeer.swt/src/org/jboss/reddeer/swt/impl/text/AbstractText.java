@@ -3,6 +3,8 @@ package org.jboss.reddeer.swt.impl.text;
 import org.jboss.reddeer.junit.logging.Logger;
 import org.jboss.reddeer.swt.api.Text;
 import org.jboss.reddeer.swt.handler.WidgetHandler;
+import org.jboss.reddeer.swt.keyboard.KeyboardFactory;
+import org.jboss.reddeer.swt.lookup.WidgetLookup;
 
 /**
  * Abstract class for all Text implementations
@@ -49,4 +51,11 @@ public abstract class AbstractText implements Text {
 		return WidgetHandler.getInstance().isEnabled(w);
 	}
 	
+	@Override
+	public void typeText(String text) {
+		setText("");
+		setFocus();
+		KeyboardFactory.getKeyboard().type(text);
+		
+	}
 }

@@ -33,5 +33,12 @@ public interface Text extends Widget{
 	 */
 	void setFocus();
 	
+	/**
+	 * Types text using @link(org.jboss.reddeer.swt.keyboard.Keyboard)
+	 * @param text
+	 */
+	
+	void typeText(String text);
+	
 	org.eclipse.swt.widgets.Text getSWTWidget();
 }

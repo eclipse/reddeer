@@ -6,6 +6,8 @@ import static org.junit.Assert.assertTrue;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.FocusEvent;
 import org.eclipse.swt.events.FocusListener;
+import org.eclipse.swt.events.ModifyEvent;
+import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
@@ -22,6 +24,9 @@ import org.junit.Test;
 
 public class LabeledTextTest extends RedDeerTest{
 	
+	
+	private int modifiedCount = 0;
+	
 	@Override
 	public void setUp() {
 		super.setUp();
@@ -36,6 +41,7 @@ public class LabeledTextTest extends RedDeerTest{
 				shell.setFocus();
 			}
 		});
+		modifiedCount = 0;
 	}
 	
 	private void createControls(Shell shell){
@@ -82,6 +88,13 @@ public class LabeledTextTest extends RedDeerTest{
 		swtText1.setText("Test text1");
 		swtText1.setSize(100,30);
 		swtText1.setLocation(250,150);
+		swtText1.addModifyListener(new ModifyListener() {
+			
+			@Override
+			public void modifyText(ModifyEvent arg0) {
+				modifiedCount++;
+			}
+		});
 		
 		Label swtLabel2= new Label(shell, SWT.BORDER);
 		swtLabel2.setText("Test label2");
@@ -154,6 +167,15 @@ public class LabeledTextTest extends RedDeerTest{
 		new DefaultShell("Testing shell");
 		new LabeledText("Test label1").setText("funny text");
 		assertEquals("funny text", new LabeledText("Test label1").getText());
+		assertEquals(1, modifiedCount);
+	}
+	
+	@Test
+	public void typeTextTest(){
+		new DefaultShell("Testing shell");
+		new LabeledText("Test label1").typeText("not so funny text");
+		assertEquals("not so funny text", new LabeledText("Test label1").getText());
+		assertEquals(18, modifiedCount);
 	}
 
 	@Test(expected = SWTLayerException.class)
