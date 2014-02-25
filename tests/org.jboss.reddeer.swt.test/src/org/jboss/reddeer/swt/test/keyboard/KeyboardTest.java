@@ -7,6 +7,7 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
+import org.jboss.reddeer.swt.impl.text.DefaultText;
 import org.jboss.reddeer.swt.keyboard.Keyboard;
 import org.jboss.reddeer.swt.keyboard.KeyboardFactory;
 import org.jboss.reddeer.swt.test.RedDeerTest;
@@ -55,7 +56,7 @@ public class KeyboardTest extends RedDeerTest {
 	public void keyCombinationTest(){
 		new DefaultShell();
 		KeyboardFactory.getKeyboard().invokeKeyCombination(SWT.CONTROL, 'h');
-		new DefaultShell().close();
+		new DefaultShell("Search").close();
 	}
 	
 	@Test
@@ -106,6 +107,8 @@ public class KeyboardTest extends RedDeerTest {
 				shell.setFocus();
 			}
 		});
+		new DefaultShell("Testing shell");
+		new DefaultText();
 	}
 
 	private String getText() {
