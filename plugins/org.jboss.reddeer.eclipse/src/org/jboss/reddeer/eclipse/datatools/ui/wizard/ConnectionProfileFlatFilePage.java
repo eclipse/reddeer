@@ -3,7 +3,7 @@ package org.jboss.reddeer.eclipse.datatools.ui.wizard;
 import org.jboss.reddeer.eclipse.jface.wizard.WizardDialog;
 import org.jboss.reddeer.eclipse.jface.wizard.WizardPage;
 import org.jboss.reddeer.swt.impl.button.CheckBox;
-import org.jboss.reddeer.swt.impl.combo.DefaultCombo;
+import org.jboss.reddeer.swt.impl.combo.LabeledCombo;
 import org.jboss.reddeer.swt.impl.text.DefaultText;
 
 /**
@@ -31,11 +31,11 @@ public class ConnectionProfileFlatFilePage extends WizardPage {
 	}
 
 	public void setCharset(String charset) {
-		new DefaultCombo(LABEL_CHARSET).setSelection(charset);
+		new LabeledCombo(LABEL_CHARSET).setSelection(charset);
 	}
 
 	public void setStyle(String style) {
-		new DefaultCombo(LABEL_STYLE).setSelection(style);
+		new LabeledCombo(LABEL_STYLE).setSelection(style);
 	}
 
 	public void useFirstLineAsNameIndicator(boolean use) {
