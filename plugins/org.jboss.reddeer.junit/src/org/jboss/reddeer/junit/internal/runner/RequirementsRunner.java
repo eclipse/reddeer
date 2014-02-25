@@ -11,7 +11,11 @@ import org.jboss.reddeer.junit.internal.requirement.Requirements;
 import org.jboss.reddeer.junit.internal.requirement.inject.RequirementsInjector;
 import org.jboss.reddeer.junit.internal.screenrecorder.ScreenRecorderExt;
 import org.jboss.reddeer.junit.internal.screenshot.CaptureScreenshot;
+import org.junit.AfterClass;
 import org.junit.BeforeClass;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 import org.junit.runner.Description;
 import org.junit.runner.notification.Failure;
 import org.junit.runner.notification.RunListener;
@@ -60,8 +64,11 @@ public class RequirementsRunner extends BlockJUnit4ClassRunner {
 
 	@Override
 	protected Statement withBeforeClasses(Statement statement) {
-		Statement s = super.withBeforeClasses(statement);
-		runBeforeTest();
+		Statement s;
+        List<FrameworkMethod> befores = getTestClass()
+                .getAnnotatedMethods(BeforeClass.class);
+        s = befores.isEmpty() ? statement :
+                new RunBefores(statement, befores, null);
 		return new FulfillRequirementsStatement(requirements, s);
 	}
 	
@@ -273,7 +280,12 @@ public class RequirementsRunner extends BlockJUnit4ClassRunner {
 	    	try{
 	    		fTestMethod.invokeExplosively(fTarget);	
 	    	} catch (Throwable t){
-	    		CaptureScreenshot.captureScreenshot(fTarget.getClass().getCanonicalName() + " " + fTestMethod.getName());
+	    		Test annotation = (Test) fTestMethod.getAnnotations()[0];
+	    		if (annotation.expected().getName().equals("org.junit.Test$None") ||
+	    			!annotation.expected().getName().equals(t.getClass().getName())) {
+		    			CaptureScreenshot screenshot = new CaptureScreenshot();
+			    		screenshot.captureScreenshot(fTarget.getClass().getCanonicalName() + "-" + fTestMethod.getName());	    			
+	    		}	
 	    		throw t;
 	    	}
 	        
@@ -284,4 +296,30 @@ public class RequirementsRunner extends BlockJUnit4ClassRunner {
 	protected Statement methodInvoker(FrameworkMethod method, Object test) {
 	    return new InvokeMethodWithException(method, test);
 	}
+	
+	@Override
+	protected Statement withAfters(FrameworkMethod method, Object target,
+            Statement statement) {
+        List<FrameworkMethod> afters = getTestClass().getAnnotatedMethods(After.class);
+        return afters.isEmpty() ? statement : new RunAfters(statement, afters,
+                target);
+    }
+		
+	@Override
+	protected Statement withBefores(FrameworkMethod method, Object target,
+            Statement statement) {
+        List<FrameworkMethod> befores = getTestClass().getAnnotatedMethods(
+                Before.class);
+        return befores.isEmpty() ? statement : new RunBefores(statement,
+                befores, target);
+    }
+	
+	@Override
+	 protected Statement withAfterClasses(Statement statement) {
+        List<FrameworkMethod> afters = getTestClass()
+                .getAnnotatedMethods(AfterClass.class);
+        return afters.isEmpty() ? statement :
+                new RunAfters(statement, afters, null);
+    }
+
 }
