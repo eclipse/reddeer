@@ -4,7 +4,7 @@ import org.jboss.reddeer.eclipse.jface.wizard.WizardPage;
 import org.jboss.reddeer.swt.condition.ShellWithTextIsActive;
 import org.jboss.reddeer.swt.impl.button.CheckBox;
 import org.jboss.reddeer.swt.impl.button.PushButton;
-import org.jboss.reddeer.swt.impl.combo.DefaultCombo;
+import org.jboss.reddeer.swt.impl.combo.LabeledCombo;
 import org.jboss.reddeer.swt.impl.group.DefaultGroup;
 import org.jboss.reddeer.swt.impl.menu.ContextMenu;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
@@ -39,27 +39,27 @@ public class WebProjectFirstPage extends WizardPage{
 	}
 	
 	public void setTargetRuntime(String targetRuntime){
-		new DefaultCombo(new DefaultGroup("Target runtime")).setSelection(targetRuntime);
+		new LabeledCombo(new DefaultGroup("Target runtime")).setSelection(targetRuntime);
 	}
 	
 	public String getTargetRuntime(){
-		return new DefaultCombo(new DefaultGroup("Target runtime")).getSelection();
+		return new LabeledCombo(new DefaultGroup("Target runtime")).getSelection();
 	}
 	
 	public void setDynamicWebModuleVersion(String version){
-		new DefaultCombo(new DefaultGroup("Dynamic web module version")).setSelection(version);
+		new LabeledCombo(new DefaultGroup("Dynamic web module version")).setSelection(version);
 	}
 	
 	public String getDynamicWebModuleVersion(){
-		return new DefaultCombo(new DefaultGroup("Dynamic web module version")).getSelection();
+		return new LabeledCombo(new DefaultGroup("Dynamic web module version")).getSelection();
 	}
 	
 	public void setConfiguration(String configuration){
-		new DefaultCombo(new DefaultGroup("Configuration")).setSelection(configuration);
+		new LabeledCombo(new DefaultGroup("Configuration")).setSelection(configuration);
 	}
 	
 	public String getConString(){
-		return new DefaultCombo(new DefaultGroup("Configuration")).getSelection();
+		return new LabeledCombo(new DefaultGroup("Configuration")).getSelection();
 	}
 	
 	public void setEARMembership(boolean membership){
@@ -71,11 +71,11 @@ public class WebProjectFirstPage extends WizardPage{
 	}
 	
 	public void setEARProjectName(String name){
-		new DefaultCombo(new DefaultGroup("EAR membership"),"EAR project name:").setText(name);
+		new LabeledCombo(new DefaultGroup("EAR membership"),"EAR project name:").setText(name);
 	}
 	
 	public String getEARProjectName(){
-		return new DefaultCombo(new DefaultGroup("EAR membership"),"EAR project name:").getText();
+		return new LabeledCombo(new DefaultGroup("EAR membership"),"EAR project name:").getText();
 	}
 	
 	public void setWorkingSets(boolean workingSets){
@@ -83,11 +83,11 @@ public class WebProjectFirstPage extends WizardPage{
 	}
 	
 	public void setWorkingSets(String workingSets){
-		new DefaultCombo(new DefaultGroup("Working sets"),"Working sets:").setSelection(workingSets);
+		new LabeledCombo(new DefaultGroup("Working sets"),"Working sets:").setSelection(workingSets);
 	}
 	
 	public String getWorkingSets(){
-		return new DefaultCombo(new DefaultGroup("Working sets"),"Working sets:").getSelection();
+		return new LabeledCombo(new DefaultGroup("Working sets"),"Working sets:").getSelection();
 	}
 	
 	public void activateFacet(String facet, String version){
@@ -98,7 +98,7 @@ public class WebProjectFirstPage extends WizardPage{
 		if(version!=null){
 			new ContextMenu("Change Version...").select();
 			new DefaultShell("Change Version");
-			new DefaultCombo("Version:").setSelection(version);
+			new LabeledCombo("Version:").setSelection(version);
 			new PushButton("OK").click();
 			new DefaultShell("Project Facets");
 		}

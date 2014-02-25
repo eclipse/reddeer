@@ -11,6 +11,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.jboss.reddeer.swt.api.Combo;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.impl.combo.DefaultCombo;
+import org.jboss.reddeer.swt.impl.combo.LabeledCombo;
 import org.jboss.reddeer.swt.impl.text.DefaultText;
 import org.jboss.reddeer.swt.test.RedDeerTest;
 import org.jboss.reddeer.swt.util.Display;
@@ -97,7 +98,7 @@ public class ComboTest extends RedDeerTest{
 	@Test
 	public void findByName(){
 		int index = 3;
-		Combo combo = new DefaultCombo(ComboTest.COMBO_LABEL_PREFIX + index);
+		Combo combo = new LabeledCombo(ComboTest.COMBO_LABEL_PREFIX + index);
 		combo.setSelection(index);
 		String comboText = combo.getText();
 		String expectedComboText = ComboTest.COMBO_ITEM_PREFIX + index + index;
@@ -111,13 +112,13 @@ public class ComboTest extends RedDeerTest{
 	}
 	@Test(expected = SWTLayerException.class)
 	public void findNonExistingByLabel(){
-		new DefaultCombo("NON_EXISTING_LABEL_&*");
+		new LabeledCombo("NON_EXISTING_LABEL_&*");
 	}
 	@Test
 	public void enabled(){
 		Combo combo = new DefaultCombo(1);
 		assertTrue("Combo is not enabled" , combo.isEnabled());
-		combo = new DefaultCombo(ComboTest.DISABLED_COMBO_LABEL);
+		combo = new LabeledCombo(ComboTest.DISABLED_COMBO_LABEL);
 		assertFalse("Combo is enabled" , combo.isEnabled());
 		
 	}
@@ -125,7 +126,7 @@ public class ComboTest extends RedDeerTest{
 	public void selectionByIndex(){
 		int comboIndex = 1;
 		int itemIndex = 2;
-		Combo combo = new DefaultCombo(ComboTest.COMBO_LABEL_PREFIX + comboIndex);
+		Combo combo = new LabeledCombo(ComboTest.COMBO_LABEL_PREFIX + comboIndex);
 		combo.setSelection(itemIndex);
 		String comboText = combo.getText();
 		String expectedComboText = ComboTest.COMBO_ITEM_PREFIX + comboIndex + itemIndex;
@@ -144,7 +145,7 @@ public class ComboTest extends RedDeerTest{
 	public void selectionByItem(){
 		int comboIndex = 2;
 		int itemIndex = 3;
-		Combo combo = new DefaultCombo(ComboTest.COMBO_LABEL_PREFIX + comboIndex);
+		Combo combo = new LabeledCombo(ComboTest.COMBO_LABEL_PREFIX + comboIndex);
 		combo.setSelection(ComboTest.COMBO_ITEM_PREFIX + comboIndex + itemIndex);
 		String comboText = combo.getText();
 		String expectedComboText = ComboTest.COMBO_ITEM_PREFIX + comboIndex + itemIndex;

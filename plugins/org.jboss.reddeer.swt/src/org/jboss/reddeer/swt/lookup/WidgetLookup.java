@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Shell;
@@ -218,7 +219,11 @@ public class WidgetLookup {
 		try{
 			new WaitUntil(found);
 		} catch (WaitTimeoutExpiredException ex){
-			throw new SWTLayerException("No matching widget found", ex);
+			String exceptionText = "No matching widget found";
+			if(clazz.isInstance(Combo.class)){
+				exceptionText = "Combo not found - see https://github.com/jboss-reddeer/reddeer/issues/485";
+			}
+			throw new SWTLayerException(exceptionText, ex);
 		}
 		return (T)found.getWidget();
 	}
