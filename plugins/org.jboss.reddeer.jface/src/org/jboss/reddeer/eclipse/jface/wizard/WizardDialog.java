@@ -56,11 +56,29 @@ public class WizardDialog {
 	public WizardPage getFirstPage() {
 		return getWizardPage();
 	}
+	
+	/**
+	  * Returns a current wizard page
+	 * 
+	 * @return current wizard page
+	 */
 
+	public WizardPage getCurrentWizardPage() {
+		for (WizardPage wizardPage : wizardPageMap.keySet()) {
+			Matcher<WizardDialog> matcher = wizardPageMap.get(wizardPage);
+			if (matcher.matches(this)) {
+				return wizardPage;
+			}
+		}
+		log.warn("No wizard page found in page index '" + currentPage + "'");
+		return null;
+	}
+	
 	/**
 	 * Returns a current wizard page
 	 * 
 	 * @return current wizard page
+	 * @deprecated use getCurrentWizardPage() instead
 	 */
 	public WizardPage getWizardPage() {
 		for (WizardPage wizardPage : wizardPageMap.keySet()) {
@@ -71,6 +89,18 @@ public class WizardDialog {
 		}
 		log.warn("No wizard page found in page index '" + currentPage + "'");
 		return null;
+	}
+	
+	/**
+	 * Automatically lists to desired wizard page and returns it.
+	 * 
+	 * @param page index of desired wizard page
+	 * @return instance of desired WizardPage
+	 */
+	
+	public WizardPage getWizardPage(int pageIndex){
+		selectPage(pageIndex);
+		return getCurrentWizardPage();
 	}
 
 	/**
