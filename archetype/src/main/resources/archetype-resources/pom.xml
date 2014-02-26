@@ -26,6 +26,7 @@
   	<tycho.version>${tycho_version}</tycho.version>
   	<tycho.test.jvmArgs>-Xmx512m -XX:MaxPermSize=256m</tycho.test.jvmArgs>
 	<surefire.timeout>1200</surefire.timeout>
+	<platformSystemProperties></platformSystemProperties>
   </properties>
 
   <repositories>
@@ -85,16 +86,18 @@
           <version>${symbol_dollar}{tycho.version}</version>
           <configuration>
             <useUIHarness>true</useUIHarness>
-	    <testSuite>${artifactId}.reddeer.test</testSuite>
+            <useUIThread>false</useUIThread>
+            <testSuite>${artifactId}.reddeer.test</testSuite>
             <testClass>${package}.reddeer.test.AllRedDeerTests</testClass>
-            <argLine>${symbol_dollar}{tycho.test.jvmArgs}</argLine>
-	    <includes>
+            <!-- THE FOLLOWING LINE MUST NOT BE BROKEN BY AUTOFORMATTING -->
+            <argLine>${symbol_dollar}{tycho.test.jvmArgs} ${symbol_dollar}{platformSystemProperties}</argLine>
+	    	<includes>
                 <include>**/AllTests.class</include>
                 <include>**/*AllTests*.class</include>
-		<include>**/*AllBotTests*.class</include>
+				<include>**/*AllBotTests*.class</include>
                 <include>**/*AllRedDeerTests*.class</include>
                 <include>**/*TestSuite*.class</include>
-              </includes>
+            </includes>
           </configuration>
         </plugin>
         <plugin>
@@ -104,5 +107,21 @@
         </plugin>
       </plugins>
     </pluginManagement>
-  </build>  
+  </build>
+  
+  <profiles>
+		<profile>
+			<!-- Workaround for https://bugs.eclipse.org/bugs/show_bug.cgi?id=388084 -->
+			<id>osx</id>
+			<activation>
+				<os>
+					<family>mac</family>
+				</os>
+			</activation>
+			<properties>
+				<!-- THE FOLLOWING LINE MUST NOT BE BROKEN BY AUTOFORMATTING -->
+				<platformSystemProperties> -XstartOnFirstThread </platformSystemProperties>
+			</properties>
+		</profile>
+	</profiles>
 </project>
