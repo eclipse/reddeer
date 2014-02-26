@@ -76,7 +76,6 @@ public class RedDeerSWTGeneratorRules implements Generator{
 /*
 	@Override
 	public List<GenerationStackRule> createStackRules() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 */

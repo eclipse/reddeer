@@ -94,7 +94,6 @@ public class SimpleEditor extends EditorPart{
 
 	@Override
 	public boolean isSaveAsAllowed() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 

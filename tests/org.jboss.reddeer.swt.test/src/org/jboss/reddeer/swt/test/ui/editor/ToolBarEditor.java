@@ -59,25 +59,21 @@ public class ToolBarEditor extends EditorPart implements IEditorInput{
 
 	@Override
 	public void doSave(IProgressMonitor arg0) {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void doSaveAs() {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public boolean isDirty() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public boolean isSaveAsAllowed() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 	
@@ -91,13 +87,11 @@ public class ToolBarEditor extends EditorPart implements IEditorInput{
 
 	@Override
 	public boolean exists() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public ImageDescriptor getImageDescriptor() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -108,7 +102,6 @@ public class ToolBarEditor extends EditorPart implements IEditorInput{
 
 	@Override
 	public IPersistableElement getPersistable() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
