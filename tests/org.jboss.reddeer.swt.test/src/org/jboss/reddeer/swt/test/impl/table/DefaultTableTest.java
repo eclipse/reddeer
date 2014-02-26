@@ -109,13 +109,11 @@ public class DefaultTableTest extends RedDeerTest{
 			
 			@Override
 			public void mouseUp(MouseEvent arg0) {
-				// TODO Auto-generated method stub
 				
 			}
 			
 			@Override
 			public void mouseDown(MouseEvent arg0) {
-				// TODO Auto-generated method stub
 				
 			}
 			

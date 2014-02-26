@@ -40,7 +40,6 @@ public class JavaRequirement implements Requirement<CustomConfigJavaRequirementA
 
 	@Override
 	public void setDeclaration(CustomConfigJavaRequirementAAnnotation a) {
-		// TODO Auto-generated method stub
 		
 	}
 }
