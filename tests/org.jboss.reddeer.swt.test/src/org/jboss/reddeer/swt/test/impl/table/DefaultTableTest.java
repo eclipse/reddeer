@@ -15,10 +15,13 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
+import org.jboss.reddeer.swt.condition.TableContainsItem;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
+import org.jboss.reddeer.swt.exception.WaitTimeoutExpiredException;
 import org.jboss.reddeer.swt.impl.table.DefaultTable;
 import org.jboss.reddeer.swt.test.RedDeerTest;
 import org.jboss.reddeer.swt.util.Display;
+import org.jboss.reddeer.swt.wait.WaitUntil;
 import org.junit.After;
 import org.junit.Test;
 
@@ -261,5 +264,15 @@ public class DefaultTableTest extends RedDeerTest{
 		assertEquals("x",item.getText());
 		item.doubleClick();
 		assertEquals("double click",item.getText());
+	}
+	
+	@Test
+	public void waitForTableItem(){
+		new WaitUntil(new TableContainsItem(new DefaultTable(1), "!", 2));
+	}
+	
+	@Test(expected = WaitTimeoutExpiredException.class)
+	public void waitForNonExistingTableItem(){
+		new WaitUntil(new TableContainsItem(new DefaultTable(1), "this does not exist", 2));
 	}
 }
