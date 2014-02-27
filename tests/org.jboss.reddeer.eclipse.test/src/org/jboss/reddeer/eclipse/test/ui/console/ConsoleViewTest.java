@@ -1,6 +1,9 @@
 package org.jboss.reddeer.eclipse.test.ui.console;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import org.hamcrest.core.IsEqual;
@@ -14,8 +17,10 @@ import org.jboss.reddeer.eclipse.ui.console.ConsoleView;
 import org.jboss.reddeer.swt.api.StyledText;
 import org.jboss.reddeer.swt.impl.menu.ShellMenu;
 import org.jboss.reddeer.swt.impl.styledtext.DefaultStyledText;
+import org.jboss.reddeer.swt.impl.toolbar.DefaultToolItem;
 import org.jboss.reddeer.swt.matcher.RegexMatchers;
 import org.jboss.reddeer.swt.test.RedDeerTest;
+import org.jboss.reddeer.swt.wait.AbstractWait;
 import org.jboss.reddeer.workbench.editor.DefaultEditor;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -27,6 +32,8 @@ public class ConsoleViewTest extends RedDeerTest{
 	private static ConsoleView consoleView;
 	
 	private static final String TEST_PROJECT_NAME = "Project";
+	private static final String TEST_CLASS_NAME = "TestClass";
+	private static final String TEST_CLASS_LOOP_NAME = "TestLoopClass";
 	
 	@BeforeClass
 	public static void setupClass() {
@@ -40,7 +47,7 @@ public class ConsoleViewTest extends RedDeerTest{
 	
 	@Before
 	public void setupTest() {
-		runTestProject();
+		runTestClass(TEST_CLASS_NAME);
 	}
 	
 	@Test
@@ -81,6 +88,25 @@ public class ConsoleViewTest extends RedDeerTest{
 		}
 	}
 	
+	@Test
+	public void testTerminateConsole() {
+		
+		runTestClass(TEST_CLASS_LOOP_NAME);
+		consoleView = new ConsoleView();
+		consoleView.open();
+		consoleView.terminateConsole();
+		
+		String text = consoleView.getConsoleText();
+		AbstractWait.sleep(1000);
+		String text2 = consoleView.getConsoleText();
+		assertTrue(text.contains("1\n"));
+		assertEquals(text, text2);
+		
+		DefaultToolItem terminate = new DefaultToolItem("Terminate");
+		assertFalse(terminate.isEnabled());
+		
+	}
+	
 	private void testGettingConsoleTest() {
 		consoleView = new ConsoleView();
 		consoleView.open();
@@ -101,7 +127,8 @@ public class ConsoleViewTest extends RedDeerTest{
 		PackageExplorer packageExplorer = new PackageExplorer();
 		if (!packageExplorer.containsProject(TEST_PROJECT_NAME)) {
 			createJavaProject();
-			createJavaClass();
+			createJavaClass(TEST_CLASS_NAME, "System.out.print(\"Hello World\");");
+			createJavaClass(TEST_CLASS_LOOP_NAME, "int i = 0; while (true) {System.out.println(i++);}");
 		}
 		packageExplorer.getProject(TEST_PROJECT_NAME).select();
 	}
@@ -116,24 +143,24 @@ public class ConsoleViewTest extends RedDeerTest{
 		javaProject.finish(false);
 	}
 	
-	private static void createJavaClass() {
+	private static void createJavaClass(String name, String text) {
 		NewJavaClassWizardDialog javaClassDialog = new NewJavaClassWizardDialog();
 		javaClassDialog.open();
 		
 		NewJavaClassWizardPage wizardPage = javaClassDialog.getFirstPage();
-		wizardPage.setName("TestClass");
+		wizardPage.setName(name);
 		wizardPage.setPackage("test");
 		wizardPage.setStaticMainMethod(true);
 		javaClassDialog.finish();
 		
 		StyledText dst = new DefaultStyledText();
-		dst.insertText(7, 0, "System.out.print(\"Hello World\");");
+		dst.insertText(7, 0, text);
 		new DefaultEditor().save();
 	}
 	
-	private static void runTestProject() {
-		new PackageExplorer().getProject(TEST_PROJECT_NAME).select();
+	private static void runTestClass(String name) {
+		new PackageExplorer().getProject(TEST_PROJECT_NAME).getProjectItem("src", "test", name + ".java").select();
 		RegexMatchers m = new RegexMatchers("Run.*", "Run As.*", ".*Java Application.*");
-		new ShellMenu(m.getMatchers()).select();
+		new ShellMenu(m.getMatchers()).select();		
 	}
 }
