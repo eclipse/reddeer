@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	elementFormDefault="qualified" targetNamespace="http://www.jboss.org/NS/ServerReq"
+	xmlns:server="http://www.jboss.org/NS/ServerReq">
+
+	<!-- Include basic server requirements -->
+	<xs:include schemaLocation="ServerRequirementsBase.xsd" />
+
+	<!-- Definition of all allowed tomcat versions -->
+	<xs:simpleType name="versionApacheTomcat">
+		<xs:restriction base="server:abstractVersion">
+			<xs:enumeration value="3.2" />
+			<xs:enumeration value="4.0" />
+			<xs:enumeration value="4.1" />
+			<xs:enumeration value="5.0" />
+			<xs:enumeration value="5.5" />
+			<xs:enumeration value="6.0" />
+			<xs:enumeration value="7.0" />
+			<xs:enumeration value="8.0" />
+		</xs:restriction>
+	</xs:simpleType>
+
+
+	<!-- ApacheTomcat family type definition -->
+	<xs:complexType name="familyApacheTomcat">
+		<xs:complexContent>
+			<xs:restriction base="server:abstractFamily">
+				<xs:attribute name="version" type="server:versionApacheTomcat"
+					use="required" />
+			</xs:restriction>
+		</xs:complexContent>
+	</xs:complexType>
+
+
+	<!-- Definition of ApacheTomcat family -->
+	<xs:element name="familyApacheTomcat" type="server:familyApacheTomcat"
+		substitutionGroup="server:abstractFamily" />
+
+	<xs:complexType name="apacheServerType">
+		<xs:complexContent>
+			<xs:restriction base="server:serverType">
+				<xs:choice>
+					<!-- This requirement accepts only one family: ApacheTomcat -->
+					<xs:element ref="server:familyApacheTomcat" />
+				</xs:choice>
+			</xs:restriction>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>
