@@ -48,6 +48,20 @@ public class ConsoleView extends WorkbenchView {
 		log.info("Terminated launches cleared");
 	}
 	
+	/**
+	 * Terminates an active console via the tool item <i>Terminate</i>. 
+	 */
+	public void terminateConsole() {
+		log.info("Terminating console");
+		DefaultToolItem terminate = new DefaultToolItem("Terminate");
+		if (terminate.isEnabled()) {
+			terminate.click();
+			log.info("Console terminated");
+		} else {
+			log.info("Console was terminated earlier");
+		}
+	}
+	
 	private class ConsoleHasTextWidget implements WaitCondition{
 
 		@Override
