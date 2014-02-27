@@ -6,6 +6,7 @@ import org.eclipse.ui.forms.widgets.Section;
 import org.jboss.reddeer.swt.handler.WidgetHandler;
 import org.jboss.reddeer.swt.matcher.WithMnemonicMatcher;
 import org.jboss.reddeer.swt.reference.ReferencedComposite;
+import org.jboss.reddeer.uiforms.handler.UIFormSectionHandler;
 import org.jboss.reddeer.uiforms.lookup.UIFormSectionLookup;
 
 /**
@@ -114,5 +115,8 @@ public class UIFormSection implements ReferencedComposite {
 	public Control getControl() {
 		return section;
 	}
-	
+
+	public void setExpanded(final boolean expanded) {
+		UIFormSectionHandler.getInstance().setExpanded(section, expanded);
+	}
 }

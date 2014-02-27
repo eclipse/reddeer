@@ -5,6 +5,7 @@ import static org.junit.Assert.assertNotNull;
 
 import org.hamcrest.core.Is;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
+import org.jboss.reddeer.swt.impl.text.DefaultText;
 import org.jboss.reddeer.swt.test.RedDeerTest;
 import org.jboss.reddeer.uiforms.UIForm;
 import org.jboss.reddeer.uiforms.section.UIFormSection;
@@ -56,4 +57,19 @@ public class UIFormSectionTest extends RedDeerTest {
 		new UIFormSection("Section 2");
 	}
 	
+	@Test
+	public void testExpanded_true(){
+		UIFormSection section = new UIFormSection();
+		section.setExpanded(true);
+
+		assertNotNull(new DefaultText("Value: "));
+	}
+	
+	@Test(expected=SWTLayerException.class)
+	public void testExpanded_false(){
+		UIFormSection section = new UIFormSection();
+		section.setExpanded(false);
+
+		new DefaultText(section, "Value: ");
+	}
 }
