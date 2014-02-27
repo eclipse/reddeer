@@ -10,11 +10,11 @@ import org.jboss.reddeer.swt.reference.ReferencedComposite;
  * @author jjankovi
  *
  */
-public class UIFormLookup {
+public class FormLookup {
 
-	private static UIFormLookup instance = null;
+	private static FormLookup instance = null;
 
-	private UIFormLookup() {
+	private FormLookup() {
 	}
 
 	/**
@@ -22,9 +22,9 @@ public class UIFormLookup {
 	 * 
 	 * @return UIFormLookup instance
 	 */
-	public static UIFormLookup getInstance() {
+	public static FormLookup getInstance() {
 		if (instance == null)
-			instance = new UIFormLookup();
+			instance = new FormLookup();
 		return instance;
 	}
 	

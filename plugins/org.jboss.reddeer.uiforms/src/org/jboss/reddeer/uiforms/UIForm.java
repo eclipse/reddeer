@@ -4,13 +4,14 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.ui.forms.widgets.Form;
 import org.jboss.reddeer.swt.handler.WidgetHandler;
 import org.jboss.reddeer.swt.reference.ReferencedComposite;
-import org.jboss.reddeer.uiforms.lookup.UIFormLookup;
+import org.jboss.reddeer.uiforms.lookup.FormLookup;
 
 /**
  * Represents Eclipse Form. This class will be used mainly for its children discovering
  * 
  * @author jjankovi
  *
+ * @deprecated Use {@link org.jboss.reddeer.uiforms.impl.form.DefaultForm instead}
  */
 public class UIForm implements ReferencedComposite {
 
@@ -36,7 +37,7 @@ public class UIForm implements ReferencedComposite {
 	 * @param index
 	 */
 	public UIForm(int index) {
-		form = UIFormLookup.getInstance().getForm(null, index);
+		form = FormLookup.getInstance().getForm(null, index);
 		
 		setFocus();
 	}
@@ -47,7 +48,7 @@ public class UIForm implements ReferencedComposite {
 	 * @param index
 	 */
 	public UIForm(ReferencedComposite referencedComposite, int index) {
-		form = UIFormLookup.getInstance().getForm(referencedComposite, index);
+		form = FormLookup.getInstance().getForm(referencedComposite, index);
 		
 		setFocus();
 	}

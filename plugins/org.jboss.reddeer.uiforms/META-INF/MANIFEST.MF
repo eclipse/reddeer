@@ -13,6 +13,10 @@ Require-Bundle: org.eclipse.ui,
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: org.jboss.reddeer.uiforms,
- org.jboss.reddeer.uiforms.section,
+ org.jboss.reddeer.uiforms.api,
  org.jboss.reddeer.uiforms.hyperlink,
- org.jboss.reddeer.uiforms.lookup
+ org.jboss.reddeer.uiforms.impl.form,
+ org.jboss.reddeer.uiforms.impl.hyperlink,
+ org.jboss.reddeer.uiforms.impl.section,
+ org.jboss.reddeer.uiforms.lookup,
+ org.jboss.reddeer.uiforms.section
