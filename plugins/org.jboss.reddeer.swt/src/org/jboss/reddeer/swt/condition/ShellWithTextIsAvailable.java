@@ -6,7 +6,6 @@ import org.hamcrest.Matcher;
 import org.hamcrest.core.IsEqual;
 import org.jboss.reddeer.swt.lookup.ShellLookup;
 import org.jboss.reddeer.swt.matcher.ObjectToStingMatcherDecorator;
-import org.jboss.reddeer.swt.util.Utils;
 import org.jboss.reddeer.swt.util.internal.InstanceValidator;
 
 /**
