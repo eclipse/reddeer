@@ -10,19 +10,25 @@ import org.jboss.reddeer.uiforms.section.UIFormSection;
  * @author Lucia Jelinkova
  *
  */
-public class UIFormSectionHandler {
+public class SectionHandler {
 
-	private static UIFormSectionHandler instance = null;
+	private static SectionHandler instance = null;
 
-	private UIFormSectionHandler() {
+	private SectionHandler() {
 	}
 
-	public static UIFormSectionHandler getInstance() {
+	public static SectionHandler getInstance() {
 		if (instance == null)
-			instance = new UIFormSectionHandler();
+			instance = new SectionHandler();
 		return instance;
 	}
 	
+	/**
+	 * Sets section's state
+	 * 
+	 * @param section
+	 * @param expanded
+	 */
 	public void setExpanded(final Section section, final boolean expanded) {
 		Display.syncExec(new Runnable() {
 			

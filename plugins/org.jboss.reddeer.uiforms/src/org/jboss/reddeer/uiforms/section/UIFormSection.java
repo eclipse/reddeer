@@ -6,14 +6,15 @@ import org.eclipse.ui.forms.widgets.Section;
 import org.jboss.reddeer.swt.handler.WidgetHandler;
 import org.jboss.reddeer.swt.matcher.WithMnemonicMatcher;
 import org.jboss.reddeer.swt.reference.ReferencedComposite;
-import org.jboss.reddeer.uiforms.handler.UIFormSectionHandler;
-import org.jboss.reddeer.uiforms.lookup.UIFormSectionLookup;
+import org.jboss.reddeer.uiforms.handler.SectionHandler;
+import org.jboss.reddeer.uiforms.impl.section.DefaultSection;
+import org.jboss.reddeer.uiforms.lookup.SectionLookup;
 
 /**
  * UIFormSection is Section object located in Eclipse Forms
  * 
  * @author jjankovi
- *
+ * @deprecated use {@link DefaultSection}
  */
 public class UIFormSection implements ReferencedComposite {
 
@@ -75,9 +76,9 @@ public class UIFormSection implements ReferencedComposite {
 	 */
 	public UIFormSection(int index, String text) {
 		if (text != null && !text.isEmpty()) {
-			section = UIFormSectionLookup.getInstance().getSection(null, index, new WithMnemonicMatcher(text));
+			section = SectionLookup.getInstance().getSection(null, index, new WithMnemonicMatcher(text));
 		}else {
-			section = UIFormSectionLookup.getInstance().getSection(null, index);
+			section = SectionLookup.getInstance().getSection(null, index);
 		}
 		
 		setFocus();
@@ -91,9 +92,9 @@ public class UIFormSection implements ReferencedComposite {
 	 */
 	public UIFormSection(ReferencedComposite referencedComposite, int index, String text) {
 		if (text != null && !text.isEmpty()) {
-			section = UIFormSectionLookup.getInstance().getSection(referencedComposite, index, new WithMnemonicMatcher(text));
+			section = SectionLookup.getInstance().getSection(referencedComposite, index, new WithMnemonicMatcher(text));
 		}else {
-			section = UIFormSectionLookup.getInstance().getSection(referencedComposite, index);
+			section = SectionLookup.getInstance().getSection(referencedComposite, index);
 		}
 		
 		setFocus();
@@ -117,6 +118,6 @@ public class UIFormSection implements ReferencedComposite {
 	}
 
 	public void setExpanded(final boolean expanded) {
-		UIFormSectionHandler.getInstance().setExpanded(section, expanded);
+		SectionHandler.getInstance().setExpanded(section, expanded);
 	}
 }

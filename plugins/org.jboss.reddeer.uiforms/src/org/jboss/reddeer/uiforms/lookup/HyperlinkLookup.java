@@ -12,11 +12,11 @@ import org.jboss.reddeer.swt.reference.ReferencedComposite;
  * @author jjankovi
  * 
  */
-public class UIFormHyperlinkLookup {
+public class HyperlinkLookup {
 
-	private static UIFormHyperlinkLookup instance = null;
+	private static HyperlinkLookup instance = null;
 
-	private UIFormHyperlinkLookup() {
+	private HyperlinkLookup() {
 	}
 
 	/**
@@ -24,9 +24,9 @@ public class UIFormHyperlinkLookup {
 	 * 
 	 * @return UIFormHyperlinkLookup instance
 	 */
-	public static UIFormHyperlinkLookup getInstance() {
+	public static HyperlinkLookup getInstance() {
 		if (instance == null)
-			instance = new UIFormHyperlinkLookup();
+			instance = new HyperlinkLookup();
 		return instance;
 	}
 	

@@ -4,14 +4,15 @@ import org.eclipse.ui.forms.widgets.Hyperlink;
 import org.jboss.reddeer.swt.handler.WidgetHandler;
 import org.jboss.reddeer.swt.matcher.WithMnemonicMatcher;
 import org.jboss.reddeer.swt.reference.ReferencedComposite;
-import org.jboss.reddeer.uiforms.lookup.UIFormHyperlinkLookup;
+import org.jboss.reddeer.uiforms.impl.hyperlink.DefaultHyperlink;
+import org.jboss.reddeer.uiforms.lookup.HyperlinkLookup;
 
 
 /**
  * Represents Hyperlink object in eclipse forms context
  * 
  * @author jjankovi
- *
+ * @deprecated use {@link DefaultHyperlink}
  */
 public class UIFormHyperlink {
 
@@ -73,9 +74,9 @@ public class UIFormHyperlink {
 	 */
 	public UIFormHyperlink(int index, String text) {
 		if (text != null && !text.isEmpty()) {
-			hyperLink = UIFormHyperlinkLookup.getInstance().getHyperlink(null, index, new WithMnemonicMatcher(text));
+			hyperLink = HyperlinkLookup.getInstance().getHyperlink(null, index, new WithMnemonicMatcher(text));
 		} else {
-			hyperLink = UIFormHyperlinkLookup.getInstance().getHyperlink(null, index);
+			hyperLink = HyperlinkLookup.getInstance().getHyperlink(null, index);
 		}
 		
 		setFocus();
@@ -89,9 +90,9 @@ public class UIFormHyperlink {
 	 */
 	public UIFormHyperlink(ReferencedComposite referencedComposite, int index, String text) {
 		if (text != null && !text.isEmpty()) {
-			hyperLink = UIFormHyperlinkLookup.getInstance().getHyperlink(referencedComposite, index, new WithMnemonicMatcher(text));
+			hyperLink = HyperlinkLookup.getInstance().getHyperlink(referencedComposite, index, new WithMnemonicMatcher(text));
 		} else {
-			hyperLink = UIFormHyperlinkLookup.getInstance().getHyperlink(referencedComposite, index);
+			hyperLink = HyperlinkLookup.getInstance().getHyperlink(referencedComposite, index);
 		}
 	}
 	
