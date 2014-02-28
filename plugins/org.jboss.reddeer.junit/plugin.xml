@@ -2,5 +2,5 @@
 <?eclipse version="3.4"?>
 <plugin>
    <extension-point id="org.jboss.reddeer.junit.before.test" name="BeforeTest" schema="schema/org.jboss.reddeer.junit.before.test.exsd"/>
-
+   <extension-point id="org.jboss.reddeer.junit.after.test" name="AfterTest" schema="schema/org.jboss.reddeer.junit.after.test.exsd"/>
 </plugin>
