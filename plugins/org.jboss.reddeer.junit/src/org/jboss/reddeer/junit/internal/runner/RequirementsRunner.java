@@ -64,11 +64,9 @@ public class RequirementsRunner extends BlockJUnit4ClassRunner {
 
 	@Override
 	protected Statement withBeforeClasses(Statement statement) {
-		Statement s;
-        List<FrameworkMethod> befores = getTestClass()
-                .getAnnotatedMethods(BeforeClass.class);
-        s = befores.isEmpty() ? statement :
-                new RunBefores(statement, befores, null);
+        List<FrameworkMethod> befores = getTestClass().getAnnotatedMethods(BeforeClass.class);
+        Statement s = befores.isEmpty() ? statement : new RunBefores(statement, befores, null);
+		runBeforeTest();
 		return new FulfillRequirementsStatement(requirements, s);
 	}
 	
