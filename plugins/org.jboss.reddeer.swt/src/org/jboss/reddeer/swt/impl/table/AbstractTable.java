@@ -66,9 +66,9 @@ public abstract class AbstractTable implements Table {
 	}
 	
 	@Override
-	public TableItem getItem(final int row) {
+	public TableItem getItem(final int index) {
 		waitUntilTableHasRows();
-		org.eclipse.swt.widgets.TableItem tItem = (org.eclipse.swt.widgets.TableItem)WidgetHandler.getInstance().getSWTItem(table, row);
+		org.eclipse.swt.widgets.TableItem tItem = (org.eclipse.swt.widgets.TableItem)WidgetHandler.getInstance().getSWTItem(table, index);
 		return new BasicTableItem(tItem);
 	}
 	
