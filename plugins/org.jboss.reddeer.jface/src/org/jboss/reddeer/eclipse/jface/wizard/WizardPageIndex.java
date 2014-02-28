@@ -7,19 +7,22 @@ import org.hamcrest.Description;
  * Matches a wizard dialog with a given page index
  * 
  * @author apodhrad
+ * @since 0.5
  * 
  */
 public class WizardPageIndex extends BaseMatcher<WizardDialog> {
 
 	private int pageIndex;
 
+	/**
+	 * Constructor set page index for wizard dialog.
+	 * @param pageIndex in wizard dialog
+	 */
 	public WizardPageIndex(int pageIndex) {
 		this.pageIndex = pageIndex;
 	}
 
-	/**
-	 * Returns true if the wizard dialog is in a given page index
-	 */
+
 	@Override
 	public boolean matches(Object item) {
 		if (item instanceof WizardDialog) {
