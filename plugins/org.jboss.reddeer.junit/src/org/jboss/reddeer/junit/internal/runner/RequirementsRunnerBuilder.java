@@ -2,11 +2,12 @@ package org.jboss.reddeer.junit.internal.runner;
 
 import java.util.List;
 
-import org.jboss.reddeer.junit.logging.Logger;
+import org.jboss.reddeer.junit.extensionpoint.IAfterTest;
 import org.jboss.reddeer.junit.extensionpoint.IBeforeTest;
 import org.jboss.reddeer.junit.internal.configuration.TestRunConfiguration;
 import org.jboss.reddeer.junit.internal.requirement.Requirements;
 import org.jboss.reddeer.junit.internal.requirement.RequirementsBuilder;
+import org.jboss.reddeer.junit.logging.Logger;
 import org.junit.runner.Runner;
 import org.junit.runner.notification.RunListener;
 import org.junit.runners.model.RunnerBuilder;
@@ -25,6 +26,7 @@ public class RequirementsRunnerBuilder extends RunnerBuilder {
 	private RequirementsBuilder requirementsBuilder = new RequirementsBuilder();
 	
 	private List<IBeforeTest> beforeTestExtensions;
+	private List<IAfterTest> afterTestExtensions;
 	
 	private TestRunConfiguration config;
 	
@@ -35,9 +37,14 @@ public class RequirementsRunnerBuilder extends RunnerBuilder {
 	}
 	
 	public RequirementsRunnerBuilder(TestRunConfiguration config , RunListener[] runListeners , List<IBeforeTest> beforeTestExtensions) {
+		this(config, runListeners, beforeTestExtensions, null);
+	}
+	
+	public RequirementsRunnerBuilder(TestRunConfiguration config , RunListener[] runListeners , List<IBeforeTest> beforeTestExtensions, List<IAfterTest> afterTestExtensions) {
 		this.config = config;
 		this.runListeners = runListeners;
 		this.beforeTestExtensions = beforeTestExtensions;
+		this.afterTestExtensions = afterTestExtensions;
 	}
 
 	@Override
@@ -46,7 +53,7 @@ public class RequirementsRunnerBuilder extends RunnerBuilder {
 		Requirements requirements = requirementsBuilder.build(clazz, config.getRequirementConfiguration());
 		if (requirements.canFulfill()){
 			log.info("All requirements can be fulfilled, the test will run");
-			return new RequirementsRunner(clazz, requirements, config.getId(),runListeners, beforeTestExtensions);
+			return new RequirementsRunner(clazz, requirements, config.getId(),runListeners, beforeTestExtensions, afterTestExtensions);
 		} else {
 			log.info("All requirements cannot be fulfilled, the test will NOT run");
 			return null;

@@ -5,17 +5,18 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
-import org.jboss.reddeer.junit.logging.Logger;
+import org.jboss.reddeer.junit.extensionpoint.IAfterTest;
 import org.jboss.reddeer.junit.extensionpoint.IBeforeTest;
 import org.jboss.reddeer.junit.internal.requirement.Requirements;
 import org.jboss.reddeer.junit.internal.requirement.inject.RequirementsInjector;
 import org.jboss.reddeer.junit.internal.screenrecorder.ScreenRecorderExt;
 import org.jboss.reddeer.junit.internal.screenshot.CaptureScreenshot;
 import org.jboss.reddeer.junit.internal.screenshot.CaptureScreenshotException;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
+import org.jboss.reddeer.junit.logging.Logger;
 import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.Description;
 import org.junit.runner.notification.Failure;
@@ -48,17 +49,24 @@ public class RequirementsRunner extends BlockJUnit4ClassRunner {
 	private String configId;
 	
 	private List<IBeforeTest> beforeTestExtensions;
+	
+	private List<IAfterTest> afterTestExtensions;
 
 	private static boolean SAVE_SCREENCAST = System.getProperty("recordScreenCast","false").equalsIgnoreCase("true");
 	
 	public RequirementsRunner(Class<?> clazz, Requirements requirements, String configId, RunListener[] runListeners,List<IBeforeTest> beforeTestExtensions) throws InitializationError {
+		this(clazz, requirements, configId, runListeners, beforeTestExtensions, null);
+	}
+
+	public RequirementsRunner(Class<?> clazz, Requirements requirements, String configId, RunListener[] runListeners,List<IBeforeTest> beforeTestExtensions, List<IAfterTest> afterTestExtensions) throws InitializationError {
 		super(clazz);
 		this.requirements = requirements;
 		this.configId = configId;
 		this.runListeners = runListeners;
 		this.beforeTestExtensions = beforeTestExtensions;
+		this.afterTestExtensions = afterTestExtensions;
 	}
-
+	
 	public RequirementsRunner(Class<?> clazz, Requirements requirements, String configId) throws InitializationError {
 		this(clazz,requirements,configId,null,null);
 	}
@@ -265,6 +273,22 @@ public class RequirementsRunner extends BlockJUnit4ClassRunner {
 		}
 	}
 	
+	/**
+	 * Method is called after test is run.
+	 * Manages org.jbossreddeer.junit.after.test extensions
+	 */
+	public void runAfterTest() {
+		if(afterTestExtensions == null) {
+			return;
+		}
+		for (IAfterTest afterTestExtension : afterTestExtensions){
+			if (afterTestExtension.hasToRun()){
+				log.debug("Run method runAfterTest() of class " + afterTestExtension.getClass().getCanonicalName());
+				afterTestExtension.runAfterTest();
+			}
+		}
+	}
+	
 	private class InvokeMethodWithException extends Statement {
 	    private final FrameworkMethod fTestMethod;
 	    private Object fTarget;
@@ -321,8 +345,8 @@ public class RequirementsRunner extends BlockJUnit4ClassRunner {
 	 protected Statement withAfterClasses(Statement statement) {
         List<FrameworkMethod> afters = getTestClass()
                 .getAnnotatedMethods(AfterClass.class);
-        return afters.isEmpty() ? statement :
-                new RunAfters(statement, afters, null);
+        return afters.isEmpty() && afterTestExtensions.isEmpty() ? statement :
+                new RunAfters(statement, afters, null, afterTestExtensions);
     }
 
 }

@@ -3,6 +3,7 @@ package org.jboss.reddeer.junit.internal.runner;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.jboss.reddeer.junit.extensionpoint.IAfterTest;
 import org.jboss.reddeer.junit.internal.screenshot.CaptureScreenshot;
 import org.jboss.reddeer.junit.internal.screenshot.CaptureScreenshotException;
 import org.jboss.reddeer.junit.logging.Logger;
@@ -18,11 +19,21 @@ public class RunAfters extends Statement {
     private final List<FrameworkMethod> fAfters;
     
     private static final Logger log = Logger.getLogger(RequirementsRunner.class);
+    
+    private List<IAfterTest> afterTests;
 
     public RunAfters(Statement next, List<FrameworkMethod> afters, Object target) {
+        this(next, afters, target, null);
+    }
+    
+    public RunAfters(Statement next, List<FrameworkMethod> afters, Object target, List<IAfterTest> afterTests) {
         fNext = next;
         fAfters = afters;
         fTarget = target;
+        this.afterTests = new ArrayList<IAfterTest>();
+        if(afterTests != null) {
+        	this.afterTests = afterTests;
+        }
     }
 
     @Override
@@ -47,6 +58,15 @@ public class RunAfters extends Statement {
                 	} catch (CaptureScreenshotException ex) {
                 		ex.printInfo(log);
                 	}
+                    errors.add(e);
+                }
+            }
+            for (IAfterTest afterTest : afterTests) {
+                try {
+                	afterTest.runAfterTest();
+                } catch (Throwable e) {
+                	CaptureScreenshot capturer = new CaptureScreenshot();
+                	capturer.captureScreenshot(afterTest.getClass().getCanonicalName() + "-runAfterTest");
                     errors.add(e);
                 }
             }
