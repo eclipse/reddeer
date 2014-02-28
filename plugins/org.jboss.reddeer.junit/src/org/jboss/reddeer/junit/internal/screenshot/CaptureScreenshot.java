@@ -106,7 +106,6 @@ public class CaptureScreenshot {
 						
 					} finally {
 						gc.dispose();
-						display.dispose();
 						if (image != null) {
 							image.dispose();
 						}
