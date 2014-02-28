@@ -3,9 +3,10 @@ package org.jboss.reddeer.eclipse.jface.wizard;
 import org.jboss.reddeer.junit.logging.Logger;
 
 /**
- * Wizard page
+ * Superclass of wizard page represent single page in wizard dialog.
  * 
  * @author apodhrad
+ * @since 0.5
  * 
  */
 public abstract class WizardPage {
@@ -33,10 +34,19 @@ public abstract class WizardPage {
 
 	}
 
+	/**
+	 * Set wizard dialog for specific wizard page.
+	 * 
+	 * @param wizardDialog set wizard dialog where this wizard page belong
+	 */
 	public void setWizardDialog(WizardDialog wizardDialog) {
 		this.wizardDialog = wizardDialog;
 	}
 
+	/**
+	 * Get wizard dialog of specific wizard page
+	 * @return WizardDialog of specific wizard page
+	 */
 	public WizardDialog getWizardDialog() {
 		return wizardDialog;
 	}

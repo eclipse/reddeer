@@ -6,12 +6,17 @@ package org.jboss.reddeer.eclipse.jface.wizard;
  * and selects an appropriate wizard in the dialog. 
  *   
  * @author Lucia Jelinkova
+ * @since 0.5
  *
  */
 public abstract class ExportWizardDialog extends TopMenuWizardDialog {
 
 	public static final String DIALOG_TITLE = "Export";
 	
+	/**
+	 * Constructor set path to specific export item in export dialog.
+	 * @param path
+	 */
 	public ExportWizardDialog(String... path) {
 		super(path);
 	}

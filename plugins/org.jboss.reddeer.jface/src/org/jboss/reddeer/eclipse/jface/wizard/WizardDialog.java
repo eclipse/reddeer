@@ -22,6 +22,7 @@ import org.jboss.reddeer.swt.wait.WaitWhile;
  * 
  * @author Lucia Jelinkova
  * @author apodhrad
+ * @since 0.5
  * 
  */
 public class WizardDialog {
@@ -60,7 +61,7 @@ public class WizardDialog {
 	/**
 	  * Returns a current wizard page
 	 * 
-	 * @return current wizard page
+	 * @return current wizard page or null when there is not any wizard page
 	 */
 
 	public WizardPage getCurrentWizardPage() {
@@ -131,6 +132,9 @@ public class WizardDialog {
 		wizardPageMap.put(page, allOf(new WizardPageIndex(pageIndex), matcher));
 	}
 
+	/**
+	 * Click the finish button in wizard dialog.
+	 */
 	public void finish() {
 		log.info("Finish wizard");
 
@@ -143,6 +147,9 @@ public class WizardDialog {
 		new WaitWhile(new JobIsRunning(), TimePeriod.LONG);
 	}
 
+	/**
+	 * Click the cancel button in wizard dialog.
+	 */
 	public void cancel() {
 		log.info("Cancel wizard");
 
@@ -154,6 +161,9 @@ public class WizardDialog {
 		new WaitWhile(new JobIsRunning());
 	}
 
+	/**
+	 * Click the next button in wizard dialog.
+	 */
 	public void next() {
 		log.info("Go to next wizard page");
 
@@ -162,6 +172,9 @@ public class WizardDialog {
 		currentPage++;
 	}
 
+	/**
+	 * Click the back button in wizard dialog.
+	 */
 	public void back() {
 		log.info("Go to previous wizard page");
 		Button button = new PushButton("< Back");
@@ -169,6 +182,10 @@ public class WizardDialog {
 		currentPage--;
 	}
 
+	/**
+	 * Go to the specific page of wizard dialog. First wizard dialog page has index 0.
+	 * @param pageIndex of desired wizard page
+	 */
 	public void selectPage(int pageIndex) {
 		if (pageIndex != currentPage) {
 			boolean goBack = pageIndex < currentPage;
@@ -182,6 +199,10 @@ public class WizardDialog {
 		}
 	}
 
+	/**
+	 * Get page index of current wizard page.
+	 * @return current wizard page index
+	 */
 	public int getPageIndex() {
 		return currentPage;
 	}
