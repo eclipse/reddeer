@@ -4,7 +4,7 @@ import org.jboss.reddeer.junit.logging.Logger;
 import org.jboss.reddeer.eclipse.exception.EclipseLayerException;
 import org.jboss.reddeer.eclipse.jface.wizard.WizardPage;
 import org.jboss.reddeer.swt.impl.button.CheckBox;
-import org.jboss.reddeer.swt.impl.combo.DefaultCombo;
+import org.jboss.reddeer.swt.impl.combo.LabeledCombo;
 import org.jboss.reddeer.swt.impl.text.LabeledText;
 
 /**
@@ -32,7 +32,7 @@ public class WizardNewProjectCreationPage extends WizardPage {
 	public void addProjectToWorkingSet(String workingSet) {
 		log.debug("Add Project to working set" + workingSet);
 		new CheckBox("Add project to working sets").toggle(true);
-		DefaultCombo cmbWorkingSet = new DefaultCombo("Working sets:");
+		LabeledCombo cmbWorkingSet = new LabeledCombo("Working sets:");
 		if (cmbWorkingSet.isEnabled()) {
 			cmbWorkingSet.setText(workingSet);
 		} else {

@@ -2,7 +2,7 @@ package org.jboss.reddeer.eclipse.datatools.ui.wizard;
 
 import org.jboss.reddeer.eclipse.jface.wizard.WizardDialog;
 import org.jboss.reddeer.eclipse.jface.wizard.WizardPage;
-import org.jboss.reddeer.swt.impl.combo.DefaultCombo;
+import org.jboss.reddeer.swt.impl.combo.LabeledCombo;
 
 /**
  * An abstract wizard page for database connection profile.
@@ -22,11 +22,11 @@ public abstract class ConnectionProfileDatabasePage extends WizardPage {
 	}
 
 	public String getDriver() {
-		return new DefaultCombo(LABEL_DRIVER).getText();
+		return new LabeledCombo(LABEL_DRIVER).getText();
 	}
 
 	public void setDriver(String driver) {
-		new DefaultCombo(LABEL_DRIVER).setSelection(driver);
+		new LabeledCombo(LABEL_DRIVER).setSelection(driver);
 	}
 
 	public abstract void setDatabase(String database);
