@@ -37,41 +37,43 @@ public class CaptureScreenshot {
 	 * @since 0.5 
 	 */
 	public void captureScreenshot(String name) {
-		String path = null;
-		boolean pathCreatedSuccessfuly = false;
+		String separator = System.getProperty("file.separator");
+		String path = "." + separator + "target" + separator + "screenshots";
+		boolean pathCreatedSuccessfuly = true;
 		try {
-			if (!((path = System.getProperty("relativeScreenshotDirectory")).equals(""))) {
-				pathCreatedSuccessfuly = true;
-				String separator = System.getProperty("file.separator");
-				if (!separator.equals(path.charAt(path.length() - 1))) {
-					path += separator;
-				}
-				String[] dirs = path.split(separator);
-				
-				// Create missing folders in path
-				int index = dirs.length;
-				boolean checkpoint = false;
-				String tmpPath = "";
-				for (int i=0; i < dirs.length; i++) {
-					tmpPath += dirs[i] + separator;
-					if (!new File(tmpPath).exists()) {
-						// Important due to rollbacks - if something goes wrong 
-						// clean up process start and remove all created directory
-						if (!checkpoint) {
-							checkpoint = true;
-							index = i;
-						}
-						if (new File(tmpPath).mkdir() == false) {
-							// If was not created properly than clean up
-							pathCreatedSuccessfuly = false;
-							for (int k=i-1; k >= index; k--) {
-								new File(tmpPath).delete();
-							}
+			if (System.getProperty("relativeScreenshotDirectory") != null) {
+				path = System.getProperty("relativeScreenshotDirectory");
+			}
+			if (!separator.equals(path.charAt(path.length() - 1))) {
+				path += separator;
+			}
+			String[] dirs = path.split(separator);
+			
+			// Create missing folders in path
+			int index = dirs.length;
+			boolean checkpoint = false;
+			String tmpPath = "";
+			for (int i=0; i < dirs.length; i++) {
+				tmpPath += dirs[i] + separator;
+				if (!new File(tmpPath).exists()) {
+					// Important due to rollbacks - if something goes wrong 
+					// clean up process start and remove all created directory
+					if (!checkpoint) {
+						checkpoint = true;
+						index = i;
+					}
+					if (new File(tmpPath).mkdir() == false) {
+						// If was not created properly than clean up
+						pathCreatedSuccessfuly = false;
+						for (int k=i-1; k >= index; k--) {
+							new File(tmpPath).delete();
 						}
 					}
 				}
 			}
-		} catch (SecurityException ex) { }
+		} catch (SecurityException ex) { 
+			pathCreatedSuccessfuly = false;
+		}
 		
 		// If path has been created successfully screenshots can be captured
 		if (pathCreatedSuccessfuly) {
