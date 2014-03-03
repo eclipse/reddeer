@@ -37,12 +37,13 @@ public class CaptureScreenshot {
 	 * @since 0.5 
 	 */
 	public void captureScreenshot(String name) {
-		String path = null;
-		boolean pathCreatedSuccessfuly = false;
+		String separator = System.getProperty("file.separator");
+		String path = "." + separator + "target" + separator + "screenshots";
+		boolean pathCreatedSuccessfuly = true;
 		try {
-			if (!((path = System.getProperty("relativeScreenshotDirectory")).equals(""))) {
-				pathCreatedSuccessfuly = true;
-				String separator = System.getProperty("file.separator");
+			if (System.getProperty("relativeScreenshotDirectory") != null) {
+				path = System.getProperty("relativeScreenshotDirectory");
+				
 				if (!separator.equals(path.charAt(path.length() - 1))) {
 					path += separator;
 				}
@@ -71,7 +72,9 @@ public class CaptureScreenshot {
 					}
 				}
 			}
-		} catch (SecurityException ex) { }
+		} catch (SecurityException ex) { 
+			pathCreatedSuccessfuly = false;
+		}
 		
 		// If path has been created successfully screenshots can be captured
 		if (pathCreatedSuccessfuly) {
