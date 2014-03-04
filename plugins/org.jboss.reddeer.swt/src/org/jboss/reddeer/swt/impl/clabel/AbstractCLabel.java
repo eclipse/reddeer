@@ -47,6 +47,6 @@ public abstract class AbstractCLabel implements CLabel {
 	
 	@Override
 	public boolean isEnabled() {
-		return WidgetLookup.getInstance().isEnabled(cLabel);
+		return WidgetHandler.getInstance().isEnabled(cLabel);
 	}
 }

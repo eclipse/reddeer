@@ -8,7 +8,6 @@ import org.jboss.reddeer.swt.api.ExpandBarItem;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.handler.ExpandBarHandler;
 import org.jboss.reddeer.swt.handler.WidgetHandler;
-import org.jboss.reddeer.swt.lookup.WidgetLookup;
 /**
  * Abstract class for all Expand Bar implementations
  * 
@@ -75,6 +74,6 @@ public abstract class AbstractExpandBar implements ExpandBar {
 	
 	@Override
 	public boolean isEnabled() {
-		return WidgetLookup.getInstance().isEnabled(swtExpandBar);
+		return WidgetHandler.getInstance().isEnabled(swtExpandBar);
 	}
 }
