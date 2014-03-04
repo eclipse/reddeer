@@ -7,8 +7,10 @@ import org.jboss.reddeer.swt.handler.WidgetHandler;
 
 /**
  * Regular expression matcher
+ * 
  * @author Jiri Peterka
  * 
+ * @deprecated in 0.5, use {@link WithRegexMatcher}
  */
 
 public class RegexMatcher extends BaseMatcher<String> {
