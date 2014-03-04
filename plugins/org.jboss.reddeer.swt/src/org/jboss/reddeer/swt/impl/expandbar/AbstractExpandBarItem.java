@@ -1,14 +1,13 @@
 package org.jboss.reddeer.swt.impl.expandbar;
 
-import org.jboss.reddeer.junit.logging.Logger;
 import org.eclipse.swt.widgets.Control;
+import org.jboss.reddeer.junit.logging.Logger;
 import org.jboss.reddeer.swt.api.ExpandBar;
 import org.jboss.reddeer.swt.api.ExpandBarItem;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.handler.ExpandBarItemHandler;
 import org.jboss.reddeer.swt.handler.WidgetHandler;
 import org.jboss.reddeer.swt.impl.expandbar.internal.BasicExpandBar;
-import org.jboss.reddeer.swt.lookup.WidgetLookup;
 import org.jboss.reddeer.swt.wait.TimePeriod;
 
 /**
@@ -107,6 +106,6 @@ public abstract class AbstractExpandBarItem implements ExpandBarItem {
 	
 	@Override
 	public boolean isEnabled() {
-		return WidgetLookup.getInstance().isEnabled(swtParent);
+		return WidgetHandler.getInstance().isEnabled(swtParent);
 	}
 }

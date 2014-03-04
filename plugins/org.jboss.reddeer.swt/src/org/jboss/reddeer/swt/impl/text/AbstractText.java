@@ -3,7 +3,6 @@ package org.jboss.reddeer.swt.impl.text;
 import org.jboss.reddeer.junit.logging.Logger;
 import org.jboss.reddeer.swt.api.Text;
 import org.jboss.reddeer.swt.handler.WidgetHandler;
-import org.jboss.reddeer.swt.lookup.WidgetLookup;
 
 /**
  * Abstract class for all Text implementations
@@ -47,7 +46,7 @@ public abstract class AbstractText implements Text {
 	
 	@Override
 	public boolean isEnabled() {
-		return WidgetLookup.getInstance().isEnabled(w);
+		return WidgetHandler.getInstance().isEnabled(w);
 	}
 	
 }
