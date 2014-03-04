@@ -1,12 +1,11 @@
 package org.jboss.reddeer.swt.impl.ctab;
 
-import org.jboss.reddeer.junit.logging.Logger;
 import org.eclipse.swt.SWT;
+import org.jboss.reddeer.junit.logging.Logger;
 import org.jboss.reddeer.swt.api.CTabItem;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.handler.CTabItemHandler;
 import org.jboss.reddeer.swt.handler.WidgetHandler;
-import org.jboss.reddeer.swt.lookup.WidgetLookup;
 
 /**
  * Abstract class for all CTabItem implementations
@@ -87,7 +86,7 @@ public abstract class AbstractCTabItem implements CTabItem {
 	
 	@Override
 	public boolean isEnabled() {
-		return WidgetLookup.getInstance().isEnabled(swtParent);
+		return WidgetHandler.getInstance().isEnabled(swtParent);
 	}
 	
 }

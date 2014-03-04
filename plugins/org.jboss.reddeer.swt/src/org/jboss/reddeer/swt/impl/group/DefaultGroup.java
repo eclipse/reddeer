@@ -111,7 +111,7 @@ public class DefaultGroup implements org.jboss.reddeer.swt.api.Group {
 	
 	@Override
 	public boolean isEnabled() {
-		return WidgetLookup.getInstance().isEnabled(group);
+		return WidgetHandler.getInstance().isEnabled(group);
 	}
 
 }
