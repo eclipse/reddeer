@@ -2,6 +2,7 @@ package org.jboss.reddeer.swt.handler;
 
 import org.eclipse.swt.custom.StyledText;
 import org.jboss.reddeer.swt.util.Display;
+import org.jboss.reddeer.swt.util.ResultRunnable;
 
 /**
  * Contains methods that handle UI operations on {@link StyledText} widgets. 
@@ -67,5 +68,22 @@ public class StyledTextHandler {
 			String text) {
 		setSelection(styledText, line, column);
 		insertText(styledText, text);
+	}
+	
+	/**
+	 * Returns position of first character of first occurence of given text in given styledText.
+	 * @param styledText
+	 * @param text
+	 * @return -1 when text is not found, position otherwise
+	 */
+	
+	public int getPositionOfText(final StyledText styledText, final String text) {
+		return Display.syncExec(new ResultRunnable<Integer>() {
+
+			@Override
+			public Integer run() {
+				return styledText.getText().indexOf(text);
+			}
+		});
 	}
 }
