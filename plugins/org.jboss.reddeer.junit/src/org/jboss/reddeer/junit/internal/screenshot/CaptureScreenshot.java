@@ -47,7 +47,12 @@ public class CaptureScreenshot {
 			if (!separator.equals(path.charAt(path.length() - 1))) {
 				path += separator;
 			}
-			String[] dirs = path.split(separator);
+			String[] dirs;
+			if (separator.equals("\\")) {
+				dirs = path.split("\\");
+			} else {
+				dirs = path.split(separator);
+			}
 			
 			// Create missing folders in path
 			int index = dirs.length;
