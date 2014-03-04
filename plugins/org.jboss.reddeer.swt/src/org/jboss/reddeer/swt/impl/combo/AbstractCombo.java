@@ -1,11 +1,10 @@
 package org.jboss.reddeer.swt.impl.combo;
 
-import org.jboss.reddeer.junit.logging.Logger;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Event;
+import org.jboss.reddeer.junit.logging.Logger;
 import org.jboss.reddeer.swt.api.Combo;
 import org.jboss.reddeer.swt.handler.WidgetHandler;
-import org.jboss.reddeer.swt.lookup.WidgetLookup;
 import org.jboss.reddeer.swt.util.Display;
 
 /**
@@ -70,7 +69,7 @@ public abstract class AbstractCombo implements Combo {
 	 */
 	@Override
 	public boolean isEnabled() {
-		return WidgetLookup.getInstance().isEnabled(swtCombo);
+		return WidgetHandler.getInstance().isEnabled(swtCombo);
 	}
 	/**
 	 * See {@link Combo}

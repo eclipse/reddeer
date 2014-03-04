@@ -12,11 +12,9 @@ import org.jboss.reddeer.swt.api.Button;
 import org.jboss.reddeer.swt.condition.WidgetIsEnabled;
 import org.jboss.reddeer.swt.handler.WidgetHandler;
 import org.jboss.reddeer.swt.lookup.ButtonLookup;
-import org.jboss.reddeer.swt.lookup.WidgetLookup;
 import org.jboss.reddeer.swt.matcher.StyleMatcher;
 import org.jboss.reddeer.swt.matcher.WithMnemonicMatcher;
 import org.jboss.reddeer.swt.reference.ReferencedComposite;
-import org.jboss.reddeer.swt.util.Utils;
 import org.jboss.reddeer.swt.wait.WaitUntil;
 
 /**
@@ -82,7 +80,7 @@ public abstract class AbstractButton implements Button {
 	 */
 	@Override
 	public boolean isEnabled() {
-		return WidgetLookup.getInstance().isEnabled(swtButton);
+		return WidgetHandler.getInstance().isEnabled(swtButton);
 	}
 	
 	/**

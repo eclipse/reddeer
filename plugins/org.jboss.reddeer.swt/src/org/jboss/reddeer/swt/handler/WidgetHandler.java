@@ -2,12 +2,11 @@ package org.jboss.reddeer.swt.handler;
 
 import java.util.Arrays;
 
-import org.jboss.reddeer.junit.logging.Logger;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.browser.Browser;
 import org.eclipse.swt.custom.CLabel;
-import org.eclipse.swt.custom.CTabItem;
 import org.eclipse.swt.custom.CTabFolder;
+import org.eclipse.swt.custom.CTabItem;
 import org.eclipse.swt.custom.StyledText;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Button;
@@ -32,10 +31,12 @@ import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.swt.widgets.Widget;
 import org.eclipse.ui.forms.widgets.Hyperlink;
 import org.eclipse.ui.forms.widgets.Section;
+import org.jboss.reddeer.junit.logging.Logger;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.lookup.WidgetLookup;
 import org.jboss.reddeer.swt.lookup.WidgetResolver;
 import org.jboss.reddeer.swt.util.Display;
+import org.jboss.reddeer.swt.util.ObjectUtil;
 import org.jboss.reddeer.swt.util.ResultRunnable;
 
 /**
@@ -71,6 +72,46 @@ public class WidgetHandler {
 			instance = new WidgetHandler();
 		}
 		return instance;
+	}
+	
+	/**
+	 * Checks if widget is enabled
+	 * @param widget
+	 * @return
+	 */
+	public boolean isEnabled(Widget widget) {
+		boolean ret = true;
+		Object o = null;
+		try {
+			o = ObjectUtil.invokeMethod(widget, "isEnabled");
+		} catch (RuntimeException e) {
+			return true;
+		}
+		if (o == null) return ret;
+		if (o instanceof Boolean) {
+			ret = ((Boolean)o).booleanValue();
+		}
+		return ret;
+	}
+	
+	/**
+	 * Checks if widget is visible
+	 * @param widget given widget
+	 * @return true if wideget is visible, false otherwise
+	 */
+	public boolean isVisible(Widget widget) {
+		boolean ret = true;
+		Object o = null;
+		try {
+			o = ObjectUtil.invokeMethod(widget, "isVisible");
+		} catch (RuntimeException e) {
+			throw new SWTLayerException("Runtime error during checking widget visibility");
+		}
+		if (o == null) return ret;
+		if (o instanceof Boolean) {
+			ret = ((Boolean)o).booleanValue();
+		}
+		return ret;
 	}
 	
 	/**
