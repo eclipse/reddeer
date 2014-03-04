@@ -3,6 +3,7 @@ package org.jboss.reddeer.swt.impl.styledtext;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.junit.logging.Logger;
 import org.jboss.reddeer.swt.api.StyledText;
+import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.handler.StyledTextHandler;
 import org.jboss.reddeer.swt.handler.WidgetHandler;
 import org.jboss.reddeer.swt.lookup.StyledTextLookup;
@@ -137,5 +138,10 @@ public class DefaultStyledText implements StyledText {
 	@Override
 	public boolean isEnabled() {
 		return WidgetHandler.getInstance().isEnabled(styledText);
+	}
+
+	@Override
+	public int getPositionOfText(String text) {
+		return StyledTextHandler.getInstance().getPositionOfText(styledText, text);
 	}
 }
