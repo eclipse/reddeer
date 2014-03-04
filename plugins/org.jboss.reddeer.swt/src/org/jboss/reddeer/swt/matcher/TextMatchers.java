@@ -5,14 +5,16 @@ import org.hamcrest.Matcher;
 
 /**
  * Class for more confortable matchers construction for further usage
+ * 
  * Usage example: 
  * RegexMatchers m = new TextMatchers("New","Project...");
  * Menu m = new ContextMenu(m.getMatchers());
+ * 
  * @author Jiri Peterka
- *
+ * 
+ * @deprecated in 0.5, use {@link WithTextMatchers}
  */
 public class TextMatchers {
-
 
 	private Matcher<String>[] matchers;
 	
@@ -28,5 +30,4 @@ public class TextMatchers {
 	public Matcher<String>[] getMatchers() {
 		return matchers;
 	}
-	
 }

@@ -7,27 +7,29 @@ import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.handler.WidgetHandler;
 
 /**
- * Widget style matcher
+ * Matches widget with the specified style.
  * 
  * @author jjankovi
- * 
- * @deprecated in 0.5, use {@link WithStyleMatcher}
+ * @author Radoslav Rabara
  * 
  */
-public class StyleMatcher extends BaseMatcher<Integer>{
+public class WithStyleMatcher extends BaseMatcher<Integer> {
 
 	private int style; 
 	
-	public StyleMatcher(int style) {
+	/**
+	 * Constructs matcher matching widgets with the specified style
+	 * 
+	 * @param style style of the matching widget 
+	 * 
+	 */
+	public WithStyleMatcher(int style) {
 		this.style = style;
 	}
 	
 	@Override
 	public boolean matches(Object item) {
-		if (item instanceof Integer) {
-			Integer integerToMatch = (Integer)item;
-			return integerToMatch.compareTo(style) == 0;
-		} else if (item instanceof Widget){
+		if (item instanceof Widget){
 			try {
 				Integer widgetStyle = WidgetHandler.getInstance().getStyle((Widget)item);
 				return (widgetStyle.intValue() & style) != 0;
@@ -35,12 +37,17 @@ public class StyleMatcher extends BaseMatcher<Integer>{
 				// object is not supported by widget handler mechanism 'getStyle'
 				return false;
 			}
-		} else {
-			return false;
 		}
+		return false;
 	}
 
 	@Override
-	public void describeTo(Description arg0) {
+	public void describeTo(Description description) {
+		description.appendText("has style " + style);
+	}
+	
+	@Override
+	public String toString() {
+		return "Widget matcher matching widgets with style: " + style;
 	}
 }

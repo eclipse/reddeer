@@ -9,14 +9,17 @@ import org.jboss.reddeer.swt.handler.WidgetHandler;
 /**
  * With Mnemonic matcher. Should be used for menu item label matching.
  * Removes all ampersands and shortcuts from input text before comparing
+ * 
  * @author Vlado Pakan
+ * 
+ * @deprecated in 0.5, use {@link WithMnemonicTextMatcher}
  * 
  */
 public class WithMnemonicMatcher extends BaseMatcher<String> {
 
 	private String text;
 	
-	public WithMnemonicMatcher(String text ) {
+	public WithMnemonicMatcher(String text) {
 		this.text = text;
 	}
 	
@@ -51,5 +54,4 @@ public class WithMnemonicMatcher extends BaseMatcher<String> {
 		}
 		return false;
 	}
-
 }

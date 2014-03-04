@@ -12,29 +12,35 @@ import org.hamcrest.core.Is;
 import org.jboss.reddeer.swt.handler.WidgetHandler;
 
 /**
- * Label matcher
+ * Matches {@link Widget} with described label.
+ * 
  * @author Rastislav Wagner
  * @author Radoslav Rabara
  * 
- * @deprecated in 0.5, use {@link WithLabelMatcher}
  */
-public class LabelMatcher extends BaseMatcher<String> {
+public class WithLabelMatcher extends BaseMatcher<String> {
 
 	private Matcher<String> matcher;
 	
 	/**
-	 * Creates label matcher
-	 * @param label given label for matcher usage
+	 * Constructs matcher that matches {@link Widget}
+	 * with label which text is equal to the specified <var>text</var>
+	 * 
+	 * @param text The {@link String} to compare {@link Widget}'s label against
+	 * 
 	 */
-	public LabelMatcher(String label) {
-		this(Is.<String>is(label));
+	public WithLabelMatcher(String text) {
+		this(Is.<String>is(text));
 	}
 	
 	/**
-	 * Creates label matcher from string matcher
-	 * @param matcher given matcher used to match label
+	 * Constructs matcher that matches {@link Widget}
+	 * with label which text is matched by given matcher
+	 * 
+	 * @param matcher The {@link Matcher<String>} used to evaluate {@link Widget}'s label
+	 * 
 	 */
-	public LabelMatcher(Matcher<String> matcher) {
+	public WithLabelMatcher(Matcher<String> matcher) {
 		if(matcher == null)
 			throw new NullPointerException("matcher");
 		this.matcher = matcher;
@@ -42,17 +48,19 @@ public class LabelMatcher extends BaseMatcher<String> {
 	
 	@Override
 	public void describeTo(Description description) {
-		description.appendText("label ").appendDescriptionOf(matcher);
+		description.appendText("with label ").appendDescriptionOf(matcher);
 	}
 
 	/**
 	 * Matches given object
+	 * 
 	 * @returns true if object's label is matching
+	 * 
 	 */
 	@Override
-	public boolean matches(Object item) {
-		
-		if ((item instanceof List) || (item instanceof Text) || (item instanceof Combo) || (item instanceof Spinner)) {
+	public boolean matches(Object item) {		
+		if ((item instanceof List) || (item instanceof Text)
+				|| (item instanceof Combo) || (item instanceof Spinner)) {
 			String widgetLabel = WidgetHandler.getInstance().getLabel((Widget)item);
 			if (widgetLabel != null && matcher.matches(widgetLabel)) {
 				return true;
@@ -63,7 +71,6 @@ public class LabelMatcher extends BaseMatcher<String> {
 	
 	@Override
 	public String toString() {
-		return "Matcher matching label:\n" + matcher.toString();
+		return "Matcher matching widget with label:\n" + matcher.toString();
 	}
-	
 }

@@ -5,11 +5,14 @@ import org.hamcrest.core.IsEqual;
 import org.jboss.reddeer.swt.handler.WidgetHandler;
 
 /**
- * String matcher
- * <br/> It accepts Strings and {@link Widget}s supported by {@link WidgetHandler#getText(Widget)}
+ * String matcher<br/>
+ * 
+ * It accepts Strings and {@link Widget}s supported by {@link WidgetHandler#getText(Widget)}
+ * 
  * @author Jiri Peterka
  * @author jniederm
  * 
+ * @deprecated in 0.5, use {@link WithTextMatcher}
  */
 public class TextMatcher extends ObjectToStingMatcherDecorator {
 
