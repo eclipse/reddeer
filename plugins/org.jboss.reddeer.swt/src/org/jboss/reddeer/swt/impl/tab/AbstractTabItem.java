@@ -6,7 +6,6 @@ import org.jboss.reddeer.swt.api.TabItem;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.handler.TabItemHandler;
 import org.jboss.reddeer.swt.handler.WidgetHandler;
-import org.jboss.reddeer.swt.lookup.WidgetLookup;
 
 /**
  * Abstract class for all TabItem implementations
@@ -57,6 +56,6 @@ public abstract class AbstractTabItem implements TabItem {
 	
 	@Override
 	public boolean isEnabled() {
-		return WidgetLookup.getInstance().isEnabled(swtParent);
+		return WidgetHandler.getInstance().isEnabled(swtParent);
 	}
 }

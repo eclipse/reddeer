@@ -1,14 +1,13 @@
 package org.jboss.reddeer.swt.impl.table;
 
-import org.jboss.reddeer.junit.logging.Logger;
 import org.eclipse.swt.graphics.Image;
+import org.jboss.reddeer.junit.logging.Logger;
 import org.jboss.reddeer.swt.api.Table;
 import org.jboss.reddeer.swt.api.TableItem;
 import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.handler.TableHandler;
 import org.jboss.reddeer.swt.handler.WidgetHandler;
-import org.jboss.reddeer.swt.lookup.WidgetLookup;
 
 public class AbstractTableItem implements TableItem {
 	protected final Logger log = Logger.getLogger(this.getClass());
@@ -90,7 +89,7 @@ public class AbstractTableItem implements TableItem {
 	
 	@Override
 	public boolean isEnabled() {
-		return WidgetLookup.getInstance().isEnabled(tableItem);
+		return WidgetHandler.getInstance().isEnabled(tableItem);
 	}
 
 }

@@ -52,7 +52,7 @@ public abstract class AbstractShell implements Shell {
 	
 	@Override
 	public boolean isEnabled() {
-		return WidgetLookup.getInstance().isEnabled(swtShell);
+		return WidgetHandler.getInstance().isEnabled(swtShell);
 	}
 
 }

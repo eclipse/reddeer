@@ -2,7 +2,6 @@ package org.jboss.reddeer.swt.impl.label;
 
 import org.jboss.reddeer.swt.api.Label;
 import org.jboss.reddeer.swt.handler.WidgetHandler;
-import org.jboss.reddeer.swt.lookup.WidgetLookup;
 
 public abstract class AbstractLabel implements Label {
 
@@ -24,7 +23,7 @@ public abstract class AbstractLabel implements Label {
 	 * @see org.jboss.reddeer.swt.api.Label#isVisible()
 	 */
 	public boolean isVisible() {
-		boolean ret = WidgetLookup.getInstance().isVisible(w);
+		boolean ret = WidgetHandler.getInstance().isVisible(w);
 		return ret;
 	}
 	
@@ -34,6 +33,6 @@ public abstract class AbstractLabel implements Label {
 	
 	@Override
 	public boolean isEnabled() {
-		return WidgetLookup.getInstance().isEnabled(w);
+		return WidgetHandler.getInstance().isEnabled(w);
 	}
 }

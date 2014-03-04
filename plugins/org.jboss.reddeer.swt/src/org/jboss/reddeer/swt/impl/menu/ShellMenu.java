@@ -9,9 +9,9 @@ import org.jboss.reddeer.direct.platform.RunningPlatform;
 import org.jboss.reddeer.swt.api.Menu;
 import org.jboss.reddeer.swt.api.Shell;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
-import org.jboss.reddeer.swt.lookup.ShellLookup;
+import org.jboss.reddeer.swt.handler.WidgetHandler;
 import org.jboss.reddeer.swt.lookup.MenuLookup;
-import org.jboss.reddeer.swt.lookup.WidgetLookup;
+import org.jboss.reddeer.swt.lookup.ShellLookup;
 import org.jboss.reddeer.swt.matcher.WithMnemonicMatchers;
 import org.jboss.reddeer.swt.util.Display;
 
@@ -154,6 +154,6 @@ public class ShellMenu extends AbstractMenu implements Menu {
 	
 	@Override
 	public boolean isEnabled() {
-		return WidgetLookup.getInstance().isEnabled(menuItem);
+		return WidgetHandler.getInstance().isEnabled(menuItem);
 	}
 }

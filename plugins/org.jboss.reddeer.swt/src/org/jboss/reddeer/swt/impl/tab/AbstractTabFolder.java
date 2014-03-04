@@ -7,7 +7,6 @@ import org.jboss.reddeer.swt.api.TabFolder;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.handler.TabFolderHandler;
 import org.jboss.reddeer.swt.handler.WidgetHandler;
-import org.jboss.reddeer.swt.lookup.WidgetLookup;
 
 /**
  * Abstract class for all TabFolder implementations
@@ -46,6 +45,6 @@ public class AbstractTabFolder implements TabFolder {
 
 	@Override
 	public boolean isEnabled() {
-		return WidgetLookup.getInstance().isEnabled(swtTabFolder);
+		return WidgetHandler.getInstance().isEnabled(swtTabFolder);
 	}
 }

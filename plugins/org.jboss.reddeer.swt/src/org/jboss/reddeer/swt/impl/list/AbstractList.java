@@ -3,7 +3,6 @@ package org.jboss.reddeer.swt.impl.list;
 import org.jboss.reddeer.junit.logging.Logger;
 import org.jboss.reddeer.swt.api.List;
 import org.jboss.reddeer.swt.handler.WidgetHandler;
-import org.jboss.reddeer.swt.lookup.WidgetLookup;
 
 /**
  * Abstract class for all List implementations
@@ -51,7 +50,7 @@ public abstract class AbstractList implements List {
 	
 	@Override
 	public boolean isEnabled() {
-		return WidgetLookup.getInstance().isEnabled(list);
+		return WidgetHandler.getInstance().isEnabled(list);
 	}
 
 }
