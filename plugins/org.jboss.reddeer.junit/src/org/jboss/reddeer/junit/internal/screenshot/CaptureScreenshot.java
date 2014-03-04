@@ -49,7 +49,7 @@ public class CaptureScreenshot {
 			}
 			String[] dirs;
 			if (separator.equals("\\")) {
-				dirs = path.split("\\");
+				dirs = path.split("\\\\");
 			} else {
 				dirs = path.split(separator);
 			}
