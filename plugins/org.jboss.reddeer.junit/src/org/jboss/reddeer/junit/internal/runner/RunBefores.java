@@ -3,6 +3,8 @@ package org.jboss.reddeer.junit.internal.runner;
 import java.util.List;
 
 import org.jboss.reddeer.junit.internal.screenshot.CaptureScreenshot;
+import org.jboss.reddeer.junit.internal.screenshot.CaptureScreenshotException;
+import org.jboss.reddeer.junit.logging.Logger;
 import org.junit.runners.model.FrameworkMethod;
 import org.junit.runners.model.Statement;
 
@@ -13,6 +15,8 @@ public class RunBefores extends Statement {
 
 	private final List<FrameworkMethod> fBefores;
 
+	private static final Logger log = Logger.getLogger(RequirementsRunner.class);
+	
 	public RunBefores(Statement next, List<FrameworkMethod> befores,
 			Object target) {
 		fNext = next;
@@ -30,7 +34,11 @@ public class RunBefores extends Statement {
 			}
 		} catch (Throwable throwable) {
 			CaptureScreenshot capturer = new CaptureScreenshot();
-			capturer.captureScreenshot(fTarget.getClass().getCanonicalName() + "-" + before.getName());
+			try {
+				capturer.captureScreenshot(fTarget.getClass().getCanonicalName() + "-" + before.getName());
+			} catch (CaptureScreenshotException ex) {
+				ex.printInfo(log);
+			}
 			throw throwable;
 		}
 		fNext.evaluate();
