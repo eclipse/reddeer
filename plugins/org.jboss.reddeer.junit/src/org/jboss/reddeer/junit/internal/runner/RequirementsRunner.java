@@ -11,6 +11,7 @@ import org.jboss.reddeer.junit.internal.requirement.Requirements;
 import org.jboss.reddeer.junit.internal.requirement.inject.RequirementsInjector;
 import org.jboss.reddeer.junit.internal.screenrecorder.ScreenRecorderExt;
 import org.jboss.reddeer.junit.internal.screenshot.CaptureScreenshot;
+import org.jboss.reddeer.junit.internal.screenshot.CaptureScreenshotException;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.After;
@@ -282,7 +283,11 @@ public class RequirementsRunner extends BlockJUnit4ClassRunner {
 	    		if (annotation.expected().getName().equals("org.junit.Test$None") ||
 	    			!annotation.expected().getName().equals(t.getClass().getName())) {
 		    			CaptureScreenshot screenshot = new CaptureScreenshot();
-			    		screenshot.captureScreenshot(fTarget.getClass().getCanonicalName() + "-" + fTestMethod.getName());	    			
+		    			try {
+		    				screenshot.captureScreenshot(fTarget.getClass().getCanonicalName() + "-" + fTestMethod.getName());	    			
+		    			} catch (CaptureScreenshotException ex) {
+		    				ex.printInfo(log);
+		    			}
 	    		}	
 	    		throw t;
 	    	}
