@@ -3,16 +3,14 @@ package org.jboss.reddeer.workbench;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.junit.logging.Logger;
 import org.eclipse.ui.IWorkbenchPart;
-import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.actions.ActionFactory;
-import org.eclipse.ui.actions.ActionFactory.IWorkbenchAction;
 import org.jboss.reddeer.swt.condition.WaitCondition;
 import org.jboss.reddeer.swt.exception.WaitTimeoutExpiredException;
 import org.jboss.reddeer.swt.matcher.TextMatcher;
-import org.jboss.reddeer.swt.util.Display;
-import org.jboss.reddeer.swt.util.ResultRunnable;
 import org.jboss.reddeer.swt.wait.WaitUntil;
 import org.jboss.reddeer.workbench.exception.WorkbenchPartNotFound;
+import org.jboss.reddeer.workbench.handler.WorkbenchPartHandler;
+import org.jboss.reddeer.workbench.lookup.WorkbenchPartLookup;
 
 /**
  * Superclass of Editor and View with ability to be closed, minimized and
@@ -20,7 +18,7 @@ import org.jboss.reddeer.workbench.exception.WorkbenchPartNotFound;
  * 
  * @author jjankovi
  * @author rhopp
- * 
+ * @deprecated use org.jboss.reddeer.workbench.part.WorkbenchPart
  */
 public abstract class WorkbenchPart{
 
@@ -36,7 +34,7 @@ public abstract class WorkbenchPart{
 	 *             if there is no WorkbenchPart active
 	 */
 	public WorkbenchPart() throws WorkbenchPartNotFound {
-		workbenchPart = getActiveWorkbenchPart();
+		workbenchPart = WorkbenchPartLookup.getInstance().getActiveWorkbenchPart();
 		if (workbenchPart == null) {
 			throw new WorkbenchPartNotFound(
 					"There is no active WorkbenchPart on currently active Page");
@@ -91,15 +89,8 @@ public abstract class WorkbenchPart{
 	 * 
 	 * @return title text
 	 */
-	
 	public String getTitle() {
-		return Display.syncExec(new ResultRunnable<String>() {
-
-			@Override
-			public String run() {
-				return workbenchPart.getTitle();
-			}
-		});
+		return WorkbenchPartHandler.getInstance().getTitle(workbenchPart);
 	}
 	
 	/**
@@ -107,51 +98,25 @@ public abstract class WorkbenchPart{
 	 * @return the workbench part title tool tip (not {@code null})
 	 */
 	public String getTitleToolTip() {
-		return Display.syncExec(new ResultRunnable<String>() {
-
-			@Override
-			public String run() {
-				return workbenchPart.getTitleToolTip();
-			}
-		});
+		return WorkbenchPartHandler.getInstance().getTitleToolTip(workbenchPart);
 	}
 
 	/**
 	 * Minimizes this workbench part (editor/view) 
 	 * 
-	 */
-	
+	 */	
 	public abstract void minimize();
 
 	/**
 	 * Maximizes this workbench part (editor/view)
 	 * 
 	 */
-	
 	public abstract void maximize();
 
 	abstract protected IWorkbenchPart getPartByTitle(Matcher<String> title);
-
-	protected IWorkbenchPart getActiveWorkbenchPart() {
-		return Display.syncExec(new ResultRunnable<IWorkbenchPart>() {
-
-			@Override
-			public IWorkbenchPart run() {
-				return PlatformUI.getWorkbench().getActiveWorkbenchWindow()
-						.getActivePage().getActivePart();
-			}
-		});
-	}
 	
 	protected void performAction(final ActionFactory actionFactory){
-		Display.syncExec(new Runnable() {
-			
-			@Override
-			public void run() {
-				IWorkbenchAction action= actionFactory.create(PlatformUI.getWorkbench().getActiveWorkbenchWindow());
-				action.run();
-			}
-		});
+		WorkbenchPartHandler.getInstance().performAction(actionFactory);
 	}
 	
 	class PartIsFound implements WaitCondition{

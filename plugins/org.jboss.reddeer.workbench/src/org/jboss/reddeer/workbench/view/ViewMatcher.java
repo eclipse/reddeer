@@ -11,7 +11,7 @@ import org.hamcrest.TypeSafeMatcher;
  * Checks if the widget is contained in the specified view.  
  * 
  * @author Lucia Jelinkova
- *
+ * @deprecated
  */
 public class ViewMatcher extends TypeSafeMatcher<Widget> {
 

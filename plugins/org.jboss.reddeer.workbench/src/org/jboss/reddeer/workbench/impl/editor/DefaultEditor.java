@@ -1,7 +1,7 @@
-package org.jboss.reddeer.workbench.editor;
+package org.jboss.reddeer.workbench.impl.editor;
 
 import org.hamcrest.Matcher;
-import org.jboss.reddeer.workbench.editor.Editor;
+import org.jboss.reddeer.workbench.api.Editor;
 import org.jboss.reddeer.workbench.impl.editor.AbstractEditor;
 
 /**
@@ -9,7 +9,6 @@ import org.jboss.reddeer.workbench.impl.editor.AbstractEditor;
  * 
  * @author rhopp
  * @author rawagner
- * @deprecated use org.jboss.reddeer.workbench.impl.editor.DefaultEditor
  */
 public class DefaultEditor extends AbstractEditor implements Editor {
 
