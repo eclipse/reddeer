@@ -1,7 +1,7 @@
 package org.jboss.reddeer.swt.impl.toolbar;
 
 import org.jboss.reddeer.swt.api.ToolBar;
-import org.jboss.reddeer.swt.lookup.WidgetLookup;
+import org.jboss.reddeer.swt.handler.WidgetHandler;
 
 /**
  * Abstract class for all Toolbar implementations
@@ -19,7 +19,7 @@ public abstract class AbstractToolBar implements ToolBar {
 	
 	@Override
 	public boolean isEnabled() {
-		return WidgetLookup.getInstance().isEnabled(toolBar);
+		return WidgetHandler.getInstance().isEnabled(toolBar);
 	}
 	
 	

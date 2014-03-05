@@ -26,7 +26,6 @@ import org.jboss.reddeer.swt.matcher.ClassMatcher;
 import org.jboss.reddeer.swt.matcher.MatcherBuilder;
 import org.jboss.reddeer.swt.reference.ReferencedComposite;
 import org.jboss.reddeer.swt.util.Display;
-import org.jboss.reddeer.swt.util.ObjectUtil;
 import org.jboss.reddeer.swt.util.ResultRunnable;
 import org.jboss.reddeer.swt.wait.WaitUntil;
 /**
@@ -51,47 +50,6 @@ public class WidgetLookup {
 		if (instance == null) instance = new WidgetLookup();
 		return instance;
 	}
-	
-	/**
-	 * Checks if widget is enabled
-	 * @param widget
-	 * @return
-	 */
-	public boolean isEnabled(Widget widget) {
-		boolean ret = true;
-		Object o = null;
-		try {
-			o = ObjectUtil.invokeMethod(widget, "isEnabled");
-		} catch (RuntimeException e) {
-			return true;
-		}
-		if (o == null) return ret;
-		if (o instanceof Boolean) {
-			ret = ((Boolean)o).booleanValue();
-		}
-		return ret;
-	}
-	
-	/**
-	 * Checks if widget is visible
-	 * @param widget given widget
-	 * @return true if wideget is visible, false otherwise
-	 */
-	public boolean isVisible(Widget widget) {
-		boolean ret = true;
-		Object o = null;
-		try {
-			o = ObjectUtil.invokeMethod(widget, "isVisible");
-		} catch (RuntimeException e) {
-			throw new SWTLayerException("Runtime error during checking widget visibility");
-		}
-		if (o == null) return ret;
-		if (o instanceof Boolean) {
-			ret = ((Boolean)o).booleanValue();
-		}
-		return ret;
-	}
-	
 	
 	/**
 	 * Send click notification to a widget

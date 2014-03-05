@@ -3,7 +3,6 @@ package org.jboss.reddeer.swt.impl.link;
 import org.jboss.reddeer.junit.logging.Logger;
 import org.jboss.reddeer.swt.api.Link;
 import org.jboss.reddeer.swt.handler.WidgetHandler;
-import org.jboss.reddeer.swt.lookup.WidgetLookup;
 
 public abstract class AbstractLink implements Link{
 	
@@ -25,7 +24,7 @@ public abstract class AbstractLink implements Link{
 	
 	@Override
 	public boolean isEnabled() {
-		return WidgetLookup.getInstance().isEnabled(link);
+		return WidgetHandler.getInstance().isEnabled(link);
 	}
 
 }

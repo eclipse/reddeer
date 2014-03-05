@@ -3,8 +3,8 @@ package org.jboss.reddeer.swt.impl.browser;
 import org.jboss.reddeer.swt.api.Browser;
 import org.jboss.reddeer.swt.condition.PageIsLoaded;
 import org.jboss.reddeer.swt.handler.BrowserHandler;
+import org.jboss.reddeer.swt.handler.WidgetHandler;
 import org.jboss.reddeer.swt.impl.browser.internal.BrowserProgressListener;
-import org.jboss.reddeer.swt.lookup.WidgetLookup;
 import org.jboss.reddeer.swt.wait.AbstractWait;
 import org.jboss.reddeer.swt.wait.TimePeriod;
 import org.jboss.reddeer.swt.wait.WaitUntil;
@@ -93,6 +93,6 @@ public abstract class AbstractBrowser implements Browser{
 
 	@Override
 	public boolean isEnabled() {
-		return WidgetLookup.getInstance().isEnabled(swtBrowser);
+		return WidgetHandler.getInstance().isEnabled(swtBrowser);
 	}
 }
