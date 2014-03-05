@@ -8,7 +8,6 @@ import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.actions.ActionFactory;
-import org.eclipse.ui.actions.ActionFactory.IWorkbenchAction;
 import org.eclipse.ui.views.IViewCategory;
 import org.eclipse.ui.views.IViewDescriptor;
 import org.hamcrest.Matcher;
@@ -32,6 +31,7 @@ import org.jboss.reddeer.swt.wait.WaitWhile;
 import org.jboss.reddeer.workbench.WorkbenchPart;
 import org.jboss.reddeer.workbench.condition.ActiveFocusControlIsInActiveView;
 import org.jboss.reddeer.workbench.exception.WorkbenchPartNotFound;
+import org.jboss.reddeer.workbench.lookup.WorkbenchPartLookup;
 
 /**
  * Represents general view with ability to be opened. Subclasses should
@@ -39,7 +39,7 @@ import org.jboss.reddeer.workbench.exception.WorkbenchPartNotFound;
  * 
  * @author jjankovi
  * @author rhopp
- * 
+ * @deprecated use org.jboss.reddeer.workbench.impl.view.WorkbenchView
  */
 public abstract class View extends WorkbenchPart{
 
@@ -115,7 +115,7 @@ public abstract class View extends WorkbenchPart{
 				new PushButton("ok").click();
 			}
 			new WaitWhile(new ShellWithTextIsActive(SHOW_VIEW));
-			workbenchPart = getActiveWorkbenchPart();
+			workbenchPart = WorkbenchPartLookup.getInstance().getActiveWorkbenchPart();
 		}
 		setFocusIfViewIsOpened();
 

@@ -1,4 +1,4 @@
-package org.jboss.reddeer.workbench.editor;
+package org.jboss.reddeer.workbench.impl.editor;
 
 import org.eclipse.ui.texteditor.ITextEditor;
 import org.jboss.reddeer.swt.util.Display;
@@ -11,7 +11,6 @@ import org.jboss.reddeer.workbench.api.Editor;
  * 
  * @author rhopp
  * @author rawagner
- * @deprecated use org.jboss.reddeer.workbench.impl.editor.TextEditor
  */
 public class TextEditor extends AbstractEditor implements Editor {
 

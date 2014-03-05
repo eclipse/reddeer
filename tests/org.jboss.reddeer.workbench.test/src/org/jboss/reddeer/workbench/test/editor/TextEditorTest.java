@@ -17,11 +17,11 @@ import org.jboss.reddeer.eclipse.ui.ide.NewFileCreationWizardPage;
 import org.jboss.reddeer.eclipse.ui.wizards.newresource.BasicNewProjectResourceWizard;
 import org.jboss.reddeer.swt.test.RedDeerTest;
 import org.jboss.reddeer.swt.util.Display;
-import org.jboss.reddeer.workbench.editor.TextEditor;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.jboss.reddeer.workbench.exception.WorkbenchPartNotFound;
+import org.jboss.reddeer.workbench.impl.editor.TextEditor;
 
 public class TextEditorTest extends RedDeerTest {
 
@@ -85,8 +85,8 @@ public class TextEditorTest extends RedDeerTest {
 	private IEditorPart getEditorPart(TextEditor editor){
 		Field editorField = null;
 		try {
-			editorField = editor.getClass().getSuperclass().getSuperclass()
-					.getDeclaredField("workbenchPart");
+			editorField = editor.getClass().getSuperclass()
+					.getDeclaredField("editorPart");
 			editorField.setAccessible(true);
 			return (IEditorPart) editorField.get(editor);
 		} catch (NoSuchFieldException e) {

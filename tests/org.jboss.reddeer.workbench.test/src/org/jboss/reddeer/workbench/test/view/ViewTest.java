@@ -1,9 +1,9 @@
 package org.jboss.reddeer.workbench.test.view;
 
 import org.jboss.reddeer.swt.test.RedDeerTest;
+import org.jboss.reddeer.workbench.api.View;
 import org.jboss.reddeer.workbench.exception.WorkbenchPartNotFound;
-import org.jboss.reddeer.workbench.view.View;
-import org.jboss.reddeer.workbench.view.impl.WorkbenchView;
+import org.jboss.reddeer.workbench.impl.view.WorkbenchView;
 import org.junit.Test;
 
 public class ViewTest extends RedDeerTest{

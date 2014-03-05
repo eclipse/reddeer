@@ -19,4 +19,7 @@ Export-Package: org.jboss.reddeer.workbench,
  org.jboss.reddeer.workbench.editor,
  org.jboss.reddeer.workbench.exception,
  org.jboss.reddeer.workbench.view,
- org.jboss.reddeer.workbench.view.impl
+ org.jboss.reddeer.workbench.view.impl,
+ org.jboss.reddeer.workbench.api,
+ org.jboss.reddeer.workbench.impl.editor,
+ org.jboss.reddeer.workbench.impl.view

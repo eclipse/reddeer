@@ -7,8 +7,8 @@ import org.hamcrest.core.Is;
 import org.hamcrest.core.IsNot;
 import org.jboss.reddeer.swt.lookup.WorkbenchLookup;
 import org.jboss.reddeer.swt.test.RedDeerTest;
-import org.jboss.reddeer.workbench.view.View;
-import org.jboss.reddeer.workbench.view.impl.WorkbenchView;
+import org.jboss.reddeer.workbench.api.View;
+import org.jboss.reddeer.workbench.impl.view.WorkbenchView;
 import org.junit.Test;
 
 public class WorkbenchViewTest extends RedDeerTest {
