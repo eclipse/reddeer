@@ -27,10 +27,6 @@ public class CaptureScreenshotException extends Exception {
 	
 	public CaptureScreenshotException(String message, Throwable cause) {
 		super(message, cause);
-	}
-	
-	public CaptureScreenshotException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
-		super(message, cause, enableSuppression, writableStackTrace);
 	}	
 	
 	public void printInfo(Logger logger) {
