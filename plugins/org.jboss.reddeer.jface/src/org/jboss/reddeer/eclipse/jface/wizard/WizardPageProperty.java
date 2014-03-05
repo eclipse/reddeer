@@ -7,6 +7,7 @@ import org.hamcrest.Description;
  * Matches a wizard dialog with a given property
  * 
  * @author apodhrad
+ * @since 0.5
  * 
  */
 public class WizardPageProperty extends BaseMatcher<WizardDialog> {
@@ -19,9 +20,6 @@ public class WizardPageProperty extends BaseMatcher<WizardDialog> {
 		this.value = value;
 	}
 
-	/**
-	 * Returns true if a wizard dialog contains a given property
-	 */
 	@Override
 	public boolean matches(Object item) {
 		if (item instanceof WizardDialog) {

@@ -6,12 +6,17 @@ package org.jboss.reddeer.eclipse.jface.wizard;
  * and selects an appropriate wizard in the dialog. 
  *   
  * @author Lucia Jelinkova
+ * @since 0.5
  *
  */
 public abstract class ImportWizardDialog extends TopMenuWizardDialog {
 
 	public static final String DIALOG_TITLE = "Import";
 	
+	/**
+	 * Constructor set path to the specific import item in import dialog.
+	 * @param path to the specific item in import dialog
+	 */
 	public ImportWizardDialog(String... path) {
 		super(path);
 	}

@@ -6,12 +6,17 @@ package org.jboss.reddeer.eclipse.jface.wizard;
  * and selects an appropriate wizard in the dialog. 
  * 
  * @author vpakan
+ * @since 0.5
  *
  */
 public abstract class NewWizardDialog extends TopMenuWizardDialog {
 	
 	public static final String DIALOG_TITLE = "New";
 	
+	/**
+	 * Constructor set path to the specific item in new wizard dialog.
+	 * @param path to the specific item in new wizard dialog
+	 */
 	public NewWizardDialog(String... path) {
 		super(path);
 	}
