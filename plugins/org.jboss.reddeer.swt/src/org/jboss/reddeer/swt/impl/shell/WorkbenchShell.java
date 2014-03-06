@@ -1,10 +1,9 @@
 package org.jboss.reddeer.swt.impl.shell;
 
 import org.eclipse.ui.PlatformUI;
-import org.jboss.reddeer.swt.handler.WidgetHandler;
 import org.jboss.reddeer.junit.logging.Logger;
+import org.jboss.reddeer.swt.handler.WidgetHandler;
 import org.jboss.reddeer.swt.lookup.ShellLookup;
-import org.jboss.reddeer.swt.lookup.WidgetLookup;
 import org.jboss.reddeer.swt.util.Display;
 import org.jboss.reddeer.swt.util.ResultRunnable;
 
@@ -81,9 +80,8 @@ public class WorkbenchShell extends AbstractShell {
 		org.eclipse.swt.widgets.Shell[] shell = ShellLookup.getInstance().getShells();
 		for (int i = 0; i < shell.length; i++) {
 			WidgetHandler widgetHandler = WidgetHandler.getInstance();
-			WidgetLookup widgetLookup = WidgetLookup.getInstance();
 			if (shell[i] != null && shell[i] != swtShell) {
-				if(widgetLookup.isVisible(shell[i])) {
+				if(widgetHandler.isVisible(shell[i])) {
 					new DefaultShell(widgetHandler.getText(shell[i])).close();
 				}
 			}
