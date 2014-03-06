@@ -2,8 +2,6 @@ package org.jboss.reddeer.uiforms.impl.form;
 
 import org.eclipse.swt.widgets.Control;
 import org.jboss.reddeer.swt.handler.WidgetHandler;
-import org.jboss.reddeer.swt.util.Display;
-import org.jboss.reddeer.swt.util.ResultRunnable;
 import org.jboss.reddeer.uiforms.api.Form;
 
 /**
@@ -36,12 +34,6 @@ public abstract class AbstractForm implements Form {
 	}
 	
 	public String getText(){
-		return Display.syncExec(new ResultRunnable<String>() {
-
-			@Override
-			public String run() {
-				return form.getText();
-			}
-		});
+		return WidgetHandler.getInstance().getText(form);
 	}
 }

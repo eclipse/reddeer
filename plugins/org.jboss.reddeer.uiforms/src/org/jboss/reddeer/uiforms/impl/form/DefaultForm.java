@@ -1,11 +1,8 @@
 package org.jboss.reddeer.uiforms.impl.form;
 
-import org.hamcrest.Description;
 import org.hamcrest.Matcher;
-import org.hamcrest.TypeSafeMatcher;
+import org.jboss.reddeer.swt.matcher.WithTextMatcher;
 import org.jboss.reddeer.swt.reference.ReferencedComposite;
-import org.jboss.reddeer.swt.util.Display;
-import org.jboss.reddeer.swt.util.ResultRunnable;
 import org.jboss.reddeer.uiforms.lookup.FormLookup;
 
 /**
@@ -71,7 +68,7 @@ public class DefaultForm extends AbstractForm {
 	 * @param text
 	 */
 	public DefaultForm(ReferencedComposite referencedComposite, String title) {
-		this(referencedComposite, new FormTextMatcher(title));
+		this(referencedComposite, new WithTextMatcher(title));
 	}
 	
 	/**
@@ -82,34 +79,5 @@ public class DefaultForm extends AbstractForm {
 	public DefaultForm(ReferencedComposite referencedComposite, Matcher<?>... matchers) {
 		form = FormLookup.getInstance().getForm(referencedComposite, 0, matchers);
 		setFocus();
-	}
-	
-	private static class FormTextMatcher extends TypeSafeMatcher<org.eclipse.ui.forms.widgets.Form> {
-
-		private String title;
-		
-		private FormTextMatcher(String title) {
-			if (title == null){
-				throw new IllegalArgumentException("Title cannot be null");
-			}
-			this.title = title;
-		}
-		
-		@Override
-		protected boolean matchesSafely(final org.eclipse.ui.forms.widgets.Form form) {
-			String realTitle = Display.syncExec(new ResultRunnable<String>() {
-				@Override
-				public String run() {
-					return form.getText();
-				}
-			});
-			
-			return title.equals(realTitle);
-		}
-
-		@Override
-		public void describeTo(Description description) {
-			description.appendText("The form object does not have title ");
-		}
 	}
 }

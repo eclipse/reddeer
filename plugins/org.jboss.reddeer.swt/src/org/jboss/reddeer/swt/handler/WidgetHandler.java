@@ -14,7 +14,6 @@ import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.ExpandBar;
 import org.eclipse.swt.widgets.ExpandItem;
-import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Link;
 import org.eclipse.swt.widgets.List;
@@ -30,7 +29,6 @@ import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.swt.widgets.Widget;
 import org.eclipse.ui.forms.widgets.Hyperlink;
-import org.eclipse.ui.forms.widgets.Section;
 import org.jboss.reddeer.junit.logging.Logger;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.lookup.WidgetLookup;
@@ -105,7 +103,7 @@ public class WidgetHandler {
 		try {
 			o = ObjectUtil.invokeMethod(widget, "isVisible");
 		} catch (RuntimeException e) {
-			throw new SWTLayerException("Runtime error during checking widget visibility");
+			throw new SWTLayerException("Runtime error during checking widget visibility", e);
 		}
 		if (o == null) return ret;
 		if (o instanceof Boolean) {
@@ -305,59 +303,22 @@ public class WidgetHandler {
 	 *            given widget
 	 * @return returns widget text
 	 */
-	public <T extends Widget> String getText(final T w) {
-		String text = Display.syncExec(new ResultRunnable<String>() {
-
-			@Override
-			public String run() {
-				if (!w.isDisposed()){
-					if (w instanceof Text)
-						return ((Text) w).getText();
-					else if (w instanceof Label)
-						return ((Label) w).getText();
-					else if (w instanceof Hyperlink)
-						return ((Hyperlink) w).getText();
-					else if (w instanceof Section)
-						return ((Section) w).getText();
-					else if (w instanceof StyledText)
-						return ((StyledText) w).getText();
-					else if (w instanceof Group)
-						return ((Group) w).getText();
-					else if (w instanceof Combo)
-						return ((Combo) w).getText();
-					else if (w instanceof Button)
-						return ((Button) w).getText();
-					else if (w instanceof CTabItem)
-						return ((CTabItem) w).getText();
-					else if (w instanceof TabItem)
-						return ((TabItem) w).getText();
-					else if (w instanceof Shell)
-						return ((Shell) w).getText();
-					else if (w instanceof TableItem)
-						return ((TableItem) w).getText();
-					else if (w instanceof ExpandItem)
-						return ((ExpandItem) w).getText();
-					else if (w instanceof Link){
-						String[] split1 = ((Link) w).getText().split(".*<[aA]>");
-						String[] split2 = split1[split1.length-1].split("</[aA]>.*");
-						return split2[0];
-					}
-					else if (w instanceof Browser)
-						return ((Browser) w).getText();
-					else if (w instanceof CLabel){
-						return ((CLabel) w).getText();
-					}else if (w instanceof TreeItem){
-						return ((TreeItem) w).getText();
-					}
-					else
-						throw new SWTLayerException("Unsupported type");
-				}
-				else{
-					return null;
-				}
-			}
-		});
-		return text;
+	public <T extends Widget> String getText(final T widget) {
+		Object o = null;
+		try {
+			o = ObjectUtil.invokeMethod(widget, "getText");
+		} catch (RuntimeException e) {
+			throw new SWTLayerException("Runtime error during retrieving widget's text", e);
+		}
+		if (o == null){
+			return null;
+		}
+		
+		if (o instanceof String) {
+			return (String) o;
+		}
+		
+		throw new SWTLayerException("Return value of method getText() on class " + o.getClass() + " should be String, but was " + o.getClass());
 	}
 
 	/**
