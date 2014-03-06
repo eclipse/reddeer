@@ -2,6 +2,7 @@ package org.jboss.reddeer.swt.impl.link;
 
 import org.jboss.reddeer.junit.logging.Logger;
 import org.jboss.reddeer.swt.api.Link;
+import org.jboss.reddeer.swt.handler.LinkHandler;
 import org.jboss.reddeer.swt.handler.WidgetHandler;
 
 public abstract class AbstractLink implements Link{
@@ -11,7 +12,7 @@ public abstract class AbstractLink implements Link{
 	protected final Logger logger = Logger.getLogger(this.getClass());
 	
 	public String getText(){
-		return WidgetHandler.getInstance().getText(link);
+		return LinkHandler.getInstance().getText(link);
 	}
 	
 	public void click(){
