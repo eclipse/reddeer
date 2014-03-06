@@ -4,6 +4,7 @@ import org.jboss.reddeer.eclipse.jface.wizard.WizardPage;
 import org.jboss.reddeer.swt.condition.ShellWithTextIsActive;
 import org.jboss.reddeer.swt.impl.button.CheckBox;
 import org.jboss.reddeer.swt.impl.button.PushButton;
+import org.jboss.reddeer.swt.impl.combo.DefaultCombo;
 import org.jboss.reddeer.swt.impl.combo.LabeledCombo;
 import org.jboss.reddeer.swt.impl.group.DefaultGroup;
 import org.jboss.reddeer.swt.impl.menu.ContextMenu;
@@ -39,27 +40,27 @@ public class WebProjectFirstPage extends WizardPage{
 	}
 	
 	public void setTargetRuntime(String targetRuntime){
-		new LabeledCombo(new DefaultGroup("Target runtime")).setSelection(targetRuntime);
+		new DefaultCombo(new DefaultGroup("Target runtime")).setSelection(targetRuntime);
 	}
 	
 	public String getTargetRuntime(){
-		return new LabeledCombo(new DefaultGroup("Target runtime")).getSelection();
+		return new DefaultCombo(new DefaultGroup("Target runtime")).getSelection();
 	}
 	
 	public void setDynamicWebModuleVersion(String version){
-		new LabeledCombo(new DefaultGroup("Dynamic web module version")).setSelection(version);
+		new DefaultCombo(new DefaultGroup("Dynamic web module version")).setSelection(version);
 	}
 	
 	public String getDynamicWebModuleVersion(){
-		return new LabeledCombo(new DefaultGroup("Dynamic web module version")).getSelection();
+		return new DefaultCombo(new DefaultGroup("Dynamic web module version")).getSelection();
 	}
 	
 	public void setConfiguration(String configuration){
-		new LabeledCombo(new DefaultGroup("Configuration")).setSelection(configuration);
+		new DefaultCombo(new DefaultGroup("Configuration")).setSelection(configuration);
 	}
 	
-	public String getConString(){
-		return new LabeledCombo(new DefaultGroup("Configuration")).getSelection();
+	public String getConfiguration(){
+		return new DefaultCombo(new DefaultGroup("Configuration")).getSelection();
 	}
 	
 	public void setEARMembership(boolean membership){
