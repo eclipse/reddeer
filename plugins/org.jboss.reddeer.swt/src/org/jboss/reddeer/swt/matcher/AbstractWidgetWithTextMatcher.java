@@ -60,6 +60,9 @@ public abstract class AbstractWidgetWithTextMatcher extends BaseMatcher<String> 
 	protected abstract boolean matches(String text);
 	
 	private String extractStrings(Object item) {
+		if(item instanceof String) {
+			return (String) item;
+		}
 		if (item instanceof Widget) {
 			return extractWidgetText((Widget) item);
 		}
