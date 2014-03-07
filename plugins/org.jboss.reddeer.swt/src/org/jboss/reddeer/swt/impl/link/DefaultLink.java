@@ -1,7 +1,7 @@
 package org.jboss.reddeer.swt.impl.link;
 
 import org.jboss.reddeer.swt.lookup.LinkLookup;
-import org.jboss.reddeer.swt.matcher.WithMnemonicMatcher;
+import org.jboss.reddeer.swt.matcher.LinkTextMatcher;
 import org.jboss.reddeer.swt.reference.ReferencedComposite;
 
 public class DefaultLink extends AbstractLink{
@@ -43,7 +43,7 @@ public class DefaultLink extends AbstractLink{
 	 * @param text of link
 	 */
 	public DefaultLink(String text){
-		link = LinkLookup.getInstance().getLink(null, 0, new WithMnemonicMatcher(text));
+		link = LinkLookup.getInstance().getLink(null, 0, new LinkTextMatcher(text));
 	}
 	
 	/**
@@ -52,7 +52,7 @@ public class DefaultLink extends AbstractLink{
 	 * @param text of link
 	 */
 	public DefaultLink(ReferencedComposite referencedComposite, String text){
-		link = LinkLookup.getInstance().getLink(referencedComposite, 0, new WithMnemonicMatcher(text));
+		link = LinkLookup.getInstance().getLink(referencedComposite, 0, new LinkTextMatcher(text));
 	}
 	
 	/**
@@ -62,7 +62,7 @@ public class DefaultLink extends AbstractLink{
 	 * @param text of link
 	 */
 	public DefaultLink(ReferencedComposite referencedComposite, int index, String text){
-		link = LinkLookup.getInstance().getLink(referencedComposite, index, new WithMnemonicMatcher(text));
+		link = LinkLookup.getInstance().getLink(referencedComposite, index, new LinkTextMatcher(text));
 	}
 	
 	/**
@@ -71,7 +71,7 @@ public class DefaultLink extends AbstractLink{
 	 * @param text of link
 	 */
 	public DefaultLink(int index, String text){
-		link = LinkLookup.getInstance().getLink(null, index, new WithMnemonicMatcher(text));
+		link = LinkLookup.getInstance().getLink(null, index, new LinkTextMatcher(text));
 	}
 
 }
