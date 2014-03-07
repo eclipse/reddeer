@@ -35,7 +35,11 @@ public class RunBefores extends Statement {
 		} catch (Throwable throwable) {
 			CaptureScreenshot capturer = new CaptureScreenshot();
 			try {
-				capturer.captureScreenshot(fTarget.getClass().getCanonicalName() + "-" + before.getName());
+				String canonicalName = "";
+				if (fTarget != null) {
+					canonicalName = fTarget.getClass().getCanonicalName();
+				}
+				capturer.captureScreenshot(canonicalName + "-" + before.getName());
 			} catch (CaptureScreenshotException ex) {
 				ex.printInfo(log);
 			}
