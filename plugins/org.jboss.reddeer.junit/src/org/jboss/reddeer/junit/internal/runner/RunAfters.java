@@ -39,7 +39,11 @@ public class RunAfters extends Statement {
                 } catch (Throwable e) {
                 	CaptureScreenshot capturer = new CaptureScreenshot();
                 	try {
-                		capturer.captureScreenshot(fTarget.getClass().getCanonicalName() + "-" + each.getName()); 
+        				String canonicalName = "";
+        				if (fTarget != null) {
+        					canonicalName = fTarget.getClass().getCanonicalName();
+        				}
+                		capturer.captureScreenshot(canonicalName + "-" + each.getName()); 
                 	} catch (CaptureScreenshotException ex) {
                 		ex.printInfo(log);
                 	}
