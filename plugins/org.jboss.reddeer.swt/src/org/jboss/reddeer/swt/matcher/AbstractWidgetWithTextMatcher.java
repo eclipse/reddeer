@@ -3,7 +3,6 @@ package org.jboss.reddeer.swt.matcher;
 import org.eclipse.swt.widgets.Widget;
 import org.hamcrest.BaseMatcher;
 import org.hamcrest.Description;
-import org.hamcrest.Matcher;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.handler.WidgetHandler;
 
@@ -61,6 +60,9 @@ public abstract class AbstractWidgetWithTextMatcher extends BaseMatcher<String> 
 	protected abstract boolean matches(String text);
 	
 	private String extractStrings(Object item) {
+		if(item instanceof String) {
+			return (String) item;
+		}
 		if (item instanceof Widget) {
 			return extractWidgetText((Widget) item);
 		}
