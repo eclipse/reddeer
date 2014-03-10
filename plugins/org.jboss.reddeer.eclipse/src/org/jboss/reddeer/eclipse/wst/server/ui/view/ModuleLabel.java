@@ -13,18 +13,12 @@ import org.jboss.reddeer.swt.api.TreeItem;
  */
 public class ModuleLabel extends AbstractLabel{
 
-	private ServerPublishState status = ServerPublishState.NONE;
-
 	public ModuleLabel(TreeItem item) {
 		parse(item);
 	}
 
 	@Override
-	protected void parseDecoration(String styledText) {
-		status = ServerPublishState.getByText(styledText.substring(styledText.indexOf("[") + 1, styledText.lastIndexOf("]")).trim());
-	}
-	
-	public ServerPublishState getPublishState() {
-		return status;
+	protected void parseSingleStateDecoration(String stateString) {
+			status = ServerPublishState.getByText(stateString);
 	}
 }
