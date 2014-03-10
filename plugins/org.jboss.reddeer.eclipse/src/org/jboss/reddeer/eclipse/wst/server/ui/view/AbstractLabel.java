@@ -2,6 +2,8 @@ package org.jboss.reddeer.eclipse.wst.server.ui.view;
 
 import org.eclipse.swt.custom.StyleRange;
 import org.jboss.reddeer.eclipse.exception.EclipseLayerException;
+import org.jboss.reddeer.eclipse.wst.server.ui.view.ServersViewEnums.ServerPublishState;
+import org.jboss.reddeer.eclipse.wst.server.ui.view.ServersViewEnums.ServerState;
 import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.swt.util.Display;
 
@@ -14,8 +16,12 @@ import org.jboss.reddeer.swt.util.Display;
 public abstract class AbstractLabel {
 
 	protected String name;
+	
+	protected ServerState state = ServerState.NONE;
+	
+	protected ServerPublishState status = ServerPublishState.NONE;
 
-	protected abstract void parseDecoration(String decoration);
+	protected abstract void parseSingleStateDecoration(String decoration);
 
 	protected void parse(final TreeItem item){
 		Display.syncExec(new Runnable() {
@@ -38,6 +44,15 @@ public abstract class AbstractLabel {
 		name = item.getText().substring(0, range.start).trim();
 		String styledText = item.getText().substring(range.start, range.start + range.length);
 		parseDecoration(styledText);;
+	}
+	
+	private void parseDecoration(String styledText) {
+		if(styledText.contains(",")){
+			state = ServerState.getByText(styledText.substring(styledText.indexOf("[") + 1, styledText.lastIndexOf(",")).trim());
+			status = ServerPublishState.getByText(styledText.substring(styledText.indexOf(",") + 1, styledText.lastIndexOf("]")).trim());
+		} else {
+			parseSingleStateDecoration(styledText.substring(styledText.indexOf("[") + 1, styledText.lastIndexOf("]")).trim());
+		}	
 	}
 
 	/**
@@ -82,5 +97,13 @@ public abstract class AbstractLabel {
 
 	public String getName() {
 		return name;
+	}
+	
+	public ServerState getState() {
+		return state;
+	}
+	
+	public ServerPublishState getPublishState() {
+		return status;
 	}
 }
