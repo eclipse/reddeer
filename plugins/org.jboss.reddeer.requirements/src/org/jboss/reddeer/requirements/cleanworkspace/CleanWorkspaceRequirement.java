@@ -1,5 +1,6 @@
 package org.jboss.reddeer.requirements.cleanworkspace;
 
+import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -12,23 +13,42 @@ import org.jboss.reddeer.junit.requirement.Requirement;
 import org.jboss.reddeer.requirements.cleanworkspace.CleanWorkspaceRequirement.CleanWorkspace;
 
 /**
- * This requirement ensures, that all projects are deleted from workspace (aka. workspace is clean)
+ * Clean workspace requirement<br/><br/>
+ * 
+ * This {@link Requirement} ensures, that all projects are deleted from workspace
+ * (aka. workspace is clean).<br/><br>
+ * 
+ * Annotate test class with {@link CleanWorkspace} annotation to have clean
+ * workspace before the test cases are executed.<br/><br/>
+ * 
+ * Example:<br/>
+ * <pre>
+ * {@code @CleanWorkspace
+ * public class TestClass {
+ *    // workspace will be cleaned before tests execution
+ * }
+ * }
+ * </pre>
  * 
  * @author rhopp
  * 
  */
-
 public class CleanWorkspaceRequirement implements Requirement<CleanWorkspace> {
 
-	
+	/**
+	 * Marks test class, which requires clean workspace before test cases are executed.
+	 */
 	@Retention(RetentionPolicy.RUNTIME)
     @Target(ElementType.TYPE)
-	public @interface CleanWorkspace{
+	@Documented
+	public @interface CleanWorkspace {
 		
 	}
 	
 	/**
-	 * This should be possible every time.
+	 * Always returns true because cleaning workspace should be possible every time.
+	 * 
+	 * @return true
 	 */
 	@Override
 	public boolean canFulfill() {
@@ -36,9 +56,8 @@ public class CleanWorkspaceRequirement implements Requirement<CleanWorkspace> {
 	}
 
 	/**
-	 * Deletes all projects from workspace
+	 * Deletes all projects from workspace.
 	 */
-	
 	@Override
 	public void fulfill() {	
 		PackageExplorer packageExplorer = new PackageExplorer();
@@ -49,6 +68,11 @@ public class CleanWorkspaceRequirement implements Requirement<CleanWorkspace> {
 		}
 	}
 
+	/**
+	 * This method is empty because annotation {@link CleanWorkspace} has no elements.
+	 * However, it is one of methods of {@link Requirement} interface so it has to be
+	 * overridden.
+	 */
 	@Override
 	public void setDeclaration(CleanWorkspace declaration) {
 		// nothing to do here

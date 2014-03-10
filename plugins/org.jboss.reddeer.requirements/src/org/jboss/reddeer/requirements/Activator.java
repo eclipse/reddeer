@@ -8,7 +8,9 @@ import org.osgi.framework.BundleContext;
  */
 public class Activator extends AbstractUIPlugin {
 
-	// The plug-in ID
+	/**
+	 *  The plug-in ID
+	 */
 	public static final String PLUGIN_ID = "org.jboss.reddeer.requirements"; //$NON-NLS-1$
 
 	// The shared instance
@@ -16,6 +18,7 @@ public class Activator extends AbstractUIPlugin {
 	
 	/**
 	 * The constructor
+	 *
 	 */
 	public Activator() {
 	}
