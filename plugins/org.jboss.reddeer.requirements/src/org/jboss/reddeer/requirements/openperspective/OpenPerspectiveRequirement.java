@@ -1,5 +1,6 @@
 package org.jboss.reddeer.requirements.openperspective;
 
+import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -13,25 +14,48 @@ import org.jboss.reddeer.requirements.exception.RequirementsLayerException;
 import org.jboss.reddeer.requirements.openperspective.OpenPerspectiveRequirement.OpenPerspective;
 
 /**
- * This requirement ensures, that given perspective is active before actual test
- * execution.
+ * Open perspective requirement<br/><br/>
  * 
+ * This {@link Requirement} ensures, that given perspective is active before actual test
+ * execution.<br/><br/>
+ * 
+ * Annotate test class with {@link OpenPerspective} annotation to have
+ * the given perspective opened before the test cases are executed.<br/><br/>
+ * 
+ * Example:<br/>
+ * <pre>
+ * {@code @OpenPerspective(DebugPerspective.class)
+ * public class TestClass {
+ *    // debug perspective will be opened before tests execution
+ * }
+ * }
+ * </pre>
  * @author rhopp
  * 
  */
-
 public class OpenPerspectiveRequirement implements Requirement<OpenPerspective> {
 
+	/**
+	 * Marks test class, which requires opening of the specified perspective.
+	 */
 	@Retention(RetentionPolicy.RUNTIME)
 	@Target(ElementType.TYPE)
+	@Documented
 	public @interface OpenPerspective {
-
+		/**
+		 * specified perspective
+		 */
 		Class<? extends AbstractPerspective> value();
 	}
 
 	private OpenPerspective openPerspective;
 	private final Logger log = Logger.getLogger(this.getClass());
 
+	/**
+	 * Tests if a new instance of the given perspective can be created.
+	 * 
+	 * @return true if the given perspective is valid, otherwise false
+	 */
 	@Override
 	public boolean canFulfill() {
 		try {
@@ -49,6 +73,11 @@ public class OpenPerspectiveRequirement implements Requirement<OpenPerspective> 
 		return true;
 	}
 
+	/**
+	 * Opens the given perspective.
+	 * 
+	 * @throws RequirementsLayerException when the given perspective can't be opened
+	 */
 	@Override
 	public void fulfill() {
 		try {
@@ -59,6 +88,11 @@ public class OpenPerspectiveRequirement implements Requirement<OpenPerspective> 
 		}
 	}
 
+	/**
+	 * Sets perspective, which will be opened before actual test execution.
+	 * 
+	 * @param openPerspective annotation defining the perspective to be opened
+	 */
 	@Override
 	public void setDeclaration(OpenPerspective openPerspective) {
 		this.openPerspective = openPerspective;
