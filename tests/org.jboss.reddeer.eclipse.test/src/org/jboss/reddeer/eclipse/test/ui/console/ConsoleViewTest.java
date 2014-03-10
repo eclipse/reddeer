@@ -92,6 +92,8 @@ public class ConsoleViewTest extends RedDeerTest{
 	public void testTerminateConsole() {
 		
 		runTestClass(TEST_CLASS_LOOP_NAME);
+		AbstractWait.sleep(1000);
+		
 		consoleView = new ConsoleView();
 		consoleView.open();
 		consoleView.terminateConsole();

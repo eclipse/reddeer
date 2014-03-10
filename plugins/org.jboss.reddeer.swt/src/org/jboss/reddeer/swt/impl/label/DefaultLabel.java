@@ -1,5 +1,6 @@
 package org.jboss.reddeer.swt.impl.label;
 
+import org.hamcrest.Matcher;
 import org.jboss.reddeer.swt.lookup.LabelLookup;
 import org.jboss.reddeer.swt.matcher.TextMatcher;
 import org.jboss.reddeer.swt.reference.ReferencedComposite;
@@ -33,6 +34,14 @@ public class DefaultLabel extends AbstractLabel {
 	 */
 	public DefaultLabel(String text) {
 		w = LabelLookup.getInstance().getLabel(null, 0, new TextMatcher(text));
+	}
+	
+	/**
+	 * Create DefaultLabel instance matching given text
+	 * @param text
+	 */
+	public DefaultLabel(Matcher<?>... matchers) {
+		w = LabelLookup.getInstance().getLabel(null, 0, matchers);
 	}
 	
 	/**
