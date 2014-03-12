@@ -12,13 +12,15 @@ import org.jboss.reddeer.swt.util.Display;
 import org.jboss.reddeer.swt.util.ResultRunnable;
 
 /**
- * CTabItem handler handles operations for SWT CTabItem instances
+ * Contains methods that handle UI operations on {@link CTabItem} widgets. 
+ * 
  * @author Vlado Pakan
  *
  */
 public class CTabItemHandler {
+
+	private static final Logger logger = Logger.getLogger(CTabItemHandler.class);
 	
-	private final Logger logger = Logger.getLogger(this.getClass());	  
 	private static CTabItemHandler instance;
 
 	private CTabItemHandler() {
@@ -48,7 +50,7 @@ public class CTabItemHandler {
 		}
 		return instance;
 	}
-	
+
 	/**
 	 * Creates event for CTabItem with specified type
 	 * 
@@ -129,7 +131,7 @@ public class CTabItemHandler {
 		event.count = count;
 		return event;
 	}
-	
+
 	public boolean isShowClose(final CTabItem swtCTabItem) {
 		return Display.syncExec(new ResultRunnable<Boolean>() {
 			public Boolean run() {
@@ -145,6 +147,15 @@ public class CTabItemHandler {
 		Display.syncExec(new Runnable() {
 			public void run() {
 				swtCTabItem.getParent().setSelection(swtCTabItem);
+			}
+		});
+	}
+
+	public void setFocus(final CTabItem ctabItem) {
+		Display.syncExec(new Runnable() {
+			@Override
+			public void run() {
+				ctabItem.getParent().forceFocus();
 			}
 		});
 	}

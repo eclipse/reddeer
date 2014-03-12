@@ -4,6 +4,7 @@ import org.eclipse.ui.forms.widgets.Hyperlink;
 import org.jboss.reddeer.swt.handler.WidgetHandler;
 import org.jboss.reddeer.swt.matcher.WithMnemonicMatcher;
 import org.jboss.reddeer.swt.reference.ReferencedComposite;
+import org.jboss.reddeer.uiforms.handler.HyperLinkHandler;
 import org.jboss.reddeer.uiforms.impl.hyperlink.DefaultHyperlink;
 import org.jboss.reddeer.uiforms.lookup.HyperlinkLookup;
 
@@ -109,7 +110,7 @@ public class UIFormHyperlink {
 	}
 	
 	public void activate() {
-		WidgetHandler.getInstance().activate(hyperLink);
+		HyperLinkHandler.getInstance().activate(hyperLink);
 	}
 
 	

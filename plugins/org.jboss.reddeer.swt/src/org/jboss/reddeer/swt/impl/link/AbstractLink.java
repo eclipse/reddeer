@@ -16,7 +16,7 @@ public abstract class AbstractLink implements Link{
 	}
 	
 	public void click(){
-		WidgetHandler.getInstance().activate(link);
+		LinkHandler.getInstance().activate(link);
 	}
 	
 	public org.eclipse.swt.widgets.Link getSWTWidget(){

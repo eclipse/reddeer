@@ -9,6 +9,7 @@ import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.swt.condition.TreeItemHasMinChildren;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.handler.TreeHandler;
+import org.jboss.reddeer.swt.handler.TreeItemHandler;
 import org.jboss.reddeer.swt.handler.WidgetHandler;
 import org.jboss.reddeer.swt.wait.TimePeriod;
 import org.jboss.reddeer.swt.wait.WaitUntil;
@@ -58,7 +59,7 @@ public abstract class AbstractTreeItem implements TreeItem {
 	 */
 	@Override
 	public String getToolTipText() {
-		return WidgetHandler.getInstance().getToolTipText(swtTreeItem);
+		return TreeItemHandler.getInstance().getToolTipText(swtTreeItem);
 	}
 
 	/**
@@ -66,7 +67,7 @@ public abstract class AbstractTreeItem implements TreeItem {
 	 */
 	@Override
 	public String getCell(final int index) {
-		return WidgetHandler.getInstance().getText(swtTreeItem,index);
+		return TreeItemHandler.getInstance().getText(swtTreeItem,index);
 	}
 
 	/**

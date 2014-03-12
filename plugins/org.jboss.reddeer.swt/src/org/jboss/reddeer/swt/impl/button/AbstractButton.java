@@ -10,6 +10,7 @@ import org.jboss.reddeer.direct.platform.RunningPlatform;
 import org.jboss.reddeer.junit.logging.Logger;
 import org.jboss.reddeer.swt.api.Button;
 import org.jboss.reddeer.swt.condition.WidgetIsEnabled;
+import org.jboss.reddeer.swt.handler.ButtonHandler;
 import org.jboss.reddeer.swt.handler.WidgetHandler;
 import org.jboss.reddeer.swt.lookup.ButtonLookup;
 import org.jboss.reddeer.swt.matcher.StyleMatcher;
@@ -64,7 +65,7 @@ public abstract class AbstractButton implements Button {
 						getToolTipText() != null ? getToolTipText()
 						: "with no text or tooltip")));
 		new WaitUntil(new WidgetIsEnabled(this));
-		WidgetHandler.getInstance().click(swtButton);
+		ButtonHandler.getInstance().click(swtButton);
 	}
 	
 	/**

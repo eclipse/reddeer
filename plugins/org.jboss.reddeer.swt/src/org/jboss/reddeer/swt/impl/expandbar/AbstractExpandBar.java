@@ -33,14 +33,14 @@ public abstract class AbstractExpandBar implements ExpandBar {
 	 */
 	@Override
 	public int getItemsCount() {
-		return ExpandBarHandler.getItemsCount(this);
+		return ExpandBarHandler.getInstance().getItems(this.getSWTWidget()).size();
 	}
 	/**
 	 * See {@link ExpandBar}
 	 */
 	@Override
 	public List<ExpandBarItem> getItems() {
-		return ExpandBarHandler.getItems(this);
+		return ExpandBarHandler.getInstance().getItems(this.getSWTWidget());
 	}
 	/**
 	 * See {@link ExpandBar}
@@ -55,14 +55,18 @@ public abstract class AbstractExpandBar implements ExpandBar {
 	 */
 	@Override
 	public void expandAll() {
-		ExpandBarHandler.expandAll(this);
+		for (ExpandBarItem expandBarItem : getItems()){
+			expandBarItem.expand();
+		}
 	}
 	/**
 	 * See {@link ExpandBar}
 	 */
 	@Override
 	public void collapseAll() {
-		ExpandBarHandler.collapseAll(this);
+		for (ExpandBarItem expandBarItem : getItems()){
+			expandBarItem.collapse();
+		}
 	}
 	/**
 	 * See {@link ExpandBar}

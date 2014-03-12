@@ -6,12 +6,12 @@ import org.eclipse.swt.widgets.TabItem;
 import org.jboss.reddeer.swt.util.Display;
 import org.jboss.reddeer.swt.util.ResultRunnable;
 /**
- * TabItem handler handles operations for SWT TabItem instances
+ * Contains methods that handle UI operations on {@link TabItem} widgets. 
  * @author Vlado Pakan
  *
  */
 public class TabItemHandler {
-	  
+
 	private static TabItemHandler instance;
 
 	private TabItemHandler() {
@@ -81,6 +81,15 @@ public class TabItemHandler {
 		Display.syncExec(new Runnable() {
 			public void run() {
 				swtTabItem.getParent().setSelection(swtTabItem);
+			}
+		});
+	}
+
+	public void setFocus(final TabItem tabItem) {
+		Display.syncExec(new Runnable() {
+			@Override
+			public void run() {
+				tabItem.getParent().forceFocus();
 			}
 		});
 	}

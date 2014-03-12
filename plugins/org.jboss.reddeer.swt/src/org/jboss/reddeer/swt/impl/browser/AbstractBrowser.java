@@ -31,7 +31,7 @@ public abstract class AbstractBrowser implements Browser{
 	@Override
 	public void forward() {
 		setUpProgressListener();
-		if (BrowserHandler.forward(this)){
+		if (BrowserHandler.getInstance().forward(this.getSWTWidget())){
 			new WaitUntil(new PageIsLoaded(this), TimePeriod.LONG);
 			// Unfortunately Browser needs some time to get ready even when page is fully loaded
 			AbstractWait.sleep(TimePeriod.SHORT.getSeconds() * 1000);
@@ -42,7 +42,7 @@ public abstract class AbstractBrowser implements Browser{
 	@Override
 	public void back() {
 		setUpProgressListener();
-		if (BrowserHandler.back(this)) {
+		if (BrowserHandler.getInstance().back(this.getSWTWidget())) {
 			new WaitUntil(new PageIsLoaded(this), TimePeriod.LONG);
 			// Unfortunately Browser needs some time to get ready even when page
 			// is fully loaded
@@ -54,7 +54,7 @@ public abstract class AbstractBrowser implements Browser{
 	@Override
 	public void setURL(String url) {
 		setUpProgressListener();
-		if (BrowserHandler.setURL(this , url)){
+		if (BrowserHandler.getInstance().setURL(this.getSWTWidget(), url)){
 			new WaitUntil(new PageIsLoaded(this), TimePeriod.LONG);
 			// Unfortunately Browser needs some time to get ready even when page is fully loaded
 			AbstractWait.sleep(TimePeriod.NORMAL.getSeconds() * 1000);
@@ -64,12 +64,14 @@ public abstract class AbstractBrowser implements Browser{
 	
 	@Override
 	public String getURL() {
-		return BrowserHandler.getURL(this);	
+		new WaitUntil(new PageIsLoaded(this));
+		return BrowserHandler.getInstance().getURL(this.getSWTWidget());	
 	}
 	
 	@Override
 	public String getText() {
-		return BrowserHandler.getText(this);	
+		new WaitUntil(new PageIsLoaded(this));
+		return BrowserHandler.getInstance().getText(this.getSWTWidget());	
 	}
 	/**
 	 * See {@link Browser}
@@ -80,14 +82,14 @@ public abstract class AbstractBrowser implements Browser{
 	}
 	@Override
 	public void refresh() {
-		BrowserHandler.refresh(this);		
+		BrowserHandler.getInstance().refresh(this.getSWTWidget());		
 	}
 	private void setUpProgressListener (){
-		BrowserHandler.addProgressListener(this, browserProgressListener);
+		BrowserHandler.getInstance().addProgressListener(this.getSWTWidget(), browserProgressListener);
 		browserProgressListener.setDone(false);
 	}
 	private void resetProgressListener (){
-		BrowserHandler.removeProgressListener(this, browserProgressListener);
+		BrowserHandler.getInstance().removeProgressListener(this.getSWTWidget(), browserProgressListener);
 		browserProgressListener.setDone(true);
 	}
 

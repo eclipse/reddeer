@@ -56,7 +56,7 @@ public abstract class AbstractTable implements Table {
 	@Override
 	public List<TableItem> getItems(){
 		waitUntilTableHasRows();
-		org.eclipse.swt.widgets.TableItem[] items = (org.eclipse.swt.widgets.TableItem[])WidgetHandler.getInstance().getSWTItems(table);
+		org.eclipse.swt.widgets.TableItem[] items = TableHandler.getInstance().getSWTItems(table);
 		List<TableItem> tableItems = new ArrayList<TableItem>();
 		for(org.eclipse.swt.widgets.TableItem i: items){
 			tableItems.add(new BasicTableItem(i));
@@ -67,7 +67,7 @@ public abstract class AbstractTable implements Table {
 	@Override
 	public TableItem getItem(final int index) {
 		waitUntilTableHasRows();
-		org.eclipse.swt.widgets.TableItem tItem = (org.eclipse.swt.widgets.TableItem)WidgetHandler.getInstance().getSWTItem(table, index);
+		org.eclipse.swt.widgets.TableItem tItem = TableHandler.getInstance().getSWTItem(table, index);
 		return new BasicTableItem(tItem);
 	}
 	
@@ -75,7 +75,7 @@ public abstract class AbstractTable implements Table {
 	public TableItem getItem(final String itemText) {
 		waitUntilTableHasRows();
 		int row = TableHandler.getInstance().indexOf(table, itemText, 0);
-		org.eclipse.swt.widgets.TableItem tItem = (org.eclipse.swt.widgets.TableItem)WidgetHandler.getInstance().getSWTItem(table, row);
+		org.eclipse.swt.widgets.TableItem tItem = TableHandler.getInstance().getSWTItem(table, row);
 		return new BasicTableItem(tItem);
 	}
 	
@@ -83,7 +83,7 @@ public abstract class AbstractTable implements Table {
 	public TableItem getItem(final String itemText, int column) {
 		waitUntilTableHasRows();
 		int row = TableHandler.getInstance().indexOf(table, itemText, column);
-		org.eclipse.swt.widgets.TableItem tItem = (org.eclipse.swt.widgets.TableItem)WidgetHandler.getInstance().getSWTItem(table, row);
+		org.eclipse.swt.widgets.TableItem tItem = TableHandler.getInstance().getSWTItem(table, row);
 		return new BasicTableItem(tItem);
 	}
 
@@ -106,9 +106,9 @@ public abstract class AbstractTable implements Table {
 		}
 		waitUntilTableHasRows();
 		if(indexes.length == 1){
-			WidgetHandler.getInstance().select(table, indexes[0]);
+			TableHandler.getInstance().select(table, indexes[0]);
 		} else {
-			WidgetHandler.getInstance().select(table, indexes);
+			TableHandler.getInstance().select(table, indexes);
 		}
 		
 	}
@@ -126,13 +126,13 @@ public abstract class AbstractTable implements Table {
 	@Override
 	public void selectAll(){
 		waitUntilTableHasRows();
-		WidgetHandler.getInstance().selectAll(table);
+		TableHandler.getInstance().selectAll(table);
 	}
 
 	@Override
 	public void deselectAll() {
 		waitUntilTableHasRows();
-		WidgetHandler.getInstance().deselectAll(table);
+		TableHandler.getInstance().deselectAll(table);
 	}
 
 	private void waitUntilTableHasRows() {

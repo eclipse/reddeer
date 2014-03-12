@@ -4,12 +4,12 @@ import org.eclipse.swt.widgets.Shell;
 import org.jboss.reddeer.swt.util.Display;
 
 /**
- * Shell handler handles operations for SWT Shell instances
+ * Contains methods that handle UI operations on {@link Shell} widgets. 
  * @author Jiri Peterka
  *
  */
 public class ShellHandler {
-	  
+
 	private static ShellHandler instance;
 
 	private ShellHandler() {
@@ -27,7 +27,7 @@ public class ShellHandler {
 		}
 		return instance;
 	}
-	
+
 
 	/**
 	 * Closes given shell
@@ -45,4 +45,13 @@ public class ShellHandler {
 		});
 	}
 
+	public void setFocus(final Shell shell) {
+		Display.syncExec(new Runnable() {
+			@Override
+			public void run() {
+				shell.forceActive();
+				shell.forceFocus();
+			}
+		});
+	}
 }
