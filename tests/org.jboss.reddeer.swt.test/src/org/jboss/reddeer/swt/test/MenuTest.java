@@ -113,9 +113,12 @@ public class MenuTest extends RedDeerTest {
 	
 	@Test 
 	public void contextMenuItemTextTest() {
+		//make sure shell is focused
+		new DefaultShell();
+		
 		ProjectExplorer pe = new ProjectExplorer();
 		pe.open();
-
+		
 		Menu menu = new ContextMenu("New","Project...");
 		assertTrue("Menuitem text not expected to be empty", !menu.getText().equals(""));
 	}

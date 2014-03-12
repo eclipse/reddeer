@@ -240,6 +240,10 @@ public class MenuLookup {
 	public MenuItem[] getTopMenuMenuItemsFromFocus() {
 
 		final Control control  = WidgetLookup.getInstance().getFocusControl();
+		if (control == null) {
+			throw new SWTLayerException(
+					"No control has focus. Perhaps something has stolen it? Try to regain focus with for example \"new DefaultShell()\".");
+		}
 		MenuItem[] items = null;
 		final Menu menu = getControlMenu(control);
 		
