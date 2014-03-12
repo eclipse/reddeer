@@ -2,6 +2,7 @@ package org.jboss.reddeer.swt.impl.list;
 
 import org.jboss.reddeer.junit.logging.Logger;
 import org.jboss.reddeer.swt.api.List;
+import org.jboss.reddeer.swt.handler.ListHandler;
 import org.jboss.reddeer.swt.handler.WidgetHandler;
 
 /**
@@ -17,31 +18,31 @@ public abstract class AbstractList implements List {
 	protected final Logger logger = Logger.getLogger(this.getClass());
 
 	public void select(String listItem) {
-		WidgetHandler.getInstance().select(list,listItem);
+		ListHandler.getInstance().select(list,listItem);
 	}
 
 	public void select(int listItemIndex) {
-		WidgetHandler.getInstance().select(list,listItemIndex);
+		ListHandler.getInstance().select(list,listItemIndex);
 	}
 
 	public String[] getListItems() {
-		return WidgetHandler.getInstance().getItems(list);
+		return ListHandler.getInstance().getItems(list);
 	}
 
 	public void deselectAll() {
-		WidgetHandler.getInstance().deselectAll(list);
+		ListHandler.getInstance().deselectAll(list);
 	}
 	
 	public void selectAll() {
-		WidgetHandler.getInstance().selectAll(list);
+		ListHandler.getInstance().selectAll(list);
 	}
 
 	public void select(String... listItems) {
-		WidgetHandler.getInstance().select(list,listItems);
+		ListHandler.getInstance().select(list,listItems);
 	}
 
 	public void select(int... indices) {
-		WidgetHandler.getInstance().select(list,indices);
+		ListHandler.getInstance().select(list,indices);
 	}
 	
 	public org.eclipse.swt.widgets.List getSWTWidget(){

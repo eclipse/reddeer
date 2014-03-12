@@ -1,6 +1,7 @@
 package org.jboss.reddeer.swt.impl.spinner;
 
 import org.jboss.reddeer.swt.api.Spinner;
+import org.jboss.reddeer.swt.handler.SpinnerHandler;
 import org.jboss.reddeer.swt.handler.WidgetHandler;
 
 /**
@@ -15,12 +16,12 @@ public abstract class AbstractSpinner implements Spinner {
 
 	@Override
 	public int getValue() {
-		return WidgetHandler.getInstance().getValue(swtSpinner);
+		return SpinnerHandler.getInstance().getValue(swtSpinner);
 	}
 
 	@Override
 	public void setValue(int value) {
-		WidgetHandler.getInstance().setValue(swtSpinner, value);
+		SpinnerHandler.getInstance().setValue(swtSpinner, value);
 	}
 	
 	public org.eclipse.swt.widgets.Spinner getSWTWidget(){

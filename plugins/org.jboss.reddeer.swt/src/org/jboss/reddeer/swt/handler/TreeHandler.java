@@ -21,7 +21,7 @@ import org.jboss.reddeer.swt.wait.TimePeriod;
 import org.jboss.reddeer.swt.wait.WaitUntil;
 
 /**
- * Tree handler handles operations for SWT Tree and TreeItem instances
+ * Contains methods that handle UI operations on {@link org.eclipse.swt.widgets.Tree} widgets. 
  * 
  * @author Vlado Pakan
  * 

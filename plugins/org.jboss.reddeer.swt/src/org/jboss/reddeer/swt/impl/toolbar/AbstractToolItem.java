@@ -2,6 +2,7 @@ package org.jboss.reddeer.swt.impl.toolbar;
 
 import org.jboss.reddeer.swt.api.ToolItem;
 import org.jboss.reddeer.swt.exception.Thrower;
+import org.jboss.reddeer.swt.handler.ToolItemHandler;
 import org.jboss.reddeer.swt.handler.WidgetHandler;
 
 /**
@@ -18,8 +19,9 @@ public abstract class AbstractToolItem implements ToolItem {
 	@Override
 	public void click() {
 		Thrower.objectIsNull(toolItem, "ToolItem is null" );
-		WidgetHandler.getInstance().click(toolItem);
+		ToolItemHandler.getInstance().click(toolItem);
 	}
+	
 	/**
 	 * See {@link ToolItem}}
 	 */
@@ -34,7 +36,7 @@ public abstract class AbstractToolItem implements ToolItem {
 	 */
 	@Override
 	public boolean isSelected() {
-		return WidgetHandler.getInstance().isSelected(toolItem);
+		return ToolItemHandler.getInstance().isSelected(toolItem);
 	}
 	/**
 	 * See {@link ToolItem}}

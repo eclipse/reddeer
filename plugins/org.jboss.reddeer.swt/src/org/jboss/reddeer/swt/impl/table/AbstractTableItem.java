@@ -7,6 +7,7 @@ import org.jboss.reddeer.swt.api.TableItem;
 import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.handler.TableHandler;
+import org.jboss.reddeer.swt.handler.TableItemHandler;
 import org.jboss.reddeer.swt.handler.WidgetHandler;
 
 public class AbstractTableItem implements TableItem {
@@ -29,12 +30,12 @@ public class AbstractTableItem implements TableItem {
 	public void setChecked(final boolean check) {
 		log.info((check ? "Check" : "Uncheck") + "Table Item " + getText()
 				+ ":");
-		WidgetHandler.getInstance().setChecked(tableItem, check);
+		TableItemHandler.getInstance().setChecked(tableItem, check);
 	}
 
 	@Override
 	public boolean isChecked() {
-		return WidgetHandler.getInstance().isChecked(tableItem);
+		return TableItemHandler.getInstance().isChecked(tableItem);
 	}
 	
 	@Override
@@ -44,17 +45,17 @@ public class AbstractTableItem implements TableItem {
 	
 	@Override
 	public String getText(int cellIndex) {
-		return WidgetHandler.getInstance().getText(tableItem, cellIndex);
+		return TableItemHandler.getInstance().getText(tableItem, cellIndex);
 	}
 
 	@Override
 	public boolean isSelected() {
-		return WidgetHandler.getInstance().isSelected(tableItem);
+		return TableItemHandler.getInstance().isSelected(tableItem);
 	}
 
 	@Override
 	public void select() {
-		WidgetHandler.getInstance().select(tableItem);
+		TableItemHandler.getInstance().select(tableItem);
 	}
 	
 	@Override
@@ -69,7 +70,7 @@ public class AbstractTableItem implements TableItem {
 
 	@Override
 	public Table getParent() {
-		return (Table)WidgetHandler.getInstance().getParent(tableItem);
+		return new DefaultTable(TableItemHandler.getInstance().getParent(tableItem));
 	}
 	
 	@Override

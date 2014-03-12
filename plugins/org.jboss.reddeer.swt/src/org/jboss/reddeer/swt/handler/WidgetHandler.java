@@ -3,28 +3,22 @@ package org.jboss.reddeer.swt.handler;
 import java.util.Arrays;
 
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.browser.Browser;
-import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.custom.CTabItem;
-import org.eclipse.swt.custom.StyledText;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.ExpandBar;
 import org.eclipse.swt.widgets.ExpandItem;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Link;
 import org.eclipse.swt.widgets.List;
-import org.eclipse.swt.widgets.Scale;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Spinner;
 import org.eclipse.swt.widgets.TabFolder;
 import org.eclipse.swt.widgets.TabItem;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
-import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.swt.widgets.Widget;
@@ -51,9 +45,9 @@ import org.jboss.reddeer.swt.util.ResultRunnable;
  * @author Jaroslav Jankovic
  */
 public class WidgetHandler {
-  
+
 	private final Logger log = Logger.getLogger(this.getClass());
-  
+
 	private static WidgetHandler instance;
 
 	private WidgetHandler() {
@@ -71,7 +65,7 @@ public class WidgetHandler {
 		}
 		return instance;
 	}
-	
+
 	/**
 	 * Checks if widget is enabled
 	 * @param widget
@@ -91,7 +85,7 @@ public class WidgetHandler {
 		}
 		return ret;
 	}
-	
+
 	/**
 	 * Checks if widget is visible
 	 * @param widget given widget
@@ -111,10 +105,10 @@ public class WidgetHandler {
 		}
 		return ret;
 	}
-	
+
 	/**
 	 * Click for supported widget type
-	 * 
+	 * @deprecated Use click() on the specific handlers
 	 * @param w given widgets
 	 */
 	public <T extends Widget> void click(final T w) {
@@ -124,14 +118,14 @@ public class WidgetHandler {
 				if (w instanceof Button) {
 					final Button button = (Button) w;
 					if (((button.getStyle() & SWT.TOGGLE) != 0) ||
-						((button.getStyle() & SWT.CHECK) != 0)) {
+							((button.getStyle() & SWT.CHECK) != 0)) {
 						button.setSelection(!button.getSelection());
 					}
 				}else if (w instanceof ToolItem) {
 					final ToolItem toolItem = (ToolItem) w;
 					if (((toolItem.getStyle() & SWT.TOGGLE) != 0) ||
-						((toolItem.getStyle() & SWT.CHECK) != 0) ||
-						((toolItem.getStyle() & SWT.RADIO) != 0)) {
+							((toolItem.getStyle() & SWT.CHECK) != 0) ||
+							((toolItem.getStyle() & SWT.RADIO) != 0)) {
 						toolItem.setSelection(!toolItem.getSelection());
 					}
 				}else {
@@ -168,7 +162,7 @@ public class WidgetHandler {
 				if ((button.getParent().getStyle() & SWT.NO_RADIO_GROUP) != 0) {
 					return;
 				}
-				
+
 				Widget[] siblings = button.getParent().getChildren();
 				for (Widget widget : siblings) {
 					if (widget instanceof Button) {
@@ -181,7 +175,7 @@ public class WidgetHandler {
 					}	
 				}
 			}
-			
+
 			private void selectRadio(Button button) {
 				WidgetLookup.getInstance().notify(SWT.Activate, button);
 				WidgetLookup.getInstance().notify(SWT.MouseDown, button);
@@ -192,7 +186,7 @@ public class WidgetHandler {
 
 		});
 	}
-	
+
 	/**
 	 * Gets style for supported widget type
 	 * 
@@ -212,16 +206,16 @@ public class WidgetHandler {
 		});
 		return style;
 	}
-	
+
 	/**
 	 * Checks if supported widget is selected
-	 * 
+	 * @deprecated Use specific handlers instead
 	 * @param w	given widget
 	 * @return	returns widget label text
 	 */
 	public <T extends Widget> boolean isSelected(final T w) {
 		boolean selectionState = Display.syncExec(new ResultRunnable<Boolean>() {
-			
+
 			@Override
 			public Boolean run() {
 				if (w instanceof Button)
@@ -250,31 +244,17 @@ public class WidgetHandler {
 	 * @param text
 	 *            text to be set
 	 */
-	public <T extends Widget> void setText(final T w, final String text) {
-		Display.syncExec(new Runnable() {
-
-			@Override
-			public void run() {
-				if (w instanceof Text) {
-					Text textField = (Text) w;
-					if(!textField.getEditable()) {
-						throw new SWTLayerException("Text field is not editable");
-					}
-					textField.setText(text);
-				}
-				else if (w instanceof StyledText)
-					((StyledText) w).setText(text);
-				else if (w instanceof Combo)
-          ((Combo) w).setText(text);
-        else
-					throw new SWTLayerException("Unsupported type");
-
-			}
-		});
+	public <T extends Widget> void setText(final T widget, final String text) {
+		try {
+			ObjectUtil.invokeMethod(widget, "setText", new Class[]{String.class}, new Object[]{text});
+		} catch (RuntimeException e) {
+			throw new SWTLayerException("Runtime error during setting widget's text", e);
+		}
 	}
+
 	/**
 	 * Gets text on given cell index for supported widget type 
-	 * 
+	 * @deprecated Use concrete implementations instead
 	 * @param w given widget
 	 * @Param cellIndex index of cell
 	 * @return returns widget text
@@ -295,7 +275,7 @@ public class WidgetHandler {
 		});
 		return text;
 	}
-	
+
 	/**
 	 * Gets text for supported widget type
 	 * 
@@ -313,17 +293,17 @@ public class WidgetHandler {
 		if (o == null){
 			return null;
 		}
-		
+
 		if (o instanceof String) {
 			return (String) o;
 		}
-		
+
 		throw new SWTLayerException("Return value of method getText() on class " + o.getClass() + " should be String, but was " + o.getClass());
 	}
 
 	/**
 	 * Checks item for supported widget type
-	 * 
+	 * @deprecated Use concrete handler instead
 	 * @param w given widget
 	 * @param itemIndex item index to check
 	 */
@@ -339,7 +319,7 @@ public class WidgetHandler {
 					}
 					if((widget.getStyle() & SWT.CHECK) != SWT.CHECK){
 						throw new SWTLayerException("Unable to check item because table does not have SWT.CHECK style");
-						
+
 					} 
 					widget.getItem(itemIndex).setChecked(true);
 					WidgetLookup.getInstance().notifyItem(SWT.Selection, SWT.CHECK, widget, widget.getItem(itemIndex));
@@ -350,10 +330,10 @@ public class WidgetHandler {
 			}
 		});
 	}
-	
+
 	/**
 	 * Gets items for supported widget type
-	 * 
+	 * @deprecated use concrete impl instead
 	 * @param w
 	 *            given widget
 	 * @return array of items in widget
@@ -366,17 +346,17 @@ public class WidgetHandler {
 				if (w instanceof List)
 					return ((List) w).getItems();
 				else if (w instanceof Combo)
-          return ((Combo) w).getItems();
+					return ((Combo) w).getItems();
 				else
 					throw new SWTLayerException("Unsupported type");
 			}
 		});
 		return text;
 	}
-	
+
 	/**
 	 * Gets swt items for supported widget type
-	 * 
+	 * @deprecated Use concrete handlers instead
 	 * @param w
 	 *            given widget
 	 * @return array of items in widget
@@ -393,10 +373,10 @@ public class WidgetHandler {
 			}
 		});
 	}
-	
+
 	/**
 	 * Gets swt items for supported widget type
-	 * 
+	 * @deprecated Use concrete handlers instead
 	 * @param w
 	 *            given widget
 	 * @return array of items in widget
@@ -413,10 +393,10 @@ public class WidgetHandler {
 			}
 		});
 	}
-	
+
 	/**
 	 * Deselects all items for supported widget type
-	 * 
+	 * @deprecated Use concrete handlers instead
 	 * @param w given widget
 	 */
 	public <T extends Widget> void deselectAll(final T w) {
@@ -433,10 +413,10 @@ public class WidgetHandler {
 			}
 		});
 	}
-	
+
 	/**
 	 * Selects all items for supported widget type
-	 * 
+	 * @deprecated Use concrete handlers instead
 	 * @param w given widget
 	 */
 	public <T extends Widget> void selectAll(final T w) {
@@ -466,10 +446,10 @@ public class WidgetHandler {
 			}
 		});
 	}
-	
+
 	/**
 	 * Selects item for supported widget type
-	 * 
+	 * @deprecated use concrete handler instead
 	 * @param w given widget
 	 * @param item to select
 	 */
@@ -500,16 +480,16 @@ public class WidgetHandler {
 			}
 		});
 	}
-	
+
 	/**
 	 * Selects item for supported widget type
-	 * 
+	 * @deprecated use concrete handler instead
 	 * @param w given widget
 	 * @param item to select
 	 */
 	public <T> void select(final T wItem) {
 		Display.syncExec(new Runnable() {
-			
+
 			@Override
 			public void run() {
 				if(wItem instanceof TableItem){
@@ -523,16 +503,16 @@ public class WidgetHandler {
 			}
 		});
 	}
-	
+
 	/**
 	 * Checks item for supported widget type
-	 * 
+	 * @deprecated use concrete handlers
 	 * @param w given widget
 	 * @param item to check
 	 */
 	public <T> void setChecked(final T wItem, final boolean check) {
 		Display.syncExec(new Runnable() {
-			
+
 			@Override
 			public void run() {
 				if(wItem instanceof TableItem){
@@ -549,15 +529,15 @@ public class WidgetHandler {
 			}
 		});
 	}
-	
+
 	/**
 	 * Checks if widget is checked
-	 * 
+	 * @deprecated use concrete handlers instead
 	 * @param w given widget
 	 */
 	public <T> boolean isChecked(final T w) {
 		return Display.syncExec(new ResultRunnable<Boolean>() {
-			
+
 			@Override
 			public Boolean run() {
 				if(w instanceof TableItem){
@@ -569,10 +549,10 @@ public class WidgetHandler {
 			}
 		});
 	}
-	
+
 	/**
 	 * Selects items for supported widget type if widget supports multi selection
-	 * 
+	 * @deprecated use concrete handlers instead
 	 * @param w given widget
 	 * @param items to select
 	 */
@@ -601,10 +581,10 @@ public class WidgetHandler {
 			}
 		});
 	}
-	
+
 	/**
 	 * Selects items for supported widget type if widget supports multi selection
-	 * 
+	 * @deprecated use concrete handler instead
 	 * @param w given widget
 	 * @param indices of items to select
 	 */
@@ -636,10 +616,10 @@ public class WidgetHandler {
 			}
 		});
 	}
-	
+
 	/**
 	 * Selects item for supported widget type
-	 * 
+	 * @deprecated use concrete handlers instead
 	 * @param w given widget
 	 * @param index of item to select
 	 */
@@ -676,7 +656,7 @@ public class WidgetHandler {
 			}
 		});
 	}
-	
+
 	/**
 	 * Gets label for supported widget type
 	 * 
@@ -688,29 +668,24 @@ public class WidgetHandler {
 
 			@Override
 			public String run() {
-				if ((w instanceof List) || (w instanceof Text) || (w instanceof Combo) || (w instanceof Spinner)) {
-					Widget parent = ((Control)w).getParent();;
-					java.util.List<Widget> children = WidgetResolver.getInstance().getChildren(parent);
-					for (int i = 1; i < children.size() ; i++) {						
-						if (children.get(i) != null && children.get(i).equals(w)) {
-							for(int y=1; i-y>=0 ;y++){
-								if(children.get(i - y) instanceof Label){
-									if(((Label)children.get(i - y)).getImage() == null){
-										return ((Label)children.get(i - y)).getText();
-									}
-								} else {
-									return null;
+				Widget parent = ((Control)w).getParent();;
+				java.util.List<Widget> children = WidgetResolver.getInstance().getChildren(parent);
+				for (int i = 1; i < children.size() ; i++) {						
+					if (children.get(i) != null && children.get(i).equals(w)) {
+						for(int y=1; i-y>=0 ;y++){
+							if(children.get(i - y) instanceof Label){
+								if(((Label)children.get(i - y)).getImage() == null){
+									return ((Label)children.get(i - y)).getText();
 								}
+							} else {
+								return null;
 							}
 						}
 					}
 				}
-				else {
-					throw new SWTLayerException("Unsupported type");
-				}
 				return null;
 			}}
-		);
+				);
 		if(label != null) {
 			label = label.replaceAll("&", "").split("\t")[0];
 		}
@@ -723,71 +698,61 @@ public class WidgetHandler {
 	 * @param widget
 	 * @return widget text
 	 */
-	public <T extends Widget> String getToolTipText(final T w) {
-		String text = Display.syncExec(new ResultRunnable<String>() {
-			@Override
-			public String run() {
-				if (w instanceof Text)
-					return ((Text) w).getToolTipText();
-				else if (w instanceof Combo)
-					return ((Combo) w).getToolTipText();
-				else if (w instanceof CTabItem)
-					return ((CTabItem) w).getToolTipText();
-				else if (w instanceof Button){
-					return ((Button) w).getToolTipText();
-				}else if (w instanceof ExpandItem)
-					return ((ExpandItem) w).getParent().getToolTipText();
-				else if (w instanceof CLabel){
-					return ((CLabel)w).getToolTipText();
-				}else if (w instanceof TreeItem){
-					return ((TreeItem)w).getParent().getToolTipText();
-				}else if (w instanceof ToolItem){
-					return ((ToolItem)w).getToolTipText();					
-				}else
-					throw new SWTLayerException("Unsupported type");
-			}
-		});
-		return text;
+	public <T extends Widget> String getToolTipText(final T widget) {
+		Object o = null;
+		try {
+			o = ObjectUtil.invokeMethod(widget, "getToolTipText");
+		} catch (RuntimeException e) {
+			throw new SWTLayerException("Runtime error during retrieving widget's text", e);
+		}
+		if (o == null){
+			return null;
+		}
+
+		if (o instanceof String) {
+			return (String) o;
+		}
+
+		throw new SWTLayerException("Return value of method getText() on class " + o.getClass() + " should be String, but was " + o.getClass());
 	}
-	
+
+	/**
+	 * Sets focus to the widget. The method is called from {@link WidgetLookup} so it need to be common for all widgets and cannot
+	 * be decomposed to separate handlers. 
+	 * @param w
+	 */
 	public <T extends Widget> void setFocus(final T w) {
-		Display.syncExec(new Runnable() {
-			@Override
-			public void run() {
-				if (w instanceof ExpandBar){
-					((ExpandBar)w).setFocus();
-				} else if (w instanceof Browser){
-					((Browser)w).setFocus();
-				} else if (w instanceof Scale){
-					((Scale)w).setFocus();
-				} else if(w instanceof CTabItem) {
-					CTabItem ctabItem = (CTabItem) w; 
-					ctabItem.getParent().forceFocus();
-				} else if(w instanceof CTabFolder) {
-					((CTabFolder) w).forceFocus(); 
-				}else if(w instanceof TabItem) {
-					TabItem tabItem = (TabItem) w; 
-					tabItem.getParent().forceFocus();
-				} else if(w instanceof TabFolder) {
-					((TabFolder) w).forceFocus(); 	
-				} else if(w instanceof Shell) {
-					Shell shell = (Shell) w; 
-					shell.forceActive();
-					shell.forceFocus();
-				} else if (w instanceof Control) {
-					((Control)w).setFocus();
-				} else throw new SWTLayerException("Unsupported type");
-			}
-		});
+
+		if(w instanceof CTabItem) {
+			CTabItemHandler.getInstance().setFocus((CTabItem) w);
+		} else if(w instanceof CTabFolder) {
+			CTabFolderHandler.getInstance().setFocus((CTabFolder) w); 
+		}else if(w instanceof TabItem) {
+			TabItemHandler.getInstance().setFocus((TabItem) w);
+		} else if(w instanceof TabFolder) {
+			TabFolderHandler.getInstance().setFocus((TabFolder) w);
+		} else if(w instanceof Shell) {
+			ShellHandler.getInstance().setFocus((Shell) w);
+		} else {
+			Display.syncExec(new Runnable() {
+				@Override
+				public void run() {
+					if (w instanceof Control) {
+						((Control)w).setFocus();
+					} else throw new SWTLayerException("Unsupported type");
+				}
+			});
+		}
 	}
-	
+
 	/**
 	 * Activates widget - link/hyperlink etc
+	 * @deprecated Use concrete handlers instead
 	 * @param w widget to activate
 	 */
 	public <T> void activate(final T w) {
 		Display.syncExec(new Runnable() {
-			
+
 			@Override
 			public void run() {
 				if (w instanceof Link) {
@@ -805,116 +770,116 @@ public class WidgetHandler {
 			}
 		});
 	}
-	 /**
-	  * Sets selection with given index for supported widget type
-	  * 
-	  * @param index
-	  */
-	 public <T extends Widget> void setSelection(final T w, final int index) {
-	   Display.syncExec(new Runnable() {
-	    
-	    @Override
-	    public void run() {
-	      if (w instanceof Combo) {
-	        int itemsLength = getItems(w).length;
-	        if (index >= itemsLength) {
-	          log.error("Combo does not have " + index + 1 + "items!");
-	          log.info("Combo has " + itemsLength + " items");
-	          throw new SWTLayerException("Nonexisted item in combo was requested");
-	        } else {
-	          ((Combo)w).select(index);
-	        }
-	      }
-	      else 
-	        throw new SWTLayerException("Unsupported type");
-	    }
-	  });
+	/**
+	 * Sets selection with given index for supported widget type
+	 * @deprecated please use concrete handlers
+	 * @param index
+	 */
+	public <T extends Widget> void setSelection(final T w, final int index) {
+		Display.syncExec(new Runnable() {
+
+			@Override
+			public void run() {
+				if (w instanceof Combo) {
+					int itemsLength = getItems(w).length;
+					if (index >= itemsLength) {
+						log.error("Combo does not have " + index + 1 + "items!");
+						log.info("Combo has " + itemsLength + " items");
+						throw new SWTLayerException("Nonexisted item in combo was requested");
+					} else {
+						((Combo)w).select(index);
+					}
+				}
+				else 
+					throw new SWTLayerException("Unsupported type");
+			}
+		});
 	}
-	
+
 	/**
 	 * Sets selection with given text for supported widget type
-	 * 
+	 * @deprecated please use concrete handlers
 	 * @param index
 	 */
 	public <T extends Widget> void setSelection(final T w, final String text) {
-	  Display.syncExec(new Runnable() {
-	    
-	    @Override
-	    public void run() {
-	      if (w instanceof Combo) {
-	        String[] items = getItems(w);
-	        int index = Arrays.asList(items).indexOf(text); 
-	        if (index == -1) {
-	          log.error("'" + text + "' is not "
-	              + "contained in combo items");
-	          log.info("Items present in combo:");
-	          int i = 0;
-	          for (String item : items) {
-	            log.info("    " + item + "(index " + i);
-	            i++;
-	          }
-	          throw new SWTLayerException("Nonexisting item in combo was requested");
-	        }else {
-	          ((Combo)w).select(index);
-	        }
-	      }
-	    }
-	  });
+		Display.syncExec(new Runnable() {
+
+			@Override
+			public void run() {
+				if (w instanceof Combo) {
+					String[] items = getItems(w);
+					int index = Arrays.asList(items).indexOf(text); 
+					if (index == -1) {
+						log.error("'" + text + "' is not "
+								+ "contained in combo items");
+						log.info("Items present in combo:");
+						int i = 0;
+						for (String item : items) {
+							log.info("    " + item + "(index " + i);
+							i++;
+						}
+						throw new SWTLayerException("Nonexisting item in combo was requested");
+					}else {
+						((Combo)w).select(index);
+					}
+				}
+			}
+		});
 	}
-	
+
 	/**
 	 * Gets selection text for supported widget type
-	 * 
+	 * @deprecated please use concrete handlers
 	 * @param index
 	 */
 	public <T extends Widget> String getSelection(final T w) {
-	  return Display.syncExec(new ResultRunnable<String>() {
-	    
-	    @Override
-	    public String run() {
-	      if (w instanceof Combo) {
-	    	Combo combo = (Combo)w;
-	    	Point selection = combo.getSelection();
-	    	String comboText = combo.getText();
-	    	String selectionText = "";
-	    	if (selection.y > selection.x){
-	    		selectionText = comboText.substring(selection.x , selection.y);
-	    	}
-	        return selectionText;
-	      }
-	      else 
-	        throw new SWTLayerException("Unsupported type");
-	    }
-	  });
+		return Display.syncExec(new ResultRunnable<String>() {
+
+			@Override
+			public String run() {
+				if (w instanceof Combo) {
+					Combo combo = (Combo)w;
+					Point selection = combo.getSelection();
+					String comboText = combo.getText();
+					String selectionText = "";
+					if (selection.y > selection.x){
+						selectionText = comboText.substring(selection.x , selection.y);
+					}
+					return selectionText;
+				}
+				else 
+					throw new SWTLayerException("Unsupported type");
+			}
+		});
 	}
-	 
+
 	/**
 	 * Gets selection index for supported widget type
-	 * 
+	 * @deprecated please use concrete handler instead
 	 * @param index
 	 */
 	public <T extends Widget> int getSelectionIndex(final T w) {
-	  return Display.syncExec(new ResultRunnable<Integer>() {
-	    
-	    @Override
-	    public Integer run() {
-	      if (w instanceof Combo) {
-	        return ((Combo)w).getSelectionIndex();
-	      }
-	      else 
-	        throw new SWTLayerException("Unsupported type");
-	    }
-	  });
+		return Display.syncExec(new ResultRunnable<Integer>() {
+
+			@Override
+			public Integer run() {
+				if (w instanceof Combo) {
+					return ((Combo)w).getSelectionIndex();
+				}
+				else 
+					throw new SWTLayerException("Unsupported type");
+			}
+		});
 	}
 	/**
 	 * Checks if supported widget is expanded
-	 * 
+	 * @deprecated Use custom handler instead
 	 * @param w	given widget
 	 * @return	true if widget is expanded
 	 */
 	public <T extends Widget> boolean isExpanded(final T w) {
 		boolean selectionState = Display.syncExec(new ResultRunnable<Boolean>() {
-			
+
 			@Override
 			public Boolean run() {
 				if (w instanceof ExpandItem)
@@ -929,7 +894,7 @@ public class WidgetHandler {
 	}
 	/**
 	 * Returns parent for supported widget
-	 * 
+	 * @deprecated Use concrete handler instead
 	 * @param w	given widget
 	 * @return	parent widget
 	 */
@@ -952,10 +917,11 @@ public class WidgetHandler {
 		});
 		return parent;
 	}
-	
+
 	/**
 	 * Get value of supported widget
 	 * 
+	 * @deprecated please use concrete handlers
 	 * @param w widget
 	 * @return value of the widget
 	 */
@@ -975,6 +941,7 @@ public class WidgetHandler {
 	/**
 	 * Set value of supported widget
 	 * 
+	 * @deprecated please use concrete handlers
 	 * @param w widget
 	 * @param value value of the widget
 	 */
@@ -990,5 +957,5 @@ public class WidgetHandler {
 			}
 		});
 	}
-	
+
 }
