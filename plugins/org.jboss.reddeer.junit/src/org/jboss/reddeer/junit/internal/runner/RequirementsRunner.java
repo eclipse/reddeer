@@ -328,8 +328,8 @@ public class RequirementsRunner extends BlockJUnit4ClassRunner {
 	protected Statement withAfters(FrameworkMethod method, Object target,
             Statement statement) {
         List<FrameworkMethod> afters = getTestClass().getAnnotatedMethods(After.class);
-        return afters.isEmpty() ? statement : new RunAfters(statement, afters,
-                target);
+        return afters.isEmpty() && afterTestExtensions.isEmpty() ? statement :
+            new RunAfters(statement, afters, target, afterTestExtensions);
     }
 		
 	@Override
@@ -346,7 +346,7 @@ public class RequirementsRunner extends BlockJUnit4ClassRunner {
         List<FrameworkMethod> afters = getTestClass()
                 .getAnnotatedMethods(AfterClass.class);
         return afters.isEmpty() && afterTestExtensions.isEmpty() ? statement :
-                new RunAfters(statement, afters, null, afterTestExtensions);
+                new RunAfters(statement, afters, null);
     }
 
 }

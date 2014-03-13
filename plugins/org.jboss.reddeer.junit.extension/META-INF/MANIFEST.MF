@@ -11,7 +11,8 @@ Require-Bundle: org.eclipse.ui,
  org.jboss.reddeer.eclipse;bundle-version="0.5.0",
  org.jboss.reddeer.junit;bundle-version="0.5.0",
  org.jboss.reddeer.jface;bundle-version="0.5.0",
- org.jboss.reddeer.swt;bundle-version="0.5.0"
+ org.jboss.reddeer.swt;bundle-version="0.5.0",
+ org.junit;bundle-version="4.11.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ClassPath: .
  
