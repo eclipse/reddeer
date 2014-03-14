@@ -322,12 +322,16 @@ public class MenuLookup {
 				log.info("Getting Menu Bar of shell " + s.getText());
 				Menu menu = s.getMenuBar();
 				if (menu == null){
-					throw new SWTLayerException("Cannot find a menu bar of shell " + s.getText());
+					return null;
 				}
 				MenuItem[] items = menu.getItems();
 				return items;
 			}
 		});
+		if(items == null){
+			String shellText = WidgetHandler.getInstance().getText(s);
+			throw new SWTLayerException("Cannot find a menu bar of shell " + shellText);
+		}
 		return items;
 	}
 
