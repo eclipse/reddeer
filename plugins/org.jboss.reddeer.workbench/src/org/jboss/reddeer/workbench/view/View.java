@@ -270,7 +270,7 @@ public abstract class View extends WorkbenchPart{
 			@Override
 			public Control run() {
 				Control parent = focusedControl;
-				while (parent != workbenchControl && parent != null) {
+				while (parent != workbenchControl && parent != null && !parent.isDisposed()) {
 					parent = parent.getParent();
 				}
 				return parent; 
