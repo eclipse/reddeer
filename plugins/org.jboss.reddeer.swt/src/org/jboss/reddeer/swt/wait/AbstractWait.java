@@ -67,17 +67,26 @@ public abstract class AbstractWait {
 		return throwWaitTimeoutExpiredException;
 	}
 
-	/**
-	 * Sleeps for millis milliseconds
-	 * 
-	 * @param millis
-	 *            the time in milliseconds to sleep
+	
+	/** 
+	 * Sleeps for given time period
+	 * @param timePeriod given time period for thread will sleep
 	 */
-	public static void sleep(long millis) {
+	public static void sleep(TimePeriod timePeriod) {
 		try {
-			Thread.sleep(millis);
+			Thread.sleep(timePeriod.getSeconds() * 1000);
 		} catch (InterruptedException e) {
 			throw new RuntimeException("Sleep interrupted", e);
 		}
+	}
+	
+	/**
+	 * Sleeps for millis milliseconds
+	 * 
+	 * @param millis the time in milliseconds to sleep
+	 * @deprecated use sleep(TimePeriod timePeriod) instead, will be removed in 0.6
+	 */
+	public static void sleep(long millis) {
+		sleep(TimePeriod.getCustom(millis / 1000));
 	}
 }

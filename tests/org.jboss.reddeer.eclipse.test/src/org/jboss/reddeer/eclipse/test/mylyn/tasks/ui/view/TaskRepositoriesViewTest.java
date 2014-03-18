@@ -25,7 +25,7 @@ public class TaskRepositoriesViewTest extends RedDeerTest {
 		view.open();
 	
 		List<TaskRepository> repositories = view.getTaskRepositories();
-		AbstractWait.sleep(TimePeriod.NORMAL.getSeconds());
+		AbstractWait.sleep(TimePeriod.NORMAL);
 		assertFalse ("repos are found", repositories.isEmpty());
 	}	
 }

@@ -32,7 +32,7 @@ public class RepoConnectionDialogTest extends RedDeerTest {
 		taskRepositories.select();		
 		new PushButton("OK").click();
 				
-		AbstractWait.sleep(TimePeriod.NORMAL.getSeconds());
+		AbstractWait.sleep(TimePeriod.NORMAL);
 		
 		DefaultTree RepoTree = new DefaultTree();
 		List<TreeItem> repoItems = RepoTree.getAllItems();

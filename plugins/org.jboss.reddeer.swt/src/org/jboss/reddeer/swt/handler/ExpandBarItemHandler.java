@@ -55,7 +55,7 @@ public class ExpandBarItemHandler {
 					expandBarItem.getSWTWidget().setExpanded(true);
 				}
 			});
-			AbstractWait.sleep(timePeriod.getSeconds()*1000);
+			AbstractWait.sleep(timePeriod);
 			logger.info("Expand Bar Item " + expandBarItem.getText()
 					+ " has been expanded");
 		} else {

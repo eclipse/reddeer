@@ -10,6 +10,7 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.jboss.reddeer.swt.util.Display;
 import org.jboss.reddeer.swt.wait.AbstractWait;
+import org.jboss.reddeer.swt.wait.TimePeriod;
 
 public class TestingWizard extends Wizard {
 
@@ -28,7 +29,7 @@ public class TestingWizard extends Wizard {
 
 	@Override
 	public boolean performFinish() {
-		AbstractWait.sleep(5000);
+		AbstractWait.sleep(TimePeriod.getCustom(5));
 		return true;
 	}
 

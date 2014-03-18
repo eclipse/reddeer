@@ -34,7 +34,7 @@ public abstract class AbstractBrowser implements Browser{
 		if (BrowserHandler.getInstance().forward(this.getSWTWidget())){
 			new WaitUntil(new PageIsLoaded(this), TimePeriod.LONG);
 			// Unfortunately Browser needs some time to get ready even when page is fully loaded
-			AbstractWait.sleep(TimePeriod.SHORT.getSeconds() * 1000);
+			AbstractWait.sleep(TimePeriod.SHORT);
 		}
 		resetProgressListener();
 	}
@@ -46,7 +46,7 @@ public abstract class AbstractBrowser implements Browser{
 			new WaitUntil(new PageIsLoaded(this), TimePeriod.LONG);
 			// Unfortunately Browser needs some time to get ready even when page
 			// is fully loaded
-			AbstractWait.sleep(TimePeriod.SHORT.getSeconds() * 1000);
+			AbstractWait.sleep(TimePeriod.SHORT);
 		}
 		resetProgressListener();
 	}
@@ -57,7 +57,7 @@ public abstract class AbstractBrowser implements Browser{
 		if (BrowserHandler.getInstance().setURL(this.getSWTWidget(), url)){
 			new WaitUntil(new PageIsLoaded(this), TimePeriod.LONG);
 			// Unfortunately Browser needs some time to get ready even when page is fully loaded
-			AbstractWait.sleep(TimePeriod.NORMAL.getSeconds() * 1000);
+			AbstractWait.sleep(TimePeriod.NORMAL);
 		}
 		resetProgressListener();
 	}

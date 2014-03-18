@@ -61,7 +61,7 @@ public class RepoConnectionDialog extends DefaultShell {
 		PushButton validate = new PushButton("Validate Settings");
 		validate.click();
 		while (!validate.isEnabled()) {
-			AbstractWait.sleep(TimePeriod.NORMAL.getSeconds());
+			AbstractWait.sleep(TimePeriod.NORMAL);
 		}
 	}
 	

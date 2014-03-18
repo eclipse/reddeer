@@ -20,6 +20,7 @@ import org.jboss.reddeer.swt.impl.toolbar.DefaultToolItem;
 import org.jboss.reddeer.swt.matcher.RegexMatchers;
 import org.jboss.reddeer.swt.test.RedDeerTest;
 import org.jboss.reddeer.swt.wait.AbstractWait;
+import org.jboss.reddeer.swt.wait.TimePeriod;
 import org.jboss.reddeer.workbench.editor.DefaultEditor;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -91,14 +92,14 @@ public class ConsoleViewTest extends RedDeerTest{
 	public void testTerminateConsole() {
 		
 		runTestClass(TEST_CLASS_LOOP_NAME);
-		AbstractWait.sleep(1000);
+		AbstractWait.sleep(TimePeriod.SHORT);
 		
 		consoleView = new ConsoleView();
 		consoleView.open();
 		consoleView.terminateConsole();
 		
 		String text = consoleView.getConsoleText();
-		AbstractWait.sleep(1000);
+		AbstractWait.sleep(TimePeriod.SHORT);
 		String text2 = consoleView.getConsoleText();
 		assertFalse(text.trim().isEmpty());
 		assertEquals(text, text2);
