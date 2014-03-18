@@ -1,7 +1,6 @@
 package org.jboss.reddeer.swt.condition;
 
 import org.jboss.reddeer.swt.api.TreeItem;
-import org.jboss.reddeer.swt.condition.WaitCondition;
 
 
 /**
@@ -24,7 +23,7 @@ public class TreeItemHasMinChildren implements WaitCondition {
 
 	@Override
 	public String description() {
-		return "TreeItem " + treeItem.getText() + " has " 
+		return "treeItem " + treeItem.getText() + " has " 
 			+ this.minItemsCount + " children or more";
 	}
 }

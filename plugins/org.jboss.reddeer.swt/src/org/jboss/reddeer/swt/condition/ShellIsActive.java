@@ -9,6 +9,6 @@ public class ShellIsActive implements WaitCondition{
 	}
 	@Override
 	public String description() {
-		return "Shell is active";
+		return "shell is active";
 	}
 }

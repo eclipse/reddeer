@@ -31,7 +31,7 @@ public class ViewWithToolTipIsActive implements WaitCondition {
 
 	@Override
 	public String description() {
-		return "View with title '" + toolTip + "' is not active";
+		return "view with title '" + toolTip + "' is active";
 	}
 
 }

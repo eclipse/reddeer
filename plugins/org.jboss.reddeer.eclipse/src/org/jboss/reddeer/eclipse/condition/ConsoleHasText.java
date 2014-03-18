@@ -26,7 +26,7 @@ public class ConsoleHasText implements WaitCondition {
 	@Override
 	public String description() {
 		String consoleText = getConsoleText();
-		return "Console doesn't contain '" + text + "'\n" + consoleText;
+		return "console contains '" + text + "'\n" + consoleText;
 	}
 
 	private static String getConsoleText() {

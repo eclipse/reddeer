@@ -68,7 +68,7 @@ import org.jboss.reddeer.swt.wait.WaitWhile;
 
 			@Override
 			public String description() {
-				return "Repository tree item is disposed";
+				return "repository tree item is disposed";
 			}
 		}
 	}

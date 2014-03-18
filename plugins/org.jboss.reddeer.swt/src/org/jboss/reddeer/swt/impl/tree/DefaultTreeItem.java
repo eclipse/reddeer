@@ -350,8 +350,9 @@ class TreeHasChildren implements WaitCondition {
 	public boolean test() {
 		return tree.getItems().size() > 0;		
 	}
-		@Override
+	
+	@Override
 	public String description() {
-		return "Tree has no children";
+		return "tree has children";
 	}
 }

@@ -1,7 +1,6 @@
 package org.jboss.reddeer.swt.condition;
 
 import org.jboss.reddeer.swt.api.Table;
-import org.jboss.reddeer.swt.condition.WaitCondition;
 
 
 /**
@@ -22,6 +21,6 @@ public class TableHasRows implements WaitCondition {
 
 	@Override
 	public String description() {
-		return "Table does not contain rows";
+		return "table contains rows";
 	}
 }

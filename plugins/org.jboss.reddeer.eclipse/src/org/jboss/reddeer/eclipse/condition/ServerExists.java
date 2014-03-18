@@ -30,7 +30,7 @@ public class ServerExists implements WaitCondition {
 	
 	@Override
 	public String description() {
-		return "There is no server with name: " + this.name;
+		return "there is server with name: " + this.name;
 	}
 	
 }

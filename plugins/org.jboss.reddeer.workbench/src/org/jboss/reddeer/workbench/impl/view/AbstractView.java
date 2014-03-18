@@ -215,9 +215,9 @@ public class AbstractView implements View{
 		@Override
 		public String description() {
 			if(title != null){
-				return "ViewPart with title "+title+" is found.";
+				return "viewPart with title "+title+" is found";
 			}
-			return "ViewPart with title "+titleMatcher+" is found.";
+			return "viewPart with title "+titleMatcher+" is found";
 		}
 		
 		public IViewPart getPart(){

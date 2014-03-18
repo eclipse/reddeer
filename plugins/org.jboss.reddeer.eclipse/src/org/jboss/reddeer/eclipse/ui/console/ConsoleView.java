@@ -82,7 +82,7 @@ public class ConsoleView extends WorkbenchView {
 
 		@Override
 		public String description() {
-			return "Console has no text";
+			return "console has styled text";
 		}
 		
 	}
@@ -112,7 +112,7 @@ public class ConsoleView extends WorkbenchView {
 
 		@Override
 		public String description() {
-			return "Console text is not \"" + this.consoleText + "\"";
+			return "console text is \"" + this.consoleText + "\"";
 		}
 
 	}
