@@ -21,6 +21,8 @@ import org.junit.runners.model.RunnerBuilder;
  */
 public class RequirementsRunnerBuilder extends RunnerBuilder {
 
+	public TestsExecutionManager testsManager;
+
 	private Logger log = Logger.getLogger(RequirementsRunnerBuilder.class);
 	
 	private RequirementsBuilder requirementsBuilder = new RequirementsBuilder();
@@ -33,26 +35,33 @@ public class RequirementsRunnerBuilder extends RunnerBuilder {
 	private RunListener[] runListeners;
 	
 	public RequirementsRunnerBuilder(TestRunConfiguration config) {
-		this(config,null,null);
+		this(config, null, null, null, null);
 	}
 	
 	public RequirementsRunnerBuilder(TestRunConfiguration config , RunListener[] runListeners , List<IBeforeTest> beforeTestExtensions) {
-		this(config, runListeners, beforeTestExtensions, null);
+		this(config, runListeners, beforeTestExtensions, null, null);
 	}
 	
-	public RequirementsRunnerBuilder(TestRunConfiguration config , RunListener[] runListeners , List<IBeforeTest> beforeTestExtensions, List<IAfterTest> afterTestExtensions) {
+	public RequirementsRunnerBuilder(TestRunConfiguration config , RunListener[] runListeners , List<IBeforeTest> beforeTestExtensions, List<IAfterTest> afterTestExtensions, TestsExecutionManager testsManager) {
 		this.config = config;
 		this.runListeners = runListeners;
 		this.beforeTestExtensions = beforeTestExtensions;
 		this.afterTestExtensions = afterTestExtensions;
+		this.testsManager = testsManager;
 	}
 
 	@Override
 	public Runner runnerForClass(Class<?> clazz) throws Throwable {
 		log.info("Found test " + clazz);
+		if(testsManager != null) {
+			testsManager.addTest(clazz);
+		}
 		Requirements requirements = requirementsBuilder.build(clazz, config.getRequirementConfiguration());
 		if (requirements.canFulfill()){
 			log.info("All requirements can be fulfilled, the test will run");
+			if(testsManager != null) {
+				testsManager.addExecutedTest(clazz);
+			}
 			return new RequirementsRunner(clazz, requirements, config.getId(),runListeners, beforeTestExtensions, afterTestExtensions);
 		} else {
 			log.info("All requirements cannot be fulfilled, the test will NOT run");
