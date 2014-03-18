@@ -80,8 +80,11 @@ public class WaitWhile extends AbstractWait {
 			if (System.currentTimeMillis() > limit) {
 				continueSleep = false;
 				if (isThrowWaitTimeoutExpiredException()) {
+					log.debug(this.description()  + condition.description() + " failed, an exception will be thrown");
 					throw new WaitTimeoutExpiredException("Timeout after: "
 							+ timeout + " ms.: " + condition.description());
+				} else {
+					log.debug(this.description()  + condition.description() + " failed, an exception will not be thrown");
 				}
 			}
 		}
@@ -90,6 +93,6 @@ public class WaitWhile extends AbstractWait {
 
 	@Override
 	protected String description() {
-		return "waiting while: ";
+		return "Waiting while ";
 	}
 }

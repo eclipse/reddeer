@@ -1,9 +1,9 @@
 package org.jboss.reddeer.swt.condition;
 
-import org.jboss.reddeer.junit.logging.Logger;
 import org.eclipse.swt.widgets.Shell;
 import org.hamcrest.Matcher;
 import org.hamcrest.core.IsEqual;
+import org.jboss.reddeer.junit.logging.Logger;
 import org.jboss.reddeer.swt.lookup.ShellLookup;
 import org.jboss.reddeer.swt.matcher.ObjectToStingMatcherDecorator;
 import org.jboss.reddeer.swt.util.internal.InstanceValidator;
@@ -50,6 +50,6 @@ public class ShellWithTextIsAvailable implements WaitCondition {
 
 	@Override
 	public String description() {
-		return "Shell with title matching " + matcher + " is available";
+		return "shell with title matching " + matcher + " is available";
 	}
 }

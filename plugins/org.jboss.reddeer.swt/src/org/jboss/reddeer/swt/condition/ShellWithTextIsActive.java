@@ -49,7 +49,7 @@ public class ShellWithTextIsActive implements WaitCondition {
 
 	@Override
 	public String description() {
-		return "Shell with text matching" + matcher.toString() + " is active";
+		return "shell with text matching" + matcher.toString() + " is active";
 	}
 
 }

@@ -230,7 +230,7 @@ public class Server {
 
 		@Override
 		public String description() {
-			return "Server's state is: " + expectedState.getText();
+			return "server's state is: " + expectedState.getText();
 		}
 	}
 
@@ -249,7 +249,7 @@ public class Server {
 
 		@Override
 		public String description() {
-			return "Server's publish state is " + expectedState.getText();
+			return "server's publish state is " + expectedState.getText();
 		}
 	}
 

@@ -53,8 +53,8 @@ public class BrowserHasURL implements WaitCondition {
 	@Override
 	public String description() {
 		if(expectedURLMatcher != null){
-			return "Browser is pointed to URL: "+expectedURLMatcher.toString();
+			return "browser is pointed to URL: "+expectedURLMatcher.toString();
 		}
-		return "Browser is pointed to URL: "+expectedURL;
+		return "browser is pointed to URL: "+expectedURL;
 	}
 	}

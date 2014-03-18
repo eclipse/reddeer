@@ -403,7 +403,7 @@ public class WidgetLookup {
 
 		@Override
 		public String description() {
-			return "Widget is found";
+			return "widget is found";
 		}
 		
 		private void setFocus(){

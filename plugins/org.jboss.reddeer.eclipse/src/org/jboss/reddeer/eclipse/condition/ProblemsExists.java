@@ -44,8 +44,7 @@ public class ProblemsExists implements WaitCondition {
 	
 	@Override
 	public String description() {
-		StringBuilder msg = new StringBuilder("There is no problem marker in Problems view \n");
-		return msg.toString();
+		return "there is problem marker in Problems view";
 	}
 	
 }
