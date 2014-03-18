@@ -487,7 +487,7 @@ public class TreeHandler {
 
 		@Override
 		public String description() {
-			return "Tree didnt hear expand notification";
+			return "tree heard expand notification";
 		}
 		
 	}

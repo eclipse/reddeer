@@ -38,7 +38,7 @@ public class TableContainsItem implements WaitCondition{
 
 	@Override
 	public String description() {
-		return "Table contains item with text "+item+" in cell "+cellIndex;
+		return "table contains item with text "+item+" in cell "+cellIndex;
 	}
 
 }

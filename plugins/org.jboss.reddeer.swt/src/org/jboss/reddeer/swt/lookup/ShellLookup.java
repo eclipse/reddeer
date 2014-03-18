@@ -163,7 +163,7 @@ public class ShellLookup {
 		
 		@Override
 		public String description() {
-			return "Shell is focused";
+			return "shell is focused";
 		}
 	}
 }

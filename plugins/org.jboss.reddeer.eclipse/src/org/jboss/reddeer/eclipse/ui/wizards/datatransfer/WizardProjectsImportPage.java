@@ -3,15 +3,10 @@ package org.jboss.reddeer.eclipse.ui.wizards.datatransfer;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.jboss.reddeer.junit.logging.Logger;
-import org.eclipse.swt.widgets.Combo;
-import org.eclipse.swt.widgets.Text;
-import org.eclipse.swt.widgets.Widget;
-import org.hamcrest.Description;
-import org.hamcrest.TypeSafeMatcher;
 import org.jboss.reddeer.eclipse.exception.EclipseLayerException;
 import org.jboss.reddeer.eclipse.jface.wizard.WizardDialog;
 import org.jboss.reddeer.eclipse.jface.wizard.WizardPage;
+import org.jboss.reddeer.junit.logging.Logger;
 import org.jboss.reddeer.swt.api.Tree;
 import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.swt.condition.WaitCondition;
@@ -19,7 +14,6 @@ import org.jboss.reddeer.swt.impl.button.CheckBox;
 import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.button.RadioButton;
 import org.jboss.reddeer.swt.impl.combo.LabeledCombo;
-import org.jboss.reddeer.swt.impl.text.DefaultText;
 import org.jboss.reddeer.swt.impl.tree.DefaultTree;
 import org.jboss.reddeer.swt.wait.TimePeriod;
 import org.jboss.reddeer.swt.wait.WaitUntil;
@@ -151,7 +145,7 @@ public class WizardProjectsImportPage extends WizardPage {
 
 		@Override
 		public String description() {
-			return "At least one project is loaded";
+			return "at least one project is loaded";
 		}
 	}
 }

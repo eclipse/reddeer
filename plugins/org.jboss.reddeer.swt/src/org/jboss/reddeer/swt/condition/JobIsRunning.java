@@ -1,8 +1,8 @@
 package org.jboss.reddeer.swt.condition;
 
 import org.eclipse.core.runtime.jobs.Job;
-import org.hamcrest.Matcher;
 import org.hamcrest.CoreMatchers;
+import org.hamcrest.Matcher;
 import org.jboss.reddeer.junit.logging.Logger;
 
 /**
@@ -80,6 +80,6 @@ public class JobIsRunning implements WaitCondition {
 
 	@Override
 	public String description() {
-		return "At least one job is running.";
+		return "at least one job is running";
 	}
 }

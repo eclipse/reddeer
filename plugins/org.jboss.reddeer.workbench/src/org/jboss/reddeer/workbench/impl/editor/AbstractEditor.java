@@ -155,9 +155,9 @@ public class AbstractEditor implements Editor {
 		@Override
 		public String description() {
 			if (title != null) {
-				return "EditorPart with title " + title + " is found.";
+				return "editorPart with title " + title + " is found";
 			}
-			return "EditorPart with title " + titleMatcher + " is found.";
+			return "editorPart with title " + titleMatcher + " is found";
 		}
 
 		public IEditorPart getPart() {

@@ -1,6 +1,5 @@
 package org.jboss.reddeer.swt.condition;
 
-import org.jboss.reddeer.swt.condition.WaitCondition;
 import org.jboss.reddeer.swt.widgets.Widget;
 
 public class WidgetIsEnabled implements WaitCondition{
@@ -17,7 +16,7 @@ public class WidgetIsEnabled implements WaitCondition{
 
 	@Override
 	public String description() {
-		return "Widget is enabled";
+		return "widget is enabled";
 	}
 
 }

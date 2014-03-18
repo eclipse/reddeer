@@ -1,9 +1,9 @@
 package org.jboss.reddeer.workbench;
 
-import org.hamcrest.Matcher;
-import org.jboss.reddeer.junit.logging.Logger;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.actions.ActionFactory;
+import org.hamcrest.Matcher;
+import org.jboss.reddeer.junit.logging.Logger;
 import org.jboss.reddeer.swt.condition.WaitCondition;
 import org.jboss.reddeer.swt.exception.WaitTimeoutExpiredException;
 import org.jboss.reddeer.swt.matcher.TextMatcher;
@@ -150,9 +150,9 @@ public abstract class WorkbenchPart{
 		@Override
 		public String description() {
 			if(title != null){
-				return "WorkbenchPart with title "+title+" is found.";
+				return "workbenchPart with title "+title+" is found";
 			}
-			return "WorkbenchPart with title "+titleMatcher+" is found.";
+			return "workbenchPart with title "+titleMatcher+" is found";
 		}
 		
 		public IWorkbenchPart getPart(){

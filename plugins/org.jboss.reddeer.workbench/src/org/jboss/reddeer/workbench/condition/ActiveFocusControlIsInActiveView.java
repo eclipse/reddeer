@@ -36,6 +36,6 @@ public class ActiveFocusControlIsInActiveView implements WaitCondition {
 	
 	@Override
 	public String description() {
-		return "Control has specified parent";
+		return "control has specified parent";
 	}
 }

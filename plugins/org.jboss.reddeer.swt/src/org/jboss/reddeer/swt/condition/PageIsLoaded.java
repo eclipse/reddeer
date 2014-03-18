@@ -1,7 +1,6 @@
 package org.jboss.reddeer.swt.condition;
 
 import org.jboss.reddeer.swt.api.Browser;
-import org.jboss.reddeer.swt.condition.WaitCondition;
 /**
  * Condition is fulfilled when page is fully loaded into Browser
  * @author Vlado Pakan
@@ -21,7 +20,7 @@ public class PageIsLoaded implements WaitCondition {
 	}
 	@Override
 	public String description() {
-		return "Page is fully loaded to browser";
+		return "page is loaded to browser";
 	}
 
 }

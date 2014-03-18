@@ -45,25 +45,13 @@ public abstract class AbstractWait {
 	 * @param timeout
 	 * @param throwWaitTimeoutExpiredException
 	 */
-	public AbstractWait(WaitCondition condition, TimePeriod timeout,
-			boolean throwRuntimeException) {
+	public AbstractWait(WaitCondition condition, TimePeriod timeout, boolean throwRuntimeException) {
 		this.timeout = timeout;
 		this.throwWaitTimeoutExpiredException = throwRuntimeException;
-		log.info(description()
-				+ "\n  Condition=" + condition.description()
-				+ "\n  Timeout=" + timeout.getSeconds() + " seconds"
-				+ "\n  Delay= " + AbstractWait.WAIT_DELAY + " milliseconds"
-				+ "\n  Throw WaitTimeoutExpiredException="
-				+ throwWaitTimeoutExpiredException);
+		
+		log.debug(this.description()  + condition.description() + "...");
 		if (wait(condition)) {
-			log.info("Waiting finished successfully:"
-				+ "\n  Description=" + description()
-				+ "\n  Condition=" + condition.description());
-		}
-		else{
-			log.info("Waiting finished unsuccessfully:"
-				+ "\n  Description=" + description()
-				+ "\n  Condition=" + condition.description());
+			log.debug(this.description()  + condition.description() + " finished successfully");
 		}
 	}
 
