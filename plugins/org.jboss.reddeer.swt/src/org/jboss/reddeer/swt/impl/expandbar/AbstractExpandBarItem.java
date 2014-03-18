@@ -8,6 +8,7 @@ import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.handler.ExpandBarItemHandler;
 import org.jboss.reddeer.swt.handler.WidgetHandler;
 import org.jboss.reddeer.swt.impl.expandbar.internal.BasicExpandBar;
+import org.jboss.reddeer.swt.wait.AbstractWait;
 import org.jboss.reddeer.swt.wait.TimePeriod;
 
 /**
@@ -26,7 +27,7 @@ public abstract class AbstractExpandBarItem implements ExpandBarItem {
 	protected AbstractExpandBarItem(final org.eclipse.swt.widgets.ExpandItem swtExpandItem) {
 		if (swtExpandItem != null) {
 			this.swtExpandItem = swtExpandItem;
-			this.swtParent = WidgetHandler.getInstance().getParent(swtExpandItem);
+			this.swtParent = ExpandBarItemHandler.getInstance().getParent(swtExpandItem);
 		} else {
 			throw new SWTLayerException(
 					"SWT Expand Item passed to constructor is null");
@@ -61,14 +62,31 @@ public abstract class AbstractExpandBarItem implements ExpandBarItem {
 	 */
 	@Override
 	public void expand(TimePeriod timePeriod) {
-		ExpandBarItemHandler.expand(timePeriod, this);
+		logger.debug("Expanding Expand Bar Item " + getText());
+		if (!isExpanded()) {
+			ExpandBarItemHandler.getInstance().expand(getSWTWidget(), getSWTParent());
+			AbstractWait.sleep(timePeriod.getSeconds()*1000);
+			logger.info("Expand Bar Item " + getText()
+					+ " has been expanded");
+		} else {
+			logger.debug("Expand Bar Item " + getText()
+					+ " is already expanded. No action performed");
+		}
 	}
 	/**
 	 * See {@link ExpandBarItem}
 	 */
 	@Override
 	public void collapse() {
-		ExpandBarItemHandler.collapse(this);
+		logger.debug("Collapsing Expand Bar Item " + getText());
+		if (isExpanded()) {
+			ExpandBarItemHandler.getInstance().collapse(getSWTWidget(), getSWTParent());
+			logger.info("Expand Bar Item " + getText()
+					+ " has been collapsed");
+		} else {
+			logger.debug("Expand Bar Item " + getText()
+					+ " is already collapsed. No action performed");
+		}
 	}
 	/**
 	 * Return swt widget of Expand Bar Item
@@ -101,7 +119,7 @@ public abstract class AbstractExpandBarItem implements ExpandBarItem {
 	 */
 	@Override
 	public boolean isExpanded() {
-		return WidgetHandler.getInstance().isExpanded(this.swtExpandItem);
+		return ExpandBarItemHandler.getInstance().isExpanded(this.swtExpandItem);
 	}
 	
 	@Override

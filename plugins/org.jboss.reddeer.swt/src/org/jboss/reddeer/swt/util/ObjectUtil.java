@@ -4,6 +4,7 @@ import java.lang.reflect.Method;
 
 import org.eclipse.swt.widgets.Widget;
 
+
 /**
  * Object util contains helper methods for invoking methods by reflections, etc.
  * 
@@ -20,10 +21,21 @@ public class ObjectUtil {
 	 * @return returns result of the method invocation
 	 */
 	public static Object invokeMethod(final Object object, String methodName) {
+		return invokeMethod(object, methodName, new Class<?>[0], new Object[0]);
+	}
+	
+	/**
+	 * Invokes method by reflection, widget based method are executed in ui thread
+	 * 
+	 * @param object given instance
+	 * @param methodName method name to be invoked
+	 * @return returns result of the method invocation
+	 */
+	public static Object invokeMethod(final Object object, String methodName, final Class<?>[] argTypes, final Object[] args) {
 
 		final Method method;
 		try {
-			method = object.getClass().getMethod(methodName, new Class[0]);
+			method = object.getClass().getMethod(methodName, argTypes);
 		} catch (Exception e) {
 			throw new RuntimeException("Cannot get method : " + e.getMessage());
 		}
@@ -36,7 +48,7 @@ public class ObjectUtil {
 				public Object run() {
 					Object o = null;
 					try {
-						o = method.invoke(object, new Object[0]);
+						o = method.invoke(object, args);
 					} catch (Exception e) {
 						try {
 							throw new RuntimeException(
@@ -59,5 +71,4 @@ public class ObjectUtil {
 
 		return result;
 	}
-
 }

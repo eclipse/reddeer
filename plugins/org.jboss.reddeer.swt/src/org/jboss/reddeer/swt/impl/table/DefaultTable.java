@@ -43,4 +43,7 @@ public class DefaultTable extends AbstractTable implements Table {
 		super(WidgetLookup.getInstance().activeWidget(referencedComposite, org.eclipse.swt.widgets.Table.class, index));
 	}
 	
+	protected DefaultTable(org.eclipse.swt.widgets.Table table){
+		super(table);
+	}
 }

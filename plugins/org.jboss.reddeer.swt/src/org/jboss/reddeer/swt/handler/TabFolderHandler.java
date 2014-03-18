@@ -6,7 +6,7 @@ import org.jboss.reddeer.swt.util.Display;
 import org.jboss.reddeer.swt.util.ResultRunnable;
 
 /**
- * TabFolder handler handles operations for SWT TabFolder instances
+ * Contains methods that handle UI operations on {@link TabFolder} widgets. 
  * 
  * @author Andrej Podhradsky
  *
@@ -32,6 +32,15 @@ public class TabFolderHandler {
 			@Override
 			public TabItem[] run() {
 				return tabFolder.getItems();
+			}
+		});
+	}
+
+	public void setFocus(final TabFolder folder) {
+		Display.syncExec(new Runnable() {
+			@Override
+			public void run() {
+				folder.forceFocus(); 	
 			}
 		});
 	}

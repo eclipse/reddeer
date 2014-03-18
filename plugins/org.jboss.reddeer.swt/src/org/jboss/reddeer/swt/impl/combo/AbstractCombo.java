@@ -4,6 +4,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Event;
 import org.jboss.reddeer.junit.logging.Logger;
 import org.jboss.reddeer.swt.api.Combo;
+import org.jboss.reddeer.swt.handler.ComboHandler;
 import org.jboss.reddeer.swt.handler.WidgetHandler;
 import org.jboss.reddeer.swt.util.Display;
 
@@ -33,7 +34,7 @@ public abstract class AbstractCombo implements Combo {
 	public void setSelection(int index) {
 		log.info("Set selection of Combo " + getText() + " to index: "
 				+ index);
-		WidgetHandler.getInstance().setSelection(swtCombo, index);
+		ComboHandler.getInstance().setSelection(swtCombo, index);
 		notifyCombo(createEventForCombo(SWT.Selection));
 	}
 
@@ -44,7 +45,7 @@ public abstract class AbstractCombo implements Combo {
 	public void setSelection(String selection) {
 		log.info("Set selection of Combo " + getText() + " to selection: "
 				+ selection);
-		WidgetHandler.getInstance().setSelection(swtCombo, selection);
+		ComboHandler.getInstance().setSelection(swtCombo, selection);
 		notifyCombo(createEventForCombo(SWT.Selection));
 	}
 
@@ -53,7 +54,7 @@ public abstract class AbstractCombo implements Combo {
 	 */
 	@Override
 	public String getSelection() {
-		return WidgetHandler.getInstance().getSelection(swtCombo);
+		return ComboHandler.getInstance().getSelection(swtCombo);
 	}
 
 	/**
@@ -61,7 +62,7 @@ public abstract class AbstractCombo implements Combo {
 	 */
 	@Override
 	public int getSelectionIndex() {
-		return WidgetHandler.getInstance().getSelectionIndex(swtCombo);
+		return ComboHandler.getInstance().getSelectionIndex(swtCombo);
 	}
 
 	/**

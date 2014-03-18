@@ -4,6 +4,10 @@ import org.eclipse.jface.action.ActionContributionItem;
 import org.jboss.reddeer.swt.util.Display;
 import org.jboss.reddeer.swt.util.ResultRunnable;
 
+/**
+ * Contains methods that handle UI operations on {@link ActionContributionItem} widgets. 
+ *
+ */
 public class ActionContributionItemHandler {
 	
 	private static ActionContributionItemHandler handler;
@@ -28,7 +32,4 @@ public class ActionContributionItemHandler {
 			}
 		});
 	}
-	
-	
-
 }

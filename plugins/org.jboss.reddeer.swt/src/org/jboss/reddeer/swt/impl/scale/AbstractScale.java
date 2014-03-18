@@ -20,7 +20,7 @@ public abstract class AbstractScale implements Scale {
 	 */
 	@Override
 	public int getMinimum() {
-		return ScaleHandler.getMinimum(this);
+		return ScaleHandler.getInstance().getMinimum(this.getSWTWidget());
 	}
 	/**
 	 * See {@link Scale}
@@ -28,21 +28,21 @@ public abstract class AbstractScale implements Scale {
 
 	@Override
 	public int getMaximum() {
-		return ScaleHandler.getMaximum(this);
+		return ScaleHandler.getInstance().getMaximum(this.getSWTWidget());
 	}
 	/**
 	 * See {@link Scale}
 	 */
 	@Override
 	public int getSelection() {
-		return ScaleHandler.getSelection(this);
+		return ScaleHandler.getInstance().getSelection(this.getSWTWidget());
 	}
 	/**
 	 * See {@link Scale}
 	 */
 	@Override
 	public void setSelection(int value) {
-		ScaleHandler.setSelection(this, value);		
+		ScaleHandler.getInstance().setSelection(this.getSWTWidget(), value);		
 	}
 	/**
 	 * See {@link Scale}

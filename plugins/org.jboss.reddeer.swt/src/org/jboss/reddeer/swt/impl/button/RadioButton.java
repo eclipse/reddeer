@@ -1,8 +1,8 @@
 package org.jboss.reddeer.swt.impl.button;
 
-import org.jboss.reddeer.junit.logging.Logger;
 import org.eclipse.swt.SWT;
-import org.jboss.reddeer.swt.handler.WidgetHandler;
+import org.jboss.reddeer.junit.logging.Logger;
+import org.jboss.reddeer.swt.handler.ButtonHandler;
 import org.jboss.reddeer.swt.reference.ReferencedComposite;
 
 /**
@@ -85,7 +85,7 @@ public class RadioButton extends AbstractButton {
 	 * @return
 	 */
 	public boolean isSelected() {
-		return WidgetHandler.getInstance().isSelected(swtButton);
+		return ButtonHandler.getInstance().isSelected(swtButton);
 	}
 	/**
 	 * Sets Radio Button to state 'checked'

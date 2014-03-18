@@ -9,7 +9,7 @@ import org.jboss.reddeer.swt.util.Display;
 import org.jboss.reddeer.swt.util.ResultRunnable;
 
 /**
- * 
+ * Contains methods that handle UI operations on {@link IWorkbench}. 
  * @author Jiri Peterka
  *
  */

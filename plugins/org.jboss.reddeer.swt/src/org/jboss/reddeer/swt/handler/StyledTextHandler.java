@@ -4,7 +4,7 @@ import org.eclipse.swt.custom.StyledText;
 import org.jboss.reddeer.swt.util.Display;
 
 /**
- * StyleTextHandler provides API for manipulation with with StyledText widget
+ * Contains methods that handle UI operations on {@link StyledText} widgets. 
  * @author Jiri Peterka
  *
  */
