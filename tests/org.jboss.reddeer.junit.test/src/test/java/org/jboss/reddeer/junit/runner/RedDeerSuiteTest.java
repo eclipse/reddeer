@@ -3,6 +3,7 @@ package org.jboss.reddeer.junit.runner;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -12,9 +13,11 @@ import java.util.List;
 
 import org.hamcrest.Description;
 import org.hamcrest.TypeSafeMatcher;
+import org.hamcrest.core.Is;
 import org.jboss.reddeer.junit.internal.configuration.SuiteConfiguration;
 import org.jboss.reddeer.junit.internal.configuration.TestRunConfiguration;
 import org.jboss.reddeer.junit.internal.runner.NamedSuite;
+import org.jboss.reddeer.junit.internal.runner.TestsWithoutExecutionSuite;
 import org.junit.Test;
 import org.junit.runner.Runner;
 import org.junit.runners.Suite.SuiteClasses;
@@ -58,10 +61,55 @@ public class RedDeerSuiteTest {
 		assertThat(runners, hasItem(new NamedSuiteMatcher("C")));
 	}
 	
+	@Test
+	public void testsWithoutExecution_suite() throws InitializationError {
+		SuiteConfiguration config = mock(SuiteConfiguration.class);
+		List<TestRunConfiguration> testRunConfigurations = Arrays.asList(
+				mockTestRunConfig("A"), mockTestRunConfig("B"),
+				mockUnfulfillableTestRunConfig("C"));
+		when(config.getTestRunConfigurations()).thenReturn(testRunConfigurations);
+		
+		List<Runner> runners = RedDeerSuite.createSuite(SimpleSuite.class, config);
+		
+		assertThat(runners, hasItem(new NamedSuiteMatcher("A")));
+		assertThat(runners, hasItem(new NamedSuiteMatcher("B")));
+		
+		Runner runner = runners.get(runners.size()-1);
+		assertTrue(runner instanceof TestsWithoutExecutionSuite);
+	}
+
+	@Test
+	public void testsWithoutExecution_test() throws InitializationError {
+		SuiteConfiguration config = mock(SuiteConfiguration.class);
+		List<TestRunConfiguration> testRunConfigurations = Arrays.asList(
+				mockTestRunConfig("A"), mockTestRunConfig("B"),
+				mockUnfulfillableTestRunConfig("C"));
+		when(config.getTestRunConfigurations()).thenReturn(testRunConfigurations);
+		
+		List<Runner> runners = RedDeerSuite.createSuite(SimpleTest.class, config);
+		
+		assertThat(runners, hasItem(new NamedSuiteMatcher("A")));
+		assertThat(runners, hasItem(new NamedSuiteMatcher("B")));
+		
+		Runner runner = runners.get(runners.size()-1);
+		assertTrue(runner instanceof TestsWithoutExecutionSuite);
+	}
+	
 	private TestRunConfiguration mockTestRunConfig(String id){
 		TestRunConfiguration c = mock(TestRunConfiguration.class);
 		when(c.getId()).thenReturn(id);
 		return c;
+	}
+
+	private TestRunConfiguration mockUnfulfillableTestRunConfig(String id){
+		TestRunConfiguration c = mock(UnfulfillableTestRunConfiguration.class);
+		when(c.getId()).thenReturn(id);
+		return c;
+	}
+	
+	@UnfulfillableRequirement.Unfulfillable
+	public static abstract class UnfulfillableTestRunConfiguration implements TestRunConfiguration {
+
 	}
 	
 	class NamedSuiteMatcher extends TypeSafeMatcher<Runner> {

@@ -14,6 +14,8 @@ import org.jboss.reddeer.junit.internal.runner.EmptySuite;
 import org.jboss.reddeer.junit.internal.runner.NamedSuite;
 import org.jboss.reddeer.junit.internal.runner.RequirementsRunnerBuilder;
 import org.jboss.reddeer.common.logging.Logger;
+import org.jboss.reddeer.junit.internal.runner.TestsExecutionManager;
+import org.jboss.reddeer.junit.internal.runner.TestsWithoutExecutionSuite;
 import org.junit.runner.Runner;
 import org.junit.runner.notification.RunListener;
 import org.junit.runners.Suite;
@@ -72,18 +74,26 @@ public class RedDeerSuite extends Suite {
 	 */
 	protected static List<Runner> createSuite(Class<?> clazz, SuiteConfiguration config) throws InitializationError{
 		log.info("Creating RedDeer suite...");
+		TestsExecutionManager testsManager = new TestsExecutionManager();
 		List<Runner> configuredSuites = new ArrayList<Runner>();
 		boolean isSuite = isSuite(clazz);
 		
 		for (TestRunConfiguration testRunConfig : config.getTestRunConfigurations()){
 			log.info("Adding suite with name " + testRunConfig.getId() + " to RedDeer suite");
 			if (isSuite){
-				configuredSuites.add(new NamedSuite(clazz, new RequirementsRunnerBuilder(testRunConfig,runListeners,beforeTestExtensions, afterTestExtensions), testRunConfig.getId()));
+				configuredSuites.add(new NamedSuite(clazz, new RequirementsRunnerBuilder(testRunConfig,runListeners, beforeTestExtensions, afterTestExtensions, testsManager), testRunConfig.getId()));
 			} else {
-				configuredSuites.add(new NamedSuite(new Class[]{clazz}, new RequirementsRunnerBuilder(testRunConfig,runListeners,beforeTestExtensions, afterTestExtensions), testRunConfig.getId()));				
+				configuredSuites.add(new NamedSuite(new Class[]{clazz}, new RequirementsRunnerBuilder(testRunConfig,runListeners, beforeTestExtensions, afterTestExtensions, testsManager), testRunConfig.getId()));
 			}
 		}
 		
+		if(!testsManager.allTestsAreExecuted()) {
+			if (isSuite) {
+				configuredSuites.add(new TestsWithoutExecutionSuite(clazz, testsManager));
+			} else {
+				configuredSuites.add(new TestsWithoutExecutionSuite(new Class[]{clazz}, testsManager));
+			}
+		}
 		log.info("RedDeer suite created");
 		return configuredSuites;
 	}
