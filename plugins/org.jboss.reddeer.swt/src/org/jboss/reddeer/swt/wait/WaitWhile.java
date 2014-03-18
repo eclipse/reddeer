@@ -76,7 +76,7 @@ public class WaitWhile extends AbstractWait {
 				log.warn("Error during evaluating wait condition " + condition.description() 
 						+ " " + e);
 			}
-			sleep(AbstractWait.WAIT_DELAY);
+			sleep(TimePeriod.SHORT);
 			if (System.currentTimeMillis() > limit) {
 				continueSleep = false;
 				if (isThrowWaitTimeoutExpiredException()) {

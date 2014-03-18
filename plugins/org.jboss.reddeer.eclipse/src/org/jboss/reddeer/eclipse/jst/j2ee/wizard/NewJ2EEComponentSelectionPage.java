@@ -10,6 +10,7 @@ import org.jboss.reddeer.swt.impl.button.RadioButton;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.jboss.reddeer.swt.impl.text.DefaultText;
 import org.jboss.reddeer.swt.wait.AbstractWait;
+import org.jboss.reddeer.swt.wait.TimePeriod;
 import org.jboss.reddeer.swt.wait.WaitUntil;
 import org.jboss.reddeer.swt.wait.WaitWhile;
 
@@ -130,7 +131,7 @@ public class NewJ2EEComponentSelectionPage extends WizardPage{
 		new WaitWhile(new JobIsRunning());
 		new DefaultShell("New EAR Application Project");
 		//have to wait otherwise SWT exception is thrown
-		AbstractWait.sleep(3000);
+		AbstractWait.sleep(TimePeriod.getCustom(3));
 	}
 	
 	
