@@ -1,5 +1,8 @@
 package org.jboss.reddeer.swt.impl.combo;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Event;
 import org.jboss.reddeer.junit.logging.Logger;
@@ -79,6 +82,15 @@ public abstract class AbstractCombo implements Combo {
 	public String getText() {
 		return WidgetHandler.getInstance().getText(swtCombo);
 	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public List<String> getItems() {
+		return Arrays.asList(ComboHandler.getInstance().getItems(swtCombo));
+	}
+	
 	/**
 	 * Creates event for CTabItem with specified type
 	 * 
