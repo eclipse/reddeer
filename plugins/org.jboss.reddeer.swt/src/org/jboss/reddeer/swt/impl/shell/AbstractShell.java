@@ -41,7 +41,7 @@ public abstract class AbstractShell implements Shell {
 	public void close() {
 		String text = getText();
 		log.info("Closing shell " + text);
-		WidgetLookup.getInstance().notify(SWT.Close, swtShell);
+		WidgetHandler.getInstance().notify(SWT.Close, swtShell);
 		ShellHandler.getInstance().closeShell(swtShell);
 		new WaitWhile(new ShellWithTextIsAvailable(text));
 	}

@@ -53,14 +53,16 @@ public class WidgetLookup {
 	
 	/**
 	 * Send click notification to a widget
+	 * @deprecated Use WidgetHandler instead
 	 * @param widget
 	 */
 	public void sendClickNotifications(Widget widget) {
-		notify(SWT.Selection,widget);
+		WidgetHandler.getInstance().notify(SWT.Selection,widget);
 	}
 
 	/**
 	 * Notifies widget with given event type
+	 * @deprecated Use WidgetHandler instead
 	 * @param eventType given event type
 	 * @param widget target widget
 	 */
@@ -70,17 +72,39 @@ public class WidgetLookup {
 		
 	}
 	
+	/**
+	 * @deprecated Use HyperlinkHandler instead
+	 * @param eventType
+	 * @param widget
+	 */
 	public void notifyHyperlink(int eventType, Widget widget) {
 		Event event = createHyperlinkEvent(widget);
 		notify(eventType, event, widget);
 		
 	}
 	
+	/**
+	 * @deprecated Use widget handler instead
+	 * @param eventType
+	 * @param detail
+	 * @param widget
+	 * @param widgetItem
+	 */
 	public void notifyItem(int eventType, int detail, Widget widget, Widget widgetItem) {
 		Event event = createEventItem(eventType, detail, widget, widgetItem);
 		notify(eventType, event, widget);	
 	}
 	
+	/**
+	 * @deprecated Use WidgetHandler instead
+	 * @param eventType
+	 * @param detail
+	 * @param widget
+	 * @param widgetItem
+	 * @param x
+	 * @param y
+	 * @param button
+	 */
 	public void notifyItemMouse(int eventType, int detail, Widget widget, Widget widgetItem, int x, int y, int button) {
 		Event event = createMouseItemEvent(eventType, detail, widget, widgetItem, x, y, button);
 		notify(eventType, event, widget);	

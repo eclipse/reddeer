@@ -1,7 +1,6 @@
 package org.jboss.reddeer.swt.handler;
 
 import org.jboss.reddeer.swt.api.Scale;
-import org.jboss.reddeer.swt.lookup.WidgetLookup;
 import org.jboss.reddeer.swt.util.Display;
 import org.jboss.reddeer.swt.util.ResultRunnable;
 
@@ -77,7 +76,7 @@ public class ScaleHandler {
 				scale.getSWTWidget().setSelection(value);
 			}
 		});
-		WidgetLookup.getInstance().sendClickNotifications(scale.getSWTWidget());
+		WidgetHandler.getInstance().sendClickNotifications(scale.getSWTWidget());
 	}
 	
 	/**
@@ -123,6 +122,6 @@ public class ScaleHandler {
 				scale.setSelection(value);
 			}
 		});
-		WidgetLookup.getInstance().sendClickNotifications(scale);
+		WidgetHandler.getInstance().sendClickNotifications(scale);
 	}
 }

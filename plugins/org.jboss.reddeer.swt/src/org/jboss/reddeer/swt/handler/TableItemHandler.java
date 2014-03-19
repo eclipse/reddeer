@@ -4,7 +4,6 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
-import org.jboss.reddeer.swt.lookup.WidgetLookup;
 import org.jboss.reddeer.swt.util.Display;
 import org.jboss.reddeer.swt.util.ResultRunnable;
 
@@ -86,7 +85,7 @@ public class TableItemHandler {
 			public void run() {
 				swtTableItem.getParent().setFocus();
 				swtTableItem.getParent().setSelection(swtTableItem);
-				WidgetLookup.getInstance().notifyItem(SWT.Selection, SWT.NONE, swtTableItem.getParent(), swtTableItem);
+				WidgetHandler.getInstance().notifyItem(SWT.Selection, SWT.NONE, swtTableItem.getParent(), swtTableItem);
 			}
 		});
 	}
@@ -107,7 +106,7 @@ public class TableItemHandler {
 				}
 				swtTableItem.getParent().setFocus();
 				swtTableItem.setChecked(check);
-				WidgetLookup.getInstance().notifyItem(SWT.Selection, SWT.CHECK, swtTableItem.getParent(), swtTableItem);
+				WidgetHandler.getInstance().notifyItem(SWT.Selection, SWT.CHECK, swtTableItem.getParent(), swtTableItem);
 			}
 		});
 	}

@@ -1,8 +1,9 @@
 package org.jboss.reddeer.uiforms.handler;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.Event;
 import org.eclipse.ui.forms.widgets.Hyperlink;
-import org.jboss.reddeer.swt.lookup.WidgetLookup;
+import org.jboss.reddeer.swt.handler.WidgetHandler;
 import org.jboss.reddeer.swt.util.Display;
 
 /**
@@ -41,10 +42,31 @@ public class HyperLinkHandler {
 			@Override
 			public void run() {
 				hyperLink.setFocus();
-				WidgetLookup.getInstance().notifyHyperlink(SWT.MouseEnter, hyperLink);
-				WidgetLookup.getInstance().notifyHyperlink(SWT.MouseDown, hyperLink);
-				WidgetLookup.getInstance().notifyHyperlink(SWT.MouseUp, hyperLink);
+				notifyHyperlink(SWT.MouseEnter, hyperLink);
+				notifyHyperlink(SWT.MouseDown, hyperLink);
+				notifyHyperlink(SWT.MouseUp, hyperLink);
 			}
 		});
+	}
+	
+	/**
+	 * Notifies widget with the event 
+	 * @param eventType
+	 * @param widget
+	 */
+	public void notifyHyperlink(int eventType, Hyperlink widget) {
+		Event event = createHyperlinkEvent(widget);
+		WidgetHandler.getInstance().notify(eventType, event, widget);
+	}
+	
+	private Event createHyperlinkEvent(Hyperlink widget){
+		Event event = new Event();
+		event.time = (int) System.currentTimeMillis();
+		event.widget = widget;
+		event.display = Display.getDisplay();
+		event.button=1;
+		event.x=0;
+		event.y=0;
+		return event;
 	}
 }
