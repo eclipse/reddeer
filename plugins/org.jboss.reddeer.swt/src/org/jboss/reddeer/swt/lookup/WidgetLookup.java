@@ -35,13 +35,13 @@ import org.jboss.reddeer.swt.wait.WaitUntil;
  *
  */
 public class WidgetLookup {
-	
+
 	private static WidgetLookup instance = null;
 	protected final Logger logger = Logger.getLogger(this.getClass());
-	
+
 	private WidgetLookup() {
 	}
-	
+
 	/**
 	 * Returns WidgetLookup instance
 	 * @return widgetLookup instance
@@ -50,7 +50,7 @@ public class WidgetLookup {
 		if (instance == null) instance = new WidgetLookup();
 		return instance;
 	}
-	
+
 	/**
 	 * Send click notification to a widget
 	 * @deprecated Use WidgetHandler instead
@@ -69,7 +69,7 @@ public class WidgetLookup {
 	public void notify(int eventType, Widget widget) {
 		Event event = createEvent(widget);
 		notify(eventType, event, widget);
-		
+
 	}
 	
 	/**
@@ -80,7 +80,7 @@ public class WidgetLookup {
 	public void notifyHyperlink(int eventType, Widget widget) {
 		Event event = createHyperlinkEvent(widget);
 		notify(eventType, event, widget);
-		
+
 	}
 	
 	/**
@@ -117,7 +117,7 @@ public class WidgetLookup {
 		event.display = Display.getDisplay();
 		return event;
 	}
-	
+
 	private Event createHyperlinkEvent(Widget widget){
 		Event event = new Event();
 		event.time = (int) System.currentTimeMillis();
@@ -128,7 +128,7 @@ public class WidgetLookup {
 		event.y=0;
 		return event;
 	}
-	
+
 	private Event createMouseItemEvent(int eventType, int detail, Widget widget, Widget widgetItem, int x, int y, int button){
 		Event event = new Event();
 		event.display = Display.getDisplay();
@@ -142,7 +142,7 @@ public class WidgetLookup {
 		event.y=y;
 		return event;
 	}
-	
+
 	private Event createEventItem(int eventType, int detail, Widget widget, Widget widgetItem) {
 		Event event = new Event();
 		event.display = Display.getDisplay();
@@ -153,18 +153,18 @@ public class WidgetLookup {
 		event.type = eventType;
 		return event;
 	}
-	
-	
-	
+
+
+
 	private void notify(final int eventType, final Event createEvent, final Widget widget) {
 		createEvent.type = eventType;
-		
+
 		Display.asyncExec(new Runnable() {
 			public void run() {
 				if ((widget == null) || widget.isDisposed()) {
 					return;
 				}
-								
+
 				widget.notifyListeners(eventType, createEvent);
 			}
 		});
@@ -176,8 +176,8 @@ public class WidgetLookup {
 			}
 		});
 	}
-	
-	
+
+
 	/**
 	 * Method looks for active widget matching given criteria like reference composite, class, etc.
 	 * @param refComposite reference composite within lookup will be performed
@@ -188,15 +188,12 @@ public class WidgetLookup {
 	 */
 	@SuppressWarnings({ "rawtypes","unchecked" })
 	public <T extends Widget> T activeWidget(ReferencedComposite refComposite, Class<T> clazz, int index, Matcher... matchers) {				
+		logger.debug("Looking up active widget with class type " + clazz.getName() +  ", index " + index + " and " + createMatcherDebugMsg(matchers));
+		
 		ClassMatcher cm = new ClassMatcher(clazz);
 		Matcher[] allMatchers = MatcherBuilder.getInstance().addMatcher(matchers, cm);
 		AndMatcher am  = new AndMatcher(allMatchers);
-		
-		logger.debug("Search for activeWidget of class: " + clazz.getName()
-				+  "\n  index: " + index);
-		for (int ind = 0 ; ind < matchers.length ; ind++ ){
-			logger.debug("Matcher: " + matchers[ind].getClass());
-		}
+
 		WidgetIsFound found = new WidgetIsFound(refComposite, am, index);
 		try{
 			new WaitUntil(found);
@@ -205,22 +202,29 @@ public class WidgetLookup {
 			if(clazz.isInstance(Combo.class)){
 				exceptionText = "Combo not found - see https://github.com/jboss-reddeer/reddeer/issues/485";
 			}
+			logger.error("Active widget with class type " + clazz.getName() +  " and index " + index + " was not found, an exception will be thrown");
 			throw new SWTLayerException(exceptionText, ex);
 		}
+
+		logger.debug("Active widget with class type " + clazz.getName() +  " and index " + index + " was found");
 		return (T)found.getWidget();
 	}
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	private List<? extends Widget> activeWidgets(Control refComposite, Matcher matcher) {
 		if(refComposite == null){
-			logger.info("Referenced composite is null, finding one");
+			logger.debug("No parent specified, finding one");
 			refComposite = getActiveWidgetParentControl();
+			logger.debug("Parent found successfully");
 		}
 
 		if (refComposite == null){
-			throw new SWTLayerException("Unable to find active composite");
+			logger.error("Unable to determine active parent");
+			throw new SWTLayerException("Unable to determine active parent");
 		}
+		logger.debug("Looking up widgets with specified parent and matchers");
 		List<? extends Widget> widgets = findControls(refComposite, matcher, true);
+		logger.debug(widgets.size() + " widget(s) found");
 		return widgets;
 	}
 
@@ -239,33 +243,34 @@ public class WidgetLookup {
 		}
 		return false;
 	}
-	
-	
+
+
 	/**
 	 * Looks for active parent control. Either finds activeWorkbenchReference control or activeShell 
 	 * @return active workbench control or active shell
 	 */
 	public Control getActiveWidgetParentControl() {
-		logger.info("Finding active parent control");
 		Control control = null;
-		
+
 		IWorkbenchPartReference activeWorkbenchReference = WorkbenchLookup.findActiveWorkbenchPart();
 		Shell activeWorkbenchParentShell = getShellForActiveWorkbench(activeWorkbenchReference);
 		Shell activeShell = ShellLookup.getInstance().getActiveShell();
-		
+
 		if (activeWorkbenchParentShell == null || !activeWorkbenchParentShell.equals(activeShell)){
 			if (activeShell != null){
-				logger.info("Setting active shell as the parent");
+				logger.debug("Setting active shell with title \"" + WidgetHandler.getInstance().getText(activeShell) + "\" as the parent");
 				control = activeShell;	
 			}
 		}			
 		else {
-			logger.info("Setting workbench control as the parent");
+			if (activeWorkbenchReference != null){
+				logger.debug("Setting workbench part with title \"" + getTitle(activeWorkbenchReference) + "\"as the parent");
+			}
 			control = WorkbenchLookup.getWorkbenchControl(activeWorkbenchReference);
 		}
 		return control;
 	}
-
+	
 	private Shell getShellForActiveWorkbench(IWorkbenchPartReference workbenchReference) {
 		if (workbenchReference == null) {
 			return null;
@@ -284,11 +289,14 @@ public class WidgetLookup {
 	private <T extends Widget> T getProperWidget(List<T> widgets, int index) {
 		T widget = null;
 		if (widgets.size() > index){
+			logger.debug("Selecting widget with the specified index (" + index + ")");
 			widget = widgets.get(index);
+		} else {
+			logger.warn("The specified index is bigger than the size of found widgets (" + index + " > " + widgets.size() + ")");
 		}
 		return widget;
 	}
-	
+
 	/**
 	 * Finds Control for active parent
 	 * @param matcher criteria matcher
@@ -299,7 +307,7 @@ public class WidgetLookup {
 		List<T> findControls = findControls(getActiveWidgetParentControl(), matcher, recursive);
 		return findControls;
 	}
-	
+
 	/**
 	 * Find Controls for parent widget matching
 	 * @param parentWidget given parent widget - root for lookup
@@ -313,8 +321,8 @@ public class WidgetLookup {
 
 			@Override
 			public List<T> run() {
-				 List<T> findControlsUI = findControlsUI(parentWidget, matcher, recursive);
-				 return findControlsUI;
+				List<T> findControlsUI = findControlsUI(parentWidget, matcher, recursive);
+				return findControlsUI;
 			}
 		});
 		return ret;
@@ -335,8 +343,8 @@ public class WidgetLookup {
 		});
 		return c;
 	}
-	
-	
+
+
 	/**
 	 * Create lists of widget matching matcher (can be called recursively)
 	 * @param parentWidget parent widget
@@ -346,17 +354,17 @@ public class WidgetLookup {
 	 */
 	@SuppressWarnings("unchecked")
 	private <T extends Widget> List<T> findControlsUI(final Widget parentWidget, final Matcher<T> matcher, final boolean recursive) {
-	
+
 		if ((parentWidget == null) || parentWidget.isDisposed())
 			return new ArrayList<T>();
-		
-		
+
+
 		if (!visible(parentWidget)) {
 			return new ArrayList<T>();
 		}
-		
+
 		LinkedHashSet<T> controls = new LinkedHashSet<T>();
-		
+
 		if (matcher.matches(parentWidget) && !controls.contains(parentWidget))
 			try {
 				controls.add((T) parentWidget);
@@ -385,7 +393,7 @@ public class WidgetLookup {
 		}
 		return new ArrayList<T>(list);
 	}
-	
+
 	/**
 	 * Returns true if instance is visible
 	 * @param w
@@ -394,9 +402,9 @@ public class WidgetLookup {
 	private boolean visible(Widget w) {
 		return !((w instanceof Control) && !((Control) w).getVisible());
 	}
-	
+
 	class WidgetIsFound implements WaitCondition {
-		
+
 		private ReferencedComposite refComposite;
 		private AndMatcher am;
 		private int index;
@@ -419,7 +427,7 @@ public class WidgetLookup {
 			}
 			return true;
 		}
-		
+
 		public Widget getWidget(){
 			setFocus();
 			return properWidget;
@@ -429,15 +437,44 @@ public class WidgetLookup {
 		public String description() {
 			return "widget is found";
 		}
-		
+
 		private void setFocus(){
 			if (RunningPlatform.isWindows() && properWidget instanceof Button &&
 					((WidgetHandler.getInstance().getStyle((Button)properWidget) & SWT.RADIO) != 0)){
-					// do not set focus because it also select radio button on Windows
+				// do not set focus because it also select radio button on Windows
 			} else {
 				WidgetHandler.getInstance().setFocus(properWidget);
 			}
 		}
+	}
+
+	private String getTitle(final IWorkbenchPartReference part){
+		return Display.syncExec(new ResultRunnable<String>() {
+			@Override
+			public String run() {
+				return part.getTitle();
+			}
+		});
+	}
+	
+	private String createMatcherDebugMsg(Matcher<?>[] matchers) {
+		StringBuilder sb = new StringBuilder();
+
+		if (matchers.length == 0){
+			sb.append("no matchers specified");
+		} else {
+			sb.append("following matchers specified (");
+		}
+		
+		for (int ind = 0 ; ind < matchers.length ; ind++ ){
+			sb.append(matchers[ind].getClass());
+			if (ind < matchers.length - 1){
+				sb.append(", ");
+			} else {
+				sb.append(")");
+			}
+		}
+		return sb.toString();
 	}
 }
 
