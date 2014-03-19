@@ -9,6 +9,7 @@ import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.ExpandItem;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Link;
@@ -133,7 +134,7 @@ public class WidgetHandler {
 				}
 			}
 		});
-		WidgetLookup.getInstance().sendClickNotifications(w);
+		WidgetHandler.getInstance().sendClickNotifications(w);
 		Display.syncExec(new Runnable() {
 			@Override
 			public void run() {
@@ -169,7 +170,7 @@ public class WidgetHandler {
 						Button sibling = (Button) widget;
 						if ((sibling.getStyle() & SWT.RADIO) != 0 && 
 								sibling.getSelection()) {
-							WidgetLookup.getInstance().notify(SWT.Deactivate, sibling);
+							WidgetHandler.getInstance().notify(SWT.Deactivate, sibling);
 							sibling.setSelection(false);
 						}
 					}	
@@ -177,11 +178,11 @@ public class WidgetHandler {
 			}
 
 			private void selectRadio(Button button) {
-				WidgetLookup.getInstance().notify(SWT.Activate, button);
-				WidgetLookup.getInstance().notify(SWT.MouseDown, button);
-				WidgetLookup.getInstance().notify(SWT.MouseUp, button);
+				WidgetHandler.getInstance().notify(SWT.Activate, button);
+				WidgetHandler.getInstance().notify(SWT.MouseDown, button);
+				WidgetHandler.getInstance().notify(SWT.MouseUp, button);
 				button.setSelection(true);
-				WidgetLookup.getInstance().notify(SWT.Selection, button);
+				WidgetHandler.getInstance().notify(SWT.Selection, button);
 			}
 
 		});
@@ -322,7 +323,7 @@ public class WidgetHandler {
 
 					} 
 					widget.getItem(itemIndex).setChecked(true);
-					WidgetLookup.getInstance().notifyItem(SWT.Selection, SWT.CHECK, widget, widget.getItem(itemIndex));
+					WidgetHandler.getInstance().notifyItem(SWT.Selection, SWT.CHECK, widget, widget.getItem(itemIndex));
 				}
 				else{
 					throw new SWTLayerException("Unsupported type");
@@ -428,7 +429,7 @@ public class WidgetHandler {
 					List widget = (List)w;
 					if((widget.getStyle() & SWT.MULTI) !=0){
 						((List) w).selectAll();
-						WidgetLookup.getInstance().notify(SWT.Selection, (List)w);
+						WidgetHandler.getInstance().notify(SWT.Selection, (List)w);
 					} else {
 						throw new SWTLayerException("List does not support multi selection - it does not have SWT MULTI style");
 					}
@@ -436,7 +437,7 @@ public class WidgetHandler {
 					Table widget = (Table)w;
 					if((widget.getStyle() & SWT.MULTI) !=0){
 						((Table) w).selectAll();
-						WidgetLookup.getInstance().notify(SWT.Selection, (Table)w);
+						WidgetHandler.getInstance().notify(SWT.Selection, (Table)w);
 					} else {
 						throw new SWTLayerException("Table does not support multi selection - it does not have SWT MULTI style");
 					}
@@ -465,7 +466,7 @@ public class WidgetHandler {
 						throw new SWTLayerException("Unable to select item "+item+" because it does not exist");
 					}
 					widget.select(widget.indexOf(item));
-					WidgetLookup.getInstance().sendClickNotifications(w);
+					WidgetHandler.getInstance().sendClickNotifications(w);
 				}else if (w instanceof Combo){
 					Combo widget = (Combo)w;
 					int index = (widget.indexOf(item))  ;
@@ -496,7 +497,7 @@ public class WidgetHandler {
 					TableItem swtTableItem = (TableItem)wItem;
 					swtTableItem.getParent().setFocus();
 					swtTableItem.getParent().setSelection(swtTableItem);
-					WidgetLookup.getInstance().notifyItem(SWT.Selection, SWT.NONE, swtTableItem.getParent(), swtTableItem);
+					WidgetHandler.getInstance().notifyItem(SWT.Selection, SWT.NONE, swtTableItem.getParent(), swtTableItem);
 				} else {
 					throw new SWTLayerException("Unsupported type");
 				}
@@ -522,7 +523,7 @@ public class WidgetHandler {
 					}
 					swtTableItem.getParent().setFocus();
 					swtTableItem.setChecked(check);
-					WidgetLookup.getInstance().notifyItem(SWT.Selection, SWT.CHECK, swtTableItem.getParent(), swtTableItem);
+					WidgetHandler.getInstance().notifyItem(SWT.Selection, SWT.CHECK, swtTableItem.getParent(), swtTableItem);
 				} else {
 					throw new SWTLayerException("Unsupported type");
 				}
@@ -570,7 +571,7 @@ public class WidgetHandler {
 								throw new SWTLayerException("Unable to select item "+item+" because it does not exist");
 							}
 							widget.select(widget.indexOf(item));
-							WidgetLookup.getInstance().notify(SWT.Selection, widget);
+							WidgetHandler.getInstance().notify(SWT.Selection, widget);
 						}
 					} else {
 						throw new SWTLayerException("List does not support multi selection - it does not have SWT MULTI style");
@@ -597,7 +598,7 @@ public class WidgetHandler {
 					List widget = (List)w;
 					if((widget.getStyle() & SWT.MULTI) !=0){
 						widget.select(indices);
-						WidgetLookup.getInstance().notify(SWT.Selection, widget);
+						WidgetHandler.getInstance().notify(SWT.Selection, widget);
 					} else {
 						throw new SWTLayerException("List does not support multi selection - it does not have SWT MULTI style");
 					}
@@ -605,7 +606,7 @@ public class WidgetHandler {
 					Table widget = (Table)w;
 					if((widget.getStyle() & SWT.MULTI) !=0){
 						widget.select(indices);
-						WidgetLookup.getInstance().notify(SWT.Selection, widget);
+						WidgetHandler.getInstance().notify(SWT.Selection, widget);
 					} else {
 						throw new SWTLayerException("Table does not support multi selection - it does not have SWT MULTI style");
 					}
@@ -634,21 +635,21 @@ public class WidgetHandler {
 						throw new SWTLayerException("Unable to select item with index "+index+" because it does not exist");
 					}
 					widget.select(index);
-					WidgetLookup.getInstance().notify(SWT.Selection, widget);
+					WidgetHandler.getInstance().notify(SWT.Selection, widget);
 				} else if (w instanceof Combo){
 					Combo widget = (Combo)w;
 					if(widget.getItemCount()-1 < index){
 						throw new SWTLayerException("Unable to select item with index "+index+" because it does not exist");
 					}
 					widget.select(index);
-					WidgetLookup.getInstance().notify(SWT.Selection, widget);
+					WidgetHandler.getInstance().notify(SWT.Selection, widget);
 				} else if (w instanceof Table){
 					Table widget = (Table)w;
 					if(widget.getItemCount()-1 < index){
 						throw new SWTLayerException("Unable to select item with index "+index+" because it does not exist");
 					}
 					widget.select(index);
-					WidgetLookup.getInstance().notify(SWT.Selection, widget);
+					WidgetHandler.getInstance().notify(SWT.Selection, widget);
 				}
 				else{
 					throw new SWTLayerException("Unsupported type");
@@ -757,9 +758,9 @@ public class WidgetHandler {
 			public void run() {
 				if (w instanceof Link) {
 					((Link)w).setFocus();
-					WidgetLookup.getInstance().notify(SWT.MouseDown, (Link)w);
-					WidgetLookup.getInstance().notify(SWT.Selection, (Link)w);
-					WidgetLookup.getInstance().notify(SWT.MouseUp, (Link)w);
+					WidgetHandler.getInstance().notify(SWT.MouseDown, (Link)w);
+					WidgetHandler.getInstance().notify(SWT.Selection, (Link)w);
+					WidgetHandler.getInstance().notify(SWT.MouseUp, (Link)w);
 				} else if (w instanceof Hyperlink) {
 					((Hyperlink)w).setFocus();
 					WidgetLookup.getInstance().notifyHyperlink(SWT.MouseEnter, (Hyperlink)w);
@@ -958,4 +959,85 @@ public class WidgetHandler {
 		});
 	}
 
+	/**
+	 * Send click notification to a widget
+	 * @param widget
+	 */
+	public void sendClickNotifications(Widget widget) {
+		notify(SWT.Selection,widget);
+	}
+	
+	/**
+	 * Notifies widget with given event type
+	 * @param eventType given event type
+	 * @param widget target widget
+	 */
+	public void notify(int eventType, Widget widget) {
+		Event event = createEvent(widget);
+		notify(eventType, event, widget);
+	}
+	
+	public void notifyItem(int eventType, int detail, Widget widget, Widget widgetItem) {
+		Event event = createEventItem(eventType, detail, widget, widgetItem);
+		notify(eventType, event, widget);	
+	}
+	
+	public void notifyItemMouse(int eventType, int detail, Widget widget, Widget widgetItem, int x, int y, int button) {
+		Event event = createMouseItemEvent(eventType, detail, widget, widgetItem, x, y, button);
+		notify(eventType, event, widget);	
+	}
+	
+	public void notify(final int eventType, final Event createEvent, final Widget widget) {
+		createEvent.type = eventType;
+		
+		Display.asyncExec(new Runnable() {
+			public void run() {
+				if ((widget == null) || widget.isDisposed()) {
+					return;
+				}
+								
+				widget.notifyListeners(eventType, createEvent);
+			}
+		});
+
+		// Wait for synchronization
+		Display.syncExec(new Runnable() {
+			public void run() {
+				// do nothing here
+			}
+		});
+	}
+	
+	private Event createEvent(Widget widget) {
+		Event event = new Event();
+		event.time = (int) System.currentTimeMillis();
+		event.widget = widget;
+		event.display = Display.getDisplay();
+		return event;
+	}
+	
+	private Event createEventItem(int eventType, int detail, Widget widget, Widget widgetItem) {
+		Event event = new Event();
+		event.display = Display.getDisplay();
+		event.time = (int) System.currentTimeMillis();
+		event.item = widgetItem;
+		event.widget = widget;
+		event.detail = detail;
+		event.type = eventType;
+		return event;
+	}
+	
+	private Event createMouseItemEvent(int eventType, int detail, Widget widget, Widget widgetItem, int x, int y, int button){
+		Event event = new Event();
+		event.display = Display.getDisplay();
+		event.time = (int) System.currentTimeMillis();
+		event.item = widgetItem;
+		event.widget = widget;
+		event.detail = detail;
+		event.type = eventType;
+		event.button=button;
+		event.x=x;
+		event.y=y;
+		return event;
+	}
 }

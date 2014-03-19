@@ -2,7 +2,6 @@ package org.jboss.reddeer.swt.handler;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Link;
-import org.jboss.reddeer.swt.lookup.WidgetLookup;
 import org.jboss.reddeer.swt.util.Display;
 import org.jboss.reddeer.swt.util.ResultRunnable;
 
@@ -56,9 +55,9 @@ public class LinkHandler {
 			@Override
 			public void run() {
 				link.setFocus();
-				WidgetLookup.getInstance().notify(SWT.MouseDown, link);
-				WidgetLookup.getInstance().notify(SWT.Selection, link);
-				WidgetLookup.getInstance().notify(SWT.MouseUp, link);
+				WidgetHandler.getInstance().notify(SWT.MouseDown, link);
+				WidgetHandler.getInstance().notify(SWT.Selection, link);
+				WidgetHandler.getInstance().notify(SWT.MouseUp, link);
 			}
 		});
 	}

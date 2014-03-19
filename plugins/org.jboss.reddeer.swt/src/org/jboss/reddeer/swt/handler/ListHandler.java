@@ -72,7 +72,7 @@ public class ListHandler {
 			public void run() {
 				if((list.getStyle() & SWT.MULTI) !=0){
 					list.selectAll();
-					WidgetLookup.getInstance().notify(SWT.Selection, list);
+					WidgetHandler.getInstance().notify(SWT.Selection, list);
 				} else {
 					throw new SWTLayerException("List does not support multi selection - it does not have SWT MULTI style");
 				}
@@ -96,7 +96,7 @@ public class ListHandler {
 					throw new SWTLayerException("Unable to select item "+item+" because it does not exist");
 				}
 				list.select(list.indexOf(item));
-				WidgetLookup.getInstance().sendClickNotifications(list);
+				WidgetHandler.getInstance().sendClickNotifications(list);
 			}
 		});
 	}
@@ -119,7 +119,7 @@ public class ListHandler {
 							throw new SWTLayerException("Unable to select item "+item+" because it does not exist");
 						}
 						list.select(list.indexOf(item));
-						WidgetLookup.getInstance().notify(SWT.Selection, list);
+						WidgetHandler.getInstance().notify(SWT.Selection, list);
 					}
 				} else {
 					throw new SWTLayerException("List does not support multi selection - it does not have SWT MULTI style");
@@ -141,7 +141,7 @@ public class ListHandler {
 			public void run() {
 				if((list.getStyle() & SWT.MULTI) !=0){
 					list.select(indices);
-					WidgetLookup.getInstance().notify(SWT.Selection, list);
+					WidgetHandler.getInstance().notify(SWT.Selection, list);
 				} else {
 					throw new SWTLayerException("List does not support multi selection - it does not have SWT MULTI style");
 				}
@@ -164,7 +164,7 @@ public class ListHandler {
 					throw new SWTLayerException("Unable to select item with index "+index+" because it does not exist");
 				}
 				list.select(index);
-				WidgetLookup.getInstance().notify(SWT.Selection, list);
+				WidgetHandler.getInstance().notify(SWT.Selection, list);
 			}
 		});
 	}

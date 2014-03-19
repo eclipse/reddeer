@@ -3,7 +3,6 @@ package org.jboss.reddeer.swt.handler;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Widget;
-import org.jboss.reddeer.swt.lookup.WidgetLookup;
 import org.jboss.reddeer.swt.util.Display;
 import org.jboss.reddeer.swt.util.ResultRunnable;
 
@@ -50,7 +49,7 @@ public class ButtonHandler {
 			}
 		});
 		
-		WidgetLookup.getInstance().sendClickNotifications(button);
+		WidgetHandler.getInstance().sendClickNotifications(button);
 		
 		Display.syncExec(new Runnable() {
 			@Override
@@ -81,7 +80,7 @@ public class ButtonHandler {
 						Button sibling = (Button) widget;
 						if ((sibling.getStyle() & SWT.RADIO) != 0 && 
 								sibling.getSelection()) {
-							WidgetLookup.getInstance().notify(SWT.Deactivate, sibling);
+							WidgetHandler.getInstance().notify(SWT.Deactivate, sibling);
 							sibling.setSelection(false);
 						}
 					}	
@@ -89,11 +88,11 @@ public class ButtonHandler {
 			}
 			
 			private void selectRadio(Button button) {
-				WidgetLookup.getInstance().notify(SWT.Activate, button);
-				WidgetLookup.getInstance().notify(SWT.MouseDown, button);
-				WidgetLookup.getInstance().notify(SWT.MouseUp, button);
+				WidgetHandler.getInstance().notify(SWT.Activate, button);
+				WidgetHandler.getInstance().notify(SWT.MouseDown, button);
+				WidgetHandler.getInstance().notify(SWT.MouseUp, button);
 				button.setSelection(true);
-				WidgetLookup.getInstance().notify(SWT.Selection, button);
+				WidgetHandler.getInstance().notify(SWT.Selection, button);
 			}
 
 		});

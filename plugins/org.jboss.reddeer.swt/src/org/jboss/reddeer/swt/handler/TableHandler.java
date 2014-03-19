@@ -6,7 +6,6 @@ import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
-import org.jboss.reddeer.swt.lookup.WidgetLookup;
 import org.jboss.reddeer.swt.util.Display;
 import org.jboss.reddeer.swt.util.ResultRunnable;
 
@@ -94,7 +93,7 @@ public class TableHandler {
 				Rectangle rectangle = tableItem.getBounds(column);
 				int x = rectangle.x + (rectangle.width/2);
 				int y = rectangle.y + (rectangle.height/2);
-				WidgetLookup.getInstance().notifyItemMouse(SWT.MouseDoubleClick,SWT.NONE , tableItem.getParent(), tableItem, x, y, 1);
+				WidgetHandler.getInstance().notifyItemMouse(SWT.MouseDoubleClick,SWT.NONE , tableItem.getParent(), tableItem, x, y, 1);
 
 			}
 		});
@@ -156,7 +155,7 @@ public class TableHandler {
 			public void run() {
 				if((table.getStyle() & SWT.MULTI) !=0){
 					table.selectAll();
-					WidgetLookup.getInstance().notify(SWT.Selection, table);
+					WidgetHandler.getInstance().notify(SWT.Selection, table);
 				} else {
 					throw new SWTLayerException("Table does not support multi selection - it does not have SWT MULTI style");
 				}
@@ -177,7 +176,7 @@ public class TableHandler {
 			public void run() {
 				if((table.getStyle() & SWT.MULTI) !=0){
 					table.select(indices);
-					WidgetLookup.getInstance().notify(SWT.Selection, table);
+					WidgetHandler.getInstance().notify(SWT.Selection, table);
 				} else {
 					throw new SWTLayerException("Table does not support multi selection - it does not have SWT MULTI style");
 				}
@@ -200,7 +199,7 @@ public class TableHandler {
 					throw new SWTLayerException("Unable to select item with index "+index+" because it does not exist");
 				}
 				table.select(index);
-				WidgetLookup.getInstance().notify(SWT.Selection, table);
+				WidgetHandler.getInstance().notify(SWT.Selection, table);
 			}
 		});
 	}
