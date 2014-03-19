@@ -3,6 +3,8 @@ package org.jboss.reddeer.swt.test.impl.combo;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.util.Arrays;
+
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridLayout;
@@ -20,7 +22,7 @@ import org.junit.Test;
 /**
  * Tests Combo functionality
  * @author Vlado Pakan
- *
+ * @author Radoslav Rabara
  */
 public class ComboTest extends RedDeerTest{
 	private static final String COMBO_LABEL_PREFIX = "Combo";
@@ -60,8 +62,9 @@ public class ComboTest extends RedDeerTest{
 			label.setText(ComboTest.COMBO_LABEL_PREFIX + comboIndex);
 			org.eclipse.swt.widgets.Combo combo = new org.eclipse.swt.widgets.Combo(shell, SWT.BORDER);
 			combo.addSelectionListener(selectionListener);
-			for (int itemIndex = 0; itemIndex < 4; itemIndex++) {
-				combo.add(ComboTest.COMBO_ITEM_PREFIX + comboIndex + itemIndex);
+			String[] comboItems = createSampleComboItems(comboIndex);
+			for (int itemIndex = 0; itemIndex < comboItems.length; itemIndex++) {
+				combo.add(comboItems[itemIndex]);
 			}
 		}
 		label = new org.eclipse.swt.widgets.Label(shell, SWT.NONE);
@@ -69,6 +72,16 @@ public class ComboTest extends RedDeerTest{
 		org.eclipse.swt.widgets.Combo combo = new org.eclipse.swt.widgets.Combo(shell, SWT.BORDER);
 		combo.setEnabled(false);
 	}
+	
+	private String[] createSampleComboItems(int comboIndex) {
+		final int count = 4;
+		String[] items = new String[count];
+		for (int i = 0; i < count; i++) {
+			items[i] = ComboTest.COMBO_ITEM_PREFIX + comboIndex + i;
+		}
+		return items;
+	}
+	
 	@After
 	public void cleanup() {
 		Display.syncExec(new Runnable() {
@@ -158,5 +171,24 @@ public class ComboTest extends RedDeerTest{
 		assertTrue("Selection text is " + selectionText
 				+ "\nbut expected selection text is " + expectedSelection,
 				selectionText.equals(expectedSelection));
+	}
+	
+	@Test
+	public void getAllItems() {
+		for(int comboIndex = 0; comboIndex < 4; comboIndex++) {
+			String[] expectedItems = createSampleComboItems(comboIndex);
+			Combo[] combos = new Combo[]{
+					new LabeledCombo(ComboTest.COMBO_LABEL_PREFIX + comboIndex),
+					new DefaultCombo(comboIndex)
+			};
+			for(int i = 0; i < combos.length; i++) {
+				String[] items = (String[]) combos[i].getItems().toArray();
+				
+				assertTrue("Retrieved items are: " + Arrays.toString(items)
+						+"\nbut expected are: " + Arrays.toString(expectedItems)
+						+"\nItems were retrieved from " + combos[i].getClass(),
+						Arrays.equals(expectedItems, items));
+			}
+		}
 	}
 }

@@ -1,6 +1,7 @@
 package org.jboss.reddeer.swt.api;
 
 import org.jboss.reddeer.swt.widgets.Widget;
+import java.util.List;
 
 /**
  * API For Combo (Combobox) manipulation
@@ -18,6 +19,13 @@ public interface Combo extends Widget{
    * @return
    */
   String getText();
+  /**
+   * Returns {@link List}  of {@link String}s
+   * which are items in the Combo's list
+   * 
+   * @return {@link List} containing items from Combo's list
+   */
+  List<String> getItems();
   /**
    * Sets combo selection to item with index
    * @param index
