@@ -19,7 +19,7 @@ public class TextHandler {
 	}
 
 	/**
-	 * Creates and returns instance of ComboHandler class
+	 * Creates and returns instance of TextHandler class
 	 * 
 	 * @return
 	 */
