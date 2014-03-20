@@ -35,12 +35,7 @@ public abstract class AbstractProgressBar implements ProgressBar {
 	
 	@Override
 	public int getState() {
-		return Display.syncExec(new ResultRunnable<Integer>() {
-			@Override
-			public Integer run() {
-				return widget.getState();
-			}
-		});
+		return ProgressBarHandler.getInstance().getState(widget);
 	}
 	
 	public org.eclipse.swt.widgets.ProgressBar getSWTWidget(){

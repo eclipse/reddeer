@@ -1,7 +1,5 @@
 package org.jboss.reddeer.swt.impl.progressbar;
 
-import org.jboss.reddeer.swt.util.Display;
-import org.jboss.reddeer.swt.util.ResultRunnable;
 
 /**
  * This class represents determinate progress bars (both horizontal and vertical) with possibility to read status. 
@@ -22,12 +20,7 @@ public abstract class DeterminateProgressBar extends AbstractProgressBar {
 	 */
 	
 	public int getMaximum(){
-		return Display.syncExec(new ResultRunnable<Integer>() {
-			@Override
-			public Integer run() {
-				return widget.getMaximum();
-			}
-		});
+		return ProgressBarHandler.getInstance().getMaximum(widget);
 	}
 	
 	/**
@@ -36,12 +29,7 @@ public abstract class DeterminateProgressBar extends AbstractProgressBar {
 	 */
 	
 	public int getMinimum(){
-		return Display.syncExec(new ResultRunnable<Integer>() {
-			@Override
-			public Integer run() {
-				return widget.getMinimum();
-			}
-		});
+		return ProgressBarHandler.getInstance().getMinimum(widget);
 	}
 	
 	/**
@@ -50,12 +38,7 @@ public abstract class DeterminateProgressBar extends AbstractProgressBar {
 	 */
 	
 	public int getSelection(){
-		return Display.syncExec(new ResultRunnable<Integer>() {
-			@Override
-			public Integer run() {
-				return widget.getSelection();
-			}
-		});
+		return ProgressBarHandler.getInstance().getSelection(widget);
 	}
 
 }
