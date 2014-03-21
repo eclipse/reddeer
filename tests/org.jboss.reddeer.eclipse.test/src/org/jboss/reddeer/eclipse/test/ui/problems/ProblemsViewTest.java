@@ -3,20 +3,19 @@ package org.jboss.reddeer.eclipse.test.ui.problems;
 import static org.junit.Assert.assertEquals;
 
 import org.jboss.reddeer.eclipse.condition.ProblemsExists;
+import org.jboss.reddeer.eclipse.condition.ProblemsExists.ProblemType;
 import org.jboss.reddeer.eclipse.jdt.ui.NewJavaClassWizardDialog;
 import org.jboss.reddeer.eclipse.jdt.ui.NewJavaClassWizardPage;
 import org.jboss.reddeer.eclipse.jdt.ui.ide.NewJavaProjectWizardDialog;
 import org.jboss.reddeer.eclipse.jdt.ui.ide.NewJavaProjectWizardPage;
 import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.PackageExplorer;
 import org.jboss.reddeer.eclipse.ui.problems.ProblemsView;
-import org.jboss.reddeer.swt.test.RedDeerTest;
 import org.jboss.reddeer.swt.condition.JobIsRunning;
 import org.jboss.reddeer.swt.exception.WaitTimeoutExpiredException;
+import org.jboss.reddeer.swt.test.RedDeerTest;
 import org.jboss.reddeer.swt.wait.TimePeriod;
 import org.jboss.reddeer.swt.wait.WaitUntil;
 import org.jboss.reddeer.swt.wait.WaitWhile;
-import org.jboss.reddeer.workbench.editor.DefaultEditor;
-import org.jboss.reddeer.workbench.editor.Editor;
 import org.jboss.reddeer.workbench.editor.TextEditor;
 import org.junit.Test;
 
@@ -63,6 +62,7 @@ public class ProblemsViewTest extends RedDeerTest{
 	@Test
 	public void testOneErrorNoWarning() {
 		createError();
+		new WaitUntil(new ProblemsExists(ProblemType.ERROR), TimePeriod.NORMAL);
 		assertEquals("Errors node should contain one error", problemsView.getAllErrors().size(), 1);
 		assertEquals("Warnings node should be empty", problemsView.getAllWarnings().size(), 0);
 	}
@@ -70,6 +70,7 @@ public class ProblemsViewTest extends RedDeerTest{
 	@Test
 	public void testNoErrorOneWarning() {
 		createWarning();
+		new WaitWhile(new ProblemsExists(ProblemType.ERROR), TimePeriod.NORMAL);
 		assertEquals("Errors node should be empty", problemsView.getAllErrors().size(), 0);
 		assertEquals("Warnings node should contain one warning", problemsView.getAllWarnings().size(), 1);
 	}
@@ -78,7 +79,7 @@ public class ProblemsViewTest extends RedDeerTest{
 	public void testOneErrorOneWarning() {
 		createError();
 		createWarning();
-		new WaitUntil(new ProblemsExists(true), TimePeriod.NORMAL);
+		new WaitUntil(new ProblemsExists(ProblemType.BOTH), TimePeriod.NORMAL);
 		assertEquals("Errors node should contain one error", problemsView.getAllErrors().size(), 1);
 		assertEquals("Warnings node should contain one warning", problemsView.getAllWarnings().size(), 1);
 	}
