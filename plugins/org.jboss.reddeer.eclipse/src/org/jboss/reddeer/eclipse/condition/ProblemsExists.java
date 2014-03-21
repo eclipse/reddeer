@@ -1,8 +1,8 @@
 package org.jboss.reddeer.eclipse.condition;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import org.jboss.reddeer.eclipse.exception.EclipseLayerException;
 import org.jboss.reddeer.eclipse.ui.problems.ProblemsView;
 import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.swt.condition.WaitCondition;
@@ -15,36 +15,55 @@ import org.jboss.reddeer.swt.condition.WaitCondition;
  */
 public class ProblemsExists implements WaitCondition {
 
+	public enum ProblemType {
+		BOTH, ANY, ERROR, WARNING;
+	}
+
 	private ProblemsView problemsView;
-	
-	private boolean bothProblemTypes;
-	
+
+	private ProblemType problemType;
+
 	public ProblemsExists() {
 		this(false);
 	}
-	
+
 	public ProblemsExists(boolean bothProblemTypes) {
-		this.bothProblemTypes = bothProblemTypes;
-	}
-	
-	@Override
-	public boolean test() {
-		List<TreeItem> errors = new ArrayList<TreeItem>();
-		List<TreeItem> warning = new ArrayList<TreeItem>();
-		problemsView = new ProblemsView();
-		problemsView.open();
-		errors.addAll(problemsView.getAllErrors());
-		warning.addAll(problemsView.getAllWarnings());
 		if (bothProblemTypes) {
-			return errors.size() > 0 && warning.size() > 0; 
+			problemType = ProblemType.BOTH;
 		} else {
-			return errors.size() > 0 || warning.size() > 0;
+			problemType = ProblemType.ANY;
 		}
 	}
-	
+
+	public ProblemsExists(ProblemType problemType) {
+		this.problemType = problemType;
+	}
+
+	@Override
+	public boolean test() {
+		problemsView = new ProblemsView();
+		problemsView.open();
+
+		List<TreeItem> errors = problemsView.getAllErrors();
+		List<TreeItem> warning = problemsView.getAllWarnings();
+
+		switch (problemType) {
+		case ANY: return !errors.isEmpty() || !warning.isEmpty();
+		case BOTH: return !errors.isEmpty() && !warning.isEmpty(); 
+		case WARNING: return !warning.isEmpty(); 
+		case ERROR: return !errors.isEmpty(); 
+		default: throw new EclipseLayerException("Unknown Problem type: " + problemType);
+		}
+	}
+
 	@Override
 	public String description() {
-		return "there is problem marker in Problems view";
+		switch (problemType) {
+		case ANY: return "there is at least one error or warning in Problems view";
+		case BOTH: return "there is at least one error and one warning in Problems view"; 
+		case WARNING: return "there is at least one warning in Problems view"; 
+		case ERROR: return "there is at least one error in Problems view"; 
+		default: throw new EclipseLayerException("Unknown Problem type: " + problemType);
+		}
 	}
-	
 }

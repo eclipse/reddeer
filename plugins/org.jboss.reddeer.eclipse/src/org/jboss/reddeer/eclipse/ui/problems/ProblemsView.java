@@ -5,8 +5,12 @@ import java.util.List;
 
 import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.swt.impl.tree.DefaultTree;
-import org.jboss.reddeer.workbench.view.impl.WorkbenchView;
+import org.jboss.reddeer.workbench.impl.view.WorkbenchView;
 
+/**
+ * Represents the Problems view.
+ *
+ */
 public class ProblemsView extends WorkbenchView{
 
 	public ProblemsView() {
@@ -46,5 +50,4 @@ public class ProblemsView extends WorkbenchView{
 		}
 		return new LinkedList<TreeItem>();
 	}
-	
 }
