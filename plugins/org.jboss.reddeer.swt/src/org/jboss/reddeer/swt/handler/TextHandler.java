@@ -1,8 +1,10 @@
 package org.jboss.reddeer.swt.handler;
 
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Text;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.util.Display;
+import org.jboss.reddeer.swt.util.ResultRunnable;
 
 /**
  * Contains methods that handle UI operations on {@link Text} widgets. 
@@ -48,6 +50,16 @@ public class TextHandler {
 					throw new SWTLayerException("Text field is not editable");
 				}
 				textField.setText(text);
+			}
+		});
+	}
+	
+	public boolean isReadOnly(final Text w){
+		return Display.syncExec(new ResultRunnable<Boolean>() {
+
+			@Override
+			public Boolean run() {
+				return (w.getStyle() & SWT.READ_ONLY) != 0;
 			}
 		});
 	}

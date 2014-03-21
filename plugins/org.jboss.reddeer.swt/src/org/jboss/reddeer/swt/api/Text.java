@@ -37,8 +37,13 @@ public interface Text extends Widget{
 	 * Types text using @link(org.jboss.reddeer.swt.keyboard.Keyboard)
 	 * @param text
 	 */
-	
 	void typeText(String text);
+	
+	/**
+	 * Checks if text is read only
+	 * @return true if text is read only, false otherwise
+	 */
+	boolean isReadOnly();
 	
 	org.eclipse.swt.widgets.Text getSWTWidget();
 }
