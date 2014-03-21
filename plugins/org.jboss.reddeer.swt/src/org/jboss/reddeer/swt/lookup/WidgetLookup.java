@@ -256,18 +256,17 @@ public class WidgetLookup {
 		Shell activeWorkbenchParentShell = getShellForActiveWorkbench(activeWorkbenchReference);
 		Shell activeShell = ShellLookup.getInstance().getActiveShell();
 
-		if (activeWorkbenchParentShell == null || !activeWorkbenchParentShell.equals(activeShell)){
-			if (activeShell != null){
-				logger.debug("Setting active shell with title \"" + WidgetHandler.getInstance().getText(activeShell) + "\" as the parent");
-				control = activeShell;	
-			}
+		if ((activeWorkbenchParentShell == null || !activeWorkbenchParentShell.equals(activeShell))
+				&& activeShell != null){
+			logger.debug("Setting active shell with title \"" + WidgetHandler.getInstance().getText(activeShell) + "\" as the parent");
+			control = activeShell;	
 		}			
 		else {
 			if (activeWorkbenchReference != null){
 				logger.debug("Setting workbench part with title \"" + getTitle(activeWorkbenchReference) + "\"as the parent");
+				control = WorkbenchLookup.getWorkbenchControl(activeWorkbenchReference);
 			}
-			control = WorkbenchLookup.getWorkbenchControl(activeWorkbenchReference);
-		}
+		}	
 		return control;
 	}
 	
