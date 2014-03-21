@@ -64,7 +64,7 @@ public class LinkTest extends RedDeerTest{
 		new DefaultShell("Shell with link");
 		org.jboss.reddeer.swt.api.Link l = new org.jboss.reddeer.swt.impl.link.DefaultLink("shell");
 		assertEquals("shell",l.getText());
-		l.click();
+		l.click("shell");
 		assertEquals("Shell opened by link",new DefaultShell().getText());
 	}
 
