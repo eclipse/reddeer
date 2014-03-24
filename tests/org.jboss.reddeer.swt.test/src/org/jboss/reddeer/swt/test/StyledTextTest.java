@@ -6,19 +6,14 @@ import static org.junit.Assert.assertTrue;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.swt.widgets.Text;
 import org.jboss.reddeer.swt.api.StyledText;
-import org.jboss.reddeer.swt.condition.ShellIsActive;
 import org.jboss.reddeer.swt.condition.ShellWithTextIsActive;
-import org.jboss.reddeer.swt.condition.WaitCondition;
-import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.jboss.reddeer.swt.impl.styledtext.DefaultStyledText;
-import org.jboss.reddeer.swt.impl.text.DefaultText;
 import org.jboss.reddeer.swt.util.Display;
 import org.jboss.reddeer.swt.wait.WaitWhile;
 import org.jboss.reddeer.workbench.view.impl.WorkbenchView;
-import org.junit.Before;
+import org.junit.After;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -35,7 +30,7 @@ public class StyledTextTest extends RedDeerTest {
 		new WorkbenchView("RedDeer SWT Controls").open();
 	}
 	
-	@Before
+	@After
 	public void setup(){
 		//try to close testing shell
 		closeTestingShell();
@@ -58,11 +53,11 @@ public class StyledTextTest extends RedDeerTest {
 		assertEquals(sText.getPositionOfText("styledText"), 8);
 	}
 	
-	@Test(expected=SWTLayerException.class)
+	@Test
 	public void defaultStyledTextGetPositionNonExistingTest(){
 		openTestingShell();
 		StyledText sText = new DefaultStyledText();
-		sText.getPositionOfText("styledText1");
+		assertEquals(-1, sText.getPositionOfText("styledText1"));
 	}
 	
 	private void openTestingShell(){
