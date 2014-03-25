@@ -48,7 +48,7 @@ public class Display {
 			Thread[] allThreads = allThreads();
 			for (Thread thread : allThreads) {
 				org.eclipse.swt.widgets.Display d = org.eclipse.swt.widgets.Display.findDisplay(thread);
-				if (d != null)
+				if (d != null && !d.isDisposed())
 					display = d;
 			}
 			if (display == null)
