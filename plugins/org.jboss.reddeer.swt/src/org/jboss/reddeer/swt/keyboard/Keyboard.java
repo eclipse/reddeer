@@ -2,6 +2,7 @@ package org.jboss.reddeer.swt.keyboard;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Event;
+import org.eclipse.swt.widgets.Widget;
 import org.jboss.reddeer.junit.logging.Logger;
 import org.jboss.reddeer.swt.lookup.WidgetLookup;
 import org.jboss.reddeer.swt.util.Display;
@@ -27,15 +28,16 @@ abstract public class Keyboard {
 	 */
 	
 	public void invokeKeyCombination(int... keys){
+		final Widget w = WidgetLookup.getInstance().getFocusControl();
 		log.debug("Invoking keys: ");
 		for (int i=0; i<keys.length; i++){
 			delay(DELAY);
 			log.debug("    As char:"+(char)keys[i]+", as int:"+keys[i]);
-			Display.getDisplay().post(keyEvent(keys[i], SWT.KeyDown));
+			Display.getDisplay().post(keyEvent(keys[i], SWT.KeyDown, w));
 		}
 		for (int i=keys.length-1; i>=0; i--){
 			delay(DELAY);
-			Display.getDisplay().post(keyEvent(keys[i], SWT.KeyUp));
+			Display.getDisplay().post(keyEvent(keys[i], SWT.KeyUp, w));
 		}
 	}
 	
@@ -113,33 +115,35 @@ abstract public class Keyboard {
 	
 	
 	protected void press(final int key){
+		final Widget w = WidgetLookup.getInstance().getFocusControl();
 		Display.syncExec(new Runnable() {
 			
 			@Override
 			public void run() {
-				Display.getDisplay().post(keyEvent(key, SWT.KeyDown));
+				Display.getDisplay().post(keyEvent(key, SWT.KeyDown, w));
 				delay(DELAY);;
 			}
 		});
 	}
 	
 	protected void release(final int key){
+		final Widget w = WidgetLookup.getInstance().getFocusControl();
 		Display.syncExec(new Runnable() {
 			
 			@Override
 			public void run() {
-				Display.getDisplay().post(keyEvent(key, SWT.KeyUp));
+				Display.getDisplay().post(keyEvent(key, SWT.KeyUp, w));
 				delay(DELAY);;
 			}
 		});
 	}
 	
-	private Event keyEvent(int key, int eventType){
+	private Event keyEvent(int key, int eventType, Widget w){
 		Event e = new Event();
 		e.keyCode = key;
 		e.character = (char) key;
 		e.type = eventType;
-		e.widget = WidgetLookup.getInstance().getFocusControl();
+		e.widget = w;
 		return e;
 	}
 	
