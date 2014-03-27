@@ -1,6 +1,7 @@
 package org.jboss.reddeer.eclipse.test.ui.problems;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import org.jboss.reddeer.eclipse.condition.ProblemsExists;
 import org.jboss.reddeer.eclipse.condition.ProblemsExists.ProblemType;
@@ -10,13 +11,13 @@ import org.jboss.reddeer.eclipse.jdt.ui.ide.NewJavaProjectWizardDialog;
 import org.jboss.reddeer.eclipse.jdt.ui.ide.NewJavaProjectWizardPage;
 import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.PackageExplorer;
 import org.jboss.reddeer.eclipse.ui.problems.ProblemsView;
+import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.swt.condition.JobIsRunning;
-import org.jboss.reddeer.swt.exception.WaitTimeoutExpiredException;
 import org.jboss.reddeer.swt.test.RedDeerTest;
 import org.jboss.reddeer.swt.wait.TimePeriod;
 import org.jboss.reddeer.swt.wait.WaitUntil;
 import org.jboss.reddeer.swt.wait.WaitWhile;
-import org.jboss.reddeer.workbench.editor.TextEditor;
+import org.jboss.reddeer.workbench.impl.editor.TextEditor;
 import org.junit.Test;
 
 /**
@@ -53,26 +54,29 @@ public class ProblemsViewTest extends RedDeerTest{
 		super.tearDown();
 	}
 	
-	@Test(expected=WaitTimeoutExpiredException.class)
 	public void testNoErrorNoWarning() {
 		problemsView.open();
-		new WaitUntil(new ProblemsExists(), TimePeriod.NORMAL);
+		new WaitUntil(new ProblemsExists(ProblemType.NONE), TimePeriod.NORMAL);
+		assertTrue("Errors node should be empty, but:\n" + getProblems(), problemsView.getAllErrors().isEmpty());
+		assertTrue("Warnings node should be empty, but:\n" + getProblems(), problemsView.getAllWarnings().isEmpty());
 	}
 	
 	@Test
 	public void testOneErrorNoWarning() {
 		createError();
 		new WaitUntil(new ProblemsExists(ProblemType.ERROR), TimePeriod.NORMAL);
-		assertEquals("Errors node should contain one error", problemsView.getAllErrors().size(), 1);
-		assertEquals("Warnings node should be empty", problemsView.getAllWarnings().size(), 0);
+		new WaitWhile(new ProblemsExists(ProblemType.WARNING), TimePeriod.NORMAL);
+		assertEquals("Errors node should contain one error, but:\n" + getProblems(), 1, problemsView.getAllErrors().size());
+		assertTrue("Warnings node should be empty, but:\n" + getProblems(), problemsView.getAllWarnings().isEmpty());
 	}
 	
 	@Test
 	public void testNoErrorOneWarning() {
 		createWarning();
 		new WaitWhile(new ProblemsExists(ProblemType.ERROR), TimePeriod.NORMAL);
-		assertEquals("Errors node should be empty", problemsView.getAllErrors().size(), 0);
-		assertEquals("Warnings node should contain one warning", problemsView.getAllWarnings().size(), 1);
+		new WaitUntil(new ProblemsExists(ProblemType.WARNING), TimePeriod.NORMAL);
+		assertTrue("Errors node should be empty, but:\n" + getProblems(), problemsView.getAllErrors().isEmpty());
+		assertEquals("Warnings node should contain one warning, but:\n" + getProblems(), 1, problemsView.getAllWarnings().size());
 	}
 	
 	@Test
@@ -80,8 +84,8 @@ public class ProblemsViewTest extends RedDeerTest{
 		createError();
 		createWarning();
 		new WaitUntil(new ProblemsExists(ProblemType.BOTH), TimePeriod.NORMAL);
-		assertEquals("Errors node should contain one error", problemsView.getAllErrors().size(), 1);
-		assertEquals("Warnings node should contain one warning", problemsView.getAllWarnings().size(), 1);
+		assertEquals("Errors node should contain one error, but:\n" + getProblems(), 1, problemsView.getAllErrors().size());
+		assertEquals("Warnings node should contain one warning, but:\n" + getProblems(), 1, problemsView.getAllWarnings().size());
 	}
 	
 	private void createError() {
@@ -124,5 +128,22 @@ public class ProblemsViewTest extends RedDeerTest{
 		
 		problemsView.open();
 		new WaitUntil(new ProblemsExists(), TimePeriod.NORMAL);
+	}
+	
+	private String getProblems(){
+		StringBuilder builder = new StringBuilder();
+		builder.append("Errors:\n");
+		for (TreeItem item : problemsView.getAllErrors()){
+			builder.append("\t");
+			builder.append(item.getText());
+			builder.append("\n");
+		}
+		builder.append("Warnings:\n");
+		for (TreeItem item : problemsView.getAllWarnings()){
+			builder.append("\t");
+			builder.append(item.getText());
+			builder.append("\n");
+		}
+		return builder.toString();
 	}
 }
