@@ -16,7 +16,7 @@ import org.jboss.reddeer.swt.condition.WaitCondition;
 public class ProblemsExists implements WaitCondition {
 
 	public enum ProblemType {
-		BOTH, ANY, ERROR, WARNING;
+		NONE, BOTH, ANY, ERROR, WARNING;
 	}
 
 	private ProblemsView problemsView;
@@ -49,7 +49,8 @@ public class ProblemsExists implements WaitCondition {
 
 		switch (problemType) {
 		case ANY: return !errors.isEmpty() || !warning.isEmpty();
-		case BOTH: return !errors.isEmpty() && !warning.isEmpty(); 
+		case BOTH: return !errors.isEmpty() && !warning.isEmpty();
+		case NONE: return errors.isEmpty() && warning.isEmpty(); 
 		case WARNING: return !warning.isEmpty(); 
 		case ERROR: return !errors.isEmpty(); 
 		default: throw new EclipseLayerException("Unknown Problem type: " + problemType);
