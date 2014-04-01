@@ -8,14 +8,19 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Label;
 import org.jboss.reddeer.swt.api.Shell;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
+import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.label.DefaultLabel;
+import org.jboss.reddeer.swt.impl.menu.ShellMenu;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.jboss.reddeer.swt.impl.shell.WorkbenchShell;
+import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
 import org.jboss.reddeer.swt.util.Display;
 import org.junit.Test;
 
 public class ShellTest extends RedDeerTest {
+	
 	private Shell shell1,shell2;
+	
 	@Test
 	public void workbenchShellTest() {
 		Shell shell = new WorkbenchShell();
@@ -101,6 +106,24 @@ public class ShellTest extends RedDeerTest {
 		}
 	}
 	
+	@Test
+	public void closeAllShellsTest2() {
+			
+		// Show View window
+		new ShellMenu("Window", "Show View", "Other...").select();
+		new WorkbenchShell().closeAllShells();
+		if (!checkShell("Show View")) fail("'Show View' should be closed");
+		
+		// New Server Runtime window
+		new ShellMenu("Window", "Preferences").select();
+		new DefaultTreeItem("Server", "Runtime Environments").select();
+		new PushButton("Add...").click();
+		new WorkbenchShell().closeAllShells();
+		
+		if (!checkShell("New Server Runtime Environment")) fail("'New Server Runtime Environment' should be closed");
+		if (!checkShell("Preferences")) fail("'Preferences' should be closed");
+	}
+	
 	private static void createSimpleShell(final String title) {
 		Display.syncExec(new Runnable() {
 
@@ -117,6 +140,7 @@ public class ShellTest extends RedDeerTest {
 			}
 		});
 	}
+	
 	@Override
 	protected void tearDown(){
 		if (shell1 != null){
@@ -126,5 +150,24 @@ public class ShellTest extends RedDeerTest {
 			shell2.close();
 		}
 	}
-
+	
+	/**
+	 * Checks whether the shell with specified name is open.
+	 * Closes shell and return false, if is open. 
+	 * 
+	 * @param name Title of a shell
+	 * @return <b>true</b> - the shell is closed
+	 *         <b>false</b> - the shell was opened
+	 */
+	private boolean checkShell(String name) {
+		
+		try {
+			new DefaultShell(name);
+		} catch (SWTLayerException ex) {
+			return true;
+		}
+		
+		new DefaultShell().close();
+		return false;
+	}
 }
