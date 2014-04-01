@@ -27,7 +27,7 @@
          name="RedDeer SWT Commands"
          point="org.eclipse.ui.commands">
       <command
-            categoryId="org.jboss.reddeer.swt.test.commands"
+            categoryId="org.jboss.reddeer.swt.test.commands.category"
             description="RedDeer SWT Test Command"
             id="org.jboss.reddeer.swt.test.command.testCommand"
             name="Test Command">
