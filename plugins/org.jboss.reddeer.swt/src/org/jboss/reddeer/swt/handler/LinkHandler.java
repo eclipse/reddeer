@@ -137,7 +137,7 @@ public class LinkHandler {
 	 *            widget to activate
 	 */
 	public void activate(final Link link, final String text) {
-		Display.syncExec(new Runnable() {
+		Display.asyncExec(new Runnable() {
 
 			@Override
 			public void run() {
