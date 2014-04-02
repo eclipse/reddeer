@@ -13,6 +13,7 @@ import org.jboss.reddeer.swt.api.Tree;
 import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.swt.condition.WaitCondition;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
+import org.jboss.reddeer.swt.exception.WaitTimeoutExpiredException;
 import org.jboss.reddeer.swt.impl.tree.internal.BasicTree;
 import org.jboss.reddeer.swt.impl.tree.internal.BasicTreeItem;
 import org.jboss.reddeer.swt.util.Display;
@@ -217,7 +218,11 @@ public class TreeHandler {
 			}
 		});
 		
-		new WaitUntil(new TreeHeardExpandNotification(swtTreeItem, tel));
+		try{
+			new WaitUntil(new TreeHeardExpandNotification(swtTreeItem, tel, false));
+		} catch(WaitTimeoutExpiredException ex){
+			new WaitUntil(new TreeHeardExpandNotification(swtTreeItem, tel, true));
+		}
 		logger.info("Expanded: " + this);
 		
 		Display.syncExec(new Runnable() {
@@ -401,12 +406,21 @@ public class TreeHandler {
 	 * @param event
 	 */
 	public void notifyTree(final org.eclipse.swt.widgets.TreeItem swtTreeItem, final Event event) {
+		Display.asyncExec(new Runnable() {
+			public void run() {
+				swtTreeItem.getParent().notifyListeners(event.type, event);
+			}
+		});
+	}
+	
+	public void notifyTreeSync(final org.eclipse.swt.widgets.TreeItem swtTreeItem, final Event event) {
 		Display.syncExec(new Runnable() {
 			public void run() {
 				swtTreeItem.getParent().notifyListeners(event.type, event);
 			}
 		});
 	}
+	
 	/**
 	 * See {@link TreeItem}
 	 * @param swtTreeItem
@@ -466,16 +480,22 @@ public class TreeHandler {
 		
 		private org.eclipse.swt.widgets.TreeItem treeItem;
 		private TreeExpandListener listener;
+		private boolean sync;
 		
-		public TreeHeardExpandNotification(org.eclipse.swt.widgets.TreeItem treeItem, TreeExpandListener listener){
+		public TreeHeardExpandNotification(org.eclipse.swt.widgets.TreeItem treeItem, TreeExpandListener listener, boolean sync){
 			this.treeItem = treeItem;
 			this.listener = listener;
+			this.sync = sync;
 		}
 
 		@Override
 		public boolean test() {
 			if (!isExpanded(treeItem)) {
-				notifyTree(treeItem,createEventForTree(treeItem, SWT.Expand));
+				if(sync){
+					notifyTreeSync(treeItem,createEventForTree(treeItem, SWT.Expand));
+				} else {
+					notifyTree(treeItem,createEventForTree(treeItem, SWT.Expand));
+				}
 				return listener.isHeard();
 			} else {
 				logger.debug("Tree Item "
@@ -492,3 +512,4 @@ public class TreeHandler {
 		
 	}
 }
+
