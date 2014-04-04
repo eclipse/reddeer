@@ -10,7 +10,7 @@ public class DefaultLink extends AbstractLink{
 	 * Link with index 0
 	 */
 	public DefaultLink(){
-		link = LinkLookup.getInstance().getLink(null, 0);
+		this(null,0,null);
 	}
 	
 	/**
@@ -18,7 +18,7 @@ public class DefaultLink extends AbstractLink{
 	 * @param referencedComposite
 	 */
 	public DefaultLink(ReferencedComposite referencedComposite){
-		link = LinkLookup.getInstance().getLink(referencedComposite, 0);
+		this(referencedComposite, 0, null);
 	}
 	
 	/**
@@ -26,7 +26,7 @@ public class DefaultLink extends AbstractLink{
 	 * @param index of link
 	 */
 	public DefaultLink(int index){
-		link = LinkLookup.getInstance().getLink(null, index);
+		this(null,index,null);
 	}
 	
 	/**
@@ -35,7 +35,7 @@ public class DefaultLink extends AbstractLink{
 	 * @param index of link
 	 */
 	public DefaultLink(ReferencedComposite referencedComposite, int index){
-		link = LinkLookup.getInstance().getLink(referencedComposite, index);
+		this(referencedComposite,index, null);
 	}
 	
 	/**
@@ -43,7 +43,7 @@ public class DefaultLink extends AbstractLink{
 	 * @param text of link
 	 */
 	public DefaultLink(String text){
-		link = LinkLookup.getInstance().getLink(null, 0, new LinkTextMatcher(text));
+		this(null,0,text);
 	}
 	
 	/**
@@ -52,7 +52,7 @@ public class DefaultLink extends AbstractLink{
 	 * @param text of link
 	 */
 	public DefaultLink(ReferencedComposite referencedComposite, String text){
-		link = LinkLookup.getInstance().getLink(referencedComposite, 0, new LinkTextMatcher(text));
+		this(referencedComposite, 0, text);
 	}
 	
 	/**
@@ -62,7 +62,11 @@ public class DefaultLink extends AbstractLink{
 	 * @param text of link
 	 */
 	public DefaultLink(ReferencedComposite referencedComposite, int index, String text){
-		link = LinkLookup.getInstance().getLink(referencedComposite, index, new LinkTextMatcher(text));
+		if(text != null){
+			link = LinkLookup.getInstance().getLink(referencedComposite, index, new LinkTextMatcher(text));
+		} else {
+			link = LinkLookup.getInstance().getLink(referencedComposite, index);
+		}
 	}
 	
 	/**
@@ -71,7 +75,7 @@ public class DefaultLink extends AbstractLink{
 	 * @param text of link
 	 */
 	public DefaultLink(int index, String text){
-		link = LinkLookup.getInstance().getLink(null, index, new LinkTextMatcher(text));
+		this(null,index,text);
 	}
 
 }

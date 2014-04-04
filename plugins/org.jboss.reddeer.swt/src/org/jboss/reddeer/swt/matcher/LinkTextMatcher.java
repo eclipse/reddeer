@@ -12,6 +12,7 @@ import org.jboss.reddeer.swt.handler.LinkHandler;
  *
  */
 public class LinkTextMatcher extends WithTextMatcher {
+	
 
 	public LinkTextMatcher(String text) {
 		super(text);
