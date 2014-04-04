@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: RedDeer SWT Component
 Bundle-Vendor: JBoss by Red Hat
 Bundle-SymbolicName: org.jboss.reddeer.swt
-Bundle-Version: 0.5.0.qualifier
+Bundle-Version: 0.5.0
 Bundle-Activator: org.jboss.reddeer.swt.Activator
 Require-Bundle: org.eclipse.ui,
  org.eclipse.ui.workbench,
@@ -14,40 +14,22 @@ Require-Bundle: org.eclipse.ui,
  org.jboss.reddeer.junit;bundle-version="0.4.0"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Export-Package: org.jboss.reddeer.swt,
- org.jboss.reddeer.swt.api,
- org.jboss.reddeer.swt.condition,
- org.jboss.reddeer.swt.exception,
- org.jboss.reddeer.swt.handler,
- org.jboss.reddeer.swt.impl.browser,
- org.jboss.reddeer.swt.impl.button,
- org.jboss.reddeer.swt.impl.canvas,
- org.jboss.reddeer.swt.impl.clabel,
- org.jboss.reddeer.swt.impl.combo,
- org.jboss.reddeer.swt.impl.ctab,
- org.jboss.reddeer.swt.impl.expandbar,
- org.jboss.reddeer.swt.impl.group,
- org.jboss.reddeer.swt.impl.label,
- org.jboss.reddeer.swt.impl.link,
- org.jboss.reddeer.swt.impl.list,
- org.jboss.reddeer.swt.impl.menu,
- org.jboss.reddeer.swt.impl.progressbar,
- org.jboss.reddeer.swt.impl.scale,
- org.jboss.reddeer.swt.impl.shell,
- org.jboss.reddeer.swt.impl.spinner,
- org.jboss.reddeer.swt.impl.styledtext,
- org.jboss.reddeer.swt.impl.tab,
- org.jboss.reddeer.swt.impl.table,
- org.jboss.reddeer.swt.impl.text,
- org.jboss.reddeer.swt.impl.toolbar,
- org.jboss.reddeer.swt.impl.tree,
- org.jboss.reddeer.swt.keyboard,
- org.jboss.reddeer.swt.lookup,
- org.jboss.reddeer.swt.matcher,
- org.jboss.reddeer.swt.reference,
- org.jboss.reddeer.swt.regex,
- org.jboss.reddeer.swt.util,
- org.jboss.reddeer.swt.wait,
- org.jboss.reddeer.swt.widgets
+Export-Package: org.jboss.reddeer.swt,org.jboss.reddeer.swt.api,org.jb
+ oss.reddeer.swt.condition,org.jboss.reddeer.swt.exception,org.jboss.r
+ eddeer.swt.handler,org.jboss.reddeer.swt.impl.browser,org.jboss.redde
+ er.swt.impl.button,org.jboss.reddeer.swt.impl.canvas,org.jboss.reddee
+ r.swt.impl.clabel,org.jboss.reddeer.swt.impl.combo,org.jboss.reddeer.
+ swt.impl.ctab,org.jboss.reddeer.swt.impl.expandbar,org.jboss.reddeer.
+ swt.impl.group,org.jboss.reddeer.swt.impl.label,org.jboss.reddeer.swt
+ .impl.link,org.jboss.reddeer.swt.impl.list,org.jboss.reddeer.swt.impl
+ .menu,org.jboss.reddeer.swt.impl.progressbar,org.jboss.reddeer.swt.im
+ pl.scale,org.jboss.reddeer.swt.impl.shell,org.jboss.reddeer.swt.impl.
+ spinner,org.jboss.reddeer.swt.impl.styledtext,org.jboss.reddeer.swt.i
+ mpl.tab,org.jboss.reddeer.swt.impl.table,org.jboss.reddeer.swt.impl.t
+ ext,org.jboss.reddeer.swt.impl.toolbar,org.jboss.reddeer.swt.impl.tre
+ e,org.jboss.reddeer.swt.keyboard,org.jboss.reddeer.swt.lookup,org.jbo
+ ss.reddeer.swt.matcher,org.jboss.reddeer.swt.reference,org.jboss.redd
+ eer.swt.regex,org.jboss.reddeer.swt.util,org.jboss.reddeer.swt.wait,o
+ rg.jboss.reddeer.swt.widgets
 Import-Package: org.jboss.reddeer.direct.platform
  

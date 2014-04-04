@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Red Deer UI Forms Components
 Bundle-SymbolicName: org.jboss.reddeer.uiforms
-Bundle-Version: 0.5.0.qualifier
+Bundle-Version: 0.5.0
 Bundle-Activator: org.jboss.reddeer.uiforms.Activator
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
@@ -12,11 +12,8 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.ui.forms
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Export-Package: org.jboss.reddeer.uiforms,
- org.jboss.reddeer.uiforms.api,
- org.jboss.reddeer.uiforms.hyperlink,
- org.jboss.reddeer.uiforms.impl.form,
- org.jboss.reddeer.uiforms.impl.hyperlink,
- org.jboss.reddeer.uiforms.impl.section,
- org.jboss.reddeer.uiforms.lookup,
- org.jboss.reddeer.uiforms.section
+Export-Package: org.jboss.reddeer.uiforms,org.jboss.reddeer.uiforms.ap
+ i,org.jboss.reddeer.uiforms.hyperlink,org.jboss.reddeer.uiforms.impl.
+ form,org.jboss.reddeer.uiforms.impl.hyperlink,org.jboss.reddeer.uifor
+ ms.impl.section,org.jboss.reddeer.uiforms.lookup,org.jboss.reddeer.ui
+ forms.section

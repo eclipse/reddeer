@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: RedDeer Workbench Component
 Bundle-Vendor: JBoss by Red Hat
 Bundle-SymbolicName: org.jboss.reddeer.workbench
-Bundle-Version: 0.5.0.qualifier
+Bundle-Version: 0.5.0
 Bundle-Activator: org.jboss.reddeer.workbench.Activator
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
@@ -14,12 +14,8 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.ui.editors;bundle-version="3.8.100"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Export-Package: org.jboss.reddeer.workbench,
- org.jboss.reddeer.workbench.condition,
- org.jboss.reddeer.workbench.editor,
- org.jboss.reddeer.workbench.exception,
- org.jboss.reddeer.workbench.view,
- org.jboss.reddeer.workbench.view.impl,
- org.jboss.reddeer.workbench.api,
- org.jboss.reddeer.workbench.impl.editor,
- org.jboss.reddeer.workbench.impl.view
+Export-Package: org.jboss.reddeer.workbench,org.jboss.reddeer.workbenc
+ h.condition,org.jboss.reddeer.workbench.editor,org.jboss.reddeer.work
+ bench.exception,org.jboss.reddeer.workbench.view,org.jboss.reddeer.wo
+ rkbench.view.impl,org.jboss.reddeer.workbench.api,org.jboss.reddeer.w
+ orkbench.impl.editor,org.jboss.reddeer.workbench.impl.view
