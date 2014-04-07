@@ -1,11 +1,20 @@
 package org.jboss.reddeer.swt.impl.shell;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.PlatformUI;
 import org.jboss.reddeer.junit.logging.Logger;
+import org.jboss.reddeer.swt.condition.JobIsRunning;
+import org.jboss.reddeer.swt.condition.WaitCondition;
 import org.jboss.reddeer.swt.handler.WidgetHandler;
 import org.jboss.reddeer.swt.lookup.ShellLookup;
 import org.jboss.reddeer.swt.util.Display;
 import org.jboss.reddeer.swt.util.ResultRunnable;
+import org.jboss.reddeer.swt.wait.TimePeriod;
+import org.jboss.reddeer.swt.wait.WaitUntil;
+import org.jboss.reddeer.swt.wait.WaitWhile;
 
 /**
  * WorkbenchShell is Shell implementation for WorkbenchShell
@@ -77,14 +86,64 @@ public class WorkbenchShell extends AbstractShell {
 	 */
 	public void closeAllShells() {
 		log.info("Closing all shells...");
-		org.eclipse.swt.widgets.Shell[] shell = ShellLookup.getInstance().getShells();
+		new WaitUntil(new NoShellToClose(), TimePeriod.VERY_LONG);
+	}
+
+	/**
+	 * Return all shells which should be closed
+	 * 
+	 * @return
+	 */
+	protected List<Shell> getShellsToClose() {
+		List<Shell> shells = new ArrayList<Shell>();
+		Shell[] shell = ShellLookup.getInstance().getShells();
 		for (int i = 0; i < shell.length; i++) {
-			WidgetHandler widgetHandler = WidgetHandler.getInstance();
-			if (shell[i] != null && shell[i] != swtShell) {
-				if(widgetHandler.isVisible(shell[i])) {
-					new DefaultShell(widgetHandler.getText(shell[i])).close();
-				}
+			if (shell[i] != swtShell) {
+				shells.add(shell[i]);
 			}
 		}
+		return shells;
+	}
+
+	/**
+	 * Override this method if you want to add some functionality before closing
+	 * a given shell from method closeAllShells()
+	 * 
+	 * @param shells
+	 */
+	protected void beforeShellIsClosed(Shell shells) {
+
+	}
+	
+	private class NoShellToClose implements WaitCondition {
+		
+		private List<Shell> shells;
+		
+		public NoShellToClose() {
+			shells = new ArrayList<Shell>();
+		}
+
+		@Override
+		public boolean test() {
+			new WaitWhile(new JobIsRunning(), TimePeriod.LONG);
+			shells = getShellsToClose();
+			if (shells.isEmpty()) {
+				return true;
+			}
+			Shell shell = shells.get(shells.size() - 1);
+			beforeShellIsClosed(shell);
+			new DefaultShell(WidgetHandler.getInstance().getText(shell)).close();
+			return false;
+		}
+
+		@Override
+		public String description() {
+			List<String> shellTitles = new ArrayList<String>();
+			for (Shell shell: shells) {
+				shellTitles.add(WidgetHandler.getInstance().getText(shell));
+			}
+			return "The following shells are still open " + shellTitles;
+		}
+		
 	}
 }

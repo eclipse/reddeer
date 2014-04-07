@@ -7,7 +7,7 @@ import org.jboss.reddeer.swt.condition.ShellWithTextIsActive;
 import org.jboss.reddeer.swt.condition.ShellWithTextIsAvailable;
 import org.jboss.reddeer.swt.handler.ShellHandler;
 import org.jboss.reddeer.swt.handler.WidgetHandler;
-import org.jboss.reddeer.swt.lookup.WidgetLookup;
+import org.jboss.reddeer.swt.impl.button.CancelButton;
 import org.jboss.reddeer.swt.wait.WaitUntil;
 import org.jboss.reddeer.swt.wait.WaitWhile;
 
@@ -41,8 +41,12 @@ public abstract class AbstractShell implements Shell {
 	public void close() {
 		String text = getText();
 		log.info("Closing shell " + text);
-		WidgetHandler.getInstance().notify(SWT.Close, swtShell);
-		ShellHandler.getInstance().closeShell(swtShell);
+		try {
+			new CancelButton().click();
+		} catch (Exception e) {
+			WidgetHandler.getInstance().notify(SWT.Close, swtShell);
+			ShellHandler.getInstance().closeShell(swtShell);	
+		}
 		new WaitWhile(new ShellWithTextIsAvailable(text));
 	}
 	

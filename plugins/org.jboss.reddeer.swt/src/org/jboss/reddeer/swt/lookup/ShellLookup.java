@@ -112,7 +112,7 @@ public class ShellLookup {
 				List<Shell> visibleShells = new ArrayList<Shell>();
 				Shell[] shells = Display.getDisplay().getShells();
 				for (Shell s : shells) {
-					if (s.isVisible()) {
+					if (!s.isDisposed() && s.isVisible()) {
 						visibleShells.add(s);
 					}
 				}

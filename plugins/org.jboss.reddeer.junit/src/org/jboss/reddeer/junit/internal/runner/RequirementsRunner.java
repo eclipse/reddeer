@@ -273,22 +273,6 @@ public class RequirementsRunner extends BlockJUnit4ClassRunner {
 		}
 	}
 	
-	/**
-	 * Method is called after test is run.
-	 * Manages org.jbossreddeer.junit.after.test extensions
-	 */
-	public void runAfterTest() {
-		if(afterTestExtensions == null) {
-			return;
-		}
-		for (IAfterTest afterTestExtension : afterTestExtensions){
-			if (afterTestExtension.hasToRun()){
-				log.debug("Run method runAfterTest() of class " + afterTestExtension.getClass().getCanonicalName());
-				afterTestExtension.runAfterTest();
-			}
-		}
-	}
-	
 	private class InvokeMethodWithException extends Statement {
 	    private final FrameworkMethod fTestMethod;
 	    private Object fTarget;

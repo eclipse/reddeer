@@ -63,7 +63,7 @@ public class RunAfters extends Statement {
             }
             for (IAfterTest afterTest : afterTests) {
                 try {
-                	afterTest.runAfterTest();
+                	afterTest.runAfterTest(fTarget);
                 } catch (Throwable e) {
                 	CaptureScreenshot capturer = new CaptureScreenshot();
                 	capturer.captureScreenshot(afterTest.getClass().getCanonicalName() + "-runAfterTest");

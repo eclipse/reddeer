@@ -1,13 +1,13 @@
 package org.jboss.reddeer.swt.test.impl.menu;
 
-import org.jboss.reddeer.swt.condition.ShellWithTextIsActive;
+import org.jboss.reddeer.swt.condition.ShellWithTextIsAvailable;
 import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.menu.ShellMenu;
 import org.jboss.reddeer.swt.impl.menu.ToolbarMenu;
+import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
 import org.jboss.reddeer.swt.test.RedDeerTest;
-import org.jboss.reddeer.swt.wait.TimePeriod;
-import org.jboss.reddeer.swt.wait.WaitUntil;
+import org.jboss.reddeer.swt.wait.WaitWhile;
 import org.junit.Test;
 
 public class ToolBarMenuTest extends RedDeerTest {
@@ -18,9 +18,9 @@ public class ToolBarMenuTest extends RedDeerTest {
 		new DefaultTreeItem("General","Error Log").select();
 		new PushButton("OK").click();
 		new ToolbarMenu("View Menu","Filters...").select();
-		new WaitUntil(new ShellWithTextIsActive("Log Filters"),TimePeriod.NORMAL);
+		new DefaultShell("Log Filters");
 		new PushButton("OK").click();
-
+		new WaitWhile(new ShellWithTextIsAvailable("Log Filters"));
 	}
 
 }

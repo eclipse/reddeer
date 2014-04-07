@@ -3,12 +3,13 @@ package org.jboss.reddeer.junit.extension.after.test.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.swt.widgets.Shell;
 import org.jboss.reddeer.junit.extensionpoint.IAfterTest;
+import org.jboss.reddeer.junit.internal.screenshot.CaptureScreenshot;
+import org.jboss.reddeer.junit.internal.screenshot.CaptureScreenshotException;
 import org.jboss.reddeer.junit.logging.Logger;
 import org.jboss.reddeer.swt.handler.WidgetHandler;
-import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.jboss.reddeer.swt.impl.shell.WorkbenchShell;
-import org.jboss.reddeer.swt.lookup.ShellLookup;
 import org.junit.Assert;
 
 /**
@@ -23,16 +24,19 @@ import org.junit.Assert;
  */
 public class CloseAllShellsExt implements IAfterTest {
 
-	public static final boolean CLOSE_ALL_SHELLS = System.getProperty(
-			"reddeer.close.shells", "true").equalsIgnoreCase("true");
+	public static final boolean CLOSE_ALL_SHELLS = System.getProperty("reddeer.close.shells", "true").equalsIgnoreCase(
+			"true");
 
 	private Logger log = Logger.getLogger(CloseAllShellsExt.class);
+	
+	private Object target;
 
 	/**
 	 * See {@link IAfterTest}
 	 */
 	@Override
-	public void runAfterTest() {
+	public void runAfterTest(Object target) {
+		this.target = target;
 		if (hasToRun()) {
 			new WorkbenchShellExt().closeAllShells();
 		}
@@ -48,24 +52,34 @@ public class CloseAllShellsExt implements IAfterTest {
 
 	private class WorkbenchShellExt extends WorkbenchShell {
 
+		private List<String> shellTitles;
+
+		public WorkbenchShellExt() {
+			super();
+			shellTitles = new ArrayList<String>();
+		}
+
 		@Override
 		public void closeAllShells() {
-			log.info("Closing all shells...");
-			List<String> shellTitles = new ArrayList<String>();
-			org.eclipse.swt.widgets.Shell[] shell = ShellLookup.getInstance()
-					.getShells();
-			for (int i = 0; i < shell.length; i++) {
-				WidgetHandler widgetHandler = WidgetHandler.getInstance();
-				if (shell[i] != null && shell[i] != swtShell) {
-					if (widgetHandler.isVisible(shell[i])) {
-						String shellTitle = widgetHandler.getText(shell[i]);
-						shellTitles.add(shellTitle);
-						new DefaultShell(shellTitle).close();
-					}
-				}
-			}
+			super.closeAllShells();
 			if (shellTitles.size() > 0) {
 				Assert.fail("The following shells remained open " + shellTitles);
+			}
+		}
+
+		@Override
+		protected void beforeShellIsClosed(Shell shell) {
+			super.beforeShellIsClosed(shell);
+			String shellTitle = WidgetHandler.getInstance().getText(shell); 
+			shellTitles.add(shellTitle);
+			try {
+				String canonicalName = null;
+				if (target != null) {
+					canonicalName = target.getClass().getCanonicalName();
+				}
+				new CaptureScreenshot().captureScreenshot(canonicalName + "-" + shellTitle);
+			} catch (CaptureScreenshotException e) {
+				e.printStackTrace();
 			}
 		}
 
