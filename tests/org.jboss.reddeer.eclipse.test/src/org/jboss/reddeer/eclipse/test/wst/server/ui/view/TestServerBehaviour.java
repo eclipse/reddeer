@@ -17,7 +17,7 @@ public class TestServerBehaviour extends ServerBehaviourDelegate {
 	protected void setupLaunch(ILaunch launch, String launchMode, IProgressMonitor monitor) throws CoreException {
 
 		setServerState(IServer.STATE_STARTING);
-		AbstractWait.sleep(TimePeriod.getCustom(5));
+		AbstractWait.sleep(TimePeriod.SHORT);
 		setServerRestartState(false);
 		setServerState(IServer.STATE_STARTED);
 		setMode(launchMode);
@@ -26,12 +26,12 @@ public class TestServerBehaviour extends ServerBehaviourDelegate {
 	@Override
 	public void stop(boolean arg0) {
 		setServerState(IServer.STATE_STOPPING);
-		AbstractWait.sleep(TimePeriod.getCustom(5));
+		AbstractWait.sleep(TimePeriod.SHORT);
 		setServerState(IServer.STATE_STOPPED);
 	}
 
 	protected void publishServer(int kind, org.eclipse.core.runtime.IProgressMonitor monitor) throws org.eclipse.core.runtime.CoreException {
-		AbstractWait.sleep(TimePeriod.getCustom(5));
+		AbstractWait.sleep(TimePeriod.SHORT);
 		setServerPublishState(IServer.PUBLISH_STATE_NONE);
 	}
 }
