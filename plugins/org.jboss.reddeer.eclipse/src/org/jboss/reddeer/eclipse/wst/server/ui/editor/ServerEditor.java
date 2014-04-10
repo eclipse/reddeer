@@ -1,6 +1,6 @@
 package org.jboss.reddeer.eclipse.wst.server.ui.editor;
 
-import org.jboss.reddeer.workbench.editor.DefaultEditor;
+import org.jboss.reddeer.workbench.impl.editor.AbstractEditor;
 
 /**
  * Represents the editor for server properties. 
@@ -8,7 +8,7 @@ import org.jboss.reddeer.workbench.editor.DefaultEditor;
  * @author Lucia Jelinkova
  *
  */
-public class ServerEditor extends DefaultEditor {
+public class ServerEditor extends AbstractEditor {
 
 	public ServerEditor(String title) {
 		super(title);
