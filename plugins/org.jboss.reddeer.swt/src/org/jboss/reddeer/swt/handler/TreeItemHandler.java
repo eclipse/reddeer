@@ -19,7 +19,7 @@ public class TreeItemHandler {
 	}
 
 	/**
-	 * Creates and returns instance of ComboHandler class
+	 * Creates and returns instance of TreeHandler class
 	 * 
 	 * @return
 	 */
@@ -33,15 +33,15 @@ public class TreeItemHandler {
 	/**
 	 * Gets text on given cell index 
 	 * 
-	 * @param tableItem given widget
+	 * @param treeItem given widget
 	 * @Param cellIndex index of cell
 	 * @return returns widget text
 	 */
-	public String getText(final TreeItem tableItem, final int cellIndex) {
+	public String getText(final TreeItem treeItem, final int cellIndex) {
 		String text = Display.syncExec(new ResultRunnable<String>() {
 			@Override
 			public String run() {
-				return tableItem.getText(cellIndex);
+				return treeItem.getText(cellIndex);
 			}
 		});
 		return text;
@@ -75,6 +75,24 @@ public class TreeItemHandler {
 			@Override
 			public Boolean run() {
 				return item.getExpanded();
+			}
+		});
+	}
+	
+	
+	/**
+	 * Sets text on given cell index 
+	 * 
+	 * @param treeItem given widget
+	 * @Param cellIndex index of cell
+	 * @param text to set
+	 */
+	public void setText(final TreeItem treeItem, final int cellIndex, final String text) {
+		Display.syncExec(new Runnable() {
+			
+			@Override
+			public void run() {
+				treeItem.setText(cellIndex, text);
 			}
 		});
 	}

@@ -224,4 +224,14 @@ public abstract class AbstractTreeItem implements TreeItem {
 	public boolean isEnabled() {
 		return WidgetHandler.getInstance().isEnabled(swtTreeItem);
 	}
+	
+	@Override
+	public void setText(String text, int index){
+		TreeItemHandler.getInstance().setText(swtTreeItem, index, text);
+	}
+	
+	@Override
+	public void setText(String text){
+		TreeItemHandler.getInstance().setText(swtTreeItem, 0, text);
+	}
 }
