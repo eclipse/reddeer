@@ -1,23 +1,23 @@
 package org.jboss.reddeer.eclipse.condition;
 
+import org.hamcrest.Matcher;
 import org.jboss.reddeer.eclipse.ui.browser.BrowserEditor;
 import org.jboss.reddeer.eclipse.ui.browser.BrowserView;
 import org.jboss.reddeer.swt.condition.WaitCondition;
-import org.jboss.reddeer.swt.matcher.RegexMatcher;
 
 public class BrowserHasURL implements WaitCondition {
 
 	private BrowserView browser;
 	private BrowserEditor browserEditor;
 	private String expectedURL;
-	private RegexMatcher expectedURLMatcher;
+	private Matcher<String> expectedURLMatcher;
 	
 	public BrowserHasURL(BrowserView browser,String expectedURL){
 		this.browser = browser;
 		this.expectedURL = expectedURL;
 	}
 	
-	public BrowserHasURL(BrowserView browser,RegexMatcher expectedURLMatcher){
+	public BrowserHasURL(BrowserView browser,Matcher<String> expectedURLMatcher){
 		this.browser = browser;
 		this.expectedURLMatcher = expectedURLMatcher;
 	}
@@ -27,7 +27,7 @@ public class BrowserHasURL implements WaitCondition {
 		this.expectedURL = expectedURL;
 	}
 	
-	public BrowserHasURL(BrowserEditor browser,RegexMatcher expectedURLMatcher){
+	public BrowserHasURL(BrowserEditor browser,Matcher<String> expectedURLMatcher){
 		this.browserEditor = browser;
 		this.expectedURLMatcher = expectedURLMatcher;
 	}

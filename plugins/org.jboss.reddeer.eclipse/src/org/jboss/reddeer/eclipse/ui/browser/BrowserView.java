@@ -18,8 +18,8 @@ import org.jboss.reddeer.workbench.impl.view.WorkbenchView;
  */
 public class BrowserView extends WorkbenchView {
 
-	private Browser browser;
-	private static final TimePeriod TIMEOUT = TimePeriod.LONG;
+	protected Browser browser;
+	protected static final TimePeriod TIMEOUT = TimePeriod.LONG;
 
 	/**
 	 * Constructor of BrowserView Class
