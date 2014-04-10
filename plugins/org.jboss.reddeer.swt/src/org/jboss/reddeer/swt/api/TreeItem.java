@@ -130,5 +130,18 @@ public interface TreeItem extends Widget{
 	 */
 	 boolean isExpanded();
 	 
+	 /**
+	  * Sets tree item text
+	  * @param text to set
+	  * @param index of column
+	  */
+	 void setText(String text, int index);
+	 
+	 /**
+	  * Sets tree item text 
+	  * @param text to set
+	  */
+	 void setText(String text);
+	 
 	 org.eclipse.swt.widgets.TreeItem getSWTWidget();
 }
