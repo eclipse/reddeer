@@ -13,7 +13,7 @@ import org.jboss.reddeer.swt.impl.tree.DefaultTree;
 import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
 import org.jboss.reddeer.swt.wait.TimePeriod;
 import org.jboss.reddeer.swt.wait.WaitUntil;
-import org.jboss.reddeer.workbench.view.View;
+import org.jboss.reddeer.workbench.impl.view.WorkbenchView;
 import org.jboss.reddeer.swt.condition.TreeItemHasMinChildren;
 
 /**
@@ -22,7 +22,7 @@ import org.jboss.reddeer.swt.condition.TreeItemHasMinChildren;
  * @author ldimaggi
  *
  */
-public class TaskListView extends View {
+public class TaskListView extends WorkbenchView {
 	
 	public static final String TITLE = "Task List";
 	

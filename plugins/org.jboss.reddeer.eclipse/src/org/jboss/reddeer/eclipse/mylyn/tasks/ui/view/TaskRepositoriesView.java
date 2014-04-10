@@ -15,7 +15,7 @@ import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.jboss.reddeer.swt.impl.text.DefaultText;
 import org.jboss.reddeer.swt.impl.tree.DefaultTree;
 import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
-import org.jboss.reddeer.workbench.view.View;
+import org.jboss.reddeer.workbench.impl.view.WorkbenchView;
 
 
 /**
@@ -24,7 +24,7 @@ import org.jboss.reddeer.workbench.view.View;
  * @author 
  *
  */
-public class TaskRepositoriesView extends View {
+public class TaskRepositoriesView extends WorkbenchView {
 	
 	public static final String TITLE = "Task Repositories";
 	

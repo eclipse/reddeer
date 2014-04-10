@@ -2,7 +2,7 @@ package org.jboss.reddeer.eclipse.jdt.ui.junit;
 
 import org.jboss.reddeer.swt.impl.label.DefaultLabel;
 import org.jboss.reddeer.swt.impl.text.LabeledText;
-import org.jboss.reddeer.workbench.view.View;
+import org.jboss.reddeer.workbench.impl.view.WorkbenchView;
 
 /**
  * JUnit View
@@ -10,7 +10,7 @@ import org.jboss.reddeer.workbench.view.View;
  * @author apodhrad
  * 
  */
-public class JUnitView extends View {
+public class JUnitView extends WorkbenchView {
 
 	public JUnitView() {
 		super("JUnit");

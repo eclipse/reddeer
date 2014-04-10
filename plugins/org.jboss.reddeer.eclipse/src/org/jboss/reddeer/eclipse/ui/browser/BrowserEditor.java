@@ -7,10 +7,9 @@ import org.jboss.reddeer.swt.impl.browser.InternalBrowser;
 import org.jboss.reddeer.swt.wait.TimePeriod;
 import org.jboss.reddeer.swt.wait.WaitUntil;
 import org.jboss.reddeer.swt.wait.WaitWhile;
-import org.jboss.reddeer.workbench.editor.DefaultEditor;
-import org.jboss.reddeer.workbench.editor.Editor;
+import org.jboss.reddeer.workbench.impl.editor.AbstractEditor;
 
-public class BrowserEditor extends DefaultEditor implements Editor{
+public class BrowserEditor extends AbstractEditor{
 	
 	private InternalBrowser browser;
 	private static final TimePeriod TIMEOUT = TimePeriod.LONG;

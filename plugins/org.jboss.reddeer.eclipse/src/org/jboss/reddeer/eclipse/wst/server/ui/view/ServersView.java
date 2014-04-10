@@ -12,7 +12,7 @@ import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.impl.menu.ContextMenu;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.jboss.reddeer.swt.impl.tree.DefaultTree;
-import org.jboss.reddeer.workbench.view.View;
+import org.jboss.reddeer.workbench.impl.view.WorkbenchView;
 
 /**
  * Represents the Servers view. This class contains methods that can be invoked even 
@@ -21,7 +21,7 @@ import org.jboss.reddeer.workbench.view.View;
  * @author Lucia Jelinkova
  *
  */
-public class ServersView extends View {
+public class ServersView extends WorkbenchView {
 
 	public static final String TITLE = "Servers";
 
