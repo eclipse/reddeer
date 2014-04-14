@@ -2,7 +2,7 @@ package org.jboss.reddeer.swt.impl.text;
 
 import org.jboss.reddeer.swt.api.Text;
 import org.jboss.reddeer.swt.lookup.TextLookup;
-import org.jboss.reddeer.swt.matcher.LabelMatcher;
+import org.jboss.reddeer.swt.matcher.WithLabelMatcher;
 import org.jboss.reddeer.swt.reference.ReferencedComposite;
 
 /**
@@ -17,7 +17,7 @@ public class LabeledText extends AbstractText implements Text {
 	 * @param label
 	 */
 	public LabeledText(String label) {
-		LabelMatcher lm = new LabelMatcher(label);
+		WithLabelMatcher lm = new WithLabelMatcher(label);
 		w = TextLookup.getInstance().getText(null, 0, lm);
 	}
 	
@@ -27,7 +27,7 @@ public class LabeledText extends AbstractText implements Text {
 	 * @param label
 	 */
 	public LabeledText(ReferencedComposite referencedComposite, String label) {
-		LabelMatcher lm = new LabelMatcher(label);
+		WithLabelMatcher lm = new WithLabelMatcher(label);
 		w = TextLookup.getInstance().getText(referencedComposite, 0, lm);
 	}
 	

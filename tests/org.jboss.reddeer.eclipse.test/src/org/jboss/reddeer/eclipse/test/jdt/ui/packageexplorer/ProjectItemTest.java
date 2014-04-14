@@ -11,12 +11,12 @@ import org.jboss.reddeer.eclipse.jdt.ui.ide.NewJavaProjectWizardDialog;
 import org.jboss.reddeer.eclipse.jdt.ui.ide.NewJavaProjectWizardPage;
 import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.PackageExplorer;
 import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.ProjectItem;
-import org.jboss.reddeer.swt.test.RedDeerTest;
 import org.jboss.reddeer.swt.condition.JobIsRunning;
 import org.jboss.reddeer.swt.handler.WorkbenchHandler;
+import org.jboss.reddeer.swt.test.RedDeerTest;
 import org.jboss.reddeer.swt.wait.TimePeriod;
 import org.jboss.reddeer.swt.wait.WaitWhile;
-import org.jboss.reddeer.workbench.editor.DefaultEditor;
+import org.jboss.reddeer.workbench.impl.editor.DefaultEditor;
 import org.junit.Test;
 
 public class ProjectItemTest extends RedDeerTest {

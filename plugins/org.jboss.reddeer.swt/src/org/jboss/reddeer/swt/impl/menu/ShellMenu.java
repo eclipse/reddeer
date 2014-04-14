@@ -12,7 +12,7 @@ import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.handler.WidgetHandler;
 import org.jboss.reddeer.swt.lookup.MenuLookup;
 import org.jboss.reddeer.swt.lookup.ShellLookup;
-import org.jboss.reddeer.swt.matcher.WithMnemonicMatchers;
+import org.jboss.reddeer.swt.matcher.WithMnemonicTextMatchers;
 import org.jboss.reddeer.swt.util.Display;
 
 /**
@@ -50,7 +50,7 @@ public class ShellMenu extends AbstractMenu implements Menu {
 	 * @param path
 	 */
 	public ShellMenu(final String... path) {
-		this(new WithMnemonicMatchers(path).getMatchers());
+		this(new WithMnemonicTextMatchers(path).getMatchers());
 	}
 	
 	

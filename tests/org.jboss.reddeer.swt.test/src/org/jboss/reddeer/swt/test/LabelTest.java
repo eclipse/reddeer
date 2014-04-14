@@ -1,10 +1,10 @@
 package org.jboss.reddeer.swt.test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
 import org.jboss.reddeer.swt.api.Label;
 import org.jboss.reddeer.swt.impl.label.DefaultLabel;
-import org.jboss.reddeer.workbench.view.impl.WorkbenchView;
+import org.jboss.reddeer.workbench.impl.view.WorkbenchView;
 import org.junit.BeforeClass;
 import org.junit.Test;
 

@@ -1,6 +1,6 @@
 package org.jboss.reddeer.swt.test.impl.button;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -131,7 +131,7 @@ public class PredefinedButtonTest extends RedDeerTest {
 	@Test(expected = SWTLayerException.class)
 	public void testPrescribedButtonsNotFound() {
 		visibleButtons(false);
-		OkButton okButton = new OkButton();
+		new OkButton();
 	}
 
 	@Test

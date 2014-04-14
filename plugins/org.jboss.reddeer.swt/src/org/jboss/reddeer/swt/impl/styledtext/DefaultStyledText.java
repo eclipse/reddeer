@@ -3,11 +3,10 @@ package org.jboss.reddeer.swt.impl.styledtext;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.junit.logging.Logger;
 import org.jboss.reddeer.swt.api.StyledText;
-import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.handler.StyledTextHandler;
 import org.jboss.reddeer.swt.handler.WidgetHandler;
 import org.jboss.reddeer.swt.lookup.StyledTextLookup;
-import org.jboss.reddeer.swt.matcher.TextMatcher;
+import org.jboss.reddeer.swt.matcher.WithTextMatcher;
 import org.jboss.reddeer.swt.reference.ReferencedComposite;
 
 /**
@@ -60,7 +59,7 @@ public class DefaultStyledText implements StyledText {
 	 * @param text
 	 */
 	public DefaultStyledText(String text) {
-		styledText = StyledTextLookup.getInstance().getStyledText(null, 0, new TextMatcher(text));
+		styledText = StyledTextLookup.getInstance().getStyledText(null, 0, new WithTextMatcher(text));
 	}
 	
 	/**
@@ -69,7 +68,7 @@ public class DefaultStyledText implements StyledText {
 	 * @param text
 	 */
 	public DefaultStyledText(ReferencedComposite referencedComposite, String text) {
-		styledText = StyledTextLookup.getInstance().getStyledText(referencedComposite, 0, new TextMatcher(text));
+		styledText = StyledTextLookup.getInstance().getStyledText(referencedComposite, 0, new WithTextMatcher(text));
 	}
 
 	/**

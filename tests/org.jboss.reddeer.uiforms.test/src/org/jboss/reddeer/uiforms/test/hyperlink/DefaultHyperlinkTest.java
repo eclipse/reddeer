@@ -13,7 +13,7 @@ import org.jboss.reddeer.uiforms.impl.form.DefaultForm;
 import org.jboss.reddeer.uiforms.impl.hyperlink.DefaultHyperlink;
 import org.jboss.reddeer.uiforms.test.ui.views.FormView;
 import org.jboss.reddeer.uiforms.test.ui.views.UIFormView;
-import org.jboss.reddeer.workbench.view.View;
+import org.jboss.reddeer.workbench.api.View;
 import org.junit.Before;
 import org.junit.Test;
 

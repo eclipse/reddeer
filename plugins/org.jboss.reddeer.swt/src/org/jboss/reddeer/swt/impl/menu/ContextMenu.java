@@ -8,7 +8,7 @@ import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.handler.ActionContributionItemHandler;
 import org.jboss.reddeer.swt.handler.WidgetHandler;
 import org.jboss.reddeer.swt.lookup.MenuLookup;
-import org.jboss.reddeer.swt.matcher.WithMnemonicMatchers;
+import org.jboss.reddeer.swt.matcher.WithMnemonicTextMatchers;
 import org.jboss.reddeer.swt.util.Display;
 import org.jboss.reddeer.swt.util.ResultRunnable;
 
@@ -33,7 +33,7 @@ public class ContextMenu extends AbstractMenu implements Menu {
 	 * @param path
 	 */
 	public ContextMenu(String... path) {
-		this(new WithMnemonicMatchers(path).getMatchers());		
+		this(new WithMnemonicTextMatchers(path).getMatchers());		
 	}
 	
 	/**

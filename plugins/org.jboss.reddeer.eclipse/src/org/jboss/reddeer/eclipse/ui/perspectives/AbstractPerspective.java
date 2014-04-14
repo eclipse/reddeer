@@ -1,16 +1,16 @@
 package org.jboss.reddeer.eclipse.ui.perspectives;
 
-import org.jboss.reddeer.junit.logging.Logger;
 import org.eclipse.ui.IPerspectiveDescriptor;
 import org.eclipse.ui.PlatformUI;
 import org.jboss.reddeer.eclipse.exception.EclipseLayerException;
+import org.jboss.reddeer.junit.logging.Logger;
 import org.jboss.reddeer.swt.api.Menu;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.menu.ShellMenu;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.jboss.reddeer.swt.impl.table.DefaultTable;
-import org.jboss.reddeer.swt.matcher.RegexMatchers;
+import org.jboss.reddeer.swt.matcher.WithRegexMatchers;
 import org.jboss.reddeer.swt.util.Display;
 import org.jboss.reddeer.swt.util.ResultRunnable;
 
@@ -41,7 +41,7 @@ public abstract class AbstractPerspective {
     }
     else{
       log.debug("Trying to open perspective: " + getPerspectiveLabel());
-      RegexMatchers m = new RegexMatchers("Window.*", "Open Perspective.*",
+      WithRegexMatchers m = new WithRegexMatchers("Window.*", "Open Perspective.*",
           "Other...*");
       Menu menu = new ShellMenu(m.getMatchers());
       menu.select();

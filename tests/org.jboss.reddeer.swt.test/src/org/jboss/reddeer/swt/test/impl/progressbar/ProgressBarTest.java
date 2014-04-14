@@ -7,12 +7,12 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.ProgressBar;
 import org.eclipse.swt.widgets.Shell;
+import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.impl.progressbar.HorizontalProgressBar;
 import org.jboss.reddeer.swt.impl.progressbar.IndeterminateProgressBar;
 import org.jboss.reddeer.swt.impl.progressbar.VerticalProgressBar;
 import org.jboss.reddeer.swt.test.RedDeerTest;
 import org.jboss.reddeer.swt.util.Display;
-import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.junit.After;
 import org.junit.Test;
 
@@ -20,7 +20,6 @@ public class ProgressBarTest extends RedDeerTest{
 
 	private ProgressBar pbVertical;
 	private ProgressBar pbHorizontal;
-	private ProgressBar pbIndeterminate;
 	
 	@Override
 	protected void setUp() {
@@ -51,7 +50,7 @@ public class ProgressBarTest extends RedDeerTest{
 		pbHorizontal.setMaximum(200);
 		pbHorizontal.setMinimum(100);
 		pbHorizontal.setSelection(150);
-		pbIndeterminate = new ProgressBar(shell, SWT.HORIZONTAL | SWT.INDETERMINATE);
+		new ProgressBar(shell, SWT.HORIZONTAL | SWT.INDETERMINATE);
 	}
 
 	@After

@@ -65,7 +65,7 @@ public abstract class AbstractExpandBarItem implements ExpandBarItem {
 		logger.debug("Expanding Expand Bar Item " + getText());
 		if (!isExpanded()) {
 			ExpandBarItemHandler.getInstance().expand(getSWTWidget(), getSWTParent());
-			AbstractWait.sleep(timePeriod.getSeconds()*1000);
+			AbstractWait.sleep(timePeriod);
 			logger.info("Expand Bar Item " + getText()
 					+ " has been expanded");
 		} else {

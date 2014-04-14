@@ -12,7 +12,7 @@ import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.jboss.reddeer.swt.impl.styledtext.DefaultStyledText;
 import org.jboss.reddeer.swt.util.Display;
 import org.jboss.reddeer.swt.wait.WaitWhile;
-import org.jboss.reddeer.workbench.view.impl.WorkbenchView;
+import org.jboss.reddeer.workbench.impl.view.WorkbenchView;
 import org.junit.After;
 import org.junit.BeforeClass;
 import org.junit.Test;

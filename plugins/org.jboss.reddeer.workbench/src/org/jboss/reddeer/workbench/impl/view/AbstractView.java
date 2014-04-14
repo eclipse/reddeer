@@ -14,8 +14,8 @@ import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.menu.ShellMenu;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
-import org.jboss.reddeer.swt.matcher.RegexMatchers;
-import org.jboss.reddeer.swt.matcher.TextMatcher;
+import org.jboss.reddeer.swt.matcher.WithRegexMatchers;
+import org.jboss.reddeer.swt.matcher.WithTextMatcher;
 import org.jboss.reddeer.swt.wait.TimePeriod;
 import org.jboss.reddeer.swt.wait.WaitUntil;
 import org.jboss.reddeer.swt.wait.WaitWhile;
@@ -47,7 +47,7 @@ public class AbstractView implements View{
 		ViewPartIsFound viewIsFound = new ViewPartIsFound(viewToolTip);
 		new WaitUntil(viewIsFound, TimePeriod.NORMAL, false);
 		viewPart = viewIsFound.getPart();
-		path = findRegisteredViewPath(new TextMatcher(viewToolTip));
+		path = findRegisteredViewPath(new WithTextMatcher(viewToolTip));
 		if(viewPart != null){
 			ViewHandler.getInstance().setFocus(viewPart, viewTitle());
 		}		
@@ -143,11 +143,11 @@ public class AbstractView implements View{
 	@Override
 	public void open() {
 		log.info("Showing " + viewTitle() + " view");
-		viewPart = WorkbenchPartLookup.getInstance().getViewByTitle(new TextMatcher(viewTitle()));
+		viewPart = WorkbenchPartLookup.getInstance().getViewByTitle(new WithTextMatcher(viewTitle()));
 		// view is not opened, it has to be opened via menu
 		if (viewPart == null) {
 			log.info("Opening " + viewTitle() + " view via menu.");
-			RegexMatchers m = new RegexMatchers("Window.*", "Show View.*",
+			WithRegexMatchers m = new WithRegexMatchers("Window.*", "Show View.*",
 					"Other...*");
 			Menu menu = new ShellMenu(m.getMatchers());
 			menu.select();
@@ -201,7 +201,7 @@ public class AbstractView implements View{
 		@Override
 		public boolean test() {
 			if(title != null){
-				Matcher<String> titleM = new TextMatcher(title);
+				Matcher<String> titleM = new WithTextMatcher(title);
 				part = WorkbenchPartLookup.getInstance().getViewByTitle(titleM);
 			} else {
 				part = WorkbenchPartLookup.getInstance().getViewByTitle(titleMatcher);

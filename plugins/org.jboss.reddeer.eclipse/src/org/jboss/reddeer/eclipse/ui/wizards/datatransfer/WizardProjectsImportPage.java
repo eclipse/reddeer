@@ -13,7 +13,7 @@ import org.jboss.reddeer.swt.condition.WaitCondition;
 import org.jboss.reddeer.swt.impl.button.CheckBox;
 import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.button.RadioButton;
-import org.jboss.reddeer.swt.impl.combo.LabeledCombo;
+import org.jboss.reddeer.swt.impl.combo.DefaultCombo;
 import org.jboss.reddeer.swt.impl.tree.DefaultTree;
 import org.jboss.reddeer.swt.wait.TimePeriod;
 import org.jboss.reddeer.swt.wait.WaitUntil;
@@ -101,9 +101,9 @@ public class WizardProjectsImportPage extends WizardPage {
 	protected void setPath(String radioText, String path){
 		new RadioButton(radioText).click();
 		if(radioText.equals("Select root directory:")){
-			new LabeledCombo(0).setText(path);
+			new DefaultCombo(0).setText(path);
 		} else {
-			new LabeledCombo(1).setText(path);
+			new DefaultCombo(1).setText(path);
 		}
 		new PushButton("Refresh").click();
 		new WaitUntil(new ProjectIsLoaded(getProjectsTree()), TimePeriod.NORMAL);

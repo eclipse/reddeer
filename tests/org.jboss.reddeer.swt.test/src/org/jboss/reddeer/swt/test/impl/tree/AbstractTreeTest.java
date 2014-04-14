@@ -1,13 +1,13 @@
 package org.jboss.reddeer.swt.test.impl.tree;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.core.IsCollectionContaining.hasItems;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
-import static org.hamcrest.core.IsCollectionContaining.hasItems;
 
 import java.util.Arrays;
 import java.util.List;
@@ -24,7 +24,7 @@ import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.exception.WaitTimeoutExpiredException;
 import org.jboss.reddeer.swt.impl.tree.DefaultTree;
 import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
-import org.jboss.reddeer.swt.matcher.RegexMatcher;
+import org.jboss.reddeer.swt.matcher.WithRegexMatcher;
 import org.jboss.reddeer.swt.test.RedDeerTest;
 import org.jboss.reddeer.swt.test.ui.views.TreeEventsListener;
 import org.jboss.reddeer.swt.util.Display;
@@ -319,12 +319,12 @@ public class AbstractTreeTest extends RedDeerTest {
 		DefaultTreeItem dfi;
 
 		expected = "AA";
-		dfi = new DefaultTreeItem(new RegexMatcher("A"), new RegexMatcher("A+"));
+		dfi = new DefaultTreeItem(new WithRegexMatcher("A"), new WithRegexMatcher("A+"));
 		assertEquals(String.format("Found item with text '%s', '%s' expected", dfi.getText(), expected),
 				expected, dfi.getText());
 
 		expected = "AAB";
-		dfi = new DefaultTreeItem(new RegexMatcher("A"), new RegexMatcher("A+"), new RegexMatcher("A+B"));
+		dfi = new DefaultTreeItem(new WithRegexMatcher("A"), new WithRegexMatcher("A+"), new WithRegexMatcher("A+B"));
 		assertEquals(String.format("Found item with text '%s', '%s' expected", dfi.getText(), expected),
 				expected, dfi.getText());
 	}
@@ -387,11 +387,6 @@ public class AbstractTreeTest extends RedDeerTest {
 	        });
 
 	  }
-
-  private org.eclipse.swt.widgets.TreeItem createTreeItem(
-	      final org.eclipse.swt.widgets.TreeItem treeItem, final String text) {
-	  return createTreeItem(treeItem, text, 0);
-  }
 
   private String printFormattedStringArray (String[] array){
     StringBuffer sb = new StringBuffer();

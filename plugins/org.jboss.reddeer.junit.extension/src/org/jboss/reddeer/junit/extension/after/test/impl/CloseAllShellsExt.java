@@ -7,7 +7,6 @@ import org.eclipse.swt.widgets.Shell;
 import org.jboss.reddeer.junit.extensionpoint.IAfterTest;
 import org.jboss.reddeer.junit.internal.screenshot.CaptureScreenshot;
 import org.jboss.reddeer.junit.internal.screenshot.CaptureScreenshotException;
-import org.jboss.reddeer.junit.logging.Logger;
 import org.jboss.reddeer.swt.handler.WidgetHandler;
 import org.jboss.reddeer.swt.impl.shell.WorkbenchShell;
 import org.junit.Assert;
@@ -27,8 +26,6 @@ public class CloseAllShellsExt implements IAfterTest {
 	public static final boolean CLOSE_ALL_SHELLS = System.getProperty("reddeer.close.shells", "true").equalsIgnoreCase(
 			"true");
 
-	private Logger log = Logger.getLogger(CloseAllShellsExt.class);
-	
 	private Object target;
 
 	/**

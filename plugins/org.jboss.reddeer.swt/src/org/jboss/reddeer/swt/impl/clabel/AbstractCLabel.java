@@ -2,7 +2,6 @@ package org.jboss.reddeer.swt.impl.clabel;
 
 import org.jboss.reddeer.swt.api.CLabel;
 import org.jboss.reddeer.swt.handler.WidgetHandler;
-import org.jboss.reddeer.swt.lookup.WidgetLookup;
 import org.jboss.reddeer.swt.util.ObjectUtil;
 /**
  * Abstract class for all CLabel implementations

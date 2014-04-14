@@ -3,7 +3,7 @@ package org.jboss.reddeer.swt.impl.shell;
 import org.jboss.reddeer.swt.condition.ShellWithTextIsAvailable;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.lookup.ShellLookup;
-import org.jboss.reddeer.swt.matcher.TextMatcher;
+import org.jboss.reddeer.swt.matcher.WithTextMatcher;
 import org.jboss.reddeer.swt.wait.TimePeriod;
 import org.jboss.reddeer.swt.wait.WaitUntil;
 
@@ -19,7 +19,7 @@ public class DefaultShell extends AbstractShell {
 	public DefaultShell(String title) {
 		try {
 			new WaitUntil(new ShellWithTextIsAvailable(title), TimePeriod.NORMAL);
-			swtShell = ShellLookup.getInstance().getShell(new TextMatcher(title));
+			swtShell = ShellLookup.getInstance().getShell(new WithTextMatcher(title));
 			setFocus();
 			log.info("Shell with title '" + title + "' found");
 		} catch (Exception e) {

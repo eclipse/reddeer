@@ -6,7 +6,7 @@ import org.hamcrest.Matcher;
 import org.jboss.reddeer.swt.api.Menu;
 import org.jboss.reddeer.swt.handler.ActionContributionItemHandler;
 import org.jboss.reddeer.swt.lookup.MenuLookup;
-import org.jboss.reddeer.swt.matcher.WithMnemonicMatchers;
+import org.jboss.reddeer.swt.matcher.WithMnemonicTextMatchers;
 
 /**
  * ToolbarMenu implementation
@@ -18,7 +18,7 @@ public class ToolbarMenu extends AbstractMenu implements Menu{
 	private ActionContributionItem item;
 	
 	public ToolbarMenu(String... path){
-		this(new WithMnemonicMatchers(path).getMatchers());
+		this(new WithMnemonicTextMatchers(path).getMatchers());
 	}
 	
 	public ToolbarMenu(Matcher<String>... matchers){

@@ -4,9 +4,7 @@ import org.jboss.reddeer.junit.logging.Logger;
 import org.jboss.reddeer.swt.api.ProgressBar;
 import org.jboss.reddeer.swt.handler.WidgetHandler;
 import org.jboss.reddeer.swt.lookup.ProgressBarLookup;
-import org.jboss.reddeer.swt.matcher.StyleMatcher;
-import org.jboss.reddeer.swt.util.Display;
-import org.jboss.reddeer.swt.util.ResultRunnable;
+import org.jboss.reddeer.swt.matcher.WithStyleMatcher;
 
 /**
  * Abstract class for ProgressBar
@@ -25,7 +23,7 @@ public abstract class AbstractProgressBar implements ProgressBar {
 		log.info("Searching for ProgressBar:"
 				+ "\n  index: " + index
 				+ "\n  style: " + style);
-		widget = ProgressBarLookup.getInstance().getProgressBar(index, new StyleMatcher(style));
+		widget = ProgressBarLookup.getInstance().getProgressBar(index, new WithStyleMatcher(style));
 	}
 
 	/**

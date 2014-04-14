@@ -6,7 +6,7 @@ import org.hamcrest.Matcher;
 import org.jboss.reddeer.junit.logging.Logger;
 import org.jboss.reddeer.swt.condition.WaitCondition;
 import org.jboss.reddeer.swt.exception.WaitTimeoutExpiredException;
-import org.jboss.reddeer.swt.matcher.TextMatcher;
+import org.jboss.reddeer.swt.matcher.WithTextMatcher;
 import org.jboss.reddeer.swt.wait.WaitUntil;
 import org.jboss.reddeer.workbench.api.Editor;
 import org.jboss.reddeer.workbench.exception.WorkbenchPartNotFound;
@@ -139,7 +139,7 @@ public class AbstractEditor implements Editor {
 		@Override
 		public boolean test() {
 			if (title != null) {
-				Matcher<String> titleM = new TextMatcher(title);
+				Matcher<String> titleM = new WithTextMatcher(title);
 				part = WorkbenchPartLookup.getInstance().getEditorByTitle(
 						titleM);
 			} else {
