@@ -3,7 +3,7 @@ package org.jboss.reddeer.swt.impl.combo;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.swt.api.Combo;
 import org.jboss.reddeer.swt.lookup.ComboLookup;
-import org.jboss.reddeer.swt.matcher.TextMatcher;
+import org.jboss.reddeer.swt.matcher.WithTextMatcher;
 import org.jboss.reddeer.swt.reference.ReferencedComposite;
 
 /**
@@ -59,7 +59,7 @@ public class DefaultCombo extends AbstractCombo implements Combo{
 	 * @param text which is written in combo
 	 */
 	public DefaultCombo(ReferencedComposite ref, String text){
-		swtCombo = ComboLookup.getInstance().getCombo(ref , 0, new TextMatcher(text));
+		swtCombo = ComboLookup.getInstance().getCombo(ref , 0, new WithTextMatcher(text));
 	}
 	
 	/**

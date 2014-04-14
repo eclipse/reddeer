@@ -13,8 +13,8 @@ import org.jboss.reddeer.swt.condition.WidgetIsEnabled;
 import org.jboss.reddeer.swt.handler.ButtonHandler;
 import org.jboss.reddeer.swt.handler.WidgetHandler;
 import org.jboss.reddeer.swt.lookup.ButtonLookup;
-import org.jboss.reddeer.swt.matcher.StyleMatcher;
-import org.jboss.reddeer.swt.matcher.WithMnemonicMatcher;
+import org.jboss.reddeer.swt.matcher.WithMnemonicTextMatcher;
+import org.jboss.reddeer.swt.matcher.WithStyleMatcher;
 import org.jboss.reddeer.swt.reference.ReferencedComposite;
 import org.jboss.reddeer.swt.wait.WaitUntil;
 
@@ -41,9 +41,9 @@ public abstract class AbstractButton implements Button {
         
 		List<Matcher> list= new ArrayList<Matcher>();
 		if (text != null && !text.isEmpty()) {
-			list.add(new WithMnemonicMatcher(text));
+			list.add(new WithMnemonicTextMatcher(text));
 		}
-		list.add(new StyleMatcher(style));			
+		list.add(new WithStyleMatcher(style));			
 		list.addAll(Arrays.asList(matchers));
 
 		Matcher[] newMatchers = list.toArray(new Matcher[list.size()]);

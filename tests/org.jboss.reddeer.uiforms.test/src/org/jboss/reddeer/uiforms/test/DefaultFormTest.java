@@ -9,8 +9,8 @@ import org.jboss.reddeer.swt.test.RedDeerTest;
 import org.jboss.reddeer.uiforms.impl.form.DefaultForm;
 import org.jboss.reddeer.uiforms.test.ui.views.FormView;
 import org.jboss.reddeer.uiforms.test.ui.views.UIFormView;
-import org.jboss.reddeer.workbench.view.View;
-import org.jboss.reddeer.workbench.view.impl.WorkbenchView;
+import org.jboss.reddeer.workbench.api.View;
+import org.jboss.reddeer.workbench.impl.view.WorkbenchView;
 import org.junit.Before;
 import org.junit.Test;
 

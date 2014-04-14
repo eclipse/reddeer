@@ -2,7 +2,7 @@ package org.jboss.reddeer.swt.impl.label;
 
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.swt.lookup.LabelLookup;
-import org.jboss.reddeer.swt.matcher.TextMatcher;
+import org.jboss.reddeer.swt.matcher.WithTextMatcher;
 import org.jboss.reddeer.swt.reference.ReferencedComposite;
 
 /**
@@ -33,7 +33,7 @@ public class DefaultLabel extends AbstractLabel {
 	 * @param text
 	 */
 	public DefaultLabel(String text) {
-		w = LabelLookup.getInstance().getLabel(null, 0, new TextMatcher(text));
+		w = LabelLookup.getInstance().getLabel(null, 0, new WithTextMatcher(text));
 	}
 	
 	/**
@@ -50,7 +50,7 @@ public class DefaultLabel extends AbstractLabel {
 	 * @param text
 	 */
 	public DefaultLabel(ReferencedComposite referencedComposite, String text) {
-		w = LabelLookup.getInstance().getLabel(referencedComposite, 0, new TextMatcher(text));
+		w = LabelLookup.getInstance().getLabel(referencedComposite, 0, new WithTextMatcher(text));
 	}
 	
 	/**
@@ -76,7 +76,7 @@ public class DefaultLabel extends AbstractLabel {
 	 * @param index
 	 */
 	public DefaultLabel(String text, int index) {
-		w = LabelLookup.getInstance().getLabel(null, index,new TextMatcher(text));		
+		w = LabelLookup.getInstance().getLabel(null, index,new WithTextMatcher(text));		
 	}
 	
 	/**
@@ -86,6 +86,6 @@ public class DefaultLabel extends AbstractLabel {
 	 * @param index
 	 */
 	public DefaultLabel(ReferencedComposite referencedComposite, String text, int index) {
-		w = LabelLookup.getInstance().getLabel(referencedComposite, index,new TextMatcher(text));		
+		w = LabelLookup.getInstance().getLabel(referencedComposite, index,new WithTextMatcher(text));		
 	}
 }

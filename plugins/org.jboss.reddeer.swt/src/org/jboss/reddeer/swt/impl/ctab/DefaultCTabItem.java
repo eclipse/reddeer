@@ -1,7 +1,7 @@
 package org.jboss.reddeer.swt.impl.ctab;
 
 import org.jboss.reddeer.swt.lookup.CTabItemLookup;
-import org.jboss.reddeer.swt.matcher.WithMnemonicMatcher;
+import org.jboss.reddeer.swt.matcher.WithMnemonicTextMatcher;
 import org.jboss.reddeer.swt.reference.ReferencedComposite;
 
 /**
@@ -52,7 +52,7 @@ public class DefaultCTabItem extends AbstractCTabItem {
 	 */
 	public DefaultCTabItem(int index, String text) {
 		super((text != null && !text.isEmpty()) ? CTabItemLookup.getInstance()
-				.getCTabItem(null, index, new WithMnemonicMatcher(text))
+				.getCTabItem(null, index, new WithMnemonicTextMatcher(text))
 				: CTabItemLookup.getInstance().getCTabItem(null, index));
 	}
 	
@@ -64,7 +64,7 @@ public class DefaultCTabItem extends AbstractCTabItem {
 	 */
 	public DefaultCTabItem(ReferencedComposite referencedComposite, int index, String text) {
 		super((text != null && !text.isEmpty()) ? CTabItemLookup.getInstance()
-				.getCTabItem(referencedComposite, index, new WithMnemonicMatcher(text))
+				.getCTabItem(referencedComposite, index, new WithMnemonicTextMatcher(text))
 				: CTabItemLookup.getInstance().getCTabItem(referencedComposite, index));
 	}
 	

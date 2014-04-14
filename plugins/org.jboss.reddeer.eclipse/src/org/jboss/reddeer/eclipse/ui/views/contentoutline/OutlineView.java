@@ -7,7 +7,7 @@ import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.impl.toolbar.DefaultToolItem;
 import org.jboss.reddeer.swt.impl.tree.DefaultTree;
-import org.jboss.reddeer.swt.matcher.RegexMatcher;
+import org.jboss.reddeer.swt.matcher.WithRegexMatcher;
 import org.jboss.reddeer.workbench.impl.view.WorkbenchView;
 /**
  * Represents Outline view in Eclipse
@@ -64,7 +64,7 @@ public class OutlineView extends WorkbenchView {
 	}
 	
 	private void clickOnToolTip(String regex) {
-		RegexMatcher rm = new RegexMatcher(regex);
+		WithRegexMatcher rm = new WithRegexMatcher(regex);
 		new DefaultToolItem(rm).click();
 	}
 	

@@ -1,6 +1,7 @@
 package org.jboss.reddeer.uiforms.test.ui.views;
 
-import org.jboss.reddeer.workbench.view.impl.WorkbenchView;
+import org.jboss.reddeer.workbench.impl.view.WorkbenchView;
+
 
 public class UIFormView extends WorkbenchView {
 

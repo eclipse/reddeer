@@ -2,13 +2,11 @@ package org.jboss.reddeer.junit.extension.before.test.impl;
 
 import org.eclipse.core.runtime.preferences.DefaultScope;
 import org.eclipse.core.runtime.preferences.IEclipsePreferences;
-import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.jboss.reddeer.eclipse.m2e.core.ui.preferences.MavenPreferencePage;
 import org.jboss.reddeer.junit.extensionpoint.IBeforeTest;
 import org.jboss.reddeer.junit.logging.Logger;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
-import org.osgi.service.prefs.BackingStoreException;
 /**
  * Extension for Extension point org.jboss.reddeer.junit.before.test
  * Disables Maven Repo Index downloading on startup

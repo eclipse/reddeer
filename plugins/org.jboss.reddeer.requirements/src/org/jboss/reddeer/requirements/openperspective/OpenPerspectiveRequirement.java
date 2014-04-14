@@ -6,7 +6,6 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import org.jboss.reddeer.junit.logging.Logger;
 import org.jboss.reddeer.eclipse.exception.EclipseLayerException;
 import org.jboss.reddeer.eclipse.ui.perspectives.AbstractPerspective;
 import org.jboss.reddeer.junit.requirement.Requirement;
@@ -49,7 +48,6 @@ public class OpenPerspectiveRequirement implements Requirement<OpenPerspective> 
 	}
 
 	private OpenPerspective openPerspective;
-	private final Logger log = Logger.getLogger(this.getClass());
 
 	/**
 	 * Tests if a new instance of the given perspective can be created.

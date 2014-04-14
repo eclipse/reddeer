@@ -5,7 +5,7 @@ import org.eclipse.swt.widgets.ToolItem;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.swt.exception.Thrower;
 import org.jboss.reddeer.swt.lookup.ToolBarLookup;
-import org.jboss.reddeer.swt.matcher.TextMatcher;
+import org.jboss.reddeer.swt.matcher.WithTextMatcher;
 
 /**
  * Workbench Tool Item implementation 
@@ -19,7 +19,7 @@ public class WorkbenchToolItem extends AbstractToolItem {
 	 * @param toolTip
 	 */
 	public WorkbenchToolItem(String toolTip) {
-		this(new TextMatcher(toolTip));
+		this(new WithTextMatcher(toolTip));
 	}	
 	
 	/**

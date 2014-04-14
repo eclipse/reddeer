@@ -11,7 +11,7 @@ import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.swt.condition.TreeItemHasMinChildren;
 import org.jboss.reddeer.swt.condition.WaitCondition;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
-import org.jboss.reddeer.swt.matcher.TextMatcher;
+import org.jboss.reddeer.swt.matcher.WithTextMatcher;
 import org.jboss.reddeer.swt.reference.ReferencedComposite;
 import org.jboss.reddeer.swt.wait.TimePeriod;
 import org.jboss.reddeer.swt.wait.WaitUntil;
@@ -293,10 +293,10 @@ protected static final Logger logger = Logger.getLogger(DefaultTreeItem.class);
 	 * @return
 	 */
 	private static org.eclipse.swt.widgets.TreeItem findTreeItem(Tree tree, int cellIndex, String... treeItemPath) {
-		TextMatcher treeItemPathMatchers[] = new TextMatcher[treeItemPath.length];
+		WithTextMatcher treeItemPathMatchers[] = new WithTextMatcher[treeItemPath.length];
 
 		for(int i = 0; i < treeItemPath.length; i++)
-			treeItemPathMatchers[i] = new TextMatcher(treeItemPath[i]);
+			treeItemPathMatchers[i] = new WithTextMatcher(treeItemPath[i]);
 
 		return findTreeItem(tree, cellIndex, treeItemPathMatchers);
 	}

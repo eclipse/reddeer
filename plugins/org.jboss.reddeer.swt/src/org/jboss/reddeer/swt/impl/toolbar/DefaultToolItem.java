@@ -6,7 +6,7 @@ import org.hamcrest.Matcher;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.exception.Thrower;
 import org.jboss.reddeer.swt.lookup.ToolBarLookup;
-import org.jboss.reddeer.swt.matcher.TextMatcher;
+import org.jboss.reddeer.swt.matcher.WithTextMatcher;
 
 /**
  * Default ToolBar implementation. It expect that shell , view or editor where ToolBar item should be found 
@@ -21,7 +21,7 @@ public class DefaultToolItem extends AbstractToolItem {
 	 * @param tooltip assigned to a ToolItem
 	 */
 	public DefaultToolItem(String tooltip) {
-		this(new TextMatcher(tooltip));
+		this(new WithTextMatcher(tooltip));
 	}
 	
 	public DefaultToolItem(Matcher<String> matcher) {

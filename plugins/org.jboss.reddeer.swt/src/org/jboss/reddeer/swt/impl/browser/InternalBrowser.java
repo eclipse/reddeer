@@ -1,7 +1,7 @@
 package org.jboss.reddeer.swt.impl.browser;
 
 import org.jboss.reddeer.swt.lookup.WidgetLookup;
-import org.jboss.reddeer.swt.matcher.LabelMatcher;
+import org.jboss.reddeer.swt.matcher.WithLabelMatcher;
 import org.jboss.reddeer.swt.reference.ReferencedComposite;
 /**
  * Implements SWT Browser manipulations
@@ -49,7 +49,7 @@ public class InternalBrowser extends AbstractBrowser{
 	public InternalBrowser(String label) {
 		super(WidgetLookup.getInstance().activeWidget(null, org.eclipse.swt.browser.Browser.class,
 				0,
-				new LabelMatcher(label)));
+				new WithLabelMatcher(label)));
 	}
 	
 	/**
@@ -60,7 +60,7 @@ public class InternalBrowser extends AbstractBrowser{
 	public InternalBrowser(ReferencedComposite referencedComposite, String label) {
 		super(WidgetLookup.getInstance().activeWidget(referencedComposite, org.eclipse.swt.browser.Browser.class,
 				0,
-				new LabelMatcher(label)));
+				new WithLabelMatcher(label)));
 	}
 
 }

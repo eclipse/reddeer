@@ -5,7 +5,7 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Group;
 import org.jboss.reddeer.swt.handler.WidgetHandler;
 import org.jboss.reddeer.swt.lookup.WidgetLookup;
-import org.jboss.reddeer.swt.matcher.WithMnemonicMatcher;
+import org.jboss.reddeer.swt.matcher.WithMnemonicTextMatcher;
 import org.jboss.reddeer.swt.reference.ReferencedComposite;
 
 /**
@@ -75,7 +75,7 @@ public class DefaultGroup implements org.jboss.reddeer.swt.api.Group {
 	 */
 	public DefaultGroup(ReferencedComposite referencedComposite, int index,String text){
 		if (text != null && !text.isEmpty()) {
-			group = (Group)WidgetLookup.getInstance().activeWidget(referencedComposite, Group.class, index,new WithMnemonicMatcher(text));
+			group = (Group)WidgetLookup.getInstance().activeWidget(referencedComposite, Group.class, index,new WithMnemonicTextMatcher(text));
 		} else {
 			group = (Group)WidgetLookup.getInstance().activeWidget(referencedComposite, Group.class, index);
 		}
@@ -88,7 +88,7 @@ public class DefaultGroup implements org.jboss.reddeer.swt.api.Group {
 	 */
 	public DefaultGroup(int index,String text){
 		if (text != null && !text.isEmpty()) {
-			group = (Group)WidgetLookup.getInstance().activeWidget(null, Group.class, index,new WithMnemonicMatcher(text));
+			group = (Group)WidgetLookup.getInstance().activeWidget(null, Group.class, index,new WithMnemonicTextMatcher(text));
 		} else {
 			group = (Group)WidgetLookup.getInstance().activeWidget(null, Group.class, index);
 		}

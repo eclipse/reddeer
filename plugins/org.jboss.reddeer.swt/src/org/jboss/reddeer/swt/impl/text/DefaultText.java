@@ -3,7 +3,7 @@ package org.jboss.reddeer.swt.impl.text;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.swt.api.Text;
 import org.jboss.reddeer.swt.lookup.TextLookup;
-import org.jboss.reddeer.swt.matcher.TextMatcher;
+import org.jboss.reddeer.swt.matcher.WithTextMatcher;
 import org.jboss.reddeer.swt.reference.ReferencedComposite;
 
 /**
@@ -54,7 +54,7 @@ public class DefaultText extends AbstractText implements Text {
 	 * @param title
 	 */
 	public DefaultText(String title) {
-		w = TextLookup.getInstance().getText(null, 0, new TextMatcher(title));
+		w = TextLookup.getInstance().getText(null, 0, new WithTextMatcher(title));
 	}
 	
 	/**
@@ -63,6 +63,6 @@ public class DefaultText extends AbstractText implements Text {
 	 * @param title
 	 */
 	public DefaultText(ReferencedComposite referencedComposite, String title) {
-		w = TextLookup.getInstance().getText(referencedComposite, 0, new TextMatcher(title));
+		w = TextLookup.getInstance().getText(referencedComposite, 0, new WithTextMatcher(title));
 	}
 }

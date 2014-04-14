@@ -1,5 +1,6 @@
 package org.jboss.reddeer.swt.test;
 
+
 import static org.junit.Assert.assertTrue;
 
 import org.jboss.reddeer.swt.api.Text;
@@ -9,7 +10,7 @@ import org.jboss.reddeer.swt.impl.menu.ShellMenu;
 import org.jboss.reddeer.swt.impl.text.DefaultText;
 import org.jboss.reddeer.swt.impl.text.LabeledText;
 import org.jboss.reddeer.swt.wait.WaitUntil;
-import org.jboss.reddeer.workbench.view.impl.WorkbenchView;
+import org.jboss.reddeer.workbench.impl.view.WorkbenchView;
 import org.junit.BeforeClass;
 import org.junit.Test;
 

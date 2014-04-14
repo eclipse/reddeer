@@ -21,12 +21,11 @@ import org.jboss.reddeer.swt.impl.toolbar.DefaultToolItem;
 import org.jboss.reddeer.swt.impl.toolbar.ShellToolBar;
 import org.jboss.reddeer.swt.impl.toolbar.ShellToolItem;
 import org.jboss.reddeer.swt.impl.toolbar.ViewToolBar;
-import org.jboss.reddeer.swt.impl.toolbar.ViewToolItem;
 import org.jboss.reddeer.swt.impl.toolbar.WorkbenchToolItem;
 import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
-import org.jboss.reddeer.swt.matcher.RegexMatcher;
-import org.jboss.reddeer.swt.matcher.RegexMatchers;
-import org.jboss.reddeer.workbench.view.impl.WorkbenchView;
+import org.jboss.reddeer.swt.matcher.WithRegexMatcher;
+import org.jboss.reddeer.swt.matcher.WithRegexMatchers;
+import org.jboss.reddeer.workbench.impl.view.WorkbenchView;
 import org.jboss.tools.reddeer.swt.test.model.TestModel;
 import org.junit.Before;
 import org.junit.Test;
@@ -54,7 +53,7 @@ public class ToolBarTest extends RedDeerTest {
 	@Test 
 	public void workbenchToolBarRegexTest() {
 		
-		RegexMatcher rm = new RegexMatcher("RedDeer SWT Workbench.*");
+		WithRegexMatcher rm = new WithRegexMatcher("RedDeer SWT Workbench.*");
 		ToolItem i = new WorkbenchToolItem(rm);
 		i.click();
 		assertTrue("ToolItem should be clicked", TestModel.getClickedAndReset());
@@ -82,8 +81,8 @@ public class ToolBarTest extends RedDeerTest {
 
 	@Test
 	public void testToolItemInViewToolBarRegexClicked() {
-		RegexMatcher rm = new RegexMatcher("RedDeer SWT View.*");
-		ToolItem i = new ViewToolItem(rm);
+		WithRegexMatcher rm = new WithRegexMatcher("RedDeer SWT View.*");
+		ToolItem i = new DefaultToolItem(rm);
 		i.click();
 		assertTrue("ToolItem should be clicked", TestModel.getClickedAndReset());		
 	}
@@ -120,13 +119,13 @@ public class ToolBarTest extends RedDeerTest {
 	public void testToolItemInShellToolBarRegexClicked() {
 		openPreferences();
 		new DefaultTreeItem(1).select();
-		ToolItem ti = new ShellToolItem(new RegexMatcher(".*ack.*"));
+		ToolItem ti = new ShellToolItem(new WithRegexMatcher(".*ack.*"));
 		assertNotNull(ti);
 		closePreferences();			
 	}
 	
 	private void openPreferences() {
-		RegexMatchers m = new RegexMatchers("Window.*", "Preferences.*");
+		WithRegexMatchers m = new WithRegexMatchers("Window.*", "Preferences.*");
 		Menu menu = new ShellMenu(m.getMatchers());
 		menu.select();
 		new DefaultShell("Preferences");

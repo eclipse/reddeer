@@ -9,9 +9,9 @@ import org.jboss.reddeer.eclipse.jdt.ui.ide.NewJavaProjectWizardDialog;
 import org.jboss.reddeer.eclipse.jdt.ui.ide.NewJavaProjectWizardPage;
 import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.PackageExplorer;
 import org.jboss.reddeer.eclipse.ui.views.contentoutline.OutlineView;
-import org.jboss.reddeer.swt.test.RedDeerTest;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.handler.WorkbenchHandler;
+import org.jboss.reddeer.swt.test.RedDeerTest;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -197,10 +197,6 @@ public class OutlineViewTest extends RedDeerTest{
 		wizardPage.setPackage("test");
 		wizardPage.setStaticMainMethod(true);
 		javaClassDialog.finish();
-	}
-	
-	private static void createBuildProperties() {
-		/** TODO Implement this method */
 	}
 	
 	private void openTestClass() {

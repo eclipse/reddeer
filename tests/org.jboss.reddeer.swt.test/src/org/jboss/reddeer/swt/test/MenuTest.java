@@ -11,10 +11,10 @@ import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.impl.menu.ContextMenu;
 import org.jboss.reddeer.swt.impl.menu.ShellMenu;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
-import org.jboss.reddeer.swt.matcher.RegexMatcher;
-import org.jboss.reddeer.swt.matcher.RegexMatchers;
-import org.jboss.reddeer.swt.matcher.WithMnemonicMatcher;
-import org.jboss.reddeer.workbench.view.View;
+import org.jboss.reddeer.swt.matcher.WithMnemonicTextMatcher;
+import org.jboss.reddeer.swt.matcher.WithRegexMatcher;
+import org.jboss.reddeer.swt.matcher.WithRegexMatchers;
+import org.jboss.reddeer.workbench.impl.view.WorkbenchView;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -51,8 +51,8 @@ public class MenuTest extends RedDeerTest {
 		log.info("About menu test");
 		new DefaultShell();
 		@SuppressWarnings("unchecked")
-		Menu m = new ShellMenu(new WithMnemonicMatcher("Help"),
-			new RegexMatcher("About.*"));
+		Menu m = new ShellMenu(new WithMnemonicTextMatcher("Help"),
+			new WithRegexMatcher("About.*"));
 		m.select();
 		Shell s = new DefaultShell();
 		s.close();
@@ -72,7 +72,7 @@ public class MenuTest extends RedDeerTest {
 
 		log.info("regex menu test");
 		try {
-			RegexMatchers m = new RegexMatchers("Win.*", "Pref.*");
+			WithRegexMatchers m = new WithRegexMatchers("Win.*", "Pref.*");
 			new ShellMenu(m.getMatchers());
 		} catch (SWTLayerException e) {
 			fail("there should be no exception");
@@ -84,7 +84,7 @@ public class MenuTest extends RedDeerTest {
 	public void unavailableMenuTest() {
 		log.info("unavailable regex menu test");
 		try {
-			RegexMatchers m = new RegexMatchers("Win.*", "Prefz.*");
+			WithRegexMatchers m = new WithRegexMatchers("Win.*", "Prefz.*");
 			new ShellMenu(m.getMatchers());
 			fail("exception should be thrown");
 		} catch (SWTLayerException e) { // do nothing
@@ -141,7 +141,7 @@ public class MenuTest extends RedDeerTest {
 		s.close();
 	}
 	
-	private class ProjectExplorer extends View {
+	private class ProjectExplorer extends WorkbenchView {
 		public ProjectExplorer() {
 			super("General","Project Explorer");
 		}

@@ -2,7 +2,7 @@ package org.jboss.reddeer.swt.impl.list;
 
 import org.jboss.reddeer.swt.api.List;
 import org.jboss.reddeer.swt.lookup.ListLookup;
-import org.jboss.reddeer.swt.matcher.LabelMatcher;
+import org.jboss.reddeer.swt.matcher.WithLabelMatcher;
 import org.jboss.reddeer.swt.reference.ReferencedComposite;
 
 
@@ -50,7 +50,7 @@ public class DefaultList extends AbstractList implements List{
 	 * @param label of list
 	 */
 	public DefaultList(String label){
-		list = ListLookup.getInstance().getList(null, 0,new LabelMatcher(label));
+		list = ListLookup.getInstance().getList(null, 0,new WithLabelMatcher(label));
 	}
 	
 	/**
@@ -59,7 +59,7 @@ public class DefaultList extends AbstractList implements List{
 	 * @param label of list
 	 */
 	public DefaultList(ReferencedComposite referencedComposite, String label){
-		list = ListLookup.getInstance().getList(referencedComposite, 0,new LabelMatcher(label));
+		list = ListLookup.getInstance().getList(referencedComposite, 0,new WithLabelMatcher(label));
 	}
 	
 	/**
@@ -67,7 +67,7 @@ public class DefaultList extends AbstractList implements List{
 	 * @param index of text
 	 */
 	public DefaultList(String label, int index){
-		list = ListLookup.getInstance().getList(null, index,new LabelMatcher(label));
+		list = ListLookup.getInstance().getList(null, index,new WithLabelMatcher(label));
 	}
 	
 	/**
@@ -77,7 +77,7 @@ public class DefaultList extends AbstractList implements List{
 	 * @param index of text
 	 */
 	public DefaultList(ReferencedComposite referencedComposite, String label, int index){
-		list = ListLookup.getInstance().getList(referencedComposite, index,new LabelMatcher(label));
+		list = ListLookup.getInstance().getList(referencedComposite, index,new WithLabelMatcher(label));
 	}
 
 }

@@ -1,7 +1,7 @@
 package org.jboss.reddeer.swt.impl.clabel;
 
 import org.jboss.reddeer.swt.lookup.WidgetLookup;
-import org.jboss.reddeer.swt.matcher.TextMatcher;
+import org.jboss.reddeer.swt.matcher.WithTextMatcher;
 
 /**
  * Implements default CLabel widget
@@ -20,7 +20,7 @@ public class DefaultCLabel extends AbstractCLabel {
 	 * @param text
 	 */
 	public DefaultCLabel(String text) {
-		super(WidgetLookup.getInstance().activeWidget(null,org.eclipse.swt.custom.CLabel.class,0, new TextMatcher(text)));
+		super(WidgetLookup.getInstance().activeWidget(null,org.eclipse.swt.custom.CLabel.class,0, new WithTextMatcher(text)));
 	}
 	/**
 	 * Create DefaultScale instance matching given index

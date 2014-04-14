@@ -1,7 +1,7 @@
 package org.jboss.reddeer.swt.impl.tab;
 
 import org.jboss.reddeer.swt.lookup.TabItemLookup;
-import org.jboss.reddeer.swt.matcher.WithMnemonicMatcher;
+import org.jboss.reddeer.swt.matcher.WithMnemonicTextMatcher;
 import org.jboss.reddeer.swt.reference.ReferencedComposite;
 
 /**
@@ -56,7 +56,7 @@ public class DefaultTabItem extends AbstractTabItem {
 	 */
 	public DefaultTabItem(int index, String text) {
 		super((text != null && !text.isEmpty()) ? TabItemLookup.getInstance().getTabItem(null,
-				index, new WithMnemonicMatcher(text)) : TabItemLookup.getInstance().getTabItem(
+				index, new WithMnemonicTextMatcher(text)) : TabItemLookup.getInstance().getTabItem(
 				null, index));
 	}
 
@@ -70,7 +70,7 @@ public class DefaultTabItem extends AbstractTabItem {
 	 */
 	public DefaultTabItem(ReferencedComposite referencedComposite, int index, String text) {
 		super((text != null && !text.isEmpty()) ? TabItemLookup.getInstance().getTabItem(
-				referencedComposite, index, new WithMnemonicMatcher(text)) : TabItemLookup
+				referencedComposite, index, new WithMnemonicTextMatcher(text)) : TabItemLookup
 				.getInstance().getTabItem(referencedComposite, index));
 	}
 

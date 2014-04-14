@@ -17,7 +17,7 @@ import org.jboss.reddeer.swt.impl.shell.AbstractShell;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.jboss.reddeer.swt.lookup.ShellLookup;
 import org.jboss.reddeer.swt.matcher.AndMatcher;
-import org.jboss.reddeer.swt.matcher.TextMatcher;
+import org.jboss.reddeer.swt.matcher.WithTextMatcher;
 import org.jboss.reddeer.swt.reference.ReferencedComposite;
 import org.jboss.reddeer.swt.wait.TimePeriod;
 import org.jboss.reddeer.swt.wait.WaitWhile;
@@ -149,7 +149,7 @@ public class Project {
 	private class ShellWithButton extends AbstractShell {
 		
 		public ShellWithButton(String title, String buttonLabel) {
-			Matcher<String> titleMatcher = new TextMatcher(title);
+			Matcher<String> titleMatcher = new WithTextMatcher(title);
 			Matcher<String> buttonMatcher = new ContainsButton(buttonLabel);
 			@SuppressWarnings("unchecked")
 			Matcher<String> matcher = new AndMatcher(titleMatcher, buttonMatcher);
