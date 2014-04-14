@@ -3,6 +3,7 @@ package org.jboss.reddeer.swt.util;
 import java.lang.reflect.Method;
 
 import org.eclipse.swt.widgets.Widget;
+import org.jboss.reddeer.swt.exception.SWTLayerException;
 
 
 /**
@@ -33,42 +34,45 @@ public class ObjectUtil {
 	 */
 	public static Object invokeMethod(final Object object, String methodName, final Class<?>[] argTypes, final Object[] args) {
 
+		final Method method = getMethod(object, methodName, argTypes);
+		
+		final Object result;
+		if (object instanceof Widget) {
+			result = invokeMethodUI(method, object, args);
+		} else {
+			result = invokeMethod(method, object, args);
+		}
+
+		return result;
+	}
+
+	private static Method getMethod(final Object object, String methodName, final Class<?>[] argTypes) {
 		final Method method;
 		try {
 			method = object.getClass().getMethod(methodName, argTypes);
 		} catch (Exception e) {
-			throw new RuntimeException("Cannot get method : " + e.getMessage());
+			throw new SWTLayerException("Exception when invoking method " + methodName + " by reflection", e);
 		}
+		return method;
+	}
+	
+	private static Object invokeMethodUI(final Method method, final Object object, final Object[] args) {
 		final Object result;
-		if (object instanceof Widget) {
+		result = Display.syncExec(new ResultRunnable<Object>() {
 
-			result = Display.syncExec(new ResultRunnable<Object>() {
-
-				@Override
-				public Object run() {
-					Object o = null;
-					try {
-						o = method.invoke(object, args);
-					} catch (Exception e) {
-						try {
-							throw new RuntimeException(
-									"Cannot invoke method : " + e.getMessage());
-						} catch (Exception e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						}
-					}
-					return o;
-				}
-			});
-		} else
-			try {
-				result = method.invoke(object, new Object[0]);
-			} catch (Exception e) {
-				throw new RuntimeException("Cannot invoke method : "
-						+ e.getMessage());
+			@Override
+			public Object run() {
+				return invokeMethod(method, object, args);
 			}
-
+		});
 		return result;
+	}
+
+	private static Object invokeMethod(Method method, Object object, Object[] args) {
+		try {
+			return method.invoke(object, args);
+		} catch (Exception e) {
+			throw new SWTLayerException("Exception when invoking method " + method + " by reflection", e);
+		}
 	}
 }
