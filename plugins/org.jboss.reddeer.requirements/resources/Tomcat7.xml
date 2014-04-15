@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testrun xmlns="http://www.jboss.org/NS/Req" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:server="http://www.jboss.org/NS/ServerReq"
+	xsi:schemaLocation="http://www.jboss.org/NS/Req http://cloud.github.com/downloads/jboss-reddeer/reddeer/RedDeerSchema.xsd 
+						http://www.jboss.org/NS/ServerReq http://www.jboss.org/schema/reddeer/ApacheServerRequirements.xsd">
+
+	<!-- Example xml configuration -->
+	<requirements>
+		<server:server-requirement name="Tomcat7">
+			<server:type>
+				<server:familyApacheTomcat version="7.0" />
+			</server:type>
+			<server:runtime>/usr/share/tomcat7</server:runtime>
+		</server:server-requirement>
+	</requirements>
+</testrun>
