@@ -6,7 +6,7 @@ package org.jboss.reddeer.swt.exception;
  * @author Vlado Pakan
  * 
  */
-public class WaitTimeoutExpiredException extends RuntimeException {
+public class WaitTimeoutExpiredException extends RedDeerException {
 
 	private static final long serialVersionUID = 5905873761753380173L;
 	/**

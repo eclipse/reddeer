@@ -1,6 +1,8 @@
 package org.jboss.reddeer.workbench.exception;
 
-public class WorkbenchLayerException extends RuntimeException {
+import org.jboss.reddeer.swt.exception.RedDeerException;
+
+public class WorkbenchLayerException extends RedDeerException {
 
 	/**
 	 * Universal exception for workbench layer
@@ -13,10 +15,6 @@ public class WorkbenchLayerException extends RuntimeException {
 	
 	public WorkbenchLayerException(String message, Throwable cause){
 		super(message, cause);
-	}
-	
-	public WorkbenchLayerException(Throwable cause){
-		
 	}
 
 }

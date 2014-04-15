@@ -3,6 +3,7 @@ package org.jboss.reddeer.swt.util;
 import java.util.ArrayList;
 
 import org.eclipse.swt.SWTException;
+import org.jboss.reddeer.swt.exception.RedDeerException;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
 
 /**
@@ -18,8 +19,8 @@ public class Display {
 		try{
 			getDisplay().syncExec(runnable);
 		}catch(SWTException ex){
-			if(ex.getCause() instanceof SWTLayerException){
-				throw (SWTLayerException) ex.getCause();
+			if(ex.getCause() instanceof RedDeerException){
+				throw (RedDeerException) ex.getCause();
 			} else {
 				throw ex;
 			}
@@ -30,8 +31,8 @@ public class Display {
 		try{
 			getDisplay().asyncExec(runnable);
 		}catch(SWTException ex){
-			if(ex.getCause() instanceof SWTLayerException){
-				throw (SWTLayerException) ex.getCause();
+			if(ex.getCause() instanceof RedDeerException){
+				throw (RedDeerException) ex.getCause();
 			} else {
 				throw ex;
 			}
@@ -75,8 +76,8 @@ public class Display {
 				}
 			});
 		}catch(SWTException ex){
-			if(ex.getCause() instanceof SWTLayerException){
-				throw (SWTLayerException) ex.getCause();
+			if(ex.getCause() instanceof RedDeerException){
+				throw (RedDeerException) ex.getCause();
 			} else {
 				throw ex;
 			}
