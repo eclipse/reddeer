@@ -8,6 +8,7 @@ import org.eclipse.ui.PlatformUI;
 import org.jboss.reddeer.junit.logging.Logger;
 import org.jboss.reddeer.swt.condition.JobIsRunning;
 import org.jboss.reddeer.swt.condition.WaitCondition;
+import org.jboss.reddeer.swt.handler.ShellHandler;
 import org.jboss.reddeer.swt.handler.WidgetHandler;
 import org.jboss.reddeer.swt.lookup.ShellLookup;
 import org.jboss.reddeer.swt.util.Display;
@@ -30,17 +31,20 @@ public class WorkbenchShell extends AbstractShell {
 	 * Default Constructor for a WorkbenchShell
 	 */
 	public WorkbenchShell() {
+		swtShell = getWorkbenchShell();		
+		WidgetHandler.getInstance().setFocus(swtShell);
+		log.debug("Workbench shell has title '" + getText() + "'");
+	}
 
+	private Shell getWorkbenchShell() {
 		Display.syncExec(new Runnable() {
 
 			@Override
 			public void run() {
 				swtShell = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell();
-				WidgetHandler.getInstance().setFocus(swtShell);
 			}
 		});
-
-		log.info("Workbench shell has title '" + getText() + "'");
+		return swtShell;
 	}
 
 	/**
@@ -86,6 +90,11 @@ public class WorkbenchShell extends AbstractShell {
 	 */
 	public void closeAllShells() {
 		log.info("Closing all shells...");
+		Shell[] shells = ShellLookup.getInstance().getShells();
+		for (Shell s : shells) {
+			Shell workbenchShell = getWorkbenchShell();
+			if (s != workbenchShell) ShellHandler.getInstance().closeShell(s);
+		}
 		new WaitUntil(new NoShellToClose(), TimePeriod.VERY_LONG);
 	}
 
