@@ -147,7 +147,7 @@ public class TextEditorHandler {
 					offset = getDocument(editor).getLineOffset(lineNumber);
 					length = getDocument(editor).getLineLength(lineNumber);
 				} catch (BadLocationException e) {
-					throw new WorkbenchLayerException(e);
+					throw new WorkbenchLayerException("Unable to select line "+lineNumber,e);
 				}
 				editor.selectAndReveal(offset, length);
 			}

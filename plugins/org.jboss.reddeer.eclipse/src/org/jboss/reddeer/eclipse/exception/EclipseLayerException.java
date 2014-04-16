@@ -1,12 +1,14 @@
 package org.jboss.reddeer.eclipse.exception;
 
+import org.jboss.reddeer.swt.exception.RedDeerException;
+
 /**
  * Thrown when an error can be identified on the Eclipse layer (e.g. something is not found on a view)
  * 
  * @author Lucia Jelinkova
  *
  */
-public class EclipseLayerException extends RuntimeException {
+public class EclipseLayerException extends RedDeerException {
 
 	private static final long serialVersionUID = 3457199665187648827L;
 

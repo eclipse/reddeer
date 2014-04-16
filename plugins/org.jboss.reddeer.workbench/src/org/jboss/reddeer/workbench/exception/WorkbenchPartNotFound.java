@@ -1,6 +1,8 @@
 package org.jboss.reddeer.workbench.exception;
 
-public class WorkbenchPartNotFound extends RuntimeException {
+import org.jboss.reddeer.swt.exception.RedDeerException;
+
+public class WorkbenchPartNotFound extends RedDeerException {
 
 	/**
 	 * Indicates, that given part couldn't be found.
