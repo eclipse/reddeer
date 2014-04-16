@@ -23,7 +23,6 @@ public class TextEditor extends AbstractEditor implements Editor{
 	 * Initialize currently focused TextEditor
 	 * @throws EditorNotFoundException when currently active editor isn't instance of ITextEditor
 	 */
-	
 	public TextEditor() {
 		super();
 		if (!(editorPart instanceof ITextEditor)){
@@ -36,7 +35,6 @@ public class TextEditor extends AbstractEditor implements Editor{
 	 * @param title title of desired editor
 	 * @throws EditorNotFoundException when currently active editor isn't instance of ITextEditor 
 	 */
-	
 	public TextEditor(final String title){
 		super(title);
 		if (!(editorPart instanceof ITextEditor)){
@@ -47,7 +45,6 @@ public class TextEditor extends AbstractEditor implements Editor{
 	/**
 	 * @return content of this editor
 	 */
-
 	public String getText(){
 		return TextEditorHandler.getInstance().getDocument(getTextEditorPart()).get();
 	}
@@ -66,9 +63,13 @@ public class TextEditor extends AbstractEditor implements Editor{
 	 * @param line
 	 * @return
 	 */
-	
 	public String getTextAtLine(final int line) {
 		return TextEditorHandler.getInstance().getTextAtLine(getTextEditorPart(), line);
+	}
+	
+	
+	public int getNumberOfLines() {
+		return TextEditorHandler.getInstance().getNumberOfLines(getTextEditorPart());
 	}
 	
 	/**
@@ -78,7 +79,6 @@ public class TextEditor extends AbstractEditor implements Editor{
 	 * @param line Lines are counted from 0
 	 * @param offset Text will be inserted right after nth character on specified line
 	 */
-	
 	public void insertText(final int line, final int offset, final String text){
 		TextEditorHandler.getInstance().insertText(getTextEditorPart(), line, offset, text);
 	}
@@ -103,7 +103,6 @@ public class TextEditor extends AbstractEditor implements Editor{
 	 * 
 	 * @return string of selected text
 	 */
-	
 	public String getSelectedText(){
 		return TextEditorHandler.getInstance().getSelectedText(getTextEditorPart());
 	}
@@ -113,9 +112,27 @@ public class TextEditor extends AbstractEditor implements Editor{
 	 * Selects whole line #lineNumber.
 	 * @param lineNumber Lines are counted from 0.
 	 */
-	
 	public void selectLine(final int lineNumber){
 		TextEditorHandler.getInstance().selectLine(getTextEditorPart(), lineNumber);
+	}
+	
+	/**
+	 * Selects text 
+	 * 
+	 * @param text to select
+	 */
+	public void selectText(String text){
+		TextEditorHandler.getInstance().selectText(getTextEditorPart(), text, 0);
+	}
+	
+	/**
+	 * Selects text 
+	 * 
+	 * @param text to select
+	 * @param index of text (if more occurrences)
+	 */
+	public void selectText(String text, int index){
+		TextEditorHandler.getInstance().selectText(getTextEditorPart(), text, index);
 	}
 	
 	protected int getCursorOffset(){

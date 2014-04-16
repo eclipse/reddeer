@@ -65,14 +65,31 @@ public class TextEditorHandler {
 			@Override
 			public String run() {
 				try {
-					return getDocument(editor).get(
-							getDocument(editor).getLineOffset(line),
-							getDocument(editor).getLineLength(line)).replace(
-							getDocument(editor).getLineDelimiter(line), "");
+					if(getDocument(editor).getLineDelimiter(line) != null){
+						return getDocument(editor).get(
+								getDocument(editor).getLineOffset(line),
+								getDocument(editor).getLineLength(line)).replace(
+								getDocument(editor).getLineDelimiter(line), "");
+					} else {
+						return getDocument(editor).get(
+								getDocument(editor).getLineOffset(line),
+								getDocument(editor).getLineLength(line));
+					}
+					
+					
 				} catch (BadLocationException e) {
 					throw new WorkbenchLayerException(
 							"Line provided is invalid for this editor", e);
 				}
+			}
+		});
+	}
+
+	public int getNumberOfLines(final ITextEditor editor) {
+		return Display.syncExec(new ResultRunnable<Integer>() {
+			@Override
+			public Integer run() {
+				return getDocument(editor).getNumberOfLines();
 			}
 		});
 	}
@@ -87,7 +104,6 @@ public class TextEditorHandler {
 	 * @param offset
 	 * @param text
 	 */
-
 	public void insertText(final ITextEditor editor, final int line,
 			final int offset, final String text) {
 		Display.syncExec(new Runnable() {
@@ -112,7 +128,6 @@ public class TextEditorHandler {
 	 * @param editor
 	 * @return
 	 */
-	
 	public String getSelectedText(final ITextEditor editor) {
 		return Display.syncExec(new ResultRunnable<String>() {
 			@Override
@@ -130,12 +145,11 @@ public class TextEditorHandler {
 	}
 
 	/**
-	 * Selects 
+	 * Selects
 	 * 
 	 * @param editor
 	 * @param lineNumber
 	 */
-	
 	public void selectLine(final ITextEditor editor, final int lineNumber) {
 		Display.syncExec(new Runnable() {
 
@@ -153,14 +167,68 @@ public class TextEditorHandler {
 			}
 		});
 	}
-	
+
+	/**
+	 * Selects text 
+	 * 
+	 * @param editor
+	 * @param text to select
+	 * @param textIndex index of text
+	 */
+	public void selectText(final ITextEditor editor, final String text, final int textIndex) {
+		Display.syncExec(new Runnable() {
+
+			@Override
+			public void run() {
+				boolean found = false;
+				int iStartIndex = 0;
+				int iRow = 0;
+				String editorText = getDocument(editor).get();
+
+				if (editorText != null && editorText.length() > 0 && editorText.contains(text)) {
+					int iOccurenceIndex = 0;
+					while (!found && iRow < getNumberOfLines(editor)) {
+						String lineText = getTextAtLine(editor, iRow);
+						System.out.println(lineText);
+						iStartIndex = 0;
+						while (!found && lineText.contains(text)) {
+							if (iOccurenceIndex == textIndex) {
+								found = true;
+								iStartIndex += lineText.indexOf(text);
+							} else {
+								iOccurenceIndex++;
+								int iNewStartIndex = lineText.indexOf(text) + text.length();
+								iStartIndex += iNewStartIndex;
+								lineText = lineText.substring(iNewStartIndex);
+							}
+						}
+						if (!found) {
+							iRow++;
+						}
+					}
+				}
+
+				if (found) {
+					int offset = 0;
+					try {
+						offset = getDocument(editor).getLineOffset(iRow) + iStartIndex;
+					} catch (BadLocationException e) {
+						throw new WorkbenchLayerException("Unable to find "+text+" in editor",e);
+					}
+					editor.selectAndReveal(offset, text.length());
+				} else {
+					throw new WorkbenchLayerException("Unable to find "+text+" in editor");
+				}
+			}
+		});
+	}
+
 	/**
 	 * returns IDocument element for given ITextEditor
 	 * 
 	 * @param editor
 	 * @return
 	 */
-
 	public IDocument getDocument(ITextEditor editor) {
 		return editor.getDocumentProvider()
 				.getDocument(editor.getEditorInput());

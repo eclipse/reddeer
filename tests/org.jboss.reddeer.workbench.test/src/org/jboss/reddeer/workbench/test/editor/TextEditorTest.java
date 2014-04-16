@@ -1,6 +1,6 @@
 package org.jboss.reddeer.workbench.test.editor;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import java.awt.AWTException;
 import java.io.IOException;
@@ -27,6 +27,7 @@ import org.jboss.reddeer.swt.test.RedDeerTest;
 import org.jboss.reddeer.swt.util.Display;
 import org.jboss.reddeer.workbench.impl.editor.DefaultEditor;
 import org.jboss.reddeer.workbench.impl.editor.TextEditor;
+import org.jboss.reddeer.workbench.exception.WorkbenchLayerException;
 import org.jboss.reddeer.workbench.exception.WorkbenchPartNotFound;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -143,6 +144,32 @@ public class TextEditorTest extends RedDeerTest {
 		TextEditor textEditor = new TextEditor();
 		textEditor.selectLine(7);
 		assertEquals("}\n", textEditor.getSelectedText().replaceAll("\r",""));
+	}
+	
+	@Test
+	public void selectTextTest(){
+		openJavaFile();
+		collapseTextInJavaFile();
+		TextEditor textEditor = new TextEditor();
+		textEditor.selectText("JavaClass");
+		assertEquals("JavaClass",textEditor.getSelectedText());
+	}
+	
+	@Test
+	public void selectTextTest1(){
+		openJavaFile();
+		collapseTextInJavaFile();
+		TextEditor textEditor = new TextEditor();
+		textEditor.selectText("JavaClass",1);
+		assertEquals("JavaClass",textEditor.getSelectedText());
+	}
+	
+	@Test(expected = WorkbenchLayerException.class)
+	public void selectTextTest2(){
+		openJavaFile();
+		collapseTextInJavaFile();
+		TextEditor textEditor = new TextEditor();
+		textEditor.selectText("JavaClass",2);
 	}
 
 	private void collapseTextInJavaFile(){
