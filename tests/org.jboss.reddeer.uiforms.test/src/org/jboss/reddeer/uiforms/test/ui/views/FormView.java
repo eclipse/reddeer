@@ -3,9 +3,13 @@ package org.jboss.reddeer.uiforms.test.ui.views;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Listener;
+import org.eclipse.ui.forms.events.HyperlinkAdapter;
 import org.eclipse.ui.forms.events.HyperlinkEvent;
 import org.eclipse.ui.forms.events.IHyperlinkListener;
+import org.eclipse.ui.forms.widgets.FormText;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.Hyperlink;
 import org.eclipse.ui.forms.widgets.ScrolledForm;
@@ -16,7 +20,11 @@ public class FormView extends ViewPart {
 
 	public static final String HYPERLINK_PREFIX = "Hyperlink ";
 	
+	public static final String FORMTEXT_PREFIX= "FormText ";
+	
 	public static final String ACTIVATED_HYPERLINK = "Hyperlink clicked";
+	
+	public static final String ACTIVATED_FORMTEXT = "FormText clicked";
 	
 	public static final String SECTION_A = "Section A";
 
@@ -88,6 +96,7 @@ public class FormView extends ViewPart {
 
 		toolkit.createText(c, "Value: ");
 		createHyperlink(text, c);
+		createFormText(text, c);
 
 		section.setClient(c);
 	}
@@ -108,6 +117,23 @@ public class FormView extends ViewPart {
 			public void linkActivated(HyperlinkEvent arg0) {
 				new Label(c, SWT.LEFT).setText(ACTIVATED_HYPERLINK);
 				c.layout();
+			}
+		});
+	}
+	
+	private void createFormText(String text, final Composite c) {
+		final FormText formText = toolkit.createFormText(c, true);
+		formText.setText("<form><p><a href=\"link\">" + FORMTEXT_PREFIX + text
+				+ "</a></p></form>", true, false);
+		formText.setToolTipText(FORMTEXT_PREFIX + text + "tooltip");
+		formText.addHyperlinkListener(new HyperlinkAdapter() {
+			@Override
+			public void linkActivated(HyperlinkEvent e) {
+				Object object = e.data;
+				if (object instanceof String) {
+					new Label(c, SWT.LEFT).setText(ACTIVATED_FORMTEXT);
+					c.layout();
+				}
 			}
 		});
 	}
