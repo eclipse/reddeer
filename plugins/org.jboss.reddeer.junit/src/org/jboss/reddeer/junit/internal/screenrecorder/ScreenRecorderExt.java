@@ -17,6 +17,7 @@ import java.awt.GraphicsEnvironment;
 import java.io.File;
 import java.io.IOException;
 
+import org.jboss.reddeer.junit.logging.Logger;
 import org.monte.screenrecorder.ScreenRecorder;
 import org.monte.media.Format;
 import org.monte.media.Registry;
@@ -36,6 +37,7 @@ import org.monte.media.math.Rational;
  *
  */
 public class ScreenRecorderExt extends ScreenRecorder{
+  private static final Logger log = Logger.getLogger(ScreenRecorderExt.class);
   private String useFileName = null;
   public static final String STATE_DONE = "DONE";
   public static final String STATE_RECORDING = "RECORDING";
@@ -86,6 +88,10 @@ public class ScreenRecorderExt extends ScreenRecorder{
   public void start(String fileName) throws IOException{
     this.useFileName = fileName;
     super.start();
+    if (!waitUntilStateIs(ScreenRecorderExt.STATE_RECORDING)){
+    	log.error("Unable to start Screen Recorder.\nState of Screen Recorder:" + getState());
+    	stop();
+    };
   }
   /**
    * Start screen cast recording to default file name 
@@ -95,6 +101,10 @@ public class ScreenRecorderExt extends ScreenRecorder{
   public void start() throws IOException{
     this.useFileName = null;
     super.start();
+    if (!waitUntilStateIs(ScreenRecorderExt.STATE_RECORDING)){
+    	log.error("Unable to start Screen Recorder.\nState of Screen Recorder:" + getState());
+    	stop();
+    };
   }
   /**
    * Create movie file for recorder screen cast. Screen cast will be stored
@@ -132,8 +142,6 @@ public class ScreenRecorderExt extends ScreenRecorder{
       result = true;
     } else if (state.equals(ScreenRecorderExt.STATE_RECORDING) && getState().equals(State.RECORDING)){
       result = true;
-    } else if (state.equals(ScreenRecorderExt.STATE_RECORDING) && getState().equals(State.RECORDING)){
-      result = true;
     } else if (state.equals(ScreenRecorderExt.STATE_FAILED) && getState().equals(State.FAILED)){
       result = true;
     }    
@@ -147,6 +155,61 @@ public class ScreenRecorderExt extends ScreenRecorder{
   @Override
   public void stop() throws IOException{
     super.stop();
+    if (!waitUntilStateIs(ScreenRecorderExt.STATE_DONE)){
+    	log.error("Unable to stop Screen Recorder.\nState of Screen Recorder:" + getState());
+    }
   }
 
+	private boolean waitUntilStateIs(String state) {
+		final long timeout = 10000;
+		final long waitDelay = 500;
+		final long limit = System.currentTimeMillis() + timeout;
+
+		boolean continueSleep = true;
+		boolean success = false;
+
+		while (continueSleep) {
+			try {
+				if (isState(state)) {
+					continueSleep = false;
+					success = true;
+				}
+			} catch (Throwable e) {
+				log.error("Error during evaluating state of Screen Recorder "
+						+ e.getMessage() + " " + e);
+			}
+			sleep(waitDelay);
+			if (System.currentTimeMillis() > limit) {
+				log.warn("State of Screen Recorder was not set to " + state);
+			}
+		}
+
+		return success;
+
+	}
+
+	private static void sleep(long timePeriod) {
+		try {
+			Thread.sleep(timePeriod);
+		} catch (InterruptedException e) {
+			throw new RuntimeException("Sleep interrupted", e);
+		}
+	}
+	  /**
+	   * Returns state of Screen Recorder is as specified by parameter state
+	   * @return
+	   */
+	  public String getPublicState() {
+	    String result = "Undefined";
+	    
+	    if (getState().equals(State.DONE)){
+	      result = ScreenRecorderExt.STATE_DONE;
+	    } else if (getState().equals(State.RECORDING)){
+	      result = ScreenRecorderExt.STATE_RECORDING;
+	    } else if (getState().equals(State.FAILED)){
+	      result = ScreenRecorderExt.STATE_FAILED;
+	    }    
+	    
+	    return result;
+	  }
 }

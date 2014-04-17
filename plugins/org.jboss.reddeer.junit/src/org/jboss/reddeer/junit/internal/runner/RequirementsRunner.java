@@ -125,14 +125,16 @@ public class RequirementsRunner extends BlockJUnit4ClassRunner {
 			try {
 				screenRecorderExt = new ScreenRecorderExt();
 			} catch (IOException ioe) {
-				throw new RuntimeException(
-						"Unable to initialize Screen Recorder.", ioe);
+				log.error("Unable to initialize Screen Recorder.", ioe);
 			} catch (AWTException awte) {
-				throw new RuntimeException(
-						"Unable to initialize Screen Recorder.", awte);
+				log.error("Unable to initialize Screen Recorder.", awte);
 			}
 		}
 		if (screenRecorderExt != null) {
+			if (!screenRecorderExt.isState(ScreenRecorderExt.STATE_DONE)){
+				// try to reset Screen Recorder
+				stopScreenRecorder();
+			}
 			if (screenRecorderExt.isState(ScreenRecorderExt.STATE_DONE)) {
 				try {
 					File screenCastDir = new File("screencasts");
@@ -147,12 +149,11 @@ public class RequirementsRunner extends BlockJUnit4ClassRunner {
 					screenRecorderExt.start(fileName);
 					outputVideoFile = new File(fileName);
 				} catch (IOException ioe) {
-					throw new RuntimeException(
-							"Unable to start Screen Recorder.", ioe);
+					log.error("Unable to start Screen Recorder.", ioe);
 				}
 			} else {
-				throw new RuntimeException(
-						"Unable to start Screen Recorder.\nScreen Recorder is not in state DONE.");
+				log.error("Unable to start Screen Recorder.\nScreen Recorder is not in state DONE.\nCurrent status: "
+						+ screenRecorderExt.getPublicState());
 			}
 		} else {
 			log.error("Screen Recorder was not properly initilized");
@@ -165,21 +166,18 @@ public class RequirementsRunner extends BlockJUnit4ClassRunner {
 	 */
 	private static void stopScreenRecorder() {
 		if (screenRecorderExt != null) {
-			if (screenRecorderExt.isState(ScreenRecorderExt.STATE_RECORDING)) {
-				try {
-					screenRecorderExt.stop();
-					log.info("Screen Recorder stopped.");
-				} catch (IOException ioe) {
-					throw new RuntimeException(
-							"Unable to stop Screen Recorder.", ioe);
+			try {
+				if (!screenRecorderExt.isState(ScreenRecorderExt.STATE_RECORDING)) {
+					log.error("Stopping Screen Recorder.\nScreen Recorder is not in state RECORDING.\nCurrent status: "
+							+ screenRecorderExt.getPublicState());
 				}
-			} else {
-				throw new RuntimeException(
-						"Unable to stop Screen Recorder.\nScreen Recorder is not in state RECORDING.");
+				screenRecorderExt.stop();
+				log.info("Screen Recorder stopped.");
+			} catch (IOException ioe) {
+				log.error("Unable to stop Screen Recorder.", ioe);
 			}
 		} else {
-			throw new RuntimeException(
-					"Unable to stop Screen Recorder.\nScreen Recorder was not properly initilized");
+			log.error("Unable to stop Screen Recorder.\nScreen Recorder was not properly initilized");
 		}
 	}
 	
@@ -229,18 +227,18 @@ public class RequirementsRunner extends BlockJUnit4ClassRunner {
 			else {
 				log.error("Exception in test: " + failure.getDescription(),throwable);
 			}
-			if (RequirementsRunner.SAVE_SCREENCAST){
-				RequirementsRunner.stopScreenRecorder();
-			}
+
 			super.testFailure(failure);
 		}
 		@Override
 		public void testFinished(Description description) throws Exception {
 			log.info("Finished test: " + description);
-			if (RequirementsRunner.SAVE_SCREENCAST && !wasFailure){
+			if (RequirementsRunner.SAVE_SCREENCAST){
 				RequirementsRunner.stopScreenRecorder();
-				log.info("Deleting test screencast file: " + outputVideoFile.getAbsolutePath()); 
-				outputVideoFile.delete();
+				if (!wasFailure){
+					log.info("Deleting test screencast file: " + outputVideoFile.getAbsolutePath()); 
+					outputVideoFile.delete();
+				}
 			}
 			super.testFinished(description);
 		}
