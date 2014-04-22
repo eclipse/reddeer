@@ -7,12 +7,11 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.swtbot.generator.framework.GenerationSimpleRule;
 import org.eclipse.swtbot.generator.framework.WidgetUtils;
 import org.jboss.reddeer.swt.generator.framework.referencedComposite.ReferencedComposite;
 import org.jboss.reddeer.swt.generator.framework.rules.RedDeerUtils;
 
-public class ComboRule extends GenerationSimpleRule{
+public class ComboRule extends AbstractSimpleRedDeerRule{
 
 	private String text;
 	private String label;
@@ -28,6 +27,7 @@ public class ComboRule extends GenerationSimpleRule{
 	@Override
 	public void initializeForEvent(Event event) {  // check combo style and decide if setText or setSelection is better ?
 		Combo c = (Combo) event.widget;
+		this.widget = c;
 		this.setText(c.getText());
 		this.setLabel(WidgetUtils.getLabel(c));
 		this.setIndex(WidgetUtils.getIndex(c));

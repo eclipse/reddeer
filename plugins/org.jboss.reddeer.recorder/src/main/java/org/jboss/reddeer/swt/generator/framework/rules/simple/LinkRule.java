@@ -6,12 +6,11 @@ import java.util.List;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Link;
-import org.eclipse.swtbot.generator.framework.GenerationSimpleRule;
 import org.eclipse.swtbot.generator.framework.WidgetUtils;
 import org.jboss.reddeer.swt.generator.framework.referencedComposite.ReferencedComposite;
 import org.jboss.reddeer.swt.generator.framework.rules.RedDeerUtils;
 
-public class LinkRule extends GenerationSimpleRule {
+public class LinkRule extends AbstractSimpleRedDeerRule {
 	
 	private String text;
 	private int index;
@@ -25,6 +24,7 @@ public class LinkRule extends GenerationSimpleRule {
 	@Override
 	public void initializeForEvent(Event event) {
 		Link link = (Link)event.widget;
+		this.widget = link;
 		this.setIndex(WidgetUtils.getIndex(link));
 		if(link.getText() != null){
 			String[] split1 = link.getText().split(".*<[aA]>");

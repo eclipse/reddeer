@@ -6,10 +6,9 @@ import java.util.List;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.widgets.Event;
-import org.eclipse.swtbot.generator.framework.GenerationSimpleRule;
 import org.eclipse.swtbot.generator.framework.WidgetUtils;
 
-public class CTabRule extends GenerationSimpleRule{
+public class CTabRule extends AbstractSimpleRedDeerRule{
 	
 	private String text;
 
@@ -26,6 +25,7 @@ public class CTabRule extends GenerationSimpleRule{
 
 	@Override
 	public void initializeForEvent(Event event) {
+		this.widget = event.widget;
 		this.text = WidgetUtils.cleanText(((CTabFolder)event.widget).getSelection().getText());
 	}
 

@@ -5,12 +5,11 @@ import java.util.ArrayList;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.List;
-import org.eclipse.swtbot.generator.framework.GenerationSimpleRule;
 import org.eclipse.swtbot.generator.framework.WidgetUtils;
 import org.jboss.reddeer.swt.generator.framework.referencedComposite.ReferencedComposite;
 import org.jboss.reddeer.swt.generator.framework.rules.RedDeerUtils;
 
-public class ListRule extends GenerationSimpleRule{
+public class ListRule extends AbstractSimpleRedDeerRule{
 	
 	private String[] selectedItems;
 	private int index;
@@ -24,6 +23,7 @@ public class ListRule extends GenerationSimpleRule{
 
 	@Override
 	public void initializeForEvent(Event event) {
+		this.widget = event.widget;
 		selectedItems = ((List)event.widget).getSelection();
 		for(int i=0;i<selectedItems.length;i++) {
 			selectedItems[i] = WidgetUtils.cleanText(selectedItems[i]);

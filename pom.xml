@@ -12,7 +12,7 @@
  	   	<tycho-version>0.18.1</tycho-version>  	  
 		<tychoExtrasVersion>${tycho-version}</tychoExtrasVersion>
 		<eclipse-target-site>http://download.eclipse.org/releases/luna</eclipse-target-site>
-		<swtbot-update-site>http://download.eclipse.org/technology/swtbot/releases/2.2.0</swtbot-update-site>
+		<swtbot-update-site>http://download.eclipse.org/technology/swtbot/releases/2.2.1</swtbot-update-site>
 		<platformSystemProperties></platformSystemProperties>
 		<logDebug>true</logDebug>
 		<pauseFailedTest>false</pauseFailedTest>

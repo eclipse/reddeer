@@ -6,10 +6,9 @@ import java.util.List;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.swtbot.generator.framework.GenerationSimpleRule;
 import org.jboss.reddeer.swt.generator.framework.rules.RedDeerUtils;
 
-public class ShellRule extends GenerationSimpleRule{
+public class ShellRule extends AbstractSimpleRedDeerRule{
 	
 	private int shellAction;
 	
@@ -33,6 +32,7 @@ public class ShellRule extends GenerationSimpleRule{
 
 	@Override
 	public void initializeForEvent(Event event) {
+		this.widget = event.widget;
 		shellAction = event.type;
 		setShellTitle(((Shell)event.widget).getText());
 		if(shellAction == SWT.Close) {

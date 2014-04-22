@@ -8,10 +8,9 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
-import org.eclipse.swtbot.generator.framework.GenerationSimpleRule;
 import org.eclipse.swtbot.generator.framework.WidgetUtils;
 
-public class ContextMenuRule extends GenerationSimpleRule{
+public class ContextMenuRule extends AbstractSimpleRedDeerRule{
 	
 	private List<String> path;
 	private String menu;
@@ -34,6 +33,7 @@ public class ContextMenuRule extends GenerationSimpleRule{
 	@Override
 	public void initializeForEvent(Event event) {
 		MenuItem item = (MenuItem) event.widget;
+		this.widget = item;
 		menu = WidgetUtils.cleanText(item.getText());
 		path = new ArrayList<String>();
 		MenuItem currentItem = item;
