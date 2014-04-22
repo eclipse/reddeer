@@ -62,6 +62,7 @@ public class NewRedDeerTestPluginWizardPage extends WizardPage implements
 		setImageDescriptor(ImageDescriptor.createFromURL(FileLocator.find(
 				Platform.getBundle(Activator.PLUGIN_ID), new Path(
 						"resources/reddeer_icon.png"), null)));
+		setPageComplete(false);
 
 	}
 
