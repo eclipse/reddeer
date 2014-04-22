@@ -144,19 +144,18 @@ public class ViewHandler {
 		});
 	}
 	
-	private boolean hasControlSpecificParent(final Control focusedControl,
-			final Control workbenchControl) {
+	private boolean hasControlSpecificParent(final Control focusedControl, final Control workbenchControl) {
 		Control parent = Display.syncExec(new ResultRunnable<Control>() {
 			@Override
 			public Control run() {
 				Control parent = focusedControl;
-				while (parent != workbenchControl && parent != null) {
+				while (parent != null && !parent.equals(workbenchControl) && !parent.isDisposed()) {
 					parent = parent.getParent();
 				}
 				return parent; 
 			}
 		});
-		return parent != null;
+		return workbenchControl.equals(parent);
 	}
 
 }
