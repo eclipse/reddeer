@@ -5,14 +5,13 @@ import java.util.List;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Event;
-import org.eclipse.swtbot.generator.framework.GenerationSimpleRule;
 import org.eclipse.swtbot.generator.framework.WidgetUtils;
 import org.eclipse.ui.forms.widgets.Hyperlink;
 import org.eclipse.ui.forms.widgets.ImageHyperlink;
 import org.jboss.reddeer.swt.generator.framework.referencedComposite.ReferencedComposite;
 import org.jboss.reddeer.swt.generator.framework.rules.RedDeerUtils;
 
-public class HyperlinkRule extends GenerationSimpleRule{
+public class HyperlinkRule extends AbstractSimpleRedDeerRule{
 	
 	private String text;
 	private int index;
@@ -25,6 +24,7 @@ public class HyperlinkRule extends GenerationSimpleRule{
 
 	@Override
 	public void initializeForEvent(Event event) {
+		this.widget = event.widget;
 		this.text = ((Hyperlink)event.widget).getText();
 		this.index = WidgetUtils.getIndex((Hyperlink)event.widget);
 		this.composites = RedDeerUtils.getComposites((Hyperlink)event.widget);

@@ -7,12 +7,11 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
-import org.eclipse.swtbot.generator.framework.GenerationSimpleRule;
 import org.eclipse.swtbot.generator.framework.WidgetUtils;
 import org.jboss.reddeer.swt.generator.framework.referencedComposite.ReferencedComposite;
 import org.jboss.reddeer.swt.generator.framework.rules.RedDeerUtils;
 
-public class TextRule extends GenerationSimpleRule{
+public class TextRule extends AbstractSimpleRedDeerRule{
 	
 	private String text;
 	private int index;
@@ -27,6 +26,7 @@ public class TextRule extends GenerationSimpleRule{
 
 	@Override
 	public void initializeForEvent(Event event) {
+		this.widget = event.widget;
 		this.setText(((Text)event.widget).getText());
 		this.setIndex(WidgetUtils.getIndex((Text)event.widget));
 		Shell s = WidgetUtils.getShell((Text)event.widget);

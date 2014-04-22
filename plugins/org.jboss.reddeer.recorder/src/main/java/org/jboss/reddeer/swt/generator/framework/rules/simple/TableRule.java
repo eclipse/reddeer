@@ -10,12 +10,11 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
-import org.eclipse.swtbot.generator.framework.GenerationSimpleRule;
 import org.eclipse.swtbot.generator.framework.WidgetUtils;
 import org.jboss.reddeer.swt.generator.framework.referencedComposite.ReferencedComposite;
 import org.jboss.reddeer.swt.generator.framework.rules.RedDeerUtils;
 
-public class TableRule extends GenerationSimpleRule {
+public class TableRule extends AbstractSimpleRedDeerRule{
 	
 	private int index;
 	private int items[];
@@ -32,6 +31,7 @@ public class TableRule extends GenerationSimpleRule {
 	@Override
 	public void initializeForEvent(Event event) {
 		Table table = (Table)event.widget;
+		this.widget = table;
 		if(!tableHasDuplicates(table.getItems())){
 			for(TableItem item: table.getSelection()){
 				this.listOfSelectedItems.add(WidgetUtils.cleanText(item.getText()));

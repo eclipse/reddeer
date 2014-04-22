@@ -13,12 +13,11 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.swt.widgets.Widget;
-import org.eclipse.swtbot.generator.framework.GenerationSimpleRule;
 import org.eclipse.swtbot.generator.framework.WidgetUtils;
 import org.jboss.reddeer.swt.generator.framework.referencedComposite.ReferencedComposite;
 import org.jboss.reddeer.swt.generator.framework.rules.RedDeerUtils;
 
-public class TreeRule extends GenerationSimpleRule {
+public class TreeRule extends AbstractSimpleRedDeerRule{
 	
 	private java.util.List<ReferencedComposite> composites;
 	private int treeIndex;
@@ -35,6 +34,7 @@ public class TreeRule extends GenerationSimpleRule {
 	@Override
 	public void initializeForEvent(Event event) {
 		Widget w = event.widget;
+		this.widget = w;
 		List<Widget> parentz = new LinkedList<Widget>();
 		while (w != null) {
 			parentz.add(w);

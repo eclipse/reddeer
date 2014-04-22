@@ -8,11 +8,10 @@ import org.eclipse.swt.custom.CTabItem;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.ToolItem;
-import org.eclipse.swtbot.generator.framework.GenerationSimpleRule;
 import org.eclipse.swtbot.generator.framework.WidgetUtils;
 import org.jboss.reddeer.swt.generator.framework.rules.RedDeerUtils;
 
-public class ToolBarRule extends GenerationSimpleRule{
+public class ToolBarRule extends AbstractSimpleRedDeerRule{
 	
 	private String toolTipText;
 	public static final int WORKBENCH=1;
@@ -28,6 +27,7 @@ public class ToolBarRule extends GenerationSimpleRule{
 
 	@Override
 	public void initializeForEvent(Event event) {
+		this.widget = event.widget;
 		this.toolTipText = ((ToolItem)event.widget).getToolTipText();
 		Shell s = WidgetUtils.getShell(((ToolItem)event.widget).getParent());
 		if(s!=null){

@@ -5,12 +5,11 @@ import java.util.List;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Event;
-import org.eclipse.swtbot.generator.framework.GenerationSimpleRule;
 import org.eclipse.swtbot.generator.listener.WorkbenchListener;
 import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.IWorkbenchPartReference;
 
-public class CTabWorkbenchRule extends GenerationSimpleRule{
+public class CTabWorkbenchRule extends AbstractSimpleRedDeerRule{
 
 	private String text;
 	private int detail;
@@ -23,6 +22,7 @@ public class CTabWorkbenchRule extends GenerationSimpleRule{
 
 	@Override
 	public void initializeForEvent(Event event) {
+		this.widget = event.widget;
 		IWorkbenchPartReference arg0 = (IWorkbenchPartReference)event.data;
 		if (arg0.getPart(false) instanceof IViewPart){
 			this.view = true;

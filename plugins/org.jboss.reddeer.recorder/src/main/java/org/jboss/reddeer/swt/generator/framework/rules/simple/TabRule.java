@@ -6,10 +6,9 @@ import java.util.List;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.TabFolder;
-import org.eclipse.swtbot.generator.framework.GenerationSimpleRule;
 import org.eclipse.swtbot.generator.framework.WidgetUtils;
 
-public class TabRule extends GenerationSimpleRule{
+public class TabRule extends AbstractSimpleRedDeerRule{
 	
 	private String text;
 
@@ -20,6 +19,7 @@ public class TabRule extends GenerationSimpleRule{
 
 	@Override
 	public void initializeForEvent(Event event) {
+		this.widget = event.widget;
 		this.text = WidgetUtils.cleanText(((TabFolder)event.widget).getSelection()[0].getText());
 	}
 
