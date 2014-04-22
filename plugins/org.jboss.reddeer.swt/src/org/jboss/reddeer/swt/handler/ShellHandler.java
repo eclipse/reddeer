@@ -2,6 +2,7 @@ package org.jboss.reddeer.swt.handler;
 
 import org.eclipse.swt.widgets.Shell;
 import org.jboss.reddeer.swt.util.Display;
+import org.jboss.reddeer.swt.util.ResultRunnable;
 
 /**
  * Contains methods that handle UI operations on {@link Shell} widgets. 
@@ -45,12 +46,46 @@ public class ShellHandler {
 		});
 	}
 
+	/**
+	 * Focuses specified shell
+	 * @param shell given SWT shell instance
+	 */
 	public void setFocus(final Shell shell) {
 		Display.syncExec(new Runnable() {
 			@Override
 			public void run() {
 				shell.forceActive();
 				shell.forceFocus();
+			}
+		});
+	}
+	
+	/**
+	 * Checks if shell is visible
+	 * @param shell given SWT shell instance
+	 * @return true if shell is visible, false otherwise
+	 */
+	public boolean isVisible(final Shell shell) {
+		return Display.syncExec(new ResultRunnable<Boolean>() {
+
+			@Override
+			public Boolean run() {
+				return shell.isVisible();
+			}
+		});
+	}
+	
+	/**
+	 * Checks if shell is disposed
+	 * @param shell given SWT shell instance
+	 * @return true if shell is disposed, false otherwise
+	 */
+	public boolean isDisposed(final Shell shell) {
+		return Display.syncExec(new ResultRunnable<Boolean>() {
+
+			@Override
+			public Boolean run() {
+				return shell.isDisposed();
 			}
 		});
 	}
