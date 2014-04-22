@@ -3,21 +3,28 @@ package org.jboss.reddeer.swt.util;
 import java.util.ArrayList;
 
 import org.eclipse.swt.SWTException;
+import org.jboss.reddeer.junit.logging.Logger;
 import org.jboss.reddeer.swt.exception.RedDeerException;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
 
 /**
- * Reddeer display provider
+ * RedDeer display provider
  * @author Jiri Peterka
  *
  */
 public class Display {
 	
 	private static org.eclipse.swt.widgets.Display display;
+	private static Logger log = Logger.getLogger(Display.class);
 	
 	public static void syncExec(Runnable runnable) {
 		try{
-			getDisplay().syncExec(runnable);
+			if (!isUIThread()) {
+				getDisplay().syncExec(runnable);
+			} else {
+				log.warn("UI Call chaining attempt");
+				runnable.run();				
+			}
 		}catch(SWTException ex){
 			if(ex.getCause() instanceof RedDeerException){
 				throw (RedDeerException) ex.getCause();
@@ -29,7 +36,13 @@ public class Display {
 
 	public static void asyncExec(Runnable runnable) {
 		try{
-			getDisplay().asyncExec(runnable);
+			if (!isUIThread()) {
+				getDisplay().asyncExec(runnable);
+			} else {
+				log.warn("UI Call chaining attempt");
+				runnable.run();
+			}
+			
 		}catch(SWTException ex){
 			if(ex.getCause() instanceof RedDeerException){
 				throw (RedDeerException) ex.getCause();
@@ -37,6 +50,10 @@ public class Display {
 				throw ex;
 			}
 		}
+	}
+
+	private static boolean isUIThread() {
+		return getDisplay().getThread() == Thread.currentThread();			
 	}
 
 	/**
@@ -65,16 +82,22 @@ public class Display {
 	 */	
 	public static <T> T syncExec(final ResultRunnable<T> runnable) {
 		final ArrayList<T> list = new ArrayList<T>();	
-		try{
-			Display.getDisplay().syncExec(new Runnable()  {
-				
-				@Override
-				public void run() {
-					T res = runnable.run();
-					list.add(res);
-				
-				}
-			});
+		try {
+			if (!isUIThread()) {
+
+				Display.getDisplay().syncExec(new Runnable() {
+
+					@Override
+					public void run() {
+						T res = runnable.run();
+						list.add(res);
+
+					}
+				});
+			} else {
+				log.warn("UI Call chaining attempt");
+				list.add(runnable.run());
+			}
 		}catch(SWTException ex){
 			if(ex.getCause() instanceof RedDeerException){
 				throw (RedDeerException) ex.getCause();
