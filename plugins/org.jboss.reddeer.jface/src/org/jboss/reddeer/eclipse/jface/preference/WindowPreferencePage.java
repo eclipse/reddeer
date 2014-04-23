@@ -2,11 +2,8 @@ package org.jboss.reddeer.eclipse.jface.preference;
 
 import org.eclipse.swt.widgets.Shell;
 import org.jboss.reddeer.junit.logging.Logger;
-import org.jboss.reddeer.swt.api.Button;
 import org.jboss.reddeer.swt.api.Menu;
 import org.jboss.reddeer.swt.api.TreeItem;
-import org.jboss.reddeer.swt.impl.button.PushButton;
-import org.jboss.reddeer.swt.impl.clabel.DefaultCLabel;
 import org.jboss.reddeer.swt.impl.menu.ShellMenu;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
@@ -15,48 +12,37 @@ import org.jboss.reddeer.swt.util.Display;
 import org.jboss.reddeer.swt.util.ResultRunnable;
 
 /**
- * Represents a general preference page.
+ * Represents a general preference page that is open via Window -> Preferences. Subclasses
+ * should represent the concrete preference page.
  * 
  * @author Lucia Jelinkova
- * @since 0.5
+ * @since 0.6 
  */
-public abstract class PreferencePage {
+public class WindowPreferencePage extends PreferencePage {
 
-	/**
-	 * @deprecated this constant has been moved to {@link WindowPreferencePage}
-	 */
 	public static final String DIALOG_TITLE = "Preferences";
 
 	protected final Logger log = Logger.getLogger(this.getClass());
-	
+
 	private String[] path;
 
 	/**
-	 * Default constructor.
-	 */
-	public PreferencePage() {
-	}
-	
-	/**
-	 * Constructor set path to specific preference item. 
+	 * Constructor sets path to specific preference item. 
 	 * @param path path in preference shell tree to specific preference
-	 * 
-	 * @deprecated The logic for opening preference page has been moved to {@link WindowPreferencePage}
 	 */
-	public PreferencePage(String... path) {
+	public WindowPreferencePage(String... path) {
+		super();
 		this.path = path;
 	}
 
 	/**
 	 * Open preference shell and specific preference page in preference shell defined by path given in constructor.
-	 * 
-	  * @deprecated The logic for opening preference page has been moved to {@link WindowPreferencePage}
 	 */
 	public void open() {
 
 		// if preferences dialog is not open, open it
 		log.info("Open Preferences dialog");
-		
+
 		boolean openedShell = false;
 		for (Shell s: ShellLookup.getInstance().getShells()) {
 			final Shell shell = s;
@@ -76,57 +62,9 @@ public abstract class PreferencePage {
 			Menu menu = new ShellMenu("Window", "Preferences");
 			menu.select();
 		}
-		
+
 		new DefaultShell(DIALOG_TITLE);
 		TreeItem t = new DefaultTreeItem(path);
 		t.select();
-		
 	}
-
-	/**
-	 * Get name of the given preference page.
-	 * 
-	 * @return name of preference page
-	 */
-	public String getName() {
-		DefaultCLabel cl = new DefaultCLabel();
-		return cl.getText();
-	}
-
-	/**
-	 * Submit OK button and exit preference shell.
-	 */
-	public void ok() {
-		Button b = new PushButton("OK");
-		log.info("Close Preferences dialog");
-		b.click();
-	}
-
-	/**
-	 * Submit Cancel button and exit preference shell.
-	 */
-	public void cancel() {
-		Button b = new PushButton("Cancel");
-		log.info("Cancel Preferences dialog");
-		b.click();
-	}
-
-	/**
-	 * Apply preference page changes.
-	 */
-	public void apply() {
-		Button b = new PushButton("Apply");
-		log.info("Apply changes in Preferences dialog");
-		b.click();
-	}
-
-	/**
-	 * Restore default preference page settings.
-	 */
-	public void restoreDefaults() {
-		Button b = new PushButton("Restore Defaults");
-		log.info("Restore default values in Preferences dialog");
-		b.click();
-	}
-	
 }

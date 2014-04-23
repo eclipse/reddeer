@@ -1,6 +1,6 @@
 package org.jboss.reddeer.eclipse.m2e.core.ui.preferences;
 
-import org.jboss.reddeer.eclipse.jface.preference.PreferencePage;
+import org.jboss.reddeer.eclipse.jface.preference.WindowPreferencePage;
 import org.jboss.reddeer.swt.impl.button.CheckBox;
 
 /**
@@ -9,7 +9,7 @@ import org.jboss.reddeer.swt.impl.button.CheckBox;
  * @author Vlado Pakan
  *
  */
-public class MavenPreferencePage extends PreferencePage {
+public class MavenPreferencePage extends WindowPreferencePage {
 	
 	private static final String OFFLINE="Offline";
 	private static final String DO_NOT_AUTO_UPDATE_DEPS="Do not automatically update dependencies from remote repositories";

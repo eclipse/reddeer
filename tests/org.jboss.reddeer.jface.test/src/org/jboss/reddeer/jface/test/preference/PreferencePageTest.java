@@ -6,104 +6,93 @@ import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
 import org.jboss.reddeer.eclipse.jface.preference.PreferencePage;
-import org.jboss.reddeer.swt.test.RedDeerTest;
+import org.jboss.reddeer.eclipse.jface.preference.WindowPreferencePage;
+import org.jboss.reddeer.junit.runner.RedDeerSuite;
+import org.jboss.reddeer.swt.api.Menu;
 import org.jboss.reddeer.swt.api.Shell;
+import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
+import org.jboss.reddeer.swt.impl.menu.ShellMenu;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
+import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
-public class PreferencePageTest extends RedDeerTest{
+@RunWith(RedDeerSuite.class)
+public class PreferencePageTest {
 
 	private static final String PAGE_NAME = TestingPreferencePage.TITLE;
-	
+
 	private PreferencePage preferencePage;
 
-	@Override
-	protected void setUp(){
-	  super.setUp();
-		preferencePage = new PreferencePageImpl( 
-				TestingPreferencePage.TestTopCategory.TOP_CATEGORY, 
+	@Before
+	public void setup(){
+		Menu menu = new ShellMenu("Window", "Preferences");
+		menu.select();
+
+		TreeItem t = new DefaultTreeItem(TestingPreferencePage.TestTopCategory.TOP_CATEGORY, 
 				TestingPreferencePage.TestCategory.CATEGORY, PAGE_NAME);
+		t.select();
+
+		preferencePage = new PreferencePageImpl();
 	}
 
-	@Test
-	public void open(){
-		preferencePage.open();
-		
-		Shell shell = new DefaultShell();		
-		assertThat(shell.getText(), is(PreferencePage.DIALOG_TITLE));
-		assertThat(preferencePage.getName(), is(PAGE_NAME));
-	}
-	
-	@Test
-	public void open_preferenceOpen(){
-		preferencePage.open();
-		preferencePage.open();
-		Shell shell = new DefaultShell();
-		
-		assertThat(shell.getText(), is(PreferencePage.DIALOG_TITLE));
-		assertThat(preferencePage.getName(), is(PAGE_NAME));
+	@After
+	public void cleanup(){
+		Shell shell = null;
+		try {
+			shell = new DefaultShell(WindowPreferencePage.DIALOG_TITLE);
+		} catch (SWTLayerException e){
+			// not found, no action needed
+			return;
+		}
+		shell.close();
 	}
 
 	@Test
 	public void ok(){
-		preferencePage.open();
 		preferencePage.ok();
-		
+
 		Shell shell = new DefaultShell();
-		assertThat(shell.getText(), is(not(PreferencePage.DIALOG_TITLE)));
+		assertThat(shell.getText(), is(not(WindowPreferencePage.DIALOG_TITLE)));
 		assertTrue(TestingPreferencePage.performOkCalled);
 	}
 
 	@Test
 	public void cancel(){
-		preferencePage.open();
 		preferencePage.cancel();
-		
+
 		Shell shell = new DefaultShell();
-		assertThat(shell.getText(), is(not(PreferencePage.DIALOG_TITLE)));
+		assertThat(shell.getText(), is(not(WindowPreferencePage.DIALOG_TITLE)));
 		assertTrue(TestingPreferencePage.performCancelCalled);
 	}
-	
+
 	@Test
 	public void apply(){
-		preferencePage.open();
 		preferencePage.apply();
 
 		Shell shell = new DefaultShell();
-		assertThat(shell.getText(), is(PreferencePage.DIALOG_TITLE));
+		assertThat(shell.getText(), is(WindowPreferencePage.DIALOG_TITLE));
 		assertThat(preferencePage.getName(), is(PAGE_NAME));
 		assertTrue(TestingPreferencePage.performApplyCalled);
 	}
 
 	@Test
 	public void restoreDefaults(){
-		preferencePage.open();
 		preferencePage.restoreDefaults();
-		
+
 		Shell shell = new DefaultShell();
-		assertThat(shell.getText(), is(PreferencePage.DIALOG_TITLE));
+		assertThat(shell.getText(), is(WindowPreferencePage.DIALOG_TITLE));
 		assertThat(preferencePage.getName(), is(PAGE_NAME));
 		assertTrue(TestingPreferencePage.performDefaultsCalled);
 	}
-	
-	@Override
-	protected void tearDown(){
-		Shell shell = null;
-		try {
-			shell = new DefaultShell(PreferencePage.DIALOG_TITLE);
-		} catch (SWTLayerException e){
-			// not found, no action needed
-			return;
-		}
-		shell.close();
-		super.tearDown();
-	}
-	
+
 	class PreferencePageImpl extends PreferencePage {
 
-		public PreferencePageImpl(String... path) {
-			super(path);
+		public PreferencePageImpl() {
+			super();
 		}
 	}
 }
