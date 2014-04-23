@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.jboss.reddeer.eclipse.datatools.ui.DriverDefinition;
 import org.jboss.reddeer.eclipse.datatools.ui.wizard.DriverDefinitionWizard;
-import org.jboss.reddeer.eclipse.jface.preference.PreferencePage;
+import org.jboss.reddeer.eclipse.jface.preference.WindowPreferencePage;
 import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 
@@ -14,7 +14,7 @@ import org.jboss.reddeer.swt.impl.shell.DefaultShell;
  * @author apodhrad
  * 
  */
-public class DriverDefinitionPreferencePage extends PreferencePage {
+public class DriverDefinitionPreferencePage extends WindowPreferencePage {
 
 	public DriverDefinitionPreferencePage() {
 		super("Data Management", "Connectivity", "Driver Definitions");

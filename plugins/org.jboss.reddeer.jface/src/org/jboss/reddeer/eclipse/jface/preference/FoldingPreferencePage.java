@@ -8,7 +8,7 @@ import org.jboss.reddeer.swt.impl.button.CheckBox;
  * @author jjankovi
  * @since 0.5
  */
-public class FoldingPreferencePage extends PreferencePage {
+public class FoldingPreferencePage extends WindowPreferencePage {
 
 	/**
 	 * Constructor which open folding preference in preference shell.
