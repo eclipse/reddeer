@@ -1,5 +1,7 @@
 package org.jboss.reddeer.workbench.api;
 
+import org.jboss.reddeer.eclipse.jface.text.contentassist.ContentAssistant;
+
 /**
  * Interface with base operations which can be performed with editor.
  * 
@@ -58,6 +60,11 @@ public interface Editor {
 	 * Minimize editor
 	 */
 	void minimize();
+	
+	/**
+	 * Opens content assistant
+	 */
+	ContentAssistant openContentAssistant();
 	
 	
 }
