@@ -6,10 +6,12 @@ import static org.junit.Assert.assertTrue;
 import org.jboss.reddeer.eclipse.jdt.ui.NewEnumWizardDialog;
 import org.jboss.reddeer.eclipse.jdt.ui.NewEnumWizardPage;
 import org.jboss.reddeer.eclipse.jdt.ui.ide.NewJavaProjectWizardDialog;
+import org.jboss.reddeer.requirements.cleanworkspace.CleanWorkspaceRequirement.CleanWorkspace;
 import org.jboss.reddeer.swt.test.RedDeerTest;
 import org.jboss.reddeer.workbench.impl.editor.TextEditor;
 import org.junit.Test;
 
+@CleanWorkspace
 public class EnumWizardTest extends RedDeerTest {
 	
 	@Test
