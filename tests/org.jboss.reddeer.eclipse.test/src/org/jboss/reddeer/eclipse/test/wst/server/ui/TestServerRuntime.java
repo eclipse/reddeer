@@ -10,6 +10,8 @@ public class TestServerRuntime extends RuntimeDelegate {
 	
 	public static final String ID = "org.jboss.reddeer.eclipse.test.wst.server.testserverruntime";
 	
+	public static final String CATEGORY = "Basic";
+	
 	public static final String NAME = "Test runtime";
 	
 	public static final String TYPE = "Test runtime";

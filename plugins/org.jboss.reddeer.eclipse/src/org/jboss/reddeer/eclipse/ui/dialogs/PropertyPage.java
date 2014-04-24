@@ -34,9 +34,13 @@ public abstract class PropertyPage extends PreferencePage {
 	public void open() {
 		new ContextMenu("Properties").select();;
 		
-		new WaitUntil(new ShellWithTextIsActive("Properties for " + getResourceName()));
+		new WaitUntil(new ShellWithTextIsActive(getPageTitle()));
 		
 		TreeItem t = new DefaultTreeItem(path);
 		t.select();
+	}
+	
+	public String getPageTitle(){
+		return "Properties for " + getResourceName();
 	}
 }

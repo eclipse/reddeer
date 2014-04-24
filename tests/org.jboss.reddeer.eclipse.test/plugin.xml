@@ -32,7 +32,7 @@
  	<extension point = "org.eclipse.ui.propertyPages">
         <page
            id="org.jboss.reddeer.eclipse.ui.dialogs.ProjectPropertyPageTest"
-           name="Property page test page"
+           name="Property page test"
 		   class="org.jboss.reddeer.eclipse.ui.dialogs.TestPropertyPage">
 			<enabledWhen>
 	           <instanceof

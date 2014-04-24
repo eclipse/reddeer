@@ -10,6 +10,8 @@ import org.jboss.reddeer.eclipse.test.Activator;
 
 public class TestServer extends ServerDelegate {
 
+	public static final String TYPE = "Basic";
+	
 	public static final String NAME = "Test server";
 	
 	@Override

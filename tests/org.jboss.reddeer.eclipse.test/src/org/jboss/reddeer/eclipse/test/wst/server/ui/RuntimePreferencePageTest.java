@@ -7,11 +7,16 @@ import java.util.List;
 
 import org.jboss.reddeer.eclipse.wst.server.ui.Runtime;
 import org.jboss.reddeer.eclipse.wst.server.ui.RuntimePreferencePage;
+import org.jboss.reddeer.eclipse.wst.server.ui.wizard.NewRuntimeWizardDialog;
 import org.jboss.reddeer.eclipse.wst.server.ui.wizard.NewRuntimeWizardPage;
-import org.jboss.reddeer.swt.test.RedDeerTest;
+import org.jboss.reddeer.junit.runner.RedDeerSuite;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
-public class RuntimePreferencePageTest extends RedDeerTest{
+@RunWith(RedDeerSuite.class)
+public class RuntimePreferencePageTest {
 
 	private static final String SERVER_NAME = TestServerRuntime.NAME;
 	
@@ -19,9 +24,8 @@ public class RuntimePreferencePageTest extends RedDeerTest{
 
 	private RuntimePreferencePage preferencePage;
 
-	@Override
-	protected void setUp(){
-	  super.setUp();
+	@Before
+	public void setUp(){
 		preferencePage = new RuntimePreferencePage();
 		preferencePage.open();
 		preferencePage.removeAllRuntimes();
@@ -38,9 +42,10 @@ public class RuntimePreferencePageTest extends RedDeerTest{
 	public void addRuntime() {
 		preferencePage.open();
 		
-		NewRuntimeWizardPage wizardPage = preferencePage.addRuntime().getFirstPage();
+		NewRuntimeWizardDialog wizardDialog = preferencePage.addRuntime(); 
+		NewRuntimeWizardPage wizardPage = wizardDialog.getFirstPage();
 		wizardPage.selectType(SERVER_PATH, SERVER_NAME);
-		wizardPage.getWizardDialog().finish();
+		wizardDialog.finish();
 		
 		List<Runtime> runtimes = preferencePage.getServerRuntimes();
 		assertThat(runtimes.size(), is(1));
@@ -50,13 +55,14 @@ public class RuntimePreferencePageTest extends RedDeerTest{
 	@Test
 	public void removeRuntime() {
 		preferencePage.open();
-		NewRuntimeWizardPage wizardPage = preferencePage.addRuntime().getFirstPage();
+		NewRuntimeWizardDialog wizardDialog = preferencePage.addRuntime(); 
+		NewRuntimeWizardPage wizardPage = wizardDialog.getFirstPage();
 		wizardPage.selectType(SERVER_PATH, SERVER_NAME);
-		wizardPage.getWizardDialog().finish();
+		wizardDialog.finish();
 		
 		wizardPage = preferencePage.addRuntime().getFirstPage();
 		wizardPage.selectType(SERVER_PATH, SERVER_NAME);
-		wizardPage.getWizardDialog().finish();
+		wizardDialog.finish();
 		
 		List<Runtime> runtimes = preferencePage.getServerRuntimes();
 		assertThat(runtimes.size(), is(2));
@@ -74,13 +80,14 @@ public class RuntimePreferencePageTest extends RedDeerTest{
 	public void removeAllRuntime() {
 		preferencePage.open();
 		
-		NewRuntimeWizardPage wizardPage = preferencePage.addRuntime().getFirstPage();
+		NewRuntimeWizardDialog wizardDialog = preferencePage.addRuntime(); 
+		NewRuntimeWizardPage wizardPage = wizardDialog.getFirstPage();
 		wizardPage.selectType(SERVER_PATH, SERVER_NAME);
-		wizardPage.getWizardDialog().finish();
+		wizardDialog.finish();
 		
 		wizardPage = preferencePage.addRuntime().getFirstPage();
 		wizardPage.selectType(SERVER_PATH, SERVER_NAME);
-		wizardPage.getWizardDialog().finish();
+		wizardDialog.finish();
 		
 		List<Runtime> runtimes = preferencePage.getServerRuntimes();
 		assertThat(runtimes.size(), is(2));
@@ -90,11 +97,10 @@ public class RuntimePreferencePageTest extends RedDeerTest{
 		assertThat(runtimes.size(), is(0));
 	}
 	
-	@Override
-	protected void tearDown(){
+	@After
+	public void tearDown(){
 		preferencePage.open();
 		preferencePage.removeAllRuntimes();
 		preferencePage.cancel();
-		super.tearDown();
 	}
 }
