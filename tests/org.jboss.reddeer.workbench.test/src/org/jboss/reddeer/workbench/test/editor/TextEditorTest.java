@@ -18,6 +18,7 @@ import org.jboss.reddeer.direct.platform.RunningPlatform;
 import org.jboss.reddeer.eclipse.jdt.ui.ProjectExplorer;
 import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.Project;
 import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.ProjectItem;
+import org.jboss.reddeer.eclipse.jface.text.contentassist.ContentAssistant;
 import org.jboss.reddeer.eclipse.ui.ide.NewFileCreationWizardDialog;
 import org.jboss.reddeer.eclipse.ui.ide.NewFileCreationWizardPage;
 import org.jboss.reddeer.eclipse.ui.wizards.datatransfer.ExternalProjectImportWizardDialog;
@@ -94,6 +95,16 @@ public class TextEditorTest extends RedDeerTest {
 			}
 		});
 		assertEquals("testText", editor.getText());
+	}
+	
+	@Test
+	public void contentAssist(){
+		openJavaFile();
+		TextEditor textEditor = new TextEditor();
+		ContentAssistant ca = textEditor.openContentAssistant();
+		assertTrue(ca.getProposals().contains("enum"));
+		ca.chooseProposal("enum");
+		assertTrue(textEditor.getText().contains("enum"));
 	}
 
 	@Test

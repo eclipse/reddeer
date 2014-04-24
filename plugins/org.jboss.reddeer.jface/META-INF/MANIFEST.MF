@@ -12,5 +12,7 @@ Require-Bundle: org.eclipse.ui,
  org.jboss.reddeer.junit;bundle-version="0.4.0"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Export-Package: org.jboss.reddeer.eclipse.jface.exception,org.jboss.re
- ddeer.eclipse.jface.preference,org.jboss.reddeer.eclipse.jface.wizard
+Export-Package: org.jboss.reddeer.eclipse.jface.exception,
+ org.jboss.reddeer.eclipse.jface.preference,
+ org.jboss.reddeer.eclipse.jface.wizard,
+ org.jboss.reddeer.eclipse.jface.text.contentassist
