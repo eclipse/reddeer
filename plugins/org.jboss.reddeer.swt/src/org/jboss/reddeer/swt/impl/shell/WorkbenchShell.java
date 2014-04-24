@@ -1,6 +1,7 @@
 package org.jboss.reddeer.swt.impl.shell;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.swt.widgets.Shell;
@@ -136,12 +137,14 @@ public class WorkbenchShell extends AbstractShell {
 		public boolean test() {
 			new WaitWhile(new JobIsRunning(), TimePeriod.LONG);
 			shells = getShellsToClose();
-			if (shells.isEmpty()) {
+			if (shells.isEmpty() || shellsAreDisposed(shells)) {
 				return true;
 			}
 			Shell shell = shells.get(shells.size() - 1);
 			beforeShellIsClosed(shell);
-			new DefaultShell(WidgetHandler.getInstance().getText(shell)).close();
+			if (!shell.isDisposed()){
+				new DefaultShell(WidgetHandler.getInstance().getText(shell)).close();
+			}
 			return false;
 		}
 
@@ -149,9 +152,24 @@ public class WorkbenchShell extends AbstractShell {
 		public String description() {
 			List<String> shellTitles = new ArrayList<String>();
 			for (Shell shell: shells) {
-				shellTitles.add(WidgetHandler.getInstance().getText(shell));
+				if (!shell.isDisposed()){
+					shellTitles.add(WidgetHandler.getInstance().getText(shell));
+				}
 			}
 			return "The following shells are still open " + shellTitles;
+		}
+		
+		private boolean shellsAreDisposed(List<Shell> shells){
+			boolean nonDisposedShellExists = false;
+			
+			if (shells != null){
+				Iterator<Shell> itShells = shells.iterator();
+				while (itShells.hasNext() && (!nonDisposedShellExists)){
+					nonDisposedShellExists = !itShells.next().isDisposed();
+				}
+			}
+			
+			return !nonDisposedShellExists;
 		}
 		
 	}
