@@ -1,4 +1,4 @@
-package org.jboss.reddeer.eclipse.ui.dialogs;
+package org.jboss.reddeer.eclipse.test.ui.dialogs;
 
 
 import org.eclipse.swt.SWT;
