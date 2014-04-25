@@ -31,7 +31,7 @@ public class ServerRequirement extends ServerReqBase
 	
 	
 	private ServerRequirementConfig config;
-	private ConfiguredServerInfo lastServerConfiguration;
+	private static ConfiguredServerInfo lastServerConfiguration;
 	private ApacheTomcatServer server;
 	
 	@Retention(RetentionPolicy.RUNTIME)

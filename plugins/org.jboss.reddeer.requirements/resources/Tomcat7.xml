@@ -10,7 +10,7 @@
 			<server:type>
 				<server:familyApacheTomcat version="7.0" />
 			</server:type>
-			<server:runtime>/usr/share/tomcat7</server:runtime>
+			<server:runtime>${apache-tomcat-7.home}</server:runtime>
 		</server:server-requirement>
 	</requirements>
 </testrun>

@@ -11,6 +11,10 @@
 		<artifactId>tests</artifactId>
 		<version>0.6.0-SNAPSHOT</version>
 	</parent>
+	
+	<properties>
+		<apache-tomcat-7.home>${project.build.directory}/apache-tomcat-7.0.53</apache-tomcat-7.home>
+	</properties>
 
 	<profiles>
 		<profile>
@@ -42,13 +46,50 @@
 	</profiles>
 
 	<build>
+		<resources>
+			<resource>
+				<!-- Directory where to look for server requirement xml --> 
+				<directory>${basedir}/../../plugins/org.jboss.reddeer.requirements/resources</directory>
+				<!-- Filtering enables substitution of variables defined in xml files -->
+				<filtering>true</filtering>
+			</resource>
+		</resources>
+		
 		<plugins>
 			<plugin>
 				<groupId>org.eclipse.tycho</groupId>
 				<artifactId>tycho-surefire-plugin</artifactId>
 				<configuration>
 					<useUIThread>false</useUIThread>
+					<argLine>-Dreddeer.config=${basedir}/bin</argLine>
+					<dependencies combine.children="append">
+								<!-- This entry should enable creating of default JDK on Mac -->
+								<dependency>
+									<type>p2-installable-unit</type>
+									<artifactId>org.eclipse.jst.server_adapters.ext.feature.feature.group</artifactId>
+									<version>0.0.0</version>
+								</dependency>
+					</dependencies>
 				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>com.googlecode.maven-download-plugin</groupId>
+				<artifactId>maven-download-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>install-apache-tomcat-7</id>
+						<phase>pre-integration-test</phase>
+						<goals>
+							<goal>wget</goal>
+						</goals>
+						<configuration>
+							<url>http://mirror.hosting90.cz/apache/tomcat/tomcat-7/v7.0.53/bin/apache-tomcat-7.0.53.zip</url>
+							<outputFileName>apache-tomcat-7.0.53.zip</outputFileName>
+							<md5>e819542bf313c3a5e0c1ad03c15880b6</md5>
+							<unpack>true</unpack>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>
