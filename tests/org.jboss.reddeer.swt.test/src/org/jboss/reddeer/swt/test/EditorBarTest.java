@@ -3,6 +3,7 @@ package org.jboss.reddeer.swt.test;
 import static org.junit.Assert.assertTrue;
 
 import org.jboss.reddeer.eclipse.jdt.ui.ProjectExplorer;
+import org.jboss.reddeer.swt.condition.JobIsRunning;
 import org.jboss.reddeer.swt.condition.ShellWithTextIsActive;
 import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.menu.ShellMenu;
@@ -11,6 +12,7 @@ import org.jboss.reddeer.swt.impl.text.LabeledText;
 import org.jboss.reddeer.swt.impl.toolbar.DefaultToolItem;
 import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
 import org.jboss.reddeer.swt.test.ui.editor.EditorState;
+import org.jboss.reddeer.swt.wait.TimePeriod;
 import org.jboss.reddeer.swt.wait.WaitUntil;
 import org.jboss.reddeer.swt.wait.WaitWhile;
 import org.jboss.reddeer.workbench.impl.editor.DefaultEditor;
@@ -33,7 +35,10 @@ public class EditorBarTest extends RedDeerTest {
 		new WaitUntil(new ShellWithTextIsActive("New Project"));
 		new LabeledText("Project name:").setText(projectName);
 		new PushButton("Finish").click();
-
+		
+		new WaitWhile(new ShellWithTextIsActive("New Project"), TimePeriod.LONG);
+		new WaitWhile(new JobIsRunning(), TimePeriod.LONG);
+		
 		ProjectExplorer pe = new ProjectExplorer();
 		pe.open();
 		pe.selectProjects(projectName);
