@@ -3,6 +3,7 @@ package org.jboss.reddeer.swt.test;
 import static org.junit.Assert.assertTrue;
 
 import org.jboss.reddeer.eclipse.jdt.ui.ProjectExplorer;
+import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.swt.condition.JobIsRunning;
 import org.jboss.reddeer.swt.condition.ShellWithTextIsActive;
 import org.jboss.reddeer.swt.impl.button.PushButton;
@@ -19,8 +20,10 @@ import org.jboss.reddeer.workbench.impl.editor.DefaultEditor;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
-public class EditorBarTest extends RedDeerTest {
+@RunWith(RedDeerSuite.class)
+public class EditorBarTest {
 
 	private static String projectName = "EditorBarTest-test";
 	

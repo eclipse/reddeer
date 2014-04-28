@@ -7,6 +7,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.hamcrest.core.Is;
 import org.hamcrest.core.IsNot;
+import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.swt.api.Menu;
 import org.jboss.reddeer.swt.api.ToolBar;
 import org.jboss.reddeer.swt.api.ToolItem;
@@ -29,13 +30,15 @@ import org.jboss.reddeer.workbench.impl.view.WorkbenchView;
 import org.jboss.tools.reddeer.swt.test.model.TestModel;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 /**
  * Tests for various toolbar implementations
  * @author Jiri Peterka
  *
  */
-public class ToolBarTest extends RedDeerTest {
+@RunWith(RedDeerSuite.class)
+public class ToolBarTest {
 
 	@Before
 	public void prepare() {

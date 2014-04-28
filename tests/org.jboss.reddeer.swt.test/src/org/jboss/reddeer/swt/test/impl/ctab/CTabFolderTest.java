@@ -12,32 +12,16 @@ import org.jboss.reddeer.swt.api.CTabItem;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.impl.ctab.DefaultCTabItem;
 import org.jboss.reddeer.swt.impl.text.DefaultText;
-import org.jboss.reddeer.swt.test.RedDeerTest;
-import org.jboss.reddeer.swt.util.Display;
-import org.junit.After;
+import org.jboss.reddeer.swt.test.SWTLayerTestCase;
 import org.junit.Test;
 
-public class CTabFolderTest extends RedDeerTest{
+public class CTabFolderTest extends SWTLayerTestCase{
 	private static final String ITEM_LABEL_PREFIX = "Item ";
 	private static final String TOOLTIP_PREFIX = "Tool for Item ";
 	private static final String CONTENT_PREFIX = "Content for Item ";
-	@Override
-	public void setUp() {
-		super.setUp();
-		Display.syncExec(new Runnable() {
-
-			@Override
-			public void run() {
-				Shell shell = new Shell(org.eclipse.swt.widgets.Display.getDefault());  
-				shell.setText("Testing shell");
-				createControls(shell);
-				shell.open();
-				shell.setFocus();
-			}
-		});
-	}
 	
-	private void createControls(Shell shell){
+	@Override
+	protected void createControls(Shell shell){
 		shell.setLayout(new FillLayout());
 		CTabFolder folder = new CTabFolder(shell, SWT.BORDER);
 		for (int i = 0; i < 4; i++) {
@@ -49,21 +33,7 @@ public class CTabFolderTest extends RedDeerTest{
 			item.setControl(text);
 		}
 	}
-	@After
-	public void cleanup() {
-		Display.syncExec(new Runnable() {
-			@Override
-			public void run() {
-				for (Shell shell : org.jboss.reddeer.swt.
-						util.Display.getDisplay().getShells()) {
-					if (shell.getText().equals("Testing shell")) {
-						shell.dispose();
-						break;
-					}
-				}
-			}
-		});
-	}
+	
 	@Test
 	public void findByIndexAndActivate(){
 		int index = 2;

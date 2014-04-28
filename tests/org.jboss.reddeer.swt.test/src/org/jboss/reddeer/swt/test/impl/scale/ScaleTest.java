@@ -2,7 +2,6 @@ package org.jboss.reddeer.swt.test.impl.scale;
 
 import static org.junit.Assert.assertTrue;
 
-import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
@@ -12,38 +11,22 @@ import org.jboss.reddeer.swt.api.Text;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.impl.scale.DefaultScale;
 import org.jboss.reddeer.swt.impl.text.DefaultText;
-import org.jboss.reddeer.swt.test.RedDeerTest;
-import org.jboss.reddeer.swt.util.Display;
-import org.junit.After;
+import org.jboss.reddeer.swt.test.SWTLayerTestCase;
 import org.junit.Test;
 /**
  * Tests Scale implementation
  * @author vlado pakan
  *
  */
-public class ScaleTest extends RedDeerTest{
+public class ScaleTest extends SWTLayerTestCase{
 	private static final int[] SCALE_MAXIMUM = new int[]{100,200};
 	private static final int[] SCALE_MINIMUM = new int[]{10,110};
 	private static final int[] SCALE_INIT_VALUE = new int[]{50,150};
 	private Text selectionText = null;
 	private SelectionListener selectionListener;
+
 	@Override
-	public void setUp() {
-		super.setUp();
-		Display.syncExec(new Runnable() {
-			@Override
-			public void run() {
-				Shell shell = new Shell( Display.getDisplay());
-				shell.setText("Testing shell");
-				createControls(shell);
-				shell.open();
-				shell.setFocus();
-			}
-		});
-	}
-	
-	private void createControls(Shell shell){
-		shell.setLayout(new FillLayout());
+	protected void createControls(Shell shell){
 		this.selectionListener = new SelectionListener() {
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
@@ -67,21 +50,7 @@ public class ScaleTest extends RedDeerTest{
 		org.eclipse.swt.widgets.Text txSelection = new org.eclipse.swt.widgets.Text(shell,SWT.BORDER);
 		txSelection.setText("<value of selected scale>");
 	}
-	@After
-	public void cleanup() {
-		Display.syncExec(new Runnable() {
-			@Override
-			public void run() {
-				for (Shell shell : org.jboss.reddeer.swt.
-						util.Display.getDisplay().getShells()) {
-					if (shell.getText().equals("Testing shell")) {
-						shell.dispose();
-						break;
-					}
-				}
-			}
-		});
-	}
+
 	@Test
 	public void findScaleByIndex(){
 		int index = 1;

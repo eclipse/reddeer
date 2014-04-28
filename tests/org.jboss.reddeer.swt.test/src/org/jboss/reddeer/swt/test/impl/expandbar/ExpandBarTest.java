@@ -3,7 +3,6 @@ package org.jboss.reddeer.swt.test.impl.expandbar;
 import static org.junit.Assert.assertTrue;
 
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.ExpandItem;
@@ -16,35 +15,18 @@ import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.impl.expandbar.DefaultExpandBar;
 import org.jboss.reddeer.swt.impl.expandbar.DefaultExpandBarItem;
 import org.jboss.reddeer.swt.impl.text.DefaultText;
-import org.jboss.reddeer.swt.test.RedDeerTest;
-import org.jboss.reddeer.swt.util.Display;
-import org.junit.After;
+import org.jboss.reddeer.swt.test.SWTLayerTestCase;
 import org.junit.Test;
 
-public class ExpandBarTest extends RedDeerTest{
+public class ExpandBarTest extends SWTLayerTestCase{
 	private static final String EXPAND_ITEM_LABEL_PREFIX = "Expand Item: ";
 	private static final String TEXT_LABEL_PREFIX = "Text: ";
 	private static final String TEXT_VALUE_PREFIX = "EB:2 TX: ";
 	private static final int EXPAND_BAR_0_NUM_ITEMS = 3;
 	private static final int EXPAND_BAR_1_NUM_ITEMS = 5;
-	@Override
-	public void setUp() {
-		super.setUp();
-		Display.syncExec(new Runnable() {
-
-			@Override
-			public void run() {
-				Shell shell = new Shell(org.eclipse.swt.widgets.Display.getDefault());  
-				shell.setText("Testing shell");
-				createControls(shell);
-				shell.open();
-				shell.setFocus();
-			}
-		});
-	}
 	
-	private void createControls(Shell shell){
-		shell.setLayout(new FillLayout());
+	@Override
+	protected void createControls(Shell shell){
 		org.eclipse.swt.widgets.ExpandBar bar = new org.eclipse.swt.widgets.ExpandBar(shell, SWT.V_SCROLL);
 		for (int itemIndex = 0 ; itemIndex < ExpandBarTest.EXPAND_BAR_0_NUM_ITEMS ; itemIndex++){
 			Composite composite = new Composite (bar, SWT.NONE);
@@ -77,21 +59,7 @@ public class ExpandBarTest extends RedDeerTest{
 			item.setControl(composite);
 		}
 	}
-	@After
-	public void cleanup() {
-		Display.syncExec(new Runnable() {
-			@Override
-			public void run() {
-				for (Shell shell : org.jboss.reddeer.swt.
-						util.Display.getDisplay().getShells()) {
-					if (shell.getText().equals("Testing shell")) {
-						shell.dispose();
-						break;
-					}
-				}
-			}
-		});
-	}
+	
 	@Test
 	public void findByIndexAndExpand(){
 		final int expandBarIndex = 1;

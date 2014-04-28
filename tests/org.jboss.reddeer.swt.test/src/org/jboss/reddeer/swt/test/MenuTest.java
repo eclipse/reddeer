@@ -15,6 +15,7 @@ import org.jboss.reddeer.swt.matcher.WithMnemonicTextMatcher;
 import org.jboss.reddeer.swt.matcher.WithRegexMatcher;
 import org.jboss.reddeer.swt.matcher.WithRegexMatchers;
 import org.jboss.reddeer.workbench.impl.view.WorkbenchView;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -24,15 +25,14 @@ import org.junit.runner.RunWith;
  *
  */
 @RunWith(RedDeerSuite.class)
-public class MenuTest extends RedDeerTest {
+public class MenuTest {
 
 	protected final Logger log = Logger.getLogger(this.getClass());
 	private ProjectExplorer explorer = new ProjectExplorer();
 	private static int limit = 20;
 
-	@Override
-	protected void setUp() {
-		super.setUp();
+	@Before
+	public void setUp() {
 		explorer.open();
 	}
 	
