@@ -3,22 +3,24 @@ package org.jboss.reddeer.swt.test.keyboard;
 import static org.junit.Assert.assertEquals;
 
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
+import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.jboss.reddeer.swt.impl.text.DefaultText;
 import org.jboss.reddeer.swt.keyboard.Keyboard;
 import org.jboss.reddeer.swt.keyboard.KeyboardFactory;
-import org.jboss.reddeer.swt.test.RedDeerTest;
+import org.jboss.reddeer.swt.test.utils.ShellTestUtils;
 import org.jboss.reddeer.swt.util.Display;
 import org.jboss.reddeer.swt.util.ResultRunnable;
 import org.junit.After;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
-public class KeyboardTest extends RedDeerTest {
-
+@RunWith(RedDeerSuite.class)
+public class KeyboardTest {
 	
+	protected static final String SHELL_TITLE = "Keyboard testing shell";
 	private Text text;
 	
 	@After
@@ -27,13 +29,7 @@ public class KeyboardTest extends RedDeerTest {
 
 			@Override
 			public void run() {
-				for (Shell shell : org.jboss.reddeer.swt.
-						util.Display.getDisplay().getShells()) {
-					if (shell.getText().equals("Testing shell")) {
-						shell.dispose();
-						break;
-					}
-				}
+				ShellTestUtils.closeShell(SHELL_TITLE);
 			}
 		});
 	}
@@ -97,17 +93,12 @@ public class KeyboardTest extends RedDeerTest {
 
 			@Override
 			public void run() {
-				org.eclipse.swt.widgets.Display display = org.eclipse.swt.widgets.Display
-						.getDefault();
-				Shell shell = new Shell(display);
-				shell.setLayout(new GridLayout());
-				shell.setText("Testing shell");
+				Shell shell = ShellTestUtils.createShell(SHELL_TITLE);
 				text = new Text(shell, SWT.NONE);
-				shell.open();
-				shell.setFocus();
+				shell.layout();
 			}
 		});
-		new DefaultShell("Testing shell");
+		new DefaultShell(SHELL_TITLE);
 		new DefaultText();
 	}
 

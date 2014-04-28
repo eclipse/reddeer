@@ -5,68 +5,25 @@ import static org.junit.Assert.assertNotNull;
 
 import java.util.List;
 
-import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Link;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
-import org.jboss.reddeer.swt.condition.ShellWithTextIsActive;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.impl.link.AnchorLink;
 import org.jboss.reddeer.swt.impl.text.DefaultText;
-import org.jboss.reddeer.swt.test.RedDeerTest;
-import org.jboss.reddeer.swt.util.Display;
-import org.jboss.reddeer.swt.wait.WaitWhile;
-import org.junit.After;
-import org.junit.Before;
+import org.jboss.reddeer.swt.test.SWTLayerTestCase;
+import org.jboss.reddeer.swt.test.utils.TextTestUtils;
 import org.junit.Test;
 
-public class AnchorLinkTest extends RedDeerTest {
+public class AnchorLinkTest extends SWTLayerTestCase {
 	
-	@Before
-	public void setup(){
-		super.setUp();
-		Display.syncExec(new Runnable() {
+	@Override
+	protected void createControls(Shell parent){
+		final Text text = TextTestUtils.createText(parent, "");
 
-			@Override
-			public void run() {
-				Shell shell = new Shell(org.eclipse.swt.widgets.Display.getDefault());
-				shell.setText("Testing shell");
-				createControls(shell);
-				shell.open();
-				shell.setFocus();
-			}
-		});
-	}
-	
-	@After
-	public void cleanup() {
-		Display.syncExec(new Runnable() {
-
-			@Override
-			public void run() {
-				for (Shell shell : org.jboss.reddeer.swt.
-						util.Display.getDisplay().getShells()) {
-					if (shell.getText().equals("Testing shell")) {
-						shell.dispose();
-						break;
-					}
-				}
-			}
-		});
-		new WaitWhile(new ShellWithTextIsActive("Testing shell"));
-	}
-	
-	private void createControls(Shell parent){
-		final Text text = new Text(parent, SWT.BORDER);
-		text.setSize(100,30);
-		text.setLocation(100,50);
-		text.setText("");
-		Link link1 = new Link(parent, SWT.BORDER);
-		link1.setSize(100, 30);
-		link1.setLocation(100, 100);
-		link1.setText("This is a <a href=\"test1\">link1</a>");
+		Link link1 = LinkTestUtils.createLink(parent, "This is a <a href=\"test1\">link1</a>");
 		link1.addSelectionListener(new SelectionAdapter() {
 
 			@Override
@@ -75,10 +32,8 @@ public class AnchorLinkTest extends RedDeerTest {
 			}
 
 		});
-		Link link2 = new Link(parent, SWT.BORDER);
-		link2.setSize(100, 30);
-		link2.setLocation(100, 150);
-		link2.setText("This is another <A>link2</A> with two <a href=\"test2\">links</a>");
+		
+		Link link2 =  LinkTestUtils.createLink(parent, "This is another <A>link2</A> with two <a href=\"test2\">links</a>");
 		link2.addSelectionListener(new SelectionAdapter() {
 
 			@Override
@@ -87,17 +42,13 @@ public class AnchorLinkTest extends RedDeerTest {
 			}
 
 		});
-		Link link3 = new Link(parent, SWT.BORDER);
-		link3.setSize(100, 30);
-		link3.setLocation(100,200);
-		link3.setText("Link with same texts <a href=\"same1\">same</a><a href=\"same2\">same</a>");
+		Link link3 = LinkTestUtils.createLink(parent, "Link with same texts <a href=\"same1\">same</a><a href=\"same2\">same</a>");
 		link3.addSelectionListener(new SelectionAdapter() {
 
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				text.setText(e.text);
 			}
-
 		});
 	}
 	

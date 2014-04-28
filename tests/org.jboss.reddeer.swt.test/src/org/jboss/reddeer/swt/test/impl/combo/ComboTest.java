@@ -5,52 +5,36 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.Arrays;
 
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.widgets.Text;
 import org.jboss.reddeer.swt.api.Combo;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.impl.combo.DefaultCombo;
 import org.jboss.reddeer.swt.impl.combo.LabeledCombo;
 import org.jboss.reddeer.swt.impl.text.DefaultText;
-import org.jboss.reddeer.swt.test.RedDeerTest;
-import org.jboss.reddeer.swt.util.Display;
-import org.junit.After;
+import org.jboss.reddeer.swt.test.SWTLayerTestCase;
+import org.jboss.reddeer.swt.test.utils.LabelTestUtils;
+import org.jboss.reddeer.swt.test.utils.TextTestUtils;
 import org.junit.Test;
 /**
  * Tests Combo functionality
  * @author Vlado Pakan
  * @author Radoslav Rabara
  */
-public class ComboTest extends RedDeerTest{
+public class ComboTest extends SWTLayerTestCase{
 	private static final String COMBO_LABEL_PREFIX = "Combo";
 	private static final String COMBO_ITEM_PREFIX = "Item";
 	private static final String DISABLED_COMBO_LABEL = "Disabled:";
-	@Override
-	public void setUp() {
-		super.setUp();
-		Display.syncExec(new Runnable() {
-
-			@Override
-			public void run() {
-				Shell shell = new Shell(org.eclipse.swt.widgets.Display.getDefault());  
-				shell.setText("Testing shell");
-				createControls(shell);
-				shell.open();
-				shell.setFocus();
-			}
-		});
-	}
 	
-	private void createControls(Shell shell){
-		shell.setLayout(new GridLayout(2,true));
+	@Override
+	protected void createControls(Shell shell){
 		// Text displaying last combo selection
-		org.eclipse.swt.widgets.Label label = new org.eclipse.swt.widgets.Label(shell, SWT.NONE);
-		label.setText("Last selection:");
-		final org.eclipse.swt.widgets.Text selectionText = new org.eclipse.swt.widgets.Text(shell, SWT.BORDER|SWT.READ_ONLY);
-		selectionText.setText("No selection yet");
+		LabelTestUtils.createLabel(shell, "Last selection:");
+		final Text selectionText = TextTestUtils.createText(shell, "No selection yet"); 
+
 		SelectionAdapter selectionListener = new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e){
@@ -58,19 +42,23 @@ public class ComboTest extends RedDeerTest{
 			}
 		};
 		for (int comboIndex = 0; comboIndex < 4; comboIndex++) {
-			label = new org.eclipse.swt.widgets.Label(shell, SWT.NONE);
-			label.setText(ComboTest.COMBO_LABEL_PREFIX + comboIndex);
-			org.eclipse.swt.widgets.Combo combo = new org.eclipse.swt.widgets.Combo(shell, SWT.BORDER);
-			combo.addSelectionListener(selectionListener);
-			String[] comboItems = createSampleComboItems(comboIndex);
-			for (int itemIndex = 0; itemIndex < comboItems.length; itemIndex++) {
-				combo.add(comboItems[itemIndex]);
-			}
+			LabelTestUtils.createLabel(shell, COMBO_LABEL_PREFIX + comboIndex);
+			createCombo(shell, selectionListener, comboIndex);
 		}
-		label = new org.eclipse.swt.widgets.Label(shell, SWT.NONE);
-		label.setText(ComboTest.DISABLED_COMBO_LABEL);
+		
+		LabelTestUtils.createLabel(shell, DISABLED_COMBO_LABEL);
 		org.eclipse.swt.widgets.Combo combo = new org.eclipse.swt.widgets.Combo(shell, SWT.BORDER);
 		combo.setEnabled(false);
+	}
+
+	private void createCombo(Shell shell, SelectionAdapter selectionListener,
+			int comboIndex) {
+		org.eclipse.swt.widgets.Combo combo = new org.eclipse.swt.widgets.Combo(shell, SWT.BORDER);
+		combo.addSelectionListener(selectionListener);
+		String[] comboItems = createSampleComboItems(comboIndex);
+		for (int itemIndex = 0; itemIndex < comboItems.length; itemIndex++) {
+			combo.add(comboItems[itemIndex]);
+		}
 	}
 	
 	private String[] createSampleComboItems(int comboIndex) {
@@ -82,21 +70,6 @@ public class ComboTest extends RedDeerTest{
 		return items;
 	}
 	
-	@After
-	public void cleanup() {
-		Display.syncExec(new Runnable() {
-			@Override
-			public void run() {
-				for (Shell shell : org.jboss.reddeer.swt.
-						util.Display.getDisplay().getShells()) {
-					if (shell.getText().equals("Testing shell")) {
-						shell.dispose();
-						break;
-					}
-				}
-			}
-		});
-	}
 	@Test
 	public void findByIndex(){
 		int index = 1;

@@ -15,27 +15,26 @@ import java.util.List;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.TreeEvent;
 import org.eclipse.swt.events.TreeListener;
+import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Tree;
+import org.eclipse.swt.widgets.TreeColumn;
 import org.hamcrest.Description;
 import org.hamcrest.TypeSafeMatcher;
-import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.exception.WaitTimeoutExpiredException;
 import org.jboss.reddeer.swt.impl.tree.DefaultTree;
 import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
 import org.jboss.reddeer.swt.matcher.WithRegexMatcher;
-import org.jboss.reddeer.swt.test.RedDeerTest;
+import org.jboss.reddeer.swt.test.SWTLayerTestCase;
 import org.jboss.reddeer.swt.test.ui.views.TreeEventsListener;
 import org.jboss.reddeer.swt.util.Display;
 import org.jboss.reddeer.swt.util.ResultRunnable;
 import org.jboss.reddeer.swt.wait.TimePeriod;
 import org.junit.After;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
-@RunWith(RedDeerSuite.class)
-public class AbstractTreeTest extends RedDeerTest {
+public class DefaultTreeTest extends SWTLayerTestCase {
 
 	protected org.jboss.reddeer.swt.api.Tree tree;
 
@@ -45,10 +44,18 @@ public class AbstractTreeTest extends RedDeerTest {
 	private boolean threadAlreadyRunning = false;
 	private Thread generateDynamicTreeItems = null;
 
+	private Tree swtTree;
+
 	@Override
-	public void setUp() {
-		super.setUp();
-  }
+	protected void createControls(Shell shell) {
+		swtTree = new Tree(shell, SWT.BORDER|SWT.CHECK|SWT.MULTI);
+
+		for(int i = 0; i < TREE_COLUMN_COUNT; i++) {
+			TreeColumn column = new TreeColumn(swtTree, SWT.LEFT);
+			column.setWidth(200);
+		}		
+		tree = new DefaultTree();
+	}
 	
 	@SuppressWarnings("unchecked")
 	public void checkItems() {

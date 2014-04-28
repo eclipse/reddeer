@@ -19,36 +19,18 @@ import org.jboss.reddeer.swt.condition.TableContainsItem;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.exception.WaitTimeoutExpiredException;
 import org.jboss.reddeer.swt.impl.table.DefaultTable;
-import org.jboss.reddeer.swt.test.RedDeerTest;
-import org.jboss.reddeer.swt.util.Display;
+import org.jboss.reddeer.swt.test.SWTLayerTestCase;
 import org.jboss.reddeer.swt.wait.WaitUntil;
-import org.junit.After;
 import org.junit.Test;
 
-public class DefaultTableTest extends RedDeerTest{
+public class DefaultTableTest extends SWTLayerTestCase{
 
 	@Override
-	public void setUp() {
-		super.setUp();
-		Display.syncExec(new Runnable() {
-
-			@Override
-			public void run() {
-				Shell shell = new Shell(org.eclipse.swt.widgets.Display.getDefault());
-				shell.setLayout(new GridLayout());
-				shell.setText("Testing shell");
-				createControls(shell);
-				shell.open();
-				shell.setFocus();
-			}
-		});
-	}
-	
-	private void createControls(Shell shell){
+	protected void createControls(Shell shell){
+		shell.setLayout(new GridLayout());
 		createMULTITable(shell);
 		createSINGLETable(shell);
 		createCHECKTable(shell);
-		shell.pack();
 	}
 	
 	private void createMULTITable(Shell shell){
@@ -58,6 +40,7 @@ public class DefaultTableTest extends RedDeerTest{
 		Table table1 = new Table(shell, SWT.MULTI);
 		table1.setLinesVisible (true);
 		table1.setHeaderVisible (true);
+		table1.setLayout(new GridLayout());
 		table1.setLayoutData(data);
 		String[] titles = {" ", "C", "!", "Description", "Resource", "In Folder", "Location"};
 		for (int i=0; i<titles.length; i++) {
@@ -87,6 +70,7 @@ public class DefaultTableTest extends RedDeerTest{
 		Table table2 = new Table(shell, SWT.SINGLE);
 		table2.setLinesVisible (true);
 		table2.setHeaderVisible (true);
+		table2.setLayout(new GridLayout());
 		table2.setLayoutData(data);
 		String[] titles = {" ", "C", "!", "Description", "Resource", "In Folder", "Location"};
 		for (int i=0; i<titles.length; i++) {
@@ -136,6 +120,7 @@ public class DefaultTableTest extends RedDeerTest{
 		Table table3 = new Table(shell, SWT.CHECK);
 		table3.setLinesVisible (true);
 		table3.setHeaderVisible (true);
+		table3.setLayout(new GridLayout());
 		table3.setLayoutData(data);
 		String[] titles = {" ", "C", "!", "Description", "Resource", "In Folder", "Location"};
 		for (int i=0; i<titles.length; i++) {
@@ -156,23 +141,6 @@ public class DefaultTableTest extends RedDeerTest{
 		for (int i=0; i<titles.length; i++) {
 			table3.getColumn (i).pack();
 		}	
-	}
-	
-	@After
-	public void cleanup() {
-		Display.syncExec(new Runnable() {
-
-			@Override
-			public void run() {
-				for (Shell shell : org.jboss.reddeer.swt.
-						util.Display.getDisplay().getShells()) {
-					if (shell.getText().equals("Testing shell")) {
-						shell.dispose();
-						break;
-					}
-				}
-			}
-		});
 	}
 	
 	@Test

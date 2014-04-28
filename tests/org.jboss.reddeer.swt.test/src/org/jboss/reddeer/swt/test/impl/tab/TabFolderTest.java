@@ -1,20 +1,16 @@
 package org.jboss.reddeer.swt.test.impl.tab;
 
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.impl.tab.DefaultTabFolder;
 import org.jboss.reddeer.swt.impl.tab.DefaultTabItem;
 import org.jboss.reddeer.swt.impl.text.DefaultText;
-import org.jboss.reddeer.swt.test.RedDeerTest;
-import org.jboss.reddeer.swt.util.Display;
-import org.junit.After;
-import org.junit.Before;
+import org.jboss.reddeer.swt.test.SWTLayerTestCase;
 import org.junit.Test;
 
 /**
@@ -23,29 +19,14 @@ import org.junit.Test;
  * @author Vlado Pakan
  * 
  */
-public class TabFolderTest extends RedDeerTest {
+public class TabFolderTest extends SWTLayerTestCase {
 
 	private static final String ITEM_LABEL_PREFIX = "Item ";
 	private static final String TOOLTIP_PREFIX = "Tool for Item ";
 	private static final String CONTENT_PREFIX = "Content for Item ";
 
-	@Before
-	public void openTestingShell() {
-		Display.syncExec(new Runnable() {
-
-			@Override
-			public void run() {
-				Shell shell = new Shell(Display.getDisplay());
-				shell.setText("Testing shell");
-				createControls(shell);
-				shell.open();
-				shell.setFocus();
-			}
-		});
-	}
-
-	private void createControls(Shell shell) {
-		shell.setLayout(new FillLayout());
+	@Override
+	protected void createControls(Shell shell) {
 		org.eclipse.swt.widgets.TabFolder folder = new org.eclipse.swt.widgets.TabFolder(shell,
 				SWT.BORDER);
 		for (int i = 0; i < 4; i++) {
@@ -57,21 +38,6 @@ public class TabFolderTest extends RedDeerTest {
 			text.setText(TabFolderTest.CONTENT_PREFIX + i);
 			item.setControl(text);
 		}
-	}
-
-	@After
-	public void closeTestingShell() {
-		Display.syncExec(new Runnable() {
-			@Override
-			public void run() {
-				for (Shell shell : org.jboss.reddeer.swt.util.Display.getDisplay().getShells()) {
-					if (shell.getText().equals("Testing shell")) {
-						shell.dispose();
-						break;
-					}
-				}
-			}
-		});
 	}
 
 	@Test

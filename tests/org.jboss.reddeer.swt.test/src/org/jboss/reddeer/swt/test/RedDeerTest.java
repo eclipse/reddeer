@@ -13,6 +13,9 @@ import org.junit.Rule;
 import org.junit.runner.RunWith;
 /**
  * Parent test for each test of Red Deer
+ * @deprecated use {@link org.jboss.reddeer.junit.extensionpoint} extensions
+ * to set up and clean your tests. Once these extensions are installed they
+ * are called automatically when test is running with {@link RedDeerSuite}
  * @author Vlado Pakan
  * @author Jiri Peterka
  * @author jjankovi

@@ -20,13 +20,11 @@ import org.jboss.reddeer.swt.impl.button.NoButton;
 import org.jboss.reddeer.swt.impl.button.OkButton;
 import org.jboss.reddeer.swt.impl.button.YesButton;
 import org.jboss.reddeer.swt.impl.text.DefaultText;
-import org.jboss.reddeer.swt.test.RedDeerTest;
+import org.jboss.reddeer.swt.test.SWTLayerTestCase;
 import org.jboss.reddeer.swt.util.Display;
-import org.junit.After;
 import org.junit.Test;
 
-public class PredefinedButtonTest extends RedDeerTest {
-
+public class PredefinedButtonTest extends SWTLayerTestCase {
 	private SelectionListener selectionListener;
 	private Text selectionText = null;
 	private static int ROW_COUNT = 4;
@@ -38,24 +36,10 @@ public class PredefinedButtonTest extends RedDeerTest {
 	private String[] BACK_BUTTON = { "< Back", "BACK", "back", "bACK" };
 	private String[] FINISH_BUTTON = { "Finish", "FINISH", "finish", "fINISH" };
 
-	List<org.eclipse.swt.widgets.Button> buttons = new ArrayList<org.eclipse.swt.widgets.Button>();;
+	private List<org.eclipse.swt.widgets.Button> buttons = new ArrayList<org.eclipse.swt.widgets.Button>();;
 
 	@Override
-	public void setUp() {
-		super.setUp();
-		Display.syncExec(new Runnable() {
-			@Override
-			public void run() {
-				Shell shell = new Shell(Display.getDisplay());
-				shell.setText("Testing shell");
-				createControls(shell);
-				shell.open();
-				shell.setFocus();
-			}
-		});
-	}
-
-	private void createControls(Shell shell) {
+	protected void createControls(Shell shell) {
 
 		shell.setLayout(new GridLayout(ROW_COUNT, true));
 
@@ -104,22 +88,6 @@ public class PredefinedButtonTest extends RedDeerTest {
 
 			buttons.add(button);
 		}
-	}
-
-	@After
-	public void cleanup() {
-		Display.syncExec(new Runnable() {
-			@Override
-			public void run() {
-				for (Shell shell : org.jboss.reddeer.swt.util.Display
-						.getDisplay().getShells()) {
-					if (shell.getText().equals("Testing shell")) {
-						shell.dispose();
-						break;
-					}
-				}
-			}
-		});
 	}
 
 	/**

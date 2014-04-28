@@ -6,6 +6,7 @@ import static org.junit.Assert.assertTrue;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Shell;
+import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.swt.api.StyledText;
 import org.jboss.reddeer.swt.condition.ShellWithTextIsActive;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
@@ -16,12 +17,14 @@ import org.jboss.reddeer.workbench.impl.view.WorkbenchView;
 import org.junit.After;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 /**
  * @author rhopp
  *
  */
-public class StyledTextTest extends RedDeerTest {
+@RunWith(RedDeerSuite.class)
+public class StyledTextTest {
 	
 	private org.eclipse.swt.custom.StyledText styledText;
 	

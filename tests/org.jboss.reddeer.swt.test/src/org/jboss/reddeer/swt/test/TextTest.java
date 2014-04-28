@@ -3,6 +3,7 @@ package org.jboss.reddeer.swt.test;
 
 import static org.junit.Assert.assertTrue;
 
+import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.swt.api.Text;
 import org.jboss.reddeer.swt.condition.ShellWithTextIsActive;
 import org.jboss.reddeer.swt.impl.button.PushButton;
@@ -13,8 +14,10 @@ import org.jboss.reddeer.swt.wait.WaitUntil;
 import org.jboss.reddeer.workbench.impl.view.WorkbenchView;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
-public class TextTest extends RedDeerTest {
+@RunWith(RedDeerSuite.class)
+public class TextTest {
 
 	@BeforeClass
 	public static void openExplorer() {

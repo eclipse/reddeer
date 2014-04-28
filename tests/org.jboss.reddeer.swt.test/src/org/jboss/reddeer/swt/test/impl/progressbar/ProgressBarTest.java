@@ -3,44 +3,22 @@ package org.jboss.reddeer.swt.test.impl.progressbar;
 import static org.junit.Assert.assertEquals;
 
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.layout.GridData;
-import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.ProgressBar;
 import org.eclipse.swt.widgets.Shell;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.impl.progressbar.HorizontalProgressBar;
 import org.jboss.reddeer.swt.impl.progressbar.IndeterminateProgressBar;
 import org.jboss.reddeer.swt.impl.progressbar.VerticalProgressBar;
-import org.jboss.reddeer.swt.test.RedDeerTest;
-import org.jboss.reddeer.swt.util.Display;
-import org.junit.After;
+import org.jboss.reddeer.swt.test.SWTLayerTestCase;
 import org.junit.Test;
 
-public class ProgressBarTest extends RedDeerTest{
+public class ProgressBarTest extends SWTLayerTestCase{
 
 	private ProgressBar pbVertical;
 	private ProgressBar pbHorizontal;
 	
 	@Override
-	protected void setUp() {
-		super.setUp();
-		Display.syncExec(new Runnable() {
-
-			@Override
-			public void run() {
-				Shell shell = new Shell(org.eclipse.swt.widgets.Display.getDefault());				
-				shell.setLayout(new GridLayout());
-				shell.setText("Testing shell");
-				createControls(shell);
-				shell.open();
-				shell.setFocus();
-			}
-		});
-	}
-	
 	protected void createControls(Shell shell){
-		GridData data = new GridData(SWT.FILL, SWT.FILL, true, true);
-		data.heightHint = 200;
 		pbVertical = new ProgressBar(shell, SWT.VERTICAL);
 		pbVertical.setMinimum(0);
 		pbVertical.setMaximum(100);
@@ -53,23 +31,6 @@ public class ProgressBarTest extends RedDeerTest{
 		new ProgressBar(shell, SWT.HORIZONTAL | SWT.INDETERMINATE);
 	}
 
-	@After
-	public void cleanup() {
-		Display.syncExec(new Runnable() {
-
-			@Override
-			public void run() {
-				for (Shell shell : org.jboss.reddeer.swt.
-						util.Display.getDisplay().getShells()) {
-					if (shell.getText().equals("Testing shell")) {
-						shell.dispose();
-						break;
-					}
-				}
-			}
-		});
-	}
-	
 	@Test
 	public void verticalProgressBarTest(){
 		VerticalProgressBar vpb = new VerticalProgressBar();

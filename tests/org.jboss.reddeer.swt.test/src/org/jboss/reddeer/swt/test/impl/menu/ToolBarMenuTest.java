@@ -1,16 +1,18 @@
 package org.jboss.reddeer.swt.test.impl.menu;
 
+import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.swt.condition.ShellWithTextIsAvailable;
 import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.menu.ShellMenu;
 import org.jboss.reddeer.swt.impl.menu.ToolbarMenu;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
-import org.jboss.reddeer.swt.test.RedDeerTest;
 import org.jboss.reddeer.swt.wait.WaitWhile;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
-public class ToolBarMenuTest extends RedDeerTest {
+@RunWith(RedDeerSuite.class)
+public class ToolBarMenuTest {
 	
 	@Test
 	public void testErrorLogMenu(){

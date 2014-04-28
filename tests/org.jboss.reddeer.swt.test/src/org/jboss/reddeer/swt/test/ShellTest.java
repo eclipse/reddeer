@@ -6,6 +6,7 @@ import static org.junit.Assert.fail;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Label;
+import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.swt.api.Shell;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.impl.button.PushButton;
@@ -15,9 +16,12 @@ import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.jboss.reddeer.swt.impl.shell.WorkbenchShell;
 import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
 import org.jboss.reddeer.swt.util.Display;
+import org.junit.After;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
-public class ShellTest extends RedDeerTest {
+@RunWith(RedDeerSuite.class)
+public class ShellTest {
 	
 	private Shell shell1,shell2;
 	
@@ -141,8 +145,8 @@ public class ShellTest extends RedDeerTest {
 		});
 	}
 	
-	@Override
-	protected void tearDown(){
+	@After
+	public void tearDown(){
 		if (shell1 != null){
 			shell1.close();
 		}
