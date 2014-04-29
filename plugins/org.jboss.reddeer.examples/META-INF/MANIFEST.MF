@@ -5,10 +5,10 @@ Bundle-Vendor: JBoss by Red Hat
 Bundle-SymbolicName: org.jboss.reddeer.examples
 Bundle-Version: 0.6.0.qualifier
 Require-Bundle: org.jboss.reddeer.eclipse,
- org.jboss.reddeer.jface,
- org.jboss.reddeer.junit,
+ org.jboss.reddeer.jface;bundle-version="[0.6,0.7)",
+ org.jboss.reddeer.junit;bundle-version="[0.6,0.7)",
  org.junit;bundle-version="4.11.0",
- org.jboss.reddeer.swt,
- org.jboss.reddeer.workbench,
+ org.jboss.reddeer.swt;bundle-version="[0.6,0.7)",
+ org.jboss.reddeer.workbench;bundle-version="[0.6,0.7)",
  org.eclipse.ui.workbench
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
