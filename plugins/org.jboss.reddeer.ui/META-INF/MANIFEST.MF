@@ -16,7 +16,7 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.jdt.launching,
  org.eclipse.debug.ui,
  org.eclipse.pde.ui,
- org.jboss.reddeer.jface;bundle-version="0.4.0",
- org.jboss.reddeer.swt;bundle-version="0.4.0",
- org.jboss.reddeer.workbench;bundle-version="0.4.0"
+ org.jboss.reddeer.jface;bundle-version="[0.6,0.7)",
+ org.jboss.reddeer.swt;bundle-version="[0.6,0.7)",
+ org.jboss.reddeer.workbench;bundle-version="[0.6,0.7)"
 

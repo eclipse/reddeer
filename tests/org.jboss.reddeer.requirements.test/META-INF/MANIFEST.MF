@@ -6,13 +6,12 @@ Bundle-Version: 0.6.0.qualifier
 Bundle-Activator: org.jboss.reddeer.requirements.test.Activator
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
- org.jboss.reddeer.junit;bundle-version="0.4.0",
+ org.jboss.reddeer.junit;bundle-version="[0.6,0.7)",
  org.junit;bundle-version="4.10.0",
- org.jboss.reddeer.requirements;bundle-version="0.4.0",
- org.jboss.reddeer.eclipse;bundle-version="0.4.0",
- org.jboss.reddeer.jface;bundle-version="0.4.0",
- org.jboss.reddeer.swt.test;bundle-version="0.4.0",
- org.jboss.reddeer.junit.extension;bundle-version="0.5.0",
- org.jboss.reddeer.junit.extension;bundle-version="0.5.0"
+ org.jboss.reddeer.requirements;bundle-version="[0.6,0.7)",
+ org.jboss.reddeer.eclipse;bundle-version="[0.6,0.7)",
+ org.jboss.reddeer.jface;bundle-version="[0.6,0.7)",
+ org.jboss.reddeer.swt.test;bundle-version="[0.6,0.7)",
+ org.jboss.reddeer.junit.extension;bundle-version="[0.6,0.7)"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
