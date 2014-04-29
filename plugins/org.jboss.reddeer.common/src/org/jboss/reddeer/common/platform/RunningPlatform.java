@@ -1,4 +1,4 @@
-package org.jboss.reddeer.direct.platform;
+package org.jboss.reddeer.common.platform;
 
 import org.eclipse.core.runtime.Platform;
 
@@ -6,8 +6,7 @@ import org.eclipse.core.runtime.Platform;
  * Running platforms provides information about currently running instance
  * like Operation System, etc.
  * @author Jiri Peterka
- * @since 0.5
- * @deprecated will be removed in 0.7 use {@link org.jboss.reddeer.common.platform.RunningPlatform}
+ * @since 0.6
  */
 public class RunningPlatform {
 	
