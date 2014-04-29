@@ -1,6 +1,6 @@
 package org.jboss.reddeer.swt.keyboard;
 
-import org.jboss.reddeer.direct.platform.RunningPlatform;
+import org.jboss.reddeer.common.platform.RunningPlatform;
 import org.jboss.reddeer.swt.keyboard.internal.DefaultKeyboard;
 import org.jboss.reddeer.swt.keyboard.internal.MacKeyboard;
 
