@@ -84,6 +84,23 @@ public class TableHandler {
 		throw new SWTLayerException("Item "+item+" does not exist in table");
 	}
 
+	/**
+	 * Returns index of given tableItem in table.
+	 * 
+	 * @param table
+	 * @param tableItem
+	 * @return index
+	 */
+	
+	public int indexOf(final Table table, final TableItem tableItem){
+		return Display.syncExec(new ResultRunnable<Integer>() {
+			@Override
+			public Integer run() {
+				return table.indexOf(tableItem);
+			}
+		});
+	}
+	
 	public void doubleClick(final TableItem tableItem, final int column){
 		Display.syncExec(new Runnable() {
 

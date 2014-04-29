@@ -275,4 +275,11 @@ public class DefaultTableTest extends RedDeerTest{
 	public void waitForNonExistingTableItem(){
 		new WaitUntil(new TableContainsItem(new DefaultTable(1), "this does not exist", 2));
 	}
+	
+	@Test
+	public void indexOfTest(){
+		DefaultTable table = new DefaultTable();
+		assertEquals(1, table.indexOf(table.getItem(1)));
+	}
+	
 }
