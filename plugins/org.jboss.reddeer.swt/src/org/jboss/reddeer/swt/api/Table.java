@@ -81,6 +81,12 @@ public interface Table extends Widget{
 	 */
 	TableItem getItem(final String itemText, int column);
 	
+	/**
+	 * Returns index of given TableItem
+	 * @return index
+	 */
+	int indexOf(TableItem tableItem);
+	
 	org.eclipse.swt.widgets.Table getSWTWidget();
 	
 }

@@ -148,4 +148,9 @@ public abstract class AbstractTable implements Table {
 		return WidgetHandler.getInstance().isEnabled(table);
 	}
 	
+	@Override
+	public int indexOf(TableItem tableItem) {
+		return TableHandler.getInstance().indexOf(table, tableItem.getSWTWidget());
+	}
+	
 }
