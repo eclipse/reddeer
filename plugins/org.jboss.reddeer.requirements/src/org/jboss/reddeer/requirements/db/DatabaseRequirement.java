@@ -27,17 +27,27 @@ public class DatabaseRequirement implements Requirement<Database>, CustomConfigu
 	private Database database;
 	private DatabaseConfiguration configuration;
 
+	/**
+	 * Gets database configuration class
+	 */
 	@Override
 	public Class<DatabaseConfiguration> getConfigurationClass() {
 		return DatabaseConfiguration.class;
 	}
 
+	/**
+	 * Sets database configuration
+	 */
 	@Override
 	public void setConfiguration(DatabaseConfiguration config) {
 		this.configuration = config;
 		
 	}
 
+	/**
+	 * Returns true when database requirement can be fullfilled 
+	 * Always returns true for Database Requirement
+	 */
 	@Override
 	public boolean canFulfill() {
 		log.trace("Database requirement canFullfill performed");
@@ -46,11 +56,18 @@ public class DatabaseRequirement implements Requirement<Database>, CustomConfigu
 		return true;
 	}
 
+	/**
+	 * Fulfills database requirement
+	 * It doesn't nothing for database requirement intentionally
+	 */
 	@Override
 	public void fulfill() {
 		log.trace("Database requirement performed");
 	}
 
+	/**
+	 * Sets database declaration 
+	 */
 	@Override
 	public void setDeclaration(Database declaration) {
 		this.database = declaration;
