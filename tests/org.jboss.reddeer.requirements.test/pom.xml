@@ -61,7 +61,7 @@
 				<artifactId>tycho-surefire-plugin</artifactId>
 				<configuration>
 					<useUIThread>false</useUIThread>
-					<argLine>-Dreddeer.config=${basedir}/bin</argLine>
+					<argLine>-Xms256m -Xmx512m -XX:PermSize=64m -XX:MaxPermSize=128m -Dreddeer.config=${basedir}/bin</argLine>
 					<dependencies combine.children="append">
 								<!-- This entry should enable creating of default JDK on Mac -->
 								<dependency>
