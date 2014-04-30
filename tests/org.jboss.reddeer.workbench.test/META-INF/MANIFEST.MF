@@ -15,7 +15,8 @@ Require-Bundle: org.eclipse.ui,
  org.jboss.reddeer.jface;bundle-version="0.4.0",
  org.eclipse.jface.text;bundle-version="3.8.100",
  org.jboss.reddeer.junit.extension;bundle-version="0.5.0",
- org.jboss.reddeer.direct;bundle-version="0.5.0"
+ org.jboss.reddeer.direct;bundle-version="0.5.0",
+ org.jboss.reddeer.common;bundle-version="0.6.0"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Import-Package: org.eclipse.ui.texteditor
