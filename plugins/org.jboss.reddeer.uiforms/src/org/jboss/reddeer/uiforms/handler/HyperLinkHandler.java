@@ -37,7 +37,7 @@ public class HyperLinkHandler {
 	 * @param w widget to activate
 	 */
 	public void activate(final Hyperlink hyperLink) {
-		Display.syncExec(new Runnable() {
+		Display.asyncExec(new Runnable() {
 
 			@Override
 			public void run() {
