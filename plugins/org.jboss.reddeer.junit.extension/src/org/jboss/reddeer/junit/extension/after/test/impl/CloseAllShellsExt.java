@@ -7,8 +7,9 @@ import org.eclipse.swt.widgets.Shell;
 import org.jboss.reddeer.junit.extensionpoint.IAfterTest;
 import org.jboss.reddeer.junit.internal.screenshot.CaptureScreenshot;
 import org.jboss.reddeer.junit.internal.screenshot.CaptureScreenshotException;
+import org.jboss.reddeer.swt.handler.IBeforeShellIsClosed;
+import org.jboss.reddeer.swt.handler.ShellHandler;
 import org.jboss.reddeer.swt.handler.WidgetHandler;
-import org.jboss.reddeer.swt.impl.shell.WorkbenchShell;
 import org.junit.Assert;
 
 /**
@@ -27,7 +28,6 @@ public class CloseAllShellsExt implements IAfterTest {
 			"true");
 
 	private Object target;
-
 	/**
 	 * See {@link IAfterTest}
 	 */
@@ -35,7 +35,12 @@ public class CloseAllShellsExt implements IAfterTest {
 	public void runAfterTest(Object target) {
 		this.target = target;
 		if (hasToRun()) {
-			new WorkbenchShellExt().closeAllShells();
+			BeforeShellIsClosedAdapter beforeShellIsClosedAdapter = 
+				new BeforeShellIsClosedAdapter(new ArrayList<String>());
+			ShellHandler.getInstance().closeAllNonWorbenchShells(beforeShellIsClosedAdapter);
+			if (beforeShellIsClosedAdapter.getClosedShellsTitles().size() > 0) {
+				Assert.fail("The following shells remained open " + beforeShellIsClosedAdapter.getClosedShellsTitles());
+			}
 		}
 	}
 
@@ -46,29 +51,21 @@ public class CloseAllShellsExt implements IAfterTest {
 	public boolean hasToRun() {
 		return CLOSE_ALL_SHELLS;
 	}
-
-	private class WorkbenchShellExt extends WorkbenchShell {
-
-		private List<String> shellTitles;
-
-		public WorkbenchShellExt() {
-			super();
-			shellTitles = new ArrayList<String>();
+	/**
+	 * See {@link IBeforeShellIsClosed}
+	 */
+	private class BeforeShellIsClosedAdapter implements IBeforeShellIsClosed{
+		
+		private List<String> closedShellsTitles;
+		
+		public BeforeShellIsClosedAdapter (List<String> closedShellsTitles){
+			this.closedShellsTitles = closedShellsTitles;
 		}
-
-		@Override
-		public void closeAllShells() {
-			super.closeAllShells();
-			if (shellTitles.size() > 0) {
-				Assert.fail("The following shells remained open " + shellTitles);
-			}
-		}
-
-		@Override
-		protected void beforeShellIsClosed(Shell shell) {
-			super.beforeShellIsClosed(shell);
+		
+		public void runBeforeShellIsClosed(Shell shell) {
 			String shellTitle = WidgetHandler.getInstance().getText(shell); 
-			shellTitles.add(shellTitle);
+			
+			closedShellsTitles.add(shellTitle);
 			try {
 				String canonicalName = null;
 				if (target != null) {
@@ -79,7 +76,10 @@ public class CloseAllShellsExt implements IAfterTest {
 				e.printStackTrace();
 			}
 		}
-
+		
+		public List<String> getClosedShellsTitles(){
+			return this.closedShellsTitles;
+		}
 	}
 
 }

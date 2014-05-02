@@ -1,6 +1,7 @@
 package org.jboss.reddeer.eclipse.jdt.ui.packageexplorer;
 
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Shell;
 import org.hamcrest.BaseMatcher;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
@@ -149,54 +150,44 @@ public class Project {
 	private class ShellWithButton extends AbstractShell {
 		
 		public ShellWithButton(String title, String buttonLabel) {
-			Matcher<String> titleMatcher = new WithTextMatcher(title);
-			Matcher<String> buttonMatcher = new ContainsButton(buttonLabel);
-			@SuppressWarnings("unchecked")
-			Matcher<String> matcher = new AndMatcher(titleMatcher, buttonMatcher);
-			try {
-				swtShell = ShellLookup.getInstance().getShell(matcher);
-				setFocus();
-			} catch (Exception e) {
-				throw new SWTLayerException("No shell with title '" + title + "' and button '" + buttonLabel + "' is available", e);
-			}	
+			super(lookForShellWIthButton(title, buttonLabel));
+			setFocus();
+			log.info("Shell with title '" + title 
+					 + "' and button '" + buttonLabel +"' found");
 		}
+
 	}
 	
-	/**
-	 * Matcher for control widget containing a button with a specified label.
-	 */
-	private class ContainsButton extends BaseMatcher<String> {
-
-		private String buttonLabel;
-		
-		public ContainsButton(String buttonLabel) {
-			this.buttonLabel = buttonLabel;
-		}
-		
-		@Override
-		public boolean matches(Object obj) {
-			if(obj instanceof Control) {
-				final Control control = (Control) obj;
-				ReferencedComposite ref = new ReferencedComposite() {
-					@Override
-					public Control getControl() {
-						return control;
+	private static Shell lookForShellWIthButton(final String title, final String buttonLabel){
+		Matcher<String> titleMatcher = new WithTextMatcher(title);
+		Matcher<String> buttonMatcher = new BaseMatcher<String>() {
+			@Override
+			public boolean matches(Object obj) {
+				if(obj instanceof Control) {
+					final Control control = (Control) obj;
+					ReferencedComposite ref = new ReferencedComposite() {
+						@Override
+						public Control getControl() {
+							return control;
+						}
+					};
+					try {
+						new PushButton(ref, buttonLabel);
+						return true;
+					} catch (SWTLayerException e) {
+						// ok, this control doesn't contain the button
 					}
-				};
-				try {
-					new PushButton(ref, buttonLabel);
-					return true;
-				} catch (SWTLayerException e) {
-					// ok, this control doesn't contain the button
 				}
+				return false;
 			}
-			return false;
-		}
 
-		@Override
-		public void describeTo(Description description) {
-			description.appendText("containing button '" + buttonLabel + "'");
-		}
-		
+			@Override
+			public void describeTo(Description description) {
+				description.appendText("containing button '" + buttonLabel + "'");
+			}
+		};
+		@SuppressWarnings("unchecked")
+		Matcher<String> matcher = new AndMatcher(titleMatcher, buttonMatcher);
+		return ShellLookup.getInstance().getShell(matcher);
 	}
 }

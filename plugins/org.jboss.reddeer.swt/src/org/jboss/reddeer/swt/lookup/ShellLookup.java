@@ -4,9 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.ui.PlatformUI;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.swt.condition.ShellIsActive;
+import org.jboss.reddeer.swt.condition.ShellWithTextIsAvailable;
 import org.jboss.reddeer.swt.condition.WaitCondition;
+import org.jboss.reddeer.swt.matcher.WithTextMatcher;
 import org.jboss.reddeer.swt.util.Display;
 import org.jboss.reddeer.swt.util.ResultRunnable;
 import org.jboss.reddeer.swt.wait.TimePeriod;
@@ -141,6 +144,11 @@ public class ShellLookup {
 		});
 	}
 	
+	public Shell getShell(String title) {
+		new WaitUntil(new ShellWithTextIsAvailable(title), TimePeriod.NORMAL,false);
+		return getShell(new WithTextMatcher(title));		
+	}
+	
 	private Shell getLastVisibleShell() {
 		return Display.syncExec(new ResultRunnable<Shell>() {
 			@Override
@@ -150,6 +158,18 @@ public class ShellLookup {
 					if (shells[i].isVisible()) return shells[i];
 				}
 				return null;
+			}
+		});
+	}
+	/**
+	 * Returns active workbench shell
+	 * @return
+	 */
+	public Shell getWorkbenchShell() {
+		return Display.syncExec(new ResultRunnable<Shell>() {
+			@Override
+			public Shell run() {
+				return PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell();
 			}
 		});
 	}

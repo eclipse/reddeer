@@ -1,12 +1,7 @@
 package org.jboss.reddeer.swt.impl.shell;
 
-import org.jboss.reddeer.swt.condition.ShellWithTextIsAvailable;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.lookup.ShellLookup;
-import org.jboss.reddeer.swt.matcher.WithTextMatcher;
-import org.jboss.reddeer.swt.wait.TimePeriod;
-import org.jboss.reddeer.swt.wait.WaitUntil;
-
 /**
  * Default shell returns active shell if available if not it returns first
  * available shell
@@ -17,9 +12,8 @@ import org.jboss.reddeer.swt.wait.WaitUntil;
 public class DefaultShell extends AbstractShell {
 
 	public DefaultShell(String title) {
+		super(ShellLookup.getInstance().getShell(title));
 		try {
-			new WaitUntil(new ShellWithTextIsAvailable(title), TimePeriod.NORMAL);
-			swtShell = ShellLookup.getInstance().getShell(new WithTextMatcher(title));
 			setFocus();
 			log.info("Shell with title '" + title + "' found");
 		} catch (Exception e) {
@@ -28,8 +22,8 @@ public class DefaultShell extends AbstractShell {
 	}
 
 	public DefaultShell() {
+		super(ShellLookup.getInstance().getActiveShell());
 		try {
-			swtShell = ShellLookup.getInstance().getActiveShell();
 			setFocus();
 			log.info("Active shell with title '" + getText() + "' found");
 		} catch (Exception e) {

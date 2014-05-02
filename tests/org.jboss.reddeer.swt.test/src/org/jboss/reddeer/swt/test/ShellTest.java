@@ -9,6 +9,7 @@ import org.eclipse.swt.widgets.Label;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.swt.api.Shell;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
+import org.jboss.reddeer.swt.handler.ShellHandler;
 import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.label.DefaultLabel;
 import org.jboss.reddeer.swt.impl.menu.ShellMenu;
@@ -93,7 +94,7 @@ public class ShellTest {
 		createSimpleShell("Shell 1");
 		createSimpleShell("Shell 2");
 		
-		new WorkbenchShell().closeAllShells();
+		ShellHandler.getInstance().closeAllNonWorbenchShells();
 		
 		try {
 			new DefaultShell("Shell 1");
@@ -115,14 +116,14 @@ public class ShellTest {
 			
 		// Show View window
 		new ShellMenu("Window", "Show View", "Other...").select();
-		new WorkbenchShell().closeAllShells();
+		ShellHandler.getInstance().closeAllNonWorbenchShells();
 		if (!checkShell("Show View")) fail("'Show View' should be closed");
 		
 		// New Server Runtime window
 		new ShellMenu("Window", "Preferences").select();
 		new DefaultTreeItem("Server", "Runtime Environments").select();
 		new PushButton("Add...").click();
-		new WorkbenchShell().closeAllShells();
+		ShellHandler.getInstance().closeAllNonWorbenchShells();
 		
 		if (!checkShell("New Server Runtime Environment")) fail("'New Server Runtime Environment' should be closed");
 		if (!checkShell("Preferences")) fail("'Preferences' should be closed");

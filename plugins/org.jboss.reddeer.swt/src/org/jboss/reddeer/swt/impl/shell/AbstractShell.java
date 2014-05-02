@@ -5,6 +5,7 @@ import org.jboss.reddeer.junit.logging.Logger;
 import org.jboss.reddeer.swt.api.Shell;
 import org.jboss.reddeer.swt.condition.ShellWithTextIsActive;
 import org.jboss.reddeer.swt.condition.ShellWithTextIsAvailable;
+import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.handler.ShellHandler;
 import org.jboss.reddeer.swt.handler.WidgetHandler;
 import org.jboss.reddeer.swt.impl.button.CancelButton;
@@ -22,6 +23,15 @@ public abstract class AbstractShell implements Shell {
 	protected final Logger log = Logger.getLogger(this.getClass());
 
 	protected org.eclipse.swt.widgets.Shell swtShell;
+	
+	protected AbstractShell (org.eclipse.swt.widgets.Shell swtShell){
+		  if (swtShell != null){
+		    this.swtShell = swtShell;  
+		  }
+		  else {
+		     throw new SWTLayerException("SWT Shell passed to constructor is null");
+		  }	  
+	}
 
 	@Override
 	public String getText() {
