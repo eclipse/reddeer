@@ -94,7 +94,10 @@ public class WorkbenchShell extends AbstractShell {
 		Shell[] shells = ShellLookup.getInstance().getShells();
 		for (Shell s : shells) {
 			Shell workbenchShell = getWorkbenchShell();
-			if (s != workbenchShell) ShellHandler.getInstance().closeShell(s);
+			if (s != workbenchShell) {
+				beforeShellIsClosed(s);
+				ShellHandler.getInstance().closeShell(s);
+			}
 		}
 		new WaitUntil(new NoShellToClose(), TimePeriod.VERY_LONG);
 	}
