@@ -22,10 +22,23 @@ public class ConnectionProfileSQLServerPage extends ConnectionProfileDatabasePag
 	public static final String LABEL_PASSWORD = "Password:";
 	public static final String LABEL_SAVE_PASSWORD = "Save password";
 
+	/**
+	 * A wizard page should not know on which page index it is displayed. The
+	 * wizard page can also exist outside WizardDialog. Use no-argument
+	 * constructor instead.
+	 * 
+	 * @param wizardDialog
+	 * @param pageIndex
+	 */
+	@Deprecated
 	public ConnectionProfileSQLServerPage(WizardDialog wizardDialog, int indexPage) {
 		super(wizardDialog, indexPage);
 	}
 
+	public ConnectionProfileSQLServerPage() {
+		super();
+	}
+	
 	public String getDatabase() {
 		return new LabeledText(LABEL_DATABASE).getText();
 	}

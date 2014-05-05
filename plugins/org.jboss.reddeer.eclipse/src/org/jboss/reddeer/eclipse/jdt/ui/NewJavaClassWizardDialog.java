@@ -10,6 +10,6 @@ public class NewJavaClassWizardDialog extends NewWizardDialog {
 	
 	@Override
 	public NewJavaClassWizardPage getFirstPage() {
-		return new NewJavaClassWizardPage(this);
+		return new NewJavaClassWizardPage();
 	}
 }
