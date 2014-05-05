@@ -93,6 +93,11 @@ public class RequirementsRunner extends BlockJUnit4ClassRunner {
 	}
 	
 	@Override
+	protected String getName() {
+		return super.getName() + " " + configId;
+	}
+	
+	@Override
 	public void run(RunNotifier arg0) {
 		LoggingRunListener loggingRunListener = new LoggingRunListener();
 		ScreenCastingRunListener screenCastingRunListener = new ScreenCastingRunListener();
