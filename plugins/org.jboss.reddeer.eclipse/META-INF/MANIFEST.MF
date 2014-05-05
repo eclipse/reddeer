@@ -20,15 +20,18 @@ Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: org.jboss.reddeer.eclipse,
  org.jboss.reddeer.eclipse.condition,
- org.jboss.reddeer.eclipse.datatools.
- ui,org.jboss.reddeer.eclipse.datatools.ui.preference,
+ org.jboss.reddeer.eclipse.datatools.ui,
+ org.jboss.reddeer.eclipse.datatools.ui.preference,
  org.jboss.reddeer.eclipse.datatools.ui.wizard,
  org.jboss.reddeer.eclipse.exception,
  org.jboss.reddeer.eclipse.jdt.ui,
+ org.jboss.reddeer.eclipse.jdt.ui.dialogs,
  org.jboss.reddeer.eclipse.jdt.ui.ide,
  org.jboss.reddeer.eclipse.jdt.ui.junit,
  org.jboss.reddeer.eclipse.jdt.ui.packageexplorer,
+ org.jboss.reddeer.eclipse.jdt.ui.preferences,
  org.jboss.reddeer.eclipse.jst.j2ee.ui.project.facet,
+ org.jboss.reddeer.eclipse.jst.j2ee.wizard,
  org.jboss.reddeer.eclipse.jst.servlet.ui,
  org.jboss.reddeer.eclipse.m2e.core.ui.preferences,
  org.jboss.reddeer.eclipse.mylyn.tasks.ui.view,
@@ -48,8 +51,5 @@ Export-Package: org.jboss.reddeer.eclipse,
  org.jboss.reddeer.eclipse.wst.server.ui,
  org.jboss.reddeer.eclipse.wst.server.ui.editor,
  org.jboss.reddeer.eclipse.wst.server.ui.view,
- org.jboss.reddeer.eclipse.wst.server.ui.wizard,
- org.jboss.reddeer.eclipse.jst.j2ee.wizard,
- org.jboss.reddeer.eclipse.jst.j2ee.ui.project.facet,
- org.jboss.reddeer.eclipse.jdt.ui.dialogs 
+ org.jboss.reddeer.eclipse.wst.server.ui.wizard
 Import-Package: org.junit

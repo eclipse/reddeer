@@ -1,6 +1,7 @@
-package org.jboss.reddeer.eclipse.jface.preference;
+package org.jboss.reddeer.workbench.preference;
 
 import org.eclipse.swt.widgets.Shell;
+import org.jboss.reddeer.eclipse.jface.preference.PreferencePage;
 import org.jboss.reddeer.junit.logging.Logger;
 import org.jboss.reddeer.swt.api.Menu;
 import org.jboss.reddeer.swt.api.TreeItem;
@@ -18,7 +19,7 @@ import org.jboss.reddeer.swt.util.ResultRunnable;
  * @author Lucia Jelinkova
  * @since 0.6 
  */
-public class WindowPreferencePage extends PreferencePage {
+public class WorkbenchPreferencePage extends PreferencePage {
 
 	public static final String DIALOG_TITLE = "Preferences";
 
@@ -30,7 +31,7 @@ public class WindowPreferencePage extends PreferencePage {
 	 * Constructor sets path to specific preference item. 
 	 * @param path path in preference shell tree to specific preference
 	 */
-	public WindowPreferencePage(String... path) {
+	public WorkbenchPreferencePage(String... path) {
 		super();
 		this.path = path;
 	}

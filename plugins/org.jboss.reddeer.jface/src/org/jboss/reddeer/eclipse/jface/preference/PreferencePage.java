@@ -23,7 +23,7 @@ import org.jboss.reddeer.swt.util.ResultRunnable;
 public abstract class PreferencePage {
 
 	/**
-	 * @deprecated this constant has been moved to {@link WindowPreferencePage}
+	 * @deprecated this constant has been moved to {WindowPreferencePage}
 	 */
 	public static final String DIALOG_TITLE = "Preferences";
 

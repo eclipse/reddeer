@@ -1,9 +1,8 @@
 package org.jboss.reddeer.eclipse.m2e.core.ui.preferences;
 
 import org.eclipse.swt.widgets.Control;
-import org.jboss.reddeer.eclipse.jface.preference.WindowPreferencePage;
+import org.jboss.reddeer.workbench.preference.WorkbenchPreferencePage;
 import org.jboss.reddeer.swt.condition.JobIsRunning;
-import org.jboss.reddeer.swt.handler.WidgetHandler;
 import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.text.DefaultText;
 import org.jboss.reddeer.swt.reference.ReferencedComposite;
@@ -20,7 +19,7 @@ import org.jboss.reddeer.swt.wait.WaitWhile;
  *
  */
 
-public class MavenSettingsPreferencePage extends WindowPreferencePage {
+public class MavenSettingsPreferencePage extends WorkbenchPreferencePage {
 
 	private static final String UPDATE_SETTINGS = "Update Settings";
 	private static final String REINDEX = "Reindex";

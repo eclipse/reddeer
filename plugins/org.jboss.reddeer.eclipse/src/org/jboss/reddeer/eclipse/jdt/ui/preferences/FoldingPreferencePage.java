@@ -1,15 +1,15 @@
-package org.jboss.reddeer.eclipse.jface.preference;
+package org.jboss.reddeer.eclipse.jdt.ui.preferences;
 
 import org.jboss.reddeer.swt.impl.button.CheckBox;
+import org.jboss.reddeer.workbench.preference.WorkbenchPreferencePage;
 
 /**
  * Class represents folding preference page in preference shell.
  * 
  * @author jjankovi
- * @deprecated The class has been moved to eclipse plugin
  * @since 0.5
  */
-public class FoldingPreferencePage extends PreferencePage {
+public class FoldingPreferencePage extends WorkbenchPreferencePage {
 
 	/**
 	 * Constructor which open folding preference in preference shell.
