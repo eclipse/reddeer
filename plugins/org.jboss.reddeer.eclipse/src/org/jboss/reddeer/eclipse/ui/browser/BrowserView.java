@@ -36,6 +36,7 @@ public class BrowserView extends WorkbenchView {
 	 * Constructor of BrowserView Class
 	 * 
 	 * @param browser Browser to reuse
+	 * @deprecated The usage of SWT layer classes in Eclipse layer API is discouraged. This constructor will be removed. 
 	 */
 	public BrowserView(InternalBrowser browser) {
 		this();
@@ -48,11 +49,10 @@ public class BrowserView extends WorkbenchView {
 	 */
 	@Override
 	public void open() {
-		if(!isOpen())
+		if (browser == null){
 			super.open();
-
-		if (browser == null)
 			browser = new InternalBrowser();
+		}
 	};
 
 	/**
@@ -113,6 +113,7 @@ public class BrowserView extends WorkbenchView {
 	
 	/**
 	 * Checks if browser is already open
+	 * @deprecated This method will be removed alongside the deprecated constructor. 
 	 */
 	public boolean isOpen() {
 		/* if InternalBrowser instance exists already, lets assume browser is opened

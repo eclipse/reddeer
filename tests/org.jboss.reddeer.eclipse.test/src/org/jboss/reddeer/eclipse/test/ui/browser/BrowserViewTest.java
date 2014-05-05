@@ -4,14 +4,15 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 
 import org.jboss.reddeer.eclipse.ui.browser.BrowserView;
-import org.jboss.reddeer.swt.test.RedDeerTest;
+import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
-@Ignore	// https://github.com/jboss-reddeer/reddeer/issues/219
-public class BrowserViewTest extends RedDeerTest{
+//@Ignore	// https://github.com/jboss-reddeer/reddeer/issues/219
+@RunWith(RedDeerSuite.class)
+public class BrowserViewTest {
 	protected static BrowserView browserView;
 
 	protected static final String FIRST_PAGE = "http://www.redhat.com/";
@@ -29,28 +30,12 @@ public class BrowserViewTest extends RedDeerTest{
 	}
 	
 	@Test
-	public void testOpenPages() {
-		browserView.openPageURL(FIRST_PAGE);
-		assertPageIsOpened(FIRST_PAGE);
-		
-		browserView.openPageURL(SECOND_PAGE);
-		assertPageIsOpened(SECOND_PAGE);
-	}
-
-	@Test
-	public void testBack() {
+	public void testNavigation() {
 		browserView.openPageURL(FIRST_PAGE);
 		browserView.openPageURL(SECOND_PAGE);
 		
 		browserView.back();
 		assertPageIsOpened(FIRST_PAGE);
-	}
-	
-	@Test
-	public void testForward() {
-		browserView.openPageURL(FIRST_PAGE);
-		browserView.openPageURL(SECOND_PAGE);
-		browserView.back();
 		
 		browserView.forward();
 		assertPageIsOpened(SECOND_PAGE);
