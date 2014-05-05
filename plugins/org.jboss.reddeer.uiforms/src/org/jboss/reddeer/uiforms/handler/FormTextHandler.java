@@ -67,7 +67,7 @@ public class FormTextHandler {
 					+ getText(widget) + "\" has only "
 					+ model.getHyperlinkCount() + " hyperlink segments.");
 		}
-		Display.getDisplay().syncExec(new Runnable() {
+		Display.getDisplay().asyncExec(new Runnable() {
 
 			@Override
 			public void run() {
