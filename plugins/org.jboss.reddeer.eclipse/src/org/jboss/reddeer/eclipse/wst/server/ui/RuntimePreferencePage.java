@@ -3,13 +3,13 @@ package org.jboss.reddeer.eclipse.wst.server.ui;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.jboss.reddeer.eclipse.jface.preference.WindowPreferencePage;
 import org.jboss.reddeer.eclipse.wst.server.ui.wizard.NewRuntimeWizardDialog;
 import org.jboss.reddeer.junit.logging.Logger;
 import org.jboss.reddeer.swt.api.Table;
 import org.jboss.reddeer.swt.condition.ShellWithTextIsActive;
 import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.table.DefaultTable;
+import org.jboss.reddeer.workbench.preference.WorkbenchPreferencePage;
 
 /**
  * 
@@ -18,7 +18,7 @@ import org.jboss.reddeer.swt.impl.table.DefaultTable;
  * @author Lucia Jelinkova
  *
  */
-public class RuntimePreferencePage extends WindowPreferencePage {
+public class RuntimePreferencePage extends WorkbenchPreferencePage {
 
 	public static final String PAGE_NAME = "Runtime Environments";
 

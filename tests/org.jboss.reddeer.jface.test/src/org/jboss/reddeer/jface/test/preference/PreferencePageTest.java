@@ -6,7 +6,6 @@ import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
 import org.jboss.reddeer.eclipse.jface.preference.PreferencePage;
-import org.jboss.reddeer.eclipse.jface.preference.WindowPreferencePage;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.swt.api.Menu;
 import org.jboss.reddeer.swt.api.Shell;
@@ -22,6 +21,8 @@ import org.junit.runner.RunWith;
 
 @RunWith(RedDeerSuite.class)
 public class PreferencePageTest {
+	
+	private static final String DIALOG_TITLE = "Preferences";
 
 	private static final String PAGE_NAME = TestingPreferencePage.TITLE;
 
@@ -43,7 +44,7 @@ public class PreferencePageTest {
 	public void cleanup(){
 		Shell shell = null;
 		try {
-			shell = new DefaultShell(WindowPreferencePage.DIALOG_TITLE);
+			shell = new DefaultShell(DIALOG_TITLE);
 		} catch (SWTLayerException e){
 			// not found, no action needed
 			return;
@@ -56,7 +57,7 @@ public class PreferencePageTest {
 		preferencePage.ok();
 
 		Shell shell = new DefaultShell();
-		assertThat(shell.getText(), is(not(WindowPreferencePage.DIALOG_TITLE)));
+		assertThat(shell.getText(), is(not(DIALOG_TITLE)));
 		assertTrue(TestingPreferencePage.performOkCalled);
 	}
 
@@ -65,7 +66,7 @@ public class PreferencePageTest {
 		preferencePage.cancel();
 
 		Shell shell = new DefaultShell();
-		assertThat(shell.getText(), is(not(WindowPreferencePage.DIALOG_TITLE)));
+		assertThat(shell.getText(), is(not(DIALOG_TITLE)));
 		assertTrue(TestingPreferencePage.performCancelCalled);
 	}
 
@@ -74,7 +75,7 @@ public class PreferencePageTest {
 		preferencePage.apply();
 
 		Shell shell = new DefaultShell();
-		assertThat(shell.getText(), is(WindowPreferencePage.DIALOG_TITLE));
+		assertThat(shell.getText(), is(DIALOG_TITLE));
 		assertThat(preferencePage.getName(), is(PAGE_NAME));
 		assertTrue(TestingPreferencePage.performApplyCalled);
 	}
@@ -84,7 +85,7 @@ public class PreferencePageTest {
 		preferencePage.restoreDefaults();
 
 		Shell shell = new DefaultShell();
-		assertThat(shell.getText(), is(WindowPreferencePage.DIALOG_TITLE));
+		assertThat(shell.getText(), is(DIALOG_TITLE));
 		assertThat(preferencePage.getName(), is(PAGE_NAME));
 		assertTrue(TestingPreferencePage.performDefaultsCalled);
 	}
