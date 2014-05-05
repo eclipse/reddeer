@@ -7,8 +7,21 @@ import org.jboss.reddeer.swt.impl.text.LabeledText;
 
 public class NewJavaClassWizardPage extends WizardPage {
 
+	/**
+	 * A wizard page should not know on which page index it is displayed. The
+	 * wizard page can also exist outside WizardDialog. Use no-argument
+	 * constructor instead.
+	 * 
+	 * @param wizardDialog
+	 * @param pageIndex
+	 */
+	@Deprecated
 	public NewJavaClassWizardPage(WizardDialog wizardDialog) {
 		super(wizardDialog, 0);
+	}
+	
+	public NewJavaClassWizardPage() {
+		super();
 	}
 	
 	public void setName(String name){

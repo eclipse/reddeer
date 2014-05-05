@@ -22,10 +22,23 @@ public class ConnectionProfileFlatFilePage extends WizardPage {
 	public static final String LABEL_FISRT_LINE_NAME = "Use first line as column name indicator.";
 	public static final String LABEL_SECOND_LINE_TYPE = "Use second line as data type indicator.";
 
+	/**
+	 * A wizard page should not know on which page index it is displayed. The
+	 * wizard page can also exist outside WizardDialog. Use no-argument
+	 * constructor instead.
+	 * 
+	 * @param wizardDialog
+	 * @param pageIndex
+	 */
+	@Deprecated
 	public ConnectionProfileFlatFilePage(WizardDialog wizardDialog, int indexPage) {
 		super(wizardDialog, indexPage);
 	}
 
+	public ConnectionProfileFlatFilePage() {
+		super();
+	}
+	
 	public void setHomeFolder(String folder) {
 		new DefaultText(0).setText(folder);
 	}

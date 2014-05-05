@@ -14,6 +14,6 @@ public class NewRuntimeWizardDialog extends WizardDialog{
 	public static final String DIALOG_TITLE = "New Server Runtime Environment";
 
 	public NewRuntimeWizardPage getFirstPage(){
-		return new NewRuntimeWizardPage(this);
+		return new NewRuntimeWizardPage();
 	}
 }

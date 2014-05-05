@@ -18,7 +18,7 @@ public class DriverDefinitionWizard extends WizardDialog {
 
 	@Override
 	public DriverDefinitionPage getFirstPage() {
-		return new DriverDefinitionPage(this, 0);
+		return new DriverDefinitionPage();
 	}
 
 	/**

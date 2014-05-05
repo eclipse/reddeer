@@ -17,10 +17,23 @@ public abstract class ConnectionProfileDatabasePage extends WizardPage {
 
 	public static final String LABEL_DRIVER = "Drivers:";
 
+	/**
+	 * A wizard page should not know on which page index it is displayed. The
+	 * wizard page can also exist outside WizardDialog. Use no-argument
+	 * constructor instead.
+	 * 
+	 * @param wizardDialog
+	 * @param pageIndex
+	 */
+	@Deprecated
 	protected ConnectionProfileDatabasePage(WizardDialog wizardDialog, int pageIndex) {
 		super(wizardDialog, pageIndex);
 	}
 
+	protected ConnectionProfileDatabasePage() {
+		super();
+	}
+	
 	public String getDriver() {
 		return new LabeledCombo(LABEL_DRIVER).getText();
 	}

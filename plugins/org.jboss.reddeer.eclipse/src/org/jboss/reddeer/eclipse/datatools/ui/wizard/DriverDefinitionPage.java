@@ -27,10 +27,23 @@ public class DriverDefinitionPage extends WizardPage {
 	public static final String BUTTON_CLEAR_ALL = "Clear All";
 	public static final String BUTTON_REMOVE_JAR = "Remove JAR/Zip";
 
+	/**
+	 * A wizard page should not know on which page index it is displayed. The
+	 * wizard page can also exist outside WizardDialog. Use no-argument
+	 * constructor instead.
+	 * 
+	 * @param wizardDialog
+	 * @param pageIndex
+	 */
+	@Deprecated
 	public DriverDefinitionPage(WizardDialog wizardDialog, int pageIndex) {
 		super(wizardDialog, pageIndex);
 	}
 
+	public DriverDefinitionPage() {
+		super();
+	}
+	
 	/**
 	 * Set a driver name.
 	 * 

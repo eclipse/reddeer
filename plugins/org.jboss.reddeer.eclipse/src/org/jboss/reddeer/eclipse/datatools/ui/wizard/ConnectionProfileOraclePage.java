@@ -23,10 +23,23 @@ public class ConnectionProfileOraclePage extends ConnectionProfileDatabasePage {
 	public static final String LABEL_PASSWORD = "Password:";
 	public static final String LABEL_SAVE_PASSWORD = "Save password";
 
+	/**
+	 * A wizard page should not know on which page index it is displayed. The
+	 * wizard page can also exist outside WizardDialog. Use no-argument
+	 * constructor instead.
+	 * 
+	 * @param wizardDialog
+	 * @param pageIndex
+	 */
+	@Deprecated
 	public ConnectionProfileOraclePage(WizardDialog wizardDialog, int indexPage) {
 		super(wizardDialog, indexPage);
 	}
 
+	public ConnectionProfileOraclePage() {
+		super();
+	}
+	
 	@Override
 	public void setHostname(String hostname) {
 		new LabeledText(LABEL_HOST).setText(hostname);

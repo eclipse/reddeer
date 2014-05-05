@@ -28,8 +28,21 @@ public class WizardProjectsImportPage extends WizardPage {
 	
 	private static final Logger log = Logger.getLogger(WizardProjectsImportPage.class);
 
+	/**
+	 * A wizard page should not know on which page index it is displayed. The
+	 * wizard page can also exist outside WizardDialog. Use no-argument
+	 * constructor instead.
+	 * 
+	 * @param wizardDialog
+	 * @param pageIndex
+	 */
+	@Deprecated
 	public WizardProjectsImportPage(WizardDialog wizardDialog, int pageIndex) {
 		super(wizardDialog, pageIndex);
+	}
+	
+	public WizardProjectsImportPage() {
+		super();
 	}
 	
 	public static class ImportProject {

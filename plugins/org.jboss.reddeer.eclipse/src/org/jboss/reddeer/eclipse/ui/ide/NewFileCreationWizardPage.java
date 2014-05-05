@@ -12,8 +12,21 @@ import org.jboss.reddeer.swt.impl.text.LabeledText;
  */
 public class NewFileCreationWizardPage extends WizardPage {
 
+	/**
+	 * A wizard page should not know on which page index it is displayed. The
+	 * wizard page can also exist outside WizardDialog. Use no-argument
+	 * constructor instead.
+	 * 
+	 * @param wizardDialog
+	 * @param pageIndex
+	 */
+	@Deprecated
 	protected NewFileCreationWizardPage(WizardDialog wizardDialog) {
 		super(wizardDialog, 0);
+	}
+	
+	protected NewFileCreationWizardPage() {
+		super();
 	}
 	
 	public void setFileName(String fileName) {

@@ -35,7 +35,7 @@ public class ConnectionProfileWizard extends NewWizardDialog {
 	 * Return a wizard page for selecting a connection profile.
 	 */
 	public ConnectionProfileSelectPage getFirstPage() {
-		return new ConnectionProfileSelectPage(this, 1);
+		return new ConnectionProfileSelectPage();
 	}
 
 	/**
