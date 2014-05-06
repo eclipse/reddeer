@@ -45,7 +45,7 @@
    <extension
          point="org.eclipse.ui.handlers">
       <handler
-            class="org.jboss.reddeer.swt.test.handlers.TestHandler"
+            class="org.jboss.reddeer.swt.test.handler.TestHandler"
             commandId="org.jboss.reddeer.swt.test.command.testCommand">
       </handler>
    </extension>
