@@ -1,5 +1,7 @@
 package org.jboss.reddeer.workbench.impl.view;
 
+import java.util.Arrays;
+
 import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.actions.ActionFactory;
@@ -10,6 +12,7 @@ import org.jboss.reddeer.junit.logging.Logger;
 import org.jboss.reddeer.swt.api.Menu;
 import org.jboss.reddeer.swt.condition.ShellWithTextIsActive;
 import org.jboss.reddeer.swt.condition.WaitCondition;
+import org.jboss.reddeer.swt.exception.WaitTimeoutExpiredException;
 import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.menu.ShellMenu;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
@@ -50,7 +53,7 @@ public class AbstractView implements View{
 		path = findRegisteredViewPath(new WithTextMatcher(viewToolTip));
 		if(viewPart != null){
 			ViewHandler.getInstance().setFocus(viewPart, viewTitle());
-		}		
+		}
 	}
 	
 	/**
@@ -162,8 +165,14 @@ public class AbstractView implements View{
 				new PushButton("ok").click();
 			}
 			new WaitWhile(new ShellWithTextIsActive(SHOW_VIEW));
-			new WaitUntil(new ViewPartIsActive());
-			viewPart = (IViewPart)WorkbenchPartLookup.getInstance().getActiveWorkbenchPart();
+			try {
+				new WaitUntil(new ViewPartIsActive());
+				viewPart = (IViewPart)WorkbenchPartLookup.getInstance().getActiveWorkbenchPart();
+			} catch(WaitTimeoutExpiredException w) {
+				log.warn("View " + Arrays.toString(path) + " is not active");
+				viewPart = WorkbenchPartLookup.getInstance()
+						.getViewByTitle(new WithTextMatcher(viewTitle()));
+			}
 		}
 		ViewHandler.getInstance().setFocus(viewPart, viewTitle());
 	}
