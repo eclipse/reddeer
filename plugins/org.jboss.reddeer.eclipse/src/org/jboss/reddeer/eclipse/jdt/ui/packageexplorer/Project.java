@@ -75,15 +75,17 @@ public class Project {
 	}
 	/**
 	 * Parses project name and returns project name striped from additional info
-	 * displayed in explorer
+	 * displayed in explorer. Works with git project too. Git project are specific 
+	 * with leading '>' character.
 	 * @param label
 	 * @return
 	 */
 	protected String parseName(String label){
-		if (!label.contains("[")){
-			return label.trim();
+		if (label.charAt(0) == '>') {
+		return label.split(" ")[1];
+		} else {
+		return label.split(" ")[0];
 		}
-		return treeItem.getText().substring(0, treeItem.getText().indexOf("[")).trim();
 	}
 	/**
 	 * Returns project name 
@@ -115,19 +117,39 @@ public class Project {
 		return result;
 	}
 	/**
-	 * Returns Project Item specified by path 
+	 * Returns Project Item specified by path.
 	 * @param path
-	 * @return
+	 * @return project item specified by path or null it does not exist
 	 */
 	public ProjectItem getProjectItem(String... path){
-		TreeItem item = treeItem;
-		int index = 0;
-		while (index < path.length){
-			item = item.getItem(path[index]);
-			index++;
+		TreeItem tmpItem = treeItem;
+		for (int i = 0; i < path.length - 1; i++) {
+			String partialPath = path[i];
+			for (TreeItem item : tmpItem.getItems()) {
+				if (parseItemName(item).equals(partialPath)) {
+					tmpItem = item;
+					break;
+				}
+			}
 		}
-		return new ProjectItem(item, this, path);
+
+		for (TreeItem item : tmpItem.getItems()) {
+			if (parseItemName(item).equals(path[path.length - 1])) {
+				return new ProjectItem(item, this, path);
+			}
+		}
+
+		return null;
 	}
+	
+	private String parseItemName(TreeItem item) {
+		if (item.getText().charAt(0) == '>') {
+			return item.getText().split(" ")[1];
+		} else {
+			return item.getText();
+		}
+	}
+	
 	/**
 	 * Returns true when project is selected 
 	 * @return
