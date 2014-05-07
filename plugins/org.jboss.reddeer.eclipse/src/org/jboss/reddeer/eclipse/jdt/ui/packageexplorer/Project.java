@@ -41,8 +41,9 @@ public class Project {
 	 */
 	public Project(TreeItem treeItem) {
 		this.treeItem = treeItem;
-		name = parseName(this.treeItem.getText());
+		name = parseName(treeItem.getText());
 	}
+	
 	/**
 	 * Deletes project
 	 * @param deleteFromFileSystem
@@ -81,11 +82,15 @@ public class Project {
 	 * @return
 	 */
 	protected String parseName(String label){
-		if (label.charAt(0) == '>') {
-		return label.split(" ")[1];
-		} else {
-		return label.split(" ")[0];
+		if (!label.contains("[")){
+			return label.trim();
 		}
+		
+		String rawName = treeItem.getText().substring(0, treeItem.getText().indexOf("[")).trim();
+		if (rawName.charAt(0) == '>') {
+			return rawName.split(" ", 2)[1];
+		}
+		return rawName;
 	}
 	/**
 	 * Returns project name 
@@ -98,7 +103,7 @@ public class Project {
 	 * Returns Tree Item representing project
 	 * @return 
 	 */
-	public TreeItem getTreeItem (){
+	public TreeItem getTreeItem () {
 		return treeItem;
 	}
 	/**
@@ -107,19 +112,17 @@ public class Project {
 	 * @return
 	 */
 	public boolean containsItem(String... path) {
-		boolean result = false;
 		try {
 			getProjectItem(path);
-			result = true;
+			return true;
 		} catch (SWTLayerException swtle) {
-			result = false;
+			return false;
 		}
-		return result;
 	}
 	/**
 	 * Returns Project Item specified by path.
 	 * @param path
-	 * @return project item specified by path or null it does not exist
+	 * @return project item specified by path
 	 */
 	public ProjectItem getProjectItem(String... path){
 		TreeItem tmpItem = treeItem;
@@ -139,7 +142,7 @@ public class Project {
 			}
 		}
 
-		return null;
+		throw new SWTLayerException("Cannot get project item");
 	}
 	
 	private String parseItemName(TreeItem item) {
