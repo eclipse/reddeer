@@ -40,16 +40,11 @@ public class Display {
 	}
 
 	public static void asyncExec(Runnable runnable) {
-		try{
-			if (!isUIThread()) {
-				getDisplay().asyncExec(runnable);
-			} else {
-				log.warn("UI Call chaining attempt");
-				runnable.run();
-			}
-			
-		}catch(SWTException ex){
-			if(ex.getCause() instanceof RedDeerException){
+		try {
+			getDisplay().asyncExec(runnable);
+
+		} catch (SWTException ex) {
+			if (ex.getCause() instanceof RedDeerException) {
 				throw (RedDeerException) ex.getCause();
 			} else {
 				throw ex;
