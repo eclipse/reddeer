@@ -16,13 +16,18 @@ public class Display {
 	
 	private static org.eclipse.swt.widgets.Display display;
 	private static Logger log = Logger.getLogger(Display.class);
+	private static boolean firstAttempt = true;
 	
 	public static void syncExec(Runnable runnable) {
 		try{
 			if (!isUIThread()) {
+				firstAttempt = true;
 				getDisplay().syncExec(runnable);
 			} else {
-				log.warn("UI Call chaining attempt");
+				if (firstAttempt) {
+					log.warn("UI Call chaining attempt");
+				}
+				firstAttempt = false;
 				runnable.run();				
 			}
 		}catch(SWTException ex){
@@ -84,7 +89,7 @@ public class Display {
 		final ArrayList<T> list = new ArrayList<T>();	
 		try {
 			if (!isUIThread()) {
-
+				firstAttempt = true;
 				Display.getDisplay().syncExec(new Runnable() {
 
 					@Override
@@ -95,7 +100,10 @@ public class Display {
 					}
 				});
 			} else {
-				log.warn("UI Call chaining attempt");
+				if (firstAttempt) {
+					log.warn("UI Call chaining attempt");
+				}
+				firstAttempt = false;
 				list.add(runnable.run());
 			}
 		}catch(SWTException ex){
