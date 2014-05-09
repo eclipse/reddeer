@@ -108,37 +108,32 @@ public class PredefinedButtonTest extends SWTLayerTestCase {
 
 		OkButton okButton = new OkButton();
 		okButton.click();
-		assertEquals(getSelectionText().getText(), getWithoutMnemonic(OK_BUTTON[0]));
+		assertEquals(getSelectionText().getText(), OK_BUTTON[0]);
 
 		CancelButton cancelButton = new CancelButton();
 		cancelButton.click();
-		assertEquals(getSelectionText().getText(), getWithoutMnemonic(CANCEL_BUTTON[0]));
+		assertEquals(getSelectionText().getText(), CANCEL_BUTTON[0]);
 
 		NextButton nextButton = new NextButton();
 		nextButton.click();
-		assertEquals(getSelectionText().getText(), getWithoutMnemonic(NEXT_BUTTON[0]));
+		assertEquals(getSelectionText().getText(), NEXT_BUTTON[0]);
 
 		BackButton backButton = new BackButton();
 		backButton.click();
-		assertEquals(getSelectionText().getText(), getWithoutMnemonic(BACK_BUTTON[0]));
+		assertEquals(getSelectionText().getText(), BACK_BUTTON[0]);
 
 		YesButton yesButton = new YesButton();
 		yesButton.click();
-		assertEquals(getSelectionText().getText(), getWithoutMnemonic(YES_BUTTON[0]));
+		assertEquals(getSelectionText().getText(), YES_BUTTON[0]);
 
 		NoButton noButton = new NoButton();
 		noButton.click();
-		assertEquals(getSelectionText().getText(), getWithoutMnemonic(NO_BUTTON[0]));
+		assertEquals(getSelectionText().getText(), NO_BUTTON[0]);
 		
 		FinishButton finishButton = new FinishButton();
 		finishButton.click();
-		assertEquals(getSelectionText().getText(), getWithoutMnemonic(FINISH_BUTTON[0]));
+		assertEquals(getSelectionText().getText(), FINISH_BUTTON[0]);
 
-	}
-	
-	private String getWithoutMnemonic(String withMnemonic) {
-		return withMnemonic.replaceAll("&", "");
-		
 	}
 
 	private void visibleButtons(final boolean enable) {
