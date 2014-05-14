@@ -7,10 +7,9 @@ import org.jboss.reddeer.gef.GEFLayerException;
 import org.jboss.reddeer.gef.api.Palette;
 import org.jboss.reddeer.gef.condition.EditorHasEditParts;
 import org.jboss.reddeer.gef.handler.ViewerHandler;
+import org.jboss.reddeer.gef.lookup.ViewerLookup;
 import org.jboss.reddeer.gef.view.PaletteView;
 import org.jboss.reddeer.swt.handler.WidgetHandler;
-import org.jboss.reddeer.swt.util.Display;
-import org.jboss.reddeer.swt.util.ResultRunnable;
 import org.jboss.reddeer.swt.wait.WaitUntil;
 import org.jboss.reddeer.workbench.impl.editor.DefaultEditor;
 
@@ -50,12 +49,7 @@ public class GEFEditor extends DefaultEditor {
 	 * Initializes a graphical viewer which is needed for GEF operations.
 	 */
 	protected void initGraphicalViewer() {
-		viewer = Display.syncExec(new ResultRunnable<GraphicalViewer>() {
-			@Override
-			public GraphicalViewer run() {
-				return (GraphicalViewer) getEditorPart().getAdapter(GraphicalViewer.class);
-			}
-		});
+		viewer = ViewerLookup.getInstance().findGraphicalViewer(getEditorPart());
 	}
 
 	protected GraphicalViewer getGraphicalViewer() {
@@ -139,5 +133,4 @@ public class GEFEditor extends DefaultEditor {
 
 		new WaitUntil(new EditorHasEditParts(this, oldCount));
 	}
-
 }

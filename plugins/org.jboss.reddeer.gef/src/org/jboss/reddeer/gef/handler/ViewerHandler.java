@@ -3,6 +3,7 @@ package org.jboss.reddeer.gef.handler;
 import java.util.List;
 
 import org.eclipse.gef.EditPart;
+import org.eclipse.gef.EditPartViewer;
 import org.eclipse.gef.GraphicalViewer;
 import org.eclipse.gef.ui.palette.PaletteViewer;
 import org.hamcrest.BaseMatcher;
@@ -76,7 +77,7 @@ public class ViewerHandler {
 	 *            Matcher
 	 * @return List of edit parts
 	 */
-	public List<EditPart> getEditParts(final GraphicalViewer viewer, final Matcher<EditPart> matcher) {
+	public List<EditPart> getEditParts(final EditPartViewer viewer, final Matcher<EditPart> matcher) {
 		return Display.syncExec(new ResultRunnable<List<EditPart>>() {
 			@Override
 			public List<EditPart> run() {

@@ -33,6 +33,7 @@ public class GEFEditorTest {
 
 	@After
 	public void deleteAllProjects() {
+		new GEFEditor().close();
 		ProjectExplorer projectExplorer = new ProjectExplorer();
 		projectExplorer.open();
 		projectExplorer.getProject(PROJECT_NAME).delete(true);
@@ -80,8 +81,6 @@ public class GEFEditorTest {
 
 		gefEditor.addToolFromPalette("HalfAdder", "Canned Parts", 100, 200);
 		gefEditor.addToolFromPalette("FullAdder", "Canned Parts", 200, 200);
-
-		gefEditor.save();
 	}
 
 	@Test
@@ -108,9 +107,6 @@ public class GEFEditorTest {
 		gefEditor.addToolFromPalette("Rectangle", 100, 0);
 		gefEditor.addToolFromPalette("Ellipse", "Shapes", 0, 200);
 		gefEditor.addToolFromPalette("Rectangle", "Shapes", 100, 200);
-
-		gefEditor.save();
-
 	}
 
 	private static void assertContains(String text, Collection<String> collection) {
