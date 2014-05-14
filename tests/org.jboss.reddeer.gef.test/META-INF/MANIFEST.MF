@@ -14,7 +14,6 @@ Require-Bundle: org.junit,
  org.jboss.reddeer.junit;bundle-version="0.6.0",
  org.jboss.reddeer.requirements;bundle-version="0.6.0",
  org.jboss.reddeer.swt;bundle-version="0.6.0",
- org.jboss.reddeer.workbench;bundle-version="0.6.0",
- org.eclipse.gef
+ org.jboss.reddeer.workbench;bundle-version="0.6.0"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
