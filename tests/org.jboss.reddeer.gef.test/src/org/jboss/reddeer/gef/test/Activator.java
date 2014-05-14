@@ -1,4 +1,4 @@
-package org.jboss.reddeer.gef;
+package org.jboss.reddeer.gef.test;
 
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
@@ -9,7 +9,7 @@ import org.osgi.framework.BundleContext;
 public class Activator extends AbstractUIPlugin {
 
 	// The plug-in ID
-	public static final String PLUGIN_ID = "org.jboss.reddeer.gef"; //$NON-NLS-1$
+	public static final String PLUGIN_ID = "org.jboss.reddeer.bot.graphiti.test"; //$NON-NLS-1$
 
 	// The shared instance
 	private static Activator plugin;
