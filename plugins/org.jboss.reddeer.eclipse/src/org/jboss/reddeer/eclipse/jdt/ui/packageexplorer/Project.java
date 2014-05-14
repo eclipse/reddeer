@@ -62,7 +62,7 @@ public class Project {
 			new WaitWhile(new ShellWithTextIsActive(deleteShellText),TimePeriod.LONG);
 		} catch(WaitTimeoutExpiredException e) {
 			new ShellWithButton(deleteShellText, "Continue");
-			new PushButton("Continue");
+			new PushButton("Continue").click();
 			new WaitWhile(new ShellWithTextIsActive(deleteShellText),TimePeriod.LONG);
 		}
 		new WaitWhile(new JobIsRunning(), TimePeriod.LONG);
