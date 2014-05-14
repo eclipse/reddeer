@@ -241,6 +241,39 @@ public class ServerTest extends ServersViewTestCase {
 	}
 
 	@Test
+	public void getAvailableModules() {
+		ModifyModulesDialog dialog = server1.addAndRemoveModules();
+		ModifyModulesPage page = dialog.getFirstPage();
+		
+		List<String> availableModules = page.getAvailableModules();
+		
+		dialog.cancel();
+		
+		assertThat(availableModules.size(), is(3));
+		
+		assertThat(availableModules.get(0), is(PROJECT_1));
+		assertThat(availableModules.get(1), is(PROJECT_2));
+		assertThat(availableModules.get(2), is(PROJECT_3));
+	}
+	
+	@Test
+	public void getConfiguredModules() {
+		ModifyModulesDialog dialog = server1.addAndRemoveModules();
+		ModifyModulesPage page = dialog.getFirstPage();
+		page.addAll();
+		
+		List<String> configuredModules = page.getConfiguredModules();
+		
+		dialog.cancel();
+		
+		assertThat(configuredModules.size(), is(3));
+		
+		assertThat(configuredModules.get(0), is(PROJECT_1));
+		assertThat(configuredModules.get(1), is(PROJECT_2));
+		assertThat(configuredModules.get(2), is(PROJECT_3));
+	}
+	
+	@Test
 	public void getModules_noModules(){
 		List<ServerModule> modules = server1.getModules();
 
