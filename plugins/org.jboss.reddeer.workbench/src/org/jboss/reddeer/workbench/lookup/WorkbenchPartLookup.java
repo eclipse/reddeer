@@ -68,8 +68,9 @@ public class WorkbenchPartLookup {
 				IEditorReference[] editors = activeWorkbenchWindow
 						.getActivePage().getEditorReferences();
 				for (IEditorReference iEditorReference : editors) {
-
-					if (title.matches(iEditorReference.getEditor(false).getEditorInput().getName())) {
+					if (title.matches(iEditorReference.getPartName())) {
+						return iEditorReference.getEditor(false);
+					} else if (title.matches(iEditorReference.getEditor(false).getEditorInput().getName())) {
 						return iEditorReference.getEditor(false);
 					} else if (title.matches(iEditorReference.getEditor(false).getEditorInput().getToolTipText())) {
 						return iEditorReference.getEditor(false);
