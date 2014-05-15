@@ -16,7 +16,7 @@ import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 
 public class ServersViewTestCase extends RedDeerTest {
 
-	private static final File ZIP_FILE = new File(Activator.getTestResourcesLocation(ServersViewTest.class), "server-project.zip");
+	public static final File ZIP_FILE = new File(Activator.getTestResourcesLocation(ServersViewTest.class), "server-project.zip");
 	
 	protected static final String PROJECT_1 = "server-project";
 	

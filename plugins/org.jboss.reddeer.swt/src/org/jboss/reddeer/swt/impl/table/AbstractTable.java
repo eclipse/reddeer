@@ -3,6 +3,7 @@ package org.jboss.reddeer.swt.impl.table;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hamcrest.Matcher;
 import org.jboss.reddeer.junit.logging.Logger;
 import org.jboss.reddeer.swt.api.Table;
 import org.jboss.reddeer.swt.api.TableItem;
@@ -62,6 +63,18 @@ public abstract class AbstractTable implements Table {
 			tableItems.add(new BasicTableItem(i));
 		}
 		return tableItems;
+	}
+	
+	@Override
+	public List<TableItem> getItems(Matcher<TableItem> matcher) {
+		List<TableItem> matchedItems = new ArrayList<TableItem>();
+		
+		for (TableItem item : getItems()){
+			if (matcher.matches(item)){
+				matchedItems.add(item);
+			}
+		}
+		return matchedItems;
 	}
 	
 	@Override

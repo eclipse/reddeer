@@ -24,6 +24,8 @@ public class ProjectPropertyPageTest {
 	
 	private Project project;
 	
+	private ProjectPropertyPage page;
+	
 	@Before
 	public void setup() {
 		NewJavaProjectWizardDialog dialog = new NewJavaProjectWizardDialog();
@@ -33,13 +35,14 @@ public class ProjectPropertyPageTest {
 		dialog.finish();
 
 		project = new PackageExplorer().getProject(PROJECT_NAME);
+		page = new TestPropertyPageRedDeer(project);
 	}
 	
 	@After 
 	public void cleanup(){
 		Shell shell = null;
 		try {
-			shell = new DefaultShell(TestPropertyPage.PAGE_TITLE);
+			shell = new DefaultShell(page.getPageTitle());
 			shell.close();
 		} catch (SWTLayerException e){
 			// not found, no action needed
@@ -50,10 +53,9 @@ public class ProjectPropertyPageTest {
 	
 	@Test
 	public void open() {
-		ProjectPropertyPage page = new TestPropertyPageRedDeer(project);
 		page.open();
 		
-		assertThat(page.getName(), is(TestPropertyPage.PAGE_TITLE));
+		assertThat(new DefaultShell().getText(), is(page.getPageTitle()));
 	}
 
 	private class TestPropertyPageRedDeer extends ProjectPropertyPage {

@@ -1,5 +1,7 @@
 package org.jboss.reddeer.swt.test.impl.table;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -19,6 +21,7 @@ import org.jboss.reddeer.swt.condition.TableContainsItem;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.exception.WaitTimeoutExpiredException;
 import org.jboss.reddeer.swt.impl.table.DefaultTable;
+import org.jboss.reddeer.swt.matcher.SelectedTableItemMatcher;
 import org.jboss.reddeer.swt.test.SWTLayerTestCase;
 import org.jboss.reddeer.swt.wait.WaitUntil;
 import org.junit.Test;
@@ -223,7 +226,10 @@ public class DefaultTableTest extends SWTLayerTestCase{
 	
 	@Test
 	public void testCheckTable(){
-		new DefaultTable(2).getItem(1).setChecked(true);
+		DefaultTable t = new DefaultTable(2);
+		t.getItem(1).setChecked(true);
+		
+		assertThat(t.getItems(new SelectedTableItemMatcher()).size(), is(1));
 	}
 	
 	@Test

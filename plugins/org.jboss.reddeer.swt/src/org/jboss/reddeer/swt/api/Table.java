@@ -2,6 +2,7 @@ package org.jboss.reddeer.swt.api;
 
 import java.util.List;
 
+import org.hamcrest.Matcher;
 import org.jboss.reddeer.swt.widgets.Widget;
 
 
@@ -86,6 +87,12 @@ public interface Table extends Widget{
 	 * @return index
 	 */
 	int indexOf(TableItem tableItem);
+	
+	/**
+	 * Returns table items that match the matcher
+	 * @return list of table items
+	 */
+	List<TableItem> getItems(Matcher<TableItem> matcher);
 	
 	org.eclipse.swt.widgets.Table getSWTWidget();
 	

@@ -68,7 +68,12 @@
 						</dependency>
 						<dependency>
 							<type>p2-installable-unit</type>
-							<artifactId>org.eclipse.wst.web.ui</artifactId>
+							<artifactId>org.eclipse.wst.web_ui.feature.feature.group</artifactId>
+							<version>0.0.0</version>
+						</dependency>
+						<dependency>
+							<type>p2-installable-unit</type>
+							<artifactId>org.eclipse.wst.server_adapters.feature.feature.group</artifactId>
 							<version>0.0.0</version>
 						</dependency>
                         <dependency>
