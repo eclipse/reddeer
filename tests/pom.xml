@@ -20,6 +20,7 @@
 		<module>org.jboss.reddeer.jface.test</module>
 		<module>org.jboss.reddeer.eclipse.test</module>
 		<module>org.jboss.reddeer.gef.test</module>
+		<module>org.jboss.reddeer.graphiti.test</module>
 		<module>org.jboss.reddeer.junit.test</module>
 		<module>org.jboss.reddeer.requirements.test</module>
 	</modules>
