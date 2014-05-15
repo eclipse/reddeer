@@ -41,8 +41,9 @@ public class Project {
 	 */
 	public Project(TreeItem treeItem) {
 		this.treeItem = treeItem;
-		name = parseName(this.treeItem.getText());
+		name = parseName(treeItem.getText());
 	}
+	
 	/**
 	 * Deletes project
 	 * @param deleteFromFileSystem
@@ -75,7 +76,8 @@ public class Project {
 	}
 	/**
 	 * Parses project name and returns project name striped from additional info
-	 * displayed in explorer
+	 * displayed in explorer. Works with git project too. Git project are specific 
+	 * with leading '>' character.
 	 * @param label
 	 * @return
 	 */
@@ -83,7 +85,12 @@ public class Project {
 		if (!label.contains("[")){
 			return label.trim();
 		}
-		return treeItem.getText().substring(0, treeItem.getText().indexOf("[")).trim();
+		
+		String rawName = treeItem.getText().substring(0, treeItem.getText().indexOf("[")).trim();
+		if (rawName.charAt(0) == '>') {
+			return rawName.split(" ", 2)[1];
+		}
+		return rawName;
 	}
 	/**
 	 * Returns project name 
@@ -96,7 +103,7 @@ public class Project {
 	 * Returns Tree Item representing project
 	 * @return 
 	 */
-	public TreeItem getTreeItem (){
+	public TreeItem getTreeItem () {
 		return treeItem;
 	}
 	/**
@@ -105,29 +112,47 @@ public class Project {
 	 * @return
 	 */
 	public boolean containsItem(String... path) {
-		boolean result = false;
 		try {
 			getProjectItem(path);
-			result = true;
+			return true;
 		} catch (SWTLayerException swtle) {
-			result = false;
+			return false;
 		}
-		return result;
 	}
 	/**
-	 * Returns Project Item specified by path 
+	 * Returns Project Item specified by path.
 	 * @param path
-	 * @return
+	 * @return project item specified by path
 	 */
 	public ProjectItem getProjectItem(String... path){
-		TreeItem item = treeItem;
-		int index = 0;
-		while (index < path.length){
-			item = item.getItem(path[index]);
-			index++;
+		TreeItem tmpItem = treeItem;
+		for (int i = 0; i < path.length - 1; i++) {
+			String partialPath = path[i];
+			for (TreeItem item : tmpItem.getItems()) {
+				if (parseItemName(item).equals(partialPath)) {
+					tmpItem = item;
+					break;
+				}
+			}
 		}
-		return new ProjectItem(item, this, path);
+
+		for (TreeItem item : tmpItem.getItems()) {
+			if (parseItemName(item).equals(path[path.length - 1])) {
+				return new ProjectItem(item, this, path);
+			}
+		}
+
+		throw new SWTLayerException("Cannot get project item");
 	}
+	
+	private String parseItemName(TreeItem item) {
+		if (item.getText().charAt(0) == '>') {
+			return item.getText().split(" ")[1];
+		} else {
+			return item.getText();
+		}
+	}
+	
 	/**
 	 * Returns true when project is selected 
 	 * @return

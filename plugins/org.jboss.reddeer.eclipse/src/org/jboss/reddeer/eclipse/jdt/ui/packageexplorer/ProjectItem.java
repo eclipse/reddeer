@@ -49,13 +49,34 @@ public class ProjectItem {
 	}
 
 	public void select() {
-		TreeItem item = project.getTreeItem();
-		int index = 0;
-		while (index < path.length){
-			item = item.getItem(path[index]);
-			index++;
+		TreeItem tmpItem = project.getTreeItem();
+		
+		// go through whole hierarchy instead of 1 level
+		for (int i = 0; i < path.length - 1; i++) {
+			String partialPath = path[i];
+			for (TreeItem item : tmpItem.getItems()) {
+				if (parseItemName(item).equals(partialPath)) {
+					item.expand();
+					tmpItem = item;
+					break;
+				}
+			}
 		}
-		item.select();
+
+		// finally, find and select item
+		for (TreeItem item : tmpItem.getItems()) {
+			if (parseItemName(item).equals(path[path.length - 1])) {
+				item.select();
+				break;
+			}
+		}
+	}
+	
+	private String parseItemName(TreeItem item) {
+		if (item.getText().charAt(0) == '>') {
+			return item.getText().split(" ")[1];
+		}
+		return item.getText();
 	}
 	
 	public boolean isSelected() {
