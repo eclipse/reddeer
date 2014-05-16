@@ -8,17 +8,32 @@ import org.jboss.reddeer.swt.widgets.Widget;
 /**
  * API for Tree item manipulation
  * 
- * @author Jiri Peterka
+ * @author Jiri Peterka, mlabuda@redhat.com
  *
  */
 public interface TreeItem extends Widget{
 
 	/**
-	 * Return the text of tree item
+	 * Get whole text of a tree item
 	 * 
-	 * @return
+	 * @return whole text of a tree item
 	 */
 	String getText();
+	
+	/**
+	 * Get non styled text of a tree item. 
+	 * 
+	 * @return non-styled text of a tree item
+	 */
+	String getNonStyledText();
+	
+	/**
+	 * Get styled text on a tree item. There could be more than 1 
+	 * styled text on a tree item. Also tree item can be without styled text
+	 * 
+	 * @return styled texts of a tree item or null if there are not styled texts
+	 */
+	String[] getStyledTexts();
 	
 	/**
 	 * Return the tool tip text of tree item
