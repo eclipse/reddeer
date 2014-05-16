@@ -140,7 +140,6 @@ public class WizardDialog {
 
 		String shellText = new DefaultShell().getText();
 		Button button = new PushButton("Finish");
-		new WaitWhile(new JobIsRunning());
 		button.click();
 
 		new WaitWhile(new ShellWithTextIsActive(shellText), TimePeriod.LONG);
