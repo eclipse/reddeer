@@ -5,6 +5,8 @@ import org.jboss.reddeer.junit.logging.Logger;
 import org.jboss.reddeer.swt.api.Button;
 import org.jboss.reddeer.swt.api.Menu;
 import org.jboss.reddeer.swt.api.TreeItem;
+import org.jboss.reddeer.swt.condition.ProgressInformationShellIsActive;
+import org.jboss.reddeer.swt.condition.ShellWithTextIsActive;
 import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.clabel.DefaultCLabel;
 import org.jboss.reddeer.swt.impl.menu.ShellMenu;
@@ -13,6 +15,7 @@ import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
 import org.jboss.reddeer.swt.lookup.ShellLookup;
 import org.jboss.reddeer.swt.util.Display;
 import org.jboss.reddeer.swt.util.ResultRunnable;
+import org.jboss.reddeer.swt.wait.WaitWhile;
 
 /**
  * Represents a general preference page.
@@ -97,18 +100,26 @@ public abstract class PreferencePage {
 	 * Submit OK button and exit preference shell.
 	 */
 	public void ok() {
+		String shellText = new DefaultShell().getText();
 		Button b = new PushButton("OK");
 		log.info("Close Preferences dialog");
+		
 		b.click();
+		new WaitWhile(new ProgressInformationShellIsActive());
+		new WaitWhile(new ShellWithTextIsActive(shellText));
 	}
 
 	/**
 	 * Submit Cancel button and exit preference shell.
 	 */
 	public void cancel() {
+		String shellText = new DefaultShell().getText();
 		Button b = new PushButton("Cancel");
+		
 		log.info("Cancel Preferences dialog");
 		b.click();
+		new WaitWhile(new ProgressInformationShellIsActive());
+		new WaitWhile(new ShellWithTextIsActive(shellText));
 	}
 
 	/**
