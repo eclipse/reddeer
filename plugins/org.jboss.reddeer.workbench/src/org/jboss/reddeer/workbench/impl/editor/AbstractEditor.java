@@ -19,6 +19,7 @@ import org.jboss.reddeer.swt.api.Table;
 import org.jboss.reddeer.swt.condition.WaitCondition;
 import org.jboss.reddeer.swt.exception.WaitTimeoutExpiredException;
 import org.jboss.reddeer.swt.handler.ShellHandler;
+import org.jboss.reddeer.swt.impl.menu.ShellMenu;
 import org.jboss.reddeer.swt.impl.table.DefaultTable;
 import org.jboss.reddeer.swt.keyboard.KeyboardFactory;
 import org.jboss.reddeer.swt.lookup.ShellLookup;
@@ -158,6 +159,39 @@ public class AbstractEditor implements Editor {
 		return new ContentAssistant(contentAssistTable);
 	}
 	
+	@Override
+	public ContentAssistant openOpenOnAssistant(){
+		Shell[] shells1 = ShellLookup.getInstance().getShells();
+		new ShellMenu("Navigate","Open Hyperlink").select();
+		Shell[] shells2 = ShellLookup.getInstance().getShells();
+		try{
+			Table contentAssistTable = findContentAssistTable(shells1, shells2);
+			return new ContentAssistant(contentAssistTable);
+		} catch(WorkbenchLayerException ex){
+			return null;
+		}
+	}
+	
+	@Override
+	public ContentAssistant openQuickFixContentAssistant(){
+		Shell[] shells1 = ShellLookup.getInstance().getShells();
+		IBindingService bindingService = (IBindingService) PlatformUI.getWorkbench().getAdapter(IBindingService.class);
+		TriggerSequence[] sequence = bindingService.getActiveBindingsFor(ITextEditorActionDefinitionIds.QUICK_ASSIST);
+		if(sequence.length > 0 && sequence[0].getTriggers().length > 0){
+			if(sequence[0].getTriggers()[0] instanceof KeyStroke){
+				KeyStroke k = ((KeyStroke)sequence[0].getTriggers()[0]);
+				KeyboardFactory.getKeyboard().invokeKeyCombination(k.getModifierKeys(),k.getNaturalKey());
+			} else {
+				throw new WorkbenchLayerException("Unable to find key combination which invokes Quickfix Content Assistant");
+			}
+		} else {
+			throw new WorkbenchLayerException("Unable to find key combination which invokes Quickfix Content Assistant");
+		}
+		Shell[] shells2 = ShellLookup.getInstance().getShells();
+		Table contentAssistTable = findContentAssistTable(shells1, shells2);
+		return new ContentAssistant(contentAssistTable);
+	}
+	
 	private Table findContentAssistTable(Shell[] s1, Shell[] s2){
 		List<Shell> s1List = new ArrayList<Shell>(Arrays.asList(s1));
 		List<Shell> s2List = new ArrayList<Shell>(Arrays.asList(s2));
@@ -217,6 +251,11 @@ public class AbstractEditor implements Editor {
 			return part;
 		}
 
+	}
+
+	@Override
+	public List<String> getMarkers() {
+		return EditorHandler.getInstance().getMarkers(editorPart);
 	}
 
 }
