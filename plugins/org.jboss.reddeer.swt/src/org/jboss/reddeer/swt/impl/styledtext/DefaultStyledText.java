@@ -12,7 +12,7 @@ import org.jboss.reddeer.swt.reference.ReferencedComposite;
 /**
  * Default class for representing StyledText
  * 
- * @author rhopp
+ * @author rhopp, rawagner
  * 
  */
 public class DefaultStyledText implements StyledText {
@@ -130,17 +130,51 @@ public class DefaultStyledText implements StyledText {
 		StyledTextHandler.getInstance().insertText(styledText, line,column,text);
 	}
 	
+	/**
+	 * @see org.jboss.reddeer.swt.widgets.Widget#getSWTWidget()
+	 */
+	@Override
 	public org.eclipse.swt.custom.StyledText getSWTWidget(){
 		return styledText;
 	}
 	
+	/**
+	 * @see org.jboss.reddeer.swt.widgets.Widget#isEnabled()
+	 */
 	@Override
 	public boolean isEnabled() {
 		return WidgetHandler.getInstance().isEnabled(styledText);
 	}
 
+	/**
+	 * @see org.jboss.reddeer.swt.api.StyledText#getPositionOfText(String)
+	 */
 	@Override
 	public int getPositionOfText(String text) {
 		return StyledTextHandler.getInstance().getPositionOfText(styledText, text);
+	}
+	
+	/**
+	 * @see org.jboss.reddeer.swt.api.StyledText#selectText(String)
+	 */
+	@Override
+	public void selectText(String text){
+		StyledTextHandler.getInstance().selectText(styledText, text);
+	}
+	
+	/**
+	 * @see org.jboss.reddeer.swt.api.StyledText#selectPosition(int)
+	 */
+	@Override
+	public void selectPosition(int position){
+		StyledTextHandler.getInstance().selectPosition(styledText, position);
+	}
+	
+	/**
+	 * @see org.jboss.reddeer.swt.api.StyledText#getSelectionText()
+	 */
+	@Override
+	public String getSelectionText(){
+		return StyledTextHandler.getInstance().getSelectionText(styledText);
 	}
 }

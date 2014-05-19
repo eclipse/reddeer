@@ -49,5 +49,24 @@ public interface StyledText extends Widget{
 	
 	public int getPositionOfText(String text);
 	
+	/**
+	 * Select specified text in styled text
+	 * @param text to select
+	 */
+	void selectText(String text);
+	
+	
+	/**
+	 * Select position
+	 * @param position to select
+	 */
+	void selectPosition(int position);
+	
+	/**
+	 * Get selected text
+	 * @return selected text
+	 */
+	String getSelectionText();
+	
 	org.eclipse.swt.custom.StyledText getSWTWidget();
 }
