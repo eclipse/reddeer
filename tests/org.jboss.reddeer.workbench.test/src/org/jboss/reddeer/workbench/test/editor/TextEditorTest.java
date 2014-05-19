@@ -29,13 +29,14 @@ import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.handler.ShellHandler;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.jboss.reddeer.swt.keyboard.KeyboardFactory;
-import org.jboss.reddeer.swt.lookup.ShellLookup;
 import org.jboss.reddeer.swt.test.RedDeerTest;
 import org.jboss.reddeer.swt.util.Display;
-import org.jboss.reddeer.workbench.exception.WorkbenchLayerException;
-import org.jboss.reddeer.workbench.exception.WorkbenchPartNotFound;
+import org.jboss.reddeer.swt.wait.AbstractWait;
+import org.jboss.reddeer.swt.wait.TimePeriod;
 import org.jboss.reddeer.workbench.impl.editor.DefaultEditor;
 import org.jboss.reddeer.workbench.impl.editor.TextEditor;
+import org.jboss.reddeer.workbench.exception.WorkbenchLayerException;
+import org.jboss.reddeer.workbench.exception.WorkbenchPartNotFound;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -145,11 +146,61 @@ public class TextEditorTest extends RedDeerTest {
 		}
 	}
 
+	public void openOnAssist(){
+		openJavaFile();
+		TextEditor textEditor = new TextEditor();
+		textEditor.selectText("println");
+		ContentAssistant ca = textEditor.openOpenOnAssistant();
+		assertTrue(ca.getProposals().contains("Open Declaration"));
+		assertTrue(ca.getProposals().contains("Open Implementation"));
+		ca.chooseProposal("Open Declaration");
+		new TextEditor("PrintStream.class");
+	}
+	
+	@Test
+	public void closeOpenOnAssistUsingCloseAllShells(){
+		openJavaFile();
+		TextEditor textEditor = new TextEditor();
+		ContentAssistant ca = textEditor.openOpenOnAssistant();
+		ShellHandler.getInstance().closeAllNonWorbenchShells();
+
+		try {
+			new DefaultShell("");
+			// if content assistant is still available then close it
+			ca.close();
+			fail("OpenOn ContentAssistant wasn't close");
+		} catch (SWTLayerException e) {
+			// ok, this is expected
+		}
+	}
+	
+	@Test
+	public void quickFixAssist(){
+		openJavaFile();
+		TextEditor textEditor = new TextEditor();
+		textEditor.selectText("JavaClass");
+		ContentAssistant ca = textEditor.openQuickFixContentAssistant();
+		assertTrue(ca.getProposals().get(0).contains("Rename in file"));
+		assertTrue(ca.getProposals().get(1).contains("Rename in workspace"));
+		ca.close();
+	}
+
 	@Test
 	public void getTextAtLineTest(){
 		openJavaFile();
 		collapseTextInJavaFile();
 		assertEquals("\t\tSystem.out.println(\"\");", new TextEditor().getTextAtLine(4));
+	}
+	
+
+	@Test
+	public void getMarkers(){
+		openJavaFile();
+		TextEditor textEditor = new TextEditor();
+		textEditor.setText(textEditor.getText().replace("System", "Systemx"));
+		textEditor.save();
+		AbstractWait.sleep(TimePeriod.SHORT);
+		assertTrue(textEditor.getMarkers().contains("Systemx cannot be resolved"));
 	}
 
 	@Test

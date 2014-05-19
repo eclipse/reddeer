@@ -1,9 +1,17 @@
 package org.jboss.reddeer.workbench.handler;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.jface.text.source.Annotation;
+import org.eclipse.jface.text.source.IAnnotationModel;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.texteditor.IDocumentProvider;
+import org.eclipse.ui.texteditor.ITextEditor;
 import org.jboss.reddeer.junit.logging.Logger;
 import org.jboss.reddeer.swt.condition.ShellWithTextIsActive;
 import org.jboss.reddeer.swt.impl.button.PushButton;
@@ -113,6 +121,31 @@ public class EditorHandler {
 		}
 		log.info("Editor " + WorkbenchPartHandler.getInstance().getTitle(editor) + " is closed");
 		
+	}
+	
+	public List<String> getMarkers(IEditorPart editor) {
+		List<String> markers = new ArrayList<String>();
+		ITextEditor textEditor = (ITextEditor)editor.getAdapter(ITextEditor.class);
+		if(textEditor == null){
+			return markers;
+		}
+		final IDocumentProvider documentProvider = textEditor.getDocumentProvider();
+		if (documentProvider == null) {
+			return markers;
+		}
+		IAnnotationModel model = documentProvider.getAnnotationModel(textEditor.getEditorInput());
+		Iterator<?> it = model.getAnnotationIterator();
+		boolean found = false;
+		while (it.hasNext() && !found) {
+			Object o = it.next();
+
+			if (!(o instanceof Annotation))
+				continue;
+			
+			Annotation annotation = (Annotation) o;
+			markers.add(annotation.getText());
+		}
+		return markers;
 	}
 
 }

@@ -1,5 +1,7 @@
 package org.jboss.reddeer.workbench.api;
 
+import java.util.List;
+
 import org.jboss.reddeer.eclipse.jface.text.contentassist.ContentAssistant;
 
 /**
@@ -66,5 +68,20 @@ public interface Editor {
 	 */
 	ContentAssistant openContentAssistant();
 	
+	/**
+	 * Opens quickfix content assistant
+	 */
+	ContentAssistant openQuickFixContentAssistant();
+	
+	/**
+	 * Opens open on assistant
+	 */
+	ContentAssistant openOpenOnAssistant();
+	
+	/**
+	 * Returns editor validation markers
+	 * @returns editor validation markers
+	 */
+	List<String> getMarkers();
 	
 }
