@@ -3,6 +3,7 @@ package org.jboss.reddeer.swt.condition;
 import org.eclipse.swt.widgets.Shell;
 import org.hamcrest.core.IsEqual;
 import org.jboss.reddeer.junit.logging.Logger;
+import org.jboss.reddeer.swt.exception.RedDeerException;
 import org.jboss.reddeer.swt.handler.WidgetHandler;
 import org.jboss.reddeer.swt.lookup.ShellLookup;
 import org.jboss.reddeer.swt.util.internal.InstanceValidator;
@@ -26,7 +27,7 @@ public class ShellWithTextIsActive implements WaitCondition {
 		InstanceValidator.checkNotNull(text, "text");
 		this.matcher = new IsEqual<String>(text);
 	}
-	
+
 	/**
 	 * @throws IllegalArgumentException if {@code matcher} is {@code null}
 	 */
@@ -41,7 +42,14 @@ public class ShellWithTextIsActive implements WaitCondition {
 		if (currentActiveShell == null) {
 			return false;
 		}
-		String activeText = WidgetHandler.getInstance().getText(currentActiveShell);
+
+		String activeText;
+		try {
+			activeText = WidgetHandler.getInstance().getText(currentActiveShell);
+		} catch (RedDeerException e){
+			return false;
+		}
+
 		log.debug("Active shell: " + "\"" + activeText + "\"" + " / Expected shell: " + matcher);
 		boolean matches = matcher.matches(activeText);
 		return matches;
