@@ -3,6 +3,7 @@ package org.jboss.reddeer.swt.util;
 import java.lang.reflect.Method;
 
 import org.eclipse.swt.widgets.Widget;
+import org.jboss.reddeer.junit.logging.Logger;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
 
 
@@ -14,6 +15,8 @@ import org.jboss.reddeer.swt.exception.SWTLayerException;
  */
 public class ObjectUtil {
 
+	private static final Logger log = Logger.getLogger(ObjectUtil.class);
+	
 	/**
 	 * Invokes method by reflection, widget based method are executed in ui thread
 	 * 
@@ -51,21 +54,22 @@ public class ObjectUtil {
 		try {
 			method = object.getClass().getMethod(methodName, argTypes);
 		} catch (Exception e) {
-			throw new SWTLayerException("Exception when invoking method " + methodName + " by reflection", e);
+			throw new SWTLayerException("Exception when retrieving method " + methodName + " by reflection", e);
 		}
 		return method;
 	}
 	
 	private static Object invokeMethodUI(final Method method, final Object object, final Object[] args) {
-		final Object result;
-		result = Display.syncExec(new ResultRunnable<Object>() {
+		InvokeMethodRunnable runnable = new InvokeMethodRunnable(method, object, args);
+		
+		Display.syncExec(runnable);
 
-			@Override
-			public Object run() {
-				return invokeMethod(method, object, args);
-			}
-		});
-		return result;
+		if (runnable.exceptionOccurred()){
+			log.error("Exception when invoking method " + method + " by reflection in UI thread", runnable.getException());
+			throw new SWTLayerException("Exception when invoking method " + method + " by reflection in UI thread", runnable.getException());
+		} else {
+			return runnable.getResult();
+		}
 	}
 
 	private static Object invokeMethod(Method method, Object object, Object[] args) {
@@ -73,6 +77,47 @@ public class ObjectUtil {
 			return method.invoke(object, args);
 		} catch (Exception e) {
 			throw new SWTLayerException("Exception when invoking method " + method + " by reflection", e);
+		}
+	}
+	
+	private static class InvokeMethodRunnable implements Runnable {
+		
+		private Method method;
+		
+		private Object object;
+		
+		private Object[] args;
+
+		private Exception exception;
+		
+		private Object result = null;
+		
+		private InvokeMethodRunnable(Method method, Object object, Object[] args) {
+			super();
+			this.method = method;
+			this.object = object;
+			this.args = args;
+		}
+
+		@Override
+		public void run() {
+			try {
+				result = invokeMethod(method, object, args);
+			} catch (Exception e) {
+				exception = e;
+			}
+		}
+		
+		public boolean exceptionOccurred(){
+			return getException() != null;
+		}
+		
+		public Exception getException() {
+			return exception;
+		}
+		
+		public Object getResult() {
+			return result;
 		}
 	}
 }
