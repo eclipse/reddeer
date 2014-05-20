@@ -1,6 +1,5 @@
 package org.jboss.reddeer.eclipse.datatools.ui.wizard;
 
-import org.jboss.reddeer.eclipse.jface.wizard.WizardDialog;
 import org.jboss.reddeer.eclipse.jface.wizard.WizardPage;
 import org.jboss.reddeer.swt.api.Tree;
 import org.jboss.reddeer.swt.api.TreeItem;
@@ -26,19 +25,6 @@ public class DriverDefinitionPage extends WizardPage {
 	public static final String TAB_JAR_LIST = "JAR List";
 	public static final String BUTTON_CLEAR_ALL = "Clear All";
 	public static final String BUTTON_REMOVE_JAR = "Remove JAR/Zip";
-
-	/**
-	 * A wizard page should not know on which page index it is displayed. The
-	 * wizard page can also exist outside WizardDialog. Use no-argument
-	 * constructor instead.
-	 * 
-	 * @param wizardDialog
-	 * @param pageIndex
-	 */
-	@Deprecated
-	public DriverDefinitionPage(WizardDialog wizardDialog, int pageIndex) {
-		super(wizardDialog, pageIndex);
-	}
 
 	public DriverDefinitionPage() {
 		super();

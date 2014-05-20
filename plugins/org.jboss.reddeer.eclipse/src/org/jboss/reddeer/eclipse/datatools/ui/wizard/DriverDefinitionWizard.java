@@ -16,9 +16,8 @@ import org.jboss.reddeer.swt.wait.WaitWhile;
  */
 public class DriverDefinitionWizard extends WizardDialog {
 
-	@Override
-	public DriverDefinitionPage getFirstPage() {
-		return new DriverDefinitionPage();
+	public DriverDefinitionWizard() {
+		super();
 	}
 
 	/**
@@ -28,8 +27,7 @@ public class DriverDefinitionWizard extends WizardDialog {
 	 */
 	public void create(DriverDefinition driverDefinition) {
 		DriverTemplate drvTemp = driverDefinition.getDriverTemplate();
-		DriverDefinitionPage page = getFirstPage();
-		page.show();
+		DriverDefinitionPage page = new DriverDefinitionPage();
 		page.selectDriverTemplate(drvTemp.getType(), drvTemp.getVersion());
 		page.setName(driverDefinition.getDriverName());
 		page.addDriverLibrary(driverDefinition.getDriverLibrary());

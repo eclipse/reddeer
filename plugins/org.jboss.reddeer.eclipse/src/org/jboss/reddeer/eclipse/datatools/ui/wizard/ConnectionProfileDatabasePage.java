@@ -1,6 +1,5 @@
 package org.jboss.reddeer.eclipse.datatools.ui.wizard;
 
-import org.jboss.reddeer.eclipse.jface.wizard.WizardDialog;
 import org.jboss.reddeer.eclipse.jface.wizard.WizardPage;
 import org.jboss.reddeer.swt.impl.combo.LabeledCombo;
 
@@ -16,19 +15,6 @@ import org.jboss.reddeer.swt.impl.combo.LabeledCombo;
 public abstract class ConnectionProfileDatabasePage extends WizardPage {
 
 	public static final String LABEL_DRIVER = "Drivers:";
-
-	/**
-	 * A wizard page should not know on which page index it is displayed. The
-	 * wizard page can also exist outside WizardDialog. Use no-argument
-	 * constructor instead.
-	 * 
-	 * @param wizardDialog
-	 * @param pageIndex
-	 */
-	@Deprecated
-	protected ConnectionProfileDatabasePage(WizardDialog wizardDialog, int pageIndex) {
-		super(wizardDialog, pageIndex);
-	}
 
 	protected ConnectionProfileDatabasePage() {
 		super();
