@@ -65,6 +65,16 @@
 							<type>p2-installable-unit</type>
 							<artifactId>org.eclipse.datatools.enablement.hsqldb.dbdefinition</artifactId>
 							<version>0.0.0</version>
+						</dependency>	
+						<dependency>
+						  <type>p2-installable-unit</type>
+						  <artifactId>org.eclipse.datatools.connectivity.oda.flatfile.ui</artifactId>
+						  <version>0.0.0</version>
+						</dependency>
+						<dependency>
+						  <type>p2-installable-unit</type>
+						  <artifactId>org.eclipse.datatools.connectivity.feature.feature.group</artifactId>
+						  <version>0.0.0</version>
 						</dependency>
 						<dependency>
 							<type>p2-installable-unit</type>

@@ -16,25 +16,11 @@ public class ConnectionProfileSelectPage extends WizardPage {
 	public static final String LABEL_NAME = "Name:";
 	public static final String LABEL_DESCRIPTION = "Description (optional):";
 
-	/**
-	 * A wizard page should not know on which page index it is displayed. The
-	 * wizard page can also exist outside WizardDialog. Use no-argument
-	 * constructor instead.
-	 * 
-	 * @param wizardDialog
-	 * @param pageIndex
-	 */
-	@Deprecated
-	public ConnectionProfileSelectPage(ConnectionProfileWizard parentDialog, int indexPage) {
-		super(parentDialog, indexPage);
-	}
-
 	public ConnectionProfileSelectPage() {
 		super();
 	}
-	
+
 	public void setConnectionProfile(String connectionProfile) {
-		((ConnectionProfileWizard) getWizardDialog()).setConnectionProfile(connectionProfile);
 		new DefaultTable().select(connectionProfile);
 	}
 
