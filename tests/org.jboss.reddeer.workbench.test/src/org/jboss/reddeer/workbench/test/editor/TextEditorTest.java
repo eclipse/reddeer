@@ -1,6 +1,8 @@
 package org.jboss.reddeer.workbench.test.editor;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.awt.AWTException;
 import java.io.IOException;
@@ -23,13 +25,17 @@ import org.jboss.reddeer.eclipse.ui.ide.NewFileCreationWizardDialog;
 import org.jboss.reddeer.eclipse.ui.ide.NewFileCreationWizardPage;
 import org.jboss.reddeer.eclipse.ui.wizards.datatransfer.ExternalProjectImportWizardDialog;
 import org.jboss.reddeer.eclipse.ui.wizards.newresource.BasicNewProjectResourceWizard;
+import org.jboss.reddeer.swt.exception.SWTLayerException;
+import org.jboss.reddeer.swt.handler.ShellHandler;
+import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.jboss.reddeer.swt.keyboard.KeyboardFactory;
+import org.jboss.reddeer.swt.lookup.ShellLookup;
 import org.jboss.reddeer.swt.test.RedDeerTest;
 import org.jboss.reddeer.swt.util.Display;
-import org.jboss.reddeer.workbench.impl.editor.DefaultEditor;
-import org.jboss.reddeer.workbench.impl.editor.TextEditor;
 import org.jboss.reddeer.workbench.exception.WorkbenchLayerException;
 import org.jboss.reddeer.workbench.exception.WorkbenchPartNotFound;
+import org.jboss.reddeer.workbench.impl.editor.DefaultEditor;
+import org.jboss.reddeer.workbench.impl.editor.TextEditor;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -105,6 +111,38 @@ public class TextEditorTest extends RedDeerTest {
 		assertTrue(ca.getProposals().contains("enum"));
 		ca.chooseProposal("enum");
 		assertTrue(textEditor.getText().contains("enum"));
+	}
+	
+	@Test
+	public void closeContentAssist(){
+		openJavaFile();
+		TextEditor textEditor = new TextEditor();
+		ContentAssistant ca = textEditor.openContentAssistant();
+		ca.close();
+		
+		try {
+			new DefaultShell("");
+			fail("ContentAssistant wasn't close");
+		} catch (SWTLayerException e) {
+			// ok, this is expected
+		}
+	}
+
+	@Test
+	public void closeContentAssistUsingCloseAllShells(){
+		openJavaFile();
+		TextEditor textEditor = new TextEditor();
+		ContentAssistant ca = textEditor.openContentAssistant();
+		ShellHandler.getInstance().closeAllNonWorbenchShells();
+
+		try {
+			new DefaultShell("");
+			// if content assistant is still available then close it
+			ca.close();
+			fail("ContentAssistant wasn't close");
+		} catch (SWTLayerException e) {
+			// ok, this is expected
+		}
 	}
 
 	@Test
