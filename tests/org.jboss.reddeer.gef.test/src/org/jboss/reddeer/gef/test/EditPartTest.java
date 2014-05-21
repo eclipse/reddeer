@@ -3,6 +3,8 @@ package org.jboss.reddeer.gef.test;
 import org.jboss.reddeer.eclipse.jdt.ui.ProjectExplorer;
 import org.jboss.reddeer.gef.GEFLayerException;
 import org.jboss.reddeer.gef.editor.GEFEditor;
+import org.jboss.reddeer.gef.impl.connection.DefaultConnection;
+import org.jboss.reddeer.gef.impl.editpart.DefaultEditPart;
 import org.jboss.reddeer.gef.impl.editpart.LabeledEditPart;
 import org.jboss.reddeer.gef.test.wizard.ExampleWizard;
 import org.jboss.reddeer.gef.test.wizard.GeneralProjectWizard;
@@ -60,6 +62,32 @@ public class EditPartTest {
 		new LabeledEditPart("Label").setLabel("Hello");
 		new LabeledEditPart("Foo").select();
 		new LabeledEditPart("Hello").select();
+	}
+
+	@Test
+	public void clickEditPartTest() {
+		new ProjectExplorer().open();
+		new ProjectExplorer().getProject(PROJECT_NAME).select();
+
+		ExampleWizard.createLogicDiagram("test");
+
+		GEFEditor gefEditor = new GEFEditor("test.logic");
+		gefEditor.addToolFromPalette("LED", 0, 100);
+		gefEditor.addToolFromPalette("LED", 100, 100);
+
+		gefEditor.getPalette().activateTool("Connection");
+		new DefaultEditPart("LEDEditPart", 0).click();
+		new DefaultEditPart("LEDEditPart", 1).click();
+
+		gefEditor.getPalette().activateTool("Select");
+		new DefaultConnection(0).select();
+		new ContextMenu("Delete").select();
+
+		try {
+			new DefaultConnection(0).select();
+		} catch (GEFLayerException e) {
+			// ok, this is expected
+		}
 	}
 
 	@Test(expected = GEFLayerException.class)

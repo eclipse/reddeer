@@ -14,9 +14,15 @@ public interface EditPart {
 	void select();
 
 	/**
+	 * Clicks on the edit part.
+	 */
+	void click();
+
+	/**
 	 * Sets the edit part with a given label.
 	 * 
-	 * @param text Text
+	 * @param text
+	 *            Text
 	 */
 	void setLabel(String label);
 

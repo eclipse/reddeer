@@ -1,6 +1,8 @@
 package org.jboss.reddeer.gef.handler;
 
+import org.eclipse.draw2d.IFigure;
 import org.eclipse.gef.EditPart;
+import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.requests.DirectEditRequest;
 import org.jboss.reddeer.junit.logging.Logger;
 import org.jboss.reddeer.swt.util.Display;
@@ -57,6 +59,17 @@ public class EditPartHandler {
 				editPart.performRequest(request);
 			}
 		});
+	}
+
+	/**
+	 * Returns an appropriate figure of a given edit part.
+	 * 
+	 * @param editPart
+	 *            Edit part
+	 * @return Figure
+	 */
+	public IFigure getFigure(final EditPart editPart) {
+		return ((GraphicalEditPart) editPart).getFigure();
 	}
 
 }

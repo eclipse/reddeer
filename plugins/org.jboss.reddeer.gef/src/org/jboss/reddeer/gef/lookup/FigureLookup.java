@@ -43,7 +43,7 @@ public class FigureLookup {
 	 *            Index
 	 * @return Figure
 	 */
-	public IFigure findFigure(Matcher<IFigure> matcher, int index) {
+	public IFigure findFigure(Matcher<?> matcher, int index) {
 		return findFigure(ViewerLookup.getInstance().findGraphicalViewer(), matcher, index);
 	}
 
@@ -59,7 +59,7 @@ public class FigureLookup {
 	 *            Index
 	 * @return Figure
 	 */
-	public IFigure findFigure(EditPartViewer viewer, Matcher<IFigure> matcher, int index) {
+	public IFigure findFigure(EditPartViewer viewer, Matcher<?> matcher, int index) {
 		FigureCanvas canvas = (FigureCanvas) viewer.getControl();
 		return findFigure(canvas.getContents(), matcher, index);
 	}
@@ -76,10 +76,10 @@ public class FigureLookup {
 	 *            Index
 	 * @return Figure
 	 */
-	public IFigure findFigure(IFigure parent, Matcher<IFigure> matcher, int index) {
+	public IFigure findFigure(IFigure parent, Matcher<?> matcher, int index) {
 		List<IFigure> figures = new FigureFinder().find(parent, matcher);
 		if (figures.size() <= index) {
-			new GEFLayerException("Canno find figure with matcher " + matcher + " at " + index);
+			throw new GEFLayerException("Cannot find figure with matcher " + matcher + " at " + index);
 		}
 		return figures.get(index);
 	}

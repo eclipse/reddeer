@@ -1,7 +1,5 @@
 package org.jboss.reddeer.gef.impl.editpart;
 
-import org.jboss.reddeer.gef.comparator.ChildrenComparator;
-import org.jboss.reddeer.gef.lookup.EditPartLookup;
 import org.jboss.reddeer.gef.matcher.IsEditPartWithLabel;
 
 /**
@@ -31,8 +29,7 @@ public class LabeledEditPart extends AbstractEditPart {
 	 *            Index
 	 */
 	public LabeledEditPart(String label, int index) {
-		super(EditPartLookup.getInstance()
-				.findEditPart(new IsEditPartWithLabel(label), index, new ChildrenComparator()));
+		super(new IsEditPartWithLabel(label), index);
 	}
 
 }
