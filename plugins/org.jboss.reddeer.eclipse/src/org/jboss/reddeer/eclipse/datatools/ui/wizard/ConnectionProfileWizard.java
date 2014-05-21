@@ -7,7 +7,6 @@ import org.jboss.reddeer.eclipse.datatools.ui.DatabaseProfile;
 import org.jboss.reddeer.eclipse.datatools.ui.DriverDefinition;
 import org.jboss.reddeer.eclipse.datatools.ui.FlatFileProfile;
 import org.jboss.reddeer.eclipse.jface.wizard.NewWizardDialog;
-import org.jboss.reddeer.eclipse.jface.wizard.WizardPage;
 
 /**
  * A wizard dialog for creating a connection profile.
@@ -19,42 +18,14 @@ import org.jboss.reddeer.eclipse.jface.wizard.WizardPage;
  */
 public class ConnectionProfileWizard extends NewWizardDialog {
 
-	private String connectionProfile;
-	protected Map<String, WizardPage> wizardMap;
+	protected Map<String, ConnectionProfileDatabasePage> wizardMap;
 
 	public ConnectionProfileWizard() {
 		super("Connection Profiles", "Connection Profile");
-		wizardMap = new HashMap<String, WizardPage>();
-		wizardMap.put("Oracle", new ConnectionProfileOraclePage(this, 2));
-		wizardMap.put("SQL Server", new ConnectionProfileSQLServerPage(this, 2));
-		wizardMap.put("Flat File Data Source", new ConnectionProfileFlatFilePage(this, 2));
-	}
 
-	@Override
-	/**
-	 * Return a wizard page for selecting a connection profile.
-	 */
-	public ConnectionProfileSelectPage getFirstPage() {
-		return new ConnectionProfileSelectPage();
-	}
-
-	/**
-	 * Returns a wizard page for a selected connection profile. Note that If the
-	 * connection profile wasn't selected or it is not supported it returns
-	 * null.
-	 * 
-	 * @return a wizard page for a selected connection profile
-	 */
-	public WizardPage getSecondPage() {
-		return wizardMap.get(connectionProfile);
-	}
-
-	protected String getConnectionProfile() {
-		return connectionProfile;
-	}
-
-	protected void setConnectionProfile(String connectionProfile) {
-		this.connectionProfile = connectionProfile;
+		wizardMap = new HashMap<String, ConnectionProfileDatabasePage>();
+		wizardMap.put("Oracle", new ConnectionProfileOraclePage());
+		wizardMap.put("SQL Server", new ConnectionProfileSQLServerPage());
 	}
 
 	/**
@@ -63,13 +34,13 @@ public class ConnectionProfileWizard extends NewWizardDialog {
 	 * @param dbProfile
 	 */
 	public void createDatabaseProfile(DatabaseProfile dbProfile) {
-		ConnectionProfileSelectPage selectPage = getFirstPage();
+		ConnectionProfileSelectPage selectPage = new ConnectionProfileSelectPage();
 		selectPage.setConnectionProfile(dbProfile.getVendor());
 		selectPage.setName(dbProfile.getName());
 
 		next();
 
-		ConnectionProfileDatabasePage dbPage = (ConnectionProfileDatabasePage) getSecondPage();
+		ConnectionProfileDatabasePage dbPage = wizardMap.get(dbProfile.getVendor());
 		DriverDefinition drvDef = dbProfile.getDriverDefinition();
 		dbPage.setDriver(drvDef.getDriverName());
 		dbPage.setDatabase(dbProfile.getDatabase());
@@ -84,20 +55,21 @@ public class ConnectionProfileWizard extends NewWizardDialog {
 	/**
 	 * Create a given flat file profile.
 	 * 
-	 * @param dbProfile
+	 * @param flatProfile
+	 *            Flat file profile
 	 */
 	public void createFlatFileProfile(FlatFileProfile flatProfile) {
-		ConnectionProfileSelectPage selectPage = getFirstPage();
+		ConnectionProfileSelectPage selectPage = new ConnectionProfileSelectPage();
 		selectPage.setConnectionProfile("Flat File Data Source");
 		selectPage.setName(flatProfile.getName());
 
 		next();
 
-		ConnectionProfileFlatFilePage flatPage = (ConnectionProfileFlatFilePage) getSecondPage();
+		ConnectionProfileFlatFilePage flatPage = new ConnectionProfileFlatFilePage();
 		flatPage.setHomeFolder(flatProfile.getFolder());
 		flatPage.setCharset(flatProfile.getCharset());
 		flatPage.setStyle(flatProfile.getStyle());
-		
+
 		finish();
 	}
 }
