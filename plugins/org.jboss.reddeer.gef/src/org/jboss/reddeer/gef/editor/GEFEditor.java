@@ -1,10 +1,8 @@
 package org.jboss.reddeer.gef.editor;
 
-import org.eclipse.draw2d.FigureCanvas;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPartListener;
 import org.eclipse.gef.GraphicalViewer;
-import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Control;
 import org.jboss.reddeer.gef.GEFLayerException;
 import org.jboss.reddeer.gef.api.Palette;
@@ -13,7 +11,6 @@ import org.jboss.reddeer.gef.handler.ViewerHandler;
 import org.jboss.reddeer.gef.impl.editpart.internal.BasicEditPart;
 import org.jboss.reddeer.gef.lookup.ViewerLookup;
 import org.jboss.reddeer.gef.view.PaletteView;
-import org.jboss.reddeer.swt.handler.WidgetHandler;
 import org.jboss.reddeer.swt.reference.ReferencedComposite;
 import org.jboss.reddeer.swt.util.Display;
 import org.jboss.reddeer.swt.wait.WaitUntil;
@@ -66,10 +63,6 @@ public class GEFEditor extends DefaultEditor implements ReferencedComposite {
 		return viewer;
 	}
 
-	private FigureCanvas getFigureCanvas() {
-		return (FigureCanvas) viewer.getControl();
-	}
-
 	/**
 	 * Returns the number of all available edit parts.
 	 * 
@@ -88,11 +81,7 @@ public class GEFEditor extends DefaultEditor implements ReferencedComposite {
 	 *            Y-axis
 	 */
 	public void click(int x, int y) {
-		WidgetHandler handler = WidgetHandler.getInstance();
-		FigureCanvas figureCanvas = getFigureCanvas();
-		handler.notifyItemMouse(SWT.MouseMove, 0, figureCanvas, null, x, y, 0);
-		handler.notifyItemMouse(SWT.MouseDown, 0, figureCanvas, null, x, y, 1);
-		handler.notifyItemMouse(SWT.MouseUp, 0, figureCanvas, null, x, y, 1);
+		ViewerHandler.getInstance().click(viewer, x, y);
 	}
 
 	/**
