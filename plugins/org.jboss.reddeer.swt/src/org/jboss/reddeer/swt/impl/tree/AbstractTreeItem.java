@@ -13,6 +13,7 @@ import org.jboss.reddeer.swt.handler.TreeHandler;
 import org.jboss.reddeer.swt.handler.TreeItemHandler;
 import org.jboss.reddeer.swt.handler.WidgetHandler;
 import org.jboss.reddeer.swt.util.Display;
+import org.jboss.reddeer.swt.util.ResultRunnable;
 import org.jboss.reddeer.swt.wait.TimePeriod;
 import org.jboss.reddeer.swt.wait.WaitUntil;
 
@@ -29,9 +30,6 @@ public abstract class AbstractTreeItem implements TreeItem {
 	protected org.eclipse.swt.widgets.TreeItem swtTreeItem;
 
 	private TreeHandler treeHandler = TreeHandler.getInstance();
-
-	private String nonStyledText = null;
-	private String[] styledTexts = null;
 	
 	protected AbstractTreeItem(org.eclipse.swt.widgets.TreeItem swtTreeItem) {
 		if (swtTreeItem != null) {
@@ -59,52 +57,56 @@ public abstract class AbstractTreeItem implements TreeItem {
 		return WidgetHandler.getInstance().getText(swtTreeItem);
 	}
 
-	private void parseText() {
-		Display.syncExec(new Runnable() {
+	private TreeItemTexts parseText() {
+		return Display.syncExec(new ResultRunnable<AbstractTreeItem.TreeItemTexts>() {
 
 			@Override
-			public void run() {
-				StyleRange[] styles = getStyle();
+			public AbstractTreeItem.TreeItemTexts run() {
+				String nonStyledText = null;
+				String[] styledTexts = null;
+				StyleRange[] styleRanges = getStyleRanges();
 				
-				if (styles == null) {
+				if (styleRanges == null) {
 					// Everything is ok, there is no styled texts
 					nonStyledText = swtTreeItem.getText().trim();
 					styledTexts = null;
 				} else {
 					// Here it goes. There are some styled texts
 					String rawText = swtTreeItem.getText();
-					String[] styleds = new String[styles.length];
-					String nonStyled = null;
+					String[] tmpStyledTexts = new String[styleRanges.length];
+					String tmpNonStyledText = null;
 					int currentTextIndex = 0;
 					int i = 0;
 					
-					for (StyleRange range: getStyle()) {
+					for (StyleRange range: getStyleRanges()) {
 						// At some point there is a non-styled text
 						if (range.start > currentTextIndex) {
-							nonStyled = rawText.substring(currentTextIndex, 
+							tmpNonStyledText = rawText.substring(currentTextIndex, 
 									range.start).trim();
 						}
 						
-						styleds[i] = rawText.substring(range.start, range.start +
+						tmpStyledTexts[i] = rawText.substring(range.start, range.start +
 								range.length).trim();
 						currentTextIndex = range.start + range.length + 1;
 						i++;
 					}
 					
-					if (nonStyled == null) {
-						nonStyled = rawText.substring(currentTextIndex).trim();
+					if (tmpNonStyledText == null) {
+						tmpNonStyledText = rawText.substring(currentTextIndex).trim();
 					}
 					
-					nonStyledText = nonStyled;
-					styledTexts = styleds;
+					nonStyledText = tmpNonStyledText;
+					styledTexts = tmpStyledTexts;
 				}
+				
+				return new TreeItemTexts(nonStyledText, styledTexts);
 			}
 		});
 	}
 
 	// Should be run inside Display.syncExec method - in parseText method
 	// it is also expected, that styled in array are sequential
-	private StyleRange[] getStyle() {
+	private StyleRange[] getStyleRanges() {
 		Object data = swtTreeItem.getData("org.eclipse.jfacestyled_label_key_0");
 
 		if (data == null) {
@@ -130,14 +132,12 @@ public abstract class AbstractTreeItem implements TreeItem {
 
 	@Override
 	public String getNonStyledText() {
-		parseText();
-		return nonStyledText;
+		return parseText().getNonStyledText();
 	}
 
 	@Override
 	public String[] getStyledTexts() {
-		parseText();
-		return styledTexts;
+		return parseText().getStyledTexts();
 	}
 
 	/**
@@ -328,5 +328,23 @@ public abstract class AbstractTreeItem implements TreeItem {
 	@Override
 	public void setText(String text) {
 		TreeItemHandler.getInstance().setText(swtTreeItem, 0, text);
+	}
+	
+	class TreeItemTexts {
+		private String nonStyledText;
+		private String[] styledTexts;
+		
+		public TreeItemTexts(String nonStyledText, String[] styledTexts) {
+			this.nonStyledText = nonStyledText;
+			this.styledTexts = styledTexts;
+		}
+		
+		public String getNonStyledText() {
+			return nonStyledText;
+		}
+		
+		public String[] getStyledTexts() {
+			return styledTexts;
+		}
 	}
 }
