@@ -21,7 +21,7 @@ import org.jboss.reddeer.swt.condition.TableContainsItem;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.exception.WaitTimeoutExpiredException;
 import org.jboss.reddeer.swt.impl.table.DefaultTable;
-import org.jboss.reddeer.swt.matcher.SelectedTableItemMatcher;
+import org.jboss.reddeer.swt.matcher.CheckedTableItemMatcher;
 import org.jboss.reddeer.swt.test.SWTLayerTestCase;
 import org.jboss.reddeer.swt.wait.WaitUntil;
 import org.junit.Test;
@@ -229,7 +229,7 @@ public class DefaultTableTest extends SWTLayerTestCase{
 		DefaultTable t = new DefaultTable(2);
 		t.getItem(1).setChecked(true);
 		
-		assertThat(t.getItems(new SelectedTableItemMatcher()).size(), is(1));
+		assertThat(t.getItems(new CheckedTableItemMatcher()).size(), is(1));
 	}
 	
 	@Test
