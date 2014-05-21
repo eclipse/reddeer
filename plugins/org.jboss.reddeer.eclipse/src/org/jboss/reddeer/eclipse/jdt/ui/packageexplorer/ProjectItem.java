@@ -39,7 +39,7 @@ public class ProjectItem {
 	}
 
 	public void delete() {
-		select();
+		refresh();
         log.debug("Delete project item " + treeItem.getText() + " via Package Explorer");
 	    new ContextMenu("Delete").select();
 	    new DefaultShell("Delete");
@@ -56,6 +56,12 @@ public class ProjectItem {
 			index++;
 		}
 		item.select();
+	}
+	
+	public void refresh() {
+		select();
+        new ContextMenu("Refresh").select();
+        new WaitWhile(new JobIsRunning(), TimePeriod.LONG);
 	}
 	
 	public boolean isSelected() {

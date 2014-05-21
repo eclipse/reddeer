@@ -3,14 +3,19 @@ package org.jboss.reddeer.eclipse.test.jdt.ui.packageexplorer;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.io.File;
+import java.io.FileWriter;
 import java.util.List;
 
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.jboss.reddeer.eclipse.jdt.ui.NewJavaClassWizardDialog;
 import org.jboss.reddeer.eclipse.jdt.ui.NewJavaClassWizardPage;
 import org.jboss.reddeer.eclipse.jdt.ui.ide.NewJavaProjectWizardDialog;
 import org.jboss.reddeer.eclipse.jdt.ui.ide.NewJavaProjectWizardPage;
 import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.PackageExplorer;
 import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.ProjectItem;
+import org.jboss.reddeer.eclipse.ui.ide.NewFileCreationWizardDialog;
+import org.jboss.reddeer.eclipse.ui.ide.NewFileCreationWizardPage;
 import org.jboss.reddeer.swt.condition.JobIsRunning;
 import org.jboss.reddeer.swt.handler.WorkbenchHandler;
 import org.jboss.reddeer.swt.test.RedDeerTest;
@@ -48,6 +53,25 @@ public class ProjectItemTest extends RedDeerTest {
 	
 	@Test
 	public void delete() {
+		projectItem.delete();
+		assertFalse("Project " + ProjectItemTest.PROJECT_NAME + " contains project item " + ProjectItemTest.PROJECT_ITEM_TEXT +
+				" but it should be deleted.",
+			packageExplorer.getProject(ProjectItemTest.PROJECT_NAME).containsItem(ProjectItemTest.PROJECT_ITEM_TEXT));
+	}
+	
+	@Test
+	public void asyncDelete() throws Exception {
+		projectItem.select();
+		// Create new text file test.txt
+		new NewFileCreationWizard().createFile("text.txt");
+		// Edit the file outside the Eclipse IDE
+		String rootPath = ResourcesPlugin.getWorkspace().getRoot().getLocationURI().getPath();
+		File file = new File(rootPath + "/" + PROJECT_NAME + "/src/text.txt");
+		FileWriter out = new FileWriter(file);
+		out.write("Hello World");
+		out.flush();
+		out.close();
+		// Delete the file
 		projectItem.delete();
 		assertFalse("Project " + ProjectItemTest.PROJECT_NAME + " contains project item " + ProjectItemTest.PROJECT_ITEM_TEXT +
 				" but it should be deleted.",
@@ -150,5 +174,15 @@ public class ProjectItemTest extends RedDeerTest {
 	protected void tearDown() {
 		packageExplorer.getProject(ProjectItemTest.PROJECT_NAME).delete(true);
 		super.tearDown();
+	}
+	
+	private class NewFileCreationWizard extends NewFileCreationWizardPage {
+		
+		public void createFile(String fileName) {
+			NewFileCreationWizardDialog wizard = new NewFileCreationWizardDialog();
+			wizard.open();
+			setFileName(fileName);
+			wizard.finish();
+		}
 	}
 }
