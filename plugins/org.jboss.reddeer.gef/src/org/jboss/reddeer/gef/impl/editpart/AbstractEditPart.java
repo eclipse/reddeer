@@ -36,6 +36,7 @@ public abstract class AbstractEditPart implements EditPart, ReferencedComposite 
 
 	@Override
 	public void setLabel(String text) {
+		EditPartHandler.getInstance().select(editPart);
 		EditPartHandler.getInstance().directEdit(editPart);
 		Text inputText = new DefaultText(this, 0);
 		inputText.setText(text);

@@ -1,0 +1,20 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: RedDeer Graphiti Component Tests
+Bundle-Vendor: JBoss by Red Hat
+Bundle-SymbolicName: org.jboss.reddeer.graphiti.test
+Bundle-Version: 0.6.0.qualifier
+Bundle-Activator: org.jboss.reddeer.graphiti.test.Activator
+Require-Bundle: org.junit,
+ org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.jboss.reddeer.gef;bundle-version="0.6.0",
+ org.jboss.reddeer.graphiti;bundle-version="0.6.0",
+ org.jboss.reddeer.jface;bundle-version="0.6.0",
+ org.jboss.reddeer.junit;bundle-version="0.6.0",
+ org.jboss.reddeer.requirements;bundle-version="0.6.0",
+ org.jboss.reddeer.swt;bundle-version="0.6.0",
+ org.jboss.reddeer.workbench;bundle-version="0.6.0",
+ org.jboss.reddeer.eclipse;bundle-version="0.6.0"
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6

@@ -1,0 +1,35 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>org.jboss.reddeer.graphiti.test</artifactId>
+	<name>Red Deer Graphiti Component Tests</name>
+	<packaging>eclipse-test-plugin</packaging>
+
+	<parent>
+		<groupId>org.jboss.reddeer</groupId>
+		<artifactId>tests</artifactId>
+		<version>0.6.0-SNAPSHOT</version>
+	</parent>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-surefire-plugin</artifactId>
+				<configuration>
+					<useUIThread>false</useUIThread>
+					<dependencies combine.children="append">
+						<dependency>
+							<type>p2-installable-unit</type>
+							<artifactId>org.eclipse.graphiti.feature.feature.group</artifactId>
+							<artifactId>org.eclipse.graphiti.feature.examples.feature.group</artifactId>
+							<version>0.0.0</version>
+						</dependency>
+					</dependencies>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>
