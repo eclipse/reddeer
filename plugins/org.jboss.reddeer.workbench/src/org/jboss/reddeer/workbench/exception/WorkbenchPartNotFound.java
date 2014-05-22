@@ -17,4 +17,8 @@ public class WorkbenchPartNotFound extends RedDeerException {
 		super(message);
 	}
 
+	public WorkbenchPartNotFound(String message, Throwable cause) {
+		super(message, cause);
+	}
+
 }

@@ -19,7 +19,7 @@ public class Debugger {
 				Thread.sleep(time);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
-				throw new SWTLayerException("Interrupted exception during sleep");
+				throw new SWTLayerException("Interrupted exception during sleep", e);
 			}
 		}
 	}

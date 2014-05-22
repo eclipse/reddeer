@@ -52,7 +52,7 @@ public abstract class WorkbenchPart{
 			new WaitUntil(found);
 		} catch (WaitTimeoutExpiredException ex){
 			if(needsOpenedView()){
-				throw new WorkbenchPartNotFound("Unable to find Workbench part with title "+title);
+				throw new WorkbenchPartNotFound("Unable to find Workbench part with title "+title, ex);
 			}
 		}
 		workbenchPart = found.getPart();
@@ -70,7 +70,7 @@ public abstract class WorkbenchPart{
 			new WaitUntil(found);
 		} catch (WaitTimeoutExpiredException ex){
 			if(needsOpenedView()){
-				throw new WorkbenchPartNotFound("Unable to find Workbench part with title "+title);
+				throw new WorkbenchPartNotFound("Unable to find Workbench part with title "+title, ex);
 			}
 		}
 		workbenchPart = found.getPart();

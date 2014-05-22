@@ -62,8 +62,7 @@ public class AbstractEditor implements Editor {
 		try {
 			new WaitUntil(found);
 		} catch (WaitTimeoutExpiredException ex) {
-			throw new WorkbenchPartNotFound("Unable to find editor with title "
-					+ title);
+			throw new WorkbenchPartNotFound("Unable to find editor with title " + title, ex);
 		}
 		editorPart = found.getPart();
 		EditorHandler.getInstance().activate(editorPart);
@@ -80,8 +79,7 @@ public class AbstractEditor implements Editor {
 		try {
 			new WaitUntil(found);
 		} catch (WaitTimeoutExpiredException ex) {
-			throw new WorkbenchPartNotFound("Unable to find editor with title "
-					+ title);
+			throw new WorkbenchPartNotFound("Unable to find editor with title " + title, ex);
 		}
 		editorPart = found.getPart();
 		EditorHandler.getInstance().activate(editorPart);

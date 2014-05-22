@@ -55,10 +55,10 @@ public class RequirementsInjector {
 			field.set(testInstance, requirement);
 		} catch (IllegalArgumentException e) {
 			throw new RequirementInjectionException("Cannot set field \"" + field +
-					"\" due to illegal argument issue. " + e.getLocalizedMessage());
+					"\" due to illegal argument issue. " + e.getLocalizedMessage(), e);
 		} catch (IllegalAccessException e) {
 			throw new RequirementInjectionException("Cannot set field \"" + field +
-					"\" due to illegal access issue. " + e.getLocalizedMessage());
+					"\" due to illegal access issue. " + e.getLocalizedMessage(), e);
 		}
 	}
 

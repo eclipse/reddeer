@@ -4,6 +4,7 @@ import org.jboss.reddeer.eclipse.exception.EclipseLayerException;
 import org.jboss.reddeer.eclipse.wst.server.ui.view.ServersView;
 import org.jboss.reddeer.eclipse.wst.server.ui.view.ServersViewEnums.ServerState;
 import org.jboss.reddeer.junit.logging.Logger;
+import org.jboss.reddeer.swt.exception.RedDeerException;
 
 /**
  * 
@@ -66,7 +67,7 @@ public abstract class ServerReqBase {
 			return serversView.getServer(serverName);
 		} catch(EclipseLayerException e) {
 			LOGGER.warn("Server \"" + serverName + "\" not found. It had been removed.");
-			throw new ConfiguredServerNotFoundException();
+			throw new ConfiguredServerNotFoundException("Server \"" + serverName + "\" not found.", e);
 		}
 	}
 	
@@ -116,9 +117,17 @@ public abstract class ServerReqBase {
 	/**
 	 * Exception thrown when configured server was not found.
 	 */
-	protected class ConfiguredServerNotFoundException extends RuntimeException {
+	protected class ConfiguredServerNotFoundException extends RedDeerException {
 
 		private static final long serialVersionUID = -1049073209937853734L;
+		
+		public ConfiguredServerNotFoundException(String message) {
+			super(message);
+		}
+
+		public ConfiguredServerNotFoundException(String message, Throwable cause) {
+			super(message, cause);
+		}
 		
 	}
 }
