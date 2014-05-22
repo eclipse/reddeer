@@ -1,6 +1,7 @@
 package org.jboss.reddeer.swt.test.impl.menu;
 
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
+import org.jboss.reddeer.swt.condition.ProgressInformationShellIsActive;
 import org.jboss.reddeer.swt.condition.ShellWithTextIsAvailable;
 import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.menu.ShellMenu;
@@ -23,6 +24,7 @@ public class ToolBarMenuTest {
 		new DefaultShell("Log Filters");
 		new PushButton("OK").click();
 		new WaitWhile(new ShellWithTextIsAvailable("Log Filters"));
+		new WaitWhile(new ProgressInformationShellIsActive());
 	}
 
 }
