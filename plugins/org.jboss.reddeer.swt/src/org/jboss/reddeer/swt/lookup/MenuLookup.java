@@ -142,7 +142,7 @@ public class MenuLookup {
 	 */
 	public MenuItem lookFor(MenuItem[] topItems, Matcher<String>... matchers) {		
 		MenuItem lastMenuItem = getMatchingMenuPath(topItems, matchers);
-		if (lastMenuItem == null) throw new SWTLayerException("");
+		if (lastMenuItem == null) throw new SWTLayerException("Last menu item is null");
 		return lastMenuItem;
 	}
 	

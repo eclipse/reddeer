@@ -103,15 +103,12 @@ public class LinkHandler {
 	public String getEventText(final Link l, int index) {
 		String linkText = getTextInternal(l);
 		List<AnchorPair> list = parseLinks(linkText);
-		Collections.sort(list);
-		AnchorPair ap = null;
-		try {
-			ap = list.get(index);
-		} catch (IndexOutOfBoundsException ex) {
-			throw new SWTLayerException("There are only " + list.size()
-					+ " anchors in this link and you requested anchor #"
-					+ index);
+		if (list.size() <= index) {
+			throw new SWTLayerException("There are only " + list.size() +
+					" anchors in this link and you requested anchor #" + index);
 		}
+		Collections.sort(list);
+		AnchorPair ap = list.get(index);
 		return ap.getAnchorHref().equals("") ? ap.getAnchorText() : ap
 				.getAnchorHref();
 	}
