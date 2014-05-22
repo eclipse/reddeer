@@ -142,7 +142,9 @@ public class MenuLookup {
 	 */
 	public MenuItem lookFor(MenuItem[] topItems, Matcher<String>... matchers) {		
 		MenuItem lastMenuItem = getMatchingMenuPath(topItems, matchers);
-		if (lastMenuItem == null) throw new SWTLayerException("Last menu item is null");
+		if (lastMenuItem == null) {
+			throw new SWTLayerException("No menu item matching specified path found");
+		}
 		return lastMenuItem;
 	}
 	
@@ -385,6 +387,9 @@ public class MenuLookup {
 							currentMenu = i.getMenu();
 							break;
 						} 
+					}
+					if (currentItem == null){
+						return null;
 					}
 					if (m != matchers[matchers.length-1]) {
 						currentMenu = currentItem.getMenu();
