@@ -161,6 +161,7 @@ public class TextEditorTest extends RedDeerTest {
 	public void closeOpenOnAssistUsingCloseAllShells(){
 		openJavaFile();
 		TextEditor textEditor = new TextEditor();
+		textEditor.selectText("JavaClass");
 		ContentAssistant ca = textEditor.openOpenOnAssistant();
 		ShellHandler.getInstance().closeAllNonWorbenchShells();
 
@@ -200,7 +201,8 @@ public class TextEditorTest extends RedDeerTest {
 		textEditor.setText(textEditor.getText().replace("System", "Systemx"));
 		textEditor.save();
 		AbstractWait.sleep(TimePeriod.SHORT);
-		assertTrue(textEditor.getMarkers().contains("Systemx cannot be resolved"));
+		assertTrue(textEditor.getMarkers().size() == 1);
+		assertTrue(textEditor.getMarkers().get(0).getText().equals("Systemx cannot be resolved"));
 	}
 
 	@Test
