@@ -10,14 +10,14 @@ import org.jboss.reddeer.eclipse.jface.text.contentassist.ContentAssistant;
  * @author rhopp
  * @author rawagner
  */
-public interface Editor {
+public interface Editor extends WorkbenchPart {
 
 	/**
 	 * 
 	 * @return editor title
 	 */
 	String getTitle();
-	
+
 	/**
 	 * 
 	 * @return editor title tooltip
@@ -26,6 +26,7 @@ public interface Editor {
 
 	/**
 	 * Checks if editor is dirty
+	 * 
 	 * @return true if editor is dirty
 	 */
 	boolean isDirty();
@@ -38,50 +39,38 @@ public interface Editor {
 	/**
 	 * Closes this editor
 	 * 
-	 * @param save If true, content will be saved
+	 * @param save
+	 *            If true, content will be saved
 	 */
 	void close(boolean save);
 
 	/**
 	 * Checks if editor is active
+	 * 
 	 * @return whether is this editor currently active and has focus.
 	 */
 	boolean isActive();
-	
-	/**
-	 * Closes editor
-	 */
-	void close();
-	
-	/**
-	 * Maximize editor
-	 */
-	void maximize();
-	
-	/**
-	 * Minimize editor
-	 */
-	void minimize();
-	
+
 	/**
 	 * Opens content assistant
 	 */
 	ContentAssistant openContentAssistant();
-	
+
 	/**
 	 * Opens quickfix content assistant
 	 */
 	ContentAssistant openQuickFixContentAssistant();
-	
+
 	/**
 	 * Opens open on assistant
 	 */
 	ContentAssistant openOpenOnAssistant();
-	
+
 	/**
 	 * Returns editor validation markers
+	 * 
 	 * @returns editor validation markers
 	 */
 	List<String> getMarkers();
-	
+
 }

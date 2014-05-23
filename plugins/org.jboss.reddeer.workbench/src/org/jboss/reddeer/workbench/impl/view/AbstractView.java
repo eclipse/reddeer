@@ -23,6 +23,7 @@ import org.jboss.reddeer.swt.wait.TimePeriod;
 import org.jboss.reddeer.swt.wait.WaitUntil;
 import org.jboss.reddeer.swt.wait.WaitWhile;
 import org.jboss.reddeer.workbench.api.View;
+import org.jboss.reddeer.workbench.api.WorkbenchPart;
 import org.jboss.reddeer.workbench.exception.WorkbenchPartNotFound;
 import org.jboss.reddeer.workbench.handler.ViewHandler;
 import org.jboss.reddeer.workbench.handler.WorkbenchPartHandler;
@@ -30,60 +31,85 @@ import org.jboss.reddeer.workbench.lookup.WorkbenchPartLookup;
 
 /**
  * Abstract class for all View implementations
+ * 
  * @author rawagner
- *
+ * 
  */
-public class AbstractView implements View{
-	
+public class AbstractView implements View {
+
 	protected final Logger log = Logger.getLogger(this.getClass());
 	protected IViewPart viewPart;
 	private static final String SHOW_VIEW = "Show View";
 	protected String[] path;
-	
+
 	/**
-	 * Initialize view with given viewToolTip. 
-	 * If view is opened than it will be focused
+	 * Initialize view with given viewToolTip. If view is opened than it will be
+	 * focused
 	 * 
-	 * @param viewToolTip of view to initialize
+	 * @param viewToolTip
+	 *            of view to initialize
 	 */
-	public AbstractView(String viewToolTip){
+	public AbstractView(String viewToolTip) {
 		ViewPartIsFound viewIsFound = new ViewPartIsFound(viewToolTip);
 		new WaitUntil(viewIsFound, TimePeriod.NORMAL, false);
 		viewPart = viewIsFound.getPart();
 		path = findRegisteredViewPath(new WithTextMatcher(viewToolTip));
-		if(viewPart != null){
-			ViewHandler.getInstance().setFocus(viewPart, viewTitle());
+		if (viewPart != null) {
+			activate();
 		}
 	}
-	
+
 	/**
-	 * Initialize view with given viewToolTip matcher. 
-	 * If view is opened than it will be focused
+	 * Initialize view with given viewToolTip matcher. If view is opened than it
+	 * will be focused
 	 * 
-	 * @param viewToolTip matcher of view to initialize
+	 * @param viewToolTip
+	 *            matcher of view to initialize
 	 */
-	public AbstractView(Matcher<String> viewToolTip){
+	public AbstractView(Matcher<String> viewToolTip) {
 		ViewPartIsFound viewIsFound = new ViewPartIsFound(viewToolTip);
 		new WaitUntil(viewIsFound, TimePeriod.NORMAL, false);
 		viewPart = viewIsFound.getPart();
 		path = findRegisteredViewPath(viewToolTip);
-		if(viewPart != null){
-			ViewHandler.getInstance().setFocus(viewPart, viewTitle());
+		if (viewPart != null) {
+			activate();
 		}
 	}
 
 	@Override
 	public void maximize() {
-		ViewHandler.getInstance().setFocus(viewPart, viewTitle());
-		WorkbenchPartHandler.getInstance().performAction(ActionFactory.MAXIMIZE);
+		activate();
+		WorkbenchPartHandler.getInstance()
+				.performAction(ActionFactory.MAXIMIZE);
 	}
-	
+
 	@Override
 	public void minimize() {
-		ViewHandler.getInstance().setFocus(viewPart, viewTitle());
-		WorkbenchPartHandler.getInstance().performAction(ActionFactory.MINIMIZE);
+		activate();
+		WorkbenchPartHandler.getInstance()
+				.performAction(ActionFactory.MINIMIZE);
 	}
-	
+
+	/**
+	 * {@link WorkbenchPart.restore}
+	 */
+	@Override
+	public void restore() {
+		activate();
+		// in order to restore maximized window maximized action has to be
+		// called
+		WorkbenchPartHandler.getInstance()
+				.performAction(ActionFactory.MAXIMIZE);
+	}
+
+	/**
+	 * {@link WorkbenchPart.activate}
+	 */
+	@Override
+	public void activate() {
+		ViewHandler.getInstance().setFocus(viewPart, viewTitle());
+	}
+
 	private String[] findRegisteredViewPath(Matcher<String> title) {
 
 		IViewDescriptor viewDescriptor = findView(title);
@@ -91,7 +117,7 @@ public class AbstractView implements View{
 		return pathForView(viewDescriptor, categoryDescriptor);
 
 	}
-	
+
 	private IViewDescriptor findView(Matcher<String> title) {
 		IViewDescriptor[] views = PlatformUI.getWorkbench().getViewRegistry()
 				.getViews();
@@ -127,17 +153,16 @@ public class AbstractView implements View{
 		path[1] = viewDescriptor.getLabel();
 		return path;
 	}
-	
+
 	private String viewTitle() {
 		return path[path.length - 1];
 	}
-	
+
 	@Override
 	public void close() {
 		if (viewPart == null) {
-			throw new UnsupportedOperationException(
-					"Cannot close view "
-							+ "before initialization provided by open method");
+			throw new UnsupportedOperationException("Cannot close view "
+					+ "before initialization provided by open method");
 		}
 		ViewHandler.getInstance().close(viewPart);
 		viewPart = null;
@@ -146,12 +171,13 @@ public class AbstractView implements View{
 	@Override
 	public void open() {
 		log.info("Showing " + viewTitle() + " view");
-		viewPart = WorkbenchPartLookup.getInstance().getViewByTitle(new WithTextMatcher(viewTitle()));
+		viewPart = WorkbenchPartLookup.getInstance().getViewByTitle(
+				new WithTextMatcher(viewTitle()));
 		// view is not opened, it has to be opened via menu
 		if (viewPart == null) {
 			log.info("Opening " + viewTitle() + " view via menu.");
-			WithRegexMatchers m = new WithRegexMatchers("Window.*", "Show View.*",
-					"Other...*");
+			WithRegexMatchers m = new WithRegexMatchers("Window.*",
+					"Show View.*", "Other...*");
 			Menu menu = new ShellMenu(m.getMatchers());
 			menu.select();
 			new DefaultShell(SHOW_VIEW);
@@ -160,62 +186,61 @@ public class AbstractView implements View{
 			// https://bugs.eclipse.org/bugs/show_bug.cgi?id=395913
 			try {
 				new PushButton("OK").click();
-			}
-			catch (RuntimeException e) {
+			} catch (RuntimeException e) {
 				new PushButton("ok").click();
 			}
 			new WaitWhile(new ShellWithTextIsActive(SHOW_VIEW));
 			try {
 				new WaitUntil(new ViewPartIsActive());
-				viewPart = (IViewPart)WorkbenchPartLookup.getInstance().getActiveWorkbenchPart();
-			} catch(WaitTimeoutExpiredException w) {
+				viewPart = (IViewPart) WorkbenchPartLookup.getInstance()
+						.getActiveWorkbenchPart();
+			} catch (WaitTimeoutExpiredException w) {
 				log.warn("View " + Arrays.toString(path) + " is not active");
-				viewPart = WorkbenchPartLookup.getInstance()
-						.getViewByTitle(new WithTextMatcher(viewTitle()));
+				viewPart = WorkbenchPartLookup.getInstance().getViewByTitle(
+						new WithTextMatcher(viewTitle()));
 			}
 		}
-		ViewHandler.getInstance().setFocus(viewPart, viewTitle());
+		activate();
 	}
 
-	class ViewPartIsActive implements WaitCondition{
+	class ViewPartIsActive implements WaitCondition {
 
 		@Override
 		public boolean test() {
-			 return WorkbenchPartLookup.getInstance().getActiveWorkbenchPart() instanceof IViewPart;
+			return WorkbenchPartLookup.getInstance().getActiveWorkbenchPart() instanceof IViewPart;
 		}
 
 		@Override
 		public String description() {
 			return "View part is active";
 		}
-		
-		
+
 	}
-	
-	
-	class ViewPartIsFound implements WaitCondition{
-		
+
+	class ViewPartIsFound implements WaitCondition {
+
 		private String title;
 		private Matcher<String> titleMatcher;
 		private IViewPart part;
-		
-		public ViewPartIsFound(String title){
+
+		public ViewPartIsFound(String title) {
 			this.title = title;
 		}
 
-		public ViewPartIsFound(Matcher<String> title){
+		public ViewPartIsFound(Matcher<String> title) {
 			this.titleMatcher = title;
 		}
 
 		@Override
 		public boolean test() {
-			if(title != null){
+			if (title != null) {
 				Matcher<String> titleM = new WithTextMatcher(title);
 				part = WorkbenchPartLookup.getInstance().getViewByTitle(titleM);
 			} else {
-				part = WorkbenchPartLookup.getInstance().getViewByTitle(titleMatcher);
+				part = WorkbenchPartLookup.getInstance().getViewByTitle(
+						titleMatcher);
 			}
-			if(part == null){
+			if (part == null) {
 				return false;
 			}
 			return true;
@@ -223,15 +248,15 @@ public class AbstractView implements View{
 
 		@Override
 		public String description() {
-			if(title != null){
-				return "viewPart with title "+title+" is found";
+			if (title != null) {
+				return "viewPart with title " + title + " is found";
 			}
-			return "viewPart with title "+titleMatcher+" is found";
+			return "viewPart with title " + titleMatcher + " is found";
 		}
-		
-		public IViewPart getPart(){
+
+		public IViewPart getPart() {
 			return part;
 		}
-		
+
 	}
 }
