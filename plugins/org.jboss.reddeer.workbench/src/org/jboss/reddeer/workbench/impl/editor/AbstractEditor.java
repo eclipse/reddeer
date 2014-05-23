@@ -26,6 +26,7 @@ import org.jboss.reddeer.swt.lookup.ShellLookup;
 import org.jboss.reddeer.swt.matcher.WithTextMatcher;
 import org.jboss.reddeer.swt.wait.WaitUntil;
 import org.jboss.reddeer.workbench.api.Editor;
+import org.jboss.reddeer.workbench.api.WorkbenchPart;
 import org.jboss.reddeer.workbench.exception.WorkbenchLayerException;
 import org.jboss.reddeer.workbench.exception.WorkbenchPartNotFound;
 import org.jboss.reddeer.workbench.handler.EditorHandler;
@@ -48,7 +49,7 @@ public class AbstractEditor implements Editor {
 	 */
 	public AbstractEditor() {
 		editorPart = WorkbenchPartLookup.getInstance().getActiveEditor();
-		EditorHandler.getInstance().activate(editorPart);
+		activate();
 	}
 
 	/**
@@ -66,7 +67,7 @@ public class AbstractEditor implements Editor {
 					+ title);
 		}
 		editorPart = found.getPart();
-		EditorHandler.getInstance().activate(editorPart);
+		activate();
 	}
 
 	/**
@@ -84,16 +85,16 @@ public class AbstractEditor implements Editor {
 					+ title);
 		}
 		editorPart = found.getPart();
-		EditorHandler.getInstance().activate(editorPart);
+		activate();
 	}
 
 	@Override
 	public String getTitle() {
 		return WorkbenchPartHandler.getInstance().getTitle(editorPart);
 	}
-	
+
 	@Override
-	public String getTitleToolTip(){
+	public String getTitleToolTip() {
 		return WorkbenchPartHandler.getInstance().getTitleToolTip(editorPart);
 	}
 
@@ -124,84 +125,116 @@ public class AbstractEditor implements Editor {
 
 	@Override
 	public void maximize() {
-		EditorHandler.getInstance().activate(editorPart);
+		activate();
 		WorkbenchPartHandler.getInstance()
 				.performAction(ActionFactory.MAXIMIZE);
 	}
 
 	@Override
 	public void minimize() {
-		EditorHandler.getInstance().activate(editorPart);
+		activate();
 		WorkbenchPartHandler.getInstance()
 				.performAction(ActionFactory.MINIMIZE);
 	}
-	
+
+	/**
+	 * {@link WorkbenchPart.restore}
+	 */
+	@Override
+	public void restore() {
+		// in order to restore maximized window maximized action has to be
+		// called
+		activate();
+		WorkbenchPartHandler.getInstance()
+				.performAction(ActionFactory.MAXIMIZE);
+	}
+
+	/**
+	 * {@link WorkbenchPart.activate}
+	 */
+	@Override
+	public void activate() {
+		EditorHandler.getInstance().activate(editorPart);
+	}
+
 	/**
 	 * @see org.jboss.reddeer.workbench.api.Editor#openContentAssistant()
 	 */
 	@Override
-	public ContentAssistant openContentAssistant(){
+	public ContentAssistant openContentAssistant() {
 		Shell[] shells1 = ShellLookup.getInstance().getShells();
-		IBindingService bindingService = (IBindingService) PlatformUI.getWorkbench().getAdapter(IBindingService.class);
-		TriggerSequence[] sequence = bindingService.getActiveBindingsFor(ITextEditorActionDefinitionIds.CONTENT_ASSIST_PROPOSALS);
-		if(sequence.length > 0 && sequence[0].getTriggers().length > 0){
-			if(sequence[0].getTriggers()[0] instanceof KeyStroke){
-				KeyStroke k = ((KeyStroke)sequence[0].getTriggers()[0]);
-				KeyboardFactory.getKeyboard().invokeKeyCombination(k.getModifierKeys(),k.getNaturalKey());
+		IBindingService bindingService = (IBindingService) PlatformUI
+				.getWorkbench().getAdapter(IBindingService.class);
+		TriggerSequence[] sequence = bindingService
+				.getActiveBindingsFor(ITextEditorActionDefinitionIds.CONTENT_ASSIST_PROPOSALS);
+		if (sequence.length > 0 && sequence[0].getTriggers().length > 0) {
+			if (sequence[0].getTriggers()[0] instanceof KeyStroke) {
+				KeyStroke k = ((KeyStroke) sequence[0].getTriggers()[0]);
+				KeyboardFactory.getKeyboard().invokeKeyCombination(
+						k.getModifierKeys(), k.getNaturalKey());
 			} else {
-				throw new WorkbenchLayerException("Unable to find key combination which invokes Content Assistant");
+				throw new WorkbenchLayerException(
+						"Unable to find key combination which invokes Content Assistant");
 			}
 		} else {
-			throw new WorkbenchLayerException("Unable to find key combination which invokes Content Assistant");
+			throw new WorkbenchLayerException(
+					"Unable to find key combination which invokes Content Assistant");
 		}
 		Shell[] shells2 = ShellLookup.getInstance().getShells();
 		Table contentAssistTable = findContentAssistTable(shells1, shells2);
 		return new ContentAssistant(contentAssistTable);
 	}
-	
+
 	@Override
-	public ContentAssistant openOpenOnAssistant(){
+	public ContentAssistant openOpenOnAssistant() {
 		Shell[] shells1 = ShellLookup.getInstance().getShells();
-		new ShellMenu("Navigate","Open Hyperlink").select();
+		new ShellMenu("Navigate", "Open Hyperlink").select();
 		Shell[] shells2 = ShellLookup.getInstance().getShells();
-		try{
+		try {
 			Table contentAssistTable = findContentAssistTable(shells1, shells2);
 			return new ContentAssistant(contentAssistTable);
-		} catch(WorkbenchLayerException ex){
+		} catch (WorkbenchLayerException ex) {
 			return null;
 		}
 	}
-	
+
 	@Override
-	public ContentAssistant openQuickFixContentAssistant(){
+	public ContentAssistant openQuickFixContentAssistant() {
 		Shell[] shells1 = ShellLookup.getInstance().getShells();
-		IBindingService bindingService = (IBindingService) PlatformUI.getWorkbench().getAdapter(IBindingService.class);
-		TriggerSequence[] sequence = bindingService.getActiveBindingsFor(ITextEditorActionDefinitionIds.QUICK_ASSIST);
-		if(sequence.length > 0 && sequence[0].getTriggers().length > 0){
-			if(sequence[0].getTriggers()[0] instanceof KeyStroke){
-				KeyStroke k = ((KeyStroke)sequence[0].getTriggers()[0]);
-				KeyboardFactory.getKeyboard().invokeKeyCombination(k.getModifierKeys(),k.getNaturalKey());
+		IBindingService bindingService = (IBindingService) PlatformUI
+				.getWorkbench().getAdapter(IBindingService.class);
+		TriggerSequence[] sequence = bindingService
+				.getActiveBindingsFor(ITextEditorActionDefinitionIds.QUICK_ASSIST);
+		if (sequence.length > 0 && sequence[0].getTriggers().length > 0) {
+			if (sequence[0].getTriggers()[0] instanceof KeyStroke) {
+				KeyStroke k = ((KeyStroke) sequence[0].getTriggers()[0]);
+				KeyboardFactory.getKeyboard().invokeKeyCombination(
+						k.getModifierKeys(), k.getNaturalKey());
 			} else {
-				throw new WorkbenchLayerException("Unable to find key combination which invokes Quickfix Content Assistant");
+				throw new WorkbenchLayerException(
+						"Unable to find key combination which invokes Quickfix Content Assistant");
 			}
 		} else {
-			throw new WorkbenchLayerException("Unable to find key combination which invokes Quickfix Content Assistant");
+			throw new WorkbenchLayerException(
+					"Unable to find key combination which invokes Quickfix Content Assistant");
 		}
 		Shell[] shells2 = ShellLookup.getInstance().getShells();
 		Table contentAssistTable = findContentAssistTable(shells1, shells2);
 		return new ContentAssistant(contentAssistTable);
 	}
-	
-	private Table findContentAssistTable(Shell[] s1, Shell[] s2){
+
+	private Table findContentAssistTable(Shell[] s1, Shell[] s2) {
 		List<Shell> s1List = new ArrayList<Shell>(Arrays.asList(s1));
 		List<Shell> s2List = new ArrayList<Shell>(Arrays.asList(s2));
 		s2List.removeAll(s1List);
-		if(s2List.size() == 1){
+		if (s2List.size() == 1) {
 			ShellHandler.getInstance().setFocus(s2List.get(0));
 			return new DefaultTable();
 		} else {
-			throw new WorkbenchLayerException("Unable to find Content Assistant shell. "+
-					(s2List.size() > 1 ? "More shells were opened":"No shell was opened"));
+			throw new WorkbenchLayerException(
+					"Unable to find Content Assistant shell. "
+							+ (s2List.size() > 1 ? "More shells were opened"
+									: "No shell was opened"));
 		}
 	}
 
