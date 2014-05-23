@@ -18,17 +18,32 @@ public class WizardNewProjectCreationPage extends WizardPage {
 	private final Logger log = Logger
 			.getLogger(WizardNewProjectCreationPage.class);
 
+	/**
+	 * Sets a given project name.
+	 * 
+	 * @param projectName Project name
+	 */
 	public void setProjectName(String projectName) {
 		log.debug("Set General Project name to " + projectName);
 		new LabeledText("Project name:").setText(projectName);
 	}
 
+	/**
+	 * Sets a given project location.
+	 * 
+	 * @param projectLocation Project location
+	 */
 	public void setProjectLocation(String projectLocation) {
 		log.debug("Set Project location to " + projectLocation);
 		new CheckBox("Use default location").toggle(false);
 		new LabeledText("Location:").setText(projectLocation);
 	}
 
+	/**
+	 * Adds a project to a given working set.
+	 * 
+	 * @param workingSet Working set
+	 */
 	public void addProjectToWorkingSet(String workingSet) {
 		log.debug("Add Project to working set" + workingSet);
 		new CheckBox("Add project to working sets").toggle(true);

@@ -26,6 +26,11 @@ public abstract class AbstractPerspective {
   
   private String perspectiveLabel;
 
+  /**
+   * Constructs the perspective with a given label.
+   * 
+   * @param perspectiveLabel Perspective label
+   */
   public AbstractPerspective(String perspectiveLabel) {
     super();
     this.perspectiveLabel = perspectiveLabel;
@@ -34,6 +39,9 @@ public abstract class AbstractPerspective {
     }
   }
 
+  /**
+   * Opens the perspective
+   */
   public void open() {
     log.info("Open perspective: " + getPerspectiveLabel());
     if (isOpened()){
@@ -58,10 +66,20 @@ public abstract class AbstractPerspective {
     }
   }
 
+  /**
+   * Returns perspective label.
+   * 
+   * @return Perspective label
+   */
   public String getPerspectiveLabel() {
     return perspectiveLabel;
   }
   
+  /**
+   * Returns whether the perspective is open.
+   * 
+   * @return Whether the perspective is open
+   */
   	 public boolean isOpened(){
 		return Display.syncExec(new ResultRunnable<Boolean>() {
 			@Override

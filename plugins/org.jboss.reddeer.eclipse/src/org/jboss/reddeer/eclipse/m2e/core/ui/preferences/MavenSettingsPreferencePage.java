@@ -24,6 +24,9 @@ public class MavenSettingsPreferencePage extends WorkbenchPreferencePage {
 	private static final String UPDATE_SETTINGS = "Update Settings";
 	private static final String REINDEX = "Reindex";
 
+	/**
+	 * Construct the preference page with "Maven" > "User Settings".
+	 */
 	public MavenSettingsPreferencePage() {
 		super("Maven", "User Settings");
 	}

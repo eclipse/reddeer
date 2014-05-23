@@ -29,7 +29,7 @@ public class DriverDefinitionPage extends WizardPage {
 	public DriverDefinitionPage() {
 		super();
 	}
-	
+
 	/**
 	 * Set a driver name.
 	 * 
@@ -59,6 +59,12 @@ public class DriverDefinitionPage extends WizardPage {
 		}
 	}
 
+	/**
+	 * Sets a given driver class. Not yet implemented!
+	 * 
+	 * @param driverClass
+	 *            Driver class
+	 */
 	public void setDriverClass(String driverClass) {
 		// selectTab(TAB_PROPERTIES);
 		// Tree tree = new ShellTree();
@@ -93,7 +99,7 @@ public class DriverDefinitionPage extends WizardPage {
 	 * @param driverLocation
 	 */
 	public void removeDriverLibrary(String driverLocation) {
-		new DefaultList().select(driverLocation);	
+		new DefaultList().select(driverLocation);
 		new PushButton(BUTTON_REMOVE_JAR).click();
 	}
 
@@ -129,14 +135,14 @@ public class DriverDefinitionPage extends WizardPage {
 	 *
 	 */
 	private class ExtendedDeafultList extends DefaultList {
-		
+
 		public ExtendedDeafultList() {
 			super();
 		}
-		
+
 		public void addItem(final String item) {
 			Display.syncExec(new Runnable() {
-				
+
 				@Override
 				public void run() {
 					list.add(item);

@@ -26,10 +26,18 @@ public class TaskListView extends WorkbenchView {
 	
 	public static final String TITLE = "Task List";
 	
+	/**
+	 * Constructs the view with {@value #TITLE}.
+	 */
 	public TaskListView() {
 		super(TITLE);
 	}
 
+	/**
+	 * Returns list of task lists.
+	 * 
+	 * @return List of task lists
+	 */
 	public List<TaskList> getTaskLists(){
 		List<TaskList> theTaskLists = new ArrayList<TaskList>();
 
@@ -45,6 +53,12 @@ public class TaskListView extends WorkbenchView {
 		return theTaskLists;
 	}
 
+	/**
+	 * Returns a task list with a given name.
+	 * 
+	 * @param name Name
+	 * @return Task list
+	 */
 	public TaskList getTaskList(String name){
 		for (TaskList repository : getTaskLists()){
 			if (repository.getName().equals(name)){
@@ -59,7 +73,13 @@ public class TaskListView extends WorkbenchView {
 		return new DefaultTree();
 	}
 	
-	/* Method to locate and select a task in the task list view  */
+	/**
+	 * Returns a task with a given name and a category. The task is selected and returned as a tree item.
+	 * 
+	 * @param taskCategory Category
+	 * @param taskName Name
+	 * @return Task as a tree item
+	 */
 	public TreeItem getTask (String taskCategory, String taskName) {
 		new DefaultTree();
 		

@@ -13,6 +13,9 @@ import org.jboss.reddeer.swt.impl.text.LabeledText;
 import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
 import org.jboss.reddeer.swt.wait.WaitWhile;
 
+/**
+ * The first wizard page for creating web project.
+ */
 public class WebProjectFirstPage extends WizardPage{
 	
 	public void setProjectName(String projectName){

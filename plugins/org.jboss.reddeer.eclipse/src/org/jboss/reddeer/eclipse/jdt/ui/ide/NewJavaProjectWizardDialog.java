@@ -11,8 +11,14 @@ import org.jboss.reddeer.swt.wait.TimePeriod;
 import org.jboss.reddeer.swt.wait.WaitUntil;
 import org.jboss.reddeer.swt.wait.WaitWhile;
 
+/**
+ * Wizard dialog for creating new Java project. 
+ */
 public class NewJavaProjectWizardDialog extends NewWizardDialog{
 	
+	/**
+	 * Constructs the wizard with Java > Java Project.
+	 */
 	public NewJavaProjectWizardDialog() {
 		super("Java", "Java Project");
 		addWizardPage(new NewJavaProjectWizardPage(), 0);
@@ -28,6 +34,10 @@ public class NewJavaProjectWizardDialog extends NewWizardDialog{
 		finish(false);
 	}
 	
+	/**
+	 * 
+	 * @param openAssociatedPerspective
+	 */
 	public void finish(boolean openAssociatedPerspective) {
 		log.debug("Finish wizard dialog");
 		new PushButton("Finish").click();

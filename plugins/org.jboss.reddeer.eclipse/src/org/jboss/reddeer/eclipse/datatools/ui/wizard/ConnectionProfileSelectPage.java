@@ -20,14 +20,32 @@ public class ConnectionProfileSelectPage extends WizardPage {
 		super();
 	}
 
+	/**
+	 * Sets a given connection profile.
+	 * 
+	 * @param connectionProfile
+	 *            Connection profile
+	 */
 	public void setConnectionProfile(String connectionProfile) {
 		new DefaultTable().select(connectionProfile);
 	}
 
+	/**
+	 * Sets a given name.
+	 * 
+	 * @param name
+	 *            Name
+	 */
 	public void setName(String name) {
 		new LabeledText(LABEL_NAME).setText(name);
 	}
 
+	/**
+	 * Sets a given description.
+	 * 
+	 * @param description
+	 *            Description
+	 */
 	public void setDescription(String description) {
 		new LabeledText(LABEL_DESCRIPTION).setText(description);
 	}

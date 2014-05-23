@@ -10,6 +10,9 @@ import org.jboss.reddeer.eclipse.jface.wizard.NewWizardDialog;
  */
 public class NewFileCreationWizardDialog extends NewWizardDialog {
 
+	/**
+	 * Constructs the wizard with "General" > "File".
+	 */
 	public NewFileCreationWizardDialog() {
 		super("General", "File");
 	}

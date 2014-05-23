@@ -14,6 +14,11 @@ public class ServerExists implements WaitCondition {
 
 	private String name;
 	
+	/**
+	 * Construct the condition with a given name.
+	 * 
+	 * @param name Name
+	 */
 	public ServerExists(String name) {
 		this.name = name;
 	}

@@ -21,10 +21,18 @@ import org.jboss.reddeer.workbench.impl.view.WorkbenchView;
  */
 public class ConsoleView extends WorkbenchView {
 
+	/**
+	 * Constructs the view with "Console".
+	 */
 	public ConsoleView() {
 		super("Console");
 	}
 	
+	/**
+	 * Returns console test.
+	 * 
+	 * @return Console text
+	 */
 	public String getConsoleText() {
 		new WaitUntil(new ConsoleHasTextWidget());
 		// wait for text to appear
@@ -32,6 +40,9 @@ public class ConsoleView extends WorkbenchView {
 		return new DefaultStyledText().getText();
 	}
 	
+	/**
+	 * Clears the console.
+	 */
 	public void clearConsole() {
 		log.info("Clearing console");
 		new DefaultToolItem("Clear Console").click();
@@ -39,12 +50,18 @@ public class ConsoleView extends WorkbenchView {
 		log.info("Console cleared");
 	}
 	
+	/**
+	 * Removes a launch from the console.
+	 */
 	public void removeLaunch() {
 		log.info("Removing launch from console");
 		new DefaultToolItem("Remove Launch").click();
 		log.info("Launch removed");
 	}
 	
+	/**
+	 * Removes all terminated launches.
+	 */
 	public void removeAllTerminatedLaunches() {
 		log.info("Removing terminated launches from console");
 		new DefaultToolItem("Remove All Terminated Launches").click();

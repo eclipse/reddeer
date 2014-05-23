@@ -8,6 +8,9 @@ package org.jboss.reddeer.eclipse.ui.perspectives;
  */
 public class DatabaseDebugPerspective extends AbstractPerspective {
 
+	/**
+	 * Constructs the perspective with "Database Debug".
+	 */
 	public DatabaseDebugPerspective() {
 		super("Database Debug");
 	}

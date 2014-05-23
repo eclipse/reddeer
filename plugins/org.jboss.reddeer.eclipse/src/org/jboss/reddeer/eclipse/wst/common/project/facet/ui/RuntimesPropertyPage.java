@@ -20,6 +20,11 @@ public class RuntimesPropertyPage extends ProjectPropertyPage {
 
 	public static final String NAME = "Targeted Runtimes"; 
 	
+	/**
+	 * Constructs the property page with a given project and {@value #NAME}.
+	 * 
+	 * @param project Project name
+	 */
 	public RuntimesPropertyPage(Project project) {
 		super(project, NAME);
 	}

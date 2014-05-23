@@ -45,6 +45,9 @@ public class WizardProjectsImportPage extends WizardPage {
 		super();
 	}
 	
+	/**
+	 * Represents an imported project.
+	 */
 	public static class ImportProject {
 		
 		public boolean isChecked;
@@ -57,16 +60,31 @@ public class WizardProjectsImportPage extends WizardPage {
 		}
 	}
 
+	/**
+	 * Sets root directory.
+	 * 
+	 * @param directory Root directory
+	 */
 	public void setRootDirectory(String directory){
 		log.info("Setting root directory to " + directory);
 		setPath("Select root directory:", directory);
 	}
 	
+	/**
+	 * Sets archive file.
+	 * 
+	 * @param file File
+	 */
 	public void setArchiveFile(String file){
 		log.info("Settig archive file to " + file);
 		setPath("Select archive file:", file);
 	}
 
+	/**
+	 * Sets whether to copy projects into workspace.
+	 * 
+	 * @param copy Indicates whether to copy projects into workspace
+	 */
 	public void copyProjectsIntoWorkspace(boolean copy){
 		log.info("Setting copy checkbox to " + copy);
 		if (isFileSystem()){
@@ -76,6 +94,11 @@ public class WizardProjectsImportPage extends WizardPage {
 		}
 	}
 	
+	/**
+	 * Returns list of projects.
+	 * 
+	 * @return List of projects
+	 */
 	public List<ImportProject> getProjects(){
 		List<ImportProject> projects = new ArrayList<ImportProject>();
 		
@@ -90,6 +113,11 @@ public class WizardProjectsImportPage extends WizardPage {
 		return projects;
 	}
 	
+	/**
+	 * Selects a given projects.
+	 * 
+	 * @param projects Projects
+	 */
 	public void selectProjects(String... projects){
 		log.info("Selecting projects");
 		deselectAllProjects();
@@ -101,11 +129,17 @@ public class WizardProjectsImportPage extends WizardPage {
 		}
 	}
 	
+	/**
+	 * Selects all projects.
+	 */
 	public void selectAllProjects(){
 		log.info("Selecting all projects");
 		new PushButton("Select All").click();
 	}
 	
+	/**
+	 * Deselects all projects.
+	 */
 	public void deselectAllProjects(){
 		log.info("Deselecting all projects");
 		new PushButton("Deselect All").click();

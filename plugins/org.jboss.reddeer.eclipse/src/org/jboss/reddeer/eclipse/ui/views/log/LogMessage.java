@@ -26,23 +26,47 @@ public class LogMessage {
 		this.severity = severity;
 	}
 	
+	/**
+	 * Returns a severity.
+	 * 
+	 * @return severity
+	 */
 	public int getSeverity() {
 		return severity;
 	}
 	
+	/**
+	 * Returns a message.
+	 * 
+	 * @return Message
+	 */
 	public String getMessage() {
 		return treeItem.getCell(0);
 	}
 
+	/**
+	 * Returns a plugin.
+	 * 
+	 * @return Plugin
+	 */
 	public String getPlugin() {
 		return treeItem.getCell(1);
 	}
 
-
+	/**
+	 * Returns the date.
+	 * 
+	 * @return Date
+	 */
 	public String getDate() {
 		return treeItem.getCell(2);
 	}
 	
+	/**
+	 * Returns a stack trace.
+	 * 
+	 * @return Stack trace
+	 */
 	public String getStackTrace(){
 		treeItem.select();
 		new ContextMenu("Event Details").select();
@@ -52,6 +76,11 @@ public class LogMessage {
 		return stackTrace;
 	}
 	
+	/**
+	 * Returns session data.
+	 * 
+	 * @return Session data
+	 */
 	public String getSessionData(){
 		treeItem.select();
 		new ContextMenu("Event Details").select();
@@ -61,6 +90,11 @@ public class LogMessage {
 		return sessionData;
 	}
 	
+	/**
+	 * Returns sublog messages.
+	 * 
+	 * @return Sublog messages
+	 */
 	public List<LogMessage> getSubLogMessages(){
 		List<LogMessage> lm = new ArrayList<LogMessage>();
 		for(TreeItem i: treeItem.getItems()){

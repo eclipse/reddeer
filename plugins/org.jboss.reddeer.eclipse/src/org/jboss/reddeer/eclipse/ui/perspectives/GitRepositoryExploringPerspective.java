@@ -8,6 +8,9 @@ package org.jboss.reddeer.eclipse.ui.perspectives;
  */
 public class GitRepositoryExploringPerspective extends AbstractPerspective {
 
+	/**
+	 * Constructs the perspective with "Git Repository Exploring".
+	 */
 	public GitRepositoryExploringPerspective() {
 		super("Git Repository Exploring");
 	}

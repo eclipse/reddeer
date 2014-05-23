@@ -8,7 +8,9 @@ package org.jboss.reddeer.eclipse.ui.perspectives;
  */
 public class PlanningPerspective extends AbstractPerspective {
 
-
+	/**
+	 * Constructs the perspective with "Planning".
+	 */
 	public PlanningPerspective() {
 		super("Planning");
 	}

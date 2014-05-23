@@ -13,6 +13,9 @@ import org.jboss.reddeer.swt.impl.text.LabeledText;
 import org.jboss.reddeer.swt.impl.tree.DefaultTree;
 import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
 
+/**
+ * The second wizard page for creating web project.
+ */
 public class WebProjectSecondPage extends WizardPage{
 	
 	public void editSourceFoldersOnBuildPath(String sourceFolder, String newVaule){

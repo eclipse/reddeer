@@ -16,10 +16,18 @@ import org.jboss.reddeer.workbench.preference.WorkbenchPreferencePage;
  */
 public class DriverDefinitionPreferencePage extends WorkbenchPreferencePage {
 
+	/**
+	 * Construct a preference page with Data Management > Connectivity > Driver Definitions.
+	 */
 	public DriverDefinitionPreferencePage() {
 		super("Data Management", "Connectivity", "Driver Definitions");
 	}
 
+	/**
+	 * Returns all available driver definitions. Not yet implemented!
+	 * 
+	 * @return List of driver definitions
+	 */
 	public List<DriverDefinition> getDriverDefinitions() {
 		throw new UnsupportedOperationException();
 	}
@@ -35,10 +43,16 @@ public class DriverDefinitionPreferencePage extends WorkbenchPreferencePage {
 		return new DriverDefinitionWizard();
 	}
 
+	/**
+	 * Edits the driver definition. Not yet implemented!
+	 */
 	public void editDriverDefinition() {
 		throw new UnsupportedOperationException();
 	}
 
+	/**
+	 * Removes the driver definition. Not yet implemented!
+	 */
 	public void removeDriverDefinition() {
 		throw new UnsupportedOperationException();
 	}

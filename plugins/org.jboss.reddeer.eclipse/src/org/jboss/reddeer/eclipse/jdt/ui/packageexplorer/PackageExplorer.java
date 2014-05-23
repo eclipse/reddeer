@@ -10,6 +10,9 @@ import org.jboss.reddeer.eclipse.jdt.ui.AbstractExplorer;
  */
 public class PackageExplorer extends AbstractExplorer {
     
+	/**
+	 * Constructs the view with Package Explorer.
+	 */
 	public PackageExplorer() {
 		super("Package Explorer");
 	}

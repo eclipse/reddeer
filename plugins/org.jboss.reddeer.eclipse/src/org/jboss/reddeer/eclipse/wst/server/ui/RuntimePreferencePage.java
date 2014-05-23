@@ -24,10 +24,18 @@ public class RuntimePreferencePage extends WorkbenchPreferencePage {
 
 	private static final Logger log = Logger.getLogger(RuntimePreferencePage.class);
 	
+	/**
+	 * Constructs the preference page with "Server" > {@value #PAGE_NAME}.
+	 */
 	public RuntimePreferencePage() {
 		super("Server", PAGE_NAME);
 	}
 	
+	/**
+	 * Return list of server runtimes.
+	 * 
+	 * @return List of server runtimes
+	 */
 	public List<Runtime> getServerRuntimes(){
 		List<Runtime> runtimes = new ArrayList<Runtime>();
 		
@@ -43,6 +51,11 @@ public class RuntimePreferencePage extends WorkbenchPreferencePage {
 		return runtimes;
 	}
 	
+	/**
+	 * Removes a given runtime.
+	 * 
+	 * @param runtime Runtime
+	 */
 	public void removeRuntime(Runtime runtime){
 		log.info("Removing runtime " + runtime);
 		selectRuntime(runtime.getName());
@@ -52,6 +65,9 @@ public class RuntimePreferencePage extends WorkbenchPreferencePage {
 		}
 	}
 	
+	/**
+	 * Removes all runtimes.
+	 */
 	public void removeAllRuntimes(){
 		log.info("Removing all runtimes");
 		for (Runtime runtime : getServerRuntimes()){
@@ -70,6 +86,11 @@ public class RuntimePreferencePage extends WorkbenchPreferencePage {
 		}
 	}
 	
+	/**
+	 * Opens a wizard for adding new runtime.
+	 * 
+	 * @return Wizard for adding new runtime
+	 */
 	public NewRuntimeWizardDialog addRuntime(){
 		log.info("Adding new runtime");
 		new PushButton("Add...").click();

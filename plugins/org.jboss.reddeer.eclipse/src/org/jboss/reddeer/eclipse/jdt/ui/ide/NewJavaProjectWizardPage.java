@@ -12,20 +12,38 @@ import org.jboss.reddeer.swt.impl.text.LabeledText;
  */
 
 public class NewJavaProjectWizardPage extends WizardPage {
-	
-	public void setProjectName (String projectName){
-	    log.debug("Set General Project name to " + projectName);
-	    new LabeledText("Project name:").setText(projectName);
+
+	/**
+	 * Sets a given project name.
+	 * 
+	 * @param projectName
+	 *            Project name
+	 */
+	public void setProjectName(String projectName) {
+		log.debug("Set General Project name to " + projectName);
+		new LabeledText("Project name:").setText(projectName);
 	}
-	
-	public void useDefaultLocation(boolean check){
+
+	/**
+	 * Sets whether to use default location.
+	 * 
+	 * @param check
+	 *            Indicates whether to use dafualt location
+	 */
+	public void useDefaultLocation(boolean check) {
 		CheckBox box = new CheckBox("Use default location");
-		log.debug("Setting default location to "+check);
+		log.debug("Setting default location to " + check);
 		box.toggle(check);
 	}
-	
-	public void setLocation(String location){
-		log.debug("Setting Location to "+location);
+
+	/**
+	 * Sets a given location.
+	 * 
+	 * @param location
+	 *            Location
+	 */
+	public void setLocation(String location) {
+		log.debug("Setting Location to " + location);
 		LabeledText text = new LabeledText("Location:");
 		text.setText(location);
 	}
