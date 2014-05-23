@@ -8,7 +8,9 @@ package org.jboss.reddeer.eclipse.ui.perspectives;
  */
 public class TeamSynchronizingPerspective extends AbstractPerspective {
 
-
+	/**
+	 * Constructs the perspective with "Team Synchronizing".
+	 */
 	public TeamSynchronizingPerspective() {
 		super("Team Synchronizing");
 	}

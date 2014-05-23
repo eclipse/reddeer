@@ -29,10 +29,20 @@ public class NewFileCreationWizardPage extends WizardPage {
 		super();
 	}
 	
+	/**
+	 * Sets a given file name.
+	 * 
+	 * @param fileName File name
+	 */
 	public void setFileName(String fileName) {
 		new LabeledText("File name:").setText(fileName);
 	}
 	
+	/**
+	 * Sets a given folder path.
+	 * 
+	 * @param folderPath Folder path
+	 */
 	public void setFolderPath(String... folderPath) {
 		StringBuilder builder = new StringBuilder();
 		for (String pathElement : folderPath) {

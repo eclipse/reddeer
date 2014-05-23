@@ -20,6 +20,9 @@ public class ServerModule {
 		return new ModuleLabel(treeItem);
 	}
 	
+	/**
+	 * Removes the server module. Not yet implemented!
+	 */
 	public void remove(){
 		throw new UnsupportedOperationException();
 	}

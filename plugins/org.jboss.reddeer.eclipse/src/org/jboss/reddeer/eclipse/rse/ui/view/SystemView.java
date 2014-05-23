@@ -25,6 +25,9 @@ public class SystemView extends WorkbenchView {
 	
 	private static final Logger log = Logger.getLogger(SystemView.class);
 	
+	/**
+	 * Constructs the view with {@value # TITLE}.
+	 */
 	public SystemView() {
 		super(TITLE);
 	}

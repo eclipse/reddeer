@@ -10,6 +10,9 @@ import org.jboss.reddeer.eclipse.jface.wizard.ImportWizardDialog;
  */
 public class ExternalProjectImportWizardDialog extends ImportWizardDialog {
 
+	/**
+	 * Construct the wizard with "General" > "Existing Projects into Workspace".
+	 */
 	public ExternalProjectImportWizardDialog() {
 		super(new String[]{"General", "Existing Projects into Workspace"});
 	}

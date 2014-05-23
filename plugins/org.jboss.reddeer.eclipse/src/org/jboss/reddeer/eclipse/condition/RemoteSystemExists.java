@@ -14,6 +14,11 @@ public class RemoteSystemExists implements WaitCondition {
 
 	private String name;
 	
+	/**
+	 * Constructs the condition with a given text.
+	 * 
+	 * @param name Name
+	 */
 	public RemoteSystemExists(String name) {
 		this.name = name;
 	}

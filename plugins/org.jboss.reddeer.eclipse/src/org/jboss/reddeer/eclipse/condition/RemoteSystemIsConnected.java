@@ -13,6 +13,11 @@ public class RemoteSystemIsConnected implements WaitCondition {
 
 	private System system;
 	
+	/**
+	 * Construct the condition with a given system.
+	 * 
+	 * @param system System
+	 */
 	public RemoteSystemIsConnected(System system) {
 		this.system = system;
 	}

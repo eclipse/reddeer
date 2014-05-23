@@ -95,14 +95,29 @@ public abstract class AbstractLabel {
 		return styles[0];
 	}
 
+	/**
+	 * Returns a server name.
+	 * 
+	 * @return Server name
+	 */
 	public String getName() {
 		return name;
 	}
 	
+	/**
+	 * Returns a server state.
+	 * 
+	 * @return Server state
+	 */
 	public ServerState getState() {
 		return state;
 	}
 	
+	/**
+	 * Returns a server publish state.
+	 * 
+	 * @return Server publish state
+	 */
 	public ServerPublishState getPublishState() {
 		return status;
 	}

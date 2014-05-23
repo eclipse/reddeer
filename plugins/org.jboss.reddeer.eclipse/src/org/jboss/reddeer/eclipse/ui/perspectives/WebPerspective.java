@@ -8,7 +8,9 @@ package org.jboss.reddeer.eclipse.ui.perspectives;
  */
 public class WebPerspective extends AbstractPerspective {
 
-
+	/**
+	 * Constructs the perspective with "Web".
+	 */
 	public WebPerspective() {
 		super("Web");
 	}

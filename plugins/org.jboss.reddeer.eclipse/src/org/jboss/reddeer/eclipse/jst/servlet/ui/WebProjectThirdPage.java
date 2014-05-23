@@ -4,6 +4,9 @@ import org.jboss.reddeer.eclipse.jface.wizard.WizardPage;
 import org.jboss.reddeer.swt.impl.button.CheckBox;
 import org.jboss.reddeer.swt.impl.text.LabeledText;
 
+/**
+ * The third wizard page for creating web project.
+ */
 public class WebProjectThirdPage extends WizardPage{
 
 	public void setContextRoot(String contextRoot){

@@ -8,7 +8,9 @@ package org.jboss.reddeer.eclipse.ui.perspectives;
  */
 public class XMLPerspective extends AbstractPerspective {
 
-
+	/**
+	 * Constructs the perspective with "XML".
+	 */
 	public XMLPerspective() {
 		super("XML");
 	}

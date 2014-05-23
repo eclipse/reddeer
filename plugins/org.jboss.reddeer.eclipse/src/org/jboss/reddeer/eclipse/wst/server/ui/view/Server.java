@@ -48,10 +48,20 @@ public class Server {
 		this.treeItem = treeItem;
 	}
 
+	/**
+	 * Returns a server label.
+	 * 
+	 * @return Server label
+	 */
 	public ServerLabel getLabel(){
 		return new ServerLabel(treeItem);
 	}
 
+	/**
+	 * Returns list of modules.
+	 * 
+	 * @return List of modules
+	 */
 	public List<ServerModule> getModules() {
 		final List<ServerModule> modules = new ArrayList<ServerModule>();
 
@@ -72,6 +82,12 @@ public class Server {
 		return modules;
 	}
 
+	/**
+	 * Return a module with a given name.
+	 * 
+	 * @param name Module name
+	 * @return Module
+	 */
 	public ServerModule getModule(String name) {
 		for (ServerModule module : getModules()){
 			if (module.getLabel().getName().equals(name)){
@@ -81,18 +97,31 @@ public class Server {
 		throw new EclipseLayerException("There is no module with name " + name + " on server " + getLabel().getName());
 	}
 
+	/**
+	 * Opens a dialog for adding/removing modules.
+	 * 
+	 * @return Dialog for adding/removing modules
+	 */
 	public ModifyModulesDialog addAndRemoveModules() {
 		select();
 		new ContextMenu(ADD_AND_REMOVE).select();
 		return new ModifyModulesDialog();
 	}
 	
+	/**
+	 * Opens the server editor.
+	 * 
+	 * @return Server editor
+	 */
 	public ServerEditor open() {
 		select();
 		new ContextMenu("Open").select();
 		return createServerEditor(getLabel().getName());
 	}
 
+	/**
+	 * Starts the server.
+	 */
 	public void start() {
 		log.info("Starting server " + getLabel().getName());
 		if (!ServerState.STOPPED.equals(getLabel().getState())){
@@ -101,6 +130,9 @@ public class Server {
 		operateServerState("Start", ServerState.STARTED);
 	}
 
+	/**
+	 * Debugs the server.
+	 */
 	public void debug() {
 		log.info("Starting server in debug" + getLabel().getName());
 		if (!ServerState.STOPPED.equals(getLabel().getState())){
@@ -109,6 +141,9 @@ public class Server {
 		operateServerState("Debug", ServerState.DEBUGGING);
 	}
 
+	/**
+	 * Profiles the server.
+	 */
 	public void profile() {
 		log.info("Starting server in profiling mode" + getLabel().getName());
 		if (!ServerState.STOPPED.equals(getLabel().getState())){
@@ -117,6 +152,9 @@ public class Server {
 		operateServerState("Profile", ServerState.PROFILING);
 	}
 
+	/**
+	 * Restarts the server.
+	 */
 	public void restart() {
 		log.info("Restarting server " + getLabel().getName());
 		if (!getLabel().getState().isRunningState()){
@@ -125,6 +163,9 @@ public class Server {
 		operateServerState("Restart", ServerState.STARTED);
 	}
 
+	/**
+	 * Restarts the server in debug.
+	 */
 	public void restartInDebug() {
 		log.info("Restarting server in debug" + getLabel().getName());
 		if (!getLabel().getState().isRunningState()){
@@ -133,6 +174,9 @@ public class Server {
 		operateServerState("Restart in Debug", ServerState.DEBUGGING);
 	}
 
+	/**
+	 * Restarts the server in profile.
+	 */
 	public void restartInProfile() {
 		log.info("Restarting server in profile" + getLabel().getName());
 		if (!getLabel().getState().isRunningState()){
@@ -141,6 +185,9 @@ public class Server {
 		operateServerState("Restart in Profile", ServerState.PROFILING);
 	}
 
+	/**
+	 * Stops the server.
+	 */
 	public void stop() {
 		log.info("Stopping server " + getLabel().getName());
 		ServerState state = getLabel().getState();
@@ -150,6 +197,9 @@ public class Server {
 		operateServerState("Stop", ServerState.STOPPED);
 	}
 
+	/**
+	 * Publishes the server.
+	 */
 	public void publish() {
 		log.info("Publishing server " + getLabel().getName());
 		select();
@@ -157,6 +207,9 @@ public class Server {
 		waitForPublish();
 	}
 
+	/**
+	 * Cleans the server.
+	 */
 	public void clean() {
 		log.info("Cleaning server " + getLabel().getName());
 		select();
@@ -166,10 +219,18 @@ public class Server {
 		waitForPublish();
 	}
 
+	/**
+	 * Deletes the server. The server is not stop first.
+	 */
 	public void delete() {
 		delete(false);
 	}
 
+	/**
+	 * Deletes the server. You can specify whether the server is stop first.
+	 * 
+	 * @param stopFirst Indicates whether the server is stop first.
+	 */
 	public void delete(boolean stopFirst) {
 		final String name = getLabel().getName();
 		log.info("Deleting server " + name + ". Stopping server first: " + stopFirst);
@@ -186,6 +247,9 @@ public class Server {
 		new WaitWhile(new JobIsRunning(), TIMEOUT);
 	}
 
+	/**
+	 * Selects the server.
+	 */
 	protected void select() {
 		treeItem.select();
 	}

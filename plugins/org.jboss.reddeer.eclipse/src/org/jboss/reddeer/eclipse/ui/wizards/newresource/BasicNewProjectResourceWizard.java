@@ -12,6 +12,9 @@ import org.jboss.reddeer.eclipse.ui.dialogs.WizardNewProjectReferencePage;
  */
 public class BasicNewProjectResourceWizard extends NewWizardDialog {
 	
+	/**
+	 * Constructs the wizard with "General" > "Project".
+	 */
 	public BasicNewProjectResourceWizard() {
 		super("General", "Project");
 	}

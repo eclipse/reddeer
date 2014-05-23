@@ -35,10 +35,14 @@ public class ConnectionProfileOraclePage extends ConnectionProfileDatabasePage {
 		return new LabeledText(LABEL_HOST).getText();
 	}
 
+	/**
+	 * Tests the database connection. Not yet implemented!
+	 */
 	public void testConnection() {
 		throw new UnsupportedOperationException();
 	}
 
+	@Override
 	public void setDatabase(String database) {
 		new LabeledText(LABEL_DATABASE).setText(database);
 	}
@@ -64,6 +68,7 @@ public class ConnectionProfileOraclePage extends ConnectionProfileDatabasePage {
 		return new LabeledText(LABEL_PASSWORD).getText();
 	}
 
+	@Override
 	public void setPassword(String password) {
 		new LabeledText(LABEL_PASSWORD).setText(password);
 		new CheckBox(LABEL_SAVE_PASSWORD).click();

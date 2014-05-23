@@ -8,7 +8,9 @@ package org.jboss.reddeer.eclipse.ui.perspectives;
  */
 public class JPAPerspective extends AbstractPerspective {
 
-
+	/**
+	 * Constructs the perspective with "JPA".
+	 */
 	public JPAPerspective() {
 		super("JPA");
 	}

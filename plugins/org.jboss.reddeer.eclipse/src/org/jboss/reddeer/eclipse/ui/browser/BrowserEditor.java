@@ -9,16 +9,29 @@ import org.jboss.reddeer.swt.wait.WaitUntil;
 import org.jboss.reddeer.swt.wait.WaitWhile;
 import org.jboss.reddeer.workbench.impl.editor.AbstractEditor;
 
+/**
+ * Represents a browser editor.
+ */
 public class BrowserEditor extends AbstractEditor{
 	
 	private InternalBrowser browser;
 	private static final TimePeriod TIMEOUT = TimePeriod.LONG;
 	
+	/**
+	 * Constructs the browser editor with a given title.
+	 * 
+	 * @param title Title
+	 */
 	public BrowserEditor(String title){
 		super(title);
 		browser = new InternalBrowser();
 	}
 	
+	/**
+	 * Constructs the browser editor with a given title matcher.
+	 * 
+	 * @param titleMatcher Title matcher
+	 */
 	public BrowserEditor(Matcher<String> titleMatcher){
 		super(titleMatcher);
 		browser = new InternalBrowser();

@@ -8,7 +8,7 @@ package org.jboss.reddeer.eclipse.ui.perspectives;
 public class CVSRepositoryExploringPerspective extends AbstractPerspective {
 
 	/**
-	 * @param perspectiveLabel
+	 * Construct the perspective with "CVS Repository Exploring".
 	 */
 	public CVSRepositoryExploringPerspective() {
 		super("CVS Repository Exploring");

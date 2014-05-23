@@ -27,10 +27,18 @@ public class ServersView extends WorkbenchView {
 
 	private static final Logger log = Logger.getLogger(ServersView.class);
 
+	/**
+	 * Constructs the view with {@value #TITLE}.
+	 */
 	public ServersView() {
 		super(TITLE);
 	}
 
+	/**
+	 * Opens a wizard for adding new server.
+	 * 
+	 * @return Wizard for adding new server
+	 */
 	public NewServerWizardDialog newServer(){
 		log.info("Creating new server");
 		open();
@@ -39,6 +47,11 @@ public class ServersView extends WorkbenchView {
 		return new NewServerWizardDialog();
 	}
 
+	/**
+	 * Returns list of servers.
+	 * 
+	 * @return List of servers
+	 */
 	public List<Server> getServers(){
 		List<Server> servers = new ArrayList<Server>();
 
@@ -54,6 +67,12 @@ public class ServersView extends WorkbenchView {
 		return servers;
 	}
 
+	/**
+	 * Returns a server with a given name.
+	 * 
+	 * @param name Server name
+	 * @return Server with a given name.
+	 */
 	public Server getServer(String name){
 		for (Server server : getServers()){
 			if (server.getLabel().getName().equals(name)){

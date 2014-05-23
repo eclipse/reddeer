@@ -8,6 +8,9 @@ package org.jboss.reddeer.eclipse.jdt.ui;
  */
 public class ProjectExplorer extends AbstractExplorer {
 
+	/**
+	 * Construct the wizard with Project Explorer.
+	 */
 	public ProjectExplorer() {
 		super("Project Explorer");
 	}

@@ -17,38 +17,67 @@ import org.jboss.reddeer.workbench.impl.view.WorkbenchView;
  */
 public class OutlineView extends WorkbenchView {
 
+	/**
+	 * Construct the view with "Outline".
+	 */
 	public OutlineView() {
 		super("Outline");
 	}
 
+	/**
+	 * Returns collection of outline elements.
+	 * 
+	 * @return Collection of outline elements
+	 */
 	public Collection<TreeItem> outlineElements() {
 		return getTreeForView();
 	}
 
+	/**
+	 * Clicks on tooltip "Collapse All".
+	 */
 	public void collapseAll() {
 		clickOnToolTip("Collapse All.*");
 	}
-	
+
+	/**
+	 * Clicks on tooltip "Sort".
+	 */
 	public void sort() {
 		clickOnToolTip("Sort.*");
 	}
 	
+	/**
+	 * Clicks on tooltip "Hide Fields".
+	 */
 	public void hideFields() {
 		clickOnToolTip("Hide Fields.*");
 	}
-	
+
+	/**
+	 * Clicks on tooltip "Hide Static Fields and Methods".
+	 */
 	public void hideStaticFieldsAndMethods() {
 		clickOnToolTip("Hide Static Fields and Methods.*");
 	}
-	
+
+	/**
+	 * Clicks on tooltip "Hide Non-Public Members".
+	 */
 	public void hideNonPublicMembers() {
 		clickOnToolTip("Hide Non-Public Members.*");
 	}
-	
+
+	/**
+	 * Clicks on tooltip "Hide Local Types".
+	 */
 	public void hideLocalTypes() {
 		clickOnToolTip("Hide Local Types.*");
 	}
-	
+
+	/**
+	 * Clicks on tooltip "Link with Editor".
+	 */
 	public void linkWithEditor() {
 		clickOnToolTip("Link with Editor.*");
 	}

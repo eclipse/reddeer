@@ -16,6 +16,11 @@ public class WizardNewProjectReferencePage extends WizardPage {
 	private final Logger log = Logger
 			.getLogger(WizardNewProjectReferencePage.class);
 
+	/**
+	 * Sets a given project references.
+	 * 
+	 * @param referencedProjects Project references
+	 */
 	public void setProjectReferences(String... referencedProjects) {
 		log.debug("Set Project references to: ");
 		DefaultTable tbProjectReferences = new DefaultTable();

@@ -13,6 +13,9 @@ import org.jboss.reddeer.workbench.impl.view.WorkbenchView;
  */
 public class ProblemsView extends WorkbenchView{
 
+	/**
+	 * Constructs the view with "Problems".
+	 */
 	public ProblemsView() {
 		super("Problems");
 	}

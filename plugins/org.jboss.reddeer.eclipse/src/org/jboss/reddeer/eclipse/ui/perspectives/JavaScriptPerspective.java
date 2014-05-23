@@ -8,7 +8,9 @@ package org.jboss.reddeer.eclipse.ui.perspectives;
  */
 public class JavaScriptPerspective extends AbstractPerspective {
 
-
+	/**
+	 * Constructs the perspective with "JavaScript".
+	 */
 	public JavaScriptPerspective() {
 		super("JavaScript");
 	}

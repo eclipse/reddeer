@@ -13,6 +13,11 @@ public class ConsoleHasText implements WaitCondition {
 
 	private String text;
 
+	/**
+	 * Construct the condition with a given text.
+	 * 
+	 * @param text Text
+	 */
 	public ConsoleHasText(String text) {
 		this.text = text;
 	}

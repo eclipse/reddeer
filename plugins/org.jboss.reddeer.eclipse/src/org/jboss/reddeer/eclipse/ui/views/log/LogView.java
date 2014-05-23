@@ -37,6 +37,9 @@ public class LogView extends WorkbenchView{
 	public static final String WARNING_SEVERITY="Warning";
 	public static final String ERROR_SEVERITY="Error";
 	
+	/**
+	 * Constructs the view with "Error Log".
+	 */
 	public LogView(){
 		super("Error Log");
 	}

@@ -40,6 +40,11 @@ public abstract class PropertyPage extends PreferencePage {
 		t.select();
 	}
 	
+	/**
+	 * Returns page title.
+	 * 
+	 * @return Page title
+	 */
 	public String getPageTitle(){
 		return "Properties for " + getResourceName();
 	}

@@ -14,6 +14,10 @@ import org.jboss.reddeer.workbench.impl.view.WorkbenchView;
  *
  */
 public class PropertiesView extends WorkbenchView{
+	
+	/**
+	 * Constructs the view with "Properties".
+	 */
 	public PropertiesView() {
 		super("Properties");
 	}
@@ -21,7 +25,7 @@ public class PropertiesView extends WorkbenchView{
 	/**
 	 * Returns list of Properties
 	 * 
-	 * @return
+	 * @return list of Properties
 	 */
 	public List<PropertiesViewProperty> getProperties(){
 		open();
@@ -31,20 +35,35 @@ public class PropertiesView extends WorkbenchView{
 		}
 		return properties;
 	}
+	
 	/**
 	 * Returns ViewProperty with propertyName
-	 * @param propertyName
-	 * @return
+	 * 
+	 * @param propertyName Property name
+	 * @return ViewProperty with propertyName
 	 */
 	public PropertiesViewProperty getProperty(String... propertyNamePath){
 		open();
 		return new PropertiesViewProperty(new DefaultTreeItem(propertyNamePath));
 	}
+	
+	/**
+	 * Sets whether to show categories.
+	 * 
+	 * @param toggle Indicates whether to show categories
+	 */
 	public void toggleShowCategories(boolean toggle){
 		open();
 		new DefaultToolItem("Show Categories")
 			.toggle(toggle);
 	}
+
+
+	/**
+	 * Sets whether to show advanced properties.
+	 * 
+	 * @param toggle Indicates whether to show advanced properties
+	 */
 	public void toggleShowAdvancedProperties(boolean toggle){
 		open();
 		new DefaultToolItem("Show Advanced Properties")

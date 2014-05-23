@@ -28,15 +28,26 @@ public class TaskRepositoriesView extends WorkbenchView {
 	
 	public static final String TITLE = "Task Repositories";
 	
+	/**
+	 * Construct thw view with {@value #TITLE}.
+	 */
 	public TaskRepositoriesView() {
 		super(TITLE);
 	}
 
+	/**
+	 * Saves the task.
+	 */
 	public void saveTask () {
 		new ShellMenu("File", "Save").select(); 
 	}
 	
-	/* */
+	/**
+	 * Creates new local task.
+	 * 
+	 * @param repoItems
+	 * @param repoList
+	 */
 	public void createLocalTask (List<TreeItem> repoItems, ArrayList<String> repoList) {
 		
 		int elementIndex = repoList.indexOf("Local");
@@ -56,22 +67,38 @@ public class TaskRepositoriesView extends WorkbenchView {
 		new PushButton("Finish").click();	
 	}
 	
+	/**
+	 * Activates a task with a given name.
+	 * 
+	 * @param taskName Task name
+	 */
 	public void activateTask (String taskName) {
 		new ShellMenu("Navigate", "Activate Task...").select(); 
 		new DefaultText().setText(taskName);
 		new PushButton("OK").click();	
 	}
 	
+	/**
+	 * Opens a task with a given name.
+	 * 
+	 * @param taskName Task name
+	 */
 	public void openTask (String taskName) { 
 		new ShellMenu("Navigate", "Open Task...").select();    
 		new DefaultText().setText(taskName);
 		new PushButton("OK").click();	
 	}
 	
+	/**
+	 * Deactivates the task.
+	 */
 	public void deactivateTask () {
 		new ShellMenu("Navigate", "Deactivate Task").select();  
 	}
 	
+	/**
+	 * Deletes the task.
+	 */
 	public void deleteTask () {
 		new ShellMenu("Edit", "Delete").select();  
 		new PushButton("Yes").click();	

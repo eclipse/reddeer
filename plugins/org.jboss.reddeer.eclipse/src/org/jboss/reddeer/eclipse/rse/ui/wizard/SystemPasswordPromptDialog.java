@@ -14,6 +14,9 @@ public class SystemPasswordPromptDialog {
 	
 	private Shell shell;
 	
+	/**
+	 * Constructs a dialog with {@value #TITLE}.
+	 */
 	public SystemPasswordPromptDialog() {
 		shell = new DefaultShell(TITLE);
 	}

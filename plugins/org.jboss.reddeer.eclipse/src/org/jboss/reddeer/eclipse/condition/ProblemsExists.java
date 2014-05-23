@@ -27,6 +27,11 @@ public class ProblemsExists implements WaitCondition {
 		this(false);
 	}
 
+	/**
+	 * Construct the condition with a given problem type checking.
+	 * 
+	 * @param bothProblemTypes If true is specified then there must be at least one error and at least one warning.
+	 */
 	public ProblemsExists(boolean bothProblemTypes) {
 		if (bothProblemTypes) {
 			problemType = ProblemType.BOTH;
@@ -35,6 +40,11 @@ public class ProblemsExists implements WaitCondition {
 		}
 	}
 
+	/**
+	 * Construct the condition with a given problem type checking.
+	 * 
+	 * @param problemType Problem type
+	 */
 	public ProblemsExists(ProblemType problemType) {
 		this.problemType = problemType;
 	}

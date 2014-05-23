@@ -12,6 +12,9 @@ import org.jboss.reddeer.workbench.impl.view.WorkbenchView;
  */
 public class JUnitView extends WorkbenchView {
 
+	/**
+	 * Construct the view with JUnit.
+	 */
 	public JUnitView() {
 		super("JUnit");
 	}

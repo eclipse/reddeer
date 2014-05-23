@@ -5,6 +5,9 @@ import org.jboss.reddeer.eclipse.ui.browser.BrowserEditor;
 import org.jboss.reddeer.eclipse.ui.browser.BrowserView;
 import org.jboss.reddeer.swt.condition.WaitCondition;
 
+/**
+ * Wait condition which returns true if a given browser has the specified URL.
+ */
 public class BrowserHasURL implements WaitCondition {
 
 	private BrowserView browser;
@@ -12,21 +15,45 @@ public class BrowserHasURL implements WaitCondition {
 	private String expectedURL;
 	private Matcher<String> expectedURLMatcher;
 	
+	/**
+	 * Construct a condition with a given browser view and expected URL.
+	 * 
+	 * @param browser Browser view
+	 * @param expectedURL Expected URL
+	 */
 	public BrowserHasURL(BrowserView browser,String expectedURL){
 		this.browser = browser;
 		this.expectedURL = expectedURL;
 	}
 	
+	/**
+	 * Construct a condition with a given browser view and URL matcher.
+	 * 
+	 * @param browser Browser view
+	 * @param expectedURLMatcher URL matcher
+	 */
 	public BrowserHasURL(BrowserView browser,Matcher<String> expectedURLMatcher){
 		this.browser = browser;
 		this.expectedURLMatcher = expectedURLMatcher;
 	}
 	
+	/**
+	 * Construct a condition with a given browser editor and expected URL.
+	 * 
+	 * @param browser Browser editor
+	 * @param expectedURL Expected URL
+	 */
 	public BrowserHasURL(BrowserEditor browser,String expectedURL){
 		this.browserEditor = browser;
 		this.expectedURL = expectedURL;
 	}
 	
+	/**
+	 * Construct a condition with a given browser editor and URL matcher.
+	 * 
+	 * @param browser Browser editor
+	 * @param expectedURL URL matcher
+	 */
 	public BrowserHasURL(BrowserEditor browser,Matcher<String> expectedURLMatcher){
 		this.browserEditor = browser;
 		this.expectedURLMatcher = expectedURLMatcher;

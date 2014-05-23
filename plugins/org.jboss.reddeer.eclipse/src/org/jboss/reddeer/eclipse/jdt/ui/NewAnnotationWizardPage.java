@@ -5,44 +5,99 @@ import org.jboss.reddeer.swt.impl.button.CheckBox;
 import org.jboss.reddeer.swt.impl.button.RadioButton;
 import org.jboss.reddeer.swt.impl.text.LabeledText;
 
+/**
+ * Wizard page for creating an annotation.
+ */
 public class NewAnnotationWizardPage extends WizardPage {
-	
+
+	/**
+	 * Sets a given package name.
+	 * 
+	 * @param packageName
+	 *            Package name
+	 */
 	public void setPackage(String packageName) {
 		new LabeledText("Package:").setText(packageName);
 	}
-	
-	public void setSourceFolder(String sourceFolder){
+
+	/**
+	 * Sets a given source folder.
+	 * 
+	 * @param sourceFolder
+	 *            Source folder
+	 */
+	public void setSourceFolder(String sourceFolder) {
 		new LabeledText("Source folder:").setText(sourceFolder);
 	}
-	
-	public void setEnclosingType(boolean enclosing){
+
+	/**
+	 * Sets a given enclosing type.
+	 * 
+	 * @param enclosing
+	 *            Eclosing type
+	 */
+	public void setEnclosingType(boolean enclosing) {
 		new CheckBox("Enclosing type:").toggle(enclosing);
 	}
-	
-	public void setName(String name){
+
+	/**
+	 * Sets a given name.
+	 * 
+	 * @param name
+	 *            Name
+	 */
+	public void setName(String name) {
 		new LabeledText("Name:").setText(name);
 	}
-	
-	public void setGenerateComments(boolean generate){
+
+	/**
+	 * Sets generating comments.
+	 * 
+	 * @param generate
+	 *            Indicates whether to generate comments
+	 */
+	public void setGenerateComments(boolean generate) {
 		new CheckBox("Generate comments").toggle(generate);
 	}
-	
-	public void setPublic(boolean isPublic){
+
+	/**
+	 * Sets public visibility
+	 * 
+	 * @param isPublic
+	 *            Is public?
+	 */
+	public void setPublic(boolean isPublic) {
 		new RadioButton("public").toggle(isPublic);
 	}
-	
-	public void setDefault(boolean isDefault){
+
+	/**
+	 * Sets default visibility.
+	 * 
+	 * @param isDefault
+	 *            Is default?
+	 */
+	public void setDefault(boolean isDefault) {
 		new RadioButton("default").toggle(isDefault);
 	}
-	
-	public void setPrivate(boolean isPrivate){
+
+	/**
+	 * Sets private visibility.
+	 * 
+	 * @param isPrivate
+	 *            Is private?
+	 */
+	public void setPrivate(boolean isPrivate) {
 		new RadioButton("private").toggle(isPrivate);
 	}
 
-	public void setProtected(boolean isProtected){
+	/**
+	 * Sets protected visibility.
+	 * 
+	 * @param isProtected
+	 *            Is protected?
+	 */
+	public void setProtected(boolean isProtected) {
 		new RadioButton("protected").toggle(isProtected);
 	}
-	
-	
 
 }

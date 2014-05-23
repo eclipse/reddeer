@@ -22,7 +22,8 @@ public class QuickFixDialog extends DefaultShell {
 	public static final String TITLE = "Quick Fix";
 	
 	/**
-	 * Open QuickFix dialog and set focus on it
+	 * Constructs the view with {@value #TITLE}.
+	 * Opens QuickFix dialog and set focus on it.
 	 */
 	public QuickFixDialog() {
 		super(TITLE);

@@ -20,6 +20,9 @@ public class MavenPreferencePage extends WorkbenchPreferencePage {
 	private static final String UPDATE_MAVEN_PROJECTS_ON_STARTUP="Update Maven projects on startup";
 	private static final String HIDE_FOLDERS_OF_PHYSICALLY_NESTED_MODULES="Hide folders of physically nested modules (experimental)";
 
+	/**
+	 * Constructs the preference page with "Maven".
+	 */
 	public MavenPreferencePage() {
 		super("Maven");
 	}

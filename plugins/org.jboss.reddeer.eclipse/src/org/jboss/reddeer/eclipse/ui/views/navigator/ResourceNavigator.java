@@ -11,6 +11,10 @@ import org.jboss.reddeer.eclipse.jdt.ui.AbstractExplorer;
  *
  */
 public class ResourceNavigator extends AbstractExplorer {
+	
+	/**
+	 * Construct the explorer with "Navigator". 
+	 */
 	public ResourceNavigator() {
 		super("Navigator");
 	}
