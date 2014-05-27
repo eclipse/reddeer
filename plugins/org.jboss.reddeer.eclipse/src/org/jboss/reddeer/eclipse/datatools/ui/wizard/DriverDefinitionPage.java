@@ -3,12 +3,20 @@ package org.jboss.reddeer.eclipse.datatools.ui.wizard;
 import org.jboss.reddeer.eclipse.jface.wizard.WizardPage;
 import org.jboss.reddeer.swt.api.Tree;
 import org.jboss.reddeer.swt.api.TreeItem;
+import org.jboss.reddeer.swt.condition.ShellWithTextIsActive;
+import org.jboss.reddeer.swt.impl.button.OkButton;
 import org.jboss.reddeer.swt.impl.button.PushButton;
+import org.jboss.reddeer.swt.impl.button.RadioButton;
 import org.jboss.reddeer.swt.impl.list.DefaultList;
+import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.jboss.reddeer.swt.impl.tab.DefaultTabItem;
+import org.jboss.reddeer.swt.impl.table.DefaultTableItem;
+import org.jboss.reddeer.swt.impl.text.DefaultText;
 import org.jboss.reddeer.swt.impl.text.LabeledText;
 import org.jboss.reddeer.swt.impl.tree.DefaultTree;
+import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
 import org.jboss.reddeer.swt.util.Display;
+import org.jboss.reddeer.swt.wait.WaitUntil;
 
 /**
  * A wizard page in a driver definition wizard.
@@ -59,18 +67,20 @@ public class DriverDefinitionPage extends WizardPage {
 		}
 	}
 
+	/**
+	 * Sets driver class string into Properties dialog 
+	 * @param driverClass given driver class string
+	 */
 	public void setDriverClass(String driverClass) {
-		// selectTab(TAB_PROPERTIES);
-		// Tree tree = new ShellTree();
-		// TreeItem root = tree.getItems().get(0);
-		// for (TreeItem item : root.getItems()) {
-		// if (item.getText().equals(LABEL_DRIVER_CLASS)) {
-		// item.doubleClick();
-		// new DefaultText(0).setText(driverClass);
-		// }
-		// }
-		throw new UnsupportedOperationException();
-
+		selectTab(TAB_PROPERTIES);
+		new DefaultTreeItem("General","Driver Class").doubleClick();
+		new PushButton("...").click();
+		String dlgTitle = "Available Classes from Jar List";
+		new WaitUntil(new ShellWithTextIsActive(dlgTitle));
+		new DefaultShell(dlgTitle);
+		new RadioButton(0).click();
+		new DefaultText("").setText(driverClass);
+		new OkButton().click();		
 	}
 
 	/**
