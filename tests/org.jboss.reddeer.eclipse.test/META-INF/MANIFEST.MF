@@ -21,7 +21,8 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.ui.browser,
  org.eclipse.mylyn.tasks.ui,
  org.jboss.reddeer.requirements;bundle-version="[0.6,0.7)",
- org.jboss.reddeer.junit.extension;bundle-version="[0.6,0.7)"
+ org.jboss.reddeer.junit.extension;bundle-version="[0.6,0.7)",
+ org.eclipse.datatools.connectivity.dbdefinition.genericJDBC;bundle-version="1.0.2"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Import-Package: org.hamcrest.core

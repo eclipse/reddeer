@@ -26,6 +26,7 @@ public class ConnectionProfileWizard extends NewWizardDialog {
 		wizardMap = new HashMap<String, ConnectionProfileDatabasePage>();
 		wizardMap.put("Oracle", new ConnectionProfileOraclePage());
 		wizardMap.put("SQL Server", new ConnectionProfileSQLServerPage());
+		wizardMap.put("Generic JDBC", new ConnectionProfileGenericPage());
 	}
 
 	/**
@@ -48,6 +49,7 @@ public class ConnectionProfileWizard extends NewWizardDialog {
 		dbPage.setPort(dbProfile.getPort());
 		dbPage.setUsername(dbProfile.getUsername());
 		dbPage.setPassword(dbProfile.getPassword());
+		
 
 		finish();
 	}
