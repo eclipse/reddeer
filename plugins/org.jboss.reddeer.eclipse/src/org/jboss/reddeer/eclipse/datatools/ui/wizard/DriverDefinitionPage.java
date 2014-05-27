@@ -101,7 +101,12 @@ public class DriverDefinitionPage extends WizardPage {
 	 * Remove all listed libraries.
 	 */
 	public void clearAllDriverLibraries() {
-		new PushButton(BUTTON_CLEAR_ALL).click();
+
+		if (new DefaultList().getListItems().length > 0) {			
+			new PushButton(BUTTON_CLEAR_ALL).click();
+		} else {
+			log.info("No drivers to clean, skipped");
+		}			
 	}
 
 	/**
