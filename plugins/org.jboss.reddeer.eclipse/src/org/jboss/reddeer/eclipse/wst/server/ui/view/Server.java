@@ -177,7 +177,7 @@ public class Server {
 		ServerState state = getLabel().getState();
 
 		new ContextMenu("Delete").select();	
-		new WaitUntil(new ShellWithTextIsActive("Delete Server"),TimePeriod.NORMAL);
+		new DefaultShell("Delete Server");
 		if (!ServerState.STOPPED.equals(state) && !ServerState.NONE.equals(state)){
 			new CheckBox().toggle(stopFirst);
 		}
