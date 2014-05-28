@@ -93,7 +93,6 @@ public class DriverDefinitionPage extends WizardPage {
 		selectTab(TAB_JAR_LIST);
 		clearAllDriverLibraries();
 		addItem(driverLocation);
-		addItem(driverLocation);
 		removeDriverLibrary(driverLocation);
 	}
 
