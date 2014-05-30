@@ -51,7 +51,7 @@ public class DatabaseRequirement implements Requirement<Database>, CustomConfigu
 	@Override
 	public boolean canFulfill() {
 		log.trace("Database requirement canFullfill performed");
-		log.debug("JDBC:" + configuration.getJdbc());
+		log.debug("JDBC:" + configuration.getJdbcString());
 		log.debug("Requirement name:" + database.name());
 		return true;
 	}

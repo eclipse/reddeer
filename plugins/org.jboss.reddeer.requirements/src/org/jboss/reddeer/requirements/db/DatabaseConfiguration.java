@@ -18,10 +18,47 @@ public class DatabaseConfiguration {
 	private String driverPath;
 	private String driverClass;
 	private String profileName;
-	private String jdbc;	
+	private String jdbcString;
+	private String databaseName;
+	private String portNumber;
 	private String username;
 	private String password;	
 	
+	
+	/**
+	 * Gets database Name
+	 * @return database name
+	 */
+	public String getDatabaseName() {
+		return databaseName;
+	}
+
+	/**
+	 * Sets database name
+	 * @param databaseName database name
+	 */
+	@XmlElement(namespace="http://www.jboss.org/NS/db-schema")
+	public void setDatabaseName(String databaseName) {
+		this.databaseName = databaseName;
+	}
+
+	/**
+	 * Gets database port number
+	 * @return database port number
+	 */
+	public String getPortNumber() {
+		return portNumber;
+	}
+
+	/**
+	 * Sets database port number
+	 * @param portNumber given port number
+	 */
+	@XmlElement(namespace="http://www.jboss.org/NS/db-schema")
+	public void setPortNumber(String portNumber) {
+		this.portNumber = portNumber;
+	}
+
 	/**
 	 * Gets database driver profile name
 	 * @return database driver profile name
@@ -163,8 +200,8 @@ public class DatabaseConfiguration {
 	 * Database JDBC string
 	 * @return Database JDBC string
 	 */
-	public String getJdbc() {
-		return jdbc;
+	public String getJdbcString() {
+		return jdbcString;
 	}
 	
 	/**
@@ -172,8 +209,8 @@ public class DatabaseConfiguration {
 	 * @param jdbc JDBC string
 	 */
 	@XmlElement(namespace="http://www.jboss.org/NS/db-schema")
-	public void setJdbc(String jdbc) {
-		this.jdbc = jdbc;
+	public void setJdbcString(String jdbc) {
+		this.jdbcString = jdbc;
 	}
 	
 	/**

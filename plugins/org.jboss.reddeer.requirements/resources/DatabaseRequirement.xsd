@@ -20,26 +20,30 @@
 	<xs:complexType name="databaseRequirementType">
 		<xs:complexContent>
 			<xs:extension base="rd:abstractRequirementType">
-				<xs:sequence>
+				<xs:all>
 					<xs:element name="driverName" type="xs:string"
-						minOccurs="1" maxOccurs="1" />
+						minOccurs="0" maxOccurs="1" />
 					<xs:element name="driverType" type="xs:string"
-						minOccurs="1" maxOccurs="1" />
+						minOccurs="0" maxOccurs="1" />
 					<xs:element name="driverTypeVersion" type="xs:string"
-						minOccurs="1" maxOccurs="1" />
+						minOccurs="0" maxOccurs="1" />
 					<xs:element name="driverPath" type="xs:string"
-						minOccurs="1" maxOccurs="1" />
+						minOccurs="0" maxOccurs="1" />
 					<xs:element name="driverClass" type="xs:string"
-						minOccurs="1" maxOccurs="1" />
+						minOccurs="0" maxOccurs="1" />
+					<xs:element name="portNumber" type="xs:string"
+						minOccurs="0" maxOccurs="1" />						
 					<xs:element name="profileName" type="xs:string"
-						minOccurs="1" maxOccurs="1" />
+						minOccurs="0" maxOccurs="1" />
+					<xs:element name="databaseName" type="xs:string"
+						minOccurs="0" maxOccurs="1" />						
 					<xs:element name="jdbcString" type="xs:string"
-						minOccurs="1" maxOccurs="1" />
-					<xs:element name="username" type="xs:string" minOccurs="1"
+						minOccurs="0" maxOccurs="1" />
+					<xs:element name="username" type="xs:string" minOccurs="0"
 						maxOccurs="1" />
-					<xs:element name="password" type="xs:string" minOccurs="1"
+					<xs:element name="password" type="xs:string" minOccurs="0"
 						maxOccurs="1" />
-				</xs:sequence>
+				</xs:all>
 			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>
