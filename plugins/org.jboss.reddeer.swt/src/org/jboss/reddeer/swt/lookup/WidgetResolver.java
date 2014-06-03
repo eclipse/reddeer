@@ -74,7 +74,7 @@ public class WidgetResolver  {
 	public Widget getParent(Widget w) {
 		if (isResolvable(w)) {
 			if (w instanceof ExpandBar) {
-				return ((ExpandItem) w).getParent();
+				return ((ExpandBar) w).getParent();
 			}
 			if (w instanceof ExpandItem) {
 				return ((ExpandItem) w).getParent();
