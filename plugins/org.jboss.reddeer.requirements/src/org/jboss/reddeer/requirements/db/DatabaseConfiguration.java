@@ -174,6 +174,7 @@ public class DatabaseConfiguration {
 	 * Sets driver file path 
 	 * @param driverPath drive filepath
 	 */
+	@XmlElement(namespace="http://www.jboss.org/NS/db-schema")
 	public void setDriverPath(String driverPath) {
 		this.driverPath = driverPath;
 	}
@@ -191,6 +192,7 @@ public class DatabaseConfiguration {
 	 * Sets database Driver Class
 	 * @param driverClass database driver class
 	 */
+	@XmlElement(namespace="http://www.jboss.org/NS/db-schema")
 	public void setDriverClass(String driverClass) {
 		this.driverClass = driverClass;
 	}
