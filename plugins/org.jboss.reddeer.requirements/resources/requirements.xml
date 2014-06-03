@@ -23,6 +23,8 @@
             <db:driverClass>org.h2.Driver</db:driverClass>
             <db:profileName>dbProfile</db:profileName>
             <db:jdbcString>jdbc:h2:db://localhost/sakila</db:jdbcString>
+            <db:databaseName></db:databaseName>
+            <db:portNumber></db:portNumber>
             <db:username>sa</db:username>
             <db:password></db:password>
         </db:database-requirement>

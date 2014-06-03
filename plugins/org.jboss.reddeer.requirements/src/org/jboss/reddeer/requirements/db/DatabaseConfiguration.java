@@ -14,7 +14,7 @@ public class DatabaseConfiguration {
 
 	private String driverName;
     private String driverType;
-    private String driverVersion; 
+    private String driverTypeVersion; 
 	private String driverPath;
 	private String driverClass;
 	private String profileName;
@@ -97,8 +97,8 @@ public class DatabaseConfiguration {
 	 * Gets database driver profile version
 	 * @return database driver profile version 
 	 */
-	public String getDriverVersion() {
-		return driverVersion;
+	public String getDriverTypeVersion() {
+		return driverTypeVersion;
 	}
 
 	/**
@@ -106,8 +106,8 @@ public class DatabaseConfiguration {
 	 * @param database driver profile version
 	 */
 	@XmlElement(namespace="http://www.jboss.org/NS/db-schema")
-	public void setDriverVersion(String driverVersion) {
-		this.driverVersion = driverVersion;
+	public void setDriverTypeVersion(String driverVersion) {
+		this.driverTypeVersion = driverVersion;
 	}
 
 	/**
@@ -149,7 +149,7 @@ public class DatabaseConfiguration {
 	 * @return driver type version
 	 */
 	public String getVersion() {
-		return driverVersion;
+		return driverTypeVersion;
 	}
 
 	
@@ -159,7 +159,7 @@ public class DatabaseConfiguration {
 	 */
 	@XmlElement(namespace="http://www.jboss.org/NS/db-schema")
 	public void setVersion(String version) {
-		this.driverVersion = version;
+		this.driverTypeVersion = version;
 	}
 
 	/**
