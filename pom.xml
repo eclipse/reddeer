@@ -14,6 +14,7 @@
 		<eclipse-target-site>http://download.eclipse.org/releases/luna</eclipse-target-site>
 		<swtbot-update-site>http://download.eclipse.org/technology/swtbot/releases/2.2.1</swtbot-update-site>
 		<platformSystemProperties></platformSystemProperties>
+		<customArgLine></customArgLine>
 		<logDebug>true</logDebug>
 		<pauseFailedTest>false</pauseFailedTest>
 		<recordScreenCast>false</recordScreenCast>
@@ -99,7 +100,7 @@
 					<useUIHarness>true</useUIHarness>
 					<useUIThread>false</useUIThread>
 					<!-- THE FOLLOWING LINE MUST NOT BE BROKEN BY AUTOFORMATTING -->
-					<argLine>-DlogDebug=${log.debug} -DpauseFailedTest=${pauseFailedTest} -DrecordScreenCast=${recordScreenCast} -DrelativeScreenshotDirectory=${relativeScreenshotDirectory} ${platformSystemProperties} -XX:MaxPermSize=512m</argLine>
+					<argLine>-DlogDebug=${log.debug} -DpauseFailedTest=${pauseFailedTest} -DrecordScreenCast=${recordScreenCast} -DrelativeScreenshotDirectory=${relativeScreenshotDirectory} ${platformSystemProperties} ${customArgLine} -XX:MaxPermSize=512m -Xmx512m</argLine>
 					<product>org.eclipse.platform.ide</product>
 					<application>org.eclipse.ui.ide.workbench</application>
 					<dependencies>
