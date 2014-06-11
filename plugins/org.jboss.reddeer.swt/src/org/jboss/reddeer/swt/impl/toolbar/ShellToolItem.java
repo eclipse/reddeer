@@ -5,7 +5,7 @@ import org.eclipse.swt.widgets.ToolItem;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.swt.exception.Thrower;
 import org.jboss.reddeer.swt.lookup.ToolBarLookup;
-import org.jboss.reddeer.swt.matcher.TextMatcher;
+import org.jboss.reddeer.swt.matcher.WithTextMatcher;
 
 /**
  * ShellToolItem implementation. It expects shell where toolbar should be found on
@@ -35,7 +35,7 @@ public class ShellToolItem extends AbstractToolItem {
 	 * @param tooltip
 	 */
 	public ShellToolItem(String tooltip) {
-		this(new TextMatcher(tooltip), 0);
+		this(new WithTextMatcher(tooltip), 0);
 	}
 	
 	/**

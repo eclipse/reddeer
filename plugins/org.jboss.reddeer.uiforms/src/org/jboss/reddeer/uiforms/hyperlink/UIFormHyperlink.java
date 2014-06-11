@@ -2,7 +2,7 @@ package org.jboss.reddeer.uiforms.hyperlink;
 
 import org.eclipse.ui.forms.widgets.Hyperlink;
 import org.jboss.reddeer.swt.handler.WidgetHandler;
-import org.jboss.reddeer.swt.matcher.WithMnemonicMatcher;
+import org.jboss.reddeer.swt.matcher.WithMnemonicTextMatcher;
 import org.jboss.reddeer.swt.reference.ReferencedComposite;
 import org.jboss.reddeer.uiforms.handler.HyperLinkHandler;
 import org.jboss.reddeer.uiforms.impl.hyperlink.DefaultHyperlink;
@@ -75,7 +75,8 @@ public class UIFormHyperlink {
 	 */
 	public UIFormHyperlink(int index, String text) {
 		if (text != null && !text.isEmpty()) {
-			hyperLink = HyperlinkLookup.getInstance().getHyperlink(null, index, new WithMnemonicMatcher(text));
+			hyperLink = HyperlinkLookup.getInstance().getHyperlink(null, index,
+					new WithMnemonicTextMatcher(text));
 		} else {
 			hyperLink = HyperlinkLookup.getInstance().getHyperlink(null, index);
 		}
@@ -91,7 +92,9 @@ public class UIFormHyperlink {
 	 */
 	public UIFormHyperlink(ReferencedComposite referencedComposite, int index, String text) {
 		if (text != null && !text.isEmpty()) {
-			hyperLink = HyperlinkLookup.getInstance().getHyperlink(referencedComposite, index, new WithMnemonicMatcher(text));
+			hyperLink = HyperlinkLookup.getInstance().getHyperlink(
+					referencedComposite, index,
+					new WithMnemonicTextMatcher(text));
 		} else {
 			hyperLink = HyperlinkLookup.getInstance().getHyperlink(referencedComposite, index);
 		}
