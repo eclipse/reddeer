@@ -4,7 +4,7 @@ package org.jboss.reddeer.uiforms.section;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.ui.forms.widgets.Section;
 import org.jboss.reddeer.swt.handler.WidgetHandler;
-import org.jboss.reddeer.swt.matcher.WithMnemonicMatcher;
+import org.jboss.reddeer.swt.matcher.WithMnemonicTextMatcher;
 import org.jboss.reddeer.swt.reference.ReferencedComposite;
 import org.jboss.reddeer.uiforms.handler.SectionHandler;
 import org.jboss.reddeer.uiforms.impl.section.DefaultSection;
@@ -76,7 +76,8 @@ public class UIFormSection implements ReferencedComposite {
 	 */
 	public UIFormSection(int index, String text) {
 		if (text != null && !text.isEmpty()) {
-			section = SectionLookup.getInstance().getSection(null, index, new WithMnemonicMatcher(text));
+			section = SectionLookup.getInstance().getSection(null, index,
+					new WithMnemonicTextMatcher(text));
 		}else {
 			section = SectionLookup.getInstance().getSection(null, index);
 		}
@@ -92,7 +93,9 @@ public class UIFormSection implements ReferencedComposite {
 	 */
 	public UIFormSection(ReferencedComposite referencedComposite, int index, String text) {
 		if (text != null && !text.isEmpty()) {
-			section = SectionLookup.getInstance().getSection(referencedComposite, index, new WithMnemonicMatcher(text));
+			section = SectionLookup.getInstance().getSection(
+					referencedComposite, index,
+					new WithMnemonicTextMatcher(text));
 		}else {
 			section = SectionLookup.getInstance().getSection(referencedComposite, index);
 		}
