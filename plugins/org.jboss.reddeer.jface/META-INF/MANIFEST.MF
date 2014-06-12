@@ -14,5 +14,6 @@ Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: org.jboss.reddeer.eclipse.jface.exception,
  org.jboss.reddeer.eclipse.jface.preference,
- org.jboss.reddeer.eclipse.jface.wizard,
- org.jboss.reddeer.eclipse.jface.text.contentassist
+ org.jboss.reddeer.eclipse.jface.text.contentassist,
+ org.jboss.reddeer.eclipse.jface.viewer.handler,
+ org.jboss.reddeer.eclipse.jface.wizard

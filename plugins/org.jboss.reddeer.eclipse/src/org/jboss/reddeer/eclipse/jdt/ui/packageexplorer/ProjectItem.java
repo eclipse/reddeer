@@ -3,6 +3,7 @@ package org.jboss.reddeer.eclipse.jdt.ui.packageexplorer;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.jboss.reddeer.eclipse.jface.viewer.handler.TreeViewerHandler;
 import org.jboss.reddeer.junit.logging.Logger;
 import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.swt.condition.JobIsRunning;
@@ -27,7 +28,7 @@ public class ProjectItem {
 	private String[] path;
 
 	/**
-	 * Constructs a project item with a given tree item, project and path.
+	 * Construct a project item with a given tree item, project and path.
 	 * 
 	 * @param treeItem Tree item
 	 * @param project Project
@@ -40,7 +41,7 @@ public class ProjectItem {
 	}
 
 	/**
-	 * Opens the project item.
+	 * Open the project item.
 	 */
 	public void open() {
 		select();
@@ -48,7 +49,7 @@ public class ProjectItem {
 	}
 
 	/**
-	 * Deletes the project. The project is refreshed before deleting.
+	 * Delete the project. The project is refreshed before deleting.
 	 */
 	public void delete() {
 		refresh();
@@ -61,20 +62,14 @@ public class ProjectItem {
 	}
 
 	/**
-	 * Selects the project.
+	 * Select the project.
 	 */
 	public void select() {
-		TreeItem item = project.getTreeItem();
-		int index = 0;
-		while (index < path.length){
-			item = item.getItem(path[index]);
-			index++;
-		}
-		item.select();
+		project.getProjectItem(path).treeItem.select();
 	}
 	
 	/**
-	 * Refreshes the project.
+	 * Refresh the project.
 	 */
 	public void refresh() {
 		select();
@@ -83,7 +78,7 @@ public class ProjectItem {
 	}
 	
 	/**
-	 * Returns whether the project is selected.
+	 * Return whether the project is selected.
 	 * 
 	 * @return whether the project is selected
 	 */
@@ -92,20 +87,21 @@ public class ProjectItem {
 	}
 	
 	/**
-	 * Returns a project's child with a given text.
+	 * Return a project's child with a given text without decorators.
 	 * 
 	 * @param text Child's text
 	 * @return Child
 	 */
 	public ProjectItem getChild(String text) {
+		TreeViewerHandler handler = TreeViewerHandler.getInstance();
 		String[] childPath = new String[path.length + 1];
 		System.arraycopy(path, 0, childPath, 0, path.length);
 		childPath[childPath.length - 1] = text;
-		return new ProjectItem(treeItem.getItem(text), project, childPath);
+		return new ProjectItem(handler.getTreeItem(treeItem, text), project, childPath);
 	}
 	
 	/**
-	 * Returns a text of the project item.
+	 * Return a whole text of the project item.
 	 * 
 	 * @return Text
 	 */
@@ -114,7 +110,24 @@ public class ProjectItem {
 	}
 	
 	/**
-	 * Returns a project of the project item.
+	 * Return project item name (label) without decorators.
+	 * @return
+	 */
+	public String getName() {
+		return treeItem.getNonStyledText();
+	}
+	
+	/**
+	 * Return decorators for this project item (e.g. > sign for a versioning system
+	 * changes tracking.
+	 * @return
+	 */
+	public String[] getDecorators() {
+		return treeItem.getStyledTexts();
+	}
+	
+	/**
+	 * Return a project of the project item.
 	 * 
 	 * @return Project of the project item
 	 */
@@ -123,14 +136,14 @@ public class ProjectItem {
 	}
 	
 	/**
-	 * Returns list of children of the project item.
+	 * Return list of children of the project item.
 	 * 
 	 * @return List of children of the project item
 	 */
 	public List<ProjectItem> getChildren() {
 		List<ProjectItem> childrens = new ArrayList<ProjectItem>();
-		for(TreeItem ti : treeItem.getItems()) {
-			childrens.add(getChild(ti.getText()));
+		for(TreeItem item : treeItem.getItems()) {
+			childrens.add(getChild(item.getNonStyledText()));
 		}
 		return childrens;
 	}
