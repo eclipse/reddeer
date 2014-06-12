@@ -6,6 +6,8 @@ import org.hamcrest.BaseMatcher;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.junit.logging.Logger;
+import org.jboss.reddeer.eclipse.jface.exception.JFaceLayerException;
+import org.jboss.reddeer.eclipse.jface.viewer.handler.TreeViewerHandler;
 import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.swt.condition.JobIsRunning;
 import org.jboss.reddeer.swt.condition.ShellWithTextIsActive;
@@ -31,139 +33,153 @@ import org.jboss.reddeer.swt.wait.WaitWhile;
  */
 public class Project {
 	protected final Logger log = Logger.getLogger(Project.class);
-	
+
 	private TreeItem treeItem;
-	
-	private String name;
+
 	/**
-	 * Creates project represented by treeItem
+	 * Create project represented by treeItem
+	 * 
 	 * @param treeItem
 	 */
 	public Project(TreeItem treeItem) {
 		this.treeItem = treeItem;
-		name = parseName(this.treeItem.getText());
 	}
+
 	/**
-	 * Deletes project
+	 * Delete project
+	 * 
 	 * @param deleteFromFileSystem
 	 */
 	public void delete(boolean deleteFromFileSystem) {
 		select();
-        log.debug("Delete project " + name + " via Package Explorer");
-        new ContextMenu("Refresh").select();
-        new WaitWhile(new JobIsRunning(), TimePeriod.LONG);
-	    new ContextMenu("Delete").select();
+		log.debug("Delete project " + treeItem.getNonStyledText() + " via Package Explorer");
+		new ContextMenu("Refresh").select();
+		new WaitWhile(new JobIsRunning(), TimePeriod.LONG);
+		new ContextMenu("Delete").select();
 		new DefaultShell("Delete Resources");
 		new CheckBox().toggle(deleteFromFileSystem);
 		DefaultShell shell = new DefaultShell();
 		String deleteShellText = shell.getText();
 		new PushButton("OK").click();
 		try {
-			new WaitWhile(new ShellWithTextIsActive(deleteShellText),TimePeriod.LONG);
-		} catch(WaitTimeoutExpiredException e) {
+			new WaitWhile(new ShellWithTextIsActive(deleteShellText),
+					TimePeriod.LONG);
+		} catch (WaitTimeoutExpiredException e) {
 			new ShellWithButton(deleteShellText, "Continue");
 			new PushButton("Continue").click();
-			new WaitWhile(new ShellWithTextIsActive(deleteShellText),TimePeriod.LONG);
+			new WaitWhile(new ShellWithTextIsActive(deleteShellText),
+					TimePeriod.LONG);
 		}
 		new WaitWhile(new JobIsRunning(), TimePeriod.LONG);
 	}
+
 	/**
-	 * Selects project
+	 * Select project
 	 */
 	public void select() {
 		treeItem.select();
 	}
+
 	/**
-	 * Parses project name and returns project name striped from additional info
-	 * displayed in explorer
-	 * @param label
-	 * @return
-	 */
-	protected String parseName(String label){
-		if (!label.contains("[")){
-			return label.trim();
-		}
-		return treeItem.getText().substring(0, treeItem.getText().indexOf("[")).trim();
-	}
-	/**
-	 * Returns project name 
+	 * Return project name
+	 * 
 	 * @return
 	 */
 	public String getName() {
-		return name;
+		return treeItem.getNonStyledText();
 	}
+
 	/**
-	 * Returns Tree Item representing project
-	 * @return 
+	 * Return decorated parts of project labels. Such parts could be for
+	 * example remote and branch on a git project or tracking decorator ">"
+	 * before project name in a label.
+	 * 
+	 * @return String[] of decorated texts on a whole project label
 	 */
-	public TreeItem getTreeItem (){
+	public String[] getDecoratedParts() {
+		return treeItem.getStyledTexts();
+	}
+
+	/**
+	 * Return Tree Item representing project
+	 * 
+	 * @return encapsulated tree item
+	 */
+	public TreeItem getTreeItem() {
 		return treeItem;
 	}
+
 	/**
-	 * Returns true when project contains item specified by path
-	 * @param path
-	 * @return
+	 * Return true if project contains item specified by path
+	 * 
+	 * @param path to the tree item
+	 * @return true if project contains tree item specified by the path, 
+	 * 	false otherwise
 	 */
 	public boolean containsItem(String... path) {
 		boolean result = false;
 		try {
 			getProjectItem(path);
 			result = true;
-		} catch (SWTLayerException swtle) {
+		} catch (JFaceLayerException jfaceException) {
 			result = false;
 		}
 		return result;
 	}
+
 	/**
-	 * Returns Project Item specified by path 
-	 * @param path
-	 * @return
+	 * Return Project Item specified by path
+	 * 
+	 * @param path to the tree item
+	 * @return tree item specified by the path
 	 */
-	public ProjectItem getProjectItem(String... path){
-		TreeItem item = treeItem;
-		int index = 0;
-		while (index < path.length){
-			item = item.getItem(path[index]);
-			index++;
-		}
-		return new ProjectItem(item, this, path);
+
+	public ProjectItem getProjectItem(String... path) {
+		TreeViewerHandler handler = TreeViewerHandler.getInstance();
+		return new ProjectItem(handler.getTreeItem(treeItem, path), this, path);
 	}
+
 	/**
-	 * Returns true when project is selected 
+	 * Return true when project is selected
+	 * 
 	 * @return
 	 */
-	public boolean isSelected(){
+	public boolean isSelected() {
 		return treeItem.isSelected();
 	}
+
 	/**
-	 * Returns text of Project displayed in explorer
-	 * @return
+	 * Return whole text of Project displayed in explorer (including decorated
+	 * text parts)
+	 * 
+	 * @return whole text (label) on project
 	 */
-	public String getText (){
+	public String getText() {
 		return treeItem.getText();
 	}
-	
+
 	/**
-	 * Returns shell with a given title and containing a button with specified label.
-	 * This is used only when deleting a project.
+	 * Return shell with a given title and containing a button with specified
+	 * label. This is used only when deleting a project.
 	 */
 	private class ShellWithButton extends AbstractShell {
-		
+
 		public ShellWithButton(String title, String buttonLabel) {
 			super(lookForShellWIthButton(title, buttonLabel));
 			setFocus();
-			log.info("Shell with title '" + title 
-					 + "' and button '" + buttonLabel +"' found");
+			log.info("Shell with title '" + title + "' and button '"
+					+ buttonLabel + "' found");
 		}
 
 	}
-	
-	private static Shell lookForShellWIthButton(final String title, final String buttonLabel){
+
+	private static Shell lookForShellWIthButton(final String title,
+			final String buttonLabel) {
 		Matcher<String> titleMatcher = new WithTextMatcher(title);
 		Matcher<String> buttonMatcher = new BaseMatcher<String>() {
 			@Override
 			public boolean matches(Object obj) {
-				if(obj instanceof Control) {
+				if (obj instanceof Control) {
 					final Control control = (Control) obj;
 					ReferencedComposite ref = new ReferencedComposite() {
 						@Override
@@ -183,7 +199,8 @@ public class Project {
 
 			@Override
 			public void describeTo(Description description) {
-				description.appendText("containing button '" + buttonLabel + "'");
+				description.appendText("containing button '" + buttonLabel
+						+ "'");
 			}
 		};
 		@SuppressWarnings("unchecked")
