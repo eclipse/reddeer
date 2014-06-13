@@ -29,6 +29,10 @@ public abstract class AbstractText implements Text {
 		return text;
 	}
 	
+	@Override
+	public String getMessage() {
+		return TextHandler.getInstance().getMessage(w);
+	}
 	
 	@Override
 	public String getToolTipText() {

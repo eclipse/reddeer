@@ -23,6 +23,12 @@ public interface Text extends Widget{
 	String getText();
 	
 	/**
+	 * Gets message of the widget
+	 * @return
+	 */
+	String getMessage();
+	
+	/**
 	 * Get tooltip of the
 	 * @return
 	 */

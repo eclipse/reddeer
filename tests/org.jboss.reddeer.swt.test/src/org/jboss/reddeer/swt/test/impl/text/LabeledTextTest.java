@@ -68,6 +68,9 @@ public class LabeledTextTest extends SWTLayerTestCase {
 
 		Text swtText2 = TextTestUtils.createText(shell, "Test text2");
 		swtText2.setEditable(false);
+		LabelTestUtils.createLabel(shell, "Test label3");
+		Text swtText3 = TextTestUtils.createText(shell, "");
+		swtText3.setMessage("message");
 	}
 	
 	@Test
@@ -86,6 +89,12 @@ public class LabeledTextTest extends SWTLayerTestCase {
 	public void findLabeledTextWithoutIcon(){
 		new DefaultShell(SHELL_TITLE);
 		assertTrue(new LabeledText("Test label1").getText().equals("Test text1"));
+	}
+
+	@Test
+	public void getTextMessage(){
+		new DefaultShell(SHELL_TITLE);
+		assertTrue(new LabeledText("Test label3").getMessage().equals("message"));
 	}
 	
 	@Test

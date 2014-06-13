@@ -54,6 +54,21 @@ public class TextHandler {
 		});
 	}
 	
+	/**
+	 * Retrieves text widget message
+	 * @param w text widget
+	 * @return text widget message
+	 */
+	public String getMessage(final Text w){
+		return Display.syncExec(new ResultRunnable<String>(){
+
+			@Override
+			public String run() {
+				return w.getMessage();
+			}
+		});
+	}
+	
 	public boolean isReadOnly(final Text w){
 		return Display.syncExec(new ResultRunnable<Boolean>() {
 
