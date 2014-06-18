@@ -31,6 +31,8 @@
 						minOccurs="0" maxOccurs="1" />
 					<xs:element name="driverClass" type="xs:string"
 						minOccurs="0" maxOccurs="1" />
+					<xs:element name="driverVendor" type="xs:string"
+						minOccurs="0" maxOccurs="1" />						
 					<xs:element name="portNumber" type="xs:string"
 						minOccurs="0" maxOccurs="1" />						
 					<xs:element name="profileName" type="xs:string"

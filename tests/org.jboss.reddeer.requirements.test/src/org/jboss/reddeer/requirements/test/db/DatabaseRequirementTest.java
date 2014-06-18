@@ -30,14 +30,15 @@ public class DatabaseRequirementTest {
 	@Test
 	public final void testDatabaseConfiguration() {
 		DatabaseConfiguration conf = dbRequirement.getConfiguration();
-		assertEquals(conf.getDriverName(), "My H2 Driver");
-		assertEquals(conf.getDriverTypeVersion(), "1.0");
-		assertEquals(conf.getDriverPath(), "/opt/sakila-db/h2-1.3.161.jar");
-		assertEquals(conf.getDriverClass(), "org.h2.Driver");
-		assertEquals(conf.getProfileName(), "dbProfile");
-		assertEquals(conf.getJdbcString(), "jdbc:h2:db://localhost/sakila");
-		assertEquals(conf.getUsername(), "sa");
-		assertEquals(conf.getPassword(), "");
+		assertEquals("My H2 Driver", conf.getDriverName());
+		assertEquals("1.0", conf.getDriverTypeVersion());
+		assertEquals("/opt/sakila-db/h2-1.3.161.jar", conf.getDriverPath());
+		assertEquals("org.h2.Driver", conf.getDriverClass());
+		assertEquals("Generic JDBC", conf.getDriverVendor());
+		assertEquals("dbProfile", conf.getProfileName());
+		assertEquals("jdbc:h2:db://localhost/sakila", conf.getJdbcString());
+		assertEquals("sa", conf.getUsername());
+		assertEquals("", conf.getPassword());
 	}
 	
 }
