@@ -3,27 +3,27 @@ package org.jboss.reddeer.swt.api;
 import org.jboss.reddeer.swt.widgets.Widget;
 
 /**
- * API for Shell manipulation
+ * API for shell manipulation.
  * 
  * @author Jiri Peterka
  * 
  */
-public interface Shell extends Widget{
+public interface Shell extends Widget {
 
 	/**
-	 * Return frame title of a Shell
+	 * Returns title of the shell.
 	 * 
-	 * @return
+	 * @return title of the shell.
 	 */
 	String getText();
 
 	/**
-	 * Set focus to shell
+	 * Sets focus on the shell.
 	 */
 	void setFocus();
 
 	/**
-	 * Closes shell
+	 * Closes the shell.
 	 */
 	void close();
 	

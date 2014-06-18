@@ -3,20 +3,23 @@ package org.jboss.reddeer.swt.api;
 import org.jboss.reddeer.swt.widgets.Widget;
 
 /**
- * API For Label manipulation
+ * API for label manipulation.
+ * 
  * @author Jiri Peterka
  *
  */
-public interface Label extends Widget{
+public interface Label extends Widget {
 
 	/**
-	 * Returns text of the label
+	 * Returns the text of the label.
+	 * 
 	 * @return text of the label
 	 */
 	String getText();
 
 	/**
-	 * Checks if label is visible
+	 * Checks if label is visible.
+	 * 
 	 * @return true if label is visible, false otherwise
 	 */
 	boolean isVisible();

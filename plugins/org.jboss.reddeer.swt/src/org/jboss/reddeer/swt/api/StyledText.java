@@ -3,70 +3,72 @@ package org.jboss.reddeer.swt.api;
 import org.jboss.reddeer.swt.widgets.Widget;
 
 /**
- * API For StyledText manipulation
+ * API for styled text manipulation.
+ * 
  * @author Jiri Peterka
  *
  */
-public interface StyledText extends Widget{
+public interface StyledText extends Widget {
 
 	/**
+	 * Gets text of the styled text.
 	 * 
-	 * @return text of this StyledText
+	 * @return text of the styled text
 	 */
-	
-	public String getText();
-	
-	/**
-	 * Sets text of this StyledText
-	 */
-	
-	public void setText(String text);
-
-	
-	/**
-	 * 
-	 * @return Tooltip text of this StyledText
-	 */
-	
-	public String getToolTipText();
-	
+	String getText();
 
 	/**
-	 * Insert text into styledtext
-	 * @param line given line 
-	 * @param column given column 
-	 * @param text to insert
-	 */
-	public void insertText(int line, int column, String text);
-	
-	/**
-	 * Returns position of given text in this StyledText.
-	 * This could be helpful when one want to insert text on specific location, determined by some text.
+	 * Sets text of the styled text.
 	 * 
-	 * @param text
-	 * @return returns position of first character of first occurence of given text or -1 when text is not found
+	 * @param text of the styled text to set
 	 */
-	
-	public int getPositionOfText(String text);
-	
+	void setText(String text);
+
 	/**
-	 * Select specified text in styled text
+	 * Gets ToolTip of the styled text.
+	 * 
+	 * @return ToolTip text of the styled text
+	 */
+	String getToolTipText();
+
+	/**
+	 * Inserts text into styled text at specified position.
+	 * 
+	 * @param line of position to insert
+	 * @param column of position to insert
+	 * @param text of the styled text to insert
+	 */
+	void insertText(int line, int column, String text);
+
+	/**
+	 * Returns position of text in the styled text. This is helpful in case 
+	 * of inserting any text close to the position of queried text in the styled text.
+	 * 
+	 * @param text in the styled text
+	 * @return position of first character of specified text or -1 if text was not found
+	 */
+	int getPositionOfText(String text);
+
+	/**
+	 * Selects specified text in styled text.
+	 * 
 	 * @param text to select
 	 */
 	void selectText(String text);
-	
-	
+
 	/**
-	 * Select position
-	 * @param position to select
+	 * Selects start position in the styled text.
+	 * 
+	 * @param position start position to select
 	 */
 	void selectPosition(int position);
-	
+
 	/**
-	 * Get selected text
+	 * Gets selected text.
+	 * 
 	 * @return selected text
 	 */
 	String getSelectionText();
-	
+
 	org.eclipse.swt.custom.StyledText getSWTWidget();
 }

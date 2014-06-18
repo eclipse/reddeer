@@ -2,52 +2,58 @@ package org.jboss.reddeer.swt.api;
 
 import org.jboss.reddeer.swt.widgets.Widget;
 
-
 /** 
- * API for Text manipulation
+ * API for text manipulation.
+ * 
  * @author Jiri Peterka
  *
  */
-public interface Text extends Widget{
+public interface Text extends Widget {
 
 	/**
-	 * Set text to Text widget
-	 * @param text
+	 * Sets text to the text widget.
+	 * 
+	 * @param text to set
 	 */
 	void setText(String text);
 	
 	/**
-	 * Gets text of the widget
-	 * @return
+	 * Gets text of the text widget.
+	 * 
+	 * @return text of the text widget
 	 */
 	String getText();
 	
 	/**
-	 * Gets message of the widget
-	 * @return
+	 * Gets message of the text widget.
+	 * 
+	 * @return message of the text widget
 	 */
 	String getMessage();
 	
 	/**
-	 * Get tooltip of the
-	 * @return
+	 * Gets ToolTip of the text widget.
+	 * 
+	 * @return ToolTip text of the text widget
 	 */
 	String getToolTipText();
 	
 	/**
-	 * Sets focus to text
+	 * Sets focus on the text widget.
 	 */
 	void setFocus();
 	
 	/**
-	 * Types text using @link(org.jboss.reddeer.swt.keyboard.Keyboard)
-	 * @param text
+	 * Types text using @link(org.jboss.reddeer.swt.keyboard.Keyboard).
+	 * 
+	 * @param text to type
 	 */
 	void typeText(String text);
 	
 	/**
-	 * Checks if text is read only
-	 * @return true if text is read only, false otherwise
+	 * Finds out whether the text it read only or not.
+	 * 
+	 * @return true if the text is read only, false otherwise
 	 */
 	boolean isReadOnly();
 	

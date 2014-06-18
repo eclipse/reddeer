@@ -3,10 +3,11 @@ package org.jboss.reddeer.swt.api;
 import org.jboss.reddeer.swt.widgets.Widget;
 
 /**
- * API For CTabFolder manipulation
+ * API for CTab folder manipulation.
+ * 
  * @author Jiri Peterka
  *
  */
-public interface CTabFolder extends Widget{
+public interface CTabFolder extends Widget {
 
 }

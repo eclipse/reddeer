@@ -3,31 +3,42 @@ package org.jboss.reddeer.swt.api;
 import org.jboss.reddeer.swt.widgets.Widget;
 
 /**
- * API for CLabel manipulation
+ * API for CLabel manipulation.
+ * 
  * @author Jiri Peterka
  *
  */
-public interface CLabel extends Widget{
+public interface CLabel extends Widget {
+	
 	/**
-	 * Returns text
-	 * @return
+	 * Returns text of the CLabel.
+	 * 
+	 * @return text of the CLabel
 	 */
 	String getText();
+
 	/**
-	 * Returns tooltip text
-	 * @return
+	 * Returns ToolTip text on the CLabel.
+	 * 
+	 * @return ToolTip text
 	 */
 	String getTooltipText();
+
 	/**
-	 * Returns alignment
-	 * @return
+	 * Returns the horizontal alignment. The alignment style (SWT.LEFT,
+	 * SWT.CENTER or SWT.RIGHT) is returned. Alignment styles are located in
+	 * org.eclipse.swt.SWT.
+	 * 
+	 * @return alignment of CLabel
 	 */
 	int getAlignment();
+
 	/**
-	 * Returns true when CLabel is displaying image 
-	 * @return
+	 * Returns whether CLabel contains image or not.
+	 * 
+	 * @return true if CLabel contains image, false otherwise
 	 */
 	boolean hasImage();
-	
+
 	org.eclipse.swt.custom.CLabel getSWTWidget();
 }

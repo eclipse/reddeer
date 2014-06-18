@@ -5,7 +5,7 @@ import java.util.List;
 import org.jboss.reddeer.swt.widgets.Widget;
 
 /**
- * API For Link manipulation
+ * API for link manipulation.
  * 
  * @author Jiri Peterka, rhopp
  *
@@ -16,45 +16,47 @@ public interface Link extends Widget {
 	 * Returns text of link stripped of &lt;a&gt; and &lt;/a&gt; tags.
 	 * <p/>
 	 * For example "This is a &lt;a&gt;link&lt;/a&gt;" will result in
-	 * "This is a link"
+	 * "This is a link".
 	 * 
-	 * @return
+	 * @return clean text of the link
 	 */
 	String getText();
 
 	/**
-	 * Return array of anchor texts (text between &lt;a&gt; and &lt;/a&gt;)
+	 * Returns array of anchor texts (text between &lt;a&gt; and &lt;/a&gt;).
 	 * <p/>
-	 * For example "This is a &lt;a&gt;link&lt;/a&gt;" will result in "link"
+	 * For example "This is a &lt;a&gt;link&lt;/a&gt;" will result in "link".
 	 * 
 	 * @return list of texts between &lt;a&gt; and &lt;/a&gt;
 	 */
-
 	List<String> getAnchorTexts();
 
 	/**
-	 * Clicks on anchor with text within this link widget
+	 * Clicks on anchor with specified text within the link.
 	 * 
-	 * Link widget can have multiple anchors in them. Example:
+	 * Link widget can have multiple anchors in itself. Example:
 	 * "Link &lt;a&gt;link1&lt;/a&gt; and &lt;A href="test"&gt;link2&lt;A\&gt;"
 	 * <p/>
 	 * 
-	 * link.click(link1) envokes SWT.Selection event with "link1" as event's
+	 * link.click(link1) invokes SWT.Selection event with "link1" as event's
 	 * text.
 	 * <p/>
-	 * link.click(link2) envokes SWT.Selection event with "test" as event's
+	 * link.click(link2) invokes SWT.Selection event with "test" as event's
 	 * text.
 	 * 
+	 * @param text text of anchor to click on
 	 */
 	void click(String text);
 
 	/**
-	 * Clicks on first anchor of this link widget.
+	 * Clicks on first anchor of the link.
 	 */
 	void click();
 
 	/**
-	 * Clicks on the nth anchor of this link widget.
+	 * Clicks on the anchor with the specified index in the link.
+	 * 
+	 * @param index index of anchor
 	 */
 	void click(int index);
 
