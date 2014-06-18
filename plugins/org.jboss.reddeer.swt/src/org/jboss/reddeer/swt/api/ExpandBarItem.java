@@ -5,53 +5,65 @@ import org.jboss.reddeer.swt.wait.TimePeriod;
 import org.jboss.reddeer.swt.widgets.Widget;
 
 /**
- * API For ExpandBarItem manipulation
+ * API for expand bar item manipulation.
+ * 
  * @author Vlado Pakan
  *
  */
-public interface ExpandBarItem extends ReferencedComposite, Widget{
+public interface ExpandBarItem extends ReferencedComposite, Widget {
+	
 	/**
-	 * Returns the text of expand bar item
+	 * Returns the text of the expand bar item.
 	 * 
-	 * @return
+	 * @return text on the expand bar item
 	 */
 	String getText();
-	
+
 	/**
-	 * Returns the tool tip text of expand bar item
+	 * Returns the ToolTip text of expand bar item.
 	 * 
-	 * @return
+	 * @return ToolTip text on the expand bar item.
 	 */
 	String getToolTipText();
+
 	/**
-	 * Expands expand bar
+	 * Expands the expand bar item.
 	 */
 	void expand();
+
 	/**
-	 * Expands expand bar and wait for specified time period
+	 * Expands expand bar item and wait for specific time period.
+	 * 
+	 * @param timePeriod time period to wait
 	 */
 	void expand(TimePeriod timePeriod);
+
 	/**
-	 * Collapse expand bar
+	 * Collapses expand bar item.
 	 */
 	void collapse();
+
 	/**
-	 * Returns enclosing Expand Bar
-	 * @return
+	 * Returns encapsulated parent expand bar. Parent expand bar is
+	 * Eclipse implementation of expand bar. 
+	 * 
+	 * @return parent Eclipse expand bar 
 	 */
 	org.eclipse.swt.widgets.ExpandBar getSWTParent();
-	
+
 	/**
-	 * Returns Expand Bar
-	 * @return
+	 * Returns parent expand bar.
+	 * 
+	 * @return parent RedDeer expand bar
 	 */
 	ExpandBar getParent();
 
 	/**
-	 * Returns true when Expand Bar Item is expanded 
-	 * @return
+	 * Finds out whether expand bar item is collapsed or not.
+	 * 
+	 * @return true if expand bar item is collapsed, false otherwise
 	 */
 	boolean isExpanded();
-	 
+
 	org.eclipse.swt.widgets.ExpandItem getSWTWidget();
 }

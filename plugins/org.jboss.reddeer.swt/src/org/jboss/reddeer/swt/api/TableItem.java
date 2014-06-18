@@ -3,73 +3,86 @@ package org.jboss.reddeer.swt.api;
 import org.eclipse.swt.graphics.Image;
 import org.jboss.reddeer.swt.widgets.Widget;
 
+/**
+ * API for table item manipulation.
+ * 
+ * @author  Jiri Peterka
+ *
+ */
+public interface TableItem extends Widget {
 
-public interface TableItem extends Widget{
-	
 	/**
-	 * Return the text of table item
+	 * Returns the text of table item.
 	 * 
-	 * @return
+	 * @return text of the table item
 	 */
 	String getText();
-	
+
 	/**
-	 * Return the state of selection of table item
+	 * Finds out whether the table item is selected or not.
 	 * 
-	 * @return
+	 * @return true if the table item is selected, false otherwise
 	 */
 	boolean isSelected();
-	
-	
+
 	/**
-	 * Select table item
+	 * Selects the table item.
 	 */
 	void select();
-	
+
 	/**
-	 * Set is being checked state of table item according to parameter check
+	 * Sets checked on the table item.
 	 * 
-	 * @param check
+	 * @param check boolean value whether check the table item or not
 	 */
 	void setChecked(boolean check);
-	
+
 	/**
-	 * Return the state of being checked of table item
+	 * Finds out whether the table item is checked or not.
 	 * 
-	 * @return
+	 * @return true if the table item is checked, false otherwise
 	 */
 	boolean isChecked();
-	
-	Table getParent();
-	
+
 	/**
-	 * Returns text of table item on given cell index
-	 * @param cellIndex
-	 * @return
+	 * Gets parent of the table item. Parent is RedDeer implementation of table.
+	 * 
+	 * @return parent table of the table item
+	 */
+	Table getParent();
+
+	/**
+	 * Returns text of the table item on a position defined by the cell index.
+	 * 
+	 * @param cellIndex cell position index
+	 * @return text of the table item on the specific position
 	 */
 	String getText(int cellIndex);
-	
-	
+
 	/**
-	 * Returns Image with given index
-	 * @return image with given index
+	 * Returns image on the position defined by the image index.
+	 * 
+	 * @param imageIndex image position index
+	 * @return image on the specific position
 	 */
 	Image getImage(int imageIndex);
-	
+
 	/**
-	 * Checks if table item is grayed
-	 * @return true if item is grayed, false otherwise
+	 * Checks whether table item is grayed or not.
+	 * 
+	 * @return true if the table item is grayed, false otherwise
 	 */
 	boolean isGrayed();
-	
+
 	/**
-	 * Doubleclicks on table item
+	 * Clicks twice on the table item.
 	 */
 	void doubleClick();
-	
+
 	/**
-	 * Doubleclicks on table item's specified column
-	 * @param column to click on 
+	 * Clicks twice on specified column in the table item.
+	 * 
+	 * @param column to click on
 	 */
 	void doubleClick(int column);
 

@@ -3,48 +3,56 @@ package org.jboss.reddeer.swt.api;
 import org.jboss.reddeer.swt.widgets.Widget;
 
 /**
- * API For HTML Browser manipulation
+ * API for HTML browser manipulation.
+ * 
  * @author Jiri Peterka
  *
  */
-public interface Browser extends Widget{
-	
+public interface Browser extends Widget {
+
 	/**
-	 * Indicates wheather page is loaded or not
-	 * @return
+	 * Indicates whether a page is loaded or not.
+	 * 
+	 * @return true if page is loaded, false otherwise
 	 */
 	boolean isPageLoaded();
-	
+
 	/**
-	 * Press forward on browser
+	 * Presses forward on the browser.
 	 */
 	void forward();
-	
+
 	/**
-	 * Press back on browser
+	 * Presses back on the browser.
 	 */
 	void back();
-	
+
 	/**
-	 * Set given url in browser, browser then loads it asynchronously 
+	 * Sets given URL in the browser. Browser loads it asynchronously.
+	 * 
+	 * @param url to set
 	 */
 	void setURL(String url);
-	
+
 	/**
-	 * Get url from browser 
+	 * Gets URL from the browser.
+	 * 
+	 * @return URL of current site in the browser
 	 */
 	String getURL();
-	
+
 	/**
-	 * Get text from page in browser 
+	 * Gets text from a page in the browser.
+	 * 
+	 * @return text in a page
 	 */
 	String getText();
-	
+
 	/**
-	 * Refreshes loaded page
+	 * Refreshes loaded page.
 	 */
 	void refresh();
-	
+
 	org.eclipse.swt.browser.Browser getSWTWidget();
-	
+
 }

@@ -3,18 +3,18 @@ package org.jboss.reddeer.swt.api;
 import org.jboss.reddeer.swt.widgets.Widget;
 
 /**
- * API for TabFolder manipulation
+ * API for tab folder manipulation.
  * 
  * @author Jiri Peterka
  * @author Andrej Podhradsky
  *
  */
-public interface TabFolder extends Widget{
+public interface TabFolder extends Widget {
 
 	/**
-	 * Get tab item labels
+	 * Gets tab item labels.
 	 * 
-	 * @return array of tab item labels
+	 * @return labels of the tab item
 	 */
 	String[] getTabItemLabels();
 }

@@ -3,36 +3,43 @@ package org.jboss.reddeer.swt.api;
 import org.jboss.reddeer.swt.widgets.Widget;
 
 /**
- * API For CTabItem manipulation
+ * API for CTab item manipulation.
+ * 
  * @author Vlado Pakan
  *
  */
-public interface CTabItem extends Widget{
+public interface CTabItem extends Widget {
+
 	/**
-	 * Activates CTabItem
+	 * Activates CTab item.
 	 */
 	void activate();
+
 	/**
-	 * Returns the text of tree item
+	 * Returns the text of the CTab item.
 	 * 
-	 * @return
+	 * @return text on the CTab item
 	 */
 	String getText();
-	
+
 	/**
-	 * Returns the tool tip text of tree item
+	 * Returns the ToolTip text of the CTab item.
 	 * 
-	 * @return
+	 * @return ToolTip text of the CTab item
 	 */
 	String getToolTipText();
+
 	/**
-	 * Closes CTabItem
+	 * Closes CTabItem.
 	 */
 	void close();
+
 	/**
-	 * Returns true when close button should be displayed
+	 * Find outs whether the close button should be shown or not. 
+	 * 
+	 * @return true if the close button should be shown
 	 */
 	boolean isShowClose();
-	
+
 	org.eclipse.swt.custom.CTabItem getSWTWidget();
 }

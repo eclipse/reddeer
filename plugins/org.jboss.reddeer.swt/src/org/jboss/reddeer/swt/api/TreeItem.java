@@ -6,155 +6,170 @@ import org.jboss.reddeer.swt.wait.TimePeriod;
 import org.jboss.reddeer.swt.widgets.Widget;
 
 /**
- * API for Tree item manipulation
+ * API for tree item manipulation.
  * 
- * @author Jiri Peterka, mlabuda@redhat.com
+ * @author Jiri Peterka, Marian Labuda
  *
  */
-public interface TreeItem extends Widget{
+public interface TreeItem extends Widget {
 
 	/**
-	 * Get whole text of a tree item
+	 * Gets whole text of the tree item.
 	 * 
-	 * @return whole text of a tree item
+	 * @return whole text of the tree item
 	 */
 	String getText();
 	
 	/**
-	 * Get non styled text of a tree item. 
+	 * Gets non-styled text of the tree item. 
 	 * 
-	 * @return non-styled text of a tree item
+	 * @return non-styled text (without decorators) of the tree item
 	 */
 	String getNonStyledText();
 	
 	/**
-	 * Get styled text on a tree item. There could be more than 1 
-	 * styled text on a tree item. Also tree item can be without styled text
+	 * Gets styled texts on the tree item. There could be more than 1 
+	 * styled texts.
 	 * 
-	 * @return styled texts of a tree item or null if there are not styled texts
+	 * @return styled texts of the tree item or null if there are not styled texts
 	 */
 	String[] getStyledTexts();
 	
 	/**
-	 * Return the tool tip text of tree item
+	 * Returns ToolTip text of the tree item.
 	 * 
-	 * @return
+	 * @return ToolTip text of the tree item
 	 */
 	String getToolTipText();
 	
 	/**
-	 * Return the tree item path
+	 * Returns path to the tree item in the tree.
 	 * 
-	 * @return
+	 * @return path to the tree item
 	 */
 	String[] getPath();
 	
 	/**
-	 * Return the specific cell on index
+	 * Returns text of cell on the position defined by the index. 
 	 * 
-	 * @param index
-	 * @return
+	 * @param index of cell of the tree item
+	 * @return text of the tree item in cell specified by the index
 	 */
 	String getCell(int index);
 
 	/**
-	 * Returns all direct tree items. 
+	 * Returns all descending direct tree items of the tree item. 
 	 * 
-	 * @return
+	 * @return direct descending tree items 
 	 */
 	List<TreeItem> getItems();
 	
 	/**
-	 * Returns the direct tree item with the specified label.
+	 * Returns direct tree item with the specified label.
 	 * 
-	 * @param text
-	 * @return
+	 * @param text text of direct tree item
+	 * @return tree item having specified label
 	 */
-	TreeItem getItem (String text);
+	TreeItem getItem(String text);
 	
 	/**
-	 * Return the state of selection of tree item
+	 * Returns whether the tree item is selected or not.
 	 * 
-	 * @return
+	 * @return true if the tree item is selected, false otherwise
 	 */
 	boolean isSelected();
 	
 	/**
-	 * Return the state of disposal of tree item
+	 * Returns whether the tree item is disposed or not.
 	 * 
-	 * @return
+	 * @return true if the tree item is disposed, false otherwise
 	 */
 	boolean isDisposed();
 	
 	/**
-	 * Select tree item
+	 * Selects the tree item.
 	 */
 	void select();
 	
 	/**
-	 * Expand tree item and waits with default time period
+	 * Expands the tree item and waits for a default time period.
 	 */
 	void expand();
 	
 	/**
-	 * Collapse tree item
+	 * Collapses the tree item.
 	 */
 	void collapse();
 	
 	/**
-	 * Double click on tree item
+	 * Clicks twice on the tree item.
 	 */
 	void doubleClick();
 	
 	/**
-	 * Set is being checked state of tree item according to parameter check
+	 * Sets state of the tree item. The tree item must have check box next to it. 
 	 * 
-	 * @param check
+	 * @param check whether the tree item should be checked or not
 	 */
 	void setChecked(boolean check);
 	
 	/**
-	 * Return the state of being checked of tree item
+	 * Returns whether the tree item is checked or not.
 	 * 
-	 * @return
+	 * @return true if the tree item is checked, false otherwise
 	 */
 	boolean isChecked();
+	
+	/**
+	 * Gets parent tree of the tree item.
+	 * 
+	 * @return parent tree of the tree item
+	 */
 	Tree getParent();
 
 	/**
-	 * Expands tree item and waits with default timePeriod until expanded tree item
-	 * has minItemsCount children
-	 * @param minItemsCount
+	 * Expands the tree item and waits for default time period until the expanded 
+	 * tree item has at least defined count of items.
+	 * 
+	 * @param minItemsCount minimal count of items the tree item has to have
 	 */
 	void expand(int minItemsCount);
+	
 	/**
-	 * Expands tree item and waits with timePeriod until expanded tree item
-	 * has minItemsCount children
-	 * @param minItemsCount
-	 * @param timePeriod
+	 * Expands the tree item and waits for time period until the expanded tree item
+	 * has at least defined count of items.
+	 * 
+	 * @param minItemsCount minimal count of items the tree item has to have
+	 * @param timePeriod time period to wait
 	 */
 	void expand(int minItemsCount , TimePeriod timePeriod);
+	
 	/**
-	 * Expands tree item and waits with timePeriod
-	 * @param timePeriod
+	 * Expands the tree item and waits for time period.
+	 * 
+	 * @param timePeriod time period to wait
 	 */
 	void expand(TimePeriod timePeriod);
+	
 	/**
-	 * Returns true when item is expanded 
-	 * @return
+	 * Returns whether the tree item is expanded or not.
+	 * 
+	 * @return true if the tree item is expanded, false otherwise
 	 */
 	 boolean isExpanded();
 	 
 	 /**
-	  * Sets tree item text
-	  * @param text to set
-	  * @param index of column
+	  * Sets text at a column defined by the index.
+	  * 
+	  * @param text text to set
+	  * @param index the column index
 	  */
 	 void setText(String text, int index);
 	 
 	 /**
-	  * Sets tree item text 
-	  * @param text to set
+	  * Sets text to the tree item.
+	  * 
+	  * @param text text to set
 	  */
 	 void setText(String text);
 	 

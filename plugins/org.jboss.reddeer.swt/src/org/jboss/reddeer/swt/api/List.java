@@ -2,54 +2,59 @@ package org.jboss.reddeer.swt.api;
 
 import org.jboss.reddeer.swt.widgets.Widget;
 
-
 /**
- * API For List manipulation
+ * API for list manipulation.
+ * 
  * @author Jiri Peterka
  *
  */
-public interface List extends Widget{
-	
+public interface List extends Widget {
+
 	/**
-	 * Selects item in list
-	 * @param listItem to select
+	 * Selects item in the list.
+	 * 
+	 * @param listItem label of the list item to select
 	 */
 	void select(String listItem);
-	
+
 	/**
-	 * Selects item in list based on its index
-	 * @param listItemIndex item index to select
+	 * Selects an item in list at the specified position.
+	 * 
+	 * @param listItemIndex index of the item to select
 	 */
-	void select(int listItemIndex);	
-	
+	void select(int listItemIndex);
+
 	/**
-	 * Gets all list items
-	 * @return all items in list
+	 * Gets all list items.
+	 * 
+	 * @return all items in the list
 	 */
 	String[] getListItems();
-	
+
 	/**
-	 * Deselects all list items
+	 * Deselects all list items.
 	 */
 	void deselectAll();
-	
+
 	/**
-	 * Selects items in list
-	 * @param listItems to select
+	 * Selects items in list.
+	 * 
+	 * @param listItems list items to select
 	 */
 	void select(String... listItems);
-	
+
 	/**
-	 * Selects items in list based on its indexes
-	 * @param indices of items to select
+	 * Selects items in list at specified positions.
+	 * 
+	 * @param indices indices of items to select
 	 */
 	void select(int... indices);
-	
+
 	/**
-	 * Selects all list items
+	 * Selects all list items.
 	 */
 	void selectAll();
-	
+
 	org.eclipse.swt.widgets.List getSWTWidget();
 
 }

@@ -5,7 +5,7 @@ import java.util.List;
 import org.jboss.reddeer.swt.widgets.Widget;
 
 /**
- * API for Tree manipulation
+ * API for tree manipulation.
  * 
  * @author Jiri Peterka
  * 
@@ -13,35 +13,42 @@ import org.jboss.reddeer.swt.widgets.Widget;
 public interface Tree extends Widget {
 
 	/**
-	 * @return Top level tree items.
+	 * Gets top level tree items.
 	 * 
+	 * @return top level tree items
 	 */
 	List<TreeItem> getItems();
 
 	/**
-	 * @return All tree items recursively.
+	 * Gets all tree items recursively.
+	 * 
+	 * @return all tree items
 	 */
 	List<TreeItem> getAllItems();
 
 	/**
-	 * @return Selects items.
+	 * Selects one or more tree items.
+	 * 
+	 * @param treeItems tree items to select
 	 */
 	void selectItems(TreeItem... treeItems);
 
 	/**
-	 * Sets focus to tree
+	 * Sets focus on the tree.
 	 */
 	void setFocus();
 
 	/**
-	 * Unselects all selected items
+	 * Unselects all selected items.
 	 */
-	public void unselectAllItems();
-
-	org.eclipse.swt.widgets.Tree getSWTWidget();
+	void unselectAllItems();
 
 	/**
-	 * @return Number of columns of this tree
+	 * Gets count of columns in the tree.
+	 * 
+	 * @return count of columns
 	 */
-	public int getColumnCount();
+	int getColumnCount();
+
+	org.eclipse.swt.widgets.Tree getSWTWidget();
 }

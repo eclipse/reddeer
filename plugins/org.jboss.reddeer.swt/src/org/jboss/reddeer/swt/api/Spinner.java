@@ -3,24 +3,24 @@ package org.jboss.reddeer.swt.api;
 import org.jboss.reddeer.swt.widgets.Widget;
 
 /**
- * API For Spinner manipulation
+ * API for spinner manipulation.
  * 
  * @author Andrej Podhradsky
  * 
  */
-public interface Spinner extends Widget{
+public interface Spinner extends Widget {
 
 	/**
-	 * Get Value of the spinner
+	 * Gets value of the spinner.
 	 * 
-	 * @return value
+	 * @return value of the spinner
 	 */
 	int getValue();
 
 	/**
-	 * Set a given value into the spinner
+	 * Sets given value to the spinner.
 	 * 
-	 * @param value
+	 * @param value value of the spinner to set
 	 */
 	void setValue(int value);
 	

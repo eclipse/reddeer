@@ -3,10 +3,11 @@ package org.jboss.reddeer.swt.api;
 import org.jboss.reddeer.swt.widgets.Widget;
 
 /**
- * API For CoolBar manipulation
+ * API for cool bar manipulation.
+ * 
  * @author Jiri Peterka
  *
  */
-public interface CoolBar extends Widget{
+public interface CoolBar extends Widget {
 
 }

@@ -4,15 +4,18 @@ import org.jboss.reddeer.swt.reference.ReferencedComposite;
 import org.jboss.reddeer.swt.widgets.Widget;
 
 /**
- * API For Group manipulation
+ * API for group manipulation.
+ * 
  * @author Jiri Peterka
  *
  */
-public interface Group extends ReferencedComposite, Widget{
+public interface Group extends ReferencedComposite, Widget {
 	
 	/**
+	 * Gets text of the group.
+	 * 
 	 * @since 0.4
-	 * @return Text of group
+	 * @return text of the group
 	 */
 	String getText();
 	

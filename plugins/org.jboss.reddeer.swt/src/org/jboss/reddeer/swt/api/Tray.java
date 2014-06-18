@@ -3,10 +3,11 @@ package org.jboss.reddeer.swt.api;
 import org.jboss.reddeer.swt.widgets.Widget;
 
 /**
- * API for Tray manipulation
+ * API for tray manipulation.
+ * 
  * @author Jiri Peterka
  *
  */
-public interface Tray extends Widget{
+public interface Tray extends Widget {
 
 }
