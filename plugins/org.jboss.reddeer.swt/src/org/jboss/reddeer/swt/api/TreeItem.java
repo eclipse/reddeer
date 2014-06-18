@@ -21,21 +21,6 @@ public interface TreeItem extends Widget {
 	String getText();
 	
 	/**
-	 * Gets non-styled text of the tree item. 
-	 * 
-	 * @return non-styled text (without decorators) of the tree item
-	 */
-	String getNonStyledText();
-	
-	/**
-	 * Gets styled texts on the tree item. There could be more than 1 
-	 * styled texts.
-	 * 
-	 * @return styled texts of the tree item or null if there are not styled texts
-	 */
-	String[] getStyledTexts();
-	
-	/**
 	 * Returns ToolTip text of the tree item.
 	 * 
 	 * @return ToolTip text of the tree item

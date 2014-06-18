@@ -1,4 +1,4 @@
-package org.jboss.reddeer.swt.test.impl.tree;
+package org.jboss.reddeer.jface.test.viewer;
 
 import static org.junit.Assert.assertTrue;
 
@@ -22,10 +22,12 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Tree;
+import org.jboss.reddeer.swt.condition.ShellWithTextIsActive;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.jboss.reddeer.swt.impl.table.DefaultTable;
 import org.jboss.reddeer.swt.impl.tree.DefaultTree;
-import org.jboss.reddeer.swt.test.utils.ShellTestUtils;
+import org.jboss.reddeer.swt.wait.WaitWhile;
+import org.jboss.reddeer.eclipse.jface.viewer.handler.TreeViewerHandler;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.junit.After;
 import org.junit.Before;
@@ -33,9 +35,11 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(RedDeerSuite.class)
-public class DefaultTreeItemStylesTest {
+public class TreeViewerHandlerTest {
 
 	private static String title = "Testing shell";
+	
+	private TreeViewerHandler treeViewerHandler = TreeViewerHandler.getInstance();
 	
 	@Before
 	public void setUp() {
@@ -64,7 +68,13 @@ public class DefaultTreeItemStylesTest {
 		org.jboss.reddeer.swt.util.Display.syncExec(new Runnable() {
 			@Override
 			public void run() {
-				ShellTestUtils.closeShell(title);
+				for (Shell shell : org.jboss.reddeer.swt.util.Display.getDisplay().getShells()) {
+					if (shell.getText().equals(title)) {
+						shell.dispose();
+						break;
+					}
+				}
+				new WaitWhile(new ShellWithTextIsActive(title));
 			}
 		});
 	}
@@ -72,49 +82,49 @@ public class DefaultTreeItemStylesTest {
 	
 	@Test
 	public void nonStyledTextTreeItem1() {
-		String txt = new DefaultTree().getItems().get(0).getNonStyledText();
+		String txt = treeViewerHandler.getNonStyledText(new DefaultTree().getItems().get(0));
 		assertTrue("Non-styled was "+ "'" + txt + "', but should be 'nonstyled'", txt.equals("nonstyledtext"));
 	}
 	
 	@Test
 	public void nonStyledTextTreeItem2() {
-		String txt = new DefaultTree().getItems().get(1).getNonStyledText();
+		String txt = treeViewerHandler.getNonStyledText(new DefaultTree().getItems().get(1));
 		assertTrue("Non-styled was "+ "'" + txt + "', but should be 'nonstyled'", txt.equals("nonstyledtext"));
 	}
 	
 	@Test
 	public void nonStyledTextTreeItem3() {
-		String txt = new DefaultTree().getItems().get(2).getNonStyledText();
+		String txt = treeViewerHandler.getNonStyledText(new DefaultTree().getItems().get(2));
 		assertTrue("Non-styled was "+ "'" + txt + "', but should be 'nonstyled'", txt.equals("nonstyledtext"));
 	}
 	
 	@Test
 	public void nonStyledTextTreeItem4() {
-		String txt = new DefaultTree().getItems().get(3).getNonStyledText();
+		String txt = treeViewerHandler.getNonStyledText(new DefaultTree().getItems().get(3));
 		assertTrue("Non-styled was "+ "'" + txt + "', but should be 'nonstyled'", txt.equals("nonstyledtext"));
 	}
 	
 	@Test 
 	public void getStyledPrefixTreeItem2() {
-		String txt = new DefaultTree().getItems().get(1).getStyledTexts()[0];
+		String txt = treeViewerHandler.getStyledTexts(new DefaultTree().getItems().get(1))[0];
 		assertTrue("Styled prefix was "+ "'" + txt + "', but should be 'spre'", txt.equals("spre"));
 	}
 	
 	@Test 
 	public void getStyledPrefixTreeItem4() {
-		String txt = new DefaultTree().getItems().get(3).getStyledTexts()[0];
+		String txt = treeViewerHandler.getStyledTexts(new DefaultTree().getItems().get(3))[0];		
 		assertTrue("Styled prefix was "+ "'" + txt + "', but should be 'spre'", txt.equals("spre"));
 	}
 	
 	@Test
 	public void getStyledPostfixTreeItem3() {
-		String txt = new DefaultTree().getItems().get(2).getStyledTexts()[0];
+		String txt = treeViewerHandler.getStyledTexts(new DefaultTree().getItems().get(2))[0];
 		assertTrue("Styled postfix was "+ "'" + txt + "', but should be 'spost'", txt.equals("spost"));
 	}
 	
 	@Test
 	public void getStyledPostfixTreeItem4() {
-		String txt = new DefaultTree().getItems().get(3).getStyledTexts()[1];
+		String txt = treeViewerHandler.getStyledTexts(new DefaultTree().getItems().get(3))[1];		
 		assertTrue("Styled postfix was "+ "'" + txt + "', but should be 'spost'", txt.equals("spost"));
 	}
 	

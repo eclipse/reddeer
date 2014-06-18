@@ -35,6 +35,8 @@ public class Project {
 	protected final Logger log = Logger.getLogger(Project.class);
 
 	private TreeItem treeItem;
+	
+	private TreeViewerHandler treeViewerHandler = TreeViewerHandler.getInstance();
 
 	/**
 	 * Create project represented by treeItem
@@ -52,7 +54,7 @@ public class Project {
 	 */
 	public void delete(boolean deleteFromFileSystem) {
 		select();
-		log.debug("Delete project " + treeItem.getNonStyledText() + " via Package Explorer");
+		log.debug("Delete project " + treeViewerHandler.getNonStyledText(treeItem) + " via Package Explorer");
 		new ContextMenu("Refresh").select();
 		new WaitWhile(new JobIsRunning(), TimePeriod.LONG);
 		new ContextMenu("Delete").select();
@@ -86,7 +88,7 @@ public class Project {
 	 * @return
 	 */
 	public String getName() {
-		return treeItem.getNonStyledText();
+		return treeViewerHandler.getNonStyledText(treeItem);
 	}
 
 	/**
@@ -97,7 +99,7 @@ public class Project {
 	 * @return String[] of decorated texts on a whole project label
 	 */
 	public String[] getDecoratedParts() {
-		return treeItem.getStyledTexts();
+		return treeViewerHandler.getStyledTexts(treeItem);
 	}
 
 	/**
@@ -135,8 +137,7 @@ public class Project {
 	 */
 
 	public ProjectItem getProjectItem(String... path) {
-		TreeViewerHandler handler = TreeViewerHandler.getInstance();
-		return new ProjectItem(handler.getTreeItem(treeItem, path), this, path);
+		return new ProjectItem(treeViewerHandler.getTreeItem(treeItem, path), this, path);
 	}
 
 	/**

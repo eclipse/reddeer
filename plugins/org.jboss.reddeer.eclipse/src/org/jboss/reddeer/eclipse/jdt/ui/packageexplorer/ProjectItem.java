@@ -26,6 +26,8 @@ public class ProjectItem {
 	protected TreeItem treeItem;
 	private Project project;
 	private String[] path;
+	
+	private TreeViewerHandler treeViewerHandler = TreeViewerHandler.getInstance();
 
 	/**
 	 * Construct a project item with a given tree item, project and path.
@@ -114,7 +116,7 @@ public class ProjectItem {
 	 * @return
 	 */
 	public String getName() {
-		return treeItem.getNonStyledText();
+		return treeViewerHandler.getNonStyledText(treeItem);
 	}
 	
 	/**
@@ -123,7 +125,7 @@ public class ProjectItem {
 	 * @return
 	 */
 	public String[] getDecorators() {
-		return treeItem.getStyledTexts();
+		return treeViewerHandler.getStyledTexts(treeItem);
 	}
 	
 	/**
@@ -143,7 +145,7 @@ public class ProjectItem {
 	public List<ProjectItem> getChildren() {
 		List<ProjectItem> childrens = new ArrayList<ProjectItem>();
 		for(TreeItem item : treeItem.getItems()) {
-			childrens.add(getChild(item.getNonStyledText()));
+			childrens.add(getChild(treeViewerHandler.getNonStyledText(item)));
 		}
 		return childrens;
 	}
