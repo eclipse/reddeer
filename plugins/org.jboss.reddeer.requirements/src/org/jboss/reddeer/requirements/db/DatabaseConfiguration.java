@@ -5,7 +5,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * Class contains database configuration used by Database requirement
- * that is configurable from outside via Requirement feature 
+ * that is configurable from outside via Requirement feature. 
  * @author Jiri Peterka
  *
  */
@@ -14,7 +14,8 @@ public class DatabaseConfiguration {
 
 	private String driverName;
     private String driverType;
-    private String driverTypeVersion; 
+    private String driverTypeVersion;
+    private String driverVendor;
 	private String driverPath;
 	private String driverClass;
 	private String profileName;
@@ -23,10 +24,9 @@ public class DatabaseConfiguration {
 	private String portNumber;
 	private String username;
 	private String password;	
-	
-	
+
 	/**
-	 * Gets database Name
+	 * Gets database Name.
 	 * @return database name
 	 */
 	public String getDatabaseName() {
@@ -34,16 +34,16 @@ public class DatabaseConfiguration {
 	}
 
 	/**
-	 * Sets database name
+	 * Sets database name.
 	 * @param databaseName database name
 	 */
-	@XmlElement(namespace="http://www.jboss.org/NS/db-schema")
+	@XmlElement(namespace = "http://www.jboss.org/NS/db-schema")
 	public void setDatabaseName(String databaseName) {
 		this.databaseName = databaseName;
 	}
 
 	/**
-	 * Gets database port number
+	 * Gets database port number.
 	 * @return database port number
 	 */
 	public String getPortNumber() {
@@ -51,7 +51,7 @@ public class DatabaseConfiguration {
 	}
 
 	/**
-	 * Sets database port number
+	 * Sets database port number.
 	 * @param portNumber given port number
 	 */
 	@XmlElement(namespace="http://www.jboss.org/NS/db-schema")
@@ -60,7 +60,24 @@ public class DatabaseConfiguration {
 	}
 
 	/**
-	 * Gets database driver profile name
+	 * Gets database driver vendor.
+	 * @return database driver vendor
+	 */
+    public String getDriverVendor() {
+		return driverVendor;
+	}
+
+    /**
+     * Sets database driver vendor.
+     * @param driverName database driver vendor
+     */
+    @XmlElement(namespace = "http://www.jboss.org/NS/db-schema")
+	public void setDriverVendor(String driverVendor) {
+		this.driverVendor = driverVendor;
+	}
+	
+	/**
+	 * Gets database driver profile name.
 	 * @return database driver profile name
 	 */
     public String getDriverName() {
@@ -68,7 +85,7 @@ public class DatabaseConfiguration {
 	}
 
     /**
-     * Sets database driver profile name
+     * Sets database driver profile name.
      * @param driverName database driver profile name
      */
     @XmlElement(namespace="http://www.jboss.org/NS/db-schema")
@@ -85,16 +102,16 @@ public class DatabaseConfiguration {
 	}
 
 	/**
-	 * Sets database driver type
+	 * Sets database driver type.
 	 * @param driverType database driver type
 	 */
-	@XmlElement(namespace="http://www.jboss.org/NS/db-schema")
+	@XmlElement(namespace = "http://www.jboss.org/NS/db-schema")
 	public void setDriverType(String driverType) {
 		this.driverType = driverType;
 	}
 
 	/**
-	 * Gets database driver profile version
+	 * Gets database driver profile version.
 	 * @return database driver profile version 
 	 */
 	public String getDriverTypeVersion() {
@@ -102,7 +119,7 @@ public class DatabaseConfiguration {
 	}
 
 	/**
-	 * Sets database driver profile version
+	 * Sets database driver profile version.
 	 * @param database driver profile version
 	 */
 	@XmlElement(namespace="http://www.jboss.org/NS/db-schema")
@@ -119,10 +136,10 @@ public class DatabaseConfiguration {
 	}
 
 	/**
-	 * Sets database profile name
+	 * Sets database profile name.
 	 * @param profileName database profile name
 	 */
-	@XmlElement(namespace="http://www.jboss.org/NS/db-schema")
+	@XmlElement(namespace = "http://www.jboss.org/NS/db-schema")
 	public void setProfileName(String profileName) {
 		this.profileName = profileName;
 	}
@@ -136,34 +153,34 @@ public class DatabaseConfiguration {
 	}
 
 	/**
-	 * Set driver type 
+	 * Set driver type.
 	 * @param type driver type
 	 */
-	@XmlElement(namespace="http://www.jboss.org/NS/db-schema")
+	@XmlElement(namespace = "http://www.jboss.org/NS/db-schema")
 	public void setType(String type) {
 		this.driverType = type;
 	}
 
 	/**
-	 * Return driver type version
+	 * Return driver type version.
 	 * @return driver type version
 	 */
 	public String getVersion() {
 		return driverTypeVersion;
 	}
 
-	
+
 	/**
-	 * Set driver type version
+	 * Set driver type version.
 	 * @param version driver type version 
 	 */
-	@XmlElement(namespace="http://www.jboss.org/NS/db-schema")
+	@XmlElement(namespace = "http://www.jboss.org/NS/db-schema")
 	public void setVersion(String version) {
 		this.driverTypeVersion = version;
 	}
 
 	/**
-	 * Returns JDBC driver path
+	 * Returns JDBC driver path.
 	 * @return file path
 	 */
 	public String getDriverPath() {
@@ -174,77 +191,77 @@ public class DatabaseConfiguration {
 	 * Sets driver file path 
 	 * @param driverPath drive filepath
 	 */
-	@XmlElement(namespace="http://www.jboss.org/NS/db-schema")
+	@XmlElement(namespace = "http://www.jboss.org/NS/db-schema")
 	public void setDriverPath(String driverPath) {
 		this.driverPath = driverPath;
 	}
 
 	/**
-	 * Gets database driver class
+	 * Gets database driver class.
 	 * @return database driver class
 	 */
 	public String getDriverClass() {
 		return driverClass;
 	}
 
-	
+
 	/**
-	 * Sets database Driver Class
+	 * Sets database Driver Class.
 	 * @param driverClass database driver class
 	 */
-	@XmlElement(namespace="http://www.jboss.org/NS/db-schema")
+	@XmlElement(namespace = "http://www.jboss.org/NS/db-schema")
 	public void setDriverClass(String driverClass) {
 		this.driverClass = driverClass;
 	}
 
-	
+
 	/**
-	 * Database JDBC string
+	 * Database JDBC string.
 	 * @return Database JDBC string
 	 */
 	public String getJdbcString() {
 		return jdbcString;
 	}
-	
+
 	/**
-	 * Set database JDBC string
+	 * Set database JDBC string.
 	 * @param jdbc JDBC string
 	 */
-	@XmlElement(namespace="http://www.jboss.org/NS/db-schema")
+	@XmlElement(namespace = "http://www.jboss.org/NS/db-schema")
 	public void setJdbcString(String jdbc) {
 		this.jdbcString = jdbc;
 	}
-	
+
 	/**
-	 * Gets database username
+	 * Gets database username.
 	 * @return database username
 	 */
 	public String getUsername() {
 		return username;
 	}
-	
+
 	/**
-	 * Sets database username
+	 * Sets database username.
 	 * @param username database username
 	 */
-	@XmlElement(namespace="http://www.jboss.org/NS/db-schema")
+	@XmlElement(namespace = "http://www.jboss.org/NS/db-schema")
 	public void setUsername(String username) {
 		this.username = username;
 	}
-	
+
 	/**
-	 * Get database password
+	 * Get database password.
 	 * @return database password
 	 */
 	public String getPassword() {
 		return password;
 	}
-	
+
 	/**
-	 * Set database password
+	 * Set database password.
 	 * @param password database password
 	 */
-	@XmlElement(namespace="http://www.jboss.org/NS/db-schema")
+	@XmlElement(namespace = "http://www.jboss.org/NS/db-schema")
 	public void setPassword(String password) {
 		this.password = password;
 	}

@@ -21,6 +21,7 @@
             <db:driverTypeVersion>1.0</db:driverTypeVersion>
             <db:driverPath>/opt/sakila-db/h2-1.3.161.jar</db:driverPath>
             <db:driverClass>org.h2.Driver</db:driverClass>
+            <db:driverVendor>Generic JDBC</db:driverVendor>
             <db:profileName>dbProfile</db:profileName>
             <db:jdbcString>jdbc:h2:db://localhost/sakila</db:jdbcString>
             <db:databaseName></db:databaseName>
