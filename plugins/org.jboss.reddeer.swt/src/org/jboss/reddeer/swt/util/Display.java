@@ -1,61 +1,30 @@
 package org.jboss.reddeer.swt.util;
 
-import java.util.ArrayList;
-
-import org.eclipse.swt.SWTException;
 import org.jboss.reddeer.common.logging.Logger;
-import org.jboss.reddeer.swt.exception.RedDeerException;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
+
 
 /**
  * RedDeer display provider
+ * 
  * @author Jiri Peterka
- *
+ * @author Lucia Jelinkova
  */
 public class Display {
-	
+
+	private static final Logger log = Logger.getLogger(Display.class);
+
 	private static org.eclipse.swt.widgets.Display display;
-	private static Logger log = Logger.getLogger(Display.class);
+
 	private static boolean firstAttempt = true;
+
+	/**
+	 * Not to be instantiated. 
+	 */
+	private Display(){
+		super();
+	}
 	
-	public static void syncExec(Runnable runnable) {
-		try{
-			if (!isUIThread()) {
-				firstAttempt = true;
-				getDisplay().syncExec(runnable);
-			} else {
-				if (firstAttempt) {
-					log.warn("UI Call chaining attempt");
-				}
-				firstAttempt = false;
-				runnable.run();				
-			}
-		}catch(SWTException ex){
-			if(ex.getCause() instanceof RedDeerException){
-				throw (RedDeerException) ex.getCause();
-			} else {
-				throw ex;
-			}
-		}
-	}
-
-	public static void asyncExec(Runnable runnable) {
-		try {
-			getDisplay().asyncExec(runnable);
-
-		} catch (SWTException ex) {
-			if (ex.getCause() instanceof RedDeerException) {
-				throw (RedDeerException) ex.getCause();
-			} else {
-				throw ex;
-			}
-		}
-	}
-
-	private static boolean isUIThread() {
-		return getDisplay().getThread() == Thread.currentThread();			
-	}
-
 	/**
 	 * Returns org.eclipse.swt.widgets.Display instance. If now know it tries to get in available threads.   
 	 * @return current Display instance or SWTLayerException if not found
@@ -75,43 +44,55 @@ public class Display {
 		return display;
 	}
 
+	public static void syncExec(Runnable runnable) {
+		syncExec(new VoidResultRunnable(runnable));
+	}
+
 	/**
 	 * Run sync in UI thread with ability to return result 
 	 * @param runnable
 	 * @return 
 	 */	
+	@SuppressWarnings("unchecked")
 	public static <T> T syncExec(final ResultRunnable<T> runnable) {
-		final ArrayList<T> list = new ArrayList<T>();	
-		try {
-			if (!isUIThread()) {
-				firstAttempt = true;
-				Display.getDisplay().syncExec(new Runnable() {
+		ErrorHandlingRunnable<T> errorHandlingRunnable = new ErrorHandlingRunnable<T>(runnable);
 
-					@Override
-					public void run() {
-						T res = runnable.run();
-						list.add(res);
-
-					}
-				});
-			} else {
-				if (firstAttempt) {
-					log.warn("UI Call chaining attempt");
-				}
+		if (!isUIThread()) {
+			firstAttempt = true;
+			Display.getDisplay().syncExec(errorHandlingRunnable);
+		} else {
+			if (firstAttempt) {
+				log.warn("UI Call chaining attempt");
 				firstAttempt = false;
-				list.add(runnable.run());
 			}
-		}catch(SWTException ex){
-			if(ex.getCause() instanceof RedDeerException){
-				throw (RedDeerException) ex.getCause();
-			} else {
-				throw ex;
+			if (runnable instanceof ErrorHandlingRunnable){
+				errorHandlingRunnable = (ErrorHandlingRunnable<T>) runnable;
 			}
+			errorHandlingRunnable.run();
 		}
-		return list.get(0);
 		
+		if (errorHandlingRunnable.exceptionOccurred()){
+			throw new SWTLayerException("Exception during sync execution in UI thread", errorHandlingRunnable.getException());
+		}
+
+		return errorHandlingRunnable.getResult();
+
 	}
-		
+
+	public static void asyncExec(Runnable runnable) {
+		ErrorHandlingRunnable<Void> errorHandlingRunnable = new ErrorHandlingRunnable<Void>(new VoidResultRunnable(runnable));
+
+		getDisplay().asyncExec(errorHandlingRunnable);
+
+		if (errorHandlingRunnable.exceptionOccurred()){
+			throw new SWTLayerException("Exception during async execution in UI thread", errorHandlingRunnable.getException());
+		}
+	}
+
+	private static boolean isUIThread() {
+		return getDisplay().getThread() == Thread.currentThread();			
+	}
+
 	private static Thread[] allThreads() {
 		ThreadGroup threadGroup = primaryThreadGroup();
 
@@ -130,6 +111,68 @@ public class Display {
 			threadGroup = threadGroup.getParent();
 		return threadGroup;
 	}
-	
+
+	/**
+	 * Decorator around the {@link ResultRunnable} classes. Its purpose is to catch any exception from UI thread and store
+	 * it so it will be thrown in non  UI thread. 
+	 * 
+	 * @author Lucia Jelinkova
+	 *
+	 * @param <T>
+	 */
+	private static class ErrorHandlingRunnable<T> implements Runnable {
+
+		private ResultRunnable<T> runnable;
+
+		private T result;
+
+		private Exception exception;
+
+		private ErrorHandlingRunnable(ResultRunnable<T> runnable) {
+			super();
+			this.runnable = runnable;
+		}
+
+		@Override
+		public void run() {
+			try {
+				result = runnable.run();
+			} catch (Exception e) {
+				exception = e;
+			}
+		}
+
+		public boolean exceptionOccurred(){
+			return getException() != null;
+		}
+
+		public Exception getException() {
+			return exception;
+		}
+
+		public T getResult() {
+			return result;
+		}
+	}
+
+	/**
+	 * Wrapper class that converts {@link Runnable} to {@link ResultRunnable}
+	 * @author Lucia Jelinkova
+	 *
+	 */
+	private static class VoidResultRunnable implements ResultRunnable<Void> {
+
+		private Runnable runnable;
+
+		public VoidResultRunnable(Runnable runnable) {
+			this.runnable = runnable;
+		}
+
+		@Override
+		public Void run() {
+			runnable.run();
+			return null;
+		}
+	}
 }
 
