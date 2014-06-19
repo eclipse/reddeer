@@ -202,7 +202,7 @@ public class WidgetLookup {
 			if(clazz.isInstance(Combo.class)){
 				exceptionText = "Combo not found - see https://github.com/jboss-reddeer/reddeer/issues/485";
 			}
-			logger.error("Active widget with class type " + clazz.getName() +  " and index " + index + " was not found, an exception will be thrown");
+			logger.error("Active widget with class type " + clazz.getName() +  " and index " + index + " was not found");
 			throw new SWTLayerException(exceptionText, ex);
 		}
 
@@ -213,18 +213,18 @@ public class WidgetLookup {
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	private List<? extends Widget> activeWidgets(Control refComposite, Matcher matcher) {
 		if(refComposite == null){
-			logger.debug("No parent specified, finding one");
+			logger.trace("No parent specified, finding one");
 			refComposite = getActiveWidgetParentControl();
-			logger.debug("Parent found successfully");
+			logger.trace("Parent found successfully");
 		}
 
 		if (refComposite == null){
 			logger.error("Unable to determine active parent");
 			throw new SWTLayerException("Unable to determine active parent");
 		}
-		logger.debug("Looking up widgets with specified parent and matchers");
+		logger.trace("Looking up widgets with specified parent and matchers");
 		List<? extends Widget> widgets = findControls(refComposite, matcher, true);
-		logger.debug(widgets.size() + " widget(s) found");
+		logger.trace(widgets.size() + " widget(s) found");
 		return widgets;
 	}
 
@@ -258,12 +258,12 @@ public class WidgetLookup {
 
 		if ((activeWorkbenchParentShell == null || !activeWorkbenchParentShell.equals(activeShell))
 				&& activeShell != null){
-			logger.debug("Setting active shell with title \"" + WidgetHandler.getInstance().getText(activeShell) + "\" as the parent");
+			logger.trace("Setting active shell with title \"" + WidgetHandler.getInstance().getText(activeShell) + "\" as the parent");
 			control = activeShell;	
 		}			
 		else {
 			if (activeWorkbenchReference != null){
-				logger.debug("Setting workbench part with title \"" + getTitle(activeWorkbenchReference) + "\"as the parent");
+				logger.trace("Setting workbench part with title \"" + getTitle(activeWorkbenchReference) + "\"as the parent");
 				control = WorkbenchLookup.getWorkbenchControl(activeWorkbenchReference);
 			}
 		}	
@@ -288,10 +288,10 @@ public class WidgetLookup {
 	private <T extends Widget> T getProperWidget(List<T> widgets, int index) {
 		T widget = null;
 		if (widgets.size() > index){
-			logger.debug("Selecting widget with the specified index (" + index + ")");
+			logger.trace("Selecting widget with the specified index (" + index + ")");
 			widget = widgets.get(index);
 		} else {
-			logger.warn("The specified index is bigger than the size of found widgets (" + index + " > " + widgets.size() + ")");
+			logger.trace("The specified index is bigger than the size of found widgets (" + index + " > " + widgets.size() + ")");
 		}
 		return widget;
 	}
