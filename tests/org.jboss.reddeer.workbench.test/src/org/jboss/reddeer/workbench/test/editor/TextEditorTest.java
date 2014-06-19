@@ -32,7 +32,6 @@ import org.jboss.reddeer.swt.keyboard.KeyboardFactory;
 import org.jboss.reddeer.swt.util.Display;
 import org.jboss.reddeer.swt.wait.AbstractWait;
 import org.jboss.reddeer.swt.wait.TimePeriod;
-import org.jboss.reddeer.workbench.exception.WorkbenchLayerException;
 import org.jboss.reddeer.workbench.exception.WorkbenchPartNotFound;
 import org.jboss.reddeer.workbench.impl.editor.DefaultEditor;
 import org.jboss.reddeer.workbench.impl.editor.TextEditor;
@@ -265,7 +264,7 @@ public class TextEditorTest {
 		assertEquals("JavaClass",textEditor.getSelectedText());
 	}
 	
-	@Test(expected = WorkbenchLayerException.class)
+	@Test(expected = SWTLayerException.class)
 	public void selectTextTest2(){
 		openJavaFile();
 		collapseTextInJavaFile();

@@ -296,14 +296,9 @@ public class WidgetHandler {
 	 * @return text of specified widget
 	 */
 	public <T extends Widget> String getText(final T widget) {
-		Object o = null;
-		try {
-			o = ObjectUtil.invokeMethod(widget, "getText");
-		} catch (RuntimeException e) {
-			throw new SWTLayerException(
-					"Runtime error during retrieving widget's text", e);
-		}
-		if (o == null) {
+		Object o = ObjectUtil.invokeMethod(widget, "getText");
+
+		if (o == null){
 			return null;
 		}
 
