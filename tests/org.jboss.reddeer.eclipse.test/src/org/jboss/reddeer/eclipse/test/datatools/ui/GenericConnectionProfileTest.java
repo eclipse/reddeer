@@ -34,7 +34,7 @@ public class GenericConnectionProfileTest {
 		try {
 			downloadDriver();
 		} catch (IOException e) {
-			fail("Cannot download jdbc driver necessary for test");
+			fail("Cannot download jdbc driver necessary for test: " + e.getMessage());
 		}
 		File drvFile = new File("target" + File.separator + fileName);
 		
