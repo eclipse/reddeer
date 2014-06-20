@@ -2,10 +2,9 @@ package org.jboss.reddeer.swt.condition;
 
 import org.eclipse.swt.widgets.Shell;
 import org.hamcrest.Matcher;
-import org.hamcrest.core.IsEqual;
 import org.jboss.reddeer.junit.logging.Logger;
 import org.jboss.reddeer.swt.lookup.ShellLookup;
-import org.jboss.reddeer.swt.matcher.ObjectToStingMatcherDecorator;
+import org.jboss.reddeer.swt.matcher.WithTextMatcher;
 import org.jboss.reddeer.swt.util.internal.InstanceValidator;
 
 /**
@@ -15,8 +14,7 @@ import org.jboss.reddeer.swt.util.internal.InstanceValidator;
  * @author jniederm
  * 
  */
-public class ShellWithTextIsAvailable implements WaitCondition {
-
+public class ShellWithTextIsAvailable implements WaitCondition { 
 	private Matcher<String> matcher;
 	private final Logger log = Logger.getLogger(this.getClass());
 	
@@ -25,21 +23,8 @@ public class ShellWithTextIsAvailable implements WaitCondition {
 	 */
 	public ShellWithTextIsAvailable(String title) {
 		InstanceValidator.checkNotNull(title, "title");
-		this.matcher = wrapStringMatcher(new IsEqual<String>(title));
+		this.matcher = new WithTextMatcher(title);
 	}
-
-	/**
-	 * @throws IllegalArgumentException if {@code matcher} is {@code null}
-	 */
-	public ShellWithTextIsAvailable(Matcher<String> matcher) {
-		InstanceValidator.checkNotNull(matcher, "matcher");
-		this.matcher = wrapStringMatcher(matcher);
-	}
-	
-	private static Matcher<String> wrapStringMatcher(final Matcher<String> innerMatcher) {
-		return new ObjectToStingMatcherDecorator(innerMatcher);
-	}
-
 
 	@Override
 	public boolean test() {

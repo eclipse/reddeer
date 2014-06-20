@@ -17,8 +17,9 @@ import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.menu.ShellMenu;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
-import org.jboss.reddeer.swt.matcher.WithRegexMatchers;
+import org.jboss.reddeer.swt.matcher.RegexMatcher;
 import org.jboss.reddeer.swt.matcher.WithTextMatcher;
+import org.jboss.reddeer.swt.matcher.WithTextMatchers;
 import org.jboss.reddeer.swt.wait.TimePeriod;
 import org.jboss.reddeer.swt.wait.WaitUntil;
 import org.jboss.reddeer.swt.wait.WaitWhile;
@@ -176,8 +177,10 @@ public class AbstractView implements View {
 		// view is not opened, it has to be opened via menu
 		if (viewPart == null) {
 			log.info("Opening " + viewTitle() + " view via menu.");
-			WithRegexMatchers m = new WithRegexMatchers("Window.*",
-					"Show View.*", "Other...*");
+			WithTextMatchers m = new WithTextMatchers(new RegexMatcher[] {
+					new RegexMatcher("Window.*"),
+					new RegexMatcher("Show View.*"),
+					new RegexMatcher("Other...*") });
 			Menu menu = new ShellMenu(m.getMatchers());
 			menu.select();
 			new DefaultShell(SHOW_VIEW);

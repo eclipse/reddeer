@@ -11,6 +11,7 @@ import org.jboss.reddeer.swt.handler.WidgetHandler;
  * It allows string matchers to be used on {@link String}s and {@link Widget}s in uniform way.
  * 
  * @author jniederm
+ * @deprecated in 0.6
  */
 public class ObjectToStingMatcherDecorator extends BaseMatcher<String> {
 	

@@ -25,7 +25,8 @@ import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.exception.WaitTimeoutExpiredException;
 import org.jboss.reddeer.swt.impl.tree.DefaultTree;
 import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
-import org.jboss.reddeer.swt.matcher.WithRegexMatcher;
+import org.jboss.reddeer.swt.matcher.RegexMatcher;
+import org.jboss.reddeer.swt.matcher.WithTextMatcher;
 import org.jboss.reddeer.swt.test.SWTLayerTestCase;
 import org.jboss.reddeer.swt.test.ui.views.TreeEventsListener;
 import org.jboss.reddeer.swt.util.Display;
@@ -320,18 +321,29 @@ public class DefaultTreeTest extends SWTLayerTestCase {
 
 	@Test
 	public void testFindUsingRegexMatcher() {
+		RegexMatcher aMatcher = new RegexMatcher("A");
+		RegexMatcher aPlusMatcher = new RegexMatcher("A+");
+		RegexMatcher aPlusBMatcher = new RegexMatcher("A+B");
 		createTreeItems(tree.getSWTWidget());
 
 		String expected;
 		DefaultTreeItem dfi;
 
 		expected = "AA";
-		dfi = new DefaultTreeItem(new WithRegexMatcher("A"), new WithRegexMatcher("A+"));
-		assertEquals(String.format("Found item with text '%s', '%s' expected", dfi.getText(), expected),
-				expected, dfi.getText());
+		dfi = new DefaultTreeItem(new WithTextMatcher[]{
+				new WithTextMatcher(aMatcher),
+				new WithTextMatcher(aPlusMatcher)
+		});
+		assertEquals(
+				String.format("Found item with text '%s', '%s' expected",
+						dfi.getText(), expected), expected, dfi.getText());
 
 		expected = "AAB";
-		dfi = new DefaultTreeItem(new WithRegexMatcher("A"), new WithRegexMatcher("A+"), new WithRegexMatcher("A+B"));
+		dfi = new DefaultTreeItem(new WithTextMatcher[]{
+				new WithTextMatcher(aMatcher),
+				new WithTextMatcher(aPlusMatcher),
+				new WithTextMatcher(aPlusBMatcher)
+		});
 		assertEquals(String.format("Found item with text '%s', '%s' expected", dfi.getText(), expected),
 				expected, dfi.getText());
 	}

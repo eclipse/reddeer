@@ -10,7 +10,8 @@ import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.menu.ShellMenu;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.jboss.reddeer.swt.impl.table.DefaultTable;
-import org.jboss.reddeer.swt.matcher.WithRegexMatchers;
+import org.jboss.reddeer.swt.matcher.RegexMatcher;
+import org.jboss.reddeer.swt.matcher.WithTextMatchers;
 import org.jboss.reddeer.swt.util.Display;
 import org.jboss.reddeer.swt.util.ResultRunnable;
 
@@ -49,8 +50,10 @@ public abstract class AbstractPerspective {
     }
     else{
       log.debug("Trying to open perspective: " + getPerspectiveLabel());
-      WithRegexMatchers m = new WithRegexMatchers("Window.*", "Open Perspective.*",
-          "Other...*");
+      WithTextMatchers m = new WithTextMatchers(new RegexMatcher[] {
+					new RegexMatcher("Window.*"),
+					new RegexMatcher("Open Perspective.*"),
+					new RegexMatcher("Other...*") });
       Menu menu = new ShellMenu(m.getMatchers());
       menu.select();
       new DefaultShell("Open Perspective");

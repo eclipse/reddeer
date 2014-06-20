@@ -24,8 +24,9 @@ import org.jboss.reddeer.swt.impl.toolbar.ShellToolItem;
 import org.jboss.reddeer.swt.impl.toolbar.ViewToolBar;
 import org.jboss.reddeer.swt.impl.toolbar.WorkbenchToolItem;
 import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
-import org.jboss.reddeer.swt.matcher.WithRegexMatcher;
-import org.jboss.reddeer.swt.matcher.WithRegexMatchers;
+import org.jboss.reddeer.swt.matcher.RegexMatcher;
+import org.jboss.reddeer.swt.matcher.WithTextMatcher;
+import org.jboss.reddeer.swt.matcher.WithTextMatchers;
 import org.jboss.reddeer.workbench.impl.view.WorkbenchView;
 import org.jboss.tools.reddeer.swt.test.model.TestModel;
 import org.junit.Before;
@@ -55,9 +56,9 @@ public class ToolBarTest {
 	
 	@Test 
 	public void workbenchToolBarRegexTest() {
-		
-		WithRegexMatcher rm = new WithRegexMatcher("RedDeer SWT Workbench.*");
-		ToolItem i = new WorkbenchToolItem(rm);
+		WithTextMatcher matcher = new WithTextMatcher(
+				new RegexMatcher("RedDeer SWT Workbench.*"));
+		ToolItem i = new WorkbenchToolItem(matcher);
 		i.click();
 		assertTrue("ToolItem should be clicked", TestModel.getClickedAndReset());
 	}
@@ -84,7 +85,8 @@ public class ToolBarTest {
 
 	@Test
 	public void testToolItemInViewToolBarRegexClicked() {
-		WithRegexMatcher rm = new WithRegexMatcher("RedDeer SWT View.*");
+		WithTextMatcher rm = new WithTextMatcher(
+				new RegexMatcher("RedDeer SWT View.*"));
 		ToolItem i = new DefaultToolItem(rm);
 		i.click();
 		assertTrue("ToolItem should be clicked", TestModel.getClickedAndReset());		
@@ -122,13 +124,16 @@ public class ToolBarTest {
 	public void testToolItemInShellToolBarRegexClicked() {
 		openPreferences();
 		new DefaultTreeItem(1).select();
-		ToolItem ti = new ShellToolItem(new WithRegexMatcher(".*ack.*"));
+		ToolItem ti = new ShellToolItem(new WithTextMatcher(new RegexMatcher(
+				".*ack.*")));
 		assertNotNull(ti);
 		closePreferences();			
 	}
 	
 	private void openPreferences() {
-		WithRegexMatchers m = new WithRegexMatchers("Window.*", "Preferences.*");
+		RegexMatcher[] array = { new RegexMatcher("Window.*"),
+				new RegexMatcher("Preferences.*") };
+		WithTextMatchers m = new WithTextMatchers(array);
 		Menu menu = new ShellMenu(m.getMatchers());
 		menu.select();
 		new DefaultShell("Preferences");

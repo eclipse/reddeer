@@ -11,9 +11,10 @@ import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.impl.menu.ContextMenu;
 import org.jboss.reddeer.swt.impl.menu.ShellMenu;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
+import org.jboss.reddeer.swt.matcher.RegexMatcher;
 import org.jboss.reddeer.swt.matcher.WithMnemonicTextMatcher;
-import org.jboss.reddeer.swt.matcher.WithRegexMatcher;
-import org.jboss.reddeer.swt.matcher.WithRegexMatchers;
+import org.jboss.reddeer.swt.matcher.WithTextMatcher;
+import org.jboss.reddeer.swt.matcher.WithTextMatchers;
 import org.jboss.reddeer.workbench.impl.view.WorkbenchView;
 import org.junit.Before;
 import org.junit.Test;
@@ -52,7 +53,7 @@ public class MenuTest {
 		new DefaultShell();
 		@SuppressWarnings("unchecked")
 		Menu m = new ShellMenu(new WithMnemonicTextMatcher("Help"),
-			new WithRegexMatcher("About.*"));
+			new WithTextMatcher(new RegexMatcher("About.*")));
 		m.select();
 		Shell s = new DefaultShell();
 		s.close();
@@ -72,7 +73,11 @@ public class MenuTest {
 
 		log.info("regex menu test");
 		try {
-			WithRegexMatchers m = new WithRegexMatchers("Win.*", "Pref.*");
+			RegexMatcher[] regexMatchers = { 
+					new RegexMatcher("Win.*"),
+					new RegexMatcher("Pref.*") 
+			};
+			WithTextMatchers m = new WithTextMatchers(regexMatchers);
 			new ShellMenu(m.getMatchers());
 		} catch (SWTLayerException e) {
 			fail("there should be no exception");
@@ -84,7 +89,11 @@ public class MenuTest {
 	public void unavailableMenuTest() {
 		log.info("unavailable regex menu test");
 		try {
-			WithRegexMatchers m = new WithRegexMatchers("Win.*", "Prefz.*");
+			RegexMatcher[] regexMatchers = { 
+					new RegexMatcher("Win.*"),
+					new RegexMatcher("Prefz.*") 
+			};
+			WithTextMatchers m = new WithTextMatchers(regexMatchers);
 			new ShellMenu(m.getMatchers());
 			fail("exception should be thrown");
 		} catch (SWTLayerException e) { // do nothing
