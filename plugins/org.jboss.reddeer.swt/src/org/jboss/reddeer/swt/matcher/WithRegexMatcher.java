@@ -8,6 +8,10 @@ import org.hamcrest.Description;
  * @author Jiri Peterka
  * @author Radoslav Rabara
  * 
+ * @deprecated in 0.6. Use plain {@link RegexMatcher} in combination with some
+ *             other matcher (for example {@link WithTextMatcher} or
+ *             {@link WithTooltipTextMatcher}).
+ * 
  */
 public class WithRegexMatcher extends AbstractWidgetWithTextMatcher {
 

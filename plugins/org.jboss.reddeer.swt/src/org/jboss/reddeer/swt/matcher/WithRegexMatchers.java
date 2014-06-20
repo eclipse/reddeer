@@ -14,6 +14,10 @@ import org.hamcrest.Matcher;
  * 
  * @author Jiri Peterka
  * @author Radoslav Rabara
+ * 
+  * @deprecated in 0.6. Use plain {@link RegexMatjcher} in combination with some
+ *             other matchers (for example {@link WithTextMatchers} or
+ *             {@link WithTooltipTextMatchers}).
  */
 public class WithRegexMatchers {
 
