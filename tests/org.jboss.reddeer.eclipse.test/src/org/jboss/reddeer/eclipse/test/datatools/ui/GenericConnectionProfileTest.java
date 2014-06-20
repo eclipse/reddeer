@@ -82,7 +82,7 @@ public class GenericConnectionProfileTest {
 	}
 	
 	private void downloadDriver() throws IOException {
-		URL website = new URL("http://repo2.maven.org/maven2/com/h2database/h2/1.4.178" + File.separator + fileName);
+		URL website = new URL("http://repo2.maven.org/maven2/com/h2database/h2/1.4.178/" + fileName);
 		ReadableByteChannel rbc = Channels.newChannel(website.openStream());
 		FileOutputStream fos = new FileOutputStream("target" + File.separator + fileName);
 		fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
