@@ -5,7 +5,7 @@
 
 	<!-- Import basic RedDeer requirements -->
 	<xs:import namespace="http://www.jboss.org/NS/Req"
-		schemaLocation="http://cloud.github.com/downloads/jboss-reddeer/reddeer/RedDeerSchema.xsd" />
+		schemaLocation="http://www.jboss.org/schema/reddeer/RedDeerSchema.xsd" />
 
 	<!-- Specify user-requirement -->
 	<xs:element name="server-requirement" type="server:serverRequirementType"

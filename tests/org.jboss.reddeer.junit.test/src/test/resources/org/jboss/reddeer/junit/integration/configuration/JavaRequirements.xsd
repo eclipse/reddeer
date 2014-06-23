@@ -7,7 +7,7 @@
         xmlns:rd="http://www.jboss.org/NS/Req">
         
         <!-- Import basic RedDeer requirements -->
-        <xs:import namespace="http://www.jboss.org/NS/Req" schemaLocation="http://cloud.github.com/downloads/jboss-reddeer/reddeer/RedDeerSchema.xsd" />
+        <xs:import namespace="http://www.jboss.org/NS/Req" schemaLocation="http://www.jboss.org/schema/reddeer/RedDeerSchema.xsd" />
 
         <!-- Specify user-requirement -->
         <xs:element name="java-requirement" type="java:javaRequirementType" substitutionGroup="rd:abstractRequirement">

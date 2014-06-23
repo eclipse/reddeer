@@ -3,7 +3,7 @@
         xmlns="http://www.jboss.org/NS/Req" 
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xmlns:user="http://www.jboss.org/NS/user-schema"
-        xsi:schemaLocation="http://www.jboss.org/NS/Req http://cloud.github.com/downloads/jboss-reddeer/reddeer/RedDeerSchema.xsd http://www.jboss.org/NS/user-schema user-schema.xsd">
+        xsi:schemaLocation="http://www.jboss.org/NS/Req http://www.jboss.org/schema/reddeer/RedDeerSchema.xsd http://www.jboss.org/NS/user-schema user-schema.xsd">
 
         <requirements>
                 <user:user-requirement name="user-requirement">
