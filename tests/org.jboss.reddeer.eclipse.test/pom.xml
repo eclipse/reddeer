@@ -104,7 +104,25 @@
 					</dependencies>
 				</configuration>
 			</plugin>
-		</plugins>
+	<plugin>
+		<groupId>com.googlecode.maven-download-plugin</groupId>
+		<artifactId>maven-download-plugin</artifactId>
+		<executions>
+			<execution>
+				<id>install-h2-driver</id>
+				<phase>pre-integration-test</phase>
+				<goals>
+					<goal>wget</goal>
+				</goals>
+				<configuration>
+					<url>http://central.maven.org/maven2/com/h2database/h2/1.4.178/h2-1.4.178.jar</url>
+					<outputFileName>h2-1.4.178.jar</outputFileName>
+					<unpack>false</unpack>
+				</configuration>
+			</execution>
+		</executions>
+	</plugin>           
+        </plugins>
 	</build>
 
 	<profiles>
