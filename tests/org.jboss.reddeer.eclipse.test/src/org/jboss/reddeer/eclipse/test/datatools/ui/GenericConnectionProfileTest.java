@@ -31,11 +31,6 @@ public class GenericConnectionProfileTest {
 	@Test
 	public void genericConnectionProfileTest() {
 		final String DRIVER_NAME = "Test H2 Driver";
-		try {
-			downloadDriver();
-		} catch (IOException e) {
-			fail("Cannot download jdbc driver necessary for test: " + e.getMessage());
-		}
 		File drvFile = new File("target" + File.separator + fileName);
 		
 		DriverTemplate dt = new DriverTemplate("Generic JDBC Driver", "1.0");
@@ -80,12 +75,4 @@ public class GenericConnectionProfileTest {
 		List<String> dbSources = new DataSourceExplorer().getDatabaseConnections();
 		assertTrue("Profile '" + profile + "' isn't available", dbSources.contains(profile));
 	}
-	
-	private void downloadDriver() throws IOException {
-		URL website = new URL("http://repo2.maven.org/maven2/com/h2database/h2/1.4.178/" + fileName);
-		ReadableByteChannel rbc = Channels.newChannel(website.openStream());
-		FileOutputStream fos = new FileOutputStream("target" + File.separator + fileName);
-		fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
-	}
-
 }
