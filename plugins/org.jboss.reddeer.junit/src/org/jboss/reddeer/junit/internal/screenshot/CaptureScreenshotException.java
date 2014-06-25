@@ -1,6 +1,6 @@
 package org.jboss.reddeer.junit.internal.screenshot;
 
-import org.jboss.reddeer.junit.logging.Logger;
+import org.jboss.reddeer.common.logging.Logger;
 
 /**
  * Purpose of this exception is controlling flow of JUnit tests. While capturing screenshot occurs any exception, this exception should be thrown and 

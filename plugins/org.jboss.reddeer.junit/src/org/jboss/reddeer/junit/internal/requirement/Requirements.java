@@ -4,7 +4,7 @@ import java.lang.annotation.Annotation;
 import java.util.Iterator;
 import java.util.List;
 
-import org.jboss.reddeer.junit.logging.Logger;
+import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.junit.requirement.Requirement;
 
 /**

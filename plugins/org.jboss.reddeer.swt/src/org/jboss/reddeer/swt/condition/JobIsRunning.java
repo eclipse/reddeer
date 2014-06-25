@@ -3,7 +3,7 @@ package org.jboss.reddeer.swt.condition;
 import org.eclipse.core.runtime.jobs.Job;
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.Matcher;
-import org.jboss.reddeer.junit.logging.Logger;
+import org.jboss.reddeer.common.logging.Logger;
 
 /**
  * Returns true, if there is a non system job running, false 

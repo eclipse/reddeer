@@ -2,7 +2,7 @@ package org.jboss.reddeer.junit.extension.before.test.impl;
 
 import org.eclipse.ui.IViewReference;
 import org.jboss.reddeer.junit.extensionpoint.IBeforeTest;
-import org.jboss.reddeer.junit.logging.Logger;
+import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.swt.lookup.WorkbenchLookup;
 import org.jboss.reddeer.swt.util.Display;
 /**

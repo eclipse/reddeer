@@ -14,8 +14,8 @@ import org.hamcrest.Matcher;
 import org.jboss.reddeer.gef.api.Palette;
 import org.jboss.reddeer.gef.finder.EditPartFinder;
 import org.jboss.reddeer.gef.impl.palette.internal.BasicPalette;
-import org.jboss.reddeer.junit.logging.Logger;
 import org.jboss.reddeer.swt.handler.WidgetHandler;
+import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.swt.util.Display;
 import org.jboss.reddeer.swt.util.ResultRunnable;
 

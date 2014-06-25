@@ -1,10 +1,9 @@
-package org.jboss.reddeer.junit;
+package org.jboss.reddeer.common.context;
 
 
 /**
  * Recognized RedDeer test execution parameters 
  * @author Jiri Peterka
- * @deprecated use org.jboss.reddeer.common.context.ExecutionSetting
  *
  */
 public class ExecutionSetting {

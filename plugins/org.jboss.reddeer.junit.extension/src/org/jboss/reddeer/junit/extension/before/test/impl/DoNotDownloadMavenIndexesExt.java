@@ -4,7 +4,7 @@ import org.eclipse.core.runtime.preferences.DefaultScope;
 import org.eclipse.core.runtime.preferences.IEclipsePreferences;
 import org.jboss.reddeer.eclipse.m2e.core.ui.preferences.MavenPreferencePage;
 import org.jboss.reddeer.junit.extensionpoint.IBeforeTest;
-import org.jboss.reddeer.junit.logging.Logger;
+import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 /**

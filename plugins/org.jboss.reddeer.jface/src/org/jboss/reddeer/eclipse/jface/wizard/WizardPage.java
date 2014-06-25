@@ -1,6 +1,6 @@
 package org.jboss.reddeer.eclipse.jface.wizard;
 
-import org.jboss.reddeer.junit.logging.Logger;
+import org.jboss.reddeer.common.logging.Logger;
 
 /**
  * Superclass of wizard page represent single page in wizard dialog.

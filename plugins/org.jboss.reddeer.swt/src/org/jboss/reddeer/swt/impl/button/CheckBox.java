@@ -1,7 +1,7 @@
 package org.jboss.reddeer.swt.impl.button;
 
 import org.eclipse.swt.SWT;
-import org.jboss.reddeer.junit.logging.Logger;
+import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.swt.handler.ButtonHandler;
 import org.jboss.reddeer.swt.reference.ReferencedComposite;
 /**

@@ -12,7 +12,8 @@ Require-Bundle: org.eclipse.ui,
  org.jboss.reddeer.swt;bundle-version="[0.6,0.7)",
  org.junit;bundle-version="4.11.0",
  org.jboss.reddeer.swt;bundle-version="[0.6,0.7)",
- org.jboss.reddeer.jface;bundle-version="[0.6,0.7)"
+ org.jboss.reddeer.jface;bundle-version="[0.6,0.7)",
+ org.jboss.reddeer.common;bundle-version="[0.6,0.7)"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
 Bundle-Vendor: JBoss by Red Hat

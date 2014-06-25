@@ -1,7 +1,7 @@
 package org.jboss.reddeer.swt.impl.ctab;
 
 import org.eclipse.swt.SWT;
-import org.jboss.reddeer.junit.logging.Logger;
+import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.swt.api.CTabItem;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.handler.CTabItemHandler;

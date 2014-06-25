@@ -1,6 +1,6 @@
 package org.jboss.reddeer.swt.impl.list;
 
-import org.jboss.reddeer.junit.logging.Logger;
+import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.swt.api.List;
 import org.jboss.reddeer.swt.handler.ListHandler;
 import org.jboss.reddeer.swt.handler.WidgetHandler;
