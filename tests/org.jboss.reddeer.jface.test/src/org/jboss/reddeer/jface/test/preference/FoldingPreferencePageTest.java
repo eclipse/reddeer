@@ -4,23 +4,25 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import org.jboss.reddeer.eclipse.jface.preference.FoldingPreferencePage;
-import org.jboss.reddeer.swt.test.RedDeerTest;
+import org.jboss.reddeer.junit.runner.RedDeerSuite;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
-public class FoldingPreferencePageTest extends RedDeerTest {
+@RunWith(RedDeerSuite.class)
+public class FoldingPreferencePageTest {
 
 	private static FoldingPreferencePage page = new FoldingPreferencePage();
 
-	@Override
-	protected void setUp() {
-		super.setUp();
+	@Before
+	public void setUp() {
 		page.open();
 	}
 
-	@Override
-	protected void tearDown() {
+	@After
+	public void tearDown() {
 		page.cancel();
-		super.tearDown();
 	}
 
 	@Test

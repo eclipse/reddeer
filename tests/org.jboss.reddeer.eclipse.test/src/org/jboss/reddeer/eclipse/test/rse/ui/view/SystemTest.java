@@ -9,6 +9,7 @@ import java.util.List;
 import org.jboss.reddeer.eclipse.rse.ui.view.System;
 import org.jboss.reddeer.eclipse.rse.ui.wizard.NewConnectionWizardSelectionPage.SystemType;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
+import org.junit.Before;
 import org.junit.Test;
 
 public class SystemTest extends SystemViewTestCase {
@@ -18,9 +19,8 @@ public class SystemTest extends SystemViewTestCase {
 	
 	private System system1;
 	
-	@Override
+	@Before
 	public void setUp() {
-		super.setUp();
 		createSystem("127.0.0.1", SYSTEM_1, SystemType.SSH_ONLY);
 		createSystem("localhost", SYSTEM_2, SystemType.SSH_ONLY);
 		system1 = remoteSystemView.getSystem(SYSTEM_1);

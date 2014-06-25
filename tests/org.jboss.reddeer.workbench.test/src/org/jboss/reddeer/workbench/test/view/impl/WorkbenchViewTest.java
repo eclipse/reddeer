@@ -5,13 +5,16 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import org.eclipse.ui.IViewReference;
 import org.hamcrest.core.Is;
 import org.hamcrest.core.IsNot;
+import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.swt.lookup.WorkbenchLookup;
-import org.jboss.reddeer.swt.test.RedDeerTest;
 import org.jboss.reddeer.workbench.api.View;
 import org.jboss.reddeer.workbench.impl.view.WorkbenchView;
+import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
-public class WorkbenchViewTest extends RedDeerTest {
+@RunWith(RedDeerSuite.class)
+public class WorkbenchViewTest  {
 
 	private final static String MARKERS_VIEW_TITLE = "Markers";
 	private final static String PROJECT_EXPLORER_VIEW_TITLE = "Project Explorer";
@@ -19,10 +22,8 @@ public class WorkbenchViewTest extends RedDeerTest {
 	private View markersView;
 	private View projectExplorerView;
 
-	@Override
-	protected void setUp() {
-		super.setUp();
-
+	@Before
+	public void setUp() {
 		markersView = new WorkbenchView(MARKERS_VIEW_TITLE);
 		try {
 			markersView.close();

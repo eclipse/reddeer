@@ -5,11 +5,14 @@ import static org.junit.Assert.assertThat;
 
 import org.jboss.reddeer.eclipse.jface.wizard.NewWizardDialog;
 import org.jboss.reddeer.eclipse.jface.wizard.WizardPage;
-import org.jboss.reddeer.swt.test.RedDeerTest;
+import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
+import org.junit.After;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
-public class NewWizardDialogTest extends RedDeerTest {
+@RunWith(RedDeerSuite.class)
+public class NewWizardDialogTest {
 
 	private NewWizardDialogImpl newWizardDialog = new NewWizardDialogImpl();
 
@@ -21,10 +24,9 @@ public class NewWizardDialogTest extends RedDeerTest {
 		assertThat(wizardDialogText, is(TestingNewWizard.NAME));
 	}
 
-	@Override
-	protected void tearDown(){
+	@After
+	public void tearDown(){
 		newWizardDialog.cancel();
-		super.tearDown();
 	}
 	
 	private class NewWizardDialogImpl extends NewWizardDialog {

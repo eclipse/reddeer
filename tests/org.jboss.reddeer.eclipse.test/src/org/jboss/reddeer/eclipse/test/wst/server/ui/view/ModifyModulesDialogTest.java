@@ -12,6 +12,7 @@ import org.jboss.reddeer.eclipse.wst.server.ui.view.ServerModule;
 import org.jboss.reddeer.eclipse.wst.server.ui.wizard.ModifyModulesDialog;
 import org.jboss.reddeer.eclipse.wst.server.ui.wizard.ModifyModulesPage;
 import org.junit.AfterClass;
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 /**
@@ -38,9 +39,8 @@ public class ModifyModulesDialogTest extends ServersViewTestCase{
 		}
 	}
 	
-	@Override
-	protected void setUp(){
-		super.setUp();
+	@Before
+	public void setUp(){
 		createServer(SERVER);
 
 		server = serversView.getServer(SERVER);

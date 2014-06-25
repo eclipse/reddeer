@@ -9,11 +9,12 @@ import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.PackageExplorer;
 import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.Project;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.swt.handler.WorkbenchHandler;
-import org.jboss.reddeer.swt.test.RedDeerTest;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 @RunWith(RedDeerSuite.class)
-public class PackageExplorerTest extends RedDeerTest {
+public class PackageExplorerTest {
 
 	private static final String PROJECT_NAME_0 = "TestProject0";
 	private static final String PROJECT_NAME_1 = "TestProject1";
@@ -21,9 +22,8 @@ public class PackageExplorerTest extends RedDeerTest {
 	private PackageExplorer packageExplorer;
 	private Project project0;
 
-	@Override
-	protected void setUp() {
-		super.setUp();
+	@Before
+	public void setUp() {
 		NewJavaProjectWizardDialog dialog = new NewJavaProjectWizardDialog();
 		dialog.open();
 		NewJavaProjectWizardPage page1 = dialog.getFirstPage();
@@ -106,8 +106,8 @@ public class PackageExplorerTest extends RedDeerTest {
 						.containsProject(PackageExplorerTest.PROJECT_NAME_0));
 	}
 
-	@Override
-	protected void tearDown() {
+	@After
+	public void tearDown() {
 		if (packageExplorer != null){
 			if (packageExplorer.containsProject(PackageExplorerTest.PROJECT_NAME_0)) {
 				packageExplorer.getProject(PackageExplorerTest.PROJECT_NAME_0)
@@ -122,6 +122,5 @@ public class PackageExplorerTest extends RedDeerTest {
 						.delete(true);
 			}
 		}
-		super.tearDown();
 	}
 }

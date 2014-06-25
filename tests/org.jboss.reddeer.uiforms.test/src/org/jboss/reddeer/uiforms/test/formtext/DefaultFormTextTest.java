@@ -6,10 +6,10 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.impl.label.DefaultLabel;
 import org.jboss.reddeer.swt.reference.ReferencedComposite;
-import org.jboss.reddeer.swt.test.RedDeerTest;
 import org.jboss.reddeer.uiforms.api.FormText;
 import org.jboss.reddeer.uiforms.impl.form.DefaultForm;
 import org.jboss.reddeer.uiforms.impl.formtext.DefaultFormText;
@@ -18,8 +18,10 @@ import org.jboss.reddeer.uiforms.test.ui.views.UIFormView;
 import org.jboss.reddeer.workbench.api.View;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
-public class DefaultFormTextTest extends RedDeerTest {
+@RunWith(RedDeerSuite.class)
+public class DefaultFormTextTest {
 
 	private View uiFormView = new UIFormView();
 

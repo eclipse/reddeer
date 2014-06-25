@@ -10,11 +10,15 @@ import org.jboss.reddeer.eclipse.wst.server.ui.view.Server;
 import org.jboss.reddeer.eclipse.wst.server.ui.view.ServersView;
 import org.jboss.reddeer.eclipse.wst.server.ui.wizard.NewServerWizardDialog;
 import org.jboss.reddeer.eclipse.wst.server.ui.wizard.NewServerWizardPage;
-import org.jboss.reddeer.swt.test.RedDeerTest;
+import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
-public class NewServerWizardPageTest extends RedDeerTest {
+@RunWith(RedDeerSuite.class)
+public class NewServerWizardPageTest {
 	
 	private static final String SERVER_NAME = TestServer.NAME;
 	
@@ -26,9 +30,8 @@ public class NewServerWizardPageTest extends RedDeerTest {
 
 	private NewServerWizardPage wizardPage;
 	
-	@Override
-	protected void setUp(){
-	  super.setUp();
+	@Before
+	public void setUp(){
 		view = new ServersView();
 		wizard = view.newServer();
 		wizardPage = wizard.getFirstPage();
@@ -58,8 +61,8 @@ public class NewServerWizardPageTest extends RedDeerTest {
 		wizardPage.setHostName("ABC");
 	}
 	
-	@Override
-	protected void tearDown(){
+	@After
+	public void tearDown(){
 		if (wizard != null && NewServerWizardDialog.TITLE.equals(new DefaultShell().getText())){
 			wizard.cancel();
 		}
@@ -67,6 +70,5 @@ public class NewServerWizardPageTest extends RedDeerTest {
 		for (Server server : view.getServers()){
 			server.delete(false);
 		}
-		super.tearDown();
 	}
 }

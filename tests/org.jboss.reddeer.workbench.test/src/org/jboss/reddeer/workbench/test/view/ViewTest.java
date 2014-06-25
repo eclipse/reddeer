@@ -1,12 +1,14 @@
 package org.jboss.reddeer.workbench.test.view;
 
-import org.jboss.reddeer.swt.test.RedDeerTest;
+import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.workbench.api.View;
 import org.jboss.reddeer.workbench.exception.WorkbenchPartNotFound;
 import org.jboss.reddeer.workbench.impl.view.WorkbenchView;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
-public class ViewTest extends RedDeerTest{
+@RunWith(RedDeerSuite.class)
+public class ViewTest {
 	
 	@Test
 	public void testInitializeRegisteredView() {
