@@ -1,6 +1,6 @@
 package org.jboss.reddeer.swt.impl.progressbar;
 
-import org.jboss.reddeer.junit.logging.Logger;
+import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.swt.api.ProgressBar;
 import org.jboss.reddeer.swt.handler.WidgetHandler;
 import org.jboss.reddeer.swt.lookup.ProgressBarLookup;

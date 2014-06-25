@@ -1,15 +1,14 @@
-package org.jboss.reddeer.junit.logging;
+package org.jboss.reddeer.common.logging;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import org.jboss.reddeer.junit.ExecutionSetting;
+import org.jboss.reddeer.common.context.ExecutionSetting;
 
 /**
  * Simple console logger for Reddeer
  * @author Jiri Peterka
- * @deprecated  use org.jboss.reddeer.common.logging.Logger
  *
  */
 public class Logger {

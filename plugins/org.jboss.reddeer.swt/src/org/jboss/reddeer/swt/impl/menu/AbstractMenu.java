@@ -1,6 +1,6 @@
 package org.jboss.reddeer.swt.impl.menu;
 
-import org.jboss.reddeer.junit.logging.Logger;
+import org.jboss.reddeer.common.logging.Logger;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.swt.api.Menu;
 

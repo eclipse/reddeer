@@ -17,7 +17,7 @@ import java.awt.GraphicsEnvironment;
 import java.io.File;
 import java.io.IOException;
 
-import org.jboss.reddeer.junit.logging.Logger;
+import org.jboss.reddeer.common.logging.Logger;
 import org.monte.screenrecorder.ScreenRecorder;
 import org.monte.media.Format;
 import org.monte.media.Registry;

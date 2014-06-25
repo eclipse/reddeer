@@ -2,7 +2,7 @@ package org.jboss.reddeer.swt.impl.link;
 
 import java.util.List;
 
-import org.jboss.reddeer.junit.logging.Logger;
+import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.swt.api.Link;
 import org.jboss.reddeer.swt.handler.LinkHandler;
 import org.jboss.reddeer.swt.handler.WidgetHandler;

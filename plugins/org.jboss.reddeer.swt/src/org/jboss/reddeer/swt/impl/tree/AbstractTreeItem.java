@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.eclipse.swt.custom.StyleRange;
 import org.eclipse.swt.SWT;
-import org.jboss.reddeer.junit.logging.Logger;
+import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.swt.api.Tree;
 import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.swt.condition.TreeItemHasMinChildren;

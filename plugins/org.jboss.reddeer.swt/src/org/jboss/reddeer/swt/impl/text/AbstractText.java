@@ -1,6 +1,6 @@
 package org.jboss.reddeer.swt.impl.text;
 
-import org.jboss.reddeer.junit.logging.Logger;
+import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.swt.api.Text;
 import org.jboss.reddeer.swt.handler.TextHandler;
 import org.jboss.reddeer.swt.handler.WidgetHandler;

@@ -2,7 +2,8 @@ package org.jboss.reddeer.swt.condition;
 
 import org.eclipse.swt.widgets.Shell;
 import org.hamcrest.Matcher;
-import org.jboss.reddeer.junit.logging.Logger;
+import org.hamcrest.core.IsEqual;
+import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.swt.lookup.ShellLookup;
 import org.jboss.reddeer.swt.matcher.WithTextMatcher;
 import org.jboss.reddeer.swt.util.internal.InstanceValidator;

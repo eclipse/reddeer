@@ -1,7 +1,7 @@
 package org.jboss.reddeer.swt.test;
 
 import org.eclipse.ui.IViewReference;
-import org.jboss.reddeer.junit.logging.Logger;
+import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.junit.watcher.RedDeerWatchdog;
 import org.jboss.reddeer.swt.lookup.WorkbenchLookup;

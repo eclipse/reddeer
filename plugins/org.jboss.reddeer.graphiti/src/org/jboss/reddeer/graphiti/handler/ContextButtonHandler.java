@@ -1,7 +1,7 @@
 package org.jboss.reddeer.graphiti.handler;
 
 import org.eclipse.graphiti.tb.IContextButtonEntry;
-import org.jboss.reddeer.junit.logging.Logger;
+import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.swt.util.Display;
 import org.jboss.reddeer.swt.util.ResultRunnable;
 

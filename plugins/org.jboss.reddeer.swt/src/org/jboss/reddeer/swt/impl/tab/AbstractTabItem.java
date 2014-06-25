@@ -1,7 +1,7 @@
 package org.jboss.reddeer.swt.impl.tab;
 
 import org.eclipse.swt.SWT;
-import org.jboss.reddeer.junit.logging.Logger;
+import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.swt.api.TabItem;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.handler.TabItemHandler;
