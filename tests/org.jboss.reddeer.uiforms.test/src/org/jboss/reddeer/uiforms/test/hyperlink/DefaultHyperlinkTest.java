@@ -4,10 +4,10 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertNotNull;
 
+import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.impl.label.DefaultLabel;
 import org.jboss.reddeer.swt.reference.ReferencedComposite;
-import org.jboss.reddeer.swt.test.RedDeerTest;
 import org.jboss.reddeer.uiforms.api.Hyperlink;
 import org.jboss.reddeer.uiforms.impl.form.DefaultForm;
 import org.jboss.reddeer.uiforms.impl.hyperlink.DefaultHyperlink;
@@ -16,8 +16,10 @@ import org.jboss.reddeer.uiforms.test.ui.views.UIFormView;
 import org.jboss.reddeer.workbench.api.View;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
-public class DefaultHyperlinkTest extends RedDeerTest {
+@RunWith(RedDeerSuite.class)
+public class DefaultHyperlinkTest {
 
 	private View uiFormView = new UIFormView(); 
 	

@@ -13,7 +13,8 @@ import org.jboss.reddeer.eclipse.ui.views.properties.PropertiesView;
 import org.jboss.reddeer.eclipse.ui.views.properties.PropertiesViewProperty;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
-import org.jboss.reddeer.swt.test.RedDeerTest;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 /**
@@ -22,11 +23,11 @@ import org.junit.runner.RunWith;
  *
  */
 @RunWith(RedDeerSuite.class)
-public class PropertiesViewTest extends RedDeerTest{
+public class PropertiesViewTest {
 	private static final String TEST_PROJECT_NAME = "PropertiesViewTestProject";
-	@Override
-	protected void setUp() {
-		super.setUp();
+
+	@Before
+	public void setUp() {
 		NewJavaProjectWizardDialog dialog = new NewJavaProjectWizardDialog();
 		dialog.open();
 		NewJavaProjectWizardPage page1 = dialog.getFirstPage();
@@ -83,15 +84,13 @@ public class PropertiesViewTest extends RedDeerTest{
 		assertFalse("Properties view cannot to contain property " + infoPropName,
 			containsProperty(propertiesView,infoPropName));
 	}
-	@Override
-	protected void tearDown() {
+	@After
+	public void tearDown() {
 		PackageExplorer packageExplorer = new PackageExplorer();
 		if (packageExplorer.containsProject(PropertiesViewTest.TEST_PROJECT_NAME)) {
 			packageExplorer.getProject(PropertiesViewTest.TEST_PROJECT_NAME)
 					.delete(true);
 		}
-		
-		super.tearDown();
 	}
 	
 	private boolean containsProperty(PropertiesView propertiesView , String... propertyNamePath){

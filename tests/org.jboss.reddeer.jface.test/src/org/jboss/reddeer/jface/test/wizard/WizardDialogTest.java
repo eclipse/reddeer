@@ -1,13 +1,14 @@
 package org.jboss.reddeer.jface.test.wizard;
 
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsInstanceOf.instanceOf;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
-import static org.hamcrest.core.IsInstanceOf.instanceOf;
-import static org.hamcrest.core.Is.is;
 
 import org.jboss.reddeer.eclipse.jface.wizard.WizardDialog;
 import org.jboss.reddeer.eclipse.jface.wizard.WizardPage;
 import org.jboss.reddeer.eclipse.jface.wizard.WizardPageProperty;
+import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.swt.api.CLabel;
 import org.jboss.reddeer.swt.api.Shell;
 import org.jboss.reddeer.swt.condition.ShellWithTextIsActive;
@@ -16,12 +17,15 @@ import org.jboss.reddeer.swt.impl.clabel.DefaultCLabel;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.jboss.reddeer.swt.impl.shell.WorkbenchShell;
 import org.jboss.reddeer.swt.impl.text.LabeledText;
-import org.jboss.reddeer.swt.test.RedDeerTest;
 import org.jboss.reddeer.swt.util.Display;
 import org.jboss.reddeer.swt.wait.WaitUntil;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
-public class WizardDialogTest extends RedDeerTest {
+@RunWith(RedDeerSuite.class)
+public class WizardDialogTest {
 
 	private org.eclipse.swt.widgets.Shell shell;
 
@@ -29,9 +33,8 @@ public class WizardDialogTest extends RedDeerTest {
 	
 	private WizardDialog wizardDialog;
 	
-	@Override
-	protected void setUp(){
-	  super.setUp();
+	@Before
+	public void setUp(){
 		org.jboss.reddeer.swt.util.Display.asyncExec(new Runnable() {
 
 			@Override
@@ -127,8 +130,8 @@ public class WizardDialogTest extends RedDeerTest {
 		assertThat(page, instanceOf(AgeWizardPage.class));
 	}
 
-	@Override
-	protected void tearDown(){
+	@After
+	public void tearDown(){
 		if (!shell.isDisposed()){
 			Display.syncExec(new Runnable() {
 
@@ -138,7 +141,6 @@ public class WizardDialogTest extends RedDeerTest {
 				}
 			});
 		}
-		super.tearDown();
 	}
 	
 	private class MultiPageWizardDialog extends WizardDialog {

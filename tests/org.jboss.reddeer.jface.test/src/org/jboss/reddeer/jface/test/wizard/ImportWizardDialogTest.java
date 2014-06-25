@@ -5,11 +5,14 @@ import static org.junit.Assert.assertThat;
 
 import org.jboss.reddeer.eclipse.jface.wizard.ImportWizardDialog;
 import org.jboss.reddeer.eclipse.jface.wizard.WizardPage;
-import org.jboss.reddeer.swt.test.RedDeerTest;
+import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
+import org.junit.After;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
-public class ImportWizardDialogTest extends RedDeerTest {
+@RunWith(RedDeerSuite.class)
+public class ImportWizardDialogTest {
 
 	private ImportWizardDialogImpl importWizardDialog = new ImportWizardDialogImpl();
 
@@ -21,10 +24,9 @@ public class ImportWizardDialogTest extends RedDeerTest {
 		assertThat(wizardDialogText, is(TestingImportWizard.NAME));
 	}
 
-	@Override
-	protected void tearDown(){
+	@After
+	public void tearDown(){
 		importWizardDialog.cancel();
-		super.tearDown();
 	}
 	
 	private class ImportWizardDialogImpl extends ImportWizardDialog {

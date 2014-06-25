@@ -1,17 +1,19 @@
 package org.jboss.reddeer.eclipse.test.mylyn.tasks.ui.wizards;
 
-import org.jboss.reddeer.eclipse.mylyn.tasks.ui.wizards.NewRepositoryWizard;
-import org.jboss.reddeer.swt.test.RedDeerTest;
-import org.junit.Test;
+import static org.junit.Assert.assertEquals;
 
-import static org.junit.Assert.*;
+import org.jboss.reddeer.eclipse.mylyn.tasks.ui.wizards.NewRepositoryWizard;
+import org.jboss.reddeer.junit.runner.RedDeerSuite;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 
 /**
  * 
  * @author ldimaggi
  * 
  */
-public class NewRepositoryWizardTest extends RedDeerTest {
+@RunWith(RedDeerSuite.class)
+public class NewRepositoryWizardTest {
 
 	@Test
 	public void getWizardTest() {

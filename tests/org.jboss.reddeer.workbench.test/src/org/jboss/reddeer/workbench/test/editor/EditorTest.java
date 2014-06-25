@@ -16,7 +16,6 @@ import org.jboss.reddeer.eclipse.ui.ide.NewFileCreationWizardPage;
 import org.jboss.reddeer.eclipse.ui.problems.ProblemsView;
 import org.jboss.reddeer.eclipse.ui.wizards.newresource.BasicNewProjectResourceWizard;
 import org.jboss.reddeer.swt.impl.button.PushButton;
-import org.jboss.reddeer.swt.test.RedDeerTest;
 import org.jboss.reddeer.workbench.api.Editor;
 import org.jboss.reddeer.workbench.exception.WorkbenchPartNotFound;
 import org.jboss.reddeer.workbench.impl.editor.DefaultEditor;
@@ -27,7 +26,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-public class EditorTest extends RedDeerTest {
+public class EditorTest {
 
 	@BeforeClass
 	public static void setupClass() {

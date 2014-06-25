@@ -10,7 +10,8 @@ import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.ProjectItem;
 import org.jboss.reddeer.eclipse.ui.views.navigator.ResourceNavigator;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.swt.handler.WorkbenchHandler;
-import org.jboss.reddeer.swt.test.RedDeerTest;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -20,7 +21,7 @@ import org.junit.runner.RunWith;
  * @author rrabara
  */
 @RunWith(RedDeerSuite.class)
-public class ResourceNavigatorTest extends RedDeerTest {
+public class ResourceNavigatorTest {
 	
 	private static final String PROJECT_NAME = "TestProject";
 	private static final String SOURCE_FOLDER = "src";
@@ -29,9 +30,8 @@ public class ResourceNavigatorTest extends RedDeerTest {
 	
 	private ResourceNavigator navigator;
 	
-	@Override
+	@Before
 	public void setUp() {
-		super.setUp();
 		navigator = new ResourceNavigator();
 	}
 	
@@ -91,13 +91,12 @@ public class ResourceNavigatorTest extends RedDeerTest {
 		dialog.finish();
 	}
 	
-	@Override
-	protected void tearDown() {
+	@After
+	public void tearDown() {
 		if (navigator != null){
 			if(navigator.containsProject(PROJECT_NAME)) {
 				navigator.getProject(PROJECT_NAME).delete(true);
 			}
 		}
-		super.tearDown();
 	}
 }

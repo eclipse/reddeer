@@ -11,14 +11,17 @@ import org.jboss.reddeer.eclipse.jdt.ui.ide.NewJavaProjectWizardDialog;
 import org.jboss.reddeer.eclipse.jdt.ui.ide.NewJavaProjectWizardPage;
 import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.PackageExplorer;
 import org.jboss.reddeer.eclipse.ui.problems.ProblemsView;
+import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.swt.condition.JobIsRunning;
-import org.jboss.reddeer.swt.test.RedDeerTest;
 import org.jboss.reddeer.swt.wait.TimePeriod;
 import org.jboss.reddeer.swt.wait.WaitUntil;
 import org.jboss.reddeer.swt.wait.WaitWhile;
 import org.jboss.reddeer.workbench.impl.editor.TextEditor;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 /**
  * Just a draft.
@@ -28,14 +31,14 @@ import org.junit.Test;
  *
  */
 
-public class ProblemsViewTest extends RedDeerTest{
+@RunWith(RedDeerSuite.class)
+public class ProblemsViewTest {
 	
 	private PackageExplorer pkgExplorer;
 	private ProblemsView problemsView;	
 	
-	@Override
-	protected void setUp(){
-	  super.setUp();
+	@Before
+	public void setUp(){
 		NewJavaProjectWizardDialog dialog = new NewJavaProjectWizardDialog();
 		dialog.open();
 		NewJavaProjectWizardPage page1 = dialog.getFirstPage(); 
@@ -47,11 +50,10 @@ public class ProblemsViewTest extends RedDeerTest{
 		pkgExplorer.open();
 	}
 	
-	@Override
-	protected void tearDown(){
+	@After
+	public void tearDown(){
 		pkgExplorer.open();
 		pkgExplorer.getProject("Test").delete(true);
-		super.tearDown();
 	}
 	
 	public void testNoErrorNoWarning() {

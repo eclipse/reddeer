@@ -1,29 +1,33 @@
 package org.jboss.reddeer.eclipse.test.ui.ide;
 
+import static org.junit.Assert.assertTrue;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import org.jboss.reddeer.eclipse.ui.ide.RepoConnectionDialog;
+import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.menu.ShellMenu;
 import org.jboss.reddeer.swt.impl.text.LabeledText;
 import org.jboss.reddeer.swt.impl.tree.DefaultTree;
 import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
-import org.jboss.reddeer.swt.test.RedDeerTest;
 import org.jboss.reddeer.swt.wait.AbstractWait;
 import org.jboss.reddeer.swt.wait.TimePeriod;
+import org.junit.After;
 import org.junit.Test;
-
-import static org.junit.Assert.assertTrue;
+import org.junit.runner.RunWith;
 
 /**
  * 
  * @author ldimaggi
  * 
  */
-public class RepoConnectionDialogTest extends RedDeerTest {
+@RunWith(RedDeerSuite.class)
+public class RepoConnectionDialogTest  {
 	RepoConnectionDialog repoConnectionDialog = null;
+	
 	@Test
 	public void getDialogTest() {
 		
@@ -61,7 +65,7 @@ public class RepoConnectionDialogTest extends RedDeerTest {
 		
 	}
 	
-	@Override
+	@After
 	public void tearDown(){
 		if (repoConnectionDialog != null){
 			repoConnectionDialog.close();

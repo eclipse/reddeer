@@ -12,12 +12,15 @@ import org.eclipse.core.runtime.Status;
 import org.jboss.reddeer.eclipse.test.Activator;
 import org.jboss.reddeer.eclipse.ui.views.log.LogMessage;
 import org.jboss.reddeer.eclipse.ui.views.log.LogView;
+import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.swt.test.RedDeerTest;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
-public class LogViewTest extends RedDeerTest{
+@RunWith(RedDeerSuite.class)
+public class LogViewTest {
 
 	public static final String OK_ID_1="fake_ID_OK_1";
 	public static final String OK_MESSAGE_1="fake_OK_1";
