@@ -9,14 +9,16 @@ import org.jboss.reddeer.eclipse.jdt.ui.ide.NewJavaProjectWizardDialog;
 import org.jboss.reddeer.eclipse.jdt.ui.ide.NewJavaProjectWizardPage;
 import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.PackageExplorer;
 import org.jboss.reddeer.eclipse.ui.views.contentoutline.OutlineView;
+import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.handler.WorkbenchHandler;
-import org.jboss.reddeer.swt.test.RedDeerTest;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
-public class OutlineViewTest extends RedDeerTest{
+@RunWith(RedDeerSuite.class)
+public class OutlineViewTest{
 
 	private OutlineView outlineView;
 	private static PackageExplorer packageExplorer;

@@ -7,14 +7,16 @@ import org.jboss.reddeer.eclipse.rse.ui.wizard.NewConnectionWizardDialog;
 import org.jboss.reddeer.eclipse.rse.ui.wizard.NewConnectionWizardMainPage;
 import org.jboss.reddeer.eclipse.rse.ui.wizard.NewConnectionWizardSelectionPage;
 import org.jboss.reddeer.eclipse.rse.ui.wizard.NewConnectionWizardSelectionPage.SystemType;
+import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
-import org.jboss.reddeer.swt.test.RedDeerTest;
 import org.jboss.reddeer.swt.wait.WaitUntil;
 import org.junit.After;
 import org.junit.Ignore;
+import org.junit.runner.RunWith;
 
 @Ignore
-public class SystemViewTestCase extends RedDeerTest{
+@RunWith(RedDeerSuite.class)
+public class SystemViewTestCase {
 
 	protected SystemView remoteSystemView = new SystemView();
 	
@@ -54,6 +56,5 @@ public class SystemViewTestCase extends RedDeerTest{
 		for (System system : remoteSystemView.getSystems()){
 			system.delete();
 		}
-		super.tearDown();
 	}
 }

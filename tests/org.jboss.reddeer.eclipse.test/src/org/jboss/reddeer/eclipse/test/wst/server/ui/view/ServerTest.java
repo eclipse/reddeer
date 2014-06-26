@@ -20,6 +20,7 @@ import org.jboss.reddeer.eclipse.wst.server.ui.wizard.ModifyModulesPage;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.junit.AfterClass;
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -47,9 +48,8 @@ public class ServerTest extends ServersViewTestCase {
 		}
 	}
 	
-	@Override
-	protected void setUp(){
-		super.setUp();
+	@Before
+	public void setUp(){
 		createServer(SERVER_1);
 		createServer(SERVER_2);
 
@@ -57,7 +57,7 @@ public class ServerTest extends ServersViewTestCase {
 	}
 	
 	@Override
-	protected void tearDown() {
+	public void tearDown() {
 		try {
 			new DefaultShell(ModifyModulesDialog.DIALOG_TITLE).setFocus();;
 			new ModifyModulesDialog().cancel();

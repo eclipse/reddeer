@@ -3,8 +3,6 @@ package org.jboss.reddeer.eclipse.test.jst.j2ee.ui.project.facet;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import org.jboss.reddeer.requirements.openperspective.OpenPerspectiveRequirement.OpenPerspective;
-import org.jboss.reddeer.swt.test.RedDeerTest;
 import org.jboss.reddeer.eclipse.jdt.ui.ProjectExplorer;
 import org.jboss.reddeer.eclipse.jst.j2ee.ui.project.facet.EarProjectFirstPage;
 import org.jboss.reddeer.eclipse.jst.j2ee.ui.project.facet.EarProjectInstallPage;
@@ -13,10 +11,14 @@ import org.jboss.reddeer.eclipse.jst.j2ee.wizard.NewJ2EEComponentSelectionPage;
 import org.jboss.reddeer.eclipse.jst.servlet.ui.WebProjectFirstPage;
 import org.jboss.reddeer.eclipse.jst.servlet.ui.WebProjectWizard;
 import org.jboss.reddeer.eclipse.ui.perspectives.JavaEEPerspective;
+import org.jboss.reddeer.junit.runner.RedDeerSuite;
+import org.jboss.reddeer.requirements.openperspective.OpenPerspectiveRequirement.OpenPerspective;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 @OpenPerspective(JavaEEPerspective.class)
-public class TestEARProjectWizard extends RedDeerTest{
+@RunWith(RedDeerSuite.class)
+public class TestEARProjectWizard {
 	
 	@Test
 	public void createProject(){

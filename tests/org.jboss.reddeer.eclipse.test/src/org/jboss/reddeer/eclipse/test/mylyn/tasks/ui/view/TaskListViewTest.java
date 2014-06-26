@@ -1,19 +1,21 @@
 package org.jboss.reddeer.eclipse.test.mylyn.tasks.ui.view;
 
+import static org.junit.Assert.assertTrue;
+
 import org.jboss.reddeer.eclipse.mylyn.tasks.ui.view.TaskListView;
+import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
-import org.jboss.reddeer.swt.test.RedDeerTest;
 import org.junit.Test;
-
-import static org.junit.Assert.assertTrue;
+import org.junit.runner.RunWith;
 
 /**
  * 
  * @author ldimaggi
  *
  */
-public class TaskListViewTest extends RedDeerTest {
+@RunWith(RedDeerSuite.class)
+public class TaskListViewTest {
 
 	@Test
 	public void getRepoTest() {

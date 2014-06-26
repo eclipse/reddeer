@@ -1,8 +1,8 @@
 package org.jboss.reddeer.eclipse.test.ui.wizards.datatransfer;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.core.IsCollectionContaining.hasItems;
 import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsCollectionContaining.hasItems;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
@@ -15,10 +15,10 @@ import org.jboss.reddeer.eclipse.test.Activator;
 import org.jboss.reddeer.eclipse.ui.wizards.datatransfer.ExternalProjectImportWizardDialog;
 import org.jboss.reddeer.eclipse.ui.wizards.datatransfer.WizardProjectsImportPage;
 import org.jboss.reddeer.eclipse.ui.wizards.datatransfer.WizardProjectsImportPage.ImportProject;
-import org.jboss.reddeer.swt.test.RedDeerTest;
+import org.junit.After;
 import org.junit.Test;
 
-public class ExternalProjectImportWizardDialogTest extends RedDeerTest {
+public class ExternalProjectImportWizardDialogTest {
 
 	private static final File RESOURCES_DIR = new File(Activator.getTestResourcesLocation(ExternalProjectImportWizardDialogTest.class), "projectImport");
 	
@@ -32,9 +32,7 @@ public class ExternalProjectImportWizardDialogTest extends RedDeerTest {
 	
 	private WizardProjectsImportPage wizardPage;
 	
-	@Override
 	protected void setUp(){
-	  super.setUp();
 		wizard  = new ExternalProjectImportWizardDialog();
 		wizard.open();
 		
@@ -125,10 +123,9 @@ public class ExternalProjectImportWizardDialogTest extends RedDeerTest {
 		assertTrue(projects.isEmpty());
 	}
 	
-	@Override
-	protected void tearDown(){
+	@After
+	public void tearDown(){
 		wizard.cancel();
-		super.tearDown();
 	}
 	
 	@SuppressWarnings("unchecked")

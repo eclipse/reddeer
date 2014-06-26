@@ -40,7 +40,8 @@ public class RedDeerTest {
 	public void tearDownRDT(){
 		tearDown();
 	}
-  // Default setup for each test   
+  // Default setup for each test
+	
 	protected void setUp() {
 	  // close Welcome screen
 		for (IViewReference viewReference : WorkbenchLookup.findAllViews()) {

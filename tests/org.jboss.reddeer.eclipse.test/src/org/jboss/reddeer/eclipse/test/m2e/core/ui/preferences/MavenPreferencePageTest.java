@@ -4,11 +4,14 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import org.jboss.reddeer.eclipse.m2e.core.ui.preferences.MavenPreferencePage;
+import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
-import org.jboss.reddeer.swt.test.RedDeerTest;
+import org.junit.After;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
-public class MavenPreferencePageTest extends RedDeerTest{
+@RunWith(RedDeerSuite.class)
+public class MavenPreferencePageTest {
 
 	private MavenPreferencePage mavenPreferencePage = new MavenPreferencePage();
 
@@ -62,14 +65,13 @@ public class MavenPreferencePageTest extends RedDeerTest{
 		mavenPreferencePage.cancel();
 	}
 	
-	@Override
-	protected void tearDown(){
+	@After
+	public void tearDown(){
 		// try to close preference dialog in case it stayed open
 		try{
 			mavenPreferencePage.cancel();
 		} catch (SWTLayerException swtle){
 			// do nothing
 		}
-		super.tearDown();
 	}
 }

@@ -9,10 +9,14 @@ import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.PackageExplorer;
 import org.jboss.reddeer.eclipse.ui.dialogs.WizardNewProjectCreationPage;
 import org.jboss.reddeer.eclipse.ui.dialogs.WizardNewProjectReferencePage;
 import org.jboss.reddeer.eclipse.ui.wizards.newresource.BasicNewProjectResourceWizard;
-import org.jboss.reddeer.swt.test.RedDeerTest;
+import org.jboss.reddeer.junit.runner.RedDeerSuite;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
-public class BasicNewProjectResourceWizardTest extends RedDeerTest{
+@RunWith(RedDeerSuite.class)
+public class BasicNewProjectResourceWizardTest {
 
 	private static final String DEFAULT_PROJECT_NAME = "defaultGeneralProject";
 	private static final String CUSTOMIZED_PROJECT_NAME = "customizedGeneralProject";
@@ -22,9 +26,8 @@ public class BasicNewProjectResourceWizardTest extends RedDeerTest{
 			+ File.separator
 			+ "rdcustomprojectlocation" + System.currentTimeMillis();
 
-	@Override
-	protected void setUp() {
-	  super.setUp();
+	@Before
+	public void setUp() {
 		packageExplorer = new PackageExplorer();
 	}
 
@@ -84,8 +87,8 @@ public class BasicNewProjectResourceWizardTest extends RedDeerTest{
 						.containsProject(BasicNewProjectResourceWizardTest.DEFAULT_PROJECT_NAME));
 	}
 
-	@Override
-	protected void tearDown() {
+	@After
+	public void tearDown() {
 		if (packageExplorer.containsProject(BasicNewProjectResourceWizardTest.CUSTOMIZED_PROJECT_NAME)){
 			packageExplorer.getProject(
 					BasicNewProjectResourceWizardTest.CUSTOMIZED_PROJECT_NAME)
@@ -101,6 +104,5 @@ public class BasicNewProjectResourceWizardTest extends RedDeerTest{
 		if (customProjectDir.exists()) {
 			customProjectDir.delete();
 		}
-		super.tearDown();
 	}
 }

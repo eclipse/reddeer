@@ -8,17 +8,14 @@ import org.jboss.reddeer.junit.internal.configuration.NullTestRunConfiguration;
 import org.jboss.reddeer.junit.internal.configuration.TestRunConfiguration;
 import org.jboss.reddeer.junit.internal.requirement.Requirements;
 import org.jboss.reddeer.junit.internal.requirement.RequirementsBuilder;
+import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.requirements.exception.RequirementsLayerException;
 import org.jboss.reddeer.requirements.openperspective.OpenPerspectiveRequirement.OpenPerspective;
-import org.jboss.reddeer.swt.test.RedDeerTest;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
-public class OpenPerspectiveRequirementTest extends RedDeerTest {
-
-	@Override
-	protected void setUp() {
-		super.setUp();
-	}
+@RunWith(RedDeerSuite.class)
+public class OpenPerspectiveRequirementTest{
 
 	@Test
 	public void canFulfillJavaPerspectiveTest() {

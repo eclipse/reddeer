@@ -11,19 +11,21 @@ import org.jboss.reddeer.junit.internal.configuration.NullTestRunConfiguration;
 import org.jboss.reddeer.junit.internal.requirement.Requirements;
 import org.jboss.reddeer.junit.internal.runner.RequirementsRunner;
 import org.jboss.reddeer.junit.internal.runner.RequirementsRunnerBuilder;
+import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.requirements.cleanworkspace.CleanWorkspaceRequirement.CleanWorkspace;
-import org.jboss.reddeer.swt.test.RedDeerTest;
+import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.junit.runner.Runner;
 
-public class CleanWorkspaceRequirementTest extends RedDeerTest {
+@RunWith(RedDeerSuite.class)
+public class CleanWorkspaceRequirementTest {
 
 	RequirementsRunnerBuilder builder;
 	Requirements requirements;
 
-	@Override
-	protected void setUp() {
-		super.setUp();
+	@Before
+	public void setUp() {
 		builder = new RequirementsRunnerBuilder(new NullTestRunConfiguration());
 		Runner runner = null;
 		try {

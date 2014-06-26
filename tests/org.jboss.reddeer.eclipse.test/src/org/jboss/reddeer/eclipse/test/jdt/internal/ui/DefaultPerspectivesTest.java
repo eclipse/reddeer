@@ -10,12 +10,14 @@ import org.jboss.reddeer.eclipse.ui.perspectives.JavaPerspective;
 import org.jboss.reddeer.eclipse.ui.perspectives.JavaTypeHierarchyPerspective;
 import org.jboss.reddeer.eclipse.ui.perspectives.ResourcePerspective;
 import org.jboss.reddeer.eclipse.ui.perspectives.TeamSynchronizingPerspective;
-import org.jboss.reddeer.swt.test.RedDeerTest;
+import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.swt.util.Display;
 import org.jboss.reddeer.swt.util.ResultRunnable;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
-public class DefaultPerspectivesTest extends RedDeerTest{
+@RunWith(RedDeerSuite.class)
+public class DefaultPerspectivesTest {
 	
 	
 	public void openPerspective(AbstractPerspective perspective) {

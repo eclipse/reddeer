@@ -1,20 +1,23 @@
 package org.jboss.reddeer.eclipse.test.jdt.ui.dialogs;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import org.jboss.reddeer.eclipse.jdt.ui.NewJavaClassWizardDialog;
 import org.jboss.reddeer.eclipse.jdt.ui.NewJavaClassWizardPage;
+import org.jboss.reddeer.eclipse.jdt.ui.dialogs.GenerateHashCodeEqualsDialog;
 import org.jboss.reddeer.eclipse.jdt.ui.ide.NewJavaProjectWizardDialog;
 import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.PackageExplorer;
-import org.jboss.reddeer.eclipse.jdt.ui.dialogs.GenerateHashCodeEqualsDialog;
+import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.requirements.cleanworkspace.CleanWorkspaceRequirement.CleanWorkspace;
-import org.jboss.reddeer.swt.test.RedDeerTest;
 import org.jboss.reddeer.workbench.impl.editor.TextEditor;
 import org.junit.AfterClass;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 @CleanWorkspace
-public class GenerateHashAndEqualsTest extends RedDeerTest{
+@RunWith(RedDeerSuite.class)
+public class GenerateHashAndEqualsTest {
 	
 	@AfterClass
 	public static void deleteProject(){

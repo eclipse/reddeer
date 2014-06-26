@@ -1,10 +1,12 @@
 package org.jboss.reddeer.eclipse.test.jdt.internal.ui;
 
 import org.jboss.reddeer.eclipse.jdt.ui.ProjectExplorer;
-import org.jboss.reddeer.swt.test.RedDeerTest;
+import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
-public class ProjectExplorerTest extends RedDeerTest{
+@RunWith(RedDeerSuite.class)
+public class ProjectExplorerTest {
 
 	private ProjectExplorer projectExplorer;
 	

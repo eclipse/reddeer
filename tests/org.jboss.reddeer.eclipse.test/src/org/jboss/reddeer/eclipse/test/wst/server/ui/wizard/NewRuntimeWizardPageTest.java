@@ -10,10 +10,11 @@ import org.jboss.reddeer.eclipse.wst.server.ui.Runtime;
 import org.jboss.reddeer.eclipse.wst.server.ui.RuntimePreferencePage;
 import org.jboss.reddeer.eclipse.wst.server.ui.wizard.NewRuntimeWizardDialog;
 import org.jboss.reddeer.eclipse.wst.server.ui.wizard.NewRuntimeWizardPage;
-import org.jboss.reddeer.swt.test.RedDeerTest;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
-public class NewRuntimeWizardPageTest extends RedDeerTest{
+public class NewRuntimeWizardPageTest {
 
 	private RuntimePreferencePage preference;
 	
@@ -21,9 +22,8 @@ public class NewRuntimeWizardPageTest extends RedDeerTest{
 	
 	private NewRuntimeWizardPage wizardPage;
 
-	@Override
-	protected void setUp(){
-	  super.setUp();
+	@Before
+	public void setUp(){
 		preference = new RuntimePreferencePage();
 		preference.open();
 		preference.removeAllRuntimes();
@@ -41,10 +41,9 @@ public class NewRuntimeWizardPageTest extends RedDeerTest{
 		assertThat(runtimes.get(0).getType(), is(TestServerRuntime.TYPE));
 	}
 	
-	@Override
+	@After
 	public void tearDown(){
 		preference.removeAllRuntimes();
 		preference.cancel();
-		super.tearDown();
 	}
 }

@@ -1,6 +1,8 @@
 package org.jboss.reddeer.eclipse.test.jst.servlet.ui;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.PackageExplorer;
 import org.jboss.reddeer.eclipse.jst.servlet.ui.WebProjectFirstPage;
@@ -8,12 +10,14 @@ import org.jboss.reddeer.eclipse.jst.servlet.ui.WebProjectSecondPage;
 import org.jboss.reddeer.eclipse.jst.servlet.ui.WebProjectThirdPage;
 import org.jboss.reddeer.eclipse.jst.servlet.ui.WebProjectWizard;
 import org.jboss.reddeer.eclipse.ui.perspectives.JavaEEPerspective;
+import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.requirements.openperspective.OpenPerspectiveRequirement.OpenPerspective;
-import org.jboss.reddeer.swt.test.RedDeerTest;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 @OpenPerspective(JavaEEPerspective.class)
-public class TestWebProject extends RedDeerTest{
+@RunWith(RedDeerSuite.class)
+public class TestWebProject {
 	
 	@Test
 	public void createWebProject(){

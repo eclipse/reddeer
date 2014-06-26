@@ -3,9 +3,9 @@ package org.jboss.reddeer.uiforms.test;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 
+import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.reference.ReferencedComposite;
-import org.jboss.reddeer.swt.test.RedDeerTest;
 import org.jboss.reddeer.uiforms.impl.form.DefaultForm;
 import org.jboss.reddeer.uiforms.test.ui.views.FormView;
 import org.jboss.reddeer.uiforms.test.ui.views.UIFormView;
@@ -13,8 +13,10 @@ import org.jboss.reddeer.workbench.api.View;
 import org.jboss.reddeer.workbench.impl.view.WorkbenchView;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
-public class DefaultFormTest extends RedDeerTest {
+@RunWith(RedDeerSuite.class)
+public class DefaultFormTest {
 
 	private View uiFormView = new UIFormView(); 
 	
