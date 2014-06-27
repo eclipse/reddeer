@@ -7,7 +7,7 @@ import org.jboss.reddeer.swt.util.ResultRunnable;
 
 
 /**
- * Contains methods that handle UI operations on {@link ToolItem} widgets. 
+ * Contains methods for handling UI operations on {@link ToolItem} widgets. 
  * 
  * @author Lucia Jelinkova
  *
@@ -21,9 +21,9 @@ public class ToolItemHandler {
 	}
 
 	/**
-	 * Creates and returns instance of ToolItemHandler class
+	 * Gets instance of ToolItemHandler.
 	 * 
-	 * @return
+	 * @return instance of ToolItemHandler
 	 */
 	public static ToolItemHandler getInstance() {
 		if (instance == null) {
@@ -33,17 +33,17 @@ public class ToolItemHandler {
 	}
 
 	/**
-	 * Click the {@link ToolItem}
+	 * Click specified {@link ToolItem}.
 	 * 
-	 * @param w given widgets
+	 * @param toolItem tool item to handle
 	 */
 	public void click(final ToolItem toolItem) {
 		Display.syncExec(new Runnable() {
 			@Override
 			public void run() {
-				if (((toolItem.getStyle() & SWT.TOGGLE) != 0) ||
-						((toolItem.getStyle() & SWT.CHECK) != 0) ||
-						((toolItem.getStyle() & SWT.RADIO) != 0)) {
+				if (((toolItem.getStyle() & SWT.TOGGLE) != 0)
+						|| ((toolItem.getStyle() & SWT.CHECK) != 0)
+						|| ((toolItem.getStyle() & SWT.RADIO) != 0)) {
 					toolItem.setSelection(!toolItem.getSelection());
 				}
 			}
@@ -53,16 +53,16 @@ public class ToolItemHandler {
 	}
 	
 	/**
-	 * Checks if toolitem is selected
+	 * Finds out whether specified {@link ToolItem} is selected or not.
 
-	 * @param w	given widget
-	 * @return	returns widget label text
+	 * @param toolItem tool item to handle
+	 * @return true if specified tool item is selected, false otherwise
 	 */
-	public boolean isSelected(final ToolItem w) {
+	public boolean isSelected(final ToolItem toolItem) {
 		boolean selectionState = Display.syncExec(new ResultRunnable<Boolean>() {
 			@Override
 			public Boolean run() {
-					return w.getSelection(); 
+					return toolItem.getSelection(); 
 			}
 		});
 		return selectionState;

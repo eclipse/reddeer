@@ -9,22 +9,23 @@ import org.jboss.reddeer.swt.matcher.WithTextMatcher;
 import org.jboss.reddeer.swt.util.internal.InstanceValidator;
 
 /**
- * Condition is fulfilled when shell with title is available
+ * Condition is met when shell with specific text (title) is available.
  * 
  * @author Andrej Podhradsky (andrej.podhradsky@gmail.com)
  * @author jniederm
- * 
  */
 public class ShellWithTextIsAvailable implements WaitCondition { 
 	private Matcher<String> matcher;
 	private final Logger log = Logger.getLogger(this.getClass());
-	
+
 	/**
-	 * @throws IllegalArgumentException if {@code title} is {@code null}
+	 * Constructs ShellWithTextIsAvailable wait condition.
+	 * Condition is met when shell with the specified title is available.
+	 * 
+	 * @param text text/name of the shell
 	 */
 	public ShellWithTextIsAvailable(String title) {
 		InstanceValidator.checkNotNull(title, "title");
-		this.matcher = new WithTextMatcher(title);
 	}
 
 	@Override

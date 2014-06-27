@@ -8,7 +8,7 @@ import org.jboss.reddeer.swt.util.Display;
 import org.jboss.reddeer.swt.util.ResultRunnable;
 
 /**
- * Contains methods that handle UI operations on {@link TableItem} widgets. 
+ * Contains methods for handling UI operations on {@link TableItem} widgets.
  * 
  * @author Lucia Jelinkova
  *
@@ -22,9 +22,9 @@ public class TableItemHandler {
 	}
 
 	/**
-	 * Creates and returns instance of ButtonHandler class
+	 * Gets instance of TableItemHandler.
 	 * 
-	 * @return
+	 * @return instance of TableItemHandler
 	 */
 	public static TableItemHandler getInstance() {
 		if (instance == null) {
@@ -34,33 +34,34 @@ public class TableItemHandler {
 	}
 
 	/**
-	 * Checks if tableitem is selected
-
-	 * @param tableItem	given widget
-	 * @return	returns widget label text
+	 * Checks whether specified {@link TableItem} is selected or not.
+	 * 
+	 * @param tableItem table item to handle
+	 * @return true if specified table item is selected, false otherwise
 	 */
 	public boolean isSelected(final TableItem tableItem) {
-		boolean selectionState = Display.syncExec(new ResultRunnable<Boolean>() {
+		boolean selectionState = Display
+				.syncExec(new ResultRunnable<Boolean>() {
 
-			@Override
-			public Boolean run() {
-				for(TableItem i: tableItem.getParent().getSelection()){
-					if(i.equals(tableItem)){
-						return true;
+					@Override
+					public Boolean run() {
+						for (TableItem i : tableItem.getParent().getSelection()) {
+							if (i.equals(tableItem)) {
+								return true;
+							}
+						}
+						return false;
 					}
-				}
-				return false;
-			}
-		});
+				});
 		return selectionState;
 	}
 
 	/**
-	 * Gets text on given cell index 
+	 * Gets text of specified {@link TableItem} laying on specified cell index.
 	 * 
-	 * @param tableItem given widget
-	 * @Param cellIndex index of cell
-	 * @return returns widget text
+	 * @param tableItem table item to handle
+	 * @param cellIndex index of cell
+	 * @return text of specified table item
 	 */
 	public String getText(final TableItem tableItem, final int cellIndex) {
 		String text = Display.syncExec(new ResultRunnable<String>() {
@@ -73,10 +74,10 @@ public class TableItemHandler {
 	}
 
 	/**
-	 * Selects item for supported widget type
+	 * Selects specified {@link TableItem}.
 	 * 
-	 * @param w given widget
-	 * @param item to select
+	 * @param swtTableItem table item to select
+	 * 
 	 */
 	public void select(final TableItem swtTableItem) {
 		Display.syncExec(new Runnable() {
@@ -85,36 +86,41 @@ public class TableItemHandler {
 			public void run() {
 				swtTableItem.getParent().setFocus();
 				swtTableItem.getParent().setSelection(swtTableItem);
-				WidgetHandler.getInstance().notifyItem(SWT.Selection, SWT.NONE, swtTableItem.getParent(), swtTableItem);
+				WidgetHandler.getInstance().notifyItem(SWT.Selection, SWT.NONE,
+						swtTableItem.getParent(), swtTableItem);
 			}
 		});
 	}
 
 	/**
-	 * Checks item for supported widget type
+	 * Sets check to specified {@link TableItem}. 
 	 * 
-	 * @param w given widget
-	 * @param item to check
+	 * @param swtTableItem table item to handle
+	 * @param check whether to check or not specified table item
 	 */
-	public <T> void setChecked(final TableItem swtTableItem, final boolean check) {
+	public void setChecked(final TableItem swtTableItem, final boolean check) {
 		Display.syncExec(new Runnable() {
 
 			@Override
 			public void run() {
-				if((swtTableItem.getParent().getStyle() & SWT.CHECK) != SWT.CHECK){
-					throw new SWTLayerException("Unable to check table item "+swtTableItem.getText()+" because table does not have SWT.CHECK style");
+				if ((swtTableItem.getParent().getStyle() & SWT.CHECK) != SWT.CHECK) {
+					throw new SWTLayerException("Unable to check table item "
+							+ swtTableItem.getText()
+							+ " because table does not have SWT.CHECK style");
 				}
 				swtTableItem.getParent().setFocus();
 				swtTableItem.setChecked(check);
-				WidgetHandler.getInstance().notifyItem(SWT.Selection, SWT.CHECK, swtTableItem.getParent(), swtTableItem);
+				WidgetHandler.getInstance().notifyItem(SWT.Selection,
+						SWT.CHECK, swtTableItem.getParent(), swtTableItem);
 			}
 		});
 	}
 
 	/**
-	 * Checks if widget is checked
+	 * Finds out whether specified {@link TableItem} is checked or not.
 	 * 
-	 * @param w given widget
+	 * @param swtTableItem table item to handle
+	 * @return true if table item is checked, false otherwise
 	 */
 	public boolean isChecked(final TableItem swtTableItem) {
 		return Display.syncExec(new ResultRunnable<Boolean>() {
@@ -125,12 +131,12 @@ public class TableItemHandler {
 			}
 		});
 	}
-	
+
 	/**
-	 * Returns parent for supported widget
+	 * Gets parent {@link Table} of specified {@link TableItem}.
 	 * 
-	 * @param table	given widget
-	 * @return	parent widget
+	 * @param table table item to handle
+	 * @return parent table of specified table item
 	 */
 	public Table getParent(final TableItem table) {
 		return Display.syncExec(new ResultRunnable<Table>() {

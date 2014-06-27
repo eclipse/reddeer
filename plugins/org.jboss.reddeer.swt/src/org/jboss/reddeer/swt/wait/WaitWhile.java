@@ -5,58 +5,50 @@ import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.exception.WaitTimeoutExpiredException;
 
 /**
- * Waits while condition is fulfilled
+ * WaitWhile condition represent a wait condition waiting while specific
+ * condition is met.
  * 
  * @author Vlado Pakan
  * @author Lucia Jelinkova
  * 
  */
 public class WaitWhile extends AbstractWait {
+	
 	/**
-	 * Waits while condition is fulfilled with timeout Throws
-	 * WaitTimeoutExpiredException when timeout had expired
+	 * Waits while condition is fulfilled for a default time period.Throws
+	 * WaitTimeoutExpiredException if condition is still met and time period expires.
 	 * 
-	 * @param condition
+	 * @param condition condition to be met while waiting
 	 */
 	public WaitWhile(WaitCondition condition) {
 		super(condition);
 	}
 
 	/**
-	 * Waits while condition is fulfilled with default timeout Throws
-	 * WaitTimeoutExpiredException when timeout had expired
+	 * Waits while condition is fulfilled for specified time period.Throws
+	 * WaitTimeoutExpiredException if condition is still met and time period expires.
 	 * 
-	 * @param condition
-	 * @param timeout
+	 * @param condition condition to be met while waiting
+	 * @param timeout time period to wait for
 	 */
 	public WaitWhile(WaitCondition condition, TimePeriod timeout) {
 		super(condition, timeout);
 	}
 
 	/**
-	 * Waits while condition is fulfilled with timeout Throws
-	 * WaitTimeoutExpiredException when timeout had expired and
-	 * throwWaitTimeoutExpiredException is true
+	 * Waits while condition is fulfilled for specified time period. Can throw
+	 * WaitTimeoutExpiredException if condition is still met and time period expires.
 	 * 
-	 * @param condition
-	 * @param timeout
-	 * @param throwWaitTimeoutExpiredException
+	 * @param condition condition to be met while waiting
+	 * @param timeout time period to wait for
+	 * @param throwWaitTimeoutExpiredException whether exception
+	 * should be thrown or not
 	 */
 	public WaitWhile(WaitCondition condition, TimePeriod timeout,
 			boolean throwWaitTimeoutExpiredException) {
 		super(condition, timeout, throwWaitTimeoutExpiredException);
 	}
 
-	/**
-	 * Waits while condition is fulfilled with timeout Throws
-	 * WaitTimeoutExpiredException when timeout had expired and
-	 * throwWaitTimeoutExpiredException is true
-	 * 
-	 * @param condition
-	 * @param timeout
-	 * @param throwWaitTimeoutExpiredException
-	 * @return returns true when waiting finished successfully
-	 */
 	@Override
 	protected boolean wait(WaitCondition condition) {
 		final long timeout = getTimeout().getSeconds() * 1000;
@@ -70,8 +62,9 @@ public class WaitWhile extends AbstractWait {
 		boolean continueSleep = true;
 		while (continueSleep) {
 			try {
-				if (!condition.test())
+				if (!condition.test()) {
 					return true;
+				}
 			} catch (Throwable e) {
 				log.warn("Error during evaluating wait condition " + condition.description() 
 						+ " " + e);

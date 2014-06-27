@@ -1,16 +1,20 @@
 package org.jboss.reddeer.swt.handler;
 
 import org.eclipse.swt.widgets.Shell;
+
 /**
- * Interface used as hook for method closeAllNonWorbenchShells() in {@link ShellHandler}
+ * Interface used as a hook for method {@link ShellHandler#closeAllNonWorbenchShells()}.
+ * 
  * @author Vlado Pakan
  *
  */
 public interface IBeforeShellIsClosed {
+	
 	/**
-	 * Method is called right before closing shell within
-	 * method closeAllNonWorbenchShells() in {@link ShellHandler}
-	 * @param shell
+	 * Method is called right before closing shell within method
+	 * {@link ShellHandler#closeAllNonWorbenchShells(IBeforeShellIsClosed)}.
+	 * 
+	 * @param shell shell to close
 	 */
-	public void runBeforeShellIsClosed(Shell shell);
+	void runBeforeShellIsClosed(Shell shell);
 }

@@ -5,25 +5,40 @@ import org.jboss.reddeer.swt.util.Display;
 import org.jboss.reddeer.swt.util.ResultRunnable;
 
 /**
- * Contains methods that handle UI operations on {@link ActionContributionItem} widgets. 
+ * Contains methods for handling UI operations on {@link ActionContributionItem}
+ * widgets.
+ * 
+ * @author rawagner
  *
  */
 public class ActionContributionItemHandler {
-	
+
 	private static ActionContributionItemHandler handler;
-	
-	private ActionContributionItemHandler(){
-		
+
+	private ActionContributionItemHandler() {
+
 	}
-	
-	public static ActionContributionItemHandler getInstance(){
-		if(handler == null){
+
+	/**
+	 * Gets instance of ActionContributionHandler.
+	 * 
+	 * @return instance of ActionContributionHandler
+	 */
+	public static ActionContributionItemHandler getInstance() {
+		if (handler == null) {
 			handler = new ActionContributionItemHandler();
 		}
 		return handler;
 	}
-	
-	public boolean isEnabled(final ActionContributionItem item){
+
+	/**
+	 * Finds out whether specified {@link ActionContributionItem} is enabled or
+	 * not.
+	 * 
+	 * @param item item to handle
+	 * @return true if specified item is enabled, false otherwise
+	 */
+	public boolean isEnabled(final ActionContributionItem item) {
 		return Display.syncExec(new ResultRunnable<Boolean>() {
 
 			@Override

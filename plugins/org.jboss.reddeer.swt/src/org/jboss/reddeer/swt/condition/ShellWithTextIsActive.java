@@ -9,7 +9,7 @@ import org.jboss.reddeer.swt.lookup.ShellLookup;
 import org.jboss.reddeer.swt.util.internal.InstanceValidator;
 
 /**
- * Condition is fulfilled when shell with text is active
+ * Condition is met when shell with specified text (title) is active.
  * 
  * @author Vlado Pakan
  * @author jniederm
@@ -21,7 +21,10 @@ public class ShellWithTextIsActive implements WaitCondition {
 	private org.hamcrest.Matcher<String> matcher;
 
 	/**
-	 * @throws IllegalArgumentException if {@code text} is {@code null}
+	 * Constructs ShellWithTextIsActive wait condition. Condition is met when
+	 * shell with specified text is active.
+	 * 
+	 * @param text text/name of the shell
 	 */
 	public ShellWithTextIsActive(String text) {
 		InstanceValidator.checkNotNull(text, "text");
@@ -29,7 +32,10 @@ public class ShellWithTextIsActive implements WaitCondition {
 	}
 
 	/**
-	 * @throws IllegalArgumentException if {@code matcher} is {@code null}
+	 * Constructs ShellWithTextIsActive wait condition. Condition is met when
+	 * shell matching matcher is active.
+	 * 
+	 * @param matcher matcher matching text of the shell
 	 */
 	public ShellWithTextIsActive(org.hamcrest.Matcher<String> matcher) {
 		InstanceValidator.checkNotNull(matcher, "matcher");
@@ -38,19 +44,22 @@ public class ShellWithTextIsActive implements WaitCondition {
 
 	@Override
 	public boolean test() {
-		Shell currentActiveShell = ShellLookup.getInstance().getCurrentActiveShell();
+		Shell currentActiveShell = ShellLookup.getInstance()
+				.getCurrentActiveShell();
 		if (currentActiveShell == null) {
 			return false;
 		}
 
 		String activeText;
 		try {
-			activeText = WidgetHandler.getInstance().getText(currentActiveShell);
-		} catch (RedDeerException e){
+			activeText = WidgetHandler.getInstance()
+					.getText(currentActiveShell);
+		} catch (RedDeerException e) {
 			return false;
 		}
 
-		log.debug("Active shell: " + "\"" + activeText + "\"" + " / Expected shell: " + matcher);
+		log.debug("Active shell: " + "\"" + activeText + "\""
+				+ " / Expected shell: " + matcher);
 		boolean matches = matcher.matches(activeText);
 		return matches;
 	}

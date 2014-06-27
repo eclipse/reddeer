@@ -22,7 +22,8 @@ import org.jboss.reddeer.swt.wait.TimePeriod;
 import org.jboss.reddeer.swt.wait.WaitUntil;
 
 /**
- * Contains methods that handle UI operations on {@link org.eclipse.swt.widgets.Tree} widgets. 
+ * Contains methods for handling UI operations on
+ * {@link org.eclipse.swt.widgets.Tree} widgets.
  * 
  * @author Vlado Pakan
  * 
@@ -37,9 +38,9 @@ public class TreeHandler {
 	}
 
 	/**
-	 * Creates and returns instance of TreeHandler class
+	 * Gets instance of TreeHandler.
 	 * 
-	 * @return
+	 * @return instance of TreeHandler
 	 */
 	public static TreeHandler getInstance() {
 		if (instance == null) {
@@ -49,10 +50,10 @@ public class TreeHandler {
 	}
 
 	/**
-	 * Returns Tree items
+	 * Gets all direct descendants in specified {@link org.eclipse.swt.widgets.Tree}.
 	 * 
-	 * @param swtTree
-	 * @return
+	 * @param swtTree tree to handle
+	 * @return descendants of specified tree
 	 */
 	public List<TreeItem> getItems(final org.eclipse.swt.widgets.Tree swtTree) {
 		return Display.syncExec(new ResultRunnable<List<TreeItem>>() {
@@ -69,12 +70,14 @@ public class TreeHandler {
 	}
 
 	/**
-	 * @see org.jboss.reddeer.swt.api.Tree#selectItems(TreeItem...)
-	 * @param treeItems
+	 * Selects specified {@link TreeItem}s in currently focused tree.
+	 * 
+	 * @param treeItems tree items to select
 	 */
 	public void selectItems(final TreeItem... treeItems) {
 		logger.debug("Selecting tree items: ");
-		final org.eclipse.swt.widgets.Tree swtTree = treeItems[0].getParent().getSWTWidget();
+		final org.eclipse.swt.widgets.Tree swtTree = treeItems[0].getParent()
+				.getSWTWidget();
 		setFocus(swtTree);
 		Display.syncExec(new Runnable() {
 			public void run() {
@@ -84,9 +87,10 @@ public class TreeHandler {
 							+ treeItem.getSWTWidget().getText());
 					selection.add(treeItem.getSWTWidget());
 				}
-				if (!(SWT.MULTI == (swtTree.getStyle() & SWT.MULTI))
-						&& treeItems.length > 1)
+				if (!(SWT.MULTI == (swtTree.getStyle() & SWT.MULTI)) 
+						&& treeItems.length > 1) {
 					logger.warn("Tree does not support SWT.MULTI, cannot make multiple selections"); //$NON-NLS-1$
+				}
 				logger.debug("Setting Tree selection");
 				swtTree.setSelection(selection
 						.toArray(new org.eclipse.swt.widgets.TreeItem[] {}));
@@ -100,8 +104,9 @@ public class TreeHandler {
 	}
 
 	/**
-	 * @see org.jboss.reddeer.swt.api.Tree#setFocus()
-	 * @param swtTree
+	 * Sets focus on specified {@link org.eclipse.swt.widgets.Tree}.
+	 * 
+	 * @param swtTree tree to focus
 	 */
 	public void setFocus(final org.eclipse.swt.widgets.Tree swtTree) {
 		Display.syncExec(new Runnable() {
@@ -115,8 +120,10 @@ public class TreeHandler {
 	}
 
 	/**
-	 * @see Tree#getColumnCount()
-	 * @param swtTree
+	 * Gets count of columns of specified {@link org.eclipse.swt.widgets.Tree}.
+	 * 
+	 * @param swtTree tree to handle
+	 * @return count of columns of specified tree
 	 */
 	public int getColumnCount(final org.eclipse.swt.widgets.Tree swtTree) {
 		return Display.syncExec(new ResultRunnable<Integer>() {
@@ -128,8 +135,9 @@ public class TreeHandler {
 	}
 
 	/**
-	 * @see org.jboss.reddeer.swt.api.Tree#unselectAllItems()
-	 * @param swtTree
+	 * Unselects all tree item on specified {@link org.eclipse.swt.widgets.Tree}.
+	 * 
+	 * @param swtTree tree to handle
 	 */
 	public void unselectAllItems(final org.eclipse.swt.widgets.Tree swtTree) {
 		Display.syncExec(new Runnable() {
@@ -143,8 +151,9 @@ public class TreeHandler {
 	}
 
 	/**
-	 * See {@link TreeItem}
-	 * @param swtTreeItem
+	 * See {@link TreeItem#select()}.
+	 * 
+	 * @param swtTreeItem tree item to handle
 	 */
 	public void select(final org.eclipse.swt.widgets.TreeItem swtTreeItem) {
 		Display.syncExec(new Runnable() {
@@ -158,13 +167,15 @@ public class TreeHandler {
 		logger.debug("Notify tree item "
 				+ WidgetHandler.getInstance().getText(swtTreeItem)
 				+ " about selection");
-		notifyTree(swtTreeItem,
-				createEventForTree(swtTreeItem, SWT.Selection));
+		notifyTree(swtTreeItem, createEventForTree(swtTreeItem, SWT.Selection));
 		logger.info("Selected: " + this);
 	}
+
 	/**
-	 * See {@link TreeItem}
-	 * @param swtTreeItem
+	 * See {@link TreeItem#getParent()}.
+	 * 
+	 * @param swtTreeItem tree item to handle
+	 * @return parent tree of specified item
 	 */
 	public Tree getParent(final org.eclipse.swt.widgets.TreeItem swtTreeItem) {
 		return Display.syncExec(new ResultRunnable<Tree>() {
@@ -174,9 +185,12 @@ public class TreeHandler {
 			}
 		});
 	}
+
 	/**
-	 * See {@link TreeItem}
-	 * @param swtTreeItem
+	 * See {@link TreeItem#getPath()}.
+	 * 
+	 * @param swtTreeItem tree item to handle
+	 * @return path to specified tree item in tree
 	 */
 	public String[] getPath(final org.eclipse.swt.widgets.TreeItem swtTreeItem) {
 		return Display.syncExec(new ResultRunnable<String[]>() {
@@ -192,17 +206,21 @@ public class TreeHandler {
 			}
 		});
 	}
+
 	/**
-	 * See {@link TreeItem}
-	 * @param swtTreeItem
+	 * See {@link TreeItem#expand}.
+	 * 
+	 * @param swtTreeItem tree item to handle
 	 */
-	public void expand(final org.eclipse.swt.widgets.TreeItem swtTreeItem){
-		expand(swtTreeItem,TimePeriod.SHORT);
+	public void expand(final org.eclipse.swt.widgets.TreeItem swtTreeItem) {
+		expand(swtTreeItem, TimePeriod.SHORT);
 	}
+
 	/**
-	 * See {@link TreeItem}
-	 * @param swtTreeItem
-	 * @param timePeriod
+	 * See {@link TreeItem#expand(TimePeriod)}.
+	 * 
+	 * @param swtTreeItem tree item to handle
+	 * @param timePeriod time period to wait for
 	 */
 	public void expand(final org.eclipse.swt.widgets.TreeItem swtTreeItem,
 			TimePeriod timePeriod) {
@@ -210,21 +228,23 @@ public class TreeHandler {
 				+ WidgetHandler.getInstance().getText(swtTreeItem));
 
 		final TreeExpandListener tel = new TreeExpandListener();
-		
+
 		Display.syncExec(new Runnable() {
 			@Override
 			public void run() {
 				swtTreeItem.getParent().addListener(SWT.Expand, tel);
 			}
 		});
-		
-		try{
-			new WaitUntil(new TreeHeardExpandNotification(swtTreeItem, tel, false));
-		} catch(WaitTimeoutExpiredException ex){
-			new WaitUntil(new TreeHeardExpandNotification(swtTreeItem, tel, true));
+
+		try {
+			new WaitUntil(new TreeHeardExpandNotification(swtTreeItem, tel,
+					false));
+		} catch (WaitTimeoutExpiredException ex) {
+			new WaitUntil(new TreeHeardExpandNotification(swtTreeItem, tel,
+					true));
 		}
 		logger.info("Expanded: " + this);
-		
+
 		Display.syncExec(new Runnable() {
 			@Override
 			public void run() {
@@ -232,9 +252,12 @@ public class TreeHandler {
 			}
 		});
 	}
+
 	/**
-	 * See {@link TreeItem}
-	 * @param swtTreeItem
+	 * See {@link TreeItem#isChecked()}.
+	 * 
+	 * @param swtTreeItem tree item to handle
+	 * @return true if specified item is checked, false otherwise
 	 */
 	public boolean isChecked(final org.eclipse.swt.widgets.TreeItem swtTreeItem) {
 		return Display.syncExec(new ResultRunnable<Boolean>() {
@@ -244,9 +267,12 @@ public class TreeHandler {
 			}
 		});
 	}
+
 	/**
-	 * See {@link TreeItem}
-	 * @param swtTreeItem
+	 * See {@link TreeItem#isExpanded()}.
+	 * 
+	 * @param swtTreeItem tree item to handle
+	 * @return true if specified item is expanded, false otherwise
 	 */
 	public boolean isExpanded(final org.eclipse.swt.widgets.TreeItem swtTreeItem) {
 		return Display.syncExec(new ResultRunnable<Boolean>() {
@@ -256,9 +282,12 @@ public class TreeHandler {
 			}
 		});
 	}
+
 	/**
-	 * See {@link TreeItem}
-	 * @param swtTreeItem
+	 * See {@link TreeItem#isSelected()}.
+	 * 
+	 * @param swtTreeItem tree item to handle
+	 * @return true if specified item is selected, false otherwise
 	 */
 	public boolean isSelected(final org.eclipse.swt.widgets.TreeItem swtTreeItem) {
 		return Display.syncExec(new ResultRunnable<Boolean>() {
@@ -269,38 +298,46 @@ public class TreeHandler {
 			}
 		});
 	}
+
 	/**
-	 * See {@link TreeItem}
-	 * @param swtTreeItem
+	 * See {@link TreeItem#collapse()}.
+	 * 
+	 * @param swtTreeItem tree item to handle
 	 */
 	public void collapse(final org.eclipse.swt.widgets.TreeItem swtTreeItem) {
-		logger.debug("Collapsing Tree Item " + WidgetHandler.getInstance().getText(swtTreeItem));
+		logger.debug("Collapsing Tree Item "
+				+ WidgetHandler.getInstance().getText(swtTreeItem));
 		if (isExpanded(swtTreeItem)) {
 			Display.syncExec(new Runnable() {
 				@Override
 				public void run() {
-					logger.debug("Setting tree item " + swtTreeItem.getText() + " collapsed");
+					logger.debug("Setting tree item " + swtTreeItem.getText()
+							+ " collapsed");
 					swtTreeItem.setExpanded(false);
 				}
 			});
 			logger.debug("Notify tree about collapse event");
-			notifyTree(swtTreeItem,createEventForTree(swtTreeItem,SWT.Collapse));
+			notifyTree(swtTreeItem,
+					createEventForTree(swtTreeItem, SWT.Collapse));
 		} else {
-			logger.debug("Tree Item " + WidgetHandler.getInstance().getText(swtTreeItem)
+			logger.debug("Tree Item "
+					+ WidgetHandler.getInstance().getText(swtTreeItem)
 					+ " is already collapsed. No action performed");
 		}
 		logger.info("Collapsed: " + this);
 	}
+
 	/**
-	 * Return direct descendant specified with parameters
+	 * See {@link TreeItem#getItem(String)}.
 	 * 
-	 * @param swtTreeItem
-	 * @param text
-	 *            text of tree item which should be returned
-	 * @return direct descendant specified with parameters
+	 * @param swtTreeItem tree item to handle
+	 * @param text text of tree item
+	 * @return child item of specified tree item
 	 */
-	public TreeItem getItem(final org.eclipse.swt.widgets.TreeItem swtTreeItem,final String text) {
-		logger.debug("Getting child tree item " + text + " of tree item " + WidgetHandler.getInstance().getText(swtTreeItem));
+	public TreeItem getItem(final org.eclipse.swt.widgets.TreeItem swtTreeItem,
+			final String text) {
+		logger.debug("Getting child tree item " + text + " of tree item "
+				+ WidgetHandler.getInstance().getText(swtTreeItem));
 		expand(swtTreeItem);
 		TreeItem result = Display.syncExec(new ResultRunnable<TreeItem>() {
 			@Override
@@ -326,20 +363,18 @@ public class TreeHandler {
 		if (result != null) {
 			return result;
 		} else {
-			SWTLayerException exception = new SWTLayerException("Tree Item " + this 
-				+ " has no Tree Item with text " + text);
-			exception.addMessageDetail("Tree Item " + this + " has these direct children:");
-			for (TreeItem treeItem : getItems(getParent(swtTreeItem).getSWTWidget())){
+			SWTLayerException exception = new SWTLayerException("Tree Item "
+					+ this + " has no Tree Item with text " + text);
+			exception.addMessageDetail("Tree Item " + this
+					+ " has these direct children:");
+			for (TreeItem treeItem : getItems(getParent(swtTreeItem)
+					.getSWTWidget())) {
 				exception.addMessageDetail("  " + treeItem.getText());
 			}
 			throw exception;
 		}
 	}
-	/**
-	 * Notifies listeners about selection event
-	 * @param swtTree
-	 * 
-	 */
+
 	private void notifySelect(final org.eclipse.swt.widgets.Tree swtTree) {
 		Display.syncExec(new Runnable() {
 			public void run() {
@@ -350,12 +385,8 @@ public class TreeHandler {
 		});
 	}
 
-	/**
-	 * Creates selection event
-	 * @param swtTree
-	 * @return
-	 */
-	private Event createSelectionEvent(final org.eclipse.swt.widgets.Tree swtTree) {
+	private Event createSelectionEvent(
+			final org.eclipse.swt.widgets.Tree swtTree) {
 		Event event = new Event();
 		event.display = Display.getDisplay();
 		event.time = (int) System.currentTimeMillis();
@@ -365,29 +396,30 @@ public class TreeHandler {
 	}
 
 	/**
-	 * Creates event for tree with specified type and empty detail
+	 * Creates the event for specified {@link org.eclipse.swt.widgets.TreeItem} 
+	 * of specified type and with empty details.
 	 * 
-	 * @param swtTreeItem
-	 * @param type
-	 * @return
+	 * @param swtTreeItem tree item to handle
+	 * @param type type of the event
+	 * @return event of specified type for specified tree item
 	 */
-	public  Event createEventForTree(
-			final org.eclipse.swt.widgets.TreeItem swtTreeItem, 
-			int type) {
+	public Event createEventForTree(
+			final org.eclipse.swt.widgets.TreeItem swtTreeItem, int type) {
 		return createEventForTree(swtTreeItem, type, SWT.NONE);
 	}
 
 	/**
-	 * Creates event for tree with specified type and detail
+	 * Creates the event for specified {@link org.eclipse.swt.widgets.TreeItem} 
+	 * of specified type.
 	 * 
-	 * @param swtTreeItem
-	 * @param type
-	 * @param detail
-	 * @return
+	 * @param swtTreeItem tree item to handle
+	 * @param type type of the event
+	 * @param detail details of the event
+	 * @return event of specified type for specified tree item with specified details
 	 */
 	public Event createEventForTree(
-			final org.eclipse.swt.widgets.TreeItem swtTreeItem,
-			int type, int detail) {
+			final org.eclipse.swt.widgets.TreeItem swtTreeItem, int type,
+			int detail) {
 		Event event = new Event();
 		event.type = type;
 		event.display = Display.getDisplay();
@@ -399,36 +431,49 @@ public class TreeHandler {
 	}
 
 	/**
-	 * Notifies tree listeners about event event.type field has too be properly
-	 * set
+	 * Notifies listeners of specified {@link org.eclipse.swt.widgets.TreeItem}
+	 * about specified event asynchronously. Field for event type in specified 
+	 * event has to be set properly.
 	 * 
-	 * @param swtTreeItem
-	 * @param event
+	 * @param swtTreeItem tree item to handle
+	 * @param event event for specified tree item
 	 */
-	public void notifyTree(final org.eclipse.swt.widgets.TreeItem swtTreeItem, final Event event) {
+	public void notifyTree(final org.eclipse.swt.widgets.TreeItem swtTreeItem,
+			final Event event) {
 		Display.asyncExec(new Runnable() {
 			public void run() {
 				swtTreeItem.getParent().notifyListeners(event.type, event);
 			}
 		});
 	}
-	
-	public void notifyTreeSync(final org.eclipse.swt.widgets.TreeItem swtTreeItem, final Event event) {
+
+	/**
+	 * Notifies listeners of specified {@link org.eclipse.swt.widgets.TreeItem}
+	 * about specified event synchronously. Field for event type in specified 
+	 * event has to be set properly.
+	 * 
+	 * @param swtTreeItem tree item to handle
+	 * @param event event for specified tree item
+	 */
+	public void notifyTreeSync(final org.eclipse.swt.widgets.TreeItem swtTreeItem,
+			final Event event) {
 		Display.syncExec(new Runnable() {
 			public void run() {
 				swtTreeItem.getParent().notifyListeners(event.type, event);
 			}
 		});
 	}
-	
+
 	/**
-	 * See {@link TreeItem}
-	 * @param swtTreeItem
+	 * See {@link TreeItem#setChecked(boolean)}.
+	 * 
+	 * @param swtTreeItem tree item to handle
+	 * @param check check value of specified tree item
 	 */
 	public void setChecked(final org.eclipse.swt.widgets.TreeItem swtTreeItem,
 			final boolean check) {
-		logger.debug((check ? "Check" : "Uncheck") + "Tree Item " +  WidgetHandler.getInstance().getText(swtTreeItem)
-				+ ":");
+		logger.debug((check ? "Check" : "Uncheck") + "Tree Item "
+				+ WidgetHandler.getInstance().getText(swtTreeItem) + ":");
 		Display.syncExec(new Runnable() {
 			@Override
 			public void run() {
@@ -436,17 +481,20 @@ public class TreeHandler {
 			}
 		});
 		logger.debug("Notify tree about check event");
-		notifyTree(swtTreeItem,createEventForTree(swtTreeItem,SWT.Selection, SWT.CHECK));
+		notifyTree(swtTreeItem,
+				createEventForTree(swtTreeItem, SWT.Selection, SWT.CHECK));
 		logger.info((check ? "Checked: " : "Unchecked: ") + this);
 	}
+
 	/**
-	 * Returns children tree items
+	 * Gets children {@link TreeItem}s of specified {@link org.eclipse.swt.widgets.TreeItem}.
 	 * 
-	 * @param swtTreeItem
-	 * @return
+	 * @param swtTreeItem tree item to handle
+	 * @return tree item children
 	 */
-	public List<TreeItem> getChildrenItems(final org.eclipse.swt.widgets.TreeItem swtTreeItem) {
-		expand(swtTreeItem,TimePeriod.SHORT);
+	public List<TreeItem> getChildrenItems(
+			final org.eclipse.swt.widgets.TreeItem swtTreeItem) {
+		expand(swtTreeItem, TimePeriod.SHORT);
 		return Display.syncExec(new ResultRunnable<List<TreeItem>>() {
 			@Override
 			public List<TreeItem> run() {
@@ -460,29 +508,31 @@ public class TreeHandler {
 			}
 		});
 	}
-	
-	private class TreeExpandListener implements Listener{
-		
+
+	private class TreeExpandListener implements Listener {
+
 		private boolean heard = false;
 
 		@Override
 		public void handleEvent(Event arg0) {
 			heard = true;
 		}
-		
-		public boolean isHeard(){
+
+		public boolean isHeard() {
 			return heard;
 		}
-		
+
 	}
-	
-	private class TreeHeardExpandNotification implements WaitCondition{
-		
+
+	private class TreeHeardExpandNotification implements WaitCondition {
+
 		private org.eclipse.swt.widgets.TreeItem treeItem;
 		private TreeExpandListener listener;
 		private boolean sync;
-		
-		public TreeHeardExpandNotification(org.eclipse.swt.widgets.TreeItem treeItem, TreeExpandListener listener, boolean sync){
+
+		public TreeHeardExpandNotification(
+				org.eclipse.swt.widgets.TreeItem treeItem,
+				TreeExpandListener listener, boolean sync) {
 			this.treeItem = treeItem;
 			this.listener = listener;
 			this.sync = sync;
@@ -491,10 +541,12 @@ public class TreeHandler {
 		@Override
 		public boolean test() {
 			if (!isExpanded(treeItem)) {
-				if(sync){
-					notifyTreeSync(treeItem,createEventForTree(treeItem, SWT.Expand));
+				if (sync) {
+					notifyTreeSync(treeItem,
+							createEventForTree(treeItem, SWT.Expand));
 				} else {
-					notifyTree(treeItem,createEventForTree(treeItem, SWT.Expand));
+					notifyTree(treeItem,
+							createEventForTree(treeItem, SWT.Expand));
 				}
 				return listener.isHeard();
 			} else {
@@ -509,7 +561,6 @@ public class TreeHandler {
 		public String description() {
 			return "tree heard expand notification";
 		}
-		
+
 	}
 }
-

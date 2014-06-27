@@ -5,8 +5,10 @@ import org.eclipse.swt.widgets.TabFolder;
 import org.eclipse.swt.widgets.TabItem;
 import org.jboss.reddeer.swt.util.Display;
 import org.jboss.reddeer.swt.util.ResultRunnable;
+
 /**
- * Contains methods that handle UI operations on {@link TabItem} widgets. 
+ * Contains methods for handling UI operations on {@link TabItem} widgets.
+ * 
  * @author Vlado Pakan
  *
  */
@@ -19,9 +21,9 @@ public class TabItemHandler {
 	}
 
 	/**
-	 * Creates and returns instance of TabItemHandler class
+	 * Gets instance of TabItemHandler.
 	 * 
-	 * @return
+	 * @return instance of TabItemHandler
 	 */
 	public static TabItemHandler getInstance() {
 		if (instance == null) {
@@ -29,10 +31,12 @@ public class TabItemHandler {
 		}
 		return instance;
 	}
+
 	/**
-	 * Return TabFolder containing swtTabItem
-	 * @param swtTabItem
-	 * @return
+	 * Gets {@link TabFolder} containing specified {@link TabItem}.
+	 * 
+	 * @param swtTabItem tab item to handle
+	 * @return encapsulating tab folder
 	 */
 	public TabFolder getTabFolder(final TabItem swtTabItem) {
 		return Display
@@ -43,25 +47,28 @@ public class TabItemHandler {
 					}
 				});
 	}
+
 	/**
-	 * Notifies TabFolder listeners about event event.type field has to be
-	 * properly set
+	 * Notifies {@link TabFolder} listeners about the event.
+	 * Field for event type in specified event has to be set properly.
 	 * 
-	 * @param event
+	 * @param event event to notify about
+	 * @param swtTabFolder encapsulating parent tab folder
 	 */
-	public void notifyTabFolder(final Event event , final TabFolder swtTabFolder) {
+	public void notifyTabFolder(final Event event, final TabFolder swtTabFolder) {
 		Display.syncExec(new Runnable() {
 			public void run() {
 				swtTabFolder.notifyListeners(event.type, event);
 			}
 		});
 	}
+
 	/**
-	 * Creates event for TabItem with specified type
+	 * Creates the event of specified type for specified {@link TabItem}.
 	 * 
-	 * @param swtTabItem
-	 * @param type
-	 * @return
+	 * @param swtTabItem tab item to handle
+	 * @param type type of the event
+	 * @return event for specified tab item
 	 */
 	public Event createEventForTabItem(final TabItem swtTabItem, int type) {
 		Event event = new Event();
@@ -72,12 +79,13 @@ public class TabItemHandler {
 		event.widget = getTabFolder(swtTabItem);
 		return event;
 	}
+
 	/**
-	 * Selects swtTabItem
-	 * 
-	 * @param swtTabItem
+	 * Selects specified {@link TabItem}.
+	 *  
+	 * @param swtTabItem tab item to select
 	 */
-	public void select (final TabItem swtTabItem){
+	public void select(final TabItem swtTabItem) {
 		Display.syncExec(new Runnable() {
 			public void run() {
 				swtTabItem.getParent().setSelection(swtTabItem);
@@ -85,6 +93,11 @@ public class TabItemHandler {
 		});
 	}
 
+	/**
+	 * Focuses specified {@link TabItem}.
+	 * 
+	 * @param tabItem tab item to focus
+	 */
 	public void setFocus(final TabItem tabItem) {
 		Display.syncExec(new Runnable() {
 			@Override

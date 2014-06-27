@@ -5,7 +5,7 @@ import org.jboss.reddeer.swt.util.Display;
 import org.jboss.reddeer.swt.util.ResultRunnable;
 
 /**
- * Contains methods that handle UI operations on {@link TreeItem} widgets. 
+ * Contains methods for handling UI operations on {@link TreeItem} widgets. 
  * 
  * @author Lucia Jelinkova
  *
@@ -19,9 +19,9 @@ public class TreeItemHandler {
 	}
 
 	/**
-	 * Creates and returns instance of TreeHandler class
+	 * Gets instance of TreeItemHandler.
 	 * 
-	 * @return
+	 * @return instance of TreeItemHandler
 	 */
 	public static TreeItemHandler getInstance() {
 		if (instance == null) {
@@ -31,11 +31,11 @@ public class TreeItemHandler {
 	}
 
 	/**
-	 * Gets text on given cell index 
+	 * Gets text from cell of specified {@link TreeItem} on the position specified by index.
 	 * 
-	 * @param treeItem given widget
-	 * @Param cellIndex index of cell
-	 * @return returns widget text
+	 * @param treeItem tree item to handle
+	 * @param cellIndex index of cell to get text
+	 * @return text of the cell
 	 */
 	public String getText(final TreeItem treeItem, final int cellIndex) {
 		String text = Display.syncExec(new ResultRunnable<String>() {
@@ -48,10 +48,10 @@ public class TreeItemHandler {
 	}
 
 	/**
-	 * Gets tooltip if supported widget type
+	 * Gets tool tip of specified {@link TreeItem}.
 	 * 
-	 * @param widget
-	 * @return widget text
+	 * @param item item to handle
+	 * @return tool tip text of specified tree item
 	 */
 	public String getToolTipText(final TreeItem item) {
 		String text = Display.syncExec(new ResultRunnable<String>() {
@@ -64,10 +64,10 @@ public class TreeItemHandler {
 	}
 
 	/**
-	 * Checks if supported widget is expanded
+	 * Finds out whether specified {@link TreeItem} is checked or not.
 	 * 
-	 * @param item	given widget
-	 * @return	true if widget is expanded
+	 * @param item item to handle
+	 * @return true if specified tree item is expanded, false otherwise
 	 */
 	public boolean isExpanded(final TreeItem item) {
 		return Display.syncExec(new ResultRunnable<Boolean>() {
@@ -81,11 +81,12 @@ public class TreeItemHandler {
 	
 	
 	/**
-	 * Sets text on given cell index 
+	 * Sets specified text to column on the position specified 
+	 * by index in specified {@link TreeItem}. 
 	 * 
-	 * @param treeItem given widget
-	 * @Param cellIndex index of cell
-	 * @param text to set
+	 * @param treeItem tree item to handle
+	 * @param cellIndex index of cell to set text
+	 * @param text text to set
 	 */
 	public void setText(final TreeItem treeItem, final int cellIndex, final String text) {
 		Display.syncExec(new Runnable() {

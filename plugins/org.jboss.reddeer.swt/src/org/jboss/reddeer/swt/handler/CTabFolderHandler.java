@@ -3,9 +3,8 @@ package org.jboss.reddeer.swt.handler;
 import org.eclipse.swt.custom.CTabFolder;
 import org.jboss.reddeer.swt.util.Display;
 
-
 /**
- * Contains methods that handle UI operations on {@link CTabFolderHandler} widgets. 
+ * Contains methods for handling UI operations on {@link CTabFolder} widgets.
  * 
  * @author Lucia Jelinkova
  *
@@ -19,9 +18,9 @@ public class CTabFolderHandler {
 	}
 
 	/**
-	 * Creates and returns instance of ComboHandler class
+	 * Gets instance of CTabFolderHandler.
 	 * 
-	 * @return
+	 * @return instance of CTabFolderHandler
 	 */
 	public static CTabFolderHandler getInstance() {
 		if (instance == null) {
@@ -30,11 +29,16 @@ public class CTabFolderHandler {
 		return instance;
 	}
 
+	/**
+	 * Sets focus on specified {@link CTabFolder}.
+	 * 
+	 * @param folder folder to handle
+	 */
 	public void setFocus(final CTabFolder folder) {
 		Display.syncExec(new Runnable() {
 			@Override
 			public void run() {
-				folder.forceFocus(); 
+				folder.forceFocus();
 			}
 		});
 	}

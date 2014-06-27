@@ -7,7 +7,7 @@ import org.jboss.reddeer.swt.util.Display;
 import org.jboss.reddeer.swt.util.ResultRunnable;
 
 /**
- * Contains methods that handle UI operations on {@link Button} widgets. 
+ * Contains methods for handling UI operations on {@link Button} widgets.
  * 
  * @author Lucia Jelinkova
  *
@@ -21,9 +21,9 @@ public class ButtonHandler {
 	}
 
 	/**
-	 * Creates and returns instance of ButtonHandler class
+	 * Gets instance of ButtonHandler.
 	 * 
-	 * @return
+	 * @return instance of ButtonHandler
 	 */
 	public static ButtonHandler getInstance() {
 		if (instance == null) {
@@ -31,34 +31,34 @@ public class ButtonHandler {
 		}
 		return instance;
 	}
-	
+
 	/**
-	 * Click the {@link Button}
+	 * Clicks specified {@link Button}.
 	 * 
-	 * @param w given widgets
+	 * @param button button to handle
 	 */
 	public void click(final Button button) {
-		
+
 		Display.syncExec(new Runnable() {
 			@Override
 			public void run() {
-					if (((button.getStyle() & SWT.TOGGLE) != 0) ||
-						((button.getStyle() & SWT.CHECK) != 0)) {
-						button.setSelection(!button.getSelection());
-					}
+				if (((button.getStyle() & SWT.TOGGLE) != 0)
+						|| ((button.getStyle() & SWT.CHECK) != 0)) {
+					button.setSelection(!button.getSelection());
+				}
 			}
 		});
-		
+
 		WidgetHandler.getInstance().sendClickNotifications(button);
-		
+
 		Display.syncExec(new Runnable() {
 			@Override
 			public void run() {
-				if (!button.isDisposed()){
+				if (!button.isDisposed()) {
 					handleNotSelectedRadioButton(button);
 				}
 			}
-			
+
 			private void handleNotSelectedRadioButton(final Button button) {
 				if ((button.getStyle() & SWT.RADIO) == 0
 						|| button.getSelection()) {
@@ -73,20 +73,21 @@ public class ButtonHandler {
 				if ((button.getParent().getStyle() & SWT.NO_RADIO_GROUP) != 0) {
 					return;
 				}
-				
+
 				Widget[] siblings = button.getParent().getChildren();
 				for (Widget widget : siblings) {
 					if (widget instanceof Button) {
 						Button sibling = (Button) widget;
-						if ((sibling.getStyle() & SWT.RADIO) != 0 && 
-								sibling.getSelection()) {
-							WidgetHandler.getInstance().notify(SWT.Deactivate, sibling);
+						if ((sibling.getStyle() & SWT.RADIO) != 0
+								&& sibling.getSelection()) {
+							WidgetHandler.getInstance().notify(SWT.Deactivate,
+									sibling);
 							sibling.setSelection(false);
 						}
-					}	
+					}
 				}
 			}
-			
+
 			private void selectRadio(Button button) {
 				WidgetHandler.getInstance().notify(SWT.Activate, button);
 				WidgetHandler.getInstance().notify(SWT.MouseDown, button);
@@ -97,21 +98,22 @@ public class ButtonHandler {
 
 		});
 	}
-	
+
 	/**
-	 * Checks if button is selected
+	 * Checks whether specified {@link Button} is selected or not.
 	 * 
-	 * @param w	given widget
-	 * @return	returns widget label text
+	 * @param button button to handle
+	 * @return true if button is selected, false otherwise
 	 */
 	public boolean isSelected(final Button button) {
-		boolean selectionState = Display.syncExec(new ResultRunnable<Boolean>() {
-			
-			@Override
-			public Boolean run() {
-				return button.getSelection();
-			}
-		});
+		boolean selectionState = Display
+				.syncExec(new ResultRunnable<Boolean>() {
+
+					@Override
+					public Boolean run() {
+						return button.getSelection();
+					}
+				});
 		return selectionState;
 	}
 }

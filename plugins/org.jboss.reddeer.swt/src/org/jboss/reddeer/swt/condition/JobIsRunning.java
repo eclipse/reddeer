@@ -6,9 +6,8 @@ import org.hamcrest.Matcher;
 import org.jboss.reddeer.common.logging.Logger;
 
 /**
- * Returns true, if there is a non system job running, false 
- * otherwise. List of tested jobs can be altered using matchers
- * with proper constructor.
+ * Condition is met when there is/are non-system running job(s).
+ * List of tested jobs can be filtered using matchers.
  * 
  * @author Lucia Jelinkova
  */
@@ -19,11 +18,17 @@ public class JobIsRunning implements WaitCondition {
 	private Matcher[] consideredJobs;
 	private Matcher[] excludeJobs;
 
+	/**
+	 * Constructs JobIsRunning wait condition. Condition is met when job is running.
+	 */
 	public JobIsRunning() {
 		this(null, null);
 	}
 
 	/**
+	 * Constructs JobIsRunning wait condition. Condition is met when job(s) is/are running.
+	 * Test only jobs matching the specified matchers.
+	 * 
 	 * @param consideredJobs If not <code>null</code>, only jobs whose name matches
 	 * any of these matchers will be tested. Use in case you want to make sure all
 	 * jobs from a limited set are not running, and you don't care about the rest
@@ -34,6 +39,10 @@ public class JobIsRunning implements WaitCondition {
 	}
 
 	/**
+	 * Constructs JobIsRunning wait condition. Condition is met when job(s) is/are running.
+	 * Test only jobs matching the specified matchers which are not excluded by 
+	 * another specified matchers.
+	 * 
 	 * @param consideredJobs If not <code>null</code>, only jobs whose name matches
 	 * any of these matchers will be tested. Use in case you want to make sure all
 	 * jobs from a limited set are not running, and you don't care about the rest

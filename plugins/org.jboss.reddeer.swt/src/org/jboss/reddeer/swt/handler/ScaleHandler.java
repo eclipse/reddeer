@@ -5,12 +5,14 @@ import org.jboss.reddeer.swt.util.Display;
 import org.jboss.reddeer.swt.util.ResultRunnable;
 
 /**
- * Contains methods that handle UI operations on {@link org.eclipse.swt.widgets.Scale} widgets. 
+ * Contains methods for handling UI operations on
+ * {@link org.eclipse.swt.widgets.Scale} widgets.
+ * 
  * @author Vlado Pakan
  *
  */
 public class ScaleHandler {
-	
+
 	private static ScaleHandler instance;
 
 	private ScaleHandler() {
@@ -18,9 +20,9 @@ public class ScaleHandler {
 	}
 
 	/**
-	 * Creates and returns instance of TreeHandler class
+	 * Gets instance of ScaleHandler.
 	 * 
-	 * @return
+	 * @return instance of ScaleHandler
 	 */
 	public static ScaleHandler getInstance() {
 		if (instance == null) {
@@ -28,46 +30,49 @@ public class ScaleHandler {
 		}
 		return instance;
 	}
-	
+
 	/**
-	 * @deprecated The methods in handler should not be static and should use SWT widgets as arguments. Use ScaleHandler.getInstance and appropriate non static method
-	 * See {@link Scale}
+	 * @deprecated Use non static method instead. Will be removed in version 0.6.
+	 * @param scale to get minimum of
+	 * @return minimum value
 	 */
 	public static int getMinimum(final Scale scale) {
 		return Display.syncExec(new ResultRunnable<Integer>() {
-		      @Override
-		      public Integer run() {
-		        return scale.getSWTWidget().getMinimum();
-		      }
-		    });
+			@Override
+			public Integer run() {
+				return scale.getSWTWidget().getMinimum();
+			}
+		});
 	}
+
 	/**
-	 * See {@link Scale}
-	 * @deprecated The methods in handler should not be static and should use SWT widgets as arguments. Use ScaleHandler.getInstance and appropriate non static method
+	 * @deprecated Use non static method instead. Will be removed in version 0.6.
+	 * @param scale to get maximum of
+	 * @return maximum value
 	 */
 	public static int getMaximum(final Scale scale) {
 		return Display.syncExec(new ResultRunnable<Integer>() {
-		      @Override
-		      public Integer run() {
-		        return scale.getSWTWidget().getMaximum();
-		      }
-		    });
+			@Override
+			public Integer run() {
+				return scale.getSWTWidget().getMaximum();
+			}
+		});
 	}
+
 	/**
-	 * @deprecated The methods in handler should not be static and should use SWT widgets as arguments. Use ScaleHandler.getInstance and appropriate non static method
-	 * See {@link Scale}
+	 * @deprecated Use non static method instead. Will be removed in version 0.6.
 	 */
 	public static int getSelection(final Scale scale) {
 		return Display.syncExec(new ResultRunnable<Integer>() {
-		      @Override
-		      public Integer run() {
-		        return scale.getSWTWidget().getSelection();
-		      }
-		    });
+			@Override
+			public Integer run() {
+				return scale.getSWTWidget().getSelection();
+			}
+		});
 	}
+
 	/**
-	 * @deprecated The methods in handler should not be static and should use SWT widgets as arguments. Use ScaleHandler.getInstance and appropriate non static method
-	 * See {@link Scale}
+	 * @deprecated Use non static method instead. Will be removed in version 0.6.
 	 */
 	public static void setSelection(final Scale scale, final int value) {
 		Display.syncExec(new Runnable() {
@@ -76,46 +81,63 @@ public class ScaleHandler {
 				scale.getSWTWidget().setSelection(value);
 			}
 		});
-		WidgetHandler.getInstance().sendClickNotifications(scale.getSWTWidget());
+		WidgetHandler.getInstance()
+				.sendClickNotifications(scale.getSWTWidget());
 	}
-	
+
 	/**
-	 * See {@link Scale}
+	 * Gets minimum value of specified {@link org.eclipse.swt.widgets.Scale}.
+	 * 
+	 * @param scale scale to handle
+	 * @return minimum value of specified scale
 	 */
 	public int getMinimum(final org.eclipse.swt.widgets.Scale scale) {
 		return Display.syncExec(new ResultRunnable<Integer>() {
-		      @Override
-		      public Integer run() {
-		        return scale.getMinimum();
-		      }
-		    });
+			@Override
+			public Integer run() {
+				return scale.getMinimum();
+			}
+		});
 	}
+
 	/**
-	 * See {@link Scale}
+	 * Gets maximum value of specified {@link org.eclipse.swt.widgets.Scale}.
+	 * 
+	 * @param scale scale to handle
+	 * @return maximum value of specified scale
 	 */
 	public int getMaximum(final org.eclipse.swt.widgets.Scale scale) {
 		return Display.syncExec(new ResultRunnable<Integer>() {
-		      @Override
-		      public Integer run() {
-		        return scale.getMaximum();
-		      }
-		    });
+			@Override
+			public Integer run() {
+				return scale.getMaximum();
+			}
+		});
 	}
+
 	/**
-	 * See {@link Scale}
+	 * Gets current value of specified {@link org.eclipse.swt.widgets.Scale}.
+	 * 
+	 * @param scale scale to handle
+	 * @return current value of specified scale
 	 */
 	public int getSelection(final org.eclipse.swt.widgets.Scale scale) {
 		return Display.syncExec(new ResultRunnable<Integer>() {
-		      @Override
-		      public Integer run() {
-		        return scale.getSelection();
-		      }
-		    });
+			@Override
+			public Integer run() {
+				return scale.getSelection();
+			}
+		});
 	}
+
 	/**
-	 * See {@link Scale}
+	 * Sets specified {@link org.eclipse.swt.widgets.Scale} to specified value.
+	 * 
+	 * @param scale scale to handle
+	 * @param value value to set
 	 */
-	public void setSelection(final org.eclipse.swt.widgets.Scale scale, final int value) {
+	public void setSelection(final org.eclipse.swt.widgets.Scale scale,
+			final int value) {
 		Display.syncExec(new Runnable() {
 			@Override
 			public void run() {

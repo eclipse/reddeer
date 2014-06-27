@@ -9,27 +9,32 @@ import org.jboss.reddeer.swt.util.Display;
 import org.jboss.reddeer.swt.util.ResultRunnable;
 
 /**
- * Contains methods that handle UI operations on {@link IWorkbench}. 
+ * Contains methods for handling UI operations on {@link IWorkbench}.
+ * 
  * @author Jiri Peterka
  *
  */
 public class WorkbenchHandler {
-	
+
 	private static WorkbenchHandler instance;
-	
-	private WorkbenchHandler() {}
-	
+
+	private WorkbenchHandler() {
+	}
+
 	/**
-	 * Returns workbench handler instance
-	 * @return workbench handler class instance
+	 * Get WorkbenchHandler instance.
+	 * 
+	 * @return instance of WorkbenchHandler
 	 */
 	public static WorkbenchHandler getInstance() {
-		if (instance == null) instance = new WorkbenchHandler();
+		if (instance == null) {
+			instance = new WorkbenchHandler();
+		}
 		return instance;
 	}
 
 	/**
-	 * Closes all editor in Active Workbench
+	 * Closes all editors in active workbench.
 	 */
 	public void closeAllEditors() {
 		Display.syncExec(new Runnable() {
@@ -37,19 +42,21 @@ public class WorkbenchHandler {
 			@Override
 			public void run() {
 				IWorkbench workbench = PlatformUI.getWorkbench();
-				final IWorkbenchPage activePage = workbench.getActiveWorkbenchWindow().getActivePage();
+				final IWorkbenchPage activePage = workbench
+						.getActiveWorkbenchWindow().getActivePage();
 
-				activePage.closeEditors(activePage.getEditorReferences(), true);		
-			}			
+				activePage.closeEditors(activePage.getEditorReferences(), true);
+			}
 		});
 	}
-	
-	
+
 	/**
-	 * Get Active view title
+	 * Gets title of active view.
+	 * 
+	 * @return title of active view
 	 */
 	public String getActiveViewTitle() {
-		
+
 		final IViewReference findActiveView = WorkbenchLookup.findActiveView();
 		String title = Display.syncExec(new ResultRunnable<String>() {
 
@@ -58,8 +65,8 @@ public class WorkbenchHandler {
 				return findActiveView.getTitle();
 			}
 		});
-	
+
 		return title;
 	}
-	
+
 }

@@ -12,37 +12,42 @@ import org.jboss.reddeer.swt.util.Display;
 import org.jboss.reddeer.swt.util.ResultRunnable;
 
 /**
- * Contains methods that handle UI operations on {@link CTabItem} widgets. 
+ * Contains methods for handling UI operations on {@link CTabItem} widgets.
  * 
  * @author Vlado Pakan
  *
  */
 public class CTabItemHandler {
 
-	private static final Logger logger = Logger.getLogger(CTabItemHandler.class);
-	
+	private static final Logger logger = Logger
+			.getLogger(CTabItemHandler.class);
+
 	private static CTabItemHandler instance;
 
 	private CTabItemHandler() {
 
 	}
+
 	/**
-	 * Returns cTabFolder containing swtCTabItem 
-	 * @param swtCTabItem
-	 * @return
-	 */
-	public CTabFolder getCTabFolder (final CTabItem swtCTabItem){
-		return Display.syncExec(new ResultRunnable<org.eclipse.swt.custom.CTabFolder>() {
-			@Override
-			public CTabFolder run() {
-				return swtCTabItem.getParent();
-			}
-		});
-	}
-	/**
-	 * Creates and returns instance of CTabItemHandler class
+	 * Gets {@link CTabFolder} containing specified {@link CTabItem}.
 	 * 
-	 * @return
+	 * @param swtCTabItem CTab item to handle
+	 * @return CTabFolder containing specified CTabItem
+	 */
+	public CTabFolder getCTabFolder(final CTabItem swtCTabItem) {
+		return Display
+				.syncExec(new ResultRunnable<org.eclipse.swt.custom.CTabFolder>() {
+					@Override
+					public CTabFolder run() {
+						return swtCTabItem.getParent();
+					}
+				});
+	}
+
+	/**
+	 * Gets instance of CTabItemHandler.
+	 * 
+	 * @return instance of CTabItemHandler
 	 */
 	public static CTabItemHandler getInstance() {
 		if (instance == null) {
@@ -52,13 +57,14 @@ public class CTabItemHandler {
 	}
 
 	/**
-	 * Creates event for CTabItem with specified type
+	 * Creates the event of specified type for specified {@link CTabItem}.
 	 * 
-	 * @param swtCTabItem
-	 * @param type
-	 * @return
+	 * @param swtCTabItem CTab item to handle
+	 * @param type type of the event
+	 * @return event of specified type for specified CTab item
 	 */
-	public Event createEventForCTabItem(final CTabItem swtCTabItem, final int type) {
+	public Event createEventForCTabItem(final CTabItem swtCTabItem,
+			final int type) {
 		Event event = new Event();
 		event.type = type;
 		event.display = Display.getDisplay();
@@ -69,13 +75,14 @@ public class CTabItemHandler {
 	}
 
 	/**
-	 * Notifies CTabFolder listeners about event event.type field has to be
-	 * properly set
+	 * Notifies CTabFolder, containing specified {@link CTabItem},
+	 * listeners about specified event. Field for type of the event in 
+	 * specified event has to be properly set.
 	 * 
-	 * @param swtCTabItem
-	 * @param event
+	 * @param swtCTabItem CTab item to handle
+	 * @param event event to notify
 	 */
-	public void notifyCTabFolder(final CTabItem swtCTabItem,final Event event) {
+	public void notifyCTabFolder(final CTabItem swtCTabItem, final Event event) {
 		Display.syncExec(new Runnable() {
 			public void run() {
 				swtCTabItem.getParent().notifyListeners(event.type, event);
@@ -84,9 +91,9 @@ public class CTabItemHandler {
 	}
 
 	/**
-	 * Clicks close button on position x, y
+	 * Clicks close button on specified {@link CTabItem}.
 	 * 
-	 * @param swtCTabItem
+	 * @param swtCTabItem CTab item to handle
 	 */
 	public void clickCloseButton(final CTabItem swtCTabItem) {
 		Rectangle rectangleCloseBox = Display
@@ -105,24 +112,33 @@ public class CTabItemHandler {
 				});
 		logger.info("Clicking on close button");
 		int x = rectangleCloseBox.x + (rectangleCloseBox.width / 2);
-		int y = rectangleCloseBox.y	+ (rectangleCloseBox.height / 2);
-		notifyCTabFolder(swtCTabItem,createMouseEvent(swtCTabItem,SWT.MouseDown,x, y, 1, SWT.NONE, 1));
+		int y = rectangleCloseBox.y + (rectangleCloseBox.height / 2);
+		notifyCTabFolder(
+				swtCTabItem,
+				createMouseEvent(swtCTabItem, SWT.MouseDown, x, y, 1, SWT.NONE,
+						1));
 		// this event being button 1 is what allows CTabItem to close
-		notifyCTabFolder(swtCTabItem,createMouseEvent(swtCTabItem,SWT.MouseUp,x, y, 1, SWT.BUTTON1, 1));
+		notifyCTabFolder(
+				swtCTabItem,
+				createMouseEvent(swtCTabItem, SWT.MouseUp, x, y, 1,
+						SWT.BUTTON1, 1));
 	}
+
 	/**
-	 * Create a mouse event
+	 * Creates a mouse event for specified {@link CTabItem}. 
 	 *
-	 * @param swtCTabItem
-	 * @param x
-	 * @param y
-	 * @param button
-	 * @param stateMask
-	 * @param count
-	 * @return
+	 * @param swtCTabItem CTab item to handle
+	 * @param type see {@link Event#type}
+	 * @param x see {@link Event#x}
+	 * @param y see {@link Event#y}
+	 * @param button see {@link Event#button}
+	 * @param stateMask see {@link Event#stateMask}
+	 * @param count see {@link Event#count}
+	 * @return mouse event for specified CTab item 
 	 */
-	private Event createMouseEvent(final CTabItem swtCTabItem,int type , int x, int y, int button, int stateMask, int count) {
-		Event event = createEventForCTabItem(swtCTabItem,type);
+	private Event createMouseEvent(final CTabItem swtCTabItem, int type, int x,
+			int y, int button, int stateMask, int count) {
+		Event event = createEventForCTabItem(swtCTabItem, type);
 		event.time = (int) System.currentTimeMillis();
 		event.x = x;
 		event.y = y;
@@ -132,6 +148,12 @@ public class CTabItemHandler {
 		return event;
 	}
 
+	/**
+	 * Finds out whether the close button of specified {@link CTabItem} is shown or not.
+	 * 
+	 * @param swtCTabItem CTab item to handle
+	 * @return true if the close button is shown, false otherwise 
+	 */
 	public boolean isShowClose(final CTabItem swtCTabItem) {
 		return Display.syncExec(new ResultRunnable<Boolean>() {
 			public Boolean run() {
@@ -139,18 +161,25 @@ public class CTabItemHandler {
 			}
 		});
 	}
+
 	/**
-	 * Selects swtCTabItem
-	 * @param swtCTabItem
+	 * Selects specified {@link CTabItem}.
+	 * 
+	 * @param cTabItem CTab item to handle
 	 */
-	public void select (final CTabItem swtCTabItem){
+	public void select(final CTabItem cTabItem) {
 		Display.syncExec(new Runnable() {
 			public void run() {
-				swtCTabItem.getParent().setSelection(swtCTabItem);
+				cTabItem.getParent().setSelection(cTabItem);
 			}
 		});
 	}
 
+	/**
+	 * Sets focus on specified {@link CTabItem}.
+	 * 
+	 * @param ctabItem CTab item to handle
+	 */
 	public void setFocus(final CTabItem ctabItem) {
 		Display.syncExec(new Runnable() {
 			@Override

@@ -11,7 +11,7 @@ import org.jboss.reddeer.swt.util.Display;
 import org.jboss.reddeer.swt.util.ResultRunnable;
 
 /**
- * Contains methods that handle UI operations on {@link Combo} widgets. 
+ * Contains methods for handling UI operations on {@link Combo} widgets.
  * 
  * @author Lucia Jelinkova
  *
@@ -27,9 +27,9 @@ public class ComboHandler {
 	}
 
 	/**
-	 * Creates and returns instance of ComboHandler class
+	 * Gets instance of ComboHandler.
 	 * 
-	 * @return
+	 * @return instance of ComboHandler
 	 */
 	public static ComboHandler getInstance() {
 		if (instance == null) {
@@ -39,11 +39,10 @@ public class ComboHandler {
 	}
 
 	/**
-	 * Gets items
+	 * Gets items included in specified {@link Combo}.
 	 * 
-	 * @param combo
-	 *            given widget
-	 * @return array of items in widget
+	 * @param combo combo to handle
+	 * @return names of items included in combo
 	 */
 	public String[] getItems(final Combo combo) {
 		return Display.syncExec(new ResultRunnable<String[]>() {
@@ -56,11 +55,13 @@ public class ComboHandler {
 	}
 
 	/**
-	 * Sets selection with given index for supported widget type
+	 * Sets selection of specified {@link Combo} to the item on specified position.
 	 * 
-	 * @param index
+	 * @param combo combo to handle
+	 * @param index index of item to select
 	 */
-	public <T extends Widget> void setSelection(final Combo combo, final int index) {
+	public void setSelection(final Combo combo,
+			final int index) {
 		Display.syncExec(new Runnable() {
 
 			@Override
@@ -69,7 +70,8 @@ public class ComboHandler {
 				if (index >= itemsLength) {
 					log.error("Combo does not have " + index + 1 + "items!");
 					log.info("Combo has " + itemsLength + " items");
-					throw new SWTLayerException("Nonexisted item in combo was requested");
+					throw new SWTLayerException(
+							"Nonexisted item in combo was requested");
 				} else {
 					combo.select(index);
 				}
@@ -78,9 +80,10 @@ public class ComboHandler {
 	}
 
 	/**
-	 * Sets selection with given text for supported widget type
+	 * Sets selection of specified {@link Combo} to specified text.
 	 * 
-	 * @param index
+	 * @param combo combo to handle
+	 * @param text text to set
 	 */
 	public void setSelection(final Combo combo, final String text) {
 		Display.syncExec(new Runnable() {
@@ -88,7 +91,7 @@ public class ComboHandler {
 			@Override
 			public void run() {
 				String[] items = getItems(combo);
-				int index = Arrays.asList(items).indexOf(text); 
+				int index = Arrays.asList(items).indexOf(text);
 				if (index == -1) {
 					log.error("'" + text + "' is not "
 							+ "contained in combo items");
@@ -98,8 +101,9 @@ public class ComboHandler {
 						log.info("    " + item + "(index " + i);
 						i++;
 					}
-					throw new SWTLayerException("Nonexisting item in combo was requested");
-				}else {
+					throw new SWTLayerException(
+							"Nonexisting item in combo was requested");
+				} else {
 					combo.select(index);
 				}
 			}
@@ -107,9 +111,10 @@ public class ComboHandler {
 	}
 
 	/**
-	 * Gets selection text for supported widget type
+	 * Gets text of the selection of specified {@link Combo}.
 	 * 
-	 * @param index
+	 * @param combo combo to handle
+	 * @return text of specified selection of specified combo
 	 */
 	public String getSelection(final Combo combo) {
 		return Display.syncExec(new ResultRunnable<String>() {
@@ -119,25 +124,27 @@ public class ComboHandler {
 				Point selection = combo.getSelection();
 				String comboText = combo.getText();
 				String selectionText = "";
-				if (selection.y > selection.x){
-					selectionText = comboText.substring(selection.x , selection.y);
+				if (selection.y > selection.x) {
+					selectionText = comboText.substring(selection.x,
+							selection.y);
 				}
 				return selectionText;
 			}
 		});
 	}
-	
+
 	/**
-	 * Gets selection index for supported widget type
+	 * Gets index of the selection of specified {@link Combo}.
 	 * 
-	 * @param index
+	 * @param combo combo to handle
+	 * @return index of the selection of specified combo
 	 */
-	public <T extends Widget> int getSelectionIndex(final Combo combo) {
+	public int getSelectionIndex(final Combo combo) {
 		return Display.syncExec(new ResultRunnable<Integer>() {
 
 			@Override
 			public Integer run() {
-					return combo.getSelectionIndex();
+				return combo.getSelectionIndex();
 			}
 		});
 	}

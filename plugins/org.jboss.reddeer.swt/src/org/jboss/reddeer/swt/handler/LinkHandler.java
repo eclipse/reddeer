@@ -14,7 +14,7 @@ import org.jboss.reddeer.swt.util.Display;
 import org.jboss.reddeer.swt.util.ResultRunnable;
 
 /**
- * Contains methods that handle UI operations on {@link Link} widgets.
+ * Contains methods for handling UI operations on {@link Link} widgets.
  * 
  * @author Lucia Jelinkova, rhopp
  *
@@ -28,9 +28,9 @@ public class LinkHandler {
 	}
 
 	/**
-	 * Creates and returns instance of TreeHandler class
+	 * Gets instance of LinkHandler.
 	 * 
-	 * @return
+	 * @return instance of LinkHandler
 	 */
 	public static LinkHandler getInstance() {
 		if (instance == null) {
@@ -40,19 +40,18 @@ public class LinkHandler {
 	}
 
 	/**
-	 * This method parses given link text for containing anchors, then returns
-	 * those anchor's texts as list of strings
+	 * Parses text of specified {@link Link} to get anchors.
 	 * <p/>
-	 * For example
+	 * Example
 	 * "This is a &lt;a&gt;link1&lt;/a&gt; and &lt;a&gt;link2&lt;/a&gt;" will
 	 * result in ["link1","link2"]
 	 * 
-	 * @param l
-	 * @return
+	 * @param link link to handle
+	 * @return list of anchors in specified link
 	 */
-	public List<String> getAnchorTexts(final Link l) {
+	public List<String> getAnchorTexts(final Link link) {
 
-		String linkText = getTextInternal(l);
+		String linkText = getTextInternal(link);
 		List<String> anchorTextList = new ArrayList<String>();
 		for (AnchorPair anchorPair : parseLinks(linkText)) {
 			anchorTextList.add(anchorPair.getAnchorText());
@@ -61,20 +60,16 @@ public class LinkHandler {
 	}
 
 	/**
-	 * This method returns text, which should be passed as event.text in
-	 * selection event, for anchor in given link, specified by its text and
-	 * index.
+	 * Gets text, passed as {@link Event.text} in the selection event, 
+	 * of the anchor in specified link, with specified text, on the specified index.
 	 * 
-	 * @param l
-	 *            given link
-	 * @param text
-	 *            text of the anchor (text between &lt;a&gt; and &lt;/a&gt;)
-	 * @param index
-	 *            index of anchor, given that multiple anchors have same text
-	 * @return
+	 * @param link link to handle
+	 * @param text text of the anchor (text between &lt;a&gt; and &lt;/a&gt;)
+	 * @param index index of the anchor
+	 * @return text of the selection event
 	 */
-	public String getEventText(final Link l, String text, int index) {
-		String linkText = getTextInternal(l);
+	public String getEventText(final Link link, String text, int index) {
+		String linkText = getTextInternal(link);
 		int counter = 0;
 		for (AnchorPair ap : parseLinks(linkText)) {
 			if (ap.getAnchorText().equals(text)) {
@@ -91,21 +86,20 @@ public class LinkHandler {
 	}
 
 	/**
-	 * This method returns text, which should be passed as event.text in
-	 * selection event, for anchor in given link, specified by its index.
+	 * Gets text, passed as {@link Event.text} in the selection event,
+	 * of the anchor in specified link, on specified index.
 	 * 
-	 * @param l
-	 *            given link
-	 * @param index
-	 *            index of anchod within given link
-	 * @return
+	 * @param link link to handle
+	 * @param index index of the anchor
+	 * @return text of the selection event
 	 */
-	public String getEventText(final Link l, int index) {
-		String linkText = getTextInternal(l);
+	public String getEventText(final Link link, int index) {
+		String linkText = getTextInternal(link);
 		List<AnchorPair> list = parseLinks(linkText);
 		if (list.size() <= index) {
-			throw new SWTLayerException("There are only " + list.size() +
-					" anchors in this link and you requested anchor #" + index);
+			throw new SWTLayerException("There are only " + list.size()
+					+ " anchors in this link and you requested anchor #"
+					+ index);
 		}
 		Collections.sort(list);
 		AnchorPair ap = list.get(index);
@@ -114,24 +108,24 @@ public class LinkHandler {
 	}
 
 	/**
-	 * This method strips given link's text of anchor tags.
+	 * Gets text without anchor characters.
 	 * <p/>
-	 * For link with text "This is a &lt;a&gt;link&lt;/a&gt;" this method will
-	 * return "This is a link"
+	 * For link with the text "This is a &lt;a&gt;link&lt;/a&gt;" this method
+	 * returns "This is a link".
 	 * 
-	 * @param l given link
-	 * @return
+	 * @param link link to handle
+	 * @return text without anchor characters
 	 */
 
-	public String getText(final Link l) {
-		return getTextInternal(l).replaceAll("<[aA]([^>]*)>(.+?)</[aA]>", "$2");
+	public String getText(final Link link) {
+		return getTextInternal(link).replaceAll("<[aA]([^>]*)>(.+?)</[aA]>", "$2");
 	}
-	
+
 	/**
-	 * Activates widget - link/hyperlink etc
+	 * Activates specified {@link Link}.
 	 * 
-	 * @param w
-	 *            widget to activate
+	 * @param link link to handle
+	 * @param text text of the notification event
 	 */
 	public void activate(final Link link, final String text) {
 		Display.asyncExec(new Runnable() {

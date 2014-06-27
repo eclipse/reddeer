@@ -8,7 +8,9 @@ import org.jboss.reddeer.swt.util.ResultRunnable;
 import org.jboss.reddeer.swt.wait.WaitUntil;
 
 /**
- * Contains methods that handle UI operations on {@link org.eclipse.swt.browser.Browser} widgets. 
+ * Contains methods for handling UI operations on
+ * {@link org.eclipse.swt.browser.Browser} widgets.
+ * 
  * @author Vlado Pakan
  *
  */
@@ -21,9 +23,9 @@ public class BrowserHandler {
 	}
 
 	/**
-	 * Creates and returns instance of TreeHandler class
+	 * Gets instance of BrowserHandler.
 	 * 
-	 * @return
+	 * @return instance of BrowserHandler
 	 */
 	public static BrowserHandler getInstance() {
 		if (instance == null) {
@@ -31,14 +33,16 @@ public class BrowserHandler {
 		}
 		return instance;
 	}
-	
+
 	/**
-	 * See {@link Browser}
-	 * @deprecated Use non static method instead
-	 * @param browser
-	 * @return
+	 * Gets URL from specified {@link Browser}.
+	 * 
+	 * @deprecated Use non static method instead. Will be removed in version
+	 *             0.6.
+	 * @param browser browser to handle
+	 * @return URL of current site in specified browser
 	 */
-	public static String getURL (final Browser browser) {
+	public static String getURL(final Browser browser) {
 		new WaitUntil(new PageIsLoaded(browser));
 		return Display.syncExec(new ResultRunnable<String>() {
 			@Override
@@ -47,23 +51,27 @@ public class BrowserHandler {
 			}
 		});
 	}
+
 	/**
-	 * See {@link Browser}
-	 * @deprecated Use non static method instead
-	 * @param browser
-	 * @return
+	 * Gets text from a page in specified {@link Browser}.
+	 * 
+	 * @deprecated Use non static method instead. Will be removed in version
+	 *             0.6.
+	 * @param browser browser to handle
+	 * @return text in a page of specified browser
 	 */
-	public static String getText (final Browser browser) {
+	public static String getText(final Browser browser) {
 		new WaitUntil(new PageIsLoaded(browser));
 		return WidgetHandler.getInstance().getText(browser.getSWTWidget());
 	}
+
 	/**
-	 * See {@link Browser}
+	 * Refreshes loaded page in specified {@link Browser}.
+	 * 
 	 * @deprecated Use non static method instead
-	 * @param browser
-	 * @return
+	 * @param browser browser to handle
 	 */
-	public static void refresh (final Browser browser){
+	public static void refresh(final Browser browser) {
 		Display.syncExec(new Runnable() {
 			@Override
 			public void run() {
@@ -71,13 +79,15 @@ public class BrowserHandler {
 			}
 		});
 	}
+
 	/**
-	 * See {@link Browser}
-	 * @param browser
-	 * @deprecated Use non static method instead
-	 * @return
+	 * Presses back on specified {@link Browser}.
+	 * 
+	 * @deprecated Use non static method instead. Will be removed in version 0.6.
+	 * @param browser to handle
+	 * @return true if the operation was successful, false otherwise
 	 */
-	public static boolean back (final Browser browser){
+	public static boolean back(final Browser browser) {
 		return Display.syncExec(new ResultRunnable<Boolean>() {
 			@Override
 			public Boolean run() {
@@ -85,13 +95,15 @@ public class BrowserHandler {
 			}
 		});
 	}
+
 	/**
-	 * See {@link Browser}
-	 * @deprecated Use non static method instead
-	 * @param browser
-	 * @return
+	 * Presses forward on specified {@link Browser}.
+	 * 
+	 * @deprecated Use non static method instead. Will be removed in version 0.6.
+	 * @param browser to handle
+	 * @return true if the operation was successful, false otherwise
 	 */
-	public static boolean forward (final Browser browser){
+	public static boolean forward(final Browser browser) {
 		return Display.syncExec(new ResultRunnable<Boolean>() {
 			@Override
 			public Boolean run() {
@@ -99,13 +111,16 @@ public class BrowserHandler {
 			}
 		});
 	}
+
 	/**
-	 * Adds progress listener to browser
-	 * @deprecated Use non static method instead
-	 * @param browser
-	 * @param progressListener
+	 * Adds progress listener to specified {@link Browser}.
+	 * 
+	 * @deprecated Use non static method instead. Will be removed in version 0.6.
+	 * @param browser to handle
+	 * @param progressListener progress listener to add
 	 */
-	public static void addProgressListener (final Browser browser , final ProgressListener progressListener){
+	public static void addProgressListener(final Browser browser,
+			final ProgressListener progressListener) {
 		Display.syncExec(new Runnable() {
 			@Override
 			public void run() {
@@ -113,13 +128,16 @@ public class BrowserHandler {
 			}
 		});
 	}
+
 	/**
-	 * Removes progress listener from browser
-	 * @deprecated Use non static method instead
-	 * @param browser
-	 * @param progressListener
+	 * Removes progress listener from specified {@link Browser}.
+	 * 
+	 * @deprecated Use non static method instead. Will be removed in version 0.6.
+	 * @param browser to handle
+	 * @param progressListener progress listener to remove
 	 */
-	public static void removeProgressListener (final Browser browser , final ProgressListener progressListener){
+	public static void removeProgressListener(final Browser browser,
+			final ProgressListener progressListener) {
 		Display.syncExec(new Runnable() {
 			@Override
 			public void run() {
@@ -127,29 +145,33 @@ public class BrowserHandler {
 			}
 		});
 	}
+
 	/**
-	 * See {@link Browser}
-	 * @deprecated Use non static method instead
-	 * @param browser
-	 * @return
+	 * Sets given URL in specified {@link Browser}.
+	 * 
+	 * @deprecated Use non static method instead. Will be removed in version 0.6.
+	 * @param browser to handle
+	 * @param url url to set
+	 * @return true if the operation was successful, false otherwise. 
 	 */
-	public static boolean setURL (final Browser browser , final String url) {
+	public static boolean setURL(final Browser browser, final String url) {
 		boolean result = Display.syncExec(new ResultRunnable<Boolean>() {
 			@Override
 			public Boolean run() {
 				return browser.getSWTWidget().setUrl(url);
 			}
 		});
-		
+
 		return result;
 	}
-	
+
 	/**
-	 * See {@link Browser}
-	 * @param browser
-	 * @return
+	 * Gets URL from specified {@link org.eclipse.swt.browser.Browser}.
+	 * 
+	 * @param browser browser to handle
+	 * @return URL of current site in specified browser
 	 */
-	public String getURL (final org.eclipse.swt.browser.Browser browser) {
+	public String getURL(final org.eclipse.swt.browser.Browser browser) {
 		return Display.syncExec(new ResultRunnable<String>() {
 			@Override
 			public String run() {
@@ -159,20 +181,21 @@ public class BrowserHandler {
 	}
 
 	/**
-	 * See {@link Browser}
-	 * @param browser
-	 * @return
+	 * Gets text from a page in specified {@link org.eclipse.swt.browser.Browser}.
+	 * 
+	 * @param browser browser to handle
+	 * @return text in a page of specified browser
 	 */
-	public String getText (final org.eclipse.swt.browser.Browser browser) {
+	public String getText(final org.eclipse.swt.browser.Browser browser) {
 		return WidgetHandler.getInstance().getText(browser);
 	}
-	
+
 	/**
-	 * See {@link Browser}
-	 * @param browser
-	 * @return
+	 * Refreshes loaded page in specified {@link org.eclipse.swt.browser.Browser}.
+	 * 
+	 * @param browser browser to handle
 	 */
-	public void refresh (final org.eclipse.swt.browser.Browser browser){
+	public void refresh(final org.eclipse.swt.browser.Browser browser) {
 		Display.syncExec(new Runnable() {
 			@Override
 			public void run() {
@@ -180,12 +203,14 @@ public class BrowserHandler {
 			}
 		});
 	}
+
 	/**
-	 * See {@link Browser}
-	 * @param browser
-	 * @return
+	 * Presses back on specified {@link org.eclipse.swt.browser.Browser}.
+	 * 
+	 * @param browser to handle
+	 * @return true if the operation was successful, false otherwise
 	 */
-	public boolean back (final org.eclipse.swt.browser.Browser browser){
+	public boolean back(final org.eclipse.swt.browser.Browser browser) {
 		return Display.syncExec(new ResultRunnable<Boolean>() {
 			@Override
 			public Boolean run() {
@@ -193,12 +218,14 @@ public class BrowserHandler {
 			}
 		});
 	}
+
 	/**
-	 * See {@link Browser}
-	 * @param browser
-	 * @return
+	 * Presses forward on specified {@link org.eclipse.swt.browser.Browser}.
+	 * 
+	 * @param browser to handle
+	 * @return true if the operation was successful, false otherwise
 	 */
-	public boolean forward (final org.eclipse.swt.browser.Browser browser){
+	public boolean forward(final org.eclipse.swt.browser.Browser browser) {
 		return Display.syncExec(new ResultRunnable<Boolean>() {
 			@Override
 			public Boolean run() {
@@ -206,12 +233,16 @@ public class BrowserHandler {
 			}
 		});
 	}
+
 	/**
-	 * Adds progress listener to browser
-	 * @param browser
-	 * @param progressListener
+	 * Adds progress listener to specified {@link org.eclipse.swt.browser.Browser}.
+	 * 
+	 * @param browser to handle
+	 * @param progressListener progress listener to add
 	 */
-	public void addProgressListener (final org.eclipse.swt.browser.Browser browser , final ProgressListener progressListener){
+	public void addProgressListener(
+			final org.eclipse.swt.browser.Browser browser,
+			final ProgressListener progressListener) {
 		Display.syncExec(new Runnable() {
 			@Override
 			public void run() {
@@ -219,12 +250,16 @@ public class BrowserHandler {
 			}
 		});
 	}
+
 	/**
-	 * Removes progress listener from browser
-	 * @param browser
-	 * @param progressListener
+	 * Removes progress listener from specified {@link org.eclipse.swt.browser.Browser}.
+	 * 
+	 * @param browser to handle
+	 * @param progressListener progress listener to remove
 	 */
-	public void removeProgressListener (final org.eclipse.swt.browser.Browser browser , final ProgressListener progressListener){
+	public void removeProgressListener(
+			final org.eclipse.swt.browser.Browser browser,
+			final ProgressListener progressListener) {
 		Display.syncExec(new Runnable() {
 			@Override
 			public void run() {
@@ -232,19 +267,23 @@ public class BrowserHandler {
 			}
 		});
 	}
+
 	/**
-	 * See {@link Browser}
-	 * @param browser
-	 * @return
+	 * Sets given URL in specified {@link org.eclipse.swt.browser.Browser}.
+	 * 
+	 * @param browser to handle
+	 * @param url URL to set
+	 * @return true if the operation was successful, false otherwise. 
 	 */
-	public boolean setURL (final org.eclipse.swt.browser.Browser browser , final String url) {
+	public boolean setURL(final org.eclipse.swt.browser.Browser browser,
+			final String url) {
 		boolean result = Display.syncExec(new ResultRunnable<Boolean>() {
 			@Override
 			public Boolean run() {
 				return browser.setUrl(url);
 			}
 		});
-		
+
 		return result;
 	}
 }

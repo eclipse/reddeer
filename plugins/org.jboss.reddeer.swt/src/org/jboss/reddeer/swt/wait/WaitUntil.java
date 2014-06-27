@@ -5,38 +5,47 @@ import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.exception.WaitTimeoutExpiredException;
 
 /**
- * Waits until condition is fulfilled
+ * WaitUntil condition represent a wait condition waiting until specific
+ * condition is met.
  * 
  * @author Vlado Pakan
  * @author Lucia Jelinkova
  * 
  */
 public class WaitUntil extends AbstractWait {
+
 	/**
-	 * Waits until condition is fulfilled with default timeout
-	 * Throws WaitTimeoutExpiredException when timeout had expired
-	 * @param condition
+	 * Waits until condition is met for default period. Throws
+	 * WaitTimeoutExpiredException if condition is not met after expiration
+	 * of default time period.
+	 * 
+	 * @param condition condition to wait until it is met
 	 */
 	public WaitUntil(WaitCondition condition) {
 		super(condition);
 	}
+
 	/**
-	 * Waits until condition is fulfilled with timeout
-	 * Throws WaitTimeoutExpiredException when timeout had expired 
-	 * @param condition
-	 * @param timeout
+	 * Waits until condition is met for specified time period.
+	 * WaitTimeoutExpiredException if condition is not met after expiration
+	 * of specified time period.
+	 * 
+	 * @param condition condition to wait until it is met
+	 * @param timeout period to wait for
 	 */
 	public WaitUntil(WaitCondition condition, TimePeriod timeout) {
 		super(condition, timeout);
 	}
+
 	/**
-	 * Waits until condition is fulfilled with timeout
-	 * Throws WaitTimeoutExpiredException when timeout had expired
-	 * and throwWaitTimeoutExpiredException is true
-	 * @param condition
-	 * @param timeout
-	 * @param throwWaitTimeoutExpiredException
-	 * @return returns true when waiting finished successfully
+	 * Waits until condition is met for specified time period. Can throw
+	 * WaitTimeoutExpiredException if condition is not met after expiration
+	 * of specified time period.
+	 * 
+	 * @param condition condition to wait until it is met
+	 * @param timeout period to wait for
+	 * @param throwWaitTimeoutExpiredException whether exception
+	 * should be thrown or not
 	 */
 	public WaitUntil(WaitCondition condition, TimePeriod timeout,
 			boolean throwWaitTimeoutExpiredException) {
@@ -56,21 +65,24 @@ public class WaitUntil extends AbstractWait {
 		boolean continueSleep = true;
 		while (continueSleep) {
 			try {
-				if (condition.test())
+				if (condition.test()) {
 					return true;
+				}
 			} catch (Throwable e) {
-				log.warn("Error during evaluating wait condition " + condition.description() 
-					+ " " + e);
+				log.warn("Error during evaluating wait condition "
+						+ condition.description() + " " + e);
 			}
 			sleep(TimePeriod.SHORT);
 			if (System.currentTimeMillis() > limit) {
 				continueSleep = false;
 				if (isThrowWaitTimeoutExpiredException()) {
-					log.debug(this.description()  + condition.description() + " failed, an exception will be thrown");
+					log.debug(this.description() + condition.description()
+							+ " failed, an exception will be thrown");
 					throw new WaitTimeoutExpiredException("Timeout after: "
 							+ timeout + " ms.: " + condition.description());
 				} else {
-					log.debug(this.description()  + condition.description() + " failed, an exception will not be thrown");
+					log.debug(this.description() + condition.description()
+							+ " failed, an exception will not be thrown");
 				}
 			}
 		}

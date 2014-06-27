@@ -33,13 +33,7 @@ import org.jboss.reddeer.swt.util.ObjectUtil;
 import org.jboss.reddeer.swt.util.ResultRunnable;
 
 /**
- * Handler operating basic widgets Create instance via getInstance() method
- * Currently supported:
- * <ul>
- * <li>Text</li>
- * <li>List</li>
- * <li>Combo</li>
- * </ul>
+ * Handler operating basic widgets.
  * 
  * @author Jiri Peterka
  * @author Rastislav Wagner
@@ -56,9 +50,9 @@ public class WidgetHandler {
 	}
 
 	/**
-	 * Creates and returns widget of WidgetHandler class
+	 * Gets instance of WidgetHandler.
 	 * 
-	 * @return
+	 * @return instance of WidgetHandler
 	 */
 	public static WidgetHandler getInstance() {
 		if (instance == null) {
@@ -68,9 +62,10 @@ public class WidgetHandler {
 	}
 
 	/**
-	 * Checks if widget is enabled
-	 * @param widget
-	 * @return
+	 * Finds out whether specified {@link Widget} is enabled or not.
+	 * 
+	 * @param widget widget to handle
+	 * @return true if widget is enabled, false otherwise
 	 */
 	public boolean isEnabled(Widget widget) {
 		boolean ret = true;
@@ -80,17 +75,20 @@ public class WidgetHandler {
 		} catch (RuntimeException e) {
 			return true;
 		}
-		if (o == null) return ret;
+		if (o == null) {
+			return ret;
+		}
 		if (o instanceof Boolean) {
-			ret = ((Boolean)o).booleanValue();
+			ret = ((Boolean) o).booleanValue();
 		}
 		return ret;
 	}
 
 	/**
-	 * Checks if widget is visible
-	 * @param widget given widget
-	 * @return true if wideget is visible, false otherwise
+	 * Finds out whether specified {@link Widget} is visible or not.
+	 * 
+	 * @param widget widget to handle
+	 * @return true if widget is visible, false otherwise
 	 */
 	public boolean isVisible(Widget widget) {
 		boolean ret = true;
@@ -98,19 +96,24 @@ public class WidgetHandler {
 		try {
 			o = ObjectUtil.invokeMethod(widget, "isVisible");
 		} catch (RuntimeException e) {
-			throw new SWTLayerException("Runtime error during checking widget visibility", e);
+			throw new SWTLayerException(
+					"Runtime error during checking widget visibility", e);
 		}
-		if (o == null) return ret;
+		if (o == null) {
+			return ret;
+		}
 		if (o instanceof Boolean) {
-			ret = ((Boolean)o).booleanValue();
+			ret = ((Boolean) o).booleanValue();
 		}
 		return ret;
 	}
 
 	/**
-	 * Click for supported widget type
-	 * @deprecated Use click() on the specific handlers
-	 * @param w given widgets
+	 * Clicks specific widget.
+	 * 
+	 * @deprecated Use click method on the specific handlers.
+	 * Will be removed in version 0.6.
+	 * @param w widget to handle
 	 */
 	public <T extends Widget> void click(final T w) {
 		Display.syncExec(new Runnable() {
@@ -118,18 +121,18 @@ public class WidgetHandler {
 			public void run() {
 				if (w instanceof Button) {
 					final Button button = (Button) w;
-					if (((button.getStyle() & SWT.TOGGLE) != 0) ||
-							((button.getStyle() & SWT.CHECK) != 0)) {
+					if (((button.getStyle() & SWT.TOGGLE) != 0)
+							|| ((button.getStyle() & SWT.CHECK) != 0)) {
 						button.setSelection(!button.getSelection());
 					}
-				}else if (w instanceof ToolItem) {
+				} else if (w instanceof ToolItem) {
 					final ToolItem toolItem = (ToolItem) w;
-					if (((toolItem.getStyle() & SWT.TOGGLE) != 0) ||
-							((toolItem.getStyle() & SWT.CHECK) != 0) ||
-							((toolItem.getStyle() & SWT.RADIO) != 0)) {
+					if (((toolItem.getStyle() & SWT.TOGGLE) != 0)
+							|| ((toolItem.getStyle() & SWT.CHECK) != 0)
+							|| ((toolItem.getStyle() & SWT.RADIO) != 0)) {
 						toolItem.setSelection(!toolItem.getSelection());
 					}
-				}else {
+				} else {
 					throw new SWTLayerException("Unsupported type");
 				}
 			}
@@ -138,17 +141,18 @@ public class WidgetHandler {
 		Display.syncExec(new Runnable() {
 			@Override
 			public void run() {
-				if (w != null && !w.isDisposed()){
+				if (w != null && !w.isDisposed()) {
 					if (w instanceof Button) {
 						final Button button = (Button) w;
 						handleNotSelectedRadioButton(button);
-					}else if (w instanceof ToolItem) {
+					} else if (w instanceof ToolItem) {
 						// do nothing toolItem is supported type
-					}else {
+					} else {
 						throw new SWTLayerException("Unsupported type");
 					}
 				}
 			}
+
 			private void handleNotSelectedRadioButton(final Button button) {
 				if ((button.getStyle() & SWT.RADIO) == 0
 						|| button.getSelection()) {
@@ -168,12 +172,13 @@ public class WidgetHandler {
 				for (Widget widget : siblings) {
 					if (widget instanceof Button) {
 						Button sibling = (Button) widget;
-						if ((sibling.getStyle() & SWT.RADIO) != 0 && 
-								sibling.getSelection()) {
-							WidgetHandler.getInstance().notify(SWT.Deactivate, sibling);
+						if ((sibling.getStyle() & SWT.RADIO) != 0
+								&& sibling.getSelection()) {
+							WidgetHandler.getInstance().notify(SWT.Deactivate,
+									sibling);
 							sibling.setSelection(false);
 						}
-					}	
+					}
 				}
 			}
 
@@ -189,87 +194,94 @@ public class WidgetHandler {
 	}
 
 	/**
-	 * Gets style for supported widget type
+	 * Gets style of specified widget.
 	 * 
-	 * @param w given widget
-	 * @return	returns widget style
+	 * @param w widget to handle
+	 * @return style of specified widget
 	 */
 	public <T extends Widget> int getStyle(final T w) {
 		int style = Display.syncExec(new ResultRunnable<Integer>() {
 
 			@Override
 			public Integer run() {
-				if (w instanceof Widget)
+				if (w instanceof Widget) {
 					return ((Widget) w).getStyle();
-				else
+				} else {
 					throw new SWTLayerException("Unsupported type");
+				}
 			}
 		});
 		return style;
 	}
 
 	/**
-	 * Checks if supported widget is selected
-	 * @deprecated Use specific handlers instead
-	 * @param w	given widget
-	 * @return	returns widget label text
+	 * Finds out whether specified widget is selected or not.
+	 * 
+	 * @deprecated Use isSelected method on the specific widget.
+	 * Will be removed in version 0.6.
+	 * @param w widget to handle
+	 * @return true if specified widget is selected, false otherwise
 	 */
 	public <T extends Widget> boolean isSelected(final T w) {
-		boolean selectionState = Display.syncExec(new ResultRunnable<Boolean>() {
+		boolean selectionState = Display
+				.syncExec(new ResultRunnable<Boolean>() {
 
-			@Override
-			public Boolean run() {
-				if (w instanceof Button)
-					return ((Button) w).getSelection();
-				else if (w instanceof TableItem){
-					for(TableItem i: ((TableItem) w).getParent().getSelection()){
-						if(i.equals(w)){
-							return true;
+					@Override
+					public Boolean run() {
+						if (w instanceof Button) {
+							return ((Button) w).getSelection();
+						} else if (w instanceof TableItem) {
+							for (TableItem i : ((TableItem) w).getParent()
+									.getSelection()) {
+								if (i.equals(w)) {
+									return true;
+								}
+							}
+							return false;
+						} else if (w instanceof ToolItem) {
+							return ((ToolItem) w).getSelection();
+						} else {
+							throw new SWTLayerException("Unsupported type");
 						}
 					}
-					return false;
-				}else if (w instanceof ToolItem)
-					return ((ToolItem) w).getSelection(); 
-				else
-					throw new SWTLayerException("Unsupported type");
-			}
-		});
+				});
 		return selectionState;
 	}
 
 	/**
-	 * Set text for supported widget type
+	 * Sets specified text to specified widget.
 	 * 
-	 * @param w
-	 *            given widgets
-	 * @param text
-	 *            text to be set
+	 * @param widget widget to handle
+	 * @param text text to set
 	 */
 	public <T extends Widget> void setText(final T widget, final String text) {
 		try {
-			ObjectUtil.invokeMethod(widget, "setText", new Class[]{String.class}, new Object[]{text});
+			ObjectUtil.invokeMethod(widget, "setText",
+					new Class[] { String.class }, new Object[] { text });
 		} catch (RuntimeException e) {
-			throw new SWTLayerException("Runtime error during setting widget's text", e);
+			throw new SWTLayerException(
+					"Runtime error during setting widget's text", e);
 		}
 	}
 
 	/**
-	 * Gets text on given cell index for supported widget type 
-	 * @deprecated Use concrete implementations instead
-	 * @param w given widget
-	 * @Param cellIndex index of cell
-	 * @return returns widget text
+	 * Gets text from the cell on the position specified by index in specified widget.
+	 * 
+	 * @deprecated Use getText method on the specific widget.
+	 * Will be removed in version 0.6.
+	 * @param w widget to handle
+	 * @param cellIndex index of cell
+	 * @return text from the cell on the position specified by the widget
 	 */
 	public <T> String getText(final T w, final int cellIndex) {
 		String text = Display.syncExec(new ResultRunnable<String>() {
 			@Override
 			public String run() {
-				if(w instanceof TableItem){
-					return ((TableItem)w).getText(cellIndex);
-				}else if(w instanceof TreeItem){
-					return ((TreeItem)w).getText(cellIndex);
-				}
-				else{
+				if (w instanceof TableItem) {
+					return ((TableItem) w).getText(cellIndex);
+				} else if (w instanceof TreeItem) {
+					return ((TreeItem) w).getText(cellIndex);
+				} else {
 					throw new SWTLayerException("Unsupported type");
 				}
 			}
@@ -278,20 +290,20 @@ public class WidgetHandler {
 	}
 
 	/**
-	 * Gets text for supported widget type
+	 * Gets text of specified widget.
 	 * 
-	 * @param w
-	 *            given widget
-	 * @return returns widget text
+	 * @param widget widget to handle
+	 * @return text of specified widget
 	 */
 	public <T extends Widget> String getText(final T widget) {
 		Object o = null;
 		try {
 			o = ObjectUtil.invokeMethod(widget, "getText");
 		} catch (RuntimeException e) {
-			throw new SWTLayerException("Runtime error during retrieving widget's text", e);
+			throw new SWTLayerException(
+					"Runtime error during retrieving widget's text", e);
 		}
-		if (o == null){
+		if (o == null) {
 			return null;
 		}
 
@@ -299,33 +311,40 @@ public class WidgetHandler {
 			return (String) o;
 		}
 
-		throw new SWTLayerException("Return value of method getText() on class " + o.getClass() + " should be String, but was " + o.getClass());
+		throw new SWTLayerException(
+				"Return value of method getText() on class " + o.getClass()
+						+ " should be String, but was " + o.getClass());
 	}
 
 	/**
-	 * Checks item for supported widget type
-	 * @deprecated Use concrete handler instead
-	 * @param w given widget
-	 * @param itemIndex item index to check
+	 * Checks the item on the position specified by index in specified widget.
+	 * 
+	 * @deprecated Use check method on the specific widget.
+	 * Will be removed in 0.6.
+	 * @param w widget to handle
+	 * @param itemIndex index of item to check
 	 */
-	public <T> void check(final T w,final int itemIndex) {
+	public <T> void check(final T w, final int itemIndex) {
 		Display.syncExec(new Runnable() {
 
 			@Override
 			public void run() {
-				if (w instanceof Table){
-					Table widget = (Table)w;
-					if(itemIndex == -1){
-						throw new SWTLayerException("Unable to check item with index "+itemIndex+" because it does not exist");
+				if (w instanceof Table) {
+					Table widget = (Table) w;
+					if (itemIndex == -1) {
+						throw new SWTLayerException(
+								"Unable to check item with index " + itemIndex
+										+ " because it does not exist");
 					}
-					if((widget.getStyle() & SWT.CHECK) != SWT.CHECK){
-						throw new SWTLayerException("Unable to check item because table does not have SWT.CHECK style");
+					if ((widget.getStyle() & SWT.CHECK) != SWT.CHECK) {
+						throw new SWTLayerException(
+								"Unable to check item because table does not have SWT.CHECK style");
 
-					} 
+					}
 					widget.getItem(itemIndex).setChecked(true);
-					WidgetHandler.getInstance().notifyItem(SWT.Selection, SWT.CHECK, widget, widget.getItem(itemIndex));
-				}
-				else{
+					WidgetHandler.getInstance().notifyItem(SWT.Selection,
+							SWT.CHECK, widget, widget.getItem(itemIndex));
+				} else {
 					throw new SWTLayerException("Unsupported type");
 				}
 			}
@@ -333,149 +352,169 @@ public class WidgetHandler {
 	}
 
 	/**
-	 * Gets items for supported widget type
-	 * @deprecated use concrete impl instead
-	 * @param w
-	 *            given widget
-	 * @return array of items in widget
+	 * Gets items from specified widget.
+	 * 
+	 * @deprecated Use getItems method on the specific widget.
+	 * Will be removed in 0.6.
+	 * @param w widget to handle
+	 * @return items from specified widget
 	 */
 	public <T extends Widget> String[] getItems(final T w) {
 		String[] text = Display.syncExec(new ResultRunnable<String[]>() {
 
 			@Override
 			public String[] run() {
-				if (w instanceof List)
+				if (w instanceof List) {
 					return ((List) w).getItems();
-				else if (w instanceof Combo)
+				} else if (w instanceof Combo) {
 					return ((Combo) w).getItems();
-				else
+				} else {
 					throw new SWTLayerException("Unsupported type");
+				}
 			}
 		});
 		return text;
 	}
 
 	/**
-	 * Gets swt items for supported widget type
-	 * @deprecated Use concrete handlers instead
-	 * @param w
-	 *            given widget
-	 * @return array of items in widget
+	 * Gets Eclipse SWT items from specified widget.
+	 * 
+	 * @deprecated Use getSWTItems method on the specific widget.
+	 * Will be removed in 0.6.
+	 * @param w widget ot handle
+	 * @return Eclipse SWT items from specified widget
 	 */
 	public <T> Object[] getSWTItems(final T w) {
 		return Display.syncExec(new ResultRunnable<Object[]>() {
 
 			@Override
 			public Object[] run() {
-				if (w instanceof Table)
+				if (w instanceof Table) {
 					return ((Table) w).getItems();
-				else
+				} else {
 					throw new SWTLayerException("Unsupported type");
+				}
 			}
 		});
 	}
 
 	/**
-	 * Gets swt items for supported widget type
-	 * @deprecated Use concrete handlers instead
-	 * @param w
-	 *            given widget
-	 * @return array of items in widget
+	 * Gets Eclipse SWT item from specified widget on the position 
+	 * defined by specified index.
+	 * 
+	 * @deprecated Use getSWTItem method on the specific widget.
+	 * Will be removed in 0.6.
+	 * @param w widget to handle
+	 * @param index index of the item
+	 * @return Eclipse SWT item from specified widget
 	 */
 	public <T> Object getSWTItem(final T w, final int index) {
 		return Display.syncExec(new ResultRunnable<Object>() {
 
 			@Override
 			public Object run() {
-				if (w instanceof Table)
+				if (w instanceof Table) {
 					return ((Table) w).getItem(index);
-				else
+				} else {
 					throw new SWTLayerException("Unsupported type");
+				}
 			}
 		});
 	}
 
 	/**
-	 * Deselects all items for supported widget type
-	 * @deprecated Use concrete handlers instead
-	 * @param w given widget
+	 * Deselects all items on specified widget.
+	 * 
+	 * @deprecated Use deselectAll method on the specific widget.
+	 * Will be removed in 0.6.
+	 * @param w widget to handle
 	 */
 	public <T extends Widget> void deselectAll(final T w) {
 		Display.syncExec(new Runnable() {
 
 			@Override
 			public void run() {
-				if (w instanceof List)
+				if (w instanceof List) {
 					((List) w).deselectAll();
-				else if (w instanceof Table)
+				} else if (w instanceof Table) {
 					((Table) w).deselectAll();
-				else
+				} else {
 					throw new SWTLayerException("Unsupported type");
+				}
 			}
 		});
 	}
 
 	/**
-	 * Selects all items for supported widget type
-	 * @deprecated Use concrete handlers instead
-	 * @param w given widget
+	 * Selects all items on specified widget.
+	 * 
+	 * @deprecated Use selectAll method on the specific widget.
+	 * Will be removed in 0.6.
+	 * @param w widget to handle
 	 */
 	public <T extends Widget> void selectAll(final T w) {
 		Display.syncExec(new Runnable() {
 
 			@Override
 			public void run() {
-				if (w instanceof List){
-					List widget = (List)w;
-					if((widget.getStyle() & SWT.MULTI) !=0){
+				if (w instanceof List) {
+					List widget = (List) w;
+					if ((widget.getStyle() & SWT.MULTI) != 0) {
 						((List) w).selectAll();
-						WidgetHandler.getInstance().notify(SWT.Selection, (List)w);
+						WidgetHandler.getInstance().notify(SWT.Selection,
+								(List) w);
 					} else {
-						throw new SWTLayerException("List does not support multi selection - it does not have SWT MULTI style");
+						throw new SWTLayerException(
+								"List does not support multi selection - it does not have SWT MULTI style");
 					}
-				} else if (w instanceof Table){
-					Table widget = (Table)w;
-					if((widget.getStyle() & SWT.MULTI) !=0){
+				} else if (w instanceof Table) {
+					Table widget = (Table) w;
+					if ((widget.getStyle() & SWT.MULTI) != 0) {
 						((Table) w).selectAll();
-						WidgetHandler.getInstance().notify(SWT.Selection, (Table)w);
+						WidgetHandler.getInstance().notify(SWT.Selection,
+								(Table) w);
 					} else {
-						throw new SWTLayerException("Table does not support multi selection - it does not have SWT MULTI style");
+						throw new SWTLayerException(
+								"Table does not support multi selection - it does not have SWT MULTI style");
 					}
-				}
-				else
+				} else {
 					throw new SWTLayerException("Unsupported type");
+				}
 			}
 		});
 	}
 
 	/**
-	 * Selects item for supported widget type
-	 * @deprecated use concrete handler instead
-	 * @param w given widget
-	 * @param item to select
+	 * Selects specified item on specified widget.
+	 * 
+	 * @deprecated Use select method on the specific widget.
+	 * Will be removed in 0.6.
+	 * @param w widget ot handle
+	 * @param item item to select
 	 */
-	public <T extends Widget> void select(final T w,final String item) {
+	public <T extends Widget> void select(final T w, final String item) {
 		Display.syncExec(new Runnable() {
 
 			@Override
 			public void run() {
-				if (w instanceof List){
-					List widget = (List)w;
-					int index = (widget.indexOf(item))	;
-					if(index == -1){
-						throw new SWTLayerException("Unable to select item "+item+" because it does not exist");
+				if (w instanceof List) {
+					List widget = (List) w;
+					int index = (widget.indexOf(item));
+					if (index == -1) {
+						throw new SWTLayerException("Unable to select item "
+								+ item + " because it does not exist");
 					}
 					widget.select(widget.indexOf(item));
 					WidgetHandler.getInstance().sendClickNotifications(w);
-				}else if (w instanceof Combo){
-					Combo widget = (Combo)w;
-					int index = (widget.indexOf(item))  ;
-					if(index == -1){
-						throw new SWTLayerException("Unable to select item "+item+" because it does not exist");
+				} else if (w instanceof Combo) {
+					Combo widget = (Combo) w;
+					int index = (widget.indexOf(item));
+					if (index == -1) {
+						throw new SWTLayerException("Unable to select item "
+								+ item + " because it does not exist");
 					}
 					widget.select(widget.indexOf(item));
-				}
-				else{
+				} else {
 					throw new SWTLayerException("Unsupported type");
 				}
 			}
@@ -483,21 +522,20 @@ public class WidgetHandler {
 	}
 
 	/**
-	 * Selects item for supported widget type
-	 * @deprecated use concrete handler instead
-	 * @param w given widget
-	 * @param item to select
+	 * @deprecated Use concrete handler instead. Will be removed in 0.6.
+	 * @param wItem item to select
 	 */
 	public <T> void select(final T wItem) {
 		Display.syncExec(new Runnable() {
 
 			@Override
 			public void run() {
-				if(wItem instanceof TableItem){
-					TableItem swtTableItem = (TableItem)wItem;
+				if (wItem instanceof TableItem) {
+					TableItem swtTableItem = (TableItem) wItem;
 					swtTableItem.getParent().setFocus();
 					swtTableItem.getParent().setSelection(swtTableItem);
-					WidgetHandler.getInstance().notifyItem(SWT.Selection, SWT.NONE, swtTableItem.getParent(), swtTableItem);
+					WidgetHandler.getInstance().notifyItem(SWT.Selection,
+							SWT.NONE, swtTableItem.getParent(), swtTableItem);
 				} else {
 					throw new SWTLayerException("Unsupported type");
 				}
@@ -506,24 +544,27 @@ public class WidgetHandler {
 	}
 
 	/**
-	 * Checks item for supported widget type
-	 * @deprecated use concrete handlers
-	 * @param w given widget
-	 * @param item to check
+	 * @deprecated Use concrete handler instead. Will be removed in 0.6.
+	 * @param wItem item to set checked
+	 * @param check check specified item or not
 	 */
 	public <T> void setChecked(final T wItem, final boolean check) {
 		Display.syncExec(new Runnable() {
 
 			@Override
 			public void run() {
-				if(wItem instanceof TableItem){
-					TableItem swtTableItem = (TableItem)wItem;
-					if((swtTableItem.getParent().getStyle() & SWT.CHECK) != SWT.CHECK){
-						throw new SWTLayerException("Unable to check table item "+swtTableItem.getText()+" because table does not have SWT.CHECK style");
+				if (wItem instanceof TableItem) {
+					TableItem swtTableItem = (TableItem) wItem;
+					if ((swtTableItem.getParent().getStyle() & SWT.CHECK) != SWT.CHECK) {
+						throw new SWTLayerException(
+								"Unable to check table item "
+										+ swtTableItem.getText()
+										+ " because table does not have SWT.CHECK style");
 					}
 					swtTableItem.getParent().setFocus();
 					swtTableItem.setChecked(check);
-					WidgetHandler.getInstance().notifyItem(SWT.Selection, SWT.CHECK, swtTableItem.getParent(), swtTableItem);
+					WidgetHandler.getInstance().notifyItem(SWT.Selection,
+							SWT.CHECK, swtTableItem.getParent(), swtTableItem);
 				} else {
 					throw new SWTLayerException("Unsupported type");
 				}
@@ -532,17 +573,16 @@ public class WidgetHandler {
 	}
 
 	/**
-	 * Checks if widget is checked
-	 * @deprecated use concrete handlers instead
-	 * @param w given widget
+	 * @deprecated Use concrete handler instead. Will be removed in 0.6.
+	 * @param w widget to handle
 	 */
 	public <T> boolean isChecked(final T w) {
 		return Display.syncExec(new ResultRunnable<Boolean>() {
 
 			@Override
 			public Boolean run() {
-				if(w instanceof TableItem){
-					TableItem swtTableItem = (TableItem)w;
+				if (w instanceof TableItem) {
+					TableItem swtTableItem = (TableItem) w;
 					return swtTableItem.getChecked();
 				} else {
 					throw new SWTLayerException("Unsupported type");
@@ -552,31 +592,35 @@ public class WidgetHandler {
 	}
 
 	/**
-	 * Selects items for supported widget type if widget supports multi selection
-	 * @deprecated use concrete handlers instead
-	 * @param w given widget
-	 * @param items to select
+	 * 
+	 * @deprecated Use concrete handler instead. Will be removed in 0.6.
+	 * @param w widget to handle
+	 * @param items items to select
 	 */
-	public <T extends Widget> void select(final T w,final String[] items) {
+	public <T extends Widget> void select(final T w, final String[] items) {
 		Display.syncExec(new Runnable() {
 
 			@Override
 			public void run() {
-				if (w instanceof List){
-					List widget = (List)w;
-					if((widget.getStyle() & SWT.MULTI) !=0){
-						for(String item:items){
-							int index = (widget.indexOf(item))	;
-							if(index == -1){
-								throw new SWTLayerException("Unable to select item "+item+" because it does not exist");
+				if (w instanceof List) {
+					List widget = (List) w;
+					if ((widget.getStyle() & SWT.MULTI) != 0) {
+						for (String item : items) {
+							int index = (widget.indexOf(item));
+							if (index == -1) {
+								throw new SWTLayerException(
+										"Unable to select item " + item
+												+ " because it does not exist");
 							}
 							widget.select(widget.indexOf(item));
-							WidgetHandler.getInstance().notify(SWT.Selection, widget);
+							WidgetHandler.getInstance().notify(SWT.Selection,
+									widget);
 						}
 					} else {
-						throw new SWTLayerException("List does not support multi selection - it does not have SWT MULTI style");
+						throw new SWTLayerException(
+								"List does not support multi selection - it does not have SWT MULTI style");
 					}
-				} else{
+				} else {
 					throw new SWTLayerException("Unsupported type");
 				}
 			}
@@ -584,34 +628,36 @@ public class WidgetHandler {
 	}
 
 	/**
-	 * Selects items for supported widget type if widget supports multi selection
-	 * @deprecated use concrete handler instead
-	 * @param w given widget
-	 * @param indices of items to select
+	 * @deprecated Use concrete handler instead. Will be removed in 0.6.
+	 * @param w widget to handle
+	 * @param indices indices of items to select
 	 */
-	public <T extends Widget> void select(final T w,final int[] indices) {
+	public <T extends Widget> void select(final T w, final int[] indices) {
 		Display.syncExec(new Runnable() {
 
 			@Override
 			public void run() {
-				if (w instanceof List){
-					List widget = (List)w;
-					if((widget.getStyle() & SWT.MULTI) !=0){
+				if (w instanceof List) {
+					List widget = (List) w;
+					if ((widget.getStyle() & SWT.MULTI) != 0) {
 						widget.select(indices);
-						WidgetHandler.getInstance().notify(SWT.Selection, widget);
+						WidgetHandler.getInstance().notify(SWT.Selection,
+								widget);
 					} else {
-						throw new SWTLayerException("List does not support multi selection - it does not have SWT MULTI style");
+						throw new SWTLayerException(
+								"List does not support multi selection - it does not have SWT MULTI style");
 					}
-				} else if (w instanceof Table){
-					Table widget = (Table)w;
-					if((widget.getStyle() & SWT.MULTI) !=0){
+				} else if (w instanceof Table) {
+					Table widget = (Table) w;
+					if ((widget.getStyle() & SWT.MULTI) != 0) {
 						widget.select(indices);
-						WidgetHandler.getInstance().notify(SWT.Selection, widget);
+						WidgetHandler.getInstance().notify(SWT.Selection,
+								widget);
 					} else {
-						throw new SWTLayerException("Table does not support multi selection - it does not have SWT MULTI style");
+						throw new SWTLayerException(
+								"Table does not support multi selection - it does not have SWT MULTI style");
 					}
-				}
-				else{
+				} else {
 					throw new SWTLayerException("Unsupported type");
 				}
 			}
@@ -619,39 +665,43 @@ public class WidgetHandler {
 	}
 
 	/**
-	 * Selects item for supported widget type
-	 * @deprecated use concrete handlers instead
-	 * @param w given widget
-	 * @param index of item to select
+	 * @deprecated Use concrete handler instead. Will be removed in 0.6.
+	 * @param w widge to handle	 
+	 * @param index index of item to select
 	 */
-	public <T extends Widget> void select(final T w,final int index) {
+	public <T extends Widget> void select(final T w, final int index) {
 		Display.syncExec(new Runnable() {
 
 			@Override
 			public void run() {
-				if (w instanceof List){
-					List widget = (List)w;
-					if(widget.getItemCount()-1 < index){
-						throw new SWTLayerException("Unable to select item with index "+index+" because it does not exist");
+				if (w instanceof List) {
+					List widget = (List) w;
+					if (widget.getItemCount() - 1 < index) {
+						throw new SWTLayerException(
+								"Unable to select item with index " + index
+										+ " because it does not exist");
 					}
 					widget.select(index);
 					WidgetHandler.getInstance().notify(SWT.Selection, widget);
-				} else if (w instanceof Combo){
-					Combo widget = (Combo)w;
-					if(widget.getItemCount()-1 < index){
-						throw new SWTLayerException("Unable to select item with index "+index+" because it does not exist");
+				} else if (w instanceof Combo) {
+					Combo widget = (Combo) w;
+					if (widget.getItemCount() - 1 < index) {
+						throw new SWTLayerException(
+								"Unable to select item with index " + index
+										+ " because it does not exist");
 					}
 					widget.select(index);
 					WidgetHandler.getInstance().notify(SWT.Selection, widget);
-				} else if (w instanceof Table){
-					Table widget = (Table)w;
-					if(widget.getItemCount()-1 < index){
-						throw new SWTLayerException("Unable to select item with index "+index+" because it does not exist");
+				} else if (w instanceof Table) {
+					Table widget = (Table) w;
+					if (widget.getItemCount() - 1 < index) {
+						throw new SWTLayerException(
+								"Unable to select item with index " + index
+										+ " because it does not exist");
 					}
 					widget.select(index);
 					WidgetHandler.getInstance().notify(SWT.Selection, widget);
-				}
-				else{
+				} else {
 					throw new SWTLayerException("Unsupported type");
 				}
 			}
@@ -659,24 +709,26 @@ public class WidgetHandler {
 	}
 
 	/**
-	 * Gets label for supported widget type
+	 * Gets label of specified widget.
 	 * 
-	 * @param w given widget
-	 * @return returns widget label text
+	 * @param w widget ot handle
+	 * @return label of specified widget
 	 */
 	public <T extends Widget> String getLabel(final T w) {
 		String label = Display.syncExec(new ResultRunnable<String>() {
 
 			@Override
 			public String run() {
-				Widget parent = ((Control)w).getParent();;
-				java.util.List<Widget> children = WidgetResolver.getInstance().getChildren(parent);
-				for (int i = 1; i < children.size() ; i++) {						
+				Widget parent = ((Control) w).getParent();
+				java.util.List<Widget> children = WidgetResolver.getInstance()
+						.getChildren(parent);
+				for (int i = 1; i < children.size(); i++) {
 					if (children.get(i) != null && children.get(i).equals(w)) {
-						for(int y=1; i-y>=0 ;y++){
-							if(children.get(i - y) instanceof Label){
-								if(((Label)children.get(i - y)).getImage() == null){
-									return ((Label)children.get(i - y)).getText();
+						for (int y = 1; i - y >= 0; y++) {
+							if (children.get(i - y) instanceof Label) {
+								if (((Label) children.get(i - y)).getImage() == null) {
+									return ((Label) children.get(i - y))
+											.getText();
 								}
 							} else {
 								return null;
@@ -685,28 +737,29 @@ public class WidgetHandler {
 					}
 				}
 				return null;
-			}}
-				);
-		if(label != null) {
+			}
+		});
+		if (label != null) {
 			label = label.replaceAll("&", "").split("\t")[0];
 		}
 		return label;
 	}
 
 	/**
-	 * Gets tooltip if supported widget type
+	 * Gets tool tip text of specified widget.
 	 * 
-	 * @param widget
-	 * @return widget text
+	 * @param widget widget to handle
+	 * @return tool tip text of specified widget
 	 */
 	public <T extends Widget> String getToolTipText(final T widget) {
 		Object o = null;
 		try {
 			o = ObjectUtil.invokeMethod(widget, "getToolTipText");
 		} catch (RuntimeException e) {
-			throw new SWTLayerException("Runtime error during retrieving widget's text", e);
+			throw new SWTLayerException(
+					"Runtime error during retrieving widget's text", e);
 		}
-		if (o == null){
+		if (o == null) {
 			return null;
 		}
 
@@ -714,42 +767,47 @@ public class WidgetHandler {
 			return (String) o;
 		}
 
-		throw new SWTLayerException("Return value of method getText() on class " + o.getClass() + " should be String, but was " + o.getClass());
+		throw new SWTLayerException(
+				"Return value of method getText() on class " + o.getClass()
+						+ " should be String, but was " + o.getClass());
 	}
 
 	/**
-	 * Sets focus to the widget. The method is called from {@link WidgetLookup} so it need to be common for all widgets and cannot
-	 * be decomposed to separate handlers. 
-	 * @param w
+	 * Sets focus to specified widget. The method is called from {@link WidgetLookup}
+	 * so it need to be common for all widgets and cannot be decomposed to
+	 * separate handlers.
+	 * 
+	 * @param w widget to handle
 	 */
 	public <T extends Widget> void setFocus(final T w) {
 
-		if(w instanceof CTabItem) {
+		if (w instanceof CTabItem) {
 			CTabItemHandler.getInstance().setFocus((CTabItem) w);
-		} else if(w instanceof CTabFolder) {
-			CTabFolderHandler.getInstance().setFocus((CTabFolder) w); 
-		}else if(w instanceof TabItem) {
+		} else if (w instanceof CTabFolder) {
+			CTabFolderHandler.getInstance().setFocus((CTabFolder) w);
+		} else if (w instanceof TabItem) {
 			TabItemHandler.getInstance().setFocus((TabItem) w);
-		} else if(w instanceof TabFolder) {
+		} else if (w instanceof TabFolder) {
 			TabFolderHandler.getInstance().setFocus((TabFolder) w);
-		} else if(w instanceof Shell) {
+		} else if (w instanceof Shell) {
 			ShellHandler.getInstance().setFocus((Shell) w);
 		} else {
 			Display.syncExec(new Runnable() {
 				@Override
 				public void run() {
 					if (w instanceof Control) {
-						((Control)w).setFocus();
-					} else throw new SWTLayerException("Unsupported type");
+						((Control) w).setFocus();
+					} else {
+						throw new SWTLayerException("Unsupported type");
+					}
 				}
 			});
 		}
 	}
 
 	/**
-	 * Activates widget - link/hyperlink etc
-	 * @deprecated Use concrete handlers instead
-	 * @param w widget to activate
+	 * @deprecated Use concrete handler instead. Will be removed in 0.6.	 
+	 * @param w widget to handle
 	 */
 	public <T> void activate(final T w) {
 		Display.syncExec(new Runnable() {
@@ -757,24 +815,29 @@ public class WidgetHandler {
 			@Override
 			public void run() {
 				if (w instanceof Link) {
-					((Link)w).setFocus();
-					WidgetHandler.getInstance().notify(SWT.MouseDown, (Link)w);
-					WidgetHandler.getInstance().notify(SWT.Selection, (Link)w);
-					WidgetHandler.getInstance().notify(SWT.MouseUp, (Link)w);
+					((Link) w).setFocus();
+					WidgetHandler.getInstance().notify(SWT.MouseDown, (Link) w);
+					WidgetHandler.getInstance().notify(SWT.Selection, (Link) w);
+					WidgetHandler.getInstance().notify(SWT.MouseUp, (Link) w);
 				} else if (w instanceof Hyperlink) {
-					((Hyperlink)w).setFocus();
-					WidgetLookup.getInstance().notifyHyperlink(SWT.MouseEnter, (Hyperlink)w);
-					WidgetLookup.getInstance().notifyHyperlink(SWT.MouseDown, (Hyperlink)w);
-					WidgetLookup.getInstance().notifyHyperlink(SWT.MouseUp, (Hyperlink)w);
+					((Hyperlink) w).setFocus();
+					WidgetLookup.getInstance().notifyHyperlink(SWT.MouseEnter,
+							(Hyperlink) w);
+					WidgetLookup.getInstance().notifyHyperlink(SWT.MouseDown,
+							(Hyperlink) w);
+					WidgetLookup.getInstance().notifyHyperlink(SWT.MouseUp,
+							(Hyperlink) w);
+				} else {
+					throw new SWTLayerException("Unsupported type");
 				}
-				else throw new SWTLayerException("Unsupported type");
 			}
 		});
 	}
+
 	/**
-	 * Sets selection with given index for supported widget type
-	 * @deprecated please use concrete handlers
-	 * @param index
+	 * @deprecated Use concrete handler instead. Will be removed in 0.6.	 
+	 * @param w widget to handle
+	 * @param index index of the item to select
 	 */
 	public <T extends Widget> void setSelection(final T w, final int index) {
 		Display.syncExec(new Runnable() {
@@ -786,21 +849,22 @@ public class WidgetHandler {
 					if (index >= itemsLength) {
 						log.error("Combo does not have " + index + 1 + "items!");
 						log.info("Combo has " + itemsLength + " items");
-						throw new SWTLayerException("Nonexisted item in combo was requested");
+						throw new SWTLayerException(
+								"Nonexisted item in combo was requested");
 					} else {
-						((Combo)w).select(index);
+						((Combo) w).select(index);
 					}
-				}
-				else 
+				} else {
 					throw new SWTLayerException("Unsupported type");
+				}
 			}
 		});
 	}
 
 	/**
-	 * Sets selection with given text for supported widget type
-	 * @deprecated please use concrete handlers
-	 * @param index
+	 * @deprecated Use concrete handler instead. Will be removed in 0.6.
+	 * @param w widget to handle
+	 * @param text text to set in the selection
 	 */
 	public <T extends Widget> void setSelection(final T w, final String text) {
 		Display.syncExec(new Runnable() {
@@ -809,7 +873,7 @@ public class WidgetHandler {
 			public void run() {
 				if (w instanceof Combo) {
 					String[] items = getItems(w);
-					int index = Arrays.asList(items).indexOf(text); 
+					int index = Arrays.asList(items).indexOf(text);
 					if (index == -1) {
 						log.error("'" + text + "' is not "
 								+ "contained in combo items");
@@ -819,9 +883,10 @@ public class WidgetHandler {
 							log.info("    " + item + "(index " + i);
 							i++;
 						}
-						throw new SWTLayerException("Nonexisting item in combo was requested");
-					}else {
-						((Combo)w).select(index);
+						throw new SWTLayerException(
+								"Nonexisting item in combo was requested");
+					} else {
+						((Combo) w).select(index);
 					}
 				}
 			}
@@ -829,9 +894,8 @@ public class WidgetHandler {
 	}
 
 	/**
-	 * Gets selection text for supported widget type
-	 * @deprecated please use concrete handlers
-	 * @param index
+	 * @deprecated Use concrete handler instead. Will be removed in 0.6.
+	 * @param w widget to handle
 	 */
 	public <T extends Widget> String getSelection(final T w) {
 		return Display.syncExec(new ResultRunnable<String>() {
@@ -839,25 +903,25 @@ public class WidgetHandler {
 			@Override
 			public String run() {
 				if (w instanceof Combo) {
-					Combo combo = (Combo)w;
+					Combo combo = (Combo) w;
 					Point selection = combo.getSelection();
 					String comboText = combo.getText();
 					String selectionText = "";
-					if (selection.y > selection.x){
-						selectionText = comboText.substring(selection.x , selection.y);
+					if (selection.y > selection.x) {
+						selectionText = comboText.substring(selection.x,
+								selection.y);
 					}
 					return selectionText;
-				}
-				else 
+				} else {
 					throw new SWTLayerException("Unsupported type");
+				}
 			}
 		});
 	}
 
 	/**
-	 * Gets selection index for supported widget type
-	 * @deprecated please use concrete handler instead
-	 * @param index
+	 * @deprecated Use concrete handler instead. Will be removed in 0.6.
+	 * @param w widget to handle
 	 */
 	public <T extends Widget> int getSelectionIndex(final T w) {
 		return Display.syncExec(new ResultRunnable<Integer>() {
@@ -865,74 +929,76 @@ public class WidgetHandler {
 			@Override
 			public Integer run() {
 				if (w instanceof Combo) {
-					return ((Combo)w).getSelectionIndex();
-				}
-				else 
+					return ((Combo) w).getSelectionIndex();
+				} else {
 					throw new SWTLayerException("Unsupported type");
+				}
 			}
 		});
 	}
+
 	/**
-	 * Checks if supported widget is expanded
-	 * @deprecated Use custom handler instead
-	 * @param w	given widget
-	 * @return	true if widget is expanded
+	 * @deprecated Use concrete handler instead. Will be removed in 0.6.
+	 * @param w widget to handle
+	 * @return true if widget is expanded, false otherwise
 	 */
 	public <T extends Widget> boolean isExpanded(final T w) {
-		boolean selectionState = Display.syncExec(new ResultRunnable<Boolean>() {
+		boolean selectionState = Display
+				.syncExec(new ResultRunnable<Boolean>() {
 
-			@Override
-			public Boolean run() {
-				if (w instanceof ExpandItem)
-					return ((ExpandItem) w).getExpanded();
-				else if (w instanceof TreeItem)
-					return ((TreeItem) w).getExpanded();
-				else
-					throw new SWTLayerException("Unsupported type");
-			}
-		});
+					@Override
+					public Boolean run() {
+						if (w instanceof ExpandItem) {
+							return ((ExpandItem) w).getExpanded();
+						} else if (w instanceof TreeItem) {
+							return ((TreeItem) w).getExpanded();
+						} else {
+							throw new SWTLayerException("Unsupported type");
+						}
+					}
+				});
 		return selectionState;
 	}
+
 	/**
-	 * Returns parent for supported widget
-	 * @deprecated Use concrete handler instead
-	 * @param w	given widget
-	 * @return	parent widget
+	 * @deprecated Use concrete handler instead. Will be removed in 0.6.
+	 * @param w widget to handle
+	 * @return parent of specified widget
 	 */
 	@SuppressWarnings("unchecked")
-	public <T extends Widget,R extends Widget> R getParent(final T w) {
+	public <T extends Widget, R extends Widget> R getParent(final T w) {
 		R parent = Display.syncExec(new ResultRunnable<R>() {
 			@Override
 			public R run() {
 				Widget parent = null;
-				if (w instanceof ExpandItem)
+				if (w instanceof ExpandItem) {
 					parent = ((ExpandItem) w).getParent();
-				else if (w instanceof TreeItem)
+				} else if (w instanceof TreeItem) {
 					parent = ((TreeItem) w).getParent();
-				else if (w instanceof TableItem)
+				} else if (w instanceof TableItem) {
 					parent = ((TableItem) w).getParent();
-				else
+				} else {
 					throw new SWTLayerException("Unsupported type");
-				return (R)parent;
+				}
+				return (R) parent;
 			}
 		});
 		return parent;
 	}
 
 	/**
-	 * Get value of supported widget
-	 * 
-	 * @deprecated please use concrete handlers
-	 * @param w widget
-	 * @return value of the widget
+	 * @deprecated Use concrete handler instead. Will be removed in 0.6.
+	 * @param w widge to handle
+	 * @return current value of specified widget
 	 */
 	public <T extends Widget> int getValue(final T w) {
 		return Display.syncExec(new ResultRunnable<Integer>() {
 
 			@Override
 			public Integer run() {
-				if(w instanceof Spinner)
+				if (w instanceof Spinner) {
 					return ((Spinner) w).getSelection();
+				}
 				else
 					throw new SWTLayerException("Unsupported type");
 			}
@@ -940,19 +1006,18 @@ public class WidgetHandler {
 	}
 
 	/**
-	 * Set value of supported widget
-	 * 
-	 * @deprecated please use concrete handlers
-	 * @param w widget
-	 * @param value value of the widget
+	 * @deprecated Use concrete handler instead. Will be removed in 0.6.
+	 * @param w widget to handle
+	 * @param value value to set
 	 */
 	public <T extends Widget> void setValue(final T w, final int value) {
 		Display.syncExec(new Runnable() {
 
 			@Override
 			public void run() {
-				if(w instanceof Spinner)
+				if (w instanceof Spinner) {
 					((Spinner) w).setSelection(value);
+				}
 				else
 					throw new SWTLayerException("Unsupported type");
 			}
@@ -960,42 +1025,77 @@ public class WidgetHandler {
 	}
 
 	/**
-	 * Send click notification to a widget
-	 * @param widget
+	 * Sends a click (SWT.Selection) notification to specified widget.
+	 * 
+	 * @param widget widget to handle
 	 */
 	public void sendClickNotifications(Widget widget) {
-		notify(SWT.Selection,widget);
+		notify(SWT.Selection, widget);
 	}
-	
+
 	/**
-	 * Notifies widget with given event type
-	 * @param eventType given event type
-	 * @param widget target widget
+	 * Notifies specified widget about the event of specified event type. 
+	 * See {@link Event}.
+	 * 
+	 * @param eventType type of the event
+	 * @param widget widget to handle
 	 */
 	public void notify(int eventType, Widget widget) {
 		Event event = createEvent(widget);
 		notify(eventType, event, widget);
 	}
-	
-	public void notifyItem(int eventType, int detail, Widget widget, Widget widgetItem) {
+
+	/**
+	 * Notifies specified widget about the event of specified event type with 
+	 * specified details and item. See {@link Event}.
+	 * 
+	 * @param eventType type of the event
+	 * @param detail details of the event
+	 * @param widget widget to handle
+	 * @param widgetItem item of the event
+	 */
+	public void notifyItem(int eventType, int detail, Widget widget,
+			Widget widgetItem) {
 		Event event = createEventItem(eventType, detail, widget, widgetItem);
-		notify(eventType, event, widget);	
+		notify(eventType, event, widget);
 	}
-	
-	public void notifyItemMouse(int eventType, int detail, Widget widget, Widget widgetItem, int x, int y, int button) {
-		Event event = createMouseItemEvent(eventType, detail, widget, widgetItem, x, y, button);
-		notify(eventType, event, widget);	
+
+	/**
+	 * Notifies specified widget about the mouse event of specified event type,
+	 * specified position, button and item. See {@link Event}.
+	 * 
+	 * @param eventType type of the event
+	 * @param detail details of the event
+	 * @param widget widget to handle
+	 * @param widgetItem item of the event
+	 * @param x x of the event
+	 * @param y y of the event
+	 * @param button button of the event
+	 */
+	public void notifyItemMouse(int eventType, int detail, Widget widget,
+			Widget widgetItem, int x, int y, int button) {
+		Event event = createMouseItemEvent(eventType, detail, widget,
+				widgetItem, x, y, button);
+		notify(eventType, event, widget);
 	}
-	
-	public void notify(final int eventType, final Event createEvent, final Widget widget) {
+
+	/**
+	 * Notifies specified widget about specified event of specified type. See {@link Event}.
+	 * 
+	 * @param eventType type of specified event
+	 * @param createEvent event
+	 * @param widget widget to handle
+	 */
+	public void notify(final int eventType, final Event createEvent,
+			final Widget widget) {
 		createEvent.type = eventType;
-		
+
 		Display.asyncExec(new Runnable() {
 			public void run() {
 				if ((widget == null) || widget.isDisposed()) {
 					return;
 				}
-								
+
 				widget.notifyListeners(eventType, createEvent);
 			}
 		});
@@ -1007,7 +1107,7 @@ public class WidgetHandler {
 			}
 		});
 	}
-	
+
 	private Event createEvent(Widget widget) {
 		Event event = new Event();
 		event.time = (int) System.currentTimeMillis();
@@ -1015,8 +1115,9 @@ public class WidgetHandler {
 		event.display = Display.getDisplay();
 		return event;
 	}
-	
-	private Event createEventItem(int eventType, int detail, Widget widget, Widget widgetItem) {
+
+	private Event createEventItem(int eventType, int detail, Widget widget,
+			Widget widgetItem) {
 		Event event = new Event();
 		event.display = Display.getDisplay();
 		event.time = (int) System.currentTimeMillis();
@@ -1026,8 +1127,9 @@ public class WidgetHandler {
 		event.type = eventType;
 		return event;
 	}
-	
-	private Event createMouseItemEvent(int eventType, int detail, Widget widget, Widget widgetItem, int x, int y, int button){
+
+	private Event createMouseItemEvent(int eventType, int detail,
+			Widget widget, Widget widgetItem, int x, int y, int button) {
 		Event event = new Event();
 		event.display = Display.getDisplay();
 		event.time = (int) System.currentTimeMillis();
@@ -1035,9 +1137,9 @@ public class WidgetHandler {
 		event.widget = widget;
 		event.detail = detail;
 		event.type = eventType;
-		event.button=button;
-		event.x=x;
-		event.y=y;
+		event.button = button;
+		event.x = x;
+		event.y = y;
 		return event;
 	}
 }

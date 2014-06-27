@@ -13,7 +13,8 @@ import org.jboss.reddeer.swt.util.ResultRunnable;
 import org.jboss.reddeer.swt.wait.TimePeriod;
 
 /**
- * Contains methods that handle UI operations on {@link Shell} widgets. 
+ * Contains methods for handling UI operations on {@link Shell} widgets.
+ * 
  * @author Jiri Peterka
  *
  */
@@ -29,9 +30,9 @@ public class ShellHandler {
 	}
 
 	/**
-	 * Creates and returns instance of ShellHandler class
+	 * Gets instance of ShellHandler.
 	 * 
-	 * @return
+	 * @return instance of ShellHandler
 	 */
 	public static ShellHandler getInstance() {
 		if (instance == null) {
@@ -42,8 +43,9 @@ public class ShellHandler {
 
 
 	/**
-	 * Closes given shell
-	 * @param swtShell given SWT shell instance
+	 * Closes specified {@link Shell}.
+	 * 
+	 * @param swtShell shell to close
 	 */
 	public void closeShell(final Shell swtShell) {
 
@@ -58,8 +60,9 @@ public class ShellHandler {
 	}
 
 	/**
-	 * Focuses specified shell
-	 * @param shell given SWT shell instance
+	 * Focuses on specified {@link Shell}.
+	 * 
+	 * @param shell shell to focus
 	 */
 	public void setFocus(final Shell shell) {
 		Display.syncExec(new Runnable() {
@@ -72,8 +75,9 @@ public class ShellHandler {
 	}
 	
 	/**
-	 * Checks if shell is visible
-	 * @param shell given SWT shell instance
+	 * Finds out whether specified {@link Shell} is visible or not.
+	 * 
+	 * @param shell shell to handle
 	 * @return true if shell is visible, false otherwise
 	 */
 	public boolean isVisible(final Shell shell) {
@@ -87,8 +91,9 @@ public class ShellHandler {
 	}
 	
 	/**
-	 * Checks if shell is disposed
-	 * @param shell given SWT shell instance
+	 * Find out whether specified {@link Shell} is disposed or not.
+	 * 
+	 * @param shell shell to handle
 	 * @return true if shell is disposed, false otherwise
 	 */
 	public boolean isDisposed(final Shell shell) {
@@ -100,12 +105,16 @@ public class ShellHandler {
 			}
 		});
 	}
+	
 	/**
-	 * Closes all opened shells except workbench shell
-	 * @param beforeShellIsClosed - callback method beforeShellIsClosed.runBeforeShellIsClosed
-	 * is called before shell is closed
+	 * Closes all opened {@link Shell}s except the workbench shell.
+	 * There can be executed action before closing shells.
+	 * 
+	 * @param beforeShellIsClosed callback method is 
+	 * {@link IBeforeShellIsClosed#runBeforeShellIsClosed(Shell)} called before 
+	 * shells are closed
 	 */
-	public void closeAllNonWorbenchShells(IBeforeShellIsClosed beforeShellIsClosed){
+	public void closeAllNonWorbenchShells(IBeforeShellIsClosed beforeShellIsClosed) {
 		log.info("Closing all shells...");
 		List<Shell> shells = getNonWorbenchShellsToClose();
 		long timeOut = System.currentTimeMillis() + (TimePeriod.VERY_LONG.getSeconds() * 1000);
@@ -128,17 +137,12 @@ public class ShellHandler {
 	}
 	
 	/**
-	 * Closes all opened shells except workbench shell
+	 * Closes all opened {@link Shell}s except the workbench shell.
 	 */
 	public void closeAllNonWorbenchShells(){
 		this.closeAllNonWorbenchShells(null);
 	}
 	
-	/**
-	 * Return all shells which should be closed
-	 * 
-	 * @return
-	 */
 	private List<Shell> getNonWorbenchShellsToClose() {
 		List<Shell> shellsToClose = new ArrayList<Shell>();
 		Shell[] currentShells = ShellLookup.getInstance().getShells();
@@ -149,11 +153,7 @@ public class ShellHandler {
 		}
 		return shellsToClose;
 	}
-	/**
-	 * Returns active shell if contained within shells list
-	 * @param shells - list of shells checked for active shell
-	 * @return
-	 */
+	
 	private Shell getFilteredActiveShell(List<Shell> shells){
 		Shell result = null;
 		
@@ -171,8 +171,6 @@ public class ShellHandler {
 			}
 		}
 		
-		return result;
-		
+		return result;	
 	}
-
 }

@@ -7,7 +7,7 @@ import org.jboss.reddeer.swt.util.Display;
 import org.jboss.reddeer.swt.util.ResultRunnable;
 
 /**
- * Contains methods that handle UI operations on {@link Text} widgets. 
+ * Contains methods for handling UI operations on {@link Text} widgets.
  * 
  * @author Lucia Jelinkova
  *
@@ -21,9 +21,9 @@ public class TextHandler {
 	}
 
 	/**
-	 * Creates and returns instance of TextHandler class
+	 * Gets instance of TextHandler.
 	 * 
-	 * @return
+	 * @return instance of TextHandler.
 	 */
 	public static TextHandler getInstance() {
 		if (instance == null) {
@@ -33,48 +33,54 @@ public class TextHandler {
 	}
 
 	/**
-	 * Set text to {@link Text} if it is editable
+	 * Sets specified text into {@link Text}.
 	 * 
-	 * @param w
-	 *            given widgets
-	 * @param text
-	 *            text to be set
+	 * @param textWidget text widge to handle
+	 * @param text text to be set
 	 */
-	public void setText(final Text w, final String text) {
+	public void setText(final Text textWidget, final String text) {
 		Display.syncExec(new Runnable() {
 
 			@Override
 			public void run() {
-				Text textField = (Text) w;
-				if(!textField.getEditable()) {
+				Text textField = (Text) textWidget;
+				if (!textField.getEditable()) {
 					throw new SWTLayerException("Text field is not editable");
 				}
 				textField.setText(text);
 			}
 		});
 	}
-	
+
 	/**
-	 * Retrieves text widget message
-	 * @param w text widget
-	 * @return text widget message
+	 * Gets text from specified {@link Text} widget.
+	 * 
+	 * @param textWidget text widget to handle
+	 * @return text from the text widget
 	 */
-	public String getMessage(final Text w){
-		return Display.syncExec(new ResultRunnable<String>(){
+	public String getMessage(final Text textWidget) {
+		return Display.syncExec(new ResultRunnable<String>() {
 
 			@Override
 			public String run() {
-				return w.getMessage();
+				return textWidget.getMessage();
 			}
 		});
 	}
-	
-	public boolean isReadOnly(final Text w){
+
+	/**
+	 * Finds out whether specified {@link Text} widget is read-only or not.
+	 * Readability means whether is widget editable or not.
+	 * 
+	 * @param textWidget text widget to handle
+	 * @return true if text widget is read only, false otherwise
+	 */
+	public boolean isReadOnly(final Text textWidget) {
 		return Display.syncExec(new ResultRunnable<Boolean>() {
 
 			@Override
 			public Boolean run() {
-				return (w.getStyle() & SWT.READ_ONLY) != 0;
+				return (textWidget.getStyle() & SWT.READ_ONLY) != 0;
 			}
 		});
 	}

@@ -1,11 +1,12 @@
 package org.jboss.reddeer.swt.handler;
 
+import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Spinner;
 import org.jboss.reddeer.swt.util.Display;
 import org.jboss.reddeer.swt.util.ResultRunnable;
 
 /**
- * Contains methods that handle UI operations on {@link Spinner} widgets. 
+ * Contains methods for handling UI operations on {@link Spinner} widgets.
  * 
  * @author Lucia Jelinkova
  *
@@ -19,9 +20,9 @@ public class SpinnerHandler {
 	}
 
 	/**
-	 * Creates and returns instance of ComboHandler class
+	 * Gets instance of SpinnerHandler.
 	 * 
-	 * @return
+	 * @return instance of SpinnerHandler
 	 */
 	public static SpinnerHandler getInstance() {
 		if (instance == null) {
@@ -31,10 +32,10 @@ public class SpinnerHandler {
 	}
 
 	/**
-	 * Get value of supported widget
+	 * Gets current value of specified {@link Spinner}.
 	 * 
-	 * @param spinner widget
-	 * @return value of the widget
+	 * @param spinner spinner to handle
+	 * @return current value of specified spinner
 	 */
 	public int getValue(final Spinner spinner) {
 		return Display.syncExec(new ResultRunnable<Integer>() {
@@ -47,10 +48,10 @@ public class SpinnerHandler {
 	}
 
 	/**
-	 * Set value of supported widget
+	 * Sets value of specified {@link Spinner} to specified value.
 	 * 
-	 * @param spinner widget
-	 * @param value value of the widget
+	 * @param spinner spinner to handle
+	 * @param value value to set
 	 */
 	public void setValue(final Spinner spinner, final int value) {
 		Display.syncExec(new Runnable() {

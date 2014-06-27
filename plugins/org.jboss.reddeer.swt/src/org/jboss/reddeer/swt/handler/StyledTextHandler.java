@@ -6,7 +6,8 @@ import org.jboss.reddeer.swt.util.Display;
 import org.jboss.reddeer.swt.util.ResultRunnable;
 
 /**
- * Contains methods that handle UI operations on {@link StyledText} widgets. 
+ * Contains methods for handling UI operations on {@link StyledText} widgets.
+ * 
  * @author Jiri Peterka
  *
  */
@@ -18,21 +19,23 @@ public class StyledTextHandler {
 	}
 
 	/**
-	 * Returns StyledText handler instance
+	 * Gets instance of StyledText.
 	 * 
-	 * @return StyledText handler class instance
+	 * @return instance of StyledText
 	 */
 	public static StyledTextHandler getInstance() {
-		if (instance == null)
+		if (instance == null) {
 			instance = new StyledTextHandler();
+		}
 		return instance;
 	}
 
 	/**
-	 * Set selection within StyledText
-	 * @param styledText widget instance
-	 * @param line line
-	 * @param column column
+	 * Sets selection within specified {@link StyledText} to specified line and column.
+	 * 
+	 * @param styledText styled text to handle
+	 * @param line line of selection
+	 * @param column column of selection
 	 */
 	public void setSelection(final StyledText styledText, final int line,
 			final int column) {
@@ -50,9 +53,10 @@ public class StyledTextHandler {
 	}
 
 	/**
-	 * Insert text on current position
-	 * @param styledText widget instance
-	 * @param text 
+	 * Inserts specified text on the current position in specified {@link StyledText}.
+	 * 
+	 * @param styledText styled text to handle
+	 * @param text text to insert
 	 */
 	public void insertText(final StyledText styledText, final String text) {
 		Display.syncExec(new Runnable() {
@@ -60,17 +64,17 @@ public class StyledTextHandler {
 			@Override
 			public void run() {
 				styledText.insert(text);
-
 			}
 		});
 	}
 
 	/**
-	 * Insert text on specified position
-	 * @param styledText widget instance
-	 * @param line where to insert text
-	 * @param column where to insert text 
-	 * @param text to inser
+	 * Inserts specified text on specified position in specified {@link StyledText}.
+	 * 
+	 * @param styledText styled text to handle
+	 * @param line line to select
+	 * @param column column to select
+	 * @param text text to insert
 	 */
 	public void insertText(StyledText styledText, int line, int column,
 			String text) {
@@ -79,10 +83,11 @@ public class StyledTextHandler {
 	}
 	
 	/**
-	 * Returns position of first character of first occurence of given text in given styledText.
-	 * @param styledText
-	 * @param text
-	 * @return -1 when text is not found, position otherwise
+	 * Gets position of first character of specified text in specified {@link StyledText}.
+	 * 
+	 * @param styledText styled text to handle
+	 * @param text text to get position
+	 * @return position of first character of specified text if exists, -1 otherwise 
 	 */
 	public int getPositionOfText(final StyledText styledText, final String text) {
 		return Display.syncExec(new ResultRunnable<Integer>() {
@@ -95,28 +100,30 @@ public class StyledTextHandler {
 	}
 	
 	/**
-	 * Finds first occurrence of specified text and selects it
-	 * @param styledText widget instance
+	 * Selects first occurrence of specified text in specified {@link StyledText}.
+	 * 
+	 * @param styledText styled text to handle
 	 * @param text to select
 	 */
 	public void selectText(final StyledText styledText, final String text) {
 		final int position = getPositionOfText(styledText, text);
-		if(position == -1){
-			throw new SWTLayerException("Unable to find text "+text+" in styled text");
+		if (position == -1) { 
+			throw new SWTLayerException("Unable to find text " + text + " in styled text");
 		}
 		Display.syncExec(new Runnable() {
 
 			@Override
 			public void run() {
-				styledText.setSelection(position, position+text.length());
+				styledText.setSelection(position, position + text.length());
 			}
 		});
 	}
 
 	/**
-	 * Selects specified position (cursor will be moved there)
-	 * @param styledText widget instance
-	 * @param position to select
+	 * Selects specified position in specified {@link StyledText}.
+	 * 
+	 * @param styledText styled text to handle
+	 * @param position position to select in specified styled text
 	 */
 	public void selectPosition(final StyledText styledText, final int position) {
 		Display.syncExec(new Runnable() {
@@ -130,8 +137,9 @@ public class StyledTextHandler {
 	}
 
 	/**
-	 * Returns selected text
-	 * @param styledText widget instance
+	 * Gets selected text in specified {@link StyledText}.
+	 * 
+	 * @param styledText styled text to handle
 	 * @return selected text
 	 */
 	public String getSelectionText(final StyledText styledText) {
