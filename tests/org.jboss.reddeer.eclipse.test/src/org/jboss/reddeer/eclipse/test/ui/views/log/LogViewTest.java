@@ -13,7 +13,6 @@ import org.jboss.reddeer.eclipse.test.Activator;
 import org.jboss.reddeer.eclipse.ui.views.log.LogMessage;
 import org.jboss.reddeer.eclipse.ui.views.log.LogView;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
-import org.jboss.reddeer.swt.test.RedDeerTest;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

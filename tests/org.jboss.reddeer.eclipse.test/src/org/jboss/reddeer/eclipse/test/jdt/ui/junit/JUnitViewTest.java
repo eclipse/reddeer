@@ -4,7 +4,6 @@ import static org.junit.Assert.assertEquals;
 
 import org.jboss.reddeer.eclipse.jdt.ui.junit.JUnitView;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
-import org.jboss.reddeer.swt.test.RedDeerTest;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
