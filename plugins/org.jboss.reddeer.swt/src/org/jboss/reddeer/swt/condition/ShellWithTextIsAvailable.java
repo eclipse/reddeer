@@ -26,6 +26,7 @@ public class ShellWithTextIsAvailable implements WaitCondition {
 	 */
 	public ShellWithTextIsAvailable(String title) {
 		InstanceValidator.checkNotNull(title, "title");
+		this.matcher = new IsEqual<String>(title);
 	}
 
 	@Override
