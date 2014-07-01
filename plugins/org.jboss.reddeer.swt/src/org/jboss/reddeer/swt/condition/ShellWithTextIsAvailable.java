@@ -2,7 +2,6 @@ package org.jboss.reddeer.swt.condition;
 
 import org.eclipse.swt.widgets.Shell;
 import org.hamcrest.Matcher;
-import org.hamcrest.core.IsEqual;
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.swt.lookup.ShellLookup;
 import org.jboss.reddeer.swt.matcher.WithTextMatcher;
@@ -26,7 +25,7 @@ public class ShellWithTextIsAvailable implements WaitCondition {
 	 */
 	public ShellWithTextIsAvailable(String title) {
 		InstanceValidator.checkNotNull(title, "title");
-		this.matcher = new IsEqual<String>(title);
+		this.matcher = new WithTextMatcher(title);
 	}
 
 	@Override
