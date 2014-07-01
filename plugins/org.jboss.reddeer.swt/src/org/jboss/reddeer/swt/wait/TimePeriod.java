@@ -9,6 +9,9 @@ package org.jboss.reddeer.swt.wait;
  *
  */
 public class TimePeriod {
+    
+    /** No timeout. */
+    public static final TimePeriod NEVER = new TimePeriod(-1);
 
 	/** Time period 0 seconds. */
 	public static final TimePeriod NONE = new TimePeriod(0);

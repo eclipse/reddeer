@@ -53,7 +53,7 @@ public class WaitWhile extends AbstractWait {
 	protected boolean wait(WaitCondition condition) {
 		final long timeout = getTimeout().getSeconds() * 1000;
 		if (timeout < 0) {
-			throw new SWTLayerException("timeout value is negative");
+		    log.warn("timeout value is negative, wait might never ends");
 		}
 		if (AbstractWait.WAIT_DELAY < 0) {
 			throw new SWTLayerException("wait delay value is negative");
@@ -70,7 +70,7 @@ public class WaitWhile extends AbstractWait {
 						+ " " + e);
 			}
 			sleep(TimePeriod.SHORT);
-			if (System.currentTimeMillis() > limit) {
+			if (timeout >= 0 && System.currentTimeMillis() > limit) {
 				continueSleep = false;
 				if (isThrowWaitTimeoutExpiredException()) {
 					log.debug(this.description()  + condition.description() + " failed, an exception will be thrown");
