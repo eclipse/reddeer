@@ -12,6 +12,20 @@
 	<name>Red Deer Tests</name>
 	<packaging>pom</packaging>
 	
+	<properties>
+ 		<reddeer.close.shells>true</reddeer.close.shells>
+ 		<reddeer.close.welcome.screen>true</reddeer.close.welcome.screen>
+ 		<reddeer.disable.maven.download.repo.index.on.startup>true</reddeer.disable.maven.download.repo.index.on.startup>
+		<junitExtensionsProperties>-Dreddeer.close.shells=${reddeer.close.shells} -Dreddeer.close.welcome.screen=${reddeer.close.welcome.screen} -Dreddeer.disable.maven.download.repo.index.on.startup=${reddeer.disable.maven.download.repo.index.on.startup}</junitExtensionsProperties>
+		<!-- placeholder for properties of RedDeer JUnit extensions -->
+		<platformSystemProperties></platformSystemProperties>
+		<customArgLine></customArgLine>
+		<logDebug>true</logDebug>
+		<pauseFailedTest>false</pauseFailedTest>
+		<recordScreenCast>false</recordScreenCast>
+		<relativeScreenshotDirectory>.${file.separator}target${file.separator}screenshots</relativeScreenshotDirectory>
+		<surefire.timeout>2400</surefire.timeout>
+	</properties>
 	
 	<modules>
 		<module>org.jboss.reddeer.swt.test</module>
@@ -29,17 +43,69 @@
 			<plugin>
 				<groupId>org.eclipse.tycho</groupId>
 				<artifactId>tycho-surefire-plugin</artifactId>
+				<version>${tycho-version}</version>
+		
 				<configuration>
-    				<useUIThread>false</useUIThread>
+					<useUIHarness>true</useUIHarness>
+					<useUIThread>false</useUIThread>
+					<!-- THE FOLLOWING LINE MUST NOT BE BROKEN BY AUTOFORMATTING -->
+					<argLine>-DlogDebug=${log.debug} -DpauseFailedTest=${pauseFailedTest} -DrecordScreenCast=${recordScreenCast} -DrelativeScreenshotDirectory=${relativeScreenshotDirectory} ${platformSystemProperties} ${customArgLine} ${junitExtensionsProperties} -XX:MaxPermSize=512m -Xmx512m</argLine>
+					<product>org.eclipse.platform.ide</product>
+					<application>org.eclipse.ui.ide.workbench</application>
 					<dependencies combine.children="append">
+						<dependency>
+							<type>p2-installable-unit</type>
+							<artifactId>org.eclipse.platform</artifactId>
+							<version>0.0.0</version>
+						</dependency>
+						<dependency>
+							<groupId>org.jmock</groupId>
+							<artifactId>jmock-legacy</artifactId>
+							<version>2.5.1</version>
+						</dependency>
+						<dependency>
+							<groupId>org.jmock</groupId>
+							<artifactId>jmock-junit4</artifactId>
+							<version>2.5.1</version>
+						</dependency>
+						<dependency>
+							<type>p2-installable-unit</type>
+							<artifactId>org.eclipse.jdt.ui</artifactId>
+							<version>0.0.0</version>
+						</dependency>
+						<dependency>
+							<type>p2-installable-unit</type>
+							<artifactId>org.eclipse.jdt.junit</artifactId>
+							<version>0.0.0</version>
+						</dependency>
 						<dependency>
 							<type>p2-installable-unit</type>
 							<artifactId>org.eclipse.e4.rcp.feature.group</artifactId>
 							<version>0.0.0</version>
 						</dependency>
-					</dependencies>					
+					</dependencies>
+					<includes>
+						<include>**/*Test.class</include>
+					</includes>
 				</configuration>
 			</plugin>
+		
 		</plugins>
 	</build>
+	
+	<profiles>
+		<profile>
+			<!-- Workaround for https://bugs.eclipse.org/bugs/show_bug.cgi?id=388084 -->
+			<id>osx</id>
+			<activation>
+				<os>
+					<family>mac</family>
+				</os>
+			</activation>
+			<properties>
+				<!-- THE FOLLOWING LINE MUST NOT BE BROKEN BY AUTOFORMATTING -->
+				<platformSystemProperties> -XstartOnFirstThread </platformSystemProperties>
+			</properties>
+		</profile>
+	</profiles>
 </project>
