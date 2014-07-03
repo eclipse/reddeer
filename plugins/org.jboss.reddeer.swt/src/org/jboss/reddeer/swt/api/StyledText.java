@@ -39,6 +39,14 @@ public interface StyledText extends Widget {
 	 * @param text of the styled text to insert
 	 */
 	void insertText(int line, int column, String text);
+	
+	
+	/**
+     * Inserts text into styled text at current position or selection.
+     * 
+     * @param text to insert
+     */
+	void insertText(final String text);
 
 	/**
 	 * Returns position of text in the styled text. This is helpful in case 
