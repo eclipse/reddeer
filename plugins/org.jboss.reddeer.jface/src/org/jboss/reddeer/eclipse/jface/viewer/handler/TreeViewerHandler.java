@@ -5,7 +5,7 @@ import java.util.Iterator;
 import org.eclipse.swt.custom.StyleRange;
 import org.jboss.reddeer.eclipse.jface.exception.JFaceLayerException;
 import org.jboss.reddeer.swt.api.TreeItem;
-import org.jboss.reddeer.swt.exception.SWTLayerException;
+import org.jboss.reddeer.swt.api.Tree;
 import org.jboss.reddeer.swt.util.Display;
 import org.jboss.reddeer.swt.util.ResultRunnable;
 import org.jboss.reddeer.common.logging.Logger;
@@ -32,7 +32,52 @@ public class TreeViewerHandler {
 	}
 	
 	/**
-	 * Get tree item specified by a name without decorators - styled text
+	 * Gets {@link TreeItem} with specified name placed under 
+	 * specified {@link Tree}.
+	 * 
+	 * @param tree tree where to find tree item
+	 * @param name name of the tree item to find
+	 * @return tree item with specified name placed under specified tree
+	 */
+	public TreeItem getTreeItem(Tree tree, String name) {
+		Iterator<TreeItem> iterator = tree.getItems().iterator();
+		while (iterator.hasNext()) {
+			TreeItem item = iterator.next();
+			if (getNonStyledText(item).equals(name)) {
+				return item;
+			}
+		}
+		
+		throw new JFaceLayerException("There is no item with name " + name + " placed " +
+				"under specified tree");
+	}
+	
+	/**
+	 * Gets {@link TreeItem} defined by specified path placed under 
+	 * specified {@link Tree}.
+	 * 
+	 * @param tree tree where to find tree item
+	 * @param path path to the tree item
+	 * @return tree item placed under specified tree
+	 */
+	public TreeItem getTreeItem(Tree tree, String... path) {
+		TreeItem item;
+		
+		TreeItem parentItem = getTreeItem(tree, path[0]);
+		item = parentItem;
+	
+		if (path.length > 1) {
+			String[] pathToItem = new String[path.length-1];
+			System.arraycopy(path, 1, pathToItem, 0, path.length - 1);
+			item = getTreeItem(parentItem, pathToItem);
+		}
+		
+		return item;
+	}
+	
+	
+	/**
+	 * Gets tree item specified by a name without decorators - styled text
 	 * 
 	 * @param treeItem parent item of desired item 
 	 * @param name of desired item
@@ -55,7 +100,7 @@ public class TreeViewerHandler {
 	}
 	
 	/**
-	 * Get tree item specified by path without decorators.
+	 * Gets tree item specified by path without decorators.
 	 * 
 	 * @param treeItem
 	 * @param path
