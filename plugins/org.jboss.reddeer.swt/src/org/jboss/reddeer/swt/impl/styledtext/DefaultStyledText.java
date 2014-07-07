@@ -17,7 +17,6 @@ import org.jboss.reddeer.swt.reference.ReferencedComposite;
  */
 public class DefaultStyledText implements StyledText {
 
-	protected org.eclipse.swt.custom.StyledText styledText;
 	protected final Logger log = Logger.getLogger(this.getClass());
 
 	/**
