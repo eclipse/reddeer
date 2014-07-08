@@ -8,14 +8,17 @@ import org.jboss.reddeer.eclipse.jst.servlet.ui.WebProjectFirstPage;
  * @author rawagner
  *
  */
-public class EjbProjectWizard extends NewWizardDialog{
+public class EjbProjectWizard extends NewWizardDialog {
 	
 	public static final String CATEGORY="EJB";
 	public static final String NAME="EJB Project";
-	
-	public EjbProjectWizard(){
-		super(CATEGORY,NAME);
-		addWizardPage(new WebProjectFirstPage(), 0);
+	/**
+	 * Default constructor.
+	 */
+	public EjbProjectWizard() {
+		super(CATEGORY, NAME);
+		addWizardPage(new EjbProjectFirstPage(), 0);
+		addWizardPage(new EJBFacetInstallPage(), 2);
 	}
 
 }

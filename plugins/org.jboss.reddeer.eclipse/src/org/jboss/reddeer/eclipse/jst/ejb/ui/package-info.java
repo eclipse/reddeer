@@ -1,0 +1,1 @@
+package org.jboss.reddeer.eclipse.jst.ejb.ui;
