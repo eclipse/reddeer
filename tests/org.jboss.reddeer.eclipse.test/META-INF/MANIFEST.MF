@@ -19,6 +19,7 @@ Require-Bundle: org.eclipse.ui,
  org.jboss.reddeer.junit;bundle-version="[0.6,0.7)",
  org.eclipse.ui.browser,
  org.eclipse.mylyn.tasks.ui,
+ org.eclipse.jst.ejb.ui,
  org.jboss.reddeer.requirements;bundle-version="[0.6,0.7)",
  org.jboss.reddeer.junit.extension;bundle-version="[0.6,0.7)",
  org.eclipse.datatools.connectivity.dbdefinition.genericJDBC
