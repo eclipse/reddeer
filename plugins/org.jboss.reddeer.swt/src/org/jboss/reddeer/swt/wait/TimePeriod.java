@@ -10,9 +10,6 @@ package org.jboss.reddeer.swt.wait;
  */
 public class TimePeriod {
     
-    /** No timeout. */
-    public static final TimePeriod NEVER = new TimePeriod(-1);
-
 	/** Time period 0 seconds. */
 	public static final TimePeriod NONE = new TimePeriod(0);
 
@@ -27,6 +24,9 @@ public class TimePeriod {
 
 	/** Time period 300 seconds. */
 	public static final TimePeriod VERY_LONG = new TimePeriod(300);
+	
+	/** Time period for eternity */
+	public static final TimePeriod ETERNAL = new TimePeriod(Long.MAX_VALUE);
 
 	private long seconds;
 

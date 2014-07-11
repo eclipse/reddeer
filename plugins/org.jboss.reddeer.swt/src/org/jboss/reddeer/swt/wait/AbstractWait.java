@@ -2,10 +2,11 @@ package org.jboss.reddeer.swt.wait;
 
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.swt.condition.WaitCondition;
+import org.jboss.reddeer.swt.exception.WaitTimeoutExpiredException;
 
 /**
  * Common ancestor for waiting classes. Contains abstract
- * {@link #wait(WaitCondition)} method that is called in the constructor.
+ * {@link #stopWaiting(WaitCondition)} method that is called in the constructor.
  * 
  * @author Vlado Pakan
  * @author Lucia Jelinkova
@@ -14,9 +15,9 @@ import org.jboss.reddeer.swt.condition.WaitCondition;
 public abstract class AbstractWait {
 	
 	/**
-	 * Wait delay in milliseconds.
+	 * Indicates how often the condition should be evaluated. 
 	 */
-	protected static long WAIT_DELAY = 500;
+	protected static TimePeriod WAIT_SLEEP = TimePeriod.SHORT;
 
 	/**
 	 * Wait logger.
@@ -25,7 +26,7 @@ public abstract class AbstractWait {
 
 	private TimePeriod timeout;
 
-	private boolean throwWaitTimeoutExpiredException = true;
+	private boolean throwTimeoutException = true;
 
 	/**
 	 * Waits till condition is met for default time period. Throws 
@@ -63,22 +64,18 @@ public abstract class AbstractWait {
 	public AbstractWait(WaitCondition condition, TimePeriod timePeriod,
 			boolean throwRuntimeException) {
 		this.timeout = timePeriod;
-		this.throwWaitTimeoutExpiredException = throwRuntimeException;
+		this.throwTimeoutException = throwRuntimeException;
 
-		log.debug(this.description() + condition.description() + "...");
-		if (wait(condition)) {
-			log.debug(this.description() + condition.description()
-					+ " finished successfully");
-		}
+		wait(condition);
 	}
 
 	/**
-	 * Waits till condition is met.
+	 * Condition if the waiting should stop. 
 	 * 
 	 * @param condition wait condition to met
-	 * @return true if condition if met, false otherwise
+	 * @return true if the while loop should continue, false otherwise
 	 */
-	protected abstract boolean wait(WaitCondition condition);
+	protected abstract boolean stopWaiting(WaitCondition condition);
 
 	/**
 	 * Gets description of specific wait condition. Description should
@@ -88,6 +85,28 @@ public abstract class AbstractWait {
 	 * @return description of specific wait condition
 	 */
 	protected abstract String description();
+
+	
+	private void wait(WaitCondition condition) {
+		log.debug(this.description() + condition.description() + "...");
+	
+		long limit = System.currentTimeMillis() + getTimeout().getSeconds() * 1000;
+
+		while (true) {
+			if (stopWaiting(condition)){
+				break;
+			}
+			
+			if (timeoutExceeded(condition, limit)){
+				return;
+			}
+			
+			sleep(WAIT_SLEEP);
+		}
+		
+		log.debug(this.description() + condition.description()
+				+ " finished successfully");
+	}
 
 	/**
 	 * Gets time period of timeout.
@@ -104,8 +123,8 @@ public abstract class AbstractWait {
 	 * 
 	 * @return true if exception should be thrown, false otherwise
 	 */
-	protected boolean isThrowWaitTimeoutExpiredException() {
-		return throwWaitTimeoutExpiredException;
+	protected boolean throwTimeoutException() {
+		return throwTimeoutException;
 	}
 
 	/**
@@ -120,14 +139,18 @@ public abstract class AbstractWait {
 			throw new RuntimeException("Sleep interrupted", e);
 		}
 	}
-
-	/**
-	 * Sleeps for period defined by specified time in milliseconds.
-	 * 
-	 * @param millis time in milliseconds to sleep
-	 * @deprecated use sleep(TimePeriod timePeriod) instead, will be removed in 0.6
-	 */
-	public static void sleep(long millis) {
-		sleep(TimePeriod.getCustom(millis / 1000));
+	
+	private boolean timeoutExceeded(WaitCondition condition, long limit) {
+		if (System.currentTimeMillis() > limit) {
+			if (throwTimeoutException()) {
+				log.debug(this.description()  + condition.description() + " failed, an exception will be thrown");
+				throw new WaitTimeoutExpiredException("Timeout after: "
+						+ timeout + " ms.: " + condition.description());
+			} else {
+				log.debug(this.description()  + condition.description() + " failed, NO exception will be thrown");
+				return true;
+			}
+		}
+		return false;
 	}
 }
