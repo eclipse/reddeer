@@ -101,6 +101,11 @@
                             <artifactId>org.eclipse.mylyn.bugzilla_feature.feature.group</artifactId>
                             <version>0.0.0</version>
                         </dependency>
+                         <dependency>
+                            <type>p2-installable-unit</type>
+                            <artifactId>org.eclipse.m2e.feature.feature.group</artifactId>
+                            <version>0.0.0</version>
+                        </dependency>
 					</dependencies>
 				</configuration>
 			</plugin>
