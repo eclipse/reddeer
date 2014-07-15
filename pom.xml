@@ -133,15 +133,4 @@
 				</releases>
 		</repository>
 	</repositories>
-
-	<!-- For deployment of e.g. archetype to Nexus -->
-	<!--  Don't change "id" since it should match credentials entry in $M2_REPO/settings.xml -->
-	<distributionManagement>
-		<snapshotRepository>
-			<id>jboss-snapshots-repository</id>
-			<name>JBoss Snapshots Repository</name>
-			<url>https://repository.jboss.org/nexus/content/repositories/snapshots/</url>
-			<uniqueVersion>false</uniqueVersion>
-		</snapshotRepository>
-	</distributionManagement>
 </project>
