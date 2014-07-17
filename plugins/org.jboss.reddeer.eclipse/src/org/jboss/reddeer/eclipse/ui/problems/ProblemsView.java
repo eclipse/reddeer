@@ -3,8 +3,10 @@ package org.jboss.reddeer.eclipse.ui.problems;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.jboss.reddeer.eclipse.condition.MarkerIsUpdating;
 import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.swt.impl.tree.DefaultTree;
+import org.jboss.reddeer.swt.wait.WaitWhile;
 import org.jboss.reddeer.workbench.impl.view.WorkbenchView;
 
 /**
@@ -27,6 +29,7 @@ public class ProblemsView extends WorkbenchView{
 	 */
 	public List<TreeItem> getAllErrors(){
 		open();
+		new WaitWhile(new MarkerIsUpdating());
 		DefaultTree tree = new DefaultTree();
 		return filter(tree.getItems(), true);
 	}
