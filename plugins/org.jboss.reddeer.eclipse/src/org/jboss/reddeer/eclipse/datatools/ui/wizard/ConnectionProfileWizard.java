@@ -6,14 +6,21 @@ import java.util.Map;
 import org.jboss.reddeer.eclipse.datatools.ui.DatabaseProfile;
 import org.jboss.reddeer.eclipse.datatools.ui.DriverDefinition;
 import org.jboss.reddeer.eclipse.datatools.ui.FlatFileProfile;
+import org.jboss.reddeer.eclipse.exception.EclipseLayerException;
 import org.jboss.reddeer.eclipse.jface.wizard.NewWizardDialog;
+import org.jboss.reddeer.swt.condition.ShellWithTextIsActive;
+import org.jboss.reddeer.swt.impl.button.OkButton;
+import org.jboss.reddeer.swt.impl.button.PushButton;
+import org.jboss.reddeer.swt.impl.shell.DefaultShell;
+import org.jboss.reddeer.swt.wait.TimePeriod;
+import org.jboss.reddeer.swt.wait.WaitUntil;
 
 /**
  * A wizard dialog for creating a connection profile.
  * 
  * Connections Profiles -> Connection Profile
  * 
- * @author apodhrad
+ * @author apodhrad, jpeterka
  * 
  */
 public class ConnectionProfileWizard extends NewWizardDialog {
@@ -35,6 +42,15 @@ public class ConnectionProfileWizard extends NewWizardDialog {
 	 * @param dbProfile
 	 */
 	public void createDatabaseProfile(DatabaseProfile dbProfile) {
+		createDatabaseProfile(dbProfile, false);
+	}
+
+	/**
+	 * Create a given database profile.
+	 * @param dbProfile given database profile
+	 * @param test set to true if ping needs to be done
+	 */
+	public void createDatabaseProfile(DatabaseProfile dbProfile, boolean test) {
 		ConnectionProfileSelectPage selectPage = new ConnectionProfileSelectPage();
 		selectPage.setConnectionProfile(dbProfile.getVendor());
 		selectPage.setName(dbProfile.getName());
@@ -50,6 +66,16 @@ public class ConnectionProfileWizard extends NewWizardDialog {
 		dbPage.setUsername(dbProfile.getUsername());
 		dbPage.setPassword(dbProfile.getPassword());
 		
+		if (test) {
+			String success = "Success";
+			new PushButton("Test Connection").click();
+			new WaitUntil(new ShellWithTextIsActive(success), TimePeriod.NORMAL, false);
+			String text = new DefaultShell().getText();
+			new OkButton().click();
+			if (!text.equals(success)) {
+				throw new EclipseLayerException("Connection ping failed!");
+			}
+		}
 
 		finish();
 	}
