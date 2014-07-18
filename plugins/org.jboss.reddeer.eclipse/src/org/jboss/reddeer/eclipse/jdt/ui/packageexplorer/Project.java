@@ -39,18 +39,19 @@ public class Project {
 	private TreeViewerHandler treeViewerHandler = TreeViewerHandler.getInstance();
 
 	/**
-	 * Create project represented by treeItem
+	 * Creates a project represented by specified {@link TreeItem}.
 	 * 
-	 * @param treeItem
+	 * @param treeItem encapsulated tree item
 	 */
 	public Project(TreeItem treeItem) {
 		this.treeItem = treeItem;
 	}
 
 	/**
-	 * Delete project
+	 * Deletes project from Project Explorer.
 	 * 
-	 * @param deleteFromFileSystem
+	 * @param deleteFromFileSystem whether project should be deleted from file 
+	 * system or not
 	 */
 	public void delete(boolean deleteFromFileSystem) {
 		select();
@@ -76,23 +77,23 @@ public class Project {
 	}
 
 	/**
-	 * Select project
+	 * Selects the project.
 	 */
 	public void select() {
 		treeItem.select();
 	}
 
 	/**
-	 * Return project name
+	 * Gets name of the project without decorators.
 	 * 
-	 * @return
+	 * @return name of the project without decorators
 	 */
 	public String getName() {
 		return treeViewerHandler.getNonStyledText(treeItem);
 	}
 
 	/**
-	 * Return decorated parts of project labels. Such parts could be for
+	 * Gets decorated parts of project labels. Such parts could be for
 	 * example remote and branch on a git project or tracking decorator ">"
 	 * before project name in a label.
 	 * 
@@ -103,7 +104,7 @@ public class Project {
 	}
 
 	/**
-	 * Return Tree Item representing project
+	 * Gets encapsulated {@link TreeItem} representating the project.
 	 * 
 	 * @return encapsulated tree item
 	 */
@@ -112,9 +113,9 @@ public class Project {
 	}
 
 	/**
-	 * Return true if project contains item specified by path
+	 * Finds out whether project contain item specified by the path or not.
 	 * 
-	 * @param path to the tree item
+	 * @param path path to the tree item
 	 * @return true if project contains tree item specified by the path, 
 	 * 	false otherwise
 	 */
@@ -130,39 +131,34 @@ public class Project {
 	}
 
 	/**
-	 * Return Project Item specified by path
+	 * Gets {@link ProjectItem} specified by path without decorators.
 	 * 
-	 * @param path to the tree item
+	 * @param path path to the tree item without decorators
 	 * @return tree item specified by the path
 	 */
-
 	public ProjectItem getProjectItem(String... path) {
 		return new ProjectItem(treeViewerHandler.getTreeItem(treeItem, path), this, path);
 	}
 
 	/**
-	 * Return true when project is selected
+	 * Finds out whether the project is selected or not.
 	 * 
-	 * @return
+	 * @return true if project is selected, false otherwise
 	 */
 	public boolean isSelected() {
 		return treeItem.isSelected();
 	}
 
 	/**
-	 * Return whole text of Project displayed in explorer (including decorated
-	 * text parts)
+	 * Gets whole text of the project displayed in Project Explorer
+	 * as it is (decorators are included).
 	 * 
-	 * @return whole text (label) on project
+	 * @return whole label of the project
 	 */
 	public String getText() {
 		return treeItem.getText();
 	}
 
-	/**
-	 * Return shell with a given title and containing a button with specified
-	 * label. This is used only when deleting a project.
-	 */
 	private class ShellWithButton extends AbstractShell {
 
 		public ShellWithButton(String title, String buttonLabel) {

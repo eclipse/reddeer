@@ -30,7 +30,7 @@ public class ProjectItem {
 	private TreeViewerHandler treeViewerHandler = TreeViewerHandler.getInstance();
 
 	/**
-	 * Construct a project item with a given tree item, project and path.
+	 * Constructs project item with a given tree item, project and path.
 	 * 
 	 * @param treeItem Tree item
 	 * @param project Project
@@ -43,7 +43,7 @@ public class ProjectItem {
 	}
 
 	/**
-	 * Open the project item.
+	 * Opens the project item.
 	 */
 	public void open() {
 		select();
@@ -51,7 +51,7 @@ public class ProjectItem {
 	}
 
 	/**
-	 * Delete the project. The project is refreshed before deleting.
+	 * Deletes the project item. The project item is refreshed before deleting.
 	 */
 	public void delete() {
 		refresh();
@@ -64,14 +64,14 @@ public class ProjectItem {
 	}
 
 	/**
-	 * Select the project.
+	 * Selects the project item.
 	 */
 	public void select() {
 		project.getProjectItem(path).treeItem.select();
 	}
 	
 	/**
-	 * Refresh the project.
+	 * Refreshes the project item.
 	 */
 	public void refresh() {
 		select();
@@ -80,73 +80,83 @@ public class ProjectItem {
 	}
 	
 	/**
-	 * Return whether the project is selected.
+	 * Finds out whether the project item is selected or not.
 	 * 
-	 * @return whether the project is selected
+	 * @return true if the project item is selected, false otherwise
 	 */
 	public boolean isSelected() {
 		return treeItem.isSelected();
 	}
 	
 	/**
-	 * Return a project's child with a given text without decorators.
+	 * Gets child of the project item with given text without decorators.
 	 * 
-	 * @param text Child's text
-	 * @return Child
+	 * @param text text of the project item without decorators to find
+	 * @return project item with specified text without decorators
 	 */
 	public ProjectItem getChild(String text) {
-		TreeViewerHandler handler = TreeViewerHandler.getInstance();
 		String[] childPath = new String[path.length + 1];
 		System.arraycopy(path, 0, childPath, 0, path.length);
 		childPath[childPath.length - 1] = text;
-		return new ProjectItem(handler.getTreeItem(treeItem, text), project, childPath);
+		return new ProjectItem(treeViewerHandler.getTreeItem(
+				treeItem, text), project, childPath);
 	}
 	
 	/**
-	 * Return a whole text of the project item.
+	 * Gets whole text of the project item.
 	 * 
-	 * @return Text
+	 * @return text of the project item
 	 */
 	public String getText() {
 		return treeItem.getText();
 	}
 	
 	/**
-	 * Return project item name (label) without decorators.
-	 * @return
+	 * Gets name of the project item without decorators.
+	 * 
+	 * @return name of the project item without decorators
 	 */
 	public String getName() {
 		return treeViewerHandler.getNonStyledText(treeItem);
 	}
 	
 	/**
-	 * Return decorators for this project item (e.g. > sign for a versioning system
-	 * changes tracking.
-	 * @return
+	 * Gets decorators of the project item. 
+	 * 
+	 * @return String array of decorators of the project item
 	 */
 	public String[] getDecorators() {
 		return treeViewerHandler.getStyledTexts(treeItem);
 	}
 	
 	/**
-	 * Return a project of the project item.
+	 * Gets project of the project item where this item belong to. 
 	 * 
-	 * @return Project of the project item
+	 * @return project of the project item
 	 */
 	public Project getProject() {
 		return project;
 	}
 	
 	/**
-	 * Return list of children of the project item.
+	 * Gets list of children of the project item. 
+	 * <b>List is consisting of project items without decorators</b>.
+	 * If there are children distinguished only be decorators, use method 
+	 * {@link ProjectItem#getRawChildren()} instead.
 	 * 
-	 * @return List of children of the project item
+	 * @return list of children of the project item
 	 */
 	public List<ProjectItem> getChildren() {
-		List<ProjectItem> childrens = new ArrayList<ProjectItem>();
-		for(TreeItem item : treeItem.getItems()) {
-			childrens.add(getChild(treeViewerHandler.getNonStyledText(item)));
+		List<ProjectItem> children = new ArrayList<ProjectItem>();
+		
+		for (TreeItem item: treeItem.getItems()) {
+			String name = treeViewerHandler.getNonStyledText(item);
+			String[] childPath = new String[path.length + 1];
+			System.arraycopy(path, 0, childPath, 0, path.length);
+			childPath[childPath.length - 1] = name;
+			children.add(new ProjectItem(item, project, childPath));
 		}
-		return childrens;
+		
+		return children;
 	}
 }
