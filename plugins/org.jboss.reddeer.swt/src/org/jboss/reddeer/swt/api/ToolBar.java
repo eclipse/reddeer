@@ -1,5 +1,6 @@
 package org.jboss.reddeer.swt.api;
 
+import org.jboss.reddeer.swt.reference.ReferencedComposite;
 import org.jboss.reddeer.swt.widgets.Widget;
 
 /**
@@ -8,8 +9,8 @@ import org.jboss.reddeer.swt.widgets.Widget;
  * @author Jiri Peterka
  *
  */
-public interface ToolBar extends Widget {
-
+public interface ToolBar extends Widget, ReferencedComposite{
+	
 	org.eclipse.swt.widgets.ToolBar getSWTWidget();
 
 }

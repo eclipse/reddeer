@@ -19,8 +19,9 @@ import org.jboss.reddeer.requirements.openperspective.OpenPerspectiveRequirement
 import org.jboss.reddeer.swt.api.StyledText;
 import org.jboss.reddeer.swt.impl.menu.ShellMenu;
 import org.jboss.reddeer.swt.impl.styledtext.DefaultStyledText;
-import org.jboss.reddeer.swt.impl.toolbar.DefaultToolItem;
+import org.jboss.reddeer.swt.impl.toolbar.ViewToolItem;
 import org.jboss.reddeer.swt.matcher.RegexMatcher;
+import org.jboss.reddeer.swt.matcher.WithTextMatchers;
 import org.jboss.reddeer.swt.wait.AbstractWait;
 import org.jboss.reddeer.swt.wait.TimePeriod;
 import org.jboss.reddeer.workbench.impl.editor.DefaultEditor;
@@ -109,7 +110,7 @@ public class ConsoleViewTest {
 		assertFalse(text.trim().isEmpty());
 		assertEquals(text, text2);
 		
-		DefaultToolItem terminate = new DefaultToolItem("Terminate");
+		ViewToolItem terminate = new ViewToolItem("Terminate");
 		assertFalse(terminate.isEnabled());
 		
 	}
@@ -165,9 +166,12 @@ public class ConsoleViewTest {
 		new DefaultEditor().save();
 	}
 	
-	@SuppressWarnings("unchecked")
 	private static void runTestClass(String name) {
-		new PackageExplorer().getProject(TEST_PROJECT_NAME).getProjectItem("src", "test", name + ".java").select();
-		new ShellMenu(new RegexMatcher("Run.*"), new RegexMatcher("Run As.*"), new RegexMatcher(".*Java Application.*")).select();		
+		new PackageExplorer().getProject(TEST_PROJECT_NAME).getProjectItem("src", "test", name + ".java").select();		
+		RegexMatcher[] array = { new RegexMatcher("Run.*"),
+				new RegexMatcher("Run As.*"),
+				new RegexMatcher(".*Java Application.*") };
+		WithTextMatchers m = new WithTextMatchers(array);
+		new ShellMenu(m.getMatchers()).select();		
 	}
 }

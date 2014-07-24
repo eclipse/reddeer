@@ -1,6 +1,7 @@
 package org.jboss.reddeer.swt.lookup;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.eclipse.jface.action.IContributionItem;
@@ -10,7 +11,6 @@ import org.eclipse.jface.action.ToolBarContributionItem;
 import org.eclipse.jface.action.ToolBarManager;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
-import org.eclipse.ui.IEditorSite;
 import org.eclipse.ui.IViewSite;
 import org.eclipse.ui.IWorkbenchPartSite;
 import org.eclipse.ui.IWorkbenchWindow;
@@ -20,6 +20,7 @@ import org.eclipse.ui.internal.WorkbenchWindow;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.exception.Thrower;
+import org.jboss.reddeer.swt.reference.ReferencedComposite;
 import org.jboss.reddeer.swt.util.Display;
 import org.jboss.reddeer.swt.util.ResultRunnable;
 
@@ -32,87 +33,94 @@ import org.jboss.reddeer.swt.util.ResultRunnable;
 @SuppressWarnings("restriction")
 public class ToolBarLookup {
 
-	
+	private static ToolBarLookup instance;
+
 	/**
-	 * Returns either shell toolbar if shell is active or part toolbar (editor or view). For workbench use getWorkbenchToolbar
-	 * @return default toolbar (shell, view or editor)
-	 */
-	public ToolBar getDefaultToolbar() {
-		ToolBar toolbar  = null;
-		if (WidgetLookup.getInstance().isExtraShellActive()) {
-			ToolBarLookup tl = new ToolBarLookup();
-			toolbar = tl.getShellToolBar();
-		} else {
-			toolbar = getPartToolbar();
-		}
-		
-		return toolbar;
-	}
-	
-	/**
-	 * Returns active part toolbar, if null, SWTLayerException is thrown
+	 * Returns instance of this {@link ToolBarLookup}.
 	 * 
-	 * @return active part (editor or view) toolbar
-	 */	
-	public ToolBar getPartToolbar() {
+	 * @return instance
+	 */
 
+	public static ToolBarLookup getInstance() {
+		if (instance == null) {
+			instance = new ToolBarLookup();
+		}
+		return instance;
+	}
+
+	/**
+	 * Returns ToolBar of currently active View. If no view is active,
+	 * {@link SWTLayerException} is thrown.
+	 * 
+	 * @return found ToolBar.
+	 * @throws SWTLayerException
+	 */
+
+	public ToolBar getViewToolBar() {
 		ToolBar toolbar = Display.syncExec(new ResultRunnable<ToolBar>() {
-
 			@Override
 			public ToolBar run() {
 				ToolBar toolBar = null;
-
-				
 				IWorkbenchPartSite site = PlatformUI.getWorkbench()
 						.getActiveWorkbenchWindow().getActivePage()
 						.getActivePart().getSite();
-
-				IViewSite viewSite = null;
-				IEditorSite editorSite = null;
-				if (site instanceof IViewSite) {
-					viewSite = (IViewSite)site;
-				} else if (site instanceof IEditorSite) {
-					editorSite = (IEditorSite)site;
+				if (!(site instanceof IViewSite)) {
+					throw new SWTLayerException("Active part is not View.");
 				}
-				
-				IToolBarManager toolBarManager = null;
-				if (viewSite != null) {				
-					toolBarManager = viewSite.getActionBars()
+				IViewSite viewSite = (IViewSite) site;
+				IToolBarManager toolBarManager = viewSite.getActionBars()
 						.getToolBarManager();
-				} else {					
-					ToolBar tb = (ToolBar)WidgetLookup.getInstance().activeWidget(null, ToolBar.class, 0);
-					return tb;
-				}
-				
 				if (toolBarManager instanceof ToolBarManager) {
 					toolBar = ((ToolBarManager) toolBarManager).getControl();
 				}
-
 				return toolBar;
-
 			}
-
 		});
-		if (toolbar == null)
-			throw new SWTLayerException("Active workbench toolbar is null");
 		return toolbar;
 	}
-	
+
 	/**
-	 * Returns active shell toolbar
+	 * Searches for first toolbar within currently active control (shell, view,
+	 * ...).
 	 * 
-	 * @return active shell toolbar
+	 * @return first toolbar within currently active control (shell, view, ...).
 	 */
-	public ToolBar getShellToolBar() {
-		ToolBar toolbar = Display.syncExec(new ResultRunnable<ToolBar>() {
-			@Override
-			public ToolBar run() {
-				ToolBar toolbar = (ToolBar)WidgetLookup.getInstance().activeWidget(null, ToolBar.class, 0);
-				
-				return toolbar;
-			}
-		});
-		return toolbar;
+
+	public ToolBar getToolBar() {
+		return getToolBar(null, 0);
+	}
+
+	/**
+	 * Searches for nth toolbar within given {@link ReferencedComposite}.
+	 * 
+	 * @param rc
+	 *            {@link ReferencedComposite} to look into for ToolBar.
+	 * @param index
+	 *            index of found ToolBar.
+	 * @return desired ToolBar.
+	 */
+	public ToolBar getToolBar(ReferencedComposite rc, int index) {
+		return WidgetLookup.getInstance()
+				.activeWidget(rc, ToolBar.class, index);
+	}
+
+	/**
+	 * Searches for nth ToolBar within WorkbenchToolBars.
+	 * 
+	 * @param index
+	 *            index of desired ToolBar.
+	 * @return ToolBar.
+	 * @throws SWTLayerException
+	 *             when there is no ToolBar with given index in workbench tool
+	 *             bars.
+	 */
+	public ToolBar getWorkbenchToolBar(int index) {
+		try {
+			return getWorkbenchToolBars().get(index);
+		} catch (ArrayIndexOutOfBoundsException cause) {
+			throw new SWTLayerException(
+					"There is no workbench toolbar with index " + index, cause);
+		}
 	}
 
 	/**
@@ -121,7 +129,7 @@ public class ToolBarLookup {
 	 * 
 	 * @return active workbench toolbars
 	 */
-	public ToolBar[] getWorkbenchToolBars() {
+	public List<ToolBar> getWorkbenchToolBars() {
 
 		ToolBar[] toolbars = Display.syncExec(new ResultRunnable<ToolBar[]>() {
 
@@ -149,7 +157,6 @@ public class ToolBarLookup {
 						if (itbm instanceof ToolBarManager) {
 							ToolBarManager tbm = (ToolBarManager) itbm;
 							ToolBar tb = tbm.getControl();
-							
 							if (tb == null)
 								continue;
 							toolBars.add(tb);
@@ -164,26 +171,59 @@ public class ToolBarLookup {
 		});
 		if (toolbars.length == 0)
 			throw new SWTLayerException("No Workbench Toolbars were found");
-		return toolbars;
+		return Arrays.asList(toolbars);
+	}
+
+	/**
+	 * Searches for all ToolBars within given {@link ReferencedComposite}.
+	 * 
+	 * @param rc {@link ReferencedComposite} to look into.
+	 * @return array of found ToolBars.
+	 */
+	
+	public List<ToolBar> getToolbars(ReferencedComposite rc) {
+		List<ToolBar> list = new ArrayList<ToolBar>();
+		boolean found = true;
+		int index = 0;
+		do {
+			try {
+				list.add(WidgetLookup.getInstance().activeWidget(rc,
+						ToolBar.class, index));
+				index++;
+			} catch (SWTLayerException ex) {
+				found = false;
+			}
+		} while (found);
+		return list;
 	}
 
 	/**
 	 * Returns ToolItem from given toolbar with given matcher
+	 * 
 	 * @param toolBar
 	 * @param text
 	 * @return
+	 * 
+	 * @deprecated Please use
+	 *             {@link ToolItemLookup#getToolItem(ReferencedComposite, int, Matcher...)}
 	 */
-	public ToolItem getToolItem(final ToolBar toolBar, final Matcher<String> matcher) {
+	public ToolItem getToolItem(final ToolBar toolBar,
+			final Matcher<String> matcher) {
 		return getToolItem(toolBar, matcher, 0);
 	}
-	
+
 	/**
-	 * Returns ToolItem from given toolbar with given matcher and index
+	 * Returns ToolItem from given toolbar with given matcher and index.
+	 * 
 	 * @param toolBar
 	 * @param text
 	 * @return
+	 * 
+	 * @deprecated Please use
+	 *             {@link ToolItemLookup#getToolItem(ReferencedComposite, int, Matcher...)}
 	 */
-	public ToolItem getToolItem(final ToolBar toolBar, final Matcher<String> matcher, final int index) {
+	public ToolItem getToolItem(final ToolBar toolBar,
+			final Matcher<String> matcher, final int index) {
 
 		ToolItem item = Display.syncExec(new ResultRunnable<ToolItem>() {
 
@@ -193,14 +233,15 @@ public class ToolBarLookup {
 				ToolItem[] items = toolBar.getItems();
 				for (ToolItem item : items) {
 					if (matcher != null) {
-						if ((item == null) || (item.getToolTipText() == null)) continue;
+						if ((item == null) || (item.getToolTipText() == null))
+							continue;
 						if (matcher.matches(item.getToolTipText())) {
 							if (counter == index) {
 								return item;
 							}
 							counter++;
 						}
-					}else {
+					} else {
 						if (counter == index) {
 							return item;
 						}

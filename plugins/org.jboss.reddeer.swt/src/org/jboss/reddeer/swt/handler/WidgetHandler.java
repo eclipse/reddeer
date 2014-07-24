@@ -786,6 +786,9 @@ public class WidgetHandler {
 			TabFolderHandler.getInstance().setFocus((TabFolder) w);
 		} else if (w instanceof Shell) {
 			ShellHandler.getInstance().setFocus((Shell) w);
+		} else if (w instanceof ToolItem) {
+			//ToolItem can't have focus -> set focus to parent ToolBar
+			setFocus(ToolItemHandler.getInstance().getParent((ToolItem) w));
 		} else {
 			Display.syncExec(new Runnable() {
 				@Override

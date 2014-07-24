@@ -5,10 +5,10 @@ import java.util.Collection;
 
 import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
-import org.jboss.reddeer.swt.impl.toolbar.DefaultToolItem;
+import org.jboss.reddeer.swt.impl.toolbar.ViewToolItem;
 import org.jboss.reddeer.swt.impl.tree.DefaultTree;
 import org.jboss.reddeer.swt.matcher.RegexMatcher;
-import org.jboss.reddeer.swt.matcher.WithTextMatcher;
+import org.jboss.reddeer.swt.matcher.WithTooltipTextMatcher;
 import org.jboss.reddeer.workbench.impl.view.WorkbenchView;
 /**
  * Represents Outline view in Eclipse
@@ -94,8 +94,8 @@ public class OutlineView extends WorkbenchView {
 	}
 	
 	private void clickOnToolTip(String regex) {
-		WithTextMatcher rm = new WithTextMatcher(new RegexMatcher(regex));
-		new DefaultToolItem(rm).click();
+		WithTooltipTextMatcher rm = new WithTooltipTextMatcher(new RegexMatcher(regex));
+		new ViewToolItem(rm).click();
 	}
 	
 }

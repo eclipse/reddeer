@@ -1,6 +1,7 @@
 package org.jboss.reddeer.swt.handler;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
 import org.jboss.reddeer.swt.util.Display;
 import org.jboss.reddeer.swt.util.ResultRunnable;
@@ -66,5 +67,21 @@ public class ToolItemHandler {
 			}
 		});
 		return selectionState;
+	}
+	
+	/**
+	 * Returns ToolBar to which this ToolItem belongs to.
+	 * 
+	 * @param item
+	 * @return
+	 */
+	
+	public ToolBar getParent(final ToolItem item){
+		return Display.syncExec(new ResultRunnable<ToolBar>() {
+			@Override
+			public ToolBar run() {
+				return item.getParent();
+			}
+		});
 	}
 }

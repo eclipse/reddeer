@@ -1,5 +1,6 @@
 package org.jboss.reddeer.swt.api;
 
+import org.jboss.reddeer.swt.reference.ReferencedComposite;
 import org.jboss.reddeer.swt.widgets.Widget;
 
 /**
@@ -8,7 +9,7 @@ import org.jboss.reddeer.swt.widgets.Widget;
  * @author Jiri Peterka
  * 
  */
-public interface Shell extends Widget {
+public interface Shell extends Widget, ReferencedComposite {
 
 	/**
 	 * Returns title of the shell.

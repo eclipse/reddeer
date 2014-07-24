@@ -1,5 +1,6 @@
 package org.jboss.reddeer.swt.impl.toolbar;
 
+import org.eclipse.swt.widgets.Control;
 import org.jboss.reddeer.swt.api.ToolBar;
 import org.jboss.reddeer.swt.handler.WidgetHandler;
 
@@ -8,7 +9,7 @@ import org.jboss.reddeer.swt.handler.WidgetHandler;
  * @author Jiri Peterka
  *
  */
-public abstract class AbstractToolBar implements ToolBar {
+public abstract class AbstractToolBar implements ToolBar{
 
 		
 	protected org.eclipse.swt.widgets.ToolBar toolBar;
@@ -22,5 +23,8 @@ public abstract class AbstractToolBar implements ToolBar {
 		return WidgetHandler.getInstance().isEnabled(toolBar);
 	}
 	
-	
+	@Override
+	public Control getControl() {
+		return toolBar;
+	}
 }

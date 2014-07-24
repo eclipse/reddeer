@@ -1,41 +1,31 @@
 package org.jboss.reddeer.swt.impl.toolbar;
 
-import org.eclipse.swt.widgets.ToolBar;
-import org.eclipse.swt.widgets.ToolItem;
 import org.hamcrest.Matcher;
-import org.jboss.reddeer.swt.exception.Thrower;
-import org.jboss.reddeer.swt.lookup.ToolBarLookup;
-import org.jboss.reddeer.swt.matcher.WithTextMatcher;
+import org.jboss.reddeer.swt.lookup.ToolItemLookup;
+import org.jboss.reddeer.swt.matcher.WithTooltipTextMatcher;
 
 /**
- * Workbench Tool Item implementation 
+ * Workbench Tool Item implementation.
  * @author Jiri Peterka
+ * 
+ * @deprecated since 0.6 Please use {@link DefaultToolItem}.
  *
  */
 public class WorkbenchToolItem extends AbstractToolItem {
 	
 	/**
-	 * Create Workbench ToolItem containing given tooltip 
+	 * Create Workbench ToolItem containing given tooltip.
 	 * @param toolTip
 	 */
 	public WorkbenchToolItem(String toolTip) {
-		this(new WithTextMatcher(toolTip));
+		this(new WithTooltipTextMatcher(toolTip));
 	}	
 	
 	/**
-	 * Create Workbench ToolItem matching given toolTip matcher 
+	 * Create Workbench ToolItem matching given matcher. 
 	 * @param matcher
 	 */
-	public WorkbenchToolItem(Matcher<String> toolTipMatcher) {
-		ToolBarLookup tl = new ToolBarLookup();		
-		ToolBar[] workbenchToolBars = tl.getWorkbenchToolBars();
-		ToolItem ti = null;
-		for (ToolBar t : workbenchToolBars) {
-			ti = tl.getToolItem(t, toolTipMatcher);
-			if (ti != null) break;
-		}
-		Thrower.objectIsNull(ti, "ToolItem matching " + toolTipMatcher.toString() + " cannot be found" );
-		toolItem = ti; 
-		
+	public WorkbenchToolItem(Matcher<String> matcher) {
+		toolItem = ToolItemLookup.getInstance().getWorkbenchToolItem(matcher);
 	}
 }

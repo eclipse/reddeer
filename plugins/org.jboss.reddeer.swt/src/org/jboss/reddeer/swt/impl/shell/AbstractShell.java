@@ -1,6 +1,7 @@
 package org.jboss.reddeer.swt.impl.shell;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.Control;
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.swt.api.Shell;
 import org.jboss.reddeer.swt.condition.ShellWithTextIsActive;
@@ -33,6 +34,11 @@ public abstract class AbstractShell implements Shell {
 		  }	  
 	}
 
+	@Override
+	public Control getControl() {
+		return swtShell;
+	}
+	
 	@Override
 	public String getText() {
 		String text = WidgetHandler.getInstance().getText(swtShell);

@@ -6,7 +6,7 @@ import org.jboss.reddeer.swt.condition.WaitCondition;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.impl.label.DefaultLabel;
 import org.jboss.reddeer.swt.impl.styledtext.DefaultStyledText;
-import org.jboss.reddeer.swt.impl.toolbar.DefaultToolItem;
+import org.jboss.reddeer.swt.impl.toolbar.ViewToolItem;
 import org.jboss.reddeer.swt.matcher.WithTextMatcher;
 import org.jboss.reddeer.swt.wait.TimePeriod;
 import org.jboss.reddeer.swt.wait.WaitUntil;
@@ -45,7 +45,7 @@ public class ConsoleView extends WorkbenchView {
 	 */
 	public void clearConsole() {
 		log.info("Clearing console");
-		new DefaultToolItem("Clear Console").click();
+		new ViewToolItem("Clear Console").click();
 		new WaitUntil(new ConsoleHasText(""));
 		log.info("Console cleared");
 	}
@@ -55,7 +55,8 @@ public class ConsoleView extends WorkbenchView {
 	 */
 	public void removeLaunch() {
 		log.info("Removing launch from console");
-		new DefaultToolItem("Remove Launch").click();
+		activate();
+		new ViewToolItem("Remove Launch").click();
 		log.info("Launch removed");
 	}
 	
@@ -64,7 +65,8 @@ public class ConsoleView extends WorkbenchView {
 	 */
 	public void removeAllTerminatedLaunches() {
 		log.info("Removing terminated launches from console");
-		new DefaultToolItem("Remove All Terminated Launches").click();
+		activate();
+		new ViewToolItem("Remove All Terminated Launches").click();
 		new WaitWhile(new ConsoleHasTextWidget());
 		log.info("Terminated launches cleared");
 	}
@@ -74,7 +76,7 @@ public class ConsoleView extends WorkbenchView {
 	 */
 	public void terminateConsole() {
 		log.info("Terminating console");
-		DefaultToolItem terminate = new DefaultToolItem("Terminate");
+		ViewToolItem terminate = new ViewToolItem("Terminate");
 		if (terminate.isEnabled()) {
 			terminate.click();
 			// wait till the "<terminated" label appears

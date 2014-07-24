@@ -18,15 +18,14 @@ import org.jboss.reddeer.swt.impl.label.DefaultLabel;
 import org.jboss.reddeer.swt.impl.menu.ShellMenu;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.jboss.reddeer.swt.impl.shell.WorkbenchShell;
+import org.jboss.reddeer.swt.impl.toolbar.DefaultToolBar;
 import org.jboss.reddeer.swt.impl.toolbar.DefaultToolItem;
-import org.jboss.reddeer.swt.impl.toolbar.ShellToolBar;
-import org.jboss.reddeer.swt.impl.toolbar.ShellToolItem;
 import org.jboss.reddeer.swt.impl.toolbar.ViewToolBar;
-import org.jboss.reddeer.swt.impl.toolbar.WorkbenchToolItem;
+import org.jboss.reddeer.swt.impl.toolbar.ViewToolItem;
 import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
 import org.jboss.reddeer.swt.matcher.RegexMatcher;
-import org.jboss.reddeer.swt.matcher.WithTextMatcher;
 import org.jboss.reddeer.swt.matcher.WithTextMatchers;
+import org.jboss.reddeer.swt.matcher.WithTooltipTextMatcher;
 import org.jboss.reddeer.workbench.impl.view.WorkbenchView;
 import org.jboss.tools.reddeer.swt.test.model.TestModel;
 import org.junit.Before;
@@ -49,16 +48,16 @@ public class ToolBarTest {
 	@Test 
 	public void workbenchToolBarTest() {
 		
-		ToolItem i = new WorkbenchToolItem("RedDeer SWT WorkbenchToolItem");
+		ToolItem i = new DefaultToolItem(new WorkbenchShell(), "RedDeer SWT WorkbenchToolItem");
 		i.click();
 		assertTrue("ToolItem should be clicked", TestModel.getClickedAndReset());
 	}
 	
 	@Test 
 	public void workbenchToolBarRegexTest() {
-		WithTextMatcher matcher = new WithTextMatcher(
+		WithTooltipTextMatcher matcher = new WithTooltipTextMatcher(
 				new RegexMatcher("RedDeer SWT Workbench.*"));
-		ToolItem i = new WorkbenchToolItem(matcher);
+		ToolItem i = new DefaultToolItem(new WorkbenchShell(), matcher);
 		i.click();
 		assertTrue("ToolItem should be clicked", TestModel.getClickedAndReset());
 	}
@@ -72,22 +71,22 @@ public class ToolBarTest {
 
 	@Test
 	public void testToolItemInViewToolBarFound() {
-		ToolItem i = new DefaultToolItem("RedDeer SWT ViewToolItem");
+		ToolItem i = new ViewToolItem("RedDeer SWT ViewToolItem");
 		assertEquals("RedDeer SWT ViewToolItem", i.getToolTipText());
 	}
 
 	@Test
 	public void testToolItemInViewToolBarClicked() {
-		ToolItem i = new DefaultToolItem("RedDeer SWT ViewToolItem");
+		ToolItem i = new ViewToolItem("RedDeer SWT ViewToolItem");
 		i.click();		
 		assertTrue("ToolItem should be clicked", TestModel.getClickedAndReset());		
 	}
 
 	@Test
 	public void testToolItemInViewToolBarRegexClicked() {
-		WithTextMatcher rm = new WithTextMatcher(
+		WithTooltipTextMatcher rm = new WithTooltipTextMatcher(
 				new RegexMatcher("RedDeer SWT View.*"));
-		ToolItem i = new DefaultToolItem(rm);
+		ToolItem i = new ViewToolItem(rm);
 		i.click();
 		assertTrue("ToolItem should be clicked", TestModel.getClickedAndReset());		
 	}
@@ -95,7 +94,7 @@ public class ToolBarTest {
 	@Test
 	public void testShellToolBar() {
 		openPreferences();
-		ToolBar t = new ShellToolBar();
+		final ToolBar t = new DefaultToolBar();
 		assertNotNull(t);
 		closePreferences();	
 	}
@@ -103,7 +102,7 @@ public class ToolBarTest {
 	@Test
 	public void testToolItemInShellToolBarFound() {
 		openPreferences();
-		ToolItem ti = new ShellToolItem();
+		ToolItem ti = new DefaultToolItem();
 		assertNotNull(ti);
 		closePreferences();	
 	}
@@ -114,7 +113,7 @@ public class ToolBarTest {
 		assertThat(new DefaultCLabel().getText(), Is.is("General"));
 		new DefaultTreeItem(1).select();
 		assertThat(new DefaultLabel().getText(), IsNot.not("General"));
-		ToolItem ti = new ShellToolItem();
+		ToolItem ti = new DefaultToolItem();
 		ti.click();
 		assertThat(new DefaultCLabel().getText(), Is.is("General"));
 		closePreferences();		
@@ -124,8 +123,8 @@ public class ToolBarTest {
 	public void testToolItemInShellToolBarRegexClicked() {
 		openPreferences();
 		new DefaultTreeItem(1).select();
-		ToolItem ti = new ShellToolItem(new WithTextMatcher(new RegexMatcher(
-				".*ack.*")));
+		ToolItem ti = new DefaultToolItem(new WithTooltipTextMatcher(
+				new RegexMatcher(".*ack.*")));
 		assertNotNull(ti);
 		closePreferences();			
 	}

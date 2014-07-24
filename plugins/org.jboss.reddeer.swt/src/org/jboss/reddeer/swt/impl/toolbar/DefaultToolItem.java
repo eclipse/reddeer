@@ -1,40 +1,141 @@
 package org.jboss.reddeer.swt.impl.toolbar;
 
-import org.eclipse.swt.widgets.ToolBar;
-import org.eclipse.swt.widgets.ToolItem;
 import org.hamcrest.Matcher;
-import org.jboss.reddeer.swt.exception.SWTLayerException;
-import org.jboss.reddeer.swt.exception.Thrower;
-import org.jboss.reddeer.swt.lookup.ToolBarLookup;
-import org.jboss.reddeer.swt.matcher.WithTextMatcher;
+import org.jboss.reddeer.swt.lookup.ToolItemLookup;
+import org.jboss.reddeer.swt.matcher.WithTooltipTextMatcher;
+import org.jboss.reddeer.swt.reference.ReferencedComposite;
 
 /**
- * Default ToolBar implementation. It expect that shell , view or editor where ToolBar item should be found 
+ * Default ToolItem implementation.
+ * 
  * @author Jiri Peterka
+ * @author Radim Hopp
  *
  */
 public class DefaultToolItem extends AbstractToolItem {
- 
-		
+
 	/**
-	 * Lookup for ToolItem with given Tooltip
-	 * @param tooltip assigned to a ToolItem
+	 * Default constructor creating first ToolItem in active worbkench/shell.
+	 * 
+	 */
+
+	public DefaultToolItem() {
+		this(null, 0);
+	}
+
+	/**
+	 * Constructor for first ToolItem inside given {@link ReferencedComposite}.
+	 * 
+	 * @param rc
+	 *            {@link ReferencedComposite} to look into for this ToolItem.
+	 */
+
+	public DefaultToolItem(ReferencedComposite rc) {
+		this(rc, 0);
+	}
+
+	/**
+	 * Constructor for ToolItem with given tooltip.
+	 * 
+	 * @param tooltip
+	 *            assigned to a ToolItem
 	 */
 	public DefaultToolItem(String tooltip) {
-		this(new WithTextMatcher(tooltip));
+		this(new WithTooltipTextMatcher(tooltip));
 	}
-	
-	public DefaultToolItem(Matcher<String> matcher) {
-		ToolBarLookup tl = new ToolBarLookup();
-		ToolBar toolBar = tl.getDefaultToolbar();
-		if (toolBar == null)
-			throw new SWTLayerException("Default toolbar is null");
 
+	/**
+	 * Constructor for ToolItem matching given matchers.
+	 * 
+	 * @param matcher
+	 *            Matcher to match desired ToolItem.
+	 */
 
-		ToolItem ti = null;
-		ti = tl.getToolItem(toolBar, matcher);			
-		
-		Thrower.objectIsNull(ti, "ToolItem with toolTip " + matcher.toString() + " cannot be found" );
-		toolItem = ti;
+	public DefaultToolItem(Matcher<?> matcher) {
+		this(null, 0, matcher);
+	}
+
+	/**
+	 * Constructor for nth ToolItem in active worbkench/shell.
+	 * 
+	 * @param index
+	 *            Index of ToolItem
+	 */
+
+	public DefaultToolItem(int index) {
+		this(null, index);
+	}
+
+	/**
+	 * Constructor for nth ToolItem with given tooltip in active
+	 * workbench/shell.
+	 * 
+	 * @param index
+	 *            Index of ToolItem matching given tooltip.
+	 * @param tooltip
+	 *            Tooltip to look for.
+	 */
+
+	public DefaultToolItem(int index, String tooltip) {
+		this(null, index, new WithTooltipTextMatcher("tooltip"));
+	}
+
+	/**
+	 * Constructor for ToolItem withing given ReferencedComposite matching given
+	 * matcher.
+	 * 
+	 * @param rc
+	 *            {@link ReferencedComposite} to look into for this ToolItem.
+	 * @param matcher
+	 *            Matcher to match desired ToolItem.
+	 */
+
+	public DefaultToolItem(ReferencedComposite rc, Matcher<?> matcher) {
+		this(rc, 0, matcher);
+	}
+
+	/**
+	 * Constructor for ToolItem with given tooltip inside given
+	 * {@link ReferencedComposite}.
+	 * 
+	 * @param rc
+	 *            {@link ReferencedComposite} to look into for this ToolItem.
+	 * @param tooltip
+	 *            Tooltip to look for.
+	 */
+
+	public DefaultToolItem(ReferencedComposite rc, String tooltip) {
+		this(rc, 0, new WithTooltipTextMatcher(tooltip));
+	}
+
+	/**
+	 * Constructor for nth ToolItem inside given {@link ReferencedComposite}.
+	 * 
+	 * @param rc
+	 *            {@link ReferencedComposite} to look into for this ToolItem.
+	 * @param index
+	 *            Index of ToolItem within given {@link ReferencedComposite}
+	 */
+
+	public DefaultToolItem(ReferencedComposite rc, int index) {
+		toolItem = ToolItemLookup.getInstance().getToolItem(rc, index);
+	}
+
+	/**
+	 * Constructor for nth ToolItem matching provided matchers inside given
+	 * {@link ReferencedComposite}.
+	 * 
+	 * @param rc
+	 *            {@link ReferencedComposite} to look into for this ToolItem.
+	 * @param index
+	 *            Index of ToolItem.
+	 * @param matchers
+	 *            Matcher to match desired ToolItem.
+	 */
+
+	public DefaultToolItem(ReferencedComposite rc, int index,
+			Matcher<?>... matchers) {
+		toolItem = ToolItemLookup.getInstance()
+				.getToolItem(rc, index, matchers);
 	}
 }
