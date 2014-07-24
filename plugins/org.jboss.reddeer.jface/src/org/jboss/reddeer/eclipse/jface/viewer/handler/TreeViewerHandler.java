@@ -152,7 +152,7 @@ public class TreeViewerHandler {
 						
 						tmpStyledTexts[i] = rawText.substring(range.start, range.start +
 								range.length).trim();
-						currentTextIndex = range.start + range.length + 1;
+						currentTextIndex = range.start + range.length;
 						i++;
 					}
 					
