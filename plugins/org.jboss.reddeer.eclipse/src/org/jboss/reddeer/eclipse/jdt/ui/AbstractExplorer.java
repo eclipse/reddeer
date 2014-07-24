@@ -5,8 +5,17 @@ import java.util.List;
 
 import org.jboss.reddeer.eclipse.exception.EclipseLayerException;
 import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.Project;
+import org.jboss.reddeer.eclipse.utils.DeleteUtils;
+import org.jboss.reddeer.swt.api.Tree;
 import org.jboss.reddeer.swt.api.TreeItem;
+import org.jboss.reddeer.swt.condition.JobIsRunning;
+import org.jboss.reddeer.swt.impl.button.CheckBox;
+import org.jboss.reddeer.swt.impl.button.PushButton;
+import org.jboss.reddeer.swt.impl.menu.ContextMenu;
+import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.jboss.reddeer.swt.impl.tree.DefaultTree;
+import org.jboss.reddeer.swt.wait.TimePeriod;
+import org.jboss.reddeer.swt.wait.WaitWhile;
 import org.jboss.reddeer.workbench.impl.view.WorkbenchView;
 
 /**
@@ -49,6 +58,17 @@ public class AbstractExplorer extends WorkbenchView {
 	}
 	
 	/**
+	 * Select all projects
+	 */
+	public void selectAllProjects(){
+		Tree projectsTree = getTree();
+		List<TreeItem> projects = projectsTree.getItems();
+		if(projects.size() > 0){
+			projectsTree.selectItems(projects.toArray(new TreeItem[projects.size()]));
+		}
+	}
+	
+	/**
 	 * Check if project exists in explorer
 	 * @param projectName given project name to be checked
 	 * @return true if project exists and false if not
@@ -75,6 +95,32 @@ public class AbstractExplorer extends WorkbenchView {
 			projects.add(new Project(item));
 		}
 		return projects;
+	}
+	
+	/**
+	 * Removes all projects from file system.
+	 */
+	public void deleteAllProjects(){
+		deleteAllProjects(true);
+	}
+	
+	/**
+	 * Removes all projects.
+	 * @param deleteFromFileSystem true if project should be deleted from file system, false otherwise
+	 */
+	public void deleteAllProjects(boolean deleteFromFileSystem){
+		if(getProjects().size() > 0){
+			selectAllProjects();
+			new ContextMenu("Refresh").select();
+			new WaitWhile(new JobIsRunning(), TimePeriod.VERY_LONG);
+			new ContextMenu("Delete").select();
+			new DefaultShell("Delete Resources");
+			new CheckBox().toggle(deleteFromFileSystem);
+			DefaultShell shell = new DefaultShell();
+			String deleteShellText = shell.getText();
+			new PushButton("OK").click();
+			DeleteUtils.handleDeletion(deleteShellText);
+		}
 	}
 
 	/**
