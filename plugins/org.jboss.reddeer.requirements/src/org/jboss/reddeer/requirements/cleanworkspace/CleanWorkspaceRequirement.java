@@ -5,10 +5,8 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
-import java.util.List;
 
 import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.PackageExplorer;
-import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.Project;
 import org.jboss.reddeer.junit.requirement.Requirement;
 import org.jboss.reddeer.requirements.cleanworkspace.CleanWorkspaceRequirement.CleanWorkspace;
 
@@ -62,10 +60,7 @@ public class CleanWorkspaceRequirement implements Requirement<CleanWorkspace> {
 	public void fulfill() {	
 		PackageExplorer packageExplorer = new PackageExplorer();
 		packageExplorer.open();
-		List<Project> projects = packageExplorer.getProjects();
-		for (Project project : projects) {
-			project.delete(true);
-		}
+		packageExplorer.deleteAllProjects();
 	}
 
 	/**
