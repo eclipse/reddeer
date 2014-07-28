@@ -8,10 +8,13 @@ import java.util.List;
 
 import org.jboss.reddeer.eclipse.rse.ui.view.System;
 import org.jboss.reddeer.eclipse.rse.ui.wizard.NewConnectionWizardSelectionPage.SystemType;
+import org.jboss.reddeer.eclipse.ui.perspectives.JavaPerspective;
+import org.jboss.reddeer.requirements.openperspective.OpenPerspectiveRequirement.OpenPerspective;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.junit.Before;
 import org.junit.Test;
 
+@OpenPerspective(JavaPerspective.class)
 public class SystemTest extends SystemViewTestCase {
 	
 	private static final String SYSTEM_1 = "system1";

@@ -45,6 +45,12 @@ public class OpenPerspectiveRequirement implements Requirement<OpenPerspective> 
 		 * specified perspective
 		 */
 		Class<? extends AbstractPerspective> value();
+		
+		/**
+		 * If true, perspective will be reset to default. 
+		 * @return
+		 */
+		boolean reset() default true;
 	}
 
 	private OpenPerspective openPerspective;
@@ -79,7 +85,12 @@ public class OpenPerspectiveRequirement implements Requirement<OpenPerspective> 
 	@Override
 	public void fulfill() {
 		try {
-			getPerspectiveInstance().open();
+			AbstractPerspective perspective = getPerspectiveInstance();
+			perspective.open();
+			
+			if (openPerspective.reset()){
+				perspective.reset();				
+			}
 		} catch (Exception e) {
 			throw new RequirementsLayerException(
 					"Unable to fullffill requirement 'Open Perspective'", e);
