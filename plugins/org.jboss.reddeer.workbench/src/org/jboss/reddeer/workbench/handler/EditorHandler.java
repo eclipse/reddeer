@@ -5,6 +5,9 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.jdt.internal.ui.javaeditor.CompilationUnitDocumentProvider.ProblemAnnotation;
+import org.eclipse.jface.text.BadLocationException;
+import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.source.IAnnotationModel;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IWorkbenchWindow;
@@ -19,6 +22,7 @@ import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.jboss.reddeer.swt.util.Display;
 import org.jboss.reddeer.swt.util.ResultRunnable;
 import org.jboss.reddeer.swt.wait.WaitWhile;
+import org.jboss.reddeer.workbench.exception.WorkbenchLayerException;
 import org.jboss.reddeer.workbench.impl.editor.Marker;
 
 /**
@@ -181,6 +185,19 @@ public class EditorHandler {
             if (o instanceof SimpleMarkerAnnotation) {
                 SimpleMarkerAnnotation annotation = (SimpleMarkerAnnotation) o;
                 markers.add(new Marker(annotation));
+            //AYT markers, editor must be dirty otherwise AYT markers are found also for saved editor.    
+            } else if (o instanceof ProblemAnnotation && editor.isDirty()){
+            	ProblemAnnotation annotation = (ProblemAnnotation) o;
+            	IDocument doc = documentProvider.getDocument(editor.getEditorInput());
+            	int offset = model.getPosition(annotation).getOffset();
+            	int line = -1;
+            	try {
+            		line = doc.getLineOfOffset(offset);
+            	} catch (BadLocationException e) {
+            		throw new WorkbenchLayerException("Unable to find line number for AYT marker", e);
+            	}
+            	Marker marker = new Marker(annotation, line);
+            	markers.add(marker);
             }
         }
         return markers;

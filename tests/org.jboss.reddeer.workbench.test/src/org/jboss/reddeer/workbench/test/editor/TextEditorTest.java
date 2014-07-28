@@ -200,8 +200,20 @@ public class TextEditorTest {
 		textEditor.setText(textEditor.getText().replace("System", "Systemx"));
 		textEditor.save();
 		AbstractWait.sleep(TimePeriod.SHORT);
-		assertTrue(textEditor.getMarkers().size() == 1);
-		assertTrue(textEditor.getMarkers().get(0).getText().equals("Systemx cannot be resolved"));
+		assertEquals(1,textEditor.getMarkers().size());
+		assertEquals("Systemx cannot be resolved", textEditor.getMarkers().get(0).getText());
+	}
+	
+	@Test
+	public void getAYTMarkers(){
+		openJavaFile();
+		TextEditor textEditor = new TextEditor();
+		textEditor.setText(textEditor.getText().replace("System", "Systemx"));
+		//textEditor.save();
+		AbstractWait.sleep(TimePeriod.SHORT);
+		assertEquals(1,textEditor.getMarkers().size());
+		assertEquals("Systemx cannot be resolved",textEditor.getMarkers().get(0).getText());
+		assertEquals(4, textEditor.getMarkers().get(0).getLineNumber());
 	}
 
 	@Test
