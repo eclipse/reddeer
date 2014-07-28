@@ -8,13 +8,14 @@ import org.jboss.reddeer.common.context.ExecutionSetting;
 
 /**
  * Simple console logger for Reddeer
+ * 
  * @author Jiri Peterka
  *
  */
 public class Logger {
 
 	private DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss.SSS");
-		
+
 	private static final String error = "ERROR";
 	private static final String warning = "WARNING";
 	private static final String debug = "DEBUG";
@@ -22,20 +23,22 @@ public class Logger {
 	private static final String info = "INFO";
 	private static final String dump = "DUMP";
 	private static final String fatal = "FATAL";
-	
+
 	private Class<? extends Object> loggerClass;
-	
+
 	/**
 	 * Returns logger based on given class
+	 * 
 	 * @param c given class
 	 * @return logger instance
 	 */
-	public static Logger getLogger(Class<? extends Object> c) { 
+	public static Logger getLogger(Class<? extends Object> c) {
 		return new Logger(c);
 	}
-	
+
 	/**
 	 * Create Logger based on given class
+	 * 
 	 * @param c given class
 	 */
 	public Logger(Class<? extends Object> c) {
@@ -44,12 +47,13 @@ public class Logger {
 
 	/**
 	 * log debug message
+	 * 
 	 * @param msg message
 	 */
 	public void debug(String msg) {
 		if (ExecutionSetting.getInstance().isDebugEnabled()) {
-			print(debug,msg);
-		}		
+			print(debug, msg, MessageType.DEBUG);
+		}
 	}
 
 	/**
@@ -65,19 +69,21 @@ public class Logger {
 
 	/**
 	 * log trace message
+	 * 
 	 * @param msg message
 	 */
 	public void trace(String msg) {
 		if (ExecutionSetting.getInstance().isDebugEnabled()) {
-			print(trace,msg);
-		}		
+			print(trace, msg, MessageType.TRACE);
+		}
 	}
 
 	/**
 	 * Log trace message using formatting string and arguments
 	 *
 	 * @param fmtString Formatting string
-	 * @param args Arguments
+	 * @param args
+	 *            Arguments
 	 * @see java.lang.String#format(String, Object...)
 	 */
 	public void trace(String fmtString, Object... args) {
@@ -86,10 +92,11 @@ public class Logger {
 
 	/**
 	 * log warning message
+	 * 
 	 * @param msg message
 	 */
 	public void warn(String msg) {
-		print(warning,msg);
+		print(warning, msg, MessageType.WARN);
 	}
 
 	/**
@@ -105,10 +112,12 @@ public class Logger {
 
 	/**
 	 * log error message
-	 * @param msg message
+	 * 
+	 * @param msg
+	 *            message
 	 */
 	public void error(String msg) {
-		print(error,msg);
+		print(error, msg, MessageType.ERROR);
 	}
 
 	/**
@@ -124,16 +133,18 @@ public class Logger {
 
 	/**
 	 * log error message
+	 * 
 	 * @param msg message
 	 * @param t throwable
 	 */
 	public void error(String msg, Throwable t) {
-		print(error,msg);
+		print(error, msg, MessageType.ERROR);
 		printStackTraceRecursive(t);
 	}
 
 	/**
-	 * Log error message using formatting string and arguments, and log corresponding exception
+	 * Log error message using formatting string and arguments, and logs
+	 * corresponding exception
 	 *
 	 * @param fmtString Formatting string
 	 * @param args Arguments
@@ -146,10 +157,11 @@ public class Logger {
 
 	/**
 	 * log info message
+	 * 
 	 * @param msg message
 	 */
 	public void info(String msg) {
-		print(info,msg);
+		print(info, msg, MessageType.INFO);
 	}
 
 	/**
@@ -165,10 +177,11 @@ public class Logger {
 
 	/**
 	 * log dump message
+	 * 
 	 * @param msg message
 	 */
 	public void dump(String msg) {
-		print(dump,msg);
+		print(dump, msg, MessageType.DUMP);
 	}
 
 	/**
@@ -184,10 +197,11 @@ public class Logger {
 
 	/**
 	 * log fatal message
+	 * 
 	 * @param msg message
 	 */
 	public void fatal(String msg) {
-		print(fatal,msg);
+		print(fatal, msg, MessageType.FATAL);
 	}
 
 	/**
@@ -200,30 +214,33 @@ public class Logger {
 	public void fatal(String fmtString, Object... args) {
 		fatal(String.format(fmtString, args));
 	}
-	
-	private void print(String severity, String msg) {
+
+	private void print(String severity, String msg, int type) {
+		if ((type & ExecutionSetting.getInstance().getLogMessageFilter()) != type)
+			return;
+
 		StringBuilder sb = new StringBuilder();
 		if (ExecutionSetting.getInstance().isDebugEnabled()) {
-			sb.append(dateFormat.format(new Date()) + " "); 
-		}				
-		
+			sb.append(dateFormat.format(new Date()) + " ");
+		}
+
 		sb.append(severity);
 		sb.append(" [");
 		sb.append(getThreadName());
 		sb.append("]");
-		sb.append("[");		
+		sb.append("[");
 		sb.append(loggerClass.getSimpleName());
 		sb.append("] ");
 		sb.append(msg);
 		System.out.println(sb.toString());
 	}
-	
+
 	private String getThreadName() {
 		return Thread.currentThread().getName();
 	}
-	
+
 	private void printStackTraceRecursive(Throwable t) {
-		if ((t != null) && ( t.getStackTrace() != null)) {
+		if ((t != null) && (t.getStackTrace() != null)) {
 			t.printStackTrace();
 			printStackTraceRecursive(t.getCause());
 		}

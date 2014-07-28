@@ -8,9 +8,11 @@ import org.eclipse.core.runtime.Platform;
  * @author Jiri Peterka
  * @since 0.6
  */
-public class RunningPlatform {
+public final class RunningPlatform {
 	
 	private static final String CURRENT_OS = Platform.getOS().toLowerCase();
+	
+	private RunningPlatform() {};
 
 	/**
 	 * Checks if Operating system family belongs to given OS family
