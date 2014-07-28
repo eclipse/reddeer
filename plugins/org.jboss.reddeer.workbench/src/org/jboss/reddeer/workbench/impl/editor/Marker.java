@@ -1,6 +1,7 @@
 package org.jboss.reddeer.workbench.impl.editor;
 
 import org.eclipse.core.resources.IMarker;
+import org.eclipse.jdt.internal.ui.javaeditor.CompilationUnitDocumentProvider.ProblemAnnotation;
 import org.eclipse.ui.texteditor.SimpleMarkerAnnotation;
 
 /**
@@ -25,6 +26,17 @@ public class Marker {
 		} catch (Exception e){
 			this.lineNumber = -1;
 		}
+	}
+	
+	/**
+	 * Constructor used for AYT markers.
+	 * @param annotation AYT marker annotation
+	 * @param lineNumber line number where AYT marker is. Can't be extracted from annotation.
+	 */
+	public Marker(ProblemAnnotation annotation, int lineNumber){
+		this.text = annotation.getText();
+		this.type = annotation.getType();
+		this.lineNumber = lineNumber;
 	}
 
 	/**
