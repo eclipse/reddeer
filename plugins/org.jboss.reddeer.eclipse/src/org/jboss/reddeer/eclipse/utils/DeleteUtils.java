@@ -42,8 +42,6 @@ public class DeleteUtils {
 		public ShellWithButton(String title, String buttonLabel) {
 			super(lookForShellWIthButton(title, buttonLabel));
 			setFocus();
-			log.info("Shell with title '" + title + "' and button '"
-					+ buttonLabel + "' found");
 		}
 
 	}

@@ -11,7 +11,7 @@ import org.jboss.reddeer.swt.handler.TableItemHandler;
 import org.jboss.reddeer.swt.handler.WidgetHandler;
 
 public class AbstractTableItem implements TableItem {
-	protected final Logger log = Logger.getLogger(this.getClass());
+	private static final Logger log = Logger.getLogger(AbstractTableItem.class);
 	protected org.eclipse.swt.widgets.TableItem tableItem;
 	
 	protected AbstractTableItem(org.eclipse.swt.widgets.TableItem swtTableItem){
@@ -28,7 +28,7 @@ public class AbstractTableItem implements TableItem {
 	 */
 	@Override
 	public void setChecked(final boolean check) {
-		log.info((check ? "Check" : "Uncheck") + "Table Item " + getText()
+		log.info((check ? "Check" : "Uncheck") + " table item " + getText()
 				+ ":");
 		TableItemHandler.getInstance().setChecked(tableItem, check);
 	}
@@ -75,11 +75,13 @@ public class AbstractTableItem implements TableItem {
 	
 	@Override
 	public void doubleClick(){
+		log.info("Double click table item " + getText());
 		TableHandler.getInstance().doubleClick(tableItem, 0);
 	}
 	
 	@Override
 	public void doubleClick(int column){
+		log.info("Double click column " + column + " of table item " + getText());
 		TableHandler.getInstance().doubleClick(tableItem, column);
 	}
 

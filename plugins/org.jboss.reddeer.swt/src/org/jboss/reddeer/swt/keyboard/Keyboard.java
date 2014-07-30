@@ -16,7 +16,7 @@ import org.jboss.reddeer.swt.util.Display;
 
 abstract public class Keyboard {
 	
-	protected static final Logger log = Logger.getLogger(Keyboard.class);
+	private static final Logger log = Logger.getLogger(Keyboard.class);
 	
 	private static final int DELAY = 150;
 	
@@ -29,10 +29,10 @@ abstract public class Keyboard {
 	
 	public void invokeKeyCombination(int... keys){
 		final Widget w = WidgetLookup.getInstance().getFocusControl();
-		log.debug("Invoking keys: ");
+		log.info("Invoke key combination: ");
 		for (int i=0; i<keys.length; i++){
 			delay(DELAY);
-			log.debug("    As char:"+(char)keys[i]+", as int:"+keys[i]);
+			log.info("    As char:" + (char) keys[i] + ", as int:" + keys[i]);
 			Display.getDisplay().post(keyEvent(keys[i], SWT.KeyDown, w));
 		}
 		for (int i=keys.length-1; i>=0; i--){
@@ -48,7 +48,7 @@ abstract public class Keyboard {
 	 */
 	
 	public void type(String text){
-		log.debug("Typing text \""+text+"\"");
+		log.info("Type text \"" + text + "\"");
 		for (char c : text.toCharArray()) {
 			invokeKeyCombination(DefaultKeyboardLayout.getInstance().getKeyCombination(c));
 		}
@@ -60,6 +60,7 @@ abstract public class Keyboard {
 	 */
 	
 	public void type(int c){
+		log.info("Type character '" + (char) c + "', as int:" + c);
 		press(c);
 		release(c);
 	}
@@ -73,9 +74,9 @@ abstract public class Keyboard {
 	
 	public void select(int shift, boolean toLeft){
 		if (toLeft){
-			log.debug("Selecting "+shift+" characters to the left");
+			log.info("Select "+shift+" characters to the left");
 		}else{
-			log.debug("Selecting "+shift+" characters to the right");
+			log.info("Select "+shift+" characters to the right");
 		}
 		press(SWT.SHIFT);
 		moveCursor(shift, toLeft);
@@ -89,6 +90,7 @@ abstract public class Keyboard {
 	 */
 	
 	public void moveCursor(int shift, boolean toLeft){
+		log.info("Move cursor");
 		for (int i=0; i<shift; i++){
 			if (toLeft){
 				type(SWT.ARROW_LEFT);
@@ -115,6 +117,7 @@ abstract public class Keyboard {
 	
 	
 	protected void press(final int key){
+		log.debug("Press character '" + (char) key + "', as int:" + key);
 		final Widget w = WidgetLookup.getInstance().getFocusControl();
 		Display.syncExec(new Runnable() {
 			
@@ -127,6 +130,7 @@ abstract public class Keyboard {
 	}
 	
 	protected void release(final int key){
+		log.debug("Release character '" + (char) key + "', as int:" + key);
 		final Widget w = WidgetLookup.getInstance().getFocusControl();
 		Display.syncExec(new Runnable() {
 			

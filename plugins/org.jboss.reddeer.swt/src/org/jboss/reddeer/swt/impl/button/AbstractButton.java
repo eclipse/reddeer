@@ -6,8 +6,8 @@ import java.util.List;
 
 import org.eclipse.swt.SWT;
 import org.hamcrest.Matcher;
-import org.jboss.reddeer.common.platform.RunningPlatform;
 import org.jboss.reddeer.common.logging.Logger;
+import org.jboss.reddeer.common.platform.RunningPlatform;
 import org.jboss.reddeer.swt.api.Button;
 import org.jboss.reddeer.swt.condition.WidgetIsEnabled;
 import org.jboss.reddeer.swt.handler.ButtonHandler;
@@ -26,19 +26,13 @@ import org.jboss.reddeer.swt.wait.WaitUntil;
  */
 public abstract class AbstractButton implements Button {
 
-	protected final Logger log = Logger.getLogger(this.getClass());
+	private static final Logger log = Logger.getLogger(AbstractButton.class);
 
 	protected org.eclipse.swt.widgets.Button swtButton;
 	
 	@SuppressWarnings("rawtypes")
 	protected AbstractButton (ReferencedComposite refComposite, int index , String text, int style, Matcher... matchers){
 		
-        log.info("Searching for Button:"
-                + "\n  index: " + index
-                + "\n  label: " + text
-                + "\n  style: " + style);
-        
-        
 		List<Matcher> list= new ArrayList<Matcher>();
 		if (text != null && !text.isEmpty()) {
 			list.add(new WithMnemonicTextMatcher(text));
@@ -60,10 +54,7 @@ public abstract class AbstractButton implements Button {
 
 	@Override
 	public void click() {
-		log.info("Click on the button "
-				+ (getText() != null ? getText() : (
-						getToolTipText() != null ? getToolTipText()
-						: "with no text or tooltip")));
+		log.info("Click button " + getDescriptiveText());
 		new WaitUntil(new WidgetIsEnabled(this));
 		ButtonHandler.getInstance().click(swtButton);
 	}
@@ -94,5 +85,16 @@ public abstract class AbstractButton implements Button {
 
 	public org.eclipse.swt.widgets.Button getSWTWidget(){
 		return swtButton;
+	}
+	
+	/**
+	 * Returns some text identification of button - 
+	 * either text, tooltip text or info that no text is available. 
+	 * Used in logging. 
+	 */
+	protected String getDescriptiveText() {
+		return getText() != null ? getText() : (
+				getToolTipText() != null ? getToolTipText()
+				: "with no text or tooltip");
 	}
 }

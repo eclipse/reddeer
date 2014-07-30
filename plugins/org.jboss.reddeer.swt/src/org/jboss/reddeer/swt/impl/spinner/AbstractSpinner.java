@@ -1,5 +1,6 @@
 package org.jboss.reddeer.swt.impl.spinner;
 
+import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.swt.api.Spinner;
 import org.jboss.reddeer.swt.handler.SpinnerHandler;
 import org.jboss.reddeer.swt.handler.WidgetHandler;
@@ -12,6 +13,8 @@ import org.jboss.reddeer.swt.handler.WidgetHandler;
  */
 public abstract class AbstractSpinner implements Spinner {
 
+	private static final Logger log = Logger.getLogger(AbstractSpinner.class);
+	
 	protected org.eclipse.swt.widgets.Spinner swtSpinner;
 
 	@Override
@@ -21,6 +24,7 @@ public abstract class AbstractSpinner implements Spinner {
 
 	@Override
 	public void setValue(int value) {
+		log.info("Set spinner value to " + value);
 		SpinnerHandler.getInstance().setValue(swtSpinner, value);
 	}
 	

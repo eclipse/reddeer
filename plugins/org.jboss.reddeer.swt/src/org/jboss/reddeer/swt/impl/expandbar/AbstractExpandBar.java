@@ -16,7 +16,7 @@ import org.jboss.reddeer.swt.handler.WidgetHandler;
  */
 public abstract class AbstractExpandBar implements ExpandBar {
 
-	protected final Logger logger = Logger.getLogger(this.getClass());
+	private static final Logger logger = Logger.getLogger(AbstractExpandBar.class);
 
 	protected org.eclipse.swt.widgets.ExpandBar swtExpandBar;
 
@@ -55,6 +55,7 @@ public abstract class AbstractExpandBar implements ExpandBar {
 	 */
 	@Override
 	public void expandAll() {
+		logger.info("Expand all expand bar items");
 		for (ExpandBarItem expandBarItem : getItems()){
 			expandBarItem.expand();
 		}
@@ -64,6 +65,7 @@ public abstract class AbstractExpandBar implements ExpandBar {
 	 */
 	@Override
 	public void collapseAll() {
+		logger.info("Collapse all expand bar items");
 		for (ExpandBarItem expandBarItem : getItems()){
 			expandBarItem.collapse();
 		}

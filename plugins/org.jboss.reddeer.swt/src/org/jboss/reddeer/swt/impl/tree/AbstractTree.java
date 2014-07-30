@@ -12,7 +12,7 @@ import org.jboss.reddeer.swt.handler.WidgetHandler;
 
 public abstract class AbstractTree implements Tree {
 
-	protected final Logger logger = Logger.getLogger(this.getClass());
+	private static final Logger logger = Logger.getLogger(AbstractTree.class);
 
 	protected org.eclipse.swt.widgets.Tree swtTree;
 
@@ -48,6 +48,9 @@ public abstract class AbstractTree implements Tree {
 	}
 
 	public void selectItems(final TreeItem... treeItems) {
+		// Tree items should be logged, however, the names needs to 
+		// be retrieved in UI thread so it might be a performance issue
+		logger.info("Select specified tree items");
 		treeHandler.selectItems(treeItems);
 	}
 
@@ -63,6 +66,7 @@ public abstract class AbstractTree implements Tree {
 	}
 
 	public void unselectAllItems() {
+		logger.info("Unselect all tree items");
 		treeHandler.unselectAllItems(swtTree);
 	}
 

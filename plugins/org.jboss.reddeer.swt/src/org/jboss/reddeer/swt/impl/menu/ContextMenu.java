@@ -3,6 +3,7 @@ package org.jboss.reddeer.swt.impl.menu;
 import org.eclipse.jface.action.ActionContributionItem;
 import org.eclipse.swt.widgets.MenuItem;
 import org.hamcrest.Matcher;
+import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.swt.api.Menu;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.handler.ActionContributionItemHandler;
@@ -22,6 +23,7 @@ import org.jboss.reddeer.swt.util.ResultRunnable;
  */
 public class ContextMenu extends AbstractMenu implements Menu {
 	
+	private static final Logger log = Logger.getLogger(ContextMenu.class);
 	private ActionContributionItem item;
 	private MenuItem menuItem;
 	
@@ -56,6 +58,7 @@ public class ContextMenu extends AbstractMenu implements Menu {
 	
 	@Override
 	public void select() {
+		log.info("Select context menu item with text " + getText());
 		MenuLookup l = new MenuLookup();
 		if(menuItem != null){
 			l.select(menuItem);

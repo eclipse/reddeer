@@ -24,7 +24,6 @@ import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.swt.widgets.Widget;
 import org.eclipse.ui.forms.widgets.Hyperlink;
-import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.lookup.WidgetLookup;
 import org.jboss.reddeer.swt.lookup.WidgetResolver;
@@ -40,8 +39,6 @@ import org.jboss.reddeer.swt.util.ResultRunnable;
  * @author Jaroslav Jankovic
  */
 public class WidgetHandler {
-
-	private final Logger log = Logger.getLogger(this.getClass());
 
 	private static WidgetHandler instance;
 
@@ -842,8 +839,6 @@ public class WidgetHandler {
 				if (w instanceof Combo) {
 					int itemsLength = getItems(w).length;
 					if (index >= itemsLength) {
-						log.error("Combo does not have " + index + 1 + "items!");
-						log.info("Combo has " + itemsLength + " items");
 						throw new SWTLayerException(
 								"Nonexisted item in combo was requested");
 					} else {
@@ -870,14 +865,6 @@ public class WidgetHandler {
 					String[] items = getItems(w);
 					int index = Arrays.asList(items).indexOf(text);
 					if (index == -1) {
-						log.error("'" + text + "' is not "
-								+ "contained in combo items");
-						log.info("Items present in combo:");
-						int i = 0;
-						for (String item : items) {
-							log.info("    " + item + "(index " + i);
-							i++;
-						}
 						throw new SWTLayerException(
 								"Nonexisting item in combo was requested");
 					} else {

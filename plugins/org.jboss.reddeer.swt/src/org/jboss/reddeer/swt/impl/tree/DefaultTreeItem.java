@@ -5,7 +5,6 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.hamcrest.Matcher;
-import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.swt.api.Tree;
 import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.swt.condition.TreeItemHasMinChildren;
@@ -24,8 +23,6 @@ import org.jboss.reddeer.swt.wait.WaitUntil;
  */
 public class DefaultTreeItem extends AbstractTreeItem {
 
-protected static final Logger logger = Logger.getLogger(DefaultTreeItem.class);
-	
 	/**
 	 * Default parameter-less constructor
 	 */
@@ -224,8 +221,6 @@ protected static final Logger logger = Logger.getLogger(DefaultTreeItem.class);
 	 * @return
 	 */
 	private static org.eclipse.swt.widgets.TreeItem findTreeItem(Tree tree, int cellIndex, Matcher<String>... treeItemPath) {
-		logger.debug(String.format("Search for tree item: cellIndex=%d, treeItemPath='%s'", cellIndex, treeItemPath.toString()));
-
 		/*
 		 * Walk down the treeItemPath array, and try to match each entry
 		 * with existing tree items in the current level of tree. When
@@ -245,19 +240,14 @@ protected static final Logger logger = Logger.getLogger(DefaultTreeItem.class);
 		for(int index = 0; index < treeItemPath.length; index++) {
 			Matcher<String> pathItem = treeItemPath[index];
 
-			logger.debug(String.format("  pathItem='%s'", pathItem.toString()));
-
 			TreeItem tiItem = null;
 			boolean isFound = false;
 
 			Iterator<TreeItem> itTreeItem = items.iterator();
 			while (itTreeItem.hasNext()) {
 				tiItem = itTreeItem.next();
-				logger.debug(String.format("    consider item '%s'", tiItem.getCell(cellIndex)));
 
 				if (pathItem.matches(tiItem.getCell(cellIndex))) {
-					logger.debug("      item matched!");
-
 					isFound = true;
 					break;
 				}
@@ -309,8 +299,6 @@ protected static final Logger logger = Logger.getLogger(DefaultTreeItem.class);
 	 * @return
 	 */
 	private static org.eclipse.swt.widgets.TreeItem findTreeItem(Tree tree, int treeItemIndex) {
-		logger.debug(String.format("Search for tree item: treeItemIndex=%d", treeItemIndex));
-
 		new WaitUntil(new TreeHasChildren(tree));
 
 		List<TreeItem> items = tree.getItems();

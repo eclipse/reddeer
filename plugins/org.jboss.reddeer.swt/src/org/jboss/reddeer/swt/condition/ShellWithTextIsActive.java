@@ -2,7 +2,6 @@ package org.jboss.reddeer.swt.condition;
 
 import org.eclipse.swt.widgets.Shell;
 import org.hamcrest.core.IsEqual;
-import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.swt.exception.RedDeerException;
 import org.jboss.reddeer.swt.handler.WidgetHandler;
 import org.jboss.reddeer.swt.lookup.ShellLookup;
@@ -17,7 +16,6 @@ import org.jboss.reddeer.swt.util.internal.InstanceValidator;
  */
 public class ShellWithTextIsActive implements WaitCondition {
 
-	private final Logger log = Logger.getLogger(this.getClass());
 	private org.hamcrest.Matcher<String> matcher;
 
 	/**
@@ -58,8 +56,6 @@ public class ShellWithTextIsActive implements WaitCondition {
 			return false;
 		}
 
-		log.debug("Active shell: " + "\"" + activeText + "\""
-				+ " / Expected shell: " + matcher);
 		boolean matches = matcher.matches(activeText);
 		return matches;
 	}

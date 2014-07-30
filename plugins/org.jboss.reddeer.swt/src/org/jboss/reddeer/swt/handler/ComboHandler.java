@@ -4,7 +4,6 @@ import java.util.Arrays;
 
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Combo;
-import org.eclipse.swt.widgets.Widget;
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.util.Display;
@@ -20,7 +19,7 @@ public class ComboHandler {
 
 	private static ComboHandler instance;
 
-	private final Logger log = Logger.getLogger(this.getClass());
+	private static final Logger log = Logger.getLogger(ComboHandler.class);
 
 	private ComboHandler() {
 

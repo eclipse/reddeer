@@ -11,7 +11,8 @@ import org.jboss.reddeer.swt.reference.ReferencedComposite;
  *
  */
 public class RadioButton extends AbstractButton {
-	protected final Logger log = Logger.getLogger(this.getClass());
+	
+	private static final Logger log = Logger.getLogger(RadioButton.class);
 	
 	/**
 	 * Creates Radio button
@@ -94,19 +95,19 @@ public class RadioButton extends AbstractButton {
 	 */
 	public void toggle(boolean checked){
 		if (checked){
+			log.info("Select radio button " + getDescriptiveText());
 			if (isSelected()) {
-				log.debug("Radio Button already checked");
+				log.info("Radio button already selected, no action performed");
 				return;
 			}else{
-				log.info("Checking Radio Button " + getText());
 				click();
 			}
 		}else{
+			log.info("Unselect radio button " + getDescriptiveText());
 			if (isSelected()) {
-				log.info("Unchecking Radio Button " + getText());
 				click();
 			}else{
-				log.debug("Radio Button already unchecked");
+				log.info("Radio button already unselected, no action performed");
 				return;
 			}
 		}

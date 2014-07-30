@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.jboss.reddeer.common.logging.Logger;
 import org.eclipse.jface.action.ActionContributionItem;
 import org.eclipse.jface.action.IContributionItem;
 import org.eclipse.jface.action.IMenuManager;
@@ -42,8 +41,6 @@ import org.jboss.reddeer.swt.wait.WaitWhile;
  */
 public class MenuLookup {
 
-	private Logger log = Logger.getLogger(this.getClass());
-	
 	/**
 	 * Provide lookup for ToolBar menu items 
 	 * @return list of MenuManager instances related to toolbar menus
@@ -80,17 +77,13 @@ public class MenuLookup {
 					for (IContributionItem i : currentMenuContributionItems) {
 						if(i instanceof ActionContributionItem){
 							String normalized = ((ActionContributionItem)i).getAction().getText().replace("&", "");
-							log.debug("Found item:" + normalized);
 							if (m.matches(normalized)) {
-								log.info("Item match:" + normalized);
 								currentItem =(ActionContributionItem)i;
 								break;
 							} 
 						} else if(i instanceof MenuManager){
 							String normalized =((MenuManager)i).getMenuText().replace("&", "");
-							log.debug("Found Menu Manager:" + normalized);
 							if (m.matches(normalized)) {
-								log.debug("Menu Manager match:" + normalized);
 								currentMenuContributionItems = Arrays.asList(((MenuManager) i).getItems());
 							}
 						}
@@ -121,9 +114,6 @@ public class MenuLookup {
 				sendShowUI(menu);
 				if(menu.getData() != null && menu.getData() instanceof MenuManager){
 					contItemsRun.addAll(Arrays.asList(((MenuManager)menu.getData()).getItems()));
-					log.info("Menu manager found");
-				} else {
-					log.info("Menu manager not found");
 				}
 	
 				return contItemsRun;
@@ -167,15 +157,7 @@ public class MenuLookup {
 	 */
 	public void select(final MenuItem item) {
 		
-		Boolean enabled = Display.syncExec(new ResultRunnable<Boolean>() {
-			
-			@Override
-			public Boolean run(){
-				return isMenuEnabled(item);
-			}
-		});
-		
-		if(!enabled){
+		if(!isMenuEnabled(item)){
 			throw new SWTLayerException("Menu item is not enabled");
 		} else {
 			Display.syncExec(new Runnable() {
@@ -199,7 +181,6 @@ public class MenuLookup {
 					event.display = item.getDisplay();
 					event.type = SWT.Selection;
 					
-					log.info("Click on menu item: " + item.getText());
 					item.notifyListeners(SWT.Selection, event);
 				}
 			});
@@ -222,7 +203,6 @@ public class MenuLookup {
 		} else if(!item.isVisible()){
 			throw new SWTLayerException("Menu item " +actionNormalized+" is not visible");
 		} else{
-			log.info("Click on contribution item: " + actionNormalized);
 			Display.asyncExec(new Runnable() {
 				@Override
 				public void run() {
@@ -306,7 +286,6 @@ public class MenuLookup {
 				return i.getText();
 			}
 		});
-		log.debug("Queried MenuItem text:\"" + text + "\"");
 		return text;
 	}
 	
@@ -321,7 +300,6 @@ public class MenuLookup {
 
 			@Override
 			public MenuItem[] run() {
-				log.info("Getting Menu Bar of shell " + s.getText());
 				Menu menu = s.getMenuBar();
 				if (menu == null){
 					return null;
@@ -380,9 +358,7 @@ public class MenuLookup {
 					currentItem = null;
 					for (MenuItem i : menuItems) {
 						String normalized = i.getText().replace("&", "");
-						log.debug("Found menu:" + normalized);
 						if (m.matches(normalized)) {
-							log.info("Item match:" + normalized);
 							currentItem = i;
 							currentMenu = i.getMenu();
 							break;

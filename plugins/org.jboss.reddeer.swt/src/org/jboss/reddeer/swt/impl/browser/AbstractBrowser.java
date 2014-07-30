@@ -1,5 +1,6 @@
 package org.jboss.reddeer.swt.impl.browser;
 
+import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.swt.api.Browser;
 import org.jboss.reddeer.swt.condition.PageIsLoaded;
 import org.jboss.reddeer.swt.handler.BrowserHandler;
@@ -15,7 +16,11 @@ import org.jboss.reddeer.swt.wait.WaitUntil;
  *
  */
 public abstract class AbstractBrowser implements Browser{
+	
+	private static final Logger log = Logger.getLogger(AbstractBrowser.class);
+	
 	protected org.eclipse.swt.browser.Browser swtBrowser;
+	
 	private BrowserProgressListener browserProgressListener;
 	
 	public AbstractBrowser(org.eclipse.swt.browser.Browser browser) {
@@ -30,6 +35,7 @@ public abstract class AbstractBrowser implements Browser{
 
 	@Override
 	public void forward() {
+		log.info("Browser forward");
 		setUpProgressListener();
 		if (BrowserHandler.getInstance().forward(this.getSWTWidget())){
 			new WaitUntil(new PageIsLoaded(this), TimePeriod.LONG);
@@ -41,6 +47,7 @@ public abstract class AbstractBrowser implements Browser{
 
 	@Override
 	public void back() {
+		log.info("Browser back");
 		setUpProgressListener();
 		if (BrowserHandler.getInstance().back(this.getSWTWidget())) {
 			new WaitUntil(new PageIsLoaded(this), TimePeriod.LONG);
@@ -53,6 +60,7 @@ public abstract class AbstractBrowser implements Browser{
 
 	@Override
 	public void setURL(String url) {
+		log.info("Set browser URL to " + url);
 		setUpProgressListener();
 		if (BrowserHandler.getInstance().setURL(this.getSWTWidget(), url)){
 			new WaitUntil(new PageIsLoaded(this), TimePeriod.LONG);
@@ -82,6 +90,7 @@ public abstract class AbstractBrowser implements Browser{
 	}
 	@Override
 	public void refresh() {
+		log.info("Browser refresh");
 		BrowserHandler.getInstance().refresh(this.getSWTWidget());		
 	}
 	private void setUpProgressListener (){

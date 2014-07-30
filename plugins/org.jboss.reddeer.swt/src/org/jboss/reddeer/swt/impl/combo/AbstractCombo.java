@@ -18,7 +18,7 @@ import org.jboss.reddeer.swt.util.Display;
  * 
  */
 public abstract class AbstractCombo implements Combo {
-	protected final Logger log = Logger.getLogger(this.getClass());
+	private static final Logger log = Logger.getLogger(AbstractCombo.class);
 	protected org.eclipse.swt.widgets.Combo swtCombo;
 
 	/**

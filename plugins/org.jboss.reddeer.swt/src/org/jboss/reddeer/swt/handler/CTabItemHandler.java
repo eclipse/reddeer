@@ -7,7 +7,6 @@ import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.custom.CTabItem;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Event;
-import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.swt.util.Display;
 import org.jboss.reddeer.swt.util.ResultRunnable;
 
@@ -18,9 +17,6 @@ import org.jboss.reddeer.swt.util.ResultRunnable;
  *
  */
 public class CTabItemHandler {
-
-	private static final Logger logger = Logger
-			.getLogger(CTabItemHandler.class);
 
 	private static CTabItemHandler instance;
 
@@ -110,7 +106,6 @@ public class CTabItemHandler {
 						return null;
 					}
 				});
-		logger.info("Clicking on close button");
 		int x = rectangleCloseBox.x + (rectangleCloseBox.width / 2);
 		int y = rectangleCloseBox.y + (rectangleCloseBox.height / 2);
 		notifyCTabFolder(
