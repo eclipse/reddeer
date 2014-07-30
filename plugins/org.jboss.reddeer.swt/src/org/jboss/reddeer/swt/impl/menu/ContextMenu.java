@@ -6,6 +6,7 @@ import org.hamcrest.Matcher;
 import org.jboss.reddeer.swt.api.Menu;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.handler.ActionContributionItemHandler;
+import org.jboss.reddeer.swt.handler.MenuHandler;
 import org.jboss.reddeer.swt.handler.WidgetHandler;
 import org.jboss.reddeer.swt.lookup.MenuLookup;
 import org.jboss.reddeer.swt.matcher.WithMnemonicTextMatchers;
@@ -56,19 +57,17 @@ public class ContextMenu extends AbstractMenu implements Menu {
 	
 	@Override
 	public void select() {
-		MenuLookup l = new MenuLookup();
 		if(menuItem != null){
-			l.select(menuItem);
+			MenuHandler.getInstance().select(menuItem);
 		} else {
-			l.select(item);
+			MenuHandler.getInstance().select(item);
 		}
 	}
 	
 	@Override
 	public boolean isSelected() {
-		MenuLookup l = new MenuLookup();
 		if(menuItem != null){
-			return l.isSelected(menuItem);
+			return MenuHandler.getInstance().isSelected(menuItem);
 		} else {
 			return false;
 		}

@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.jboss.reddeer.common.logging.Logger;
 import org.eclipse.jface.action.ActionContributionItem;
 import org.eclipse.jface.action.IContributionItem;
 import org.eclipse.jface.action.IMenuManager;
@@ -24,8 +23,10 @@ import org.eclipse.ui.IWorkbenchPartReference;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 import org.hamcrest.Matcher;
+import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.swt.condition.ShellWithTextIsActive;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
+import org.jboss.reddeer.swt.handler.MenuHandler;
 import org.jboss.reddeer.swt.handler.WidgetHandler;
 import org.jboss.reddeer.swt.util.Display;
 import org.jboss.reddeer.swt.util.ResultRunnable;
@@ -148,6 +149,11 @@ public class MenuLookup {
 		return lastMenuItem;
 	}
 	
+	/**
+	 * @deprecated Since 0.6.0. Use {@link MenuHandler}
+	 * @param item
+	 * @return
+	 */
 	public boolean isSelected(final MenuItem item){
 		return Display.syncExec(new ResultRunnable<Boolean>() {
 
@@ -162,6 +168,7 @@ public class MenuLookup {
 	}
 
 	/**
+	 * @deprecated Since 0.6.0. Use {@link MenuHandler}
 	 * Selects (click) for MenuItem
 	 * @param item to click
 	 */
@@ -212,6 +219,7 @@ public class MenuLookup {
 		}
 	}
 	/**
+	 *  @deprecated Since 0.6.0. Use {@link MenuHandler}
 	 * Selects (click) for ActionContributionItem
 	 * @param item to click
 	 */
@@ -414,6 +422,8 @@ public class MenuLookup {
 		
 
 	/**
+	 * 
+	 *  
 	 * Hide menu
 	 * 
 	 * @param menu
@@ -441,21 +451,6 @@ public class MenuLookup {
 
 	}
 
-	/**
-	 * Check weather or not menuitem is enabled
-	 * 
-	 * @param menuItem
-	 */
-	private boolean isMenuEnabled(final MenuItem menuItem) {
-		boolean enabled = Display.syncExec(new ResultRunnable<Boolean>() {
-			public Boolean run() {
-				return menuItem.getEnabled();
-			}
-		});
-
-		return enabled;
-	}
-	
 	private IWorkbenchPart getActivePart(final boolean restore) {
 		IWorkbenchPart result = Display.syncExec(new ResultRunnable<IWorkbenchPart>() {
 
@@ -472,4 +467,20 @@ public class MenuLookup {
 		return result;		
 	}
 
+	/**
+	 * @deprecated Since 0.6.0. Use {@link MenuHandler}
+	 * 
+	 * Check weather or not menuitem is enabled
+	 * 
+	 * @param menuItem
+	 */
+	private boolean isMenuEnabled(final MenuItem menuItem) {
+		boolean enabled = Display.syncExec(new ResultRunnable<Boolean>() {
+			public Boolean run() {
+				return menuItem.getEnabled();
+			}
+		});
+
+		return enabled;
+	}
 }
