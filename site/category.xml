@@ -40,6 +40,10 @@
 		<category name="AllFeatures"/>
 	</feature>
 
+	<feature url="org.jboss.reddeer.graphiti.feature.qualifier" id="org.jboss.reddeer.graphiti.feature" version="0.0.0">
+		<category name="AllFeatures"/>
+	</feature>
+
 	<feature url="org.jboss.reddeer.eclipse.feature.source.qualifier" id="org.jboss.reddeer.eclipse.feature.source" version="0.0.0">
 		<category name="AllSources"/>
 	</feature>
@@ -72,4 +76,7 @@
 		<category name="AllSources"/>
 	</feature>
 
+	<feature url="org.jboss.reddeer.graphiti.feature.source.qualifier" id="org.jboss.reddeer.graphiti.feature.source" version="0.0.0">
+		<category name="AllSources"/>
+	</feature>
 </site>
