@@ -1,11 +1,13 @@
 package org.jboss.reddeer.eclipse.jdt.ui.packageexplorer;
 
 import org.jboss.reddeer.common.logging.Logger;
+import org.jboss.reddeer.eclipse.exception.EclipseLayerException;
 import org.jboss.reddeer.eclipse.jface.exception.JFaceLayerException;
 import org.jboss.reddeer.eclipse.jface.viewer.handler.TreeViewerHandler;
 import org.jboss.reddeer.eclipse.utils.DeleteUtils;
 import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.swt.condition.JobIsRunning;
+import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.impl.button.CheckBox;
 import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.menu.ContextMenu;
@@ -83,7 +85,7 @@ public class Project {
 	}
 
 	/**
-	 * Gets encapsulated {@link TreeItem} representating the project.
+	 * Gets encapsulated {@link TreeItem} representing the project.
 	 * 
 	 * @return encapsulated tree item
 	 */
@@ -101,22 +103,46 @@ public class Project {
 	public boolean containsItem(String... path) {
 		boolean result = false;
 		try {
-			getProjectItem(path);
-			result = true;
-		} catch (JFaceLayerException jfaceException) {
+			ProjectItem item = getProjectItem(path);
+			result = item != null;
+		} catch (EclipseLayerException jfaceException) {
 			result = false;
 		}
 		return result;
 	}
 
 	/**
-	 * Gets {@link ProjectItem} specified by path without decorators.
+	 * Gets {@link ProjectItem} specified by path. Method go through whole project 
+	 * hierarchy and on each layer at first try to find item specified by part of the
+	 * path as it is (whole text). If there is no item with whole text represented by 
+	 * the part of the path, then item is looked up by non-decorated text representing
+	 * this item. If there are more than two items in this step containing same non-deprecated
+	 * text, then EclipseLayerException is thrown. 
 	 * 
-	 * @param path path to the tree item without decorators
+	 * 
+	 * @param path path to the tree item
 	 * @return tree item specified by the path
 	 */
 	public ProjectItem getProjectItem(String... path) {
-		return new ProjectItem(treeViewerHandler.getTreeItem(treeItem, path), this, path);
+		TreeItem item = treeItem;
+		for (int i = 0; i < path.length; i++) {
+			String pathSegment = path[i];
+			try {
+				item = item.getItem(pathSegment);
+			} catch (SWTLayerException ex) {
+				// there is no item with specific path segment, time to use name without decorators
+				try {
+					item = treeViewerHandler.getTreeItem(item, pathSegment);
+				} catch (JFaceLayerException exception) {
+					// non existing item
+					throw new EclipseLayerException("Cannot get project item specified by path."
+							+ "Project item either does not exist or solution is ambiguous because "
+							+ "of existence of more items on the path with same name without decorators");					
+				}
+			} 
+		}
+		
+		return new ProjectItem(item, this, path);
 	}
 
 	/**

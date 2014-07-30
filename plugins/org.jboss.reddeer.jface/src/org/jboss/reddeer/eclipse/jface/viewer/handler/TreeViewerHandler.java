@@ -1,18 +1,18 @@
 package org.jboss.reddeer.eclipse.jface.viewer.handler;
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 import org.eclipse.swt.custom.StyleRange;
 import org.jboss.reddeer.eclipse.jface.exception.JFaceLayerException;
-import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.swt.api.Tree;
+import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.swt.util.Display;
 import org.jboss.reddeer.swt.util.ResultRunnable;
-import org.jboss.reddeer.common.logging.Logger;
 
 public class TreeViewerHandler {
 	
-	private final Logger logger = Logger.getLogger(this.getClass());
 	private static TreeViewerHandler instance;
 	
 	public TreeViewerHandler() {
@@ -33,7 +33,8 @@ public class TreeViewerHandler {
 	
 	/**
 	 * Gets {@link TreeItem} with specified name placed under 
-	 * specified {@link Tree}.
+	 * specified {@link Tree}. If there are more items with specified name
+	 * then method throws JFaceLayerException.
 	 * 
 	 * @param tree tree where to find tree item
 	 * @param name name of the tree item to find
@@ -41,20 +42,31 @@ public class TreeViewerHandler {
 	 */
 	public TreeItem getTreeItem(Tree tree, String name) {
 		Iterator<TreeItem> iterator = tree.getItems().iterator();
+		List<TreeItem> foundItems = new ArrayList<TreeItem>();
 		while (iterator.hasNext()) {
 			TreeItem item = iterator.next();
 			if (getNonStyledText(item).equals(name)) {
-				return item;
+				foundItems.add(item);
 			}
 		}
-		
-		throw new JFaceLayerException("There is no item with name " + name + " placed " +
+
+		if (foundItems.size() == 0) {
+			throw new JFaceLayerException("There is no item with name " + name + " placed " +
 				"under specified tree");
+		}
+		
+		if (foundItems.size() > 1) {
+			throw new JFaceLayerException("Cannot choose specific tree item with name " + name + ""
+					+ " because there are more items with specified name placed under specified tree."); 
+		}
+		
+		return foundItems.get(0);
 	}
 	
 	/**
 	 * Gets {@link TreeItem} defined by specified path placed under 
-	 * specified {@link Tree}.
+	 * specified {@link Tree}.  If there are more items with specified name
+	 * then method throws JFaceLayerException.
 	 * 
 	 * @param tree tree where to find tree item
 	 * @param path path to the tree item
@@ -77,7 +89,8 @@ public class TreeViewerHandler {
 	
 	
 	/**
-	 * Gets tree item specified by a name without decorators - styled text
+	 * Gets tree item specified by a name without decorators - styled text.
+	 * If there are more items with specified name then method throws JFaceLayerException.
 	 * 
 	 * @param treeItem parent item of desired item 
 	 * @param name of desired item
@@ -85,22 +98,31 @@ public class TreeViewerHandler {
 	 */
 	public TreeItem getTreeItem(TreeItem treeItem, String name) {
 		Iterator<TreeItem> iterator = treeItem.getItems().iterator();
+		List<TreeItem> foundItems = new ArrayList<TreeItem>();
 		while (iterator.hasNext()) {
 			TreeItem item = iterator.next();
 			if (getNonStyledText(item).equals(name)) {
-				logger.info("Tree item with non styled text " + name +
-						" has been found");
-				return item;
+				foundItems.add(item);
 			}
 		}
+
+		if (foundItems.size() == 0) {
+			throw new JFaceLayerException("There is no item with name " + name + " placed "
+				+ "under specified tree item");
+		}
 		
-		throw new JFaceLayerException("Tree item with text "
-				+ getNonStyledText(treeItem) + " (without decorators)"
-				+ " has no tree item with text " + name + " (without decorators).");
+		if (foundItems.size() > 1) {
+			throw new JFaceLayerException("Cannot choose specific tree item with name " + name 
+					+ " because there are more items with specified name"
+					+ " placed under specified tree item."); 
+		}
+		
+		return foundItems.get(0);
 	}
 	
 	/**
 	 * Gets tree item specified by path without decorators.
+	 * If there are more items with specified name then method throws JFaceLayerException.
 	 * 
 	 * @param treeItem
 	 * @param path

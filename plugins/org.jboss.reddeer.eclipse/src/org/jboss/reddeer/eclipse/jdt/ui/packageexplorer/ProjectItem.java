@@ -30,7 +30,8 @@ public class ProjectItem {
 	private TreeViewerHandler treeViewerHandler = TreeViewerHandler.getInstance();
 
 	/**
-	 * Constructs project item with a given tree item, project and path.
+	 * Constructs project item with a given tree item, project and path. For 
+	 * information how path could look like see {@link Project#getProjectItem}.
 	 * 
 	 * @param treeItem Tree item
 	 * @param project Project
