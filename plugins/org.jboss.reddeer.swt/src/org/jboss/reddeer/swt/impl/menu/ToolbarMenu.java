@@ -5,6 +5,7 @@ import org.eclipse.swt.widgets.MenuItem;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.swt.api.Menu;
 import org.jboss.reddeer.swt.handler.ActionContributionItemHandler;
+import org.jboss.reddeer.swt.handler.MenuHandler;
 import org.jboss.reddeer.swt.lookup.MenuLookup;
 import org.jboss.reddeer.swt.matcher.WithMnemonicTextMatchers;
 
@@ -29,8 +30,7 @@ public class ToolbarMenu extends AbstractMenu implements Menu{
 
 	@Override
 	public void select() {
-		MenuLookup l = new MenuLookup();
-		l.select(item);
+		MenuHandler.getInstance().select(item);
 	}
 	
 	@Override

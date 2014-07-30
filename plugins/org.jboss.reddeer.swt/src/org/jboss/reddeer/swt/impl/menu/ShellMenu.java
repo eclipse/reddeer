@@ -9,6 +9,7 @@ import org.jboss.reddeer.common.platform.RunningPlatform;
 import org.jboss.reddeer.swt.api.Menu;
 import org.jboss.reddeer.swt.api.Shell;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
+import org.jboss.reddeer.swt.handler.MenuHandler;
 import org.jboss.reddeer.swt.handler.WidgetHandler;
 import org.jboss.reddeer.swt.lookup.MenuLookup;
 import org.jboss.reddeer.swt.lookup.ShellLookup;
@@ -58,16 +59,14 @@ public class ShellMenu extends AbstractMenu implements Menu {
 		this.matchers = matchers;
 		setMacOsMenuProperties();
 		if (!isSubmenuOfMacEclipseMenu) {
-			MenuLookup ml = new MenuLookup();
-			menuItem = ml.lookFor(ml.getActiveShellTopMenuItems(), matchers);
+			getSWTWidget();
 		}
 	}
 	
 	@Override
 	public void select() {
 		if (!isSubmenuOfMacEclipseMenu){
-			MenuLookup ml = new MenuLookup();
-			ml.select(menuItem);
+			MenuHandler.getInstance().select(getSWTWidget());
 		} else {
 			if (macEclipseMenuCommand.equals(MacEclipseMenuCommand.PREFERENCES)){
 				openPreferencesDialog();
@@ -81,9 +80,8 @@ public class ShellMenu extends AbstractMenu implements Menu {
 	
 	@Override
 	public boolean isSelected() {
-		MenuLookup l = new MenuLookup();
-		if(menuItem != null){
-			return l.isSelected(menuItem);
+		if(getSWTWidget() != null){
+			return MenuHandler.getInstance().isSelected(getSWTWidget());
 		} else {
 			return false;
 		}
@@ -124,8 +122,7 @@ public class ShellMenu extends AbstractMenu implements Menu {
 	public String getText() {
 		if (!isSubmenuOfMacEclipseMenu){
 			MenuLookup ml = new MenuLookup();
-			MenuItem i = ml.lookFor(ml.getActiveShellTopMenuItems(), matchers);
-			String text = ml.getMenuItemText(i);
+			String text = ml.getMenuItemText(getSWTWidget());
 			return text;
 		}
 		else{
@@ -149,11 +146,15 @@ public class ShellMenu extends AbstractMenu implements Menu {
 	}
 	
 	public MenuItem getSWTWidget(){
+		if (menuItem == null || menuItem.isDisposed()){
+			MenuLookup ml = new MenuLookup();
+			menuItem = ml.lookFor(ml.getActiveShellTopMenuItems(), matchers);
+		}
 		return menuItem;
 	}
 	
 	@Override
 	public boolean isEnabled() {
-		return WidgetHandler.getInstance().isEnabled(menuItem);
+		return WidgetHandler.getInstance().isEnabled(getSWTWidget());
 	}
 }
