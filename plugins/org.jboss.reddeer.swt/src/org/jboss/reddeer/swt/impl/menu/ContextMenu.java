@@ -7,7 +7,6 @@ import org.jboss.reddeer.swt.api.Menu;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.handler.ActionContributionItemHandler;
 import org.jboss.reddeer.swt.handler.WidgetHandler;
-import org.jboss.reddeer.swt.lookup.MenuLookup;
 import org.jboss.reddeer.swt.matcher.WithMnemonicTextMatchers;
 import org.jboss.reddeer.swt.util.Display;
 import org.jboss.reddeer.swt.util.ResultRunnable;
@@ -24,7 +23,6 @@ public class ContextMenu extends AbstractMenu implements Menu {
 	
 	private ActionContributionItem item;
 	private MenuItem menuItem;
-	
 
 	/**
 	 * Context menu given by String path
@@ -41,11 +39,11 @@ public class ContextMenu extends AbstractMenu implements Menu {
 	 * @param matchers
 	 */
 	public ContextMenu(Matcher<String>... matchers) {
-		MenuLookup l = new MenuLookup();
-		menuItem = l.lookFor(l.getTopMenuMenuItemsFromFocus(),matchers);
+
+		menuItem = ml.lookFor(ml.getTopMenuMenuItemsFromFocus(),matchers);
 		if(menuItem == null){
 			log.info("No menu item found, looking for contribution item");
-			item = l.lookFor(l.getMenuContributionItems(), matchers);
+			item = ml.lookFor(ml.getMenuContributionItems(), matchers);
 			if (item == null){
 				throw new SWTLayerException("Contribution item not found");
 			}
@@ -56,19 +54,18 @@ public class ContextMenu extends AbstractMenu implements Menu {
 	
 	@Override
 	public void select() {
-		MenuLookup l = new MenuLookup();
+		
 		if(menuItem != null){
-			l.select(menuItem);
+			mh.select(menuItem);
 		} else {
-			l.select(item);
+			mh.select(item);
 		}
 	}
 	
 	@Override
 	public boolean isSelected() {
-		MenuLookup l = new MenuLookup();
 		if(menuItem != null){
-			return l.isSelected(menuItem);
+			return mh.isSelected(menuItem);
 		} else {
 			return false;
 		}

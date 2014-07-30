@@ -10,7 +10,6 @@ import org.jboss.reddeer.swt.api.Menu;
 import org.jboss.reddeer.swt.api.Shell;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.handler.WidgetHandler;
-import org.jboss.reddeer.swt.lookup.MenuLookup;
 import org.jboss.reddeer.swt.lookup.ShellLookup;
 import org.jboss.reddeer.swt.matcher.WithMnemonicTextMatchers;
 import org.jboss.reddeer.swt.util.Display;
@@ -26,6 +25,7 @@ public class ShellMenu extends AbstractMenu implements Menu {
 	private MenuItem menuItem;
 	private boolean isSubmenuOfMacEclipseMenu = false;
 	private MacEclipseMenuCommand macEclipseMenuCommand = null;
+
 	
 	private enum MacEclipseMenuCommand {
 		PREFERENCES("Preferences"), ABOUT("About");
@@ -58,7 +58,6 @@ public class ShellMenu extends AbstractMenu implements Menu {
 		this.matchers = matchers;
 		setMacOsMenuProperties();
 		if (!isSubmenuOfMacEclipseMenu) {
-			MenuLookup ml = new MenuLookup();
 			menuItem = ml.lookFor(ml.getActiveShellTopMenuItems(), matchers);
 		}
 	}
@@ -66,8 +65,7 @@ public class ShellMenu extends AbstractMenu implements Menu {
 	@Override
 	public void select() {
 		if (!isSubmenuOfMacEclipseMenu){
-			MenuLookup ml = new MenuLookup();
-			ml.select(menuItem);
+			mh.select(menuItem);
 		} else {
 			if (macEclipseMenuCommand.equals(MacEclipseMenuCommand.PREFERENCES)){
 				openPreferencesDialog();
@@ -81,9 +79,8 @@ public class ShellMenu extends AbstractMenu implements Menu {
 	
 	@Override
 	public boolean isSelected() {
-		MenuLookup l = new MenuLookup();
 		if(menuItem != null){
-			return l.isSelected(menuItem);
+			return mh.isSelected(menuItem);
 		} else {
 			return false;
 		}
@@ -123,9 +120,8 @@ public class ShellMenu extends AbstractMenu implements Menu {
 	@Override
 	public String getText() {
 		if (!isSubmenuOfMacEclipseMenu){
-			MenuLookup ml = new MenuLookup();
 			MenuItem i = ml.lookFor(ml.getActiveShellTopMenuItems(), matchers);
-			String text = ml.getMenuItemText(i);
+			String text = mh.getMenuItemText(i);
 			return text;
 		}
 		else{

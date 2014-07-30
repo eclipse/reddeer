@@ -34,7 +34,7 @@ import org.jboss.reddeer.swt.wait.WaitWhile;
 
 /**
  * Menu lookup provides menu and contextmenu routines for menuitems lookup Works
- * also with dynamic menus (inspired by bot.ext helper)
+ * also with dynamic menus.
  * 
  * @author Jiri Peterka
  * @author Rastislav Wagner
@@ -43,9 +43,19 @@ import org.jboss.reddeer.swt.wait.WaitWhile;
 public class MenuLookup {
 
 	private Logger log = Logger.getLogger(this.getClass());
+	private static MenuLookup instance = null;
+	
+	private MenuLookup() { }
+	
+	public static MenuLookup getInstance() {
+		if (instance == null) {
+			instance = new MenuLookup();
+		}
+		return instance;
+	}
 	
 	/**
-	 * Provide lookup for ToolBar menu items 
+	 * Provide lookup for ToolBar menu items. 
 	 * @return list of MenuManager instances related to toolbar menus
 	 */
 	public List<IContributionItem> getToolbarMenus(){	
@@ -63,7 +73,7 @@ public class MenuLookup {
 	}
 	
 	/**
-	 * Look for ActionContributionItem matching matchers
+	 * Look for ActionContributionItem matching matchers.
 	 * @param cintItems items which will be matched with matchers
 	 * @param matchers menuitem text matchers
 	 * @return final ActionContibutionItem
@@ -105,7 +115,7 @@ public class MenuLookup {
 
 	
 	/**
-	 * Returns ContributionItems from focused control
+	 * Returns ContributionItems from focused control.
 	 * Use if menu can contain dynamic menu from e4
 	 */
 	public List<IContributionItem> getMenuContributionItems() {
@@ -135,7 +145,7 @@ public class MenuLookup {
 	
 
 	/**
-	 * Look for MenuItem matching matchers starting topLevel menuItems
+	 * Look for MenuItem matching matchers starting topLevel menuItems.
 	 * @param topItems top level MenuItem[]
 	 * @param matchers menuitem text matchers
 	 * @return final MenuItem
@@ -148,93 +158,9 @@ public class MenuLookup {
 		return lastMenuItem;
 	}
 	
-	public boolean isSelected(final MenuItem item){
-		return Display.syncExec(new ResultRunnable<Boolean>() {
-
-			@Override
-			public Boolean run() {
-				if(((item.getStyle() & SWT.RADIO) != 0) || ((item.getStyle() & SWT.CHECK) != 0)){
-					return item.getSelection();
-				}
-				return false;
-			}
-		});
-	}
 
 	/**
-	 * Selects (click) for MenuItem
-	 * @param item to click
-	 */
-	public void select(final MenuItem item) {
-		
-		Boolean enabled = Display.syncExec(new ResultRunnable<Boolean>() {
-			
-			@Override
-			public Boolean run(){
-				return isMenuEnabled(item);
-			}
-		});
-		
-		if(!enabled){
-			throw new SWTLayerException("Menu item is not enabled");
-		} else {
-			Display.syncExec(new Runnable() {
-
-				@Override
-				public void run() {
-					if(((item.getStyle() & SWT.RADIO) != 0) || ((item.getStyle() & SWT.CHECK) != 0)){
-						item.setSelection(!item.getSelection());
-					}
-				}
-			});
-			
-			Display.asyncExec(new Runnable() {
-
-				@Override
-				public void run() {
-					final Event event = new Event();
-					event.time = (int) System.currentTimeMillis();
-					event.widget = item;
-					event.item = item;
-					event.display = item.getDisplay();
-					event.type = SWT.Selection;
-					
-					log.info("Click on menu item: " + item.getText());
-					item.notifyListeners(SWT.Selection, event);
-				}
-			});
-			Display.syncExec(new Runnable() {
-				@Override
-				public void run() {
-
-				}
-			});
-		}
-	}
-	/**
-	 * Selects (click) for ActionContributionItem
-	 * @param item to click
-	 */
-	public void select(final ActionContributionItem item){
-		String actionNormalized = item.getAction().getText().replace("&", "");
-		if(!item.isEnabled()){
-			throw new SWTLayerException("Menu item " +actionNormalized+" is not enabled");
-		} else if(!item.isVisible()){
-			throw new SWTLayerException("Menu item " +actionNormalized+" is not visible");
-		} else{
-			log.info("Click on contribution item: " + actionNormalized);
-			Display.asyncExec(new Runnable() {
-				@Override
-				public void run() {
-					item.getAction().run();
-				}
-			});
-		}
-	}
-
-
-	/**
-	 * Returns top level menuitems from focused controls
+	 * Returns top level menuitems from focused controls.
 	 * Does not work with dynamic menus from e4 @see MenuLookup.getMenuContributionItems()
 	 *
 	 * @return
@@ -267,8 +193,8 @@ public class MenuLookup {
 	}
 	
 	/**
-	 * Returns menuitems from active shell menubar
-	 * @return
+	 * Returns menuitems from active shell menubar.
+	 * @return top menuitems of active shell
 	 */
 	public MenuItem[] getActiveShellTopMenuItems() {
 		Shell activeShell = ShellLookup.getInstance().getActiveShell();
@@ -292,28 +218,11 @@ public class MenuLookup {
 		}		
 		return result;		
 	}
-
 	
 	/**
-	 * Returns menuitem text
-	 * @param i
-	 * @return
-	 */
-	public String getMenuItemText(final MenuItem i) {
-		String text = Display.syncExec(new ResultRunnable<String>() {
-			@Override
-			public String run() {
-				return i.getText();
-			}
-		});
-		log.debug("Queried MenuItem text:\"" + text + "\"");
-		return text;
-	}
-	
-	/**
-	 * Returns menubar items
-	 * @param s
-	 * @return
+	 * Returns menubar items.
+	 * @param s given shell where menubar items are searched for
+	 * @return array of menuitems fo given shell 
 	 */
 	private MenuItem[] getMenuBarItems(final Shell s) {
 
@@ -338,9 +247,9 @@ public class MenuLookup {
 	}
 
 	/**
-	 * Returns Menu of the given control
-	 * @param c
-	 * @return
+	 * Returns Menu of the given control.
+	 * @param c given control under which menu is located
+	 * @return menu under given control
 	 */
 	private Menu getControlMenu(final Control c) {
 
@@ -362,10 +271,10 @@ public class MenuLookup {
 	}
 	
 	/**
-	 * Goes through menus path and returns matching menu
-	 * @param topItems
-	 * @param matchers
-	 * @return
+	 * Goes through menus path and returns matching menu.
+	 * @param topItems menuitems for further searches
+	 * @param matchers given matchers
+	 * @return matching MenuItem
 	 */
 	private MenuItem getMatchingMenuPath(final MenuItem[] topItems,
 			final Matcher<String>... matchers) {
@@ -405,8 +314,8 @@ public class MenuLookup {
 
 
 	/**
-	 * Sends SWT.Show on widget
-	 * @param widget
+	 * Sends SWT.Show on widget.
+	 * @param widget given Widget
 	 */
 	private void sendShowUI(Widget widget) {
 		widget.notifyListeners(SWT.Show, new Event());
@@ -414,10 +323,10 @@ public class MenuLookup {
 		
 
 	/**
-	 * Hide menu
+	 * Hides menu.
 	 * 
-	 * @param menu
-	 * @param recur
+	 * @param menu given Menu
+	 * @param recur recursion flag
 	 */
 	private void sendHide(final Menu menu, final boolean recur) {
 		Display.syncExec(new Runnable() {
@@ -442,20 +351,10 @@ public class MenuLookup {
 	}
 
 	/**
-	 * Check weather or not menuitem is enabled
-	 * 
-	 * @param menuItem
+	 * Returns active Workbench Part.
+	 * @param restore tries to restore the Part if true
+	 * @return active WorkbenchPart
 	 */
-	private boolean isMenuEnabled(final MenuItem menuItem) {
-		boolean enabled = Display.syncExec(new ResultRunnable<Boolean>() {
-			public Boolean run() {
-				return menuItem.getEnabled();
-			}
-		});
-
-		return enabled;
-	}
-	
 	private IWorkbenchPart getActivePart(final boolean restore) {
 		IWorkbenchPart result = Display.syncExec(new ResultRunnable<IWorkbenchPart>() {
 
