@@ -228,6 +228,36 @@ public class TextEditorTest {
 		assertEquals("\t\ttestLine;", new TextEditor().getTextAtLine(4));
 		assertEquals("\t\tSystem.out.println(\"\");", new TextEditor().getTextAtLine(5));
 	}
+	
+	@Test
+	public void insertTextBehind(){
+		openJavaFile();
+		TextEditor textEditor = new TextEditor();
+		int offset = textEditor.getPositionOfText("class");
+		textEditor.insertText(offset, "static ");
+		assertTrue(textEditor.getText().contains("public static class"));
+	}
+	
+	@Test
+	public void insertTextAfter(){
+		openJavaFile();
+		TextEditor textEditor = new TextEditor();
+		int offset = textEditor.getPositionOfText("JavaClass");
+		textEditor.insertText(offset+"JavaClass".length(), " extends String");
+		assertTrue(textEditor.getText().contains("public class JavaClass extends String"));
+	}
+	
+	@Test
+	public void testGetPositionOfText(){
+		openJavaFile();
+		TextEditor textEditor = new TextEditor();
+		int offset1 = textEditor.getPositionOfText("JavaClass", 0);
+		assertTrue(offset1 > 0);
+		int offset2 = textEditor.getPositionOfText("JavaClass", 1);
+		assertTrue(offset2 > offset1);
+		int offset = textEditor.getPositionOfText("JavaClass", 2);
+		assertTrue(offset == -1);
+	}
 
 	@Test
 	public void getSelectedTextTest(){

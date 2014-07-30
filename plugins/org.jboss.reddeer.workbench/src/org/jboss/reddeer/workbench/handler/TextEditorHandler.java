@@ -119,6 +119,26 @@ public class TextEditorHandler {
             }
         });
     }
+    
+    /**
+     * Inserts text to given offset of editor. Note, that this method manipulates with editor's document (i.e. not what
+     * is currently visible, but what is the actual content of this editor)
+     * @param editor
+     * @param offset
+     * @param text
+     */
+    public void insertText(final ITextEditor editor, final int offset, final String text) {
+        Display.syncExec(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    getDocument(editor).replace(offset,0, text);
+                } catch (BadLocationException e) {
+                    throw new WorkbenchLayerException("Provided offset is invalid for this editor",e);
+                }
+            }
+        });
+    }
 
     /**
      * Returns currently selected text in given editor
@@ -224,6 +244,51 @@ public class TextEditorHandler {
             }
         });
     }
+    
+    /**
+	 * Gets position of first character of specified text in specified editor
+	 * 
+	 * @param editor to handle
+	 * @param text text to get position
+	 * @return position of first character of specified text if exists, -1 otherwise 
+	 */
+	public int getPositionOfText(final ITextEditor editor, final String text) {
+		return getPositionOfText(editor, text, 0);
+	}
+	
+	/**
+	 * Gets position of first character of specified text in specified editor
+	 * 
+	 * @param editor to handle
+	 * @param text text to get position
+	 * @param index of text
+	 * @return position of first character of specified text if exists, -1 otherwise 
+	 */
+	public int getPositionOfText(final ITextEditor editor, final String text, final int index) {
+		return Display.syncExec(new ResultRunnable<Integer>() {
+
+			@Override
+			public Integer run() {
+				if(index < 0){
+					return -1;
+				}
+				String doc = getDocument(editor).get();
+				int textIndex = 0;
+				int i = 0;
+				while (i <= index){
+					i++;
+					textIndex = doc.indexOf(text,textIndex);
+					if(textIndex == -1){
+						return -1;
+					}
+					textIndex += text.length();
+				}
+				return textIndex - text.length();
+			}
+		});
+	}
+    
+    
 
     /**
      * returns IDocument element for given ITextEditor
