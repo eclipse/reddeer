@@ -44,6 +44,18 @@ public class Display {
 		return display;
 	}
 
+	/**
+	 * Help method used to flush all UI events from UI thread. 
+	 */
+	public static void synchronize(){
+		syncExec(new Runnable() {
+			
+			@Override
+			public void run() {
+			}
+		});
+	}
+	
 	public static void syncExec(Runnable runnable) {
 		syncExec(new VoidResultRunnable(runnable));
 	}
