@@ -5,6 +5,7 @@ import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.ui.dialogs.PreferencesUtil;
 import org.eclipse.ui.internal.dialogs.AboutDialog;
 import org.hamcrest.Matcher;
+import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.common.platform.RunningPlatform;
 import org.jboss.reddeer.swt.api.Menu;
 import org.jboss.reddeer.swt.api.Shell;
@@ -23,6 +24,7 @@ import org.jboss.reddeer.swt.util.Display;
 @SuppressWarnings("restriction")
 public class ShellMenu extends AbstractMenu implements Menu {
 	
+	private static final Logger log = Logger.getLogger(ShellMenu.class);
 	private MenuItem menuItem;
 	private boolean isSubmenuOfMacEclipseMenu = false;
 	private MacEclipseMenuCommand macEclipseMenuCommand = null;
@@ -65,13 +67,18 @@ public class ShellMenu extends AbstractMenu implements Menu {
 	
 	@Override
 	public void select() {
+		log.info("Select shell menu");
+		// getText() method disposes menu item, should be fixed
+//		log.debug("Select shell menu with text " + getText());
 		if (!isSubmenuOfMacEclipseMenu){
 			MenuLookup ml = new MenuLookup();
 			ml.select(menuItem);
 		} else {
 			if (macEclipseMenuCommand.equals(MacEclipseMenuCommand.PREFERENCES)){
+				log.info("Running MacOS, open preferences dialog programatically");
 				openPreferencesDialog();
 			}else if (macEclipseMenuCommand.equals(MacEclipseMenuCommand.ABOUT)){
+				log.info("Running MacOS, open about dialog programatically");
 				openAboutDialog();
 			} else {
 				throw new SWTLayerException("Unsupported Mac Eclispe menu command: " + macEclipseMenuCommand);

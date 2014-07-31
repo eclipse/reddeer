@@ -8,7 +8,6 @@ import java.util.List;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
-import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.swt.api.Tree;
 import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.swt.condition.WaitCondition;
@@ -31,7 +30,6 @@ import org.jboss.reddeer.swt.wait.WaitUntil;
 public class TreeHandler {
 
 	private static TreeHandler instance;
-	private final Logger logger = Logger.getLogger(this.getClass());
 
 	private TreeHandler() {
 
@@ -75,7 +73,6 @@ public class TreeHandler {
 	 * @param treeItems tree items to select
 	 */
 	public void selectItems(final TreeItem... treeItems) {
-		logger.debug("Selecting tree items: ");
 		final org.eclipse.swt.widgets.Tree swtTree = treeItems[0].getParent()
 				.getSWTWidget();
 		setFocus(swtTree);
@@ -83,24 +80,17 @@ public class TreeHandler {
 			public void run() {
 				List<org.eclipse.swt.widgets.TreeItem> selection = new ArrayList<org.eclipse.swt.widgets.TreeItem>();
 				for (TreeItem treeItem : treeItems) {
-					logger.debug("Tree item to add to selection: "
-							+ treeItem.getSWTWidget().getText());
 					selection.add(treeItem.getSWTWidget());
 				}
 				if (!(SWT.MULTI == (swtTree.getStyle() & SWT.MULTI)) 
 						&& treeItems.length > 1) {
-					logger.warn("Tree does not support SWT.MULTI, cannot make multiple selections"); //$NON-NLS-1$
+					throw new SWTLayerException("Tree does not support SWT.MULTI, cannot make multiple selections");
 				}
-				logger.debug("Setting Tree selection");
 				swtTree.setSelection(selection
 						.toArray(new org.eclipse.swt.widgets.TreeItem[] {}));
 			}
 		});
 		notifySelect(swtTree);
-		logger.info("Selected Tree Items:");
-		for (TreeItem treeItem : treeItems) {
-			logger.info("  " + treeItem);
-		}
 	}
 
 	/**
@@ -112,7 +102,6 @@ public class TreeHandler {
 		Display.syncExec(new Runnable() {
 			public void run() {
 				if (!swtTree.isFocusControl()) {
-					logger.debug("Setting focus to Tree");
 					swtTree.forceFocus();
 				}
 			}
@@ -142,12 +131,10 @@ public class TreeHandler {
 	public void unselectAllItems(final org.eclipse.swt.widgets.Tree swtTree) {
 		Display.syncExec(new Runnable() {
 			public void run() {
-				logger.debug("Unselect all tree items");
 				swtTree.deselectAll();
 			}
 		});
 		notifySelect(swtTree);
-		logger.info("All tree items unselected");
 	}
 
 	/**
@@ -159,16 +146,11 @@ public class TreeHandler {
 		Display.syncExec(new Runnable() {
 			@Override
 			public void run() {
-				logger.debug("Selecting tree item: " + swtTreeItem.getText());
 				swtTreeItem.getParent().setFocus();
 				swtTreeItem.getParent().setSelection(swtTreeItem);
 			}
 		});
-		logger.debug("Notify tree item "
-				+ WidgetHandler.getInstance().getText(swtTreeItem)
-				+ " about selection");
 		notifyTree(swtTreeItem, createEventForTree(swtTreeItem, SWT.Selection));
-		logger.info("Selected: " + this);
 	}
 
 	/**
@@ -224,8 +206,6 @@ public class TreeHandler {
 	 */
 	public void expand(final org.eclipse.swt.widgets.TreeItem swtTreeItem,
 			TimePeriod timePeriod) {
-		logger.debug("Expanding Tree Item "
-				+ WidgetHandler.getInstance().getText(swtTreeItem));
 
 		final TreeExpandListener tel = new TreeExpandListener();
 
@@ -243,7 +223,6 @@ public class TreeHandler {
 			new WaitUntil(new TreeHeardExpandNotification(swtTreeItem, tel,
 					true));
 		}
-		logger.info("Expanded: " + this);
 
 		Display.syncExec(new Runnable() {
 			@Override
@@ -305,26 +284,16 @@ public class TreeHandler {
 	 * @param swtTreeItem tree item to handle
 	 */
 	public void collapse(final org.eclipse.swt.widgets.TreeItem swtTreeItem) {
-		logger.debug("Collapsing Tree Item "
-				+ WidgetHandler.getInstance().getText(swtTreeItem));
 		if (isExpanded(swtTreeItem)) {
 			Display.syncExec(new Runnable() {
 				@Override
 				public void run() {
-					logger.debug("Setting tree item " + swtTreeItem.getText()
-							+ " collapsed");
 					swtTreeItem.setExpanded(false);
 				}
 			});
-			logger.debug("Notify tree about collapse event");
 			notifyTree(swtTreeItem,
 					createEventForTree(swtTreeItem, SWT.Collapse));
-		} else {
-			logger.debug("Tree Item "
-					+ WidgetHandler.getInstance().getText(swtTreeItem)
-					+ " is already collapsed. No action performed");
 		}
-		logger.info("Collapsed: " + this);
 	}
 
 	/**
@@ -336,8 +305,6 @@ public class TreeHandler {
 	 */
 	public TreeItem getItem(final org.eclipse.swt.widgets.TreeItem swtTreeItem,
 			final String text) {
-		logger.debug("Getting child tree item " + text + " of tree item "
-				+ WidgetHandler.getInstance().getText(swtTreeItem));
 		expand(swtTreeItem);
 		TreeItem result = Display.syncExec(new ResultRunnable<TreeItem>() {
 			@Override
@@ -378,7 +345,6 @@ public class TreeHandler {
 	private void notifySelect(final org.eclipse.swt.widgets.Tree swtTree) {
 		Display.syncExec(new Runnable() {
 			public void run() {
-				logger.debug("Notify Tree about selection event");
 				swtTree.notifyListeners(SWT.Selection,
 						createSelectionEvent(swtTree));
 			}
@@ -472,18 +438,14 @@ public class TreeHandler {
 	 */
 	public void setChecked(final org.eclipse.swt.widgets.TreeItem swtTreeItem,
 			final boolean check) {
-		logger.debug((check ? "Check" : "Uncheck") + "Tree Item "
-				+ WidgetHandler.getInstance().getText(swtTreeItem) + ":");
 		Display.syncExec(new Runnable() {
 			@Override
 			public void run() {
 				swtTreeItem.setChecked(check);
 			}
 		});
-		logger.debug("Notify tree about check event");
 		notifyTree(swtTreeItem,
 				createEventForTree(swtTreeItem, SWT.Selection, SWT.CHECK));
-		logger.info((check ? "Checked: " : "Unchecked: ") + this);
 	}
 
 	/**
@@ -549,10 +511,6 @@ public class TreeHandler {
 							createEventForTree(treeItem, SWT.Expand));
 				}
 				return listener.isHeard();
-			} else {
-				logger.debug("Tree Item "
-						+ WidgetHandler.getInstance().getText(treeItem)
-						+ " is already expanded. No action performed");
 			}
 			return true;
 		}
@@ -561,6 +519,5 @@ public class TreeHandler {
 		public String description() {
 			return "tree heard expand notification";
 		}
-
 	}
 }

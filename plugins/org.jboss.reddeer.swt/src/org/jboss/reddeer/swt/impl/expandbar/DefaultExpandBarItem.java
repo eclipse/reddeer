@@ -3,7 +3,6 @@ package org.jboss.reddeer.swt.impl.expandbar;
 import java.util.Iterator;
 import java.util.List;
 
-import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.swt.api.ExpandBar;
 import org.jboss.reddeer.swt.api.ExpandBarItem;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
@@ -16,8 +15,6 @@ import org.jboss.reddeer.swt.reference.ReferencedComposite;
  * 
  */
 public class DefaultExpandBarItem extends AbstractExpandBarItem {
-
-	protected static final Logger logger = Logger.getLogger(DefaultExpandBarItem.class);
 
 	/**
 	 * Default parameter-less constructor
@@ -119,9 +116,6 @@ public class DefaultExpandBarItem extends AbstractExpandBarItem {
 	 */
 	private static org.eclipse.swt.widgets.ExpandItem findExpandBarItem(int expandBarIndex,
 			int expandBarItemIndex) {
-		logger.debug("Searching for Expand Bar item:"
-			+ "\n  Expand Bar index: " + expandBarIndex
-			+ "\n  Expand Bar Item index: " + expandBarItemIndex);
 		ExpandBar expandBar = new DefaultExpandBar(expandBarIndex);
 		List<ExpandBarItem> items = expandBar.getItems();
 		if (items.size() < expandBarItemIndex + 1) {
@@ -140,9 +134,6 @@ public class DefaultExpandBarItem extends AbstractExpandBarItem {
 	 */
 	private static org.eclipse.swt.widgets.ExpandItem findExpandBarItem(ReferencedComposite referencedComposite, int expandBarIndex,
 			int expandBarItemIndex) {
-		logger.debug("Searching for Expand Bar item:"
-			+ "\n  Expand Bar index: " + expandBarIndex
-			+ "\n  Expand Bar Item index: " + expandBarItemIndex);
 		ExpandBar expandBar = new DefaultExpandBar(referencedComposite, expandBarIndex);
 		List<ExpandBarItem> items = expandBar.getItems();
 		if (items.size() < expandBarItemIndex + 1) {
@@ -160,9 +151,6 @@ public class DefaultExpandBarItem extends AbstractExpandBarItem {
 	 */
 	private static org.eclipse.swt.widgets.ExpandItem findExpandBarItem(int expandBarIndex,
 			String expandBarItemText) {
-		logger.debug("Searching for Expand Bar item:"
-				+ "\n  Expand Bar index: " + expandBarIndex
-				+ "\n  Expand Bar Item text: " + expandBarItemText);
 		org.eclipse.swt.widgets.ExpandItem result = null;
 		ExpandBar expandBar = new DefaultExpandBar(expandBarIndex);
 		List<ExpandBarItem> items = expandBar.getItems();
@@ -192,9 +180,6 @@ public class DefaultExpandBarItem extends AbstractExpandBarItem {
 	 */
 	private static org.eclipse.swt.widgets.ExpandItem findExpandBarItem(ReferencedComposite referencedComposite, int expandBarIndex,
 			String expandBarItemText) {
-		logger.debug("Searching for Expand Bar item:"
-				+ "\n  Expand Bar index: " + expandBarIndex
-				+ "\n  Expand Bar Item text: " + expandBarItemText);
 		org.eclipse.swt.widgets.ExpandItem result = null;
 		ExpandBar expandBar = new DefaultExpandBar(referencedComposite, expandBarIndex);
 		List<ExpandBarItem> items = expandBar.getItems();

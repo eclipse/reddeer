@@ -1,6 +1,5 @@
 package org.jboss.reddeer.swt.impl.browser.internal;
 
-import org.jboss.reddeer.common.logging.Logger;
 import org.eclipse.swt.browser.ProgressEvent;
 import org.eclipse.swt.browser.ProgressListener;
 import org.jboss.reddeer.swt.api.Browser;
@@ -13,7 +12,6 @@ public class BrowserProgressListener implements ProgressListener {
 	private final Browser browser;
 	private boolean done = true;
 	private int numCalledIsDoneWithNoChange = 0;
-	private final Logger log = Logger.getLogger(this.getClass());
 	
 	public BrowserProgressListener(Browser browser) {
 		this.browser = browser;
@@ -22,7 +20,6 @@ public class BrowserProgressListener implements ProgressListener {
 	// there is no change after calling this method more then 20 times
 	// because on MS Windows method completed is not called properly
 	public synchronized boolean isDone() {
-		log.debug("Calling isDone()");		
 		numCalledIsDoneWithNoChange++;
 		return done || numCalledIsDoneWithNoChange > 20;
 	}
@@ -32,7 +29,6 @@ public class BrowserProgressListener implements ProgressListener {
 	}
 
 	public synchronized void changed(ProgressEvent event) {
-		log.debug("Calling chanded()");
 		numCalledIsDoneWithNoChange = 0;
 	}
 
@@ -40,5 +36,4 @@ public class BrowserProgressListener implements ProgressListener {
 		setDone(true);
 		browser.getSWTWidget().removeProgressListener(this);
 	}
-
 }

@@ -94,19 +94,19 @@ public class ToggleButton extends AbstractButton {
 	 */
 	public void toggle(boolean checked){
 		if (checked){
+			log.info("Check toggle button " + getDescriptiveText());
 			if (isSelected()) {
-				log.debug("Toggle Button already checked");
+				log.info("Toggle Button already checked, no action performed");
 				return;
 			}else{
-				log.info("Checking Toggle Button " + getText());
 				click();
 			}
 		}else{
+			log.info("Uncheck toggle button " + getDescriptiveText());
 			if (isSelected()) {
-				log.info("Unchecking Toggle Button " + getText());
 				click();
 			}else{
-				log.debug("Toggle Button already unchecked");
+				log.info("Toggle Button already unchecked, no action performed");
 				return;
 			}
 		}

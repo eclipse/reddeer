@@ -1,5 +1,6 @@
 package org.jboss.reddeer.swt.impl.scale;
 
+import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.swt.api.Scale;
 import org.jboss.reddeer.swt.handler.ScaleHandler;
 import org.jboss.reddeer.swt.handler.WidgetHandler;
@@ -9,6 +10,8 @@ import org.jboss.reddeer.swt.handler.WidgetHandler;
  *
  */
 public abstract class AbstractScale implements Scale {
+	
+	private static final Logger log = Logger.getLogger(AbstractScale.class);
 
 	protected org.eclipse.swt.widgets.Scale swtScale;
 	
@@ -42,8 +45,10 @@ public abstract class AbstractScale implements Scale {
 	 */
 	@Override
 	public void setSelection(int value) {
+		log.info("Set scale selection to " + value);
 		ScaleHandler.getInstance().setSelection(this.getSWTWidget(), value);		
 	}
+	
 	/**
 	 * See {@link Scale}
 	 */

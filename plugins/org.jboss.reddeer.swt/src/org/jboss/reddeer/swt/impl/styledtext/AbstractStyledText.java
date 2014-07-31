@@ -20,7 +20,7 @@ public abstract class AbstractStyledText implements StyledText {
     /**
      * Logger.
      */
-    protected final Logger log = Logger.getLogger(this.getClass());
+    private static final Logger log = Logger.getLogger(AbstractStyledText.class);
 
     /**
      * Returns styledtext text.
@@ -38,7 +38,7 @@ public abstract class AbstractStyledText implements StyledText {
      */
     @Override
     public void setText(final String text) {
-        log.info("Text set to: " + text);
+        log.info("Styled text set to: " + text);
         WidgetHandler.getInstance().setText(styledText, text);
     }
 
@@ -60,6 +60,7 @@ public abstract class AbstractStyledText implements StyledText {
      */
     @Override
     public void insertText(final int line, final int column, final String text) {
+    	log.info("Text inserted into styled text on line " + line + ", column " + column + ": " + text);
         StyledTextHandler.getInstance().insertText(styledText, line, column, text);
     }
 
@@ -68,6 +69,7 @@ public abstract class AbstractStyledText implements StyledText {
      */
     @Override
     public void insertText(final String text) {
+    	log.info("Text inserted into styled text: " + text);
         StyledTextHandler.getInstance().insertText(styledText, text);
     }
 
@@ -100,6 +102,7 @@ public abstract class AbstractStyledText implements StyledText {
      */
     @Override
     public void selectText(final String text) {
+    	log.info("Text selected in styled text: " + text);
         StyledTextHandler.getInstance().selectText(styledText, text);
     }
 
@@ -108,6 +111,7 @@ public abstract class AbstractStyledText implements StyledText {
      */
     @Override
     public void selectPosition(final int position) {
+    	log.info("Position selected in styled text: " + position);
         StyledTextHandler.getInstance().selectPosition(styledText, position);
     }
 

@@ -19,7 +19,7 @@ import org.jboss.reddeer.swt.wait.TimePeriod;
  */
 public abstract class AbstractExpandBarItem implements ExpandBarItem {
 
-	protected final Logger logger = Logger.getLogger(this.getClass());
+	private static final Logger logger = Logger.getLogger(AbstractExpandBarItem.class);
 
 	protected org.eclipse.swt.widgets.ExpandItem swtExpandItem;
 	protected org.eclipse.swt.widgets.ExpandBar swtParent;
@@ -62,15 +62,12 @@ public abstract class AbstractExpandBarItem implements ExpandBarItem {
 	 */
 	@Override
 	public void expand(TimePeriod timePeriod) {
-		logger.debug("Expanding Expand Bar Item " + getText());
+		logger.info("Expand Expand Bar Item " + getText());
 		if (!isExpanded()) {
 			ExpandBarItemHandler.getInstance().expand(getSWTWidget(), getSWTParent());
 			AbstractWait.sleep(timePeriod);
-			logger.info("Expand Bar Item " + getText()
-					+ " has been expanded");
 		} else {
-			logger.debug("Expand Bar Item " + getText()
-					+ " is already expanded. No action performed");
+			logger.info("Expand Bar Item is already expanded. No action performed");
 		}
 	}
 	/**
@@ -78,14 +75,11 @@ public abstract class AbstractExpandBarItem implements ExpandBarItem {
 	 */
 	@Override
 	public void collapse() {
-		logger.debug("Collapsing Expand Bar Item " + getText());
+		logger.info("Collapse Expand Bar Item " + getText());
 		if (isExpanded()) {
 			ExpandBarItemHandler.getInstance().collapse(getSWTWidget(), getSWTParent());
-			logger.info("Expand Bar Item " + getText()
-					+ " has been collapsed");
 		} else {
-			logger.debug("Expand Bar Item " + getText()
-					+ " is already collapsed. No action performed");
+			logger.info("Expand Bar Item is already collapsed. No action performed");
 		}
 	}
 	/**

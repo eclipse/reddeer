@@ -1,5 +1,6 @@
 package org.jboss.reddeer.swt.wait;
 
+import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.swt.condition.WaitCondition;
 
 /**
@@ -12,6 +13,8 @@ import org.jboss.reddeer.swt.condition.WaitCondition;
  */
 public class WaitUntil extends AbstractWait {
 
+	private static final Logger log = Logger.getLogger(WaitUntil.class);
+	
 	/**
 	 * Waits until condition is met for default period. Throws
 	 * WaitTimeoutExpiredException if condition is not met after expiration

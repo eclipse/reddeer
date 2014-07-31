@@ -14,11 +14,11 @@ import org.jboss.reddeer.swt.keyboard.KeyboardFactory;
 public abstract class AbstractText implements Text {
 	
 	protected org.eclipse.swt.widgets.Text w;
-	protected final Logger log = Logger.getLogger(this.getClass());
+	private static final Logger log = Logger.getLogger(AbstractText.class);
 	
 	@Override
 	public void setText(String str) {
-		log.info("Text set to: " + str);
+		log.info("Set text " + str);
 		TextHandler.getInstance().setText(w, str);
 	}
 	
@@ -42,7 +42,6 @@ public abstract class AbstractText implements Text {
 
 	@Override
 	public void setFocus() {
-		log.info("Setting focus to Text");
 		WidgetHandler.getInstance().setFocus(w);
 	}
 	
@@ -57,6 +56,7 @@ public abstract class AbstractText implements Text {
 	
 	@Override
 	public void typeText(String text) {
+		log.info("Type text " + text);
 		setText("");
 		setFocus();
 		KeyboardFactory.getKeyboard().type(text);

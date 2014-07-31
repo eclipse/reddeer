@@ -15,7 +15,6 @@ public class DefaultShell extends AbstractShell {
 		super(ShellLookup.getInstance().getShell(title));
 		try {
 			setFocus();
-			log.info("Shell with title '" + title + "' found");
 		} catch (Exception e) {
 			throw new SWTLayerException("No shell with title '" + title + "' is available", e);
 		}
@@ -25,7 +24,6 @@ public class DefaultShell extends AbstractShell {
 		super(ShellLookup.getInstance().getActiveShell());
 		try {
 			setFocus();
-			log.info("Active shell with title '" + getText() + "' found");
 		} catch (Exception e) {
 			throw new SWTLayerException("No active shell is available at the moment", e);
 		}

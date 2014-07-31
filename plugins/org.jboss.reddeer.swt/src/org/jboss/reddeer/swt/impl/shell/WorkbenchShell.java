@@ -13,7 +13,7 @@ import org.jboss.reddeer.swt.util.ResultRunnable;
  */
 public class WorkbenchShell extends AbstractShell {
 
-	private Logger log = Logger.getLogger(WorkbenchShell.class);
+	private static final Logger log = Logger.getLogger(WorkbenchShell.class);
 
 	/**
 	 * Default Constructor for a WorkbenchShell
@@ -21,7 +21,7 @@ public class WorkbenchShell extends AbstractShell {
 	public WorkbenchShell() {
 		super(ShellLookup.getInstance().getWorkbenchShell());
 		setFocus();
-		log.debug("Workbench shell has title '" + getText() + "'");
+		log.info("Workbench shell has title '" + getText() + "'");
 	}
 
 
@@ -30,6 +30,7 @@ public class WorkbenchShell extends AbstractShell {
 	 * Maximize window
 	 */
 	public void maximize() {
+		log.info("Maximize workbench shell");
 		Display.syncExec(new Runnable() {
 
 			public void run() {
@@ -42,6 +43,7 @@ public class WorkbenchShell extends AbstractShell {
 	 * Restore window
 	 */
 	public void restore() {
+		log.info("Restore workbench shell");
 		Display.syncExec(new Runnable() {
 
 			public void run() {

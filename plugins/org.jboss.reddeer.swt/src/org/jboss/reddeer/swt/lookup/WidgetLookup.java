@@ -15,8 +15,8 @@ import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.IWorkbenchPartReference;
 import org.eclipse.ui.IWorkbenchSite;
 import org.hamcrest.Matcher;
-import org.jboss.reddeer.direct.platform.RunningPlatform;
 import org.jboss.reddeer.common.logging.Logger;
+import org.jboss.reddeer.direct.platform.RunningPlatform;
 import org.jboss.reddeer.swt.condition.WaitCondition;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.exception.WaitTimeoutExpiredException;
@@ -37,7 +37,7 @@ import org.jboss.reddeer.swt.wait.WaitUntil;
 public class WidgetLookup {
 
 	private static WidgetLookup instance = null;
-	protected final Logger logger = Logger.getLogger(this.getClass());
+	private static final Logger logger = Logger.getLogger(WidgetLookup.class);
 
 	private WidgetLookup() {
 	}

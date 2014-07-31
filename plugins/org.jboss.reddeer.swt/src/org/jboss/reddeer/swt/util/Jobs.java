@@ -3,8 +3,8 @@ package org.jboss.reddeer.swt.util;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.jboss.reddeer.common.logging.Logger;
 import org.eclipse.core.runtime.jobs.Job;
+import org.jboss.reddeer.common.logging.Logger;
 
 /**
  * Utils to work with Jobs
@@ -12,7 +12,7 @@ import org.eclipse.core.runtime.jobs.Job;
  *
  */
 public class Jobs {
-    private static Logger log = Logger.getLogger(Jobs.class);
+    private static final Logger log = Logger.getLogger(Jobs.class);
 	public static final int JOB_STATE_NONE = 0;
 	public static final int JOB_STATE_SLEEPING = 1;
 	public static final int JOB_STATE_WAITING = 2;
@@ -57,26 +57,25 @@ public class Jobs {
 	}
 	
 	public static void printAllRunningJobs(){
-		log.info("Print All Running Jobs");
+		log.debug("Print All Running Jobs");
 		Job[] jobs = Job.getJobManager().find(null);
 		for (Job job : jobs) {
 			if (isJobRunning(job)){
-				log.info(getFormattedJobDescription(job));
+				log.debug(getFormattedJobDescription(job));
 			}
 
 		}
 	}
 	
     public static void printAllJobs(){
-    	log.info("Print All Jobs");
+    	log.debug("Print All Jobs");
 		Job[] jobs = Job.getJobManager().find(null);
 		for (Job job : jobs) {
-			log.info(getFormattedJobDescription(job));
+			log.debug(getFormattedJobDescription(job));
 		}
 	}
     
     public static String[] getAllRunningJobs(){
-    	log.info("Get All Jobs");
     	Job[] jobs = Job.getJobManager().find(null);
     	List<String> jobNames = new ArrayList<String>();
     	for (Job job: jobs){

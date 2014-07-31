@@ -15,7 +15,7 @@ import org.jboss.reddeer.swt.handler.WidgetHandler;
  */
 public abstract class AbstractCTabItem implements CTabItem {
 
-	protected final Logger logger = Logger.getLogger(this.getClass());
+	private static final Logger logger = Logger.getLogger(AbstractCTabItem.class);
 
 	protected org.eclipse.swt.custom.CTabItem swtCTabItem;
 	protected org.eclipse.swt.custom.CTabFolder swtParent;
@@ -25,7 +25,7 @@ public abstract class AbstractCTabItem implements CTabItem {
 	 */
 	@Override
 	public void activate() {
-		logger.info("Activating " + this.getText());
+		logger.info("Activate tab " + this.getText());
 		cTabItemHandler.select(swtCTabItem);
 		cTabItemHandler.notifyCTabFolder(
 			swtCTabItem,
@@ -63,6 +63,7 @@ public abstract class AbstractCTabItem implements CTabItem {
 	 */
 	@Override
 	public void close() {
+		logger.info("Close tab " + getText());
 		if (isShowClose()) {
 			activate();
 			cTabItemHandler.clickCloseButton(swtCTabItem);
