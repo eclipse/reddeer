@@ -91,7 +91,7 @@ public class MavenSettingsPreferencePage extends WorkbenchPreferencePage {
 					public Control getControl() {
 						return button.getSWTWidget().getParent();
 					}
-				}, 0);
+				}, 1);
 			}
 		});
 	}
