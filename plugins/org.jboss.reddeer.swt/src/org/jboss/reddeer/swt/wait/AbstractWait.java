@@ -85,12 +85,16 @@ public abstract class AbstractWait {
 	 * @return description of specific wait condition
 	 */
 	protected abstract String description();
-
 	
 	private void wait(WaitCondition condition) {
 		log.debug(this.description() + condition.description() + "...");
-	
-		long limit = System.currentTimeMillis() + getTimeout().getSeconds() * 1000;
+		
+		long limit;
+		if((Long.MAX_VALUE - System.currentTimeMillis()) / 1000 > getTimeout().getSeconds()){
+			limit = System.currentTimeMillis() + getTimeout().getSeconds() * 1000;
+		} else {
+			limit = Long.MAX_VALUE;
+		}
 
 		while (true) {
 			if (stopWaiting(condition)){
