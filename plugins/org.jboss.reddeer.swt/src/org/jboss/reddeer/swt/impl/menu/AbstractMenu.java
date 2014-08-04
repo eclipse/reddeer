@@ -1,6 +1,7 @@
 package org.jboss.reddeer.swt.impl.menu;
 
 import org.jboss.reddeer.common.logging.Logger;
+import org.eclipse.swt.widgets.MenuItem;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.swt.api.Menu;
 import org.jboss.reddeer.swt.handler.MenuHandler;
@@ -20,6 +21,7 @@ public abstract class AbstractMenu implements Menu {
 	protected Matcher<String>[] matchers;
 	protected MenuLookup ml = MenuLookup.getInstance();
 	protected MenuHandler mh = MenuHandler.getInstance();
+	protected MenuItem menuItem = null;
 
 
 	@Override

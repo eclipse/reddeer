@@ -21,7 +21,7 @@ import org.jboss.reddeer.swt.util.ResultRunnable;
  */
 public class ContextMenu extends AbstractMenu implements Menu {
 	
-	private ActionContributionItem item;
+	private ActionContributionItem actionItem;
 	private MenuItem menuItem;
 
 	/**
@@ -43,8 +43,8 @@ public class ContextMenu extends AbstractMenu implements Menu {
 		menuItem = ml.lookFor(ml.getTopMenuMenuItemsFromFocus(),matchers);
 		if(menuItem == null){
 			log.info("No menu item found, looking for contribution item");
-			item = ml.lookFor(ml.getMenuContributionItems(), matchers);
-			if (item == null){
+			actionItem = ml.lookFor(ml.getMenuContributionItems(), matchers);
+			if (actionItem == null){
 				throw new SWTLayerException("Contribution item not found");
 			}
 		}
@@ -54,11 +54,10 @@ public class ContextMenu extends AbstractMenu implements Menu {
 	
 	@Override
 	public void select() {
-		
 		if(menuItem != null){
 			mh.select(menuItem);
 		} else {
-			mh.select(item);
+			mh.select(actionItem);
 		}
 	}
 	
@@ -74,17 +73,11 @@ public class ContextMenu extends AbstractMenu implements Menu {
 	
 	@Override
 	public String getText() {
-		if(item != null){
-			return item.getAction().getText().replace("&", "");
+		if(actionItem != null){
+			return actionItem.getAction().getText().replace("&", "");
 		} else {
-			return Display.syncExec(new ResultRunnable<String>() {
-				
-				@Override
-				public String run() {
-					return menuItem.getText().replace("&", "");
-					
-				}
-			});
+			String ret = mh.getMenuItemText(menuItem).replace("&", "");
+			return ret;
 		}
 	}
 
@@ -98,6 +91,6 @@ public class ContextMenu extends AbstractMenu implements Menu {
 		if(menuItem != null){
 			return WidgetHandler.getInstance().isEnabled(menuItem);
 		}
-		return ActionContributionItemHandler.getInstance().isEnabled(item);
+		return ActionContributionItemHandler.getInstance().isEnabled(actionItem);
 	}
 }

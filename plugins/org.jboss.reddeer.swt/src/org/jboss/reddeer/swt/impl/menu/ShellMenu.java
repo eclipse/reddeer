@@ -22,7 +22,7 @@ import org.jboss.reddeer.swt.util.Display;
 @SuppressWarnings("restriction")
 public class ShellMenu extends AbstractMenu implements Menu {
 	
-	private MenuItem menuItem;
+	
 	private boolean isSubmenuOfMacEclipseMenu = false;
 	private MacEclipseMenuCommand macEclipseMenuCommand = null;
 
@@ -65,6 +65,7 @@ public class ShellMenu extends AbstractMenu implements Menu {
 	@Override
 	public void select() {
 		if (!isSubmenuOfMacEclipseMenu){
+			System.out.println(getText());
 			mh.select(menuItem);
 		} else {
 			if (macEclipseMenuCommand.equals(MacEclipseMenuCommand.PREFERENCES)){
@@ -120,8 +121,10 @@ public class ShellMenu extends AbstractMenu implements Menu {
 	@Override
 	public String getText() {
 		if (!isSubmenuOfMacEclipseMenu){
-			MenuItem i = ml.lookFor(ml.getActiveShellTopMenuItems(), matchers);
-			String text = mh.getMenuItemText(i);
+			if (menuItem == null) {
+				menuItem = ml.lookFor(ml.getActiveShellTopMenuItems(), matchers);
+			}
+			String text = mh.getMenuItemText(menuItem);
 			return text;
 		}
 		else{
