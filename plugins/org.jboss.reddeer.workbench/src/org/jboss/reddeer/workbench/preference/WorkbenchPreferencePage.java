@@ -38,6 +38,7 @@ public class WorkbenchPreferencePage extends PreferencePage {
 
 	/**
 	 * Open preference shell and specific preference page in preference shell defined by path given in constructor.
+	 * @deprecated since 0.6, WorkbenchPreferenceDialog#open should be used
 	 */
 	public void open() {
 
