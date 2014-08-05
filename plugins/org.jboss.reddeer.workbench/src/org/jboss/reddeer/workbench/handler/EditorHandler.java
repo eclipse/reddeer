@@ -1,8 +1,10 @@
 package org.jboss.reddeer.workbench.handler;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.jdt.internal.ui.javaeditor.CompilationUnitDocumentProvider.ProblemAnnotation;
@@ -10,8 +12,10 @@ import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.source.IAnnotationModel;
 import org.eclipse.ui.IEditorPart;
+import org.eclipse.ui.IEditorReference;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.part.EditorPart;
 import org.eclipse.ui.texteditor.IDocumentProvider;
 import org.eclipse.ui.texteditor.ITextEditor;
 import org.eclipse.ui.texteditor.SimpleMarkerAnnotation;
@@ -202,5 +206,29 @@ public class EditorHandler {
         }
         return markers;
     }
+    
+    /**
+     * Closes all editors.
+     * @param save performs save operation before closing if true
+     */
+	public void closeAll(final boolean save) {
+		log.trace("Closing all editors");
+		IEditorReference[] editors = Display
+				.syncExec(new ResultRunnable<IEditorReference[]>() {
 
+					@Override
+					public IEditorReference[] run() {
+						IWorkbenchWindow activeWorkbenchWindow = PlatformUI
+								.getWorkbench().getActiveWorkbenchWindow();
+						IEditorReference[] editors = activeWorkbenchWindow
+								.getActivePage().getEditorReferences();
+						log.debug(editors.length + " editor(s) found");
+						return editors;
+					}
+				});
+
+		for (IEditorReference editor : editors) {
+			close(save, (IEditorPart) editor.getPart(true));
+		}
+	}
 }

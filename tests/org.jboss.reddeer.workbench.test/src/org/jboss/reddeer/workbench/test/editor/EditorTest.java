@@ -15,6 +15,7 @@ import org.jboss.reddeer.eclipse.ui.ide.NewFileCreationWizardDialog;
 import org.jboss.reddeer.eclipse.ui.ide.NewFileCreationWizardPage;
 import org.jboss.reddeer.eclipse.ui.problems.ProblemsView;
 import org.jboss.reddeer.eclipse.ui.wizards.newresource.BasicNewProjectResourceWizard;
+import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.workbench.api.Editor;
 import org.jboss.reddeer.workbench.exception.WorkbenchPartNotFound;
@@ -25,7 +26,9 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
+@RunWith(RedDeerSuite.class)
 public class EditorTest {
 
 	@BeforeClass
@@ -75,11 +78,17 @@ public class EditorTest {
 	}
 
 	@Test(expected = WorkbenchPartNotFound.class)
+	public void noEditorsOpenedTest() {
+		new DefaultEditor().closeAll(false);
+		new DefaultEditor();
+	}
+
+	@Test(expected = WorkbenchPartNotFound.class)
 	public void noEditorOpenedTest() {
 		new DefaultEditor().close(false);
 		new DefaultEditor();
 	}
-
+	
 	@Test
 	public void closeDirtyWithSaveTest() {
 		DefaultEditor editor = new DefaultEditor();
@@ -88,6 +97,26 @@ public class EditorTest {
 		assertTrue(editorPart.dirty);
 		editor.close(true);
 		assertFalse(editorPart.dirty);
+	}
+
+	@Test
+	public void closeDirtyEditorsWithSaveTest() {
+		DefaultEditor editor = new DefaultEditor();
+		new PushButton("Make Dirty").click();
+		SimpleEditor editorPart = getEditorPart(editor);
+		assertTrue(editorPart.dirty);
+		editor.closeAll(true);
+		assertFalse(editorPart.dirty);
+	}
+	
+	@Test
+	public void closeDirtyEditorsWithoutSaveTest() {
+		DefaultEditor editor = new DefaultEditor();
+		new PushButton("Make Dirty").click();
+		SimpleEditor editorPart = getEditorPart(editor);
+		assertTrue(editorPart.dirty);
+		editor.closeAll(false);
+		assertTrue(editorPart.dirty);
 	}
 
 	@Test

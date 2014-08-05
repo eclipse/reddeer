@@ -108,7 +108,7 @@ public class AbstractEditor implements Editor {
     public void close(final boolean save) {
         EditorHandler.getInstance().close(save, editorPart);
     }
-
+    
     @Override
     public boolean isActive() {
         return EditorHandler.getInstance().isActive(editorPart);
@@ -285,5 +285,16 @@ public class AbstractEditor implements Editor {
     public void activate() {
         EditorHandler.getInstance().activate(editorPart);
     }
+
+    /**
+     * {@link Editor#closeAll}
+     * @see org.jboss.reddeer.workbench.api.Editor#closeAll(boolean)
+     */
+	@Override
+	public void closeAll(boolean save) {
+		log.info("Close all editors");
+		EditorHandler.getInstance().closeAll(save);
+		
+	}    
 
 }

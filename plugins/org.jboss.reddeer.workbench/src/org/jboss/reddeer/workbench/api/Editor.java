@@ -42,6 +42,12 @@ public interface Editor extends WorkbenchPart {
     void close(boolean save);
 
     /**
+     * Closes all editors.
+     * @param save If true, content will be saved
+     */
+    void closeAll(boolean save); 
+
+    /**
      * Checks if editor is active.
      * @return whether is this editor currently active and has focus.
      */
