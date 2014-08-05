@@ -116,7 +116,7 @@ public class Project {
 	 * hierarchy and on each layer at first try to find item specified by part of the
 	 * path as it is (whole text). If there is no item with whole text represented by 
 	 * the part of the path, then item is looked up by non-decorated text representing
-	 * this item. If there are more than two items in this step containing same non-deprecated
+	 * this item. If there are more than two items in this step containing same non-styled
 	 * text, then EclipseLayerException is thrown. 
 	 * 
 	 * 
@@ -137,7 +137,7 @@ public class Project {
 					// non existing item
 					throw new EclipseLayerException("Cannot get project item specified by path."
 							+ "Project item either does not exist or solution is ambiguous because "
-							+ "of existence of more items on the path with same name without decorators");					
+							+ "of existence of more items on the path with same name without decorators");
 				}
 			} 
 		}

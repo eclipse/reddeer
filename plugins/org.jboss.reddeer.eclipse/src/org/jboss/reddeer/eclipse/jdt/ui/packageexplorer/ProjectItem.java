@@ -90,17 +90,17 @@ public class ProjectItem {
 	}
 	
 	/**
-	 * Gets child of the project item with given text without decorators.
+	 * Gets child of the project item. At first the whole text of the child is
+	 * checked, then only non-decorated part.
 	 * 
-	 * @param text text of the project item without decorators to find
-	 * @return project item with specified text without decorators
+	 * @param text text of the project item
+	 * @return project item with the specified <var>text</var>
 	 */
 	public ProjectItem getChild(String text) {
 		String[] childPath = new String[path.length + 1];
 		System.arraycopy(path, 0, childPath, 0, path.length);
 		childPath[childPath.length - 1] = text;
-		return new ProjectItem(treeViewerHandler.getTreeItem(
-				treeItem, text), project, childPath);
+		return project.getProjectItem(childPath);
 	}
 	
 	/**
@@ -141,9 +141,6 @@ public class ProjectItem {
 	
 	/**
 	 * Gets list of children of the project item. 
-	 * <b>List is consisting of project items without decorators</b>.
-	 * If there are children distinguished only be decorators, use method 
-	 * {@link ProjectItem#getRawChildren()} instead.
 	 * 
 	 * @return list of children of the project item
 	 */
@@ -151,7 +148,7 @@ public class ProjectItem {
 		List<ProjectItem> children = new ArrayList<ProjectItem>();
 		
 		for (TreeItem item: treeItem.getItems()) {
-			String name = treeViewerHandler.getNonStyledText(item);
+			String name = item.getText();
 			String[] childPath = new String[path.length + 1];
 			System.arraycopy(path, 0, childPath, 0, path.length);
 			childPath[childPath.length - 1] = name;
