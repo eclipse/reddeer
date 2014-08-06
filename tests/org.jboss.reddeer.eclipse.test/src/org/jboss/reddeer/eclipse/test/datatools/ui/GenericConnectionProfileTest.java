@@ -5,6 +5,11 @@ import static org.junit.Assert.assertTrue;
 import java.io.File;
 import java.util.List;
 
+import org.jboss.reddeer.common.wait.TimePeriod;
+import org.jboss.reddeer.common.wait.WaitUntil;
+import org.jboss.reddeer.common.wait.WaitWhile;
+import org.jboss.reddeer.core.condition.JobIsRunning;
+import org.jboss.reddeer.core.condition.ShellWithTextIsActive;
 import org.jboss.reddeer.eclipse.datatools.ui.DatabaseProfile;
 import org.jboss.reddeer.eclipse.datatools.ui.DriverDefinition;
 import org.jboss.reddeer.eclipse.datatools.ui.DriverTemplate;
@@ -15,6 +20,15 @@ import org.jboss.reddeer.eclipse.datatools.ui.wizard.DriverDefinitionPage;
 import org.jboss.reddeer.eclipse.datatools.ui.wizard.DriverDefinitionWizard;
 import org.jboss.reddeer.workbench.ui.dialogs.WorkbenchPreferenceDialog;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
+import org.jboss.reddeer.swt.api.TableItem;
+import org.jboss.reddeer.swt.api.TreeItem;
+import org.jboss.reddeer.swt.impl.button.PushButton;
+import org.jboss.reddeer.swt.impl.button.YesButton;
+import org.jboss.reddeer.swt.impl.menu.ContextMenu;
+import org.jboss.reddeer.swt.impl.table.DefaultTable;
+import org.jboss.reddeer.swt.impl.table.DefaultTableItem;
+import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -22,6 +36,43 @@ import org.junit.runner.RunWith;
 public class GenericConnectionProfileTest {
 
 	private String fileName = "h2-1.4.178.jar";
+	
+	@Before
+	public void prepare() {
+		// Driver definition removal
+		WorkbenchPreferenceDialog preferenceDialog = new WorkbenchPreferenceDialog();
+		preferenceDialog.open();
+		DriverDefinitionPreferencePage preferencePage = new DriverDefinitionPreferencePage();
+		preferenceDialog.select(preferencePage);
+		
+		List<TableItem> items = new DefaultTable().getItems();
+		for (int i = 0; i < items.size(); i++) {
+			new DefaultTableItem(0).select();
+			new PushButton("Remove").click();
+			new WaitUntil(new ShellWithTextIsActive("Confirm Driver Removal"));
+			new YesButton().click();
+			new WaitWhile(new ShellWithTextIsActive("Confirm Driver Removal"));
+			new WaitUntil(new ShellWithTextIsActive("Preferences"));
+		}
+		preferenceDialog.ok();
+		new WaitWhile(new JobIsRunning());
+		
+		// Connection profiles removal
+		DataSourceExplorer dse = new DataSourceExplorer();
+		dse.open();
+		DefaultTreeItem item = new DefaultTreeItem("Database Connections");
+		item.expand(TimePeriod.NORMAL);
+		List<TreeItem> cpitems = item.getItems();
+		for (TreeItem i : cpitems) {
+			i.select();
+			new ContextMenu("Delete").select();
+			new WaitUntil(new ShellWithTextIsActive("Delete confirmation"));
+			new YesButton().click();
+			new WaitWhile(new ShellWithTextIsActive("Delete confirmation"));				
+		}
+		
+		new WaitWhile(new JobIsRunning());
+	}
 	
 	@Test
 	public void genericConnectionProfileTest() {
