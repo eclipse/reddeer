@@ -37,7 +37,7 @@ import org.jboss.reddeer.swt.wait.WaitUntil;
 public class WidgetLookup {
 
 	private static WidgetLookup instance = null;
-	protected final Logger logger = Logger.getLogger(this.getClass());
+	private static final Logger logger = Logger.getLogger(WidgetLookup.class);
 
 	private WidgetLookup() {
 	}

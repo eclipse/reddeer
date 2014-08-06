@@ -20,7 +20,7 @@ public class ComboHandler {
 
 	private static ComboHandler instance;
 
-	private final Logger log = Logger.getLogger(this.getClass());
+	private static final Logger log = Logger.getLogger(ComboHandler.class);
 
 	private ComboHandler() {
 

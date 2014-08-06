@@ -1,6 +1,7 @@
 package org.jboss.reddeer.swt.keyboard.internal;
 
 import org.eclipse.swt.SWT;
+import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.swt.keyboard.Keyboard;
 
 /**
@@ -11,10 +12,10 @@ import org.jboss.reddeer.swt.keyboard.Keyboard;
  */
 
 public class MacKeyboard extends Keyboard {
-
+	private static final Logger log = Logger.getLogger(MacKeyboard.class);
 	public void writeToClipboard(boolean cut) {
 
-		log.debug("Writing to clipboard");
+		log.debug("Write to clipboard");
 		press(SWT.COMMAND);
 		if (cut) {
 			type('x');
@@ -25,7 +26,7 @@ public class MacKeyboard extends Keyboard {
 	}
 
 	public void pasteFromClipboard() {
-		log.debug("Pasting from clipboard");
+		log.debug("Paste from clipboard");
 		press(SWT.COMMAND);
 		type('v');
 		release(SWT.COMMAND);

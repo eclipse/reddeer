@@ -15,7 +15,7 @@ import org.jboss.reddeer.swt.util.internal.InstanceValidator;
  */
 public class ShellWithTextIsAvailable implements WaitCondition { 
 	private Matcher<String> matcher;
-	private final Logger log = Logger.getLogger(this.getClass());
+	private static final Logger log = Logger.getLogger(ShellWithTextIsAvailable.class);
 
 	/**
 	 * Constructs ShellWithTextIsAvailable wait condition.

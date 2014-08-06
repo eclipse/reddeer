@@ -1,6 +1,5 @@
 package org.jboss.reddeer.swt.impl.menu;
 
-import org.jboss.reddeer.common.logging.Logger;
 import org.eclipse.swt.widgets.MenuItem;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.swt.api.Menu;
@@ -14,8 +13,6 @@ import org.jboss.reddeer.swt.lookup.MenuLookup;
  * 
  */
 public abstract class AbstractMenu implements Menu {
-
-	protected final Logger log = Logger.getLogger(this.getClass());
 
 	protected String[] path;
 	protected Matcher<String>[] matchers;

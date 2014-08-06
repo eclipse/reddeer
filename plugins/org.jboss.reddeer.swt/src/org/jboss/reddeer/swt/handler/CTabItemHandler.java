@@ -110,7 +110,7 @@ public class CTabItemHandler {
 						return null;
 					}
 				});
-		logger.info("Clicking on close button");
+		logger.debug("Click on close button");
 		int x = rectangleCloseBox.x + (rectangleCloseBox.width / 2);
 		int y = rectangleCloseBox.y + (rectangleCloseBox.height / 2);
 		notifyCTabFolder(

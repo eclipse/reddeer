@@ -16,7 +16,7 @@ import org.jboss.reddeer.swt.handler.WidgetHandler;
  */
 public abstract class AbstractTabItem implements TabItem {
 
-	protected final Logger logger = Logger.getLogger(this.getClass());
+	private static final Logger logger = Logger.getLogger(AbstractTabItem.class);
 
 	protected org.eclipse.swt.widgets.TabItem swtTabItem;
 	protected org.eclipse.swt.widgets.TabFolder swtParent;
@@ -36,7 +36,7 @@ public abstract class AbstractTabItem implements TabItem {
 	 */
 	@Override
 	public void activate() {
-		logger.info("Activating " + this.getText());
+		logger.info("Activate " + this.getText());
 		tabItemHandler.select(swtTabItem);
 		tabItemHandler.notifyTabFolder(
 			tabItemHandler.createEventForTabItem(swtTabItem,SWT.Selection),

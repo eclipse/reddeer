@@ -1,5 +1,6 @@
 package org.jboss.reddeer.swt.impl.shell;
 
+import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.lookup.ShellLookup;
 /**
@@ -10,12 +11,12 @@ import org.jboss.reddeer.swt.lookup.ShellLookup;
  * 
  */
 public class DefaultShell extends AbstractShell {
-
+	private static final Logger log = Logger.getLogger(DefaultShell.class);
 	public DefaultShell(String title) {
 		super(ShellLookup.getInstance().getShell(title));
 		try {
 			setFocus();
-			log.info("Shell with title '" + title + "' found");
+			log.debug("Shell with title '" + title + "' found");
 		} catch (Exception e) {
 			throw new SWTLayerException("No shell with title '" + title + "' is available", e);
 		}
@@ -25,7 +26,7 @@ public class DefaultShell extends AbstractShell {
 		super(ShellLookup.getInstance().getActiveShell());
 		try {
 			setFocus();
-			log.info("Active shell with title '" + getText() + "' found");
+			log.debug("Active shell with title '" + getText() + "' found");
 		} catch (Exception e) {
 			throw new SWTLayerException("No active shell is available at the moment", e);
 		}

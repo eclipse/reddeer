@@ -3,6 +3,7 @@ package org.jboss.reddeer.swt.impl.menu;
 import org.eclipse.jface.action.ActionContributionItem;
 import org.eclipse.swt.widgets.MenuItem;
 import org.hamcrest.Matcher;
+import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.swt.api.Menu;
 import org.jboss.reddeer.swt.handler.ActionContributionItemHandler;
 import org.jboss.reddeer.swt.matcher.WithMnemonicTextMatchers;
@@ -13,6 +14,8 @@ import org.jboss.reddeer.swt.matcher.WithMnemonicTextMatchers;
  *
  */
 public class ToolbarMenu extends AbstractMenu implements Menu{
+	
+	private static final Logger log = Logger.getLogger(ToolbarMenu.class);
 	
 	private ActionContributionItem item;
 	
@@ -27,6 +30,7 @@ public class ToolbarMenu extends AbstractMenu implements Menu{
 
 	@Override
 	public void select() {
+		log.info("Select toolbar menu with text " + getText());
 		mh.select(item);
 	}
 	

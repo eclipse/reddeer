@@ -22,7 +22,7 @@ public abstract class AbstractWait {
 	/**
 	 * Wait logger.
 	 */
-	protected final Logger log = Logger.getLogger(this.getClass());
+	private static final Logger log = Logger.getLogger(AbstractWait.class);
 
 	private TimePeriod timeout;
 

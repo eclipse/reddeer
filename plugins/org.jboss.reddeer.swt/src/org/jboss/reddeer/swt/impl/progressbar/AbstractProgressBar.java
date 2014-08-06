@@ -15,12 +15,12 @@ import org.jboss.reddeer.swt.matcher.WithStyleMatcher;
 
 public abstract class AbstractProgressBar implements ProgressBar {
 	
-	protected final Logger log = Logger.getLogger(this.getClass());
+	private static final Logger log = Logger.getLogger(AbstractProgressBar.class);
 	
 	protected org.eclipse.swt.widgets.ProgressBar widget;
 
 	protected AbstractProgressBar(int index, int style) {
-		log.info("Searching for ProgressBar:"
+		log.debug("Searching for ProgressBar:"
 				+ "\n  index: " + index
 				+ "\n  style: " + style);
 		widget = ProgressBarLookup.getInstance().getProgressBar(index, new WithStyleMatcher(style));

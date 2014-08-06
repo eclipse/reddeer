@@ -42,7 +42,7 @@ import org.jboss.reddeer.swt.wait.WaitWhile;
  */
 public class MenuLookup {
 
-	private Logger log = Logger.getLogger(this.getClass());
+	private static final Logger log = Logger.getLogger(MenuLookup.class);
 	private static MenuLookup instance = null;
 	
 	private MenuLookup() { }
@@ -131,9 +131,9 @@ public class MenuLookup {
 				sendShowUI(menu);
 				if(menu.getData() != null && menu.getData() instanceof MenuManager){
 					contItemsRun.addAll(Arrays.asList(((MenuManager)menu.getData()).getItems()));
-					log.info("Menu manager found");
+					log.debug("Menu manager found");
 				} else {
-					log.info("Menu manager not found");
+					log.debug("Menu manager not found");
 				}
 	
 				return contItemsRun;
@@ -291,7 +291,7 @@ public class MenuLookup {
 						String normalized = i.getText().replace("&", "");
 						log.debug("Found menu:" + normalized);
 						if (m.matches(normalized)) {
-							log.info("Item match:" + normalized);
+							log.debug("Item match:" + normalized);
 							currentItem = i;
 							currentMenu = i.getMenu();
 							break;

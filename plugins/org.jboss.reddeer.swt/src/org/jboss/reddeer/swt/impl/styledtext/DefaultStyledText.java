@@ -1,7 +1,6 @@
 package org.jboss.reddeer.swt.impl.styledtext;
 
 import org.hamcrest.Matcher;
-import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.swt.api.StyledText;
 import org.jboss.reddeer.swt.lookup.StyledTextLookup;
 import org.jboss.reddeer.swt.matcher.WithTextMatcher;
@@ -14,9 +13,6 @@ import org.jboss.reddeer.swt.reference.ReferencedComposite;
  * 
  */
 public class DefaultStyledText extends AbstractStyledText implements StyledText {
-
-	protected final Logger log = Logger.getLogger(this.getClass());
-
 	/**
 	 * StyledText.
 	 */
