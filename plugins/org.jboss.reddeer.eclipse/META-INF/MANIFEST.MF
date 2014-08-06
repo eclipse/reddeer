@@ -26,6 +26,7 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Export-Package: org.jboss.reddeer.eclipse,
  org.jboss.reddeer.eclipse.condition,
  org.jboss.reddeer.eclipse.core.resources,
+ org.jboss.reddeer.eclipse.datatools.sqltools.result.ui,
  org.jboss.reddeer.eclipse.datatools.ui,
  org.jboss.reddeer.eclipse.datatools.ui.preference,
  org.jboss.reddeer.eclipse.datatools.ui.view,
