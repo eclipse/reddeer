@@ -13,7 +13,7 @@ import org.jboss.reddeer.swt.reference.ReferencedComposite;
 
 public class CheckBox extends AbstractButton {
 
-	protected final Logger log = Logger.getLogger(this.getClass());
+	private static final Logger log = Logger.getLogger(CheckBox.class);
 	
 	/**
 	 * Default constructor
@@ -99,20 +99,21 @@ public class CheckBox extends AbstractButton {
 	 * @param checked
 	 */
 	public void toggle(boolean checked){
+		log.info("Select checkbox " + getDescriptiveText());
 		if (checked){
 			if (isChecked()) {
-				log.debug("Checkbox already checked");
+				log.debug("Checkbox " + getDescriptiveText() + " already selected, no action performed");
 				return;
 			}else{
-				log.info("Checking checkbox " + getText());
+				log.info("Check checkbox " + getDescriptiveText());
 				click();
 			}
 		}else{
 			if (isChecked()) {
-				log.info("Unchecking checkbox " + getText());
+				log.info("Uncheck checkbox " + getDescriptiveText());
 				click();
 			}else{
-				log.debug("Checkbox already unchecked");
+				log.debug("Checkbox " + getDescriptiveText() + " not checked, no action performed");
 				return;
 			}
 		}

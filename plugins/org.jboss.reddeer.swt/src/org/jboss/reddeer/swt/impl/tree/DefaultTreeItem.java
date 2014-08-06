@@ -24,7 +24,7 @@ import org.jboss.reddeer.swt.wait.WaitUntil;
  */
 public class DefaultTreeItem extends AbstractTreeItem {
 
-protected static final Logger logger = Logger.getLogger(DefaultTreeItem.class);
+	private static final Logger logger = Logger.getLogger(DefaultTreeItem.class);
 	
 	/**
 	 * Default parameter-less constructor

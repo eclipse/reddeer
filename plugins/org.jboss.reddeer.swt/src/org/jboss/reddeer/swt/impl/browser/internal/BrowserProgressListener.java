@@ -13,7 +13,7 @@ public class BrowserProgressListener implements ProgressListener {
 	private final Browser browser;
 	private boolean done = true;
 	private int numCalledIsDoneWithNoChange = 0;
-	private final Logger log = Logger.getLogger(this.getClass());
+	private static final Logger log = Logger.getLogger(BrowserProgressListener.class);
 	
 	public BrowserProgressListener(Browser browser) {
 		this.browser = browser;

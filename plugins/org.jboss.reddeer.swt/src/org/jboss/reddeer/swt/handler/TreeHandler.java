@@ -31,7 +31,7 @@ import org.jboss.reddeer.swt.wait.WaitUntil;
 public class TreeHandler {
 
 	private static TreeHandler instance;
-	private final Logger logger = Logger.getLogger(this.getClass());
+	private static final Logger logger = Logger.getLogger(TreeHandler.class);
 
 	private TreeHandler() {
 
@@ -75,7 +75,7 @@ public class TreeHandler {
 	 * @param treeItems tree items to select
 	 */
 	public void selectItems(final TreeItem... treeItems) {
-		logger.debug("Selecting tree items: ");
+		logger.info("Select tree items: ");
 		final org.eclipse.swt.widgets.Tree swtTree = treeItems[0].getParent()
 				.getSWTWidget();
 		setFocus(swtTree);
@@ -89,17 +89,17 @@ public class TreeHandler {
 				}
 				if (!(SWT.MULTI == (swtTree.getStyle() & SWT.MULTI)) 
 						&& treeItems.length > 1) {
-					logger.warn("Tree does not support SWT.MULTI, cannot make multiple selections"); //$NON-NLS-1$
+					throw new SWTLayerException("Tree does not support SWT.MULTI, cannot make multiple selections");
 				}
-				logger.debug("Setting Tree selection");
+				logger.debug("Set Tree selection");
 				swtTree.setSelection(selection
 						.toArray(new org.eclipse.swt.widgets.TreeItem[] {}));
 			}
 		});
 		notifySelect(swtTree);
-		logger.info("Selected Tree Items:");
+		logger.debug("Selected Tree Items:");
 		for (TreeItem treeItem : treeItems) {
-			logger.info("  " + treeItem);
+			logger.debug("  " + treeItem);
 		}
 	}
 
@@ -112,7 +112,7 @@ public class TreeHandler {
 		Display.syncExec(new Runnable() {
 			public void run() {
 				if (!swtTree.isFocusControl()) {
-					logger.debug("Setting focus to Tree");
+					logger.debug("Set focus to Tree");
 					swtTree.forceFocus();
 				}
 			}
@@ -168,7 +168,7 @@ public class TreeHandler {
 				+ WidgetHandler.getInstance().getText(swtTreeItem)
 				+ " about selection");
 		notifyTree(swtTreeItem, createEventForTree(swtTreeItem, SWT.Selection));
-		logger.info("Selected: " + this);
+		logger.info("Selected tree item: " + WidgetHandler.getInstance().getText(swtTreeItem));
 	}
 
 	/**
@@ -224,7 +224,7 @@ public class TreeHandler {
 	 */
 	public void expand(final org.eclipse.swt.widgets.TreeItem swtTreeItem,
 			TimePeriod timePeriod) {
-		logger.debug("Expanding Tree Item "
+		logger.debug("Expand Tree Item "
 				+ WidgetHandler.getInstance().getText(swtTreeItem));
 
 		final TreeExpandListener tel = new TreeExpandListener();
@@ -243,7 +243,7 @@ public class TreeHandler {
 			new WaitUntil(new TreeHeardExpandNotification(swtTreeItem, tel,
 					true));
 		}
-		logger.info("Expanded: " + this);
+		logger.info("Expanded: " + WidgetHandler.getInstance().getText(swtTreeItem));
 
 		Display.syncExec(new Runnable() {
 			@Override
@@ -305,7 +305,7 @@ public class TreeHandler {
 	 * @param swtTreeItem tree item to handle
 	 */
 	public void collapse(final org.eclipse.swt.widgets.TreeItem swtTreeItem) {
-		logger.debug("Collapsing Tree Item "
+		logger.debug("Collapse Tree Item "
 				+ WidgetHandler.getInstance().getText(swtTreeItem));
 		if (isExpanded(swtTreeItem)) {
 			Display.syncExec(new Runnable() {
@@ -324,7 +324,7 @@ public class TreeHandler {
 					+ WidgetHandler.getInstance().getText(swtTreeItem)
 					+ " is already collapsed. No action performed");
 		}
-		logger.info("Collapsed: " + this);
+		logger.info("Collapsed: " + WidgetHandler.getInstance().getText(swtTreeItem));
 	}
 
 	/**
@@ -336,7 +336,7 @@ public class TreeHandler {
 	 */
 	public TreeItem getItem(final org.eclipse.swt.widgets.TreeItem swtTreeItem,
 			final String text) {
-		logger.debug("Getting child tree item " + text + " of tree item "
+		logger.debug("Get child tree item " + text + " of tree item "
 				+ WidgetHandler.getInstance().getText(swtTreeItem));
 		expand(swtTreeItem);
 		TreeItem result = Display.syncExec(new ResultRunnable<TreeItem>() {
@@ -483,7 +483,7 @@ public class TreeHandler {
 		logger.debug("Notify tree about check event");
 		notifyTree(swtTreeItem,
 				createEventForTree(swtTreeItem, SWT.Selection, SWT.CHECK));
-		logger.info((check ? "Checked: " : "Unchecked: ") + this);
+		logger.info((check ? "Checked: " : "Unchecked: ") + WidgetHandler.getInstance().getText(swtTreeItem));
 	}
 
 	/**

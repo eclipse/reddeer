@@ -23,7 +23,7 @@ public class ShellHandler {
 	private static ShellHandler instance;
 	private static Shell workbenchShell = ShellLookup.getInstance().getWorkbenchShell();
 	
-	private final Logger log = Logger.getLogger(ShellHandler.class);
+	private static final Logger log = Logger.getLogger(ShellHandler.class);
 
 	private ShellHandler() {
 

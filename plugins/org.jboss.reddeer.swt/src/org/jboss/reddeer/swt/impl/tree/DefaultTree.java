@@ -1,6 +1,5 @@
 package org.jboss.reddeer.swt.impl.tree;
 
-import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.swt.lookup.WidgetLookup;
 import org.jboss.reddeer.swt.reference.ReferencedComposite;
 /**
@@ -10,9 +9,6 @@ import org.jboss.reddeer.swt.reference.ReferencedComposite;
  *
  */
 public class DefaultTree extends AbstractTree {
-
-	protected final Logger logger = Logger.getLogger(this.getClass());
-	
 	/**
 	 * Default parameter-less constructor
 	 */

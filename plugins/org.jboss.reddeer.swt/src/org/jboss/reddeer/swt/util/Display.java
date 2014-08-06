@@ -62,7 +62,7 @@ public class Display {
 			Display.getDisplay().syncExec(errorHandlingRunnable);
 		} else {
 			if (firstAttempt) {
-				log.warn("UI Call chaining attempt");
+				log.debug("UI Call chaining attempt");
 				firstAttempt = false;
 			}
 			if (runnable instanceof ErrorHandlingRunnable){

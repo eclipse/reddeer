@@ -17,6 +17,7 @@ import org.eclipse.swt.widgets.TabFolder;
 import org.eclipse.swt.widgets.TabItem;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.Widget;
+import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
 
 /**
@@ -37,6 +38,8 @@ import org.jboss.reddeer.swt.exception.SWTLayerException;
  *
  */
 public class WidgetResolver  {
+	
+	private static final Logger log = Logger.getLogger(WidgetResolver.class);
 	
 	private static WidgetResolver instance = null;
 	private WidgetResolver() {}
@@ -119,6 +122,7 @@ public class WidgetResolver  {
 				return ((Control) w).getParent();
 			}
 		}
+		log.warn("Cannot find parent of widget. Widget type is not supported (" + w.getClass() + ")");
 		return null;
 	}
 
@@ -167,8 +171,7 @@ public class WidgetResolver  {
 			// do nothing
 		}
 		else {
-			//throw new SWTLayerException("Unsupported type for resolution");
-			// do nothing
+			log.warn("Cannot find children of widget. Widget type is not supported (" + w.getClass() + ")");
 		}
 		
 		return children;

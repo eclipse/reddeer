@@ -2,7 +2,6 @@ package org.jboss.reddeer.swt.impl.tree;
 
 import java.util.List;
 
-import org.eclipse.swt.custom.StyleRange;
 import org.eclipse.swt.SWT;
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.swt.api.Tree;
@@ -12,8 +11,6 @@ import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.handler.TreeHandler;
 import org.jboss.reddeer.swt.handler.TreeItemHandler;
 import org.jboss.reddeer.swt.handler.WidgetHandler;
-import org.jboss.reddeer.swt.util.Display;
-import org.jboss.reddeer.swt.util.ResultRunnable;
 import org.jboss.reddeer.swt.wait.TimePeriod;
 import org.jboss.reddeer.swt.wait.WaitUntil;
 
@@ -25,7 +22,7 @@ import org.jboss.reddeer.swt.wait.WaitUntil;
  */
 public abstract class AbstractTreeItem implements TreeItem {
 
-	protected final Logger logger = Logger.getLogger(this.getClass());
+	private static final Logger logger = Logger.getLogger(AbstractTreeItem.class);
 
 	protected org.eclipse.swt.widgets.TreeItem swtTreeItem;
 
@@ -46,6 +43,7 @@ public abstract class AbstractTreeItem implements TreeItem {
 	 */
 	@Override
 	public void select() {
+		logger.info("Select tree item " + getText());
 		treeHandler.select(swtTreeItem);
 	}
 
@@ -94,6 +92,8 @@ public abstract class AbstractTreeItem implements TreeItem {
 	 */
 	@Override
 	public void expand(TimePeriod timePeriod) {
+		logger.info("Expand tree item " + getText() + " and wait with time period " 
+			+ timePeriod.getSeconds());
 		treeHandler.expand(swtTreeItem, timePeriod);
 	}
 
@@ -102,6 +102,7 @@ public abstract class AbstractTreeItem implements TreeItem {
 	 */
 	@Override
 	public void collapse() {
+		logger.info("Collapse tree item " + getText());
 		treeHandler.collapse(swtTreeItem);
 	}
 
@@ -121,7 +122,7 @@ public abstract class AbstractTreeItem implements TreeItem {
 	 */
 	@Override
 	public void doubleClick() {
-		logger.debug("Double Click Tree Item " + getText());
+		logger.info("Double click tree item " + getText());
 		select();
 		logger.debug("Notify tree about mouse double click event");
 		treeHandler.notifyTree(getSWTWidget(), treeHandler.createEventForTree(
@@ -129,7 +130,7 @@ public abstract class AbstractTreeItem implements TreeItem {
 		logger.debug("Notify tree about default selection event");
 		treeHandler.notifyTree(getSWTWidget(), treeHandler.createEventForTree(
 				getSWTWidget(), SWT.DefaultSelection));
-		logger.info("Double Clicked on: " + this);
+		logger.debug("Double click successfull");
 	}
 
 	/**
@@ -153,6 +154,7 @@ public abstract class AbstractTreeItem implements TreeItem {
 	 */
 	@Override
 	public void setChecked(final boolean check) {
+		logger.info("Check tree item " + getText());
 		treeHandler.setChecked(swtTreeItem, check);
 	}
 
@@ -211,6 +213,8 @@ public abstract class AbstractTreeItem implements TreeItem {
 	 */
 	@Override
 	public void expand(int minItemsCount, TimePeriod timePeriod) {
+		logger.info("Expand tree item " + getText() + 
+			" and wait for at least " + minItemsCount + " items");
 		expand();
 		new WaitUntil(new TreeItemHasMinChildren(this, minItemsCount),
 				timePeriod);
@@ -239,11 +243,13 @@ public abstract class AbstractTreeItem implements TreeItem {
 
 	@Override
 	public void setText(String text, int index) {
+		logger.info("Set text to tree item at index " + index + ": " + text);
 		TreeItemHandler.getInstance().setText(swtTreeItem, index, text);
 	}
 
 	@Override
 	public void setText(String text) {
+		logger.info("Set text to tree item: " + text);
 		TreeItemHandler.getInstance().setText(swtTreeItem, 0, text);
 	}
 	

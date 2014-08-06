@@ -5,6 +5,7 @@ import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.ui.dialogs.PreferencesUtil;
 import org.eclipse.ui.internal.dialogs.AboutDialog;
 import org.hamcrest.Matcher;
+import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.common.platform.RunningPlatform;
 import org.jboss.reddeer.swt.api.Menu;
 import org.jboss.reddeer.swt.api.Shell;
@@ -22,7 +23,7 @@ import org.jboss.reddeer.swt.util.Display;
 @SuppressWarnings("restriction")
 public class ShellMenu extends AbstractMenu implements Menu {
 	
-	
+	private static final Logger log = Logger.getLogger(ShellMenu.class);
 	private boolean isSubmenuOfMacEclipseMenu = false;
 	private MacEclipseMenuCommand macEclipseMenuCommand = null;
 
@@ -64,13 +65,15 @@ public class ShellMenu extends AbstractMenu implements Menu {
 	
 	@Override
 	public void select() {
+		log.info("Select shell menu with text " + getText());
 		if (!isSubmenuOfMacEclipseMenu){
-			System.out.println(getText());
 			mh.select(menuItem);
 		} else {
 			if (macEclipseMenuCommand.equals(MacEclipseMenuCommand.PREFERENCES)){
+				log.debug("Running MacOS, open preferences dialog programatically");
 				openPreferencesDialog();
 			}else if (macEclipseMenuCommand.equals(MacEclipseMenuCommand.ABOUT)){
+				log.debug("Running MacOS, open about dialog programatically");
 				openAboutDialog();
 			} else {
 				throw new SWTLayerException("Unsupported Mac Eclispe menu command: " + macEclipseMenuCommand);

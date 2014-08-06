@@ -17,7 +17,7 @@ import org.jboss.reddeer.swt.reference.ReferencedComposite;
  */
 public class DefaultExpandBarItem extends AbstractExpandBarItem {
 
-	protected static final Logger logger = Logger.getLogger(DefaultExpandBarItem.class);
+	private static final Logger logger = Logger.getLogger(DefaultExpandBarItem.class);
 
 	/**
 	 * Default parameter-less constructor

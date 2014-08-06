@@ -21,7 +21,7 @@ import org.jboss.reddeer.swt.wait.WaitWhile;
  */
 public abstract class AbstractShell implements Shell {
 
-	protected final Logger log = Logger.getLogger(this.getClass());
+	private static final Logger log = Logger.getLogger(AbstractShell.class);
 
 	protected org.eclipse.swt.widgets.Shell swtShell;
 	
@@ -48,7 +48,7 @@ public abstract class AbstractShell implements Shell {
 	@Override
 	public void setFocus() {
 		String text = getText();
-		log.info("Setting focus to Shell " + text);
+		log.debug("Set focus to Shell " + text);
 		WidgetHandler.getInstance().setFocus(swtShell);
 		new WaitUntil(new ShellWithTextIsActive(text));
 	}
@@ -56,7 +56,7 @@ public abstract class AbstractShell implements Shell {
 	@Override
 	public void close() {
 		String text = getText();
-		log.info("Closing shell " + text);
+		log.info("Close shell " + text);
 		try {
 			new CancelButton().click();
 		} catch (Exception e) {

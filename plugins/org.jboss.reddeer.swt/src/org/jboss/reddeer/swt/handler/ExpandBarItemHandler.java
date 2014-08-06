@@ -48,7 +48,7 @@ public class ExpandBarItemHandler {
 	 */
 	public static void expand(TimePeriod timePeriod,
 			final ExpandBarItem expandBarItem) {
-		logger.debug("Expanding Expand Bar Item " + expandBarItem.getText());
+		logger.debug("Expand Expand Bar Item " + expandBarItem.getText());
 		if (!expandBarItem.isExpanded()) {
 			ExpandBarItemHandler.notifyExpandBar(ExpandBarItemHandler
 					.createEventForExpandBar(SWT.Expand, expandBarItem),
@@ -74,7 +74,7 @@ public class ExpandBarItemHandler {
 	 * @param expandBarItem expand bar item to handle
 	 */
 	public static void collapse(final ExpandBarItem expandBarItem) {
-		logger.debug("Collapsing Expand Bar Item " + expandBarItem.getText());
+		logger.debug("Collapse Expand Bar Item " + expandBarItem.getText());
 		if (expandBarItem.isExpanded()) {
 			Display.syncExec(new Runnable() {
 				@Override

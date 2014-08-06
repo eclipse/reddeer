@@ -13,7 +13,7 @@ import org.jboss.reddeer.common.logging.Logger;
  */
 @SuppressWarnings("rawtypes")
 public class JobIsRunning implements WaitCondition {
-	private Logger log = Logger.getLogger(JobIsRunning.class);
+	private static final Logger log = Logger.getLogger(JobIsRunning.class);
 
 	private Matcher[] consideredJobs;
 	private Matcher[] excludeJobs;
@@ -61,7 +61,6 @@ public class JobIsRunning implements WaitCondition {
 	@SuppressWarnings("unchecked")
 	@Override
 	public boolean test() {
-		log.debug("test:");
 
 		for (Job job: Job.getJobManager().find(null)) {
 			if (excludeJobs != null && CoreMatchers.anyOf(excludeJobs).matches(job.getName())) {

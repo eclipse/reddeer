@@ -19,7 +19,7 @@ import org.jboss.reddeer.swt.wait.TimePeriod;
  */
 public abstract class AbstractExpandBarItem implements ExpandBarItem {
 
-	protected final Logger logger = Logger.getLogger(this.getClass());
+	private static final Logger logger = Logger.getLogger(AbstractExpandBarItem.class);
 
 	protected org.eclipse.swt.widgets.ExpandItem swtExpandItem;
 	protected org.eclipse.swt.widgets.ExpandBar swtParent;
@@ -62,7 +62,7 @@ public abstract class AbstractExpandBarItem implements ExpandBarItem {
 	 */
 	@Override
 	public void expand(TimePeriod timePeriod) {
-		logger.debug("Expanding Expand Bar Item " + getText());
+		logger.debug("Expand Expand Bar Item " + getText());
 		if (!isExpanded()) {
 			ExpandBarItemHandler.getInstance().expand(getSWTWidget(), getSWTParent());
 			AbstractWait.sleep(timePeriod);
@@ -78,7 +78,7 @@ public abstract class AbstractExpandBarItem implements ExpandBarItem {
 	 */
 	@Override
 	public void collapse() {
-		logger.debug("Collapsing Expand Bar Item " + getText());
+		logger.debug("Collapse Expand Bar Item " + getText());
 		if (isExpanded()) {
 			ExpandBarItemHandler.getInstance().collapse(getSWTWidget(), getSWTParent());
 			logger.info("Expand Bar Item " + getText()

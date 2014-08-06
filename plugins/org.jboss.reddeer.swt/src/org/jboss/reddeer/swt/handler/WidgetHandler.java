@@ -41,7 +41,7 @@ import org.jboss.reddeer.swt.util.ResultRunnable;
  */
 public class WidgetHandler {
 
-	private final Logger log = Logger.getLogger(this.getClass());
+	private static final Logger log = Logger.getLogger(WidgetHandler.class);
 
 	private static WidgetHandler instance;
 
@@ -846,7 +846,7 @@ public class WidgetHandler {
 					int itemsLength = getItems(w).length;
 					if (index >= itemsLength) {
 						log.error("Combo does not have " + index + 1 + "items!");
-						log.info("Combo has " + itemsLength + " items");
+						log.debug("Combo has " + itemsLength + " items");
 						throw new SWTLayerException(
 								"Nonexisted item in combo was requested");
 					} else {
@@ -875,7 +875,7 @@ public class WidgetHandler {
 					if (index == -1) {
 						log.error("'" + text + "' is not "
 								+ "contained in combo items");
-						log.info("Items present in combo:");
+						log.debug("Items present in combo:");
 						int i = 0;
 						for (String item : items) {
 							log.info("    " + item + "(index " + i);

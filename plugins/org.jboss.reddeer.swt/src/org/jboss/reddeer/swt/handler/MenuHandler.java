@@ -16,7 +16,7 @@ import org.jboss.reddeer.swt.util.ResultRunnable;
  *
  */
 public class MenuHandler {
-	private Logger log = Logger.getLogger(this.getClass());
+	private static final Logger log = Logger.getLogger(MenuHandler.class);
 
 	private static MenuHandler instance = null;
 	
