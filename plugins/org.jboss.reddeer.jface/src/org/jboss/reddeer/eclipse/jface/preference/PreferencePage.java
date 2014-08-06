@@ -26,8 +26,9 @@ import org.jboss.reddeer.swt.wait.WaitWhile;
 public abstract class PreferencePage {
 
 	/**
-	 * @deprecated this constant has been moved to {WindowPreferencePage}
+	 * @deprecated will be removed in 0.7, this constant has been moved to {@link org.jboss.reddeer.workbench.preference.WorkbenchPreferencePage}
 	 */
+	@Deprecated
 	public static final String DIALOG_TITLE = "Preferences";
 
 	protected final Logger log = Logger.getLogger(this.getClass());
@@ -44,8 +45,9 @@ public abstract class PreferencePage {
 	 * Constructor set path to specific preference item. 
 	 * @param path path in preference shell tree to specific preference
 	 * 
-	 * @deprecated The logic for opening preference page has been moved to {@link WindowPreferencePage}
+	 * @deprecated will be removed in 0.7, the logic for opening preference page has been moved to {@link org.jboss.reddeer.workbench.preference.WorkbenchPreferencePage#WorkbenchPreferencePage(String...)}
 	 */
+	@Deprecated
 	public PreferencePage(String... path) {
 		this.path = path;
 	}
@@ -53,8 +55,9 @@ public abstract class PreferencePage {
 	/**
 	 * Open preference shell and specific preference page in preference shell defined by path given in constructor.
 	 * 
-	  * @deprecated The logic for opening preference page has been moved to {@link WindowPreferencePage}
+	 * @deprecated will be removed in 0.7, the logic for opening preference page has been moved to {@link org.jboss.reddeer.workbench.preference.WorkbenchPreferencePage#open()}
 	 */
+	@Deprecated
 	public void open() {
 
 		// if preferences dialog is not open, open it
