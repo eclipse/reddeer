@@ -1,8 +1,10 @@
 package org.jboss.reddeer.eclipse.ui.problems;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.hamcrest.Matcher;
 import org.jboss.reddeer.eclipse.condition.MarkerIsUpdating;
 import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.swt.impl.tree.DefaultTree;
@@ -45,6 +47,40 @@ public class ProblemsView extends WorkbenchView{
 		return filter(tree.getItems(), false);
 	}
 	
+	/**
+	 * Return list of error problem markers that match given {@link Matcher}s.
+	 * 
+	 * @param description filter by description
+	 * @param resource filter by resource
+	 * @param path filter by path
+	 * @param location filter by location
+	 * @param type filter by type
+	 * @return filtered list of errors that match given {@link Matcher}s
+	 */
+	public List<TreeItem> getErrors(Matcher<String> description,
+			Matcher<String> resource, Matcher<String> path,
+			Matcher<String> location, Matcher<String> type) {
+		return filter(getAllErrors(), description, resource, path,
+				location, type);
+	}
+
+	/**
+	 * Return list of warning problem markers that match given {@link Matcher}s.
+	 * 
+	 * @param description filter by description
+	 * @param resource filter by resource
+	 * @param path filter by path
+	 * @param location filter by location
+	 * @param type filter by type
+	 * @return filtered list of warnings that match given {@link Matcher}s
+	 */
+	public List<TreeItem> getWarnings(Matcher<String> description,
+			Matcher<String> resource, Matcher<String> path,
+			Matcher<String> location, Matcher<String> type) {
+		return filter(getAllWarnings(), description, resource, path,
+				location, type);
+	}
+
 	private List<TreeItem> filter(List<TreeItem> list, boolean errors){
 		for (TreeItem abstractTreeItem : list) {
 			if (abstractTreeItem.getText().matches("^Errors \\(\\d+ item.*\\)") && errors) {
@@ -55,5 +91,24 @@ public class ProblemsView extends WorkbenchView{
 			}
 		}
 		return new LinkedList<TreeItem>();
+	}
+
+	private List<TreeItem> filter(List<TreeItem> items,
+			Matcher<String> description,
+			Matcher<String> resource, Matcher<String> path,
+			Matcher<String> location, Matcher<String> type) {
+		List<TreeItem> filteredResult = new ArrayList<TreeItem>();
+		for (TreeItem item : items) {
+			boolean descriptionIsOk = description == null || description.matches(item.getCell(0));
+			boolean resourceIsOk = resource == null || resource.matches(item.getCell(1));
+			boolean pathIsOk = path == null || path.matches(item.getCell(2));
+			boolean locationIsOk = location == null || location.matches(item.getCell(3));
+			boolean typeIsOk = type == null || type.matches(item.getCell(4));
+
+			if (descriptionIsOk && resourceIsOk && pathIsOk && locationIsOk && typeIsOk) {
+				filteredResult.add(item);
+			}
+		}
+		return filteredResult;
 	}
 }
