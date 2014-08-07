@@ -72,8 +72,9 @@ public class ProblemsExists implements WaitCondition {
 		switch (problemType) {
 		case ANY: return "there is at least one error or warning in Problems view";
 		case BOTH: return "there is at least one error and one warning in Problems view"; 
-		case WARNING: return "there is at least one warning in Problems view"; 
-		case ERROR: return "there is at least one error in Problems view"; 
+		case WARNING: return "there is at least one warning in Problems view";
+		case ERROR: return "there is at least one error in Problems view";
+		case NONE: return "there is no error and no warning in Problems view";
 		default: throw new EclipseLayerException("Unknown Problem type: " + problemType);
 		}
 	}
