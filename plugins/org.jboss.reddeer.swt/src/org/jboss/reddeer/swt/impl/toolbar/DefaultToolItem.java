@@ -6,7 +6,8 @@ import org.jboss.reddeer.swt.matcher.WithTooltipTextMatcher;
 import org.jboss.reddeer.swt.reference.ReferencedComposite;
 
 /**
- * Default ToolItem implementation.
+ * Default ToolItem implementation.</p> Do not use for ToolItem inside View
+ * ToolBar. For this, please use {@link ViewToolItem}.
  * 
  * @author Jiri Peterka
  * @author Radim Hopp
@@ -15,7 +16,7 @@ import org.jboss.reddeer.swt.reference.ReferencedComposite;
 public class DefaultToolItem extends AbstractToolItem {
 
 	/**
-	 * Default constructor creating first ToolItem in active worbkench/shell.
+	 * Default constructor creating first ToolItem in active shell/view/editor.
 	 * 
 	 */
 
@@ -35,7 +36,8 @@ public class DefaultToolItem extends AbstractToolItem {
 	}
 
 	/**
-	 * Constructor for ToolItem with given tooltip.
+	 * Constructor for ToolItem with given tooltip inside active
+	 * shell/view/editor.
 	 * 
 	 * @param tooltip
 	 *            assigned to a ToolItem
@@ -45,7 +47,8 @@ public class DefaultToolItem extends AbstractToolItem {
 	}
 
 	/**
-	 * Constructor for ToolItem matching given matchers.
+	 * Constructor for ToolItem matching given matchers inside active
+	 * shell/view/editor.
 	 * 
 	 * @param matcher
 	 *            Matcher to match desired ToolItem.
@@ -56,7 +59,7 @@ public class DefaultToolItem extends AbstractToolItem {
 	}
 
 	/**
-	 * Constructor for nth ToolItem in active worbkench/shell.
+	 * Constructor for nth ToolItem in active shell/view/editor.
 	 * 
 	 * @param index
 	 *            Index of ToolItem
