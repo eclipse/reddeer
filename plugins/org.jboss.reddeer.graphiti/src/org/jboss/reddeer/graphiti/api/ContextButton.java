@@ -1,10 +1,12 @@
 package org.jboss.reddeer.graphiti.api;
 
+import java.util.List;
+
 /**
  * API for context button.
  * 
  * @author Andrej Podhradsky (andrej.podhradsky@gmail.com)
- *
+ * 
  */
 public interface ContextButton {
 
@@ -19,4 +21,11 @@ public interface ContextButton {
 	 * @return text
 	 */
 	String getText();
+
+	/**
+	 * Returns a list of context buttons from sub menu.
+	 * 
+	 * @return list of context buttons from sub menu.
+	 */
+	List<ContextButton> getContextButtons();
 }

@@ -1,7 +1,13 @@
 package org.jboss.reddeer.graphiti.handler;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.eclipse.graphiti.tb.ContextButtonEntry;
 import org.eclipse.graphiti.tb.IContextButtonEntry;
 import org.jboss.reddeer.common.logging.Logger;
+import org.jboss.reddeer.graphiti.api.ContextButton;
+import org.jboss.reddeer.graphiti.impl.contextbutton.internal.BasicContextButton;
 import org.jboss.reddeer.swt.util.Display;
 import org.jboss.reddeer.swt.util.ResultRunnable;
 
@@ -9,7 +15,7 @@ import org.jboss.reddeer.swt.util.ResultRunnable;
  * Handler for ContextButton operations.
  * 
  * @author Andrej Podhradsky (andrej.podhradsky@gmail.com)
- *
+ * 
  */
 public class ContextButtonHandler {
 
@@ -57,5 +63,24 @@ public class ContextButtonHandler {
 				return contextButtonEntry.getText();
 			}
 		});
+	}
+
+	/**
+	 * Returns a list of context buttons from sub menu of a given context button entry.
+	 * 
+	 * @param contextButtonEntry
+	 *            Context button entry
+	 * @return list of context buttons from sub menu
+	 */
+	public List<ContextButton> getContextButtons(final IContextButtonEntry contextButtonEntry) {
+		List<ContextButton> entries = new ArrayList<ContextButton>();
+		if (contextButtonEntry instanceof ContextButtonEntry) {
+			ContextButtonEntry entry = (ContextButtonEntry) contextButtonEntry;
+			List<IContextButtonEntry> menuEntries = entry.getContextButtonMenuEntries();
+			for (IContextButtonEntry menuEntry : menuEntries) {
+				entries.add(new BasicContextButton(menuEntry));
+			}
+		}
+		return entries;
 	}
 }
