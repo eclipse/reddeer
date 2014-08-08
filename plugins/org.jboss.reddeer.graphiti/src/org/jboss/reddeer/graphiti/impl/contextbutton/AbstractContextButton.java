@@ -1,5 +1,7 @@
 package org.jboss.reddeer.graphiti.impl.contextbutton;
 
+import java.util.List;
+
 import org.eclipse.graphiti.tb.IContextButtonEntry;
 import org.jboss.reddeer.graphiti.api.ContextButton;
 import org.jboss.reddeer.graphiti.handler.ContextButtonHandler;
@@ -26,6 +28,11 @@ public abstract class AbstractContextButton implements ContextButton {
 	@Override
 	public String getText() {
 		return ContextButtonHandler.getInstance().getText(contextButtonEntry);
+	}
+	
+	@Override
+	public List<ContextButton> getContextButtons() {
+		return ContextButtonHandler.getInstance().getContextButtons(contextButtonEntry);
 	}
 
 }
