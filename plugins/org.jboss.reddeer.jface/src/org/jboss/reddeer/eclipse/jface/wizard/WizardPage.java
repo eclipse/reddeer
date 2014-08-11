@@ -7,7 +7,7 @@ import org.jboss.reddeer.common.logging.Logger;
  * 
  * @author apodhrad
  * @since 0.5
- * 
+ * @deprecated replaced by {@link org.jboss.reddeer.jface.wizard.WizardPage}
  */
 public abstract class WizardPage {
 

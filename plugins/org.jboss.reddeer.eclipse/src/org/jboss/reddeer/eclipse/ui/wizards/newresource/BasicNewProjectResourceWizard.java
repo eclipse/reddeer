@@ -1,6 +1,6 @@
 package org.jboss.reddeer.eclipse.ui.wizards.newresource;
 
-import org.jboss.reddeer.eclipse.jface.wizard.NewWizardDialog;
+import org.jboss.reddeer.jface.wizard.NewWizardDialog;
 import org.jboss.reddeer.eclipse.ui.dialogs.WizardNewProjectCreationPage;
 import org.jboss.reddeer.eclipse.ui.dialogs.WizardNewProjectReferencePage;
 

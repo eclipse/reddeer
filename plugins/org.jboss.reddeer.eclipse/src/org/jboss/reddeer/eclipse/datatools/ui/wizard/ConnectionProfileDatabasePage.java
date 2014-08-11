@@ -1,6 +1,6 @@
 package org.jboss.reddeer.eclipse.datatools.ui.wizard;
 
-import org.jboss.reddeer.eclipse.jface.wizard.WizardPage;
+import org.jboss.reddeer.jface.wizard.WizardPage;
 import org.jboss.reddeer.swt.impl.combo.LabeledCombo;
 
 /**

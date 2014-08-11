@@ -1,6 +1,6 @@
 package org.jboss.reddeer.eclipse.ui.dialogs;
 
-import org.jboss.reddeer.eclipse.jface.preference.PreferencePage;
+import org.jboss.reddeer.jface.preference.PreferencePage;
 import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.swt.condition.ShellWithTextIsActive;
 import org.jboss.reddeer.swt.impl.menu.ContextMenu;

@@ -22,6 +22,7 @@ import org.jboss.reddeer.swt.wait.WaitWhile;
  * 
  * @author Lucia Jelinkova
  * @since 0.5
+ * @deprecated replaced by {@link org.jboss.reddeer.jface.preference.PreferencePage}
  */
 public abstract class PreferencePage {
 

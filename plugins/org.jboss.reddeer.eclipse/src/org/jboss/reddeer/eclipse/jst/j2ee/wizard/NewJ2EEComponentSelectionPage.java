@@ -1,6 +1,6 @@
 package org.jboss.reddeer.eclipse.jst.j2ee.wizard;
 
-import org.jboss.reddeer.eclipse.jface.wizard.WizardPage;
+import org.jboss.reddeer.jface.wizard.WizardPage;
 import org.jboss.reddeer.eclipse.jst.servlet.ui.WebProjectWizard;
 import org.jboss.reddeer.swt.condition.JobIsRunning;
 import org.jboss.reddeer.swt.condition.WidgetIsEnabled;

@@ -1,6 +1,6 @@
 package org.jboss.reddeer.eclipse.wst.server.ui.view;
 
-import org.jboss.reddeer.eclipse.jface.viewer.handler.TreeViewerHandler;
+import org.jboss.reddeer.jface.viewer.handler.TreeViewerHandler;
 import org.jboss.reddeer.eclipse.wst.server.ui.view.ServersViewEnums.ServerPublishState;
 import org.jboss.reddeer.eclipse.wst.server.ui.view.ServersViewEnums.ServerState;
 import org.jboss.reddeer.swt.api.TreeItem;

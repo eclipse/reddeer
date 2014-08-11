@@ -10,7 +10,7 @@ import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
  *   
  * @author Lucia Jelinkova
  * @since 0.5
- *
+ * @deprecated replaced by {@link org.jboss.reddeer.jface.wizard.TopMenuWizardDialog}
  */
 public abstract class TopMenuWizardDialog extends WizardDialog {
 

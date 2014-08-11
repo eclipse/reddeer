@@ -1,6 +1,6 @@
 package org.jboss.reddeer.eclipse.jst.servlet.ui;
 
-import org.jboss.reddeer.eclipse.jface.wizard.NewWizardDialog;
+import org.jboss.reddeer.jface.wizard.NewWizardDialog;
 
 /**
  * Wizard dialog for creating web project.

@@ -7,6 +7,7 @@ package org.jboss.reddeer.eclipse.jface.wizard;
  * 
  * @author vpakan
  * @since 0.5
+ * @deprecated replaced by {@link org.jboss.reddeer.jface.wizard.NewWizardDialog}
  *
  */
 public abstract class NewWizardDialog extends TopMenuWizardDialog {

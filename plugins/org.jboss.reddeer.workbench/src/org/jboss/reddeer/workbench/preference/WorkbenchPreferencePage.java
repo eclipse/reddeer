@@ -1,7 +1,7 @@
 package org.jboss.reddeer.workbench.preference;
 
 import org.eclipse.swt.widgets.Shell;
-import org.jboss.reddeer.eclipse.jface.preference.PreferencePage;
+import org.jboss.reddeer.jface.preference.PreferencePage;
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.swt.api.Menu;
 import org.jboss.reddeer.swt.api.TreeItem;
