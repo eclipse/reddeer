@@ -6,7 +6,7 @@ import org.jboss.reddeer.swt.exception.RedDeerException;
  * Thrown when an error can be identified on the JFace layer
  * 
  * @author Lucia Jelinkova
- *
+ * @deprecated replaced by {@link org.jboss.reddeer.jface.exception.JFaceLayerException}
  */
 public class JFaceLayerException extends RedDeerException {
 

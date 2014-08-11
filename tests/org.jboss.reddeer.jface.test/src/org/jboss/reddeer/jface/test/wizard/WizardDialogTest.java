@@ -5,9 +5,9 @@ import static org.hamcrest.core.IsInstanceOf.instanceOf;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
-import org.jboss.reddeer.eclipse.jface.wizard.WizardDialog;
-import org.jboss.reddeer.eclipse.jface.wizard.WizardPage;
-import org.jboss.reddeer.eclipse.jface.wizard.WizardPageProperty;
+import org.jboss.reddeer.jface.wizard.WizardDialog;
+import org.jboss.reddeer.jface.wizard.WizardPage;
+import org.jboss.reddeer.jface.wizard.WizardPageProperty;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.swt.api.CLabel;
 import org.jboss.reddeer.swt.api.Shell;

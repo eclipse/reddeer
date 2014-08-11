@@ -7,7 +7,7 @@ package org.jboss.reddeer.eclipse.jface.wizard;
  *   
  * @author Lucia Jelinkova
  * @since 0.5
- *
+ * @deprecated replaced by {@link org.jboss.reddeer.jface.wizard.ExportWizardDialog}
  */
 public abstract class ExportWizardDialog extends TopMenuWizardDialog {
 

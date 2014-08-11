@@ -23,7 +23,7 @@ import org.jboss.reddeer.swt.wait.WaitWhile;
  * @author Lucia Jelinkova
  * @author apodhrad
  * @since 0.5
- * 
+ * @deprecated replaced by {@link org.jboss.reddeer.jface.wizard.WizardDialog} 
  */
 public class WizardDialog {
 

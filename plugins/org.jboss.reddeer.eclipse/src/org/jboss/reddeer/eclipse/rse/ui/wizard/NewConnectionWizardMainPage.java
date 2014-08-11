@@ -3,7 +3,7 @@ package org.jboss.reddeer.eclipse.rse.ui.wizard;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.jboss.reddeer.eclipse.jface.wizard.WizardPage;
+import org.jboss.reddeer.jface.wizard.WizardPage;
 import org.jboss.reddeer.swt.api.Combo;
 import org.jboss.reddeer.swt.impl.combo.DefaultCombo;
 import org.jboss.reddeer.swt.impl.text.DefaultText;

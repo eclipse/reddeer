@@ -2,7 +2,7 @@ package org.jboss.reddeer.eclipse.datatools.ui.wizard;
 
 import org.jboss.reddeer.eclipse.datatools.ui.DriverDefinition;
 import org.jboss.reddeer.eclipse.datatools.ui.DriverTemplate;
-import org.jboss.reddeer.eclipse.jface.wizard.WizardDialog;
+import org.jboss.reddeer.jface.wizard.WizardDialog;
 import org.jboss.reddeer.swt.condition.ShellWithTextIsActive;
 import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.wait.TimePeriod;

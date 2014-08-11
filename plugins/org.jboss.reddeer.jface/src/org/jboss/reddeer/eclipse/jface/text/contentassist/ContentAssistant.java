@@ -14,7 +14,7 @@ import org.jboss.reddeer.swt.lookup.ShellLookup;
 /**
  * This class represents content assistant
  * @author rawagner
- *
+ * @deprecated replaced by {@link org.jboss.reddeer.jface.text.contentassist.ContentAssistant}
  */
 public class ContentAssistant {
 	

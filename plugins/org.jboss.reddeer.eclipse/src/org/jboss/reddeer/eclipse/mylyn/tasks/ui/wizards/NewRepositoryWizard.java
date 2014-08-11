@@ -1,6 +1,6 @@
 package org.jboss.reddeer.eclipse.mylyn.tasks.ui.wizards;
 
-import org.jboss.reddeer.eclipse.jface.wizard.NewWizardDialog;
+import org.jboss.reddeer.jface.wizard.NewWizardDialog;
 
 /**
  * Represents new file creation wizard dialog (General -> File)

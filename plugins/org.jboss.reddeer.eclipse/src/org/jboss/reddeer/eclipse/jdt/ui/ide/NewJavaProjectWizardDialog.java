@@ -1,6 +1,6 @@
 package org.jboss.reddeer.eclipse.jdt.ui.ide;
 
-import org.jboss.reddeer.eclipse.jface.wizard.NewWizardDialog;
+import org.jboss.reddeer.jface.wizard.NewWizardDialog;
 import org.jboss.reddeer.swt.condition.JobIsRunning;
 import org.jboss.reddeer.swt.condition.ShellWithTextIsActive;
 import org.jboss.reddeer.swt.exception.SWTLayerException;

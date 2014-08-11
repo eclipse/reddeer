@@ -8,7 +8,7 @@ import org.hamcrest.Description;
  * 
  * @author apodhrad
  * @since 0.5
- * 
+ * @deprecated replaced by {@link org.jboss.reddeer.jface.wizard.WizardPageIndex}
  */
 public class WizardPageIndex extends BaseMatcher<WizardDialog> {
 

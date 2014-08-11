@@ -11,7 +11,7 @@ import org.eclipse.ui.actions.ActionFactory;
 import org.eclipse.ui.keys.IBindingService;
 import org.eclipse.ui.texteditor.ITextEditorActionDefinitionIds;
 import org.hamcrest.Matcher;
-import org.jboss.reddeer.eclipse.jface.text.contentassist.ContentAssistant;
+import org.jboss.reddeer.jface.text.contentassist.ContentAssistant;
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.swt.condition.WaitCondition;
 import org.jboss.reddeer.swt.exception.WaitTimeoutExpiredException;

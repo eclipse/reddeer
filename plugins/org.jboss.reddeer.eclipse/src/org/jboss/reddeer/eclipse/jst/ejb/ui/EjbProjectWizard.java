@@ -1,7 +1,6 @@
 package org.jboss.reddeer.eclipse.jst.ejb.ui;
 
-import org.jboss.reddeer.eclipse.jface.wizard.NewWizardDialog;
-import org.jboss.reddeer.eclipse.jst.servlet.ui.WebProjectFirstPage;
+import org.jboss.reddeer.jface.wizard.NewWizardDialog;
 
 /**
  * This class represents EJB Wizard dialog.

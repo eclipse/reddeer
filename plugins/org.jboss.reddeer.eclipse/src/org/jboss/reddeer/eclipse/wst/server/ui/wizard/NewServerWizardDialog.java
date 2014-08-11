@@ -1,6 +1,6 @@
 package org.jboss.reddeer.eclipse.wst.server.ui.wizard;
 
-import org.jboss.reddeer.eclipse.jface.wizard.NewWizardDialog;
+import org.jboss.reddeer.jface.wizard.NewWizardDialog;
 
 /**
  * Represents the wizard for creating new servers. It provides access to the first wizard page {@link NewServerWizardPage}. 

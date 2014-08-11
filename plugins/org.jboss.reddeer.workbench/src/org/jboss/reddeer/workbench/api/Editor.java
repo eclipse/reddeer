@@ -2,7 +2,7 @@ package org.jboss.reddeer.workbench.api;
 
 import java.util.List;
 
-import org.jboss.reddeer.eclipse.jface.text.contentassist.ContentAssistant;
+import org.jboss.reddeer.jface.text.contentassist.ContentAssistant;
 import org.jboss.reddeer.workbench.impl.editor.Marker;
 
 /**

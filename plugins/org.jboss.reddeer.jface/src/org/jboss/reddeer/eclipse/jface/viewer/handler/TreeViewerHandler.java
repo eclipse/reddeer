@@ -11,6 +11,10 @@ import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.swt.util.Display;
 import org.jboss.reddeer.swt.util.ResultRunnable;
 
+/**
+ * 
+ * @deprecated replaced by {@link org.jboss.reddeer.jface.viewer.handler.TreeViewerHandler}
+ */
 public class TreeViewerHandler {
 	
 	private static TreeViewerHandler instance;

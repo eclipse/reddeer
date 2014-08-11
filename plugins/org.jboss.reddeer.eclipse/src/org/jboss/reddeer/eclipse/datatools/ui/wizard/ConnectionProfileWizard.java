@@ -7,7 +7,7 @@ import org.jboss.reddeer.eclipse.datatools.ui.DatabaseProfile;
 import org.jboss.reddeer.eclipse.datatools.ui.DriverDefinition;
 import org.jboss.reddeer.eclipse.datatools.ui.FlatFileProfile;
 import org.jboss.reddeer.eclipse.exception.EclipseLayerException;
-import org.jboss.reddeer.eclipse.jface.wizard.NewWizardDialog;
+import org.jboss.reddeer.jface.wizard.NewWizardDialog;
 import org.jboss.reddeer.swt.condition.ShellWithTextIsActive;
 import org.jboss.reddeer.swt.impl.button.OkButton;
 import org.jboss.reddeer.swt.impl.button.PushButton;

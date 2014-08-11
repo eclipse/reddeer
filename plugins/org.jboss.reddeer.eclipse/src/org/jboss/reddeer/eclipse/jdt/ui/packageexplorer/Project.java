@@ -2,8 +2,8 @@ package org.jboss.reddeer.eclipse.jdt.ui.packageexplorer;
 
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.eclipse.exception.EclipseLayerException;
-import org.jboss.reddeer.eclipse.jface.exception.JFaceLayerException;
-import org.jboss.reddeer.eclipse.jface.viewer.handler.TreeViewerHandler;
+import org.jboss.reddeer.jface.exception.JFaceLayerException;
+import org.jboss.reddeer.jface.viewer.handler.TreeViewerHandler;
 import org.jboss.reddeer.eclipse.utils.DeleteUtils;
 import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.swt.condition.JobIsRunning;

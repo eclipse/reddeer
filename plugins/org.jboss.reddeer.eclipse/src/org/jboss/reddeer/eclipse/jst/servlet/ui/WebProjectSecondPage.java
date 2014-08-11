@@ -3,7 +3,7 @@ package org.jboss.reddeer.eclipse.jst.servlet.ui;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.jboss.reddeer.eclipse.jface.wizard.WizardPage;
+import org.jboss.reddeer.jface.wizard.WizardPage;
 import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.swt.impl.button.OkButton;
 import org.jboss.reddeer.swt.impl.button.PushButton;
