@@ -156,5 +156,22 @@ public class MenuHandler {
 		log.debug("Queried MenuItem text:\"" + text + "\"");
 		return text;
 	}
+	
+	/**
+	 * Returns true if given MenuItem is enabled.
+	 * 
+	 * @param item
+	 *            given MenuItem
+	 * @return true if given MenuItem is enabled.
+	 */
+
+	public boolean isEnabled(final MenuItem item) {
+		return Display.syncExec(new ResultRunnable<Boolean>() {
+			@Override
+			public Boolean run() {
+				return item.isEnabled();
+			}
+		});
+	}
 
 }

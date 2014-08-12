@@ -12,9 +12,11 @@ import org.eclipse.jface.action.MenuManager;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Event;
+import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.swt.widgets.Widget;
 import org.eclipse.ui.IViewSite;
 import org.eclipse.ui.IWorkbench;
@@ -26,6 +28,7 @@ import org.eclipse.ui.PlatformUI;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.swt.condition.ShellWithTextIsActive;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
+import org.jboss.reddeer.swt.handler.ToolItemHandler;
 import org.jboss.reddeer.swt.handler.WidgetHandler;
 import org.jboss.reddeer.swt.util.Display;
 import org.jboss.reddeer.swt.util.ResultRunnable;
@@ -220,6 +223,48 @@ public class MenuLookup {
 	}
 	
 	/**
+	 * Returns first level of menu items for given DropDown ToolItem.
+	 * 
+	 * @param item
+	 *            given Drop Down Tool Item.
+	 * @return first level of menu items.
+	 */
+
+	public MenuItem[] getToolItemMenuItems(ToolItem item) {
+		final ShowMenuListener l = new ShowMenuListener();
+		addMenuListener(l);
+		ToolItemHandler.getInstance().clickDropDown(item);
+		removeMenuListener(l);
+		return Display.syncExec(new ResultRunnable<MenuItem[]>() {
+			@Override
+			public MenuItem[] run() {
+				l.getMenu().setVisible(false);
+				return l.getMenu().getItems();
+			}
+		});
+	}
+
+	private void addMenuListener(final Listener listener) {
+		Display.syncExec(new Runnable() {
+
+			@Override
+			public void run() {
+				Display.getDisplay().addFilter(SWT.Show, listener);
+			}
+		});
+	}
+
+	private void removeMenuListener(final Listener listener) {
+		Display.syncExec(new Runnable() {
+
+			@Override
+			public void run() {
+				Display.getDisplay().removeFilter(SWT.Show, listener);
+			}
+		});
+	}
+
+	/**
 	 * Returns menubar items.
 	 * @param s given shell where menubar items are searched for
 	 * @return array of menuitems fo given shell 
@@ -371,4 +416,27 @@ public class MenuLookup {
 		return result;		
 	}
 
+	private class ShowMenuListener implements Listener{
+
+		private Menu menu = null;
+		
+		public Menu getMenu() {
+			return menu;
+		}
+		
+		@Override
+		public void handleEvent(Event event) {
+			if (event.widget instanceof Menu){
+				Menu menu = (Menu) event.widget;
+				if (event.type == SWT.Show){
+					this.menu = menu;
+				}
+				if (event.type == SWT.Hide){
+					this.menu = null;
+				}
+			}
+		}
+		
+	}
+	
 }
