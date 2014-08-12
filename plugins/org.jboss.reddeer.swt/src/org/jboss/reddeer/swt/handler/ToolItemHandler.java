@@ -84,4 +84,34 @@ public class ToolItemHandler {
 			}
 		});
 	}
+	
+	/**
+	 * Returns true if given ToolItem has style SWT.DROP_DOWN.
+	 * 
+	 * @param item
+	 *            item to investigate.
+	 * @return true if given ToolItem has style SWT.DROP_DOWN.
+	 */
+	
+	public boolean isDropDown(final ToolItem item){
+		return Display.syncExec(new ResultRunnable<Boolean>() {
+			@Override
+			public Boolean run() {
+				return (SWT.DROP_DOWN & item.getStyle()) == SWT.DROP_DOWN;
+			}
+		});
+	}
+
+	/**
+	 * Sends SWT.Selection event to given ToolItem with detail SWT.ARROW. This
+	 * should simulate the little arrow to be clicked.
+	 * 
+	 * @param item
+	 *            ToolItem to be clicked on.
+	 */
+
+	public void clickDropDown(final ToolItem item) {
+		WidgetHandler.getInstance().notifyItem(SWT.Selection, SWT.ARROW, item,
+				item);
+	}
 }
