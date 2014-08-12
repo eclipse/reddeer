@@ -136,15 +136,25 @@ public class WizardDialog {
 	 * Click the finish button in wizard dialog.
 	 */
 	public void finish() {
+		finish(TimePeriod.LONG);
+	}
+
+	/**
+	 * Click the finish button in wizard dialog.
+	 * 
+	 * @param timeout time period to wait for 
+	 */
+	public void finish(TimePeriod timeout) {
 		log.info("Finish wizard");
 
 		String shellText = new DefaultShell().getText();
 		Button button = new PushButton("Finish");
 		button.click();
 
-		new WaitWhile(new ShellWithTextIsActive(shellText), TimePeriod.LONG);
-		new WaitWhile(new JobIsRunning(), TimePeriod.LONG);
+		new WaitWhile(new ShellWithTextIsActive(shellText), timeout);
+		new WaitWhile(new JobIsRunning(), timeout);
 	}
+	
 
 	/**
 	 * Click the cancel button in wizard dialog.
