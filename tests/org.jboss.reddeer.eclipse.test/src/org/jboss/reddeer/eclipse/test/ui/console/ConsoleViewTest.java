@@ -7,6 +7,7 @@ import static org.junit.Assert.fail;
 
 import org.hamcrest.core.IsEqual;
 import org.hamcrest.core.IsNull;
+import org.jboss.reddeer.eclipse.condition.ConsoleHasNoChange;
 import org.jboss.reddeer.eclipse.jdt.ui.NewJavaClassWizardDialog;
 import org.jboss.reddeer.eclipse.jdt.ui.NewJavaClassWizardPage;
 import org.jboss.reddeer.eclipse.jdt.ui.ide.NewJavaProjectWizardDialog;
@@ -25,6 +26,7 @@ import org.jboss.reddeer.swt.matcher.RegexMatcher;
 import org.jboss.reddeer.swt.matcher.WithTextMatchers;
 import org.jboss.reddeer.swt.wait.AbstractWait;
 import org.jboss.reddeer.swt.wait.TimePeriod;
+import org.jboss.reddeer.swt.wait.WaitUntil;
 import org.jboss.reddeer.workbench.impl.editor.DefaultEditor;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -37,32 +39,33 @@ import org.junit.runner.RunWith;
 public class ConsoleViewTest {
 
 	private static ConsoleView consoleView;
-	
+
 	private static final String TEST_PROJECT_NAME = "Project";
 	private static final String TEST_CLASS_NAME = "TestClass";
 	private static final String TEST_CLASS_LOOP_NAME = "TestLoopClass";
-	
+	private static final String TEST_CLASS_LOOP2_NAME = "TestLoopClass2";
+
 	@BeforeClass
 	public static void setupClass() {
 		createTestProject();
 	}
-	
+
 	@AfterClass
 	public static void tearDownClass() {
 		DeleteUtils.forceProjectDeletion(new PackageExplorer().getProject(TEST_PROJECT_NAME),true);
 	}
-	
+
 	@Before
 	public void setupTest() {
 		runTestClass(TEST_CLASS_NAME);
 	}
-	
+
 	@Test
 	public void testConsoleView() {
 		testGettingConsoleTest();
 		testClearConsole();
 	}
-	
+
 	@Test
 	public void testRemoveLaunch() {
 		consoleView = new ConsoleView();
@@ -78,7 +81,7 @@ public class ConsoleViewTest {
 			// ok, no styled text can be found
 		}
 	}
-	
+
 	@Test
 	public void testRemoveAllTerminatedLaunches() {
 		consoleView = new ConsoleView();
@@ -94,28 +97,39 @@ public class ConsoleViewTest {
 			// ok, no styled text can be found
 		}
 	}
-	
+
 	@Test
 	public void testTerminateConsole() {
-		
+
 		runTestClass(TEST_CLASS_LOOP_NAME);
 		AbstractWait.sleep(TimePeriod.SHORT);
-		
+
 		consoleView = new ConsoleView();
 		consoleView.open();
 		consoleView.terminateConsole();
-		
+
 		String text = consoleView.getConsoleText();
 		AbstractWait.sleep(TimePeriod.SHORT);
 		String text2 = consoleView.getConsoleText();
 		assertFalse(text.trim().isEmpty());
 		assertEquals(text, text2);
-		
+
 		ViewToolItem terminate = new ViewToolItem("Terminate");
 		assertFalse(terminate.isEnabled());
-		
+
 	}
-	
+
+	@Test
+	public void consoleHasNoChangeTest() {
+		runTestClass(TEST_CLASS_LOOP2_NAME);
+		new WaitUntil(new ConsoleHasNoChange(TimePeriod.getCustom(11)), TimePeriod.LONG);
+		consoleView = new ConsoleView();
+		consoleView.open();
+		consoleView.terminateConsole();
+		// compare the text without white spaces
+		assertEquals("StartHelloApplication", consoleView.getConsoleText().replaceAll("\\s", ""));
+	}
+
 	private void testGettingConsoleTest() {
 		consoleView = new ConsoleView();
 		consoleView.open();
@@ -123,56 +137,59 @@ public class ConsoleViewTest {
 		assertThat(text, IsNull.notNullValue());
 		assertThat(text, IsEqual.equalTo("Hello World"));
 	}
-	
+
 	private void testClearConsole() {
 		consoleView = new ConsoleView();
 		consoleView.open();
-		consoleView.clearConsole();		
+		consoleView.clearConsole();
 		String text = consoleView.getConsoleText();
 		assertThat(text, IsEqual.equalTo(""));
 	}
-	
+
 	private static void createTestProject() {
 		PackageExplorer packageExplorer = new PackageExplorer();
 		if (!packageExplorer.containsProject(TEST_PROJECT_NAME)) {
 			createJavaProject();
 			createJavaClass(TEST_CLASS_NAME, "System.out.print(\"Hello World\");");
 			createJavaClass(TEST_CLASS_LOOP_NAME, "int i = 0; while (true) {System.out.println(i++);}");
+			createJavaClass(TEST_CLASS_LOOP2_NAME, "try {System.out.println(\"Start\");\n"
+					+ "Thread.sleep(10 * 1000);\n" + "System.out.println(\"Hello Application\");\n"
+					+ "Thread.sleep(20 * 1000);\n" + "System.out.println(\"Finish\");\n"
+					+ "} catch (InterruptedException e) {e.printStackTrace();}");
 		}
 		packageExplorer.getProject(TEST_PROJECT_NAME).select();
 	}
-	
+
 	private static void createJavaProject() {
 		NewJavaProjectWizardDialog javaProject = new NewJavaProjectWizardDialog();
 		javaProject.open();
-		
+
 		NewJavaProjectWizardPage javaWizardPage = javaProject.getFirstPage();
 		javaWizardPage.setProjectName(TEST_PROJECT_NAME);
-		
+
 		javaProject.finish(false);
 	}
-	
+
 	private static void createJavaClass(String name, String text) {
 		NewJavaClassWizardDialog javaClassDialog = new NewJavaClassWizardDialog();
 		javaClassDialog.open();
-		
+
 		NewJavaClassWizardPage wizardPage = javaClassDialog.getFirstPage();
 		wizardPage.setName(name);
 		wizardPage.setPackage("test");
 		wizardPage.setStaticMainMethod(true);
 		javaClassDialog.finish();
-		
+
 		StyledText dst = new DefaultStyledText();
 		dst.insertText(7, 0, text);
 		new DefaultEditor().save();
 	}
-	
+
 	private static void runTestClass(String name) {
-		new PackageExplorer().getProject(TEST_PROJECT_NAME).getProjectItem("src", "test", name + ".java").select();		
-		RegexMatcher[] array = { new RegexMatcher("Run.*"),
-				new RegexMatcher("Run As.*"),
+		new PackageExplorer().getProject(TEST_PROJECT_NAME).getProjectItem("src", "test", name + ".java").select();
+		RegexMatcher[] array = { new RegexMatcher("Run.*"), new RegexMatcher("Run As.*"),
 				new RegexMatcher(".*Java Application.*") };
 		WithTextMatchers m = new WithTextMatchers(array);
-		new ShellMenu(m.getMatchers()).select();		
+		new ShellMenu(m.getMatchers()).select();
 	}
 }
