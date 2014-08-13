@@ -3,12 +3,13 @@ package org.jboss.reddeer.uiforms.test.ui.views;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.Listener;
+import org.eclipse.ui.forms.events.ExpansionAdapter;
+import org.eclipse.ui.forms.events.ExpansionEvent;
 import org.eclipse.ui.forms.events.HyperlinkAdapter;
 import org.eclipse.ui.forms.events.HyperlinkEvent;
 import org.eclipse.ui.forms.events.IHyperlinkListener;
+import org.eclipse.ui.forms.widgets.ExpandableComposite;
 import org.eclipse.ui.forms.widgets.FormText;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.Hyperlink;
@@ -25,7 +26,15 @@ public class FormView extends ViewPart {
 	public static final String ACTIVATED_HYPERLINK = "Hyperlink clicked";
 	
 	public static final String ACTIVATED_FORMTEXT = "FormText clicked";
-	
+
+	public static final String EXPANDABLE_COMPOSITE_A = "Expandable composite A";
+
+	public static final String EXPANDABLE_COMPOSITE_B = "Expandable composite B";
+
+	public static final String EXPANDABLE_COMPOSITE_C = "Expandable composite C";
+
+	public static final String EXPANDABLE_COMPOSITE_D = "Expandable composite D";
+
 	public static final String SECTION_A = "Section A";
 
 	public static final String SECTION_B = "Section B";
@@ -77,12 +86,42 @@ public class FormView extends ViewPart {
 		
 		createSectionWithHyperLink(formB, SECTION_C);
 		createSectionWithHyperLink(formB, SECTION_D);
+
+		createExpandableCompositeWithHyperLink(formA, EXPANDABLE_COMPOSITE_A);
+		createExpandableCompositeWithHyperLink(formA, EXPANDABLE_COMPOSITE_B);
+
+		createExpandableCompositeWithHyperLink(formB, EXPANDABLE_COMPOSITE_C);
+		createExpandableCompositeWithHyperLink(formB, EXPANDABLE_COMPOSITE_D);
 	}
 
 	@Override
 	public void setFocus() {
 		formA.setFocus();
 
+	}
+
+	private void createExpandableCompositeWithHyperLink(final ScrolledForm form, String text) {
+		ExpandableComposite composite = toolkit.createExpandableComposite(form.getBody(), ExpandableComposite.TITLE_BAR | ExpandableComposite.TWISTIE | ExpandableComposite.CLIENT_INDENT);
+		composite.setText(text);
+
+		Composite c = toolkit.createComposite(composite);
+		GridLayout l = new GridLayout(1, true);
+		l.horizontalSpacing = 10;
+		c.setLayout(l);
+
+		toolkit.createText(c, "Value: ");
+		createHyperlink(text, c);
+		createFormText(text, c);
+
+		composite.setClient(c);
+
+		composite.addExpansionListener(new ExpansionAdapter() {
+			  public void expansionStateChanged(ExpansionEvent e) {
+			   form.reflow(true);
+			  }
+		});
+
+		composite.setExpanded(true);
 	}
 
 	private void createSectionWithHyperLink(ScrolledForm form, String text) {
