@@ -11,6 +11,7 @@ import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.handler.TreeHandler;
 import org.jboss.reddeer.swt.handler.TreeItemHandler;
 import org.jboss.reddeer.swt.handler.WidgetHandler;
+import org.jboss.reddeer.swt.util.Display;
 import org.jboss.reddeer.swt.wait.TimePeriod;
 import org.jboss.reddeer.swt.wait.WaitUntil;
 
@@ -130,6 +131,14 @@ public abstract class AbstractTreeItem implements TreeItem {
 		logger.debug("Notify tree about default selection event");
 		treeHandler.notifyTree(getSWTWidget(), treeHandler.createEventForTree(
 				getSWTWidget(), SWT.DefaultSelection));
+		
+		Display.syncExec(new Runnable() {
+			@Override
+			public void run() {
+				// flush events
+			}
+		});
+		
 		logger.debug("Double click successfull");
 	}
 
