@@ -3,7 +3,7 @@ package org.jboss.reddeer.jface.test.preference;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import org.jboss.reddeer.eclipse.jface.preference.FoldingPreferencePage;
+import org.jboss.reddeer.jface.preference.FoldingPreferencePage;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.junit.After;
 import org.junit.Before;
