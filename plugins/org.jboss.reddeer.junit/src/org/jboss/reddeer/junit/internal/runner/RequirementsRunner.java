@@ -223,21 +223,10 @@ public class RequirementsRunner extends BlockJUnit4ClassRunner {
 		@Override
 		public void testFailure(Failure failure) throws Exception {
 			wasFailure = true;
-			Throwable throwable = failure.getException();
-			// it's test failure
-			if (throwable instanceof AssertionError){
-				log.error("Failed test: " + failure.getDescription(),throwable);
-			}
-			// it's Exception
-			else {
-				log.error("Exception in test: " + failure.getDescription(),throwable);
-			}
-
 			super.testFailure(failure);
 		}
 		@Override
 		public void testFinished(Description description) throws Exception {
-			log.info("Finished test: " + description);
 			if (RequirementsRunner.SAVE_SCREENCAST){
 				RequirementsRunner.stopScreenRecorder();
 				if (!wasFailure){
@@ -248,13 +237,7 @@ public class RequirementsRunner extends BlockJUnit4ClassRunner {
 			super.testFinished(description);
 		}
 		@Override
-		public void testIgnored(Description description) throws Exception {
-			log.info("Ignored test: " + description);
-			super.testIgnored(description);
-		}
-		@Override
 		public void testStarted(Description description) throws Exception {
-			log.info("Started test: " + description);
 			wasFailure = false;
 			if (RequirementsRunner.SAVE_SCREENCAST){
 				outputVideoFile = RequirementsRunner.startScreenRecorder(description.toString());
