@@ -15,8 +15,8 @@ import org.junit.runner.RunWith;
 public class BrowserViewTest {
 	protected static BrowserView browserView;
 
-	protected static final String FIRST_PAGE = "http://www.redhat.com/";
-	protected static final String SECOND_PAGE = "http://www.redhat.com/contact/";
+	protected static final String FIRST_PAGE = "http://www.redhat.com/en";
+	protected static final String SECOND_PAGE = "http://www.redhat.com/en/customers";
 	
 	@Before
 	public void openBrowser(){
