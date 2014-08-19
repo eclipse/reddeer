@@ -47,6 +47,7 @@ public class ShellWithTextIsActive implements WaitCondition {
 		Shell currentActiveShell = ShellLookup.getInstance()
 				.getCurrentActiveShell();
 		if (currentActiveShell == null) {
+			log.debug("Current active shell is null");
 			return false;
 		}
 
@@ -55,6 +56,7 @@ public class ShellWithTextIsActive implements WaitCondition {
 			activeText = WidgetHandler.getInstance()
 					.getText(currentActiveShell);
 		} catch (RedDeerException e) {
+			log.debug("Unable to determine text of current active shell");
 			return false;
 		}
 
