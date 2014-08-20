@@ -45,7 +45,8 @@ public class Project {
 	 */
 	public void delete(boolean deleteFromFileSystem) {
 		select();
-		log.debug("Delete project " + treeViewerHandler.getNonStyledText(treeItem) + " via Explorer");new ContextMenu("Refresh").select();
+		log.debug("Delete project " + treeViewerHandler.getNonStyledText(treeItem) + " via Explorer");
+		new ContextMenu("Refresh").select();
 		new ContextMenu("Refresh").select();
 		new WaitWhile(new JobIsRunning(), TimePeriod.VERY_LONG);
 		new ContextMenu("Delete").select();
@@ -61,6 +62,7 @@ public class Project {
 	 * Selects the project.
 	 */
 	public void select() {
+		new PackageExplorer().activate();
 		treeItem.select();
 	}
 

@@ -5,12 +5,11 @@ import static org.junit.Assert.assertTrue;
 
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.swt.api.Text;
-import org.jboss.reddeer.swt.condition.ShellWithTextIsActive;
 import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.menu.ShellMenu;
+import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.jboss.reddeer.swt.impl.text.DefaultText;
 import org.jboss.reddeer.swt.impl.text.LabeledText;
-import org.jboss.reddeer.swt.wait.WaitUntil;
 import org.jboss.reddeer.workbench.impl.view.WorkbenchView;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -39,7 +38,7 @@ public class TextTest {
 	@Test
 	public void testInDialog() {
 		new ShellMenu("File","New","Other...").select();
-		new WaitUntil(new ShellWithTextIsActive("New"));
+		new DefaultShell("New");
 		Text t = new DefaultText("type filter text");
 		t.setText("myvalue");
 		assertTrue(t.getText().equals("myvalue"));

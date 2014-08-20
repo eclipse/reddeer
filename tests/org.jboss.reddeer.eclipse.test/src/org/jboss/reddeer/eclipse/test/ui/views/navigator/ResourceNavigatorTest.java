@@ -23,7 +23,7 @@ import org.junit.runner.RunWith;
 @RunWith(RedDeerSuite.class)
 public class ResourceNavigatorTest {
 	
-	private static final String PROJECT_NAME = "TestProject";
+	private static final String PROJECT_NAME = "ResourceNavigatorTestProject";
 	private static final String SOURCE_FOLDER = "src";
 	private static final String PACKAGE_NAME = "org.jboss.reddeer.eclipse.jdt.navigator";
 	private static final String CLASS_NAME = "Test";

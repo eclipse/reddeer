@@ -23,7 +23,7 @@ import org.junit.runner.RunWith;
 @RunWith(RedDeerSuite.class)
 public class RuntimesPropertyPageTest {
 
-	private static final String PROJECT = "server-project";
+	private static final String PROJECT = "RuntimesPropertyPageTestProject";
 	
 	private RuntimesPropertyPage propertyPage;
 	
