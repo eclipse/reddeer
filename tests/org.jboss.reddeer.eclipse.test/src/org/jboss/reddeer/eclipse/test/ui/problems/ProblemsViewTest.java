@@ -42,7 +42,7 @@ public class ProblemsViewTest {
 	private ProblemsView problemsView;	
 
 	private static final String JAVA_PROBLEM = "Java Problem";
-	private static final String PROJECT_NAME = "Test";
+	private static final String PROJECT_NAME = "ProblemsViewTestProject";
 
 	private static final String DEFAULT_ERROR_CLASS_NAME = "ErrorTestClass";
 	private static final String ERROR_DESCRIPTION =

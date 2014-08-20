@@ -16,9 +16,9 @@ import org.junit.runner.RunWith;
 @RunWith(RedDeerSuite.class)
 public class PackageExplorerTest {
 
-	private static final String PROJECT_NAME_0 = "TestProject0";
-	private static final String PROJECT_NAME_1 = "TestProject1";
-	private static final String PROJECT_NAME_2 = "TestProject2";
+	private static final String PROJECT_NAME_0 = "PackageExplorerTestProject0";
+	private static final String PROJECT_NAME_1 = "PackageExplorerTestProject1";
+	private static final String PROJECT_NAME_2 = "PackageExplorerTestProject2";
 	private PackageExplorer packageExplorer;
 	private Project project0;
 

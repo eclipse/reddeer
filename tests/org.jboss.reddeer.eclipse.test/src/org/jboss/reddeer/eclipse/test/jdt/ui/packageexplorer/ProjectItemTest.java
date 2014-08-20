@@ -30,7 +30,7 @@ import org.junit.runner.RunWith;
 @RunWith(RedDeerSuite.class)
 public class ProjectItemTest {
 
-	private static final String PROJECT_NAME = "TestProject";
+	private static final String PROJECT_NAME = "ProjectItemTestProject";
 	private static final String PROJECT_ITEM_TEXT = "src";
 	private static final String DEFAULT_PACKAGE_TEXT = "(default package)";
 	private PackageExplorer packageExplorer;

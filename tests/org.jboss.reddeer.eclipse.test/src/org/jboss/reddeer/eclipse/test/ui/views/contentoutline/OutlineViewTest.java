@@ -22,7 +22,7 @@ public class OutlineViewTest{
 
 	private OutlineView outlineView;
 	private static PackageExplorer packageExplorer;
-	private static final String TEST_PROJECT_NAME = "prj";
+	private static final String TEST_PROJECT_NAME = "OutlineViewTestProject";
 	
 	@BeforeClass
 	public static void prepareWS() {
