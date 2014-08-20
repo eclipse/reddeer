@@ -63,6 +63,12 @@ public abstract class AbstractWait {
 	 */
 	public AbstractWait(WaitCondition condition, TimePeriod timePeriod,
 			boolean throwRuntimeException) {
+		if(condition == null) {
+			throw new IllegalArgumentException("condition can't be null");
+		}
+		if(timePeriod == null) {
+			throw new IllegalArgumentException("timePeriod can't be null");
+		}
 		this.timeout = timePeriod;
 		this.throwTimeoutException = throwRuntimeException;
 
@@ -139,13 +145,13 @@ public abstract class AbstractWait {
 			throw new RuntimeException("Sleep interrupted", e);
 		}
 	}
-	
+
 	private boolean timeoutExceeded(WaitCondition condition, long limit) {
 		if (System.currentTimeMillis() > limit) {
 			if (throwTimeoutException()) {
 				log.debug(this.description()  + condition.description() + " failed, an exception will be thrown");
 				throw new WaitTimeoutExpiredException("Timeout after: "
-						+ timeout + " ms.: " + condition.description());
+						+ timeout.getSeconds() + " s.: " + condition.description());
 			} else {
 				log.debug(this.description()  + condition.description() + " failed, NO exception will be thrown");
 				return true;
