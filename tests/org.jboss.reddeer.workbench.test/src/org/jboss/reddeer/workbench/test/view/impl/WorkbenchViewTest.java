@@ -8,6 +8,7 @@ import org.hamcrest.core.IsNot;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.swt.lookup.WorkbenchLookup;
 import org.jboss.reddeer.workbench.api.View;
+import org.jboss.reddeer.workbench.exception.WorkbenchLayerException;
 import org.jboss.reddeer.workbench.impl.view.WorkbenchView;
 import org.junit.Before;
 import org.junit.Test;
@@ -27,14 +28,14 @@ public class WorkbenchViewTest  {
 		markersView = new WorkbenchView(MARKERS_VIEW_TITLE);
 		try {
 			markersView.close();
-		} catch (UnsupportedOperationException uoe) {
+		} catch (WorkbenchLayerException uoe) {
 			// Markes view is not opened, do nothing here
 		}
 
 		projectExplorerView = new WorkbenchView(PROJECT_EXPLORER_VIEW_TITLE);
 		try {
 			projectExplorerView.close();
-		} catch (UnsupportedOperationException uoe) {
+		} catch (WorkbenchLayerException uoe) {
 			// Project Explorer view is not opened, do nothing here
 		}
 	}
@@ -55,14 +56,14 @@ public class WorkbenchViewTest  {
 		
 	}
 	
-	@Test(expected=UnsupportedOperationException.class)
+	@Test(expected=WorkbenchLayerException.class)
 	public void testCloseNonInstantiatedView() {
 		
 		markersView.close();
 		
 	}
 	
-	@Test(expected=UnsupportedOperationException.class)
+	@Test(expected=WorkbenchLayerException.class)
 	public void testCloseClosedView() {
 		
 		markersView.open();
