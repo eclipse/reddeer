@@ -39,7 +39,7 @@ public class TextTest {
 	public void testInDialog() {
 		new ShellMenu("File","New","Other...").select();
 		new DefaultShell("New");
-		Text t = new DefaultText("type filter text");
+		Text t = new DefaultText(0);
 		t.setText("myvalue");
 		assertTrue(t.getText().equals("myvalue"));
 		new PushButton("Cancel").click();
