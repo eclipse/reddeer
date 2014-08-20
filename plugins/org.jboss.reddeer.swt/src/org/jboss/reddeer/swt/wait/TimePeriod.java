@@ -55,4 +55,9 @@ public class TimePeriod {
 		}
 		return new TimePeriod(seconds);
 	}
+
+	@Override
+	public String toString() {
+		return "Time period " + seconds + " s.";
+	}
 }
