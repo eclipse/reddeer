@@ -60,7 +60,7 @@ public class EditorBarTest {
 	public void deleteProject(){
 		ProjectExplorer pe = new ProjectExplorer();
 		pe.open();
-		pe.getProject(projectName).delete(true);;
+		pe.getProject(projectName).delete(true);
 	}
 
 	@Test 
