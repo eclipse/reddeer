@@ -25,6 +25,7 @@ import org.jboss.reddeer.swt.wait.WaitUntil;
 import org.jboss.reddeer.swt.wait.WaitWhile;
 import org.jboss.reddeer.workbench.api.View;
 import org.jboss.reddeer.workbench.api.WorkbenchPart;
+import org.jboss.reddeer.workbench.exception.WorkbenchLayerException;
 import org.jboss.reddeer.workbench.exception.WorkbenchPartNotFound;
 import org.jboss.reddeer.workbench.handler.ViewHandler;
 import org.jboss.reddeer.workbench.handler.WorkbenchPartHandler;
@@ -108,6 +109,7 @@ public class AbstractView implements View {
 	 */
 	@Override
 	public void activate() {
+		viewPartIsNotNull();
 		ViewHandler.getInstance().setFocus(viewPart, viewTitle());
 	}
 
@@ -161,10 +163,7 @@ public class AbstractView implements View {
 
 	@Override
 	public void close() {
-		if (viewPart == null) {
-			throw new UnsupportedOperationException("Cannot close view "
-					+ "before initialization provided by open method");
-		}
+		viewPartIsNotNull();
 		ViewHandler.getInstance().close(viewPart);
 		viewPart = null;
 	}
@@ -261,5 +260,13 @@ public class AbstractView implements View {
 			return part;
 		}
 
+	}
+
+	private void viewPartIsNotNull() {
+		if (viewPart == null) {
+			throw new WorkbenchLayerException("Cannot perform the specified "
+					+ "operation before initialization "
+					+ "provided by open method");
+		}
 	}
 }
