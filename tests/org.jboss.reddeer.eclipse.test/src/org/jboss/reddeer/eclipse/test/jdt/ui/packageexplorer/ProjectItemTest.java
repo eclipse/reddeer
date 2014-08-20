@@ -50,6 +50,7 @@ public class ProjectItemTest {
 
 	@Test
 	public void select() {
+		packageExplorer.activate();
 		projectItem.select();
 		assertTrue("Project item " + ProjectItemTest.PROJECT_ITEM_TEXT + " is not selected" , projectItem.isSelected());
 	}
@@ -180,7 +181,8 @@ public class ProjectItemTest {
 	
 	@After
 	public void tearDown() {
-		packageExplorer.activate();
+		packageExplorer.close();
+		packageExplorer.open();
 		packageExplorer.getProject(ProjectItemTest.PROJECT_NAME).delete(true);
 	}
 	
