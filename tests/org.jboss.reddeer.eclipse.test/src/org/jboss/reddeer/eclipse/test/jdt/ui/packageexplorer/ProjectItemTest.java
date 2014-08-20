@@ -56,6 +56,7 @@ public class ProjectItemTest {
 	
 	@Test
 	public void delete() {
+		packageExplorer.activate();
 		projectItem.delete();
 		assertFalse("Project " + ProjectItemTest.PROJECT_NAME + " contains project item " + ProjectItemTest.PROJECT_ITEM_TEXT +
 				" but it should be deleted.",
@@ -64,6 +65,7 @@ public class ProjectItemTest {
 	
 	@Test
 	public void asyncDelete() throws Exception {
+		packageExplorer.activate();
 		projectItem.select();
 		// Create new text file test.txt
 		new NewFileCreationWizard().createFile("text.txt");
@@ -83,6 +85,7 @@ public class ProjectItemTest {
 	
 	@Test
 	public void open() {
+		packageExplorer.activate();
 		packageExplorer.getProject(ProjectItemTest.PROJECT_NAME)
             .getProjectItem(ProjectItemTest.PROJECT_ITEM_TEXT)
             .select();
@@ -101,6 +104,7 @@ public class ProjectItemTest {
 	
 	@Test
 	public void getChild() {
+		packageExplorer.activate();
 		packageExplorer.getProject(ProjectItemTest.PROJECT_NAME)
             .getProjectItem(ProjectItemTest.PROJECT_ITEM_TEXT)
             .select();
@@ -123,6 +127,7 @@ public class ProjectItemTest {
 	
 	@Test
 	public void getChildren() {
+		packageExplorer.activate();
 		packageExplorer.getProject(ProjectItemTest.PROJECT_NAME)
 				.getProjectItem(ProjectItemTest.PROJECT_ITEM_TEXT).select();
 
@@ -175,6 +180,7 @@ public class ProjectItemTest {
 	
 	@After
 	public void tearDown() {
+		packageExplorer.activate();
 		packageExplorer.getProject(ProjectItemTest.PROJECT_NAME).delete(true);
 	}
 	
