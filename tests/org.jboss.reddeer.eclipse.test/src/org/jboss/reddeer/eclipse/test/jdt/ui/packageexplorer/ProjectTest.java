@@ -69,6 +69,8 @@ public class ProjectTest {
 	
 	@After
 	public void tearDown() {
+		packageExplorer.close();
+		packageExplorer.open();
 		if (packageExplorer.containsProject(ProjectTest.PROJECT_NAME_0)) {
 			packageExplorer.getProject(ProjectTest.PROJECT_NAME_0).delete(true);
 		}
