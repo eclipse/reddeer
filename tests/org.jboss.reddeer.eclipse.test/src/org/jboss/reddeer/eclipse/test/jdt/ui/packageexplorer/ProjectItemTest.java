@@ -16,7 +16,9 @@ import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.PackageExplorer;
 import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.ProjectItem;
 import org.jboss.reddeer.eclipse.ui.ide.NewFileCreationWizardDialog;
 import org.jboss.reddeer.eclipse.ui.ide.NewFileCreationWizardPage;
+import org.jboss.reddeer.eclipse.ui.perspectives.JavaPerspective;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
+import org.jboss.reddeer.requirements.openperspective.OpenPerspectiveRequirement.OpenPerspective;
 import org.jboss.reddeer.swt.condition.JobIsRunning;
 import org.jboss.reddeer.swt.handler.WorkbenchHandler;
 import org.jboss.reddeer.swt.wait.TimePeriod;
@@ -28,6 +30,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(RedDeerSuite.class)
+@OpenPerspective(JavaPerspective.class)
 public class ProjectItemTest {
 
 	private static final String PROJECT_NAME = "ProjectItemTestProject";
@@ -44,6 +47,7 @@ public class ProjectItemTest {
 		page1.setProjectName(ProjectItemTest.PROJECT_NAME);
 		dialog.finish();
 		packageExplorer = new PackageExplorer();
+		packageExplorer.open();
 		projectItem = packageExplorer.getProject(ProjectItemTest.PROJECT_NAME)
 			              .getProjectItem(ProjectItemTest.PROJECT_ITEM_TEXT);
 	}
