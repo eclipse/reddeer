@@ -7,13 +7,16 @@ import org.jboss.reddeer.eclipse.jdt.ui.ide.NewJavaProjectWizardDialog;
 import org.jboss.reddeer.eclipse.jdt.ui.ide.NewJavaProjectWizardPage;
 import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.PackageExplorer;
 import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.Project;
+import org.jboss.reddeer.eclipse.ui.perspectives.JavaPerspective;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
+import org.jboss.reddeer.requirements.openperspective.OpenPerspectiveRequirement.OpenPerspective;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(RedDeerSuite.class)
+@OpenPerspective(JavaPerspective.class)
 public class ProjectTest {
 
 	private static final String PROJECT_NAME_0 = "ProjectTestProject0";
@@ -31,6 +34,7 @@ public class ProjectTest {
 		dialog.finish();
 
 		packageExplorer = new PackageExplorer();
+		packageExplorer.open();
 		project0 = packageExplorer.getProject(ProjectTest.PROJECT_NAME_0);
 	}
 
