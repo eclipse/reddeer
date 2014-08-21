@@ -25,7 +25,7 @@ public class ActiveFocusControlIsInActiveView implements WaitCondition {
 			@Override
 			public Boolean run() {
 				Control itParent = focusedControl;
-				while (itParent != workbenchControl && itParent != null) {
+				while (itParent != workbenchControl && itParent != null && !itParent.isDisposed()) {
 					itParent = itParent.getParent();
 				}
 				return itParent != null;
