@@ -8,7 +8,6 @@ import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.swt.api.Shell;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
-import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -30,15 +29,24 @@ public class WorkbenchPreferenceDialogTest {
 		
 		
 		Shell shell = new DefaultShell();		
-		assertThat(shell.getText(), is(WorkbenchPreferencePage.DIALOG_TITLE));
+		assertThat(shell.getText(), is(WorkbenchPreferenceDialog.DIALOG_TITLE));
 	}
 	
 	@Test
-	public void openPage(){
+	public void selectPageByPath(){
 		preferenceDialog = new WorkbenchPreferenceDialog();
-		preferenceDialog.open("General","Workspace");
+		preferenceDialog.select("General","Workspace");
 		
-		assertThat(preferenceDialog.getPageName(), is("Workspace"));		
+		assertThat(preferenceDialog.getPageName(), is("Workspace"));
+	}
+	
+	@Test
+	public void selectPage(){
+		WorkbenchPreferencePage page = new WorkbenchPreferencePage("General", "Workspace");
+		preferenceDialog = new WorkbenchPreferenceDialog();
+		preferenceDialog.select(page);
+		
+		assertThat(preferenceDialog.getPageName(), is("Workspace"));
 	}
 	
 	@Test
@@ -56,7 +64,7 @@ public class WorkbenchPreferenceDialogTest {
 		preferenceDialog.open();
 		Shell shell = new DefaultShell();
 		
-		assertThat(shell.getText(), is(WorkbenchPreferencePage.DIALOG_TITLE));
+		assertThat(shell.getText(), is(WorkbenchPreferenceDialog.DIALOG_TITLE));
 		assertThat(preferenceDialog.isOpen(), is(true));
 		if (cancel) {
 			preferenceDialog.cancel();
@@ -70,7 +78,7 @@ public class WorkbenchPreferenceDialogTest {
 	public void cleanup(){
 		Shell shell = null;
 		try {
-			shell = new DefaultShell(WorkbenchPreferencePage.DIALOG_TITLE);
+			shell = new DefaultShell(WorkbenchPreferenceDialog.DIALOG_TITLE);
 		} catch (SWTLayerException e){
 			// not found, no action needed
 			return;
