@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="org.jboss.reddeer.ide.feature"
+      label="%featureName"
+      version="0.7.0.qualifier"
+      provider-name="JBoss by Red Hat">
+
+   <description url="https://github.com/jboss-reddeer/reddeer/wiki">
+      An extendable framework to support building automated Eclipse tests.
+   </description>
+
+   <copyright>
+      JBoss, Home of Professional Open Source
+Copyright (c) Red Hat, Inc., and individual contributors as indicated
+by the @authors tag, 2012-2013. See the copyright.txt in the distribution
+for a full listing of individual contributors.
+   </copyright>
+
+   <license>
+      Red Hat, Inc. licenses these features and plugins to you under
+certain open source licenses (or aggregations of such licenses),
+which in a particular case may include the Eclipse Public License,
+the GNU Lesser General Public License, and/or certain other open
+source licenses. For precise licensing details, consult the corresponding
+source code, or contact Red Hat Legal Affairs, 1801 Varsity Drive,
+Raleigh NC 27606 USA.
+   </license>
+
+   <requires>
+      <import feature="org.jboss.reddeer.eclipse.feature" />
+      <import feature="org.jboss.reddeer.eclipse.feature.source" />
+      <import feature="org.jboss.reddeer.examples.feature" />
+      <import feature="org.jboss.reddeer.examples.feature.source" />
+      <import feature="org.jboss.reddeer.graphiti.feature" />
+      <import feature="org.jboss.reddeer.graphiti.feature.source" />
+      <import feature="org.jboss.reddeer.junit.extension.feature" />
+      <import feature="org.jboss.reddeer.junit.extension.feature.source" />
+      <import feature="org.jboss.reddeer.rcp.feature" />
+      <import feature="org.jboss.reddeer.rcp.feature.source" />
+      <import feature="org.jboss.reddeer.recorder.feature" />
+      <import feature="org.jboss.reddeer.recorder.feature.source" />
+      <import feature="org.jboss.reddeer.swt.feature" />
+      <import feature="org.jboss.reddeer.swt.feature.source" />
+      <import feature="org.jboss.reddeer.ui.feature" />
+      <import feature="org.jboss.reddeer.ui.feature.source" />
+   </requires>
+
+   <plugin
+         id="org.jboss.reddeer.branding"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+</feature>

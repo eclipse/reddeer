@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: RedDeer Branding Component
+Bundle-Vendor: JBoss by Red Hat
+Bundle-SymbolicName: org.jboss.reddeer.branding;singleton:=true
+Bundle-Version: 0.7.0.qualifier
+Require-Bundle: org.eclipse.core.runtime
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Eclipse-BundleShape: dir

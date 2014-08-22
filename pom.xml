@@ -133,4 +133,13 @@
 				</releases>
 		</repository>
 	</repositories>
+
+	<profiles>
+	  <profile>
+	    <id>product</id>
+	    <modules>
+	      <module>product</module>
+	    </modules>
+	  </profile>
+	</profiles>
 </project>

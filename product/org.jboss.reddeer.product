@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?pde version="3.5"?>
+
+<product name="JBoss Red Deer" uid="reddeer-070" id="org.eclipse.platform.ide" application="org.eclipse.ui.ide.workbench" version="0.7.0.qualifier" useFeatures="true" includeLaunchers="true">
+
+   <aboutInfo>
+      <text>
+         Red Deer Test
+      </text>
+   </aboutInfo>
+
+   <configIni use="default">
+   </configIni>
+
+   <launcherArgs>
+      <programArgs>-showsplash
+platform\:/base/plugins/org.jboss.reddeer.branding
+-perspective
+org.eclipse.jdt.ui.JavaPerspective
+      </programArgs>
+      <vmArgs>-Dorg.eclipse.swt.browser.DefaultType=mozilla
+-Dosgi.requiredJavaVersion=1.6
+-XX:MaxPermSize=256m
+-Xms40m
+-Xmx512m
+      </vmArgs>
+      <vmArgsMac>-XstartOnFirstThread -Dorg.eclipse.swt.internal.carbon.smallFonts
+      </vmArgsMac>
+   </launcherArgs>
+
+   <windowImages/>
+
+   <splash
+      location="org.jboss.reddeer.branding"
+      startupProgressRect="5,275,445,15"
+      startupMessageRect="7,252,445,20" />
+   <launcher name="reddeer">
+      <solaris/>
+      <win useIco="false">
+         <bmp/>
+      </win>
+   </launcher>
+
+   <vm>
+   </vm>
+
+   <plugins>
+   </plugins>
+
+   <features>
+      <feature id="org.eclipse.epp.package.jee.feature"/>
+      <feature id="org.jboss.reddeer.ide.feature"/>
+      <feature id="org.sonatype.tycho.m2e.feature"/>
+   </features>
+
+   <configurations>
+      <plugin id="org.eclipse.core.runtime" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.equinox.common" autoStart="true" startLevel="2" />
+      <plugin id="org.eclipse.equinox.ds" autoStart="true" startLevel="2" />
+   </configurations>
+
+</product>
