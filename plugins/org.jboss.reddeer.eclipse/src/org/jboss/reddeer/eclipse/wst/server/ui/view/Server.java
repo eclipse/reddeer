@@ -315,6 +315,13 @@ public class Server {
 			return "server's publish state is " + expectedState.getText();
 		}
 	}
-
+	/**
+	 * Returns true when underlying treeItem is not null and is not disposed
+	 * @return
+	 */
+	public boolean isValid(){
+		return treeItem != null && !treeItem.isDisposed();
+	}
+	
 }
 
