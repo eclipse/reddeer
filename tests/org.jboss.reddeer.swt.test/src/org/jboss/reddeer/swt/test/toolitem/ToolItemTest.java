@@ -7,6 +7,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
+import org.jboss.reddeer.swt.impl.shell.WorkbenchShell;
 import org.jboss.reddeer.swt.impl.toolbar.DefaultToolItem;
 import org.jboss.reddeer.swt.matcher.RegexMatcher;
 import org.jboss.reddeer.swt.matcher.WithTooltipTextMatcher;
@@ -70,5 +71,11 @@ public class ToolItemTest extends SWTLayerTestCase{
 	public void constructorWithRegexWithReferencedComposite(){
 		DefaultToolItem ti = new DefaultToolItem();
 		System.out.println(ti.getToolTipText());
+	}
+	
+	@Test
+	public void WorkbenchToolItemWithMnemonicTest() {
+		new DefaultToolItem(new WorkbenchShell(), new WithTooltipTextMatcher(
+				"RedDeer SWT WorkbenchToolItem with mnemonic"));
 	}
 }

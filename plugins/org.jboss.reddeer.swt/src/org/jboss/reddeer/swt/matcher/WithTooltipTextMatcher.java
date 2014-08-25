@@ -58,7 +58,7 @@ public class WithTooltipTextMatcher extends AbstractWidgetWithTextMatcher {
 
 	@Override
 	protected boolean matches(String text) {
-		return matcher.matches(text);
+		return matcher.matches(text.replaceAll("&", "").split("\t")[0]);
 	}
 	
 	@Override

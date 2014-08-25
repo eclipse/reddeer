@@ -74,6 +74,13 @@
                   mnemonic="RedDeer SWT WorkbenchToolItem"
                   tooltip="RedDeer SWT WorkbenchToolItem">
             </command>
+            <command
+                  commandId="org.jboss.reddeer.swt.test.command.testCommand"
+                  icon="icons/sample.gif"
+                  id="org.jboss.reddeer.swt.test.toolbars.sampleCommand"
+                  mnemonic="RedDeer SWT Workbench&amp;ToolItem with mnemonic"
+                  tooltip="RedDeer SWT Workbench&amp;ToolItem with mnemonic">
+            </command>
          </toolbar>
       </menuContribution>
    </extension>
