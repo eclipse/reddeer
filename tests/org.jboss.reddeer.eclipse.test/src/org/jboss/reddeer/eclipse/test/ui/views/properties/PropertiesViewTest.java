@@ -11,6 +11,7 @@ import org.jboss.reddeer.eclipse.jdt.ui.ide.NewJavaProjectWizardPage;
 import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.PackageExplorer;
 import org.jboss.reddeer.eclipse.ui.views.properties.PropertiesView;
 import org.jboss.reddeer.eclipse.ui.views.properties.PropertiesViewProperty;
+import org.jboss.reddeer.eclipse.utils.DeleteUtils;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.junit.After;
@@ -88,8 +89,8 @@ public class PropertiesViewTest {
 	public void tearDown() {
 		PackageExplorer packageExplorer = new PackageExplorer();
 		if (packageExplorer.containsProject(PropertiesViewTest.TEST_PROJECT_NAME)) {
-			packageExplorer.getProject(PropertiesViewTest.TEST_PROJECT_NAME)
-					.delete(true);
+			DeleteUtils.forceProjectDeletion(packageExplorer.getProject(PropertiesViewTest.TEST_PROJECT_NAME),
+				true);
 		}
 	}
 	

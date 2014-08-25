@@ -46,7 +46,7 @@ public class NewJavaProjectWizardDialog extends NewWizardDialog{
 			new WaitUntil(new ShellWithTextIsActive(openAssociatedPerspectiveShellText),
 				TimePeriod.getCustom(20),false);
 			// Try to find open perspective test
-			DefaultShell shell = new DefaultShell(openAssociatedPerspectiveShellText);
+			new DefaultShell(openAssociatedPerspectiveShellText);
 			if (openAssociatedPerspective) {
 				new PushButton("Yes").click();
 			} else {

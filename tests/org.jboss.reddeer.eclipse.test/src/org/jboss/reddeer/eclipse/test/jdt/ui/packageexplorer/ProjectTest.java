@@ -8,6 +8,7 @@ import org.jboss.reddeer.eclipse.jdt.ui.ide.NewJavaProjectWizardPage;
 import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.PackageExplorer;
 import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.Project;
 import org.jboss.reddeer.eclipse.ui.perspectives.JavaPerspective;
+import org.jboss.reddeer.eclipse.utils.DeleteUtils;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.requirements.openperspective.OpenPerspectiveRequirement.OpenPerspective;
 import org.junit.After;
@@ -76,13 +77,16 @@ public class ProjectTest {
 		packageExplorer.close();
 		packageExplorer.open();
 		if (packageExplorer.containsProject(ProjectTest.PROJECT_NAME_0)) {
-			packageExplorer.getProject(ProjectTest.PROJECT_NAME_0).delete(true);
+			DeleteUtils.forceProjectDeletion(packageExplorer.getProject(ProjectTest.PROJECT_NAME_0),
+				true);
 		}
 		if (packageExplorer.containsProject(ProjectTest.PROJECT_NAME_1)) {
-			packageExplorer.getProject(ProjectTest.PROJECT_NAME_1).delete(true);
+			DeleteUtils.forceProjectDeletion(packageExplorer.getProject(ProjectTest.PROJECT_NAME_1),
+				true);
 		}
 		if (packageExplorer.containsProject(ProjectTest.PROJECT_NAME_2)) {
-			packageExplorer.getProject(ProjectTest.PROJECT_NAME_2).delete(true);
+			DeleteUtils.forceProjectDeletion(packageExplorer.getProject(ProjectTest.PROJECT_NAME_2),
+				true);
 		}
 	}
 }

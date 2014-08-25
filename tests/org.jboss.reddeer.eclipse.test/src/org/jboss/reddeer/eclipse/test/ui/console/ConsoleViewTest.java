@@ -14,6 +14,7 @@ import org.jboss.reddeer.eclipse.jdt.ui.ide.NewJavaProjectWizardPage;
 import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.PackageExplorer;
 import org.jboss.reddeer.eclipse.ui.console.ConsoleView;
 import org.jboss.reddeer.eclipse.ui.perspectives.JavaPerspective;
+import org.jboss.reddeer.eclipse.utils.DeleteUtils;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.requirements.openperspective.OpenPerspectiveRequirement.OpenPerspective;
 import org.jboss.reddeer.swt.api.StyledText;
@@ -48,7 +49,7 @@ public class ConsoleViewTest {
 	
 	@AfterClass
 	public static void tearDownClass() {
-		new PackageExplorer().getProject(TEST_PROJECT_NAME).delete(true);
+		DeleteUtils.forceProjectDeletion(new PackageExplorer().getProject(TEST_PROJECT_NAME),true);
 	}
 	
 	@Before

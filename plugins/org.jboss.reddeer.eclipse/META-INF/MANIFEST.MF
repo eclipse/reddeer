@@ -16,7 +16,8 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.ui.workbench,
  org.jboss.reddeer.junit;bundle-version="[0.6,0.7)",
  org.eclipse.wst.server.core,
- org.jboss.reddeer.common;bundle-version="[0.6,0.7)"
+ org.jboss.reddeer.common;bundle-version="[0.6,0.7)",
+ org.jboss.reddeer.direct;bundle-version="0.6.0"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: org.jboss.reddeer.eclipse,
@@ -53,6 +54,7 @@ Export-Package: org.jboss.reddeer.eclipse,
  org.jboss.reddeer.eclipse.ui.views.properties,
  org.jboss.reddeer.eclipse.ui.wizards.datatransfer,
  org.jboss.reddeer.eclipse.ui.wizards.newresource,
+ org.jboss.reddeer.eclipse.utils,
  org.jboss.reddeer.eclipse.wst.common.project.facet.ui,
  org.jboss.reddeer.eclipse.wst.server.ui,
  org.jboss.reddeer.eclipse.wst.server.ui.editor,

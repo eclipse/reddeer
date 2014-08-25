@@ -15,6 +15,7 @@ import org.jboss.reddeer.eclipse.ui.ide.NewFileCreationWizardDialog;
 import org.jboss.reddeer.eclipse.ui.ide.NewFileCreationWizardPage;
 import org.jboss.reddeer.eclipse.ui.problems.ProblemsView;
 import org.jboss.reddeer.eclipse.ui.wizards.newresource.BasicNewProjectResourceWizard;
+import org.jboss.reddeer.eclipse.utils.DeleteUtils;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.workbench.api.Editor;
@@ -73,7 +74,7 @@ public class EditorTest {
 	public static void teardownClass(){
 		List<Project> projects = new ProjectExplorer().getProjects();
 		for (Project p: projects){
-			p.delete(true);
+			DeleteUtils.forceProjectDeletion(p,true);
 		}
 	}
 

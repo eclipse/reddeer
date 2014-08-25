@@ -7,6 +7,7 @@ import org.jboss.reddeer.eclipse.jdt.ui.ide.NewJavaProjectWizardDialog;
 import org.jboss.reddeer.eclipse.jdt.ui.ide.NewJavaProjectWizardPage;
 import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.PackageExplorer;
 import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.Project;
+import org.jboss.reddeer.eclipse.utils.DeleteUtils;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.swt.handler.WorkbenchHandler;
 import org.junit.After;
@@ -110,16 +111,16 @@ public class PackageExplorerTest {
 	public void tearDown() {
 		if (packageExplorer != null){
 			if (packageExplorer.containsProject(PackageExplorerTest.PROJECT_NAME_0)) {
-				packageExplorer.getProject(PackageExplorerTest.PROJECT_NAME_0)
-						.delete(true);
+				DeleteUtils.forceProjectDeletion(packageExplorer.getProject(PackageExplorerTest.PROJECT_NAME_0),
+					true);
 			}
 			if (packageExplorer.containsProject(PackageExplorerTest.PROJECT_NAME_1)) {
-				packageExplorer.getProject(PackageExplorerTest.PROJECT_NAME_1)
-						.delete(true);
+				DeleteUtils.forceProjectDeletion(packageExplorer.getProject(PackageExplorerTest.PROJECT_NAME_1),
+					true);
 			}
 			if (packageExplorer.containsProject(PackageExplorerTest.PROJECT_NAME_2)) {
-				packageExplorer.getProject(PackageExplorerTest.PROJECT_NAME_2)
-						.delete(true);
+				DeleteUtils.forceProjectDeletion(packageExplorer.getProject(PackageExplorerTest.PROJECT_NAME_2),
+					true);
 			}
 		}
 	}

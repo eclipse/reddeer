@@ -8,6 +8,7 @@ import org.jboss.reddeer.eclipse.test.wst.server.ui.TestServerRuntime;
 import org.jboss.reddeer.eclipse.test.wst.server.ui.view.ServersViewTestCase;
 import org.jboss.reddeer.eclipse.ui.wizards.datatransfer.ExternalProjectImportWizardDialog;
 import org.jboss.reddeer.eclipse.ui.wizards.datatransfer.WizardProjectsImportPage;
+import org.jboss.reddeer.eclipse.utils.DeleteUtils;
 import org.jboss.reddeer.eclipse.wst.server.ui.RuntimePreferencePage;
 import org.jboss.reddeer.eclipse.wst.server.ui.wizard.NewRuntimeWizardDialog;
 import org.jboss.reddeer.eclipse.wst.server.ui.wizard.NewRuntimeWizardPage;
@@ -64,7 +65,7 @@ public class RuntimesPropertyPageTest {
 			// not found, no action needed
 		}
 		
-		new PackageExplorer().getProject(PROJECT).delete(true);
+		DeleteUtils.forceProjectDeletion(new PackageExplorer().getProject(PROJECT),true);
 		
 		RuntimePreferencePage runtimePreference = new RuntimePreferencePage();
 		runtimePreference.open();

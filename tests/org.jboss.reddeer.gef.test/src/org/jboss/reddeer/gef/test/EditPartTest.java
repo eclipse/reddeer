@@ -1,6 +1,7 @@
 package org.jboss.reddeer.gef.test;
 
 import org.jboss.reddeer.eclipse.jdt.ui.ProjectExplorer;
+import org.jboss.reddeer.eclipse.utils.DeleteUtils;
 import org.jboss.reddeer.gef.GEFLayerException;
 import org.jboss.reddeer.gef.editor.GEFEditor;
 import org.jboss.reddeer.gef.impl.connection.DefaultConnection;
@@ -42,7 +43,7 @@ public class EditPartTest {
 		new GEFEditor().close();
 		ProjectExplorer projectExplorer = new ProjectExplorer();
 		projectExplorer.open();
-		projectExplorer.getProject(PROJECT_NAME).delete(true);
+		DeleteUtils.forceProjectDeletion(projectExplorer.getProject(PROJECT_NAME),true);
 	}
 
 	@Test

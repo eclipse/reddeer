@@ -6,6 +6,8 @@ import org.hamcrest.BaseMatcher;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.common.logging.Logger;
+import org.jboss.reddeer.eclipse.exception.EclipseLayerException;
+import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.Project;
 import org.jboss.reddeer.swt.condition.JobIsRunning;
 import org.jboss.reddeer.swt.condition.ShellWithTextIsActive;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
@@ -36,6 +38,20 @@ public class DeleteUtils {
 					TimePeriod.VERY_LONG);
 		}
 		new WaitWhile(new JobIsRunning(), TimePeriod.VERY_LONG);
+	}
+	/**
+	 * Deletes project via Eclipse API in case deleting via UI calls failed
+	 * @param deleteShellText text of shell
+	 */
+	public static void forceProjectDeletion(Project project , boolean deleteFromFileSystem) {
+		try {
+			project.delete(deleteFromFileSystem);
+		} catch (EclipseLayerException ele) {
+			log.debug("Delete project '" + project.getName() + "' via Eclipse API ");
+			org.jboss.reddeer.direct.project.Project.delete(project.getName(),
+					deleteFromFileSystem, true);
+		}
+		
 	}
 	
 	private static class ShellWithButton extends AbstractShell {

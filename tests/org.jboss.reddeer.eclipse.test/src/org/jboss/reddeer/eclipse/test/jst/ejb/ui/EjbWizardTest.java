@@ -11,6 +11,7 @@ import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.PackageExplorer;
 import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.Project;
 import org.jboss.reddeer.eclipse.jst.ejb.ui.*;
 import org.jboss.reddeer.eclipse.ui.perspectives.JavaEEPerspective;
+import org.jboss.reddeer.eclipse.utils.DeleteUtils;
 
 @RunWith(RedDeerSuite.class)
 @OpenPerspective(JavaEEPerspective.class)
@@ -21,7 +22,7 @@ public class EjbWizardTest {
 		PackageExplorer pe = new PackageExplorer();
 		pe.open();
 		for(Project p: pe.getProjects()){
-			p.delete(true);
+			DeleteUtils.forceProjectDeletion(p,true);
 		}
 	}
     
