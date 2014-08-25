@@ -62,7 +62,9 @@ public class ServersView extends WorkbenchView {
 			return new ArrayList<Server>();
 		}
 		for (TreeItem item : tree.getItems()){
-			servers.add(createServer(item));
+			if (item != null && !item.isDisposed()){
+				servers.add(createServer(item));	
+			}			
 		}
 		return servers;
 	}
@@ -75,7 +77,7 @@ public class ServersView extends WorkbenchView {
 	 */
 	public Server getServer(String name){
 		for (Server server : getServers()){
-			if (server.getLabel().getName().equals(name)){
+			if (server.isValid() && server.getLabel().getName().equals(name)){
 				return server;
 			}
 		}
