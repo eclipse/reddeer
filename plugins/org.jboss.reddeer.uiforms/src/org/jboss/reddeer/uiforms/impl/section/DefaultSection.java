@@ -4,7 +4,6 @@ package org.jboss.reddeer.uiforms.impl.section;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.swt.matcher.WithTextMatcher;
 import org.jboss.reddeer.swt.reference.ReferencedComposite;
-import org.jboss.reddeer.uiforms.lookup.SectionLookup;
 
 /**
  * Default implementation of {@link org.jboss.reddeer.uiforms.api.Section}
@@ -22,10 +21,11 @@ public class DefaultSection extends AbstractSection {
 	}
 	
 	/**
-	 * Represents the section with the specified order. 
+	 * Represents the section with the specified order that matches given matchers
 	 * @param index
+	 * @param matchers
 	 */
-	public DefaultSection(int index) {
+	public DefaultSection(int index, Matcher<?>... matchers) {
 		this(null, index);
 	}
 	
@@ -55,12 +55,12 @@ public class DefaultSection extends AbstractSection {
 	
 	/**
 	 * Represents the section with the specified order inside specified composite
-	 * @param referencedComposite
+	 * @param referencedComposite that matches given matchers
 	 * @param index
+	 * @param matchers
 	 */
-	public DefaultSection(ReferencedComposite referencedComposite, int index) {
-		section = SectionLookup.getInstance().getSection(referencedComposite, index);
-		setFocus();
+	public DefaultSection(ReferencedComposite referencedComposite, int index, Matcher<?>... matchers) {
+		super(referencedComposite, index, matchers);
 	}
 	
 	/**
@@ -78,7 +78,6 @@ public class DefaultSection extends AbstractSection {
 	 * @param matchers
 	 */
 	public DefaultSection(ReferencedComposite referencedComposite, Matcher<?>... matchers) {
-		section = SectionLookup.getInstance().getSection(referencedComposite, 0, matchers);
-		setFocus();
+		this(referencedComposite, 0, matchers);
 	}
 }

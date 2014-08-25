@@ -1,20 +1,22 @@
 package org.jboss.reddeer.swt.impl.scale;
 
+import org.hamcrest.Matcher;
 import org.jboss.reddeer.swt.api.Scale;
 import org.jboss.reddeer.swt.handler.ScaleHandler;
 import org.jboss.reddeer.swt.handler.WidgetHandler;
+import org.jboss.reddeer.swt.reference.ReferencedComposite;
+import org.jboss.reddeer.swt.widgets.AbstractWidget;
 /**
  * Abstract class for each Scale implementation
  * @author Vlado Pakan
  *
  */
-public abstract class AbstractScale implements Scale {
+public abstract class AbstractScale extends AbstractWidget<org.eclipse.swt.widgets.Scale> implements Scale {
 
-	protected org.eclipse.swt.widgets.Scale swtScale;
-	
-	protected AbstractScale(org.eclipse.swt.widgets.Scale scale) {
-		this.swtScale = scale;
+	protected AbstractScale(ReferencedComposite refComposite, int index, Matcher<?>... matchers) {
+		super(org.eclipse.swt.widgets.Scale.class, refComposite, index, matchers);
 	}
+	
 	/**
 	 * See {@link Scale}
 	 */
@@ -49,15 +51,6 @@ public abstract class AbstractScale implements Scale {
 	 */
 	@Override
 	public void setFocus() {
-		WidgetHandler.getInstance().setFocus(swtScale);		
-	}
-	@Override
-	public org.eclipse.swt.widgets.Scale getSWTWidget() {
-		return swtScale;
-	}
-	
-	@Override
-	public boolean isEnabled() {
-		return WidgetHandler.getInstance().isEnabled(swtScale);
+		WidgetHandler.getInstance().setFocus(getSWTWidget());		
 	}
 }

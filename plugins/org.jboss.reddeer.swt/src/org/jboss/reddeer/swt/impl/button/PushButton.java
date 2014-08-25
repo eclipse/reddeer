@@ -1,7 +1,9 @@
 package org.jboss.reddeer.swt.impl.button;
 
 import org.eclipse.swt.SWT;
+import org.hamcrest.Matcher;
 import org.jboss.reddeer.swt.api.Button;
+import org.jboss.reddeer.swt.matcher.WithMnemonicTextMatcher;
 import org.jboss.reddeer.swt.reference.ReferencedComposite;
 
 /**
@@ -12,11 +14,26 @@ import org.jboss.reddeer.swt.reference.ReferencedComposite;
 public class PushButton extends AbstractButton implements Button {
 
 	/**
+	 * Push button with index 0
+	 */
+	public PushButton(){
+		this((ReferencedComposite) null);
+	}
+	
+	/**
+	 * Push button with index 0 inside given composite
+	 * @param referencedComposite
+	 */
+	public PushButton(ReferencedComposite referencedComposite){
+		this(referencedComposite, 0);
+	}
+	
+	/**
 	 * Push button with given text
 	 * @param text
 	 */
 	public PushButton(String text) {
-		this(null, 0,text);
+		this(null, text);
 	}
 	
 	/**
@@ -25,28 +42,50 @@ public class PushButton extends AbstractButton implements Button {
 	 * @param text
 	 */
 	public PushButton(ReferencedComposite referencedComposite, String text) {
-		this(referencedComposite, 0,text);
+		this(referencedComposite, 0, new WithMnemonicTextMatcher(text));
 	}
+	
 	/**
-	 * Push button with given index
-	 * @param index
+	 * Push button that matches given matchers
+	 * @param matchers
 	 */
-	public PushButton(int index) {
-		this(null, index,"");
+	public PushButton(Matcher<?>... matchers) {
+		this(null, matchers);
 	}
+	
 	/**
-	 * Push button with given index inside given composite
+	 * Push button that matches given matchers
+	 * @param referencedComposite
+	 * @param matchers
+	 */
+	public PushButton(ReferencedComposite referencedComposite, Matcher<?>... matchers) {
+		this(referencedComposite, 0, matchers);
+	}
+	
+	/**
+	 * Push button with given index that matches given matchers
+	 * @param index
+	 * @param matchers
+	 */
+	public PushButton(int index, Matcher<?>... matchers) {
+		this(null, index, matchers);
+	}
+	
+	/**
+	 * Push button with given index inside given composite that matches given matchers
 	 * @param referencedComposite
 	 * @param index
+	 * @param matchers
 	 */
-	public PushButton(ReferencedComposite referencedComposite,int index) {
-		this(referencedComposite, index,"");
+	public PushButton(ReferencedComposite referencedComposite, int index, Matcher<?>... matchers) {
+		super(referencedComposite, index, SWT.PUSH, matchers);
 	}
 	
 	/**
 	 * Push Button with given index and text
 	 * @param index
 	 * @param text
+	 * @deprecated Since 1.0.0. This is not a standard widget constructor.
 	 */
 	public PushButton (int index , String text){
 		super(null, index,text,SWT.PUSH);
@@ -57,9 +96,9 @@ public class PushButton extends AbstractButton implements Button {
 	 * @param referencedComposite
 	 * @param index
 	 * @param text
+	 * @deprecated Since 1.0.0. This is not a standard widget constructor.
 	 */
 	public PushButton (ReferencedComposite referencedComposite, int index , String text){
 		super(referencedComposite, index,text,SWT.PUSH);
 	}
-		
 }

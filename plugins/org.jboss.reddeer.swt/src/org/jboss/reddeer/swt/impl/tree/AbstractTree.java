@@ -3,30 +3,28 @@ package org.jboss.reddeer.swt.impl.tree;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.hamcrest.Matcher;
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.swt.api.Tree;
 import org.jboss.reddeer.swt.api.TreeItem;
-import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.handler.TreeHandler;
-import org.jboss.reddeer.swt.handler.WidgetHandler;
+import org.jboss.reddeer.swt.reference.ReferencedComposite;
+import org.jboss.reddeer.swt.widgets.AbstractWidget;
 
-public abstract class AbstractTree implements Tree {
+public abstract class AbstractTree extends AbstractWidget<org.eclipse.swt.widgets.Tree> implements Tree {
 
 	private static final Logger logger = Logger.getLogger(AbstractTree.class);
 
-	protected org.eclipse.swt.widgets.Tree swtTree;
-
 	private TreeHandler treeHandler = TreeHandler.getInstance();
 
-	protected AbstractTree(org.eclipse.swt.widgets.Tree swtTree) {
-		if (swtTree != null) {
-			this.swtTree = swtTree;
-		} else {
-			throw new SWTLayerException(
-					"SWT Tree passed to constructor is null");
-		}
+	protected AbstractTree(ReferencedComposite refComposite, int index, Matcher<?>... matchers){
+		super(org.eclipse.swt.widgets.Tree.class, refComposite, index, matchers);
 	}
-
+	
+	protected AbstractTree(org.eclipse.swt.widgets.Tree tree){
+		super(tree);
+	}
+	
 	public List<TreeItem> getAllItems() {
 		List<TreeItem> list = new LinkedList<TreeItem>();
 		list.addAll(getAllItemsRecursive(getItems()));
@@ -44,7 +42,7 @@ public abstract class AbstractTree implements Tree {
 	}
 
 	public List<TreeItem> getItems() {
-		return treeHandler.getItems(swtTree);
+		return treeHandler.getItems(swtWidget);
 	}
 
 	public void selectItems(final TreeItem... treeItems) {
@@ -55,27 +53,18 @@ public abstract class AbstractTree implements Tree {
 	}
 
 	public void setFocus() {
-		treeHandler.setFocus(swtTree);
+		treeHandler.setFocus(swtWidget);
 	}
 
 	/**
 	 * @see Tree#getColumnCount()
 	 */
 	public int getColumnCount() {
-		return treeHandler.getColumnCount(swtTree);
+		return treeHandler.getColumnCount(swtWidget);
 	}
 
 	public void unselectAllItems() {
 		logger.info("Unselect all tree items");
-		treeHandler.unselectAllItems(swtTree);
-	}
-
-	public org.eclipse.swt.widgets.Tree getSWTWidget() {
-		return swtTree;
-	}
-
-	@Override
-	public boolean isEnabled() {
-		return WidgetHandler.getInstance().isEnabled(swtTree);
+		treeHandler.unselectAllItems(swtWidget);
 	}
 }

@@ -1,34 +1,36 @@
 package org.jboss.reddeer.swt.impl.styledtext;
 
+import org.hamcrest.Matcher;
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.swt.api.StyledText;
 import org.jboss.reddeer.swt.handler.StyledTextHandler;
 import org.jboss.reddeer.swt.handler.WidgetHandler;
+import org.jboss.reddeer.swt.reference.ReferencedComposite;
+import org.jboss.reddeer.swt.widgets.AbstractWidget;
 
 /**
  * Abstract Styled Text contains common rutines for styled text widget.
  * Concrete impementations of styledtext should extend this class.
  * @author rawagner
  */
-public abstract class AbstractStyledText implements StyledText {
-    
-    /**
-     * Styled text SWT widget instance.
-     */
-    protected org.eclipse.swt.custom.StyledText styledText;
+public abstract class AbstractStyledText extends AbstractWidget<org.eclipse.swt.custom.StyledText> implements StyledText {
     
     /**
      * Logger.
      */
     private static final Logger log = Logger.getLogger(AbstractStyledText.class);
 
+    protected AbstractStyledText(ReferencedComposite refComposite, int index, Matcher<?>... matchers) {
+		super(org.eclipse.swt.custom.StyledText.class, refComposite, index, matchers);
+	}
+    
     /**
      * Returns styledtext text.
      * @return text of this StyledText
      */
     @Override
     public String getText() {
-        String text = WidgetHandler.getInstance().getText(styledText);
+        String text = WidgetHandler.getInstance().getText(swtWidget);
         return text;
     }
 
@@ -39,7 +41,7 @@ public abstract class AbstractStyledText implements StyledText {
     @Override
     public void setText(final String text) {
         log.info("Styled Text set to: " + text);
-        WidgetHandler.getInstance().setText(styledText, text);
+        WidgetHandler.getInstance().setText(swtWidget, text);
     }
 
     /**
@@ -48,7 +50,7 @@ public abstract class AbstractStyledText implements StyledText {
      */
     @Override
     public String getToolTipText() {
-        String tooltipText = WidgetHandler.getInstance().getToolTipText(styledText);
+        String tooltipText = WidgetHandler.getInstance().getToolTipText(swtWidget);
         return tooltipText;
     }
 
@@ -61,7 +63,7 @@ public abstract class AbstractStyledText implements StyledText {
     @Override
     public void insertText(final int line, final int column, final String text) {
     	log.info("Insert text into styled text on line " + line + ", column " + column + ": " + text);
-        StyledTextHandler.getInstance().insertText(styledText, line, column, text);
+        StyledTextHandler.getInstance().insertText(swtWidget, line, column, text);
     }
 
     /**
@@ -70,23 +72,7 @@ public abstract class AbstractStyledText implements StyledText {
     @Override
     public void insertText(final String text) {
     	log.info("Insert text into styled text: " + text);
-        StyledTextHandler.getInstance().insertText(styledText, text);
-    }
-
-    /**
-     * @see org.jboss.reddeer.swt.widgets.Widget#getSWTWidget()
-     */
-    @Override
-    public org.eclipse.swt.custom.StyledText getSWTWidget() {
-        return styledText;
-    }
-
-    /**
-     * @see org.jboss.reddeer.swt.widgets.Widget#isEnabled()
-     */
-    @Override
-    public boolean isEnabled() {
-        return WidgetHandler.getInstance().isEnabled(styledText);
+        StyledTextHandler.getInstance().insertText(swtWidget, text);
     }
 
     /**
@@ -94,7 +80,7 @@ public abstract class AbstractStyledText implements StyledText {
      */
     @Override
     public int getPositionOfText(final String text) {
-        return StyledTextHandler.getInstance().getPositionOfText(styledText,text);
+        return StyledTextHandler.getInstance().getPositionOfText(swtWidget,text);
     }
 
     /**
@@ -103,7 +89,7 @@ public abstract class AbstractStyledText implements StyledText {
     @Override
     public void selectText(final String text) {
     	log.info("Select text " + text + " in styled text");
-        StyledTextHandler.getInstance().selectText(styledText, text);
+        StyledTextHandler.getInstance().selectText(swtWidget, text);
     }
 
     /**
@@ -112,7 +98,7 @@ public abstract class AbstractStyledText implements StyledText {
     @Override
     public void selectPosition(final int position) {
     	log.info("Select position " + position + " in styled text");
-        StyledTextHandler.getInstance().selectPosition(styledText, position);
+        StyledTextHandler.getInstance().selectPosition(swtWidget, position);
     }
 
     /**
@@ -120,7 +106,7 @@ public abstract class AbstractStyledText implements StyledText {
      */
     @Override
     public String getSelectionText() {
-        return StyledTextHandler.getInstance().getSelectionText(styledText);
+        return StyledTextHandler.getInstance().getSelectionText(swtWidget);
     }
 
 }

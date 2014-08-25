@@ -4,9 +4,12 @@ import org.eclipse.ui.forms.widgets.Form;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.swt.lookup.WidgetLookup;
 import org.jboss.reddeer.swt.reference.ReferencedComposite;
+import org.jboss.reddeer.swt.widgets.AbstractWidget;
 
 /**
  * UIForm Lookup containing lookup routines for Eclipse Form widget type
+ * 
+ * @deprecated Use {@link AbstractWidget} instead of lookups. Will be removed in 1.0.0
  * @author jjankovi
  *
  */

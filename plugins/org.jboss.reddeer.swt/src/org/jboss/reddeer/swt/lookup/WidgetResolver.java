@@ -15,6 +15,8 @@ import org.eclipse.swt.widgets.ExpandBar;
 import org.eclipse.swt.widgets.ExpandItem;
 import org.eclipse.swt.widgets.TabFolder;
 import org.eclipse.swt.widgets.TabItem;
+import org.eclipse.swt.widgets.Table;
+import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.Widget;
 import org.jboss.reddeer.common.logging.Logger;
@@ -162,11 +164,18 @@ public class WidgetResolver  {
 		else if (w instanceof ToolBar) {
 			Widget[] items = ((ToolBar) w).getItems();
 			children = Arrays.asList(items);
+		} 
+		else if (w instanceof Table) {
+			Widget[] items = ((Table) w).getItems();
+			children = Arrays.asList(items);
+		}
+		else if (w instanceof TableItem) {
+			// do nothing
 		}
 		else if (w instanceof Composite)  {
 			Widget[] items = ((Composite) w).getChildren();
 			children = Arrays.asList(items);
-		}
+		} 
 		else if (w instanceof Control) {
 			// do nothing
 		}

@@ -3,11 +3,12 @@ package org.jboss.reddeer.swt.lookup;
 import org.eclipse.swt.widgets.ExpandBar;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.swt.reference.ReferencedComposite;
+import org.jboss.reddeer.swt.widgets.AbstractWidget;
 
 /**
  * Expand Bar lookup containing lookup routines for ExpandBar widget type
  * @author Vlado Pakan
- *
+ * @deprecated Since 1.0.0 use {@link AbstractWidget
  */
 public class ExpandBarLookup {
 

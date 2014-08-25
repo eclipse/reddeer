@@ -1,8 +1,10 @@
 package org.jboss.reddeer.swt.impl.button;
 
 import org.eclipse.swt.SWT;
+import org.hamcrest.Matcher;
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.swt.handler.ButtonHandler;
+import org.jboss.reddeer.swt.matcher.WithMnemonicTextMatcher;
 import org.jboss.reddeer.swt.reference.ReferencedComposite;
 
 /**
@@ -11,13 +13,14 @@ import org.jboss.reddeer.swt.reference.ReferencedComposite;
  *
  */
 public class RadioButton extends AbstractButton {
+	
 	private static final Logger log = Logger.getLogger(RadioButton.class);
 	
 	/**
 	 * Creates Radio button
 	 */
 	public RadioButton() {
-		this(0);
+		this((ReferencedComposite) null);
 	}
 	
 	/**
@@ -25,7 +28,7 @@ public class RadioButton extends AbstractButton {
 	 * @param referencedComposite
 	 */
 	public RadioButton(ReferencedComposite referencedComposite) {
-		this(referencedComposite,0);
+		this(referencedComposite, 0);
 	}
 	
 	/**
@@ -33,7 +36,7 @@ public class RadioButton extends AbstractButton {
 	 * @param text
 	 */
 	public RadioButton(String text) {
-		this(null, 0, text);
+		this(null, text);
 	}
 	
 	/**
@@ -42,30 +45,50 @@ public class RadioButton extends AbstractButton {
 	 * @param text
 	 */
 	public RadioButton(ReferencedComposite referencedComposite, String text) {
-		this(referencedComposite, 0, text);
+		this(referencedComposite, 0, new WithMnemonicTextMatcher(text));
 	}
 	
 	/**
-	 * Creates Radio button with given index
-	 * @param text
+	 * Radio button that matches given matchers
+	 * @param matchers
 	 */
-	public RadioButton(int index) {
-		this(null, index, null);
+	public RadioButton(Matcher<?>... matchers) {
+		this(null, matchers);
 	}
 	
 	/**
-	 * Creates Radio button with given index inside given composite
+	 * Radio button that matches given matchers
 	 * @param referencedComposite
-	 * @param text
+	 * @param matchers
 	 */
-	public RadioButton(ReferencedComposite referencedComposite, int index) {
-		this(referencedComposite, index, null);
+	public RadioButton(ReferencedComposite referencedComposite, Matcher<?>... matchers) {
+		this(referencedComposite, 0, matchers);
+	}
+	
+	/**
+	 * Creates Radio button with given index that matches given matchers
+	 * @param index
+	 * @param matchers
+	 */
+	public RadioButton(int index, Matcher<?>... matchers) {
+		this(null, index, matchers);
+	}
+	
+	/**
+	 * Creates Radio button with given index inside given composite that matches given matchers
+	 * @param referencedComposite
+	 * @param index
+	 * @param matchers
+	 */
+	public RadioButton(ReferencedComposite referencedComposite, int index, Matcher<?>... matchers) {
+		super(referencedComposite, index, SWT.RADIO, matchers);
 	}
 	
 	/**
 	 * Creates Radio button with given index and label
 	 * @param index of button
 	 * @param label of button
+	 * @deprecated Since 1.0.0. This is not a standard widget constructor.
 	 */
 	public RadioButton(int index, String text) {
 		super(null, index,text,SWT.RADIO);
@@ -76,6 +99,7 @@ public class RadioButton extends AbstractButton {
 	 * @param referencedComposite
 	 * @param index of button
 	 * @param label of button
+	 * @deprecated Since 1.0.0. This is not a standard widget constructor.
 	 */
 	public RadioButton(ReferencedComposite referencedComposite, int index, String text) {
 		super(referencedComposite, index,text,SWT.RADIO);
@@ -85,7 +109,7 @@ public class RadioButton extends AbstractButton {
 	 * @return
 	 */
 	public boolean isSelected() {
-		return ButtonHandler.getInstance().isSelected(swtButton);
+		return ButtonHandler.getInstance().isSelected(swtWidget);
 	}
 	/**
 	 * Sets Radio Button to state 'checked'

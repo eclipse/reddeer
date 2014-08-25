@@ -3,7 +3,6 @@ package org.jboss.reddeer.uiforms.impl.hyperlink;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.swt.matcher.WithTextMatcher;
 import org.jboss.reddeer.swt.reference.ReferencedComposite;
-import org.jboss.reddeer.uiforms.lookup.HyperlinkLookup;
 
 
 /**
@@ -22,10 +21,11 @@ public class DefaultHyperlink extends AbstractHyperlink {
 	}
 	
 	/**
-	 * Represents the hyperlink with the specified order. 
+	 * Represents the hyperlink with the specified order that matches given matchers
 	 * @param index
+	 * @param matchers
 	 */
-	public DefaultHyperlink(int index) {
+	public DefaultHyperlink(int index, Matcher<?>... matchers) {
 		this(null, index);
 	}
 	
@@ -57,10 +57,10 @@ public class DefaultHyperlink extends AbstractHyperlink {
 	 * Represents the hyperlink with the specified order inside specified composite
 	 * @param referencedComposite
 	 * @param index
+	 * @param matchers
 	 */
-	public DefaultHyperlink(ReferencedComposite referencedComposite, int index) {
-		hyperLink = HyperlinkLookup.getInstance().getHyperlink(referencedComposite, index);
-		setFocus();
+	public DefaultHyperlink(ReferencedComposite referencedComposite, int index, Matcher<?>... matchers) {
+		super(referencedComposite, index, matchers);
 	}
 	
 	/**
@@ -78,7 +78,6 @@ public class DefaultHyperlink extends AbstractHyperlink {
 	 * @param matchers
 	 */
 	public DefaultHyperlink(ReferencedComposite referencedComposite, Matcher<?>... matchers) {
-		hyperLink = HyperlinkLookup.getInstance().getHyperlink(null, 0, matchers);
-		setFocus();
+		this(referencedComposite, 0, matchers);
 	}
 }

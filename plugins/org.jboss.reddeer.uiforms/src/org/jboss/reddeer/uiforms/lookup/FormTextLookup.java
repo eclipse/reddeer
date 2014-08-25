@@ -4,9 +4,11 @@ import org.eclipse.ui.forms.widgets.FormText;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.swt.lookup.WidgetLookup;
 import org.jboss.reddeer.swt.reference.ReferencedComposite;
+import org.jboss.reddeer.swt.widgets.AbstractWidget;
 
 /**
  * This class contains lookup routines for FormText widgets
+ * @deprecated Use {@link AbstractWidget} instead of lookups. Will be removed in 1.0.0
  * 
  * @author rhopp
  *

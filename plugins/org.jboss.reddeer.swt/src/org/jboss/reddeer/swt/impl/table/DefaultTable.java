@@ -1,7 +1,7 @@
 package org.jboss.reddeer.swt.impl.table;
 
+import org.hamcrest.Matcher;
 import org.jboss.reddeer.swt.api.Table;
-import org.jboss.reddeer.swt.lookup.WidgetLookup;
 import org.jboss.reddeer.swt.reference.ReferencedComposite;
 
 /**
@@ -12,38 +12,53 @@ import org.jboss.reddeer.swt.reference.ReferencedComposite;
 public class DefaultTable extends AbstractTable implements Table {
 	
 	/**
-	 * Default Table constructor
+	 * Table with index 0
 	 */
 	public DefaultTable() {
-		this(0);
+		this((ReferencedComposite) null);
 	}
 	
-	/** 
-	 * Default Table constructor inside given composite
+	/**
+	 * Table with index 0 inside given composite
 	 * @param referencedComposite
 	 */
-	public DefaultTable(ReferencedComposite referencedComposite) {
+	public DefaultTable(ReferencedComposite referencedComposite){
 		this(referencedComposite, 0);
 	}
 	
 	/**
-	 * Table with given index 
-	 * @param index of table
+	 * Table that matches given matchers
+	 * @param matchers
 	 */
-	public DefaultTable(int index) {
-		this(null,index);
+	public DefaultTable(Matcher<?>... matchers) {
+		this(null, matchers);
 	}
 	
 	/**
-	 * Table with given index inside given composite
+	 * Table that matches given matchers
 	 * @param referencedComposite
-	 * @param index of table
+	 * @param matchers
 	 */
-	public DefaultTable(ReferencedComposite referencedComposite, int index) {
-		super(WidgetLookup.getInstance().activeWidget(referencedComposite, org.eclipse.swt.widgets.Table.class, index));
+	public DefaultTable(ReferencedComposite referencedComposite, Matcher<?>... matchers) {
+		this(referencedComposite, 0, matchers);
 	}
 	
-	protected DefaultTable(org.eclipse.swt.widgets.Table table){
-		super(table);
+	/**
+	 * Table with given index that matches given matchers
+	 * @param index
+	 * @param matchers
+	 */
+	public DefaultTable(int index, Matcher<?>... matchers) {
+		this(null, index, matchers);
+	}
+	
+	/**
+	 * Table with given index inside given composite that matches given matchers
+	 * @param referencedComposite
+	 * @param index
+	 * @param matchers
+	 */
+	public DefaultTable(ReferencedComposite referencedComposite, int index, Matcher<?>... matchers) {
+		super(referencedComposite, index, matchers);
 	}
 }

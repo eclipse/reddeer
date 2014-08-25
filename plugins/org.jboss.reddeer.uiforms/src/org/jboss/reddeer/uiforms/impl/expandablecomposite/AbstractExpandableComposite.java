@@ -2,7 +2,10 @@ package org.jboss.reddeer.uiforms.impl.expandablecomposite;
 
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.ui.forms.widgets.ExpandableComposite;
+import org.hamcrest.Matcher;
 import org.jboss.reddeer.swt.handler.WidgetHandler;
+import org.jboss.reddeer.swt.reference.ReferencedComposite;
+import org.jboss.reddeer.swt.widgets.AbstractWidget;
 import org.jboss.reddeer.uiforms.handler.ExpandableCompositeHandler;
 
 /**
@@ -13,38 +16,30 @@ import org.jboss.reddeer.uiforms.handler.ExpandableCompositeHandler;
  * @since 0.6
  *
  */
-public abstract class AbstractExpandableComposite implements org.jboss.reddeer.uiforms.api.ExpandableComposite {
+public abstract class AbstractExpandableComposite extends AbstractWidget<ExpandableComposite> implements org.jboss.reddeer.uiforms.api.ExpandableComposite {
 
-	protected ExpandableComposite composite;
+	protected AbstractExpandableComposite(ReferencedComposite refComposite, int index, Matcher<?>... matchers){
+		super(ExpandableComposite.class, refComposite, index, matchers);
+	}
 
 	@Override
 	public String getText() {
-		return WidgetHandler.getInstance().getText(composite);
+		return WidgetHandler.getInstance().getText(getSWTWidget());
 	}
 
 	@Override
 	public Control getControl() {
-		return composite;
+		return getSWTWidget();
 	}
 
 	@Override
 	public void setExpanded(boolean expanded) {
 		ExpandableCompositeHandler.getInstance()
-				.setExpanded(composite, expanded);
+				.setExpanded(getSWTWidget(), expanded);
 	}
 
 	@Override
 	public boolean isExpanded() {
-		return ExpandableCompositeHandler.getInstance().isExpanded(composite);
-	}
-
-	@Override
-	public ExpandableComposite getSWTWidget() {
-		return composite;
-	}
-
-	@Override
-	public boolean isEnabled() {
-		return WidgetHandler.getInstance().isEnabled(composite);
+		return ExpandableCompositeHandler.getInstance().isExpanded(getSWTWidget());
 	}
 }

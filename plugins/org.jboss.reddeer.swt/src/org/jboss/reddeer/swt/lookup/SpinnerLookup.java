@@ -3,12 +3,13 @@ package org.jboss.reddeer.swt.lookup;
 import org.eclipse.swt.widgets.Spinner;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.swt.reference.ReferencedComposite;
+import org.jboss.reddeer.swt.widgets.AbstractWidget;
 
 /**
  * Spinner lookup containing lookup routines for Spinner widget type
  * 
  * @author Andrej Podhradsky
- * 
+ * @deprecated Use {@link AbstractWidget}. Will be removed in 1.0.0
  */
 public class SpinnerLookup {
 

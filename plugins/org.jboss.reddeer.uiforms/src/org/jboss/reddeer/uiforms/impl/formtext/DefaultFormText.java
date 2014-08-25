@@ -1,9 +1,7 @@
 package org.jboss.reddeer.uiforms.impl.formtext;
 
 import org.hamcrest.Matcher;
-import org.jboss.reddeer.swt.handler.WidgetHandler;
 import org.jboss.reddeer.swt.reference.ReferencedComposite;
-import org.jboss.reddeer.uiforms.lookup.FormTextLookup;
 import org.jboss.reddeer.uiforms.matcher.FormTextWithTextMatcher;
 
 /**
@@ -24,12 +22,13 @@ public class DefaultFormText extends AbstractFormText {
 	}
 
 	/**
-	 * Represents nth widget of type FormText
+	 * Represents nth widget of type FormText that matches given matchers
 	 * 
 	 * @param index
+	 * @param matchers
 	 */
 
-	public DefaultFormText(int index) {
+	public DefaultFormText(int index, Matcher<?>... matchers) {
 		this(null, index);
 	}
 
@@ -66,16 +65,15 @@ public class DefaultFormText extends AbstractFormText {
 
 	/**
 	 * Represents nth widget of type FormText inside of given
-	 * ReferencedComposite
+	 * ReferencedComposite that matches given matchers
 	 * 
 	 * @param referencedComposite
 	 * @param index
+	 * @param matchers
 	 */
 
-	public DefaultFormText(ReferencedComposite referencedComposite, int index) {
-		widget = FormTextLookup.getInstance().getFormText(referencedComposite,
-				index);
-		setFocus();
+	public DefaultFormText(ReferencedComposite referencedComposite, int index, Matcher<?>... matchers) {
+		super(referencedComposite, index, matchers);
 	}
 
 	/**
@@ -101,25 +99,5 @@ public class DefaultFormText extends AbstractFormText {
 	public DefaultFormText(ReferencedComposite referencedComposite,
 			Matcher<?>... matchers) {
 		this(referencedComposite, 0, matchers);
-	}
-
-	/**
-	 * Represents nth widget of type FormText inside of given
-	 * ReferencedComposite that fulfils given matcher
-	 * 
-	 * @param referencedComposite
-	 * @param index
-	 * @param matchers
-	 */
-
-	public DefaultFormText(ReferencedComposite referencedComposite, int index,
-			Matcher<?>... matchers) {
-		widget = FormTextLookup.getInstance().getFormText(referencedComposite,
-				index, matchers);
-		setFocus();
-	}
-	
-	public boolean isEnabled() {
-		return WidgetHandler.getInstance().isEnabled(widget);
 	}
 }

@@ -1,11 +1,12 @@
 package org.jboss.reddeer.swt.impl.tab;
 
 import org.eclipse.swt.widgets.TabItem;
-import org.eclipse.swt.widgets.Widget;
+import org.hamcrest.Matcher;
 import org.jboss.reddeer.swt.api.TabFolder;
-import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.handler.TabFolderHandler;
 import org.jboss.reddeer.swt.handler.WidgetHandler;
+import org.jboss.reddeer.swt.reference.ReferencedComposite;
+import org.jboss.reddeer.swt.widgets.AbstractWidget;
 
 /**
  * Abstract class for all TabFolder implementations
@@ -13,35 +14,19 @@ import org.jboss.reddeer.swt.handler.WidgetHandler;
  * @author Andrej Podhradsky
  * 
  */
-public class AbstractTabFolder implements TabFolder {
+public class AbstractTabFolder extends AbstractWidget<org.eclipse.swt.widgets.TabFolder> implements TabFolder {
 
-	protected org.eclipse.swt.widgets.TabFolder swtTabFolder;
-
-	protected AbstractTabFolder(final org.eclipse.swt.widgets.TabFolder swtTabFolder) {
-		if (swtTabFolder != null) {
-			this.swtTabFolder = swtTabFolder;
-		} else {
-			throw new SWTLayerException("SWT TabFolder passed to constructor is null");
-		}
+	protected AbstractTabFolder(ReferencedComposite refComposite, int index, Matcher<?>... matchers){
+		super(org.eclipse.swt.widgets.TabFolder.class, refComposite, index, matchers);
 	}
-
+	
 	@Override
 	public String[] getTabItemLabels() {
-		TabItem[] tabItem = TabFolderHandler.getInstance().getTabItems(swtTabFolder);
+		TabItem[] tabItem = TabFolderHandler.getInstance().getTabItems(swtWidget);
 		String[] tabItemLabel = new String[tabItem.length];
 		for (int i = 0; i < tabItem.length; i++) {
 			tabItemLabel[i] = WidgetHandler.getInstance().getText(tabItem[i]);
 		}
 		return tabItemLabel;
-	}
-
-	@Override
-	public Widget getSWTWidget() {
-		return swtTabFolder;
-	}
-
-	@Override
-	public boolean isEnabled() {
-		return WidgetHandler.getInstance().isEnabled(swtTabFolder);
 	}
 }

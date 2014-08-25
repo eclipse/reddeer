@@ -1,7 +1,9 @@
 package org.jboss.reddeer.uiforms.impl.hyperlink;
 
-import org.eclipse.swt.widgets.Widget;
+import org.hamcrest.Matcher;
 import org.jboss.reddeer.swt.handler.WidgetHandler;
+import org.jboss.reddeer.swt.reference.ReferencedComposite;
+import org.jboss.reddeer.swt.widgets.AbstractWidget;
 import org.jboss.reddeer.uiforms.api.Hyperlink;
 import org.jboss.reddeer.uiforms.handler.HyperLinkHandler;
 
@@ -11,27 +13,22 @@ import org.jboss.reddeer.uiforms.handler.HyperLinkHandler;
  * @author Lucia Jelinkova
  *
  */
-public abstract class AbstractHyperlink implements Hyperlink {
+public abstract class AbstractHyperlink extends AbstractWidget<org.eclipse.ui.forms.widgets.Hyperlink> implements Hyperlink {
 
-	protected org.eclipse.ui.forms.widgets.Hyperlink hyperLink;
+	protected AbstractHyperlink(ReferencedComposite refComposite, int index, Matcher<?>... matchers){
+		super(org.eclipse.ui.forms.widgets.Hyperlink.class, refComposite, index, matchers);
+		setFocus();
+	}
 	
-	public Widget getSWTWidget() {
-		return hyperLink;
-	}
-
-	public boolean isEnabled() {
-		return WidgetHandler.getInstance().isEnabled(hyperLink);
-	}
-
 	public String getText() {
-		return WidgetHandler.getInstance().getText(hyperLink);
+		return WidgetHandler.getInstance().getText(swtWidget);
 	}
 	
 	public void activate() {
-		HyperLinkHandler.getInstance().activate(hyperLink);
+		HyperLinkHandler.getInstance().activate(swtWidget);
 	}
 	
 	protected void setFocus() {
-		WidgetHandler.getInstance().setFocus(hyperLink);
+		WidgetHandler.getInstance().setFocus(swtWidget);
 	}
 }

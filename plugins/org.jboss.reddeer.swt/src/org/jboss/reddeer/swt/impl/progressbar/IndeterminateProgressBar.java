@@ -1,6 +1,7 @@
 package org.jboss.reddeer.swt.impl.progressbar;
 
 import org.eclipse.swt.SWT;
+import org.jboss.reddeer.swt.matcher.WithStyleMatcher;
 
 /**
  * This class represents progressbar with style SWT.INDETERMINATE (without possibility to read status).
@@ -10,14 +11,14 @@ import org.eclipse.swt.SWT;
  *
  */
 
-public class IndeterminateProgressBar extends AbstractProgressBar {
+public class IndeterminateProgressBar extends DefaultProgressBar {
 
 	/**
 	 * Instantiates indeterminate progressbar
 	 */
 	
 	public IndeterminateProgressBar(){
-		super(0, SWT.INDETERMINATE);
+		this(0);
 	}
 	
 	/**
@@ -26,7 +27,7 @@ public class IndeterminateProgressBar extends AbstractProgressBar {
 	 */
 	
 	public IndeterminateProgressBar(int index) {
-		super(index, SWT.INDETERMINATE);
+		super(index, new WithStyleMatcher(SWT.INDETERMINATE));
 	}
 
 }

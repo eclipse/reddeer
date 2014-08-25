@@ -1,6 +1,7 @@
 package org.jboss.reddeer.swt.impl.button;
 
 import org.eclipse.swt.SWT;
+import org.hamcrest.Matcher;
 import org.jboss.reddeer.swt.api.Button;
 import org.jboss.reddeer.swt.reference.ReferencedComposite;
 
@@ -12,20 +13,53 @@ import org.jboss.reddeer.swt.reference.ReferencedComposite;
 public class ArrowButton extends AbstractButton implements Button {
 
 	/**
-	 * Arrow button with given index
-	 * @param index
+	 * Arrow button with index 0
 	 */
-	public ArrowButton(int index) {
-		super(null, index,"",SWT.ARROW);
+	public ArrowButton(){
+		this((ReferencedComposite) null);
 	}
 	
 	/**
-	 * Arrow button with given index inside given composite
+	 * Arrow button with index 0 inside given composite
 	 * @param referencedComposite
-	 * @param index
 	 */
-	public ArrowButton(ReferencedComposite referencedComposite, int index) {
-		super(referencedComposite, index,"",SWT.ARROW);
+	public ArrowButton(ReferencedComposite referencedComposite){
+		this(referencedComposite, 0);
 	}
 	
+	/**
+	 * Arrow button that matches given matchers
+	 * @param matchers
+	 */
+	public ArrowButton(Matcher<?>... matchers) {
+		this(null, matchers);
+	}
+	
+	/**
+	 * Arrow button that matches given matchers
+	 * @param referencedComposite
+	 * @param matchers
+	 */
+	public ArrowButton(ReferencedComposite referencedComposite, Matcher<?>... matchers) {
+		this(referencedComposite, 0, matchers);
+	}
+	
+	/**
+	 * Arrow button with given index that matches given matchers
+	 * @param index
+	 * @param matchers
+	 */
+	public ArrowButton(int index, Matcher<?>... matchers) {
+		this(null, index, matchers);
+	}
+	
+	/**
+	 * Arrow button with given index inside given composite that matches given matchers
+	 * @param referencedComposite
+	 * @param index
+	 * @param matchers
+	 */
+	public ArrowButton(ReferencedComposite referencedComposite, int index, Matcher<?>... matchers) {
+		super(referencedComposite, index, SWT.ARROW);
+	}
 }

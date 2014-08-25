@@ -2,32 +2,32 @@ package org.jboss.reddeer.swt.impl.expandbar;
 
 import java.util.List;
 
+import org.hamcrest.Matcher;
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.swt.api.ExpandBar;
 import org.jboss.reddeer.swt.api.ExpandBarItem;
-import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.handler.ExpandBarHandler;
 import org.jboss.reddeer.swt.handler.WidgetHandler;
+import org.jboss.reddeer.swt.reference.ReferencedComposite;
+import org.jboss.reddeer.swt.widgets.AbstractWidget;
 /**
  * Abstract class for all Expand Bar implementations
  * 
  * @author Vlado Pakan
  * 
  */
-public abstract class AbstractExpandBar implements ExpandBar {
+public abstract class AbstractExpandBar extends AbstractWidget<org.eclipse.swt.widgets.ExpandBar> implements ExpandBar {
 
 	private static final Logger logger = Logger.getLogger(AbstractExpandBar.class);
 
-	protected org.eclipse.swt.widgets.ExpandBar swtExpandBar;
-
-	protected AbstractExpandBar(final org.eclipse.swt.widgets.ExpandBar swtExpandBar) {
-		if (swtExpandBar != null) {
-			this.swtExpandBar = swtExpandBar;
-		} else {
-			throw new SWTLayerException(
-					"SWT Expand Bar passed to constructor is null");
-		}
+	protected AbstractExpandBar(org.eclipse.swt.widgets.ExpandBar swtExpandBar){
+		super(swtExpandBar);
 	}
+	
+	protected AbstractExpandBar(ReferencedComposite referencedComposite, int index, Matcher<?>... matchers) {
+		super(org.eclipse.swt.widgets.ExpandBar.class, referencedComposite, index, matchers);
+	}
+	
 	/**
 	 * See {@link ExpandBar}
 	 */
@@ -47,7 +47,7 @@ public abstract class AbstractExpandBar implements ExpandBar {
 	 */
 	@Override
 	public void setFocus() {
-		WidgetHandler.getInstance().setFocus(swtExpandBar);
+		WidgetHandler.getInstance().setFocus(this.getSWTWidget());
 
 	}
 	/**
@@ -69,17 +69,5 @@ public abstract class AbstractExpandBar implements ExpandBar {
 		for (ExpandBarItem expandBarItem : getItems()){
 			expandBarItem.collapse();
 		}
-	}
-	/**
-	 * See {@link ExpandBar}
-	 */
-	@Override
-	public org.eclipse.swt.widgets.ExpandBar getSWTWidget() {
-		return swtExpandBar;
-	}
-	
-	@Override
-	public boolean isEnabled() {
-		return WidgetHandler.getInstance().isEnabled(swtExpandBar);
 	}
 }
