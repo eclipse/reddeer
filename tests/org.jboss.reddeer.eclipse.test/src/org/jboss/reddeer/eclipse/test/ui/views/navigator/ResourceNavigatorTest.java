@@ -8,6 +8,7 @@ import org.jboss.reddeer.eclipse.jdt.ui.ide.NewJavaProjectWizardDialog;
 import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.Project;
 import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.ProjectItem;
 import org.jboss.reddeer.eclipse.ui.views.navigator.ResourceNavigator;
+import org.jboss.reddeer.eclipse.utils.DeleteUtils;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.swt.handler.WorkbenchHandler;
 import org.junit.After;
@@ -95,7 +96,7 @@ public class ResourceNavigatorTest {
 	public void tearDown() {
 		if (navigator != null){
 			if(navigator.containsProject(PROJECT_NAME)) {
-				navigator.getProject(PROJECT_NAME).delete(true);
+				DeleteUtils.forceProjectDeletion(navigator.getProject(PROJECT_NAME),true);
 			}
 		}
 	}

@@ -8,6 +8,7 @@ import org.jboss.reddeer.eclipse.jdt.ui.ide.NewJavaProjectWizardPage;
 import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.PackageExplorer;
 import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.Project;
 import org.jboss.reddeer.eclipse.ui.dialogs.ProjectPropertyPage;
+import org.jboss.reddeer.eclipse.utils.DeleteUtils;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.swt.api.Shell;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
@@ -48,7 +49,7 @@ public class ProjectPropertyPageTest {
 			// not found, no action needed
 		}
 		
-		project.delete(true);
+		DeleteUtils.forceProjectDeletion(project,true);
 	}
 	
 	@Test

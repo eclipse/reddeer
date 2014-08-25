@@ -25,6 +25,7 @@ import org.jboss.reddeer.eclipse.ui.ide.NewFileCreationWizardDialog;
 import org.jboss.reddeer.eclipse.ui.ide.NewFileCreationWizardPage;
 import org.jboss.reddeer.eclipse.ui.wizards.datatransfer.ExternalProjectImportWizardDialog;
 import org.jboss.reddeer.eclipse.ui.wizards.newresource.BasicNewProjectResourceWizard;
+import org.jboss.reddeer.eclipse.utils.DeleteUtils;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.handler.ShellHandler;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
@@ -55,7 +56,7 @@ public class TextEditorTest {
 	public static void teardownClass(){
 		ProjectExplorer pe = new ProjectExplorer();
 		for (Project p : pe.getProjects()){
-			p.delete(true);
+			DeleteUtils.forceProjectDeletion(p,true);
 		}
 	}
 

@@ -7,8 +7,10 @@ Bundle-Version: 0.6.0.qualifier
 Bundle-Activator: org.jboss.reddeer.direct.Activator
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
- org.jboss.reddeer.common;bundle-version="0.6.0"
+ org.jboss.reddeer.common;bundle-version="0.6.0",
+ org.eclipse.core.resources;bundle-version="3.9.0"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: org.jboss.reddeer.direct.platform,
- org.jboss.reddeer.direct.preferences
+ org.jboss.reddeer.direct.preferences,
+ org.jboss.reddeer.direct.project

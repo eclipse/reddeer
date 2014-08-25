@@ -17,6 +17,7 @@ import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.ProjectItem;
 import org.jboss.reddeer.eclipse.ui.ide.NewFileCreationWizardDialog;
 import org.jboss.reddeer.eclipse.ui.ide.NewFileCreationWizardPage;
 import org.jboss.reddeer.eclipse.ui.perspectives.JavaPerspective;
+import org.jboss.reddeer.eclipse.utils.DeleteUtils;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.requirements.openperspective.OpenPerspectiveRequirement.OpenPerspective;
 import org.jboss.reddeer.swt.condition.JobIsRunning;
@@ -187,7 +188,7 @@ public class ProjectItemTest {
 	public void tearDown() {
 		packageExplorer.close();
 		packageExplorer.open();
-		packageExplorer.getProject(ProjectItemTest.PROJECT_NAME).delete(true);
+		DeleteUtils.forceProjectDeletion(packageExplorer.getProject(ProjectItemTest.PROJECT_NAME),true);
 	}
 	
 	private class NewFileCreationWizard extends NewFileCreationWizardPage {

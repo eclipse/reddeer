@@ -8,8 +8,10 @@ import org.jboss.reddeer.eclipse.jdt.ui.NewJavaClassWizardPage;
 import org.jboss.reddeer.eclipse.jdt.ui.dialogs.GenerateHashCodeEqualsDialog;
 import org.jboss.reddeer.eclipse.jdt.ui.ide.NewJavaProjectWizardDialog;
 import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.PackageExplorer;
+import org.jboss.reddeer.eclipse.utils.DeleteUtils;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.requirements.cleanworkspace.CleanWorkspaceRequirement.CleanWorkspace;
+import org.jboss.reddeer.swt.impl.shell.WorkbenchShell;
 import org.jboss.reddeer.workbench.impl.editor.TextEditor;
 import org.junit.AfterClass;
 import org.junit.Test;
@@ -22,11 +24,13 @@ public class GenerateHashAndEqualsTest {
 	@AfterClass
 	public static void deleteProject(){
 		PackageExplorer pe = new PackageExplorer();
-		pe.getProject("GenHashProject").delete(true);
+		pe.open();
+		DeleteUtils.forceProjectDeletion(pe.getProject("GenHashProject"),true);
 	}
 	
 	@Test
 	public void generateHashAndEquals(){
+		new WorkbenchShell().maximize();
 		NewJavaProjectWizardDialog jp = new NewJavaProjectWizardDialog();
 		jp.open();
 		jp.getFirstPage().setProjectName("GenHashProject");

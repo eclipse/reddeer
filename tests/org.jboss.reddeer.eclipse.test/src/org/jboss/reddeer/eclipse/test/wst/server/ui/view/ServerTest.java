@@ -9,6 +9,7 @@ import java.util.List;
 import org.jboss.reddeer.eclipse.exception.EclipseLayerException;
 import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.PackageExplorer;
 import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.Project;
+import org.jboss.reddeer.eclipse.utils.DeleteUtils;
 import org.jboss.reddeer.eclipse.wst.server.ui.editor.ServerEditor;
 import org.jboss.reddeer.eclipse.wst.server.ui.view.Server;
 import org.jboss.reddeer.eclipse.wst.server.ui.view.ServerModule;
@@ -43,8 +44,9 @@ public class ServerTest extends ServersViewTestCase {
 	@AfterClass
 	public static void removeProjects(){
 		PackageExplorer explorer = new PackageExplorer();
+		explorer.open();
 		for (Project project : explorer.getProjects()){
-			project.delete(true);
+			DeleteUtils.forceProjectDeletion(project,true);
 		}
 	}
 	

@@ -9,6 +9,7 @@ import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.PackageExplorer;
 import org.jboss.reddeer.eclipse.ui.dialogs.WizardNewProjectCreationPage;
 import org.jboss.reddeer.eclipse.ui.dialogs.WizardNewProjectReferencePage;
 import org.jboss.reddeer.eclipse.ui.wizards.newresource.BasicNewProjectResourceWizard;
+import org.jboss.reddeer.eclipse.utils.DeleteUtils;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.junit.After;
 import org.junit.Before;
@@ -90,14 +91,14 @@ public class BasicNewProjectResourceWizardTest {
 	@After
 	public void tearDown() {
 		if (packageExplorer.containsProject(BasicNewProjectResourceWizardTest.CUSTOMIZED_PROJECT_NAME)){
-			packageExplorer.getProject(
-					BasicNewProjectResourceWizardTest.CUSTOMIZED_PROJECT_NAME)
-					.delete(true);
+			DeleteUtils.forceProjectDeletion(packageExplorer.getProject(
+					BasicNewProjectResourceWizardTest.CUSTOMIZED_PROJECT_NAME),
+				true);
 		}
 		if (packageExplorer.containsProject(BasicNewProjectResourceWizardTest.DEFAULT_PROJECT_NAME)){
-			packageExplorer.getProject(
-					BasicNewProjectResourceWizardTest.DEFAULT_PROJECT_NAME).delete(
-					true);
+			DeleteUtils.forceProjectDeletion(packageExplorer.getProject(
+					BasicNewProjectResourceWizardTest.DEFAULT_PROJECT_NAME),
+				true);
 		}
 		File customProjectDir = new File(
 				BasicNewProjectResourceWizardTest.CUSTOM_PROJECT_LOCATION);

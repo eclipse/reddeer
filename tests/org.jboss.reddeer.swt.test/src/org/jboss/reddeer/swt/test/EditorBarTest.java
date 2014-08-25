@@ -3,6 +3,7 @@ package org.jboss.reddeer.swt.test;
 import static org.junit.Assert.assertTrue;
 
 import org.jboss.reddeer.eclipse.jdt.ui.ProjectExplorer;
+import org.jboss.reddeer.eclipse.utils.DeleteUtils;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.swt.condition.JobIsRunning;
 import org.jboss.reddeer.swt.condition.ShellWithTextIsActive;
@@ -60,7 +61,7 @@ public class EditorBarTest {
 	public void deleteProject(){
 		ProjectExplorer pe = new ProjectExplorer();
 		pe.open();
-		pe.getProject(projectName).delete(true);
+		DeleteUtils.forceProjectDeletion(pe.getProject(projectName),true);
 	}
 
 	@Test 

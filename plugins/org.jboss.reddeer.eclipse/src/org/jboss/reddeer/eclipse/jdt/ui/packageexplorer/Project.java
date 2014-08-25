@@ -5,12 +5,14 @@ import org.jboss.reddeer.eclipse.exception.EclipseLayerException;
 import org.jboss.reddeer.jface.exception.JFaceLayerException;
 import org.jboss.reddeer.jface.viewer.handler.TreeViewerHandler;
 import org.jboss.reddeer.eclipse.utils.DeleteUtils;
+import org.jboss.reddeer.swt.api.Shell;
 import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.swt.condition.JobIsRunning;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.impl.button.CheckBox;
 import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.menu.ContextMenu;
+import org.jboss.reddeer.swt.impl.menu.ShellMenu;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.jboss.reddeer.swt.wait.TimePeriod;
 import org.jboss.reddeer.swt.wait.WaitWhile;
@@ -45,16 +47,27 @@ public class Project {
 	 */
 	public void delete(boolean deleteFromFileSystem) {
 		select();
-		log.debug("Delete project " + treeViewerHandler.getNonStyledText(treeItem) + " via Explorer");
+		log.debug("Delete project " + getName() + " via Explorer");
 		new ContextMenu("Refresh").select();
 		new WaitWhile(new JobIsRunning(), TimePeriod.VERY_LONG);
+		// delete via context menu
 		new ContextMenu("Delete").select();
-		new DefaultShell("Delete Resources");
-		new CheckBox().toggle(deleteFromFileSystem);
-		DefaultShell shell = new DefaultShell();
-		String deleteShellText = shell.getText();
-		new PushButton("OK").click();
-		DeleteUtils.handleDeletion(deleteShellText);
+		Shell sDeleteResources = handleDeleteResourcesShell(deleteFromFileSystem);
+		// delete via workbench menu
+		if (sDeleteResources == null && treeItem != null && !treeItem.isDisposed()){
+			log.debug("Delete project " + getName() + " via Workbench menu");
+			treeItem.select();
+			new ShellMenu ("Edit", "Delete").select();
+			sDeleteResources = handleDeleteResourcesShell(deleteFromFileSystem);
+		}	
+		if (sDeleteResources != null){
+			String deleteShellText = sDeleteResources.getText();
+			new PushButton("OK").click();
+			DeleteUtils.handleDeletion(deleteShellText);
+		}
+		else{
+			throw new EclipseLayerException("Unable to delete project " + getName() + " via UI calls");			
+		}
 	}
 
 	/**
@@ -162,5 +175,22 @@ public class Project {
 	 */
 	public String getText() {
 		return treeItem.getText();
+	}
+	/**
+	 * Handles waiting for Delete Resources shell
+	 * Toggle check box Delete from file system based on deleteFromFileSystem parameter
+	 * @param deleteFromFileSystem
+	 * @return {@link Shell} if Delete Resources shell is available or null
+	 */
+	private Shell handleDeleteResourcesShell (boolean deleteFromFileSystem) {
+		Shell sDeleteResources = null;
+		try {
+			new DefaultShell("Delete Resources");
+			new CheckBox().toggle(deleteFromFileSystem);
+			sDeleteResources = new DefaultShell();
+		} catch (SWTLayerException swtle) {
+			sDeleteResources = null;
+		}
+		return sDeleteResources;		
 	}
 }

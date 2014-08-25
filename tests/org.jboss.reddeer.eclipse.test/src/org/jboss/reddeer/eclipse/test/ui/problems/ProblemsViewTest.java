@@ -15,6 +15,7 @@ import org.jboss.reddeer.eclipse.jdt.ui.ide.NewJavaProjectWizardDialog;
 import org.jboss.reddeer.eclipse.jdt.ui.ide.NewJavaProjectWizardPage;
 import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.PackageExplorer;
 import org.jboss.reddeer.eclipse.ui.problems.ProblemsView;
+import org.jboss.reddeer.eclipse.utils.DeleteUtils;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.swt.condition.JobIsRunning;
@@ -68,7 +69,7 @@ public class ProblemsViewTest {
 	@After
 	public void tearDown() {
 		pkgExplorer.open();
-		pkgExplorer.getProject(PROJECT_NAME).delete(true);
+		DeleteUtils.forceProjectDeletion(pkgExplorer.getProject(PROJECT_NAME),true);
 	}
 	
 	@Test
