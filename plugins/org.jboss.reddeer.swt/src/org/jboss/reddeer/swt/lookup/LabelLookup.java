@@ -3,10 +3,12 @@ package org.jboss.reddeer.swt.lookup;
 import org.eclipse.swt.widgets.Label;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.swt.reference.ReferencedComposite;
+import org.jboss.reddeer.swt.widgets.AbstractWidget;
 
 /**
  * Label lookup containing lookup routines for Label widget type
  * @author Jiri Peterka
+ * @deprecated Since 1.0.0 use {@link AbstractWidget
  *
  */
 public class LabelLookup {

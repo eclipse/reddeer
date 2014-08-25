@@ -1,11 +1,14 @@
 package org.jboss.reddeer.swt.impl.ctab;
 
 import org.eclipse.swt.SWT;
+import org.hamcrest.Matcher;
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.swt.api.CTabItem;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.handler.CTabItemHandler;
 import org.jboss.reddeer.swt.handler.WidgetHandler;
+import org.jboss.reddeer.swt.reference.ReferencedComposite;
+import org.jboss.reddeer.swt.widgets.AbstractWidget;
 
 /**
  * Abstract class for all CTabItem implementations
@@ -13,33 +16,29 @@ import org.jboss.reddeer.swt.handler.WidgetHandler;
  * @author Vlado Pakan
  * 
  */
-public abstract class AbstractCTabItem implements CTabItem {
+public abstract class AbstractCTabItem extends AbstractWidget<org.eclipse.swt.custom.CTabItem> implements CTabItem {
 
 	private static final Logger logger = Logger.getLogger(AbstractCTabItem.class);
 
-	protected org.eclipse.swt.custom.CTabItem swtCTabItem;
 	protected org.eclipse.swt.custom.CTabFolder swtParent;
+
 	private CTabItemHandler cTabItemHandler = CTabItemHandler.getInstance();
+
+	protected AbstractCTabItem(ReferencedComposite referencedComposite, int index, Matcher<?>... matchers) {
+		super(org.eclipse.swt.custom.CTabItem.class, referencedComposite, index, matchers);
+		this.swtParent = cTabItemHandler.getCTabFolder(swtWidget);
+	}
+	
 	/**
 	 * See {@link CTabItem}
 	 */
 	@Override
 	public void activate() {
 		logger.info("Activate " + this.getText());
-		cTabItemHandler.select(swtCTabItem);
+		cTabItemHandler.select(swtWidget);
 		cTabItemHandler.notifyCTabFolder(
-			swtCTabItem,
-			cTabItemHandler.createEventForCTabItem(swtCTabItem,SWT.Selection));
-	}
-
-	protected AbstractCTabItem(final org.eclipse.swt.custom.CTabItem swtCTabItem) {
-		if (swtCTabItem != null) {
-			this.swtCTabItem = swtCTabItem;
-			this.swtParent = cTabItemHandler.getCTabFolder(swtCTabItem);
-		} else {
-			throw new SWTLayerException(
-					"SWT Tree passed to constructor is null");
-		}
+			swtWidget,
+			cTabItemHandler.createEventForCTabItem(swtWidget,SWT.Selection));
 	}
 
 	/**
@@ -47,7 +46,7 @@ public abstract class AbstractCTabItem implements CTabItem {
 	 */
 	@Override
 	public String getText() {
-		return WidgetHandler.getInstance().getText(swtCTabItem);
+		return WidgetHandler.getInstance().getText(swtWidget);
 	}
 
 	/**
@@ -55,7 +54,7 @@ public abstract class AbstractCTabItem implements CTabItem {
 	 */
 	@Override
 	public String getToolTipText() {
-		return WidgetHandler.getInstance().getToolTipText(swtCTabItem);
+		return WidgetHandler.getInstance().getToolTipText(swtWidget);
 	}
 
 	/**
@@ -66,7 +65,7 @@ public abstract class AbstractCTabItem implements CTabItem {
 		logger.info("Close CTabItem " + getText());
 		if (isShowClose()) {
 			activate();
-			cTabItemHandler.clickCloseButton(swtCTabItem);
+			cTabItemHandler.clickCloseButton(swtWidget);
 		} else {
 			throw new SWTLayerException("CTabItem with label " + getText()
 					+ " has no close button");
@@ -78,16 +77,6 @@ public abstract class AbstractCTabItem implements CTabItem {
 	 */
 	@Override
 	public boolean isShowClose() {
-		return cTabItemHandler.isShowClose(swtCTabItem);
+		return cTabItemHandler.isShowClose(swtWidget);
 	}
-	
-	public org.eclipse.swt.custom.CTabItem getSWTWidget(){
-		return swtCTabItem;
-	}
-	
-	@Override
-	public boolean isEnabled() {
-		return WidgetHandler.getInstance().isEnabled(swtParent);
-	}
-	
 }

@@ -5,11 +5,14 @@ import java.util.List;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Event;
+import org.hamcrest.Matcher;
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.swt.api.Combo;
 import org.jboss.reddeer.swt.handler.ComboHandler;
 import org.jboss.reddeer.swt.handler.WidgetHandler;
+import org.jboss.reddeer.swt.reference.ReferencedComposite;
 import org.jboss.reddeer.swt.util.Display;
+import org.jboss.reddeer.swt.widgets.AbstractWidget;
 
 /**
  * Abstract class for all Combo implementations
@@ -17,17 +20,21 @@ import org.jboss.reddeer.swt.util.Display;
  * @author Vlado Pakan
  * 
  */
-public abstract class AbstractCombo implements Combo {
+public abstract class AbstractCombo extends AbstractWidget<org.eclipse.swt.widgets.Combo> implements Combo {
+	
 	private static final Logger log = Logger.getLogger(AbstractCombo.class);
-	protected org.eclipse.swt.widgets.Combo swtCombo;
 
+	protected AbstractCombo(ReferencedComposite refComposite, int index, Matcher<?>... matchers) {
+		super(org.eclipse.swt.widgets.Combo.class, refComposite, index, matchers);
+	}
+	
 	/**
 	 * See {@link Combo}
 	 */
 	@Override
 	public void setText(String str) {
 		log.info("Set text of Combo " + getText() + " to:" + str);
-		WidgetHandler.getInstance().setText(swtCombo, str);
+		WidgetHandler.getInstance().setText(swtWidget, str);
 	}
 
 	/**
@@ -37,7 +44,7 @@ public abstract class AbstractCombo implements Combo {
 	public void setSelection(int index) {
 		log.info("Set selection of Combo " + getText() + " to index: "
 				+ index);
-		ComboHandler.getInstance().setSelection(swtCombo, index);
+		ComboHandler.getInstance().setSelection(swtWidget, index);
 		notifyCombo(createEventForCombo(SWT.Selection));
 	}
 
@@ -48,7 +55,7 @@ public abstract class AbstractCombo implements Combo {
 	public void setSelection(String selection) {
 		log.info("Set selection of Combo " + getText() + " to selection: "
 				+ selection);
-		ComboHandler.getInstance().setSelection(swtCombo, selection);
+		ComboHandler.getInstance().setSelection(swtWidget, selection);
 		notifyCombo(createEventForCombo(SWT.Selection));
 	}
 
@@ -57,7 +64,7 @@ public abstract class AbstractCombo implements Combo {
 	 */
 	@Override
 	public String getSelection() {
-		return ComboHandler.getInstance().getSelection(swtCombo);
+		return ComboHandler.getInstance().getSelection(swtWidget);
 	}
 
 	/**
@@ -65,22 +72,15 @@ public abstract class AbstractCombo implements Combo {
 	 */
 	@Override
 	public int getSelectionIndex() {
-		return ComboHandler.getInstance().getSelectionIndex(swtCombo);
+		return ComboHandler.getInstance().getSelectionIndex(swtWidget);
 	}
 
 	/**
 	 * See {@link Combo}
 	 */
 	@Override
-	public boolean isEnabled() {
-		return WidgetHandler.getInstance().isEnabled(swtCombo);
-	}
-	/**
-	 * See {@link Combo}
-	 */
-	@Override
 	public String getText() {
-		return WidgetHandler.getInstance().getText(swtCombo);
+		return WidgetHandler.getInstance().getText(swtWidget);
 	}
 	
 	/**
@@ -88,7 +88,7 @@ public abstract class AbstractCombo implements Combo {
 	 */
 	@Override
 	public List<String> getItems() {
-		return Arrays.asList(ComboHandler.getInstance().getItems(swtCombo));
+		return Arrays.asList(ComboHandler.getInstance().getItems(swtWidget));
 	}
 	
 	/**
@@ -102,7 +102,7 @@ public abstract class AbstractCombo implements Combo {
 		event.type = type;
 		event.display = Display.getDisplay();
 		event.time = (int) System.currentTimeMillis();
-		event.widget = swtCombo;
+		event.widget = swtWidget;
 		return event;
 	}
 	/**
@@ -114,12 +114,8 @@ public abstract class AbstractCombo implements Combo {
 	private void notifyCombo(final Event event) {
 		Display.syncExec(new Runnable() {
 			public void run() {
-				swtCombo.notifyListeners(event.type, event);
+				swtWidget.notifyListeners(event.type, event);
 			}
 		});
-	}
-	
-	public org.eclipse.swt.widgets.Combo getSWTWidget(){
-		return swtCombo;
 	}
 }

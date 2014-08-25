@@ -146,4 +146,18 @@ public class TableItemHandler {
 			}
 		});
 	}
+	
+	/**
+	 * Focuses specified {@link TableItem}.
+	 * 
+	 * @param tabItem tab item to focus
+	 */
+	public void setFocus(final TableItem tableItem) {
+		Display.syncExec(new Runnable() {
+			@Override
+			public void run() {
+				tableItem.getParent().forceFocus();
+			}
+		});
+	}
 }

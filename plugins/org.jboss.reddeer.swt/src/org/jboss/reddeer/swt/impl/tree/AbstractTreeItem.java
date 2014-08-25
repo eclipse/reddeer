@@ -7,13 +7,13 @@ import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.swt.api.Tree;
 import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.swt.condition.TreeItemHasMinChildren;
-import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.handler.TreeHandler;
 import org.jboss.reddeer.swt.handler.TreeItemHandler;
 import org.jboss.reddeer.swt.handler.WidgetHandler;
 import org.jboss.reddeer.swt.util.Display;
 import org.jboss.reddeer.swt.wait.TimePeriod;
 import org.jboss.reddeer.swt.wait.WaitUntil;
+import org.jboss.reddeer.swt.widgets.AbstractWidget;
 
 /**
  * Basic TreeItem class is abstract class for all Tree Item implementations
@@ -21,22 +21,14 @@ import org.jboss.reddeer.swt.wait.WaitUntil;
  * @author jjankovi, mlabuda@redhat.com
  * 
  */
-public abstract class AbstractTreeItem implements TreeItem {
+public abstract class AbstractTreeItem extends AbstractWidget<org.eclipse.swt.widgets.TreeItem> implements TreeItem {
 
 	private static final Logger logger = Logger.getLogger(AbstractTreeItem.class);
 
-	protected org.eclipse.swt.widgets.TreeItem swtTreeItem;
-
 	private TreeHandler treeHandler = TreeHandler.getInstance();
 	
-	protected AbstractTreeItem(org.eclipse.swt.widgets.TreeItem swtTreeItem) {
-		if (swtTreeItem != null) {
-			this.swtTreeItem = swtTreeItem;
-		} else {
-			throw new SWTLayerException(
-					"SWT Tree Item passed to constructor is null");
-		}
-
+	protected AbstractTreeItem(org.eclipse.swt.widgets.TreeItem swtWidget) {
+		super(swtWidget);
 	}
 
 	/**
@@ -45,7 +37,7 @@ public abstract class AbstractTreeItem implements TreeItem {
 	@Override
 	public void select() {
 		logger.info("Select tree item " + getText());
-		treeHandler.select(swtTreeItem);
+		treeHandler.select(swtWidget);
 	}
 
 	/**
@@ -53,7 +45,7 @@ public abstract class AbstractTreeItem implements TreeItem {
 	 */
 	@Override
 	public String getText() {
-		return WidgetHandler.getInstance().getText(swtTreeItem);
+		return WidgetHandler.getInstance().getText(swtWidget);
 	}
 
 	/**
@@ -61,7 +53,7 @@ public abstract class AbstractTreeItem implements TreeItem {
 	 */
 	@Override
 	public String getToolTipText() {
-		return TreeItemHandler.getInstance().getToolTipText(swtTreeItem);
+		return TreeItemHandler.getInstance().getToolTipText(swtWidget);
 	}
 
 	/**
@@ -69,7 +61,7 @@ public abstract class AbstractTreeItem implements TreeItem {
 	 */
 	@Override
 	public String getCell(final int index) {
-		return TreeItemHandler.getInstance().getText(swtTreeItem, index);
+		return TreeItemHandler.getInstance().getText(swtWidget, index);
 	}
 
 	/**
@@ -77,7 +69,7 @@ public abstract class AbstractTreeItem implements TreeItem {
 	 */
 	@Override
 	public String[] getPath() {
-		return treeHandler.getPath(swtTreeItem);
+		return treeHandler.getPath(swtWidget);
 	}
 
 	/**
@@ -95,7 +87,7 @@ public abstract class AbstractTreeItem implements TreeItem {
 	public void expand(TimePeriod timePeriod) {
 		logger.info("Expand tree item " + getText() + " and wait with time period " 
 			+ timePeriod.getSeconds());
-		treeHandler.expand(swtTreeItem, timePeriod);
+		treeHandler.expand(swtWidget, timePeriod);
 	}
 
 	/**
@@ -104,7 +96,7 @@ public abstract class AbstractTreeItem implements TreeItem {
 	@Override
 	public void collapse() {
 		logger.info("Collapse tree item " + getText());
-		treeHandler.collapse(swtTreeItem);
+		treeHandler.collapse(swtWidget);
 	}
 
 	/**
@@ -115,7 +107,7 @@ public abstract class AbstractTreeItem implements TreeItem {
 	 * @return direct descendant specified with parameters
 	 */
 	public TreeItem getItem(final String text) {
-		return treeHandler.getItem(swtTreeItem, text);
+		return treeHandler.getItem(swtWidget, text);
 	}
 
 	/**
@@ -147,7 +139,7 @@ public abstract class AbstractTreeItem implements TreeItem {
 	 */
 	@Override
 	public boolean isSelected() {
-		return treeHandler.isSelected(swtTreeItem);
+		return treeHandler.isSelected(swtWidget);
 	}
 
 	/**
@@ -155,7 +147,7 @@ public abstract class AbstractTreeItem implements TreeItem {
 	 */
 	@Override
 	public boolean isDisposed() {
-		return swtTreeItem.isDisposed();
+		return swtWidget.isDisposed();
 	}
 
 	/**
@@ -164,7 +156,7 @@ public abstract class AbstractTreeItem implements TreeItem {
 	@Override
 	public void setChecked(final boolean check) {
 		logger.info("Check tree item " + getText());
-		treeHandler.setChecked(swtTreeItem, check);
+		treeHandler.setChecked(swtWidget, check);
 	}
 
 	/**
@@ -172,14 +164,14 @@ public abstract class AbstractTreeItem implements TreeItem {
 	 */
 	@Override
 	public boolean isChecked() {
-		return treeHandler.isChecked(swtTreeItem);
+		return treeHandler.isChecked(swtWidget);
 	}
 
 	/**
 	 * Return swt widget of Tree Item
 	 */
 	public org.eclipse.swt.widgets.TreeItem getSWTWidget() {
-		return swtTreeItem;
+		return swtWidget;
 	}
 
 	/**
@@ -190,7 +182,7 @@ public abstract class AbstractTreeItem implements TreeItem {
 	@Override
 	public List<TreeItem> getItems() {
 		expand(TimePeriod.SHORT);
-		return treeHandler.getChildrenItems(swtTreeItem);
+		return treeHandler.getChildrenItems(swtWidget);
 	}
 
 	/**
@@ -198,7 +190,7 @@ public abstract class AbstractTreeItem implements TreeItem {
 	 */
 	@Override
 	public Tree getParent() {
-		return treeHandler.getParent(swtTreeItem);
+		return treeHandler.getParent(swtWidget);
 	}
 
 	/**
@@ -206,7 +198,7 @@ public abstract class AbstractTreeItem implements TreeItem {
 	 */
 	@Override
 	public boolean isExpanded() {
-		return treeHandler.isExpanded(swtTreeItem);
+		return treeHandler.isExpanded(swtWidget);
 	}
 
 	/**
@@ -246,20 +238,15 @@ public abstract class AbstractTreeItem implements TreeItem {
 	}
 
 	@Override
-	public boolean isEnabled() {
-		return WidgetHandler.getInstance().isEnabled(swtTreeItem);
-	}
-
-	@Override
 	public void setText(String text, int index) {
 		logger.info("Set text to tree item at index " + index + ": " + text);
-		TreeItemHandler.getInstance().setText(swtTreeItem, index, text);
+		TreeItemHandler.getInstance().setText(swtWidget, index, text);
 	}
 
 	@Override
 	public void setText(String text) {
 		logger.info("Set text to tree item: " + text);
-		TreeItemHandler.getInstance().setText(swtTreeItem, 0, text);
+		TreeItemHandler.getInstance().setText(swtWidget, 0, text);
 	}
 	
 	class TreeItemTexts {

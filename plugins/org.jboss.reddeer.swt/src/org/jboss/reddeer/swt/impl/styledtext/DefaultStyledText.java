@@ -2,7 +2,6 @@ package org.jboss.reddeer.swt.impl.styledtext;
 
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.swt.api.StyledText;
-import org.jboss.reddeer.swt.lookup.StyledTextLookup;
 import org.jboss.reddeer.swt.matcher.WithTextMatcher;
 import org.jboss.reddeer.swt.reference.ReferencedComposite;
 
@@ -13,11 +12,12 @@ import org.jboss.reddeer.swt.reference.ReferencedComposite;
  * 
  */
 public class DefaultStyledText extends AbstractStyledText implements StyledText {
+	
 	/**
-	 * StyledText.
+	 * StyledText with index 0
 	 */
 	public DefaultStyledText() {
-		styledText = StyledTextLookup.getInstance().getStyledText(null, 0);
+		this((ReferencedComposite) null);
 	}
 	
 	/**
@@ -25,25 +25,7 @@ public class DefaultStyledText extends AbstractStyledText implements StyledText 
 	 * @param referencedComposite
 	 */
 	public DefaultStyledText(final ReferencedComposite referencedComposite) {
-		styledText = StyledTextLookup.getInstance().getStyledText(referencedComposite, 0);
-	}
-
-	/**
-	 * StyledText on given index.
-	 * 
-	 * @param index
-	 */
-	public DefaultStyledText(final int index) {
-		styledText = StyledTextLookup.getInstance().getStyledText(null, index);
-	}
-	
-	/**
-	 * StyledText on given index inside given composite.
-	 * @param referencedComposite
-	 * @param index
-	 */
-	public DefaultStyledText(final ReferencedComposite referencedComposite, final int index) {
-		styledText = StyledTextLookup.getInstance().getStyledText(referencedComposite, index);
+		this(referencedComposite, 0);
 	}
 
 	/**
@@ -52,7 +34,7 @@ public class DefaultStyledText extends AbstractStyledText implements StyledText 
 	 * @param text
 	 */
 	public DefaultStyledText(final String text) {
-		styledText = StyledTextLookup.getInstance().getStyledText(null, 0, new WithTextMatcher(text));
+		this(null, text);
 	}
 	
 	/**
@@ -61,7 +43,7 @@ public class DefaultStyledText extends AbstractStyledText implements StyledText 
 	 * @param text
 	 */
 	public DefaultStyledText(final ReferencedComposite referencedComposite, final String text) {
-		styledText = StyledTextLookup.getInstance().getStyledText(referencedComposite, 0, new WithTextMatcher(text));
+		this(referencedComposite, 0, new WithTextMatcher(text));
 	}
 
 	/**
@@ -69,18 +51,34 @@ public class DefaultStyledText extends AbstractStyledText implements StyledText 
 	 * 
 	 * @param matchers
 	 */
-	@SuppressWarnings("rawtypes")
-	public DefaultStyledText(final Matcher... matchers) {
-		styledText = StyledTextLookup.getInstance().getStyledText(null, 0, matchers);
+	public DefaultStyledText(final Matcher<?>... matchers) {
+		this(null, matchers);
 	}
 	
 	/**
-	 * StyledText matching given matchers.
+	 * StyledText matching given matchers inside given composite
 	 * 
 	 * @param matchers
 	 */
-	@SuppressWarnings("rawtypes")
-	public DefaultStyledText(final ReferencedComposite referencedComposite, final Matcher... matchers) {
-		styledText = StyledTextLookup.getInstance().getStyledText(referencedComposite, 0, matchers);
+	public DefaultStyledText(final ReferencedComposite referencedComposite, final Matcher<?>... matchers) {
+		this(referencedComposite, 0, matchers);
+	}
+	
+	/**
+	 * StyledText with given index that matches given matchers
+	 * 
+	 * @param index
+	 */
+	public DefaultStyledText(int index, Matcher<?>... matchers) {
+		this(null, index, matchers);
+	}
+	
+	/**
+	 * StyledText with given index that matches given matchers inside given composite
+	 * @param referencedComposite
+	 * @param index
+	 */
+	public DefaultStyledText(ReferencedComposite referencedComposite, int index, Matcher<?>... matchers) {
+		super(referencedComposite, index, matchers);
 	}
 }

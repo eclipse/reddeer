@@ -1,7 +1,6 @@
 package org.jboss.reddeer.swt.impl.label;
 
 import org.hamcrest.Matcher;
-import org.jboss.reddeer.swt.lookup.LabelLookup;
 import org.jboss.reddeer.swt.matcher.WithTextMatcher;
 import org.jboss.reddeer.swt.reference.ReferencedComposite;
 
@@ -14,69 +13,81 @@ import org.jboss.reddeer.swt.reference.ReferencedComposite;
 public class DefaultLabel extends AbstractLabel {
 
 	/**
-	 * Create DefautLabel instance based on first available Label found
+	 * Label with index 0
 	 */
 	public DefaultLabel() {
-		w = LabelLookup.getInstance().getLabel(null, 0);
+		this((ReferencedComposite) null);
 	}
 	
 	/**
-	 * Create DefautLabel instance based on first available Label found inside given composite
+	 * Label with index 0 inside given composite
 	 * @param referencedComposite
 	 */
-	public DefaultLabel(ReferencedComposite referencedComposite) {
-		w = LabelLookup.getInstance().getLabel(referencedComposite, 0);
+	public DefaultLabel(ReferencedComposite referencedComposite){
+		this(referencedComposite, 0);
 	}
-
+	
 	/**
-	 * Create DefaultLabel instance matching given text
+	 * Label with given text
 	 * @param text
 	 */
 	public DefaultLabel(String text) {
-		w = LabelLookup.getInstance().getLabel(null, 0, new WithTextMatcher(text));
+		this(null, text);
 	}
 	
 	/**
-	 * Create DefaultLabel instance matching given text
-	 * @param text
-	 */
-	public DefaultLabel(Matcher<?>... matchers) {
-		w = LabelLookup.getInstance().getLabel(null, 0, matchers);
-	}
-	
-	/**
-	 * Create DefaultLabel instance matching given text inside given composite
+	 * Label with given text inside given composite
 	 * @param referencedComposite
 	 * @param text
 	 */
 	public DefaultLabel(ReferencedComposite referencedComposite, String text) {
-		w = LabelLookup.getInstance().getLabel(referencedComposite, 0, new WithTextMatcher(text));
+		this(referencedComposite, 0, new WithTextMatcher(text));
 	}
 	
 	/**
-	 * Create DefaultLabel instance matching given index
-	 * @param index
+	 * Label that matches given matchers
+	 * @param matchers
 	 */
-	public DefaultLabel(int index) {
-		w = LabelLookup.getInstance().getLabel(null, index);
+	public DefaultLabel(Matcher<?>... matchers) {
+		this(null, matchers);
 	}
 	
 	/**
-	 * Create DefaultLabel instance matching given index inside given composite
+	 * Label that matches given matchers
+	 * @param referencedComposite
+	 * @param matchers
+	 */
+	public DefaultLabel(ReferencedComposite referencedComposite, Matcher<?>... matchers) {
+		this(referencedComposite, 0, matchers);
+	}
+	
+	/**
+	 * Label with given index that matches given matchers
+	 * @param index
+	 * @param matchers
+	 */
+	public DefaultLabel(int index, Matcher<?>... matchers) {
+		this(null, index, matchers);
+	}
+	
+	/**
+	 * Label with given index inside given composite that matches given matchers
 	 * @param referencedComposite
 	 * @param index
+	 * @param matchers
 	 */
-	public DefaultLabel(ReferencedComposite referencedComposite, int index) {
-		w = LabelLookup.getInstance().getLabel(referencedComposite, index);
+	public DefaultLabel(ReferencedComposite referencedComposite, int index, Matcher<?>... matchers) {
+		super(referencedComposite, index, matchers);
 	}
 	
 	/**
 	 * Create DefaultLabel instance matching given text and index
 	 * @param text
 	 * @param index
+	 * @deprecated Since 1.0.0 this is not a standard widget constructor
 	 */
 	public DefaultLabel(String text, int index) {
-		w = LabelLookup.getInstance().getLabel(null, index,new WithTextMatcher(text));		
+		this(null, text, index);		
 	}
 	
 	/**
@@ -84,8 +95,9 @@ public class DefaultLabel extends AbstractLabel {
 	 * @param referencedComposite
 	 * @param text
 	 * @param index
+	 * @deprecated Since 1.0.0 this is not a standard widget constructor
 	 */
 	public DefaultLabel(ReferencedComposite referencedComposite, String text, int index) {
-		w = LabelLookup.getInstance().getLabel(referencedComposite, index,new WithTextMatcher(text));		
+		this(referencedComposite, index, new WithTextMatcher(text));		
 	}
 }

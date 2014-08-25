@@ -3,10 +3,12 @@ package org.jboss.reddeer.swt.lookup;
 import org.eclipse.swt.custom.StyledText;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.swt.reference.ReferencedComposite;
+import org.jboss.reddeer.swt.widgets.AbstractWidget;
 
 /**
  * Text lookup containing lookup routines for StyledText widget type
  * 
+ * @deprecated Since 1.0.0 use {@link AbstractWidget}
  * @author rhopp
  *
  */

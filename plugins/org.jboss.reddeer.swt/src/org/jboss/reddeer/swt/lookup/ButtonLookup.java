@@ -3,10 +3,12 @@ package org.jboss.reddeer.swt.lookup;
 import org.eclipse.swt.widgets.Button;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.swt.reference.ReferencedComposite;
+import org.jboss.reddeer.swt.widgets.AbstractWidget;
 
 /**
  * Button lookup containing lookup routines for Button widget type
  * @author jjankovi
+ * @deprecated Since 1.0.0 use {@link AbstractWidget}
  *
  */
 public class ButtonLookup {

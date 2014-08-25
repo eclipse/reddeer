@@ -1,8 +1,10 @@
 package org.jboss.reddeer.swt.impl.button;
 
 import org.eclipse.swt.SWT;
+import org.hamcrest.Matcher;
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.swt.handler.ButtonHandler;
+import org.jboss.reddeer.swt.matcher.WithMnemonicTextMatcher;
 import org.jboss.reddeer.swt.reference.ReferencedComposite;
 /**
  * Class represents Button with type Toggle (Checkbox)
@@ -16,10 +18,10 @@ public class CheckBox extends AbstractButton {
 	private static final Logger log = Logger.getLogger(CheckBox.class);
 	
 	/**
-	 * Default constructor
+	 * Checkbox with index 0
 	 */
 	public CheckBox() {
-		this(0);
+		this((ReferencedComposite) null);
 	}
 	
 	/**
@@ -31,30 +33,29 @@ public class CheckBox extends AbstractButton {
 	}
 	
 	/**
-	 * Checkbox with given index
-	 * 
-	 * @param index
-	 */
-	public CheckBox(int index){
-		this(null, index,"");
-	}
-	
-	/**
-	 * Checkbox with given index inside given referencedComposite
-	 * @param referencedComposite
-	 * @param index
-	 */
-	public CheckBox(ReferencedComposite referencedComposite, int index){
-		this(referencedComposite, index,"");
-	}
-	
-	/**
 	 * Checkbox with given text
 	 * 
 	 * @param text
 	 */
 	public CheckBox(String text) {
-		this(null, 0,text);
+		this(null, text);
+	}
+	
+	/**
+	 * Checkbox that matches given matchers
+	 * @param matchers
+	 */
+	public CheckBox(Matcher<?>... matchers) {
+		this(null, matchers);
+	}
+	
+	/**
+	 * Checkbox that matches given matchers
+	 * @param referencedComposite
+	 * @param matchers
+	 */
+	public CheckBox(ReferencedComposite referencedComposite, Matcher<?>... matchers) {
+		this(referencedComposite, 0, matchers);
 	}
 	
 	/**
@@ -63,13 +64,34 @@ public class CheckBox extends AbstractButton {
 	 * @param text
 	 */
 	public CheckBox(ReferencedComposite referencedComposite,String text) {
-		this(referencedComposite, 0,text);
+		this(referencedComposite, 0, new WithMnemonicTextMatcher(text));
+	}
+	
+	/**
+	 * Checkbox with given index that matches given matchers
+	 * 
+	 * @param index
+	 * @param matchers
+	 */
+	public CheckBox(int index, Matcher<?>... matchers){
+		this(null, index, matchers);
+	}
+	
+	/**
+	 * Checkbox with given index inside given referencedComposite that matches given matchers
+	 * @param referencedComposite
+	 * @param index
+	 * @param matchers
+	 */
+	public CheckBox(ReferencedComposite referencedComposite, int index, Matcher<?>... matchers){
+		super(referencedComposite, index, SWT.CHECK, matchers);
 	}
 	
 	/**
 	 * Check Box with given index and text
 	 * @param index
 	 * @param text
+	 * @deprecated Since 1.0.0. This is not a standard widget constructor.
 	 */
 	public CheckBox (int index , String text){
 		super(null, index,text,SWT.CHECK);
@@ -80,6 +102,7 @@ public class CheckBox extends AbstractButton {
 	 * @param index
 	 * @param text
 	 * @param referencedComposite
+	 * @deprecated Since 1.0.0. This is not a standard widget constructor.
 	 */
 	public CheckBox (ReferencedComposite referencedComposite, int index , String text){
 		super(referencedComposite, index,text,SWT.CHECK);
@@ -90,7 +113,7 @@ public class CheckBox extends AbstractButton {
 	 * @return
 	 */
 	public boolean isChecked() {
-		return ButtonHandler.getInstance().isSelected(swtButton);
+		return ButtonHandler.getInstance().isSelected(swtWidget);
 	}
 	
 	/**

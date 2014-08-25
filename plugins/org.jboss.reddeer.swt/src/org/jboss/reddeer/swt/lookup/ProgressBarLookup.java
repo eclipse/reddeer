@@ -3,6 +3,7 @@ package org.jboss.reddeer.swt.lookup;
 import org.eclipse.swt.widgets.ProgressBar;
 import org.hamcrest.Matcher;
 
+@Deprecated // will be removed in 1.0.0. Use AbstractWidget instead
 public class ProgressBarLookup {
 	
 	private static ProgressBarLookup instance = null;

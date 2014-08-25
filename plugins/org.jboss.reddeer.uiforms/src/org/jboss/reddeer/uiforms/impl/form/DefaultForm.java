@@ -3,7 +3,6 @@ package org.jboss.reddeer.uiforms.impl.form;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.swt.matcher.WithTextMatcher;
 import org.jboss.reddeer.swt.reference.ReferencedComposite;
-import org.jboss.reddeer.uiforms.lookup.FormLookup;
 
 /**
  * Represents Eclipse Form. This class will be used mainly for its children discovering
@@ -21,10 +20,10 @@ public class DefaultForm extends AbstractForm {
 	}
 	
 	/**
-	 * Represents the form with the specified order. 
+	 * Represents the form with the specified order that matches given matchers
 	 * @param index
 	 */
-	public DefaultForm(int index) {
+	public DefaultForm(int index, Matcher<?>... matchers) {
 		this(null, index);
 	}
 	
@@ -53,13 +52,12 @@ public class DefaultForm extends AbstractForm {
 	}
 	
 	/**
-	 * Represents the form with the specified order inside specified composite
+	 * Represents the form with the specified order inside specified composite that matches given matchers
 	 * @param referencedComposite
 	 * @param index
 	 */
-	public DefaultForm(ReferencedComposite referencedComposite, int index) {
-		form = FormLookup.getInstance().getForm(referencedComposite, index);
-		setFocus();
+	public DefaultForm(ReferencedComposite referencedComposite, int index, Matcher<?>... matchers) {
+		super(referencedComposite, index, matchers);
 	}
 	
 	/**
@@ -77,7 +75,6 @@ public class DefaultForm extends AbstractForm {
 	 * @param matchers
 	 */
 	public DefaultForm(ReferencedComposite referencedComposite, Matcher<?>... matchers) {
-		form = FormLookup.getInstance().getForm(referencedComposite, 0, matchers);
-		setFocus();
+		this(referencedComposite, 0, matchers);
 	}
 }

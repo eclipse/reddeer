@@ -9,6 +9,7 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.TabFolder;
 import org.eclipse.swt.widgets.TabItem;
+import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.swt.widgets.Widget;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
@@ -231,6 +232,8 @@ public class WidgetHandler {
 			CTabFolderHandler.getInstance().setFocus((CTabFolder) w);
 		} else if (w instanceof TabItem) {
 			TabItemHandler.getInstance().setFocus((TabItem) w);
+		} else if (w instanceof TableItem) {
+			TableItemHandler.getInstance().setFocus((TableItem) w);
 		} else if (w instanceof TabFolder) {
 			TabFolderHandler.getInstance().setFocus((TabFolder) w);
 		} else if (w instanceof Shell) {

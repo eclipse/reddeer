@@ -2,10 +2,12 @@ package org.jboss.reddeer.swt.impl.table;
 
 import java.util.List;
 
+import org.hamcrest.Matcher;
 import org.jboss.reddeer.swt.api.Table;
 import org.jboss.reddeer.swt.api.TableItem;
 import org.jboss.reddeer.swt.condition.TableHasRows;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
+import org.jboss.reddeer.swt.matcher.WithTextMatcher;
 import org.jboss.reddeer.swt.reference.ReferencedComposite;
 import org.jboss.reddeer.swt.wait.WaitUntil;
 
@@ -15,7 +17,7 @@ public class DefaultTableItem extends AbstractTableItem{
 	 * Default constructor
 	 */
 	public DefaultTableItem() {
-		this(0);
+		this((ReferencedComposite) null);
 	}
 	
 	/**
@@ -27,21 +29,23 @@ public class DefaultTableItem extends AbstractTableItem{
 	}
 	
 	/**
-	 * Table item with specified path will be constructed 
+	 * Table item with specified path will be constructed that matches given matchers
 	 * 
 	 * @param tableItem
+	 * @param matchers
 	 */
-	public DefaultTableItem(int itemIndex) {
-		this(0, itemIndex);
+	public DefaultTableItem(int itemIndex, Matcher<?>... matchers) {
+		this(null, itemIndex);
 	}
 	
 	/**
-	 * Table item with specified path inside given composite will be constructed 
+	 * Table item with specified path inside given composite will be constructed that matches given matchers
 	 * @param referencedComposite
 	 * @param tableItem
+	 * @param matchers
 	 */
-	public DefaultTableItem(ReferencedComposite referencedComposite, int itemIndex) {
-		this(referencedComposite, 0, itemIndex);
+	public DefaultTableItem(ReferencedComposite referencedComposite, int itemIndex, Matcher<?>... matchers) {
+		super(referencedComposite, itemIndex, matchers);
 	}
 	
 	/**
@@ -50,7 +54,7 @@ public class DefaultTableItem extends AbstractTableItem{
 	 * @param tableItem
 	 */
 	public DefaultTableItem(String tableItem) {
-		this(0, tableItem);
+		this(null, tableItem);
 	}
 	
 	/**
@@ -59,12 +63,29 @@ public class DefaultTableItem extends AbstractTableItem{
 	 * @param tableItem
 	 */
 	public DefaultTableItem(ReferencedComposite referencedComposite, String tableItem) {
-		this(referencedComposite, 0, tableItem);
+		this(referencedComposite, 0, new WithTextMatcher(tableItem));
+	}
+	
+	/**
+	 * TableItem that matches given matchers
+	 * @param matchers
+	 */
+	public DefaultTableItem(Matcher<?>... matchers) {
+		this(null, matchers);
+	}
+	
+	/**
+	 * TableItem that matches given matchers
+	 * @param referencedComposite
+	 * @param matchers
+	 */
+	public DefaultTableItem(ReferencedComposite referencedComposite, Matcher<?>... matchers) {
+		this(referencedComposite, 0, matchers);
 	}
 	
 	/**
 	 * Table item with specified path will be constructed 
-	 * 
+	 * @deprecated This is not a standard widget constructor. It will be removed in 1.0.0
 	 * @param tableItem
 	 */
 	public DefaultTableItem(int tableIndex, int itemIndex) {
@@ -73,6 +94,7 @@ public class DefaultTableItem extends AbstractTableItem{
 	
 	/**
 	 * Table item with specified path inside given composite will be constructed 
+	 * @deprecated This is not a standard widget constructor. It will be removed in 1.0.0
 	 * @param referencedComposite
 	 * @param tableIndex
 	 * @param itemIndex
@@ -83,7 +105,7 @@ public class DefaultTableItem extends AbstractTableItem{
 	
 	/**
 	 * Tree item with specified tree index and path will be constructed
-	 * 
+	 * @deprecated This is not a standard widget constructor. It will be removed in 1.0.0
 	 * @param treeIndex
 	 * @param treeItemPath
 	 */
@@ -93,6 +115,7 @@ public class DefaultTableItem extends AbstractTableItem{
 	
 	/**
 	 * Tree item with specified tree index and path inside given compoistewill be constructed
+	 * @deprecated This is not a standard widget constructor. It will be removed in 1.0.0
 	 * @param referencedComposite
 	 * @param treeIndex
 	 * @param treeItemPath
@@ -105,7 +128,7 @@ public class DefaultTableItem extends AbstractTableItem{
 		Table table = new DefaultTable(referencedComposite, tableIndex);
 	    new WaitUntil(new TableHasRows(table));
 	    List<TableItem> items = table.getItems();
-	    if(items.size() < itemIndex){
+	    if(itemIndex < items.size()){
 	    	return (org.eclipse.swt.widgets.TableItem)items.get(itemIndex).getSWTWidget();
 	    }
 	    throw new SWTLayerException("Table with index " +tableIndex+ " does not contain table item with index "+itemIndex);

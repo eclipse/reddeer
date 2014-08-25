@@ -1,30 +1,30 @@
 package org.jboss.reddeer.swt.impl.browser;
 
+import org.hamcrest.Matcher;
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.swt.api.Browser;
 import org.jboss.reddeer.swt.condition.PageIsLoaded;
 import org.jboss.reddeer.swt.handler.BrowserHandler;
-import org.jboss.reddeer.swt.handler.WidgetHandler;
 import org.jboss.reddeer.swt.impl.browser.internal.BrowserProgressListener;
+import org.jboss.reddeer.swt.reference.ReferencedComposite;
 import org.jboss.reddeer.swt.wait.AbstractWait;
 import org.jboss.reddeer.swt.wait.TimePeriod;
 import org.jboss.reddeer.swt.wait.WaitUntil;
+import org.jboss.reddeer.swt.widgets.AbstractWidget;
 
 /**
  * Abstract class for all Browsers implementations
  * @author Jiri Peterka
  *
  */
-public abstract class AbstractBrowser implements Browser{
+public abstract class AbstractBrowser extends AbstractWidget<org.eclipse.swt.browser.Browser> implements Browser{
 	
 	private static final Logger log = Logger.getLogger(AbstractBrowser.class);
 	
-	protected org.eclipse.swt.browser.Browser swtBrowser;
-	
 	private BrowserProgressListener browserProgressListener;
 	
-	public AbstractBrowser(org.eclipse.swt.browser.Browser browser) {
-		this.swtBrowser = browser;
+	public AbstractBrowser(ReferencedComposite referencedComposite, int index, Matcher<?>... matchers) {
+		super(org.eclipse.swt.browser.Browser.class, referencedComposite, index, matchers);
 		this.browserProgressListener = new BrowserProgressListener(this);
 	}
 	
@@ -81,13 +81,6 @@ public abstract class AbstractBrowser implements Browser{
 		new WaitUntil(new PageIsLoaded(this));
 		return BrowserHandler.getInstance().getText(this.getSWTWidget());	
 	}
-	/**
-	 * See {@link Browser}
-	 */
-	@Override
-	public org.eclipse.swt.browser.Browser getSWTWidget() {
-		return swtBrowser;
-	}
 	@Override
 	public void refresh() {
 		log.info("Browser refresh");
@@ -100,10 +93,5 @@ public abstract class AbstractBrowser implements Browser{
 	private void resetProgressListener (){
 		BrowserHandler.getInstance().removeProgressListener(this.getSWTWidget(), browserProgressListener);
 		browserProgressListener.setDone(true);
-	}
-
-	@Override
-	public boolean isEnabled() {
-		return WidgetHandler.getInstance().isEnabled(swtBrowser);
 	}
 }

@@ -1,8 +1,10 @@
 package org.jboss.reddeer.swt.impl.button;
 
 import org.eclipse.swt.SWT;
+import org.hamcrest.Matcher;
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.swt.handler.ButtonHandler;
+import org.jboss.reddeer.swt.matcher.WithMnemonicTextMatcher;
 import org.jboss.reddeer.swt.reference.ReferencedComposite;
 /**
  * Toggle Button implementation
@@ -14,10 +16,10 @@ public class ToggleButton extends AbstractButton {
 	private static final Logger log = Logger.getLogger(ToggleButton.class);
 		
 	/**
-	 * Creates Toggle button
+	 * Toggle button with index 0
 	 */
 	public ToggleButton() {
-		this(0);
+		this((ReferencedComposite) null);
 	}
 	
 	/**
@@ -33,7 +35,7 @@ public class ToggleButton extends AbstractButton {
 	 * @param text
 	 */
 	public ToggleButton(String text) {
-		this(null, 0, text);
+		this(null, text);
 	}
 	
 	/**
@@ -42,30 +44,50 @@ public class ToggleButton extends AbstractButton {
 	 * @param text
 	 */
 	public ToggleButton(ReferencedComposite referencedComposite, String text) {
-		this(referencedComposite, 0, text);
+		this(referencedComposite, 0, new WithMnemonicTextMatcher(text));
+	}
+	
+	/**
+	 * Toggle button that matches given matchers
+	 * @param matchers
+	 */
+	public ToggleButton(Matcher<?>... matchers) {
+		this(null, matchers);
+	}
+	
+	/**
+	 * Toggle button that matches given matchers
+	 * @param referencedComposite
+	 * @param matchers
+	 */
+	public ToggleButton(ReferencedComposite referencedComposite, Matcher<?>... matchers) {
+		this(referencedComposite, 0, matchers);
 	}
 	
 	/**
 	 * Creates Toggle button with given index
-	 * @param text
+	 * @param index
+	 * @param matchers
 	 */
-	public ToggleButton(int index) {
-		this(null, index, null);
+	public ToggleButton(int index, Matcher<?>... matchers) {
+		this(null, index, matchers);
 	}
 	
 	/**
 	 * Creates Toggle button with given index inside given composite
 	 * @param referencedComposite
-	 * @param text
+	 * @param index
+	 * @param matchers
 	 */
-	public ToggleButton(ReferencedComposite referencedComposite, int index) {
-		this(referencedComposite, index, null);
+	public ToggleButton(ReferencedComposite referencedComposite, int index, Matcher<?>... matchers) {
+		super(referencedComposite, index, SWT.TOGGLE, matchers);
 	}
 	
 	/**
 	 * Creates Toggle button with given index and label
 	 * @param index of button
 	 * @param label of button
+	 * @deprecated Since 1.0.0. This is not a standard widget constructor.
 	 */
 	public ToggleButton(int index, String text) {
 		super(null, index,text, SWT.TOGGLE);
@@ -76,6 +98,7 @@ public class ToggleButton extends AbstractButton {
 	 * @param referencedComposite
 	 * @param index of button
 	 * @param label of button
+	 * @deprecated Since 1.0.0. This is not a standard widget constructor.
 	 */
 	public ToggleButton(ReferencedComposite referencedComposite, int index, String text) {
 		super(referencedComposite, index,text, SWT.TOGGLE);
@@ -85,7 +108,7 @@ public class ToggleButton extends AbstractButton {
      * @return
      */
 	public boolean isSelected() {
-		return ButtonHandler.getInstance().isSelected(swtButton);
+		return ButtonHandler.getInstance().isSelected(swtWidget);
 	}
 	/**
 	 * Sets Toggle Button to state 'checked'

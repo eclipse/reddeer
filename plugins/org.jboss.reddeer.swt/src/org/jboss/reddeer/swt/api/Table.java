@@ -3,6 +3,7 @@ package org.jboss.reddeer.swt.api;
 import java.util.List;
 
 import org.hamcrest.Matcher;
+import org.jboss.reddeer.swt.reference.ReferencedComposite;
 import org.jboss.reddeer.swt.widgets.Widget;
 
 /**
@@ -11,7 +12,7 @@ import org.jboss.reddeer.swt.widgets.Widget;
  * @author Jiri Peterka
  *
  */
-public interface Table extends Widget {
+public interface Table extends Widget, ReferencedComposite {
 
 	/**
 	 * Returns true if table contains item with specified text.

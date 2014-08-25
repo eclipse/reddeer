@@ -1,32 +1,81 @@
 package org.jboss.reddeer.swt.impl.clabel;
 
-import org.jboss.reddeer.swt.lookup.WidgetLookup;
+import org.hamcrest.Matcher;
 import org.jboss.reddeer.swt.matcher.WithTextMatcher;
+import org.jboss.reddeer.swt.reference.ReferencedComposite;
 
 /**
  * Implements default CLabel widget
- * @author Jiri Peterka, Vlado Pakan
+ * @author Jiri Peterka, Vlado Pakan, Lucia Jelinkova
  *
  */
 public class DefaultCLabel extends AbstractCLabel {
+	
 	/**
-	 * Create DefautScale instance based on first available Scale found
+	 * CLabel with index 0
 	 */
 	public DefaultCLabel() {
-		this(0);
+		this((ReferencedComposite) null);
 	}
+	
 	/**
-	 * Create DefautScale instance matching given text
+	 * CLabel with index 0 inside given composite
+	 * @param referencedComposite
+	 */
+	public DefaultCLabel(ReferencedComposite referencedComposite){
+		this(referencedComposite, 0);
+	}
+	
+	/**
+	 * CLabel with given text
 	 * @param text
 	 */
 	public DefaultCLabel(String text) {
-		super(WidgetLookup.getInstance().activeWidget(null,org.eclipse.swt.custom.CLabel.class,0, new WithTextMatcher(text)));
+		this(null, text);
 	}
+	
 	/**
-	 * Create DefaultScale instance matching given index
-	 * @param index
+	 * CLabel with given text inside given composite
+	 * @param referencedComposite
+	 * @param text
 	 */
-	public DefaultCLabel(int index) {
-		super(WidgetLookup.getInstance().activeWidget(null,org.eclipse.swt.custom.CLabel.class,index));
+	public DefaultCLabel(ReferencedComposite referencedComposite, String text) {
+		this(referencedComposite, 0, new WithTextMatcher(text));
+	}
+	
+	/**
+	 * CLabel that matches given matchers
+	 * @param matchers
+	 */
+	public DefaultCLabel(Matcher<?>... matchers) {
+		this(null, matchers);
+	}
+	
+	/**
+	 * CLabel that matches given matchers
+	 * @param referencedComposite
+	 * @param matchers
+	 */
+	public DefaultCLabel(ReferencedComposite referencedComposite, Matcher<?>... matchers) {
+		this(referencedComposite, 0, matchers);
+	}
+	
+	/**
+	 * CLabel with given index that matches given matchers
+	 * @param index
+	 * @param matchers
+	 */
+	public DefaultCLabel(int index, Matcher<?>... matchers) {
+		this(null, index, matchers);
+	}
+	
+	/**
+	 * CLabel with given index inside given composite that matches given matchers
+	 * @param referencedComposite
+	 * @param index
+	 * @param matchers
+	 */
+	public DefaultCLabel(ReferencedComposite referencedComposite, int index, Matcher<?>... matchers) {
+		super(referencedComposite, index, matchers);
 	}
 }

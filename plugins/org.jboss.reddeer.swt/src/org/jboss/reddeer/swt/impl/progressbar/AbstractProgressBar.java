@@ -1,10 +1,9 @@
 package org.jboss.reddeer.swt.impl.progressbar;
 
-import org.jboss.reddeer.common.logging.Logger;
+import org.hamcrest.Matcher;
 import org.jboss.reddeer.swt.api.ProgressBar;
-import org.jboss.reddeer.swt.handler.WidgetHandler;
-import org.jboss.reddeer.swt.lookup.ProgressBarLookup;
-import org.jboss.reddeer.swt.matcher.WithStyleMatcher;
+import org.jboss.reddeer.swt.reference.ReferencedComposite;
+import org.jboss.reddeer.swt.widgets.AbstractWidget;
 
 /**
  * Abstract class for ProgressBar
@@ -13,19 +12,12 @@ import org.jboss.reddeer.swt.matcher.WithStyleMatcher;
  *
  */
 
-public abstract class AbstractProgressBar implements ProgressBar {
+public abstract class AbstractProgressBar extends AbstractWidget<org.eclipse.swt.widgets.ProgressBar> implements ProgressBar {
 	
-	private static final Logger log = Logger.getLogger(AbstractProgressBar.class);
-	
-	protected org.eclipse.swt.widgets.ProgressBar widget;
-
-	protected AbstractProgressBar(int index, int style) {
-		log.debug("Searching for ProgressBar:"
-				+ "\n  index: " + index
-				+ "\n  style: " + style);
-		widget = ProgressBarLookup.getInstance().getProgressBar(index, new WithStyleMatcher(style));
+	protected AbstractProgressBar(ReferencedComposite refComposite, int index, Matcher<?>... matchers){
+		super(org.eclipse.swt.widgets.ProgressBar.class, null, index, matchers);
 	}
-
+	
 	/**
 	 * Returns state of this progressbar. One of SWT.NORMAL, SWT.ERROR, SWT.PAUSED. 
 	 * Note: This operation is a hint and is not supported on platforms that do not have this concept.
@@ -33,16 +25,6 @@ public abstract class AbstractProgressBar implements ProgressBar {
 	
 	@Override
 	public int getState() {
-		return ProgressBarHandler.getInstance().getState(widget);
+		return ProgressBarHandler.getInstance().getState(swtWidget);
 	}
-	
-	public org.eclipse.swt.widgets.ProgressBar getSWTWidget(){
-		return widget;
-	}
-	
-	@Override
-	public boolean isEnabled() {
-		return WidgetHandler.getInstance().isEnabled(widget);
-	}
-
 }
