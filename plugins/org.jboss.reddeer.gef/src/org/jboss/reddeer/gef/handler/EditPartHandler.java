@@ -37,7 +37,7 @@ public class EditPartHandler {
 	 *            Edit part
 	 */
 	public void select(final EditPart editPart) {
-		Display.getDisplay().syncExec(new Runnable() {
+		Display.syncExec(new Runnable() {
 			@Override
 			public void run() {
 				editPart.getViewer().select(editPart);
@@ -52,11 +52,17 @@ public class EditPartHandler {
 	 *            Edit part
 	 */
 	public void directEdit(final EditPart editPart) {
-		Display.getDisplay().syncExec(new Runnable() {
+		Display.asyncExec(new Runnable() {
 			@Override
 			public void run() {
 				DirectEditRequest request = new DirectEditRequest();
 				editPart.performRequest(request);
+			}
+		});
+		Display.syncExec(new Runnable() {
+			@Override
+			public void run() {
+				
 			}
 		});
 	}
