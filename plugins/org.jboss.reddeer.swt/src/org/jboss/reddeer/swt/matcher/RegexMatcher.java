@@ -27,8 +27,8 @@ public class RegexMatcher extends TypeSafeMatcher<String> {
 
 	@Override
 	public void describeTo(Description description) {
-		description.appendText("matches regular expression of \"" + regex
-				+ "\"");
+		description.appendText("matches regular expression \"" +
+			(regex == null ? "null" : regex)	+ "\"");
 	}
 
 	@Override
@@ -38,7 +38,8 @@ public class RegexMatcher extends TypeSafeMatcher<String> {
 
 	@Override
 	public String toString() {
-		return "Matcher matching text to given regular expression";
+		return "Matcher matching text to regular expression '" +
+			(regex == null ? "null" : regex) + "'";
 	}
 
 }
