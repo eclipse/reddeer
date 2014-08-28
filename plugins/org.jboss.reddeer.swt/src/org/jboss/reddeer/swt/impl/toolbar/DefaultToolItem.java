@@ -80,7 +80,7 @@ public class DefaultToolItem extends AbstractToolItem {
 	 */
 
 	public DefaultToolItem(int index, String tooltip) {
-		this(null, index, new WithTooltipTextMatcher("tooltip"));
+		this(null, index, new WithTooltipTextMatcher(tooltip));
 	}
 
 	/**
