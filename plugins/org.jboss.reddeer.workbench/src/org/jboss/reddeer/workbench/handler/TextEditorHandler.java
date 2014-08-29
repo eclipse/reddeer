@@ -287,8 +287,25 @@ public class TextEditorHandler {
 			}
 		});
 	}
-    
-    
+
+	public void setCursorPosition(final ITextEditor editor, final int line,
+			final int column) {
+		Display.syncExec(new Runnable() {
+
+			@Override
+			public void run() {
+				int lineOffset = 0;
+				try {
+					lineOffset = getDocument(editor).getLineOffset(line);
+				} catch (BadLocationException e) {
+					throw new WorkbenchLayerException("Unable to select line"
+							+ line + " and column " + column);
+				}
+				editor.selectAndReveal(lineOffset + column, 0);
+			}
+
+		});
+	}
 
     /**
      * returns IDocument element for given ITextEditor
