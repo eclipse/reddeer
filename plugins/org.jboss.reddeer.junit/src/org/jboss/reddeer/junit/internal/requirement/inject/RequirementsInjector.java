@@ -1,5 +1,7 @@
 package org.jboss.reddeer.junit.internal.requirement.inject;
 
+import static java.lang.reflect.Modifier.isStatic;
+
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -18,12 +20,34 @@ import org.jboss.reddeer.junit.requirement.inject.RequirementInjectionException;
  */
 public class RequirementsInjector {
 
+	/**
+	 * Injects non-static requirements.
+	 * 
+	 * @param testInstance test instance
+	 * @param requirements requirements
+	 */
 	public void inject(Object testInstance, Requirements requirements) {
 		for (Field field : getFields(testInstance.getClass())) {
-			if (field.isAnnotationPresent(InjectRequirement.class)) {
+			if (field.isAnnotationPresent(InjectRequirement.class) && !isStatic(field.getModifiers())) {
 				Requirement<?> requirement = loadProperRequirement(field, requirements);
 				field.setAccessible(true);
 				setField(field, testInstance, requirement);
+			}
+		}
+	}
+	
+	/**
+	 * Injects static requirements.
+	 * 
+	 * @param testClass test class
+	 * @param requirements requirements
+	 */
+	public void inject(Class<?> testClass, Requirements requirements) {
+		for (Field field : getFields(testClass)) {
+			if (field.isAnnotationPresent(InjectRequirement.class) && isStatic(field.getModifiers())) {
+				Requirement<?> requirement = loadProperRequirement(field, requirements);
+				field.setAccessible(true);
+				setField(field, null, requirement);
 			}
 		}
 	}

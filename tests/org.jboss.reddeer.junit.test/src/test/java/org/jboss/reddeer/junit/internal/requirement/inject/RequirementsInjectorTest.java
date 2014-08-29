@@ -80,6 +80,13 @@ public class RequirementsInjectorTest {
 		
 		requirementsInjection.inject(testInstance, requirements);
 	}
+	
+	@Test
+	public void testStaticRequirementInjection() {
+		requirementsInjection.inject(StaticRequirementTestMock.class, requirements);
+
+		assertThat(StaticRequirementTestMock.getRequirementA().getA(), is("1"));
+	}
 
 	private static List<Requirement<?>> asList(Requirement<?>... requirements) {
 		return Arrays.asList(requirements);
