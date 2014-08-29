@@ -168,13 +168,25 @@ public class TextEditor extends AbstractEditor implements Editor {
 	public int getPositionOfText(String text) {
 		return getPositionOfText(text, 0);
 	}
-	
+
+	/**
+	 * Sets position of the cursor to the specified <var>line</var> and
+	 * <var>column</var>.
+	 * 
+	 * @param line line, in which the cursor will be located
+	 * @param column column in the line (greater than or equal to 0)
+	 */
+	public void setCursorPosition(int line, int column) {
+		TextEditorHandler.getInstance().setCursorPosition(getTextEditorPart(),
+				line, column);
+	}
+
 	/**
 	 * Gets position of first character of specified text in specified editor.
 	 * 
 	 * @param text to get position of
 	 * @param index of text
-	 * @param offset of text, -1 if text was not found
+	 * @return offset of text, -1 if text was not found
 	 */
 	public int getPositionOfText(String text, int index) {
 		return TextEditorHandler.getInstance().getPositionOfText(getTextEditorPart(), text, index);

@@ -104,6 +104,20 @@ public class TextEditorTest {
 	}
 	
 	@Test
+	public void setCursorPosition(){
+		final String firstLine = "package test;";
+		final String firstLineAppend = "//TEST";
+		openJavaFile();
+		TextEditor textEditor = new TextEditor();
+		textEditor.activate();
+		textEditor.setCursorPosition(0, firstLine.length());
+		KeyboardFactory.getKeyboard().type(firstLineAppend);
+		String text = textEditor.getText();
+		assertTrue("Editor doesn't contain expected text at expected position\n"
+						+ text, text.startsWith(firstLine + firstLineAppend));
+	}
+	
+	@Test
 	public void contentAssist(){
 		openJavaFile();
 		TextEditor textEditor = new TextEditor();
