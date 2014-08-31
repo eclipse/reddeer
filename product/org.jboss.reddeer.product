@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?pde version="3.5"?>
 
-<product name="JBoss Red Deer" uid="org.jboss.reddeer.product" id="org.eclipse.platform.ide" version="0.6.0.qualifier" useFeatures="true" includeLaunchers="true">
+<product name="JBoss Red Deer" uid="RedDeerIDE" id="org.eclipse.platform.ide" application="org.eclipse.ui.ide.workbench" version="0.6.0.qualifier" useFeatures="true" includeLaunchers="true">
+
+   <aboutInfo>
+      <text>
+         Red Deer Test
+
+Cool Description
+      </text>
+   </aboutInfo>
 
    <configIni use="default">
    </configIni>
@@ -11,15 +19,28 @@
       </vmArgsMac>
    </launcherArgs>
 
+   <windowImages/>
+
+   <splash
+      location="org.jboss.reddeer.branding"
+      startupProgressRect="5,275,445,15"
+      startupMessageRect="7,252,445,20"
+      startupForegroundColor="FF0000" />
+   <launcher name="reddeer">
+      <solaris/>
+      <win useIco="false">
+         <bmp/>
+      </win>
+   </launcher>
+
+   <vm>
+   </vm>
+
    <plugins>
    </plugins>
 
    <features>
-      <feature id="org.eclipse.epp.package.jee.feature"/>
-      <feature id="org.jboss.reddeer.swt.feature"/>
-      <feature id="org.jboss.reddeer.eclipse.feature"/>
-      <feature id="org.jboss.reddeer.graphiti.feature"/>
-      <feature id="org.jboss.reddeer.examples.feature"/>
+      <feature id="org.jboss.reddeer.ide.feature"/>
    </features>
 
    <configurations>

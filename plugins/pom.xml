@@ -30,6 +30,7 @@
 		<module>org.jboss.reddeer.requirements</module>
 		<module>org.jboss.reddeer.ui</module>
 		<module>org.jboss.reddeer.recorder</module>
+		<module>org.jboss.reddeer.branding</module>
 	</modules>
 	
 </project>

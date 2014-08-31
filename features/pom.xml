@@ -23,6 +23,7 @@
 		<module>org.jboss.reddeer.recorder.feature</module>
 		<module>org.jboss.reddeer.junit.extension.feature</module>
 		<module>org.jboss.reddeer.graphiti.feature</module>
+		<module>org.jboss.reddeer.ide.feature</module>
 	</modules>
 	
 </project>
