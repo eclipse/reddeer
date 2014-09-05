@@ -67,11 +67,15 @@ public class CloseAllShellsExt implements IAfterTest {
 			
 			closedShellsTitles.add(shellTitle);
 			try {
-				String canonicalName = null;
-				if (target != null) {
-					canonicalName = target.getClass().getCanonicalName();
-				}
-				new CaptureScreenshot().captureScreenshot(canonicalName + "-" + shellTitle);
+				String fileName;
+				if (target == null) {
+        			fileName = "UnknownTestClass@CloseAllShellsExt#" + shellTitle;
+        		} else {
+        			fileName = target.getClass().getSimpleName()
+        					+ "@CloseAllShellsExt#" + shellTitle + "["
+        					+ target.getClass().getPackage().getName() + "]";
+        		}
+				new CaptureScreenshot().captureScreenshot(null, fileName);
 			} catch (CaptureScreenshotException e) {
 				e.printStackTrace();
 			}

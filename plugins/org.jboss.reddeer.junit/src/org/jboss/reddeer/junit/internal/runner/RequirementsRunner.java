@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
+import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.junit.extensionpoint.IAfterTest;
 import org.jboss.reddeer.junit.extensionpoint.IBeforeTest;
 import org.jboss.reddeer.junit.internal.requirement.Requirements;
@@ -12,7 +13,6 @@ import org.jboss.reddeer.junit.internal.requirement.inject.RequirementsInjector;
 import org.jboss.reddeer.junit.internal.screenrecorder.ScreenRecorderExt;
 import org.jboss.reddeer.junit.internal.screenshot.CaptureScreenshot;
 import org.jboss.reddeer.junit.internal.screenshot.CaptureScreenshotException;
-import org.jboss.reddeer.common.logging.Logger;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -31,7 +31,7 @@ import org.junit.runners.model.Statement;
  * Fulfills the requirements before {@link BeforeClass} is called and
  * injects requirements to proper injection points 
  * 
- * @author Lucia Jelinkova, Vlado Pakan
+ * @author Lucia Jelinkova, Vlado Pakan, mlabuda@redhat.com
  *
  */
 public class RequirementsRunner extends BlockJUnit4ClassRunner {
@@ -70,14 +70,6 @@ public class RequirementsRunner extends BlockJUnit4ClassRunner {
 	
 	public RequirementsRunner(Class<?> clazz, Requirements requirements, String configId) throws InitializationError {
 		this(clazz,requirements,configId,null,null);
-	}
-
-	@Override
-	protected Statement withBeforeClasses(Statement statement) {
-        List<FrameworkMethod> befores = getTestClass().getAnnotatedMethods(BeforeClass.class);
-        Statement s = befores.isEmpty() ? statement : new RunBefores(statement, befores, null);
-		runBeforeTest();
-		return new FulfillRequirementsStatement(requirements, s);
 	}
 	
 	@Override
@@ -279,7 +271,9 @@ public class RequirementsRunner extends BlockJUnit4ClassRunner {
 	    			!annotation.expected().getName().equals(t.getClass().getName())) {
 		    			CaptureScreenshot screenshot = new CaptureScreenshot();
 		    			try {
-		    				screenshot.captureScreenshot(fTarget.getClass().getCanonicalName() + "-" + fTestMethod.getName());	    			
+		    				String fileName = fTarget.getClass().getSimpleName() + "#"
+		    						+ fTestMethod.getName() + "[" + fTarget.getClass().getPackage() + "]";
+		    				screenshot.captureScreenshot(configId, fileName);	    			
 		    			} catch (CaptureScreenshotException ex) {
 		    				ex.printInfo(log);
 		    			}
@@ -300,7 +294,7 @@ public class RequirementsRunner extends BlockJUnit4ClassRunner {
             Statement statement) {
         List<FrameworkMethod> afters = getTestClass().getAnnotatedMethods(After.class);
         return afters.isEmpty() && afterTestExtensions.isEmpty() ? statement :
-            new RunAfters(statement, afters, target, afterTestExtensions);
+            new RunAfters(configId, method, statement, afters, target, afterTestExtensions, getTestClass());
     }
 		
 	@Override
@@ -308,8 +302,8 @@ public class RequirementsRunner extends BlockJUnit4ClassRunner {
             Statement statement) {
         List<FrameworkMethod> befores = getTestClass().getAnnotatedMethods(
                 Before.class);
-        return befores.isEmpty() ? statement : new RunBefores(statement,
-                befores, target);
+        return befores.isEmpty() ? statement : new RunBefores(configId, method, statement,
+                befores, target, getTestClass());
     }
 	
 	@Override
@@ -317,7 +311,16 @@ public class RequirementsRunner extends BlockJUnit4ClassRunner {
         List<FrameworkMethod> afters = getTestClass()
                 .getAnnotatedMethods(AfterClass.class);
         return afters.isEmpty() && afterTestExtensions.isEmpty() ? statement :
-                new RunAfters(statement, afters, null);
+                new RunAfters(configId, null, statement, afters, null, getTestClass());
     }
+	
+	@Override
+	protected Statement withBeforeClasses(Statement statement) {
+        List<FrameworkMethod> befores = getTestClass().getAnnotatedMethods(BeforeClass.class);
+        Statement s = befores.isEmpty() ? statement : new RunBefores(configId, null, statement, befores, 
+        		null, getTestClass());
+		runBeforeTest();
+		return new FulfillRequirementsStatement(requirements, s);
+	}
 
 }
