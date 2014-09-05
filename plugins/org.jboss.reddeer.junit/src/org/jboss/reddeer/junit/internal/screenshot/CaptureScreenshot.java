@@ -11,8 +11,10 @@ import org.eclipse.swt.widgets.Display;
 import org.jboss.reddeer.common.logging.Logger;
 
 /**
- * This class provide capabilities to capture screenshot of display. User can override default image screenshot folder <i>./target/screenshots</i> by 
- * definition of relative screenshot directory in property <i>-DrelativeScreenshotDirectory</i>. Screenshots are captured in following cases:<ul>
+ * This class provide capabilities to capture screenshot of display. User can override default 
+ * image screenshot folder <i>./target/screenshots</i> by definition of relative screenshot 
+ * directory in property <i>relativeScreenshotDirectory</i>. Screenshots are captured in 
+ * following cases:<ul>
  * <li>BeforeClass method fails
  * <li>Before method fails
  * <li>Test method fails (exception is thrown, assertion failed, expected exception was not thrown etc.)
@@ -30,15 +32,20 @@ public class CaptureScreenshot {
 	private String fileName;
 	
 	/**
-	 * Provide capturing screenshot. At first method try to create path to specific directory (default or defined by property). 
-	 * If something goes wrong, process is stopped (e.g. cannot create directory structure). This should not happen, only in unpredicted situations.
-	 * Generally creation of directory structure pass and screenshot of display(s) is taken.
+	 * Provides capturing a screenshot. At first method try to create path to the specific directory 
+	 * (default or defined by property). If something goes wrong (e.g. cannot create directory structure),
+	 * the process is stopped. This should not happen, only in unpredicted situations.
+	 * Generally creation of directory structure pass and screenshot of the display(s) is taken.
 	 * 
-	 * @param String name file name of screenshot
+	 * File name is altered in case of existence screenshot with the given file name. Alteration 
+	 * consists of number in braces in postfix.
+	 * 
+	 * @param name file name of screenshot
+	 * @param config configuration file under which the test is running
 	 * @throws CaptureScreenshotException on occurrence of any exception
 	 * @since 0.5 
 	 */
-	public void captureScreenshot(String name) throws CaptureScreenshotException {
+	public void captureScreenshot(String config, String name) throws CaptureScreenshotException {
 		try {
 			String separator = System.getProperty("file.separator");
 			String path = "." + separator + "target" + separator + "screenshots";
@@ -79,6 +86,16 @@ public class CaptureScreenshot {
 						}
 					}
 				}
+				
+				// Create a directory for screenshots, if configuration is set
+				if (config != null) {
+					path += separator + config + separator;
+					if (!new File(path).exists()) {
+						if (!new File(path).mkdir()) {
+							pathCreatedSuccessfuly = false;
+						}
+					}
+				}
 			} catch (SecurityException ex) { 
 				pathCreatedSuccessfuly = false;
 			}
@@ -86,7 +103,20 @@ public class CaptureScreenshot {
 			// If path has been created successfully screenshots can be captured
 			if (pathCreatedSuccessfuly) {
 				final Display display = Display.getDefault();
-				fileName = path + name + ".png";
+				
+				// Set file name or alter it in case of existence of such file
+				int counter = 1;
+				String partiallyFileName = path + name;
+				String fileNameExtension = ".png";
+				if (new File(partiallyFileName + fileNameExtension).exists()) {
+					while (new File(partiallyFileName + "(" + counter + ")" + fileNameExtension).exists()) {
+						counter++;
+					}
+					fileName = partiallyFileName + "(" + counter + ")" + fileNameExtension;
+				} else {
+					fileName = partiallyFileName + fileNameExtension;
+				}
+				
 				display.syncExec(new Runnable() {
 					@Override
 					public void run() {
@@ -122,6 +152,9 @@ public class CaptureScreenshot {
 						
 					}
 				});
+			} else {
+				throw new CaptureScreenshotException("Screenshot could not be created, " 
+						+ "because required folders where to store screenshot has not been created");
 			}
 		} catch (Exception ex) {
 			throw new CaptureScreenshotException(ex.getMessage(), ex.getCause());
