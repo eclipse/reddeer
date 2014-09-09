@@ -4,10 +4,8 @@
 package ${package}.reddeer.test;
 
 import static org.junit.Assert.assertTrue;
-
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.junit.Test;
-
 
 public class BasicTest {
 	
