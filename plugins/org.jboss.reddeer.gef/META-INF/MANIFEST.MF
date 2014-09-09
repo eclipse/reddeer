@@ -18,6 +18,7 @@ Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: org.jboss.reddeer.gef,
  org.jboss.reddeer.gef.api,
+ org.jboss.reddeer.gef.condition,
  org.jboss.reddeer.gef.editor,
  org.jboss.reddeer.gef.impl.connection,
  org.jboss.reddeer.gef.impl.editpart,

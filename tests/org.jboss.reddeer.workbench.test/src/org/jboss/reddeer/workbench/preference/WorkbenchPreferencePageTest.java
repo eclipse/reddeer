@@ -16,7 +16,7 @@ import org.junit.runner.RunWith;
 public class WorkbenchPreferencePageTest {
 
 	private static final String PAGE_NAME = TestingPreferencePage.TITLE;
-	
+
 	private WorkbenchPreferencePage preferencePage;
 
 	@Before
@@ -34,7 +34,7 @@ public class WorkbenchPreferencePageTest {
 		assertThat(shell.getText(), is(WorkbenchPreferencePage.DIALOG_TITLE));
 		assertThat(preferencePage.getName(), is(PAGE_NAME));
 	}
-	
+
 	@Test
 	public void open_preferenceOpen(){
 		preferencePage.open();
@@ -44,7 +44,16 @@ public class WorkbenchPreferencePageTest {
 		assertThat(shell.getText(), is(WorkbenchPreferencePage.DIALOG_TITLE));
 		assertThat(preferencePage.getName(), is(PAGE_NAME));
 	}
-	
+
+	@Test
+	public void getPath() {
+		String[] path = preferencePage.getPath();
+		assertThat(path.length, is(3));
+		assertThat(path[0], is(TestingPreferencePage.TestTopCategory.TOP_CATEGORY));
+		assertThat(path[1], is(TestingPreferencePage.TestCategory.CATEGORY));
+		assertThat(path[2], is(PAGE_NAME));
+	}
+
 	@After
 	public void cleanup(){
 		Shell shell = null;
@@ -56,9 +65,8 @@ public class WorkbenchPreferencePageTest {
 		}
 		shell.close();
 	}
-	
-	class PreferencePageImpl extends WorkbenchPreferencePage {
 
+	class PreferencePageImpl extends WorkbenchPreferencePage {
 		public PreferencePageImpl(String... path) {
 			super(path);
 		}

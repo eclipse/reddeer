@@ -1,5 +1,6 @@
 package org.jboss.reddeer.graphiti.handler;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,12 +12,11 @@ import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.tb.IContextButtonEntry;
 import org.eclipse.graphiti.tb.IContextButtonPadData;
 import org.eclipse.graphiti.tb.IToolBehaviorProvider;
-import org.eclipse.graphiti.ui.platform.GraphitiShapeEditPart;
+import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.graphiti.GraphitiLayerException;
 import org.jboss.reddeer.graphiti.api.ContextButton;
 import org.jboss.reddeer.graphiti.impl.contextbutton.internal.BasicContextButton;
 import org.jboss.reddeer.graphiti.lookup.DiagramEditorLookup;
-import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.swt.util.Display;
 import org.jboss.reddeer.swt.util.ResultRunnable;
 
@@ -131,10 +131,15 @@ public class GraphitiEditPartHandler {
 
 	private PictogramContext createPictogramContext(final org.eclipse.gef.EditPart part) {
 		PictogramElement pe = null;
-		if (part instanceof GraphitiShapeEditPart) {
-			GraphitiShapeEditPart gsed = (GraphitiShapeEditPart) part;
-			pe = gsed.getPictogramElement();
+		
+		try {
+			Method method = part.getClass().getMethod("getPictogramElement");
+			Object obj = method.invoke(part);
+			pe = (PictogramElement) obj;
+		} catch (Exception e) {
+			throw new RuntimeException("Cannot create PictogramElementContext", e);
 		}
+		
 		if (pe == null) {
 			throw new RuntimeException("Cannot create PictogramElementContext, pe is null");
 		}

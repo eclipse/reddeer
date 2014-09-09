@@ -15,23 +15,25 @@ import org.jboss.reddeer.swt.lookup.ShellLookup;
 import org.jboss.reddeer.swt.util.Display;
 import org.jboss.reddeer.swt.util.ResultRunnable;
 import org.jboss.reddeer.swt.wait.WaitWhile;
+import org.jboss.reddeer.workbench.preference.WorkbenchPreferencePage;
 
 /**
- * Workbench Preference Dialog implementation. 
- * @author Jiri Peterka
+ * Workbench Preference Dialog implementation.
  *
+ * @author Jiri Peterka
+ * @author Radoslav Rabara
+ * @since 0.6
  */
 public class WorkbenchPreferenceDialog {
-	
+
 	public static final String DIALOG_TITLE = "Preferences";
 
 	protected final Logger log = Logger.getLogger(this.getClass());
 
-
 	/**
 	 * Opens Preference Dialog.
 	 */
-	public void open(){
+	public void open() {
 		// if preferences dialog is not open, open it
 		log.info("Open Preferences dialog");
 
@@ -55,12 +57,29 @@ public class WorkbenchPreferenceDialog {
 			menu.select();
 		}
 	}
-	
+
 	/**
-	 * Opens selected page under Preference Dialog
-	 * @param path given path to preference
+	 * Selects the specified workbench preference page <var>page</var>.
+	 * @param page preference page to be opened
 	 */
-	public void open(String... path) {
+	public void select(WorkbenchPreferencePage page) {
+		if (page == null) {
+			throw new IllegalArgumentException("page can't be null");
+		}
+		select(page.getPath());
+	}
+
+	/**
+	 * Selects preference page with the specified <var>path</var>.
+	 * @param path path in preference shell tree to specific preference page
+	 */
+	public void select(String... path) {
+		if (path == null) {
+			throw new IllegalArgumentException("path can't be null");
+		}
+		if (path.length == 0) {
+			throw new IllegalArgumentException("path can't be empty");
+		}
 		open();
 		new DefaultShell(DIALOG_TITLE);
 		TreeItem t = new DefaultTreeItem(path);
@@ -97,10 +116,10 @@ public class WorkbenchPreferenceDialog {
 	
 	/**
 	 * Checks if Workbench Preference dialog is opened.
+	 * @return true if the dialog is opened, false otherwise
 	 */
 	public boolean isOpen() {
 		Shell shell = ShellLookup.getInstance().getShell(DIALOG_TITLE);
 		return (shell != null);		
 	}
-	
 }

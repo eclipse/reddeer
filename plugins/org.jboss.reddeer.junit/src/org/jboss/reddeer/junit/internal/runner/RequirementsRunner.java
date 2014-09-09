@@ -65,6 +65,7 @@ public class RequirementsRunner extends BlockJUnit4ClassRunner {
 		this.runListeners = runListeners;
 		this.beforeTestExtensions = beforeTestExtensions;
 		this.afterTestExtensions = afterTestExtensions;
+		this.requirementsInjector.inject(clazz, requirements);
 	}
 	
 	public RequirementsRunner(Class<?> clazz, Requirements requirements, String configId) throws InitializationError {
