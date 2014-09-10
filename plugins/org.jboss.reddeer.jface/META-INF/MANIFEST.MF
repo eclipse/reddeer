@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: RedDeer JFace Componnet
 Bundle-Vendor: JBoss by Red Hat
 Bundle-SymbolicName: org.jboss.reddeer.jface
-Bundle-Version: 0.6.0.qualifier
+Bundle-Version: 0.6.0
 Bundle-Activator: org.jboss.reddeer.jface.Activator
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
