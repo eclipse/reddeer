@@ -3,20 +3,20 @@ Bundle-ManifestVersion: 2
 Bundle-Name: RedDeer Workbench Component Tests
 Bundle-Vendor: JBoss by Red Hat
 Bundle-SymbolicName: org.jboss.reddeer.workbench.test;singleton:=true
-Bundle-Version: 0.6.0
+Bundle-Version: 0.7.0.qualifier
 Bundle-Activator: org.jboss.reddeer.workbench.test.Activator
 Require-Bundle: org.eclipse.ui,
- org.jboss.reddeer.workbench;bundle-version="[0.6,0.7)",
- org.jboss.reddeer.swt;bundle-version="[0.6,0.7)",
+ org.jboss.reddeer.workbench;bundle-version="[0.7,0.8)",
+ org.jboss.reddeer.swt;bundle-version="[0.7,0.8)",
  org.eclipse.core.runtime,
  org.junit;bundle-version="4.11.0",
- org.jboss.reddeer.eclipse;bundle-version="[0.6,0.7)",
- org.jboss.reddeer.jface;bundle-version="[0.6,0.7)",
+ org.jboss.reddeer.eclipse;bundle-version="[0.7,0.8)",
+ org.jboss.reddeer.jface;bundle-version="[0.7,0.8)",
  org.eclipse.jface.text;bundle-version="3.8.100",
- org.jboss.reddeer.junit.extension;bundle-version="[0.6,0.7)",
- org.jboss.reddeer.direct;bundle-version="[0.6,0.7)",
- org.jboss.reddeer.common;bundle-version="[0.6,0.7)",
- org.jboss.reddeer.junit;bundle-version="[0.6.0,0.7.0)",
+ org.jboss.reddeer.junit.extension;bundle-version="[0.7,0.8)",
+ org.jboss.reddeer.direct;bundle-version="[0.7,0.8)",
+ org.jboss.reddeer.common;bundle-version="[0.7,0.8)",
+ org.jboss.reddeer.junit;bundle-version="[0.7,0.8)",
  org.eclipse.jdt
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
