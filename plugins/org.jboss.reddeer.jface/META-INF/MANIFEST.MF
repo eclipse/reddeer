@@ -3,14 +3,14 @@ Bundle-ManifestVersion: 2
 Bundle-Name: RedDeer JFace Componnet
 Bundle-Vendor: JBoss by Red Hat
 Bundle-SymbolicName: org.jboss.reddeer.jface
-Bundle-Version: 0.6.0
+Bundle-Version: 0.7.0.qualifier
 Bundle-Activator: org.jboss.reddeer.jface.Activator
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
- org.jboss.reddeer.swt;bundle-version="[0.6,0.7)",
+ org.jboss.reddeer.swt;bundle-version="[0.7,0.8)",
  org.hamcrest.core;bundle-version="1.3.0",
- org.jboss.reddeer.junit;bundle-version="[0.6,0.7)",
- org.jboss.reddeer.common;bundle-version="[0.6,0.7)"
+ org.jboss.reddeer.junit;bundle-version="[0.7,0.8)",
+ org.jboss.reddeer.common;bundle-version="[0.7,0.8)"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: org.jboss.reddeer.eclipse.jface.exception,
