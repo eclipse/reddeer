@@ -60,6 +60,30 @@ public class AnnotationsFinderTest {
 		assertThat(annotations, hasItem(new AnnotationClassMatcher(AnnotationB.class)));
 	}
 
+	@Test
+	public void withNoMatchedAnnotationSuperClass() {
+		List<Annotation> annotations = finder.find(WithNoMatchedAnnotationSuperClass.class);
+
+		assertEquals(0, annotations.size());
+	}
+
+	@Test
+	public void withMatchedAnnotationSuperClass() {
+		List<Annotation> annotations = finder.find(WithMatchedAnnotationSuperClass.class);
+
+		assertEquals(1, annotations.size());
+		assertThat(annotations, hasItem(new AnnotationClassMatcher(AnnotationA.class)));
+	}
+
+	@Test
+	public void multipleAnnotationsClassWithMatcherAnnotationSuperClass() {
+		List<Annotation> annotations = finder.find(MultipleAnnotationClassWithMatcherAnnotationSuperClass.class);
+
+		assertEquals(2, annotations.size());
+		assertThat(annotations, hasItem(new AnnotationClassMatcher(AnnotationA.class)));
+		assertThat(annotations, hasItem(new AnnotationClassMatcher(AnnotationB.class)));
+	}
+
 	class NoAnnotationsClass {
 
 	}
@@ -82,7 +106,23 @@ public class AnnotationsFinderTest {
 	class MultipleAnnotationsClass {
 
 	}
-	
+
+	class WithNoMatchedAnnotationSuperClass extends NoMatchedAnnotationClass {
+
+	}
+
+	class WithMatchedAnnotationSuperClass extends MatchedAnnotationClass {
+
+	}
+
+	@AnnotationA
+	@RunWith(Runner.class)
+	@AnnotationB
+	@Ignore
+	class MultipleAnnotationClassWithMatcherAnnotationSuperClass extends MatchedAnnotationClass {
+
+	}
+
 	@Retention(RetentionPolicy.RUNTIME)
 	@Target(ElementType.TYPE)
 	@interface AnnotationA {

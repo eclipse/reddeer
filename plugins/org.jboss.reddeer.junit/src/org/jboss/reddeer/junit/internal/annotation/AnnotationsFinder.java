@@ -22,14 +22,22 @@ public class AnnotationsFinder {
 		this.annotationMatcher = annotationMatcher;
 	}
 
-	public List<Annotation> find(Class<?> clazz){
+	public List<Annotation> find(Class<?> clazz) {
 		List<Annotation> annotations = new ArrayList<Annotation>();
-		
-		for (Annotation annotation : clazz.getAnnotations()){
-			if (annotationMatcher.matches(annotation)){
-				annotations.add(annotation);
+		List<Class<?>> present = new ArrayList<Class<?>>();
+		do {
+			for (Annotation annotation : clazz.getAnnotations()) {
+				if (annotationMatcher.matches(annotation)) {
+					boolean annotationIsAddedFromSubclass = present
+							.contains(annotation.getClass());
+					if (!annotationIsAddedFromSubclass) {
+						annotations.add(annotation);
+						present.add(annotation.getClass());
+					}
+				}
 			}
-		}
+			clazz = clazz.getSuperclass();
+		} while(clazz != null);
 		
 		return annotations;
 	}
