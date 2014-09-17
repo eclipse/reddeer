@@ -14,7 +14,6 @@ public class NewAnnotationCreationWizard extends NewWizardDialog {
 		super("Java", "Annotation");
 	}
 
-	@Override
 	public NewAnnotationWizardPage getFirstPage() {
 		return new NewAnnotationWizardPage();
 	}

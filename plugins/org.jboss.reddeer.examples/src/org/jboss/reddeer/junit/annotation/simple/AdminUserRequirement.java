@@ -5,8 +5,8 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import org.jboss.reddeer.junit.requirement.Requirement;
 import org.jboss.reddeer.junit.annotation.simple.AdminUserRequirement.AdminUser;
+import org.jboss.reddeer.junit.requirement.Requirement;
 /**
  * Admin user test requirement
  * @author lucia jelinkova

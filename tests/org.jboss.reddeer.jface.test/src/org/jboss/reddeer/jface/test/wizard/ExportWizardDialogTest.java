@@ -4,7 +4,6 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
 import org.jboss.reddeer.jface.wizard.ExportWizardDialog;
-import org.jboss.reddeer.jface.wizard.WizardPage;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.junit.After;
@@ -33,11 +32,6 @@ public class ExportWizardDialogTest {
 
 		public ExportWizardDialogImpl() {
 			super(TestingExportWizard.CATEGORY, TestingExportWizard.NAME);
-		}
-		
-		@Override
-		public WizardPage getFirstPage() {
-			return null;
 		}
 	}
 }

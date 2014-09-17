@@ -47,41 +47,12 @@ public class WizardDialog {
 	}
 
 	/**
-	 * Returns the first wizard page
-	 * 
-	 * @return first wizard page
-	 * 
-	 * @deprecated Use getWizardPage
-	 * @see issue#359
-	 */
-	public WizardPage getFirstPage() {
-		return getWizardPage();
-	}
-	
-	/**
 	  * Returns a current wizard page
 	 * 
 	 * @return current wizard page or null when there is not any wizard page
 	 */
 
 	public WizardPage getCurrentWizardPage() {
-		for (WizardPage wizardPage : wizardPageMap.keySet()) {
-			Matcher<WizardDialog> matcher = wizardPageMap.get(wizardPage);
-			if (matcher.matches(this)) {
-				return wizardPage;
-			}
-		}
-		log.warn("No wizard page found in page index '" + currentPage + "'");
-		return null;
-	}
-	
-	/**
-	 * Returns a current wizard page
-	 * 
-	 * @return current wizard page
-	 * @deprecated use getCurrentWizardPage() instead
-	 */
-	public WizardPage getWizardPage() {
 		for (WizardPage wizardPage : wizardPageMap.keySet()) {
 			Matcher<WizardDialog> matcher = wizardPageMap.get(wizardPage);
 			if (matcher.matches(this)) {
@@ -113,7 +84,6 @@ public class WizardDialog {
 	 *            wizard page index
 	 */
 	public void addWizardPage(WizardPage page, int pageIndex) {
-		page.setWizardDialog(this);
 		wizardPageMap.put(page, new WizardPageIndex(pageIndex));
 	}
 	
@@ -128,7 +98,6 @@ public class WizardDialog {
 	 *            matcher when the wizard page will be displayed
 	 */
 	public void addWizardPage(WizardPage page, int pageIndex, Matcher<WizardDialog> matcher) {
-		page.setWizardDialog(this);
 		wizardPageMap.put(page, allOf(new WizardPageIndex(pageIndex), matcher));
 	}
 

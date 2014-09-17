@@ -3,6 +3,7 @@ package org.jboss.reddeer.eclipse.wst.common.project.facet.ui;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 
+import org.jboss.reddeer.eclipse.jdt.ui.WorkbenchPreferenceDialog;
 import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.PackageExplorer;
 import org.jboss.reddeer.eclipse.test.wst.server.ui.TestServerRuntime;
 import org.jboss.reddeer.eclipse.test.wst.server.ui.view.ServersViewTestCase;
@@ -44,8 +45,11 @@ public class RuntimesPropertyPageTest {
 	
 	@Before
 	public void createRuntime(){
+		WorkbenchPreferenceDialog preferencesDialog = new WorkbenchPreferenceDialog();
 		RuntimePreferencePage runtimePreference = new RuntimePreferencePage();
-		runtimePreference.open();
+
+		preferencesDialog.open();
+		preferencesDialog.select(runtimePreference);
 		
 		NewRuntimeWizardDialog dialog = runtimePreference.addRuntime();
 		NewRuntimeWizardPage page = dialog.getFirstPage();
@@ -67,8 +71,12 @@ public class RuntimesPropertyPageTest {
 		
 		DeleteUtils.forceProjectDeletion(new PackageExplorer().getProject(PROJECT),true);
 		
+		WorkbenchPreferenceDialog preferencesDialog = new WorkbenchPreferenceDialog();
 		RuntimePreferencePage runtimePreference = new RuntimePreferencePage();
-		runtimePreference.open();
+
+		preferencesDialog.open();
+		preferencesDialog.select(runtimePreference);
+		
 		runtimePreference.removeAllRuntimes();
 		runtimePreference.cancel();
 	}

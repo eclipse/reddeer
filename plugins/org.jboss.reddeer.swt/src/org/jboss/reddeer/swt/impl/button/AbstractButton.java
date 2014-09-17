@@ -6,8 +6,8 @@ import java.util.List;
 
 import org.eclipse.swt.SWT;
 import org.hamcrest.Matcher;
-import org.jboss.reddeer.common.platform.RunningPlatform;
 import org.jboss.reddeer.common.logging.Logger;
+import org.jboss.reddeer.common.platform.RunningPlatform;
 import org.jboss.reddeer.swt.api.Button;
 import org.jboss.reddeer.swt.condition.WidgetIsEnabled;
 import org.jboss.reddeer.swt.handler.ButtonHandler;

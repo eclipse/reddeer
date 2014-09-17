@@ -5,6 +5,7 @@ import java.io.File;
 import org.jboss.reddeer.eclipse.datatools.ui.DriverDefinition;
 import org.jboss.reddeer.eclipse.datatools.ui.DriverTemplate;
 import org.jboss.reddeer.eclipse.datatools.ui.preference.DriverDefinitionPreferencePage;
+import org.jboss.reddeer.eclipse.jdt.ui.WorkbenchPreferenceDialog;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.swt.impl.table.DefaultTable;
 import org.junit.Test;
@@ -20,8 +21,11 @@ public class DriverDefinitionTest {
 
 	@Test
 	public void driverDefinitionTest() {
+		WorkbenchPreferenceDialog dialog = new WorkbenchPreferenceDialog();
+		dialog.open();
+		
 		DriverDefinitionPreferencePage preferencePage = new DriverDefinitionPreferencePage();
-		preferencePage.open();
+		dialog.select(preferencePage);
 		preferencePage.addDriverDefinition().create(createTestDriverDefinition());
 		// test if a driver was successfully created
 		new DefaultTable().getItem("Test HSLQDB Driver");

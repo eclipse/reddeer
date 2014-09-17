@@ -3,6 +3,7 @@ package org.jboss.reddeer.eclipse.jdt.ui.preferences;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import org.jboss.reddeer.eclipse.jdt.ui.WorkbenchPreferenceDialog;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.junit.After;
 import org.junit.Before;
@@ -14,14 +15,17 @@ public class FoldingPreferencePageTest {
 
 	private static FoldingPreferencePage page = new FoldingPreferencePage();
 
+	private WorkbenchPreferenceDialog dialog = new WorkbenchPreferenceDialog();
+	
 	@Before
 	public void setUp() {
-		page.open();
+		dialog.open();
+		dialog.select(page);
 	}
 
 	@After
 	public void tearDown() {
-		page.cancel();
+		dialog.cancel();
 	}
 
 	@Test

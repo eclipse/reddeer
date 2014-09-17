@@ -32,5 +32,4 @@ Export-Package: org.jboss.reddeer.swt,org.jboss.reddeer.swt.api,org.jb
  ss.reddeer.swt.matcher,org.jboss.reddeer.swt.reference,org.jboss.redd
  eer.swt.regex,org.jboss.reddeer.swt.util,org.jboss.reddeer.swt.wait,o
  rg.jboss.reddeer.swt.widgets
-Import-Package: org.jboss.reddeer.direct.platform
  

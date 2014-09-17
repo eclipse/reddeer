@@ -12,8 +12,6 @@ import org.jboss.reddeer.junit.internal.configuration.RequirementsConfiguration;
 import org.jboss.reddeer.junit.internal.configuration.TestRunConfiguration;
 import org.jboss.reddeer.junit.internal.requirement.Requirements;
 import org.jboss.reddeer.junit.internal.requirement.RequirementsBuilder;
-import org.jboss.reddeer.junit.internal.runner.RequirementsRunner;
-import org.jboss.reddeer.junit.internal.runner.RequirementsRunnerBuilder;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.Runner;

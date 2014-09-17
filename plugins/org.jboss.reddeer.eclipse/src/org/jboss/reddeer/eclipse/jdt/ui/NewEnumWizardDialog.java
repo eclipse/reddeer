@@ -18,7 +18,6 @@ public class NewEnumWizardDialog extends NewWizardDialog {
 		addWizardPage(new NewEnumWizardPage(), 0);
 	}
 
-	@Override
 	public NewEnumWizardPage getFirstPage() {
 		return new NewEnumWizardPage();
 	}

@@ -3,7 +3,6 @@ package org.jboss.reddeer.eclipse.ui.browser;
 import org.jboss.reddeer.eclipse.condition.BrowserHasURL;
 import org.jboss.reddeer.swt.api.Browser;
 import org.jboss.reddeer.swt.condition.PageIsLoaded;
-import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.impl.browser.InternalBrowser;
 import org.jboss.reddeer.swt.wait.TimePeriod;
 import org.jboss.reddeer.swt.wait.WaitUntil;
@@ -32,18 +31,6 @@ public class BrowserView extends WorkbenchView {
 		super("Internal Web Browser");
 	}
 	
-	/**
-	 * Constructor of BrowserView Class
-	 * 
-	 * @param browser Browser to reuse
-	 * @deprecated The usage of SWT layer classes in Eclipse layer API is discouraged. This constructor will be removed. 
-	 */
-	public BrowserView(InternalBrowser browser) {
-		this();
-
-		this.browser = browser;
-	}
-
 	/**
 	 * Opens Internal Web Browser view
 	 */
@@ -110,24 +97,4 @@ public class BrowserView extends WorkbenchView {
 	public String getText() {
 		return browser.getText();
 	}
-	
-	/**
-	 * Checks if browser is already open
-	 * @deprecated This method will be removed alongside the deprecated constructor. 
-	 */
-	public boolean isOpen() {
-		/* if InternalBrowser instance exists already, lets assume browser is opened
-		 * - either browser was set in BrowserView(InternalBrowser) constructor and therefore
-		 * it's opened (caller's responsibility) or it was set in open() */
-		if (browser != null)
-			return true;
-
-		try{
-			new InternalBrowser(); 
-			return true;  // browser is already opened
-		}catch(SWTLayerException ex){
-			return false;
-		}
-	};
-
 }

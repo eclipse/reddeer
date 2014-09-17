@@ -1,9 +1,9 @@
 package org.jboss.reddeer.junit.internal.configuration;
 
 import org.jboss.reddeer.junit.internal.configuration.configurator.CustomConfigurator;
+import org.jboss.reddeer.junit.internal.configuration.configurator.NullConfigurator;
 import org.jboss.reddeer.junit.internal.configuration.configurator.PropertyBasedConfigurator;
 import org.jboss.reddeer.junit.internal.configuration.configurator.RequirementConfigurator;
-import org.jboss.reddeer.junit.internal.configuration.configurator.NullConfigurator;
 import org.jboss.reddeer.junit.internal.configuration.reader.XMLReader;
 import org.jboss.reddeer.junit.internal.configuration.setter.ConfigurationSetter;
 import org.jboss.reddeer.junit.requirement.CustomConfiguration;

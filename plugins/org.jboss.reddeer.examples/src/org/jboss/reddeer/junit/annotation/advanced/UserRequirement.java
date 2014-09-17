@@ -5,8 +5,8 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import org.jboss.reddeer.junit.requirement.Requirement;
 import org.jboss.reddeer.junit.annotation.advanced.UserRequirement.User;
+import org.jboss.reddeer.junit.requirement.Requirement;
 /**
  * Parameterized requirement with paramer name 
  * @author vpakan

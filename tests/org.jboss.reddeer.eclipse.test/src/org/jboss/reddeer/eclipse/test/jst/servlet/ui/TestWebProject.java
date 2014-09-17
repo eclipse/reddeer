@@ -23,7 +23,7 @@ public class TestWebProject {
 	public void createWebProject(){
 		WebProjectWizard ww = new WebProjectWizard();
 		ww.open();
-		WebProjectFirstPage fp = (WebProjectFirstPage)ww.getFirstPage();
+		WebProjectFirstPage fp = new WebProjectFirstPage();
 		fp.setProjectName("web project");
 		ww.finish();
 		PackageExplorer pe = new PackageExplorer();
@@ -35,17 +35,17 @@ public class TestWebProject {
 	public void createWebProject1(){
 		WebProjectWizard ww = new WebProjectWizard();
 		ww.open();
-		WebProjectFirstPage fp = (WebProjectFirstPage)ww.getFirstPage();
+		WebProjectFirstPage fp = new WebProjectFirstPage();
 		fp.setProjectName("web project1");
 		assertEquals("web project1", fp.getProjectName());
 		ww.next();
-		WebProjectSecondPage sp = (WebProjectSecondPage)ww.getWizardPage();
+		WebProjectSecondPage sp = (WebProjectSecondPage)ww.getCurrentWizardPage();
 		sp.addSourceFoldersOnBuildPath("source");
 		sp.removeSourceFoldersOnBuildPath("src");
 		assertEquals(1,sp.getSourceFolders().size());
 		assertEquals("source", sp.getSourceFolders().get(0));
 		ww.next();
-		WebProjectThirdPage tp = (WebProjectThirdPage)ww.getWizardPage();
+		WebProjectThirdPage tp = (WebProjectThirdPage)ww.getCurrentWizardPage();
 		tp.setGenerateWebXmlDeploymentDescriptor(true);
 		ww.finish();
 		PackageExplorer pe = new PackageExplorer();

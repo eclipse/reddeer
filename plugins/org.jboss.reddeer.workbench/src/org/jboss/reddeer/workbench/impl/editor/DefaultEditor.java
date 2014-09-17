@@ -2,7 +2,6 @@ package org.jboss.reddeer.workbench.impl.editor;
 
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.workbench.api.Editor;
-import org.jboss.reddeer.workbench.impl.editor.AbstractEditor;
 
 /**
  * Represents general editor with basic operations implemented.

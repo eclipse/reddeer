@@ -30,7 +30,6 @@ public abstract class PropertyPage extends PreferencePage {
 	 * Note that it is the responsibility of subclasses to make sure that the right resource is selected.
 	 * 
 	 */
-	@Override
 	public void open() {
 		new ContextMenu("Properties").select();;
 		

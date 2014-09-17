@@ -12,19 +12,6 @@ import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
  */
 public class NewRuntimeWizardPage extends WizardPage {
   
-	/**
-	 * A wizard page should not know on which page index it is displayed. The
-	 * wizard page can also exist outside WizardDialog. Use no-argument
-	 * constructor instead.
-	 * 
-	 * @param wizardDialog
-	 * @param pageIndex
-	 */
-	@Deprecated
-	public NewRuntimeWizardPage(NewRuntimeWizardDialog wizardDialog){
-		super(wizardDialog,0);
-	}
-	
 	public NewRuntimeWizardPage(){
 		super();
 	}

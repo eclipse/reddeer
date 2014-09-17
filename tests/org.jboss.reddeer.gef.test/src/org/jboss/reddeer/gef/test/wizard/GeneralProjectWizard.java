@@ -1,6 +1,7 @@
 package org.jboss.reddeer.gef.test.wizard;
 
-import org.jboss.reddeer.eclipse.jface.wizard.NewWizardDialog;
+
+import org.jboss.reddeer.jface.wizard.NewWizardDialog;
 import org.jboss.reddeer.swt.impl.text.LabeledText;
 
 /**
