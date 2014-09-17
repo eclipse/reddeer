@@ -18,11 +18,11 @@ import java.io.File;
 import java.io.IOException;
 
 import org.jboss.reddeer.common.logging.Logger;
-import org.monte.screenrecorder.ScreenRecorder;
 import org.monte.media.Format;
-import org.monte.media.Registry;
 import org.monte.media.FormatKeys.MediaType;
+import org.monte.media.Registry;
 import org.monte.media.math.Rational;
+import org.monte.screenrecorder.ScreenRecorder;
 /**
  * Extends ScreenRecorder class due to possibility to specify location
  * of file with recorder screen cast

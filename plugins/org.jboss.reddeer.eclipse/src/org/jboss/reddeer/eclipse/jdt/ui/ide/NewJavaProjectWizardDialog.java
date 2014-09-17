@@ -24,7 +24,6 @@ public class NewJavaProjectWizardDialog extends NewWizardDialog{
 		addWizardPage(new NewJavaProjectWizardPage(), 0);
 	}
 	
-	@Override
 	public NewJavaProjectWizardPage getFirstPage() {
 		return new NewJavaProjectWizardPage();
 	}

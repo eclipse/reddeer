@@ -13,7 +13,6 @@ import java.util.List;
 
 import org.hamcrest.Description;
 import org.hamcrest.TypeSafeMatcher;
-import org.jboss.reddeer.junit.internal.annotation.AnnotationsFinder;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;

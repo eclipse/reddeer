@@ -8,15 +8,14 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Widget;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.IWorkbenchPartReference;
 import org.eclipse.ui.IWorkbenchSite;
 import org.hamcrest.Matcher;
-import org.jboss.reddeer.direct.platform.RunningPlatform;
 import org.jboss.reddeer.common.logging.Logger;
+import org.jboss.reddeer.common.platform.RunningPlatform;
 import org.jboss.reddeer.swt.condition.WaitCondition;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.exception.WaitTimeoutExpiredException;
@@ -50,133 +49,6 @@ public class WidgetLookup {
 		if (instance == null) instance = new WidgetLookup();
 		return instance;
 	}
-
-	/**
-	 * Send click notification to a widget
-	 * @deprecated Use WidgetHandler instead
-	 * @param widget
-	 */
-	public void sendClickNotifications(Widget widget) {
-		WidgetHandler.getInstance().notify(SWT.Selection,widget);
-	}
-
-	/**
-	 * Notifies widget with given event type
-	 * @deprecated Use WidgetHandler instead
-	 * @param eventType given event type
-	 * @param widget target widget
-	 */
-	public void notify(int eventType, Widget widget) {
-		Event event = createEvent(widget);
-		notify(eventType, event, widget);
-
-	}
-	
-	/**
-	 * @deprecated Use HyperlinkHandler instead
-	 * @param eventType
-	 * @param widget
-	 */
-	public void notifyHyperlink(int eventType, Widget widget) {
-		Event event = createHyperlinkEvent(widget);
-		notify(eventType, event, widget);
-
-	}
-	
-	/**
-	 * @deprecated Use widget handler instead
-	 * @param eventType
-	 * @param detail
-	 * @param widget
-	 * @param widgetItem
-	 */
-	public void notifyItem(int eventType, int detail, Widget widget, Widget widgetItem) {
-		Event event = createEventItem(eventType, detail, widget, widgetItem);
-		notify(eventType, event, widget);	
-	}
-	
-	/**
-	 * @deprecated Use WidgetHandler instead
-	 * @param eventType
-	 * @param detail
-	 * @param widget
-	 * @param widgetItem
-	 * @param x
-	 * @param y
-	 * @param button
-	 */
-	public void notifyItemMouse(int eventType, int detail, Widget widget, Widget widgetItem, int x, int y, int button) {
-		Event event = createMouseItemEvent(eventType, detail, widget, widgetItem, x, y, button);
-		notify(eventType, event, widget);	
-	}
-
-	private Event createEvent(Widget widget) {
-		Event event = new Event();
-		event.time = (int) System.currentTimeMillis();
-		event.widget = widget;
-		event.display = Display.getDisplay();
-		return event;
-	}
-
-	private Event createHyperlinkEvent(Widget widget){
-		Event event = new Event();
-		event.time = (int) System.currentTimeMillis();
-		event.widget = widget;
-		event.display = Display.getDisplay();
-		event.button=1;
-		event.x=0;
-		event.y=0;
-		return event;
-	}
-
-	private Event createMouseItemEvent(int eventType, int detail, Widget widget, Widget widgetItem, int x, int y, int button){
-		Event event = new Event();
-		event.display = Display.getDisplay();
-		event.time = (int) System.currentTimeMillis();
-		event.item = widgetItem;
-		event.widget = widget;
-		event.detail = detail;
-		event.type = eventType;
-		event.button=button;
-		event.x=x;
-		event.y=y;
-		return event;
-	}
-
-	private Event createEventItem(int eventType, int detail, Widget widget, Widget widgetItem) {
-		Event event = new Event();
-		event.display = Display.getDisplay();
-		event.time = (int) System.currentTimeMillis();
-		event.item = widgetItem;
-		event.widget = widget;
-		event.detail = detail;
-		event.type = eventType;
-		return event;
-	}
-
-
-
-	private void notify(final int eventType, final Event createEvent, final Widget widget) {
-		createEvent.type = eventType;
-
-		Display.asyncExec(new Runnable() {
-			public void run() {
-				if ((widget == null) || widget.isDisposed()) {
-					return;
-				}
-
-				widget.notifyListeners(eventType, createEvent);
-			}
-		});
-
-		// Wait for synchronization
-		Display.syncExec(new Runnable() {
-			public void run() {
-				// do nothing here
-			}
-		});
-	}
-
 
 	/**
 	 * Method looks for active widget matching given criteria like reference composite, class, etc.

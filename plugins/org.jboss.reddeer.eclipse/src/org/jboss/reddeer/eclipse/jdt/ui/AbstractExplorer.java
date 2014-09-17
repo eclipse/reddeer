@@ -31,18 +31,6 @@ public class AbstractExplorer extends WorkbenchView {
 	}
 
 	/**
-	 * Select given project
-	 * @deprecated use getProject().select():
-	 * @param projectName
-	 * @return
-	 */
-	public Project selectProject (String projectName){
-		Project project = getProject(projectName);
-		project.select();
-		return project;
-	}
-	
-	/**
 	 * Select given project names
 	 * @param projectName
 	 */
@@ -123,14 +111,6 @@ public class AbstractExplorer extends WorkbenchView {
 		}
 	}
 
-	/**
-	 * @deprecated should not be used 
-	 * @return explorer
-	 */
-	public DefaultTree getPackageExplorerTree(){
-		return getTree();
-	}
-	
 	private DefaultTree getTree(){
 		open();
 		return new DefaultTree();

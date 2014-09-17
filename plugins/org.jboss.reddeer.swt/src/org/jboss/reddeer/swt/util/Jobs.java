@@ -3,8 +3,8 @@ package org.jboss.reddeer.swt.util;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.jboss.reddeer.common.logging.Logger;
 import org.eclipse.core.runtime.jobs.Job;
+import org.jboss.reddeer.common.logging.Logger;
 
 /**
  * Utils to work with Jobs

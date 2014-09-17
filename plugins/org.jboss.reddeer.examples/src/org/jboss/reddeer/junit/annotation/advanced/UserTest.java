@@ -1,7 +1,7 @@
 package org.jboss.reddeer.junit.annotation.advanced;
 
-import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.junit.annotation.advanced.UserRequirement.User;
+import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 

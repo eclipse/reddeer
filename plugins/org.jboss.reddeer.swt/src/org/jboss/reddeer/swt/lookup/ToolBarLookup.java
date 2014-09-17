@@ -10,14 +10,12 @@ import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.action.ToolBarContributionItem;
 import org.eclipse.jface.action.ToolBarManager;
 import org.eclipse.swt.widgets.ToolBar;
-import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.ui.IViewSite;
 import org.eclipse.ui.IWorkbenchPartSite;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.internal.CoolBarToTrimManager;
 import org.eclipse.ui.internal.WorkbenchWindow;
-import org.hamcrest.Matcher;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.exception.Thrower;
 import org.jboss.reddeer.swt.reference.ReferencedComposite;
@@ -195,63 +193,5 @@ public class ToolBarLookup {
 			}
 		} while (found);
 		return list;
-	}
-
-	/**
-	 * Returns ToolItem from given toolbar with given matcher
-	 * 
-	 * @param toolBar
-	 * @param text
-	 * @return
-	 * 
-	 * @deprecated Please use
-	 *             {@link ToolItemLookup#getToolItem(ReferencedComposite, int, Matcher...)}
-	 */
-	public ToolItem getToolItem(final ToolBar toolBar,
-			final Matcher<String> matcher) {
-		return getToolItem(toolBar, matcher, 0);
-	}
-
-	/**
-	 * Returns ToolItem from given toolbar with given matcher and index.
-	 * 
-	 * @param toolBar
-	 * @param text
-	 * @return
-	 * 
-	 * @deprecated Please use
-	 *             {@link ToolItemLookup#getToolItem(ReferencedComposite, int, Matcher...)}
-	 */
-	public ToolItem getToolItem(final ToolBar toolBar,
-			final Matcher<String> matcher, final int index) {
-
-		ToolItem item = Display.syncExec(new ResultRunnable<ToolItem>() {
-
-			@Override
-			public ToolItem run() {
-				int counter = 0;
-				ToolItem[] items = toolBar.getItems();
-				for (ToolItem item : items) {
-					if (matcher != null) {
-						if ((item == null) || (item.getToolTipText() == null))
-							continue;
-						if (matcher.matches(item.getToolTipText())) {
-							if (counter == index) {
-								return item;
-							}
-							counter++;
-						}
-					} else {
-						if (counter == index) {
-							return item;
-						}
-						counter++;
-					}
-				}
-				return null;
-			}
-		});
-
-		return item;
 	}
 }

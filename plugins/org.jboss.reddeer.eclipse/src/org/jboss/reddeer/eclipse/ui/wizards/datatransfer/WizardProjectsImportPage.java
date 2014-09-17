@@ -3,10 +3,9 @@ package org.jboss.reddeer.eclipse.ui.wizards.datatransfer;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.jboss.reddeer.eclipse.exception.EclipseLayerException;
-import org.jboss.reddeer.jface.wizard.WizardDialog;
-import org.jboss.reddeer.jface.wizard.WizardPage;
 import org.jboss.reddeer.common.logging.Logger;
+import org.jboss.reddeer.eclipse.exception.EclipseLayerException;
+import org.jboss.reddeer.jface.wizard.WizardPage;
 import org.jboss.reddeer.swt.api.Tree;
 import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.swt.condition.WaitCondition;
@@ -28,19 +27,6 @@ public class WizardProjectsImportPage extends WizardPage {
 	
 	private static final Logger log = Logger.getLogger(WizardProjectsImportPage.class);
 
-	/**
-	 * A wizard page should not know on which page index it is displayed. The
-	 * wizard page can also exist outside WizardDialog. Use no-argument
-	 * constructor instead.
-	 * 
-	 * @param wizardDialog
-	 * @param pageIndex
-	 */
-	@Deprecated
-	public WizardProjectsImportPage(WizardDialog wizardDialog, int pageIndex) {
-		super(wizardDialog, pageIndex);
-	}
-	
 	public WizardProjectsImportPage() {
 		super();
 	}

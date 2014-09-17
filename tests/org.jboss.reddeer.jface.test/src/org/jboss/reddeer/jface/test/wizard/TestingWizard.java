@@ -97,5 +97,13 @@ public class TestingWizard extends Wizard {
 			}
 			return super.getNextPage();
 		}
+		
+		@Override
+		public IWizardPage getPreviousPage() {
+			if (text != null && text.getText().length() > 0) {
+				properties.put("name", text.getText());
+			}
+			return super.getPreviousPage();
+		}
 	}
 }

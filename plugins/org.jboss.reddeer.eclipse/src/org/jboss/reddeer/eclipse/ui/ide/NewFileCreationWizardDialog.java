@@ -17,7 +17,6 @@ public class NewFileCreationWizardDialog extends NewWizardDialog {
 		super("General", "File");
 	}
 	
-	@Override
 	public NewFileCreationWizardPage getFirstPage() {
 		return new NewFileCreationWizardPage();
 	}

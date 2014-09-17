@@ -5,9 +5,9 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+import org.jboss.reddeer.junit.configuration.simple.UserRequirement.User;
 import org.jboss.reddeer.junit.requirement.PropertyConfiguration;
 import org.jboss.reddeer.junit.requirement.Requirement;
-import org.jboss.reddeer.junit.configuration.simple.UserRequirement.User;
 /**
  * User requirement using configuration from simple xml file
  * @author lucia jelinkova

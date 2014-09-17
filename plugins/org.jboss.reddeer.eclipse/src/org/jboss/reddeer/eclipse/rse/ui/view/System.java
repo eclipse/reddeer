@@ -1,9 +1,9 @@
 package org.jboss.reddeer.eclipse.rse.ui.view;
 
+import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.eclipse.condition.RemoteSystemExists;
 import org.jboss.reddeer.eclipse.condition.RemoteSystemIsConnected;
 import org.jboss.reddeer.eclipse.rse.ui.wizard.SystemPasswordPromptDialog;
-import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.swt.condition.JobIsRunning;
 import org.jboss.reddeer.swt.condition.ShellWithTextIsActive;

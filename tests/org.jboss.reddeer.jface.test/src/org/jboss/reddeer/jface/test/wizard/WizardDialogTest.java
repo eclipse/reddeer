@@ -105,10 +105,11 @@ public class WizardDialogTest {
 	@Test
 	public void multiPageWizardTest() {
 		// fill name
-		wizardDialog.getCurrentWizardPage().fillWizardPage("name");
+		((NameWizardPage) wizardDialog.getCurrentWizardPage()).setName("name");
+		wizardDialog.setProperty("name", "name");
 		// on next page you should see a text box for age 
 		wizardDialog.next();
-		wizardDialog.getCurrentWizardPage().fillWizardPage("100");
+		((AgeWizardPage) wizardDialog.getCurrentWizardPage()).setAge("100");
 	}
 	
 	@Test
@@ -116,18 +117,17 @@ public class WizardDialogTest {
 		// don't fill name
 		// on next page you should see a text box for name again
 		wizardDialog.next();
-		wizardDialog.getCurrentWizardPage().fillWizardPage("name");
+		((NameWizardPage) wizardDialog.getCurrentWizardPage()).setName("name");
 	}
 	
 	@Test
 	public void getWizardPageTest(){
-		WizardPage page = wizardDialog.getWizardPage(1);
+		NameWizardPage page = (NameWizardPage) wizardDialog.getWizardPage(1);
 		assertThat(page, instanceOf(NameWizardPage.class));
-		page.fillWizardPage("name");
-		page = wizardDialog.getWizardPage(0);
-		assertThat(page, instanceOf(NameWizardPage.class));
-		page = wizardDialog.getWizardPage(1);
-		assertThat(page, instanceOf(AgeWizardPage.class));
+		page.setName("name");
+		wizardDialog.setProperty("name", "name");
+		assertThat(wizardDialog.getWizardPage(0), instanceOf(NameWizardPage.class));
+		assertThat(wizardDialog.getWizardPage(1), instanceOf(AgeWizardPage.class));
 	}
 
 	@After
@@ -160,26 +160,13 @@ public class WizardDialogTest {
 
 		public void setName(String name) {
 			new LabeledText("Name:").setText(name);
-			getWizardDialog().setProperty("name", name);
 		}
-		
-		@Override
-		public void fillWizardPage(Object... obj) {
-			if(obj.length > 0 && obj[0] instanceof String) {
-				setName((String) obj[0]);
-			}
-		}
-		
 	}
 	
 	private class AgeWizardPage extends WizardPage {
 
-		@Override
-		public void fillWizardPage(Object... obj) {
-			if(obj.length > 0 && obj[0] instanceof String) {
-				new LabeledText("Age:").setText((String) obj[0]);
-			}
+		public void setAge(String age) {
+			new LabeledText("Age:").setText(age);
 		}
-		
 	}
 }

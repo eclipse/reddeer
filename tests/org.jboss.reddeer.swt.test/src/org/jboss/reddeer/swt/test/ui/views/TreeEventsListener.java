@@ -1,6 +1,5 @@
 package org.jboss.reddeer.swt.test.ui.views;
 
-import org.jboss.reddeer.common.logging.Logger;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.FocusEvent;
 import org.eclipse.swt.events.FocusListener;
@@ -11,6 +10,7 @@ import org.eclipse.swt.events.TreeListener;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Tree;
+import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.swt.impl.tree.AbstractTreeItem;
 import org.jboss.reddeer.swt.util.Display;

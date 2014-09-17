@@ -1,7 +1,6 @@
 package org.jboss.reddeer.eclipse.m2e.core.ui.preferences;
 
 import org.eclipse.swt.widgets.Control;
-import org.jboss.reddeer.workbench.preference.WorkbenchPreferencePage;
 import org.jboss.reddeer.swt.condition.JobIsRunning;
 import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.text.DefaultText;
@@ -11,6 +10,7 @@ import org.jboss.reddeer.swt.util.ResultRunnable;
 import org.jboss.reddeer.swt.wait.TimePeriod;
 import org.jboss.reddeer.swt.wait.WaitUntil;
 import org.jboss.reddeer.swt.wait.WaitWhile;
+import org.jboss.reddeer.workbench.preference.WorkbenchPreferencePage;
 
 /**
  * Class representing "Maven->User Settings" preference page.

@@ -13,7 +13,6 @@ import java.util.List;
 
 import org.hamcrest.Description;
 import org.hamcrest.TypeSafeMatcher;
-import org.hamcrest.core.Is;
 import org.jboss.reddeer.junit.internal.configuration.SuiteConfiguration;
 import org.jboss.reddeer.junit.internal.configuration.TestRunConfiguration;
 import org.jboss.reddeer.junit.internal.runner.NamedSuite;

@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
+import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.junit.extensionpoint.IAfterTest;
 import org.jboss.reddeer.junit.extensionpoint.IBeforeTest;
 import org.jboss.reddeer.junit.internal.requirement.Requirements;
@@ -12,7 +13,6 @@ import org.jboss.reddeer.junit.internal.requirement.inject.RequirementsInjector;
 import org.jboss.reddeer.junit.internal.screenrecorder.ScreenRecorderExt;
 import org.jboss.reddeer.junit.internal.screenshot.CaptureScreenshot;
 import org.jboss.reddeer.junit.internal.screenshot.CaptureScreenshotException;
-import org.jboss.reddeer.common.logging.Logger;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
