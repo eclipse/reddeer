@@ -2,12 +2,12 @@ package org.jboss.reddeer.junit.internal.runner;
 
 import java.util.List;
 
+import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.junit.extensionpoint.IAfterTest;
 import org.jboss.reddeer.junit.extensionpoint.IBeforeTest;
 import org.jboss.reddeer.junit.internal.configuration.TestRunConfiguration;
 import org.jboss.reddeer.junit.internal.requirement.Requirements;
 import org.jboss.reddeer.junit.internal.requirement.RequirementsBuilder;
-import org.jboss.reddeer.common.logging.Logger;
 import org.junit.runner.Runner;
 import org.junit.runner.notification.RunListener;
 import org.junit.runners.model.RunnerBuilder;

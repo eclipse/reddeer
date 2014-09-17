@@ -5,6 +5,7 @@ import static org.junit.Assert.assertThat;
 
 import java.util.List;
 
+import org.jboss.reddeer.eclipse.jdt.ui.WorkbenchPreferenceDialog;
 import org.jboss.reddeer.eclipse.test.wst.server.ui.TestServerRuntime;
 import org.jboss.reddeer.eclipse.wst.server.ui.Runtime;
 import org.jboss.reddeer.eclipse.wst.server.ui.RuntimePreferencePage;
@@ -24,8 +25,11 @@ public class NewRuntimeWizardPageTest {
 
 	@Before
 	public void setUp(){
+		WorkbenchPreferenceDialog dialog = new WorkbenchPreferenceDialog();
+		
 		preference = new RuntimePreferencePage();
-		preference.open();
+		dialog.open();
+		
 		preference.removeAllRuntimes();
 		wizard = preference.addRuntime();
 		wizardPage = wizard.getFirstPage();

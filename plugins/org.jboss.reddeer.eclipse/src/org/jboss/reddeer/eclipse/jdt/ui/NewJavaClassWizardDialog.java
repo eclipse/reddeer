@@ -14,7 +14,6 @@ public class NewJavaClassWizardDialog extends NewWizardDialog {
 		super("Java", "Class");
 	}
 	
-	@Override
 	public NewJavaClassWizardPage getFirstPage() {
 		return new NewJavaClassWizardPage();
 	}

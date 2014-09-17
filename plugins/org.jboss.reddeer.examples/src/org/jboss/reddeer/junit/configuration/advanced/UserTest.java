@@ -1,7 +1,7 @@
 package org.jboss.reddeer.junit.configuration.advanced;
 
-import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.junit.configuration.advanced.UserRequirement.User;
+import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 /**

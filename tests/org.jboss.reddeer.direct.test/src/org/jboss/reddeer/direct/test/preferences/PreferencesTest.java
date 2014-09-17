@@ -1,10 +1,10 @@
 package org.jboss.reddeer.direct.test.preferences;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
 import org.jboss.reddeer.direct.preferences.Preferences;
+import org.jboss.reddeer.eclipse.jdt.ui.WorkbenchPreferenceDialog;
 import org.jboss.reddeer.eclipse.m2e.core.ui.preferences.MavenSettingsPreferencePage;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.requirements.cleanworkspace.CleanWorkspaceRequirement.CleanWorkspace;
@@ -37,12 +37,15 @@ public class PreferencesTest {
 
 	@Test
 	public void getPreferenceTest() {
+		WorkbenchPreferenceDialog dialog = new WorkbenchPreferenceDialog();
 		MavenSettingsPreferencePage page = new MavenSettingsPreferencePage();
-		page.open();
+		dialog.open();
+		dialog.select(page);
 		String location = page.getUserSettingsLocation();
 		page.ok();
 		assertEquals(location, Preferences.get(M2E_PLUGIN, M2E_USER_SETTINGS));
-		page.open();
+		dialog.open();
+		dialog.select(page);
 		String newLocation = location.replaceFirst(".xml", "_new.xml");
 		page.setUserSettingsLocation(newLocation);
 		page.ok();
@@ -57,13 +60,16 @@ public class PreferencesTest {
 
 	@Test
 	public void setPreferenceTest() {
+		WorkbenchPreferenceDialog dialog = new WorkbenchPreferenceDialog();
 		MavenSettingsPreferencePage page = new MavenSettingsPreferencePage();
-		page.open();
+		dialog.open();
+		dialog.select(page);
 		String location = page.getUserSettingsLocation();
 		page.ok();
 		String newLocation = location.replaceFirst(".xml", "_new.xml");
 		Preferences.set(M2E_PLUGIN, M2E_USER_SETTINGS, newLocation);
-		page.open();
+		dialog.open();
+		dialog.select(page);
 		location = page.getUserSettingsLocation();
 		page.ok();
 		assertEquals(newLocation, location);
@@ -71,14 +77,17 @@ public class PreferencesTest {
 
 	@Test
 	public void setDefaultPreferenceTest() {
+		WorkbenchPreferenceDialog dialog = new WorkbenchPreferenceDialog();
 		MavenSettingsPreferencePage page = new MavenSettingsPreferencePage();
-		page.open();
+		dialog.open();
+		dialog.select(page);
 		String location = page.getUserSettingsLocation();
 		page.setUserSettingsLocation(location.replaceFirst(".xml", "_new.xml"));
 		page.ok();
 		new WaitWhile(new JobIsRunning(), TimePeriod.NORMAL);
 		Preferences.setDefault(M2E_PLUGIN, M2E_USER_SETTINGS);
-		page.open();
+		dialog.open();
+		dialog.select(page);
 		String newLocation = page.getUserSettingsLocation();
 		page.ok();
 		assertEquals(newLocation, location);

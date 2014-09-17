@@ -1,7 +1,7 @@
 package org.jboss.reddeer.swt.lookup;
 
-import org.hamcrest.Matcher;
 import org.eclipse.swt.widgets.ProgressBar;
+import org.hamcrest.Matcher;
 
 public class ProgressBarLookup {
 	

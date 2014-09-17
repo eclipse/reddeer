@@ -4,7 +4,6 @@ import java.util.Arrays;
 
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Combo;
-import org.eclipse.swt.widgets.Widget;
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.util.Display;

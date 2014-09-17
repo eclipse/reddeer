@@ -7,9 +7,9 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.withSettings;
 
 import org.jboss.reddeer.junit.internal.configuration.configurator.CustomConfigurator;
+import org.jboss.reddeer.junit.internal.configuration.configurator.NullConfigurator;
 import org.jboss.reddeer.junit.internal.configuration.configurator.PropertyBasedConfigurator;
 import org.jboss.reddeer.junit.internal.configuration.configurator.RequirementConfigurator;
-import org.jboss.reddeer.junit.internal.configuration.configurator.NullConfigurator;
 import org.jboss.reddeer.junit.internal.configuration.reader.XMLReader;
 import org.jboss.reddeer.junit.requirement.CustomConfiguration;
 import org.jboss.reddeer.junit.requirement.PropertyConfiguration;

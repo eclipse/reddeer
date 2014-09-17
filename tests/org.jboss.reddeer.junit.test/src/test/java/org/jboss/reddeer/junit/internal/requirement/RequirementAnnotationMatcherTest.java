@@ -5,7 +5,6 @@ import static org.junit.Assert.assertTrue;
 
 import java.lang.annotation.Annotation;
 
-import org.jboss.reddeer.junit.internal.requirement.RequirementAnnotationMatcher;
 import org.jboss.reddeer.junit.internal.requirement.TestRequirementA.TestRequirementAAnnotation;
 import org.junit.Test;
 import org.junit.runner.RunWith;

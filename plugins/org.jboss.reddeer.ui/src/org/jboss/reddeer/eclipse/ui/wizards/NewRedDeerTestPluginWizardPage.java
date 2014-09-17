@@ -24,8 +24,8 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
-import org.jboss.reddeer.ui.Activator;
 import org.jboss.reddeer.eclipse.ui.project.ProjectSettingValidator;
+import org.jboss.reddeer.ui.Activator;
 
 /**
  * Wizard page implementation for the RedDeer New Test Plugin wizard.<br/>

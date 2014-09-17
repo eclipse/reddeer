@@ -1,8 +1,8 @@
 package org.jboss.reddeer.junit.injection;
 
+import org.jboss.reddeer.junit.injection.UserRequirement.User;
 import org.jboss.reddeer.junit.requirement.inject.InjectRequirement;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
-import org.jboss.reddeer.junit.injection.UserRequirement.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 /**

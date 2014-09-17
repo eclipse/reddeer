@@ -1,6 +1,5 @@
 package org.jboss.reddeer.swt.handler;
 
-import org.jboss.reddeer.swt.api.Scale;
 import org.jboss.reddeer.swt.util.Display;
 import org.jboss.reddeer.swt.util.ResultRunnable;
 
@@ -29,60 +28,6 @@ public class ScaleHandler {
 			instance = new ScaleHandler();
 		}
 		return instance;
-	}
-
-	/**
-	 * @deprecated Use non static method instead. Will be removed in version 0.6.
-	 * @param scale to get minimum of
-	 * @return minimum value
-	 */
-	public static int getMinimum(final Scale scale) {
-		return Display.syncExec(new ResultRunnable<Integer>() {
-			@Override
-			public Integer run() {
-				return scale.getSWTWidget().getMinimum();
-			}
-		});
-	}
-
-	/**
-	 * @deprecated Use non static method instead. Will be removed in version 0.6.
-	 * @param scale to get maximum of
-	 * @return maximum value
-	 */
-	public static int getMaximum(final Scale scale) {
-		return Display.syncExec(new ResultRunnable<Integer>() {
-			@Override
-			public Integer run() {
-				return scale.getSWTWidget().getMaximum();
-			}
-		});
-	}
-
-	/**
-	 * @deprecated Use non static method instead. Will be removed in version 0.6.
-	 */
-	public static int getSelection(final Scale scale) {
-		return Display.syncExec(new ResultRunnable<Integer>() {
-			@Override
-			public Integer run() {
-				return scale.getSWTWidget().getSelection();
-			}
-		});
-	}
-
-	/**
-	 * @deprecated Use non static method instead. Will be removed in version 0.6.
-	 */
-	public static void setSelection(final Scale scale, final int value) {
-		Display.syncExec(new Runnable() {
-			@Override
-			public void run() {
-				scale.getSWTWidget().setSelection(value);
-			}
-		});
-		WidgetHandler.getInstance()
-				.sendClickNotifications(scale.getSWTWidget());
 	}
 
 	/**

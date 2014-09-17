@@ -1,8 +1,8 @@
 package org.jboss.reddeer.swt.impl.browser.internal;
 
-import org.jboss.reddeer.common.logging.Logger;
 import org.eclipse.swt.browser.ProgressEvent;
 import org.eclipse.swt.browser.ProgressListener;
+import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.swt.api.Browser;
 /**
  * Internal Progress Listener of Browser 

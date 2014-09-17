@@ -1,6 +1,5 @@
 package org.jboss.reddeer.eclipse.jdt.ui;
 
-import org.jboss.reddeer.jface.wizard.WizardDialog;
 import org.jboss.reddeer.jface.wizard.WizardPage;
 import org.jboss.reddeer.swt.impl.button.CheckBox;
 import org.jboss.reddeer.swt.impl.text.LabeledText;
@@ -10,19 +9,6 @@ import org.jboss.reddeer.swt.impl.text.LabeledText;
  */
 public class NewJavaClassWizardPage extends WizardPage {
 
-	/**
-	 * A wizard page should not know on which page index it is displayed. The
-	 * wizard page can also exist outside WizardDialog. Use no-argument
-	 * constructor instead.
-	 * 
-	 * @param wizardDialog
-	 * @param pageIndex
-	 */
-	@Deprecated
-	public NewJavaClassWizardPage(WizardDialog wizardDialog) {
-		super(wizardDialog, 0);
-	}
-	
 	public NewJavaClassWizardPage() {
 		super();
 	}

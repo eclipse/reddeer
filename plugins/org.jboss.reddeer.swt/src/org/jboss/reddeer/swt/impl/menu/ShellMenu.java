@@ -8,7 +8,6 @@ import org.hamcrest.Matcher;
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.common.platform.RunningPlatform;
 import org.jboss.reddeer.swt.api.Menu;
-import org.jboss.reddeer.swt.api.Shell;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.handler.WidgetHandler;
 import org.jboss.reddeer.swt.lookup.ShellLookup;
@@ -36,13 +35,6 @@ public class ShellMenu extends AbstractMenu implements Menu {
 			this.text = text;
 		}
 		
-	}
-	/**
-	 * Create Menu instance from menu of given shell
-	 * @deprecated - should not be used at all, will be removed during 0.6
-	 * @param shell
-	 */
-	public ShellMenu(Shell shell) {
 	}
 	
 	/**

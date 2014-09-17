@@ -1,7 +1,8 @@
 package org.jboss.reddeer.swt.api;
 
-import org.jboss.reddeer.swt.widgets.Widget;
 import java.util.List;
+
+import org.jboss.reddeer.swt.widgets.Widget;
 
 /**
  * API for combo (combo box) manipulation.

@@ -5,6 +5,7 @@ import static org.junit.Assert.assertThat;
 
 import java.util.List;
 
+import org.jboss.reddeer.eclipse.jdt.ui.WorkbenchPreferenceDialog;
 import org.jboss.reddeer.eclipse.wst.server.ui.Runtime;
 import org.jboss.reddeer.eclipse.wst.server.ui.RuntimePreferencePage;
 import org.jboss.reddeer.eclipse.wst.server.ui.wizard.NewRuntimeWizardDialog;
@@ -22,25 +23,33 @@ public class RuntimePreferencePageTest {
 	
 	private static final String SERVER_PATH = "Basic";
 
+	private WorkbenchPreferenceDialog preferencesDialog;
+	
 	private RuntimePreferencePage preferencePage;
 
 	@Before
 	public void setUp(){
+		preferencesDialog = new WorkbenchPreferenceDialog();
 		preferencePage = new RuntimePreferencePage();
-		preferencePage.open();
+		
+		preferencesDialog.open();
+		preferencesDialog.select(preferencePage);
 		preferencePage.removeAllRuntimes();
 		preferencePage.ok();
 	}
 
 	@Test
 	public void open() throws InterruptedException{
-		preferencePage.open();
+		preferencesDialog.open();
+		preferencesDialog.select(preferencePage);
+		
 		assertThat(preferencePage.getName(), is("Server " + RuntimePreferencePage.PAGE_NAME));
 	}
 
 	@Test
 	public void addRuntime() {
-		preferencePage.open();
+		preferencesDialog.open();
+		preferencesDialog.select(preferencePage);
 		
 		NewRuntimeWizardDialog wizardDialog = preferencePage.addRuntime(); 
 		NewRuntimeWizardPage wizardPage = wizardDialog.getFirstPage();
@@ -54,7 +63,9 @@ public class RuntimePreferencePageTest {
 
 	@Test
 	public void removeRuntime() {
-		preferencePage.open();
+		preferencesDialog.open();
+		preferencesDialog.select(preferencePage);
+		
 		NewRuntimeWizardDialog wizardDialog = preferencePage.addRuntime(); 
 		NewRuntimeWizardPage wizardPage = wizardDialog.getFirstPage();
 		wizardPage.selectType(SERVER_PATH, SERVER_NAME);
@@ -78,7 +89,8 @@ public class RuntimePreferencePageTest {
 	
 	@Test
 	public void removeAllRuntime() {
-		preferencePage.open();
+		preferencesDialog.open();
+		preferencesDialog.select(preferencePage);
 		
 		NewRuntimeWizardDialog wizardDialog = preferencePage.addRuntime(); 
 		NewRuntimeWizardPage wizardPage = wizardDialog.getFirstPage();
@@ -99,7 +111,9 @@ public class RuntimePreferencePageTest {
 	
 	@After
 	public void tearDown(){
-		preferencePage.open();
+		preferencesDialog.open();
+		preferencesDialog.select(preferencePage);
+		
 		preferencePage.removeAllRuntimes();
 		preferencePage.cancel();
 	}

@@ -3,6 +3,7 @@ package org.jboss.reddeer.eclipse.test.m2e.core.ui.preferences;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import org.jboss.reddeer.eclipse.jdt.ui.WorkbenchPreferenceDialog;
 import org.jboss.reddeer.eclipse.m2e.core.ui.preferences.MavenPreferencePage;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
@@ -13,11 +14,14 @@ import org.junit.runner.RunWith;
 @RunWith(RedDeerSuite.class)
 public class MavenPreferencePageTest {
 
+	private WorkbenchPreferenceDialog preferencesDialog = new WorkbenchPreferenceDialog();
+	
 	private MavenPreferencePage mavenPreferencePage = new MavenPreferencePage();
 
 	@Test
 	public void checkAllPreferences() {
-		mavenPreferencePage.open();
+		preferencesDialog.open();
+		preferencesDialog.select(mavenPreferencePage);
 		
 		mavenPreferencePage.setDebugOutput(true);
 		mavenPreferencePage.setDoNotAutoUpdateDeps(true);
@@ -42,7 +46,8 @@ public class MavenPreferencePageTest {
 
 	@Test
 	public void uncheckAllPreferences() {
-		mavenPreferencePage.open();
+		preferencesDialog.open();
+		preferencesDialog.select(mavenPreferencePage);
 		
 		mavenPreferencePage.setDebugOutput(false);
 		mavenPreferencePage.setDoNotAutoUpdateDeps(false);

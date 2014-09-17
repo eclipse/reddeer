@@ -2,9 +2,10 @@ package org.jboss.reddeer.junit.extension.before.test.impl;
 
 import org.eclipse.core.runtime.preferences.DefaultScope;
 import org.eclipse.core.runtime.preferences.IEclipsePreferences;
+import org.jboss.reddeer.common.logging.Logger;
+import org.jboss.reddeer.eclipse.jdt.ui.WorkbenchPreferenceDialog;
 import org.jboss.reddeer.eclipse.m2e.core.ui.preferences.MavenPreferencePage;
 import org.jboss.reddeer.junit.extensionpoint.IBeforeTest;
-import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 /**
@@ -47,8 +48,12 @@ public class DoNotDownloadMavenIndexesExt implements IBeforeTest {
 			log.debug("Trying to disable dowlading maven repo indexes on startup "
 					+ "via Windows > Preferences > Maven");
 			try {
+				WorkbenchPreferenceDialog preferencesDialog = new WorkbenchPreferenceDialog();
 				MavenPreferencePage mavenPreferencePage = new MavenPreferencePage();
-				mavenPreferencePage.open();
+
+				preferencesDialog.open();
+				preferencesDialog.select(mavenPreferencePage);
+				
 				mavenPreferencePage.setDownloadRepoIndexOnStartup(false);
 				mavenPreferencePage.ok();
 				tryToDisableDownloadingRepoIndexes = false;

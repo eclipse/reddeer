@@ -1,17 +1,18 @@
 package org.jboss.reddeer.eclipse.test.jst.ejb.ui;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
+import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.PackageExplorer;
+import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.Project;
+import org.jboss.reddeer.eclipse.jst.ejb.ui.EjbProjectFirstPage;
+import org.jboss.reddeer.eclipse.jst.ejb.ui.EjbProjectWizard;
+import org.jboss.reddeer.eclipse.ui.perspectives.JavaEEPerspective;
+import org.jboss.reddeer.eclipse.utils.DeleteUtils;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.requirements.openperspective.OpenPerspectiveRequirement.OpenPerspective;
 import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.PackageExplorer;
-import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.Project;
-import org.jboss.reddeer.eclipse.jst.ejb.ui.*;
-import org.jboss.reddeer.eclipse.ui.perspectives.JavaEEPerspective;
-import org.jboss.reddeer.eclipse.utils.DeleteUtils;
 
 @RunWith(RedDeerSuite.class)
 @OpenPerspective(JavaEEPerspective.class)
