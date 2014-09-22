@@ -39,7 +39,10 @@ public abstract class PreferencePage {
 
 	/**
 	 * Submit OK button and exit preference shell.
+	 * 
+	 * @deprecated will be removed in 1.0, the logic for closing preference page has been moved to {@link org.jboss.reddeer.eclipse.jdt.ui.WorkbenchPreferenceDialog#ok()}
 	 */
+	@Deprecated
 	public void ok() {
 		String shellText = new DefaultShell().getText();
 		Button b = new PushButton("OK");
