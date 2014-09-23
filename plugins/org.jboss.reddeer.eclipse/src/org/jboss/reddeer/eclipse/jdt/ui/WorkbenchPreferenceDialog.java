@@ -81,8 +81,6 @@ public class WorkbenchPreferenceDialog {
 		if (path.length == 0) {
 			throw new IllegalArgumentException("path can't be empty");
 		}
-		open();
-		new DefaultShell(DIALOG_TITLE);
 		TreeItem t = new DefaultTreeItem(path);
 		t.select();
 	}

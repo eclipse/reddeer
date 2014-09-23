@@ -35,6 +35,7 @@ public class WorkbenchPreferenceDialogTest {
 	@Test
 	public void selectPageByPath(){
 		preferenceDialog = new WorkbenchPreferenceDialog();
+		preferenceDialog.open();
 		preferenceDialog.select("General","Workspace");
 		
 		assertThat(preferenceDialog.getPageName(), is("Workspace"));
@@ -44,6 +45,7 @@ public class WorkbenchPreferenceDialogTest {
 	public void selectPage(){
 		WorkbenchPreferencePage page = new WorkbenchPreferencePage("General", "Workspace");
 		preferenceDialog = new WorkbenchPreferenceDialog();
+		preferenceDialog.open();
 		preferenceDialog.select(page);
 		
 		assertThat(preferenceDialog.getPageName(), is("Workspace"));
