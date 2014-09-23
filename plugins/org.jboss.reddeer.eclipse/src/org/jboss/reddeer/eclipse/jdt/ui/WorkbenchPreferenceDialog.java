@@ -56,6 +56,7 @@ public class WorkbenchPreferenceDialog {
 			Menu menu = new ShellMenu("Window", "Preferences");
 			menu.select();
 		}
+		new DefaultShell(DIALOG_TITLE);
 	}
 
 	/**
