@@ -30,6 +30,7 @@ import org.jboss.reddeer.workbench.impl.editor.Marker;
  * Editor handler handles operations for Editor instances.
  * @author rawagner
  */
+@SuppressWarnings("restriction")
 public class EditorHandler {
 
     protected final Logger log = Logger.getLogger(this.getClass());

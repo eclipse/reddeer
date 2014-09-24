@@ -58,7 +58,7 @@ public class RuntimesPropertyPageTest {
 		page.selectType(TestServerRuntime.CATEGORY, TestServerRuntime.NAME);
 		dialog.finish();
 		
-		runtimePreference.ok();
+		preferencesDialog.ok();
 	}
 	
 	@After
@@ -85,11 +85,12 @@ public class RuntimesPropertyPageTest {
 	
 	@Test
 	public void selectRuntime() {
+		WorkbenchPreferenceDialog preferencesDialog = new WorkbenchPreferenceDialog();
 		propertyPage.open();
 		propertyPage.selectRuntime(TestServerRuntime.NAME);
-		propertyPage.ok();
+		preferencesDialog.ok();
 		
-		propertyPage.open();
-		assertThat(propertyPage.getSelectedRuntimes().get(0), is(TestServerRuntime.NAME));
+		propertyPage.open();		
+ 		assertThat(propertyPage.getSelectedRuntimes().get(0), is(TestServerRuntime.NAME));
  	}
 }

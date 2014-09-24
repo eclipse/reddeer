@@ -8,6 +8,7 @@ import org.eclipse.ui.texteditor.SimpleMarkerAnnotation;
  * Represents validation marker in editor.
  * @author rawagner
  */
+@SuppressWarnings("restriction")
 public class Marker {
     
 	private String text;

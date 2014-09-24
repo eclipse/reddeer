@@ -35,7 +35,7 @@ public class RuntimePreferencePageTest {
 		preferencesDialog.open();
 		preferencesDialog.select(preferencePage);
 		preferencePage.removeAllRuntimes();
-		preferencePage.ok();
+		preferencesDialog.ok();
 	}
 
 	@Test

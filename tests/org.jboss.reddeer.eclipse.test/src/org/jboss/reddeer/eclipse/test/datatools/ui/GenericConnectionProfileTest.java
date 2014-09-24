@@ -51,7 +51,7 @@ public class GenericConnectionProfileTest {
 		page.addDriverLibrary(drvFile.getAbsolutePath());
 		page.setDriverClass("org.h2.Driver");
 		wizard.finish();
-		preferencePage.ok();
+		dialog.ok();
 
 		
 		String profile = "myDBProfile";
