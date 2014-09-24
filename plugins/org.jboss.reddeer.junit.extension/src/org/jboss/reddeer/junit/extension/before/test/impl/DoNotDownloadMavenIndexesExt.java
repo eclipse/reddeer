@@ -55,7 +55,7 @@ public class DoNotDownloadMavenIndexesExt implements IBeforeTest {
 				preferencesDialog.select(mavenPreferencePage);
 				
 				mavenPreferencePage.setDownloadRepoIndexOnStartup(false);
-				mavenPreferencePage.ok();
+				preferencesDialog.ok();
 				tryToDisableDownloadingRepoIndexes = false;
 				log.debug("Dowlading maven repo indexes on startup disabled");
 			} catch (SWTLayerException swtle) {
