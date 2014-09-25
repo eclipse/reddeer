@@ -14,7 +14,6 @@ public class ChainedComparator<T> implements Comparator<T> {
 
 	private List<Comparator<T>> comparators;
 
-	@SuppressWarnings("unchecked")
 	public ChainedComparator(Comparator<T>... comparators) {
 		this.comparators = Arrays.asList(comparators);
 	}

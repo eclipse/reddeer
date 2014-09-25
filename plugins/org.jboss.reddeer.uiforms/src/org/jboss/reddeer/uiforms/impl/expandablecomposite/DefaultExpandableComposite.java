@@ -127,7 +127,7 @@ public class DefaultExpandableComposite extends AbstractExpandableComposite {
 	 * @author Radoslav Rabara
 	 * 
 	 */
-	private static class StrictClassMatcher extends BaseMatcher {
+	private static class StrictClassMatcher extends BaseMatcher<Object> {
 
 		@Override
 		public boolean matches(Object item) {

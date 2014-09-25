@@ -29,7 +29,7 @@ public class DriverDefinitionTest {
 		preferencePage.addDriverDefinition().create(createTestDriverDefinition());
 		// test if a driver was successfully created
 		new DefaultTable().getItem("Test HSLQDB Driver");
-		preferencePage.ok();
+		dialog.ok();
 	}
 
 	private DriverDefinition createTestDriverDefinition() {
