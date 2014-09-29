@@ -13,7 +13,7 @@ import org.jboss.reddeer.swt.api.Menu;
 import org.jboss.reddeer.swt.condition.ShellWithTextIsActive;
 import org.jboss.reddeer.swt.condition.WaitCondition;
 import org.jboss.reddeer.swt.exception.WaitTimeoutExpiredException;
-import org.jboss.reddeer.swt.impl.button.PushButton;
+import org.jboss.reddeer.swt.impl.button.OkButton;
 import org.jboss.reddeer.swt.impl.menu.ShellMenu;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
@@ -184,13 +184,7 @@ public class AbstractView implements View {
 			menu.select();
 			new DefaultShell(SHOW_VIEW);
 			new DefaultTreeItem(path).select();
-			// Eclipse bug in 4.2.1, fixed in 4.2.2
-			// https://bugs.eclipse.org/bugs/show_bug.cgi?id=395913
-			try {
-				new PushButton("OK").click();
-			} catch (RuntimeException e) {
-				new PushButton("ok").click();
-			}
+			new OkButton().click();
 			new WaitWhile(new ShellWithTextIsActive(SHOW_VIEW));
 			try {
 				new WaitUntil(new ViewPartIsActive());
