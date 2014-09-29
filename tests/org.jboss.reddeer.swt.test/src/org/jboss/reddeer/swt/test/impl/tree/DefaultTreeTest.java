@@ -25,8 +25,9 @@ import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.exception.WaitTimeoutExpiredException;
 import org.jboss.reddeer.swt.impl.tree.DefaultTree;
 import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
-import org.jboss.reddeer.swt.matcher.RegexMatcher;
-import org.jboss.reddeer.swt.matcher.WithTextMatcher;
+import org.jboss.reddeer.swt.impl.tree.TreeItemNotFoundException;
+import org.jboss.reddeer.swt.matcher.TreeItemRegexMatcher;
+import org.jboss.reddeer.swt.matcher.TreeItemTextMatcher;
 import org.jboss.reddeer.swt.test.SWTLayerTestCase;
 import org.jboss.reddeer.swt.test.ui.views.TreeEventsListener;
 import org.jboss.reddeer.swt.util.Display;
@@ -57,41 +58,32 @@ public class DefaultTreeTest extends SWTLayerTestCase {
 		}		
 		tree = new DefaultTree();
 	}
-	
-	@SuppressWarnings("unchecked")
-	public void checkItems() {
-		
-		List<TreeItem> items = tree.getItems();
-		
-		assertThat(items.size(), is(3));
-		assertThat(items, hasItems(item("A"), item("B"), item("C")));
+
+	private TypeSafeMatcher<TreeItem> item(final String text){
+		return new TypeSafeMatcher<TreeItem>() {
+
+			@Override
+			public void describeTo(Description description) {
+			}
+
+			@Override
+			protected boolean matchesSafely(TreeItem item) {
+				return item.getText().equals(text);
+			}
+		};
 	}
 
-	@SuppressWarnings("unchecked")
-	public void checkAllItems(){
-		
-		List<TreeItem> items = tree.getAllItems();
-		assertThat(items.size(), is(7));
-		assertThat(items, hasItems(
-				item("A"), item("AA"), item("AAA"), item("AAB"), 
-				item("B"), item("BB"), 
-				item("C")));
-	}
-	
-	private TreeItemTextMatcher item(String text){
-		return new TreeItemTextMatcher(text);
-	}
-	
 	@Test
 	public void testFindExistingItemByPath(){
-	  createTreeItems(tree.getSWTWidget());
-	  final String expectedTreeItemText = "AAB";
-	  DefaultTreeItem dfi = new DefaultTreeItem("A","AA",expectedTreeItemText);
-	  assertTrue("Founded Tree Item has to have text " + expectedTreeItemText
-	      + " but has " + dfi.getText(),
-	    dfi.getText().equals(expectedTreeItemText));
+		createTreeItems(tree.getSWTWidget());
+		final String expectedTreeItemText = "AAB";
+		DefaultTreeItem dfi = new DefaultTreeItem("A","AA",expectedTreeItemText);
+		assertTrue("Founded Tree Item has to have text " + expectedTreeItemText
+				+ " but has " + dfi.getText(),
+				dfi.getText().equals(expectedTreeItemText));
 	}
 
+	@SuppressWarnings("unchecked")
 	@Test
 	public void testFindExistingItemByTreeAndPathAndCell() {
 		int cellIndex = 1;
@@ -101,7 +93,10 @@ public class DefaultTreeTest extends SWTLayerTestCase {
 		String expectedText = "AAB";
 
 		DefaultTree dt = new DefaultTree();
-		DefaultTreeItem dfi = new DefaultTreeItem(dt, cellIndex, "A", "AA", "AAB");
+		DefaultTreeItem dfi = new DefaultTreeItem(dt, 
+				new TreeItemTextMatcher("A", cellIndex), 
+				new TreeItemTextMatcher("AA", cellIndex),
+				new TreeItemTextMatcher("AAB", cellIndex));
 		assertTrue(String.format("Found Tree Item has to have text '%s', '%s' found instead",
 				expectedText, dfi.getCell(cellIndex)),
 				dfi.getCell(cellIndex).equals(expectedText));
@@ -119,326 +114,317 @@ public class DefaultTreeTest extends SWTLayerTestCase {
 
 	@SuppressWarnings("unused")
 	@Test(expected = SWTLayerException.class)
-  public void testFindNonExistingItemByPath(){
-	  createTreeItems(tree.getSWTWidget());
-	  DefaultTreeItem dfi = new DefaultTreeItem("A","AA","NONEXISTINGTEXT");
-  }
+	public void testFindNonExistingItemByPath(){
+		createTreeItems(tree.getSWTWidget());
+		DefaultTreeItem dfi = new DefaultTreeItem("A","AA","NONEXISTINGTEXT");
+	}
 
-  @Test
-  public void testFindExistingItemByIndex() {
-    createTreeItems(tree.getSWTWidget());
-    DefaultTreeItem dfi = new DefaultTreeItem(2);
-    final String expectedTreeItemText = "C";
-    assertTrue("Founded Tree Item has to have text " + expectedTreeItemText
-        + " but has " + dfi.getText(), dfi.getText()
-        .equals(expectedTreeItemText));
-  }
-  @SuppressWarnings("unused")
-  @Test(expected = SWTLayerException.class)
-  public void testFindNonExistingItemByIndex() {
-    createTreeItems(tree.getSWTWidget());
-    DefaultTreeItem dfi = new DefaultTreeItem(3);
-  }
-  @Test
-  public void testExpandCollapse(){
-    createTreeItems(tree.getSWTWidget());
-    DefaultTreeItem dfi = new DefaultTreeItem("A","AA");
-    TreeEventsListener treeEventsListener = new TreeEventsListener(dfi.getParent().getSWTWidget());
-    treeEventsListener.addListeners();
-    if (dfi.isExpanded()){
-      dfi.collapse();
-      assertTrue("TreeItem is not collapsed",!dfi.isExpanded());
-      assertNotNull("Collapse event was not fired",treeEventsListener.getCollapsedTreeItem());
-      assertTrue("Incorrect tree item was collapsed: " + treeEventsListener.getCollapsedTreeItem().getText(),
-        treeEventsListener.getCollapsedTreeItem().getText().equals(dfi.getText()));
-      treeEventsListener.resetListeningWatchers();
-      dfi.expand();
-      assertTrue("TreeItem is not expanded",dfi.isExpanded());
-      assertNotNull("Expand event was not fired",treeEventsListener.getExpandedTreeItem());
-      assertTrue("Incorrect tree item was expanded: " + treeEventsListener.getExpandedTreeItem().getText(),
-        treeEventsListener.getExpandedTreeItem().getText().equals(dfi.getText()));
-    }
-    else{
-      dfi.expand();
-      assertTrue("TreeItem is not expanded",dfi.isExpanded());
-      assertNotNull("Expand event was not fired",treeEventsListener.getExpandedTreeItem());
-      assertTrue("Incorrect tree item was expanded: " + treeEventsListener.getExpandedTreeItem().getText(),
-        treeEventsListener.getExpandedTreeItem().getText().equals(dfi.getText()));
-      treeEventsListener.resetListeningWatchers();
-      dfi.collapse();
-      assertTrue("TreeItem is not collapsed",!dfi.isExpanded());
-      assertNotNull("Collapse event was not fired",treeEventsListener.getCollapsedTreeItem());
-      assertTrue("Incorrect tree item was collapsed: " + treeEventsListener.getCollapsedTreeItem().getText(),
-        treeEventsListener.getCollapsedTreeItem().getText().equals(dfi.getText()));
-    }
-    treeEventsListener.removeListeners();
-  }
-  @Test
-  public void testCheckUncheck(){
-    createTreeItems(tree.getSWTWidget());
-    DefaultTreeItem dfi = new DefaultTreeItem("A","AA");
-    TreeEventsListener treeEventsListener = new TreeEventsListener(dfi.getParent().getSWTWidget());
-    treeEventsListener.addListeners();
-    dfi.setChecked(true);
-    assertTrue("TreeItem is not checked",dfi.isChecked());
-    assertTrue("Selection event was not fired",treeEventsListener.wasSelectionEvent());
-    assertTrue("Incorrect tree item was selected: " + treeEventsListener.getSelectedTreeItem().getText(),
-        treeEventsListener.getSelectedTreeItem().getText().equals(dfi.getText()));
-    assertTrue("Selection event has not been check event",
-        treeEventsListener.wasCheckEvent());
-    treeEventsListener.resetListeningWatchers();
-    dfi.setChecked(false);
-    assertTrue("TreeItem is checked",!dfi.isChecked());
-    assertTrue("Selection event was not fired",treeEventsListener.wasSelectionEvent());
-    assertTrue("Incorrect tree item was selected: " + treeEventsListener.getSelectedTreeItem().getText(),
-        treeEventsListener.getSelectedTreeItem().getText().equals(dfi.getText()));
-    assertTrue("Selection event has not been check event",
-        treeEventsListener.wasCheckEvent());
-    treeEventsListener.removeListeners();
-  }
-  @Test
-  public void testSelect(){
-    createTreeItems(tree.getSWTWidget());
-    DefaultTreeItem dfi = new DefaultTreeItem("A","AA");
-    TreeEventsListener treeEventsListener = new TreeEventsListener(dfi.getParent().getSWTWidget());
-    treeEventsListener.addListeners();
-    dfi.select();
-    assertTrue("TreeItem is not selected",dfi.isSelected());
-    assertTrue("Selection event was not fired",treeEventsListener.wasSelectionEvent());
-    assertTrue("Incorrect tree item was selected: " + treeEventsListener.getSelectedTreeItem().getText(),
-        treeEventsListener.getSelectedTreeItem().getText().equals(dfi.getText()));
-    assertFalse("Selection event has been check event",
-        treeEventsListener.wasCheckEvent());
-    treeEventsListener.removeListeners();
-  }
-  @Test
-  public void testSelectUnselectItems(){
-    createTreeItems(tree.getSWTWidget());
-    DefaultTreeItem dfi0 = new DefaultTreeItem("A","AA","AAA");
-    DefaultTreeItem dfi1 = new DefaultTreeItem("B","BB");
-    DefaultTreeItem dfi2 = new DefaultTreeItem("A","AA","AAB");
-    DefaultTreeItem dfi3 = new DefaultTreeItem("C");
-    DefaultTreeItem dfiNotSelected = new DefaultTreeItem("A","AA");
-    TreeEventsListener treeEventsListener = new TreeEventsListener(dfi0.getParent().getSWTWidget());
-    treeEventsListener.addListeners();
-    dfi0.getParent().selectItems(dfi0,dfi1,dfi2,dfi3);
-    assertTrue("TreeItem " + printFormattedStringArray(dfi0.getPath())
-        + " is not selected",dfi0.isSelected());
-    assertTrue("TreeItem " + printFormattedStringArray(dfi1.getPath())
-        + " is not selected",dfi1.isSelected());
-    assertTrue("TreeItem " + printFormattedStringArray(dfi2.getPath())
-        + " is not selected",dfi2.isSelected());
-    assertTrue("TreeItem " + printFormattedStringArray(dfi3.getPath())
-        + " is not selected",dfi3.isSelected());
-    assertFalse("TreeItem " + printFormattedStringArray(dfi3.getPath())
-            + " is selected",dfiNotSelected.isSelected());
-    assertTrue("Selection event was not fired",treeEventsListener.wasSelectionEvent());
-    assertFalse("Selection event has been check event",
-        treeEventsListener.wasCheckEvent());
-    treeEventsListener.resetListeningWatchers();
-    dfi0.getParent().unselectAllItems();
-    assertFalse("Selection event has been check event",
-        treeEventsListener.wasCheckEvent());
-    assertFalse("TreeItem " + printFormattedStringArray(dfi0.getPath())
-        + " is selected",dfi0.isSelected());
-    assertFalse("TreeItem " + printFormattedStringArray(dfi1.getPath())
-        + " is selected",dfi1.isSelected());
-    assertFalse("TreeItem " + printFormattedStringArray(dfi2.getPath())
-        + " is selected",dfi2.isSelected());
-    assertFalse("TreeItem " + printFormattedStringArray(dfi3.getPath())
-        + " is selected",dfi3.isSelected());
-    assertFalse("TreeItem " + printFormattedStringArray(dfi3.getPath())
-            + " is selected",dfiNotSelected.isSelected());
-
-    treeEventsListener.removeListeners();
-  }
-  @Test
-  public void testDoubleClick(){
-    createTreeItems(tree.getSWTWidget());
-    DefaultTreeItem dfi = new DefaultTreeItem("A","AA");
-    TreeEventsListener treeEventsListener = new TreeEventsListener(dfi.getParent().getSWTWidget());
-    treeEventsListener.addListeners();
-    dfi.doubleClick();
-    assertTrue("Selection event was not fired",treeEventsListener.wasSelectionEvent());
-    assertTrue("MouseDoubleClick event was not fired",treeEventsListener.wasMouseDoubleClickEvent());
-    assertNotNull("DefaultSelection event was not fired",treeEventsListener.getDefaultSelectedTreeItem());
-    assertTrue("TreeItem is not selected",dfi.isSelected());
-    assertTrue("Incorrect tree item was selected: " + treeEventsListener.getDefaultSelectedTreeItem().getText(),
-        treeEventsListener.getDefaultSelectedTreeItem().getText().equals(dfi.getText()));
-    treeEventsListener.removeListeners();
-  }
-  @Test
-  public void testGetItems_noItems() {
-    removeTreeItems(tree.getSWTWidget());
-    List<TreeItem> items = tree.getItems();
-    assertTrue(items.isEmpty());
-  }
-
-  @Test
-  public void testGetItems() {
-    createTreeItems(tree.getSWTWidget());
-    checkItems();
-  }
-
-  @Test
-  public void testGetAllItems_noItems(){
-    removeTreeItems(tree.getSWTWidget());
-    List<TreeItem> items = tree.getAllItems();
-    assertTrue(items.isEmpty());
-  }
-
-  @Test
-  public void testGetAllItems(){
-    createTreeItems(tree.getSWTWidget());
-    checkAllItems();
-  }
-  @Test
-  public void testGetPath(){
-    createTreeItems(tree.getSWTWidget());
-    String[] expectedPath = new String[] {"A","AA","AAA"};
-    DefaultTreeItem dfi = new DefaultTreeItem(expectedPath);
-    String[] path = dfi.getPath();
-    if (!Arrays.equals(path, expectedPath)){
-      fail("Expected path for tree item is:\n" +
-        printFormattedStringArray(expectedPath) +
-        "\nReturned path is:\n" +
-        printFormattedStringArray(path)); 
-    }
-  }
-  @Test
-  public void testGetCell() {
-    createTreeItems(tree.getSWTWidget());
-    final String itemLabel = "AAA";
-    DefaultTreeItem dfi = new DefaultTreeItem("A", "AA", itemLabel);
-    String cellLabel = dfi.getCell(0);
-    assertTrue("Cell [0] of tree item has to be " + itemLabel 
-        + " but is " + cellLabel,
-      cellLabel.equals(itemLabel));
-    cellLabel = dfi.getCell(1);
-    assertTrue("Cell [1] of tree item has to be empty but is" + cellLabel,
-      cellLabel.length() == 0);
-  }
+	@Test(expected = TreeItemNotFoundException.class)
+	public void testFindNonExistingItemByIndex() {
+		createTreeItems(tree.getSWTWidget());
+		new DefaultTreeItem("aaa");
+	}
 
 	@Test
+	public void testExpandCollapse(){
+		createTreeItems(tree.getSWTWidget());
+		DefaultTreeItem dfi = new DefaultTreeItem("A","AA");
+		TreeEventsListener treeEventsListener = new TreeEventsListener(dfi.getParent().getSWTWidget());
+		treeEventsListener.addListeners();
+		if (dfi.isExpanded()){
+			dfi.collapse();
+			assertTrue("TreeItem is not collapsed",!dfi.isExpanded());
+			assertNotNull("Collapse event was not fired",treeEventsListener.getCollapsedTreeItem());
+			assertTrue("Incorrect tree item was collapsed: " + treeEventsListener.getCollapsedTreeItem().getText(),
+					treeEventsListener.getCollapsedTreeItem().getText().equals(dfi.getText()));
+			treeEventsListener.resetListeningWatchers();
+			dfi.expand();
+			assertTrue("TreeItem is not expanded",dfi.isExpanded());
+			assertNotNull("Expand event was not fired",treeEventsListener.getExpandedTreeItem());
+			assertTrue("Incorrect tree item was expanded: " + treeEventsListener.getExpandedTreeItem().getText(),
+					treeEventsListener.getExpandedTreeItem().getText().equals(dfi.getText()));
+		}
+		else{
+			dfi.expand();
+			assertTrue("TreeItem is not expanded",dfi.isExpanded());
+			assertNotNull("Expand event was not fired",treeEventsListener.getExpandedTreeItem());
+			assertTrue("Incorrect tree item was expanded: " + treeEventsListener.getExpandedTreeItem().getText(),
+					treeEventsListener.getExpandedTreeItem().getText().equals(dfi.getText()));
+			treeEventsListener.resetListeningWatchers();
+			dfi.collapse();
+			assertTrue("TreeItem is not collapsed",!dfi.isExpanded());
+			assertNotNull("Collapse event was not fired",treeEventsListener.getCollapsedTreeItem());
+			assertTrue("Incorrect tree item was collapsed: " + treeEventsListener.getCollapsedTreeItem().getText(),
+					treeEventsListener.getCollapsedTreeItem().getText().equals(dfi.getText()));
+		}
+		treeEventsListener.removeListeners();
+	}
+	@Test
+	public void testCheckUncheck(){
+		createTreeItems(tree.getSWTWidget());
+		DefaultTreeItem dfi = new DefaultTreeItem("A","AA");
+		TreeEventsListener treeEventsListener = new TreeEventsListener(dfi.getParent().getSWTWidget());
+		treeEventsListener.addListeners();
+		dfi.setChecked(true);
+		assertTrue("TreeItem is not checked",dfi.isChecked());
+		assertTrue("Selection event was not fired",treeEventsListener.wasSelectionEvent());
+		assertTrue("Incorrect tree item was selected: " + treeEventsListener.getSelectedTreeItem().getText(),
+				treeEventsListener.getSelectedTreeItem().getText().equals(dfi.getText()));
+		assertTrue("Selection event has not been check event",
+				treeEventsListener.wasCheckEvent());
+		treeEventsListener.resetListeningWatchers();
+		dfi.setChecked(false);
+		assertTrue("TreeItem is checked",!dfi.isChecked());
+		assertTrue("Selection event was not fired",treeEventsListener.wasSelectionEvent());
+		assertTrue("Incorrect tree item was selected: " + treeEventsListener.getSelectedTreeItem().getText(),
+				treeEventsListener.getSelectedTreeItem().getText().equals(dfi.getText()));
+		assertTrue("Selection event has not been check event",
+				treeEventsListener.wasCheckEvent());
+		treeEventsListener.removeListeners();
+	}
+	@Test
+	public void testSelect(){
+		createTreeItems(tree.getSWTWidget());
+		DefaultTreeItem dfi = new DefaultTreeItem("A","AA");
+		TreeEventsListener treeEventsListener = new TreeEventsListener(dfi.getParent().getSWTWidget());
+		treeEventsListener.addListeners();
+		dfi.select();
+		assertTrue("TreeItem is not selected",dfi.isSelected());
+		assertTrue("Selection event was not fired",treeEventsListener.wasSelectionEvent());
+		assertTrue("Incorrect tree item was selected: " + treeEventsListener.getSelectedTreeItem().getText(),
+				treeEventsListener.getSelectedTreeItem().getText().equals(dfi.getText()));
+		assertFalse("Selection event has been check event",
+				treeEventsListener.wasCheckEvent());
+		treeEventsListener.removeListeners();
+	}
+	@Test
+	public void testSelectUnselectItems(){
+		createTreeItems(tree.getSWTWidget());
+		DefaultTreeItem dfi0 = new DefaultTreeItem("A","AA","AAA");
+		DefaultTreeItem dfi1 = new DefaultTreeItem("B","BB");
+		DefaultTreeItem dfi2 = new DefaultTreeItem("A","AA","AAB");
+		DefaultTreeItem dfi3 = new DefaultTreeItem("C");
+		DefaultTreeItem dfiNotSelected = new DefaultTreeItem("A","AA");
+		TreeEventsListener treeEventsListener = new TreeEventsListener(dfi0.getParent().getSWTWidget());
+		treeEventsListener.addListeners();
+		dfi0.getParent().selectItems(dfi0,dfi1,dfi2,dfi3);
+		assertTrue("TreeItem " + printFormattedStringArray(dfi0.getPath())
+				+ " is not selected",dfi0.isSelected());
+		assertTrue("TreeItem " + printFormattedStringArray(dfi1.getPath())
+				+ " is not selected",dfi1.isSelected());
+		assertTrue("TreeItem " + printFormattedStringArray(dfi2.getPath())
+				+ " is not selected",dfi2.isSelected());
+		assertTrue("TreeItem " + printFormattedStringArray(dfi3.getPath())
+				+ " is not selected",dfi3.isSelected());
+		assertFalse("TreeItem " + printFormattedStringArray(dfi3.getPath())
+				+ " is selected",dfiNotSelected.isSelected());
+		assertTrue("Selection event was not fired",treeEventsListener.wasSelectionEvent());
+		assertFalse("Selection event has been check event",
+				treeEventsListener.wasCheckEvent());
+		treeEventsListener.resetListeningWatchers();
+		dfi0.getParent().unselectAllItems();
+		assertFalse("Selection event has been check event",
+				treeEventsListener.wasCheckEvent());
+		assertFalse("TreeItem " + printFormattedStringArray(dfi0.getPath())
+				+ " is selected",dfi0.isSelected());
+		assertFalse("TreeItem " + printFormattedStringArray(dfi1.getPath())
+				+ " is selected",dfi1.isSelected());
+		assertFalse("TreeItem " + printFormattedStringArray(dfi2.getPath())
+				+ " is selected",dfi2.isSelected());
+		assertFalse("TreeItem " + printFormattedStringArray(dfi3.getPath())
+				+ " is selected",dfi3.isSelected());
+		assertFalse("TreeItem " + printFormattedStringArray(dfi3.getPath())
+				+ " is selected",dfiNotSelected.isSelected());
+
+		treeEventsListener.removeListeners();
+	}
+	@Test
+	public void testDoubleClick(){
+		createTreeItems(tree.getSWTWidget());
+		DefaultTreeItem dfi = new DefaultTreeItem("A","AA");
+		TreeEventsListener treeEventsListener = new TreeEventsListener(dfi.getParent().getSWTWidget());
+		treeEventsListener.addListeners();
+		dfi.doubleClick();
+		assertTrue("Selection event was not fired",treeEventsListener.wasSelectionEvent());
+		assertTrue("MouseDoubleClick event was not fired",treeEventsListener.wasMouseDoubleClickEvent());
+		assertNotNull("DefaultSelection event was not fired",treeEventsListener.getDefaultSelectedTreeItem());
+		assertTrue("TreeItem is not selected",dfi.isSelected());
+		assertTrue("Incorrect tree item was selected: " + treeEventsListener.getDefaultSelectedTreeItem().getText(),
+				treeEventsListener.getDefaultSelectedTreeItem().getText().equals(dfi.getText()));
+		treeEventsListener.removeListeners();
+	}
+	@Test
+	public void testGetItems_noItems() {
+		removeTreeItems(tree.getSWTWidget());
+		List<TreeItem> items = tree.getItems();
+		assertTrue(items.isEmpty());
+	}
+
+	@Test
+	public void testGetItems() {
+		createTreeItems(tree.getSWTWidget());
+		List<TreeItem> items = tree.getItems();
+
+		assertThat(items.size(), is(3));
+		assertThat(items, hasItems(item("A"), item("B"), item("C")));
+	}
+
+	@Test
+	public void testGetAllItems_noItems(){
+		removeTreeItems(tree.getSWTWidget());
+		List<TreeItem> items = tree.getAllItems();
+		assertTrue(items.isEmpty());
+	}
+
+	@Test
+	public void testGetAllItems(){
+		createTreeItems(tree.getSWTWidget());
+		List<TreeItem> items = tree.getAllItems();
+		assertThat(items.size(), is(7));
+		assertThat((Iterable<TreeItem>) items, hasItems(
+				item("A"), item("AA"), item("AAA"), item("AAB"), 
+				item("B"), item("BB"), 
+				item("C")));
+	}
+	@Test
+	public void testGetPath(){
+		createTreeItems(tree.getSWTWidget());
+		String[] expectedPath = new String[] {"A","AA","AAA"};
+		DefaultTreeItem dfi = new DefaultTreeItem(expectedPath);
+		String[] path = dfi.getPath();
+		if (!Arrays.equals(path, expectedPath)){
+			fail("Expected path for tree item is:\n" +
+					printFormattedStringArray(expectedPath) +
+					"\nReturned path is:\n" +
+					printFormattedStringArray(path)); 
+		}
+	}
+	@Test
+	public void testGetCell() {
+		createTreeItems(tree.getSWTWidget());
+		final String itemLabel = "AAA";
+		DefaultTreeItem dfi = new DefaultTreeItem("A", "AA", itemLabel);
+		String cellLabel = dfi.getCell(0);
+		assertTrue("Cell [0] of tree item has to be " + itemLabel 
+				+ " but is " + cellLabel,
+				cellLabel.equals(itemLabel));
+		cellLabel = dfi.getCell(1);
+		assertTrue("Cell [1] of tree item has to be empty but is" + cellLabel,
+				cellLabel.length() == 0);
+	}
+
+	@SuppressWarnings("unchecked")
+	@Test
 	public void testFindUsingRegexMatcher() {
-		RegexMatcher aMatcher = new RegexMatcher("A");
-		RegexMatcher aPlusMatcher = new RegexMatcher("A+");
-		RegexMatcher aPlusBMatcher = new RegexMatcher("A+B");
+		TreeItemRegexMatcher aMatcher = new TreeItemRegexMatcher("A");
+		TreeItemRegexMatcher aPlusMatcher = new TreeItemRegexMatcher("A+");
+		TreeItemRegexMatcher aPlusBMatcher = new TreeItemRegexMatcher("A+B");
 		createTreeItems(tree.getSWTWidget());
 
 		String expected;
 		DefaultTreeItem dfi;
 
 		expected = "AA";
-		dfi = new DefaultTreeItem(new WithTextMatcher[]{
-				new WithTextMatcher(aMatcher),
-				new WithTextMatcher(aPlusMatcher)
-		});
+		dfi = new DefaultTreeItem(aMatcher, aPlusMatcher);
 		assertEquals(
 				String.format("Found item with text '%s', '%s' expected",
 						dfi.getText(), expected), expected, dfi.getText());
 
 		expected = "AAB";
-		dfi = new DefaultTreeItem(new WithTextMatcher[]{
-				new WithTextMatcher(aMatcher),
-				new WithTextMatcher(aPlusMatcher),
-				new WithTextMatcher(aPlusBMatcher)
-		});
+		dfi = new DefaultTreeItem(aMatcher, aPlusMatcher, aPlusBMatcher);
+		assertEquals(String.format("Found item with text '%s', '%s' expected", dfi.getText(), expected),
+				expected, dfi.getText());
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Test
+	public void testFindUsingRegexMatcherAndIndex() {
+		TreeItemRegexMatcher aMatcher = new TreeItemRegexMatcher("A");
+		TreeItemRegexMatcher aPlusMatcher = new TreeItemRegexMatcher("A+");
+		TreeItemRegexMatcher aPlusBMatcher = new TreeItemRegexMatcher("AA.");
+		
+		createTreeItems(tree.getSWTWidget());
+
+		String expected;
+		DefaultTreeItem dfi;
+
+		expected = "AAB";
+		dfi = new DefaultTreeItem(1, aMatcher, aPlusMatcher, aPlusBMatcher);
 		assertEquals(String.format("Found item with text '%s', '%s' expected", dfi.getText(), expected),
 				expected, dfi.getText());
 	}
 
-  private void removeTreeItems (final Tree tree){
-    Display.syncExec(new Runnable() {
-      @Override
-      public void run() {
-        tree.removeAll();
-      }
-    });
-  }
+	private void removeTreeItems (final Tree tree){
+		Display.syncExec(new Runnable() {
+			@Override
+			public void run() {
+				tree.removeAll();
+			}
+		});
+	}
 
-  private void createTreeItems(Tree tree, int cellIndex) {
-	  assertTrue(String.format("cellIndex set to %d, cannot fit into testing tree with %d columns",
+	private void createTreeItems(Tree tree, int cellIndex) {
+		assertTrue(String.format("cellIndex set to %d, cannot fit into testing tree with %d columns",
 				cellIndex, TREE_COLUMN_COUNT), cellIndex < TREE_COLUMN_COUNT);
 
-	  removeTreeItems(tree);
+		removeTreeItems(tree);
 
-	    org.eclipse.swt.widgets.TreeItem itemA = createTreeItem(tree, "A", cellIndex);
-	    org.eclipse.swt.widgets.TreeItem itemAA = createTreeItem(itemA, "AA", cellIndex);
-	    createTreeItem(itemAA, "AAA", cellIndex);
-	    createTreeItem(itemAA, "AAB", cellIndex);
+		org.eclipse.swt.widgets.TreeItem itemA = createTreeItem(tree, "A", cellIndex);
+		org.eclipse.swt.widgets.TreeItem itemAA = createTreeItem(itemA, "AA", cellIndex);
+		createTreeItem(itemAA, "AAA", cellIndex);
+		createTreeItem(itemAA, "AAB", cellIndex);
 
-	    org.eclipse.swt.widgets.TreeItem itemB = createTreeItem(tree, "B", cellIndex);
-	    createTreeItem(itemB, "BB", cellIndex);
+		org.eclipse.swt.widgets.TreeItem itemB = createTreeItem(tree, "B", cellIndex);
+		createTreeItem(itemB, "BB", cellIndex);
 
-	    createTreeItem(tree, "C", cellIndex);
-  }
-
-  private void createTreeItems(Tree tree) {
-	  createTreeItems(tree, 0);
-  }
-
-  private org.eclipse.swt.widgets.TreeItem createTreeItem(
-		  final Tree tree, final String text, final int cellIndex) {
-	  return Display.syncExec(new ResultRunnable<org.eclipse.swt.widgets.TreeItem>() {
-		  @Override
-		  public org.eclipse.swt.widgets.TreeItem run() {
-			  org.eclipse.swt.widgets.TreeItem item = new org.eclipse.swt.widgets.TreeItem(tree, 0);
-			  item.setText(cellIndex, text);
-			  return item;
-		  }
-	  });
-  }
-
-  private org.eclipse.swt.widgets.TreeItem createTreeItem(final Tree tree, final String text) {
-	  return createTreeItem(tree, text, 0);
-  }
-
-  private org.eclipse.swt.widgets.TreeItem createTreeItem(
-		  final org.eclipse.swt.widgets.TreeItem treeItem, final String text, final int cellIndex) {
-	    return Display.syncExec(new ResultRunnable<org.eclipse.swt.widgets.TreeItem>() {
-	          @Override
-	          public org.eclipse.swt.widgets.TreeItem run() {
-	        	  org.eclipse.swt.widgets.TreeItem item = new org.eclipse.swt.widgets.TreeItem(treeItem, 0);
-	        	  item.setText(cellIndex, text);
-	        	  return item;
-	          }
-	        });
-
-	  }
-
-  private String printFormattedStringArray (String[] array){
-    StringBuffer sb = new StringBuffer();
-    for (String item : array){
-      sb.append(item);
-      sb.append(",");
-    }
-    if (sb.length() > 0){
-      sb.setLength(sb.length() - 1);
-    }
-    return sb.toString();
-  }
-    
-	private class TreeItemTextMatcher extends TypeSafeMatcher<TreeItem> {
-
-		private String expectedText;
-		
-		public TreeItemTextMatcher(String exptectedText) {
-			this.expectedText = exptectedText;
-		}
-		
-		@Override
-		public void describeTo(Description description) {
-			description.appendText("tree item with text " + expectedText);
-		}
-
-		@Override
-		public boolean matchesSafely(TreeItem item) {
-			return item.getText().equals(expectedText);
-		}
-		
+		createTreeItem(tree, "C", cellIndex);
 	}
-	
+
+	private void createTreeItems(Tree tree) {
+		createTreeItems(tree, 0);
+	}
+
+	private org.eclipse.swt.widgets.TreeItem createTreeItem(
+			final Tree tree, final String text, final int cellIndex) {
+		return Display.syncExec(new ResultRunnable<org.eclipse.swt.widgets.TreeItem>() {
+			@Override
+			public org.eclipse.swt.widgets.TreeItem run() {
+				org.eclipse.swt.widgets.TreeItem item = new org.eclipse.swt.widgets.TreeItem(tree, 0);
+				item.setText(cellIndex, text);
+				return item;
+			}
+		});
+	}
+
+	private org.eclipse.swt.widgets.TreeItem createTreeItem(final Tree tree, final String text) {
+		return createTreeItem(tree, text, 0);
+	}
+
+	private org.eclipse.swt.widgets.TreeItem createTreeItem(
+			final org.eclipse.swt.widgets.TreeItem treeItem, final String text, final int cellIndex) {
+		return Display.syncExec(new ResultRunnable<org.eclipse.swt.widgets.TreeItem>() {
+			@Override
+			public org.eclipse.swt.widgets.TreeItem run() {
+				org.eclipse.swt.widgets.TreeItem item = new org.eclipse.swt.widgets.TreeItem(treeItem, 0);
+				item.setText(cellIndex, text);
+				return item;
+			}
+		});
+
+	}
+
+	private String printFormattedStringArray (String[] array){
+		StringBuffer sb = new StringBuffer();
+		for (String item : array){
+			sb.append(item);
+			sb.append(",");
+		}
+		if (sb.length() > 0){
+			sb.setLength(sb.length() - 1);
+		}
+		return sb.toString();
+	}
+
 	private void createDynamicTreeItems(final Tree tree, final int initSleep,
 			final int delay, final int count) {
 		removeTreeItems(tree);
@@ -474,7 +460,7 @@ public class DefaultTreeTest extends SWTLayerTestCase {
 		int numItems = dfi.getItems().size();
 		assertTrue("Tree Item " + dfi.getText() + " has to have " 
 				+ expectedNumItems + " but has " + numItems,
-			numItems >= expectedNumItems);
+				numItems >= expectedNumItems);
 		// stops thread generating tree items
 		if (generateDynamicTreeItems != null){
 			generateDynamicTreeItems.interrupt();
@@ -487,12 +473,12 @@ public class DefaultTreeTest extends SWTLayerTestCase {
 		}
 		boolean wasException = false;
 		try{
-		  dfi.expand(expectedNumItems,TimePeriod.getCustom(3));
+			dfi.expand(expectedNumItems,TimePeriod.getCustom(3));
 		} catch (WaitTimeoutExpiredException wtee){
 			wasException = true;
 		}
 		assertTrue("WaitTimeoutExpiredException was not thrown" ,
-			wasException);
+				wasException);
 	}
 
 	private void addDynamicTreeItems(
@@ -513,7 +499,7 @@ public class DefaultTreeTest extends SWTLayerTestCase {
 									@Override
 									public void run() {
 										org.eclipse.swt.widgets.TreeItem item = new org.eclipse.swt.widgets.TreeItem(
-											tiExpanded, SWT.None);
+												tiExpanded, SWT.None);
 										item.setText(itemLabel);
 										if (itemLabel.equals("A0")){
 											tiExpanded.setExpanded(true);

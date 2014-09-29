@@ -30,8 +30,9 @@ import org.jboss.reddeer.swt.wait.WaitUntil;
  */
 public class TreeHandler {
 
-	private static TreeHandler instance;
 	private static final Logger logger = Logger.getLogger(TreeHandler.class);
+	
+	private static TreeHandler instance;
 
 	private TreeHandler() {
 
@@ -51,27 +52,36 @@ public class TreeHandler {
 
 	/**
 	 * Gets all direct descendants in specified {@link org.eclipse.swt.widgets.Tree}.
-	 * 
+	 * @deprecated Handlers should not work with Red Deer API. 
 	 * @param swtTree tree to handle
 	 * @return descendants of specified tree
 	 */
 	public List<TreeItem> getItems(final org.eclipse.swt.widgets.Tree swtTree) {
-		return Display.syncExec(new ResultRunnable<List<TreeItem>>() {
-			@Override
-			public List<TreeItem> run() {
-				LinkedList<TreeItem> result = new LinkedList<TreeItem>();
-				for (org.eclipse.swt.widgets.TreeItem swtTreeItem : swtTree
-						.getItems()) {
-					result.addLast(new BasicTreeItem(swtTreeItem));
-				}
-				return result;
-			}
-		});
+		List<TreeItem> items = new ArrayList<TreeItem>();
+		for (org.eclipse.swt.widgets.TreeItem swtItem : getSWTItems(swtTree)){
+			items.add(new BasicTreeItem(swtItem));
+		}
+		return items;
 	}
 
 	/**
-	 * Selects specified {@link TreeItem}s in currently focused tree.
+	 * Gets all direct descendants in specified {@link org.eclipse.swt.widgets.Tree}.
 	 * 
+	 * @param swtTree tree to handle
+	 * @return descendants of specified tree
+	 */
+	public List<org.eclipse.swt.widgets.TreeItem> getSWTItems(final org.eclipse.swt.widgets.Tree swtTree) {
+		return Display.syncExec(new ResultRunnable<List<org.eclipse.swt.widgets.TreeItem>>() {
+			@Override
+			public List<org.eclipse.swt.widgets.TreeItem> run() {
+				return Arrays.asList(swtTree.getItems());
+			}
+		});
+	}
+	
+	/**
+	 * Selects specified {@link TreeItem}s in currently focused tree.
+	 * @deprecated This method has been moved to {@link TreeItemHandler}
 	 * @param treeItems tree items to select
 	 */
 	public void selectItems(final TreeItem... treeItems) {
@@ -152,7 +162,7 @@ public class TreeHandler {
 
 	/**
 	 * See {@link TreeItem#select()}.
-	 * 
+	 * @deprecated Moved to {@link TreeItemHandler}
 	 * @param swtTreeItem tree item to handle
 	 */
 	public void select(final org.eclipse.swt.widgets.TreeItem swtTreeItem) {
@@ -173,7 +183,7 @@ public class TreeHandler {
 
 	/**
 	 * See {@link TreeItem#getParent()}.
-	 * 
+	 *  @deprecated Moved to {@link TreeItemHandler}
 	 * @param swtTreeItem tree item to handle
 	 * @return parent tree of specified item
 	 */
@@ -188,7 +198,7 @@ public class TreeHandler {
 
 	/**
 	 * See {@link TreeItem#getPath()}.
-	 * 
+	 * @deprecated Moved to {@link TreeItemHandler}
 	 * @param swtTreeItem tree item to handle
 	 * @return path to specified tree item in tree
 	 */
@@ -209,7 +219,7 @@ public class TreeHandler {
 
 	/**
 	 * See {@link TreeItem#expand}.
-	 * 
+	 * @deprecated Moved to {@link TreeItemHandler}
 	 * @param swtTreeItem tree item to handle
 	 */
 	public void expand(final org.eclipse.swt.widgets.TreeItem swtTreeItem) {
@@ -218,7 +228,7 @@ public class TreeHandler {
 
 	/**
 	 * See {@link TreeItem#expand(TimePeriod)}.
-	 * 
+	 * @deprecated Moved to {@link TreeItemHandler}
 	 * @param swtTreeItem tree item to handle
 	 * @param timePeriod time period to wait for
 	 */
@@ -255,7 +265,7 @@ public class TreeHandler {
 
 	/**
 	 * See {@link TreeItem#isChecked()}.
-	 * 
+	 * @deprecated Moved to {@link TreeItemHandler}
 	 * @param swtTreeItem tree item to handle
 	 * @return true if specified item is checked, false otherwise
 	 */
@@ -270,7 +280,7 @@ public class TreeHandler {
 
 	/**
 	 * See {@link TreeItem#isExpanded()}.
-	 * 
+	 * @deprecated Moved to {@link TreeItemHandler}
 	 * @param swtTreeItem tree item to handle
 	 * @return true if specified item is expanded, false otherwise
 	 */
@@ -285,7 +295,7 @@ public class TreeHandler {
 
 	/**
 	 * See {@link TreeItem#isSelected()}.
-	 * 
+	 *  @deprecated Moved to {@link TreeItemHandler}
 	 * @param swtTreeItem tree item to handle
 	 * @return true if specified item is selected, false otherwise
 	 */
@@ -301,7 +311,7 @@ public class TreeHandler {
 
 	/**
 	 * See {@link TreeItem#collapse()}.
-	 * 
+	 *  @deprecated Moved to {@link TreeItemHandler}
 	 * @param swtTreeItem tree item to handle
 	 */
 	public void collapse(final org.eclipse.swt.widgets.TreeItem swtTreeItem) {
@@ -329,7 +339,7 @@ public class TreeHandler {
 
 	/**
 	 * See {@link TreeItem#getItem(String)}.
-	 * 
+	 *  @deprecated Moved to {@link TreeItemHandler}
 	 * @param swtTreeItem tree item to handle
 	 * @param text text of tree item
 	 * @return child item of specified tree item
@@ -375,7 +385,7 @@ public class TreeHandler {
 		}
 	}
 
-	private void notifySelect(final org.eclipse.swt.widgets.Tree swtTree) {
+	public void notifySelect(final org.eclipse.swt.widgets.Tree swtTree) {
 		Display.syncExec(new Runnable() {
 			public void run() {
 				logger.debug("Notify Tree about selection event");
@@ -425,7 +435,7 @@ public class TreeHandler {
 		event.display = Display.getDisplay();
 		event.time = (int) System.currentTimeMillis();
 		event.item = swtTreeItem;
-		event.widget = getParent(swtTreeItem).getSWTWidget();
+		event.widget = TreeItemHandler.getInstance().getParent(swtTreeItem);
 		event.detail = detail;
 		return event;
 	}
@@ -466,7 +476,7 @@ public class TreeHandler {
 
 	/**
 	 * See {@link TreeItem#setChecked(boolean)}.
-	 * 
+	 *  @deprecated Moved to {@link TreeItemHandler}
 	 * @param swtTreeItem tree item to handle
 	 * @param check check value of specified tree item
 	 */
@@ -488,7 +498,7 @@ public class TreeHandler {
 
 	/**
 	 * Gets children {@link TreeItem}s of specified {@link org.eclipse.swt.widgets.TreeItem}.
-	 * 
+	 *  @deprecated Moved to {@link TreeItemHandler}
 	 * @param swtTreeItem tree item to handle
 	 * @return tree item children
 	 */
@@ -509,6 +519,11 @@ public class TreeHandler {
 		});
 	}
 
+	/**
+	 * @deprecated Moved to {@link TreeItemHandler}
+	 * @author Lucia Jelinkova
+	 *
+	 */
 	private class TreeExpandListener implements Listener {
 
 		private boolean heard = false;

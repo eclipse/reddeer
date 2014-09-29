@@ -11,6 +11,8 @@ import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.swt.condition.TreeItemHasMinChildren;
 import org.jboss.reddeer.swt.condition.WaitCondition;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
+import org.jboss.reddeer.swt.lookup.TreeItemLookup;
+import org.jboss.reddeer.swt.matcher.TreeItemTextMatcher;
 import org.jboss.reddeer.swt.matcher.WithTextMatcher;
 import org.jboss.reddeer.swt.reference.ReferencedComposite;
 import org.jboss.reddeer.swt.wait.TimePeriod;
@@ -27,14 +29,79 @@ public class DefaultTreeItem extends AbstractTreeItem {
 	private static final Logger logger = Logger.getLogger(DefaultTreeItem.class);
 	
 	/**
+	 * Tree item with specified path will be constructed 
+	 * 
+	 * @param treeItemPath
+	 */
+	public DefaultTreeItem(String... treeItemPath) {
+		this(new DefaultTree(), treeItemPath);
+	}
+	
+	/**
+	 * Tree item in specified tree with specified path will be constructed 
+	 * 
+	 * @param treeItemPath
+	 */
+	public DefaultTreeItem(Tree tree, String... treeItemPath) {
+		super(TreeItemLookup.getInstance().getTreeItem(tree.getSWTWidget(), 0, createMatchers(treeItemPath)));
+	}
+	
+	/**
+	 * Tree item with specified path will be constructed
+	 *
+	 * @param treeItemPath
+	 */
+	public DefaultTreeItem(Matcher<org.eclipse.swt.widgets.TreeItem>... treeItemPath) {
+		this(new DefaultTree(), treeItemPath);
+	}
+
+	/**
+	 * Tree item in specified tree with specified path will be constructed
+	 *
+	 * @param treeItemPath
+	 */
+	public DefaultTreeItem(Tree tree, Matcher<org.eclipse.swt.widgets.TreeItem>... treeItemPath) {
+		super(TreeItemLookup.getInstance().getTreeItem(tree.getSWTWidget(), 0, treeItemPath));
+	}
+	
+	/**
+	 * Tree item with specified index and path will be constructed. 
+	 *
+	 * @param treeItemPath
+	 */
+	public DefaultTreeItem(int index, Matcher<org.eclipse.swt.widgets.TreeItem>... treeItemPath) {
+		this(new DefaultTree(), index, treeItemPath);
+	}
+
+	/**
+	 * Tree item in specified tree with specified index and path will be constructed
+	 *
+	 * @param treeItemPath
+	 */
+	public DefaultTreeItem(Tree tree, int index, Matcher<org.eclipse.swt.widgets.TreeItem>... treeItemPath) {
+		super(TreeItemLookup.getInstance().getTreeItem(tree.getSWTWidget(), index, treeItemPath));
+	}
+	
+	/**
+	 * @deprecated Will be removed in 1.0.0. Use {@link DefaultTree}{@link #getItems()} instead
 	 * Default parameter-less constructor
 	 */
 	public DefaultTreeItem() {
-		this(null, 0);
+		this(new DefaultTree());
+	}
+	
+	/**
+	 * @deprecated Will be removed in 1.0.0. Use {@link DefaultTree}{@link #getItems()} instead
+	 * TreeItem inside given tree
+	 */
+	public DefaultTreeItem(Tree tree) {
+		super(findTreeItem(tree, 0));
 	}
 	
 	/**
 	 * TreeItem inside given composite
+	 * @deprecated {@link ReferencedComposite} used to be used to locate the tree. 
+	 * Please use {@link #DefaultTreeItem(Tree)} constructor directly. Will be removed in 1.0.0
 	 * @param
 	 */
 	public DefaultTreeItem(ReferencedComposite referencedComposite) {
@@ -42,27 +109,11 @@ public class DefaultTreeItem extends AbstractTreeItem {
 	}
 	
 	/**
-	 * Tree item with specified path will be constructed 
-	 * 
-	 * @param treeItemPath
-	 */
-	public DefaultTreeItem(String... treeItemPath) {
-		this((ReferencedComposite)null, 0, treeItemPath);
-	}
-
-	/**
-	 * Tree item with specified path will be constructed
-	 *
-	 * @param treeItemPath
-	 */
-	public DefaultTreeItem(Matcher<String>... treeItemPath) {
-		this((ReferencedComposite)null, 0, treeItemPath);
-	}
-
-	/**
 	 * Tree item with specified path inside given composite will be constructed
 	 * @param referencedComposite
-	 * @param treeItemPath
+	 * @param treeItemPathIndex
+	 * @deprecated {@link ReferencedComposite} used to be used to locate the tree. 
+	 * Please use {@link #DefaultTreeItem(Tree)} constructor directly. Will be removed in 1.0.0
 	 */
 	public DefaultTreeItem(ReferencedComposite referencedComposite, String... treeItemPath) {
 		this(referencedComposite, 0, treeItemPath);
@@ -71,6 +122,8 @@ public class DefaultTreeItem extends AbstractTreeItem {
 	/**
 	 * Tree item with specified path inside given composite will be constructed
 	 * @param referencedComposite
+	 * @deprecated {@link ReferencedComposite} used to be used to locate the tree. 
+	 * Please use {@link #DefaultTreeItem(Tree)} constructor directly. Will be removed in 1.0.0
 	 * @param treeItemPath
 	 */
 	public DefaultTreeItem(ReferencedComposite referencedComposite, Matcher<String>... treeItemPath) {
@@ -79,7 +132,8 @@ public class DefaultTreeItem extends AbstractTreeItem {
 	
 	/**
 	 * Tree item with specified tree index and path will be constructed
-	 * 
+	 * @deprecated Index used to be used to locate the tree. 
+	 * Please use {@link #DefaultTreeItem(Tree)} constructor directly. Will be removed in 1.0.0
 	 * @param treeIndex
 	 * @param treeItemPath
 	 */
@@ -88,17 +142,10 @@ public class DefaultTreeItem extends AbstractTreeItem {
 	}
 
 	/**
-	 * Tree item with specified tree index and path will be constructed
-	 *
-	 * @param treeIndex
-	 * @param treeItemPath
-	 */
-	public DefaultTreeItem(int treeIndex, Matcher<String>... treeItemPath) {
-		super(findTreeItem((ReferencedComposite)null, treeIndex, treeItemPath));
-	}
-	
-	/**
-	 * Tree item with specified tree index and path inside given composite will be constructed 
+	 * Tree item with specified tree index and path inside given composite will be constructed
+	 * @deprecated {@link ReferencedComposite} and index used to be used to locate the tree. 
+	 * Please use {@link #DefaultTreeItem(Tree)} constructor directly. Will be removed in 1.0.0
+	 *  
 	 * @param referencedComposite
 	 * @param treeIndex
 	 * @param treeItemPath
@@ -109,6 +156,9 @@ public class DefaultTreeItem extends AbstractTreeItem {
 
 	/**
 	 * Tree item with specified tree index and path inside given composite will be constructed
+	 * @deprecated {@link ReferencedComposite} and index used to be used to locate the tree. 
+	 * Please use {@link #DefaultTreeItem(Tree)} constructor directly. Will be removed in 1.0.0
+	 * 
 	 * @param referencedComposite
 	 * @param treeIndex
 	 * @param treeItemPath
@@ -119,7 +169,7 @@ public class DefaultTreeItem extends AbstractTreeItem {
 
 	/**
 	 * Tree item with specified tree item index will be constructed
-	 * 
+	 * @deprecated Please use {@link DefaultTree}{@link #getItems()}
 	 * @param treeItemIndex
 	 */
 	public DefaultTreeItem(int treeItemIndex) {
@@ -128,6 +178,8 @@ public class DefaultTreeItem extends AbstractTreeItem {
 	
 	/**
 	 * Tree item with specified tree item index inside given composite will be constructed
+	 * @deprecated {@link ReferencedComposite} used to be used to locate the tree. 
+	 * Please use {@link #DefaultTreeItem(Tree)} constructor directly. Will be removed in 1.0.0
 	 * @param referencedComposite
 	 * @param treeItemIndex
 	 */
@@ -137,7 +189,8 @@ public class DefaultTreeItem extends AbstractTreeItem {
 	
 	/**
 	 * Tree item with specified tree and tree item index will be constructed
-	 * 
+	 * @deprecated Index used to be used to locate the tree. 
+	 * Please use {@link #DefaultTreeItem(Tree)} constructor directly. Will be removed in 1.0.0
 	 * @param treeIndex
 	 * @param treeItemIndex
 	 */
@@ -147,6 +200,8 @@ public class DefaultTreeItem extends AbstractTreeItem {
 	
 	/**
 	 * Tree item with specified tree and tree item index inside given composite will be constructed
+	 * @deprecated {@link ReferencedComposite} used to be used to locate the tree. 
+	 * Please use {@link #DefaultTreeItem(Tree)} constructor directly. Will be removed in 1.0.0
 	 * @param referencedComposite
 	 * @param treeIndex
 	 * @param treeItemIndex
@@ -158,7 +213,7 @@ public class DefaultTreeItem extends AbstractTreeItem {
 	/**
 	 * Tree item with specified tree and path inside this tree will be constructed. Text from
 	 * specified cell will be used instead of item's text.
-	 *
+	 * @deprecated If you need to filter path by different cell index, please use Matcher
 	 * @param tree
 	 * @param cellIndex
 	 * @param treeItemPath
@@ -167,18 +222,15 @@ public class DefaultTreeItem extends AbstractTreeItem {
 		super(findTreeItem(tree, cellIndex, treeItemPath));
 	}
 
-	/**
-	 * Tree item with specified tree and path inside this tree will be constructed. Text from
-	 * specified cell will be used instead of item's text.
-	 *
-	 * @param tree
-	 * @param cellIndex
-	 * @param treeItemPath
-	 */
-	public DefaultTreeItem(Tree tree, int cellIndex, Matcher<String>... treeItemPath) {
-		super(findTreeItem(tree, cellIndex, treeItemPath));
+	@SuppressWarnings("unchecked")
+	private static Matcher<org.eclipse.swt.widgets.TreeItem>[] createMatchers(String[] treeItemPath) {
+		Matcher<org.eclipse.swt.widgets.TreeItem>[] matchers = new Matcher[treeItemPath.length];
+		for (int i = 0; i < treeItemPath.length; i++){
+			matchers[i] = new TreeItemTextMatcher(treeItemPath[i]);
+		}
+		return matchers;
 	}
-
+	
 	/**
 	 * Return swt widget of Tree Item 
 	 */
@@ -214,7 +266,7 @@ public class DefaultTreeItem extends AbstractTreeItem {
 
 		return exception;
 	}
-
+	
 	/**
 	 * Find tree item by its path
 	 *
