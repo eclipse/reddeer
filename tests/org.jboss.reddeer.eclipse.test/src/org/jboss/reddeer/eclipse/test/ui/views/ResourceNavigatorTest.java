@@ -1,4 +1,4 @@
-package org.jboss.reddeer.eclipse.test.ui.views.navigator;
+package org.jboss.reddeer.eclipse.test.ui.views;
 
 import static org.junit.Assert.assertTrue;
 

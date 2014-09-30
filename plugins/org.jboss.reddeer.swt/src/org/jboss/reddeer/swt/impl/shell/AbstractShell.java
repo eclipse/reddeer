@@ -24,21 +24,20 @@ public abstract class AbstractShell implements Shell {
 	private static final Logger log = Logger.getLogger(AbstractShell.class);
 
 	protected org.eclipse.swt.widgets.Shell swtShell;
-	
-	protected AbstractShell (org.eclipse.swt.widgets.Shell swtShell){
-		  if (swtShell != null){
-		    this.swtShell = swtShell;  
-		  }
-		  else {
-		     throw new SWTLayerException("SWT Shell passed to constructor is null");
-		  }	  
+
+	protected AbstractShell(org.eclipse.swt.widgets.Shell swtShell) {
+		if (swtShell != null) {
+			this.swtShell = swtShell;
+		} else {
+			throw new SWTLayerException("SWT Shell passed to constructor is null");
+		}
 	}
 
 	@Override
 	public Control getControl() {
 		return swtShell;
 	}
-	
+
 	@Override
 	public String getText() {
 		String text = WidgetHandler.getInstance().getText(swtShell);
@@ -61,15 +60,15 @@ public abstract class AbstractShell implements Shell {
 			new CancelButton().click();
 		} catch (Exception e) {
 			WidgetHandler.getInstance().notify(SWT.Close, swtShell);
-			ShellHandler.getInstance().closeShell(swtShell);	
+			ShellHandler.getInstance().closeShell(swtShell);
 		}
 		new WaitWhile(new ShellWithTextIsAvailable(text));
 	}
-	
-	public org.eclipse.swt.widgets.Shell getSWTWidget(){
+
+	public org.eclipse.swt.widgets.Shell getSWTWidget() {
 		return swtShell;
 	}
-	
+
 	@Override
 	public boolean isEnabled() {
 		return WidgetHandler.getInstance().isEnabled(swtShell);

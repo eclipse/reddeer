@@ -7,7 +7,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.PlatformUI;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.swt.condition.ShellIsActive;
-import org.jboss.reddeer.swt.condition.ShellWithTextIsAvailable;
+import org.jboss.reddeer.swt.condition.ShellMatchingMatcherIsAvailable;
 import org.jboss.reddeer.swt.condition.WaitCondition;
 import org.jboss.reddeer.swt.matcher.WithTextMatcher;
 import org.jboss.reddeer.swt.util.Display;
@@ -18,7 +18,7 @@ import org.jboss.reddeer.swt.wait.WaitUntil;
 /**
  * Shell Lookup, this contains routines for ToolBar implementation that have are widely used 
  * and also requires to be executed in UI Thread
- * @author Jiri Peterka
+ * @author Jiri Peterka, mlabuda@redhat.com
  * 
  */
 public class ShellLookup {
@@ -126,7 +126,7 @@ public class ShellLookup {
 	}
 	
 	public Shell getShell(final Matcher<String> matcher) {
-		
+		new WaitUntil(new ShellMatchingMatcherIsAvailable(matcher), TimePeriod.NORMAL, false);
 		return Display.syncExec(new ResultRunnable<Shell>() {
 			
 			@Override
@@ -134,18 +134,17 @@ public class ShellLookup {
 				Shell[] shell = Display.getDisplay().getShells(); 
 				for (int i = 0; i < shell.length; i++) {
 					if(matcher.matches(shell[i])) {
-						if (shell[i].isVisible())
+						if (shell[i].isVisible()) {
 							return shell[i];
+						}
 					}
 				}
 				return null;
 			}
-			
 		});
 	}
 	
 	public Shell getShell(String title) {
-		new WaitUntil(new ShellWithTextIsAvailable(title), TimePeriod.NORMAL,false);
 		return getShell(new WithTextMatcher(title));		
 	}
 	

@@ -1,4 +1,4 @@
-package org.jboss.reddeer.eclipse.test.jdt.internal.ui;
+package org.jboss.reddeer.eclipse.test.ui.navigator;
 
 import org.jboss.reddeer.eclipse.jdt.ui.ProjectExplorer;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;

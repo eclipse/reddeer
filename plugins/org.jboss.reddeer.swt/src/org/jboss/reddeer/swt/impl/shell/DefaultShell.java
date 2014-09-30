@@ -1,5 +1,6 @@
 package org.jboss.reddeer.swt.impl.shell;
 
+import org.hamcrest.Matcher;
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.lookup.ShellLookup;
@@ -7,7 +8,7 @@ import org.jboss.reddeer.swt.lookup.ShellLookup;
  * Default shell returns active shell if available if not it returns first
  * available shell
  * 
- * @author Jiri Peterka, Andrej Podhradsky
+ * @author Jiri Peterka, Andrej Podhradsky, mlabuda@redhat.com
  * 
  */
 public class DefaultShell extends AbstractShell {
@@ -22,6 +23,23 @@ public class DefaultShell extends AbstractShell {
 		}
 	}
 
+	/**
+	 * 
+	 * Creates a new DefaultShell matching specified matcher. First found shell with 
+	 * specified matcher is created. Beware, there is no strict (deterministic) order of shells.
+	 * 
+	 * @param matcher matcher to match title of a shell
+	 */
+	public DefaultShell(Matcher<String> matcher) {
+		super(ShellLookup.getInstance().getShell(matcher));
+		try {
+			setFocus();
+			log.debug("Shell matching specified matcher is found and focused");
+		} catch (Exception e) {
+			throw new SWTLayerException("Shell matching specified matcher was not focused successfully.", e);
+		}
+	}
+	
 	public DefaultShell() {
 		super(ShellLookup.getInstance().getActiveShell());
 		try {

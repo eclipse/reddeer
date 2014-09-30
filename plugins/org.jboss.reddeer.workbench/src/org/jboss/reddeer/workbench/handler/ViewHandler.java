@@ -4,6 +4,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.IViewReference;
+import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.jboss.reddeer.common.logging.Logger;
@@ -58,6 +59,23 @@ public class ViewHandler {
 		});
 		new WaitUntil(new ActiveFocusControlIsInActiveView(),TimePeriod.NORMAL,false);
 		focusChildControl();
+	}
+	
+	/**
+	 * Finds out whether the specified {@link IViewPart} is focused or not.
+	 * 
+	 * @param viewPart view part to find out its focus
+	 * @return true if view is focused, false otherwise
+	 */
+	public boolean hasFocus(final IViewPart viewPart) {
+		return Display.syncExec(new ResultRunnable<Boolean>() {
+			@Override
+			public Boolean run() {
+				IWorkbenchPart activeWorkbenchPart = PlatformUI.getWorkbench()
+						.getActiveWorkbenchWindow().getActivePage().getActivePart();
+				return activeWorkbenchPart == null ? false : activeWorkbenchPart.equals(viewPart);
+			}
+		});
 	}
 	
 	public void close(final IViewPart viewPart){

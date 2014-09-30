@@ -32,8 +32,8 @@ public class PackageExplorerTest {
 		dialog.finish();
 
 		packageExplorer = new PackageExplorer();
-		project0 = packageExplorer
-				.getProject(PackageExplorerTest.PROJECT_NAME_0);
+		packageExplorer.open();
+		project0 = packageExplorer.getProject(PackageExplorerTest.PROJECT_NAME_0);
 	}
 
 	@Test

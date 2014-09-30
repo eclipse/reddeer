@@ -22,7 +22,7 @@ public class Project {
 				.getProject(projectName)
 				.delete(deleteContent, force, null);
 		} catch (CoreException ce) {
-			throw new RuntimeException("Unalbe to delete project " + projectName,ce);
+			throw new RuntimeException("Unable to delete project " + projectName, ce);
 		}
 	}
 }

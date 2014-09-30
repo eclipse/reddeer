@@ -57,7 +57,7 @@ public class DeleteUtils {
 	private static class ShellWithButton extends AbstractShell {
 
 		public ShellWithButton(String title, String buttonLabel) {
-			super(lookForShellWIthButton(title, buttonLabel));
+			super(lookForShellWithButton(title, buttonLabel));
 			setFocus();
 			log.debug("Shell with title '" + title + "' and button '"
 					+ buttonLabel + "' found");
@@ -65,7 +65,7 @@ public class DeleteUtils {
 
 	}
 
-	private static Shell lookForShellWIthButton(final String title,
+	private static Shell lookForShellWithButton(final String title,
 			final String buttonLabel) {
 		Matcher<String> titleMatcher = new WithTextMatcher(title);
 		Matcher<String> buttonMatcher = new BaseMatcher<String>() {

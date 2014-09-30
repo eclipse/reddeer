@@ -26,4 +26,5 @@ Export-Package: org.jboss.reddeer.workbench,
  org.jboss.reddeer.workbench.handler,
  org.jboss.reddeer.workbench.impl.editor,
  org.jboss.reddeer.workbench.impl.view,
+ org.jboss.reddeer.workbench.lookup,
  org.jboss.reddeer.workbench.preference

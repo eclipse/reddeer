@@ -11,6 +11,8 @@ import org.jboss.reddeer.swt.condition.ShellWithTextIsActive;
 import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.menu.ContextMenu;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
+import org.jboss.reddeer.swt.matcher.RegexMatcher;
+import org.jboss.reddeer.swt.matcher.WithTextMatcher;
 import org.jboss.reddeer.swt.wait.TimePeriod;
 import org.jboss.reddeer.swt.wait.WaitWhile;
 
@@ -54,13 +56,16 @@ public class ProjectItem {
 	/**
 	 * Deletes the project item. The project item is refreshed before deleting.
 	 */
-	public void delete() {
+	public void delete() {		
 		refresh();
-        log.debug("Delete project item " + treeItem.getText() + " via Package Explorer");
-	    new ContextMenu("Delete").select();
-	    new DefaultShell("Delete");
+		
+		log.debug("Delete project item " + treeItem.getText() + ".");
+	
+		select();
+		new ContextMenu("Delete").select();
+		String deleteShellTitle = new DefaultShell(new WithTextMatcher(new RegexMatcher("Delete.*"))).getText();
 		new PushButton("OK").click();
-		new WaitWhile(new ShellWithTextIsActive("Delete"),TimePeriod.LONG);
+		new WaitWhile(new ShellWithTextIsActive(deleteShellTitle),TimePeriod.LONG);
 		new WaitWhile(new JobIsRunning(), TimePeriod.LONG);
 	}
 
