@@ -1,12 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
 	<description>To install these features, point Eclipse at this site.</description>
-	<category-def label="RedDeer" name="AllFeatures">
-		<description>RedDeer Update Site: contains the RedDeer feature of this build.</description>
+	<category-def label="1. RedDeer Runtime/API" name="AllFeatures">
+		<description>RedDeer Runtime/API: Contains RedDeer runtime for running tests using RedDeer.</description>
 	</category-def>
-	<category-def label="RedDeer Sources" name="AllSources">
-		<description>RedDeer Update Site: contains the RedDeer source feature of this build.</description>
+	<category-def label="2. RedDeer UI" name="UIFeatures">
+		<description>RedDeer UI: Contains RedDeer UI feature (Eclipse wizards etc.).</description>
 	</category-def>
+	<category-def label="3. RedDeer Tests/Examples" name="TestFeatures">
+		<description>RedDeer Tests: Contains RedDeer tests.</description>
+	</category-def>
+	<category-def label="4. RedDeer Sources" name="AllSources">
+		<description>RedDeer Sources: Contains RedDeer source features.</description>
+	</category-def>
+
 
 	<feature url="org.jboss.reddeer.eclipse.feature.qualifier" id="org.jboss.reddeer.eclipse.feature" version="0.0.0">
 		<category name="AllFeatures"/>
@@ -21,19 +28,19 @@
 	</feature>
 
 	<feature url="org.jboss.reddeer.tests.feature.qualifier" id="org.jboss.reddeer.tests.feature" version="0.0.0">
-		<category name="AllFeatures"/>
+		<category name="TestFeatures"/>
 	</feature>
 
 	<feature url="org.jboss.reddeer.ui.feature.qualifier" id="org.jboss.reddeer.ui.feature" version="0.0.0">
-		<category name="AllFeatures"/>
+		<category name="UIFeatures"/>
 	</feature>
 
 	<feature url="org.jboss.reddeer.examples.feature.qualifier" id="org.jboss.reddeer.examples.feature" version="0.0.0">
-		<category name="AllFeatures"/>
+		<category name="TestFeatures"/>
 	</feature>
 
 	<feature url="org.jboss.reddeer.recorder.feature.qualifier" id="org.jboss.reddeer.recorder.feature" version="0.0.0">
-		<category name="AllFeatures"/>
+		<category name="UIFeatures"/>
 	</feature>
 
 	<feature url="org.jboss.reddeer.junit.extension.feature.qualifier" id="org.jboss.reddeer.junit.extension.feature" version="0.0.0">
@@ -71,7 +78,7 @@
 	<feature url="org.jboss.reddeer.examples.feature.source.qualifier" id="org.jboss.reddeer.examples.feature.source" version="0.0.0">
 		<category name="AllSources"/>
 	</feature>
-	
+
 	<feature url="org.jboss.reddeer.junit.extension.feature.source.qualifier" id="org.jboss.reddeer.junit.extension.feature.source" version="0.0.0">
 		<category name="AllSources"/>
 	</feature>
