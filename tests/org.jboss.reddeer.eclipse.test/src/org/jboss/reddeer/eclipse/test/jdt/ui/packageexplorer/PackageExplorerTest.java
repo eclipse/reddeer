@@ -106,7 +106,15 @@ public class PackageExplorerTest {
 				packageExplorer
 						.containsProject(PackageExplorerTest.PROJECT_NAME_0));
 	}
-
+	@Test
+	public void getTitle() {
+		packageExplorer = new PackageExplorer();
+		packageExplorer.open();
+		String pacakgeExplorerTitle = packageExplorer.getTitle();
+		assertTrue("Package Explorer has wrong title: '"
+				+ pacakgeExplorerTitle + "'", pacakgeExplorerTitle.equals("Package Explorer"));
+	}
+	
 	@After
 	public void tearDown() {
 		if (packageExplorer != null){
