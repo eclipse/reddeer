@@ -11,13 +11,6 @@ import org.jboss.reddeer.workbench.impl.editor.Marker;
  * @author rawagner
  */
 public interface Editor extends WorkbenchPart {
-
-    /**
-     * Returns editor title.
-     * @return editor title
-     */
-    String getTitle();
-
     /**
      * Returns editor title tooltip.
      * @return editor title tooltip

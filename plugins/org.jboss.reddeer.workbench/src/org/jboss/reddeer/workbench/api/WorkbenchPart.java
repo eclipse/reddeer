@@ -30,5 +30,10 @@ public interface WorkbenchPart {
 	 * Close workbench part
 	 */
 	void close();
+	/**
+     * Returns Title of workbench part
+     * @return
+     */
+    String getTitle();
 
 }
