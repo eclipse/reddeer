@@ -263,4 +263,8 @@ public class AbstractView implements View {
 					+ "provided by open method");
 		}
 	}
+
+	public String getTitle() {
+		return WorkbenchPartHandler.getInstance().getTitle(viewPart);
+	}
 }
