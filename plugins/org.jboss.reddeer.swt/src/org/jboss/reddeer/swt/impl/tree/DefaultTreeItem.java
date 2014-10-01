@@ -179,13 +179,6 @@ public class DefaultTreeItem extends AbstractTreeItem {
 		super(findTreeItem(tree, cellIndex, treeItemPath));
 	}
 
-	/**
-	 * Return swt widget of Tree Item 
-	 */
-	public org.eclipse.swt.widgets.TreeItem getSWTWidget() {
-		return swtTreeItem;
-	}
-
 	private static SWTLayerException createItemNotFoundException(List<TreeItem> items, int cellIndex, Matcher<String> pathItem, Matcher<String>[] treeItemPath, Integer treeItemIndex) {
 		SWTLayerException exception = new SWTLayerException("No matching tree item found");
 

@@ -1,7 +1,10 @@
 package org.jboss.reddeer.uiforms.impl.form;
 
 import org.eclipse.swt.widgets.Control;
+import org.hamcrest.Matcher;
 import org.jboss.reddeer.swt.handler.WidgetHandler;
+import org.jboss.reddeer.swt.reference.ReferencedComposite;
+import org.jboss.reddeer.swt.widgets.AbstractWidget;
 import org.jboss.reddeer.uiforms.api.Form;
 
 /**
@@ -10,30 +13,23 @@ import org.jboss.reddeer.uiforms.api.Form;
  * @author Lucia Jelinkova
  *
  */
-public abstract class AbstractForm implements Form {
+public abstract class AbstractForm extends AbstractWidget<org.eclipse.ui.forms.widgets.Form> implements Form {
 
-	protected org.eclipse.ui.forms.widgets.Form form;
+	protected AbstractForm(ReferencedComposite refComposite, int index, Matcher<?>... matchers){
+		super(org.eclipse.ui.forms.widgets.Form.class, refComposite, index, matchers);
+		setFocus();
+	}
 	
 	@Override
 	public Control getControl() {
-		return form.getBody();
+		return swtWidget.getBody();
 	}
 
-	@Override
-	public org.eclipse.swt.widgets.Widget getSWTWidget() {
-		return form;
-	}
-
-	@Override
-	public boolean isEnabled() {
-		return WidgetHandler.getInstance().isEnabled(form);
-	}
-	
 	protected void setFocus() {
-		WidgetHandler.getInstance().setFocus(form);
+		WidgetHandler.getInstance().setFocus(swtWidget);
 	}
 	
 	public String getText(){
-		return WidgetHandler.getInstance().getText(form);
+		return WidgetHandler.getInstance().getText(swtWidget);
 	}
 }

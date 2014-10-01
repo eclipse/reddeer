@@ -2,7 +2,7 @@ package org.jboss.reddeer.swt.impl.spinner;
 
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.swt.api.Spinner;
-import org.jboss.reddeer.swt.lookup.SpinnerLookup;
+import org.jboss.reddeer.swt.matcher.WithLabelMatcher;
 import org.jboss.reddeer.swt.reference.ReferencedComposite;
 
 /**
@@ -16,45 +16,68 @@ public class DefaultSpinner extends AbstractSpinner implements Spinner {
 	/**
 	 * Spinner with index 0
 	 */
-	public DefaultSpinner() {
-		this(0);
+	public DefaultSpinner(){
+		this((ReferencedComposite) null);
 	}
-
+	
 	/**
-	 * Spinner with given index
-	 * 
-	 * @param index
-	 */
-	public DefaultSpinner(int index) {
-		swtSpinner = SpinnerLookup.getInstance().getSpinner(null, index);
-	}
-
-	/**
-	 * Spinner with given index inside given composite
-	 * 
+	 * Spinner with index 0 inside given composite
 	 * @param referencedComposite
-	 * @param index
 	 */
-	public DefaultSpinner(ReferencedComposite referencedComposite, int index) {
-		swtSpinner = SpinnerLookup.getInstance().getSpinner(referencedComposite, index);
+	public DefaultSpinner(ReferencedComposite referencedComposite){
+		this(referencedComposite, 0);
 	}
-
-	@SuppressWarnings("rawtypes")
+	
 	/**
-	 * Spinner with given matchers
+	 * Spinner with given label
+	 * @param label of Spinner
+	 */
+	public DefaultSpinner(String label){
+		this(null, label);
+	}
+	
+	/**
+	 * Spinner with given label inside given composite
+	 * @param referencedComposite
+	 * @param label of Spinner
+	 */
+	public DefaultSpinner(ReferencedComposite referencedComposite, String label){
+		this(referencedComposite, 0, new WithLabelMatcher(label));
+	}
+	
+	/**
+	 * Spinner that matches given matchers
 	 * @param matchers
 	 */
-	public DefaultSpinner(Matcher... matchers) {
-		swtSpinner = SpinnerLookup.getInstance().getSpinner(null, 0, matchers);
+	public DefaultSpinner(Matcher<?>... matchers){
+		this(null, matchers);
 	}
-
-	@SuppressWarnings("rawtypes")
+	
 	/**
-	 * Spinner with given matchers inside given composite
+	 * Spinner that matches given matchers inside given composite
 	 * @param referencedComposite
 	 * @param matchers
 	 */
-	public DefaultSpinner(ReferencedComposite referencedComposite, Matcher... matchers) {
-		swtSpinner = SpinnerLookup.getInstance().getSpinner(referencedComposite, 0, matchers);
+	public DefaultSpinner(ReferencedComposite referencedComposite, Matcher<?>... matchers){
+		this(referencedComposite, 0, matchers);
+	}
+	
+	/**
+	 * Spinner with given index that matches given matchers
+	 * @param index of Spinner
+	 * @param matchers
+	 */
+	public DefaultSpinner(int index, Matcher<?>... matchers){
+		this(null, index, matchers);
+	}
+	
+	/**
+	 * Spinner with given index that matches given matchers inside given composite
+	 * @param referencedComposite
+	 * @param index of Spinner
+	 * @param matchers
+	 */
+	public DefaultSpinner(ReferencedComposite referencedComposite, int index, Matcher<?>... matchers){
+		super(referencedComposite, index, matchers);
 	}
 }

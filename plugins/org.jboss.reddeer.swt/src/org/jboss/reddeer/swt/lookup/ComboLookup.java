@@ -3,11 +3,12 @@ package org.jboss.reddeer.swt.lookup;
 import org.eclipse.swt.widgets.Combo;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.swt.reference.ReferencedComposite;
+import org.jboss.reddeer.swt.widgets.AbstractWidget;
 
 /**
  * Combo lookup containing lookup routines for Combo widget type
  * @author jjankovi
- *
+ * @deprecated Since 1.0.0 use {@link AbstractWidget
  */
 public class ComboLookup {
 

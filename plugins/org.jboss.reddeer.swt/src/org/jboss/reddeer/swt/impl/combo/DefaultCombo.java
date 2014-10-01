@@ -2,13 +2,12 @@ package org.jboss.reddeer.swt.impl.combo;
 
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.swt.api.Combo;
-import org.jboss.reddeer.swt.lookup.ComboLookup;
 import org.jboss.reddeer.swt.matcher.WithTextMatcher;
 import org.jboss.reddeer.swt.reference.ReferencedComposite;
 
 /**
  * Default Combo implementation. Most standard Combo implementation
- * @author Rastislav Wagner
+ * @author Rastislav Wagner, Lucia Jelinkova
  *
  */
 public class DefaultCombo extends AbstractCombo implements Combo{
@@ -17,23 +16,7 @@ public class DefaultCombo extends AbstractCombo implements Combo{
 	 * Default constructor which looks for combo with index 0
 	 */
 	public DefaultCombo(){
-		this(0);
-	}
-	
-	/**
-	 * Finds combo with given index
-	 * @param index of combo
-	 */
-	public DefaultCombo(int index){
-		this(null, index);
-	}
-	
-	/**
-	 * Finds combo with given text written inside
-	 * @param text which is written in combo
-	 */
-	public DefaultCombo(String text){
-		this(null,text);
+		this((ReferencedComposite) null);
 	}
 	
 	/**
@@ -45,12 +28,11 @@ public class DefaultCombo extends AbstractCombo implements Combo{
 	}
 	
 	/**
-	 * Finds combo inside given referenced composite with given index
-	 * @param ref composite inside which combo should be looked for
-	 * @param index of combo
+	 * Finds combo with given text written inside
+	 * @param text which is written in combo
 	 */
-	public DefaultCombo(ReferencedComposite ref, int index){
-		swtCombo = ComboLookup.getInstance().getCombo(ref , index);
+	public DefaultCombo(String text){
+		this(null,text);
 	}
 	
 	/**
@@ -59,15 +41,14 @@ public class DefaultCombo extends AbstractCombo implements Combo{
 	 * @param text which is written in combo
 	 */
 	public DefaultCombo(ReferencedComposite ref, String text){
-		swtCombo = ComboLookup.getInstance().getCombo(ref , 0, new WithTextMatcher(text));
+		this(ref, 0, new WithTextMatcher(text));
 	}
-	
+
 	/**
 	 * Finds combo matching to given matchers
 	 * @param matchers to match combo
 	 */
-	@SuppressWarnings("rawtypes")
-	public DefaultCombo(Matcher... matchers){
+	public DefaultCombo(Matcher<?>... matchers){
 		this(null, matchers);
 	}
 	
@@ -76,11 +57,26 @@ public class DefaultCombo extends AbstractCombo implements Combo{
 	 * @param ref composite inside which combo should be looked for
 	 * @param matchers matchers to match combo
 	 */
-	@SuppressWarnings("rawtypes")
-	public DefaultCombo(ReferencedComposite ref, Matcher... matchers){
-		swtCombo = ComboLookup.getInstance().getCombo(ref , 0, matchers);
+	public DefaultCombo(ReferencedComposite ref, Matcher<?>... matchers){
+		this(ref, 0, matchers);
 	}
 	
+	/**
+	 * Finds combo with given index
+	 * @param index of combo
+	 * @param matchers
+	 */
+	public DefaultCombo(int index, Matcher<?>... matchers){
+		this(null, index, matchers);
+	}
 	
-
+	/**
+	 * Finds combo inside given referenced composite with given index
+	 * @param ref composite inside which combo should be looked for
+	 * @param index of combo
+	 * @param matchers
+	 */
+	public DefaultCombo(ReferencedComposite ref, int index, Matcher<?>... matchers){
+		super(ref, index, matchers);
+	}
 }

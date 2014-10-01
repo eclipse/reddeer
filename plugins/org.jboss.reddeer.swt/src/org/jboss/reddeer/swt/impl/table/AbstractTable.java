@@ -3,18 +3,19 @@ package org.jboss.reddeer.swt.impl.table;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.swt.widgets.Control;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.common.logging.LoggingUtils;
 import org.jboss.reddeer.swt.api.Table;
 import org.jboss.reddeer.swt.api.TableItem;
 import org.jboss.reddeer.swt.condition.TableHasRows;
-import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.handler.TableHandler;
-import org.jboss.reddeer.swt.handler.WidgetHandler;
 import org.jboss.reddeer.swt.impl.table.internal.BasicTableItem;
+import org.jboss.reddeer.swt.reference.ReferencedComposite;
 import org.jboss.reddeer.swt.wait.TimePeriod;
 import org.jboss.reddeer.swt.wait.WaitUntil;
+import org.jboss.reddeer.swt.widgets.AbstractWidget;
 
 /**
  * Basic abstract class implementation for a table
@@ -22,17 +23,16 @@ import org.jboss.reddeer.swt.wait.WaitUntil;
  * @author Rastislav Wagner
  *
  */
-public abstract class AbstractTable implements Table {
-	private static final Logger log = Logger.getLogger(AbstractTable.class);
-	protected org.eclipse.swt.widgets.Table table;
+public abstract class AbstractTable extends AbstractWidget<org.eclipse.swt.widgets.Table> implements Table {
 	
-	protected AbstractTable (org.eclipse.swt.widgets.Table swtTable){
-		  if (swtTable != null){
-		    this.table = swtTable;  
-		  }
-		  else {
-		     throw new SWTLayerException("SWT Table passed to constructor is null");
-		  }	  
+	private static final Logger log = Logger.getLogger(AbstractTable.class);
+	
+	protected AbstractTable(org.eclipse.swt.widgets.Table swtWidget) {
+		super(swtWidget);
+	}
+	
+	protected AbstractTable(ReferencedComposite refComposite, int index, Matcher<?>... matchers){
+		super(org.eclipse.swt.widgets.Table.class, refComposite, index, matchers);
 	}
 	
 	@Override
@@ -58,7 +58,7 @@ public abstract class AbstractTable implements Table {
 	@Override
 	public List<TableItem> getItems(){
 		waitUntilTableHasRows();
-		org.eclipse.swt.widgets.TableItem[] items = TableHandler.getInstance().getSWTItems(table);
+		org.eclipse.swt.widgets.TableItem[] items = TableHandler.getInstance().getSWTItems(swtWidget);
 		List<TableItem> tableItems = new ArrayList<TableItem>();
 		for(org.eclipse.swt.widgets.TableItem i: items){
 			tableItems.add(new BasicTableItem(i));
@@ -81,29 +81,29 @@ public abstract class AbstractTable implements Table {
 	@Override
 	public TableItem getItem(final int index) {
 		waitUntilTableHasRows();
-		org.eclipse.swt.widgets.TableItem tItem = TableHandler.getInstance().getSWTItem(table, index);
+		org.eclipse.swt.widgets.TableItem tItem = TableHandler.getInstance().getSWTItem(swtWidget, index);
 		return new BasicTableItem(tItem);
 	}
 	
 	@Override
 	public TableItem getItem(final String itemText) {
 		waitUntilTableHasRows();
-		int row = TableHandler.getInstance().indexOf(table, itemText, 0);
-		org.eclipse.swt.widgets.TableItem tItem = TableHandler.getInstance().getSWTItem(table, row);
+		int row = TableHandler.getInstance().indexOf(swtWidget, itemText, 0);
+		org.eclipse.swt.widgets.TableItem tItem = TableHandler.getInstance().getSWTItem(swtWidget, row);
 		return new BasicTableItem(tItem);
 	}
 	
 	@Override
 	public TableItem getItem(final String itemText, int column) {
 		waitUntilTableHasRows();
-		int row = TableHandler.getInstance().indexOf(table, itemText, column);
-		org.eclipse.swt.widgets.TableItem tItem = TableHandler.getInstance().getSWTItem(table, row);
+		int row = TableHandler.getInstance().indexOf(swtWidget, itemText, column);
+		org.eclipse.swt.widgets.TableItem tItem = TableHandler.getInstance().getSWTItem(swtWidget, row);
 		return new BasicTableItem(tItem);
 	}
 
 	@Override
 	public int rowCount() {
-		return TableHandler.getInstance().rowCount(table);
+		return TableHandler.getInstance().rowCount(swtWidget);
 	}
 
 	@Override
@@ -111,9 +111,9 @@ public abstract class AbstractTable implements Table {
 		log.info("Select table rows with indexes (" + LoggingUtils.format(indexes) + ")");
 		waitUntilTableHasRows();
 		if(indexes.length == 1){
-			TableHandler.getInstance().select(table, indexes[0]);
+			TableHandler.getInstance().select(swtWidget, indexes[0]);
 		} else {
-			TableHandler.getInstance().select(table, indexes);
+			TableHandler.getInstance().select(swtWidget, indexes);
 		}
 		
 	}
@@ -124,7 +124,7 @@ public abstract class AbstractTable implements Table {
 		waitUntilTableHasRows();
 		int[] indicies = new int[items.length];
 		for(int i =0;i<items.length;i++){
-			indicies[i] = TableHandler.getInstance().indexOf(table, items[i], 0);
+			indicies[i] = TableHandler.getInstance().indexOf(swtWidget, items[i], 0);
 		}
 		select(indicies);
 	}
@@ -133,32 +133,27 @@ public abstract class AbstractTable implements Table {
 	public void selectAll(){
 		log.info("Select all table rows");
 		waitUntilTableHasRows();
-		TableHandler.getInstance().selectAll(table);
+		TableHandler.getInstance().selectAll(swtWidget);
 	}
 
 	@Override
 	public void deselectAll() {
 		log.info("Deselect all table rows");
 		waitUntilTableHasRows();
-		TableHandler.getInstance().deselectAll(table);
+		TableHandler.getInstance().deselectAll(swtWidget);
 	}
 
 	private void waitUntilTableHasRows() {
 		new WaitUntil(new TableHasRows(this), TimePeriod.NORMAL, false);
 	}
 	
-	public org.eclipse.swt.widgets.Table getSWTWidget(){
-		return table;
-	}
-	
-	@Override
-	public boolean isEnabled() {
-		return WidgetHandler.getInstance().isEnabled(table);
-	}
-	
 	@Override
 	public int indexOf(TableItem tableItem) {
-		return TableHandler.getInstance().indexOf(table, tableItem.getSWTWidget());
+		return TableHandler.getInstance().indexOf(swtWidget, tableItem.getSWTWidget());
 	}
 	
+	@Override
+	public Control getControl() {
+		return swtWidget;
+	}
 }

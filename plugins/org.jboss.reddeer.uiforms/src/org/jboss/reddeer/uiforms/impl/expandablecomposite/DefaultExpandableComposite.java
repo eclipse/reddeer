@@ -4,8 +4,10 @@ import org.eclipse.swt.widgets.Widget;
 import org.eclipse.ui.forms.widgets.ExpandableComposite;
 import org.hamcrest.BaseMatcher;
 import org.hamcrest.Description;
+import org.hamcrest.Matcher;
 import org.jboss.reddeer.swt.lookup.WidgetLookup;
 import org.jboss.reddeer.swt.matcher.ClassMatcher;
+import org.jboss.reddeer.swt.matcher.MatcherBuilder;
 import org.jboss.reddeer.swt.matcher.WithMnemonicTextMatcher;
 import org.jboss.reddeer.swt.reference.ReferencedComposite;
 
@@ -46,23 +48,42 @@ public class DefaultExpandableComposite extends AbstractExpandableComposite {
 	}
 
 	/**
-	 * Represents expandable composite with the specified <var>index</var>.
+	 * Expandable composite that matches given matchers
+	 * @param matchers
+	 */
+	public DefaultExpandableComposite(Matcher<?>... matchers) {
+		this(null, matchers);
+	}
+	
+	/**
+	 * Expandable composite that matches given matchers
+	 * @param referencedComposite
+	 * @param matchers
+	 */
+	public DefaultExpandableComposite(ReferencedComposite referencedComposite, Matcher<?>... matchers) {
+		this(referencedComposite, 0, matchers);
+	}
+	
+	/**
+	 * Represents expandable composite with the specified <var>index</var> that matches given matchers
 	 *
 	 * @param index expandable composite index
+	 * @param matchers
 	 */
-	public DefaultExpandableComposite(int index) {
+	public DefaultExpandableComposite(int index, Matcher<?>... matchers) {
 		this(null, index);
 	}
 
 	/**
 	 * Represents expandable composite inside the specified
-	 * {@link ReferencedComposite} with the specified <var>index</var>.
+	 * {@link ReferencedComposite} with the specified <var>index</var> that matches given matchers
 	 *
 	 * @param referencedComposite
 	 * @param index expandable composite index
+	 * @param matchers
 	 */
-	public DefaultExpandableComposite(ReferencedComposite referencedComposite, int index) {
-		this(referencedComposite, index, null);
+	public DefaultExpandableComposite(ReferencedComposite referencedComposite, int index, Matcher<?>... matchers) {
+		super(referencedComposite, index, MatcherBuilder.getInstance().addMatcher(matchers, classMatcher));
 	}
 
 	/**
@@ -71,7 +92,7 @@ public class DefaultExpandableComposite extends AbstractExpandableComposite {
 	 * @param text expandable composite text
 	 */
 	public DefaultExpandableComposite(String text) {
-		this(null, 0, text);
+		this(null, text);
 	}
 
 	/**
@@ -82,35 +103,26 @@ public class DefaultExpandableComposite extends AbstractExpandableComposite {
 	 * @param text expandable composite text
 	 */
 	public DefaultExpandableComposite(ReferencedComposite referencedComposite, String text) {
-		this(referencedComposite, 0, text);
+		this(referencedComposite, 0, new WithMnemonicTextMatcher(text));
 	}
 
 	/**
 	 * Represents expandable composite inside the specified
 	 * {@link ReferencedComposite} with the specified <var>text</var> and
 	 * the specified <var>index</var>.
-	 *
+	 * @deprecated This is not a standard constructor. Will be removed in 1.0.0. Please use another one.
 	 * @param referencedComposite
 	 * @param index expandable composite index
 	 * @param text expandable composite text
 	 */
 	public DefaultExpandableComposite(ReferencedComposite referencedComposite, int index, String text) {
-		if (text != null && !text.isEmpty()) {
-			composite = (ExpandableComposite) WidgetLookup.getInstance()
-					.activeWidget(referencedComposite,
-							ExpandableComposite.class, index,
-							new WithMnemonicTextMatcher(text), classMatcher);
-		} else {
-			composite = (ExpandableComposite) WidgetLookup.getInstance()
-					.activeWidget(referencedComposite,
-							ExpandableComposite.class, index, classMatcher);
-		}
+		this(referencedComposite, index, new WithMnemonicTextMatcher(text));
 	}
 
 	/**
 	 * Represents expandable composite with the specified <var>text</var> and
 	 * the specified <var>index</var>.
-	 *
+	 * @deprecated This is not a standard constructor. Will be removed in 1.0.0. Please use another one.
 	 * @param index expandable composite index
 	 * @param text expandable composite text
 	 */
@@ -127,7 +139,7 @@ public class DefaultExpandableComposite extends AbstractExpandableComposite {
 	 * @author Radoslav Rabara
 	 * 
 	 */
-	private static class StrictClassMatcher extends BaseMatcher {
+	private static class StrictClassMatcher extends BaseMatcher<Object> {
 
 		@Override
 		public boolean matches(Object item) {

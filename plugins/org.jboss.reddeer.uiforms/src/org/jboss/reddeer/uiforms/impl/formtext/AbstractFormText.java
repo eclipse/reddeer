@@ -1,16 +1,17 @@
 package org.jboss.reddeer.uiforms.impl.formtext;
 
-import org.eclipse.swt.widgets.Widget;
+import org.hamcrest.Matcher;
 import org.jboss.reddeer.swt.handler.WidgetHandler;
+import org.jboss.reddeer.swt.reference.ReferencedComposite;
+import org.jboss.reddeer.swt.widgets.AbstractWidget;
 import org.jboss.reddeer.uiforms.api.FormText;
 import org.jboss.reddeer.uiforms.handler.FormTextHandler;
 
-public abstract class AbstractFormText implements FormText {
+public abstract class AbstractFormText extends AbstractWidget<org.eclipse.ui.forms.widgets.FormText> implements FormText {
 
-	protected org.eclipse.ui.forms.widgets.FormText widget;
-
-	public Widget getSWTWidget() {
-		return widget;
+	protected AbstractFormText(ReferencedComposite refComposite, int index, Matcher<?>... matchers){
+		super(org.eclipse.ui.forms.widgets.FormText.class, refComposite, index, matchers);
+		setFocus();
 	}
 
 	public String getSelectionText() {
@@ -18,27 +19,26 @@ public abstract class AbstractFormText implements FormText {
 	}
 
 	public void click() {
-		FormTextHandler.getInstance().click(widget);
-
+		FormTextHandler.getInstance().click(swtWidget);
 	}
 
 	public String getText() {
-		return FormTextHandler.getInstance().getText(widget);
+		return FormTextHandler.getInstance().getText(swtWidget);
 	}
 
 	public void setFocus() {
-		WidgetHandler.getInstance().setFocus(widget);
+		WidgetHandler.getInstance().setFocus(swtWidget);
 	}
 
 	public boolean hasFocus() {
-		return FormTextHandler.getInstance().hasFocus(widget);
+		return FormTextHandler.getInstance().hasFocus(swtWidget);
 	}
 
 	public String getTooltipText() {
-		return FormTextHandler.getInstance().getTooltipText(widget);
+		return FormTextHandler.getInstance().getTooltipText(swtWidget);
 	}
 	
 	public boolean isEnabled() {
-		return false;
+		return WidgetHandler.getInstance().isEnabled(swtWidget);
 	}
 }

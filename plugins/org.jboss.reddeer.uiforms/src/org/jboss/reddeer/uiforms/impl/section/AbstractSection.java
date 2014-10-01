@@ -1,8 +1,10 @@
 package org.jboss.reddeer.uiforms.impl.section;
 
 import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.Widget;
+import org.hamcrest.Matcher;
 import org.jboss.reddeer.swt.handler.WidgetHandler;
+import org.jboss.reddeer.swt.reference.ReferencedComposite;
+import org.jboss.reddeer.swt.widgets.AbstractWidget;
 import org.jboss.reddeer.uiforms.api.Section;
 import org.jboss.reddeer.uiforms.handler.SectionHandler;
 
@@ -12,31 +14,26 @@ import org.jboss.reddeer.uiforms.handler.SectionHandler;
  * @author Lucia Jelinkova
  *
  */
-public abstract class AbstractSection implements Section {
+public abstract class AbstractSection extends AbstractWidget<org.eclipse.ui.forms.widgets.Section> implements Section {
 
-	protected org.eclipse.ui.forms.widgets.Section section;
+	protected AbstractSection(ReferencedComposite refComposite, int index, Matcher<?>... matchers){
+		super(org.eclipse.ui.forms.widgets.Section.class, refComposite, index, matchers);
+		setFocus();
+	}
 	
 	public Control getControl() {
-		return section.getClient();
+		return swtWidget.getClient();
 	}
 
-	public Widget getSWTWidget() {
-		return section;
-	}
-
-	public boolean isEnabled() {
-		return WidgetHandler.getInstance().isEnabled(section);
-	}
-	
 	public String getText() {
-		return WidgetHandler.getInstance().getText(section);
+		return WidgetHandler.getInstance().getText(swtWidget);
 	}
 	
 	protected void setFocus() {
-		WidgetHandler.getInstance().setFocus(section);
+		WidgetHandler.getInstance().setFocus(swtWidget);
 	}
 	
 	public void setExpanded(final boolean expanded) {
-		SectionHandler.getInstance().setExpanded(section, expanded);
+		SectionHandler.getInstance().setExpanded(swtWidget, expanded);
 	}
 }

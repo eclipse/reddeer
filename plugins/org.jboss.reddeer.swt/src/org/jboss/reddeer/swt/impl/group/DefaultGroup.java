@@ -3,10 +3,11 @@ package org.jboss.reddeer.swt.impl.group;
 
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Group;
+import org.hamcrest.Matcher;
 import org.jboss.reddeer.swt.handler.WidgetHandler;
-import org.jboss.reddeer.swt.lookup.WidgetLookup;
 import org.jboss.reddeer.swt.matcher.WithMnemonicTextMatcher;
 import org.jboss.reddeer.swt.reference.ReferencedComposite;
+import org.jboss.reddeer.swt.widgets.AbstractWidget;
 
 /**
  * Default Group implementation
@@ -14,17 +15,15 @@ import org.jboss.reddeer.swt.reference.ReferencedComposite;
  * @since 0.4
  *
  */
-public class DefaultGroup implements org.jboss.reddeer.swt.api.Group {
+public class DefaultGroup extends AbstractWidget<Group> implements org.jboss.reddeer.swt.api.Group {
 
-	private Group group;
-	
 	/**
 	 * Default group constructor
 	 */
 	public DefaultGroup(){
 		this(null, 0);		
 	}
-	
+
 	/**
 	 * Group inside given composite
 	 * @param referencedComposite
@@ -32,86 +31,88 @@ public class DefaultGroup implements org.jboss.reddeer.swt.api.Group {
 	public DefaultGroup(ReferencedComposite referencedComposite){
 		this(referencedComposite, 0);
 	}
-	
-	/**
-	 * Group with given index
-	 * @param index group index
-	 */
-	public DefaultGroup(int index){
-		this(null, index,null);
-	}
-	
-	/**
-	 * Group with given index inside given composite
-	 * @param referencedComposite
-	 * @param index group index 
-	 */
-	public DefaultGroup(ReferencedComposite referencedComposite, int index){
-		this(referencedComposite, index,null);
-	}
 
 	/**
 	 * Group with given text
 	 * @param text group text
 	 */
 	public DefaultGroup(String text){
-		this(null, 0,text);
+		this(null, text);
 	}
-	
+
 	/**
 	 * Group with given text inside given composite
 	 * @param referencedComposite
 	 * @param text group text
 	 */
 	public DefaultGroup(ReferencedComposite referencedComposite, String text){
-		this(referencedComposite, 0,text);
+		this(referencedComposite, 0, new WithMnemonicTextMatcher(text));
 	}
-	
+
+	/**
+	 * Group that matches given matchers
+	 * @param matchers
+	 */
+	public DefaultGroup(Matcher<?>... matchers) {
+		this(null, matchers);
+	}
+
+	/**
+	 * Group that matches given matchers
+	 * @param referencedComposite
+	 * @param matchers
+	 */
+	public DefaultGroup(ReferencedComposite referencedComposite, Matcher<?>... matchers) {
+		this(referencedComposite, 0, matchers);
+	}
+
+	/**
+	 * Group with given index that matches given matchers
+	 * @param index group index
+	 * @param matchers
+	 */
+	public DefaultGroup(int index, Matcher<?>... matchers){
+		this(null, index);
+	}
+
+	/**
+	 * Group with given index inside given composite that matches given matchers
+	 * @param referencedComposite
+	 * @param index group index 
+	 * @param matchers
+	 */
+	public DefaultGroup(ReferencedComposite referencedComposite, int index, Matcher<?>... matchers){
+		super(Group.class, referencedComposite, index, matchers);
+	}
+
 	/**
 	 * Group with given index and text inside given composite
 	 * @param referencedComposite
 	 * @param index group index
 	 * @param text group text
+	 * @deprecated Since 1.0.0 this is not a standard widget constructor
 	 */
 	public DefaultGroup(ReferencedComposite referencedComposite, int index,String text){
-		if (text != null && !text.isEmpty()) {
-			group = (Group)WidgetLookup.getInstance().activeWidget(referencedComposite, Group.class, index,new WithMnemonicTextMatcher(text));
-		} else {
-			group = (Group)WidgetLookup.getInstance().activeWidget(referencedComposite, Group.class, index);
-		}
+		this(referencedComposite, index, new WithMnemonicTextMatcher(text));
 	}
-	
+
 	/**
 	 * Group with given index and text
 	 * @param index group index
 	 * @param text group text
+	 * @deprecated Since 1.0.0 this is not a standard widget constructor
 	 */
 	public DefaultGroup(int index,String text){
-		if (text != null && !text.isEmpty()) {
-			group = (Group)WidgetLookup.getInstance().activeWidget(null, Group.class, index,new WithMnemonicTextMatcher(text));
-		} else {
-			group = (Group)WidgetLookup.getInstance().activeWidget(null, Group.class, index);
-		}
+		this(null, index, text);
 	}
-	
+
 	@Override
 	public String getText() {
-		return WidgetHandler.getInstance().getText(group);
+		return WidgetHandler.getInstance().getText(swtWidget);
 	}
 
 	@Override
 	public Control getControl() {
-		return group;
+		return swtWidget;
 	}
-
-
-	public Group getSWTWidget() {
-		return group;
-	}
-	
-	@Override
-	public boolean isEnabled() {
-		return WidgetHandler.getInstance().isEnabled(group);
-	}
-
 }

@@ -3,10 +3,12 @@ package org.jboss.reddeer.swt.lookup;
 import org.eclipse.swt.widgets.Text;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.swt.reference.ReferencedComposite;
+import org.jboss.reddeer.swt.widgets.AbstractWidget;
 
 /**
  * Text lookup containing lookup routines for Text widget type
  * @author Jiri Peterka
+ * @deprecated Since 1.0.0. Use {@link AbstractWidget}
  *
  */
 public class TextLookup {

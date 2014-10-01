@@ -1,6 +1,6 @@
 package org.jboss.reddeer.swt.impl.scale;
 
-import org.jboss.reddeer.swt.lookup.WidgetLookup;
+import org.hamcrest.Matcher;
 import org.jboss.reddeer.swt.reference.ReferencedComposite;
 /**
  * DefaultScale implementation represents most common Scale widget type
@@ -11,35 +11,53 @@ import org.jboss.reddeer.swt.reference.ReferencedComposite;
 public class DefaultScale extends AbstractScale {
 
 	/**
-	 * Create DefautScale instance based on first available Scale found
+	 * Scale with index 0
 	 */
-	public DefaultScale() {
-		this(0);
+	public DefaultScale(){
+		this((ReferencedComposite) null);
 	}
 	
 	/**
-	 * Create DefautScale instance based on first available Scale found inside given composite
+	 * Scale with index 0 inside given composite
 	 * @param referencedComposite
 	 */
-	public DefaultScale(ReferencedComposite referencedComposite) {
+	public DefaultScale(ReferencedComposite referencedComposite){
 		this(referencedComposite, 0);
 	}
 	
 	/**
-	 * Create DefaultScale instance matching given index
-	 * @param index
+	 * Scale that matches given matchers
+	 * @param matchers
 	 */
-	public DefaultScale(int index) {
-		super(WidgetLookup.getInstance().activeWidget(null, org.eclipse.swt.widgets.Scale.class,index));
+	public DefaultScale(Matcher<?>... matchers){
+		this(null, matchers);
 	}
 	
 	/**
-	 * Create DefaultScale instance matching given index inside given composite
+	 * Scale that matches given matchers inside given composite
 	 * @param referencedComposite
-	 * @param index
+	 * @param matchers
 	 */
-	public DefaultScale(ReferencedComposite referencedComposite, int index) {
-		super(WidgetLookup.getInstance().activeWidget(referencedComposite, org.eclipse.swt.widgets.Scale.class,index));
+	public DefaultScale(ReferencedComposite referencedComposite, Matcher<?>... matchers){
+		this(referencedComposite, 0, matchers);
 	}
 	
+	/**
+	 * Scale with given index that matches given matchers
+	 * @param index of Scale
+	 * @param matchers
+	 */
+	public DefaultScale(int index, Matcher<?>... matchers){
+		this(null, index, matchers);
+	}
+	
+	/**
+	 * Scale with given index that matches given matchers inside given composite
+	 * @param referencedComposite
+	 * @param index of Scale
+	 * @param matchers
+	 */
+	public DefaultScale(ReferencedComposite referencedComposite, int index, Matcher<?>... matchers){
+		super(referencedComposite, index, matchers);
+	}
 }

@@ -1,6 +1,6 @@
 package org.jboss.reddeer.swt.impl.tab;
 
-import org.jboss.reddeer.swt.lookup.TabFolderLookup;
+import org.hamcrest.Matcher;
 import org.jboss.reddeer.swt.reference.ReferencedComposite;
 
 /**
@@ -12,37 +12,53 @@ import org.jboss.reddeer.swt.reference.ReferencedComposite;
 public class DefaultTabFolder extends AbstractTabFolder {
 
 	/**
-	 * Default parameter-less constructor
+	 * TabFolder with index 0
 	 */
 	public DefaultTabFolder() {
-		this(0);
+		this((ReferencedComposite) null);
 	}
-
+	
 	/**
-	 * TabFolder with specified index will be constructed
-	 * 
-	 * @param index
-	 */
-	public DefaultTabFolder(int index) {
-		this(null, index);
-	}
-
-	/**
-	 * TabFolder inside given composite
-	 * 
+	 * TabFolder with index 0 inside given composite
 	 * @param referencedComposite
 	 */
-	public DefaultTabFolder(ReferencedComposite referencedComposite) {
+	public DefaultTabFolder(ReferencedComposite referencedComposite){
 		this(referencedComposite, 0);
 	}
-
+	
 	/**
-	 * TabFolder inside a given composite and at specified index
-	 * 
+	 * TabFolder that matches given matchers
+	 * @param matchers
+	 */
+	public DefaultTabFolder(Matcher<?>... matchers) {
+		this(null, matchers);
+	}
+	
+	/**
+	 * TabFolder that matches given matchers
+	 * @param referencedComposite
+	 * @param matchers
+	 */
+	public DefaultTabFolder(ReferencedComposite referencedComposite, Matcher<?>... matchers) {
+		this(referencedComposite, 0, matchers);
+	}
+	
+	/**
+	 * TabFolder with given index that matches given matchers
+	 * @param index
+	 * @param matchers
+	 */
+	public DefaultTabFolder(int index, Matcher<?>... matchers) {
+		this(null, index, matchers);
+	}
+	
+	/**
+	 * TabFolder with given index inside given composite that matches given matchers
 	 * @param referencedComposite
 	 * @param index
+	 * @param matchers
 	 */
-	public DefaultTabFolder(ReferencedComposite referencedComposite, int index) {
-		super(TabFolderLookup.getInstance().getTabFolder(referencedComposite, index));
+	public DefaultTabFolder(ReferencedComposite referencedComposite, int index, Matcher<?>... matchers) {
+		super(referencedComposite, index, matchers);
 	}
 }

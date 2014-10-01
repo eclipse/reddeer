@@ -3,7 +3,13 @@ package org.jboss.reddeer.swt.lookup;
 import org.eclipse.swt.widgets.Link;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.swt.reference.ReferencedComposite;
+import org.jboss.reddeer.swt.widgets.AbstractWidget;
 
+/**
+ * @deprecated Since 1.0.0 use {@link AbstractWidget
+ * @author Lucia Jelinkova
+ *
+ */
 public class LinkLookup {
 	
 	private static LinkLookup instance = null;

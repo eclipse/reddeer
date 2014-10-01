@@ -155,7 +155,7 @@ public class DriverDefinitionPage extends WizardPage {
 
 				@Override
 				public void run() {
-					list.add(item);
+					swtWidget.add(item);
 				}
 			});
 		}
