@@ -8,8 +8,10 @@ import java.util.List;
 import org.jboss.reddeer.eclipse.ui.ide.RepoConnectionDialog;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.swt.api.TreeItem;
+import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.menu.ShellMenu;
+import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.jboss.reddeer.swt.impl.text.LabeledText;
 import org.jboss.reddeer.swt.impl.tree.DefaultTree;
 import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
@@ -50,6 +52,12 @@ public class RepoConnectionDialogTest  {
 		
 		repoItems.get(elementIndex).select();	
 		new ShellMenu("File", "Properties").select();  
+		// On Linux Secure Storage shell is opened
+		try{
+			new DefaultShell("Secure Storage").close();
+		} catch (SWTLayerException swtle){
+			// do nothing shell was not opened
+		}
 		
 		repoConnectionDialog = new RepoConnectionDialog();
 		
