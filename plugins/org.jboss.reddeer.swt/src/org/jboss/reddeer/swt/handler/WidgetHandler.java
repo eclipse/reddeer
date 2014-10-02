@@ -1,5 +1,8 @@
 package org.jboss.reddeer.swt.handler;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.custom.CTabItem;
@@ -369,5 +372,75 @@ public class WidgetHandler {
 		event.x = x;
 		event.y = y;
 		return event;
+	}
+	
+	/**
+	 * Gets path to widget within widget tree including widget getting path for
+	 * as last element of returned list
+	 * 
+	 * @param widget widget to get path for
+	 * @param classFilter optional array of classes included in returned list
+	 * @return ordered list of widgets
+	 */
+	public List<Widget> getPathToWidget(final Widget widget, final Class<?>... classFilter) {
+		final Control firstParent = getParent(widget);
+		List<Widget> parents = Display.syncExec(new ResultRunnable<List<Widget>>() {
+			@Override
+			public List<Widget> run() {
+				LinkedList<Widget> result = new LinkedList<Widget>();
+				if (WidgetHandler.isClassOf(widget.getClass(), classFilter)){
+					result.add(widget);
+				}
+				Control control = firstParent;
+				while (control != null){
+					if (WidgetHandler.isClassOf(control.getClass(), classFilter)){
+						result.addFirst(control);
+					}
+					control = control.getParent();
+				}
+				return result;
+			}
+		});
+		return parents;
+	}
+	
+	/**
+	 * Return parent of specified widget.
+	 * 
+	 * @param widget widget to find parent
+	 * @return parent widget of specified widget
+	 */
+	public Control getParent(final Widget widget) {
+		Object o = ObjectUtil.invokeMethod(widget, "getParent");
+
+		if (o == null){
+			return null;
+		}
+
+		if (o instanceof Control) {
+			return (Control) o;
+		}
+
+		throw new SWTLayerException(
+				"Return value of method getObject() on class " + o.getClass()
+						+ " should be Control, but was " + o.getClass());
+	}
+	
+	private static boolean isClassOf(Class<?> clazz,Class<?>[] classes){
+		boolean filterPassed = false;
+		if (classes != null && classes.length > 0){
+			int index = 0;
+			while (!filterPassed && index < classes.length){
+				if (clazz.getName().equals(classes[index].getName())){
+					filterPassed = true;
+				}
+				index++;
+			}
+		}
+		else{
+			filterPassed = true;
+		}
+		
+		return filterPassed;
 	}
 }

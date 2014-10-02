@@ -16,6 +16,7 @@ import org.jboss.reddeer.swt.impl.menu.ShellMenu;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.jboss.reddeer.swt.wait.TimePeriod;
 import org.jboss.reddeer.swt.wait.WaitWhile;
+import org.jboss.reddeer.workbench.handler.WorkbenchPartHandler;
 
 /**
  * Represents a project on {@link PackageExplorer}.
@@ -192,5 +193,18 @@ public class Project {
 			sDeleteResources = null;
 		}
 		return sDeleteResources;		
+	}
+	/**
+	 * Activates View containing this project
+	 */
+	public void activateViewContainingThisProject(){
+		WorkbenchPartHandler.getInstance().activateWorkbenchPartWithWidget(treeItem);
+	}
+	/**
+	 * Returns title of view containing this project 
+	 * @return
+	 */
+	public String getTitleOfViewContainingThisProject(){
+		return WorkbenchPartHandler.getInstance().getTitleOfWorkbenchPartWithWidget(treeItem);
 	}
 }
