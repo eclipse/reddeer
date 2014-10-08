@@ -67,6 +67,16 @@ public class TaskRepositoriesView extends WorkbenchView {
 		new PushButton("Finish").click();	
 	}
 	
+	/* Added October 2014 - running on JBDS results in Secure Storage Dialog being opened */
+	public void closeSecureStorage () {
+		// On Linux Secure Storage shell is opened
+		try{
+			new DefaultShell("Secure Storage Password").close();
+		} catch (SWTLayerException swtle){
+			// do nothing shell was not opened
+		}	
+	}
+	
 	/**
 	 * Activates a task with a given name.
 	 * 
