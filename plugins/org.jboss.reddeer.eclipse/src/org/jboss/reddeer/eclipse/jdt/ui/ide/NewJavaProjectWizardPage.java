@@ -5,7 +5,7 @@ import org.jboss.reddeer.swt.impl.button.CheckBox;
 import org.jboss.reddeer.swt.impl.text.LabeledText;
 
 /**
- * Represents first page of New Java Project Wizard
+ * Represents first page of New Java Project Wizard.
  * 
  * @author rhopp
  *
