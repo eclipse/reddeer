@@ -1,50 +1,54 @@
 package org.jboss.reddeer.junit.extension.before.test.impl;
 
-import org.eclipse.core.runtime.preferences.DefaultScope;
-import org.eclipse.core.runtime.preferences.IEclipsePreferences;
+import org.eclipse.core.runtime.Platform;
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.eclipse.jdt.ui.WorkbenchPreferenceDialog;
 import org.jboss.reddeer.eclipse.m2e.core.ui.preferences.MavenPreferencePage;
 import org.jboss.reddeer.junit.extensionpoint.IBeforeTest;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
-/**
- * Extension for Extension point org.jboss.reddeer.junit.before.test
- * Disables Maven Repo Index downloading on startup
- * Use this system property to enable/disable it:
+
+/** 
+ * Extension for Extension point org.jboss.reddeer.junit.before.test. Disables
+ * Maven Repo Index downloading on startup Use this system property to
+ * enable/disable it:
  *
- * - reddeer.disable.maven.download.repo.index.on.startup=[true|false] (default=true)
- *  
+ * - reddeer.disable.maven.download.repo.index.on.startup=[true|false]
+ * (default=true)
+ * 
  * @author vlado pakan
  *
  */
 public class DoNotDownloadMavenIndexesExt implements IBeforeTest {
-	
-	private static final Logger log = Logger.getLogger(DoNotDownloadMavenIndexesExt.class);
-	
-	private static final boolean DISABLE_MAVEN_DOWNLOAD_REPO_INDEX = System.getProperty("reddeer.disable.maven.download.repo.index.on.startup","true")
-			.equalsIgnoreCase("true");
-	
+
+	private static final Logger log = Logger
+			.getLogger(DoNotDownloadMavenIndexesExt.class);
+
+	private static final boolean DISABLE_MAVEN_DOWNLOAD_REPO_INDEX = System
+			.getProperty(
+					"reddeer.disable.maven.download.repo.index.on.startup",
+					"true").equalsIgnoreCase("true");
+
 	private boolean tryToDisableDownloadingRepoIndexes = true;
-	
-	/**
-	 * See {@link IBeforeTest}
+
+	/** 
+	 * See {@link IBeforeTest}.
 	 */
 	@Override
 	public void runBeforeTest() {
-		if (hasToRun()){
+		if (hasToRun()) {
 			disableMavenDownloadRepoIndexOnStartup();
-		}		
+		}
 	}
 
-	/**
-	 * Disables downloading Maven repo indexes on startup
+	/** 
+	 * Disables downloading Maven repo indexes on startup.
 	 */
 	private void disableMavenDownloadRepoIndexOnStartup() {
-		IEclipsePreferences preferences = DefaultScope.INSTANCE
-				.getNode("org.eclipse.m2e.core");
-		if (preferences.get("eclipse.m2.updateIndexes", "true")
-				.equalsIgnoreCase("true")) {
+		if (Platform
+				.getPreferencesService()
+				.getString("org.eclipse.m2e.core", "eclipse.m2.updateIndexes",
+						"true", null).equalsIgnoreCase("true")) {
 			log.debug("Trying to disable dowlading maven repo indexes on startup "
 					+ "via Windows > Preferences > Maven");
 			try {
@@ -53,9 +57,9 @@ public class DoNotDownloadMavenIndexesExt implements IBeforeTest {
 
 				preferencesDialog.open();
 				preferencesDialog.select(mavenPreferencePage);
-				
+
 				mavenPreferencePage.setDownloadRepoIndexOnStartup(false);
-				mavenPreferencePage.ok();
+				preferencesDialog.ok();
 				tryToDisableDownloadingRepoIndexes = false;
 				log.debug("Dowlading maven repo indexes on startup disabled");
 			} catch (SWTLayerException swtle) {
@@ -71,18 +75,19 @@ public class DoNotDownloadMavenIndexesExt implements IBeforeTest {
 				}
 			}
 
-		}
-		else{
+		} else {
 			tryToDisableDownloadingRepoIndexes = false;
 		}
 	}
-	/**
-	 * See {@link IBeforeTest}
+
+	/** 
+	 * See {@link IBeforeTest}.
+	 * @return boolean
 	 */
 	@Override
 	public boolean hasToRun() {
-		return DoNotDownloadMavenIndexesExt.DISABLE_MAVEN_DOWNLOAD_REPO_INDEX 
-			&& tryToDisableDownloadingRepoIndexes;
+		return DoNotDownloadMavenIndexesExt.DISABLE_MAVEN_DOWNLOAD_REPO_INDEX
+				&& tryToDisableDownloadingRepoIndexes;
 	}
 
 }

@@ -9,6 +9,9 @@
       <client
             class="org.jboss.reddeer.junit.extension.before.test.impl.DoNotDownloadMavenIndexesExt">
       </client>
+      <client
+            class="org.jboss.reddeer.junit.extension.before.test.impl.SetOpenAssociatedPerspectiveExt">
+      </client>
    </extension>
    <extension
          point="org.jboss.reddeer.junit.after.test">
