@@ -5,11 +5,11 @@
 	<groupId>org.jboss.reddeer</groupId>
 	<artifactId>parent</artifactId>
 	<name>Red Deer Parent POM File</name>
-	<version>0.6.0</version>
+	<version>0.6.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	
 	<properties>
- 	   	<tycho-version>0.20.0</tycho-version>  	  
+ 	   	<tycho-version>0.21.0</tycho-version>  	  
 		<tychoExtrasVersion>${tycho-version}</tychoExtrasVersion>
 		<eclipse-target-site>http://download.eclipse.org/releases/luna</eclipse-target-site>
 		<swtbot-update-site>http://download.eclipse.org/technology/swtbot/releases/2.2.1</swtbot-update-site>

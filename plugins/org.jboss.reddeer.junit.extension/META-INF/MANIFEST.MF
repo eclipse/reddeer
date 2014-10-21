@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: RedDeer JUnit Extensions
 Bundle-Vendor: JBoss by Red Hat
 Bundle-SymbolicName: org.jboss.reddeer.junit.extension;singleton:=true
-Bundle-Version: 0.6.0
+Bundle-Version: 0.6.1.qualifier
 Bundle-Activator: org.jboss.reddeer.junit.extension.Activator
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
@@ -12,7 +12,7 @@ Require-Bundle: org.eclipse.ui,
  org.jboss.reddeer.junit;bundle-version="[0.6,0.7)",
  org.jboss.reddeer.jface;bundle-version="[0.6,0.7)",
  org.jboss.reddeer.swt;bundle-version="[0.6,0.7)",
- org.jboss.reddeer.workbench;bundle-version="[0.6.0,0.7.0)",
+ org.jboss.reddeer.workbench;bundle-version="[0.6,0.7)",
  org.junit;bundle-version="4.11.0",
  org.jboss.reddeer.common;bundle-version="[0.6,0.7)"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6

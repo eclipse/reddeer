@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: RedDeer Eclipse Component
 Bundle-Vendor: JBoss by Red Hat
 Bundle-SymbolicName: org.jboss.reddeer.eclipse
-Bundle-Version: 0.6.0
+Bundle-Version: 0.6.1.qualifier
 Bundle-Activator: org.jboss.reddeer.eclipse.Activator
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
@@ -17,7 +17,7 @@ Require-Bundle: org.eclipse.ui,
  org.jboss.reddeer.junit;bundle-version="[0.6,0.7)",
  org.eclipse.wst.server.core,
  org.jboss.reddeer.common;bundle-version="[0.6,0.7)",
- org.jboss.reddeer.direct;bundle-version="0.6.0"
+ org.jboss.reddeer.direct;bundle-version="[0.6,0.7)"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: org.jboss.reddeer.eclipse,

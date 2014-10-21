@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: RedDeer Examples
 Bundle-Vendor: JBoss by Red Hat
 Bundle-SymbolicName: org.jboss.reddeer.examples
-Bundle-Version: 0.6.0
+Bundle-Version: 0.6.1.qualifier
 Require-Bundle: org.jboss.reddeer.eclipse;bundle-version="[0.6,0.7)",
  org.jboss.reddeer.jface;bundle-version="[0.6,0.7)",
  org.jboss.reddeer.junit;bundle-version="[0.6,0.7)",
