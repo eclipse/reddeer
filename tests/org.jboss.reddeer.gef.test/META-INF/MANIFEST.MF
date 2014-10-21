@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: RedDeer GEF Component Tests
 Bundle-Vendor: JBoss by Red Hat
 Bundle-SymbolicName: org.jboss.reddeer.gef.test
-Bundle-Version: 0.6.1.qualifier
+Bundle-Version: 0.6.1
 Bundle-Activator: org.jboss.reddeer.gef.test.Activator
 Require-Bundle: org.junit,
  org.eclipse.ui,

@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: RedDeer Direct Component Tests
 Bundle-Vendor: JBoss by Red Hat
 Bundle-SymbolicName: org.jboss.reddeer.direct.test;singleton:=true
-Bundle-Version: 0.6.1.qualifier
+Bundle-Version: 0.6.1
 Bundle-Activator: org.jboss.reddeer.direct.test.Activator
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
