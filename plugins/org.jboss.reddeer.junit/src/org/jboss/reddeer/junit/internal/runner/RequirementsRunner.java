@@ -268,7 +268,7 @@ public class RequirementsRunner extends BlockJUnit4ClassRunner {
 	    	} catch (Throwable t){
 	    		Test annotation = (Test) fTestMethod.getAnnotations()[0];
 	    		if (annotation.expected().getName().equals("org.junit.Test$None") ||
-	    			!annotation.expected().getName().equals(t.getClass().getName())) {
+	    			!annotation.expected().isAssignableFrom(t.getClass())) {
 		    			CaptureScreenshot screenshot = new CaptureScreenshot();
 		    			try {
 		    				String fileName = fTarget.getClass().getSimpleName() + "#"
@@ -277,10 +277,9 @@ public class RequirementsRunner extends BlockJUnit4ClassRunner {
 		    			} catch (CaptureScreenshotException ex) {
 		    				ex.printInfo(log);
 		    			}
-	    		}	
+	    		}
 	    		throw t;
 	    	}
-	        
 	    }
 	}
 	
