@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: RedDeer Workbench Component Tests
 Bundle-Vendor: JBoss by Red Hat
 Bundle-SymbolicName: org.jboss.reddeer.workbench.test;singleton:=true
-Bundle-Version: 0.6.1
+Bundle-Version: 0.6.2.qualifier
 Bundle-Activator: org.jboss.reddeer.workbench.test.Activator
 Require-Bundle: org.eclipse.ui,
  org.jboss.reddeer.workbench;bundle-version="[0.6,0.7)",
