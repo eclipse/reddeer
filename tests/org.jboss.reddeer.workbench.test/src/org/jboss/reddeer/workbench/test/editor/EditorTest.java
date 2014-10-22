@@ -56,7 +56,9 @@ public class EditorTest {
 
 	@Before
 	public void setup() {
-		new PackageExplorer().getProject("testProject")
+		PackageExplorer packageExplorer = new PackageExplorer();
+		packageExplorer.open();
+		packageExplorer.getProject("testProject")
 				.getProjectItem("editorTest.min").open();
 	}
 
@@ -72,7 +74,9 @@ public class EditorTest {
 	
 	@AfterClass
 	public static void teardownClass(){
-		List<Project> projects = new ProjectExplorer().getProjects();
+		ProjectExplorer projectExplorer = new ProjectExplorer();
+		projectExplorer.open();
+		List<Project> projects = projectExplorer.getProjects();
 		for (Project p: projects){
 			DeleteUtils.forceProjectDeletion(p,true);
 		}
@@ -165,7 +169,9 @@ public class EditorTest {
 	public void getEditorByTitleTest() {
 		DefaultEditor editor = new DefaultEditor("editorTest.min");
 		assertNotNull(editor);
-		new PackageExplorer().getProject("testProject")
+		PackageExplorer packageExplorer = new PackageExplorer();
+		packageExplorer.open();
+		packageExplorer.getProject("testProject")
 				.getProjectItem("editorTest1.min").open();
 		editor = new DefaultEditor("editorTest.min");
 		assertNotNull(editor);
@@ -180,7 +186,9 @@ public class EditorTest {
 
 	@Test
 	public void switchEditorTest() {
-		new PackageExplorer().getProject("testProject")
+		PackageExplorer packageExplorer = new PackageExplorer();
+		packageExplorer.open();
+		packageExplorer.getProject("testProject")
 				.getProjectItem("editorTest1.min").open();
 		assertTrue(new DefaultEditor().isActive());
 		assertTrue(new DefaultEditor("editorTest.min").isActive()); // should
@@ -191,7 +199,9 @@ public class EditorTest {
 	@Test(expected = WorkbenchPartNotFound.class)
 	public void closeNotActiveEditorTest() {
 		Editor editor = new DefaultEditor();
-		new PackageExplorer().getProject("testProject")
+		PackageExplorer packageExplorer = new PackageExplorer();
+		packageExplorer.open();
+		packageExplorer.getProject("testProject")
 				.getProjectItem("editorTest1.min").open();
 		editor.close(false);
 		new DefaultEditor("editorTest.min"); // should be closed now

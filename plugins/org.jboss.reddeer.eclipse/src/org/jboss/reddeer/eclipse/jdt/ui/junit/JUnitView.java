@@ -26,6 +26,7 @@ public class JUnitView extends WorkbenchView {
 	 * @return run status
 	 */
 	public String getRunStatus() {
+		activate();
 		return new LabeledText("Runs: ").getText().trim();
 	}
 
@@ -35,6 +36,7 @@ public class JUnitView extends WorkbenchView {
 	 * @return number of errors
 	 */
 	public int getNumberOfErrors() {
+		activate();
 		String errorStatus = new LabeledText("Errors: ").getText().trim();
 		return Integer.valueOf(errorStatus);
 	}
@@ -45,6 +47,7 @@ public class JUnitView extends WorkbenchView {
 	 * @return number of failures
 	 */
 	public int getNumberOfFailures() {
+		activate();
 		String errorStatus = new LabeledText("Failures: ").getText().trim();
 		return Integer.valueOf(errorStatus);
 	}
@@ -55,6 +58,7 @@ public class JUnitView extends WorkbenchView {
 	 * @return view status
 	 */
 	public String getViewStatus() {
+		activate();
 		return new DefaultLabel().getText().trim();
 	}
 }

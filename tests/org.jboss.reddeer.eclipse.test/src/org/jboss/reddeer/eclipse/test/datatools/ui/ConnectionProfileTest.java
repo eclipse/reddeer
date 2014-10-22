@@ -29,7 +29,9 @@ public class ConnectionProfileTest {
 		connWizard.open();
 		connWizard.createFlatFileProfile(flatProfile);
 
-		List<String> flatFileSources = new DataSourceExplorer().getFlatFileDataSources();
+		DataSourceExplorer dataSourceExplorer = new DataSourceExplorer();
+		dataSourceExplorer.open();
+		List<String> flatFileSources = dataSourceExplorer.getFlatFileDataSources();
 		assertTrue("Profile '" + profile + "' isn't available", flatFileSources.contains(profile));
 	}
 

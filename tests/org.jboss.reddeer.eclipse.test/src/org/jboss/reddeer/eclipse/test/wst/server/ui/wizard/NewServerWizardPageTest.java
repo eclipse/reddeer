@@ -33,6 +33,7 @@ public class NewServerWizardPageTest {
 	@Before
 	public void setUp(){
 		view = new ServersView();
+		view.open();
 		wizard = view.newServer();
 		wizardPage = wizard.getFirstPage();
 	}

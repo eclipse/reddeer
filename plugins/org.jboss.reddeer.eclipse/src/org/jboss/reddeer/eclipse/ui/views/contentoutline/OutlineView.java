@@ -31,6 +31,7 @@ public class OutlineView extends WorkbenchView {
 	 * @return Collection of outline elements
 	 */
 	public Collection<TreeItem> outlineElements() {
+		activate();
 		return getTreeForView();
 	}
 
@@ -38,6 +39,7 @@ public class OutlineView extends WorkbenchView {
 	 * Clicks on tooltip "Collapse All".
 	 */
 	public void collapseAll() {
+		activate();
 		clickOnToolTip("Collapse All.*");
 	}
 
@@ -45,6 +47,7 @@ public class OutlineView extends WorkbenchView {
 	 * Clicks on tooltip "Sort".
 	 */
 	public void sort() {
+		activate();
 		clickOnToolTip("Sort.*");
 	}
 	
@@ -52,6 +55,7 @@ public class OutlineView extends WorkbenchView {
 	 * Clicks on tooltip "Hide Fields".
 	 */
 	public void hideFields() {
+		activate();
 		clickOnToolTip("Hide Fields.*");
 	}
 
@@ -59,6 +63,7 @@ public class OutlineView extends WorkbenchView {
 	 * Clicks on tooltip "Hide Static Fields and Methods".
 	 */
 	public void hideStaticFieldsAndMethods() {
+		activate();
 		clickOnToolTip("Hide Static Fields and Methods.*");
 	}
 
@@ -66,6 +71,7 @@ public class OutlineView extends WorkbenchView {
 	 * Clicks on tooltip "Hide Non-Public Members".
 	 */
 	public void hideNonPublicMembers() {
+		activate();
 		clickOnToolTip("Hide Non-Public Members.*");
 	}
 
@@ -73,6 +79,7 @@ public class OutlineView extends WorkbenchView {
 	 * Clicks on tooltip "Hide Local Types".
 	 */
 	public void hideLocalTypes() {
+		activate();
 		clickOnToolTip("Hide Local Types.*");
 	}
 
@@ -80,6 +87,7 @@ public class OutlineView extends WorkbenchView {
 	 * Clicks on tooltip "Link with Editor".
 	 */
 	public void linkWithEditor() {
+		activate();
 		clickOnToolTip("Link with Editor.*");
 	}
 	

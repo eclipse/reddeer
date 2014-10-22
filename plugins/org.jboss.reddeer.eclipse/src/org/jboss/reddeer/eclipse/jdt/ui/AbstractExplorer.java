@@ -35,7 +35,6 @@ public class AbstractExplorer extends WorkbenchView {
 	 * @param projectName
 	 */
 	public void selectProjects(String... projectName){
-		
 		ArrayList<TreeItem> selectTreeItems = new ArrayList<TreeItem>();
 		for(String pname: projectName){
 			selectTreeItems.add(getProject(pname).getTreeItem()); //check if project exists
@@ -97,6 +96,7 @@ public class AbstractExplorer extends WorkbenchView {
 	 * @param deleteFromFileSystem true if project should be deleted from file system, false otherwise
 	 */
 	public void deleteAllProjects(boolean deleteFromFileSystem){
+		activate();
 		if(getProjects().size() > 0){
 			selectAllProjects();
 			new ContextMenu("Refresh").select();
@@ -112,7 +112,7 @@ public class AbstractExplorer extends WorkbenchView {
 	}
 
 	private DefaultTree getTree(){
-		open();
+		activate();
 		return new DefaultTree();
 	}
 		
@@ -122,6 +122,7 @@ public class AbstractExplorer extends WorkbenchView {
 	 * @return project instance
 	 */
 	public Project getProject(String projectName){
+		activate();
 		for (Project project : getProjects()){
 			if (project.getName().equals(projectName)){
 				return project;

@@ -39,6 +39,7 @@ public class TaskRepositoriesView extends WorkbenchView {
 	 * Saves the task.
 	 */
 	public void saveTask () {
+		activate();
 		new ShellMenu("File", "Save").select(); 
 	}
 	
@@ -49,6 +50,8 @@ public class TaskRepositoriesView extends WorkbenchView {
 	 * @param repoList
 	 */
 	public void createLocalTask (List<TreeItem> repoItems, ArrayList<String> repoList) {
+		
+		activate();
 		
 		int elementIndex = repoList.indexOf("Local");
 		log.info("Found Local Task Repo: " + repoItems.get(elementIndex).getText());	
@@ -73,6 +76,8 @@ public class TaskRepositoriesView extends WorkbenchView {
 	 * @param taskName Task name
 	 */
 	public void activateTask (String taskName) {
+		activate();
+		
 		new ShellMenu("Navigate", "Activate Task...").select(); 
 		new DefaultText().setText(taskName);
 		new PushButton("OK").click();	
@@ -83,7 +88,9 @@ public class TaskRepositoriesView extends WorkbenchView {
 	 * 
 	 * @param taskName Task name
 	 */
-	public void openTask (String taskName) { 
+	public void openTask (String taskName) {
+		activate();
+		
 		new ShellMenu("Navigate", "Open Task...").select();    
 		new DefaultText().setText(taskName);
 		new PushButton("OK").click();	
@@ -93,6 +100,8 @@ public class TaskRepositoriesView extends WorkbenchView {
 	 * Deactivates the task.
 	 */
 	public void deactivateTask () {
+		activate();
+		
 		new ShellMenu("Navigate", "Deactivate Task").select();  
 	}
 	
@@ -100,13 +109,17 @@ public class TaskRepositoriesView extends WorkbenchView {
 	 * Deletes the task.
 	 */
 	public void deleteTask () {
+		activate();
+		
 		new ShellMenu("Edit", "Delete").select();  
 		new PushButton("Yes").click();	
 	}
 	
 	public NewRepositoryWizard newTaskRepositories(){
+		activate();
+		
 		log.info("Creating new repository");
-		open();
+		activate();
 		new ContextMenu("New","Add Task Repository...").select();
 		new DefaultShell("Add Task Repository...");
 		return new NewRepositoryWizard();
@@ -137,7 +150,7 @@ public class TaskRepositoriesView extends WorkbenchView {
 	}
 
 	protected Tree getRepositoriesTree(){
-		open();
+		activate();
 		return new DefaultTree();
 	}
 }

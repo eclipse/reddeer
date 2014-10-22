@@ -28,7 +28,7 @@ public class PropertiesView extends WorkbenchView{
 	 * @return list of Properties
 	 */
 	public List<PropertiesViewProperty> getProperties(){
-		open();
+		activate();
 		LinkedList<PropertiesViewProperty> properties = new LinkedList<PropertiesViewProperty>();
 		for (TreeItem treeItem : new DefaultTree().getAllItems()){
 			properties.add(new PropertiesViewProperty(treeItem));
@@ -43,7 +43,7 @@ public class PropertiesView extends WorkbenchView{
 	 * @return ViewProperty with propertyName
 	 */
 	public PropertiesViewProperty getProperty(String... propertyNamePath){
-		open();
+		activate();
 		return new PropertiesViewProperty(new DefaultTreeItem(propertyNamePath));
 	}
 	
@@ -53,7 +53,7 @@ public class PropertiesView extends WorkbenchView{
 	 * @param toggle Indicates whether to show categories
 	 */
 	public void toggleShowCategories(boolean toggle){
-		open();
+		activate();
 		new ViewToolItem("Show Categories")
 			.toggle(toggle);
 	}
@@ -65,7 +65,7 @@ public class PropertiesView extends WorkbenchView{
 	 * @param toggle Indicates whether to show advanced properties
 	 */
 	public void toggleShowAdvancedProperties(boolean toggle){
-		open();
+		activate();
 		new ViewToolItem("Show Advanced Properties")
 			.toggle(toggle);
 	}

@@ -30,7 +30,6 @@ public class DataSourceExplorer extends WorkbenchView {
 	 * @return List of database connections
 	 */
 	public List<String> getDatabaseConnections() {
-		open();
 		return getItems("Database Connections");
 	}
 
@@ -40,7 +39,6 @@ public class DataSourceExplorer extends WorkbenchView {
 	 * @return List of flat file data sources
 	 */
 	public List<String> getFlatFileDataSources() {
-		open();
 		return getItems("ODA Data Sources", "Flat File Data Source");
 	}
 
@@ -50,7 +48,6 @@ public class DataSourceExplorer extends WorkbenchView {
 	 * @return List of web service data sources
 	 */
 	public List<String> getWebServiceDataSources() {
-		open();
 		return getItems("ODA Data Sources", "Web Service Data Source");
 	}
 
@@ -60,11 +57,11 @@ public class DataSourceExplorer extends WorkbenchView {
 	 * @return List of xml data sources
 	 */
 	public List<String> getXmlDataSources() {
-		open();
 		return getItems("ODA Data Sources", "XML Data Source");
 	}
 
 	protected List<String> getItems(String... path) {
+		activate();
 		TreeItem root = new DefaultTreeItem(path);
 		List<String> list = new ArrayList<String>();
 		for (TreeItem treeItem : root.getItems()) {

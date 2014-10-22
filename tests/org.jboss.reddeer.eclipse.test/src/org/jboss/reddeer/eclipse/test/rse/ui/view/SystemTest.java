@@ -26,6 +26,7 @@ public class SystemTest extends SystemViewTestCase {
 	public void setUp() {
 		createSystem("127.0.0.1", SYSTEM_1, SystemType.SSH_ONLY);
 		createSystem("localhost", SYSTEM_2, SystemType.SSH_ONLY);
+		remoteSystemView.open();
 		system1 = remoteSystemView.getSystem(SYSTEM_1);
 	}
 

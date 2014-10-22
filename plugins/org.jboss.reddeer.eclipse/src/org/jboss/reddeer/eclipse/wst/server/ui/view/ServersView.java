@@ -41,7 +41,7 @@ public class ServersView extends WorkbenchView {
 	 */
 	public NewServerWizardDialog newServer(){
 		log.info("Creating new server");
-		open();
+		activate();
 		new ContextMenu("New","Server").select();
 		new DefaultShell("New Server");
 		return new NewServerWizardDialog();
@@ -85,7 +85,7 @@ public class ServersView extends WorkbenchView {
 	}
 
 	protected Tree getServersTree(){
-		open();
+		activate();
 		return new DefaultTree();
 	}
 

@@ -48,6 +48,7 @@ public class BrowserView extends WorkbenchView {
 	 * @param url
 	 */
 	public void openPageURL(String url) {
+		activate();
 		browser.setURL(url);
 		new WaitUntil(new PageIsLoaded(browser), TIMEOUT);
 	}
@@ -56,6 +57,7 @@ public class BrowserView extends WorkbenchView {
 	 * Refreshes currently opened page in browser
 	 */
 	public void refreshPage() {
+		activate();
 		browser.setURL(browser.getURL());
 		new WaitUntil(new PageIsLoaded(browser), TIMEOUT);
 	}
@@ -64,6 +66,7 @@ public class BrowserView extends WorkbenchView {
 	 * Go to the previous page in browser
 	 */
 	public void back() {
+		activate();
 		String prevUrl = browser.getURL();
 		browser.back();
 		new WaitWhile(new BrowserHasURL(this, prevUrl), TIMEOUT);
@@ -74,6 +77,7 @@ public class BrowserView extends WorkbenchView {
 	 * Go to the next page in browser
 	 */
 	public void forward() {
+		activate();
 		String prevUrl = browser.getURL();
 		browser.forward();
 		new WaitWhile(new BrowserHasURL(this, prevUrl), TIMEOUT);
@@ -86,6 +90,7 @@ public class BrowserView extends WorkbenchView {
 	 * @return String URL of the current page
 	 */
 	public String getPageURL() {
+		activate();
 		return browser.getURL();
 	}
 	
@@ -95,6 +100,7 @@ public class BrowserView extends WorkbenchView {
 	 * @return String Text of the current page
 	 */
 	public String getText() {
+		activate();
 		return browser.getText();
 	}
 }

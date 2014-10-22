@@ -44,7 +44,7 @@ public class ModifyModulesDialogTest extends ServersViewTestCase{
 	@Before
 	public void setUp(){
 		createServer(SERVER);
-
+		serversView.open();
 		server = serversView.getServer(SERVER);
 	}
 

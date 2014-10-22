@@ -29,6 +29,7 @@ public class SystemViewTestCase {
 	
 	protected void createSystem(String hostname, String connectionName, SystemType type){
 		
+		remoteSystemView.open();
 		wizardDialog = remoteSystemView.newConnection();
 		
 		NewConnectionWizardSelectionPage selectionPage = new NewConnectionWizardSelectionPage();

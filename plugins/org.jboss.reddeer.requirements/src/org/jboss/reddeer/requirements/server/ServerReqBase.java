@@ -62,6 +62,7 @@ public abstract class ServerReqBase {
 	private org.jboss.reddeer.eclipse.wst.server.ui.view.Server getConfiguredServer(ConfiguredServerInfo lastServerConfig)
 			throws ConfiguredServerNotFoundException {
 		ServersView serversView = new ServersView();
+		serversView.open();
 		final String serverName = lastServerConfig.getServerName();
 		try {
 			return serversView.getServer(serverName);

@@ -38,10 +38,11 @@ public class TaskListView extends WorkbenchView {
 	 * 
 	 * @return List of task lists
 	 */
-	public List<TaskList> getTaskLists(){
+	public List<TaskList> getTaskLists(){		
 		List<TaskList> theTaskLists = new ArrayList<TaskList>();
-
 		Tree tree;
+		
+		activate();
 		try {
 			tree = new DefaultTree();
 		} catch (SWTLayerException e){
@@ -60,6 +61,7 @@ public class TaskListView extends WorkbenchView {
 	 * @return Task list
 	 */
 	public TaskList getTaskList(String name){
+		activate();
 		for (TaskList repository : getTaskLists()){
 			if (repository.getName().equals(name)){
 				return repository;
@@ -69,7 +71,7 @@ public class TaskListView extends WorkbenchView {
 	}
 
 	protected Tree getRepositoriesTree(){
-		open();
+		activate();
 		return new DefaultTree();
 	}
 	
@@ -81,6 +83,7 @@ public class TaskListView extends WorkbenchView {
 	 * @return Task as a tree item
 	 */
 	public TreeItem getTask (String taskCategory, String taskName) {
+		activate();
 		new DefaultTree();
 		
 		DefaultTreeItem theCategory = new DefaultTreeItem (taskCategory);		
@@ -94,6 +97,7 @@ public class TaskListView extends WorkbenchView {
 	/* For use in the Task List View */
 	public void createLocalTaskTest () {
 				
+		activate();
 		new ShellMenu("File", "New", "Other...").select();  
 		new DefaultTree();
 		DefaultTreeItem theNewTask = new DefaultTreeItem ("Tasks", "Task");

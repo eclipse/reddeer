@@ -71,7 +71,9 @@ public class GenericConnectionProfileTest {
 		w.open();
 		w.createDatabaseProfile(dbProfile);
 
-		List<String> dbSources = new DataSourceExplorer().getDatabaseConnections();
+		DataSourceExplorer dataSourceExplorer = new DataSourceExplorer();
+		dataSourceExplorer.open();
+		List<String> dbSources = dataSourceExplorer.getDatabaseConnections();
 		assertTrue("Profile '" + profile + "' isn't available", dbSources.contains(profile));
 	}
 }

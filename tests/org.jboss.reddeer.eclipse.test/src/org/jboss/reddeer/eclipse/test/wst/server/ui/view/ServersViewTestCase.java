@@ -43,6 +43,7 @@ public class ServersViewTestCase {
 	}
 	
 	protected void createServer(String name) {
+		serversView.open();
 		wizardDialog = serversView.newServer();
 
 		NewServerWizardPage newServerPage = wizardDialog.getFirstPage();

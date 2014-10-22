@@ -50,9 +50,9 @@ public class LogView extends WorkbenchView{
 	 */
 	
 	public List<LogMessage> getOKMessages() {
-		open();
+		activate();
 		setFilter(OK_SEVERITY);
-		open();
+		activate();
 		DefaultTree tree = new DefaultTree();
 		List<TreeItem> treeItems = tree.getAllItems();
 		List<LogMessage> messages = new ArrayList<LogMessage>();
@@ -67,9 +67,9 @@ public class LogView extends WorkbenchView{
 	 * @return list of messages with severity INFO (according to IStatus)
 	 */
 	public List<LogMessage> getInfoMessages() {
-		open();
+		activate();
 		setFilter(INFORMATION_SEVERITY);
-		open();
+		activate();
 		DefaultTree tree = new DefaultTree();
 		List<TreeItem> treeItems = tree.getAllItems();
 		List<LogMessage> messages = new ArrayList<LogMessage>();
@@ -83,9 +83,9 @@ public class LogView extends WorkbenchView{
 	 * @return list of messages with severity WARNING (according to IStatus)
 	 */
 	public List<LogMessage> getWarningMessages() {
-		open();
+		activate();
 		setFilter(WARNING_SEVERITY);
-		open();
+		activate();
 		DefaultTree tree = new DefaultTree();
 		List<TreeItem> treeItems = tree.getAllItems();
 		List<LogMessage> messages = new ArrayList<LogMessage>();
@@ -99,9 +99,9 @@ public class LogView extends WorkbenchView{
 	 * @return list of messages with severity ERROR (according to IStatus)
 	 */
 	public List<LogMessage> getErrorMessages() {
-		open();
+		activate();
 		setFilter(ERROR_SEVERITY);
-		open();
+		activate();
 		DefaultTree tree = new DefaultTree();
 		List<TreeItem> treeItems = tree.getAllItems();
 		List<LogMessage> messages = new ArrayList<LogMessage>();
@@ -115,7 +115,7 @@ public class LogView extends WorkbenchView{
 	 * Clears Error lLog messages
 	 */
 	public void clearLog() {
-		open();
+		activate();
 		new DefaultTree().setFocus();
 		Menu cm = new ContextMenu(CLEAR_LOG);
 		cm.select();	
@@ -125,7 +125,7 @@ public class LogView extends WorkbenchView{
 	 * Deletes Error log messages
 	 */
 	public void deleteLog() {
-		open();
+		activate();
 		new DefaultTree().setFocus();
 		Menu cm = new ContextMenu(DELETE_LOG);
 		cm.select();
@@ -138,7 +138,7 @@ public class LogView extends WorkbenchView{
 	 * Restores Error log messages
 	 */
 	public void restoreLog() {
-		open();
+		activate();
 		new DefaultTree().setFocus();
 		Menu cm = new ContextMenu(RESTORE_LOG);
 		cm.select();			

@@ -38,7 +38,7 @@ public class SystemView extends WorkbenchView {
 	 */
 	public NewConnectionWizardDialog newConnection(){
 		log.info("Creating new connection");
-		this.open();
+		activate();
 		getSystem("Local").select();
 		new ContextMenu("New","Connection...").select();
 		new DefaultShell("New Connection");
@@ -81,7 +81,7 @@ public class SystemView extends WorkbenchView {
 	}
 
 	protected Tree getSystemTree(){
-		open();
+		activate();
 		return new DefaultTree();
 	}
 

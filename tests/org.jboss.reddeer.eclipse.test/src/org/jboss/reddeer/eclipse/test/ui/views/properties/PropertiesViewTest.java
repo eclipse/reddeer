@@ -41,6 +41,7 @@ public class PropertiesViewTest {
 	@Test
 	public void getProperty(){
 		PropertiesView propertiesView = new PropertiesView();
+		propertiesView.open();
 		propertiesView.toggleShowCategories(true);
 		String namePropertyValue = propertiesView.getProperty("Info","name")
 			.getPropertyValue();
@@ -52,6 +53,7 @@ public class PropertiesViewTest {
 	@Test
 	public void getProperties(){
 		PropertiesView propertiesView = new PropertiesView();
+		propertiesView.open();
 		propertiesView.toggleShowCategories(true);
 		List<PropertiesViewProperty> properties = propertiesView.getProperties();
 		assertTrue("Expected cound of properties was 8 but is" + properties.size() ,
@@ -75,6 +77,7 @@ public class PropertiesViewTest {
 	@Test
 	public void toggleShowCategories(){
 		PropertiesView propertiesView = new PropertiesView();
+		propertiesView.open();
 		propertiesView.toggleShowCategories(true);
 		final String infoPropName="Info";
 		// Properties View has to contain Info property
@@ -88,6 +91,7 @@ public class PropertiesViewTest {
 	@After
 	public void tearDown() {
 		PackageExplorer packageExplorer = new PackageExplorer();
+		packageExplorer.open();
 		if (packageExplorer.containsProject(PropertiesViewTest.TEST_PROJECT_NAME)) {
 			DeleteUtils.forceProjectDeletion(packageExplorer.getProject(PropertiesViewTest.TEST_PROJECT_NAME),
 				true);

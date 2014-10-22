@@ -30,7 +30,7 @@ public class ProblemsView extends WorkbenchView{
 	 * @return
 	 */
 	public List<TreeItem> getAllErrors(){
-		open();
+		activate();
 		new WaitWhile(new MarkerIsUpdating());
 		DefaultTree tree = new DefaultTree();
 		return filter(tree.getItems(), true);
@@ -42,7 +42,7 @@ public class ProblemsView extends WorkbenchView{
 	 * @return
 	 */
 	public List<TreeItem> getAllWarnings(){
-		open();
+		activate();
 		DefaultTree tree = new DefaultTree();
 		return filter(tree.getItems(), false);
 	}
@@ -60,6 +60,7 @@ public class ProblemsView extends WorkbenchView{
 	public List<TreeItem> getErrors(Matcher<String> description,
 			Matcher<String> resource, Matcher<String> path,
 			Matcher<String> location, Matcher<String> type) {
+		activate();
 		return filter(getAllErrors(), description, resource, path,
 				location, type);
 	}
@@ -77,6 +78,7 @@ public class ProblemsView extends WorkbenchView{
 	public List<TreeItem> getWarnings(Matcher<String> description,
 			Matcher<String> resource, Matcher<String> path,
 			Matcher<String> location, Matcher<String> type) {
+		activate();
 		return filter(getAllWarnings(), description, resource, path,
 				location, type);
 	}

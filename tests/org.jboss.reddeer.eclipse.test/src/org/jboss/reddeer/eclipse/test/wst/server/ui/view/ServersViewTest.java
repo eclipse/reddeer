@@ -17,6 +17,7 @@ public class ServersViewTest extends ServersViewTestCase{
 
 	@Test
 	public void newServer(){
+		serversView.open();
 		wizardDialog = serversView.newServer();
 
 		Shell shell = new DefaultShell();
@@ -25,6 +26,7 @@ public class ServersViewTest extends ServersViewTestCase{
 
 	@Test
 	public void getServers_noServers(){
+		serversView.open();
 		List<Server> servers = serversView.getServers();
 		
 		assertThat(servers.size(), is(0));
@@ -35,6 +37,7 @@ public class ServersViewTest extends ServersViewTestCase{
 		createServer("Server AB");
 		createServer("Server A");
 
+		serversView.open();
 		List<Server> servers = serversView.getServers();
 		assertThat(servers.size(), is(2));
 		assertThat(servers.get(0).getLabel().getName(), is("Server A"));
@@ -43,11 +46,13 @@ public class ServersViewTest extends ServersViewTestCase{
 
 	@Test(expected=EclipseLayerException.class)
 	public void getServer_noServers(){
+		serversView.open();
 		serversView.getServer("Server A");
 	}
 
 	@Test(expected=EclipseLayerException.class)
 	public void getServer_notFound(){
+		serversView.open();
 		createServer("Server AB");
 
 		serversView.getServer("Server A");
@@ -55,6 +60,7 @@ public class ServersViewTest extends ServersViewTestCase{
 
 	@Test
 	public void getServer(){
+		serversView.open();
 		createServer("Server AB");
 		createServer("Server A");
 

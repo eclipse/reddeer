@@ -40,7 +40,9 @@ public class RuntimesPropertyPageTest {
 
 		wizard.finish();
 		
-		propertyPage = new RuntimesPropertyPage(new PackageExplorer().getProject(PROJECT));
+		PackageExplorer packageExplorer = new PackageExplorer();
+		packageExplorer.open();
+		propertyPage = new RuntimesPropertyPage(packageExplorer.getProject(PROJECT));
 	}
 	
 	@Before

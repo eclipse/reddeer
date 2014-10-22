@@ -66,8 +66,10 @@ public class CleanWorkspaceRequirementTest {
 		projectWizard.open();
 		projectWizard.getFirstPage().setProjectName("TestProject");
 		projectWizard.finish();
+		PackageExplorer packageExplorer = new PackageExplorer();
+		packageExplorer.open();
 		assertFalse("Project should be imported, but isn't",
-				new PackageExplorer().getProjects().isEmpty());
+				packageExplorer.getProjects().isEmpty());
 	}
 	
 	@CleanWorkspace

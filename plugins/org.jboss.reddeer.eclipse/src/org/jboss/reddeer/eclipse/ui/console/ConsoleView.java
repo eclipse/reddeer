@@ -34,6 +34,7 @@ public class ConsoleView extends WorkbenchView {
 	 * @return Console text
 	 */
 	public String getConsoleText() {
+		activate();
 		new WaitUntil(new ConsoleHasTextWidget());
 		// wait for text to appear
 		new WaitWhile(new ConsoleHasText(""),TimePeriod.SHORT,false);
@@ -45,6 +46,7 @@ public class ConsoleView extends WorkbenchView {
 	 */
 	public void clearConsole() {
 		log.info("Clearing console");
+		activate();		
 		new ViewToolItem("Clear Console").click();
 		new WaitUntil(new ConsoleHasText(""));
 		log.info("Console cleared");
@@ -76,6 +78,7 @@ public class ConsoleView extends WorkbenchView {
 	 */
 	public void terminateConsole() {
 		log.info("Terminating console");
+		activate();
 		ViewToolItem terminate = new ViewToolItem("Terminate");
 		if (terminate.isEnabled()) {
 			terminate.click();

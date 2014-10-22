@@ -25,6 +25,7 @@ public class ServerPresentTest {
 	public void isServerPresentTest(){
 		
 		ServersView sw = new ServersView();
+		sw.open();
 		Server s = sw.getServer(requirement.getServerNameLabelText(requirement.getConfig()));
 		assertTrue(s != null);
 	}
