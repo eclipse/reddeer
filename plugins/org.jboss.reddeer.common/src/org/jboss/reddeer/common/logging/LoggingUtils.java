@@ -27,13 +27,13 @@ public class LoggingUtils {
 	/**
 	 * Format array of Objects to list of items separated by comma
 	 * @param items array of objects items
-	 * @returna string of individual toString object representationsa separated by commas
+	 * @return string of individual toString object representation as separated by commas
 	 */
 	public static String format(Object[] items){
-		StringBuilder sb = new StringBuilder();
+		StringBuilder sb = new StringBuilder(items != null ? "[Length: " + items.length + "] " : "<null>");
 
 		for (int i = 0; i < items.length; i++){
-			sb.append(items[i]);
+			sb.append("'" + items[i] + "'");
 			if (i != items.length - 1){
 				sb.append(", ");
 			}
