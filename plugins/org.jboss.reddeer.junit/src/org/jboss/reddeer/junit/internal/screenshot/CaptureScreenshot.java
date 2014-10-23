@@ -160,4 +160,16 @@ public class CaptureScreenshot {
 			throw new CaptureScreenshotException(ex.getMessage(), ex.getCause());
 		}
 	}
+	/**
+	 * Returns formatted screenshot file name 
+	 * @param testClass
+	 * @param testMethod
+	 * @param detail
+	 * @return
+	 */
+	public static final String getScreenshotFileName (Class<?> testClass, String testMethod, String detail){
+		return testClass.getName() + "." 
+			+ (testMethod != null ? testMethod : "nomethod")
+			+ (detail != null ? "@" + detail : "");
+	}
 }
