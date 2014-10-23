@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.jboss.reddeer.common.logging.Logger;
+import org.jboss.reddeer.junit.TestInfo;
 import org.jboss.reddeer.junit.extensionpoint.IAfterTest;
 import org.jboss.reddeer.junit.internal.screenshot.CaptureScreenshot;
 import org.jboss.reddeer.junit.internal.screenshot.CaptureScreenshotException;
@@ -64,25 +65,25 @@ public class RunAfters extends Statement {
         } catch (Throwable e) {
             errors.add(e);
         } finally {
+    		String methodName = fMethod != null ? fMethod.getName() : null;
+    		Class<?> testObjectClass = fTarget != null ? fTarget.getClass() : testClass.getJavaClass();
             for (FrameworkMethod each : fAfters) {
                 try {
                     each.invokeExplosively(fTarget);
                 } catch (Throwable e) {
                 	CaptureScreenshot capturer = new CaptureScreenshot();
                 	try {
-                		String methodName = "";
-                		if (fMethod != null) {
-                			methodName = "#" + fMethod.getName();
-                		}
                 		String fileName;
                 		if (fTarget == null) {
-                			fileName = testClass.getJavaClass().getSimpleName()
-                					+ "@AfterClass#" + each.getName() + "["
-                					+ testClass.getJavaClass().getPackage().getName() + "]";
+                			fileName = CaptureScreenshot.getScreenshotFileName(
+                					testObjectClass,
+                					methodName,
+                					"AfterClass_" + each.getName());
                 		} else {
-                			fileName = fTarget.getClass().getSimpleName() 
-                				+ methodName + "@After#" + each.getName()
-        						+ "[" + fTarget.getClass().getPackage().getName() + "]";
+                			fileName = CaptureScreenshot.getScreenshotFileName( 
+                				testObjectClass,
+                				methodName,
+                				"After_" + each.getName());
                 		}
         				capturer.captureScreenshot(config, fileName);
                 	} catch (CaptureScreenshotException ex) {
@@ -93,25 +94,14 @@ public class RunAfters extends Statement {
             }
             for (IAfterTest afterTest : afterTests) {
                 try {
-                	afterTest.runAfterTest(fTarget);
+                	afterTest.runAfterTest(new TestInfo(methodName, config, testObjectClass));
                 } catch (Throwable e) {
                 	CaptureScreenshot capturer = new CaptureScreenshot();
                 	try {
-                		String methodName = "";
-                		if (fMethod != null) {
-                			methodName = "#" + fMethod.getName();
-                		}
-                		String fileName;
-                		if (fTarget == null) {
-                			fileName = testClass.getJavaClass().getSimpleName()
-                					+ "@IAfter#" + afterTest.getClass().getCanonicalName()
-                					+ "[" + testClass.getJavaClass().getPackage().getName() + "]";
-                		} else {
-                			fileName = fTarget.getClass().getSimpleName() 
-                					+ methodName + "@IAfter#" 
-                					+ afterTest.getClass().getCanonicalName()
-                					+ "[" + fTarget.getClass().getPackage().getName() + "]";
-                		}
+                		String fileName = CaptureScreenshot.getScreenshotFileName(
+                			testObjectClass,
+                			methodName,
+                			"IAfterTest_" + afterTest.getClass().getSimpleName());
         				capturer.captureScreenshot(config, fileName);
                 	} catch (CaptureScreenshotException ex) {
                 		ex.printInfo(log);

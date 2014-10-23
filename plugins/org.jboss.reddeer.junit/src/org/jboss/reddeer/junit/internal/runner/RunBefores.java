@@ -50,22 +50,21 @@ public class RunBefores extends Statement {
 				before.invokeExplosively(fTarget);
 			}
 		} catch (Throwable throwable) {
-						
+			String methodName = fMethod != null ? fMethod.getName() : null;
+    		Class<?> testObjectClass = fTarget != null ? fTarget.getClass() : testClass.getJavaClass();						
 			CaptureScreenshot capturer = new CaptureScreenshot();
 			try {
-				String methodName = "";
-        		if (fMethod != null) {
-        			methodName = "#" + fMethod.getName();
-        		}
         		String fileName;
         		if (fTarget == null) {
-        			fileName = testClass.getJavaClass().getSimpleName()
-        					+ "@BeforeClass#" + before.getName() + "["
-        					+ testClass.getJavaClass().getPackage().getName() + "]";
+        			fileName = CaptureScreenshot.getScreenshotFileName(
+        					testObjectClass,
+        					methodName,
+        					"BeforeClass_" + before.getName());
         		} else {
-        			fileName = fTarget.getClass().getSimpleName() 
-        				+ methodName + "@Before#" + before.getName()
-						+ "[" + fTarget.getClass().getPackage().getName() + "]";
+        			fileName = CaptureScreenshot.getScreenshotFileName(
+        				testObjectClass,
+        				methodName,
+        				"Before_" + before.getName());
         		}
 				capturer.captureScreenshot(config, fileName);
 				

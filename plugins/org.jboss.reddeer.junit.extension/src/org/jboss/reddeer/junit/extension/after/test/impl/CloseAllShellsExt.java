@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.swt.widgets.Shell;
+import org.jboss.reddeer.junit.TestInfo;
 import org.jboss.reddeer.junit.extensionpoint.IAfterTest;
 import org.jboss.reddeer.junit.internal.screenshot.CaptureScreenshot;
 import org.jboss.reddeer.junit.internal.screenshot.CaptureScreenshotException;
@@ -68,14 +69,23 @@ public class CloseAllShellsExt implements IAfterTest {
 			closedShellsTitles.add(shellTitle);
 			try {
 				String fileName;
+				String config = null;
 				if (target == null) {
-        			fileName = "UnknownTestClass@CloseAllShellsExt#" + shellTitle;
-        		} else {
-        			fileName = target.getClass().getSimpleName()
-        					+ "@CloseAllShellsExt#" + shellTitle + "["
-        					+ target.getClass().getPackage().getName() + "]";
+        			fileName = "UnknownTestClass@CloseAllShellsExt_closing" + shellTitle;
+        		} if (target instanceof TestInfo){
+        			TestInfo testInfo = (TestInfo)target;
+        			config = testInfo.getConfig();
+        			fileName = CaptureScreenshot.getScreenshotFileName(
+        				testInfo.getTestObjectClass(),
+        				testInfo.getMethodName(),
+        				"CloseAllShellsExt_closing_" + shellTitle);
+				}else {
+        			fileName = CaptureScreenshot.getScreenshotFileName(
+        				target.getClass(),
+        				null,
+        				"CloseAllShellsExt_closing_" + shellTitle);
         		}
-				new CaptureScreenshot().captureScreenshot(null, fileName);
+				new CaptureScreenshot().captureScreenshot(config, fileName);
 			} catch (CaptureScreenshotException e) {
 				e.printStackTrace();
 			}

@@ -271,8 +271,10 @@ public class RequirementsRunner extends BlockJUnit4ClassRunner {
 	    			!annotation.expected().isAssignableFrom(t.getClass())) {
 		    			CaptureScreenshot screenshot = new CaptureScreenshot();
 		    			try {
-		    				String fileName = fTarget.getClass().getSimpleName() + "#"
-		    						+ fTestMethod.getName() + "[" + fTarget.getClass().getPackage() + "]";
+		    				String fileName = CaptureScreenshot.getScreenshotFileName(
+		    					fTarget.getClass(),
+		    					fTestMethod.getName(),
+		    					null);
 		    				screenshot.captureScreenshot(configId, fileName);	    			
 		    			} catch (CaptureScreenshotException ex) {
 		    				ex.printInfo(log);
