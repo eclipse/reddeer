@@ -4,6 +4,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.swt.api.Menu;
 import org.jboss.reddeer.swt.api.TreeItem;
+import org.jboss.reddeer.swt.condition.CLabelWithTextIsAvailable;
 import org.jboss.reddeer.swt.condition.ShellWithTextIsActive;
 import org.jboss.reddeer.swt.impl.button.CancelButton;
 import org.jboss.reddeer.swt.impl.button.OkButton;
@@ -14,6 +15,8 @@ import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
 import org.jboss.reddeer.swt.lookup.ShellLookup;
 import org.jboss.reddeer.swt.util.Display;
 import org.jboss.reddeer.swt.util.ResultRunnable;
+import org.jboss.reddeer.swt.wait.TimePeriod;
+import org.jboss.reddeer.swt.wait.WaitUntil;
 import org.jboss.reddeer.swt.wait.WaitWhile;
 import org.jboss.reddeer.workbench.preference.WorkbenchPreferencePage;
 
@@ -83,6 +86,8 @@ public class WorkbenchPreferenceDialog {
 		}
 		TreeItem t = new DefaultTreeItem(path);
 		t.select();
+		
+		new WaitUntil(new CLabelWithTextIsAvailable(path[path.length-1]), TimePeriod.NORMAL, false);
 	}
 
 	/**
