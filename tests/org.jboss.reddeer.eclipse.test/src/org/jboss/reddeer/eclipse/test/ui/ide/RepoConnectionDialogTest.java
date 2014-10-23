@@ -5,19 +5,21 @@ import static org.junit.Assert.assertTrue;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.jboss.reddeer.eclipse.equinox.security.ui.StoragePreferencePage;
+import org.jboss.reddeer.eclipse.jdt.ui.WorkbenchPreferenceDialog;
 import org.jboss.reddeer.eclipse.ui.ide.RepoConnectionDialog;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
+import org.jboss.reddeer.swt.api.TableItem;
 import org.jboss.reddeer.swt.api.TreeItem;
-import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.menu.ShellMenu;
-import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.jboss.reddeer.swt.impl.text.LabeledText;
 import org.jboss.reddeer.swt.impl.tree.DefaultTree;
 import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
 import org.jboss.reddeer.swt.wait.AbstractWait;
 import org.jboss.reddeer.swt.wait.TimePeriod;
 import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -30,9 +32,13 @@ import org.junit.runner.RunWith;
 public class RepoConnectionDialogTest  {
 	RepoConnectionDialog repoConnectionDialog = null;
 	
+	@Before
+	public void disableSecureStorage() {
+		setEnabledMasterPasswordPrompt(false);
+	}
+	
 	@Test
 	public void getDialogTest() {
-		
 		new ShellMenu("Window", "Show View", "Other...").select();		
 		DefaultTreeItem taskRepositories = new DefaultTreeItem ("Mylyn", "Task Repositories");
 		taskRepositories.select();		
@@ -52,12 +58,6 @@ public class RepoConnectionDialogTest  {
 		
 		repoItems.get(elementIndex).select();	
 		new ShellMenu("File", "Properties").select();  
-		// On Linux Secure Storage shell is opened
-		try{
-			new DefaultShell("Secure Storage").close();
-		} catch (SWTLayerException swtle){
-			// do nothing shell was not opened
-		}
 		
 		repoConnectionDialog = new RepoConnectionDialog();
 		
@@ -78,5 +78,21 @@ public class RepoConnectionDialogTest  {
 		if (repoConnectionDialog != null){
 			repoConnectionDialog.close();
 		}
+		
+		setEnabledMasterPasswordPrompt(true);
+	}
+	
+	private void setEnabledMasterPasswordPrompt(boolean enabled) {
+		WorkbenchPreferenceDialog preferenceDialog = new WorkbenchPreferenceDialog();
+		StoragePreferencePage storagePage = new StoragePreferencePage();
+		
+		preferenceDialog.open();
+		preferenceDialog.select(storagePage);
+		
+		for (TableItem item: storagePage.getMasterPasswordProviders()) {
+			item.setChecked(enabled);
+		}
+		storagePage.apply();
+		preferenceDialog.ok();
 	}
 }
