@@ -7,6 +7,7 @@ import org.jboss.reddeer.swt.condition.ShellWithTextIsActive;
 import org.jboss.reddeer.swt.condition.ShellWithTextIsAvailable;
 import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.menu.ShellMenu;
+import org.jboss.reddeer.swt.impl.shell.WorkbenchShell;
 import org.jboss.reddeer.swt.wait.WaitUntil;
 import org.jboss.reddeer.swt.wait.WaitWhile;
 
@@ -42,10 +43,12 @@ public class ServerModule {
 			throw new EclipseLayerException("ServerModule was already removed");
 		}
 		treeItem.select();
+		final String workbenchTitle = new WorkbenchShell().getText();
 		new ShellMenu("Edit", "Delete").select();
 		new WaitUntil(new ShellWithTextIsActive("Server"));
 		new PushButton("OK").click();
 		new WaitWhile(new ShellWithTextIsAvailable("Server"));
+		new WaitUntil(new ShellWithTextIsActive(workbenchTitle));
 		new WaitWhile(new JobIsRunning());
 		treeItem = null;
 	}
