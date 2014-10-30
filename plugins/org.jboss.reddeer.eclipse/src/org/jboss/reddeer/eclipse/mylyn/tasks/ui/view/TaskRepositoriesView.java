@@ -39,7 +39,6 @@ public class TaskRepositoriesView extends WorkbenchView {
 	 * Saves the task.
 	 */
 	public void saveTask () {
-		activate();
 		new ShellMenu("File", "Save").select(); 
 	}
 	
@@ -49,10 +48,7 @@ public class TaskRepositoriesView extends WorkbenchView {
 	 * @param repoItems
 	 * @param repoList
 	 */
-	public void createLocalTask (List<TreeItem> repoItems, ArrayList<String> repoList) {
-		
-		activate();
-		
+	public void createLocalTask (List<TreeItem> repoItems, ArrayList<String> repoList) {				
 		int elementIndex = repoList.indexOf("Local");
 		log.info("Found Local Task Repo: " + repoItems.get(elementIndex).getText());	
 		repoItems.get(elementIndex).select();	
@@ -75,9 +71,7 @@ public class TaskRepositoriesView extends WorkbenchView {
 	 * 
 	 * @param taskName Task name
 	 */
-	public void activateTask (String taskName) {
-		activate();
-		
+	public void activateTask (String taskName) {		
 		new ShellMenu("Navigate", "Activate Task...").select(); 
 		new DefaultText().setText(taskName);
 		new PushButton("OK").click();	
@@ -88,9 +82,7 @@ public class TaskRepositoriesView extends WorkbenchView {
 	 * 
 	 * @param taskName Task name
 	 */
-	public void openTask (String taskName) {
-		activate();
-		
+	public void openTask (String taskName) {		
 		new ShellMenu("Navigate", "Open Task...").select();    
 		new DefaultText().setText(taskName);
 		new PushButton("OK").click();	
@@ -99,27 +91,20 @@ public class TaskRepositoriesView extends WorkbenchView {
 	/**
 	 * Deactivates the task.
 	 */
-	public void deactivateTask () {
-		activate();
-		
+	public void deactivateTask () {		
 		new ShellMenu("Navigate", "Deactivate Task").select();  
 	}
 	
 	/**
 	 * Deletes the task.
 	 */
-	public void deleteTask () {
-		activate();
-		
+	public void deleteTask () {		
 		new ShellMenu("Edit", "Delete").select();  
 		new PushButton("Yes").click();	
 	}
 	
-	public NewRepositoryWizard newTaskRepositories(){
-		activate();
-		
+	public NewRepositoryWizard newTaskRepositories(){		
 		log.info("Creating new repository");
-		activate();
 		new ContextMenu("New","Add Task Repository...").select();
 		new DefaultShell("Add Task Repository...");
 		return new NewRepositoryWizard();
@@ -150,7 +135,6 @@ public class TaskRepositoriesView extends WorkbenchView {
 	}
 
 	protected Tree getRepositoriesTree(){
-		activate();
 		return new DefaultTree();
 	}
 }
