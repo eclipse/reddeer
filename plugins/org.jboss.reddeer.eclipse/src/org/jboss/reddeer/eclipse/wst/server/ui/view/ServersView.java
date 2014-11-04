@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.jboss.reddeer.common.logging.Logger;
+import org.jboss.reddeer.common.logging.LoggingUtils;
 import org.jboss.reddeer.eclipse.exception.EclipseLayerException;
 import org.jboss.reddeer.eclipse.wst.server.ui.wizard.NewServerWizardDialog;
 import org.jboss.reddeer.swt.api.Tree;
@@ -40,8 +41,8 @@ public class ServersView extends WorkbenchView {
 	 * @return Wizard for adding new server
 	 */
 	public NewServerWizardDialog newServer(){
-		log.info("Creating new server");
 		activate();
+		log.info("Create new server");
 		new ContextMenu("New","Server").select();
 		new DefaultShell("New Server");
 		return new NewServerWizardDialog();
@@ -81,6 +82,8 @@ public class ServersView extends WorkbenchView {
 				return server;
 			}
 		}
+		log.info("Requested server '" + name + "' was not found on Servers view");
+		log.info("Available servers are: " + LoggingUtils.format(getServersNames()));
 		throw new EclipseLayerException("There is no server with name " + name);
 	}
 
@@ -91,5 +94,16 @@ public class ServersView extends WorkbenchView {
 
 	protected Server createServer(TreeItem item){
 		return new Server(item);
+	}
+	
+	private Object[] getServersNames() {
+		List<Server> servers = getServers();
+		Object[] names = new Object[servers.size()];
+		
+		for (int i = 0; i < servers.size(); i++){
+			names[i] = servers.get(i).getLabel().getName();
+		}
+		
+		return names;
 	}
 }

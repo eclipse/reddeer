@@ -1,5 +1,6 @@
 package org.jboss.reddeer.eclipse.wst.server.ui.view;
 
+import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.eclipse.exception.EclipseLayerException;
 import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.swt.condition.JobIsRunning;
@@ -19,6 +20,8 @@ import org.jboss.reddeer.swt.wait.WaitWhile;
  */
 public class ServerModule {
 
+	private static final Logger log = Logger.getLogger(ServerModule.class);
+	
 	protected TreeItem treeItem;
 
 	public ServerModule(TreeItem item) {
@@ -42,6 +45,7 @@ public class ServerModule {
 		if (treeItem == null) {
 			throw new EclipseLayerException("ServerModule was already removed");
 		}
+		log.info("Remove server module with name " + getLabel().getName());
 		treeItem.select();
 		final String workbenchTitle = new WorkbenchShell().getText();
 		new ShellMenu("Edit", "Delete").select();
