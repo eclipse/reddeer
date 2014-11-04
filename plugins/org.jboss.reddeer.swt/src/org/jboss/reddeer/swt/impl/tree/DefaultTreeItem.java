@@ -8,8 +8,8 @@ import org.hamcrest.Matcher;
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.swt.api.Tree;
 import org.jboss.reddeer.swt.api.TreeItem;
+import org.jboss.reddeer.swt.condition.TreeHasChildren;
 import org.jboss.reddeer.swt.condition.TreeItemHasMinChildren;
-import org.jboss.reddeer.swt.condition.WaitCondition;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.lookup.TreeItemLookup;
 import org.jboss.reddeer.swt.matcher.TreeItemTextMatcher;
@@ -375,29 +375,5 @@ public class DefaultTreeItem extends AbstractTreeItem {
 
 	private static org.eclipse.swt.widgets.TreeItem findTreeItem(ReferencedComposite referencedComposite, int treeIndex, Matcher<String>... treeItemPath) {
 		return findTreeItem(new DefaultTree(referencedComposite, treeIndex), 0, treeItemPath);
-	}
-}
-
-/**
- * Condition is fulfilled when tree has children 
- * 
- * @author jjankovi
- *
- */
-class TreeHasChildren implements WaitCondition {
-	private Tree tree;
-	public TreeHasChildren(Tree tree) {
-		super();
-		this.tree = tree;
-	}
-	
-	@Override
-	public boolean test() {
-		return tree.getItems().size() > 0;		
-	}
-	
-	@Override
-	public String description() {
-		return "tree has children";
 	}
 }
