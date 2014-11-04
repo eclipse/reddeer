@@ -4,11 +4,15 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import org.jboss.reddeer.swt.api.TreeItem;
+import org.jboss.reddeer.swt.condition.TreeHasChildren;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.impl.toolbar.ViewToolItem;
 import org.jboss.reddeer.swt.impl.tree.DefaultTree;
 import org.jboss.reddeer.swt.matcher.RegexMatcher;
 import org.jboss.reddeer.swt.matcher.WithTooltipTextMatcher;
+import org.jboss.reddeer.swt.wait.TimePeriod;
+import org.jboss.reddeer.swt.wait.WaitUntil;
+import org.jboss.reddeer.swt.wait.WaitWhile;
 import org.jboss.reddeer.workbench.impl.view.WorkbenchView;
 /**
  * Represents Outline view in Eclipse
@@ -94,6 +98,8 @@ public class OutlineView extends WorkbenchView {
 	private Collection<TreeItem>getTreeForView() {
 		try {
 			DefaultTree tree = new DefaultTree();
+			new WaitUntil(new TreeHasChildren(tree),TimePeriod.NORMAL,false);
+
 			return tree.getItems();
 		} catch (SWTLayerException exc) {
 			return new ArrayList<TreeItem>();
