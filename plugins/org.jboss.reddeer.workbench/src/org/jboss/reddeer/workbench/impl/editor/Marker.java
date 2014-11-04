@@ -63,5 +63,4 @@ public class Marker {
 	public int getLineNumber() {
 		return lineNumber;
 	}
-
 }

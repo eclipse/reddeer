@@ -3,6 +3,7 @@ package org.jboss.reddeer.workbench.impl.editor;
 import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.jface.text.ITextSelection;
 import org.eclipse.ui.texteditor.ITextEditor;
+import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.workbench.api.Editor;
 import org.jboss.reddeer.workbench.exception.WorkbenchPartNotFound;
 import org.jboss.reddeer.workbench.handler.TextEditorHandler;
@@ -19,6 +20,8 @@ import org.jboss.reddeer.workbench.handler.TextEditorHandler;
 
 public class TextEditor extends AbstractEditor implements Editor {
 
+	private static final Logger log = Logger.getLogger(TextEditor.class);
+	
 	/**
 	 * Initialize currently focused TextEditor.
 	 * @throws WorkbenchPartNotFound when currently active editor isn't instance of ITextEditor
@@ -50,12 +53,13 @@ public class TextEditor extends AbstractEditor implements Editor {
 	}
 	
 	/**
-	 * Set text into editor (and replaces everything already in there).
+	 * Set text into eeditorditor (and replaces everything already in there).
 	 * This implementation is manipulating with IDocument of this TextEditor. 
 	 * For keyboard-like typing see @link{#typeText(int, int, String) typeText()}.
 	 * @param text given test that will be set as editor text
 	 */
 	public void setText(final String text) {
+		log.info("Set text to editor");
 		TextEditorHandler.getInstance().setText(getTextEditorPart(), text);
 	}
 	
@@ -88,6 +92,7 @@ public class TextEditor extends AbstractEditor implements Editor {
 	 * @param text text to insert
 	 */
 	public void insertText(final int line, final int offset, final String text) {
+		log.info("Insert text to editor at line " + line + ", offser " + offset);
 		TextEditorHandler.getInstance().insertText(getTextEditorPart(), line, offset, text);
 	}
 	
@@ -102,6 +107,7 @@ public class TextEditor extends AbstractEditor implements Editor {
 	 * @param text to insert
 	 */
 	public void insertText(final int offset, final String text) {
+		log.info("Insert text to editor at offser " + offset);
 		TextEditorHandler.getInstance().insertText(getTextEditorPart(), offset, text);
 	}
 	
@@ -113,6 +119,7 @@ public class TextEditor extends AbstractEditor implements Editor {
 	 * @param text to insert
 	 */
 	public void insertLine(final int line, final String text) {
+		log.info("Insert text to editor at line " + line);
 		try {
 			insertText(line, 0, text + TextEditorHandler.getInstance()
 					.getDocument(getTextEditorPart()).getLineDelimiter(line));
@@ -137,6 +144,7 @@ public class TextEditor extends AbstractEditor implements Editor {
 	 * @param lineNumber Lines are counted from 0.
 	 */
 	public void selectLine(final int lineNumber) {
+		log.info("Select line " + lineNumber + " in editor");
 		TextEditorHandler.getInstance().selectLine(getTextEditorPart(), lineNumber);
 	}
 	
@@ -146,6 +154,7 @@ public class TextEditor extends AbstractEditor implements Editor {
 	 * @param text to select
 	 */
 	public void selectText(String text) {
+		log.info("Select text in editor");
 		TextEditorHandler.getInstance().selectText(getTextEditorPart(), text, 0);
 	}
 	
@@ -156,6 +165,7 @@ public class TextEditor extends AbstractEditor implements Editor {
 	 * @param index of text (if more occurrences)
 	 */
 	public void selectText(String text, int index) {
+		log.info("Select text in editor with index " + index);
 		TextEditorHandler.getInstance().selectText(getTextEditorPart(), text, index);
 	}
 	
@@ -177,6 +187,7 @@ public class TextEditor extends AbstractEditor implements Editor {
 	 * @param column column in the line (greater than or equal to 0)
 	 */
 	public void setCursorPosition(int line, int column) {
+		log.info("Set cursor position at ["+ line + ", " + column + "]");
 		TextEditorHandler.getInstance().setCursorPosition(getTextEditorPart(),
 				line, column);
 	}
@@ -208,5 +219,4 @@ public class TextEditor extends AbstractEditor implements Editor {
 	protected ITextEditor getTextEditorPart() {
 		return (ITextEditor) getEditorPart();
 	}
-	
 }

@@ -79,7 +79,7 @@ public class ViewHandler {
 	}
 	
 	public void close(final IViewPart viewPart){
-		log.info("Hiding view " + viewPart.getTitle());
+		log.debug("Hiding view " + viewPart.getTitle());
 		Display.syncExec(new Runnable() {
 
 			@Override
@@ -102,8 +102,8 @@ public class ViewHandler {
 		if (hasControlSpecificParent(focusedControl, workbenchControl)) {
 			return;
 		}
-		log.error("No control in opened view has a focus!");
-		log.error("Setting implicit focus...");
+		log.debug("No control in opened view has a focus!");
+		log.debug("Setting implicit focus...");
 		setFocusOnControlChild(workbenchControl);
 	}
 	
@@ -155,7 +155,7 @@ public class ViewHandler {
 					Control firstChildControl = childrenControls[0];
 					firstChildControl.setFocus();
 				} else {
-					log.warn("View with title '" + workbenchControl.getToolTipText() + "' has "
+					log.debug("View with title '" + workbenchControl.getToolTipText() + "' has "
 							+ "no children!");
 				}
 			}

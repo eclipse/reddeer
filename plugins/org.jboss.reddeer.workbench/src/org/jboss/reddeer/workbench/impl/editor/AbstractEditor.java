@@ -36,15 +36,16 @@ import org.jboss.reddeer.workbench.lookup.WorkbenchPartLookup;
  */
 public class AbstractEditor implements Editor {
 
-    protected final Logger log = Logger.getLogger(this.getClass());
+    protected static final Logger log = Logger.getLogger(AbstractEditor.class);
+    
     protected IEditorPart editorPart;
 
     /**
      * Initialize currently active editor.
      */
     public AbstractEditor() {
-        editorPart = WorkbenchPartLookup.getInstance().getActiveEditor();
-        EditorHandler.getInstance().activate(editorPart);
+       editorPart = WorkbenchPartLookup.getInstance().getActiveEditor();
+       activate();
     }
 
     /**
@@ -60,7 +61,7 @@ public class AbstractEditor implements Editor {
                     + title);
         }
         editorPart = found.getPart();
-        EditorHandler.getInstance().activate(editorPart);
+       activate();
     }
 
     /**
@@ -76,7 +77,7 @@ public class AbstractEditor implements Editor {
                     + title);
         }
         editorPart = found.getPart();
-        EditorHandler.getInstance().activate(editorPart);
+        activate();
     }
 
     @Override
@@ -96,6 +97,8 @@ public class AbstractEditor implements Editor {
 
     @Override
     public void save() {
+    	activate();
+    	log.info("Save editor");
         EditorHandler.getInstance().save(editorPart);
     }
 
@@ -106,6 +109,12 @@ public class AbstractEditor implements Editor {
 
     @Override
     public void close(final boolean save) {
+    	activate();
+    	if (save){
+    		log.info("Close editor and save it");
+    	} else {
+    		log.info("Close editor and do not save it");
+    	}
         EditorHandler.getInstance().close(save, editorPart);
     }
     
@@ -116,14 +125,16 @@ public class AbstractEditor implements Editor {
 
     @Override
     public void maximize() {
-        EditorHandler.getInstance().activate(editorPart);
+    	activate();
+    	log.info("Maximize editor");
         WorkbenchPartHandler.getInstance()
                 .performAction(ActionFactory.MAXIMIZE);
     }
 
     @Override
     public void minimize() {
-        EditorHandler.getInstance().activate(editorPart);
+    	activate();
+    	log.info("Minimize editor");
         WorkbenchPartHandler.getInstance()
                 .performAction(ActionFactory.MINIMIZE);
     }
@@ -133,6 +144,8 @@ public class AbstractEditor implements Editor {
      */
     @Override
     public ContentAssistant openContentAssistant() {
+    	activate();
+    	log.info("Open editor's content assistant");
         AbstractWait.sleep(TimePeriod.SHORT);
         Shell[] shells1 = ShellLookup.getInstance().getShells();
         IBindingService bindingService = (IBindingService) PlatformUI
@@ -163,6 +176,8 @@ public class AbstractEditor implements Editor {
      */
     @Override
     public ContentAssistant openOpenOnAssistant() {
+    	activate();
+    	log.info("Open editor's open on assistant");
         AbstractWait.sleep(TimePeriod.SHORT);
         Shell[] shells1 = ShellLookup.getInstance().getShells();
         new ShellMenu("Navigate", "Open Hyperlink").select();
@@ -181,6 +196,8 @@ public class AbstractEditor implements Editor {
      */
     @Override
     public ContentAssistant openQuickFixContentAssistant() {
+    	activate();
+    	log.info("Open editor's quick fix assistant");
         AbstractWait.sleep(TimePeriod.SHORT);
         Shell[] shells1 = ShellLookup.getInstance().getShells();
         IBindingService bindingService = (IBindingService) PlatformUI
@@ -206,6 +223,52 @@ public class AbstractEditor implements Editor {
         return new ContentAssistant(caw.getContentAssistTable());
     }
 
+    /**
+     * @see org.jboss.reddeer.workbench.api.Editor#getMarkers()
+     */
+    @Override
+    public List<Marker> getMarkers() {
+    	activate();
+        return EditorHandler.getInstance().getMarkers(editorPart);
+    }
+
+    /**
+     * {@link WorkbenchPart.restore}
+     */
+    @Override
+    public void restore() {
+        // in order to restore maximized window maximized action has to be
+        // called
+        activate();
+        log.info("Restore editor");
+        WorkbenchPartHandler.getInstance()
+                .performAction(ActionFactory.MAXIMIZE);
+    }
+
+    /**
+     * {@link WorkbenchPart.activate}
+     */
+    @Override
+    public void activate() {
+    	log.info("Activate editor with title " + getTitle());
+        EditorHandler.getInstance().activate(editorPart);
+    }
+
+    /**
+     * {@link Editor#closeAll}
+     * @see org.jboss.reddeer.workbench.api.Editor#closeAll(boolean)
+     */
+	@Override
+	public void closeAll(boolean save) {
+		if (save){
+			log.info("Close all editors and save them");			
+		} else {
+			log.info("Close all editors and do not save them");
+		}
+		EditorHandler.getInstance().closeAll(save);
+		
+	}
+	
     protected IEditorPart getEditorPart() {
         return editorPart;
     }
@@ -256,45 +319,5 @@ public class AbstractEditor implements Editor {
             return part;
         }
 
-    }
-
-    /**
-     * @see org.jboss.reddeer.workbench.api.Editor#getMarkers()
-     */
-    @Override
-    public List<Marker> getMarkers() {
-        return EditorHandler.getInstance().getMarkers(editorPart);
-    }
-
-    /**
-     * {@link WorkbenchPart.restore}
-     */
-    @Override
-    public void restore() {
-        // in order to restore maximized window maximized action has to be
-        // called
-        activate();
-        WorkbenchPartHandler.getInstance()
-                .performAction(ActionFactory.MAXIMIZE);
-    }
-
-    /**
-     * {@link WorkbenchPart.activate}
-     */
-    @Override
-    public void activate() {
-        EditorHandler.getInstance().activate(editorPart);
-    }
-
-    /**
-     * {@link Editor#closeAll}
-     * @see org.jboss.reddeer.workbench.api.Editor#closeAll(boolean)
-     */
-	@Override
-	public void closeAll(boolean save) {
-		log.info("Close all editors");
-		EditorHandler.getInstance().closeAll(save);
-		
-	}    
-
+    }    
 }

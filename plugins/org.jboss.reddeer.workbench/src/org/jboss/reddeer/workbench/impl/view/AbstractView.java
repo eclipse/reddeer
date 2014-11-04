@@ -39,7 +39,7 @@ import org.jboss.reddeer.workbench.lookup.WorkbenchPartLookup;
  */
 public class AbstractView implements View {
 
-	protected final Logger log = Logger.getLogger(this.getClass());
+	protected static final Logger log = Logger.getLogger(AbstractView.class);
 	protected IViewPart viewPart;
 	private static final String SHOW_VIEW = "Show View";
 	protected String[] path;
@@ -81,6 +81,7 @@ public class AbstractView implements View {
 	@Override
 	public void maximize() {
 		activate();
+		log.info("Maximize view");
 		WorkbenchPartHandler.getInstance()
 				.performAction(ActionFactory.MAXIMIZE);
 	}
@@ -88,6 +89,7 @@ public class AbstractView implements View {
 	@Override
 	public void minimize() {
 		activate();
+		log.info("Minimize view");
 		WorkbenchPartHandler.getInstance()
 				.performAction(ActionFactory.MINIMIZE);
 	}
@@ -98,6 +100,7 @@ public class AbstractView implements View {
 	@Override
 	public void restore() {
 		activate();
+		log.info("Restore view");
 		// in order to restore maximized window maximized action has to be
 		// called
 		WorkbenchPartHandler.getInstance()
@@ -109,6 +112,7 @@ public class AbstractView implements View {
 	 */
 	@Override
 	public void activate() {
+		log.info("Activate view " + viewTitle());
 		viewPartIsNotNull();
 		ViewHandler.getInstance().setFocus(viewPart, viewTitle());
 	}
@@ -163,6 +167,8 @@ public class AbstractView implements View {
 
 	@Override
 	public void close() {
+		activate();
+		log.info("Close view");
 		viewPartIsNotNull();
 		ViewHandler.getInstance().close(viewPart);
 		viewPart = null;
@@ -170,12 +176,12 @@ public class AbstractView implements View {
 
 	@Override
 	public void open() {
-		log.info("Showing " + viewTitle() + " view");
+		log.info("Open view " + viewTitle());
 		viewPart = WorkbenchPartLookup.getInstance().getViewByTitle(
 				new WithTextMatcher(viewTitle()));
 		// view is not opened, it has to be opened via menu
 		if (viewPart == null) {
-			log.info("Opening " + viewTitle() + " view via menu.");
+			log.info("Open " + viewTitle() + " view via menu.");
 			WithTextMatchers m = new WithTextMatchers(new RegexMatcher[] {
 					new RegexMatcher("Window.*"),
 					new RegexMatcher("Show View.*"),
@@ -191,10 +197,12 @@ public class AbstractView implements View {
 				viewPart = (IViewPart) WorkbenchPartLookup.getInstance()
 						.getActiveWorkbenchPart();
 			} catch (WaitTimeoutExpiredException w) {
-				log.warn("View " + Arrays.toString(path) + " is not active");
+				log.debug("View " + Arrays.toString(path) + " is not active");
 				viewPart = WorkbenchPartLookup.getInstance().getViewByTitle(
 						new WithTextMatcher(viewTitle()));
 			}
+		} else {
+			log.info("View is open, just activate it");
 		}
 		activate();
 	}
