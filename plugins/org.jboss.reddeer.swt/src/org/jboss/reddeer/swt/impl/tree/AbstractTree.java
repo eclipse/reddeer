@@ -31,16 +31,6 @@ public abstract class AbstractTree extends AbstractWidget<org.eclipse.swt.widget
 		return list;
 	}
 
-	private List<TreeItem> getAllItemsRecursive(List<TreeItem> parentItems) {
-		List<TreeItem> list = new LinkedList<TreeItem>();
-
-		for (TreeItem item : parentItems) {
-			list.add(item);
-			list.addAll(getAllItemsRecursive(item.getItems()));
-		}
-		return list;
-	}
-
 	public List<TreeItem> getItems() {
 		return treeHandler.getItems(swtWidget);
 	}
@@ -66,5 +56,15 @@ public abstract class AbstractTree extends AbstractWidget<org.eclipse.swt.widget
 	public void unselectAllItems() {
 		logger.info("Unselect all tree items");
 		treeHandler.unselectAllItems(swtWidget);
+	}
+	
+	private List<TreeItem> getAllItemsRecursive(List<TreeItem> parentItems) {
+		List<TreeItem> list = new LinkedList<TreeItem>();
+
+		for (TreeItem item : parentItems) {
+			list.add(item);
+			list.addAll(getAllItemsRecursive(item.getItems()));
+		}
+		return list;
 	}
 }
