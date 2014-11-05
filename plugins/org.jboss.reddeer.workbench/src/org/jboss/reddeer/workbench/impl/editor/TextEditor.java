@@ -3,10 +3,15 @@ package org.jboss.reddeer.workbench.impl.editor;
 import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.jface.text.ITextSelection;
 import org.eclipse.ui.texteditor.ITextEditor;
+import org.hamcrest.Matcher;
 import org.jboss.reddeer.common.logging.Logger;
+import org.jboss.reddeer.swt.matcher.WithTextMatcher;
 import org.jboss.reddeer.workbench.api.Editor;
 import org.jboss.reddeer.workbench.exception.WorkbenchPartNotFound;
 import org.jboss.reddeer.workbench.handler.TextEditorHandler;
+import org.jboss.reddeer.workbench.lookup.EditorPartLookup;
+import org.jboss.reddeer.workbench.matcher.EditorPartClassMatcher;
+import org.jboss.reddeer.workbench.matcher.EditorPartTitleMatcher;
 
 /**
  * Represents text editors (implementing interface ITextEditor)
@@ -28,8 +33,8 @@ public class TextEditor extends AbstractEditor implements Editor {
 	 */
 	public TextEditor() {
 		super();
-		if (!(editorPart instanceof ITextEditor)) {
-			throw new WorkbenchPartNotFound("Given editor is not instance of ITextEditor");
+		if (!(editorPart instanceof ITextEditor)){
+			throw new WorkbenchPartNotFound("The active editor is not a text editor, but " + editorPart.getClass());
 		}
 	}
 	
@@ -38,11 +43,23 @@ public class TextEditor extends AbstractEditor implements Editor {
 	 * @param title title of desired editor
 	 * @throws WorkbenchPartNotFound when currently active editor isn't instance of ITextEditor 
 	 */
+	@SuppressWarnings("unchecked")
 	public TextEditor(final String title) {
-		super(title);
-		if (!(editorPart instanceof ITextEditor)) {
-			throw new WorkbenchPartNotFound("Given editor is not instance of ITextEditor");
-		}
+		super(EditorPartLookup.getInstance().getEditor(
+				new EditorPartClassMatcher(ITextEditor.class), 
+				new EditorPartTitleMatcher(new WithTextMatcher(title))));
+	}
+	
+	/**
+	 * Initialize editor with given title matcher
+	 * @param title title of desired editor
+	 * @throws WorkbenchPartNotFound when currently active editor isn't instance of ITextEditor 
+	 */
+	@SuppressWarnings("unchecked")
+	public TextEditor(Matcher<String> title) {
+		super(EditorPartLookup.getInstance().getEditor(
+				new EditorPartClassMatcher(ITextEditor.class), 
+				new EditorPartTitleMatcher(title)));
 	}
 	
 	/**
