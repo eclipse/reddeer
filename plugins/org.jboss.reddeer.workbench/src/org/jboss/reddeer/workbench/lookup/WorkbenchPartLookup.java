@@ -12,6 +12,7 @@ import org.jboss.reddeer.swt.util.Display;
 import org.jboss.reddeer.swt.util.ResultRunnable;
 import org.jboss.reddeer.workbench.exception.WorkbenchPartNotFound;
 import org.jboss.reddeer.workbench.handler.WorkbenchPartHandler;
+import org.jboss.reddeer.workbench.matcher.EditorPartTitleMatcher;
 
 /**
  * WorkbenchPart lookup containing lookup routines for Workbench parts such as editor and view
@@ -37,6 +38,10 @@ public class WorkbenchPartLookup {
 		return WorkbenchPartHandler.getInstance().getActiveWorkbenchPart();
 	}
 	
+	/**
+	 * @deprecated Use {@link EditorPartLookup#getActiveEditor()}
+	 * @return
+	 */
 	public IEditorPart getActiveEditor(){
 		IWorkbenchPart workbenchPart =  getActiveWorkbenchPart();
 		IEditorPart editorPart = null;
@@ -58,6 +63,11 @@ public class WorkbenchPartLookup {
 		return editorPart;
 	}
 	
+	/**
+	 * @deprecated Use {@link EditorPartLookup#getEditorByTitle(Matcher)()}
+	 * and {@link EditorPartTitleMatcher}
+	 * @return
+	 */
 	public IEditorPart getEditorByTitle(final Matcher<String> title) {
 		return Display.syncExec(new ResultRunnable<IEditorPart>() {
 
