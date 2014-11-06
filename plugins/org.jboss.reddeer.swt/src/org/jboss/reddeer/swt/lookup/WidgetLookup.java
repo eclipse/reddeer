@@ -61,12 +61,12 @@ public class WidgetLookup {
 	@SuppressWarnings({ "rawtypes","unchecked" })
 	public <T extends Widget> T activeWidget(ReferencedComposite refComposite, Class<T> clazz, int index, Matcher... matchers) {				
 		logger.debug("Looking up active widget with class type " + clazz.getName() +  ", index " + index + " and " + createMatcherDebugMsg(matchers));
-		
+
 		ClassMatcher cm = new ClassMatcher(clazz);
 		Matcher[] allMatchers = MatcherBuilder.getInstance().addMatcher(matchers, cm);
 		AndMatcher am  = new AndMatcher(allMatchers);
 
-		WidgetIsFound found = new WidgetIsFound(refComposite, am, index);
+		WidgetIsFound found = new WidgetIsFound(getParentControl(refComposite), am, index);
 		try{
 			new WaitUntil(found);
 		} catch (WaitTimeoutExpiredException ex){
@@ -82,18 +82,28 @@ public class WidgetLookup {
 		return (T)found.getWidget();
 	}
 
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	private List<? extends Widget> activeWidgets(Control refComposite, Matcher matcher) {
-		if(refComposite == null){
-			logger.trace("No parent specified, finding one");
-			refComposite = getActiveWidgetParentControl();
-			logger.trace("Parent found successfully");
-		}
-
+	private Control getParentControl(ReferencedComposite refComposite){
 		if (refComposite == null){
+			return findParent();
+		}
+		return refComposite.getControl();
+	}
+
+	private Control findParent(){
+		logger.debug("No parent specified, finding one");
+		Control parent = getActiveWidgetParentControl();
+		logger.debug("Parent found successfully");
+
+		if (parent == null){
 			logger.error("Unable to determine active parent");
 			throw new SWTLayerException("Unable to determine active parent");
 		}
+
+		return parent;
+	}
+
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	private List<? extends Widget> activeWidgets(Control refComposite, Matcher matcher) {
 		logger.trace("Looking up widgets with specified parent and matchers");
 		List<? extends Widget> widgets = findControls(refComposite, matcher, true);
 		logger.trace(widgets.size() + " widget(s) found");
@@ -141,7 +151,7 @@ public class WidgetLookup {
 		}	
 		return control;
 	}
-	
+
 	private Shell getShellForActiveWorkbench(IWorkbenchPartReference workbenchReference) {
 		if (workbenchReference == null) {
 			return null;
@@ -276,23 +286,20 @@ public class WidgetLookup {
 
 	class WidgetIsFound implements WaitCondition {
 
-		private ReferencedComposite refComposite;
+		private Control parent;
 		private AndMatcher am;
 		private int index;
 		private Widget properWidget;
 
-		public <T extends Widget> WidgetIsFound(ReferencedComposite refComposite, AndMatcher am, int index) {
-			this.refComposite =refComposite;
+		public <T extends Widget> WidgetIsFound(Control parent, AndMatcher am, int index) {
+			this.parent = parent;
 			this.am=am;
 			this.index=index;
 		}
 
 		public boolean test() {
-			if(refComposite == null){
-				properWidget = getProperWidget(activeWidgets(null, am), index);
-			} else {
-				properWidget = getProperWidget(activeWidgets(refComposite.getControl(), am), index);
-			}
+			properWidget = getProperWidget(activeWidgets(parent, am), index);
+
 			if(properWidget == null){
 				return false;
 			}
@@ -327,7 +334,7 @@ public class WidgetLookup {
 			}
 		});
 	}
-	
+
 	private String createMatcherDebugMsg(Matcher<?>[] matchers) {
 		StringBuilder sb = new StringBuilder();
 
@@ -336,7 +343,7 @@ public class WidgetLookup {
 		} else {
 			sb.append("following matchers specified (");
 		}
-		
+
 		for (int ind = 0 ; ind < matchers.length ; ind++ ){
 			sb.append(matchers[ind].getClass());
 			if (ind < matchers.length - 1){
