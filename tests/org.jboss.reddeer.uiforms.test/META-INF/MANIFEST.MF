@@ -16,5 +16,5 @@ Require-Bundle: org.eclipse.ui,
  org.jboss.reddeer.junit;bundle-version="[0.7,0.8)",
  org.eclipse.ui.views.log;bundle-version="1.0.500"
 Bundle-ActivationPolicy: lazy
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Export-Package: org.jboss.reddeer.uiforms.test

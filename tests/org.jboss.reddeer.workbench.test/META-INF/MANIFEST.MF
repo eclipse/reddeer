@@ -19,5 +19,5 @@ Require-Bundle: org.eclipse.ui,
  org.jboss.reddeer.junit;bundle-version="[0.7,0.8)",
  org.eclipse.jdt
 Bundle-ActivationPolicy: lazy
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Import-Package: org.eclipse.ui.texteditor

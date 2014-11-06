@@ -8,7 +8,7 @@ Bundle-Activator: org.jboss.reddeer.common.Activator
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime
 Bundle-ActivationPolicy: lazy
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Export-Package: org.jboss.reddeer.common,
  org.jboss.reddeer.common.context,
  org.jboss.reddeer.common.logging,

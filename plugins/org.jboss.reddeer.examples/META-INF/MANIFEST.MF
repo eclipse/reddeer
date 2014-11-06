@@ -11,4 +11,4 @@ Require-Bundle: org.jboss.reddeer.eclipse;bundle-version="[0.7,0.8)",
  org.jboss.reddeer.swt;bundle-version="[0.7,0.8)",
  org.jboss.reddeer.workbench;bundle-version="[0.7,0.8)",
  org.eclipse.ui.workbench
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7

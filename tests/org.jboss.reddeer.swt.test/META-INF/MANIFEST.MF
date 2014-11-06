@@ -20,6 +20,6 @@ Require-Bundle: org.eclipse.ui,
  org.jboss.reddeer.common;bundle-version="[0.7,0.8)",
  org.jboss.reddeer.requirements
 Bundle-ActivationPolicy: lazy
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Export-Package: org.jboss.reddeer.swt.test
 Import-Package: org.eclipse.ui.texteditor

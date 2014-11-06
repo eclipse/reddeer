@@ -14,7 +14,7 @@ Require-Bundle: org.hamcrest.core;bundle-version="1.3.0",
  org.eclipse.ui.workbench,
  org.eclipse.ui
 Bundle-ActivationPolicy: lazy
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Export-Package: org.jboss.reddeer.swt,org.jboss.reddeer.swt.api,org.jb
  oss.reddeer.swt.condition,org.jboss.reddeer.swt.exception,org.jboss.r
  eddeer.swt.handler,org.jboss.reddeer.swt.impl.browser,org.jboss.redde

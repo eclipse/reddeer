@@ -12,7 +12,7 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.swtbot.generator.jdt,
  org.eclipse.swtbot.generator.ui
 Bundle-ActivationPolicy: lazy
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Export-Package: org.jboss.reddeer.swt.generator.framework.rules,org.jb
  oss.reddeer.swt.generator.framework.rules.complex,org.jboss.reddeer.s
  wt.generator.framework.rules.simple
