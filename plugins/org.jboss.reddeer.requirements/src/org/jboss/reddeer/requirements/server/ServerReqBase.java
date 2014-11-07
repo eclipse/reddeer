@@ -2,6 +2,9 @@ package org.jboss.reddeer.requirements.server;
 
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.eclipse.exception.EclipseLayerException;
+import org.jboss.reddeer.eclipse.jdt.ui.WorkbenchPreferenceDialog;
+import org.jboss.reddeer.eclipse.wst.server.ui.Runtime;
+import org.jboss.reddeer.eclipse.wst.server.ui.RuntimePreferencePage;
 import org.jboss.reddeer.eclipse.wst.server.ui.view.ServersView;
 import org.jboss.reddeer.eclipse.wst.server.ui.view.ServersViewEnums.ServerState;
 import org.jboss.reddeer.swt.exception.RedDeerException;
@@ -49,6 +52,11 @@ public abstract class ServerReqBase {
 		}
 	}
 	
+	/**
+	 * @deprecated in 0.6 Use {@link #removeLastRequiredServerAndRuntime(ConfiguredServerInfo)}.
+	 * 
+	 * @param lastServerConfig
+	 */
 	protected void removeLastRequiredServer(ConfiguredServerInfo lastServerConfig) {
 		try {
 			org.jboss.reddeer.eclipse.wst.server.ui.view.Server serverInView = getConfiguredServer(lastServerConfig);
@@ -57,6 +65,32 @@ public abstract class ServerReqBase {
 		} catch(ConfiguredServerNotFoundException e) {
 			//server had been already removed
 		}
+	}
+	
+	/**
+	 * Removes given server and its runtime.
+	 * 
+	 * @param lastServerConfig Server information.
+	 */
+	
+	protected void removeLastRequiredServerAndRuntime(ConfiguredServerInfo lastServerConfig) {
+		try {
+			org.jboss.reddeer.eclipse.wst.server.ui.view.Server serverInView = getConfiguredServer(lastServerConfig);
+			//remove server added by last requirement
+			serverInView.delete(true);
+			removeRuntime(lastServerConfig);
+		} catch(ConfiguredServerNotFoundException e) {
+			//server had been already removed
+		}
+	}
+
+	private void removeRuntime(ConfiguredServerInfo lastServerConfig) {
+		WorkbenchPreferenceDialog preferenceDialog = new WorkbenchPreferenceDialog();
+		preferenceDialog.open();
+		RuntimePreferencePage runtimePage = new RuntimePreferencePage();
+		preferenceDialog.select(runtimePage);
+		runtimePage.removeRuntime(new Runtime(lastServerConfig.getServerName(), "test"));
+		preferenceDialog.ok();
 	}
 	
 	private org.jboss.reddeer.eclipse.wst.server.ui.view.Server getConfiguredServer(ConfiguredServerInfo lastServerConfig)
