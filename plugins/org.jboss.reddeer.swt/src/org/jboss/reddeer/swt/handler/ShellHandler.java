@@ -91,6 +91,22 @@ public class ShellHandler {
 	}
 	
 	/**
+	 * Finds out whether specified {@link Shell} is focused or not.
+	 * 
+	 * @param shell shell to handle
+	 * @return true if shell is focused, false otherwise
+	 */
+	public boolean isFocused(final Shell shell) {
+		return Display.syncExec(new ResultRunnable<Boolean>() {
+
+			@Override
+			public Boolean run() {
+				return shell.isFocusControl();
+			}
+		});
+	}
+	
+	/**
 	 * Find out whether specified {@link Shell} is disposed or not.
 	 * 
 	 * @param shell shell to handle
