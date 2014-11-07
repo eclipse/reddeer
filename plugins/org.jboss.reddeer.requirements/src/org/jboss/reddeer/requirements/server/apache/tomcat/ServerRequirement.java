@@ -50,7 +50,7 @@ public class ServerRequirement extends ServerReqBase
 		if(lastServerConfiguration != null) {
 			boolean differentConfig = !config.equals(lastServerConfiguration.getConfig());
 			if(differentConfig) {
-				removeLastRequiredServer(lastServerConfiguration);
+				removeLastRequiredServerAndRuntime(lastServerConfiguration);
 				lastServerConfiguration = null;
 			}
 		}
