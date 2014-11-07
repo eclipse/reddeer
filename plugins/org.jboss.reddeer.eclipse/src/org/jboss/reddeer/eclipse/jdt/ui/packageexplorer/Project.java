@@ -62,9 +62,8 @@ public class Project {
 			sDeleteResources = handleDeleteResourcesShell(deleteFromFileSystem);
 		}	
 		if (sDeleteResources != null){
-			String deleteShellText = sDeleteResources.getText();
 			new PushButton("OK").click();
-			DeleteUtils.handleDeletion(deleteShellText);
+			DeleteUtils.handleDeletion(sDeleteResources,TimePeriod.VERY_LONG);
 		}
 		else{
 			throw new EclipseLayerException("Unable to delete project " + getName() + " via UI calls");			

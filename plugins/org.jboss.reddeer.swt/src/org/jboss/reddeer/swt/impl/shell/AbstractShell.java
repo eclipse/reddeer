@@ -51,6 +51,16 @@ public abstract class AbstractShell implements Shell {
 		WidgetHandler.getInstance().setFocus(swtShell);
 		new WaitUntil(new ShellWithTextIsActive(text));
 	}
+	
+	@Override
+	public boolean isVisible(){
+		return ShellHandler.getInstance().isVisible(swtShell);
+	}
+	
+	@Override
+	public boolean isFocused() {
+		return ShellHandler.getInstance().isFocused(swtShell);
+	}
 
 	@Override
 	public void close() {

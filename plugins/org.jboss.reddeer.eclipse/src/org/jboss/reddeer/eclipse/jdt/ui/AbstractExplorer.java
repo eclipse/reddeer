@@ -96,18 +96,25 @@ public class AbstractExplorer extends WorkbenchView {
 	 * @param deleteFromFileSystem true if project should be deleted from file system, false otherwise
 	 */
 	public void deleteAllProjects(boolean deleteFromFileSystem){
+		deleteAllProjects(deleteFromFileSystem, TimePeriod.VERY_LONG);
+	}
+	
+	/**
+	 * Removes all projects with custom timeout
+	 * @param deleteFromFileSystem true if project should be deleted from file system, false otherwise
+	 * @param timeout for waits
+	 */
+	public void deleteAllProjects(boolean deleteFromFileSystem, TimePeriod timeout){
 		activate();
 		if(getProjects().size() > 0){
 			selectAllProjects();
 			new ContextMenu("Refresh").select();
-			new WaitWhile(new JobIsRunning(), TimePeriod.VERY_LONG);
+			new WaitWhile(new JobIsRunning(), timeout);
 			new ContextMenu("Delete").select();
-			new DefaultShell("Delete Resources");
+			DefaultShell shell = new DefaultShell("Delete Resources");
 			new CheckBox().toggle(deleteFromFileSystem);
-			DefaultShell shell = new DefaultShell();
-			String deleteShellText = shell.getText();
 			new PushButton("OK").click();
-			DeleteUtils.handleDeletion(deleteShellText);
+			DeleteUtils.handleDeletion(shell,timeout);
 		}
 	}
 

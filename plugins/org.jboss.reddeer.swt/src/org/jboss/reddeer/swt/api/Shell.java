@@ -17,11 +17,23 @@ public interface Shell extends Widget, ReferencedComposite {
 	 * @return title of the shell.
 	 */
 	String getText();
+	
+	/**
+	 * Check if shell is visible.
+	 * @return true if shell is visible, false otherwise
+	 */
+	boolean isVisible();
 
 	/**
 	 * Sets focus on the shell.
 	 */
 	void setFocus();
+	
+	/**
+	 * Checks if shell is focused.
+	 * @return true if shell is focused, false otherwise
+	 */
+	boolean isFocused();
 
 	/**
 	 * Closes the shell.
