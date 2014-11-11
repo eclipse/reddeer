@@ -4,12 +4,9 @@ import org.jboss.reddeer.eclipse.ui.perspectives.JavaPerspective;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.requirements.openperspective.OpenPerspectiveRequirement.OpenPerspective;
 import org.jboss.reddeer.swt.condition.ConstructorFinishedSuccessfully;
-import org.jboss.reddeer.swt.condition.JobIsRunning;
 import org.jboss.reddeer.swt.exception.WaitTimeoutExpiredException;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.jboss.reddeer.swt.wait.WaitUntil;
-import org.jboss.reddeer.swt.wait.WaitWhile;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 /**
@@ -20,11 +17,6 @@ import org.junit.runner.RunWith;
 @RunWith(RedDeerSuite.class)
 @OpenPerspective(JavaPerspective.class)
 public class ConstructorFinishedSuccessfullyTest {
-
-	@Before
-	public void setUp(){
-		new WaitWhile(new JobIsRunning());
-	}
 	
 	@Test
 	public void constructorRunOK(){
