@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Shell;
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.swt.impl.shell.internal.BasicShell;
@@ -188,5 +189,14 @@ public class ShellHandler {
 		}
 		
 		return result;	
+	}
+	/**
+	 * Returns shell parent
+	 * @param shell
+	 * @return
+	 */
+	public Shell getParentShell(Shell shell){
+		Control parent = WidgetHandler.getInstance().getParent(shell);
+		return parent == null ? null : (Shell)parent;
 	}
 }

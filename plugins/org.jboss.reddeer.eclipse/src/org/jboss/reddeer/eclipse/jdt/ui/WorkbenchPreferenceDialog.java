@@ -6,6 +6,9 @@ import org.jboss.reddeer.swt.api.Menu;
 import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.swt.condition.CLabelWithTextIsAvailable;
 import org.jboss.reddeer.swt.condition.ShellWithTextIsActive;
+import org.jboss.reddeer.swt.condition.ShellWithTextIsAvailable;
+import org.jboss.reddeer.swt.handler.ShellHandler;
+import org.jboss.reddeer.swt.handler.WidgetHandler;
 import org.jboss.reddeer.swt.impl.button.CancelButton;
 import org.jboss.reddeer.swt.impl.button.OkButton;
 import org.jboss.reddeer.swt.impl.clabel.DefaultCLabel;
@@ -13,8 +16,6 @@ import org.jboss.reddeer.swt.impl.menu.ShellMenu;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
 import org.jboss.reddeer.swt.lookup.ShellLookup;
-import org.jboss.reddeer.swt.util.Display;
-import org.jboss.reddeer.swt.util.ResultRunnable;
 import org.jboss.reddeer.swt.wait.TimePeriod;
 import org.jboss.reddeer.swt.wait.WaitUntil;
 import org.jboss.reddeer.swt.wait.WaitWhile;
@@ -40,25 +41,15 @@ public class WorkbenchPreferenceDialog {
 		// if preferences dialog is not open, open it
 		log.info("Open Preferences dialog");
 
-		boolean openedShell = false;
-		for (Shell s: ShellLookup.getInstance().getShells()) {
-			final Shell shell = s;
-			String text = Display.syncExec(new ResultRunnable<String>() {
-				@Override
-				public String run() {
-					return shell.getText();
-				}
-			});
-			if (text.equals(DIALOG_TITLE)) {
-				log.debug("Preferences dialog was already opened.");
-				openedShell = true;
-			}
+		if (isOpen()){
+			log.debug("Preferences dialog was already opened.");
 		}
-		if (!openedShell) {
+		else{
 			log.debug("Preferences dialog was not already opened. Opening via menu.");
 			Menu menu = new ShellMenu("Window", "Preferences");
 			menu.select();
 		}
+		
 		new DefaultShell(DIALOG_TITLE);
 	}
 
@@ -104,18 +95,24 @@ public class WorkbenchPreferenceDialog {
 	 * Presses Ok button on Preference Dialog. 
 	 */
 	public void ok() {
+		final String parentShellText = WidgetHandler.getInstance().getText(
+			ShellHandler.getInstance().getParentShell(new DefaultShell(DIALOG_TITLE).getSWTWidget()));
 		OkButton ok = new OkButton();
 		ok.click();
-		new WaitWhile(new ShellWithTextIsActive(DIALOG_TITLE)); 
+		new WaitWhile(new ShellWithTextIsAvailable(DIALOG_TITLE)); 
+		new WaitUntil(new ShellWithTextIsActive(parentShellText));
 	}
 
 	/**
 	 * Presses Cancel button on Preference Dialog. 
 	 */
 	public void cancel() {
+		final String parentShellText = WidgetHandler.getInstance().getText(
+			ShellHandler.getInstance().getParentShell(new DefaultShell(DIALOG_TITLE).getSWTWidget()));
 		CancelButton cancel = new CancelButton();
 		cancel.click();
-		new WaitWhile(new ShellWithTextIsActive(DIALOG_TITLE));
+		new WaitWhile(new ShellWithTextIsAvailable(DIALOG_TITLE));
+		new WaitUntil(new ShellWithTextIsActive(parentShellText));
 	}
 	
 	/**
@@ -123,7 +120,7 @@ public class WorkbenchPreferenceDialog {
 	 * @return true if the dialog is opened, false otherwise
 	 */
 	public boolean isOpen() {
-		Shell shell = ShellLookup.getInstance().getShell(DIALOG_TITLE);
+		Shell shell = ShellLookup.getInstance().getShell(DIALOG_TITLE,TimePeriod.SHORT);
 		return (shell != null);		
 	}
 }
