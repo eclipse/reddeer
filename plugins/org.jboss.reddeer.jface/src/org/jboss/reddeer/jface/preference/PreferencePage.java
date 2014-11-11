@@ -3,7 +3,7 @@ package org.jboss.reddeer.jface.preference;
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.swt.api.Button;
 import org.jboss.reddeer.swt.condition.ProgressInformationShellIsActive;
-import org.jboss.reddeer.swt.condition.ShellWithTextIsActive;
+import org.jboss.reddeer.swt.condition.ShellWithTextIsAvailable;
 import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.clabel.DefaultCLabel;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
@@ -18,8 +18,6 @@ import org.jboss.reddeer.swt.wait.WaitWhile;
 public abstract class PreferencePage {
 
 	protected final Logger log = Logger.getLogger(this.getClass());
-	
-	private String[] path;
 
 	/**
 	 * Default constructor.
@@ -50,11 +48,13 @@ public abstract class PreferencePage {
 		
 		b.click();
 		new WaitWhile(new ProgressInformationShellIsActive());
-		new WaitWhile(new ShellWithTextIsActive(shellText));
+		new WaitWhile(new ShellWithTextIsAvailable(shellText));
 	}
 
 	/**
 	 * Submit Cancel button and exit preference shell.
+	 * 
+	 *  @deprecated will be removed in 1.0, the logic for closing preference page has been moved to {@link org.jboss.reddeer.eclipse.jdt.ui.WorkbenchPreferenceDialog#cancel()}
 	 */
 	public void cancel() {
 		String shellText = new DefaultShell().getText();
@@ -63,7 +63,7 @@ public abstract class PreferencePage {
 		log.info("Cancel Preferences dialog");
 		b.click();
 		new WaitWhile(new ProgressInformationShellIsActive());
-		new WaitWhile(new ShellWithTextIsActive(shellText));
+		new WaitWhile(new ShellWithTextIsAvailable(shellText));
 	}
 
 	/**

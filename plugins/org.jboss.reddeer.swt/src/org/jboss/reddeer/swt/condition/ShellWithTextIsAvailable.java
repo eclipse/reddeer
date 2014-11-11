@@ -6,6 +6,7 @@ import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.swt.lookup.ShellLookup;
 import org.jboss.reddeer.swt.matcher.WithTextMatcher;
 import org.jboss.reddeer.swt.util.internal.InstanceValidator;
+import org.jboss.reddeer.swt.wait.TimePeriod;
 
 /**
  * Condition is met when shell with specific text (title) is available.
@@ -31,7 +32,7 @@ public class ShellWithTextIsAvailable implements WaitCondition {
 	@Override
 	public boolean test() {
 		log.debug("Looking for shell with title matching '" + matcher + "'");
-		Shell shell = ShellLookup.getInstance().getShell(matcher);
+		Shell shell = ShellLookup.getInstance().getShell(matcher, TimePeriod.NONE);
 		return shell != null;
 	}
 

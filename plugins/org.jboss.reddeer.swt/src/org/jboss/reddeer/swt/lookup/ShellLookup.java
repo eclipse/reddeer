@@ -124,9 +124,17 @@ public class ShellLookup {
 			
 		});
 	}
-	
-	public Shell getShell(final Matcher<String> matcher) {
-		new WaitUntil(new ShellMatchingMatcherIsAvailable(matcher), TimePeriod.NORMAL, false);
+	/**
+	 * Returns shell matching matcher and wait for it for timePeriod 
+	 * @param matcher
+	 * @param timePeriod
+	 * @return
+	 */
+	public Shell getShell(final Matcher<String> matcher , TimePeriod timePeriod) {
+		if (!timePeriod.equals(TimePeriod.NONE)){
+			new WaitUntil(new ShellMatchingMatcherIsAvailable(matcher), timePeriod, false);
+		}
+		
 		return Display.syncExec(new ResultRunnable<Shell>() {
 			
 			@Override
@@ -143,9 +151,30 @@ public class ShellLookup {
 			}
 		});
 	}
-	
+	/**
+	 * Returns shell matching matcher and wait for it for {@link TimePeriod.NORMAL}
+	 * @param matcher
+	 * @return
+	 */
+	public Shell getShell(final Matcher<String> matcher) {
+		return getShell(matcher , TimePeriod.NORMAL); 
+	}
+	/**
+	 * Returns shell with title and wait for it for timePeriod
+	 * @param title
+	 * @param timePeriod
+	 * @return
+	 */
+	public Shell getShell(String title , TimePeriod timePeriod) {
+		return getShell(new WithTextMatcher(title) , timePeriod);		
+	}
+	/**
+	 * Returns shell with title and wait for it for {@link TimePeriod.NORMAL}
+	 * @param title
+	 * @return
+	 */
 	public Shell getShell(String title) {
-		return getShell(new WithTextMatcher(title));		
+		return getShell(new WithTextMatcher(title) , TimePeriod.NORMAL);		
 	}
 	
 	private Shell getLastVisibleShell() {
