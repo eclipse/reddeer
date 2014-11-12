@@ -85,6 +85,9 @@ public class RunAfters extends Statement {
                 				methodName,
                 				"After_" + each.getName());
                 		}
+                		log.error("Test " + testObjectClass.getName()
+                				+ methodName
+    	    					+ " throws exception: ",e);
         				capturer.captureScreenshot(config, fileName);
                 	} catch (CaptureScreenshotException ex) {
                 		ex.printInfo(log);
@@ -102,6 +105,9 @@ public class RunAfters extends Statement {
                 			testObjectClass,
                 			methodName,
                 			"IAfterTest_" + afterTest.getClass().getSimpleName());
+                		log.error("Test " + testObjectClass.getName()
+                				+ methodName
+    	    					+ " throws exception: ",e);
         				capturer.captureScreenshot(config, fileName);
                 	} catch (CaptureScreenshotException ex) {
                 		ex.printInfo(log);

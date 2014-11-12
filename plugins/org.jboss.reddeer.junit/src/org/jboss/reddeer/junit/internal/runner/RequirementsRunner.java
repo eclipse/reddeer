@@ -269,6 +269,9 @@ public class RequirementsRunner extends BlockJUnit4ClassRunner {
 	    		Test annotation = (Test) fTestMethod.getAnnotations()[0];
 	    		if (annotation.expected().getName().equals("org.junit.Test$None") ||
 	    			!annotation.expected().isAssignableFrom(t.getClass())) {
+	    				log.error("Test " + fTarget.getClass().getName() 
+	    					+ fTestMethod.getName()
+	    					+ " throws exception: ",t);
 		    			CaptureScreenshot screenshot = new CaptureScreenshot();
 		    			try {
 		    				String fileName = CaptureScreenshot.getScreenshotFileName(

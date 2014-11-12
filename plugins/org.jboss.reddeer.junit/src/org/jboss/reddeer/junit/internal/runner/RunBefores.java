@@ -66,6 +66,9 @@ public class RunBefores extends Statement {
         				methodName,
         				"Before_" + before.getName());
         		}
+        		log.error("Test " + testObjectClass.getName()  
+    					+ methodName
+    					+ " throws exception: ",throwable);
 				capturer.captureScreenshot(config, fileName);
 				
 				
