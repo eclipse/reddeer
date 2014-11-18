@@ -8,6 +8,7 @@ import static org.junit.Assert.fail;
 import org.hamcrest.core.IsEqual;
 import org.hamcrest.core.IsNull;
 import org.jboss.reddeer.eclipse.condition.ConsoleHasNoChange;
+import org.jboss.reddeer.eclipse.condition.ConsoleHasText;
 import org.jboss.reddeer.eclipse.jdt.ui.NewJavaClassWizardDialog;
 import org.jboss.reddeer.eclipse.jdt.ui.NewJavaClassWizardPage;
 import org.jboss.reddeer.eclipse.jdt.ui.ide.NewJavaProjectWizardDialog;
@@ -123,9 +124,12 @@ public class ConsoleViewTest {
 
 	@Test
 	public void consoleHasNoChangeTest() {
-		runTestClass(TEST_CLASS_LOOP2_NAME);
-		new WaitUntil(new ConsoleHasNoChange(TimePeriod.getCustom(11)), TimePeriod.LONG);
 		consoleView = new ConsoleView();
+		consoleView.open();
+		consoleView.clearConsole();
+		runTestClass(TEST_CLASS_LOOP2_NAME);
+		new WaitUntil(new ConsoleHasText("Start"));
+		new WaitUntil(new ConsoleHasNoChange(TimePeriod.getCustom(11)), TimePeriod.LONG);
 		consoleView.open();
 		consoleView.terminateConsole();
 		// compare the text without white spaces
