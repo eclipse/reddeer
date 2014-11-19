@@ -39,15 +39,21 @@ public class DeleteUtils {
 	 * @param timeout timeout
 	 */
 	public static void handleDeletion(org.jboss.reddeer.swt.api.Shell deleteShell,TimePeriod timeout) {
-		new WaitWhile(new DeleteShellIsActive(deleteShell), timeout);
 		try{
-			new WaitUntil(new DeleteShellIsNotVisible(deleteShell),TimePeriod.NORMAL);
-		} catch (WaitTimeoutExpiredException ex){
-			new ShellWithButton("Delete Resources", "Continue");
-			new PushButton("Continue").click();
-			new WaitWhile(new ShellWithTextIsAvailable("Delete Resources"),timeout);
+			deleteShell.setFocus();
+		} catch (SWTLayerException ex){
+			//delete shell is disposed
+		} finally{
+			new WaitWhile(new DeleteShellIsActive(deleteShell), timeout);
+			try{
+				new WaitUntil(new DeleteShellIsNotVisible(deleteShell),TimePeriod.NORMAL);
+			} catch (WaitTimeoutExpiredException ex){
+				new ShellWithButton("Delete Resources", "Continue");
+				new PushButton("Continue").click();
+				new WaitWhile(new ShellWithTextIsAvailable("Delete Resources"),timeout);
+			}
+			new WaitWhile(new JobIsRunning(), timeout);
 		}
-		new WaitWhile(new JobIsRunning(), timeout);
 	}
 	
 	/**
