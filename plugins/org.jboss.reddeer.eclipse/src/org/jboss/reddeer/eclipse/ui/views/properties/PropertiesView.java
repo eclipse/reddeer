@@ -69,4 +69,13 @@ public class PropertiesView extends WorkbenchView{
 		new ViewToolItem("Show Advanced Properties")
 			.toggle(toggle);
 	}
+	
+	/**
+	 * Selects tab with a given label.
+	 * 
+	 * @param label Label
+	 */
+	public void selectTab(String label) {
+		new TabbedPropertyList().selectTab(label);
+	}
 }
