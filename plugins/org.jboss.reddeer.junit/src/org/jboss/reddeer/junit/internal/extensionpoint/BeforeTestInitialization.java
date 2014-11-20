@@ -39,8 +39,9 @@ public class BeforeTestInitialization {
 			}
 		} catch (CoreException ex) {
 			log.error(
-					"Error when processing extension for org.jbossreddeer.junit.before.test",
-					ex.getMessage());
+					"Error when processing extension for org.jboss.reddeer.junit.before.test" 
+							+ ex.getMessage());
+			ex.printStackTrace();
 		}
 		
 		return beforeTestExts;

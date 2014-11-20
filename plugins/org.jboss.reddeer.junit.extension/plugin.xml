@@ -7,6 +7,9 @@
             class="org.jboss.reddeer.junit.extension.before.test.impl.CloseWelcomeScreenExt">
       </client>
       <client
+            class="org.jboss.reddeer.junit.extension.before.test.impl.DoNotCheckForUpdatesExt">
+      </client>
+      <client
             class="org.jboss.reddeer.junit.extension.before.test.impl.DoNotDownloadMavenIndexesExt">
       </client>
       <client
