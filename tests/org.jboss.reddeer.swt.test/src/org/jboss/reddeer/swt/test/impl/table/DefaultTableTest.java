@@ -256,4 +256,59 @@ public class DefaultTableTest extends SWTLayerTestCase{
 		assertEquals(1, table.indexOf(table.getItem(1)));
 	}
 	
+	@Test
+	public void testHeaders() {
+		DefaultTable table = new DefaultTable();
+		List<String> headers = table.getHeaders();
+		assertTrue("Header on index 0 is not correct", headers.get(0).equals(" "));
+		assertTrue("Header on index 1 is not correct", headers.get(1).equals("C"));
+		assertTrue("Header on index 2 is not correct", headers.get(2).equals("!"));
+		assertTrue("Header on index 3 is not correct", headers.get(3).equals("Description"));
+		assertTrue("Header on index 4 is not correct", headers.get(4).equals("Resource"));
+		assertTrue("Header on index 5 is not correct", headers.get(5).equals("In Folder"));
+		assertTrue("Header on index 6 is not correct", headers.get(6).equals("Location"));
+	}
+	
+	@Test
+	public void testGetIndexOfHeader() {
+		DefaultTable table = new DefaultTable();
+		assertTrue("Header index is not correct for header ' '", table.getHeaderIndex(" ") == 0);
+		assertTrue("Header index is not correct for header 'C'", table.getHeaderIndex("C") == 1);
+		assertTrue("Header index is not correct for header '!'", table.getHeaderIndex("!") == 2);
+		assertTrue("Header index is not correct for header 'Description'", 
+				table.getHeaderIndex("Description") == 3);
+		assertTrue("Header index is not correct for header 'Resource'", 
+				table.getHeaderIndex("Resource") == 4);
+		assertTrue("Header index is not correct for header 'In Folder'", 
+				table.getHeaderIndex("In Folder") == 5);
+		assertTrue("Header index is not correct for header 'Location'", 
+				table.getHeaderIndex("Location") == 6);
+	}
+	
+	@Test
+	public void testGetHeaderOnSpecifiedIndex() {
+		DefaultTable table = new DefaultTable();
+		assertTrue("Header on index 0 is not correct", table.getHeader(0).equals(" "));
+		assertTrue("Header on index 1 is not correct", table.getHeader(1).equals("C"));
+		assertTrue("Header on index 2 is not correct", table.getHeader(2).equals("!"));
+		assertTrue("Header on index 3 is not correct", table.getHeader(3).equals("Description"));
+		assertTrue("Header on index 4 is not correct", table.getHeader(4).equals("Resource"));
+		assertTrue("Header on index 5 is not correct", table.getHeader(5).equals("In Folder"));
+		assertTrue("Header on index 6 is not correct", table.getHeader(6).equals("Location"));
+	}
+	
+	@Test(expected=SWTLayerException.class)
+	public void testGetNegativeIndexHeader() {
+		new DefaultTable().getHeader(-1);
+	}
+	
+	@Test(expected=SWTLayerException.class)
+	public void testGetTooHighIndexHeader() {
+		new DefaultTable().getHeader(10);
+	}
+	
+	@Test(expected=SWTLayerException.class)
+	public void testGetIndexOfNonexistingHeader() {
+		new DefaultTable().getHeaderIndex("I do not exist");
+	}
 }

@@ -1,9 +1,13 @@
 package org.jboss.reddeer.swt.handler;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Table;
+import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.util.Display;
@@ -50,6 +54,20 @@ public class TableHandler {
 		});
 	}
 
+	public List<String> getHeaders(final Table table) {
+		return Display.syncExec(new ResultRunnable<List<String>>() {
+			
+			@Override
+			public List<String> run() {
+				List<String> result = new ArrayList<String>();
+				for (TableColumn column: table.getColumns()) {
+					result.add(column.getText());
+				}
+				return result;
+			}
+		});
+	}
+	
 	/**
 	 * Finds out whether specified {@link TableItem} is grayed or not.
 	 * 

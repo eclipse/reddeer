@@ -103,6 +103,30 @@ public interface Table extends Widget, ReferencedComposite {
 	int indexOf(TableItem tableItem);
 
 	/**
+	 * Gets headers of a table as list of their labels.
+	 * 
+	 * @return list of headers of a table
+	 */
+	List<String> getHeaders();
+	
+	/**
+	 * Gets header placed on the specified index in table.
+	 * @param index index of desired header
+	 * @return label of header
+	 */
+	String getHeader(int index);
+	
+	/**
+	 * Gets index of a specified header in table.
+	 * If there is no such header, method throws
+	 * SWTLayerException.
+	 * 
+	 * @param header header to find out its index
+	 * @return index of a specified header
+	 */
+	int getHeaderIndex(String header);
+	
+	/**
 	 * Returns table items matching the matcher.
 	 * 
 	 * @param matcher matcher for items matching
