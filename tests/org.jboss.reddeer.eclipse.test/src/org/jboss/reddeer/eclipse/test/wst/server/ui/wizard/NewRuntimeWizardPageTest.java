@@ -11,10 +11,13 @@ import org.jboss.reddeer.eclipse.wst.server.ui.Runtime;
 import org.jboss.reddeer.eclipse.wst.server.ui.RuntimePreferencePage;
 import org.jboss.reddeer.eclipse.wst.server.ui.wizard.NewRuntimeWizardDialog;
 import org.jboss.reddeer.eclipse.wst.server.ui.wizard.NewRuntimeWizardPage;
+import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
+@RunWith(RedDeerSuite.class)
 public class NewRuntimeWizardPageTest {
 
 	private RuntimePreferencePage preference;
@@ -22,14 +25,15 @@ public class NewRuntimeWizardPageTest {
 	private NewRuntimeWizardDialog wizard;
 	
 	private NewRuntimeWizardPage wizardPage;
+	
+	private WorkbenchPreferenceDialog workbenchPreferencesDialog;
 
 	@Before
 	public void setUp(){
-		WorkbenchPreferenceDialog dialog = new WorkbenchPreferenceDialog();
-		
+		workbenchPreferencesDialog = new WorkbenchPreferenceDialog();
+		workbenchPreferencesDialog.open();
 		preference = new RuntimePreferencePage();
-		dialog.open();
-		
+		workbenchPreferencesDialog.select(preference);
 		preference.removeAllRuntimes();
 		wizard = preference.addRuntime();
 		wizardPage = wizard.getFirstPage();
@@ -39,7 +43,6 @@ public class NewRuntimeWizardPageTest {
 	public void selectType(){
 		wizardPage.selectType("Basic", TestServerRuntime.NAME);
 		wizard.finish();
-		
 		List<Runtime> runtimes = preference.getServerRuntimes();
 		assertThat(runtimes.size(), is(1));
 		assertThat(runtimes.get(0).getType(), is(TestServerRuntime.TYPE));
@@ -47,7 +50,9 @@ public class NewRuntimeWizardPageTest {
 	
 	@After
 	public void tearDown(){
-		preference.removeAllRuntimes();
-		preference.cancel();
+		if (workbenchPreferencesDialog != null){
+			preference.removeAllRuntimes();
+			workbenchPreferencesDialog.cancel();			
+		}
 	}
 }
