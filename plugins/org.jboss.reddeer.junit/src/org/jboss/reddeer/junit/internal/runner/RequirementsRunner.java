@@ -270,7 +270,7 @@ public class RequirementsRunner extends BlockJUnit4ClassRunner {
 	    		if (annotation.expected().getName().equals("org.junit.Test$None") ||
 	    			!annotation.expected().isAssignableFrom(t.getClass())) {
 	    				log.error("Test " + fTarget.getClass().getName() 
-	    					+ fTestMethod.getName()
+	    					+ "." + fTestMethod.getName()
 	    					+ " throws exception: ",t);
 		    			CaptureScreenshot screenshot = new CaptureScreenshot();
 		    			try {
