@@ -10,6 +10,7 @@ import org.jboss.reddeer.common.logging.LoggingUtils;
 import org.jboss.reddeer.swt.api.Table;
 import org.jboss.reddeer.swt.api.TableItem;
 import org.jboss.reddeer.swt.condition.TableHasRows;
+import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.handler.TableHandler;
 import org.jboss.reddeer.swt.impl.table.internal.BasicTableItem;
 import org.jboss.reddeer.swt.reference.ReferencedComposite;
@@ -155,5 +156,38 @@ public abstract class AbstractTable extends AbstractWidget<org.eclipse.swt.widge
 	@Override
 	public Control getControl() {
 		return swtWidget;
+	}
+	
+	@Override
+	public List<String> getHeaders() {
+		return TableHandler.getInstance().getHeaders(swtWidget);
+	}
+	
+	@Override
+	public int getHeaderIndex(String header) {
+		List<String> headers = getHeaders();
+		for (int i=0; i < headers.size(); i++) {
+			if (headers.get(i).equals(header)) {
+				return i;
+			}
+		}
+		log.debug("Available headers: " + getHeaders());
+		throw new SWTLayerException("There is no header with label " + header +
+				" in table.");
+	}
+	
+	@Override
+	public String getHeader(int index) {
+		List<String> headers = getHeaders();
+		if (index < 0) {
+			log.debug("Available headers: " + headers);
+			throw new SWTLayerException("Cannot get header with negative index.");
+		}
+		if (headers.size() <= index) {
+			log.debug("Available headers: " + headers);
+			throw new SWTLayerException("Cannot get header with index " + index + " because table contains only " 
+					+ headers.size() + " items(s).");
+		}
+		return headers.get(index);
 	}
 }
