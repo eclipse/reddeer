@@ -63,7 +63,9 @@ public abstract class AbstractEditPart implements EditPart, ReferencedComposite 
 
 	@Override
 	public void click() {
-		Rectangle rec = getFigure().getBounds();
+		Rectangle bounds = getFigure().getBounds();
+		final Rectangle rec = bounds.getCopy();
+		getFigure().translateToAbsolute(rec);
 		int x = rec.x + rec.width / 2;
 		int y = rec.y + rec.height / 2;
 		ViewerHandler.getInstance().click(editPart.getViewer(), x, y);
