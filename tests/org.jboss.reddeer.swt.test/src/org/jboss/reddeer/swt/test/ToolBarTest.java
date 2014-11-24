@@ -22,6 +22,7 @@ import org.jboss.reddeer.swt.impl.toolbar.DefaultToolBar;
 import org.jboss.reddeer.swt.impl.toolbar.DefaultToolItem;
 import org.jboss.reddeer.swt.impl.toolbar.ViewToolBar;
 import org.jboss.reddeer.swt.impl.toolbar.ViewToolItem;
+import org.jboss.reddeer.swt.impl.tree.DefaultTree;
 import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
 import org.jboss.reddeer.swt.matcher.RegexMatcher;
 import org.jboss.reddeer.swt.matcher.WithTextMatchers;
@@ -111,7 +112,7 @@ public class ToolBarTest {
 	public void testToolItemInShellToolBarClicked() {
 		openPreferences();
 		assertThat(new DefaultCLabel().getText(), Is.is("General"));
-		new DefaultTreeItem(1).select();
+		new DefaultTree().getItems().get(1).select();
 		assertThat(new DefaultLabel().getText(), IsNot.not("General"));
 		ToolItem ti = new DefaultToolItem();
 		ti.click();
@@ -122,7 +123,7 @@ public class ToolBarTest {
 	@Test
 	public void testToolItemInShellToolBarRegexClicked() {
 		openPreferences();
-		new DefaultTreeItem(1).select();
+		new DefaultTree().getItems().get(1).select();
 		ToolItem ti = new DefaultToolItem(new WithTooltipTextMatcher(
 				new RegexMatcher(".*ack.*")));
 		assertNotNull(ti);
@@ -141,7 +142,7 @@ public class ToolBarTest {
 	}
 	
 	private void closePreferences() {
-		new DefaultTreeItem(0).select();
+		new DefaultTree().getItems().get(0).select();
 		new PushButton("Cancel").click();
 	}
 }
