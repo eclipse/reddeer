@@ -6,6 +6,7 @@ import java.util.List;
 import org.jboss.reddeer.eclipse.exception.EclipseLayerException;
 import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.Project;
 import org.jboss.reddeer.eclipse.utils.DeleteUtils;
+import org.jboss.reddeer.swt.api.Shell;
 import org.jboss.reddeer.swt.api.Tree;
 import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.swt.condition.JobIsRunning;
@@ -111,10 +112,10 @@ public class AbstractExplorer extends WorkbenchView {
 			new ContextMenu("Refresh").select();
 			new WaitWhile(new JobIsRunning(), timeout);
 			new ContextMenu("Delete").select();
-			DefaultShell shell = new DefaultShell("Delete Resources");
+			Shell s = new DefaultShell("Delete Resources");
 			new CheckBox().toggle(deleteFromFileSystem);
 			new PushButton("OK").click();
-			DeleteUtils.handleDeletion(shell,timeout);
+			DeleteUtils.handleDeletion(s, timeout);
 		}
 	}
 

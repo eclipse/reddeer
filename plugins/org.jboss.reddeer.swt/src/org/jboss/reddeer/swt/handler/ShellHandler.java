@@ -199,4 +199,19 @@ public class ShellHandler {
 		Control parent = WidgetHandler.getInstance().getParent(shell);
 		return parent == null ? null : (Shell)parent;
 	}
+	
+	/**
+	 * Return child shells
+	 * @param shell
+	 * @return
+	 */
+	public Shell[] getShells(final Shell shell){
+		return Display.syncExec(new ResultRunnable<Shell[]>() {
+
+			@Override
+			public Shell[] run() {
+				return shell.getShells();
+			}
+		});
+	}
 }
