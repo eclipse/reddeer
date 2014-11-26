@@ -1,5 +1,6 @@
 package org.jboss.reddeer.swt.impl.tree;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import org.eclipse.swt.SWT;
@@ -10,6 +11,8 @@ import org.jboss.reddeer.swt.condition.TreeItemHasMinChildren;
 import org.jboss.reddeer.swt.handler.TreeHandler;
 import org.jboss.reddeer.swt.handler.TreeItemHandler;
 import org.jboss.reddeer.swt.handler.WidgetHandler;
+import org.jboss.reddeer.swt.impl.tree.internal.BasicTree;
+import org.jboss.reddeer.swt.impl.tree.internal.BasicTreeItem;
 import org.jboss.reddeer.swt.util.Display;
 import org.jboss.reddeer.swt.wait.TimePeriod;
 import org.jboss.reddeer.swt.wait.WaitUntil;
@@ -26,6 +29,7 @@ public abstract class AbstractTreeItem extends AbstractWidget<org.eclipse.swt.wi
 	private static final Logger logger = Logger.getLogger(AbstractTreeItem.class);
 
 	private TreeHandler treeHandler = TreeHandler.getInstance();
+	private TreeItemHandler treeItemHandler = TreeItemHandler.getInstance();
 	
 	protected AbstractTreeItem(org.eclipse.swt.widgets.TreeItem swtWidget) {
 		super(swtWidget);
@@ -37,7 +41,7 @@ public abstract class AbstractTreeItem extends AbstractWidget<org.eclipse.swt.wi
 	@Override
 	public void select() {
 		logger.info("Select tree item " + getText());
-		treeHandler.select(swtWidget);
+		treeItemHandler.select(swtWidget);
 	}
 
 	/**
@@ -69,7 +73,7 @@ public abstract class AbstractTreeItem extends AbstractWidget<org.eclipse.swt.wi
 	 */
 	@Override
 	public String[] getPath() {
-		return treeHandler.getPath(swtWidget);
+		return treeItemHandler.getPath(swtWidget);
 	}
 
 	/**
@@ -87,7 +91,7 @@ public abstract class AbstractTreeItem extends AbstractWidget<org.eclipse.swt.wi
 	public void expand(TimePeriod timePeriod) {
 		logger.info("Expand tree item " + getText() + " and wait with time period " 
 			+ timePeriod.getSeconds());
-		treeHandler.expand(swtWidget, timePeriod);
+		treeItemHandler.expand(swtWidget, timePeriod);
 	}
 
 	/**
@@ -96,7 +100,7 @@ public abstract class AbstractTreeItem extends AbstractWidget<org.eclipse.swt.wi
 	@Override
 	public void collapse() {
 		logger.info("Collapse tree item " + getText());
-		treeHandler.collapse(swtWidget);
+		treeItemHandler.collapse(swtWidget);
 	}
 
 	/**
@@ -107,7 +111,7 @@ public abstract class AbstractTreeItem extends AbstractWidget<org.eclipse.swt.wi
 	 * @return direct descendant specified with parameters
 	 */
 	public TreeItem getItem(final String text) {
-		return treeHandler.getItem(swtWidget, text);
+		return new BasicTreeItem(treeItemHandler.getItem(swtWidget, text));
 	}
 
 	/**
@@ -139,7 +143,7 @@ public abstract class AbstractTreeItem extends AbstractWidget<org.eclipse.swt.wi
 	 */
 	@Override
 	public boolean isSelected() {
-		return treeHandler.isSelected(swtWidget);
+		return treeItemHandler.isSelected(swtWidget);
 	}
 
 	/**
@@ -156,7 +160,7 @@ public abstract class AbstractTreeItem extends AbstractWidget<org.eclipse.swt.wi
 	@Override
 	public void setChecked(final boolean check) {
 		logger.info("Check tree item " + getText());
-		treeHandler.setChecked(swtWidget, check);
+		treeItemHandler.setChecked(swtWidget, check);
 	}
 
 	/**
@@ -164,7 +168,7 @@ public abstract class AbstractTreeItem extends AbstractWidget<org.eclipse.swt.wi
 	 */
 	@Override
 	public boolean isChecked() {
-		return treeHandler.isChecked(swtWidget);
+		return treeItemHandler.isChecked(swtWidget);
 	}
 
 	/**
@@ -182,7 +186,12 @@ public abstract class AbstractTreeItem extends AbstractWidget<org.eclipse.swt.wi
 	@Override
 	public List<TreeItem> getItems() {
 		expand(TimePeriod.SHORT);
-		return treeHandler.getChildrenItems(swtWidget);
+		LinkedList<TreeItem> items = new LinkedList<TreeItem>();
+		List<org.eclipse.swt.widgets.TreeItem> eclipseItems = treeItemHandler.getChildrenItems(swtWidget);
+		for (org.eclipse.swt.widgets.TreeItem swtTreeItem : eclipseItems) {
+			items.addLast(new BasicTreeItem(swtTreeItem));
+		}
+		return items;
 	}
 
 	/**
@@ -190,7 +199,7 @@ public abstract class AbstractTreeItem extends AbstractWidget<org.eclipse.swt.wi
 	 */
 	@Override
 	public Tree getParent() {
-		return treeHandler.getParent(swtWidget);
+		return new BasicTree(treeItemHandler.getParent(swtWidget));
 	}
 
 	/**
@@ -198,7 +207,7 @@ public abstract class AbstractTreeItem extends AbstractWidget<org.eclipse.swt.wi
 	 */
 	@Override
 	public boolean isExpanded() {
-		return treeHandler.isExpanded(swtWidget);
+		return treeItemHandler.isExpanded(swtWidget);
 	}
 
 	/**

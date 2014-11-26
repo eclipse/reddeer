@@ -15,7 +15,7 @@ public abstract class PredefinedButton extends AbstractButton {
 	protected PredefinedButton(ReferencedComposite refComposite, int index,
 			String text, int style) {
 		
-		super(refComposite, index, text, SWT.PUSH,new WithMnemonicTextMatcher(text),new WithStyleMatcher(style));
+		super(refComposite, index, SWT.PUSH,new WithMnemonicTextMatcher(text),new WithStyleMatcher(style));
 
 	}
 

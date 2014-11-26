@@ -41,7 +41,7 @@ public class MavenPreferencePageTest {
 		assertTrue(mavenPreferencePage.isOfflineChecked());
 		assertTrue(mavenPreferencePage.isUpdateMavenProjectsOnStartupChecked());
 		
-		mavenPreferencePage.cancel();
+		preferencesDialog.cancel();
 	}
 
 	@Test
@@ -67,14 +67,14 @@ public class MavenPreferencePageTest {
 		assertFalse(mavenPreferencePage.isOfflineChecked());
 		assertFalse(mavenPreferencePage.isUpdateMavenProjectsOnStartupChecked());
 		
-		mavenPreferencePage.cancel();
+		preferencesDialog.cancel();
 	}
 	
 	@After
 	public void tearDown(){
 		// try to close preference dialog in case it stayed open
 		try{
-			mavenPreferencePage.cancel();
+			preferencesDialog.cancel();
 		} catch (SWTLayerException swtle){
 			// do nothing
 		}
