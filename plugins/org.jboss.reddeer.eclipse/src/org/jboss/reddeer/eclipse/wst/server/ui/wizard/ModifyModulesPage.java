@@ -24,7 +24,7 @@ public class ModifyModulesPage extends WizardPage {
 	 */
 	public void add(String... projectNames) {
 		for (String project : projectNames) {
-			new DefaultTreeItem(0, project).select();
+			new DefaultTreeItem(new DefaultTree(), project).select();
 			new PushButton("Add >").click();
 		}
 	}
@@ -45,7 +45,7 @@ public class ModifyModulesPage extends WizardPage {
 	 */
 	public void remove(String... projectNames) {
 		for (String project : projectNames) {
-			new DefaultTreeItem(1, project).select();
+			new DefaultTreeItem(new DefaultTree(1), project).select();
 			new PushButton("< Remove").click();
 		}
 	}

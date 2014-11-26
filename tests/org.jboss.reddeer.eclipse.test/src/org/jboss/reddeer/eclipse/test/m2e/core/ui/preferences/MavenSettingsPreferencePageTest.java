@@ -18,7 +18,7 @@ public class MavenSettingsPreferencePageTest{
 	
 	@After
 	public void tearDown(){
-		page.cancel();
+		preferencesDialog.cancel();
 	}
 	
 	@Test

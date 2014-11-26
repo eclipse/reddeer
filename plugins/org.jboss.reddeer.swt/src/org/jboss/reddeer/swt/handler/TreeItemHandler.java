@@ -202,7 +202,7 @@ public class TreeItemHandler {
 			exception.addMessageDetail("Tree Item " + this
 					+ " has these direct children:");
 			for (TreeItem treeItem : TreeHandler.getInstance().getSWTItems(getParent(swtTreeItem))) {
-				exception.addMessageDetail("  " + treeItem.getText());
+				exception.addMessageDetail("  " + getText(treeItem, 0));
 			}
 			throw exception;
 		}

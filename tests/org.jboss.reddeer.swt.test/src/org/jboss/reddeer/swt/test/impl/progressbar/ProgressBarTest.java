@@ -63,7 +63,7 @@ public class ProgressBarTest extends SWTLayerTestCase{
 	
 	@Test
 	public void IndeterminateProgressBarTest(){
-		IndeterminateProgressBar ipb = new IndeterminateProgressBar();
+		new IndeterminateProgressBar();
 		new IndeterminateProgressBar(0);
 	}
 	

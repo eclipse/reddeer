@@ -86,7 +86,7 @@ public class QuickFixDialog extends DefaultShell {
 	 * @param resource
 	 */
 	public void setResource(String resource) {
-		new DefaultTableItem(1,resource).setChecked(true);
+		new DefaultTableItem(new DefaultTable(1),resource).setChecked(true);
 	}
 	
 	/**
