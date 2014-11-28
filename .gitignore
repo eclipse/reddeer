@@ -12,6 +12,7 @@ target
 *.out
 .*
 !.gitignore
-!.project
-!.classpath
-
+# Eclipse files
+.project
+.classpath
+.settings
