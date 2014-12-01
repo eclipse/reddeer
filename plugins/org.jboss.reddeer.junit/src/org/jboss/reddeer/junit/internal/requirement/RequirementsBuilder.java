@@ -22,7 +22,7 @@ public class RequirementsBuilder {
 	
 	private AnnotationsFinder finder = new AnnotationsFinder(new RequirementAnnotationMatcher());
 	
-	public Requirements build(Class<?> clazz, RequirementsConfiguration config){
+	public Requirements build(Class<?> clazz, RequirementsConfiguration config, String configID){
 		checkArguments(clazz, config);
 		List<Requirement<?>> requirements = new ArrayList<Requirement<?>>();
 		
@@ -31,7 +31,7 @@ public class RequirementsBuilder {
 			requirements.add(build(annotation, config));
 		}
 		
-		return new Requirements(requirements);
+		return new Requirements(requirements, clazz, configID);
 	}
 	
 	private Requirement<?> build(Annotation annotation, RequirementsConfiguration requirementConfig){

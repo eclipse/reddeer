@@ -28,12 +28,12 @@ public class RequirementsBuilderTest {
 
 	@Test(expected=IllegalArgumentException.class)
 	public void nullClass() {
-		builder.build(null, mock(RequirementsConfiguration.class));
+		builder.build(null, mock(RequirementsConfiguration.class), null);
 	}
 	
 	@Test(expected=IllegalArgumentException.class)
 	public void nullConfig() {
-		builder.build(this.getClass(), null);
+		builder.build(this.getClass(), null, null);
 	}
 
 	@Test
@@ -41,7 +41,7 @@ public class RequirementsBuilderTest {
 		builder.setFinder(new TestAnnotationsFinder(new ArrayList<Annotation>()));
 		RequirementsConfiguration config = mock(RequirementsConfiguration.class);
 		
-		Requirements requirements = builder.build(String.class, config);
+		Requirements requirements = builder.build(String.class, config, null);
 
 		assertThat(requirements.size(), is(0));
 	}
@@ -52,7 +52,7 @@ public class RequirementsBuilderTest {
 
 		builder.setFinder(new TestAnnotationsFinder(getRequirementAnnotations()));
 		
-		Requirements requirements = builder.build(String.class, requirementConfig);
+		Requirements requirements = builder.build(String.class, requirementConfig, null);
 		
 		assertThat(requirements.size(), is(2));
 		assertThat(requirements, hasItem(new RequirementClassMatcher(TestRequirementA.class, TestRequirementAAnnotation.class)));

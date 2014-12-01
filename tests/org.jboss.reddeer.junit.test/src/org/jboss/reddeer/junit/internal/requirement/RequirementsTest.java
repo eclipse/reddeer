@@ -23,7 +23,7 @@ public class RequirementsTest {
 	
 	@Test(expected=IllegalArgumentException.class)
 	public void constructor_nullList(){
-		new Requirements(null);
+		new Requirements(null, null, null);
 	}
 	
 	@Test
@@ -31,7 +31,7 @@ public class RequirementsTest {
 		Requirement<?> requirement1 = mock(Requirement.class);
 		Requirement<?> requirement2 = mock(Requirement.class);
 		
-		requirements = new Requirements(asList(requirement1, requirement2));
+		requirements = new Requirements(asList(requirement1, requirement2), String.class, null);
 
 		assertThat(requirements.size(), is(2));
 	}
@@ -41,7 +41,7 @@ public class RequirementsTest {
 		Requirement<?> requirement1 = mock(Requirement.class);
 		Requirement<?> requirement2 = mock(Requirement.class);
 		
-		requirements = new Requirements(asList(requirement1, requirement2));
+		requirements = new Requirements(asList(requirement1, requirement2), String.class, null);
 		Iterator<Requirement<?>> iterator = requirements.iterator();
 		
 		assertSame(requirement1, iterator.next());
@@ -50,7 +50,7 @@ public class RequirementsTest {
 	
 	@Test
 	public void canFulfill_emptyList() {
-		requirements = new Requirements(new ArrayList<Requirement<?>>());
+		requirements = new Requirements(new ArrayList<Requirement<?>>(), String.class, null);
 		
 		assertTrue(requirements.canFulfill());
 	}
@@ -63,7 +63,7 @@ public class RequirementsTest {
 		Requirement<?> requirement2 = mock(Requirement.class);
 		when(requirement2.canFulfill()).thenReturn(true);
 		
-		requirements = new Requirements(asList(requirement1, requirement2));
+		requirements = new Requirements(asList(requirement1, requirement2), String.class, null);
 		
 		assertTrue(requirements.canFulfill());
 	}
@@ -76,7 +76,7 @@ public class RequirementsTest {
 		Requirement<?> requirement2 = mock(Requirement.class);
 		when(requirement2.canFulfill()).thenReturn(false);
 		
-		requirements = new Requirements(asList(requirement1, requirement2));
+		requirements = new Requirements(asList(requirement1, requirement2), String.class, null);
 		
 		assertFalse(requirements.canFulfill());
 	}
@@ -86,7 +86,7 @@ public class RequirementsTest {
 		Requirement<?> requirement1 = mock(Requirement.class);
 		Requirement<?> requirement2 = mock(Requirement.class);
 
-		requirements = new Requirements(asList(requirement1, requirement2));
+		requirements = new Requirements(asList(requirement1, requirement2), String.class, null);
 		requirements.fulfill();
 		
 		verify(requirement1).fulfill();

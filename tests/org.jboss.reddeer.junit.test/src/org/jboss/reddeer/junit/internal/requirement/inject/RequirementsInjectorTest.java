@@ -24,7 +24,7 @@ public class RequirementsInjectorTest {
 		requirementA = new RequirementA();
 		requirementA.setA("1");
 		
-		requirements = new Requirements(asList(requirementA)); 
+		requirements = new Requirements(asList(requirementA), String.class, null); 
 	}
 	
 	@Test

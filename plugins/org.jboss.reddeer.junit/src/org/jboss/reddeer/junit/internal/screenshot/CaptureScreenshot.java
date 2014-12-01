@@ -46,118 +46,121 @@ public class CaptureScreenshot {
 	 * @since 0.5 
 	 */
 	public void captureScreenshot(String config, String name) throws CaptureScreenshotException {
-		try {
-			String separator = System.getProperty("file.separator");
-			String path = "." + separator + "target" + separator + "screenshots";
-			boolean pathCreatedSuccessfuly = true;
+		String captureScreenshot = System.getProperty("captureScreenshot");
+		if (captureScreenshot == null || captureScreenshot.equalsIgnoreCase("true")) {
 			try {
-				if (System.getProperty("relativeScreenshotDirectory") != null) {
-					path = System.getProperty("relativeScreenshotDirectory");
+				String separator = System.getProperty("file.separator");
+				String path = "." + separator + "target" + separator + "screenshots";
+				boolean pathCreatedSuccessfuly = true;
+				try {
+					if (System.getProperty("relativeScreenshotDirectory") != null) {
+						path = System.getProperty("relativeScreenshotDirectory");
+					}
+					if (!separator.equals(path.charAt(path.length() - 1))) {
+						path += separator;
+					}
+					String[] dirs;
+					if (separator.equals("\\")) {
+						dirs = path.split("\\\\");
+					} else {
+						dirs = path.split(separator);
+					}
+					
+					// Create missing folders in path
+					int index = dirs.length;
+					boolean checkpoint = false;
+					String tmpPath = "";
+					for (int i=0; i < dirs.length; i++) {
+						tmpPath += dirs[i] + separator;
+						if (!new File(tmpPath).exists()) {
+							// Important due to rollbacks - if something goes wrong 
+							// clean up process start and remove all created directory
+							if (!checkpoint) {
+								checkpoint = true;
+								index = i;
+							}
+							if (new File(tmpPath).mkdir() == false) {
+								// If was not created properly than clean up
+								pathCreatedSuccessfuly = false;
+								for (int k=i-1; k >= index; k--) {
+									new File(tmpPath).delete();
+								}
+							}
+						}
+					}
+					
+					// Create a directory for screenshots, if configuration is set
+					if (config != null) {
+						path += separator + config + separator;
+						if (!new File(path).exists()) {
+							if (!new File(path).mkdir()) {
+								pathCreatedSuccessfuly = false;
+							}
+						}
+					}
+				} catch (SecurityException ex) { 
+					pathCreatedSuccessfuly = false;
 				}
-				if (!separator.equals(path.charAt(path.length() - 1))) {
-					path += separator;
-				}
-				String[] dirs;
-				if (separator.equals("\\")) {
-					dirs = path.split("\\\\");
+				
+				// If path has been created successfully screenshots can be captured
+				if (pathCreatedSuccessfuly) {
+					final Display display = Display.getDefault();
+					
+					// Set file name or alter it in case of existence of such file
+					int counter = 1;
+					String partiallyFileName = path + name;
+					String fileNameExtension = ".png";
+					if (new File(partiallyFileName + fileNameExtension).exists()) {
+						while (new File(partiallyFileName + "(" + counter + ")" + fileNameExtension).exists()) {
+							counter++;
+						}
+						fileName = partiallyFileName + "(" + counter + ")" + fileNameExtension;
+					} else {
+						fileName = partiallyFileName + fileNameExtension;
+					}
+					
+					display.syncExec(new Runnable() {
+						@Override
+						public void run() {
+							GC gc = new GC(display);
+							Image image = null;
+								
+							try {
+								// Create image of screen
+								logger.debug("Capturing Screenshot: " + fileName);
+								image = new Image(display, display.getBounds().width, display.getBounds().height);
+								gc.copyArea(image, display.getBounds().x, display.getBounds().y);
+								
+								// Store image
+								ImageLoader imageLoader = new ImageLoader();				
+								imageLoader.data = new ImageData[] { image.getImageData() };
+								imageLoader.save(fileName, SWT.IMAGE_PNG);
+								
+								logger.debug("Screenshot successfully captured. Saved in " + new File(fileName).getAbsolutePath());
+							} catch (Exception ex) {
+								logger.debug("Screenshot capturing failed.");
+								if (new File(fileName).exists()) {
+									try {
+										 logger.debug("Corrupted image will be deleted on exit.");
+										 new File(fileName).deleteOnExit();
+									} catch (Exception exception) { }
+								}
+							} finally {
+								gc.dispose();
+								if (image != null) {
+									image.dispose();
+								}
+							}
+							
+						}
+					});
 				} else {
-					dirs = path.split(separator);
+					throw new CaptureScreenshotException("Screenshot could not be created, " 
+							+ "because required folders where to store screenshot has not been created");
 				}
-				
-				// Create missing folders in path
-				int index = dirs.length;
-				boolean checkpoint = false;
-				String tmpPath = "";
-				for (int i=0; i < dirs.length; i++) {
-					tmpPath += dirs[i] + separator;
-					if (!new File(tmpPath).exists()) {
-						// Important due to rollbacks - if something goes wrong 
-						// clean up process start and remove all created directory
-						if (!checkpoint) {
-							checkpoint = true;
-							index = i;
-						}
-						if (new File(tmpPath).mkdir() == false) {
-							// If was not created properly than clean up
-							pathCreatedSuccessfuly = false;
-							for (int k=i-1; k >= index; k--) {
-								new File(tmpPath).delete();
-							}
-						}
-					}
-				}
-				
-				// Create a directory for screenshots, if configuration is set
-				if (config != null) {
-					path += separator + config + separator;
-					if (!new File(path).exists()) {
-						if (!new File(path).mkdir()) {
-							pathCreatedSuccessfuly = false;
-						}
-					}
-				}
-			} catch (SecurityException ex) { 
-				pathCreatedSuccessfuly = false;
+			} catch (Exception ex) {
+				throw new CaptureScreenshotException(ex.getMessage(), ex.getCause());
 			}
-			
-			// If path has been created successfully screenshots can be captured
-			if (pathCreatedSuccessfuly) {
-				final Display display = Display.getDefault();
-				
-				// Set file name or alter it in case of existence of such file
-				int counter = 1;
-				String partiallyFileName = path + name;
-				String fileNameExtension = ".png";
-				if (new File(partiallyFileName + fileNameExtension).exists()) {
-					while (new File(partiallyFileName + "(" + counter + ")" + fileNameExtension).exists()) {
-						counter++;
-					}
-					fileName = partiallyFileName + "(" + counter + ")" + fileNameExtension;
-				} else {
-					fileName = partiallyFileName + fileNameExtension;
-				}
-				
-				display.syncExec(new Runnable() {
-					@Override
-					public void run() {
-						GC gc = new GC(display);
-						Image image = null;
-							
-						try {
-							// Create image of screen
-							logger.debug("Capturing Screenshot: " + fileName);
-							image = new Image(display, display.getBounds().width, display.getBounds().height);
-							gc.copyArea(image, display.getBounds().x, display.getBounds().y);
-							
-							// Store image
-							ImageLoader imageLoader = new ImageLoader();				
-							imageLoader.data = new ImageData[] { image.getImageData() };
-							imageLoader.save(fileName, SWT.IMAGE_PNG);
-							
-							logger.debug("Screenshot successfully captured. Saved in " + new File(fileName).getAbsolutePath());
-						} catch (Exception ex) {
-							logger.debug("Screenshot capturing failed.");
-							if (new File(fileName).exists()) {
-								try {
-									 logger.debug("Corrupted image will be deleted on exit.");
-									 new File(fileName).deleteOnExit();
-								} catch (Exception exception) { }
-							}
-						} finally {
-							gc.dispose();
-							if (image != null) {
-								image.dispose();
-							}
-						}
-						
-					}
-				});
-			} else {
-				throw new CaptureScreenshotException("Screenshot could not be created, " 
-						+ "because required folders where to store screenshot has not been created");
-			}
-		} catch (Exception ex) {
-			throw new CaptureScreenshotException(ex.getMessage(), ex.getCause());
 		}
 	}
 	/**

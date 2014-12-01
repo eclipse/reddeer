@@ -1,6 +1,7 @@
 package org.jboss.reddeer.junit.internal.runner;
 
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
@@ -28,7 +29,7 @@ public class RequirementsRunnerBuilderTest {
 
 		requirements = mock(Requirements.class);
 		RequirementsBuilder requirementsBuilder = mock(RequirementsBuilder.class);
-		when(requirementsBuilder.build(any(Class.class), any(RequirementsConfiguration.class))).thenReturn(requirements);
+		when(requirementsBuilder.build(any(Class.class), any(RequirementsConfiguration.class), any(String.class))).thenReturn(requirements);
 				
 		runnerBuilder = new RequirementsRunnerBuilder(testRunConfig);
 		runnerBuilder.setRequirementsBuilder(requirementsBuilder);
