@@ -39,9 +39,32 @@ public class EditorPartLookup {
 		}
 		return instance;
 	}
+	
+	/**
+	 * Returns currently active editor or first inactive. If no editor at all si found than 
+	 * throws {@link WorkbenchLayerException}. 
+	 * @return 
+	 */
+	public IEditorPart getEditor(){
+		IEditorPart editorPart = getActiveEditor();
+		if (editorPart == null) {
+			final IEditorReference[] editorReferences = getAllEditors();
+			if(editorReferences.length == 0){
+				throw new WorkbenchPartNotFound();
+			}
+			editorPart = Display.syncExec(new ResultRunnable<IEditorPart>() {
+					
+				@Override
+				public IEditorPart run() {
+					return editorReferences[0].getEditor(false);
+				}
+			});
+		}
+		return editorPart;
+	}
 
 	/**
-	 * Returns currently active editor or throws {@link WorkbenchLayerException} if none is found. 
+	 * Returns currently active editor or null. 
 	 * @return 
 	 */
 	public IEditorPart getActiveEditor(){
@@ -58,9 +81,6 @@ public class EditorPartLookup {
 			});
 		} else {
 			editorPart = (IEditorPart)workbenchPart;
-		}
-		if (editorPart == null) {
-			throw new WorkbenchPartNotFound();
 		}
 		return editorPart;
 	}
@@ -82,12 +102,12 @@ public class EditorPartLookup {
 	}
 	
 	private IEditorPart getEditorInternal(final Matcher<IEditorPart>... matchers) {
+		final IEditorReference[] editorReferences = getAllEditors();
+		
 		return Display.syncExec(new ResultRunnable<IEditorPart>() {
 
 			@Override
 			public IEditorPart run() {
-				IWorkbenchWindow activeWorkbenchWindow = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
-				IEditorReference[] editorReferences = activeWorkbenchWindow.getActivePage().getEditorReferences();
 				AndMatcher andMatcher  = new AndMatcher(matchers);
 				
 				for (IEditorReference editorReference : editorReferences) {
@@ -97,6 +117,17 @@ public class EditorPartLookup {
 					}
 				}
 				return null;
+			}
+		});
+	}
+	
+	private IEditorReference[] getAllEditors(){
+		return Display.syncExec(new ResultRunnable<IEditorReference[]>() {
+
+			@Override
+			public IEditorReference[] run() {
+				IWorkbenchWindow activeWorkbenchWindow = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
+				return activeWorkbenchWindow.getActivePage().getEditorReferences();
 			}
 		});
 	}
