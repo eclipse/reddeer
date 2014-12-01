@@ -56,7 +56,7 @@ public class RequirementsRunnerBuilder extends RunnerBuilder {
 		if(testsManager != null) {
 			testsManager.addTest(clazz);
 		}
-		Requirements requirements = requirementsBuilder.build(clazz, config.getRequirementConfiguration());
+		Requirements requirements = requirementsBuilder.build(clazz, config.getRequirementConfiguration(), config.getId());
 		if (requirements.canFulfill()){
 			log.info("All requirements can be fulfilled, the test will run");
 			if(testsManager != null) {
