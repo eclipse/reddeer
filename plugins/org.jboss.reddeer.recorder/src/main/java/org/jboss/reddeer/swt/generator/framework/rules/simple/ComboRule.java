@@ -43,11 +43,13 @@ public class ComboRule extends AbstractSimpleRedDeerRule{
 	public List<String> getActions() {
 		StringBuilder builder = new StringBuilder();
 		List<String> toReturn = new ArrayList<String>();
-		builder.append("new DefaultCombo(");
-		builder.append(RedDeerUtils.getReferencedCompositeString(composites));
 		if(label != null){
+			builder.append("new LabeledCombo(");
+			builder.append(RedDeerUtils.getReferencedCompositeString(composites));
 			builder.append("\""+label+"\"");
 		} else {
+			builder.append("new DefaultCombo(");
+			builder.append(RedDeerUtils.getReferencedCompositeString(composites));
 			builder.append(index);
 		}
 		builder.append(")");
@@ -65,7 +67,11 @@ public class ComboRule extends AbstractSimpleRedDeerRule{
 	@Override
 	public List<String> getImports() {
 		List<String> toReturn = new ArrayList<String>();
-		toReturn.add("org.jboss.reddeer.swt.impl.combo.DefaultCombo");
+		if(label != null){
+			toReturn.add("org.jboss.reddeer.swt.impl.combo.LabeledCombo");
+		} else {
+			toReturn.add("org.jboss.reddeer.swt.impl.combo.DefaultCombo");
+		}
 		for(ReferencedComposite r: composites){
 			toReturn.add(r.getImport());
 		}
