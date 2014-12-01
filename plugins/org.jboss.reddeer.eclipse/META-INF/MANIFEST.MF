@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: RedDeer Eclipse Component
 Bundle-Vendor: JBoss by Red Hat
 Bundle-SymbolicName: org.jboss.reddeer.eclipse
-Bundle-Version: 0.7.0.qualifier
+Bundle-Version: 0.7.1.qualifier
 Bundle-Activator: org.jboss.reddeer.eclipse.Activator
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
@@ -26,6 +26,7 @@ Export-Package: org.jboss.reddeer.eclipse,
  org.jboss.reddeer.eclipse.datatools.ui.preference,
  org.jboss.reddeer.eclipse.datatools.ui.view,
  org.jboss.reddeer.eclipse.datatools.ui.wizard,
+ org.jboss.reddeer.eclipse.equinox.p2.ui.sdk.scheduler,
  org.jboss.reddeer.eclipse.equinox.security.ui,
  org.jboss.reddeer.eclipse.exception,
  org.jboss.reddeer.eclipse.jdt.ui,
