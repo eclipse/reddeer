@@ -41,10 +41,10 @@ public class AbstractEditor implements Editor {
     protected IEditorPart editorPart;
 
     /**
-     * Initialize currently active editor.
+     * Initialize editor.
      */
     public AbstractEditor() {
-       editorPart = EditorPartLookup.getInstance().getActiveEditor();
+       editorPart = EditorPartLookup.getInstance().getEditor();
        activate();
     }
 
