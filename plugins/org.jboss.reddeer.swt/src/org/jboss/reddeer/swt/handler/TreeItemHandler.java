@@ -17,6 +17,7 @@ import org.jboss.reddeer.swt.util.Display;
 import org.jboss.reddeer.swt.util.ResultRunnable;
 import org.jboss.reddeer.swt.wait.TimePeriod;
 import org.jboss.reddeer.swt.wait.WaitUntil;
+import org.jboss.reddeer.swt.handler.WidgetHandler;
 
 /**
  * Contains methods for handling UI operations on {@link TreeItem} widgets. 
@@ -136,7 +137,7 @@ public class TreeItemHandler {
 		TreeHandler.getInstance().notifySelect(swtTree);
 		logger.debug("Selected Tree Items:");
 		for (TreeItem treeItem : selection) {
-			logger.debug("  " + treeItem);
+			logger.debug("  " + WidgetHandler.getInstance().getText(treeItem));
 		}
 	}
 	
