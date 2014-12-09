@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.jboss.reddeer.common.logging.Logger;
+import org.jboss.reddeer.eclipse.exception.EclipseLayerException;
 import org.jboss.reddeer.eclipse.wst.server.ui.wizard.NewRuntimeWizardDialog;
 import org.jboss.reddeer.swt.api.Table;
 import org.jboss.reddeer.swt.condition.ShellWithTextIsActive;
@@ -78,12 +79,17 @@ public class RuntimePreferencePage extends WorkbenchPreferencePage {
 	private void selectRuntime(String name){
 		
 		Table table = new DefaultTable();
-		
+		log.debug("Selecting runtime "+name);
 		for (int i = 0; i < table.rowCount(); i++){
-			if (table.getItem(i).getText().equals(name)){
+			String runtimeName = table.getItem(i).getText();
+			log.debug(runtimeName+" was found");
+			if (runtimeName.equals(name)){
+				log.debug(runtimeName+" matched "+name+"! Selecting...");
 				table.select(i);
+				return;
 			}
 		}
+		throw new EclipseLayerException("Unable to find runtime "+name);
 	}
 	
 	/**
