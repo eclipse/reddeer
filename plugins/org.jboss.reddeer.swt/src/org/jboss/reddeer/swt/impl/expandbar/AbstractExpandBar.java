@@ -1,13 +1,16 @@
 package org.jboss.reddeer.swt.impl.expandbar;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.swt.widgets.ExpandItem;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.swt.api.ExpandBar;
 import org.jboss.reddeer.swt.api.ExpandBarItem;
 import org.jboss.reddeer.swt.handler.ExpandBarHandler;
 import org.jboss.reddeer.swt.handler.WidgetHandler;
+import org.jboss.reddeer.swt.impl.expandbar.internal.BasicExpandBarItem;
 import org.jboss.reddeer.swt.reference.ReferencedComposite;
 import org.jboss.reddeer.swt.widgets.AbstractWidget;
 /**
@@ -33,14 +36,19 @@ public abstract class AbstractExpandBar extends AbstractWidget<org.eclipse.swt.w
 	 */
 	@Override
 	public int getItemsCount() {
-		return ExpandBarHandler.getInstance().getItems(this.getSWTWidget()).size();
+		return getItems().size();
 	}
 	/**
 	 * See {@link ExpandBar}
 	 */
 	@Override
 	public List<ExpandBarItem> getItems() {
-		return ExpandBarHandler.getInstance().getItems(this.getSWTWidget());
+		List<org.eclipse.swt.widgets.ExpandItem> items = ExpandBarHandler.getInstance().getSWTItems(this.getSWTWidget());
+		List<ExpandBarItem> result = new ArrayList<ExpandBarItem>();
+		for (ExpandItem item: items) {
+			result.add(new BasicExpandBarItem(item));
+		}
+		return result;
 	}
 	/**
 	 * See {@link ExpandBar}
