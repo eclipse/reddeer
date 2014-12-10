@@ -45,7 +45,9 @@ public class ExpandBarItemHandler {
 	 * 
 	 * @param timePeriod time period to wait for after expanding
 	 * @param expandBarItem expand bar item to handle
+	 * @deprecated since 0.7. Use {@link ExpandBarItemHandler#expand(TimePeriod, ExpandItem)} instead
 	 */
+	@Deprecated
 	public static void expand(TimePeriod timePeriod,
 			final ExpandBarItem expandBarItem) {
 		logger.debug("Expand Expand Bar Item " + expandBarItem.getText());
@@ -69,10 +71,41 @@ public class ExpandBarItemHandler {
 	}
 
 	/**
+	 * Expands specified {@link ExpandItem} and wait for specified time period.
+	 * 
+	 * @param timePeriod time period to wait for after expanding
+	 * @param expandItem expand item to handle
+	 */
+	public static void expand(TimePeriod timePeriod,
+			final ExpandItem expandItem) {
+		logger.debug("Expand Expand Bar Item " + WidgetHandler.getInstance().getText(expandItem));
+		if (!ExpandBarItemHandler.getInstance().isExpanded(expandItem)) {
+			ExpandBarItemHandler.notifyExpandBar(ExpandBarItemHandler
+					.createEventForExpandBar(SWT.Expand, expandItem),
+					expandItem);
+			Display.syncExec(new Runnable() {
+				@Override
+				public void run() {
+					expandItem.setExpanded(true);
+				}
+			});
+			AbstractWait.sleep(timePeriod);
+			logger.info("Expand Bar Item " + WidgetHandler.getInstance().getText(expandItem)
+					+ " has been expanded");
+		} else {
+			logger.debug("Expand Bar Item " + WidgetHandler.getInstance().getText(expandItem)
+					+ " is already expanded. No action performed");
+		}
+	}
+
+	
+	/**
 	 * Collapses specified {@link ExpandBarItem}.
 	 * 
 	 * @param expandBarItem expand bar item to handle
+	 * @deprecated since 0.7. Use {@link ExpandBarItemHandler#collapse(ExpandItem)} instead
 	 */
+	@Deprecated
 	public static void collapse(final ExpandBarItem expandBarItem) {
 		logger.debug("Collapse Expand Bar Item " + expandBarItem.getText());
 		if (expandBarItem.isExpanded()) {
@@ -94,12 +127,39 @@ public class ExpandBarItemHandler {
 	}
 
 	/**
+	 * Collapses specified {@link ExpandItem}.
+	 * 
+	 * @param expandItem expand item to handle
+	 */
+	public static void collapse(final ExpandItem expandItem) {
+		logger.debug("Collapse Expand Bar Item " + WidgetHandler.getInstance().getText(expandItem));
+		if (ExpandBarItemHandler.getInstance().isExpanded(expandItem)) {
+			Display.syncExec(new Runnable() {
+				@Override
+				public void run() {
+					expandItem.setExpanded(false);
+				}
+			});
+			ExpandBarItemHandler.notifyExpandBar(ExpandBarItemHandler
+					.createEventForExpandBar(SWT.Collapse, expandItem),
+					expandItem);
+			logger.info("Expand Bar Item " + WidgetHandler.getInstance().getText(expandItem)
+					+ " has been collapsed");
+		} else {
+			logger.debug("Expand Bar Item " + WidgetHandler.getInstance().getText(expandItem)
+					+ " is already collapsed. No action performed");
+		}
+	}
+	
+	/**
 	 * Notifies listeners of specified {@link ExpandBarItem} about specified event.
 	 * Field for event type in specified event has to be set properly.
 	 * 
 	 * @param event event to notify about
 	 * @param expandBarItem expand bar item to handle
+	 * @deprecated since 0.7. Use {@link ExpandBarItemHandler#notifyExpandBar(Event, ExpandItem)} instead
 	 */
+	@Deprecated
 	private static void notifyExpandBar(final Event event,
 			final ExpandBarItem expandBarItem) {
 		Display.syncExec(new Runnable() {
@@ -110,6 +170,37 @@ public class ExpandBarItemHandler {
 	}
 
 	/**
+	 * Notifies listeners of specified {@link ExpandBarItem} about specified event.
+	 * Field for event type in specified event has to be set properly.
+	 * 
+	 * @param event event to notify about
+	 * @param expandBarItem expand bar item to handle
+	 */
+	private static void notifyExpandBar(final Event event,
+			final ExpandItem expandItem) {
+		Display.syncExec(new Runnable() {
+			public void run() {
+				expandItem.getParent().notifyListeners(event.type, event);
+			}
+		});
+	}
+	
+	/**
+	 * Creates the event for specified {@link ExpandBarItem} with specified type
+	 * and empty details.
+	 * 
+	 * @param type type of the event
+	 * @param expandBarItem expand bar item to handle
+	 * @return event for specified expand bar
+	 * @deprecated since 0.7 use {@link ExpandBarItemHandler#createEventForExpandBar(int, ExpandItem)} instead
+	 */
+	@Deprecated
+	private static Event createEventForExpandBar(int type,
+			ExpandBarItem expandBarItem) {
+		return createEventForExpandBar(type, SWT.NONE, expandBarItem);
+	}
+	
+	/**
 	 * Creates the event for specified {@link ExpandBarItem} with specified type
 	 * and empty details.
 	 * 
@@ -118,8 +209,8 @@ public class ExpandBarItemHandler {
 	 * @return event for specified expand bar
 	 */
 	private static Event createEventForExpandBar(int type,
-			ExpandBarItem expandBarItem) {
-		return createEventForExpandBar(type, SWT.NONE, expandBarItem);
+			ExpandItem expandItem) {
+		return createEventForExpandBar(type, SWT.NONE, expandItem);
 	}
 
 	/**
@@ -130,7 +221,9 @@ public class ExpandBarItemHandler {
 	 * @param detail details of the event
 	 * @param expandBarItem expand bar item to handle
 	 * @return event for specified expand bar
+	 * @deprecated since 0.7. Use {@link ExpandBarItemHandler#createEventForExpandBar(int, int, ExpandItem)} instead
 	 */
+	@Deprecated
 	private static Event createEventForExpandBar(int type, int detail,
 			ExpandBarItem expandBarItem) {
 		Event event = new Event();
@@ -139,6 +232,27 @@ public class ExpandBarItemHandler {
 		event.time = (int) System.currentTimeMillis();
 		event.item = expandBarItem.getSWTWidget();
 		event.widget = expandBarItem.getSWTParent();
+		event.detail = detail;
+		return event;
+	}
+	
+	/**
+	 * Creates the event for specified {@link ExpandBarItem} with specified type
+	 * and details.
+	 * 
+	 * @param type type of the event
+	 * @param detail details of the event
+	 * @param expandBarItem expand bar item to handle
+	 * @return event for specified expand bar
+	 */
+	private static Event createEventForExpandBar(int type, int detail,
+			ExpandItem expandItem) {
+		Event event = new Event();
+		event.type = type;
+		event.display = Display.getDisplay();
+		event.time = (int) System.currentTimeMillis();
+		event.item = expandItem;
+		event.widget = ExpandBarItemHandler.getInstance().getParent(expandItem);
 		event.detail = detail;
 		return event;
 	}
@@ -190,7 +304,7 @@ public class ExpandBarItemHandler {
 			ExpandBar expandBar) {
 		return createEventForExpandBar(type, SWT.NONE, expandItem, expandBar);
 	}
-
+	
 	private Event createEventForExpandBar(int type, int detail,
 			ExpandItem expandItem, ExpandBar expandBar) {
 		Event event = new Event();
