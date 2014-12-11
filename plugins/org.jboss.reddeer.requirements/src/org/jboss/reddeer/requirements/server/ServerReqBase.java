@@ -89,7 +89,8 @@ public abstract class ServerReqBase {
 		preferenceDialog.open();
 		RuntimePreferencePage runtimePage = new RuntimePreferencePage();
 		preferenceDialog.select(runtimePage);
-		runtimePage.removeRuntime(new Runtime(lastServerConfig.getServerName(), "test"));
+		String runtimeName = getRuntimeNameLabelText(lastServerConfig.getConfig());
+		runtimePage.removeRuntime(new Runtime(runtimeName, "test"));
 		preferenceDialog.ok();
 	}
 	
