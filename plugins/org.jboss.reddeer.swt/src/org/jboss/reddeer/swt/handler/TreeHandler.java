@@ -404,7 +404,7 @@ public class TreeHandler {
 		event.type = SWT.Selection;
 		return event;
 	}
-
+	
 	/**
 	 * Creates the event for specified {@link org.eclipse.swt.widgets.TreeItem} 
 	 * of specified type and with empty details.
@@ -415,7 +415,7 @@ public class TreeHandler {
 	 */
 	public Event createEventForTree(
 			final org.eclipse.swt.widgets.TreeItem swtTreeItem, int type) {
-		return createEventForTree(swtTreeItem, type, SWT.NONE);
+		return createEventForTree(swtTreeItem, type, SWT.NONE, SWT.NONE);
 	}
 
 	/**
@@ -425,11 +425,12 @@ public class TreeHandler {
 	 * @param swtTreeItem tree item to handle
 	 * @param type type of the event
 	 * @param detail details of the event
+	 * @param button button of the event
 	 * @return event of specified type for specified tree item with specified details
 	 */
 	public Event createEventForTree(
 			final org.eclipse.swt.widgets.TreeItem swtTreeItem, int type,
-			int detail) {
+			int detail, int button) {
 		Event event = new Event();
 		event.type = type;
 		event.display = Display.getDisplay();
@@ -437,6 +438,7 @@ public class TreeHandler {
 		event.item = swtTreeItem;
 		event.widget = TreeItemHandler.getInstance().getParent(swtTreeItem);
 		event.detail = detail;
+		event.button = button;
 		return event;
 	}
 
@@ -492,7 +494,7 @@ public class TreeHandler {
 		});
 		logger.debug("Notify tree about check event");
 		notifyTree(swtTreeItem,
-				createEventForTree(swtTreeItem, SWT.Selection, SWT.CHECK));
+				createEventForTree(swtTreeItem, SWT.Selection, SWT.CHECK, -1));
 		logger.info((check ? "Checked: " : "Unchecked: ") + WidgetHandler.getInstance().getText(swtTreeItem));
 	}
 
