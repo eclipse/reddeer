@@ -1,6 +1,6 @@
 package org.jboss.reddeer.eclipse.ui.dialogs;
 
-import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.Project;
+import org.jboss.reddeer.eclipse.core.resources.Project;
 
 /**
  * Represents a general property page of a given project. Subclasses

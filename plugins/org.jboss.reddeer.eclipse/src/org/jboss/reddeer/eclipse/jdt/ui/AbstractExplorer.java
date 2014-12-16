@@ -3,8 +3,9 @@ package org.jboss.reddeer.eclipse.jdt.ui;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.jboss.reddeer.eclipse.core.resources.AbstractProject;
+import org.jboss.reddeer.eclipse.core.resources.Project;
 import org.jboss.reddeer.eclipse.exception.EclipseLayerException;
-import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.Project;
 import org.jboss.reddeer.eclipse.utils.DeleteUtils;
 import org.jboss.reddeer.swt.api.Shell;
 import org.jboss.reddeer.swt.api.Tree;
@@ -20,9 +21,11 @@ import org.jboss.reddeer.swt.wait.WaitWhile;
 import org.jboss.reddeer.workbench.impl.view.WorkbenchView;
 
 /**
- * Common ancestor for Package and Project Explorer
- * Contains routines common for both explorers
+ * Common ancestor for Package and Project Explorer and Resource Navigator and any similar ones.
+ * Contains common operations for those explorers.
+ * 
  * @author Jiri Peterka
+ * @author mlabuda@redhat.com
  *
  */
 public class AbstractExplorer extends WorkbenchView {
@@ -139,4 +142,30 @@ public class AbstractExplorer extends WorkbenchView {
 		throw new EclipseLayerException("There is no project with name " + projectName);
 	}	
 	
+	/**
+	 * Gets project with specific project type defined by subclass of Abstract Project.
+	 * 
+	 * @param projectName name of project to get
+	 * @param projectType type of project to get
+	 * @return project of specific type with defined name
+	 */
+	public <T extends AbstractProject> T getProject(final String projectName, Class<T> projectType) {		
+		for (TreeItem item : getTree().getItems()){
+			try {
+				String name =  projectType.getDeclaredConstructor(TreeItem.class).newInstance(item).getName();
+				if (name.equals(projectName)) {
+					return  projectType.getDeclaredConstructor(TreeItem.class).newInstance(item);
+				}
+			} catch (EclipseLayerException ex) {
+				// Because there are attempts to create from all tree items projects of specific type but
+				// not all of them can fit it.
+			} catch (ReflectiveOperationException e) {
+				// This should not happen.
+			}
+		}
+		
+		// There is no such project
+		throw new EclipseLayerException("Required project does not exist. Make sure you are using correct project type"
+				+ " and desired project exists.");
+	}
 }

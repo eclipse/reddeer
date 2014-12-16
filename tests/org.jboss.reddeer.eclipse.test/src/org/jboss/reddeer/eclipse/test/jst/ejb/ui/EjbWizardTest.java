@@ -2,8 +2,8 @@ package org.jboss.reddeer.eclipse.test.jst.ejb.ui;
 
 import static org.junit.Assert.assertTrue;
 
+import org.jboss.reddeer.eclipse.core.resources.Project;
 import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.PackageExplorer;
-import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.Project;
 import org.jboss.reddeer.eclipse.jst.ejb.ui.EjbProjectFirstPage;
 import org.jboss.reddeer.eclipse.jst.ejb.ui.EjbProjectWizard;
 import org.jboss.reddeer.eclipse.ui.perspectives.JavaEEPerspective;

@@ -1,4 +1,4 @@
-package org.jboss.reddeer.eclipse.jdt.ui.packageexplorer;
+package org.jboss.reddeer.eclipse.core.resources;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +30,9 @@ public abstract class AbstractExplorerItem {
 			.getInstance();
 
 	public AbstractExplorerItem(TreeItem treeItem) {
+		if (treeItem == null) {
+			throw new IllegalArgumentException("Tree item cannot be null.");
+		}
 		this.treeItem = treeItem;
 	}
 
@@ -206,7 +209,7 @@ public abstract class AbstractExplorerItem {
 		new ContextMenu("Refresh").select();
 		new WaitWhile(new JobIsRunning(), TimePeriod.LONG);
 	}
-
+	
 	/**
 	 * Select the explorer item.
 	 */

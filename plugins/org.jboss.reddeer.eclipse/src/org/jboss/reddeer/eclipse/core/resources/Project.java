@@ -1,6 +1,5 @@
-package org.jboss.reddeer.eclipse.jdt.ui.packageexplorer;
+package org.jboss.reddeer.eclipse.core.resources;
 
-import org.jboss.reddeer.eclipse.core.resources.AbstractProject;
 import org.jboss.reddeer.swt.api.TreeItem;
 
 /**
@@ -8,10 +7,8 @@ import org.jboss.reddeer.swt.api.TreeItem;
  * Navigator.
  * 
  * @author Vlado Pakan, mlabuda@redhat.com
- * @deprecated since 0.7.0. Use {@link org.jboss.reddeer.eclipse.core.resources.Project} instead.
  * 
  */
-@Deprecated
 public class Project extends AbstractProject {
 
 	/**

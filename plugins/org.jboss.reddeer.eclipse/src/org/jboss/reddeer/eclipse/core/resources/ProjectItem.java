@@ -1,7 +1,6 @@
-package org.jboss.reddeer.eclipse.jdt.ui.packageexplorer;
+package org.jboss.reddeer.eclipse.core.resources;
 
 import org.jboss.reddeer.common.logging.Logger;
-import org.jboss.reddeer.eclipse.core.resources.AbstractExplorerItem;
 import org.jboss.reddeer.eclipse.core.resources.Project;
 import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.swt.condition.JobIsRunning;
@@ -19,9 +18,8 @@ import org.jboss.reddeer.swt.wait.WaitWhile;
  * Represents a project item of {@link Project}.
  * 
  * @author Vlado Pakan, mlabuda@redhat.com
- * @deprecated since 0.7.0. Use {@link org.jboss.reddeer.eclipse.core.resources.ProjectItem} instead.
+ * 
  */
-@Deprecated
 public class ProjectItem extends AbstractExplorerItem {
 
 	protected final Logger log = Logger.getLogger(ProjectItem.class);
@@ -101,6 +99,6 @@ public class ProjectItem extends AbstractExplorerItem {
 		String[] itemPath = new String[path.length - 1];
 		System.arraycopy(path, 1, itemPath, 0,
 				path.length - 1);
-		project.getProjectItem(itemPath).getTreeItem().select();
+		project.getProjectItem(itemPath).treeItem.select();
 	}
 }
