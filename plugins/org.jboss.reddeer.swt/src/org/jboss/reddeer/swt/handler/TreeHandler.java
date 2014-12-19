@@ -455,6 +455,8 @@ public class TreeHandler {
 				swtTreeItem.getParent().notifyListeners(event.type, event);
 			}
 		});
+		
+		Display.synchronize();
 	}
 
 	/**
