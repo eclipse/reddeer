@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.swt.widgets.Shell;
+import org.jboss.reddeer.common.properties.RedDeerProperties;
 import org.jboss.reddeer.junit.TestInfo;
 import org.jboss.reddeer.junit.extensionpoint.IAfterTest;
 import org.jboss.reddeer.junit.internal.screenshot.CaptureScreenshot;
@@ -25,8 +26,7 @@ import org.junit.Assert;
  */
 public class CloseAllShellsExt implements IAfterTest {
 
-	public static final boolean CLOSE_ALL_SHELLS = System.getProperty("reddeer.close.shells", "true").equalsIgnoreCase(
-			"true");
+	public static final boolean CLOSE_ALL_SHELLS = RedDeerProperties.CLOSE_ALL_SHELLS.getBooleanSystemValue();
 
 	private Object target;
 	/**

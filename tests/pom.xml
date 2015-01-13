@@ -29,6 +29,7 @@
 	</properties>
 	
 	<modules>
+		<module>org.jboss.reddeer.common.test</module>
 		<module>org.jboss.reddeer.swt.test</module>
 		<module>org.jboss.reddeer.workbench.test</module>
 		<module>org.jboss.reddeer.uiforms.test</module>
@@ -51,7 +52,7 @@
 					<useUIHarness>true</useUIHarness>
 					<useUIThread>false</useUIThread>
 					<!-- THE FOLLOWING LINE MUST NOT BE BROKEN BY AUTOFORMATTING -->
-					<argLine>-DlogDebug=${log.debug} -DlogMessageFilter=${logMessageFilter} -DpauseFailedTest=${pauseFailedTest} -DrecordScreenCast=${recordScreenCast} -DrelativeScreenshotDirectory=${relativeScreenshotDirectory} ${platformSystemProperties} ${customArgLine} ${junitExtensionsProperties} -XX:MaxPermSize=512m -Xmx512m</argLine>
+					<argLine>-DlogDebug=${logDebug} -DlogMessageFilter=${logMessageFilter} -DpauseFailedTest=${pauseFailedTest} -DrecordScreenCast=${recordScreenCast} -DrelativeScreenshotDirectory=${relativeScreenshotDirectory} ${platformSystemProperties} ${customArgLine} ${junitExtensionsProperties} -XX:MaxPermSize=512m -Xmx512m</argLine>
 					<product>org.eclipse.platform.ide</product>
 					<application>org.eclipse.ui.ide.workbench</application>
 					<dependencies combine.children="append">

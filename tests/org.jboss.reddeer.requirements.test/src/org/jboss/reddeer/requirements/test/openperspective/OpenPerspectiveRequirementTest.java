@@ -3,6 +3,7 @@ package org.jboss.reddeer.requirements.test.openperspective;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import org.jboss.reddeer.common.properties.RedDeerProperties;
 import org.jboss.reddeer.eclipse.ui.perspectives.JavaPerspective;
 import org.jboss.reddeer.junit.internal.configuration.NullTestRunConfiguration;
 import org.jboss.reddeer.junit.internal.configuration.TestRunConfiguration;
@@ -41,9 +42,9 @@ public class OpenPerspectiveRequirementTest{
 
 	@Test(expected = RequirementsLayerException.class)
 	public void fulfillNonExistingPerspectiveTest() {
-		if (!"false".equalsIgnoreCase(System.getProperty("captureScreenshot"))) {
-			oldCaptureScreenshotPropertyValue = System.getProperty("captureScreenshot");
-			System.setProperty("captureScreenshot", "false");
+		if (!"false".equalsIgnoreCase(RedDeerProperties.CAPTURE_SCREENSHOT.getSystemValue())) {
+			oldCaptureScreenshotPropertyValue = RedDeerProperties.CAPTURE_SCREENSHOT.getSystemValue();
+			System.setProperty(RedDeerProperties.CAPTURE_SCREENSHOT.getName(), "false");
 			propertyHasChanged = true;
 		}
 		
@@ -55,9 +56,9 @@ public class OpenPerspectiveRequirementTest{
 	public void setOldValueOfCaptureScreenshotProperty() {
 		if (propertyHasChanged) {
 			if (oldCaptureScreenshotPropertyValue == null) {
-				System.clearProperty("captureScreenshot");
+				System.clearProperty(RedDeerProperties.CAPTURE_SCREENSHOT.getName());
 			} else {
-				System.setProperty("captureScreenshot", oldCaptureScreenshotPropertyValue);
+				System.setProperty(RedDeerProperties.CAPTURE_SCREENSHOT.getName(), oldCaptureScreenshotPropertyValue);
 			}
 			propertyHasChanged = false;
 		}

@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.List;
 
 import org.jboss.reddeer.common.logging.Logger;
+import org.jboss.reddeer.common.properties.RedDeerProperties;
 import org.jboss.reddeer.junit.extensionpoint.IAfterTest;
 import org.jboss.reddeer.junit.extensionpoint.IBeforeTest;
 import org.jboss.reddeer.junit.internal.requirement.Requirements;
@@ -52,7 +53,7 @@ public class RequirementsRunner extends BlockJUnit4ClassRunner {
 	
 	private List<IAfterTest> afterTestExtensions;
 
-	private static boolean SAVE_SCREENCAST = System.getProperty("recordScreenCast","false").equalsIgnoreCase("true");
+	private static boolean SAVE_SCREENCAST = RedDeerProperties.RECORD_SCREENCAST.getBooleanSystemValue();
 	
 	public RequirementsRunner(Class<?> clazz, Requirements requirements, String configId, RunListener[] runListeners,List<IBeforeTest> beforeTestExtensions) throws InitializationError {
 		this(clazz, requirements, configId, runListeners, beforeTestExtensions, null);

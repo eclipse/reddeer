@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.jboss.reddeer.common.logging.Logger;
+import org.jboss.reddeer.common.properties.RedDeerProperties;
 import org.jboss.reddeer.junit.configuration.RedDeerConfigurationException;
 
 /**
@@ -21,11 +22,6 @@ import org.jboss.reddeer.junit.configuration.RedDeerConfigurationException;
  */
 public class SuiteConfiguration {
 
-	/**
-	 * System property pointing either to the configuration file or to the configuration directory. 
-	 */
-	public static final String PROPERTY_CONFIG_LOC = "reddeer.config";
-	
     private static final Logger log = Logger.getLogger(SuiteConfiguration.class);
 	
     private List<TestRunConfiguration> testRunConfigs;
@@ -40,7 +36,7 @@ public class SuiteConfiguration {
 	private List<TestRunConfiguration> findTestRunConfigurations(){
 		List<TestRunConfiguration> configurations = new ArrayList<TestRunConfiguration>();
 		
-		log.info("Looking up configuration files defined via property " + PROPERTY_CONFIG_LOC + "=" + getPropertyValue(PROPERTY_CONFIG_LOC));
+		log.info("Looking up configuration files defined via property " + RedDeerProperties.CONFIG_FILE.getName() + "=" + RedDeerProperties.CONFIG_FILE.getSystemValue());
 		List<File> confFilesList = getConfigurationFiles();
 		if (confFilesList.isEmpty()){
 			log.info("No configuration file specified");
@@ -64,11 +60,11 @@ public class SuiteConfiguration {
 	 * @return List of configuration files
 	 */
 	protected List<File> getConfigurationFiles(){
-		if (getPropertyValue(PROPERTY_CONFIG_LOC) == null){
+		if (RedDeerProperties.CONFIG_FILE.getSystemValue() == null){
 			return new ArrayList<File>();
 		}
 
-		return getConfigurationFiles(new File(getPropertyValue(PROPERTY_CONFIG_LOC)));
+		return getConfigurationFiles(new File(RedDeerProperties.CONFIG_FILE.getSystemValue()));
 	}
 
 	protected List<File> getConfigurationFiles(File location){
@@ -93,10 +89,6 @@ public class SuiteConfiguration {
 		}
 
 		return Arrays.asList(files);
-	}
-
-	private String getPropertyValue(String property){
-		return System.getProperty(property);
 	}
 
 	private static class RequirementFileFilter implements FileFilter {

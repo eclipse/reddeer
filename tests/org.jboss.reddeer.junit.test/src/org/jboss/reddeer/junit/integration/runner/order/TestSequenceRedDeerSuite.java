@@ -5,6 +5,7 @@ import java.util.List;
 
 import junit.framework.AssertionFailedError;
 
+import org.jboss.reddeer.common.properties.RedDeerProperties;
 import org.jboss.reddeer.junit.integration.runner.order.suite.RequirementsSuite;
 import org.jboss.reddeer.junit.internal.configuration.SuiteConfiguration;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
@@ -66,7 +67,7 @@ public abstract class TestSequenceRedDeerSuite extends RedDeerSuite {
 	 * @return
 	 */
 	private static Class<?> heck(Class<?> clazz){
-		System.setProperty(SuiteConfiguration.PROPERTY_CONFIG_LOC, LOCATIONS_ROOT_DIR);
+		System.setProperty(RedDeerProperties.CONFIG_FILE.getName(), LOCATIONS_ROOT_DIR);
 		return clazz;
 	}
 }

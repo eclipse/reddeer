@@ -1,13 +1,13 @@
-package org.jboss.reddeer.swt.exception;
+package org.jboss.reddeer.common.exception;
 
 import java.util.LinkedList;
 
 /**
  * General RedDeer runtime exception.
- * @deprecated The class has been moved to common plugin
+ * 
  * @author rawagner
  */
-public abstract class RedDeerException extends RuntimeException {
+public class RedDeerException extends RuntimeException {
 
 	private static final long serialVersionUID = 1L;
 	

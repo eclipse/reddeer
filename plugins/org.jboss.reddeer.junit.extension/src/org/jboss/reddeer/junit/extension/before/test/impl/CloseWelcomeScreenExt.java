@@ -2,6 +2,7 @@ package org.jboss.reddeer.junit.extension.before.test.impl;
 
 import org.eclipse.ui.IViewReference;
 import org.jboss.reddeer.common.logging.Logger;
+import org.jboss.reddeer.common.properties.RedDeerProperties;
 import org.jboss.reddeer.junit.extensionpoint.IBeforeTest;
 import org.jboss.reddeer.swt.lookup.WorkbenchLookup;
 import org.jboss.reddeer.swt.util.Display;
@@ -19,8 +20,7 @@ public class CloseWelcomeScreenExt implements IBeforeTest {
 	
 	private static final Logger log = Logger.getLogger(CloseWelcomeScreenExt.class);
 	
-	private static final boolean CLOSE_WELCOME_SCREEN = System.getProperty("reddeer.close.welcome.screen","true")
-		.equalsIgnoreCase("true");
+	private static final boolean CLOSE_WELCOME_SCREEN = RedDeerProperties.CLOSE_WELCOME_SCREEN.getBooleanSystemValue();
 	/**
 	 * See {@link IBeforeTest}
 	 */

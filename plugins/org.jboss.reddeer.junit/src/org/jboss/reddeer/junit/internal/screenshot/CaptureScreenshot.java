@@ -9,6 +9,7 @@ import org.eclipse.swt.graphics.ImageData;
 import org.eclipse.swt.graphics.ImageLoader;
 import org.eclipse.swt.widgets.Display;
 import org.jboss.reddeer.common.logging.Logger;
+import org.jboss.reddeer.common.properties.RedDeerProperties;
 
 /**
  * This class provide capabilities to capture screenshot of display. User can override default 
@@ -46,15 +47,14 @@ public class CaptureScreenshot {
 	 * @since 0.5 
 	 */
 	public void captureScreenshot(String config, String name) throws CaptureScreenshotException {
-		String captureScreenshot = System.getProperty("captureScreenshot");
-		if (captureScreenshot == null || captureScreenshot.equalsIgnoreCase("true")) {
+		if (RedDeerProperties.CAPTURE_SCREENSHOT.getBooleanSystemValue()) {
 			try {
 				String separator = System.getProperty("file.separator");
 				String path = "." + separator + "target" + separator + "screenshots";
 				boolean pathCreatedSuccessfuly = true;
 				try {
-					if (System.getProperty("relativeScreenshotDirectory") != null) {
-						path = System.getProperty("relativeScreenshotDirectory");
+					if (RedDeerProperties.RELATIVE_SCREENSHOT_DIRECTORY.getSystemValue() != null) {
+						path = RedDeerProperties.RELATIVE_SCREENSHOT_DIRECTORY.getSystemValue();
 					}
 					if (!separator.equals(path.charAt(path.length() - 1))) {
 						path += separator;
