@@ -14,6 +14,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import org.jboss.reddeer.common.properties.RedDeerProperties;
 import org.jboss.reddeer.junit.configuration.RedDeerConfigurationException;
 import org.junit.After;
 import org.junit.Before;
@@ -54,7 +55,7 @@ public class SuiteConfigurationTest {
 	
 	@Test
 	public void getTestRunConfigurations(){
-		System.setProperty(SuiteConfiguration.PROPERTY_CONFIG_LOC, SuiteConfigurationTest.LOCATIONS_ROOT_DIR + "dirWithFiles");
+		System.setProperty(RedDeerProperties.CONFIG_FILE.getName(), SuiteConfigurationTest.LOCATIONS_ROOT_DIR + "dirWithFiles");
 
 		List<TestRunConfiguration> result = config.getTestRunConfigurations();
 		Collections.sort(result, new TestRunComparator());
@@ -66,7 +67,7 @@ public class SuiteConfigurationTest {
 	
 	@Test
 	public void getTestRunConfigurations_caching(){
-		System.setProperty(SuiteConfiguration.PROPERTY_CONFIG_LOC, SuiteConfigurationTest.LOCATIONS_ROOT_DIR + "dirWithFiles");
+		System.setProperty(RedDeerProperties.CONFIG_FILE.getName(), SuiteConfigurationTest.LOCATIONS_ROOT_DIR + "dirWithFiles");
 
 		List<TestRunConfiguration> result1 = config.getTestRunConfigurations();
 		List<TestRunConfiguration> result2 = config.getTestRunConfigurations();
@@ -89,7 +90,7 @@ public class SuiteConfigurationTest {
 
 	@Test(expected=RedDeerConfigurationException.class)
 	public void getTestRunConfigurations_notExistingLocation() {
-		System.setProperty(SuiteConfiguration.PROPERTY_CONFIG_LOC, "/abc/reddeer/nonexistingloc");
+		System.setProperty(RedDeerProperties.CONFIG_FILE.getName(), "/abc/reddeer/nonexistingloc");
 
 		config.getConfigurationFiles();
 	}
@@ -106,7 +107,7 @@ public class SuiteConfigurationTest {
 
 	@Test
 	public void getTestRunConfigurations_file() {
-		System.setProperty(SuiteConfiguration.PROPERTY_CONFIG_LOC, SuiteConfigurationTest.LOCATIONS_ROOT_DIR + "emptyFile");
+		System.setProperty(RedDeerProperties.CONFIG_FILE.getName(), SuiteConfigurationTest.LOCATIONS_ROOT_DIR + "emptyFile");
 
 		List<File> result = config.getConfigurationFiles();
 
@@ -116,7 +117,7 @@ public class SuiteConfigurationTest {
 
 	@Test
 	public void getTestRunConfigurations_directory() {
-		System.setProperty(SuiteConfiguration.PROPERTY_CONFIG_LOC, SuiteConfigurationTest.LOCATIONS_ROOT_DIR + "dirWithFiles");
+		System.setProperty(RedDeerProperties.CONFIG_FILE.getName(), SuiteConfigurationTest.LOCATIONS_ROOT_DIR + "dirWithFiles");
 
 		List<File> result = config.getConfigurationFiles();
 		Collections.sort(result);
@@ -128,14 +129,14 @@ public class SuiteConfigurationTest {
 
 	@Test(expected=RedDeerConfigurationException.class)
 	public void getTestRunConfigurationss_noFilesInDirectory() {
-		System.setProperty(SuiteConfiguration.PROPERTY_CONFIG_LOC, SuiteConfigurationTest.LOCATIONS_ROOT_DIR + "emptyDir");
+		System.setProperty(RedDeerProperties.CONFIG_FILE.getName(), SuiteConfigurationTest.LOCATIONS_ROOT_DIR + "emptyDir");
 
 		config.getConfigurationFiles();
 	}
 
 	@After
 	public void cleanProperties(){
-		System.clearProperty(SuiteConfiguration.PROPERTY_CONFIG_LOC);
+		System.clearProperty(RedDeerProperties.CONFIG_FILE.getName());
 	}
 	
 	private static class TestRunComparator implements Comparator<TestRunConfiguration> {

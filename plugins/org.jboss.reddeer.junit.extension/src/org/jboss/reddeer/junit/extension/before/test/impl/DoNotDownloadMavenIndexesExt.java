@@ -2,6 +2,7 @@ package org.jboss.reddeer.junit.extension.before.test.impl;
 
 import org.eclipse.core.runtime.Platform;
 import org.jboss.reddeer.common.logging.Logger;
+import org.jboss.reddeer.common.properties.RedDeerProperties;
 import org.jboss.reddeer.eclipse.jdt.ui.WorkbenchPreferenceDialog;
 import org.jboss.reddeer.eclipse.m2e.core.ui.preferences.MavenPreferencePage;
 import org.jboss.reddeer.junit.extensionpoint.IBeforeTest;
@@ -24,10 +25,7 @@ public class DoNotDownloadMavenIndexesExt implements IBeforeTest {
 	private static final Logger log = Logger
 			.getLogger(DoNotDownloadMavenIndexesExt.class);
 
-	private static final boolean DISABLE_MAVEN_DOWNLOAD_REPO_INDEX = System
-			.getProperty(
-					"reddeer.disable.maven.download.repo.index.on.startup",
-					"true").equalsIgnoreCase("true");
+	private static final boolean DISABLE_MAVEN_DOWNLOAD_REPO_INDEX = RedDeerProperties.DISABLE_MAVEN_REPOSITORY_DOWNLOAD.getBooleanSystemValue();
 
 	private boolean tryToDisableDownloadingRepoIndexes = true;
 

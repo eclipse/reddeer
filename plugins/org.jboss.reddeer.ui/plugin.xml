@@ -35,6 +35,17 @@
       </launchConfigurationTabGroup>
    </extension>
    
+    <extension point="org.eclipse.debug.ui.launchConfigurationTabs">
+    <tab
+      class="org.jboss.reddeer.eclipse.ui.launcher.RedDeerJUnitTab"
+      group="org.jboss.reddeer.eclipse.ui.launcher.JUnitTabGroup"
+      id="org.jboss.reddeer.eclipse.ui.launcher.JUnitTab"
+      name="Red Deer">
+      <placement after="org.eclipse.jdt.junit.JUnitLaunchConfigurationTab">
+      </placement>
+    </tab>
+  </extension>
+   
    <extension
          point="org.eclipse.debug.ui.launchConfigurationTypeImages">
       <launchConfigurationTypeImage

@@ -1,6 +1,7 @@
 package org.jboss.reddeer.common.context;
 
 import org.jboss.reddeer.common.logging.MessageType;
+import org.jboss.reddeer.common.properties.RedDeerProperties;
 
 /**
  * Recognized RedDeer test execution parameters
@@ -23,28 +24,14 @@ public class ExecutionSetting {
 	public static ExecutionSetting getInstance() {
 		if (instance == null) {
 			instance = new ExecutionSetting();
-			instance.debugEnabled = instance.readSystemProperty("logDebug",
-					true);
-			instance.pauseFailedTest = instance.readSystemProperty(
-					"pauseFailedTest", false);
+			instance.debugEnabled = RedDeerProperties.LOG_DEBUG.getBooleanSystemValue();
+			instance.pauseFailedTest = RedDeerProperties.PAUSE_FAILED_TEST.getBooleanSystemValue();
 
-			String logMessageFilterText = System
-					.getProperty("logMessageFilter");
-			if (logMessageFilterText == null) {
-				logMessageFilterText = "ALL";
-			}
+			String logMessageFilterText = RedDeerProperties.LOG_MESSAGE_FILTER.getSystemValue();
 			instance.parseLogMessageFilter(logMessageFilterText);
 
 		}
 		return instance;
-	}
-
-	private boolean readSystemProperty(String var, boolean b) {
-		String val = System.getProperty(var);
-		if ((val == null) || (!val.equals("false") && (!val.equals("true")))) {
-			return b;
-		} else
-			return Boolean.parseBoolean(val);
 	}
 
 	private void parseLogMessageFilter(String logMessageTypeParam) {

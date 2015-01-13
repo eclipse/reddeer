@@ -6,6 +6,7 @@ import static org.hamcrest.Matchers.nullValue;
 
 import java.util.List;
 
+import org.jboss.reddeer.common.properties.RedDeerProperties;
 import org.jboss.reddeer.junit.internal.configuration.RequirementsConfiguration;
 import org.jboss.reddeer.junit.internal.configuration.SuiteConfiguration;
 import org.jboss.reddeer.junit.internal.configuration.TestRunConfiguration;
@@ -16,7 +17,7 @@ public class ComplexConfigurationTest {
 
 	@Before
 	public void setup(){
-		System.setProperty(SuiteConfiguration.PROPERTY_CONFIG_LOC, "src/test/resources/org/jboss/reddeer/junit/integration/configuration");
+		System.setProperty(RedDeerProperties.CONFIG_FILE.getName(), "src/test/resources/org/jboss/reddeer/junit/integration/configuration");
 	}
 	
 	@Test
