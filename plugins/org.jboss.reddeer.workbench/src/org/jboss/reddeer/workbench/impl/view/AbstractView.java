@@ -53,7 +53,7 @@ public class AbstractView implements View {
 	 */
 	public AbstractView(String viewToolTip) {
 		ViewPartIsFound viewIsFound = new ViewPartIsFound(viewToolTip);
-		new WaitUntil(viewIsFound, TimePeriod.NORMAL, false);
+		new WaitUntil(viewIsFound, TimePeriod.SHORT, false);
 		viewPart = viewIsFound.getPart();
 		path = findRegisteredViewPath(new WithTextMatcher(viewToolTip));
 		if (viewPart != null) {
@@ -70,7 +70,7 @@ public class AbstractView implements View {
 	 */
 	public AbstractView(Matcher<String> viewToolTip) {
 		ViewPartIsFound viewIsFound = new ViewPartIsFound(viewToolTip);
-		new WaitUntil(viewIsFound, TimePeriod.NORMAL, false);
+		new WaitUntil(viewIsFound, TimePeriod.SHORT, false);
 		viewPart = viewIsFound.getPart();
 		path = findRegisteredViewPath(viewToolTip);
 		if (viewPart != null) {
@@ -114,7 +114,7 @@ public class AbstractView implements View {
 	public void activate() {
 		log.info("Activate view " + viewTitle());
 		viewPartIsNotNull();
-		ViewHandler.getInstance().setFocus(viewPart, viewTitle());
+		ViewHandler.getInstance().setFocus(viewPart);
 	}
 
 	private String[] findRegisteredViewPath(Matcher<String> title) {
@@ -177,8 +177,15 @@ public class AbstractView implements View {
 	@Override
 	public void open() {
 		log.info("Open view " + viewTitle());
-		viewPart = WorkbenchPartLookup.getInstance().getViewByTitle(
+		if (viewPart != null && !ViewHandler.getInstance().isViewVisible(viewPart)){
+			// viewPart is not valid anymore and has to be find again
+			viewPart = null;
+		}
+		// View is not available yet
+		if (viewPart == null){
+			viewPart = WorkbenchPartLookup.getInstance().getViewByTitle(
 				new WithTextMatcher(viewTitle()));
+		}
 		// view is not opened, it has to be opened via menu
 		if (viewPart == null) {
 			log.info("Open " + viewTitle() + " view via menu.");

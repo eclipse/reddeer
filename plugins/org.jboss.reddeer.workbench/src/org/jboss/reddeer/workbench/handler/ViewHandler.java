@@ -3,7 +3,6 @@ package org.jboss.reddeer.workbench.handler;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.ui.IViewPart;
-import org.eclipse.ui.IViewReference;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
@@ -40,7 +39,7 @@ public class ViewHandler {
 		return instance;
 	}
 	
-	public void setFocus(final IViewPart viewPart, final String viewTitle) {
+	public void setFocus(final IViewPart viewPart) {
 		Display.syncExec(new Runnable() {
 			@Override
 			public void run() {
@@ -49,7 +48,7 @@ public class ViewHandler {
 						.getActivePage().activate(viewPart);
 				try {
 					PlatformUI.getWorkbench().getActiveWorkbenchWindow()
-							.getActivePage().showView(getViewRefrenceByTitle(viewTitle).getId());
+						.getActivePage().showView(viewPart.getViewSite().getId());
 				} catch (PartInitException pie) {
 					throw new SWTLayerException("Unable to show view " + viewPart.getTitle(),
 						pie);
@@ -77,7 +76,10 @@ public class ViewHandler {
 			}
 		});
 	}
-	
+	/**
+	 * Closes view specified by view part
+	 * @param viewPart
+	 */	
 	public void close(final IViewPart viewPart){
 		log.debug("Hiding view " + viewPart.getTitle());
 		Display.syncExec(new Runnable() {
@@ -88,6 +90,22 @@ public class ViewHandler {
 						.getActivePage().hideView(viewPart);
 			}
 		});
+	}
+	/**
+	 * Returns true if view specified by view part is visible on workbench active page
+	 * @param viewPart
+	 * @return
+	 */
+	public boolean isViewVisible(final IViewPart viewPart){
+		return Display.syncExec(new ResultRunnable<Boolean>() {
+			@Override
+			public Boolean run() {
+				return viewPart != null 
+						&& PlatformUI.getWorkbench().getActiveWorkbenchWindow()
+						.getActivePage().isPartVisible(viewPart);
+			}
+		});
+				
 	}
 
 	private void focusChildControl() {
@@ -105,23 +123,6 @@ public class ViewHandler {
 		log.debug("No control in opened view has a focus!");
 		log.debug("Setting implicit focus...");
 		setFocusOnControlChild(workbenchControl);
-	}
-	
-	private IViewReference getViewRefrenceByTitle(final String title) {
-		return Display.syncExec(new ResultRunnable<IViewReference>() {
-			@Override
-			public IViewReference run() {
-				IViewReference[] views = PlatformUI.getWorkbench()
-						.getActiveWorkbenchWindow().getActivePage()
-						.getViewReferences();
-				for (IViewReference iViewReference : views) {
-					if (iViewReference.getPartName().equals(title)) {
-						return iViewReference;
-					}
-				}
-				return null;
-			}
-		});
 	}
 	
 	private String getControlDesc(Control control) {
