@@ -11,6 +11,7 @@ import org.jboss.reddeer.swt.impl.button.YesButton;
 import org.jboss.reddeer.swt.impl.menu.ShellMenu;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.jboss.reddeer.swt.impl.table.DefaultTable;
+import org.jboss.reddeer.swt.impl.toolbar.DefaultToolItem;
 import org.jboss.reddeer.swt.matcher.RegexMatcher;
 import org.jboss.reddeer.swt.matcher.WithTextMatchers;
 import org.jboss.reddeer.swt.util.Display;
@@ -50,13 +51,8 @@ public abstract class AbstractPerspective {
 			log.debug("Perspective " + getPerspectiveLabel() + " is already opened.");
 		}
 		else{
-			log.debug("Trying to open perspective: " + getPerspectiveLabel());
-			WithTextMatchers m = new WithTextMatchers(new RegexMatcher[] {
-					new RegexMatcher("Window.*"),
-					new RegexMatcher("Open Perspective.*"),
-					new RegexMatcher("Other...*") });
-			Menu menu = new ShellMenu(m.getMatchers());
-			menu.select();
+			log.debug("Tryyying to open perspective: " + getPerspectiveLabel());
+			new DefaultToolItem(new DefaultShell(),"Open Perspective").click();
 			new DefaultShell("Open Perspective");
 			DefaultTable table = new DefaultTable();
 			try{
@@ -74,10 +70,22 @@ public abstract class AbstractPerspective {
 		if (!isOpened()){
 			throw new EclipseLayerException("Trying to reset perspective that is not open") ;
 		}
+		// Prior to Eclipse Mars path to Reset Perspective menu
 		WithTextMatchers m = new WithTextMatchers(new RegexMatcher[] {
 				new RegexMatcher("Window.*"),
 				new RegexMatcher("Reset Perspective...")});
-		Menu menu = new ShellMenu(m.getMatchers());
+		Menu menu;
+		try {
+			menu = new ShellMenu(m.getMatchers());	
+		} catch (SWTLayerException swtle) {
+			// Try menu path for Mars and higher versions
+			m = new WithTextMatchers(new RegexMatcher[] {
+					new RegexMatcher("Window.*"),
+					new RegexMatcher("Perspective.*"),
+					new RegexMatcher("Reset Perspective...")});
+			menu = new ShellMenu(m.getMatchers());
+		}
+		
 		menu.select();
 		new DefaultShell("Reset Perspective");
 		new YesButton().click();
