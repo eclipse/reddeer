@@ -26,7 +26,9 @@ public class ServerExists implements WaitCondition {
 	@Override
 	public boolean test() {
 		try{
-			new ServersView().getServer(this.name);
+			ServersView serversView = new ServersView();
+			serversView.open();
+			serversView.getServer(this.name);
 			return true;
 		} catch (EclipseLayerException ele){
 			return false;
