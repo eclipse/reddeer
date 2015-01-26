@@ -11,6 +11,7 @@ import org.jboss.reddeer.uiforms.test.ui.views.FormView;
 import org.jboss.reddeer.uiforms.test.ui.views.UIFormView;
 import org.jboss.reddeer.workbench.api.View;
 import org.jboss.reddeer.workbench.impl.view.WorkbenchView;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -69,6 +70,13 @@ public class DefaultFormTest {
 	class LogView extends WorkbenchView {
 		public LogView(){
 			super("General", "Error Log");
+		}
+	}
+	
+	@After
+	public void tearDown(){
+		if (errorLogView.isOpened()){
+			errorLogView.close();
 		}
 	}
 

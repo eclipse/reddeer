@@ -176,5 +176,21 @@ public class ViewHandler {
 		});
 		return workbenchControl.equals(parent);
 	}
-
+	/**
+	 * Returns true if view part references to valid view
+	 * @param viewPart
+	 * @return
+	 */
+	public boolean isValid(final IViewPart viewPart) {
+		return viewPart != null
+				&& Display.syncExec(new ResultRunnable<Boolean>() {
+					@Override
+					public Boolean run() {
+						return PlatformUI.getWorkbench()
+								.getActiveWorkbenchWindow().getActivePage()
+								.findView(viewPart.getSite().getId()) != null;
+					}
+				});
+	}
+		
 }

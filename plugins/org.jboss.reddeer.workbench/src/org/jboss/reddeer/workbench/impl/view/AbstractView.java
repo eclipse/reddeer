@@ -113,6 +113,8 @@ public class AbstractView implements View {
 	@Override
 	public void activate() {
 		log.info("Activate view " + viewTitle());
+		log.debug("viewPart is pointing to view with title: " 
+			+ (viewPart != null ? viewPart.getTitle() : "null"));
 		viewPartIsNotNull();
 		ViewHandler.getInstance().setFocus(viewPart);
 	}
@@ -177,17 +179,10 @@ public class AbstractView implements View {
 	@Override
 	public void open() {
 		log.info("Open view " + viewTitle());
-		if (viewPart != null && !ViewHandler.getInstance().isViewVisible(viewPart)){
-			// viewPart is not valid anymore and has to be find again
-			viewPart = null;
-		}
-		// View is not available yet
-		if (viewPart == null){
-			viewPart = WorkbenchPartLookup.getInstance().getViewByTitle(
-				new WithTextMatcher(viewTitle()));
-		}
+		log.debug("viewPart is pointing to view with title: " 
+			+ (viewPart != null ? viewPart.getTitle() : "null"));
 		// view is not opened, it has to be opened via menu
-		if (viewPart == null) {
+		if (!isOpened()){
 			log.info("Open " + viewTitle() + " view via menu.");
 			WithTextMatchers m = new WithTextMatchers(new RegexMatcher[] {
 					new RegexMatcher("Window.*"),
@@ -281,5 +276,34 @@ public class AbstractView implements View {
 
 	public String getTitle() {
 		return WorkbenchPartHandler.getInstance().getTitle(viewPart);
+	}
+
+	@Override
+	public boolean isVisible() {
+		if (!isValid()) {
+			viewPart = WorkbenchPartLookup.getInstance().getViewByTitle(
+					new WithTextMatcher(viewTitle()));
+		}
+
+		return viewPart != null
+				&& ViewHandler.getInstance().isViewVisible(viewPart);
+	}
+	/**
+	 * Checks if view is valid. Actually checks if field viewPart is properly set
+	 * and pointing to valid view 
+	 * @return
+	 */
+	private boolean isValid(){
+		return ViewHandler.getInstance().isValid(viewPart); 
+	}
+
+	@Override
+	public boolean isOpened() {
+		if (!isValid()) {
+			viewPart = WorkbenchPartLookup.getInstance().getViewByTitle(
+					new WithTextMatcher(viewTitle()));
+		}
+		
+		return isValid();
 	}
 }
