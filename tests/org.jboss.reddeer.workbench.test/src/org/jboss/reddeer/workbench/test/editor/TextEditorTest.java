@@ -235,7 +235,7 @@ public class TextEditorTest {
 		AbstractWait.sleep(TimePeriod.SHORT);
 		assertEquals(1,textEditor.getMarkers().size());
 		assertEquals("Systemx cannot be resolved",textEditor.getMarkers().get(0).getText());
-		assertEquals(4, textEditor.getMarkers().get(0).getLineNumber());
+		assertEquals(5, textEditor.getMarkers().get(0).getLineNumber());
 	}
 
 	@Test

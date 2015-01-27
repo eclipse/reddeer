@@ -179,28 +179,36 @@ public class EditorHandler {
         }
         IAnnotationModel model = documentProvider.getAnnotationModel(textEditor
                 .getEditorInput());
+        List<Marker> problemAnnotationMarkers = new ArrayList<Marker>();
+        List<Marker> simpleAnnotationMarkers = new ArrayList<Marker>();
         Iterator<?> it = model.getAnnotationIterator();
-        boolean found = false;
-        while (it.hasNext() && !found) {
+        while (it.hasNext()) {
             Object o = it.next();
-
             if (o instanceof SimpleMarkerAnnotation) {
-                SimpleMarkerAnnotation annotation = (SimpleMarkerAnnotation) o;
-                markers.add(new Marker(annotation));
-            //AYT markers, editor must be dirty otherwise AYT markers are found also for saved editor.    
-            } else if (o instanceof ProblemAnnotation && editor.isDirty()){
+                simpleAnnotationMarkers.add(new Marker((SimpleMarkerAnnotation) o));
+            } else if (o instanceof ProblemAnnotation){
             	ProblemAnnotation annotation = (ProblemAnnotation) o;
             	IDocument doc = documentProvider.getDocument(editor.getEditorInput());
             	int offset = model.getPosition(annotation).getOffset();
             	int line = -1;
             	try {
-            		line = doc.getLineOfOffset(offset);
+            		line = doc.getLineOfOffset(offset) + 1;
             	} catch (BadLocationException e) {
             		throw new WorkbenchLayerException("Unable to find line number for AYT marker", e);
             	}
-            	Marker marker = new Marker(annotation, line);
-            	markers.add(marker);
+            	problemAnnotationMarkers.add(new Marker(annotation, line));
             }
+        }
+        // add found SimpleMarkerAnnotation to result list
+        markers.addAll(simpleAnnotationMarkers);
+        // add found ProblemAnnotation to result but exclude duplicates from simpleAnnotationMarkers
+        for (Marker problemAnnotationMarker : problemAnnotationMarkers){
+        	if (simpleAnnotationMarkers.contains(problemAnnotationMarker)){
+        		simpleAnnotationMarkers.remove(problemAnnotationMarker);
+        	}
+        	else{
+        		markers.add(problemAnnotationMarker);
+        	}
         }
         return markers;
     }
