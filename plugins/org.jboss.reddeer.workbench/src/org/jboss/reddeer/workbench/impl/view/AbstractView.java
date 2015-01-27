@@ -198,6 +198,13 @@ public class AbstractView implements View {
 				new WaitUntil(new ViewPartIsActive());
 				viewPart = (IViewPart) WorkbenchPartLookup.getInstance()
 						.getActiveWorkbenchPart();
+				if (!viewPart.getTitle().startsWith(viewTitle())){
+					log.debug("Active view has title: '" + viewPart.getTitle() 
+						+ "'\nbut expected active view title is: '"
+						+ viewTitle() + "' therefore trying to find it");
+					viewPart = WorkbenchPartLookup.getInstance().getViewByTitle(
+							new WithTextMatcher(viewTitle()));
+				}
 			} catch (WaitTimeoutExpiredException w) {
 				log.debug("View " + Arrays.toString(path) + " is not active");
 				viewPart = WorkbenchPartLookup.getInstance().getViewByTitle(
