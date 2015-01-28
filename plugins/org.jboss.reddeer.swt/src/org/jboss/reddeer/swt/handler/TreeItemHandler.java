@@ -147,17 +147,20 @@ public class TreeItemHandler {
 	 * @param swtTreeItem tree item to handle
 	 */
 	public void select(final TreeItem swtTreeItem) {
+		
 		Display.syncExec(new Runnable() {
 			@Override
 			public void run() {
+				Tree parent= swtTreeItem.getParent();
 				logger.debug("Selecting tree item: " + swtTreeItem.getText());
-				swtTreeItem.getParent().setFocus();
-				swtTreeItem.getParent().setSelection(swtTreeItem);
+				parent.setFocus();
+				parent.setSelection(swtTreeItem);
 			}
 		});
 		logger.debug("Notify tree item "
 				+ WidgetHandler.getInstance().getText(swtTreeItem)
 				+ " about selection");
+		TreeHandler.getInstance().notifyTree(swtTreeItem, TreeHandler.getInstance().createEventForTree(swtTreeItem, SWT.MouseDown, SWT.NONE, SWT.KeyDown));
 		TreeHandler.getInstance().notifyTree(swtTreeItem, TreeHandler.getInstance().createEventForTree(swtTreeItem, SWT.Selection));
 		logger.info("Selected tree item: " + WidgetHandler.getInstance().getText(swtTreeItem));
 	}
@@ -291,7 +294,7 @@ public class TreeItemHandler {
 		});
 		logger.debug("Notify tree about check event");
 		TreeHandler.getInstance().notifyTree(swtTreeItem,
-				TreeHandler.getInstance().createEventForTree(swtTreeItem, SWT.Selection, SWT.CHECK));
+				TreeHandler.getInstance().createEventForTree(swtTreeItem, SWT.Selection, SWT.CHECK, -1));
 		logger.info((check ? "Checked: " : "Unchecked: ") + WidgetHandler.getInstance().getText(swtTreeItem));
 	}
 	
