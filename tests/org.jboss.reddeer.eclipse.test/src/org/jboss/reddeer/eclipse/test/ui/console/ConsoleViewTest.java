@@ -7,8 +7,10 @@ import static org.junit.Assert.fail;
 
 import org.hamcrest.core.IsEqual;
 import org.hamcrest.core.IsNull;
+import org.jboss.reddeer.eclipse.condition.ConsoleHasLaunch;
 import org.jboss.reddeer.eclipse.condition.ConsoleHasNoChange;
 import org.jboss.reddeer.eclipse.condition.ConsoleHasText;
+import org.jboss.reddeer.eclipse.condition.ConsoleIsTerminated;
 import org.jboss.reddeer.eclipse.jdt.ui.NewJavaClassWizardDialog;
 import org.jboss.reddeer.eclipse.jdt.ui.NewJavaClassWizardPage;
 import org.jboss.reddeer.eclipse.jdt.ui.ide.NewJavaProjectWizardDialog;
@@ -61,6 +63,7 @@ public class ConsoleViewTest {
 	@Before
 	public void setupTest() {
 		runTestClass(TEST_CLASS_NAME);
+		new WaitUntil(new ConsoleIsTerminated());
 	}
 
 	@Test
@@ -73,32 +76,19 @@ public class ConsoleViewTest {
 	public void testRemoveLaunch() {
 		consoleView = new ConsoleView();
 		consoleView.open();
-		// make sure console has a launch
-		new DefaultStyledText();
-
+		new WaitUntil(new ConsoleHasLaunch());
 		consoleView.removeLaunch();
-		try {
-			new DefaultStyledText();
-			fail("Some launches remain");
-		} catch (Exception ex) {
-			// ok, no styled text can be found
-		}
+		new WaitWhile(new ConsoleHasLaunch());
+		assertFalse("Some launches remain" , consoleView.consoleHasLaunch());
 	}
 
 	@Test
 	public void testRemoveAllTerminatedLaunches() {
 		consoleView = new ConsoleView();
 		consoleView.open();
-		// make sure console has a launch
-		new DefaultStyledText();
-
+		new WaitUntil(new ConsoleHasLaunch());
 		consoleView.removeAllTerminatedLaunches();
-		try {
-			new DefaultStyledText();
-			fail("Some launches remain");
-		} catch (Exception ex) {
-			// ok, no styled text can be found
-		}
+		assertFalse("Some launches remain" , consoleView.consoleHasLaunch());
 	}
 
 	@Test

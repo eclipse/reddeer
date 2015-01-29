@@ -2,6 +2,8 @@ package org.jboss.reddeer.eclipse.ui.console;
 
 import static org.hamcrest.CoreMatchers.containsString;
 
+import org.jboss.reddeer.eclipse.condition.ConsoleHasLaunch;
+import org.jboss.reddeer.eclipse.condition.ConsoleIsTerminated;
 import org.jboss.reddeer.swt.condition.WaitCondition;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.impl.label.DefaultLabel;
@@ -35,7 +37,6 @@ public class ConsoleView extends WorkbenchView {
 	 */
 	public String getConsoleText() {
 		activate();
-		new WaitUntil(new ConsoleHasTextWidget());
 		// wait for text to appear
 		new WaitWhile(new ConsoleHasText(""),TimePeriod.SHORT,false);
 		return new DefaultStyledText().getText();
@@ -69,7 +70,7 @@ public class ConsoleView extends WorkbenchView {
 		log.info("Removing terminated launches from console");
 		activate();
 		new ViewToolItem("Remove All Terminated Launches").click();
-		new WaitWhile(new ConsoleHasTextWidget());
+		new WaitWhile(new ConsoleHasLaunch());
 		log.info("Terminated launches cleared");
 	}
 	
@@ -82,33 +83,41 @@ public class ConsoleView extends WorkbenchView {
 		ViewToolItem terminate = new ViewToolItem("Terminate");
 		if (terminate.isEnabled()) {
 			terminate.click();
-			// wait till the "<terminated" label appears
-			new DefaultLabel(new WithTextMatcher(containsString("<terminated>")));
+			new WaitUntil(new ConsoleIsTerminated());
 			log.info("Console terminated");
 		} else {
 			log.info("Console was terminated earlier");
 		}
 	}
 	
-	private class ConsoleHasTextWidget implements WaitCondition{
-
-		@Override
-		public boolean test() {
-			try{
-				new DefaultStyledText();
-			}catch(SWTLayerException ex){
-				return false;
-			}
-			return true;
+	/**
+	 * Returns true when console has launch.
+	 * 
+	 * @return
+	 */
+	public boolean consoleHasLaunch() {
+		activate();
+		try{
+			new DefaultStyledText();
+		}catch(SWTLayerException ex){
+			return false;
 		}
-
-		@Override
-		public String description() {
-			return "console has styled text";
-		}
-		
+		return true;
 	}
-
+	/**
+	 * Returns true when console is terminated.
+	 * 
+	 * @return
+	 */
+	public boolean consoleIsTerminated() {
+		activate();
+		try{
+			new DefaultLabel(new WithTextMatcher(containsString("<terminated>")));
+		}catch(SWTLayerException ex){
+			return false;
+		}
+		return true;
+	}
 	/**
 	 * 
 	 * This is not exactly a condition for checking if the console contains text.
