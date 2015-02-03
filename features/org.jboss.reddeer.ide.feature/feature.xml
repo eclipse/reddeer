@@ -39,6 +39,8 @@ Raleigh NC 27606 USA.
       <import feature="org.jboss.reddeer.rcp.feature.source" />
       <import feature="org.jboss.reddeer.recorder.feature" />
       <import feature="org.jboss.reddeer.recorder.feature.source" />
+      <import feature="org.jboss.reddeer.spy.feature" />
+      <import feature="org.jboss.reddeer.spy.feature.source" />
       <import feature="org.jboss.reddeer.swt.feature" />
       <import feature="org.jboss.reddeer.swt.feature.source" />
       <import feature="org.jboss.reddeer.ui.feature" />
