@@ -120,7 +120,7 @@ public class TextEditorTest {
 	@Test
 	public void setCursorPosition(){
 		final String firstLine = "package test;";
-		final String firstLineAppend = "//TEST";
+		final String firstLineAppend = "testtext";
 		TextEditor textEditor = TextEditorTest.openJavaFile();
 		textEditor.activate();
 		textEditor.setCursorPosition(0, firstLine.length());
