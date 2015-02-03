@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension
+         point="org.eclipse.ui.views">
+      <category
+            name="RedDeer Tools"
+            id="org.jboss.reddeer.tools">
+      </category>
+      <view
+            name="Code Generator"
+            icon="icons/sample.gif"
+            category="org.jboss.reddeer.tools"
+            class="org.jboss.reddeer.generator.views.CodeGeneratorView"
+            id="org.jboss.reddeer.generator.views.CodeGeneratorView">
+      </view>
+   </extension>
+   <extension
+         point="org.eclipse.ui.perspectiveExtensions">
+      <perspectiveExtension
+            targetID="org.eclipse.jdt.ui.JavaPerspective">
+         <view
+               ratio="0.5"
+               relative="org.eclipse.ui.views.ProblemView"
+               relationship="right"
+               id="org.jboss.reddeer.generator.views.CodeGeneratorView">
+         </view>
+      </perspectiveExtension>
+   </extension>
+
+</plugin>
