@@ -88,6 +88,7 @@ public class ViewTest {
 		customView.open();
 		customView.minimize();
 		customView.maximize();
+		customView.restore();
 		customView.close();
 	}
 }
