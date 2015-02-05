@@ -88,11 +88,7 @@ public class RedDeerJUnitTab extends AbstractLaunchConfigurationTab {
 
 	@Override
 	public void setDefaults(ILaunchConfigurationWorkingCopy config) {
-		RedDeerLauncherProperties[] currentInput = (RedDeerLauncherProperties[]) propertiesViewer.getInput();
-		for (RedDeerLauncherProperties property : currentInput){
-			property.setDefaults(config);
-		}
-		propertiesViewer.refresh();
+		// no need to set defaults to config, table is initialized with right values
 	}
 
 	@Override
