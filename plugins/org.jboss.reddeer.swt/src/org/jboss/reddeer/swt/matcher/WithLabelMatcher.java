@@ -1,5 +1,6 @@
 package org.jboss.reddeer.swt.matcher;
 
+import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.List;
 import org.eclipse.swt.widgets.Spinner;
@@ -59,7 +60,7 @@ public class WithLabelMatcher extends BaseMatcher<String> {
 	 */
 	@Override
 	public boolean matches(Object item) {		
-		if ((item instanceof List) || (item instanceof Text)
+		if ((item instanceof List) || (item instanceof Text) || (item instanceof Button)
 				|| (item instanceof Combo) || (item instanceof Spinner)) {
 			String widgetLabel = WidgetHandler.getInstance().getLabel((Widget)item);
 			if (widgetLabel != null && matcher.matches(widgetLabel)) {
