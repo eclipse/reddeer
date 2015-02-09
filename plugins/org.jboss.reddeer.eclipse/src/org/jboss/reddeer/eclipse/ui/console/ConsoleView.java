@@ -91,6 +91,15 @@ public class ConsoleView extends WorkbenchView {
 	}
 	
 	/**
+	 * Toggles the button indicating if the view should be activated on standard output change
+	 * @param toggle
+	 */
+	public void toggleShowConsoleOnStandardOutChange(boolean toggle){
+		activate();
+		new ViewToolItem("Show Console When Standard Out Changes").toggle(toggle);
+	}
+	
+	/**
 	 * Returns true when console has launch.
 	 * 
 	 * @return
