@@ -125,6 +125,14 @@ public class ConsoleViewTest {
 		// compare the text without white spaces
 		assertEquals("StartHelloApplication", consoleView.getConsoleText().replaceAll("\\s", ""));
 	}
+	
+	@Test
+	public void toggleShowConsoleOnStandardOutChange() {
+		consoleView = new ConsoleView();
+		consoleView.open();
+		consoleView.toggleShowConsoleOnStandardOutChange(true);
+		consoleView.toggleShowConsoleOnStandardOutChange(false);
+	}
 
 	private void testGettingConsoleTest() {
 		consoleView = new ConsoleView();
