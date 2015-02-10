@@ -213,7 +213,7 @@ public class MenuLookup {
 			// e.g. Progress Dialog
 			new WaitWhile(new ShellWithTextIsActive(activeShellText),TimePeriod.NORMAL,false);
 			activeShell = ShellLookup.getInstance().getActiveShell();
-			if (activeShellText.equals(WidgetHandler.getInstance().getText(activeShell))){
+			if (!activeShellText.equals(WidgetHandler.getInstance().getText(activeShell))){
 				result = getMenuBarItems(activeShell);
 			} else{
 				throw swtle;
