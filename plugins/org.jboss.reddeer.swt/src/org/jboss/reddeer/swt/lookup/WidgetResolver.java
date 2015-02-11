@@ -147,8 +147,10 @@ public class WidgetResolver  {
 			if (control != null) children.add(control);
 			
 		} else if (w instanceof CTabFolder) {
-			Widget[] items = ((CTabFolder) w).getItems();
-			children = Arrays.asList(items);
+			List<Widget> tempList = new ArrayList<>();
+			tempList.addAll(Arrays.asList(((CTabFolder) w).getChildren()));
+			tempList.addAll(Arrays.asList(((CTabFolder) w).getItems()));
+			children = tempList;
 
 		} else if (w instanceof TabFolder) {
 			Widget[] items = ((TabFolder) w).getItems();

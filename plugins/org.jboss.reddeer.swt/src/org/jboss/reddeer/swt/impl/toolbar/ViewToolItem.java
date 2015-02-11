@@ -7,8 +7,11 @@ import org.hamcrest.Matcher;
  * active View ToolBar. </p> If no View is active, exception is thrown.
  * 
  * @author Jiri Peterka
+ * @deprecated Now it's possible to use just {@link DefaultToolItem} when the desired View is active.
  *
  */
+
+@Deprecated
 public class ViewToolItem extends DefaultToolItem {
 
 	/**

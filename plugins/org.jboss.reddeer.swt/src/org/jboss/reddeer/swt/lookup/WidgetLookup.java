@@ -152,7 +152,7 @@ public class WidgetLookup {
 		return control;
 	}
 
-	private Shell getShellForActiveWorkbench(IWorkbenchPartReference workbenchReference) {
+	protected Shell getShellForActiveWorkbench(IWorkbenchPartReference workbenchReference) {
 		if (workbenchReference == null) {
 			return null;
 		}
