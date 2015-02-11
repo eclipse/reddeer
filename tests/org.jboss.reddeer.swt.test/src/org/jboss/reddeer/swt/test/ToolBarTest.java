@@ -72,13 +72,13 @@ public class ToolBarTest {
 
 	@Test
 	public void testToolItemInViewToolBarFound() {
-		ToolItem i = new ViewToolItem("RedDeer SWT ViewToolItem");
+		ToolItem i = new DefaultToolItem("RedDeer SWT ViewToolItem");
 		assertEquals("RedDeer SWT ViewToolItem", i.getToolTipText());
 	}
 
 	@Test
 	public void testToolItemInViewToolBarClicked() {
-		ToolItem i = new ViewToolItem("RedDeer SWT ViewToolItem");
+		ToolItem i = new DefaultToolItem("RedDeer SWT ViewToolItem");
 		i.click();		
 		assertTrue("ToolItem should be clicked", TestModel.getClickedAndReset());		
 	}
@@ -87,7 +87,7 @@ public class ToolBarTest {
 	public void testToolItemInViewToolBarRegexClicked() {
 		WithTooltipTextMatcher rm = new WithTooltipTextMatcher(
 				new RegexMatcher("RedDeer SWT View.*"));
-		ToolItem i = new ViewToolItem(rm);
+		ToolItem i = new DefaultToolItem(rm);
 		i.click();
 		assertTrue("ToolItem should be clicked", TestModel.getClickedAndReset());		
 	}

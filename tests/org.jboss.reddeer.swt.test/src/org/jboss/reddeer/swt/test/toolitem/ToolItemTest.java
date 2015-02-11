@@ -53,8 +53,8 @@ public class ToolItemTest extends SWTLayerTestCase{
 	@Test
 	public void constructorWithIndex() {
 		DefaultToolItem ti = new DefaultToolItem(2);
-		assertTrue("Item has \"PUSH tooltip\" as a tooltip", ti
-				.getToolTipText().equals(TOOLTIP));
+		assertTrue("Item has \"PUSH tooltip tb2\" as a tooltip", ti
+				.getToolTipText().equals(TOOLTIP + " tb2"));
 		assertFalse("Item has not \"" + TOOLTIP + "2\" as a tooltip", ti
 				.getToolTipText().equals(TOOLTIP + "2"));
 	}
