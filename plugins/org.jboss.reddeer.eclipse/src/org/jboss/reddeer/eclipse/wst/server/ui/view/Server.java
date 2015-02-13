@@ -42,9 +42,22 @@ public class Server {
 	private static final Logger log = Logger.getLogger(Server.class);
 
 	protected TreeItem treeItem;
+	
+	protected ServersView view;
 
+	/**
+	 * @deprecated Use {@link #Server(TreeItem, ServersView)}
+	 * @param treeItem
+	 */
 	public Server(TreeItem treeItem) {
 		this.treeItem = treeItem;
+		this.view = new ServersView();
+		view.open();
+	}
+	
+	protected Server(TreeItem treeItem, ServersView view) {
+		this.treeItem = treeItem;
+		this.view = view;
 	}
 
 	/**
@@ -53,6 +66,7 @@ public class Server {
 	 * @return Server label
 	 */
 	public ServerLabel getLabel(){
+		activate();
 		return new ServerLabel(treeItem);
 	}
 
@@ -62,6 +76,7 @@ public class Server {
 	 * @return List of modules
 	 */
 	public List<ServerModule> getModules() {
+		activate();
 		final List<ServerModule> modules = new ArrayList<ServerModule>();
 
 		Display.syncExec(new Runnable() {
@@ -88,6 +103,7 @@ public class Server {
 	 * @return Module
 	 */
 	public ServerModule getModule(String name) {
+		activate();
 		for (ServerModule module : getModules()){
 			if (module.getLabel().getName().equals(name)){
 				return module;
@@ -102,7 +118,7 @@ public class Server {
 	 * @return Dialog for adding/removing modules
 	 */
 	public ModifyModulesDialog addAndRemoveModules() {
-		select();
+		activate();
 		log.info("Add and remove modules of server");
 		new ContextMenu(ADD_AND_REMOVE).select();
 		return new ModifyModulesDialog();
@@ -114,7 +130,7 @@ public class Server {
 	 * @return Server editor
 	 */
 	public ServerEditor open() {
-		select();
+		activate();
 		log.info("Open server's editor");
 		new ContextMenu("Open").select();
 		return createServerEditor(getLabel().getName());
@@ -124,6 +140,7 @@ public class Server {
 	 * Starts the server.
 	 */
 	public void start() {
+		activate();
 		log.info("Start server " + getLabel().getName());
 		if (!ServerState.STOPPED.equals(getLabel().getState())){
 			throw new ServersViewException("Cannot start server because it is not stopped");
@@ -135,6 +152,7 @@ public class Server {
 	 * Debugs the server.
 	 */
 	public void debug() {
+		activate();
 		log.info("Start server in debug" + getLabel().getName());
 		if (!ServerState.STOPPED.equals(getLabel().getState())){
 			throw new ServersViewException("Cannot debug server because it is not stopped");
@@ -146,6 +164,7 @@ public class Server {
 	 * Profiles the server.
 	 */
 	public void profile() {
+		activate();
 		log.info("Start server in profiling mode" + getLabel().getName());
 		if (!ServerState.STOPPED.equals(getLabel().getState())){
 			throw new ServersViewException("Cannot profile server because it is not stopped");
@@ -157,6 +176,7 @@ public class Server {
 	 * Restarts the server.
 	 */
 	public void restart() {
+		activate();
 		log.info("Restart server " + getLabel().getName());
 		if (!getLabel().getState().isRunningState()){
 			throw new ServersViewException("Cannot restart server because it is not running");
@@ -168,6 +188,7 @@ public class Server {
 	 * Restarts the server in debug.
 	 */
 	public void restartInDebug() {
+		activate();
 		log.info("Restart server in debug" + getLabel().getName());
 		if (!getLabel().getState().isRunningState()){
 			throw new ServersViewException("Cannot restart server in debug because it is not running");
@@ -179,6 +200,7 @@ public class Server {
 	 * Restarts the server in profile.
 	 */
 	public void restartInProfile() {
+		activate();
 		log.info("Restart server in profile" + getLabel().getName());
 		if (!getLabel().getState().isRunningState()){
 			throw new ServersViewException("Cannot restart server in profile because it is not running");
@@ -190,6 +212,7 @@ public class Server {
 	 * Stops the server.
 	 */
 	public void stop() {
+		activate();
 		log.info("Stop server " + getLabel().getName());
 		ServerState state = getLabel().getState();
 		if (!ServerState.STARTING.equals(state) && !state.isRunningState()){
@@ -202,8 +225,8 @@ public class Server {
 	 * Publishes the server.
 	 */
 	public void publish() {
+		activate();
 		log.info("Publish server " + getLabel().getName());
-		select();
 		new ContextMenu("Publish").select();
 		waitForPublish();
 	}
@@ -212,8 +235,8 @@ public class Server {
 	 * Cleans the server.
 	 */
 	public void clean() {
+		activate();
 		log.info("Clean server " + getLabel().getName());
-		select();
 		new ContextMenu("Clean...").select();
 		new DefaultShell("Server");
 		new PushButton("OK").click();
@@ -224,6 +247,7 @@ public class Server {
 	 * Deletes the server. The server is not stop first.
 	 */
 	public void delete() {
+		activate();
 		delete(false);
 	}
 
@@ -233,9 +257,9 @@ public class Server {
 	 * @param stopFirst Indicates whether the server is stop first.
 	 */
 	public void delete(boolean stopFirst) {
+		activate();
 		final String name = getLabel().getName();
 		log.info("Delete server " + name + ". Stop server first: " + stopFirst);
-		select();
 		ServerState state = getLabel().getState();
 
 		new ContextMenu("Delete").select();	
@@ -275,11 +299,16 @@ public class Server {
 	}
 	
 	protected ServerModule createServerModule(TreeItem item){
-		return new ServerModule(item);
+		return new ServerModule(item, view);
 	}
 	
 	protected ServerEditor createServerEditor(String title){
 		return new ServerEditor(title);
+	}
+	
+	protected void activate(){
+		view.activate();
+		select();
 	}
 
 	private class ServerStateCondition implements WaitCondition {

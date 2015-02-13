@@ -1,8 +1,8 @@
 package org.jboss.reddeer.eclipse.condition;
 
-import org.jboss.reddeer.eclipse.exception.EclipseLayerException;
 import org.jboss.reddeer.eclipse.wst.server.ui.view.ServersView;
 import org.jboss.reddeer.swt.condition.WaitCondition;
+import org.jboss.reddeer.swt.exception.RedDeerException;
 
 /**
  * Returns true, if there is server with specified name
@@ -12,6 +12,8 @@ import org.jboss.reddeer.swt.condition.WaitCondition;
  */
 public class ServerExists implements WaitCondition {
 
+	private ServersView view;
+	
 	private String name;
 	
 	/**
@@ -21,16 +23,16 @@ public class ServerExists implements WaitCondition {
 	 */
 	public ServerExists(String name) {
 		this.name = name;
+		view = new ServersView();
+		view.open();
 	}
 
 	@Override
 	public boolean test() {
 		try{
-			ServersView serversView = new ServersView();
-			serversView.open();
-			serversView.getServer(this.name);
+			view.getServer(this.name);
 			return true;
-		} catch (EclipseLayerException ele){
+		} catch (RedDeerException ele){
 			return false;
 		}		
 	}
