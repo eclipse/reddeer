@@ -93,7 +93,7 @@ public class ServersView extends WorkbenchView {
 	}
 
 	protected Server createServer(TreeItem item){
-		return new Server(item);
+		return new Server(item, this);
 	}
 	
 	private Object[] getServersNames() {
