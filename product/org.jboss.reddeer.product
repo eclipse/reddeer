@@ -20,9 +20,13 @@ org.eclipse.jdt.ui.JavaPerspective
       </programArgs>
       <vmArgs>-Dorg.eclipse.swt.browser.DefaultType=mozilla
 -Dosgi.requiredJavaVersion=1.6
+-Dosgi.configuration.area.default=null
+-Dosgi.user.area.default=null
+-Dosgi.user.area=@user.home
+-Dosgi.instance.area.default=@user.home/workspace
 -XX:MaxPermSize=256m
--Xms40m
--Xmx512m
+-Xms512m
+-Xmx1024m
       </vmArgs>
       <vmArgsMac>-XstartOnFirstThread -Dorg.eclipse.swt.internal.carbon.smallFonts
       </vmArgsMac>
