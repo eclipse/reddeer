@@ -111,7 +111,8 @@
 			</plugin>
 	<plugin>
 		<groupId>com.googlecode.maven-download-plugin</groupId>
-		<artifactId>maven-download-plugin</artifactId>
+		<artifactId>download-maven-plugin</artifactId>
+		<version>${download-plugin-version}</version>
 		<executions>
 			<execution>
 				<id>install-h2-driver</id>
