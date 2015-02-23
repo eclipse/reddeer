@@ -8,6 +8,7 @@ import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 import org.hamcrest.Matcher;
+import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.swt.util.Display;
 import org.jboss.reddeer.swt.util.ResultRunnable;
 import org.jboss.reddeer.workbench.exception.WorkbenchPartNotFound;
@@ -20,6 +21,8 @@ import org.jboss.reddeer.workbench.matcher.EditorPartTitleMatcher;
  *
  */
 public class WorkbenchPartLookup {
+	
+	private static final Logger log = Logger.getLogger(WorkbenchPartLookup.class);
 	
 	private static WorkbenchPartLookup instance;
 	
@@ -96,6 +99,7 @@ public class WorkbenchPartLookup {
 
 			@Override
 			public IViewPart run() {
+				log.debug("Looking up view by title matching: " + title);
 				IViewReference[] views = PlatformUI.getWorkbench()
 						.getActiveWorkbenchWindow().getActivePage()
 						.getViewReferences();
@@ -104,7 +108,16 @@ public class WorkbenchPartLookup {
 						return iViewReference.getView(false);
 					}
 				}
+				log.debug("No view matched");
+				logAllViews(views);
 				return null;
+			}
+
+			private void logAllViews(IViewReference[] views) {
+				log.debug("List of found views:");
+				for (IViewReference iViewReference : views) {
+					log.debug("\t" + iViewReference.getPartName());
+				}
 			}
 		});
 	}
