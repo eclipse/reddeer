@@ -1,13 +1,20 @@
 package org.jboss.reddeer.eclipse.ui.browser;
 
+import org.eclipse.ui.IEditorPart;
+import org.eclipse.ui.internal.browser.WebBrowserEditor;
+import org.hamcrest.Description;
 import org.hamcrest.Matcher;
+import org.hamcrest.TypeSafeMatcher;
 import org.jboss.reddeer.eclipse.condition.BrowserHasURL;
 import org.jboss.reddeer.swt.condition.PageIsLoaded;
 import org.jboss.reddeer.swt.impl.browser.InternalBrowser;
+import org.jboss.reddeer.swt.matcher.MatcherBuilder;
+import org.jboss.reddeer.swt.matcher.WithTextMatcher;
 import org.jboss.reddeer.swt.wait.TimePeriod;
 import org.jboss.reddeer.swt.wait.WaitUntil;
 import org.jboss.reddeer.swt.wait.WaitWhile;
 import org.jboss.reddeer.workbench.impl.editor.AbstractEditor;
+import org.jboss.reddeer.workbench.matcher.EditorPartTitleMatcher;
 
 /**
  * Represents a browser editor.
@@ -23,8 +30,7 @@ public class BrowserEditor extends AbstractEditor{
 	 * @param title Title
 	 */
 	public BrowserEditor(String title){
-		super(title);
-		browser = new InternalBrowser();
+		this(new WithTextMatcher(title));
 	}
 	
 	/**
@@ -32,8 +38,9 @@ public class BrowserEditor extends AbstractEditor{
 	 * 
 	 * @param titleMatcher Title matcher
 	 */
+	@SuppressWarnings("unchecked")
 	public BrowserEditor(Matcher<String> titleMatcher){
-		super(titleMatcher);
+		super(createBrowserEditorMatchers(titleMatcher));
 		browser = new InternalBrowser();
 	}
 	
@@ -93,4 +100,25 @@ public class BrowserEditor extends AbstractEditor{
 		return browser.getText();
 	}
 
+	@SuppressWarnings("rawtypes")
+	private static Matcher[] createBrowserEditorMatchers(Matcher<String> titleMatcher){ 
+		Matcher[] matchers = MatcherBuilder.getInstance().addMatcher(new Matcher[0], new BrowserEditorMatcher());
+		matchers = MatcherBuilder.getInstance().addMatcher(matchers, new EditorPartTitleMatcher(titleMatcher));
+		return matchers;
+	}
+	
+	private static class BrowserEditorMatcher extends TypeSafeMatcher<IEditorPart>{
+
+		@Override
+		public void describeTo(Description description) {
+			description.appendText("Editor is of type WebBrowserEditor");
+		}
+
+		@Override
+		protected boolean matchesSafely(IEditorPart item) {
+			return (item instanceof WebBrowserEditor); 
+		}
+		
+	}
+	
 }
