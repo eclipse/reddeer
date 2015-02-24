@@ -3,6 +3,7 @@ package org.jboss.reddeer.eclipse.core.resources;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.eclipse.exception.EclipseLayerException;
 import org.jboss.reddeer.jface.exception.JFaceLayerException;
 import org.jboss.reddeer.jface.viewer.handler.TreeViewerHandler;
@@ -24,6 +25,8 @@ import org.jboss.reddeer.workbench.handler.WorkbenchPartHandler;
  */
 public abstract class AbstractExplorerItem {
 
+	protected Logger logger = new Logger(AbstractExplorerItem.class);
+	
 	protected TreeItem treeItem;
 
 	protected TreeViewerHandler treeViewerHandler = TreeViewerHandler
@@ -146,6 +149,12 @@ public abstract class AbstractExplorerItem {
 					item = treeViewerHandler.getTreeItem(item, pathSegment);
 				} catch (JFaceLayerException exception) {
 					// non existing item
+					logger.debug("Obtaining direct children on the current level");
+					List<TreeItem> items = item.getItems();
+					logger.debug("Item \"" + pathSegment + "\" was not found. Available items on the current level:");
+					for (TreeItem treeItem: items) {
+						logger.debug("\"" + treeItem.getText() + "\"");
+					}
 					throw new EclipseLayerException(
 							"Cannot get project item specified by path."
 									+ "Project item either does not exist or solution is ambiguous because "
