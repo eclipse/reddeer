@@ -18,7 +18,8 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.wst.server.core,
  org.jboss.reddeer.common;bundle-version="[0.7,0.8)",
  org.jboss.reddeer.direct;bundle-version="[0.7,0.8)",
- org.eclipse.core.resources
+ org.eclipse.core.resources,
+ org.eclipse.ui.browser
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Export-Package: org.jboss.reddeer.eclipse,
