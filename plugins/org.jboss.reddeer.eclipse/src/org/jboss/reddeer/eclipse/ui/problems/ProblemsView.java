@@ -8,6 +8,8 @@ import org.hamcrest.Matcher;
 import org.jboss.reddeer.eclipse.condition.MarkerIsUpdating;
 import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.swt.impl.tree.DefaultTree;
+import org.jboss.reddeer.swt.wait.TimePeriod;
+import org.jboss.reddeer.swt.wait.WaitUntil;
 import org.jboss.reddeer.swt.wait.WaitWhile;
 import org.jboss.reddeer.workbench.impl.view.WorkbenchView;
 
@@ -31,6 +33,7 @@ public class ProblemsView extends WorkbenchView{
 	 */
 	public List<TreeItem> getAllErrors(){
 		activate();
+		new WaitUntil(new MarkerIsUpdating(),TimePeriod.SHORT,false);
 		new WaitWhile(new MarkerIsUpdating());
 		DefaultTree tree = new DefaultTree();
 		return filter(tree.getItems(), true);
@@ -43,6 +46,8 @@ public class ProblemsView extends WorkbenchView{
 	 */
 	public List<TreeItem> getAllWarnings(){
 		activate();
+		new WaitUntil(new MarkerIsUpdating(),TimePeriod.SHORT,false);
+		new WaitWhile(new MarkerIsUpdating());
 		DefaultTree tree = new DefaultTree();
 		return filter(tree.getItems(), false);
 	}
