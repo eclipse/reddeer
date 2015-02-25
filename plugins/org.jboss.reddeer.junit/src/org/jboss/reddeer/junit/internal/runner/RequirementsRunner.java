@@ -5,8 +5,10 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
+import org.jboss.reddeer.common.exception.RedDeerException;
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.common.properties.RedDeerProperties;
+import org.jboss.reddeer.junit.execution.annotation.RunIf;
 import org.jboss.reddeer.junit.extensionpoint.IAfterTest;
 import org.jboss.reddeer.junit.extensionpoint.IBeforeTest;
 import org.jboss.reddeer.junit.internal.requirement.Requirements;
@@ -18,6 +20,7 @@ import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.Description;
 import org.junit.runner.notification.Failure;
@@ -114,7 +117,48 @@ public class RequirementsRunner extends BlockJUnit4ClassRunner {
 	public void setRequirementsInjector(RequirementsInjector requirementsInjector) {
 		this.requirementsInjector = requirementsInjector;
 	}
-
+	
+	 @Override
+	 protected void runChild(final FrameworkMethod method, RunNotifier notifier) {
+		 Description description = describeChild(method);
+		 if (isIgnored(method)) {
+			 notifier.fireTestIgnored(description);
+		 } else {
+			 runLeaf(methodBlock(method), description, notifier);
+		 }
+	 }
+	
+	 protected boolean isIgnored(FrameworkMethod child) {
+		 RunIf runIfAnnotation = child.getAnnotation(RunIf.class);
+		 String testIsIgnoredTemplate = "Test method " + child.getName() + " is ignored because ";
+		 boolean ignoreAnnotationIsPresented = child.getAnnotation(Ignore.class) != null;
+		 if (runIfAnnotation != null) {
+			 try {
+				if (runIfAnnotation.conditionClass().newInstance().shouldRun(child)) {
+					if (ignoreAnnotationIsPresented) {
+						log.info(testIsIgnoredTemplate + " @Ignore annotation is presented.");
+						return true;
+					} else {
+						return false;
+					}
+				 } else {
+					log.info(testIsIgnoredTemplate + " shouldRun method of RunIf conditional run is not met.");
+					return true;
+				 }
+			} catch (InstantiationException | IllegalAccessException e) {
+				throw new RedDeerException("Cannot instantiate class of conditional running. Be sure that class has default "
+						+ "constructor (is not hidden by another constructor) and is in its own file, not as nested class.", e);
+			}
+			
+	 	}
+		 if (ignoreAnnotationIsPresented) {
+			 log.info(testIsIgnoredTemplate + " @Ignore annotation is presented.");
+			 return true;
+		 } else {
+			 return false;
+		 }
+	 }
+	 
 	/**
 	 * Starts Screen Recorder
 	 */
