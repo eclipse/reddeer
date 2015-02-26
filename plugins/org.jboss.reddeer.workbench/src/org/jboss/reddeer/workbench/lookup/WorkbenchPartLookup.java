@@ -1,9 +1,13 @@
 package org.jboss.reddeer.workbench.lookup;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IEditorReference;
 import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.IViewReference;
+import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
@@ -21,26 +25,26 @@ import org.jboss.reddeer.workbench.matcher.EditorPartTitleMatcher;
  *
  */
 public class WorkbenchPartLookup {
-	
+
 	private static final Logger log = Logger.getLogger(WorkbenchPartLookup.class);
-	
+
 	private static WorkbenchPartLookup instance;
-	
+
 	private WorkbenchPartLookup(){
-		
+
 	}
-	
+
 	public static WorkbenchPartLookup getInstance(){
 		if(instance == null){
 			instance = new WorkbenchPartLookup();
 		}
 		return instance;
 	}
-	
+
 	public IWorkbenchPart getActiveWorkbenchPart() {
 		return WorkbenchPartHandler.getInstance().getActiveWorkbenchPart();
 	}
-	
+
 	/**
 	 * @deprecated Use {@link EditorPartLookup#getActiveEditor()}
 	 * @return
@@ -65,7 +69,7 @@ public class WorkbenchPartLookup {
 		}
 		return editorPart;
 	}
-	
+
 	/**
 	 * @deprecated Use {@link EditorPartLookup#getEditorByTitle(Matcher)()}
 	 * and {@link EditorPartTitleMatcher}
@@ -93,33 +97,69 @@ public class WorkbenchPartLookup {
 			}
 		});
 	}
-	
-	public IViewPart getViewByTitle(final Matcher<String> title){
+
+	/**
+	 * Returns all views that are currently open in the current perspective (including those
+	 * on non-active tabs)
+	 * 
+	 * @param title
+	 * @return
+	 */
+	public List<IViewPart> getOpenViews(){
+		IWorkbenchPage activePage = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
+		List<IViewPart> views = new ArrayList<IViewPart>();
+
+		log.debug("Looking up all open views");
+		for (IViewReference viewReference : activePage.getViewReferences()){
+			IViewPart view = viewReference.getView(false);
+			if (view == null){
+				log.trace("\tView " + viewReference.getTitle() + " was not open or it cannot be restored");
+				continue;
+			}
+
+			IViewPart[] stackedViews = activePage.getViewStack(view);
+			if (stackedViews == null){
+				log.trace("\tView " + view.getTitle() + " does not belong to the currently active page");
+				continue;
+			} 
+
+			for (IViewPart part : viewReference.getPage().getViewStack(viewReference.getView(false))){
+				log.trace("\tFound view " + view.getTitle());
+				views.add(part);
+			}
+		}
+		return views;
+	}
+
+	/**
+	 * Returns view if is open in the current perspective by its name
+	 * @param name
+	 * @return
+	 */
+	public IViewPart getViewByTitle(final Matcher<String> name){
 		return Display.syncExec(new ResultRunnable<IViewPart>() {
 
 			@Override
 			public IViewPart run() {
-				log.debug("Looking up view by title matching: " + title);
-				IViewReference[] views = PlatformUI.getWorkbench()
-						.getActiveWorkbenchWindow().getActivePage()
-						.getViewReferences();
-				for (IViewReference iViewReference : views) {
-					if (title.matches(iViewReference.getPartName())) {
-						return iViewReference.getView(false);
+				List<IViewPart> views = getOpenViews();
+
+				for (IViewPart view : views) {
+					if (name.matches(view.getViewSite().getRegisteredName())) {
+						return view;
 					}
 				}
-				log.debug("No view matched");
+
 				logAllViews(views);
 				return null;
 			}
 
-			private void logAllViews(IViewReference[] views) {
+			private void logAllViews(List<IViewPart> views) {
+				log.debug("View matching " + name + " not found");
 				log.debug("List of found views:");
-				for (IViewReference iViewReference : views) {
-					log.debug("\t" + iViewReference.getPartName());
+				for (IViewPart view : views) {
+					log.debug("\t" + view.getViewSite().getRegisteredName());
 				}
 			}
 		});
 	}
-
 }
