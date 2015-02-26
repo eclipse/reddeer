@@ -128,6 +128,10 @@ public class LogView extends WorkbenchView{
 		activate();
 		new DefaultTree().setFocus();
 		Menu cm = new ContextMenu(DELETE_LOG);
+		if (!cm.isEnabled()) {
+			log.debug("Unable to delete log. \"" + DELETE_LOG + "\" menu item is not enabled.");
+			return;
+		}
 		cm.select();
 		new DefaultShell(CONFIRM_DLG);
 		new OkButton().click();

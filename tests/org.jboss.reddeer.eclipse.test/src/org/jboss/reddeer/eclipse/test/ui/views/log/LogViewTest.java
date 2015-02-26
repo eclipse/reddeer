@@ -155,6 +155,7 @@ public class LogViewTest {
 		assertFalse("There must be messages", logView.getErrorMessages().isEmpty());
 		logView.deleteLog();				
 		assertTrue("There should be no messages", logView.getErrorMessages().isEmpty());
+		logView.deleteLog(); //https://github.com/jboss-reddeer/reddeer/pull/953
 		logView.restoreLog();				
 		assertTrue("There should be no messages", logView.getErrorMessages().isEmpty());
 	}
