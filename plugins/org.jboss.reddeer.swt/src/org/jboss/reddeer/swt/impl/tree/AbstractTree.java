@@ -64,6 +64,10 @@ public abstract class AbstractTree extends AbstractWidget<org.eclipse.swt.widget
 	public int getColumnCount() {
 		return treeHandler.getColumnCount(swtWidget);
 	}
+	
+	public List<String> getHeaderColumns() {
+		return treeHandler.getHeaderColumns(swtWidget);
+	}
 
 	public void unselectAllItems() {
 		logger.info("Unselect all tree items");

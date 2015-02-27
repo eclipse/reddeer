@@ -49,6 +49,13 @@ public interface Tree extends Widget {
 	 * @return count of columns
 	 */
 	int getColumnCount();
+	
+	/**
+	 * Gets text of header columns in the tree.
+	 * 
+	 * @return list of String inside header columns
+	 */
+	List<String> getHeaderColumns();
 
 	org.eclipse.swt.widgets.Tree getSWTWidget();
 }
