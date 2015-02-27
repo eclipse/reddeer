@@ -8,6 +8,7 @@ import java.util.List;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
+import org.eclipse.swt.widgets.TreeColumn;
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.swt.api.Tree;
 import org.jboss.reddeer.swt.api.TreeItem;
@@ -144,6 +145,26 @@ public class TreeHandler {
 		});
 	}
 
+	/**
+	 * Gets text of header columns of specified {@link org.eclipse.swt.widgets.Tree}.
+	 * 
+	 * @param swtTree tree to get header columns text
+	 * @return list of text from individual header columns
+	 */
+	public List<String> getHeaderColumns(final org.eclipse.swt.widgets.Tree swtTree) {
+        return Display.syncExec(new ResultRunnable<List<String>>() {
+            @Override
+            public List<String> run() {
+                List<String> columnTexts = new ArrayList<String>();
+                TreeColumn[] columns = swtTree.getColumns();
+                for (TreeColumn column: columns) {
+                    columnTexts.add(column.getText());
+                }
+                return columnTexts;
+            }
+        });
+    }
+	
 	/**
 	 * Unselects all tree item on specified {@link org.eclipse.swt.widgets.Tree}.
 	 * 

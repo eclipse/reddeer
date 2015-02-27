@@ -35,6 +35,19 @@ public class DefaultTreeTest extends AbstractTreeTest {
 	}
 
 	@Test
+	public void testColumnHeaders() {
+		createTreeItems(tree.getSWTWidget());
+		
+		DefaultTree defaultTree = new DefaultTree();
+		
+		List<String> headerColumns = defaultTree.getHeaderColumns();
+		
+		assertTrue("Default tree columns were not obtained correctly. Headers should be [Column1, Column2, Column3] "
+				+ "but they were " + headerColumns.toString(), headerColumns.get(0).equals("Column1") &&
+				headerColumns.get(1).equals("Column2") && headerColumns.get(2).equals("Column3"));
+	}
+	
+	@Test
 	public void testGetItems_noItems() {
 		List<TreeItem> items = tree.getItems();
 		assertTrue(items.isEmpty());

@@ -27,10 +27,17 @@ public abstract class AbstractTreeTest extends SWTLayerTestCase {
 	protected void createControls(Shell shell) {
 		swtTree = new Tree(shell, SWT.BORDER|SWT.CHECK|SWT.MULTI);
 
-		for(int i = 0; i < TREE_COLUMN_COUNT; i++) {
-			TreeColumn column = new TreeColumn(swtTree, SWT.LEFT);
-			column.setWidth(200);
-		}		
+		TreeColumn column = new TreeColumn(swtTree, SWT.LEFT);
+		column.setText("Column1");
+		column.setWidth(200);
+		
+		TreeColumn column2 = new TreeColumn(swtTree, SWT.CENTER);
+		column2.setText("Column2");
+		column2.setWidth(200);
+		
+		TreeColumn column3 = new TreeColumn(swtTree, SWT.RIGHT);
+		column3.setText("Column3");
+		column3.setWidth(200);
 	}
 	
 	protected void createTreeItems(Tree tree) {
