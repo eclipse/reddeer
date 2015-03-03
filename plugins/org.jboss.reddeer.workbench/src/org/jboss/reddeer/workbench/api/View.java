@@ -20,4 +20,9 @@ public interface View extends WorkbenchPart {
      * View is available in workbench but not necessary visible 
      */
     boolean isOpened();
+    
+    /**
+     * Returns true of view is active
+     */
+    boolean isActive();
 }
