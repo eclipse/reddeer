@@ -46,6 +46,8 @@ public class ConsoleViewTest {
 
 	private static final String TEST_PROJECT_NAME = "Project";
 	private static final String TEST_CLASS_NAME = "TestClass";
+	private static final String TEST_CLASS_NAME1 = "TestClass1";
+	private static final String TEST_CLASS_NAME2 = "TestClass2";
 	private static final String TEST_CLASS_LOOP_NAME = "TestLoopClass";
 	private static final String TEST_CLASS_LOOP2_NAME = "TestLoopClass2";
 
@@ -63,6 +65,22 @@ public class ConsoleViewTest {
 	public void setupTest() {
 		runTestClass(TEST_CLASS_NAME);
 		new WaitUntil(new ConsoleIsTerminated());
+	}
+	
+	@Test
+	public void testConsoleSwitching() {
+		runTestClass(TEST_CLASS_NAME1);
+		runTestClass(TEST_CLASS_NAME2);
+		consoleView = new ConsoleView();
+		consoleView.open();
+		consoleView.switchConsole(new RegexMatcher(".*" + TEST_CLASS_NAME1
+				+ ".*"));
+		assertThat(consoleView.getConsoleText(),
+				IsEqual.equalTo("Hello World1"));
+		consoleView.switchConsole(new RegexMatcher(".*" + TEST_CLASS_NAME2
+				+ ".*"));
+		assertThat(consoleView.getConsoleText(),
+				IsEqual.equalTo("Hello World2"));
 	}
 
 	@Test
@@ -159,6 +177,12 @@ public class ConsoleViewTest {
 					+ "Thread.sleep(10 * 1000);\n" + "System.out.println(\"Hello Application\");\n"
 					+ "Thread.sleep(20 * 1000);\n" + "System.out.println(\"Finish\");\n"
 					+ "} catch (InterruptedException e) {e.printStackTrace();}");
+			createJavaClass(
+					TEST_CLASS_NAME1,
+					"System.out.print(\"Hello World1\");\ntry {\nThread.sleep(10*1000);\n} catch (InterruptedException e) {e.printStackTrace();}");
+			createJavaClass(
+					TEST_CLASS_NAME2,
+					"System.out.print(\"Hello World2\");\ntry {\nThread.sleep(10*1000);\n} catch (InterruptedException e) {e.printStackTrace();}");
 		}
 		packageExplorer.getProject(TEST_PROJECT_NAME).select();
 	}
