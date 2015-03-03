@@ -3,6 +3,8 @@ package org.jboss.reddeer.eclipse.test.ui.problems;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.hamcrest.core.Is;
@@ -73,6 +75,21 @@ public class ProblemsViewTest {
 	}
 	
 	@Test
+	public void testGetProblemColumns() {
+		pkgExplorer.open();
+		createError();
+		List<String> foundColumns = problemsView.getProblemColumns();		
+		List<String> requiredColumns = new ArrayList<String>(Arrays.asList(
+				new String[] {"Description", "Resource", "Path", "Location", "Type"}));
+		assertTrue("Number of retrieved columns should be " + requiredColumns.size() + " but there were found " + 
+				foundColumns.size() + " columns.", foundColumns.size() == requiredColumns.size());
+		for (int i = 0; i < foundColumns.size(); i++) {
+			assertTrue("Found columns was " + foundColumns.get(i) + " but should be " + requiredColumns.get(i),
+					foundColumns.get(i).equals(requiredColumns.get(i)));
+		}
+	}
+	
+	@Test
 	public void testNoErrorNoWarning() {
 		problemsView.open();
 		new WaitUntil(new ProblemsExists(ProblemType.NONE), TimePeriod.NORMAL);
@@ -84,7 +101,7 @@ public class ProblemsViewTest {
 	
 	@Test
 	public void testOneErrorNoWarning() {
-		createError();
+		createError();		
 		new WaitUntil(new ProblemsExists(ProblemType.ERROR), TimePeriod.NORMAL);
 		new WaitWhile(new ProblemsExists(ProblemType.WARNING),
 				TimePeriod.NORMAL);
@@ -132,7 +149,7 @@ public class ProblemsViewTest {
 		List<TreeItem> errors = new ProblemsView().getErrors(
 				Is.is(ERROR_DESCRIPTION), Is.is(resource),
 				StringStartsWith.startsWith(projectPath),
-				Is.is(ERROR_LOCATION), Is.is(JAVA_PROBLEM));
+				Is.is(ERROR_LOCATION), Is.is(JAVA_PROBLEM), null, null);
 
 		assertEquals(1, errors.size());
 		TreeItem error = errors.get(0);
@@ -144,7 +161,7 @@ public class ProblemsViewTest {
 
 		/* verify filtered java problem errors with the specified description */
 		errors = problemsView.getErrors(Is.is(ERROR_DESCRIPTION), null, null,
-				null, Is.is(JAVA_PROBLEM));
+				null, Is.is(JAVA_PROBLEM), null, null);
 		assertEquals("Errors node should contain two " + JAVA_PROBLEM
 				+ " errors with description equal to \"" + ERROR_DESCRIPTION
 				+ "\", but:\n" + getProblems(), 2, errors.size());
@@ -167,7 +184,7 @@ public class ProblemsViewTest {
 		List<TreeItem> warnings = new ProblemsView().getWarnings(
 				Is.is(warningDescription), Is.is(resource),
 				StringStartsWith.startsWith(projectPath),
-				Is.is(WARNING_LOCATION), Is.is(JAVA_PROBLEM));
+				Is.is(WARNING_LOCATION), Is.is(JAVA_PROBLEM), null, null);
 
 		assertEquals(1, warnings.size());
 		TreeItem warning = warnings.get(0);
@@ -181,7 +198,7 @@ public class ProblemsViewTest {
 		/* verify filtered warnings in the specified location of the specified project*/
 		warnings = problemsView.getWarnings(null, null,
 				StringStartsWith.startsWith(projectPath),
-				Is.is(WARNING_LOCATION), null);
+				Is.is(WARNING_LOCATION), null, null, null);
 		assertEquals("Warnings node should contain two " + JAVA_PROBLEM
 				+ " warnings in the location \"" + WARNING_LOCATION
 				+ "\" of the project with path \"" + projectPath
