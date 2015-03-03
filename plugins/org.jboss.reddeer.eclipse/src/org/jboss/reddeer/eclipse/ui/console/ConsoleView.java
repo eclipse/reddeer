@@ -2,12 +2,16 @@ package org.jboss.reddeer.eclipse.ui.console;
 
 import static org.hamcrest.CoreMatchers.containsString;
 
+import org.hamcrest.Matcher;
+import org.hamcrest.core.IsEqual;
 import org.jboss.reddeer.eclipse.condition.ConsoleHasLaunch;
 import org.jboss.reddeer.eclipse.condition.ConsoleIsTerminated;
 import org.jboss.reddeer.swt.condition.WaitCondition;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.impl.label.DefaultLabel;
+import org.jboss.reddeer.swt.impl.menu.ToolItemMenu;
 import org.jboss.reddeer.swt.impl.styledtext.DefaultStyledText;
+import org.jboss.reddeer.swt.impl.toolbar.DefaultToolItem;
 import org.jboss.reddeer.swt.impl.toolbar.ViewToolItem;
 import org.jboss.reddeer.swt.matcher.WithTextMatcher;
 import org.jboss.reddeer.swt.wait.TimePeriod;
@@ -127,6 +131,31 @@ public class ConsoleView extends WorkbenchView {
 		}
 		return true;
 	}
+	
+	/**
+	 * Switches console to the one with name
+	 * <code>text<code> using "Display Selected Console" ToolItem.
+	 * 
+	 * @param text Name of console to switch to.
+	 */
+	public void switchConsole(String text){
+		switchConsole(new IsEqual<String>(text));
+	}
+	
+	
+	/**
+	 * Switches console to first one which matches given text matcher, using
+	 * "Display Selected Console" ToolItem.
+	 * 
+	 * @param textMatcher Matcher to match console name.
+	 */
+	@SuppressWarnings("unchecked")
+	public void switchConsole(Matcher<String> textMatcher){
+		activate();
+		ToolItemMenu menu = new ToolItemMenu(new DefaultToolItem("Display Selected Console"), textMatcher);
+		menu.select();
+	}
+	
 	/**
 	 * 
 	 * This is not exactly a condition for checking if the console contains text.
