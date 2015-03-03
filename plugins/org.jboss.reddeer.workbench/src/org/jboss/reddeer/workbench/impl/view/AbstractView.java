@@ -313,4 +313,8 @@ public class AbstractView implements View {
 		
 		return isValid();
 	}
+	
+	public boolean isActive(){
+		return WorkbenchPartLookup.getInstance().getActiveWorkbenchPart().equals(viewPart);
+	}
 }

@@ -1,6 +1,7 @@
 package org.jboss.reddeer.workbench.test.view.impl;
 
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.Assert.*;
 
 import org.eclipse.ui.IViewReference;
 import org.hamcrest.core.Is;
@@ -45,6 +46,17 @@ public class WorkbenchViewTest  {
 
 		markersView.open();
 		markersView.close();
+		
+	}
+	
+	@Test
+	public void testIsActiveView() {
+
+		markersView.open();
+		assertTrue(markersView.isActive());
+		
+		projectExplorerView.open();
+		assertFalse(markersView.isActive());
 		
 	}
 
