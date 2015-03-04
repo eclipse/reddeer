@@ -1,5 +1,7 @@
 package org.jboss.reddeer.jface.preference;
 
+import java.util.Arrays;
+
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.swt.api.Button;
 import org.jboss.reddeer.swt.impl.button.PushButton;
@@ -65,4 +67,43 @@ public abstract class PreferencePage {
 		log.info("Restore default values in Preferences dialog");
 		b.click();
 	}
+	
+	/**
+	 * This method handles all page changes.
+	 */
+	public void handlePageChange(){
+		
+	}
+	
+	/**
+	 * Helps to determine if PreferencePage#handlePageChange method should be called by PreferenceDialog
+	 * @return title of shell which should be handled by this page
+	 */
+	public String getPageChangedShellName(){
+		return null;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + Arrays.hashCode(path);
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		PreferencePage other = (PreferencePage) obj;
+		if (!Arrays.equals(path, other.path))
+			return false;
+		return true;
+	}
+	
+	
 }
