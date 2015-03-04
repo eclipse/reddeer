@@ -2,11 +2,14 @@ package org.jboss.reddeer.eclipse.m2e.core.ui.preferences;
 
 import org.eclipse.swt.widgets.Control;
 import org.jboss.reddeer.core.condition.JobIsRunning;
+import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.impl.button.PushButton;
+import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.jboss.reddeer.swt.impl.text.DefaultText;
 import org.jboss.reddeer.core.reference.ReferencedComposite;
 import org.jboss.reddeer.core.util.Display;
 import org.jboss.reddeer.core.util.ResultRunnable;
+import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.common.wait.TimePeriod;
 import org.jboss.reddeer.common.wait.WaitUntil;
 import org.jboss.reddeer.common.wait.WaitWhile;
@@ -21,8 +24,10 @@ import org.jboss.reddeer.jface.preference.PreferencePage;
 
 public class MavenSettingsPreferencePage extends PreferencePage {
 
+	private static final Logger log = Logger.getLogger(MavenSettingsPreferencePage.class);
 	private static final String UPDATE_SETTINGS = "Update Settings";
 	private static final String REINDEX = "Reindex";
+	private static final String UPDATE_SHELL_TITLE = "Update project required";
 
 	/**
 	 * Construct the preference page with "Maven" > "User Settings".
@@ -94,5 +99,17 @@ public class MavenSettingsPreferencePage extends PreferencePage {
 				}, 1);
 			}
 		});
+	}
+	
+	@Override
+	public void handlePageChange(){
+		new DefaultShell(UPDATE_SHELL_TITLE);
+		new PushButton("Yes").click();
+		new WaitWhile(new JobIsRunning(),TimePeriod.VERY_LONG);
+	}
+
+	@Override
+	public String getPageChangedShellName() {
+		return UPDATE_SHELL_TITLE;
 	}
 }

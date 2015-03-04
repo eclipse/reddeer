@@ -5,14 +5,25 @@ import static org.hamcrest.CoreMatchers.not;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
-import org.jboss.reddeer.workbench.ui.dialogs.WorkbenchPreferenceDialog;
+import static org.junit.Assert.assertEquals;
+
+import org.jboss.reddeer.common.wait.TimePeriod;
+import org.jboss.reddeer.eclipse.jdt.ui.ProjectExplorer;
+import org.jboss.reddeer.eclipse.jdt.ui.preferences.FoldingPreferencePage;
+import org.jboss.reddeer.eclipse.m2e.core.ui.preferences.MavenSettingsPreferencePage;
+import org.jboss.reddeer.eclipse.m2e.core.ui.wizard.MavenProjectWizard;
+import org.jboss.reddeer.eclipse.m2e.core.ui.wizard.MavenProjectWizardArtifactPage;
+import org.jboss.reddeer.eclipse.m2e.core.ui.wizard.MavenProjectWizardPage;
 import org.jboss.reddeer.jface.preference.PreferencePage;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.swt.api.Shell;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
+import org.jboss.reddeer.workbench.ui.dialogs.WorkbenchPreferenceDialog;
 import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -26,6 +37,44 @@ public class WorkbenchPreferenceDialogTest {
 	private WorkbenchPreferenceDialog dialog;
 	
 	private PreferencePage preferencePage;
+	
+	private  WorkbenchPreferenceDialog wp = new WorkbenchPreferenceDialog();
+	private MavenSettingsPreferencePage mp = new MavenSettingsPreferencePage();
+	private static String originalSettingsLocation;
+	
+	@After
+	public void cleanWorkbenchPreferences(){
+		wp.open();
+		wp.select(mp);
+		mp.setUserSettingsLocation(originalSettingsLocation);
+		wp.ok();
+	}
+	
+	@AfterClass
+	public static void clean(){
+		ProjectExplorer pe= new ProjectExplorer();
+		pe.open();
+		pe.deleteAllProjects();
+	}
+	
+	@BeforeClass
+	public static void getSettingsLocation(){
+		WorkbenchPreferenceDialog wp = new WorkbenchPreferenceDialog();
+		MavenSettingsPreferencePage mp = new MavenSettingsPreferencePage();
+		wp.open();
+		wp.select(mp);
+		originalSettingsLocation = mp.getUserSettingsLocation();
+		wp.ok();
+		MavenProjectWizard mw = new MavenProjectWizard();
+		mw.open();
+		MavenProjectWizardPage mp1 = new MavenProjectWizardPage();
+		mp1.createSimpleProject(true);
+		mw.next();
+		MavenProjectWizardArtifactPage ap = new MavenProjectWizardArtifactPage();
+		ap.setArtifactId("artifact");
+		ap.setGroupId("group");
+		mw.finish(TimePeriod.VERY_LONG);
+	}
 
 	@Before
 	public void setup(){
@@ -120,5 +169,43 @@ public class WorkbenchPreferenceDialogTest {
 			super(new String[]{TestingPreferencePage.TestTopCategory.TOP_CATEGORY,
 					TestingPreferencePage.TestCategory.CATEGORY, PAGE_NAME});
 		}
+	}
+	
+	@Test
+	public void testPageChangeHandlersAfterOK(){
+		wp.open();
+		wp.select(mp);
+		mp.setUserSettingsLocation("/testLocation");
+		wp.ok();
+		wp.open();
+		wp.select(mp);
+		assertEquals("/testLocation", mp.getUserSettingsLocation());
+		wp.ok();
+	}
+	
+	@Test
+	public void testPageChangeHandlersAfterPageChange(){
+		wp.open();
+		wp.select(mp);
+		mp.setUserSettingsLocation("/testLocation1");
+		wp.select(new FoldingPreferencePage());
+		wp.ok();
+		wp.open();
+		wp.select(mp);
+		assertEquals("/testLocation1", mp.getUserSettingsLocation());
+		wp.ok();
+	}
+	
+	@Test
+	public void testPageChangeHandlersAfterManualPageChange(){
+		wp.open();
+		wp.select(mp);
+		mp.setUserSettingsLocation("/testLocation1");
+		wp.select("Maven","User Interface");
+		wp.ok();
+		wp.open();
+		wp.select(mp);
+		assertEquals("/testLocation1", mp.getUserSettingsLocation());
+		wp.ok();
 	}
 }
