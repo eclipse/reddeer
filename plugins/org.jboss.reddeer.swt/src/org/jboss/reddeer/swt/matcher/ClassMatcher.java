@@ -1,13 +1,11 @@
 package org.jboss.reddeer.swt.matcher;
 
-import org.eclipse.swt.widgets.Widget;
 import org.hamcrest.BaseMatcher;
 import org.hamcrest.Description;
 
 /**
- * The purpose of this class is to match with {@link Widget}
- * that has the same type as the given class,
- * or its type is extending the given class.
+ * The purpose of this class is to match two classes where 
+ * one is assignable from another.
  * 
  * @author jpeterka
  * @author rawagner
@@ -17,33 +15,34 @@ import org.hamcrest.Description;
 @SuppressWarnings("rawtypes")
 public class ClassMatcher extends BaseMatcher {
 
-	private Class<? extends Widget> c;
+	private Class<? extends Object> clazz;
 	
 	/**
-	 * Constructs matcher matching {@link Widget}s
-	 * with the same type as the specified class <var>c</var>
-	 * or type extending the specified class <var>c</var>
+	 * Constructs matcher matching class
+	 * with the same type as the specified class <var>clazz</var>
+	 * or type extending the specified class <var>clazz</var>
 	 * 
-	 * @param c The {@link Class} which is used to evaluate matching
+	 * @param clazz The {@link Class} which is used to evaluate matching
 	 */
-	public ClassMatcher(Class<? extends Widget> c) {
-		if(c==null)
-			throw new NullPointerException("c is null");
-		this.c = c;
+	public ClassMatcher(Class<? extends Object> clazz) {
+		if (clazz == null) {
+			throw new NullPointerException("No class has been provided.");
+		}
+		this.clazz = clazz;
 	}
 	
 	@Override
 	public boolean matches(Object item) {
-		return c.isAssignableFrom(item.getClass());
+		return clazz.isAssignableFrom(item.getClass());
 	}
 
 	@Override
 	public void describeTo(Description description) {
-		description.appendText("has the same type as " + c +" or its type extends " + c);
+		description.appendText("has the same type as " + clazz +" or its type extends " + clazz);
 	}
 	
 	@Override
 	public String toString() {
-		return "Matcher matching widget with the same type as or type extending " + c;
+		return "Matcher matching widget with the same type as or type extending " + clazz;
 	}
 }
