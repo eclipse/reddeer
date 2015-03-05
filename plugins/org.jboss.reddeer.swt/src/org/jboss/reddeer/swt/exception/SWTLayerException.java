@@ -1,5 +1,6 @@
 package org.jboss.reddeer.swt.exception;
 
+import org.jboss.reddeer.swt.exception.RedDeerException;
 /**
  * SWTLayerException indicates exceptional situation on the SWT Layer.
  * 

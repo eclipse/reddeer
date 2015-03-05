@@ -1,12 +1,14 @@
 package org.jboss.reddeer.requirements.exception;
 
+import org.jboss.reddeer.swt.exception.RedDeerException;
+
 /**
  * Thrown when some error had appeared on requirements layer. Typically when
  * requirement couldn't be fulfilled (even though canFulfill returned true)
  * 
  * @author rhopp
  */
-public class RequirementsLayerException extends RuntimeException {
+public class RequirementsLayerException extends RedDeerException {
 
 	private static final long serialVersionUID = 6490745570893239529L;
 	

@@ -2,7 +2,7 @@ package org.jboss.reddeer.eclipse.condition;
 
 import org.jboss.reddeer.eclipse.wst.server.ui.view.ServersView;
 import org.jboss.reddeer.swt.condition.WaitCondition;
-import org.jboss.reddeer.swt.exception.RedDeerException;
+import org.jboss.reddeer.common.exception.RedDeerException;
 
 /**
  * Returns true, if there is server with specified name
