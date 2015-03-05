@@ -4,10 +4,13 @@ import java.util.LinkedList;
 
 /**
  * General RedDeer runtime exception.
- * @deprecated The class has been moved to common plugin
+ * @deprecated The class has been moved to common plugin. To preserve backward compatibility it 
+ * is still required to use deprecated exception as parent of all exceptions in RedDeer to allow catch
+ * such exception with this deprecated exception. Once this exception is removed, all descendants are going
+ * to extend the new RedDeer exception from common plugin.
  * @author rawagner
  */
-public abstract class RedDeerException extends RuntimeException {
+public abstract class RedDeerException extends org.jboss.reddeer.common.exception.RedDeerException {
 
 	private static final long serialVersionUID = 1L;
 	
