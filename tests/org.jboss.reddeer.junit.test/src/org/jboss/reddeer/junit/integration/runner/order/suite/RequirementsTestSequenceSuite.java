@@ -6,6 +6,7 @@ import static org.jboss.reddeer.junit.integration.runner.order.TestSequence.crea
 import static org.jboss.reddeer.junit.integration.runner.order.TestSequence.createBeforeClass;
 import static org.jboss.reddeer.junit.integration.runner.order.TestSequence.createFulfill;
 import static org.jboss.reddeer.junit.integration.runner.order.TestSequence.createTest;
+import static org.jboss.reddeer.junit.integration.runner.order.TestSequence.createCleanup;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,6 +41,7 @@ public class RequirementsTestSequenceSuite extends TestSequenceRedDeerSuite {
 		expectedSequence.add(createTest(RequirementsTestCase.class));
 		expectedSequence.add(createAfter(RequirementsTestCase.class));
 		expectedSequence.add(createAfterClass(RequirementsTestCase.class));
+		expectedSequence.add(createCleanup(RunnerIntegrationPropertyRequirement.class));
 		// test case 2
 		expectedSequence.add(createBeforeClass(NoRequirementsTestCase.class));
 		expectedSequence.add(createBefore(NoRequirementsTestCase.class));
@@ -57,6 +59,7 @@ public class RequirementsTestSequenceSuite extends TestSequenceRedDeerSuite {
 		expectedSequence.add(createTest(RequirementsTestCase.class));
 		expectedSequence.add(createAfter(RequirementsTestCase.class));
 		expectedSequence.add(createAfterClass(RequirementsTestCase.class));
+		expectedSequence.add(createCleanup(RunnerIntegrationPropertyRequirement.class));
 		// test case 2
 		expectedSequence.add(createBeforeClass(NoRequirementsTestCase.class));
 		expectedSequence.add(createBefore(NoRequirementsTestCase.class));

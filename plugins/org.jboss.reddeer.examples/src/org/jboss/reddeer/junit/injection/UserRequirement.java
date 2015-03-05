@@ -52,4 +52,10 @@ public class UserRequirement implements Requirement<User>, PropertyConfiguration
 	public String getPassword() {
 		return password;
 	}
+
+	@Override
+	public void cleanUp() {
+		// TODO Auto-generated method stub
+		
+	}
 }

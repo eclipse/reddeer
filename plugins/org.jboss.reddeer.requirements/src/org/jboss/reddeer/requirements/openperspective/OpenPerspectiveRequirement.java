@@ -115,4 +115,9 @@ public class OpenPerspectiveRequirement implements Requirement<OpenPerspective> 
 		return perspectiveInstance;
 	}
 
+	@Override
+	public void cleanUp() {
+
+	}
+
 }

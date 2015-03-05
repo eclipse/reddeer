@@ -37,4 +37,10 @@ public class RequirementB implements Requirement<Annotation>, PropertyConfigurat
 	@Override
 	public void setDeclaration(Annotation declaration) {
 	}
+
+	@Override
+	public void cleanUp() {
+		// TODO Auto-generated method stub
+		
+	}
 }

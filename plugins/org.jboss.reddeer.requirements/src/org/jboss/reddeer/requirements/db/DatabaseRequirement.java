@@ -81,4 +81,9 @@ public class DatabaseRequirement implements Requirement<Database>, CustomConfigu
 	public DatabaseConfiguration getConfiguration() {
 		return configuration;
 	}
+
+	@Override
+	public void cleanUp() {
+
+	}
 }

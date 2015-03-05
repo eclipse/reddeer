@@ -7,6 +7,8 @@ public class TestSequence {
 	
 	private static final String FULFILL = "FULFILL";
 	
+	private static final String CLEANUP = "CLEANUP";
+	
 	private static final String DECLARATION = "DECLARATION";
 	
 	private static final String BEFORE_CLASS = "BEFORE_CLASS";
@@ -83,5 +85,9 @@ public class TestSequence {
 	
 	public static String createTest(Class<?> c){
 		return c + " - " + TEST;
+	}
+	
+	public static String createCleanup(Class<?> c){
+		return c+ " - " + CLEANUP;
 	}
 }

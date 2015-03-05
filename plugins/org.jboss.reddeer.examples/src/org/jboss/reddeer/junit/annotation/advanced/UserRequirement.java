@@ -35,4 +35,10 @@ public class UserRequirement implements Requirement<User> {
 	public void setDeclaration(User user) {
 		this.user = user;
 	}
+
+	@Override
+	public void cleanUp() {
+		// TODO Auto-generated method stub
+		
+	}
 }

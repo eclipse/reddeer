@@ -286,13 +286,26 @@ public class RequirementsRunner extends BlockJUnit4ClassRunner {
 
 	/**
 	 * Method is called before test is run.
-	 * Manages org.jbossreddeer.junit.before.test extensions
+	 * Manages org.jboss.reddeer.junit.extensionpoint.IBeforeTest extensions
 	 */
 	private void runBeforeTest() {
 		for (IBeforeTest beforeTestExtension : beforeTestExtensions){
 			if (beforeTestExtension.hasToRun()){
 				log.debug("Run method runBeforeTest() of class " + beforeTestExtension.getClass().getCanonicalName());
 				beforeTestExtension.runBeforeTest();
+			}
+		}
+	}
+	
+	/**
+	 * Method is called after test is run.
+	 * Manages org.jboss.reddeer.junit.extensionpoint.IAfterTest extensions
+	 */
+	private void runAfterTest() {
+		for (IAfterTest afterTestExtension : afterTestExtensions){
+			if (afterTestExtension.hasToRun()){
+				log.debug("Run method runAfterTest() of class " + afterTestExtension.getClass().getCanonicalName());
+				afterTestExtension.runAfterTest(getTestClass());
 			}
 		}
 	}
@@ -357,10 +370,11 @@ public class RequirementsRunner extends BlockJUnit4ClassRunner {
 	
 	@Override
 	 protected Statement withAfterClasses(Statement statement) {
-        List<FrameworkMethod> afters = getTestClass()
-                .getAnnotatedMethods(AfterClass.class);
-        return afters.isEmpty() && afterTestExtensions.isEmpty() ? statement :
-                new RunAfters(configId, null, statement, afters, null, getTestClass());
+        List<FrameworkMethod> afters = getTestClass().getAnnotatedMethods(AfterClass.class);
+        Statement s = afters.isEmpty() ? statement : new RunAfters(configId, null, statement, afters,
+        		null,getTestClass());
+        runAfterTest();
+        return new CleanUpRequirementStatement(requirements, s);
     }
 	
 	@Override

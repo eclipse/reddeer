@@ -88,4 +88,9 @@ public class CleanWorkspaceRequirement implements Requirement<CleanWorkspace> {
 		// nothing to do here
 	}
 
+	@Override
+	public void cleanUp() {
+
+	}
+
 }

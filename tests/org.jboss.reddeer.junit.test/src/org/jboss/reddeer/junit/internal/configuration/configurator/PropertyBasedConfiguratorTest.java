@@ -114,6 +114,12 @@ public class PropertyBasedConfiguratorTest {
 		@Override
 		public void setDeclaration(Annotation declaration) {
 		}
+
+		@Override
+		public void cleanUp() {
+			// TODO Auto-generated method stub
+			
+		}
 	}
 	
 	public static class PropertyBasedRequirementB implements Requirement<Annotation>, PropertyConfiguration {
@@ -128,6 +134,12 @@ public class PropertyBasedConfiguratorTest {
 		@Override
 		public void setDeclaration(Annotation declaration) {
 		}
+
+		@Override
+		public void cleanUp() {
+			// TODO Auto-generated method stub
+			
+		}
 	}
 	
 	public static class PropertyBasedRequirementC implements Requirement<Annotation>, PropertyConfiguration {
@@ -141,6 +153,12 @@ public class PropertyBasedConfiguratorTest {
 		
 		@Override
 		public void setDeclaration(Annotation declaration) {
+		}
+
+		@Override
+		public void cleanUp() {
+			// TODO Auto-generated method stub
+			
 		}
 	}
 }

@@ -31,4 +31,10 @@ public class AdminUserRequirement implements Requirement<AdminUser> {
 	public void setDeclaration(AdminUser declaration) {
 		// no need to access the annotation
 	}
+
+	@Override
+	public void cleanUp() {
+		// TODO Auto-generated method stub
+		
+	}
 }

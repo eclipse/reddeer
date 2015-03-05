@@ -34,4 +34,10 @@ public class TestRequirementA implements Requirement<Annotation> {
 	public Annotation getDeclaration() {
 		return declaration;
 	}
+
+	@Override
+	public void cleanUp() {
+		// TODO Auto-generated method stub
+		
+	}
 }

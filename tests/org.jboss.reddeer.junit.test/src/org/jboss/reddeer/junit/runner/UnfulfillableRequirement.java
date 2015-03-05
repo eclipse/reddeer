@@ -28,4 +28,10 @@ public class UnfulfillableRequirement implements Requirement<Annotation> {
 	public void setDeclaration(Annotation declaration) {
 		
 	}
+
+	@Override
+	public void cleanUp() {
+		// TODO Auto-generated method stub
+		
+	}
 }

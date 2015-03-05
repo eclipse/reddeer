@@ -26,4 +26,10 @@ public class RunnerIntegrationPropertyRequirement2 implements Requirement<Annota
 	@Override
 	public void setDeclaration(Annotation declaration) {
 	}
+
+	@Override
+	public void cleanUp() {
+		// TODO Auto-generated method stub
+		
+	}
 }
