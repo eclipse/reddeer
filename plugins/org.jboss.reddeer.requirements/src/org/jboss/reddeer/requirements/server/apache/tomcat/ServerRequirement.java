@@ -37,6 +37,7 @@ public class ServerRequirement extends ServerReqBase
 	@Target(ElementType.TYPE)
 	public @interface ApacheTomcatServer {
 		ServerReqState state() default ServerReqState.RUNNING;
+		boolean cleanup() default true;
 	}
 	
 	@Override
@@ -46,14 +47,6 @@ public class ServerRequirement extends ServerReqBase
 
 	@Override
 	public void fulfill() {
-		
-		if(lastServerConfiguration != null) {
-			boolean differentConfig = !config.equals(lastServerConfiguration.getConfig());
-			if(differentConfig) {
-				removeLastRequiredServerAndRuntime(lastServerConfiguration);
-				lastServerConfiguration = null;
-			}
-		}
 		if(lastServerConfiguration == null || !isLastConfiguredServerPresent(lastServerConfiguration)) {
 			LOGGER.info("Setup server");
 			setupServerAdapter();
@@ -114,5 +107,13 @@ public class ServerRequirement extends ServerReqBase
 
 	public ServerRequirementConfig getConfig() {
 		return this.config;
+	}
+
+	@Override
+	public void cleanUp() {
+		if(server.cleanup() && config != null){
+			removeLastRequiredServerAndRuntime(lastServerConfiguration);
+			lastServerConfiguration = null;
+		}
 	}	
 }

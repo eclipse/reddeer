@@ -61,5 +61,11 @@ public class ConfigurationSetterTest {
 		@Override
 		public void setDeclaration(Annotation declaration) {
 		}
+
+		@Override
+		public void cleanUp() {
+			// TODO Auto-generated method stub
+			
+		}
 	}
 }

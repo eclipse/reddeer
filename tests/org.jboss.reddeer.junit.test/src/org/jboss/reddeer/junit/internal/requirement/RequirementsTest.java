@@ -93,6 +93,18 @@ public class RequirementsTest {
 		verify(requirement2).fulfill();
 	}
 	
+	@Test
+	public void cleanup() {
+		Requirement<?> requirement1 = mock(Requirement.class);
+		Requirement<?> requirement2 = mock(Requirement.class);
+
+		requirements = new Requirements(asList(requirement1, requirement2), String.class, null);
+		requirements.cleanUp();
+		
+		verify(requirement1).cleanUp();
+		verify(requirement2).cleanUp();
+	}
+	
 	private List<Requirement<?>> asList(Requirement<?>... requirements) {
 		return Arrays.asList(requirements);
 	}

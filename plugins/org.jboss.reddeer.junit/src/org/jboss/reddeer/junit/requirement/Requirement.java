@@ -17,4 +17,9 @@ public interface Requirement<T extends Annotation> {
 	void fulfill();
 	
 	void setDeclaration(T declaration);
+	
+	/**
+	 * Clean up after requirement
+	 */
+	void cleanUp();
 }

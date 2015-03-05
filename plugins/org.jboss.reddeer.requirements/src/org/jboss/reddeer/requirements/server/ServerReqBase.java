@@ -98,6 +98,9 @@ public abstract class ServerReqBase {
 			throws ConfiguredServerNotFoundException {
 		ServersView serversView = new ServersView();
 		serversView.open();
+		if(lastServerConfig == null){
+			throw new ConfiguredServerNotFoundException("Server has already been removed");
+		} 
 		final String serverName = lastServerConfig.getServerName();
 		try {
 			return serversView.getServer(serverName);

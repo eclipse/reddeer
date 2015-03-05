@@ -29,4 +29,10 @@ public class RunnerIntegrationPropertyRequirement implements Requirement<Annotat
 	public void setDeclaration(Annotation declaration) {
 		TestSequence.addSetDeclaration(RunnerIntegrationPropertyRequirement.class);
 	}
+
+	@Override
+	public void cleanUp() {
+		// TODO Auto-generated method stub
+		
+	}
 }

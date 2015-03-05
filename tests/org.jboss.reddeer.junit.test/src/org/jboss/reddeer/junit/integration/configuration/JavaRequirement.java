@@ -42,4 +42,10 @@ public class JavaRequirement implements Requirement<CustomConfigJavaRequirementA
 	public void setDeclaration(CustomConfigJavaRequirementAAnnotation a) {
 		
 	}
+
+	@Override
+	public void cleanUp() {
+		// TODO Auto-generated method stub
+		
+	}
 }

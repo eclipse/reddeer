@@ -44,4 +44,10 @@ public class UserRequirement implements Requirement<User>, PropertyConfiguration
 	public void setIp(String ip) {
 		this.ip = ip;
 	}
+
+	@Override
+	public void cleanUp() {
+		// TODO Auto-generated method stub
+		
+	}
 }

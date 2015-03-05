@@ -89,4 +89,24 @@ public class Requirements implements Requirement<Annotation>, Iterable<Requireme
 	public void setDeclaration(Annotation declaration) {
 		throw new IllegalStateException("This method should never be called on wrapper object");
 	}
+
+	@Override
+	public void cleanUp() {
+		for (Requirement<?> r : requirements) {
+			try {
+				log.info("Cleaning up requirement of " + r.getClass());
+				r.cleanUp();
+			} catch (RuntimeException ex) {
+				CaptureScreenshot captureScreenshot = new CaptureScreenshot();
+				try {
+					captureScreenshot.captureScreenshot(configID, 
+							CaptureScreenshot.getScreenshotFileName(clazz, null, r.getClass().getSimpleName()));
+				} catch (CaptureScreenshotException e) {
+					e.printInfo(log);
+				}
+				throw ex;
+			}
+		}
+		
+	}
 }

@@ -50,4 +50,10 @@ public class UserRequirement implements Requirement<User>, CustomConfiguration<U
 	public void setConfiguration(UserConfiguration config) {
 		this.userConfiguration = config;
 	}
+
+	@Override
+	public void cleanUp() {
+		// TODO Auto-generated method stub
+		
+	}
 }
