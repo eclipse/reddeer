@@ -187,6 +187,15 @@ public class CTabItemHandler {
 			}
 		});
 	}
+	
+	/**
+	 * Activates specified ({@link CTabItem}
+	 * @param item CTabItem to handle
+	 */
+	public void activate(CTabItem item){
+		select(item);
+		notifyCTabFolder(item, createEventForCTabItem(item,SWT.Selection));
+	}
 
 	/**
 	 * Sets focus on specified {@link CTabItem}.

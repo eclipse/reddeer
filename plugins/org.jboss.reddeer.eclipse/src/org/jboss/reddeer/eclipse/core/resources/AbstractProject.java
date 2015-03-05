@@ -3,6 +3,7 @@ package org.jboss.reddeer.eclipse.core.resources;
 import java.util.List;
 
 import org.jboss.reddeer.common.logging.Logger;
+import org.jboss.reddeer.common.wait.TimePeriod;
 import org.jboss.reddeer.eclipse.exception.EclipseLayerException;
 import org.jboss.reddeer.eclipse.utils.DeleteUtils;
 import org.jboss.reddeer.swt.api.Shell;
@@ -13,7 +14,6 @@ import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.menu.ContextMenu;
 import org.jboss.reddeer.swt.impl.menu.ShellMenu;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
-import org.jboss.reddeer.common.wait.TimePeriod;
 
 /**
  * Abstract Project used as parent of specific projects (e.g. Java, Maven, General...).
@@ -25,6 +25,10 @@ public abstract class AbstractProject extends ExplorerItem {
 
 	protected final Logger log = Logger.getLogger(Project.class);
 	
+	/**
+	 * Creates {@link AbstractProject}
+	 * @param item
+	 */
 	public AbstractProject(TreeItem item) {
 		super(item);
 		if (!natureMatches(treeViewerHandler.getNonStyledText(item), getNatureIds())) {
@@ -60,6 +64,7 @@ public abstract class AbstractProject extends ExplorerItem {
 	 *            whether project should be deleted from file system or not
 	 */
 	public void delete(boolean deleteFromFileSystem) {
+		// no need to activate, it is activated in refresh() method 
 		refresh();
 
 		log.debug("Delete project '" + getName() + "' via Explorer");

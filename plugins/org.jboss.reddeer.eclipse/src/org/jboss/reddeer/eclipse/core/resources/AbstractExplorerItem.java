@@ -28,17 +28,26 @@ public abstract class AbstractExplorerItem {
 	protected Logger logger = new Logger(AbstractExplorerItem.class);
 	
 	protected TreeItem treeItem;
-
+	
 	protected TreeViewerHandler treeViewerHandler = TreeViewerHandler
 			.getInstance();
 
+	/**
+	 * Creates an instance of AbstractExplorerItem from {@link TreeItem}
+	 * @param treeItem
+	 */
 	public AbstractExplorerItem(TreeItem treeItem) {
 		if (treeItem == null) {
 			throw new IllegalArgumentException("Tree item cannot be null.");
 		}
 		this.treeItem = treeItem;
 	}
-
+	
+	/**
+	 * Select the explorer item.
+	 */
+	public abstract void select();
+	
 	/**
 	 * Activates View containing explorer item.
 	 */
@@ -57,6 +66,7 @@ public abstract class AbstractExplorerItem {
 	 *         false otherwise
 	 */
 	public boolean containsItem(String... path) {
+		activateWrappingView();
 		boolean result = false;
 		try {
 			ProjectItem item = getProjectItem(path);
@@ -76,6 +86,7 @@ public abstract class AbstractExplorerItem {
 	 * @return project item with the specified <var>text</var>
 	 */
 	public ProjectItem getChild(String text) {
+		activateWrappingView();
 		String[] childPath = new String[treeItem.getPath().length + 1];
 		System.arraycopy(treeItem.getPath(), 0, childPath, 0,
 				treeItem.getPath().length);
@@ -89,6 +100,7 @@ public abstract class AbstractExplorerItem {
 	 * @return list of children of the project item
 	 */
 	public List<ProjectItem> getChildren() {
+		activateWrappingView();
 		List<ProjectItem> children = new ArrayList<ProjectItem>();
 
 		for (TreeItem item : treeItem.getItems()) {
@@ -111,6 +123,7 @@ public abstract class AbstractExplorerItem {
 	 * @return String[] of decorated texts on a explorer item
 	 */
 	public String[] getDecoratedParts() {
+		// no need to activate when retrieving text
 		return treeViewerHandler.getStyledTexts(treeItem);
 	}
 
@@ -120,6 +133,7 @@ public abstract class AbstractExplorerItem {
 	 * @return name of the explorer item without decorators
 	 */
 	public String getName() {
+		// no need to activate when retrieving text
 		return treeViewerHandler.getNonStyledText(treeItem);
 	}
 
@@ -137,6 +151,7 @@ public abstract class AbstractExplorerItem {
 	 * @return tree item specified by the path
 	 */
 	public ProjectItem getProjectItem(String... path) {
+		activateWrappingView();
 		TreeItem item = treeItem;
 		for (int i = 0; i < path.length; i++) {
 			String pathSegment = path[i];
@@ -171,6 +186,7 @@ public abstract class AbstractExplorerItem {
 	 * @return text of the explorer item
 	 */
 	public String getText() {
+		// no need to activate when retrieving text
 		return treeItem.getText();
 	}
 
@@ -218,13 +234,6 @@ public abstract class AbstractExplorerItem {
 		select();
 		new ContextMenu("Refresh").select();
 		new WaitWhile(new JobIsRunning(), TimePeriod.LONG);
-	}
-	
-	/**
-	 * Selects the explorer item.
-	 */
-	public void select() {
-		treeItem.select();
 	}
 	
 	/**

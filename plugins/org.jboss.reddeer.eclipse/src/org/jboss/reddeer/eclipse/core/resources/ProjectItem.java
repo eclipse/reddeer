@@ -1,18 +1,17 @@
 package org.jboss.reddeer.eclipse.core.resources;
 
 import org.jboss.reddeer.common.logging.Logger;
-import org.jboss.reddeer.eclipse.core.resources.Project;
-import org.jboss.reddeer.swt.api.TreeItem;
+import org.jboss.reddeer.common.matcher.RegexMatcher;
+import org.jboss.reddeer.common.wait.TimePeriod;
+import org.jboss.reddeer.common.wait.WaitWhile;
 import org.jboss.reddeer.core.condition.JobIsRunning;
 import org.jboss.reddeer.core.condition.ShellWithTextIsActive;
+import org.jboss.reddeer.core.matcher.WithTextMatcher;
+import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.menu.ContextMenu;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
-import org.jboss.reddeer.common.matcher.RegexMatcher;
-import org.jboss.reddeer.core.matcher.WithTextMatcher;
-import org.jboss.reddeer.common.wait.TimePeriod;
-import org.jboss.reddeer.common.wait.WaitWhile;
 
 /**
  * Represents a project item of {@link Project}.
@@ -30,7 +29,6 @@ public class ProjectItem extends ExplorerItem {
 	/**
 	 * Constructs project item with a given tree item, project and path. For
 	 * information how path could look like see {@link Project#getProjectItem}.
-	 * 
 	 * @param treeItem
 	 *            Tree item
 	 * @param project
@@ -46,7 +44,6 @@ public class ProjectItem extends ExplorerItem {
 
 	/**
 	 * Constructs project item with a specified tree item.
-	 * 
 	 * @param treeItem
 	 *            item representing project item
 	 */
@@ -55,11 +52,12 @@ public class ProjectItem extends ExplorerItem {
 		project = new Project(new DefaultTreeItem(treeItem.getPath()[0]));
 		path = treeItem.getPath();
 	}
-
+	
 	/**
 	 * Deletes the project item. The project item is refreshed before deleting.
 	 */
 	public void delete() {
+		// no need to activate, it will be activated in refresh() method
 		refresh();
 
 		log.debug("Delete project item '" + treeItem.getText() + "'.");
@@ -82,6 +80,7 @@ public class ProjectItem extends ExplorerItem {
 	 */
 	@Deprecated
 	public String[] getDecorators() {
+		select();
 		return treeViewerHandler.getStyledTexts(treeItem);
 	}
 
@@ -92,5 +91,14 @@ public class ProjectItem extends ExplorerItem {
 	 */
 	public Project getProject() {
 		return project;
+	}
+
+	@Override
+	public void select() {
+		activateWrappingView();
+		String[] itemPath = new String[path.length - 1];
+		System.arraycopy(path, 1, itemPath, 0,
+				path.length - 1);
+		project.getProjectItem(itemPath).treeItem.select();
 	}
 }
