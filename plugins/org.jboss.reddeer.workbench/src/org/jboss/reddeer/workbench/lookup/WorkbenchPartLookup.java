@@ -124,7 +124,7 @@ public class WorkbenchPartLookup {
 			} 
 
 			for (IViewPart part : viewReference.getPage().getViewStack(viewReference.getView(false))){
-				log.trace("\tFound view " + view.getTitle());
+				log.trace("\tFound view " + part.getTitle());
 				views.add(part);
 			}
 		}
