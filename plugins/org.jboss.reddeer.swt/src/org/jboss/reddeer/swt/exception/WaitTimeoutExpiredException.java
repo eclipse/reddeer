@@ -1,5 +1,7 @@
 package org.jboss.reddeer.swt.exception;
 
+import org.jboss.reddeer.common.exception.RedDeerException;
+
 /**
  * WaitTimeoutExpiredException indicates reaching timeout time period.
  * 

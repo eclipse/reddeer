@@ -1,6 +1,6 @@
 package org.jboss.reddeer.gef;
 
-import org.jboss.reddeer.swt.exception.RedDeerException;
+import org.jboss.reddeer.common.exception.RedDeerException;
 
 /**
  * GEF Layer Exception

@@ -8,6 +8,7 @@ Bundle-Activator: org.jboss.reddeer.graphiti.test.Activator
 Require-Bundle: org.junit,
  org.eclipse.ui,
  org.eclipse.core.runtime,
+ org.jboss.reddeer.common;bundle-version="[0.7,0.8)",
  org.jboss.reddeer.gef;bundle-version="[0.7,0.8)",
  org.jboss.reddeer.graphiti;bundle-version="[0.7,0.8)",
  org.jboss.reddeer.jface;bundle-version="[0.7,0.8)",
