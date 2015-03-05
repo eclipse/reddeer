@@ -16,11 +16,10 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.actions.ActionFactory;
 import org.eclipse.ui.actions.ActionFactory.IWorkbenchAction;
 import org.jboss.reddeer.common.logging.Logger;
-import org.jboss.reddeer.core.handler.WidgetHandler;
+import org.jboss.reddeer.core.exception.CoreLayerException;
 import org.jboss.reddeer.core.lookup.WorkbenchPartLookup;
 import org.jboss.reddeer.core.util.Display;
 import org.jboss.reddeer.core.util.ResultRunnable;
-import org.jboss.reddeer.core.exception.CoreLayerException;
 
 /**
  * WorkbenchPartHandler handles operations common for both editor and view instances.
@@ -163,10 +162,8 @@ public class WorkbenchPartHandler {
 					while (!cTabItemFound && index < cTabItems.length){
 						if (cTabItems[index].getControl() == workbenchPartWidgets.firstCTabItemControl){
 							cTabItemFound = true;
-							if (workbenchPartWidgets.workbenchPartCTabFolder.getSelectionIndex() != index){
-								log.debug("Activating Workbench part with label: '" + cTabItems[index].getText() + "'");
-								workbenchPartWidgets.workbenchPartCTabFolder.setSelection(index);	
-							}
+							log.debug("Activating Workbench part with label: '" + cTabItems[index].getText() + "'");
+							CTabItemHandler.getInstance().activate(cTabItems[index]);
 						}		
 						else{
 							index++;

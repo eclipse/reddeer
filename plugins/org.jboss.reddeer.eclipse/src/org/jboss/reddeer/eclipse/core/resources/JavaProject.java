@@ -10,6 +10,10 @@ import org.jboss.reddeer.swt.api.TreeItem;
  */
 public class JavaProject extends Project {
 
+	/**
+	 * Creates object representing java project
+	 * @param item
+	 */
 	public JavaProject(TreeItem item) {
 		super(item);
 	}

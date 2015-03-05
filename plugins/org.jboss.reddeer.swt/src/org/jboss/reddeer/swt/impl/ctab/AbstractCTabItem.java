@@ -40,10 +40,7 @@ public abstract class AbstractCTabItem extends AbstractWidget<org.eclipse.swt.cu
 	@Override
 	public void activate() {
 		logger.info("Activate " + this.getText());
-		cTabItemHandler.select(swtWidget);
-		cTabItemHandler.notifyCTabFolder(
-			swtWidget,
-			cTabItemHandler.createEventForCTabItem(swtWidget,SWT.Selection));
+		cTabItemHandler.activate(swtWidget);
 	}
 
 	/**

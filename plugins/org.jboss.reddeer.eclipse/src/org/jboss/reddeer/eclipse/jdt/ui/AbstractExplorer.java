@@ -3,6 +3,9 @@ package org.jboss.reddeer.eclipse.jdt.ui;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.jboss.reddeer.common.wait.TimePeriod;
+import org.jboss.reddeer.common.wait.WaitWhile;
+import org.jboss.reddeer.core.condition.JobIsRunning;
 import org.jboss.reddeer.eclipse.core.resources.AbstractProject;
 import org.jboss.reddeer.eclipse.core.resources.ExplorerItem;
 import org.jboss.reddeer.eclipse.core.resources.Project;
@@ -11,14 +14,11 @@ import org.jboss.reddeer.eclipse.utils.DeleteUtils;
 import org.jboss.reddeer.jface.viewer.handler.TreeViewerHandler;
 import org.jboss.reddeer.swt.api.Shell;
 import org.jboss.reddeer.swt.api.TreeItem;
-import org.jboss.reddeer.core.condition.JobIsRunning;
 import org.jboss.reddeer.swt.impl.button.CheckBox;
 import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.menu.ContextMenu;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.jboss.reddeer.swt.impl.tree.DefaultTree;
-import org.jboss.reddeer.common.wait.TimePeriod;
-import org.jboss.reddeer.common.wait.WaitWhile;
 import org.jboss.reddeer.workbench.impl.view.WorkbenchView;
 
 /**
@@ -88,6 +88,7 @@ public class AbstractExplorer extends WorkbenchView {
 	 */
 	public List<Project> getProjects(){
 		List<Project> projects = new ArrayList<Project>();
+
 		TreeViewerHandler treeViewerHandler = TreeViewerHandler.getInstance();
 		
 		for (TreeItem item : getTree().getItems()){			
@@ -180,9 +181,9 @@ public class AbstractExplorer extends WorkbenchView {
 	public <T extends AbstractProject> T getProject(final String projectName, Class<T> projectType) {		
 		for (TreeItem item : getTree().getItems()){
 			try {
-				String name =  projectType.getDeclaredConstructor(TreeItem.class).newInstance(item).getName();
-				if (name.equals(projectName)) {
-					return  projectType.getDeclaredConstructor(TreeItem.class).newInstance(item);
+				T project =  projectType.getDeclaredConstructor(TreeItem.class).newInstance(item);
+				if (project.getName().equals(projectName)) {
+					return project;
 				}
 			} catch (EclipseLayerException ex) {
 				// Because there are attempts to create from all tree items projects of specific type but

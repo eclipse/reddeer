@@ -13,14 +13,13 @@ public class Project extends AbstractProject {
 
 	/**
 	 * Creates a project represented by specified {@link TreeItem}.
-	 * 
 	 * @param treeItem
 	 *            encapsulated tree item
 	 */
 	public Project(TreeItem treeItem) {
 		super(treeItem);
 	}
-
+	
 	@Override
 	public String[] getNatureIds() {
 		return null;
