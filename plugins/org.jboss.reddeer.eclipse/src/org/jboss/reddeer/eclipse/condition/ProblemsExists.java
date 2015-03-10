@@ -11,8 +11,9 @@ import org.jboss.reddeer.swt.condition.WaitCondition;
  * Returns true, if there is at least one problem marker in problems view (warning or error)
  * 
  * @author Jaroslav Jankovic
- *
+ * @deprecated since 0.7. Use ProblemExists and ProblemsViewIsEmpty instead of this one.
  */
+@Deprecated
 public class ProblemsExists implements WaitCondition {
 
 	public enum ProblemType {
