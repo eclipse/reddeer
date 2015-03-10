@@ -9,17 +9,23 @@ import java.util.List;
 
 import org.hamcrest.core.Is;
 import org.hamcrest.core.StringStartsWith;
-import org.jboss.reddeer.eclipse.condition.ProblemsExists;
-import org.jboss.reddeer.eclipse.condition.ProblemsExists.ProblemType;
+import org.jboss.reddeer.eclipse.condition.ProblemExists;
+import org.jboss.reddeer.eclipse.condition.ProblemsViewIsEmpty;
 import org.jboss.reddeer.eclipse.jdt.ui.NewJavaClassWizardDialog;
 import org.jboss.reddeer.eclipse.jdt.ui.NewJavaClassWizardPage;
 import org.jboss.reddeer.eclipse.jdt.ui.ide.NewJavaProjectWizardDialog;
 import org.jboss.reddeer.eclipse.jdt.ui.ide.NewJavaProjectWizardPage;
 import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.PackageExplorer;
+import org.jboss.reddeer.eclipse.ui.problems.Problem;
+import org.jboss.reddeer.eclipse.ui.problems.ProblemsView.ProblemType;
 import org.jboss.reddeer.eclipse.ui.problems.ProblemsView;
+import org.jboss.reddeer.eclipse.ui.problems.matcher.ProblemsDescriptionMatcher;
+import org.jboss.reddeer.eclipse.ui.problems.matcher.ProblemsLocationMatcher;
+import org.jboss.reddeer.eclipse.ui.problems.matcher.ProblemsPathMatcher;
+import org.jboss.reddeer.eclipse.ui.problems.matcher.ProblemsResourceMatcher;
+import org.jboss.reddeer.eclipse.ui.problems.matcher.ProblemsTypeMatcher;
 import org.jboss.reddeer.eclipse.utils.DeleteUtils;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
-import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.swt.condition.JobIsRunning;
 import org.jboss.reddeer.swt.wait.TimePeriod;
 import org.jboss.reddeer.swt.wait.WaitUntil;
@@ -92,46 +98,47 @@ public class ProblemsViewTest {
 	@Test
 	public void testNoErrorNoWarning() {
 		problemsView.open();
-		new WaitUntil(new ProblemsExists(ProblemType.NONE), TimePeriod.NORMAL);
+		new WaitUntil(new ProblemsViewIsEmpty(), TimePeriod.NORMAL);
 		assertTrue("Errors node should be empty, but:\n" + getProblems(),
-				problemsView.getAllErrors().isEmpty());
+				problemsView.getProblems(ProblemType.ERROR).isEmpty());
 		assertTrue("Warnings node should be empty, but:\n" + getProblems(),
-				problemsView.getAllWarnings().isEmpty());
+				problemsView.getProblems(ProblemType.WARNING).isEmpty());
 	}
 	
 	@Test
 	public void testOneErrorNoWarning() {
 		createError();		
-		new WaitUntil(new ProblemsExists(ProblemType.ERROR), TimePeriod.NORMAL);
-		new WaitWhile(new ProblemsExists(ProblemType.WARNING),
+		new WaitUntil(new ProblemExists(ProblemType.ERROR), TimePeriod.NORMAL);
+		new WaitWhile(new ProblemExists(ProblemType.WARNING),
 				TimePeriod.NORMAL);
 		assertEquals("Errors node should contain one error, but:\n"
-		+ getProblems(), 1, problemsView.getAllErrors().size());
+		+ getProblems(), 1, problemsView.getProblems(ProblemType.ERROR).size());
 		assertTrue("Warnings node should be empty, but:\n" + getProblems(),
-				problemsView.getAllWarnings().isEmpty());
+				problemsView.getProblems(ProblemType.WARNING).isEmpty());
 	}
 	
 	@Test
 	public void testNoErrorOneWarning() {
 		createWarning();
-		new WaitWhile(new ProblemsExists(ProblemType.ERROR), TimePeriod.NORMAL);
-		new WaitUntil(new ProblemsExists(ProblemType.WARNING),
+		new WaitWhile(new ProblemExists(ProblemType.ERROR), TimePeriod.NORMAL);
+		new WaitUntil(new ProblemExists(ProblemType.WARNING),
 				TimePeriod.NORMAL);
 		assertTrue("Errors node should be empty, but:\n" + getProblems(),
-				problemsView.getAllErrors().isEmpty());
+				problemsView.getProblems(ProblemType.ERROR).isEmpty());
 		assertEquals("Warnings node should contain one warning, but:\n"
-				+ getProblems(), 1, problemsView.getAllWarnings().size());
+				+ getProblems(), 1, problemsView.getProblems(ProblemType.WARNING).size());
 	}
 	
 	@Test
 	public void testOneErrorOneWarning() {
 		createError();
 		createWarning();
-		new WaitUntil(new ProblemsExists(ProblemType.BOTH), TimePeriod.NORMAL);
+		new WaitUntil(new ProblemExists(ProblemType.ERROR), TimePeriod.NORMAL);
+		new WaitUntil(new ProblemExists(ProblemType.WARNING), TimePeriod.NORMAL);
 		assertEquals("Errors node should contain one error, but:\n"
-		+ getProblems(), 1, problemsView.getAllErrors().size());
+		+ getProblems(), 1, problemsView.getProblems(ProblemType.ERROR).size());
 		assertEquals("Warnings node should contain one warning, but:\n"
-		+ getProblems(), 1, problemsView.getAllWarnings().size());
+		+ getProblems(), 1, problemsView.getProblems(ProblemType.WARNING).size());
 	}
 	
 	@Test
@@ -145,23 +152,27 @@ public class ProblemsViewTest {
 		createWarning();
 
 		/* get filtered errors */
-		new WaitUntil(new ProblemsExists(ProblemType.BOTH), TimePeriod.NORMAL);
-		List<TreeItem> errors = new ProblemsView().getErrors(
-				Is.is(ERROR_DESCRIPTION), Is.is(resource),
-				StringStartsWith.startsWith(projectPath),
-				Is.is(ERROR_LOCATION), Is.is(JAVA_PROBLEM), null, null);
+		new WaitUntil(new ProblemExists(ProblemType.WARNING), TimePeriod.NORMAL);
+		new WaitUntil(new ProblemExists(ProblemType.ERROR), TimePeriod.NORMAL);
+		List<Problem> errors = new ProblemsView().getProblems(ProblemType.ERROR,
+				new ProblemsDescriptionMatcher(Is.is(ERROR_DESCRIPTION)),
+				new ProblemsResourceMatcher(resource),
+				new ProblemsPathMatcher(StringStartsWith.startsWith(projectPath)),
+				new ProblemsLocationMatcher(Is.is(ERROR_LOCATION)),
+				new ProblemsTypeMatcher(Is.is(JAVA_PROBLEM)));
 
 		assertEquals(1, errors.size());
-		TreeItem error = errors.get(0);
-		assertEquals("Error description", ERROR_DESCRIPTION, error.getCell(0));
-		assertEquals("Error resource", resource, error.getCell(1));
-		assertEquals("Error path", projectPath, error.getCell(2));
-		assertEquals("Error location", ERROR_LOCATION, error.getCell(3));
-		assertEquals("Error type", JAVA_PROBLEM, error.getCell(4));
+		Problem error = errors.get(0);
+		assertEquals("Error description", ERROR_DESCRIPTION, error.getDescription());
+		assertEquals("Error resource", resource, error.getResource());
+		assertEquals("Error path", projectPath, error.getPath());
+		assertEquals("Error location", ERROR_LOCATION, error.getLocation());
+		assertEquals("Error type", JAVA_PROBLEM, error.getType());
 
 		/* verify filtered java problem errors with the specified description */
-		errors = problemsView.getErrors(Is.is(ERROR_DESCRIPTION), null, null,
-				null, Is.is(JAVA_PROBLEM), null, null);
+		errors = problemsView.getProblems(ProblemType.ERROR,
+				new ProblemsDescriptionMatcher(Is.is(ERROR_DESCRIPTION)),
+				new ProblemsTypeMatcher(Is.is(JAVA_PROBLEM)));
 		assertEquals("Errors node should contain two " + JAVA_PROBLEM
 				+ " errors with description equal to \"" + ERROR_DESCRIPTION
 				+ "\", but:\n" + getProblems(), 2, errors.size());
@@ -180,25 +191,28 @@ public class ProblemsViewTest {
 		createError();
 
 		/* get filtered warnings */
-		new WaitUntil(new ProblemsExists(ProblemType.BOTH), TimePeriod.NORMAL);
-		List<TreeItem> warnings = new ProblemsView().getWarnings(
-				Is.is(warningDescription), Is.is(resource),
-				StringStartsWith.startsWith(projectPath),
-				Is.is(WARNING_LOCATION), Is.is(JAVA_PROBLEM), null, null);
+		new WaitUntil(new ProblemExists(ProblemType.WARNING), TimePeriod.NORMAL);
+		new WaitUntil(new ProblemExists(ProblemType.ERROR), TimePeriod.NORMAL);
+		List<Problem> warnings = new ProblemsView().getProblems(ProblemType.WARNING,
+				new ProblemsDescriptionMatcher(Is.is(warningDescription)),
+				new ProblemsResourceMatcher(Is.is(resource)),
+				new ProblemsPathMatcher(StringStartsWith.startsWith(projectPath)),
+				new ProblemsLocationMatcher(Is.is(WARNING_LOCATION)),
+				new ProblemsTypeMatcher(Is.is(JAVA_PROBLEM)));
 
 		assertEquals(1, warnings.size());
-		TreeItem warning = warnings.get(0);
+		Problem warning = warnings.get(0);
 		assertEquals("Warning description", warningDescription,
-				warning.getCell(0));
-		assertEquals("Warning resource", resource, warning.getCell(1));
-		assertEquals("Warning path", projectPath, warning.getCell(2));
-		assertEquals("Warning location", WARNING_LOCATION, warning.getCell(3));
-		assertEquals("Warning type", JAVA_PROBLEM, warning.getCell(4));
+				warning.getDescription());
+		assertEquals("Warning resource", resource, warning.getResource());
+		assertEquals("Warning path", projectPath, warning.getPath());
+		assertEquals("Warning location", WARNING_LOCATION, warning.getLocation());
+		assertEquals("Warning type", JAVA_PROBLEM, warning.getType());
 
 		/* verify filtered warnings in the specified location of the specified project*/
-		warnings = problemsView.getWarnings(null, null,
-				StringStartsWith.startsWith(projectPath),
-				Is.is(WARNING_LOCATION), null, null, null);
+		warnings = problemsView.getProblems(ProblemType.WARNING,
+				new ProblemsPathMatcher(StringStartsWith.startsWith(projectPath)),
+				new ProblemsLocationMatcher(Is.is(WARNING_LOCATION)));
 		assertEquals("Warnings node should contain two " + JAVA_PROBLEM
 				+ " warnings in the location \"" + WARNING_LOCATION
 				+ "\" of the project with path \"" + projectPath
@@ -243,7 +257,11 @@ public class ProblemsViewTest {
 		textEditor.save();
 		
 		problemsView.open();
-		new WaitUntil(new ProblemsExists(), TimePeriod.NORMAL);
+		if (error) {
+			new WaitUntil(new ProblemExists(ProblemType.ERROR), TimePeriod.NORMAL);
+		} else {
+			new WaitUntil(new ProblemExists(ProblemType.WARNING), TimePeriod.NORMAL);
+		}
 	}
 
 	private void createProblem(boolean error) {
@@ -254,15 +272,15 @@ public class ProblemsViewTest {
 	private String getProblems() {
 		StringBuilder builder = new StringBuilder();
 		builder.append("Errors:\n");
-		for (TreeItem item : problemsView.getAllErrors()) {
+		for (Problem problem: problemsView.getProblems(ProblemType.ERROR)) {
 			builder.append("\t");
-			builder.append(item.getText());
+			builder.append(problem);
 			builder.append("\n");
 		}
 		builder.append("Warnings:\n");
-		for (TreeItem item : problemsView.getAllWarnings()) {
+		for (Problem problem: problemsView.getProblems(ProblemType.WARNING)) {
 			builder.append("\t");
-			builder.append(item.getText());
+			builder.append(problem);
 			builder.append("\n");
 		}
 		return builder.toString();
