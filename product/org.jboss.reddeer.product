@@ -20,8 +20,8 @@ org.eclipse.jdt.ui.JavaPerspective
       </programArgs>
       <vmArgs>-Dorg.eclipse.swt.browser.DefaultType=mozilla
 -Dosgi.requiredJavaVersion=1.6
--Dosgi.configuration.area.default=null
--Dosgi.user.area.default=null
+-Dosgi.configuration.area.default=@user.home/.reddeer
+-Dosgi.user.area.default=@user.home/.reddeer
 -Dosgi.user.area=@user.home
 -Dosgi.instance.area.default=@user.home/workspace
 -XX:MaxPermSize=256m
@@ -52,9 +52,8 @@ org.eclipse.jdt.ui.JavaPerspective
    </plugins>
 
    <features>
-      <feature id="org.eclipse.epp.package.jee.feature"/>
-      <feature id="org.jboss.reddeer.ide.feature"/>
-      <feature id="org.sonatype.tycho.m2e.feature"/>
+     <feature id="org.jboss.reddeer.ide.feature"/>
+     <feature id="org.sonatype.tycho.m2e.feature" installMode="root"/>
    </features>
 
    <configurations>
