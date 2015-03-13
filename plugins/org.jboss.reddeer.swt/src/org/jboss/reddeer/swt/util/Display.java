@@ -2,6 +2,7 @@ package org.jboss.reddeer.swt.util;
 
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
+import org.jboss.reddeer.swt.interceptor.SyncInterceptorManager;
 
 
 /**
@@ -15,6 +16,7 @@ public class Display {
 	private static final Logger log = Logger.getLogger(Display.class);
 
 	private static org.eclipse.swt.widgets.Display display;
+	private static SyncInterceptorManager sim = SyncInterceptorManager.getInstance();
 
 	private static boolean firstAttempt = true;
 
@@ -55,6 +57,11 @@ public class Display {
 	 */	
 	@SuppressWarnings("unchecked")
 	public static <T> T syncExec(final ResultRunnable<T> runnable) {
+		
+		if (!sim.isIntercepted()) {
+			sim.performBeforeSync();
+		}
+		
 		ErrorHandlingRunnable<T> errorHandlingRunnable = new ErrorHandlingRunnable<T>(runnable);
 
 		if (!isUIThread()) {
@@ -75,6 +82,10 @@ public class Display {
 			throw new SWTLayerException("Exception during sync execution in UI thread", errorHandlingRunnable.getException());
 		}
 
+		if (!sim.isIntercepted()) {
+			sim.performAfterSync();
+		}
+		
 		return errorHandlingRunnable.getResult();
 
 	}
