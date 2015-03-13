@@ -23,6 +23,7 @@ public class Logger {
 	private static final String info = "INFO";
 	private static final String dump = "DUMP";
 	private static final String fatal = "FATAL";
+	private static final String step = "STEP";
 
 	private Class<? extends Object> loggerClass;
 
@@ -203,6 +204,42 @@ public class Logger {
 	public void fatal(String msg) {
 		print(fatal, msg, MessageType.FATAL);
 	}
+	
+	/**
+	 * Log step message using formatting string and arguments
+	 * 
+	 * This should not be used directly in RedDeer API.
+	 * 
+	 * Step message is strictly intended to be used in tests only to describe
+	 * human readable flow that can be used in issue tracker or for describing
+	 * test flow.
+	 * 
+	 * @param fmtString
+	 *            Formatting string
+	 * @param args
+	 *            Arguments
+	 * @see java.lang.String#format(String, Object...)
+	 */
+	public void step(String fmtString, Object... args) {
+		step(String.format(fmtString, args));
+	}
+
+	/**
+	 * log step message
+	 * 
+	 * This should not be used directly in RedDeer API.
+	 * 
+	 * Step message is strictly intended to be used in tests only to describe
+	 * human readable flow that can be used in issue tracker or for describing
+	 * test flow
+	 * 
+	 * @param msg
+	 *            message
+	 */
+	public void step(String msg) {
+		print(step, msg, MessageType.FATAL);
+	}
+	
 
 	/**
 	 * Log fatal message using formatting string and arguments

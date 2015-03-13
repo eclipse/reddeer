@@ -50,6 +50,8 @@ public class ExecutionSetting {
 				addLogMessageType(MessageType.DEBUG);
 			} else if (p.equalsIgnoreCase("INFO")) {
 				addLogMessageType(MessageType.INFO);
+			} else if (p.equalsIgnoreCase("STEP")) {
+				addLogMessageType(MessageType.STEP);				
 			} else if (p.equalsIgnoreCase("ALL")) {
 				setLogMessageFilter(MessageType.ALL);
 				return;
