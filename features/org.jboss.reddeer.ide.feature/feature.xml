@@ -26,27 +26,109 @@ source code, or contact Red Hat Legal Affairs, 1801 Varsity Drive,
 Raleigh NC 27606 USA.
    </license>
 
+   <includes id="org.jboss.reddeer.eclipse.feature" version="0.0.0"/>
+   <includes id="org.jboss.reddeer.eclipse.feature.source" version="0.0.0"/>
+   <includes id="org.jboss.reddeer.examples.feature" version="0.0.0"/>
+   <includes id="org.jboss.reddeer.examples.feature.source" version="0.0.0"/>
+   <includes id="org.jboss.reddeer.graphiti.feature" version="0.0.0"/>
+   <includes id="org.jboss.reddeer.graphiti.feature.source" version="0.0.0"/>
+   <includes id="org.jboss.reddeer.junit.extension.feature" version="0.0.0"/>
+   <includes id="org.jboss.reddeer.junit.extension.feature.source" version="0.0.0"/>
+   <includes id="org.jboss.reddeer.rcp.feature" version="0.0.0"/>
+   <includes id="org.jboss.reddeer.rcp.feature.source" version="0.0.0"/>
+   <includes id="org.jboss.reddeer.recorder.feature" version="0.0.0"/>
+   <includes id="org.jboss.reddeer.recorder.feature.source" version="0.0.0"/>
+   <includes id="org.jboss.reddeer.spy.feature" version="0.0.0"/>
+   <includes id="org.jboss.reddeer.spy.feature.source" version="0.0.0"/>
+   <includes id="org.jboss.reddeer.swt.feature" version="0.0.0"/>
+   <includes id="org.jboss.reddeer.swt.feature.source" version="0.0.0"/>
+   <includes id="org.jboss.reddeer.ui.feature" version="0.0.0"/>
+   <includes id="org.jboss.reddeer.ui.feature.source" version="0.0.0"/>
+  
    <requires>
-      <import feature="org.jboss.reddeer.eclipse.feature" />
-      <import feature="org.jboss.reddeer.eclipse.feature.source" />
-      <import feature="org.jboss.reddeer.examples.feature" />
-      <import feature="org.jboss.reddeer.examples.feature.source" />
-      <import feature="org.jboss.reddeer.graphiti.feature" />
-      <import feature="org.jboss.reddeer.graphiti.feature.source" />
-      <import feature="org.jboss.reddeer.junit.extension.feature" />
-      <import feature="org.jboss.reddeer.junit.extension.feature.source" />
-      <import feature="org.jboss.reddeer.rcp.feature" />
-      <import feature="org.jboss.reddeer.rcp.feature.source" />
-      <import feature="org.jboss.reddeer.recorder.feature" />
-      <import feature="org.jboss.reddeer.recorder.feature.source" />
-      <import feature="org.jboss.reddeer.spy.feature" />
-      <import feature="org.jboss.reddeer.spy.feature.source" />
-      <import feature="org.jboss.reddeer.swt.feature" />
-      <import feature="org.jboss.reddeer.swt.feature.source" />
-      <import feature="org.jboss.reddeer.ui.feature" />
-      <import feature="org.jboss.reddeer.ui.feature.source" />
-   </requires>
+     <import feature="org.eclipse.cvs"/>
+     <import feature="org.eclipse.help"/>
+     <import feature="org.eclipse.jdt"/>
+     <import feature="org.eclipse.platform"/>
+     <import feature="org.eclipse.platform.source"/>
+     <import feature="org.eclipse.pde"/>
+     <import feature="org.eclipse.mylyn.ide_feature"/>
+     <import feature="org.eclipse.mylyn.java_feature"/>
+     <import feature="org.eclipse.mylyn.bugzilla_feature"/>
+     <import feature="org.eclipse.mylyn.context_feature"/>
+     <import feature="org.eclipse.mylyn_feature"/>
+     <import feature="org.eclipse.mylyn.wikitext_feature"/>
+     <import feature="org.eclipse.egit"/>
+     <import feature="org.eclipse.egit.import"/>
+     <import feature="org.eclipse.egit.mylyn"/>
+     <import feature="org.eclipse.rse"/>
+     <import feature="org.eclipse.rse.useractions"/>
+     <import feature="org.eclipse.tm.terminal"/>
+     <import feature="org.eclipse.tm.terminal.ssh"/>
+     <import feature="org.eclipse.tm.terminal.telnet"/>
+     <import feature="org.eclipse.tm.terminal.view"/>
+     <import feature="org.eclipse.datatools.modelbase.feature"/>
+     <import feature="org.eclipse.datatools.connectivity.feature"/>
+     <import feature="org.eclipse.datatools.sqldevtools.feature"/>
+     <import feature="org.eclipse.datatools.intro"/>
+     <import feature="org.eclipse.datatools.doc.user"/>
+     <import feature="org.eclipse.datatools.common.doc.user"/>
+     <import feature="org.eclipse.datatools.connectivity.doc.user"/>
+     <import feature="org.eclipse.datatools.sqltools.doc.user"/>
+     <import feature="org.eclipse.datatools.enablement.feature"/>
+     <import feature="org.eclipse.wst.common.fproj"/>
+     <import feature="org.eclipse.wst.jsdt.feature"/>
+     <import feature="org.eclipse.wst.xml_ui.feature"/>
+     <import feature="org.eclipse.wst.web_ui.feature"/>
+     <import feature="org.eclipse.wst.server_adapters.feature"/>
+     <import feature="org.eclipse.wst.xsl.feature"/>
+     <import feature="org.eclipse.jst.common.fproj.enablement.jdt"/>
+     <import feature="org.eclipse.jst.server_ui.feature"/>
+     <import feature="org.eclipse.jst.server_adapters.feature"/>
+     <import feature="org.eclipse.jst.server_adapters.ext.feature"/>
+     <import feature="org.eclipse.jst.web_ui.feature"/>
+     <import feature="org.eclipse.jst.enterprise_ui.feature"/>
+     <import feature="org.eclipse.jst.webpageeditor.feature"/>
+     <import feature="org.eclipse.jst.jsf.apache.trinidad.tagsupport.feature"/>
+     <import feature="org.eclipse.jst.ws.axis2tools.feature"/>
+     <import feature="org.eclipse.jst.ws.axis2tools.feature"/>
+    
+     <import feature="org.eclipse.jpt.common.feature"/>
+     <import feature="org.eclipse.jpt.common.eclipselink.feature"/>
+     <import feature="org.eclipse.jpt.dbws.eclipselink.feature"/>
+     <import feature="org.eclipse.jpt.jaxb.eclipselink.feature"/>
+     <import feature="org.eclipse.jpt.jaxb.feature"/>
+     <import feature="org.eclipse.jpt.jpa.eclipselink.feature"/>
+     <import feature="org.eclipse.jpt.jpa.feature"/>
+    
+     <import feature="org.eclipse.jsf.feature" />
+     <import feature="org.eclipse.jst.webpageeditor.feature"/>
+     <import feature="org.eclipse.jst.jsf.apache.trinidad.tagsupport.feature"/>
+    
+     <import feature="org.eclipse.jst.ws.jaxws.feature" />
+     <import feature="org.eclipse.jst.ws.cxf.feature" />
+     <import feature="org.eclipse.jst.ws.jaxws.dom.feature" />
+    
+     <import feature="org.eclipse.m2e.feature"/>
+     <import feature="org.eclipse.m2e.logback.feature"/>
+     <import feature="org.eclipse.m2e.wtp.feature"/>
+     <import feature="org.eclipse.m2e.wtp.jaxrs.feature"/>
+     <import feature="org.eclipse.m2e.wtp.jpa.feature"/>
+     <import feature="org.eclipse.m2e.wtp.jsf.feature"/>
 
+     <import feature="org.eclipse.gef"/>
+     <import feature="org.eclipse.gef.source"/>
+     <import feature="org.eclipse.gef.examples"/>
+     <import feature="org.eclipse.gef.examples.source"/>
+     <import feature="org.eclipse.graphiti.feature"/>
+     <import feature="org.eclipse.graphiti.source.feature"/>
+     <import feature="org.eclipse.graphiti.feature.examples"/>
+     <import feature="org.eclipse.graphiti.feature.examples.source"/>
+    
+     <import feature="org.eclipse.epp.package.common.feature"/>
+    
+   </requires>
+    
    <plugin
          id="org.jboss.reddeer.branding"
          download-size="0"

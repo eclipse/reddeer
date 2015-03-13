@@ -135,6 +135,7 @@
 	  <profile>
 	    <id>product</id>
 	    <modules>
+	      <module>features/org.jboss.reddeer.ide.feature</module>
 	      <module>product</module>
 	    </modules>
 	  </profile>

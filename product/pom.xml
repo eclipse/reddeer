@@ -45,16 +45,17 @@
 	</build>
 
 	<repositories>
-		<repository>
-			<id>tycho</id>
-			<url>https://repository.takari.io/content/sites/m2e.extras/m2eclipse-tycho/0.8.0/N/LATEST/</url>
-			<layout>p2</layout>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-			<releases>
-				<enabled>true</enabled>
-				</releases>
-		</repository>
+	  <repository>
+	    <id>tycho-connector</id>
+	    <url>http://repo1.maven.org/maven2/.m2e/connectors/m2eclipse-tycho/0.8.0/N/LATEST/</url>
+	    <layout>p2</layout>
+	    <snapshots>
+	      <enabled>true</enabled>
+	    </snapshots>
+	    <releases>
+	      <enabled>true</enabled>
+	    </releases>
+	  </repository>
 	</repositories>
+	
 </project>
