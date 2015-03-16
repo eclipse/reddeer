@@ -237,7 +237,7 @@ public class Logger {
 	 *            message
 	 */
 	public void step(String msg) {
-		print(step, msg, MessageType.FATAL);
+		print(step, msg, MessageType.STEP);
 	}
 	
 
