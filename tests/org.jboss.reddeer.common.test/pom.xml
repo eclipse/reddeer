@@ -8,7 +8,7 @@
 	<parent>
 		<groupId>org.jboss.reddeer</groupId>
 		<artifactId>tests</artifactId>
-		<version>0.7.0</version>
+		<version>0.8.0-SNAPSHOT</version>
 	</parent>
 
 	<build>
@@ -29,7 +29,7 @@
 		<dependency>
 			<groupId>org.jboss.reddeer</groupId>
 			<artifactId>org.jboss.reddeer.common</artifactId>
-			<version>0.7.0</version>
+			<version>0.8.0-SNAPSHOT</version>
 			<type>eclipse-plugin</type>
 		</dependency>
 

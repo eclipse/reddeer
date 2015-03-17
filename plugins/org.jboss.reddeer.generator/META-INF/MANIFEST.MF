@@ -2,14 +2,14 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: RedDeer Code Generator
 Bundle-SymbolicName: org.jboss.reddeer.generator;singleton:=true
-Bundle-Version: 0.7.0
+Bundle-Version: 0.8.0.qualifier
 Bundle-Activator: org.jboss.reddeer.generator.Activator
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  org.hamcrest.core;bundle-version="1.3.0",
- org.jboss.reddeer.swt;bundle-version="0.7.0",
- org.jboss.reddeer.workbench;bundle-version="0.7.0",
- org.jboss.reddeer.recorder;bundle-version="0.7.0",
+ org.jboss.reddeer.swt;bundle-version="[0.8,0.9)",
+ org.jboss.reddeer.workbench;bundle-version="[0.8,0.9)",
+ org.jboss.reddeer.recorder;bundle-version="[0.8,0.9)",
  org.eclipse.swtbot.generator;bundle-version="2.2.1"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ActivationPolicy: lazy

@@ -3,21 +3,21 @@ Bundle-ManifestVersion: 2
 Bundle-Name: RedDeer Eclipse Component
 Bundle-Vendor: JBoss by Red Hat
 Bundle-SymbolicName: org.jboss.reddeer.eclipse
-Bundle-Version: 0.7.0
+Bundle-Version: 0.8.0.qualifier
 Bundle-Activator: org.jboss.reddeer.eclipse.Activator
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  org.eclipse.wst.server.ui,
  org.eclipse.ui.console,
- org.jboss.reddeer.jface;bundle-version="[0.7,0.8)",
- org.jboss.reddeer.swt;bundle-version="[0.7,0.8)",
- org.jboss.reddeer.workbench;bundle-version="[0.7,0.8)",
+ org.jboss.reddeer.jface;bundle-version="[0.8,0.9)",
+ org.jboss.reddeer.swt;bundle-version="[0.8,0.9)",
+ org.jboss.reddeer.workbench;bundle-version="[0.8,0.9)",
  org.hamcrest.core;bundle-version="1.3.0",
  org.eclipse.ui.workbench,
- org.jboss.reddeer.junit;bundle-version="[0.7,0.8)",
+ org.jboss.reddeer.junit;bundle-version="[0.8,0.9)",
  org.eclipse.wst.server.core,
- org.jboss.reddeer.common;bundle-version="[0.7,0.8)",
- org.jboss.reddeer.direct;bundle-version="[0.7,0.8)",
+ org.jboss.reddeer.common;bundle-version="[0.8,0.9)",
+ org.jboss.reddeer.direct;bundle-version="[0.8,0.9)",
  org.eclipse.core.resources,
  org.eclipse.ui.browser
 Bundle-ActivationPolicy: lazy

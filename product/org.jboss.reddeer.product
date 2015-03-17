@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?pde version="3.5"?>
 
-<product name="JBoss Red Deer" uid="reddeer-070" id="org.eclipse.platform.ide" application="org.eclipse.ui.ide.workbench" version="0.7.0" useFeatures="true" includeLaunchers="true">
+<product name="JBoss Red Deer" uid="reddeer-070" id="org.eclipse.platform.ide" application="org.eclipse.ui.ide.workbench" version="0.8.0.qualifier" useFeatures="true" includeLaunchers="true">
 
    <aboutInfo>
       <text>
