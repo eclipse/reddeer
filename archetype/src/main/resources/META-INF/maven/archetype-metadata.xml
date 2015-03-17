@@ -7,7 +7,7 @@
       <defaultValue>luna</defaultValue>
     </requiredProperty>
     <requiredProperty key="reddeer_version">
-      <defaultValue>0.6.0</defaultValue>
+      <defaultValue>0.7.0</defaultValue>
     </requiredProperty>
     <requiredProperty key="version">
        <defaultValue>1.0.0-SNAPSHOT</defaultValue>

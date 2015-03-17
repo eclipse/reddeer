@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: RedDeer JUnit Extensions
 Bundle-Vendor: JBoss by Red Hat
 Bundle-SymbolicName: org.jboss.reddeer.junit.extension;singleton:=true
-Bundle-Version: 0.7.0.qualifier
+Bundle-Version: 0.7.0
 Bundle-Activator: org.jboss.reddeer.junit.extension.Activator
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
