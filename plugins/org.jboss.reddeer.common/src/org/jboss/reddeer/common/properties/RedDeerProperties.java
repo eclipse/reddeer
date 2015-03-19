@@ -17,6 +17,8 @@ public enum RedDeerProperties {
 	PAUSE_FAILED_TEST("pauseFailedTest", false),
 
 	LOG_MESSAGE_FILTER("logMessageFilter", "ALL"),
+	
+	LOG_LEVEL("logLevel", "ALL"),
 
 	CLOSE_WELCOME_SCREEN("reddeer.close.welcome.screen", true),
 

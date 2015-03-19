@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.jboss.reddeer.common.context.ExecutionSetting;
+import org.jboss.reddeer.common.exception.RedDeerException;
 
 /**
  * Simple console logger for Reddeer
@@ -255,6 +256,11 @@ public class Logger {
 	private void print(String severity, String msg, int type) {
 		if ((type & ExecutionSetting.getInstance().getLogMessageFilter()) != type)
 			return;
+		
+		int logLevel = ExecutionSetting.getInstance().getLogLevel();
+		if (logLevel < getLevelFromMsgType(type).getValue()) {
+			return; 
+		}
 
 		StringBuilder sb = new StringBuilder();
 		if (ExecutionSetting.getInstance().isDebugEnabled()) {
@@ -272,6 +278,25 @@ public class Logger {
 		System.out.println(sb.toString());
 	}
 
+	private LogLevel getLevelFromMsgType(int msgType) {
+		LogLevel ret = LogLevel.ALL;
+		switch (msgType) {
+			
+			case MessageType.NONE: ret = LogLevel.OFF; break;
+			case MessageType.FATAL: ret = LogLevel.FATAL; break;
+			case MessageType.DUMP: ret = LogLevel.DUMP; break;
+			case MessageType.ERROR: ret = LogLevel.ERROR; break;
+			case MessageType.STEP: ret = LogLevel.STEP; break;
+			case MessageType.INFO: ret = LogLevel.INFO; break;
+			case MessageType.WARN: ret = LogLevel.WARN; break;
+			case MessageType.DEBUG: ret = LogLevel.DEBUG; break;
+			case MessageType.TRACE: ret = LogLevel.TRACE; break;
+			case MessageType.ALL: ret = LogLevel.ALL; break;
+			default: throw new RedDeerException("Unsupported log level:" + msgType);
+		}
+		return ret;
+	}
+			
 	private String getThreadName() {
 		return Thread.currentThread().getName();
 	}

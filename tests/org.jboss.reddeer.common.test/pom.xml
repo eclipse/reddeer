@@ -12,6 +12,7 @@
 	</parent>
 
 	<build>
+		<testSourceDirectory>src</testSourceDirectory>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
