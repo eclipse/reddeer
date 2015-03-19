@@ -1,5 +1,6 @@
 package org.jboss.reddeer.common.context;
 
+import org.jboss.reddeer.common.logging.LogLevel;
 import org.jboss.reddeer.common.logging.MessageType;
 import org.jboss.reddeer.common.properties.RedDeerProperties;
 
@@ -14,6 +15,7 @@ public class ExecutionSetting {
 	private boolean debugEnabled = true;
 	private boolean pauseFailedTest = false;
 	private int logMessageFilter;
+	private int logLevel = Integer.MAX_VALUE;
 	private boolean filterSet = false;
 
 	/**
@@ -28,8 +30,9 @@ public class ExecutionSetting {
 			instance.pauseFailedTest = RedDeerProperties.PAUSE_FAILED_TEST.getBooleanSystemValue();
 
 			String logMessageFilterText = RedDeerProperties.LOG_MESSAGE_FILTER.getSystemValue();
+			String logLevel = RedDeerProperties.LOG_LEVEL.getSystemValue();
+			instance.logLevel = LogLevel.ALL.fromString(logLevel).getValue();
 			instance.parseLogMessageFilter(logMessageFilterText);
-
 		}
 		return instance;
 	}
@@ -121,6 +124,14 @@ public class ExecutionSetting {
 	 */
 	public void setLogMessageFilter(int value) {
 		logMessageFilter = value;
+	}
+
+	/**
+	 * Returns log level for log messages set by users 
+	 * @return log level for log messages
+	 */
+	public int getLogLevel() {
+		return logLevel;
 	}
 
 }
