@@ -1,0 +1,18 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: RedDeer GEF Spy
+Bundle-SymbolicName: org.jboss.reddeer.gef.spy;singleton:=true
+Bundle-Version: 0.8.0.qualifier
+Bundle-Activator: org.jboss.reddeer.gef.spy.Activator
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.eclipse.gef,
+ org.hamcrest.core;bundle-version="1.3.0",
+ org.jboss.reddeer.swt;bundle-version="[0.8,0.9)",
+ org.jboss.reddeer.workbench;bundle-version="[0.8,0.9)",
+ org.jboss.reddeer.gef;bundle-version="[0.8,0.9)",
+ org.jboss.reddeer.common;bundle-version="[0.8,0.9)"
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-ActivationPolicy: lazy
+Export-Package: org.jboss.reddeer.gef.spy,
+ org.jboss.reddeer.gef.spy.view

@@ -1,20 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.4"?>
 <plugin>
-
-   <extension
+ <extension
          point="org.eclipse.ui.views">
-      <category
-            name="RedDeer Tools"
-            id="org.jboss.reddeer.tools">
-      </category>
       <view
-            name="GEFSpy View"
-            icon="icons/sample.gif"
-            category="org.jboss.reddeer.tools"
-            class="org.jboss.reddeer.spy.view.GEFSpyView"
-            id="org.jboss.reddeer.spy.view.GEFSpyView">
+            name="RedDeer Spy view"
+            category="org.jboss.reddeer.spy"
+            class="org.jboss.reddeer.spy.view.RedDeerSpyView"
+            id="org.jboss.reddeer.spy.view.RedDeerSpyView"
+            icon="resources/reddeer_icon.png">
       </view>
    </extension>
-
 </plugin>

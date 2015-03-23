@@ -1,4 +1,4 @@
-package org.jboss.reddeer.spy.view;
+package org.jboss.reddeer.gef.spy.view;
 
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.jface.viewers.LabelProvider;
