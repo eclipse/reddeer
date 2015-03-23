@@ -38,6 +38,10 @@
 		<category name="ToolFeatures"/>
 	</feature>
 
+	<feature url="org.jboss.reddeer.gef.spy.feature.qualifier" id="org.jboss.reddeer.gef.spy.feature" version="0.0.0">
+		<category name="ToolFeatures"/>
+	</feature>
+
 	<feature url="org.jboss.reddeer.tests.feature.qualifier" id="org.jboss.reddeer.tests.feature" version="0.0.0">
 		<category name="TestFeatures"/>
 	</feature>

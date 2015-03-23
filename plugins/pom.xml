@@ -22,6 +22,7 @@
 		<module>org.jboss.reddeer.jface</module>
 		<module>org.jboss.reddeer.eclipse</module>
 		<module>org.jboss.reddeer.gef</module>
+		<module>org.jboss.reddeer.gef.spy</module>
 		<module>org.jboss.reddeer.graphiti</module>
 		<module>org.jboss.reddeer.direct</module>
 		<module>org.jboss.reddeer.junit</module>

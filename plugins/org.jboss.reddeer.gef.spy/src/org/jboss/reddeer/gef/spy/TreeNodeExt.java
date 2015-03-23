@@ -1,4 +1,4 @@
-package org.jboss.reddeer.spy;
+package org.jboss.reddeer.gef.spy;
 
 import java.util.ArrayList;
 import java.util.List;

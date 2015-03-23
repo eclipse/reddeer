@@ -1,4 +1,4 @@
-package org.jboss.reddeer.spy.view;
+package org.jboss.reddeer.gef.spy.view;
 
 import java.util.List;
 
@@ -24,7 +24,7 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.ViewPart;
 import org.jboss.reddeer.gef.handler.EditPartHandler;
 import org.jboss.reddeer.gef.lookup.ViewerLookup;
-import org.jboss.reddeer.spy.TreeNodeExt;
+import org.jboss.reddeer.gef.spy.TreeNodeExt;
 import org.jboss.reddeer.workbench.exception.WorkbenchPartNotFound;
 import org.jboss.reddeer.workbench.lookup.EditorPartLookup;
 

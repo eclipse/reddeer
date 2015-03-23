@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
-      id="org.jboss.reddeer.spy.feature"
+      id="org.jboss.reddeer.gef.spy.feature"
       label="%featureName"
       version="0.8.0.qualifier"
       provider-name="JBoss by Red Hat">
 
-    <description url="https://github.com/jboss-reddeer/reddeer/wiki">
+   <description url="https://github.com/jboss-reddeer/reddeer/wiki">
       An extendable framework to support building automated Eclipse tests.
    </description>
 
@@ -27,24 +27,10 @@ Raleigh NC 27606 USA.
    </license>
 
    <plugin
-         id="org.jboss.reddeer.spy"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-         
-	<plugin
-         id="org.jboss.reddeer.swt"
+         id="org.jboss.reddeer.gef.spy"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
 
-	<plugin
-         id="org.jboss.reddeer.common"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-         
 </feature>
