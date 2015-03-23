@@ -22,7 +22,7 @@ public abstract class AbstractSection extends AbstractWidget<org.eclipse.ui.form
 	}
 	
 	public Control getControl() {
-		return swtWidget.getClient();
+		return swtWidget;
 	}
 
 	public String getText() {
