@@ -15,6 +15,7 @@
 	
 	<modules>
 		<module>org.jboss.reddeer.common</module>
+		<module>org.jboss.reddeer.core</module>
 		<module>org.jboss.reddeer.swt</module>
 		<module>org.jboss.reddeer.workbench</module>
 		<module>org.jboss.reddeer.uiforms</module>
