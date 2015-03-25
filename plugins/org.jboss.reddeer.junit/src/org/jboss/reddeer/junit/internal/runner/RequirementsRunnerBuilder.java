@@ -8,6 +8,7 @@ import org.jboss.reddeer.junit.extensionpoint.IBeforeTest;
 import org.jboss.reddeer.junit.internal.configuration.TestRunConfiguration;
 import org.jboss.reddeer.junit.internal.requirement.Requirements;
 import org.jboss.reddeer.junit.internal.requirement.RequirementsBuilder;
+import org.junit.Ignore;
 import org.junit.runner.Runner;
 import org.junit.runner.notification.RunListener;
 import org.junit.runners.model.RunnerBuilder;
@@ -53,6 +54,9 @@ public class RequirementsRunnerBuilder extends RunnerBuilder {
 	@Override
 	public Runner runnerForClass(Class<?> clazz) throws Throwable {
 		log.info("Found test " + clazz);
+		if (clazz.getAnnotation(Ignore.class) != null) {
+			 return new IgnoredClassRunner(clazz);
+		}
 		if(testsManager != null) {
 			testsManager.addTest(clazz);
 		}
