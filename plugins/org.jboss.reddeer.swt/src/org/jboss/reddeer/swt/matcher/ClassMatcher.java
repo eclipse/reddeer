@@ -12,8 +12,9 @@ import org.hamcrest.Description;
  * @author jpeterka
  * @author rawagner
  * @author Radoslav Rabara
- * 
+ * @deprecated since 0.8, use {@link #org.jboss.reddeer.core.matcher.ClassMatcher}
  */
+@Deprecated
 @SuppressWarnings("rawtypes")
 public class ClassMatcher extends BaseMatcher {
 

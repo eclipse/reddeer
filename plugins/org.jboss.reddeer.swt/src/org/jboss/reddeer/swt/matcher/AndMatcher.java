@@ -13,7 +13,9 @@ import org.hamcrest.Matcher;
  * 
  * @author Jiri Peterka
  * @author Radoslav Rabara
+ * @deprecated since 0.8, use {@link #org.jboss.reddeer.core.matcher.AndMatcher}
  */
+@Deprecated
 @SuppressWarnings("rawtypes")
 public class AndMatcher extends BaseMatcher {
 

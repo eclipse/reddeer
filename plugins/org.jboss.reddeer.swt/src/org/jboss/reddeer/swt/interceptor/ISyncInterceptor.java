@@ -7,8 +7,9 @@ package org.jboss.reddeer.swt.interceptor;
  * To make interceptor working add
  
  * @author Jiri Peterka
- *
+ * @deprecated since 0.8, use {@link #org.jboss.reddeer.core.interceptor.ISyncInterceptor}
  */
+@Deprecated
 public interface ISyncInterceptor {
 
 	/**

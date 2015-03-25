@@ -5,8 +5,10 @@ import org.jboss.reddeer.swt.exception.RedDeerException;
  * SWTLayerException indicates exceptional situation on the SWT Layer.
  * 
  * @author Jiri Peterka
- *
+ * @deprecated since 0.8, use {@link #org.jboss.reddeer.core.exception.SWTLayerException}
  */
+@Deprecated
+
 public class SWTLayerException extends RedDeerException {
 
 	private static final long serialVersionUID = 1L;

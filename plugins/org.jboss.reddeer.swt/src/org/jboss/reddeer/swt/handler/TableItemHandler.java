@@ -16,8 +16,9 @@ import org.jboss.reddeer.swt.wait.WaitWhile;
  * Contains methods for handling UI operations on {@link TableItem} widgets.
  * 
  * @author Lucia Jelinkova
- *
+ * @deprecated since 0.8, use {@link #org.jboss.reddeer.core.handler.TableItemHandler}
  */
+@Deprecated
 public class TableItemHandler {
 
 	private static TableItemHandler instance;

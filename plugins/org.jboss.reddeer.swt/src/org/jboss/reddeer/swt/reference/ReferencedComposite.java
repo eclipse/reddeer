@@ -8,7 +8,9 @@ import org.eclipse.swt.widgets.Control;
  * located
  * @author Jaroslav Jankovic
  * @author Jiri Peterka
+ * @deprecated since 0.8, use {@link #org.jboss.reddeer.core.reference}
  */
+@Deprecated
 public interface ReferencedComposite {
 	
 	Control getControl();

@@ -9,8 +9,9 @@ import org.jboss.reddeer.swt.util.ResultRunnable;
  * Contains methods for handling UI operations on {@link TabFolder} widgets.
  * 
  * @author Andrej Podhradsky
- *
+ * @deprecated since 0.8, use {@link #org.jboss.reddeer.core.handler.TabFolderHandler}
  */
+@Deprecated
 public class TabFolderHandler {
 
 	private static TabFolderHandler instance;

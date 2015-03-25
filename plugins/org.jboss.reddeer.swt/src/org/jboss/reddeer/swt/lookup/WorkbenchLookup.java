@@ -13,9 +13,8 @@ import org.jboss.reddeer.swt.util.ResultRunnable;
 /**
  * Workbench lookup class. Provides access to active workbench 
  * or active view reference
- * @deprecated use {@link org.jboss.reddeer.workbench.lookup.WorkbenchPartLookup}
  * @author jjankovi
- *
+ * @deprecated since 0.8, use {@link #org.jboss.reddeer.core.lookup.WorkbenchLookup} 
  */
 @Deprecated
 public class WorkbenchLookup {

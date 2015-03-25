@@ -10,8 +10,9 @@ import org.jboss.reddeer.swt.util.ResultRunnable;
  * Contains methods for handling UI operations on {@link TabItem} widgets.
  * 
  * @author Vlado Pakan
- *
+ * @deprecated since 0.8, use {@link #org.jboss.reddeer.core.handler.TabItemHandler}
  */
+@Deprecated
 public class TabItemHandler {
 
 	private static TabItemHandler instance;

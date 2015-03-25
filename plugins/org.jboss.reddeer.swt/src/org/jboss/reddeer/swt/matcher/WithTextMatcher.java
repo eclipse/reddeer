@@ -13,8 +13,9 @@ import org.jboss.reddeer.swt.handler.WidgetHandler;
  * 
  * @author Jiri Peterka
  * @author Radoslav Rabara
- * 
+ * @deprecated since 0.8, use {@link #org.jboss.reddeer.core.matcher.WithTextMatcher}
  */
+@Deprecated
 public class WithTextMatcher extends AbstractWidgetWithTextMatcher {
 
 	private Matcher<String> matcher;

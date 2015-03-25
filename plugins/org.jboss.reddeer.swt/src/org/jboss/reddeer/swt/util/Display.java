@@ -10,7 +10,10 @@ import org.jboss.reddeer.swt.interceptor.SyncInterceptorManager;
  * 
  * @author Jiri Peterka
  * @author Lucia Jelinkova
+ * @deprecated since 0.8, use {@link #org.jboss.reddeer.core.util.Display}
  */
+@Deprecated
+
 public class Display {
 
 	private static final Logger log = Logger.getLogger(Display.class);

@@ -28,7 +28,10 @@ import org.jboss.reddeer.swt.util.ResultRunnable;
  * @author Jiri Peterka
  * @author Rastislav Wagner
  * @author Jaroslav Jankovic
+ * @deprecated since 0.8, use {@link #org.jboss.reddeer.core.handler.WidgetHandler}
  */
+@Deprecated
+
 public class WidgetHandler {
 
 	private static WidgetHandler instance;

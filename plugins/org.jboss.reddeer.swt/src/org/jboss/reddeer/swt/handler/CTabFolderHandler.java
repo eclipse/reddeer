@@ -7,8 +7,9 @@ import org.jboss.reddeer.swt.util.Display;
  * Contains methods for handling UI operations on {@link CTabFolder} widgets.
  * 
  * @author Lucia Jelinkova
- *
+ * @deprecated since 0.8, use {@link #org.jboss.reddeer.core.handler.CTabFolderHandler}
  */
+@Deprecated
 public class CTabFolderHandler {
 
 	private static CTabFolderHandler instance;

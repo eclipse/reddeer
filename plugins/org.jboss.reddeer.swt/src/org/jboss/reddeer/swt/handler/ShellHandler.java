@@ -17,8 +17,9 @@ import org.jboss.reddeer.swt.wait.TimePeriod;
  * Contains methods for handling UI operations on {@link Shell} widgets.
  * 
  * @author Jiri Peterka
- *
+ * @deprecated since 0.8, use {@link #org.jboss.reddeer.core.handler.ShellHandler}
  */
+@Deprecated
 public class ShellHandler {
 
 	private static ShellHandler instance;

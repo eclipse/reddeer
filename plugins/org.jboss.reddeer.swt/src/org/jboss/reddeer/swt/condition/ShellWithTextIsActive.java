@@ -13,8 +13,8 @@ import org.jboss.reddeer.swt.util.internal.InstanceValidator;
  * 
  * @author Vlado Pakan
  * @author jniederm
- * 
  */
+
 public class ShellWithTextIsActive implements WaitCondition {
 
 	private static final Logger log = Logger.getLogger(ShellWithTextIsActive.class);

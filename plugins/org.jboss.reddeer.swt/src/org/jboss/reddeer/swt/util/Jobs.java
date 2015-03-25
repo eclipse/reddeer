@@ -9,8 +9,9 @@ import org.jboss.reddeer.common.logging.Logger;
 /**
  * Utils to work with Jobs
  * @author Vlado Pakan
- *
+ * @deprecated since 0.8, use {@link #org.jboss.reddeer.core.util.Jobs}
  */
+@Deprecated
 public class Jobs {
     private static final Logger log = Logger.getLogger(Jobs.class);
 	public static final int JOB_STATE_NONE = 0;

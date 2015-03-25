@@ -10,8 +10,10 @@ Require-Bundle: org.eclipse.ui,
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Export-Package: org.jboss.reddeer.common,
+ org.jboss.reddeer.common.condition,
  org.jboss.reddeer.common.context,
  org.jboss.reddeer.common.exception,
  org.jboss.reddeer.common.logging,
  org.jboss.reddeer.common.platform,
- org.jboss.reddeer.common.properties
+ org.jboss.reddeer.common.properties,
+ org.jboss.reddeer.common.wait
