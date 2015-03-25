@@ -6,8 +6,9 @@ import org.jboss.reddeer.swt.exception.RedDeerException;
  * WaitTimeoutExpiredException indicates reaching timeout time period.
  * 
  * @author Vlado Pakan
- * 
+ * @deprecated since 0.8, use {@link #org.jboss.reddeer.common.exception.WaitTimeoutExpiredException}
  */
+@Deprecated
 public class WaitTimeoutExpiredException extends RedDeerException {
 
 	private static final long serialVersionUID = 5905873761753380173L;

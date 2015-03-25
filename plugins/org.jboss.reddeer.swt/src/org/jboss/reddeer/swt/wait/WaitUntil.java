@@ -8,8 +8,9 @@ import org.jboss.reddeer.swt.condition.WaitCondition;
  * 
  * @author Vlado Pakan
  * @author Lucia Jelinkova
- * 
+ * @deprecated since 0.8, use {@link #org.jboss.reddeer.common.wait.WaitUntil}
  */
+@Deprecated
 public class WaitUntil extends AbstractWait {
 
 	/**

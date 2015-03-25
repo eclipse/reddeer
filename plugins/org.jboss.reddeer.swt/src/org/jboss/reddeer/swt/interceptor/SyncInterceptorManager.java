@@ -20,8 +20,9 @@ import org.jboss.reddeer.common.logging.Logger;
  * a user.
  * 
  * @author Jiri Peterka
- *
+ * @deprecated since 0.8, use {@link #org.jboss.reddeer.core.interceptor.SyncInterceptorManager}
  */
+@Deprecated
 public class SyncInterceptorManager {
 
 	public static SyncInterceptorManager instance = null;;

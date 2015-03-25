@@ -19,8 +19,9 @@ import org.jboss.reddeer.swt.wait.WaitUntil;
  * Shell Lookup, this contains routines for ToolBar implementation that have are widely used 
  * and also requires to be executed in UI Thread
  * @author Jiri Peterka, mlabuda@redhat.com
- * 
+ * @deprecated since 0.8, use {@link #org.jboss.reddeer.core.lookup.ShellLookup}
  */
+@Deprecated
 public class ShellLookup {
 	
 	private static ShellLookup instance = null;

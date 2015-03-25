@@ -10,8 +10,9 @@ import org.jboss.reddeer.swt.util.internal.InstanceValidator;
  * constructor) or using Shell.equals (parameterized constructor).
  * 
  * @author mlabuda
- *
+ * @deprecated since 0.8, use {@link #org.jboss.reddeer.core.condition.ShellIsActive}
  */
+@Deprecated
 public class ShellIsActive implements WaitCondition {
 	
 	private Shell shell;

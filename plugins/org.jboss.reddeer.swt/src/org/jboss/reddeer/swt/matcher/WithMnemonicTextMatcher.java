@@ -13,8 +13,9 @@ import org.hamcrest.core.Is;
  * 
  * @author Vlado Pakan
  * @author Radoslav Rabara
- * 
+ * @deprecated since 0.8, use {@link #org.jboss.reddeer.core.matcher.WithMnemonicTextMatcher}
  */
+@Deprecated
 public class WithMnemonicTextMatcher extends AbstractWidgetWithTextMatcher {
 
 	private Matcher<String> matcher;

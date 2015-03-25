@@ -38,8 +38,9 @@ import org.jboss.reddeer.swt.exception.SWTLayerException;
  * <li>Control</li>
  * </ul>
  * @author Jiri Peterka
- *
+ * @deprecated since 0.8, use {@link #org.jboss.reddeer.core.resolver.WidgetResolver}
  */
+@Deprecated
 public class WidgetResolver  {
 	
 	private static final Logger log = Logger.getLogger(WidgetResolver.class);

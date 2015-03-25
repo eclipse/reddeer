@@ -4,8 +4,10 @@ package org.jboss.reddeer.swt.exception;
  * Thrower throws exceptions when condition is met.
  * 
  * @author Jiri Peterka
- *
+ * @deprecated since 0.8, use {@link #org.jboss.reddeer.core.exception.Thrower}
  */
+@Deprecated
+
 public class Thrower {
 
 	/**

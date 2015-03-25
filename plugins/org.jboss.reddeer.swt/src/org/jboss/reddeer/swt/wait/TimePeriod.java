@@ -6,8 +6,9 @@ package org.jboss.reddeer.swt.wait;
  * possibility to define own time period - see {@link #getCustom(long)} method. 
  * 
  * @author Lucia Jelinkova
- *
+  * @deprecated since 0.8, use {@link #org.jboss.reddeer.common.wait.TimePeriod}
  */
+@Deprecated
 public class TimePeriod {
     
 	/** Time period 0 seconds. */

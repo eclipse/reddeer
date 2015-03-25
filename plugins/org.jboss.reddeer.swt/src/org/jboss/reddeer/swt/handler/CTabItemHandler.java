@@ -15,8 +15,9 @@ import org.jboss.reddeer.swt.util.ResultRunnable;
  * Contains methods for handling UI operations on {@link CTabItem} widgets.
  * 
  * @author Vlado Pakan
- *
+ * @deprecated since 0.8, use {@link #org.jboss.reddeer.core.handler.CTabItemHandler}
  */
+@Deprecated
 public class CTabItemHandler {
 
 	private static final Logger logger = Logger

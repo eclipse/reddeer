@@ -7,7 +7,10 @@ import org.hamcrest.Matcher;
  *
  * @author Jiri Peterka
  *
+ * @deprecated since 0.8, use {@link #org.jboss.reddeer.core.matcher.MatcherBuilder}
  */
+@Deprecated
+
 public class MatcherBuilder {
 
 	private static MatcherBuilder instance;

@@ -11,8 +11,9 @@ import org.jboss.reddeer.swt.util.ResultRunnable;
  * Contains methods for handling UI operations on {@link ToolItem} widgets. 
  * 
  * @author Lucia Jelinkova
- *
+ * @deprecated since 0.8, use {@link #org.jboss.reddeer.core.handler.ToolItemHandler}
  */
+@Deprecated
 public class ToolItemHandler {
 
 	private static ToolItemHandler instance;

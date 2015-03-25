@@ -13,7 +13,9 @@ import org.jboss.reddeer.swt.wait.TimePeriod;
  * 
  * @author Andrej Podhradsky (andrej.podhradsky@gmail.com)
  * @author jniederm
+ * @deprecated since 0.8, use {@link #org.jboss.reddeer.core.condition.ShellWithTextIsAvailable}
  */
+@Deprecated
 public class ShellWithTextIsAvailable implements WaitCondition { 
 	private Matcher<String> matcher;
 	private static final Logger log = Logger.getLogger(ShellWithTextIsAvailable.class);

@@ -29,8 +29,9 @@ import org.jboss.reddeer.swt.handler.WidgetHandler;
  * which provides information about the matcher.
  * 
  * @author Radoslav Rabara
- * 
+ * @deprecated since 0.8, use {@link #org.jboss.reddeer.core.matcher.AbstractWidgetWithTextMatcher}
  */
+@Deprecated
 public abstract class AbstractWidgetWithTextMatcher extends BaseMatcher<String> {
 
 	/**

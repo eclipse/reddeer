@@ -31,8 +31,9 @@ import org.jboss.reddeer.swt.wait.WaitUntil;
  * Widget Lookup methods contains core lookup and resolving widgets
  * @author Jiri Peterka
  * @author Jaroslav Jankovic
- *
+ * @deprecated since 0.8, use {@link #org.jboss.reddeer.core.lookup.WidgetLookup}
  */
+@Deprecated
 public class WidgetLookup {
 
 	private static WidgetLookup instance = null;

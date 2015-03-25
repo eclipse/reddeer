@@ -10,8 +10,9 @@ import org.jboss.reddeer.swt.util.internal.InstanceValidator;
  * Wait condition for a shell matching the specified matcher to the shell title.
  * 
  * @author mlabuda@redhat.com
- *
+ * @deprecated since 0.8, use {@link #org.jboss.reddeer.core.condition.ShellMatchingMatcherIsAvailable}
  */
+@Deprecated
 public class ShellMatchingMatcherIsAvailable implements WaitCondition {
 
 	private Matcher<String> matcher;
