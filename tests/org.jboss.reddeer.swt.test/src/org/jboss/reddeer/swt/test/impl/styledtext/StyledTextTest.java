@@ -29,6 +29,13 @@ public class StyledTextTest extends SWTLayerTestCase{
 		assertEquals("styled", t.getSelectionText());
 	}
 	
+	@Test
+	public void selectPosition(){
+		StyledText t = new DefaultStyledText();
+		t.setSelection(8, 10);
+		assertEquals("st", t.getSelectionText());
+	}
+	
 	
 
 }

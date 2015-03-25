@@ -77,6 +77,14 @@ public interface StyledText extends Widget {
 	 * @return selected text
 	 */
 	String getSelectionText();
+	
+	/**
+	 * Set the selection to a specified start and end.
+	 * 
+	 * @param start selection start offset.
+	 * @param end selection end offset
+	 */
+	void setSelection(final int start, final int end);
 
 	org.eclipse.swt.custom.StyledText getSWTWidget();
 }

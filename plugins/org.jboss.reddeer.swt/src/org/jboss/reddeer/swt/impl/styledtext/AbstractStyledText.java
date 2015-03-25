@@ -91,6 +91,12 @@ public abstract class AbstractStyledText extends AbstractWidget<org.eclipse.swt.
     	log.info("Select text " + text + " in styled text");
         StyledTextHandler.getInstance().selectText(swtWidget, text);
     }
+    
+    @Override
+    public void setSelection(final int start, final int end) {
+    	log.info("Select position start: "+start+" end: "+end+" in styled text");
+        StyledTextHandler.getInstance().setSelection(swtWidget, start,end);
+    }
 
     /**
      * @see org.jboss.reddeer.swt.api.StyledText#selectPosition(int)

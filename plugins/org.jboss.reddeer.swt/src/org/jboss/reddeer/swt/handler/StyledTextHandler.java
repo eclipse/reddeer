@@ -37,7 +37,7 @@ public class StyledTextHandler {
 	 * @param line line of selection
 	 * @param column column of selection
 	 */
-	public void setSelection(final StyledText styledText, final int line,
+	public void setSelectionWithinLine(final StyledText styledText, final int line,
 			final int column) {
 
 		Display.syncExec(new Runnable() {
@@ -47,6 +47,26 @@ public class StyledTextHandler {
 				int offset = styledText.getContent().getOffsetAtLine(line)
 						+ column;
 				styledText.setSelection(offset);
+			}
+		});
+
+	}
+	
+	/**
+	 * Sets selection within specified {@link StyledText} to specified start and end.
+	 * 
+	 * @param styledText styled text to handle
+	 * @param start selection start offset.
+	 * @param end selection end offset
+	 */
+	public void setSelection(final StyledText styledText, final int start,
+			final int end) {
+
+		Display.syncExec(new Runnable() {
+
+			@Override
+			public void run() {
+				styledText.setSelection(start,end);
 			}
 		});
 
@@ -78,7 +98,7 @@ public class StyledTextHandler {
 	 */
 	public void insertText(StyledText styledText, int line, int column,
 			String text) {
-		setSelection(styledText, line, column);
+		setSelectionWithinLine(styledText, line, column);
 		insertText(styledText, text);
 	}
 	
