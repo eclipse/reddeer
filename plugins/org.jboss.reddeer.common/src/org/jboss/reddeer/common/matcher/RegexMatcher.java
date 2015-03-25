@@ -1,4 +1,4 @@
-package org.jboss.reddeer.swt.matcher;
+package org.jboss.reddeer.common.matcher;
 
 import org.hamcrest.Description;
 import org.hamcrest.TypeSafeMatcher;
@@ -7,10 +7,9 @@ import org.hamcrest.TypeSafeMatcher;
  * Matcher to match text (String) to given regular expression.
  * 
  * @author rhopp
- * @deprecated since 0.8, use {@link #org.jboss.reddeer.common.matcher.RegexMatcher}
  *
  */
-@Deprecated
+
 public class RegexMatcher extends TypeSafeMatcher<String> {
 
 	private final String regex;

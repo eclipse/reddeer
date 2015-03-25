@@ -3,7 +3,7 @@ package org.jboss.reddeer.swt.test.matcher;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 import org.hamcrest.Matcher;
-import org.jboss.reddeer.swt.matcher.RegexMatcher;
+import org.jboss.reddeer.common.matcher.RegexMatcher;
 import org.junit.Test;
 
 public class RegexMatcherTest {
