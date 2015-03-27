@@ -3,7 +3,7 @@ package org.jboss.reddeer.swt.util;
 import java.lang.reflect.Method;
 
 import org.eclipse.swt.widgets.Widget;
-import org.jboss.reddeer.swt.exception.SWTLayerException;
+import org.jboss.reddeer.core.exception.SWTLayerException;
 
 
 

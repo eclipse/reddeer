@@ -4,6 +4,7 @@ import org.eclipse.core.runtime.jobs.Job;
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.common.logging.Logger;
+import org.jboss.reddeer.common.condition.WaitCondition;
 
 /**
  * Condition is met when there is/are non-system running job(s).

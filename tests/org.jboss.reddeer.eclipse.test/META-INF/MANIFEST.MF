@@ -24,7 +24,8 @@ Require-Bundle: org.eclipse.ui,
  org.jboss.reddeer.junit.extension;bundle-version="[0.8,0.9)",
  org.eclipse.datatools.connectivity.dbdefinition.genericJDBC,
  org.jboss.reddeer.gef;bundle-version="[0.8,0.9)",
- org.jboss.reddeer.uiforms;bundle-version="[0.8,0.9)"
+ org.jboss.reddeer.uiforms;bundle-version="[0.8,0.9)",
+ org.jboss.reddeer.core;bundle-version="[0.8,0.9)"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Import-Package: org.hamcrest.core

@@ -2,7 +2,7 @@ package org.jboss.reddeer.eclipse.condition;
 
 import org.jboss.reddeer.eclipse.exception.EclipseLayerException;
 import org.jboss.reddeer.eclipse.rse.ui.view.SystemView;
-import org.jboss.reddeer.swt.condition.WaitCondition;
+import org.jboss.reddeer.common.condition.WaitCondition;
 
 /**
  * Returns true, if there is remote system with specified name

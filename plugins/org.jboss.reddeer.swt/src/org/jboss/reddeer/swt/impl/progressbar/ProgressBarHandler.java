@@ -1,8 +1,8 @@
 package org.jboss.reddeer.swt.impl.progressbar;
 
 import org.eclipse.swt.widgets.ProgressBar;
-import org.jboss.reddeer.swt.util.Display;
-import org.jboss.reddeer.swt.util.ResultRunnable;
+import org.jboss.reddeer.core.util.Display;
+import org.jboss.reddeer.core.util.ResultRunnable;
 
 /**
  *	Contains methods that handle UI operations on {@link ProgressBar} widgets. 

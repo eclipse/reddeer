@@ -1,8 +1,8 @@
 package org.jboss.reddeer.uiforms.impl.form;
 
 import org.hamcrest.Matcher;
-import org.jboss.reddeer.swt.matcher.WithTextMatcher;
-import org.jboss.reddeer.swt.reference.ReferencedComposite;
+import org.jboss.reddeer.core.matcher.WithTextMatcher;
+import org.jboss.reddeer.core.reference.ReferencedComposite;
 
 /**
  * Represents Eclipse Form. This class will be used mainly for its children discovering

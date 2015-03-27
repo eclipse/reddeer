@@ -1,7 +1,7 @@
 package org.jboss.reddeer.eclipse.condition;
 
 import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.PackageExplorer;
-import org.jboss.reddeer.swt.condition.WaitCondition;
+import org.jboss.reddeer.common.condition.WaitCondition;
 
 /**
  * Returns true if project exists in explorer

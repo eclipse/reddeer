@@ -1,7 +1,7 @@
 package org.jboss.reddeer.eclipse.condition;
 
 import org.jboss.reddeer.eclipse.ui.problems.ProblemsView;
-import org.jboss.reddeer.swt.condition.WaitCondition;
+import org.jboss.reddeer.common.condition.WaitCondition;
 import org.jboss.reddeer.swt.impl.tree.DefaultTree;
 
 /**

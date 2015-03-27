@@ -1,20 +1,19 @@
-package org.jboss.reddeer.swt.condition;
+package org.jboss.reddeer.core.condition;
 
 import org.eclipse.swt.widgets.Shell;
 import org.hamcrest.core.IsEqual;
 import org.jboss.reddeer.common.logging.Logger;
+import org.jboss.reddeer.common.condition.WaitCondition;
 import org.jboss.reddeer.common.exception.RedDeerException;
 import org.jboss.reddeer.core.handler.WidgetHandler;
 import org.jboss.reddeer.core.lookup.ShellLookup;
-import org.jboss.reddeer.swt.util.internal.InstanceValidator;
-import org.jboss.reddeer.common.condition.WaitCondition;
+import org.jboss.reddeer.core.util.internal.InstanceValidator;
 
 /**
  * Condition is met when shell with specified text (title) is active.
  * 
  * @author Vlado Pakan
  * @author jniederm
- * @deprecated since 0.8, use {@link #org.jboss.reddeer.core.condition.ShellWithTextIsActive}
  */
 
 public class ShellWithTextIsActive implements WaitCondition {

@@ -3,10 +3,11 @@ package org.jboss.reddeer.swt.condition;
 import org.eclipse.swt.widgets.Shell;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.common.logging.Logger;
-import org.jboss.reddeer.swt.lookup.ShellLookup;
-import org.jboss.reddeer.swt.matcher.WithTextMatcher;
+import org.jboss.reddeer.core.lookup.ShellLookup;
+import org.jboss.reddeer.core.matcher.WithTextMatcher;
 import org.jboss.reddeer.swt.util.internal.InstanceValidator;
-import org.jboss.reddeer.swt.wait.TimePeriod;
+import org.jboss.reddeer.common.wait.TimePeriod;
+import org.jboss.reddeer.common.condition.WaitCondition;
 
 /**
  * Condition is met when shell with specific text (title) is available.

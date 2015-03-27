@@ -5,7 +5,8 @@ import java.lang.invoke.MethodHandle;
 import java.lang.invoke.MethodType;
 
 import org.jboss.reddeer.common.logging.Logger;
-import org.jboss.reddeer.swt.exception.SWTLayerException;
+import org.jboss.reddeer.core.exception.SWTLayerException;
+import org.jboss.reddeer.common.condition.WaitCondition;
 /**
  * Wait condition to wait for constructor to finish successfully
  * 

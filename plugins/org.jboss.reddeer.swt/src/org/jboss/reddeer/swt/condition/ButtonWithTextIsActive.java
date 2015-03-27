@@ -1,6 +1,7 @@
 package org.jboss.reddeer.swt.condition;
 
 import org.jboss.reddeer.swt.api.Button;
+import org.jboss.reddeer.common.condition.WaitCondition;
 
 /**
  * Condition is met when button with specified text is active.

@@ -8,10 +8,10 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Shell;
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.swt.impl.shell.internal.BasicShell;
-import org.jboss.reddeer.swt.lookup.ShellLookup;
-import org.jboss.reddeer.swt.util.Display;
-import org.jboss.reddeer.swt.util.ResultRunnable;
-import org.jboss.reddeer.swt.wait.TimePeriod;
+import org.jboss.reddeer.core.lookup.ShellLookup;
+import org.jboss.reddeer.core.util.Display;
+import org.jboss.reddeer.core.util.ResultRunnable;
+import org.jboss.reddeer.common.wait.TimePeriod;
 
 /**
  * Contains methods for handling UI operations on {@link Shell} widgets.

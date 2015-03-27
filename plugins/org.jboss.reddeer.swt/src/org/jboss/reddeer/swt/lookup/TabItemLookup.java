@@ -2,7 +2,7 @@ package org.jboss.reddeer.swt.lookup;
 
 import org.eclipse.swt.widgets.TabItem;
 import org.hamcrest.Matcher;
-import org.jboss.reddeer.swt.reference.ReferencedComposite;
+import org.jboss.reddeer.core.reference.ReferencedComposite;
 
 /**
  * TabItem lookup containing lookup routines for TabItem widget type

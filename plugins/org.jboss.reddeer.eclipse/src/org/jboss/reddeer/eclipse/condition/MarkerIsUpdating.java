@@ -5,9 +5,9 @@ import java.lang.reflect.Method;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.internal.views.markers.ExtendedMarkersView;
 import org.jboss.reddeer.eclipse.exception.EclipseLayerException;
-import org.jboss.reddeer.swt.condition.WaitCondition;
-import org.jboss.reddeer.swt.util.Display;
-import org.jboss.reddeer.swt.util.ResultRunnable;
+import org.jboss.reddeer.common.condition.WaitCondition;
+import org.jboss.reddeer.core.util.Display;
+import org.jboss.reddeer.core.util.ResultRunnable;
 
 /**
  * Returns true if marker based view is updating its UI.

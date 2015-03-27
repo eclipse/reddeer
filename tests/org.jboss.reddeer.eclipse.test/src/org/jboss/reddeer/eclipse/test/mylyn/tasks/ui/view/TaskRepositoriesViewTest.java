@@ -7,8 +7,8 @@ import java.util.List;
 import org.jboss.reddeer.eclipse.mylyn.tasks.ui.view.TaskRepositoriesView;
 import org.jboss.reddeer.eclipse.mylyn.tasks.ui.view.TaskRepository;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
-import org.jboss.reddeer.swt.wait.AbstractWait;
-import org.jboss.reddeer.swt.wait.TimePeriod;
+import org.jboss.reddeer.common.wait.AbstractWait;
+import org.jboss.reddeer.common.wait.TimePeriod;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 

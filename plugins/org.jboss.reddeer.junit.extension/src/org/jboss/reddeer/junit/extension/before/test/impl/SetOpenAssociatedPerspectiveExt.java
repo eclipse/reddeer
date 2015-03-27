@@ -5,7 +5,7 @@ import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.eclipse.jdt.ui.WorkbenchPreferenceDialog;
 import org.jboss.reddeer.eclipse.ui.dialogs.PerspectivesPreferencePage;
 import org.jboss.reddeer.junit.extensionpoint.IBeforeTest;
-import org.jboss.reddeer.swt.exception.SWTLayerException;
+import org.jboss.reddeer.core.exception.SWTLayerException;
 
 /**
  * Extension for Extension point org.jboss.reddeer.junit.before.test. Disables

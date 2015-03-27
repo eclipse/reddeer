@@ -3,7 +3,7 @@ package org.jboss.reddeer.uiforms.lookup;
 import org.eclipse.ui.forms.widgets.FormText;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.swt.lookup.WidgetLookup;
-import org.jboss.reddeer.swt.reference.ReferencedComposite;
+import org.jboss.reddeer.core.reference.ReferencedComposite;
 import org.jboss.reddeer.swt.widgets.AbstractWidget;
 
 /**

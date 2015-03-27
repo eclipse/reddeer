@@ -9,8 +9,8 @@ import org.eclipse.gef.ui.palette.PaletteViewer;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.gef.finder.PaletteEntryFinder;
 import org.jboss.reddeer.common.logging.Logger;
-import org.jboss.reddeer.swt.util.Display;
-import org.jboss.reddeer.swt.util.ResultRunnable;
+import org.jboss.reddeer.core.util.Display;
+import org.jboss.reddeer.core.util.ResultRunnable;
 
 /**
  * Contains methods that handle UI operations on {@link org.eclipse.gef.ui.palette.PaletteViewer} and

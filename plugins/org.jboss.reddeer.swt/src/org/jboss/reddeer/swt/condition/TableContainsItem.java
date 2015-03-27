@@ -2,6 +2,7 @@ package org.jboss.reddeer.swt.condition;
 
 import org.jboss.reddeer.swt.api.Table;
 import org.jboss.reddeer.swt.api.TableItem;
+import org.jboss.reddeer.common.condition.WaitCondition;
 
 /**
  * Condition is met when table contains specified item.

@@ -3,7 +3,7 @@ package org.jboss.reddeer.swt.impl.link;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.swt.api.Link;
 import org.jboss.reddeer.swt.matcher.AnchorLinkTextMatcher;
-import org.jboss.reddeer.swt.reference.ReferencedComposite;
+import org.jboss.reddeer.core.reference.ReferencedComposite;
 
 public class AnchorLink extends AbstractLink implements Link{
 	

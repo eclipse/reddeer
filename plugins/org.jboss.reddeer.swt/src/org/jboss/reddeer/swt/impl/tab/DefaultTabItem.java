@@ -2,7 +2,7 @@ package org.jboss.reddeer.swt.impl.tab;
 
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.swt.matcher.WithMnemonicTextMatcher;
-import org.jboss.reddeer.swt.reference.ReferencedComposite;
+import org.jboss.reddeer.core.reference.ReferencedComposite;
 
 /**
  * Default TabItem implementation

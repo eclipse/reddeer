@@ -16,7 +16,8 @@ Require-Bundle: org.eclipse.ui,
  org.jboss.reddeer.common;bundle-version="[0.8,0.9)",
  org.eclipse.core.resources,
  org.eclipse.jdt.ui,
- org.eclipse.ui.workbench
+ org.eclipse.ui.workbench,
+ org.jboss.reddeer.core;bundle-version="[0.8,0.9)"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Export-Package: org.jboss.reddeer.workbench,

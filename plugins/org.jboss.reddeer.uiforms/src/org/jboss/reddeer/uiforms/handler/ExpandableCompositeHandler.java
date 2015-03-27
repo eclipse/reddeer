@@ -1,8 +1,8 @@
 package org.jboss.reddeer.uiforms.handler;
 
 import org.eclipse.ui.forms.widgets.ExpandableComposite;
-import org.jboss.reddeer.swt.util.Display;
-import org.jboss.reddeer.swt.util.ResultRunnable;
+import org.jboss.reddeer.core.util.Display;
+import org.jboss.reddeer.core.util.ResultRunnable;
 
 /**
  * Contains methods for handling UI operations on {@link ExpandableComposite} widgets.

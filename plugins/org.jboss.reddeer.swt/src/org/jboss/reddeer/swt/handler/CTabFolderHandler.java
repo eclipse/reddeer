@@ -1,7 +1,7 @@
 package org.jboss.reddeer.swt.handler;
 
 import org.eclipse.swt.custom.CTabFolder;
-import org.jboss.reddeer.swt.util.Display;
+import org.jboss.reddeer.core.util.Display;
 
 /**
  * Contains methods for handling UI operations on {@link CTabFolder} widgets.

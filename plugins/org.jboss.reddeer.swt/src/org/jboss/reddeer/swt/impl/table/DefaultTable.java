@@ -2,7 +2,7 @@ package org.jboss.reddeer.swt.impl.table;
 
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.swt.api.Table;
-import org.jboss.reddeer.swt.reference.ReferencedComposite;
+import org.jboss.reddeer.core.reference.ReferencedComposite;
 
 /**
  * Default Table implementation

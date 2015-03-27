@@ -1,7 +1,7 @@
 package org.jboss.reddeer.swt.util;
 
 import org.jboss.reddeer.common.logging.Logger;
-import org.jboss.reddeer.swt.exception.SWTLayerException;
+import org.jboss.reddeer.core.exception.SWTLayerException;
 import org.jboss.reddeer.swt.interceptor.SyncInterceptorManager;
 
 

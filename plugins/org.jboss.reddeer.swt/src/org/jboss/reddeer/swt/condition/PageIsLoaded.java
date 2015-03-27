@@ -1,6 +1,7 @@
 package org.jboss.reddeer.swt.condition;
 
 import org.jboss.reddeer.swt.api.Browser;
+import org.jboss.reddeer.common.condition.WaitCondition;
 
 /**
  * Condition is met when page is fully loaded in a {@link Browser}.

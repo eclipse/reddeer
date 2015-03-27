@@ -1,7 +1,7 @@
 package org.jboss.reddeer.workbench.condition;
 
 import org.eclipse.ui.IViewReference;
-import org.jboss.reddeer.swt.condition.WaitCondition;
+import org.jboss.reddeer.common.condition.WaitCondition;
 import org.jboss.reddeer.swt.lookup.WorkbenchLookup;
 
 /**

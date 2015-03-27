@@ -2,9 +2,9 @@ package org.jboss.reddeer.swt.handler;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.List;
-import org.jboss.reddeer.swt.exception.SWTLayerException;
-import org.jboss.reddeer.swt.util.Display;
-import org.jboss.reddeer.swt.util.ResultRunnable;
+import org.jboss.reddeer.core.exception.SWTLayerException;
+import org.jboss.reddeer.core.util.Display;
+import org.jboss.reddeer.core.util.ResultRunnable;
 
 /**
  * Contains methods for handling UI operations on {@link List} widgets.

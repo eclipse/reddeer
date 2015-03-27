@@ -3,7 +3,7 @@ package org.jboss.reddeer.swt.impl.button;
 import org.eclipse.swt.SWT;
 import org.jboss.reddeer.swt.matcher.WithMnemonicTextMatcher;
 import org.jboss.reddeer.swt.matcher.WithStyleMatcher;
-import org.jboss.reddeer.swt.reference.ReferencedComposite;
+import org.jboss.reddeer.core.reference.ReferencedComposite;
 
 /**
  * Parent for all all prescribed button implementations like OK, Cancel, Next, etc.

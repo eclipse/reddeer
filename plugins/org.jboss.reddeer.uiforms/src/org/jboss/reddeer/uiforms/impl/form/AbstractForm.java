@@ -2,8 +2,8 @@ package org.jboss.reddeer.uiforms.impl.form;
 
 import org.eclipse.swt.widgets.Control;
 import org.hamcrest.Matcher;
-import org.jboss.reddeer.swt.handler.WidgetHandler;
-import org.jboss.reddeer.swt.reference.ReferencedComposite;
+import org.jboss.reddeer.core.handler.WidgetHandler;
+import org.jboss.reddeer.core.reference.ReferencedComposite;
 import org.jboss.reddeer.swt.widgets.AbstractWidget;
 import org.jboss.reddeer.uiforms.api.Form;
 

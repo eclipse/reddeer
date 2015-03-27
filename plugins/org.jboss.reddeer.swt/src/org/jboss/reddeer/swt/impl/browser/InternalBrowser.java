@@ -2,7 +2,7 @@ package org.jboss.reddeer.swt.impl.browser;
 
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.swt.matcher.WithLabelMatcher;
-import org.jboss.reddeer.swt.reference.ReferencedComposite;
+import org.jboss.reddeer.core.reference.ReferencedComposite;
 /**
  * Implements SWT Browser manipulations
  * @author Jiri Peterka, Vlado Pakan

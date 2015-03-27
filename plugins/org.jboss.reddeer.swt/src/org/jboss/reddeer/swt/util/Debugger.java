@@ -1,6 +1,6 @@
 package org.jboss.reddeer.swt.util;
 
-import org.jboss.reddeer.swt.exception.SWTLayerException;
+import org.jboss.reddeer.core.exception.SWTLayerException;
 
 /**
  * Debugger class providing methods useful for test debugging

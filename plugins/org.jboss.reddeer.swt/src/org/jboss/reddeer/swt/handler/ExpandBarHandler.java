@@ -6,8 +6,8 @@ import java.util.List;
 import org.eclipse.swt.widgets.ExpandItem;
 import org.jboss.reddeer.swt.api.ExpandBarItem;
 import org.jboss.reddeer.swt.impl.expandbar.internal.BasicExpandBarItem;
-import org.jboss.reddeer.swt.util.Display;
-import org.jboss.reddeer.swt.util.ResultRunnable;
+import org.jboss.reddeer.core.util.Display;
+import org.jboss.reddeer.core.util.ResultRunnable;
 
 /**
  * Contains methods for handling UI operations on
