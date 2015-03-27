@@ -11,7 +11,7 @@ import org.eclipse.ui.browser.IWorkbenchBrowserSupport;
 import org.jboss.reddeer.eclipse.exception.EclipseLayerException;
 import org.jboss.reddeer.eclipse.ui.browser.BrowserEditor;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
-import org.jboss.reddeer.swt.util.Display;
+import org.jboss.reddeer.core.util.Display;
 import org.jboss.reddeer.workbench.impl.editor.DefaultEditor;
 import org.junit.Before;
 import org.junit.Test;

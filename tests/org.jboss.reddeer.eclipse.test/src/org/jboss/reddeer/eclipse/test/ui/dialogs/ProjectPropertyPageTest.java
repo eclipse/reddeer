@@ -11,7 +11,7 @@ import org.jboss.reddeer.eclipse.ui.dialogs.ProjectPropertyPage;
 import org.jboss.reddeer.eclipse.utils.DeleteUtils;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.swt.api.Shell;
-import org.jboss.reddeer.swt.exception.SWTLayerException;
+import org.jboss.reddeer.core.exception.SWTLayerException;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.junit.After;
 import org.junit.Before;

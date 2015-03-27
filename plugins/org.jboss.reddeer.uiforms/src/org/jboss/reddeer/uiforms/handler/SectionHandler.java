@@ -1,7 +1,7 @@
 package org.jboss.reddeer.uiforms.handler;
 
 import org.eclipse.ui.forms.widgets.Section;
-import org.jboss.reddeer.swt.util.Display;
+import org.jboss.reddeer.core.util.Display;
 
 /**
  * Helper class for running methods on {@link Section} that require sync/async exec on UI thread. 

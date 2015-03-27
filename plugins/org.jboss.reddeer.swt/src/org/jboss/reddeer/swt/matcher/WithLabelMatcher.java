@@ -10,7 +10,7 @@ import org.hamcrest.BaseMatcher;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.core.Is;
-import org.jboss.reddeer.swt.handler.WidgetHandler;
+import org.jboss.reddeer.core.handler.WidgetHandler;
 
 /**
  * Matches {@link Widget} with described label.

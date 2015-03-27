@@ -3,9 +3,9 @@ package org.jboss.reddeer.uiforms.lookup;
 import org.eclipse.ui.forms.widgets.Hyperlink;
 import org.eclipse.ui.forms.widgets.ImageHyperlink;
 import org.hamcrest.Matcher;
-import org.jboss.reddeer.swt.exception.SWTLayerException;
+import org.jboss.reddeer.core.exception.SWTLayerException;
 import org.jboss.reddeer.swt.lookup.WidgetLookup;
-import org.jboss.reddeer.swt.reference.ReferencedComposite;
+import org.jboss.reddeer.core.reference.ReferencedComposite;
 import org.jboss.reddeer.swt.widgets.AbstractWidget;
 
 /**

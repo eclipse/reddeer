@@ -6,11 +6,11 @@ import java.util.List;
 
 import org.eclipse.swt.widgets.Shell;
 import org.jboss.reddeer.swt.api.Table;
-import org.jboss.reddeer.swt.condition.WaitCondition;
-import org.jboss.reddeer.swt.exception.SWTLayerException;
-import org.jboss.reddeer.swt.handler.ShellHandler;
+import org.jboss.reddeer.common.condition.WaitCondition;
+import org.jboss.reddeer.core.exception.SWTLayerException;
+import org.jboss.reddeer.core.handler.ShellHandler;
 import org.jboss.reddeer.swt.impl.table.DefaultTable;
-import org.jboss.reddeer.swt.lookup.ShellLookup;
+import org.jboss.reddeer.core.lookup.ShellLookup;
 
 /**
  * Checks if content assistand shell is open.

@@ -13,7 +13,7 @@ import org.jboss.reddeer.eclipse.ui.views.properties.PropertiesView;
 import org.jboss.reddeer.eclipse.ui.views.properties.PropertiesViewProperty;
 import org.jboss.reddeer.eclipse.utils.DeleteUtils;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
-import org.jboss.reddeer.swt.exception.SWTLayerException;
+import org.jboss.reddeer.core.exception.SWTLayerException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

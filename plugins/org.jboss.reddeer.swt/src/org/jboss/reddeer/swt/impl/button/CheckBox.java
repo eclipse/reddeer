@@ -5,7 +5,7 @@ import org.hamcrest.Matcher;
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.swt.handler.ButtonHandler;
 import org.jboss.reddeer.swt.matcher.WithMnemonicTextMatcher;
-import org.jboss.reddeer.swt.reference.ReferencedComposite;
+import org.jboss.reddeer.core.reference.ReferencedComposite;
 /**
  * Class represents Button with type Toggle (Checkbox)
  * 

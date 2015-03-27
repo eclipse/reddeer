@@ -8,9 +8,9 @@ import org.eclipse.swt.widgets.Shell;
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.swt.api.Table;
 import org.jboss.reddeer.swt.api.TableItem;
-import org.jboss.reddeer.swt.handler.ShellHandler;
+import org.jboss.reddeer.core.handler.ShellHandler;
 import org.jboss.reddeer.swt.keyboard.KeyboardFactory;
-import org.jboss.reddeer.swt.lookup.ShellLookup;
+import org.jboss.reddeer.core.lookup.ShellLookup;
 
 /**
  * This class represents content assistant

@@ -6,12 +6,12 @@ import java.util.List;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
 import org.hamcrest.Matcher;
-import org.jboss.reddeer.swt.condition.WaitCondition;
+import org.jboss.reddeer.common.condition.WaitCondition;
 import org.jboss.reddeer.swt.handler.TreeHandler;
 import org.jboss.reddeer.swt.handler.TreeItemHandler;
 import org.jboss.reddeer.swt.impl.tree.TreeItemNotFoundException;
-import org.jboss.reddeer.swt.wait.TimePeriod;
-import org.jboss.reddeer.swt.wait.WaitUntil;
+import org.jboss.reddeer.common.wait.TimePeriod;
+import org.jboss.reddeer.common.wait.WaitUntil;
 
 /**
  * TreeItem lookup

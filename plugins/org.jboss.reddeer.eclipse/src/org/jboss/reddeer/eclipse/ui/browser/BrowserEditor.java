@@ -8,11 +8,11 @@ import org.hamcrest.TypeSafeMatcher;
 import org.jboss.reddeer.eclipse.condition.BrowserHasURL;
 import org.jboss.reddeer.swt.condition.PageIsLoaded;
 import org.jboss.reddeer.swt.impl.browser.InternalBrowser;
-import org.jboss.reddeer.swt.matcher.MatcherBuilder;
-import org.jboss.reddeer.swt.matcher.WithTextMatcher;
-import org.jboss.reddeer.swt.wait.TimePeriod;
-import org.jboss.reddeer.swt.wait.WaitUntil;
-import org.jboss.reddeer.swt.wait.WaitWhile;
+import org.jboss.reddeer.core.matcher.MatcherBuilder;
+import org.jboss.reddeer.core.matcher.WithTextMatcher;
+import org.jboss.reddeer.common.wait.TimePeriod;
+import org.jboss.reddeer.common.wait.WaitUntil;
+import org.jboss.reddeer.common.wait.WaitWhile;
 import org.jboss.reddeer.workbench.impl.editor.AbstractEditor;
 import org.jboss.reddeer.workbench.matcher.EditorPartTitleMatcher;
 

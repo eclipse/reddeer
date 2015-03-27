@@ -4,9 +4,7 @@ package org.jboss.reddeer.core.util.internal;
  * Simple instance validator
  * @author Vlado Pakan
  * @author Jiri Peterka
- * @deprecated since 0.8, use {@link #org.jboss.reddeer.core.util.InstanceValidator}
  */
-@Deprecated
 public class InstanceValidator {
 	/**
 	 * Simple validation method for non-nullable arguments.

@@ -5,7 +5,7 @@ import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.common.properties.RedDeerProperties;
 import org.jboss.reddeer.junit.extensionpoint.IBeforeTest;
 import org.jboss.reddeer.swt.lookup.WorkbenchLookup;
-import org.jboss.reddeer.swt.util.Display;
+import org.jboss.reddeer.core.util.Display;
 /**
  * Extension for Extension point org.jboss.reddeer.junit.before.test
  * Closes Welcome screen prior test is run

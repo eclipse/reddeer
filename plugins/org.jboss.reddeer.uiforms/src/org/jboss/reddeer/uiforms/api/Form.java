@@ -1,6 +1,6 @@
 package org.jboss.reddeer.uiforms.api;
 
-import org.jboss.reddeer.swt.reference.ReferencedComposite;
+import org.jboss.reddeer.core.reference.ReferencedComposite;
 import org.jboss.reddeer.swt.widgets.Widget;
 
 /**

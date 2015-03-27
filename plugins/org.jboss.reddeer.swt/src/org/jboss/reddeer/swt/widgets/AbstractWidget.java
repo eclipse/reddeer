@@ -1,9 +1,9 @@
 package org.jboss.reddeer.swt.widgets;
 
 import org.hamcrest.Matcher;
-import org.jboss.reddeer.swt.handler.WidgetHandler;
+import org.jboss.reddeer.core.handler.WidgetHandler;
 import org.jboss.reddeer.swt.lookup.WidgetLookup;
-import org.jboss.reddeer.swt.reference.ReferencedComposite;
+import org.jboss.reddeer.core.reference.ReferencedComposite;
 
 /**
  * Abstract widget implementation that looks up and stores swt widget. 

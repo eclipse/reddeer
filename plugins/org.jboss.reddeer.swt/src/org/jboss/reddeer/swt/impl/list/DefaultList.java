@@ -3,7 +3,7 @@ package org.jboss.reddeer.swt.impl.list;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.swt.api.List;
 import org.jboss.reddeer.swt.matcher.WithLabelMatcher;
-import org.jboss.reddeer.swt.reference.ReferencedComposite;
+import org.jboss.reddeer.core.reference.ReferencedComposite;
 
 
 /**

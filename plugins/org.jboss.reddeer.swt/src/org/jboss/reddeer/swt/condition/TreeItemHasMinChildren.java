@@ -1,6 +1,7 @@
 package org.jboss.reddeer.swt.condition;
 
 import org.jboss.reddeer.swt.api.TreeItem;
+import org.jboss.reddeer.common.condition.WaitCondition;
 
 /**
  * Condition is met when tree item has at least specified count of children.

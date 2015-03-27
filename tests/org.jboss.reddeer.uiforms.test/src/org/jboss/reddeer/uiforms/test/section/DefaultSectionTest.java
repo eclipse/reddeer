@@ -5,9 +5,9 @@ import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertNotNull;
 
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
-import org.jboss.reddeer.swt.exception.SWTLayerException;
+import org.jboss.reddeer.core.exception.SWTLayerException;
 import org.jboss.reddeer.swt.impl.text.DefaultText;
-import org.jboss.reddeer.swt.reference.ReferencedComposite;
+import org.jboss.reddeer.core.reference.ReferencedComposite;
 import org.jboss.reddeer.uiforms.impl.form.DefaultForm;
 import org.jboss.reddeer.uiforms.impl.section.DefaultSection;
 import org.jboss.reddeer.uiforms.test.ui.views.FormView;

@@ -1,6 +1,6 @@
 package org.jboss.reddeer.workbench.condition;
 
-import org.jboss.reddeer.swt.condition.WaitCondition;
+import org.jboss.reddeer.common.condition.WaitCondition;
 import org.jboss.reddeer.workbench.impl.editor.DefaultEditor;
 
 /**

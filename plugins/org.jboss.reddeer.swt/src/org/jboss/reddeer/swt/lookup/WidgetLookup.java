@@ -16,17 +16,17 @@ import org.eclipse.ui.IWorkbenchSite;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.common.platform.RunningPlatform;
-import org.jboss.reddeer.swt.condition.WaitCondition;
-import org.jboss.reddeer.swt.exception.SWTLayerException;
-import org.jboss.reddeer.swt.exception.WaitTimeoutExpiredException;
-import org.jboss.reddeer.swt.handler.WidgetHandler;
+import org.jboss.reddeer.common.condition.WaitCondition;
+import org.jboss.reddeer.core.exception.SWTLayerException;
+import org.jboss.reddeer.common.exception.WaitTimeoutExpiredException;
+import org.jboss.reddeer.core.handler.WidgetHandler;
 import org.jboss.reddeer.swt.matcher.AndMatcher;
 import org.jboss.reddeer.swt.matcher.ClassMatcher;
-import org.jboss.reddeer.swt.matcher.MatcherBuilder;
-import org.jboss.reddeer.swt.reference.ReferencedComposite;
-import org.jboss.reddeer.swt.util.Display;
-import org.jboss.reddeer.swt.util.ResultRunnable;
-import org.jboss.reddeer.swt.wait.WaitUntil;
+import org.jboss.reddeer.core.matcher.MatcherBuilder;
+import org.jboss.reddeer.core.reference.ReferencedComposite;
+import org.jboss.reddeer.core.util.Display;
+import org.jboss.reddeer.core.util.ResultRunnable;
+import org.jboss.reddeer.common.wait.WaitUntil;
 /**
  * Widget Lookup methods contains core lookup and resolving widgets
  * @author Jiri Peterka

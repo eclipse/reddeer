@@ -2,8 +2,8 @@ package org.jboss.reddeer.swt.impl.styledtext;
 
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.swt.api.StyledText;
-import org.jboss.reddeer.swt.matcher.WithTextMatcher;
-import org.jboss.reddeer.swt.reference.ReferencedComposite;
+import org.jboss.reddeer.core.matcher.WithTextMatcher;
+import org.jboss.reddeer.core.reference.ReferencedComposite;
 
 /**
  * Default class for representing StyledText.

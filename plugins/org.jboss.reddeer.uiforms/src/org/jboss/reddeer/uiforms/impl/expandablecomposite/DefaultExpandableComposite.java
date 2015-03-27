@@ -7,9 +7,9 @@ import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.swt.lookup.WidgetLookup;
 import org.jboss.reddeer.swt.matcher.ClassMatcher;
-import org.jboss.reddeer.swt.matcher.MatcherBuilder;
+import org.jboss.reddeer.core.matcher.MatcherBuilder;
 import org.jboss.reddeer.swt.matcher.WithMnemonicTextMatcher;
-import org.jboss.reddeer.swt.reference.ReferencedComposite;
+import org.jboss.reddeer.core.reference.ReferencedComposite;
 
 /**
  * Default implementation of {@link ExpandableComposite}.

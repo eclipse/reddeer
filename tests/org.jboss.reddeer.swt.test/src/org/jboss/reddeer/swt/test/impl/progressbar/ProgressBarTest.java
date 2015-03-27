@@ -5,7 +5,7 @@ import static org.junit.Assert.assertEquals;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.ProgressBar;
 import org.eclipse.swt.widgets.Shell;
-import org.jboss.reddeer.swt.exception.SWTLayerException;
+import org.jboss.reddeer.core.exception.SWTLayerException;
 import org.jboss.reddeer.swt.impl.progressbar.HorizontalProgressBar;
 import org.jboss.reddeer.swt.impl.progressbar.IndeterminateProgressBar;
 import org.jboss.reddeer.swt.impl.progressbar.VerticalProgressBar;

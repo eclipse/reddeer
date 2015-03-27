@@ -5,7 +5,7 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Widget;
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.swt.lookup.WidgetLookup;
-import org.jboss.reddeer.swt.util.Display;
+import org.jboss.reddeer.core.util.Display;
 
 /**
  * Class for operating with keyboard

@@ -1,7 +1,8 @@
 package org.jboss.reddeer.swt.condition;
 
-import org.jboss.reddeer.swt.exception.SWTLayerException;
+import org.jboss.reddeer.core.exception.SWTLayerException;
 import org.jboss.reddeer.swt.impl.clabel.DefaultCLabel;
+import org.jboss.reddeer.common.condition.WaitCondition;
 
 /**
  * Wait condition to wait for a CLabel widget with specified text is available.

@@ -1,7 +1,7 @@
 package org.jboss.reddeer.swt.impl.scale;
 
 import org.hamcrest.Matcher;
-import org.jboss.reddeer.swt.reference.ReferencedComposite;
+import org.jboss.reddeer.core.reference.ReferencedComposite;
 /**
  * DefaultScale implementation represents most common Scale widget type
  * and provide API for basic operation needed in UI tests

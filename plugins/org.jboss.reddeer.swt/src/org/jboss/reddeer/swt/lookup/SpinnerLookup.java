@@ -2,7 +2,7 @@ package org.jboss.reddeer.swt.lookup;
 
 import org.eclipse.swt.widgets.Spinner;
 import org.hamcrest.Matcher;
-import org.jboss.reddeer.swt.reference.ReferencedComposite;
+import org.jboss.reddeer.core.reference.ReferencedComposite;
 import org.jboss.reddeer.swt.widgets.AbstractWidget;
 
 /**

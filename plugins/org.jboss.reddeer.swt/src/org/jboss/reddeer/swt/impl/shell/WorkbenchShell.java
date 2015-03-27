@@ -1,9 +1,9 @@
 package org.jboss.reddeer.swt.impl.shell;
 
 import org.jboss.reddeer.common.logging.Logger;
-import org.jboss.reddeer.swt.lookup.ShellLookup;
-import org.jboss.reddeer.swt.util.Display;
-import org.jboss.reddeer.swt.util.ResultRunnable;
+import org.jboss.reddeer.core.lookup.ShellLookup;
+import org.jboss.reddeer.core.util.Display;
+import org.jboss.reddeer.core.util.ResultRunnable;
 
 /**
  * WorkbenchShell is Shell implementation for WorkbenchShell

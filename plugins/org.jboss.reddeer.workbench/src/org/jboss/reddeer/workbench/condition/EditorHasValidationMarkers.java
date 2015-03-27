@@ -2,7 +2,7 @@ package org.jboss.reddeer.workbench.condition;
 
 import java.util.List;
 
-import org.jboss.reddeer.swt.condition.WaitCondition;
+import org.jboss.reddeer.common.condition.WaitCondition;
 import org.jboss.reddeer.workbench.api.Editor;
 import org.jboss.reddeer.workbench.impl.editor.Marker;
 

@@ -4,8 +4,8 @@ import org.eclipse.swt.widgets.Widget;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.core.IsEqual;
-import org.jboss.reddeer.swt.exception.SWTLayerException;
-import org.jboss.reddeer.swt.handler.WidgetHandler;
+import org.jboss.reddeer.core.exception.SWTLayerException;
+import org.jboss.reddeer.core.handler.WidgetHandler;
 
 /**
  * Matcher which matches widgets with given tooltip

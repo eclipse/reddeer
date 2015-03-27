@@ -1,7 +1,7 @@
 package org.jboss.reddeer.uiforms.impl.formtext;
 
 import org.hamcrest.Matcher;
-import org.jboss.reddeer.swt.reference.ReferencedComposite;
+import org.jboss.reddeer.core.reference.ReferencedComposite;
 import org.jboss.reddeer.uiforms.matcher.FormTextWithTextMatcher;
 
 /**

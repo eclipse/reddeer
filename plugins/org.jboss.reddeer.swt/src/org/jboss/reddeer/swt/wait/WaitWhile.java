@@ -1,6 +1,6 @@
 package org.jboss.reddeer.swt.wait;
 
-import org.jboss.reddeer.swt.condition.WaitCondition;
+import org.jboss.reddeer.common.condition.WaitCondition;
 
 /**
  * WaitWhile condition represents a wait condition waiting while specific

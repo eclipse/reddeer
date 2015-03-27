@@ -4,8 +4,8 @@ import org.eclipse.swt.widgets.TabItem;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.swt.api.TabFolder;
 import org.jboss.reddeer.swt.handler.TabFolderHandler;
-import org.jboss.reddeer.swt.handler.WidgetHandler;
-import org.jboss.reddeer.swt.reference.ReferencedComposite;
+import org.jboss.reddeer.core.handler.WidgetHandler;
+import org.jboss.reddeer.core.reference.ReferencedComposite;
 import org.jboss.reddeer.swt.widgets.AbstractWidget;
 
 /**

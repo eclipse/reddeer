@@ -2,8 +2,8 @@ package org.jboss.reddeer.swt.impl.text;
 
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.swt.api.Text;
-import org.jboss.reddeer.swt.matcher.WithTextMatcher;
-import org.jboss.reddeer.swt.reference.ReferencedComposite;
+import org.jboss.reddeer.core.matcher.WithTextMatcher;
+import org.jboss.reddeer.core.reference.ReferencedComposite;
 
 /**
  * Default Text implementation. Most standard Text implementation

@@ -5,7 +5,7 @@ import java.util.List;
 import org.eclipse.swt.widgets.TreeItem;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.common.logging.LoggingUtils;
-import org.jboss.reddeer.swt.exception.SWTLayerException;
+import org.jboss.reddeer.core.exception.SWTLayerException;
 import org.jboss.reddeer.swt.handler.TreeItemHandler;
 
 /**

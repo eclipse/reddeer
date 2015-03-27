@@ -3,7 +3,7 @@ package org.jboss.reddeer.eclipse.condition;
 import org.jboss.reddeer.eclipse.ui.problems.ProblemsView;
 import org.jboss.reddeer.eclipse.ui.problems.ProblemsView.ProblemType;
 import org.jboss.reddeer.eclipse.ui.problems.matcher.AbstractProblemMatcher;
-import org.jboss.reddeer.swt.condition.WaitCondition;
+import org.jboss.reddeer.common.condition.WaitCondition;
 
 /**
  * Wait condition for existence of a problem. Condition wait for existence of a specific problem or problem type. 

@@ -7,7 +7,7 @@ import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.swt.interceptor.ISyncInterceptor;
 import org.jboss.reddeer.swt.interceptor.SyncInterceptorManager;
-import org.jboss.reddeer.swt.util.Display;
+import org.jboss.reddeer.core.util.Display;
 import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;

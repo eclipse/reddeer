@@ -3,8 +3,8 @@ package org.jboss.reddeer.swt.impl.menu;
 import org.eclipse.swt.widgets.MenuItem;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.swt.api.ToolItem;
-import org.jboss.reddeer.swt.exception.SWTLayerException;
-import org.jboss.reddeer.swt.handler.ToolItemHandler;
+import org.jboss.reddeer.core.exception.SWTLayerException;
+import org.jboss.reddeer.core.handler.ToolItemHandler;
 import org.jboss.reddeer.swt.matcher.WithMnemonicTextMatchers;
 
 /**

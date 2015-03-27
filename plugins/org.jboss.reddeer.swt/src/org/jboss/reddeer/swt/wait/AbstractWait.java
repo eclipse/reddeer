@@ -1,8 +1,8 @@
 package org.jboss.reddeer.swt.wait;
 
 import org.jboss.reddeer.common.logging.Logger;
-import org.jboss.reddeer.swt.condition.WaitCondition;
-import org.jboss.reddeer.swt.exception.WaitTimeoutExpiredException;
+import org.jboss.reddeer.common.condition.WaitCondition;
+import org.jboss.reddeer.common.exception.WaitTimeoutExpiredException;
 
 /**
  * Common ancestor for waiting classes. Contains abstract
