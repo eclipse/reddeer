@@ -5,7 +5,7 @@ import org.eclipse.swt.widgets.MenuItem;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.swt.api.Menu;
-import org.jboss.reddeer.swt.handler.ActionContributionItemHandler;
+import org.jboss.reddeer.core.handler.ActionContributionItemHandler;
 import org.jboss.reddeer.swt.matcher.WithMnemonicTextMatchers;
 
 /**

@@ -1,8 +1,8 @@
-package org.jboss.reddeer.swt.handler;
+package org.jboss.reddeer.core.handler;
 
 import org.eclipse.jface.action.ActionContributionItem;
-import org.jboss.reddeer.swt.util.Display;
-import org.jboss.reddeer.swt.util.ResultRunnable;
+import org.jboss.reddeer.core.util.Display;
+import org.jboss.reddeer.core.util.ResultRunnable;
 
 /**
  * Contains methods for handling UI operations on {@link ActionContributionItem}
@@ -10,10 +10,7 @@ import org.jboss.reddeer.swt.util.ResultRunnable;
  * 
  * @author rawagner
  *
- * @deprecated since 0.8, use {@link #org.jboss.reddeer.core.handler.ActionContributionItemHandler}
  */
-@Deprecated
-
 public class ActionContributionItemHandler {
 
 	private static ActionContributionItemHandler handler;
