@@ -83,7 +83,7 @@ public class AbstractExplorer extends WorkbenchView {
 	 */
 	public List<Project> getProjects(){
 		List<Project> projects = new ArrayList<Project>();
-		TreeViewerHandler treeViewerHandler = new TreeViewerHandler();
+		TreeViewerHandler treeViewerHandler = TreeViewerHandler.getInstance();
 		
 		for (TreeItem item : getTree().getItems()){			
 			if (org.jboss.reddeer.direct.project.Project

@@ -19,7 +19,7 @@ public class TreeViewerHandler {
 	
 	private static TreeViewerHandler instance;
 	
-	public TreeViewerHandler() {
+	private TreeViewerHandler() {
 	}
 	
 	/**
