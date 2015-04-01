@@ -20,7 +20,7 @@ import org.jboss.reddeer.swt.wait.WaitWhile;
  * @author Vlado Pakan, mlabuda@redhat.com
  * 
  */
-public class ProjectItem extends AbstractExplorerItem {
+public class ProjectItem extends ExplorerItem {
 
 	protected final Logger log = Logger.getLogger(ProjectItem.class);
 

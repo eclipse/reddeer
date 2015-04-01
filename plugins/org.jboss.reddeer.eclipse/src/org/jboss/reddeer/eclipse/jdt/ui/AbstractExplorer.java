@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.jboss.reddeer.eclipse.core.resources.AbstractProject;
+import org.jboss.reddeer.eclipse.core.resources.ExplorerItem;
 import org.jboss.reddeer.eclipse.core.resources.Project;
 import org.jboss.reddeer.eclipse.exception.EclipseLayerException;
 import org.jboss.reddeer.eclipse.utils.DeleteUtils;
+import org.jboss.reddeer.jface.viewer.handler.TreeViewerHandler;
 import org.jboss.reddeer.swt.api.Shell;
 import org.jboss.reddeer.swt.api.Tree;
 import org.jboss.reddeer.swt.api.TreeItem;
@@ -81,11 +83,28 @@ public class AbstractExplorer extends WorkbenchView {
 	 */
 	public List<Project> getProjects(){
 		List<Project> projects = new ArrayList<Project>();
-
-		for (TreeItem item : getTree().getItems()){
-			projects.add(new Project(item));
+		TreeViewerHandler treeViewerHandler = new TreeViewerHandler();
+		
+		for (TreeItem item : getTree().getItems()){			
+			if (org.jboss.reddeer.direct.project.Project
+					.isProject(treeViewerHandler.getNonStyledText(item))) {
+				projects.add(new Project(item));
+			}
 		}
 		return projects;
+	}
+	
+	/**
+	 * Provides list of all items in explorer
+	 * @return list of explorer items
+	 */
+	public List<ExplorerItem> getExplorerItems() {
+		List<ExplorerItem> items = new ArrayList<ExplorerItem>();
+		
+		for (TreeItem item : getTree().getItems()) {
+			items.add(new ExplorerItem(item));
+		}		
+		return items;
 	}
 	
 	/**

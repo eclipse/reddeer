@@ -38,9 +38,6 @@ public class Project {
 	 */
 	public static List<String> getProjectNatureIds(final String projectName) {
 		IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(projectName);
-		if (!project.exists()) {
-			throw new RuntimeException("Cannot get natures of project " + projectName + ". Project does not exist.");
-		}
 		List<String> natureIds = null;
 		
 		try {
@@ -49,5 +46,16 @@ public class Project {
 			throw new RuntimeException("Cannot get natures of project " + projectName +". Project is not opened.");
 		}
 		return natureIds;
+	}
+	
+	/**
+	 * Checks if a project of given name exists
+	 * 
+	 * @param projectName name of the project to check
+	 * @return true if project exists, false otherwise
+	 */
+	public static boolean isProject(String projectName) {
+		IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(projectName);
+		return project.exists();
 	}
 }
