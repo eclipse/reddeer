@@ -5,16 +5,11 @@ import java.lang.reflect.Method;
 import org.eclipse.swt.widgets.Widget;
 import org.jboss.reddeer.core.exception.CoreLayerException;
 
-
-
-
 /**
  * Object util contains helper methods for invoking methods by reflections, etc.
  * 
  * @author Jiri Peterka
- * @deprecated since 0.8, use {@link #org.jboss.reddeer.core.util.ObjectUtil}
  */
-@Deprecated
 public class ObjectUtil {
 
 	/**

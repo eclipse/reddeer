@@ -1,4 +1,4 @@
-package org.jboss.reddeer.workbench.matcher;
+package org.jboss.reddeer.core.matcher;
 
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.part.EditorPart;
@@ -10,9 +10,8 @@ import org.hamcrest.TypeSafeMatcher;
  * the specified class. 
  * 
  * @author Lucia Jelinkova
- * @deprecated since 0.8.0. Use {@link org.jboss.reddeer.core.matcher.EditorPartClassMatcher } instead.
+ *
  */
-@Deprecated
 public class EditorPartClassMatcher extends TypeSafeMatcher<IEditorPart> {
 
 	private Class<? extends IEditorPart> expectedClass;

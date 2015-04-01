@@ -1,26 +1,25 @@
-package org.jboss.reddeer.workbench.condition;
+package org.jboss.reddeer.core.condition;
 
 import org.eclipse.swt.widgets.Control;
-import org.jboss.reddeer.swt.condition.WaitCondition;
-import org.jboss.reddeer.swt.lookup.WidgetLookup;
-import org.jboss.reddeer.swt.lookup.WorkbenchLookup;
-import org.jboss.reddeer.swt.util.Display;
-import org.jboss.reddeer.swt.util.ResultRunnable;
+import org.jboss.reddeer.common.condition.WaitCondition;
+import org.jboss.reddeer.core.lookup.WidgetLookup;
+import org.jboss.reddeer.core.lookup.WorkbenchPartLookup;
+import org.jboss.reddeer.core.util.Display;
+import org.jboss.reddeer.core.util.ResultRunnable;
 
 /**
- * Returns true if active Control is in active View
+ * Returns true if active Control is in active View.
  * 
  * @author Vlado Pakan
- * @deprecated since 0.8.0. Use {@link org.jboss.reddeer.core.condition.ActiveFocusControlIsInActiveView } instead.
  *
  */
-@Deprecated
 public class ActiveFocusControlIsInActiveView implements WaitCondition {
 	@Override
 	public boolean test() {
 		// get active workbench part control (active view)
-		final Control workbenchControl = WorkbenchLookup
-				.getWorkbenchControl(WorkbenchLookup.findActiveWorkbenchPart());
+		final Control workbenchControl = WorkbenchPartLookup.getInstance()
+				.getWorkbenchControl(WorkbenchPartLookup.getInstance().findActiveWorkbenchPartReference());
+		
 		// get focused control
 		final Control focusedControl = WidgetLookup.getInstance().getFocusControl();
 		Boolean result = Display.syncExec(new ResultRunnable<Boolean>() {

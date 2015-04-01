@@ -1,4 +1,5 @@
-package org.jboss.reddeer.workbench.matcher;
+package org.jboss.reddeer.core.matcher;
+
 
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.part.EditorPart;
@@ -11,9 +12,7 @@ import org.hamcrest.TypeSafeMatcher;
  * or tooltip matches the specified matcher.
  * 
  * @author Lucia Jelinkova
- * @deprecated since 0.8.0. Use {@link org.jboss.reddeer.core.matcher.EditorPartTitleMatcher } instead.
  */
-@Deprecated
 public class EditorPartTitleMatcher extends TypeSafeMatcher<IEditorPart> {
 
 	private Matcher<String> titleMatcher;

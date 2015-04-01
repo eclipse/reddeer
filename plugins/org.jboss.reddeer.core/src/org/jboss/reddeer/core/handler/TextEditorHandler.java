@@ -1,4 +1,4 @@
-package org.jboss.reddeer.workbench.handler;
+package org.jboss.reddeer.core.handler;
 
 import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.jface.text.IBlockTextSelection;
@@ -8,14 +8,12 @@ import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.ui.texteditor.ITextEditor;
 import org.jboss.reddeer.core.util.Display;
 import org.jboss.reddeer.core.util.ResultRunnable;
-import org.jboss.reddeer.workbench.exception.WorkbenchLayerException;
+import org.jboss.reddeer.core.exception.CoreLayerException;
 
 /**
  * TextEditor handler handles operations for TextEditor instances.
  * @author rhopp
- * @deprecated since 0.8.0 Use {@link org.jboss.reddeer.core.handler.TextEditorHandler } instead.
  */
-@Deprecated
 public class TextEditorHandler {
 
     private static TextEditorHandler instance;
@@ -77,7 +75,7 @@ public class TextEditorHandler {
                     }
 
                 } catch (BadLocationException e) {
-                    throw new WorkbenchLayerException(
+                    throw new CoreLayerException(
                             "Line provided is invalid for this editor", e);
                 }
             }
@@ -111,7 +109,7 @@ public class TextEditorHandler {
                             getDocument(editor).getLineOffset(line) + offset,
                             0, text);
                 } catch (BadLocationException e) {
-                    throw new WorkbenchLayerException(
+                    throw new CoreLayerException(
                             "Provided line or offset are invalid for this editor",
                             e);
                 }
@@ -133,7 +131,7 @@ public class TextEditorHandler {
                 try {
                     getDocument(editor).replace(offset,0, text);
                 } catch (BadLocationException e) {
-                    throw new WorkbenchLayerException("Provided offset is invalid for this editor",e);
+                    throw new CoreLayerException("Provided offset is invalid for this editor",e);
                 }
             }
         });
@@ -155,7 +153,7 @@ public class TextEditorHandler {
                 } else if (selection instanceof IBlockTextSelection) {
                     return ((IBlockTextSelection) selection).getText();
                 }
-                throw new WorkbenchLayerException("Unsuported ISelection type.");
+                throw new CoreLayerException("Unsuported ISelection type.");
             }
         });
     }
@@ -176,7 +174,7 @@ public class TextEditorHandler {
                     offset = getDocument(editor).getLineOffset(lineNumber);
                     length = getDocument(editor).getLineLength(lineNumber);
                 } catch (BadLocationException e) {
-                    throw new WorkbenchLayerException("Unable to select line "
+                    throw new CoreLayerException("Unable to select line "
                             + lineNumber, e);
                 }
                 editor.selectAndReveal(offset, length);
@@ -232,12 +230,12 @@ public class TextEditorHandler {
                         offset = getDocument(editor).getLineOffset(iRow)
                                 + iStartIndex;
                     } catch (BadLocationException e) {
-                        throw new WorkbenchLayerException("Unable to find "
+                        throw new CoreLayerException("Unable to find "
                                 + text + " in editor", e);
                     }
                     editor.selectAndReveal(offset, text.length());
                 } else {
-                    throw new WorkbenchLayerException("Unable to find " + text
+                    throw new CoreLayerException("Unable to find " + text
                             + " in editor");
                 }
             }
@@ -297,7 +295,7 @@ public class TextEditorHandler {
 				try {
 					lineOffset = getDocument(editor).getLineOffset(line);
 				} catch (BadLocationException e) {
-					throw new WorkbenchLayerException("Unable to select line"
+					throw new CoreLayerException("Unable to select line"
 							+ line + " and column " + column);
 				}
 				editor.selectAndReveal(lineOffset + column, 0);
@@ -316,3 +314,4 @@ public class TextEditorHandler {
                 .getDocument(editor.getEditorInput());
     }
 }
+

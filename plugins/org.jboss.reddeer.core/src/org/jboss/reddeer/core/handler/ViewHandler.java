@@ -1,4 +1,4 @@
-package org.jboss.reddeer.workbench.handler;
+package org.jboss.reddeer.core.handler;
 
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
@@ -7,22 +7,20 @@ import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.jboss.reddeer.common.logging.Logger;
-import org.jboss.reddeer.swt.exception.SWTLayerException;
-import org.jboss.reddeer.swt.lookup.WidgetLookup;
-import org.jboss.reddeer.swt.lookup.WorkbenchLookup;
-import org.jboss.reddeer.swt.util.Display;
-import org.jboss.reddeer.swt.util.ObjectUtil;
-import org.jboss.reddeer.swt.util.ResultRunnable;
-import org.jboss.reddeer.swt.wait.TimePeriod;
-import org.jboss.reddeer.swt.wait.WaitUntil;
-import org.jboss.reddeer.workbench.condition.ActiveFocusControlIsInActiveView;
+import org.jboss.reddeer.core.exception.CoreLayerException;
+import org.jboss.reddeer.core.lookup.WidgetLookup;
+import org.jboss.reddeer.core.lookup.WorkbenchPartLookup;
+import org.jboss.reddeer.core.util.Display;
+import org.jboss.reddeer.core.util.ObjectUtil;
+import org.jboss.reddeer.core.util.ResultRunnable;
+import org.jboss.reddeer.common.wait.TimePeriod;
+import org.jboss.reddeer.common.wait.WaitUntil;
+import org.jboss.reddeer.core.condition.ActiveFocusControlIsInActiveView;
 
 /**
  * View handler handles operations for View instances
  * @author rawagner
- * @deprecated since 0.8.0. Use {@link org.jboss.reddeer.core.handler.ViewHandler } instead.
  */
-@Deprecated
 public class ViewHandler {
 	
 	protected final Logger log = Logger.getLogger(this.getClass());
@@ -51,7 +49,7 @@ public class ViewHandler {
 					PlatformUI.getWorkbench().getActiveWorkbenchWindow()
 						.getActivePage().showView(viewPart.getViewSite().getId());
 				} catch (PartInitException pie) {
-					throw new SWTLayerException("Unable to show view " + viewPart.getTitle(),
+					throw new CoreLayerException("Unable to show view " + viewPart.getTitle(),
 						pie);
 				}
 				viewPart.setFocus();
@@ -110,8 +108,8 @@ public class ViewHandler {
 	}
 
 	private void focusChildControl() {
-		final Control workbenchControl = WorkbenchLookup
-				.getWorkbenchControl(WorkbenchLookup.findActiveWorkbenchPart());
+		final Control workbenchControl = WorkbenchPartLookup.getInstance()
+				.getWorkbenchControl(WorkbenchPartLookup.getInstance().findActiveWorkbenchPartReference());
 		log.debug("Active workbench control=" 
 			+ (workbenchControl == null ? "null" : getControlDesc(workbenchControl)));
 		final Control focusedControl = WidgetLookup.getInstance()

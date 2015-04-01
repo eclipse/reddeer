@@ -12,13 +12,13 @@ import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.swt.api.Menu;
 import org.jboss.reddeer.swt.condition.ShellWithTextIsActive;
 import org.jboss.reddeer.swt.condition.WaitCondition;
-import org.jboss.reddeer.swt.exception.WaitTimeoutExpiredException;
+import org.jboss.reddeer.common.exception.WaitTimeoutExpiredException;
 import org.jboss.reddeer.swt.impl.button.OkButton;
 import org.jboss.reddeer.swt.impl.menu.ShellMenu;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
 import org.jboss.reddeer.common.matcher.RegexMatcher;
-import org.jboss.reddeer.swt.matcher.WithTextMatcher;
+import org.jboss.reddeer.core.matcher.WithTextMatcher;
 import org.jboss.reddeer.swt.matcher.WithTextMatchers;
 import org.jboss.reddeer.swt.wait.TimePeriod;
 import org.jboss.reddeer.swt.wait.WaitUntil;
@@ -26,10 +26,9 @@ import org.jboss.reddeer.swt.wait.WaitWhile;
 import org.jboss.reddeer.workbench.api.View;
 import org.jboss.reddeer.workbench.api.WorkbenchPart;
 import org.jboss.reddeer.workbench.exception.WorkbenchLayerException;
-import org.jboss.reddeer.workbench.exception.WorkbenchPartNotFound;
-import org.jboss.reddeer.workbench.handler.ViewHandler;
-import org.jboss.reddeer.workbench.handler.WorkbenchPartHandler;
-import org.jboss.reddeer.workbench.lookup.WorkbenchPartLookup;
+import org.jboss.reddeer.core.handler.ViewHandler;
+import org.jboss.reddeer.core.handler.WorkbenchPartHandler;
+import org.jboss.reddeer.core.lookup.WorkbenchPartLookup;
 
 /**
  * Abstract class for all View implementations
@@ -136,7 +135,7 @@ public class AbstractView implements View {
 			}
 		}
 
-		throw new WorkbenchPartNotFound("View \"" + title
+		throw new WorkbenchLayerException("View \"" + title
 				+ "\" is not registered in workbench");
 	}
 
@@ -151,7 +150,7 @@ public class AbstractView implements View {
 			}
 		}
 
-		throw new WorkbenchPartNotFound("View \"" + viewDescriptor.getLabel()
+		throw new WorkbenchLayerException("View \"" + viewDescriptor.getLabel()
 				+ "\" is not registered in any category");
 	}
 

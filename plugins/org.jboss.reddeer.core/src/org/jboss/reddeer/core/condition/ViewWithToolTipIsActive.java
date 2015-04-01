@@ -1,18 +1,16 @@
-package org.jboss.reddeer.workbench.condition;
+package org.jboss.reddeer.core.condition;
 
-import org.eclipse.ui.IViewReference;
-import org.jboss.reddeer.swt.condition.WaitCondition;
-import org.jboss.reddeer.swt.lookup.WorkbenchLookup;
+import org.eclipse.ui.IViewPart;
+import org.jboss.reddeer.common.condition.WaitCondition;
+import org.jboss.reddeer.core.lookup.WorkbenchPartLookup;
 
 /**
  * Tests if view with entered toolTip value is active in 
  * current workbench
  * 
  * @author jjankovi
- * @deprecated since 0.8.0. Use {@link org.jboss.reddeer.core.condition.ViewWithToolTipIsActive } instead.
  *
  */
-@Deprecated
 public class ViewWithToolTipIsActive implements WaitCondition {
 
 	private String toolTip;
@@ -23,8 +21,8 @@ public class ViewWithToolTipIsActive implements WaitCondition {
 	
 	@Override
 	public boolean test() {
-		for (IViewReference view : WorkbenchLookup.findAllViews()) {
-			if (view.getPartName().equals(toolTip)) {
+		for (IViewPart view : WorkbenchPartLookup.getInstance().getOpenViews()) {
+			if (view.getTitleToolTip().equals(toolTip)) {
 				return true;
 			}
 		}
