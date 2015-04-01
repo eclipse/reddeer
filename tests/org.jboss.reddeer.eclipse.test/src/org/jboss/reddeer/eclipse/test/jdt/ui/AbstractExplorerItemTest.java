@@ -15,6 +15,7 @@ import org.jboss.reddeer.eclipse.jdt.ui.NewJavaClassWizardDialog;
 import org.jboss.reddeer.eclipse.jdt.ui.NewJavaClassWizardPage;
 import org.jboss.reddeer.eclipse.jdt.ui.ide.NewJavaProjectWizardDialog;
 import org.jboss.reddeer.eclipse.jdt.ui.ide.NewJavaProjectWizardPage;
+import org.jboss.reddeer.eclipse.core.resources.Project;
 import org.jboss.reddeer.eclipse.core.resources.ProjectItem;
 import org.jboss.reddeer.eclipse.ui.ide.NewFileCreationWizardDialog;
 import org.jboss.reddeer.eclipse.ui.ide.NewFileCreationWizardPage;
@@ -63,6 +64,7 @@ public abstract class AbstractExplorerItemTest {
 	public void select() {
 		explorer.activate();
 		projectItem.select();
+		projectItem.getTreeItem().collapse();
 		assertTrue("Project item " + PROJECT_ITEM_TEXT + " is not selected" , projectItem.isSelected());
 	}
 	
@@ -76,6 +78,23 @@ public abstract class AbstractExplorerItemTest {
 		explorer.getProject(PROJECT_NAME).getProjectItem(projectItemPath).open();
 		assertTrue("Active Editor has to have title " + JAVA_CLASS_FILE_NAME,
 			new DefaultEditor().getTitle().equals(JAVA_CLASS_FILE_NAME));
+	}
+	
+	protected void selectNonVisibleItem(String... projectItemPath) {
+		explorer.activate();
+		Project project = explorer.getProject(PROJECT_NAME);
+		project.getProjectItem(PROJECT_ITEM_TEXT).select();
+		
+		createJavaClass(JAVA_CLASS_NAME);
+		WorkbenchHandler.getInstance().closeAllEditors();
+		explorer.activate();
+		
+		ProjectItem projectItem = project.getProjectItem(projectItemPath);
+		project.collapse();
+		project.select();
+		projectItem.select();
+		
+		assertTrue("Project item is not selected.", projectItem.isSelected());
 	}
 	
 	@Test

@@ -220,7 +220,16 @@ public abstract class AbstractExplorerItem {
 	}
 	
 	/**
-	 * Select the explorer item.
+	 * Selects the explorer item.
 	 */
-	public abstract void select();
+	public void select() {
+		treeItem.select();
+	}
+	
+	/**
+	 * Collapses the explorer item.
+	 */
+	public void collapse() {
+		treeItem.collapse();
+	}
 }
