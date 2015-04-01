@@ -252,7 +252,7 @@ public class ProblemsViewTest {
 			sbJavaCode.append("  private int i;\n"); //see WARNING_LOCATION
 			sbJavaCode.append("}\n");		
 		}
-		TextEditor textEditor = new TextEditor();		
+		TextEditor textEditor = new TextEditor(newClassName + ".java");		
 		textEditor.setText(sbJavaCode.toString());
 		textEditor.save();
 		

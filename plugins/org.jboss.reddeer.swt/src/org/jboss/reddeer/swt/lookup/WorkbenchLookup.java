@@ -14,7 +14,7 @@ import org.jboss.reddeer.swt.util.ResultRunnable;
  * Workbench lookup class. Provides access to active workbench 
  * or active view reference
  * @author jjankovi
- * @deprecated since 0.8, use {@link #org.jboss.reddeer.core.lookup.WorkbenchLookup} 
+ * @deprecated since 0.8, use {@link #org.jboss.reddeer.core.lookup.WorkbenchPartLookup }. 
  */
 @Deprecated
 public class WorkbenchLookup {

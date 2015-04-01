@@ -8,6 +8,7 @@ import static org.junit.Assert.assertTrue;
 import java.lang.reflect.Field;
 import java.util.List;
 
+import org.jboss.reddeer.core.exception.CoreLayerException;
 import org.jboss.reddeer.eclipse.core.resources.Project;
 import org.jboss.reddeer.eclipse.jdt.ui.ProjectExplorer;
 import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.PackageExplorer;
@@ -19,7 +20,6 @@ import org.jboss.reddeer.eclipse.utils.DeleteUtils;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.workbench.api.Editor;
-import org.jboss.reddeer.workbench.exception.WorkbenchPartNotFound;
 import org.jboss.reddeer.workbench.impl.editor.DefaultEditor;
 import org.jboss.reddeer.workbench.test.ui.editor.SimpleEditor;
 import org.junit.After;
@@ -67,7 +67,7 @@ public class EditorTest {
 		try {
 			new DefaultEditor().close(false);
 			new DefaultEditor().close(false);
-		} catch (WorkbenchPartNotFound ex) {
+		} catch (CoreLayerException ex) {
 			// do nothing. We just want to have clean workspace
 		}
 	}
@@ -82,13 +82,13 @@ public class EditorTest {
 		}
 	}
 
-	@Test(expected = WorkbenchPartNotFound.class)
+	@Test(expected = CoreLayerException.class)
 	public void noEditorsOpenedTest() {
 		new DefaultEditor().closeAll(false);
 		new DefaultEditor();
 	}
 
-	@Test(expected = WorkbenchPartNotFound.class)
+	@Test(expected = CoreLayerException.class)
 	public void noEditorOpenedTest() {
 		new DefaultEditor().close(false);
 		new DefaultEditor();
@@ -179,7 +179,7 @@ public class EditorTest {
 		assertNotNull(editor);
 	}
 
-	@Test(expected = WorkbenchPartNotFound.class)
+	@Test(expected = CoreLayerException.class)
 	public void getEditorByTitleWrongTest() {
 		new DefaultEditor("Wrong Name Of Editor");
 	}
@@ -196,7 +196,7 @@ public class EditorTest {
 																	// editors
 	}
 
-	@Test(expected = WorkbenchPartNotFound.class)
+	@Test(expected = CoreLayerException.class)
 	public void closeNotActiveEditorTest() {
 		Editor editor = new DefaultEditor();
 		PackageExplorer packageExplorer = new PackageExplorer();

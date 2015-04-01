@@ -1,30 +1,27 @@
-package org.jboss.reddeer.workbench.lookup;
+package org.jboss.reddeer.core.lookup;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.ui.IEditorPart;
-import org.eclipse.ui.IEditorReference;
+import org.eclipse.swt.widgets.Control;
 import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.IViewReference;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchPart;
-import org.eclipse.ui.IWorkbenchWindow;
+import org.eclipse.ui.IWorkbenchPartReference;
 import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.internal.WorkbenchPartReference;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.common.logging.Logger;
-import org.jboss.reddeer.swt.util.Display;
-import org.jboss.reddeer.swt.util.ResultRunnable;
-import org.jboss.reddeer.workbench.exception.WorkbenchPartNotFound;
-import org.jboss.reddeer.workbench.handler.WorkbenchPartHandler;
-import org.jboss.reddeer.workbench.matcher.EditorPartTitleMatcher;
-
+import org.jboss.reddeer.core.util.Display;
+import org.jboss.reddeer.core.util.ResultRunnable;
+import org.jboss.reddeer.core.handler.WorkbenchPartHandler;
 /**
- * WorkbenchPart lookup containing lookup routines for Workbench parts such as editor and view
+ * WorkbenchPart lookup containing lookup routines for Workbench parts such as editor and view.
+ * 
  * @author rawagner
- * @deprecated since 0.8.0. Use {@link org.jboss.reddeer.core.lookup.WorkbenchPartLookup } instead.
+ *
  */
-@Deprecated
 public class WorkbenchPartLookup {
 
 	private static final Logger log = Logger.getLogger(WorkbenchPartLookup.class);
@@ -46,57 +43,13 @@ public class WorkbenchPartLookup {
 		return WorkbenchPartHandler.getInstance().getActiveWorkbenchPart();
 	}
 
+	
 	/**
-	 * @deprecated Use {@link EditorPartLookup#getActiveEditor()}
-	 * @return
+	 * Returns active workbench part reference from current active workbench window
+	 * @return active workbench part reference
 	 */
-	public IEditorPart getActiveEditor(){
-		IWorkbenchPart workbenchPart =  getActiveWorkbenchPart();
-		IEditorPart editorPart = null;
-		if (!(workbenchPart instanceof IEditorPart)) {
-			editorPart = Display.syncExec(new ResultRunnable<IEditorPart>() {
-
-				@Override
-				public IEditorPart run() {
-					return PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
-							.getActiveEditor();
-				}
-			});
-		} else {
-			editorPart = (IEditorPart)workbenchPart;
-		}
-		if (editorPart == null) {
-			throw new WorkbenchPartNotFound();
-		}
-		return editorPart;
-	}
-
-	/**
-	 * @deprecated Use {@link EditorPartLookup#getEditorByTitle(Matcher)()}
-	 * and {@link EditorPartTitleMatcher}
-	 * @return
-	 */
-	public IEditorPart getEditorByTitle(final Matcher<String> title) {
-		return Display.syncExec(new ResultRunnable<IEditorPart>() {
-
-			@Override
-			public IEditorPart run() {
-				IWorkbenchWindow activeWorkbenchWindow = PlatformUI
-						.getWorkbench().getActiveWorkbenchWindow();
-				IEditorReference[] editors = activeWorkbenchWindow
-						.getActivePage().getEditorReferences();
-				for (IEditorReference iEditorReference : editors) {
-					if (title.matches(iEditorReference.getPartName())) {
-						return iEditorReference.getEditor(false);
-					} else if (title.matches(iEditorReference.getEditor(false).getEditorInput().getName())) {
-						return iEditorReference.getEditor(false);
-					} else if (title.matches(iEditorReference.getEditor(false).getEditorInput().getToolTipText())) {
-						return iEditorReference.getEditor(false);
-					}
-				}
-				return null;
-			}
-		});
+	public IWorkbenchPartReference findActiveWorkbenchPartReference() {
+		return WorkbenchPartHandler.getInstance().getActiveWorkbenchPartReference();
 	}
 
 	/**
@@ -133,6 +86,24 @@ public class WorkbenchPartLookup {
 	}
 
 	/**
+	 * Gets active view.
+	 * 
+	 * @return active view
+	 */
+	public IViewReference getActiveView() {
+		return Display.syncExec(new ResultRunnable<IViewReference>() {
+		public IViewReference run() {
+			IWorkbenchPartReference activeWorkbenchPart = findActiveWorkbenchPartReference();
+			if (activeWorkbenchPart instanceof IViewReference) {
+				return (IViewReference) activeWorkbenchPart;
+			}
+				return null;
+			}
+		});
+	}
+		
+	
+	/**
 	 * Returns view if is open in the current perspective by its name
 	 * @param name
 	 * @return
@@ -160,6 +131,25 @@ public class WorkbenchPartLookup {
 				for (IViewPart view : views) {
 					log.debug("\t" + view.getViewSite().getRegisteredName());
 				}
+			}
+		});
+	}
+	
+	/**
+	 * Return control object associated to active workbench.
+	 * 
+	 * @param activeWorkbenchReference
+	 * @return
+	 */
+	public Control getWorkbenchControl(
+			final IWorkbenchPartReference activeWorkbenchReference) {
+		return Display.syncExec(new ResultRunnable<Control>() {
+
+			@Override
+			public Control run() {
+				return ((WorkbenchPartReference)activeWorkbenchReference)
+						.getPane()
+						.getControl();
 			}
 		});
 	}

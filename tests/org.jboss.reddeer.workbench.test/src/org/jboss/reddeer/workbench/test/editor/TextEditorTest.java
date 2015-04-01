@@ -16,6 +16,7 @@ import org.eclipse.jface.text.IDocument;
 import org.eclipse.swt.SWT;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.texteditor.ITextEditor;
+import org.jboss.reddeer.common.exception.RedDeerException;
 import org.jboss.reddeer.common.platform.RunningPlatform;
 import org.jboss.reddeer.eclipse.core.resources.Project;
 import org.jboss.reddeer.eclipse.jdt.ui.ProjectExplorer;
@@ -27,15 +28,14 @@ import org.jboss.reddeer.eclipse.ui.wizards.newresource.BasicNewProjectResourceW
 import org.jboss.reddeer.eclipse.utils.DeleteUtils;
 import org.jboss.reddeer.jface.text.contentassist.ContentAssistant;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
-import org.jboss.reddeer.swt.exception.SWTLayerException;
-import org.jboss.reddeer.swt.handler.ShellHandler;
+import org.jboss.reddeer.core.exception.CoreLayerException;
+import org.jboss.reddeer.core.handler.ShellHandler;
 import org.jboss.reddeer.swt.handler.WorkbenchHandler;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.jboss.reddeer.swt.keyboard.KeyboardFactory;
-import org.jboss.reddeer.swt.util.Display;
-import org.jboss.reddeer.swt.wait.AbstractWait;
-import org.jboss.reddeer.swt.wait.TimePeriod;
-import org.jboss.reddeer.workbench.exception.WorkbenchPartNotFound;
+import org.jboss.reddeer.core.util.Display;
+import org.jboss.reddeer.common.wait.AbstractWait;
+import org.jboss.reddeer.common.wait.TimePeriod;
 import org.jboss.reddeer.workbench.impl.editor.TextEditor;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -77,7 +77,7 @@ public class TextEditorTest {
 		WorkbenchHandler.getInstance().closeAllEditors();
 	}
 
-	@Test(expected=WorkbenchPartNotFound.class)
+	@Test(expected=CoreLayerException.class)
 	public void notTextEditorTest(){
 
 		NewFileCreationWizardDialog newFileDialog = new NewFileCreationWizardDialog();
@@ -151,7 +151,7 @@ public class TextEditorTest {
 		try {
 			new DefaultShell("");
 			fail("ContentAssistant wasn't close");
-		} catch (SWTLayerException e) {
+		} catch (RedDeerException e) {
 			// ok, this is expected
 		}
 	}
@@ -167,7 +167,7 @@ public class TextEditorTest {
 			// if content assistant is still available then close it
 			ca.close();
 			fail("ContentAssistant wasn't close");
-		} catch (SWTLayerException e) {
+		} catch (RedDeerException e) {
 			// ok, this is expected
 		}
 	}
@@ -194,7 +194,7 @@ public class TextEditorTest {
 			// if content assistant is still available then close it
 			ca.close();
 			fail("OpenOn ContentAssistant wasn't close");
-		} catch (SWTLayerException e) {
+		} catch (RedDeerException e) {
 			// ok, this is expected
 		}
 	}
@@ -319,7 +319,7 @@ public class TextEditorTest {
 		assertEquals("JavaClass",textEditor.getSelectedText());
 	}
 	
-	@Test(expected = SWTLayerException.class)
+	@Test(expected = CoreLayerException.class)
 	public void selectTextTest2(){
 		TextEditor textEditor = TextEditorTest.openJavaFile();
 		collapseTextInJavaFile();

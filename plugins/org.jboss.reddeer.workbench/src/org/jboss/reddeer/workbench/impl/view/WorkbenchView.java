@@ -4,7 +4,7 @@ import org.jboss.reddeer.workbench.api.View;
 
 
 /**
- * Represents general workbench view
+ * Represents general workbench view.
  * 
  * @author jjankovi
  *

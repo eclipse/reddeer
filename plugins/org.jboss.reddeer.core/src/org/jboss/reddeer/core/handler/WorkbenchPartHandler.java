@@ -1,4 +1,5 @@
-package org.jboss.reddeer.workbench.handler;
+package org.jboss.reddeer.core.handler;
+
 
 import java.util.Iterator;
 import java.util.List;
@@ -6,23 +7,24 @@ import java.util.List;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.custom.CTabItem;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Widget;
 import org.eclipse.ui.IWorkbenchPart;
+import org.eclipse.ui.IWorkbenchPartReference;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.actions.ActionFactory;
 import org.eclipse.ui.actions.ActionFactory.IWorkbenchAction;
 import org.jboss.reddeer.common.logging.Logger;
-import org.jboss.reddeer.swt.handler.WidgetHandler;
-import org.jboss.reddeer.swt.util.Display;
-import org.jboss.reddeer.swt.util.ResultRunnable;
-import org.jboss.reddeer.swt.widgets.Widget;
-import org.jboss.reddeer.workbench.exception.WorkbenchLayerException;
+import org.jboss.reddeer.core.handler.WidgetHandler;
+import org.jboss.reddeer.core.util.Display;
+import org.jboss.reddeer.core.util.ResultRunnable;
+import org.jboss.reddeer.core.exception.CoreLayerException;
 
 /**
- * WorkbenchPart handler handles operations which are common for both editor and view instances
+ * WorkbenchPart handler handles operations which are common for both editor and view instances.
+ * 
  * @author rawagner
- * @deprecated since 0.8.0. Use {@link org.jboss.reddeer.core.handler.WorkbenchPartHandler } instead.
+ *
  */
-@Deprecated
 public class WorkbenchPartHandler {
 	
 	private static WorkbenchPartHandler instance;
@@ -79,6 +81,17 @@ public class WorkbenchPartHandler {
 		});
 	}
 	
+	public IWorkbenchPartReference getActiveWorkbenchPartReference() {
+		return Display.syncExec(new ResultRunnable<IWorkbenchPartReference>() {
+
+			@Override
+			public IWorkbenchPartReference run() {
+				return PlatformUI.getWorkbench().getActiveWorkbenchWindow()
+						.getActivePage().getActivePartReference();
+			}
+		});
+	}
+	
 	public void performAction(final ActionFactory actionFactory){
 		Display.syncExec(new Runnable() {
 			
@@ -89,8 +102,10 @@ public class WorkbenchPartHandler {
 			}
 		});
 	}
+	
 	/**
-	 * Activates Workbench part containing specified widget
+	 * Activates Workbench part containing specified widget.
+	 * 
 	 * @param widget
 	 */
 	public void activateWorkbenchPartWithWidget (Widget widget) {
@@ -120,12 +135,13 @@ public class WorkbenchPartHandler {
 			});
 		}
 		else{
-			throw new WorkbenchLayerException("Unable to activate workbench part with widget. No cTabFolder found in widget path");
+			throw new CoreLayerException("Unable to activate workbench part with widget. No cTabFolder found in widget path");
 		}
 	}
 	
 	/**
-	 * Gets title of Workbench part containing specified widget
+	 * Gets title of Workbench part containing specified widget.
+	 * 
 	 * @param widget
 	 */
 	public String getTitleOfWorkbenchPartWithWidget (Widget widget) {
@@ -152,14 +168,14 @@ public class WorkbenchPartHandler {
 			});
 		}
 		else{
-			throw new WorkbenchLayerException("Unable to get title of workbench part with widget. No cTabFolder found in widget path");
+			throw new CoreLayerException("Unable to get title of workbench part with widget. No cTabFolder found in widget path");
 		}
 	}
 	
 	/**
-	 * Stores information about top workbench part widgets
+	 * Stores information about top workbench part widgets.
+	 * 
 	 * @author vlado pakan
-	 *
 	 */
 	private class WorkbenchPartWidgets {
 		
@@ -176,7 +192,8 @@ public class WorkbenchPartHandler {
 	}
 	
 	/**
-	 * Returns CTabFolder and CTabItem containing specified widget
+	 * Returns CTabFolder and CTabItem containing specified widget.
+	 * 
 	 * @param widget - widget contained within returned {@link WorkbenchPartWidgets}
 	 * @return {@link WorkbenchPartWidgets}
 	 */
@@ -184,7 +201,7 @@ public class WorkbenchPartHandler {
 		
 		WorkbenchPartWidgets workbenchPartWidgets = null;
 		
-		List<org.eclipse.swt.widgets.Widget> pathToWidget = WidgetHandler.getInstance().getPathToWidget(widget.getSWTWidget());
+		List<org.eclipse.swt.widgets.Widget> pathToWidget = WidgetHandler.getInstance().getPathToWidget(widget);
 		Iterator<org.eclipse.swt.widgets.Widget> itWidget = pathToWidget.iterator();
 		boolean foundCTabFolder = false;
 		org.eclipse.swt.widgets.Widget currentWidget = null;

@@ -1,6 +1,10 @@
 package org.jboss.reddeer.workbench.exception;
 
 
+/**
+ * @deprecated since 0.8.0. Use {@link org.jboss.reddeer.workbench.exception.WorkbenchLayerException }
+ */
+@Deprecated
 public class WorkbenchPartNotFound extends WorkbenchLayerException {
 
 	/**

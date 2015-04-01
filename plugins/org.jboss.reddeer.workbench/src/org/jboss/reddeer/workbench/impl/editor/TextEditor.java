@@ -2,16 +2,17 @@ package org.jboss.reddeer.workbench.impl.editor;
 
 import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.jface.text.ITextSelection;
+import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.texteditor.ITextEditor;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.common.logging.Logger;
-import org.jboss.reddeer.swt.matcher.WithTextMatcher;
+import org.jboss.reddeer.core.matcher.WithTextMatcher;
 import org.jboss.reddeer.workbench.api.Editor;
-import org.jboss.reddeer.workbench.exception.WorkbenchPartNotFound;
-import org.jboss.reddeer.workbench.handler.TextEditorHandler;
-import org.jboss.reddeer.workbench.lookup.EditorPartLookup;
-import org.jboss.reddeer.workbench.matcher.EditorPartClassMatcher;
-import org.jboss.reddeer.workbench.matcher.EditorPartTitleMatcher;
+import org.jboss.reddeer.workbench.exception.WorkbenchLayerException;
+import org.jboss.reddeer.core.handler.TextEditorHandler;
+import org.jboss.reddeer.core.lookup.EditorPartLookup;
+import org.jboss.reddeer.core.matcher.EditorPartClassMatcher;
+import org.jboss.reddeer.core.matcher.EditorPartTitleMatcher;
 
 /**
  * Represents text editors (implementing interface ITextEditor)
@@ -32,10 +33,8 @@ public class TextEditor extends AbstractEditor implements Editor {
 	 * @throws WorkbenchPartNotFound when currently active editor isn't instance of ITextEditor
 	 */
 	public TextEditor() {
-		super();
-		if (!(editorPart instanceof ITextEditor)){
-			throw new WorkbenchPartNotFound("The active editor is not a text editor, but " + editorPart.getClass());
-		}
+		super(EditorPartLookup.getInstance().getEditor(
+				new EditorPartClassMatcher(ITextEditor.class)));
 	}
 	
 	/**
@@ -141,7 +140,7 @@ public class TextEditor extends AbstractEditor implements Editor {
 			insertText(line, 0, text + TextEditorHandler.getInstance()
 					.getDocument(getTextEditorPart()).getLineDelimiter(line));
 		} catch (BadLocationException e) {
-			throw new RuntimeException("Line provided is invalid for this editor", e);
+			throw new WorkbenchLayerException("Line provided is invalid for this editor", e);
 		}
 	}
 	

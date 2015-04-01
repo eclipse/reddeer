@@ -117,7 +117,7 @@ public class WidgetLookup {
 	 * @return true if extra shell is active
 	 */
 	public boolean isExtraShellActive() {
-		IWorkbenchPartReference activeWorkbenchReference = WorkbenchLookup.findActiveWorkbenchPart();
+		IWorkbenchPartReference activeWorkbenchReference = WorkbenchPartLookup.getInstance().findActiveWorkbenchPartReference();
 		Shell activeWorkbenchParentShell = getShellForActiveWorkbench(activeWorkbenchReference);
 
 		Shell activeShell = ShellLookup.getInstance().getActiveShell();
@@ -135,7 +135,7 @@ public class WidgetLookup {
 	public Control getActiveWidgetParentControl() {
 		Control control = null;
 
-		IWorkbenchPartReference activeWorkbenchReference = WorkbenchLookup.findActiveWorkbenchPart();
+		IWorkbenchPartReference activeWorkbenchReference =  WorkbenchPartLookup.getInstance().findActiveWorkbenchPartReference();
 		Shell activeWorkbenchParentShell = getShellForActiveWorkbench(activeWorkbenchReference);
 		Shell activeShell = ShellLookup.getInstance().getActiveShell();
 
@@ -147,7 +147,7 @@ public class WidgetLookup {
 		else {
 			if (activeWorkbenchReference != null){
 				logger.trace("Setting workbench part with title \"" + getTitle(activeWorkbenchReference) + "\"as the parent");
-				control = WorkbenchLookup.getWorkbenchControl(activeWorkbenchReference);
+				control = WorkbenchPartLookup.getInstance().getWorkbenchControl(activeWorkbenchReference);
 			}
 		}	
 		return control;

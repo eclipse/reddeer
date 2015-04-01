@@ -1,4 +1,4 @@
-package org.jboss.reddeer.workbench.lookup;
+package org.jboss.reddeer.core.lookup;
 
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IEditorReference;
@@ -6,22 +6,20 @@ import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 import org.hamcrest.Matcher;
-import org.jboss.reddeer.swt.condition.WaitCondition;
-import org.jboss.reddeer.swt.exception.WaitTimeoutExpiredException;
-import org.jboss.reddeer.swt.matcher.AndMatcher;
-import org.jboss.reddeer.swt.util.Display;
-import org.jboss.reddeer.swt.util.ResultRunnable;
-import org.jboss.reddeer.swt.wait.WaitUntil;
-import org.jboss.reddeer.workbench.exception.WorkbenchLayerException;
-import org.jboss.reddeer.workbench.exception.WorkbenchPartNotFound;
+import org.jboss.reddeer.common.condition.WaitCondition;
+import org.jboss.reddeer.common.exception.WaitTimeoutExpiredException;
+import org.jboss.reddeer.core.matcher.AndMatcher;
+import org.jboss.reddeer.core.util.Display;
+import org.jboss.reddeer.core.util.ResultRunnable;
+import org.jboss.reddeer.common.wait.WaitUntil;
+import org.jboss.reddeer.core.exception.CoreLayerException;
 
 /**
  * Contains lookup methods for editors. 
  * 
  * @author Lucia Jelinkova
- * @deprecated since 0.8.0. Use {@link org.jboss.reddeer.core.lookup.EditorPartLookup } instead.
+ *
  */
-@Deprecated
 public class EditorPartLookup {
 
 	private static EditorPartLookup instance;
@@ -51,7 +49,7 @@ public class EditorPartLookup {
 		if (editorPart == null) {
 			final IEditorReference[] editorReferences = getAllEditors();
 			if(editorReferences.length == 0){
-				throw new WorkbenchPartNotFound();
+				throw new CoreLayerException("There is no opened editor at the moment.");
 			}
 			editorPart = Display.syncExec(new ResultRunnable<IEditorPart>() {
 					
@@ -97,7 +95,7 @@ public class EditorPartLookup {
         try {
             new WaitUntil(found);
         } catch (WaitTimeoutExpiredException ex) {
-            throw new WorkbenchPartNotFound("Unable to find editor matching specified matchers");
+            throw new CoreLayerException("Unable to find editor matching specified matchers");
         }
         return found.getPart();
 	}

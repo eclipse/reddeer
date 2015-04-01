@@ -14,7 +14,7 @@ import org.jboss.reddeer.swt.wait.TimePeriod;
 import org.jboss.reddeer.swt.wait.WaitUntil;
 import org.jboss.reddeer.swt.wait.WaitWhile;
 import org.jboss.reddeer.workbench.impl.editor.AbstractEditor;
-import org.jboss.reddeer.workbench.matcher.EditorPartTitleMatcher;
+import org.jboss.reddeer.core.matcher.EditorPartTitleMatcher;
 
 /**
  * Represents a browser editor.

@@ -3,7 +3,6 @@ package org.jboss.reddeer.workbench.test.view;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.workbench.api.View;
 import org.jboss.reddeer.workbench.exception.WorkbenchLayerException;
-import org.jboss.reddeer.workbench.exception.WorkbenchPartNotFound;
 import org.jboss.reddeer.workbench.impl.view.WorkbenchView;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,7 +15,7 @@ public class ViewTest {
 		new WorkbenchView("Workbench Test");
 	}
 
-	@Test(expected=WorkbenchPartNotFound.class)
+	@Test(expected=WorkbenchLayerException.class)
 	public void testInitializeNonregisteredView() {
 		new WorkbenchView("Nonexist View");
 	}
