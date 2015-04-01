@@ -73,6 +73,7 @@ public class ConsoleViewTest {
 		runTestClass(TEST_CLASS_NAME2);
 		consoleView = new ConsoleView();
 		consoleView.open();
+		consoleView.toggleShowConsoleOnStandardOutChange(false);
 		consoleView.switchConsole(new RegexMatcher(".*" + TEST_CLASS_NAME1
 				+ ".*"));
 		assertThat(consoleView.getConsoleText(),
@@ -81,6 +82,7 @@ public class ConsoleViewTest {
 				+ ".*"));
 		assertThat(consoleView.getConsoleText(),
 				IsEqual.equalTo("Hello World2"));
+		consoleView.toggleShowConsoleOnStandardOutChange(true);
 	}
 
 	@Test
