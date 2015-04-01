@@ -95,12 +95,4 @@ public class ProjectItem extends AbstractExplorerItem {
 	public Project getProject() {
 		return project;
 	}
-
-	@Override
-	public void select() {
-		String[] itemPath = new String[path.length - 1];
-		System.arraycopy(path, 1, itemPath, 0,
-				path.length - 1);
-		project.getProjectItem(itemPath).getTreeItem().select();
-	}
 }

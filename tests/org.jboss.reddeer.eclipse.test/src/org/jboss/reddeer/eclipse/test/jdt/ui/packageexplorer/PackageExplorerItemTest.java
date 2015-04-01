@@ -24,4 +24,9 @@ public class PackageExplorerItemTest extends AbstractExplorerItemTest {
 	public void getChildren() {
 		getChildren(PROJECT_ITEM_TEXT, DEFAULT_PACKAGE_TEXT);
 	}
+	
+	@Test
+	public void selectCollapsedPackageExplorerItem() {
+		selectNonVisibleItem(PROJECT_ITEM_TEXT,DEFAULT_PACKAGE_TEXT, JAVA_CLASS_FILE_NAME);
+	}
 }

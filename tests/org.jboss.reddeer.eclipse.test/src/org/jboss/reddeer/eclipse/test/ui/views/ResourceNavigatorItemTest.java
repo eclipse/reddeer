@@ -24,4 +24,9 @@ public class ResourceNavigatorItemTest extends AbstractExplorerItemTest{
 	public void getChildren() {
 		getChildren(PROJECT_ITEM_TEXT);
 	}
+	
+	@Test
+	public void selectCollapsedResourceNavigatorItem() {
+		selectNonVisibleItem(PROJECT_ITEM_TEXT,	JAVA_CLASS_FILE_NAME);
+	}
 }

@@ -34,11 +34,6 @@ public abstract class AbstractProject extends AbstractExplorerItem {
 		}
 	}
 	
-	@Override
-	public void select() {
-		treeItem.select();
-	}
-	
 	/**
 	 * Gets nature ids of specific project type.
 	 * 
