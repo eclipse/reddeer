@@ -1,9 +1,8 @@
 package org.jboss.reddeer.eclipse.ui.console;
 
-import static org.hamcrest.CoreMatchers.containsString;
-
 import org.hamcrest.Matcher;
 import org.hamcrest.core.IsEqual;
+import org.jboss.reddeer.eclipse.condition.ConsoleHasLabel;
 import org.jboss.reddeer.eclipse.condition.ConsoleHasLaunch;
 import org.jboss.reddeer.eclipse.condition.ConsoleIsTerminated;
 import org.jboss.reddeer.swt.condition.WaitCondition;
@@ -123,13 +122,8 @@ public class ConsoleView extends WorkbenchView {
 	 * @return
 	 */
 	public boolean consoleIsTerminated() {
-		activate();
-		try{
-			new DefaultLabel(new WithTextMatcher(containsString("<terminated>")));
-		}catch(SWTLayerException ex){
-			return false;
-		}
-		return true;
+		String consoleLabel = getConsoleLabel();
+		return consoleLabel != null && consoleLabel.contains("<terminated>");
 	}
 	
 	/**
@@ -154,6 +148,7 @@ public class ConsoleView extends WorkbenchView {
 		activate();
 		ToolItemMenu menu = new ToolItemMenu(new DefaultToolItem("Display Selected Console"), textMatcher);
 		menu.select();
+		new WaitUntil(new ConsoleHasLabel(textMatcher));
 	}
 	
 	/**
@@ -184,5 +179,19 @@ public class ConsoleView extends WorkbenchView {
 			return "console text is \"" + this.consoleText + "\"";
 		}
 
+	}
+	/**
+	 * Returns console label title or null when console has no label  
+	 * @return
+	 */
+	public String getConsoleLabel (){
+		String consoleLabel = null;
+		activate();
+		try{
+			consoleLabel = new DefaultLabel().getText();
+		} catch (SWTLayerException ex) {
+			consoleLabel = null;
+		}
+		return consoleLabel;
 	}
 }
