@@ -22,7 +22,7 @@ import org.jboss.reddeer.swt.wait.TimePeriod;
  * @author mlabuda@redhat.com
  *
  */
-public abstract class AbstractProject extends AbstractExplorerItem {
+public abstract class AbstractProject extends ExplorerItem {
 
 	protected final Logger log = Logger.getLogger(Project.class);
 	
