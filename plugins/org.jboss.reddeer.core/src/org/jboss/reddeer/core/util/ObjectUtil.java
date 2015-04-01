@@ -3,7 +3,7 @@ package org.jboss.reddeer.core.util;
 import java.lang.reflect.Method;
 
 import org.eclipse.swt.widgets.Widget;
-import org.jboss.reddeer.core.exception.SWTLayerException;
+import org.jboss.reddeer.core.exception.CoreLayerException;
 
 
 
@@ -54,7 +54,7 @@ public class ObjectUtil {
 		try {
 			method = object.getClass().getMethod(methodName, argTypes);
 		} catch (Exception e) {
-			throw new SWTLayerException("Exception when retrieving method " + methodName + " by reflection", e);
+			throw new CoreLayerException("Exception when retrieving method " + methodName + " by reflection", e);
 		}
 		return method;
 	}
@@ -72,7 +72,7 @@ public class ObjectUtil {
 		try {
 			return method.invoke(object, args);
 		} catch (Exception e) {
-			throw new SWTLayerException("Exception when invoking method " + method + " by reflection", e);
+			throw new CoreLayerException("Exception when invoking method " + method + " by reflection", e);
 		}
 	}
 }

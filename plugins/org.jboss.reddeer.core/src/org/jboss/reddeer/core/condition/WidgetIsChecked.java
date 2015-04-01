@@ -4,7 +4,7 @@ import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.swt.widgets.Widget;
 import org.jboss.reddeer.common.condition.WaitCondition;
-import org.jboss.reddeer.core.exception.SWTLayerException;
+import org.jboss.reddeer.core.exception.CoreLayerException;
 import org.jboss.reddeer.core.util.Display;
 import org.jboss.reddeer.core.util.ResultRunnable;
 
@@ -40,7 +40,7 @@ public class WidgetIsChecked implements WaitCondition {
 				} else if (widget instanceof TreeItem){
 					return ((TreeItem)widget).getChecked();
 				} else {
-					throw new SWTLayerException("Unable to call method getChecked() on widget of class " 
+					throw new CoreLayerException("Unable to call method getChecked() on widget of class " 
 						+ widget.getClass());
 				}
 				

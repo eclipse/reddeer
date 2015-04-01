@@ -18,7 +18,7 @@ import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.common.platform.RunningPlatform;
 import org.jboss.reddeer.common.wait.WaitUntil;
 import org.jboss.reddeer.common.condition.WaitCondition;
-import org.jboss.reddeer.core.exception.SWTLayerException;
+import org.jboss.reddeer.core.exception.CoreLayerException;
 import org.jboss.reddeer.common.exception.WaitTimeoutExpiredException;
 import org.jboss.reddeer.core.handler.WidgetHandler;
 import org.jboss.reddeer.core.matcher.AndMatcher;
@@ -76,7 +76,7 @@ public class WidgetLookup {
 				exceptionText = "Combo not found - see https://github.com/jboss-reddeer/reddeer/issues/485";
 			}
 			logger.error("Active widget with class type " + clazz.getName() +  " and index " + index + " was not found");
-			throw new SWTLayerException(exceptionText, ex);
+			throw new CoreLayerException(exceptionText, ex);
 		}
 
 		logger.debug("Active widget with class type " + clazz.getName() +  " and index " + index + " was found");
@@ -97,7 +97,7 @@ public class WidgetLookup {
 
 		if (parent == null){
 			logger.error("Unable to determine active parent");
-			throw new SWTLayerException("Unable to determine active parent");
+			throw new CoreLayerException("Unable to determine active parent");
 		}
 
 		return parent;

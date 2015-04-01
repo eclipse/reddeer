@@ -3,7 +3,7 @@ package org.jboss.reddeer.core.matcher;
 import org.eclipse.swt.widgets.Widget;
 import org.hamcrest.BaseMatcher;
 import org.hamcrest.Description;
-import org.jboss.reddeer.core.exception.SWTLayerException;
+import org.jboss.reddeer.core.exception.CoreLayerException;
 import org.jboss.reddeer.core.handler.WidgetHandler;
 
 /**
@@ -33,7 +33,7 @@ public class WithStyleMatcher extends BaseMatcher<Integer> {
 			try {
 				Integer widgetStyle = WidgetHandler.getInstance().getStyle((Widget)item);
 				return (widgetStyle.intValue() & style) != 0;
-			} catch (SWTLayerException sle) {
+			} catch (CoreLayerException sle) {
 				// object is not supported by widget handler mechanism 'getStyle'
 				return false;
 			}

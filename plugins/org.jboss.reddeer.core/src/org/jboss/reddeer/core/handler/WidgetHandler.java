@@ -15,7 +15,7 @@ import org.eclipse.swt.widgets.TabItem;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.swt.widgets.Widget;
-import org.jboss.reddeer.core.exception.SWTLayerException;
+import org.jboss.reddeer.core.exception.CoreLayerException;
 import org.jboss.reddeer.core.resolver.WidgetResolver;
 import org.jboss.reddeer.core.util.Display;
 import org.jboss.reddeer.core.util.ObjectUtil;
@@ -83,7 +83,7 @@ public class WidgetHandler {
 		try {
 			o = ObjectUtil.invokeMethod(widget, "isVisible");
 		} catch (RuntimeException e) {
-			throw new SWTLayerException(
+			throw new CoreLayerException(
 					"Runtime error during checking widget visibility", e);
 		}
 		if (o == null) {
@@ -110,7 +110,7 @@ public class WidgetHandler {
 				if (w instanceof Widget) {
 					return ((Widget) w).getStyle();
 				} else {
-					throw new SWTLayerException("Unsupported type");
+					throw new CoreLayerException("Unsupported type");
 				}
 			}
 		});
@@ -128,7 +128,7 @@ public class WidgetHandler {
 			ObjectUtil.invokeMethod(widget, "setText",
 					new Class[] { String.class }, new Object[] { text });
 		} catch (RuntimeException e) {
-			throw new SWTLayerException(
+			throw new CoreLayerException(
 					"Runtime error during setting widget's text", e);
 		}
 	}
@@ -150,7 +150,7 @@ public class WidgetHandler {
 			return (String) o;
 		}
 
-		throw new SWTLayerException(
+		throw new CoreLayerException(
 				"Return value of method getText() on class " + o.getClass()
 						+ " should be String, but was " + o.getClass());
 	}
@@ -203,7 +203,7 @@ public class WidgetHandler {
 		try {
 			o = ObjectUtil.invokeMethod(widget, "getToolTipText");
 		} catch (RuntimeException e) {
-			throw new SWTLayerException(
+			throw new CoreLayerException(
 					"Runtime error during retrieving widget's text", e);
 		}
 		if (o == null) {
@@ -214,7 +214,7 @@ public class WidgetHandler {
 			return (String) o;
 		}
 
-		throw new SWTLayerException(
+		throw new CoreLayerException(
 				"Return value of method getText() on class " + o.getClass()
 						+ " should be String, but was " + o.getClass());
 	}
@@ -250,7 +250,7 @@ public class WidgetHandler {
 					if (w instanceof Control) {
 						((Control) w).setFocus();
 					} else {
-						throw new SWTLayerException("Unsupported type");
+						throw new CoreLayerException("Unsupported type");
 					}
 				}
 			});
@@ -423,7 +423,7 @@ public class WidgetHandler {
 			return (Control) o;
 		}
 
-		throw new SWTLayerException(
+		throw new CoreLayerException(
 				"Return value of method getObject() on class " + o.getClass()
 						+ " should be Control, but was " + o.getClass());
 	}

@@ -1,6 +1,6 @@
 package org.jboss.reddeer.core.util;
 
-import org.jboss.reddeer.core.exception.SWTLayerException;
+import org.jboss.reddeer.core.exception.CoreLayerException;
 
 /**
  * Debugger class providing methods useful for test debugging
@@ -19,7 +19,7 @@ public class Debugger {
 				Thread.sleep(time);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
-				throw new SWTLayerException("Interrupted exception during sleep", e);
+				throw new CoreLayerException("Interrupted exception during sleep", e);
 			}
 		}
 	}

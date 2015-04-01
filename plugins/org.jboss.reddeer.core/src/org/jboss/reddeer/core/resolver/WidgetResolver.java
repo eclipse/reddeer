@@ -21,7 +21,7 @@ import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.swt.widgets.Widget;
 import org.jboss.reddeer.common.logging.Logger;
-import org.jboss.reddeer.core.exception.SWTLayerException;
+import org.jboss.reddeer.core.exception.CoreLayerException;
 
 /**
  * Widget resolver resolves children and parent of supported types
@@ -108,14 +108,14 @@ public class WidgetResolver  {
 				if ((w instanceof Composite) && (parent instanceof TabFolder)) {
 						
 					if ((parent == null) || parent.isDisposed()) {
-						throw new SWTLayerException("TabFolder is null or disposed while resolving");
+						throw new CoreLayerException("TabFolder is null or disposed while resolving");
 					}
 					TabItem[] tabItems = ((TabFolder) parent).getItems();
 
 					int index = -1;
 					index = Arrays.asList(tabItems).indexOf(w);
 					
-					if (index == -1) throw new SWTLayerException("Widget not found under TabFolder");
+					if (index == -1) throw new CoreLayerException("Widget not found under TabFolder");
 					
 					return items[index];
 				}

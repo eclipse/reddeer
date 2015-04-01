@@ -2,7 +2,7 @@ package org.jboss.reddeer.core.util;
 
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.core.interceptor.SyncInterceptorManager;
-import org.jboss.reddeer.core.exception.SWTLayerException;
+import org.jboss.reddeer.core.exception.CoreLayerException;
 
 
 /**
@@ -29,7 +29,7 @@ public class Display {
 	
 	/**
 	 * Returns org.eclipse.swt.widgets.Display instance. If now know it tries to get in available threads.   
-	 * @return current Display instance or SWTLayerException if not found
+	 * @return current Display instance or CoreLayerException if not found
 	 */
 	public static org.eclipse.swt.widgets.Display getDisplay() {
 		if ((display == null) || display.isDisposed()) {
@@ -41,7 +41,7 @@ public class Display {
 					display = d;
 			}
 			if (display == null)
-				throw new SWTLayerException("Could not find a display");
+				throw new CoreLayerException("Could not find a display");
 		}
 		return display;
 	}
@@ -79,7 +79,7 @@ public class Display {
 		}
 		
 		if (errorHandlingRunnable.exceptionOccurred()){
-			throw new SWTLayerException("Exception during sync execution in UI thread", errorHandlingRunnable.getException());
+			throw new CoreLayerException("Exception during sync execution in UI thread", errorHandlingRunnable.getException());
 		}
 
 		if (!sim.isIntercepted()) {
@@ -96,7 +96,7 @@ public class Display {
 		getDisplay().asyncExec(errorHandlingRunnable);
 
 		if (errorHandlingRunnable.exceptionOccurred()){
-			throw new SWTLayerException("Exception during async execution in UI thread", errorHandlingRunnable.getException());
+			throw new CoreLayerException("Exception during async execution in UI thread", errorHandlingRunnable.getException());
 		}
 	}
 

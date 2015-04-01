@@ -7,7 +7,7 @@ import org.jboss.reddeer.common.wait.TimePeriod;
 import org.jboss.reddeer.common.wait.WaitUntil;
 import org.jboss.reddeer.common.wait.WaitWhile;
 import org.jboss.reddeer.core.condition.WidgetIsChecked;
-import org.jboss.reddeer.core.exception.SWTLayerException;
+import org.jboss.reddeer.core.exception.CoreLayerException;
 import org.jboss.reddeer.core.util.Display;
 import org.jboss.reddeer.core.util.ResultRunnable;
 
@@ -108,7 +108,7 @@ public class TableItemHandler {
 			@Override
 			public void run() {
 				if ((swtTableItem.getParent().getStyle() & SWT.CHECK) != SWT.CHECK) {
-					throw new SWTLayerException("Unable to check table item "
+					throw new CoreLayerException("Unable to check table item "
 							+ swtTableItem.getText()
 							+ " because table does not have SWT.CHECK style");
 				}
