@@ -11,8 +11,10 @@ import org.jboss.reddeer.junit.internal.configuration.RequirementsConfiguration;
 import org.jboss.reddeer.junit.internal.configuration.SuiteConfiguration;
 import org.jboss.reddeer.junit.internal.configuration.TestRunConfiguration;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
+@Ignore
 public class ComplexConfigurationTest {
 
 	@Before

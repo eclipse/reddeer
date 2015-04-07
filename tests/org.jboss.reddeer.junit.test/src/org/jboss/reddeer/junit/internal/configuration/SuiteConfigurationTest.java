@@ -18,8 +18,10 @@ import org.jboss.reddeer.common.properties.RedDeerProperties;
 import org.jboss.reddeer.junit.configuration.RedDeerConfigurationException;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
+@Ignore
 public class SuiteConfigurationTest {
 
 	private static final String LOCATIONS_ROOT_DIR;
