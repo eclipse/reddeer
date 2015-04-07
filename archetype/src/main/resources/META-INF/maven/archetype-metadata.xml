@@ -4,7 +4,7 @@
       <defaultValue>0.18.1</defaultValue>
     </requiredProperty>
     <requiredProperty key="eclipse_platform">
-      <defaultValue>luna</defaultValue>
+      <defaultValue>mars</defaultValue>
     </requiredProperty>
     <requiredProperty key="reddeer_version">
       <defaultValue>0.8.0</defaultValue>
