@@ -11,7 +11,7 @@ import org.jboss.reddeer.workbench.impl.editor.Marker;
  * @author rawagner
  *
  */
-public class EditorHasValidationMarkers implements WaitCondition{
+public class EditorHasValidationMarkers implements WaitCondition,org.jboss.reddeer.swt.condition.WaitCondition{
 	
 	private Editor editor;
 	private String type;
