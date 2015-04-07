@@ -4,25 +4,23 @@ import java.util.List;
 
 import org.jboss.reddeer.eclipse.ui.problems.ProblemsView.Column;
 import org.jboss.reddeer.eclipse.ui.problems.ProblemsView.ProblemType;
+import org.jboss.reddeer.eclipse.ui.views.markers.QuickFixWizard;
 import org.jboss.reddeer.swt.api.TreeItem;
+import org.jboss.reddeer.swt.impl.menu.ContextMenu;
 
 /**
  * Problem represents an error or warning in problems view. Get methods return values of a specific column
  * of a problem. If there is no value for a specific column or a column is hidden, null is returned.
  * 
  * @author mlabuda@redhat.com
+ * @author rawagner
  * @since 0.7
  */
 public class Problem {
+	
+	private TreeItem problemItem;
 
 	private ProblemType problemType;
-	private String description;
-	private String resource;
-	private String path;
-	private String id;
-	private String location;
-	private String type;
-	private String creationTime;
 		
 	/**
 	 * Creates a new problem of Problems view. 
@@ -32,30 +30,7 @@ public class Problem {
 	 */
 	public Problem(ProblemType problemType, TreeItem item) {
 		this.problemType = problemType;
-		
-		ProblemsView problemsView = new ProblemsView();
-		List<String> columns = problemsView.getProblemColumns();
-		if (columns.contains(Column.DESCRIPTION.toString())) {
-			description = item.getCell(problemsView.getIndexOfColumn(Column.DESCRIPTION));
-		}
-		if (columns.contains(Column.RESOURCE.toString())) {
-			resource = item.getCell(problemsView.getIndexOfColumn(Column.RESOURCE));
-		}
-		if (columns.contains(Column.PATH.toString())) {
-			path = item.getCell(problemsView.getIndexOfColumn(Column.PATH));
-		}
-		if (columns.contains(Column.ID.toString())) {
-			id = item.getCell(problemsView.getIndexOfColumn(Column.ID));
-		}
-		if (columns.contains(Column.LOCATION.toString())) {
-			location = item.getCell(problemsView.getIndexOfColumn(Column.LOCATION));
-		}
-		if (columns.contains(Column.TYPE.toString())) {
-			type = item.getCell(problemsView.getIndexOfColumn(Column.TYPE));
-		}
-		if (columns.contains(Column.CREATION_TIME.toString())) {
-			creationTime = item.getCell(problemsView.getIndexOfColumn(Column.CREATION_TIME));
-		}
+		this.problemItem = item;
 	}
 	
 	/**
@@ -74,7 +49,7 @@ public class Problem {
 	 * @return description of the problem
 	 */
 	public String getDescription() {
-		return description;
+		return getCell(Column.DESCRIPTION);
 	}
 
 	/**
@@ -83,7 +58,7 @@ public class Problem {
 	 * @return resource of the problem
 	 */
 	public String getResource() {
-		return resource;
+		return getCell(Column.RESOURCE);
 	}
 
 	/**
@@ -93,7 +68,7 @@ public class Problem {
 	 * @return path to the problem
 	 */
 	public String getPath() {
-		return path;
+		return getCell(Column.PATH);
 	}
 
 	/**
@@ -102,7 +77,7 @@ public class Problem {
 	 * @return ID of the problem
 	 */
 	public String getId() {
-		return id;
+		return getCell(Column.ID);
 	}
 
 	/**
@@ -112,7 +87,7 @@ public class Problem {
 	 * @return location of the problem
 	 */
 	public String getLocation() {
-		return location;
+		return getCell(Column.LOCATION);
 	}
 
 	/**
@@ -121,7 +96,7 @@ public class Problem {
 	 * @return nature of the problem
 	 */
 	public String getType() {
-		return type;
+		return getCell(Column.TYPE);
 	}
 
 	/**
@@ -130,12 +105,40 @@ public class Problem {
 	 * @return creation time of the problem
 	 */
 	public String getCreationTime() {
-		return creationTime;
+		return getCell(Column.CREATION_TIME);
+	}
+	
+	/**
+	 * Open quickfix
+	 * @return Quickfix wizard
+	 */
+	public QuickFixWizard openQuickFix(){
+		problemItem.select();
+		new ContextMenu("Quick Fix").select();
+		return new QuickFixWizard();
+	}
+	
+	private String getCell(Column column){
+		ProblemsView problemsView = new ProblemsView();
+		List<String> columns = problemsView.getProblemColumns();
+		if (columns.contains(column.toString())) {
+			return problemItem.getCell(problemsView.getIndexOfColumn(column));
+		}
+		return null;
 	}
 	
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
+		
+		String description = getDescription();
+		String resource = getResource(); 
+		String path = getPath();
+		String id = getId();
+		String location = getLocation();
+		String type = getType();
+		String creationTime = getCreationTime();
+		
 		if (description != null) {
 			builder.append("description: '" + description + "'; ");
 		}

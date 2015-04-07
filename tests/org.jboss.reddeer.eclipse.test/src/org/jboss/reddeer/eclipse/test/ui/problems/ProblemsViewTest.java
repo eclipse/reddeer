@@ -24,6 +24,8 @@ import org.jboss.reddeer.eclipse.ui.problems.matcher.ProblemsLocationMatcher;
 import org.jboss.reddeer.eclipse.ui.problems.matcher.ProblemsPathMatcher;
 import org.jboss.reddeer.eclipse.ui.problems.matcher.ProblemsResourceMatcher;
 import org.jboss.reddeer.eclipse.ui.problems.matcher.ProblemsTypeMatcher;
+import org.jboss.reddeer.eclipse.ui.views.markers.QuickFixPage;
+import org.jboss.reddeer.eclipse.ui.views.markers.QuickFixWizard;
 import org.jboss.reddeer.eclipse.utils.DeleteUtils;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.core.condition.JobIsRunning;
@@ -217,6 +219,19 @@ public class ProblemsViewTest {
 				+ " warnings in the location \"" + WARNING_LOCATION
 				+ "\" of the project with path \"" + projectPath
 				+ "\", but:\n" + getProblems(), 2, warnings.size());
+	}
+	
+	@Test
+	public void testProblemQuickfix(){
+		createWarning();
+		QuickFixWizard qw = new ProblemsView().getProblems(ProblemType.WARNING).get(0).openQuickFix();
+		QuickFixPage qp = new QuickFixPage();
+		List<String> problems = qp.getAvailableFixes();
+		assertTrue(problems.size() == 3);
+		qp.selectFix("Add @SuppressWarnings 'unused' to 'i'");
+		qw.finish();
+		TextEditor te = new TextEditor("WarningTestClass.java");
+		assertTrue(te.getText().contains("@SuppressWarnings(\"unused\")"));
 	}
 
 	private void createError() {
