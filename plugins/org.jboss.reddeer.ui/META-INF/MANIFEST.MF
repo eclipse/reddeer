@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: RedDeer UI Component
-Bundle-SymbolicName: org.jboss.reddeer.ui;singleton:=true
+Bundle-SymbolicName: org.jboss.reddeer.ui
 Bundle-Version: 0.8.0.qualifier
 Bundle-Activator: org.jboss.reddeer.ui.Activator
 Bundle-ActivationPolicy: lazy

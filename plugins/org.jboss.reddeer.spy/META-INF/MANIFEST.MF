@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: RedDeer Spy
-Bundle-SymbolicName: org.jboss.reddeer.spy;singleton:=true
+Bundle-SymbolicName: org.jboss.reddeer.spy
 Bundle-Version: 0.8.0.qualifier
 Bundle-Activator: org.jboss.reddeer.spy.Activator
 Require-Bundle: org.eclipse.ui,
