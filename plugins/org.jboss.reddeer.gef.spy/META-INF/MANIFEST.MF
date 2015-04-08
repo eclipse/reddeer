@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: RedDeer GEF Spy
-Bundle-SymbolicName: org.jboss.reddeer.gef.spy;singleton:=true
+Bundle-SymbolicName: org.jboss.reddeer.gef.spy
 Bundle-Version: 0.8.0.qualifier
 Bundle-Activator: org.jboss.reddeer.gef.spy.Activator
 Require-Bundle: org.eclipse.ui,
