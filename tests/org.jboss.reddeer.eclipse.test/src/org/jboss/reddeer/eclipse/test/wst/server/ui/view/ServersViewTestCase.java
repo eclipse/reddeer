@@ -46,7 +46,7 @@ public class ServersViewTestCase {
 		serversView.open();
 		wizardDialog = serversView.newServer();
 
-		NewServerWizardPage newServerPage = wizardDialog.getFirstPage();
+		NewServerWizardPage newServerPage = new NewServerWizardPage();
 		newServerPage.selectType("Basic", TestServer.NAME);
 		newServerPage.setName(name);		
 
@@ -59,7 +59,7 @@ public class ServersViewTestCase {
 		ExternalProjectImportWizardDialog wizard  = new ExternalProjectImportWizardDialog();
 		wizard.open();
 
-		WizardProjectsImportPage wizardPage = wizard.getFirstPage();
+		WizardProjectsImportPage wizardPage = new WizardProjectsImportPage();
 		wizardPage.setArchiveFile(ZIP_FILE.getAbsolutePath());
 		wizardPage.selectProjects("server-project", "server-project-2", "server-project-3");
 

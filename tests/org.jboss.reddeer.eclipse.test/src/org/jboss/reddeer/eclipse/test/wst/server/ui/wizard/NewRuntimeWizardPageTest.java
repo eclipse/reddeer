@@ -36,7 +36,7 @@ public class NewRuntimeWizardPageTest {
 		workbenchPreferencesDialog.select(preference);
 		preference.removeAllRuntimes();
 		wizard = preference.addRuntime();
-		wizardPage = wizard.getFirstPage();
+		wizardPage = new NewRuntimeWizardPage();
 	}
 	
 	@Test

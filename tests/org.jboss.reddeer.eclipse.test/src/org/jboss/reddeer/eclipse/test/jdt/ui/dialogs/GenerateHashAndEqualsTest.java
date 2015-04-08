@@ -9,6 +9,7 @@ import org.jboss.reddeer.eclipse.jdt.ui.NewJavaClassWizardDialog;
 import org.jboss.reddeer.eclipse.jdt.ui.NewJavaClassWizardPage;
 import org.jboss.reddeer.eclipse.jdt.ui.dialogs.GenerateHashCodeEqualsDialog;
 import org.jboss.reddeer.eclipse.jdt.ui.ide.NewJavaProjectWizardDialog;
+import org.jboss.reddeer.eclipse.jdt.ui.ide.NewJavaProjectWizardPage;
 import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.PackageExplorer;
 import org.jboss.reddeer.eclipse.utils.DeleteUtils;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
@@ -40,12 +41,12 @@ public class GenerateHashAndEqualsTest {
 		new WorkbenchShell().maximize();
 		NewJavaProjectWizardDialog jp = new NewJavaProjectWizardDialog();
 		jp.open();
-		jp.getFirstPage().setProjectName("GenHashProject");
+		new NewJavaProjectWizardPage().setProjectName("GenHashProject");
 		jp.finish();
 		
 		NewJavaClassWizardDialog jc = new NewJavaClassWizardDialog();
 		jc.open();
-		NewJavaClassWizardPage jpp = jc.getFirstPage();
+		NewJavaClassWizardPage jpp = new NewJavaClassWizardPage();
 		jpp.setName("GenHash");
 		jc.finish();
 		

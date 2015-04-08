@@ -29,8 +29,10 @@ public class WizardDialog {
 
 	protected final Logger log = Logger.getLogger(this.getClass());
 
+	@Deprecated
 	protected int currentPage;
 	protected Properties properties;
+	@Deprecated
 	protected Map<WizardPage, Matcher<WizardDialog>> wizardPageMap;
 
 	public WizardDialog() {
@@ -47,11 +49,10 @@ public class WizardDialog {
 	}
 
 	/**
-	  * Returns a current wizard page
-	 * 
+	 * Returns a current wizard page
+	 * @deprecated create instance of page by yourself
 	 * @return current wizard page or null when there is not any wizard page
 	 */
-
 	public WizardPage getCurrentWizardPage() {
 		for (WizardPage wizardPage : wizardPageMap.keySet()) {
 			Matcher<WizardDialog> matcher = wizardPageMap.get(wizardPage);
@@ -65,7 +66,7 @@ public class WizardDialog {
 	
 	/**
 	 * Automatically lists to desired wizard page and returns it.
-	 * 
+	 * @deprecated create instance of page by yourself
 	 * @param page index of desired wizard page
 	 * @return instance of desired WizardPage
 	 */
@@ -77,7 +78,7 @@ public class WizardDialog {
 
 	/**
 	 * Adds a new wizard page
-	 * 
+	 * @deprecated create instance of page by yourself
 	 * @param page
 	 *            wizard page
 	 * @param pageIndex
@@ -89,7 +90,7 @@ public class WizardDialog {
 	
 	/**
 	 * Adds a new wizard page
-	 * 
+	 * @deprecated create instance of page by yourself
 	 * @param page
 	 *            wizard page
 	 * @param pageIndex
@@ -177,6 +178,7 @@ public class WizardDialog {
 
 	/**
 	 * Get page index of current wizard page.
+	 * @deprecated
 	 * @return current wizard page index
 	 */
 	public int getPageIndex() {

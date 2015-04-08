@@ -21,9 +21,11 @@ import org.jboss.reddeer.common.platform.RunningPlatform;
 import org.jboss.reddeer.eclipse.core.resources.Project;
 import org.jboss.reddeer.eclipse.jdt.ui.ProjectExplorer;
 import org.jboss.reddeer.eclipse.core.resources.ProjectItem;
+import org.jboss.reddeer.eclipse.ui.dialogs.WizardNewProjectCreationPage;
 import org.jboss.reddeer.eclipse.ui.ide.NewFileCreationWizardDialog;
 import org.jboss.reddeer.eclipse.ui.ide.NewFileCreationWizardPage;
 import org.jboss.reddeer.eclipse.ui.wizards.datatransfer.ExternalProjectImportWizardDialog;
+import org.jboss.reddeer.eclipse.ui.wizards.datatransfer.WizardProjectsImportPage;
 import org.jboss.reddeer.eclipse.ui.wizards.newresource.BasicNewProjectResourceWizard;
 import org.jboss.reddeer.eclipse.utils.DeleteUtils;
 import org.jboss.reddeer.jface.text.contentassist.ContentAssistant;
@@ -56,7 +58,7 @@ public class TextEditorTest {
 		javaTextEditor.close();
 		BasicNewProjectResourceWizard projectWizard = new BasicNewProjectResourceWizard();
 		projectWizard.open();
-		projectWizard.getFirstPage().setProjectName("testProject");
+		new WizardNewProjectCreationPage().setProjectName("testProject");
 		projectWizard.finish();
 	}
 	
@@ -82,7 +84,7 @@ public class TextEditorTest {
 
 		NewFileCreationWizardDialog newFileDialog = new NewFileCreationWizardDialog();
 		newFileDialog.open();
-		NewFileCreationWizardPage page = newFileDialog.getFirstPage();
+		NewFileCreationWizardPage page = new NewFileCreationWizardPage();
 		page.setFileName("editorTest.min");
 		page.setFolderPath("testProject");
 		newFileDialog.finish();
@@ -93,7 +95,7 @@ public class TextEditorTest {
 	public void getTextTest() throws AWTException{
 		NewFileCreationWizardDialog newFileDialog = new NewFileCreationWizardDialog();
 		newFileDialog.open();
-		NewFileCreationWizardPage page = newFileDialog.getFirstPage();
+		NewFileCreationWizardPage page = new NewFileCreationWizardPage();
 		page.setFileName("textEditor.txt");
 		page.setFolderPath("testProject");
 		newFileDialog.finish();
@@ -357,8 +359,8 @@ public class TextEditorTest {
 		}
 		ExternalProjectImportWizardDialog epw = new ExternalProjectImportWizardDialog();
 		epw.open();
-		epw.getFirstPage().setRootDirectory(resourceURL.getFile()+"resources/TextEditorTestProject/");
-		epw.getFirstPage().copyProjectsIntoWorkspace(true);
+		new WizardProjectsImportPage().setRootDirectory(resourceURL.getFile()+"resources/TextEditorTestProject/");
+		new WizardProjectsImportPage().copyProjectsIntoWorkspace(true);
 		epw.finish();
 	}
 

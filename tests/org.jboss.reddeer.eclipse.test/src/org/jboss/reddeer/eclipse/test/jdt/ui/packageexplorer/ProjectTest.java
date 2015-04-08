@@ -30,7 +30,7 @@ public class ProjectTest {
 	public void setUp(){
 		NewJavaProjectWizardDialog dialog = new NewJavaProjectWizardDialog();
 		dialog.open();
-		NewJavaProjectWizardPage page1 = dialog.getFirstPage(); 
+		NewJavaProjectWizardPage page1 = new NewJavaProjectWizardPage(); 
 		page1.setProjectName(ProjectTest.PROJECT_NAME_0);
 		dialog.finish();
 
@@ -43,12 +43,12 @@ public class ProjectTest {
 	public void select() {
 		NewJavaProjectWizardDialog dialog = new NewJavaProjectWizardDialog();
 		dialog.open();
-		NewJavaProjectWizardPage page1 = dialog.getFirstPage();
+		NewJavaProjectWizardPage page1 = new NewJavaProjectWizardPage();
 		page1.setProjectName(ProjectTest.PROJECT_NAME_1);
 		dialog.finish();
 		dialog = new NewJavaProjectWizardDialog();
 		dialog.open();
-		page1 = dialog.getFirstPage();
+		page1 = new NewJavaProjectWizardPage();
 		page1.setProjectName(ProjectTest.PROJECT_NAME_2);
 		dialog.finish();
 		final Project project1;

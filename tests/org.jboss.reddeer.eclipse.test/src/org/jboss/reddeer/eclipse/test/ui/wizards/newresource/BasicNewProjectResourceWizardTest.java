@@ -38,7 +38,7 @@ public class BasicNewProjectResourceWizardTest {
 		packageExplorer.open();
 		BasicNewProjectResourceWizard wizardDialog = new BasicNewProjectResourceWizard();
 		wizardDialog.open();
-		WizardNewProjectCreationPage projectPage = wizardDialog.getFirstPage();
+		WizardNewProjectCreationPage projectPage = new WizardNewProjectCreationPage();
 		projectPage
 				.setProjectName(BasicNewProjectResourceWizardTest.DEFAULT_PROJECT_NAME);
 		wizardDialog.finish();
@@ -77,7 +77,7 @@ public class BasicNewProjectResourceWizardTest {
 		// create default project
 		BasicNewProjectResourceWizard wizardDialog = new BasicNewProjectResourceWizard();
 		wizardDialog.open();
-		WizardNewProjectCreationPage projectPage = wizardDialog.getFirstPage();
+		WizardNewProjectCreationPage projectPage = new WizardNewProjectCreationPage();
 		projectPage
 				.setProjectName(BasicNewProjectResourceWizardTest.DEFAULT_PROJECT_NAME);
 		wizardDialog.finish();

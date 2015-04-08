@@ -31,7 +31,7 @@ public class EjbWizardTest {
     public void createEJBProject(){
         EjbProjectWizard ejb = new EjbProjectWizard();
         ejb.open();
-        EjbProjectFirstPage firstPage = (EjbProjectFirstPage)ejb.getWizardPage(0);
+        EjbProjectFirstPage firstPage = new EjbProjectFirstPage();
         firstPage.setProjectName("ejbProject");
         ejb.finish();
         PackageExplorer pe = new PackageExplorer();

@@ -35,7 +35,7 @@ public class NewServerWizardPageTest {
 		view = new ServersView();
 		view.open();
 		wizard = view.newServer();
-		wizardPage = wizard.getFirstPage();
+		wizardPage = new NewServerWizardPage();
 	}
 	
 	@Test

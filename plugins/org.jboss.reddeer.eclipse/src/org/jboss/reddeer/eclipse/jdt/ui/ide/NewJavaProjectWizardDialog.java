@@ -26,6 +26,7 @@ public class NewJavaProjectWizardDialog extends NewWizardDialog {
 	}
 	/**
 	 * Returns first page of wizard.
+	 * @deprecated
 	 * @return NewJavaProjectWizardPage
 	 */
 	public NewJavaProjectWizardPage getFirstPage() {

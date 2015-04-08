@@ -52,7 +52,7 @@ public class ServerModuleTest extends ServersViewTestCase {
 	@Test
 	public void removeServerModule() {
 		ModifyModulesDialog dialog = server.addAndRemoveModules();
-		ModifyModulesPage page = dialog.getFirstPage();
+		ModifyModulesPage page = new ModifyModulesPage();
 		page.addAll();
 		dialog.finish();
 

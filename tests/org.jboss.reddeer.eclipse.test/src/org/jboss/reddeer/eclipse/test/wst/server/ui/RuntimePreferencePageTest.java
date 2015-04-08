@@ -52,7 +52,7 @@ public class RuntimePreferencePageTest {
 		preferencesDialog.select(preferencePage);
 		
 		NewRuntimeWizardDialog wizardDialog = preferencePage.addRuntime(); 
-		NewRuntimeWizardPage wizardPage = wizardDialog.getFirstPage();
+		NewRuntimeWizardPage wizardPage = new NewRuntimeWizardPage();
 		wizardPage.selectType(SERVER_PATH, SERVER_NAME);
 		wizardDialog.finish();
 		
@@ -67,11 +67,12 @@ public class RuntimePreferencePageTest {
 		preferencesDialog.select(preferencePage);
 		
 		NewRuntimeWizardDialog wizardDialog = preferencePage.addRuntime(); 
-		NewRuntimeWizardPage wizardPage = wizardDialog.getFirstPage();
+		NewRuntimeWizardPage wizardPage = new NewRuntimeWizardPage();
 		wizardPage.selectType(SERVER_PATH, SERVER_NAME);
 		wizardDialog.finish();
 		
-		wizardPage = preferencePage.addRuntime().getFirstPage();
+		preferencePage.addRuntime();
+		wizardPage = new NewRuntimeWizardPage();
 		wizardPage.selectType(SERVER_PATH, SERVER_NAME);
 		wizardDialog.finish();
 		
@@ -93,11 +94,12 @@ public class RuntimePreferencePageTest {
 		preferencesDialog.select(preferencePage);
 		
 		NewRuntimeWizardDialog wizardDialog = preferencePage.addRuntime(); 
-		NewRuntimeWizardPage wizardPage = wizardDialog.getFirstPage();
+		NewRuntimeWizardPage wizardPage = new NewRuntimeWizardPage();
 		wizardPage.selectType(SERVER_PATH, SERVER_NAME);
 		wizardDialog.finish();
 		
-		wizardPage = preferencePage.addRuntime().getFirstPage();
+		preferencePage.addRuntime();
+		wizardPage = new NewRuntimeWizardPage();
 		wizardPage.selectType(SERVER_PATH, SERVER_NAME);
 		wizardDialog.finish();
 		

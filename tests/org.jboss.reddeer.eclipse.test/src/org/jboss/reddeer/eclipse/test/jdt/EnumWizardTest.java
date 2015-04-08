@@ -6,6 +6,7 @@ import static org.junit.Assert.assertTrue;
 import org.jboss.reddeer.eclipse.jdt.ui.NewEnumWizardDialog;
 import org.jboss.reddeer.eclipse.jdt.ui.NewEnumWizardPage;
 import org.jboss.reddeer.eclipse.jdt.ui.ide.NewJavaProjectWizardDialog;
+import org.jboss.reddeer.eclipse.jdt.ui.ide.NewJavaProjectWizardPage;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.requirements.cleanworkspace.CleanWorkspaceRequirement.CleanWorkspace;
 import org.jboss.reddeer.workbench.impl.editor.TextEditor;
@@ -20,7 +21,7 @@ public class EnumWizardTest {
 	public void createEnumClass(){
 		NewJavaProjectWizardDialog jp = new NewJavaProjectWizardDialog();
 		jp.open();
-		jp.getFirstPage().setProjectName("EnumProject");
+		new NewJavaProjectWizardPage().setProjectName("EnumProject");
 		jp.finish();
 		
 		NewEnumWizardDialog ed = new NewEnumWizardDialog();

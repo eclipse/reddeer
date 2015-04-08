@@ -12,6 +12,7 @@ public class ModifyModulesDialog extends WizardDialog {
 
 	public static final String DIALOG_TITLE = "Add and Remove...";
 	
+	@Deprecated
 	public ModifyModulesPage getFirstPage() {
 		return new ModifyModulesPage();
 	}

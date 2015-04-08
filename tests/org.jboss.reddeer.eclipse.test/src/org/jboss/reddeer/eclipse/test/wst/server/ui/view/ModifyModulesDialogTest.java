@@ -51,7 +51,7 @@ public class ModifyModulesDialogTest extends ServersViewTestCase{
 	@Test
 	public void addAll_removeTwo(){
 		ModifyModulesDialog dialog = server.addAndRemoveModules();
-		ModifyModulesPage page = dialog.getFirstPage();
+		ModifyModulesPage page = new ModifyModulesPage();
 		page.addAll();
 		dialog.finish();
 
@@ -62,7 +62,7 @@ public class ModifyModulesDialogTest extends ServersViewTestCase{
 		assertThat(modules.get(2).getLabel().getName(), is(PROJECT_3));
 		
 		server.addAndRemoveModules();
-		page = dialog.getFirstPage();
+		page = new ModifyModulesPage();
 		page.remove(PROJECT_1, PROJECT_3);
 		dialog.finish();
 		
@@ -74,7 +74,7 @@ public class ModifyModulesDialogTest extends ServersViewTestCase{
 	@Test
 	public void addTwo_removeAll(){
 		ModifyModulesDialog dialog = server.addAndRemoveModules();
-		ModifyModulesPage page = dialog.getFirstPage();
+		ModifyModulesPage page = new ModifyModulesPage();
 		page.add(PROJECT_1, PROJECT_3);
 		dialog.finish();
 
@@ -84,7 +84,7 @@ public class ModifyModulesDialogTest extends ServersViewTestCase{
 		assertThat(modules.get(1).getLabel().getName(), is(PROJECT_3));
 		
 		server.addAndRemoveModules();
-		page = dialog.getFirstPage();
+		page = new ModifyModulesPage();
 		page.removeAll();
 		dialog.finish();
 		

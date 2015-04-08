@@ -42,7 +42,7 @@ public class RuntimesPropertyPageTest {
 		ExternalProjectImportWizardDialog wizard  = new ExternalProjectImportWizardDialog();
 		wizard.open();
 
-		WizardProjectsImportPage wizardPage = wizard.getFirstPage();
+		WizardProjectsImportPage wizardPage = new WizardProjectsImportPage();
 		wizardPage.setArchiveFile(ServersViewTestCase.ZIP_FILE.getAbsolutePath());
 		wizardPage.selectProjects(PROJECT);
 
@@ -62,7 +62,7 @@ public class RuntimesPropertyPageTest {
 		preferencesDialog.select(runtimePreference);
 		
 		NewRuntimeWizardDialog dialog = runtimePreference.addRuntime();
-		NewRuntimeWizardPage page = dialog.getFirstPage();
+		NewRuntimeWizardPage page = new NewRuntimeWizardPage();
 		page.selectType(TestServerRuntime.CATEGORY, TestServerRuntime.NAME);
 		dialog.finish();
 		

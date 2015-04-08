@@ -6,6 +6,7 @@ import org.jboss.reddeer.eclipse.core.resources.Project;
 import org.jboss.reddeer.eclipse.jdt.ui.NewJavaClassWizardDialog;
 import org.jboss.reddeer.eclipse.jdt.ui.NewJavaClassWizardPage;
 import org.jboss.reddeer.eclipse.jdt.ui.ide.NewJavaProjectWizardDialog;
+import org.jboss.reddeer.eclipse.jdt.ui.ide.NewJavaProjectWizardPage;
 import org.jboss.reddeer.eclipse.core.resources.ProjectItem;
 import org.jboss.reddeer.eclipse.ui.views.navigator.ResourceNavigator;
 import org.jboss.reddeer.eclipse.utils.DeleteUtils;
@@ -73,7 +74,7 @@ public class ResourceNavigatorTest {
 		NewJavaClassWizardDialog classDialog = new NewJavaClassWizardDialog();
 		classDialog.open();
 		
-		NewJavaClassWizardPage page = classDialog.getFirstPage();
+		NewJavaClassWizardPage page = new NewJavaClassWizardPage();
 		page.setName(className);
 		page.setPackage(packageName);
 		page.setSourceFolder(projectName+"/"+SOURCE_FOLDER);
@@ -88,7 +89,7 @@ public class ResourceNavigatorTest {
 	private void createProject(String projectName) {
 		NewJavaProjectWizardDialog dialog = new NewJavaProjectWizardDialog();
 		dialog.open();
-		dialog.getFirstPage().setProjectName(projectName);
+		new NewJavaProjectWizardPage().setProjectName(projectName);
 		dialog.finish();
 	}
 	

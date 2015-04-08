@@ -14,6 +14,7 @@ public class NewJavaClassWizardDialog extends NewWizardDialog {
 		super("Java", "Class");
 	}
 	
+	@Deprecated
 	public NewJavaClassWizardPage getFirstPage() {
 		return new NewJavaClassWizardPage();
 	}

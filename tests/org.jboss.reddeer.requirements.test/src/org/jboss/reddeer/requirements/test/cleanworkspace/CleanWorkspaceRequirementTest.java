@@ -6,6 +6,7 @@ import static org.junit.Assert.fail;
 import java.lang.reflect.Field;
 
 import org.jboss.reddeer.eclipse.jdt.ui.ide.NewJavaProjectWizardDialog;
+import org.jboss.reddeer.eclipse.jdt.ui.ide.NewJavaProjectWizardPage;
 import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.PackageExplorer;
 import org.jboss.reddeer.junit.internal.configuration.NullTestRunConfiguration;
 import org.jboss.reddeer.junit.internal.requirement.Requirements;
@@ -64,7 +65,7 @@ public class CleanWorkspaceRequirementTest {
 	public void fulfillWithProjectsTest() {
 		NewJavaProjectWizardDialog projectWizard = new NewJavaProjectWizardDialog();
 		projectWizard.open();
-		projectWizard.getFirstPage().setProjectName("TestProject");
+		new NewJavaProjectWizardPage().setProjectName("TestProject");
 		projectWizard.finish();
 		PackageExplorer packageExplorer = new PackageExplorer();
 		packageExplorer.open();
