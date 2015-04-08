@@ -11,7 +11,7 @@ import org.jboss.reddeer.swt.impl.text.LabeledText;
  */
 public class NewFileCreationWizardPage extends WizardPage {
 
-	protected NewFileCreationWizardPage() {
+	public NewFileCreationWizardPage() {
 		super();
 	}
 	

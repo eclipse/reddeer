@@ -24,9 +24,9 @@ public class TestEARProjectWizard {
 	public void createProject(){
 		EarProjectWizard ear = new EarProjectWizard();
 		ear.open();
-		EarProjectFirstPage fp = (EarProjectFirstPage)ear.getWizardPage(0);
+		EarProjectFirstPage fp = new EarProjectFirstPage();
 		fp.setProjectName("EARProject");
-		EarProjectInstallPage ip = (EarProjectInstallPage)ear.getWizardPage(1);
+		EarProjectInstallPage ip = new EarProjectInstallPage();
 		assertFalse(ip.isGenerateApplicationXML());
 		ear.finish();
 		ProjectExplorer pe = new ProjectExplorer();
@@ -38,9 +38,9 @@ public class TestEARProjectWizard {
 	public void createProjectWithDefaultModules(){
 		EarProjectWizard ear = new EarProjectWizard();
 		ear.open();
-		EarProjectFirstPage fp = (EarProjectFirstPage)ear.getWizardPage(0);
+		EarProjectFirstPage fp = new EarProjectFirstPage();
 		fp.setProjectName("EARProject");
-		EarProjectInstallPage ip = (EarProjectInstallPage)ear.getWizardPage(1);
+		EarProjectInstallPage ip = new EarProjectInstallPage();
 		assertFalse(ip.isGenerateApplicationXML());
 		NewJ2EEComponentSelectionPage jee=ip.newModule();
 		String ejb = jee.getEJBModuleName();
@@ -62,14 +62,14 @@ public class TestEARProjectWizard {
 	public void createProjectWithWebModule(){
 		EarProjectWizard ear = new EarProjectWizard();
 		ear.open();
-		EarProjectFirstPage fp = (EarProjectFirstPage)ear.getWizardPage(0);
+		EarProjectFirstPage fp = new EarProjectFirstPage();
 		fp.setProjectName("EARProject");
-		EarProjectInstallPage ip = (EarProjectInstallPage)ear.getWizardPage(1);
+		EarProjectInstallPage ip = new EarProjectInstallPage();
 		assertFalse(ip.isGenerateApplicationXML());
 		NewJ2EEComponentSelectionPage jee=ip.newModule();
 		jee.toggleCreateDefaultModules(false);
 		WebProjectWizard ww = jee.addWeb();
-		WebProjectFirstPage wp = (WebProjectFirstPage)ww.getWizardPage(0);
+		WebProjectFirstPage wp = new WebProjectFirstPage();
 		wp.setProjectName("CreatedWebProjectModule");
 		ww.finish();
 		ear.finish();

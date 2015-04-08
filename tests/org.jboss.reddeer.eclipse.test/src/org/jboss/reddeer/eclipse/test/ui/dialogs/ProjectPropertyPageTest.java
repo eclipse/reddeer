@@ -31,7 +31,7 @@ public class ProjectPropertyPageTest {
 	public void setup() {
 		NewJavaProjectWizardDialog dialog = new NewJavaProjectWizardDialog();
 		dialog.open();
-		NewJavaProjectWizardPage page1 = dialog.getFirstPage();
+		NewJavaProjectWizardPage page1 = new NewJavaProjectWizardPage();
 		page1.setProjectName(PROJECT_NAME);
 		dialog.finish();
 

@@ -53,7 +53,7 @@ public abstract class AbstractExplorerItemTest {
 	public void setUp() {
 		NewJavaProjectWizardDialog dialog = new NewJavaProjectWizardDialog();
 		dialog.open();
-		NewJavaProjectWizardPage page1 = dialog.getFirstPage(); 
+		NewJavaProjectWizardPage page1 = new NewJavaProjectWizardPage();
 		page1.setProjectName(PROJECT_NAME);
 		dialog.finish();
 		explorer.open();
@@ -162,7 +162,7 @@ public abstract class AbstractExplorerItemTest {
 		NewJavaClassWizardDialog newJavaClassDialog = new NewJavaClassWizardDialog();
 		newJavaClassDialog.open();
 		
-		NewJavaClassWizardPage wizardPage = newJavaClassDialog.getFirstPage();
+		NewJavaClassWizardPage wizardPage = new NewJavaClassWizardPage();
 		wizardPage.setName(javaClassName);
 		newJavaClassDialog.finish();
 		

@@ -229,7 +229,7 @@ public class ServerTest extends ServersViewTestCase {
 	@Test
 	public void getModules(){
 		ModifyModulesDialog dialog = server1.addAndRemoveModules();
-		ModifyModulesPage page = dialog.getFirstPage();
+		ModifyModulesPage page = new ModifyModulesPage();
 		page.add("server-project-2", "server-project-3");
 		dialog.finish();
 
@@ -245,7 +245,7 @@ public class ServerTest extends ServersViewTestCase {
 	@Test
 	public void getAvailableModules() {
 		ModifyModulesDialog dialog = server1.addAndRemoveModules();
-		ModifyModulesPage page = dialog.getFirstPage();
+		ModifyModulesPage page = new ModifyModulesPage();
 		
 		List<String> availableModules = page.getAvailableModules();
 		
@@ -261,7 +261,7 @@ public class ServerTest extends ServersViewTestCase {
 	@Test
 	public void getConfiguredModules() {
 		ModifyModulesDialog dialog = server1.addAndRemoveModules();
-		ModifyModulesPage page = dialog.getFirstPage();
+		ModifyModulesPage page = new ModifyModulesPage();
 		page.addAll();
 		
 		List<String> configuredModules = page.getConfiguredModules();
@@ -285,7 +285,7 @@ public class ServerTest extends ServersViewTestCase {
 	@Test
 	public void getModule(){
 		ModifyModulesDialog dialog = server1.addAndRemoveModules();
-		ModifyModulesPage page = dialog.getFirstPage();
+		ModifyModulesPage page = new ModifyModulesPage();
 		page.addAll();
 		dialog.finish();
 
@@ -297,7 +297,7 @@ public class ServerTest extends ServersViewTestCase {
 	@Test(expected=EclipseLayerException.class)
 	public void getModule_nonExisting(){
 		ModifyModulesDialog dialog = server1.addAndRemoveModules();
-		ModifyModulesPage page = dialog.getFirstPage();
+		ModifyModulesPage page = new ModifyModulesPage();
 		page.addAll();
 		dialog.finish();
 

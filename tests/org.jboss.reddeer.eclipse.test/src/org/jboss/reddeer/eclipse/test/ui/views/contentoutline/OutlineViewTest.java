@@ -185,7 +185,7 @@ public class OutlineViewTest{
 		NewJavaProjectWizardDialog javaProject = new NewJavaProjectWizardDialog();
 		javaProject.open();
 		
-		NewJavaProjectWizardPage javaWizardPage = javaProject.getFirstPage();
+		NewJavaProjectWizardPage javaWizardPage = new NewJavaProjectWizardPage();
 		javaWizardPage.setProjectName(TEST_PROJECT_NAME);
 		
 		javaProject.finish(false);
@@ -195,7 +195,7 @@ public class OutlineViewTest{
 		NewJavaClassWizardDialog javaClassDialog = new NewJavaClassWizardDialog();
 		javaClassDialog.open();
 		
-		NewJavaClassWizardPage wizardPage = javaClassDialog.getFirstPage();
+		NewJavaClassWizardPage wizardPage = new NewJavaClassWizardPage();
 		wizardPage.setName("TestClass");
 		wizardPage.setPackage("test");
 		wizardPage.setStaticMainMethod(true);

@@ -22,7 +22,7 @@ public class JavaProjectTest {
 	public static void setUp(){
 		NewJavaProjectWizardDialog dialog = new NewJavaProjectWizardDialog();
 		dialog.open();
-		NewJavaProjectWizardPage page1 = dialog.getFirstPage(); 
+		NewJavaProjectWizardPage page1 = new NewJavaProjectWizardPage();
 		page1.setProjectName(PROJECT_NAME_0);
 		dialog.finish();
 

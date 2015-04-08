@@ -31,7 +31,7 @@ public class PropertiesViewTest {
 	public void setUp() {
 		NewJavaProjectWizardDialog dialog = new NewJavaProjectWizardDialog();
 		dialog.open();
-		NewJavaProjectWizardPage page1 = dialog.getFirstPage();
+		NewJavaProjectWizardPage page1 =new NewJavaProjectWizardPage();
 		page1.setProjectName(PropertiesViewTest.TEST_PROJECT_NAME);
 		dialog.finish();
 		new PackageExplorer().getProject(PropertiesViewTest.TEST_PROJECT_NAME)

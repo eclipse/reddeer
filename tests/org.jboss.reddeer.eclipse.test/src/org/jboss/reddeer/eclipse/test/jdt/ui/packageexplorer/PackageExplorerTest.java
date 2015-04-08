@@ -27,7 +27,7 @@ public class PackageExplorerTest {
 	public void setUp() {
 		NewJavaProjectWizardDialog dialog = new NewJavaProjectWizardDialog();
 		dialog.open();
-		NewJavaProjectWizardPage page1 = dialog.getFirstPage();
+		NewJavaProjectWizardPage page1 = new NewJavaProjectWizardPage();
 		page1.setProjectName(PackageExplorerTest.PROJECT_NAME_0);
 		dialog.finish();
 
@@ -49,12 +49,12 @@ public class PackageExplorerTest {
 	public void select() {
 		NewJavaProjectWizardDialog dialog = new NewJavaProjectWizardDialog();
 		dialog.open();
-		NewJavaProjectWizardPage page1 = dialog.getFirstPage();
+		NewJavaProjectWizardPage page1 = new NewJavaProjectWizardPage();
 		page1.setProjectName(PackageExplorerTest.PROJECT_NAME_1);
 		dialog.finish();
 		dialog = new NewJavaProjectWizardDialog();
 		dialog.open();
-		page1 = dialog.getFirstPage();
+		page1 = new NewJavaProjectWizardPage();
 		page1.setProjectName(PackageExplorerTest.PROJECT_NAME_2);
 		dialog.finish();
 		final Project project1;
@@ -75,12 +75,12 @@ public class PackageExplorerTest {
 	public void multipleSelect() {
 		NewJavaProjectWizardDialog dialog = new NewJavaProjectWizardDialog();
 		dialog.open();
-		NewJavaProjectWizardPage page1 = dialog.getFirstPage();
+		NewJavaProjectWizardPage page1 = new NewJavaProjectWizardPage();
 		page1.setProjectName(PackageExplorerTest.PROJECT_NAME_1);
 		dialog.finish();
 		dialog = new NewJavaProjectWizardDialog();
 		dialog.open();
-		page1 = dialog.getFirstPage();
+		page1 = new NewJavaProjectWizardPage();
 		page1.setProjectName(PackageExplorerTest.PROJECT_NAME_2);
 		dialog.finish();
 		packageExplorer.selectProjects(PackageExplorerTest.PROJECT_NAME_0,PackageExplorerTest.PROJECT_NAME_2);
