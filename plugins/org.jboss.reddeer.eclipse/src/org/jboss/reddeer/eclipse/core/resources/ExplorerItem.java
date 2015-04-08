@@ -13,10 +13,5 @@ public class ExplorerItem extends AbstractExplorerItem{
 	public ExplorerItem(TreeItem treeItem) {
 		super(treeItem);
 	}
-
-	@Override
-	public void select() {
-		treeItem.select();
-	}
-
+	
 }
