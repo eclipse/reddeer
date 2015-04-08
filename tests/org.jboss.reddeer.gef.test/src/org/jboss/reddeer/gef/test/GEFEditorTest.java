@@ -11,7 +11,7 @@ import org.jboss.reddeer.gef.editor.GEFEditor;
 import org.jboss.reddeer.gef.test.wizard.ExampleWizard;
 import org.jboss.reddeer.gef.test.wizard.GeneralProjectWizard;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
-import org.jboss.reddeer.swt.impl.shell.WorkbenchShell;
+import org.jboss.reddeer.workbench.impl.shell.WorkbenchShell;
 import org.junit.After;
 import org.junit.BeforeClass;
 import org.junit.Test;

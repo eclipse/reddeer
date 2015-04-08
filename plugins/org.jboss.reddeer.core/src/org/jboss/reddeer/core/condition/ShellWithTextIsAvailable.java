@@ -7,7 +7,7 @@ import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.common.wait.TimePeriod;
 import org.jboss.reddeer.core.lookup.ShellLookup;
 import org.jboss.reddeer.core.matcher.WithTextMatcher;
-import org.jboss.reddeer.core.util.internal.InstanceValidator;
+import org.jboss.reddeer.core.util.InstanceValidator;
 
 /**
  * Condition is met when shell with specific text (title) is available.

@@ -9,11 +9,10 @@ import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.requirements.openperspective.OpenPerspectiveRequirement.OpenPerspective;
 import org.jboss.reddeer.swt.api.ToolItem;
 import org.jboss.reddeer.swt.impl.menu.ToolItemMenu;
-import org.jboss.reddeer.swt.impl.shell.WorkbenchShell;
+import org.jboss.reddeer.workbench.impl.shell.WorkbenchShell;
 import org.jboss.reddeer.swt.impl.toolbar.DefaultToolItem;
-import org.jboss.reddeer.swt.impl.toolbar.ViewToolItem;
 import org.jboss.reddeer.common.matcher.RegexMatcher;
-import org.jboss.reddeer.swt.matcher.WithTooltipTextMatcher;
+import org.jboss.reddeer.core.matcher.WithTooltipTextMatcher;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -24,7 +23,7 @@ public class ToolItemMenuTest {
 	@Test
 	public void ViewToolItemMenuTest() {
 		new ConsoleView().open();
-		ToolItem item = new ViewToolItem("Open Console");
+		ToolItem item = new DefaultToolItem("Open Console");
 		ToolItemMenu menu = new ToolItemMenu(item, new RegexMatcher(
 				".*Console View"));
 		menu.select();

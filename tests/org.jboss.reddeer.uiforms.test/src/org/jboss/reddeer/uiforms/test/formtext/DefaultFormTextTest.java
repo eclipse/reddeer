@@ -7,9 +7,9 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
-import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.impl.label.DefaultLabel;
-import org.jboss.reddeer.swt.reference.ReferencedComposite;
+import org.jboss.reddeer.core.exception.CoreLayerException;
+import org.jboss.reddeer.core.reference.ReferencedComposite;
 import org.jboss.reddeer.uiforms.api.FormText;
 import org.jboss.reddeer.uiforms.impl.form.DefaultForm;
 import org.jboss.reddeer.uiforms.impl.formtext.DefaultFormText;
@@ -71,7 +71,7 @@ public class DefaultFormTextTest {
 				+ FormView.SECTION_C));
 	}
 
-	@Test(expected = SWTLayerException.class)
+	@Test(expected = CoreLayerException.class)
 	public void testInvalidInstance() {
 		new DefaultFormText("Non existing hyperlink");
 	}

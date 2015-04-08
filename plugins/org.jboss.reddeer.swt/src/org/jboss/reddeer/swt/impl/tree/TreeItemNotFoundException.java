@@ -6,14 +6,16 @@ import org.eclipse.swt.widgets.TreeItem;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.common.logging.LoggingUtils;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
-import org.jboss.reddeer.swt.handler.TreeItemHandler;
+import org.jboss.reddeer.core.handler.TreeItemHandler;
 
 /**
  * Exception thrown when the requested tree item cannot be found. 
  * 
  * @author Lucia Jelinkova
- *
+ * @deprecated since 0.8.0. Use {@link org.jboss.reddeer.swt.exception.SWTLayerException} instead.
  */
+@Deprecated
+@SuppressWarnings("unchecked")
 public class TreeItemNotFoundException extends SWTLayerException {
 	
 	private static final long serialVersionUID = 1L;

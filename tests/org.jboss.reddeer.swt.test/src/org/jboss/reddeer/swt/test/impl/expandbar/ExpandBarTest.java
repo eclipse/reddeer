@@ -12,6 +12,7 @@ import org.eclipse.swt.widgets.Text;
 import org.jboss.reddeer.swt.api.ExpandBar;
 import org.jboss.reddeer.swt.api.ExpandBarItem;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
+import org.jboss.reddeer.core.exception.CoreLayerException;
 import org.jboss.reddeer.swt.impl.expandbar.DefaultExpandBar;
 import org.jboss.reddeer.swt.impl.expandbar.DefaultExpandBarItem;
 import org.jboss.reddeer.swt.impl.text.DefaultText;
@@ -91,7 +92,7 @@ public class ExpandBarTest extends SWTLayerTestCase{
 		assertTrue("Incorrect Text Wiget was found",
 			textOfTextWidget.equals(ExpandBarTest.TEXT_VALUE_PREFIX + expandBarItemIndex + textIndex));	
 	}
-	@Test(expected = SWTLayerException.class)
+	@Test(expected = CoreLayerException.class)
 	public void findNonExistingByIndex(){
 		new DefaultExpandBarItem(3,1);
 	}

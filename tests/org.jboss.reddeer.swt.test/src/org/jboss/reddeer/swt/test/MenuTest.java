@@ -12,9 +12,10 @@ import org.jboss.reddeer.swt.impl.menu.ContextMenu;
 import org.jboss.reddeer.swt.impl.menu.ShellMenu;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.jboss.reddeer.common.matcher.RegexMatcher;
-import org.jboss.reddeer.swt.matcher.WithMnemonicTextMatcher;
-import org.jboss.reddeer.swt.matcher.WithTextMatcher;
-import org.jboss.reddeer.swt.matcher.WithTextMatchers;
+import org.jboss.reddeer.core.exception.CoreLayerException;
+import org.jboss.reddeer.core.matcher.WithMnemonicTextMatcher;
+import org.jboss.reddeer.core.matcher.WithTextMatcher;
+import org.jboss.reddeer.core.matcher.WithTextMatchers;
 import org.jboss.reddeer.workbench.impl.view.WorkbenchView;
 import org.junit.Before;
 import org.junit.Test;
@@ -96,7 +97,7 @@ public class MenuTest {
 			WithTextMatchers m = new WithTextMatchers(regexMatchers);
 			new ShellMenu(m.getMatchers());
 			fail("exception should be thrown");
-		} catch (SWTLayerException e) { // do nothing
+		} catch (CoreLayerException e) { // do nothing
 
 		}
 	}

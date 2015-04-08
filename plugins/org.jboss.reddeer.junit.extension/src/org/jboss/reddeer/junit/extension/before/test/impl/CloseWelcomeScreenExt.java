@@ -4,8 +4,8 @@ import org.eclipse.ui.IViewReference;
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.common.properties.RedDeerProperties;
 import org.jboss.reddeer.junit.extensionpoint.IBeforeTest;
-import org.jboss.reddeer.swt.lookup.WorkbenchLookup;
-import org.jboss.reddeer.swt.util.Display;
+import org.jboss.reddeer.core.lookup.WorkbenchPartLookup;
+import org.jboss.reddeer.core.util.Display;
 /**
  * Extension for Extension point org.jboss.reddeer.junit.before.test
  * Closes Welcome screen prior test is run
@@ -35,7 +35,7 @@ public class CloseWelcomeScreenExt implements IBeforeTest {
 	 */
 	private void closeWelcomeScreen() {
 		log.debug("Trying to close Welcome Screen");
-		for (IViewReference viewReference : WorkbenchLookup.findAllViews()) {
+		for (IViewReference viewReference : WorkbenchPartLookup.getInstance().findAllViewReferences()) {
 			if (viewReference.getPartName().equals("Welcome")) {
 				final IViewReference iViewReference = viewReference;
 				Display.syncExec(new Runnable() {

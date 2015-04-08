@@ -13,15 +13,15 @@ import org.eclipse.swt.events.TreeEvent;
 import org.eclipse.swt.events.TreeListener;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Tree;
-import org.jboss.reddeer.swt.exception.WaitTimeoutExpiredException;
+import org.jboss.reddeer.common.exception.WaitTimeoutExpiredException;
 import org.jboss.reddeer.swt.impl.tree.DefaultTree;
 import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
-import org.jboss.reddeer.swt.impl.tree.TreeItemNotFoundException;
-import org.jboss.reddeer.swt.matcher.TreeItemRegexMatcher;
-import org.jboss.reddeer.swt.matcher.TreeItemTextMatcher;
+import org.jboss.reddeer.core.exception.CoreLayerException;
+import org.jboss.reddeer.core.matcher.TreeItemRegexMatcher;
+import org.jboss.reddeer.core.matcher.TreeItemTextMatcher;
 import org.jboss.reddeer.swt.test.ui.views.TreeEventsListener;
-import org.jboss.reddeer.swt.util.Display;
-import org.jboss.reddeer.swt.wait.TimePeriod;
+import org.jboss.reddeer.core.util.Display;
+import org.jboss.reddeer.common.wait.TimePeriod;
 import org.junit.After;
 import org.junit.Test;
 
@@ -49,7 +49,7 @@ public class DefaultTreeItemTest extends AbstractTreeTest {
 	}
 
 	@SuppressWarnings("unused")
-	@Test(expected = TreeItemNotFoundException.class)
+	@Test(expected = CoreLayerException.class)
 	public void testFindNonExistingItemByPath(){
 		createTreeItems(tree.getSWTWidget());
 		DefaultTreeItem dfi = new DefaultTreeItem("A","AA","NONEXISTINGTEXT");

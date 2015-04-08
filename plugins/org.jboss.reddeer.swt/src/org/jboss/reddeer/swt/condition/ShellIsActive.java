@@ -1,32 +1,21 @@
 package org.jboss.reddeer.swt.condition;
 
+import org.jboss.reddeer.common.condition.WaitCondition;
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.swt.api.Shell;
-import org.jboss.reddeer.swt.lookup.ShellLookup;
-import org.jboss.reddeer.swt.util.internal.InstanceValidator;
+import org.jboss.reddeer.core.lookup.ShellLookup;
+import org.jboss.reddeer.core.util.InstanceValidator;
 
 /**
  * Wait condition for shells checking whether some shell is active (empty
  * constructor) or using Shell.equals (parameterized constructor).
  * 
- * @author mlabuda
- * @deprecated since 0.8, use {@link #org.jboss.reddeer.core.condition.ShellIsActive}
+ * @author rhopp, mlabuda@redhat.com
  */
-@Deprecated
 public class ShellIsActive implements WaitCondition {
 	
 	private Shell shell;
 	private static final Logger log = Logger.getLogger(ShellIsActive.class);
-	
-	
-	/**
-	 * Fulfilled, when there is some shell active.
-	 * 
-	 */
-	public ShellIsActive() {
-		this.shell=null;
-	}
-	
 	
 	/**
 	 * Fulfilled, when active shell is equal to given shell.

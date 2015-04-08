@@ -4,8 +4,8 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
-import org.jboss.reddeer.swt.exception.SWTLayerException;
-import org.jboss.reddeer.swt.reference.ReferencedComposite;
+import org.jboss.reddeer.core.exception.CoreLayerException;
+import org.jboss.reddeer.core.reference.ReferencedComposite;
 import org.jboss.reddeer.uiforms.impl.form.DefaultForm;
 import org.jboss.reddeer.uiforms.test.ui.views.FormView;
 import org.jboss.reddeer.uiforms.test.ui.views.UIFormView;
@@ -61,7 +61,7 @@ public class DefaultFormTest {
 		assertThat(new DefaultForm(rc, FormView.FORM_D_TITLE).getText(), is(FormView.FORM_D_TITLE));
 	}
 	
-	@Test(expected=SWTLayerException.class)
+	@Test(expected=CoreLayerException.class)
 	public void testInvalidInstance() {
 		errorLogView.open();
 		new DefaultForm();

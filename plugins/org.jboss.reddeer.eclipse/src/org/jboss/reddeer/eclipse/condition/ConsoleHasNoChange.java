@@ -1,8 +1,8 @@
 package org.jboss.reddeer.eclipse.condition;
 
 import org.jboss.reddeer.eclipse.ui.console.ConsoleView;
-import org.jboss.reddeer.swt.condition.WaitCondition;
-import org.jboss.reddeer.swt.wait.TimePeriod;
+import org.jboss.reddeer.common.condition.WaitCondition;
+import org.jboss.reddeer.common.wait.TimePeriod;
 
 /**
  * Returns true if a console has no change for the specified time period.

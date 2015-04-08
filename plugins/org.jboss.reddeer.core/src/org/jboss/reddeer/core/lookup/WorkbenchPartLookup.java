@@ -22,6 +22,7 @@ import org.jboss.reddeer.core.handler.WorkbenchPartHandler;
  * @author rawagner
  *
  */
+@SuppressWarnings("restriction")
 public class WorkbenchPartLookup {
 
 	private static final Logger log = Logger.getLogger(WorkbenchPartLookup.class);
@@ -83,6 +84,14 @@ public class WorkbenchPartLookup {
 			}
 		}
 		return views;
+	}
+	
+	/**
+	 * Returns all view references. 
+	 * @return array of all view references
+	 */
+	public IViewReference[] findAllViewReferences() {
+		return WorkbenchPartHandler.getInstance().getWorkbenchViewReferences();
 	}
 
 	/**

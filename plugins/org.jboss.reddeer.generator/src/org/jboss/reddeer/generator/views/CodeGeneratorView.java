@@ -17,7 +17,7 @@ import org.jboss.reddeer.generator.ComboCodeGenerator;
 import org.jboss.reddeer.generator.ShellCodeGenerator;
 import org.jboss.reddeer.generator.TextCodeGenerator;
 import org.jboss.reddeer.generator.finder.ControlFinder;
-import org.jboss.reddeer.swt.lookup.WidgetLookup;
+import org.jboss.reddeer.core.lookup.WidgetLookup;
 
 /**
  * Code Generator view.

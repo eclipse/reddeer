@@ -3,8 +3,8 @@ package org.jboss.reddeer.swt.impl.menu;
 import org.eclipse.swt.widgets.MenuItem;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.swt.api.Menu;
-import org.jboss.reddeer.swt.handler.MenuHandler;
-import org.jboss.reddeer.swt.lookup.MenuLookup;
+import org.jboss.reddeer.core.handler.MenuHandler;
+import org.jboss.reddeer.core.lookup.MenuLookup;
 
 /**
  * Abstract class for all Menu implementations

@@ -6,7 +6,7 @@ import org.hamcrest.Matcher;
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.swt.api.Menu;
 import org.jboss.reddeer.core.handler.ActionContributionItemHandler;
-import org.jboss.reddeer.swt.matcher.WithMnemonicTextMatchers;
+import org.jboss.reddeer.core.matcher.WithMnemonicTextMatchers;
 
 /**
  * ToolbarMenu implementation
@@ -23,6 +23,7 @@ public class ToolbarMenu extends AbstractMenu implements Menu{
 		this(new WithMnemonicTextMatchers(path).getMatchers());
 	}
 	
+	@SuppressWarnings("unchecked")
 	public ToolbarMenu(Matcher<String>... matchers){
 		item = ml.lookFor(ml.getToolbarMenus(), matchers);
 		this.matchers = matchers;

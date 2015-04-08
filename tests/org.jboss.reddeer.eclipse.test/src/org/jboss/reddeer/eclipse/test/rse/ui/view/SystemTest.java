@@ -6,11 +6,11 @@ import static org.junit.Assert.assertThat;
 
 import java.util.List;
 
+import org.jboss.reddeer.core.exception.CoreLayerException;
 import org.jboss.reddeer.eclipse.rse.ui.view.System;
 import org.jboss.reddeer.eclipse.rse.ui.wizard.NewConnectionWizardSelectionPage.SystemType;
 import org.jboss.reddeer.eclipse.ui.perspectives.JavaPerspective;
 import org.jboss.reddeer.requirements.openperspective.OpenPerspectiveRequirement.OpenPerspective;
-import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -30,7 +30,7 @@ public class SystemTest extends SystemViewTestCase {
 		system1 = remoteSystemView.getSystem(SYSTEM_1);
 	}
 
-	@Test(expected=SWTLayerException.class)
+	@Test(expected=CoreLayerException.class)
 	public void disconnect_disconnected(){
 		system1.disconnect();
 	}

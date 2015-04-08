@@ -115,6 +115,6 @@ public class RuntimePreferencePageTest {
 		preferencesDialog.select(preferencePage);
 		
 		preferencePage.removeAllRuntimes();
-		preferencePage.cancel();
+		preferencesDialog.cancel();
 	}
 }

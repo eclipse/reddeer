@@ -12,6 +12,7 @@ Require-Bundle: org.eclipse.ui,
  org.jboss.reddeer.junit;bundle-version="[0.8,0.9)",
  org.jboss.reddeer.jface;bundle-version="[0.8,0.9)",
  org.jboss.reddeer.swt;bundle-version="[0.8,0.9)",
+ org.jboss.reddeer.core;bundle-version="[0.8,0.9)",
  org.jboss.reddeer.workbench;bundle-version="[0.8,0.9)",
  org.junit;bundle-version="4.11.0",
  org.jboss.reddeer.common;bundle-version="[0.8,0.9)"

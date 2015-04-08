@@ -7,9 +7,9 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
-import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.impl.text.DefaultText;
-import org.jboss.reddeer.swt.reference.ReferencedComposite;
+import org.jboss.reddeer.core.exception.CoreLayerException;
+import org.jboss.reddeer.core.reference.ReferencedComposite;
 import org.jboss.reddeer.uiforms.impl.expandablecomposite.DefaultExpandableComposite;
 import org.jboss.reddeer.uiforms.impl.form.DefaultForm;
 import org.jboss.reddeer.uiforms.test.ui.views.FormView;
@@ -62,7 +62,7 @@ public class DefaultExpandableCompositeTest {
 		assertThat(new DefaultExpandableComposite(rc, FormView.EXPANDABLE_COMPOSITE_C).getText(), is(FormView.EXPANDABLE_COMPOSITE_C));
 	}
 
-	@Test(expected=SWTLayerException.class)
+	@Test(expected=CoreLayerException.class)
 	public void testInvalidInstance() {
 		new DefaultExpandableComposite("Non existing expandable composite title");
 	}
@@ -77,7 +77,7 @@ public class DefaultExpandableCompositeTest {
 		assertNotNull(new DefaultText(composite, "Value: "));
 	}
 
-	@Test(expected=SWTLayerException.class)
+	@Test(expected=CoreLayerException.class)
 	public void testExpanded_false(){
 		DefaultExpandableComposite composite = new DefaultExpandableComposite();
 		composite.setExpanded(false);

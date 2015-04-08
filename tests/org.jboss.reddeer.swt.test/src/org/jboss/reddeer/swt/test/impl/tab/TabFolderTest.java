@@ -6,7 +6,7 @@ import static org.junit.Assert.assertTrue;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
-import org.jboss.reddeer.swt.exception.SWTLayerException;
+import org.jboss.reddeer.core.exception.CoreLayerException;
 import org.jboss.reddeer.swt.impl.tab.DefaultTabFolder;
 import org.jboss.reddeer.swt.impl.tab.DefaultTabItem;
 import org.jboss.reddeer.swt.impl.text.DefaultText;
@@ -60,12 +60,12 @@ public class TabFolderTest extends SWTLayerTestCase {
 				+ expectedTabItemContent, tabItemContent.equals(expectedTabItemContent));
 	}
 
-	@Test(expected = SWTLayerException.class)
+	@Test(expected = CoreLayerException.class)
 	public void findNonExistingByIndex() {
 		new DefaultTabItem(5);
 	}
 
-	@Test(expected = SWTLayerException.class)
+	@Test(expected = CoreLayerException.class)
 	public void findNonExistingByLabel() {
 		new DefaultTabItem("NON_EXISTING_#$");
 	}

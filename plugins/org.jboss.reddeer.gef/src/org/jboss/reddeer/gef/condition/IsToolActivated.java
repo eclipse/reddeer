@@ -1,7 +1,7 @@
 package org.jboss.reddeer.gef.condition;
 
 import org.jboss.reddeer.gef.api.Palette;
-import org.jboss.reddeer.swt.condition.WaitCondition;
+import org.jboss.reddeer.common.condition.WaitCondition;
 
 /**
  * Returns true if a given tool is active in the specified palette.

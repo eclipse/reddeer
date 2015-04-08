@@ -5,9 +5,9 @@ import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertNotNull;
 
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
-import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.impl.label.DefaultLabel;
-import org.jboss.reddeer.swt.reference.ReferencedComposite;
+import org.jboss.reddeer.core.exception.CoreLayerException;
+import org.jboss.reddeer.core.reference.ReferencedComposite;
 import org.jboss.reddeer.uiforms.api.Hyperlink;
 import org.jboss.reddeer.uiforms.impl.form.DefaultForm;
 import org.jboss.reddeer.uiforms.impl.hyperlink.DefaultHyperlink;
@@ -61,7 +61,7 @@ public class DefaultHyperlinkTest {
 		assertThat(new DefaultHyperlink(rc, FormView.HYPERLINK_PREFIX + FormView.SECTION_C).getText(), is(FormView.HYPERLINK_PREFIX + FormView.SECTION_C));
 	}
 	
-	@Test(expected=SWTLayerException.class)
+	@Test(expected=CoreLayerException.class)
 	public void testInvalidInstance() {
 		new DefaultHyperlink("Non existing hyperlink");
 	}

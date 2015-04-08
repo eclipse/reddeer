@@ -5,11 +5,11 @@ import java.util.List;
 
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.common.logging.LoggingUtils;
+import org.jboss.reddeer.core.exception.CoreLayerException;
 import org.jboss.reddeer.eclipse.exception.EclipseLayerException;
 import org.jboss.reddeer.eclipse.wst.server.ui.wizard.NewServerWizardDialog;
 import org.jboss.reddeer.swt.api.Tree;
 import org.jboss.reddeer.swt.api.TreeItem;
-import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.impl.menu.ContextMenu;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.jboss.reddeer.swt.impl.tree.DefaultTree;
@@ -59,7 +59,7 @@ public class ServersView extends WorkbenchView {
 		Tree tree;
 		try {
 			tree = getServersTree();
-		} catch (SWTLayerException e){
+		} catch (CoreLayerException e){
 			return new ArrayList<Server>();
 		}
 		for (TreeItem item : tree.getItems()){

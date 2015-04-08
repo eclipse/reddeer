@@ -1,8 +1,8 @@
 package org.jboss.reddeer.swt.impl.combo;
 
 import org.jboss.reddeer.swt.api.Combo;
-import org.jboss.reddeer.swt.matcher.WithLabelMatcher;
-import org.jboss.reddeer.swt.reference.ReferencedComposite;
+import org.jboss.reddeer.core.matcher.WithLabelMatcher;
+import org.jboss.reddeer.core.reference.ReferencedComposite;
 /**
  * Combo with label implementation
  * @author Vlado Pakan

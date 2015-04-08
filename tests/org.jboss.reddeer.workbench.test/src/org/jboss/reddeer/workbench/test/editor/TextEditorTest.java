@@ -30,7 +30,7 @@ import org.jboss.reddeer.jface.text.contentassist.ContentAssistant;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.core.exception.CoreLayerException;
 import org.jboss.reddeer.core.handler.ShellHandler;
-import org.jboss.reddeer.swt.handler.WorkbenchHandler;
+import org.jboss.reddeer.core.handler.WorkbenchPartHandler;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.jboss.reddeer.swt.keyboard.KeyboardFactory;
 import org.jboss.reddeer.core.util.Display;
@@ -50,7 +50,7 @@ public class TextEditorTest {
 	@BeforeClass
 	public static void setup(){
 		TextEditorTest.importTestProject();
-		WorkbenchHandler.getInstance().closeAllEditors();
+		WorkbenchPartHandler.getInstance().closeAllEditors();
 		TextEditor javaTextEditor = TextEditorTest.openJavaFile();
 		TextEditorTest.ORIGINAL_JAVA_FILE_TEXT = javaTextEditor.getText();
 		javaTextEditor.close();
@@ -74,7 +74,7 @@ public class TextEditorTest {
 		TextEditor javaTextEditor = TextEditorTest.openJavaFile();
 		javaTextEditor.setText(TextEditorTest.ORIGINAL_JAVA_FILE_TEXT);
 		javaTextEditor.save();
-		WorkbenchHandler.getInstance().closeAllEditors();
+		WorkbenchPartHandler.getInstance().closeAllEditors();
 	}
 
 	@Test(expected=CoreLayerException.class)
@@ -353,7 +353,6 @@ public class TextEditorTest {
 		try {
 			resourceURL = FileLocator.toFileURL(Platform.getBundle("org.jboss.reddeer.workbench.test").getEntry("/"));
 		} catch (IOException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		ExternalProjectImportWizardDialog epw = new ExternalProjectImportWizardDialog();

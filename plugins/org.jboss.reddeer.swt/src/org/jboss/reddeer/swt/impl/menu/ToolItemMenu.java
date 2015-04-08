@@ -4,8 +4,8 @@ import org.eclipse.swt.widgets.MenuItem;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.swt.api.ToolItem;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
-import org.jboss.reddeer.swt.handler.ToolItemHandler;
-import org.jboss.reddeer.swt.matcher.WithMnemonicTextMatchers;
+import org.jboss.reddeer.core.handler.ToolItemHandler;
+import org.jboss.reddeer.core.matcher.WithMnemonicTextMatchers;
 
 /**
  * This class represents drop down menu for ToolItems.
@@ -38,6 +38,7 @@ public class ToolItemMenu extends AbstractMenu {
 	 * @param path
 	 *            Path to desired menu.
 	 */
+	@SuppressWarnings("unchecked")
 	public ToolItemMenu(ToolItem item, Matcher<String>... path) {
 		if (!tih.isDropDown(item.getSWTWidget())) {
 			throw new SWTLayerException(

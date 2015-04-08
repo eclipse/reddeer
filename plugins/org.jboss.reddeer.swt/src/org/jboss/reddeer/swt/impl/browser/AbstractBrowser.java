@@ -4,12 +4,12 @@ import org.hamcrest.Matcher;
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.swt.api.Browser;
 import org.jboss.reddeer.swt.condition.PageIsLoaded;
-import org.jboss.reddeer.swt.handler.BrowserHandler;
+import org.jboss.reddeer.core.handler.BrowserHandler;
 import org.jboss.reddeer.swt.impl.browser.internal.BrowserProgressListener;
-import org.jboss.reddeer.swt.reference.ReferencedComposite;
-import org.jboss.reddeer.swt.wait.AbstractWait;
-import org.jboss.reddeer.swt.wait.TimePeriod;
-import org.jboss.reddeer.swt.wait.WaitUntil;
+import org.jboss.reddeer.core.reference.ReferencedComposite;
+import org.jboss.reddeer.common.wait.AbstractWait;
+import org.jboss.reddeer.common.wait.TimePeriod;
+import org.jboss.reddeer.common.wait.WaitUntil;
 import org.jboss.reddeer.swt.widgets.AbstractWidget;
 
 /**

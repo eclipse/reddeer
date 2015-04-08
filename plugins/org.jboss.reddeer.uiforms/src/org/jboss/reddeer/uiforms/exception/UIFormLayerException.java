@@ -1,6 +1,6 @@
 package org.jboss.reddeer.uiforms.exception;
 
-import org.jboss.reddeer.swt.exception.RedDeerException;
+import org.jboss.reddeer.common.exception.RedDeerException;
 
 /**
  * UIFormLayerException is general exception for errors in UIForms Layer.

@@ -1,6 +1,6 @@
 package org.jboss.reddeer.jface.exception;
 
-import org.jboss.reddeer.swt.exception.RedDeerException;
+import org.jboss.reddeer.common.exception.RedDeerException;
 
 /**
  * Thrown when an error can be identified on the JFace layer

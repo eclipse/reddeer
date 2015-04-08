@@ -17,8 +17,8 @@ import org.jboss.reddeer.graphiti.GraphitiLayerException;
 import org.jboss.reddeer.graphiti.api.ContextButton;
 import org.jboss.reddeer.graphiti.impl.contextbutton.internal.BasicContextButton;
 import org.jboss.reddeer.graphiti.lookup.DiagramEditorLookup;
-import org.jboss.reddeer.swt.util.Display;
-import org.jboss.reddeer.swt.util.ResultRunnable;
+import org.jboss.reddeer.core.util.Display;
+import org.jboss.reddeer.core.util.ResultRunnable;
 
 /**
  * Handler for Graphiti UI operations.

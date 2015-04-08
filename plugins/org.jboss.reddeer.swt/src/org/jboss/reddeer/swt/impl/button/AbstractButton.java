@@ -10,12 +10,12 @@ import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.common.platform.RunningPlatform;
 import org.jboss.reddeer.swt.api.Button;
 import org.jboss.reddeer.swt.condition.WidgetIsEnabled;
-import org.jboss.reddeer.swt.handler.ButtonHandler;
-import org.jboss.reddeer.swt.handler.WidgetHandler;
-import org.jboss.reddeer.swt.matcher.WithMnemonicTextMatcher;
-import org.jboss.reddeer.swt.matcher.WithStyleMatcher;
-import org.jboss.reddeer.swt.reference.ReferencedComposite;
-import org.jboss.reddeer.swt.wait.WaitUntil;
+import org.jboss.reddeer.core.handler.ButtonHandler;
+import org.jboss.reddeer.core.handler.WidgetHandler;
+import org.jboss.reddeer.core.matcher.WithMnemonicTextMatcher;
+import org.jboss.reddeer.core.matcher.WithStyleMatcher;
+import org.jboss.reddeer.core.reference.ReferencedComposite;
+import org.jboss.reddeer.common.wait.WaitUntil;
 import org.jboss.reddeer.swt.widgets.AbstractWidget;
 
 /**

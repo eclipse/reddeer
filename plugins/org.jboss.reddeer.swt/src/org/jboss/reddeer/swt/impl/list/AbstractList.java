@@ -4,8 +4,8 @@ import org.hamcrest.Matcher;
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.common.logging.LoggingUtils;
 import org.jboss.reddeer.swt.api.List;
-import org.jboss.reddeer.swt.handler.ListHandler;
-import org.jboss.reddeer.swt.reference.ReferencedComposite;
+import org.jboss.reddeer.core.handler.ListHandler;
+import org.jboss.reddeer.core.reference.ReferencedComposite;
 import org.jboss.reddeer.swt.widgets.AbstractWidget;
 
 /**

@@ -11,8 +11,8 @@ import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.PackageExplorer;
 import org.jboss.reddeer.eclipse.ui.views.contentoutline.OutlineView;
 import org.jboss.reddeer.eclipse.utils.DeleteUtils;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
-import org.jboss.reddeer.swt.exception.SWTLayerException;
-import org.jboss.reddeer.swt.handler.WorkbenchHandler;
+import org.jboss.reddeer.core.exception.CoreLayerException;
+import org.jboss.reddeer.core.handler.WorkbenchPartHandler;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -38,70 +38,70 @@ public class OutlineViewTest{
 	
 	@Test
 	public void testElementsInEmptyOutlineView() {
-		WorkbenchHandler.getInstance().closeAllEditors();
+		WorkbenchPartHandler.getInstance().closeAllEditors();
 		
 		outlineView = new OutlineView();
 		outlineView.open();
 		assertThat(outlineView.outlineElements().size(), Is.is(0));
 	}
 	
-	@Test(expected=SWTLayerException.class)
+	@Test(expected=CoreLayerException.class)
 	public void testCollapseInEmptyOutlineView() {
-		WorkbenchHandler.getInstance().closeAllEditors();
+		WorkbenchPartHandler.getInstance().closeAllEditors();
 		
 		outlineView = new OutlineView();
 		outlineView.open();
 		outlineView.collapseAll();
 	}
 	
-	@Test(expected=SWTLayerException.class)
+	@Test(expected=CoreLayerException.class)
 	public void testSortInEmptyOutlineView() {
-		WorkbenchHandler.getInstance().closeAllEditors();
+		WorkbenchPartHandler.getInstance().closeAllEditors();
 		
 		outlineView = new OutlineView();
 		outlineView.open();
 		outlineView.sort();
 	}
 	
-	@Test(expected=SWTLayerException.class)
+	@Test(expected=CoreLayerException.class)
 	public void testHideFieldsInEmptyOutlineView() {
-		WorkbenchHandler.getInstance().closeAllEditors();
+		WorkbenchPartHandler.getInstance().closeAllEditors();
 		
 		outlineView = new OutlineView();
 		outlineView.open();
 		outlineView.sort();
 	}
 	
-	@Test(expected=SWTLayerException.class)
+	@Test(expected=CoreLayerException.class)
 	public void testHideStaticFieldsAndMethodsInEmptyOutlineView() {
-		WorkbenchHandler.getInstance().closeAllEditors();
+		WorkbenchPartHandler.getInstance().closeAllEditors();
 		
 		outlineView = new OutlineView();
 		outlineView.open();
 		outlineView.sort();
 	}
 	
-	@Test(expected=SWTLayerException.class)
+	@Test(expected=CoreLayerException.class)
 	public void testHideNonPublicMembersInEmptyOutlineView() {
-		WorkbenchHandler.getInstance().closeAllEditors();
+		WorkbenchPartHandler.getInstance().closeAllEditors();
 		
 		outlineView = new OutlineView();
 		outlineView.open();
 		outlineView.sort();
 	}
 	
-	@Test(expected=SWTLayerException.class)
+	@Test(expected=CoreLayerException.class)
 	public void testHideLocalTypesInEmptyOutlineView() {
-		WorkbenchHandler.getInstance().closeAllEditors();
+		WorkbenchPartHandler.getInstance().closeAllEditors();
 		
 		outlineView = new OutlineView();
 		outlineView.open();
 		outlineView.sort();
 	}
 	
-	@Test(expected=SWTLayerException.class)
+	@Test(expected=CoreLayerException.class)
 	public void testLinkWithEditorInEmptyOutlineView() {
-		WorkbenchHandler.getInstance().closeAllEditors();
+		WorkbenchPartHandler.getInstance().closeAllEditors();
 		
 		outlineView = new OutlineView();
 		outlineView.open();
@@ -171,7 +171,7 @@ public class OutlineViewTest{
 		outlineView.sort();
 	}
 	
-	@Test(expected=SWTLayerException.class)
+	@Test(expected=CoreLayerException.class)
 	public void testLinkWithEditorInNonEmptyOutlineView() {
 		openTestClass();
 		

@@ -1,6 +1,6 @@
 package org.jboss.reddeer.requirements.exception;
 
-import org.jboss.reddeer.swt.exception.RedDeerException;
+import org.jboss.reddeer.common.exception.RedDeerException;
 
 /**
  * Thrown when some error had appeared on requirements layer. Typically when

@@ -5,7 +5,7 @@ import static org.junit.Assert.assertEquals;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.ProgressBar;
 import org.eclipse.swt.widgets.Shell;
-import org.jboss.reddeer.swt.exception.SWTLayerException;
+import org.jboss.reddeer.core.exception.CoreLayerException;
 import org.jboss.reddeer.swt.impl.progressbar.HorizontalProgressBar;
 import org.jboss.reddeer.swt.impl.progressbar.IndeterminateProgressBar;
 import org.jboss.reddeer.swt.impl.progressbar.VerticalProgressBar;
@@ -41,7 +41,7 @@ public class ProgressBarTest extends SWTLayerTestCase{
 		assertEquals(SWT.NORMAL, vpb.getState());
 	}
 	
-	@Test(expected=SWTLayerException.class)
+	@Test(expected=CoreLayerException.class)
 	public void nonExistingVerticalProgressBarTest(){
 		new VerticalProgressBar(1);
 	}
@@ -56,7 +56,7 @@ public class ProgressBarTest extends SWTLayerTestCase{
 		assertEquals(150, hpb.getSelection());
 	}
 	
-	@Test(expected=SWTLayerException.class)
+	@Test(expected=CoreLayerException.class)
 	public void nonExistinghorizontalProgressBarTest(){
 		new HorizontalProgressBar(2);
 	}
@@ -67,7 +67,7 @@ public class ProgressBarTest extends SWTLayerTestCase{
 		new IndeterminateProgressBar(0);
 	}
 	
-	@Test(expected=SWTLayerException.class)
+	@Test(expected=CoreLayerException.class)
 	public void noonExistingIndeterminateProgressBarTest(){
 		new IndeterminateProgressBar(1);
 	}

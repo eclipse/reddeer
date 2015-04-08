@@ -1,6 +1,5 @@
 package org.jboss.reddeer.core.handler;
 
-
 import java.util.Iterator;
 import java.util.List;
 
@@ -8,6 +7,9 @@ import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.custom.CTabItem;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Widget;
+import org.eclipse.ui.IViewReference;
+import org.eclipse.ui.IWorkbench;
+import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.IWorkbenchPartReference;
 import org.eclipse.ui.PlatformUI;
@@ -15,6 +17,7 @@ import org.eclipse.ui.actions.ActionFactory;
 import org.eclipse.ui.actions.ActionFactory.IWorkbenchAction;
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.core.handler.WidgetHandler;
+import org.jboss.reddeer.core.lookup.WorkbenchPartLookup;
 import org.jboss.reddeer.core.util.Display;
 import org.jboss.reddeer.core.util.ResultRunnable;
 import org.jboss.reddeer.core.exception.CoreLayerException;
@@ -88,6 +91,17 @@ public class WorkbenchPartHandler {
 			public IWorkbenchPartReference run() {
 				return PlatformUI.getWorkbench().getActiveWorkbenchWindow()
 						.getActivePage().getActivePartReference();
+			}
+		});
+	}
+	
+	public IViewReference[] getWorkbenchViewReferences() {
+		return Display.syncExec(new ResultRunnable<IViewReference[]>() {
+
+			@Override
+			public IViewReference[] run() {
+				return PlatformUI.getWorkbench().getActiveWorkbenchWindow()
+						.getActivePage().getViewReferences();
 			}
 		});
 	}
@@ -220,4 +234,39 @@ public class WorkbenchPartHandler {
 		return workbenchPartWidgets;
 	}
 
+	/**
+	 * Closes all editors in active workbench.
+	 */
+	public void closeAllEditors() {
+		Display.syncExec(new Runnable() {
+
+			@Override
+			public void run() {
+				IWorkbench workbench = PlatformUI.getWorkbench();
+				final IWorkbenchPage activePage = workbench
+						.getActiveWorkbenchWindow().getActivePage();
+
+				activePage.closeEditors(activePage.getEditorReferences(), true);
+			}
+		});
+	}
+
+	/**
+	 * Gets title of active view.
+	 * 
+	 * @return title of active view
+	 */
+	public String getActiveViewTitle() {
+
+		final IViewReference findActiveView = WorkbenchPartLookup.getInstance().getActiveView();
+		String title = Display.syncExec(new ResultRunnable<String>() {
+
+			@Override
+			public String run() {
+				return findActiveView.getTitle();
+			}
+		});
+
+		return title;
+	}
 }

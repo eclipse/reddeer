@@ -8,7 +8,7 @@ import org.eclipse.ui.PlatformUI;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.common.wait.TimePeriod;
 import org.jboss.reddeer.common.wait.WaitUntil;
-import org.jboss.reddeer.core.condition.ShellIsActive;
+import org.jboss.reddeer.core.condition.ActiveShellExists;
 import org.jboss.reddeer.core.condition.ShellMatchingMatcherIsAvailable;
 import org.jboss.reddeer.common.condition.WaitCondition;
 import org.jboss.reddeer.core.matcher.WithTextMatcher;
@@ -48,7 +48,7 @@ public class ShellLookup {
 	 * @return
 	 */
 	public Shell getActiveShell() {
-		new WaitUntil(new ShellIsActive(), TimePeriod.SHORT, false);
+		new WaitUntil(new ActiveShellExists(), TimePeriod.SHORT, false);
 		Shell activeShell = getCurrentActiveShell();
 		// try to find shell with focus
 		if (activeShell == null) {

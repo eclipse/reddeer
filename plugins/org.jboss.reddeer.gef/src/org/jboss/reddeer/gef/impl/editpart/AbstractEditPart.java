@@ -13,9 +13,9 @@ import org.jboss.reddeer.gef.handler.EditPartHandler;
 import org.jboss.reddeer.gef.handler.ViewerHandler;
 import org.jboss.reddeer.gef.lookup.EditPartLookup;
 import org.jboss.reddeer.swt.api.Text;
-import org.jboss.reddeer.swt.handler.WidgetHandler;
+import org.jboss.reddeer.core.handler.WidgetHandler;
 import org.jboss.reddeer.swt.impl.text.DefaultText;
-import org.jboss.reddeer.swt.reference.ReferencedComposite;
+import org.jboss.reddeer.core.reference.ReferencedComposite;
 
 /**
  * Abstract class for EditPart implementation

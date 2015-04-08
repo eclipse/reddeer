@@ -11,6 +11,7 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.compare,
  org.eclipse.e4.ui.widgets,
  org.jboss.reddeer.swt;bundle-version="[0.8,0.9)",
+ org.jboss.reddeer.core;bundle-version="[0.8,0.9)",
  org.jboss.reddeer.common;bundle-version="[0.8,0.9)"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy

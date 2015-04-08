@@ -8,7 +8,7 @@ import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.widgets.Shell;
 import org.jboss.reddeer.swt.api.Scale;
 import org.jboss.reddeer.swt.api.Text;
-import org.jboss.reddeer.swt.exception.SWTLayerException;
+import org.jboss.reddeer.core.exception.CoreLayerException;
 import org.jboss.reddeer.swt.impl.scale.DefaultScale;
 import org.jboss.reddeer.swt.impl.text.DefaultText;
 import org.jboss.reddeer.swt.test.SWTLayerTestCase;
@@ -58,7 +58,7 @@ public class ScaleTest extends SWTLayerTestCase{
 		assertTrue("Wrong scale widget was found",
 			scale.getMinimum() == ScaleTest.SCALE_MINIMUM[index]);
 	}
-	@Test(expected=SWTLayerException.class)
+	@Test(expected=CoreLayerException.class)
 	public void findNonExistingScaleByIndex(){
 		int index = 4;
 		new DefaultScale(index);

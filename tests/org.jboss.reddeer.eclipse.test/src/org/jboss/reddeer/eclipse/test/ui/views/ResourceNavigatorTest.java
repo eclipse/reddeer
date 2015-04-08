@@ -10,7 +10,7 @@ import org.jboss.reddeer.eclipse.core.resources.ProjectItem;
 import org.jboss.reddeer.eclipse.ui.views.navigator.ResourceNavigator;
 import org.jboss.reddeer.eclipse.utils.DeleteUtils;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
-import org.jboss.reddeer.swt.handler.WorkbenchHandler;
+import org.jboss.reddeer.core.handler.WorkbenchPartHandler;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -40,7 +40,7 @@ public class ResourceNavigatorTest {
 	public void open() {
 		
 		navigator.open();
-		String activeViewTitle = WorkbenchHandler.getInstance().getActiveViewTitle();
+		String activeViewTitle = WorkbenchPartHandler.getInstance().getActiveViewTitle();
 		assertTrue("Active view have to be Navigator but is"
 				+activeViewTitle, activeViewTitle.equals("Navigator"));
 	}

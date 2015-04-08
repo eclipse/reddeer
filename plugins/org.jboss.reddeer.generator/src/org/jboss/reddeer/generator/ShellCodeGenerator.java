@@ -4,7 +4,7 @@ import static org.jboss.reddeer.generator.builder.MethodBuilder.method;
 
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Shell;
-import org.jboss.reddeer.swt.handler.WidgetHandler;
+import org.jboss.reddeer.core.handler.WidgetHandler;
 
 /**
  * Code generator for shells.

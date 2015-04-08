@@ -5,17 +5,16 @@ import org.hamcrest.core.IsEqual;
 import org.jboss.reddeer.eclipse.condition.ConsoleHasLabel;
 import org.jboss.reddeer.eclipse.condition.ConsoleHasLaunch;
 import org.jboss.reddeer.eclipse.condition.ConsoleIsTerminated;
-import org.jboss.reddeer.swt.condition.WaitCondition;
+import org.jboss.reddeer.common.condition.WaitCondition;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.impl.label.DefaultLabel;
 import org.jboss.reddeer.swt.impl.menu.ToolItemMenu;
 import org.jboss.reddeer.swt.impl.styledtext.DefaultStyledText;
 import org.jboss.reddeer.swt.impl.toolbar.DefaultToolItem;
-import org.jboss.reddeer.swt.impl.toolbar.ViewToolItem;
-import org.jboss.reddeer.swt.matcher.WithTextMatcher;
-import org.jboss.reddeer.swt.wait.TimePeriod;
-import org.jboss.reddeer.swt.wait.WaitUntil;
-import org.jboss.reddeer.swt.wait.WaitWhile;
+import org.jboss.reddeer.common.wait.TimePeriod;
+import org.jboss.reddeer.common.wait.WaitUntil;
+import org.jboss.reddeer.common.wait.WaitWhile;
+import org.jboss.reddeer.core.exception.CoreLayerException;
 import org.jboss.reddeer.workbench.impl.view.WorkbenchView;
 
 /**
@@ -51,7 +50,7 @@ public class ConsoleView extends WorkbenchView {
 	public void clearConsole() {
 		log.info("Clearing console");
 		activate();		
-		new ViewToolItem("Clear Console").click();
+		new DefaultToolItem("Clear Console").click();
 		new WaitUntil(new ConsoleHasText(""));
 		log.info("Console cleared");
 	}
@@ -62,7 +61,7 @@ public class ConsoleView extends WorkbenchView {
 	public void removeLaunch() {
 		log.info("Removing launch from console");
 		activate();
-		new ViewToolItem("Remove Launch").click();
+		new DefaultToolItem("Remove Launch").click();
 		log.info("Launch removed");
 	}
 	
@@ -72,7 +71,7 @@ public class ConsoleView extends WorkbenchView {
 	public void removeAllTerminatedLaunches() {
 		log.info("Removing terminated launches from console");
 		activate();
-		new ViewToolItem("Remove All Terminated Launches").click();
+		new DefaultToolItem("Remove All Terminated Launches").click();
 		new WaitWhile(new ConsoleHasLaunch());
 		log.info("Terminated launches cleared");
 	}
@@ -83,7 +82,7 @@ public class ConsoleView extends WorkbenchView {
 	public void terminateConsole() {
 		log.info("Terminating console");
 		activate();
-		ViewToolItem terminate = new ViewToolItem("Terminate");
+		DefaultToolItem terminate = new DefaultToolItem("Terminate");
 		if (terminate.isEnabled()) {
 			terminate.click();
 			new WaitUntil(new ConsoleIsTerminated());
@@ -99,7 +98,7 @@ public class ConsoleView extends WorkbenchView {
 	 */
 	public void toggleShowConsoleOnStandardOutChange(boolean toggle){
 		activate();
-		new ViewToolItem("Show Console When Standard Out Changes").toggle(toggle);
+		new DefaultToolItem("Show Console When Standard Out Changes").toggle(toggle);
 	}
 	
 	/**
@@ -111,7 +110,7 @@ public class ConsoleView extends WorkbenchView {
 		activate();
 		try{
 			new DefaultStyledText();
-		}catch(SWTLayerException ex){
+		}catch(CoreLayerException ex){
 			return false;
 		}
 		return true;
@@ -169,7 +168,7 @@ public class ConsoleView extends WorkbenchView {
 			try {
 				DefaultStyledText dstConsole = new DefaultStyledText();
 				return dstConsole.getText().equals(this.consoleText);
-			} catch (SWTLayerException ex) {
+			} catch (CoreLayerException ex) {
 				return false;
 			}
 		}

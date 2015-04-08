@@ -6,6 +6,7 @@ import static org.junit.Assert.assertTrue;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.jboss.reddeer.core.exception.CoreLayerException;
 import org.jboss.reddeer.eclipse.jdt.ui.ide.NewJavaProjectWizardDialog;
 import org.jboss.reddeer.eclipse.jdt.ui.ide.NewJavaProjectWizardPage;
 import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.PackageExplorer;
@@ -13,7 +14,6 @@ import org.jboss.reddeer.eclipse.ui.views.properties.PropertiesView;
 import org.jboss.reddeer.eclipse.ui.views.properties.PropertiesViewProperty;
 import org.jboss.reddeer.eclipse.utils.DeleteUtils;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
-import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -69,11 +69,13 @@ public class PropertiesViewTest {
 		assertTrue("Properties list doesn't contain property " + propName ,
 				propNames.contains(propName));
 	}
-	@Test(expected=SWTLayerException.class)
+	
+	@Test(expected=CoreLayerException.class)
 	public void getNonExistingProperty(){
 		PropertiesView propertiesView = new PropertiesView();
 		propertiesView.getProperty("@#$_NON_EXISTING_PROPERTY_%^$");
 	}
+	
 	@Test
 	public void toggleShowCategories(){
 		PropertiesView propertiesView = new PropertiesView();
@@ -103,7 +105,7 @@ public class PropertiesViewTest {
 		try{
 			propertiesView.getProperty(propertyNamePath);
 			result = true;
-		} catch (SWTLayerException swtle){
+		} catch (CoreLayerException swtle){
 			result = false;
 		}
 		return result;

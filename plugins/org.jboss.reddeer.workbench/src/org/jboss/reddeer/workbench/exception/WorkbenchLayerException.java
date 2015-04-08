@@ -1,6 +1,6 @@
 package org.jboss.reddeer.workbench.exception;
 
-import org.jboss.reddeer.swt.exception.RedDeerException;
+import org.jboss.reddeer.common.exception.RedDeerException;
 
 /**
  * Universal exception for workbench layer.

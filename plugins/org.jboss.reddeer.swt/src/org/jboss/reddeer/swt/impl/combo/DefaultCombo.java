@@ -2,8 +2,8 @@ package org.jboss.reddeer.swt.impl.combo;
 
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.swt.api.Combo;
-import org.jboss.reddeer.swt.matcher.WithTextMatcher;
-import org.jboss.reddeer.swt.reference.ReferencedComposite;
+import org.jboss.reddeer.core.matcher.WithTextMatcher;
+import org.jboss.reddeer.core.reference.ReferencedComposite;
 
 /**
  * Default Combo implementation. Most standard Combo implementation

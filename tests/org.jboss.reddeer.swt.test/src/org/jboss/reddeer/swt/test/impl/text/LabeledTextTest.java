@@ -11,7 +11,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.PlatformUI;
-import org.jboss.reddeer.swt.exception.SWTLayerException;
+import org.jboss.reddeer.core.exception.CoreLayerException;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.jboss.reddeer.swt.impl.text.DefaultText;
 import org.jboss.reddeer.swt.impl.text.LabeledText;
@@ -125,7 +125,7 @@ public class LabeledTextTest extends SWTLayerTestCase {
 		assertEquals(18, modifiedCount);
 	}
 
-	@Test(expected = SWTLayerException.class)
+	@Test(expected = CoreLayerException.class)
 	public void setNonEditableTextTest() {
 		new DefaultShell(SHELL_TITLE);
 		new LabeledText("Test label2").setText("funny text");

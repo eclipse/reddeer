@@ -5,9 +5,9 @@ import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertNotNull;
 
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
-import org.jboss.reddeer.swt.exception.SWTLayerException;
+import org.jboss.reddeer.core.exception.CoreLayerException;
 import org.jboss.reddeer.swt.impl.text.DefaultText;
-import org.jboss.reddeer.swt.reference.ReferencedComposite;
+import org.jboss.reddeer.core.reference.ReferencedComposite;
 import org.jboss.reddeer.uiforms.impl.form.DefaultForm;
 import org.jboss.reddeer.uiforms.impl.section.DefaultSection;
 import org.jboss.reddeer.uiforms.test.ui.views.FormView;
@@ -60,7 +60,7 @@ public class DefaultSectionTest {
 		assertThat(new DefaultSection(rc, FormView.SECTION_C).getText(), is(FormView.SECTION_C));
 	}
 	
-	@Test(expected=SWTLayerException.class)
+	@Test(expected=CoreLayerException.class)
 	public void testInvalidInstance() {
 		new DefaultSection("Non existing section title");
 	}
@@ -73,7 +73,7 @@ public class DefaultSectionTest {
 		assertNotNull(new DefaultText(section, "Value: "));
 	}
 	
-	@Test(expected=SWTLayerException.class)
+	@Test(expected=CoreLayerException.class)
 	public void testExpanded_false(){
 		DefaultSection section = new DefaultSection();
 		section.setExpanded(false);

@@ -23,9 +23,9 @@ import org.eclipse.swt.widgets.Shell;
 import org.jboss.reddeer.jface.exception.JFaceLayerException;
 import org.jboss.reddeer.jface.viewer.handler.TreeViewerHandler;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
-import org.jboss.reddeer.swt.condition.ShellWithTextIsActive;
+import org.jboss.reddeer.core.condition.ShellWithTextIsActive;
 import org.jboss.reddeer.swt.impl.tree.DefaultTree;
-import org.jboss.reddeer.swt.wait.WaitWhile;
+import org.jboss.reddeer.common.wait.WaitWhile;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -40,7 +40,7 @@ public class TreeViewerHandlerTest {
 	
 	@Before
 	public void setUp() {
-		org.jboss.reddeer.swt.util.Display.syncExec(new Runnable() {
+		org.jboss.reddeer.core.util.Display.syncExec(new Runnable() {
 			@Override
 			public void run() {
 				JFaceResources.getColorRegistry().put(JFacePreferences.COUNTER_COLOR,
@@ -62,10 +62,10 @@ public class TreeViewerHandlerTest {
 
 	@After
 	public void cleanup() {
-		org.jboss.reddeer.swt.util.Display.syncExec(new Runnable() {
+		org.jboss.reddeer.core.util.Display.syncExec(new Runnable() {
 			@Override
 			public void run() {
-				for (Shell shell : org.jboss.reddeer.swt.util.Display.getDisplay().getShells()) {
+				for (Shell shell : org.jboss.reddeer.core.util.Display.getDisplay().getShells()) {
 					if (shell.getText().equals(title)) {
 						shell.dispose();
 						break;

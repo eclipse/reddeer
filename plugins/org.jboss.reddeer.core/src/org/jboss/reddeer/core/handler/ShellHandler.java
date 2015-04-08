@@ -190,8 +190,9 @@ public class ShellHandler {
                 ((WidgetHandler.getInstance().getStyle(button) & SWT.RADIO) != 0)){
                 // do not set focus because it also select radio button on Windows
         } else{
-        	WidgetHandler.getInstance().setFocus(button);        
-        }   
+        	WidgetHandler.getInstance().setFocus(button);    
+        }
+        ButtonHandler.getInstance().click(button);
 	}
 	
 	private static Matcher<?>[] createMatchers(int style, Matcher<?>... matchers) {

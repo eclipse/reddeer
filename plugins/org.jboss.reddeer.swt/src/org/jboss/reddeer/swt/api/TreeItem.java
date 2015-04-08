@@ -2,7 +2,7 @@ package org.jboss.reddeer.swt.api;
 
 import java.util.List;
 
-import org.jboss.reddeer.swt.wait.TimePeriod;
+import org.jboss.reddeer.common.wait.TimePeriod;
 import org.jboss.reddeer.swt.widgets.Widget;
 
 /**

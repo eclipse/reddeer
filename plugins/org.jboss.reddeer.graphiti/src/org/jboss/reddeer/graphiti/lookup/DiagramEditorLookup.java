@@ -4,8 +4,8 @@ import org.eclipse.graphiti.ui.editor.DiagramEditor;
 import org.eclipse.ui.IEditorPart;
 import org.jboss.reddeer.gef.GEFLayerException;
 import org.jboss.reddeer.common.logging.Logger;
-import org.jboss.reddeer.swt.util.Display;
-import org.jboss.reddeer.swt.util.ResultRunnable;
+import org.jboss.reddeer.core.util.Display;
+import org.jboss.reddeer.core.util.ResultRunnable;
 import org.jboss.reddeer.workbench.impl.editor.DefaultEditor;
 
 /**

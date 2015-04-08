@@ -2,7 +2,7 @@ package org.jboss.reddeer.swt.impl.toolbar;
 
 import org.eclipse.swt.widgets.Control;
 import org.jboss.reddeer.swt.api.ToolBar;
-import org.jboss.reddeer.swt.handler.WidgetHandler;
+import org.jboss.reddeer.core.handler.WidgetHandler;
 
 /**
  * Abstract class for all Toolbar implementations

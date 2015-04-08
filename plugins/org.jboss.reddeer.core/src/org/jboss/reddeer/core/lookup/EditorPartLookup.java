@@ -20,6 +20,7 @@ import org.jboss.reddeer.core.exception.CoreLayerException;
  * @author Lucia Jelinkova
  *
  */
+@SuppressWarnings("unchecked")
 public class EditorPartLookup {
 
 	private static EditorPartLookup instance;

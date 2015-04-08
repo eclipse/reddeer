@@ -1,16 +1,17 @@
 package org.jboss.reddeer.swt.condition;
 
+import org.jboss.reddeer.common.condition.WaitCondition;
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.swt.api.Shell;
-import org.jboss.reddeer.swt.exception.SWTLayerException;
-import org.jboss.reddeer.swt.handler.ShellHandler;
+import org.jboss.reddeer.core.exception.CoreLayerException;
+import org.jboss.reddeer.core.handler.ShellHandler;
 
 /**
  * Condition is met when shell has children or is not available anymore
  * @author rawagner
  *
  */
-public class ShellHasChildrenOrIsNotAvailable implements WaitCondition{
+public class ShellHasChildrenOrIsNotAvailable implements WaitCondition {
 	
 	private Shell shell;
 	private static final Logger log = Logger.getLogger(ShellHasChildrenOrIsNotAvailable.class);
@@ -30,7 +31,7 @@ public class ShellHasChildrenOrIsNotAvailable implements WaitCondition{
 		ShellHandler handler = ShellHandler.getInstance();
 		try {
 			childShells = handler.getShells(swtShell).length;
-		} catch (SWTLayerException e) {
+		} catch (CoreLayerException e) {
 			if(swtShell != null){
 				return handler.isDisposed(swtShell);
 			}

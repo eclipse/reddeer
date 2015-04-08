@@ -10,7 +10,7 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Shell;
 import org.jboss.reddeer.swt.api.Button;
 import org.jboss.reddeer.swt.api.Text;
-import org.jboss.reddeer.swt.exception.SWTLayerException;
+import org.jboss.reddeer.core.exception.CoreLayerException;
 import org.jboss.reddeer.swt.impl.button.ArrowButton;
 import org.jboss.reddeer.swt.impl.button.CheckBox;
 import org.jboss.reddeer.swt.impl.button.PushButton;
@@ -194,47 +194,47 @@ public class ButtonTest extends SWTLayerTestCase {
 		checkButton(label, new CheckBox(label));
 	}
 
-	@Test(expected = SWTLayerException.class)
+	@Test(expected = CoreLayerException.class)
 	public void findNonExistingPushButtonByIndex() {
 		new PushButton(ButtonTest.NUM_BUTTONS + 2);
 	}
 
-	@Test(expected = SWTLayerException.class)
+	@Test(expected = CoreLayerException.class)
 	public void findNonExistingRadioButtonByIndex() {
 		new RadioButton(ButtonTest.NUM_BUTTONS + 1);
 	}
 
-	@Test(expected = SWTLayerException.class)
+	@Test(expected = CoreLayerException.class)
 	public void findNonExistingArrowButtonByIndex() {
 		new ArrowButton(ButtonTest.NUM_BUTTONS + 3);
 	}
 
-	@Test(expected = SWTLayerException.class)
+	@Test(expected = CoreLayerException.class)
 	public void findNonExistingCheckBoxByIndex() {
 		new CheckBox(ButtonTest.NUM_BUTTONS + 2);
 	}
 
-	@Test(expected = SWTLayerException.class)
+	@Test(expected = CoreLayerException.class)
 	public void findNonExistingToggleButtonByIndex() {
 		new ToggleButton(ButtonTest.NUM_BUTTONS + 1);
 	}
 
-	@Test(expected = SWTLayerException.class)
+	@Test(expected = CoreLayerException.class)
 	public void findNonExistingPushButtonByLabel() {
 		new PushButton("NON_EXISTING_#$SDFF@S");
 	}
 
-	@Test(expected = SWTLayerException.class)
+	@Test(expected = CoreLayerException.class)
 	public void findNonExistingRadioButtonByLabel() {
 		new RadioButton("NON_EXISTING_@QWEDSA@");
 	}
 
-	@Test(expected = SWTLayerException.class)
+	@Test(expected = CoreLayerException.class)
 	public void findNonExistingCheckBoxByLabel() {
 		new CheckBox("NON_EXISTING_DASLKJ");
 	}
 
-	@Test(expected = SWTLayerException.class)
+	@Test(expected = CoreLayerException.class)
 	public void findNonExistingToggleButtonByLabel() {
 		new ToggleButton("NON_EXISTING_KL2FG");
 	}

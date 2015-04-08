@@ -1,7 +1,7 @@
 package org.jboss.reddeer.swt.impl.progressbar;
 
 import org.eclipse.swt.SWT;
-import org.jboss.reddeer.swt.matcher.WithStyleMatcher;
+import org.jboss.reddeer.core.matcher.WithStyleMatcher;
 
 /**
  * This class represents progressbar with style SWT.INDETERMINATE (without possibility to read status).

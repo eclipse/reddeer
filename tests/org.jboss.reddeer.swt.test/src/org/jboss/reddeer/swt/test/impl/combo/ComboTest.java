@@ -11,7 +11,7 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 import org.jboss.reddeer.swt.api.Combo;
-import org.jboss.reddeer.swt.exception.SWTLayerException;
+import org.jboss.reddeer.core.exception.CoreLayerException;
 import org.jboss.reddeer.swt.impl.combo.DefaultCombo;
 import org.jboss.reddeer.swt.impl.combo.LabeledCombo;
 import org.jboss.reddeer.swt.impl.text.DefaultText;
@@ -92,11 +92,11 @@ public class ComboTest extends SWTLayerTestCase{
 				+ "\nbut expected Combo text is " + expectedComboText,
 			comboText.equals(expectedComboText));
 	}
-	@Test(expected = SWTLayerException.class)
+	@Test(expected = CoreLayerException.class)
 	public void findNonExistingByIndex(){
 		new DefaultCombo(5);
 	}
-	@Test(expected = SWTLayerException.class)
+	@Test(expected = CoreLayerException.class)
 	public void findNonExistingByLabel(){
 		new LabeledCombo("NON_EXISTING_LABEL_&*");
 	}

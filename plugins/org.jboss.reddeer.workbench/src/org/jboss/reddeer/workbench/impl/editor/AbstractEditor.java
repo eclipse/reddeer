@@ -69,7 +69,8 @@ public class AbstractEditor implements Editor {
      * Initialize editor that matches given matchers
      * @param matchers
      */
-    public AbstractEditor(Matcher<IEditorPart>... matchers) {
+    @SuppressWarnings("unchecked")
+	public AbstractEditor(Matcher<IEditorPart>... matchers) {
     	this(EditorPartLookup.getInstance().getEditor(matchers));
     }
     

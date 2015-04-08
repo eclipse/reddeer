@@ -4,7 +4,7 @@ import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.core.IsEqual;
 import org.jboss.reddeer.eclipse.ui.problems.ProblemsView.Column;
-import org.jboss.reddeer.swt.matcher.AbstractWidgetWithTextMatcher;
+import org.jboss.reddeer.core.matcher.AbstractWidgetWithTextMatcher;
 
 /**
  *

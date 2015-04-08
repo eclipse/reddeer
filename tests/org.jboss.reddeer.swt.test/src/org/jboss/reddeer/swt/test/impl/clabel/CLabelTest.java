@@ -8,10 +8,10 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Shell;
 import org.jboss.reddeer.swt.api.CLabel;
-import org.jboss.reddeer.swt.exception.SWTLayerException;
+import org.jboss.reddeer.core.exception.CoreLayerException;
 import org.jboss.reddeer.swt.impl.clabel.DefaultCLabel;
 import org.jboss.reddeer.swt.test.SWTLayerTestCase;
-import org.jboss.reddeer.swt.util.Display;
+import org.jboss.reddeer.core.util.Display;
 import org.junit.Test;
 /**
  * Tests CLabel implementation
@@ -52,12 +52,12 @@ public class CLabelTest extends SWTLayerTestCase {
 		assertEquals("Wrong cLabel widget was found", CLABEL_PREFIX + 1, cLabel.getText());
 	}
 	
-	@Test(expected=SWTLayerException.class)
+	@Test(expected=CoreLayerException.class)
 	public void findNonExistingCLabelByIndex(){
 		new DefaultCLabel(11);
 	}
 	
-	@Test(expected=SWTLayerException.class)
+	@Test(expected=CoreLayerException.class)
 	public void findNonExistingCLabelByText(){
 		new DefaultCLabel("NON_ESITING_@##$_TEXT");
 	}

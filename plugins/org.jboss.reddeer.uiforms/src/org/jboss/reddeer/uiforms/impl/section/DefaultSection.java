@@ -1,9 +1,8 @@
 package org.jboss.reddeer.uiforms.impl.section;
 
-
 import org.hamcrest.Matcher;
-import org.jboss.reddeer.swt.matcher.WithTextMatcher;
-import org.jboss.reddeer.swt.reference.ReferencedComposite;
+import org.jboss.reddeer.core.matcher.WithTextMatcher;
+import org.jboss.reddeer.core.reference.ReferencedComposite;
 
 /**
  * Default implementation of {@link org.jboss.reddeer.uiforms.api.Section}

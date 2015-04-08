@@ -3,9 +3,9 @@ package org.jboss.reddeer.swt.impl.button;
 import org.eclipse.swt.SWT;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.common.logging.Logger;
-import org.jboss.reddeer.swt.handler.ButtonHandler;
-import org.jboss.reddeer.swt.matcher.WithMnemonicTextMatcher;
-import org.jboss.reddeer.swt.reference.ReferencedComposite;
+import org.jboss.reddeer.core.handler.ButtonHandler;
+import org.jboss.reddeer.core.matcher.WithMnemonicTextMatcher;
+import org.jboss.reddeer.core.reference.ReferencedComposite;
 /**
  * Toggle Button implementation
  * @author Vlado Pakan

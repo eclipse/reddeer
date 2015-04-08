@@ -7,7 +7,7 @@ import org.eclipse.swt.widgets.Text;
 import org.jboss.reddeer.generator.CodeGenerator;
 import org.jboss.reddeer.generator.TextCodeGenerator;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
-import org.jboss.reddeer.swt.util.Display;
+import org.jboss.reddeer.core.util.Display;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;

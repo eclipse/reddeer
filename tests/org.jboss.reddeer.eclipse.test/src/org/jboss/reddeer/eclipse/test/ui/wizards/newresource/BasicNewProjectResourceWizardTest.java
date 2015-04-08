@@ -35,6 +35,7 @@ public class BasicNewProjectResourceWizardTest {
 	@Test
 	public void createGeneralProjectsWithReferences() {
 		// create defult project
+		packageExplorer.open();
 		BasicNewProjectResourceWizard wizardDialog = new BasicNewProjectResourceWizard();
 		wizardDialog.open();
 		WizardNewProjectCreationPage projectPage = wizardDialog.getFirstPage();
@@ -80,6 +81,7 @@ public class BasicNewProjectResourceWizardTest {
 		projectPage
 				.setProjectName(BasicNewProjectResourceWizardTest.DEFAULT_PROJECT_NAME);
 		wizardDialog.finish();
+		packageExplorer.open();
 		assertTrue(
 				"Package Explorer has to contain project "
 						+ BasicNewProjectResourceWizardTest.DEFAULT_PROJECT_NAME
@@ -90,6 +92,7 @@ public class BasicNewProjectResourceWizardTest {
 
 	@After
 	public void tearDown() {
+		packageExplorer.open();
 		if (packageExplorer.containsProject(BasicNewProjectResourceWizardTest.CUSTOMIZED_PROJECT_NAME)){
 			DeleteUtils.forceProjectDeletion(packageExplorer.getProject(
 					BasicNewProjectResourceWizardTest.CUSTOMIZED_PROJECT_NAME),

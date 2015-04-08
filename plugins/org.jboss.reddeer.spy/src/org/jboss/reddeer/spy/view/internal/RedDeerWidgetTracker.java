@@ -31,7 +31,7 @@ import org.eclipse.swt.widgets.Widget;
 import org.jboss.reddeer.common.exception.RedDeerException;
 import org.jboss.reddeer.spy.view.RedDeerSpy;
 import org.jboss.reddeer.spy.widget.resolver.WidgetResolver;
-import org.jboss.reddeer.swt.handler.WidgetHandler;
+import org.jboss.reddeer.core.handler.WidgetHandler;
 
 /**
  * RedDeerWidgetTracker provides tracking widgets and flushing their output onto RedDeer Spy View as styled texts.

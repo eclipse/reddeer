@@ -7,10 +7,10 @@ import org.hamcrest.Matcher;
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.swt.api.Tree;
 import org.jboss.reddeer.swt.api.TreeItem;
-import org.jboss.reddeer.swt.handler.TreeHandler;
-import org.jboss.reddeer.swt.handler.TreeItemHandler;
+import org.jboss.reddeer.core.handler.TreeHandler;
+import org.jboss.reddeer.core.handler.TreeItemHandler;
 import org.jboss.reddeer.swt.impl.tree.internal.BasicTreeItem;
-import org.jboss.reddeer.swt.reference.ReferencedComposite;
+import org.jboss.reddeer.core.reference.ReferencedComposite;
 import org.jboss.reddeer.swt.widgets.AbstractWidget;
 
 public abstract class AbstractTree extends AbstractWidget<org.eclipse.swt.widgets.Tree> implements Tree {

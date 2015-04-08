@@ -7,8 +7,8 @@ import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.swt.api.Menu;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.core.handler.ActionContributionItemHandler;
-import org.jboss.reddeer.swt.handler.WidgetHandler;
-import org.jboss.reddeer.swt.matcher.WithMnemonicTextMatchers;
+import org.jboss.reddeer.core.handler.WidgetHandler;
+import org.jboss.reddeer.core.matcher.WithMnemonicTextMatchers;
 
 /**
  * Context Menu implementation for all context menu related to some Control.
@@ -37,6 +37,7 @@ public class ContextMenu extends AbstractMenu implements Menu {
 	 * Context menu given by matchers
 	 * @param matchers
 	 */
+	@SuppressWarnings("unchecked")
 	public ContextMenu(Matcher<String>... matchers) {
 
 		menuItem = ml.lookFor(ml.getTopMenuMenuItemsFromFocus(),matchers);

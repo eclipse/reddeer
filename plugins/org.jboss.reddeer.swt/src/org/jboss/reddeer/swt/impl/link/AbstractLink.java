@@ -5,8 +5,8 @@ import java.util.List;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.swt.api.Link;
-import org.jboss.reddeer.swt.handler.LinkHandler;
-import org.jboss.reddeer.swt.reference.ReferencedComposite;
+import org.jboss.reddeer.core.handler.LinkHandler;
+import org.jboss.reddeer.core.reference.ReferencedComposite;
 import org.jboss.reddeer.swt.widgets.AbstractWidget;
 
 public abstract class AbstractLink extends AbstractWidget<org.eclipse.swt.widgets.Link> implements Link {

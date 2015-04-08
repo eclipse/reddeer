@@ -8,8 +8,8 @@ import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
+import org.jboss.reddeer.core.exception.CoreLayerException;
 import org.jboss.reddeer.swt.api.CTabItem;
-import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.impl.ctab.DefaultCTabItem;
 import org.jboss.reddeer.swt.impl.text.DefaultText;
 import org.jboss.reddeer.swt.test.SWTLayerTestCase;
@@ -54,11 +54,11 @@ public class CTabFolderTest extends SWTLayerTestCase{
 				+ "\nbut expected CTabItem content is " + expectedCTabItemContent,
 			cTabItemContent.equals(expectedCTabItemContent));
 	}
-	@Test(expected = SWTLayerException.class)
+	@Test(expected = CoreLayerException.class)
 	public void findNonExistingByIndex(){
 		new DefaultCTabItem(5);
 	}
-	@Test(expected = SWTLayerException.class)
+	@Test(expected = CoreLayerException.class)
 	public void findNonExistingByLabel(){
 		new DefaultCTabItem("NON_EXISTING_#$");
 	}
@@ -71,7 +71,7 @@ public class CTabFolderTest extends SWTLayerTestCase{
 			new DefaultCTabItem(index);
 			fail("CTabItem with index " + index + " was found but has to be closed");
 		}
-		catch (SWTLayerException sle){
+		catch (CoreLayerException sle){
 			// do nothing closed CTabItem should not be found
 		}
 	}

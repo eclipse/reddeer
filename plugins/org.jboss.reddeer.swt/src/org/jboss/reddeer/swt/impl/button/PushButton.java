@@ -3,8 +3,8 @@ package org.jboss.reddeer.swt.impl.button;
 import org.eclipse.swt.SWT;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.swt.api.Button;
-import org.jboss.reddeer.swt.matcher.WithMnemonicTextMatcher;
-import org.jboss.reddeer.swt.reference.ReferencedComposite;
+import org.jboss.reddeer.core.matcher.WithMnemonicTextMatcher;
+import org.jboss.reddeer.core.reference.ReferencedComposite;
 
 /**
  * PushButton is simple button implementation that can be pushed

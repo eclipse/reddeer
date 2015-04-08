@@ -1,6 +1,6 @@
 package org.jboss.reddeer.swt.impl.progressbar;
 
-import org.jboss.reddeer.swt.matcher.WithStyleMatcher;
+import org.jboss.reddeer.core.matcher.WithStyleMatcher;
 
 
 /**

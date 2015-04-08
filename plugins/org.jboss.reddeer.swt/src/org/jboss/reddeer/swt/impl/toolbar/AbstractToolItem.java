@@ -2,9 +2,9 @@ package org.jboss.reddeer.swt.impl.toolbar;
 
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.swt.api.ToolItem;
-import org.jboss.reddeer.swt.exception.Thrower;
-import org.jboss.reddeer.swt.handler.ToolItemHandler;
-import org.jboss.reddeer.swt.handler.WidgetHandler;
+import org.jboss.reddeer.core.exception.Thrower;
+import org.jboss.reddeer.core.handler.ToolItemHandler;
+import org.jboss.reddeer.core.handler.WidgetHandler;
 
 /**
  * Abstract class for all Toolbar implementations

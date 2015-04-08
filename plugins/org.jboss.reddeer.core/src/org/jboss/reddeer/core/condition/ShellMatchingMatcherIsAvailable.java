@@ -5,7 +5,7 @@ import org.hamcrest.Matcher;
 import org.jboss.reddeer.common.condition.WaitCondition;
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.core.lookup.ShellLookup;
-import org.jboss.reddeer.core.util.internal.InstanceValidator;
+import org.jboss.reddeer.core.util.InstanceValidator;
 
 /**
  * Wait condition for a shell matching the specified matcher to the shell title.

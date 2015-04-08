@@ -5,7 +5,7 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Shell;
 import org.jboss.reddeer.generator.ButtonCodeGenerator;
 import org.jboss.reddeer.generator.CodeGenerator;
-import org.jboss.reddeer.swt.util.Display;
+import org.jboss.reddeer.core.util.Display;
 import org.junit.Assert;
 import org.junit.Test;
 

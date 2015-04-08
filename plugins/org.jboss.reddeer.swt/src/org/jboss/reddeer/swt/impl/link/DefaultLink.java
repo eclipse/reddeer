@@ -1,8 +1,8 @@
 package org.jboss.reddeer.swt.impl.link;
 
 import org.hamcrest.Matcher;
-import org.jboss.reddeer.swt.matcher.LinkTextMatcher;
-import org.jboss.reddeer.swt.reference.ReferencedComposite;
+import org.jboss.reddeer.core.matcher.LinkTextMatcher;
+import org.jboss.reddeer.core.reference.ReferencedComposite;
 
 public class DefaultLink extends AbstractLink{
 	

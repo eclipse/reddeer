@@ -1,9 +1,9 @@
 package org.jboss.reddeer.swt.impl.toolbar;
 
 import org.hamcrest.Matcher;
-import org.jboss.reddeer.swt.lookup.ToolItemLookup;
-import org.jboss.reddeer.swt.matcher.WithTooltipTextMatcher;
-import org.jboss.reddeer.swt.reference.ReferencedComposite;
+import org.jboss.reddeer.core.lookup.ToolItemLookup;
+import org.jboss.reddeer.core.matcher.WithTooltipTextMatcher;
+import org.jboss.reddeer.core.reference.ReferencedComposite;
 
 /**
  * Default ToolItem implementation.</p> Do not use for ToolItem inside View

@@ -1,12 +1,13 @@
 package org.jboss.reddeer.junit.extension.before.test.impl;
 
 import org.eclipse.core.runtime.Platform;
+import org.jboss.reddeer.common.exception.RedDeerException;
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.common.properties.RedDeerProperties;
+import org.jboss.reddeer.core.exception.CoreLayerException;
 import org.jboss.reddeer.eclipse.jdt.ui.WorkbenchPreferenceDialog;
 import org.jboss.reddeer.eclipse.m2e.core.ui.preferences.MavenPreferencePage;
 import org.jboss.reddeer.junit.extensionpoint.IBeforeTest;
-import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 
 /** 
@@ -60,7 +61,7 @@ public class DoNotDownloadMavenIndexesExt implements IBeforeTest {
 				preferencesDialog.ok();
 				tryToDisableDownloadingRepoIndexes = false;
 				log.debug("Dowlading maven repo indexes on startup disabled");
-			} catch (SWTLayerException swtle) {
+			} catch (CoreLayerException swtle) {
 				log.warn(
 						"Error when trying to disable dowlading maven repo indexes on startup",
 						swtle);
@@ -68,7 +69,7 @@ public class DoNotDownloadMavenIndexesExt implements IBeforeTest {
 				try {
 					new DefaultShell("Preferences").close();
 
-				} catch (SWTLayerException swtle1) {
+				} catch (RedDeerException swtle1) {
 					// do nothing
 				}
 			}

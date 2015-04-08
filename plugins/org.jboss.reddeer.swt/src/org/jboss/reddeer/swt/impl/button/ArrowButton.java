@@ -3,7 +3,7 @@ package org.jboss.reddeer.swt.impl.button;
 import org.eclipse.swt.SWT;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.swt.api.Button;
-import org.jboss.reddeer.swt.reference.ReferencedComposite;
+import org.jboss.reddeer.core.reference.ReferencedComposite;
 
 /**
  * Arrow Button is button implementation with arrow symbol as label

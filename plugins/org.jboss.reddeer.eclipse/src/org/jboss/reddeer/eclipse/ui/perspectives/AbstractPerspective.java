@@ -13,9 +13,10 @@ import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.jboss.reddeer.swt.impl.table.DefaultTable;
 import org.jboss.reddeer.swt.impl.toolbar.DefaultToolItem;
 import org.jboss.reddeer.common.matcher.RegexMatcher;
-import org.jboss.reddeer.swt.matcher.WithTextMatchers;
-import org.jboss.reddeer.swt.util.Display;
-import org.jboss.reddeer.swt.util.ResultRunnable;
+import org.jboss.reddeer.core.exception.CoreLayerException;
+import org.jboss.reddeer.core.matcher.WithTextMatchers;
+import org.jboss.reddeer.core.util.Display;
+import org.jboss.reddeer.core.util.ResultRunnable;
 
 /**
  * Abstract parent for each Perspective implementation
@@ -58,7 +59,7 @@ public abstract class AbstractPerspective {
 			try{
 				// Try to select perspective label within available perspectives
 				table.select(getPerspectiveLabel());
-			} catch (SWTLayerException swtLayerException){
+			} catch (CoreLayerException swtLayerException){
 				// Try to select perspective label within available perspectives with "(default)" suffix
 				table.select(getPerspectiveLabel() + " (default)");
 			}

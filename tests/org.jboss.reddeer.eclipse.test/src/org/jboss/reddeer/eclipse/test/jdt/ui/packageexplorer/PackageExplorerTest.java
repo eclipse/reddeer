@@ -9,7 +9,7 @@ import org.jboss.reddeer.eclipse.jdt.ui.ide.NewJavaProjectWizardPage;
 import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.PackageExplorer;
 import org.jboss.reddeer.eclipse.utils.DeleteUtils;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
-import org.jboss.reddeer.swt.handler.WorkbenchHandler;
+import org.jboss.reddeer.core.handler.WorkbenchPartHandler;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -40,7 +40,7 @@ public class PackageExplorerTest {
 	public void open() {
 		packageExplorer = new PackageExplorer();
 		packageExplorer.open();
-		String currentViewTitle = WorkbenchHandler.getInstance().getActiveViewTitle();
+		String currentViewTitle = WorkbenchPartHandler.getInstance().getActiveViewTitle();
 		assertTrue("Active View has to be Package Explorer but is "
 				+ currentViewTitle, currentViewTitle.equals("Package Explorer"));
 	}

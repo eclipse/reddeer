@@ -5,7 +5,7 @@ import static org.junit.Assert.assertTrue;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Shell;
 import org.jboss.reddeer.swt.api.Browser;
-import org.jboss.reddeer.swt.exception.SWTLayerException;
+import org.jboss.reddeer.core.exception.CoreLayerException;
 import org.jboss.reddeer.swt.impl.browser.InternalBrowser;
 import org.jboss.reddeer.swt.test.SWTLayerTestCase;
 import org.jboss.reddeer.swt.test.utils.LabelTestUtils;
@@ -33,12 +33,12 @@ public class BrowserTest extends SWTLayerTestCase{
 		new InternalBrowser(0);
 	}
 	
-	@Test(expected=SWTLayerException.class)
+	@Test(expected=CoreLayerException.class)
 	public void findNonExistingBrowserByLabel(){
 		new InternalBrowser("@#NON_EXISITNG_LABEL%$");
 	}
 	
-	@Test(expected=SWTLayerException.class)
+	@Test(expected=CoreLayerException.class)
 	public void findNonExistingBrowserByIndex(){
 		new InternalBrowser(1);
 	}

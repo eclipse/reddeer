@@ -1,8 +1,8 @@
 package org.jboss.reddeer.swt.impl.toolbar;
 
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
-import org.jboss.reddeer.swt.lookup.ToolBarLookup;
-import org.jboss.reddeer.swt.reference.ReferencedComposite;
+import org.jboss.reddeer.core.lookup.ToolBarLookup;
+import org.jboss.reddeer.core.reference.ReferencedComposite;
 
 /**
  * Default ToolBar implementation.

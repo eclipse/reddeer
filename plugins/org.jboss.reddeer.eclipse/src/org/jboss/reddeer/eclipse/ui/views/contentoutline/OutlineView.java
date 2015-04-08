@@ -5,13 +5,13 @@ import java.util.Collection;
 
 import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.swt.condition.TreeHasChildren;
-import org.jboss.reddeer.swt.exception.SWTLayerException;
-import org.jboss.reddeer.swt.impl.toolbar.ViewToolItem;
+import org.jboss.reddeer.swt.impl.toolbar.DefaultToolItem;
 import org.jboss.reddeer.swt.impl.tree.DefaultTree;
 import org.jboss.reddeer.common.matcher.RegexMatcher;
-import org.jboss.reddeer.swt.matcher.WithTooltipTextMatcher;
-import org.jboss.reddeer.swt.wait.TimePeriod;
-import org.jboss.reddeer.swt.wait.WaitUntil;
+import org.jboss.reddeer.core.exception.CoreLayerException;
+import org.jboss.reddeer.core.matcher.WithTooltipTextMatcher;
+import org.jboss.reddeer.common.wait.TimePeriod;
+import org.jboss.reddeer.common.wait.WaitUntil;
 import org.jboss.reddeer.workbench.impl.view.WorkbenchView;
 /**
  * Represents Outline view in Eclipse
@@ -100,7 +100,7 @@ public class OutlineView extends WorkbenchView {
 			new WaitUntil(new TreeHasChildren(tree),TimePeriod.NORMAL,false);
 
 			return tree.getItems();
-		} catch (SWTLayerException exc) {
+		} catch (CoreLayerException exc) {
 			return new ArrayList<TreeItem>();
 		}
 		
@@ -108,7 +108,7 @@ public class OutlineView extends WorkbenchView {
 	
 	private void clickOnToolTip(String regex) {
 		WithTooltipTextMatcher rm = new WithTooltipTextMatcher(new RegexMatcher(regex));
-		new ViewToolItem(rm).click();
+		new DefaultToolItem(rm).click();
 	}
 	
 }

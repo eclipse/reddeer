@@ -1,8 +1,8 @@
 package org.jboss.reddeer.swt.impl.text;
 
 import org.jboss.reddeer.swt.api.Text;
-import org.jboss.reddeer.swt.matcher.WithLabelMatcher;
-import org.jboss.reddeer.swt.reference.ReferencedComposite;
+import org.jboss.reddeer.core.matcher.WithLabelMatcher;
+import org.jboss.reddeer.core.reference.ReferencedComposite;
 
 /**
  * Text with label implementation

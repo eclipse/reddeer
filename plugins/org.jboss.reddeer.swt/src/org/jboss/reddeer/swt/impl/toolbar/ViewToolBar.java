@@ -1,7 +1,7 @@
 package org.jboss.reddeer.swt.impl.toolbar;
 
 import org.jboss.reddeer.swt.exception.SWTLayerException;
-import org.jboss.reddeer.swt.lookup.ToolBarLookup;
+import org.jboss.reddeer.core.lookup.ToolBarLookup;
 
 /**
  * Workbench toolbar implementation

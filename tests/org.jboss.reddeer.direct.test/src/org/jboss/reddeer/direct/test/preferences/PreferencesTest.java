@@ -8,9 +8,9 @@ import org.jboss.reddeer.eclipse.jdt.ui.WorkbenchPreferenceDialog;
 import org.jboss.reddeer.eclipse.m2e.core.ui.preferences.MavenSettingsPreferencePage;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.requirements.cleanworkspace.CleanWorkspaceRequirement.CleanWorkspace;
-import org.jboss.reddeer.swt.condition.JobIsRunning;
-import org.jboss.reddeer.swt.wait.TimePeriod;
-import org.jboss.reddeer.swt.wait.WaitWhile;
+import org.jboss.reddeer.core.condition.JobIsRunning;
+import org.jboss.reddeer.common.wait.TimePeriod;
+import org.jboss.reddeer.common.wait.WaitWhile;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -42,13 +42,13 @@ public class PreferencesTest {
 		dialog.open();
 		dialog.select(page);
 		String location = page.getUserSettingsLocation();
-		page.ok();
+		dialog.ok();
 		assertEquals(location, Preferences.get(M2E_PLUGIN, M2E_USER_SETTINGS));
 		dialog.open();
 		dialog.select(page);
 		String newLocation = location.replaceFirst(".xml", "_new.xml");
 		page.setUserSettingsLocation(newLocation);
-		page.ok();
+		dialog.ok();
 		new WaitWhile(new JobIsRunning(), TimePeriod.NORMAL);
 		assertEquals(newLocation, Preferences.get(M2E_PLUGIN, M2E_USER_SETTINGS));
 	}
@@ -65,13 +65,13 @@ public class PreferencesTest {
 		dialog.open();
 		dialog.select(page);
 		String location = page.getUserSettingsLocation();
-		page.ok();
+		dialog.ok();
 		String newLocation = location.replaceFirst(".xml", "_new.xml");
 		Preferences.set(M2E_PLUGIN, M2E_USER_SETTINGS, newLocation);
 		dialog.open();
 		dialog.select(page);
 		location = page.getUserSettingsLocation();
-		page.ok();
+		dialog.ok();
 		assertEquals(newLocation, location);
 	}
 
@@ -83,13 +83,13 @@ public class PreferencesTest {
 		dialog.select(page);
 		String location = page.getUserSettingsLocation();
 		page.setUserSettingsLocation(location.replaceFirst(".xml", "_new.xml"));
-		page.ok();
+		dialog.ok();
 		new WaitWhile(new JobIsRunning(), TimePeriod.NORMAL);
 		Preferences.setDefault(M2E_PLUGIN, M2E_USER_SETTINGS);
 		dialog.open();
 		dialog.select(page);
 		String newLocation = page.getUserSettingsLocation();
-		page.ok();
+		dialog.ok();
 		assertEquals(newLocation, location);
 	}
 

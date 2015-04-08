@@ -2,12 +2,12 @@ package org.jboss.reddeer.jface.preference;
 
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.swt.api.Button;
-import org.jboss.reddeer.swt.condition.ProgressInformationShellIsActive;
-import org.jboss.reddeer.swt.condition.ShellWithTextIsAvailable;
+import org.jboss.reddeer.core.condition.ProgressInformationShellIsActive;
+import org.jboss.reddeer.core.condition.ShellWithTextIsAvailable;
 import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.clabel.DefaultCLabel;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
-import org.jboss.reddeer.swt.wait.WaitWhile;
+import org.jboss.reddeer.common.wait.WaitWhile;
 
 /**
  * Represents a general preference page.

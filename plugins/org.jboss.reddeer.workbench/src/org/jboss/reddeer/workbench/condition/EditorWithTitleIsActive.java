@@ -8,7 +8,7 @@ import org.jboss.reddeer.workbench.impl.editor.DefaultEditor;
  * @author rawagner
  *
  */
-public class EditorWithTitleIsActive implements WaitCondition,org.jboss.reddeer.swt.condition.WaitCondition{
+public class EditorWithTitleIsActive implements WaitCondition {
 	
 	private String title;
 	

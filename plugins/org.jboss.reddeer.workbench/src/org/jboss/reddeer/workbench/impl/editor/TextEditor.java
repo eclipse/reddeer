@@ -2,7 +2,6 @@ package org.jboss.reddeer.workbench.impl.editor;
 
 import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.jface.text.ITextSelection;
-import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.texteditor.ITextEditor;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.common.logging.Logger;
@@ -32,6 +31,7 @@ public class TextEditor extends AbstractEditor implements Editor {
 	 * Initialize currently focused TextEditor.
 	 * @throws WorkbenchPartNotFound when currently active editor isn't instance of ITextEditor
 	 */
+	@SuppressWarnings("unchecked")
 	public TextEditor() {
 		super(EditorPartLookup.getInstance().getEditor(
 				new EditorPartClassMatcher(ITextEditor.class)));

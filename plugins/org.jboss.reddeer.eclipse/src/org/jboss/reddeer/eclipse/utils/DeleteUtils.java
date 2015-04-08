@@ -8,20 +8,20 @@ import org.hamcrest.Matcher;
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.eclipse.core.resources.Project;
 import org.jboss.reddeer.eclipse.exception.EclipseLayerException;
-import org.jboss.reddeer.swt.condition.JobIsRunning;
+import org.jboss.reddeer.core.condition.JobIsRunning;
 import org.jboss.reddeer.swt.condition.ShellHasChildrenOrIsNotAvailable;
-import org.jboss.reddeer.swt.condition.ShellWithTextIsAvailable;
-import org.jboss.reddeer.swt.exception.SWTLayerException;
-import org.jboss.reddeer.swt.handler.ShellHandler;
+import org.jboss.reddeer.core.condition.ShellWithTextIsAvailable;
+import org.jboss.reddeer.core.exception.CoreLayerException;
+import org.jboss.reddeer.core.handler.ShellHandler;
 import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.shell.AbstractShell;
-import org.jboss.reddeer.swt.lookup.ShellLookup;
-import org.jboss.reddeer.swt.matcher.AndMatcher;
-import org.jboss.reddeer.swt.matcher.WithTextMatcher;
-import org.jboss.reddeer.swt.reference.ReferencedComposite;
-import org.jboss.reddeer.swt.wait.TimePeriod;
-import org.jboss.reddeer.swt.wait.WaitUntil;
-import org.jboss.reddeer.swt.wait.WaitWhile;
+import org.jboss.reddeer.core.lookup.ShellLookup;
+import org.jboss.reddeer.core.matcher.AndMatcher;
+import org.jboss.reddeer.core.matcher.WithTextMatcher;
+import org.jboss.reddeer.core.reference.ReferencedComposite;
+import org.jboss.reddeer.common.wait.TimePeriod;
+import org.jboss.reddeer.common.wait.WaitUntil;
+import org.jboss.reddeer.common.wait.WaitWhile;
 
 public class DeleteUtils {
 	private static final Logger log = Logger.getLogger(DeleteUtils.class);
@@ -49,7 +49,7 @@ public class DeleteUtils {
 		int childShells = 0;
 		try{
 			childShells = ShellHandler.getInstance().getShells(deleteShell.getSWTWidget()).length;
-		} catch (SWTLayerException ex){
+		} catch (CoreLayerException ex){
 			log.debug("Delete shell is disposed.");
 		} finally {
 			if (childShells == 1) {
@@ -103,7 +103,7 @@ public class DeleteUtils {
 					try {
 						new PushButton(ref, buttonLabel);
 						return true;
-					} catch (SWTLayerException e) {
+					} catch (CoreLayerException e) {
 						// ok, this control doesn't contain the button
 					}
 				}
