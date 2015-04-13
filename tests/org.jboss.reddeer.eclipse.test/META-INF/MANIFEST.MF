@@ -7,6 +7,7 @@ Bundle-Version: 0.8.0.qualifier
 Bundle-Activator: org.jboss.reddeer.eclipse.test.Activator
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
+ org.eclipse.jst.servlet.ui,
  org.eclipse.jdt.debug.ui,
  org.junit;bundle-version="4.11.0",
  org.jboss.reddeer.common;bundle-version="[0.8,0.9)",

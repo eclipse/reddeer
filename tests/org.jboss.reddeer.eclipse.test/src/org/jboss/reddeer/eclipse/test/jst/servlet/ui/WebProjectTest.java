@@ -10,25 +10,40 @@ import org.jboss.reddeer.eclipse.jst.servlet.ui.WebProjectSecondPage;
 import org.jboss.reddeer.eclipse.jst.servlet.ui.WebProjectThirdPage;
 import org.jboss.reddeer.eclipse.jst.servlet.ui.WebProjectWizard;
 import org.jboss.reddeer.eclipse.ui.perspectives.JavaEEPerspective;
+import org.jboss.reddeer.eclipse.utils.DeleteUtils;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.requirements.openperspective.OpenPerspectiveRequirement.OpenPerspective;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @OpenPerspective(JavaEEPerspective.class)
 @RunWith(RedDeerSuite.class)
-public class TestWebProject {
+public class WebProjectTest {
+	
+	private PackageExplorer packageExplorer;
+	private String projectName = "web project";
+	
+	@Before
+	public void openPackageExplorer() {
+		packageExplorer = new PackageExplorer();
+		packageExplorer.open();
+	}
+	
+	@After
+	public void deleteProject() {
+		DeleteUtils.forceProjectDeletion(packageExplorer.getProject(projectName), true);
+	}
 	
 	@Test
 	public void createWebProject(){
 		WebProjectWizard ww = new WebProjectWizard();
 		ww.open();
 		WebProjectFirstPage fp = new WebProjectFirstPage();
-		fp.setProjectName("web project");
+		fp.setProjectName(projectName);
 		ww.finish();
-		PackageExplorer pe = new PackageExplorer();
-		pe.open();
-		assertTrue(pe.containsProject("web project"));
+		assertTrue(packageExplorer.containsProject(projectName));
 	}
 	
 	@Test
@@ -36,8 +51,8 @@ public class TestWebProject {
 		WebProjectWizard ww = new WebProjectWizard();
 		ww.open();
 		WebProjectFirstPage fp = new WebProjectFirstPage();
-		fp.setProjectName("web project1");
-		assertEquals("web project1", fp.getProjectName());
+		fp.setProjectName(projectName);
+		assertEquals(projectName, fp.getProjectName());
 		ww.next();
 		WebProjectSecondPage sp = new WebProjectSecondPage();
 		sp.addSourceFoldersOnBuildPath("source");
@@ -48,12 +63,10 @@ public class TestWebProject {
 		WebProjectThirdPage tp = new WebProjectThirdPage();
 		tp.setGenerateWebXmlDeploymentDescriptor(true);
 		ww.finish();
-		PackageExplorer pe = new PackageExplorer();
-		pe.open();
-		assertTrue(pe.containsProject("web project1"));
-		assertTrue(pe.getProject("web project1").containsItem("source"));
-		assertFalse(pe.getProject("web project1").containsItem("src"));
-		assertTrue(pe.getProject("web project1").containsItem("WebContent","WEB-INF","web.xml"));
+		assertTrue(packageExplorer.containsProject(projectName));
+		assertTrue(packageExplorer.getProject(projectName).containsItem("source"));
+		assertFalse(packageExplorer.getProject(projectName).containsItem("src"));
+		assertTrue(packageExplorer.getProject(projectName).containsItem("WebContent","WEB-INF","web.xml"));
 	}
 
 }

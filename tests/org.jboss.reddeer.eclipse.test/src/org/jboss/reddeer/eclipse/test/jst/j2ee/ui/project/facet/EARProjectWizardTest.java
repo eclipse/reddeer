@@ -11,27 +11,56 @@ import org.jboss.reddeer.eclipse.jst.j2ee.wizard.NewJ2EEComponentSelectionPage;
 import org.jboss.reddeer.eclipse.jst.servlet.ui.WebProjectFirstPage;
 import org.jboss.reddeer.eclipse.jst.servlet.ui.WebProjectWizard;
 import org.jboss.reddeer.eclipse.ui.perspectives.JavaEEPerspective;
+import org.jboss.reddeer.eclipse.utils.DeleteUtils;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.requirements.openperspective.OpenPerspectiveRequirement.OpenPerspective;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @OpenPerspective(JavaEEPerspective.class)
 @RunWith(RedDeerSuite.class)
-public class TestEARProjectWizard {
+public class EARProjectWizardTest {
+	
+	private String projectName = "EARProject";
+	private ProjectExplorer explorer;
+	private boolean modulesAreCreated;
+	private boolean webModuleIsCreated;
+	
+	@Before
+	public void openProjectExplorer() {
+		explorer = new ProjectExplorer();
+		explorer.open();
+		modulesAreCreated = false;
+		webModuleIsCreated = false;
+	}
+	
+	@After
+	public void deleteProject() {
+		DeleteUtils.forceProjectDeletion(explorer.getProject(projectName), true);
+		if (modulesAreCreated) {
+			DeleteUtils.forceProjectDeletion(explorer.getProject(projectName + "Client"), true);
+			DeleteUtils.forceProjectDeletion(explorer.getProject(projectName + "Connector"), true);
+			DeleteUtils.forceProjectDeletion(explorer.getProject(projectName + "EJB"), true);
+			DeleteUtils.forceProjectDeletion(explorer.getProject(projectName + "Web"), true);
+		}
+		if (webModuleIsCreated) {
+			DeleteUtils.forceProjectDeletion(explorer.getProject("CreatedWebProjectModule"), true);
+		}
+	}
 	
 	@Test
 	public void createProject(){
 		EarProjectWizard ear = new EarProjectWizard();
 		ear.open();
 		EarProjectFirstPage fp = new EarProjectFirstPage();
-		fp.setProjectName("EARProject");
+		fp.setProjectName(projectName);
+		ear.next();
 		EarProjectInstallPage ip = new EarProjectInstallPage();
 		assertFalse(ip.isGenerateApplicationXML());
 		ear.finish();
-		ProjectExplorer pe = new ProjectExplorer();
-		pe.open();
-		assertTrue(pe.containsProject("EARProject"));
+		assertTrue(explorer.containsProject(projectName));
 	}
 	
 	@Test
@@ -39,7 +68,8 @@ public class TestEARProjectWizard {
 		EarProjectWizard ear = new EarProjectWizard();
 		ear.open();
 		EarProjectFirstPage fp = new EarProjectFirstPage();
-		fp.setProjectName("EARProject");
+		fp.setProjectName(projectName);
+		ear.next();
 		EarProjectInstallPage ip = new EarProjectInstallPage();
 		assertFalse(ip.isGenerateApplicationXML());
 		NewJ2EEComponentSelectionPage jee=ip.newModule();
@@ -49,13 +79,12 @@ public class TestEARProjectWizard {
 		String appClient = jee.getApplicationClientModuleName();
 		jee.finish();
 		ear.finish();
-		ProjectExplorer pe = new ProjectExplorer();
-		pe.open();
-		assertTrue(pe.containsProject("EARProject"));
-		assertTrue(pe.containsProject(ejb));
-		assertTrue(pe.containsProject(conn));
-		assertTrue(pe.containsProject(web));
-		assertTrue(pe.containsProject(appClient));
+		assertTrue(explorer.containsProject(projectName));
+		assertTrue(explorer.containsProject(ejb));
+		assertTrue(explorer.containsProject(conn));
+		assertTrue(explorer.containsProject(web));
+		assertTrue(explorer.containsProject(appClient));
+		modulesAreCreated = true;
 	}
 	
 	@Test
@@ -63,7 +92,8 @@ public class TestEARProjectWizard {
 		EarProjectWizard ear = new EarProjectWizard();
 		ear.open();
 		EarProjectFirstPage fp = new EarProjectFirstPage();
-		fp.setProjectName("EARProject");
+		fp.setProjectName(projectName);
+		ear.next();
 		EarProjectInstallPage ip = new EarProjectInstallPage();
 		assertFalse(ip.isGenerateApplicationXML());
 		NewJ2EEComponentSelectionPage jee=ip.newModule();
@@ -73,10 +103,9 @@ public class TestEARProjectWizard {
 		wp.setProjectName("CreatedWebProjectModule");
 		ww.finish();
 		ear.finish();
-		ProjectExplorer pe = new ProjectExplorer();
-		pe.open();
-		assertTrue(pe.containsProject("EARProject"));
-		assertTrue(pe.containsProject("CreatedWebProjectModule"));
+		assertTrue(explorer.containsProject(projectName));
+		webModuleIsCreated = true;
+		assertTrue(explorer.containsProject("CreatedWebProjectModule"));
 	}
 
 }
