@@ -84,7 +84,7 @@ public class RedDeerWidgetTracker implements Runnable {
 		getWidgetInformation(control, stringBuffer);
 		getSiblingsInformation(control, stringBuffer);
 		getChildrenInformation(control, stringBuffer);
-		getParentInformation(control, stringBuffer);
+		getWidgetTreeInformation(control, stringBuffer);
 	}
 	
 	private void getWidgetInformation(Control control, StringBuffer stringBuffer) {
@@ -131,58 +131,72 @@ public class RedDeerWidgetTracker implements Runnable {
 		if (siblingWidgets.size() > 1) {
 			for (Widget widget: siblingWidgets) {
 				if (!widget.equals(control)) {
-					String output = widget.getClass().getCanonicalName();
-					if (output == null) {
-						output = ANONYMOUS_COMPOSITE;
-					}
-					if (widget instanceof Control) {
-						String siblingsText = getText((Control) widget);
-						if (siblingsText != null) {
-							output += " [\"" + siblingsText + "\"]";
-						}
-					}
-					stringBuffer.append(output + "\n");
+					stringBuffer.append(getWidgetOutput(widget) + "\n");
 				}
 			}
 		}		
 		stringBuffer.append("\n");
 	}
 	
-	private void getParentInformation(Control control, StringBuffer stringBuffer) {
-		addBoldText("Parent tree:", stringBuffer);
+	private void getWidgetTreeInformation(Control control, StringBuffer stringBuffer) {
+		addBoldText("Widget tree:", stringBuffer);
 		stringBuffer.append("\n");
 		
-		Widget widget = control;
-		List<String> parentTree = new LinkedList<String>();
-		while (widgetResolver.hasParent(widget)) {
-			widget = widgetResolver.getParent(widget);
-			
-			String output = widget.getClass().getCanonicalName();
-			// Class can be null because it is anonymous composite class
-			if (output == null) {
-				output = ANONYMOUS_COMPOSITE;
-			}
-			
-			String parentText = null;
-			if (widget instanceof Control) {
-				parentText = getText((Control) widget);
-				if (parentText != null) {
-					output += " [\"" + parentText + "\"]";
-				}
-			}
-			parentTree.add(output);
-		}
-
+		boolean hasSiblings = false;
+		if (widgetResolver.getParent(control) != null) {
+			hasSiblings = widgetResolver.getChildren(widgetResolver.getParent(control)).size() > 0;
+		}		
 		
+		// Add parent info
+		Widget parentWidget = control;
+		List<String> parentTree = new LinkedList<String>();
+		while (widgetResolver.hasParent(parentWidget)) {
+			parentWidget = widgetResolver.getParent(parentWidget);
+			parentTree.add(getWidgetOutput(parentWidget));
+		}
 		if (parentTree.size() > 0) {
 			stringBuffer.append(parentTree.get(parentTree.size()-1) + "\n");
 		}
 		String spacing = "";
-		for (int i = parentTree.size()-2; i >= 0; i--) {
+		for (int i = parentTree.size()-2; i > 0; i--) {
 			stringBuffer.append(spacing + "└─" + parentTree.get(i) + "\n");
 			spacing += "  ";
 		}
+		
+		// Add bold widget info
+		if (hasSiblings) {
+			stringBuffer.append(spacing + "├─");
+		} else {
+			stringBuffer.append(spacing + "└─");
+		}
+		if (parentTree.size() > 0) {
+			addBoldText(parentTree.get(0), stringBuffer);
+		} else {
+			addBoldText(getWidgetOutput(control), stringBuffer);
+		}
 		stringBuffer.append("\n");
+
+		// Add children info
+		List<Widget> children = widgetResolver.getChildren(control);
+		String childrenSpacing = hasSiblings ? spacing + "│ " : spacing + "  ";
+		for (int i = 0; i < children.size(); i++) {
+			if (i == children.size() - 1) {
+				stringBuffer.append(childrenSpacing + "└─" + getWidgetOutput(children.get(i)) + "\n");
+			} else {
+				stringBuffer.append(childrenSpacing + "├─" + getWidgetOutput(children.get(i)) + "\n");
+			}
+		}
+		
+		// Add siblings info
+		List<Widget> siblings = hasSiblings ? 
+				widgetResolver.getChildren(widgetResolver.getParent(control)) : new ArrayList<Widget>();
+		for (int i = 0; i < siblings.size(); i++) {
+			if (i == siblings.size() - 1) {
+				stringBuffer.append(spacing + "└─" + getWidgetOutput(siblings.get(i)) + "\n");
+			} else {
+				stringBuffer.append(spacing + "├─" + getWidgetOutput(siblings.get(i)) + "\n");
+			}
+		}
 	}
 	
 	private void getChildrenInformation(Control control, StringBuffer stringBuffer) {
@@ -278,4 +292,17 @@ public class RedDeerWidgetTracker implements Runnable {
 		return text;
 	}
 	
+	private String getWidgetOutput(Widget widget) {
+		String output = widget.getClass().getCanonicalName();
+		if (output == null) {
+			output = ANONYMOUS_COMPOSITE;
+		}
+		if (widget instanceof Control) {
+			String widgetText = getText((Control) widget);
+			if (widgetText != null) {
+				output += " [\"" + widgetText + "\"]";
+			}
+		}
+		return output;
+	}	
 }
