@@ -78,7 +78,7 @@ public abstract class AbstractPerspective {
 		Menu menu;
 		try {
 			menu = new ShellMenu(m.getMatchers());	
-		} catch (SWTLayerException swtle) {
+		} catch (CoreLayerException swtle) {
 			// Try menu path for Mars and higher versions
 			m = new WithTextMatchers(new RegexMatcher[] {
 					new RegexMatcher("Window.*"),
