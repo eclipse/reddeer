@@ -5,7 +5,7 @@ import java.util.regex.Pattern;
 /**
  * Regex pattern class for widgets usage
  * @author Jiri Peterka
- *
+ * @deprecated use matcher
  */
 public class Regex {
 
