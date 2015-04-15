@@ -31,10 +31,11 @@ public class TextEditor extends AbstractEditor implements Editor {
 	 * Initialize currently focused TextEditor.
 	 * @throws WorkbenchPartNotFound when currently active editor isn't instance of ITextEditor
 	 */
-	@SuppressWarnings("unchecked")
 	public TextEditor() {
-		super(EditorPartLookup.getInstance().getEditor(
-				new EditorPartClassMatcher(ITextEditor.class)));
+		super(EditorPartLookup.getInstance().getActiveEditor());
+		if (!(editorPart instanceof ITextEditor)){
+			throw new WorkbenchLayerException("The active editor is not a text editor, but " + editorPart.getClass());
+		}
 	}
 	
 	/**

@@ -38,6 +38,7 @@ import org.jboss.reddeer.swt.keyboard.KeyboardFactory;
 import org.jboss.reddeer.core.util.Display;
 import org.jboss.reddeer.common.wait.AbstractWait;
 import org.jboss.reddeer.common.wait.TimePeriod;
+import org.jboss.reddeer.workbench.exception.WorkbenchLayerException;
 import org.jboss.reddeer.workbench.impl.editor.TextEditor;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -79,7 +80,7 @@ public class TextEditorTest {
 		WorkbenchPartHandler.getInstance().closeAllEditors();
 	}
 
-	@Test(expected=CoreLayerException.class)
+	@Test(expected=WorkbenchLayerException.class)
 	public void notTextEditorTest(){
 
 		NewFileCreationWizardDialog newFileDialog = new NewFileCreationWizardDialog();
