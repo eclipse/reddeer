@@ -82,6 +82,17 @@ public class AbstractTableItem extends AbstractWidget<org.eclipse.swt.widgets.Ta
 	}
 	
 	@Override
+	public void click(){
+		click(0);
+	}
+	
+	@Override
+	public void click(int column){
+		log.info("Double click table item " + getText());
+		TableHandler.getInstance().click(swtWidget, column);
+	}
+	
+	@Override
 	public void doubleClick(int column){
 		log.info("Double click column " + column + " of table item " + getText());
 		TableHandler.getInstance().doubleClick(swtWidget, column);
