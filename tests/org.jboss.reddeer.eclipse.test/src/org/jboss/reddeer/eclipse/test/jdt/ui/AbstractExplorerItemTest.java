@@ -24,9 +24,9 @@ import org.jboss.reddeer.eclipse.utils.DeleteUtils;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.requirements.openperspective.OpenPerspectiveRequirement.OpenPerspective;
 import org.jboss.reddeer.core.condition.JobIsRunning;
-import org.jboss.reddeer.core.handler.WorkbenchPartHandler;
 import org.jboss.reddeer.common.wait.TimePeriod;
 import org.jboss.reddeer.common.wait.WaitWhile;
+import org.jboss.reddeer.workbench.handler.EditorHandler;
 import org.jboss.reddeer.workbench.impl.editor.DefaultEditor;
 import org.junit.After;
 import org.junit.Before;
@@ -74,7 +74,7 @@ public abstract class AbstractExplorerItemTest {
 		
 		createJavaClass(JAVA_CLASS_NAME);
 		
-		WorkbenchPartHandler.getInstance().closeAllEditors();
+		EditorHandler.getInstance().closeAll(true);
 		explorer.getProject(PROJECT_NAME).getProjectItem(projectItemPath).open();
 		assertTrue("Active Editor has to have title " + JAVA_CLASS_FILE_NAME,
 			new DefaultEditor().getTitle().equals(JAVA_CLASS_FILE_NAME));
@@ -86,7 +86,7 @@ public abstract class AbstractExplorerItemTest {
 		project.getProjectItem(PROJECT_ITEM_TEXT).select();
 		
 		createJavaClass(JAVA_CLASS_NAME);
-		WorkbenchPartHandler.getInstance().closeAllEditors();
+		EditorHandler.getInstance().closeAll(true);
 		explorer.activate();
 		
 		ProjectItem projectItem = project.getProjectItem(projectItemPath);

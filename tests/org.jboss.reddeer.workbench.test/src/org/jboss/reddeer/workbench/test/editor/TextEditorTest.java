@@ -32,13 +32,13 @@ import org.jboss.reddeer.jface.text.contentassist.ContentAssistant;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.core.exception.CoreLayerException;
 import org.jboss.reddeer.core.handler.ShellHandler;
-import org.jboss.reddeer.core.handler.WorkbenchPartHandler;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.jboss.reddeer.swt.keyboard.KeyboardFactory;
 import org.jboss.reddeer.core.util.Display;
 import org.jboss.reddeer.common.wait.AbstractWait;
 import org.jboss.reddeer.common.wait.TimePeriod;
 import org.jboss.reddeer.workbench.exception.WorkbenchLayerException;
+import org.jboss.reddeer.workbench.handler.EditorHandler;
 import org.jboss.reddeer.workbench.impl.editor.TextEditor;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -53,7 +53,7 @@ public class TextEditorTest {
 	@BeforeClass
 	public static void setup(){
 		TextEditorTest.importTestProject();
-		WorkbenchPartHandler.getInstance().closeAllEditors();
+		EditorHandler.getInstance().closeAll(true);
 		TextEditor javaTextEditor = TextEditorTest.openJavaFile();
 		TextEditorTest.ORIGINAL_JAVA_FILE_TEXT = javaTextEditor.getText();
 		javaTextEditor.close();
@@ -77,7 +77,7 @@ public class TextEditorTest {
 		TextEditor javaTextEditor = TextEditorTest.openJavaFile();
 		javaTextEditor.setText(TextEditorTest.ORIGINAL_JAVA_FILE_TEXT);
 		javaTextEditor.save();
-		WorkbenchPartHandler.getInstance().closeAllEditors();
+		EditorHandler.getInstance().closeAll(true);
 	}
 
 	@Test(expected=WorkbenchLayerException.class)

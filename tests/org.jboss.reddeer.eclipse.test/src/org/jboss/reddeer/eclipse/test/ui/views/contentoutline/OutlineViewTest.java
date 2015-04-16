@@ -11,8 +11,8 @@ import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.PackageExplorer;
 import org.jboss.reddeer.eclipse.ui.views.contentoutline.OutlineView;
 import org.jboss.reddeer.eclipse.utils.DeleteUtils;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
+import org.jboss.reddeer.workbench.handler.EditorHandler;
 import org.jboss.reddeer.core.exception.CoreLayerException;
-import org.jboss.reddeer.core.handler.WorkbenchPartHandler;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -38,7 +38,7 @@ public class OutlineViewTest{
 	
 	@Test
 	public void testElementsInEmptyOutlineView() {
-		WorkbenchPartHandler.getInstance().closeAllEditors();
+		EditorHandler.getInstance().closeAll(true);
 		
 		outlineView = new OutlineView();
 		outlineView.open();
@@ -47,7 +47,7 @@ public class OutlineViewTest{
 	
 	@Test(expected=CoreLayerException.class)
 	public void testCollapseInEmptyOutlineView() {
-		WorkbenchPartHandler.getInstance().closeAllEditors();
+		EditorHandler.getInstance().closeAll(true);
 		
 		outlineView = new OutlineView();
 		outlineView.open();
@@ -56,7 +56,7 @@ public class OutlineViewTest{
 	
 	@Test(expected=CoreLayerException.class)
 	public void testSortInEmptyOutlineView() {
-		WorkbenchPartHandler.getInstance().closeAllEditors();
+		EditorHandler.getInstance().closeAll(true);
 		
 		outlineView = new OutlineView();
 		outlineView.open();
@@ -65,7 +65,7 @@ public class OutlineViewTest{
 	
 	@Test(expected=CoreLayerException.class)
 	public void testHideFieldsInEmptyOutlineView() {
-		WorkbenchPartHandler.getInstance().closeAllEditors();
+		EditorHandler.getInstance().closeAll(true);
 		
 		outlineView = new OutlineView();
 		outlineView.open();
@@ -74,7 +74,7 @@ public class OutlineViewTest{
 	
 	@Test(expected=CoreLayerException.class)
 	public void testHideStaticFieldsAndMethodsInEmptyOutlineView() {
-		WorkbenchPartHandler.getInstance().closeAllEditors();
+		EditorHandler.getInstance().closeAll(true);
 		
 		outlineView = new OutlineView();
 		outlineView.open();
@@ -83,7 +83,7 @@ public class OutlineViewTest{
 	
 	@Test(expected=CoreLayerException.class)
 	public void testHideNonPublicMembersInEmptyOutlineView() {
-		WorkbenchPartHandler.getInstance().closeAllEditors();
+		EditorHandler.getInstance().closeAll(true);
 		
 		outlineView = new OutlineView();
 		outlineView.open();
@@ -92,7 +92,7 @@ public class OutlineViewTest{
 	
 	@Test(expected=CoreLayerException.class)
 	public void testHideLocalTypesInEmptyOutlineView() {
-		WorkbenchPartHandler.getInstance().closeAllEditors();
+		EditorHandler.getInstance().closeAll(true);
 		
 		outlineView = new OutlineView();
 		outlineView.open();
@@ -101,7 +101,7 @@ public class OutlineViewTest{
 	
 	@Test(expected=CoreLayerException.class)
 	public void testLinkWithEditorInEmptyOutlineView() {
-		WorkbenchPartHandler.getInstance().closeAllEditors();
+		EditorHandler.getInstance().closeAll(true);
 		
 		outlineView = new OutlineView();
 		outlineView.open();
