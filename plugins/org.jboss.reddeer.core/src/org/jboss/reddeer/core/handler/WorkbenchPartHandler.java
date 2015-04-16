@@ -236,7 +236,9 @@ public class WorkbenchPartHandler {
 
 	/**
 	 * Closes all editors in active workbench.
+	 * @deprecated use org.jboss.reddeer.workbench.handler.EditorHandler#closeAll()
 	 */
+	@Deprecated
 	public void closeAllEditors() {
 		Display.syncExec(new Runnable() {
 
@@ -246,7 +248,7 @@ public class WorkbenchPartHandler {
 				final IWorkbenchPage activePage = workbench
 						.getActiveWorkbenchWindow().getActivePage();
 
-				activePage.closeEditors(activePage.getEditorReferences(), true);
+				activePage.closeEditors(activePage.getEditorReferences(), false);
 			}
 		});
 	}
