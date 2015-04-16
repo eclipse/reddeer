@@ -2,6 +2,7 @@ package org.jboss.reddeer.swt.test.impl.table;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.*;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.MouseEvent;
@@ -89,7 +90,10 @@ public class DefaultTableItemTest extends SWTLayerTestCase{
 			
 			@Override
 			public void mouseUp(MouseEvent arg0) {
-				
+				Table table = ((Table)arg0.widget);
+				int index = table.getSelectionIndex();
+				TableItem doubleClickedItem = table.getItem(index);
+				doubleClickedItem.setText(0,"single click");
 			}
 			
 			@Override
@@ -135,5 +139,12 @@ public class DefaultTableItemTest extends SWTLayerTestCase{
 	@Test
 	public void referencedComposite_text(){
 		assertThat(new DefaultTableItem(new DefaultTable(1), "1 3").getText(), is("1 3"));
+	}
+	
+	@Test
+	public void click(){
+		DefaultTableItem ti = new DefaultTableItem(new DefaultTable(1), "1 2");
+		ti.click();
+		assertEquals("single click",ti.getText());
 	}
 }

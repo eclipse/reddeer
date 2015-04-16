@@ -78,7 +78,19 @@ public interface TableItem extends Widget {
 	 * Clicks twice on the table item.
 	 */
 	void doubleClick();
+	
+	/**
+	 * Click on the table item.
+	 */
+	void click();
 
+	/**
+	 * Click on the table item.
+	 * 
+	 * @param column to click on
+	 */
+	void click(int column);
+	
 	/**
 	 * Clicks twice on specified column in the table item.
 	 * 

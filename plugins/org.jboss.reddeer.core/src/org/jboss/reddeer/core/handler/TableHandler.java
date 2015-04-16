@@ -9,6 +9,8 @@ import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
+import org.jboss.reddeer.common.wait.AbstractWait;
+import org.jboss.reddeer.common.wait.TimePeriod;
 import org.jboss.reddeer.core.exception.CoreLayerException;
 import org.jboss.reddeer.core.util.Display;
 import org.jboss.reddeer.core.util.ResultRunnable;
@@ -167,6 +169,51 @@ public class TableHandler {
 				int y = rectangle.y + (rectangle.height / 2);
 				WidgetHandler.getInstance().notifyItemMouse(
 						SWT.MouseDoubleClick, SWT.NONE, tableItem.getParent(),
+						tableItem, x, y, 1);
+
+			}
+		});
+	}
+	
+	/**
+	 * Set default selection on specified table item.
+	 * 
+	 * @param tableItem table item to handle
+	 */
+	public void setDefaultSelection(final TableItem tableItem){
+		Display.syncExec(new Runnable() {
+
+			@Override
+			public void run() {
+				TableItemHandler.getInstance().select(tableItem);
+				WidgetHandler.getInstance().notifyItem(SWT.DefaultSelection, SWT.NONE, 
+						tableItem.getParent(), tableItem);
+
+			}
+		});
+	}
+	
+	/**
+	 * Click on specified column in specified table item.
+	 * 
+	 * @param tableItem table item to handle
+	 * @param column column to click on
+	 */
+	public void click(final TableItem tableItem, final int column) {
+		Display.syncExec(new Runnable() {
+
+			@Override
+			public void run() {
+				TableItemHandler.getInstance().select(tableItem);
+				Rectangle rectangle = tableItem.getBounds(column);
+				int x = rectangle.x + (rectangle.width / 2);
+				int y = rectangle.y + (rectangle.height / 2);
+				WidgetHandler.getInstance().notifyItemMouse(
+						SWT.MouseDown, SWT.NONE, tableItem.getParent(),
+						tableItem, x, y, 1);
+				AbstractWait.sleep(TimePeriod.getCustom(1));
+				WidgetHandler.getInstance().notifyItemMouse(
+						SWT.MouseUp, SWT.NONE, tableItem.getParent(),
 						tableItem, x, y, 1);
 
 			}
