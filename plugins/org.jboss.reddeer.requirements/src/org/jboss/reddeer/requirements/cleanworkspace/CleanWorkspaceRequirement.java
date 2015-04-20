@@ -6,11 +6,13 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.eclipse.core.resources.Project;
 import org.jboss.reddeer.eclipse.jdt.ui.ProjectExplorer;
-import org.jboss.reddeer.eclipse.utils.DeleteUtils;
 import org.jboss.reddeer.junit.requirement.Requirement;
 import org.jboss.reddeer.requirements.cleanworkspace.CleanWorkspaceRequirement.CleanWorkspace;
+import org.jboss.reddeer.swt.exception.SWTLayerException;
+import org.jboss.reddeer.workbench.handler.EditorHandler;
 
 /**
  * Clean workspace requirement<br/><br/>
@@ -34,6 +36,8 @@ import org.jboss.reddeer.requirements.cleanworkspace.CleanWorkspaceRequirement.C
  * 
  */
 public class CleanWorkspaceRequirement implements Requirement<CleanWorkspace> {
+	
+	private static final Logger log = Logger.getLogger(CleanWorkspaceRequirement.class);
 
 	/**
 	 * Marks test class, which requires clean workspace before test cases are executed.
@@ -56,14 +60,20 @@ public class CleanWorkspaceRequirement implements Requirement<CleanWorkspace> {
 	}
 
 	/**
-	 * Deletes all projects from workspace.
+	 * Save all editors and delete all projects from workspace
 	 */
 	@Override
 	public void fulfill() {	
+		EditorHandler.getInstance().closeAll(true);
 		ProjectExplorer pe = new ProjectExplorer();
 		pe.open();
-		for (Project project : pe.getProjects()){
-			DeleteUtils.forceProjectDeletion(project, true);
+		try{
+			pe.deleteAllProjects();
+		} catch (SWTLayerException ex){
+			log.debug("Delete projects via Eclipse API ");
+			for (Project project : pe.getProjects()){
+				org.jboss.reddeer.direct.project.Project.delete(project.getName(), true, true);
+			}
 		}
 		pe.activate();
 	}
