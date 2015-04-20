@@ -1,6 +1,7 @@
 package org.jboss.reddeer.eclipse.ui.views.markers;
 
 import org.jboss.reddeer.common.wait.WaitWhile;
+import org.jboss.reddeer.core.condition.ShellWithTextIsActive;
 import org.jboss.reddeer.core.condition.ShellWithTextIsAvailable;
 import org.jboss.reddeer.swt.impl.button.CancelButton;
 import org.jboss.reddeer.swt.impl.button.FinishButton;
@@ -33,7 +34,7 @@ public class QuickFixWizard {
 	 */
 	public void finish(){
 		new FinishButton().click();
-		new WaitWhile(new ShellWithTextIsAvailable("Quick Fix"));
+		new WaitWhile(new ShellWithTextIsActive("Quick Fix"));
 	}
 
 }
