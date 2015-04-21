@@ -18,5 +18,5 @@ Export-Package: org.jboss.reddeer.jface.exception,
  org.jboss.reddeer.jface.preference,
  org.jboss.reddeer.jface.text.contentassist,
  org.jboss.reddeer.jface.viewer.handler,
+ org.jboss.reddeer.jface.viewers,
  org.jboss.reddeer.jface.wizard
- 
