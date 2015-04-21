@@ -5,6 +5,7 @@ import static org.hamcrest.CoreMatchers.not;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
+import org.jboss.reddeer.eclipse.jdt.ui.WorkbenchPreferenceDialog;
 import org.jboss.reddeer.jface.preference.PreferencePage;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.swt.api.Menu;
@@ -54,7 +55,7 @@ public class PreferencePageTest {
 
 	@Test
 	public void ok(){
-		preferencePage.ok();
+		new WorkbenchPreferenceDialog().ok();
 
 		Shell shell = new DefaultShell();
 		assertThat(shell.getText(), is(not(DIALOG_TITLE)));
@@ -63,7 +64,7 @@ public class PreferencePageTest {
 
 	@Test
 	public void cancel(){
-		preferencePage.cancel();
+		new WorkbenchPreferenceDialog().cancel();
 
 		Shell shell = new DefaultShell();
 		assertThat(shell.getText(), is(not(DIALOG_TITLE)));

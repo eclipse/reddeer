@@ -1,9 +1,9 @@
-package org.jboss.reddeer.uiforms.matcher;
+package org.jboss.reddeer.core.matcher;
 
 import org.eclipse.swt.widgets.Widget;
 import org.eclipse.ui.forms.widgets.FormText;
 import org.jboss.reddeer.core.matcher.WithTextMatcher;
-import org.jboss.reddeer.uiforms.handler.FormTextHandler;
+import org.jboss.reddeer.core.handler.FormTextHandler;
 
 /**
  * Matches text to FormText widgets text

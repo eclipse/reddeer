@@ -1,4 +1,4 @@
-package org.jboss.reddeer.uiforms.handler;
+package org.jboss.reddeer.core.handler;
 
 import java.lang.reflect.Field;
 
@@ -7,10 +7,10 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.ui.forms.widgets.FormText;
 import org.eclipse.ui.internal.forms.widgets.FormTextModel;
 import org.eclipse.ui.internal.forms.widgets.IHyperlinkSegment;
+import org.jboss.reddeer.core.exception.CoreLayerException;
 import org.jboss.reddeer.core.handler.WidgetHandler;
 import org.jboss.reddeer.core.util.Display;
 import org.jboss.reddeer.core.util.ResultRunnable;
-import org.jboss.reddeer.uiforms.exception.UIFormLayerException;
 
 /**
  * Class for handling FormText widget
@@ -63,7 +63,7 @@ public class FormTextHandler {
 	public void click(final FormText widget, final int hyperlinkSegmentIndex) {
 		final FormTextModel model = getModel(widget);
 		if (hyperlinkSegmentIndex > model.getHyperlinkCount()) {
-			throw new UIFormLayerException("FormText with text \""
+			throw new CoreLayerException("FormText with text \""
 					+ getText(widget) + "\" has only "
 					+ model.getHyperlinkCount() + " hyperlink segments.");
 		}

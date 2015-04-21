@@ -1,9 +1,8 @@
-package org.jboss.reddeer.uiforms.handler;
+package org.jboss.reddeer.core.handler;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.ui.forms.widgets.Hyperlink;
-import org.jboss.reddeer.core.handler.WidgetHandler;
 import org.jboss.reddeer.core.util.Display;
 
 /**

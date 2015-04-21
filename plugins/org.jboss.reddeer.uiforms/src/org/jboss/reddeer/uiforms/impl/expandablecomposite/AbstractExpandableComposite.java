@@ -6,7 +6,7 @@ import org.hamcrest.Matcher;
 import org.jboss.reddeer.core.handler.WidgetHandler;
 import org.jboss.reddeer.core.reference.ReferencedComposite;
 import org.jboss.reddeer.swt.widgets.AbstractWidget;
-import org.jboss.reddeer.uiforms.handler.ExpandableCompositeHandler;
+import org.jboss.reddeer.core.handler.ExpandableCompositeHandler;
 
 /**
  * Common ancestor for all

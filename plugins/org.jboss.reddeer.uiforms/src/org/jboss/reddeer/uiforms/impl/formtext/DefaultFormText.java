@@ -2,7 +2,7 @@ package org.jboss.reddeer.uiforms.impl.formtext;
 
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.core.reference.ReferencedComposite;
-import org.jboss.reddeer.uiforms.matcher.FormTextWithTextMatcher;
+import org.jboss.reddeer.core.matcher.FormTextWithTextMatcher;
 
 /**
  * Default implementation of FormText widget

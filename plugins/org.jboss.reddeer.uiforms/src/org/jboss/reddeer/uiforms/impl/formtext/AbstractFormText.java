@@ -5,7 +5,7 @@ import org.jboss.reddeer.core.handler.WidgetHandler;
 import org.jboss.reddeer.core.reference.ReferencedComposite;
 import org.jboss.reddeer.swt.widgets.AbstractWidget;
 import org.jboss.reddeer.uiforms.api.FormText;
-import org.jboss.reddeer.uiforms.handler.FormTextHandler;
+import org.jboss.reddeer.core.handler.FormTextHandler;
 
 public abstract class AbstractFormText extends AbstractWidget<org.eclipse.ui.forms.widgets.FormText> implements FormText {
 

@@ -5,7 +5,7 @@ import org.jboss.reddeer.core.handler.WidgetHandler;
 import org.jboss.reddeer.core.reference.ReferencedComposite;
 import org.jboss.reddeer.swt.widgets.AbstractWidget;
 import org.jboss.reddeer.uiforms.api.Hyperlink;
-import org.jboss.reddeer.uiforms.handler.HyperLinkHandler;
+import org.jboss.reddeer.core.handler.HyperLinkHandler;
 
 /**
  * Common ancestor for all {@link Hyperlink} implementations

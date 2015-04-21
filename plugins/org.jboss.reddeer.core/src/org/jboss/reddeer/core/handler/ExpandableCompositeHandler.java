@@ -1,4 +1,4 @@
-package org.jboss.reddeer.uiforms.handler;
+package org.jboss.reddeer.core.handler;
 
 import org.eclipse.ui.forms.widgets.ExpandableComposite;
 import org.jboss.reddeer.core.util.Display;
