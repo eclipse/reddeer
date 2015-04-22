@@ -179,6 +179,10 @@ public class MenuLookup {
 					"No control has focus. Perhaps something has stolen it? Try to regain focus with for example \"new DefaultShell()\".");
 		}
 		MenuItem[] items = null;
+		
+		//Send MenuDetect event. Some menus doesn't exist before that..
+		WidgetHandler.getInstance().notify(SWT.MenuDetect, control);
+		
 		final Menu menu = getControlMenu(control);
 		
 		items = Display.syncExec(new ResultRunnable<MenuItem[]>() {
