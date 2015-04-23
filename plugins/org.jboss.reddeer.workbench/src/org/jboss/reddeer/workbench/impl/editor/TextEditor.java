@@ -32,7 +32,7 @@ public class TextEditor extends AbstractEditor implements Editor {
 	 * @throws WorkbenchPartNotFound when currently active editor isn't instance of ITextEditor
 	 */
 	public TextEditor() {
-		super(EditorPartLookup.getInstance().getActiveEditor());
+		super(EditorPartLookup.getInstance().getEditor());
 		if (!(editorPart instanceof ITextEditor)){
 			throw new WorkbenchLayerException("The active editor is not a text editor, but " + editorPart.getClass());
 		}
