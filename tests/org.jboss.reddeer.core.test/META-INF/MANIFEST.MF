@@ -1,0 +1,17 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: RedDeer Core Component Tests
+Bundle-Vendor: JBoss by Red Hat
+Bundle-SymbolicName: org.jboss.reddeer.core.test;singleton:=true
+Bundle-Version: 0.8.0.qualifier
+Bundle-Activator: org.jboss.reddeer.core.test.Activator
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.junit,
+ org.jboss.reddeer.workbench;bundle-version="[0.8,0.9)",
+ org.jboss.reddeer.core;bundle-version="[0.8,0.9)",
+ org.jboss.reddeer.swt;bundle-version="[0.8,0.9)",
+ org.jboss.reddeer.eclipse;bundle-version="[0.8,0.9)",
+ org.jboss.reddeer.junit;bundle-version="[0.8,0.9)"
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7

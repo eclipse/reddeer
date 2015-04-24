@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: RedDeer Eclipse Componnet Tests
+Bundle-Name: RedDeer Eclipse Component Tests
 Bundle-Vendor: JBoss by Red Hat
 Bundle-SymbolicName: org.jboss.reddeer.eclipse.test;singleton:=true
 Bundle-Version: 0.8.0.qualifier
