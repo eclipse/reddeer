@@ -53,6 +53,26 @@ public interface Browser extends Widget {
 	 */
 	void refresh();
 
+	/**
+	 * Evaluates given script and returns its output. For more information see
+	 * {@link org.eclipse.swt.browser.Browser#evaluate(String)}.
+	 * 
+	 * @param script
+	 *            Script to evaluate;
+	 */
+
+	Object evaluate(String script);
+
+	/**
+	 * Executes given script. For more information see
+	 * {@link org.eclipse.swt.browser.Browser#execute(String)}.
+	 * 
+	 * @param script
+	 *            Script to execute.
+	 */
+
+	boolean execute(String script);
+	
 	org.eclipse.swt.browser.Browser getSWTWidget();
 
 }

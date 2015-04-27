@@ -1,10 +1,10 @@
 package org.jboss.reddeer.core.handler;
 
 
+import org.eclipse.swt.browser.Browser;
 import org.eclipse.swt.browser.ProgressListener;
 import org.jboss.reddeer.core.util.Display;
 import org.jboss.reddeer.core.util.ResultRunnable;
-import org.jboss.reddeer.core.handler.WidgetHandler;
 
 /**
  * Contains methods for handling UI operations on
@@ -153,5 +153,50 @@ public class BrowserHandler {
 		});
 
 		return result;
+	}
+	
+	/**
+	 * Executes given javascript code in browser. For more info see
+	 * {@link Browser#execute(String)}.
+	 * 
+	 * @param browser
+	 *            to handle.
+	 * @param script
+	 *            to execute.
+	 * 
+	 * @return true if script was executed successfully.
+	 */
+
+	public boolean execute(final org.eclipse.swt.browser.Browser browser, final String script) {
+		return Display.syncExec(new ResultRunnable<Boolean>() {
+
+			@Override
+			public Boolean run() {
+				return browser.execute(script);
+			}
+
+		});
+	}
+
+	/**
+	 * Evaluates given javascript code. For more info see
+	 * {@link Browser#evaluate(String)}.
+	 * 
+	 * @param browser
+	 *            to handle.
+	 * @param script
+	 *            to execute.
+	 * @return Returns the result, if any, of executing the specified script.
+	 */
+
+	public Object evaluate(final org.eclipse.swt.browser.Browser browser, final String script) {
+		return Display.syncExec(new ResultRunnable<Object>() {
+
+			@Override
+			public Object run() {
+				return browser.evaluate(script);
+			}
+
+		});
 	}
 }
