@@ -69,7 +69,7 @@ public class MenuLookup {
 	 *  
 	 * @return list of MenuManager instances related to tool bar menus.
 	 */
-	public List<IContributionItem> getToolbarMenus(){	
+	public List<IContributionItem> getViewMenus(){	
 		IWorkbenchPart part = getActivePart(false);
 		
 		List<IContributionItem> menuContributionItems = new ArrayList<IContributionItem>();
@@ -78,7 +78,26 @@ public class MenuLookup {
 			menuContributionItems.addAll(Arrays.asList(((MenuManager) m).getItems()));
 		}
 		if(menuContributionItems.isEmpty()){
-			throw new CoreLayerException("No Menu found in toolbar");
+			throw new CoreLayerException("No Menu found in active part: "+part.getTitle());
+		}
+		return menuContributionItems;
+	}
+	
+	/**
+	 * Provide lookup for ToolBar menu items. 
+	 * @return list of MenuManager instances related to toolbar menus
+	 * @deprecated in 0.8. Use {@link #getViewMenus()} instead.
+	 */
+	public List<IContributionItem> getToolbBarMenus(){	
+		IWorkbenchPart part = getActivePart(false);
+		
+		List<IContributionItem> menuContributionItems = new ArrayList<IContributionItem>();
+		IMenuManager m = ((IViewSite) part.getSite()).getActionBars().getMenuManager();
+		if (m instanceof MenuManager) {
+			menuContributionItems.addAll(Arrays.asList(((MenuManager) m).getItems()));
+		}
+		if(menuContributionItems.isEmpty()){
+			throw new CoreLayerException("No Menu found in active part: "+part.getTitle());
 		}
 		return menuContributionItems;
 	}
