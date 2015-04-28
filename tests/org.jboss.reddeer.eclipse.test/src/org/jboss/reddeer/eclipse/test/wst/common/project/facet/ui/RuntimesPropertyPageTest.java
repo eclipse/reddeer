@@ -2,11 +2,14 @@ package org.jboss.reddeer.eclipse.test.wst.common.project.facet.ui;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertTrue;
 
+import org.jboss.reddeer.eclipse.core.resources.Project;
 import org.jboss.reddeer.eclipse.jdt.ui.WorkbenchPreferenceDialog;
 import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.PackageExplorer;
 import org.jboss.reddeer.eclipse.test.wst.server.ui.TestServerRuntime;
 import org.jboss.reddeer.eclipse.test.wst.server.ui.view.ServersViewTestCase;
+import org.jboss.reddeer.eclipse.ui.dialogs.ExplorerItemPropertyDialog;
 import org.jboss.reddeer.eclipse.ui.wizards.datatransfer.ExternalProjectImportWizardDialog;
 import org.jboss.reddeer.eclipse.ui.wizards.datatransfer.WizardProjectsImportPage;
 import org.jboss.reddeer.eclipse.utils.DeleteUtils;
@@ -16,15 +19,9 @@ import org.jboss.reddeer.eclipse.wst.server.ui.wizard.NewRuntimeWizardDialog;
 import org.jboss.reddeer.eclipse.wst.server.ui.wizard.NewRuntimeWizardPage;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.swt.api.Shell;
-import org.jboss.reddeer.core.condition.ShellWithTextIsActive;
-import org.jboss.reddeer.core.condition.ShellWithTextIsAvailable;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
-import org.jboss.reddeer.core.handler.ShellHandler;
-import org.jboss.reddeer.core.handler.WidgetHandler;
-import org.jboss.reddeer.swt.impl.button.OkButton;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
-import org.jboss.reddeer.common.wait.WaitUntil;
-import org.jboss.reddeer.common.wait.WaitWhile;
+import org.jboss.reddeer.swt.impl.table.DefaultTableItem;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -35,7 +32,9 @@ public class RuntimesPropertyPageTest {
 
 	private static final String PROJECT = "server-project";
 	
-	private RuntimesPropertyPage propertyPage;
+	private ExplorerItemPropertyDialog dialog;
+	
+	private Project project;
 	
 	@Before
 	public void createProject(){
@@ -47,10 +46,6 @@ public class RuntimesPropertyPageTest {
 		wizardPage.selectProjects(PROJECT);
 
 		wizard.finish();
-		
-		PackageExplorer packageExplorer = new PackageExplorer();
-		packageExplorer.open();
-		propertyPage = new RuntimesPropertyPage(packageExplorer.getProject(PROJECT));
 	}
 	
 	@Before
@@ -73,9 +68,10 @@ public class RuntimesPropertyPageTest {
 	public void cleanup(){
 		Shell shell = null;
 		try {
-			shell = new DefaultShell(propertyPage.getPageTitle());
+			shell = new DefaultShell(dialog.getTitle());
 			shell.close();
 		} catch (SWTLayerException e){
+			e.printStackTrace();
 			// not found, no action needed
 		}
 		
@@ -93,17 +89,26 @@ public class RuntimesPropertyPageTest {
 	
 	@Test
 	public void selectRuntime() {
-		propertyPage.open();
-		propertyPage.selectRuntime(TestServerRuntime.NAME);
-		final String parentShellText = WidgetHandler.getInstance().getText(
-				ShellHandler.getInstance().getParentShell(new DefaultShell(propertyPage.getPageTitle()).getSWTWidget()));
-		new OkButton().click();
-		new WaitWhile(new ShellWithTextIsAvailable(propertyPage.getPageTitle())); 
-		new WaitUntil(new ShellWithTextIsActive(parentShellText));
+		dialog = new ExplorerItemPropertyDialog(getProject());
+		RuntimesPropertyPage propertyPage = new RuntimesPropertyPage();
 		
-		propertyPage.open();		
+		dialog.open();
+		dialog.select(propertyPage);
+		propertyPage.selectRuntime(TestServerRuntime.NAME);
+		assertTrue(new DefaultTableItem(TestServerRuntime.NAME).isChecked());
+		dialog.ok();
+		
+		dialog.open();
+		dialog.select(propertyPage);
  		assertThat(propertyPage.getSelectedRuntimes().get(0), is(TestServerRuntime.NAME));
- 		
- 		new OkButton().click();
  	}
+	
+	public Project getProject() {
+		if (project == null){
+			PackageExplorer packageExplorer = new PackageExplorer();
+			packageExplorer.open();
+			project = packageExplorer.getProject(PROJECT);
+		}
+		return project;
+	}
 }

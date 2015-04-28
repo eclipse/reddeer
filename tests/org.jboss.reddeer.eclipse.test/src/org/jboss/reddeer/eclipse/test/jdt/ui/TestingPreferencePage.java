@@ -1,4 +1,4 @@
-package org.jboss.reddeer.workbench.preference;
+package org.jboss.reddeer.eclipse.test.jdt.ui;
 
 import org.eclipse.jface.preference.PreferencePage;
 import org.eclipse.swt.SWT;

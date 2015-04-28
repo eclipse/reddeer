@@ -1,4 +1,4 @@
-package org.jboss.reddeer.jface.test.preference;
+package org.jboss.reddeer.eclipse.test.jdt.ui;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
@@ -8,36 +8,28 @@ import static org.junit.Assert.assertTrue;
 import org.jboss.reddeer.eclipse.jdt.ui.WorkbenchPreferenceDialog;
 import org.jboss.reddeer.jface.preference.PreferencePage;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
-import org.jboss.reddeer.swt.api.Menu;
 import org.jboss.reddeer.swt.api.Shell;
-import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
-import org.jboss.reddeer.swt.impl.menu.ShellMenu;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
-import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(RedDeerSuite.class)
-public class PreferencePageTest {
+public class WorkbenchPreferenceDialogTest {
 	
 	private static final String DIALOG_TITLE = "Preferences";
 
 	private static final String PAGE_NAME = TestingPreferencePage.TITLE;
 
+	private WorkbenchPreferenceDialog dialog;
+	
 	private PreferencePage preferencePage;
 
 	@Before
 	public void setup(){
-		Menu menu = new ShellMenu("Window", "Preferences");
-		menu.select();
-
-		TreeItem t = new DefaultTreeItem(TestingPreferencePage.TestTopCategory.TOP_CATEGORY, 
-				TestingPreferencePage.TestCategory.CATEGORY, PAGE_NAME);
-		t.select();
-
+		dialog = new WorkbenchPreferenceDialog();
 		preferencePage = new PreferencePageImpl();
 	}
 
@@ -54,8 +46,33 @@ public class PreferencePageTest {
 	}
 
 	@Test
+	public void openAndSelect(){
+		dialog.open();
+		
+		Shell shell = new DefaultShell();
+		assertThat(shell.getText(), is(DIALOG_TITLE));
+		
+		dialog.select(preferencePage);
+		assertThat(dialog.getPageName(), is(PAGE_NAME));
+	}
+	
+	@Test
+	public void openAndSelectByPath(){
+		dialog.open();
+		
+		Shell shell = new DefaultShell();
+		assertThat(shell.getText(), is(DIALOG_TITLE));
+		
+		dialog.select(TestingPreferencePage.TestTopCategory.TOP_CATEGORY,
+				TestingPreferencePage.TestCategory.CATEGORY, PAGE_NAME);
+		assertThat(dialog.getPageName(), is(PAGE_NAME));
+	}
+	
+	@Test
 	public void ok(){
-		new WorkbenchPreferenceDialog().ok();
+		dialog.open();
+		dialog.select(preferencePage);
+		dialog.ok();
 
 		Shell shell = new DefaultShell();
 		assertThat(shell.getText(), is(not(DIALOG_TITLE)));
@@ -64,7 +81,9 @@ public class PreferencePageTest {
 
 	@Test
 	public void cancel(){
-		new WorkbenchPreferenceDialog().cancel();
+		dialog.open();
+		dialog.select(preferencePage);
+		dialog.cancel();
 
 		Shell shell = new DefaultShell();
 		assertThat(shell.getText(), is(not(DIALOG_TITLE)));
@@ -73,6 +92,8 @@ public class PreferencePageTest {
 
 	@Test
 	public void apply(){
+		dialog.open();
+		dialog.select(preferencePage);
 		preferencePage.apply();
 
 		Shell shell = new DefaultShell();
@@ -83,6 +104,8 @@ public class PreferencePageTest {
 
 	@Test
 	public void restoreDefaults(){
+		dialog.open();
+		dialog.select(preferencePage);
 		preferencePage.restoreDefaults();
 
 		Shell shell = new DefaultShell();
@@ -94,7 +117,8 @@ public class PreferencePageTest {
 	class PreferencePageImpl extends PreferencePage {
 
 		public PreferencePageImpl() {
-			super();
+			super(new String[]{TestingPreferencePage.TestTopCategory.TOP_CATEGORY,
+					TestingPreferencePage.TestCategory.CATEGORY, PAGE_NAME});
 		}
 	}
 }
