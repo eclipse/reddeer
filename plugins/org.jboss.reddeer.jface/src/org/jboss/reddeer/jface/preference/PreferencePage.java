@@ -13,12 +13,22 @@ import org.jboss.reddeer.swt.impl.clabel.DefaultCLabel;
  */
 public abstract class PreferencePage {
 
-	protected final Logger log = Logger.getLogger(this.getClass());
+	private final Logger log = Logger.getLogger(PreferencePage.class);
 
+	private String[] path;
+	
 	/**
-	 * Default constructor.
+	 * Constructor sets path to specific preference item.
+	 * @param path path in preference shell tree to specific preference
 	 */
-	public PreferencePage() {
+	public PreferencePage(String[] path) {
+		if (path == null) {
+			throw new IllegalArgumentException("path can't be null");
+		}
+		if (path.length == 0) {
+			throw new IllegalArgumentException("path can't be empty");
+		}
+		this.path = path;
 	}
 
 	/**
@@ -29,6 +39,13 @@ public abstract class PreferencePage {
 	public String getName() {
 		DefaultCLabel cl = new DefaultCLabel();
 		return cl.getText();
+	}
+	
+	/**
+	 * Returns path of the preference item.
+	 */
+	public String[] getPath() {
+		return path.clone();
 	}
 
 	/**
@@ -48,5 +65,4 @@ public abstract class PreferencePage {
 		log.info("Restore default values in Preferences dialog");
 		b.click();
 	}
-	
 }

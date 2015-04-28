@@ -33,7 +33,7 @@
         <page
            id="org.jboss.reddeer.eclipse.ui.dialogs.ProjectPropertyPageTest"
            name="Property page test"
-		   class="org.jboss.reddeer.eclipse.ui.dialogs.TestPropertyPage">
+		   class="org.jboss.reddeer.eclipse.test.ui.dialogs.TestPropertyPage">
 			<enabledWhen>
 	           <instanceof
 	                value="org.eclipse.jdt.core.IJavaProject">
@@ -41,4 +41,22 @@
 	        </enabledWhen>   
 		</page>
     </extension> 
+       <extension point="org.eclipse.ui.preferencePages">
+     <page
+           class="org.jboss.reddeer.eclipse.test.jdt.ui.TestingPreferencePage$TestTopCategory"
+           id="org.jboss.reddeer.eclipse.test.jdt.ui.TestingPreferencePage.TestTopCategory"
+           name="Testing top category"/>
+           
+     <page
+           category="org.jboss.reddeer.eclipse.test.jdt.ui.TestingPreferencePage.TestTopCategory"
+           class="org.jboss.reddeer.eclipse.test.jdt.ui.TestingPreferencePage$TestCategory"
+           id="org.jboss.reddeer.eclipse.test.jdt.ui.TestingPreferencePage.TestCategory"
+           name="Testing category"/>
+           
+      <page
+           category="org.jboss.reddeer.eclipse.test.jdt.ui.TestingPreferencePage.TestCategory"
+           class="org.jboss.reddeer.eclipse.test.jdt.ui.TestingPreferencePage"
+           id="org.jboss.reddeer.eclipse.test.jdt.ui.TestingPreferencePage"
+           name="Testing preference page"/>
+   </extension>
 </plugin>
