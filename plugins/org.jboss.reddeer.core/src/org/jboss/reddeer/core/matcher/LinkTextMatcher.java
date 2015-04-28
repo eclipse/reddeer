@@ -7,9 +7,8 @@ import org.jboss.reddeer.core.handler.LinkHandler;
 import org.jboss.reddeer.core.matcher.WithTextMatcher;
 
 /**
- * Matcher matching {@link Link} with specified text. 
+ * Matcher matching text of {@link Link} to specified text. 
  * 
- * It is implemented as separated matcher since the retrieving of link's text is different to other widgets. 
  * @author Lucia Jelinkova
  *
  */
@@ -17,19 +16,19 @@ public class LinkTextMatcher extends WithTextMatcher {
 	
 
 	/**
-	 * Matches link with given text.
-	 * @param text Text to match.
+	 * Creates new LinkTextMatcher matching specified text to text of {@link Link}.
+	 * 
+	 * @param text text to match text of {@link Link}
 	 */
-	
 	public LinkTextMatcher(String text) {
 		super(text);
 	}
 
 	/**
-	 * Matches link with given matcher.
-	 * @param matcher Matcher to use against link text.
+	 * Creates new LinkTextMatcher matching specified string matcher to text of {@link Link}.
+	 * 
+	 * @param matcher matcher to match text of {@link Link}
 	 */
-	
 	public LinkTextMatcher(Matcher<String> matcher) {
 		super(matcher);
 	}

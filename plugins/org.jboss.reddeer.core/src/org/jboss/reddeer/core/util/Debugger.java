@@ -3,7 +3,8 @@ package org.jboss.reddeer.core.util;
 import org.jboss.reddeer.core.exception.CoreLayerException;
 
 /**
- * Debugger class providing methods useful for test debugging
+ * Debugger class provides methods useful for test debugging.
+ * 
  * @author Jiri Peterka
  *
  */
@@ -12,6 +13,9 @@ public class Debugger {
 	private static boolean paused = false;
 	private static final int time = 1000;
 	
+	/**
+	 * Pause running tests.
+	 */
 	public static void pause() {
 		paused = true;
 		while (paused) {
@@ -24,6 +28,9 @@ public class Debugger {
 		}
 	}
 	
+	/**
+	 * Play (unpause) paused tests.
+	 */
 	public static void unpause() {
 		paused = false;
 	}

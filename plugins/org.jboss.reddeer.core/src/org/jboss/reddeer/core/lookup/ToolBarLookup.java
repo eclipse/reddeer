@@ -24,7 +24,8 @@ import org.jboss.reddeer.core.util.ResultRunnable;
 import org.jboss.reddeer.core.lookup.WidgetLookup;
 
 /**
- * Lookup routines for Toolbar implementations mainly running in UI Thread
+ * Tool bar lookup provides methods for looking up various tool bars. 
+ * Methods should be executed in UI Thread.
  * 
  * @author Jiri Peterka
  * 
@@ -35,11 +36,10 @@ public class ToolBarLookup {
 	private static ToolBarLookup instance;
 
 	/**
-	 * Returns instance of this {@link ToolBarLookup}.
+	 * Gets instance of ToolBarLookup.
 	 * 
-	 * @return instance
+	 * @return ToolBarLookup instance
 	 */
-
 	public static ToolBarLookup getInstance() {
 		if (instance == null) {
 			instance = new ToolBarLookup();
@@ -48,13 +48,11 @@ public class ToolBarLookup {
 	}
 
 	/**
-	 * Returns ToolBar of currently active View. If no view is active,
-	 * {@link SWTLayerException} is thrown.
+	 * Gets ToolBar of currently active View.
 	 * 
-	 * @return found ToolBar.
-	 * @throws SWTLayerException
+	 * @return tool bar of active view
+	 * @throws CoreLayerException if there is no active view
 	 */
-
 	public ToolBar getViewToolBar() {
 		ToolBar toolbar = Display.syncExec(new ResultRunnable<ToolBar>() {
 			@Override
@@ -79,24 +77,20 @@ public class ToolBarLookup {
 	}
 
 	/**
-	 * Searches for first toolbar within currently active control (shell, view,
-	 * ...).
+	 * Gets first tool bar of currently active referenced composite (shell, view, etc.).
 	 * 
-	 * @return first toolbar within currently active control (shell, view, ...).
+	 * @return first tool bar of currently active referenced composite
 	 */
-
 	public ToolBar getToolBar() {
 		return getToolBar(null, 0);
 	}
 
 	/**
-	 * Searches for nth toolbar within given {@link ReferencedComposite}.
+	 * Gets tool bar with specified index within specified referenced composite.
 	 * 
-	 * @param rc
-	 *            {@link ReferencedComposite} to look into for ToolBar.
-	 * @param index
-	 *            index of found ToolBar.
-	 * @return desired ToolBar.
+	 * @param rc referenced composite where to look for tool bar
+	 * @param index index of tool bar
+	 * @return tool bar within specified referenced composite with with specified index
 	 */
 	public ToolBar getToolBar(ReferencedComposite rc, int index) {
 		return WidgetLookup.getInstance()
@@ -104,14 +98,11 @@ public class ToolBarLookup {
 	}
 
 	/**
-	 * Searches for nth ToolBar within WorkbenchToolBars.
+	 * Gets workbench tool bar with specified index.
 	 * 
-	 * @param index
-	 *            index of desired ToolBar.
-	 * @return ToolBar.
-	 * @throws SWTLayerException
-	 *             when there is no ToolBar with given index in workbench tool
-	 *             bars.
+	 * @param index index of tool bar
+	 * @return workbench tool bar with specified index
+	 * @throws CoreLayerException if there is no workbench tool bar with specified index
 	 */
 	public ToolBar getWorkbenchToolBar(int index) {
 		try {
@@ -123,10 +114,11 @@ public class ToolBarLookup {
 	}
 
 	/**
-	 * Returns active workbench toolbars, if null, SWTLayerException is thrown.
-	 * Note that this method uses Eclipse internal API thay may change soon
+	 * Gets active workbench tool bars.
+	 * Note: this method uses Eclipse internal API that may change soon
 	 * 
-	 * @return active workbench toolbars
+	 * @return active workbench tool bars
+	 * @throws CoreLayerException if there is no active workbench tool bar
 	 */
 	public List<ToolBar> getWorkbenchToolBars() {
 
@@ -174,12 +166,12 @@ public class ToolBarLookup {
 	}
 
 	/**
-	 * Searches for all ToolBars within given {@link ReferencedComposite}.
+	 * Gets all tool bars located within specified referenced composite.
 	 * 
-	 * @param rc {@link ReferencedComposite} to look into.
-	 * @return array of found ToolBars.
+	 * @param rc referenced composite to search for tool bar
+	 * @return list of tool bars contained in specified referenced composite, or empty list
+	 * if there is no tool bar in specified referenced composite at all
 	 */
-	
 	public List<ToolBar> getToolbars(ReferencedComposite rc) {
 		List<ToolBar> list = new ArrayList<ToolBar>();
 		boolean found = true;

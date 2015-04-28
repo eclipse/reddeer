@@ -21,7 +21,7 @@ import org.jboss.reddeer.core.lookup.WidgetLookup;
 import org.jboss.reddeer.core.lookup.ToolBarLookup;
 
 /**
- * Class providing methods for searching for tool items.
+ * Tool item lookup provides methods for looking up various tool items.
  * 
  * @author rhopp
  *
@@ -33,28 +33,22 @@ public class ToolItemLookup {
 	private static ToolItemLookup instance = new ToolItemLookup();
 
 	/**
-	 * Returns instance of this {@link ToolItemLookup}.
+	 * Gets instance of ToolItemLookup.
 	 * 
-	 * @return instance.
+	 * @return ToolItemLookup instance
 	 */
-
 	public static ToolItemLookup getInstance() {
 		return instance;
 	}
 
 	/**
-	 * Searches for nth ToolItem within given {@link ReferencedComposite} and
-	 * matching {@code matchers}.
+	 * Gets tool item matching specified matcher with specified index located within specified referenced composite.
 	 * 
-	 * @param rc
-	 *            {@link ReferencedComposite} in which serching is performed.
-	 * @param index
-	 *            index of found ToolItem.
-	 * @param matchers
-	 *            matchers to match against tool items.
-	 * @return found ToolItem.
+	 * @param rc referenced composite to search for tool items
+	 * @param index index of tool item
+	 * @param matchers matchers to match tool item
+	 * @return tool item matching specified matcher with specified index located within specified referenced composite
 	 */
-
 	public ToolItem getToolItem(ReferencedComposite rc, int index,
 			Matcher<?>... matchers) {
 		
@@ -65,6 +59,12 @@ public class ToolItemLookup {
 				matchers);
 	}
 
+	/**
+	 * Gets workbench tool item matching specified matcher.
+	 * 
+	 * @param matcher matcher to match workbench tool item
+	 * @return workbench tool item matching specified matcher
+	 */
 	public ToolItem getWorkbenchToolItem(Matcher<String> matcher) {
 		ToolBarLookup tl = ToolBarLookup.getInstance();
 		List<ToolBar> workbenchToolBars = tl.getWorkbenchToolBars();

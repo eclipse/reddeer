@@ -16,8 +16,9 @@ import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.core.util.Display;
 import org.jboss.reddeer.core.util.ResultRunnable;
 import org.jboss.reddeer.core.handler.WorkbenchPartHandler;
+
 /**
- * WorkbenchPart lookup containing lookup routines for Workbench parts such as editor and view.
+ * Workbench part lookup contains methods for looking up specific workbench part (mostly views).
  * 
  * @author rawagner
  *
@@ -33,6 +34,11 @@ public class WorkbenchPartLookup {
 
 	}
 
+	/**
+	 * Gets instance of WorkbenchPartLookup.
+	 * 
+	 * @return WorkbenchPartLookup instance
+	 */
 	public static WorkbenchPartLookup getInstance(){
 		if(instance == null){
 			instance = new WorkbenchPartLookup();
@@ -40,13 +46,19 @@ public class WorkbenchPartLookup {
 		return instance;
 	}
 
+	/**
+	 * Gets active workbench part.
+	 * 
+	 * @return active workbench part
+	 */
 	public IWorkbenchPart getActiveWorkbenchPart() {
 		return WorkbenchPartHandler.getInstance().getActiveWorkbenchPart();
 	}
 
 	
 	/**
-	 * Returns active workbench part reference from current active workbench window
+	 * Gets active workbench part reference from current active workbench window.
+	 * 
 	 * @return active workbench part reference
 	 */
 	public IWorkbenchPartReference findActiveWorkbenchPartReference() {
@@ -54,11 +66,9 @@ public class WorkbenchPartLookup {
 	}
 
 	/**
-	 * Returns all views that are currently open in the current perspective (including those
-	 * on non-active tabs)
+	 * Gets all currently opened views as list of view parts. Includes also views on non-active tabs.
 	 * 
-	 * @param title
-	 * @return
+	 * @return list of currently opened view parts
 	 */
 	public List<IViewPart> getOpenViews(){
 		IWorkbenchPage activePage = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
@@ -87,7 +97,8 @@ public class WorkbenchPartLookup {
 	}
 	
 	/**
-	 * Returns all view references. 
+	 * Gets all view references. 
+	 * 
 	 * @return array of all view references
 	 */
 	public IViewReference[] findAllViewReferences() {
@@ -95,7 +106,7 @@ public class WorkbenchPartLookup {
 	}
 
 	/**
-	 * Gets active view.
+	 * Gets active view as a view reference.
 	 * 
 	 * @return active view
 	 */
@@ -113,9 +124,10 @@ public class WorkbenchPartLookup {
 		
 	
 	/**
-	 * Returns view if is open in the current perspective by its name
-	 * @param name
-	 * @return
+	 * Gets view as a view part with title matching specified matcher.
+	 * 
+	 * @param name matcher to match title
+	 * @return view part matching specified matcher
 	 */
 	public IViewPart getViewByTitle(final Matcher<String> name){
 		return Display.syncExec(new ResultRunnable<IViewPart>() {
@@ -145,10 +157,10 @@ public class WorkbenchPartLookup {
 	}
 	
 	/**
-	 * Return control object associated to active workbench.
+	 * Gets control object associated to active workbench.
 	 * 
-	 * @param activeWorkbenchReference
-	 * @return
+	 * @param activeWorkbenchReference active workbench reference
+	 * @return workbench control associated to active workbench
 	 */
 	public Control getWorkbenchControl(
 			final IWorkbenchPartReference activeWorkbenchReference) {

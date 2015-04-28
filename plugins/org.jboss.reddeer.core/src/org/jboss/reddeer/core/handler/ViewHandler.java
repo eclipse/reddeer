@@ -18,7 +18,8 @@ import org.jboss.reddeer.common.wait.WaitUntil;
 import org.jboss.reddeer.core.condition.ActiveFocusControlIsInActiveView;
 
 /**
- * View handler handles operations for View instances
+ * View handler handles operations for view instances.
+ * 
  * @author rawagner
  */
 public class ViewHandler {
@@ -31,6 +32,11 @@ public class ViewHandler {
 		
 	}
 	
+	/**
+	 * Gets instance of ViewHandler.
+	 * 
+	 * @return instance of ViewHandler
+	 */
 	public static ViewHandler getInstance(){
 		if(instance == null){
 			instance = new ViewHandler();
@@ -38,6 +44,11 @@ public class ViewHandler {
 		return instance;
 	}
 	
+	/**
+	 * Sets focus for specified {@link IViewPart}.
+	 *
+	 * @param viewPart view part to set focus on
+	 */
 	public void setFocus(final IViewPart viewPart) {
 		Display.syncExec(new Runnable() {
 			@Override
@@ -75,9 +86,11 @@ public class ViewHandler {
 			}
 		});
 	}
+	
 	/**
-	 * Closes view specified by view part
-	 * @param viewPart
+	 * Closes view specified by view part.
+	 * 
+	 * @param viewPart view part to close
 	 */	
 	public void close(final IViewPart viewPart){
 		log.debug("Hiding view " + viewPart.getTitle());
@@ -90,10 +103,12 @@ public class ViewHandler {
 			}
 		});
 	}
+	
 	/**
-	 * Returns true if view specified by view part is visible on workbench active page
-	 * @param viewPart
-	 * @return
+	 * Finds out whether specified {@link IViewPart} is visible on active workbench window or not.
+	 * 
+	 * @param viewPart view part to handle
+	 * @return true if specified view part is visible on active workbench window, false otherwise
 	 */
 	public boolean isViewVisible(final IViewPart viewPart){
 		return Display.syncExec(new ResultRunnable<Boolean>() {
@@ -176,9 +191,10 @@ public class ViewHandler {
 		return workbenchControl.equals(parent);
 	}
 	/**
-	 * Returns true if view part references to valid view
-	 * @param viewPart
-	 * @return
+	 * Finds out whether specified {@link IViewPart} references to valid view.
+	 * 
+	 * @param viewPart view part to handle
+	 * @return true if specified view part is valid, false otherwise
 	 */
 	public boolean isValid(final IViewPart viewPart) {
 		return viewPart != null

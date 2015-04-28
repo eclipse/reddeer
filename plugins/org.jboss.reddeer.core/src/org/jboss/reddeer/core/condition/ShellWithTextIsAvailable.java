@@ -10,7 +10,7 @@ import org.jboss.reddeer.core.matcher.WithTextMatcher;
 import org.jboss.reddeer.core.util.InstanceValidator;
 
 /**
- * Condition is met when shell with specific text (title) is available.
+ * Condition is met when a shell with specific text (title) is available.
  * 
  * @author Andrej Podhradsky (andrej.podhradsky@gmail.com)
  * @author jniederm
@@ -21,9 +21,9 @@ public class ShellWithTextIsAvailable implements WaitCondition {
 
 	/**
 	 * Constructs ShellWithTextIsAvailable wait condition.
-	 * Condition is met when shell with the specified title is available.
+	 * Condition is met when a shell with the specified title is available.
 	 * 
-	 * @param text text/name of the shell
+	 * @param text title of the shell
 	 */
 	public ShellWithTextIsAvailable(String title) {
 		InstanceValidator.checkNotNull(title, "title");

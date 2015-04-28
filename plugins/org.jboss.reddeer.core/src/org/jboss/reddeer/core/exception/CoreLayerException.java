@@ -2,7 +2,7 @@ package org.jboss.reddeer.core.exception;
 
 import org.jboss.reddeer.common.exception.RedDeerException;
 /**
- * RedDeerCoreException indicates exceptional situation RedDeer core level
+ * RedDeer CoreLayerException indicates exceptional situation at RedDeer core layer.
  * 
  * @author Jiri Peterka
  *
@@ -12,7 +12,7 @@ public class CoreLayerException extends RedDeerException {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Constructs a new RedDeerCoreException with the specified detail message.
+	 * Constructs a new CoreLayerException with the specified detail message.
 	 * 
 	 * @param message the detail message
 	 */
@@ -21,7 +21,7 @@ public class CoreLayerException extends RedDeerException {
 	}
 
 	/**
-	 * Constructs a new RedDeerCoreException with the specified detail
+	 * Constructs a new CoreLayerException with the specified detail
 	 * message and cause.
 	 * 
 	 * @param message the detail message
@@ -32,7 +32,7 @@ public class CoreLayerException extends RedDeerException {
 	}
 
 	/**
-	 * Constructs a new RedDeerCoreException with the specified detail
+	 * Constructs a new CoreLayerException with the specified detail
 	 * message, cause and messageDetails.
 	 * 
 	 * @param message the detail message
@@ -50,7 +50,7 @@ public class CoreLayerException extends RedDeerException {
 	}
 
 	/**
-	 * Constructs a new RedDeerCoreException with the specified detail
+	 * Constructs a new CoreLayerException with the specified detail
 	 * message and messageDetails.
 	 * 
 	 * @param message the detail message

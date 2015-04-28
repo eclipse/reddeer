@@ -10,7 +10,7 @@ import org.jboss.reddeer.core.lookup.ShellLookup;
 import org.jboss.reddeer.core.util.InstanceValidator;
 
 /**
- * Condition is met when shell with specified text (title) is active.
+ * Condition is met when a shell with specified text (title) is active.
  * 
  * @author Vlado Pakan
  * @author jniederm
@@ -23,9 +23,9 @@ public class ShellWithTextIsActive implements WaitCondition {
 
 	/**
 	 * Constructs ShellWithTextIsActive wait condition. Condition is met when
-	 * shell with specified text is active.
+	 * a shell with specified text is active.
 	 * 
-	 * @param text text/name of the shell
+	 * @param text title of the shell
 	 */
 	public ShellWithTextIsActive(String text) {
 		InstanceValidator.checkNotNull(text, "text");
@@ -34,9 +34,9 @@ public class ShellWithTextIsActive implements WaitCondition {
 
 	/**
 	 * Constructs ShellWithTextIsActive wait condition. Condition is met when
-	 * shell matching matcher is active.
+	 * a shell matching matcher is active.
 	 * 
-	 * @param matcher matcher matching text of the shell
+	 * @param matcher matcher matching title of the shell
 	 */
 	public ShellWithTextIsActive(org.hamcrest.Matcher<String> matcher) {
 		InstanceValidator.checkNotNull(matcher, "matcher");

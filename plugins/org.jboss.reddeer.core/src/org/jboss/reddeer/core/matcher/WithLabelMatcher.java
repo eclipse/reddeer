@@ -13,7 +13,7 @@ import org.hamcrest.core.Is;
 import org.jboss.reddeer.core.handler.WidgetHandler;
 
 /**
- * Matches {@link Widget} with described label.
+ * Matcher matching text to label of {@link Widget}.
  * 
  * @author Rastislav Wagner
  * @author Radoslav Rabara
@@ -24,10 +24,10 @@ public class WithLabelMatcher extends BaseMatcher<String> {
 	private Matcher<String> matcher;
 	
 	/**
-	 * Constructs matcher that matches {@link Widget}
-	 * with label which text is equal to the specified <var>text</var>
+	 * Constructs new WithLabelMatcher matching specified text to label of {@link Widget}
+	 * on exact match.
 	 * 
-	 * @param text The {@link String} to compare {@link Widget}'s label against
+	 * @param text text to match label
 	 * 
 	 */
 	public WithLabelMatcher(String text) {
@@ -35,10 +35,10 @@ public class WithLabelMatcher extends BaseMatcher<String> {
 	}
 	
 	/**
-	 * Constructs matcher that matches {@link Widget}
-	 * with label which text is matched by given matcher
+	 * Constructs new WithLabelMatcher matching specified text matcher to label of {@link Widget}
+	 * on exact match.
 	 * 
-	 * @param matcher The {@link Matcher<String>} used to evaluate {@link Widget}'s label
+	 * @param matcher text matcher to match label
 	 * 
 	 */
 	public WithLabelMatcher(Matcher<String> matcher) {
@@ -53,9 +53,10 @@ public class WithLabelMatcher extends BaseMatcher<String> {
 	}
 
 	/**
-	 * Matches given object
+	 * Matches specified object to text or text matcher provided in constructor of this object.
 	 * 
-	 * @returns true if object's label is matching
+	 * @returns true if label of specified object is matching text or 
+	 * text matcher of this object, false otherwise
 	 * 
 	 */
 	@Override

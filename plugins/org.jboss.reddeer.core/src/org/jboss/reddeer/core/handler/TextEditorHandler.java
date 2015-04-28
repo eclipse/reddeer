@@ -21,11 +21,12 @@ public class TextEditorHandler {
     private TextEditorHandler() {
 
     }
-
-    /**
-     * 
-     * @return
-     */
+    
+	/**
+	 * Gets instance of TextEditorHandler.
+	 * 
+	 * @return instance of TextEditorHandler
+	 */
     public static TextEditorHandler getInstance() {
         if (instance == null) {
             instance = new TextEditorHandler();
@@ -34,9 +35,11 @@ public class TextEditorHandler {
     }
 
     /**
-     * Sets text for given editor replacing its document content.
-     * @param editor
-     * @param text
+     * Sets specified text to specified {@link ITextEditor} editor. 
+     * Current content of text editor is replaced.
+     * 
+     * @param editor editor to set text
+     * @param text text to set
      */
     public void setText(final ITextEditor editor, final String text) {
         Display.syncExec(new Runnable() {
@@ -50,11 +53,12 @@ public class TextEditorHandler {
     }
 
     /**
-     * Returns text on given line of given editor. Note, that this method manipulates with editor's document (i.e. not
-     * what is currently visible, but what is the actual content of this editor)
-     * @param editor
-     * @param line
-     * @return
+     * Gets text on specified line of specified text editor. Notice, that this method manipulates with 
+     * document of specified editor - that mean this works with current content of editor, not with visible content.
+     * 
+     * @param editor editor to handle
+     * @param line line with desired text
+     * @return text on specified line of specified text editor
      */
     public String getTextAtLine(final ITextEditor editor, final int line) {
         return Display.syncExec(new ResultRunnable<String>() {
@@ -82,6 +86,12 @@ public class TextEditorHandler {
         });
     }
 
+    /**
+     * Gets number of lines of specified text editor.
+     * 
+     * @param editor editor to get lines of
+     * @return number of lines of specified text editor
+     */
     public int getNumberOfLines(final ITextEditor editor) {
         return Display.syncExec(new ResultRunnable<Integer>() {
             @Override
@@ -92,12 +102,13 @@ public class TextEditorHandler {
     }
 
     /**
-     * Inserts text to given line into editor. Note, that this method manipulates with editor's document (i.e. not what
-     * is currently visible, but what is the actual content of this editor)
-     * @param editor
-     * @param line
-     * @param offset
-     * @param text
+     * Inserts text to specified line and specified offset of specified text editor. Notice, that this method manipulates with 
+     * document of specified editor - that mean this works with current content of editor, not with visible content.
+     * 
+     * @param editor editor to insert text into
+     * @param line line to insert text 
+     * @param offset offset of text
+     * @param text text to insert
      */
     public void insertText(final ITextEditor editor, final int line,
             final int offset, final String text) {
@@ -118,11 +129,12 @@ public class TextEditorHandler {
     }
     
     /**
-     * Inserts text to given offset of editor. Note, that this method manipulates with editor's document (i.e. not what
-     * is currently visible, but what is the actual content of this editor)
-     * @param editor
-     * @param offset
-     * @param text
+     * Inserts text to specified offset of text editor. Notice, that this method manipulates with 
+     * document of specified editor - that mean this works with current content of editor, not with visible content.
+     * 
+     * @param editor editor to handle
+     * @param offset offset to insert text into 
+     * @param text text to insert
      */
     public void insertText(final ITextEditor editor, final int offset, final String text) {
         Display.syncExec(new Runnable() {
@@ -138,9 +150,10 @@ public class TextEditorHandler {
     }
 
     /**
-     * Returns currently selected text in given editor
-     * @param editor
-     * @return
+     * Gets currently selected text in specified editor.
+     * 
+     * @param editor editor to handle
+     * @return currently selected text of specified text editor
      */
     public String getSelectedText(final ITextEditor editor) {
         return Display.syncExec(new ResultRunnable<String>() {
@@ -159,9 +172,10 @@ public class TextEditorHandler {
     }
 
     /**
-     * Selects
-     * @param editor
-     * @param lineNumber
+     * Selects line with specified number in specified text editor.
+     * 
+     * @param editor editor to handle
+     * @param lineNumber line to select
      */
     public void selectLine(final ITextEditor editor, final int lineNumber) {
         Display.syncExec(new Runnable() {
@@ -183,9 +197,10 @@ public class TextEditorHandler {
     }
 
     /**
-     * Selects text
-     * @param editor
-     * @param text to select
+     * Selects specified text on specified index in specified text editor.
+     *  
+     * @param editor editor to handle
+     * @param text text to select
      * @param textIndex index of text
      */
     public void selectText(final ITextEditor editor, final String text,
@@ -243,7 +258,7 @@ public class TextEditorHandler {
     }
     
     /**
-	 * Gets position of first character of specified text in specified editor
+	 * Gets position of first character of specified text in specified text editor.
 	 * 
 	 * @param editor to handle
 	 * @param text text to get position
@@ -254,11 +269,11 @@ public class TextEditorHandler {
 	}
 	
 	/**
-	 * Gets position of first character of specified text in specified editor
+	 * Gets position of first character of specified text on specified index in specified text editor.
 	 * 
-	 * @param editor to handle
+	 * @param editor editor to handle
 	 * @param text text to get position
-	 * @param index of text
+	 * @param index index of text
 	 * @return position of first character of specified text if exists, -1 otherwise 
 	 */
 	public int getPositionOfText(final ITextEditor editor, final String text, final int index) {
@@ -285,6 +300,13 @@ public class TextEditorHandler {
 		});
 	}
 
+	/**
+	 * Sets cursor position to specified line and specified column in specified text editor.
+	 * 
+	 * @param editor editor to handle
+	 * @param line line to set cursor to
+	 * @param column column to set cursor to
+	 */
 	public void setCursorPosition(final ITextEditor editor, final int line,
 			final int column) {
 		Display.syncExec(new Runnable() {
@@ -305,9 +327,10 @@ public class TextEditorHandler {
 	}
 
     /**
-     * returns IDocument element for given ITextEditor
-     * @param editor
-     * @return
+     * Gets {@link IDocument} element of specified text editor.
+     * 
+     * @param editor editor to handle
+     * @return document of specified text editor
      */
     public IDocument getDocument(ITextEditor editor) {
         return editor.getDocumentProvider()

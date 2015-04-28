@@ -28,11 +28,12 @@ import org.jboss.reddeer.core.resolver.WidgetResolver;
 import org.jboss.reddeer.core.matcher.MatcherBuilder;
 import org.jboss.reddeer.core.util.Display;
 import org.jboss.reddeer.core.util.ResultRunnable;
+
 /**
- * Widget Lookup methods contains core lookup and resolving widgets
+ * Widget lookup provides methods for looking up eclipse widgets.
+ * 
  * @author Jiri Peterka
  * @author Jaroslav Jankovic
- *
  */
 public class WidgetLookup {
 
@@ -43,8 +44,9 @@ public class WidgetLookup {
 	}
 
 	/**
-	 * Returns WidgetLookup instance
-	 * @return widgetLookup instance
+	 * Gets instance of WidgetLookup.
+	 * 
+	 * @return WidgetLookup instance
 	 */
 	public static WidgetLookup getInstance() {
 		if (instance == null) instance = new WidgetLookup();
@@ -52,12 +54,13 @@ public class WidgetLookup {
 	}
 
 	/**
-	 * Method looks for active widget matching given criteria like reference composite, class, etc.
-	 * @param refComposite reference composite within lookup will be performed
-	 * @param clazz given class for a lookup
-	 * @param index widget index for a lookup
-	 * @param matchers additional matchers
-	 * @return returns matching widget
+	 * Method looks for active widget located in specified referenced composite, laying on specified index and matching specified matchers.
+	 *
+	 * @param refComposite reference composite to search for widgets
+	 * @param clazz class type of widget
+	 * @param index index of widget within referenced composite
+	 * @param matchers matchers to match widget
+	 * @return widget located withing specified referenced composite, laying on specified index and matching specified matchers
 	 */
 	@SuppressWarnings({ "rawtypes","unchecked" })
 	public <T extends Widget> T activeWidget(ReferencedComposite refComposite, Class<T> clazz, int index, Matcher... matchers) {				
@@ -113,8 +116,9 @@ public class WidgetLookup {
 
 
 	/**
-	 * Checks is extra shell (shell outside workbench) active 
-	 * @return true if extra shell is active
+	 * Finds out whether extra shell (shell different than workbench shell) is active.
+	 *  
+	 * @return true if extra shell is active, false otherwise
 	 */
 	public boolean isExtraShellActive() {
 		IWorkbenchPartReference activeWorkbenchReference = WorkbenchPartLookup.getInstance().findActiveWorkbenchPartReference();
@@ -129,7 +133,8 @@ public class WidgetLookup {
 
 
 	/**
-	 * Looks for active parent control. Either finds activeWorkbenchReference control or activeShell 
+	 * Gets active parent control. Method finds either active workbench referenced control active shell. 
+	 *
 	 * @return active workbench control or active shell
 	 */
 	public Control getActiveWidgetParentControl() {
@@ -180,22 +185,24 @@ public class WidgetLookup {
 	}
 
 	/**
-	 * Finds Control for active parent
-	 * @param matcher criteria matcher
-	 * @param recursive true for recursive lookup
-	 * @return
+	 * Finds list of controls matching specified matcher for active parent widget.
+	 * 
+	 * @param matcher matcher to match parent controls
+	 * @param recursive true for recursive lookup of control widgets
+	 * @return list of parent controls for active parent or single parent control
 	 */
-	public<T extends Widget> List<T> findActiveParentControls(final Matcher<T> matcher, final boolean recursive) {
+	public <T extends Widget> List<T> findActiveParentControls(final Matcher<T> matcher, final boolean recursive) {
 		List<T> findControls = findControls(getActiveWidgetParentControl(), matcher, recursive);
 		return findControls;
 	}
 
 	/**
-	 * Find Controls for parent widget matching
-	 * @param parentWidget given parent widget - root for lookup
-	 * @param matcher criteria matcher
-	 * @param recursive true if search should be recursive
-	 * @return list of matching widgets
+	 * Finds list of controls matching specified matchers for parent widget.
+	 * 
+	 * @param parentWidget parent widget to search for controls
+	 * @param matcher matcher to match controls
+	 * @param recursive true for recursive lookup
+	 * @return list of control widgets matching specified matchers of single parent control
 	 */
 	private <T extends Widget> List<T> findControls(final Widget parentWidget, 
 			final Matcher<T> matcher, final boolean recursive) {
@@ -211,7 +218,7 @@ public class WidgetLookup {
 	}
 
 	/**
-	 * Return control with focus
+	 * Gets control with focus.
 	 * 
 	 * @return control with focus
 	 */
@@ -228,11 +235,13 @@ public class WidgetLookup {
 
 
 	/**
-	 * Create lists of widget matching matcher (can be called recursively)
+	 * Gets list of children control widgets located within specified 
+	 * parent widget matching specified matcher.
+	 * 
 	 * @param parentWidget parent widget
-	 * @param matcher
-	 * @param recursive
-	 * @return
+	 * @param matcher matcher to match widgets
+	 * @param recursive true for recursive search, false otherwise
+	 * @return children control widget matching specified matcher
 	 */
 	@SuppressWarnings("unchecked")
 	private <T extends Widget> List<T> findControlsUI(final Widget parentWidget, final Matcher<T> matcher, final boolean recursive) {
@@ -261,12 +270,15 @@ public class WidgetLookup {
 	}
 
 	/**
-	 * Creates matching list of widgets from given list of widgets matching matcher, can find recursively in each child
+	 * Gets list of children control widgets matching specified matcher from specified list of widgets. Method
+	 * can be used recursively to get all children in descendants.
+	 * 
 	 * Note: Must be used in UI Thread
-	 * @param widgets - given list of widgets
-	 * @param matcher - given hamcrest matcher
-	 * @param recursive - recursive switch for searching in children
-	 * @return
+	 * 
+	 * @param widgets list of widgets to get children from
+	 * @param matcher matcher to match widgets
+	 * @param recursive true for recursive search, false otherwise
+	 * @return list of children widgets of widgets from specified list
 	 */
 	private <T extends Widget> List<T> findControlsUI(final List<Widget> widgets, final Matcher<T> matcher, final boolean recursive) {
 		LinkedHashSet<T> list = new LinkedHashSet<T>();
@@ -277,9 +289,10 @@ public class WidgetLookup {
 	}
 
 	/**
-	 * Returns true if instance is visible
-	 * @param w
-	 * @return
+	 * Finds out whether widget is visible or not.
+	 * 
+	 * @param w widget to resolve
+	 * @return true if widget is visible, false otherwise
 	 */
 	private boolean visible(Widget w) {
 		return !((w instanceof Control) && !((Control) w).getVisible());

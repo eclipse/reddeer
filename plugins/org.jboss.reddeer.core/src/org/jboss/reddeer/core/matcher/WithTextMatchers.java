@@ -5,12 +5,12 @@ import org.jboss.reddeer.core.matcher.WithTextMatcher;
 
 
 /**
- * Class for more comfortable matchers construction for further usage.<br/>
+ * Class for more comfortable work with multiple {@link WithTextMatcher} matchers.<br/>
  * 
  * Usage example:
  * <code> 
- * RegexMatchers m = new TextMatchers("New","Project...");
- * Menu m = new ContextMenu(m.getMatchers());
+ * WithTextMatchers matchers = new WithTextMatchers("New","Project...");
+ * Menu m = new ContextMenu(matchers.getMatchers());
  * </code>
  * 
  * @author Jiri Peterka
@@ -21,12 +21,10 @@ public class WithTextMatchers {
 	private Matcher<String>[] matchers;
 	
 	/**
-	 * Constructs holder for array of {@link WithTextMatcher} created from
-	 * strings <var>texts</var>.
+	 * Constructs new WithTextMatchers encapsulating more {@link WithTextMatcher} matchers
+	 * constructed from texts from specified array of text.
 	 * 
-	 * @param texts
-	 *            texts that will be passed to
-	 *            {@link WithTextMatcher#WithTextMatcher(String)}
+	 * @param texts texts for construction multiple {@link WithTextMatcher} matchers. 
 	 */
 	public WithTextMatchers(String... texts) {
 		if(texts == null)
@@ -39,12 +37,10 @@ public class WithTextMatchers {
 	}
 	
 	/**
-	 * Constructs holder for array of {@link WithTextMatcher} created from
-	 * {@link Matcher<String>} <var>m</var>.
+	 * Constructs new WithTextMatchers encapsulating more {@link WithTextMatcher} matchers
+	 * constructed from text matchers from specified array of text matchers.
 	 * 
-	 * @param m
-	 *            matchers that will be passed to
-	 *            {@link WithTextMatcher#WithTextMatcher(Matcher)}
+	 * @param m text matchers for construction multiple {@link WithTextMatcher} matchers. 
 	 */
 	@SuppressWarnings("unchecked")
 	public WithTextMatchers(Matcher<String>... m) {
@@ -58,8 +54,9 @@ public class WithTextMatchers {
 	}
 	
 	/**
-	 * Get all matchers
-	 * @return returns all matchers
+	 * Gets all {@link WithTextMatcher} matchers.
+	 * 
+	 * @return array of {@link WithTextMatcher} matchers
 	 */
 	public Matcher<String>[] getMatchers() {
 		return matchers;

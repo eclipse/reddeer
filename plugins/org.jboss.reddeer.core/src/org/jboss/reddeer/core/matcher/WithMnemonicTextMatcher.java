@@ -6,9 +6,9 @@ import org.hamcrest.Matcher;
 import org.hamcrest.core.Is;
 
 /**
- * Provides safe {@link Widget} matching with text that contains Mnemonic.<br/>
+ * Matcher matching mnemonic text of widgets.<br/>
  * 
- * Removes all ampersands and shortcuts from input text before comparing.
+ * Removes all ampersands and shortcuts from input text before matching.
  * Should be used for menu item label matching.
  * 
  * @author Vlado Pakan
@@ -20,24 +20,20 @@ public class WithMnemonicTextMatcher extends AbstractWidgetWithTextMatcher {
 	private Matcher<String> matcher;
 	
 	/**
-	 * Constructs matcher comparing {@link Widget}'s text without Mnemonic with
-	 * the specified <var>text</var>
+	 * Constructs new WithMnemonicTextMatcher matcher matching mnemonic text of {@link Widget} 
+	 * to specified text.
 	 * 
-	 * @param text
-	 *            The {@link String} to compare {@link Widget}'s text without
-	 *            Mnemonic against
+	 * @param text text to match text of widget without mnemonic
 	 */
 	public WithMnemonicTextMatcher(String text) {
 		this(Is.is(text));
 	}
 	
 	/**
-	 * Constructs matcher matching {@link Widget}'s text without Mnemonic with
-	 * the specified <var>matcher</var>
+	 * Constructs new WithMnemonicTextMatcher matcher matching mnemonic text of {@link Widget} 
+	 * to specified text matcher.
 	 * 
-	 * @param matcher
-	 *            The {@link Matcher<String>} used to evaluate {@link Widget}'s text
-	 *            without Mnemonic
+	 * @param matcher text matcher to match text of widget without mnemonic
 	 */
 	public WithMnemonicTextMatcher(Matcher<String> matcher) {
 		if (matcher == null)

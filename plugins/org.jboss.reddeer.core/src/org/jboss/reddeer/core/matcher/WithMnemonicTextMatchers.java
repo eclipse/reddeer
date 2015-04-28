@@ -4,28 +4,26 @@ import org.hamcrest.Matcher;
 import org.jboss.reddeer.core.matcher.WithMnemonicTextMatcher;
  
 /**
- * Class for more comfortable matchers construction for further usage<br/>
+ * Class for more comfortable work with multiple {@link WithMnemonicTextMatcher} matchers.<br/>
  * 
  * Usage example:
  * <code> 
- * RegexMatchers m = new WithMnemonicMatchers("New","Project...");
- * Menu m = new ContextMenu(m.getMatchers());
+ * WithMnemonicMatchers matchers = new WithMnemonicMatchers("New","Project...");
+ * Menu m = new ContextMenu(matchers.getMatchers());
  * </code>
  * 
  * @author Vlado Pakan
  * @author Radoslav Rabara
  */
 public class WithMnemonicTextMatchers {
-
+	
 	private Matcher<String>[] matchers;
 
 	/**
-	 * Constructs holder for array of {@link WithMnemonicTextMatcher}
-	 * created from strings <var>texts</var>
+	 * Constructs new WithMnemonicTextMatchers encapsulating more {@link WithMnemonicTextMatcher} matchers
+	 * constructed from texts from specified array of text.
 	 * 
-	 * @param texts
-	 *            texts that will be passed to
-	 *            {@link WithMnemonicTextMatcher#WithMnemonicTextMatcher(String)}
+	 * @param texts array of text for construction multiple WithMnemonicTextMatcher matchers
 	 */
 	public WithMnemonicTextMatchers(String... texts) {
 		if(texts == null)
@@ -38,12 +36,10 @@ public class WithMnemonicTextMatchers {
 	}
 	
 	/**
-	 * Constructs holder for array of {@link WithMnemonicTextMatcher}
-	 * created from {@link Matcher<String>} <var>m</var>
+	 * Constructs new WithMnemonicTextMatchers encapsulating more {@link WithMnemonicTextMatcher} matchers
+	 * constructed from text matchers from specified array of text matchers.
 	 * 
-	 * @param m
-	 *            texts that will be passed to
-	 *            {@link WithMnemonicTextMatcher#WithMnemonicTextMatcher(String)}
+	 * @param m array of text matchers for construction multiple WithMnemonicTextMatcher matchers
 	 */
 	@SuppressWarnings("unchecked")
 	public WithMnemonicTextMatchers(Matcher<String>... m) {
@@ -57,8 +53,9 @@ public class WithMnemonicTextMatchers {
 	}
 	
 	/**
-	 * Get all matchers
-	 * @return returns all matchers
+	 * Gets all {@link WithMnemonicTextMatcher} matchers.
+	 * 
+	 * @return array of {@link WithMnemonicTextMatcher} matchers
 	 */
 	public Matcher<String>[] getMatchers() {
 		return matchers;

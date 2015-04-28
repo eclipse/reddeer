@@ -7,7 +7,7 @@ import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 
 /**
- * Matcher matching weather all matchers are satisfied<br/>
+ * Matcher matching conjunctive satisfaction of all matchers.<br/>
  * 
  * Provides logical operation AND for {@link Matcher}s.
  * 
@@ -20,9 +20,9 @@ public class AndMatcher extends BaseMatcher {
 	private Matcher[] matchers;
 	
 	/**
-	 * Constructs a {@link Matcher} that matches only when all <var>matchers</var> matches
+	 * Constructs new AndMatcher.
 	 * 
-	 * @param matchers The {@link Matcher}s which are used to evaluate matching
+	 * @param matchers matchers to be evaluated conjunctively
 	 */
 	public AndMatcher(Matcher... matchers) {
 		if(matchers == null)

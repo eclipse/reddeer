@@ -4,7 +4,8 @@ import org.eclipse.ui.forms.widgets.Section;
 import org.jboss.reddeer.core.util.Display;
 
 /**
- * Helper class for running methods on {@link Section} that require sync/async exec on UI thread. 
+ * Contains methods for handling UI operations on
+ * {@link org.eclipse.ui.forms.widgets.Section} widgets.
  * 
  * @author Lucia Jelinkova
  *
@@ -16,6 +17,11 @@ public class SectionHandler {
 	private SectionHandler() {
 	}
 
+	/**
+	 * Gets instance of SectionHandler.
+	 * 
+	 * @return instance of SectionHandler
+	 */
 	public static SectionHandler getInstance() {
 		if (instance == null)
 			instance = new SectionHandler();
@@ -23,10 +29,10 @@ public class SectionHandler {
 	}
 	
 	/**
-	 * Sets section's state
+	 * Sets specified {@link Section} to specified expand state.
 	 * 
-	 * @param section
-	 * @param expanded
+	 * @param section section to handle
+	 * @param expanded true for expand specified section, false for collapse
 	 */
 	public void setExpanded(final Section section, final boolean expanded) {
 		Display.syncExec(new Runnable() {

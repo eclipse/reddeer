@@ -4,7 +4,7 @@ import org.jboss.reddeer.common.condition.WaitCondition;
 import org.jboss.reddeer.core.handler.WorkbenchPartHandler;
 
 /**
- * Wait condition passing when view with specified title is active.
+ * Condition is met when view with specified title is active.
  * 
  * @author mlabuda@redhat.com
  * @since 0.8.0.

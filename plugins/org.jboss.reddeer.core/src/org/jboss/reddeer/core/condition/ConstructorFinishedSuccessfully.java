@@ -9,7 +9,7 @@ import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.core.exception.CoreLayerException;
 
 /**
- * Wait condition to wait for constructor to finish successfully
+ * Condition is met when a constructor finished successfully.
  * 
  * @author Vlado Pakan
  *
@@ -21,9 +21,9 @@ public class ConstructorFinishedSuccessfully implements WaitCondition {
 	private Object[] constructorParametersValues;
 	private Class<?> classToConstruct;
 	/**
-	 * Creates condition for constructor of classToConstruct class with parameters
-	 * of types constructorParametersClasses and values constructorParametersValues
-	 * to finish successfully
+	 * Creates condition for constructor of <i>classToConstruct</i> class with parameters
+	 * of types <i>constructorParametersClasses</i> and values <i>constructorParametersValues</i>
+	 * to finish successfully.
 	 * @param classToConstruct
 	 * @param constructorParametersClasses
 	 * @param constructorParametersValues

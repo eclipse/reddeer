@@ -21,7 +21,7 @@ public class Thrower {
 	}
 
 	/**
-	 * Throws CoreLayerException if specified object is not instance of specified class.
+	 * Throws CoreLayerException if specified object is not an instance of specified class.
 	 * 
 	 * @param object object to check its type
 	 * @param clazz matching class

@@ -6,14 +6,18 @@ import org.jboss.reddeer.core.matcher.WithTextMatcher;
 import org.jboss.reddeer.core.handler.FormTextHandler;
 
 /**
- * Matches text to FormText widgets text
+ * Matcher matching text of {@link org.eclipse.ui.forms.widgets.FormText}. 
  * 
  * @author rhopp
  *
  */
-
 public class FormTextWithTextMatcher extends WithTextMatcher {
 
+	/**
+	 * Creates new FormTextWithTextMatcher matching text of FormText widget to specified text.
+	 * 
+	 * @param text text to match text of form text widget
+	 */
 	public FormTextWithTextMatcher(String text) {
 		super(text);
 	}

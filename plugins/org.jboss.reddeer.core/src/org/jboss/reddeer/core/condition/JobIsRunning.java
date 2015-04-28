@@ -7,8 +7,8 @@ import org.jboss.reddeer.common.condition.WaitCondition;
 import org.jboss.reddeer.common.logging.Logger;
 
 /**
- * Condition is met when there is/are non-system running job(s).
- * List of tested jobs can be filtered using matchers.
+ * Condition is met when there is/are running non-system job(s).
+ * List of jobs can be filtered using matchers.
  * 
  * @author Lucia Jelinkova
  */

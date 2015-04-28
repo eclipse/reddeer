@@ -6,7 +6,7 @@ import org.jboss.reddeer.core.exception.CoreLayerException;
 
 
 /**
- * RedDeer display provider
+ * RedDeer display provider.
  * 
  * @author Jiri Peterka
  * @author Lucia Jelinkova
@@ -20,16 +20,14 @@ public class Display {
 
 	private static boolean firstAttempt = true;
 
-	/**
-	 * Not to be instantiated. 
-	 */
 	private Display(){
 		super();
 	}
 	
 	/**
-	 * Returns org.eclipse.swt.widgets.Display instance. If now know it tries to get in available threads.   
-	 * @return current Display instance or CoreLayerException if not found
+	 * Returns {@link org.eclipse.swt.widgets.Display} instance.
+	 *    
+	 * @return current Display instance or throws CoreLayerException if there is no display
 	 */
 	public static org.eclipse.swt.widgets.Display getDisplay() {
 		if ((display == null) || display.isDisposed()) {
@@ -46,14 +44,20 @@ public class Display {
 		return display;
 	}
 
+	/**
+	 * Run sync in UI thread without returning any result.
+	 * 
+	 * @param runnable runnable
+	 */
 	public static void syncExec(Runnable runnable) {
 		syncExec(new VoidResultRunnable(runnable));
 	}
 
 	/**
-	 * Run sync in UI thread with ability to return result 
-	 * @param runnable
-	 * @return 
+	 * Run sync in UI thread with ability to return result.
+	 * 
+	 * @param runnable runnable
+	 * @return result of runnable
 	 */	
 	@SuppressWarnings("unchecked")
 	public static <T> T syncExec(final ResultRunnable<T> runnable) {
@@ -90,6 +94,11 @@ public class Display {
 
 	}
 
+	/**
+	 * Run async in UI thread without returning any result.
+	 * 
+	 * @param runnable runnable
+	 */
 	public static void asyncExec(Runnable runnable) {
 		ErrorHandlingRunnable<Void> errorHandlingRunnable = new ErrorHandlingRunnable<Void>(new VoidResultRunnable(runnable));
 

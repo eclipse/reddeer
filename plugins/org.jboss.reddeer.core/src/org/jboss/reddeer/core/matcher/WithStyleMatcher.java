@@ -7,7 +7,7 @@ import org.jboss.reddeer.core.exception.CoreLayerException;
 import org.jboss.reddeer.core.handler.WidgetHandler;
 
 /**
- * Matches widget with the specified style.
+ * Matcher matching style of {@link Widget}.
  * 
  * @author jjankovi
  * @author Radoslav Rabara
@@ -18,9 +18,9 @@ public class WithStyleMatcher extends BaseMatcher<Integer> {
 	private int style; 
 	
 	/**
-	 * Constructs matcher matching widgets with the specified style
+	 * Constructs WithStyleMatcher matching style of {@link Widget} to specified style.
 	 * 
-	 * @param style style of the matching widget 
+	 * @param style style to match style of {@link Widget} 
 	 * 
 	 */
 	public WithStyleMatcher(int style) {

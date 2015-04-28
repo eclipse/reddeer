@@ -2,14 +2,12 @@ package org.jboss.reddeer.core.matcher;
 
 
 import org.eclipse.ui.IEditorPart;
-import org.eclipse.ui.part.EditorPart;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
 
 /**
- * Matcher checking if the {@link EditorPart} name, title 
- * or tooltip matches the specified matcher.
+ * Matcher matching name, title or tooltip of specified {@link IEditorPart}.
  * 
  * @author Lucia Jelinkova
  */
@@ -17,6 +15,12 @@ public class EditorPartTitleMatcher extends TypeSafeMatcher<IEditorPart> {
 
 	private Matcher<String> titleMatcher;
 	
+	/**
+	 * Creates new EditorPartTitleMatcher with specified string matcher.
+	 * String matcher can match title, name or tooltip of {@link IEditorPart}.
+	 * 
+	 * @param titleMatcher matcher to match title, name or tooltip
+	 */
 	public EditorPartTitleMatcher(Matcher<String> titleMatcher) {
 		this.titleMatcher = titleMatcher;
 	}

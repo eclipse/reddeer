@@ -1,13 +1,12 @@
 package org.jboss.reddeer.core.matcher;
 
 import org.eclipse.ui.IEditorPart;
-import org.eclipse.ui.part.EditorPart;
 import org.hamcrest.Description;
 import org.hamcrest.TypeSafeMatcher;
 
 /**
- * Matcher checking if the {@link EditorPart} can be assigned to 
- * the specified class. 
+ * Matcher matching specified descendant class of {@link IEditorPart} to class of specified object of 
+ * {@link EditorPartClassMatcher#matches(Object)} method. 
  * 
  * @author Lucia Jelinkova
  *
@@ -16,6 +15,11 @@ public class EditorPartClassMatcher extends TypeSafeMatcher<IEditorPart> {
 
 	private Class<? extends IEditorPart> expectedClass;
 	
+	/**
+	 * Creates new EditorPartClassMatcher matching classes of editor parts.
+	 * 
+	 * @param expectedClass expected superclass of matching
+	 */
 	public EditorPartClassMatcher(Class<? extends IEditorPart> expectedClass) {
 		this.expectedClass = expectedClass;
 	}

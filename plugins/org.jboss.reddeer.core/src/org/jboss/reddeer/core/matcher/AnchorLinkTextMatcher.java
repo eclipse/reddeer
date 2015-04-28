@@ -8,7 +8,7 @@ import org.jboss.reddeer.core.handler.LinkHandler;
 import org.jboss.reddeer.core.matcher.WithTextMatcher;
 
 /**
- * Matcher matching {@link Link} with specified anchor text. 
+ * Matcher matching {@link org.eclipse.swt.widgets.Link} with specified anchor text. 
  *  
  * @author rawagner
  *
@@ -17,6 +17,11 @@ public class AnchorLinkTextMatcher extends WithTextMatcher {
 	
 	private String text;
 	
+	/**
+	 * Creates new AnchorLinkTextMatcher to match link to specified text.
+	 * 
+	 * @param text text to match
+	 */
 	public AnchorLinkTextMatcher(String text) {
 		super(text);
 		this.text=text;

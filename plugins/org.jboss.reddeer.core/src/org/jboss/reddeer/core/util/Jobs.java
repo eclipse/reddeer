@@ -7,7 +7,8 @@ import org.eclipse.core.runtime.jobs.Job;
 import org.jboss.reddeer.common.logging.Logger;
 
 /**
- * Utils to work with Jobs
+ * Jobs provides utilities to work with Eclipse jobs.
+ * 
  * @author Vlado Pakan
  *
  */
@@ -21,6 +22,12 @@ public class Jobs {
 	public static final String LOADING_JOB = "Loading";
 	public static final String COMPACTING_RESOURCE_MODEL = "Compacting resource model";
 	
+	/**
+	 * Gets formatted job description containing information about priority, state, result and name.
+	 * 
+	 * @param job job to get its formatted description.
+	 * @return formatted job description
+	 */
 	public static String getFormattedJobDescription(Job job) {
 		StringBuffer sb = new StringBuffer("");
 		sb.append("P:\"");
@@ -35,6 +42,12 @@ public class Jobs {
 		return sb.toString();
 	}
 	
+	/**
+	 * Gets state name as a string instead of internal int representation inside Eclipse.
+	 * 
+	 * @param jobState internal code of job state.
+	 * @return job state name
+	 */
 	public static String getStateName(int jobState) {
 		String jobStateName = "";
 
@@ -52,10 +65,19 @@ public class Jobs {
 		return jobStateName;
 	}
 	
+	/**
+	 * Finds out whether specified job is running or not.
+	 * 
+	 * @param job job to find out its state
+	 * @return true if job is running. false otherwise.
+	 */
 	public static boolean isJobRunning (Job job){
 		return (job.getState() == Jobs.JOB_STATE_RUNNING) || (job.getState() == Jobs.JOB_STATE_WAITING);
 	}
 	
+	/**
+	 * Prints all running jobs via logger on info level.
+	 */
 	public static void printAllRunningJobs(){
 		log.debug("Print All Running Jobs");
 		Job[] jobs = Job.getJobManager().find(null);
@@ -67,6 +89,9 @@ public class Jobs {
 		}
 	}
 	
+	/**
+	 * Prints all jobs via logger on info level. 
+	 */
     public static void printAllJobs(){
     	log.debug("Print all jobs");
 		Job[] jobs = Job.getJobManager().find(null);
@@ -75,6 +100,11 @@ public class Jobs {
 		}
 	}
     
+    /**
+     * Gets names of all running jobs.
+     *  
+     * @return names of all running jobs
+     */
     public static String[] getAllRunningJobs(){
     	log.debug("Get all running jobs");
     	Job[] jobs = Job.getJobManager().find(null);

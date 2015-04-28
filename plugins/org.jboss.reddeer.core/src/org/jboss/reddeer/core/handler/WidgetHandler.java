@@ -22,7 +22,7 @@ import org.jboss.reddeer.core.util.ObjectUtil;
 import org.jboss.reddeer.core.util.ResultRunnable;
 
 /**
- * Handler operating basic widgets.
+ * Contains methods for handling UI operations on {@link Widget}. 
  * 
  * @author Jiri Peterka
  * @author Rastislav Wagner
@@ -407,7 +407,7 @@ public class WidgetHandler {
 	}
 	
 	/**
-	 * Return parent of specified widget.
+	 * Gets parent of specified widget.
 	 * 
 	 * @param widget widget to find parent
 	 * @return parent widget of specified widget

@@ -8,7 +8,7 @@ import org.jboss.reddeer.core.lookup.ShellLookup;
 import org.jboss.reddeer.core.util.InstanceValidator;
 
 /**
- * Wait condition for a shell matching the specified matcher to the shell title.
+ * Condition is met when a shell matching title with the specified matcher is available.  
  * 
  * @author mlabuda@redhat.com
  *

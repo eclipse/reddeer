@@ -14,7 +14,7 @@ import org.jboss.reddeer.common.wait.TimePeriod;
 import org.jboss.reddeer.common.wait.WaitUntil;
 
 /**
- * TreeItem lookup
+ * Tree item lookup provides methods for looking up tree items located within trees.
  * 
  * @author Lucia Jelinkova
  *
@@ -26,10 +26,11 @@ public class TreeItemLookup {
 	
 	private TreeItemLookup() {
 	}
-	
+
 	/**
-	 * Creates and returns an instance
-	 * @return TextLookup instance
+	 * Gets instance of TreeItemLookup.
+	 * 
+	 * @return TreeItemLookup instance
 	 */
 	public static TreeItemLookup getInstance() {
 		if (instance == null) instance = new TreeItemLookup();
@@ -37,16 +38,16 @@ public class TreeItemLookup {
 	}
 	
 	/**
-	 * 
-	 * Walks down the tree and finds tree items with given index that has path matching specified matchers. 
+	 * Walks through specified tree and finds tree item with specified index matching specified matchers.
 	 * <br>
-	 * For example, if there is tree item with path "A", "AA", "AAB" it can be matched by the following
-	 * path matchers: new TreeItemRegexMatcher("A"), new TreeItemRegexMatcher("A+"), new TreeItemRegexMatcher("A+B");
+	 * Example:
+	 * Tree item with path "A", "AA", "AAB" can be matched by the following
+	 * path matchers - new TreeItemRegexMatcher("A"), new TreeItemRegexMatcher("A+"), new TreeItemRegexMatcher("A+B").
 	 * 
-	 * @param tree
-	 * @param index Index of the returned tree item
-	 * @param matchers Path matchers. Every matcher matches one tree item on the path
-	 * @return
+	 * @param tree tree to walk through
+	 * @param index index of tree item
+	 * @param matchers matchers to match path to tree item, each of them matches one tree item on the path
+	 * @return tree item on specified index matching specified matchers in specified tree 
 	 */
 	public TreeItem getTreeItem(Tree tree, int index, Matcher<TreeItem>... matchers){
 		List<TreeItem> result = getTreeItems(tree, matchers);
@@ -57,13 +58,15 @@ public class TreeItemLookup {
 	}
 	
 	/**
-	 * Walks down the tree and finds all tree items that have path matching specified matchers. 
+	 * Walks through specified tree and finds tree items matching specified matchers.
 	 * <br>
-	 * For example, if there is tree item with path "A", "AA", "AAB" it can be matched by the following
-	 * path matchers: new TreeItemRegexMatcher("A"), new TreeItemRegexMatcher("A+"), new TreeItemRegexMatcher("A+B");
-	 * @param tree
-	 * @param pathItemMatchers Path matchers. Every matcher matches one tree item on the path
-	 * @return
+	 * Example:
+	 * Tree item with path "A", "AA", "AAB" can be matched by the following
+	 * path matchers - new TreeItemRegexMatcher("A"), new TreeItemRegexMatcher("A+"), new TreeItemRegexMatcher("A+B").
+	 * 
+	 * @param tree tree to walk through
+	 * @param matchers matchers to match path to tree item, each of them matches one tree item on the path
+	 * @return tree items matching specified matchers in specified tree 
 	 */
 	public List<TreeItem> getTreeItems(Tree tree, Matcher<TreeItem>... pathItemMatchers){
 		if (pathItemMatchers.length == 0){
@@ -109,7 +112,7 @@ public class TreeItemLookup {
 	}
 	
 	/**
-	 * Condition is fulfilled when tree has children 
+	 * Condition is met when tree has at least one child. 
 	 * 
 	 * @author jjankovi
 	 *
@@ -132,6 +135,12 @@ public class TreeItemLookup {
 		}
 	}
 	
+	/**
+	 * Condition is met when tree item has at least one child. 
+	 * 
+	 * @author jjankovi
+	 *
+	 */
 	public class TreeItemHasChildren implements WaitCondition {
 		
 		private final TreeItem treeItem;

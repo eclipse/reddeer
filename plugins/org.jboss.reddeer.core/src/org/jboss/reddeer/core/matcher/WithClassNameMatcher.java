@@ -4,7 +4,8 @@ import org.hamcrest.BaseMatcher;
 import org.hamcrest.Description;
 
 /**
- * Matches any object with the specified class name (or simple name).
+ * Matcher matching class of object to class name.
+ * Simple name of full name (package and class name) of object are matched to class name. 
  * 
  * @author apodhrad
  *
@@ -14,10 +15,9 @@ public class WithClassNameMatcher extends BaseMatcher<String> {
 	private String className;
 
 	/**
-	 * Constructs the matcher with a given class name (or simple name).
+	 * Constructs new WithTextNameMatcher to match class name of object to specified class name.
 	 * 
-	 * @param className
-	 *            Class name (or simple name)
+	 * @param className class name (with package) or simple class name to match
 	 */
 	public WithClassNameMatcher(String className) {
 		this.className = className;

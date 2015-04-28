@@ -6,29 +6,29 @@ import org.eclipse.swt.widgets.Widget;
 import org.jboss.reddeer.core.exception.CoreLayerException;
 
 /**
- * Object util contains helper methods for invoking methods by reflections, etc.
+ * Object util contains helper methods for method invocation using reflection, etc.
  * 
  * @author Jiri Peterka
  */
 public class ObjectUtil {
 
 	/**
-	 * Invokes method by reflection, widget based method are executed in ui thread
+	 * Invokes method using reflection. Widget based methods are executed in UI thread.
 	 * 
-	 * @param object given instance
+	 * @param object object to invoke method on
 	 * @param methodName method name to be invoked
-	 * @return returns result of the method invocation
+	 * @return result of the method invocation
 	 */
 	public static Object invokeMethod(final Object object, String methodName) {
 		return invokeMethod(object, methodName, new Class<?>[0], new Object[0]);
 	}
 	
 	/**
-	 * Invokes method by reflection, widget based method are executed in ui thread
+	 * Invokes method using reflection. Widget based method are executed in UI thread.
 	 * 
-	 * @param object given instance
+	 * @param object object to invoke method on
 	 * @param methodName method name to be invoked
-	 * @return returns result of the method invocation
+	 * @return result of the method invocation
 	 */
 	public static Object invokeMethod(final Object object, String methodName, final Class<?>[] argTypes, final Object[] args) {
 

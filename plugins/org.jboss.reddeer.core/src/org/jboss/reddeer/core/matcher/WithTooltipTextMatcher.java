@@ -9,7 +9,7 @@ import org.jboss.reddeer.core.handler.WidgetHandler;
 import org.jboss.reddeer.core.matcher.AbstractWidgetWithTextMatcher;
 
 /**
- * Matcher which matches widgets with given tooltip
+ * Matcher matching tool tip of {@link Widget}.
  * 
  * @author rhopp
  *
@@ -19,22 +19,21 @@ public class WithTooltipTextMatcher extends AbstractWidgetWithTextMatcher {
 	private Matcher<String> matcher;
 	
 	/**
-	 * Default constructor for matching widgets with ToolTip text
+	 * Creates new WithTooltipTextMatcher matching tool tip of {@link Widget} to specified text.
 	 * 
-	 * @param text
+	 * @param text tool tip text to match tool tip of {@link Widget}
 	 */
-	
 	public WithTooltipTextMatcher(String text) {
 		this(new IsEqual<String>(text));
 	}
 	
 	
+
 	/**
-	 * Constructor for matching widgets ToolTip text using String matcher
+	 * Creates new WithTooltipTextMatcher matching tool tip of {@link Widget} to specified text.
 	 * 
-	 * @param matcher
+	 * @param matcher text matcher to match tool tip of {@link Widget}
 	 */
-	
 	public WithTooltipTextMatcher(Matcher<String> matcher) {
 		if (matcher == null)
 			throw new NullPointerException("matcher is null");

@@ -4,10 +4,10 @@ import org.jboss.reddeer.common.condition.WaitCondition;
 import org.jboss.reddeer.core.lookup.ShellLookup;
 
 /**
- * Condition is met when shell is active.
+ * Condition is met when active shell exists.
  *
  * @author mlabuda@redhat.com
- *
+ * @since 0.8.0
  */
 
 public class ActiveShellExists implements WaitCondition {
@@ -19,6 +19,6 @@ public class ActiveShellExists implements WaitCondition {
 
 	@Override
 	public String description() {
-		return "shell is active";
+		return "active shell exists";
 	}
 }

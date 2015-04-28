@@ -38,8 +38,7 @@ import org.jboss.reddeer.common.wait.TimePeriod;
 import org.jboss.reddeer.common.wait.WaitWhile;
 
 /**
- * Menu lookup provides menu and contextmenu routines for menuitems lookup Works
- * also with dynamic menus.
+ * Menu lookup provides methods for finding menus and context menus and their items. Works also with dynamic menus.
  * 
  * @author Jiri Peterka
  * @author Rastislav Wagner
@@ -53,6 +52,11 @@ public class MenuLookup {
 	
 	private MenuLookup() { }
 	
+	/**
+	 * Gets singleton instance of MenuLookup.
+	 * 
+	 * @return instance of MenuLookup
+	 */
 	public static MenuLookup getInstance() {
 		if (instance == null) {
 			instance = new MenuLookup();
@@ -61,8 +65,9 @@ public class MenuLookup {
 	}
 	
 	/**
-	 * Provide lookup for ToolBar menu items. 
-	 * @return list of MenuManager instances related to toolbar menus
+	 * Gets all tool bar menu items.
+	 *  
+	 * @return list of MenuManager instances related to tool bar menus.
 	 */
 	public List<IContributionItem> getToolbarMenus(){	
 		IWorkbenchPart part = getActivePart(false);
@@ -79,10 +84,11 @@ public class MenuLookup {
 	}
 	
 	/**
-	 * Look for ActionContributionItem matching matchers.
-	 * @param cintItems items which will be matched with matchers
-	 * @param matchers menuitem text matchers
-	 * @return final ActionContibutionItem
+	 * Looks for ActionContributionItem matching matchers.
+	 * 
+	 * @param cintItems items to match with matchers
+	 * @param matchers menu item text matchers
+	 * @return action contribution item
 	 */
 	public ActionContributionItem lookFor(final List<IContributionItem> contItems, final Matcher<String>... matchers) {	
 		ActionContributionItem contItem = Display.syncExec(new ResultRunnable<ActionContributionItem>(){
@@ -121,8 +127,10 @@ public class MenuLookup {
 
 	
 	/**
-	 * Returns ContributionItems from focused control.
-	 * Use if menu can contain dynamic menu from e4
+	 * Gets contribution items from focused control.
+	 * Used in situation when menu could contain dynamic menu from e4.
+	 * 
+	 * @return list of menu contribution items
 	 */
 	public List<IContributionItem> getMenuContributionItems() {
 		List<IContributionItem> contItems = new ArrayList<IContributionItem>();
@@ -151,10 +159,11 @@ public class MenuLookup {
 	
 
 	/**
-	 * Look for MenuItem matching matchers starting topLevel menuItems.
-	 * @param topItems top level MenuItem[]
-	 * @param matchers menuitem text matchers
-	 * @return final MenuItem
+	 * Looks for MenuItem matching matchers starting on specified array of top level menu items.
+	 * 
+	 * @param topItems top level menu items
+	 * @param matchers menu item text matchers
+	 * @return MenuItem matching matchers
 	 */
 	public MenuItem lookFor(MenuItem[] topItems, Matcher<String>... matchers) {		
 		MenuItem lastMenuItem = getMatchingMenuPath(topItems, matchers);
@@ -166,10 +175,10 @@ public class MenuLookup {
 	
 
 	/**
-	 * Returns top level menuitems from focused controls.
-	 * Does not work with dynamic menus from e4 @see MenuLookup.getMenuContributionItems()
-	 *
-	 * @return
+	 * Gets top level menu items of focused control.
+	 * Does not work with dynamic menus from e4 - see {@link #MenuLookup.getMenuContributionItems()}.
+	 * 
+	 * @return array of top menu items of focused control
 	 */
 	public MenuItem[] getTopMenuMenuItemsFromFocus() {
 
@@ -203,8 +212,8 @@ public class MenuLookup {
 	}
 	
 	/**
-	 * Returns menuitems from active shell menubar.
-	 * @return top menuitems of active shell
+	 * Gets menu items from active shell menu bar.
+	 * @return array of top menu items of active shell
 	 */
 	public MenuItem[] getActiveShellTopMenuItems() {
 		Shell activeShell = ShellLookup.getInstance().getActiveShell();
@@ -230,11 +239,10 @@ public class MenuLookup {
 	}
 	
 	/**
-	 * Returns first level of menu items for given DropDown ToolItem.
+	 * Gets first level of menu items for specified DropDown ToolItem.
 	 * 
-	 * @param item
-	 *            given Drop Down Tool Item.
-	 * @return first level of menu items.
+	 * @param item DropDown ToolItem to get its menu items
+	 * @return first level of menu items
 	 */
 
 	public MenuItem[] getToolItemMenuItems(ToolItem item) {
@@ -272,9 +280,10 @@ public class MenuLookup {
 	}
 
 	/**
-	 * Returns menubar items.
-	 * @param s given shell where menubar items are searched for
-	 * @return array of menuitems fo given shell 
+	 * Gets menu bar items.
+	 * 
+	 * @param s shell where menu bar items are looked up
+	 * @return array of menu items of specified shell 
 	 */
 	private MenuItem[] getMenuBarItems(final Shell s) {
 
@@ -299,9 +308,10 @@ public class MenuLookup {
 	}
 
 	/**
-	 * Returns Menu of the given control.
-	 * @param c given control under which menu is located
-	 * @return menu under given control
+	 * Gets Menu of specified control.
+	 * 
+	 * @param c control where menu is placed
+	 * @return menu placed under specified control
 	 */
 	private Menu getControlMenu(final Control c) {
 
@@ -323,9 +333,10 @@ public class MenuLookup {
 	}
 	
 	/**
-	 * Goes through menus path and returns matching menu.
-	 * @param topItems menuitems for further searches
-	 * @param matchers given matchers
+	 * Gets Menu item matching menu path defined by specified top menu items and matchers.
+	 * 
+	 * @param topItems top level menu items where to search for menu item
+	 * @param matchers matchers to match menu item
 	 * @return matching MenuItem
 	 */
 	private MenuItem getMatchingMenuPath(final MenuItem[] topItems,
@@ -366,8 +377,9 @@ public class MenuLookup {
 
 
 	/**
-	 * Sends SWT.Show on widget.
-	 * @param widget given Widget
+	 * Sends SWT.Show to widget.
+	 * 
+	 * @param widget widget where event is sent
 	 */
 	private void sendShowUI(Widget widget) {
 		widget.notifyListeners(SWT.Show, new Event());
@@ -377,7 +389,7 @@ public class MenuLookup {
 	/**
 	 * Hides menu.
 	 * 
-	 * @param menu given Menu
+	 * @param menu menu to hide
 	 * @param recur recursion flag
 	 */
 	private void sendHide(final Menu menu, final boolean recur) {
@@ -403,8 +415,8 @@ public class MenuLookup {
 	}
 
 	/**
-	 * Returns active Workbench Part.
-	 * @param restore tries to restore the Part if true
+	 * Gets active Workbench Part.
+	 * @param restore should restore the part
 	 * @return active WorkbenchPart
 	 */
 	private IWorkbenchPart getActivePart(final boolean restore) {

@@ -15,7 +15,7 @@ import org.jboss.reddeer.common.wait.WaitUntil;
 import org.jboss.reddeer.core.exception.CoreLayerException;
 
 /**
- * Contains lookup methods for editors. 
+ * Editor part lookup provides methods for finding editor parts. 
  * 
  * @author Lucia Jelinkova
  *
@@ -30,8 +30,9 @@ public class EditorPartLookup {
 	}
 
 	/**
-	 * Returns the singleton instance of this class.
-	 * @return
+	 * Gets singleton instance of EditorPartLookup.
+	 * 
+	 * @return instance of EditorPartLookup
 	 */
 	public static EditorPartLookup getInstance(){
 		if(instance == null){
@@ -41,9 +42,10 @@ public class EditorPartLookup {
 	}
 	
 	/**
-	 * Returns currently active editor or first inactive. If no editor at all si found than 
-	 * throws {@link WorkbenchLayerException}. 
-	 * @return 
+	 * Gets currently active or first inactive editor. If there is no opened editor,  
+	 * {@link WorkbenchLayerException} is thrown
+	 * . 
+	 * @return active or first inactive editor. 
 	 */
 	public IEditorPart getEditor(){
 		IEditorPart editorPart = getActiveEditor();
@@ -64,8 +66,9 @@ public class EditorPartLookup {
 	}
 
 	/**
-	 * Returns currently active editor or null. 
-	 * @return 
+	 * Gets currently active editor or null. 
+	 * 
+	 * @return active editor 
 	 */
 	public IEditorPart getActiveEditor(){
 		IWorkbenchPart workbenchPart =  WorkbenchPartLookup.getInstance().getActiveWorkbenchPart();
@@ -86,10 +89,11 @@ public class EditorPartLookup {
 	}
 	
 	/**
-	 * Returns editor matching given matchers or throws {@link WorkbenchLayerException}
-	 * if none is found
-	 * @param matchers
-	 * @return
+	 * Gets editor matching specified matchers. If there is no opened editor, {@link WorkbenchLayerException}
+	 * is thrown.
+	 * 
+	 * @param matchers matchers to match editor
+	 * @return editor matching matchers
 	 */
 	public IEditorPart getEditor(final Matcher<IEditorPart>... matchers) {
 		EditorPartIsFound found = new EditorPartIsFound(matchers);
@@ -133,7 +137,8 @@ public class EditorPartLookup {
 	}
 	
     /**
-     * Condition to check if editor part is found.
+     * Condition is met when editor part is found.
+     * 
      * @author rawagner
      */
     private class EditorPartIsFound implements WaitCondition {

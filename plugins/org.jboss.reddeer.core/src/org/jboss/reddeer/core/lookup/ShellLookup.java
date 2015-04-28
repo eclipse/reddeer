@@ -16,8 +16,9 @@ import org.jboss.reddeer.core.util.Display;
 import org.jboss.reddeer.core.util.ResultRunnable;
 
 /**
- * Shell Lookup, this contains routines for ToolBar implementation that have are widely used 
- * and also requires to be executed in UI Thread
+ * Shell Lookup provides methods for looking up various shells. 
+ * Methods should be executed inside UI Thread.
+ * 
  * @author Jiri Peterka, mlabuda@redhat.com
  * 
  */
@@ -30,9 +31,9 @@ public class ShellLookup {
 	}
 
 	/**
-	 * Creates and returns instance of Shell Lookup
+	 * Gets instance of ShellLookup.
 	 * 
-	 * @return ButtonLookup instance
+	 * @return ShellLookup instance
 	 */
 	public static ShellLookup getInstance() {
 		if (instance == null)
@@ -41,11 +42,13 @@ public class ShellLookup {
 	}
 	
 	/**
-	 * Returns active shell
-	 * Waits for shell to become active in case there is no active shell at the moment
-	 * If there is no active shell even after waiting has finished then shell with focus is returned
-	 * If there still is no active shell, shell with highest index is returned (@link{org.eclipse.swt.widgets.Display.getShells()})
-	 * @return
+	 * Gets active shell.
+	 * If there is no active shell at the moment waits for a shell to become active.
+	 * If there is no active shell even after waiting has finished then shell with focus is returned.
+	 * If there still is no active shell, shell with highest index is returned {@link #org.eclipse.swt.widgets.Display.getShells()}.
+	 * 
+	 * @return active shell, or focused shell if there is no active shell 
+	 * or shell with highest index if there is no active or focused shell
 	 */
 	public Shell getActiveShell() {
 		new WaitUntil(new ActiveShellExists(), TimePeriod.SHORT, false);
@@ -63,9 +66,9 @@ public class ShellLookup {
 	}
 
 	/**
-	 * Returns current Active Shell without waiting for shell to become active
-	 * Can return null
-	 * @return
+	 * Gets currently Active Shell without waiting for shell to become active.
+	 * 
+	 * @return active shell or null if there is no active shell
 	 */
 	public Shell getCurrentActiveShell () {
 		return Display.syncExec(new ResultRunnable<Shell>() {
@@ -82,9 +85,9 @@ public class ShellLookup {
 	}
 	
 	/**
-	 * Returns current focused (and visible) Shell
-	 * Can return null
-	 * @return
+	 * Gets currently focused and visible shell.
+	 * 
+	 * @return focused shell or null if there is no focused shell
 	 */
 	public Shell getCurrentFocusShell () {
 		return Display.syncExec(new ResultRunnable<Shell>() {
@@ -103,8 +106,9 @@ public class ShellLookup {
 	}
 	
 	/**
-	 * Returns all visible shells
-	 * @return all visible shells as an shell array
+	 * Gets all visible shells.
+	 * 
+	 * @return array of all visible shells
 	 */
 	public Shell[] getShells() {
 		
@@ -124,11 +128,13 @@ public class ShellLookup {
 			
 		});
 	}
+	
 	/**
-	 * Returns shell matching matcher and wait for it for timePeriod 
-	 * @param matcher
-	 * @param timePeriod
-	 * @return
+	 * Waits for specified time period for a shell matching specified matcher.
+	 * 
+	 * @param matcher matcher to match shell
+	 * @param timePeriod time period to wait for
+	 * @return shell matching specified matcher
 	 */
 	public Shell getShell(final Matcher<String> matcher , TimePeriod timePeriod) {
 		if (!timePeriod.equals(TimePeriod.NONE)){
@@ -151,27 +157,33 @@ public class ShellLookup {
 			}
 		});
 	}
+	
 	/**
-	 * Returns shell matching matcher and wait for it for {@link TimePeriod.NORMAL}
-	 * @param matcher
-	 * @return
+	 * Waits for normal time period for a shell matching specified matcher.
+	 * 
+	 * @param matcher matcher to match shell
+	 * @return shell matching specified matcher
 	 */
 	public Shell getShell(final Matcher<String> matcher) {
 		return getShell(matcher , TimePeriod.NORMAL); 
 	}
+	
 	/**
-	 * Returns shell with title and wait for it for timePeriod
-	 * @param title
-	 * @param timePeriod
-	 * @return
+	 * Waits for specified time period for a shell with specified title.
+	 * 
+	 * @param title title of shell
+	 * @param timePeriod time period to wait for
+	 * @return shell with specified title
 	 */
 	public Shell getShell(String title , TimePeriod timePeriod) {
 		return getShell(new WithTextMatcher(title) , timePeriod);		
 	}
+	
 	/**
-	 * Returns shell with title and wait for it for {@link TimePeriod.NORMAL}
-	 * @param title
-	 * @return
+	 * Waits for normal time period for a shell with specified title.
+	 * 
+	 * @param title title of shell
+	 * @return shell with specified title
 	 */
 	public Shell getShell(String title) {
 		return getShell(new WithTextMatcher(title) , TimePeriod.NORMAL);		
@@ -189,9 +201,11 @@ public class ShellLookup {
 			}
 		});
 	}
+	
 	/**
-	 * Returns active workbench shell
-	 * @return
+	 * Gets active workbench shell.
+	 * 
+	 * @return active workbench shell
 	 */
 	public Shell getWorkbenchShell() {
 		return Display.syncExec(new ResultRunnable<Shell>() {
@@ -202,6 +216,9 @@ public class ShellLookup {
 		});
 	}
 	
+	/**
+	 * Wait condition is met when any shell is focused.
+	 */
 	class ShellIsFocused implements WaitCondition{
 		
 		@Override

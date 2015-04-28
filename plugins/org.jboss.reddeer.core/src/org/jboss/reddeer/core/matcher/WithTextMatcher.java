@@ -4,13 +4,10 @@ import org.eclipse.swt.widgets.Widget;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.core.IsEqual;
-import org.jboss.reddeer.core.handler.WidgetHandler;
 
 /**
- * Matcher matching {@link Widget}s with the specified text.<br/>
- * 
- * It accepts {@link Widget}s supported by {@link WidgetHandler#getText(Widget)}
- * 
+ * Matcher matching text of {@link Widget}.
+ *  
  * @author Jiri Peterka
  * @author Radoslav Rabara
  * 
@@ -20,10 +17,9 @@ public class WithTextMatcher extends AbstractWidgetWithTextMatcher {
 	private Matcher<String> matcher;
 	
 	/**
-	 * Constructs matcher comparing {@link Widget}'s text
-	 * with the specified <var>text</var>
+	 * Constructs new WithTextMatcher matching text of {@link Widget} to specified text.
 	 * 
-	 * @param text The {@link String} to compare {@link Widget}'s text against
+	 * @param text text to match text of {@link Widget}
 	 * 
 	 */
 	public WithTextMatcher(String text) {
@@ -31,10 +27,9 @@ public class WithTextMatcher extends AbstractWidgetWithTextMatcher {
 	}
 
 	/**
-	 * Constructs matcher matching {@link Widget}'s text
-	 * with the specified <var>matcher</var>
+	 * Constructs new WithTextMatcher matching text of {@link Widget} with specified text matcher.
 	 * 
-	 * @param matcher The {@link Matcher<String>} used to evaluate {@link Widget}'s text
+	 * @param matcher text matcher to match text of {@link Widget}
 	 * 
 	 */
 	public WithTextMatcher(Matcher<String> matcher) {

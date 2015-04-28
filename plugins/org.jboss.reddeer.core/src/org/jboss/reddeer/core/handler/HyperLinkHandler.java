@@ -20,9 +20,9 @@ public class HyperLinkHandler {
 	}
 
 	/**
-	 * Creates and returns instance of ComboHandler class
+	 * Gets instance of HyperLinkHandler.
 	 * 
-	 * @return
+	 * @return instance of HyperLinkHandler
 	 */
 	public static HyperLinkHandler getInstance() {
 		if (instance == null) {
@@ -32,7 +32,8 @@ public class HyperLinkHandler {
 	}
 
 	/**
-	 * Activates widget - link/hyperlink etc
+	 * Activates specified {@link HyperLink} widget.
+	 * 
 	 * @param w widget to activate
 	 */
 	public void activate(final Hyperlink hyperLink) {
@@ -49,9 +50,10 @@ public class HyperLinkHandler {
 	}
 	
 	/**
-	 * Notifies widget with the event 
-	 * @param eventType
-	 * @param widget
+	 * Notifies specified {@link HyperLink} widget with specified event.
+	 *  
+	 * @param eventType event to notify specified hyper link about
+	 * @param widget widget to notify
 	 */
 	public void notifyHyperlink(int eventType, Hyperlink widget) {
 		Event event = createHyperlinkEvent(widget);

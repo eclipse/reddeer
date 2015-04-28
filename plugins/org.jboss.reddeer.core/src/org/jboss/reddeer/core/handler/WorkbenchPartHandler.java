@@ -23,7 +23,7 @@ import org.jboss.reddeer.core.util.ResultRunnable;
 import org.jboss.reddeer.core.exception.CoreLayerException;
 
 /**
- * WorkbenchPart handler handles operations which are common for both editor and view instances.
+ * WorkbenchPartHandler handles operations common for both editor and view instances.
  * 
  * @author rawagner
  *
@@ -38,6 +38,11 @@ public class WorkbenchPartHandler {
 		
 	}
 	
+	/**
+	 * Gets WorkbenchPartHandler instance.
+	 *  
+	 * @return instance of WorkbenchPartHandler
+	 */
 	public static WorkbenchPartHandler getInstance(){
 		if(instance == null){
 			instance = new WorkbenchPartHandler();
@@ -46,8 +51,9 @@ public class WorkbenchPartHandler {
 	}
 	
 	/**
+	 * Gets title of specified {@link IWorkbenchPart}.
 	 * 
-	 * @return title text
+	 * @return title of specified workbench part
 	 */
 	public String getTitle(final IWorkbenchPart workbenchPart) {
 		return Display.syncExec(new ResultRunnable<String>() {
@@ -60,8 +66,9 @@ public class WorkbenchPartHandler {
 	}
 	
 	/**
+	 * Gets title tool tip of specified {@link IWorkbenchPart}.
 	 * 
-	 * @return the workbench part title tool tip (not {@code null})
+	 * @return title tool tip text of specified workbench part
 	 */
 	public String getTitleToolTip(final IWorkbenchPart workbenchPart) {
 		return Display.syncExec(new ResultRunnable<String>() {
@@ -73,6 +80,11 @@ public class WorkbenchPartHandler {
 		});
 	}
 	
+	/**
+	 * Gets active {@link IWorkbenchPart}.
+	 *  
+	 * @return active workbench part
+	 */
 	public IWorkbenchPart getActiveWorkbenchPart() {
 		return Display.syncExec(new ResultRunnable<IWorkbenchPart>() {
 
@@ -84,6 +96,11 @@ public class WorkbenchPartHandler {
 		});
 	}
 	
+	/**
+	 * Gets active {@link IWorkbenchPartReference}.
+	 * 
+	 * @return active workbench part reference
+	 */
 	public IWorkbenchPartReference getActiveWorkbenchPartReference() {
 		return Display.syncExec(new ResultRunnable<IWorkbenchPartReference>() {
 
@@ -95,6 +112,11 @@ public class WorkbenchPartHandler {
 		});
 	}
 	
+	/**
+	 * Gets workbench {@link IViewReference}s.
+	 * 
+	 * @return array of workbench view reference
+	 */
 	public IViewReference[] getWorkbenchViewReferences() {
 		return Display.syncExec(new ResultRunnable<IViewReference[]>() {
 
@@ -106,6 +128,11 @@ public class WorkbenchPartHandler {
 		});
 	}
 	
+	/**
+	 * Perform action created from specified {@link ActionFactory}.
+	 * 
+	 * @param actionFactory action factory to create action to perform
+	 */
 	public void performAction(final ActionFactory actionFactory){
 		Display.syncExec(new Runnable() {
 			
@@ -118,11 +145,11 @@ public class WorkbenchPartHandler {
 	}
 	
 	/**
-	 * Activates Workbench part containing specified widget.
+	 * Activates workbench part containing specified widget.
 	 * 
-	 * @param widget
+	 * @param widget widget of workbench part to activate
 	 */
-	public void activateWorkbenchPartWithWidget (Widget widget) {
+	public void activateWorkbenchPartWithWidget(Widget widget) {
 		
 		final WorkbenchPartWidgets workbenchPartWidgets = getWorkbenchPartWidgetsForWidget(widget);
 		
@@ -156,7 +183,7 @@ public class WorkbenchPartHandler {
 	/**
 	 * Gets title of Workbench part containing specified widget.
 	 * 
-	 * @param widget
+	 * @param widget widget of workbench part to get title of
 	 */
 	public String getTitleOfWorkbenchPartWithWidget (Widget widget) {
 		
@@ -206,12 +233,12 @@ public class WorkbenchPartHandler {
 	}
 	
 	/**
-	 * Returns CTabFolder and CTabItem containing specified widget.
+	 * Gets CTabFolder and CTabItem containing specified widget.
 	 * 
-	 * @param widget - widget contained within returned {@link WorkbenchPartWidgets}
+	 * @param widget widget contained within returned {@link WorkbenchPartWidgets}
 	 * @return {@link WorkbenchPartWidgets}
 	 */
-	private WorkbenchPartWidgets getWorkbenchPartWidgetsForWidget (Widget widget){
+	private WorkbenchPartWidgets getWorkbenchPartWidgetsForWidget(Widget widget){
 		
 		WorkbenchPartWidgets workbenchPartWidgets = null;
 		
@@ -236,7 +263,7 @@ public class WorkbenchPartHandler {
 
 	/**
 	 * Closes all editors in active workbench.
-	 * @deprecated use org.jboss.reddeer.workbench.handler.EditorHandler#closeAll()
+	 * @deprecated since 0.8.0 use org.jboss.reddeer.workbench.handler.EditorHandler#closeAll()
 	 */
 	@Deprecated
 	public void closeAllEditors() {

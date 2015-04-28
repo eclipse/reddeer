@@ -3,7 +3,7 @@ package org.jboss.reddeer.core.matcher;
 import org.hamcrest.Matcher;
 
 /**
- * Builder for building more complex matchers
+ * Builder for building more complex matchers.
  *
  * @author Jiri Peterka
  *
@@ -13,9 +13,9 @@ public class MatcherBuilder {
 	private static MatcherBuilder instance;
 
 	/**
-	 * Creates and returns builder instance
+	 * Gets singleton instance of MatcherBuilder.
 	 *
-	 * @return builder instance
+	 * @return instance of MatcherBuilder
 	 */
 	public static MatcherBuilder getInstance() {
 		if (instance == null) {
@@ -28,10 +28,11 @@ public class MatcherBuilder {
 	}
 
 	/**
-	 * adds matcher into array of matchers and returns new array
-	 * @param matchers given array of matchers
-	 * @param matcher given matcher to be added
-	 * @return new array containing all matchers
+	 * Adds matcher into array of matchers.
+	 * 
+	 * @param matchers array of matchers
+	 * @param matcher matcher to add to array of matchers
+	 * @return new array containing old array of matchers and new matcher 
 	 */
 	@SuppressWarnings("rawtypes")
 	public Matcher[] addMatcher(Matcher[] matchers, Matcher matcher) {

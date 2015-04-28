@@ -13,7 +13,7 @@ import org.jboss.reddeer.core.util.Display;
 import org.jboss.reddeer.core.util.ResultRunnable;
 
 /**
- * Class for handling FormText widget
+ * Contains methods for handling UI operations on {@link FormText} widgets.
  * 
  * @author rhopp
  *
@@ -25,11 +25,10 @@ public class FormTextHandler {
 	private static FormTextHandler instance;
 
 	/**
-	 * Creates (if it was not yet created) and returns instance of this class.
+	 * Gets instance of FormTextHandler.
 	 * 
-	 * @return
+	 * @return instance of FormTextHandler
 	 */
-
 	public static FormTextHandler getInstance() {
 		if (instance == null) {
 			instance = new FormTextHandler();
@@ -38,28 +37,20 @@ public class FormTextHandler {
 	}
 
 	/**
-	 * Performs 'click' on first hyperlink in this FormText widget
-	 * <p>
-	 * (Selects desired hyperlink and sends SWT.KeyDown event with character
-	 * '/r')
+	 * Performs click on first hyperlink in specified {@link FormText} widget.
 	 * 
-	 * @param widget
+	 * @param widget form text widget to click
 	 */
-
 	public void click(final FormText widget) {
 		click(widget, 0);
 	}
 
 	/**
-	 * Performs 'click' on nth hyperlink in this FormText widget
-	 * <p>
-	 * (Selects desired hyperlink and sends SWT.KeyDown event with character
-	 * '/r')
+	 * Performs click on hyperlink place on specified index in specified {@link FormText} widget.
 	 * 
-	 * @param widget
-	 * @param hyperlinkSegmentIndex
+	 * @param widget form text widget to click
+	 * @param hyperlinkSegmentIndex index of hyperlink to click
 	 */
-
 	public void click(final FormText widget, final int hyperlinkSegmentIndex) {
 		final FormTextModel model = getModel(widget);
 		if (hyperlinkSegmentIndex > model.getHyperlinkCount()) {
@@ -80,12 +71,11 @@ public class FormTextHandler {
 	}
 
 	/**
-	 * Returns true if given widget has focus
+	 * Finds out whether specified {@link FormText} has control or not.
 	 * 
-	 * @param widget
-	 * @return
+	 * @param widget form text widget to handle
+	 * @return true if specified form text widget has control, false otherwise
 	 */
-
 	public boolean hasFocus(final FormText widget) {
 		return Display.syncExec(new ResultRunnable<Boolean>() {
 
@@ -97,14 +87,11 @@ public class FormTextHandler {
 	}
 
 	/**
-	 * Fetches widgets text
-	 * <p>
-	 * Uses reflection API to get to the FormTextModel of given FormText widget
+	 * Gets text of specified {@link FormText} widget.
 	 * 
-	 * @param widget
-	 * @return
+	 * @param widget form text widget to handle
+	 * @return text of specified form text widget
 	 */
-
 	public String getText(FormText widget) {
 		FormTextModel model = getModel(widget);
 		return model.getAccessibleText().trim();
@@ -112,12 +99,11 @@ public class FormTextHandler {
 	}
 
 	/**
-	 * Returns tooltip text of given FormText widget
+	 * Gets tool tip text of specified {@link FormText} widget.
 	 * 
-	 * @param widget
-	 * @return
+	 * @param widget widget to handle
+	 * @return tool tip text of specified form text widget
 	 */
-
 	public String getTooltipText(final FormText widget) {
 		return Display.syncExec(new ResultRunnable<String>() {
 

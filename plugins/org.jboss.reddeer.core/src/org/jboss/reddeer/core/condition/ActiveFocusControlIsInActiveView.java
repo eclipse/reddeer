@@ -8,7 +8,7 @@ import org.jboss.reddeer.core.util.Display;
 import org.jboss.reddeer.core.util.ResultRunnable;
 
 /**
- * Returns true if active Control is in active View.
+ * Condition is met when active focused control is in active view.
  * 
  * @author Vlado Pakan
  *

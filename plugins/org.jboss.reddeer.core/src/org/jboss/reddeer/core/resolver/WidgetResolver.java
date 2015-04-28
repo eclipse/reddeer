@@ -24,8 +24,10 @@ import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.core.exception.CoreLayerException;
 
 /**
- * Widget resolver resolves children and parent of supported types
- * Note: Must be used in UI Thread
+ * Widget resolver resolves children and parent of supported type.
+ * Note: Must be used in UI Thread.
+ * 
+ * Supported widgets:
  * <ul>
  * <li>ExpandBar</li>
  * <li>ExpandItem</li>
@@ -36,7 +38,9 @@ import org.jboss.reddeer.core.exception.CoreLayerException;
  * <li>ToolBar</li>
  * <li>Composite</li>
  * <li>Control</li>
+ * <li>Text</li>
  * </ul>
+ * 
  * @author Jiri Peterka
  *
  */
@@ -48,8 +52,9 @@ public class WidgetResolver  {
 	private WidgetResolver() {}
 	
 	/**
-	 * Return WidgetResolver instance
-	 * @return idgetResolver instance
+	 * Returns instance of WidgetResolver.
+	 * 
+	 * @return widgetResolver instance
 	 */
 	public static WidgetResolver getInstance() {
 		if (instance == null) instance = new WidgetResolver();
@@ -72,9 +77,10 @@ public class WidgetResolver  {
 	private TabItem[] items;
 
 	/**
-	 * Returns parent of resolvable specific widget type, if not resolvable returns null
-	 * Must be called from UI Thread
-	 * @param w given widget
+	 * Returns parent of specified widget. If widget is not resolvable, return null.
+	 * Must be called from UI Thread.
+	 * 
+	 * @param w widget to resolve
 	 * @return parent widget or null
 	 */
 	public Widget getParent(Widget w) {
@@ -131,8 +137,10 @@ public class WidgetResolver  {
 
 	
 	/**
-	 * Return children
-	 * @param w given widget
+	 * Returns children of specified widget. If widget is not resolvable, return null.
+	 * Must be called from UI Thread.
+	 * 
+	 * @param w widget to resolve
 	 * @return list of children widgets
 	 */
 	public List<Widget> getChildren(Widget w) {
@@ -191,9 +199,10 @@ public class WidgetResolver  {
 	}
 
 	/**
-	 * Returns true if widget has a parent
-	 * @param w given widget
-	 * @return widget's parent
+	 * Finds out whether specified widget has parent.
+	 * 
+	 * @param w widget to resolve
+	 * @return true if widget has a parent, false otherwise.
 	 */
 	public boolean hasParent(Widget w) {
 		return getParent(w) != null;
@@ -201,9 +210,10 @@ public class WidgetResolver  {
 
 	
 	/**
-	 * Returns true if suported widget has a children
-	 * @param w widget
-	 * @return true if widget has a parent
+	 * Find out whether specified widget has children.
+	 * 
+	 * @param w widget to resolve
+	 * @return true if widget has children, false otherwise
 	 */
 	public boolean hasChildren(Widget w) {
 		return isResolvable(w) && (getChildren(w).size() > 0) ;
@@ -211,9 +221,10 @@ public class WidgetResolver  {
 
 	
 	/**
-	 * returns true if Widget is resolvable by resolver
-	 * @param w widget
-	 * @return true if widget type is resolvable
+	 * Finds out whether specified widget is resolvable or not.
+	 * 
+	 * @param w widget to resolve
+	 * @return true if widget is resolvable, false otherwise.
 	 */
 	public boolean isResolvable(Widget w) {
 		// DateTime is not supported because of eclipse bug https://bugs.eclipse.org/bugs/show_bug.cgi?id=206868
