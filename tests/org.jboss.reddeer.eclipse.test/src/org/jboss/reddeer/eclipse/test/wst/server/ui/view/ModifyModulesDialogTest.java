@@ -91,4 +91,15 @@ public class ModifyModulesDialogTest extends ServersViewTestCase{
 		modules = server.getModules();
 		assertThat(modules.size(), is(0));
 	}
+	
+	@Test
+	public void testRemoveConfiguredModules() {
+		ModifyModulesDialog dialog = server.addAndRemoveModules();
+		ModifyModulesPage page = new ModifyModulesPage();
+		page.add(PROJECT_1, PROJECT_3);
+		if (!page.getConfiguredModules().isEmpty()) {
+		   page.removeAll();
+		}
+		dialog.finish();
+	}
 }
