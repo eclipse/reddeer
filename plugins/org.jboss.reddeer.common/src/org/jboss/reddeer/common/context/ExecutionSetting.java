@@ -12,7 +12,6 @@ import org.jboss.reddeer.common.properties.RedDeerProperties;
  */
 public class ExecutionSetting {
 	private static ExecutionSetting instance;
-	private boolean debugEnabled = true;
 	private boolean pauseFailedTest = false;
 	private int logMessageFilter;
 	private int logLevel = Integer.MAX_VALUE;
@@ -26,7 +25,6 @@ public class ExecutionSetting {
 	public static ExecutionSetting getInstance() {
 		if (instance == null) {
 			instance = new ExecutionSetting();
-			instance.debugEnabled = RedDeerProperties.LOG_DEBUG.getBooleanSystemValue();
 			instance.pauseFailedTest = RedDeerProperties.PAUSE_FAILED_TEST.getBooleanSystemValue();
 
 			String logMessageFilterText = RedDeerProperties.LOG_MESSAGE_FILTER.getSystemValue();
@@ -78,24 +76,6 @@ public class ExecutionSetting {
 
 	private ExecutionSetting() {
 
-	}
-
-	/**
-	 * isDebugEnabled getter
-	 * 
-	 * @return true if -DlogDebug=true (default), false otherwise
-	 */
-	public boolean isDebugEnabled() {
-		return debugEnabled;
-	}
-
-	/**
-	 * Turn debugging on or off
-	 *
-	 * @param enabled
-	 */
-	public void setDebugEnabled(boolean enabled) {
-		debugEnabled = enabled;
 	}
 
 	/**

@@ -53,9 +53,7 @@ public class Logger {
 	 * @param msg message
 	 */
 	public void debug(String msg) {
-		if (ExecutionSetting.getInstance().isDebugEnabled()) {
-			print(debug, msg, MessageType.DEBUG);
-		}
+		print(debug, msg, MessageType.DEBUG);
 	}
 
 	/**
@@ -75,9 +73,7 @@ public class Logger {
 	 * @param msg message
 	 */
 	public void trace(String msg) {
-		if (ExecutionSetting.getInstance().isDebugEnabled()) {
-			print(trace, msg, MessageType.TRACE);
-		}
+		print(trace, msg, MessageType.TRACE);
 	}
 
 	/**
@@ -263,9 +259,7 @@ public class Logger {
 		}
 
 		StringBuilder sb = new StringBuilder();
-		if (ExecutionSetting.getInstance().isDebugEnabled()) {
-			sb.append(dateFormat.format(new Date()) + " ");
-		}
+		sb.append(dateFormat.format(new Date()) + " ");		
 
 		sb.append(severity);
 		sb.append(" [");
@@ -306,9 +300,5 @@ public class Logger {
 			t.printStackTrace();
 			printStackTraceRecursive(t.getCause());
 		}
-	}
-
-	public boolean isDebugEnabled() {
-		return ExecutionSetting.getInstance().isDebugEnabled();
 	}
 }

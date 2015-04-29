@@ -12,8 +12,6 @@ import org.jboss.reddeer.common.logging.LoggingUtils;
  */
 public enum RedDeerProperties {
 
-	LOG_DEBUG("logDebug", true), 
-
 	PAUSE_FAILED_TEST("pauseFailedTest", false),
 
 	LOG_MESSAGE_FILTER("logMessageFilter", "ALL"),
