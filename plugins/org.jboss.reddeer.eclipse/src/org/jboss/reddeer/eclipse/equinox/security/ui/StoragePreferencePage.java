@@ -3,7 +3,7 @@ package org.jboss.reddeer.eclipse.equinox.security.ui;
 import java.util.List;
 
 import org.jboss.reddeer.swt.api.TableItem;
-import org.jboss.reddeer.swt.condition.ButtonWithTextIsActive;
+import org.jboss.reddeer.swt.condition.ButtonWithTextIsEnabled;
 import org.jboss.reddeer.common.exception.WaitTimeoutExpiredException;
 import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.tab.DefaultTabItem;
@@ -61,7 +61,7 @@ public class StoragePreferencePage extends WorkbenchPreferencePage {
 	 */
 	public boolean clearPasswords() {
 		try {
-			new WaitUntil(new ButtonWithTextIsActive(new PushButton("Clear Passwords")));
+			new WaitUntil(new ButtonWithTextIsEnabled(new PushButton("Clear Passwords")));
 			new PushButton("Clear Passwords").click();
 			return true;
 		} catch(WaitTimeoutExpiredException ex) {

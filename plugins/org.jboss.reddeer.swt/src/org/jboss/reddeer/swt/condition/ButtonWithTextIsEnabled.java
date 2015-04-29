@@ -4,14 +4,13 @@ import org.jboss.reddeer.common.condition.WaitCondition;
 import org.jboss.reddeer.swt.api.Button;
 
 /**
- * Condition is met when button with specified text is active.
+ * Condition is met when button with specified text is enabled.
  * 
  * @author Vlado Pakan
  * @author Len DiMaggio
  *
- * @deprecated use #link {@link ButtonWithTextIsEnabled}
  */
-public class ButtonWithTextIsActive implements WaitCondition {
+public class ButtonWithTextIsEnabled implements WaitCondition {
 
 	private Button button;
 
@@ -21,7 +20,7 @@ public class ButtonWithTextIsActive implements WaitCondition {
 	 * 
 	 * @param button button to check
 	 */
-	public ButtonWithTextIsActive(Button button) {
+	public ButtonWithTextIsEnabled(Button button) {
 		this.button = button;
 	}
 
@@ -32,7 +31,7 @@ public class ButtonWithTextIsActive implements WaitCondition {
 
 	@Override
 	public String description() {
-		return "button with text " + button.getText() + " is active";
+		return "button with text " + button.getText() + " is enabled";
 	}
 
 }
