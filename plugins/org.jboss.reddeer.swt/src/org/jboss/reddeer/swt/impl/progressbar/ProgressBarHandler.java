@@ -16,6 +16,7 @@ public class ProgressBarHandler {
 	
 	private static ProgressBarHandler instance;
 	
+	private ProgressBarHandler() { }
 	
 	/**
 	 * Creates and returns instance of ProgressBarHandler class

@@ -24,6 +24,8 @@ public class FormTextHandler {
 
 	private static FormTextHandler instance;
 
+	private FormTextHandler() { }
+	
 	/**
 	 * Gets instance of FormTextHandler.
 	 * 

@@ -19,7 +19,7 @@ public class ViewToolBar extends AbstractToolBar {
 	 */
 
 	public ViewToolBar() {
-		ToolBarLookup tl = new ToolBarLookup();
+		ToolBarLookup tl = ToolBarLookup.getInstance();
 		toolBar = tl.getViewToolBar();
 
 	}
