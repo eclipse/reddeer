@@ -15,6 +15,8 @@ public class TabFolderHandler {
 
 	private static TabFolderHandler instance;
 
+	private TabFolderHandler() { }
+	
 	/**
 	 * Gets instance of TabItemHandler.
 	 * 

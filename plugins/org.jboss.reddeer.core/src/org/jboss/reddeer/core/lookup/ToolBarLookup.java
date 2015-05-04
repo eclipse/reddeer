@@ -35,6 +35,8 @@ public class ToolBarLookup {
 
 	private static ToolBarLookup instance;
 
+	private ToolBarLookup() { }
+	
 	/**
 	 * Gets instance of ToolBarLookup.
 	 * 

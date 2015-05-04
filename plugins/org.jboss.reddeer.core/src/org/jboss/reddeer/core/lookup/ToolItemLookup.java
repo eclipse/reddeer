@@ -30,14 +30,19 @@ public class ToolItemLookup {
 	
 	private static final Logger logger = Logger.getLogger(ToolItemLookup.class);
 
-	private static ToolItemLookup instance = new ToolItemLookup();
+	private static ToolItemLookup instance;
 
+	private ToolItemLookup() { }
+	
 	/**
 	 * Gets instance of ToolItemLookup.
 	 * 
 	 * @return ToolItemLookup instance
 	 */
 	public static ToolItemLookup getInstance() {
+		if (instance == null) {
+			instance = new ToolItemLookup();
+		}
 		return instance;
 	}
 
