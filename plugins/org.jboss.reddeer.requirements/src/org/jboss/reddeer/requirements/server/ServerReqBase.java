@@ -2,7 +2,7 @@ package org.jboss.reddeer.requirements.server;
 
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.eclipse.exception.EclipseLayerException;
-import org.jboss.reddeer.eclipse.jdt.ui.WorkbenchPreferenceDialog;
+import org.jboss.reddeer.workbench.ui.dialogs.WorkbenchPreferenceDialog;
 import org.jboss.reddeer.eclipse.wst.server.ui.Runtime;
 import org.jboss.reddeer.eclipse.wst.server.ui.RuntimePreferencePage;
 import org.jboss.reddeer.eclipse.wst.server.ui.view.ServersView;

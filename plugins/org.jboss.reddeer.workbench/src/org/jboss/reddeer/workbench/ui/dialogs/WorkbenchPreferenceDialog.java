@@ -1,4 +1,4 @@
-package org.jboss.reddeer.eclipse.jdt.ui;
+package org.jboss.reddeer.workbench.ui.dialogs;
 
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.jface.preference.PreferenceDialog;
@@ -6,15 +6,13 @@ import org.jboss.reddeer.swt.api.Menu;
 import org.jboss.reddeer.swt.impl.menu.ShellMenu;
 
 /**
- * Workbench Preference Dialog implementation that is open
- * via Window -> Preferences
+ * Workbench Preference Dialog implementation that is opened
+ * via shell menu Window -> Preferences.
  *
  * @author Jiri Peterka
  * @author Radoslav Rabara
  * @since 0.6
- * @deprecated since 0.8.0. Use {@link org.jboss.reddeer.workbench.ui.dialogs.WorkbenchPreferenceDialog} instead.
  */
-@Deprecated
 public class WorkbenchPreferenceDialog extends PreferenceDialog {
 
 	public static final String DIALOG_TITLE = "Preferences";

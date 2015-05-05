@@ -2,7 +2,7 @@ package org.jboss.reddeer.eclipse.test.m2e.core.ui.preferences;
 
 import static org.junit.Assert.assertEquals;
 
-import org.jboss.reddeer.eclipse.jdt.ui.WorkbenchPreferenceDialog;
+import org.jboss.reddeer.workbench.ui.dialogs.WorkbenchPreferenceDialog;
 import org.jboss.reddeer.eclipse.m2e.core.ui.preferences.MavenSettingsPreferencePage;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.junit.After;

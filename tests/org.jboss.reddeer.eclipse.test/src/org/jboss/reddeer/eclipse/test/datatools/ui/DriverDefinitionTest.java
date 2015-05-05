@@ -5,7 +5,7 @@ import java.io.File;
 import org.jboss.reddeer.eclipse.datatools.ui.DriverDefinition;
 import org.jboss.reddeer.eclipse.datatools.ui.DriverTemplate;
 import org.jboss.reddeer.eclipse.datatools.ui.preference.DriverDefinitionPreferencePage;
-import org.jboss.reddeer.eclipse.jdt.ui.WorkbenchPreferenceDialog;
+import org.jboss.reddeer.workbench.ui.dialogs.WorkbenchPreferenceDialog;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.swt.impl.table.DefaultTable;
 import org.junit.Test;

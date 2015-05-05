@@ -5,7 +5,7 @@ import static org.junit.Assert.assertThat;
 
 import java.util.List;
 
-import org.jboss.reddeer.eclipse.jdt.ui.WorkbenchPreferenceDialog;
+import org.jboss.reddeer.workbench.ui.dialogs.WorkbenchPreferenceDialog;
 import org.jboss.reddeer.eclipse.wst.server.ui.Runtime;
 import org.jboss.reddeer.eclipse.wst.server.ui.RuntimePreferencePage;
 import org.jboss.reddeer.eclipse.wst.server.ui.wizard.NewRuntimeWizardDialog;

@@ -3,7 +3,7 @@ package org.jboss.reddeer.eclipse.test.ui.dialogs;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import org.jboss.reddeer.eclipse.jdt.ui.WorkbenchPreferenceDialog;
+import org.jboss.reddeer.workbench.ui.dialogs.WorkbenchPreferenceDialog;
 import org.jboss.reddeer.eclipse.ui.dialogs.FileEditorsPreferencePage;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.junit.After;

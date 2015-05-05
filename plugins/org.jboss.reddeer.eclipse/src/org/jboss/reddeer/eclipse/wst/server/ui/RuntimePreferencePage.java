@@ -6,11 +6,11 @@ import java.util.List;
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.eclipse.exception.EclipseLayerException;
 import org.jboss.reddeer.eclipse.wst.server.ui.wizard.NewRuntimeWizardDialog;
+import org.jboss.reddeer.jface.preference.PreferencePage;
 import org.jboss.reddeer.swt.api.Table;
 import org.jboss.reddeer.core.condition.ShellWithTextIsActive;
 import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.table.DefaultTable;
-import org.jboss.reddeer.workbench.preference.WorkbenchPreferencePage;
 
 /**
  * 
@@ -19,7 +19,7 @@ import org.jboss.reddeer.workbench.preference.WorkbenchPreferencePage;
  * @author Lucia Jelinkova
  *
  */
-public class RuntimePreferencePage extends WorkbenchPreferencePage {
+public class RuntimePreferencePage extends PreferencePage {
 
 	public static final String PAGE_NAME = "Runtime Environments";
 
@@ -29,7 +29,7 @@ public class RuntimePreferencePage extends WorkbenchPreferencePage {
 	 * Constructs the preference page with "Server" > {@value #PAGE_NAME}.
 	 */
 	public RuntimePreferencePage() {
-		super("Server", PAGE_NAME);
+		super(new String[] {"Server", PAGE_NAME});
 	}
 	
 	/**

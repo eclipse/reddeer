@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.jboss.reddeer.eclipse.equinox.security.ui.StoragePreferencePage;
-import org.jboss.reddeer.eclipse.jdt.ui.WorkbenchPreferenceDialog;
+import org.jboss.reddeer.workbench.ui.dialogs.WorkbenchPreferenceDialog;
 import org.jboss.reddeer.eclipse.ui.ide.RepoConnectionDialog;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.swt.api.TableItem;
