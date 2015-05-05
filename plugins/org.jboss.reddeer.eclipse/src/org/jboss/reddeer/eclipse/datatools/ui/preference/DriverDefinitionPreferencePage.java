@@ -4,9 +4,9 @@ import java.util.List;
 
 import org.jboss.reddeer.eclipse.datatools.ui.DriverDefinition;
 import org.jboss.reddeer.eclipse.datatools.ui.wizard.DriverDefinitionWizard;
+import org.jboss.reddeer.jface.preference.PreferencePage;
 import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
-import org.jboss.reddeer.workbench.preference.WorkbenchPreferencePage;
 
 /**
  * Preference page for managing driver definitions.
@@ -14,13 +14,13 @@ import org.jboss.reddeer.workbench.preference.WorkbenchPreferencePage;
  * @author apodhrad
  * 
  */
-public class DriverDefinitionPreferencePage extends WorkbenchPreferencePage {
+public class DriverDefinitionPreferencePage extends PreferencePage {
 
 	/**
 	 * Construct a preference page with Data Management > Connectivity > Driver Definitions.
 	 */
 	public DriverDefinitionPreferencePage() {
-		super("Data Management", "Connectivity", "Driver Definitions");
+		super(new String[] {"Data Management", "Connectivity", "Driver Definitions"});
 	}
 
 	/**

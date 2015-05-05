@@ -28,4 +28,5 @@ Export-Package: org.jboss.reddeer.workbench,
  org.jboss.reddeer.workbench.impl.editor,
  org.jboss.reddeer.workbench.impl.view,
  org.jboss.reddeer.workbench.preference,
- org.jboss.reddeer.workbench.impl.shell
+ org.jboss.reddeer.workbench.impl.shell,
+ org.jboss.reddeer.workbench.ui.dialogs

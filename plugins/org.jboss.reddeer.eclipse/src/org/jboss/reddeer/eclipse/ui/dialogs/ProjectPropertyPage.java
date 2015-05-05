@@ -6,10 +6,11 @@ import org.jboss.reddeer.eclipse.core.resources.Project;
  * Represents a general property page of a given project. Subclasses
  * should represent the concrete property page.
  * 
- * @deprecated Please use {@link ExplorerItemPropertyDialog}
+ * @deprecated since 0.8.0. Use {@link ExplorerItemPropertyDialog} instead.
  * @author Lucia Jelinkova
  * 
  */
+@Deprecated
 public abstract class ProjectPropertyPage extends PropertyPage {
 
 	private Project project;

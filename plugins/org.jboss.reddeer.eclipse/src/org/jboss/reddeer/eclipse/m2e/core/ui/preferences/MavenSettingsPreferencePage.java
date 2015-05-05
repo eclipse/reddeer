@@ -10,7 +10,7 @@ import org.jboss.reddeer.core.util.ResultRunnable;
 import org.jboss.reddeer.common.wait.TimePeriod;
 import org.jboss.reddeer.common.wait.WaitUntil;
 import org.jboss.reddeer.common.wait.WaitWhile;
-import org.jboss.reddeer.workbench.preference.WorkbenchPreferencePage;
+import org.jboss.reddeer.jface.preference.PreferencePage;
 
 /**
  * Class representing "Maven->User Settings" preference page.
@@ -19,7 +19,7 @@ import org.jboss.reddeer.workbench.preference.WorkbenchPreferencePage;
  *
  */
 
-public class MavenSettingsPreferencePage extends WorkbenchPreferencePage {
+public class MavenSettingsPreferencePage extends PreferencePage {
 
 	private static final String UPDATE_SETTINGS = "Update Settings";
 	private static final String REINDEX = "Reindex";
@@ -28,7 +28,7 @@ public class MavenSettingsPreferencePage extends WorkbenchPreferencePage {
 	 * Construct the preference page with "Maven" > "User Settings".
 	 */
 	public MavenSettingsPreferencePage() {
-		super("Maven", "User Settings");
+		super(new String[] {"Maven", "User Settings"});
 	}
 
 	/**

@@ -9,7 +9,7 @@ import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.tab.DefaultTabItem;
 import org.jboss.reddeer.swt.impl.table.DefaultTable;
 import org.jboss.reddeer.common.wait.WaitUntil;
-import org.jboss.reddeer.workbench.preference.WorkbenchPreferencePage;
+import org.jboss.reddeer.jface.preference.PreferencePage;
 
 /**
  * Storage preference page represent page for secure storage in Eclipse preferences.
@@ -18,10 +18,10 @@ import org.jboss.reddeer.workbench.preference.WorkbenchPreferencePage;
  * @author mlabuda@redhat.com
  *
  */
-public class StoragePreferencePage extends WorkbenchPreferencePage {
+public class StoragePreferencePage extends PreferencePage {
 
 	public StoragePreferencePage() {
-		super("General", "Security", "Secure Storage");
+		super(new String[] {"General", "Security", "Secure Storage"});
 	}
 	
 	/**

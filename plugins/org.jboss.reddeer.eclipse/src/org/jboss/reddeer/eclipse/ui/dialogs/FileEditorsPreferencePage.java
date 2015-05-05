@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.eclipse.exception.EclipseLayerException;
+import org.jboss.reddeer.jface.preference.PreferencePage;
 import org.jboss.reddeer.swt.api.Table;
 import org.jboss.reddeer.swt.api.TableItem;
 import org.jboss.reddeer.swt.impl.button.OkButton;
@@ -15,7 +16,6 @@ import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.jboss.reddeer.swt.impl.table.DefaultTable;
 import org.jboss.reddeer.swt.impl.text.LabeledText;
 import org.jboss.reddeer.core.matcher.WithMnemonicTextMatcher;
-import org.jboss.reddeer.workbench.preference.WorkbenchPreferencePage;
 
 /**
  * 
@@ -24,7 +24,7 @@ import org.jboss.reddeer.workbench.preference.WorkbenchPreferencePage;
  * @author Vlado Pakan
  *
  */
-public class FileEditorsPreferencePage extends WorkbenchPreferencePage {
+public class FileEditorsPreferencePage extends PreferencePage {
 
 	public static final String PAGE_NAME = "File Associations";
 
@@ -34,7 +34,7 @@ public class FileEditorsPreferencePage extends WorkbenchPreferencePage {
 	 * Constructs the preference page with "Server" > {@value #PAGE_NAME}.
 	 */
 	public FileEditorsPreferencePage() {
-		super("General", "Editors" ,PAGE_NAME);
+		super(new String[] {"General", "Editors" ,PAGE_NAME});
 	}
 	/**
 	 * Returns true if all file types are defined

@@ -1,22 +1,22 @@
 package org.jboss.reddeer.eclipse.ui.dialogs;
 
+import org.jboss.reddeer.jface.preference.PreferencePage;
 import org.jboss.reddeer.swt.impl.button.CheckBox;
 import org.jboss.reddeer.swt.impl.button.RadioButton;
 import org.jboss.reddeer.swt.impl.group.DefaultGroup;
-import org.jboss.reddeer.workbench.preference.WorkbenchPreferencePage;
 
 /** Class represents Perspectives preference page.
  * 
  * @author Vlado Pakan
  *
  */
-public class PerspectivesPreferencePage extends WorkbenchPreferencePage {
+public class PerspectivesPreferencePage extends PreferencePage {
 
 	/** 
 	 * Constructs the preference page with "General > Perspectives".
 	 */
 	public PerspectivesPreferencePage() {
-		super("General", "Perspectives");
+		super(new String[] {"General", "Perspectives"});
 	}
 
 	/** 
