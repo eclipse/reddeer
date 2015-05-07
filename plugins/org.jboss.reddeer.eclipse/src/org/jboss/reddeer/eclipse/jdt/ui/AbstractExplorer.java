@@ -10,7 +10,6 @@ import org.jboss.reddeer.eclipse.exception.EclipseLayerException;
 import org.jboss.reddeer.eclipse.utils.DeleteUtils;
 import org.jboss.reddeer.jface.viewer.handler.TreeViewerHandler;
 import org.jboss.reddeer.swt.api.Shell;
-import org.jboss.reddeer.swt.api.Tree;
 import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.core.condition.JobIsRunning;
 import org.jboss.reddeer.swt.impl.button.CheckBox;
@@ -37,8 +36,9 @@ public class AbstractExplorer extends WorkbenchView {
 	}
 
 	/**
-	 * Select given project names
-	 * @param projectName
+	 * Selects projects with specified names.
+	 * 
+	 * @param projectName names of projects
 	 */
 	public void selectProjects(String... projectName){
 		ArrayList<TreeItem> selectTreeItems = new ArrayList<TreeItem>();
@@ -51,35 +51,40 @@ public class AbstractExplorer extends WorkbenchView {
 	}
 	
 	/**
-	 * Select all projects
+	 * Selects all projects. If there are not projects do nothing.
 	 */
 	public void selectAllProjects(){
-		Tree projectsTree = getTree();
-		List<TreeItem> projects = projectsTree.getItems();
-		if(projects.size() > 0){
-			projectsTree.selectItems(projects.toArray(new TreeItem[projects.size()]));
+		List<Project> projects = getProjects();
+		List<TreeItem> projectsItems = new ArrayList<TreeItem>();
+		if (projects.size() > 0) {
+			for (Project project: projects) {
+				projectsItems.add(project.getTreeItem());
+			}
 		}
+		getTree().selectItems(projectsItems.toArray(new TreeItem[projectsItems.size()]));
 	}
 	
 	/**
-	 * Check if project exists in explorer
-	 * @param projectName given project name to be checked
-	 * @return true if project exists and false if not
+	 * Finds out whether a project with specified name exists in explorer or not.
+	 * 
+	 * @param projectName name of a project
+	 * @return true if project exists, false otherwise
 	 */
-	public boolean containsProject (String projectName){
-	  boolean result = false;
-	  try{
-		getProject(projectName);
-	    result = true;
-	  } catch (EclipseLayerException ele){
-	    result = false;
-	  }
-	  return result;
+	public boolean containsProject(String projectName) {
+		boolean result = false;
+		try{
+			getProject(projectName);
+			result = true;
+			} catch (EclipseLayerException ele){
+				result = false;
+			}
+		return result;
 	}
 	
 	/**
-	 * Provides list of projects in explorer
-	 * @return list of projects
+	 * Gets all projects located in explorer.
+	 * 
+	 * @return list of projects in explorer
 	 */
 	public List<Project> getProjects(){
 		List<Project> projects = new ArrayList<Project>();
@@ -95,7 +100,7 @@ public class AbstractExplorer extends WorkbenchView {
 	}
 	
 	/**
-	 * Provides list of all items in explorer
+	 * Provides list of all items in explorer.
 	 * @return list of explorer items
 	 */
 	public List<ExplorerItem> getExplorerItems() {
@@ -116,6 +121,7 @@ public class AbstractExplorer extends WorkbenchView {
 	
 	/**
 	 * Removes all projects.
+	 * 
 	 * @param deleteFromFileSystem true if project should be deleted from file system, false otherwise
 	 */
 	public void deleteAllProjects(boolean deleteFromFileSystem){
@@ -123,9 +129,11 @@ public class AbstractExplorer extends WorkbenchView {
 	}
 	
 	/**
-	 * Removes all projects with custom timeout
+	 * Removes all projects. Wait for a specified time period while refreshing
+	 * a project and while handling its deletion.
+	 * 
 	 * @param deleteFromFileSystem true if project should be deleted from file system, false otherwise
-	 * @param timeout for waits
+	 * @param timeout time to wait for refresh of a project and its deletion
 	 */
 	public void deleteAllProjects(boolean deleteFromFileSystem, TimePeriod timeout){
 		activate();
@@ -147,9 +155,10 @@ public class AbstractExplorer extends WorkbenchView {
 	}
 		
 	/**
-	 * Get project form explorer 
-	 * @param projectName given project name
-	 * @return project instance
+	 * Gets project with specified project name located in explorer.
+	 *  
+	 * @param projectName name of a project
+	 * @return project with specified name
 	 */
 	public Project getProject(String projectName){
 		activate();
