@@ -3,7 +3,8 @@
 
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>org.jboss.reddeer.junit.test</artifactId>
-	<name>Red Deer JUnit Support Tests</name>
+	<name>Red Deer JUnit Component Tests</name>
+	<packaging>eclipse-test-plugin</packaging>
 
 	<parent>
 		<groupId>org.jboss.reddeer</groupId>
@@ -12,59 +13,26 @@
 	</parent>
 
 	<build>
-		<testSourceDirectory>src</testSourceDirectory>
 		<plugins>
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>2.5.1</version>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-surefire-plugin</artifactId>
 				<configuration>
-					<source>1.6</source>
-					<target>1.6</target>
+					<dependencies combine.children="append">
+						<dependency>
+							<type>p2-installable-unit</type>
+							<artifactId>org.mockito</artifactId>
+							<version>0.0.0</version>
+						</dependency>
+						<dependency>
+							<type>p2-installable-unit</type>
+							<artifactId>org.hamcrest</artifactId>
+							<version>0.0.0</version>
+						</dependency>
+					</dependencies>
 				</configuration>
 			</plugin>
 		</plugins>
 	</build>
 
-	<dependencies>
-		<dependency>
-			<groupId>org.jboss.reddeer</groupId>
-			<artifactId>org.jboss.reddeer.junit</artifactId>
-			<version>0.8.0-SNAPSHOT</version>
-			<type>eclipse-plugin</type>
-		</dependency>
-
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>4.10</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.hamcrest</groupId>
-			<artifactId>hamcrest-all</artifactId>
-			<version>1.1</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.mockito</groupId>
-			<artifactId>mockito-all</artifactId>
-			<version>1.9.0</version>
-		</dependency>
-
-		<dependency>
-			<groupId>commons-beanutils</groupId>
-			<artifactId>commons-beanutils</artifactId>
-			<version>1.8.3</version>
-			<scope>runtime</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>org.jboss.reddeer</groupId>
-			<artifactId>org.jboss.reddeer.common</artifactId>
-			<version>0.8.0-SNAPSHOT</version>
-			<type>eclipse-plugin</type>
-		</dependency>
-
-	</dependencies>
 </project>

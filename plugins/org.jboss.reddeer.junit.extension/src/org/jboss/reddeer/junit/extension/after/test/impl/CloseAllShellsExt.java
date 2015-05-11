@@ -26,7 +26,7 @@ import org.junit.Assert;
  */
 public class CloseAllShellsExt implements IAfterTest {
 
-	public static final boolean CLOSE_ALL_SHELLS = RedDeerProperties.CLOSE_ALL_SHELLS.getBooleanSystemValue();
+	public static final boolean CLOSE_ALL_SHELLS = RedDeerProperties.CLOSE_ALL_SHELLS.getBooleanValue();
 
 	private Object target;
 	/**

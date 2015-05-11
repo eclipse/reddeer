@@ -25,10 +25,9 @@ public class ExecutionSetting {
 	public static ExecutionSetting getInstance() {
 		if (instance == null) {
 			instance = new ExecutionSetting();
-			instance.pauseFailedTest = RedDeerProperties.PAUSE_FAILED_TEST.getBooleanSystemValue();
-
-			String logMessageFilterText = RedDeerProperties.LOG_MESSAGE_FILTER.getSystemValue();
-			String logLevel = RedDeerProperties.LOG_LEVEL.getSystemValue();
+			instance.pauseFailedTest = RedDeerProperties.PAUSE_FAILED_TEST.getBooleanValue();
+			String logMessageFilterText = RedDeerProperties.LOG_MESSAGE_FILTER.getValue();
+			String logLevel = RedDeerProperties.LOG_LEVEL.getValue();
 			instance.logLevel = LogLevel.ALL.fromString(logLevel).getValue();
 			instance.parseLogMessageFilter(logMessageFilterText);
 		}

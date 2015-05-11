@@ -29,7 +29,7 @@ public class RequirementsConfigurationImpl implements RequirementsConfiguration{
 	
 	private CustomConfigurator customConfigurator;
 	
-	protected RequirementsConfigurationImpl(XMLReader reader) {
+	public RequirementsConfigurationImpl(XMLReader reader) {
 		super();
 		this.voidConfigurator = new NullConfigurator();
 		this.propertyConfigurator = new PropertyBasedConfigurator(reader, new ConfigurationSetter());
@@ -40,7 +40,7 @@ public class RequirementsConfigurationImpl implements RequirementsConfiguration{
 		getConfigurator(requirement).configure(requirement);
 	}
 	
-	protected RequirementConfigurator getConfigurator(Requirement<?> requirement){
+	public RequirementConfigurator getConfigurator(Requirement<?> requirement){
 		if (requirement instanceof PropertyConfiguration){
 			return propertyConfigurator;
 		}

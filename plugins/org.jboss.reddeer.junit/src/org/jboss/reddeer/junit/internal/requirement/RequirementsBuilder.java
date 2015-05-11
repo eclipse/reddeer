@@ -68,7 +68,7 @@ public class RequirementsBuilder {
 		}
 	}
 	
-	protected void setFinder(AnnotationsFinder finder) {
+	public void setFinder(AnnotationsFinder finder) {
 		this.finder = finder;
 	}
 }

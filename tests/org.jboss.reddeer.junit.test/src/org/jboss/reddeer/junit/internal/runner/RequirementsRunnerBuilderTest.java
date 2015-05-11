@@ -1,9 +1,9 @@
 package org.jboss.reddeer.junit.internal.runner;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.isA;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -41,7 +41,7 @@ public class RequirementsRunnerBuilderTest {
 		Runner runner = runnerBuilder.runnerForClass(TestCase.class);
 		
 		assertNotNull(runner);
-		assertThat(runner, is(RequirementsRunner.class));
+		assertTrue(isA(RequirementsRunner.class).matches(runner));
 	}
 
 	@Test

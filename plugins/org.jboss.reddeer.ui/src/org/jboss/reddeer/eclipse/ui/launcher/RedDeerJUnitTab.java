@@ -28,7 +28,6 @@ import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.ui.PlatformUI;
 import org.jboss.reddeer.common.exception.RedDeerException;
-import org.jboss.reddeer.common.properties.RedDeerProperties;
 import org.jboss.reddeer.common.properties.RedDeerPropertyType;
 
 /**
@@ -66,7 +65,7 @@ public class RedDeerJUnitTab extends AbstractLaunchConfigurationTab {
 
 	@Override
 	public void initializeFrom(ILaunchConfiguration configuration) {
-		RedDeerLauncherProperties[] currentInput = getDefaultRedDeerLauncherProperties();
+		RedDeerLauncherProperties[] currentInput = RedDeerLauncherProperties.getInitialRedDeerLauncherProperties();
 		for (RedDeerLauncherProperties property : currentInput){
 			try {
 				property.load(configuration);
@@ -80,12 +79,23 @@ public class RedDeerJUnitTab extends AbstractLaunchConfigurationTab {
 
 	@Override
 	public void performApply(ILaunchConfigurationWorkingCopy config) {
-		RedDeerLauncherProperties[] currentInput = (RedDeerLauncherProperties[]) propertiesViewer.getInput();
-		for (RedDeerLauncherProperties property : currentInput){
+		RedDeerJUnitTab.savePropertiesToLaunchConfiguration(config, 
+			(RedDeerLauncherProperties[]) propertiesViewer.getInput());
+	}
+
+	/**
+	 * Saves specified RedDeer Launcher properties to launch configuration
+	 * 
+	 * @param config
+	 * @param properties
+	 */
+	static void savePropertiesToLaunchConfiguration(ILaunchConfigurationWorkingCopy config,
+			RedDeerLauncherProperties[] properties) {
+		for (RedDeerLauncherProperties property : properties) {
 			property.save(config);
 		}
 	}
-
+	
 	@Override
 	public void setDefaults(ILaunchConfigurationWorkingCopy config) {
 		// no need to set defaults to config, table is initialized with right values
@@ -161,18 +171,8 @@ public class RedDeerJUnitTab extends AbstractLaunchConfigurationTab {
 		valueColumn.setEditingSupport(new RedDeerEditingSupport(viewer));
 
 		viewer.setContentProvider(new  ArrayContentProvider());
-		viewer.setInput(getDefaultRedDeerLauncherProperties());
+ 
 		return viewer;
-	}
-
-	private RedDeerLauncherProperties[] getDefaultRedDeerLauncherProperties(){
-		RedDeerProperties[] properties = RedDeerProperties.values();
-		RedDeerLauncherProperties[] tabProperties = new RedDeerLauncherProperties[properties.length];
-
-		for (int i = 0; i < properties.length; i++){
-			tabProperties[i] = new RedDeerLauncherProperties(properties[i]);
-		}
-		return tabProperties;
 	}
 
 	private class NameLabelProvider extends ColumnLabelProvider {

@@ -1,0 +1,64 @@
+[INFO] Scanning for projects...
+[INFO] Computing target platform for MavenProject: org.jboss.reddeer:org.jboss.reddeer.junit.test:0.8.0-SNAPSHOT @ /home/vpakan/git/reddeer/tests/org.jboss.reddeer.junit.test/pom.xml
+[INFO] Fetching p2.index from http://download.eclipse.org/tools/orbit/downloads/drops/S20150519210750/repository/ (0B at 0B/s)
+[INFO] Adding repository http://download.eclipse.org/tools/orbit/downloads/drops/S20150519210750/repository
+[INFO] Fetching p2.index from http://download.eclipse.org/releases/luna/ (0B at 0B/s)
+[INFO] Adding repository http://download.eclipse.org/releases/luna
+[INFO] Fetching p2.index from http://download.eclipse.org/releases/luna/201406250900/ (0B at 0B/s)
+[INFO] Fetching p2.index from http://download.eclipse.org/releases/luna/201409261001/ (0B at 0B/s)
+[INFO] Fetching p2.index from http://download.eclipse.org/releases/luna/201501121000/ (0B at 0B/s)
+[INFO] Fetching p2.index from http://download.eclipse.org/releases/luna/201502271000/ (0B at 0B/s)
+[INFO] Adding repository http://download.eclipse.org/technology/swtbot/releases/2.2.1
+[INFO] Resolving dependencies of MavenProject: org.jboss.reddeer:org.jboss.reddeer.junit.test:0.8.0-SNAPSHOT @ /home/vpakan/git/reddeer/tests/org.jboss.reddeer.junit.test/pom.xml
+[WARNING] The following locally built units have been used to resolve project dependencies:
+[WARNING]   org.jboss.reddeer.junit/0.8.0.201505281028
+[WARNING]   org.jboss.reddeer.common/0.8.0.201505271445
+[INFO] Resolving class path of MavenProject: org.jboss.reddeer:org.jboss.reddeer.junit.test:0.8.0-SNAPSHOT @ /home/vpakan/git/reddeer/tests/org.jboss.reddeer.junit.test/pom.xml
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building Red Deer JUnit Component Tests 0.8.0-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-clean-plugin:2.5:clean (default-clean) @ org.jboss.reddeer.junit.test ---
+[INFO] Deleting /home/vpakan/git/reddeer/tests/org.jboss.reddeer.junit.test/target
+[INFO] Deleting /home/vpakan/git/reddeer/tests/org.jboss.reddeer.junit.test/bin
+[INFO] 
+[INFO] --- tycho-packaging-plugin:0.21.0:build-qualifier (default-build-qualifier) @ org.jboss.reddeer.junit.test ---
+[INFO] The project's OSGi version is 0.8.0.201505281029
+[INFO] 
+[INFO] --- tycho-packaging-plugin:0.21.0:validate-id (default-validate-id) @ org.jboss.reddeer.junit.test ---
+[INFO] 
+[INFO] --- tycho-packaging-plugin:0.21.0:validate-version (default-validate-version) @ org.jboss.reddeer.junit.test ---
+[INFO] 
+[INFO] --- maven-resources-plugin:2.4.3:resources (default-resources) @ org.jboss.reddeer.junit.test ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Copying 19 resources
+[INFO] 
+[INFO] --- tycho-compiler-plugin:0.21.0:compile (default-compile) @ org.jboss.reddeer.junit.test ---
+[INFO] Compiling 55 source files to /home/vpakan/git/reddeer/tests/org.jboss.reddeer.junit.test/bin
+[INFO] 
+[INFO] --- maven-resources-plugin:2.4.3:testResources (default-testResources) @ org.jboss.reddeer.junit.test ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory /home/vpakan/git/reddeer/tests/org.jboss.reddeer.junit.test/src/test/resources
+[INFO] 
+[INFO] --- tycho-source-plugin:0.21.0:plugin-source (plugin-source) @ org.jboss.reddeer.junit.test ---
+[WARNING] bundle localization file /home/vpakan/git/reddeer/tests/org.jboss.reddeer.junit.test/plugin.properties not found
+[INFO] Building jar: /home/vpakan/git/reddeer/tests/org.jboss.reddeer.junit.test/target/org.jboss.reddeer.junit.test-0.8.0-SNAPSHOT-sources.jar
+[INFO] 
+[INFO] --- target-platform-configuration:0.21.0:target-platform (default-target-platform) @ org.jboss.reddeer.junit.test ---
+[INFO] 
+[INFO] --- tycho-packaging-plugin:0.21.0:package-plugin (default-package-plugin) @ org.jboss.reddeer.junit.test ---
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 12.776 s
+[INFO] Finished at: 2015-05-28T12:29:17+02:00
+[INFO] Final Memory: 95M/846M
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.eclipse.tycho:tycho-packaging-plugin:0.21.0:package-plugin (default-package-plugin) on project org.jboss.reddeer.junit.test: /home/vpakan/git/reddeer/tests/org.jboss.reddeer.junit.test/build.properties: bin.includes value(s) [plugin.xml] do not match any files. -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoExecutionException

@@ -26,7 +26,7 @@ public class DoNotDownloadMavenIndexesExt implements IBeforeTest {
 	private static final Logger log = Logger
 			.getLogger(DoNotDownloadMavenIndexesExt.class);
 
-	private static final boolean DISABLE_MAVEN_DOWNLOAD_REPO_INDEX = RedDeerProperties.DISABLE_MAVEN_REPOSITORY_DOWNLOAD.getBooleanSystemValue();
+	private static final boolean DISABLE_MAVEN_DOWNLOAD_REPO_INDEX = RedDeerProperties.DISABLE_MAVEN_REPOSITORY_DOWNLOAD.getBooleanValue();
 
 	private boolean tryToDisableDownloadingRepoIndexes = true;
 

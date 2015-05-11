@@ -56,7 +56,7 @@ public class RequirementsRunner extends BlockJUnit4ClassRunner {
 	
 	private List<IAfterTest> afterTestExtensions;
 
-	private static boolean SAVE_SCREENCAST = RedDeerProperties.RECORD_SCREENCAST.getBooleanSystemValue();
+	private static boolean SAVE_SCREENCAST = RedDeerProperties.RECORD_SCREENCAST.getBooleanValue();
 	
 	public RequirementsRunner(Class<?> clazz, Requirements requirements, String configId, RunListener[] runListeners,List<IBeforeTest> beforeTestExtensions) throws InitializationError {
 		this(clazz, requirements, configId, runListeners, beforeTestExtensions, null);
@@ -77,7 +77,7 @@ public class RequirementsRunner extends BlockJUnit4ClassRunner {
 	}
 	
 	@Override
-	protected Object createTest() throws Exception {
+	public Object createTest() throws Exception {
 		Object testInstance = super.createTest();
 		log.debug("Injecting fulfilled requirements into test instance");
 		requirementsInjector.inject(testInstance, requirements);

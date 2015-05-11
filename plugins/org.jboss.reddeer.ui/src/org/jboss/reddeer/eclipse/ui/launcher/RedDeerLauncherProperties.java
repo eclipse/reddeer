@@ -6,7 +6,9 @@ import java.util.List;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
+import org.jboss.reddeer.common.exception.RedDeerException;
 import org.jboss.reddeer.common.properties.RedDeerProperties;
+import org.jboss.reddeer.eclipse.jdt.debug.ui.launchConfigurations.RedDeerJavaArgumentsTab;
 
 /**
  * Holds the definition of one property used in Red Deer 
@@ -27,7 +29,7 @@ public class RedDeerLauncherProperties {
 
 	public RedDeerLauncherProperties(RedDeerProperties property) {
 		this.property = property;
-		currentValue = property.getDefaultValue();
+		currentValue = property.getValue();
 	}
 
 	/**
@@ -43,12 +45,17 @@ public class RedDeerLauncherProperties {
 			
 			if (key.startsWith(RedDeerLauncherProperties.ATTRIBUTE_PREFIX)){
 				String argName = key.replace(RedDeerLauncherProperties.ATTRIBUTE_PREFIX, "");
-				RedDeerLauncherProperties property = new RedDeerLauncherProperties(RedDeerProperties.getByName(argName));
-
-				String argValue = configuration.getAttribute(key, property.getProperty().getDefaultValue());
-				property.setCurrentValue(argValue);
-				property.setDoubleDefined(configuration);;
-				properties.add(property);
+				try{
+					RedDeerProperties rdProperty = RedDeerProperties.getByName(argName);
+					RedDeerLauncherProperties property = new RedDeerLauncherProperties(rdProperty);
+					String argValue = configuration.getAttribute(key, property.getProperty().getValue());
+					property.setCurrentValue(argValue);
+					property.setDoubleDefined(configuration);;
+					properties.add(property);
+				} catch (RedDeerException re){
+					// RedDeer property defined in launch configuration doesn't exist or have wrong value
+					// just do not use it
+				}
 			}
 		}
 
@@ -63,7 +70,7 @@ public class RedDeerLauncherProperties {
 	public void load(ILaunchConfiguration config) throws CoreException{
 		for (String key : config.getAttributes().keySet()){
 			if (key.equals(getConfigKey())){
-				setCurrentValue(config.getAttribute(getConfigKey(), getProperty().getDefaultValue()));
+				setCurrentValue(config.getAttribute(getConfigKey(), getProperty().getValue()));
 				setDoubleDefined(config);
 			}
 		}
@@ -119,12 +126,25 @@ public class RedDeerLauncherProperties {
 	}
 	
 	private void setDoubleDefined(ILaunchConfiguration config) throws CoreException{
-		String vmLine = config.getAttribute("org.eclipse.jdt.launching.VM_ARGUMENTS", "");
+		String vmLine = config.getAttribute(RedDeerJavaArgumentsTab.VM_ARGS_ATTR_NAME, "");
 				
 		if (vmLine.contains("-D" + getProperty().getName() + "=") || vmLine.matches(".*?-D" + getProperty().getName() + "\\b.*?")){
 			doubleDefined = true;
 		} else {
 			doubleDefined = false;
 		}
+	}
+	/**
+	 * Returns initial RedDeer Launcher properties
+	 * @return
+	 */
+	static RedDeerLauncherProperties[] getInitialRedDeerLauncherProperties(){
+		RedDeerProperties[] properties = RedDeerProperties.values();
+		RedDeerLauncherProperties[] tabProperties = new RedDeerLauncherProperties[properties.length];
+
+		for (int i = 0; i < properties.length; i++){
+			tabProperties[i] = new RedDeerLauncherProperties(properties[i]);
+		}
+		return tabProperties;
 	}
 }

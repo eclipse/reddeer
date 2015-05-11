@@ -18,4 +18,5 @@ Export-Package: org.jboss.reddeer.common,
  org.jboss.reddeer.common.matcher,
  org.jboss.reddeer.common.platform,
  org.jboss.reddeer.common.properties,
+ org.jboss.reddeer.common.userprofile,
  org.jboss.reddeer.common.wait

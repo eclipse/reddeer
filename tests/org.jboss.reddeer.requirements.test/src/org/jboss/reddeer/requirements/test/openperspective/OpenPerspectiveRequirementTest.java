@@ -42,8 +42,8 @@ public class OpenPerspectiveRequirementTest{
 
 	@Test(expected = RequirementsLayerException.class)
 	public void fulfillNonExistingPerspectiveTest() {
-		if (!"false".equalsIgnoreCase(RedDeerProperties.CAPTURE_SCREENSHOT.getSystemValue())) {
-			oldCaptureScreenshotPropertyValue = RedDeerProperties.CAPTURE_SCREENSHOT.getSystemValue();
+		if (!"false".equalsIgnoreCase(RedDeerProperties.CAPTURE_SCREENSHOT.getValue())) {
+			oldCaptureScreenshotPropertyValue = RedDeerProperties.CAPTURE_SCREENSHOT.getValue();
 			System.setProperty(RedDeerProperties.CAPTURE_SCREENSHOT.getName(), "false");
 			propertyHasChanged = true;
 		}

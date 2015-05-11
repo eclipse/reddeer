@@ -47,14 +47,14 @@ public class CaptureScreenshot {
 	 * @since 0.5 
 	 */
 	public void captureScreenshot(String config, String name) throws CaptureScreenshotException {
-		if (RedDeerProperties.CAPTURE_SCREENSHOT.getBooleanSystemValue()) {
+		if (RedDeerProperties.CAPTURE_SCREENSHOT.getBooleanValue()) {
 			try {
 				String separator = System.getProperty("file.separator");
 				String path = "." + separator + "target" + separator + "screenshots";
 				boolean pathCreatedSuccessfuly = true;
 				try {
-					if (RedDeerProperties.RELATIVE_SCREENSHOT_DIRECTORY.getSystemValue() != null) {
-						path = RedDeerProperties.RELATIVE_SCREENSHOT_DIRECTORY.getSystemValue();
+					if (RedDeerProperties.RELATIVE_SCREENSHOT_DIRECTORY.getValue() != null) {
+						path = RedDeerProperties.RELATIVE_SCREENSHOT_DIRECTORY.getValue();
 					}
 					if (!separator.equals(path.charAt(path.length() - 1))) {
 						path += separator;
