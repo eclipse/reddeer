@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--  Mapping of RedDeer doc pages to existing snippets. Page is file in RedDeer wiki containing a specific snippet.
+	  Each snippet has information about its pkg location, file name and index on the wiki page. Some snippets
+	  can already exist in a plugin therefore there can be provided specific plugin name with its location.	 -->
+	  
+<mapping>
+	<doc page="Write-and-run-your-first-minimal-functional-test.md">
+		<snippet package="org.jboss.reddeer.snippet.test" file="SimpleTest.java" index="0"/>
+	</doc>
+		
+	<doc page="Write-you-own-RedDeer-API-for-your-tests.md">
+		<snippet package="org.jboss.reddeer.snippet.test.example" file="LoginShell.java" index="0"/>
+		<snippet package="org.jboss.reddeer.snippet.test" file="LoginShellTest.java" index="1"/>
+	</doc>	
+		
+	<doc page="Requirements.md">
+		<snippet package="org.jboss.reddeer.snippet.test" file="AdminUserTest.java" index="0"/>
+		<snippet package="org.jboss.reddeer.snippet.requirement" file="AdminUserRequirement.java" index="1"/>
+		<snippet package="org.jboss.reddeer.snippet.test" file="UserTest.java" index="2"/>
+		<snippet package="org.jboss.reddeer.snippet.requirement" file="UserRequirement.java" index="3"/>
+		<snippet package="org.jboss.reddeer.snippet" file="UserRequirement.xml" index="4"/>
+		<!--  COMPLETE REQUIREMENT DOC PAGE -->	
+	</doc>
+		
+	<doc page="Write-minimal-requirement.md">
+		<snippet package="org.jboss.reddeer.snippet.requirement" file="OpenConsoleViewRequirement.java" index="0"/>
+	</doc>	
+		
+<!-- 	<doc page="Write-complex-requirement-with-own-schema.md">
+		<snippet package="" class="" index=""/>
+		 COMPLETE COMPLEX REQUIREMENT DOC PAGE 	
+	</doc>  -->
+		
+	<doc page="RedDeerSuite.md">
+		<snippet package="org.jboss.reddeer.snippet.suite" file="Tests.java" index="0"/>
+		<snippet package="org.jboss.reddeer.snippet.suite" file="TestsSuite.java" index="1"/>
+		<snippet package="org.jboss.reddeer.snippet.suite" file="MyTestSuite.java" index="2"/>
+	</doc>
+		
+	<doc page="Tests-configuration.md">
+		<snippet package="org.jboss.reddeer.snippet.test" file="TestWithConfiguration.java" index="0"/>
+		<snippet package="org.jboss.reddeer.snippet.requirement.simple" file="TestRequirement.java" index="1"/>
+		<snippet package="org.jboss.reddeer.snippet.requirement.simple" file="TestRequirementWithField.java" index="2"/>
+		<snippet package="org.jboss.reddeer.snippet.test" file="TestsWithRequirements.java" index="3"/>
+	<!-- 	<snippet package="org.jboss.reddeer.snippet.test" file="" index="4"/>
+		<snippet package="org.jboss.reddeer.snippet.test" file="" index="5"/>  
+		<snippet package="org.jboss.reddeer.snippet.test" file="UserTestWithInjectedRequirement.java" index="6"/> -->
+		<!-- Finish UserRequirement and following xml file -->
+	</doc>
+		
+	<doc page="Wizards.md">
+		<snippet plugin="org.jboss.reddeer.eclipse" package="org.jboss.reddeer.eclipse.jdt.ui" file="NewJavaClassWizardPage.java" index="0"/>
+		<snippet plugin="org.jboss.reddeer.eclipse" package="org.jboss.reddeer.eclipse.jdt.ui" file="NewJavaClassWizardDialog.java" index="1"/>
+		<snippet package="org.jboss.reddeer.snippet.test.example" file="JavaWizardExample.java" index="2"/>
+	</doc>	
+		
+	<doc page="SecureStorage.md">
+		<snippet package="org.jboss.reddeer.snippet.test.example" file="SecureStorageExample.java" index="0"/>
+	</doc>
+	
+	<doc page="Custom-Project.md">
+		<snippet package="org.jboss.reddeer.snippet.test.example" file="MavenProject.java" index="1"/>
+		<snippet package="org.jboss.reddeer.snippet.test" file="MavenProjectTest.java" index="2"/>
+	</doc>	
+		
+	<doc page="Editors.md">
+		<snippet package="org.jboss.reddeer.snippet.test" file="EditorTest.java" index="0"/>
+		<snippet package="org.jboss.reddeer.snippet.test" file="QuickFixTest.java" index="1"/>
+		<snippet package="org.jboss.reddeer.snippet.test" file="CodeCompletionTest.java" index="2"/>
+		<snippet package="org.jboss.reddeer.snippet.test" file="OpenOnTest.java" index="3"/>
+		<snippet package="org.jboss.reddeer.snippet.test" file="MarkersValidationTest.java" index="4"/>
+	</doc>		
+	
+	<doc page="Basic-test-requirement-extensions.md">
+		<snippet package="org.jboss.reddeer.snippet.test" file="TestWithCleanWorkspaceRequirement.java" index="0"/>
+		<snippet package="org.jboss.reddeer.snippet.test" file="TestWithOpenPerspectiveRequirement.java" index="1"/>
+	</doc>		
+	
+	<doc page="Server-Requirement-Extension.md">
+		<snippet package="org.jboss.reddeer.snippet.test" file="ServerRunningTest.java" index="0"/>
+		<snippet package="org.jboss.reddeer.snippet" file="TomcatServerRequirement.xml" index="1"/>
+	</doc>		
+	
+	<doc page="Database-Requirement-Extension.md">
+		<snippet package="org.jboss.reddeer.snippet.test" file="DatabaseTest.java" index="0"/>
+		<snippet package="org.jboss.reddeer.snippet" file="DatabaseRequirement.xml" index="1"/>
+	</doc>				
+</mapping>
