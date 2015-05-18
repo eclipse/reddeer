@@ -124,6 +124,12 @@ public class NewRedDeerTestPluginWizardPage extends WizardPage implements
 		hookListeners();
 		setControl(composite);
 	}
+	
+	@Override
+	public void setVisible(boolean visible) {
+		super.setVisible(visible);
+		pluginName.setFocus();
+	}
 
 	private void hookListeners() {
 		applicationIdButton.addSelectionListener(new SelectionListener() {
