@@ -112,6 +112,7 @@ public abstract class AbstractExplorerItemTest {
 		projectItem.select();
 		// Create new text file test.txt
 		new NewFileCreationWizard().createFile("text.txt");
+		new DefaultEditor("text.txt").close();
 		// Edit the file outside the Eclipse IDE
 		String rootPath = ResourcesPlugin.getWorkspace().getRoot().getLocationURI().getPath();
 		File file = new File(rootPath + "/" + PROJECT_NAME + "/src/text.txt");
