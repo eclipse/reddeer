@@ -42,7 +42,7 @@ public class RuntimesPropertyPage extends ProjectPropertyPage {
 	 * @param runtimeName
 	 */
 	public void selectRuntime(String runtimeName){
-		log.info("Select runtime " + runtimeName);
+		log.info("Select runtime '" + runtimeName + "'");
 		new DefaultTableItem(runtimeName).setChecked(true);
 	}
 	

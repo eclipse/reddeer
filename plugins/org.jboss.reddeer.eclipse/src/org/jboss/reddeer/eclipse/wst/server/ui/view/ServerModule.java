@@ -63,7 +63,7 @@ public class ServerModule {
 		if (treeItem == null) {
 			throw new EclipseLayerException("ServerModule was already removed");
 		}
-		log.info("Remove server module with name " + getLabel().getName());
+		log.info("Remove server module with name '" + getLabel().getName() + "'");
 		final String workbenchTitle = new WorkbenchShell().getText();
 		new ShellMenu("Edit", "Delete").select();
 		new WaitUntil(new ShellWithTextIsActive("Server"));

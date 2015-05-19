@@ -24,7 +24,7 @@ public class WizardNewProjectCreationPage extends WizardPage {
 	 * @param projectName Project name
 	 */
 	public void setProjectName(String projectName) {
-		log.debug("Set General Project name to " + projectName);
+		log.debug("Set General Project name to '" + projectName + "'");
 		new LabeledText("Project name:").setText(projectName);
 	}
 
@@ -34,7 +34,7 @@ public class WizardNewProjectCreationPage extends WizardPage {
 	 * @param projectLocation Project location
 	 */
 	public void setProjectLocation(String projectLocation) {
-		log.debug("Set Project location to " + projectLocation);
+		log.debug("Set Project location to '" + projectLocation + "'");
 		new CheckBox("Use default location").toggle(false);
 		new LabeledText("Location:").setText(projectLocation);
 	}
@@ -45,7 +45,7 @@ public class WizardNewProjectCreationPage extends WizardPage {
 	 * @param workingSet Working set
 	 */
 	public void addProjectToWorkingSet(String workingSet) {
-		log.debug("Add Project to working set" + workingSet);
+		log.debug("Add Project to working set '" + workingSet + "'");
 		new CheckBox("Add project to working sets").toggle(true);
 		LabeledCombo cmbWorkingSet = new LabeledCombo("Working sets:");
 		if (cmbWorkingSet.isEnabled()) {

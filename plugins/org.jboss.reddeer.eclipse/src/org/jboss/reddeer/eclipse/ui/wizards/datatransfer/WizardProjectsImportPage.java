@@ -52,7 +52,7 @@ public class WizardProjectsImportPage extends WizardPage {
 	 * @param directory Root directory
 	 */
 	public void setRootDirectory(String directory){
-		log.info("Setting root directory to " + directory);
+		log.info("Setting root directory to '" + directory + "'");
 		setPath("Select root directory:", directory);
 	}
 	
@@ -62,7 +62,7 @@ public class WizardProjectsImportPage extends WizardPage {
 	 * @param file File
 	 */
 	public void setArchiveFile(String file){
-		log.info("Settig archive file to " + file);
+		log.info("Settig archive file to '" + file + "'");
 		setPath("Select archive file:", file);
 	}
 

@@ -20,7 +20,7 @@ public class NewJavaProjectWizardPage extends WizardPage {
 	 *            Project name
 	 */
 	public void setProjectName(String projectName) {
-		log.debug("Set General Project name to " + projectName);
+		log.debug("Set General Project name to '" + projectName + "'");
 		new LabeledText("Project name:").setText(projectName);
 	}
 
@@ -43,7 +43,7 @@ public class NewJavaProjectWizardPage extends WizardPage {
 	 *            Location
 	 */
 	public void setLocation(String location) {
-		log.debug("Setting Location to " + location);
+		log.debug("Setting Location to '" + location + "'");
 		LabeledText text = new LabeledText("Location:");
 		text.setText(location);
 	}

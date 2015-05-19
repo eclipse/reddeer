@@ -58,7 +58,7 @@ public class RuntimePreferencePage extends PreferencePage {
 	 * @param runtime Runtime
 	 */
 	public void removeRuntime(Runtime runtime){
-		log.info("Removing runtime " + runtime);
+		log.info("Removing runtime '" + runtime + "'");
 		selectRuntime(runtime.getName());
 		new PushButton("Remove").click();
 		if(new ShellWithTextIsActive("Server").test()){
@@ -79,12 +79,12 @@ public class RuntimePreferencePage extends PreferencePage {
 	private void selectRuntime(String name){
 		
 		Table table = new DefaultTable();
-		log.debug("Selecting runtime "+name);
+		log.debug("Selecting runtime '" + name + "'");
 		for (int i = 0; i < table.rowCount(); i++){
 			String runtimeName = table.getItem(i).getText();
-			log.debug(runtimeName+" was found");
+			log.debug("'" + runtimeName + "' was found");
 			if (runtimeName.equals(name)){
-				log.debug(runtimeName+" matched "+name+"! Selecting...");
+				log.debug("'" + runtimeName + "' matched '" + name + "'! Selecting...");
 				table.select(i);
 				return;
 			}

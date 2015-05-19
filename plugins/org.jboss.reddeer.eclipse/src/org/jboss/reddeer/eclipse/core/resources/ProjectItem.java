@@ -62,7 +62,7 @@ public class ProjectItem extends ExplorerItem {
 	public void delete() {
 		refresh();
 
-		log.debug("Delete project item " + treeItem.getText() + ".");
+		log.debug("Delete project item '" + treeItem.getText() + "'.");
 
 		select();
 		new ContextMenu("Delete").select();

@@ -46,12 +46,12 @@ public abstract class AbstractPerspective {
 	 * Opens the perspective
 	 */
 	public void open() {
-		log.info("Open perspective: " + getPerspectiveLabel());
+		log.info("Open perspective: '" + getPerspectiveLabel() + "'");
 		if (isOpened()){
-			log.debug("Perspective " + getPerspectiveLabel() + " is already opened.");
+			log.debug("Perspective '" + getPerspectiveLabel() + "' is already opened.");
 		}
 		else{
-			log.debug("Tryyying to open perspective: " + getPerspectiveLabel());
+			log.debug("Tryyying to open perspective: '" + getPerspectiveLabel() + "'");
 			new DefaultToolItem(new DefaultShell(),"Open Perspective").click();
 			new DefaultShell("Open Perspective");
 			DefaultTable table = new DefaultTable();

@@ -164,7 +164,7 @@ public class WorkbenchPartHandler {
 						if (cTabItems[index].getControl() == workbenchPartWidgets.firstCTabItemControl){
 							cTabItemFound = true;
 							if (workbenchPartWidgets.workbenchPartCTabFolder.getSelectionIndex() != index){
-								log.debug("Activating Workbench part with label: " + cTabItems[index].getText());
+								log.debug("Activating Workbench part with label: '" + cTabItems[index].getText() + "'");
 								workbenchPartWidgets.workbenchPartCTabFolder.setSelection(index);	
 							}
 						}		
