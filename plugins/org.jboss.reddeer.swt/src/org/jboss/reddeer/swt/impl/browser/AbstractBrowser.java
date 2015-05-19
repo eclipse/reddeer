@@ -60,7 +60,7 @@ public abstract class AbstractBrowser extends AbstractWidget<org.eclipse.swt.bro
 
 	@Override
 	public void setURL(String url) {
-		log.info("Set browser URL to " + url);
+		log.info("Set browser URL to '" + url + "'");
 		setUpProgressListener();
 		if (BrowserHandler.getInstance().setURL(this.getSWTWidget(), url)){
 			new WaitUntil(new PageIsLoaded(this), TimePeriod.LONG);

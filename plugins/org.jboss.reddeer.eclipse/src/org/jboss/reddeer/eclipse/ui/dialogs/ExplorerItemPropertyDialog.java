@@ -31,7 +31,7 @@ public class ExplorerItemPropertyDialog extends PropertyDialog {
 	 * @param page
 	 */
 	protected void openImpl(){
-		log.info("Open Properties for explorer item " + item.getName() + " by context menu");
+		log.info("Open Properties for explorer item '" + item.getName() + "' by context menu");
 		item.select();
 		new ContextMenu("Properties").select();;
 	}

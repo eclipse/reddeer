@@ -121,17 +121,17 @@ public class MenuLookup {
 					for (IContributionItem i : currentMenuContributionItems) {
 						if(i instanceof ActionContributionItem){
 							String normalized = ((ActionContributionItem)i).getAction().getText().replace("&", "");
-							log.debug("Found item:" + normalized);
+							log.debug("Found item:'" + normalized + "'");
 							if (m.matches(normalized)) {
-								log.info("Item match:" + normalized);
+								log.info("Item match:'" + normalized + "'");
 								currentItem =(ActionContributionItem)i;
 								break;
 							} 
 						} else if(i instanceof MenuManager){
 							String normalized =((MenuManager)i).getMenuText().replace("&", "");
-							log.debug("Found Menu Manager:" + normalized);
+							log.debug("Found Menu Manager:'" + normalized + "'");
 							if (m.matches(normalized)) {
-								log.debug("Menu Manager match:" + normalized);
+								log.debug("Menu Manager match:'" + normalized + "'");
 								currentMenuContributionItems = Arrays.asList(((MenuManager) i).getItems());
 							}
 						}
@@ -310,7 +310,7 @@ public class MenuLookup {
 
 			@Override
 			public MenuItem[] run() {
-				log.info("Getting Menu Bar of shell " + s.getText());
+				log.info("Getting Menu Bar of shell '" + s.getText() + "'");
 				Menu menu = s.getMenuBar();
 				if (menu == null){
 					return null;
@@ -371,7 +371,7 @@ public class MenuLookup {
 					currentItem = null;
 					for (MenuItem i : menuItems) {
 						String normalized = i.getText().replace("&", "");
-						log.debug("Found menu:" + normalized);
+						log.debug("Found menu:'" + normalized + "'");
 						if (m.matches(normalized)) {
 							log.debug("Item match:" + normalized);
 							currentItem = i;

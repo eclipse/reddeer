@@ -62,7 +62,7 @@ public abstract class AbstractProject extends ExplorerItem {
 	public void delete(boolean deleteFromFileSystem) {
 		refresh();
 
-		log.debug("Delete project " + getName() + " via Explorer");
+		log.debug("Delete project '" + getName() + "' via Explorer");
 
 		// delete via context menu
 		select();
@@ -71,7 +71,7 @@ public abstract class AbstractProject extends ExplorerItem {
 		// delete via workbench menu
 		if (sDeleteResources == null && treeItem != null
 				&& !treeItem.isDisposed()) {
-			log.debug("Delete project " + getName() + " via Workbench menu");
+			log.debug("Delete project '" + getName() + "' via Workbench menu");
 			treeItem.select();
 			new ShellMenu("Edit", "Delete").select();
 			sDeleteResources = handleDeleteResourcesShell(deleteFromFileSystem);

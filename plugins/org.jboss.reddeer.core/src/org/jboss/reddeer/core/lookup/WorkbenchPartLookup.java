@@ -78,18 +78,18 @@ public class WorkbenchPartLookup {
 		for (IViewReference viewReference : activePage.getViewReferences()){
 			IViewPart view = viewReference.getView(false);
 			if (view == null){
-				log.trace("\tView " + viewReference.getTitle() + " was not open or it cannot be restored");
+				log.trace("\tView '" + viewReference.getTitle() + "' was not open or it cannot be restored");
 				continue;
 			}
 
 			IViewPart[] stackedViews = activePage.getViewStack(view);
 			if (stackedViews == null){
-				log.trace("\tView " + view.getTitle() + " does not belong to the currently active page");
+				log.trace("\tView '" + view.getTitle() + "' does not belong to the currently active page");
 				continue;
 			} 
 
 			for (IViewPart part : viewReference.getPage().getViewStack(viewReference.getView(false))){
-				log.trace("\tFound view " + part.getTitle());
+				log.trace("\tFound view '" + part.getTitle() + "'");
 				views.add(part);
 			}
 		}
@@ -147,10 +147,10 @@ public class WorkbenchPartLookup {
 			}
 
 			private void logAllViews(List<IViewPart> views) {
-				log.debug("View matching " + name + " not found");
+				log.debug("View matching '" + name + "' not found");
 				log.debug("List of found views:");
 				for (IViewPart view : views) {
-					log.debug("\t" + view.getViewSite().getRegisteredName());
+					log.debug("\t'" + view.getViewSite().getRegisteredName() + "'");
 				}
 			}
 		});

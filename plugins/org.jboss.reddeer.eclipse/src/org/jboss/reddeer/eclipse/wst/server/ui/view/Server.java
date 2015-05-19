@@ -153,7 +153,7 @@ public class Server {
 	 */
 	public void debug() {
 		activate();
-		log.info("Start server in debug" + getLabel().getName());
+		log.info("Start server in debug '" + getLabel().getName() + "'");
 		if (!ServerState.STOPPED.equals(getLabel().getState())){
 			throw new ServersViewException("Cannot debug server because it is not stopped");
 		}
@@ -165,7 +165,7 @@ public class Server {
 	 */
 	public void profile() {
 		activate();
-		log.info("Start server in profiling mode" + getLabel().getName());
+		log.info("Start server in profiling mode '" + getLabel().getName() + "'");
 		if (!ServerState.STOPPED.equals(getLabel().getState())){
 			throw new ServersViewException("Cannot profile server because it is not stopped");
 		}
@@ -177,7 +177,7 @@ public class Server {
 	 */
 	public void restart() {
 		activate();
-		log.info("Restart server " + getLabel().getName());
+		log.info("Restart server '" + getLabel().getName() + "'");
 		if (!getLabel().getState().isRunningState()){
 			throw new ServersViewException("Cannot restart server because it is not running");
 		}
@@ -189,7 +189,7 @@ public class Server {
 	 */
 	public void restartInDebug() {
 		activate();
-		log.info("Restart server in debug" + getLabel().getName());
+		log.info("Restart server in debug '" + getLabel().getName() + "'");
 		if (!getLabel().getState().isRunningState()){
 			throw new ServersViewException("Cannot restart server in debug because it is not running");
 		}
@@ -201,7 +201,7 @@ public class Server {
 	 */
 	public void restartInProfile() {
 		activate();
-		log.info("Restart server in profile" + getLabel().getName());
+		log.info("Restart server in profile '" + getLabel().getName() + "'");
 		if (!getLabel().getState().isRunningState()){
 			throw new ServersViewException("Cannot restart server in profile because it is not running");
 		}
@@ -213,7 +213,7 @@ public class Server {
 	 */
 	public void stop() {
 		activate();
-		log.info("Stop server " + getLabel().getName());
+		log.info("Stop server '" + getLabel().getName() + "'");
 		ServerState state = getLabel().getState();
 		if (!ServerState.STARTING.equals(state) && !state.isRunningState()){
 			throw new ServersViewException("Cannot stop server because it not running");
@@ -226,7 +226,7 @@ public class Server {
 	 */
 	public void publish() {
 		activate();
-		log.info("Publish server " + getLabel().getName());
+		log.info("Publish server '" + getLabel().getName() + "'");
 		new ContextMenu("Publish").select();
 		waitForPublish();
 	}
@@ -236,7 +236,7 @@ public class Server {
 	 */
 	public void clean() {
 		activate();
-		log.info("Clean server " + getLabel().getName());
+		log.info("Clean server '" + getLabel().getName() + "'");
 		new ContextMenu("Clean...").select();
 		new DefaultShell("Server");
 		new PushButton("OK").click();
@@ -259,7 +259,7 @@ public class Server {
 	public void delete(boolean stopFirst) {
 		activate();
 		final String name = getLabel().getName();
-		log.info("Delete server " + name + ". Stop server first: " + stopFirst);
+		log.info("Delete server '" + name + "'. Stop server first: " + stopFirst);
 		ServerState state = getLabel().getState();
 
 		new ContextMenu("Delete").select();	
@@ -280,7 +280,7 @@ public class Server {
 	}
 
 	protected void operateServerState(String menuItem, ServerState resultState){
-		log.debug("Operate server's state: " + menuItem);
+		log.debug("Operate server's state: '" + menuItem + "'");
 		select();
 		new ContextMenu(menuItem).select();
 		new WaitUntil(new JobIsRunning(), TIMEOUT);
@@ -289,7 +289,7 @@ public class Server {
 
 		//check if the server has expected state after jobs are done
 		new WaitUntil(new ServerStateCondition(resultState), TIMEOUT);
-		log.debug("Operate server's state finished, the result server's state is: " + getLabel().getState());
+		log.debug("Operate server's state finished, the result server's state is: '" + getLabel().getState() + "'");
 	}
 
 	protected void waitForPublish(){

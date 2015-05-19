@@ -50,7 +50,7 @@ public class TaskRepositoriesView extends WorkbenchView {
 	 */
 	public void createLocalTask (List<TreeItem> repoItems, ArrayList<String> repoList) {				
 		int elementIndex = repoList.indexOf("Local");
-		log.info("Found Local Task Repo: " + repoItems.get(elementIndex).getText());	
+		log.info("Found Local Task Repo: '" + repoItems.get(elementIndex).getText() + "'");	
 		repoItems.get(elementIndex).select();	
 		
 		new ShellMenu("File", "New", "Other...").select();  
