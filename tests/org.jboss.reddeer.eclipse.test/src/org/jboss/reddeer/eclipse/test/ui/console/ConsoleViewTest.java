@@ -32,6 +32,7 @@ import org.jboss.reddeer.common.wait.TimePeriod;
 import org.jboss.reddeer.common.wait.WaitUntil;
 import org.jboss.reddeer.common.wait.WaitWhile;
 import org.jboss.reddeer.workbench.impl.editor.DefaultEditor;
+import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -69,11 +70,11 @@ public class ConsoleViewTest {
 	
 	@Test
 	public void testConsoleSwitching() {
-		runTestClass(TEST_CLASS_NAME1);
-		runTestClass(TEST_CLASS_NAME2);
 		consoleView = new ConsoleView();
 		consoleView.open();
 		consoleView.toggleShowConsoleOnStandardOutChange(false);
+		runTestClass(TEST_CLASS_NAME1);
+		runTestClass(TEST_CLASS_NAME2);
 		consoleView.switchConsole(new RegexMatcher(".*" + TEST_CLASS_NAME1
 				+ ".*"));
 		assertThat(consoleView.getConsoleText(),
@@ -153,6 +154,17 @@ public class ConsoleViewTest {
 		consoleView.toggleShowConsoleOnStandardOutChange(false);
 	}
 
+	@After
+	public void tearDown(){
+		consoleView = new ConsoleView();
+		consoleView.open();
+		if (consoleView.consoleHasLaunch()){
+			consoleView.toggleShowConsoleOnStandardOutChange(true);
+			consoleView.terminateConsole();
+			consoleView.clearConsole();
+		}		
+	}
+	
 	private void testGettingConsoleTest() {
 		consoleView = new ConsoleView();
 		consoleView.open();
