@@ -62,8 +62,7 @@ public class ConsoleViewTest {
 		DeleteUtils.forceProjectDeletion(new PackageExplorer().getProject(TEST_PROJECT_NAME),true);
 	}
 
-	@Before
-	public void setupTest() {
+	private void runTestClassAndWaitToFinish() {
 		runTestClass(TEST_CLASS_NAME);
 		new WaitUntil(new ConsoleIsTerminated());
 	}
@@ -72,8 +71,8 @@ public class ConsoleViewTest {
 	public void testConsoleSwitching() {
 		consoleView = new ConsoleView();
 		consoleView.open();
-		consoleView.toggleShowConsoleOnStandardOutChange(false);
 		runTestClass(TEST_CLASS_NAME1);
+		consoleView.toggleShowConsoleOnStandardOutChange(false);
 		runTestClass(TEST_CLASS_NAME2);
 		consoleView.switchConsole(new RegexMatcher(".*" + TEST_CLASS_NAME1
 				+ ".*"));
@@ -88,12 +87,14 @@ public class ConsoleViewTest {
 
 	@Test
 	public void testConsoleView() {
+		runTestClassAndWaitToFinish();
 		testGettingConsoleTest();
 		testClearConsole();
 	}
 
 	@Test
 	public void testRemoveLaunch() {
+		runTestClassAndWaitToFinish();
 		consoleView = new ConsoleView();
 		consoleView.open();
 		new WaitUntil(new ConsoleHasLaunch());
@@ -104,6 +105,7 @@ public class ConsoleViewTest {
 
 	@Test
 	public void testRemoveAllTerminatedLaunches() {
+		runTestClassAndWaitToFinish();
 		consoleView = new ConsoleView();
 		consoleView.open();
 		new WaitUntil(new ConsoleHasLaunch());
@@ -134,9 +136,6 @@ public class ConsoleViewTest {
 
 	@Test
 	public void consoleHasNoChangeTest() {
-		consoleView = new ConsoleView();
-		consoleView.open();
-		consoleView.clearConsole();
 		runTestClass(TEST_CLASS_LOOP2_NAME);
 		new WaitUntil(new ConsoleHasText("Start"));
 		new WaitUntil(new ConsoleHasNoChange(TimePeriod.getCustom(11)), TimePeriod.LONG);
@@ -148,6 +147,7 @@ public class ConsoleViewTest {
 	
 	@Test
 	public void toggleShowConsoleOnStandardOutChange() {
+		runTestClassAndWaitToFinish();
 		consoleView = new ConsoleView();
 		consoleView.open();
 		consoleView.toggleShowConsoleOnStandardOutChange(true);
@@ -158,10 +158,11 @@ public class ConsoleViewTest {
 	public void tearDown(){
 		consoleView = new ConsoleView();
 		consoleView.open();
-		if (consoleView.consoleHasLaunch()){
+		// clean up all launches
+		while (consoleView.consoleHasLaunch()){
 			consoleView.toggleShowConsoleOnStandardOutChange(true);
 			consoleView.terminateConsole();
-			consoleView.clearConsole();
+			consoleView.removeLaunch();
 		}		
 	}
 	
