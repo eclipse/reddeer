@@ -36,7 +36,7 @@ public class ResultView extends WorkbenchView {
 	public List<SQLResult> getResults() {
 		open();
 		DefaultTree tree = new DefaultTree();
-		List<TreeItem> items = tree.getAllItems();
+		List<TreeItem> items = tree.getItems();
 		List<SQLResult> results = new ArrayList<SQLResult>();
 
 		for (TreeItem item : items) {
