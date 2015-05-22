@@ -14,9 +14,13 @@ import org.jboss.reddeer.common.wait.TimePeriod;
 
 public class TestingWizard extends Wizard {
 
+	public static final String TITLE = "Testing Wizard";
+	public static final String PAGE_TITLE = "Testing Page Title";
+	public static final String PAGE_DESCRIPTION = "Testing Page Description";
+	
 	private boolean finishEnabled = true;
 	private Properties properties;
-
+	
 	public TestingWizard() {
 		properties = new Properties();
 	}
@@ -48,7 +52,11 @@ public class TestingWizard extends Wizard {
 			}
 		});
 	}
-
+	@Override
+	public String getWindowTitle(){
+		return TestingWizard.TITLE;
+	}
+	
 	private static class TestingPage extends org.eclipse.jface.wizard.WizardPage {
 
 		private String pageName;
@@ -60,6 +68,8 @@ public class TestingWizard extends Wizard {
 			super(pageName);
 			this.pageName = pageName;
 			this.properties = properties;
+			setTitle(TestingWizard.PAGE_TITLE);
+			setDescription(TestingWizard.PAGE_DESCRIPTION);
 		}
 		
 		@Override

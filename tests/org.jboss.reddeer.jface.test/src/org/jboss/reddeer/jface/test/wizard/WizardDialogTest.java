@@ -1,23 +1,18 @@
 package org.jboss.reddeer.jface.test.wizard;
 
 import static org.hamcrest.core.Is.is;
-import static org.hamcrest.core.IsInstanceOf.instanceOf;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
 import org.jboss.reddeer.jface.wizard.WizardDialog;
-import org.jboss.reddeer.jface.wizard.WizardPage;
-import org.jboss.reddeer.jface.wizard.WizardPageProperty;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.swt.api.CLabel;
 import org.jboss.reddeer.swt.api.Shell;
 import org.jboss.reddeer.core.condition.ShellWithTextIsActive;
-import org.jboss.reddeer.common.exception.WaitTimeoutExpiredException;
 import org.jboss.reddeer.swt.impl.clabel.DefaultCLabel;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.jboss.reddeer.workbench.impl.shell.WorkbenchShell;
-import org.jboss.reddeer.swt.impl.text.LabeledText;
-import org.jboss.reddeer.core.util.Display;
 import org.jboss.reddeer.common.wait.WaitUntil;
 import org.junit.After;
 import org.junit.Before;
@@ -35,11 +30,11 @@ public class WizardDialogTest {
 	
 	@Before
 	public void setUp(){
+		shell = new WorkbenchShell().getSWTWidget();
 		org.jboss.reddeer.core.util.Display.asyncExec(new Runnable() {
 
 			@Override
 			public void run() {
-				shell = new org.eclipse.swt.widgets.Shell(org.eclipse.swt.widgets.Display.getDefault());
 				wizard = new TestingWizard();
 				
 				org.eclipse.jface.wizard.WizardDialog swtWizardDialog = new org.eclipse.jface.wizard.WizardDialog(shell, wizard);
@@ -47,51 +42,51 @@ public class WizardDialogTest {
 				swtWizardDialog.open();
 			}
 		});
-		new WaitUntil(new ShellWithTextIsActive(""));
-		wizardDialog = new MultiPageWizardDialog();
+		new WaitUntil(new ShellWithTextIsActive(TestingWizard.TITLE));
+		wizardDialog = new WizardDialog();
 	}
 
 	@Test
 	public void next() {
+		assertTrue("Next button should be enabled", wizardDialog.isNextEnabled());
 		wizardDialog.next();
 
 		CLabel label = new DefaultCLabel();
 		assertThat(label.getText(), is("B"));
 	}
-
-	@Test(expected=WaitTimeoutExpiredException.class)
+	@Test
 	public void next_notEnabled() {
 		wizardDialog.next();
-		wizardDialog.next();
+		assertFalse("Next button should be disabled", wizardDialog.isNextEnabled());
 	}
 
 	@Test
 	public void back() {
 		wizardDialog.next();
+		assertTrue("Back button should be enabled", wizardDialog.isBackEnabled());
 		wizardDialog.back();
 
 		CLabel label = new DefaultCLabel();
 		assertThat(label.getText(), is("A"));
 	}
-
-	@Test(expected=WaitTimeoutExpiredException.class)
+	@Test
 	public void back_notEnabled() {
-		wizardDialog.back();
+		assertFalse("Back button should be disabled", wizardDialog.isBackEnabled());
 	}
 
 	@Test
 	public void finish() {
+		assertTrue("Finish button should be enabled", wizardDialog.isFinishEnabled());
 		wizardDialog.finish();
 		
-		org.jboss.reddeer.swt.api.Shell shell = new DefaultShell();
+		Shell shell = new DefaultShell();
 		assertTrue(shell.getText().equals(new WorkbenchShell().getText()));
 	}
 
-	@Test(expected=WaitTimeoutExpiredException.class)
+	@Test
 	public void finish_notEnabled() {
 		wizard.setFinishEnabled(false);
-		
-		wizardDialog.finish();
+		assertFalse("Finish button should be disabled", wizardDialog.isFinishEnabled());
 	}
 
 	@Test
@@ -103,70 +98,35 @@ public class WizardDialogTest {
 	}
 	
 	@Test
-	public void multiPageWizardTest() {
-		// fill name
-		((NameWizardPage) wizardDialog.getCurrentWizardPage()).setName("name");
-		wizardDialog.setProperty("name", "name");
-		// on next page you should see a text box for age 
-		wizardDialog.next();
-		((AgeWizardPage) wizardDialog.getCurrentWizardPage()).setAge("100");
+	public void getTitle() {
+		final String currentDialogTitle = wizardDialog.getTitle();
+		assertTrue("Expected current dialog title is '" + TestingWizard.TITLE + "'" +
+			"\nbut current dialog title is '" + currentDialogTitle + "'",
+			TestingWizard.TITLE.equals(currentDialogTitle));
 	}
 	
 	@Test
-	public void multiPageWizardTest2() {
-		// don't fill name
-		// on next page you should see a text box for name again
-		wizardDialog.next();
-		((NameWizardPage) wizardDialog.getCurrentWizardPage()).setName("name");
+	public void getPageTitle() {
+		final String currentPageTitle = wizardDialog.getPageTitle();
+		assertTrue("Expected current page title is '" + TestingWizard.PAGE_TITLE + "'" +
+			"\nbut current page title is '" + currentPageTitle + "'",
+			TestingWizard.PAGE_TITLE.equals(currentPageTitle));
 	}
 	
 	@Test
-	public void getWizardPageTest(){
-		NameWizardPage page = (NameWizardPage) wizardDialog.getWizardPage(1);
-		assertThat(page, instanceOf(NameWizardPage.class));
-		page.setName("name");
-		wizardDialog.setProperty("name", "name");
-		assertThat(wizardDialog.getWizardPage(0), instanceOf(NameWizardPage.class));
-		assertThat(wizardDialog.getWizardPage(1), instanceOf(AgeWizardPage.class));
+	public void getPageDescription() {
+		final String currentPageDescription = wizardDialog.getPageDescription();
+		assertTrue("Expected current page description is '" + TestingWizard.PAGE_DESCRIPTION + "'" +
+			"\nbut current page description is '" + currentPageDescription + "'",
+			TestingWizard.PAGE_DESCRIPTION.equals(currentPageDescription));
 	}
 
 	@After
 	public void tearDown(){
-		if (!shell.isDisposed()){
-			Display.syncExec(new Runnable() {
+		Shell activeShell = new DefaultShell();
+		if (new DefaultShell().getText().equals(TestingWizard.TITLE)){
+			activeShell.close();
+		}
+	}
 
-				@Override
-				public void run() {
-					shell.close();
-				}
-			});
-		}
-	}
-	
-	private class MultiPageWizardDialog extends WizardDialog {
-		
-		public MultiPageWizardDialog() {
-			// the first page
-			addWizardPage(new NameWizardPage(), 0);
-			// if name is null
-			addWizardPage(new NameWizardPage(), 1, new WizardPageProperty("name", null));
-			// if name was specified
-			addWizardPage(new AgeWizardPage(), 1, new WizardPageProperty("name", "name"));
-		}
-		
-	}
-	
-	private class NameWizardPage extends WizardPage {
-
-		public void setName(String name) {
-			new LabeledText("Name:").setText(name);
-		}
-	}
-	
-	private class AgeWizardPage extends WizardPage {
-
-		public void setAge(String age) {
-			new LabeledText("Age:").setText(age);
-		}
-	}
 }
