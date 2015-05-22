@@ -5,11 +5,12 @@ import org.hamcrest.Description;
 
 /**
  * Matches a wizard dialog with a given property
- * 
+ * @deprecated - use better suited matcher instead
  * @author apodhrad
  * @since 0.6
  * 
  */
+@Deprecated
 public class WizardPageProperty extends BaseMatcher<WizardDialog> {
 
 	private Object key;

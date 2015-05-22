@@ -6,6 +6,7 @@ import java.util.List;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.custom.CTabItem;
+import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
@@ -426,6 +427,20 @@ public class WidgetHandler {
 		throw new CoreLayerException(
 				"Return value of method getObject() on class " + o.getClass()
 						+ " should be Control, but was " + o.getClass());
+	}
+	
+	/**
+	 * Returns control children
+	 * @param control
+	 * @return
+	 */
+	public Control[] getChildren(final Composite composite) {
+		return Display.syncExec(new ResultRunnable<Control[]>() {
+			@Override
+			public Control[] run() {
+				return composite.getChildren();
+			}
+		});
 	}
 	
 	private static boolean isClassOf(Class<?> clazz,Class<?>[] classes){

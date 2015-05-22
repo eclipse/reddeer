@@ -6,13 +6,23 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.swt.api.Button;
+import org.jboss.reddeer.swt.api.Shell;
 import org.jboss.reddeer.core.condition.JobIsRunning;
 import org.jboss.reddeer.core.condition.ShellWithTextIsActive;
-import org.jboss.reddeer.swt.impl.button.PushButton;
+import org.jboss.reddeer.core.handler.WidgetHandler;
+import org.jboss.reddeer.core.reference.DefaultReferencedComposite;
+import org.jboss.reddeer.swt.impl.button.BackButton;
+import org.jboss.reddeer.swt.impl.button.CancelButton;
+import org.jboss.reddeer.swt.impl.button.FinishButton;
+import org.jboss.reddeer.swt.impl.button.NextButton;
+import org.jboss.reddeer.swt.impl.label.DefaultLabel;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
+import org.jboss.reddeer.swt.impl.text.DefaultText;
 import org.jboss.reddeer.common.wait.TimePeriod;
 import org.jboss.reddeer.common.wait.WaitWhile;
 
@@ -22,6 +32,7 @@ import org.jboss.reddeer.common.wait.WaitWhile;
  * 
  * @author Lucia Jelinkova
  * @author apodhrad
+ * @author vlado pakan
  * @since 0.6
  * 
  */
@@ -31,6 +42,7 @@ public class WizardDialog {
 
 	@Deprecated
 	protected int currentPage;
+	@Deprecated
 	protected Properties properties;
 	@Deprecated
 	protected Map<WizardPage, Matcher<WizardDialog>> wizardPageMap;
@@ -39,11 +51,11 @@ public class WizardDialog {
 		properties = new Properties();
 		wizardPageMap = new HashMap<WizardPage, Matcher<WizardDialog>>();
 	}
-
+	@Deprecated
 	public void setProperty(Object key, Object value) {
 		properties.put(key, value);
 	}
-
+	@Deprecated
 	public Object getProperty(Object key) {
 		return properties.get(key);
 	}
@@ -117,7 +129,7 @@ public class WizardDialog {
 		log.info("Finish wizard");
 
 		String shellText = new DefaultShell().getText();
-		Button button = new PushButton("Finish");
+		Button button = new FinishButton();
 		button.click();
 
 		new WaitWhile(new ShellWithTextIsActive(shellText), timeout);
@@ -132,7 +144,7 @@ public class WizardDialog {
 
 		String shellText = new DefaultShell().getText();
 		new WaitWhile(new JobIsRunning());
-		new PushButton("Cancel").click();
+		new CancelButton().click();
 
 		new WaitWhile(new ShellWithTextIsActive(shellText));
 		new WaitWhile(new JobIsRunning());
@@ -144,7 +156,7 @@ public class WizardDialog {
 	public void next() {
 		log.info("Go to next wizard page");
 
-		Button button = new PushButton("Next >");
+		Button button = new NextButton();
 		button.click();
 		currentPage++;
 	}
@@ -154,7 +166,7 @@ public class WizardDialog {
 	 */
 	public void back() {
 		log.info("Go to previous wizard page");
-		Button button = new PushButton("< Back");
+		Button button = new BackButton();
 		button.click();
 		currentPage--;
 	}
@@ -183,5 +195,57 @@ public class WizardDialog {
 	 */
 	public int getPageIndex() {
 		return currentPage;
+	}
+	/**
+	 * Returns current dialog title
+	 * @return
+	 */
+	public String getTitle() {
+		return new DefaultShell().getText();
+	}
+	/**
+	 * Returns current dialog page title
+	 * @return
+	 */
+	public String getPageTitle() {
+		Shell shell = new DefaultShell();
+		// Page Title is 3rd Label within first Composite of wizard dialog Shell and is inactive
+		Control labelControl = WidgetHandler.getInstance().getChildren(
+				((Composite)WidgetHandler.getInstance().getChildren(shell.getSWTWidget())[0]))[2];
+		
+		return new DefaultLabel(new DefaultReferencedComposite(labelControl)).getText();
+	}
+	/**
+	 * Returns current dialog page description
+	 * @return
+	 */
+	public String getPageDescription() {
+		Shell shell = new DefaultShell();
+		// Page Description is 5th Text within first Composite of wizard dialog Shell and is inactive 
+		Control labelControl = WidgetHandler.getInstance().getChildren(
+				((Composite)WidgetHandler.getInstance().getChildren(shell.getSWTWidget())[0]))[4];
+		
+		return new DefaultText(new DefaultReferencedComposite(labelControl)).getText();
+	}
+	/**
+	 * Returns true in case Finish button is enabled
+	 * @return
+	 */	
+	public boolean isFinishEnabled() {
+		return new FinishButton().isEnabled();
+	}
+	/**
+	 * Returns true in case Next button is enabled
+	 * @return
+	 */
+	public boolean isNextEnabled() {
+		return new NextButton().isEnabled();
+	}
+	/**
+	 * Returns true in case Back button is enabled
+	 * @return
+	 */
+	public boolean isBackEnabled() {
+		return new BackButton().isEnabled();
 	}
 }
