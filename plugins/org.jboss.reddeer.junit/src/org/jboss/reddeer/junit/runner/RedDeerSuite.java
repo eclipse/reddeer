@@ -1,6 +1,5 @@
 package org.jboss.reddeer.junit.runner;
 
-import java.lang.annotation.Annotation;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -17,10 +16,7 @@ import org.jboss.reddeer.junit.internal.runner.NamedSuite;
 import org.jboss.reddeer.junit.internal.runner.RequirementsRunnerBuilder;
 import org.jboss.reddeer.junit.internal.runner.TestsExecutionManager;
 import org.jboss.reddeer.junit.internal.runner.TestsWithoutExecutionSuite;
-import org.junit.runner.Description;
 import org.junit.runner.Runner;
-import org.junit.runner.manipulation.Filter;
-import org.junit.runner.manipulation.NoTestsRemainException;
 import org.junit.runner.notification.RunListener;
 import org.junit.runners.Suite;
 import org.junit.runners.model.InitializationError;
@@ -151,68 +147,4 @@ public class RedDeerSuite extends Suite {
 		return afterTestExts;
 	}
 
-	@Override
-	public void filter(Filter filter) throws NoTestsRemainException {
-		super.filter(new FilterDecorator(filter));
-	}
-
-	/**
-	 * Running single test in case of parameterized test causes issue as explained in
-	 * http://youtrack.jetbrains.com/issue/IDEA-65966
-	 * 
-	 * As a workaround we wrap the original filter and then pass it a wrapped description which removes the parameter
-	 * part (See deparametrizedName).
-	 */
-	private static final class FilterDecorator extends Filter {
-		private final Filter delegate;
-
-		/**
-		 * Constructs the decorator with a given filter.
-		 * 
-		 * @param delegate
-		 *            Filter which will be decorated
-		 */
-		private FilterDecorator(Filter delegate) {
-			this.delegate = delegate;
-		}
-
-		@Override
-		public boolean shouldRun(Description description) {
-			return delegate.shouldRun(wrap(description));
-		}
-
-		@Override
-		public String describe() {
-			return delegate.describe();
-		}
-	}
-
-	/**
-	 * Wraps a given description with a new display name (see deparametrizedName).
-	 * 
-	 * @param description
-	 *            Description
-	 * @return Description with correct display name
-	 */
-	private static Description wrap(Description description) {
-		String name = description.getDisplayName();
-		String fixedName = deparametrizedName(name);
-		Description clonedDescription = Description.createSuiteDescription(fixedName, description.getAnnotations()
-				.toArray(new Annotation[0]));
-		for (Description child : description.getChildren()) {
-			clonedDescription.addChild(wrap(child));
-		}
-		return clonedDescription;
-	}
-
-	/**
-	 * Removes ' default' from a given description name.
-	 * 
-	 * @param name
-	 *            Description name
-	 * @return Description name without ' default'
-	 */
-	private static String deparametrizedName(String name) {
-		return name.replaceAll(" default", "");
-	}
 }

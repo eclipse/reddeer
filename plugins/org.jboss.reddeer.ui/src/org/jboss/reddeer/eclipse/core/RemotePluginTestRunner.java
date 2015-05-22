@@ -1,5 +1,6 @@
 package org.jboss.reddeer.eclipse.core;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Enumeration;
@@ -7,6 +8,7 @@ import java.util.Locale;
 
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.jdt.internal.junit.runner.RemoteTestRunner;
+import org.jboss.reddeer.common.properties.RedDeerProperties;
 import org.osgi.framework.Bundle;
 
 /**
@@ -86,6 +88,8 @@ public class RemotePluginTestRunner extends RemoteTestRunner {
 
 			if (isFlag(args, i, "-loaderpluginname")) //$NON-NLS-1$
 				fLoaderClassLoader = getClassLoader(args[i + 1]);
+			if (isFlag(args, i, "-test")) //$NON-NLS-1$
+				args[i + 1] += getConfigId();
 		}
 
 		if (fTestPluginName == null)
@@ -94,6 +98,24 @@ public class RemotePluginTestRunner extends RemoteTestRunner {
 
 		if (fLoaderClassLoader == null)
 			fLoaderClassLoader = getClass().getClassLoader();
+	}
+	
+	protected String getConfigId() {
+		String locationpath = RedDeerProperties.CONFIG_FILE.getSystemValue();
+		if (locationpath != null) {
+			File location = new File(RedDeerProperties.CONFIG_FILE.getSystemValue());
+			if (!location.exists()) {
+				return "";
+			}
+			if (location.isFile()) {
+				return " " + location.getName();
+			}
+			File[] files = location.listFiles();
+			if (files.length > 0) {
+				return " " + files[0].getName();
+			}
+		}
+		return " default";
 	}
 
 	protected Class loadTestLoaderClass(String className)
