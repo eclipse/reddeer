@@ -22,6 +22,7 @@ Bundle-Vendor: JBoss by Red Hat
 Export-Package: org.jboss.reddeer.requirements.cleanworkspace,
  org.jboss.reddeer.requirements.db,
  org.jboss.reddeer.requirements.exception,
+ org.jboss.reddeer.requirements.jre,
  org.jboss.reddeer.requirements.openperspective,
  org.jboss.reddeer.requirements.server,
  org.jboss.reddeer.requirements.server.apache.tomcat
