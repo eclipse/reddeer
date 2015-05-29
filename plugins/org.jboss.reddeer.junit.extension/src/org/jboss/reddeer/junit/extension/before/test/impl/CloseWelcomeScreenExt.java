@@ -20,7 +20,7 @@ public class CloseWelcomeScreenExt implements IBeforeTest {
 	
 	private static final Logger log = Logger.getLogger(CloseWelcomeScreenExt.class);
 	
-	private static final boolean CLOSE_WELCOME_SCREEN = RedDeerProperties.CLOSE_WELCOME_SCREEN.getBooleanSystemValue();
+	private static final boolean CLOSE_WELCOME_SCREEN = RedDeerProperties.CLOSE_WELCOME_SCREEN.getBooleanValue();
 	/**
 	 * See {@link IBeforeTest}
 	 */

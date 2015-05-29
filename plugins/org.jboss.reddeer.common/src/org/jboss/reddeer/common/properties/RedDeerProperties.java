@@ -3,6 +3,7 @@ package org.jboss.reddeer.common.properties;
 import org.jboss.reddeer.common.exception.RedDeerException;
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.common.logging.LoggingUtils;
+import org.jboss.reddeer.common.userprofile.UserProfile;
 
 /**
  * Enumeration of all system properties that could be set to RedDeer.
@@ -50,7 +51,7 @@ public enum RedDeerProperties {
 		this.type = RedDeerPropertyType.BOOLEAN;
 		this.defaultValue = defaultValue.toString();
 		this.supportedValues = new String[]{"true", "false"};
-		checkSystemValue(getSystemValueInternal());
+		checkSystemValue(getValueInternal());
 	}
 
 	private RedDeerProperties(String name, String defaultValue){
@@ -65,7 +66,7 @@ public enum RedDeerProperties {
 		this.type = RedDeerPropertyType.ENUMERATION;
 		this.defaultValue = defaultValue;
 		this.supportedValues = supportedValues;
-		checkSystemValue(getSystemValueInternal());
+		checkSystemValue(getValueInternal());
 	}
 
 	/**
@@ -83,28 +84,28 @@ public enum RedDeerProperties {
 	}
 
 	/**
-	 * Retrieves the property from the currently running system (via System.getProperty()) and 
+	 * Retrieves the property from the currently running system and user and 
 	 * checks if the value is between supported values. If the property is not defined in system, 
 	 * returns default value. 
 	 * @return
 	 */
-	public String getSystemValue(){
-		String value = getSystemValueInternal();
+	public String getValue(){
+		String value = getValueInternal();
 		checkSystemValue(value);
 		return value;
 	}
 
 	/**
-	 * Returns {@link #getSystemValue()} converted to the boolean. 
+	 * Returns {@link #getValue()} converted to the boolean. 
 	 * @return
 	 */
-	public boolean getBooleanSystemValue(){
+	public boolean getBooleanValue(){
 		if (getType() != RedDeerPropertyType.BOOLEAN){
 			throw new RedDeerException("Requested boolean system value from non boolean property [" 
 					+ getName() + ", " + getType() + "]");
 		}
-		String systemProperty = getSystemValue();
-		return Boolean.parseBoolean(systemProperty.toLowerCase());
+		String propertyValue = getValue();
+		return Boolean.parseBoolean(propertyValue.toLowerCase());
 	}
 
 	/**
@@ -163,7 +164,15 @@ public enum RedDeerProperties {
 				+ systemValue + "'. Supported values are: " + LoggingUtils.format(getSupportedValues()));
 	}
 
-	private String getSystemValueInternal(){
-		return System.getProperty(getName(), getDefaultValue());
+	private String getValueInternal(){
+		String value = System.getProperty(getName());
+		if (value == null){
+			value = UserProfile.getInstance().getProperty(getName());
+			if (value == null){
+				value = getDefaultValue();
+			}
+		}
+		
+		return value;
 	}
 }

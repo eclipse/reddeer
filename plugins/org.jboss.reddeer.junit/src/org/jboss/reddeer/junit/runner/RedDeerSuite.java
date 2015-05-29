@@ -73,7 +73,7 @@ public class RedDeerSuite extends Suite {
 	 * @return
 	 * @throws InitializationError
 	 */
-	protected static List<Runner> createSuite(Class<?> clazz, SuiteConfiguration config) throws InitializationError {
+	public static List<Runner> createSuite(Class<?> clazz, SuiteConfiguration config) throws InitializationError {
 		log.info("Creating RedDeer suite...");
 		TestsExecutionManager testsManager = new TestsExecutionManager();
 		List<Runner> configuredSuites = new ArrayList<Runner>();

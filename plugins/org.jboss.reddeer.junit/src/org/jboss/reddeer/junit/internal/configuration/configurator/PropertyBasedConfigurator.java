@@ -48,7 +48,7 @@ public class PropertyBasedConfigurator implements RequirementConfigurator{
 		log.debug("Configuration successfully set");
 	}
 	
-	protected Map<Class<? extends Requirement<?>>, PropertyBasedConfiguration> getPropertyConfigurations(){
+	public Map<Class<? extends Requirement<?>>, PropertyBasedConfiguration> getPropertyConfigurations(){
 		if (propertyConfigurations == null){
 			propertyConfigurations = loadPropertyConfigurations();
 		}

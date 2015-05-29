@@ -36,7 +36,7 @@ public class SuiteConfiguration {
 	private List<TestRunConfiguration> findTestRunConfigurations(){
 		List<TestRunConfiguration> configurations = new ArrayList<TestRunConfiguration>();
 		
-		log.info("Looking up configuration files defined via property " + RedDeerProperties.CONFIG_FILE.getName() + "=" + RedDeerProperties.CONFIG_FILE.getSystemValue());
+		log.info("Looking up configuration files defined via property " + RedDeerProperties.CONFIG_FILE.getName() + "=" + RedDeerProperties.CONFIG_FILE.getValue());
 		List<File> confFilesList = getConfigurationFiles();
 		if (confFilesList.isEmpty()){
 			log.info("No configuration file specified");
@@ -60,11 +60,11 @@ public class SuiteConfiguration {
 	 * @return List of configuration files
 	 */
 	protected List<File> getConfigurationFiles(){
-		if (RedDeerProperties.CONFIG_FILE.getSystemValue() == null){
+		if (RedDeerProperties.CONFIG_FILE.getValue() == null){
 			return new ArrayList<File>();
 		}
 
-		return getConfigurationFiles(new File(RedDeerProperties.CONFIG_FILE.getSystemValue()));
+		return getConfigurationFiles(new File(RedDeerProperties.CONFIG_FILE.getValue()));
 	}
 
 	protected List<File> getConfigurationFiles(File location){

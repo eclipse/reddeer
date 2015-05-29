@@ -20,5 +20,6 @@ Require-Bundle: org.eclipse.ui,
  org.jboss.reddeer.swt;bundle-version="[0.8,0.9)",
  org.jboss.reddeer.workbench;bundle-version="[0.8,0.9)",
  org.jboss.reddeer.common;bundle-version="[0.8,0.9)",
- org.eclipse.core.variables;bundle-version="3.2.800"
+ org.eclipse.core.variables;bundle-version="3.2.800",
+ org.eclipse.jdt.debug.ui;bundle-version="3.6.0"
 

@@ -20,13 +20,14 @@ public class RedDeerPropertiesTest {
 
 	@BeforeClass
 	public static void setup(){
+
 		if (System.getProperties().containsKey(RedDeerProperties.RECORD_SCREENCAST.getName())){
-			recordScreencastValue = RedDeerProperties.RECORD_SCREENCAST.getSystemValue();			
+			recordScreencastValue = RedDeerProperties.RECORD_SCREENCAST.getValue();			
 			recordScreencastDefined = true;
 		}
 
 		if (System.getProperties().containsKey(RedDeerProperties.RELATIVE_SCREENSHOT_DIRECTORY.getName())){
-			relativeScreenshotDirectoryValue = RedDeerProperties.RELATIVE_SCREENSHOT_DIRECTORY.getSystemValue();			
+			relativeScreenshotDirectoryValue = RedDeerProperties.RELATIVE_SCREENSHOT_DIRECTORY.getValue();			
 			relativeScreenshotDirectoryDefined = true;
 		}
 	}
@@ -56,34 +57,34 @@ public class RedDeerPropertiesTest {
 	public void getSystemValue() {
 		System.setProperty(RedDeerProperties.RELATIVE_SCREENSHOT_DIRECTORY.getName(), "abc");
 
-		assertEquals("abc", RedDeerProperties.RELATIVE_SCREENSHOT_DIRECTORY.getSystemValue());
+		assertEquals("abc", RedDeerProperties.RELATIVE_SCREENSHOT_DIRECTORY.getValue());
 	}
 
 	@Test
 	public void getSystemValue_boolean() {
 		System.setProperty(RedDeerProperties.RECORD_SCREENCAST.getName(), "false");
 
-		assertEquals("false", RedDeerProperties.RECORD_SCREENCAST.getSystemValue());
+		assertEquals("false", RedDeerProperties.RECORD_SCREENCAST.getValue());
 	}
 
 	@Test(expected=RedDeerException.class)
 	public void getSystemValue_boolean_fail() {
 		System.setProperty(RedDeerProperties.RECORD_SCREENCAST.getName(), "abc");
 
-		assertEquals("abc", RedDeerProperties.RECORD_SCREENCAST.getSystemValue());
+		assertEquals("abc", RedDeerProperties.RECORD_SCREENCAST.getValue());
 	}
 
 	@Test
 	public void getBooleanSystemValue() {
 		System.setProperty(RedDeerProperties.RECORD_SCREENCAST.getName(), "false");
 
-		assertFalse(RedDeerProperties.RECORD_SCREENCAST.getBooleanSystemValue());
+		assertFalse(RedDeerProperties.RECORD_SCREENCAST.getBooleanValue());
 	}
 
 	@Test(expected=RedDeerException.class)
 	public void getBooleanSystemValue_textProperty() {
 		System.setProperty(RedDeerProperties.RELATIVE_SCREENSHOT_DIRECTORY.getName(), "abc");
 
-		assertFalse(RedDeerProperties.RELATIVE_SCREENSHOT_DIRECTORY.getBooleanSystemValue());
+		assertFalse(RedDeerProperties.RELATIVE_SCREENSHOT_DIRECTORY.getBooleanValue());
 	}
 }

@@ -6,7 +6,10 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.variables.IStringVariableManager;
 import org.eclipse.core.variables.VariablesPlugin;
 import org.eclipse.debug.core.ILaunchConfiguration;
-import org.eclipse.pde.ui.launcher.JUnitLaunchConfigurationDelegate;
+import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
+import org.eclipse.pde.launching.JUnitLaunchConfigurationDelegate;
+import org.jboss.reddeer.common.userprofile.UserProfile;
+import org.jboss.reddeer.eclipse.jdt.debug.ui.launchConfigurations.RedDeerJavaArgumentsTab;
 import org.jboss.reddeer.ui.Activator;
 
 /**
@@ -15,7 +18,6 @@ import org.jboss.reddeer.ui.Activator;
  * @author sbunciak
  * @since 0.2
  */
-@SuppressWarnings("deprecation")
 public class RedDeerLaunchConfigurationDelegate extends
 		JUnitLaunchConfigurationDelegate {
 	
@@ -39,12 +41,42 @@ public class RedDeerLaunchConfigurationDelegate extends
 		List<RedDeerLauncherProperties> properties = RedDeerLauncherProperties.loadAll(configuration);
 		IStringVariableManager mgr = VariablesPlugin.getDefault().getStringVariableManager();
 		
-		for (RedDeerLauncherProperties property : properties){
-			if (property.getCurrentValue() == null || "".equals(property.getCurrentValue())){
-				continue;
+		if (properties != null && properties.size() > 0){
+			// RedDeer properties were added by Run As dialog
+			for (RedDeerLauncherProperties property : properties){
+				if (property.getCurrentValue() == null || "".equals(property.getCurrentValue())){
+					continue;
+				}
+				vmArguments.add(getVMArgument(property, mgr));
 			}
-			String substituedVariables = mgr.performStringSubstitution(property.getCurrentValue());
-			vmArguments.add("-D" + property.getProperty().getName() + "=" + substituedVariables);
 		}
+		else{
+			// Launching was called by Run As context menu therefore initialize all RedDeer properties
+			RedDeerLauncherProperties[] redDeerLauncherPropsInitValues = RedDeerLauncherProperties.getInitialRedDeerLauncherProperties();
+			for (RedDeerLauncherProperties property : redDeerLauncherPropsInitValues){
+				String currValue = property.getCurrentValue(); 
+				if ( currValue != null && currValue.length() > 0){
+					vmArguments.add(getVMArgument(property, mgr));
+				}
+			}
+			// Save default RedDeer Properties values to Launch configuration
+			ILaunchConfigurationWorkingCopy launchConfigurationWorkingCopy = configuration.getWorkingCopy();
+			RedDeerJUnitTab.savePropertiesToLaunchConfiguration(launchConfigurationWorkingCopy, redDeerLauncherPropsInitValues); 
+			// Add vmArguments from user profile
+			String userProfileVMargs = UserProfile.getInstance().getProperty(UserProfile.VM_ARGS_KEY);
+			if (userProfileVMargs != null){
+				String currentVMargs = configuration.getAttribute(RedDeerJavaArgumentsTab.VM_ARGS_ATTR_NAME, "");
+				launchConfigurationWorkingCopy.setAttribute(RedDeerJavaArgumentsTab.VM_ARGS_ATTR_NAME, currentVMargs 
+					+ (currentVMargs.length() > 0 ? " " : "") 
+					+ userProfileVMargs);
+				launchConfigurationWorkingCopy.doSave();
+				vmArguments.add(userProfileVMargs);
+			}
+		}
+	}
+	
+	private String getVMArgument (RedDeerLauncherProperties property, IStringVariableManager mgr) throws CoreException{
+		String substituedVariables = mgr.performStringSubstitution(property.getCurrentValue());
+		return "-D" + property.getProperty().getName() + "=" + substituedVariables;
 	}
 }

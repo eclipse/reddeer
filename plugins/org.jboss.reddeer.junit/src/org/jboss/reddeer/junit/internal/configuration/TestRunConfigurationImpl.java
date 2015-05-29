@@ -20,7 +20,7 @@ public class TestRunConfigurationImpl implements TestRunConfiguration {
 	
 	private RequirementsConfiguration requirementsConfiguration;
 	
-	protected TestRunConfigurationImpl(File file) {
+	public TestRunConfigurationImpl(File file) {
 		this.file = file;
 	}
 	

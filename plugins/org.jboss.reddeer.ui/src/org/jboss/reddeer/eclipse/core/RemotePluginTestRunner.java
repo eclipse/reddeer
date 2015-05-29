@@ -101,9 +101,9 @@ public class RemotePluginTestRunner extends RemoteTestRunner {
 	}
 	
 	protected String getConfigId() {
-		String locationpath = RedDeerProperties.CONFIG_FILE.getSystemValue();
+		String locationpath = RedDeerProperties.CONFIG_FILE.getValue();
 		if (locationpath != null) {
-			File location = new File(RedDeerProperties.CONFIG_FILE.getSystemValue());
+			File location = new File(RedDeerProperties.CONFIG_FILE.getValue());
 			if (!location.exists()) {
 				return "";
 			}
