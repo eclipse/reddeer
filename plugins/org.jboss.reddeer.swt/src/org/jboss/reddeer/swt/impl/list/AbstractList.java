@@ -41,7 +41,19 @@ public abstract class AbstractList extends AbstractWidget<org.eclipse.swt.widget
 	public void selectAll() {
 		ListHandler.getInstance().selectAll(swtWidget);
 	}
+	
+	public String[] getSelectedItems() {
+		return ListHandler.getInstance().getSelectedItems(swtWidget);
+	}
 
+	public int getSelectionIndex() {
+		return ListHandler.getInstance().getSelectionIndex(swtWidget);
+	}
+	
+	public int[] getSelectionIndices() {
+		return ListHandler.getInstance().getSelectionIndices(swtWidget);
+	}
+	
 	public void select(String... listItems) {
 		logger.info("Select list items (" + LoggingUtils.format(listItems) + ")");
 		ListHandler.getInstance().select(swtWidget,listItems);
