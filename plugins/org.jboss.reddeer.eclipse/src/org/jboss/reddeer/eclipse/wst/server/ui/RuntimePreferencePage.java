@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.jboss.reddeer.common.logging.Logger;
+import org.jboss.reddeer.core.condition.ShellWithTextIsActive;
 import org.jboss.reddeer.eclipse.exception.EclipseLayerException;
 import org.jboss.reddeer.eclipse.wst.server.ui.wizard.NewRuntimeWizardDialog;
 import org.jboss.reddeer.jface.preference.PreferencePage;
 import org.jboss.reddeer.swt.api.Table;
-import org.jboss.reddeer.core.condition.ShellWithTextIsActive;
 import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.table.DefaultTable;
 
@@ -22,6 +22,8 @@ import org.jboss.reddeer.swt.impl.table.DefaultTable;
 public class RuntimePreferencePage extends PreferencePage {
 
 	public static final String PAGE_NAME = "Runtime Environments";
+	
+	public static final String EDIT_BUTTON_NAME = "Edit...";
 
 	private static final Logger log = Logger.getLogger(RuntimePreferencePage.class);
 	
@@ -101,5 +103,15 @@ public class RuntimePreferencePage extends PreferencePage {
 		log.info("Adding new runtime");
 		new PushButton("Add...").click();
 		return new NewRuntimeWizardDialog();
+	}
+	
+	/**
+	 * Opens tie runtime's edit dialog. Since the dialog is specific for every runtime type
+	 * it is upon user to instantiate the concrete Red Deer dialog. 
+	 * @param name
+	 */
+	public void editRuntime(String name){
+		selectRuntime(name);
+		new PushButton(EDIT_BUTTON_NAME).click();
 	}
 }
