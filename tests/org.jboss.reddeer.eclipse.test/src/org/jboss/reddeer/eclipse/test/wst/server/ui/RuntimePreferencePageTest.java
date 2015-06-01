@@ -1,16 +1,18 @@
 package org.jboss.reddeer.eclipse.test.wst.server.ui;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
 
 import java.util.List;
 
-import org.jboss.reddeer.workbench.ui.dialogs.WorkbenchPreferenceDialog;
 import org.jboss.reddeer.eclipse.wst.server.ui.Runtime;
 import org.jboss.reddeer.eclipse.wst.server.ui.RuntimePreferencePage;
 import org.jboss.reddeer.eclipse.wst.server.ui.wizard.NewRuntimeWizardDialog;
 import org.jboss.reddeer.eclipse.wst.server.ui.wizard.NewRuntimeWizardPage;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
+import org.jboss.reddeer.swt.impl.button.PushButton;
+import org.jboss.reddeer.workbench.ui.dialogs.WorkbenchPreferenceDialog;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -109,6 +111,19 @@ public class RuntimePreferencePageTest {
 		preferencePage.removeAllRuntimes();
 		runtimes = preferencePage.getServerRuntimes();
 		assertThat(runtimes.size(), is(0));
+	}
+	
+	@Test
+	public void editRuntime(){
+		preferencesDialog.open();
+		preferencesDialog.select(preferencePage);
+		
+		NewRuntimeWizardDialog wizardDialog = preferencePage.addRuntime(); 
+		NewRuntimeWizardPage wizardPage = new NewRuntimeWizardPage();
+		wizardPage.selectType(SERVER_PATH, SERVER_NAME);
+		wizardDialog.finish();
+
+		assertFalse(new PushButton(RuntimePreferencePage.EDIT_BUTTON_NAME).isEnabled());
 	}
 	
 	@After
