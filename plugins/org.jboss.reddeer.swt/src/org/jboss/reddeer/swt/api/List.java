@@ -19,6 +19,7 @@ public interface List extends Widget {
 
 	/**
 	 * Selects an item in list at the specified position.
+	 * Previously selected item(s) is/are deselected.
 	 * 
 	 * @param listItemIndex index of the item to select
 	 */
@@ -38,6 +39,7 @@ public interface List extends Widget {
 
 	/**
 	 * Selects items in list.
+	 * Previously selected item(s) is/are deselected.
 	 * 
 	 * @param listItems list items to select
 	 */
@@ -45,11 +47,33 @@ public interface List extends Widget {
 
 	/**
 	 * Selects items in list at specified positions.
+	 * Previously selected item(s) is/are deselected.
 	 * 
 	 * @param indices indices of items to select
 	 */
 	void select(int... indices);
 
+	/**
+	 * Gets selected list items.
+	 * 
+	 * @return array of strings representing selected items in list
+	 */
+	String[] getSelectedItems();
+	
+	/**
+	 * Gets index of selected list item.
+	 * 
+	 * @return index of selected list item
+	 */
+	int getSelectionIndex();
+	
+	/**
+	 * Gets indices of selected list items.
+	 * 
+	 * @return array of indices of selected list items
+	 */
+	int[] getSelectionIndices();
+	
 	/**
 	 * Selects all list items.
 	 */

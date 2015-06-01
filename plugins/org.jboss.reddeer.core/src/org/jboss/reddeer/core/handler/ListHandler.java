@@ -86,6 +86,7 @@ public class ListHandler {
 
 	/**
 	 * Gets item specified by text from specified {@link List}.
+	 * Previously selected item(s) is/are deselected.
 	 * 
 	 * @param list list to handle
 	 * @param item item to select
@@ -95,6 +96,7 @@ public class ListHandler {
 
 			@Override
 			public void run() {
+				list.deselectAll();
 				int index = (list.indexOf(item));
 				if (index == -1) {
 					throw new CoreLayerException("Unable to select item " + item
@@ -108,6 +110,7 @@ public class ListHandler {
 
 	/**
 	 * Selects items specified by their text from specified {@link List}.
+	 * Previously selected item(s) is/are deselected.
 	 * 
 	 * @param list list to handle
 	 * @param items items to select
@@ -117,6 +120,7 @@ public class ListHandler {
 
 			@Override
 			public void run() {
+				list.deselectAll();
 				if ((list.getStyle() & SWT.MULTI) != 0) {
 					for (String item : items) {
 						int index = (list.indexOf(item));
@@ -138,6 +142,8 @@ public class ListHandler {
 
 	/**
 	 * Selects items on specified indices in specified {@link List}.
+	 * Previously selected item(s) is/are deselected.
+	 * 
 	 * 
 	 * @param list list to handle
 	 * @param indices indices of items to select
@@ -147,6 +153,7 @@ public class ListHandler {
 
 			@Override
 			public void run() {
+				list.deselectAll();
 				if ((list.getStyle() & SWT.MULTI) != 0) {
 					list.select(indices);
 					WidgetHandler.getInstance().notify(SWT.Selection, list);
@@ -160,6 +167,7 @@ public class ListHandler {
 
 	/**
 	 * Selects item on position specified by index in specified {@link List}.
+	 * Previously selected item(s) is/are deselected.
 	 * 
 	 * @param list list to handle
 	 * @param index index of item to select
@@ -174,9 +182,78 @@ public class ListHandler {
 							"Unable to select item with index " + index
 									+ " because it does not exist");
 				}
+				list.deselectAll();
 				list.select(index);
 				WidgetHandler.getInstance().notify(SWT.Selection, list);
 			}
 		});
+	}
+	
+	/**
+	 * Gets selected list items.
+	 * 
+	 * @param list list to handle
+	 * @return array of strings representing selected list items
+	 */
+	public String[] getSelectedItems(final List list) {
+		return Display.syncExec(new ResultRunnable<String[]>() {
+
+			@Override
+			public String[] run() {
+				return list.getSelection();
+			}
+		});
+	}
+	
+	/**
+	 * Gets index of selected item in specified list.
+	 * 
+	 * @param list list to handle
+	 * @return index of selected list item
+	 */
+	public int getSelectionIndex(final List list) {
+		return Display.syncExec(new ResultRunnable<Integer>() {
+
+			@Override
+			public Integer run() {
+				return list.getSelectionIndex();
+			}
+			
+		}).intValue();
+	}
+	
+	/**
+	 * Gets indices of selected items in specified list.
+	 * 
+	 * @param list list to handle
+	 * @return indices of selected list items
+	 */
+	public int[] getSelectionIndices(final List list) {
+		Integer[] objectIndices = Display.syncExec(new ResultRunnable<Integer[]>() {
+
+			@Override
+			public Integer[] run() {
+				int[] tmpIndices = list.getSelectionIndices();
+				if (tmpIndices.length == 0) {
+					return new Integer[0];
+				}
+				Integer[] tmpObjectIndices = new Integer[tmpIndices.length];
+				for (int i = 0; i < tmpIndices.length; i++) {
+					tmpObjectIndices[i] = tmpIndices[i];
+				}
+				return tmpObjectIndices;
+			}
+		});
+	
+		int[] indices;
+		if (objectIndices.length > 0) {
+			indices = new int[objectIndices.length];
+			for (int i = 0; i < objectIndices.length; i++) {
+				indices[i] = objectIndices[i];
+			}
+			return indices;
+		} else {
+			return new int[0];
+		}
 	}
 }
