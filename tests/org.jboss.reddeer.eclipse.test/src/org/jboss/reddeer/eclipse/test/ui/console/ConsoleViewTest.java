@@ -6,6 +6,7 @@ import static org.junit.Assert.assertThat;
 
 import org.hamcrest.core.IsEqual;
 import org.hamcrest.core.IsNull;
+import org.jboss.reddeer.eclipse.condition.ConsoleHasLabel;
 import org.jboss.reddeer.eclipse.condition.ConsoleHasLaunch;
 import org.jboss.reddeer.eclipse.condition.ConsoleHasNoChange;
 import org.jboss.reddeer.eclipse.condition.ConsoleHasText;
@@ -34,7 +35,6 @@ import org.jboss.reddeer.common.wait.WaitWhile;
 import org.jboss.reddeer.workbench.impl.editor.DefaultEditor;
 import org.junit.After;
 import org.junit.AfterClass;
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -194,10 +194,10 @@ public class ConsoleViewTest {
 					+ "} catch (InterruptedException e) {e.printStackTrace();}");
 			createJavaClass(
 					TEST_CLASS_NAME1,
-					"System.out.print(\"Hello World1\");\ntry {\nThread.sleep(10*1000);\n} catch (InterruptedException e) {e.printStackTrace();}");
+					"System.out.print(\"Hello World1\");\ntry {\nThread.sleep(15*1000);\n} catch (InterruptedException e) {e.printStackTrace();}");
 			createJavaClass(
 					TEST_CLASS_NAME2,
-					"System.out.print(\"Hello World2\");\ntry {\nThread.sleep(10*1000);\n} catch (InterruptedException e) {e.printStackTrace();}");
+					"System.out.print(\"Hello World2\");\ntry {\nThread.sleep(15*1000);\n} catch (InterruptedException e) {e.printStackTrace();}");
 		}
 		packageExplorer.getProject(TEST_PROJECT_NAME).select();
 	}
@@ -233,6 +233,7 @@ public class ConsoleViewTest {
 				new RegexMatcher(".*Java Application.*") };
 		WithTextMatchers m = new WithTextMatchers(array);
 		new ShellMenu(m.getMatchers()).select();
-		new WaitWhile(new JobIsRunning());
+		new WaitUntil(new ConsoleHasLabel(new RegexMatcher(".*" + name	+ ".*")));
+		new WaitWhile(new JobIsRunning());		
 	}
 }
