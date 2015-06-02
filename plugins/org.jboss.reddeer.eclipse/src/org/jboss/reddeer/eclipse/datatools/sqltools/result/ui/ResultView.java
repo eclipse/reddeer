@@ -3,13 +3,11 @@ package org.jboss.reddeer.eclipse.datatools.sqltools.result.ui;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.jboss.reddeer.common.platform.OS;
 import org.jboss.reddeer.common.platform.RunningPlatform;
-import org.jboss.reddeer.common.wait.AbstractWait;
-import org.jboss.reddeer.common.wait.TimePeriod;
+import org.jboss.reddeer.common.wait.WaitWhile;
 import org.jboss.reddeer.swt.api.TreeItem;
+import org.jboss.reddeer.swt.condition.TreeHasChildren;
 import org.jboss.reddeer.swt.impl.toolbar.DefaultToolItem;
-import org.jboss.reddeer.swt.impl.toolbar.ViewToolItem;
 import org.jboss.reddeer.swt.impl.tree.DefaultTree;
 import org.jboss.reddeer.workbench.impl.view.WorkbenchView;
 
@@ -53,13 +51,14 @@ public class ResultView extends WorkbenchView {
 	 */
 	public void removeAllResults() {
 		open();
+		DefaultTree tree = new DefaultTree();
 		String tooltip = "Remove All Visible Results (Shift+Delete)";
 		if (RunningPlatform.isOSX()) {
 			tooltip = "Remove All Visible Results (⇧⌦)";
 		}
 		DefaultToolItem item = new DefaultToolItem(tooltip);
 		item.click();
-		AbstractWait.sleep(TimePeriod.SHORT);
+		new WaitWhile(new TreeHasChildren(tree));
 	}
 
 }
