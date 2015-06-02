@@ -9,7 +9,7 @@
 	<packaging>pom</packaging>
 	
 	<properties>
- 	   	<tycho-version>0.21.0</tycho-version>  	  
+ 	   	<tycho-version>0.22.0</tycho-version>  	  
 		<tychoExtrasVersion>${tycho-version}</tychoExtrasVersion>
 		<eclipse-target-site>http://download.eclipse.org/releases/luna</eclipse-target-site>
 		<swtbot-update-site>http://download.eclipse.org/technology/swtbot/releases/2.2.1</swtbot-update-site>
