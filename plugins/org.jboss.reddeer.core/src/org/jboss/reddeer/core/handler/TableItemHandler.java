@@ -3,6 +3,7 @@ package org.jboss.reddeer.core.handler;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
+import org.jboss.reddeer.common.exception.WaitTimeoutExpiredException;
 import org.jboss.reddeer.common.wait.TimePeriod;
 import org.jboss.reddeer.common.wait.WaitUntil;
 import org.jboss.reddeer.common.wait.WaitWhile;
@@ -115,21 +116,32 @@ public class TableItemHandler {
 				swtTableItem.setChecked(check);
 			}
 		});
+		
+		try{
+			if (check){
+				new WaitUntil(new WidgetIsChecked(swtTableItem),TimePeriod.SHORT);
+			}
+			else{
+				new WaitWhile(new WidgetIsChecked(swtTableItem),TimePeriod.SHORT);
+			}	
+		} catch (WaitTimeoutExpiredException wtee){
+			// On MacOS setChecked on TableItem has to be called twice
+			Display.syncExec(new Runnable() {
+				@Override
+				public void run() {
+					if (check != swtTableItem.getChecked()){
+						swtTableItem.setChecked(check);
+					}
+				}
+			});
+		}
+		
 		if (check){
-			new WaitUntil(new WidgetIsChecked(swtTableItem),TimePeriod.SHORT,false);
+			new WaitUntil(new WidgetIsChecked(swtTableItem),TimePeriod.SHORT);
 		}
 		else{
-			new WaitWhile(new WidgetIsChecked(swtTableItem),TimePeriod.SHORT,false);
+			new WaitWhile(new WidgetIsChecked(swtTableItem),TimePeriod.SHORT);
 		}
-		// On MacOS setChecked on TableItem has to be called twice
-		Display.syncExec(new Runnable() {
-			@Override
-			public void run() {
-				if (check != swtTableItem.getChecked()){
-					swtTableItem.setChecked(check);
-				}
-			}
-		});
 		
 		WidgetHandler.getInstance().notifyItem(SWT.Selection,
 				SWT.CHECK, WidgetHandler.getInstance().getParent(swtTableItem), swtTableItem);
