@@ -21,7 +21,6 @@ import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.swt.api.Shell;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
-import org.jboss.reddeer.swt.impl.table.DefaultTableItem;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -95,7 +94,7 @@ public class RuntimesPropertyPageTest {
 		dialog.open();
 		dialog.select(propertyPage);
 		propertyPage.selectRuntime(TestServerRuntime.NAME);
-		assertTrue(new DefaultTableItem(TestServerRuntime.NAME).isChecked());
+		assertTrue(propertyPage.getSelectedRuntimes().contains(TestServerRuntime.NAME));
 		dialog.ok();
 		
 		dialog.open();
