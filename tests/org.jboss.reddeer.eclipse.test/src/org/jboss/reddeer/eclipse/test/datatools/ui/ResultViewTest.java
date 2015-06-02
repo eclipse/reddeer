@@ -40,6 +40,7 @@ import org.jboss.reddeer.core.matcher.TreeItemRegexMatcher;
 import org.jboss.reddeer.workbench.impl.editor.DefaultEditor;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.junit.rules.Timeout;
 import org.junit.runner.RunWith;
 
 @RunWith(RedDeerSuite.class)
@@ -119,6 +120,9 @@ public class ResultViewTest {
 		text.setText(statement);
 		new WaitWhile(new JobIsRunning());
 		new ContextMenu("Execute All").select();
+		
+		new WaitUntil(new ShellWithTextIsActive("SQL Statement Execution"),TimePeriod.LONG, false);
+		new WaitWhile(new ShellWithTextIsActive("SQL Statement Execution"),TimePeriod.LONG, false);
 		
 		scrapbook.close(false);
 	}
