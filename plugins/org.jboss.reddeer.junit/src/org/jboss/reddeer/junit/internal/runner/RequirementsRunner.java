@@ -69,7 +69,6 @@ public class RequirementsRunner extends BlockJUnit4ClassRunner {
 		this.runListeners = runListeners;
 		this.beforeTestExtensions = beforeTestExtensions;
 		this.afterTestExtensions = afterTestExtensions;
-		this.requirementsInjector.inject(clazz, requirements);
 	}
 	
 	public RequirementsRunner(Class<?> clazz, Requirements requirements, String configId) throws InitializationError {
@@ -379,6 +378,9 @@ public class RequirementsRunner extends BlockJUnit4ClassRunner {
 	
 	@Override
 	protected Statement withBeforeClasses(Statement statement) {
+		log.debug("Injecting fulfilled requirements into static fields of test class");
+		requirementsInjector.inject(getTestClass().getJavaClass(), requirements);
+		
         List<FrameworkMethod> befores = getTestClass().getAnnotatedMethods(BeforeClass.class);
         Statement s = befores.isEmpty() ? statement : new RunBefores(configId, null, statement, befores, 
         		null, getTestClass());
