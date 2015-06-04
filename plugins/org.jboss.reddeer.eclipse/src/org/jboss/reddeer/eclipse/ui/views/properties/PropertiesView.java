@@ -1,8 +1,12 @@
 package org.jboss.reddeer.eclipse.ui.views.properties;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.jboss.reddeer.common.condition.WaitCondition;
+import org.jboss.reddeer.common.wait.TimePeriod;
+import org.jboss.reddeer.common.wait.WaitUntil;
 import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.swt.impl.toolbar.DefaultToolItem;
 import org.jboss.reddeer.swt.impl.tree.DefaultTree;
@@ -10,7 +14,15 @@ import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
 import org.jboss.reddeer.workbench.impl.view.WorkbenchView;
 /**
  * Manages Properties View
- * @author Vlado Pakan
+ * 
+ * Use this class if you change properties of many elements
+ * and you need to be sure, that properties tabs of focused 
+ * element are rendered yet.
+ * 
+ * If rendered tabs doesn't change for 10 seconds,
+ * class assume that is still focused the same element and it is ok.
+ * 
+ * @author Vlado Pakan, jomarko@redhat.com
  *
  */
 public class PropertiesView extends WorkbenchView{
@@ -76,6 +88,44 @@ public class PropertiesView extends WorkbenchView{
 	 * @param label Label
 	 */
 	public void selectTab(String label) {
+		activate();
+		List<String> old = new ArrayList<String>();
+		
+		try{
+			old = new TabbedPropertyList().getTabs();
+		}catch(Exception ex) {
+			//probably not rendered yet
+		}
+		new WaitUntil(new AnotherTabsRendered(old), TimePeriod.NORMAL, false);
+		
 		new TabbedPropertyList().selectTab(label);
+	}
+	
+	private class AnotherTabsRendered implements WaitCondition {
+
+		private List<String> old;
+		
+		public AnotherTabsRendered(List<String> old) {
+			this.old = old;
+		}
+		
+		@Override
+		public boolean test() {
+			List<String> actual = new ArrayList<String>();
+			
+			try{
+				actual = new TabbedPropertyList().getTabs();
+			}catch(Exception ex) {
+				//probably not rendered yet
+			}
+			
+			return !actual.equals(old);
+		}
+
+		@Override
+		public String description() {
+			return "Wait for tabs of focused element to be rendered";
+		}
+		
 	}
 }
