@@ -5,14 +5,14 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.hamcrest.Matcher;
-import org.jboss.reddeer.eclipse.condition.MarkerIsUpdating;
+import org.jboss.reddeer.common.wait.TimePeriod;
+import org.jboss.reddeer.common.wait.WaitUntil;
+import org.jboss.reddeer.common.wait.WaitWhile;
+import org.jboss.reddeer.eclipse.condition.AbstractExtendedMarkersViewIsUpdating;
 import org.jboss.reddeer.eclipse.exception.EclipseLayerException;
 import org.jboss.reddeer.eclipse.ui.problems.matcher.AbstractProblemMatcher;
 import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.swt.impl.tree.DefaultTree;
-import org.jboss.reddeer.common.wait.TimePeriod;
-import org.jboss.reddeer.common.wait.WaitUntil;
-import org.jboss.reddeer.common.wait.WaitWhile;
 import org.jboss.reddeer.workbench.impl.view.WorkbenchView;
 
 /**
@@ -37,8 +37,8 @@ public class ProblemsView extends WorkbenchView{
 	@Deprecated
 	public List<TreeItem> getAllErrors(){
 		activate();
-		new WaitUntil(new MarkerIsUpdating(),TimePeriod.SHORT,false);
-		new WaitWhile(new MarkerIsUpdating());
+		new WaitUntil(new ProblemsViewMarkerIsUpdating(),TimePeriod.SHORT,false);
+		new WaitWhile(new ProblemsViewMarkerIsUpdating());
 		DefaultTree tree = new DefaultTree();
 		return filter(tree.getItems(), true);
 	}
@@ -52,8 +52,8 @@ public class ProblemsView extends WorkbenchView{
 	@Deprecated
 	public List<TreeItem> getAllWarnings(){
 		activate();
-		new WaitUntil(new MarkerIsUpdating(),TimePeriod.SHORT,false);
-		new WaitWhile(new MarkerIsUpdating());
+		new WaitUntil(new ProblemsViewMarkerIsUpdating(),TimePeriod.SHORT,false);
+		new WaitWhile(new ProblemsViewMarkerIsUpdating());
 		DefaultTree tree = new DefaultTree();
 		return filter(tree.getItems(), false);
 	}
@@ -107,8 +107,8 @@ public class ProblemsView extends WorkbenchView{
 	 */
 	public List<Problem> getProblems(ProblemType problemType, AbstractProblemMatcher... matchers) {
 		activate();
-		new WaitUntil(new MarkerIsUpdating(),TimePeriod.SHORT,false);
-		new WaitWhile(new MarkerIsUpdating());
+		new WaitUntil(new ProblemsViewMarkerIsUpdating(),TimePeriod.SHORT,false);
+		new WaitWhile(new ProblemsViewMarkerIsUpdating());
 		DefaultTree tree = new DefaultTree();
 		return filterProblems(problemType, tree.getItems(), matchers);
 	}
@@ -283,5 +283,20 @@ public class ProblemsView extends WorkbenchView{
 	 */
 	public enum ProblemType {
 		WARNING, ERROR, ANY
+	}
+	
+	/**
+	 * Returns true if Problems view marker is updating its UI
+	 * 
+	 */
+	@SuppressWarnings("restriction")
+	private class ProblemsViewMarkerIsUpdating extends AbstractExtendedMarkersViewIsUpdating {
+
+		/**
+		 * Construct the condition.
+		 */
+		public ProblemsViewMarkerIsUpdating() {
+			super(ProblemsView.this, org.eclipse.ui.internal.views.markers.ProblemsView.class);
+		}
 	}
 }

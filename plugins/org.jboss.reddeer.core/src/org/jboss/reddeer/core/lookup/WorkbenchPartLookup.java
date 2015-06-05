@@ -13,9 +13,9 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.internal.WorkbenchPartReference;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.common.logging.Logger;
+import org.jboss.reddeer.core.handler.WorkbenchPartHandler;
 import org.jboss.reddeer.core.util.Display;
 import org.jboss.reddeer.core.util.ResultRunnable;
-import org.jboss.reddeer.core.handler.WorkbenchPartHandler;
 
 /**
  * Workbench part lookup contains methods for looking up specific workbench part (mostly views).
@@ -71,29 +71,35 @@ public class WorkbenchPartLookup {
 	 * @return list of currently opened view parts
 	 */
 	public List<IViewPart> getOpenViews(){
-		IWorkbenchPage activePage = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
-		List<IViewPart> views = new ArrayList<IViewPart>();
+		return Display.syncExec(new ResultRunnable<List<IViewPart>>() {
 
-		log.debug("Looking up all open views");
-		for (IViewReference viewReference : activePage.getViewReferences()){
-			IViewPart view = viewReference.getView(false);
-			if (view == null){
-				log.trace("\tView '" + viewReference.getTitle() + "' was not open or it cannot be restored");
-				continue;
+			@Override
+			public List<IViewPart> run() {
+				IWorkbenchPage activePage = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
+				List<IViewPart> views = new ArrayList<IViewPart>();
+
+				log.debug("Looking up all open views");
+				for (IViewReference viewReference : activePage.getViewReferences()){
+					IViewPart view = viewReference.getView(false);
+					if (view == null){
+						log.trace("\tView '" + viewReference.getTitle() + "' was not open or it cannot be restored");
+						continue;
+					}
+
+					IViewPart[] stackedViews = activePage.getViewStack(view);
+					if (stackedViews == null){
+						log.trace("\tView '" + view.getTitle() + "' does not belong to the currently active page");
+						continue;
+					} 
+
+					for (IViewPart part : viewReference.getPage().getViewStack(viewReference.getView(false))){
+						log.trace("\tFound view '" + part.getTitle() + "'");
+						views.add(part);
+					}
+				}
+				return views;
 			}
-
-			IViewPart[] stackedViews = activePage.getViewStack(view);
-			if (stackedViews == null){
-				log.trace("\tView '" + view.getTitle() + "' does not belong to the currently active page");
-				continue;
-			} 
-
-			for (IViewPart part : viewReference.getPage().getViewStack(viewReference.getView(false))){
-				log.trace("\tFound view '" + part.getTitle() + "'");
-				views.add(part);
-			}
-		}
-		return views;
+		});
 	}
 	
 	/**

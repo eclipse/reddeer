@@ -2,26 +2,41 @@ package org.jboss.reddeer.eclipse.condition;
 
 import java.lang.reflect.Method;
 
-import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.internal.views.markers.ExtendedMarkersView;
-import org.jboss.reddeer.eclipse.exception.EclipseLayerException;
 import org.jboss.reddeer.common.condition.WaitCondition;
+import org.jboss.reddeer.core.lookup.WorkbenchPartLookup;
 import org.jboss.reddeer.core.util.Display;
 import org.jboss.reddeer.core.util.ResultRunnable;
+import org.jboss.reddeer.eclipse.exception.EclipseLayerException;
+import org.jboss.reddeer.workbench.impl.view.AbstractView;
 
 /**
- * Returns true if marker based view is updating its UI.
+ * Returns true if marker based view is updating its UI. This is an abstract class and 
+ * its subclasses should specify the concrete view. 
  * 
  * @author Jiri Peterka
  * 
  */
 @SuppressWarnings("restriction")
-public class MarkerIsUpdating implements WaitCondition {
+public abstract class AbstractExtendedMarkersViewIsUpdating implements WaitCondition {
+
+	private ExtendedMarkersView markersView;
 
 	/**
 	 * Construct the condition.
+	 * @param abstractView 
+	 * @param class1 
 	 */
-	public MarkerIsUpdating() {
+	public AbstractExtendedMarkersViewIsUpdating(AbstractView abstractView, final Class<? extends ExtendedMarkersView> viewClass) {
+		abstractView.open();
+		for (IViewPart part : WorkbenchPartLookup.getInstance().getOpenViews()){
+			if (part.getClass().equals(viewClass)){
+				markersView = (ExtendedMarkersView) part;
+				return;
+			}
+		}
+		throw new EclipseLayerException("Cannot find view with the specified class " + viewClass);				
 	}
 
 	@Override
@@ -30,9 +45,6 @@ public class MarkerIsUpdating implements WaitCondition {
 			@Override
 			public Boolean run() {
 				boolean result = false;
-				ExtendedMarkersView markersView = (ExtendedMarkersView) PlatformUI
-						.getWorkbench().getActiveWorkbenchWindow()
-						.getActivePage().getActivePart();
 				try {
 					Method m = ExtendedMarkersView.class.getDeclaredMethod(
 							"isUIUpdating", new Class<?>[0]);
