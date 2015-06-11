@@ -70,4 +70,62 @@
 			</plugin>
 		</plugins>
 	</build>
+	
+	<profiles>
+	<profile>
+<id>deploy-to-jboss.org</id>
+<build>
+	<plugins>
+		<plugin>
+			<artifactId>maven-dependency-plugin</artifactId>
+			<executions>
+				<execution>
+					<id>deploy-releng-scripts</id>
+					<goals>
+						<goal>unpack</goal>
+					</goals>
+					<phase>deploy</phase>
+					<configuration>	
+						<artifactItems>
+							<artifactItem>
+								<groupId>org.jboss.tools.releng</groupId>		
+								<artifactId>jbosstools-releng-publish</artifactId>
+								<version>${project.version}</version>
+								<type>tar.gz</type>
+								<outputDirectory>${project.build.directory}/releng-scripts</outputDirectory>	
+							</artifactItem>
+						</artifactItems>
+					</configuration>
+				</execution>
+			</executions>
+		</plugin>
+		<plugin>
+			<groupId>org.codehaus.mojo</groupId>
+			<artifactId>exec-maven-plugin</artifactId>
+			<version>1.3.2</version>
+			<configuration>
+				<executable>${project.build.directory}/releng-scripts/publish/rsync.sh</executable>
+			</configuration>
+			<executions>
+				<execution>
+					<id>deploy-snapshot-build</id>
+					<goals>
+						<goal>exec</goal>
+					</goals>
+					<phase>deploy</phase>
+					<configuration>
+						<arguments>
+							<arg>-s</arg>
+							<arg>${project.build.directory}/repository</arg>
+							<arg>-t</arg>
+							<arg>mars/snapshots/builds/${JOB_NAME}/${BUILD_ID}-B${BUILD_NUMBER}/all/repo/</arg>
+						</arguments>	
+					</configuration>
+				</execution>
+			</executions>
+		</plugin>
+	</plugins>
+</build>
+</profile>
+</profiles>
 </project>
