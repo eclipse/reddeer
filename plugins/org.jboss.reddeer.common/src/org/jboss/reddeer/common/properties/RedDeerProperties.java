@@ -17,7 +17,7 @@ public enum RedDeerProperties {
 
 	LOG_MESSAGE_FILTER("logMessageFilter", "ALL"),
 	
-	LOG_LEVEL("logLevel", "ALL"),
+	LOG_LEVEL("reddeer.logLevel", "ALL"),
 
 	CLOSE_WELCOME_SCREEN("reddeer.close.welcome.screen", true),
 
