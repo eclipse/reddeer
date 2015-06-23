@@ -6,7 +6,9 @@
       provider-name="JBoss by Red Hat">
 
    <description url="https://github.com/jboss-reddeer/reddeer/wiki">
-      An extendable framework to support building automated Eclipse tests.
+      RedDeer RCP feature provides capabilities similar to Eclipse RCP feature. There are included 
+      RedDeer SWT, Workbench, JFace and UIForms plugins plus plugins required to have properly 
+      running RedDeer tests such as RedDeer JUnit, Common and Direct plugins.
    </description>
 
    <copyright>

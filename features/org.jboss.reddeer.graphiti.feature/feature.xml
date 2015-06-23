@@ -6,7 +6,7 @@
       provider-name="JBoss by Red Hat">
 
    <description url="https://github.com/jboss-reddeer/reddeer/wiki">
-      An extendable framework to support building automated Eclipse tests.
+      RedDeer Graphiti features provides capabilities to work with graphiti and GEF objects in Eclipse.
    </description>
 
    <copyright>

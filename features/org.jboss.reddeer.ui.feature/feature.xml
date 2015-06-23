@@ -6,7 +6,8 @@
       provider-name="JBoss by Red Hat">
 
    <description url="https://github.com/jboss-reddeer/reddeer/wiki">
-      An extendable framework to support building automated Eclipse tests.
+      RedDeer UI feature provides UI for RedDeer such as launch configurations, launchers,
+      wizards and many more.
    </description>
 
    <copyright>
