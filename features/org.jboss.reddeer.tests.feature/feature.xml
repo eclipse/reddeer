@@ -6,7 +6,7 @@
       provider-name="JBoss by Red Hat">
 
    <description url="https://github.com/jboss-reddeer/reddeer/wiki">
-      An extendable framework to support building automated Eclipse tests.
+      RedDeer Tests feature provides various tests for RedDeer plugins.
    </description>
 
    <copyright>
@@ -40,14 +40,6 @@ Raleigh NC 27606 USA.
          version="0.0.0"
          unpack="false"/>
 
-<!-- https://github.com/jboss-reddeer/reddeer/issues/333
-   <plugin
-         id="org.jboss.reddeer.junit.test"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
--->
    <plugin
          id="org.jboss.reddeer.requirements.test"
          download-size="0"
