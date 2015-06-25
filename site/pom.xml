@@ -12,6 +12,13 @@
 		<version>0.8.0-SNAPSHOT</version>
 	</parent>
 
+	<properties>
+		<!-- Mars convention -->
+		<publishingPath>mars/snapshots/builds/${JOB_NAME}/${BUILD_ID}-B${BUILD_NUMBER}/all/repo/</publishingPath>
+		<!-- Luna convention: TODO JBIDE-18772: remove this when master build only works for Mars -->
+		<publishingPath>builds/staging/${JOB_NAME}/all/repo/</publishingPath>
+	</properties>
+
 	<build>
 		<plugins>
 			<plugin>
@@ -118,7 +125,7 @@
 							<arg>-s</arg>
 							<arg>${project.build.directory}/repository</arg>
 							<arg>-t</arg>
-							<arg>snapshots/builds/${JOB_NAME}/${BUILD_ID}-B${BUILD_NUMBER}/all/repo/</arg>
+							<arg>${publishingPath}</arg>
 						</arguments>	
 					</configuration>
 				</execution>
