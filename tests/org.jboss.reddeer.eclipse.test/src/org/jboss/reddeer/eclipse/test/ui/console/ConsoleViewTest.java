@@ -6,6 +6,13 @@ import static org.junit.Assert.assertThat;
 
 import org.hamcrest.core.IsEqual;
 import org.hamcrest.core.IsNull;
+import org.jboss.reddeer.common.matcher.RegexMatcher;
+import org.jboss.reddeer.common.wait.AbstractWait;
+import org.jboss.reddeer.common.wait.TimePeriod;
+import org.jboss.reddeer.common.wait.WaitUntil;
+import org.jboss.reddeer.common.wait.WaitWhile;
+import org.jboss.reddeer.core.condition.JobIsRunning;
+import org.jboss.reddeer.core.matcher.WithTextMatchers;
 import org.jboss.reddeer.eclipse.condition.ConsoleHasLabel;
 import org.jboss.reddeer.eclipse.condition.ConsoleHasLaunch;
 import org.jboss.reddeer.eclipse.condition.ConsoleHasNoChange;
@@ -22,16 +29,9 @@ import org.jboss.reddeer.eclipse.utils.DeleteUtils;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.requirements.openperspective.OpenPerspectiveRequirement.OpenPerspective;
 import org.jboss.reddeer.swt.api.StyledText;
-import org.jboss.reddeer.core.condition.JobIsRunning;
 import org.jboss.reddeer.swt.impl.menu.ShellMenu;
 import org.jboss.reddeer.swt.impl.styledtext.DefaultStyledText;
 import org.jboss.reddeer.swt.impl.toolbar.DefaultToolItem;
-import org.jboss.reddeer.common.matcher.RegexMatcher;
-import org.jboss.reddeer.core.matcher.WithTextMatchers;
-import org.jboss.reddeer.common.wait.AbstractWait;
-import org.jboss.reddeer.common.wait.TimePeriod;
-import org.jboss.reddeer.common.wait.WaitUntil;
-import org.jboss.reddeer.common.wait.WaitWhile;
 import org.jboss.reddeer.workbench.impl.editor.DefaultEditor;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -59,7 +59,9 @@ public class ConsoleViewTest {
 
 	@AfterClass
 	public static void tearDownClass() {
-		DeleteUtils.forceProjectDeletion(new PackageExplorer().getProject(TEST_PROJECT_NAME),true);
+		PackageExplorer explorer = new PackageExplorer();
+		explorer.open();
+		DeleteUtils.forceProjectDeletion(explorer.getProject(TEST_PROJECT_NAME),true);
 	}
 
 	private void runTestClassAndWaitToFinish() {
@@ -184,6 +186,7 @@ public class ConsoleViewTest {
 
 	private static void createTestProject() {
 		PackageExplorer packageExplorer = new PackageExplorer();
+		packageExplorer.open();
 		if (!packageExplorer.containsProject(TEST_PROJECT_NAME)) {
 			createJavaProject();
 			createJavaClass(TEST_CLASS_NAME, "System.out.print(\"Hello World\");");
@@ -228,7 +231,9 @@ public class ConsoleViewTest {
 	}
 
 	private static void runTestClass(String name) {
-		new PackageExplorer().getProject(TEST_PROJECT_NAME).getProjectItem("src", "test", name + ".java").select();
+		PackageExplorer explorer = new PackageExplorer();
+		explorer.open();
+		explorer.getProject(TEST_PROJECT_NAME).getProjectItem("src", "test", name + ".java").select();
 		RegexMatcher[] array = { new RegexMatcher("Run.*"), new RegexMatcher("Run As.*"),
 				new RegexMatcher(".*Java Application.*") };
 		WithTextMatchers m = new WithTextMatchers(array);
