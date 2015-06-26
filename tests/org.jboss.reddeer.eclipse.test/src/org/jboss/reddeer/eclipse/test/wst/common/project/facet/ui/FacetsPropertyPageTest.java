@@ -3,6 +3,12 @@ package org.jboss.reddeer.eclipse.test.wst.common.project.facet.ui;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 
+import org.jboss.reddeer.common.wait.WaitUntil;
+import org.jboss.reddeer.common.wait.WaitWhile;
+import org.jboss.reddeer.core.condition.ShellWithTextIsActive;
+import org.jboss.reddeer.core.condition.ShellWithTextIsAvailable;
+import org.jboss.reddeer.core.handler.ShellHandler;
+import org.jboss.reddeer.core.handler.WidgetHandler;
 import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.PackageExplorer;
 import org.jboss.reddeer.eclipse.test.wst.server.ui.view.ServersViewTestCase;
 import org.jboss.reddeer.eclipse.ui.wizards.datatransfer.ExternalProjectImportWizardDialog;
@@ -11,15 +17,9 @@ import org.jboss.reddeer.eclipse.utils.DeleteUtils;
 import org.jboss.reddeer.eclipse.wst.common.project.facet.ui.FacetsPropertyPage;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.swt.api.Shell;
-import org.jboss.reddeer.core.condition.ShellWithTextIsActive;
-import org.jboss.reddeer.core.condition.ShellWithTextIsAvailable;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
-import org.jboss.reddeer.core.handler.ShellHandler;
-import org.jboss.reddeer.core.handler.WidgetHandler;
 import org.jboss.reddeer.swt.impl.button.OkButton;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
-import org.jboss.reddeer.common.wait.WaitUntil;
-import org.jboss.reddeer.common.wait.WaitWhile;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -61,8 +61,9 @@ public class FacetsPropertyPageTest {
 		} catch (SWTLayerException e) {
 			// not found, no action needed
 		}
-		DeleteUtils.forceProjectDeletion(
-				new PackageExplorer().getProject(PROJECT), true);
+		PackageExplorer explorer = new PackageExplorer();
+		explorer.open();
+		DeleteUtils.forceProjectDeletion(explorer.getProject(PROJECT), true);
 	}
 
 	@Test
