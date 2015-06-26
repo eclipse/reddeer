@@ -161,6 +161,19 @@ public class CTabItemHandler {
 			}
 		});
 	}
+	
+	/**
+	 * Returns true if the tab is visible
+	 * @param swtCTabItem
+	 * @return
+	 */
+	public boolean isShowing(final CTabItem swtCTabItem) {
+		return Display.syncExec(new ResultRunnable<Boolean>() {
+			public Boolean run() {
+				return swtCTabItem.isShowing();
+			}
+		});
+	}
 
 	/**
 	 * Selects specified {@link CTabItem}.
