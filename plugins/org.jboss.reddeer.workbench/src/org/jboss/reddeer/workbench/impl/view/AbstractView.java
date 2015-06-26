@@ -1,34 +1,35 @@
 package org.jboss.reddeer.workbench.impl.view;
 
-import java.util.Arrays;
+import java.util.List;
 
-import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.actions.ActionFactory;
 import org.eclipse.ui.views.IViewCategory;
 import org.eclipse.ui.views.IViewDescriptor;
 import org.hamcrest.Matcher;
-import org.jboss.reddeer.common.logging.Logger;
-import org.jboss.reddeer.swt.api.Menu;
-import org.jboss.reddeer.core.condition.ShellWithTextIsActive;
 import org.jboss.reddeer.common.condition.WaitCondition;
-import org.jboss.reddeer.common.exception.WaitTimeoutExpiredException;
+import org.jboss.reddeer.common.logging.Logger;
+import org.jboss.reddeer.common.matcher.RegexMatcher;
+import org.jboss.reddeer.common.wait.WaitUntil;
+import org.jboss.reddeer.common.wait.WaitWhile;
+import org.jboss.reddeer.core.condition.ShellWithTextIsActive;
+import org.jboss.reddeer.core.handler.ViewHandler;
+import org.jboss.reddeer.core.handler.WidgetHandler;
+import org.jboss.reddeer.core.handler.WorkbenchPartHandler;
+import org.jboss.reddeer.core.lookup.WidgetLookup;
+import org.jboss.reddeer.core.matcher.WithTextMatcher;
+import org.jboss.reddeer.core.matcher.WithTextMatchers;
+import org.jboss.reddeer.swt.api.CTabItem;
+import org.jboss.reddeer.swt.api.Menu;
 import org.jboss.reddeer.swt.impl.button.OkButton;
+import org.jboss.reddeer.swt.impl.ctab.DefaultCTabItem;
 import org.jboss.reddeer.swt.impl.menu.ShellMenu;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
-import org.jboss.reddeer.common.matcher.RegexMatcher;
-import org.jboss.reddeer.core.matcher.WithTextMatcher;
-import org.jboss.reddeer.core.matcher.WithTextMatchers;
-import org.jboss.reddeer.common.wait.TimePeriod;
-import org.jboss.reddeer.common.wait.WaitUntil;
-import org.jboss.reddeer.common.wait.WaitWhile;
 import org.jboss.reddeer.workbench.api.View;
 import org.jboss.reddeer.workbench.api.WorkbenchPart;
 import org.jboss.reddeer.workbench.exception.WorkbenchLayerException;
-import org.jboss.reddeer.core.handler.ViewHandler;
-import org.jboss.reddeer.core.handler.WorkbenchPartHandler;
-import org.jboss.reddeer.core.lookup.WorkbenchPartLookup;
+import org.jboss.reddeer.workbench.impl.shell.WorkbenchShell;
 
 /**
  * Abstract class for all View implementations
@@ -38,11 +39,16 @@ import org.jboss.reddeer.core.lookup.WorkbenchPartLookup;
  */
 public class AbstractView implements View {
 
-	protected static final Logger log = Logger.getLogger(AbstractView.class);
-	protected IViewPart viewPart;
 	private static final String SHOW_VIEW = "Show View";
+	
+	protected static final Logger log = Logger.getLogger(AbstractView.class);
+	
 	protected String[] path;
 
+	protected Matcher<String> viewNameMatcher;
+	
+	protected CTabItem cTabItem;
+	
 	/**
 	 * Initialize view with given viewToolTip. If view is opened than it will be
 	 * focused
@@ -51,13 +57,7 @@ public class AbstractView implements View {
 	 *            of view to initialize
 	 */
 	public AbstractView(String viewToolTip) {
-		ViewPartIsFound viewIsFound = new ViewPartIsFound(viewToolTip);
-		new WaitUntil(viewIsFound, TimePeriod.SHORT, false);
-		viewPart = viewIsFound.getPart();
-		path = findRegisteredViewPath(new WithTextMatcher(viewToolTip));
-		if (viewPart != null) {
-			activate();
-		}
+		this(new WithTextMatcher(viewToolTip));
 	}
 
 	/**
@@ -68,29 +68,23 @@ public class AbstractView implements View {
 	 *            matcher of view to initialize
 	 */
 	public AbstractView(Matcher<String> viewToolTip) {
-		ViewPartIsFound viewIsFound = new ViewPartIsFound(viewToolTip);
-		new WaitUntil(viewIsFound, TimePeriod.SHORT, false);
-		viewPart = viewIsFound.getPart();
+		this.viewNameMatcher = viewToolTip;
 		path = findRegisteredViewPath(viewToolTip);
-		if (viewPart != null) {
-			activate();
-		}
+		cTabItem = getViewCTabItem();
 	}
 
 	@Override
 	public void maximize() {
 		activate();
 		log.info("Maximize view");
-		WorkbenchPartHandler.getInstance()
-				.performAction(ActionFactory.MAXIMIZE);
+		WorkbenchPartHandler.getInstance().performAction(ActionFactory.MAXIMIZE);
 	}
 
 	@Override
 	public void minimize() {
 		activate();
 		log.info("Minimize view");
-		WorkbenchPartHandler.getInstance()
-				.performAction(ActionFactory.MINIMIZE);
+		WorkbenchPartHandler.getInstance().performAction(ActionFactory.MINIMIZE);
 	}
 
 	/**
@@ -102,8 +96,7 @@ public class AbstractView implements View {
 		log.info("Restore view");
 		// in order to restore maximized window maximized action has to be
 		// called
-		WorkbenchPartHandler.getInstance()
-				.performAction(ActionFactory.MAXIMIZE);
+		WorkbenchPartHandler.getInstance().performAction(ActionFactory.MAXIMIZE);
 	}
 
 	/**
@@ -112,12 +105,22 @@ public class AbstractView implements View {
 	@Override
 	public void activate() {
 		log.info("Activate view " + viewTitle());
-		log.debug("viewPart is pointing to view with title: " 
-			+ (viewPart != null ? viewPart.getTitle() : "null"));
-		viewPartIsNotNull();
-		ViewHandler.getInstance().setFocus(viewPart);
+		cTabItemIsNotNull();
+		getViewCTabItem().activate();
+		ViewHandler.getInstance().focusChildControl();
 	}
 
+	protected CTabItem getViewCTabItem(){
+		if (cTabItem == null) {
+			if (!isOpened()){
+				return cTabItem;
+			}
+			log.debug("Looking up CTabItem with text " + viewTitle());
+			cTabItem = new DefaultCTabItem(new WorkbenchShell(), viewNameMatcher);
+		}
+		return cTabItem; 
+	}
+	
 	private String[] findRegisteredViewPath(Matcher<String> title) {
 
 		IViewDescriptor viewDescriptor = findView(title);
@@ -170,110 +173,57 @@ public class AbstractView implements View {
 	public void close() {
 		activate();
 		log.info("Close view");
-		viewPartIsNotNull();
-		ViewHandler.getInstance().close(viewPart);
-		viewPart = null;
+		cTabItem.close();
+		cTabItem = null;
 	}
 
 	@Override
 	public void open() {
 		log.info("Open view " + viewTitle());
-		log.debug("viewPart is pointing to view with title: " 
-			+ (viewPart != null ? viewPart.getTitle() : "null"));
 		// view is not opened, it has to be opened via menu
-		if (!isOpened()){
+		if (getViewCTabItem() == null){
 			log.info("Open " + viewTitle() + " view via menu.");
-			WithTextMatchers m = new WithTextMatchers(new RegexMatcher[] {
-					new RegexMatcher("Window.*"),
-					new RegexMatcher("Show View.*"),
-					new RegexMatcher("Other...*") });
-			Menu menu = new ShellMenu(m.getMatchers());
-			menu.select();
-			new DefaultShell(SHOW_VIEW);
-			new DefaultTreeItem(path).select();
-			new OkButton().click();
-			new WaitWhile(new ShellWithTextIsActive(SHOW_VIEW));
-			try {
-				new WaitUntil(new ViewPartIsActive());
-				viewPart = (IViewPart) WorkbenchPartLookup.getInstance()
-						.getActiveWorkbenchPart();
-				if (!viewPart.getTitle().startsWith(viewTitle())){
-					log.debug("Active view has title: '" + viewPart.getTitle() 
-						+ "'\nbut expected active view title is: '"
-						+ viewTitle() + "' therefore trying to find it");
-					viewPart = WorkbenchPartLookup.getInstance().getViewByTitle(
-							new WithTextMatcher(viewTitle()));
-				}
-			} catch (WaitTimeoutExpiredException w) {
-				log.debug("View " + Arrays.toString(path) + " is not active");
-				viewPart = WorkbenchPartLookup.getInstance().getViewByTitle(
-						new WithTextMatcher(viewTitle()));
-			}
-		} else {
-			log.info("View is open, just activate it");
+			openViaMenu();
 		}
 		activate();
 	}
 
-	class ViewPartIsActive implements WaitCondition {
-
-		@Override
-		public boolean test() {
-			return WorkbenchPartLookup.getInstance().getActiveWorkbenchPart() instanceof IViewPart;
-		}
-
-		@Override
-		public String description() {
-			return "View part is active";
-		}
-
+	private void openViaMenu() {
+		WithTextMatchers m = new WithTextMatchers(new RegexMatcher[] {
+				new RegexMatcher("Window.*"),
+				new RegexMatcher("Show View.*"),
+				new RegexMatcher("Other...*") });
+		Menu menu = new ShellMenu(m.getMatchers());
+		menu.select();
+		new DefaultShell(SHOW_VIEW);
+		new DefaultTreeItem(path).select();
+		new OkButton().click();
+		new WaitWhile(new ShellWithTextIsActive(SHOW_VIEW));
+		new WaitUntil(new ViewCTabIsAvailable());
 	}
 
-	class ViewPartIsFound implements WaitCondition {
-
-		private String title;
-		private Matcher<String> titleMatcher;
-		private IViewPart part;
-
-		public ViewPartIsFound(String title) {
-			this.title = title;
-		}
-
-		public ViewPartIsFound(Matcher<String> title) {
-			this.titleMatcher = title;
-		}
+	private class ViewCTabIsAvailable implements WaitCondition {
 
 		@Override
 		public boolean test() {
-			if (title != null) {
-				Matcher<String> titleM = new WithTextMatcher(title);
-				part = WorkbenchPartLookup.getInstance().getViewByTitle(titleM);
-			} else {
-				part = WorkbenchPartLookup.getInstance().getViewByTitle(
-						titleMatcher);
-			}
-			if (part == null) {
+			try {
+				getViewCTabItem();
+				return true;
+			} catch (Exception e){
 				return false;
 			}
-			return true;
 		}
 
 		@Override
 		public String description() {
-			if (title != null) {
-				return "viewPart with title " + title + " is found";
-			}
-			return "viewPart with title " + titleMatcher + " is found";
+			return "view's CTabItem is available";
 		}
-
-		public IViewPart getPart() {
-			return part;
-		}
-
 	}
-
-	private void viewPartIsNotNull() {
-		if (viewPart == null) {
+	
+	private void cTabItemIsNotNull() {
+		log.debug("View's cTabItem is found: " 
+				+ (cTabItem != null ? true : false));
+		if (cTabItem == null) {
 			throw new WorkbenchLayerException("Cannot perform the specified "
 					+ "operation before initialization "
 					+ "provided by open method");
@@ -281,39 +231,27 @@ public class AbstractView implements View {
 	}
 
 	public String getTitle() {
-		return WorkbenchPartHandler.getInstance().getTitle(viewPart);
+		return viewTitle();
 	}
 
 	@Override
 	public boolean isVisible() {
-		if (!isValid()) {
-			viewPart = WorkbenchPartLookup.getInstance().getViewByTitle(
-					new WithTextMatcher(viewTitle()));
-		}
-
-		return viewPart != null
-				&& ViewHandler.getInstance().isViewVisible(viewPart);
-	}
-	/**
-	 * Checks if view is valid. Actually checks if field viewPart is properly set
-	 * and pointing to valid view 
-	 * @return
-	 */
-	private boolean isValid(){
-		return ViewHandler.getInstance().isValid(viewPart); 
-	}
-
-	@Override
-	public boolean isOpened() {
-		if (!isValid()) {
-			viewPart = WorkbenchPartLookup.getInstance().getViewByTitle(
-					new WithTextMatcher(viewTitle()));
-		}
-		
-		return isValid();
+		return getViewCTabItem().isShowing();
 	}
 	
+	@Override
+	public boolean isOpened() {
+		List<org.eclipse.swt.custom.CTabItem> tabs = WidgetLookup.getInstance().activeWidgets(new WorkbenchShell(), org.eclipse.swt.custom.CTabItem.class);
+		for (org.eclipse.swt.custom.CTabItem tab : tabs){
+			String text = WidgetHandler.getInstance().getText(tab);
+			if (viewTitle().equals(text)){
+				return true;
+			}
+		}
+		return false;
+	}
+
 	public boolean isActive(){
-		return WorkbenchPartLookup.getInstance().getActiveWorkbenchPart().equals(viewPart);
+		throw new UnsupportedOperationException("Method isActive is not supported due to the bug https://bugs.eclipse.org/bugs/show_bug.cgi?id=468948");
 	}
 }

@@ -9,10 +9,12 @@ import org.jboss.reddeer.eclipse.ui.console.ConsoleView;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(RedDeerSuite.class)
+@Ignore
 public class ViewWithTitleIsActiveTest {
 
 	private ConsoleView consoleView = new ConsoleView();
@@ -40,7 +42,7 @@ public class ViewWithTitleIsActiveTest {
 		}
 	}
 	
-	@Test
+	@Test(expected=UnsupportedOperationException.class)
 	public void testConsoleView() {
 		ViewWithTitleIsActive condition = new ViewWithTitleIsActive(consoleView.getTitle());
 		consoleView.activate();

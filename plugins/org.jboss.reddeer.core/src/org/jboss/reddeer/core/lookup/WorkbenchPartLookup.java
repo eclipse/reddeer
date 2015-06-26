@@ -1,7 +1,9 @@
 package org.jboss.reddeer.core.lookup;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.ui.IViewPart;
@@ -67,7 +69,7 @@ public class WorkbenchPartLookup {
 
 	/**
 	 * Gets all currently opened views as list of view parts. Includes also views on non-active tabs.
-	 * 
+	 * @deprecated This method does not work properly due to https://bugs.eclipse.org/bugs/show_bug.cgi?id=468948
 	 * @return list of currently opened view parts
 	 */
 	public List<IViewPart> getOpenViews(){
@@ -76,9 +78,11 @@ public class WorkbenchPartLookup {
 			@Override
 			public List<IViewPart> run() {
 				IWorkbenchPage activePage = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
-				List<IViewPart> views = new ArrayList<IViewPart>();
+				Set<IViewPart> views = new HashSet<IViewPart>();
 
 				log.debug("Looking up all open views");
+				// this is a workaround of https://bugs.eclipse.org/bugs/show_bug.cgi?id=468948, 
+				// activePage.getViewReferences() should be used
 				for (IViewReference viewReference : activePage.getViewReferences()){
 					IViewPart view = viewReference.getView(false);
 					if (view == null){
@@ -97,7 +101,7 @@ public class WorkbenchPartLookup {
 						views.add(part);
 					}
 				}
-				return views;
+				return new ArrayList<IViewPart>(views);
 			}
 		});
 	}
@@ -113,7 +117,7 @@ public class WorkbenchPartLookup {
 
 	/**
 	 * Gets active view as a view reference.
-	 * 
+	 * @deprecated This method does not work properly due to https://bugs.eclipse.org/bugs/show_bug.cgi?id=468948
 	 * @return active view
 	 */
 	public IViewReference getActiveView() {
@@ -131,7 +135,7 @@ public class WorkbenchPartLookup {
 	
 	/**
 	 * Gets view as a view part with title matching specified matcher.
-	 * 
+	 * @deprecated This method does not work properly due to https://bugs.eclipse.org/bugs/show_bug.cgi?id=468948
 	 * @param name matcher to match title
 	 * @return view part matching specified matcher
 	 */

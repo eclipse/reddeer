@@ -40,6 +40,18 @@ public interface CTabItem extends Widget {
 	 * @return true if the close button should be shown
 	 */
 	boolean isShowClose();
+	
+	/**
+	 * Returns true if the tab is visible
+	 * @return true if the tab is visible
+	 */
+	boolean isShowing();
 
 	org.eclipse.swt.custom.CTabItem getSWTWidget();
+	
+	/**
+	 * Returns parent folder {@link CTabFolder}
+	 * @return parent folder
+	 */
+	CTabFolder getFolder();
 }

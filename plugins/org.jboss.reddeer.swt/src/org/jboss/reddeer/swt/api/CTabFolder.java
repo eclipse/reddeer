@@ -10,4 +10,9 @@ import org.jboss.reddeer.swt.widgets.Widget;
  */
 public interface CTabFolder extends Widget {
 
+	/**
+	 * Returns selected {@link CTabItem} within the folder
+	 * @return selected tab within the folder
+	 */
+	CTabItem getSelection();
 }
