@@ -46,7 +46,6 @@ Raleigh NC 27606 USA.
    <includes id="org.jboss.reddeer.ui.feature.source" version="0.0.0"/>
   
    <requires>
-     <import feature="org.eclipse.cvs"/>
      <import feature="org.eclipse.help"/>
      <import feature="org.eclipse.jdt"/>
      <import feature="org.eclipse.platform"/>
@@ -63,10 +62,7 @@ Raleigh NC 27606 USA.
      <import feature="org.eclipse.egit.mylyn"/>
      <import feature="org.eclipse.rse"/>
      <import feature="org.eclipse.rse.useractions"/>
-     <import feature="org.eclipse.tm.terminal"/>
-     <import feature="org.eclipse.tm.terminal.ssh"/>
-     <import feature="org.eclipse.tm.terminal.telnet"/>
-     <import feature="org.eclipse.tm.terminal.view"/>
+     <import feature="org.eclipse.tm.terminal.feature"/>
      <import feature="org.eclipse.datatools.modelbase.feature"/>
      <import feature="org.eclipse.datatools.connectivity.feature"/>
      <import feature="org.eclipse.datatools.sqldevtools.feature"/>
@@ -92,7 +88,6 @@ Raleigh NC 27606 USA.
      <import feature="org.eclipse.jst.jsf.apache.trinidad.tagsupport.feature"/>
      <import feature="org.eclipse.jst.ws.axis2tools.feature"/>
      <import feature="org.eclipse.jst.ws.axis2tools.feature"/>
-    
      <import feature="org.eclipse.jpt.common.feature"/>
      <import feature="org.eclipse.jpt.common.eclipselink.feature"/>
      <import feature="org.eclipse.jpt.dbws.eclipselink.feature"/>
@@ -100,21 +95,21 @@ Raleigh NC 27606 USA.
      <import feature="org.eclipse.jpt.jaxb.feature"/>
      <import feature="org.eclipse.jpt.jpa.eclipselink.feature"/>
      <import feature="org.eclipse.jpt.jpa.feature"/>
-    
-     <import feature="org.eclipse.jsf.feature" />
+     <import feature="org.eclipse.jsf.feature"/>
      <import feature="org.eclipse.jst.webpageeditor.feature"/>
      <import feature="org.eclipse.jst.jsf.apache.trinidad.tagsupport.feature"/>
-    
-     <import feature="org.eclipse.jst.ws.jaxws.feature" />
-     <import feature="org.eclipse.jst.ws.cxf.feature" />
-     <import feature="org.eclipse.jst.ws.jaxws.dom.feature" />
-    
+     <import feature="org.eclipse.jst.ws.jaxws.feature"/>
+     <import feature="org.eclipse.jst.ws.cxf.feature"/>
+     <import feature="org.eclipse.jst.ws.jaxws.dom.feature"/>
      <import feature="org.eclipse.m2e.feature"/>
      <import feature="org.eclipse.m2e.logback.feature"/>
      <import feature="org.eclipse.m2e.wtp.feature"/>
      <import feature="org.eclipse.m2e.wtp.jaxrs.feature"/>
      <import feature="org.eclipse.m2e.wtp.jpa.feature"/>
      <import feature="org.eclipse.m2e.wtp.jsf.feature"/>
+     <import feature="org.eclipse.recommenders.rcp.feature"/>
+     <import feature="org.eclipse.recommenders.mylyn.rcp.feature"/>
+     <import feature="org.eclipse.epp.package.common.feature"/>
 
      <import feature="org.eclipse.gef"/>
      <import feature="org.eclipse.gef.source"/>
@@ -124,13 +119,38 @@ Raleigh NC 27606 USA.
      <import feature="org.eclipse.graphiti.source.feature"/>
      <import feature="org.eclipse.graphiti.feature.examples"/>
      <import feature="org.eclipse.graphiti.feature.examples.source"/>
-    
-     <import feature="org.eclipse.epp.package.common.feature"/>
-    
    </requires>
     
    <plugin
          id="org.jboss.reddeer.branding"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.mockito"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.hamcrest"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+   
+   <plugin
+         id="org.hamcrest.core"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+   
+   <plugin
+         id="org.hamcrest.library"
          download-size="0"
          install-size="0"
          version="0.0.0"
