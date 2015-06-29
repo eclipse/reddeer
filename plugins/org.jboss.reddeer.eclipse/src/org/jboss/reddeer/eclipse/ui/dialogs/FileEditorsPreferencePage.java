@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.jboss.reddeer.common.logging.Logger;
+import org.jboss.reddeer.core.matcher.WithMnemonicTextMatcher;
 import org.jboss.reddeer.eclipse.exception.EclipseLayerException;
 import org.jboss.reddeer.jface.preference.PreferencePage;
 import org.jboss.reddeer.swt.api.Table;
@@ -15,7 +16,7 @@ import org.jboss.reddeer.swt.impl.button.RadioButton;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.jboss.reddeer.swt.impl.table.DefaultTable;
 import org.jboss.reddeer.swt.impl.text.LabeledText;
-import org.jboss.reddeer.core.matcher.WithMnemonicTextMatcher;
+import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
 
 /**
  * 
@@ -169,7 +170,7 @@ public class FileEditorsPreferencePage extends PreferencePage {
 		else{
 			new RadioButton("External programs").click();
 		}
-		new DefaultTable().select(associatedEditor);
+		new DefaultTreeItem(associatedEditor).select();;
 		new OkButton().click();
 	}
 	/**
