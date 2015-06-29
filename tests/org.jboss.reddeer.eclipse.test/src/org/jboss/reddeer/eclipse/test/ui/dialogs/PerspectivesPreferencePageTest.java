@@ -2,10 +2,10 @@ package org.jboss.reddeer.eclipse.test.ui.dialogs;
 
 import static org.junit.Assert.assertTrue;
 
-import org.jboss.reddeer.workbench.ui.dialogs.WorkbenchPreferenceDialog;
 import org.jboss.reddeer.eclipse.ui.dialogs.PerspectivesPreferencePage;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
+import org.jboss.reddeer.workbench.ui.dialogs.WorkbenchPreferenceDialog;
 import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -36,16 +36,9 @@ public class PerspectivesPreferencePageTest {
 		perspectivesPreferencePage.checkOpenNewPerspectiveInSameWindow();
 		assertTrue(perspectivesPreferencePage
 				.isOpenNewPerspectiveInSameWindow());
-		perspectivesPreferencePage.checkOpenNewViewAsFastView();
-		assertTrue(perspectivesPreferencePage.isOpenNewViewAsFastView());
-		perspectivesPreferencePage.checkOpenNewViewWithinPerspective();
-		assertTrue(perspectivesPreferencePage.isOpenNewViewWithinPerspective());
 		perspectivesPreferencePage.checkPromptOpenAssociatedPerspective();
 		assertTrue(perspectivesPreferencePage
 				.isPromptOpenAssociatedPerspective());
-		perspectivesPreferencePage.setHideEmptyFastViewBar(true);
-		assertTrue(perspectivesPreferencePage.isHideEmptyFastViewBar());
-
 		preferencesDialog.cancel();
 	}
 

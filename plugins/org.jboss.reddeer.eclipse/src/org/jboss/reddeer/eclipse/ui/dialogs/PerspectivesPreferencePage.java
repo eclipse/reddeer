@@ -1,7 +1,6 @@
 package org.jboss.reddeer.eclipse.ui.dialogs;
 
 import org.jboss.reddeer.jface.preference.PreferencePage;
-import org.jboss.reddeer.swt.impl.button.CheckBox;
 import org.jboss.reddeer.swt.impl.button.RadioButton;
 import org.jboss.reddeer.swt.impl.group.DefaultGroup;
 
@@ -37,25 +36,6 @@ public class PerspectivesPreferencePage extends PreferencePage {
 	private RadioButton getOpenNewPerspectiveInNewWindowRadioButton() {
 		return new RadioButton(new DefaultGroup("Open a new perspective"),
 				"In a new window");
-	}
-
-	/** 
-	 * Returns Open a new view within the perspective radio button.
-	 * 
-	 * @return RadioButton
-	 */
-	private RadioButton getOpenNewViewWithinPerspectiveRadioButton() {
-		return new RadioButton(new DefaultGroup("Fast Views"),
-				"Within the perspective");
-	}
-
-	/** 
-	 * Returns Open a new view as fast view radio button.
-	 * 
-	 * @return RadioButton
-	 */
-	private RadioButton getOpenNewViewAsFastViewRadioButton() {
-		return new RadioButton(new DefaultGroup("Fast Views"), "As fast view");
 	}
 
 	/** 
@@ -95,16 +75,6 @@ public class PerspectivesPreferencePage extends PreferencePage {
 	}
 
 	/** 
-	 * Returns Hide empty fast view bar check box.
-	 * 
-	 * @return CheckBox
-	 */
-	private CheckBox getHideEmptyFastViewBarCheckBox() {
-		return new CheckBox(new DefaultGroup("Fast Views"),
-				"Hide empty fast view bar ");
-	}
-
-	/** 
 	 * Returns Open a new perspective in the same window value.
 	 * 
 	 * @return boolean
@@ -120,24 +90,6 @@ public class PerspectivesPreferencePage extends PreferencePage {
 	 */
 	public boolean isOpenNewPerspectiveInNewWindow() {
 		return getOpenNewPerspectiveInNewWindowRadioButton().isSelected();
-	}
-
-	/** 
-	 * Returns Open a new view within the perspective value.
-	 * 
-	 * @return boolean
-	 */
-	public boolean isOpenNewViewWithinPerspective() {
-		return getOpenNewViewWithinPerspectiveRadioButton().isSelected();
-	}
-
-	/** 
-	 * Returns Open a new view as fast view value.
-	 * 
-	 * @return boolean
-	 */
-	public boolean isOpenNewViewAsFastView() {
-		return getOpenNewViewAsFastViewRadioButton().isSelected();
 	}
 
 	/** 
@@ -171,15 +123,6 @@ public class PerspectivesPreferencePage extends PreferencePage {
 	}
 
 	/** 
-	 * Returns Hide empty fast view bar value.
-	 * 
-	 * @return boolean
-	 */
-	public boolean isHideEmptyFastViewBar() {
-		return getHideEmptyFastViewBarCheckBox().isChecked();
-	}
-
-	/** 
 	 * Check Open a new perspective in the same window.
 	 */
 	public void checkOpenNewPerspectiveInSameWindow() {
@@ -191,21 +134,6 @@ public class PerspectivesPreferencePage extends PreferencePage {
 	 */
 	public void checkOpenNewPerspectiveInNewWindow() {
 		getOpenNewPerspectiveInNewWindowRadioButton().toggle(true);
-	}
-
-	/**
-	 *  Checks Open a new view within the perspective.
-	 */
-	public void checkOpenNewViewWithinPerspective() {
-		getOpenNewViewWithinPerspectiveRadioButton().toggle(true);
-	}
-
-	/** 
-	 * 
-	 * Checks Open a new view as fast view.
-	 */
-	public void checkOpenNewViewAsFastView() {
-		getOpenNewViewAsFastViewRadioButton().toggle(true);
 	}
 
 	/**
@@ -227,14 +155,5 @@ public class PerspectivesPreferencePage extends PreferencePage {
 	 */
 	public void checkPromptOpenAssociatedPerspective() {
 		getPromptOpenAssociatedPerspectiveRadioButton().toggle(true);
-	}
-
-	/** 
-	 * Sets Hide empty fast view bar value.
-	 * 
-	 * @param check - true to check Hide Empty Fast View Bar
-	 */
-	public void setHideEmptyFastViewBar(boolean check) {
-		getHideEmptyFastViewBarCheckBox().toggle(check);
 	}
 }
