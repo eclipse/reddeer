@@ -5,7 +5,15 @@ import java.util.List;
 
 import org.eclipse.wst.server.core.IModule;
 import org.eclipse.wst.server.ui.IServerModule;
+import org.hamcrest.Matcher;
+import org.hamcrest.core.IsEqual;
+import org.jboss.reddeer.common.condition.WaitCondition;
 import org.jboss.reddeer.common.logging.Logger;
+import org.jboss.reddeer.common.wait.TimePeriod;
+import org.jboss.reddeer.common.wait.WaitUntil;
+import org.jboss.reddeer.common.wait.WaitWhile;
+import org.jboss.reddeer.core.condition.JobIsRunning;
+import org.jboss.reddeer.core.util.Display;
 import org.jboss.reddeer.eclipse.condition.ServerExists;
 import org.jboss.reddeer.eclipse.exception.EclipseLayerException;
 import org.jboss.reddeer.eclipse.wst.server.ui.editor.ServerEditor;
@@ -13,16 +21,10 @@ import org.jboss.reddeer.eclipse.wst.server.ui.view.ServersViewEnums.ServerPubli
 import org.jboss.reddeer.eclipse.wst.server.ui.view.ServersViewEnums.ServerState;
 import org.jboss.reddeer.eclipse.wst.server.ui.wizard.ModifyModulesDialog;
 import org.jboss.reddeer.swt.api.TreeItem;
-import org.jboss.reddeer.core.condition.JobIsRunning;
-import org.jboss.reddeer.common.condition.WaitCondition;
 import org.jboss.reddeer.swt.impl.button.CheckBox;
 import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.menu.ContextMenu;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
-import org.jboss.reddeer.core.util.Display;
-import org.jboss.reddeer.common.wait.TimePeriod;
-import org.jboss.reddeer.common.wait.WaitUntil;
-import org.jboss.reddeer.common.wait.WaitWhile;
 
 /**
  * Represents a server on {@link ServersView}. Contains both, the server data
@@ -103,13 +105,26 @@ public class Server {
 	 * @return Module
 	 */
 	public ServerModule getModule(String name) {
+		return getModule(new IsEqual<String>(name));
+	}
+	
+	
+	/**
+	 * Return a module matching a given matcher.
+	 * 
+	 * @param stringMatcher
+	 *            matcher to match against module name.
+	 * @return Module
+	 */
+	public ServerModule getModule(Matcher<String> stringMatcher) {
 		activate();
-		for (ServerModule module : getModules()){
-			if (module.getLabel().getName().equals(name)){
+		for (ServerModule module : getModules()) {
+			if (stringMatcher.matches(module.getLabel().getName())) {
 				return module;
 			}
 		}
-		throw new EclipseLayerException("There is no module with name " + name + " on server " + getLabel().getName());
+		throw new EclipseLayerException("There is no module with name matching matcher " + stringMatcher.toString()
+				+ " on server " + getLabel().getName());
 	}
 
 	/**

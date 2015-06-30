@@ -6,6 +6,7 @@ import static org.junit.Assert.assertEquals;
 
 import java.util.List;
 
+import org.jboss.reddeer.common.matcher.RegexMatcher;
 import org.jboss.reddeer.eclipse.core.resources.Project;
 import org.jboss.reddeer.eclipse.exception.EclipseLayerException;
 import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.PackageExplorer;
@@ -290,8 +291,10 @@ public class ServerTest extends ServersViewTestCase {
 		dialog.finish();
 
 		ServerModule module = server1.getModule(PROJECT_2);
+		ServerModule module2 = server1.getModule(new RegexMatcher(".*project-2"));
 
 		assertThat(module.getLabel().getName(), is(PROJECT_2));
+		assertThat(module2.getLabel().getName(), is(PROJECT_2));
 	}
 
 	@Test(expected=EclipseLayerException.class)
