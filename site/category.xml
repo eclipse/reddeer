@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
 	<description>To install these features, point Eclipse at this site.</description>
-	<category-def label="1. RedDeer Runtime/API" name="AllFeatures">
+	<category-def label="1. RedDeer Runtime/API" name="RuntimeAPIFeatures">
 		<description>RedDeer Runtime/API: Contains RedDeer runtime for running tests using RedDeer.</description>
 	</category-def>
 	<category-def label="2. RedDeer UI" name="UIFeatures">
@@ -19,15 +19,15 @@
 
 
 	<feature url="org.jboss.reddeer.eclipse.feature.qualifier" id="org.jboss.reddeer.eclipse.feature" version="0.0.0">
-		<category name="AllFeatures"/>
+		<category name="RuntimeAPIFeatures"/>
 	</feature>
 
 	<feature url="org.jboss.reddeer.rcp.feature.qualifier" id="org.jboss.reddeer.rcp.feature" version="0.0.0">
-		<category name="AllFeatures"/>
+		<category name="RuntimeAPIFeatures"/>
 	</feature>
 
 	<feature url="org.jboss.reddeer.swt.feature.qualifier" id="org.jboss.reddeer.swt.feature" version="0.0.0">
-		<category name="AllFeatures"/>
+		<category name="RuntimeAPIFeatures"/>
 	</feature>
 
 	<feature url="org.jboss.reddeer.recorder.feature.qualifier" id="org.jboss.reddeer.recorder.feature" version="0.0.0">
@@ -42,6 +42,10 @@
 		<category name="ToolFeatures"/>
 	</feature>
 
+        <feature url="org.jboss.reddeer.logparser.feature.qualifier" id="org.jboss.reddeer.logparser.feature" version="0.0.0">
+                <category name="ToolFeatures"/>
+        </feature>
+
 	<feature url="org.jboss.reddeer.tests.feature.qualifier" id="org.jboss.reddeer.tests.feature" version="0.0.0">
 		<category name="TestFeatures"/>
 	</feature>
@@ -54,20 +58,16 @@
 		<category name="TestFeatures"/>
 	</feature>
 
-	<feature url="org.jboss.reddeer.recorder.feature.qualifier" id="org.jboss.reddeer.recorder.feature" version="0.0.0">
-		<category name="UIFeatures"/>
-	</feature>
-
 	<feature url="org.jboss.reddeer.junit.extension.feature.qualifier" id="org.jboss.reddeer.junit.extension.feature" version="0.0.0">
-		<category name="AllFeatures"/>
+		<category name="RuntimeAPIFeatures"/>
 	</feature>
 
 	<feature url="org.jboss.reddeer.graphiti.feature.qualifier" id="org.jboss.reddeer.graphiti.feature" version="0.0.0">
-		<category name="AllFeatures"/>
+		<category name="RuntimeAPIFeatures"/>
 	</feature>
 
 	<feature url="org.jboss.reddeer.eclipse.feature.source.qualifier" id="org.jboss.reddeer.eclipse.feature.source" version="0.0.0">
-		<category name="AllSources"/>
+		<category name="RuntimeAPIFeatures"/>
 	</feature>
 
 	<feature url="org.jboss.reddeer.feature.rcp.source.qualifier" id="org.jboss.reddeer.rcp.feature.source" version="0.0.0">
@@ -101,4 +101,8 @@
 	<feature url="org.jboss.reddeer.graphiti.feature.source.qualifier" id="org.jboss.reddeer.graphiti.feature.source" version="0.0.0">
 		<category name="AllSources"/>
 	</feature>
+
+        <feature url="org.jboss.reddeer.logparser.feature.source.qualifier" id="org.jboss.reddeer.logparser.feature.source" version="0.0.0">
+                <category name="AllSources"/>
+        </feature>
 </site>

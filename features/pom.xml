@@ -25,6 +25,7 @@
 		<module>org.jboss.reddeer.junit.extension.feature</module>
 		<module>org.jboss.reddeer.graphiti.feature</module>
 		<module>org.jboss.reddeer.spy.feature</module>
+		<module>org.jboss.reddeer.logparser.feature</module>
 	</modules>
 	
 </project>

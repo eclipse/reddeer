@@ -9,7 +9,7 @@
  	
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>org.jboss.reddeer.spy</artifactId>
-	<name>RedDeer Spy</name>
+	<name>Red Deer Spy</name>
 	<packaging>eclipse-plugin</packaging>
 	
 </project>

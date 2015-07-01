@@ -1,16 +1,17 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-
-	<modelVersion>4.0.0</modelVersion>
-	<artifactId>org.jboss.reddeer.gef.spy.feature</artifactId>
-	<name>Red Deer GEF Spy Feature</name>
-	<packaging>eclipse-feature</packaging>
 	
-	<parent>
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>org.jboss.reddeer.logparser.feature</artifactId>
+	<name>Red Deer Log Parser Feature</name>
+	<packaging>eclipse-feature</packaging>
+  
+  	<parent>
 		<groupId>org.jboss.reddeer</groupId>
 		<artifactId>features</artifactId>
 		<version>0.8.0-SNAPSHOT</version>
 	</parent>
+	
 	<build>
 		<plugins>
 			<plugin>
@@ -43,6 +44,5 @@
 			</plugin>
 		</plugins>
 	</build>
-
-
+	
 </project>

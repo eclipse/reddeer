@@ -36,6 +36,7 @@
 		<module>org.jboss.reddeer.branding</module>
 		<module>org.jboss.reddeer.generator</module>
 		<module>org.jboss.reddeer.go</module>
+		<module>org.jboss.reddeer.logparser</module>
 	</modules>
 	
 </project>

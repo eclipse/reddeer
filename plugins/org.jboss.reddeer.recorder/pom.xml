@@ -8,6 +8,5 @@
 	<modelVersion>4.0.0</modelVersion>
   <artifactId>org.jboss.reddeer.recorder</artifactId>
   <packaging>eclipse-plugin</packaging>
-  <name>org.jboss.reddeer.recorder</name>
-  <description>org.jboss.reddeer.recorder Plugin</description>
+  <name>Red Deer Recorder</name>
 </project>

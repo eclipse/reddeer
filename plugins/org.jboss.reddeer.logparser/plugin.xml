@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension
+         point="org.eclipse.ui.views">
+      <category
+            name="RedDeer Tools"
+            id="org.jboss.reddeer.tools">
+      </category>
+      <view
+            name="Log Parser"
+            icon="icons/logparser.gif"
+            category="org.jboss.reddeer.tools"
+            class="org.jboss.reddeer.logparser.views.LogParserView"
+            id="org.jboss.reddeer.logparser.views.LogParserView">
+      </view>
+   </extension>
+   <extension
+         point="org.eclipse.ui.preferencePages">
+      <page
+            class="org.jboss.reddeer.logparser.preferences.RedDeerToolsPreferecesPage"
+            id="org.jboss.reddeer.tools.preferences"
+            name="RedDeer Tools">
+      </page>
+   </extension>
+   <extension
+         point="org.eclipse.ui.preferencePages">
+      <page
+      		category="org.jboss.reddeer.tools.preferences"
+            class="org.jboss.reddeer.logparser.preferences.LogParserPreferecesPage"
+            id="org.jboss.reddeer.logparser.preferences.LogParserPreferencesPage"
+            name="Log Parser">
+      </page>
+   </extension>
+   <extension
+         point="org.eclipse.ui.editors">
+      <editor
+            class="org.jboss.reddeer.logparser.editors.LogParserEditor"
+            default="false"
+            extensions="log,txt"
+            icon="icons/logparser.gif"
+            id="org.jboss.reddeer.logparser.editors.LogParserEditor"
+            name="LogParser Editor">
+      </editor>
+   </extension>
+   <extension
+         point="org.eclipse.ui.handlers">
+      <handler
+            class="org.jboss.reddeer.logparser.handlers.FindReplaceHandler"
+            commandId="org.eclipse.ui.edit.findReplace">
+         <activeWhen>
+            <with
+                  variable="activeEditorId">
+               <equals
+                     value="org.jboss.reddeer.logparser.editors.LogParserEditor">
+               </equals>
+            </with>
+         </activeWhen>
+      </handler>
+   </extension>
+   <extension point="org.eclipse.ui.commands">
+   		<category
+			description="Commands related to the Log Parser"
+			id="org.jboss.reddeer.logparser.commands.category"
+ 			name="Favorites">
+		</category>
+   		<command
+            categoryId="org.jboss.reddeer.logparser.commands.category"
+            description="Navigates from selected line within parsed log to the same line in original log"
+            id="org.jboss.reddeer.logparser.commands.showinoriglog"
+            name="Show in original log"
+            defaultHandler="org.jboss.reddeer.logparser.handlers.ShowInOriginalLogHandler">
+		</command>
+   </extension>
+   <extension
+         point="org.eclipse.ui.menus">
+         <menuContribution
+             locationURI="popup:org.jboss.reddeer.logparser.editors.LogParserEditor?after=edit">
+         <command
+               commandId="org.jboss.reddeer.logparser.commands.showinoriglog"
+               icon="icons/showinoriglog.gif"
+               style="push">
+         </command>
+      </menuContribution>
+      </extension>
+      
+</plugin>
