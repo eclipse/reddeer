@@ -49,6 +49,8 @@ public abstract class TopMenuWizardDialog extends WizardDialog {
 		new ShellMenu(getMenuPath()).select();
 		new DefaultShell(getDialogTitle());
 		new DefaultTreeItem(path).select();
-	    next();
+		if (isNextEnabled()){
+			next();			
+		}
 	}
 }

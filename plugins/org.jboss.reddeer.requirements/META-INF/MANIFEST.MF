@@ -20,6 +20,7 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ActivationPolicy: lazy
 Bundle-Vendor: JBoss by Red Hat
 Export-Package: org.jboss.reddeer.requirements.cleanworkspace,
+ org.jboss.reddeer.requirements.closeeditors,
  org.jboss.reddeer.requirements.db,
  org.jboss.reddeer.requirements.exception,
  org.jboss.reddeer.requirements.jre,
