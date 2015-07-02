@@ -59,7 +59,7 @@ public class SuiteConfiguration {
 	 * 
 	 * @return List of configuration files
 	 */
-	protected List<File> getConfigurationFiles(){
+	public List<File> getConfigurationFiles(){
 		if (RedDeerProperties.CONFIG_FILE.getValue() == null){
 			return new ArrayList<File>();
 		}
@@ -67,7 +67,7 @@ public class SuiteConfiguration {
 		return getConfigurationFiles(new File(RedDeerProperties.CONFIG_FILE.getValue()));
 	}
 
-	protected List<File> getConfigurationFiles(File location){
+	public List<File> getConfigurationFiles(File location){
 		if (!location.exists()){
 			throw new RedDeerConfigurationException("The configuration location " + location.getAbsolutePath() + " does not exist");
 		}
