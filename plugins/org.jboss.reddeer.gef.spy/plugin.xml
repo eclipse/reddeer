@@ -10,7 +10,7 @@
       </category>
       <view
             name="RedDeer GEF Spy view"
-            icon="icons/sample.gif"
+            icon="icons/reddeer_icon.png"
             category="org.jboss.reddeer.tools"
             class="org.jboss.reddeer.gef.spy.view.GEFSpyView"
             id="org.jboss.reddeer.gef.spy.view.GEFSpyView">
