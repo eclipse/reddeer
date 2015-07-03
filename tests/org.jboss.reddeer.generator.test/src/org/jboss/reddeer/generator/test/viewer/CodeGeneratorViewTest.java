@@ -40,7 +40,7 @@ public class CodeGeneratorViewTest {
 	private class CodeGeneratorView extends WorkbenchView {
 
 		public CodeGeneratorView() {
-			super("Code Generator");
+			super("RedDeer Code Generator");
 		}
 
 		public String getCode() {
