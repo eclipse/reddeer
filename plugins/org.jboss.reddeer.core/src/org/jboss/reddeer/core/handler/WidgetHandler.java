@@ -7,6 +7,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.custom.CTabItem;
+import org.eclipse.swt.layout.FormData;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Event;
@@ -172,6 +173,22 @@ public class WidgetHandler {
 				Widget parent = ((Control) w).getParent();
 				java.util.List<Widget> children = WidgetResolver.getInstance()
 						.getChildren(parent);
+				// check whether a label is defined using form data layout
+				for (Widget child : children) {
+					if (child instanceof Label || child instanceof CLabel) {
+						Object layoutData = ((Control) child).getLayoutData();
+						if (layoutData instanceof FormData) {
+							FormData formData = (FormData) layoutData;
+							if (formData.right != null && w.equals(formData.right.control)) {
+								if (child instanceof Label) {
+									return ((Label) child).getText();
+								} else if (child instanceof CLabel) {
+									return ((CLabel) child).getText();
+								}
+							}
+						}
+					}
+				}
 				for (int i = 1; i < children.size(); i++) {
 					if (children.get(i) != null && children.get(i).equals(w)) {
 						for (int y = 1; i - y >= 0; y++) {
