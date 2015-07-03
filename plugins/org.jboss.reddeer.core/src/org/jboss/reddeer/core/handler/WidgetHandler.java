@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.custom.CTabItem;
 import org.eclipse.swt.widgets.Composite;
@@ -17,6 +18,7 @@ import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.swt.widgets.Widget;
 import org.jboss.reddeer.core.exception.CoreLayerException;
+import org.jboss.reddeer.core.lookup.WidgetLookup;
 import org.jboss.reddeer.core.resolver.WidgetResolver;
 import org.jboss.reddeer.core.util.Display;
 import org.jboss.reddeer.core.util.ObjectUtil;
@@ -159,7 +161,7 @@ public class WidgetHandler {
 	/**
 	 * Gets label of specified widget.
 	 * 
-	 * @param w widget ot handle
+	 * @param w widget to handle
 	 * @return label of specified widget
 	 */
 	public <T extends Widget> String getLabel(final T w) {
@@ -176,6 +178,11 @@ public class WidgetHandler {
 							if (children.get(i - y) instanceof Label) {
 								if (((Label) children.get(i - y)).getImage() == null) {
 									return ((Label) children.get(i - y))
+											.getText();
+								}
+							} else if (children.get(i - y) instanceof CLabel) {
+								if (((CLabel) children.get(i - y)).getImage() == null) {
+									return ((CLabel) children.get(i - y))
 											.getText();
 								}
 							} else {
