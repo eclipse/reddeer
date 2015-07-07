@@ -3,8 +3,14 @@
 #set( $symbol_escape = '\' )
 #if ($reddeer_version == "0.4.0")
 #set ($rd_repository = 'http://download.jboss.org/jbosstools/updates/stable/kepler/core/reddeer/0.4.0/')
+#elseif ($reddeer_version == "0.5.0")
+#set ($rd_repository = 'http://download.jboss.org/jbosstools/updates/stable/luna/core/reddeer/0.5.0/')
+#elseif ($reddeer_version == "0.6.0")
+#set ($rd_repository = 'http://download.jboss.org/jbosstools/updates/stable/luna/core/reddeer/0.6.0/')
+#elseif ($reddeer_version == "0.7.0")
+#set ($rd_repository = 'http://download.jboss.org/jbosstools/updates/stable/luna/core/reddeer/0.7.0/')
 #else
-#set ($rd_repository = 'http://download.jboss.org/jbosstools/builds/staging/RedDeer_master/all/repo/')
+#set ($rd_repository = 'http://download.jboss.org/jbosstools/mars/snapshots/builds/reddeer_master/')
 #end
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
