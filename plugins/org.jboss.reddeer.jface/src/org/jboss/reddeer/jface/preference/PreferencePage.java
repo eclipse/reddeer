@@ -21,7 +21,7 @@ public abstract class PreferencePage {
 	 * Constructor sets path to specific preference item.
 	 * @param path path in preference shell tree to specific preference
 	 */
-	public PreferencePage(String[] path) {
+	public PreferencePage(String... path) {
 		if (path == null) {
 			throw new IllegalArgumentException("path can't be null");
 		}
