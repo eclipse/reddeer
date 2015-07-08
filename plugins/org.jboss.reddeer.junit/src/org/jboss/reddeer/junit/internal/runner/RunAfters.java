@@ -6,8 +6,8 @@ import java.util.List;
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.junit.TestInfo;
 import org.jboss.reddeer.junit.extensionpoint.IAfterTest;
-import org.jboss.reddeer.junit.internal.screenshot.CaptureScreenshot;
-import org.jboss.reddeer.junit.internal.screenshot.CaptureScreenshotException;
+import org.jboss.reddeer.junit.screenshot.CaptureScreenshotException;
+import org.jboss.reddeer.junit.screenshot.ScreenshotCapturer;
 import org.junit.runners.model.FrameworkMethod;
 import org.junit.runners.model.MultipleFailureException;
 import org.junit.runners.model.Statement;
@@ -71,16 +71,16 @@ public class RunAfters extends Statement {
                 try {
                     each.invokeExplosively(fTarget);
                 } catch (Throwable e) {
-                	CaptureScreenshot capturer = new CaptureScreenshot();
+                	ScreenshotCapturer capturer = ScreenshotCapturer.getInstance();
                 	try {
                 		String fileName;
                 		if (fTarget == null) {
-                			fileName = CaptureScreenshot.getScreenshotFileName(
+                			fileName = ScreenshotCapturer.getScreenshotFileName(
                 					testObjectClass,
                 					methodName,
                 					"AfterClass_" + each.getName());
                 		} else {
-                			fileName = CaptureScreenshot.getScreenshotFileName( 
+                			fileName = ScreenshotCapturer.getScreenshotFileName( 
                 				testObjectClass,
                 				methodName,
                 				"After_" + each.getName());
@@ -88,7 +88,7 @@ public class RunAfters extends Statement {
                 		log.error("Test " + testObjectClass.getName()
                 				+ "." + methodName
     	    					+ " throws exception: ",e);
-        				capturer.captureScreenshot(config, fileName);
+        				capturer.captureScreenshotOnFailure(config, fileName);
                 	} catch (CaptureScreenshotException ex) {
                 		ex.printInfo(log);
                 	}
@@ -99,16 +99,16 @@ public class RunAfters extends Statement {
                 try {
                 	afterTest.runAfterTest(new TestInfo(methodName, config, testObjectClass));
                 } catch (Throwable e) {
-                	CaptureScreenshot capturer = new CaptureScreenshot();
+                	ScreenshotCapturer capturer = ScreenshotCapturer.getInstance();
                 	try {
-                		String fileName = CaptureScreenshot.getScreenshotFileName(
+                		String fileName = ScreenshotCapturer.getScreenshotFileName(
                 			testObjectClass,
                 			methodName,
                 			"IAfterTest_" + afterTest.getClass().getSimpleName());
                 		log.error("Test " + testObjectClass.getName()
                 				+ "." + methodName
     	    					+ " throws exception: ",e);
-        				capturer.captureScreenshot(config, fileName);
+        				capturer.captureScreenshotOnFailure(config, fileName);
                 	} catch (CaptureScreenshotException ex) {
                 		ex.printInfo(log);
                 	}

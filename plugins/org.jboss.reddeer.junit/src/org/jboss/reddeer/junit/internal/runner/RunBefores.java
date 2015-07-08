@@ -3,8 +3,8 @@ package org.jboss.reddeer.junit.internal.runner;
 import java.util.List;
 
 import org.jboss.reddeer.common.logging.Logger;
-import org.jboss.reddeer.junit.internal.screenshot.CaptureScreenshot;
-import org.jboss.reddeer.junit.internal.screenshot.CaptureScreenshotException;
+import org.jboss.reddeer.junit.screenshot.CaptureScreenshotException;
+import org.jboss.reddeer.junit.screenshot.ScreenshotCapturer;
 import org.junit.runners.model.FrameworkMethod;
 import org.junit.runners.model.Statement;
 import org.junit.runners.model.TestClass;
@@ -52,16 +52,16 @@ public class RunBefores extends Statement {
 		} catch (Throwable throwable) {
 			String methodName = fMethod != null ? fMethod.getName() : null;
     		Class<?> testObjectClass = fTarget != null ? fTarget.getClass() : testClass.getJavaClass();						
-			CaptureScreenshot capturer = new CaptureScreenshot();
+			ScreenshotCapturer capturer = ScreenshotCapturer.getInstance();
 			try {
         		String fileName;
         		if (fTarget == null) {
-        			fileName = CaptureScreenshot.getScreenshotFileName(
+        			fileName = ScreenshotCapturer.getScreenshotFileName(
         					testObjectClass,
         					methodName,
         					"BeforeClass_" + before.getName());
         		} else {
-        			fileName = CaptureScreenshot.getScreenshotFileName(
+        			fileName = ScreenshotCapturer.getScreenshotFileName(
         				testObjectClass,
         				methodName,
         				"Before_" + before.getName());
@@ -69,8 +69,7 @@ public class RunBefores extends Statement {
         		log.error("Test " + testObjectClass.getName()  
     					+ "." + methodName
     					+ " throws exception: ",throwable);
-				capturer.captureScreenshot(config, fileName);
-				
+				capturer.captureScreenshotOnFailure(config, fileName);
 				
 			} catch (CaptureScreenshotException ex) {
 				ex.printInfo(log);

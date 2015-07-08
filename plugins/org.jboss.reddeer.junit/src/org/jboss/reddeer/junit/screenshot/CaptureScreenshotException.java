@@ -1,4 +1,4 @@
-package org.jboss.reddeer.junit.internal.screenshot;
+package org.jboss.reddeer.junit.screenshot;
 
 import org.jboss.reddeer.common.logging.Logger;
 
