@@ -30,6 +30,8 @@ Raleigh NC 27606 USA.
    <includes id="org.jboss.reddeer.eclipse.feature.source" version="0.0.0"/>
    <includes id="org.jboss.reddeer.examples.feature" version="0.0.0"/>
    <includes id="org.jboss.reddeer.examples.feature.source" version="0.0.0"/>
+   <includes id="org.jboss.reddeer.gef.spy.feature" version="0.0.0"/>
+   <includes id="org.jboss.reddeer.gef.spy.feature.source" version="0.0.0"/>
    <includes id="org.jboss.reddeer.graphiti.feature" version="0.0.0"/>
    <includes id="org.jboss.reddeer.graphiti.feature.source" version="0.0.0"/>
    <includes id="org.jboss.reddeer.junit.extension.feature" version="0.0.0"/>
