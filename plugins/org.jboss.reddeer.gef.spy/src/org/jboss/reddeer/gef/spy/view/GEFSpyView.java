@@ -152,7 +152,7 @@ public class GEFSpyView extends ViewPart {
 				Object obj = ((IStructuredSelection) selection).getFirstElement();
 				if (obj instanceof TreeNode) {
 					Object treeObject = ((TreeNode) obj).getValue();
-					if (treeObject instanceof EditPart) {
+					if (treeObject instanceof EditPart && ((EditPart) treeObject).isSelectable()) {
 						EditPartHandler.getInstance().select((EditPart) treeObject);
 					}
 				}
