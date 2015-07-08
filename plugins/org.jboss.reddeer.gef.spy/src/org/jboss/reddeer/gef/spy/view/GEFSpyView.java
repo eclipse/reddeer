@@ -22,11 +22,10 @@ import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.ViewPart;
+import org.jboss.reddeer.core.lookup.EditorPartLookup;
 import org.jboss.reddeer.gef.handler.EditPartHandler;
 import org.jboss.reddeer.gef.lookup.ViewerLookup;
 import org.jboss.reddeer.gef.spy.TreeNodeExt;
-import org.jboss.reddeer.core.exception.CoreLayerException;
-import org.jboss.reddeer.core.lookup.EditorPartLookup;
 
 /**
  * GEFSpy View.
@@ -70,7 +69,7 @@ public class GEFSpyView extends ViewPart {
 		try {
 			IEditorPart editorPart = EditorPartLookup.getInstance().getEditor();
 			editPart = ViewerLookup.getInstance().findGraphicalViewer(editorPart).getContents();
-		} catch (CoreLayerException ex) {
+		} catch (Exception ex) {
 			treeViewer.setInput(new TreeNode[] {});
 			MessageDialog.openWarning(treeViewer.getControl().getShell(), "GEF View", "No GEF editor was detected.");
 			return;
