@@ -7,15 +7,15 @@ import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.jboss.reddeer.common.logging.Logger;
+import org.jboss.reddeer.common.wait.TimePeriod;
+import org.jboss.reddeer.common.wait.WaitUntil;
+import org.jboss.reddeer.core.condition.ActiveFocusControlIsInActiveView;
 import org.jboss.reddeer.core.exception.CoreLayerException;
 import org.jboss.reddeer.core.lookup.WidgetLookup;
 import org.jboss.reddeer.core.lookup.WorkbenchPartLookup;
 import org.jboss.reddeer.core.util.Display;
 import org.jboss.reddeer.core.util.ObjectUtil;
 import org.jboss.reddeer.core.util.ResultRunnable;
-import org.jboss.reddeer.common.wait.TimePeriod;
-import org.jboss.reddeer.common.wait.WaitUntil;
-import org.jboss.reddeer.core.condition.ActiveFocusControlIsInActiveView;
 
 /**
  * View handler handles operations for view instances.
@@ -46,7 +46,7 @@ public class ViewHandler {
 	
 	/**
 	 * Sets focus for specified {@link IViewPart}.
-	 *
+	 * @deprecated This method does not work properly due to https://bugs.eclipse.org/bugs/show_bug.cgi?id=468948
 	 * @param viewPart view part to set focus on
 	 */
 	public void setFocus(final IViewPart viewPart) {
@@ -63,6 +63,7 @@ public class ViewHandler {
 					throw new CoreLayerException("Unable to show view " + viewPart.getTitle(),
 						pie);
 				}
+				
 				viewPart.setFocus();
 			}
 		});
@@ -122,7 +123,7 @@ public class ViewHandler {
 				
 	}
 
-	private void focusChildControl() {
+	public void focusChildControl() {
 		final Control workbenchControl = WorkbenchPartLookup.getInstance()
 				.getWorkbenchControl(WorkbenchPartLookup.getInstance().findActiveWorkbenchPartReference());
 		log.debug("Active workbench control=" 

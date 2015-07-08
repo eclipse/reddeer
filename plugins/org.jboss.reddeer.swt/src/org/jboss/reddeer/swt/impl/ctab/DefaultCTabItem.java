@@ -1,5 +1,6 @@
 package org.jboss.reddeer.swt.impl.ctab;
 
+import org.eclipse.swt.custom.CTabItem;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.core.matcher.WithMnemonicTextMatcher;
 import org.jboss.reddeer.core.reference.ReferencedComposite;
@@ -99,5 +100,13 @@ public class DefaultCTabItem extends AbstractCTabItem {
 	 */
 	public DefaultCTabItem(ReferencedComposite referencedComposite, int index, String text) {
 		this(referencedComposite, index, new WithMnemonicTextMatcher(text));
+	}
+	
+	/**
+	 * Constructs CTabItem from given swt widget
+	 * @param swtWidget
+	 */
+	DefaultCTabItem(CTabItem swtWidget){
+		super(swtWidget);
 	}
 }

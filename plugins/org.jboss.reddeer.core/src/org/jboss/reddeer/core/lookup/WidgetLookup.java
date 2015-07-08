@@ -14,18 +14,18 @@ import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.IWorkbenchPartReference;
 import org.eclipse.ui.IWorkbenchSite;
 import org.hamcrest.Matcher;
+import org.jboss.reddeer.common.condition.WaitCondition;
+import org.jboss.reddeer.common.exception.WaitTimeoutExpiredException;
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.common.platform.RunningPlatform;
 import org.jboss.reddeer.common.wait.WaitUntil;
-import org.jboss.reddeer.common.condition.WaitCondition;
 import org.jboss.reddeer.core.exception.CoreLayerException;
-import org.jboss.reddeer.common.exception.WaitTimeoutExpiredException;
 import org.jboss.reddeer.core.handler.WidgetHandler;
 import org.jboss.reddeer.core.matcher.AndMatcher;
 import org.jboss.reddeer.core.matcher.ClassMatcher;
+import org.jboss.reddeer.core.matcher.MatcherBuilder;
 import org.jboss.reddeer.core.reference.ReferencedComposite;
 import org.jboss.reddeer.core.resolver.WidgetResolver;
-import org.jboss.reddeer.core.matcher.MatcherBuilder;
 import org.jboss.reddeer.core.util.Display;
 import org.jboss.reddeer.core.util.ResultRunnable;
 
@@ -85,6 +85,27 @@ public class WidgetLookup {
 		logger.debug("Active widget with class type " + clazz.getName() +  " and index " + index + " was found");
 		return (T)found.getWidget();
 	}
+	
+	/**
+	 * Method looks for active widget located in specified referenced composite, laying on specified index and matching specified matchers.
+	 *
+	 * @param refComposite reference composite to search for widgets
+	 * @param clazz class type of widget
+	 * @param index index of widget within referenced composite
+	 * @param matchers matchers to match widget
+	 * @return widget located withing specified referenced composite, laying on specified index and matching specified matchers
+	 */
+	public <T extends Widget> List<T> activeWidgets(ReferencedComposite refComposite, Class<T> clazz, Matcher<?>... matchers) {				
+		logger.debug("Looking up active widgets with class type " + clazz.getName() +  " and " + createMatcherDebugMsg(matchers));
+
+		ClassMatcher cm = new ClassMatcher(clazz);
+		Matcher<?>[] allMatchers = MatcherBuilder.getInstance().addMatcher(matchers, cm);
+		AndMatcher am  = new AndMatcher(allMatchers);
+
+		List<T> foundWidgets = activeWidgets(refComposite.getControl(), am);
+		logger.debug("Found " + foundWidgets.size() + " widgets");
+		return foundWidgets;
+	}
 
 	private Control getParentControl(ReferencedComposite refComposite){
 		if (refComposite == null){
@@ -107,9 +128,9 @@ public class WidgetLookup {
 	}
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	private List<? extends Widget> activeWidgets(Control refComposite, Matcher matcher) {
+	private <T extends Widget> List<T> activeWidgets(Control refComposite, Matcher matcher) {
 		logger.trace("Looking up widgets with specified parent and matchers");
-		List<? extends Widget> widgets = findControls(refComposite, matcher, true);
+		List<T> widgets = findControls(refComposite, matcher, true);
 		logger.trace(widgets.size() + " widget(s) found");
 		return widgets;
 	}
@@ -298,7 +319,7 @@ public class WidgetLookup {
 		return !((w instanceof Control) && !((Control) w).getVisible());
 	}
 
-	class WidgetIsFound implements WaitCondition {
+	class WidgetIsFound <T extends Widget> implements WaitCondition {
 
 		private Control parent;
 		private AndMatcher am;
@@ -324,7 +345,7 @@ public class WidgetLookup {
 			setFocus();
 			return properWidget;
 		}
-
+		
 		@Override
 		public String description() {
 			return "widget is found";

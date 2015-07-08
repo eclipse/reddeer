@@ -1,5 +1,6 @@
 package org.jboss.reddeer.swt.test.impl.ctab;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
@@ -10,6 +11,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 import org.jboss.reddeer.core.exception.CoreLayerException;
 import org.jboss.reddeer.swt.api.CTabItem;
+import org.jboss.reddeer.swt.impl.ctab.DefaultCTabFolder;
 import org.jboss.reddeer.swt.impl.ctab.DefaultCTabItem;
 import org.jboss.reddeer.swt.impl.text.DefaultText;
 import org.jboss.reddeer.swt.test.SWTLayerTestCase;
@@ -37,22 +39,27 @@ public class CTabFolderTest extends SWTLayerTestCase{
 	@Test
 	public void findByIndexAndActivate(){
 		int index = 2;
-		new DefaultCTabItem(index).activate();
+		CTabItem tabItem = new DefaultCTabItem(index);
+		tabItem.activate();
 		String expectedCTabItemContent = CTabFolderTest.CONTENT_PREFIX + index;
 		String cTabItemContent = new DefaultText(0).getText(); 
 		assertTrue("cTabItem content is " + cTabItemContent
 				+ "\nbut expected CTabItem content is " + expectedCTabItemContent,
 			cTabItemContent.equals(expectedCTabItemContent));
+		assertEquals(tabItem, new DefaultCTabFolder().getSelection());
 	}
+	
 	@Test
 	public void findByNameAndActivate(){
 		int index = 1;
-		new DefaultCTabItem(CTabFolderTest.ITEM_LABEL_PREFIX + index).activate();
+		CTabItem tabItem = new DefaultCTabItem(CTabFolderTest.ITEM_LABEL_PREFIX + index);
+		tabItem.activate();
 		String expectedCTabItemContent = CTabFolderTest.CONTENT_PREFIX + index;
 		String cTabItemContent = new DefaultText(0).getText(); 
 		assertTrue("cTabItem content is " + cTabItemContent
 				+ "\nbut expected CTabItem content is " + expectedCTabItemContent,
 			cTabItemContent.equals(expectedCTabItemContent));
+		assertEquals(tabItem, new DefaultCTabFolder().getSelection());
 	}
 	@Test(expected = CoreLayerException.class)
 	public void findNonExistingByIndex(){
