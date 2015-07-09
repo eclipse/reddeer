@@ -82,6 +82,9 @@ public class GEFEditorTest {
 
 		gefEditor.addToolFromPalette("HalfAdder", "Canned Parts", 100, 200);
 		gefEditor.addToolFromPalette("FullAdder", "Canned Parts", 200, 200);
+		
+		gefEditor.addToolFromPalette("Flow Container", 100, 200);
+		gefEditor.addToolFromPalette("LED", 105, 205);
 	}
 
 	@Test

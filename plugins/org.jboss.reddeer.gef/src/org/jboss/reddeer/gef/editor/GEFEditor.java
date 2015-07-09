@@ -1,5 +1,7 @@
 package org.jboss.reddeer.gef.editor;
 
+import java.util.List;
+
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPartListener;
 import org.eclipse.gef.GraphicalViewer;
@@ -127,7 +129,10 @@ public class GEFEditor extends DefaultEditor implements ReferencedComposite {
 		Display.asyncExec(new Runnable() {
 			@Override
 			public void run() {
-				viewer.getContents().addEditPartListener(viewerListener);
+				List<EditPart> editParts = ViewerHandler.getInstance().getEditParts(viewer);
+				for (EditPart editPart: editParts) {
+					editPart.addEditPartListener(viewerListener);
+				}
 			}
 		});
 
