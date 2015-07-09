@@ -1,5 +1,7 @@
 package org.jboss.reddeer.junit.internal.runner;
 
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.util.List;
 
 import org.jboss.reddeer.common.logging.Logger;
@@ -11,6 +13,7 @@ import org.jboss.reddeer.junit.internal.requirement.RequirementsBuilder;
 import org.junit.Ignore;
 import org.junit.runner.Runner;
 import org.junit.runner.notification.RunListener;
+import org.junit.runners.Parameterized.Parameters;
 import org.junit.runners.model.RunnerBuilder;
 
 /**
@@ -66,14 +69,34 @@ public class RequirementsRunnerBuilder extends RunnerBuilder {
 			if(testsManager != null) {
 				testsManager.addExecutedTest(clazz);
 			}
-			return new RequirementsRunner(clazz, requirements, config.getId(),runListeners, beforeTestExtensions, afterTestExtensions);
+			if (isParameterized(clazz)){
+				return new ParameterizedRunner(clazz, requirements, config.getId(),runListeners, beforeTestExtensions, afterTestExtensions);
+			}else{
+				return new RequirementsRunner(clazz, requirements, config.getId(),runListeners, beforeTestExtensions, afterTestExtensions);
+			}
 		} else {
 			log.info("All requirements cannot be fulfilled, the test will NOT run");
 			return null;
 		}
 	}
-	
+
 	public void setRequirementsBuilder(RequirementsBuilder requirementsBuilder) {
 		this.requirementsBuilder = requirementsBuilder;
+	}
+	
+	/**
+	 * Check, whether class is parameterized or not.
+	 * @param clazz class to check for.
+	 * @return true if some of class methods has @Parameters annotation.
+	 */
+	private boolean isParameterized(Class<?> clazz){
+		for (Method method : clazz.getDeclaredMethods()){
+			if (method.getAnnotation(Parameters.class) != null){
+				if (Modifier.isPublic(method.getModifiers()) && Modifier.isStatic(method.getModifiers())){
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 }
