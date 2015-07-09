@@ -17,6 +17,7 @@ import org.jboss.reddeer.common.condition.WaitCondition;
 import org.jboss.reddeer.common.exception.WaitTimeoutExpiredException;
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.common.platform.RunningPlatform;
+import org.jboss.reddeer.common.wait.TimePeriod;
 import org.jboss.reddeer.common.wait.WaitUntil;
 import org.jboss.reddeer.core.exception.CoreLayerException;
 import org.jboss.reddeer.core.handler.WidgetHandler;
@@ -73,7 +74,7 @@ public class WidgetLookup {
 		Control parentControl = getParentControl(refComposite);
 		WidgetIsFound found = new WidgetIsFound(parentControl, am, index);
 		try{
-			new WaitUntil(found);
+			new WaitUntil(found, TimePeriod.SHORT);
 		} catch (WaitTimeoutExpiredException ex){
 			String exceptionText = "No matching widget found with " + am.toString();
 			exceptionText += "\n" + new DiagnosticTool().getDiagnosticInformation(parentControl);
