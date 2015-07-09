@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.jboss.reddeer.eclipse.jdt.ui.junit.JUnitView;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -14,6 +15,13 @@ import org.junit.runner.RunWith;
  */
 @RunWith(RedDeerSuite.class)
 public class JUnitViewTest {
+
+	@BeforeClass
+	public static void clearAllTestRuns() {
+		JUnitView junitView = new JUnitView();
+		junitView.open();
+		junitView.removeAllRuns();
+	}
 
 	@Test
 	public void getRunsTest() {
@@ -35,7 +43,7 @@ public class JUnitViewTest {
 		jUnitView.open();
 		assertEquals(0, jUnitView.getNumberOfFailures());
 	}
-	
+
 	@Test
 	public void getViewStatusTest() {
 		JUnitView jUnitView = new JUnitView();

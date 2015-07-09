@@ -18,6 +18,7 @@ public class JobIsRunning implements WaitCondition {
 
 	private Matcher[] consideredJobs;
 	private Matcher[] excludeJobs;
+	private boolean skipSystemJobs;
 
 	/**
 	 * Constructs JobIsRunning wait condition. Condition is met when job is running.
@@ -55,8 +56,29 @@ public class JobIsRunning implements WaitCondition {
 	 * will be excluded.
 	 */
 	public JobIsRunning(Matcher[] consideredJobs, Matcher[] excludeJobs) {
+		this(consideredJobs, excludeJobs, true);
+	}
+
+	/**
+	 * Constructs JobIsRunning wait condition. Condition is met when job(s) is/are running.
+	 * Test only jobs matching the specified matchers which are not excluded by 
+	 * another specified matchers.
+	 * 
+	 * @param consideredJobs If not <code>null</code>, only jobs whose name matches
+	 * any of these matchers will be tested. Use in case you want to make sure all
+	 * jobs from a limited set are not running, and you don't care about the rest
+	 * of jobs.
+	 * @param excludeJobs If not <code>null</code>, jobs whose name matches any of
+	 * these matcher will be ignored. Use in case you don't care about limited set
+	 * of jobs. These matchers will overrule <code>consideredJobs</code> results,
+	 * job matched by both <code>consideredJobs</code> and <code>excludeJobs</code>
+	 * will be excluded.
+	 * @param skipSystemJobs If true then all system jobs are skipped.
+	 */
+	public JobIsRunning(Matcher[] consideredJobs, Matcher[] excludeJobs, boolean skipSystemJobs) {
 		this.consideredJobs = consideredJobs;
 		this.excludeJobs = excludeJobs;
+		this.skipSystemJobs = skipSystemJobs;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -74,8 +96,13 @@ public class JobIsRunning implements WaitCondition {
 				continue;
 			}
 
-			if (job.isSystem() || job.getState() == Job.SLEEPING) {
-				log.debug("  job '%s' is system job or not running, skipped", job.getName());
+			if (skipSystemJobs && job.isSystem()) { 
+				log.debug("  job '%s' is a system job, skipped", job.getName());
+				continue;
+			}
+			
+			if (job.getState() == Job.SLEEPING) {
+				log.debug("  job '%s' is not running, skipped", job.getName());
 				continue;
 			}
 
