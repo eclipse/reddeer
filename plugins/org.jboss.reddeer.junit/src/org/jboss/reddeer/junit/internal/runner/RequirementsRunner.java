@@ -1,19 +1,15 @@
 package org.jboss.reddeer.junit.internal.runner;
 
-import java.awt.AWTException;
-import java.io.File;
-import java.io.IOException;
 import java.util.List;
 
 import org.jboss.reddeer.common.exception.RedDeerException;
 import org.jboss.reddeer.common.logging.Logger;
-import org.jboss.reddeer.common.properties.RedDeerProperties;
 import org.jboss.reddeer.junit.execution.annotation.RunIf;
 import org.jboss.reddeer.junit.extensionpoint.IAfterTest;
 import org.jboss.reddeer.junit.extensionpoint.IBeforeTest;
 import org.jboss.reddeer.junit.internal.requirement.Requirements;
 import org.jboss.reddeer.junit.internal.requirement.inject.RequirementsInjector;
-import org.jboss.reddeer.junit.internal.screenrecorder.ScreenRecorderExt;
+import org.jboss.reddeer.junit.internal.screenrecorder.ScreenCastingRunListener;
 import org.jboss.reddeer.junit.internal.screenshot.CaptureScreenshot;
 import org.jboss.reddeer.junit.internal.screenshot.CaptureScreenshotException;
 import org.junit.After;
@@ -42,21 +38,28 @@ public class RequirementsRunner extends BlockJUnit4ClassRunner {
 	
 	private static final Logger log = Logger.getLogger(RequirementsRunner.class);
 	
-	private static ScreenRecorderExt screenRecorderExt = null;
+	protected Requirements requirements;
 	
-	private Requirements requirements;
-	
-	private RunListener[] runListeners;
+	protected RunListener[] runListeners;
 
-	private RequirementsInjector requirementsInjector = new RequirementsInjector();
+	protected RequirementsInjector requirementsInjector = new RequirementsInjector();
 	
-	private String configId;
+	protected String configId;
 	
-	private List<IBeforeTest> beforeTestExtensions;
+	protected List<IBeforeTest> beforeTestExtensions;
 	
-	private List<IAfterTest> afterTestExtensions;
-
-	private static boolean SAVE_SCREENCAST = RedDeerProperties.RECORD_SCREENCAST.getBooleanValue();
+	protected List<IAfterTest> afterTestExtensions;
+	
+	
+	/**
+	 * Runner used by subclasses.
+	 * 
+	 * @param clazz
+	 * @throws InitializationError
+	 */
+	protected RequirementsRunner(Class<?> clazz) throws InitializationError{
+		super(clazz);
+	}
 	
 	public RequirementsRunner(Class<?> clazz, Requirements requirements, String configId, RunListener[] runListeners,List<IBeforeTest> beforeTestExtensions) throws InitializationError {
 		this(clazz, requirements, configId, runListeners, beforeTestExtensions, null);
@@ -157,71 +160,6 @@ public class RequirementsRunner extends BlockJUnit4ClassRunner {
 			 return false;
 		 }
 	 }
-	 
-	/**
-	 * Starts Screen Recorder
-	 */
-	private static File startScreenRecorder(String className) {
-		File outputVideoFile = null;
-		if (screenRecorderExt == null) {
-			try {
-				screenRecorderExt = new ScreenRecorderExt();
-			} catch (IOException ioe) {
-				log.error("Unable to initialize Screen Recorder.", ioe);
-			} catch (AWTException awte) {
-				log.error("Unable to initialize Screen Recorder.", awte);
-			}
-		}
-		if (screenRecorderExt != null) {
-			if (!screenRecorderExt.isState(ScreenRecorderExt.STATE_DONE)){
-				// try to reset Screen Recorder
-				stopScreenRecorder();
-			}
-			if (screenRecorderExt.isState(ScreenRecorderExt.STATE_DONE)) {
-				try {
-					File screenCastDir = new File("screencasts");
-					if (!screenCastDir.exists()) {
-						screenCastDir.mkdir();
-					}
-					final String fileName = "screencasts" + File.separator
-							+ className
-							+ ".mov";
-					log.info("Starting Screen Recorder. Saving Screen Cast to file: "
-							+ fileName);
-					screenRecorderExt.start(fileName);
-					outputVideoFile = new File(fileName);
-				} catch (IOException ioe) {
-					log.error("Unable to start Screen Recorder.", ioe);
-				}
-			} else {
-				log.error("Unable to start Screen Recorder.\nScreen Recorder is not in state DONE.\nCurrent status: "
-						+ screenRecorderExt.getPublicState());
-			}
-		} else {
-			log.error("Screen Recorder was not properly initilized");
-		}
-		return outputVideoFile;
-	}
-
-	/**
-	 * Stops Screen Recorder
-	 */
-	private static void stopScreenRecorder() {
-		if (screenRecorderExt != null) {
-			try {
-				if (!screenRecorderExt.isState(ScreenRecorderExt.STATE_RECORDING)) {
-					log.error("Stopping Screen Recorder.\nScreen Recorder is not in state RECORDING.\nCurrent status: "
-							+ screenRecorderExt.getPublicState());
-				}
-				screenRecorderExt.stop();
-				log.info("Screen Recorder stopped.");
-			} catch (IOException ioe) {
-				log.error("Unable to stop Screen Recorder.", ioe);
-			}
-		} else {
-			log.error("Unable to stop Screen Recorder.\nScreen Recorder was not properly initilized");
-		}
-	}
 	
 	private class LoggingRunListener extends RunListener {
 		@Override
@@ -250,35 +188,6 @@ public class RequirementsRunner extends BlockJUnit4ClassRunner {
 		@Override
 		public void testStarted(Description description) throws Exception {
 			log.info("Started test: " + description);
-			super.testStarted(description);
-		}
-	}
-	
-	private class ScreenCastingRunListener extends RunListener {
-		private File outputVideoFile = null;
-		private boolean wasFailure = false;
-		@Override
-		public void testFailure(Failure failure) throws Exception {
-			wasFailure = true;
-			super.testFailure(failure);
-		}
-		@Override
-		public void testFinished(Description description) throws Exception {
-			if (RequirementsRunner.SAVE_SCREENCAST){
-				RequirementsRunner.stopScreenRecorder();
-				if (!wasFailure){
-					log.info("Deleting test screencast file: " + outputVideoFile.getAbsolutePath()); 
-					outputVideoFile.delete();
-				}
-			}
-			super.testFinished(description);
-		}
-		@Override
-		public void testStarted(Description description) throws Exception {
-			wasFailure = false;
-			if (RequirementsRunner.SAVE_SCREENCAST){
-				outputVideoFile = RequirementsRunner.startScreenRecorder(description.toString());
-			}
 			super.testStarted(description);
 		}
 	}
