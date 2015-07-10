@@ -25,6 +25,11 @@ public class ListChild extends Widget {
 		this.text = text;
 	}
 	
+	@Override
+	public void checkSubclass() {
+		// DO NOTHING, WORKAROUND FOR "Subclassing not allowed"
+	}
+	
 	/**
 	 * Gets text of list child.
 	 * @return text of list child

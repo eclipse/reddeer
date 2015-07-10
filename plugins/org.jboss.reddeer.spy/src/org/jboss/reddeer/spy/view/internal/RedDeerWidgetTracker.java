@@ -30,6 +30,7 @@ import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.Widget;
 import org.jboss.reddeer.common.exception.RedDeerException;
 import org.jboss.reddeer.spy.view.RedDeerSpy;
+import org.jboss.reddeer.spy.widget.ListChild;
 import org.jboss.reddeer.spy.widget.resolver.WidgetResolver;
 import org.jboss.reddeer.core.handler.WidgetHandler;
 
@@ -208,11 +209,14 @@ public class RedDeerWidgetTracker implements Runnable {
 			if (output == null) {
 				output = ANONYMOUS_COMPOSITE;
 			}
+			String childText = null;
 			if (widget instanceof Control) {
-				String childText = getText((Control) widget);
-				if (childText != null) {
-					output += " [\"" + childText + "\"]";
-				}
+				childText = getText((Control) widget);
+			} else if (widget instanceof ListChild) {
+				childText = ((ListChild) widget).getText();
+			}
+			if (childText != null) {
+				output += " [\"" + childText + "\"]";
 			}
 			stringBuffer.append(output + "\n");
 		}
@@ -297,11 +301,14 @@ public class RedDeerWidgetTracker implements Runnable {
 		if (output == null) {
 			output = ANONYMOUS_COMPOSITE;
 		}
+		String widgetText = null;
 		if (widget instanceof Control) {
-			String widgetText = getText((Control) widget);
-			if (widgetText != null) {
-				output += " [\"" + widgetText + "\"]";
-			}
+			widgetText = getText((Control) widget);
+		} else if (widget instanceof ListChild) {
+			widgetText = ((ListChild) widget).getText();
+		}
+		if (widgetText != null) {
+			output += " [\"" + widgetText + "\"]";
 		}
 		return output;
 	}	
