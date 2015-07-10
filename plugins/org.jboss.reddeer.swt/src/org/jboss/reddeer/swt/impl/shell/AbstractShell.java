@@ -3,15 +3,15 @@ package org.jboss.reddeer.swt.impl.shell;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Control;
 import org.jboss.reddeer.common.logging.Logger;
-import org.jboss.reddeer.swt.api.Shell;
-import org.jboss.reddeer.core.condition.ShellWithTextIsActive;
-import org.jboss.reddeer.core.condition.ShellWithTextIsAvailable;
-import org.jboss.reddeer.swt.exception.SWTLayerException;
-import org.jboss.reddeer.core.handler.ShellHandler;
-import org.jboss.reddeer.core.handler.WidgetHandler;
-import org.jboss.reddeer.swt.impl.button.CancelButton;
 import org.jboss.reddeer.common.wait.WaitUntil;
 import org.jboss.reddeer.common.wait.WaitWhile;
+import org.jboss.reddeer.core.condition.ShellWithTextIsActive;
+import org.jboss.reddeer.core.condition.ShellWithTextIsAvailable;
+import org.jboss.reddeer.core.handler.ShellHandler;
+import org.jboss.reddeer.core.handler.WidgetHandler;
+import org.jboss.reddeer.swt.api.Shell;
+import org.jboss.reddeer.swt.exception.SWTLayerException;
+import org.jboss.reddeer.swt.impl.button.CancelButton;
 
 /**
  * Abstract class for all Shells
@@ -46,10 +46,9 @@ public abstract class AbstractShell implements Shell {
 
 	@Override
 	public void setFocus() {
-		String text = getText();
-		log.debug("Set focus to Shell " + text);
+		log.debug("Set focus to Shell " + getText());
 		WidgetHandler.getInstance().setFocus(swtShell);
-		new WaitUntil(new ShellWithTextIsActive(text));
+		new WaitUntil(new ShellWithTextIsActive(getText()));
 	}
 	
 	@Override
