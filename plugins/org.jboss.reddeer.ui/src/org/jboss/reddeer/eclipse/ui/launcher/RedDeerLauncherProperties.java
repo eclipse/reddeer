@@ -46,11 +46,11 @@ public class RedDeerLauncherProperties {
 			if (key.startsWith(RedDeerLauncherProperties.ATTRIBUTE_PREFIX)){
 				String argName = key.replace(RedDeerLauncherProperties.ATTRIBUTE_PREFIX, "");
 				try{
-					RedDeerProperties rdProperty = RedDeerProperties.getByName(argName);
+					RedDeerProperties rdProperty = getByName(argName);
 					RedDeerLauncherProperties property = new RedDeerLauncherProperties(rdProperty);
 					String argValue = configuration.getAttribute(key, property.getProperty().getValue());
 					property.setCurrentValue(argValue);
-					property.setDoubleDefined(configuration);;
+					property.setDoubleDefined(configuration);
 					properties.add(property);
 				} catch (RedDeerException re){
 					// RedDeer property defined in launch configuration doesn't exist or have wrong value
@@ -61,6 +61,14 @@ public class RedDeerLauncherProperties {
 
 		return properties;
 	}
+	
+	private static RedDeerProperties getByName(String name){
+		if (name.startsWith("reddeer.")){
+			return RedDeerProperties.getByName(name);
+		} else {
+			return RedDeerProperties.getByName("reddeer." + name);
+		}
+	}
 
 	/**
 	 * Loads value from the specified configuration
@@ -69,8 +77,8 @@ public class RedDeerLauncherProperties {
 	 */
 	public void load(ILaunchConfiguration config) throws CoreException{
 		for (String key : config.getAttributes().keySet()){
-			if (key.equals(getConfigKey())){
-				setCurrentValue(config.getAttribute(getConfigKey(), getProperty().getValue()));
+			if (key.equals(getConfigKey()) || key.equals(getConfigKeyWithoutRDPrefix())){
+				setCurrentValue(config.getAttribute(key, getProperty().getValue()));
 				setDoubleDefined(config);
 			}
 		}
@@ -118,11 +126,21 @@ public class RedDeerLauncherProperties {
 	 * @param config
 	 */
 	public void save(ILaunchConfigurationWorkingCopy config) {
+		config.removeAttribute(getConfigKeyWithoutRDPrefix());
 		config.setAttribute(getConfigKey(), getCurrentValue());
 	}
 
 	private String getConfigKey(){
 		return ATTRIBUTE_PREFIX + getProperty().getName();
+	}
+	
+	/**
+	 * @deprecated Migration issue - should be removed in later releases. 
+	 * See https://github.com/jboss-reddeer/reddeer/pull/1105/files
+	 * @return
+	 */
+	private String getConfigKeyWithoutRDPrefix(){
+		return ATTRIBUTE_PREFIX + getProperty().getName().replaceFirst("reddeer.", "");
 	}
 	
 	private void setDoubleDefined(ILaunchConfiguration config) throws CoreException{

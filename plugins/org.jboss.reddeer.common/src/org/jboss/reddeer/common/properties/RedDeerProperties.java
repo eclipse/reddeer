@@ -13,11 +13,11 @@ import org.jboss.reddeer.common.userprofile.UserProfile;
  */
 public enum RedDeerProperties {
 
-	PAUSE_FAILED_TEST("pauseFailedTest", false),
+	PAUSE_FAILED_TEST("reddeer.pauseFailedTest", false),
 
-	LOG_MESSAGE_FILTER("logMessageFilter", "ALL"),
+	LOG_MESSAGE_FILTER("reddeer.logMessageFilter", "ALL"),
 	
-	LOG_LEVEL("logLevel", "ALL"),
+	LOG_LEVEL("reddeer.logLevel", "ALL"),
 
 	CLOSE_WELCOME_SCREEN("reddeer.close.welcome.screen", true),
 
@@ -30,11 +30,11 @@ public enum RedDeerProperties {
 	 */
 	CONFIG_FILE("reddeer.config", (String) null),
 	
-	CAPTURE_SCREENSHOT("captureScreenshot", true),
+	CAPTURE_SCREENSHOT("reddeer.captureScreenshot", true),
 
-	RECORD_SCREENCAST("recordScreenCast", false),
+	RECORD_SCREENCAST("reddeer.recordScreenCast", false),
 
-	RELATIVE_SCREENSHOT_DIRECTORY("relativeScreenshotDirectory", (String) null);
+	RELATIVE_SCREENSHOT_DIRECTORY("reddeer.relativeScreenshotDirectory", (String) null);
 
 	private static final Logger log = Logger.getLogger(RedDeerProperties.class);
 	
