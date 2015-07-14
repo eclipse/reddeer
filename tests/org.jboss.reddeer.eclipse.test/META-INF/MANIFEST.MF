@@ -5,28 +5,16 @@ Bundle-Vendor: JBoss by Red Hat
 Bundle-SymbolicName: org.jboss.reddeer.eclipse.test;singleton:=true
 Bundle-Version: 0.8.0.qualifier
 Bundle-Activator: org.jboss.reddeer.eclipse.test.Activator
-Require-Bundle: org.eclipse.ui,
- org.eclipse.core.runtime,
+Require-Bundle: org.jboss.reddeer.go;bundle-version="[0.8.0,0.9.0)",
+ org.jboss.reddeer.gef;bundle-version="[0.8,0.9)",
  org.eclipse.jst.servlet.ui,
  org.eclipse.jdt.debug.ui,
- org.junit;bundle-version="4.11.0",
- org.jboss.reddeer.common;bundle-version="[0.8,0.9)",
- org.jboss.reddeer.eclipse;bundle-version="[0.8,0.9)",
- org.jboss.reddeer.core;bundle-version="[0.8,0.9)",
- org.jboss.reddeer.jface;bundle-version="[0.8,0.9)",
- org.jboss.reddeer.workbench;bundle-version="[0.8,0.9)",
- org.jboss.reddeer.swt;bundle-version="[0.8,0.9)",
  org.eclipse.wst.server.core,
  org.eclipse.debug.core,
  org.eclipse.ui.views.log,
- org.jboss.reddeer.junit;bundle-version="[0.8,0.9)",
  org.eclipse.ui.browser,
  org.eclipse.jst.ejb.ui,
- org.jboss.reddeer.requirements;bundle-version="[0.8,0.9)",
- org.jboss.reddeer.junit.extension;bundle-version="[0.8,0.9)",
  org.eclipse.datatools.connectivity.dbdefinition.genericJDBC,
- org.jboss.reddeer.gef;bundle-version="[0.8,0.9)",
- org.jboss.reddeer.uiforms;bundle-version="[0.8,0.9)",
  org.eclipse.datatools.sqltools.sqlscrapbook;bundle-version="1.0.2",
  org.eclipse.datatools.sqltools.result.ui;bundle-version="1.1.3"
 Bundle-ActivationPolicy: lazy

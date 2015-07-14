@@ -5,9 +5,6 @@ Bundle-Vendor: JBoss by Red Hat
 Bundle-SymbolicName: org.jboss.reddeer.common.test;singleton:=true
 Bundle-Version: 0.8.0.qualifier
 Bundle-Activator: org.jboss.reddeer.common.test.Activator
-Require-Bundle: org.eclipse.ui,
- org.eclipse.core.runtime,
- org.junit;bundle-version="4.11.0",
- org.jboss.reddeer.common;bundle-version="0.8.0"
+Require-Bundle: org.jboss.reddeer.go;bundle-version="[0.8.0,0.9.0)"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
