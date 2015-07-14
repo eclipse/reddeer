@@ -6,7 +6,6 @@ import java.util.List;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Button;
-import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Widget;
@@ -26,6 +25,7 @@ import org.jboss.reddeer.core.matcher.ClassMatcher;
 import org.jboss.reddeer.core.matcher.MatcherBuilder;
 import org.jboss.reddeer.core.reference.ReferencedComposite;
 import org.jboss.reddeer.core.resolver.WidgetResolver;
+import org.jboss.reddeer.core.util.DiagnosticTool;
 import org.jboss.reddeer.core.util.Display;
 import org.jboss.reddeer.core.util.ResultRunnable;
 
@@ -70,14 +70,13 @@ public class WidgetLookup {
 		Matcher[] allMatchers = MatcherBuilder.getInstance().addMatcher(matchers, cm);
 		AndMatcher am  = new AndMatcher(allMatchers);
 
-		WidgetIsFound found = new WidgetIsFound(getParentControl(refComposite), am, index);
+		Control parentControl = getParentControl(refComposite);
+		WidgetIsFound found = new WidgetIsFound(parentControl, am, index);
 		try{
 			new WaitUntil(found);
 		} catch (WaitTimeoutExpiredException ex){
-			String exceptionText = "No matching widget found";
-			if(clazz.isInstance(Combo.class)){
-				exceptionText = "Combo not found - see https://github.com/jboss-reddeer/reddeer/issues/485";
-			}
+			String exceptionText = "No matching widget found with " + am.toString();
+			exceptionText += "\n" + new DiagnosticTool().getDiagnosticInformation(parentControl);
 			logger.error("Active widget with class type " + clazz.getName() +  " and index " + index + " was not found");
 			throw new CoreLayerException(exceptionText, ex);
 		}
