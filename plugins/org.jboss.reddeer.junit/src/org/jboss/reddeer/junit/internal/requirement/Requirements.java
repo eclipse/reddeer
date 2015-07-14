@@ -5,9 +5,9 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.jboss.reddeer.common.logging.Logger;
-import org.jboss.reddeer.junit.internal.screenshot.CaptureScreenshot;
-import org.jboss.reddeer.junit.internal.screenshot.CaptureScreenshotException;
 import org.jboss.reddeer.junit.requirement.Requirement;
+import org.jboss.reddeer.junit.screenshot.CaptureScreenshotException;
+import org.jboss.reddeer.junit.screenshot.ScreenshotCapturer;
 
 /**
  * Aggregates {@link Requirement} objects and allows to perform tasks on them easily.
@@ -53,10 +53,10 @@ public class Requirements implements Requirement<Annotation>, Iterable<Requireme
 				log.info("Requirement " + r.getClass() + " can be fulfilled: " + canFulfillReq);
 				canFulfill = canFulfill && canFulfillReq;
 			} catch (RuntimeException ex) {
-				CaptureScreenshot captureScreenshot = new CaptureScreenshot();
+				ScreenshotCapturer screenshotCapturer = ScreenshotCapturer.getInstance();
 				try {
-					captureScreenshot.captureScreenshot(configID, 
-							CaptureScreenshot.getScreenshotFileName(clazz, null, r.getClass().getSimpleName()));
+					screenshotCapturer.captureScreenshotOnFailure(configID, 
+							ScreenshotCapturer.getScreenshotFileName(clazz, null, r.getClass().getSimpleName()));
 				} catch (CaptureScreenshotException e) {
 					e.printInfo(log);
 				}
@@ -73,10 +73,10 @@ public class Requirements implements Requirement<Annotation>, Iterable<Requireme
 				log.info("Fulfilling requirement of " + r.getClass());
 				r.fulfill();
 			} catch (RuntimeException ex) {
-				CaptureScreenshot captureScreenshot = new CaptureScreenshot();
+				ScreenshotCapturer screenshotCapturer = ScreenshotCapturer.getInstance();
 				try {
-					captureScreenshot.captureScreenshot(configID, 
-							CaptureScreenshot.getScreenshotFileName(clazz, null, r.getClass().getSimpleName()));
+					screenshotCapturer.captureScreenshotOnFailure(configID, 
+							ScreenshotCapturer.getScreenshotFileName(clazz, null, r.getClass().getSimpleName()));
 				} catch (CaptureScreenshotException e) {
 					e.printInfo(log);
 				}
@@ -97,10 +97,10 @@ public class Requirements implements Requirement<Annotation>, Iterable<Requireme
 				log.info("Cleaning up requirement of " + r.getClass());
 				r.cleanUp();
 			} catch (RuntimeException ex) {
-				CaptureScreenshot captureScreenshot = new CaptureScreenshot();
+				ScreenshotCapturer screenshotCapturer = ScreenshotCapturer.getInstance();
 				try {
-					captureScreenshot.captureScreenshot(configID, 
-							CaptureScreenshot.getScreenshotFileName(clazz, null, r.getClass().getSimpleName()));
+					screenshotCapturer.captureScreenshotOnFailure(configID, 
+							ScreenshotCapturer.getScreenshotFileName(clazz, null, r.getClass().getSimpleName()));
 				} catch (CaptureScreenshotException e) {
 					e.printInfo(log);
 				}

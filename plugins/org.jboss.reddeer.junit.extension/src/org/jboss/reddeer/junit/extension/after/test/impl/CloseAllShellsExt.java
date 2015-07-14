@@ -7,8 +7,8 @@ import org.eclipse.swt.widgets.Shell;
 import org.jboss.reddeer.common.properties.RedDeerProperties;
 import org.jboss.reddeer.junit.TestInfo;
 import org.jboss.reddeer.junit.extensionpoint.IAfterTest;
-import org.jboss.reddeer.junit.internal.screenshot.CaptureScreenshot;
-import org.jboss.reddeer.junit.internal.screenshot.CaptureScreenshotException;
+import org.jboss.reddeer.junit.screenshot.CaptureScreenshotException;
+import org.jboss.reddeer.junit.screenshot.ScreenshotCapturer;
 import org.jboss.reddeer.core.handler.IBeforeShellIsClosed;
 import org.jboss.reddeer.core.handler.ShellHandler;
 import org.jboss.reddeer.core.handler.WidgetHandler;
@@ -75,17 +75,17 @@ public class CloseAllShellsExt implements IAfterTest {
         		} if (target instanceof TestInfo){
         			TestInfo testInfo = (TestInfo)target;
         			config = testInfo.getConfig();
-        			fileName = CaptureScreenshot.getScreenshotFileName(
+        			fileName = ScreenshotCapturer.getScreenshotFileName(
         				testInfo.getTestObjectClass(),
         				testInfo.getMethodName(),
         				"CloseAllShellsExt_closing_" + shellTitle);
 				}else {
-        			fileName = CaptureScreenshot.getScreenshotFileName(
+        			fileName = ScreenshotCapturer.getScreenshotFileName(
         				target.getClass(),
         				null,
         				"CloseAllShellsExt_closing_" + shellTitle);
         		}
-				new CaptureScreenshot().captureScreenshot(config, fileName);
+        		ScreenshotCapturer.getInstance().captureScreenshotOnFailure(config, fileName);
 			} catch (CaptureScreenshotException e) {
 				e.printStackTrace();
 			}

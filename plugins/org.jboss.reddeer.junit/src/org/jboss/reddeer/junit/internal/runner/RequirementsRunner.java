@@ -10,8 +10,8 @@ import org.jboss.reddeer.junit.extensionpoint.IBeforeTest;
 import org.jboss.reddeer.junit.internal.requirement.Requirements;
 import org.jboss.reddeer.junit.internal.requirement.inject.RequirementsInjector;
 import org.jboss.reddeer.junit.internal.screenrecorder.ScreenCastingRunListener;
-import org.jboss.reddeer.junit.internal.screenshot.CaptureScreenshot;
-import org.jboss.reddeer.junit.internal.screenshot.CaptureScreenshotException;
+import org.jboss.reddeer.junit.screenshot.CaptureScreenshotException;
+import org.jboss.reddeer.junit.screenshot.ScreenshotCapturer;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -238,13 +238,13 @@ public class RequirementsRunner extends BlockJUnit4ClassRunner {
 	    				log.error("Test " + fTarget.getClass().getName() 
 	    					+ "." + fTestMethod.getName()
 	    					+ " throws exception: ",t);
-		    			CaptureScreenshot screenshot = new CaptureScreenshot();
+		    			ScreenshotCapturer screenshot = ScreenshotCapturer.getInstance();
 		    			try {
-		    				String fileName = CaptureScreenshot.getScreenshotFileName(
+		    				String fileName = ScreenshotCapturer.getScreenshotFileName(
 		    					fTarget.getClass(),
 		    					fTestMethod.getName(),
 		    					null);
-		    				screenshot.captureScreenshot(configId, fileName);	    			
+		    				screenshot.captureScreenshotOnFailure(null, fileName);	    			
 		    			} catch (CaptureScreenshotException ex) {
 		    				ex.printInfo(log);
 		    			}
