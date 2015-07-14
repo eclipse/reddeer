@@ -9,6 +9,7 @@ import org.jboss.reddeer.core.condition.ShellWithTextIsActive;
 import org.jboss.reddeer.core.condition.ShellWithTextIsAvailable;
 import org.jboss.reddeer.core.handler.ShellHandler;
 import org.jboss.reddeer.core.handler.WidgetHandler;
+import org.jboss.reddeer.core.util.DiagnosticTool;
 import org.jboss.reddeer.swt.api.Shell;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.impl.button.CancelButton;
@@ -29,7 +30,8 @@ public abstract class AbstractShell implements Shell {
 		if (swtShell != null) {
 			this.swtShell = swtShell;
 		} else {
-			throw new SWTLayerException("SWT Shell passed to constructor is null");
+			String exceptionText = new DiagnosticTool().getShellsDiagnosticInformation();
+			throw new SWTLayerException("SWT Shell passed to constructor is null. " + exceptionText);
 		}
 	}
 
