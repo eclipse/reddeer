@@ -101,7 +101,7 @@ public class UpdateDocSnippets {
 						
 						line = wikiReader.readLine();
 						builder.append("[source code](" + "https://github.com/jboss-reddeer/reddeer/blob/master/" + 
-								partialPath + ")" + System.lineSeparator() + System.lineSeparator());
+								partialPath + ")" + System.lineSeparator());
 						if (line != null && !line.contains("[source code]")) {
 								builder.append(line + System.lineSeparator());
 						} 
