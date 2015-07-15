@@ -75,6 +75,29 @@
 					<includePacked>true</includePacked>
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>org.jboss.tools.tycho-plugins</groupId>
+				<artifactId>repository-utils</artifactId>
+				<executions>
+					<execution>
+						<id>generate-facade</id>
+						<phase>package</phase>
+						<goals>
+							<goal>generate-repository-facade</goal>
+						</goals>
+						<configuration>
+							<associateSites>
+								<site>${eclipse-orbit-update-site}</site>
+							</associateSites>
+							<symbols>
+								<update.site.name>eclipse-orbit-update-site</update.site.name>
+								<update.site.description></update.site.description>
+							</symbols>
+							<removeDefaultCategory>true</removeDefaultCategory>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
 	</build>
 	
