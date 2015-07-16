@@ -230,6 +230,10 @@ public class AbstractView implements View {
 		}
 	}
 
+	/**
+	 * Returns the title of the view
+	 * @return Title of the view
+	 */
 	public String getTitle() {
 		return viewTitle();
 	}
@@ -251,6 +255,12 @@ public class AbstractView implements View {
 		return false;
 	}
 
+	/**
+	 * Checks if the view is active. This method is not supported due to a bug.
+	 * See https://bugs.eclipse.org/bugs/show_bug.cgi?id=468948 for details.
+	 * 
+	 * @throws UnsupportedOperationException 
+	 */
 	public boolean isActive(){
 		throw new UnsupportedOperationException("Method isActive is not supported due to the bug https://bugs.eclipse.org/bugs/show_bug.cgi?id=468948");
 	}

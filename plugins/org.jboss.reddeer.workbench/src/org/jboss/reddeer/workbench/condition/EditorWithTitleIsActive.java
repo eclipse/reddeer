@@ -13,7 +13,7 @@ public class EditorWithTitleIsActive implements WaitCondition {
 	private String title;
 	
 	/**
-	 * 
+	 * Default constructor
 	 * @param title of editor
 	 */
 	public EditorWithTitleIsActive(String title){

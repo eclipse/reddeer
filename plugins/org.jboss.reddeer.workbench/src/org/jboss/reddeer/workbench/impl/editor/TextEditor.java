@@ -63,6 +63,7 @@ public class TextEditor extends AbstractEditor implements Editor {
 	}
 	
 	/**
+	 * Returns the contents of the editor
 	 * @return content of this editor
 	 */
 	public String getText() {
@@ -70,7 +71,7 @@ public class TextEditor extends AbstractEditor implements Editor {
 	}
 	
 	/**
-	 * Set text into eeditorditor (and replaces everything already in there).
+	 * Set text into editor (and replaces everything already in there).
 	 * This implementation is manipulating with IDocument of this TextEditor. 
 	 * For keyboard-like typing see @link{#typeText(int, int, String) typeText()}.
 	 * @param text given test that will be set as editor text
@@ -176,7 +177,7 @@ public class TextEditor extends AbstractEditor implements Editor {
 	}
 	
 	/**
-	 * Selects text.
+	 * Selects text with given index from possible multiple occurrences.
 	 * 
 	 * @param text to select
 	 * @param index of text (if more occurrences)

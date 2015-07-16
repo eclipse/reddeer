@@ -28,7 +28,7 @@ public class EditorHasValidationMarkers implements WaitCondition {
 	/**
 	 * Wait for marker with specified type
 	 * @param editor which should be used to find validation markers
-	 * @param type of validation market to find
+	 * @param type of validation marker to find
 	 */
 	public EditorHasValidationMarkers(Editor editor, String type) {
 		this(editor, type, -1);
@@ -47,7 +47,7 @@ public class EditorHasValidationMarkers implements WaitCondition {
 	 * Wait for marker with specified type and on specified line
 	 * @param editor which should be used to find validation markers
 	 * @param line on which marker should be found
-	 * @param type of validation market to find
+	 * @param type of validation marker to find
 	 */
 	public EditorHasValidationMarkers(Editor editor, String type, int line) {
 		this.editor = editor;

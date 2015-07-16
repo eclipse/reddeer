@@ -67,7 +67,7 @@ public class AbstractEditor implements Editor {
     
     /**
      * Initialize editor that matches given matchers
-     * @param matchers
+     * @param matchers Matchers the editor should match
      */
     @SuppressWarnings("unchecked")
 	public AbstractEditor(Matcher<IEditorPart>... matchers) {

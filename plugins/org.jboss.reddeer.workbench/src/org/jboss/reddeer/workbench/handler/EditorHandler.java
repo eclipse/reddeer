@@ -71,7 +71,7 @@ public class EditorHandler {
 
     /**
      * Checks if editor is active.
-     * @param editor to be checked if is active
+     * @param editor to be checked if it is active
      * @return true if editor is active, false otherwise
      */
     public boolean isActive(final IEditorPart editor) {
