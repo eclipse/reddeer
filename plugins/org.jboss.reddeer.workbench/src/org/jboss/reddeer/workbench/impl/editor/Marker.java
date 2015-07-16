@@ -17,7 +17,7 @@ public class Marker {
 	
 	/**
 	 * Default constructor needs SimpleAnnotationMarker to extract info.
-	 * @param annotation
+	 * @param annotation SimpleAnnotationMarker to extract info from
 	 */
 	public Marker(SimpleMarkerAnnotation annotation){
 		this.text = annotation.getText();

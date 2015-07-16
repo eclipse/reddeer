@@ -13,7 +13,7 @@ import org.jboss.reddeer.swt.impl.table.DefaultTable;
 import org.jboss.reddeer.core.lookup.ShellLookup;
 
 /**
- * Checks if content assistand shell is open.
+ * Checks if content assistant shell is open.
  * @author rawagner
  *
  */

@@ -32,7 +32,7 @@ public interface WorkbenchPart {
 	void close();
 	/**
      * Returns Title of workbench part
-     * @return
+     * @return Title of the workbench part
      */
     String getTitle();
 
