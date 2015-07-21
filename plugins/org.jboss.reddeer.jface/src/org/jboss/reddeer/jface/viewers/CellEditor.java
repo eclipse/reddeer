@@ -3,7 +3,7 @@ package org.jboss.reddeer.jface.viewers;
 import java.lang.reflect.Field;
 
 import org.eclipse.jface.viewers.ColumnViewerEditor;
-import org.eclipse.jface.viewers.TableViewerColumn;
+import org.eclipse.jface.viewers.ViewerColumn;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.TableColumn;
@@ -110,7 +110,7 @@ public class CellEditor implements ReferencedComposite {
 
 				TableColumn col = tableItem.getParent().getSWTWidget().getColumn(index);
 				Object colData = col.getData(COLUMN_VIEWER_ID);
-				TableViewerColumn viewCol = (TableViewerColumn) colData;
+				ViewerColumn viewCol = (ViewerColumn) colData;
 				ColumnViewerEditor colViewerEditor = viewCol.getViewer().getColumnViewerEditor();
 
 				try {
