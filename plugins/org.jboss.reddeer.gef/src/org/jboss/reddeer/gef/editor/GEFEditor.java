@@ -130,7 +130,7 @@ public class GEFEditor extends DefaultEditor implements ReferencedComposite {
 			@Override
 			public void run() {
 				List<EditPart> editParts = ViewerHandler.getInstance().getEditParts(viewer);
-				for (EditPart editPart: editParts) {
+				for (EditPart editPart : editParts) {
 					editPart.addEditPartListener(viewerListener);
 				}
 			}
@@ -139,6 +139,20 @@ public class GEFEditor extends DefaultEditor implements ReferencedComposite {
 		getPalette().activateTool(tool, group);
 		click(x, y);
 
+		return getAddedEditPart(viewerListener, oldCount);
+	}
+
+	/**
+	 * Waits and detects the new component. Override this method if you need to change the default behavior, e.g. if
+	 * there is a wizard before adding the component.
+	 * 
+	 * @param viewerListener
+	 *            Viewer listener
+	 * @param oldCount
+	 *            Number of components before adding the new one
+	 * @return The new component
+	 */
+	protected org.jboss.reddeer.gef.api.EditPart getAddedEditPart(ViewerListener viewerListener, int oldCount) {
 		new WaitUntil(new EditorHasEditParts(this, oldCount));
 
 		if (viewerListener.getAddedEditPart() == null) {
