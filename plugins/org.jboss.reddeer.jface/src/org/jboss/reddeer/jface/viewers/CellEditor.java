@@ -93,7 +93,11 @@ public class CellEditor implements ReferencedComposite {
 
 	@Override
 	public Control getControl() {
-		return getJFaceCellEditor().getControl();
+		org.eclipse.jface.viewers.CellEditor jFaceCellEditor = getJFaceCellEditor();
+		if (jFaceCellEditor == null) {
+			return null;
+		}
+		return jFaceCellEditor.getControl();
 	}
 
 	/**
