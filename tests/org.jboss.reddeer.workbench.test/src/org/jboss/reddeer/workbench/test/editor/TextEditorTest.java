@@ -40,6 +40,7 @@ import org.jboss.reddeer.common.wait.TimePeriod;
 import org.jboss.reddeer.workbench.exception.WorkbenchLayerException;
 import org.jboss.reddeer.workbench.handler.EditorHandler;
 import org.jboss.reddeer.workbench.impl.editor.TextEditor;
+import org.jboss.reddeer.workbench.impl.shell.WorkbenchShell;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -52,6 +53,7 @@ public class TextEditorTest {
 	private static final String JAVA_CLASS_FILE_NAME = "JavaClass.java";
 	@BeforeClass
 	public static void setup(){
+		new WorkbenchShell().maximize();
 		TextEditorTest.importTestProject();
 		EditorHandler.getInstance().closeAll(true);
 		TextEditor javaTextEditor = TextEditorTest.openJavaFile();
