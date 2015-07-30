@@ -149,6 +149,7 @@ public class ShellHandler {
 		do {
 			// first try to close active shell and reload shells list
 			Shell s = getFilteredActiveShell(shells);
+			shells = filterDisposedShells(shells);
 			// if no active shell present close first one
 			if (s == null && shells.size() > 0){
 				s = shells.get(0);
@@ -214,6 +215,16 @@ public class ShellHandler {
 		return shellsToClose;
 	}
 	
+	private List<Shell> filterDisposedShells(List<Shell> shells) {
+		Iterator<Shell> itShell = shells.iterator();
+		while (itShell.hasNext()){
+			if (itShell.next().isDisposed()){
+				itShell.remove();
+			}
+		}
+		return shells;
+	}
+	
 	private Shell getFilteredActiveShell(List<Shell> shells){
 		Shell result = null;
 		
@@ -223,7 +234,7 @@ public class ShellHandler {
 				Iterator<Shell> itShell = shells.iterator();
 				while (itShell.hasNext() && result == null){
 					Shell shell = itShell.next();
-					if (WidgetHandler.getInstance().getText(shell).equals(
+					if (!shell.isDisposed() && WidgetHandler.getInstance().getText(shell).equals(
 							WidgetHandler.getInstance().getText(activeShell))){
 						result = shell;
 					}
