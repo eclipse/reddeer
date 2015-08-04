@@ -1,8 +1,8 @@
 package org.jboss.reddeer.eclipse.condition;
 
-import org.jboss.reddeer.eclipse.exception.EclipseLayerException;
 import org.jboss.reddeer.eclipse.rse.ui.view.SystemView;
 import org.jboss.reddeer.common.condition.WaitCondition;
+import org.jboss.reddeer.common.exception.RedDeerException;
 
 /**
  * Returns true, if there is remote system with specified name
@@ -28,7 +28,7 @@ public class RemoteSystemExists implements WaitCondition {
 		try{
 			new SystemView().getSystem(this.name);
 			return true;
-		} catch (EclipseLayerException e){
+		} catch (RedDeerException rde){
 			return false;
 		}		
 	}
