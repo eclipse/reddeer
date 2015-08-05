@@ -3,7 +3,9 @@ package org.jboss.reddeer.eclipse.core.resources;
 import java.util.List;
 
 import org.jboss.reddeer.common.logging.Logger;
+import org.jboss.reddeer.common.matcher.RegexMatcher;
 import org.jboss.reddeer.common.wait.TimePeriod;
+import org.jboss.reddeer.core.matcher.WithTextMatcher;
 import org.jboss.reddeer.eclipse.exception.EclipseLayerException;
 import org.jboss.reddeer.eclipse.utils.DeleteUtils;
 import org.jboss.reddeer.swt.api.Shell;
@@ -100,7 +102,7 @@ public abstract class AbstractProject extends ExplorerItem {
 	private Shell handleDeleteResourcesShell(boolean deleteFromFileSystem) {
 		Shell sDeleteResources = null;
 		try {
-			new DefaultShell("Delete Resources");
+			new DefaultShell(new WithTextMatcher(new RegexMatcher("Delete.*")));
 			new CheckBox().toggle(deleteFromFileSystem);
 			sDeleteResources = new DefaultShell();
 		} catch (SWTLayerException swtle) {
