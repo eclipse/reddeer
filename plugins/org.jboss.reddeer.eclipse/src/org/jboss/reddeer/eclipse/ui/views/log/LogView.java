@@ -6,6 +6,7 @@ import java.util.List;
 import org.eclipse.core.runtime.IStatus;
 import org.jboss.reddeer.swt.api.Menu;
 import org.jboss.reddeer.swt.api.TreeItem;
+import org.jboss.reddeer.core.condition.ProgressInformationShellIsActive;
 import org.jboss.reddeer.core.condition.ShellWithTextIsActive;
 import org.jboss.reddeer.swt.impl.button.CheckBox;
 import org.jboss.reddeer.swt.impl.button.OkButton;
@@ -160,5 +161,7 @@ public class LogView extends WorkbenchView{
 		new CheckBox(severity).toggle(true);
 		new CheckBox("Limit visible events to:").toggle(false);
 		new PushButton("OK").click();
+		new WaitWhile(new ShellWithTextIsActive("Log Filters"));
+		new WaitWhile(new ProgressInformationShellIsActive());
 	}
 }

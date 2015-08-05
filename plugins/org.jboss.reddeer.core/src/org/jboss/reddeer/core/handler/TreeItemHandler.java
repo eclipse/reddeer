@@ -370,10 +370,6 @@ public class TreeItemHandler {
 		} catch (WaitTimeoutExpiredException ex) {
 			new WaitUntil(new TreeHeardExpandNotification(swtTreeItem, tel,
 					true), timePeriod);
-		} catch (CoreLayerException ex) {
-			if (!swtTreeItem.isDisposed()) {
-				throw ex;
-			}
 		}
 		logger.info("Expanded: " + WidgetHandler.getInstance().getText(swtTreeItem));
 
