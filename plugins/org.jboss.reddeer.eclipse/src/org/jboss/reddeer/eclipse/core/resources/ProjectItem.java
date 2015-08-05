@@ -5,16 +5,18 @@ import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.common.matcher.RegexMatcher;
 import org.jboss.reddeer.common.wait.TimePeriod;
 import org.jboss.reddeer.common.wait.WaitUntil;
-import org.jboss.reddeer.common.wait.WaitWhile;
-import org.jboss.reddeer.core.condition.JobIsRunning;
-import org.jboss.reddeer.core.condition.ShellWithTextIsActive;
 import org.jboss.reddeer.core.matcher.WithMnemonicTextMatcher;
 import org.jboss.reddeer.core.matcher.WithTextMatcher;
 import org.jboss.reddeer.direct.preferences.Preferences;
+import org.jboss.reddeer.eclipse.exception.EclipseLayerException;
 import org.jboss.reddeer.eclipse.jdt.ui.junit.JUnitHasFinished;
+import org.jboss.reddeer.eclipse.utils.DeleteUtils;
+import org.jboss.reddeer.swt.api.Shell;
 import org.jboss.reddeer.swt.api.TreeItem;
+import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.menu.ContextMenu;
+import org.jboss.reddeer.swt.impl.menu.ShellMenu;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
 
@@ -93,17 +95,31 @@ public class ProjectItem extends ExplorerItem {
 	 * Deletes the project item. The project item is refreshed before deleting.
 	 */
 	public void delete() {
-		// no need to activate, it will be activated in refresh() method
+		// no need to activate, it is activated in refresh() method 
 		refresh();
 
 		log.debug("Delete project item '" + treeItem.getText() + "'.");
 
+		// delete via context menu
 		select();
 		new ContextMenu("Delete").select();
-		String deleteShellTitle = new DefaultShell(new WithTextMatcher(new RegexMatcher("Delete.*"))).getText();
-		new PushButton("OK").click();
-		new WaitWhile(new ShellWithTextIsActive(deleteShellTitle), TimePeriod.LONG);
-		new WaitWhile(new JobIsRunning(), TimePeriod.LONG);
+		Shell sDeleteResources = handleDeleteResourcesShell();
+		
+		// delete via workbench menu
+		if (sDeleteResources == null && treeItem != null
+				&& !treeItem.isDisposed()) {
+			log.debug("Delete project item '" + treeItem.getText() + "' via Workbench menu.");
+			treeItem.select();
+			new ShellMenu("Edit", "Delete").select();
+			sDeleteResources = handleDeleteResourcesShell();
+		}
+		if (sDeleteResources != null) {
+			new PushButton("OK").click();
+			DeleteUtils.handleDeletion(sDeleteResources, TimePeriod.VERY_LONG);
+		} else {
+			throw new EclipseLayerException("Unable to delete project "
+					+ getName() + " via UI calls");
+		}
 	}
 
 	/**
@@ -115,6 +131,23 @@ public class ProjectItem extends ExplorerItem {
 		return project;
 	}
 
+	
+	/**
+	 * Handles waiting for Delete Resources
+	 * 
+	 * @return {@link Shell} if Delete Resources shell is available or null
+	 */
+	private Shell handleDeleteResourcesShell() {
+		Shell sDeleteResources = null;
+		try {
+			new DefaultShell(new WithTextMatcher(new RegexMatcher("Delete.*")));
+			sDeleteResources = new DefaultShell();
+		} catch (SWTLayerException swtle) {
+			sDeleteResources = null;
+		}
+		return sDeleteResources;
+	}
+	
 	@Override
 	public void select() {
 		activateWrappingView();
