@@ -13,7 +13,10 @@
 	</parent>
 
 	<properties>
-		<surefire.timeout>7200</surefire.timeout>
+		<!-- timeout temporarily set to higher value (originally was 7200)
+		due to slow test execution on mac, see
+		https://github.com/jboss-reddeer/reddeer/issues/1174 -->
+		<surefire.timeout>9600</surefire.timeout>
 	</properties>
 
 	<dependencies>
