@@ -2,7 +2,6 @@ package org.jboss.reddeer.junit.test.internal.annotation;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
-import static org.junit.matchers.JUnitMatchers.hasItem;
 
 import java.lang.annotation.Annotation;
 import java.lang.annotation.ElementType;
@@ -11,6 +10,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 import java.util.List;
 
+import org.hamcrest.CoreMatchers;
 import org.hamcrest.Description;
 import org.hamcrest.TypeSafeMatcher;
 import org.jboss.reddeer.junit.internal.annotation.AnnotationsFinder;
@@ -48,7 +48,7 @@ public class AnnotationsFinderTest {
 		List<Annotation> annotations = finder.find(MatchedAnnotationClass.class);
 
 		assertEquals(1, annotations.size());
-		assertThat(annotations, hasItem(new AnnotationClassMatcher(AnnotationA.class)));
+		assertThat(annotations, CoreMatchers.hasItem(new AnnotationClassMatcher(AnnotationA.class)));
 	}
 
 	@Test
@@ -56,8 +56,8 @@ public class AnnotationsFinderTest {
 		List<Annotation> annotations = finder.find(MultipleAnnotationsClass.class);
 
 		assertEquals(2, annotations.size());
-		assertThat(annotations, hasItem(new AnnotationClassMatcher(AnnotationA.class)));
-		assertThat(annotations, hasItem(new AnnotationClassMatcher(AnnotationB.class)));
+		assertThat(annotations, CoreMatchers.hasItem(new AnnotationClassMatcher(AnnotationA.class)));
+		assertThat(annotations, CoreMatchers.hasItem(new AnnotationClassMatcher(AnnotationB.class)));
 	}
 
 	@Test
@@ -72,7 +72,7 @@ public class AnnotationsFinderTest {
 		List<Annotation> annotations = finder.find(WithMatchedAnnotationSuperClass.class);
 
 		assertEquals(1, annotations.size());
-		assertThat(annotations, hasItem(new AnnotationClassMatcher(AnnotationA.class)));
+		assertThat(annotations, CoreMatchers.hasItem(new AnnotationClassMatcher(AnnotationA.class)));
 	}
 
 	@Test
@@ -80,8 +80,8 @@ public class AnnotationsFinderTest {
 		List<Annotation> annotations = finder.find(MultipleAnnotationClassWithMatcherAnnotationSuperClass.class);
 
 		assertEquals(2, annotations.size());
-		assertThat(annotations, hasItem(new AnnotationClassMatcher(AnnotationA.class)));
-		assertThat(annotations, hasItem(new AnnotationClassMatcher(AnnotationB.class)));
+		assertThat(annotations, CoreMatchers.hasItem(new AnnotationClassMatcher(AnnotationA.class)));
+		assertThat(annotations, CoreMatchers.hasItem(new AnnotationClassMatcher(AnnotationB.class)));
 	}
 
 	class NoAnnotationsClass {

@@ -25,7 +25,12 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+/**
+ * 
+ * @deprecated since 0.8 because of ExplorerItemPropertyDialog
+ */
 @RunWith(RedDeerSuite.class)
+@Deprecated
 public class FacetsPropertyPageTest {
 
 	private static final String PROJECT = "server-project";

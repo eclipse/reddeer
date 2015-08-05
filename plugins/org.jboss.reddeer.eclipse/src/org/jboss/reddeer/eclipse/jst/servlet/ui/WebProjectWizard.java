@@ -15,9 +15,6 @@ public class WebProjectWizard extends NewWizardDialog{
 	 */
 	public WebProjectWizard(){
 		super(CATEGORY,NAME);
-		addWizardPage(new WebProjectFirstPage(), 0);
-		addWizardPage(new WebProjectSecondPage(), 1);
-		addWizardPage(new WebProjectThirdPage(), 2);
 	}
 
 }

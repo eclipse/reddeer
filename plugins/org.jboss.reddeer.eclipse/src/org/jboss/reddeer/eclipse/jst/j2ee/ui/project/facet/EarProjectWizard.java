@@ -15,8 +15,6 @@ public class EarProjectWizard extends NewWizardDialog{
 	 */
 	public EarProjectWizard(){
 		super(CATEGORY,NAME);
-		addWizardPage(new EarProjectFirstPage(),0);
-		addWizardPage(new EarProjectInstallPage(),1);
 	}
 
 }

@@ -1,6 +1,5 @@
 package org.jboss.reddeer.swt.impl.ctab;
 
-import org.eclipse.swt.SWT;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.core.handler.CTabItemHandler;

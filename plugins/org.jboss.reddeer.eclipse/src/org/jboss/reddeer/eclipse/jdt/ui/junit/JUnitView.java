@@ -2,14 +2,13 @@ package org.jboss.reddeer.eclipse.jdt.ui.junit;
 
 import org.jboss.reddeer.common.wait.WaitWhile;
 import org.jboss.reddeer.core.condition.ShellWithTextIsAvailable;
-import org.jboss.reddeer.swt.api.ToolItem;
 import org.jboss.reddeer.swt.impl.button.OkButton;
 import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.label.DefaultLabel;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.jboss.reddeer.swt.impl.text.LabeledText;
 import org.jboss.reddeer.swt.impl.toolbar.DefaultToolItem;
-import org.jboss.reddeer.workbench.impl.view.WorkbenchView;
+import org.jboss.reddeer.workbench.impl.view.WorkbenchView;	
 
 /**
  * JUnit View

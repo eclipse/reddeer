@@ -41,7 +41,9 @@ public class ProjectItem extends ExplorerItem {
 	 *            Project
 	 * @param path
 	 *            Path
+	 * @deprecated since 0.8
 	 */
+	@Deprecated
 	public ProjectItem(TreeItem treeItem, Project project, String... path) {
 		super(treeItem);
 		this.path = path;

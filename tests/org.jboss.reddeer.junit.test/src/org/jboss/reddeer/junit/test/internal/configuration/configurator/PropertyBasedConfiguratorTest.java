@@ -1,6 +1,7 @@
 package org.jboss.reddeer.junit.test.internal.configuration.configurator;
 
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.isA;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertSame;
 import static org.mockito.Matchers.any;
@@ -47,7 +48,7 @@ public class PropertyBasedConfiguratorTest {
 
 		verify(setter).set(requirementArgument.capture(), configurationArgument.capture());
 		assertThat((PropertyBasedRequirementA) requirementArgument.getValue(), is(requirement));
-		assertThat(configurationArgument.getValue(), is(PropertyBasedConfiguration.class));
+		assertThat(configurationArgument.getValue(), isA(PropertyBasedConfiguration.class));
 	}
 	
 	@Test

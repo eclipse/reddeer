@@ -16,8 +16,6 @@ public class EjbProjectWizard extends NewWizardDialog {
 	 */
 	public EjbProjectWizard() {
 		super(CATEGORY, NAME);
-		addWizardPage(new EjbProjectFirstPage(), 0);
-		addWizardPage(new EJBFacetInstallPage(), 2);
 	}
 
 }

@@ -4,19 +4,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.core.runtime.IStatus;
+import org.jboss.reddeer.common.wait.WaitUntil;
+import org.jboss.reddeer.common.wait.WaitWhile;
+import org.jboss.reddeer.core.condition.ShellWithTextIsActive;
 import org.jboss.reddeer.swt.api.Menu;
 import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.core.condition.ProgressInformationShellIsActive;
-import org.jboss.reddeer.core.condition.ShellWithTextIsActive;
 import org.jboss.reddeer.swt.impl.button.CheckBox;
 import org.jboss.reddeer.swt.impl.button.OkButton;
 import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.menu.ContextMenu;
-import org.jboss.reddeer.swt.impl.menu.ToolbarMenu;
+import org.jboss.reddeer.swt.impl.menu.ViewMenu;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.jboss.reddeer.swt.impl.tree.DefaultTree;
-import org.jboss.reddeer.common.wait.WaitUntil;
-import org.jboss.reddeer.common.wait.WaitWhile;
 import org.jboss.reddeer.workbench.impl.view.WorkbenchView;
 
 /**
@@ -151,7 +151,7 @@ public class LogView extends WorkbenchView{
 	
 
 	private void setFilter(String severity){
-		ToolbarMenu tmenu = new ToolbarMenu("Filters...");
+		ViewMenu tmenu = new ViewMenu("Filters...");
 		tmenu.select();
 		new WaitUntil(new ShellWithTextIsActive("Log Filters"));
 		new CheckBox(OK_SEVERITY).toggle(false);

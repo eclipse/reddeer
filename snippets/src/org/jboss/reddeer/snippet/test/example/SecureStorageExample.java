@@ -1,7 +1,7 @@
 package org.jboss.reddeer.snippet.test.example;
 
 import org.jboss.reddeer.eclipse.equinox.security.ui.StoragePreferencePage;
-import org.jboss.reddeer.eclipse.jdt.ui.WorkbenchPreferenceDialog;
+import org.jboss.reddeer.workbench.ui.dialogs.WorkbenchPreferenceDialog;
 import org.jboss.reddeer.swt.api.TableItem;
 import org.junit.Test;
 

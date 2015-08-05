@@ -8,7 +8,7 @@ import org.hamcrest.Description;
  * 
  * @author apodhrad
  * @since 0.6
- * 
+ * @deprecated since 0.8
  */
 public class WizardPageIndex extends BaseMatcher<WizardDialog> {
 

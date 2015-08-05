@@ -174,7 +174,9 @@ public class WizardDialog {
 	/**
 	 * Go to the specific page of wizard dialog. First wizard dialog page has index 0.
 	 * @param pageIndex of desired wizard page
+	 * @deprecated since 0.8.0
 	 */
+	@Deprecated
 	public void selectPage(int pageIndex) {
 		if (pageIndex != currentPage) {
 			boolean goBack = pageIndex < currentPage;

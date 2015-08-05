@@ -22,7 +22,6 @@ public class NewJavaProjectWizardDialog extends NewWizardDialog {
 	 */
 	public NewJavaProjectWizardDialog() {
 		super("Java", "Java Project");
-		addWizardPage(new NewJavaProjectWizardPage(), 0);
 	}
 	/**
 	 * Returns first page of wizard.

@@ -45,7 +45,6 @@ public abstract class TopMenuWizardDialog extends WizardDialog {
 	 */
 	public void open(){
 		log.info("Opening wizard using top menu ");
-		currentPage = -1;
 		new ShellMenu(getMenuPath()).select();
 		new DefaultShell(getDialogTitle());
 		new DefaultTreeItem(path).select();

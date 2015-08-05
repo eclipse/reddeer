@@ -15,7 +15,6 @@ public class NewEnumWizardDialog extends NewWizardDialog {
 	 */
 	public NewEnumWizardDialog() {
 		super("Java", "Enum");
-		addWizardPage(new NewEnumWizardPage(), 0);
 	}
 
 	public NewEnumWizardPage getFirstPage() {

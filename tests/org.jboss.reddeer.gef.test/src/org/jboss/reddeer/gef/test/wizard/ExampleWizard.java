@@ -30,7 +30,6 @@ public class ExampleWizard extends NewWizardDialog {
 	@Override
 	public void open() {
 		log.info("Opening wizard using top menu ");
-		currentPage = -1;
 		new ShellMenu(getMenuPath()).select();
 		new DefaultShell(getDialogTitle());
 		try {
