@@ -5,9 +5,9 @@ import org.eclipse.swt.widgets.Shell;
 import org.hamcrest.BaseMatcher;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
+import org.jboss.reddeer.common.exception.RedDeerException;
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.eclipse.core.resources.Project;
-import org.jboss.reddeer.eclipse.exception.EclipseLayerException;
 import org.jboss.reddeer.core.condition.JobIsRunning;
 import org.jboss.reddeer.swt.condition.ShellHasChildrenOrIsNotAvailable;
 import org.jboss.reddeer.core.condition.ShellWithTextIsAvailable;
@@ -70,7 +70,7 @@ public class DeleteUtils {
 	public static void forceProjectDeletion(Project project, boolean deleteFromFileSystem) {
 		try {
 			project.delete(deleteFromFileSystem);
-		} catch (EclipseLayerException ele) {
+		} catch (RedDeerException ele) {
 			log.debug("Delete project '" + project.getName() + "' via Eclipse API ");
 			org.jboss.reddeer.direct.project.Project.delete(project.getName(), deleteFromFileSystem, true);
 		}
