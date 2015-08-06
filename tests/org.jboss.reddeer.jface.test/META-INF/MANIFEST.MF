@@ -3,9 +3,9 @@ Bundle-ManifestVersion: 2
 Bundle-Name: RedDeer JFace Componnet Tests
 Bundle-Vendor: JBoss by Red Hat
 Bundle-SymbolicName: org.jboss.reddeer.jface.test;singleton:=true
-Bundle-Version: 0.8.0.Final
+Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: org.jboss.reddeer.jface.test.Activator
-Require-Bundle: org.jboss.reddeer.go;bundle-version="[0.8.0,0.9.0)",
- org.jboss.reddeer.swt.test;bundle-version="[0.8.0,0.9.0)"
+Require-Bundle: org.jboss.reddeer.go;bundle-version="[1.0,1.1)",
+ org.jboss.reddeer.swt.test;bundle-version="[1.0,1.1)"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7

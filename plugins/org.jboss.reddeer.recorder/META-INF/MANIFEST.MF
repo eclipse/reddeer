@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: org.jboss.reddeer.recorder Core Plugin
 Bundle-SymbolicName: org.jboss.reddeer.recorder;singleton:=true
-Bundle-Version: 0.8.0.Final
+Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: org.jboss.reddeer.recorder.core.Activator
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,

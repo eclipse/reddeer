@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: RedDeer UI Component
 Bundle-SymbolicName: org.jboss.reddeer.ui;singleton:=true
-Bundle-Version: 0.8.0.Final
+Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: org.jboss.reddeer.ui.Activator
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
@@ -16,10 +16,10 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.jdt.launching,
  org.eclipse.debug.ui,
  org.eclipse.pde.ui,
- org.jboss.reddeer.jface;bundle-version="[0.8,0.9)",
- org.jboss.reddeer.swt;bundle-version="[0.8,0.9)",
- org.jboss.reddeer.workbench;bundle-version="[0.8,0.9)",
- org.jboss.reddeer.common;bundle-version="[0.8,0.9)",
+ org.jboss.reddeer.jface;bundle-version="[1.0,1.1)",
+ org.jboss.reddeer.swt;bundle-version="[1.0,1.1)",
+ org.jboss.reddeer.workbench;bundle-version="[1.0,1.1)",
+ org.jboss.reddeer.common;bundle-version="[1.0,1.1)",
  org.eclipse.core.variables;bundle-version="3.2.800",
  org.eclipse.jdt.debug.ui;bundle-version="3.6.0"
 
