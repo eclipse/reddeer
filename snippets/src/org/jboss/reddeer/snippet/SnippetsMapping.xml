@@ -95,6 +95,6 @@
 	
 	<doc page="Preferences-and-Properties.md">
 		<snippet package="org.jboss.reddeer.snippet.preference" file="MavenPreferencePageTest.java" index="0"/>
-		<snippet package="org.jboss.reddeer.snippet.preference" file="RuntimesPropertyPageTest" index="1"/>
+		<snippet package="org.jboss.reddeer.snippet.preference" file="RuntimesPropertyPageTest.java" index="1"/>
 	</doc>		
 </mapping>
