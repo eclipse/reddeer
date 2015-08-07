@@ -10,13 +10,10 @@
 	<category-def label="3. RedDeer Tools" name="ToolFeatures">
 		<description>RedDeer Tests: Contains RedDeer tests.</description>
 	</category-def>
-	<category-def label="4. RedDeer Tests/Examples" name="TestFeatures">
-		<description>RedDeer Tests: Contains RedDeer tests.</description>
-	</category-def>
-	<category-def label="5. RedDeer Documentation" name="Documentation">
+	<category-def label="4. RedDeer Documentation" name="Documentation">
 		<description>RedDeer Documentation: RedDeer documentation in Eclipse Help.</description>
 	</category-def>
-	<category-def label="6. RedDeer Sources" name="AllSources">
+	<category-def label="5. RedDeer Sources" name="AllSources">
 		<description>RedDeer Sources: Contains RedDeer source features.</description>
 	</category-def>
 
@@ -52,7 +49,6 @@
         </feature>
 
 	<feature url="org.jboss.reddeer.tests.feature.qualifier" id="org.jboss.reddeer.tests.feature" version="0.0.0">
-		<category name="TestFeatures"/>
 	</feature>
 
 	<feature url="org.jboss.reddeer.ui.feature.qualifier" id="org.jboss.reddeer.ui.feature" version="0.0.0">
@@ -60,7 +56,6 @@
 	</feature>
 
 	<feature url="org.jboss.reddeer.examples.feature.qualifier" id="org.jboss.reddeer.examples.feature" version="0.0.0">
-		<category name="TestFeatures"/>
 	</feature>
 
 	<feature url="org.jboss.reddeer.junit.extension.feature.qualifier" id="org.jboss.reddeer.junit.extension.feature" version="0.0.0">
@@ -84,7 +79,6 @@
 	</feature>
 
 	<feature url="org.jboss.reddeer.tests.feature.source.qualifier" id="org.jboss.reddeer.tests.feature.source" version="0.0.0">
-		<category name="AllSources"/>
 	</feature>
 
 	<feature url="org.jboss.reddeer.ui.feature.source.qualifier" id="org.jboss.reddeer.ui.feature.source" version="0.0.0">
@@ -96,7 +90,6 @@
 	</feature>
 
 	<feature url="org.jboss.reddeer.examples.feature.source.qualifier" id="org.jboss.reddeer.examples.feature.source" version="0.0.0">
-		<category name="AllSources"/>
 	</feature>
 
 	<feature url="org.jboss.reddeer.junit.extension.feature.source.qualifier" id="org.jboss.reddeer.junit.extension.feature.source" version="0.0.0">
