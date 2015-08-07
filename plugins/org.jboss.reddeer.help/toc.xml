@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?NLS TYPE="org.eclipse.help.toc"?>
+ <toc label="RedDeer Documentation">
+ 	<topic label="Overview">
+    	<topic label="What is RedDeer?" href="doc/html/overview.html"/>
+    </topic>
+    <topic label="User Guide">
+		<topic label="Getting Started">
+	  		<topic label="Write Minimal RedDeer Test" href=""/>
+	  		<topic label="Running RedDeer Tests" href=""/>
+	  		<topic label="Write your own RedDeer API" href=""/>
+	  		<topic label="Execution Parameters" href=""/>
+	  		<topic label="Run RedDeer Tests in Jenkins Environment" href=""/>
+      	</topic>
+      	<topic label="Simplified Reference Guide">
+      		<topic label="Fundamentals">
+      			<topic label="Matchers" href=""/>
+      			<topic label="Conditions" href=""/>
+      			<topic label="Waits and Timeouts" href=""/>
+      			<topic label="Exceptions" href=""/>
+      			<topic label="Platform Specifics" href=""/>
+      		</topic>		
+      		<topic label="JUnit">
+      			<topic label="Test Suite" href=""/>
+      			<topic label="Test Configurations" href=""/>
+      			<topic label="JUnit Extensions" href=""/>
+      			<topic label="Parameterized Tests" href=""/>
+      			<topic label="Conditional Running of Tests" href=""/>
+      		</topic>
+      		<topic label="Low-Level API">
+      			<topic label="Lookups and Handlers" href=""/>
+      			<topic label="Widgets" href=""/>
+      			<topic label="Keyboard" href=""/>
+      		</topic>
+      		<topic label="High-Level API">
+      			<topic label="Views" href=""/>
+      			<topic label="Editors" href=""/>
+      			<topic label="Wizards" href="">
+      				<topic label="Export and Import Wizard Dialogs" href=""/>
+      				<topic label="New Wizard Dialogs" href=""/>
+      			</topic>
+      			<topic label="Preferences and Properties Dialogs" href=""/>
+      			<topic label="Projects and Project Items" href=""/>
+      			<topic label="Database Connection" href=""/>
+      			<topic label="Secure Storage" href=""/>
+      		</topic>
+      		<topic label="Requirements">
+      			<topic label="Everything about Requirements" href=""/>
+      			<topic label="Write your own minimal Requirement" href=""/>
+      			<topic label="Write your own complex Requirement" href=""/>
+      			<topic label="Existing Requirements">
+	      			<topic label="Basic Test Requirements" href=""/>
+	      			<topic label="Server Requirement" href=""/>
+	      			<topic label="Database Requirement" href=""/>
+	      			<topic label="Java Requirement" href=""/>	
+      			</topic>
+      		</topic>
+      		<topic label="Interceptors" href=""/>
+      		<topic label="RedDeer UI Tooling">
+      			<topic label="RedDeer Project Wizard" href=""/>
+      			<topic label="RedDeer Run Configuration" href=""/>
+      			<topic label="RedDeer Spy View" href=""/>
+      			<topic label="RedDeer GEF Spy View" href=""/>
+      			<topic label="RedDeer Log Parser" href=""/>
+      		</topic>
+      		<topic label="Other Topics">
+      			<topic label="Capturing Screenshots" href=""/>
+      			<topic label="Logging" href=""/>
+      			<topic label="Debugging" href=""/>
+      			<topic label="User Profile" href=""/>
+      			<topic label="Setting Plugin Preferences" href=""/>
+      			<topic label="How to build RedDeer" href=""/>
+      		</topic>
+      	</topic>
+	</topic>
+	  
+	<topic label="Release Notes">
+	</topic>
+	  
+	<topic label="How to Contribute">
+	</topic>
+   
+</toc>
+   

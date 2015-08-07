@@ -13,11 +13,16 @@
 	<category-def label="4. RedDeer Tests/Examples" name="TestFeatures">
 		<description>RedDeer Tests: Contains RedDeer tests.</description>
 	</category-def>
-	<category-def label="5. RedDeer Sources" name="AllSources">
+	<category-def label="5. RedDeer Documentation" name="Documentation">
+		<description>RedDeer Documentation: RedDeer documentation in Eclipse Help.</description>
+	</category-def>
+	<category-def label="6. RedDeer Sources" name="AllSources">
 		<description>RedDeer Sources: Contains RedDeer source features.</description>
 	</category-def>
 
-
+	<feature url="org.jboss.reddeer.help.feature.qualifier" id="org.jboss.reddeer.help.feature" version="0.0.0">
+		<category name="Documentation"/>
+	</feature>
 	<feature url="org.jboss.reddeer.eclipse.feature.qualifier" id="org.jboss.reddeer.eclipse.feature" version="0.0.0">
 		<category name="RuntimeAPIFeatures"/>
 	</feature>
