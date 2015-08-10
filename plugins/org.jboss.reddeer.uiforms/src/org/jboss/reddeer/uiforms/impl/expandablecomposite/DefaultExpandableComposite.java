@@ -107,30 +107,6 @@ public class DefaultExpandableComposite extends AbstractExpandableComposite {
 	}
 
 	/**
-	 * Represents expandable composite inside the specified
-	 * {@link ReferencedComposite} with the specified <var>text</var> and
-	 * the specified <var>index</var>.
-	 * @deprecated This is not a standard constructor. Will be removed in 1.0.0. Please use another one.
-	 * @param referencedComposite
-	 * @param index expandable composite index
-	 * @param text expandable composite text
-	 */
-	public DefaultExpandableComposite(ReferencedComposite referencedComposite, int index, String text) {
-		this(referencedComposite, index, new WithMnemonicTextMatcher(text));
-	}
-
-	/**
-	 * Represents expandable composite with the specified <var>text</var> and
-	 * the specified <var>index</var>.
-	 * @deprecated This is not a standard constructor. Will be removed in 1.0.0. Please use another one.
-	 * @param index expandable composite index
-	 * @param text expandable composite text
-	 */
-	public DefaultExpandableComposite(int index, String text) {
-		this(null, index, text);
-	}
-
-	/**
 	 * The purpose of this class is to match with {@link Widget}
 	 * that has the {@link ExpandableComposite} type.
 	 * Is more strict as {@link ClassMatcher} because it doesn't match

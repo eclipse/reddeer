@@ -80,25 +80,4 @@ public class PushButton extends AbstractButton implements Button {
 	public PushButton(ReferencedComposite referencedComposite, int index, Matcher<?>... matchers) {
 		super(referencedComposite, index, SWT.PUSH, matchers);
 	}
-	
-	/**
-	 * Push Button with given index and text
-	 * @param index
-	 * @param text
-	 * @deprecated Since 1.0.0. This is not a standard widget constructor.
-	 */
-	public PushButton (int index , String text){
-		super(null, index,text,SWT.PUSH);
-	}
-	
-	/**
-	 * Push Button with given index and text inside given composite
-	 * @param referencedComposite
-	 * @param index
-	 * @param text
-	 * @deprecated Since 1.0.0. This is not a standard widget constructor.
-	 */
-	public PushButton (ReferencedComposite referencedComposite, int index , String text){
-		super(referencedComposite, index,text,SWT.PUSH);
-	}
 }

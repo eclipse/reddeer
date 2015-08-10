@@ -81,26 +81,4 @@ public class DefaultTabItem extends AbstractTabItem {
 	public DefaultTabItem(ReferencedComposite referencedComposite, int index, Matcher<?>... matchers) {
 		super(referencedComposite, index, matchers);
 	}
-	
-	/**
-	 * TabItem with specified index and text will be constructed
-	 * @deprecated This is not a standard widget constructor and will be removed in 1.0.0
-	 * @param index
-	 * @param text
-	 */
-	public DefaultTabItem(int index, String text) {
-		this(null, index, text);
-	}
-
-	/**
-	 * TabItem with specified index and text inside given composite will be
-	 * constructed
-	 * @deprecated This is not a standard widget constructor and will be removed in 1.0.0
-	 * @param referencedComposite
-	 * @param index
-	 * @param text
-	 */
-	public DefaultTabItem(ReferencedComposite referencedComposite, int index, String text) {
-		this(referencedComposite, index, new WithMnemonicTextMatcher(text));
-	}
 }

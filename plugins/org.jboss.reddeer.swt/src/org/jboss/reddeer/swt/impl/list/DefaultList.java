@@ -80,25 +80,4 @@ public class DefaultList extends AbstractList implements List{
 	public DefaultList(ReferencedComposite referencedComposite, int index, Matcher<?>... matchers){
 		super(referencedComposite, index, matchers);
 	}
-	
-	/**
-	 * List with given index and label
-	 * @param index of text
-	 * @deprecated Since 1.0.0. This is not a standard widget constructor.
-	 */
-	public DefaultList(String label, int index){
-		this(null, index,new WithLabelMatcher(label));
-	}
-	
-	/**
-	 * List with given index and label inside given composite
-	 * @param referencedComposite
-	 * @param label
-	 * @param index of text
-	 * @deprecated Since 1.0.0. This is not a standard widget constructor.
-	 */
-	public DefaultList(ReferencedComposite referencedComposite, String label, int index){
-		this(referencedComposite, index,new WithLabelMatcher(label));
-	}
-
 }

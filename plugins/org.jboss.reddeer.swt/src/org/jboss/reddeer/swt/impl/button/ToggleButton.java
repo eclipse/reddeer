@@ -83,26 +83,6 @@ public class ToggleButton extends AbstractButton {
 		super(referencedComposite, index, SWT.TOGGLE, matchers);
 	}
 	
-	/**
-	 * Creates Toggle button with given index and label
-	 * @param index of button
-	 * @param label of button
-	 * @deprecated Since 1.0.0. This is not a standard widget constructor.
-	 */
-	public ToggleButton(int index, String text) {
-		super(null, index,text, SWT.TOGGLE);
-	}
-	
-	/**
-	 * Creates Toggle button with given index and label inside given composite
-	 * @param referencedComposite
-	 * @param index of button
-	 * @param label of button
-	 * @deprecated Since 1.0.0. This is not a standard widget constructor.
-	 */
-	public ToggleButton(ReferencedComposite referencedComposite, int index, String text) {
-		super(referencedComposite, index,text, SWT.TOGGLE);
-	}
     /**
      * Returns true when Toggle Button is selected
      * @return

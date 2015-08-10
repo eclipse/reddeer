@@ -16,9 +16,4 @@ public class NewServerWizardDialog extends NewWizardDialog {
 	public NewServerWizardDialog() {
 		super("Server", "Server");
 	}
-
-	@Deprecated
-	public NewServerWizardPage getFirstPage(){
-		return new NewServerWizardPage();
-	}
 }

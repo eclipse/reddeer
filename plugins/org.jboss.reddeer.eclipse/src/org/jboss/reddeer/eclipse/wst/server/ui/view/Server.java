@@ -46,16 +46,6 @@ public class Server {
 	protected TreeItem treeItem;
 	
 	protected ServersView view;
-
-	/**
-	 * @deprecated Use {@link #Server(TreeItem, ServersView)}
-	 * @param treeItem
-	 */
-	public Server(TreeItem treeItem) {
-		this.treeItem = treeItem;
-		this.view = new ServersView();
-		view.open();
-	}
 	
 	protected Server(TreeItem treeItem, ServersView view) {
 		this.treeItem = treeItem;

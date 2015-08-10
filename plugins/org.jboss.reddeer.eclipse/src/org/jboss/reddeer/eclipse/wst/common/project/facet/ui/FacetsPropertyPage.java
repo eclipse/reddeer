@@ -3,8 +3,7 @@ package org.jboss.reddeer.eclipse.wst.common.project.facet.ui;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.jboss.reddeer.eclipse.core.resources.Project;
-import org.jboss.reddeer.eclipse.ui.dialogs.ProjectPropertyPage;
+import org.jboss.reddeer.eclipse.ui.dialogs.PropertyPage;
 import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.swt.impl.button.OkButton;
 import org.jboss.reddeer.swt.impl.combo.LabeledCombo;
@@ -17,17 +16,15 @@ import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
  * @author Pavol Srna
  * 
  */
-public class FacetsPropertyPage extends ProjectPropertyPage {
+public class FacetsPropertyPage extends PropertyPage {
 	
 	public static final String NAME = "Project Facets"; 
 	
 	/**
-	 * Constructs the property page with a given project and {@value #NAME}.
-	 * 
-	 * @param project Project name
+	 * Constructs a new Facets property page.
 	 */
-	public FacetsPropertyPage(Project project) {
-		super(project, NAME);
+	public FacetsPropertyPage() {
+		super(NAME);
 	}
 	
 	/**

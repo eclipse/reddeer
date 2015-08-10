@@ -53,26 +53,10 @@ public abstract class ServerReqBase {
 	}
 	
 	/**
-	 * @deprecated in 0.6 Use {@link #removeLastRequiredServerAndRuntime(ConfiguredServerInfo)}.
-	 * 
-	 * @param lastServerConfig
-	 */
-	protected void removeLastRequiredServer(ConfiguredServerInfo lastServerConfig) {
-		try {
-			org.jboss.reddeer.eclipse.wst.server.ui.view.Server serverInView = getConfiguredServer(lastServerConfig);
-			//remove server added by last requirement
-			serverInView.delete(true);
-		} catch(ConfiguredServerNotFoundException e) {
-			//server had been already removed
-		}
-	}
-	
-	/**
 	 * Removes given server and its runtime.
 	 * 
 	 * @param lastServerConfig Server information.
 	 */
-	
 	protected void removeLastRequiredServerAndRuntime(ConfiguredServerInfo lastServerConfig) {
 		try {
 			org.jboss.reddeer.eclipse.wst.server.ui.view.Server serverInView = getConfiguredServer(lastServerConfig);
