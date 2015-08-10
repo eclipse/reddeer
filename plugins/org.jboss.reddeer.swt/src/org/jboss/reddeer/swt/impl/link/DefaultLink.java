@@ -73,26 +73,4 @@ public class DefaultLink extends AbstractLink{
 	public DefaultLink(ReferencedComposite referencedComposite, int index, Matcher<?>... matchers) {
 		super(referencedComposite, index, matchers);
 	}
-	
-	/**
-	 * Link with given text and index inside given composite
-	 * @param referencedComposite
-	 * @param index of link
-	 * @param text of link
-	 *  @deprecated Since 1.0.0 this is not a standard widget constructor
-	 */
-	public DefaultLink(ReferencedComposite referencedComposite, int index, String text){
-		this(referencedComposite, index, new LinkTextMatcher(text));
-	}
-	
-	/**
-	 * Link with given text and index
-	 * @param index of link
-	 * @param text of link
-	 *  @deprecated Since 1.0.0 this is not a standard widget constructor
-	 */
-	public DefaultLink(int index, String text){
-		this(null, index, text);
-	}
-
 }

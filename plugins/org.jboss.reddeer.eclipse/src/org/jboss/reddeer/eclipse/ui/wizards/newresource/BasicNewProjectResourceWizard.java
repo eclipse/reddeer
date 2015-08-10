@@ -1,7 +1,5 @@
 package org.jboss.reddeer.eclipse.ui.wizards.newresource;
 
-import org.jboss.reddeer.eclipse.ui.dialogs.WizardNewProjectCreationPage;
-import org.jboss.reddeer.eclipse.ui.dialogs.WizardNewProjectReferencePage;
 import org.jboss.reddeer.jface.wizard.NewWizardDialog;
 
 /**
@@ -17,15 +15,5 @@ public class BasicNewProjectResourceWizard extends NewWizardDialog {
 	 */
 	public BasicNewProjectResourceWizard() {
 		super("General", "Project");
-	}
-	
-	@Deprecated
-	public WizardNewProjectCreationPage getFirstPage() {
-		return new WizardNewProjectCreationPage();
-	}
-	
-	@Deprecated
-	public WizardNewProjectReferencePage getSecondPage(){
-		return new WizardNewProjectReferencePage();
 	}
 }

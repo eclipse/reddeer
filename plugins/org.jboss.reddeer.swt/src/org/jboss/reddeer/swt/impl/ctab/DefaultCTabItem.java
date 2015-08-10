@@ -81,28 +81,6 @@ public class DefaultCTabItem extends AbstractCTabItem {
 	}
 	
 	/**
-	 * CTabItem with specified index and text will be constructed 
-	 * 
-	 * @param index
-	 * @param text
-	 * @deprecated Since 1.0.0 this is not default widget constructor
-	 */
-	public DefaultCTabItem(int index, String text) {
-		this(null, index, text);
-	}
-	
-	/**
-	 * CTabItem with specified index and text inside given composite will be constructed 
-	 * @param referencedComposite
-	 * @param index
-	 * @param text
-	 * @deprecated Since 1.0.0 this is not default widget constructor
-	 */
-	public DefaultCTabItem(ReferencedComposite referencedComposite, int index, String text) {
-		this(referencedComposite, index, new WithMnemonicTextMatcher(text));
-	}
-	
-	/**
 	 * Constructs CTabItem from given swt widget
 	 * @param swtWidget
 	 */

@@ -32,25 +32,6 @@ public class ProjectItem extends ExplorerItem {
 	private String[] path;
 
 	/**
-	 * Constructs project item with a given tree item, project and path. For
-	 * information how path could look like see {@link Project#getProjectItem}.
-	 * 
-	 * @param treeItem
-	 *            Tree item
-	 * @param project
-	 *            Project
-	 * @param path
-	 *            Path
-	 * @deprecated since 0.8
-	 */
-	@Deprecated
-	public ProjectItem(TreeItem treeItem, Project project, String... path) {
-		super(treeItem);
-		this.path = path;
-		this.project = project;
-	}
-
-	/**
 	 * Constructs project item with a specified tree item.
 	 * 
 	 * @param treeItem
@@ -123,18 +104,6 @@ public class ProjectItem extends ExplorerItem {
 		new PushButton("OK").click();
 		new WaitWhile(new ShellWithTextIsActive(deleteShellTitle), TimePeriod.LONG);
 		new WaitWhile(new JobIsRunning(), TimePeriod.LONG);
-	}
-
-	/**
-	 * Gets decorators of the project item.
-	 * 
-	 * @return String array of decorators of the project item
-	 * @deprecated use {@link AbstractExplorerItem#getDecoratedParts()} instead
-	 */
-	@Deprecated
-	public String[] getDecorators() {
-		select();
-		return treeViewerHandler.getStyledTexts(treeItem);
 	}
 
 	/**

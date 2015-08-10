@@ -77,7 +77,7 @@ public class RedDeerLauncherProperties {
 	 */
 	public void load(ILaunchConfiguration config) throws CoreException{
 		for (String key : config.getAttributes().keySet()){
-			if (key.equals(getConfigKey()) || key.equals(getConfigKeyWithoutRDPrefix())){
+			if (key.equals(getConfigKey())){
 				setCurrentValue(config.getAttribute(key, getProperty().getValue()));
 				setDoubleDefined(config);
 			}
@@ -126,21 +126,11 @@ public class RedDeerLauncherProperties {
 	 * @param config
 	 */
 	public void save(ILaunchConfigurationWorkingCopy config) {
-		config.removeAttribute(getConfigKeyWithoutRDPrefix());
 		config.setAttribute(getConfigKey(), getCurrentValue());
 	}
 
 	private String getConfigKey(){
 		return ATTRIBUTE_PREFIX + getProperty().getName();
-	}
-	
-	/**
-	 * @deprecated Migration issue - should be removed in later releases. 
-	 * See https://github.com/jboss-reddeer/reddeer/pull/1105/files
-	 * @return
-	 */
-	private String getConfigKeyWithoutRDPrefix(){
-		return ATTRIBUTE_PREFIX + getProperty().getName().replaceFirst("reddeer.", "");
 	}
 	
 	private void setDoubleDefined(ILaunchConfiguration config) throws CoreException{

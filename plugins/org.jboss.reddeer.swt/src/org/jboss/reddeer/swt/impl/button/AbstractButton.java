@@ -8,14 +8,13 @@ import org.eclipse.swt.SWT;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.common.platform.RunningPlatform;
-import org.jboss.reddeer.swt.api.Button;
-import org.jboss.reddeer.swt.condition.WidgetIsEnabled;
+import org.jboss.reddeer.common.wait.WaitUntil;
 import org.jboss.reddeer.core.handler.ButtonHandler;
 import org.jboss.reddeer.core.handler.WidgetHandler;
-import org.jboss.reddeer.core.matcher.WithMnemonicTextMatcher;
 import org.jboss.reddeer.core.matcher.WithStyleMatcher;
 import org.jboss.reddeer.core.reference.ReferencedComposite;
-import org.jboss.reddeer.common.wait.WaitUntil;
+import org.jboss.reddeer.swt.api.Button;
+import org.jboss.reddeer.swt.condition.WidgetIsEnabled;
 import org.jboss.reddeer.swt.widgets.AbstractWidget;
 
 /**
@@ -28,26 +27,6 @@ public abstract class AbstractButton extends AbstractWidget<org.eclipse.swt.widg
 
 	private static final Logger log = Logger.getLogger(AbstractButton.class);
 
-	/**
-	 * @deprecated Since 1.0.0. This is not a standard widget constructor.
-	 * @param refComposite
-	 * @param index
-	 * @param text
-	 * @param style
-	 * @param matchers
-	 */
-	@SuppressWarnings("rawtypes")
-	protected AbstractButton (ReferencedComposite refComposite, int index , String text, int style, Matcher... matchers){
-        super(org.eclipse.swt.widgets.Button.class, refComposite, index, createMatchers(text, style, matchers));
-
-        if (RunningPlatform.isWindows() &&
-                ((WidgetHandler.getInstance().getStyle(swtWidget) & SWT.RADIO) != 0)){
-                // do not set focus because it also select radio button on Windows
-        } else{
-        	WidgetHandler.getInstance().setFocus(swtWidget);        
-        }   
-	}
-
 	protected AbstractButton (ReferencedComposite refComposite, int index, int style, Matcher<?>... matchers){
         super(org.eclipse.swt.widgets.Button.class, refComposite, index, createMatchers(style, matchers));
 
@@ -57,17 +36,6 @@ public abstract class AbstractButton extends AbstractWidget<org.eclipse.swt.widg
         } else{
         	WidgetHandler.getInstance().setFocus(swtWidget);        
         }   
-	}
-	
-	private static Matcher<?>[] createMatchers(String text, int style, Matcher<?>... matchers) {
-		List<Matcher<?>> list= new ArrayList<Matcher<?>>();
-		if (text != null && !text.isEmpty()) {
-			list.add(new WithMnemonicTextMatcher(text));
-		}
-		list.add(new WithStyleMatcher(style));			
-		list.addAll(Arrays.asList(matchers));
-
-		return list.toArray(new Matcher[list.size()]);
 	}
 	
 	private static Matcher<?>[] createMatchers(int style, Matcher<?>... matchers) {

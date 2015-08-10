@@ -16,10 +16,4 @@ public class NewFileCreationWizardDialog extends NewWizardDialog {
 	public NewFileCreationWizardDialog() {
 		super("General", "File");
 	}
-	
-	@Deprecated
-	public NewFileCreationWizardPage getFirstPage() {
-		return new NewFileCreationWizardPage();
-	}
-
 }

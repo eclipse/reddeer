@@ -44,5 +44,4 @@ Export-Package: org.jboss.reddeer.swt,
  org.jboss.reddeer.swt.impl.tree,
  org.jboss.reddeer.swt.keyboard,
  org.jboss.reddeer.swt.matcher,
- org.jboss.reddeer.swt.regex,
  org.jboss.reddeer.swt.widgets

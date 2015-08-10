@@ -79,25 +79,4 @@ public class DefaultLabel extends AbstractLabel {
 	public DefaultLabel(ReferencedComposite referencedComposite, int index, Matcher<?>... matchers) {
 		super(referencedComposite, index, matchers);
 	}
-	
-	/**
-	 * Create DefaultLabel instance matching given text and index
-	 * @param text
-	 * @param index
-	 * @deprecated Since 1.0.0 this is not a standard widget constructor
-	 */
-	public DefaultLabel(String text, int index) {
-		this(null, text, index);		
-	}
-	
-	/**
-	 * Create DefaultLabel instance matching given text and index inside given composite
-	 * @param referencedComposite
-	 * @param text
-	 * @param index
-	 * @deprecated Since 1.0.0 this is not a standard widget constructor
-	 */
-	public DefaultLabel(ReferencedComposite referencedComposite, String text, int index) {
-		this(referencedComposite, index, new WithTextMatcher(text));		
-	}
 }

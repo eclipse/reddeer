@@ -23,14 +23,6 @@ public class NewJavaProjectWizardDialog extends NewWizardDialog {
 	public NewJavaProjectWizardDialog() {
 		super("Java", "Java Project");
 	}
-	/**
-	 * Returns first page of wizard.
-	 * @deprecated
-	 * @return NewJavaProjectWizardPage
-	 */
-	public NewJavaProjectWizardPage getFirstPage() {
-		return new NewJavaProjectWizardPage();
-	}
 
 	@Override
 	public void finish() {

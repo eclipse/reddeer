@@ -18,26 +18,13 @@ import org.jboss.reddeer.common.wait.WaitWhile;
  * @author Lucia Jelinkova
  *
  */
-public class ServerModule {
+public class ServerModule { 
 
 	private static final Logger log = Logger.getLogger(ServerModule.class);
 	
 	protected TreeItem treeItem;
 	
 	protected ServersView view;
-
-	/**
-	 * @deprecated Use {@link #ServerModule(TreeItem, ServersView)}
-	 * @param item
-	 */
-	public ServerModule(TreeItem item) {
-		if (item == null) {
-			throw new IllegalArgumentException("item can't be null");
-		}
-		this.treeItem = item;
-		this.view = new ServersView();
-		view.open();
-	}
 	
 	protected ServerModule(TreeItem item, ServersView view) {
 		if (item == null) {

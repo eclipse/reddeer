@@ -84,27 +84,6 @@ public class DefaultGroup extends AbstractWidget<Group> implements org.jboss.red
 		super(Group.class, referencedComposite, index, matchers);
 	}
 
-	/**
-	 * Group with given index and text inside given composite
-	 * @param referencedComposite
-	 * @param index group index
-	 * @param text group text
-	 * @deprecated Since 1.0.0 this is not a standard widget constructor
-	 */
-	public DefaultGroup(ReferencedComposite referencedComposite, int index,String text){
-		this(referencedComposite, index, new WithMnemonicTextMatcher(text));
-	}
-
-	/**
-	 * Group with given index and text
-	 * @param index group index
-	 * @param text group text
-	 * @deprecated Since 1.0.0 this is not a standard widget constructor
-	 */
-	public DefaultGroup(int index,String text){
-		this(null, index, text);
-	}
-
 	@Override
 	public String getText() {
 		return WidgetHandler.getInstance().getText(swtWidget);

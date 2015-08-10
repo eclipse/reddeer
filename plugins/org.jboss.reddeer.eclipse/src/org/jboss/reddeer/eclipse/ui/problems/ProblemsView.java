@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.hamcrest.Matcher;
 import org.jboss.reddeer.common.wait.TimePeriod;
 import org.jboss.reddeer.common.wait.WaitUntil;
 import org.jboss.reddeer.common.wait.WaitWhile;
@@ -27,76 +26,6 @@ public class ProblemsView extends WorkbenchView{
 	public ProblemsView() {
 		super("Problems");
 	}
-
-	/**
-	 * Return list of error problem markers
-	 * 
-	 * @return list of tree items of errors
-	 * @deprecated since 0.7. Use getProblems with ProblemType.ERROR and no column matcher to get all errors.
-	 */
-	@Deprecated
-	public List<TreeItem> getAllErrors(){
-		activate();
-		new WaitUntil(new ProblemsViewMarkerIsUpdating(),TimePeriod.SHORT,false);
-		new WaitWhile(new ProblemsViewMarkerIsUpdating());
-		DefaultTree tree = new DefaultTree();
-		return filter(tree.getItems(), true);
-	}
-	
-	/**
-	 * Return list of warnings problem markers
-	 * 
-	 * @return list of tree items of errors
-	 * @deprecated since 0.7. Use getProblems with ProblemType.WARNING and no column matcher to get all warnings. 
-	 */
-	@Deprecated
-	public List<TreeItem> getAllWarnings(){
-		activate();
-		new WaitUntil(new ProblemsViewMarkerIsUpdating(),TimePeriod.SHORT,false);
-		new WaitWhile(new ProblemsViewMarkerIsUpdating());
-		DefaultTree tree = new DefaultTree();
-		return filter(tree.getItems(), false);
-	}
-	
-	/**
-	 * Return list of error problem markers that match given {@link Matcher}s.
-	 * 
-	 * @param description filter by description
-	 * @param resource filter by resource
-	 * @param path filter by path
-	 * @param location filter by location
-	 * @param type filter by type
-	 * @return filtered list of errors that match given {@link Matcher}s
-	 * @deprecated since 0.7. Use getProblems with ProblemType.ERROR and desired matchers.
-	 */
-	@Deprecated
-	public List<TreeItem> getErrors(Matcher<String> description,
-			Matcher<String> resource, Matcher<String> path,
-			Matcher<String> location, Matcher<String> type) {
-		activate();
-		return filter(getAllErrors(), description, resource, path,
-				location, type, null, null);
-	}
-	
-	/**
-	 * Return list of warning problem markers that match given {@link Matcher}s.
-	 * 
-	 * @param description filter by description
-	 * @param resource filter by resource
-	 * @param path filter by path
-	 * @param location filter by location
-	 * @param type filter by type
-	 * @return filtered list of warnings that match given {@link Matcher}s
-	 * @deprecated since 0.7. Use getProblems with ProblemType.WARNING and desired matchers.
-	 */
-	@Deprecated
-	public List<TreeItem> getWarnings(Matcher<String> description,
-			Matcher<String> resource, Matcher<String> path,
-			Matcher<String> location, Matcher<String> type) {
-		activate();
-		return filter(getAllWarnings(), description, resource, path,
-				location, type, null, null);
-	}
 	
 	/**
 	 * Returns a list of problems that are of a specific type or any and that are matching specified matchers.
@@ -113,18 +42,6 @@ public class ProblemsView extends WorkbenchView{
 		return filterProblems(problemType, tree.getItems(), matchers);
 	}
 	
-	private List<TreeItem> filter(List<TreeItem> list, boolean errors){
-		for (TreeItem problemSeverityTreeItem : list) {
-			if (problemSeverityTreeItem.getText().matches("^Errors \\(\\d+ item.*\\)") && errors) {
-				return problemSeverityTreeItem.getItems();
-			} 
-			if (problemSeverityTreeItem.getText().matches("^Warnings \\(\\d+ item.*\\)") && !errors) {
-				return problemSeverityTreeItem.getItems();
-			}
-		}
-		return new LinkedList<TreeItem>();
-	}
-
 	/**
 	 * Gets tree items representing problems of a specific type.
 	 */
@@ -140,34 +57,6 @@ public class ProblemsView extends WorkbenchView{
 			}
 		}
 		return new LinkedList<TreeItem>();
-	}
-	
-	private List<TreeItem> filter(List<TreeItem> items, Matcher<String> description, 
-			Matcher<String> resource, Matcher<String> path, Matcher<String> location, 
-			Matcher<String> type, Matcher<String> id, Matcher<String> creationTime) {
-		List<TreeItem> filteredResult = new ArrayList<TreeItem>();
-		for (TreeItem item : items) {
-			boolean descriptionIsOk = description == null ||
-						description.matches(item.getCell(getIndexOfColumn(Column.DESCRIPTION)));
-			boolean resourceIsOk = resource == null || 
-						resource.matches(item.getCell(getIndexOfColumn(Column.RESOURCE)));
-			boolean pathIsOk = path == null || 
-						path.matches(item.getCell(getIndexOfColumn(Column.PATH)));
-			boolean locationIsOk = location == null || 
-						location.matches(item.getCell(getIndexOfColumn(Column.LOCATION)));
-			boolean typeIsOk = type == null || 
-						type.matches(item.getCell(getIndexOfColumn(Column.TYPE)));
-			boolean idIsOk = id == null ||
-						id.matches(item.getCell(getIndexOfColumn(Column.ID)));
-			boolean creationTimeIsOk = creationTime == null ||
-						creationTime.matches(item.getCell(getIndexOfColumn(Column.CREATION_TIME)));
-			
-			if (descriptionIsOk && resourceIsOk && pathIsOk && locationIsOk && typeIsOk 
-					&& idIsOk && creationTimeIsOk) {
-				filteredResult.add(item);
-			}
-		}
-		return filteredResult;
 	}
 	
 	/**

@@ -85,26 +85,6 @@ public class RadioButton extends AbstractButton {
 	}
 	
 	/**
-	 * Creates Radio button with given index and label
-	 * @param index of button
-	 * @param label of button
-	 * @deprecated Since 1.0.0. This is not a standard widget constructor.
-	 */
-	public RadioButton(int index, String text) {
-		super(null, index,text,SWT.RADIO);
-	}
-	
-	/**
-	 * Creates Radio button with given index and label inside given composite
-	 * @param referencedComposite
-	 * @param index of button
-	 * @param label of button
-	 * @deprecated Since 1.0.0. This is not a standard widget constructor.
-	 */
-	public RadioButton(ReferencedComposite referencedComposite, int index, String text) {
-		super(referencedComposite, index,text,SWT.RADIO);
-	}
-	/**
 	 * Returns true when Radio Button is selected	
 	 * @return
 	 */

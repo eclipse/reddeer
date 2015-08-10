@@ -16,10 +16,4 @@ public class ExternalProjectImportWizardDialog extends ImportWizardDialog {
 	public ExternalProjectImportWizardDialog() {
 		super(new String[]{"General", "Existing Projects into Workspace"});
 	}
-
-	@Deprecated
-	public WizardProjectsImportPage getFirstPage() {
-		return new WizardProjectsImportPage();
-	}
-
 }

@@ -4,8 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.jboss.reddeer.common.logging.Logger;
-import org.jboss.reddeer.eclipse.core.resources.Project;
-import org.jboss.reddeer.eclipse.ui.dialogs.ProjectPropertyPage;
+import org.jboss.reddeer.eclipse.ui.dialogs.PropertyPage;
 import org.jboss.reddeer.swt.api.TableItem;
 import org.jboss.reddeer.swt.impl.table.DefaultTable;
 import org.jboss.reddeer.swt.impl.table.DefaultTableItem;
@@ -17,21 +16,15 @@ import org.jboss.reddeer.swt.matcher.CheckedTableItemMatcher;
  * @author Lucia Jelinkova
  *
  */
-public class RuntimesPropertyPage extends ProjectPropertyPage {
+public class RuntimesPropertyPage extends PropertyPage {
 
 	public static final String NAME = "Targeted Runtimes"; 
 
 	private static final Logger log = Logger.getLogger(RuntimesPropertyPage.class);
 	
 	/**
-	 * Constructs the property page with a given project and {@value #NAME}.
-	 * @deprecated Please use {@link ExplorerItemPropertyDialog}
-	 * @param project Project name
+	 * Constructs a new Runtimes property page.
 	 */
-	public RuntimesPropertyPage(Project project) {
-		super(project, NAME);
-	}
-	
 	public RuntimesPropertyPage() {
 		super(NAME);
 	}

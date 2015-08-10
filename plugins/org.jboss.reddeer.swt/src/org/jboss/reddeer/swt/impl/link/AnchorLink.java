@@ -74,25 +74,4 @@ public class AnchorLink extends AbstractLink implements Link{
 	public AnchorLink(ReferencedComposite referencedComposite, int index, Matcher<?>... matchers) {
 		super(referencedComposite, index, matchers);
 	}
-	
-	/**
-	 * Link with given anchor text and index
-	 * @param index of link
-	 * @param text anchor of link
-	 * @deprecated Since 1.0.0 this is not a standard widget constructor
-	 */
-	public AnchorLink(int index, String text){
-		this(null, index, text);
-	}
-	
-	/**
-	 * Link with given anchor text and index inside given composite
-	 * @param referencedComposite
-	 * @param index of link
-	 * @param text anchor of link
-	 * @deprecated Since 1.0.0 this is not a standard widget constructor
-	 */
-	public AnchorLink(ReferencedComposite referencedComposite, int index, String text){
-		this(referencedComposite, index, new AnchorLinkTextMatcher(text));
-	}
 }

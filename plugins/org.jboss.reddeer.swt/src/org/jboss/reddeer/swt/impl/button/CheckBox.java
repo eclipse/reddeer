@@ -88,27 +88,6 @@ public class CheckBox extends AbstractButton {
 	}
 	
 	/**
-	 * Check Box with given index and text
-	 * @param index
-	 * @param text
-	 * @deprecated Since 1.0.0. This is not a standard widget constructor.
-	 */
-	public CheckBox (int index , String text){
-		super(null, index,text,SWT.CHECK);
-	}
-	
-	/**
-	 * Check Box with given index and text inside given referencedComposite
-	 * @param index
-	 * @param text
-	 * @param referencedComposite
-	 * @deprecated Since 1.0.0. This is not a standard widget constructor.
-	 */
-	public CheckBox (ReferencedComposite referencedComposite, int index , String text){
-		super(referencedComposite, index,text,SWT.CHECK);
-	}
-	
-	/**
 	 * Returns true when Check Box is checked
 	 * @return
 	 */

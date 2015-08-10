@@ -8,8 +8,6 @@ import org.eclipse.swt.custom.CTabItem;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Widget;
 import org.eclipse.ui.IViewReference;
-import org.eclipse.ui.IWorkbench;
-import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.IWorkbenchPartReference;
 import org.eclipse.ui.PlatformUI;
@@ -256,25 +254,6 @@ public class WorkbenchPartHandler {
 		}
 		
 		return workbenchPartWidgets;
-	}
-
-	/**
-	 * Closes all editors in active workbench.
-	 * @deprecated since 0.8.0 use org.jboss.reddeer.workbench.handler.EditorHandler#closeAll()
-	 */
-	@Deprecated
-	public void closeAllEditors() {
-		Display.syncExec(new Runnable() {
-
-			@Override
-			public void run() {
-				IWorkbench workbench = PlatformUI.getWorkbench();
-				final IWorkbenchPage activePage = workbench
-						.getActiveWorkbenchWindow().getActivePage();
-
-				activePage.closeEditors(activePage.getEditorReferences(), false);
-			}
-		});
 	}
 
 	/**
