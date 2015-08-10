@@ -1,7 +1,7 @@
-package org.jboss.reddeer.snippet.test;
+package org.jboss.reddeer.snippet.requirements.withparameters;
 
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
-import org.jboss.reddeer.snippet.requirement.UserRequirement.User;
+import org.jboss.reddeer.snippet.requirements.withparameters.UserRequirement.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 

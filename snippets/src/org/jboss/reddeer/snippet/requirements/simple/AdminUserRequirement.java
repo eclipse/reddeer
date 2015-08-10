@@ -1,21 +1,21 @@
-package org.jboss.reddeer.snippet.requirement;
+package org.jboss.reddeer.snippet.requirements.simple;
 
-import java.lang.annotation.Annotation;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 import org.jboss.reddeer.junit.requirement.Requirement;
+import org.jboss.reddeer.snippet.requirements.simple.AdminUserRequirement.AdminUser;
 
-public class AdminUserRequirement implements Requirement {
+public class AdminUserRequirement implements Requirement<AdminUser> {
 
     @Retention(RetentionPolicy.RUNTIME)
     @Target(ElementType.TYPE)
     public @interface AdminUser {
     }
 
-	public void setDeclaration(Annotation declaration) {
+	public void setDeclaration(AdminUser declaration) {
 		// no need to access the annotation
 	}
 

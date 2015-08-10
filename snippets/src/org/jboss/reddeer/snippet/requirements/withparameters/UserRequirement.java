@@ -1,4 +1,4 @@
-package org.jboss.reddeer.snippet.requirement;
+package org.jboss.reddeer.snippet.requirements.withparameters;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

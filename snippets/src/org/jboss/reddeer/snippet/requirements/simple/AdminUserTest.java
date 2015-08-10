@@ -1,7 +1,7 @@
-package org.jboss.reddeer.snippet.test;
+package org.jboss.reddeer.snippet.requirements.simple;
 
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
-import org.jboss.reddeer.snippet.requirement.AdminUserRequirement.AdminUser;
+import org.jboss.reddeer.snippet.requirements.simple.AdminUserRequirement.AdminUser;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
