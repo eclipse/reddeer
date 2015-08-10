@@ -34,5 +34,6 @@ Export-Package: org.jboss.reddeer.junit,
  org.jboss.reddeer.junit.requirement,
  org.jboss.reddeer.junit.requirement.inject,
  org.jboss.reddeer.junit.runner,
+ org.jboss.reddeer.junit.tracking.issue,
  org.jboss.reddeer.junit.screenshot,
  org.jboss.reddeer.junit.watcher

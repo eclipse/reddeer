@@ -12,6 +12,8 @@ import org.jboss.reddeer.junit.internal.requirement.inject.RequirementsInjector;
 import org.jboss.reddeer.junit.internal.screenrecorder.ScreenCastingRunListener;
 import org.jboss.reddeer.junit.screenshot.CaptureScreenshotException;
 import org.jboss.reddeer.junit.screenshot.ScreenshotCapturer;
+import org.jboss.reddeer.junit.tracking.issue.IssueLinkResolver;
+import org.jboss.reddeer.junit.tracking.issue.KnownIssues;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -249,9 +251,31 @@ public class RequirementsRunner extends BlockJUnit4ClassRunner {
 		    				ex.printInfo(log);
 		    			}
 	    		}
+	    		String knownIssues = getKnownIssues(fTestMethod);
+	    		if (knownIssues != null) {
+	    			throw new Throwable(knownIssues, t);
+	    		}
 	    		throw t;
 	    	}
 	    }
+	}
+	
+	private String getKnownIssues(FrameworkMethod method) {
+		KnownIssues issues = method.getAnnotation(KnownIssues.class);
+		if (issues != null) {
+			StringBuilder sb = new StringBuilder();
+			sb.append("There are known issues for this test:" + "\n");
+			for (String issue: issues.value()) {
+				sb.append(" " + issue);
+				String link = IssueLinkResolver.getIssueLink(issue);
+				if (link != null) {
+					sb.append(" (" + link + ")");
+				}
+				sb.append("\n");
+			}
+			return sb.toString();
+		}
+		return null;
 	}
 	
 	@Override

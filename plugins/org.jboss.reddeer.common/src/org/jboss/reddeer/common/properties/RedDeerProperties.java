@@ -30,6 +30,8 @@ public enum RedDeerProperties {
 	 */
 	CONFIG_FILE("reddeer.config", (String) null),
 	
+	ISSUE_TRACKERS("reddeer.issue.trackers", (String) null),
+	
 	CAPTURE_SCREENSHOT("reddeer.captureScreenshot", true),
 
 	RECORD_SCREENCAST("reddeer.recordScreenCast", false),
