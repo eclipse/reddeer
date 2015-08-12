@@ -8,6 +8,7 @@ import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.swt.impl.button.OkButton;
 import org.jboss.reddeer.swt.impl.combo.LabeledCombo;
 import org.jboss.reddeer.swt.impl.menu.ContextMenu;
+import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.jboss.reddeer.swt.impl.tree.DefaultTree;
 import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
 
@@ -54,6 +55,7 @@ public class FacetsPropertyPage extends PropertyPage {
 		TreeItem facet = new DefaultTreeItem(new DefaultTree(1), facetName);
 		facet.select();
 		new ContextMenu("Change Version...").select();
+		new DefaultShell("Change Version");
 		new LabeledCombo("Version:").setSelection(version);
 		new OkButton().click();
 	}

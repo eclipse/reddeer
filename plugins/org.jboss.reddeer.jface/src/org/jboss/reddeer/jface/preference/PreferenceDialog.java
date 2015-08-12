@@ -5,7 +5,6 @@ import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.common.wait.TimePeriod;
 import org.jboss.reddeer.common.wait.WaitUntil;
 import org.jboss.reddeer.common.wait.WaitWhile;
-import org.jboss.reddeer.core.condition.ShellWithTextIsActive;
 import org.jboss.reddeer.core.condition.ShellWithTextIsAvailable;
 import org.jboss.reddeer.core.handler.ShellHandler;
 import org.jboss.reddeer.core.handler.WidgetHandler;
@@ -104,7 +103,7 @@ public abstract class PreferenceDialog {
 		OkButton ok = new OkButton();
 		ok.click();
 		new WaitWhile(new ShellWithTextIsAvailable(getTitle())); 
-		new WaitUntil(new ShellWithTextIsActive(parentShellText));
+		new DefaultShell(parentShellText);
 	}
 	
 	/**
@@ -117,7 +116,7 @@ public abstract class PreferenceDialog {
 		CancelButton cancel = new CancelButton();
 		cancel.click();
 		new WaitWhile(new ShellWithTextIsAvailable(getTitle())); 
-		new WaitUntil(new ShellWithTextIsActive(parentShellText));
+		new DefaultShell(parentShellText);
 	}
 	
 	/**
