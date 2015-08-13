@@ -34,7 +34,9 @@ public enum RedDeerProperties {
 
 	RECORD_SCREENCAST("reddeer.recordScreenCast", false),
 
-	RELATIVE_SCREENSHOT_DIRECTORY("reddeer.relativeScreenshotDirectory", (String) null);
+	RELATIVE_SCREENSHOT_DIRECTORY("reddeer.relativeScreenshotDirectory", (String) null),
+	
+	OPEN_ASSOCIATED_PERSPECTIVE("reddeer.set.open.associated.perspective", "never");
 
 	private static final Logger log = Logger.getLogger(RedDeerProperties.class);
 	

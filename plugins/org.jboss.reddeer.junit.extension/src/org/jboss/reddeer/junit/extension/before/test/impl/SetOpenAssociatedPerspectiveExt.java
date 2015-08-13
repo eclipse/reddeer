@@ -2,10 +2,11 @@ package org.jboss.reddeer.junit.extension.before.test.impl;
 
 import org.eclipse.core.runtime.Platform;
 import org.jboss.reddeer.common.logging.Logger;
-import org.jboss.reddeer.workbench.ui.dialogs.WorkbenchPreferenceDialog;
+import org.jboss.reddeer.common.properties.RedDeerProperties;
 import org.jboss.reddeer.eclipse.ui.dialogs.PerspectivesPreferencePage;
 import org.jboss.reddeer.junit.extensionpoint.IBeforeTest;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
+import org.jboss.reddeer.workbench.ui.dialogs.WorkbenchPreferenceDialog;
 
 /**
  * Extension for Extension point org.jboss.reddeer.junit.before.test. Disables
@@ -23,8 +24,6 @@ public class SetOpenAssociatedPerspectiveExt implements IBeforeTest {
 
 	private static final Logger log = Logger
 			.getLogger(SetOpenAssociatedPerspectiveExt.class);
-	private static final String OPEN_ASSOCIATED_PERSPECTIVE = System
-			.getProperty("reddeer.set.open.associated.perspective", "never");
 
 	/** 
 	 * See {@link IBeforeTest}.
@@ -45,32 +44,32 @@ public class SetOpenAssociatedPerspectiveExt implements IBeforeTest {
 						"SWITCH_PERSPECTIVE_ON_PROJECT_CREATION", "prompt",
 						null);
 		if (!openAssociatedPerspective
-				.equalsIgnoreCase(SetOpenAssociatedPerspectiveExt.OPEN_ASSOCIATED_PERSPECTIVE)) {
+				.equalsIgnoreCase(RedDeerProperties.OPEN_ASSOCIATED_PERSPECTIVE.getValue())) {
 			log.debug("Setting open associated perspective to: "
-					+ SetOpenAssociatedPerspectiveExt.OPEN_ASSOCIATED_PERSPECTIVE
+					+ RedDeerProperties.OPEN_ASSOCIATED_PERSPECTIVE.getValue()
 					+ " via Windows > Preferences > General > Perspectives");
 
 			WorkbenchPreferenceDialog preferencesDialog = new WorkbenchPreferenceDialog();
 			PerspectivesPreferencePage perspectivesPreferencePage = new PerspectivesPreferencePage();
 			preferencesDialog.open();
 			preferencesDialog.select(perspectivesPreferencePage);
-			if (SetOpenAssociatedPerspectiveExt.OPEN_ASSOCIATED_PERSPECTIVE
-					.equalsIgnoreCase("never")) {
+			if (RedDeerProperties.OPEN_ASSOCIATED_PERSPECTIVE
+					.getValue().equalsIgnoreCase("never")) {
 				perspectivesPreferencePage
 						.checkNeverOpenAssociatedPerspective();
-			} else if (SetOpenAssociatedPerspectiveExt.OPEN_ASSOCIATED_PERSPECTIVE
-					.equalsIgnoreCase("always")) {
+			} else if (RedDeerProperties.OPEN_ASSOCIATED_PERSPECTIVE
+					.getValue().equalsIgnoreCase("always")) {
 				perspectivesPreferencePage
 						.checkAlwaysOpenAssociatedPerspective();
-			} else if (SetOpenAssociatedPerspectiveExt.OPEN_ASSOCIATED_PERSPECTIVE
-					.equalsIgnoreCase("prompt")) {
+			} else if (RedDeerProperties.OPEN_ASSOCIATED_PERSPECTIVE
+					.getValue().equalsIgnoreCase("prompt")) {
 				perspectivesPreferencePage
 						.checkPromptOpenAssociatedPerspective();
 			} else {
 				throw new SWTLayerException(
 						"Invalid paramter value used: "
 								+ "reddeer.set.open.associated.perspective = "
-								+ SetOpenAssociatedPerspectiveExt.OPEN_ASSOCIATED_PERSPECTIVE);
+								+ RedDeerProperties.OPEN_ASSOCIATED_PERSPECTIVE.getValue());
 			}
 			preferencesDialog.ok();
 
