@@ -17,6 +17,7 @@ import org.jboss.reddeer.common.Activator;
 public class UserProfile {
 	
 	public static final String VM_ARGS_KEY = "vmArgs";
+	public static final String PROGRAM_ARGS_KEY = "programArgs";
 	private Properties userProfileProps = null;
 	private static UserProfile userProfile = null;
 	

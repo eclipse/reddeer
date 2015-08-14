@@ -72,6 +72,16 @@ public class RedDeerLaunchConfigurationDelegate extends
 				launchConfigurationWorkingCopy.doSave();
 				vmArguments.add(userProfileVMargs);
 			}
+			
+			// Add programArguments from user profile
+			String userProfileProgramArgs = UserProfile.getInstance().getProperty(UserProfile.PROGRAM_ARGS_KEY);
+			if (userProfileProgramArgs != null) {
+				String currentProgramArgs = configuration.getAttribute(RedDeerJavaArgumentsTab.PROGRAM_ARGS_ATTR_NAME, "");
+				launchConfigurationWorkingCopy.setAttribute(RedDeerJavaArgumentsTab.PROGRAM_ARGS_ATTR_NAME,
+						currentProgramArgs + (currentProgramArgs.length() > 0 ? " " : "") + userProfileProgramArgs);
+				launchConfigurationWorkingCopy.doSave();
+				programArgs.add(userProfileProgramArgs);
+			}
 		}
 	}
 	
