@@ -25,6 +25,7 @@ import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.jboss.reddeer.eclipse.ui.project.ProjectSettingValidator;
+import org.jboss.reddeer.swt.impl.button.CheckBox;
 import org.jboss.reddeer.ui.Activator;
 
 /**
@@ -39,14 +40,18 @@ public class NewRedDeerTestPluginWizardPage extends WizardPage implements
 
 	private Button productIdButton;
 	private Button applicationIdButton;
+	
 	private Combo productId;
 	private Combo applicationId;
+	
 
 	private Text pluginId;
 	private Text pluginName;
 	private Text pluginVersion;
 	private Text pluginProvider;
 
+	private Button generateTest;
+	
 	/**
 	 * Creates new RedDeer test plugin wizard page instance, sets title,
 	 * description & image desriptor
@@ -119,8 +124,15 @@ public class NewRedDeerTestPluginWizardPage extends WizardPage implements
 		pluginProvider.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true,
 				false));
 		pluginProvider.setMessage("Your Company");
+		
+		label = new Label(composite, SWT.NONE);
+		label.setLayoutData(new GridData(SWT.END, SWT.CENTER, false, false));
+		label.setText("&Example test:");
+		generateTest = new Button(composite,  SWT.CHECK);
+		generateTest.setSelection(false);
 
 		productAndApplication(composite);
+				
 		hookListeners();
 		setControl(composite);
 	}
@@ -242,5 +254,12 @@ public class NewRedDeerTestPluginWizardPage extends WizardPage implements
 	 */
 	public String pluginProvider() {
 		return pluginProvider.getText();
+	}
+	
+	/**
+	 * @return State of example test check button
+	 */
+	public boolean generateTest() {
+		return generateTest.getSelection();
 	}
 }

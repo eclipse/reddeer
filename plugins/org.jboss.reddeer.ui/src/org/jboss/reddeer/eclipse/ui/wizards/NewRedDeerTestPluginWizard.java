@@ -45,10 +45,11 @@ public class NewRedDeerTestPluginWizard extends Wizard implements INewWizard {
 		String pluginId = wizardPage.pluginId();
 		String pluginVersion = wizardPage.pluginVersion();
 		String pluginProvider = wizardPage.pluginProvider();
+		boolean generateTest = wizardPage.generateTest();
 
 		IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
 		ProjectCreator projectCreator = new ProjectCreator(pluginId,
-				pluginName, pluginVersion, pluginProvider, root);
+				pluginName, pluginVersion, pluginProvider, generateTest, root);
 		try {
 			projectCreator.create();
 			return true;
