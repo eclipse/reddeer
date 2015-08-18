@@ -24,6 +24,7 @@ public class ProjectCreator {
 	private final String pluginProvider;
 	private final String pluginVersion;
 	private final String pluginName;
+	private final boolean generateTest; 
 	private final IWorkspaceRoot root;
 
 	/**
@@ -36,12 +37,13 @@ public class ProjectCreator {
 	 * @param WorkspaceRoot
 	 */
 	public ProjectCreator(String pluginId, String pluginName,
-			String pluginVersion, String pluginProvider, IWorkspaceRoot root) {
+			String pluginVersion, String pluginProvider, boolean generateTest, IWorkspaceRoot root) {
 		this.pluginId = pluginId;
 		this.pluginName = pluginName;
 		this.pluginVersion = pluginVersion;
 		this.pluginProvider = pluginProvider;
 		this.root = root;
+		this.generateTest = generateTest;
 	}
 
 	/**
@@ -66,7 +68,19 @@ public class ProjectCreator {
 		project.getFile(".project").setContents(stream("_project"), true,
 				false, null);
 
-		project.getFolder("src").create(true, true, null);
+		IFolder src = project.getFolder("src");
+		src.create(true, true, null);
+		
+		if (generateTest) {
+			IFolder org = src.getFolder("org");
+			org.create(true, true, null);
+			IFolder reddeer = org.getFolder("reddeer");
+			reddeer.create(true, true, null);
+			IFolder test = reddeer.getFolder("test");
+			test.create(true, true, null);
+			test.getFile("RedDeerTest.java").create(stream("_REDDEER_TEST_JAVA"), true, null);			
+		}		
+
 	}
 
 	/**
@@ -124,6 +138,10 @@ public class ProjectCreator {
 
 	private IWorkspaceRoot root() {
 		return root;
+	}
+	
+	public void generateTest() {
+		
 	}
 
 }
