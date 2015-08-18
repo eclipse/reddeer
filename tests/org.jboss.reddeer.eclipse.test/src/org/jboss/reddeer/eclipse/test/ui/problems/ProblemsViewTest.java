@@ -2,6 +2,7 @@ package org.jboss.reddeer.eclipse.test.ui.problems;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -9,6 +10,7 @@ import java.util.List;
 
 import org.hamcrest.core.Is;
 import org.hamcrest.core.StringStartsWith;
+import org.jboss.reddeer.eclipse.condition.ExactNumberOfProblemsExists;
 import org.jboss.reddeer.eclipse.condition.ProblemExists;
 import org.jboss.reddeer.eclipse.condition.ProblemsViewIsEmpty;
 import org.jboss.reddeer.eclipse.jdt.ui.NewJavaClassWizardDialog;
@@ -29,6 +31,7 @@ import org.jboss.reddeer.eclipse.ui.views.markers.QuickFixWizard;
 import org.jboss.reddeer.eclipse.utils.DeleteUtils;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.core.condition.JobIsRunning;
+import org.jboss.reddeer.common.exception.WaitTimeoutExpiredException;
 import org.jboss.reddeer.common.wait.TimePeriod;
 import org.jboss.reddeer.common.wait.WaitUntil;
 import org.jboss.reddeer.common.wait.WaitWhile;
@@ -45,6 +48,7 @@ import org.junit.runner.RunWith;
  * @author rhopp
  * @author jjankovi
  * @author Radoslav Rabara
+ * @author mlabuda@redhat.com
  */
 @RunWith(RedDeerSuite.class)
 public class ProblemsViewTest {
@@ -141,6 +145,43 @@ public class ProblemsViewTest {
 		+ getProblems(), 1, problemsView.getProblems(ProblemType.ERROR).size());
 		assertEquals("Warnings node should contain one warning, but:\n"
 		+ getProblems(), 1, problemsView.getProblems(ProblemType.WARNING).size());
+	}
+	
+	@Test
+	public void testOneErrorExists() {
+		createError();
+		try {
+			new WaitUntil(new ExactNumberOfProblemsExists(ProblemType.ERROR, 1), TimePeriod.NORMAL);
+		} catch (WaitTimeoutExpiredException ex) {
+			fail("Wait condition exact number of problems exists did not pass altough it should. There is "
+				+ "following amount of errors: " + problemsView.getProblems(ProblemType.ERROR)
+				+ " altough there should be precisely 1 error.");
+		}
+	}
+	
+	@Test
+	public void testOneWarningExists() {
+		createWarning();
+		try {
+			new WaitUntil(new ExactNumberOfProblemsExists(ProblemType.WARNING, 1), TimePeriod.NORMAL);
+		} catch (WaitTimeoutExpiredException ex) {
+			fail("Wait condition exact number of problems exists did not pass altough it should. There is "
+					+ "following amount of warnings: " + problemsView.getProblems(ProblemType.WARNING)
+					+ " altough there should be precisely 1 warning.");
+		}
+	}
+	
+	@Test
+	public void testTwoProblemsExist() {
+		createWarning();
+		createError();
+		try {
+			new WaitUntil(new ExactNumberOfProblemsExists(ProblemType.ANY, 2), TimePeriod.NORMAL);
+		} catch (WaitTimeoutExpiredException ex) {
+			fail("Wait condition exact number of problems exists did not pass altough it should. There is "
+					+ "following amount of problems: " + problemsView.getProblems(ProblemType.ANY) 
+					+ " altough there should be precisely 2 problems");
+		}
 	}
 	
 	@Test
