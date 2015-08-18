@@ -6,5 +6,5 @@ Bundle-Version: @PLUGIN_VERSION@
 Bundle-ActivationPolicy: lazy
 Bundle-Vendor: @PLUGIN_PROVIDER@
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Require-Bundle: org.junit, org.jboss.reddeer.junit, org.jboss.reddeer.swt, org.jboss.reddeer.core, org.jboss.reddeer.workbench
+Require-Bundle: org.junit, org.jboss.reddeer.go
 
