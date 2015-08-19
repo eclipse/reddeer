@@ -5,13 +5,13 @@ import org.eclipse.jface.text.ITextSelection;
 import org.eclipse.ui.texteditor.ITextEditor;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.common.logging.Logger;
-import org.jboss.reddeer.core.matcher.WithTextMatcher;
-import org.jboss.reddeer.workbench.api.Editor;
-import org.jboss.reddeer.workbench.exception.WorkbenchLayerException;
 import org.jboss.reddeer.core.handler.TextEditorHandler;
 import org.jboss.reddeer.core.lookup.EditorPartLookup;
 import org.jboss.reddeer.core.matcher.EditorPartClassMatcher;
 import org.jboss.reddeer.core.matcher.EditorPartTitleMatcher;
+import org.jboss.reddeer.core.matcher.WithTextMatcher;
+import org.jboss.reddeer.workbench.api.Editor;
+import org.jboss.reddeer.workbench.exception.WorkbenchLayerException;
 
 /**
  * Represents text editors (implementing interface ITextEditor)
@@ -60,6 +60,14 @@ public class TextEditor extends AbstractEditor implements Editor {
 		super(EditorPartLookup.getInstance().getEditor(
 				new EditorPartClassMatcher(ITextEditor.class), 
 				new EditorPartTitleMatcher(title)));
+	}
+	
+	/**
+	 * Create reddeer text editor from given eclipse text editor. 
+	 * @param editor
+	 */
+	protected TextEditor(ITextEditor editor) {
+		super(editor);
 	}
 	
 	/**
