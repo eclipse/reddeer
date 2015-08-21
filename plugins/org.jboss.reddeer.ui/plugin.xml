@@ -130,6 +130,18 @@
       </wizard>
    </extension>
    
+   <extension
+         point="org.eclipse.ui.newWizards">
+      <wizard
+            class="org.jboss.reddeer.eclipse.ui.wizards.NewRedDeerTestCaseWizard"
+            finalPerspective="org.eclipse.jdt.ui.JavaPerspective"
+            icon="resources/reddeer_runner.png"
+            id="org.jboss.reddeer.eclipse.ui.wizards.NewRedDeerTestCaseWizard"
+            name="New RedDeer Test"
+            project="true">
+      </wizard>
+   </extension>
+   
 	<extension
          id="reddeertestapplication"
          point="org.eclipse.core.runtime.applications">

@@ -1,5 +1,7 @@
 package org.jboss.reddeer.ui;
 
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
@@ -58,4 +60,19 @@ public class Activator extends AbstractUIPlugin {
 		return plugin;
 	}
 
+	public static void log(Exception e, String message) {
+		IStatus status = new Status(IStatus.ERROR, PLUGIN_ID, message, e);
+		plugin.getLog().log(status);
+	}
+	
+	public static void log(Throwable e) {
+		IStatus status = new Status(IStatus.ERROR, PLUGIN_ID, e
+				.getLocalizedMessage(), e);
+		plugin.getLog().log(status);
+	}
+
+	public static void logWarning(String message) {
+		IStatus status = new Status(IStatus.WARNING, PLUGIN_ID, message);
+		plugin.getLog().log(status);
+	}
 }
