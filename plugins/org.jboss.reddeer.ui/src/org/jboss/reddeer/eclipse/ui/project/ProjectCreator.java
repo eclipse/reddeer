@@ -78,7 +78,10 @@ public class ProjectCreator {
 			reddeer.create(true, true, null);
 			IFolder test = reddeer.getFolder("test");
 			test.create(true, true, null);
-			test.getFile("RedDeerTest.java").create(stream("_REDDEER_TEST_JAVA"), true, null);			
+			test.getFile("RedDeerTest.java").create(stream("_REDDEER_TEST_JAVA"), true, null);
+			
+			project.getFile("pluginCustomization.ini").create(stream("pluginCustomization.ini"), true, null);
+			project.getFile("RedDeerTest.launch").create(stream("RedDeerTest.launch"), true, null);			
 		}		
 
 	}
