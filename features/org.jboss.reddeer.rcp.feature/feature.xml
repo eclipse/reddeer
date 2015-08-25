@@ -3,73 +3,56 @@
       id="org.jboss.reddeer.rcp.feature"
       label="%featureName"
       version="1.0.0.qualifier"
-      provider-name="JBoss by Red Hat">
-
+      license-feature="org.jboss.tools.foundation.license.feature"
+      license-feature-version="0.0.0"
+      provider-name="%featureProvider">
    <description url="https://github.com/jboss-reddeer/reddeer/wiki">
       RedDeer RCP feature provides capabilities similar to Eclipse RCP feature. There are included 
       RedDeer SWT, Workbench, JFace and UIForms plugins plus plugins required to have properly 
       running RedDeer tests such as RedDeer JUnit, Common and Direct plugins.
    </description>
-
    <copyright>
-      JBoss, Home of Professional Open Source
-Copyright (c) Red Hat, Inc., and individual contributors as indicated
-by the @authors tag, 2012-2013. See the copyright.txt in the distribution
-for a full listing of individual contributors.
+       %copyright
    </copyright>
-
-   <license>
-      Red Hat, Inc. licenses these features and plugins to you under
-certain open source licenses (or aggregations of such licenses),
-which in a particular case may include the Eclipse Public License,
-the GNU Lesser General Public License, and/or certain other open
-source licenses. For precise licensing details, consult the corresponding
-source code, or contact Red Hat Legal Affairs, 1801 Varsity Drive,
-Raleigh NC 27606 USA.
+   <license url="%licenseURL">
+       %license
    </license>
-
    <plugin
          id="org.jboss.reddeer.swt"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
-
    <plugin
          id="org.jboss.reddeer.jface"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
-
    <plugin
          id="org.jboss.reddeer.workbench"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
-
    <plugin
          id="org.jboss.reddeer.uiforms"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
-
    <plugin
          id="org.jboss.reddeer.gef"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
-
    <plugin
          id="org.jboss.reddeer.junit"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
-
    <plugin
          id="org.jboss.reddeer.direct"
          download-size="0"
@@ -83,12 +66,10 @@ Raleigh NC 27606 USA.
          install-size="0"
          version="0.0.0"
          unpack="false"/>	 
-
    <plugin
          id="org.jboss.reddeer.selenium"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
-
 </feature>
