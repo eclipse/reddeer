@@ -19,6 +19,7 @@ import org.jboss.reddeer.core.lookup.WidgetLookup;
 import org.jboss.reddeer.core.util.Display;
 import org.jboss.reddeer.core.util.ResultRunnable;
 import org.jboss.reddeer.core.condition.ShellWithTextIsAvailable;
+import org.jboss.reddeer.core.exception.CoreLayerException;
 import org.jboss.reddeer.core.handler.ShellHandler;
 import org.jboss.reddeer.core.handler.WidgetHandler;
 import org.jboss.reddeer.core.matcher.WithMnemonicTextMatcher;
@@ -149,16 +150,21 @@ public class ShellHandler {
 		do {
 			// first try to close active shell and reload shells list
 			Shell s = getFilteredActiveShell(shells);
-			shells = filterDisposedShells(shells);
 			// if no active shell present close first one
-			if (s == null && shells.size() > 0){
-				s = shells.get(0);
-			}
-			if (s != null && !s.isDisposed()) {
-				if (beforeShellIsClosed != null){
-					beforeShellIsClosed.runBeforeShellIsClosed(s);
+			try{
+				if (s == null && shells.size() > 0){
+					s = shells.get(0);
 				}
-				closeShellSafely(s);
+				if (s != null && !s.isDisposed()) {
+					if (beforeShellIsClosed != null){
+						beforeShellIsClosed.runBeforeShellIsClosed(s);
+					}
+					closeShellSafely(s);
+				}
+			} catch (CoreLayerException ex){
+				if(!isDisposed(s)){
+					throw ex;
+				}
 			}
 			// reload current shells list
 			shells = getNonWorbenchShellsToClose();
@@ -213,16 +219,6 @@ public class ShellHandler {
 			}
 		}
 		return shellsToClose;
-	}
-	
-	private List<Shell> filterDisposedShells(List<Shell> shells) {
-		Iterator<Shell> itShell = shells.iterator();
-		while (itShell.hasNext()){
-			if (itShell.next().isDisposed()){
-				itShell.remove();
-			}
-		}
-		return shells;
 	}
 	
 	private Shell getFilteredActiveShell(List<Shell> shells){
