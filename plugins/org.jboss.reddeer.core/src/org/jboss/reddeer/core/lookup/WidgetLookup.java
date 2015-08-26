@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
 
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Widget;
@@ -13,12 +11,11 @@ import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.IWorkbenchPartReference;
 import org.eclipse.ui.IWorkbenchSite;
 import org.hamcrest.Matcher;
-import org.jboss.reddeer.common.condition.WaitCondition;
 import org.jboss.reddeer.common.exception.WaitTimeoutExpiredException;
 import org.jboss.reddeer.common.logging.Logger;
-import org.jboss.reddeer.common.platform.RunningPlatform;
 import org.jboss.reddeer.common.wait.TimePeriod;
 import org.jboss.reddeer.common.wait.WaitUntil;
+import org.jboss.reddeer.core.condition.WidgetIsFound;
 import org.jboss.reddeer.core.exception.CoreLayerException;
 import org.jboss.reddeer.core.handler.WidgetHandler;
 import org.jboss.reddeer.core.matcher.AndMatcher;
@@ -72,7 +69,7 @@ public class WidgetLookup {
 		AndMatcher am  = new AndMatcher(allMatchers);
 
 		Control parentControl = getParentControl(refComposite);
-		WidgetIsFound found = new WidgetIsFound(parentControl, am, index);
+		WidgetIsFound found = new WidgetIsFound(parentControl, index, am.getMatchers());
 		try{
 			new WaitUntil(found, TimePeriod.SHORT);
 		} catch (WaitTimeoutExpiredException ex){
@@ -112,7 +109,11 @@ public class WidgetLookup {
 		return refComposite.getControl();
 	}
 
-	private Control findParent(){
+	/**
+	 * Finds parent control of active widget 
+	 * @return parent control of active widget  or throws an exception if null
+	 */
+	public Control findParent(){
 		logger.debug("No parent specified, finding one");
 		Control parent = getActiveWidgetParentControl();
 		logger.debug("Parent found successfully");
@@ -125,8 +126,14 @@ public class WidgetLookup {
 		return parent;
 	}
 
+	/**
+	 * Finds active widget or reference composite matching given matcher
+	 * @param refComposite given reference composite
+	 * @param matcher given matcher 
+	 * @return active widget
+	 */
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	private <T extends Widget> List<T> activeWidgets(Control refComposite, Matcher matcher) {
+	public <T extends Widget> List<T> activeWidgets(Control refComposite, Matcher matcher) {
 		logger.trace("Looking up widgets with specified parent and matchers");
 		List<T> widgets = findControls(refComposite, matcher, true);
 		logger.trace(widgets.size() + " widget(s) found");
@@ -192,7 +199,13 @@ public class WidgetLookup {
 		return wSite.getShell();
 	}
 
-	private <T extends Widget> T getProperWidget(List<T> widgets, int index) {
+	/**
+	 * Get widget with given index from list of widgets 
+	 * @param widgets list of widgets
+	 * @param index widget index
+	 * @return widget with given index or null if out of range
+	 */
+	public <T extends Widget> T getProperWidget(List<T> widgets, int index) {
 		T widget = null;
 		if (widgets.size() > index){
 			logger.trace("Selecting widget with the specified index (" + index + ")");
@@ -315,48 +328,6 @@ public class WidgetLookup {
 	 */
 	private boolean visible(Widget w) {
 		return !((w instanceof Control) && !((Control) w).getVisible());
-	}
-
-	class WidgetIsFound <T extends Widget> implements WaitCondition {
-
-		private Control parent;
-		private AndMatcher am;
-		private int index;
-		private Widget properWidget;
-
-		public <T extends Widget> WidgetIsFound(Control parent, AndMatcher am, int index) {
-			this.parent = parent;
-			this.am=am;
-			this.index=index;
-		}
-
-		public boolean test() {
-			properWidget = getProperWidget(activeWidgets(parent, am), index);
-
-			if(properWidget == null){
-				return false;
-			}
-			return true;
-		}
-
-		public Widget getWidget(){
-			setFocus();
-			return properWidget;
-		}
-		
-		@Override
-		public String description() {
-			return "widget is found";
-		}
-
-		private void setFocus(){
-			if (RunningPlatform.isWindows() && properWidget instanceof Button &&
-					((WidgetHandler.getInstance().getStyle((Button)properWidget) & SWT.RADIO) != 0)){
-				// do not set focus because it also select radio button on Windows
-			} else {
-				WidgetHandler.getInstance().setFocus(properWidget);
-			}
-		}
 	}
 
 	private String getTitle(final IWorkbenchPartReference part){

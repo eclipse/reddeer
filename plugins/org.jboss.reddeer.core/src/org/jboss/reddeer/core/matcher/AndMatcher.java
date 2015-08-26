@@ -39,6 +39,14 @@ public class AndMatcher extends BaseMatcher {
 		return true;
 	}
 
+	/**
+	 * Returns all matchers in AndMatcher
+	 * @return all matchers
+	 */
+	public Matcher[] getMatchers() {
+		return matchers;
+	}
+	
 	@Override
 	public void describeTo(Description description) {
 		description.appendList("(", " " + "and" + " ", ")", Arrays.asList(matchers));
