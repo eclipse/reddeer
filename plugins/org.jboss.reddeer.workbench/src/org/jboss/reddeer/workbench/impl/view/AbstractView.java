@@ -19,6 +19,7 @@ import org.jboss.reddeer.core.handler.WorkbenchPartHandler;
 import org.jboss.reddeer.core.lookup.WidgetLookup;
 import org.jboss.reddeer.core.matcher.WithTextMatcher;
 import org.jboss.reddeer.core.matcher.WithTextMatchers;
+import org.jboss.reddeer.core.util.ObjectUtil;
 import org.jboss.reddeer.swt.api.CTabItem;
 import org.jboss.reddeer.swt.api.Menu;
 import org.jboss.reddeer.swt.impl.button.OkButton;
@@ -111,6 +112,10 @@ public class AbstractView implements View {
 	}
 
 	protected CTabItem getViewCTabItem(){
+		if (cTabItem != null && 
+			((Boolean)ObjectUtil.invokeMethod(cTabItem.getSWTWidget(), "isDisposed"))){
+			cTabItem = null;
+		}
 		if (cTabItem == null) {
 			if (!isOpened()){
 				return cTabItem;
