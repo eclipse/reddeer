@@ -9,6 +9,8 @@ import org.eclipse.swt.widgets.Label;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.swt.api.Shell;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
+import org.jboss.reddeer.common.wait.WaitUntil;
+import org.jboss.reddeer.core.condition.ShellWithTextIsActive;
 import org.jboss.reddeer.core.exception.CoreLayerException;
 import org.jboss.reddeer.core.handler.ShellHandler;
 import org.jboss.reddeer.swt.impl.button.PushButton;
@@ -89,7 +91,22 @@ public class ShellTest {
 		}
 
 	}
+	
+	@Test
+	public void testEmptyTitleShell() {
+		createSimpleShell("");
+		shell1 = new DefaultShell("");
+		assertTrue(shell1.getText().equals(""));
+	}
 
+	@Test
+	public void testEmptyTitleShellWithCondition() {
+		createSimpleShell("");
+		new WaitUntil(new ShellWithTextIsActive(""));
+		shell1 = new DefaultShell("");
+		assertTrue(shell1.getText().equals(""));
+	}
+	
 	@Test
 	public void closeAllShellsTest() {
 		createSimpleShell("Shell 1");
