@@ -143,6 +143,7 @@ public class RedDeerWidgetTracker implements Runnable {
 		addBoldText("Widget tree:", stringBuffer);
 		stringBuffer.append("\n");
 		
+		// siblings contains all siblings of the control and control itself
 		boolean hasSiblings = false;
 		if (widgetResolver.getParent(control) != null) {
 			hasSiblings = widgetResolver.getChildren(widgetResolver.getParent(control)).size() > 0;
@@ -163,39 +164,34 @@ public class RedDeerWidgetTracker implements Runnable {
 			stringBuffer.append(spacing + "└─" + parentTree.get(i) + "\n");
 			spacing += "  ";
 		}
-		
-		// Add bold widget info
-		if (hasSiblings) {
-			stringBuffer.append(spacing + "├─");
-		} else {
-			stringBuffer.append(spacing + "└─");
-		}
-		if (parentTree.size() > 0) {
-			addBoldText(parentTree.get(0), stringBuffer);
-		} else {
-			addBoldText(getWidgetOutput(control), stringBuffer);
-		}
-		stringBuffer.append("\n");
 
-		// Add children info
-		List<Widget> children = widgetResolver.getChildren(control);
-		String childrenSpacing = hasSiblings ? spacing + "│ " : spacing + "  ";
-		for (int i = 0; i < children.size(); i++) {
-			if (i == children.size() - 1) {
-				stringBuffer.append(childrenSpacing + "└─" + getWidgetOutput(children.get(i)) + "\n");
-			} else {
-				stringBuffer.append(childrenSpacing + "├─" + getWidgetOutput(children.get(i)) + "\n");
-			}
-		}
-		
 		// Add siblings info
 		List<Widget> siblings = hasSiblings ? 
 				widgetResolver.getChildren(widgetResolver.getParent(control)) : new ArrayList<Widget>();
 		for (int i = 0; i < siblings.size(); i++) {
 			if (i == siblings.size() - 1) {
-				stringBuffer.append(spacing + "└─" + getWidgetOutput(siblings.get(i)) + "\n");
+				stringBuffer.append(spacing + "└─");
 			} else {
-				stringBuffer.append(spacing + "├─" + getWidgetOutput(siblings.get(i)) + "\n");
+				stringBuffer.append(spacing + "├─");
+			}
+			
+			if (siblings.get(i).equals(control)) {
+					addBoldText(getWidgetOutput(control), stringBuffer);
+					stringBuffer.append("\n");
+					
+					// Add children info
+					List<Widget> children = widgetResolver.getChildren(control);
+					String childrenSpacing = siblings.size() > 1 && i + 1 < siblings.size() ?
+							spacing + "│ " : spacing + "  ";
+					for (int k = 0; k < children.size(); k++) {
+						if (k == children.size() - 1) {
+							stringBuffer.append(childrenSpacing + "└─" + getWidgetOutput(children.get(k)) + "\n");
+						} else {
+							stringBuffer.append(childrenSpacing + "├─" + getWidgetOutput(children.get(k)) + "\n");
+						}
+					}
+			} else {
+				stringBuffer.append(getWidgetOutput(siblings.get(i)) + "\n");
 			}
 		}
 	}
