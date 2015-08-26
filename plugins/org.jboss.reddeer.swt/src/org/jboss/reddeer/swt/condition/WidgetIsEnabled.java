@@ -6,7 +6,7 @@ import org.jboss.reddeer.swt.widgets.Widget;
 /**
  * Condition is met when specified widget is enabled.
  * 
- * @author mlabuda
+ * @author mlabuda@redhat.com
  *
  */
 public class WidgetIsEnabled implements WaitCondition {

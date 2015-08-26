@@ -8,7 +8,7 @@ import org.jboss.reddeer.swt.api.Button;
  * 
  * @author Vlado Pakan
  * @author Len DiMaggio
- *
+ * @deprecated since 0.8.0. Use {@link WidgetIsEnabled} instead.
  */
 public class ButtonWithTextIsEnabled implements WaitCondition {
 
