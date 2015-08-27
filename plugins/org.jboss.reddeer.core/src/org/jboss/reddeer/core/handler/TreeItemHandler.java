@@ -5,10 +5,12 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
+import org.eclipse.swt.widgets.Widget;
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.common.condition.WaitCondition;
 import org.jboss.reddeer.core.exception.CoreLayerException;
@@ -380,6 +382,66 @@ public class TreeItemHandler {
 				swtTreeItem.getParent().update();
 			}
 		});
+	}
+	/**
+	 * Clicks on specified TreeItem
+	 * @param swtTreeItem
+	 */
+	public void click(final TreeItem swtTreeItem) {
+		Rectangle bounds = getBounds(swtTreeItem);
+		notifyMouseClick(swtTreeItem,bounds.x + (bounds.width / 2), bounds.y + (bounds.height / 2));
+	}
+	
+	/**
+	 * Get bounds of specified TreeItem bounds. TreeItem should be enabled before calling this method.
+	 * @param swtTreeItem
+	 * @return tree item bounds
+	 */
+	public Rectangle getBounds(final TreeItem swtTreeItem) {
+		return Display.syncExec(new ResultRunnable<Rectangle>() {
+			@Override
+			public Rectangle run() {
+				return swtTreeItem.getBounds();
+			}
+		});
+	}
+	/**
+	 * Notifies specified TreeItem about Mouse Click over it
+	 * @param swtTreeItem
+	 * @param x
+	 * @param y
+	 */
+	private void notifyMouseClick(TreeItem swtTreeItem, int x, int y) {
+		TreeHandler.getInstance().notifyTree(swtTreeItem, SWT.MouseDown,
+			createMouseEvent(swtTreeItem, null, SWT.NONE, x, y, 1, SWT.NONE, 1));
+		TreeHandler.getInstance().notifyTree(swtTreeItem, SWT.MouseUp, 
+			createMouseEvent(swtTreeItem, null, SWT.NONE, x, y, 1, SWT.BUTTON1, 1));
+	}
+	/**
+	 * Creates Mouse Event for TreeItem
+	 * @param swtTreeItem
+	 * @param item
+	 * @param type
+	 * @param x
+	 * @param y
+	 * @param button
+	 * @param stateMask
+	 * @param count
+	 * @return
+	 */
+	private Event createMouseEvent(TreeItem swtTreeItem, Widget item, int type, int x, int y, int button, int stateMask, int count) {
+		Event event = new Event();
+		event.time = (int) System.currentTimeMillis();
+		event.widget = swtTreeItem;
+		event.display = Display.getDisplay();
+		event.x = x;
+		event.y = y;
+		event.button = button;
+		event.stateMask = stateMask;
+		event.count = count;
+		event.item = item;
+		event.type = type;
+		return event;
 	}
 	
 	private class TreeExpandListener implements Listener {
