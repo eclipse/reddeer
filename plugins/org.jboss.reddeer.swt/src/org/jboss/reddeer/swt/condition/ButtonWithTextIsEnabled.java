@@ -31,7 +31,7 @@ public class ButtonWithTextIsEnabled implements WaitCondition {
 
 	@Override
 	public String description() {
-		return "button with text " + button.getText() + " is enabled";
+		return "button with text '" + button.getText() + " is enabled";
 	}
 
 }

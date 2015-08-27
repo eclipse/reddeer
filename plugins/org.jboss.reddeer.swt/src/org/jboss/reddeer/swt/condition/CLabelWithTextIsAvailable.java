@@ -30,6 +30,6 @@ public class CLabelWithTextIsAvailable implements WaitCondition {
 
 	@Override
 	public String description() {
-		return "    CLabel with text " + cLabelText + " is available.";
+		return "    CLabel with text '" + cLabelText + "' is available.";
 	}
 }

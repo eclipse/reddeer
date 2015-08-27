@@ -34,7 +34,7 @@ public class TreeItemHasMinChildren implements WaitCondition {
 
 	@Override
 	public String description() {
-		return "treeItem " + treeItem.getText() + " has " + this.minItemsCount
+		return "treeItem '" + treeItem.getText() + "' has " + this.minItemsCount
 				+ " children or more";
 	}
 }
