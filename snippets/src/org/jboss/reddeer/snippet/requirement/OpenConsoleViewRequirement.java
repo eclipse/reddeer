@@ -18,7 +18,7 @@ public class OpenConsoleViewRequirement implements Requirement<OpenConsoleView> 
     private ConsoleView consoleView = new ConsoleView();
 
     @Retention(RetentionPolicy.RUNTIME)
-    @Target(ElementType.TYPE)
+    @Target({ElementType.METHOD, ElementType.TYPE})
     public @interface OpenConsoleView {
 
     }

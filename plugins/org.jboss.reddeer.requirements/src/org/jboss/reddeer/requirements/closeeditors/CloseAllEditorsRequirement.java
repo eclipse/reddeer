@@ -20,7 +20,7 @@ import org.jboss.reddeer.requirements.closeeditors.CloseAllEditorsRequirement.Cl
 public class CloseAllEditorsRequirement implements Requirement<CloseAllEditors> {
 
 	@Retention(RetentionPolicy.RUNTIME)
-    @Target(ElementType.TYPE)
+    @Target({ElementType.METHOD, ElementType.TYPE})
 	public @interface CloseAllEditors {
 		boolean save() default true;
 	}
