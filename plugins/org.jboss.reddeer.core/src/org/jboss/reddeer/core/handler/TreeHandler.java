@@ -193,6 +193,24 @@ public class TreeHandler {
 			}
 		});
 	}
+	
+	/**
+	 * Notifies listeners of specified {@link org.eclipse.swt.widgets.TreeItem}
+	 * about specified event asynchronously. Field for event type in specified 
+	 * event has to be set properly.
+	 * 
+	 * @param swtTreeItem tree item to handle
+	 * @param eventType - type of event
+	 * @param event event for specified tree item
+	 */
+	public void notifyTree(final org.eclipse.swt.widgets.TreeItem swtTreeItem,
+			final int eventType , final Event event) {
+		Display.asyncExec(new Runnable() {
+			public void run() {
+				swtTreeItem.getParent().notifyListeners(eventType, event);
+			}
+		});
+	}
 
 	/**
 	 * Notifies listeners of specified {@link org.eclipse.swt.widgets.TreeItem}
