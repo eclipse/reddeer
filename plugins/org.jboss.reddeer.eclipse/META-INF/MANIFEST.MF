@@ -71,6 +71,7 @@ Export-Package: org.jboss.reddeer.eclipse,
  org.jboss.reddeer.eclipse.wst.server.ui.editor,
  org.jboss.reddeer.eclipse.wst.server.ui.view,
  org.jboss.reddeer.eclipse.wst.server.ui.wizard,
- org.jboss.reddeer.eclipse.wst.web.ui.wizards
+ org.jboss.reddeer.eclipse.wst.web.ui.wizards,
+ org.jboss.reddeer.eclipse.m2e.scm.wizard
 Import-Package: org.eclipse.ui.internal.views.markers,
  org.junit
