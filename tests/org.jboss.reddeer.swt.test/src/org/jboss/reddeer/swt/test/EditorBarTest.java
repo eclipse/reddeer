@@ -34,7 +34,7 @@ public class EditorBarTest {
 		// new DefaultShell("Spring Tool Tips").close();
 		new WorkbenchShell();
 		new ShellMenu("File","New","Other...").select();
-		new WaitUntil(new ShellWithTextIsActive("New"));
+		new DefaultShell("New");
 		new DefaultTreeItem("General","Project").select();
 		new PushButton("Next >").click();
 		new WaitUntil(new ShellWithTextIsActive("New Project"));
