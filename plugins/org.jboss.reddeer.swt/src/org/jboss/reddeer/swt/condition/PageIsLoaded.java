@@ -30,7 +30,7 @@ public class PageIsLoaded implements WaitCondition {
 
 	@Override
 	public String description() {
-		return "page '" + browser.getURL() + "' is loaded to browser";
+		return "page is loaded to browser";
 	}
 
 }
