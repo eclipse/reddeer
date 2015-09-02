@@ -31,13 +31,15 @@ abstract public class Keyboard {
 		final Widget w = WidgetLookup.getInstance().getFocusControl();
 		log.info("Invoke key combination: ");
 		for (int i=0; i<keys.length; i++){
-			delay(DELAY);
 			log.info("    As char:" + (char) keys[i] + ", as int:" + keys[i]);
+			sync();
 			Display.getDisplay().post(keyEvent(keys[i], SWT.KeyDown, w));
+			sync();
 		}
 		for (int i=keys.length-1; i>=0; i--){
-			delay(DELAY);
+			sync();
 			Display.getDisplay().post(keyEvent(keys[i], SWT.KeyUp, w));
+			sync();
 		}
 	}
 	
@@ -92,12 +94,13 @@ abstract public class Keyboard {
 	public void moveCursor(int shift, boolean toLeft){
 		log.info("Move cursor");
 		for (int i=0; i<shift; i++){
+			sync();
 			if (toLeft){
 				type(SWT.ARROW_LEFT);
 			}else{
 				type(SWT.ARROW_RIGHT);
 			}
-			delay(DELAY);
+			sync();
 		}
 	}
 	
@@ -119,14 +122,15 @@ abstract public class Keyboard {
 	protected void press(final int key){
 		log.debug("Press character '" + (char) key + "', as int:" + key);
 		final Widget w = WidgetLookup.getInstance().getFocusControl();
+		sync();
 		Display.syncExec(new Runnable() {
 			
 			@Override
 			public void run() {
 				Display.getDisplay().post(keyEvent(key, SWT.KeyDown, w));
-				delay(DELAY);;
 			}
 		});
+		sync();
 	}
 	
 	protected void release(final int key){
@@ -137,9 +141,9 @@ abstract public class Keyboard {
 			@Override
 			public void run() {
 				Display.getDisplay().post(keyEvent(key, SWT.KeyUp, w));
-				delay(DELAY);;
 			}
 		});
+		sync();
 	}
 	
 	private Event keyEvent(int key, int eventType, Widget w){
@@ -151,12 +155,39 @@ abstract public class Keyboard {
 		return e;
 	}
 	
-	private void delay(int delay){
+	private void sync() {
+		emptySync();
+		Display.syncExec(new Runnable() {
+			
+			@Override
+			public void run() {
+				Display.getDisplay().update();
+				while (Display.getDisplay().readAndDispatch()) {
+					// do nothing
+				}
+			}
+		});
+		emptySync();
+		delay(DELAY);
+		
+	}
+
+	private void emptySync() {
+		Display.syncExec(new Runnable() {
+			
+			@Override
+			public void run() {				
+			}
+		});
+		
+	}
+	
+	private void delay(int delay) {
 		try {
 			Thread.sleep(delay);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
 	}
-	
+
 }
