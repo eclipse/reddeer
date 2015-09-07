@@ -26,6 +26,13 @@ public class PropertiesViewProperty {
 	public String getPropertyName(){
 		return treeItem.getCell(0);
 	}
+	/**
+	 * Returns RedDeer TreeItem representing this property
+	 * @return
+	 */
+	public TreeItem getTreeItem(){
+		return this.treeItem;
+	}
 	@Override
 	public String toString() {
 		return getPropertyName() + "=" + getPropertyValue();
