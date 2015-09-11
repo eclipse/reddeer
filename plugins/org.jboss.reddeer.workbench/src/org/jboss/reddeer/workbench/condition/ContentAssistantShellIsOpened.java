@@ -45,7 +45,7 @@ public class ContentAssistantShellIsOpened implements WaitCondition {
                     table = new DefaultTable();
                     return true;
                 } catch (CoreLayerException ex) {
-                    return false;
+                    continue;
                 }
             }
         }
