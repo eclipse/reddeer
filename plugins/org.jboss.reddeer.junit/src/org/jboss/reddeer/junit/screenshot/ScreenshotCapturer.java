@@ -105,9 +105,10 @@ public class ScreenshotCapturer {
 	 * Capture screenshot with specified file name. PNG format is supported.
 	 * 
 	 * @param fileName full file name of a screenshot
-	 * @throws CaptureScreenshotException 
+	 * @throws CaptureScreenshotException
+	 * @return absolute path to create screenshot filename 
 	 */
-	public void captureScreenshot(final String screenshotFileName) throws CaptureScreenshotException {
+	public String captureScreenshot(final String screenshotFileName) throws CaptureScreenshotException {
 		String alteredFileName = getAlteredScreenshotFileName(screenshotFileName);
 		final String fileName = createMissingDirectories(alteredFileName);
 		final Display display = Display.getDefault();
@@ -137,6 +138,7 @@ public class ScreenshotCapturer {
 				}
 			}
 		});
+		return fileName;
 	}
 
 	/**
