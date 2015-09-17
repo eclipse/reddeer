@@ -69,11 +69,11 @@ public class TreeItemLookup {
 	 * @return tree items matching specified matchers in specified tree 
 	 */
 	public List<TreeItem> getTreeItems(Tree tree, Matcher<TreeItem>... pathItemMatchers){
-		if (pathItemMatchers.length == 0){
-			throw new IllegalArgumentException("No matchers for tree item path specified");
-		}
 		new WaitUntil(new TreeHasChildren(tree));
 		List<TreeItem> items = TreeHandler.getInstance().getSWTItems(tree);
+		if (pathItemMatchers.length == 0){
+			return items;
+		}
 
 		for(int index = 0; index < pathItemMatchers.length; index++) {
 			List<TreeItem> matchingItems = getMatchingTreeItems(items, pathItemMatchers[index]);
