@@ -91,6 +91,13 @@ public class DefaultTreeItemTest extends AbstractTreeTest {
 		assertEquals(String.format("Found item with text '%s', '%s' expected", dfi.getText(), expected),
 				expected, dfi.getText());
 	}
+	
+	@SuppressWarnings("unchecked")
+	@Test
+	public void testFindUsingIndex() {
+		createTreeItems(tree.getSWTWidget());
+		new DefaultTreeItem(0);
+	}
 
 	@Test
 	public void testExpandCollapse(){
