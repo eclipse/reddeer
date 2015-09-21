@@ -17,6 +17,7 @@
 		<publishingPath>mars/snapshots/builds/${JOB_NAME}/${BUILD_ID}-B${BUILD_NUMBER}/all/repo/</publishingPath>
 		<!-- Luna convention: TODO JBIDE-18772: remove this when master build only works for Mars -->
 		<publishingPath>builds/staging/${JOB_NAME}/all/repo/</publishingPath>
+		<update.site.name>Red Deer</update.site.name>
 	</properties>
 
 	<build>
@@ -78,6 +79,7 @@
 			<plugin>
 				<groupId>org.jboss.tools.tycho-plugins</groupId>
 				<artifactId>repository-utils</artifactId>
+				<version>${jbossTychoPluginsVersion}</version>
 				<executions>
 					<execution>
 						<id>generate-facade</id>
@@ -90,8 +92,10 @@
 								<site>${eclipse-orbit-update-site}</site>
 							</associateSites>
 							<symbols>
-								<update.site.name>eclipse-orbit-update-site</update.site.name>
-								<update.site.description></update.site.description>
+								<update.site.name>${update.site.name}</update.site.name>
+								<update.site.description>${update.site.description}</update.site.description>
+								<update.site.version>${project.version} (${buildQualifier})</update.site.version>
+								<target.eclipse.version>${targetEclipseVersion}</target.eclipse.version>
 							</symbols>
 							<removeDefaultCategory>true</removeDefaultCategory>
 						</configuration>
