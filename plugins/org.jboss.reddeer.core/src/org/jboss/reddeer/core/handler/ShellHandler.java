@@ -6,6 +6,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.SWTException;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Shell;
@@ -81,8 +82,13 @@ public class ShellHandler {
 		Display.syncExec(new Runnable() {
 			@Override
 			public void run() {
-				shell.forceActive();
-				shell.forceFocus();
+				try {
+					shell.forceActive();
+					boolean isFocus = shell.forceFocus();
+					if (!isFocus) log.warn("Shell is not focused");
+				} catch (SWTException e) {
+					throw new CoreLayerException("Exception thrown during forcing focus",e);
+				}
 			}
 		});
 	}
