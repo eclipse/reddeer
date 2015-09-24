@@ -267,6 +267,17 @@ public class AbstractEditor implements Editor {
 		EditorHandler.getInstance().closeAll(save);
 		
 	}
+    /**
+     * {@link Editor.getAutoContentAssistant}
+     */
+	public ContentAssistant getAutoContentAssistant(Runnable execute){
+        Shell[] shells1 = ShellLookup.getInstance().getShells();
+        execute.run();
+        ContentAssistantShellIsOpened caw = new ContentAssistantShellIsOpened(
+                shells1);
+        new WaitUntil(caw,TimePeriod.NORMAL,false);
+        return caw.getContentAssistTable() == null ? null : new ContentAssistant(caw.getContentAssistTable());
+	}
 	
     protected IEditorPart getEditorPart() {
         return editorPart;
