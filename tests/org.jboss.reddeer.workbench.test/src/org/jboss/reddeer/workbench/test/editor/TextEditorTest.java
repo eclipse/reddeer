@@ -136,6 +136,19 @@ public class TextEditorTest {
 	}
 	
 	@Test
+	public void setCursorPositionByOffset(){
+		final String firstLine = "package test;";
+		final String firstLineAppend = "testtext";
+		TextEditor textEditor = TextEditorTest.openJavaFile();
+		textEditor.activate();
+		textEditor.setCursorPosition(textEditor.getPositionOfText(firstLine) + firstLine.length());
+		KeyboardFactory.getKeyboard().type(firstLineAppend);
+		String text = textEditor.getText();
+		assertTrue("Editor doesn't contain expected text at expected position\n"
+						+ text, text.startsWith(firstLine + firstLineAppend));
+	}
+	
+	@Test
 	public void contentAssist(){
 		TextEditor textEditor = TextEditorTest.openJavaFile();
 		textEditor.setCursorPosition(0, 0);
