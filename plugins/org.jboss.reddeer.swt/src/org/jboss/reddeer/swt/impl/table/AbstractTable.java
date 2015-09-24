@@ -1,6 +1,7 @@
 package org.jboss.reddeer.swt.impl.table;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.eclipse.swt.widgets.Control;
@@ -189,5 +190,15 @@ public abstract class AbstractTable extends AbstractWidget<org.eclipse.swt.widge
 					+ headers.size() + " items(s).");
 		}
 		return headers.get(index);
+	}
+	@Override
+	public List<TableItem> getSelectetItems(){
+		LinkedList<TableItem> result = new LinkedList<TableItem>();
+		for (TableItem tableItem : getItems()){
+			if (tableItem.isSelected()){
+				result.addLast(tableItem);
+			}
+		}
+		return result;
 	}
 }

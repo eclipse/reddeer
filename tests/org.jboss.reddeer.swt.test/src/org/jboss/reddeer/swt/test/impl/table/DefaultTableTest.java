@@ -312,4 +312,34 @@ public class DefaultTableTest extends SWTLayerTestCase{
 	public void testGetIndexOfNonexistingHeader() {
 		new DefaultTable().getHeaderIndex("I do not exist");
 	}
+	@Test
+	public void testGetSelectedItemsSingle(){
+		org.jboss.reddeer.swt.api.Table table = new DefaultTable();
+		table.select(2);
+		List<org.jboss.reddeer.swt.api.TableItem> selectedTableItems = table.getSelectetItems();
+		int numSelected = selectedTableItems.size();
+		assertTrue("Only one Table Item has to be selected but " + numSelected + " are.", numSelected == 1);
+		org.jboss.reddeer.swt.api.TableItem expectedSelectedItem = table.getItem(2); 
+		org.jboss.reddeer.swt.api.TableItem selectedItem = selectedTableItems.get(0);
+		assertTrue("Selected tree item is not correct: " + selectedItem.getText(),
+			expectedSelectedItem.getText(6).equals(selectedItem.getText(6)));
+	}
+	
+	@Test
+	public void testGetSelectedItemsMulti(){
+		org.jboss.reddeer.swt.api.Table table = new DefaultTable();
+		table.select(1,3);
+		List<org.jboss.reddeer.swt.api.TableItem> selectedTableItems = table.getSelectetItems();
+		int numSelected = selectedTableItems.size();
+		assertTrue("Two Table Item has to be selected but " + numSelected + " are.", numSelected == 2);
+		org.jboss.reddeer.swt.api.TableItem expectedSelectedItem = table.getItem(1); 
+		org.jboss.reddeer.swt.api.TableItem selectedItem = selectedTableItems.get(0);
+		assertTrue("Selected tree item is not correct: " + selectedItem.getText(), 
+			expectedSelectedItem.getText(6).equals(selectedItem.getText(6)));
+		expectedSelectedItem = table.getItem(3); 
+		selectedItem = selectedTableItems.get(1);
+		assertTrue("Selected tree item is not correct: " + selectedItem.getText(), 
+			expectedSelectedItem.getText(6).equals(selectedItem.getText(6)));
+
+	}
 }

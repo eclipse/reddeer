@@ -135,5 +135,8 @@ public interface Table extends Widget, ReferencedComposite {
 	List<TableItem> getItems(Matcher<TableItem> matcher);
 
 	org.eclipse.swt.widgets.Table getSWTWidget();
-
+	/**
+	 * Returns currently selected table items.
+	 */
+	List<TableItem> getSelectetItems();
 }
