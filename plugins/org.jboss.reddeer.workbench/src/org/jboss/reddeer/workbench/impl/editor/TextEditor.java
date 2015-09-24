@@ -5,11 +5,14 @@ import org.eclipse.jface.text.ITextSelection;
 import org.eclipse.ui.texteditor.ITextEditor;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.common.logging.Logger;
+import org.jboss.reddeer.common.wait.WaitWhile;
+import org.jboss.reddeer.core.condition.JobIsRunning;
 import org.jboss.reddeer.core.handler.TextEditorHandler;
 import org.jboss.reddeer.core.lookup.EditorPartLookup;
 import org.jboss.reddeer.core.matcher.EditorPartClassMatcher;
 import org.jboss.reddeer.core.matcher.EditorPartTitleMatcher;
 import org.jboss.reddeer.core.matcher.WithTextMatcher;
+import org.jboss.reddeer.swt.impl.styledtext.DefaultStyledText;
 import org.jboss.reddeer.workbench.api.Editor;
 import org.jboss.reddeer.workbench.exception.WorkbenchLayerException;
 
@@ -216,6 +219,19 @@ public class TextEditor extends AbstractEditor implements Editor {
 		log.info("Set cursor position at ["+ line + ", " + column + "]");
 		TextEditorHandler.getInstance().setCursorPosition(getTextEditorPart(),
 				line, column);
+	}
+	
+	/**
+	 * Sets position of the cursor to the specified <var>ofset</var>.
+	 * 
+	 * @param offset offset of cursor position
+	 */
+	public void setCursorPosition(int offset) {
+		log.info("Set cursor position with offset: " + offset);
+		activate();
+		DefaultStyledText dst = new DefaultStyledText();
+		dst.selectPosition(offset);
+		new WaitWhile(new JobIsRunning());
 	}
 
 	/**
