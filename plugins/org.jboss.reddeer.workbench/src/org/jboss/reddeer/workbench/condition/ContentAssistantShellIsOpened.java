@@ -19,8 +19,8 @@ import org.jboss.reddeer.core.lookup.ShellLookup;
  */
 public class ContentAssistantShellIsOpened implements WaitCondition {
 
-    private Shell[] previousShells;
-    private Table table;
+    private List<Shell> previousShells;
+    private Table table = null;
 
     /**
      * Default constructor.
@@ -28,15 +28,14 @@ public class ContentAssistantShellIsOpened implements WaitCondition {
      * before calling action to open content assistant
      */
     public ContentAssistantShellIsOpened(final Shell[] previousShells) {
-        this.previousShells = previousShells;
+        this.previousShells = new ArrayList<Shell>(Arrays.asList(previousShells));
     }
 
     @Override
     public final boolean test() {
-        List<Shell> s1List = new ArrayList<Shell>(Arrays.asList(previousShells));
         List<Shell> s2List = new ArrayList<Shell>(Arrays.asList(ShellLookup
                 .getInstance().getShells()));
-        s2List.removeAll(s1List);
+        s2List.removeAll(previousShells);
         // shell with javadoc can be displayed also
         if (s2List.size() == 1 || s2List.size() == 2) {
             for (Shell s : s2List) {
