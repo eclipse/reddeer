@@ -8,5 +8,5 @@ package org.jboss.reddeer.common.properties;
  */
 public enum RedDeerPropertyType {
 
-	BOOLEAN, ENUMERATION, TEXT;
+	BOOLEAN, ENUMERATION, TEXT, FLOAT;
 }

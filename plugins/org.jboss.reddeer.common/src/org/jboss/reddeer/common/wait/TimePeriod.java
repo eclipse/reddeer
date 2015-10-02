@@ -1,6 +1,6 @@
 package org.jboss.reddeer.common.wait;
 
-import org.jboss.reddeer.common.wait.TimePeriod;
+import org.jboss.reddeer.common.properties.RedDeerProperties;
 
 /**
  * Represents the time period for how long the user operation might last. 
@@ -11,7 +11,7 @@ import org.jboss.reddeer.common.wait.TimePeriod;
  *
  */
 public class TimePeriod {
-    
+
 	/** Time period 0 seconds. */
 	public static final TimePeriod NONE = new TimePeriod(0);
 
@@ -26,9 +26,11 @@ public class TimePeriod {
 
 	/** Time period 300 seconds. */
 	public static final TimePeriod VERY_LONG = new TimePeriod(300);
-	
+
 	/** Time period for eternity */
 	public static final TimePeriod ETERNAL = new TimePeriod(Long.MAX_VALUE);
+
+	private static Float FACTOR = RedDeerProperties.TIME_PERIOD_FACTOR.getFloatValue();
 
 	private long seconds;
 
@@ -42,7 +44,20 @@ public class TimePeriod {
 	 * @return duration of time period in seconds
 	 */
 	public long getSeconds() {
-		return seconds;
+		if (seconds == Long.MAX_VALUE || seconds == 0) {
+			return seconds;
+		}
+
+		if (FACTOR == 1) {
+			return seconds;
+		}
+
+		// do not exceed max value of Long
+		if (seconds >= Long.MAX_VALUE / FACTOR) {
+			return Long.MAX_VALUE;
+		} else {
+			return Math.round((double) seconds * FACTOR);
+		}
 	}
 
 	/**
@@ -60,6 +75,10 @@ public class TimePeriod {
 
 	@Override
 	public String toString() {
-		return "Time period " + seconds + " s.";
+		return "Time period " + seconds + " s (factor " + FACTOR + " was used).";
+	}
+	
+	public static void updateFactor() {
+		FACTOR = RedDeerProperties.TIME_PERIOD_FACTOR.getFloatValue();
 	}
 }

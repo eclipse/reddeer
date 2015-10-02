@@ -16,7 +16,7 @@ public enum RedDeerProperties {
 	PAUSE_FAILED_TEST("reddeer.pauseFailedTest", false),
 
 	LOG_MESSAGE_FILTER("reddeer.logMessageFilter", "ALL"),
-	
+
 	LOG_LEVEL("reddeer.logLevel", "ALL"),
 
 	CLOSE_WELCOME_SCREEN("reddeer.close.welcome.screen", true),
@@ -29,17 +29,19 @@ public enum RedDeerProperties {
 	 * System property pointing either to the configuration file or to the configuration directory. 
 	 */
 	CONFIG_FILE("reddeer.config", (String) null),
-	
+
 	CAPTURE_SCREENSHOT("reddeer.captureScreenshot", true),
 
 	RECORD_SCREENCAST("reddeer.recordScreenCast", false),
 
 	RELATIVE_SCREENSHOT_DIRECTORY("reddeer.relativeScreenshotDirectory", (String) null),
-	
-	OPEN_ASSOCIATED_PERSPECTIVE("reddeer.set.open.associated.perspective", "never");
+
+	OPEN_ASSOCIATED_PERSPECTIVE("reddeer.set.open.associated.perspective", "never"),
+
+	TIME_PERIOD_FACTOR("reddeer.time.period.factor", 1.f);
 
 	private static final Logger log = Logger.getLogger(RedDeerProperties.class);
-	
+
 	private String name;
 
 	private RedDeerPropertyType type;
@@ -68,6 +70,14 @@ public enum RedDeerProperties {
 		this.type = RedDeerPropertyType.ENUMERATION;
 		this.defaultValue = defaultValue;
 		this.supportedValues = supportedValues;
+		checkSystemValue(getValueInternal());
+	}
+
+	private RedDeerProperties(String name, Float defaultValue){
+		this.name = name;
+		this.type = RedDeerPropertyType.FLOAT;
+		this.defaultValue = defaultValue.toString();
+		this.supportedValues = new String[0];
 		checkSystemValue(getValueInternal());
 	}
 
@@ -108,6 +118,19 @@ public enum RedDeerProperties {
 		}
 		String propertyValue = getValue();
 		return Boolean.parseBoolean(propertyValue.toLowerCase());
+	}
+	
+	/**
+	 * Returns {@link #getValue()} converted to the float. 
+	 * @return
+	 */
+	public float getFloatValue(){
+		if (getType() != RedDeerPropertyType.FLOAT){
+			throw new RedDeerException("Requested float system value from non float property [" 
+					+ getName() + ", " + getType() + "]");
+		}
+		String propertyValue = getValue();
+		return Float.parseFloat(propertyValue.toLowerCase());
 	}
 
 	/**
@@ -150,6 +173,18 @@ public enum RedDeerProperties {
 			return;
 		}
 
+		if (getType() == RedDeerPropertyType.FLOAT) {
+			try {
+				Float.parseFloat(systemValue);
+				return;
+			} catch (Exception e) {
+				log.error("System property '" + getName() + "' has unsupported value '" 
+						+ systemValue + "'. Value has to be floating point number");
+				throw new RedDeerException("System property '" + getName() + "' has unsupported value '" 
+						+ systemValue + "'. Value has to be floating point number");
+			}
+		}
+
 		if (getType() == RedDeerPropertyType.BOOLEAN || getType() == RedDeerPropertyType.ENUMERATION){
 			systemValue = systemValue.toLowerCase();
 		}
@@ -174,7 +209,7 @@ public enum RedDeerProperties {
 				value = getDefaultValue();
 			}
 		}
-		
+
 		return value;
 	}
 }
