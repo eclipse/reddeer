@@ -1,5 +1,7 @@
 package org.jboss.reddeer.common.properties;
 
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
@@ -17,6 +19,10 @@ public class RedDeerPropertiesTest {
 	private static String relativeScreenshotDirectoryValue;
 
 	private static boolean relativeScreenshotDirectoryDefined = false;
+	
+	private static String timePeriodFactor;
+
+	private static boolean timePeriodFactorDefined = false;
 
 	@BeforeClass
 	public static void setup(){
@@ -30,16 +36,31 @@ public class RedDeerPropertiesTest {
 			relativeScreenshotDirectoryValue = RedDeerProperties.RELATIVE_SCREENSHOT_DIRECTORY.getValue();			
 			relativeScreenshotDirectoryDefined = true;
 		}
+		
+		if (System.getProperties().containsKey(RedDeerProperties.TIME_PERIOD_FACTOR.getName())){
+			timePeriodFactor = RedDeerProperties.TIME_PERIOD_FACTOR.getValue();			
+			timePeriodFactorDefined = true;
+		}
 	}
 
 	@AfterClass
 	public static void cleanup(){
 		if (recordScreencastDefined){
 			System.setProperty(RedDeerProperties.RECORD_SCREENCAST.getName(), recordScreencastValue);
+		} else {
+			System.clearProperty(RedDeerProperties.RECORD_SCREENCAST.getName());
 		}
 
 		if (relativeScreenshotDirectoryDefined){
 			System.setProperty(RedDeerProperties.RELATIVE_SCREENSHOT_DIRECTORY.getName(), relativeScreenshotDirectoryValue);
+		} else {
+			System.clearProperty(RedDeerProperties.RELATIVE_SCREENSHOT_DIRECTORY.getName());
+		}
+		
+		if (timePeriodFactorDefined){
+			System.setProperty(RedDeerProperties.TIME_PERIOD_FACTOR.getName(), timePeriodFactor);
+		} else {
+			System.clearProperty(RedDeerProperties.TIME_PERIOD_FACTOR.getName());
 		}
 	}
 
@@ -71,7 +92,21 @@ public class RedDeerPropertiesTest {
 	public void getSystemValue_boolean_fail() {
 		System.setProperty(RedDeerProperties.RECORD_SCREENCAST.getName(), "abc");
 
-		assertEquals("abc", RedDeerProperties.RECORD_SCREENCAST.getValue());
+		RedDeerProperties.RECORD_SCREENCAST.getValue();
+	}
+	
+	@Test
+	public void getSystemValue_float() {
+		System.setProperty(RedDeerProperties.TIME_PERIOD_FACTOR.getName(), "0.5");
+
+		assertEquals("0.5", RedDeerProperties.TIME_PERIOD_FACTOR.getValue());
+	}
+
+	@Test(expected=RedDeerException.class)
+	public void getSystemValue_float_fail() {
+		System.setProperty(RedDeerProperties.TIME_PERIOD_FACTOR.getName(), "abc");
+
+		RedDeerProperties.TIME_PERIOD_FACTOR.getValue();
 	}
 
 	@Test
@@ -86,5 +121,19 @@ public class RedDeerPropertiesTest {
 		System.setProperty(RedDeerProperties.RELATIVE_SCREENSHOT_DIRECTORY.getName(), "abc");
 
 		assertFalse(RedDeerProperties.RELATIVE_SCREENSHOT_DIRECTORY.getBooleanValue());
+	}
+	
+	@Test
+	public void getFloatSystemValue() {
+		System.setProperty(RedDeerProperties.TIME_PERIOD_FACTOR.getName(), "0.5");
+
+		assertThat(RedDeerProperties.TIME_PERIOD_FACTOR.getFloatValue(), is(0.5f));
+	}
+
+	@Test(expected=RedDeerException.class)
+	public void getFloatSystemValue_textProperty() {
+		System.setProperty(RedDeerProperties.TIME_PERIOD_FACTOR.getName(), "abc");
+
+		RedDeerProperties.TIME_PERIOD_FACTOR.getFloatValue();
 	}
 }
