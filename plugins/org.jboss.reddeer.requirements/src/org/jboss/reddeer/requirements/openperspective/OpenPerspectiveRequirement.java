@@ -38,7 +38,7 @@ public class OpenPerspectiveRequirement implements Requirement<OpenPerspective> 
 	 * Marks test class, which requires opening of the specified perspective.
 	 */
 	@Retention(RetentionPolicy.RUNTIME)
-	@Target(ElementType.TYPE)
+	@Target({ElementType.TYPE, ElementType.METHOD})
 	@Documented
 	public @interface OpenPerspective {
 		/**

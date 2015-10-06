@@ -7,6 +7,7 @@ import static org.mockito.Mockito.verify;
 import org.jboss.reddeer.junit.internal.requirement.Requirements;
 import org.jboss.reddeer.junit.internal.requirement.inject.RequirementsInjector;
 import org.jboss.reddeer.junit.internal.runner.RequirementsRunner;
+import org.jboss.reddeer.requirements.cleanworkspace.CleanWorkspaceRequirement.CleanWorkspace;
 import org.junit.Test;
 
 public class RequirementsRunnerTest {

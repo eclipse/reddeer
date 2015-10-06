@@ -43,12 +43,12 @@ public class CleanWorkspaceRequirement implements Requirement<CleanWorkspace> {
 	 * Marks test class, which requires clean workspace before test cases are executed.
 	 */
 	@Retention(RetentionPolicy.RUNTIME)
-    @Target(ElementType.TYPE)
+    @Target({ElementType.TYPE, ElementType.METHOD})
 	@Documented
 	public @interface CleanWorkspace {
 		
 	}
-	
+		
 	/**
 	 * Always returns true because cleaning workspace should be possible every time.
 	 * 

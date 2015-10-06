@@ -1,5 +1,10 @@
 package org.jboss.reddeer.junit.internal.runner;
 
+import java.lang.annotation.Annotation;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Target;
+import java.lang.reflect.Method;
+import java.util.Iterator;
 import java.util.List;
 
 import org.jboss.reddeer.common.exception.RedDeerException;
@@ -10,6 +15,7 @@ import org.jboss.reddeer.junit.extensionpoint.IBeforeTest;
 import org.jboss.reddeer.junit.internal.requirement.Requirements;
 import org.jboss.reddeer.junit.internal.requirement.inject.RequirementsInjector;
 import org.jboss.reddeer.junit.internal.screenrecorder.ScreenCastingRunListener;
+import org.jboss.reddeer.junit.requirement.Requirement;
 import org.jboss.reddeer.junit.screenshot.CaptureScreenshotException;
 import org.jboss.reddeer.junit.screenshot.ScreenshotCapturer;
 import org.junit.After;
@@ -255,8 +261,48 @@ public class RequirementsRunner extends BlockJUnit4ClassRunner {
 	}
 	
 	@Override
-	protected Statement methodInvoker(FrameworkMethod method, Object test) {
+	protected Statement methodInvoker(FrameworkMethod method, Object test) {	
+		Iterator<Requirement<?>> iterator = requirements.iterator();
+		while (iterator.hasNext()) {
+			Requirement<?> requirement = iterator.next();
+			if (isMethodTargeted(getTargetAnnotation(requirement))) {
+				try {
+					log.info("Fulfilling requirement of " + requirement.getClass());
+					requirement.fulfill();
+				} catch (RuntimeException ex) {
+					ScreenshotCapturer screenshotCapturer = ScreenshotCapturer.getInstance();
+					try {
+						screenshotCapturer.captureScreenshotOnFailure(configId, 
+								ScreenshotCapturer.getScreenshotFileName(
+										test.getClass(), null, requirement.getClass().getSimpleName()));
+					} catch (CaptureScreenshotException e) {
+						e.printInfo(log);
+					}
+					throw ex;
+				}
+			}
+		}
 	    return new InvokeMethodWithException(method, test);
+	}
+	
+	private Class<?> getTargetAnnotation(Requirement<?> requirement) {
+		for (Method requirementMethod: requirement.getClass().getDeclaredMethods()) {
+			if (requirementMethod.getName().equals("setDeclaration") && 
+					!requirementMethod.getParameters()[0].getType().toString().equals("interface java.lang.annotation.Annotation")) {
+				return requirementMethod.getParameters()[0].getType();
+			}
+		}
+		return null;
+	}
+	
+	private boolean isMethodTargeted(Class<?> annotation) {
+		Target target = annotation.getAnnotation(Target.class);
+		for (ElementType type : target.value()) { 
+			if (type.equals(ElementType.METHOD)) {
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	@Override
