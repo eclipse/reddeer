@@ -13,7 +13,8 @@
 		<tycho-version>0.22.0</tycho-version>
 		<tychoExtrasVersion>${tycho-version}</tychoExtrasVersion>
 		<jbossTychoPluginsVersion>0.23.1</jbossTychoPluginsVersion>
-		<eclipse-target-site>http://download.eclipse.org/releases/mars</eclipse-target-site>
+		<eclipseName>neon</eclipseName>
+		<eclipse-target-site>http://download.eclipse.org/releases/${eclipseName}/</eclipse-target-site>
 		<swtbot-update-site>http://download.eclipse.org/technology/swtbot/releases/2.2.1</swtbot-update-site>
 		<eclipse-orbit-update-site>http://download.eclipse.org/tools/orbit/downloads/drops/R20150821153341/repository/</eclipse-orbit-update-site>
 		<download-plugin-version>1.2.1</download-plugin-version>
@@ -21,7 +22,7 @@
 		<!-- In the update site's site/pom.xml (that calls jbosstools-maven-plugins/tycho-plugins/repository-utils)
 				 you can override this value to be Nightly Build, Development Milestone, or Stable Release, or set to &amp;shy; (soft hyphen) to leave blank -->
 		<update.site.description>&amp;shy;</update.site.description>
-		<targetEclipseVersion>4.5 (Mars)</targetEclipseVersion>
+		<targetEclipseVersion>4.6 (Neon)</targetEclipseVersion>
 	</properties>
 	
 	<modules>
