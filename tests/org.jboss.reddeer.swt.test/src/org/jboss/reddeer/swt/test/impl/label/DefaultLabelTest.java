@@ -1,4 +1,4 @@
-package org.jboss.reddeer.swt.test;
+package org.jboss.reddeer.swt.test.impl.label;
 
 import static org.junit.Assert.assertTrue;
 
@@ -11,7 +11,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(RedDeerSuite.class)
-public class LabelTest {
+public class DefaultLabelTest {
 
 	@BeforeClass
 	public static void openExplorer() {

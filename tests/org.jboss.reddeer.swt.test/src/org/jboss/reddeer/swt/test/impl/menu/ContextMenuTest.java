@@ -39,7 +39,8 @@ import org.junit.runner.RunWith;
 @RunWith(RedDeerSuite.class)
 @OpenPerspective(JavaPerspective.class)
 public class ContextMenuTest {
-	
+
+	private static int limit = 20;
 	private static String projectName = "ContextMenuTest-test";
 	
 	@BeforeClass
@@ -109,6 +110,37 @@ public class ContextMenuTest {
 		closeTestShell();
 	}
 
+	@Test
+	public void contextMenuTest() {
+
+		ProjectExplorer pe = new ProjectExplorer();
+		pe.open();
+
+		org.jboss.reddeer.swt.api.Menu menu = new ContextMenu("New", "Project...");
+		menu.select();
+		org.jboss.reddeer.swt.api.Shell s = new DefaultShell("New Project");
+		s.close();
+	}
+
+	@Test
+	public void hundertscontextMenuTest() {
+		for (int i = 0; i < limit; i++) {
+			contextMenuTest();
+		}
+	}
+
+	@Test
+	public void contextMenuItemTextTest() {
+		// make sure shell is focused
+		new DefaultShell();
+
+		ProjectExplorer pe = new ProjectExplorer();
+		pe.open();
+
+		org.jboss.reddeer.swt.api.Menu menu = new ContextMenu("New", "Project...");
+		assertTrue("Menuitem text not expected to be empty", !menu.getText().equals(""));
+	}
+	
 	private void closeTestShell() {
 		new DefaultShell("myShell").close();
 	}
@@ -151,5 +183,4 @@ public class ContextMenuTest {
 			}
 		});
 	}
-	
 }

@@ -1,12 +1,14 @@
-package org.jboss.reddeer.swt.test;
+package org.jboss.reddeer.swt.test.toolbar;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
 import org.hamcrest.core.Is;
 import org.hamcrest.core.IsNot;
+import org.jboss.reddeer.common.matcher.RegexMatcher;
+import org.jboss.reddeer.core.matcher.WithTextMatchers;
+import org.jboss.reddeer.core.matcher.WithTooltipTextMatcher;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.swt.api.Menu;
 import org.jboss.reddeer.swt.api.ToolBar;
@@ -17,37 +19,28 @@ import org.jboss.reddeer.swt.impl.clabel.DefaultCLabel;
 import org.jboss.reddeer.swt.impl.label.DefaultLabel;
 import org.jboss.reddeer.swt.impl.menu.ShellMenu;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
-import org.jboss.reddeer.workbench.impl.shell.WorkbenchShell;
 import org.jboss.reddeer.swt.impl.toolbar.DefaultToolBar;
 import org.jboss.reddeer.swt.impl.toolbar.DefaultToolItem;
-import org.jboss.reddeer.swt.impl.toolbar.ViewToolBar;
 import org.jboss.reddeer.swt.impl.tree.DefaultTree;
 import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
-import org.jboss.reddeer.common.matcher.RegexMatcher;
-import org.jboss.reddeer.core.matcher.WithTextMatchers;
-import org.jboss.reddeer.core.matcher.WithTooltipTextMatcher;
-import org.jboss.reddeer.workbench.impl.view.WorkbenchView;
+import org.jboss.reddeer.workbench.impl.shell.WorkbenchShell;
 import org.jboss.tools.reddeer.swt.test.model.TestModel;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-/**
- * Tests for various toolbar implementations
- * @author Jiri Peterka
- *
- */
 @RunWith(RedDeerSuite.class)
-public class ToolBarTest {
+public class DefaultToolBarTest {
 
-	@Before
-	public void prepare() {
-		new WorkbenchView("RedDeer SWT").open();
+	@Test
+	public void testDefaultToolBar() {
+		openPreferences();
+		final ToolBar t = new DefaultToolBar();
+		assertNotNull(t);
+		closePreferences();	
 	}
 	
 	@Test 
-	public void workbenchToolBarTest() {
-		
+	public void workbenchToolBarTest() {		
 		ToolItem i = new DefaultToolItem(new WorkbenchShell(), "RedDeer SWT WorkbenchToolItem");
 		i.click();
 		assertTrue("ToolItem should be clicked", TestModel.getClickedAndReset());
@@ -61,43 +54,7 @@ public class ToolBarTest {
 		i.click();
 		assertTrue("ToolItem should be clicked", TestModel.getClickedAndReset());
 	}
-
-	@Test
-	public void testToolBar() {
-		new WorkbenchShell();
-		ToolBar t = new ViewToolBar();
-		assertNotNull(t);
-	}
-
-	@Test
-	public void testToolItemInViewToolBarFound() {
-		ToolItem i = new DefaultToolItem("RedDeer SWT ViewToolItem");
-		assertEquals("RedDeer SWT ViewToolItem", i.getToolTipText());
-	}
-
-	@Test
-	public void testToolItemInViewToolBarClicked() {
-		ToolItem i = new DefaultToolItem("RedDeer SWT ViewToolItem");
-		i.click();		
-		assertTrue("ToolItem should be clicked", TestModel.getClickedAndReset());		
-	}
-
-	@Test
-	public void testToolItemInViewToolBarRegexClicked() {
-		WithTooltipTextMatcher rm = new WithTooltipTextMatcher(
-				new RegexMatcher("RedDeer SWT View.*"));
-		ToolItem i = new DefaultToolItem(rm);
-		i.click();
-		assertTrue("ToolItem should be clicked", TestModel.getClickedAndReset());		
-	}
 	
-	@Test
-	public void testShellToolBar() {
-		openPreferences();
-		final ToolBar t = new DefaultToolBar();
-		assertNotNull(t);
-		closePreferences();	
-	}
 	
 	@Test
 	public void testToolItemInShellToolBarFound() {

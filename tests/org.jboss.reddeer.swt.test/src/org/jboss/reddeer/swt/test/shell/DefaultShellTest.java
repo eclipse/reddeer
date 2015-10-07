@@ -1,4 +1,4 @@
-package org.jboss.reddeer.swt.test;
+package org.jboss.reddeer.swt.test.shell;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -6,37 +6,31 @@ import static org.junit.Assert.fail;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Label;
-import org.jboss.reddeer.junit.runner.RedDeerSuite;
-import org.jboss.reddeer.swt.api.Shell;
-import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.common.wait.WaitUntil;
 import org.jboss.reddeer.core.condition.ShellWithTextIsActive;
 import org.jboss.reddeer.core.exception.CoreLayerException;
 import org.jboss.reddeer.core.handler.ShellHandler;
+import org.jboss.reddeer.core.util.Display;
+import org.jboss.reddeer.junit.runner.RedDeerSuite;
+import org.jboss.reddeer.swt.api.Shell;
+import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.label.DefaultLabel;
 import org.jboss.reddeer.swt.impl.menu.ShellMenu;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
-import org.jboss.reddeer.workbench.impl.shell.WorkbenchShell;
 import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
-import org.jboss.reddeer.core.util.Display;
 import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(RedDeerSuite.class)
-public class ShellTest {
+public class DefaultShellTest {
 	
+
 	private Shell shell1,shell2;
-	
-	@Test
-	public void workbenchShellTest() {
-		Shell shell = new WorkbenchShell();
-		assertFalse(shell.getText().equals(""));
-	}
 
 	@Test
-	public void DefaultShellTest() {
+	public void defaultShellTest() {
 		Shell shell = new DefaultShell();
 		assertFalse(shell.getText().equals(""));
 	}
@@ -57,16 +51,6 @@ public class ShellTest {
 
 		Shell dummyShell = new DefaultShell("Dummy shell");
 		dummyShell.close();
-	}
-	
-	@Test
-	public void maximizeWorkbenshShellTest() {
-		WorkbenchShell workbenchShell = new WorkbenchShell();
-		assertFalse(workbenchShell.isMaximized());
-		workbenchShell.maximize();
-		assertTrue(workbenchShell.isMaximized());
-		workbenchShell.restore();
-		assertFalse(workbenchShell.isMaximized());
 	}
 
 	@Test
