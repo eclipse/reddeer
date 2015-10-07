@@ -1,4 +1,4 @@
-package org.jboss.reddeer.swt.test;
+package org.jboss.reddeer.swt.test.impl.text;
 
 
 import static org.junit.Assert.assertTrue;
@@ -9,14 +9,13 @@ import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.menu.ShellMenu;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.jboss.reddeer.swt.impl.text.DefaultText;
-import org.jboss.reddeer.swt.impl.text.LabeledText;
 import org.jboss.reddeer.workbench.impl.view.WorkbenchView;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(RedDeerSuite.class)
-public class TextTest {
+public class DefaultTextTest {
 
 	@BeforeClass
 	public static void openExplorer() {
@@ -43,15 +42,5 @@ public class TextTest {
 		t.setText("myvalue");
 		assertTrue(t.getText().equals("myvalue"));
 		new PushButton("Cancel").click();
-	}
-
-	@Test
-	public void labeledTextTest() {
-		assertTrue(new LabeledText("Name:").getText().equals("Original text"));
-		Text text = new LabeledText("Name:");
-		assertTrue(text.getText().equals("Original text"));
-		text.setText("New text");
-		assertTrue(text.getText().equals("New text"));
-		text.setText("Original text");
 	}
 }

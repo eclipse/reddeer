@@ -1,4 +1,4 @@
-package org.jboss.reddeer.swt.test;
+package org.jboss.reddeer.swt.test.impl.text;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
