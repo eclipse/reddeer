@@ -5,6 +5,8 @@ import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.common.matcher.RegexMatcher;
 import org.jboss.reddeer.common.wait.TimePeriod;
 import org.jboss.reddeer.common.wait.WaitUntil;
+import org.jboss.reddeer.common.wait.WaitWhile;
+import org.jboss.reddeer.core.condition.ShellWithTextIsActive;
 import org.jboss.reddeer.core.matcher.WithMnemonicTextMatcher;
 import org.jboss.reddeer.core.matcher.WithTextMatcher;
 import org.jboss.reddeer.direct.preferences.Preferences;
@@ -14,6 +16,7 @@ import org.jboss.reddeer.eclipse.utils.DeleteUtils;
 import org.jboss.reddeer.swt.api.Shell;
 import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
+import org.jboss.reddeer.swt.impl.button.OkButton;
 import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.menu.ContextMenu;
 import org.jboss.reddeer.swt.impl.menu.ShellMenu;
@@ -45,6 +48,18 @@ public class ProjectItem extends ExplorerItem {
 		path = treeItem.getPath();
 	}
 
+	/**
+	 * Opens the project item with the specified editor
+	 */
+	public void openWith(String editor) {
+		select();
+		new ContextMenu("Open With", "Other...").select();;
+		new WaitUntil(new ShellWithTextIsActive("Editor Selection"));
+		new DefaultTreeItem(editor).select();
+		new OkButton().click();
+		new WaitWhile(new ShellWithTextIsActive("Editor Selection"));
+	}
+	
 	/**
 	 * Runs project with the specified launcher.
 	 * 

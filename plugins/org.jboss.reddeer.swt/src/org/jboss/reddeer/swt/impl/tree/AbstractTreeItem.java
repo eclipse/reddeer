@@ -4,18 +4,21 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.eclipse.swt.SWT;
+import org.hamcrest.Matcher;
 import org.jboss.reddeer.common.logging.Logger;
-import org.jboss.reddeer.swt.api.Tree;
-import org.jboss.reddeer.swt.api.TreeItem;
-import org.jboss.reddeer.swt.condition.TreeItemHasMinChildren;
+import org.jboss.reddeer.common.wait.TimePeriod;
+import org.jboss.reddeer.common.wait.WaitUntil;
 import org.jboss.reddeer.core.handler.TreeHandler;
 import org.jboss.reddeer.core.handler.TreeItemHandler;
 import org.jboss.reddeer.core.handler.WidgetHandler;
+import org.jboss.reddeer.core.lookup.TreeItemLookup;
+import org.jboss.reddeer.core.matcher.TreeItemTextMatcher;
+import org.jboss.reddeer.core.util.Display;
+import org.jboss.reddeer.swt.api.Tree;
+import org.jboss.reddeer.swt.api.TreeItem;
+import org.jboss.reddeer.swt.condition.TreeItemHasMinChildren;
 import org.jboss.reddeer.swt.impl.tree.internal.BasicTree;
 import org.jboss.reddeer.swt.impl.tree.internal.BasicTreeItem;
-import org.jboss.reddeer.core.util.Display;
-import org.jboss.reddeer.common.wait.TimePeriod;
-import org.jboss.reddeer.common.wait.WaitUntil;
 import org.jboss.reddeer.swt.widgets.AbstractWidget;
 
 /**
@@ -112,6 +115,12 @@ public abstract class AbstractTreeItem extends AbstractWidget<org.eclipse.swt.wi
 	 */
 	public TreeItem getItem(final String text) {
 		return new BasicTreeItem(treeItemHandler.getItem(swtWidget, text));
+	}
+	
+	@Override
+	public TreeItem getItem(String... path) {
+		org.eclipse.swt.widgets.TreeItem swtItem = TreeItemLookup.getInstance().getTreeItem(getSWTWidget(), 0, createMatchers(path));
+		return new BasicTreeItem(swtItem);
 	}
 
 	/**
@@ -256,6 +265,15 @@ public abstract class AbstractTreeItem extends AbstractWidget<org.eclipse.swt.wi
 	public void setText(String text) {
 		logger.info("Set text to tree item: " + text);
 		TreeItemHandler.getInstance().setText(swtWidget, 0, text);
+	}
+	
+	private Matcher<org.eclipse.swt.widgets.TreeItem>[] createMatchers(String[] treeItemPath) {
+		@SuppressWarnings("unchecked")
+		Matcher<org.eclipse.swt.widgets.TreeItem>[] matchers = new Matcher[treeItemPath.length];
+		for (int i = 0; i < treeItemPath.length; i++){
+			matchers[i] = new TreeItemTextMatcher(treeItemPath[i]);
+		}
+		return matchers;
 	}
 	
 	class TreeItemTexts {

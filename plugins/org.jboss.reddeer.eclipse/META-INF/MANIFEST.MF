@@ -20,7 +20,8 @@ Require-Bundle: org.eclipse.ui,
  org.jboss.reddeer.common;bundle-version="[1.0,1.1)",
  org.jboss.reddeer.direct;bundle-version="[1.0,1.1)",
  org.eclipse.core.resources,
- org.eclipse.ui.browser
+ org.eclipse.ui.browser,
+ org.eclipse.ui.workbench.texteditor
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Export-Package: org.jboss.reddeer.eclipse,
@@ -56,6 +57,7 @@ Export-Package: org.jboss.reddeer.eclipse,
  org.jboss.reddeer.eclipse.ui.console;uses:="org.jboss.reddeer.workbench.view",
  org.jboss.reddeer.eclipse.ui.dialogs,
  org.jboss.reddeer.eclipse.ui.ide,
+ org.jboss.reddeer.eclipse.ui.part,
  org.jboss.reddeer.eclipse.ui.perspectives,
  org.jboss.reddeer.eclipse.ui.problems,
  org.jboss.reddeer.eclipse.ui.problems.matcher,
@@ -73,6 +75,7 @@ Export-Package: org.jboss.reddeer.eclipse,
  org.jboss.reddeer.eclipse.wst.server.ui.editor,
  org.jboss.reddeer.eclipse.wst.server.ui.view,
  org.jboss.reddeer.eclipse.wst.server.ui.wizard,
- org.jboss.reddeer.eclipse.wst.web.ui.wizards
+ org.jboss.reddeer.eclipse.wst.web.ui.wizards,
+ org.jboss.reddeer.eclipse.wst.xml.ui.tabletree
 Import-Package: org.eclipse.ui.internal.views.markers,
  org.junit

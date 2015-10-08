@@ -58,6 +58,14 @@ public interface TreeItem extends Widget {
 	TreeItem getItem(String text);
 	
 	/**
+	 * Returns child tree item with the specified path.
+	 * 
+	 * @param path path to tree item
+	 * @return tree item having specified label
+	 */
+	TreeItem getItem(String... path);
+	
+	/**
 	 * Returns whether the tree item is selected or not.
 	 * 
 	 * @return true if the tree item is selected, false otherwise
