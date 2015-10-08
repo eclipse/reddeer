@@ -14,14 +14,15 @@ import org.eclipse.swt.events.TreeListener;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Tree;
 import org.jboss.reddeer.common.exception.WaitTimeoutExpiredException;
-import org.jboss.reddeer.swt.impl.tree.DefaultTree;
-import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
+import org.jboss.reddeer.common.wait.TimePeriod;
 import org.jboss.reddeer.core.exception.CoreLayerException;
 import org.jboss.reddeer.core.matcher.TreeItemRegexMatcher;
 import org.jboss.reddeer.core.matcher.TreeItemTextMatcher;
-import org.jboss.reddeer.swt.test.ui.views.TreeEventsListener;
 import org.jboss.reddeer.core.util.Display;
-import org.jboss.reddeer.common.wait.TimePeriod;
+import org.jboss.reddeer.swt.api.TreeItem;
+import org.jboss.reddeer.swt.impl.tree.DefaultTree;
+import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
+import org.jboss.reddeer.swt.test.ui.views.TreeEventsListener;
 import org.junit.After;
 import org.junit.Test;
 
@@ -53,6 +54,37 @@ public class DefaultTreeItemTest extends AbstractTreeTest {
 	public void testFindNonExistingItemByPath(){
 		createTreeItems(tree.getSWTWidget());
 		DefaultTreeItem dfi = new DefaultTreeItem("A","AA","NONEXISTINGTEXT");
+	}
+	
+	@Test
+	public void getItem() {
+		int cellIndex = 0;
+
+		createTreeItems(tree.getSWTWidget(), cellIndex);
+
+		String expectedText = "AA";
+
+		DefaultTree dt = new DefaultTree();
+		TreeItem dfi = new DefaultTreeItem(dt, "A").getItem("AA");
+
+		assertTrue(String.format("Found Tree Item has to have text '%s', '%s' found instead",
+				expectedText, dfi.getCell(cellIndex)),
+				dfi.getCell(cellIndex).equals(expectedText));
+	}
+	
+	@Test
+	public void getItemByPath() {
+		int cellIndex = 0;
+
+		createTreeItems(tree.getSWTWidget(), cellIndex);
+
+		String expectedText = "AAB";
+
+		DefaultTree dt = new DefaultTree();
+		TreeItem dfi = new DefaultTreeItem(dt, "A").getItem("AA", "AAB");
+		assertTrue(String.format("Found Tree Item has to have text '%s', '%s' found instead",
+				expectedText, dfi.getCell(cellIndex)),
+				dfi.getCell(cellIndex).equals(expectedText));
 	}
 	
 	@SuppressWarnings("unchecked")
