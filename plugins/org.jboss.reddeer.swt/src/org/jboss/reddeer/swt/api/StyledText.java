@@ -1,5 +1,6 @@
 package org.jboss.reddeer.swt.api;
 
+import org.eclipse.swt.graphics.Point;
 import org.jboss.reddeer.swt.widgets.Widget;
 
 /**
@@ -87,4 +88,11 @@ public interface StyledText extends Widget {
 	void setSelection(final int start, final int end);
 
 	org.eclipse.swt.custom.StyledText getSWTWidget();
+	
+	/**
+	 * Gets the current position of the cursor.
+	 *
+	 * @return zero based position of the cursor in the text editor.
+	 */	
+	public Point getCursorPosition();
 }

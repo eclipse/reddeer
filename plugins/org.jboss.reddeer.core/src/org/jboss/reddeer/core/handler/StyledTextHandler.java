@@ -2,6 +2,7 @@ package org.jboss.reddeer.core.handler;
 
 
 import org.eclipse.swt.custom.StyledText;
+import org.eclipse.swt.graphics.Point;
 import org.jboss.reddeer.core.exception.CoreLayerException;
 import org.jboss.reddeer.core.util.Display;
 import org.jboss.reddeer.core.util.ResultRunnable;
@@ -10,6 +11,7 @@ import org.jboss.reddeer.core.util.ResultRunnable;
  * Contains methods for handling UI operations on {@link StyledText} widgets.
  * 
  * @author Jiri Peterka
+ * @author Vlado Pakan
  * 
  */
 public class StyledTextHandler {
@@ -169,6 +171,24 @@ public class StyledTextHandler {
 			@Override
 			public String run() {
 				return styledText.getSelectionText();
+			}
+		});
+	}
+
+	/**
+	 * Gets the current position of the cursor.
+	 *
+	 * @return zero based position of the cursor in the styled text.
+	 */
+	public Point getCursorPosition(final StyledText styledText) {
+		return Display.syncExec(new ResultRunnable<Point>() {
+			public Point run() {
+				styledText.setFocus();
+				int offset = styledText.getSelectionRange().x;
+				int line = styledText.getContent().getLineAtOffset(offset);
+				int offsetAtLine = styledText.getContent().getOffsetAtLine(line);
+				int column = offset - offsetAtLine;
+				return new Point(line, column);
 			}
 		});
 	}

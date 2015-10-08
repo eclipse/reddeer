@@ -1,5 +1,6 @@
 package org.jboss.reddeer.swt.impl.styledtext;
 
+import org.eclipse.swt.graphics.Point;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.swt.api.StyledText;
@@ -114,5 +115,11 @@ public abstract class AbstractStyledText extends AbstractWidget<org.eclipse.swt.
     public String getSelectionText() {
         return StyledTextHandler.getInstance().getSelectionText(swtWidget);
     }
-
+    /**
+     * @see org.jboss.reddeer.swt.api.StyledText#getSelectionText()
+     */
+    @Override	
+	public Point getCursorPosition(){
+		return StyledTextHandler.getInstance().getCursorPosition(swtWidget);
+	}
 }

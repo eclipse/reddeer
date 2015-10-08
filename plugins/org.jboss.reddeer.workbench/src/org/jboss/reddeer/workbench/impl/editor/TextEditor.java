@@ -2,6 +2,7 @@ package org.jboss.reddeer.workbench.impl.editor;
 
 import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.jface.text.ITextSelection;
+import org.eclipse.swt.graphics.Point;
 import org.eclipse.ui.texteditor.ITextEditor;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.common.logging.Logger;
@@ -243,6 +244,15 @@ public class TextEditor extends AbstractEditor implements Editor {
 	 */
 	public int getPositionOfText(String text, int index) {
 		return TextEditorHandler.getInstance().getPositionOfText(getTextEditorPart(), text, index);
+	}
+	/**
+	 * Gets the current position of the cursor.
+	 *
+	 * @return zero based position of the cursor in the text editor.
+	 */	
+	public Point getCursorPosition(){
+		activate();
+		return new DefaultStyledText().getCursorPosition();
 	}
 	
 	/**
