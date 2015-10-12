@@ -192,4 +192,20 @@ public class StyledTextHandler {
 			}
 		});
 	}
+	
+	
+	/**
+	 * Gets the offset at line
+	 *
+	 * @return offset of text at given line
+	 */
+	public int getOffsetAtLine(final StyledText styledText, final int lineIndex) {
+		return Display.syncExec(new ResultRunnable<Integer>() {
+			public Integer run() {
+				styledText.setFocus();
+				int offsetAtLine = styledText.getOffsetAtLine(lineIndex);
+				return offsetAtLine;
+			}
+		});
+	}
 }

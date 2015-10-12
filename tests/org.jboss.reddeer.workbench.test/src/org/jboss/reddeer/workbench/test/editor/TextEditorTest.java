@@ -124,7 +124,8 @@ public class TextEditorTest {
 	
 	@Test
 	public void setCursorPosition(){
-		final String firstLine = "package test;";
+		new WorkbenchShell();
+		final String firstLine = "pack";
 		final String firstLineAppend = "testtext";
 		TextEditor textEditor = TextEditorTest.openJavaFile();
 		textEditor.activate();
