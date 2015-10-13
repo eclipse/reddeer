@@ -97,8 +97,10 @@ public class DiagnosticTool {
 		result.append(getWidgetInformation(parent)).append(lineDelimiter);
 		if (parent instanceof Composite) {
 			Composite composite = (Composite) parent;
-			for (Control child : composite.getChildren()) {
-				result.append(getDiagnosticInformation(child, depth + 1));
+			if (composite != null && !composite.isDisposed() && composite.getChildren() != null){
+				for (Control child : composite.getChildren()) {
+					result.append(getDiagnosticInformation(child, depth + 1));
+				}
 			}
 		}
 		return result.toString();

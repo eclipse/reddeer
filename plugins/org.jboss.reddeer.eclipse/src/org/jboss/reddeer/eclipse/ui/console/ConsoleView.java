@@ -14,7 +14,9 @@ import org.jboss.reddeer.swt.impl.toolbar.DefaultToolItem;
 import org.jboss.reddeer.common.wait.TimePeriod;
 import org.jboss.reddeer.common.wait.WaitUntil;
 import org.jboss.reddeer.common.wait.WaitWhile;
+import org.jboss.reddeer.core.condition.WidgetIsFound;
 import org.jboss.reddeer.core.exception.CoreLayerException;
+import org.jboss.reddeer.core.matcher.ClassMatcher;
 import org.jboss.reddeer.workbench.impl.view.WorkbenchView;
 
 /**
@@ -39,6 +41,8 @@ public class ConsoleView extends WorkbenchView {
 	 */
 	public String getConsoleText() {
 		activate();
+		new WaitUntil(new WidgetIsFound<org.eclipse.swt.custom.StyledText>(
+				new ClassMatcher(org.eclipse.swt.custom.StyledText.class)));
 		// wait for text to appear
 		new WaitWhile(new ConsoleHasText(""),TimePeriod.SHORT,false);
 		return new DefaultStyledText().getText();
