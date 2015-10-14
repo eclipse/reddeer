@@ -11,8 +11,8 @@ import org.jboss.reddeer.eclipse.ui.perspectives.JavaPerspective;
 import org.jboss.reddeer.eclipse.utils.DeleteUtils;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.requirements.openperspective.OpenPerspectiveRequirement.OpenPerspective;
-import org.junit.After;
-import org.junit.Before;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -23,38 +23,41 @@ public class ProjectTest {
 	private static final String PROJECT_NAME_0 = "ProjectTestProject0";
 	private static final String PROJECT_NAME_1 = "ProjectTestProject1";
 	private static final String PROJECT_NAME_2 = "ProjectTestProject2";
-	private PackageExplorer packageExplorer;
-	private Project project0;
+	private static final String PROJECT_NAME_3 = "ProjectTestProject3";
+	private static PackageExplorer packageExplorer;
+	private static Project project0;
+	private static Project project1;
+	private static Project project2;
 		
-	@Before
-	public void setUp(){
+	@BeforeClass
+	public static void setUp(){
 		NewJavaProjectWizardDialog dialog = new NewJavaProjectWizardDialog();
 		dialog.open();
 		NewJavaProjectWizardPage page1 = new NewJavaProjectWizardPage(); 
 		page1.setProjectName(ProjectTest.PROJECT_NAME_0);
 		dialog.finish();
-
-		packageExplorer = new PackageExplorer();
-		packageExplorer.open();
-		project0 = packageExplorer.getProject(ProjectTest.PROJECT_NAME_0);
-	}
-
-	@Test
-	public void select() {
-		NewJavaProjectWizardDialog dialog = new NewJavaProjectWizardDialog();
+		
+		dialog = new NewJavaProjectWizardDialog();
 		dialog.open();
-		NewJavaProjectWizardPage page1 = new NewJavaProjectWizardPage();
+		page1 = new NewJavaProjectWizardPage();
 		page1.setProjectName(ProjectTest.PROJECT_NAME_1);
 		dialog.finish();
+		
 		dialog = new NewJavaProjectWizardDialog();
 		dialog.open();
 		page1 = new NewJavaProjectWizardPage();
 		page1.setProjectName(ProjectTest.PROJECT_NAME_2);
 		dialog.finish();
-		final Project project1;
+		
+		packageExplorer = new PackageExplorer();
+		packageExplorer.open();
+		project0 = packageExplorer.getProject(ProjectTest.PROJECT_NAME_0);
 		project1 = packageExplorer.getProject(ProjectTest.PROJECT_NAME_1);
-		final Project project2;
 		project2 = packageExplorer.getProject(ProjectTest.PROJECT_NAME_2);
+	}
+
+	@Test
+	public void select() {
 		project1.select();
 		assertTrue("Project " + project1.getName() + " is not selected",
 				project1.isSelected());
@@ -66,27 +69,24 @@ public class ProjectTest {
 	
 	@Test
 	public void delete(){
-		project0.delete(true);
-		assertFalse("Package Explorer contains project " + ProjectTest.PROJECT_NAME_0 +
+		NewJavaProjectWizardDialog dialog = new NewJavaProjectWizardDialog();
+		dialog.open();
+		NewJavaProjectWizardPage page1 = new NewJavaProjectWizardPage(); 
+		page1.setProjectName(ProjectTest.PROJECT_NAME_3);
+		dialog.finish();
+		
+		packageExplorer.getProject(PROJECT_NAME_3).delete(true);
+		assertFalse("Package Explorer contains project " + ProjectTest.PROJECT_NAME_3 +
 				" but it should be deleted.",
-			packageExplorer.containsProject(ProjectTest.PROJECT_NAME_0));
+			packageExplorer.containsProject(ProjectTest.PROJECT_NAME_3));
 	}
 	
-	@After
-	public void tearDown() {
+	@AfterClass
+	public static void tearDown() {
 		packageExplorer.close();
 		packageExplorer.open();
-		if (packageExplorer.containsProject(ProjectTest.PROJECT_NAME_0)) {
-			DeleteUtils.forceProjectDeletion(packageExplorer.getProject(ProjectTest.PROJECT_NAME_0),
-				true);
-		}
-		if (packageExplorer.containsProject(ProjectTest.PROJECT_NAME_1)) {
-			DeleteUtils.forceProjectDeletion(packageExplorer.getProject(ProjectTest.PROJECT_NAME_1),
-				true);
-		}
-		if (packageExplorer.containsProject(ProjectTest.PROJECT_NAME_2)) {
-			DeleteUtils.forceProjectDeletion(packageExplorer.getProject(ProjectTest.PROJECT_NAME_2),
-				true);
+		for (Project p : packageExplorer.getProjects()){
+			DeleteUtils.forceProjectDeletion(p, true);
 		}
 	}
 }

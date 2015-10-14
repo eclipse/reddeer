@@ -30,7 +30,9 @@ import org.jboss.reddeer.requirements.openperspective.OpenPerspectiveRequirement
 import org.jboss.reddeer.workbench.handler.EditorHandler;
 import org.jboss.reddeer.workbench.impl.editor.DefaultEditor;
 import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -42,26 +44,46 @@ public abstract class AbstractExplorerItemTest {
 	public static final String PROJECT_ITEM_TEXT = "src";
 	public static final String DEFAULT_PACKAGE_TEXT = "(default package)";
 	protected static final String JAVA_CLASS_NAME = "TestClass";
+	protected static final String JAVA_CLASS_NAME_1 = "TestClass1";
 	protected static final String JAVA_CLASS_FILE_NAME = "TestClass.java";
-	protected AbstractExplorer explorer;
+	protected static AbstractExplorer explorer;
 	protected ProjectItem projectItem;
-		
+
 	public AbstractExplorerItemTest(AbstractExplorer explorer) {
-		this.explorer=explorer;
+		AbstractExplorerItemTest.explorer=explorer;
 	}
-	
-	@Before
-	public void setUp() {
+
+	@BeforeClass
+	public static void importProject() {
 		NewJavaProjectWizardDialog dialog = new NewJavaProjectWizardDialog();
 		dialog.open();
 		NewJavaProjectWizardPage page1 = new NewJavaProjectWizardPage();
 		page1.setProjectName(PROJECT_NAME);
-		dialog.finish();
+		dialog.finish();		
+
+		createJavaClass(JAVA_CLASS_NAME);
+		createJavaClass(JAVA_CLASS_NAME_1);
+	}
+
+	@Before
+	public void setUp() {
 		explorer.open();
 		projectItem = explorer.getProject(PROJECT_NAME).getProjectItem(PROJECT_ITEM_TEXT);
-		
+
 		// to test if the explorer items are properly activated and selected
 		new ConsoleView().open();
+	}
+
+	@After
+	public void tearDown() {
+		explorer.close();
+	}
+
+	@AfterClass
+	public static void deleteProject() {
+		explorer.open();
+		DeleteUtils.forceProjectDeletion(explorer.getProject(PROJECT_NAME),true);
+		explorer = null;
 	}
 
 	@Test
@@ -70,48 +92,37 @@ public abstract class AbstractExplorerItemTest {
 		projectItem.getTreeItem().collapse();
 		assertTrue("Project item " + PROJECT_ITEM_TEXT + " is not selected" , projectItem.isSelected());
 	}
-	
+
 	protected void open(String... projectItemPath) {
 		explorer.getProject(PROJECT_NAME).getProjectItem(PROJECT_ITEM_TEXT).select();
-		
-		createJavaClass(JAVA_CLASS_NAME);
-		
+
 		EditorHandler.getInstance().closeAll(true);
 		explorer.getProject(PROJECT_NAME).getProjectItem(projectItemPath).open();
 		assertTrue("Active Editor has to have title " + JAVA_CLASS_FILE_NAME,
-			new DefaultEditor().getTitle().equals(JAVA_CLASS_FILE_NAME));
+				new DefaultEditor().getTitle().equals(JAVA_CLASS_FILE_NAME));
 	}
-	
+
 	protected void selectNonVisibleItem(String... projectItemPath) {
 		explorer.activate();
 		Project project = explorer.getProject(PROJECT_NAME);
 		project.getProjectItem(PROJECT_ITEM_TEXT).select();
-		
-		createJavaClass(JAVA_CLASS_NAME);
+
 		EditorHandler.getInstance().closeAll(true);
 		explorer.activate();
-		
+
 		ProjectItem projectItem = project.getProjectItem(projectItemPath);
 		project.collapse();
 		project.select();
 		projectItem.select();
-		
+
 		assertTrue("Project item is not selected.", projectItem.isSelected());
 	}
-	
-	@Test
-	public void delete() {
-		projectItem.delete();
-		assertFalse("Project " + PROJECT_NAME + " contains project item " + PROJECT_ITEM_TEXT +
-				" but it should be deleted.",
-			explorer.getProject(PROJECT_NAME).containsItem(PROJECT_ITEM_TEXT));
-	}
-	
+
 	@Test
 	public void asyncDelete() throws Exception {
 		projectItem.select();
 		// Create new text file test.txt
-		new NewFileCreationWizard().createFile("text.txt");
+		new NewFileCreationWizard().createFile("files", "text.txt");
 		new DefaultEditor("text.txt").close();
 		// Edit the file outside the Eclipse IDE
 		String rootPath = ResourcesPlugin.getWorkspace().getRoot().getLocationURI().getPath();
@@ -121,65 +132,52 @@ public abstract class AbstractExplorerItemTest {
 		out.flush();
 		out.close();
 		// Delete the file
-		projectItem.delete();
+		ProjectItem folder = explorer.getProject(PROJECT_NAME).getProjectItem(PROJECT_ITEM_TEXT).getChild("files");
+		folder.delete();
 		assertFalse("Project " + PROJECT_NAME + " contains project item " + PROJECT_ITEM_TEXT +
 				" but it should be deleted.",
-			explorer.getProject(PROJECT_NAME).containsItem(PROJECT_ITEM_TEXT));
+				explorer.getProject(PROJECT_NAME).getChild(PROJECT_ITEM_TEXT).containsItem("files"));
 	}
-	
+
 	protected void getChild(String... pathToItem) {
 		explorer.getProject(PROJECT_NAME).getProjectItem(PROJECT_ITEM_TEXT).select();
-		
-		createJavaClass(JAVA_CLASS_NAME);
-		
+
 		try {
 			explorer.getProject(PROJECT_NAME).getProjectItem(pathToItem)
-					.getChild(JAVA_CLASS_FILE_NAME);
+			.getChild(JAVA_CLASS_FILE_NAME);
 		} catch (EclipseLayerException ex) {
 			fail("Child item " + JAVA_CLASS_FILE_NAME + " has not been found.");
 		}
 	}
-	
+
 	protected void getChildren(String... pathToItem) {
 		explorer.getProject(PROJECT_NAME).getProjectItem(PROJECT_ITEM_TEXT).select();
 
-		final String[] javaClassNames = new String[] { "TestClass01",
-				"TestClass02" };
-
-		createJavaClass(javaClassNames[0]);
-		createJavaClass(javaClassNames[1]);
-
 		List<ProjectItem> srcChildren = explorer.getProject(PROJECT_NAME).getProjectItem(pathToItem)
 				.getChildren();
-		
+
 		assertTrue("There have to be 2 items presented, but number of items is " + srcChildren.size() + ".",
 				srcChildren.size() == 2);
 	}
-	
-	protected void createJavaClass(final String javaClassName) {
+
+	protected static void createJavaClass(final String javaClassName) {
 		NewJavaClassWizardDialog newJavaClassDialog = new NewJavaClassWizardDialog();
 		newJavaClassDialog.open();
-		
+
 		NewJavaClassWizardPage wizardPage = new NewJavaClassWizardPage();
 		wizardPage.setName(javaClassName);
 		newJavaClassDialog.finish();
-		
+
 		new WaitWhile(new JobIsRunning(), TimePeriod.LONG);
 	}
-	
-	@After
-	public void tearDown() {
-		explorer.close();
-		explorer.open();
-		DeleteUtils.forceProjectDeletion(explorer.getProject(PROJECT_NAME),true);
-	}
-	
+
 	private class NewFileCreationWizard extends NewFileCreationWizardPage {
-		
-		public void createFile(String fileName) {
+
+		public void createFile(String folder, String fileName) {
 			NewFileCreationWizardDialog wizard = new NewFileCreationWizardDialog();
 			wizard.open();
 			setFileName(fileName);
+			setFolderPath(PROJECT_NAME, PROJECT_ITEM_TEXT, folder);
 			wizard.finish();
 		}
 	}

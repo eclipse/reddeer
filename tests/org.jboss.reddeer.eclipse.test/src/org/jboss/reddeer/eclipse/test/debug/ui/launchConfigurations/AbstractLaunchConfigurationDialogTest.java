@@ -3,6 +3,10 @@ package org.jboss.reddeer.eclipse.test.debug.ui.launchConfigurations;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import org.jboss.reddeer.common.exception.RedDeerException;
+import org.jboss.reddeer.common.wait.TimePeriod;
+import org.jboss.reddeer.common.wait.WaitUntil;
+import org.jboss.reddeer.core.condition.ShellWithTextIsAvailable;
 import org.jboss.reddeer.core.exception.CoreLayerException;
 import org.jboss.reddeer.eclipse.debug.ui.launchConfigurations.LaunchConfiguration;
 import org.jboss.reddeer.eclipse.debug.ui.launchConfigurations.LaunchConfigurationDialog;
@@ -26,8 +30,9 @@ public abstract class AbstractLaunchConfigurationDialogTest {
 	@After
 	public void closeDialog(){
 		try {
+			new WaitUntil(new ShellWithTextIsAvailable(dialog.getTitle()), TimePeriod.NONE);
 			new DefaultShell(dialog.getTitle()).close();
-		} catch (CoreLayerException e){
+		} catch (RedDeerException e){
 			// already closed
 		}
 	}

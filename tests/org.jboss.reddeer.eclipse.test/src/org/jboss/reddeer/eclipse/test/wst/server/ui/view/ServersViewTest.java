@@ -15,10 +15,17 @@ import org.junit.Test;
 
 public class ServersViewTest extends ServersViewTestCase{
 
+	@Override
+	public void tearDown() {
+		super.tearDown();
+		for (Server server : getServersView().getServers()){
+			server.delete(false);
+		}
+	}
+	
 	@Test
 	public void newServer(){
-		serversView.open();
-		wizardDialog = serversView.newServer();
+		wizardDialog = getServersView().newServer();
 
 		Shell shell = new DefaultShell();
 		assertThat(shell.getText(), is(NewServerWizardDialog.TITLE));
@@ -26,8 +33,7 @@ public class ServersViewTest extends ServersViewTestCase{
 
 	@Test
 	public void getServers_noServers(){
-		serversView.open();
-		List<Server> servers = serversView.getServers();
+		List<Server> servers = getServersView().getServers();
 		
 		assertThat(servers.size(), is(0));
 	}
@@ -37,8 +43,7 @@ public class ServersViewTest extends ServersViewTestCase{
 		createServer("Server AB");
 		createServer("Server A");
 
-		serversView.open();
-		List<Server> servers = serversView.getServers();
+		List<Server> servers = getServersView().getServers();
 		assertThat(servers.size(), is(2));
 		assertThat(servers.get(0).getLabel().getName(), is("Server A"));
 		assertThat(servers.get(1).getLabel().getName(), is("Server AB"));
@@ -46,25 +51,22 @@ public class ServersViewTest extends ServersViewTestCase{
 
 	@Test(expected=EclipseLayerException.class)
 	public void getServer_noServers(){
-		serversView.open();
-		serversView.getServer("Server A");
+		getServersView().getServer("Server A");
 	}
 
 	@Test(expected=EclipseLayerException.class)
 	public void getServer_notFound(){
-		serversView.open();
 		createServer("Server AB");
 
-		serversView.getServer("Server A");
+		getServersView().getServer("Server A");
 	}
 
 	@Test
 	public void getServer(){
-		serversView.open();
 		createServer("Server AB");
 		createServer("Server A");
 
-		Server server = serversView.getServer("Server A");
+		Server server = getServersView().getServer("Server A");
 		assertNotNull(server);
 		assertThat(server.getLabel().getName(), is("Server A"));
 	}

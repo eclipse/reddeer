@@ -2,6 +2,7 @@ package org.jboss.reddeer.eclipse.test.wst.server.ui.view;
 
 import java.io.File;
 
+import org.jboss.reddeer.common.wait.WaitUntil;
 import org.jboss.reddeer.eclipse.condition.ServerExists;
 import org.jboss.reddeer.eclipse.test.Activator;
 import org.jboss.reddeer.eclipse.ui.wizards.datatransfer.ExternalProjectImportWizardDialog;
@@ -12,8 +13,8 @@ import org.jboss.reddeer.eclipse.wst.server.ui.wizard.NewServerWizardDialog;
 import org.jboss.reddeer.eclipse.wst.server.ui.wizard.NewServerWizardPage;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
-import org.jboss.reddeer.common.wait.WaitUntil;
 import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.runner.RunWith;
 
 @RunWith(RedDeerSuite.class)
@@ -27,24 +28,34 @@ public class ServersViewTestCase {
 	
 	protected static final String PROJECT_3 = "server-project-3";
 	
-	protected ServersView serversView = new ServersView();
+	private static ServersView serversView;
 
-	protected NewServerWizardDialog wizardDialog;
+	protected static NewServerWizardDialog wizardDialog;
 	
 	@After
 	public void tearDown(){
 		if (wizardDialog != null && NewServerWizardDialog.TITLE.equals(new DefaultShell().getText())){
 			wizardDialog.cancel();
 		}
-
-		for (Server server : serversView.getServers()){
+	}
+	
+	@AfterClass
+	public static void deleteServers(){
+		for (Server server : getServersView().getServers()){
 			server.delete(false);
 		}
 	}
 	
-	protected void createServer(String name) {
-		serversView.open();
-		wizardDialog = serversView.newServer();
+	public static ServersView getServersView() {
+		if (serversView == null){
+			serversView = new ServersView();
+			serversView.open();
+		}
+		return serversView;
+	}
+	
+	protected static void createServer(String name) {
+		wizardDialog = getServersView().newServer();
 
 		NewServerWizardPage newServerPage = new NewServerWizardPage();
 		newServerPage.selectType("Basic", TestServer.NAME);
