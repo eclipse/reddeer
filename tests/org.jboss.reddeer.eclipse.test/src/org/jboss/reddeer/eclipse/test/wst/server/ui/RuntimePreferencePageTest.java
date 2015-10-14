@@ -30,44 +30,23 @@ public class RuntimePreferencePageTest {
 	private RuntimePreferencePage preferencePage;
 
 	@Before
-	public void setUp(){
+	public void openPreference(){
 		preferencesDialog = new WorkbenchPreferenceDialog();
 		preferencePage = new RuntimePreferencePage();
 		
 		preferencesDialog.open();
 		preferencesDialog.select(preferencePage);
 		preferencePage.removeAllRuntimes();
-		preferencesDialog.ok();
 	}
 
-	@Test
-	public void open() throws InterruptedException{
-		preferencesDialog.open();
-		preferencesDialog.select(preferencePage);
-		
-		assertThat(preferencePage.getName(), is("Server " + RuntimePreferencePage.PAGE_NAME));
+	@After
+	public void closePreference(){
+		preferencePage.removeAllRuntimes();
+		preferencesDialog.cancel();
 	}
-
+	
 	@Test
-	public void addRuntime() {
-		preferencesDialog.open();
-		preferencesDialog.select(preferencePage);
-		
-		NewRuntimeWizardDialog wizardDialog = preferencePage.addRuntime(); 
-		NewRuntimeWizardPage wizardPage = new NewRuntimeWizardPage();
-		wizardPage.selectType(SERVER_PATH, SERVER_NAME);
-		wizardDialog.finish();
-		
-		List<Runtime> runtimes = preferencePage.getServerRuntimes();
-		assertThat(runtimes.size(), is(1));
-		assertThat(runtimes.get(0), is(new Runtime(SERVER_NAME, SERVER_NAME)));
-	}
-
-	@Test
-	public void removeRuntime() {
-		preferencesDialog.open();
-		preferencesDialog.select(preferencePage);
-		
+	public void addAndRemoveRuntime() {
 		NewRuntimeWizardDialog wizardDialog = preferencePage.addRuntime(); 
 		NewRuntimeWizardPage wizardPage = new NewRuntimeWizardPage();
 		wizardPage.selectType(SERVER_PATH, SERVER_NAME);
@@ -80,10 +59,13 @@ public class RuntimePreferencePageTest {
 		
 		List<Runtime> runtimes = preferencePage.getServerRuntimes();
 		assertThat(runtimes.size(), is(2));
+		assertThat(runtimes.get(0), is(new Runtime(SERVER_NAME, SERVER_NAME)));
+		assertThat(runtimes.get(1), is(new Runtime(SERVER_NAME + " (2)", SERVER_NAME)));
 		
 		preferencePage.removeRuntime(new Runtime(SERVER_NAME + " (2)", null));
 		runtimes = preferencePage.getServerRuntimes();
 		assertThat(runtimes.size(), is(1));
+		assertThat(runtimes.get(0), is(new Runtime(SERVER_NAME, SERVER_NAME)));
 		
 		preferencePage.removeRuntime(new Runtime(SERVER_NAME, null));
 		runtimes = preferencePage.getServerRuntimes();
@@ -92,9 +74,6 @@ public class RuntimePreferencePageTest {
 	
 	@Test
 	public void removeAllRuntime() {
-		preferencesDialog.open();
-		preferencesDialog.select(preferencePage);
-		
 		NewRuntimeWizardDialog wizardDialog = preferencePage.addRuntime(); 
 		NewRuntimeWizardPage wizardPage = new NewRuntimeWizardPage();
 		wizardPage.selectType(SERVER_PATH, SERVER_NAME);
@@ -115,23 +94,11 @@ public class RuntimePreferencePageTest {
 	
 	@Test
 	public void editRuntime(){
-		preferencesDialog.open();
-		preferencesDialog.select(preferencePage);
-		
 		NewRuntimeWizardDialog wizardDialog = preferencePage.addRuntime(); 
 		NewRuntimeWizardPage wizardPage = new NewRuntimeWizardPage();
 		wizardPage.selectType(SERVER_PATH, SERVER_NAME);
 		wizardDialog.finish();
 
 		assertFalse(new PushButton(RuntimePreferencePage.EDIT_BUTTON_NAME).isEnabled());
-	}
-	
-	@After
-	public void tearDown(){
-		preferencesDialog.open();
-		preferencesDialog.select(preferencePage);
-		
-		preferencePage.removeAllRuntimes();
-		preferencesDialog.cancel();
 	}
 }

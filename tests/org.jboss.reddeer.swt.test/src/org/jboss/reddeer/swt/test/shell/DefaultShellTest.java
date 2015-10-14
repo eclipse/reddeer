@@ -6,14 +6,16 @@ import static org.junit.Assert.fail;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Label;
+import org.jboss.reddeer.common.exception.WaitTimeoutExpiredException;
+import org.jboss.reddeer.common.wait.TimePeriod;
 import org.jboss.reddeer.common.wait.WaitUntil;
 import org.jboss.reddeer.core.condition.ShellWithTextIsActive;
+import org.jboss.reddeer.core.condition.ShellWithTextIsAvailable;
 import org.jboss.reddeer.core.exception.CoreLayerException;
 import org.jboss.reddeer.core.handler.ShellHandler;
 import org.jboss.reddeer.core.util.Display;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.swt.api.Shell;
-import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.label.DefaultLabel;
 import org.jboss.reddeer.swt.impl.menu.ShellMenu;
@@ -99,16 +101,16 @@ public class DefaultShellTest {
 		ShellHandler.getInstance().closeAllNonWorbenchShells();
 		
 		try {
-			new DefaultShell("Shell 1");
+			new WaitUntil(new ShellWithTextIsAvailable("Shell 1"), TimePeriod.NONE);
 			fail("'Shell 1' should be closed");
-		} catch (SWTLayerException e) {
+		} catch (WaitTimeoutExpiredException e) {
 			// ok
 		}
 
 		try {
-			new DefaultShell("Shell 2");
+			new WaitUntil(new ShellWithTextIsAvailable("Shell 2"), TimePeriod.NONE);
 			fail("'Shell 2' should be closed");
-		} catch (SWTLayerException e) {
+		} catch (WaitTimeoutExpiredException e) {
 			// ok
 		}
 	}
@@ -169,8 +171,8 @@ public class DefaultShellTest {
 	private boolean checkShell(String name) {
 		
 		try {
-			new DefaultShell(name);
-		} catch (SWTLayerException ex) {
+			new WaitUntil(new ShellWithTextIsAvailable(name), TimePeriod.NONE);
+		} catch (WaitTimeoutExpiredException ex) {
 			return true;
 		}
 		

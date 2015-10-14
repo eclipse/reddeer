@@ -3,7 +3,10 @@ package org.jboss.reddeer.eclipse.test.jdt.junit.launcher;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-import org.jboss.reddeer.core.exception.CoreLayerException;
+import org.jboss.reddeer.common.exception.RedDeerException;
+import org.jboss.reddeer.common.wait.TimePeriod;
+import org.jboss.reddeer.common.wait.WaitUntil;
+import org.jboss.reddeer.core.condition.ShellWithTextIsAvailable;
 import org.jboss.reddeer.eclipse.debug.ui.launchConfigurations.LaunchConfigurationDialog;
 import org.jboss.reddeer.eclipse.debug.ui.launchConfigurations.RunConfigurationDialog;
 import org.jboss.reddeer.eclipse.jdt.junit.launcher.JUnitLaunchConfiguration;
@@ -34,8 +37,9 @@ public class JUnitLaunchConfigurationTabTest {
 	@After
 	public void closeDialog(){
 		try {
+			new WaitUntil(new ShellWithTextIsAvailable(dialog.getTitle()), TimePeriod.NONE);
 			new DefaultShell(dialog.getTitle()).close();
-		} catch (CoreLayerException e){
+		} catch (RedDeerException e){
 			// already closed
 		}
 	}

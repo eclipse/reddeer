@@ -13,7 +13,6 @@ import org.jboss.reddeer.eclipse.wst.server.ui.view.ServerModule;
 import org.jboss.reddeer.eclipse.wst.server.ui.wizard.ModifyModulesDialog;
 import org.jboss.reddeer.eclipse.wst.server.ui.wizard.ModifyModulesPage;
 import org.junit.AfterClass;
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 /**
@@ -25,11 +24,14 @@ public class ModifyModulesDialogTest extends ServersViewTestCase{
 
 	private static final String SERVER = "Server ABC";
 	
-	private Server server;
+	private static Server server;
 
 	@BeforeClass
 	public static void createProjects(){
 		importProjects();
+		
+		createServer(SERVER);
+		server = getServersView().getServer(SERVER);
 	}
 	
 	@AfterClass
@@ -41,13 +43,6 @@ public class ModifyModulesDialogTest extends ServersViewTestCase{
 		}
 	}
 	
-	@Before
-	public void setUp(){
-		createServer(SERVER);
-		serversView.open();
-		server = serversView.getServer(SERVER);
-	}
-
 	@Test
 	public void addAll_removeTwo(){
 		ModifyModulesDialog dialog = server.addAndRemoveModules();
@@ -101,5 +96,38 @@ public class ModifyModulesDialogTest extends ServersViewTestCase{
 		   page.removeAll();
 		}
 		dialog.finish();
+	}
+	
+	@Test
+	public void getAvailableModules() {
+		ModifyModulesDialog dialog = server.addAndRemoveModules();
+		ModifyModulesPage page = new ModifyModulesPage();
+
+		List<String> availableModules = page.getAvailableModules();
+
+		dialog.cancel();
+
+		assertThat(availableModules.size(), is(3));
+
+		assertThat(availableModules.get(0), is(PROJECT_1));
+		assertThat(availableModules.get(1), is(PROJECT_2));
+		assertThat(availableModules.get(2), is(PROJECT_3));
+	}
+
+	@Test
+	public void getConfiguredModules() {
+		ModifyModulesDialog dialog = server.addAndRemoveModules();
+		ModifyModulesPage page = new ModifyModulesPage();
+		page.addAll();
+
+		List<String> configuredModules = page.getConfiguredModules();
+
+		dialog.cancel();
+
+		assertThat(configuredModules.size(), is(3));
+
+		assertThat(configuredModules.get(0), is(PROJECT_1));
+		assertThat(configuredModules.get(1), is(PROJECT_2));
+		assertThat(configuredModules.get(2), is(PROJECT_3));
 	}
 }

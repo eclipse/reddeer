@@ -13,7 +13,6 @@ import org.jboss.reddeer.eclipse.wst.server.ui.view.ServerModule;
 import org.jboss.reddeer.eclipse.wst.server.ui.wizard.ModifyModulesDialog;
 import org.jboss.reddeer.eclipse.wst.server.ui.wizard.ModifyModulesPage;
 import org.junit.AfterClass;
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -26,11 +25,14 @@ public class ServerModuleTest extends ServersViewTestCase {
 
 	private static final String SERVER = "Server ABC";
 
-	private Server server;
+	private static Server server;
 
 	@BeforeClass
 	public static void createProjects(){
 		importProjects();
+		
+		createServer(SERVER);
+		server = getServersView().getServer(SERVER);
 	}
 
 	@AfterClass
@@ -40,13 +42,6 @@ public class ServerModuleTest extends ServersViewTestCase {
 		for (Project project : explorer.getProjects()){
 			DeleteUtils.forceProjectDeletion(project, true);
 		}
-	}
-
-	@Before
-	public void setUp(){
-		createServer(SERVER);
-
-		server = serversView.getServer(SERVER);
 	}
 
 	@Test
