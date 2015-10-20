@@ -82,10 +82,12 @@ public class ProblemsView extends WorkbenchView{
 		List<TreeItem> filteredItems = filterProblemType(items, problemType);
 		for (TreeItem item: filteredItems) {
 			boolean itemFitsMatchers = true;
-			for (AbstractProblemMatcher matcher: matchers) {
-				if (!matcher.matches(item.getCell(getIndexOfColumn(matcher.getColumn())))) {
-					itemFitsMatchers = false;
-					break;
+			if(matchers != null){
+				for (AbstractProblemMatcher matcher: matchers) {
+					if (!matcher.matches(item.getCell(getIndexOfColumn(matcher.getColumn())))) {
+						itemFitsMatchers = false;
+						break;
+					}
 				}
 			}
 			if (itemFitsMatchers) {
