@@ -18,7 +18,7 @@ abstract public class Keyboard {
 	
 	private static final Logger log = Logger.getLogger(Keyboard.class);
 	
-	private static final int DELAY = 150;
+	private static final int DELAY = 200;
 	
 	/**
 	 * Invokes given key combination. Accepts chars or {@link org.eclipse.swt.SWT} constants. For example: invokeKeyCombination(SWT.CONTROL, SWT.SHIFT, 't');
@@ -34,7 +34,6 @@ abstract public class Keyboard {
 			log.info("    As char:" + (char) keys[i] + ", as int:" + keys[i]);
 			sync();
 			Display.getDisplay().post(keyEvent(keys[i], SWT.KeyDown, w));
-			sync();
 		}
 		for (int i=keys.length-1; i>=0; i--){
 			sync();
@@ -100,7 +99,6 @@ abstract public class Keyboard {
 			}else{
 				type(SWT.ARROW_RIGHT);
 			}
-			sync();
 		}
 	}
 	
@@ -130,7 +128,6 @@ abstract public class Keyboard {
 				Display.getDisplay().post(keyEvent(key, SWT.KeyDown, w));
 			}
 		});
-		sync();
 	}
 	
 	protected void release(final int key){
@@ -156,20 +153,8 @@ abstract public class Keyboard {
 	}
 	
 	private void sync() {
-		emptySync();
-		Display.syncExec(new Runnable() {
-			
-			@Override
-			public void run() {
-				Display.getDisplay().update();
-				while (Display.getDisplay().readAndDispatch()) {
-					// do nothing
-				}
-			}
-		});
-		emptySync();
 		delay(DELAY);
-		
+		emptySync();		
 	}
 
 	private void emptySync() {
