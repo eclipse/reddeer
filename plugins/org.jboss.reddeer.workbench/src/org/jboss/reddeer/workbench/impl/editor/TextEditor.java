@@ -8,6 +8,7 @@ import org.hamcrest.Matcher;
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.common.wait.WaitWhile;
 import org.jboss.reddeer.core.condition.JobIsRunning;
+import org.jboss.reddeer.core.handler.StyledTextHandler;
 import org.jboss.reddeer.core.handler.TextEditorHandler;
 import org.jboss.reddeer.core.lookup.EditorPartLookup;
 import org.jboss.reddeer.core.matcher.EditorPartClassMatcher;
@@ -208,7 +209,7 @@ public class TextEditor extends AbstractEditor implements Editor {
 	public int getPositionOfText(String text) {
 		return getPositionOfText(text, 0);
 	}
-
+	
 	/**
 	 * Sets position of the cursor to the specified <var>line</var> and
 	 * <var>column</var>.
@@ -216,19 +217,20 @@ public class TextEditor extends AbstractEditor implements Editor {
 	 * @param line line, in which the cursor will be located
 	 * @param column column in the line (greater than or equal to 0)
 	 */
-	public void setCursorPosition(int line, int column) {
-		log.info("Set cursor position at ["+ line + ", " + column + "]");
-		TextEditorHandler.getInstance().setCursorPosition(getTextEditorPart(),
-				line, column);
-	}
 	
+	public void setCursorPosition(final int line, int column) {
+		log.info("Set cursor position to ["+ line + ", " + column + "]");
+		int offset = StyledTextHandler.getInstance().getLineOffset(new DefaultStyledText().getSWTWidget(), line);
+		setCursorPosition(offset + column);
+	}
+
 	/**
-	 * Sets position of the cursor to the specified <var>ofset</var>.
+	 * Sets position of the cursor to the specified <var>offset</var>.
 	 * 
 	 * @param offset offset of cursor position
 	 */
 	public void setCursorPosition(int offset) {
-		log.info("Set cursor position with offset: " + offset);
+		log.info("Set cursor position to offset: " + offset);
 		activate();
 		DefaultStyledText dst = new DefaultStyledText();
 		dst.selectPosition(offset);

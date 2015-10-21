@@ -54,16 +54,25 @@ public class TextEditorTest {
 	private static final String JAVA_CLASS_FILE_NAME = "JavaClass.java";
 	@BeforeClass
 	public static void setup(){
-		new WorkbenchShell().maximize();
-		TextEditorTest.importTestProject();
 		EditorHandler.getInstance().closeAll(true);
-		TextEditor javaTextEditor = TextEditorTest.openJavaFile();
-		TextEditorTest.ORIGINAL_JAVA_FILE_TEXT = javaTextEditor.getText();
-		javaTextEditor.close();
 		BasicNewProjectResourceWizard projectWizard = new BasicNewProjectResourceWizard();
 		projectWizard.open();
 		new WizardNewProjectCreationPage().setProjectName("testProject");
 		projectWizard.finish();
+		TextEditorTest.importTestProject();
+		TextEditor javaTextEditor = TextEditorTest.openJavaFile();
+		TextEditorTest.ORIGINAL_JAVA_FILE_TEXT = javaTextEditor.getText();
+		// this has to be here because of Eclipse incorrect behavior on MS Windows
+		javaTextEditor.setCursorPosition(0, 13);
+		KeyboardFactory.getKeyboard().type("a");
+		javaTextEditor.save();
+		javaTextEditor.close();
+		new WorkbenchShell().maximize();
+		// set java class file content to original
+		javaTextEditor = TextEditorTest.openJavaFile();
+		javaTextEditor.setText(TextEditorTest.ORIGINAL_JAVA_FILE_TEXT);
+		javaTextEditor.save();
+		EditorHandler.getInstance().closeAll(true);
 	}
 	
 	@AfterClass
@@ -131,7 +140,9 @@ public class TextEditorTest {
 		textEditor.activate();
 		textEditor.setCursorPosition(0, firstLine.length());
 		KeyboardFactory.getKeyboard().type(firstLineAppend);
-		String text = textEditor.getText();
+		textEditor.save();
+		String text = textEditor.getText().toLowerCase();
+				
 		assertTrue("Editor doesn't contain expected text at expected position\n"
 						+ text, text.startsWith(firstLine + firstLineAppend));
 	}
@@ -144,7 +155,8 @@ public class TextEditorTest {
 		textEditor.activate();
 		textEditor.setCursorPosition(textEditor.getPositionOfText(firstLine) + firstLine.length());
 		KeyboardFactory.getKeyboard().type(firstLineAppend);
-		String text = textEditor.getText();
+		textEditor.save();
+		String text = textEditor.getText().toLowerCase();
 		assertTrue("Editor doesn't contain expected text at expected position\n"
 						+ text, text.startsWith(firstLine + firstLineAppend));
 	}

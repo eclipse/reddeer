@@ -325,6 +325,26 @@ public class TextEditorHandler {
 
 		});
 	}
+	
+	/**
+	 * Returns offset of the line within specified text editor.
+	 * 
+	 * @param editor editor to handle
+	 * @param line line to get offset of
+	 */
+	public int getLineOffset(final ITextEditor editor, final int line) {
+		return Display.syncExec(new ResultRunnable<Integer>() {
+			@Override
+			public Integer run() {
+				try {
+					return getDocument(editor).getLineOffset(line);
+				} catch (BadLocationException e) {
+					throw new CoreLayerException("Unable to get offset of line");
+				}
+			}
+
+		});
+	}
 
     /**
      * Gets {@link IDocument} element of specified text editor.

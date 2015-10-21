@@ -3,6 +3,8 @@ package org.jboss.reddeer.core.handler;
 
 import org.eclipse.swt.custom.StyledText;
 import org.eclipse.swt.graphics.Point;
+import org.jboss.reddeer.common.wait.AbstractWait;
+import org.jboss.reddeer.common.wait.TimePeriod;
 import org.jboss.reddeer.core.exception.CoreLayerException;
 import org.jboss.reddeer.core.util.Display;
 import org.jboss.reddeer.core.util.ResultRunnable;
@@ -191,5 +193,27 @@ public class StyledTextHandler {
 				return new Point(line, column);
 			}
 		});
+	}
+	
+	/**
+	 * Returns offset of the line within specified styled text.
+	 * 
+	 * @param styledText
+	 *            stylerText to get offset from
+	 * @param line
+	 *            line to get offset of
+	 */
+	public int getLineOffset(final StyledText styledText, final int line) {
+		
+		int offset = Display.syncExec(new ResultRunnable<Integer>() {
+			public Integer run() {
+				styledText.setFocus();
+				int offsetAtLine = styledText.getOffsetAtLine(line);
+				return offsetAtLine;
+			}
+		});
+		
+		return offset;
+
 	}
 }
