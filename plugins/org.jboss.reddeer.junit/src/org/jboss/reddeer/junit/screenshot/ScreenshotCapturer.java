@@ -73,8 +73,8 @@ public class ScreenshotCapturer {
 			
 			captureScreenshot(path + name + ".png");
 		} else {
-			throw new CaptureScreenshotException("Screenshot could not be created, "
-					+ "because required folders where to store screenshot has not been created");
+			logger.warn("Screenshot has not been captured on failure, because RedDeer property whether screenshot "
+					+ "should be captured or not is set to false.");
 		}
 
 	}
