@@ -7,6 +7,8 @@ import org.jboss.reddeer.eclipse.ui.dialogs.PerspectivesPreferencePage;
 import org.jboss.reddeer.junit.extensionpoint.IBeforeTest;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.workbench.ui.dialogs.WorkbenchPreferenceDialog;
+import org.junit.runners.model.FrameworkMethod;
+import org.junit.runners.model.TestClass;
 
 /**
  * Extension for Extension point org.jboss.reddeer.junit.before.test. Disables
@@ -25,14 +27,18 @@ public class SetOpenAssociatedPerspectiveExt implements IBeforeTest {
 	private static final Logger log = Logger
 			.getLogger(SetOpenAssociatedPerspectiveExt.class);
 
+	
+	@Override
+	public void runBeforeTestClass(String config, TestClass testClass) {
+		setOpenAssociatedPerspective();		
+	}
+	
 	/** 
 	 * See {@link IBeforeTest}.
 	 */
 	@Override
-	public void runBeforeTest() {
-		if (hasToRun()) {
-			setOpenAssociatedPerspective();
-		}
+	public void runBeforeTest(String config, Object target, FrameworkMethod method) {
+		// do not run before each test
 	}
 
 	/** 

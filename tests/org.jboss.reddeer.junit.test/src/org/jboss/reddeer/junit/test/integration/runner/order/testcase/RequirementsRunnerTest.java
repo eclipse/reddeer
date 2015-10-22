@@ -7,38 +7,36 @@ import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-@RunWith(RequirementsRunner.class)
+@RunWith(RequirementsRunnerSuite.class)
 @RequirementAAnnotation
 @RequirementAAnnotation2
-@Ignore
-public class RequirementsTestCase {
+public class RequirementsRunnerTest {
 
 	@BeforeClass
 	public static void beforeClass(){
-		TestSequence.addBeforeClass(RequirementsTestCase.class);
+		TestSequence.addBeforeClass(RequirementsRunnerTest.class);
 	}
 	
 	@Before
 	public void before(){
-		TestSequence.addBefore(RequirementsTestCase.class);
+		TestSequence.addBefore(RequirementsRunnerTest.class);
 	}
 	
 	@Test
 	public void test(){
-		TestSequence.addTest(RequirementsTestCase.class);
+		TestSequence.addTest(RequirementsRunnerTest.class);
 	}
 	
 	@After
 	public void after(){
-		TestSequence.addAfter(RequirementsTestCase.class);
+		TestSequence.addAfter(RequirementsRunnerTest.class);
 	}
 	
 	@AfterClass
 	public static void afterClass(){
-		TestSequence.addAfterClass(RequirementsTestCase.class);
+		TestSequence.addAfterClass(RequirementsRunnerTest.class);
 	}
 }

@@ -1,4 +1,4 @@
-package org.jboss.reddeer.junit.internal.runner;
+package org.jboss.reddeer.junit.internal.runner.statement;
 
 import org.jboss.reddeer.junit.internal.requirement.Requirements;
 import org.junit.runners.model.Statement;
