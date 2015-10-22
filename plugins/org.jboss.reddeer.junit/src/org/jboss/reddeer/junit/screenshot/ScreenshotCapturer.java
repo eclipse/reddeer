@@ -1,14 +1,15 @@
 package org.jboss.reddeer.junit.screenshot;
 
 import java.io.File;
-import org.jboss.reddeer.common.logging.Logger;
-import org.jboss.reddeer.common.properties.RedDeerProperties;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.ImageData;
 import org.eclipse.swt.graphics.ImageLoader;
 import org.eclipse.swt.widgets.Display;
+import org.jboss.reddeer.common.logging.Logger;
+import org.jboss.reddeer.common.properties.RedDeerProperties;
 
 /**
  * This class provides capabilities to capture screenshot of display. 
@@ -129,6 +130,7 @@ public class ScreenshotCapturer {
 
 					logger.debug("Screenshot successfully captured. Saved in " + new File(fileName).getAbsolutePath());
 				} catch (Exception ex) {
+					logger.error("Capturing screenshot failed", ex);
 					handleCorruptedScreenshot(fileName);
 				} finally {
 					gc.dispose();
@@ -189,7 +191,7 @@ public class ScreenshotCapturer {
 	 * @return file name of a screenshot
 	 */
 	public static final String getScreenshotFileName(Class<?> testClass, String testMethod, String detail) {
-		return testClass.getName() + "." + (testMethod != null ? testMethod : "nomethod")
+		return testClass.getName() + (testMethod != null ? "." + testMethod : "")
 				+ (detail != null ? "@" + detail : "");
 	}
 	

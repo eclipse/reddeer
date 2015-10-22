@@ -7,6 +7,10 @@ import org.jboss.reddeer.junit.extensionpoint.IAfterTest;
 import org.jboss.reddeer.junit.extensionpoint.IBeforeTest;
 import org.jboss.reddeer.junit.internal.requirement.Requirements;
 import org.jboss.reddeer.junit.internal.requirement.inject.RequirementsInjector;
+import org.jboss.reddeer.junit.internal.runner.statement.CleanUpRequirementStatement;
+import org.jboss.reddeer.junit.internal.runner.statement.FulfillRequirementsStatement;
+import org.jboss.reddeer.junit.internal.runner.statement.RunAfters;
+import org.jboss.reddeer.junit.internal.runner.statement.RunBefores;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.runner.Runner;
@@ -75,8 +79,8 @@ public class ParameterizedRunner extends Parameterized {
 
 		List<FrameworkMethod> befores = getTestClass().getAnnotatedMethods(BeforeClass.class);
 		Statement s = befores.isEmpty() ? statement
-				: new RunBefores(configId, null, statement, befores, null, getTestClass());
-		runBeforeTest();
+				: new RunBefores(configId, statement, getTestClass(), befores);
+		runBeforeTestClass();
 		return new FulfillRequirementsStatement(requirements, s);
 	}
 
@@ -84,7 +88,7 @@ public class ParameterizedRunner extends Parameterized {
 	protected Statement withAfterClasses(Statement statement) {
 		List<FrameworkMethod> afters = getTestClass().getAnnotatedMethods(AfterClass.class);
 		Statement s = afters.isEmpty() ? statement
-				: new RunAfters(configId, null, statement, afters, null, getTestClass());
+				: new RunAfters(configId, statement, getTestClass(), afters);
 		runAfterTest();
 		return new CleanUpRequirementStatement(requirements, s);
 	}
@@ -93,11 +97,11 @@ public class ParameterizedRunner extends Parameterized {
 	 * Method is called before test is run. Manages
 	 * org.jboss.reddeer.junit.extensionpoint.IBeforeTest extensions
 	 */
-	private void runBeforeTest() {
+	private void runBeforeTestClass() {
 		for (IBeforeTest beforeTestExtension : beforeTestExtensions) {
 			if (beforeTestExtension.hasToRun()) {
 				log.debug("Run method runBeforeTest() of class " + beforeTestExtension.getClass().getCanonicalName());
-				beforeTestExtension.runBeforeTest();
+				beforeTestExtension.runBeforeTestClass(configId, getTestClass());
 			}
 		}
 	}
@@ -110,7 +114,7 @@ public class ParameterizedRunner extends Parameterized {
 		for (IAfterTest afterTestExtension : afterTestExtensions) {
 			if (afterTestExtension.hasToRun()) {
 				log.debug("Run method runAfterTest() of class " + afterTestExtension.getClass().getCanonicalName());
-				afterTestExtension.runAfterTest(getTestClass());
+				afterTestExtension.runAfterTestClass(configId, getTestClass());
 			}
 		}
 	}

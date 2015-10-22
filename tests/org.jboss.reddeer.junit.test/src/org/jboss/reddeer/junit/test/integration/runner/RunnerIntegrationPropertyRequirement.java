@@ -32,7 +32,6 @@ public class RunnerIntegrationPropertyRequirement implements Requirement<Annotat
 
 	@Override
 	public void cleanUp() {
-		// TODO Auto-generated method stub
-		
+		TestSequence.addCleanup(RunnerIntegrationPropertyRequirement.class);
 	}
 }

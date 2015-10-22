@@ -9,15 +9,21 @@ import org.jboss.reddeer.junit.extensionpoint.IAfterTest;
 import org.jboss.reddeer.junit.extensionpoint.IBeforeTest;
 import org.jboss.reddeer.junit.internal.requirement.Requirements;
 import org.jboss.reddeer.junit.internal.requirement.inject.RequirementsInjector;
+import org.jboss.reddeer.junit.internal.runner.statement.CleanUpRequirementStatement;
+import org.jboss.reddeer.junit.internal.runner.statement.FulfillRequirementsStatement;
+import org.jboss.reddeer.junit.internal.runner.statement.RunAfters;
+import org.jboss.reddeer.junit.internal.runner.statement.RunBefores;
+import org.jboss.reddeer.junit.internal.runner.statement.RunIAfterClassExtensions;
+import org.jboss.reddeer.junit.internal.runner.statement.RunIAfterTestExtensions;
+import org.jboss.reddeer.junit.internal.runner.statement.RunIBeforeClassExtensions;
+import org.jboss.reddeer.junit.internal.runner.statement.RunIBeforeTestExtensions;
+import org.jboss.reddeer.junit.internal.runner.statement.RunTestMethod;
 import org.jboss.reddeer.junit.internal.screenrecorder.ScreenCastingRunListener;
-import org.jboss.reddeer.junit.screenshot.CaptureScreenshotException;
-import org.jboss.reddeer.junit.screenshot.ScreenshotCapturer;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
-import org.junit.Test;
 import org.junit.runner.Description;
 import org.junit.runner.notification.Failure;
 import org.junit.runner.notification.RunListener;
@@ -28,8 +34,13 @@ import org.junit.runners.model.InitializationError;
 import org.junit.runners.model.Statement;
 
 /**
- * Fulfills the requirements before {@link BeforeClass} is called and
- * injects requirements to proper injection points 
+ * Takes care of running tests + additional features like
+ * <ul>
+ * 	<li> running requiremnets
+ * 	<li> cleanup requirements
+ * 	<li> running before/after test extensions
+ * 	<li> support for {@link RunIf} annotation
+ * </ul>
  * 
  * @author Lucia Jelinkova, Vlado Pakan, mlabuda@redhat.com
  *
@@ -87,37 +98,24 @@ public class RequirementsRunner extends BlockJUnit4ClassRunner {
 	}
 	
 	@Override
-	protected String testName(FrameworkMethod method) {
-		return method.getName()+" "+configId;
-	}
-	
-	@Override
-	protected String getName() {
-		return super.getName() + " " + configId;
-	}
-	
-	@Override
-	public void run(RunNotifier arg0) {
+	public void run(RunNotifier runNotifier) {
 		LoggingRunListener loggingRunListener = new LoggingRunListener();
 		ScreenCastingRunListener screenCastingRunListener = new ScreenCastingRunListener();
-		arg0.addListener(loggingRunListener);
-		arg0.addListener(screenCastingRunListener);
+		runNotifier.addListener(loggingRunListener);
+		runNotifier.addListener(screenCastingRunListener);
 		if (runListeners != null){
 			for (RunListener listener : runListeners){
-				arg0.addListener(listener);
+				runNotifier.addListener(listener);
 			}
 		}
-		super.run(arg0);
+		super.run(runNotifier);
 		if (runListeners != null){
 			for (RunListener listener : runListeners){
-				arg0.removeListener(listener);
+				runNotifier.removeListener(listener);
 			}
 		}
-		arg0.removeListener(screenCastingRunListener);
-		arg0.removeListener(loggingRunListener);
-	}
-	public void setRequirementsInjector(RequirementsInjector requirementsInjector) {
-		this.requirementsInjector = requirementsInjector;
+		runNotifier.removeListener(screenCastingRunListener);
+		runNotifier.removeListener(loggingRunListener);
 	}
 	
 	 @Override
@@ -129,6 +127,67 @@ public class RequirementsRunner extends BlockJUnit4ClassRunner {
 			 runLeaf(methodBlock(method), description, notifier);
 		 }
 	 }
+	
+	@Override
+	protected Statement methodInvoker(FrameworkMethod method, Object test) {
+	    return new RunTestMethod(configId, getTestClass(), method, test);
+	}
+	
+	@Override
+	protected Statement withAfters(FrameworkMethod method, Object target,
+            Statement statement) {
+        
+		List<FrameworkMethod> afters = getTestClass().getAnnotatedMethods(After.class);
+
+        Statement runAfters = new RunAfters(configId, statement, getTestClass(), method, target, afters);
+        Statement runAftersExtensions = new RunIAfterTestExtensions(configId, runAfters, getTestClass(), method, target, afterTestExtensions);
+		return runAftersExtensions;
+    }
+		
+	@Override
+	protected Statement withBefores(FrameworkMethod method, Object target,
+            Statement statement) {
+        
+		List<FrameworkMethod> beforeMethods = getTestClass().getAnnotatedMethods(
+                Before.class);
+        
+        Statement runBefores = new RunBefores(configId, statement, getTestClass(), method, target, beforeMethods);
+        Statement runBeforesExtensions = new RunIBeforeTestExtensions(configId, runBefores, getTestClass(), method, target, beforeTestExtensions);
+		return runBeforesExtensions;
+    }
+	
+	@Override
+	 protected Statement withAfterClasses(Statement statement) {
+        List<FrameworkMethod> afterClassMethods = getTestClass().getAnnotatedMethods(AfterClass.class);
+
+        Statement runAfterClass = new RunAfters(configId, statement, getTestClass(), afterClassMethods);
+        Statement runRequirements = new CleanUpRequirementStatement(requirements, runAfterClass);
+        Statement runAfterClassExtensions = new RunIAfterClassExtensions(configId, runRequirements, getTestClass(), afterTestExtensions);
+		return runAfterClassExtensions;
+    }
+	
+	@Override
+	protected Statement withBeforeClasses(Statement statement) {
+		log.debug("Injecting fulfilled requirements into static fields of test class");
+		requirementsInjector.inject(getTestClass().getJavaClass(), requirements);
+		
+        List<FrameworkMethod> beforeClassMethods = getTestClass().getAnnotatedMethods(BeforeClass.class);
+        
+        Statement runBeforeClass = new RunBefores(configId, statement, getTestClass(), beforeClassMethods);
+        Statement runRequirements = new FulfillRequirementsStatement(requirements, runBeforeClass);
+        Statement runBeforeClassExtensions = new RunIBeforeClassExtensions(configId, runRequirements, getTestClass(), beforeTestExtensions);
+		return runBeforeClassExtensions;
+	}
+	
+	@Override
+	protected String testName(FrameworkMethod method) {
+		return method.getName()+" "+configId;
+	}
+	
+	@Override
+	protected String getName() {
+		return super.getName() + " " + configId;
+	}
 	
 	 protected boolean isIgnored(FrameworkMethod child) {
 		 RunIf runIfAnnotation = child.getAnnotation(RunIf.class);
@@ -161,7 +220,12 @@ public class RequirementsRunner extends BlockJUnit4ClassRunner {
 		 }
 	 }
 	
+	public void setRequirementsInjector(RequirementsInjector requirementsInjector) {
+		this.requirementsInjector = requirementsInjector;
+	}
+
 	private class LoggingRunListener extends RunListener {
+		
 		@Override
 		public void testFailure(Failure failure) throws Exception {
 			Throwable throwable = failure.getException();
@@ -175,126 +239,23 @@ public class RequirementsRunner extends BlockJUnit4ClassRunner {
 			}
 			super.testFailure(failure);
 		}
+		
 		@Override
 		public void testFinished(Description description) throws Exception {
 			log.info("Finished test: " + description);
 			super.testFinished(description);
 		}
+		
 		@Override
 		public void testIgnored(Description description) throws Exception {
 			log.info("Ignored test: " + description);
 			super.testIgnored(description);
 		}
+		
 		@Override
 		public void testStarted(Description description) throws Exception {
 			log.info("Started test: " + description);
 			super.testStarted(description);
 		}
 	}
-
-	/**
-	 * Method is called before test is run.
-	 * Manages org.jboss.reddeer.junit.extensionpoint.IBeforeTest extensions
-	 */
-	private void runBeforeTest() {
-		for (IBeforeTest beforeTestExtension : beforeTestExtensions){
-			if (beforeTestExtension.hasToRun()){
-				log.debug("Run method runBeforeTest() of class " + beforeTestExtension.getClass().getCanonicalName());
-				beforeTestExtension.runBeforeTest();
-			}
-		}
-	}
-	
-	/**
-	 * Method is called after test is run.
-	 * Manages org.jboss.reddeer.junit.extensionpoint.IAfterTest extensions
-	 */
-	private void runAfterTest() {
-		for (IAfterTest afterTestExtension : afterTestExtensions){
-			if (afterTestExtension.hasToRun()){
-				log.debug("Run method runAfterTest() of class " + afterTestExtension.getClass().getCanonicalName());
-				afterTestExtension.runAfterTest(getTestClass());
-			}
-		}
-	}
-	
-	private class InvokeMethodWithException extends Statement {
-	    private final FrameworkMethod fTestMethod;
-	    private Object fTarget;
-
-	    public InvokeMethodWithException(FrameworkMethod testMethod, Object target) {
-	        fTestMethod = testMethod;
-	        fTarget = target;
-	    }
-
-	    @Override
-	    public void evaluate() throws Throwable {
-	    	try{
-	    		fTestMethod.invokeExplosively(fTarget);	
-	    	} catch (Throwable t){
-	    		Test annotation = (Test) fTestMethod.getAnnotations()[0];
-	    		if (annotation.expected().getName().equals("org.junit.Test$None") ||
-	    			!annotation.expected().isAssignableFrom(t.getClass())) {
-	    				log.error("Test " + fTarget.getClass().getName() 
-	    					+ "." + fTestMethod.getName()
-	    					+ " throws exception: ",t);
-		    			ScreenshotCapturer screenshot = ScreenshotCapturer.getInstance();
-		    			try {
-		    				String fileName = ScreenshotCapturer.getScreenshotFileName(
-		    					fTarget.getClass(),
-		    					fTestMethod.getName(),
-		    					null);
-		    				screenshot.captureScreenshotOnFailure(null, fileName);	    			
-		    			} catch (CaptureScreenshotException ex) {
-		    				ex.printInfo(log);
-		    			}
-	    		}
-	    		throw t;
-	    	}
-	    }
-	}
-	
-	@Override
-	protected Statement methodInvoker(FrameworkMethod method, Object test) {
-	    return new InvokeMethodWithException(method, test);
-	}
-	
-	@Override
-	protected Statement withAfters(FrameworkMethod method, Object target,
-            Statement statement) {
-        List<FrameworkMethod> afters = getTestClass().getAnnotatedMethods(After.class);
-        return afters.isEmpty() && afterTestExtensions.isEmpty() ? statement :
-            new RunAfters(configId, method, statement, afters, target, afterTestExtensions, getTestClass());
-    }
-		
-	@Override
-	protected Statement withBefores(FrameworkMethod method, Object target,
-            Statement statement) {
-        List<FrameworkMethod> befores = getTestClass().getAnnotatedMethods(
-                Before.class);
-        return befores.isEmpty() ? statement : new RunBefores(configId, method, statement,
-                befores, target, getTestClass());
-    }
-	
-	@Override
-	 protected Statement withAfterClasses(Statement statement) {
-        List<FrameworkMethod> afters = getTestClass().getAnnotatedMethods(AfterClass.class);
-        Statement s = afters.isEmpty() ? statement : new RunAfters(configId, null, statement, afters,
-        		null,getTestClass());
-        runAfterTest();
-        return new CleanUpRequirementStatement(requirements, s);
-    }
-	
-	@Override
-	protected Statement withBeforeClasses(Statement statement) {
-		log.debug("Injecting fulfilled requirements into static fields of test class");
-		requirementsInjector.inject(getTestClass().getJavaClass(), requirements);
-		
-        List<FrameworkMethod> befores = getTestClass().getAnnotatedMethods(BeforeClass.class);
-        Statement s = befores.isEmpty() ? statement : new RunBefores(configId, null, statement, befores, 
-        		null, getTestClass());
-		runBeforeTest();
-		return new FulfillRequirementsStatement(requirements, s);
-	}
-
 }

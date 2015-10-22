@@ -3,21 +3,21 @@ package org.jboss.reddeer.junit.test.integration.runner.order;
 import java.util.Iterator;
 import java.util.List;
 
-import junit.framework.AssertionFailedError;
-
 import org.jboss.reddeer.common.properties.RedDeerProperties;
 import org.jboss.reddeer.junit.internal.configuration.SuiteConfiguration;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
-import org.jboss.reddeer.junit.test.integration.runner.order.suite.RequirementsSuite;
+import org.jboss.reddeer.junit.test.integration.runner.order.suite.RequirementsSequenceTest;
 import org.junit.runner.Description;
 import org.junit.runner.notification.Failure;
 import org.junit.runner.notification.RunNotifier;
 import org.junit.runners.model.InitializationError;
 import org.junit.runners.model.RunnerBuilder;
 
+import junit.framework.AssertionFailedError;
+
 public abstract class TestSequenceRedDeerSuite extends RedDeerSuite {
 
-	protected static final String LOCATIONS_ROOT_DIR = "src/test/resources/org/jboss/reddeer/junit/integration/runner/order";
+	protected static final String LOCATIONS_ROOT_DIR = "resources/org/jboss/reddeer/junit/integration/runner/order";
 	
 	public TestSequenceRedDeerSuite(Class<?> clazz, RunnerBuilder builder)
 			throws InitializationError {
@@ -36,7 +36,7 @@ public abstract class TestSequenceRedDeerSuite extends RedDeerSuite {
 		TestSequence.getRealSequence().clear();
 		super.run(notifier);
 		if (!getExpectedSequence().equals(TestSequence.getRealSequence())){
-			notifier.fireTestFailure(new Failure(Description.createSuiteDescription(RequirementsSuite.class), createException()));
+			notifier.fireTestFailure(new Failure(Description.createSuiteDescription(RequirementsSequenceTest.class), createException()));
 		}
 	}
 
