@@ -121,5 +121,14 @@ public abstract class AbstractStyledText extends AbstractWidget<org.eclipse.swt.
     @Override	
 	public Point getCursorPosition(){
 		return StyledTextHandler.getInstance().getCursorPosition(swtWidget);
-	}
+	}        
+    
+    /**
+     * Return offset at given line
+     * @param line given line number
+     * @return offset at given line
+     */
+    public int getOffsetAtLine(int line) {
+    	return StyledTextHandler.getInstance().getOffsetAtLine(swtWidget, line); 
+    }
 }

@@ -2,12 +2,14 @@ package org.jboss.reddeer.workbench.impl.editor;
 
 import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.jface.text.ITextSelection;
+import org.eclipse.swt.custom.StyledText;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.ui.texteditor.ITextEditor;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.common.wait.WaitWhile;
 import org.jboss.reddeer.core.condition.JobIsRunning;
+import org.jboss.reddeer.core.handler.StyledTextHandler;
 import org.jboss.reddeer.core.handler.TextEditorHandler;
 import org.jboss.reddeer.core.lookup.EditorPartLookup;
 import org.jboss.reddeer.core.matcher.EditorPartClassMatcher;
@@ -218,8 +220,10 @@ public class TextEditor extends AbstractEditor implements Editor {
 	 */
 	public void setCursorPosition(int line, int column) {
 		log.info("Set cursor position at ["+ line + ", " + column + "]");
-		TextEditorHandler.getInstance().setCursorPosition(getTextEditorPart(),
-				line, column);
+		activate();
+		DefaultStyledText dst = new DefaultStyledText();
+		int lineOffset = dst.getOffsetAtLine(line);
+		setCursorPosition(lineOffset + column);
 	}
 	
 	/**
@@ -231,7 +235,7 @@ public class TextEditor extends AbstractEditor implements Editor {
 		log.info("Set cursor position with offset: " + offset);
 		activate();
 		DefaultStyledText dst = new DefaultStyledText();
-		dst.selectPosition(offset);
+		dst.selectPosition(offset);		
 		new WaitWhile(new JobIsRunning());
 	}
 
