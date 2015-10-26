@@ -125,7 +125,7 @@
             finalPerspective="org.eclipse.jdt.ui.JavaPerspective"
             icon="resources/reddeer_runner.png"
             id="org.jboss.reddeer.eclipse.ui.wizards.NewRedDeerTestPluginWizard"
-            name="New RedDeer Test Plug-in"
+            name="RedDeer Test Plug-in"
             project="true">
       </wizard>
    </extension>
@@ -137,7 +137,7 @@
             finalPerspective="org.eclipse.jdt.ui.JavaPerspective"
             icon="resources/reddeer_runner.png"
             id="org.jboss.reddeer.eclipse.ui.wizards.NewRedDeerTestCaseWizard"
-            name="New RedDeer Test"
+            name="RedDeer Test"
             project="true">
       </wizard>
    </extension>
