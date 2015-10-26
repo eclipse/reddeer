@@ -1,0 +1,55 @@
+Write Minimal RedDeer test
+--------------------------
+
+To write and execute your RedDeer test you basically need to go through these four steps:
+
+* Create RedDeer Test plug-in
+* Create RedDeer Test class
+* Write your own test code
+* Execute your test
+
+Create RedDeer Test Plug-in
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Create you RedDeer test plug-in by walking through RedDeer Test Plug-in wizard ( New -> Project -> Other -> RedDeer Test Plug-in )
+
+image:img/reddeer-plugin.png
+
+Create RedDeer Test class
+~~~~~~~~~~~~~~~~~~~~~~~~~
+Create you RedDeer test by RedDeer Test plugin wizard ( New -> Project -> Other -> RedDeer Test )
+
+image:img/reddeer-test.png
+
+Add some test code
+~~~~~~~~~~~~~~~~~~
+After opening your RedDeer test you can immediately start to write your own test code.
+
+There is some sample that check installation details that you can put
+
+[source,java]
+-----------------
+public class SimpleTest {
+
+    private Logger logger = new Logger(SimpleTest.class);
+
+    @Test
+    public void TestIt() {
+
+        new ShellMenu("Help", "About Eclipse Platform").select();
+        new PushButton("Installation Details").click();
+
+        DefaultTree ConfigTree = new DefaultTree();
+        List<TreeItem> ConfigItems = ConfigTree.getAllItems();
+
+        assertFalse ("The list is empty!", ConfigItems.isEmpty());
+        for (TreeItem item : ConfigItems) {
+            logger.info("Found: " + item.getText());
+        }
+    }
+}
+-----------------
+Execute RedDeer Test
+~~~~~~~~~~~~~~~~~~~~~
+When you have your test ready you can execute it by using RedDeer test run configuration (Run -> Run As -> RedDeer Test)
+
