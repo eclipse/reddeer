@@ -7,6 +7,7 @@ import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
 import org.jboss.reddeer.core.matcher.EditorPartTitleMatcher;
+import org.jboss.reddeer.core.matcher.MatcherBuilder;
 import org.jboss.reddeer.core.matcher.WithTextMatcher;
 import org.jboss.reddeer.core.util.Display;
 import org.jboss.reddeer.core.util.ResultRunnable;
@@ -37,6 +38,15 @@ public class MultiPageEditor extends AbstractEditor {
 	@SuppressWarnings("unchecked")
 	public MultiPageEditor(Matcher<String> titleMatcher) {
 		this(titleMatcher, MultiPageEditorPart.class);
+	}
+	
+	/**
+	 * Find MultiPageEditorPart with the given title matcher and String class name
+	 * @param title
+	 */
+	@SuppressWarnings("unchecked")
+	public MultiPageEditor(Matcher<String> titleMatcher, String className, Matcher<IEditorPart>... matchers) {
+		this(titleMatcher, MultiPageEditorPart.class, MatcherBuilder.getInstance().addMatcher(matchers, new EditorClassStringMatcher(className)));
 	}
 	
 	/**
@@ -103,6 +113,32 @@ public class MultiPageEditor extends AbstractEditor {
 		@Override
 		protected boolean matchesSafely(IEditorPart item) {
 			return clazz.isAssignableFrom(item.getClass()); 
+		}
+	}
+	
+	/**
+	 * Check that the editor is of the correct type if it is not possible to 
+	 * use Class object (e.g editor is internal (exported only to friend bundle)).
+	 * 
+	 * @author Lucia Jelinkova
+	 *
+	 */
+	private static class EditorClassStringMatcher extends TypeSafeMatcher<IEditorPart> {
+
+		private String fullClassName;
+		
+		private EditorClassStringMatcher(String clazz) {
+			this.fullClassName = clazz;
+		}
+		
+		@Override
+		public void describeTo(Description description) {
+			description.appendText("Editor is of type " + fullClassName);
+		}
+
+		@Override
+		protected boolean matchesSafely(IEditorPart item) {
+			return fullClassName.equals(item.getClass().getCanonicalName());
 		}
 	}
 }

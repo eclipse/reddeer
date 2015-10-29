@@ -3,9 +3,7 @@ package org.jboss.reddeer.eclipse.wst.xml.ui.tabletree;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.part.MultiPageEditorPart;
 import org.eclipse.ui.texteditor.ITextEditor;
-import org.hamcrest.Description;
 import org.hamcrest.Matcher;
-import org.hamcrest.TypeSafeMatcher;
 import org.jboss.reddeer.eclipse.exception.EclipseLayerException;
 import org.jboss.reddeer.eclipse.ui.part.MultiPageEditor;
 
@@ -29,7 +27,7 @@ public abstract class AbstractXMLEditor extends MultiPageEditor {
 	@SuppressWarnings("unchecked")
 	public AbstractXMLEditor(Matcher<String> titleMatcher, 
 			Class<? extends MultiPageEditorPart> clazz, Matcher<IEditorPart>... matchers) {
-		super(titleMatcher, clazz);
+		super(titleMatcher, clazz, matchers);
 	}
 	
 	/**
@@ -44,7 +42,7 @@ public abstract class AbstractXMLEditor extends MultiPageEditor {
 	@SuppressWarnings("unchecked")
 	public AbstractXMLEditor(Matcher<String> titleMatcher, 
 			String fullClassName, Matcher<IEditorPart>... matchers) {
-		super(titleMatcher, MultiPageEditorPart.class, new EditorClassStringMatcher(fullClassName));
+		super(titleMatcher, fullClassName, matchers);
 	}
 	
 	/**
@@ -82,31 +80,5 @@ public abstract class AbstractXMLEditor extends MultiPageEditor {
 		} 
 		throw new EclipseLayerException("Expected " + ITextEditor.class + 
 				" but was " + o.getClass());
-	}
-	
-	/**
-	 * Check that the editor is of the correct type if it is not possible to 
-	 * use Class object (e.g editor is internal (exported only to friend bundle)).
-	 * 
-	 * @author Lucia Jelinkova
-	 *
-	 */
-	private static class EditorClassStringMatcher extends TypeSafeMatcher<IEditorPart> {
-
-		private String fullClassName;
-		
-		private EditorClassStringMatcher(String clazz) {
-			this.fullClassName = clazz;
-		}
-		
-		@Override
-		public void describeTo(Description description) {
-			description.appendText("Editor is of type " + fullClassName);
-		}
-
-		@Override
-		protected boolean matchesSafely(IEditorPart item) {
-			return fullClassName.equals(item.getClass().getCanonicalName());
-		}
 	}
 }

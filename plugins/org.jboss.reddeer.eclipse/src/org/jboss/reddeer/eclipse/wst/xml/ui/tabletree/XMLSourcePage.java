@@ -33,7 +33,7 @@ public class XMLSourcePage extends TextEditor {
 	 * Creates instance from existing text editor reference. 
 	 * @param editor
 	 */
-	XMLSourcePage(ITextEditor editor) {
+	protected XMLSourcePage(ITextEditor editor) {
 		super(editor);
 	}
 
