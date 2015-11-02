@@ -1,10 +1,8 @@
 package org.jboss.reddeer.common.wait;
 
-import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.common.condition.WaitCondition;
 import org.jboss.reddeer.common.exception.WaitTimeoutExpiredException;
-import org.jboss.reddeer.common.wait.AbstractWait;
-import org.jboss.reddeer.common.wait.TimePeriod;
+import org.jboss.reddeer.common.logging.Logger;
 
 /**
  * Common ancestor for waiting classes. Contains abstract
@@ -16,11 +14,6 @@ import org.jboss.reddeer.common.wait.TimePeriod;
  */
 public abstract class AbstractWait {
 	
-	/**
-	 * Indicates how often the condition should be evaluated. 
-	 */
-	protected static TimePeriod WAIT_SLEEP = TimePeriod.SHORT;
-
 	/**
 	 * Wait logger.
 	 */
@@ -65,16 +58,37 @@ public abstract class AbstractWait {
 	 */
 	public AbstractWait(WaitCondition condition, TimePeriod timePeriod,
 			boolean throwRuntimeException) {
+		this(condition, timePeriod, throwRuntimeException, TimePeriod.SHORT);
+	}
+	
+	/**
+	 * Waits till condition is met for specified timeout period. There is a
+	 * possibility to turn on/off throwing a exception. This constructor also 
+	 * allows to set custom test period - time elapsed before another execution
+	 * of a wait condition is performed.
+	 * 
+	 * @param condition wait condition to met
+	 * @param timePeriod time period to wait
+	 * @param throwRuntimeException whether exception should be thrown after
+	 * expiration of the period
+	 * @param testPeriod time to wait before another testing of a wait
+	 * condition is performed
+	 * @throws WaitTimeoutExpiredException
+	 */
+	public AbstractWait(WaitCondition condition, TimePeriod timePeriod, 
+			boolean throwRuntimeException, TimePeriod testPeriod) {
 		if(condition == null) {
 			throw new IllegalArgumentException("condition can't be null");
 		}
 		if(timePeriod == null) {
 			throw new IllegalArgumentException("timePeriod can't be null");
 		}
+		if (testPeriod == null) {
+			throw new IllegalArgumentException("testPeriod cannot be null.");
+		}
 		this.timeout = timePeriod;
 		this.throwTimeoutException = throwRuntimeException;
-
-		wait(condition);
+		wait(condition, testPeriod);
 	}
 
 	/**
@@ -94,7 +108,7 @@ public abstract class AbstractWait {
 	 */
 	protected abstract String description();
 	
-	private void wait(WaitCondition condition) {
+	private void wait(WaitCondition condition, TimePeriod testPeriod) {
 		log.debug(this.description() + condition.description() + "...");
 		
 		long limit;
@@ -113,7 +127,7 @@ public abstract class AbstractWait {
 				return;
 			}
 			
-			sleep(WAIT_SLEEP);
+			sleep(testPeriod);
 		}
 		
 		log.debug(this.description() + condition.description()
