@@ -51,7 +51,8 @@ public class RunAfters extends AbstractStatementWithScreenshot {
 				}
 				errors.add(e);
 			}
-			MultipleFailureException.assertEmpty(errors);
 		}
+		
+		MultipleFailureException.assertEmpty(errors);
 	}
 }
