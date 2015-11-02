@@ -22,7 +22,6 @@ import org.eclipse.swt.widgets.TrayItem;
 import org.eclipse.swt.widgets.TreeColumn;
 import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.swt.widgets.Widget;
-import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.spy.widget.ListChild;
 
 /**
@@ -33,8 +32,6 @@ import org.jboss.reddeer.spy.widget.ListChild;
  *
  */
 public class WidgetResolver  {
-	
-	private static final Logger log = Logger.getLogger(WidgetResolver.class);
 	
 	private static WidgetResolver instance = null;
 	
@@ -83,7 +80,6 @@ public class WidgetResolver  {
 		} else if (w instanceof ToolTip) {
 			return ((ToolTip) w).getParent();
 		} else {
-			log.warn("Cannot find parent of widget. There is no parent for " + w.getClass().getName() + " widget.");
 			return null;
 		}
 	}
@@ -153,8 +149,6 @@ public class WidgetResolver  {
 			if (items.length > 0) {
 				children.addAll(Arrays.asList(items));
 			}
-		} else {
-			log.warn("Cannot find children of the widget. There are no children for " + w.getClass() + ".");
 		}
 		return children;
 	}
