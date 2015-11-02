@@ -52,6 +52,26 @@ public class WaitUntil extends AbstractWait {
 		super(condition, timeout, throwWaitTimeoutExpiredException);
 	}
 
+	/**
+	 * Waits until condition is met for specified time period. Can throw
+	 * WaitTimeoutExpiredException if condition is not met after expiration
+	 * of specified time period. This constructor also allows to set custom 
+	 * test period - time elapsed before another execution of a wait condition 
+	 * is performed.
+	 * 
+	 * @param condition condition to wait until it is met
+	 * @param timeout period to wait for
+	 * @param throwWaitTimeoutExpiredException whether exception
+	 * should be thrown or not
+	 * @param testPeriod time to wait before another testing of a wait
+	 * condition is performed
+	 * 
+	 */
+	public WaitUntil(WaitCondition condition, TimePeriod timeout,
+			boolean throwWaitTimeoutExpiredException, TimePeriod testPeriod) {
+		super(condition, timeout, throwWaitTimeoutExpiredException, testPeriod);
+	}
+	
 	@Override
 	protected boolean stopWaiting(WaitCondition condition) {
 		return condition.test();
