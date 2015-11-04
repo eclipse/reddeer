@@ -94,4 +94,13 @@ public class ContextMenu extends AbstractMenu implements Menu {
 		}
 		return ActionContributionItemHandler.getInstance().isEnabled(actionItem);
 	}
+	
+	@Override
+	public boolean isDisposed() {
+		if(menuItem != null){
+			return WidgetHandler.getInstance().isDisposed(menuItem);
+		}
+		//actionItem doesnt have isDisposed method, so just return false
+		return false;
+	}
 }

@@ -17,11 +17,8 @@ public class ViewToolBar extends AbstractToolBar {
 	 * 
 	 * @throws {@link SWTLayerException}
 	 */
-
 	public ViewToolBar() {
-		ToolBarLookup tl = ToolBarLookup.getInstance();
-		toolBar = tl.getViewToolBar();
-
+		super(ToolBarLookup.getInstance().getViewToolBar());
 	}
 
 }

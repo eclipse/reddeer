@@ -4,6 +4,7 @@ import org.hamcrest.Matcher;
 import org.jboss.reddeer.core.handler.WidgetHandler;
 import org.jboss.reddeer.core.lookup.WidgetLookup;
 import org.jboss.reddeer.core.reference.ReferencedComposite;
+import org.jboss.reddeer.swt.exception.SWTLayerException;
 
 /**
  * Abstract widget implementation that looks up and stores swt widget. 
@@ -18,10 +19,10 @@ public abstract class AbstractWidget<T extends org.eclipse.swt.widgets.Widget> i
 	
 	protected AbstractWidget(T swtWidget) {
 		if (swtWidget == null){
-			throw new IllegalArgumentException("SWT widget provided is null");
+			throw new SWTLayerException("SWT widget provided is null");
 		}
 		if (swtWidget.isDisposed()){
-			throw new IllegalArgumentException("SWT widget provided is disposed");
+			throw new SWTLayerException("SWT widget provided is disposed");
 		}
 		this.swtWidget = swtWidget;
 	}
@@ -38,5 +39,10 @@ public abstract class AbstractWidget<T extends org.eclipse.swt.widgets.Widget> i
 	@Override
 	public boolean isEnabled() {
 		return WidgetHandler.getInstance().isEnabled(swtWidget);
+	}
+	
+	@Override
+	public boolean isDisposed() {
+		return WidgetHandler.getInstance().isDisposed(swtWidget);
 	}
 }

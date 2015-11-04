@@ -1,7 +1,6 @@
 package org.jboss.reddeer.swt.impl.toolbar;
 
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
-import org.jboss.reddeer.core.lookup.ToolBarLookup;
 import org.jboss.reddeer.core.reference.ReferencedComposite;
 
 /**
@@ -42,7 +41,7 @@ public class DefaultToolBar extends AbstractToolBar {
 	 */
 
 	public DefaultToolBar(ReferencedComposite rc, int index) {
-		toolBar = ToolBarLookup.getInstance().getToolBar(rc, index);
+		super(rc,index);
 	}
 
 }

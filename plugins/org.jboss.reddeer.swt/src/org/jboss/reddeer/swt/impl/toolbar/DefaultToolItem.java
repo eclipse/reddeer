@@ -1,7 +1,6 @@
 package org.jboss.reddeer.swt.impl.toolbar;
 
 import org.hamcrest.Matcher;
-import org.jboss.reddeer.core.lookup.ToolItemLookup;
 import org.jboss.reddeer.core.matcher.WithTooltipTextMatcher;
 import org.jboss.reddeer.core.reference.ReferencedComposite;
 
@@ -121,7 +120,7 @@ public class DefaultToolItem extends AbstractToolItem {
 	 */
 
 	public DefaultToolItem(ReferencedComposite rc, int index) {
-		toolItem = ToolItemLookup.getInstance().getToolItem(rc, index);
+		super(rc,index);
 	}
 
 	/**
@@ -138,7 +137,6 @@ public class DefaultToolItem extends AbstractToolItem {
 
 	public DefaultToolItem(ReferencedComposite rc, int index,
 			Matcher<?>... matchers) {
-		toolItem = ToolItemLookup.getInstance()
-				.getToolItem(rc, index, matchers);
+		super(rc,index,matchers);
 	}
 }

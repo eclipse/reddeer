@@ -112,8 +112,7 @@ public class AbstractView implements View {
 	}
 
 	protected CTabItem getViewCTabItem(){
-		if (cTabItem != null && 
-			((Boolean)ObjectUtil.invokeMethod(cTabItem.getSWTWidget(), "isDisposed"))){
+		if (cTabItem != null && cTabItem.isDisposed()){
 			cTabItem = null;
 		}
 		if (cTabItem == null) {
