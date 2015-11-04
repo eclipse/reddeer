@@ -66,6 +66,7 @@ public class MultiPageEditor extends AbstractEditor {
 	 * @param name
 	 */
 	public void selectPage(String name) {
+		activate();
 		new DefaultCTabItem(name).activate();
 	}
 	
