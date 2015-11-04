@@ -59,6 +59,9 @@ public class MultiPageEditorTest {
 		editor.selectPage("Design");
 		new DefaultTreeItem("a", "b1");
 		
+		// loose focus
+		new PackageExplorer().open();
+		
 		editor.selectPage("Source");
 		assertTrue(new DefaultStyledText().getText().contains("</a>"));
 	}
