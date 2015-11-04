@@ -125,19 +125,25 @@
             finalPerspective="org.eclipse.jdt.ui.JavaPerspective"
             icon="resources/reddeer_runner.png"
             id="org.jboss.reddeer.eclipse.ui.wizards.NewRedDeerTestPluginWizard"
-            name="New RedDeer Test Plug-in"
+            name="RedDeer Test Plug-in"
+            category="org.jboss.reddeer.tools"
             project="true">
       </wizard>
    </extension>
    
    <extension
          point="org.eclipse.ui.newWizards">
+	  <category
+            name="RedDeer"
+            id="org.jboss.reddeer.tools">
+      </category>         
       <wizard
             class="org.jboss.reddeer.eclipse.ui.wizards.NewRedDeerTestCaseWizard"
             finalPerspective="org.eclipse.jdt.ui.JavaPerspective"
             icon="resources/reddeer_runner.png"
             id="org.jboss.reddeer.eclipse.ui.wizards.NewRedDeerTestCaseWizard"
-            name="New RedDeer Test"
+            name="RedDeer Test"
+            category="org.jboss.reddeer.tools"
             project="true">
       </wizard>
    </extension>
