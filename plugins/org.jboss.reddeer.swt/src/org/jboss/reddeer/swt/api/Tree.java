@@ -32,6 +32,13 @@ public interface Tree extends Widget {
 	 * @param treeItems tree items to select
 	 */
 	void selectItems(TreeItem... treeItems);
+	
+	/**
+	 * Gets the selected tree items.
+	 * 
+	 * @param treeItems tree items which are selected
+	 */
+	List<TreeItem> getSelectedItems();
 
 	/**
 	 * Sets focus on the tree.

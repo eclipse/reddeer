@@ -105,6 +105,20 @@ public class ProjectItem extends ExplorerItem {
 		Preferences.set("org.eclipse.debug.ui", "DEBUG.consoleOpenOnErr", consoleOpenOnErr);
 		Preferences.set("org.eclipse.debug.ui", "DEBUG.consoleOpenOnOut", consoleOpenOnOut);
 	}
+	
+	/**
+	 * Debugs the project item with the specified launcher.
+	 * 
+	 * @param launcher
+	 *            Launcher
+	 */
+	@SuppressWarnings("unchecked")
+	public void debugAs(String launcher) {
+		select();
+
+		Matcher<String> launcherMatcher = new WithMnemonicTextMatcher(new RegexMatcher("[0-9]* " + launcher));
+		new ContextMenu(new WithMnemonicTextMatcher("Debug As"), new WithMnemonicTextMatcher(launcherMatcher)).select();
+	}
 
 	/**
 	 * Deletes the project item. The project item is refreshed before deleting.

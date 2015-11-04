@@ -1,5 +1,6 @@
 package org.jboss.reddeer.swt.impl.tree;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -52,6 +53,15 @@ public abstract class AbstractTree extends AbstractWidget<org.eclipse.swt.widget
 			items[i] = treeItems[i].getSWTWidget();
 		}
 		treeItemHandler.selectItems(items);
+	}
+
+	@Override
+	public List<TreeItem> getSelectedItems() {
+		List<TreeItem> selectedItems = new ArrayList<TreeItem>();
+		for (org.eclipse.swt.widgets.TreeItem swtItem : treeHandler.getSelection(swtWidget)) {
+			selectedItems.add(new BasicTreeItem(swtItem));
+		}
+		return selectedItems;
 	}
 
 	public void setFocus() {

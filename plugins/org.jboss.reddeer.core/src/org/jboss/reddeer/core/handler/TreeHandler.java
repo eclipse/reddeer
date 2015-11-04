@@ -121,6 +121,23 @@ public class TreeHandler {
 		notifySelect(swtTree);
 		logger.info("All tree items unselected");
 	}
+	
+	/**
+	 * Gets a selection of a given {@link org.eclipse.swt.widgets.Tree}.
+	 * 
+	 * @param swtTree tree
+	 * @return a selection of the tree
+	 */
+	public org.eclipse.swt.widgets.TreeItem[] getSelection(final org.eclipse.swt.widgets.Tree swtTree) {
+		return Display.syncExec(new ResultRunnable<org.eclipse.swt.widgets.TreeItem[]>() {
+
+			@Override
+			public org.eclipse.swt.widgets.TreeItem[] run() {
+				return swtTree.getSelection();
+			}
+
+		});
+	}
 
 	public void notifySelect(final org.eclipse.swt.widgets.Tree swtTree) {
 		Display.syncExec(new Runnable() {
