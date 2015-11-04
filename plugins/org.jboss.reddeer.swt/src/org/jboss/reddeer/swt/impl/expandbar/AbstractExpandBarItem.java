@@ -4,10 +4,10 @@ import org.eclipse.swt.widgets.Control;
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.swt.api.ExpandBar;
 import org.jboss.reddeer.swt.api.ExpandBarItem;
-import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.core.handler.ExpandBarItemHandler;
 import org.jboss.reddeer.core.handler.WidgetHandler;
 import org.jboss.reddeer.swt.impl.expandbar.internal.BasicExpandBar;
+import org.jboss.reddeer.swt.widgets.AbstractWidget;
 import org.jboss.reddeer.common.wait.AbstractWait;
 import org.jboss.reddeer.common.wait.TimePeriod;
 
@@ -17,29 +17,22 @@ import org.jboss.reddeer.common.wait.TimePeriod;
  * @author Vlado Pakan
  * 
  */
-public abstract class AbstractExpandBarItem implements ExpandBarItem {
+public abstract class AbstractExpandBarItem extends AbstractWidget<org.eclipse.swt.widgets.ExpandItem> implements ExpandBarItem {
 
 	private static final Logger logger = Logger.getLogger(AbstractExpandBarItem.class);
 
-	protected org.eclipse.swt.widgets.ExpandItem swtExpandItem;
 	protected org.eclipse.swt.widgets.ExpandBar swtParent;
 
 	protected AbstractExpandBarItem(final org.eclipse.swt.widgets.ExpandItem swtExpandItem) {
-		if (swtExpandItem != null) {
-			this.swtExpandItem = swtExpandItem;
-			this.swtParent = ExpandBarItemHandler.getInstance().getParent(swtExpandItem);
-		} else {
-			throw new SWTLayerException(
-					"SWT Expand Item passed to constructor is null");
-		}
-
+		super(swtExpandItem);
+		this.swtParent = ExpandBarItemHandler.getInstance().getParent(swtExpandItem);
 	}
 	/**
 	 * See {@link ExpandBarItem}
 	 */
 	@Override
 	public String getText() {
-		return WidgetHandler.getInstance().getText(this.swtExpandItem);
+		return WidgetHandler.getInstance().getText(swtWidget);
 	}
 
 	/**
@@ -47,7 +40,7 @@ public abstract class AbstractExpandBarItem implements ExpandBarItem {
 	 */
 	@Override
 	public String getToolTipText() {
-		return WidgetHandler.getInstance().getToolTipText(this.swtExpandItem);
+		return WidgetHandler.getInstance().getToolTipText(swtWidget);
 	}
 
 	/**
@@ -88,20 +81,13 @@ public abstract class AbstractExpandBarItem implements ExpandBarItem {
 					+ " is already collapsed. No action performed");
 		}
 	}
-	/**
-	 * Return swt widget of Expand Bar Item
-	 */
-	@Override
-	public org.eclipse.swt.widgets.ExpandItem getSWTWidget() {
-		return swtExpandItem;
-	}
 	
 	/**
 	 * Return control of Expand Bar Item
 	 */
 	@Override
 	public Control getControl() {
-		return swtExpandItem.getControl();
+		return swtWidget.getControl();
 	}
 
 	public org.eclipse.swt.widgets.ExpandBar getSWTParent() {
@@ -119,11 +105,6 @@ public abstract class AbstractExpandBarItem implements ExpandBarItem {
 	 */
 	@Override
 	public boolean isExpanded() {
-		return ExpandBarItemHandler.getInstance().isExpanded(this.swtExpandItem);
-	}
-	
-	@Override
-	public boolean isEnabled() {
-		return WidgetHandler.getInstance().isEnabled(swtParent);
+		return ExpandBarItemHandler.getInstance().isExpanded(getSWTWidget());
 	}
 }

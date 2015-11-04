@@ -10,10 +10,17 @@ public interface Widget {
 	org.eclipse.swt.widgets.Widget getSWTWidget();
 
 	/**
-	 * Returns true when widget is enabled, false othrwise
+	 * Returns true when widget is enabled, false otherwise
 	 * 
 	 * @return
 	 */
 	boolean isEnabled();
+	
+	/**
+	 * Returns true when widget is disposed, false otherwise
+	 * 
+	 * @return
+	 */
+	boolean isDisposed();
 
 }

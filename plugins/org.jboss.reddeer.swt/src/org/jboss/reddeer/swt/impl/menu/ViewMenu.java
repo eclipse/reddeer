@@ -5,6 +5,7 @@ import org.eclipse.swt.widgets.MenuItem;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.core.handler.ActionContributionItemHandler;
+import org.jboss.reddeer.core.handler.WidgetHandler;
 import org.jboss.reddeer.core.matcher.WithMnemonicTextMatchers;
 import org.jboss.reddeer.swt.api.Menu;
 
@@ -53,6 +54,12 @@ public class ViewMenu extends AbstractMenu implements Menu {
 	@Override
 	public boolean isEnabled() {
 		return ActionContributionItemHandler.getInstance().isEnabled(item);
+	}
+	
+	@Override
+	public boolean isDisposed() {
+		//actionItem doesnt have isDisposed method, so just return false
+		return false;
 	}
 
 }

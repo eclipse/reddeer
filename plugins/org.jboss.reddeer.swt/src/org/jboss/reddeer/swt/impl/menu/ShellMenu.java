@@ -151,4 +151,9 @@ public class ShellMenu extends AbstractMenu implements Menu {
 	public boolean isEnabled() {
 		return WidgetHandler.getInstance().isEnabled(menuItem);
 	}
+	
+	@Override
+	public boolean isDisposed() {
+		return WidgetHandler.getInstance().isDisposed(menuItem);
+	}
 }

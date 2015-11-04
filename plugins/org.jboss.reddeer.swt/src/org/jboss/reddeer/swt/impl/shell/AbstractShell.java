@@ -84,5 +84,10 @@ public abstract class AbstractShell implements Shell {
 	public boolean isEnabled() {
 		return WidgetHandler.getInstance().isEnabled(swtShell);
 	}
+	
+	@Override
+	public boolean isDisposed() {
+		return WidgetHandler.getInstance().isDisposed(swtShell);
+	}
 
 }

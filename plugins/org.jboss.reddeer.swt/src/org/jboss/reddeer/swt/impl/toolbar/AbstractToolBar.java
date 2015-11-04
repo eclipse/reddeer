@@ -1,30 +1,29 @@
 package org.jboss.reddeer.swt.impl.toolbar;
 
 import org.eclipse.swt.widgets.Control;
+import org.hamcrest.Matcher;
 import org.jboss.reddeer.swt.api.ToolBar;
-import org.jboss.reddeer.core.handler.WidgetHandler;
+import org.jboss.reddeer.swt.widgets.AbstractWidget;
+import org.jboss.reddeer.core.reference.ReferencedComposite;
 
 /**
  * Abstract class for all Toolbar implementations
  * @author Jiri Peterka
  *
  */
-public abstract class AbstractToolBar implements ToolBar{
+public abstract class AbstractToolBar extends AbstractWidget<org.eclipse.swt.widgets.ToolBar> implements ToolBar{
 
-		
-	protected org.eclipse.swt.widgets.ToolBar toolBar;
-	
-	public org.eclipse.swt.widgets.ToolBar getSWTWidget(){
-		return toolBar;
+	protected AbstractToolBar(org.eclipse.swt.widgets.ToolBar widget) {
+		super(widget);
 	}
 	
-	@Override
-	public boolean isEnabled() {
-		return WidgetHandler.getInstance().isEnabled(toolBar);
+		
+	protected AbstractToolBar(ReferencedComposite refComposite, int index, Matcher<?>... matchers) {
+		super(org.eclipse.swt.widgets.ToolBar.class, refComposite, index, matchers);
 	}
 	
 	@Override
 	public Control getControl() {
-		return toolBar;
+		return swtWidget;
 	}
 }

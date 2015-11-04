@@ -159,14 +159,6 @@ public abstract class AbstractTreeItem extends AbstractWidget<org.eclipse.swt.wi
 	 * See {@link TreeItem}
 	 */
 	@Override
-	public boolean isDisposed() {
-		return swtWidget.isDisposed();
-	}
-
-	/**
-	 * See {@link TreeItem}
-	 */
-	@Override
 	public void setChecked(final boolean check) {
 		logger.info("Check tree item " + getText());
 		treeItemHandler.setChecked(swtWidget, check);

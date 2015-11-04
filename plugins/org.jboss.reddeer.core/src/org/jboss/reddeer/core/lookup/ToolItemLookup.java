@@ -96,7 +96,11 @@ public class ToolItemLookup {
 		return null;
 	}
 	
-	protected ReferencedComposite findReferencedComposite(){
+	/**
+	 * Finds current referenced composite
+	 * @return
+	 */
+	public ReferencedComposite findReferencedComposite(){
 		Control control = null;
 		Control activeWidgetParentControl = WidgetLookup.getInstance().getActiveWidgetParentControl();
 		if (activeWidgetParentControl instanceof Shell){

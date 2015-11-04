@@ -5,6 +5,7 @@ import org.hamcrest.Matcher;
 import org.jboss.reddeer.swt.api.ToolItem;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.core.handler.ToolItemHandler;
+import org.jboss.reddeer.core.handler.WidgetHandler;
 import org.jboss.reddeer.core.matcher.WithMnemonicTextMatchers;
 
 /**
@@ -72,4 +73,10 @@ public class ToolItemMenu extends AbstractMenu {
 	public String getText() {
 		return mh.getMenuItemText(menuItem);
 	}
+	
+	@Override
+	public boolean isDisposed() {
+		return WidgetHandler.getInstance().isDisposed(menuItem);
+	}
 }
+

@@ -74,6 +74,22 @@ public class WidgetHandler {
 		}
 		return ret;
 	}
+	
+	/**
+	 * Finds out whether specified {@link Widget} is disposed or not.
+	 * 
+	 * @param widget widget to handle
+	 * @return true if widget is disposed, false otherwise
+	 */
+	public boolean isDisposed(final Widget widget) {
+		return Display.syncExec(new ResultRunnable<Boolean>() {
+
+			@Override
+			public Boolean run() {
+				return widget.isDisposed();
+			}
+		});
+	}
 
 	/**
 	 * Finds out whether specified {@link Widget} is visible or not.
