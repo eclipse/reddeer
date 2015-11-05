@@ -1,5 +1,8 @@
 package org.jboss.reddeer.swt.keyboard;
 
+import java.awt.HeadlessException;
+import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -30,6 +33,8 @@ public class DefaultKeyboardLayout {
 	private static DefaultKeyboardLayout instance = null;
 
 	private static Map<Character, int[]> keyMap;
+	
+	private static Toolkit toolkit;
 
 	/**
 	 * Constructor of the class.
@@ -78,10 +83,20 @@ public class DefaultKeyboardLayout {
 
 	public int[] getKeyCombination(char c) {
 		if (c > 96 && c < 123) {
-			return new int[] { c };
+			if (DefaultKeyboardLayout.isCapsLockOn()){
+				return new int[] {SWT.SHIFT,c};
+			}
+			else{
+				return new int[] { c };
+			}
 		}
 		if (c > 64 && c < 91) {
-			return new int[] { SWT.SHIFT, c + 32 };
+			if (DefaultKeyboardLayout.isCapsLockOn()){
+				return new int[] {c + 32 };
+			}
+			else{
+				return new int[] { SWT.SHIFT, c + 32 };	
+			}
 		}
 		if (keyMap.containsKey(c))
 			return keyMap.get(c);
@@ -111,4 +126,20 @@ public class DefaultKeyboardLayout {
 		return layoutName.replaceAll("\\.", "/");
 	}
 
+	private static boolean isCapsLockOn(){
+		boolean isOn = false;
+		if (DefaultKeyboardLayout.toolkit == null){
+			DefaultKeyboardLayout.toolkit = Toolkit.getDefaultToolkit();
+		}
+		
+		try{
+			isOn = DefaultKeyboardLayout.toolkit.getLockingKeyState(KeyEvent.VK_CAPS_LOCK);	
+		} catch (HeadlessException he){
+			// current OS doesn't implement getLockingKeyState(KeyEvent.VK_CAPS_LOCC) nethod correctly
+			// therefore method returns default value i. e. false
+		}
+		
+		return isOn;
+	}
+	
 }
