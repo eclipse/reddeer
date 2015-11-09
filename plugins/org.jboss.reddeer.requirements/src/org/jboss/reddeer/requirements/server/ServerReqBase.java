@@ -1,13 +1,13 @@
 package org.jboss.reddeer.requirements.server;
 
+import org.jboss.reddeer.common.exception.RedDeerException;
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.eclipse.exception.EclipseLayerException;
-import org.jboss.reddeer.workbench.ui.dialogs.WorkbenchPreferenceDialog;
 import org.jboss.reddeer.eclipse.wst.server.ui.Runtime;
 import org.jboss.reddeer.eclipse.wst.server.ui.RuntimePreferencePage;
 import org.jboss.reddeer.eclipse.wst.server.ui.view.ServersView;
 import org.jboss.reddeer.eclipse.wst.server.ui.view.ServersViewEnums.ServerState;
-import org.jboss.reddeer.common.exception.RedDeerException;
+import org.jboss.reddeer.workbench.ui.dialogs.WorkbenchPreferenceDialog;
 
 /**
  * 
@@ -28,7 +28,6 @@ import org.jboss.reddeer.common.exception.RedDeerException;
 public abstract class ServerReqBase {
 	
 	private static final Logger LOGGER = Logger.getLogger(ServerReqBase.class);
-	
 	
 	protected void setupServerState(ServerReqState requiredState, ConfiguredServerInfo lastServerConfig) throws ConfiguredServerNotFoundException {
 		LOGGER.info("Checking the state of the server '"+lastServerConfig.getServerName()+"'");
@@ -78,9 +77,9 @@ public abstract class ServerReqBase {
 		preferenceDialog.ok();
 	}
 	
-	private org.jboss.reddeer.eclipse.wst.server.ui.view.Server getConfiguredServer(ConfiguredServerInfo lastServerConfig)
+	protected org.jboss.reddeer.eclipse.wst.server.ui.view.Server getConfiguredServer(ConfiguredServerInfo lastServerConfig)
 			throws ConfiguredServerNotFoundException {
-		ServersView serversView = new ServersView();
+		ServersView serversView = getServersView();
 		serversView.open();
 		if(lastServerConfig == null){
 			throw new ConfiguredServerNotFoundException("Server has already been removed");
@@ -93,7 +92,7 @@ public abstract class ServerReqBase {
 			throw new ConfiguredServerNotFoundException("Server \"" + serverName + "\" not found.", e);
 		}
 	}
-	
+
 	protected boolean isLastConfiguredServerPresent(ConfiguredServerInfo lastServerConfig) {
 		try {
 			getConfiguredServer(lastServerConfig);
@@ -135,7 +134,9 @@ public abstract class ServerReqBase {
 		return getServerTypeLabelText(config) + " Runtime";
 	}
 
-	
+	protected ServersView getServersView() {
+		return new ServersView();
+	}	
 
 	/**
 	 * Exception thrown when configured server was not found.
