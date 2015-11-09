@@ -1,7 +1,7 @@
 #set( $symbol_pound = '#' )
 #set( $symbol_dollar = '$' )
 #set( $symbol_escape = '\' )
-package ${package}.reddeer.test;
+package ${package};
 
 import static org.junit.Assert.assertTrue;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;

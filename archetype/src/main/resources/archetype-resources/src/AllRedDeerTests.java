@@ -1,7 +1,7 @@
 #set( $symbol_pound = '#' )
 #set( $symbol_dollar = '$' )
 #set( $symbol_escape = '\' )
-package ${package}.reddeer.test;
+package ${package};
 
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.junit.runner.RunWith;

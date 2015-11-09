@@ -18,7 +18,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>${groupId}</groupId>
-  <artifactId>${artifactId}.reddeer.test</artifactId>
+  <artifactId>${artifactId}</artifactId>
   <version>${version}</version>
   <name>${artifactId} :: test</name>
   <description>${artifactId} test plugin</description>
@@ -95,8 +95,8 @@
           <configuration>
             <useUIHarness>true</useUIHarness>
             <useUIThread>false</useUIThread>
-            <testSuite>${artifactId}.reddeer.test</testSuite>
-            <testClass>${package}.reddeer.test.AllRedDeerTests</testClass>
+            <testSuite>${artifactId}</testSuite>
+            <testClass>${package}.AllRedDeerTests</testClass>
             <!-- THE FOLLOWING LINE MUST NOT BE BROKEN BY AUTOFORMATTING -->
             <argLine>${symbol_dollar}{tycho.test.jvmArgs} ${symbol_dollar}{platformSystemProperties}</argLine>
 	    	<includes>

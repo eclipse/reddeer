@@ -14,9 +14,9 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: ${artifactId} Reddeer Test
-Bundle-SymbolicName: ${artifactId}.reddeer.test
+Bundle-SymbolicName: ${artifactId}
 Bundle-Version: ${futureVersion}.qualifier
-Bundle-Activator: ${package}.reddeer.test.Activator
+Bundle-Activator: ${package}.Activator
 Bundle-RequiredExecutionEnvironment: J2SE-1.5,
  JavaSE-1.6
 Require-Bundle: org.jboss.reddeer.go${rd_version}
