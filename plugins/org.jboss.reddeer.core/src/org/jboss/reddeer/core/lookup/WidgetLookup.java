@@ -10,6 +10,8 @@ import org.eclipse.swt.widgets.Widget;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.IWorkbenchPartReference;
 import org.eclipse.ui.IWorkbenchSite;
+import org.hamcrest.BaseMatcher;
+import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.common.exception.WaitTimeoutExpiredException;
 import org.jboss.reddeer.common.logging.Logger;
@@ -358,5 +360,23 @@ public class WidgetLookup {
 		}
 		return sb.toString();
 	}
+
+	public List<Control> findAllParentWidgets() {
+		List<Control> allWidgets = findControls(findParent(), new BaseMatcher<Control>() {
+
+			@Override
+			public boolean matches(Object obj) {
+				return true;
+			}
+
+			@Override
+			public void describeTo(Description desc) {
+				
+			}
+			
+		}, true);
+		return allWidgets;
+	}
+
 }
 

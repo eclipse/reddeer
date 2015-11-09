@@ -2,6 +2,7 @@ package org.jboss.reddeer.core.handler;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.ListIterator;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CLabel;
@@ -186,7 +187,7 @@ public class WidgetHandler {
 
 			@Override
 			public String run() {
-				Widget parent = ((Control) w).getParent();
+				Control parent = ((Control) w).getParent();
 				java.util.List<Widget> children = WidgetResolver.getInstance()
 						.getChildren(parent);
 				// check whether a label is defined using form data layout
@@ -205,22 +206,24 @@ public class WidgetHandler {
 						}
 					}
 				}
-				for (int i = 1; i < children.size(); i++) {
-					if (children.get(i) != null && children.get(i).equals(w)) {
-						for (int y = 1; i - y >= 0; y++) {
-							if (children.get(i - y) instanceof Label) {
-								if (((Label) children.get(i - y)).getImage() == null) {
-									return ((Label) children.get(i - y))
-											.getText();
-								}
-							} else if (children.get(i - y) instanceof CLabel) {
-								if (((CLabel) children.get(i - y)).getImage() == null) {
-									return ((CLabel) children.get(i - y))
-											.getText();
-								}
-							} else {
-								return null;
-							}
+				List<Control> allWidgets = WidgetLookup.getInstance().findAllParentWidgets();
+				int widgetIndex = allWidgets.indexOf(w);
+				if (widgetIndex < 0) {
+					throw new CoreLayerException("Wrong implementation for finding labels!");
+				}
+				ListIterator<? extends Widget> listIterator = allWidgets.listIterator(widgetIndex);
+				while (listIterator.hasPrevious()) {
+					Widget previousWidget = listIterator.previous();
+					if (previousWidget instanceof Label) {
+						Label label = (Label) previousWidget;
+						if (label.getImage() == null) {
+							return label.getText();
+						}
+					}
+					if (previousWidget instanceof CLabel) {
+						CLabel cLabel = (CLabel) previousWidget;
+						if (cLabel.getImage() == null) {
+							return cLabel.getText();
 						}
 					}
 				}
