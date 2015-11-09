@@ -3,6 +3,7 @@ package org.jboss.reddeer.swt.test.impl.text;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.events.FocusEvent;
 import org.eclipse.swt.events.FocusListener;
@@ -77,7 +78,7 @@ public class LabeledTextTest extends SWTLayerTestCase {
 		swtText3.setMessage("message");
 
 		LabelTestUtils.createCLabel(shell, "Test clabel");
-		TextTestUtils.createText(shell, "Test text4");
+		TextTestUtils.createText(shell, "Test ctext");
 		
 		Composite formContainer = LayoutTestUtils.createFlatFormComposite(shell);
 
@@ -94,6 +95,10 @@ public class LabeledTextTest extends SWTLayerTestCase {
 		CLabel label2 = LabelTestUtils.createCLabel(formContainer, "");
 		label2.setText("FormCLabel");
 		label2.setLayoutData(LayoutTestUtils.labelLayoutData(text2));
+		
+		LabelTestUtils.createLabel(shell, "Test label4");
+		Composite composite = new Composite(shell, SWT.LEFT);
+		Text text4 = TextTestUtils.createText(composite, "Test text4");
 	}
 	
 	@Test
@@ -129,7 +134,13 @@ public class LabeledTextTest extends SWTLayerTestCase {
 	@Test
 	public void findLabeledTextWithCLabel(){
 		new DefaultShell(SHELL_TITLE);
-		assertTrue(new LabeledText("Test clabel").getText().equals("Test text4"));
+		assertTrue(new LabeledText("Test clabel").getText().equals("Test ctext"));
+	}
+	
+	@Test
+	public void findLabeledTextWithOutsideLabel(){
+		new DefaultShell(SHELL_TITLE);
+		assertTrue(new LabeledText("Test label4").getText().equals("Test text4"));
 	}
 
 	@Test
