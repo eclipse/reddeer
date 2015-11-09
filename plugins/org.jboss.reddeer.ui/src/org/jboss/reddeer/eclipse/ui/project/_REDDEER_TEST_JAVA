@@ -20,7 +20,7 @@ import org.junit.runner.RunWith;
 public class RedDeerTest {
 
 	@Test
-	public void reddDeerTestExample() {
+	public void redDeerTestExample() {
 		
 		// Create Java Project
 		NewJavaProjectWizardDialog projectDlg = new NewJavaProjectWizardDialog();

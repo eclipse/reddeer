@@ -41,6 +41,7 @@
 		<module>org.jboss.reddeer.junit.test</module>
 		<module>org.jboss.reddeer.requirements.test</module>
 		<module>org.jboss.reddeer.generator.test</module>
+		<module>org.jboss.reddeer.ui.test</module>
 	</modules>
 	<build>
 		<plugins>
