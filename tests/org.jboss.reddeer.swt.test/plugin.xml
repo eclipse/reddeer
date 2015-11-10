@@ -48,9 +48,20 @@
             class="org.jboss.reddeer.swt.test.handler.TestHandler"
             commandId="org.jboss.reddeer.swt.test.command.testCommand">
       </handler>
+      <handler
+      		 class="org.jboss.reddeer.swt.test.handler.ParameterizedHandler"
+            commandId="org.jboss.reddeer.swt.test.command.testParameterizedCommand">
+      </handler>
    </extension>
    <extension
          point="org.eclipse.ui.menus">
+      <menuContribution
+      		allPopups="false"
+      		locationURI="menu:org.jboss.reddeer.swt.test.swtview">
+      		<menu
+      			id="org.jboss.reddeer.swt.test.swtview.submenu"
+      			label="submenu"/>
+      </menuContribution>
       <menuContribution
             allPopups="false"
             locationURI="toolbar:org.jboss.reddeer.swt.test.swtview">
@@ -83,6 +94,29 @@
             </command>
          </toolbar>
       </menuContribution>
+      <menuContribution
+      		locationURI="menu:org.jboss.reddeer.swt.test.swtview.submenu">
+      		<command
+               commandId="org.jboss.reddeer.swt.test.command.testParameterizedCommand"
+               id="parameterizedMenuItemTestId"
+               label="parameterizedMenuA"
+               mnemonic="A">
+               <parameter
+                     name="RedDeerParameterID"
+                     value="A">
+               </parameter>
+  			</command>
+  			<command
+               commandId="org.jboss.reddeer.swt.test.command.testParameterizedCommand"
+               id="parameterizedMenuItemTestId"
+               label="parameterizedMenuB"
+               mnemonic="B">
+               <parameter
+                     name="RedDeerParameterID"
+                     value="B">
+               </parameter>
+  			</command>
+		</menuContribution>
    </extension>
    
    	<extension point="org.eclipse.ui.views">
@@ -124,8 +158,34 @@
          categoryId="org.eclipse.ui.category.edit"
          id="org.hibernate.eclipse.console.actions.ExecuteHQLActionCommand"
          name="Run Query command"/>
+ 	<command
+            categoryId="org.jboss.reddeer.swt.test.swtcat"
+            id="org.jboss.reddeer.swt.test.command.testParameterizedCommand"
+            name="Parameterized Contribution Item Command">
+            <commandParameter
+                  id="RedDeerParameterID"
+                  name="AorB"
+                  optional="true">
+            </commandParameter>
+      </command>
          
 </extension>    
+
+	<extension
+         point="org.eclipse.ui.viewActions">
+      <viewContribution
+            id="org.jboss.reddeer.swt.test.ui.view.viewContribution"
+            targetID="org.jboss.reddeer.swt.test.swtview">
+         <action
+               class="org.jboss.reddeer.swt.test.handler.ViewActionWithId"
+               id="org.jboss.reddeer.swt.test.ui.view.action"
+               label="View Action with ID"
+               menubarPath="additions"
+               style="push"
+               tooltip="Action with ID">
+         </action>
+      </viewContribution>
+   </extension>
 
 
 </plugin>
