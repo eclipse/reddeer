@@ -3,7 +3,7 @@
 
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>org.jboss.reddeer.go</artifactId>
-	<name>Red Deer GO</name>
+	<name>Red Deer Go</name>
 	<packaging>eclipse-plugin</packaging>
 
 	<parent>
