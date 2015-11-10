@@ -5,7 +5,6 @@ import org.eclipse.swt.widgets.MenuItem;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.core.handler.ActionContributionItemHandler;
-import org.jboss.reddeer.core.handler.WidgetHandler;
 import org.jboss.reddeer.core.matcher.WithMnemonicTextMatchers;
 import org.jboss.reddeer.swt.api.Menu;
 
@@ -39,6 +38,11 @@ public class ViewMenu extends AbstractMenu implements Menu {
 	@SuppressWarnings("unchecked")
 	public ViewMenu(Matcher<String>... matchers) {
 		item = ml.lookFor(ml.getViewMenus(), matchers);
+		if (item == null) {
+			// desired item is not ActionContribution item. Trying to find item as MenuItem.
+			log.info("Desired ActionContributionItem not found, looking for MenuItem");
+			menuItem = ml.lookForViewMenu(ml.getViewMenus(), matchers);
+		}
 		this.matchers = matchers;
 	}
 
@@ -47,7 +51,11 @@ public class ViewMenu extends AbstractMenu implements Menu {
 	 */
 	public void select() {
 		log.info("Select view menu with text " + getText());
-		mh.select(item);
+		if (item == null) {
+			mh.select(menuItem);
+		} else {
+			mh.select(item);
+		}
 	}
 
 	/* (non-Javadoc)
@@ -63,7 +71,11 @@ public class ViewMenu extends AbstractMenu implements Menu {
 	 */
 	@Override
 	public String getText() {
-		return item.getAction().getText().replace("&", "");
+		if (item == null) {
+			return mh.getMenuItemText(menuItem);
+		} else {
+			return item.getAction().getText().replace("&", "");
+		}
 	}
 
 	/* (non-Javadoc)
@@ -78,7 +90,11 @@ public class ViewMenu extends AbstractMenu implements Menu {
 	 */
 	@Override
 	public boolean isEnabled() {
-		return ActionContributionItemHandler.getInstance().isEnabled(item);
+		if (item == null) {
+			return mh.isEnabled(menuItem);
+		} else {
+			return ActionContributionItemHandler.getInstance().isEnabled(item);
+		}
 	}
 	
 	/* (non-Javadoc)

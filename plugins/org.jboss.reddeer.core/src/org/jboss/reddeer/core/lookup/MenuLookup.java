@@ -26,16 +26,14 @@ import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.common.logging.Logger;
+import org.jboss.reddeer.common.wait.TimePeriod;
+import org.jboss.reddeer.common.wait.WaitWhile;
 import org.jboss.reddeer.core.condition.ShellWithTextIsActive;
 import org.jboss.reddeer.core.exception.CoreLayerException;
 import org.jboss.reddeer.core.handler.ToolItemHandler;
 import org.jboss.reddeer.core.handler.WidgetHandler;
 import org.jboss.reddeer.core.util.Display;
 import org.jboss.reddeer.core.util.ResultRunnable;
-import org.jboss.reddeer.core.lookup.WidgetLookup;
-import org.jboss.reddeer.core.lookup.ShellLookup;
-import org.jboss.reddeer.common.wait.TimePeriod;
-import org.jboss.reddeer.common.wait.WaitWhile;
 
 /**
  * Menu lookup provides methods for finding menus and context menus and their items. Works also with dynamic menus.
@@ -124,7 +122,48 @@ public class MenuLookup {
 		});
 		return contItem;
 	}
+	
+	public MenuItem lookForViewMenu(final List<IContributionItem> contItems, final Matcher<String>... matchers) {
+		IWorkbenchPart part = getActivePart(false);
+		final IMenuManager m = ((IViewSite) part.getSite()).getActionBars().getMenuManager();
+		if (!(m instanceof MenuManager)) {
+			throw new CoreLayerException("No Menu found in active part: " + part.getTitle());
+		}
+		MenuItem contItem = Display.syncExec(new ResultRunnable<MenuItem>() {
 
+			@Override
+			public MenuItem run() {
+				MenuItem currentItem = null;
+				Menu currentMenu = ((MenuManager) m).getMenu();
+				for (Matcher<String> matcher : matchers) {
+					for (MenuItem item : currentMenu.getItems()) {
+						String normalized = item.getText().replace("&", "");
+						if (matcher.matches(normalized)) {
+
+							// is submenu?
+							if (item.getMenu() != null) {
+
+								// populate submenu
+								sendHide(item.getMenu(), true);
+								sendShowUI(item.getMenu());
+
+								// drill down
+								currentMenu = item.getMenu();
+								break;
+							} else {
+								
+								// we got a match
+								currentItem = item;
+								break;
+							}
+						}
+					}
+				}
+				return currentItem;
+			}
+		});
+		return contItem;
+	}
 	
 	/**
 	 * Gets contribution items from focused control.
