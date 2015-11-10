@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: RedDeer GO
+Bundle-Name: RedDeer Go
 Bundle-Vendor: JBoss by Red Hat
 Bundle-SymbolicName: org.jboss.reddeer.go
 Bundle-Version: 1.0.0.qualifier

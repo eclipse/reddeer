@@ -8,7 +8,7 @@
 		<description>RedDeer UI: Contains RedDeer UI feature (Eclipse wizards etc.).</description>
 	</category-def>
 	<category-def label="3. RedDeer Tools" name="ToolFeatures">
-		<description>RedDeer Tests: Contains RedDeer tests.</description>
+		<description>RedDeer Tool: Contains RedDeer tools.</description>
 	</category-def>
 	<category-def label="4. RedDeer Documentation" name="Documentation">
 		<description>RedDeer Documentation: RedDeer documentation in Eclipse Help.</description>
@@ -67,7 +67,7 @@
 	</feature>
 
 	<feature url="org.jboss.reddeer.eclipse.feature.source.qualifier" id="org.jboss.reddeer.eclipse.feature.source" version="0.0.0">
-		<category name="RuntimeAPIFeatures"/>
+		<category name="AllSources"/>
 	</feature>
 
 	<feature url="org.jboss.reddeer.feature.rcp.source.qualifier" id="org.jboss.reddeer.rcp.feature.source" version="0.0.0">
@@ -98,6 +98,9 @@
 
 	<feature url="org.jboss.reddeer.graphiti.feature.source.qualifier" id="org.jboss.reddeer.graphiti.feature.source" version="0.0.0">
 		<category name="AllSources"/>
+	</feature>
+
+	<feature url="org.jboss.reddeer.selenium.feature.qualifier" id="org.jboss.reddeer.selenium.feature" version="0.0.0">
 	</feature>
 
         <feature url="org.jboss.reddeer.logparser.feature.source.qualifier" id="org.jboss.reddeer.logparser.feature.source" version="0.0.0">

@@ -91,14 +91,14 @@ Raleigh NC 27606 USA.
          unpack="false"/>
 
    <plugin
-         id="org.jboss.reddeer.selenium"
+         id="org.jboss.reddeer.requirements"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
 
    <plugin
-         id="org.jboss.reddeer.requirements"
+         id="org.jboss.reddeer.core"
          download-size="0"
          install-size="0"
          version="0.0.0"
