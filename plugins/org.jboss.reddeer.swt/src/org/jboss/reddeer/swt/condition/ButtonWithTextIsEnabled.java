@@ -1,6 +1,6 @@
 package org.jboss.reddeer.swt.condition;
 
-import org.jboss.reddeer.common.condition.WaitCondition;
+import org.jboss.reddeer.common.condition.AbstractWaitCondition;
 import org.jboss.reddeer.swt.api.Button;
 
 /**
@@ -10,7 +10,7 @@ import org.jboss.reddeer.swt.api.Button;
  * @author Len DiMaggio
  * @deprecated since 0.8.0. Use {@link WidgetIsEnabled} instead.
  */
-public class ButtonWithTextIsEnabled implements WaitCondition {
+public class ButtonWithTextIsEnabled extends AbstractWaitCondition {
 
 	private Button button;
 

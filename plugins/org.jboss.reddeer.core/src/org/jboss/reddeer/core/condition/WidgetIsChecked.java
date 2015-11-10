@@ -3,7 +3,7 @@ package org.jboss.reddeer.core.condition;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.swt.widgets.Widget;
-import org.jboss.reddeer.common.condition.WaitCondition;
+import org.jboss.reddeer.common.condition.AbstractWaitCondition;
 import org.jboss.reddeer.core.exception.CoreLayerException;
 import org.jboss.reddeer.core.util.Display;
 import org.jboss.reddeer.core.util.ResultRunnable;
@@ -14,7 +14,7 @@ import org.jboss.reddeer.core.util.ResultRunnable;
  * @author Jiri Peterka
  *
  */
-public class WidgetIsChecked implements WaitCondition {
+public class WidgetIsChecked extends AbstractWaitCondition {
 
 	private Widget widget;
 

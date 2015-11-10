@@ -1,8 +1,8 @@
 package org.jboss.reddeer.eclipse.condition;
 
-import org.jboss.reddeer.eclipse.wst.server.ui.view.ServersView;
-import org.jboss.reddeer.common.condition.WaitCondition;
+import org.jboss.reddeer.common.condition.AbstractWaitCondition;
 import org.jboss.reddeer.common.exception.RedDeerException;
+import org.jboss.reddeer.eclipse.wst.server.ui.view.ServersView;
 
 /**
  * Returns true, if there is server with specified name
@@ -10,7 +10,7 @@ import org.jboss.reddeer.common.exception.RedDeerException;
  * @author Vlado Pakan
  *
  */
-public class ServerExists implements WaitCondition {
+public class ServerExists extends AbstractWaitCondition {
 
 	private ServersView view;
 	

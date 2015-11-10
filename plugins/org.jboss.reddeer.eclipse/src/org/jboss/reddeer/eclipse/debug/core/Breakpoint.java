@@ -1,6 +1,6 @@
 package org.jboss.reddeer.eclipse.debug.core;
 
-import org.jboss.reddeer.common.condition.WaitCondition;
+import org.jboss.reddeer.common.condition.AbstractWaitCondition;
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.common.wait.WaitUntil;
 import org.jboss.reddeer.core.exception.CoreLayerException;
@@ -43,16 +43,11 @@ public class Breakpoint extends AbstractTreeItem {
 	 */
 	public void disable() {
 		doOperation("Disable");
-		new WaitUntil(new WaitCondition() {
+		new WaitUntil(new AbstractWaitCondition() {
 
 			@Override
 			public boolean test() {
 				return !isChecked();
-			}
-
-			@Override
-			public String description() {
-				return null;
 			}
 		});
 	}
@@ -62,16 +57,11 @@ public class Breakpoint extends AbstractTreeItem {
 	 */
 	public void enable() {
 		doOperation("Enable");
-		new WaitUntil(new WaitCondition() {
+		new WaitUntil(new AbstractWaitCondition() {
 
 			@Override
 			public boolean test() {
 				return isChecked();
-			}
-
-			@Override
-			public String description() {
-				return null;
 			}
 		});
 	}

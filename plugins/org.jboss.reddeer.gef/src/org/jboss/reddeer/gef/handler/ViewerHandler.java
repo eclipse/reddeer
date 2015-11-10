@@ -11,13 +11,13 @@ import org.eclipse.swt.SWT;
 import org.hamcrest.BaseMatcher;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
+import org.jboss.reddeer.common.logging.Logger;
+import org.jboss.reddeer.core.handler.WidgetHandler;
+import org.jboss.reddeer.core.util.Display;
+import org.jboss.reddeer.core.util.ResultRunnable;
 import org.jboss.reddeer.gef.api.Palette;
 import org.jboss.reddeer.gef.finder.EditPartFinder;
 import org.jboss.reddeer.gef.impl.palette.internal.BasicPalette;
-import org.jboss.reddeer.core.handler.WidgetHandler;
-import org.jboss.reddeer.common.logging.Logger;
-import org.jboss.reddeer.core.util.Display;
-import org.jboss.reddeer.core.util.ResultRunnable;
 
 /**
  * Handler for {@link org.eclipse.gef.GraphicalViewer}.

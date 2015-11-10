@@ -3,7 +3,7 @@ package org.jboss.reddeer.eclipse.condition;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.jboss.reddeer.common.condition.WaitCondition;
+import org.jboss.reddeer.common.condition.AbstractWaitCondition;
 import org.jboss.reddeer.eclipse.ui.problems.Problem;
 import org.jboss.reddeer.eclipse.ui.problems.ProblemsView;
 import org.jboss.reddeer.eclipse.ui.problems.ProblemsView.ProblemType;
@@ -14,7 +14,7 @@ import org.jboss.reddeer.eclipse.ui.problems.matcher.AbstractProblemMatcher;
  * 
  * @author mlabuda@redhat.com
  */
-public class ExactNumberOfProblemsExists implements WaitCondition {
+public class ExactNumberOfProblemsExists extends AbstractWaitCondition {
 	
 	private AbstractProblemMatcher[] problemMatchers;
 	private ProblemType problemType;

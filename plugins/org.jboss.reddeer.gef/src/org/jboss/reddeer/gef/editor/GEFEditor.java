@@ -6,6 +6,9 @@ import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPartListener;
 import org.eclipse.gef.GraphicalViewer;
 import org.eclipse.swt.widgets.Control;
+import org.jboss.reddeer.common.wait.WaitUntil;
+import org.jboss.reddeer.core.reference.ReferencedComposite;
+import org.jboss.reddeer.core.util.Display;
 import org.jboss.reddeer.gef.GEFLayerException;
 import org.jboss.reddeer.gef.api.Palette;
 import org.jboss.reddeer.gef.condition.EditorHasEditParts;
@@ -13,9 +16,6 @@ import org.jboss.reddeer.gef.handler.ViewerHandler;
 import org.jboss.reddeer.gef.impl.editpart.internal.BasicEditPart;
 import org.jboss.reddeer.gef.lookup.ViewerLookup;
 import org.jboss.reddeer.gef.view.PaletteView;
-import org.jboss.reddeer.core.reference.ReferencedComposite;
-import org.jboss.reddeer.core.util.Display;
-import org.jboss.reddeer.common.wait.WaitUntil;
 import org.jboss.reddeer.workbench.impl.editor.DefaultEditor;
 
 /**

@@ -1,14 +1,14 @@
 package org.jboss.reddeer.eclipse.condition;
 
 import org.hamcrest.Matcher;
+import org.jboss.reddeer.common.condition.AbstractWaitCondition;
 import org.jboss.reddeer.eclipse.ui.browser.BrowserEditor;
 import org.jboss.reddeer.eclipse.ui.browser.BrowserView;
-import org.jboss.reddeer.common.condition.WaitCondition;
 
 /**
  * Wait condition which returns true if a given browser has the specified URL.
  */
-public class BrowserHasURL implements WaitCondition {
+public class BrowserHasURL extends AbstractWaitCondition {
 
 	private BrowserView browser;
 	private BrowserEditor browserEditor;

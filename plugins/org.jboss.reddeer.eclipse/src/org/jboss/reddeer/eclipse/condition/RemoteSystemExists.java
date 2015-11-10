@@ -1,8 +1,8 @@
 package org.jboss.reddeer.eclipse.condition;
 
-import org.jboss.reddeer.eclipse.rse.ui.view.SystemView;
-import org.jboss.reddeer.common.condition.WaitCondition;
+import org.jboss.reddeer.common.condition.AbstractWaitCondition;
 import org.jboss.reddeer.common.exception.RedDeerException;
+import org.jboss.reddeer.eclipse.rse.ui.view.SystemView;
 
 /**
  * Returns true, if there is remote system with specified name
@@ -10,7 +10,7 @@ import org.jboss.reddeer.common.exception.RedDeerException;
  * @author Pavol Srna
  *
  */
-public class RemoteSystemExists implements WaitCondition {
+public class RemoteSystemExists extends AbstractWaitCondition {
 
 	private String name;
 	

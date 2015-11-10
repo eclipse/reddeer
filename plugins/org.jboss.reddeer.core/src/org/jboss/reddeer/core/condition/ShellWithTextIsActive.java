@@ -2,9 +2,9 @@ package org.jboss.reddeer.core.condition;
 
 import org.eclipse.swt.widgets.Shell;
 import org.hamcrest.core.IsEqual;
-import org.jboss.reddeer.common.logging.Logger;
-import org.jboss.reddeer.common.condition.WaitCondition;
+import org.jboss.reddeer.common.condition.AbstractWaitCondition;
 import org.jboss.reddeer.common.exception.RedDeerException;
+import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.core.handler.WidgetHandler;
 import org.jboss.reddeer.core.lookup.ShellLookup;
 import org.jboss.reddeer.core.util.InstanceValidator;
@@ -16,7 +16,7 @@ import org.jboss.reddeer.core.util.InstanceValidator;
  * @author jniederm
  */
 
-public class ShellWithTextIsActive implements WaitCondition {
+public class ShellWithTextIsActive extends AbstractWaitCondition {
 
 	private static final Logger log = Logger.getLogger(ShellWithTextIsActive.class);
 	private org.hamcrest.Matcher<String> matcher;

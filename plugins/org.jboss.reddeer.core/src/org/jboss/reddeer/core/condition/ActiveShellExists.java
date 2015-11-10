@@ -1,6 +1,6 @@
 package org.jboss.reddeer.core.condition;
 
-import org.jboss.reddeer.common.condition.WaitCondition;
+import org.jboss.reddeer.common.condition.AbstractWaitCondition;
 import org.jboss.reddeer.core.lookup.ShellLookup;
 
 /**
@@ -10,7 +10,7 @@ import org.jboss.reddeer.core.lookup.ShellLookup;
  * @since 0.8.0
  */
 
-public class ActiveShellExists implements WaitCondition {
+public class ActiveShellExists extends AbstractWaitCondition {
 
 	@Override
 	public boolean test() {

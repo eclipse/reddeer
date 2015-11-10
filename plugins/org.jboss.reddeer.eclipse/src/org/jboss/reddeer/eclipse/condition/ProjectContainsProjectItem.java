@@ -1,15 +1,15 @@
 package org.jboss.reddeer.eclipse.condition;
 
+import org.jboss.reddeer.common.condition.AbstractWaitCondition;
 import org.jboss.reddeer.eclipse.core.resources.Project;
 import org.jboss.reddeer.eclipse.exception.EclipseLayerException;
-import org.jboss.reddeer.common.condition.WaitCondition;
 
 /**
  * Returns true if project contains specified project item
  * @author rawagner
  *
  */
-public class ProjectContainsProjectItem implements WaitCondition {
+public class ProjectContainsProjectItem extends AbstractWaitCondition {
 	
 	private Project project;
 	private String[] path;

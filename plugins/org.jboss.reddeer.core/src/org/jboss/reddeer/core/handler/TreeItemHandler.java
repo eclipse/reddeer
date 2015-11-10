@@ -11,15 +11,14 @@ import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.swt.widgets.Widget;
-import org.jboss.reddeer.common.logging.Logger;
-import org.jboss.reddeer.common.condition.WaitCondition;
-import org.jboss.reddeer.core.exception.CoreLayerException;
+import org.jboss.reddeer.common.condition.AbstractWaitCondition;
 import org.jboss.reddeer.common.exception.WaitTimeoutExpiredException;
-import org.jboss.reddeer.core.util.Display;
-import org.jboss.reddeer.core.util.ResultRunnable;
+import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.common.wait.TimePeriod;
 import org.jboss.reddeer.common.wait.WaitUntil;
-import org.jboss.reddeer.core.handler.WidgetHandler;
+import org.jboss.reddeer.core.exception.CoreLayerException;
+import org.jboss.reddeer.core.util.Display;
+import org.jboss.reddeer.core.util.ResultRunnable;
 
 /**
  * Contains methods for handling UI operations on {@link TreeItem} widgets. 
@@ -459,7 +458,7 @@ public class TreeItemHandler {
 
 	}
 	
-	private class TreeHeardExpandNotification implements WaitCondition {
+	private class TreeHeardExpandNotification extends AbstractWaitCondition {
 
 		private org.eclipse.swt.widgets.TreeItem treeItem;
 		private TreeExpandListener listener;

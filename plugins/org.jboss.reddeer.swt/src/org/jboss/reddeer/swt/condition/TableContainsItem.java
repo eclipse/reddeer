@@ -1,6 +1,6 @@
 package org.jboss.reddeer.swt.condition;
 
-import org.jboss.reddeer.common.condition.WaitCondition;
+import org.jboss.reddeer.common.condition.AbstractWaitCondition;
 import org.jboss.reddeer.swt.api.Table;
 import org.jboss.reddeer.swt.api.TableItem;
 
@@ -9,7 +9,7 @@ import org.jboss.reddeer.swt.api.TableItem;
  * 
  * @author Rastislav Wagner
  */
-public class TableContainsItem implements WaitCondition {
+public class TableContainsItem extends AbstractWaitCondition {
 
 	private Table table;
 	private String item;

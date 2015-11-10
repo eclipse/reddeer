@@ -1,15 +1,15 @@
 package org.jboss.reddeer.eclipse.condition;
 
+import org.jboss.reddeer.common.condition.AbstractWaitCondition;
 import org.jboss.reddeer.eclipse.jdt.ui.AbstractExplorer;
 import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.PackageExplorer;
-import org.jboss.reddeer.common.condition.WaitCondition;
 
 /**
  * Returns true if project exists in explorer
  * @author rawagner
  *
  */
-public class ProjectExists implements WaitCondition{
+public class ProjectExists extends AbstractWaitCondition{
 	
 	private String projectName;
 	private AbstractExplorer explorer;

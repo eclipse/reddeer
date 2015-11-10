@@ -4,7 +4,7 @@ import java.lang.reflect.Method;
 
 import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.internal.views.markers.ExtendedMarkersView;
-import org.jboss.reddeer.common.condition.WaitCondition;
+import org.jboss.reddeer.common.condition.AbstractWaitCondition;
 import org.jboss.reddeer.core.lookup.WorkbenchPartLookup;
 import org.jboss.reddeer.core.util.Display;
 import org.jboss.reddeer.core.util.ResultRunnable;
@@ -19,7 +19,7 @@ import org.jboss.reddeer.workbench.impl.view.AbstractView;
  * 
  */
 @SuppressWarnings("restriction")
-public abstract class AbstractExtendedMarkersViewIsUpdating implements WaitCondition {
+public abstract class AbstractExtendedMarkersViewIsUpdating extends AbstractWaitCondition {
 
 	private ExtendedMarkersView markersView;
 

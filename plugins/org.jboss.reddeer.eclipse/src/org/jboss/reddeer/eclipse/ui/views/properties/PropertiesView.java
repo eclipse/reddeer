@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.jboss.reddeer.common.condition.WaitCondition;
+import org.jboss.reddeer.common.condition.AbstractWaitCondition;
 import org.jboss.reddeer.common.wait.TimePeriod;
 import org.jboss.reddeer.common.wait.WaitUntil;
 import org.jboss.reddeer.swt.api.TreeItem;
@@ -101,7 +101,7 @@ public class PropertiesView extends WorkbenchView{
 		new TabbedPropertyList().selectTab(label);
 	}
 	
-	private class AnotherTabsRendered implements WaitCondition {
+	private class AnotherTabsRendered extends AbstractWaitCondition {
 
 		private List<String> old;
 		

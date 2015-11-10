@@ -1,6 +1,6 @@
 package org.jboss.reddeer.swt.condition;
 
-import org.jboss.reddeer.common.condition.WaitCondition;
+import org.jboss.reddeer.common.condition.AbstractWaitCondition;
 import org.jboss.reddeer.swt.api.TreeItem;
 
 /**
@@ -8,7 +8,7 @@ import org.jboss.reddeer.swt.api.TreeItem;
  * 
  * @author Vlado Pakan
  */
-public class TreeItemHasMinChildren implements WaitCondition {
+public class TreeItemHasMinChildren extends AbstractWaitCondition {
 	
 	private final TreeItem treeItem;
 	

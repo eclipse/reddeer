@@ -6,13 +6,13 @@ import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 import org.hamcrest.Matcher;
-import org.jboss.reddeer.common.condition.WaitCondition;
+import org.jboss.reddeer.common.condition.AbstractWaitCondition;
 import org.jboss.reddeer.common.exception.WaitTimeoutExpiredException;
+import org.jboss.reddeer.common.wait.WaitUntil;
+import org.jboss.reddeer.core.exception.CoreLayerException;
 import org.jboss.reddeer.core.matcher.AndMatcher;
 import org.jboss.reddeer.core.util.Display;
 import org.jboss.reddeer.core.util.ResultRunnable;
-import org.jboss.reddeer.common.wait.WaitUntil;
-import org.jboss.reddeer.core.exception.CoreLayerException;
 
 /**
  * Editor part lookup provides methods for finding editor parts. 
@@ -141,7 +141,7 @@ public class EditorPartLookup {
      * 
      * @author rawagner
      */
-    private class EditorPartIsFound implements WaitCondition {
+    private class EditorPartIsFound extends AbstractWaitCondition {
 
         private Matcher<IEditorPart>[] matchers;
         

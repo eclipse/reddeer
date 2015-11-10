@@ -5,6 +5,8 @@ import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Control;
 import org.hamcrest.Matcher;
+import org.jboss.reddeer.core.handler.WidgetHandler;
+import org.jboss.reddeer.core.reference.ReferencedComposite;
 import org.jboss.reddeer.gef.api.EditPart;
 import org.jboss.reddeer.gef.comparator.ChainedComparator;
 import org.jboss.reddeer.gef.comparator.ChildrenComparator;
@@ -13,9 +15,7 @@ import org.jboss.reddeer.gef.handler.EditPartHandler;
 import org.jboss.reddeer.gef.handler.ViewerHandler;
 import org.jboss.reddeer.gef.lookup.EditPartLookup;
 import org.jboss.reddeer.swt.api.Text;
-import org.jboss.reddeer.core.handler.WidgetHandler;
 import org.jboss.reddeer.swt.impl.text.DefaultText;
-import org.jboss.reddeer.core.reference.ReferencedComposite;
 
 /**
  * Abstract class for EditPart implementation

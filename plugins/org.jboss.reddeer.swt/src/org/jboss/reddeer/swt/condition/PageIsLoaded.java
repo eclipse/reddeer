@@ -1,6 +1,6 @@
 package org.jboss.reddeer.swt.condition;
 
-import org.jboss.reddeer.common.condition.WaitCondition;
+import org.jboss.reddeer.common.condition.AbstractWaitCondition;
 import org.jboss.reddeer.swt.api.Browser;
 
 /**
@@ -9,7 +9,7 @@ import org.jboss.reddeer.swt.api.Browser;
  * @author Vlado Pakan
  *
  */
-public class PageIsLoaded implements WaitCondition {
+public class PageIsLoaded extends AbstractWaitCondition {
 
 	private Browser browser;
 

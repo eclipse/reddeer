@@ -5,19 +5,19 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.eclipse.swt.widgets.Shell;
-import org.jboss.reddeer.swt.api.Table;
-import org.jboss.reddeer.common.condition.WaitCondition;
+import org.jboss.reddeer.common.condition.AbstractWaitCondition;
 import org.jboss.reddeer.core.exception.CoreLayerException;
 import org.jboss.reddeer.core.handler.ShellHandler;
-import org.jboss.reddeer.swt.impl.table.DefaultTable;
 import org.jboss.reddeer.core.lookup.ShellLookup;
+import org.jboss.reddeer.swt.api.Table;
+import org.jboss.reddeer.swt.impl.table.DefaultTable;
 
 /**
  * Checks if content assistant shell is open.
  * @author rawagner
  *
  */
-public class ContentAssistantShellIsOpened implements WaitCondition {
+public class ContentAssistantShellIsOpened extends AbstractWaitCondition {
 
     private List<Shell> previousShells;
     private Table table = null;

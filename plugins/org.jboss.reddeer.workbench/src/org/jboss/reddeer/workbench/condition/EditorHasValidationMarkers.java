@@ -2,7 +2,7 @@ package org.jboss.reddeer.workbench.condition;
 
 import java.util.List;
 
-import org.jboss.reddeer.common.condition.WaitCondition;
+import org.jboss.reddeer.common.condition.AbstractWaitCondition;
 import org.jboss.reddeer.workbench.api.Editor;
 import org.jboss.reddeer.workbench.impl.editor.Marker;
 
@@ -11,7 +11,7 @@ import org.jboss.reddeer.workbench.impl.editor.Marker;
  * @author rawagner
  *
  */
-public class EditorHasValidationMarkers implements WaitCondition {
+public class EditorHasValidationMarkers extends AbstractWaitCondition {
 	
 	private Editor editor;
 	private String type;

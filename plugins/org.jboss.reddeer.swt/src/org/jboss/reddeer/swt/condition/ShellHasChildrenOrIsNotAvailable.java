@@ -1,17 +1,17 @@
 package org.jboss.reddeer.swt.condition;
 
-import org.jboss.reddeer.common.condition.WaitCondition;
+import org.jboss.reddeer.common.condition.AbstractWaitCondition;
 import org.jboss.reddeer.common.logging.Logger;
-import org.jboss.reddeer.swt.api.Shell;
 import org.jboss.reddeer.core.exception.CoreLayerException;
 import org.jboss.reddeer.core.handler.ShellHandler;
+import org.jboss.reddeer.swt.api.Shell;
 
 /**
  * Condition is met when shell has children or is not available anymore
  * @author rawagner
  *
  */
-public class ShellHasChildrenOrIsNotAvailable implements WaitCondition {
+public class ShellHasChildrenOrIsNotAvailable extends AbstractWaitCondition {
 	
 	private Shell shell;
 	private static final Logger log = Logger.getLogger(ShellHasChildrenOrIsNotAvailable.class);

@@ -1,6 +1,6 @@
 package org.jboss.reddeer.swt.condition;
 
-import org.jboss.reddeer.common.condition.WaitCondition;
+import org.jboss.reddeer.common.condition.AbstractWaitCondition;
 import org.jboss.reddeer.swt.api.TableItem;
 import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
@@ -12,7 +12,7 @@ import org.jboss.reddeer.swt.widgets.Widget;
  * @author Vlado Pakan
  *
  */
-public class WidgetIsChecked implements WaitCondition  {
+public class WidgetIsChecked extends AbstractWaitCondition  {
 
 	private Widget widget;
 

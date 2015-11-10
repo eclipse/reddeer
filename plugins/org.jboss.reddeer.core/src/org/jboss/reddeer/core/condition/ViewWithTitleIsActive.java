@@ -1,6 +1,6 @@
 package org.jboss.reddeer.core.condition;
 
-import org.jboss.reddeer.common.condition.WaitCondition;
+import org.jboss.reddeer.common.condition.AbstractWaitCondition;
 import org.jboss.reddeer.core.handler.WorkbenchPartHandler;
 
 /**
@@ -10,7 +10,7 @@ import org.jboss.reddeer.core.handler.WorkbenchPartHandler;
  * @since 0.8.0.
  *
  */
-public class ViewWithTitleIsActive implements WaitCondition {
+public class ViewWithTitleIsActive extends AbstractWaitCondition {
 
 	private String title;
 	private WorkbenchPartHandler workbenchPartHandler;

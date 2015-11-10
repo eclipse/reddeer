@@ -2,8 +2,8 @@ package org.jboss.reddeer.eclipse.condition;
 
 import org.hamcrest.Matcher;
 import org.hamcrest.core.IsEqual;
+import org.jboss.reddeer.common.condition.AbstractWaitCondition;
 import org.jboss.reddeer.eclipse.ui.console.ConsoleView;
-import org.jboss.reddeer.common.condition.WaitCondition;
 
 /**
  * Returns true if the console label matches a given String matcher
@@ -12,7 +12,7 @@ import org.jboss.reddeer.common.condition.WaitCondition;
  * @author vlado pakan
  * 
  */
-public class ConsoleHasLabel implements WaitCondition {
+public class ConsoleHasLabel extends AbstractWaitCondition {
 
 	private Matcher<String> matcher;
 	private static ConsoleView consoleView = null;

@@ -1,6 +1,6 @@
 package org.jboss.reddeer.eclipse.debug.core;
 
-import org.jboss.reddeer.common.condition.WaitCondition;
+import org.jboss.reddeer.common.condition.AbstractWaitCondition;
 import org.jboss.reddeer.common.wait.WaitUntil;
 import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.swt.impl.styledtext.DefaultStyledText;
@@ -28,7 +28,7 @@ public class VariablesView extends WorkbenchView {
 	 */
 	public String getValue(final String... variablePath) {
 		open();
-		new WaitUntil(new WaitCondition() {
+		new WaitUntil(new AbstractWaitCondition() {
 
 			@Override
 			public boolean test() {
@@ -46,7 +46,7 @@ public class VariablesView extends WorkbenchView {
 				return "Variable is not selected";
 			}
 		});
-		new WaitUntil(new WaitCondition() {
+		new WaitUntil(new AbstractWaitCondition() {
 
 			@Override
 			public boolean test() {

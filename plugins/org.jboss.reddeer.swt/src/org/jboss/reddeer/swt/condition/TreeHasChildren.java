@@ -1,7 +1,7 @@
 package org.jboss.reddeer.swt.condition;
 
 
-import org.jboss.reddeer.common.condition.WaitCondition;
+import org.jboss.reddeer.common.condition.AbstractWaitCondition;
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.swt.api.Tree;
 
@@ -12,7 +12,7 @@ import org.jboss.reddeer.swt.api.Tree;
  * @author Jiri Peterka
  *
  */
-public class TreeHasChildren implements WaitCondition {
+public class TreeHasChildren extends AbstractWaitCondition {
 	private Logger log = Logger.getLogger(TreeHasChildren.class);
 	private Tree tree;
 	

@@ -2,7 +2,7 @@ package org.jboss.reddeer.core.condition;
 
 import org.eclipse.swt.widgets.Shell;
 import org.hamcrest.Matcher;
-import org.jboss.reddeer.common.condition.WaitCondition;
+import org.jboss.reddeer.common.condition.AbstractWaitCondition;
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.common.wait.TimePeriod;
 import org.jboss.reddeer.core.lookup.ShellLookup;
@@ -15,7 +15,7 @@ import org.jboss.reddeer.core.util.InstanceValidator;
  * @author Andrej Podhradsky (andrej.podhradsky@gmail.com)
  * @author jniederm
  */
-public class ShellWithTextIsAvailable implements WaitCondition { 
+public class ShellWithTextIsAvailable extends AbstractWaitCondition { 
 	private Matcher<String> matcher;
 	private static final Logger log = Logger.getLogger(ShellWithTextIsAvailable.class);
 

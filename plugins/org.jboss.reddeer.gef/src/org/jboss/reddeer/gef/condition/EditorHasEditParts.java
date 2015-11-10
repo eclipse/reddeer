@@ -1,7 +1,7 @@
 package org.jboss.reddeer.gef.condition;
 
+import org.jboss.reddeer.common.condition.AbstractWaitCondition;
 import org.jboss.reddeer.gef.editor.GEFEditor;
-import org.jboss.reddeer.common.condition.WaitCondition;
 
 /**
  * Returns true if a given GEF editor has more than the specified number of edit parts.
@@ -9,7 +9,7 @@ import org.jboss.reddeer.common.condition.WaitCondition;
  * @author apodhrad
  *
  */
-public class EditorHasEditParts implements WaitCondition {
+public class EditorHasEditParts extends AbstractWaitCondition {
 
 	private GEFEditor gefEditor;
 	private int numberOfEditParts;
