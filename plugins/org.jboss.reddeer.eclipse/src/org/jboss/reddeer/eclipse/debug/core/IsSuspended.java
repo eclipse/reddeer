@@ -1,6 +1,6 @@
 package org.jboss.reddeer.eclipse.debug.core;
 
-import org.jboss.reddeer.common.condition.WaitCondition;
+import org.jboss.reddeer.common.condition.AbstractWaitCondition;
 import org.jboss.reddeer.common.wait.AbstractWait;
 import org.jboss.reddeer.common.wait.TimePeriod;
 
@@ -11,7 +11,7 @@ import org.jboss.reddeer.common.wait.TimePeriod;
  * @author Andrej Podhradsky
  *
  */
-public class IsSuspended implements WaitCondition {
+public class IsSuspended extends AbstractWaitCondition {
 
 	private ResumeButton resumeButton;
 

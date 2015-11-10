@@ -2,16 +2,16 @@ package org.jboss.reddeer.eclipse.equinox.security.ui;
 
 import java.util.List;
 
+import org.jboss.reddeer.common.exception.WaitTimeoutExpiredException;
+import org.jboss.reddeer.common.wait.WaitUntil;
+import org.jboss.reddeer.jface.preference.PreferencePage;
 import org.jboss.reddeer.swt.api.TableItem;
 import org.jboss.reddeer.swt.condition.WidgetIsEnabled;
-import org.jboss.reddeer.common.exception.WaitTimeoutExpiredException;
 import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.tab.DefaultTabItem;
 import org.jboss.reddeer.swt.impl.table.DefaultTable;
 import org.jboss.reddeer.swt.impl.tree.DefaultTree;
 import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
-import org.jboss.reddeer.common.wait.WaitUntil;
-import org.jboss.reddeer.jface.preference.PreferencePage;
 
 /**
  * Storage preference page represent page for secure storage in Eclipse preferences.

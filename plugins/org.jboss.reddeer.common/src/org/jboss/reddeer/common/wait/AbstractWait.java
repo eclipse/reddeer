@@ -171,7 +171,7 @@ public abstract class AbstractWait {
 			if (throwTimeoutException()) {
 				log.debug(this.description()  + condition.description() + " failed, an exception will be thrown");
 				throw new WaitTimeoutExpiredException("Timeout after: "
-						+ timeout.getSeconds() + " s.: " + condition.description());
+						+ timeout.getSeconds() + " s.: " + condition.errorMessage());
 			} else {
 				log.debug(this.description()  + condition.description() + " failed, NO exception will be thrown");
 				return true;

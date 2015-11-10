@@ -1,7 +1,7 @@
 package org.jboss.reddeer.eclipse.condition;
 
+import org.jboss.reddeer.common.condition.AbstractWaitCondition;
 import org.jboss.reddeer.eclipse.ui.console.ConsoleView;
-import org.jboss.reddeer.common.condition.WaitCondition;
 
 /**
  * Returns true if console is terminated
@@ -9,7 +9,7 @@ import org.jboss.reddeer.common.condition.WaitCondition;
  * @author vlado pakan
  * 
  */
-public class ConsoleIsTerminated implements WaitCondition {
+public class ConsoleIsTerminated extends AbstractWaitCondition {
 
 	private ConsoleView consoleView = new ConsoleView();
 

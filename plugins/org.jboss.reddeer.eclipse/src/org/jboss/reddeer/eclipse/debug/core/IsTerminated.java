@@ -1,6 +1,6 @@
 package org.jboss.reddeer.eclipse.debug.core;
 
-import org.jboss.reddeer.common.condition.WaitCondition;
+import org.jboss.reddeer.common.condition.AbstractWaitCondition;
 
 /**
  * A wait condition which detects whether a debugging is terminated. It returns
@@ -9,7 +9,7 @@ import org.jboss.reddeer.common.condition.WaitCondition;
  * @author Andrej Podhradsky
  *
  */
-public class IsTerminated implements WaitCondition {
+public class IsTerminated extends AbstractWaitCondition {
 
 	private TerminateButton terminateButton;
 

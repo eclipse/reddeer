@@ -1,7 +1,7 @@
 package org.jboss.reddeer.eclipse.condition;
 
+import org.jboss.reddeer.common.condition.AbstractWaitCondition;
 import org.jboss.reddeer.eclipse.rse.ui.view.System;
-import org.jboss.reddeer.common.condition.WaitCondition;
 
 /**
  * Returns true, if remote system with specified name isConnected
@@ -9,7 +9,7 @@ import org.jboss.reddeer.common.condition.WaitCondition;
  * @author Pavol Srna
  *
  */
-public class RemoteSystemIsConnected implements WaitCondition {
+public class RemoteSystemIsConnected extends AbstractWaitCondition {
 
 	private System system;
 	

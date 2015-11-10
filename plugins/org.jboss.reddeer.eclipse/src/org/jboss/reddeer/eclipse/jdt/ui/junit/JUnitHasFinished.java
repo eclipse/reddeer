@@ -4,7 +4,7 @@ import java.util.regex.Pattern;
 
 import org.hamcrest.Matcher;
 import org.hamcrest.core.StringContains;
-import org.jboss.reddeer.common.condition.WaitCondition;
+import org.jboss.reddeer.common.condition.AbstractWaitCondition;
 import org.jboss.reddeer.core.condition.JobIsRunning;
 
 /**
@@ -16,7 +16,7 @@ import org.jboss.reddeer.core.condition.JobIsRunning;
  * @author apodhrad
  * 
  */
-public class JUnitHasFinished implements WaitCondition {
+public class JUnitHasFinished extends AbstractWaitCondition {
 
 	private JUnitView junitView;
 	private JobIsRunning junitJobIsRunning;

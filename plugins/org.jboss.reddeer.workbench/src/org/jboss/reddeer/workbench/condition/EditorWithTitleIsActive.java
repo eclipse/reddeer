@@ -1,6 +1,6 @@
 package org.jboss.reddeer.workbench.condition;
 
-import org.jboss.reddeer.common.condition.WaitCondition;
+import org.jboss.reddeer.common.condition.AbstractWaitCondition;
 import org.jboss.reddeer.workbench.impl.editor.DefaultEditor;
 
 /**
@@ -8,7 +8,7 @@ import org.jboss.reddeer.workbench.impl.editor.DefaultEditor;
  * @author rawagner
  *
  */
-public class EditorWithTitleIsActive implements WaitCondition {
+public class EditorWithTitleIsActive extends AbstractWaitCondition {
 	
 	private String title;
 	

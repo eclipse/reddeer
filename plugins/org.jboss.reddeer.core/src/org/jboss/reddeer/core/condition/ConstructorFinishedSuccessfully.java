@@ -1,10 +1,10 @@
 package org.jboss.reddeer.core.condition;
 
-import java.lang.invoke.MethodHandles;
 import java.lang.invoke.MethodHandle;
+import java.lang.invoke.MethodHandles;
 import java.lang.invoke.MethodType;
 
-import org.jboss.reddeer.common.condition.WaitCondition;
+import org.jboss.reddeer.common.condition.AbstractWaitCondition;
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.core.exception.CoreLayerException;
 
@@ -14,7 +14,7 @@ import org.jboss.reddeer.core.exception.CoreLayerException;
  * @author Vlado Pakan
  *
  */
-public class ConstructorFinishedSuccessfully implements WaitCondition {
+public class ConstructorFinishedSuccessfully extends AbstractWaitCondition {
 	private static final Logger log = Logger.getLogger(ConstructorFinishedSuccessfully.class);
 	private static MethodHandles.Lookup lookup = MethodHandles.lookup();
 	private MethodHandle mhConstructor;

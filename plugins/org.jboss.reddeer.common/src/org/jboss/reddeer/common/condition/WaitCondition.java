@@ -21,4 +21,13 @@ public interface WaitCondition {
 	 * @return description of specific wait condition
 	 */
 	String description();
+	
+
+	/**
+	 * Gets error message if the condition fails. This is 
+	 * useful in logging.
+	 * 
+	 * @return description of specific wait condition
+	 */
+	String errorMessage();
 }

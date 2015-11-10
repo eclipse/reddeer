@@ -7,9 +7,9 @@ import java.util.List;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPartViewer;
 import org.hamcrest.Matcher;
+import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.gef.GEFLayerException;
 import org.jboss.reddeer.gef.handler.ViewerHandler;
-import org.jboss.reddeer.common.logging.Logger;
 
 /**
  * Lookup for {@link org.eclipse.gef.EditPart}.

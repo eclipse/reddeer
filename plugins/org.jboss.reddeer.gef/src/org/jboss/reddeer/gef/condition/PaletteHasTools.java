@@ -1,7 +1,7 @@
 package org.jboss.reddeer.gef.condition;
 
+import org.jboss.reddeer.common.condition.AbstractWaitCondition;
 import org.jboss.reddeer.gef.api.Palette;
-import org.jboss.reddeer.common.condition.WaitCondition;
 
 /**
  * Returns true if a given palette has the specified number of tools or more.
@@ -9,7 +9,7 @@ import org.jboss.reddeer.common.condition.WaitCondition;
  * @author Andrej Podhradsky (andrej.podhradsky@gmail.com)
  *
  */
-public class PaletteHasTools implements WaitCondition {
+public class PaletteHasTools extends AbstractWaitCondition {
 
 	private Palette palette;
 	private int numberOfTools;

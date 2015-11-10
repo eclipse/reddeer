@@ -3,12 +3,12 @@ package org.jboss.reddeer.eclipse.ui.views.log;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.jboss.reddeer.swt.api.TreeItem;
+import org.jboss.reddeer.common.wait.WaitUntil;
 import org.jboss.reddeer.core.condition.ShellWithTextIsActive;
+import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.menu.ContextMenu;
 import org.jboss.reddeer.swt.impl.text.LabeledText;
-import org.jboss.reddeer.common.wait.WaitUntil;
 
 
 /**

@@ -7,7 +7,7 @@ import org.eclipse.wst.server.core.IModule;
 import org.eclipse.wst.server.ui.IServerModule;
 import org.hamcrest.Matcher;
 import org.hamcrest.core.IsEqual;
-import org.jboss.reddeer.common.condition.WaitCondition;
+import org.jboss.reddeer.common.condition.AbstractWaitCondition;
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.common.wait.TimePeriod;
 import org.jboss.reddeer.common.wait.WaitUntil;
@@ -316,7 +316,7 @@ public class Server {
 		select();
 	}
 
-	private class ServerStateCondition implements WaitCondition {
+	private class ServerStateCondition extends AbstractWaitCondition {
 
 		private ServerState expectedState;
 
@@ -335,7 +335,7 @@ public class Server {
 		}
 	}
 
-	private class ServerPublishStateCondition implements WaitCondition {
+	private class ServerPublishStateCondition extends AbstractWaitCondition {
 
 		private ServerPublishState expectedState;
 

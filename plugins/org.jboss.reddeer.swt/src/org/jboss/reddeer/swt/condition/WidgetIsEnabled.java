@@ -1,6 +1,6 @@
 package org.jboss.reddeer.swt.condition;
 
-import org.jboss.reddeer.common.condition.WaitCondition;
+import org.jboss.reddeer.common.condition.AbstractWaitCondition;
 import org.jboss.reddeer.swt.widgets.Widget;
 
 /**
@@ -9,7 +9,7 @@ import org.jboss.reddeer.swt.widgets.Widget;
  * @author mlabuda@redhat.com
  *
  */
-public class WidgetIsEnabled implements WaitCondition {
+public class WidgetIsEnabled extends AbstractWaitCondition {
 
 	private Widget widget;
 

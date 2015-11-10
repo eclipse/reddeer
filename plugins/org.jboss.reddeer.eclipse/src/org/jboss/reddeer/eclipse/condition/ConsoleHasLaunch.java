@@ -1,7 +1,7 @@
 package org.jboss.reddeer.eclipse.condition;
 
+import org.jboss.reddeer.common.condition.AbstractWaitCondition;
 import org.jboss.reddeer.eclipse.ui.console.ConsoleView;
-import org.jboss.reddeer.common.condition.WaitCondition;
 
 /**
  * Returns true if the console is displaying results from
@@ -10,7 +10,7 @@ import org.jboss.reddeer.common.condition.WaitCondition;
  * @author vlado pakan
  * 
  */
-public class ConsoleHasLaunch implements WaitCondition {
+public class ConsoleHasLaunch extends AbstractWaitCondition {
 
 	private ConsoleView consoleView = new ConsoleView();
 

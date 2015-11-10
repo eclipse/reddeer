@@ -7,7 +7,7 @@ import org.eclipse.ui.actions.ActionFactory;
 import org.eclipse.ui.views.IViewCategory;
 import org.eclipse.ui.views.IViewDescriptor;
 import org.hamcrest.Matcher;
-import org.jboss.reddeer.common.condition.WaitCondition;
+import org.jboss.reddeer.common.condition.AbstractWaitCondition;
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.common.matcher.RegexMatcher;
 import org.jboss.reddeer.common.wait.WaitUntil;
@@ -19,7 +19,6 @@ import org.jboss.reddeer.core.handler.WorkbenchPartHandler;
 import org.jboss.reddeer.core.lookup.WidgetLookup;
 import org.jboss.reddeer.core.matcher.WithTextMatcher;
 import org.jboss.reddeer.core.matcher.WithTextMatchers;
-import org.jboss.reddeer.core.util.ObjectUtil;
 import org.jboss.reddeer.swt.api.CTabItem;
 import org.jboss.reddeer.swt.api.Menu;
 import org.jboss.reddeer.swt.impl.button.OkButton;
@@ -206,7 +205,7 @@ public class AbstractView implements View {
 		new WaitUntil(new ViewCTabIsAvailable());
 	}
 
-	private class ViewCTabIsAvailable implements WaitCondition {
+	private class ViewCTabIsAvailable extends AbstractWaitCondition {
 
 		@Override
 		public boolean test() {

@@ -6,11 +6,11 @@ import java.util.List;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.PlatformUI;
 import org.hamcrest.Matcher;
+import org.jboss.reddeer.common.condition.AbstractWaitCondition;
 import org.jboss.reddeer.common.wait.TimePeriod;
 import org.jboss.reddeer.common.wait.WaitUntil;
 import org.jboss.reddeer.core.condition.ActiveShellExists;
 import org.jboss.reddeer.core.condition.ShellMatchingMatcherIsAvailable;
-import org.jboss.reddeer.common.condition.WaitCondition;
 import org.jboss.reddeer.core.matcher.WithTextMatcher;
 import org.jboss.reddeer.core.util.Display;
 import org.jboss.reddeer.core.util.ResultRunnable;
@@ -219,7 +219,7 @@ public class ShellLookup {
 	/**
 	 * Wait condition is met when any shell is focused.
 	 */
-	class ShellIsFocused implements WaitCondition{
+	class ShellIsFocused extends AbstractWaitCondition {
 		
 		@Override
 		public boolean test() {

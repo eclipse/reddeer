@@ -1,6 +1,6 @@
 package org.jboss.reddeer.swt.condition;
 
-import org.jboss.reddeer.common.condition.WaitCondition;
+import org.jboss.reddeer.common.condition.AbstractWaitCondition;
 import org.jboss.reddeer.core.exception.CoreLayerException;
 import org.jboss.reddeer.swt.impl.clabel.DefaultCLabel;
 
@@ -10,7 +10,7 @@ import org.jboss.reddeer.swt.impl.clabel.DefaultCLabel;
  * @author mlabuda@redhat.com
  *
  */
-public class CLabelWithTextIsAvailable implements WaitCondition {
+public class CLabelWithTextIsAvailable extends AbstractWaitCondition {
 
 	private String cLabelText;
 

@@ -1,10 +1,10 @@
 package org.jboss.reddeer.swt.condition;
 
-import org.jboss.reddeer.common.condition.WaitCondition;
+import org.jboss.reddeer.common.condition.AbstractWaitCondition;
 import org.jboss.reddeer.common.logging.Logger;
-import org.jboss.reddeer.swt.api.Shell;
 import org.jboss.reddeer.core.lookup.ShellLookup;
 import org.jboss.reddeer.core.util.InstanceValidator;
+import org.jboss.reddeer.swt.api.Shell;
 
 /**
  * Wait condition for shells checking whether some shell is active (empty
@@ -12,7 +12,7 @@ import org.jboss.reddeer.core.util.InstanceValidator;
  * 
  * @author rhopp, mlabuda@redhat.com
  */
-public class ShellIsActive implements WaitCondition {
+public class ShellIsActive extends AbstractWaitCondition {
 	
 	private Shell shell;
 	private static final Logger log = Logger.getLogger(ShellIsActive.class);

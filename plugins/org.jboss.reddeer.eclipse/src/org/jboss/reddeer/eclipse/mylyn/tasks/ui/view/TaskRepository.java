@@ -1,14 +1,14 @@
 package org.jboss.reddeer.eclipse.mylyn.tasks.ui.view;
 
+import org.jboss.reddeer.common.condition.AbstractWaitCondition;
 import org.jboss.reddeer.common.logging.Logger;
-import org.jboss.reddeer.swt.api.TreeItem;
-import org.jboss.reddeer.core.condition.JobIsRunning;
-import org.jboss.reddeer.common.condition.WaitCondition;
-import org.jboss.reddeer.swt.impl.button.PushButton;
-import org.jboss.reddeer.swt.impl.menu.ContextMenu;
 import org.jboss.reddeer.common.wait.TimePeriod;
 import org.jboss.reddeer.common.wait.WaitUntil;
 import org.jboss.reddeer.common.wait.WaitWhile;
+import org.jboss.reddeer.core.condition.JobIsRunning;
+import org.jboss.reddeer.swt.api.TreeItem;
+import org.jboss.reddeer.swt.impl.button.PushButton;
+import org.jboss.reddeer.swt.impl.menu.ContextMenu;
 
 	/**
 	 * Represents a TaskRepository on {@link TaskRepositoriesView}. 
@@ -53,7 +53,7 @@ import org.jboss.reddeer.common.wait.WaitWhile;
 			return treeItem.getText();
 		}
 
-		private class TreeItemIsDisposed implements WaitCondition {
+		private class TreeItemIsDisposed extends AbstractWaitCondition {
 
 			private TreeItem treeItem;
 

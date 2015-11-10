@@ -2,21 +2,21 @@ package org.jboss.reddeer.eclipse.ui.console;
 
 import org.hamcrest.Matcher;
 import org.hamcrest.core.IsEqual;
-import org.jboss.reddeer.eclipse.condition.ConsoleHasLabel;
-import org.jboss.reddeer.eclipse.condition.ConsoleHasLaunch;
-import org.jboss.reddeer.eclipse.condition.ConsoleIsTerminated;
-import org.jboss.reddeer.common.condition.WaitCondition;
-import org.jboss.reddeer.swt.exception.SWTLayerException;
-import org.jboss.reddeer.swt.impl.label.DefaultLabel;
-import org.jboss.reddeer.swt.impl.menu.ToolItemMenu;
-import org.jboss.reddeer.swt.impl.styledtext.DefaultStyledText;
-import org.jboss.reddeer.swt.impl.toolbar.DefaultToolItem;
+import org.jboss.reddeer.common.condition.AbstractWaitCondition;
 import org.jboss.reddeer.common.wait.TimePeriod;
 import org.jboss.reddeer.common.wait.WaitUntil;
 import org.jboss.reddeer.common.wait.WaitWhile;
 import org.jboss.reddeer.core.condition.WidgetIsFound;
 import org.jboss.reddeer.core.exception.CoreLayerException;
 import org.jboss.reddeer.core.matcher.ClassMatcher;
+import org.jboss.reddeer.eclipse.condition.ConsoleHasLabel;
+import org.jboss.reddeer.eclipse.condition.ConsoleHasLaunch;
+import org.jboss.reddeer.eclipse.condition.ConsoleIsTerminated;
+import org.jboss.reddeer.swt.exception.SWTLayerException;
+import org.jboss.reddeer.swt.impl.label.DefaultLabel;
+import org.jboss.reddeer.swt.impl.menu.ToolItemMenu;
+import org.jboss.reddeer.swt.impl.styledtext.DefaultStyledText;
+import org.jboss.reddeer.swt.impl.toolbar.DefaultToolItem;
 import org.jboss.reddeer.workbench.impl.view.WorkbenchView;
 
 /**
@@ -160,7 +160,7 @@ public class ConsoleView extends WorkbenchView {
 	 * For this purpose use org.jboss.reddeer.eclipse.condition.ConsoleHasText
 	 *
 	 */
-	private class ConsoleHasText implements WaitCondition {
+	private class ConsoleHasText extends AbstractWaitCondition {
 		private String consoleText;
 
 		public ConsoleHasText(String consoleText) {

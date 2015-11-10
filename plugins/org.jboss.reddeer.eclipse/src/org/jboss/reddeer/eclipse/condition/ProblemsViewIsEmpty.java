@@ -1,7 +1,7 @@
 package org.jboss.reddeer.eclipse.condition;
 
+import org.jboss.reddeer.common.condition.AbstractWaitCondition;
 import org.jboss.reddeer.eclipse.ui.problems.ProblemsView;
-import org.jboss.reddeer.common.condition.WaitCondition;
 import org.jboss.reddeer.swt.impl.tree.DefaultTree;
 
 /**
@@ -11,7 +11,7 @@ import org.jboss.reddeer.swt.impl.tree.DefaultTree;
  * since 0.7
  *
  */
-public class ProblemsViewIsEmpty implements WaitCondition {
+public class ProblemsViewIsEmpty extends AbstractWaitCondition {
 
 	private ProblemsView problemsView;
 	

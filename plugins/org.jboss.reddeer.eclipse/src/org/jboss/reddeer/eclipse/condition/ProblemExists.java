@@ -1,9 +1,9 @@
 package org.jboss.reddeer.eclipse.condition;
 
+import org.jboss.reddeer.common.condition.AbstractWaitCondition;
 import org.jboss.reddeer.eclipse.ui.problems.ProblemsView;
 import org.jboss.reddeer.eclipse.ui.problems.ProblemsView.ProblemType;
 import org.jboss.reddeer.eclipse.ui.problems.matcher.AbstractProblemMatcher;
-import org.jboss.reddeer.common.condition.WaitCondition;
 
 /**
  * Wait condition for existence of a problem. Condition wait for existence of a specific problem or problem type. 
@@ -11,7 +11,7 @@ import org.jboss.reddeer.common.condition.WaitCondition;
  * @author mlabuda@redhat.com
  * @since 0.7
  */
-public class ProblemExists implements WaitCondition {
+public class ProblemExists extends AbstractWaitCondition {
 
 	private ProblemType problemType;
 	private AbstractProblemMatcher[] matchers;

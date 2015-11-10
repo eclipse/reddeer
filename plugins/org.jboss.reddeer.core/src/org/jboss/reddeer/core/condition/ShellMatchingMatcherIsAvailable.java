@@ -2,7 +2,7 @@ package org.jboss.reddeer.core.condition;
 
 import org.eclipse.swt.widgets.Shell;
 import org.hamcrest.Matcher;
-import org.jboss.reddeer.common.condition.WaitCondition;
+import org.jboss.reddeer.common.condition.AbstractWaitCondition;
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.core.lookup.ShellLookup;
 import org.jboss.reddeer.core.util.InstanceValidator;
@@ -13,7 +13,7 @@ import org.jboss.reddeer.core.util.InstanceValidator;
  * @author mlabuda@redhat.com
  *
  */
-public class ShellMatchingMatcherIsAvailable implements WaitCondition {
+public class ShellMatchingMatcherIsAvailable extends AbstractWaitCondition {
 
 	private Matcher<String> matcher;
 	private Logger logger = Logger.getLogger(ShellMatchingMatcherIsAvailable.class);

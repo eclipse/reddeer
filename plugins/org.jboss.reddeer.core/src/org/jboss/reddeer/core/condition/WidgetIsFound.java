@@ -5,7 +5,7 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Widget;
 import org.hamcrest.Matcher;
-import org.jboss.reddeer.common.condition.WaitCondition;
+import org.jboss.reddeer.common.condition.AbstractWaitCondition;
 import org.jboss.reddeer.common.platform.RunningPlatform;
 import org.jboss.reddeer.core.handler.WidgetHandler;
 import org.jboss.reddeer.core.lookup.WidgetLookup;
@@ -17,7 +17,7 @@ import org.jboss.reddeer.core.matcher.AndMatcher;
  * 
  * @param <T> widget class
  */
-public class WidgetIsFound <T extends Widget> implements WaitCondition {
+public class WidgetIsFound <T extends Widget> extends AbstractWaitCondition {
 
 	private Control parent;
 	private AndMatcher am;

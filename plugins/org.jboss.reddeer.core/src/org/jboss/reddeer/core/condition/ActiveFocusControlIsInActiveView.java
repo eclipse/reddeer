@@ -1,7 +1,7 @@
 package org.jboss.reddeer.core.condition;
 
 import org.eclipse.swt.widgets.Control;
-import org.jboss.reddeer.common.condition.WaitCondition;
+import org.jboss.reddeer.common.condition.AbstractWaitCondition;
 import org.jboss.reddeer.core.lookup.WidgetLookup;
 import org.jboss.reddeer.core.lookup.WorkbenchPartLookup;
 import org.jboss.reddeer.core.util.Display;
@@ -13,7 +13,7 @@ import org.jboss.reddeer.core.util.ResultRunnable;
  * @author Vlado Pakan
  *
  */
-public class ActiveFocusControlIsInActiveView implements WaitCondition {
+public class ActiveFocusControlIsInActiveView extends AbstractWaitCondition {
 	@Override
 	public boolean test() {
 		// get active workbench part control (active view)

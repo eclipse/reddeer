@@ -1,7 +1,7 @@
 package org.jboss.reddeer.eclipse.condition;
 
+import org.jboss.reddeer.common.condition.AbstractWaitCondition;
 import org.jboss.reddeer.eclipse.ui.console.ConsoleView;
-import org.jboss.reddeer.common.condition.WaitCondition;
 
 /**
  * Returns true if the console contains a given text
@@ -9,7 +9,7 @@ import org.jboss.reddeer.common.condition.WaitCondition;
  * @author apodhrad
  * 
  */
-public class ConsoleHasText implements WaitCondition {
+public class ConsoleHasText extends AbstractWaitCondition {
 
 	private String text;
 

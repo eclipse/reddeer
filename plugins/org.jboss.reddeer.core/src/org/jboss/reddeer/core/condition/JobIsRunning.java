@@ -3,7 +3,7 @@ package org.jboss.reddeer.core.condition;
 import org.eclipse.core.runtime.jobs.Job;
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.Matcher;
-import org.jboss.reddeer.common.condition.WaitCondition;
+import org.jboss.reddeer.common.condition.AbstractWaitCondition;
 import org.jboss.reddeer.common.logging.Logger;
 
 /**
@@ -13,12 +13,13 @@ import org.jboss.reddeer.common.logging.Logger;
  * @author Lucia Jelinkova
  */
 @SuppressWarnings("rawtypes")
-public class JobIsRunning implements WaitCondition {
+public class JobIsRunning extends AbstractWaitCondition {
 	private static final Logger log = Logger.getLogger(JobIsRunning.class);
 
 	private Matcher[] consideredJobs;
 	private Matcher[] excludeJobs;
 	private boolean skipSystemJobs;
+	private Job[] currentJobs;
 
 	/**
 	 * Constructs JobIsRunning wait condition. Condition is met when job is running.
@@ -84,8 +85,8 @@ public class JobIsRunning implements WaitCondition {
 	@SuppressWarnings("unchecked")
 	@Override
 	public boolean test() {
-
-		for (Job job: Job.getJobManager().find(null)) {
+		currentJobs = Job.getJobManager().find(null);
+		for (Job job: currentJobs) {
 			if (excludeJobs != null && CoreMatchers.anyOf(excludeJobs).matches(job.getName())) {
 				log.debug("  job '%s' specified by excludeJobs matchers, skipped", job.getName());
 				continue;
@@ -117,5 +118,23 @@ public class JobIsRunning implements WaitCondition {
 	@Override
 	public String description() {
 		return "at least one job is running";
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public String errorMessage() {
+		StringBuilder msg = new StringBuilder("The following jobs are still running\n");
+		for (Job job: currentJobs) {
+			if (excludeJobs != null && CoreMatchers.anyOf(excludeJobs).matches(job.getName()))
+				continue;
+			if (consideredJobs != null && !CoreMatchers.anyOf(consideredJobs).matches(job.getName()))
+				continue;
+			if (skipSystemJobs && job.isSystem()) 
+				continue;
+			if (job.getState() == Job.SLEEPING)
+				continue;
+			msg.append("\t").append(job.getName()).append("\n");
+		}
+		return msg.toString();
 	}
 }

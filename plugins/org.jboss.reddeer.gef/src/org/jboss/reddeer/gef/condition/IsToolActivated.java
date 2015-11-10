@@ -1,7 +1,7 @@
 package org.jboss.reddeer.gef.condition;
 
+import org.jboss.reddeer.common.condition.AbstractWaitCondition;
 import org.jboss.reddeer.gef.api.Palette;
-import org.jboss.reddeer.common.condition.WaitCondition;
 
 /**
  * Returns true if a given tool is active in the specified palette.
@@ -9,7 +9,7 @@ import org.jboss.reddeer.common.condition.WaitCondition;
  * @author Andrej Podhradsky (andrej.podhradsky@gmail.com)
  *
  */
-public class IsToolActivated implements WaitCondition {
+public class IsToolActivated extends AbstractWaitCondition {
 
 	private Palette palette;
 	private String tool;

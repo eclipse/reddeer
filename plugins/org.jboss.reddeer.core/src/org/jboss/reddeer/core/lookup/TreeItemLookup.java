@@ -6,7 +6,7 @@ import java.util.List;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
 import org.hamcrest.Matcher;
-import org.jboss.reddeer.common.condition.WaitCondition;
+import org.jboss.reddeer.common.condition.AbstractWaitCondition;
 import org.jboss.reddeer.common.wait.TimePeriod;
 import org.jboss.reddeer.common.wait.WaitUntil;
 import org.jboss.reddeer.core.exception.CoreLayerException;
@@ -157,7 +157,7 @@ public class TreeItemLookup {
 	 * @author jjankovi
 	 *
 	 */
-	class TreeHasChildren implements WaitCondition {
+	class TreeHasChildren extends AbstractWaitCondition {
 		private Tree tree;
 		public TreeHasChildren(Tree tree) {
 			super();
@@ -181,7 +181,7 @@ public class TreeItemLookup {
 	 * @author jjankovi
 	 *
 	 */
-	public class TreeItemHasChildren implements WaitCondition {
+	public class TreeItemHasChildren extends AbstractWaitCondition {
 		
 		private final TreeItem treeItem;
 		
