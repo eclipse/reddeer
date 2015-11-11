@@ -19,7 +19,7 @@ import org.junit.runner.RunWith;
 /**
  * Test for core manipulation with Eclipse preferences.
  * 
- * @author apodhrad
+ * @author Andrej Podhradsky
  * 
  */
 @CleanWorkspace
