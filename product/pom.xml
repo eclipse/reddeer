@@ -30,7 +30,7 @@
               <configuration>
 		<products>
 		  <product>
-		    <id>reddeer-080</id>
+		    <id>reddeer-100</id>
 		    <rootFolder>reddeer</rootFolder>
 		  </product>
 		</products>
@@ -47,7 +47,7 @@
 	<repositories>
 	  <repository>
 	    <id>tycho-connector</id>
-	    <url>http://repo1.maven.org/maven2/.m2e/connectors/m2eclipse-tycho/0.8.0/N/LATEST/</url>
+	    <url>http://repo1.maven.org/maven2/.m2e/connectors/m2eclipse-tycho/0.9.0/N/LATEST/</url>
 	    <layout>p2</layout>
 	    <snapshots>
 	      <enabled>true</enabled>
