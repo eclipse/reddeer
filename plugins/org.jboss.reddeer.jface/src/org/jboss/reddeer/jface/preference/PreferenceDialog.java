@@ -80,7 +80,7 @@ public abstract class PreferenceDialog {
 		TreeItem t = new DefaultTreeItem(path);
 		t.select();
 		
-		new WaitUntil(new CLabelWithTextIsAvailable(path[path.length-1]), TimePeriod.NORMAL, false);
+		new WaitUntil(new CLabelWithTextIsAvailable(path[path.length-1]), TimePeriod.SHORT, false);
 	}
 	
 	/**
