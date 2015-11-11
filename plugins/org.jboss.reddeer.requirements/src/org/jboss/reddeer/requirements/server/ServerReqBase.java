@@ -29,6 +29,8 @@ public abstract class ServerReqBase {
 	
 	private static final Logger LOGGER = Logger.getLogger(ServerReqBase.class);
 	
+	private ServersView serversView;
+	
 	protected void setupServerState(ServerReqState requiredState, ConfiguredServerInfo lastServerConfig) throws ConfiguredServerNotFoundException {
 		LOGGER.info("Checking the state of the server '"+lastServerConfig.getServerName()+"'");
 		
@@ -79,14 +81,13 @@ public abstract class ServerReqBase {
 	
 	protected org.jboss.reddeer.eclipse.wst.server.ui.view.Server getConfiguredServer(ConfiguredServerInfo lastServerConfig)
 			throws ConfiguredServerNotFoundException {
-		ServersView serversView = getServersView();
-		serversView.open();
+		getServersView().open();
 		if(lastServerConfig == null){
 			throw new ConfiguredServerNotFoundException("Server has already been removed");
 		} 
 		final String serverName = lastServerConfig.getServerName();
 		try {
-			return serversView.getServer(serverName);
+			return getServersView().getServer(serverName);
 		} catch(EclipseLayerException e) {
 			LOGGER.warn("Server \"" + serverName + "\" not found. It had been removed.");
 			throw new ConfiguredServerNotFoundException("Server \"" + serverName + "\" not found.", e);
@@ -135,6 +136,18 @@ public abstract class ServerReqBase {
 	}
 
 	protected ServersView getServersView() {
+		if (serversView == null){
+			serversView = createServersView();
+		}
+		return serversView;
+	}	
+	
+	/**
+	 * This method allows the subclasses to define own ServersView implementation and 
+	 * thus create own implementation of Server and modify start/stop behavior. 
+	 * @return
+	 */
+	protected ServersView createServersView() {
 		return new ServersView();
 	}	
 
