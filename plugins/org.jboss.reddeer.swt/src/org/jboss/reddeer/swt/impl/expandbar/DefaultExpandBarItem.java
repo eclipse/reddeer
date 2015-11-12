@@ -20,91 +20,96 @@ public class DefaultExpandBarItem extends AbstractExpandBarItem {
 	private static final Logger logger = Logger.getLogger(DefaultExpandBarItem.class);
 
 	/**
-	 * Default parameter-less constructor
+	 * Default parameter-less constructor.
 	 */
 	public DefaultExpandBarItem() {
 		this(0);
 	}
 	
 	/**
-	 * ExpandBarItem inside given composite
-	 * @param referencedComposite
+	 * ExpandBarItem inside given composite.
+	 *
+	 * @param referencedComposite the referenced composite
 	 */
 	public DefaultExpandBarItem(ReferencedComposite referencedComposite) {
 		this(referencedComposite, 0);
 	}
 
 	/**
-	 * Expand Bar item with specified text will be constructed
-	 * 
-	 * @param expandBarItemText
+	 * Expand Bar item with specified text will be constructed.
+	 *
+	 * @param expandBarItemText the expand bar item text
 	 */
 	public DefaultExpandBarItem(String expandBarItemText) {
 		this(0, expandBarItemText);
 	}
 	
 	/**
-	 * Expand Bar item with specified text inside given composite will be constructed
-	 * @param referencedComposite
-	 * @param expandBarItemText
+	 * Expand Bar item with specified text inside given composite will be constructed.
+	 *
+	 * @param referencedComposite the referenced composite
+	 * @param expandBarItemText the expand bar item text
 	 */
 	public DefaultExpandBarItem(ReferencedComposite referencedComposite, String expandBarItemText) {
 		this(referencedComposite, 0, expandBarItemText);
 	}
 
 	/**
-	 * Expand Bar item with specified Expand Bar index and text will be constructed
-	 * 
-	 * @param expandBarIndex
-	 * @param expandBarItemText
+	 * Expand Bar item with specified Expand Bar index and text will be constructed.
+	 *
+	 * @param expandBarIndex the expand bar index
+	 * @param expandBarItemText the expand bar item text
 	 */
 	public DefaultExpandBarItem(int expandBarIndex, String expandBarItemText) {
 		super(DefaultExpandBarItem.findExpandBarItem(expandBarIndex, expandBarItemText));
 	}
 	
 	/**
-	 * Expand Bar item with specified Expand Bar index and text inside given composite will be constructed
-	 * @param referencedComposite
-	 * @param expandBarIndex
-	 * @param expandBarItemText
+	 * Expand Bar item with specified Expand Bar index and text inside given composite will be constructed.
+	 *
+	 * @param referencedComposite the referenced composite
+	 * @param expandBarIndex the expand bar index
+	 * @param expandBarItemText the expand bar item text
 	 */
 	public DefaultExpandBarItem(ReferencedComposite referencedComposite, int expandBarIndex, String expandBarItemText) {
 		super(DefaultExpandBarItem.findExpandBarItem(referencedComposite, expandBarIndex, expandBarItemText));
 	}
 
 	/**
-	 * Expand Bar item with specified Expand Bar item index will be constructed
-	 * 
-	 * @param expandBarItemIndex
+	 * Expand Bar item with specified Expand Bar item index will be constructed.
+	 *
+	 * @param expandBarItemIndex the expand bar item index
 	 */
 	public DefaultExpandBarItem(int expandBarItemIndex) {
 		this(0, expandBarItemIndex);
 	}
 	
 	/**
-	 * Expand Bar item with specified Expand Bar item index inside given composite will be constructed
-	 * @param referencedComposite
-	 * @param expandBarItemIndex
+	 * Expand Bar item with specified Expand Bar item index inside given composite will be constructed.
+	 *
+	 * @param referencedComposite the referenced composite
+	 * @param expandBarItemIndex the expand bar item index
 	 */
 	public DefaultExpandBarItem(ReferencedComposite referencedComposite, int expandBarItemIndex) {
 		this(referencedComposite, 0, expandBarItemIndex);
 	}
 
 	/**
-	 * Expand Bar item with specified Expand Bar and Expand Bar item index will be constructed
-	 * 
-	 * @param expandBarIndex
-	 * @param expandBarItemIndex
+	 * Expand Bar item with specified Expand Bar and Expand Bar item index will be constructed.
+	 *
+	 * @param expandBarIndex the expand bar index
+	 * @param expandBarItemIndex the expand bar item index
 	 */
 	public DefaultExpandBarItem(int expandBarIndex, int expandBarItemIndex) {
 		super(DefaultExpandBarItem.findExpandBarItem(expandBarIndex, expandBarItemIndex));
 	}
 	
 	/**
-	 * Expand Bar item with specified Expand Bar and Expand Bar item index inside given composite will be constructed
-	 * @param referencedComposite
-	 * @param expandBarIndex
-	 * @param expandBarItemIndex
+	 * Expand Bar item with specified Expand Bar and Expand Bar item index inside given composite will be constructed.
+	 *
+	 * @param referencedComposite the referenced composite
+	 * @param expandBarIndex the expand bar index
+	 * @param expandBarItemIndex the expand bar item index
 	 */
 	public DefaultExpandBarItem(ReferencedComposite referencedComposite, int expandBarIndex, int expandBarItemIndex) {
 		super(DefaultExpandBarItem.findExpandBarItem(referencedComposite, expandBarIndex, expandBarItemIndex));

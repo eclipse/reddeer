@@ -21,12 +21,21 @@ public abstract class AbstractMenu implements Menu {
 	protected MenuItem menuItem = null;
 
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.swt.api.Menu#select()
+	 */
 	@Override
 	public abstract void select();
 	
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.swt.api.Menu#isSelected()
+	 */
 	@Override
 	public abstract boolean isSelected();
 	
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.swt.api.Menu#getText()
+	 */
 	@Override
 	public String getText() {
 		throw new UnsupportedOperationException("not yet implemented");

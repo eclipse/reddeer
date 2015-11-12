@@ -31,6 +31,9 @@ public class DefaultKeyboardLayout {
 
 	private static Map<Character, int[]> keyMap;
 
+	/**
+	 * Constructor of the class.
+	 */
 	public DefaultKeyboardLayout() {
 		ClassLoader classLoader = DefaultKeyboardLayout.class.getClassLoader();
 		InputStream in = classLoader.getResourceAsStream(toFolder(myPackage()
@@ -54,6 +57,11 @@ public class DefaultKeyboardLayout {
 		}
 	}
 
+	/**
+	 * Gets the single instance of DefaultKeyboardLayout.
+	 *
+	 * @return single instance of DefaultKeyboardLayout
+	 */
 	public static DefaultKeyboardLayout getInstance() {
 		if (instance == null) {
 			instance = new DefaultKeyboardLayout();
@@ -63,9 +71,9 @@ public class DefaultKeyboardLayout {
 	
 	/**
 	 * Returns desired combination for character as array of integers.
-	 * 
-	 * @param c
-	 * @return
+	 *
+	 * @param c the character
+	 * @return the key combination
 	 */
 
 	public int[] getKeyCombination(char c) {

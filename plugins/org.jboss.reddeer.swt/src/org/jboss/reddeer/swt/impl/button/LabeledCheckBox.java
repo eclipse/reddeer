@@ -14,8 +14,7 @@ public class LabeledCheckBox extends CheckBox {
 	/**
 	 * Finds a check box with a given label.
 	 * 
-	 * @param label
-	 *            label
+	 * @param label the label
 	 */
 	public LabeledCheckBox(String label) {
 		this(label, 0);
@@ -24,10 +23,8 @@ public class LabeledCheckBox extends CheckBox {
 	/**
 	 * Finds a check box with a given label at the specified index.
 	 * 
-	 * @param label
-	 *            label
-	 * @param index
-	 *            index
+	 * @param label the label
+	 * @param index the index
 	 */
 	public LabeledCheckBox(String label, int index) {
 		this(null, label, index);
@@ -36,10 +33,8 @@ public class LabeledCheckBox extends CheckBox {
 	/**
 	 * Finds a check box with a given label inside a given reference.
 	 * 
-	 * @param ref
-	 *            reference
-	 * @param label
-	 *            label
+	 * @param ref the reference
+	 * @param label the label
 	 */
 	public LabeledCheckBox(ReferencedComposite ref, String label) {
 		this(ref, label, 0);
@@ -48,12 +43,9 @@ public class LabeledCheckBox extends CheckBox {
 	/**
 	 * Finds a check box with a given label inside a given reference at the specified index.
 	 * 
-	 * @param ref
-	 *            reference
-	 * @param label
-	 *            label
-	 * @param index
-	 *            index
+	 * @param ref the reference
+	 * @param label the label
+	 * @param index the index
 	 */
 	public LabeledCheckBox(ReferencedComposite ref, String label, int index) {
 		super(ref, index, new WithLabelMatcher(label));

@@ -12,16 +12,16 @@ import org.eclipse.swt.SWT;
 public class HorizontalProgressBar extends DeterminateProgressBar {
 
 	/**
-	 * Instantiates horizontal progressbar with given index
-	 * @param index
+	 * Instantiates horizontal progressbar with given index.
+	 *
+	 * @param index the index
 	 */
-	
 	public HorizontalProgressBar(int index) {
 		super(index, SWT.HORIZONTAL);
 	}
 	
 	/**
-	 * Instantiates horizontal progressbar
+	 * Instantiates horizontal progressbar.
 	 */
 	public HorizontalProgressBar() {
 		super(0, SWT.HORIZONTAL);

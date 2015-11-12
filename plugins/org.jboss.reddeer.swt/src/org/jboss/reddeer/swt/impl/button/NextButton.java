@@ -11,7 +11,7 @@ public class NextButton extends PredefinedButton {
 
 	
 	/**
-	 * BackButton default constructor
+	 * BackButton default constructor.
 	 */
 	public NextButton() {		
 		super(null, 0, "Next >", SWT.PUSH);

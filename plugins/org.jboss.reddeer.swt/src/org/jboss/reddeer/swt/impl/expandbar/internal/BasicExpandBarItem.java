@@ -9,6 +9,11 @@ import org.jboss.reddeer.swt.impl.expandbar.AbstractExpandBarItem;
  */
 public class BasicExpandBarItem extends AbstractExpandBarItem {
 
+  /**
+   * Instantiates a new basic expand bar item.
+   *
+   * @param swtExpandBarItem the swt expand bar item
+   */
   public BasicExpandBarItem (ExpandItem swtExpandBarItem){
     super(swtExpandBarItem);
   }

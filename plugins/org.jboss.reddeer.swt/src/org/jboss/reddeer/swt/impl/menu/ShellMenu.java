@@ -40,13 +40,19 @@ public class ShellMenu extends AbstractMenu implements Menu {
 	/**
 	 * Uses WithMnemonicMatcher to match menu item label. It means that all ampersands
 	 * and shortcuts within menu item label are ignored when searching for menu
-	 * @param path
+	 *
+	 * @param path the path
 	 */
 	public ShellMenu(final String... path) {
 		this(new WithMnemonicTextMatchers(path).getMatchers());
 	}
 	
 	
+	/**
+	 * Instantiates a new shell menu.
+	 *
+	 * @param matchers the matchers
+	 */
 	@SuppressWarnings("unchecked")
 	public ShellMenu(final Matcher<String>... matchers) {
 		this.matchers = matchers;
@@ -56,6 +62,9 @@ public class ShellMenu extends AbstractMenu implements Menu {
 		}
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.swt.impl.menu.AbstractMenu#select()
+	 */
 	@Override
 	public void select() {
 		log.info("Select shell menu with text " + getText());
@@ -74,6 +83,9 @@ public class ShellMenu extends AbstractMenu implements Menu {
 		}
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.swt.impl.menu.AbstractMenu#isSelected()
+	 */
 	@Override
 	public boolean isSelected() {
 		if(menuItem != null){
@@ -114,6 +126,9 @@ public class ShellMenu extends AbstractMenu implements Menu {
 		});
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.swt.impl.menu.AbstractMenu#getText()
+	 */
 	@Override
 	public String getText() {
 		if (!isSubmenuOfMacEclipseMenu){
@@ -143,15 +158,24 @@ public class ShellMenu extends AbstractMenu implements Menu {
 		}
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.swt.api.Menu#getSWTWidget()
+	 */
 	public MenuItem getSWTWidget(){
 		return menuItem;
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.swt.widgets.Widget#isEnabled()
+	 */
 	@Override
 	public boolean isEnabled() {
 		return WidgetHandler.getInstance().isEnabled(menuItem);
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.swt.widgets.Widget#isDisposed()
+	 */
 	@Override
 	public boolean isDisposed() {
 		return WidgetHandler.getInstance().isDisposed(menuItem);

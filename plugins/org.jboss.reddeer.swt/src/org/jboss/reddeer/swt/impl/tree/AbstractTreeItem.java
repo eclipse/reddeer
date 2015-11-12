@@ -39,7 +39,7 @@ public abstract class AbstractTreeItem extends AbstractWidget<org.eclipse.swt.wi
 	}
 
 	/**
-	 * See {@link TreeItem}
+	 * See {@link TreeItem}.
 	 */
 	@Override
 	public void select() {
@@ -48,7 +48,9 @@ public abstract class AbstractTreeItem extends AbstractWidget<org.eclipse.swt.wi
 	}
 
 	/**
-	 * See {@link TreeItem}
+	 * See {@link TreeItem}.
+	 *
+	 * @return the text
 	 */
 	@Override
 	public String getText() {
@@ -56,7 +58,9 @@ public abstract class AbstractTreeItem extends AbstractWidget<org.eclipse.swt.wi
 	}
 
 	/**
-	 * See {@link TreeItem}
+	 * See {@link TreeItem}.
+	 *
+	 * @return the tool tip text
 	 */
 	@Override
 	public String getToolTipText() {
@@ -64,7 +68,10 @@ public abstract class AbstractTreeItem extends AbstractWidget<org.eclipse.swt.wi
 	}
 
 	/**
-	 * See {@link TreeItem}
+	 * See {@link TreeItem}.
+	 *
+	 * @param index the index
+	 * @return the cell
 	 */
 	@Override
 	public String getCell(final int index) {
@@ -72,7 +79,9 @@ public abstract class AbstractTreeItem extends AbstractWidget<org.eclipse.swt.wi
 	}
 
 	/**
-	 * See {@link TreeItem}
+	 * See {@link TreeItem}.
+	 *
+	 * @return the path
 	 */
 	@Override
 	public String[] getPath() {
@@ -80,7 +89,7 @@ public abstract class AbstractTreeItem extends AbstractWidget<org.eclipse.swt.wi
 	}
 
 	/**
-	 * See {@link TreeItem}
+	 * See {@link TreeItem}.
 	 */
 	@Override
 	public void expand() {
@@ -88,7 +97,9 @@ public abstract class AbstractTreeItem extends AbstractWidget<org.eclipse.swt.wi
 	}
 
 	/**
-	 * See {@link TreeItem}
+	 * See {@link TreeItem}.
+	 *
+	 * @param timePeriod the time period
 	 */
 	@Override
 	public void expand(TimePeriod timePeriod) {
@@ -98,7 +109,7 @@ public abstract class AbstractTreeItem extends AbstractWidget<org.eclipse.swt.wi
 	}
 
 	/**
-	 * See {@link TreeItem}
+	 * See {@link TreeItem}.
 	 */
 	@Override
 	public void collapse() {
@@ -107,16 +118,18 @@ public abstract class AbstractTreeItem extends AbstractWidget<org.eclipse.swt.wi
 	}
 
 	/**
-	 * Return direct descendant specified with parameters
-	 * 
-	 * @param text
-	 *            text of tree item which should be returned
+	 * Return direct descendant specified with parameters.
+	 *
+	 * @param text            text of tree item which should be returned
 	 * @return direct descendant specified with parameters
 	 */
 	public TreeItem getItem(final String text) {
 		return new BasicTreeItem(treeItemHandler.getItem(swtWidget, text));
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.swt.api.TreeItem#getItem(java.lang.String[])
+	 */
 	@Override
 	public TreeItem getItem(String... path) {
 		org.eclipse.swt.widgets.TreeItem swtItem = TreeItemLookup.getInstance().getTreeItem(getSWTWidget(), 0, createMatchers(path));
@@ -124,7 +137,7 @@ public abstract class AbstractTreeItem extends AbstractWidget<org.eclipse.swt.wi
 	}
 
 	/**
-	 * See {@link TreeItem}
+	 * See {@link TreeItem}.
 	 */
 	@Override
 	public void doubleClick() {
@@ -148,7 +161,9 @@ public abstract class AbstractTreeItem extends AbstractWidget<org.eclipse.swt.wi
 	}
 
 	/**
-	 * See {@link TreeItem}
+	 * See {@link TreeItem}.
+	 *
+	 * @return true, if is selected
 	 */
 	@Override
 	public boolean isSelected() {
@@ -156,7 +171,9 @@ public abstract class AbstractTreeItem extends AbstractWidget<org.eclipse.swt.wi
 	}
 
 	/**
-	 * See {@link TreeItem}
+	 * See {@link TreeItem}.
+	 *
+	 * @param check the new checked
 	 */
 	@Override
 	public void setChecked(final boolean check) {
@@ -165,7 +182,9 @@ public abstract class AbstractTreeItem extends AbstractWidget<org.eclipse.swt.wi
 	}
 
 	/**
-	 * See {@link TreeItem}
+	 * See {@link TreeItem}.
+	 *
+	 * @return true, if is checked
 	 */
 	@Override
 	public boolean isChecked() {
@@ -173,16 +192,18 @@ public abstract class AbstractTreeItem extends AbstractWidget<org.eclipse.swt.wi
 	}
 
 	/**
-	 * Return swt widget of Tree Item
+	 * Return swt widget of Tree Item.
+	 *
+	 * @return the SWT widget
 	 */
 	public org.eclipse.swt.widgets.TreeItem getSWTWidget() {
 		return swtWidget;
 	}
 
 	/**
-	 * Returns children tree items
-	 * 
-	 * @return
+	 * Returns children tree items.
+	 *
+	 * @return the items
 	 */
 	@Override
 	public List<TreeItem> getItems() {
@@ -196,7 +217,9 @@ public abstract class AbstractTreeItem extends AbstractWidget<org.eclipse.swt.wi
 	}
 
 	/**
-	 * See {@link TreeItem}
+	 * See {@link TreeItem}.
+	 *
+	 * @return the parent
 	 */
 	@Override
 	public Tree getParent() {
@@ -204,7 +227,9 @@ public abstract class AbstractTreeItem extends AbstractWidget<org.eclipse.swt.wi
 	}
 
 	/**
-	 * See {@link TreeItem}
+	 * See {@link TreeItem}.
+	 *
+	 * @return true, if is expanded
 	 */
 	@Override
 	public boolean isExpanded() {
@@ -212,7 +237,9 @@ public abstract class AbstractTreeItem extends AbstractWidget<org.eclipse.swt.wi
 	}
 
 	/**
-	 * See {@link TreeItem}
+	 * See {@link TreeItem}.
+	 *
+	 * @param minItemsCount the min items count
 	 */
 	@Override
 	public void expand(int minItemsCount) {
@@ -220,7 +247,10 @@ public abstract class AbstractTreeItem extends AbstractWidget<org.eclipse.swt.wi
 	}
 
 	/**
-	 * See {@link TreeItem}
+	 * See {@link TreeItem}.
+	 *
+	 * @param minItemsCount the min items count
+	 * @param timePeriod the time period
 	 */
 	@Override
 	public void expand(int minItemsCount, TimePeriod timePeriod) {
@@ -231,6 +261,9 @@ public abstract class AbstractTreeItem extends AbstractWidget<org.eclipse.swt.wi
 				timePeriod);
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	@Override
 	public String toString() {
 		StringBuffer result = new StringBuffer("TreeItem: ");
@@ -247,12 +280,18 @@ public abstract class AbstractTreeItem extends AbstractWidget<org.eclipse.swt.wi
 		return result.toString();
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.swt.api.TreeItem#setText(java.lang.String, int)
+	 */
 	@Override
 	public void setText(String text, int index) {
 		logger.info("Set text to tree item at index " + index + ": " + text);
 		TreeItemHandler.getInstance().setText(swtWidget, index, text);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.swt.api.TreeItem#setText(java.lang.String)
+	 */
 	@Override
 	public void setText(String text) {
 		logger.info("Set text to tree item: " + text);

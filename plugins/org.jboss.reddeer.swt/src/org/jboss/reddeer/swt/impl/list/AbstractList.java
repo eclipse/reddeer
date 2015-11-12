@@ -22,43 +22,73 @@ public abstract class AbstractList extends AbstractWidget<org.eclipse.swt.widget
 		super(org.eclipse.swt.widgets.List.class, refComposite, index, matchers);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.swt.api.List#select(java.lang.String)
+	 */
 	public void select(String listItem) {
 		ListHandler.getInstance().select(swtWidget,listItem);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.swt.api.List#select(int)
+	 */
 	public void select(int listItemIndex) {
 		ListHandler.getInstance().select(swtWidget,listItemIndex);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.swt.api.List#getListItems()
+	 */
 	public String[] getListItems() {
 		return ListHandler.getInstance().getItems(swtWidget);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.swt.api.List#deselectAll()
+	 */
 	public void deselectAll() {
 		ListHandler.getInstance().deselectAll(swtWidget);
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.swt.api.List#selectAll()
+	 */
 	public void selectAll() {
 		ListHandler.getInstance().selectAll(swtWidget);
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.swt.api.List#getSelectedItems()
+	 */
 	public String[] getSelectedItems() {
 		return ListHandler.getInstance().getSelectedItems(swtWidget);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.swt.api.List#getSelectionIndex()
+	 */
 	public int getSelectionIndex() {
 		return ListHandler.getInstance().getSelectionIndex(swtWidget);
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.swt.api.List#getSelectionIndices()
+	 */
 	public int[] getSelectionIndices() {
 		return ListHandler.getInstance().getSelectionIndices(swtWidget);
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.swt.api.List#select(java.lang.String[])
+	 */
 	public void select(String... listItems) {
 		logger.info("Select list items (" + LoggingUtils.format(listItems) + ")");
 		ListHandler.getInstance().select(swtWidget,listItems);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.swt.api.List#select(int[])
+	 */
 	public void select(int... indices) {
 		logger.info("Select list items with indices (" + LoggingUtils.format(indices) + ")");
 		ListHandler.getInstance().select(swtWidget,indices);

@@ -22,40 +22,61 @@ public abstract class AbstractText extends AbstractWidget<org.eclipse.swt.widget
 		super(org.eclipse.swt.widgets.Text.class, refComposite, index, matchers);
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.swt.api.Text#setText(java.lang.String)
+	 */
 	@Override
 	public void setText(String str) {
 		log.info("Text set to: " + str);
 		TextHandler.getInstance().setText(swtWidget, str);
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.swt.api.Text#getText()
+	 */
 	@Override
 	public String getText() {
 		String text = WidgetHandler.getInstance().getText(swtWidget);
 		return text;
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.swt.api.Text#getMessage()
+	 */
 	@Override
 	public String getMessage() {
 		return TextHandler.getInstance().getMessage(swtWidget);
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.swt.api.Text#getToolTipText()
+	 */
 	@Override
 	public String getToolTipText() {
 		String tooltipText = WidgetHandler.getInstance().getToolTipText(swtWidget);
 		return tooltipText;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.swt.api.Text#setFocus()
+	 */
 	@Override
 	public void setFocus() {
 		log.debug("Set focus to Text");
 		WidgetHandler.getInstance().setFocus(swtWidget);
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.swt.widgets.AbstractWidget#isEnabled()
+	 */
 	@Override
 	public boolean isEnabled() {
 		return WidgetHandler.getInstance().isEnabled(swtWidget);
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.swt.api.Text#typeText(java.lang.String)
+	 */
 	@Override
 	public void typeText(String text) {
 		log.info("Type text " + text);
@@ -65,6 +86,9 @@ public abstract class AbstractText extends AbstractWidget<org.eclipse.swt.widget
 		
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.swt.api.Text#isReadOnly()
+	 */
 	@Override
 	public boolean isReadOnly(){
 		return TextHandler.getInstance().isReadOnly(swtWidget);

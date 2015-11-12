@@ -20,6 +20,9 @@ public class AbstractTabFolder extends AbstractWidget<org.eclipse.swt.widgets.Ta
 		super(org.eclipse.swt.widgets.TabFolder.class, refComposite, index, matchers);
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.swt.api.TabFolder#getTabItemLabels()
+	 */
 	@Override
 	public String[] getTabItemLabels() {
 		TabItem[] tabItem = TabFolderHandler.getInstance().getTabItems(swtWidget);

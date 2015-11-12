@@ -4,6 +4,7 @@ import org.hamcrest.Matcher;
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.core.lookup.ShellLookup;
+
 /**
  * Default shell returns active shell if available if not it returns first
  * available shell
@@ -13,6 +14,12 @@ import org.jboss.reddeer.core.lookup.ShellLookup;
  */
 public class DefaultShell extends AbstractShell {
 	private static final Logger log = Logger.getLogger(DefaultShell.class);
+	
+	/**
+	 * Instantiates a new default shell.
+	 *
+	 * @param title the title
+	 */
 	public DefaultShell(String title) {
 		super(ShellLookup.getInstance().getShell(title));
 		try {
@@ -40,6 +47,9 @@ public class DefaultShell extends AbstractShell {
 		}
 	}
 	
+	/**
+	 * Instantiates a new default shell.
+	 */
 	public DefaultShell() {
 		super(ShellLookup.getInstance().getActiveShell());
 		try {

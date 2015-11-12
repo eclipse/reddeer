@@ -30,7 +30,7 @@ public abstract class AbstractTabItem extends AbstractWidget<org.eclipse.swt.wid
 	}
 	
 	/**
-	 * See {@link TabItem}
+	 * See {@link TabItem}.
 	 */
 	@Override
 	public void activate() {
@@ -42,7 +42,9 @@ public abstract class AbstractTabItem extends AbstractWidget<org.eclipse.swt.wid
 	}
 	
 	/**
-	 * See {@link TabItem}
+	 * See {@link TabItem}.
+	 *
+	 * @return the text
 	 */
 	@Override
 	public String getText() {

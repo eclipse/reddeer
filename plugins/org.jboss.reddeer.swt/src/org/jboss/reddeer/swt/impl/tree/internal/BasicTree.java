@@ -9,6 +9,11 @@ import org.jboss.reddeer.swt.impl.tree.AbstractTree;
  */
 public class BasicTree extends AbstractTree{
 
+  /**
+   * Instantiates a new basic tree.
+   *
+   * @param swtTree the swt tree
+   */
   public BasicTree (Tree swtTree){
     super(swtTree);
   }

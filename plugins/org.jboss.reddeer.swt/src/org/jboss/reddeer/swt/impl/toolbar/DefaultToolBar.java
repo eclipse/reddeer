@@ -12,6 +12,9 @@ import org.jboss.reddeer.core.reference.ReferencedComposite;
  */
 public class DefaultToolBar extends AbstractToolBar {
 
+	/**
+	 * Instantiates a new default tool bar.
+	 */
 	public DefaultToolBar() {
 		this(0);
 	}

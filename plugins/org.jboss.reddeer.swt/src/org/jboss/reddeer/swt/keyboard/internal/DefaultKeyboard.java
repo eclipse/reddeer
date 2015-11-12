@@ -13,6 +13,10 @@ import org.jboss.reddeer.swt.keyboard.Keyboard;
 
 public class DefaultKeyboard extends Keyboard {
 	private static final Logger log = Logger.getLogger(DefaultKeyboard.class);
+	
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.swt.keyboard.Keyboard#writeToClipboard(boolean)
+	 */
 	public void writeToClipboard(boolean cut) {
 
 		log.info("Write to clipboard");
@@ -25,6 +29,9 @@ public class DefaultKeyboard extends Keyboard {
 		release(SWT.CONTROL);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.swt.keyboard.Keyboard#pasteFromClipboard()
+	 */
 	public void pasteFromClipboard() {
 		log.info("Paste from clipboard");
 		press(SWT.CONTROL);

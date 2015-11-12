@@ -35,17 +35,28 @@ public abstract class AbstractShell implements Shell {
 		}
 	}
 
+	/**
+	 * Gets the control.
+	 *
+	 * @return the control
+	 */
 	@Override
 	public Control getControl() {
 		return swtShell;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.swt.api.Shell#getText()
+	 */
 	@Override
 	public String getText() {
 		String text = WidgetHandler.getInstance().getText(swtShell);
 		return text;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.swt.api.Shell#setFocus()
+	 */
 	@Override
 	public void setFocus() {
 		log.debug("Set focus to Shell " + getText());
@@ -53,16 +64,25 @@ public abstract class AbstractShell implements Shell {
 		new WaitUntil(new ShellIsActive(this));
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.swt.api.Shell#isVisible()
+	 */
 	@Override
 	public boolean isVisible(){
 		return ShellHandler.getInstance().isVisible(swtShell);
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.swt.api.Shell#isFocused()
+	 */
 	@Override
 	public boolean isFocused() {
 		return ShellHandler.getInstance().isFocused(swtShell);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.swt.api.Shell#close()
+	 */
 	@Override
 	public void close() {
 		String text = getText();
@@ -76,15 +96,24 @@ public abstract class AbstractShell implements Shell {
 		new WaitWhile(new ShellWithTextIsAvailable(text));
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.swt.api.Shell#getSWTWidget()
+	 */
 	public org.eclipse.swt.widgets.Shell getSWTWidget() {
 		return swtShell;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.swt.widgets.Widget#isEnabled()
+	 */
 	@Override
 	public boolean isEnabled() {
 		return WidgetHandler.getInstance().isEnabled(swtShell);
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.swt.widgets.Widget#isDisposed()
+	 */
 	@Override
 	public boolean isDisposed() {
 		return WidgetHandler.getInstance().isDisposed(swtShell);

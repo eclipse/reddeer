@@ -27,15 +27,17 @@ public class ContextMenu extends AbstractMenu implements Menu {
 	 * Context menu given by String path
 	 * Uses WithMnemonicMatcher to match menu item label. It means that all ampersands
 	 * and shortcuts within menu item label are ignored when searching for menu
-	 * @param path
+	 *
+	 * @param path the path
 	 */
 	public ContextMenu(String... path) {
 		this(new WithMnemonicTextMatchers(path).getMatchers());		
 	}
 	
 	/**
-	 * Context menu given by matchers
-	 * @param matchers
+	 * Context menu given by matchers.
+	 *
+	 * @param matchers the matchers
 	 */
 	@SuppressWarnings("unchecked")
 	public ContextMenu(Matcher<String>... matchers) {
@@ -52,6 +54,9 @@ public class ContextMenu extends AbstractMenu implements Menu {
 		
 	}	
 	
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.swt.impl.menu.AbstractMenu#select()
+	 */
 	@Override
 	public void select() {
 		log.info("Select context menu item with text " + getText());
@@ -62,6 +67,9 @@ public class ContextMenu extends AbstractMenu implements Menu {
 		}
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.swt.impl.menu.AbstractMenu#isSelected()
+	 */
 	@Override
 	public boolean isSelected() {
 		if(menuItem != null){
@@ -72,6 +80,9 @@ public class ContextMenu extends AbstractMenu implements Menu {
 	}
 	
 	
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.swt.impl.menu.AbstractMenu#getText()
+	 */
 	@Override
 	public String getText() {
 		if(actionItem != null){
@@ -82,11 +93,17 @@ public class ContextMenu extends AbstractMenu implements Menu {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.swt.api.Menu#getSWTWidget()
+	 */
 	@Override
 	public MenuItem getSWTWidget() {
 		return menuItem;
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.swt.widgets.Widget#isEnabled()
+	 */
 	@Override
 	public boolean isEnabled() {
 		if(menuItem != null){
@@ -95,6 +112,9 @@ public class ContextMenu extends AbstractMenu implements Menu {
 		return ActionContributionItemHandler.getInstance().isEnabled(actionItem);
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.swt.widgets.Widget#isDisposed()
+	 */
 	@Override
 	public boolean isDisposed() {
 		if(menuItem != null){

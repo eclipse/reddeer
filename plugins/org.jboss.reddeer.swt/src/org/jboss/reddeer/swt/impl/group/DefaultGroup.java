@@ -17,22 +17,24 @@ import org.jboss.reddeer.swt.widgets.AbstractWidget;
 public class DefaultGroup extends AbstractWidget<Group> implements org.jboss.reddeer.swt.api.Group {
 
 	/**
-	 * Default group constructor
+	 * Default group constructor.
 	 */
 	public DefaultGroup(){
 		this(null, 0);		
 	}
 
 	/**
-	 * Group inside given composite
-	 * @param referencedComposite
+	 * Group inside given composite.
+	 *
+	 * @param referencedComposite the referenced composite
 	 */
 	public DefaultGroup(ReferencedComposite referencedComposite){
 		this(referencedComposite, 0);
 	}
 
 	/**
-	 * Group with given text
+	 * Group with given text.
+	 *
 	 * @param text group text
 	 */
 	public DefaultGroup(String text){
@@ -40,8 +42,9 @@ public class DefaultGroup extends AbstractWidget<Group> implements org.jboss.red
 	}
 
 	/**
-	 * Group with given text inside given composite
-	 * @param referencedComposite
+	 * Group with given text inside given composite.
+	 *
+	 * @param referencedComposite the referenced composite
 	 * @param text group text
 	 */
 	public DefaultGroup(ReferencedComposite referencedComposite, String text){
@@ -49,46 +52,58 @@ public class DefaultGroup extends AbstractWidget<Group> implements org.jboss.red
 	}
 
 	/**
-	 * Group that matches given matchers
-	 * @param matchers
+	 * Group that matches given matchers.
+	 *
+	 * @param matchers the matchers
 	 */
 	public DefaultGroup(Matcher<?>... matchers) {
 		this(null, matchers);
 	}
 
 	/**
-	 * Group that matches given matchers
-	 * @param referencedComposite
-	 * @param matchers
+	 * Group that matches given matchers.
+	 *
+	 * @param referencedComposite the referenced composite
+	 * @param matchers the matchers
 	 */
 	public DefaultGroup(ReferencedComposite referencedComposite, Matcher<?>... matchers) {
 		this(referencedComposite, 0, matchers);
 	}
 
 	/**
-	 * Group with given index that matches given matchers
+	 * Group with given index that matches given matchers.
+	 *
 	 * @param index group index
-	 * @param matchers
+	 * @param matchers the matchers
 	 */
 	public DefaultGroup(int index, Matcher<?>... matchers){
 		this(null, index);
 	}
 
 	/**
-	 * Group with given index inside given composite that matches given matchers
-	 * @param referencedComposite
-	 * @param index group index 
-	 * @param matchers
+	 * Group with given index inside given composite that matches given matchers.
+	 *
+	 * @param referencedComposite the referenced composite
+	 * @param index group index
+	 * @param matchers the matchers
 	 */
 	public DefaultGroup(ReferencedComposite referencedComposite, int index, Matcher<?>... matchers){
 		super(Group.class, referencedComposite, index, matchers);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.swt.api.Group#getText()
+	 */
 	@Override
 	public String getText() {
 		return WidgetHandler.getInstance().getText(swtWidget);
 	}
 
+	/**
+	 * Gets the control.
+	 *
+	 * @return the control
+	 */
 	@Override
 	public Control getControl() {
 		return swtWidget;

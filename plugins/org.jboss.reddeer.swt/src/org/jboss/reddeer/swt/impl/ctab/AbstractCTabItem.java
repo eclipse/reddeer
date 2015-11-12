@@ -34,7 +34,7 @@ public abstract class AbstractCTabItem extends AbstractWidget<org.eclipse.swt.cu
 	}
 	
 	/**
-	 * See {@link CTabItem}
+	 * See {@link CTabItem}.
 	 */
 	@Override
 	public void activate() {
@@ -43,7 +43,9 @@ public abstract class AbstractCTabItem extends AbstractWidget<org.eclipse.swt.cu
 	}
 
 	/**
-	 * See {@link CTabItem}
+	 * See {@link CTabItem}.
+	 *
+	 * @return the text
 	 */
 	@Override
 	public String getText() {
@@ -51,7 +53,9 @@ public abstract class AbstractCTabItem extends AbstractWidget<org.eclipse.swt.cu
 	}
 
 	/**
-	 * See {@link CTabItem}
+	 * See {@link CTabItem}.
+	 *
+	 * @return the tool tip text
 	 */
 	@Override
 	public String getToolTipText() {
@@ -59,7 +63,7 @@ public abstract class AbstractCTabItem extends AbstractWidget<org.eclipse.swt.cu
 	}
 
 	/**
-	 * See {@link CTabItem}
+	 * See {@link CTabItem}.
 	 */
 	@Override
 	public void close() {
@@ -74,23 +78,34 @@ public abstract class AbstractCTabItem extends AbstractWidget<org.eclipse.swt.cu
 	}
 
 	/**
-	 * See {@link CTabItem}
+	 * See {@link CTabItem}.
+	 *
+	 * @return true, if is show close
 	 */
 	@Override
 	public boolean isShowClose() {
 		return cTabItemHandler.isShowClose(swtWidget);
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.swt.api.CTabItem#isShowing()
+	 */
 	@Override
 	public boolean isShowing() {
 		return cTabItemHandler.isShowing(swtWidget);
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.swt.api.CTabItem#getFolder()
+	 */
 	@Override
 	public CTabFolder getFolder() {
 		return new DefaultCTabFolder(swtParent);
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -100,6 +115,9 @@ public abstract class AbstractCTabItem extends AbstractWidget<org.eclipse.swt.cu
 		return result;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

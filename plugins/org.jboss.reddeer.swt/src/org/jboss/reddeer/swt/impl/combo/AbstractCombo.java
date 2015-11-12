@@ -29,7 +29,9 @@ public abstract class AbstractCombo extends AbstractWidget<org.eclipse.swt.widge
 	}
 	
 	/**
-	 * See {@link Combo}
+	 * See {@link Combo}.
+	 *
+	 * @param str the new text
 	 */
 	@Override
 	public void setText(String str) {
@@ -38,7 +40,9 @@ public abstract class AbstractCombo extends AbstractWidget<org.eclipse.swt.widge
 	}
 
 	/**
-	 * See {@link Combo}
+	 * See {@link Combo}.
+	 *
+	 * @param index the new selection
 	 */
 	@Override
 	public void setSelection(int index) {
@@ -49,7 +53,9 @@ public abstract class AbstractCombo extends AbstractWidget<org.eclipse.swt.widge
 	}
 
 	/**
-	 * See {@link Combo}
+	 * See {@link Combo}.
+	 *
+	 * @param selection the new selection
 	 */
 	@Override
 	public void setSelection(String selection) {
@@ -60,7 +66,9 @@ public abstract class AbstractCombo extends AbstractWidget<org.eclipse.swt.widge
 	}
 
 	/**
-	 * See {@link Combo}
+	 * See {@link Combo}.
+	 *
+	 * @return the selection
 	 */
 	@Override
 	public String getSelection() {
@@ -68,7 +76,9 @@ public abstract class AbstractCombo extends AbstractWidget<org.eclipse.swt.widge
 	}
 
 	/**
-	 * See {@link Combo}
+	 * See {@link Combo}.
+	 *
+	 * @return the selection index
 	 */
 	@Override
 	public int getSelectionIndex() {
@@ -76,7 +86,9 @@ public abstract class AbstractCombo extends AbstractWidget<org.eclipse.swt.widge
 	}
 
 	/**
-	 * See {@link Combo}
+	 * See {@link Combo}.
+	 *
+	 * @return the text
 	 */
 	@Override
 	public String getText() {
@@ -94,8 +106,8 @@ public abstract class AbstractCombo extends AbstractWidget<org.eclipse.swt.widge
 	/**
 	 * Creates event for CTabItem with specified type
 	 * 
-	 * @param type
-	 * @return
+	 * @param type the type
+	 * @return event
 	 */
 	private Event createEventForCombo(int type) {
 		Event event = new Event();
@@ -105,11 +117,12 @@ public abstract class AbstractCombo extends AbstractWidget<org.eclipse.swt.widge
 		event.widget = swtWidget;
 		return event;
 	}
+
 	/**
 	 * Notifies Combo listeners about event event.type field has to be
 	 * properly set
 	 * 
-	 * @param event
+	 * @param event the event
 	 */
 	private void notifyCombo(final Event event) {
 		Display.syncExec(new Runnable() {

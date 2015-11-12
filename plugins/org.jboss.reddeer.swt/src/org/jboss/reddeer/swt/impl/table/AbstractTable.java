@@ -37,6 +37,9 @@ public abstract class AbstractTable extends AbstractWidget<org.eclipse.swt.widge
 		super(org.eclipse.swt.widgets.Table.class, refComposite, index, matchers);
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.swt.api.Table#containsItem(java.lang.String)
+	 */
 	@Override
 	public boolean containsItem(String item){
 		for(TableItem it: getItems()){
@@ -47,6 +50,9 @@ public abstract class AbstractTable extends AbstractWidget<org.eclipse.swt.widge
 		return false;
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.swt.api.Table#containsItem(java.lang.String, int)
+	 */
 	@Override
 	public boolean containsItem(String item, int cellIndex){
 		for(TableItem it: getItems()){
@@ -57,6 +63,9 @@ public abstract class AbstractTable extends AbstractWidget<org.eclipse.swt.widge
 		return false;
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.swt.api.Table#getItems()
+	 */
 	@Override
 	public List<TableItem> getItems(){
 		waitUntilTableHasRows();
@@ -68,6 +77,9 @@ public abstract class AbstractTable extends AbstractWidget<org.eclipse.swt.widge
 		return tableItems;
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.swt.api.Table#getItems(org.hamcrest.Matcher)
+	 */
 	@Override
 	public List<TableItem> getItems(Matcher<TableItem> matcher) {
 		List<TableItem> matchedItems = new ArrayList<TableItem>();
@@ -80,6 +92,9 @@ public abstract class AbstractTable extends AbstractWidget<org.eclipse.swt.widge
 		return matchedItems;
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.swt.api.Table#getItem(int)
+	 */
 	@Override
 	public TableItem getItem(final int index) {
 		waitUntilTableHasRows();
@@ -87,6 +102,9 @@ public abstract class AbstractTable extends AbstractWidget<org.eclipse.swt.widge
 		return new BasicTableItem(tItem);
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.swt.api.Table#getItem(java.lang.String)
+	 */
 	@Override
 	public TableItem getItem(final String itemText) {
 		waitUntilTableHasRows();
@@ -95,6 +113,9 @@ public abstract class AbstractTable extends AbstractWidget<org.eclipse.swt.widge
 		return new BasicTableItem(tItem);
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.swt.api.Table#getItem(java.lang.String, int)
+	 */
 	@Override
 	public TableItem getItem(final String itemText, int column) {
 		waitUntilTableHasRows();
@@ -103,11 +124,17 @@ public abstract class AbstractTable extends AbstractWidget<org.eclipse.swt.widge
 		return new BasicTableItem(tItem);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.swt.api.Table#rowCount()
+	 */
 	@Override
 	public int rowCount() {
 		return TableHandler.getInstance().rowCount(swtWidget);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.swt.api.Table#select(int[])
+	 */
 	@Override
 	public void select(final int... indexes) {
 		log.info("Select table rows with indexes (" + LoggingUtils.format(indexes) + ")");
@@ -120,6 +147,9 @@ public abstract class AbstractTable extends AbstractWidget<org.eclipse.swt.widge
 		
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.swt.api.Table#select(java.lang.String[])
+	 */
 	@Override
 	public void select(String... items) {
 		log.info("Select table rows (" + LoggingUtils.format(items) + ")");
@@ -131,6 +161,9 @@ public abstract class AbstractTable extends AbstractWidget<org.eclipse.swt.widge
 		select(indicies);
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.swt.api.Table#selectAll()
+	 */
 	@Override
 	public void selectAll(){
 		log.info("Select all table rows");
@@ -138,6 +171,9 @@ public abstract class AbstractTable extends AbstractWidget<org.eclipse.swt.widge
 		TableHandler.getInstance().selectAll(swtWidget);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.swt.api.Table#deselectAll()
+	 */
 	@Override
 	public void deselectAll() {
 		log.info("Deselect all table rows");
@@ -149,21 +185,35 @@ public abstract class AbstractTable extends AbstractWidget<org.eclipse.swt.widge
 		new WaitUntil(new TableHasRows(this), TimePeriod.NORMAL, false);
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.swt.api.Table#indexOf(org.jboss.reddeer.swt.api.TableItem)
+	 */
 	@Override
 	public int indexOf(TableItem tableItem) {
 		return TableHandler.getInstance().indexOf(swtWidget, tableItem.getSWTWidget());
 	}
 	
+	/**
+	 * Gets the control.
+	 *
+	 * @return the control
+	 */
 	@Override
 	public Control getControl() {
 		return swtWidget;
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.swt.api.Table#getHeaders()
+	 */
 	@Override
 	public List<String> getHeaders() {
 		return TableHandler.getInstance().getHeaders(swtWidget);
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.swt.api.Table#getHeaderIndex(java.lang.String)
+	 */
 	@Override
 	public int getHeaderIndex(String header) {
 		List<String> headers = getHeaders();
@@ -177,6 +227,9 @@ public abstract class AbstractTable extends AbstractWidget<org.eclipse.swt.widge
 				" in table.");
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.swt.api.Table#getHeader(int)
+	 */
 	@Override
 	public String getHeader(int index) {
 		List<String> headers = getHeaders();
@@ -191,6 +244,10 @@ public abstract class AbstractTable extends AbstractWidget<org.eclipse.swt.widge
 		}
 		return headers.get(index);
 	}
+	
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.swt.api.Table#getSelectetItems()
+	 */
 	@Override
 	public List<TableItem> getSelectetItems(){
 		LinkedList<TableItem> result = new LinkedList<TableItem>();

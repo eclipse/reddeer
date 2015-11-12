@@ -14,8 +14,6 @@ public class ViewToolBar extends AbstractToolBar {
 	/**
 	 * Constructor for ToolBar of currently active View. If no view is active,
 	 * {@link SWTLayerException} is thrown
-	 * 
-	 * @throws {@link SWTLayerException}
 	 */
 	public ViewToolBar() {
 		super(ToolBarLookup.getInstance().getViewToolBar());
