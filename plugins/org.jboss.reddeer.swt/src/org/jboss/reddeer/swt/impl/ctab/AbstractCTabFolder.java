@@ -22,6 +22,9 @@ public class AbstractCTabFolder extends AbstractWidget<org.eclipse.swt.custom.CT
 		super(swtWidget);
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.swt.api.CTabFolder#getSelection()
+	 */
 	@Override
 	public CTabItem getSelection() {
 		return new DefaultCTabItem(swtWidget.getSelection());

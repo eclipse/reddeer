@@ -28,12 +28,18 @@ public abstract class AbstractTree extends AbstractWidget<org.eclipse.swt.widget
 		super(tree);
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.swt.api.Tree#getAllItems()
+	 */
 	public List<TreeItem> getAllItems() {
 		List<TreeItem> list = new LinkedList<TreeItem>();
 		list.addAll(getAllItemsRecursive(getItems()));
 		return list;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.swt.api.Tree#getItems()
+	 */
 	public List<TreeItem> getItems() {
 		LinkedList<TreeItem> items = new LinkedList<TreeItem>();
 		List<org.eclipse.swt.widgets.TreeItem> eclipseItems = treeHandler.getSWTItems(swtWidget);
@@ -43,6 +49,9 @@ public abstract class AbstractTree extends AbstractWidget<org.eclipse.swt.widget
 		return items;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.swt.api.Tree#selectItems(org.jboss.reddeer.swt.api.TreeItem[])
+	 */
 	public void selectItems(final TreeItem... treeItems) {
 		// Tree items should be logged, however, the names needs to 
 		// be retrieved in UI thread so it might be a performance issue
@@ -54,21 +63,33 @@ public abstract class AbstractTree extends AbstractWidget<org.eclipse.swt.widget
 		treeItemHandler.selectItems(items);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.swt.api.Tree#setFocus()
+	 */
 	public void setFocus() {
 		treeHandler.setFocus(swtWidget);
 	}
 
 	/**
+	 * Gets the column count.
+	 *
+	 * @return the column count
 	 * @see Tree#getColumnCount()
 	 */
 	public int getColumnCount() {
 		return treeHandler.getColumnCount(swtWidget);
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.swt.api.Tree#getHeaderColumns()
+	 */
 	public List<String> getHeaderColumns() {
 		return treeHandler.getHeaderColumns(swtWidget);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.swt.api.Tree#unselectAllItems()
+	 */
 	public void unselectAllItems() {
 		logger.info("Unselect all tree items");
 		treeHandler.unselectAllItems(swtWidget);

@@ -10,8 +10,6 @@ import org.jboss.reddeer.core.util.ResultRunnable;
  * @author rhopp
  *
  */
-
-
 public class ProgressBarHandler {
 	
 	private static ProgressBarHandler instance;
@@ -19,9 +17,9 @@ public class ProgressBarHandler {
 	private ProgressBarHandler() { }
 	
 	/**
-	 * Creates and returns instance of ProgressBarHandler class
-	 * 
-	 * @return
+	 * Creates and returns instance of ProgressBarHandler class.
+	 *
+	 * @return single instance of ProgressBarHandler
 	 */
 	public static ProgressBarHandler getInstance(){
 		if (instance == null){
@@ -32,10 +30,10 @@ public class ProgressBarHandler {
 	
 	
 	/**
-	 * Returns state of {@link ProgressBar}
-	 * 
-	 * @param widget
-	 * @return
+	 * Returns state of {@link ProgressBar}.
+	 *
+	 * @param widget the widget
+	 * @return the state
 	 */
 	
 	public int getState(final ProgressBar widget){
@@ -48,10 +46,10 @@ public class ProgressBarHandler {
 	}
 	
 	/**
-	 * Returns maximum of {@link ProgressBar}
-	 * 
-	 * @param widget
-	 * @return
+	 * Returns maximum of {@link ProgressBar}.
+	 *
+	 * @param widget the widget
+	 * @return the maximum
 	 */
 	
 	public int getMaximum(final ProgressBar widget){
@@ -64,10 +62,10 @@ public class ProgressBarHandler {
 	}
 	
 	/**
-	 * Returns minimum of {@link ProgressBar}
-	 * 
-	 * @param widget
-	 * @return
+	 * Returns minimum of {@link ProgressBar}.
+	 *
+	 * @param widget the widget
+	 * @return the minimum
 	 */
 	
 	public int getMinimum(final ProgressBar widget){
@@ -80,10 +78,10 @@ public class ProgressBarHandler {
 	}
 	
 	/**
-	 * Returns selection of {@link ProgressBar}
-	 * 
-	 * @param widget
-	 * @return
+	 * Returns selection of {@link ProgressBar}.
+	 *
+	 * @param widget the widget
+	 * @return the selection
 	 */
 	
 	public int getSelection(final ProgressBar widget){

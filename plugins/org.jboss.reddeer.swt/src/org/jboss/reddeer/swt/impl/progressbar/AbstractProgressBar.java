@@ -21,8 +21,9 @@ public abstract class AbstractProgressBar extends AbstractWidget<org.eclipse.swt
 	/**
 	 * Returns state of this progressbar. One of SWT.NORMAL, SWT.ERROR, SWT.PAUSED. 
 	 * Note: This operation is a hint and is not supported on platforms that do not have this concept.
+	 *
+	 * @return the state
 	 */
-	
 	@Override
 	public int getState() {
 		return ProgressBarHandler.getInstance().getState(swtWidget);

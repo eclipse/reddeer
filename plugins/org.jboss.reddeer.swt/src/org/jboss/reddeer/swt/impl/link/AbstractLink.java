@@ -17,18 +17,33 @@ public abstract class AbstractLink extends AbstractWidget<org.eclipse.swt.widget
 		super(org.eclipse.swt.widgets.Link.class, refComposite, index, matchers);
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.swt.api.Link#getText()
+	 */
 	public String getText() {
 		return LinkHandler.getInstance().getText(swtWidget);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.swt.api.Link#getAnchorTexts()
+	 */
 	public List<String> getAnchorTexts() {
 		return LinkHandler.getInstance().getAnchorTexts(swtWidget);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.swt.api.Link#click(java.lang.String)
+	 */
 	public void click(String text) {
 		click(text, 0);
 	}
 
+	/**
+	 * Click.
+	 *
+	 * @param text the text
+	 * @param index the index
+	 */
 	public void click(String text, int index) {
 		logger.info("Click link with text '" + text + "' and index " + index);
 		String eventText = LinkHandler.getInstance().getEventText(swtWidget, text,
@@ -37,10 +52,16 @@ public abstract class AbstractLink extends AbstractWidget<org.eclipse.swt.widget
 		LinkHandler.getInstance().activate(swtWidget, eventText);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.swt.api.Link#click()
+	 */
 	public void click() {
 		click(0);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.swt.api.Link#click(int)
+	 */
 	public void click(int index) {
 		logger.info("Click link with index " + index);
 		String eventText = LinkHandler.getInstance().getEventText(swtWidget, index);

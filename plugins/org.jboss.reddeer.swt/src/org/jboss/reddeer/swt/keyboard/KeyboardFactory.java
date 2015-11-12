@@ -13,6 +13,11 @@ import org.jboss.reddeer.swt.keyboard.internal.MacKeyboard;
 
 public class KeyboardFactory {
 
+	/**
+	 * Gets the keyboard.
+	 *
+	 * @return the keyboard
+	 */
 	public static Keyboard getKeyboard() {
 		if (RunningPlatform.isOSX()) {
 			return new MacKeyboard();

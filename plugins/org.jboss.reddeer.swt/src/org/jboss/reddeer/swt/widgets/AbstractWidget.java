@@ -31,16 +31,25 @@ public abstract class AbstractWidget<T extends org.eclipse.swt.widgets.Widget> i
 		swtWidget = WidgetLookup.getInstance().activeWidget(refComposite, widgetClass, index, matchers);
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.swt.widgets.Widget#getSWTWidget()
+	 */
 	@Override
 	public T getSWTWidget() {
 		return swtWidget;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.swt.widgets.Widget#isEnabled()
+	 */
 	@Override
 	public boolean isEnabled() {
 		return WidgetHandler.getInstance().isEnabled(swtWidget);
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.swt.widgets.Widget#isDisposed()
+	 */
 	@Override
 	public boolean isDisposed() {
 		return WidgetHandler.getInstance().isDisposed(swtWidget);

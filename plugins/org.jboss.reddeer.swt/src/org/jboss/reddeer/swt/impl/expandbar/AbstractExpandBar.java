@@ -13,6 +13,7 @@ import org.jboss.reddeer.core.handler.WidgetHandler;
 import org.jboss.reddeer.swt.impl.expandbar.internal.BasicExpandBarItem;
 import org.jboss.reddeer.core.reference.ReferencedComposite;
 import org.jboss.reddeer.swt.widgets.AbstractWidget;
+
 /**
  * Abstract class for all Expand Bar implementations
  * 
@@ -32,14 +33,19 @@ public abstract class AbstractExpandBar extends AbstractWidget<org.eclipse.swt.w
 	}
 	
 	/**
-	 * See {@link ExpandBar}
+	 * See {@link ExpandBar}.
+	 *
+	 * @return the items count
 	 */
 	@Override
 	public int getItemsCount() {
 		return getItems().size();
 	}
+	
 	/**
-	 * See {@link ExpandBar}
+	 * See {@link ExpandBar}.
+	 *
+	 * @return the items
 	 */
 	@Override
 	public List<ExpandBarItem> getItems() {
@@ -50,16 +56,18 @@ public abstract class AbstractExpandBar extends AbstractWidget<org.eclipse.swt.w
 		}
 		return result;
 	}
+	
 	/**
-	 * See {@link ExpandBar}
+	 * See {@link ExpandBar}.
 	 */
 	@Override
 	public void setFocus() {
 		WidgetHandler.getInstance().setFocus(this.getSWTWidget());
 
 	}
+	
 	/**
-	 * See {@link ExpandBar}
+	 * See {@link ExpandBar}.
 	 */
 	@Override
 	public void expandAll() {
@@ -68,8 +76,9 @@ public abstract class AbstractExpandBar extends AbstractWidget<org.eclipse.swt.w
 			expandBarItem.expand();
 		}
 	}
+	
 	/**
-	 * See {@link ExpandBar}
+	 * See {@link ExpandBar}.
 	 */
 	@Override
 	public void collapseAll() {

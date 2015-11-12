@@ -11,7 +11,7 @@ public class FinishButton extends PredefinedButton {
 
 	
 	/**
-	 * FinishButton default constructor
+	 * FinishButton default constructor.
 	 */
 	public FinishButton() {		
 		super(null, 0, "Finish", SWT.PUSH);

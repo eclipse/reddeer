@@ -11,51 +11,56 @@ import org.jboss.reddeer.core.reference.ReferencedComposite;
 public class DefaultScale extends AbstractScale {
 
 	/**
-	 * Scale with index 0
+	 * Scale with index 0.
 	 */
 	public DefaultScale(){
 		this((ReferencedComposite) null);
 	}
 	
 	/**
-	 * Scale with index 0 inside given composite
-	 * @param referencedComposite
+	 * Scale with index 0 inside given composite.
+	 *
+	 * @param referencedComposite the referenced composite
 	 */
 	public DefaultScale(ReferencedComposite referencedComposite){
 		this(referencedComposite, 0);
 	}
 	
 	/**
-	 * Scale that matches given matchers
-	 * @param matchers
+	 * Scale that matches given matchers.
+	 *
+	 * @param matchers the matchers
 	 */
 	public DefaultScale(Matcher<?>... matchers){
 		this(null, matchers);
 	}
 	
 	/**
-	 * Scale that matches given matchers inside given composite
-	 * @param referencedComposite
-	 * @param matchers
+	 * Scale that matches given matchers inside given composite.
+	 *
+	 * @param referencedComposite the referenced composite
+	 * @param matchers the matchers
 	 */
 	public DefaultScale(ReferencedComposite referencedComposite, Matcher<?>... matchers){
 		this(referencedComposite, 0, matchers);
 	}
 	
 	/**
-	 * Scale with given index that matches given matchers
+	 * Scale with given index that matches given matchers.
+	 *
 	 * @param index of Scale
-	 * @param matchers
+	 * @param matchers the matchers
 	 */
 	public DefaultScale(int index, Matcher<?>... matchers){
 		this(null, index, matchers);
 	}
 	
 	/**
-	 * Scale with given index that matches given matchers inside given composite
-	 * @param referencedComposite
+	 * Scale with given index that matches given matchers inside given composite.
+	 *
+	 * @param referencedComposite the referenced composite
 	 * @param index of Scale
-	 * @param matchers
+	 * @param matchers the matchers
 	 */
 	public DefaultScale(ReferencedComposite referencedComposite, int index, Matcher<?>... matchers){
 		super(referencedComposite, index, matchers);

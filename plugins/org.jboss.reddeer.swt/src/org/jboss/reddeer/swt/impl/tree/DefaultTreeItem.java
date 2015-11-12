@@ -19,36 +19,38 @@ public class DefaultTreeItem extends AbstractTreeItem {
 	private static final Logger logger = Logger.getLogger(DefaultTreeItem.class);
 	
 	/**
-	 * Tree item with specified path will be constructed 
-	 * 
-	 * @param treeItemPath
+	 * Tree item with specified path will be constructed .
+	 *
+	 * @param treeItemPath the tree item path
 	 */
 	public DefaultTreeItem(String... treeItemPath) {
 		this(new DefaultTree(), treeItemPath);
 	}
 	
 	/**
-	 * Tree item in specified tree with specified path will be constructed 
-	 * 
-	 * @param treeItemPath
+	 * Tree item in specified tree with specified path will be constructed .
+	 *
+	 * @param tree the tree
+	 * @param treeItemPath the tree item path
 	 */
 	public DefaultTreeItem(Tree tree, String... treeItemPath) {
 		super(TreeItemLookup.getInstance().getTreeItem(tree.getSWTWidget(), 0, createMatchers(treeItemPath)));
 	}
 	
 	/**
-	 * Tree item with specified path will be constructed
+	 * Tree item with specified path will be constructed.
 	 *
-	 * @param treeItemPath
+	 * @param treeItemPath the tree item path
 	 */
 	public DefaultTreeItem(Matcher<org.eclipse.swt.widgets.TreeItem>... treeItemPath) {
 		this(new DefaultTree(), treeItemPath);
 	}
 
 	/**
-	 * Tree item in specified tree with specified path will be constructed
+	 * Tree item in specified tree with specified path will be constructed.
 	 *
-	 * @param treeItemPath
+	 * @param tree the tree
+	 * @param treeItemPath the tree item path
 	 */
 	public DefaultTreeItem(Tree tree, Matcher<org.eclipse.swt.widgets.TreeItem>... treeItemPath) {
 		super(TreeItemLookup.getInstance().getTreeItem(tree.getSWTWidget(), 0, treeItemPath));
@@ -57,16 +59,19 @@ public class DefaultTreeItem extends AbstractTreeItem {
 	/**
 	 * Tree item with specified index and path will be constructed. 
 	 *
-	 * @param treeItemPath
+	 * @param index the index
+	 * @param treeItemPath the tree item path
 	 */
 	public DefaultTreeItem(int index, Matcher<org.eclipse.swt.widgets.TreeItem>... treeItemPath) {
 		this(new DefaultTree(), index, treeItemPath);
 	}
 
 	/**
-	 * Tree item in specified tree with specified index and path will be constructed
+	 * Tree item in specified tree with specified index and path will be constructed.
 	 *
-	 * @param treeItemPath
+	 * @param tree the tree
+	 * @param index the index
+	 * @param treeItemPath the tree item path
 	 */
 	public DefaultTreeItem(Tree tree, int index, Matcher<org.eclipse.swt.widgets.TreeItem>... treeItemPath) {
 		super(TreeItemLookup.getInstance().getTreeItem(tree.getSWTWidget(), index, treeItemPath));

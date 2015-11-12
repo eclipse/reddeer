@@ -22,6 +22,11 @@ public abstract class AbstractToolBar extends AbstractWidget<org.eclipse.swt.wid
 		super(org.eclipse.swt.widgets.ToolBar.class, refComposite, index, matchers);
 	}
 	
+	/**
+	 * Gets the control.
+	 *
+	 * @return the control
+	 */
 	@Override
 	public Control getControl() {
 		return swtWidget;

@@ -6,6 +6,7 @@ import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.core.handler.ButtonHandler;
 import org.jboss.reddeer.core.matcher.WithMnemonicTextMatcher;
 import org.jboss.reddeer.core.reference.ReferencedComposite;
+
 /**
  * Toggle Button implementation
  * @author Vlado Pakan
@@ -16,84 +17,93 @@ public class ToggleButton extends AbstractButton {
 	private static final Logger log = Logger.getLogger(ToggleButton.class);
 		
 	/**
-	 * Toggle button with index 0
+	 * Toggle button with index 0.
 	 */
 	public ToggleButton() {
 		this((ReferencedComposite) null);
 	}
 	
 	/**
-	 * Creates Toggle button inside given composite
-	 * @param referencedComposite
+	 * Creates Toggle button inside given composite.
+	 *
+	 * @param referencedComposite the referenced composite
 	 */
 	public ToggleButton(ReferencedComposite referencedComposite) {
 		this(referencedComposite, 0);
 	}
 	
 	/**
-	 * Creates Toggle button with given text
-	 * @param text
+	 * Creates Toggle button with given text.
+	 *
+	 * @param text the text
 	 */
 	public ToggleButton(String text) {
 		this(null, text);
 	}
 	
 	/**
-	 * Creates Toggle button with given text inside given composite
-	 * @param referencedComposite
-	 * @param text
+	 * Creates Toggle button with given text inside given composite.
+	 *
+	 * @param referencedComposite the referenced composite
+	 * @param text the text
 	 */
 	public ToggleButton(ReferencedComposite referencedComposite, String text) {
 		this(referencedComposite, 0, new WithMnemonicTextMatcher(text));
 	}
 	
 	/**
-	 * Toggle button that matches given matchers
-	 * @param matchers
+	 * Toggle button that matches given matchers.
+	 *
+	 * @param matchers the matchers
 	 */
 	public ToggleButton(Matcher<?>... matchers) {
 		this(null, matchers);
 	}
 	
 	/**
-	 * Toggle button that matches given matchers
-	 * @param referencedComposite
-	 * @param matchers
+	 * Toggle button that matches given matchers.
+	 *
+	 * @param referencedComposite the referenced composite
+	 * @param matchers the matchers
 	 */
 	public ToggleButton(ReferencedComposite referencedComposite, Matcher<?>... matchers) {
 		this(referencedComposite, 0, matchers);
 	}
 	
 	/**
-	 * Creates Toggle button with given index
-	 * @param index
-	 * @param matchers
+	 * Creates Toggle button with given index.
+	 *
+	 * @param index the index
+	 * @param matchers the matchers
 	 */
 	public ToggleButton(int index, Matcher<?>... matchers) {
 		this(null, index, matchers);
 	}
 	
 	/**
-	 * Creates Toggle button with given index inside given composite
-	 * @param referencedComposite
-	 * @param index
-	 * @param matchers
+	 * Creates Toggle button with given index inside given composite.
+	 *
+	 * @param referencedComposite the referenced composite
+	 * @param index the index
+	 * @param matchers the matchers
 	 */
 	public ToggleButton(ReferencedComposite referencedComposite, int index, Matcher<?>... matchers) {
 		super(referencedComposite, index, SWT.TOGGLE, matchers);
 	}
 	
     /**
-     * Returns true when Toggle Button is selected
-     * @return
+     * Returns true when Toggle Button is selected.
+     *
+     * @return true, if is selected
      */
 	public boolean isSelected() {
 		return ButtonHandler.getInstance().isSelected(swtWidget);
 	}
+	
 	/**
-	 * Sets Toggle Button to state 'checked'
-	 * 
-	 * @param checked
+	 * Sets Toggle Button to state 'checked'.
+	 *
+	 * @param checked whether or not the button is checked
 	 */
 	public void toggle(boolean checked){
 		if (checked){

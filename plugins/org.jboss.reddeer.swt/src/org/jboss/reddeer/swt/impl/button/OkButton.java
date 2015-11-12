@@ -11,7 +11,7 @@ public class OkButton extends PredefinedButton {
 
 	
 	/**
-	 * OkButton default constructor
+	 * OkButton default constructor.
 	 */
 	public OkButton() {		
 		super(null, 0, "OK", SWT.PUSH);

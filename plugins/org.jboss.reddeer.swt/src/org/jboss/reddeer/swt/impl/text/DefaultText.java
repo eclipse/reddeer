@@ -13,59 +13,64 @@ import org.jboss.reddeer.core.reference.ReferencedComposite;
 public class DefaultText extends AbstractText implements Text {
 	
 	/**
-	 * First text
-	 * @param index
+	 * First text.
 	 */
 	public DefaultText(){
 		this((ReferencedComposite) null);
 	}
 	
 	/**
-	 * Text with text value
-	 * @param title
+	 * Text with text value.
+	 *
+	 * @param title the title
 	 */
 	public DefaultText(String title) {
 		this(null, title);
 	}
 	
 	/**
-	 * Text with given matchers
-	 * @param matchers
+	 * Text with given matchers.
+	 *
+	 * @param matchers the matchers
 	 */
 	public DefaultText(Matcher<?>... matchers){
 		this(null, matchers);
 	}
 
 	/**
-	 * Text with given index
-	 * @param index
+	 * Text with given index.
+	 *
+	 * @param index the index
+	 * @param matchers the matchers
 	 */
 	public DefaultText(int index, Matcher<?>... matchers){
 		this(null, index, matchers);
 	}
 	
 	/**
-	 * First text inside given composite
-	 * @param referencedComposite
-	 * @param index
+	 * First text inside given composite.
+	 *
+	 * @param referencedComposite the referenced composite
 	 */
 	public DefaultText(ReferencedComposite referencedComposite){
 		this(referencedComposite, 0);
 	}
 
 	/**
-	 * Text with text value inside given composite
-	 * @param referencedComposite
-	 * @param title
+	 * Text with text value inside given composite.
+	 *
+	 * @param referencedComposite the referenced composite
+	 * @param title the title
 	 */
 	public DefaultText(ReferencedComposite referencedComposite, String title) {
 		this(referencedComposite, 0, new WithTextMatcher(title));
 	}
 	
 	/**
-	 * Text with given matchers inside given composite
-	 * @param referencedComposite
-	 * @param matchers
+	 * Text with given matchers inside given composite.
+	 *
+	 * @param referencedComposite the referenced composite
+	 * @param matchers the matchers
 	 */
 	@SuppressWarnings("rawtypes")
 	public DefaultText(ReferencedComposite referencedComposite, Matcher... matchers){
@@ -73,9 +78,11 @@ public class DefaultText extends AbstractText implements Text {
 	}
 	
 	/**
-	 * Text with given index inside given composite
-	 * @param referencedComposite
-	 * @param index
+	 * Text with given index inside given composite.
+	 *
+	 * @param referencedComposite the referenced composite
+	 * @param index the index
+	 * @param matchers the matchers
 	 */
 	public DefaultText(ReferencedComposite referencedComposite, int index, Matcher<?>... matchers){
 		super(referencedComposite, index, matchers);

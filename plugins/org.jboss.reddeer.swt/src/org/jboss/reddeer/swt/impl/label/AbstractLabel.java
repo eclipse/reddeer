@@ -12,12 +12,18 @@ public abstract class AbstractLabel extends AbstractWidget<org.eclipse.swt.widge
 		super(org.eclipse.swt.widgets.Label.class, refComposite, index, matchers);
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.swt.api.Label#getText()
+	 */
 	@Override
 	public String getText() {
 		String text = WidgetHandler.getInstance().getText(swtWidget);
 		return text;
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.swt.api.Label#isVisible()
+	 */
 	@Override
 	public boolean isVisible() {
 		boolean ret = WidgetHandler.getInstance().isVisible(swtWidget);

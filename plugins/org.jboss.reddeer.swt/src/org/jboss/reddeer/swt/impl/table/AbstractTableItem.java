@@ -26,7 +26,9 @@ public class AbstractTableItem extends AbstractWidget<org.eclipse.swt.widgets.Ta
 	}
 	
 	/**
-	 * See {@link TreeItem}
+	 * See {@link TreeItem}.
+	 *
+	 * @param check the new checked
 	 */
 	@Override
 	public void setChecked(final boolean check) {
@@ -35,63 +37,99 @@ public class AbstractTableItem extends AbstractWidget<org.eclipse.swt.widgets.Ta
 		TableItemHandler.getInstance().setChecked(swtWidget, check);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.swt.api.TableItem#isChecked()
+	 */
 	@Override
 	public boolean isChecked() {
 		return TableItemHandler.getInstance().isChecked(swtWidget);
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.swt.api.TableItem#getText()
+	 */
 	@Override
 	public String getText() {
 		return WidgetHandler.getInstance().getText(swtWidget);
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.swt.api.TableItem#getText(int)
+	 */
 	@Override
 	public String getText(int cellIndex) {
 		return TableItemHandler.getInstance().getText(swtWidget, cellIndex);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.swt.api.TableItem#isSelected()
+	 */
 	@Override
 	public boolean isSelected() {
 		return TableItemHandler.getInstance().isSelected(swtWidget);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.swt.api.TableItem#select()
+	 */
 	@Override
 	public void select() {
 		TableItemHandler.getInstance().select(swtWidget);
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.swt.api.TableItem#isGrayed()
+	 */
 	@Override
 	public boolean isGrayed() {
 		return TableHandler.getInstance().isGrayed(swtWidget);
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.swt.api.TableItem#getImage(int)
+	 */
 	@Override
 	public Image getImage(int imageIndex) {
 		return TableHandler.getInstance().getItemImage(swtWidget, imageIndex);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.swt.api.TableItem#getParent()
+	 */
 	@Override
 	public Table getParent() {
 		return new BasicTable(TableItemHandler.getInstance().getParent(swtWidget));
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.swt.api.TableItem#doubleClick()
+	 */
 	@Override
 	public void doubleClick(){
 		log.info("Double click table item " + getText());
 		TableHandler.getInstance().doubleClick(swtWidget, 0);
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.swt.api.TableItem#click()
+	 */
 	@Override
 	public void click(){
 		click(0);
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.swt.api.TableItem#click(int)
+	 */
 	@Override
 	public void click(int column){
 		log.info("Double click table item " + getText());
 		TableHandler.getInstance().click(swtWidget, column);
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.swt.api.TableItem#doubleClick(int)
+	 */
 	@Override
 	public void doubleClick(int column){
 		log.info("Double click column " + column + " of table item " + getText());

@@ -29,12 +29,18 @@ public abstract class AbstractCCombo extends AbstractWidget<org.eclipse.swt.cust
 		super(org.eclipse.swt.custom.CCombo.class, refComposite, index, matchers);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.swt.api.CCombo#setText(java.lang.String)
+	 */
 	@Override
 	public void setText(String str) {
 		log.info("Set text of CCombo " + getText() + " to:" + str);
 		WidgetHandler.getInstance().setText(swtWidget, str);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.swt.api.CCombo#setSelection(int)
+	 */
 	@Override
 	public void setSelection(int index) {
 		log.info("Set selection of CCombo " + getText() + " to index: " + index);
@@ -42,6 +48,9 @@ public abstract class AbstractCCombo extends AbstractWidget<org.eclipse.swt.cust
 		notifyCCombo(createEventForCCombo(SWT.Selection));
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.swt.api.CCombo#setSelection(java.lang.String)
+	 */
 	@Override
 	public void setSelection(String selection) {
 		log.info("Set selection of CCombo " + getText() + " to selection: " + selection);
@@ -49,21 +58,33 @@ public abstract class AbstractCCombo extends AbstractWidget<org.eclipse.swt.cust
 		notifyCCombo(createEventForCCombo(SWT.Selection));
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.swt.api.CCombo#getSelection()
+	 */
 	@Override
 	public String getSelection() {
 		return CComboHandler.getInstance().getSelection(swtWidget);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.swt.api.CCombo#getSelectionIndex()
+	 */
 	@Override
 	public int getSelectionIndex() {
 		return CComboHandler.getInstance().getSelectionIndex(swtWidget);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.swt.api.CCombo#getText()
+	 */
 	@Override
 	public String getText() {
 		return WidgetHandler.getInstance().getText(swtWidget);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.swt.api.CCombo#getItems()
+	 */
 	@Override
 	public List<String> getItems() {
 		return Arrays.asList(CComboHandler.getInstance().getItems(swtWidget));
@@ -73,7 +94,7 @@ public abstract class AbstractCCombo extends AbstractWidget<org.eclipse.swt.cust
 	 * Creates event for CCombo with specified type
 	 * 
 	 * @param type
-	 * @return
+	 * @return event
 	 */
 	private Event createEventForCCombo(int type) {
 		Event event = new Event();
@@ -88,7 +109,7 @@ public abstract class AbstractCCombo extends AbstractWidget<org.eclipse.swt.cust
 	 * Notifies CCombo listeners about event event.type field has to be properly
 	 * set
 	 * 
-	 * @param event
+	 * @param event event
 	 */
 	private void notifyCCombo(final Event event) {
 		Display.syncExec(new Runnable() {

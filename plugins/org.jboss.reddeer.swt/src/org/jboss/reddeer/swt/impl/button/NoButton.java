@@ -11,7 +11,7 @@ public class NoButton extends PredefinedButton {
 
 	
 	/**
-	 * NoButton default constructor
+	 * NoButton default constructor.
 	 */
 	public NoButton() {		
 		super(null, 0, "No", SWT.PUSH);

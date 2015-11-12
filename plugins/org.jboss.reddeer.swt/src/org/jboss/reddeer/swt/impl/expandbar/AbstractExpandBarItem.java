@@ -27,8 +27,11 @@ public abstract class AbstractExpandBarItem extends AbstractWidget<org.eclipse.s
 		super(swtExpandItem);
 		this.swtParent = ExpandBarItemHandler.getInstance().getParent(swtExpandItem);
 	}
+	
 	/**
-	 * See {@link ExpandBarItem}
+	 * See {@link ExpandBarItem}.
+	 *
+	 * @return the text
 	 */
 	@Override
 	public String getText() {
@@ -36,7 +39,9 @@ public abstract class AbstractExpandBarItem extends AbstractWidget<org.eclipse.s
 	}
 
 	/**
-	 * See {@link ExpandBarItem}
+	 * See {@link ExpandBarItem}.
+	 *
+	 * @return the tool tip text
 	 */
 	@Override
 	public String getToolTipText() {
@@ -44,14 +49,17 @@ public abstract class AbstractExpandBarItem extends AbstractWidget<org.eclipse.s
 	}
 
 	/**
-	 * See {@link ExpandBarItem}
+	 * See {@link ExpandBarItem}.
 	 */
 	@Override
 	public void expand() {
 		expand(TimePeriod.SHORT);
 	}
+	
 	/**
-	 * See {@link ExpandBarItem}
+	 * See {@link ExpandBarItem}.
+	 *
+	 * @param timePeriod the time period
 	 */
 	@Override
 	public void expand(TimePeriod timePeriod) {
@@ -66,8 +74,9 @@ public abstract class AbstractExpandBarItem extends AbstractWidget<org.eclipse.s
 					+ " is already expanded. No action performed");
 		}
 	}
+	
 	/**
-	 * See {@link ExpandBarItem}
+	 * See {@link ExpandBarItem}.
 	 */
 	@Override
 	public void collapse() {
@@ -83,25 +92,36 @@ public abstract class AbstractExpandBarItem extends AbstractWidget<org.eclipse.s
 	}
 	
 	/**
-	 * Return control of Expand Bar Item
+	 * Return control of Expand Bar Item.
+	 *
+	 * @return the control
 	 */
 	@Override
 	public Control getControl() {
 		return swtWidget.getControl();
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.swt.api.ExpandBarItem#getSWTParent()
+	 */
 	public org.eclipse.swt.widgets.ExpandBar getSWTParent() {
 		return swtParent;
 	}
+	
 	/**
-	 * See {@link ExpandBarItem}
+	 * See {@link ExpandBarItem}.
+	 *
+	 * @return the parent
 	 */
 	@Override
 	public ExpandBar getParent() {
 		return new BasicExpandBar(swtParent);
 	}
+	
 	/**
-	 * See {@link ExpandBarItem}
+	 * See {@link ExpandBarItem}.
+	 *
+	 * @return true, if is expanded
 	 */
 	@Override
 	public boolean isExpanded() {

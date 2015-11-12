@@ -11,7 +11,7 @@ public class YesButton extends PredefinedButton {
 
 	
 	/**
-	 * YesButton default constructor
+	 * YesButton default constructor.
 	 */
 	public YesButton() {		
 		super(null, 0, "Yes", SWT.PUSH);

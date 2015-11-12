@@ -8,8 +8,9 @@ import org.eclipse.swt.SWT;
  *
  */
 public class CancelButton extends PredefinedButton {
+	
 	/**
-	 * CancelButton default constructor
+	 * CancelButton default constructor.
 	 */
 	public CancelButton() {		
 		super(null, 0, "Cancel", SWT.PUSH);

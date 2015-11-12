@@ -21,11 +21,17 @@ public abstract class AbstractSpinner extends AbstractWidget<org.eclipse.swt.wid
 		super(org.eclipse.swt.widgets.Spinner.class, refComposite, index, matchers);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.swt.api.Spinner#getValue()
+	 */
 	@Override
 	public int getValue() {
 		return SpinnerHandler.getInstance().getValue(getSWTWidget());
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.swt.api.Spinner#setValue(int)
+	 */
 	@Override
 	public void setValue(int value) {
 		log.info("Set spinner value to " + value);

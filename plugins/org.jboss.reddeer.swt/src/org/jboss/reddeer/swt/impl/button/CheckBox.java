@@ -18,87 +18,93 @@ public class CheckBox extends AbstractButton {
 	private static final Logger log = Logger.getLogger(CheckBox.class);
 	
 	/**
-	 * Checkbox with index 0
+	 * Checkbox with index 0.
 	 */
 	public CheckBox() {
 		this((ReferencedComposite) null);
 	}
 	
 	/**
-	 * Checkbox inside given referencedComposite
-	 * @param referencedComposite
+	 * Checkbox inside given referencedComposite.
+	 *
+	 * @param referencedComposite the referenced composite
 	 */
 	public CheckBox(ReferencedComposite referencedComposite) {
 		this(referencedComposite, 0);
 	}
 	
 	/**
-	 * Checkbox with given text
-	 * 
-	 * @param text
+	 * Checkbox with given text.
+	 *
+	 * @param text the text
 	 */
 	public CheckBox(String text) {
 		this(null, text);
 	}
 	
 	/**
-	 * Checkbox that matches given matchers
-	 * @param matchers
+	 * Checkbox that matches given matchers.
+	 *
+	 * @param matchers the matchers
 	 */
 	public CheckBox(Matcher<?>... matchers) {
 		this(null, matchers);
 	}
 	
 	/**
-	 * Checkbox that matches given matchers
-	 * @param referencedComposite
-	 * @param matchers
+	 * Checkbox that matches given matchers.
+	 *
+	 * @param referencedComposite the referenced composite
+	 * @param matchers the matchers
 	 */
 	public CheckBox(ReferencedComposite referencedComposite, Matcher<?>... matchers) {
 		this(referencedComposite, 0, matchers);
 	}
 	
 	/**
-	 * Checkbox with given text inside given referencedComposite
-	 * @param referencedComposite
-	 * @param text
+	 * Checkbox with given text inside given referencedComposite.
+	 *
+	 * @param referencedComposite the referenced composite
+	 * @param text the text
 	 */
 	public CheckBox(ReferencedComposite referencedComposite,String text) {
 		this(referencedComposite, 0, new WithMnemonicTextMatcher(text));
 	}
 	
 	/**
-	 * Checkbox with given index that matches given matchers
-	 * 
-	 * @param index
-	 * @param matchers
+	 * Checkbox with given index that matches given matchers.
+	 *
+	 * @param index the index
+	 * @param matchers the matchers
 	 */
 	public CheckBox(int index, Matcher<?>... matchers){
 		this(null, index, matchers);
 	}
 	
 	/**
-	 * Checkbox with given index inside given referencedComposite that matches given matchers
-	 * @param referencedComposite
-	 * @param index
-	 * @param matchers
+	 * Checkbox with given index inside given referencedComposite that matches given matchers.
+	 *
+	 * @param referencedComposite the referenced composite
+	 * @param index the index
+	 * @param matchers the matchers
 	 */
 	public CheckBox(ReferencedComposite referencedComposite, int index, Matcher<?>... matchers){
 		super(referencedComposite, index, SWT.CHECK, matchers);
 	}
 	
 	/**
-	 * Returns true when Check Box is checked
-	 * @return
+	 * Returns true when Check Box is checked.
+	 *
+	 * @return true, if is checked
 	 */
 	public boolean isChecked() {
 		return ButtonHandler.getInstance().isSelected(swtWidget);
 	}
 	
 	/**
-	 * Sets checkbox to state 'checked'
-	 * 
-	 * @param checked
+	 * Sets checkbox to state 'checked'.
+	 *
+	 * @param checked whether checked or not
 	 */
 	public void toggle(boolean checked){
 		log.info("Select checkbox " + getDescriptiveText());

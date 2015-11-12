@@ -8,22 +8,20 @@ import org.eclipse.swt.SWT;
  * @author rhopp
  *
  */
-
 public class VerticalProgressBar extends DeterminateProgressBar {
 
 	/**
-	 * Instantiates vertical progressbar with given index
-	 * @param index
+	 * Instantiates vertical progressbar with given index.
+	 *
+	 * @param index the index
 	 */
-	
 	public VerticalProgressBar(int index) {
 		super(index, SWT.VERTICAL);
 	}
 	
 	/**
-	 * Instantiates vertical progressbar
+	 * Instantiates vertical progressbar.
 	 */
-	
 	public VerticalProgressBar() {
 		super(0, SWT.VERTICAL);
 	}

@@ -13,68 +13,75 @@ import org.jboss.reddeer.core.reference.ReferencedComposite;
 public class DefaultLabel extends AbstractLabel {
 
 	/**
-	 * Label with index 0
+	 * Label with index 0.
 	 */
 	public DefaultLabel() {
 		this((ReferencedComposite) null);
 	}
 	
 	/**
-	 * Label with index 0 inside given composite
-	 * @param referencedComposite
+	 * Label with index 0 inside given composite.
+	 *
+	 * @param referencedComposite the referenced composite
 	 */
 	public DefaultLabel(ReferencedComposite referencedComposite){
 		this(referencedComposite, 0);
 	}
 	
 	/**
-	 * Label with given text
-	 * @param text
+	 * Label with given text.
+	 *
+	 * @param text the text
 	 */
 	public DefaultLabel(String text) {
 		this(null, text);
 	}
 	
 	/**
-	 * Label with given text inside given composite
-	 * @param referencedComposite
-	 * @param text
+	 * Label with given text inside given composite.
+	 *
+	 * @param referencedComposite the referenced composite
+	 * @param text the text
 	 */
 	public DefaultLabel(ReferencedComposite referencedComposite, String text) {
 		this(referencedComposite, 0, new WithTextMatcher(text));
 	}
 	
 	/**
-	 * Label that matches given matchers
-	 * @param matchers
+	 * Label that matches given matchers.
+	 *
+	 * @param matchers the matchers
 	 */
 	public DefaultLabel(Matcher<?>... matchers) {
 		this(null, matchers);
 	}
 	
 	/**
-	 * Label that matches given matchers
-	 * @param referencedComposite
-	 * @param matchers
+	 * Label that matches given matchers.
+	 *
+	 * @param referencedComposite the referenced composite
+	 * @param matchers the matchers
 	 */
 	public DefaultLabel(ReferencedComposite referencedComposite, Matcher<?>... matchers) {
 		this(referencedComposite, 0, matchers);
 	}
 	
 	/**
-	 * Label with given index that matches given matchers
-	 * @param index
-	 * @param matchers
+	 * Label with given index that matches given matchers.
+	 *
+	 * @param index the index
+	 * @param matchers the matchers
 	 */
 	public DefaultLabel(int index, Matcher<?>... matchers) {
 		this(null, index, matchers);
 	}
 	
 	/**
-	 * Label with given index inside given composite that matches given matchers
-	 * @param referencedComposite
-	 * @param index
-	 * @param matchers
+	 * Label with given index inside given composite that matches given matchers.
+	 *
+	 * @param referencedComposite the referenced composite
+	 * @param index the index
+	 * @param matchers the matchers
 	 */
 	public DefaultLabel(ReferencedComposite referencedComposite, int index, Matcher<?>... matchers) {
 		super(referencedComposite, index, matchers);

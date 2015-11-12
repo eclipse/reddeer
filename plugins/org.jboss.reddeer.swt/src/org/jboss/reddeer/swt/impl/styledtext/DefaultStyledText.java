@@ -14,7 +14,7 @@ import org.jboss.reddeer.core.reference.ReferencedComposite;
 public class DefaultStyledText extends AbstractStyledText implements StyledText {
 	
 	/**
-	 * StyledText with index 0
+	 * StyledText with index 0.
 	 */
 	public DefaultStyledText() {
 		this((ReferencedComposite) null);
@@ -22,7 +22,8 @@ public class DefaultStyledText extends AbstractStyledText implements StyledText 
 	
 	/**
 	 * StyledText inside given composite.
-	 * @param referencedComposite
+	 *
+	 * @param referencedComposite the referenced composite
 	 */
 	public DefaultStyledText(final ReferencedComposite referencedComposite) {
 		this(referencedComposite, 0);
@@ -30,8 +31,8 @@ public class DefaultStyledText extends AbstractStyledText implements StyledText 
 
 	/**
 	 * StyledText with given text.
-	 * 
-	 * @param text
+	 *
+	 * @param text the text
 	 */
 	public DefaultStyledText(final String text) {
 		this(null, text);
@@ -39,8 +40,9 @@ public class DefaultStyledText extends AbstractStyledText implements StyledText 
 	
 	/**
 	 * StyledText with given text inside given composite.
-	 * @param referencedComposite
-	 * @param text
+	 *
+	 * @param referencedComposite the referenced composite
+	 * @param text the text
 	 */
 	public DefaultStyledText(final ReferencedComposite referencedComposite, final String text) {
 		this(referencedComposite, 0, new WithTextMatcher(text));
@@ -48,35 +50,39 @@ public class DefaultStyledText extends AbstractStyledText implements StyledText 
 
 	/**
 	 * StyledText matching given matchers.
-	 * 
-	 * @param matchers
+	 *
+	 * @param matchers the matchers
 	 */
 	public DefaultStyledText(final Matcher<?>... matchers) {
 		this(null, matchers);
 	}
 	
 	/**
-	 * StyledText matching given matchers inside given composite
-	 * 
-	 * @param matchers
+	 * StyledText matching given matchers inside given composite.
+	 *
+	 * @param referencedComposite the referenced composite
+	 * @param matchers the matchers
 	 */
 	public DefaultStyledText(final ReferencedComposite referencedComposite, final Matcher<?>... matchers) {
 		this(referencedComposite, 0, matchers);
 	}
 	
 	/**
-	 * StyledText with given index that matches given matchers
-	 * 
-	 * @param index
+	 * StyledText with given index that matches given matchers.
+	 *
+	 * @param index the index
+	 * @param matchers the matchers
 	 */
 	public DefaultStyledText(int index, Matcher<?>... matchers) {
 		this(null, index, matchers);
 	}
 	
 	/**
-	 * StyledText with given index that matches given matchers inside given composite
-	 * @param referencedComposite
-	 * @param index
+	 * StyledText with given index that matches given matchers inside given composite.
+	 *
+	 * @param referencedComposite the referenced composite
+	 * @param index the index
+	 * @param matchers the matchers
 	 */
 	public DefaultStyledText(ReferencedComposite referencedComposite, int index, Matcher<?>... matchers) {
 		super(referencedComposite, index, matchers);

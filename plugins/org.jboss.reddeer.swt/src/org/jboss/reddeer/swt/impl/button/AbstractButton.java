@@ -46,6 +46,9 @@ public abstract class AbstractButton extends AbstractWidget<org.eclipse.swt.widg
 		return list.toArray(new Matcher[list.size()]);
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.swt.api.Button#click()
+	 */
 	@Override
 	public void click() {
 		log.info("Click button " + getDescriptiveText());
@@ -54,7 +57,9 @@ public abstract class AbstractButton extends AbstractWidget<org.eclipse.swt.widg
 	}
 	
 	/**
-	 * See {@link Button}
+	 * See {@link Button}.
+	 *
+	 * @return the text
 	 */
 	@Override
 	public String getText() {
@@ -62,7 +67,9 @@ public abstract class AbstractButton extends AbstractWidget<org.eclipse.swt.widg
 	}
 	
 	/**
-	 * See {@link Button}
+	 * See {@link Button}.
+	 *
+	 * @return the tool tip text
 	 */
 	@Override
 	public String getToolTipText() {

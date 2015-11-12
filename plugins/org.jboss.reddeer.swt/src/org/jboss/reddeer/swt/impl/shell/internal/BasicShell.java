@@ -10,6 +10,11 @@ import org.jboss.reddeer.swt.impl.shell.AbstractShell;
  */
 public class BasicShell extends AbstractShell{
 
+	/**
+	 * Instantiates a new basic shell.
+	 *
+	 * @param swtShell the swt shell
+	 */
 	public BasicShell(Shell swtShell){
 		super(swtShell);
 	}

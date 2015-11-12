@@ -24,7 +24,7 @@ public abstract class AbstractToolItem extends AbstractWidget<org.eclipse.swt.wi
 	private static final Logger log = Logger.getLogger(AbstractToolItem.class);
 
 	/**
-	 * See {@link ToolItem}}
+	 * See {@link ToolItem}}.
 	 */
 	@Override
 	public void click() {
@@ -34,7 +34,9 @@ public abstract class AbstractToolItem extends AbstractWidget<org.eclipse.swt.wi
 	}
 	
 	/**
-	 * See {@link ToolItem}}
+	 * See {@link ToolItem}}.
+	 *
+	 * @return the tool tip text
 	 */
 	@Override
 	public String getToolTipText() {	
@@ -42,15 +44,21 @@ public abstract class AbstractToolItem extends AbstractWidget<org.eclipse.swt.wi
 		tooltipText = WidgetHandler.getInstance().getToolTipText(swtWidget);
 		return tooltipText;
 	}
+	
 	/**
-	 * See {@link ToolItem}}
+	 * See {@link ToolItem}}.
+	 *
+	 * @return true, if is selected
 	 */
 	@Override
 	public boolean isSelected() {
 		return ToolItemHandler.getInstance().isSelected(swtWidget);
 	}
+	
 	/**
-	 * See {@link ToolItem}}
+	 * See {@link ToolItem}}.
+	 *
+	 * @param toggle the toggle
 	 */
 	@Override
 	public void toggle(boolean toggle) {
@@ -60,6 +68,9 @@ public abstract class AbstractToolItem extends AbstractWidget<org.eclipse.swt.wi
 		}		
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.swt.widgets.AbstractWidget#isEnabled()
+	 */
 	@Override
 	public boolean isEnabled() {
 		return WidgetHandler.getInstance().isEnabled(swtWidget);

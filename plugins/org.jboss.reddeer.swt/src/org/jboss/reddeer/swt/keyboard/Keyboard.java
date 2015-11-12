@@ -43,9 +43,9 @@ abstract public class Keyboard {
 	}
 	
 	/**
-	 * Types given text
-	 * 
-	 * @param text
+	 * Types given text.
+	 *
+	 * @param text the text to type
 	 */
 	
 	public void type(String text){
@@ -56,8 +56,9 @@ abstract public class Keyboard {
 	}
 	
 	/**
-	 *  Types given character
-	 * @param c
+	 *  Types given character.
+	 *
+	 * @param c the character to type
 	 */
 	
 	public void type(int c){
@@ -67,10 +68,10 @@ abstract public class Keyboard {
 	}
 	
 	/**
-	 * Selects `shift` characters to the side of cursor specified by `toLeft`
-	 * 
-	 * @param shift
-	 * @param toLeft
+	 * Selects `shift` characters to the side of cursor specified by `toLeft`.
+	 *
+	 * @param shift number of characters to select
+	 * @param toLeft true for left, false for right
 	 */
 	
 	public void select(int shift, boolean toLeft){
@@ -85,9 +86,10 @@ abstract public class Keyboard {
 	}
 	
 	/**
-	 * Moves cursor by `shift` characters to the side of cursor specified by `toLeft`
-	 * @param shift
-	 * @param toLeft
+	 * Moves cursor by `shift` characters to the side of cursor specified by `toLeft`.
+	 *
+	 * @param shift number of characters to move
+	 * @param toLeft true for left, false for right
 	 */
 	
 	public void moveCursor(int shift, boolean toLeft){
@@ -103,15 +105,15 @@ abstract public class Keyboard {
 	}
 	
 	/**
-	 * Either cuts or copies selected text to clipboard
-	 * 
+	 * Either cuts or copies selected text to clipboard.
+	 *
 	 * @param cut cuts the text if true, copies otherwise
 	 */
 	
 	abstract public void writeToClipboard(boolean cut);
 	
 	/**
-	 * Pastes text stored in clipboard
+	 * Pastes text stored in clipboard.
 	 */
 	
 	abstract public void pasteFromClipboard();

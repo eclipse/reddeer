@@ -14,18 +14,17 @@ import org.jboss.reddeer.core.matcher.WithStyleMatcher;
 public class IndeterminateProgressBar extends DefaultProgressBar {
 
 	/**
-	 * Instantiates indeterminate progressbar
+	 * Instantiates indeterminate progressbar.
 	 */
-	
 	public IndeterminateProgressBar(){
 		this(0);
 	}
 	
 	/**
-	 * Instantiates indeterminate progressbar with given index
-	 * @param index
+	 * Instantiates indeterminate progressbar with given index.
+	 *
+	 * @param index the index
 	 */
-	
 	public IndeterminateProgressBar(int index) {
 		super(index, new WithStyleMatcher(SWT.INDETERMINATE));
 	}

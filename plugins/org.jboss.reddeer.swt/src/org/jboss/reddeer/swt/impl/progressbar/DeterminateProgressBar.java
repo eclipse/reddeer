@@ -17,25 +17,26 @@ public abstract class DeterminateProgressBar extends DefaultProgressBar {
 	}
 	
 	/**
-	 * 
+	 * Gets the maximum.
+	 *
 	 * @return maximum value of this progressbar
 	 */
-	
 	public int getMaximum(){
 		return ProgressBarHandler.getInstance().getMaximum(swtWidget);
 	}
 	
 	/**
-	 * 
+	 * Gets the minimum.
+	 *
 	 * @return minimum value of this progressbar
 	 */
-	
 	public int getMinimum(){
 		return ProgressBarHandler.getInstance().getMinimum(swtWidget);
 	}
 	
 	/**
-	 * 
+	 * Gets the selection.
+	 *
 	 * @return current value of this progressbar
 	 */
 	public int getSelection(){

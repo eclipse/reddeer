@@ -57,8 +57,10 @@ public abstract class AbstractStyledText extends AbstractWidget<org.eclipse.swt.
 
     /**
      * Insert text into styled text content.
+     *
      * @param line line to insert text
      * @param column column to insert text
+     * @param text the text
      * @Param text to insert
      */
     @Override
@@ -68,6 +70,9 @@ public abstract class AbstractStyledText extends AbstractWidget<org.eclipse.swt.
     }
 
     /**
+     * Insert text.
+     *
+     * @param text the text
      * @see org.jboss.reddeer.swt.api.StyledText#insertText(String)
      */
     @Override
@@ -77,6 +82,10 @@ public abstract class AbstractStyledText extends AbstractWidget<org.eclipse.swt.
     }
 
     /**
+     * Gets the position of text.
+     *
+     * @param text the text
+     * @return the position of text
      * @see org.jboss.reddeer.swt.api.StyledText#getPositionOfText(String)
      */
     @Override
@@ -85,6 +94,9 @@ public abstract class AbstractStyledText extends AbstractWidget<org.eclipse.swt.
     }
 
     /**
+     * Select text.
+     *
+     * @param text the text
      * @see org.jboss.reddeer.swt.api.StyledText#selectText(String)
      */
     @Override
@@ -93,6 +105,9 @@ public abstract class AbstractStyledText extends AbstractWidget<org.eclipse.swt.
         StyledTextHandler.getInstance().selectText(swtWidget, text);
     }
     
+    /* (non-Javadoc)
+     * @see org.jboss.reddeer.swt.api.StyledText#setSelection(int, int)
+     */
     @Override
     public void setSelection(final int start, final int end) {
     	log.info("Select position start: "+start+" end: "+end+" in styled text");
@@ -100,6 +115,9 @@ public abstract class AbstractStyledText extends AbstractWidget<org.eclipse.swt.
     }
 
     /**
+     * Select position.
+     *
+     * @param position the position
      * @see org.jboss.reddeer.swt.api.StyledText#selectPosition(int)
      */
     @Override
@@ -109,13 +127,20 @@ public abstract class AbstractStyledText extends AbstractWidget<org.eclipse.swt.
     }
 
     /**
+     * Gets the selection text.
+     *
+     * @return the selection text
      * @see org.jboss.reddeer.swt.api.StyledText#getSelectionText()
      */
     @Override
     public String getSelectionText() {
         return StyledTextHandler.getInstance().getSelectionText(swtWidget);
     }
+    
     /**
+     * Gets the cursor position.
+     *
+     * @return the cursor position
      * @see org.jboss.reddeer.swt.api.StyledText#getSelectionText()
      */
     @Override	

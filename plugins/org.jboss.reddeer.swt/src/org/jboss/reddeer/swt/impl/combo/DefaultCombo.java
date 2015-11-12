@@ -13,14 +13,15 @@ import org.jboss.reddeer.core.reference.ReferencedComposite;
 public class DefaultCombo extends AbstractCombo implements Combo{
 	
 	/**
-	 * Default constructor which looks for combo with index 0
+	 * Default constructor which looks for combo with index 0.
 	 */
 	public DefaultCombo(){
 		this((ReferencedComposite) null);
 	}
 	
 	/**
-	 * Finds combo inside given referenced composite
+	 * Finds combo inside given referenced composite.
+	 *
 	 * @param ref composite inside which combo should be looked for
 	 */
 	public DefaultCombo(ReferencedComposite ref){
@@ -28,7 +29,8 @@ public class DefaultCombo extends AbstractCombo implements Combo{
 	}
 	
 	/**
-	 * Finds combo with given text written inside
+	 * Finds combo with given text written inside.
+	 *
 	 * @param text which is written in combo
 	 */
 	public DefaultCombo(String text){
@@ -36,7 +38,8 @@ public class DefaultCombo extends AbstractCombo implements Combo{
 	}
 	
 	/**
-	 * Finds combo inside given referenced composite with given text
+	 * Finds combo inside given referenced composite with given text.
+	 *
 	 * @param ref composite inside which combo should be looked for
 	 * @param text which is written in combo
 	 */
@@ -45,7 +48,8 @@ public class DefaultCombo extends AbstractCombo implements Combo{
 	}
 
 	/**
-	 * Finds combo matching to given matchers
+	 * Finds combo matching to given matchers.
+	 *
 	 * @param matchers to match combo
 	 */
 	public DefaultCombo(Matcher<?>... matchers){
@@ -53,7 +57,8 @@ public class DefaultCombo extends AbstractCombo implements Combo{
 	}
 	
 	/**
-	 * Finds combo inside given referenced composite which is matching given matchers
+	 * Finds combo inside given referenced composite which is matching given matchers.
+	 *
 	 * @param ref composite inside which combo should be looked for
 	 * @param matchers matchers to match combo
 	 */
@@ -62,19 +67,21 @@ public class DefaultCombo extends AbstractCombo implements Combo{
 	}
 	
 	/**
-	 * Finds combo with given index
+	 * Finds combo with given index.
+	 *
 	 * @param index of combo
-	 * @param matchers
+	 * @param matchers the matchers
 	 */
 	public DefaultCombo(int index, Matcher<?>... matchers){
 		this(null, index, matchers);
 	}
 	
 	/**
-	 * Finds combo inside given referenced composite with given index
+	 * Finds combo inside given referenced composite with given index.
+	 *
 	 * @param ref composite inside which combo should be looked for
 	 * @param index of combo
-	 * @param matchers
+	 * @param matchers the matchers
 	 */
 	public DefaultCombo(ReferencedComposite ref, int index, Matcher<?>... matchers){
 		super(ref, index, matchers);
