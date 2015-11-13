@@ -101,6 +101,7 @@ public class ProjectItem extends ExplorerItem {
 		Preferences.set("org.eclipse.debug.ui", "DEBUG.consoleOpenOnOut", "false");
 
 		runAs("JUnit Test");
+		new WaitWhile(new JUnitHasFinished(), timeout);
 		new WaitUntil(new JUnitHasFinished(), timeout);
 
 		// set the settings back
