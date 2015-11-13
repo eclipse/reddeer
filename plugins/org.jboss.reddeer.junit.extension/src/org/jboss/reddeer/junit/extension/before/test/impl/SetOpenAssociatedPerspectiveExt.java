@@ -16,7 +16,7 @@ import org.junit.runners.model.TestClass;
  * to open to associated perspective is never displayed Use this system property
  * to set open associated perspective behavior:
  *
- * - reddeer.set.open.associated.perspective=[prompt|always|never]
+ * - rd.openAssociatedPerspective=[prompt|always|never]
  * (default=never)
  * 
  * @author vlado pakan
@@ -74,7 +74,7 @@ public class SetOpenAssociatedPerspectiveExt implements IBeforeTest {
 			} else {
 				throw new SWTLayerException(
 						"Invalid paramter value used: "
-								+ "reddeer.set.open.associated.perspective = "
+								+ "rd.openAssociatedPerspective = "
 								+ RedDeerProperties.OPEN_ASSOCIATED_PERSPECTIVE.getValue());
 			}
 			preferencesDialog.ok();

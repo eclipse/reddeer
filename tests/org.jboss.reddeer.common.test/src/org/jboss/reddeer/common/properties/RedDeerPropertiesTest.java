@@ -66,7 +66,7 @@ public class RedDeerPropertiesTest {
 
 	@Test
 	public void getByName() {
-		assertEquals("reddeer.recordScreenCast", RedDeerProperties.getByName("reddeer.recordScreenCast").getName());
+		assertEquals("rd.recordScreenCast", RedDeerProperties.getByName("rd.recordScreenCast").getName());
 	}
 
 	@Test(expected=RedDeerException.class)

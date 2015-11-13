@@ -35,15 +35,15 @@
 <stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="-Dosgi.requiredJavaVersion=1.7 -XX:MaxPermSize=256m -Xms256m -Xmx1024m"/>
 <stringAttribute key="pde.version" value="3.3"/>
 <stringAttribute key="product" value="org.eclipse.epp.package.rcp.product"/>
-<stringAttribute key="rd.launch.property.reddeer.captureScreenshot" value="true"/>
-<stringAttribute key="rd.launch.property.reddeer.close.shells" value="true"/>
-<stringAttribute key="rd.launch.property.reddeer.close.welcome.screen" value="true"/>
-<stringAttribute key="rd.launch.property.reddeer.disable.maven.download.repo.index.on.startup" value="true"/>
-<stringAttribute key="rd.launch.property.reddeer.logLevel" value="ALL"/>
-<stringAttribute key="rd.launch.property.reddeer.logMessageFilter" value="ALL"/>
-<stringAttribute key="rd.launch.property.reddeer.pauseFailedTest" value="false"/>
-<stringAttribute key="rd.launch.property.reddeer.recordScreenCast" value="false"/>
-<stringAttribute key="rd.launch.property.reddeer.set.open.associated.perspective" value="never"/>
+<stringAttribute key="rd.launch.property.rd.captureScreenshot" value="true"/>
+<stringAttribute key="rd.launch.property.rd.closeShells" value="true"/>
+<stringAttribute key="rd.launch.property.rd.closeWelcomeScreen" value="true"/>
+<stringAttribute key="rd.launch.property.rd.disableMavenIndex" value="true"/>
+<stringAttribute key="rd.launch.property.rd.logLevel" value="ALL"/>
+<stringAttribute key="rd.launch.property.rd.logMessageFilter" value="ALL"/>
+<stringAttribute key="rd.launch.property.rd.pauseFailedTest" value="false"/>
+<stringAttribute key="rd.launch.property.rd.recordScreenCast" value="false"/>
+<stringAttribute key="rd.launch.property.rd.openAssociatedPerspective" value="never"/>
 <booleanAttribute key="show_selected_only" value="false"/>
 <stringAttribute key="templateConfig" value="${target_home}/configuration/config.ini"/>
 <booleanAttribute key="tracing" value="false"/>

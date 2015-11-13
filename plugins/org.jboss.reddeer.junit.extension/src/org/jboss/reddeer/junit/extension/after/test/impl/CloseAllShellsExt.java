@@ -21,7 +21,7 @@ import org.junit.runners.model.TestClass;
  * all shells after each test. If there is an open shell the test will fail.<br>
  * Use this system property to enable/disable it:
  * 
- * - reddeer.close.shells=[true|false] (default=true)
+ * - rd.closeShells=[true|false] (default=true)
  * 
  * @author Andrej Podhradsky
  *

@@ -16,7 +16,7 @@
 		<apache-tomcat-7.version>7.0.56</apache-tomcat-7.version>
 		<apache-tomcat-7.mirror>http://archive.apache.org/dist/tomcat/tomcat-7/</apache-tomcat-7.mirror>
 		<apache-tomcat-7.home>${project.build.directory}/apache-tomcat-${apache-tomcat-7.version}</apache-tomcat-7.home>
-		<customArgLine>-Dreddeer.config=${basedir}/bin</customArgLine>
+		<customArgLine>-Drd.config=${basedir}/bin</customArgLine>
 	</properties>
 
 	<profiles>

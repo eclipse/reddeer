@@ -15,7 +15,7 @@ import org.junit.runners.model.TestClass;
  * Maven Repo Index downloading on startup Use this system property to
  * enable/disable it:
  *
- * - reddeer.disable.maven.download.repo.index.on.startup=[true|false]
+ * - rd.disableMavenIndex=[true|false]
  * (default=true)
  * 
  * @author vlado pakan
