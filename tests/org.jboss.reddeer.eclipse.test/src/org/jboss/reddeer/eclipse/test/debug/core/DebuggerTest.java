@@ -21,9 +21,11 @@ import org.jboss.reddeer.eclipse.m2e.core.ui.wizard.MavenProjectWizard;
 import org.jboss.reddeer.eclipse.m2e.core.ui.wizard.MavenProjectWizardArchetypePage;
 import org.jboss.reddeer.eclipse.m2e.core.ui.wizard.MavenProjectWizardArchetypeParametersPage;
 import org.jboss.reddeer.eclipse.ui.perspectives.DebugPerspective;
+import org.jboss.reddeer.eclipse.utils.DeleteUtils;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.requirements.openperspective.OpenPerspectiveRequirement.OpenPerspective;
 import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -44,9 +46,12 @@ public class DebuggerTest {
 
 	public static final String BREAKPOINT_1 = "AppTest [line: 28]";
 	public static final String BREAKPOINT_2 = "AppTest [line: 36]";
+	public static final ProjectExplorer projectExplorer = new ProjectExplorer();
 
 	@BeforeClass
 	public static void createProject() {
+		DebuggerTest.projectExplorer.open();
+		DebuggerTest.projectExplorer.deleteAllProjects(true);
 		MavenProjectWizard mavenProjectWizard = new MavenProjectWizard();
 		mavenProjectWizard.open();
 		mavenProjectWizard.next();
@@ -60,8 +65,21 @@ public class DebuggerTest {
 	}
 
 	@Before
+	public void setUp(){
+		removeAllBreakpoints();
+	}
+	
 	@After
-	public void removeAllBreakpoints() {
+	public void tearDown(){
+		removeAllBreakpoints();
+	}
+	@AfterClass
+	public static void removeProjext(){
+		DebuggerTest.projectExplorer.open();
+		DeleteUtils.forceProjectDeletion(DebuggerTest.projectExplorer.getProject("debugger"), true);
+	}
+	
+	private void removeAllBreakpoints() {
 		new BreakpointsView().removeAllBreakpoints();
 	}
 
@@ -72,7 +90,7 @@ public class DebuggerTest {
 		Assert.assertTrue(breakpointsView.isBreakpointAvailable(BREAKPOINT_1));
 		Assert.assertTrue(breakpointsView.isBreakpointAvailable(BREAKPOINT_2));
 
-		new ProjectExplorer().open();
+		DebuggerTest.projectExplorer.open();
 		Project appProject = new ProjectExplorer().getProject("debugger");
 		ProjectItem appTest = appProject.getProjectItem("src/test/java", "com.example.debugger", "AppTest.java");
 		appTest.debugAs("JUnit Test");
@@ -99,7 +117,7 @@ public class DebuggerTest {
 		breakpoint.remove();
 		assertFalse(breakpointsView.isBreakpointAvailable(BREAKPOINT_2));
 
-		new ProjectExplorer().open();
+		DebuggerTest.projectExplorer.open();
 		Project appProject = new ProjectExplorer().getProject("debugger");
 		ProjectItem appTest = appProject.getProjectItem("src/test/java", "com.example.debugger", "AppTest.java");
 		appTest.debugAs("JUnit Test");
@@ -122,7 +140,7 @@ public class DebuggerTest {
 		assertFalse(breakpoint.isEnabled());
 		assertFalse(breakpoint.isChecked());
 
-		new ProjectExplorer().open();
+		DebuggerTest.projectExplorer.open();
 		Project appProject = new ProjectExplorer().getProject("debugger");
 		ProjectItem appTest = appProject.getProjectItem("src/test/java", "com.example.debugger", "AppTest.java");
 		appTest.debugAs("JUnit Test");

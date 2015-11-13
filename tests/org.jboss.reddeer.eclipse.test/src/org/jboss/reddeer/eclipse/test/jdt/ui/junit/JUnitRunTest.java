@@ -68,11 +68,6 @@ public class JUnitRunTest {
 		editor.close();
 	}
 
-	@BeforeClass
-	public static void openJUnitView() {
-		new JUnitView().open();
-	}
-
 	@AfterClass
 	public static void deleteTestProject() {
 		PackageExplorer explorer = new PackageExplorer();
