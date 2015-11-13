@@ -13,7 +13,7 @@ import org.junit.runners.model.TestClass;
  * Closes Welcome screen prior test is run
  * Use this system property to enable/disable it:
  * 
- * - reddeer.close.welcome.screen=[true|false] (default=true)
+ * - rd.closeWelcomeScreen=[true|false] (default=true)
  * 
  * @author vlado pakan
  *

@@ -8,8 +8,8 @@ import org.junit.runner.RunWith;
 /**
  * Test injecting user requirement
  * 
- * Set VM parameter -Dreddeer.config to point to directory with requirements.xml file 
- * -Dreddeer.config=${project_loc}/src/org/jboss/reddeer/junit/injection
+ * Set VM parameter -Drd.config to point to directory with requirements.xml file 
+ * -Drd.config=${project_loc}/src/org/jboss/reddeer/junit/injection
  * 
  * @author lucia jelinkova
  *

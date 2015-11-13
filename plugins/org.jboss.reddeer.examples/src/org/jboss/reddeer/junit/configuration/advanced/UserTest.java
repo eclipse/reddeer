@@ -7,8 +7,8 @@ import org.junit.runner.RunWith;
 /**
  * User test using configuration from custom xml file
  * 
- * Set VM parameter -Dreddeer.config to point to directory with requirements.xml file 
- * -Dreddeer.config=${project_loc}/src/org/jboss/reddeer/junit/configuration/advanced
+ * Set VM parameter -Drd.config to point to directory with requirements.xml file 
+ * -Drd.config=${project_loc}/src/org/jboss/reddeer/junit/configuration/advanced
  * 
  * @author lucia jelinkova
  *

@@ -13,32 +13,32 @@ import org.jboss.reddeer.common.userprofile.UserProfile;
  */
 public enum RedDeerProperties {
 
-	PAUSE_FAILED_TEST("reddeer.pauseFailedTest", false),
+	PAUSE_FAILED_TEST("rd.pauseFailedTest", false),
 
-	LOG_MESSAGE_FILTER("reddeer.logMessageFilter", "ALL"),
+	LOG_MESSAGE_FILTER("rd.logMessageFilter", "ALL"),
 
-	LOG_LEVEL("reddeer.logLevel", "ALL"),
+	LOG_LEVEL("rd.logLevel", "ALL"),
 
-	CLOSE_WELCOME_SCREEN("reddeer.close.welcome.screen", true),
+	CLOSE_WELCOME_SCREEN("rd.closeWelcomeScreen", true),
 
-	CLOSE_ALL_SHELLS("reddeer.close.shells", true),
+	CLOSE_ALL_SHELLS("rd.closeShells", true),
 
-	DISABLE_MAVEN_REPOSITORY_DOWNLOAD("reddeer.disable.maven.download.repo.index.on.startup", true),
+	DISABLE_MAVEN_REPOSITORY_DOWNLOAD("rd.disableMavenIndex", true),
 
 	/**
 	 * System property pointing either to the configuration file or to the configuration directory. 
 	 */
-	CONFIG_FILE("reddeer.config", (String) null),
+	CONFIG_FILE("rd.config", (String) null),
 
-	CAPTURE_SCREENSHOT("reddeer.captureScreenshot", true),
+	CAPTURE_SCREENSHOT("rd.captureScreenshot", true),
 
-	RECORD_SCREENCAST("reddeer.recordScreenCast", false),
+	RECORD_SCREENCAST("rd.recordScreenCast", false),
 
-	RELATIVE_SCREENSHOT_DIRECTORY("reddeer.relativeScreenshotDirectory", (String) null),
+	RELATIVE_SCREENSHOT_DIRECTORY("rd.relativeScreenshotDirectory", (String) null),
 
-	OPEN_ASSOCIATED_PERSPECTIVE("reddeer.set.open.associated.perspective", "never"),
+	OPEN_ASSOCIATED_PERSPECTIVE("rd.openAssociatedPerspective", "never"),
 
-	TIME_PERIOD_FACTOR("reddeer.time.period.factor", 1.f);
+	TIME_PERIOD_FACTOR("rd.timePeriodFactor", 1.f);
 
 	private static final Logger log = Logger.getLogger(RedDeerProperties.class);
 

@@ -20,6 +20,9 @@ import org.jboss.reddeer.eclipse.jdt.debug.ui.launchConfigurations.RedDeerJavaAr
 public class RedDeerLauncherProperties {
 
 	public static final String ATTRIBUTE_PREFIX = "rd.launch.property.";
+	// each reddeer parameter must start with 'rd', e.g. 'rd.disableMavenIndex'
+	public static final String REDDEER_PARAMETER_PREFIX = "rd.";
+	public static final String REDDEER_OLD_PARAMETER_PREFIX = "reddeer.";
 
 	private RedDeerProperties property;
 
@@ -63,10 +66,10 @@ public class RedDeerLauncherProperties {
 	}
 	
 	private static RedDeerProperties getByName(String name){
-		if (name.startsWith("reddeer.")){
+		if (name.startsWith(REDDEER_PARAMETER_PREFIX)){
 			return RedDeerProperties.getByName(name);
 		} else {
-			return RedDeerProperties.getByName("reddeer." + name);
+			return RedDeerProperties.getByName(name.replace(REDDEER_OLD_PARAMETER_PREFIX, REDDEER_PARAMETER_PREFIX));
 		}
 	}
 
