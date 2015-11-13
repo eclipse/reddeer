@@ -12,24 +12,22 @@ import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
-import org.jboss.reddeer.common.wait.WaitWhile;
-import org.jboss.reddeer.core.condition.ShellWithTextIsActive;
 import org.jboss.reddeer.core.exception.CoreLayerException;
 import org.jboss.reddeer.core.util.Display;
+import org.jboss.reddeer.eclipse.jdt.ui.NewJavaClassWizardDialog;
+import org.jboss.reddeer.eclipse.jdt.ui.NewJavaClassWizardPage;
 import org.jboss.reddeer.eclipse.jdt.ui.ProjectExplorer;
+import org.jboss.reddeer.eclipse.jdt.ui.ide.NewJavaProjectWizardDialog;
+import org.jboss.reddeer.eclipse.jdt.ui.ide.NewJavaProjectWizardPage;
 import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.PackageExplorer;
 import org.jboss.reddeer.eclipse.ui.perspectives.JavaPerspective;
 import org.jboss.reddeer.eclipse.utils.DeleteUtils;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.requirements.openperspective.OpenPerspectiveRequirement.OpenPerspective;
-import org.jboss.reddeer.swt.impl.button.CheckBox;
 import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.menu.ContextMenu;
-import org.jboss.reddeer.swt.impl.menu.ShellMenu;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.jboss.reddeer.swt.impl.text.DefaultText;
-import org.jboss.reddeer.swt.impl.text.LabeledText;
-import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
 import org.jboss.reddeer.swt.test.utils.ShellTestUtils;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -44,25 +42,18 @@ public class ContextMenuTest {
 	private static String projectName = "ContextMenuTest-test";
 	
 	@BeforeClass
-	public static void createProject() throws InterruptedException{
-		new ShellMenu("File","New","Other...").select();
-		new DefaultShell("New");
-		new DefaultTreeItem("Java","Java Project").select();
-		new PushButton("Next >").click();
-		new DefaultShell("New Java Project");
-		new LabeledText("Project name:").setText(projectName);
-		new PushButton("Finish").click();
-		new WaitWhile(new ShellWithTextIsActive("New Java Project"));
-		new ShellMenu("File","New","Other...").select();
-		new DefaultShell("New");
-		new DefaultTreeItem("Java","Class").select(); 
-		new PushButton("Next >").click();
-		new DefaultShell("New Java Class");
-		new LabeledText("Name:").setText("TestClass");
-		new CheckBox("public static void main(String[] args)").toggle(true);
-		new PushButton("Finish").click();
-		new WaitWhile(new ShellWithTextIsActive("New Java Class"));
+	public static void createProject() {
+		NewJavaProjectWizardDialog projectWizard = new NewJavaProjectWizardDialog();
+		projectWizard.open();
+		new NewJavaProjectWizardPage().setProjectName(projectName);
+		projectWizard.finish();
 		
+		NewJavaClassWizardDialog classWizard = new NewJavaClassWizardDialog();
+		classWizard.open();
+		NewJavaClassWizardPage page = new NewJavaClassWizardPage();
+		page.setName("TestClass");
+		page.setStaticMainMethod(true);
+		classWizard.finish();
 	}
 	
 	@AfterClass
