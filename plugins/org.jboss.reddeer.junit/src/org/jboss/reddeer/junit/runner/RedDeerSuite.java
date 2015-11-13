@@ -17,10 +17,12 @@ import java.util.List;
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.junit.extensionpoint.IAfterTest;
 import org.jboss.reddeer.junit.extensionpoint.IBeforeTest;
+import org.jboss.reddeer.junit.extensionpoint.IIssueTracker;
 import org.jboss.reddeer.junit.internal.configuration.SuiteConfiguration;
 import org.jboss.reddeer.junit.internal.configuration.TestRunConfiguration;
 import org.jboss.reddeer.junit.internal.extensionpoint.AfterTestInitialization;
 import org.jboss.reddeer.junit.internal.extensionpoint.BeforeTestInitialization;
+import org.jboss.reddeer.junit.internal.extensionpoint.IssueTrackerInitialization;
 import org.jboss.reddeer.junit.internal.runner.EmptySuite;
 import org.jboss.reddeer.junit.internal.runner.NamedSuite;
 import org.jboss.reddeer.junit.internal.runner.RequirementsRunnerBuilder;
@@ -50,6 +52,8 @@ public class RedDeerSuite extends Suite {
 	private static List<IBeforeTest> beforeTestExtensions = RedDeerSuite.initializeBeforeTestExtensions();
 
 	private static List<IAfterTest> afterTestExtensions = RedDeerSuite.initializeAfterTestExtensions();
+	
+	private static List<IIssueTracker> issueTrackerExtensions;
 
 	/**
 	 * Called by the JUnit framework.
@@ -158,6 +162,36 @@ public class RedDeerSuite extends Suite {
 			afterTestExts = new LinkedList<IAfterTest>();
 		}
 		return afterTestExts;
+	}
+	
+	/**
+	 * Gets a list of issue tracker extensions.
+	 * 
+	 * @return a list of issue tracker extensions
+	 */
+	public static List<IIssueTracker> getIssueTrackerExtensions() {
+		if (issueTrackerExtensions == null) {
+			issueTrackerExtensions = initializeIssueTrackerExtensions();
+		}
+		return issueTrackerExtensions;
+	}
+	
+	/**
+	 * Initializes all Issue tracker extensions
+	 */
+	private static List<IIssueTracker> initializeIssueTrackerExtensions() {
+		List<IIssueTracker> issueTrackerExts;
+		// check if eclipse is running
+		try {
+			Class.forName("org.eclipse.core.runtime.Platform");
+			log.debug("Eclipse is running");
+			issueTrackerExts = IssueTrackerInitialization.initialize();
+		} catch (ClassNotFoundException e) {
+			// do nothing extension is implemented only for eclipse right now
+			log.debug("Eclipse is not running");
+			issueTrackerExts = new LinkedList<IIssueTracker>();
+		}
+		return issueTrackerExts;
 	}
 
 }
