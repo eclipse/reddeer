@@ -78,6 +78,15 @@ public class ProjectTest {
 	}
 	
 	@Test
+	public void selectProjectItem(){
+		project1.getChild("src").select();
+		assertTrue(project1.getChild("src").isSelected());
+		assertFalse(project1.isSelected());
+		project1.select();
+		assertTrue(project1.isSelected());
+	}
+	
+	@Test
 	public void delete(){
 		NewJavaProjectWizardDialog dialog = new NewJavaProjectWizardDialog();
 		dialog.open();
