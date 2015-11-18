@@ -20,6 +20,12 @@ public class DatabaseRequirement implements Requirement<Database>, CustomConfigu
 	@Retention(RetentionPolicy.RUNTIME)
 	@Target(ElementType.TYPE)
 	public @interface Database {
+		
+		/**
+		 * Name.
+		 *
+		 * @return the string
+		 */
 		String name();
 	}
 	
@@ -28,7 +34,9 @@ public class DatabaseRequirement implements Requirement<Database>, CustomConfigu
 	private DatabaseConfiguration configuration;
 
 	/**
-	 * Gets database configuration class
+	 * Gets database configuration class.
+	 *
+	 * @return the configuration class
 	 */
 	@Override
 	public Class<DatabaseConfiguration> getConfigurationClass() {
@@ -36,7 +44,9 @@ public class DatabaseRequirement implements Requirement<Database>, CustomConfigu
 	}
 
 	/**
-	 * Sets database configuration
+	 * Sets database configuration.
+	 *
+	 * @param config the new configuration
 	 */
 	@Override
 	public void setConfiguration(DatabaseConfiguration config) {
@@ -46,7 +56,9 @@ public class DatabaseRequirement implements Requirement<Database>, CustomConfigu
 
 	/**
 	 * Returns true when database requirement can be fullfilled 
-	 * Always returns true for Database Requirement
+	 * Always returns true for Database Requirement.
+	 *
+	 * @return true, if successful
 	 */
 	@Override
 	public boolean canFulfill() {
@@ -58,7 +70,7 @@ public class DatabaseRequirement implements Requirement<Database>, CustomConfigu
 
 	/**
 	 * Fulfills database requirement
-	 * It doesn't nothing for database requirement intentionally
+	 * It doesn't nothing for database requirement intentionally.
 	 */
 	@Override
 	public void fulfill() {
@@ -66,7 +78,9 @@ public class DatabaseRequirement implements Requirement<Database>, CustomConfigu
 	}
 
 	/**
-	 * Sets database declaration 
+	 * Sets database declaration.
+	 *
+	 * @param declaration the new declaration
 	 */
 	@Override
 	public void setDeclaration(Database declaration) {
@@ -75,13 +89,17 @@ public class DatabaseRequirement implements Requirement<Database>, CustomConfigu
 	}
 	
 	/**
-	 * Gets database configuration for further use in tests
+	 * Gets database configuration for further use in tests.
+	 *
 	 * @return database configuration
 	 */
 	public DatabaseConfiguration getConfiguration() {
 		return configuration;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.junit.requirement.Requirement#cleanUp()
+	 */
 	@Override
 	public void cleanUp() {
 

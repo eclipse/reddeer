@@ -34,7 +34,6 @@ public class TextEditor extends AbstractEditor implements Editor {
 	
 	/**
 	 * Initialize currently focused TextEditor.
-	 * @throws WorkbenchPartNotFound when currently active editor isn't instance of ITextEditor
 	 */
 	public TextEditor() {
 		super(EditorPartLookup.getInstance().getEditor());
@@ -45,8 +44,8 @@ public class TextEditor extends AbstractEditor implements Editor {
 	
 	/**
 	 * Initialize editor with given title.
+	 *
 	 * @param title title of desired editor
-	 * @throws WorkbenchPartNotFound when currently active editor isn't instance of ITextEditor 
 	 */
 	@SuppressWarnings("unchecked")
 	public TextEditor(final String title) {
@@ -56,9 +55,9 @@ public class TextEditor extends AbstractEditor implements Editor {
 	}
 	
 	/**
-	 * Initialize editor with given title matcher
+	 * Initialize editor with given title matcher.
+	 *
 	 * @param title title of desired editor
-	 * @throws WorkbenchPartNotFound when currently active editor isn't instance of ITextEditor 
 	 */
 	@SuppressWarnings("unchecked")
 	public TextEditor(Matcher<String> title) {
@@ -69,14 +68,16 @@ public class TextEditor extends AbstractEditor implements Editor {
 	
 	/**
 	 * Create reddeer text editor from given eclipse text editor. 
-	 * @param editor
+	 *
+	 * @param editor the editor
 	 */
 	protected TextEditor(ITextEditor editor) {
 		super(editor);
 	}
 	
 	/**
-	 * Returns the contents of the editor
+	 * Returns the contents of the editor.
+	 *
 	 * @return content of this editor
 	 */
 	public String getText() {

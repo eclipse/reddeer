@@ -30,8 +30,8 @@ public class FacetsPropertyPage extends PropertyPage {
 	
 	/**
 	 * Selects the given facet. 
-	 * 
-	 * @param facetName
+	 *
+	 * @param facetName the facet name
 	 */
 	public void selectFacet(String facetName){
 		new DefaultTreeItem(new DefaultTree(1), facetName).setChecked(true);
@@ -39,7 +39,8 @@ public class FacetsPropertyPage extends PropertyPage {
 	
 	/**
 	 * Returns selected facet version.
-	 * @param facetName
+	 *
+	 * @param facetName the facet name
 	 * @return version
 	 */
 	public String getSelectedVersion(String facetName){
@@ -48,8 +49,9 @@ public class FacetsPropertyPage extends PropertyPage {
 	
 	/**
 	 * Selects facet version.
-	 * @param facetName
-	 * @param version
+	 *
+	 * @param facetName the facet name
+	 * @param version the version
 	 */
 	public void selectVersion(String facetName, String version){
 		TreeItem facet = new DefaultTreeItem(new DefaultTree(1), facetName);
@@ -61,8 +63,9 @@ public class FacetsPropertyPage extends PropertyPage {
 	}
 	
 	/**
-	 * Returns names of all selected facets
-	 * @return
+	 * Returns names of all selected facets.
+	 *
+	 * @return the selected facets
 	 */
 	public List<TreeItem> getSelectedFacets(){
 		List<TreeItem> facets = new ArrayList<TreeItem>();

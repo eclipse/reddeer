@@ -33,14 +33,17 @@ public class DriverDefinitionPage extends WizardPage {
 	public static final String BUTTON_CLEAR_ALL = "Clear All";
 	public static final String BUTTON_REMOVE_JAR = "Remove JAR/Zip";
 
+	/**
+	 * Instantiates a new driver definition page.
+	 */
 	public DriverDefinitionPage() {
 		super();
 	}
 
 	/**
 	 * Set a driver name.
-	 * 
-	 * @param name
+	 *
+	 * @param name the new name
 	 */
 	public void setName(String name) {
 		new LabeledText(LABEL_DRIVER_NAME).setText(name);
@@ -48,10 +51,9 @@ public class DriverDefinitionPage extends WizardPage {
 
 	/**
 	 * Select a driver template.
-	 * 
-	 * @param type
-	 * @param vendor
-	 * @param version
+	 *
+	 * @param type the type
+	 * @param version the version
 	 */
 	public void selectDriverTemplate(String type, String version) {
 		selectTab(TAB_NAME_TYPE);
@@ -100,8 +102,8 @@ public class DriverDefinitionPage extends WizardPage {
 
 	/**
 	 * Remove a given library.
-	 * 
-	 * @param driverLocation
+	 *
+	 * @param driverLocation the driver location
 	 */
 	public void removeDriverLibrary(String driverLocation) {
 		new DefaultList().select(driverLocation);
@@ -121,9 +123,9 @@ public class DriverDefinitionPage extends WizardPage {
 	}
 
 	/**
-	 * Select a given tab
-	 * 
-	 * @param label
+	 * Select a given tab.
+	 *
+	 * @param label the label
 	 */
 	public void selectTab(String label) {
 		new DefaultTabItem(label).activate();

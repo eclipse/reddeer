@@ -37,11 +37,17 @@ public class EditorHasEditParts extends AbstractWaitCondition {
 		this.numberOfEditParts = numberOfEditParts;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.common.condition.WaitCondition#test()
+	 */
 	@Override
 	public boolean test() {
 		return gefEditor.getNumberOfEditParts() > numberOfEditParts;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.common.condition.AbstractWaitCondition#description()
+	 */
 	@Override
 	public String description() {
 		return "the number of edit parts is " + numberOfEditParts;

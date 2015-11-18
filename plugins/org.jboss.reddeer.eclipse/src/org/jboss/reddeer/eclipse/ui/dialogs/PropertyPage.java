@@ -10,6 +10,11 @@ import org.jboss.reddeer.jface.preference.PreferencePage;
  */
 public abstract class PropertyPage extends PreferencePage {
 
+	/**
+	 * Instantiates a new property page.
+	 *
+	 * @param path the path
+	 */
 	public PropertyPage(String... path) {
 		super(path);
 	}

@@ -15,6 +15,9 @@ public abstract class ConnectionProfileDatabasePage extends WizardPage {
 
 	public static final String LABEL_DRIVER = "Drivers:";
 
+	/**
+	 * Instantiates a new connection profile database page.
+	 */
 	protected ConnectionProfileDatabasePage() {
 		super();
 	}

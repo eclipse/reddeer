@@ -30,6 +30,9 @@ public class AndMatcher extends BaseMatcher {
 		this.matchers = matchers;
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.hamcrest.Matcher#matches(java.lang.Object)
+	 */
 	@Override
 	public boolean matches(Object item) {
 		for (Matcher m : matchers) {
@@ -40,18 +43,25 @@ public class AndMatcher extends BaseMatcher {
 	}
 
 	/**
-	 * Returns all matchers in AndMatcher
+	 * Returns all matchers in AndMatcher.
+	 *
 	 * @return all matchers
 	 */
 	public Matcher[] getMatchers() {
 		return matchers;
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.hamcrest.SelfDescribing#describeTo(org.hamcrest.Description)
+	 */
 	@Override
 	public void describeTo(Description description) {
 		description.appendList("(", " " + "and" + " ", ")", Arrays.asList(matchers));
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.hamcrest.BaseMatcher#toString()
+	 */
 	@Override
 	public String toString() {
 		return "Matcher matching when all matchers match: " + Arrays.toString(matchers);

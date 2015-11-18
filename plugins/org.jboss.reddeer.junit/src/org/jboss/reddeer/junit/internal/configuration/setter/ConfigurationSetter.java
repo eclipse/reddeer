@@ -17,6 +17,12 @@ import org.jboss.reddeer.junit.requirement.Requirement;
  */
 public class ConfigurationSetter {
 
+	/**
+	 * Sets the.
+	 *
+	 * @param requirement the requirement
+	 * @param configuration the configuration
+	 */
 	public void set(Requirement<?> requirement, PropertyBasedConfiguration configuration){
 		for (Property property : configuration.getProperties()){
 			inject(requirement, property);

@@ -22,6 +22,9 @@ public class ResumeButton extends DefaultToolItem {
 		super(new WorkbenchShell(), new WithTooltipTextMatcher(new RegexMatcher("Resume.*")));
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.swt.impl.toolbar.AbstractToolItem#click()
+	 */
 	@Override
 	public void click() {
 		if (!isEnabled()) {

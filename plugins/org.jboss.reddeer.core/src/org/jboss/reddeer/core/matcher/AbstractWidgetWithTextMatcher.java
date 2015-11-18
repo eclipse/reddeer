@@ -69,6 +69,12 @@ public abstract class AbstractWidgetWithTextMatcher extends BaseMatcher<String> 
 		return null;
 	}
 	
+	/**
+	 * Extract widget text.
+	 *
+	 * @param widget the widget
+	 * @return the string
+	 */
 	protected String extractWidgetText(Widget widget) {
 		try {
 			return WidgetHandler.getInstance().getText(widget);

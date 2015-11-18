@@ -12,7 +12,7 @@ import org.jboss.reddeer.workbench.api.Editor;
 public class DefaultEditor extends AbstractEditor implements Editor {
 
 	/**
-	 * Initialize editor
+	 * Initialize editor.
 	 */
 	public DefaultEditor() {
 		super();

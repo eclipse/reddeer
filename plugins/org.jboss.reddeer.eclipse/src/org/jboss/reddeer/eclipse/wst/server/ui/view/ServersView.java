@@ -87,11 +87,22 @@ public class ServersView extends WorkbenchView {
 		throw new EclipseLayerException("There is no server with name " + name);
 	}
 
+	/**
+	 * Gets the servers tree.
+	 *
+	 * @return the servers tree
+	 */
 	protected Tree getServersTree(){
 		activate();
 		return new DefaultTree();
 	}
 
+	/**
+	 * Creates the server.
+	 *
+	 * @param item the item
+	 * @return the server
+	 */
 	protected Server createServer(TreeItem item){
 		return new Server(item, this);
 	}

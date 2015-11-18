@@ -22,6 +22,14 @@ public class RequirementsBuilder {
 	
 	private AnnotationsFinder finder = new AnnotationsFinder(new RequirementAnnotationMatcher());
 	
+	/**
+	 * Builds the.
+	 *
+	 * @param clazz the clazz
+	 * @param config the config
+	 * @param configID the config id
+	 * @return the requirements
+	 */
 	public Requirements build(Class<?> clazz, RequirementsConfiguration config, String configID){
 		checkArguments(clazz, config);
 		List<Requirement<?>> requirements = new ArrayList<Requirement<?>>();
@@ -68,6 +76,11 @@ public class RequirementsBuilder {
 		}
 	}
 	
+	/**
+	 * Sets the finder.
+	 *
+	 * @param finder the new finder
+	 */
 	public void setFinder(AnnotationsFinder finder) {
 		this.finder = finder;
 	}

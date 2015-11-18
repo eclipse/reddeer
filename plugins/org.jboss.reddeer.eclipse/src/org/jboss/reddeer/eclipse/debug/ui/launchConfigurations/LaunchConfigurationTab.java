@@ -14,7 +14,8 @@ public abstract class LaunchConfigurationTab {
 	private String name;
 	
 	/**
-	 * Construct launch configuration tab with the given name
+	 * Construct launch configuration tab with the given name.
+	 *
 	 * @param name Tab name
 	 */
 	public LaunchConfigurationTab(String name) {
@@ -22,7 +23,7 @@ public abstract class LaunchConfigurationTab {
 	}
 	
 	/**
-	 * Activates the tab
+	 * Activates the tab.
 	 */
 	public void activate(){
 		new DefaultCTabItem(name).activate();

@@ -31,7 +31,8 @@ public class XMLSourcePage extends TextEditor {
 
 	/**
 	 * Creates instance from existing text editor reference. 
-	 * @param editor
+	 *
+	 * @param editor the editor
 	 */
 	protected XMLSourcePage(ITextEditor editor) {
 		super(editor);
@@ -46,9 +47,9 @@ public class XMLSourcePage extends TextEditor {
 	 * 	<li> XML with namespaces defined (note the ":" sign for default namespace)<br>
 	 * 		String result = page.evaluateXPath("/:testrun/:requirements/server:server-requirement/@name");
 	 * </ul>
-	 * 
-	 * @param xPathExpression
-	 * @return
+	 *
+	 * @param xPathExpression the x path expression
+	 * @return the string
 	 */
 	public String evaluateXPath(String xPathExpression){
 		XPath xPath =  XPathFactory.newInstance().newXPath();

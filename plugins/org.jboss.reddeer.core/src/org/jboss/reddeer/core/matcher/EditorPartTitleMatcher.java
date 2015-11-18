@@ -25,6 +25,9 @@ public class EditorPartTitleMatcher extends TypeSafeMatcher<IEditorPart> {
 		this.titleMatcher = titleMatcher;
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.hamcrest.TypeSafeMatcher#matchesSafely(java.lang.Object)
+	 */
 	@Override
 	protected boolean matchesSafely(IEditorPart item) {
 		if (titleMatcher.matches(item.getTitle())) {
@@ -42,6 +45,9 @@ public class EditorPartTitleMatcher extends TypeSafeMatcher<IEditorPart> {
 		return false;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.hamcrest.SelfDescribing#describeTo(org.hamcrest.Description)
+	 */
 	@Override
 	public void describeTo(Description description) {
 		description.appendText("EditorPart title matches");

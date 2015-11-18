@@ -24,6 +24,11 @@ public class DiagramEditorLookup {
 
 	}
 
+	/**
+	 * Gets the single instance of DiagramEditorLookup.
+	 *
+	 * @return single instance of DiagramEditorLookup
+	 */
 	public static DiagramEditorLookup getInstance() {
 		if (instance == null) {
 			instance = new DiagramEditorLookup();
@@ -32,8 +37,8 @@ public class DiagramEditorLookup {
 	}
 
 	/**
-	 * Finds a diagram editor in an active editor
-	 * 
+	 * Finds a diagram editor in an active editor.
+	 *
 	 * @return Diagram editor
 	 */
 	public DiagramEditor findDiagramEditor() {

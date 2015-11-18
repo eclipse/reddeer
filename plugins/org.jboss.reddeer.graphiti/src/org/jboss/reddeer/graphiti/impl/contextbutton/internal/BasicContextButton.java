@@ -11,6 +11,11 @@ import org.jboss.reddeer.graphiti.impl.contextbutton.AbstractContextButton;
  */
 public class BasicContextButton extends AbstractContextButton {
 
+	/**
+	 * Instantiates a new basic context button.
+	 *
+	 * @param contextButtonEntry the context button entry
+	 */
 	public BasicContextButton(IContextButtonEntry contextButtonEntry) {
 		super(contextButtonEntry);
 	}

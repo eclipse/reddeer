@@ -49,12 +49,12 @@ public abstract class AbstractWait {
 	/**
 	 * Waits till condition is met for specified timeout period. There is a
 	 * possibility to turn on/off throwing a exception.
-	 * 
+	 *
 	 * @param condition wait condition to met
 	 * @param timePeriod time period to wait
 	 * @param throwRuntimeException whether exception should be thrown after
 	 * expiration of the period
-	 * @throws WaitTimeoutExpiredException
+	 * @throws WaitTimeoutExpiredException the wait timeout expired exception
 	 */
 	public AbstractWait(WaitCondition condition, TimePeriod timePeriod,
 			boolean throwRuntimeException) {
@@ -66,14 +66,14 @@ public abstract class AbstractWait {
 	 * possibility to turn on/off throwing a exception. This constructor also 
 	 * allows to set custom test period - time elapsed before another execution
 	 * of a wait condition is performed.
-	 * 
+	 *
 	 * @param condition wait condition to met
 	 * @param timePeriod time period to wait
 	 * @param throwRuntimeException whether exception should be thrown after
 	 * expiration of the period
 	 * @param testPeriod time to wait before another testing of a wait
 	 * condition is performed
-	 * @throws WaitTimeoutExpiredException
+	 * @throws WaitTimeoutExpiredException the wait timeout expired exception
 	 */
 	public AbstractWait(WaitCondition condition, TimePeriod timePeriod, 
 			boolean throwRuntimeException, TimePeriod testPeriod) {

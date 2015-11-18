@@ -44,9 +44,9 @@ public class TaskRepositoriesView extends WorkbenchView {
 	
 	/**
 	 * Creates new local task.
-	 * 
-	 * @param repoItems
-	 * @param repoList
+	 *
+	 * @param repoItems the repo items
+	 * @param repoList the repo list
 	 */
 	public void createLocalTask (List<TreeItem> repoItems, ArrayList<String> repoList) {				
 		int elementIndex = repoList.indexOf("Local");
@@ -103,6 +103,11 @@ public class TaskRepositoriesView extends WorkbenchView {
 		new PushButton("Yes").click();	
 	}
 	
+	/**
+	 * New task repositories.
+	 *
+	 * @return the new repository wizard
+	 */
 	public NewRepositoryWizard newTaskRepositories(){		
 		log.info("Creating new repository");
 		new ContextMenu("New","Add Task Repository...").select();
@@ -110,6 +115,11 @@ public class TaskRepositoriesView extends WorkbenchView {
 		return new NewRepositoryWizard();
 	}
 
+	/**
+	 * Gets the task repositories.
+	 *
+	 * @return the task repositories
+	 */
 	public List<TaskRepository> getTaskRepositories(){
 		List<TaskRepository> repositories = new ArrayList<TaskRepository>();
 
@@ -125,6 +135,12 @@ public class TaskRepositoriesView extends WorkbenchView {
 		return repositories;
 	}
 
+	/**
+	 * Gets the task repository.
+	 *
+	 * @param name the name
+	 * @return the task repository
+	 */
 	public TaskRepository getTaskRepository(String name){
 		for (TaskRepository repository : getTaskRepositories()){
 			if (repository.getName().equals(name)){
@@ -134,6 +150,11 @@ public class TaskRepositoriesView extends WorkbenchView {
 		throw new EclipseLayerException("There is no repository with name " + name);
 	}
 
+	/**
+	 * Gets the repositories tree.
+	 *
+	 * @return the repositories tree
+	 */
 	protected Tree getRepositoriesTree(){
 		return new DefaultTree();
 	}

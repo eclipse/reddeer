@@ -21,6 +21,12 @@ public class LogMessage {
 	private TreeItem treeItem;
 	private int severity;
 	
+	/**
+	 * Instantiates a new log message.
+	 *
+	 * @param treeItem the tree item
+	 * @param severity the severity
+	 */
 	public LogMessage(TreeItem treeItem, int severity){
 		this.treeItem = treeItem;
 		this.severity = severity;

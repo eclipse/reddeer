@@ -14,7 +14,7 @@ import org.jboss.reddeer.core.matcher.FormTextWithTextMatcher;
 public class DefaultFormText extends AbstractFormText {
 
 	/**
-	 * Represents widget of type FormText
+	 * Represents widget of type FormText.
 	 */
 
 	public DefaultFormText() {
@@ -22,10 +22,10 @@ public class DefaultFormText extends AbstractFormText {
 	}
 
 	/**
-	 * Represents nth widget of type FormText that matches given matchers
-	 * 
-	 * @param index
-	 * @param matchers
+	 * Represents nth widget of type FormText that matches given matchers.
+	 *
+	 * @param index the index
+	 * @param matchers the matchers
 	 */
 
 	public DefaultFormText(int index, Matcher<?>... matchers) {
@@ -33,9 +33,9 @@ public class DefaultFormText extends AbstractFormText {
 	}
 
 	/**
-	 * Represents widget of type FormText with given text
-	 * 
-	 * @param text
+	 * Represents widget of type FormText with given text.
+	 *
+	 * @param text the text
 	 */
 
 	public DefaultFormText(String text) {
@@ -43,9 +43,9 @@ public class DefaultFormText extends AbstractFormText {
 	}
 
 	/**
-	 * Represents widget of type FormText which
-	 * 
-	 * @param matchers
+	 * Represents widget of type FormText which.
+	 *
+	 * @param matchers the matchers
 	 */
 
 	public DefaultFormText(Matcher<?>... matchers) {
@@ -54,9 +54,9 @@ public class DefaultFormText extends AbstractFormText {
 
 	/**
 	 * Represents first widget of type FormText inside of given
-	 * ReferencedComposite
-	 * 
-	 * @param referencedComposite
+	 * ReferencedComposite.
+	 *
+	 * @param referencedComposite the referenced composite
 	 */
 
 	public DefaultFormText(ReferencedComposite referencedComposite) {
@@ -65,11 +65,11 @@ public class DefaultFormText extends AbstractFormText {
 
 	/**
 	 * Represents nth widget of type FormText inside of given
-	 * ReferencedComposite that matches given matchers
-	 * 
-	 * @param referencedComposite
-	 * @param index
-	 * @param matchers
+	 * ReferencedComposite that matches given matchers.
+	 *
+	 * @param referencedComposite the referenced composite
+	 * @param index the index
+	 * @param matchers the matchers
 	 */
 
 	public DefaultFormText(ReferencedComposite referencedComposite, int index, Matcher<?>... matchers) {
@@ -78,10 +78,10 @@ public class DefaultFormText extends AbstractFormText {
 
 	/**
 	 * Represents widget of type FormText inside of given ReferencedComposite
-	 * with given text
-	 * 
-	 * @param referencedComposite
-	 * @param text
+	 * with given text.
+	 *
+	 * @param referencedComposite the referenced composite
+	 * @param text the text
 	 */
 
 	public DefaultFormText(ReferencedComposite referencedComposite, String text) {
@@ -90,10 +90,10 @@ public class DefaultFormText extends AbstractFormText {
 
 	/**
 	 * Represents first widget of type FormText inside of given
-	 * ReferencedComposite that fulfils given matcher
-	 * 
-	 * @param referencedComposite
-	 * @param matchers
+	 * ReferencedComposite that fulfils given matcher.
+	 *
+	 * @param referencedComposite the referenced composite
+	 * @param matchers the matchers
 	 */
 
 	public DefaultFormText(ReferencedComposite referencedComposite,

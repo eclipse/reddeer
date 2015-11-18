@@ -15,11 +15,20 @@ public class FulfillRequirementsStatement extends Statement {
 	
 	private Requirements requirements;
 	
+	/**
+	 * Instantiates a new fulfill requirements statement.
+	 *
+	 * @param requirements the requirements
+	 * @param statement the statement
+	 */
 	public FulfillRequirementsStatement(Requirements requirements, Statement statement) {
 		this.statement = statement;
 		this.requirements = requirements;
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.junit.runners.model.Statement#evaluate()
+	 */
 	@Override
 	public void evaluate() throws Throwable {
 		requirements.fulfill();

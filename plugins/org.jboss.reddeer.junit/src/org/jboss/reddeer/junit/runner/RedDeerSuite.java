@@ -43,10 +43,10 @@ public class RedDeerSuite extends Suite {
 
 	/**
 	 * Called by the JUnit framework.
-	 * 
-	 * @param clazz
-	 * @param builder
-	 * @throws InitializationError
+	 *
+	 * @param clazz the clazz
+	 * @param builder the builder
+	 * @throws InitializationError the initialization error
 	 */
 	public RedDeerSuite(Class<?> clazz, RunnerBuilder builder) throws InitializationError {
 		this(clazz, builder, new SuiteConfiguration());
@@ -55,11 +55,11 @@ public class RedDeerSuite extends Suite {
 	/**
 	 * The {@link EmptySuite} makes sure that the @BeforeClass and @AfterClass are not called on the suite class too
 	 * often.
-	 * 
-	 * @param clazz
-	 * @param builder
-	 * @param config
-	 * @throws InitializationError
+	 *
+	 * @param clazz the clazz
+	 * @param builder the builder
+	 * @param config the config
+	 * @throws InitializationError the initialization error
 	 */
 	protected RedDeerSuite(Class<?> clazz, RunnerBuilder builder, SuiteConfiguration config) throws InitializationError {
 		super(EmptySuite.class, createSuite(clazz, config));
@@ -67,11 +67,11 @@ public class RedDeerSuite extends Suite {
 
 	/**
 	 * Creates a new suite for each configuration file found.
-	 * 
-	 * @param clazz
-	 * @param config
-	 * @return
-	 * @throws InitializationError
+	 *
+	 * @param clazz the clazz
+	 * @param config the config
+	 * @return the list
+	 * @throws InitializationError the initialization error
 	 */
 	public static List<Runner> createSuite(Class<?> clazz, SuiteConfiguration config) throws InitializationError {
 		log.info("Creating RedDeer suite...");
@@ -106,6 +106,9 @@ public class RedDeerSuite extends Suite {
 		return annotation != null;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.junit.runners.ParentRunner#getName()
+	 */
 	@Override
 	protected String getName() {
 		return "Red Deer Suite";

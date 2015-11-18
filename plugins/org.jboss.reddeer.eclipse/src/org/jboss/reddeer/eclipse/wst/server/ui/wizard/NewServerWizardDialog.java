@@ -13,6 +13,9 @@ public class NewServerWizardDialog extends NewWizardDialog {
 
 	public static final String TITLE = "New Server";
 	
+	/**
+	 * Instantiates a new new server wizard dialog.
+	 */
 	public NewServerWizardDialog() {
 		super("Server", "Server");
 	}

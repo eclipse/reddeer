@@ -27,22 +27,19 @@ public class DeleteUtils {
 	private static final Logger log = Logger.getLogger(DeleteUtils.class);
 
 	/**
-	 * Handles specific cases during project deletion
-	 * 
-	 * @param deleteShellText
-	 *            text of shell
+	 * Handles specific cases during project deletion.
+	 *
+	 * @param deleteShell the delete shell
 	 */
 	public static void handleDeletion(org.jboss.reddeer.swt.api.Shell deleteShell) {
 		handleDeletion(deleteShell, TimePeriod.VERY_LONG);
 	}
 
 	/**
-	 * Handles specific cases during project deletion
-	 * 
-	 * @param deleteShellText
-	 *            text of shell
-	 * @param timeout
-	 *            timeout
+	 * Handles specific cases during project deletion.
+	 *
+	 * @param deleteShell the delete shell
+	 * @param timeout            timeout
 	 */
 	public static void handleDeletion(org.jboss.reddeer.swt.api.Shell deleteShell, TimePeriod timeout) {
 		new WaitUntil(new ShellHasChildrenOrIsNotAvailable(deleteShell), timeout);
@@ -62,10 +59,10 @@ public class DeleteUtils {
 	}
 
 	/**
-	 * Deletes project via Eclipse API in case deleting via UI calls failed
-	 * 
-	 * @param deleteShellText
-	 *            text of shell
+	 * Deletes project via Eclipse API in case deleting via UI calls failed.
+	 *
+	 * @param project the project
+	 * @param deleteFromFileSystem the delete from file system
 	 */
 	public static void forceProjectDeletion(Project project, boolean deleteFromFileSystem) {
 		try {

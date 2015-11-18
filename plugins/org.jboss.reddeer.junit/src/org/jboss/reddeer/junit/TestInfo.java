@@ -15,9 +15,10 @@ public class TestInfo {
 	
 	/**
 	 * Creates TestInfo.
-	 * @param methodName
-	 * @param config
-	 * @param testObjectClass
+	 *
+	 * @param methodName the method name
+	 * @param config the config
+	 * @param testObjectClass the test object class
 	 */
 	public TestInfo(String methodName, String config,
 			Class<?> testObjectClass) {
@@ -26,23 +27,29 @@ public class TestInfo {
 		this.config = config;
 		this.testObjectClass = testObjectClass;
 	}
+	
 	/**
 	 * Returns test method name. 
-	 * @return
+	 *
+	 * @return the method name
 	 */
 	public String getMethodName() {
 		return methodName;
 	}
+	
 	/**
 	 * Returns configuration name.
-	 * @return
+	 *
+	 * @return the config
 	 */
 	public String getConfig() {
 		return config;
 	}
+	
 	/**
-	 * Returns test object aka instance of running test
-	 * @return
+	 * Returns test object aka instance of running test.
+	 *
+	 * @return the test object class
 	 */
 	public Class<?> getTestObjectClass() {
 		return testObjectClass;

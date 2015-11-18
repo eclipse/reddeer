@@ -29,10 +29,21 @@ public class ServersViewEnums {
 			this.text = text;
 		}
 
+		/**
+		 * Gets the text.
+		 *
+		 * @return the text
+		 */
 		public String getText() {
 			return text;
 		}
 
+		/**
+		 * Gets the by text.
+		 *
+		 * @param text the text
+		 * @return the by text
+		 */
 		public static ServerState getByText(String text){
 			for (ServerState state : ServerState.values()){
 				if (state.getText().equals(text)){
@@ -42,10 +53,20 @@ public class ServersViewEnums {
 			throw new IllegalArgumentException("There is no enumeration with text " + text);
 		}
 		
+		/**
+		 * Gets the running states.
+		 *
+		 * @return the running states
+		 */
 		public static List<ServerState> getRunningStates(){
 			return Arrays.asList(STARTED, DEBUGGING, PROFILING);
 		}
 		
+		/**
+		 * Checks if is running state.
+		 *
+		 * @return true, if is running state
+		 */
 		public boolean isRunningState(){
 			return getRunningStates().contains(this);
 		}
@@ -62,10 +83,21 @@ public class ServersViewEnums {
 			this.text = text;
 		}
 
+		/**
+		 * Gets the text.
+		 *
+		 * @return the text
+		 */
 		public String getText() {
 			return text;
 		}
 
+		/**
+		 * Gets the by text.
+		 *
+		 * @param text the text
+		 * @return the by text
+		 */
 		public static ServerPublishState getByText(String text){
 			for (ServerPublishState status : ServerPublishState.values()){
 				if (status.getText().equals(text)){
@@ -86,10 +118,21 @@ public class ServersViewEnums {
 			this.text = text;
 		}
 
+		/**
+		 * Gets the text.
+		 *
+		 * @return the text
+		 */
 		public String getText() {
 			return text;
 		}
 
+		/**
+		 * Gets the by text.
+		 *
+		 * @param text the text
+		 * @return the by text
+		 */
 		public static ProjectState getByText(String text){
 			for (ProjectState state : ProjectState.values()){
 				if (state.getText().equals(text)){
@@ -110,10 +153,21 @@ public class ServersViewEnums {
 			this.text = text;
 		}
 
+		/**
+		 * Gets the text.
+		 *
+		 * @return the text
+		 */
 		public String getText() {
 			return text;
 		}
 
+		/**
+		 * Gets the by text.
+		 *
+		 * @param text the text
+		 * @return the by text
+		 */
 		public static ProjectStatus getByText(String text){
 			for (ProjectStatus status : ProjectStatus.values()){
 				if (status.getText().equals(text)){

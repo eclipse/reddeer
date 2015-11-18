@@ -119,7 +119,8 @@ public class WidgetHandler {
 
 	/**
 	 * Gets style of specified widget.
-	 * 
+	 *
+	 * @param <T> the generic type
 	 * @param w widget to handle
 	 * @return style of specified widget
 	 */
@@ -140,7 +141,8 @@ public class WidgetHandler {
 
 	/**
 	 * Sets specified text to specified widget.
-	 * 
+	 *
+	 * @param <T> the generic type
 	 * @param widget widget to handle
 	 * @param text text to set
 	 */
@@ -156,7 +158,8 @@ public class WidgetHandler {
 
 	/**
 	 * Gets text of specified widget.
-	 * 
+	 *
+	 * @param <T> the generic type
 	 * @param widget widget to handle
 	 * @return text of specified widget
 	 */
@@ -178,7 +181,8 @@ public class WidgetHandler {
 
 	/**
 	 * Gets label of specified widget.
-	 * 
+	 *
+	 * @param <T> the generic type
 	 * @param w widget to handle
 	 * @return label of specified widget
 	 */
@@ -238,7 +242,8 @@ public class WidgetHandler {
 
 	/**
 	 * Gets tool tip text of specified widget.
-	 * 
+	 *
+	 * @param <T> the generic type
 	 * @param widget widget to handle
 	 * @return tool tip text of specified widget
 	 */
@@ -267,7 +272,8 @@ public class WidgetHandler {
 	 * Sets focus to specified widget. The method is called from {@link WidgetLookup}
 	 * so it need to be common for all widgets and cannot be decomposed to
 	 * separate handlers.
-	 * 
+	 *
+	 * @param <T> the generic type
 	 * @param w widget to handle
 	 */
 	public <T extends Widget> void setFocus(final T w) {
@@ -422,8 +428,8 @@ public class WidgetHandler {
 	
 	/**
 	 * Gets path to widget within widget tree including widget getting path for
-	 * as last element of returned list
-	 * 
+	 * as last element of returned list.
+	 *
 	 * @param widget widget to get path for
 	 * @param classFilter optional array of classes included in returned list
 	 * @return ordered list of widgets
@@ -473,9 +479,10 @@ public class WidgetHandler {
 	}
 	
 	/**
-	 * Returns control children
-	 * @param control
-	 * @return
+	 * Returns control children.
+	 *
+	 * @param composite the composite
+	 * @return the children
 	 */
 	public Control[] getChildren(final Composite composite) {
 		return Display.syncExec(new ResultRunnable<Control[]>() {

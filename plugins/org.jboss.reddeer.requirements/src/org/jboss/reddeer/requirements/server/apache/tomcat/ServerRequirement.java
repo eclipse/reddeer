@@ -36,15 +36,33 @@ public class ServerRequirement extends ServerReqBase
 	@Retention(RetentionPolicy.RUNTIME)
 	@Target(ElementType.TYPE)
 	public @interface ApacheTomcatServer {
+		
+		/**
+		 * State.
+		 *
+		 * @return the server req state
+		 */
 		ServerReqState state() default ServerReqState.RUNNING;
+		
+		/**
+		 * Cleanup.
+		 *
+		 * @return true, if successful
+		 */
 		boolean cleanup() default true;
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.junit.requirement.Requirement#canFulfill()
+	 */
 	@Override
 	public boolean canFulfill() {
 		return true;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.junit.requirement.Requirement#fulfill()
+	 */
 	@Override
 	public void fulfill() {
 		if(lastServerConfiguration == null || !isLastConfiguredServerPresent(lastServerConfiguration)) {
@@ -55,17 +73,26 @@ public class ServerRequirement extends ServerReqBase
 		setupServerState(server.state(), lastServerConfiguration);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.requirements.server.ServerReqBase#getServerTypeLabelText(org.jboss.reddeer.requirements.server.IServerReqConfig)
+	 */
 	@Override
 	public String getServerTypeLabelText(IServerReqConfig config) {
 		return config.getServerFamily().getLabel() + " v" + 
 				config.getServerFamily().getVersion() + " Server";
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.requirements.server.ServerReqBase#getServerNameLabelText(org.jboss.reddeer.requirements.server.IServerReqConfig)
+	 */
 	@Override
 	public String getServerNameLabelText(IServerReqConfig config) {
 		return getServerTypeLabelText(config) + " at localhost";
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.requirements.server.ServerReqBase#getRuntimeNameLabelText(org.jboss.reddeer.requirements.server.IServerReqConfig)
+	 */
 	@Override
 	public String getRuntimeNameLabelText(IServerReqConfig config) {
 		return config.getServerFamily().getCategory() + " " + 
@@ -90,25 +117,42 @@ public class ServerRequirement extends ServerReqBase
 		swd.finish();
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.junit.requirement.Requirement#setDeclaration(java.lang.annotation.Annotation)
+	 */
 	@Override
 	public void setDeclaration(ApacheTomcatServer server) {
 		this.server = server;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.junit.requirement.CustomConfiguration#getConfigurationClass()
+	 */
 	@Override
 	public Class<ServerRequirementConfig> getConfigurationClass() {
 		return ServerRequirementConfig.class;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.junit.requirement.CustomConfiguration#setConfiguration(java.lang.Object)
+	 */
 	@Override
 	public void setConfiguration(ServerRequirementConfig config) {
 		this.config = config;
 	}
 
+	/**
+	 * Gets the config.
+	 *
+	 * @return the config
+	 */
 	public ServerRequirementConfig getConfig() {
 		return this.config;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.junit.requirement.Requirement#cleanUp()
+	 */
 	@Override
 	public void cleanUp() {
 		if(server.cleanup() && config != null){

@@ -10,6 +10,12 @@ public enum SQLResultStatus {
 		this.status = status;
 	}
 
+	/**
+	 * From string.
+	 *
+	 * @param text the text
+	 * @return the SQL result status
+	 */
 	public static SQLResultStatus fromString(String text) {
 		if (text != null) {
 			for (SQLResultStatus s : SQLResultStatus.values()) {

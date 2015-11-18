@@ -26,14 +26,18 @@ public class PropertyBasedConfiguration {
 	private Class<? extends Requirement<?>> className;
 
 	/**
-	 * @param List of requirement properties to be set
+	 * Sets the properties.
+	 *
+	 * @param properties the new properties
 	 */
 	public void setProperties(List<Property> properties) {
 		this.properties = properties;
 	}
 
 	/**
-	 * @return List of requirement properties 
+	 * Gets the properties.
+	 *
+	 * @return List of requirement properties
 	 */
 	@XmlElement(name = "property", namespace = "http://www.jboss.org/NS/Req")
 	public List<Property> getProperties() {
@@ -41,14 +45,18 @@ public class PropertyBasedConfiguration {
 	}
 
 	/**
-	 * @param Requirement class name 
+	 * Sets the requirement class name.
+	 *
+	 * @param clazz the new requirement class name
 	 */
 	public void setRequirementClassName(String clazz) {
 		this.clazz = clazz;
 	}
 
 	/**
-	 * @return Class name of the requirement 
+	 * Gets the requirement class name.
+	 *
+	 * @return Class name of the requirement
 	 */
 	@XmlAttribute(name = "class")
 	public String getRequirementClassName() {
@@ -56,6 +64,8 @@ public class PropertyBasedConfiguration {
 	}
 
 	/**
+	 * Gets the requirement class.
+	 *
 	 * @return Requirement class looked up in running Eclipse/OSGi
 	 * @since 0.2
 	 */

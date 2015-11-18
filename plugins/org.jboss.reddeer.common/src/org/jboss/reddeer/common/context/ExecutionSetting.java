@@ -18,8 +18,8 @@ public class ExecutionSetting {
 	private boolean filterSet = false;
 
 	/**
-	 * Provides ExecutionSetting instance
-	 * 
+	 * Provides ExecutionSetting instance.
+	 *
 	 * @return instance
 	 */
 	public static ExecutionSetting getInstance() {
@@ -78,8 +78,8 @@ public class ExecutionSetting {
 	}
 
 	/**
-	 * pauseFailedTest getter
-	 * 
+	 * pauseFailedTest getter.
+	 *
 	 * @return true if -DpauseFailingTest=true, false otherwise (default)
 	 */
 	public boolean isPauseFailedTest() {
@@ -88,8 +88,8 @@ public class ExecutionSetting {
 
 	/**
 	 * Returns log message filter (value that determines what kind of log
-	 * messages will be printed)
-	 * 
+	 * messages will be printed).
+	 *
 	 * @return log message filter value set by -DlogMessageFilter or in the code
 	 */
 	public int getLogMessageFilter() {
@@ -100,13 +100,16 @@ public class ExecutionSetting {
 	 * Sets log message filter (value that determines what kind of log messages
 	 * will be printed). Usually you will use -DlogMessageFilter parameter
 	 * instead of call this method
+	 *
+	 * @param value the new log message filter
 	 */
 	public void setLogMessageFilter(int value) {
 		logMessageFilter = value;
 	}
 
 	/**
-	 * Returns log level for log messages set by users 
+	 * Returns log level for log messages set by users .
+	 *
 	 * @return log level for log messages
 	 */
 	public int getLogLevel() {

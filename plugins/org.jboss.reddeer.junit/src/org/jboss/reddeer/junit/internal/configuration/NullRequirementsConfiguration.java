@@ -18,11 +18,17 @@ public class NullRequirementsConfiguration implements
 	
 	private NullConfigurator voidConfigurator;
 
+	/**
+	 * Instantiates a new null requirements configuration.
+	 */
 	public NullRequirementsConfiguration() {
 		super();
 		this.voidConfigurator = new NullConfigurator();
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.junit.internal.configuration.RequirementsConfiguration#configure(org.jboss.reddeer.junit.requirement.Requirement)
+	 */
 	@Override
 	public void configure(Requirement<?> requirement) {
 		if (requirement instanceof PropertyConfiguration || requirement instanceof CustomConfiguration){

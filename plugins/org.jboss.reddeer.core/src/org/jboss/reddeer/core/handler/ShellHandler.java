@@ -178,6 +178,11 @@ public class ShellHandler {
 	}
 	
 	
+	/**
+	 * Close shell safely.
+	 *
+	 * @param swtShell the swt shell
+	 */
 	public void closeShellSafely(Shell swtShell) {
 		String text = WidgetHandler.getInstance().getText(swtShell);
 		log.info("Close shell " + text);
@@ -246,10 +251,12 @@ public class ShellHandler {
 		
 		return result;	
 	}
+	
 	/**
-	 * Returns shell parent
-	 * @param shell
-	 * @return
+	 * Returns shell parent.
+	 *
+	 * @param shell the shell
+	 * @return the parent shell
 	 */
 	public Shell getParentShell(Shell shell){
 		Control parent = WidgetHandler.getInstance().getParent(shell);
@@ -257,9 +264,10 @@ public class ShellHandler {
 	}
 	
 	/**
-	 * Return child shells
-	 * @param shell
-	 * @return
+	 * Return child shells.
+	 *
+	 * @param shell the shell
+	 * @return the shells
 	 */
 	public Shell[] getShells(final Shell shell){
 		return Display.syncExec(new ResultRunnable<Shell[]>() {

@@ -28,8 +28,9 @@ public abstract class PreferenceDialog {
 	private static final Logger log = Logger.getLogger(PreferenceDialog.class);
 	
 	/**
-	 * Returns the title of the dialog
-	 * @return
+	 * Returns the title of the dialog.
+	 *
+	 * @return the title
 	 */
 	public abstract String getTitle();
 	

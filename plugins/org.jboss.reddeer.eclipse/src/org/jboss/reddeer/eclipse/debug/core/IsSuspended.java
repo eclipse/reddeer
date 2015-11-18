@@ -15,6 +15,9 @@ public class IsSuspended extends AbstractWaitCondition {
 
 	private ResumeButton resumeButton;
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.common.condition.WaitCondition#test()
+	 */
 	@Override
 	public boolean test() {
 		if (resumeButton == null) {
@@ -27,6 +30,9 @@ public class IsSuspended extends AbstractWaitCondition {
 		return false;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.common.condition.AbstractWaitCondition#description()
+	 */
 	@Override
 	public String description() {
 		return "Debugger didn't suspend";

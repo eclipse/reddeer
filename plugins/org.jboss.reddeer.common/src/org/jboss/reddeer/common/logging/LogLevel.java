@@ -14,7 +14,8 @@ public enum LogLevel {
 	private final int value;
 
 	/**
-	 * Initialize value of LogLevel from int
+	 * Initialize value of LogLevel from int.
+	 *
 	 * @param value given int value
 	 */
 	LogLevel(int value) {
@@ -22,7 +23,8 @@ public enum LogLevel {
 	}
 	
 	/**
-	 * Return value
+	 * Return value.
+	 *
 	 * @return value
 	 */
 	public int getValue() {
@@ -30,14 +32,17 @@ public enum LogLevel {
 	}
 
 	/**
-	 * Return log level value as a string
+	 * Return log level value as a string.
+	 *
+	 * @return the string
 	 */
 	public String toString() {
 		return new Integer(value).toString();
 	}
 	
 	/**
-	 * Return LogLevel from string value 
+	 * Return LogLevel from string value .
+	 *
 	 * @param string log level
 	 * @return LogLevel based on string
 	 */

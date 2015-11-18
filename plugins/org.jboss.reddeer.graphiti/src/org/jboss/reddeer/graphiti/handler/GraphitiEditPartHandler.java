@@ -36,6 +36,11 @@ public class GraphitiEditPartHandler {
 
 	}
 
+	/**
+	 * Gets the single instance of GraphitiEditPartHandler.
+	 *
+	 * @return single instance of GraphitiEditPartHandler
+	 */
 	public static GraphitiEditPartHandler getInstance() {
 		if (instance == null) {
 			instance = new GraphitiEditPartHandler();

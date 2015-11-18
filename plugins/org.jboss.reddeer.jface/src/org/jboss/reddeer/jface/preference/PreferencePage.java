@@ -43,6 +43,8 @@ public abstract class PreferencePage {
 	
 	/**
 	 * Returns path of the preference item.
+	 *
+	 * @return the path
 	 */
 	public String[] getPath() {
 		return path.clone();

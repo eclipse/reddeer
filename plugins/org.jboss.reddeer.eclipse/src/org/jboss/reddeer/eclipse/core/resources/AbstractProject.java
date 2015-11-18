@@ -28,8 +28,9 @@ public abstract class AbstractProject extends ExplorerItem {
 	protected final Logger log = Logger.getLogger(Project.class);
 	
 	/**
-	 * Creates {@link AbstractProject}
-	 * @param item
+	 * Creates {@link AbstractProject}.
+	 *
+	 * @param item the item
 	 */
 	public AbstractProject(TreeItem item) {
 		super(item);

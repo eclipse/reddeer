@@ -25,17 +25,26 @@ public class RegexMatcher extends TypeSafeMatcher<String> {
 		this.regex = regex;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.hamcrest.SelfDescribing#describeTo(org.hamcrest.Description)
+	 */
 	@Override
 	public void describeTo(Description description) {
 		description.appendText("regular expression \"" +
 			(regex == null ? "null" : regex)	+ "\"");
 	}
 
+	/* (non-Javadoc)
+	 * @see org.hamcrest.TypeSafeMatcher#matchesSafely(java.lang.Object)
+	 */
 	@Override
 	protected boolean matchesSafely(String textToMatch) {
 		return textToMatch.matches(regex);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.hamcrest.BaseMatcher#toString()
+	 */
 	@Override
 	public String toString() {
 		return "Matcher matching text to regular expression '" +

@@ -18,8 +18,8 @@ import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
 public class ModifyModulesPage extends WizardPage {
 
 	/**
-	 * Adds modules with the specified names
-	 * 
+	 * Adds modules with the specified names.
+	 *
 	 * @param projectNames names of the modules to be added
 	 */
 	public void add(String... projectNames) {
@@ -30,8 +30,8 @@ public class ModifyModulesPage extends WizardPage {
 	}
 
 	/**
-	 * Adds all available modules to the server
-	 * 
+	 * Adds all available modules to the server.
+	 *
 	 * @see {@link #getAvailableModules()}
 	 */
 	public void addAll() {
@@ -39,8 +39,8 @@ public class ModifyModulesPage extends WizardPage {
 	}
 
 	/**
-	 * Removes modules with the specified names
-	 * 
+	 * Removes modules with the specified names.
+	 *
 	 * @param projectNames names of the modules to be removed from the server
 	 */
 	public void remove(String... projectNames) {
@@ -51,7 +51,7 @@ public class ModifyModulesPage extends WizardPage {
 	}
 
 	/**
-	 * Removes all modules from the server
+	 * Removes all modules from the server.
 	 */
 	public void removeAll() {
 		new PushButton("<< Remove All").click();
@@ -59,8 +59,8 @@ public class ModifyModulesPage extends WizardPage {
 
 	/**
 	 * Returns available modules that are not configured on the server or are
-	 * not proposed to be configured on the server
-	 * 
+	 * not proposed to be configured on the server.
+	 *
 	 * @return list of modules that are not configured on the server or are not
 	 *         proposed to be configured on the server
 	 */
@@ -70,8 +70,8 @@ public class ModifyModulesPage extends WizardPage {
 
 	/**
 	 * Returns modules that are configured or are proposed to be configured on
-	 * the server
-	 * 
+	 * the server.
+	 *
 	 * @return list of modules that are configured or are proposed to be
 	 *         configured on the server
 	 */

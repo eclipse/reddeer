@@ -21,16 +21,25 @@ public class FamilyApacheTomcat implements IServerFamily {
 	@XmlAttribute(name="version")
 	private String version;
 	
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.requirements.server.IServerFamily#getCategory()
+	 */
 	@Override
 	public String getCategory() {
 		return category;
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.requirements.server.IServerFamily#getLabel()
+	 */
 	@Override
 	public String getLabel() {
 		return label;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.requirements.server.IServerFamily#getVersion()
+	 */
 	@Override
 	public String getVersion() {
 		return version;

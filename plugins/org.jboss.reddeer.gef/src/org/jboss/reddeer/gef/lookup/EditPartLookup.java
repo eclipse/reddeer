@@ -27,6 +27,11 @@ public class EditPartLookup {
 
 	}
 
+	/**
+	 * Gets the single instance of EditPartLookup.
+	 *
+	 * @return single instance of EditPartLookup
+	 */
 	public static EditPartLookup getInstance() {
 		if (instance == null) {
 			instance = new EditPartLookup();

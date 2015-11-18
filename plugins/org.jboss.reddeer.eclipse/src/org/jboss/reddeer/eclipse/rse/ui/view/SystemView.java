@@ -33,7 +33,8 @@ public class SystemView extends WorkbenchView {
 	}
 	
 	/**
-	 * Open and return New Connection wizard dialog
+	 * Open and return New Connection wizard dialog.
+	 *
 	 * @return NewConnectionWizardDialog
 	 */
 	public NewConnectionWizardDialog newConnection(){
@@ -47,7 +48,8 @@ public class SystemView extends WorkbenchView {
 	}
 
 	/**
-	 * Get list of all Remote Systems in tree
+	 * Get list of all Remote Systems in tree.
+	 *
 	 * @return List<System>
 	 */
 	public List<System> getSystems(){
@@ -66,7 +68,8 @@ public class SystemView extends WorkbenchView {
 	}
 
 	/**
-	 * Get Remote System specified by it's name
+	 * Get Remote System specified by it's name.
+	 *
 	 * @param name of the system to be returned
 	 * @return System
 	 * @throws EclipseLayerException if no remote system found
@@ -80,11 +83,22 @@ public class SystemView extends WorkbenchView {
 		throw new EclipseLayerException("There is no remote system with name " + name);
 	}
 
+	/**
+	 * Gets the system tree.
+	 *
+	 * @return the system tree
+	 */
 	protected Tree getSystemTree(){
 		activate();
 		return new DefaultTree();
 	}
 
+	/**
+	 * Creates the system.
+	 *
+	 * @param item the item
+	 * @return the system
+	 */
 	protected System createSystem(TreeItem item){
 		return new System(item);
 	}

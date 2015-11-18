@@ -13,15 +13,16 @@ public interface Section extends ReferencedComposite, Widget {
 
 	/**
 	 * Returns the title of the section. 
-	 * @return
+	 *
+	 * @return the text
 	 */
 	String getText();
 	
 	
 	/**
 	 * Sets the expansion state of the section. 
-	 * 
-	 * @param expanded
+	 *
+	 * @param expanded the new expanded
 	 */
 	void setExpanded(boolean expanded);
 }

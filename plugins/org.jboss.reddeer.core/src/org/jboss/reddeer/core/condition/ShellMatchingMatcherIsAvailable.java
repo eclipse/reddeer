@@ -27,6 +27,9 @@ public class ShellMatchingMatcherIsAvailable extends AbstractWaitCondition {
 		this.matcher = matcher;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.common.condition.WaitCondition#test()
+	 */
 	@Override
 	public boolean test() {
 		logger.debug("Looking for shell with title matching matcher");
@@ -39,6 +42,9 @@ public class ShellMatchingMatcherIsAvailable extends AbstractWaitCondition {
 		return false;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.common.condition.AbstractWaitCondition#description()
+	 */
 	@Override
 	public String description() {
 		return "shell matching matcher is available.";

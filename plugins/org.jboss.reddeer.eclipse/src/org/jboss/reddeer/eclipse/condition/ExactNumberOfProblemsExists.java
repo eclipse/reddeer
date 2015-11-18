@@ -52,6 +52,9 @@ public class ExactNumberOfProblemsExists extends AbstractWaitCondition {
 		problemsView.open();
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.common.condition.WaitCondition#test()
+	 */
 	@Override
 	public boolean test() {
 		problemsView.activate();
@@ -61,6 +64,9 @@ public class ExactNumberOfProblemsExists extends AbstractWaitCondition {
 		return problems.size() == expectedProblemsCount;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.common.condition.AbstractWaitCondition#description()
+	 */
 	@Override
 	public String description() {
 		return "number of problems in Problems view is " + problems.size() + ".\n"

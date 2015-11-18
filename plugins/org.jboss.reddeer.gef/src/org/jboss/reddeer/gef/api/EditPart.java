@@ -20,9 +20,8 @@ public interface EditPart {
 
 	/**
 	 * Sets the edit part with a given label.
-	 * 
-	 * @param text
-	 *            Text
+	 *
+	 * @param label the new label
 	 */
 	void setLabel(String label);
 

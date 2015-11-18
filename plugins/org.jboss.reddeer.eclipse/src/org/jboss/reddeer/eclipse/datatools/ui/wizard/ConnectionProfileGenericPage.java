@@ -23,14 +23,16 @@ public class ConnectionProfileGenericPage extends ConnectionProfileDatabasePage 
 	public static final String LABEL_SAVE_PASSWORD = "Save password";
 
 	/**
-	 * Initialize connection profile for generic type
+	 * Initialize connection profile for generic type.
 	 */
 	public ConnectionProfileGenericPage() {
 		super();
 	}
 
 	/**
-	 * Sets hostname (URL)
+	 * Sets hostname (URL).
+	 *
+	 * @param hostname the new hostname
 	 */
 	@Override
 	public void setHostname(String hostname) {
@@ -38,7 +40,8 @@ public class ConnectionProfileGenericPage extends ConnectionProfileDatabasePage 
 	}
 
 	/**
-	 * Return hostname (URL)
+	 * Return hostname (URL).
+	 *
 	 * @return hostname/url
 	 */
 	public String getHostname() {
@@ -46,7 +49,7 @@ public class ConnectionProfileGenericPage extends ConnectionProfileDatabasePage 
 	}
 
 	/**
-	 * Tests connection (unsupported)
+	 * Tests connection (unsupported).
 	 */
 	public void testConnection() {
 		throw new UnsupportedOperationException();
@@ -61,14 +64,17 @@ public class ConnectionProfileGenericPage extends ConnectionProfileDatabasePage 
 	}
 
 	/**
-	 * Returns database for this profile
+	 * Returns database for this profile.
+	 *
+	 * @return the database
 	 */
 	public void getDatabase() {
 		new LabeledText(LABEL_DATABASE).getText();
 	}
 
 	/**
-	 * Not used for this profile
+	 * Not used for this profile.
+	 *
 	 * @return empty string
 	 */
 	public String getUrl() {
@@ -76,7 +82,8 @@ public class ConnectionProfileGenericPage extends ConnectionProfileDatabasePage 
 	}
 
 	/**
-	 * return username for generic profile
+	 * return username for generic profile.
+	 *
 	 * @return username
 	 */
 	public String getUsername() {
@@ -84,7 +91,9 @@ public class ConnectionProfileGenericPage extends ConnectionProfileDatabasePage 
 	}
 
 	/**
-	 * Sets username for generic profile
+	 * Sets username for generic profile.
+	 *
+	 * @param userName the new username
 	 */
 	@Override
 	public void setUsername(String userName) {
@@ -92,7 +101,8 @@ public class ConnectionProfileGenericPage extends ConnectionProfileDatabasePage 
 	}
 
 	/**
-	 * Returns password for generic profile
+	 * Returns password for generic profile.
+	 *
 	 * @return password
 	 */
 	public String getPassword() {
@@ -100,7 +110,9 @@ public class ConnectionProfileGenericPage extends ConnectionProfileDatabasePage 
 	}
 
 	/**
-	 * Sets password for generic profile
+	 * Sets password for generic profile.
+	 *
+	 * @param password the new password
 	 */
 	public void setPassword(String password) {
 		new LabeledText(LABEL_PASSWORD).setText(password);
@@ -108,15 +120,18 @@ public class ConnectionProfileGenericPage extends ConnectionProfileDatabasePage 
 	}
 
 	/**
-	 * Returns port - empty string for this profile
-	 * @return empty string for this profile 
+	 * Returns port - empty string for this profile.
+	 *
+	 * @return empty string for this profile
 	 */
 	public String getPort() {
 		return "";
 	}
 
 	/**
-	 * Sets port (does nothing for this profile)
+	 * Sets port (does nothing for this profile).
+	 *
+	 * @param port the new port
 	 */
 	@Override
 	public void setPort(String port) {

@@ -80,6 +80,9 @@ public class RedDeerException extends RuntimeException {
 		this.messageDetails.addLast(messageDetail);
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Throwable#toString()
+	 */
 	@Override
 	public String toString() {
 		String result = super.toString();

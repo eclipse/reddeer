@@ -9,10 +9,20 @@ import org.jboss.reddeer.swt.impl.group.DefaultGroup;
  */
 public class WebProjectFirstPage extends DataModelFacetCreationWizardPage{
 	
+	/**
+	 * Sets the dynamic web module version.
+	 *
+	 * @param version the new dynamic web module version
+	 */
 	public void setDynamicWebModuleVersion(String version){
 		new DefaultCombo(new DefaultGroup("Dynamic web module version")).setSelection(version);
 	}
 	
+	/**
+	 * Gets the dynamic web module version.
+	 *
+	 * @return the dynamic web module version
+	 */
 	public String getDynamicWebModuleVersion(){
 		return new DefaultCombo(new DefaultGroup("Dynamic web module version")).getSelection();
 	}

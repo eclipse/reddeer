@@ -97,8 +97,9 @@ public class ToolItemLookup {
 	}
 	
 	/**
-	 * Finds current referenced composite
-	 * @return
+	 * Finds current referenced composite.
+	 *
+	 * @return the referenced composite
 	 */
 	public ReferencedComposite findReferencedComposite(){
 		Control control = null;
@@ -130,10 +131,18 @@ public class ToolItemLookup {
 		
 		private Control control;
 		
+		/**
+		 * Instantiates a new generic referenced composite.
+		 *
+		 * @param control the control
+		 */
 		public GenericReferencedComposite(Control control) {
 			this.control = control;
 		}
 		
+		/* (non-Javadoc)
+		 * @see org.jboss.reddeer.core.reference.ReferencedComposite#getControl()
+		 */
 		@Override
 		public Control getControl() {
 			return control;

@@ -41,14 +41,18 @@ public class OpenPerspectiveRequirement implements Requirement<OpenPerspective> 
 	@Target(ElementType.TYPE)
 	@Documented
 	public @interface OpenPerspective {
+		
 		/**
-		 * specified perspective
+		 * specified perspective.
+		 *
+		 * @return the class<? extends abstract perspective>
 		 */
 		Class<? extends AbstractPerspective> value();
 		
 		/**
 		 * If true, perspective will be reset to default. 
-		 * @return
+		 *
+		 * @return true, if successful
 		 */
 		boolean reset() default true;
 	}
@@ -115,6 +119,9 @@ public class OpenPerspectiveRequirement implements Requirement<OpenPerspective> 
 		return perspectiveInstance;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.junit.requirement.Requirement#cleanUp()
+	 */
 	@Override
 	public void cleanUp() {
 

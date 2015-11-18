@@ -12,9 +12,8 @@ public class DefaultEditPart extends AbstractEditPart {
 
 	/**
 	 * Finds an edit part with a given instance name.
-	 * 
-	 * @param label
-	 *            Instance name
+	 *
+	 * @param instance the instance
 	 */
 	public DefaultEditPart(String instance) {
 		this(instance, 0);

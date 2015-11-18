@@ -45,8 +45,9 @@ public class ScreenRecorderExt extends ScreenRecorder{
   
   /**
    * Default constructor for .mov screen cast file
-   * @throws IOException
-   * @throws AWTException
+   *
+   * @throws IOException Signals that an I/O exception has occurred.
+   * @throws AWTException the AWT exception
    */
   public ScreenRecorderExt() throws IOException, AWTException {
     this(GraphicsEnvironment
@@ -64,15 +65,17 @@ public class ScreenRecorderExt extends ScreenRecorder{
               Rational.valueOf(30)),
         null);
   }  
+  
   /**
-   * Creates ScreenRecorderExt instance with parametrs
-   * @param cfg
-   * @param fileFormat
-   * @param screenFormat
-   * @param mouseFormat
-   * @param audioFormat
-   * @throws IOException
-   * @throws AWTException
+   * Creates ScreenRecorderExt instance with parametrs.
+   *
+   * @param cfg the cfg
+   * @param fileFormat the file format
+   * @param screenFormat the screen format
+   * @param mouseFormat the mouse format
+   * @param audioFormat the audio format
+   * @throws IOException Signals that an I/O exception has occurred.
+   * @throws AWTException the AWT exception
    */
   public ScreenRecorderExt(GraphicsConfiguration cfg, Format fileFormat,
       Format screenFormat, Format mouseFormat, Format audioFormat)
@@ -81,9 +84,10 @@ public class ScreenRecorderExt extends ScreenRecorder{
   }
 
   /**
-   * Start screen cast recording to specified file name 
-   * @param fileName
-   * @throws IOException
+   * Start screen cast recording to specified file name .
+   *
+   * @param fileName the file name
+   * @throws IOException Signals that an I/O exception has occurred.
    */
   public void start(String fileName) throws IOException{
     this.useFileName = fileName;
@@ -93,9 +97,11 @@ public class ScreenRecorderExt extends ScreenRecorder{
     	stop();
     };
   }
+  
   /**
-   * Start screen cast recording to default file name 
-   * @throws IOException
+   * Start screen cast recording to default file name .
+   *
+   * @throws IOException Signals that an I/O exception has occurred.
    */
   @Override
   public void start() throws IOException{
@@ -106,10 +112,14 @@ public class ScreenRecorderExt extends ScreenRecorder{
     	stop();
     };
   }
+  
   /**
    * Create movie file for recorder screen cast. Screen cast will be stored
    * to file specified within proceeding start() method invocation
-   * 
+   *
+   * @param fileFormat the file format
+   * @return the file
+   * @throws IOException Signals that an I/O exception has occurred.
    */
   @Override
   protected File createMovieFile(Format fileFormat) throws IOException {
@@ -131,9 +141,10 @@ public class ScreenRecorderExt extends ScreenRecorder{
   }
   
   /**
-   * Returns true if state of Screen Recorder is as specified by parameter state
-   * @param state
-   * @return
+   * Returns true if state of Screen Recorder is as specified by parameter state.
+   *
+   * @param state the state
+   * @return true, if is state
    */
   public boolean isState(String state) {
     boolean result = false;
@@ -148,9 +159,12 @@ public class ScreenRecorderExt extends ScreenRecorder{
     
     return result;
   }
+  
   /**
    * Overrides parent definition.
    * Defined to not have access restriction warning
+   *
+   * @throws IOException Signals that an I/O exception has occurred.
    */
   @Override
   public void stop() throws IOException{
@@ -195,10 +209,12 @@ public class ScreenRecorderExt extends ScreenRecorder{
 			throw new RuntimeException("Sleep interrupted", e);
 		}
 	}
-	  /**
-	   * Returns state of Screen Recorder is as specified by parameter state
-	   * @return
-	   */
+	  
+  	/**
+  	 * Returns state of Screen Recorder is as specified by parameter state.
+  	 *
+  	 * @return the public state
+  	 */
 	  public String getPublicState() {
 	    String result = "Undefined";
 	    

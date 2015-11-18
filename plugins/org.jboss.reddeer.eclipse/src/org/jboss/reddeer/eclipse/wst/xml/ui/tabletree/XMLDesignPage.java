@@ -21,9 +21,10 @@ import org.jboss.reddeer.swt.impl.tree.DefaultTree;
 public class XMLDesignPage {
 	
 	/**
-	 * Return node specified by the path (from the top of the tree)
-	 * @param path
-	 * @return
+	 * Return node specified by the path (from the top of the tree).
+	 *
+	 * @param path the path
+	 * @return the node
 	 */
 	public XMLDesignPageNode getNode(String... path){
 		TreeItem item = TreeItemLookup.getInstance().getTreeItem(new DefaultTree().getSWTWidget(), 0, createNodeMatchers(path));
@@ -31,10 +32,11 @@ public class XMLDesignPage {
 	}
 
 	/**
-	 * Return node specified by the path (from the specified node)
-	 * @param node
-	 * @param path
-	 * @return
+	 * Return node specified by the path (from the specified node).
+	 *
+	 * @param node the node
+	 * @param path the path
+	 * @return the node
 	 */
 	public XMLDesignPageNode getNode(XMLDesignPageNode node, String... path){
 		TreeItem item = TreeItemLookup.getInstance().getTreeItem(node.item, 0, createNodeMatchers(path));
@@ -43,9 +45,10 @@ public class XMLDesignPage {
 	
 	/**
 	 * Return the value of the specified attribute of the specified node. 
-	 * @param node
-	 * @param name
-	 * @return
+	 *
+	 * @param node the node
+	 * @param name the name
+	 * @return the attribute value
 	 */
 	@SuppressWarnings("unchecked")
 	public String getAttributeValue(XMLDesignPageNode node, String name){
@@ -54,9 +57,10 @@ public class XMLDesignPage {
 	}
 	
 	/**
-	 * Return text content of the specified node
-	 * @param node
-	 * @return
+	 * Return text content of the specified node.
+	 *
+	 * @param node the node
+	 * @return the content
 	 */
 	public String getContent(XMLDesignPageNode node){
 		return node.getTreeItemText(1);
@@ -72,10 +76,20 @@ public class XMLDesignPage {
 		
 		private TreeItem item;
 		
+		/**
+		 * Instantiates a new XML design page node.
+		 *
+		 * @param item the item
+		 */
 		public XMLDesignPageNode(TreeItem item) {
 			this.item = item;
 		}
 		
+		/**
+		 * Gets the name.
+		 *
+		 * @return the name
+		 */
 		public String getName(){
 			return getTreeItemText(0);
 		}

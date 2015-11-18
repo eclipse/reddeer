@@ -13,38 +13,81 @@ public class FlatFileProfile {
 	private String charset;
 	private String style;
 
+	/**
+	 * Gets the name.
+	 *
+	 * @return the name
+	 */
 	public String getName() {
 		return name;
 	}
 
+	/**
+	 * Sets the name.
+	 *
+	 * @param name the new name
+	 */
 	public void setName(String name) {
 		this.name = name;
 	}
 
+	/**
+	 * Gets the folder.
+	 *
+	 * @return the folder
+	 */
 	public String getFolder() {
 		return folder;
 	}
 
+	/**
+	 * Sets the folder.
+	 *
+	 * @param folder the new folder
+	 */
 	public void setFolder(String folder) {
 		this.folder = folder;
 	}
 
+	/**
+	 * Gets the charset.
+	 *
+	 * @return the charset
+	 */
 	public String getCharset() {
 		return charset;
 	}
 
+	/**
+	 * Sets the charset.
+	 *
+	 * @param charset the new charset
+	 */
 	public void setCharset(String charset) {
 		this.charset = charset;
 	}
 
+	/**
+	 * Gets the style.
+	 *
+	 * @return the style
+	 */
 	public String getStyle() {
 		return style;
 	}
 
+	/**
+	 * Sets the style.
+	 *
+	 * @param style the new style
+	 */
 	public void setStyle(String style) {
 		this.style = style;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -56,6 +99,9 @@ public class FlatFileProfile {
 		return result;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

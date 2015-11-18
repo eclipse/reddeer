@@ -16,9 +16,10 @@ public class FileUtil {
 
 	/**
 	 * Read File into a String.
-	 * @param path
-	 * @return
-	 * @throws IOException
+	 *
+	 * @param path the path
+	 * @return the string
+	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
 	public static String readFile(String path) throws IOException {
 		FileInputStream stream = new FileInputStream(new File(path));

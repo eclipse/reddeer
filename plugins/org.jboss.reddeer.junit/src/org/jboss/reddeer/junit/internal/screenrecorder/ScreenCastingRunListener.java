@@ -27,12 +27,18 @@ public class ScreenCastingRunListener extends RunListener {
 	private static boolean SAVE_SCREENCAST = RedDeerProperties.RECORD_SCREENCAST.getBooleanValue();
 	private static ScreenRecorderExt screenRecorderExt = null;
 
+	/* (non-Javadoc)
+	 * @see org.junit.runner.notification.RunListener#testFailure(org.junit.runner.notification.Failure)
+	 */
 	@Override
 	public void testFailure(Failure failure) throws Exception {
 		wasFailure = true;
 		super.testFailure(failure);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.junit.runner.notification.RunListener#testFinished(org.junit.runner.Description)
+	 */
 	@Override
 	public void testFinished(Description description) throws Exception {
 		if (SAVE_SCREENCAST) {
@@ -45,6 +51,9 @@ public class ScreenCastingRunListener extends RunListener {
 		super.testFinished(description);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.junit.runner.notification.RunListener#testStarted(org.junit.runner.Description)
+	 */
 	@Override
 	public void testStarted(Description description) throws Exception {
 		wasFailure = false;

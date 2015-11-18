@@ -127,10 +127,10 @@ public class TreeViewerHandler {
 	/**
 	 * Gets tree item specified by path without decorators.
 	 * If there are more items with specified name then method throws JFaceLayerException.
-	 * 
-	 * @param treeItem
-	 * @param path
-	 * @return
+	 *
+	 * @param treeItem the tree item
+	 * @param path the path
+	 * @return the tree item
 	 */
 	public TreeItem getTreeItem(TreeItem treeItem, String... path) {
 		TreeItem item = treeItem;
@@ -225,6 +225,7 @@ public class TreeViewerHandler {
 	/**
 	 * Gets non-styled text of the tree item.
 	 *
+	 * @param item the item
 	 * @return non-styled text (without decorators) of the tree item
 	 */
 	public String getNonStyledText(TreeItem item) {
@@ -235,6 +236,7 @@ public class TreeViewerHandler {
 	 * Gets styled texts on the tree item. There could be more than 1
 	 * styled texts.
 	 *
+	 * @param item the item
 	 * @return styled texts of the tree item or null if there are not styled texts
 	 */
 	public String[] getStyledTexts(TreeItem item) {
@@ -245,15 +247,31 @@ public class TreeViewerHandler {
 		private String nonStyledText;
 		private String[] styledTexts;
 		
+		/**
+		 * Instantiates a new tree item texts.
+		 *
+		 * @param nonStyledText the non styled text
+		 * @param styledTexts the styled texts
+		 */
 		public TreeItemTexts(String nonStyledText, String[] styledTexts) {
 			this.nonStyledText = nonStyledText;
 			this.styledTexts = styledTexts;
 		}
 		
+		/**
+		 * Gets the non styled text.
+		 *
+		 * @return the non styled text
+		 */
 		public String getNonStyledText() {
 			return nonStyledText;
 		}
 		
+		/**
+		 * Gets the styled texts.
+		 *
+		 * @return the styled texts
+		 */
 		public String[] getStyledTexts() {
 			return styledTexts;
 		}

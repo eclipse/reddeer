@@ -11,13 +11,14 @@ import org.jboss.reddeer.swt.widgets.Widget;
 public interface Hyperlink extends Widget {
 
 	/**
-	 * Returns hyperlink's text 
-	 * @return
+	 * Returns hyperlink's text .
+	 *
+	 * @return the text
 	 */
 	String getText();
 
 	/**
-	 * Cliks the hyperlink
+	 * Cliks the hyperlink.
 	 */
 	void activate();
 }

@@ -13,10 +13,18 @@ import org.jboss.reddeer.swt.api.TreeItem;
  */
 public class ModuleLabel extends AbstractLabel{
 
+	/**
+	 * Instantiates a new module label.
+	 *
+	 * @param item the item
+	 */
 	public ModuleLabel(TreeItem item) {
 		parse(item);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.eclipse.wst.server.ui.view.AbstractLabel#parseSingleStateDecoration(java.lang.String)
+	 */
 	@Override
 	protected void parseSingleStateDecoration(String stateString) {
 			status = ServerPublishState.getByText(stateString);

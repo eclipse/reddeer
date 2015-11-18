@@ -31,8 +31,19 @@ public class JRERequirement implements Requirement<JRE>, CustomConfiguration<JRE
 	@Retention(RetentionPolicy.RUNTIME)
 	@Target(ElementType.TYPE)
 	public @interface JRE {
+		
+		/**
+		 * Value.
+		 *
+		 * @return the double
+		 */
 		double value() default -1;
 
+		/**
+		 * Cleanup.
+		 *
+		 * @return true, if successful
+		 */
 		boolean cleanup() default false;
 	}
 
@@ -40,6 +51,8 @@ public class JRERequirement implements Requirement<JRE>, CustomConfiguration<JRE
 	 * This requirement can be fulfilled, when versions configured in
 	 * configuration file and annotation are matching and when New JRE wizard
 	 * throws no error.
+	 *
+	 * @return true, if successful
 	 */
 
 	@Override
@@ -83,12 +96,18 @@ public class JRERequirement implements Requirement<JRE>, CustomConfiguration<JRE
 		dialog.ok();
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.junit.requirement.Requirement#setDeclaration(java.lang.annotation.Annotation)
+	 */
 	@Override
 	public void setDeclaration(JRE declaration) {
 		this.jre = declaration;
 
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.junit.requirement.Requirement#cleanUp()
+	 */
 	@Override
 	public void cleanUp() {
 		if (jre.cleanup()) {
@@ -101,25 +120,46 @@ public class JRERequirement implements Requirement<JRE>, CustomConfiguration<JRE
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.junit.requirement.CustomConfiguration#getConfigurationClass()
+	 */
 	@Override
 	public Class<JREConfiguration> getConfigurationClass() {
 		return JREConfiguration.class;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.junit.requirement.CustomConfiguration#setConfiguration(java.lang.Object)
+	 */
 	@Override
 	public void setConfiguration(JREConfiguration config) {
 		this.configuration = config;
 
 	}
 
+	/**
+	 * Gets the JRE path.
+	 *
+	 * @return the JRE path
+	 */
 	public String getJREPath() {
 		return configuration.getPath();
 	}
 
+	/**
+	 * Gets the JRE name.
+	 *
+	 * @return the JRE name
+	 */
 	public String getJREName() {
 		return configuration.getName();
 	}
 
+	/**
+	 * Gets the JRE version.
+	 *
+	 * @return the JRE version
+	 */
 	public double getJREVersion() {
 		return configuration.getVersion();
 	}

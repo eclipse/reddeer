@@ -91,6 +91,9 @@ public class CellEditor implements ReferencedComposite {
 		return tableItem;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.core.reference.ReferencedComposite#getControl()
+	 */
 	@Override
 	public Control getControl() {
 		org.eclipse.jface.viewers.CellEditor jFaceCellEditor = getJFaceCellEditor();

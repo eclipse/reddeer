@@ -328,9 +328,10 @@ public class TextEditorHandler {
 	
 	/**
 	 * Returns offset of the line within specified text editor.
-	 * 
+	 *
 	 * @param editor editor to handle
 	 * @param line line to get offset of
+	 * @return the line offset
 	 */
 	public int getLineOffset(final ITextEditor editor, final int line) {
 		return Display.syncExec(new ResultRunnable<Integer>() {

@@ -12,11 +12,17 @@ public class NullTestRunConfiguration implements TestRunConfiguration {
 
 	private RequirementsConfiguration requirementsConfiguration;
 	
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.junit.internal.configuration.TestRunConfiguration#getId()
+	 */
 	@Override
 	public String getId() {
 		return "default";
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.junit.internal.configuration.TestRunConfiguration#getRequirementConfiguration()
+	 */
 	@Override
 	public RequirementsConfiguration getRequirementConfiguration() {
 		if (requirementsConfiguration == null){

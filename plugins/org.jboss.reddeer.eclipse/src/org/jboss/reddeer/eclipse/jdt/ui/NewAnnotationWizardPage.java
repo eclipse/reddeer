@@ -61,10 +61,9 @@ public class NewAnnotationWizardPage extends WizardPage {
 	}
 
 	/**
-	 * Sets public visibility
-	 * 
-	 * @param isPublic
-	 *            Is public?
+	 * Sets public visibility.
+	 *
+	 * @param isPublic            Is public?
 	 */
 	public void setPublic(boolean isPublic) {
 		new RadioButton("public").toggle(isPublic);

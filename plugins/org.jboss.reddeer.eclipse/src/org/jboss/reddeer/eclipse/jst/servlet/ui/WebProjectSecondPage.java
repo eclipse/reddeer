@@ -18,6 +18,12 @@ import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
  */
 public class WebProjectSecondPage extends WizardPage{
 	
+	/**
+	 * Edits the source folders on build path.
+	 *
+	 * @param sourceFolder the source folder
+	 * @param newVaule the new vaule
+	 */
 	public void editSourceFoldersOnBuildPath(String sourceFolder, String newVaule){
 		new DefaultTreeItem(sourceFolder).select();
 		new PushButton("Edit...").click();
@@ -26,11 +32,21 @@ public class WebProjectSecondPage extends WizardPage{
 		new OkButton().click();
 	}
 	
+	/**
+	 * Removes the source folders on build path.
+	 *
+	 * @param sourceFolder the source folder
+	 */
 	public void removeSourceFoldersOnBuildPath(String sourceFolder){
 		new DefaultTreeItem(sourceFolder).select();
 		new PushButton("Remove").click();
 	}
 	
+	/**
+	 * Adds the source folders on build path.
+	 *
+	 * @param newVaule the new vaule
+	 */
 	public void addSourceFoldersOnBuildPath(String newVaule){
 		new PushButton("Add Folder...").click();
 		new DefaultShell("Add Source Folder");
@@ -38,10 +54,20 @@ public class WebProjectSecondPage extends WizardPage{
 		new OkButton().click();
 	}
 	
+	/**
+	 * Sets the default output folder.
+	 *
+	 * @param folder the new default output folder
+	 */
 	public void setDefaultOutputFolder(String folder){
 		new LabeledText("Default output folder:").setText(folder);
 	}
 	
+	/**
+	 * Gets the source folders.
+	 *
+	 * @return the source folders
+	 */
 	public List<String> getSourceFolders(){
 		List<String> toReturn = new ArrayList<String>();
 		for(TreeItem item: new DefaultTree().getAllItems()){

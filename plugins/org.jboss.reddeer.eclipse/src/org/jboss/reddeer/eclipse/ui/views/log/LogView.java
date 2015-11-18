@@ -46,7 +46,8 @@ public class LogView extends WorkbenchView{
 	}
 	
 	/**
-	 * 
+	 * Gets the OK messages.
+	 *
 	 * @return list of messages with severity OK (according to IStatus)
 	 */
 	
@@ -64,7 +65,8 @@ public class LogView extends WorkbenchView{
 	}
 	
 	/**
-	 * 
+	 * Gets the info messages.
+	 *
 	 * @return list of messages with severity INFO (according to IStatus)
 	 */
 	public List<LogMessage> getInfoMessages() {
@@ -79,8 +81,10 @@ public class LogView extends WorkbenchView{
 		}
 		return messages;
 	}
+	
 	/**
-	 * 
+	 * Gets the warning messages.
+	 *
 	 * @return list of messages with severity WARNING (according to IStatus)
 	 */
 	public List<LogMessage> getWarningMessages() {
@@ -95,8 +99,10 @@ public class LogView extends WorkbenchView{
 		}
 		return messages;
 	}
+	
 	/**
-	 * 
+	 * Gets the error messages.
+	 *
 	 * @return list of messages with severity ERROR (according to IStatus)
 	 */
 	public List<LogMessage> getErrorMessages() {
@@ -113,7 +119,7 @@ public class LogView extends WorkbenchView{
 	}
 	
 	/**
-	 * Clears Error lLog messages
+	 * Clears Error lLog messages.
 	 */
 	public void clearLog() {
 		activate();
@@ -123,7 +129,7 @@ public class LogView extends WorkbenchView{
 	}
 
 	/**
-	 * Deletes Error log messages
+	 * Deletes Error log messages.
 	 */
 	public void deleteLog() {
 		activate();
@@ -140,7 +146,7 @@ public class LogView extends WorkbenchView{
 	}
 
 	/**
-	 * Restores Error log messages
+	 * Restores Error log messages.
 	 */
 	public void restoreLog() {
 		activate();

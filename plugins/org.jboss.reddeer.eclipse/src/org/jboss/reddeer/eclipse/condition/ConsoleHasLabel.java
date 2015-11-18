@@ -26,17 +26,28 @@ public class ConsoleHasLabel extends AbstractWaitCondition {
 		this.matcher = new IsEqual<String>(text);
 	}
 	
+	/**
+	 * Instantiates a new console has label.
+	 *
+	 * @param matcher the matcher
+	 */
 	public ConsoleHasLabel(Matcher<String> matcher) {
 		this.matcher = matcher;
 	}
 	
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.common.condition.WaitCondition#test()
+	 */
 	@Override
 	public boolean test() {
 		String consoleLabel = ConsoleHasLabel.getConsoleLabel();
 		return matcher.matches(consoleLabel);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.common.condition.AbstractWaitCondition#description()
+	 */
 	@Override
 	public String description() {
 		return "console label matches '" + matcher ;

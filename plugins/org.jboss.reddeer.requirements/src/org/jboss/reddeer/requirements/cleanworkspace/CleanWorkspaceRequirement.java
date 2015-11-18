@@ -60,7 +60,7 @@ public class CleanWorkspaceRequirement implements Requirement<CleanWorkspace> {
 	}
 
 	/**
-	 * Save all editors and delete all projects from workspace
+	 * Save all editors and delete all projects from workspace.
 	 */
 	@Override
 	public void fulfill() {	
@@ -82,12 +82,17 @@ public class CleanWorkspaceRequirement implements Requirement<CleanWorkspace> {
 	 * This method is empty because annotation {@link CleanWorkspace} has no elements.
 	 * However, it is one of methods of {@link Requirement} interface so it has to be
 	 * overridden.
+	 *
+	 * @param declaration the new declaration
 	 */
 	@Override
 	public void setDeclaration(CleanWorkspace declaration) {
 		// nothing to do here
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.junit.requirement.Requirement#cleanUp()
+	 */
 	@Override
 	public void cleanUp() {
 

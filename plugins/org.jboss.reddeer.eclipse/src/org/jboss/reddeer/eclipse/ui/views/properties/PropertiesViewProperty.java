@@ -9,34 +9,54 @@ import org.jboss.reddeer.swt.api.TreeItem;
  */
 public class PropertiesViewProperty {
 	private TreeItem treeItem;
+	
+	/**
+	 * Instantiates a new properties view property.
+	 *
+	 * @param treeItem the tree item
+	 */
 	public PropertiesViewProperty(TreeItem treeItem){
 		this.treeItem = treeItem;
 	}
+	
 	/**
-	 * Returns property value
-	 * @return
+	 * Returns property value.
+	 *
+	 * @return the property value
 	 */
 	public String getPropertyValue(){
 		return treeItem.getCell(1);
 	}
+	
 	/**
-	 * Returns property name
-	 * @return
+	 * Returns property name.
+	 *
+	 * @return the property name
 	 */
 	public String getPropertyName(){
 		return treeItem.getCell(0);
 	}
+	
 	/**
-	 * Returns RedDeer TreeItem representing this property
-	 * @return
+	 * Returns RedDeer TreeItem representing this property.
+	 *
+	 * @return the tree item
 	 */
 	public TreeItem getTreeItem(){
 		return this.treeItem;
 	}
+	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	@Override
 	public String toString() {
 		return getPropertyName() + "=" + getPropertyValue();
 	}
+	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -45,6 +65,10 @@ public class PropertiesViewProperty {
 				+ ((getPropertyName() == null) ? 0 : getPropertyName().hashCode());
 		return result;
 	}
+	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

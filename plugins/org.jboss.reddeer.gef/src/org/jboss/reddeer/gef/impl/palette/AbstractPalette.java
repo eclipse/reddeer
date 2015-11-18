@@ -37,11 +37,17 @@ public abstract class AbstractPalette implements Palette {
 		this.paletteHandler = PaletteHandler.getInstance();
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.gef.api.Palette#activateTool(java.lang.String)
+	 */
 	@Override
 	public void activateTool(String label) {
 		activateTool(label, null);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.gef.api.Palette#activateTool(java.lang.String, java.lang.String)
+	 */
 	@Override
 	public void activateTool(String tool, String group) {
 		List<Matcher<? super PaletteEntry>> matchers = new ArrayList<Matcher<? super PaletteEntry>>();
@@ -54,12 +60,10 @@ public abstract class AbstractPalette implements Palette {
 	}
 
 	/**
-	 * Activates a tool with a given matcher at specified index
-	 * 
-	 * @param matcher
-	 *            Matcher
-	 * @param index
-	 *            Index
+	 * Activates a tool with a given matcher at specified index.
+	 *
+	 * @param matcher            Matcher
+	 * @param index            Index
 	 */
 	protected void activateTool(Matcher<PaletteEntry> matcher, int index) {
 		List<PaletteEntry> entries = paletteHandler.getPaletteEntries(paletteViewer, matcher);
@@ -70,12 +74,18 @@ public abstract class AbstractPalette implements Palette {
 		paletteHandler.activateTool(paletteViewer, toolEntry);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.gef.api.Palette#getActiveTool()
+	 */
 	@Override
 	public String getActiveTool() {
 		ToolEntry activeTool = paletteHandler.getActiveTool(paletteViewer);
 		return paletteHandler.getLabel(activeTool);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.gef.api.Palette#getTools()
+	 */
 	@Override
 	public List<String> getTools() {
 		List<PaletteEntry> entries = paletteHandler.getPaletteEntries(paletteViewer, new IsToolEntry());

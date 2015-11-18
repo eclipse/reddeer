@@ -24,12 +24,25 @@ public class RunIAfterTestExtensions extends AbstractStatementWithScreenshot {
 
 	private final List<IAfterTest> afters;
 
+	/**
+	 * Instantiates a new run i after test extensions.
+	 *
+	 * @param config the config
+	 * @param next the next
+	 * @param testClass the test class
+	 * @param method the method
+	 * @param target the target
+	 * @param afters the afters
+	 */
 	public RunIAfterTestExtensions(String config, Statement next, TestClass testClass, FrameworkMethod method, 
 			Object target, List<IAfterTest> afters) {
 		super(config, next, testClass, method, target);
 		this.afters = afters;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.junit.runners.model.Statement#evaluate()
+	 */
 	@Override
 	public void evaluate() throws Throwable {
 		List<Throwable> errors = new ArrayList<Throwable>();

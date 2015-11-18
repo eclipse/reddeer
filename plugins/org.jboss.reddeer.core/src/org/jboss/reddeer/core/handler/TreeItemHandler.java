@@ -118,7 +118,8 @@ public class TreeItemHandler {
 	
 	/**
 	 * Selects specified {@link TreeItem}s in currently focused tree.
-	 * @param treeItems tree items to select
+	 *
+	 * @param selection the selection
 	 */
 	public void selectItems(final TreeItem... selection) {
 		logger.info("Select tree items: ");
@@ -382,9 +383,11 @@ public class TreeItemHandler {
 			}
 		});
 	}
+	
 	/**
-	 * Clicks on specified TreeItem
-	 * @param swtTreeItem
+	 * Clicks on specified TreeItem.
+	 *
+	 * @param swtTreeItem the swt tree item
 	 */
 	public void click(final TreeItem swtTreeItem) {
 		Rectangle bounds = getBounds(swtTreeItem);
@@ -393,7 +396,8 @@ public class TreeItemHandler {
 	
 	/**
 	 * Get bounds of specified TreeItem bounds. TreeItem should be enabled before calling this method.
-	 * @param swtTreeItem
+	 *
+	 * @param swtTreeItem the swt tree item
 	 * @return tree item bounds
 	 */
 	public Rectangle getBounds(final TreeItem swtTreeItem) {

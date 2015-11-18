@@ -29,6 +29,11 @@ public class RequirementsConfigurationImpl implements RequirementsConfiguration{
 	
 	private CustomConfigurator customConfigurator;
 	
+	/**
+	 * Instantiates a new requirements configuration impl.
+	 *
+	 * @param reader the reader
+	 */
 	public RequirementsConfigurationImpl(XMLReader reader) {
 		super();
 		this.voidConfigurator = new NullConfigurator();
@@ -36,10 +41,19 @@ public class RequirementsConfigurationImpl implements RequirementsConfiguration{
 		this.customConfigurator = new CustomConfigurator(reader);
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.junit.internal.configuration.RequirementsConfiguration#configure(org.jboss.reddeer.junit.requirement.Requirement)
+	 */
 	public void configure(Requirement<?> requirement){
 		getConfigurator(requirement).configure(requirement);
 	}
 	
+	/**
+	 * Gets the configurator.
+	 *
+	 * @param requirement the requirement
+	 * @return the configurator
+	 */
 	public RequirementConfigurator getConfigurator(Requirement<?> requirement){
 		if (requirement instanceof PropertyConfiguration){
 			return propertyConfigurator;

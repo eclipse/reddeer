@@ -13,11 +13,17 @@ import org.hamcrest.Description;
  */
 public class IsToolEntry extends BaseMatcher<PaletteEntry> {
 
+	/* (non-Javadoc)
+	 * @see org.hamcrest.Matcher#matches(java.lang.Object)
+	 */
 	@Override
 	public boolean matches(Object obj) {
 		return obj instanceof ToolEntry;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.hamcrest.SelfDescribing#describeTo(org.hamcrest.Description)
+	 */
 	@Override
 	public void describeTo(Description desc) {
 		desc.appendText("is ToolEntry");

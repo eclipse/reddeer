@@ -26,6 +26,12 @@ public class ServerModule {
 	
 	protected ServersView view;
 	
+	/**
+	 * Instantiates a new server module.
+	 *
+	 * @param item the item
+	 * @param view the view
+	 */
 	protected ServerModule(TreeItem item, ServersView view) {
 		if (item == null) {
 			throw new IllegalArgumentException("item can't be null");
@@ -36,6 +42,8 @@ public class ServerModule {
 
 	/**
 	 * Returns module's label as {@link ModuleLabel}.
+	 *
+	 * @return the label
 	 */
 	public ModuleLabel getLabel() {
 		activate();
@@ -61,6 +69,9 @@ public class ServerModule {
 		treeItem = null;
 	}
 	
+	/**
+	 * Activate.
+	 */
 	protected void activate(){
 		view.activate();
 		treeItem.select();

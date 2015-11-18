@@ -22,6 +22,9 @@ public class FormTextWithTextMatcher extends WithTextMatcher {
 		super(text);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.core.matcher.AbstractWidgetWithTextMatcher#extractWidgetText(org.eclipse.swt.widgets.Widget)
+	 */
 	@Override
 	protected String extractWidgetText(Widget widget) {
 		if (widget instanceof FormText) {

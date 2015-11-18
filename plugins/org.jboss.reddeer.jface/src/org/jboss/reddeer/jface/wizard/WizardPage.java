@@ -13,6 +13,9 @@ public abstract class WizardPage {
 
 	protected final Logger log = Logger.getLogger(this.getClass());
 
+	/**
+	 * Instantiates a new wizard page.
+	 */
 	protected WizardPage() {
 
 	}

@@ -14,6 +14,10 @@ import org.jboss.reddeer.core.util.ResultRunnable;
  *
  */
 public class ActiveFocusControlIsInActiveView extends AbstractWaitCondition {
+	
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.common.condition.WaitCondition#test()
+	 */
 	@Override
 	public boolean test() {
 		// get active workbench part control (active view)
@@ -35,6 +39,9 @@ public class ActiveFocusControlIsInActiveView extends AbstractWaitCondition {
 		return result;
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.common.condition.AbstractWaitCondition#description()
+	 */
 	@Override
 	public String description() {
 		return "control has specified parent";

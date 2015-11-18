@@ -18,28 +18,28 @@ public class RepoConnectionDialog extends DefaultShell {
 	public static final String TITLE = "Properties for Task Repository";
 	
 	/**
-	 * Open QuickFix dialog and set focus on it
+	 * Open QuickFix dialog and set focus on it.
 	 */
 	public RepoConnectionDialog() {
 		super(TITLE);
 	}
 	
 	/**
-	 * Press Select All button
+	 * Press Select All button.
 	 */
 	public void selectAll() {
 		new PushButton("Select All").click();
 	}
 	
 	/**
-	 * Press Deselect All button
+	 * Press Deselect All button.
 	 */
 	public void deselectAll() {
 		new PushButton("Deselect All").click();
 	}
 	
 	/**
-	 * Press Cancel button
+	 * Press Cancel button.
 	 */
 	public void cancel() {
 		new PushButton("Cancel").click();
@@ -47,7 +47,7 @@ public class RepoConnectionDialog extends DefaultShell {
 	}
 	
 	/**
-	 * Press Finish button
+	 * Press Finish button.
 	 */
 	public void finish() {
 		new PushButton("Finish").click();
@@ -56,7 +56,7 @@ public class RepoConnectionDialog extends DefaultShell {
 	
 	/**
 	 * Press Validate button - Check for the Validate button before and after it is clicked
-	 * as validation can be slow
+	 * as validation can be slow.
 	 */
 	public void validateSettings() {
 		new WaitUntil(new WidgetIsEnabled(new PushButton("Validate Settings")));

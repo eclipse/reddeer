@@ -7,8 +7,10 @@ package org.jboss.reddeer.common.logging;
  *
  */
 public class LoggingUtils {
+	
 	/**
-	 * Format array of Strings to list of items separated by comma
+	 * Format array of Strings to list of items separated by comma.
+	 *
 	 * @param items array of string items
 	 * @return string of items separated by commas
 	 */
@@ -24,8 +26,10 @@ public class LoggingUtils {
 
 		return sb.toString();
 	}
+	
 	/**
-	 * Format array of Objects to list of items separated by comma
+	 * Format array of Objects to list of items separated by comma.
+	 *
 	 * @param items array of objects items
 	 * @return string of individual toString object representation as separated by commas
 	 */

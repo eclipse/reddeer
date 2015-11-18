@@ -11,14 +11,17 @@ import org.jboss.reddeer.swt.api.TreeItem;
 public class ExplorerItem extends AbstractExplorerItem{
 
 	/**
-	 * Creates {@link ExplorerItem}
-	 * 
-	 * @param treeItem
+	 * Creates {@link ExplorerItem}.
+	 *
+	 * @param treeItem the tree item
 	 */
 	public ExplorerItem(TreeItem treeItem) {
 		super(treeItem);
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.eclipse.core.resources.AbstractExplorerItem#select()
+	 */
 	@Override
 	public void select() {
 		activateWrappingView();

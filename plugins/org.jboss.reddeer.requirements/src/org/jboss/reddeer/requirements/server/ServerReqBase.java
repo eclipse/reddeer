@@ -31,6 +31,13 @@ public abstract class ServerReqBase {
 	
 	private ServersView serversView;
 	
+	/**
+	 * Setup server state.
+	 *
+	 * @param requiredState the required state
+	 * @param lastServerConfig the last server config
+	 * @throws ConfiguredServerNotFoundException the configured server not found exception
+	 */
 	protected void setupServerState(ServerReqState requiredState, ConfiguredServerInfo lastServerConfig) throws ConfiguredServerNotFoundException {
 		LOGGER.info("Checking the state of the server '"+lastServerConfig.getServerName()+"'");
 		
@@ -79,6 +86,13 @@ public abstract class ServerReqBase {
 		preferenceDialog.ok();
 	}
 	
+	/**
+	 * Gets the configured server.
+	 *
+	 * @param lastServerConfig the last server config
+	 * @return the configured server
+	 * @throws ConfiguredServerNotFoundException the configured server not found exception
+	 */
 	protected org.jboss.reddeer.eclipse.wst.server.ui.view.Server getConfiguredServer(ConfiguredServerInfo lastServerConfig)
 			throws ConfiguredServerNotFoundException {
 		getServersView().open();
@@ -94,6 +108,12 @@ public abstract class ServerReqBase {
 		}
 	}
 
+	/**
+	 * Checks if is last configured server present.
+	 *
+	 * @param lastServerConfig the last server config
+	 * @return true, if is last configured server present
+	 */
 	protected boolean isLastConfiguredServerPresent(ConfiguredServerInfo lastServerConfig) {
 		try {
 			getConfiguredServer(lastServerConfig);
@@ -105,10 +125,11 @@ public abstract class ServerReqBase {
 	
 
 	/**
-	 * 
-	 * @param config - server requirement configuration which will be used 
+	 * Gets the server type label text.
+	 *
+	 * @param config - server requirement configuration which will be used
 	 * to return appropriate server type label text.
-	 * @return server type label text. 
+	 * @return server type label text.
 	 */
 	public String getServerTypeLabelText(IServerReqConfig config) {
 		return config.getServerFamily().getLabel() + " "
@@ -116,8 +137,9 @@ public abstract class ServerReqBase {
 	}
 	
 	/**
-	 * 
-	 * @param config - server requirement configuration which will be used 
+	 * Gets the server name label text.
+	 *
+	 * @param config - server requirement configuration which will be used
 	 * to return appropriate server name label text. 
 	 * @return server name label text
 	 */
@@ -126,8 +148,9 @@ public abstract class ServerReqBase {
 	}
 
 	/**
-	 * 
-	 * @param config - server requirement configuration which will be used 
+	 * Gets the runtime name label text.
+	 *
+	 * @param config - server requirement configuration which will be used
 	 * to return appropriate runtime name label text. 
 	 * @return runtime name label text
 	 */
@@ -135,6 +158,11 @@ public abstract class ServerReqBase {
 		return getServerTypeLabelText(config) + " Runtime";
 	}
 
+	/**
+	 * Gets the servers view.
+	 *
+	 * @return the servers view
+	 */
 	protected ServersView getServersView() {
 		if (serversView == null){
 			serversView = createServersView();
@@ -145,7 +173,8 @@ public abstract class ServerReqBase {
 	/**
 	 * This method allows the subclasses to define own ServersView implementation and 
 	 * thus create own implementation of Server and modify start/stop behavior. 
-	 * @return
+	 *
+	 * @return the servers view
 	 */
 	protected ServersView createServersView() {
 		return new ServersView();
@@ -158,10 +187,21 @@ public abstract class ServerReqBase {
 
 		private static final long serialVersionUID = -1049073209937853734L;
 		
+		/**
+		 * Instantiates a new configured server not found exception.
+		 *
+		 * @param message the message
+		 */
 		public ConfiguredServerNotFoundException(String message) {
 			super(message);
 		}
 
+		/**
+		 * Instantiates a new configured server not found exception.
+		 *
+		 * @param message the message
+		 * @param cause the cause
+		 */
 		public ConfiguredServerNotFoundException(String message, Throwable cause) {
 			super(message, cause);
 		}

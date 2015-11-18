@@ -19,11 +19,17 @@ public class WorkbenchPreferenceDialog extends PreferenceDialog {
 
 	private final Logger log = Logger.getLogger(WorkbenchPreferenceDialog.class);
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.jface.preference.PreferenceDialog#getTitle()
+	 */
 	@Override
 	public String getTitle() {
 		return DIALOG_TITLE;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.jface.preference.PreferenceDialog#openImpl()
+	 */
 	@Override
 	protected void openImpl() {
 		log.info("Open Preferences by menu");

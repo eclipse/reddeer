@@ -108,7 +108,8 @@ public class RuntimePreferencePage extends PreferencePage {
 	/**
 	 * Opens tie runtime's edit dialog. Since the dialog is specific for every runtime type
 	 * it is upon user to instantiate the concrete Red Deer dialog. 
-	 * @param name
+	 *
+	 * @param name the name
 	 */
 	public void editRuntime(String name){
 		selectRuntime(name);

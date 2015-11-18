@@ -70,6 +70,11 @@ public class TaskListView extends WorkbenchView {
 		throw new EclipseLayerException("There is no repository with name " + name);
 	}
 
+	/**
+	 * Gets the repositories tree.
+	 *
+	 * @return the repositories tree
+	 */
 	protected Tree getRepositoriesTree(){
 		activate();
 		return new DefaultTree();
@@ -94,6 +99,9 @@ public class TaskListView extends WorkbenchView {
 		return theTask;
 	}
 	
+	/**
+	 * Creates the local task test.
+	 */
 	/* For use in the Task List View */
 	public void createLocalTaskTest () {
 				

@@ -66,7 +66,9 @@ public class SyncInterceptorManager {
 	/**
 	 * Checks whether interceptor with specified name is registered or not.
 	 *  
-	 * @param name interceptor name 
+	 *
+	 * @param name interceptor name
+	 * @return true, if is registered
 	 */
 	public boolean isRegistered(String name) {
 		return syncInterceptors.containsKey(name);

@@ -58,6 +58,12 @@ public class TableHandler {
 		});
 	}
 
+	/**
+	 * Gets the headers.
+	 *
+	 * @param table the table
+	 * @return the headers
+	 */
 	public List<String> getHeaders(final Table table) {
 		return Display.syncExec(new ResultRunnable<List<String>>() {
 			

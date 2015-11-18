@@ -22,6 +22,13 @@ public class Requirements implements Requirement<Annotation>, Iterable<Requireme
 	private String configID;
 	private Logger log = Logger.getLogger(Requirements.class);
 	
+	/**
+	 * Instantiates a new requirements.
+	 *
+	 * @param requirements the requirements
+	 * @param clazz the clazz
+	 * @param configID the config id
+	 */
 	public Requirements(List<Requirement<?>> requirements, Class<?> clazz, String configID) {
 		super();
 		if (requirements == null){
@@ -35,15 +42,26 @@ public class Requirements implements Requirement<Annotation>, Iterable<Requireme
 		this.configID = configID;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Iterable#iterator()
+	 */
 	@Override
 	public Iterator<Requirement<?>> iterator() {
 		return requirements.iterator();
 	}
 	
+	/**
+	 * Size.
+	 *
+	 * @return the int
+	 */
 	public int size(){
 		return requirements.size();
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.junit.requirement.Requirement#canFulfill()
+	 */
 	@Override
 	public boolean canFulfill() {
 		boolean canFulfill = true;
@@ -66,6 +84,9 @@ public class Requirements implements Requirement<Annotation>, Iterable<Requireme
 		return canFulfill;
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.junit.requirement.Requirement#fulfill()
+	 */
 	@Override
 	public void fulfill() {
 		for (Requirement<?> r : requirements) {
@@ -85,11 +106,17 @@ public class Requirements implements Requirement<Annotation>, Iterable<Requireme
 		}
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.junit.requirement.Requirement#setDeclaration(java.lang.annotation.Annotation)
+	 */
 	@Override
 	public void setDeclaration(Annotation declaration) {
 		throw new IllegalStateException("This method should never be called on wrapper object");
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.junit.requirement.Requirement#cleanUp()
+	 */
 	@Override
 	public void cleanUp() {
 		for (Requirement<?> r : requirements) {

@@ -15,6 +15,9 @@ import org.jboss.reddeer.workbench.impl.view.WorkbenchView;
  */
 public class VariablesView extends WorkbenchView {
 
+	/**
+	 * Instantiates a new variables view.
+	 */
 	public VariablesView() {
 		super("Variables");
 	}

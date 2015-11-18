@@ -29,8 +29,8 @@ public class Logger {
 	private Class<? extends Object> loggerClass;
 
 	/**
-	 * Returns logger based on given class
-	 * 
+	 * Returns logger based on given class.
+	 *
 	 * @param c given class
 	 * @return logger instance
 	 */
@@ -39,8 +39,8 @@ public class Logger {
 	}
 
 	/**
-	 * Create Logger based on given class
-	 * 
+	 * Create Logger based on given class.
+	 *
 	 * @param c given class
 	 */
 	public Logger(Class<? extends Object> c) {
@@ -48,8 +48,8 @@ public class Logger {
 	}
 
 	/**
-	 * log debug message
-	 * 
+	 * log debug message.
+	 *
 	 * @param msg message
 	 */
 	public void debug(String msg) {
@@ -57,7 +57,7 @@ public class Logger {
 	}
 
 	/**
-	 * Log debug message using formatting string and arguments
+	 * Log debug message using formatting string and arguments.
 	 *
 	 * @param fmtString Formatting string
 	 * @param args Arguments
@@ -68,8 +68,8 @@ public class Logger {
 	}
 
 	/**
-	 * log trace message
-	 * 
+	 * log trace message.
+	 *
 	 * @param msg message
 	 */
 	public void trace(String msg) {
@@ -77,11 +77,10 @@ public class Logger {
 	}
 
 	/**
-	 * Log trace message using formatting string and arguments
+	 * Log trace message using formatting string and arguments.
 	 *
 	 * @param fmtString Formatting string
-	 * @param args
-	 *            Arguments
+	 * @param args            Arguments
 	 * @see java.lang.String#format(String, Object...)
 	 */
 	public void trace(String fmtString, Object... args) {
@@ -89,8 +88,8 @@ public class Logger {
 	}
 
 	/**
-	 * log warning message
-	 * 
+	 * log warning message.
+	 *
 	 * @param msg message
 	 */
 	public void warn(String msg) {
@@ -98,7 +97,7 @@ public class Logger {
 	}
 
 	/**
-	 * Log warning message using formatting string and arguments
+	 * Log warning message using formatting string and arguments.
 	 *
 	 * @param fmtString Formatting string
 	 * @param args Arguments
@@ -109,17 +108,16 @@ public class Logger {
 	}
 
 	/**
-	 * log error message
-	 * 
-	 * @param msg
-	 *            message
+	 * log error message.
+	 *
+	 * @param msg            message
 	 */
 	public void error(String msg) {
 		print(error, msg, MessageType.ERROR);
 	}
 
 	/**
-	 * Log error message using formatting string and arguments
+	 * Log error message using formatting string and arguments.
 	 *
 	 * @param fmtString Formatting string
 	 * @param args Arguments
@@ -130,8 +128,8 @@ public class Logger {
 	}
 
 	/**
-	 * log error message
-	 * 
+	 * log error message.
+	 *
 	 * @param msg message
 	 * @param t throwable
 	 */
@@ -142,11 +140,11 @@ public class Logger {
 
 	/**
 	 * Log error message using formatting string and arguments, and logs
-	 * corresponding exception
+	 * corresponding exception.
 	 *
 	 * @param fmtString Formatting string
+	 * @param t the t
 	 * @param args Arguments
-	 * @param t
 	 * @see java.lang.String#format(String, Object...)
 	 */
 	public void error(String fmtString, Throwable t, Object... args) {
@@ -154,8 +152,8 @@ public class Logger {
 	}
 
 	/**
-	 * log info message
-	 * 
+	 * log info message.
+	 *
 	 * @param msg message
 	 */
 	public void info(String msg) {
@@ -163,7 +161,7 @@ public class Logger {
 	}
 
 	/**
-	 * Log info message using formatting string and arguments
+	 * Log info message using formatting string and arguments.
 	 *
 	 * @param fmtString Formatting string
 	 * @param args Arguments
@@ -174,8 +172,8 @@ public class Logger {
 	}
 
 	/**
-	 * log dump message
-	 * 
+	 * log dump message.
+	 *
 	 * @param msg message
 	 */
 	public void dump(String msg) {
@@ -183,7 +181,7 @@ public class Logger {
 	}
 
 	/**
-	 * Log dump message using formatting string and arguments
+	 * Log dump message using formatting string and arguments.
 	 *
 	 * @param fmtString Formatting string
 	 * @param args Arguments
@@ -194,8 +192,8 @@ public class Logger {
 	}
 
 	/**
-	 * log fatal message
-	 * 
+	 * log fatal message.
+	 *
 	 * @param msg message
 	 */
 	public void fatal(String msg) {
@@ -239,7 +237,7 @@ public class Logger {
 	
 
 	/**
-	 * Log fatal message using formatting string and arguments
+	 * Log fatal message using formatting string and arguments.
 	 *
 	 * @param fmtString Formatting string
 	 * @param args Arguments

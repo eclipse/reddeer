@@ -13,6 +13,9 @@ import org.eclipse.gef.palette.PaletteEntry;
  */
 public class PaletteEntryFinder extends Finder<PaletteEntry> {
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.gef.finder.Finder#getChildren(java.lang.Object)
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<PaletteEntry> getChildren(PaletteEntry child) {

@@ -10,6 +10,9 @@ import org.jboss.reddeer.junit.requirement.Requirement;
  */
 public class NullConfigurator implements RequirementConfigurator {
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.junit.internal.configuration.configurator.RequirementConfigurator#configure(org.jboss.reddeer.junit.requirement.Requirement)
+	 */
 	@Override
 	public void configure(Requirement<?> requirement) {
 		// do nothing, no configuration required

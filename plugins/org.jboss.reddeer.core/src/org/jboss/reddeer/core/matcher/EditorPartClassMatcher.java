@@ -24,11 +24,17 @@ public class EditorPartClassMatcher extends TypeSafeMatcher<IEditorPart> {
 		this.expectedClass = expectedClass;
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.hamcrest.TypeSafeMatcher#matchesSafely(java.lang.Object)
+	 */
 	@Override
 	protected boolean matchesSafely(IEditorPart item) {
 		return expectedClass.isAssignableFrom(item.getClass());
 	}
 
+	/* (non-Javadoc)
+	 * @see org.hamcrest.SelfDescribing#describeTo(org.hamcrest.Description)
+	 */
 	@Override
 	public void describeTo(Description description) {
 		description.appendText("EditorPart is a subclass of " + expectedClass);

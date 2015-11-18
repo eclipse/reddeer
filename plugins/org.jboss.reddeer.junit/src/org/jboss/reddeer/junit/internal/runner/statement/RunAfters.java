@@ -19,16 +19,37 @@ public class RunAfters extends AbstractStatementWithScreenshot {
 
 	private final List<FrameworkMethod> fAfters;
 
+	/**
+	 * Instantiates a new run afters.
+	 *
+	 * @param config the config
+	 * @param next the next
+	 * @param testClass the test class
+	 * @param afters the afters
+	 */
 	public RunAfters(String config, Statement next, TestClass testClass, List<FrameworkMethod> afters) {
 		this(config, next, testClass, null, null, afters);
 	}
 
+	/**
+	 * Instantiates a new run afters.
+	 *
+	 * @param config the config
+	 * @param next the next
+	 * @param testClass the test class
+	 * @param method the method
+	 * @param target the target
+	 * @param afters the afters
+	 */
 	public RunAfters(String config, Statement next, TestClass testClass, 
 			FrameworkMethod method, Object target, List<FrameworkMethod> afters) {
 		super(config, next, testClass, method, target);
 		fAfters = afters;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.junit.runners.model.Statement#evaluate()
+	 */
 	@Override
 	public void evaluate() throws Throwable {
 		List<Throwable> errors = new ArrayList<Throwable>();

@@ -69,8 +69,9 @@ public class WorkbenchPartLookup {
 
 	/**
 	 * Gets all currently opened views as list of view parts. Includes also views on non-active tabs.
-	 * @deprecated This method does not work properly due to https://bugs.eclipse.org/bugs/show_bug.cgi?id=468948
+	 *
 	 * @return list of currently opened view parts
+	 * @deprecated This method does not work properly due to https://bugs.eclipse.org/bugs/show_bug.cgi?id=468948
 	 */
 	public List<IViewPart> getOpenViews(){
 		return Display.syncExec(new ResultRunnable<List<IViewPart>>() {
@@ -117,8 +118,9 @@ public class WorkbenchPartLookup {
 
 	/**
 	 * Gets active view as a view reference.
-	 * @deprecated This method does not work properly due to https://bugs.eclipse.org/bugs/show_bug.cgi?id=468948
+	 *
 	 * @return active view
+	 * @deprecated This method does not work properly due to https://bugs.eclipse.org/bugs/show_bug.cgi?id=468948
 	 */
 	public IViewReference getActiveView() {
 		return Display.syncExec(new ResultRunnable<IViewReference>() {
@@ -135,9 +137,10 @@ public class WorkbenchPartLookup {
 	
 	/**
 	 * Gets view as a view part with title matching specified matcher.
-	 * @deprecated This method does not work properly due to https://bugs.eclipse.org/bugs/show_bug.cgi?id=468948
+	 *
 	 * @param name matcher to match title
 	 * @return view part matching specified matcher
+	 * @deprecated This method does not work properly due to https://bugs.eclipse.org/bugs/show_bug.cgi?id=468948
 	 */
 	public IViewPart getViewByTitle(final Matcher<String> name){
 		return Display.syncExec(new ResultRunnable<IViewPart>() {

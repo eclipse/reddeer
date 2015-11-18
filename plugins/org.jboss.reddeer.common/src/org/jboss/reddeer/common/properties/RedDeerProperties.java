@@ -83,8 +83,9 @@ public enum RedDeerProperties {
 
 	/**
 	 * Returns the enumeration by its name.
-	 * @param name
-	 * @return
+	 *
+	 * @param name the name
+	 * @return the by name
 	 */
 	public static RedDeerProperties getByName(String name){
 		for (RedDeerProperties property : RedDeerProperties.values()){
@@ -99,7 +100,8 @@ public enum RedDeerProperties {
 	 * Retrieves the property from the currently running system and user and 
 	 * checks if the value is between supported values. If the property is not defined in system, 
 	 * returns default value. 
-	 * @return
+	 *
+	 * @return the value
 	 */
 	public String getValue(){
 		String value = getValueInternal();
@@ -109,7 +111,8 @@ public enum RedDeerProperties {
 
 	/**
 	 * Returns {@link #getValue()} converted to the boolean. 
-	 * @return
+	 *
+	 * @return the boolean value
 	 */
 	public boolean getBooleanValue(){
 		if (getType() != RedDeerPropertyType.BOOLEAN){
@@ -122,7 +125,8 @@ public enum RedDeerProperties {
 	
 	/**
 	 * Returns {@link #getValue()} converted to the float. 
-	 * @return
+	 *
+	 * @return the float value
 	 */
 	public float getFloatValue(){
 		if (getType() != RedDeerPropertyType.FLOAT){
@@ -134,24 +138,27 @@ public enum RedDeerProperties {
 	}
 
 	/**
-	 * Property name
-	 * @return
+	 * Property name.
+	 *
+	 * @return the name
 	 */
 	public String getName() {
 		return name;
 	}
 
 	/**
-	 * Property type
-	 * @return
+	 * Property type.
+	 *
+	 * @return the type
 	 */
 	public RedDeerPropertyType getType() {
 		return type;
 	}
 
 	/**
-	 * Default value of the property
-	 * @return
+	 * Default value of the property.
+	 *
+	 * @return the default value
 	 */
 	public String getDefaultValue() {
 		return defaultValue;
@@ -159,7 +166,8 @@ public enum RedDeerProperties {
 
 	/**
 	 * If the property can have only specific values returns those values. 
-	 * @return
+	 *
+	 * @return the supported values
 	 */
 	public String[] getSupportedValues() {
 		return supportedValues.clone();

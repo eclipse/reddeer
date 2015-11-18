@@ -22,14 +22,17 @@ public class ShellWithTextIsAvailable extends AbstractWaitCondition {
 	/**
 	 * Constructs ShellWithTextIsAvailable wait condition.
 	 * Condition is met when a shell with the specified title is available.
-	 * 
-	 * @param text title of the shell
+	 *
+	 * @param title the title
 	 */
 	public ShellWithTextIsAvailable(String title) {
 		InstanceValidator.checkNotNull(title, "title");
 		this.matcher = new WithTextMatcher(title);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.common.condition.WaitCondition#test()
+	 */
 	@Override
 	public boolean test() {
 		log.debug("Looking for shell with title matching '" + matcher + "'");
@@ -37,6 +40,9 @@ public class ShellWithTextIsAvailable extends AbstractWaitCondition {
 		return shell != null;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.common.condition.AbstractWaitCondition#description()
+	 */
 	@Override
 	public String description() {
 		return "shell with title matching " + matcher + " is available";

@@ -13,8 +13,9 @@ public class NewConnectionWizardSelectionPage extends WizardPage{
 	
 	
 	/**
-	 * Select remote system type in tree
-	 * @param SystemType type
+	 * Select remote system type in tree.
+	 *
+	 * @param type the type
 	 */
 	public void selectSystemType(SystemType type){
 		new DefaultTreeItem("General", type.getLabel()).select(); 
@@ -29,10 +30,20 @@ public class NewConnectionWizardSelectionPage extends WizardPage{
 		
 		private String label;
 		
+		/**
+		 * Instantiates a new system type.
+		 *
+		 * @param label the label
+		 */
 		SystemType(String label) {
 			this.label = label;
 		}
 		
+		/**
+		 * Gets the label.
+		 *
+		 * @return the label
+		 */
 		public String getLabel() {
 			return label;
 		}

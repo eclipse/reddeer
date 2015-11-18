@@ -46,11 +46,17 @@ public abstract class AbstractProblemMatcher extends AbstractWidgetWithTextMatch
 	 */
 	public abstract Column getColumn();
 	
+	/* (non-Javadoc)
+	 * @see org.hamcrest.SelfDescribing#describeTo(org.hamcrest.Description)
+	 */
 	@Override
 	public void describeTo(Description description) {
 		description.appendDescriptionOf(matcher);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.core.matcher.AbstractWidgetWithTextMatcher#matches(java.lang.String)
+	 */
 	@Override
 	protected boolean matches(String text) {
 		return matcher.matches(text);

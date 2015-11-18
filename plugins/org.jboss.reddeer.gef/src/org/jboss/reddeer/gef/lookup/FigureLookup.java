@@ -26,6 +26,11 @@ public class FigureLookup {
 
 	}
 
+	/**
+	 * Gets the single instance of FigureLookup.
+	 *
+	 * @return single instance of FigureLookup
+	 */
 	public static FigureLookup getInstance() {
 		if (instance == null) {
 			instance = new FigureLookup();

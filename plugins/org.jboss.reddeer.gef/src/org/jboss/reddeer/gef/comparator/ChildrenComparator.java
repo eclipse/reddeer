@@ -12,6 +12,9 @@ import org.eclipse.gef.EditPart;
  */
 public class ChildrenComparator implements Comparator<EditPart> {
 
+	/* (non-Javadoc)
+	 * @see java.util.Comparator#compare(java.lang.Object, java.lang.Object)
+	 */
 	@Override
 	public int compare(EditPart o1, EditPart o2) {
 		return compare(o1.getChildren().size(), o2.getChildren().size());

@@ -16,8 +16,11 @@ import org.jboss.reddeer.junit.extensionpoint.IBeforeTest;
  */
 public class BeforeTestInitialization {
 	private static final Logger log = Logger.getLogger(BeforeTestInitialization.class);
+	
 	/**
-	 * Initializes all Before Test extensions
+	 * Initializes all Before Test extensions.
+	 *
+	 * @return the list
 	 */
 	public static List<IBeforeTest> initialize(){
 		final String beforeTestExtensionID = "org.jboss.reddeer.junit.before.test";

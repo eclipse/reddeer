@@ -38,16 +38,25 @@ public class WithTextMatcher extends AbstractWidgetWithTextMatcher {
 		this.matcher = matcher;
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.core.matcher.AbstractWidgetWithTextMatcher#matches(java.lang.String)
+	 */
 	@Override
 	protected boolean matches(String text) {
 		return matcher.matches(text);
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.hamcrest.SelfDescribing#describeTo(org.hamcrest.Description)
+	 */
 	@Override
 	public void describeTo(Description description) {
 		description.appendText("with text ").appendDescriptionOf(matcher);
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.hamcrest.BaseMatcher#toString()
+	 */
 	@Override
 	public String toString() {
 		return "Matcher matching widget which text matches: "+matcher.toString();

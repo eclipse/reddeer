@@ -31,6 +31,9 @@ public class ContentAssistantShellIsOpened extends AbstractWaitCondition {
         this.previousShells = new ArrayList<Shell>(Arrays.asList(previousShells));
     }
 
+    /* (non-Javadoc)
+     * @see org.jboss.reddeer.common.condition.WaitCondition#test()
+     */
     @Override
     public final boolean test() {
         List<Shell> s2List = new ArrayList<Shell>(Arrays.asList(ShellLookup
@@ -59,6 +62,9 @@ public class ContentAssistantShellIsOpened extends AbstractWaitCondition {
         return table;
     }
 
+    /* (non-Javadoc)
+     * @see org.jboss.reddeer.common.condition.AbstractWaitCondition#description()
+     */
     @Override
     public final String description() {
         return "ContentAssistant shell is opened";

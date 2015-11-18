@@ -23,6 +23,9 @@ public class RemoteSystemExists extends AbstractWaitCondition {
 		this.name = name;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.common.condition.WaitCondition#test()
+	 */
 	@Override
 	public boolean test() {
 		try{
@@ -33,6 +36,9 @@ public class RemoteSystemExists extends AbstractWaitCondition {
 		}		
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.common.condition.AbstractWaitCondition#description()
+	 */
 	@Override
 	public String description() {
 		return "there is remote system with name: " + this.name;

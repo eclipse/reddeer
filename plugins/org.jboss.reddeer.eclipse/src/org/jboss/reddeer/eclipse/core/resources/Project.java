@@ -20,6 +20,9 @@ public class Project extends AbstractProject {
 		super(treeItem);
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.eclipse.core.resources.AbstractProject#getNatureIds()
+	 */
 	@Override
 	public String[] getNatureIds() {
 		return null;

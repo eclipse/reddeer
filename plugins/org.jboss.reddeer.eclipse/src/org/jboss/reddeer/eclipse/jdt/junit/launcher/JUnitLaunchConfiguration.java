@@ -11,7 +11,7 @@ import org.jboss.reddeer.eclipse.debug.ui.launchConfigurations.LaunchConfigurati
 public class JUnitLaunchConfiguration extends LaunchConfiguration {
 
 	/**
-	 * Constructs JUnit launch configuration
+	 * Constructs JUnit launch configuration.
 	 */
 	public JUnitLaunchConfiguration() {
 		super("JUnit");

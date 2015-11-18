@@ -20,7 +20,8 @@ import org.jboss.reddeer.swt.impl.table.DefaultTable;
 public class MavenProjectWizardArchetypePage extends WizardPage{
 	
 	/**
-	 * Select archetype
+	 * Select archetype.
+	 *
 	 * @param groupId if null then archetype group id is ignored
 	 * @param artifactId if null then archetype artifact id is ignored
 	 * @param version if null then archetype version is ignored
@@ -49,7 +50,8 @@ public class MavenProjectWizardArchetypePage extends WizardPage{
 	}
 	
 	/**
-	 * Select catalog
+	 * Select catalog.
+	 *
 	 * @param catalog to choose archetype from
 	 */
 	public void selectArchetypeCatalog(String catalog){
@@ -59,7 +61,8 @@ public class MavenProjectWizardArchetypePage extends WizardPage{
 	}
 	
 	/**
-	 * Get current catalog
+	 * Get current catalog.
+	 *
 	 * @return catalog name
 	 */
 	public String getArchetypeCatalog(){

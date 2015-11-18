@@ -21,9 +21,6 @@ public class DumpUtils {
 
 	/**
 	 * Dumps info about edit parts and their figures in an active part viewer.
-	 * 
-	 * @param viewer
-	 *            Edit part viewer
 	 */
 	public static void dump() {
 		dump(ViewerLookup.getInstance().findGraphicalViewer());

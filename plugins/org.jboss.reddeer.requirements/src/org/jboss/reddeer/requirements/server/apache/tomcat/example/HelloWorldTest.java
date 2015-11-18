@@ -9,6 +9,9 @@ import org.junit.runner.RunWith;
 @ApacheTomcatServer()
 public class HelloWorldTest {
 	
+	/**
+	 * Test hello world.
+	 */
 	@Test
 	public void testHelloWorld(){
 		System.out.println("Hello World!");

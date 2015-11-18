@@ -41,10 +41,22 @@ public class XMLReader {
 	// e.g. http://www.jboss.org/reddeer/schema
 	private static final String RED_DEER_NS = "http://www.jboss.org/NS/Req";
 
+	/**
+	 * Instantiates a new XML reader.
+	 *
+	 * @param file the file
+	 */
 	public XMLReader(File file) {
 		this.file = file;
 	}
 
+	/**
+	 * Gets the configuration.
+	 *
+	 * @param <T> the generic type
+	 * @param clazz the clazz
+	 * @return the configuration
+	 */
 	public <T> List<T> getConfiguration(Class<T> clazz) {
 		log.debug("Reading configuration for " + clazz);
 		XmlRootElement root = getRoot(clazz);
@@ -173,16 +185,25 @@ public class XMLReader {
 
 	class RedDeerErrorHandler implements ErrorHandler {
 
+		/* (non-Javadoc)
+		 * @see org.xml.sax.ErrorHandler#warning(org.xml.sax.SAXParseException)
+		 */
 		public void warning(SAXParseException e) throws SAXException {
 			log.warn(e.getMessage());
 		}
 
+		/* (non-Javadoc)
+		 * @see org.xml.sax.ErrorHandler#error(org.xml.sax.SAXParseException)
+		 */
 		public void error(SAXParseException e) throws SAXException {
 			log.error(e.getMessage());
 			throw new RedDeerConfigurationException(
 					"Xml configuration is not valid.", e);
 		}
 
+		/* (non-Javadoc)
+		 * @see org.xml.sax.ErrorHandler#fatalError(org.xml.sax.SAXParseException)
+		 */
 		public void fatalError(SAXParseException e) throws SAXException {
 			log.error(e.getMessage());
 			throw new RedDeerConfigurationException(

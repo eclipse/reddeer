@@ -40,6 +40,9 @@ public class WithTooltipTextMatcher extends AbstractWidgetWithTextMatcher {
 		this.matcher = matcher;
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.core.matcher.AbstractWidgetWithTextMatcher#extractWidgetText(org.eclipse.swt.widgets.Widget)
+	 */
 	@Override
 	protected String extractWidgetText(Widget widget) {
 		try{
@@ -49,17 +52,26 @@ public class WithTooltipTextMatcher extends AbstractWidgetWithTextMatcher {
 		}
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.hamcrest.SelfDescribing#describeTo(org.hamcrest.Description)
+	 */
 	@Override
 	public void describeTo(Description description) {
 		description.appendText("with tooltip ").appendDescriptionOf(matcher);
 
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.core.matcher.AbstractWidgetWithTextMatcher#matches(java.lang.String)
+	 */
 	@Override
 	protected boolean matches(String text) {
 		return matcher.matches(text.replaceAll("&", "").split("\t")[0]);
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.hamcrest.BaseMatcher#toString()
+	 */
 	@Override
 	public String toString() {
 		return "Matcher matching widget which tooltip matches: "+matcher.toString();

@@ -36,6 +36,9 @@ public class ConsoleHasNoChange extends AbstractWaitCondition {
 		this.consoleTime = System.currentTimeMillis();
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.common.condition.WaitCondition#test()
+	 */
 	@Override
 	public boolean test() {
 		String currentConsoleText = getConsoleText();
@@ -50,6 +53,9 @@ public class ConsoleHasNoChange extends AbstractWaitCondition {
 		return currentConsoleTime - consoleTime - timePeriod.getSeconds() * 1000 >= 0;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.common.condition.AbstractWaitCondition#description()
+	 */
 	@Override
 	public String description() {
 		return "Console is still changing";

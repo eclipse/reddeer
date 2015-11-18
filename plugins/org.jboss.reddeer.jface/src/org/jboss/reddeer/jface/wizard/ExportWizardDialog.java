@@ -15,17 +15,24 @@ public abstract class ExportWizardDialog extends TopMenuWizardDialog {
 	
 	/**
 	 * Constructor set path to specific export item in export dialog.
-	 * @param path
+	 *
+	 * @param path the path
 	 */
 	public ExportWizardDialog(String... path) {
 		super(path);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.jface.wizard.TopMenuWizardDialog#getDialogTitle()
+	 */
 	@Override
 	protected String getDialogTitle() {
 		return DIALOG_TITLE;
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.jface.wizard.TopMenuWizardDialog#getMenuPath()
+	 */
 	@Override
 	protected String[] getMenuPath() {
 		return new String[]{"File", "Export..."};

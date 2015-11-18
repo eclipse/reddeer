@@ -13,7 +13,7 @@ public class MavenProjectWizard extends NewWizardDialog{
 	public static final String NAME="Maven Project";
 	
 	/**
-	 * Default constructor
+	 * Default constructor.
 	 */
 	public MavenProjectWizard(){
 		super(CATEGORY,NAME);

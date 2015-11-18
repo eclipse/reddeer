@@ -27,6 +27,15 @@ public abstract class AbstractStatementWithScreenshot extends Statement {
 
 	protected Object target;
 
+	/**
+	 * Instantiates a new abstract statement with screenshot.
+	 *
+	 * @param config the config
+	 * @param next the next
+	 * @param testClass the test class
+	 * @param method the method
+	 * @param target the target
+	 */
 	public AbstractStatementWithScreenshot(String config, Statement next, TestClass testClass, FrameworkMethod method, Object target) {
 		this.config = config;
 		this.nextStatement = next;
@@ -35,10 +44,18 @@ public abstract class AbstractStatementWithScreenshot extends Statement {
 		this.target = target;
 	}
 
+	/**
+	 * Checks if is class level.
+	 *
+	 * @return true, if is class level
+	 */
 	protected boolean isClassLevel(){
 		return target == null;
 	}
 	
+	/**
+	 * Creates the screenshot.
+	 */
 	protected void createScreenshot() {
 		try {
 			ScreenshotCapturer capturer = ScreenshotCapturer.getInstance();
@@ -48,6 +65,11 @@ public abstract class AbstractStatementWithScreenshot extends Statement {
 		}
 	}
 	
+	/**
+	 * Creates the screenshot.
+	 *
+	 * @param description the description
+	 */
 	protected void createScreenshot(String description) {
 		try {
 			ScreenshotCapturer capturer = ScreenshotCapturer.getInstance();
@@ -57,6 +79,12 @@ public abstract class AbstractStatementWithScreenshot extends Statement {
 		}
 	}
 	
+	/**
+	 * Creates the screenshot.
+	 *
+	 * @param description the description
+	 * @param extensionClass the extension class
+	 */
 	protected void createScreenshot(String description, Class<?> extensionClass) {
 		try {
 			ScreenshotCapturer capturer = ScreenshotCapturer.getInstance();

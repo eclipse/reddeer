@@ -53,7 +53,8 @@ public class MavenSettingsPreferencePage extends PreferencePage {
 	}
 
 	/**
-	 * 
+	 * Gets the user settings location.
+	 *
 	 * @return content of User Settings location
 	 */
 	

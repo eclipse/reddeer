@@ -41,34 +41,36 @@ public class DefaultExpandableComposite extends AbstractExpandableComposite {
 	 * Represents the first expandable composite inside the specified
 	 * {@link ReferencedComposite}.
 	 *
-	 * @param referencedComposite
+	 * @param referencedComposite the referenced composite
 	 */
 	public DefaultExpandableComposite(ReferencedComposite referencedComposite) {
 		this(referencedComposite, 0);
 	}
 
 	/**
-	 * Expandable composite that matches given matchers
-	 * @param matchers
+	 * Expandable composite that matches given matchers.
+	 *
+	 * @param matchers the matchers
 	 */
 	public DefaultExpandableComposite(Matcher<?>... matchers) {
 		this(null, matchers);
 	}
 	
 	/**
-	 * Expandable composite that matches given matchers
-	 * @param referencedComposite
-	 * @param matchers
+	 * Expandable composite that matches given matchers.
+	 *
+	 * @param referencedComposite the referenced composite
+	 * @param matchers the matchers
 	 */
 	public DefaultExpandableComposite(ReferencedComposite referencedComposite, Matcher<?>... matchers) {
 		this(referencedComposite, 0, matchers);
 	}
 	
 	/**
-	 * Represents expandable composite with the specified <var>index</var> that matches given matchers
+	 * Represents expandable composite with the specified <var>index</var> that matches given matchers.
 	 *
 	 * @param index expandable composite index
-	 * @param matchers
+	 * @param matchers the matchers
 	 */
 	public DefaultExpandableComposite(int index, Matcher<?>... matchers) {
 		this(null, index);
@@ -76,11 +78,11 @@ public class DefaultExpandableComposite extends AbstractExpandableComposite {
 
 	/**
 	 * Represents expandable composite inside the specified
-	 * {@link ReferencedComposite} with the specified <var>index</var> that matches given matchers
+	 * {@link ReferencedComposite} with the specified <var>index</var> that matches given matchers.
 	 *
-	 * @param referencedComposite
+	 * @param referencedComposite the referenced composite
 	 * @param index expandable composite index
-	 * @param matchers
+	 * @param matchers the matchers
 	 */
 	public DefaultExpandableComposite(ReferencedComposite referencedComposite, int index, Matcher<?>... matchers) {
 		super(referencedComposite, index, MatcherBuilder.getInstance().addMatcher(matchers, classMatcher));
@@ -99,7 +101,7 @@ public class DefaultExpandableComposite extends AbstractExpandableComposite {
 	 * Represents expandable composite inside the specified
 	 * {@link ReferencedComposite} with the specified <var>text</var>.
 	 *
-	 * @param referencedComposite
+	 * @param referencedComposite the referenced composite
 	 * @param text expandable composite text
 	 */
 	public DefaultExpandableComposite(ReferencedComposite referencedComposite, String text) {

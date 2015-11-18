@@ -9,6 +9,9 @@ import org.jboss.reddeer.swt.impl.text.LabeledText;
  */
 public class NewJavaClassWizardPage extends WizardPage {
 
+	/**
+	 * Instantiates a new new java class wizard page.
+	 */
 	public NewJavaClassWizardPage() {
 		super();
 	}

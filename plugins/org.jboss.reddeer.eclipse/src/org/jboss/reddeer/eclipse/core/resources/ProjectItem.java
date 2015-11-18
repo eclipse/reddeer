@@ -49,7 +49,9 @@ public class ProjectItem extends ExplorerItem {
 	}
 
 	/**
-	 * Opens the project item with the specified editor
+	 * Opens the project item with the specified editor.
+	 *
+	 * @param editor the editor
 	 */
 	public void openWith(String editor) {
 		select();
@@ -177,6 +179,9 @@ public class ProjectItem extends ExplorerItem {
 		return sDeleteResources;
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.eclipse.core.resources.ExplorerItem#select()
+	 */
 	@Override
 	public void select() {
 		activateWrappingView();

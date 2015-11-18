@@ -71,9 +71,9 @@ public class ToolItemHandler {
 	
 	/**
 	 * Returns ToolBar to which this ToolItem belongs to.
-	 * 
-	 * @param item
-	 * @return
+	 *
+	 * @param item the item
+	 * @return the parent
 	 */
 	
 	public ToolBar getParent(final ToolItem item){

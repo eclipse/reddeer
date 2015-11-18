@@ -32,6 +32,12 @@ public class ParameterizedRequirementsRunner extends RequirementsRunner {
 
 	private static final Logger log = Logger.getLogger(ParameterizedRequirementsRunner.class);
 
+	/**
+	 * Instantiates a new parameterized requirements runner.
+	 *
+	 * @param test the test
+	 * @throws InitializationError the initialization error
+	 */
 	public ParameterizedRequirementsRunner(TestWithParameters test) throws InitializationError {
 		super(test.getTestClass().getJavaClass());
         parameters = test.getParameters().toArray(
@@ -39,31 +45,62 @@ public class ParameterizedRequirementsRunner extends RequirementsRunner {
         name = test.getName();
 	}
 	
+	/**
+	 * Sets the config id.
+	 *
+	 * @param configId the new config id
+	 */
 	public void setConfigId(String configId) {
 		this.configId = configId;
 	}
 
+	/**
+	 * Sets the requirements.
+	 *
+	 * @param requirements the new requirements
+	 */
 	public void setRequirements(Requirements requirements) {
 		this.requirements = requirements;
 	}
 
+	/**
+	 * Sets the run listeners.
+	 *
+	 * @param runListeners the new run listeners
+	 */
 	public void setRunListeners(RunListener[] runListeners) {
 		this.runListeners = runListeners;
 	}
 	
+	/**
+	 * Sets the before test extensions.
+	 *
+	 * @param beforeTestsExtensions the new before test extensions
+	 */
 	public void setBeforeTestExtensions(List<IBeforeTest> beforeTestsExtensions){
 		this.beforeTestExtensions = beforeTestsExtensions;
 	}
 	
+	/**
+	 * Sets the after test extensions.
+	 *
+	 * @param afterTestsExtensions the new after test extensions
+	 */
 	public void setAfterTestExtensions(List<IAfterTest> afterTestsExtensions){
 		this.afterTestExtensions = afterTestsExtensions;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.junit.internal.runner.RequirementsRunner#getName()
+	 */
 	@Override
 	protected String getName() {
 		return super.getName() + " " + name;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.junit.internal.runner.RequirementsRunner#createTest()
+	 */
 	@Override
 	public Object createTest() throws Exception {
 		Object testInstance;
@@ -77,6 +114,9 @@ public class ParameterizedRequirementsRunner extends RequirementsRunner {
         return testInstance;
 	}
 
+    /* (non-Javadoc)
+     * @see org.jboss.reddeer.junit.internal.runner.RequirementsRunner#testName(org.junit.runners.model.FrameworkMethod)
+     */
     @Override
     protected String testName(FrameworkMethod method) {
         return method.getName() + " " +configId+ " " +name;
@@ -118,6 +158,9 @@ public class ParameterizedRequirementsRunner extends RequirementsRunner {
         return testClassInstance;
     }
 
+    /* (non-Javadoc)
+     * @see org.junit.runners.BlockJUnit4ClassRunner#validateConstructor(java.util.List)
+     */
     @Override
     protected void validateConstructor(List<Throwable> errors) {
         validateOnlyOneConstructor(errors);
@@ -126,6 +169,9 @@ public class ParameterizedRequirementsRunner extends RequirementsRunner {
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.junit.runners.BlockJUnit4ClassRunner#validateFields(java.util.List)
+     */
     @Override
     protected void validateFields(List<Throwable> errors) {
         super.validateFields(errors);
@@ -158,11 +204,17 @@ public class ParameterizedRequirementsRunner extends RequirementsRunner {
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.junit.runners.ParentRunner#classBlock(org.junit.runner.notification.RunNotifier)
+     */
     @Override
     protected Statement classBlock(RunNotifier notifier) {
         return childrenInvoker(notifier);
     }
 
+    /* (non-Javadoc)
+     * @see org.junit.runners.ParentRunner#getRunnerAnnotations()
+     */
     @Override
     protected Annotation[] getRunnerAnnotations() {
         return new Annotation[0];

@@ -14,7 +14,8 @@ public class SQLResult {
 	
 	
 	/**
-	 * Creates SQL Result instance
+	 * Creates SQL Result instance.
+	 *
 	 * @param status SQL status
 	 * @param operation SQL operation
 	 * @param date SQL execution datetime
@@ -29,14 +30,16 @@ public class SQLResult {
 	
 	/**
 	 * Returns SQL Result status. 
-	 * @return
+	 *
+	 * @return the status
 	 */
 	public SQLResultStatus getStatus() {
 		return status;
 	}
 	
 	/**
-	 * SQL Result operation
+	 * SQL Result operation.
+	 *
 	 * @return SQL result operation
 	 */
 	public String getOperation() {

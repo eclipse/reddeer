@@ -14,8 +14,8 @@ public class WorkbenchView extends AbstractView implements View {
 	/**
 	 * Initialize view with given viewToolTip. 
 	 * If view is opened than it will be focused
-	 * 
-	 * @param viewToolTip of view to initialize
+	 *
+	 * @param viewTitle the view title
 	 */
 	public WorkbenchView(String viewTitle) {
 		super(viewTitle);

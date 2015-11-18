@@ -20,13 +20,15 @@ public class ConstructorFinishedSuccessfully extends AbstractWaitCondition {
 	private MethodHandle mhConstructor;
 	private Object[] constructorParametersValues;
 	private Class<?> classToConstruct;
+	
 	/**
 	 * Creates condition for constructor of <i>classToConstruct</i> class with parameters
 	 * of types <i>constructorParametersClasses</i> and values <i>constructorParametersValues</i>
 	 * to finish successfully.
-	 * @param classToConstruct
-	 * @param constructorParametersClasses
-	 * @param constructorParametersValues
+	 *
+	 * @param classToConstruct the class to construct
+	 * @param constructorParametersClasses the constructor parameters classes
+	 * @param constructorParametersValues the constructor parameters values
 	 */
 	public ConstructorFinishedSuccessfully(Class<?> classToConstruct,
 			Class<?>[] constructorParametersClasses,
@@ -55,6 +57,9 @@ public class ConstructorFinishedSuccessfully extends AbstractWaitCondition {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.common.condition.WaitCondition#test()
+	 */
 	@Override
 	public boolean test() {
 		boolean isOK = false;
@@ -68,6 +73,9 @@ public class ConstructorFinishedSuccessfully extends AbstractWaitCondition {
 		return isOK;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.common.condition.AbstractWaitCondition#description()
+	 */
 	@Override
 	public String description() {
 		return "constructor for " +  classToConstruct + " invoked with no exception.";

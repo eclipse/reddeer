@@ -17,7 +17,7 @@ public class WorkbenchShell extends AbstractShell {
 	private static final Logger log = Logger.getLogger(WorkbenchShell.class);
 
 	/**
-	 * Default Constructor for a WorkbenchShell
+	 * Default Constructor for a WorkbenchShell.
 	 */
 	public WorkbenchShell() {
 		super(ShellLookup.getInstance().getWorkbenchShell());
@@ -26,7 +26,7 @@ public class WorkbenchShell extends AbstractShell {
 	}
 
 	/**
-	 * Maximize window
+	 * Maximize window.
 	 */
 	public void maximize() {
 		log.info("Maximize workbench shell");
@@ -39,7 +39,7 @@ public class WorkbenchShell extends AbstractShell {
 	}
 
 	/**
-	 * Restore window
+	 * Restore window.
 	 */
 	public void restore() {
 		log.info("Restore workbench shell");
@@ -52,8 +52,8 @@ public class WorkbenchShell extends AbstractShell {
 	}
 
 	/**
-	 * Return true if window is maximized, false otherwise
-	 * 
+	 * Return true if window is maximized, false otherwise.
+	 *
 	 * @return true if window is maximized
 	 */
 	public boolean isMaximized() {

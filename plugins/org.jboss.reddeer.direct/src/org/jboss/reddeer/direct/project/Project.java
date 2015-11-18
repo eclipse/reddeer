@@ -13,11 +13,13 @@ import org.eclipse.core.runtime.CoreException;
  *
  */
 public class Project {
+	
 	/**
-	 * Deletes Eclipse project via Eclipse API
-	 * @param projectName
-	 * @param deleteContent
-	 * @param force
+	 * Deletes Eclipse project via Eclipse API.
+	 *
+	 * @param projectName the project name
+	 * @param deleteContent the delete content
+	 * @param force the force
 	 */
 	public static void delete(String projectName, boolean deleteContent , boolean force ){
 		try {
@@ -49,8 +51,8 @@ public class Project {
 	}
 	
 	/**
-	 * Checks if a project of given name exists
-	 * 
+	 * Checks if a project of given name exists.
+	 *
 	 * @param projectName name of the project to check
 	 * @return true if project exists, false otherwise
 	 */

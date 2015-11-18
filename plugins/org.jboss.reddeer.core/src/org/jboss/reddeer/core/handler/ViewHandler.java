@@ -46,8 +46,9 @@ public class ViewHandler {
 	
 	/**
 	 * Sets focus for specified {@link IViewPart}.
-	 * @deprecated This method does not work properly due to https://bugs.eclipse.org/bugs/show_bug.cgi?id=468948
+	 *
 	 * @param viewPart view part to set focus on
+	 * @deprecated This method does not work properly due to https://bugs.eclipse.org/bugs/show_bug.cgi?id=468948
 	 */
 	public void setFocus(final IViewPart viewPart) {
 		Display.syncExec(new Runnable() {
@@ -123,6 +124,9 @@ public class ViewHandler {
 				
 	}
 
+	/**
+	 * Focus child control.
+	 */
 	public void focusChildControl() {
 		final Control workbenchControl = WorkbenchPartLookup.getInstance()
 				.getWorkbenchControl(WorkbenchPartLookup.getInstance().findActiveWorkbenchPartReference());

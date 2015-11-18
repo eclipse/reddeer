@@ -37,11 +37,17 @@ public class PaletteHasTools extends AbstractWaitCondition {
 		this.numberOfTools = numberOfTools;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.common.condition.WaitCondition#test()
+	 */
 	@Override
 	public boolean test() {
 		return palette.getTools().size() >= numberOfTools;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.common.condition.AbstractWaitCondition#description()
+	 */
 	@Override
 	public String description() {
 		return "palette has " + numberOfTools + " tools";

@@ -25,6 +25,9 @@ public class IsEditPartOfInstance extends BaseMatcher<EditPart> {
 		this.instance = instance;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.hamcrest.Matcher#matches(java.lang.Object)
+	 */
 	@Override
 	public boolean matches(Object obj) {
 		if (obj instanceof GraphicalEditPart && ((GraphicalEditPart) obj).isSelectable()) {
@@ -35,6 +38,9 @@ public class IsEditPartOfInstance extends BaseMatcher<EditPart> {
 		return false;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.hamcrest.SelfDescribing#describeTo(org.hamcrest.Description)
+	 */
 	@Override
 	public void describeTo(Description desc) {
 		desc.appendText("is EditPart of instance '" + instance + "'");

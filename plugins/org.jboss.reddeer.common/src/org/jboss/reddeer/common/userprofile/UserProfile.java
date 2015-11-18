@@ -50,9 +50,11 @@ public class UserProfile {
 			}
 		}
 	}
+	
 	/**
-	 * Returns USerProfile instance 
-	 * @return
+	 * Returns USerProfile instance .
+	 *
+	 * @return single instance of UserProfile
 	 */
 	public static UserProfile getInstance(){
 		if (UserProfile.userProfile == null){
@@ -60,11 +62,13 @@ public class UserProfile {
 		}
 		return UserProfile.userProfile;
 	}
+	
 	/**
 	 * Returns property value specified by key parameter if exists in use profile file
-	 * otherwise returns null
-	 * @param key
-	 * @return
+	 * otherwise returns null.
+	 *
+	 * @param key the key
+	 * @return the property
 	 */
 	public String getProperty (String key){
 		String value = null;

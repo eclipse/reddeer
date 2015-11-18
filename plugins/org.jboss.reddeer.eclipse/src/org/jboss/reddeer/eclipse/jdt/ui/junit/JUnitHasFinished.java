@@ -29,6 +29,9 @@ public class JUnitHasFinished extends AbstractWaitCondition {
 		junitJobIsRunning = new JobIsRunning(new Matcher[] { StringContains.containsString("JUnit") }, null, false);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.common.condition.WaitCondition#test()
+	 */
 	@Override
 	public boolean test() {
 		junitView.open();
@@ -46,6 +49,9 @@ public class JUnitHasFinished extends AbstractWaitCondition {
 		return false;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.common.condition.AbstractWaitCondition#description()
+	 */
 	@Override
 	public String description() {
 		return "JUnit test has not finished yet";

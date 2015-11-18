@@ -30,8 +30,8 @@ public interface IAfterTest {
 
 	/**
 	 * Returns true when method runAfterTest() has to run.
-	 * 
-	 * @return
+	 *
+	 * @return true, if successful
 	 */
 	public boolean hasToRun();
 }

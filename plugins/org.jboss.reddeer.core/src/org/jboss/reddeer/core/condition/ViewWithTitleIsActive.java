@@ -25,11 +25,17 @@ public class ViewWithTitleIsActive extends AbstractWaitCondition {
 		workbenchPartHandler = WorkbenchPartHandler.getInstance();
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.common.condition.WaitCondition#test()
+	 */
 	@Override
 	public boolean test() {
 		return title.equals(workbenchPartHandler.getActiveViewTitle());
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.common.condition.AbstractWaitCondition#description()
+	 */
 	@Override
 	public String description() {
 		return "view with title '" + title + "' is active";

@@ -24,16 +24,18 @@ import org.jboss.reddeer.workbench.impl.editor.AbstractEditor;
 public class MultiPageEditor extends AbstractEditor {
 
 	/**
-	 * Find MultiPageEditorPart with the given title
-	 * @param title
+	 * Find MultiPageEditorPart with the given title.
+	 *
+	 * @param title the title
 	 */
 	public MultiPageEditor(String title) {
 		this(new WithTextMatcher(title));
 	}
 	
 	/**
-	 * Find MultiPageEditorPart with the given title matcher
-	 * @param title
+	 * Find MultiPageEditorPart with the given title matcher.
+	 *
+	 * @param titleMatcher the title matcher
 	 */
 	@SuppressWarnings("unchecked")
 	public MultiPageEditor(Matcher<String> titleMatcher) {
@@ -41,8 +43,11 @@ public class MultiPageEditor extends AbstractEditor {
 	}
 	
 	/**
-	 * Find MultiPageEditorPart with the given title matcher and String class name
-	 * @param title
+	 * Find MultiPageEditorPart with the given title matcher and String class name.
+	 *
+	 * @param titleMatcher the title matcher
+	 * @param className the class name
+	 * @param matchers the matchers
 	 */
 	@SuppressWarnings("unchecked")
 	public MultiPageEditor(Matcher<String> titleMatcher, String className, Matcher<IEditorPart>... matchers) {
@@ -53,7 +58,10 @@ public class MultiPageEditor extends AbstractEditor {
 	 * Find MultiPageEditorPart with the given title matcher and 
 	 * of given type (has to be child of {@link MultiPageEditorPart}) that
 	 * is matching given matchers. 
-	 * @param title
+	 *
+	 * @param titleMatcher the title matcher
+	 * @param clazz the clazz
+	 * @param matchers the matchers
 	 */
 	@SuppressWarnings("unchecked")
 	protected MultiPageEditor(Matcher<String> titleMatcher, 
@@ -62,8 +70,9 @@ public class MultiPageEditor extends AbstractEditor {
 	}
 	
 	/**
-	 * Activate the page (tab) with the given name
-	 * @param name
+	 * Activate the page (tab) with the given name.
+	 *
+	 * @param name the name
 	 */
 	public void selectPage(String name) {
 		activate();
@@ -73,7 +82,8 @@ public class MultiPageEditor extends AbstractEditor {
 	/**
 	 * Returns the {@link Object} associated with the current page. 
 	 * It could be editor or any {@link Composite}
-	 * @return
+	 *
+	 * @return the selected page
 	 */
 	protected Object getSelectedPage(){
 		return Display.syncExec(new ResultRunnable<Object>() {

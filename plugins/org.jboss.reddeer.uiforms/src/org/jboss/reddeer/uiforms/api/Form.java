@@ -13,7 +13,8 @@ public interface Form extends ReferencedComposite, Widget {
 
 	/**
 	 * Returns form's title. 
-	 * @return
+	 *
+	 * @return the text
 	 */
 	String getText();
 }

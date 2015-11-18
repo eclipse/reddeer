@@ -73,6 +73,9 @@ public class AbstractView implements View {
 		cTabItem = getViewCTabItem();
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.workbench.api.WorkbenchPart#maximize()
+	 */
 	@Override
 	public void maximize() {
 		activate();
@@ -80,6 +83,9 @@ public class AbstractView implements View {
 		WorkbenchPartHandler.getInstance().performAction(ActionFactory.MAXIMIZE);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.workbench.api.WorkbenchPart#minimize()
+	 */
 	@Override
 	public void minimize() {
 		activate();
@@ -110,6 +116,11 @@ public class AbstractView implements View {
 		ViewHandler.getInstance().focusChildControl();
 	}
 
+	/**
+	 * Gets the view c tab item.
+	 *
+	 * @return the view c tab item
+	 */
 	protected CTabItem getViewCTabItem(){
 		if (cTabItem != null && cTabItem.isDisposed()){
 			cTabItem = null;
@@ -172,6 +183,9 @@ public class AbstractView implements View {
 		return path[path.length - 1];
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.workbench.api.WorkbenchPart#close()
+	 */
 	@Override
 	public void close() {
 		activate();
@@ -180,6 +194,9 @@ public class AbstractView implements View {
 		cTabItem = null;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.workbench.api.View#open()
+	 */
 	@Override
 	public void open() {
 		log.info("Open view " + viewTitle());
@@ -234,18 +251,25 @@ public class AbstractView implements View {
 	}
 
 	/**
-	 * Returns the title of the view
+	 * Returns the title of the view.
+	 *
 	 * @return Title of the view
 	 */
 	public String getTitle() {
 		return viewTitle();
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.workbench.api.View#isVisible()
+	 */
 	@Override
 	public boolean isVisible() {
 		return getViewCTabItem().isShowing();
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.workbench.api.View#isOpened()
+	 */
 	@Override
 	public boolean isOpened() {
 		List<org.eclipse.swt.custom.CTabItem> tabs = WidgetLookup.getInstance().activeWidgets(new WorkbenchShell(), org.eclipse.swt.custom.CTabItem.class);
@@ -261,8 +285,9 @@ public class AbstractView implements View {
 	/**
 	 * Checks if the view is active. This method is not supported due to a bug.
 	 * See https://bugs.eclipse.org/bugs/show_bug.cgi?id=468948 for details.
-	 * 
-	 * @throws UnsupportedOperationException 
+	 *
+	 * @return true, if is active
+	 * @throws UnsupportedOperationException the unsupported operation exception
 	 */
 	public boolean isActive(){
 		throw new UnsupportedOperationException("Method isActive is not supported due to the bug https://bugs.eclipse.org/bugs/show_bug.cgi?id=468948");

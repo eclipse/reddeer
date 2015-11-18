@@ -15,11 +15,20 @@ public class CleanUpRequirementStatement extends Statement{
 	
 	private Requirements requirements;
 	
+	/**
+	 * Instantiates a new clean up requirement statement.
+	 *
+	 * @param requirements the requirements
+	 * @param statement the statement
+	 */
 	public CleanUpRequirementStatement(Requirements requirements, Statement statement) {
 		this.statement = statement;
 		this.requirements = requirements;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.junit.runners.model.Statement#evaluate()
+	 */
 	@Override
 	public void evaluate() throws Throwable {
 		statement.evaluate();

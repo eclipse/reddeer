@@ -28,15 +28,17 @@ import org.jboss.reddeer.workbench.impl.view.WorkbenchView;
  */
 public class BreakpointsView extends WorkbenchView {
 
+	/**
+	 * Instantiates a new breakpoints view.
+	 */
 	public BreakpointsView() {
 		super("Breakpoints");
 	}
 
 	/**
-	 * Adds a given java exception breakpoint
-	 * 
-	 * @param exception
-	 *            java exception
+	 * Adds a given java exception breakpoint.
+	 *
+	 * @param exception            java exception
 	 */
 	public void addJavaExceptionBreakpoint(String exception) {
 		log.info("Adding java exception breakpoint '" + exception + "'");
@@ -50,10 +52,9 @@ public class BreakpointsView extends WorkbenchView {
 	};
 	
 	/**
-	 * Returns whether a breakpoint is available in Breakpoints View
-	 * 
-	 * @param label
-	 *            label or some label's substring of the breakpoint
+	 * Returns whether a breakpoint is available in Breakpoints View.
+	 *
+	 * @param label            label or some label's substring of the breakpoint
 	 * @return true if a breakpoint is present, false otherwise
 	 */
 	public boolean isBreakpointAvailable(String label) {
@@ -62,10 +63,9 @@ public class BreakpointsView extends WorkbenchView {
 	}
 
 	/**
-	 * Gets a particular breakpoint in Breakpoints view
-	 * 
-	 * @param label
-	 *            Label or some label's substring of the breakpoint
+	 * Gets a particular breakpoint in Breakpoints view.
+	 *
+	 * @param label            Label or some label's substring of the breakpoint
 	 * @return breakpoint - there is some breakpoint with given label, null -
 	 *         otherwise
 	 */
@@ -84,7 +84,7 @@ public class BreakpointsView extends WorkbenchView {
 	}
 
 	/**
-	 * Removes all breakpoints
+	 * Removes all breakpoints.
 	 */
 	public void removeAllBreakpoints() {
 		log.info("Removing all breakpoints from Breakpoints view");
@@ -97,10 +97,9 @@ public class BreakpointsView extends WorkbenchView {
 	}
 
 	/**
-	 * Imports breakpoints from a file
-	 * 
-	 * @param path
-	 *            path to the file
+	 * Imports breakpoints from a file.
+	 *
+	 * @param path            path to the file
 	 */
 	public void importBreakpoints(String path) {
 		log.info("Importing breakpoints from '" + path + "'");

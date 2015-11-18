@@ -11,6 +11,11 @@ import org.jboss.reddeer.gef.impl.palette.AbstractPalette;
  */
 public class BasicPalette extends AbstractPalette {
 
+	/**
+	 * Instantiates a new basic palette.
+	 *
+	 * @param paletteViewer the palette viewer
+	 */
 	public BasicPalette(PaletteViewer paletteViewer) {
 		super(paletteViewer);
 	}

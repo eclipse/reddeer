@@ -14,7 +14,8 @@ import org.jboss.reddeer.swt.impl.table.DefaultTable;
 public class QuickFixPage {
 	
 	/**
-	 * Get proposed fixes
+	 * Get proposed fixes.
+	 *
 	 * @return proposed fixes
 	 */
 	public List<String> getAvailableFixes(){
@@ -27,7 +28,8 @@ public class QuickFixPage {
 	}
 	
 	/**
-	 * Select fix
+	 * Select fix.
+	 *
 	 * @param fix to select
 	 */
 	public void selectFix(String fix){

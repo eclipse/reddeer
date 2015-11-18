@@ -38,14 +38,35 @@ public class RequirementsRunnerBuilder extends RunnerBuilder {
 	
 	private RunListener[] runListeners;
 	
+	/**
+	 * Instantiates a new requirements runner builder.
+	 *
+	 * @param config the config
+	 */
 	public RequirementsRunnerBuilder(TestRunConfiguration config) {
 		this(config, null, null, null, null);
 	}
 	
+	/**
+	 * Instantiates a new requirements runner builder.
+	 *
+	 * @param config the config
+	 * @param runListeners the run listeners
+	 * @param beforeTestExtensions the before test extensions
+	 */
 	public RequirementsRunnerBuilder(TestRunConfiguration config , RunListener[] runListeners , List<IBeforeTest> beforeTestExtensions) {
 		this(config, runListeners, beforeTestExtensions, null, null);
 	}
 	
+	/**
+	 * Instantiates a new requirements runner builder.
+	 *
+	 * @param config the config
+	 * @param runListeners the run listeners
+	 * @param beforeTestExtensions the before test extensions
+	 * @param afterTestExtensions the after test extensions
+	 * @param testsManager the tests manager
+	 */
 	public RequirementsRunnerBuilder(TestRunConfiguration config , RunListener[] runListeners , List<IBeforeTest> beforeTestExtensions, List<IAfterTest> afterTestExtensions, TestsExecutionManager testsManager) {
 		this.config = config;
 		this.runListeners = runListeners;
@@ -54,6 +75,9 @@ public class RequirementsRunnerBuilder extends RunnerBuilder {
 		this.testsManager = testsManager;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.junit.runners.model.RunnerBuilder#runnerForClass(java.lang.Class)
+	 */
 	@Override
 	public Runner runnerForClass(Class<?> clazz) throws Throwable {
 		log.info("Found test " + clazz);
@@ -80,6 +104,11 @@ public class RequirementsRunnerBuilder extends RunnerBuilder {
 		}
 	}
 
+	/**
+	 * Sets the requirements builder.
+	 *
+	 * @param requirementsBuilder the new requirements builder
+	 */
 	public void setRequirementsBuilder(RequirementsBuilder requirementsBuilder) {
 		this.requirementsBuilder = requirementsBuilder;
 	}

@@ -13,7 +13,8 @@ import org.jboss.reddeer.swt.impl.text.LabeledText;
 public class NewEnumWizardPage extends WizardPage{
 	
 	/**
-	 * Sets name 
+	 * Sets name .
+	 *
 	 * @param name of enum
 	 */
 	public void setName(String name){
@@ -21,7 +22,8 @@ public class NewEnumWizardPage extends WizardPage{
 	}
 	
 	/**
-	 * Sets package name
+	 * Sets package name.
+	 *
 	 * @param packageName of enum
 	 */
 	public void setPackage(String packageName) {
@@ -29,7 +31,8 @@ public class NewEnumWizardPage extends WizardPage{
 	}
 	
 	/**
-	 * Sets source folder
+	 * Sets source folder.
+	 *
 	 * @param sourceFolder of enum
 	 */
 	public void setSourceFolder(String sourceFolder){
@@ -37,7 +40,8 @@ public class NewEnumWizardPage extends WizardPage{
 	}
 	
 	/**
-	 * Check/Uncheck Generate comment
+	 * Check/Uncheck Generate comment.
+	 *
 	 * @param toggle generate comments checkbox
 	 */
 	public void toggleGenerateComments(boolean toggle){
@@ -45,7 +49,8 @@ public class NewEnumWizardPage extends WizardPage{
 	}
 	
 	/**
-	 * Check/Uncheck Enclosing type
+	 * Check/Uncheck Enclosing type.
+	 *
 	 * @param toggle enclosing type checkbox
 	 */
 	public void toggleEnclosingType(boolean toggle){
@@ -53,7 +58,8 @@ public class NewEnumWizardPage extends WizardPage{
 	}
 	
 	/**
-	 * Sets enclosing tyoe
+	 * Sets enclosing tyoe.
+	 *
 	 * @param enclosingType of enum
 	 */
 	public void setEnclosingType(String enclosingType){
@@ -61,7 +67,8 @@ public class NewEnumWizardPage extends WizardPage{
 	}
 	
 	/**
-	 * Check/Uncheck public modifier
+	 * Check/Uncheck public modifier.
+	 *
 	 * @param toggle public modifier radio button
 	 */
 	public void togglePublicModifier(boolean toggle){
@@ -69,7 +76,8 @@ public class NewEnumWizardPage extends WizardPage{
 	}
 	
 	/**
-	 * Check/Uncheck default modifier
+	 * Check/Uncheck default modifier.
+	 *
 	 * @param toggle default modifier radio button
 	 */
 	public void toggleDefaultModifier(boolean toggle){
@@ -77,7 +85,8 @@ public class NewEnumWizardPage extends WizardPage{
 	}
 	
 	/**
-	 * Check/Uncheck private modifier
+	 * Check/Uncheck private modifier.
+	 *
 	 * @param toggle private modifier radio button
 	 */
 	public void togglePrivateModifier(boolean toggle){
@@ -85,7 +94,8 @@ public class NewEnumWizardPage extends WizardPage{
 	}
 	
 	/**
-	 * Check/Uncheck protected modifier
+	 * Check/Uncheck protected modifier.
+	 *
 	 * @param toggle protected modifier radio button
 	 */
 	public void toggleProtectedModifier(boolean toggle){
@@ -93,7 +103,8 @@ public class NewEnumWizardPage extends WizardPage{
 	}
 	
 	/**
-	 * Returns enum name
+	 * Returns enum name.
+	 *
 	 * @return enum name
 	 */
 	public String getName(){
@@ -101,7 +112,8 @@ public class NewEnumWizardPage extends WizardPage{
 	}
 
 	/**
-	 * Returns package of enum
+	 * Returns package of enum.
+	 *
 	 * @return package of enum
 	 */
 	public String getPackage() {
@@ -109,7 +121,8 @@ public class NewEnumWizardPage extends WizardPage{
 	}
 	
 	/**
-	 * Checks if wizard should generate comments
+	 * Checks if wizard should generate comments.
+	 *
 	 * @return true if wizard should generate comments, false otherwise
 	 */
 	public boolean isGenerateComments(){
@@ -117,7 +130,8 @@ public class NewEnumWizardPage extends WizardPage{
 	}
 	
 	/**
-	 * Checks if enclosing type is checked
+	 * Checks if enclosing type is checked.
+	 *
 	 * @return true if enclosing type is checked, false otherwise
 	 */
 	public boolean isEnclosingType(){
@@ -125,7 +139,8 @@ public class NewEnumWizardPage extends WizardPage{
 	}
 	
 	/**
-	 * Returns enclosing type
+	 * Returns enclosing type.
+	 *
 	 * @return enclosing type
 	 */
 	public String getEnclosingType(){
@@ -133,7 +148,8 @@ public class NewEnumWizardPage extends WizardPage{
 	}
 	
 	/**
-	 * Checks if public modifier is selected
+	 * Checks if public modifier is selected.
+	 *
 	 * @return true if public modifier is selected, false otherwise
 	 */
 	public boolean isPublicModifier(){
@@ -141,7 +157,8 @@ public class NewEnumWizardPage extends WizardPage{
 	}
 	
 	/**
-	 * Checks if default modifier is selected
+	 * Checks if default modifier is selected.
+	 *
 	 * @return true if default modifier is selected, false otherwise
 	 */
 	public boolean isDefaultModifier(){
@@ -149,7 +166,8 @@ public class NewEnumWizardPage extends WizardPage{
 	}
 	
 	/**
-	 * Checks if private modifier is selected
+	 * Checks if private modifier is selected.
+	 *
 	 * @return true if private modifier is selected, false otherwise
 	 */
 	public boolean isPrivateModifier(){
@@ -157,7 +175,8 @@ public class NewEnumWizardPage extends WizardPage{
 	}
 	
 	/**
-	 * Checks if protected modifier is selected
+	 * Checks if protected modifier is selected.
+	 *
 	 * @return true if protected modifier is selected, false otherwise
 	 */
 	public boolean isProtectedModifier(){

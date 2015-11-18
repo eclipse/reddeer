@@ -57,6 +57,11 @@ public class GEFEditor extends DefaultEditor implements ReferencedComposite {
 		viewer = ViewerLookup.getInstance().findGraphicalViewer(getEditorPart());
 	}
 
+	/**
+	 * Gets the graphical viewer.
+	 *
+	 * @return the graphical viewer
+	 */
 	protected GraphicalViewer getGraphicalViewer() {
 		if (viewer == null) {
 			throw new GEFLayerException(
@@ -98,13 +103,11 @@ public class GEFEditor extends DefaultEditor implements ReferencedComposite {
 
 	/**
 	 * Adds a tool from a palette to the specified coordinates.
-	 * 
-	 * @param tool
-	 *            Tool label
-	 * @param x
-	 *            X-axis
-	 * @param y
-	 *            Y-axis
+	 *
+	 * @param tool            Tool label
+	 * @param x            X-axis
+	 * @param y            Y-axis
+	 * @return the org.jboss.reddeer.gef.api. edit part
 	 */
 	public org.jboss.reddeer.gef.api.EditPart addToolFromPalette(String tool, final int x, final int y) {
 		return addToolFromPalette(tool, null, x, y);
@@ -112,15 +115,12 @@ public class GEFEditor extends DefaultEditor implements ReferencedComposite {
 
 	/**
 	 * Adds a tool in a given group from a palette to the specified coordinates.
-	 * 
-	 * @param tool
-	 *            Tool label
-	 * @param group
-	 *            Group label
-	 * @param x
-	 *            X-axis
-	 * @param y
-	 *            Y-axis
+	 *
+	 * @param tool            Tool label
+	 * @param group            Group label
+	 * @param x            X-axis
+	 * @param y            Y-axis
+	 * @return the org.jboss.reddeer.gef.api. edit part
 	 */
 	public org.jboss.reddeer.gef.api.EditPart addToolFromPalette(String tool, String group, final int x, final int y) {
 		int oldCount = getNumberOfEditParts();
@@ -162,6 +162,9 @@ public class GEFEditor extends DefaultEditor implements ReferencedComposite {
 		return new BasicEditPart(viewerListener.getAddedEditPart());
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.core.reference.ReferencedComposite#getControl()
+	 */
 	@Override
 	public Control getControl() {
 		return viewer.getControl();

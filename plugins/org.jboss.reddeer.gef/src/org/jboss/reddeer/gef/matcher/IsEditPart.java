@@ -13,11 +13,17 @@ import org.hamcrest.Description;
  */
 public class IsEditPart extends BaseMatcher<EditPart> {
 
+	/* (non-Javadoc)
+	 * @see org.hamcrest.Matcher#matches(java.lang.Object)
+	 */
 	@Override
 	public boolean matches(Object obj) {
 		return obj instanceof GraphicalEditPart && ((GraphicalEditPart) obj).isSelectable();
 	}
 
+	/* (non-Javadoc)
+	 * @see org.hamcrest.SelfDescribing#describeTo(org.hamcrest.Description)
+	 */
 	@Override
 	public void describeTo(Description desc) {
 		desc.appendText("is EditPart");

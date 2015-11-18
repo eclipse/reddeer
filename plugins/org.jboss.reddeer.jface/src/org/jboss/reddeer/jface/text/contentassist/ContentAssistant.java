@@ -24,7 +24,8 @@ public class ContentAssistant extends AbstractShell{
 	private Table contentAssistTable;
 	
 	/**
-	 * Instantiates content assistant with given table of proposals
+	 * Instantiates content assistant with given table of proposals.
+	 *
 	 * @param contentAssistTable table which contains proposals
 	 */
 	public ContentAssistant(Table contentAssistTable){
@@ -33,7 +34,8 @@ public class ContentAssistant extends AbstractShell{
 	}
 	
 	/**
-	 * Returns content assist proposals
+	 * Returns content assist proposals.
+	 *
 	 * @return list of proposals
 	 */
 	public List<String> getProposals(){
@@ -49,7 +51,8 @@ public class ContentAssistant extends AbstractShell{
 	} 
 	
 	/**
-	 * Selects given proposal
+	 * Selects given proposal.
+	 *
 	 * @param proposal to select
 	 */
 	public void chooseProposal(String proposal){

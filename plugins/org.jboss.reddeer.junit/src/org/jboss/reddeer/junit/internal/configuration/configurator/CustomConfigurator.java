@@ -20,11 +20,19 @@ public class CustomConfigurator implements RequirementConfigurator{
 	
 	private XMLReader reader;
 	
+	/**
+	 * Instantiates a new custom configurator.
+	 *
+	 * @param reader the reader
+	 */
 	public CustomConfigurator(XMLReader reader) {
 		super();
 		this.reader = reader;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.junit.internal.configuration.configurator.RequirementConfigurator#configure(org.jboss.reddeer.junit.requirement.Requirement)
+	 */
 	@Override
 	public void configure(Requirement<?> requirement) {
 		

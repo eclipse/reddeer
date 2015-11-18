@@ -23,6 +23,9 @@ public class WithClassNameMatcher extends BaseMatcher<String> {
 		this.className = className;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.hamcrest.Matcher#matches(java.lang.Object)
+	 */
 	@Override
 	public boolean matches(Object obj) {
 		if (obj == null) {
@@ -32,6 +35,9 @@ public class WithClassNameMatcher extends BaseMatcher<String> {
 		return clazz.getName().equals(className) || clazz.getSimpleName().equals(className);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.hamcrest.SelfDescribing#describeTo(org.hamcrest.Description)
+	 */
 	@Override
 	public void describeTo(Description desc) {
 		desc.appendText("wicth class name '" + className + "'");

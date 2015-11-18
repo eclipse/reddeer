@@ -22,7 +22,8 @@ public abstract class LaunchConfiguration {
 	private String type;
 	
 	/**
-	 * Construct configuration for the specified category
+	 * Construct configuration for the specified category.
+	 *
 	 * @param category Category name
 	 */
 	public LaunchConfiguration(String category) {
@@ -30,7 +31,7 @@ public abstract class LaunchConfiguration {
 	}
 	
 	/**
-	 * Apply the current configuration
+	 * Apply the current configuration.
 	 */
 	public void apply(){
 		log.info("Apply the launch configuration");
@@ -42,7 +43,7 @@ public abstract class LaunchConfiguration {
 	}
 
 	/**
-	 * Revert the launch configuration
+	 * Revert the launch configuration.
 	 */
 	public void revert(){
 		log.info("Revert the launch configuration");
@@ -54,7 +55,8 @@ public abstract class LaunchConfiguration {
 	}
 	
 	/**
-	 * Return the name of the launch configuration
+	 * Return the name of the launch configuration.
+	 *
 	 * @return Name of the launch configuration
 	 */
 	public String getName() {
@@ -62,7 +64,8 @@ public abstract class LaunchConfiguration {
 	}
 	
 	/**
-	 * Set the name of the launch configuration
+	 * Set the name of the launch configuration.
+	 *
 	 * @param name Name of the launch configuration
 	 */
 	public void setName(String name) {
@@ -71,7 +74,8 @@ public abstract class LaunchConfiguration {
 
 	/**
 	 * Return the type of the launch configuration (e.g JUnit, Maven)
-	 * @return
+	 *
+	 * @return the type
 	 */
 	public String getType() {
 		return type;

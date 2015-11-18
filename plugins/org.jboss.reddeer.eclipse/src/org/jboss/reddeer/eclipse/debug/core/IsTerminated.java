@@ -13,6 +13,9 @@ public class IsTerminated extends AbstractWaitCondition {
 
 	private TerminateButton terminateButton;
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.common.condition.WaitCondition#test()
+	 */
 	@Override
 	public boolean test() {
 		if (terminateButton == null) {
@@ -21,6 +24,9 @@ public class IsTerminated extends AbstractWaitCondition {
 		return !terminateButton.isEnabled();
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.common.condition.AbstractWaitCondition#description()
+	 */
 	@Override
 	public String description() {
 		return "Tool item with tooltip 'Terminate' is still enabled";

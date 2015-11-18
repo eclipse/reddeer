@@ -32,6 +32,9 @@ public class IsEditPartWithLabel extends BaseMatcher<EditPart> {
 		this.label = label;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.hamcrest.Matcher#matches(java.lang.Object)
+	 */
 	@Override
 	public boolean matches(Object obj) {
 		if (obj instanceof GraphicalEditPart) {
@@ -56,6 +59,9 @@ public class IsEditPartWithLabel extends BaseMatcher<EditPart> {
 		return false;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.hamcrest.SelfDescribing#describeTo(org.hamcrest.Description)
+	 */
 	@Override
 	public void describeTo(Description description) {
 		description.appendText("is EditPart with label '" + label + "'");

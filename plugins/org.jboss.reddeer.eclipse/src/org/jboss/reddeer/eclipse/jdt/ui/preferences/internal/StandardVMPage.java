@@ -14,8 +14,8 @@ public class StandardVMPage extends WizardPage {
 
 	/**
 	 * Sets JRE home field.
-	 * 
-	 * @param path
+	 *
+	 * @param path the new JRE home
 	 */
 
 	public void setJREHome(String path) {
@@ -25,8 +25,8 @@ public class StandardVMPage extends WizardPage {
 
 	/**
 	 * Sets name field.
-	 * 
-	 * @param name
+	 *
+	 * @param name the new name
 	 */
 
 	public void setName(String name) {

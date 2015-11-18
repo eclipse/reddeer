@@ -11,6 +11,11 @@ import org.jboss.reddeer.gef.impl.editpart.AbstractEditPart;
  */
 public class BasicEditPart extends AbstractEditPart {
 
+	/**
+	 * Instantiates a new basic edit part.
+	 *
+	 * @param editPart the edit part
+	 */
 	public BasicEditPart(EditPart editPart) {
 		super(editPart);
 	}

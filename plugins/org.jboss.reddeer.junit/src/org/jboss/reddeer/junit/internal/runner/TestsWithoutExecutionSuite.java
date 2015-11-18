@@ -34,7 +34,10 @@ public class TestsWithoutExecutionSuite extends Suite {
 	
 	/**
 	 * Constructor used for separate independent classes. 
-	 * 
+	 *
+	 * @param classes the classes
+	 * @param testsManager the tests manager
+	 * @throws InitializationError the initialization error
 	 * @see #TestsWithoutExecutionSuite(Class, TestsExecutionManager)
 	 */
 	public TestsWithoutExecutionSuite(Class<?>[] classes, TestsExecutionManager testsManager) throws InitializationError {
@@ -42,11 +45,17 @@ public class TestsWithoutExecutionSuite extends Suite {
 	}
 	
 	
+	/* (non-Javadoc)
+	 * @see org.junit.runners.ParentRunner#getName()
+	 */
 	@Override
 	public String getName() {
 		return "NOT EXECUTED TESTS";
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	@Override
 	public String toString() {
 		return "Suite '" + this.getClass().getName() + "' "

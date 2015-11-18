@@ -6,34 +6,37 @@ package org.jboss.reddeer.workbench.api;
  * @author Vlado Pakan
  */
 public interface WorkbenchPart {
+	
 	/**
-	 * Activates workbench part
+	 * Activates workbench part.
 	 */
 	void activate();
 
 	/**
-	 * Minimize workbench part
+	 * Minimize workbench part.
 	 */
 	void minimize();
 
 	/**
-	 * Maximize workbench part
+	 * Maximize workbench part.
 	 */
 	void maximize();
 
 	/**
-	 * Restores workbench part
+	 * Restores workbench part.
 	 */
 	void restore();
 
 	/**
-	 * Close workbench part
+	 * Close workbench part.
 	 */
 	void close();
+	
 	/**
-     * Returns Title of workbench part
-     * @return Title of the workbench part
-     */
+	 * Returns Title of workbench part.
+	 *
+	 * @return Title of the workbench part
+	 */
     String getTitle();
 
 }

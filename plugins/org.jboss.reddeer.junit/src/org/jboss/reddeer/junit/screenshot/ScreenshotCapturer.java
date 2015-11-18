@@ -27,6 +27,11 @@ public class ScreenshotCapturer {
 	
 	private ScreenshotCapturer() {}
 	
+	/**
+	 * Gets the single instance of ScreenshotCapturer.
+	 *
+	 * @return single instance of ScreenshotCapturer
+	 */
 	public static ScreenshotCapturer getInstance() {
 		if (instance == null) {
 			instance = new ScreenshotCapturer();
@@ -104,10 +109,10 @@ public class ScreenshotCapturer {
 	
 	/**
 	 * Capture screenshot with specified file name. PNG format is supported.
-	 * 
-	 * @param fileName full file name of a screenshot
-	 * @throws CaptureScreenshotException
-	 * @return absolute path to create screenshot filename 
+	 *
+	 * @param screenshotFileName the screenshot file name
+	 * @return absolute path to create screenshot filename
+	 * @throws CaptureScreenshotException the capture screenshot exception
 	 */
 	public String captureScreenshot(final String screenshotFileName) throws CaptureScreenshotException {
 		String alteredFileName = getAlteredScreenshotFileName(screenshotFileName);
@@ -198,10 +203,10 @@ public class ScreenshotCapturer {
 	/**
 	 * Create directories for screenshot storage. If something goes wrong,
 	 * CaptureScreenshotException is thrown.
-	 * 
+	 *
+	 * @param path the path
 	 * @return path where screenshot should be stored
-	 * @throws CaptureScreenshotException
-	 *             on failure of creating directories
+	 * @throws CaptureScreenshotException             on failure of creating directories
 	 */
 	public void createDirectories(String path) throws CaptureScreenshotException {
 		try {

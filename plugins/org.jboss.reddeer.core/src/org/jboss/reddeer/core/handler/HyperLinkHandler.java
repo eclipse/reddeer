@@ -33,8 +33,8 @@ public class HyperLinkHandler {
 
 	/**
 	 * Activates specified {@link HyperLink} widget.
-	 * 
-	 * @param w widget to activate
+	 *
+	 * @param hyperLink the hyper link
 	 */
 	public void activate(final Hyperlink hyperLink) {
 		Display.asyncExec(new Runnable() {

@@ -15,7 +15,8 @@ public class ProjectContainsProjectItem extends AbstractWaitCondition {
 	private String[] path;
 	
 	/**
-	 * Default Constructor
+	 * Default Constructor.
+	 *
 	 * @param project to check
 	 * @param itemPath path of item (including item) to search for
 	 */
@@ -24,6 +25,9 @@ public class ProjectContainsProjectItem extends AbstractWaitCondition {
 		this.path = itemPath;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.common.condition.WaitCondition#test()
+	 */
 	@Override
 	public boolean test() {
 		try{
@@ -34,6 +38,9 @@ public class ProjectContainsProjectItem extends AbstractWaitCondition {
 		return true;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.common.condition.AbstractWaitCondition#description()
+	 */
 	@Override
 	public String description() {
 		return "Project "+project.getName()+ " contains project item "+path[path.length-1];

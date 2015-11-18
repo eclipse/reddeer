@@ -12,8 +12,9 @@ import org.jboss.reddeer.swt.impl.text.LabeledText;
 public class JavaProjectWizardFirstPage  extends WizardPage {
 
 	/**
-	 * Sets project name
-	 * @param name
+	 * Sets project name.
+	 *
+	 * @param name the new name
 	 */
 	public void setName(String name){
 		new LabeledText("Project name:").setText(name);

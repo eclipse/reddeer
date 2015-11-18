@@ -21,12 +21,23 @@ public class RunIBeforeClassExtensions extends AbstractStatementWithScreenshot {
 
 	private final List<IBeforeTest> befores;
 
+	/**
+	 * Instantiates a new run i before class extensions.
+	 *
+	 * @param config the config
+	 * @param next the next
+	 * @param testClass the test class
+	 * @param befores the befores
+	 */
 	public RunIBeforeClassExtensions(String config, Statement next, TestClass testClass, 
 			List<IBeforeTest> befores) {
 		super(config, next, testClass, null, null);
 		this.befores = befores;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.junit.runners.model.Statement#evaluate()
+	 */
 	@Override
 	public void evaluate() throws Throwable {
 		IBeforeTest before = null;

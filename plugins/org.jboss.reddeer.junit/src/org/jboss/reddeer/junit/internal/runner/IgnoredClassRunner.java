@@ -15,20 +15,26 @@ public class IgnoredClassRunner extends Runner {
 	 private final Class<?> clazz;
 	 
 	 /**
-	  * Creates new IgnoredClassRunner runner.
-	  * 
-	  * @param testClass
-	  */
+ 	 * Creates new IgnoredClassRunner runner.
+ 	 *
+ 	 * @param testClass the test class
+ 	 */
 	 public IgnoredClassRunner(Class<?> testClass) {
 		 clazz = testClass;
 	 }
 	 
-	 @Override
+	 /* (non-Javadoc)
+ 	 * @see org.junit.runner.Runner#run(org.junit.runner.notification.RunNotifier)
+ 	 */
+ 	@Override
 	 public void run(RunNotifier notifier) {
 		 notifier.fireTestIgnored(getDescription());
 	 }
 	 
-	 @Override
+	 /* (non-Javadoc)
+ 	 * @see org.junit.runner.Runner#getDescription()
+ 	 */
+ 	@Override
 	 public Description getDescription() {
 		 return Description.createSuiteDescription(clazz);
 	 }

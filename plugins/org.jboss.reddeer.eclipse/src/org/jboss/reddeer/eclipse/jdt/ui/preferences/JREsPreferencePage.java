@@ -22,6 +22,9 @@ import org.jboss.reddeer.swt.impl.table.DefaultTable;
 
 public class JREsPreferencePage extends PreferencePage {
 
+	/**
+	 * Instantiates a new JR es preference page.
+	 */
 	public JREsPreferencePage() {
 		super(new String[] { "Java", "Installed JREs" });
 	}
@@ -65,9 +68,9 @@ public class JREsPreferencePage extends PreferencePage {
 	 * Checks whether JRE location is OK or not. This is achieved by opening
 	 * "Add JRE" wizard, filling up fields and looking for errors. If there is
 	 * no error, null is returned. Error message otherwise.
-	 * 
-	 * @param path
-	 * @param name
+	 *
+	 * @param path the path
+	 * @param name the name
 	 * @return null if everything is ok. Error message otherwise.
 	 */
 
@@ -85,8 +88,8 @@ public class JREsPreferencePage extends PreferencePage {
 
 	/**
 	 * Returns list of table items containing configured JREs.
-	 * 
-	 * @return
+	 *
+	 * @return the JR es
 	 */
 
 	public List<JREItem> getJREs() {

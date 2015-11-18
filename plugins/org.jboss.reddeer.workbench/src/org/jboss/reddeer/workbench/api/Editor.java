@@ -69,10 +69,12 @@ public interface Editor extends WorkbenchPart {
      * @return editor validation markers
      */
     List<Marker> getMarkers();
+    
     /**
      * Gets content assistant opened automatically by instructions defined within run method
-     * of execute parameter or null in case Content Assistant shell was not opened
-     * @param execute
+     * of execute parameter or null in case Content Assistant shell was not opened.
+     *
+     * @param execute the execute
      * @return Content assistant
      */
     ContentAssistant getAutoContentAssistant(Runnable execute);

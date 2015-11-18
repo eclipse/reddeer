@@ -6,5 +6,10 @@ package org.jboss.reddeer.core.util;
  */
 public interface ResultRunnable<T> {
 
+	/**
+	 * Run.
+	 *
+	 * @return the t
+	 */
 	T run();
 }

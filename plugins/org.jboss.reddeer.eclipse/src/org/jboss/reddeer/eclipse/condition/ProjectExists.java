@@ -15,7 +15,8 @@ public class ProjectExists extends AbstractWaitCondition{
 	private AbstractExplorer explorer;
 	
 	/**
-	 * Default constructor
+	 * Default constructor.
+	 *
 	 * @param projectName name of the project to find
 	 */
 	public ProjectExists(String projectName) {
@@ -23,20 +24,28 @@ public class ProjectExists extends AbstractWaitCondition{
 	}
 	
 	/**
-	 * Constructor with specified view
+	 * Constructor with specified view.
+	 *
 	 * @param projectName name of the project to find
+	 * @param explorer the explorer
 	 */
 	public ProjectExists(String projectName , AbstractExplorer explorer) {
 		this.projectName = projectName;
 		this.explorer = explorer;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.common.condition.WaitCondition#test()
+	 */
 	@Override
 	public boolean test() {
 		explorer.open();
 		return explorer.containsProject(projectName);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.common.condition.AbstractWaitCondition#description()
+	 */
 	@Override
 	public String description() {
 		return "Project "+projectName+" exists.";

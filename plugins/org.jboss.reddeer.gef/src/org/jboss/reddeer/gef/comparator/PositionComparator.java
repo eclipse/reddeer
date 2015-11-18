@@ -14,6 +14,9 @@ import org.jboss.reddeer.gef.handler.EditPartHandler;
  */
 public class PositionComparator implements Comparator<EditPart> {
 
+	/* (non-Javadoc)
+	 * @see java.util.Comparator#compare(java.lang.Object, java.lang.Object)
+	 */
 	@Override
 	public int compare(EditPart o1, EditPart o2) {
 		Rectangle rec1 = EditPartHandler.getInstance().getFigure(o1).getBounds();

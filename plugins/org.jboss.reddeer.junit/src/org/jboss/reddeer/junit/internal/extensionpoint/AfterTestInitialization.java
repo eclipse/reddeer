@@ -20,7 +20,9 @@ public class AfterTestInitialization {
 	private static final Logger log = Logger.getLogger(AfterTestInitialization.class);
 
 	/**
-	 * Initializes all After Test extensions
+	 * Initializes all After Test extensions.
+	 *
+	 * @return the list
 	 */
 	public static List<IAfterTest> initialize() {
 		final String afterTestExtensionID = "org.jboss.reddeer.junit.after.test";

@@ -30,8 +30,9 @@ public class QuickFixDialog extends DefaultShell {
 	}
 	
 	/**
-	 * Get available fixes provided by quick fix
-	 * @return		available fixes
+	 * Get available fixes provided by quick fix.
+	 *
+	 * @return 	available fixes
 	 */
 	public List<String> getAvailableFixes() {
 		List<String> fixes = new ArrayList<String>();
@@ -44,16 +45,18 @@ public class QuickFixDialog extends DefaultShell {
 	}
 	
 	/**
-	 * Select fix in available fixes with provided index 
-	 * @param index
+	 * Select fix in available fixes with provided index .
+	 *
+	 * @param index the index
 	 */
 	public void selectFix(int index) {
 		new DefaultTable(0).select(index);
 	}
 	
 	/**
-	 * Select fix in available fixes with provided text
-	 * @param fix
+	 * Select fix in available fixes with provided text.
+	 *
+	 * @param fix the fix
 	 */
 	public void selectFix(String fix) {
 		Table fixTable = new DefaultTable(0);
@@ -68,8 +71,9 @@ public class QuickFixDialog extends DefaultShell {
 	}
 	
 	/**
-	 * Get resources files in quick fix dialog
-	 * @return
+	 * Get resources files in quick fix dialog.
+	 *
+	 * @return the resources
 	 */
 	public List<String> getResources() {
 		List<String> resources = new ArrayList<String>();
@@ -82,29 +86,30 @@ public class QuickFixDialog extends DefaultShell {
 	}
 	
 	/**
-	 * Select resource in resources table with provided text
-	 * @param resource
+	 * Select resource in resources table with provided text.
+	 *
+	 * @param resource the new resource
 	 */
 	public void setResource(String resource) {
 		new DefaultTableItem(new DefaultTable(1),resource).setChecked(true);
 	}
 	
 	/**
-	 * Press Select All button
+	 * Press Select All button.
 	 */
 	public void selectAll() {
 		new PushButton("Select All").click();
 	}
 	
 	/**
-	 * Press Deselect All button
+	 * Press Deselect All button.
 	 */
 	public void deselectAll() {
 		new PushButton("Deselect All").click();
 	}
 	
 	/**
-	 * Press Cancel button
+	 * Press Cancel button.
 	 */
 	public void cancel() {
 		new PushButton("Cancel").click();
@@ -112,7 +117,7 @@ public class QuickFixDialog extends DefaultShell {
 	}
 	
 	/**
-	 * Press Finish button
+	 * Press Finish button.
 	 */
 	public void finish() {
 		new PushButton("Finish").click();

@@ -19,14 +19,17 @@ public class DriverDefinitionWizard extends WizardDialog {
 	
 	public static final String WIZARD_TITLE = "New Driver Definition";
 	
+	/**
+	 * Instantiates a new driver definition wizard.
+	 */
 	public DriverDefinitionWizard() {
 		super();
 	}
 
 	/**
 	 * Create a given driver definition.
-	 * 
-	 * @param driverDefinition
+	 *
+	 * @param driverDefinition the driver definition
 	 */
 	public void create(DriverDefinition driverDefinition) {
 		DriverTemplate drvTemp = driverDefinition.getDriverTemplate();
@@ -37,6 +40,9 @@ public class DriverDefinitionWizard extends WizardDialog {
 		finish();
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.jface.wizard.WizardDialog#finish()
+	 */
 	@Override
 	public void finish() {		
 		new DefaultShell(WIZARD_TITLE);

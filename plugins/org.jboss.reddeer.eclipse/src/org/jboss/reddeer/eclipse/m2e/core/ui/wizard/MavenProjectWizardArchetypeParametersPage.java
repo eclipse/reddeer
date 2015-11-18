@@ -11,39 +11,44 @@ import org.jboss.reddeer.swt.impl.combo.LabeledCombo;
 public class MavenProjectWizardArchetypeParametersPage extends WizardPage{
 	
 	/**
-	 * Set project package
-	 * @param projectPackage
+	 * Set project package.
+	 *
+	 * @param projectPackage the new package
 	 */
 	public void setPackage(String projectPackage){
 		new LabeledCombo("Package:").setText(projectPackage);
 	}
 	
 	/**
-	 * Set project group id
-	 * @param groupId
+	 * Set project group id.
+	 *
+	 * @param groupId the new group id
 	 */
 	public void setGroupId(String groupId){
 		new LabeledCombo("Group Id:").setText(groupId);
 	}
 
 	/**
-	 * Set project artifact id
-	 * @param artifactId
+	 * Set project artifact id.
+	 *
+	 * @param artifactId the new artifact id
 	 */
 	public void setArtifactId(String artifactId){
 		new LabeledCombo("Artifact Id:").setText(artifactId);
 	}
 	
 	/**
-	 * Set project version
-	 * @param version
+	 * Set project version.
+	 *
+	 * @param version the new version
 	 */
 	public void setVersion(String version){
 		new LabeledCombo("Version:").setText(version);
 	}
 	
 	/**
-	 * Get project package
+	 * Get project package.
+	 *
 	 * @return project package
 	 */
 	public String getPackage(){
@@ -51,7 +56,8 @@ public class MavenProjectWizardArchetypeParametersPage extends WizardPage{
 	}
 	
 	/**
-	 * Get project group id
+	 * Get project group id.
+	 *
 	 * @return project group id
 	 */
 	public String getGroupId(){
@@ -59,7 +65,8 @@ public class MavenProjectWizardArchetypeParametersPage extends WizardPage{
 	}
 	
 	/**
-	 * Get project artifact id
+	 * Get project artifact id.
+	 *
 	 * @return project artifact id
 	 */
 	public String getArtifactId(){
@@ -67,7 +74,8 @@ public class MavenProjectWizardArchetypeParametersPage extends WizardPage{
 	}
 	
 	/**
-	 * Get project version
+	 * Get project version.
+	 *
 	 * @return project version
 	 */
 	public String getVersion(){

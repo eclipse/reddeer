@@ -139,6 +139,11 @@ public class TreeHandler {
 		});
 	}
 
+	/**
+	 * Notify select.
+	 *
+	 * @param swtTree the swt tree
+	 */
 	public void notifySelect(final org.eclipse.swt.widgets.Tree swtTree) {
 		Display.syncExec(new Runnable() {
 			public void run() {

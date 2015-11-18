@@ -30,8 +30,11 @@ public class ClasspathVariablesPreferencePage extends PreferencePage {
 	public ClasspathVariablesPreferencePage() {
 		super(new String[] {"Java", "Build Path", "Classpath Variables"});
 	}
+	
 	/**
-	 * Returns list with defined classpath variables 
+	 * Returns list with defined classpath variables.
+	 *
+	 * @return the variables
 	 */
 	public List<String> getVariables (){
 		LinkedList<String> libraries = new LinkedList<String>();
@@ -40,9 +43,11 @@ public class ClasspathVariablesPreferencePage extends PreferencePage {
 		}
 		return libraries;
 	}
+	
 	/**
-	 * Selects classpath variable matching matcher 
-	 * @param matcher
+	 * Selects classpath variable matching matcher .
+	 *
+	 * @param matcher the matcher
 	 */
 	public void selectVariable (Matcher<?> matcher){
 		new DefaultTableItem(getClasspathVariablesTable(),matcher).select();
@@ -54,11 +59,13 @@ public class ClasspathVariablesPreferencePage extends PreferencePage {
 	private Table getClasspathVariablesTable () {
 		return new DefaultTable();
 	}	
+	
 	/**
-	 * Adds new classpath variable
-	 * @param name
-	 * @param value
-	 * @param overwriteIfExists
+	 * Adds new classpath variable.
+	 *
+	 * @param name the name
+	 * @param value the value
+	 * @param overwriteIfExists the overwrite if exists
 	 * @return added classpath label
 	 */
 	public String addVariable(String name , String value , boolean overwriteIfExists){
@@ -90,9 +97,11 @@ public class ClasspathVariablesPreferencePage extends PreferencePage {
 		new DefaultShell(preferencesShellTitle);
 		return new DefaultTable().getSelectetItems().get(0).getText();
 	}
+	
 	/**
-	 * Removes classpath variable with label from classpath variables
-	 * @param label
+	 * Removes classpath variable with label from classpath variables.
+	 *
+	 * @param label the label
 	 */
 	public void removeVariable(String label){
 		selectVariable(new WithTextMatcher(label));

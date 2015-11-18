@@ -15,14 +15,14 @@ import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 public class QuickFixWizard {
 	
 	/**
-	 * Default constructor
+	 * Default constructor.
 	 */
 	public QuickFixWizard(){
 		new DefaultShell("Quick Fix");
 	}
 	
 	/**
-	 * Click cancel button
+	 * Click cancel button.
 	 */
 	public void cancel(){
 		new CancelButton().click();
@@ -30,7 +30,7 @@ public class QuickFixWizard {
 	}
 	
 	/**
-	 * Click finish button
+	 * Click finish button.
 	 */
 	public void finish(){
 		new FinishButton().click();

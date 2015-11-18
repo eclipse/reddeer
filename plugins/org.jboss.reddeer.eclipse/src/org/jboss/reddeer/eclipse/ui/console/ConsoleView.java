@@ -97,8 +97,9 @@ public class ConsoleView extends WorkbenchView {
 	}
 	
 	/**
-	 * Toggles the button indicating if the view should be activated on standard output change
-	 * @param toggle
+	 * Toggles the button indicating if the view should be activated on standard output change.
+	 *
+	 * @param toggle the toggle
 	 */
 	public void toggleShowConsoleOnStandardOutChange(boolean toggle){
 		activate();
@@ -107,8 +108,8 @@ public class ConsoleView extends WorkbenchView {
 	
 	/**
 	 * Returns true when console has launch.
-	 * 
-	 * @return
+	 *
+	 * @return true, if successful
 	 */
 	public boolean consoleHasLaunch() {
 		activate();
@@ -119,10 +120,11 @@ public class ConsoleView extends WorkbenchView {
 		}
 		return true;
 	}
+	
 	/**
 	 * Returns true when console is terminated.
-	 * 
-	 * @return
+	 *
+	 * @return true, if successful
 	 */
 	public boolean consoleIsTerminated() {
 		String consoleLabel = getConsoleLabel();
@@ -183,9 +185,11 @@ public class ConsoleView extends WorkbenchView {
 		}
 
 	}
+	
 	/**
-	 * Returns console label title or null when console has no label  
-	 * @return
+	 * Returns console label title or null when console has no label  .
+	 *
+	 * @return the console label
 	 */
 	public String getConsoleLabel (){
 		String consoleLabel = null;

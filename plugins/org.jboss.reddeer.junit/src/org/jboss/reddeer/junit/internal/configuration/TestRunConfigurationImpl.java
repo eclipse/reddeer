@@ -20,10 +20,18 @@ public class TestRunConfigurationImpl implements TestRunConfiguration {
 	
 	private RequirementsConfiguration requirementsConfiguration;
 	
+	/**
+	 * Instantiates a new test run configuration impl.
+	 *
+	 * @param file the file
+	 */
 	public TestRunConfigurationImpl(File file) {
 		this.file = file;
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.junit.internal.configuration.TestRunConfiguration#getId()
+	 */
 	public String getId() {
 		if (id == null){
 			id = file.getName();
@@ -31,6 +39,9 @@ public class TestRunConfigurationImpl implements TestRunConfiguration {
 		return id;
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.junit.internal.configuration.TestRunConfiguration#getRequirementConfiguration()
+	 */
 	public RequirementsConfiguration getRequirementConfiguration(){
 		if (requirementsConfiguration == null){
 			requirementsConfiguration = new RequirementsConfigurationImpl(getConfigurationReader());

@@ -33,16 +33,25 @@ public class ClassMatcher extends BaseMatcher {
 		this.c = c;
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.hamcrest.Matcher#matches(java.lang.Object)
+	 */
 	@Override
 	public boolean matches(Object item) {
 		return c.isAssignableFrom(item.getClass());
 	}
 
+	/* (non-Javadoc)
+	 * @see org.hamcrest.SelfDescribing#describeTo(org.hamcrest.Description)
+	 */
 	@Override
 	public void describeTo(Description description) {
 		description.appendText("has the same type as " + c +" or its type extends " + c);
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.hamcrest.BaseMatcher#toString()
+	 */
 	@Override
 	public String toString() {
 		return "Matcher matching widget with the same type as or type extending " + c;

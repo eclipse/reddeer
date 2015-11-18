@@ -38,7 +38,8 @@ public class JREConfiguration {
 	
 	/**
 	 * Gets version of JRE.
-	 * @return
+	 *
+	 * @return the version
 	 */
 	public double getVersion() {
 		return version;

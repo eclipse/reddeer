@@ -13,18 +13,25 @@ public class EditorWithTitleIsActive extends AbstractWaitCondition {
 	private String title;
 	
 	/**
-	 * Default constructor
+	 * Default constructor.
+	 *
 	 * @param title of editor
 	 */
 	public EditorWithTitleIsActive(String title){
 		this.title = title;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.common.condition.WaitCondition#test()
+	 */
 	@Override
 	public boolean test() {
 		return new DefaultEditor().getTitle().equals(title);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.common.condition.AbstractWaitCondition#description()
+	 */
 	@Override
 	public String description() {
 		return "Editor title is "+title;

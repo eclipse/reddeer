@@ -163,7 +163,8 @@ public class CTabItemHandler {
 	}
 	
 	/**
-	 * Returns true if the tab is visible
+	 * Returns true if the tab is visible.
+	 *
 	 * @param swtCTabItem CTab item to handle
 	 * @return true if the tab is visible
 	 */
@@ -189,7 +190,8 @@ public class CTabItemHandler {
 	}
 	
 	/**
-	 * Activates specified ({@link CTabItem}
+	 * Activates specified ({@link CTabItem}.
+	 *
 	 * @param item CTabItem to handle
 	 */
 	public void activate(CTabItem item){

@@ -15,8 +15,8 @@ public class VMTypePage extends WizardPage {
 
 	/**
 	 * Selects desired type.
-	 * 
-	 * @param type
+	 *
+	 * @param type the type
 	 */
 	
 	public void selectType(String type){

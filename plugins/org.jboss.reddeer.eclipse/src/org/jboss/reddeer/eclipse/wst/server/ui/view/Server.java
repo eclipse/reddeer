@@ -47,6 +47,12 @@ public class Server {
 	
 	protected ServersView view;
 	
+	/**
+	 * Instantiates a new server.
+	 *
+	 * @param treeItem the tree item
+	 * @param view the view
+	 */
 	protected Server(TreeItem treeItem, ServersView view) {
 		this.treeItem = treeItem;
 		this.view = view;
@@ -284,6 +290,12 @@ public class Server {
 		treeItem.select();
 	}
 
+	/**
+	 * Operate server state.
+	 *
+	 * @param menuItem the menu item
+	 * @param resultState the result state
+	 */
 	protected void operateServerState(String menuItem, ServerState resultState){
 		log.debug("Operate server's state: '" + menuItem + "'");
 		select();
@@ -297,20 +309,38 @@ public class Server {
 		log.debug("Operate server's state finished, the result server's state is: '" + getLabel().getState() + "'");
 	}
 
+	/**
+	 * Wait for publish.
+	 */
 	protected void waitForPublish(){
 		new WaitUntil(new JobIsRunning(), TIMEOUT);
 		new WaitWhile(new ServerPublishStateCondition(ServerPublishState.PUBLISHING), TIMEOUT);
 		new WaitUntil(new ServerPublishStateCondition(ServerPublishState.SYNCHRONIZED), TIMEOUT);
 	}
 	
+	/**
+	 * Creates the server module.
+	 *
+	 * @param item the item
+	 * @return the server module
+	 */
 	protected ServerModule createServerModule(TreeItem item){
 		return new ServerModule(item, view);
 	}
 	
+	/**
+	 * Creates the server editor.
+	 *
+	 * @param title the title
+	 * @return the server editor
+	 */
 	protected ServerEditor createServerEditor(String title){
 		return new ServerEditor(title);
 	}
 	
+	/**
+	 * Activate.
+	 */
 	protected void activate(){
 		view.activate();
 		select();
@@ -353,9 +383,11 @@ public class Server {
 			return "server's publish state is " + expectedState.getText();
 		}
 	}
+	
 	/**
-	 * Returns true when underlying treeItem is not null and is not disposed
-	 * @return
+	 * Returns true when underlying treeItem is not null and is not disposed.
+	 *
+	 * @return true, if is valid
 	 */
 	public boolean isValid(){
 		return treeItem != null && !treeItem.isDisposed();

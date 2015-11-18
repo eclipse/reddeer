@@ -24,6 +24,11 @@ public class TaskList {
 
 	private TreeItem treeItem;
 
+	/**
+	 * Instantiates a new task list.
+	 *
+	 * @param treeItem the tree item
+	 */
 	public TaskList(TreeItem treeItem) {
 		this.treeItem = treeItem;
 	}

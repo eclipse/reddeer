@@ -12,7 +12,7 @@ import org.jboss.reddeer.swt.impl.text.LabeledText;
 public class JUnitLaunchConfigurationTab extends LaunchConfigurationTab {
 
 	/**
-	 * Constructs Junit "Test" tab
+	 * Constructs Junit "Test" tab.
 	 */
 	public JUnitLaunchConfigurationTab() {
 		super("Test");
@@ -27,7 +27,8 @@ public class JUnitLaunchConfigurationTab extends LaunchConfigurationTab {
 	}
 	
 	/**
-	 * Set the Eclipse project associated with the configuration
+	 * Set the Eclipse project associated with the configuration.
+	 *
 	 * @param text Eclipse project
 	 */
 	public void setProject(String text){
@@ -35,7 +36,8 @@ public class JUnitLaunchConfigurationTab extends LaunchConfigurationTab {
 	}
 	
 	/**
-	 * Return the test class that should run
+	 * Return the test class that should run.
+	 *
 	 * @return test class
 	 */
 	public String getTestClass(){
@@ -43,15 +45,17 @@ public class JUnitLaunchConfigurationTab extends LaunchConfigurationTab {
 	}
 	
 	/**
-	 * Set the test class name that should run
-	 * @param test test class
+	 * Set the test class name that should run.
+	 *
+	 * @param text the new test class
 	 */
 	public void setTestClass(String text){
 		new LabeledText("Test class:").setText(text);
 	}
 	
 	/**
-	 * Return the test method that should run
+	 * Return the test method that should run.
+	 *
 	 * @return test method
 	 */
 	public String getTestMethod(){
@@ -59,8 +63,9 @@ public class JUnitLaunchConfigurationTab extends LaunchConfigurationTab {
 	}
 	
 	/**
-	 * Set the test method name that should run
-	 * @param test test method
+	 * Set the test method name that should run.
+	 *
+	 * @param text the new test method
 	 */
 	public void setTestMethod(String text){
 		new LabeledText("Test method:").setText(text);

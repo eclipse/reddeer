@@ -64,18 +64,39 @@ public class RequirementsRunner extends BlockJUnit4ClassRunner {
 	
 	/**
 	 * Runner used by subclasses.
-	 * 
-	 * @param clazz
-	 * @throws InitializationError
+	 *
+	 * @param clazz the clazz
+	 * @throws InitializationError the initialization error
 	 */
 	protected RequirementsRunner(Class<?> clazz) throws InitializationError{
 		super(clazz);
 	}
 	
+	/**
+	 * Instantiates a new requirements runner.
+	 *
+	 * @param clazz the clazz
+	 * @param requirements the requirements
+	 * @param configId the config id
+	 * @param runListeners the run listeners
+	 * @param beforeTestExtensions the before test extensions
+	 * @throws InitializationError the initialization error
+	 */
 	public RequirementsRunner(Class<?> clazz, Requirements requirements, String configId, RunListener[] runListeners,List<IBeforeTest> beforeTestExtensions) throws InitializationError {
 		this(clazz, requirements, configId, runListeners, beforeTestExtensions, null);
 	}
 
+	/**
+	 * Instantiates a new requirements runner.
+	 *
+	 * @param clazz the clazz
+	 * @param requirements the requirements
+	 * @param configId the config id
+	 * @param runListeners the run listeners
+	 * @param beforeTestExtensions the before test extensions
+	 * @param afterTestExtensions the after test extensions
+	 * @throws InitializationError the initialization error
+	 */
 	public RequirementsRunner(Class<?> clazz, Requirements requirements, String configId, RunListener[] runListeners,List<IBeforeTest> beforeTestExtensions, List<IAfterTest> afterTestExtensions) throws InitializationError {
 		super(clazz);
 		this.requirements = requirements;
@@ -85,10 +106,21 @@ public class RequirementsRunner extends BlockJUnit4ClassRunner {
 		this.afterTestExtensions = afterTestExtensions;
 	}
 	
+	/**
+	 * Instantiates a new requirements runner.
+	 *
+	 * @param clazz the clazz
+	 * @param requirements the requirements
+	 * @param configId the config id
+	 * @throws InitializationError the initialization error
+	 */
 	public RequirementsRunner(Class<?> clazz, Requirements requirements, String configId) throws InitializationError {
 		this(clazz,requirements,configId,null,null);
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.junit.runners.BlockJUnit4ClassRunner#createTest()
+	 */
 	@Override
 	public Object createTest() throws Exception {
 		Object testInstance = super.createTest();
@@ -97,6 +129,9 @@ public class RequirementsRunner extends BlockJUnit4ClassRunner {
 		return testInstance;
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.junit.runners.ParentRunner#run(org.junit.runner.notification.RunNotifier)
+	 */
 	@Override
 	public void run(RunNotifier runNotifier) {
 		LoggingRunListener loggingRunListener = new LoggingRunListener();
@@ -118,7 +153,10 @@ public class RequirementsRunner extends BlockJUnit4ClassRunner {
 		runNotifier.removeListener(loggingRunListener);
 	}
 	
-	 @Override
+	 /* (non-Javadoc)
+ 	 * @see org.junit.runners.BlockJUnit4ClassRunner#runChild(org.junit.runners.model.FrameworkMethod, org.junit.runner.notification.RunNotifier)
+ 	 */
+ 	@Override
 	 protected void runChild(final FrameworkMethod method, RunNotifier notifier) {
 		 Description description = describeChild(method);
 		 if (isIgnored(method)) {
@@ -128,11 +166,17 @@ public class RequirementsRunner extends BlockJUnit4ClassRunner {
 		 }
 	 }
 	
+	/* (non-Javadoc)
+	 * @see org.junit.runners.BlockJUnit4ClassRunner#methodInvoker(org.junit.runners.model.FrameworkMethod, java.lang.Object)
+	 */
 	@Override
 	protected Statement methodInvoker(FrameworkMethod method, Object test) {
 	    return new RunTestMethod(configId, getTestClass(), method, test);
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.junit.runners.BlockJUnit4ClassRunner#withAfters(org.junit.runners.model.FrameworkMethod, java.lang.Object, org.junit.runners.model.Statement)
+	 */
 	@Override
 	protected Statement withAfters(FrameworkMethod method, Object target,
             Statement statement) {
@@ -144,6 +188,9 @@ public class RequirementsRunner extends BlockJUnit4ClassRunner {
 		return runAftersExtensions;
     }
 		
+	/* (non-Javadoc)
+	 * @see org.junit.runners.BlockJUnit4ClassRunner#withBefores(org.junit.runners.model.FrameworkMethod, java.lang.Object, org.junit.runners.model.Statement)
+	 */
 	@Override
 	protected Statement withBefores(FrameworkMethod method, Object target,
             Statement statement) {
@@ -156,6 +203,9 @@ public class RequirementsRunner extends BlockJUnit4ClassRunner {
 		return runBeforesExtensions;
     }
 	
+	/* (non-Javadoc)
+	 * @see org.junit.runners.ParentRunner#withAfterClasses(org.junit.runners.model.Statement)
+	 */
 	@Override
 	 protected Statement withAfterClasses(Statement statement) {
         List<FrameworkMethod> afterClassMethods = getTestClass().getAnnotatedMethods(AfterClass.class);
@@ -166,6 +216,9 @@ public class RequirementsRunner extends BlockJUnit4ClassRunner {
 		return runAfterClassExtensions;
     }
 	
+	/* (non-Javadoc)
+	 * @see org.junit.runners.ParentRunner#withBeforeClasses(org.junit.runners.model.Statement)
+	 */
 	@Override
 	protected Statement withBeforeClasses(Statement statement) {
 		log.debug("Injecting fulfilled requirements into static fields of test class");
@@ -179,17 +232,26 @@ public class RequirementsRunner extends BlockJUnit4ClassRunner {
 		return runBeforeClassExtensions;
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.junit.runners.BlockJUnit4ClassRunner#testName(org.junit.runners.model.FrameworkMethod)
+	 */
 	@Override
 	protected String testName(FrameworkMethod method) {
 		return method.getName()+" "+configId;
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.junit.runners.ParentRunner#getName()
+	 */
 	@Override
 	protected String getName() {
 		return super.getName() + " " + configId;
 	}
 	
-	 protected boolean isIgnored(FrameworkMethod child) {
+	 /* (non-Javadoc)
+ 	 * @see org.junit.runners.BlockJUnit4ClassRunner#isIgnored(org.junit.runners.model.FrameworkMethod)
+ 	 */
+ 	protected boolean isIgnored(FrameworkMethod child) {
 		 RunIf runIfAnnotation = child.getAnnotation(RunIf.class);
 		 String testIsIgnoredTemplate = "Test method " + child.getName() + " is ignored because ";
 		 boolean ignoreAnnotationIsPresented = child.getAnnotation(Ignore.class) != null;
@@ -220,6 +282,11 @@ public class RequirementsRunner extends BlockJUnit4ClassRunner {
 		 }
 	 }
 	
+	/**
+	 * Sets the requirements injector.
+	 *
+	 * @param requirementsInjector the new requirements injector
+	 */
 	public void setRequirementsInjector(RequirementsInjector requirementsInjector) {
 		this.requirementsInjector = requirementsInjector;
 	}

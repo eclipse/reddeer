@@ -82,6 +82,9 @@ public class JobIsRunning extends AbstractWaitCondition {
 		this.skipSystemJobs = skipSystemJobs;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.common.condition.WaitCondition#test()
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public boolean test() {
@@ -115,11 +118,17 @@ public class JobIsRunning extends AbstractWaitCondition {
 		return false;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.common.condition.AbstractWaitCondition#description()
+	 */
 	@Override
 	public String description() {
 		return "at least one job is running";
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.common.condition.AbstractWaitCondition#errorMessage()
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public String errorMessage() {

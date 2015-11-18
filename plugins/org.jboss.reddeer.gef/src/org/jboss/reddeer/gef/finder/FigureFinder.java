@@ -11,6 +11,9 @@ import org.eclipse.draw2d.IFigure;
  */
 public class FigureFinder extends Finder<IFigure> {
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.gef.finder.Finder#getChildren(java.lang.Object)
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<IFigure> getChildren(IFigure child) {

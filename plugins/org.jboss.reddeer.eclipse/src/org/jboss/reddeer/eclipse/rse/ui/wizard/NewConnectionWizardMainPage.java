@@ -18,23 +18,26 @@ import org.jboss.reddeer.swt.impl.text.DefaultText;
 public class NewConnectionWizardMainPage extends WizardPage {
 
 	/**
-	 * Set Host name
-	 * @param hostname
+	 * Set Host name.
+	 *
+	 * @param hostname the new host name
 	 */
 	public void setHostName(String hostname){
 		getHostNameCombo().setText(hostname);
 	}
 
 	/**
-	 * Set Connection name
-	 * @param String name
+	 * Set Connection name.
+	 *
+	 * @param name the new connection name
 	 */
 	public void setConnectionName(String name){
 		new DefaultText(0).setText(name);
 	}
 	
 	/**
-	 * Return list of all defined host names
+	 * Return list of all defined host names.
+	 *
 	 * @return List<String> hostnames
 	 */
 	public List<String> getHostNames() {

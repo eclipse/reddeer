@@ -35,8 +35,8 @@ public class PropertiesView extends WorkbenchView{
 	}
 
 	/**
-	 * Returns list of Properties
-	 * 
+	 * Returns list of Properties.
+	 *
 	 * @return list of Properties
 	 */
 	public List<PropertiesViewProperty> getProperties(){
@@ -49,9 +49,9 @@ public class PropertiesView extends WorkbenchView{
 	}
 	
 	/**
-	 * Returns ViewProperty with propertyName
-	 * 
-	 * @param propertyName Property name
+	 * Returns ViewProperty with propertyName.
+	 *
+	 * @param propertyNamePath the property name path
 	 * @return ViewProperty with propertyName
 	 */
 	public PropertiesViewProperty getProperty(String... propertyNamePath){

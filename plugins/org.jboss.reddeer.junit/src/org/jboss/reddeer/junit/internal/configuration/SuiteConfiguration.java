@@ -26,6 +26,11 @@ public class SuiteConfiguration {
 	
     private List<TestRunConfiguration> testRunConfigs;
     
+	/**
+	 * Gets the test run configurations.
+	 *
+	 * @return the test run configurations
+	 */
 	public List<TestRunConfiguration> getTestRunConfigurations(){
 		if (testRunConfigs == null){
 			testRunConfigs = findTestRunConfigurations();
@@ -67,6 +72,12 @@ public class SuiteConfiguration {
 		return getConfigurationFiles(new File(RedDeerProperties.CONFIG_FILE.getValue()));
 	}
 
+	/**
+	 * Gets the configuration files.
+	 *
+	 * @param location the location
+	 * @return the configuration files
+	 */
 	public List<File> getConfigurationFiles(File location){
 		if (!location.exists()){
 			throw new RedDeerConfigurationException("The configuration location " + location.getAbsolutePath() + " does not exist");

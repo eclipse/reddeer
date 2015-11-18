@@ -27,6 +27,9 @@ public class ServerExists extends AbstractWaitCondition {
 		view.open();
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.common.condition.WaitCondition#test()
+	 */
 	@Override
 	public boolean test() {
 		try{
@@ -37,6 +40,9 @@ public class ServerExists extends AbstractWaitCondition {
 		}		
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.common.condition.AbstractWaitCondition#description()
+	 */
 	@Override
 	public String description() {
 		return "there is server with name: " + this.name;

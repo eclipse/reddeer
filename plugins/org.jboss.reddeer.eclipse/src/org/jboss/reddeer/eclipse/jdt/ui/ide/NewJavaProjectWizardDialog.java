@@ -24,6 +24,9 @@ public class NewJavaProjectWizardDialog extends NewWizardDialog {
 		super("Java", "Java Project");
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.jface.wizard.WizardDialog#finish()
+	 */
 	@Override
 	public void finish() {
 		finish(false);

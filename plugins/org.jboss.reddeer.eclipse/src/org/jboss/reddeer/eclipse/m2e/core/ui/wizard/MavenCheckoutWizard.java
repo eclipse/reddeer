@@ -14,7 +14,7 @@ public class MavenCheckoutWizard extends NewWizardDialog{
 	
 
 	/**
-	 * Default constructor
+	 * Default constructor.
 	 */
 	public MavenCheckoutWizard(){
 		super(CATEGORY,NAME);

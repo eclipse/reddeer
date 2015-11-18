@@ -22,12 +22,18 @@ public class ConsoleHasText extends AbstractWaitCondition {
 		this.text = text;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.common.condition.WaitCondition#test()
+	 */
 	@Override
 	public boolean test() {
 		String consoleText = getConsoleText();
 		return consoleText.contains(text);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.common.condition.AbstractWaitCondition#description()
+	 */
 	@Override
 	public String description() {
 		String consoleText = getConsoleText();

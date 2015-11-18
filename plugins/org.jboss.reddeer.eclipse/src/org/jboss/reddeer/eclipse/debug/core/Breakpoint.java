@@ -32,14 +32,14 @@ public class Breakpoint extends AbstractTreeItem {
 	}
 
 	/**
-	 * Removes the breakpoint
+	 * Removes the breakpoint.
 	 */
 	public void remove() {
 		doOperation("Remove");
 	}
 
 	/**
-	 * Disables the breakpoint
+	 * Disables the breakpoint.
 	 */
 	public void disable() {
 		doOperation("Disable");
@@ -53,7 +53,7 @@ public class Breakpoint extends AbstractTreeItem {
 	}
 
 	/**
-	 * Enables the breakpoint
+	 * Enables the breakpoint.
 	 */
 	public void enable() {
 		doOperation("Enable");
@@ -86,7 +86,9 @@ public class Breakpoint extends AbstractTreeItem {
 	}
 
 	/**
-	 * Checks whether is the breakpoint enabled
+	 * Checks whether is the breakpoint enabled.
+	 *
+	 * @return true, if is enabled
 	 */
 	@Override
 	public boolean isEnabled() {
@@ -95,10 +97,9 @@ public class Breakpoint extends AbstractTreeItem {
 
 	/**
 	 * Checks whether is given operation enabled in the context menu of the
-	 * breakpoint
-	 * 
-	 * @param operation
-	 *            Name of operation in the context menu
+	 * breakpoint.
+	 *
+	 * @param operation            Name of operation in the context menu
 	 * @return true - operation is available and enabled, false - otherwise
 	 */
 	public boolean isOperationEnabled(String operation) {

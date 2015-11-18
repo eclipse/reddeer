@@ -181,8 +181,8 @@ public class TableItemHandler {
 	
 	/**
 	 * Focuses specified {@link TableItem}.
-	 * 
-	 * @param tabItem tab item to focus
+	 *
+	 * @param tableItem the new focus
 	 */
 	public void setFocus(final TableItem tableItem) {
 		Display.syncExec(new Runnable() {

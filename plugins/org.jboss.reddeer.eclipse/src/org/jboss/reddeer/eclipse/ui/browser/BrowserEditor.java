@@ -45,9 +45,9 @@ public class BrowserEditor extends AbstractEditor{
 	}
 	
 	/**
-	 * Opens page with given URL in browser
-	 * 
-	 * @param url
+	 * Opens page with given URL in browser.
+	 *
+	 * @param url the url
 	 */
 	public void openPageURL(String url) {
 		browser.setURL(url);
@@ -55,7 +55,7 @@ public class BrowserEditor extends AbstractEditor{
 	}
 
 	/**
-	 * Refreshes currently opened page in browser
+	 * Refreshes currently opened page in browser.
 	 */
 	public void refreshPage() {
 		browser.setURL(browser.getURL());
@@ -63,7 +63,7 @@ public class BrowserEditor extends AbstractEditor{
 	}
 
 	/**
-	 * Go to the previous page in browser
+	 * Go to the previous page in browser.
 	 */
 	public void back() {
 		String prevUrl = browser.getURL();
@@ -73,7 +73,7 @@ public class BrowserEditor extends AbstractEditor{
 	}
 
 	/**
-	 * Go to the next page in browser
+	 * Go to the next page in browser.
 	 */
 	public void forward() {
 		String prevUrl = browser.getURL();
@@ -83,8 +83,8 @@ public class BrowserEditor extends AbstractEditor{
 	}
 
 	/**
-	 * Gets URL of the currently opened page
-	 * 
+	 * Gets URL of the currently opened page.
+	 *
 	 * @return String URL of the current page
 	 */
 	public String getPageURL() {
@@ -92,8 +92,8 @@ public class BrowserEditor extends AbstractEditor{
 	}
 	
 	/**
-	 * Gets Text of the currently opened page
-	 * 
+	 * Gets Text of the currently opened page.
+	 *
 	 * @return String Text of the current page
 	 */
 	public String getText() {

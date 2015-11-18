@@ -12,10 +12,21 @@ public class EclipseLayerException extends RedDeerException {
 
 	private static final long serialVersionUID = 3457199665187648827L;
 
+	/**
+	 * Instantiates a new eclipse layer exception.
+	 *
+	 * @param message the message
+	 */
 	public EclipseLayerException(String message) {
 		super(message);
 	}
 
+	/**
+	 * Instantiates a new eclipse layer exception.
+	 *
+	 * @param message the message
+	 * @param cause the cause
+	 */
 	public EclipseLayerException(String message, Throwable cause) {
 		super(message, cause);
 	}

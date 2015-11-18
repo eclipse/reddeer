@@ -24,14 +24,26 @@ public class AutoBuildingRequirement implements Requirement<AutoBuilding> {
 	@Retention(RetentionPolicy.RUNTIME)
 	@Target(ElementType.TYPE)
 	public @interface AutoBuilding {
+		
+		/**
+		 * Value.
+		 *
+		 * @return true, if successful
+		 */
 		boolean value() default true;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.junit.requirement.Requirement#canFulfill()
+	 */
 	@Override
 	public boolean canFulfill() {
 		return true;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.junit.requirement.Requirement#fulfill()
+	 */
 	@Override
 	public void fulfill() {
 		autoBuildingOriginalValue = PreferencesUtil.isAutoBuildingOn();
@@ -42,11 +54,17 @@ public class AutoBuildingRequirement implements Requirement<AutoBuilding> {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.junit.requirement.Requirement#setDeclaration(java.lang.annotation.Annotation)
+	 */
 	@Override
 	public void setDeclaration(AutoBuilding autoBuilding) {
 		this.autoBuilding = autoBuilding;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.junit.requirement.Requirement#cleanUp()
+	 */
 	@Override
 	public void cleanUp() {
 		if (autoBuildingOriginalValue) {

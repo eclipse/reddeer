@@ -35,6 +35,11 @@ public class ViewerHandler {
 
 	}
 
+	/**
+	 * Gets the single instance of ViewerHandler.
+	 *
+	 * @return single instance of ViewerHandler
+	 */
 	public static ViewerHandler getInstance() {
 		if (instance == null) {
 			instance = new ViewerHandler();
@@ -93,11 +98,10 @@ public class ViewerHandler {
 
 	/**
 	 * Clicks on a given at the specified coordinates.
-	 * 
-	 * @param x
-	 *            X-axis
-	 * @param y
-	 *            Y-axis
+	 *
+	 * @param viewer the viewer
+	 * @param x            X-axis
+	 * @param y            Y-axis
 	 */
 	public void click(final EditPartViewer viewer, final int x, final int y) {
 		log.info("Click at [" + x + ", " + y + "]");
@@ -108,6 +112,12 @@ public class ViewerHandler {
 		handler.notifyItemMouse(SWT.MouseUp, 0, figureCanvas, null, x, y, 1);
 	}
 
+	/**
+	 * Gets the figure canvas.
+	 *
+	 * @param viewer the viewer
+	 * @return the figure canvas
+	 */
 	public FigureCanvas getFigureCanvas(final EditPartViewer viewer) {
 		return (FigureCanvas) viewer.getControl();
 	}

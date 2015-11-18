@@ -15,8 +15,9 @@ public final class RunningPlatform {
 	private RunningPlatform() {};
 
 	/**
-	 * Checks if Operating system family belongs to given OS family
-	 * @param os given os to check with  
+	 * Checks if Operating system family belongs to given OS family.
+	 *
+	 * @param os given os to check with
 	 * @return returns true if given os matches with running operation system
 	 */
 	public static boolean isOperationSystem(OS os){
@@ -36,7 +37,8 @@ public final class RunningPlatform {
 	}
 	
 	/**
-	 * Checks if current system belongs To Windows OS family 
+	 * Checks if current system belongs To Windows OS family .
+	 *
 	 * @return true if running platform is Windows
 	 */
 	public static boolean isWindows() {
@@ -44,7 +46,8 @@ public final class RunningPlatform {
 	}
 
 	/**
-	 * Checks if current system belongs to Apple OSX family
+	 * Checks if current system belongs to Apple OSX family.
+	 *
 	 * @return true if running platform is OSX
 	 */	
 	public static boolean isOSX() {
@@ -52,7 +55,8 @@ public final class RunningPlatform {
 	}
 
 	/**
-	 * Checks if current system belongs to GNU/Linux operation system family
+	 * Checks if current system belongs to GNU/Linux operation system family.
+	 *
 	 * @return true if running platform is Linux
 	 */		
 	public static boolean isLinux() {

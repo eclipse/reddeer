@@ -18,8 +18,8 @@ public abstract class AbstractXMLEditor extends MultiPageEditor {
 
 	/**
 	 * Find editor extending {@link MultiPageEditorPart} 
-	 * with the given title matcher
-	 * 
+	 * with the given title matcher.
+	 *
 	 * @param titleMatcher Title of the editor
 	 * @param clazz Class of the editor
 	 * @param matchers Additional matchers for the editor
@@ -46,21 +46,22 @@ public abstract class AbstractXMLEditor extends MultiPageEditor {
 	}
 	
 	/**
-	 * Select the design page tab
+	 * Select the design page tab.
 	 */
 	public void selectDesignPage(){
 		super.selectPage("Design");
 	}
 	
 	/**
-	 * Select the source page tab
+	 * Select the source page tab.
 	 */
 	public void selectSourcePage(){
 		super.selectPage("Source");
 	}
 	
 	/**
-	 * Return object for working with design page
+	 * Return object for working with design page.
+	 *
 	 * @return page that enables to work with XML in tree format
 	 */
 	public XMLDesignPage getDesignPage(){
@@ -69,7 +70,8 @@ public abstract class AbstractXMLEditor extends MultiPageEditor {
 	}
 	
 	/**
-	 * Return object for working with source page
+	 * Return object for working with source page.
+	 *
 	 * @return page that enables to work with XML in text format
 	 */
 	public XMLSourcePage getSourcePage(){

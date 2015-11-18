@@ -12,6 +12,9 @@ public class JavaProjectWizardDialog extends NewWizardDialog {
 
 	public static final String TITLE = "New JavaScript Project";
 	
+	/**
+	 * Instantiates a new java project wizard dialog.
+	 */
 	public JavaProjectWizardDialog() {
 		super("JavaScript", "JavaScript Project");
 	}

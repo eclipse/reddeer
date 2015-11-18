@@ -23,6 +23,11 @@ public class ImageTool {
 	private ImageTool() {
 	}
 
+	/**
+	 * Gets the single instance of ImageTool.
+	 *
+	 * @return single instance of ImageTool
+	 */
 	public static ImageTool getInstance() {
 		if (instance == null) {
 			instance = new ImageTool();
@@ -31,8 +36,8 @@ public class ImageTool {
 	}
 
 	/**
-	 * Checks if image is only one color (blank)
-	 * 
+	 * Checks if image is only one color (blank).
+	 *
 	 * @param filePath absolute path to the image
 	 * @return true if image is one color only (blank) or false if not
 	 */

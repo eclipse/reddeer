@@ -27,6 +27,9 @@ public class ConnectionProfileWizard extends NewWizardDialog {
 
 	protected Map<String, ConnectionProfileDatabasePage> wizardMap;
 
+	/**
+	 * Instantiates a new connection profile wizard.
+	 */
 	public ConnectionProfileWizard() {
 		super("Connection Profiles", "Connection Profile");
 
@@ -38,8 +41,8 @@ public class ConnectionProfileWizard extends NewWizardDialog {
 
 	/**
 	 * Create a given database profile.
-	 * 
-	 * @param dbProfile
+	 *
+	 * @param dbProfile the db profile
 	 */
 	public void createDatabaseProfile(DatabaseProfile dbProfile) {
 		createDatabaseProfile(dbProfile, false);

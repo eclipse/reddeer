@@ -10,6 +10,9 @@ import org.jboss.reddeer.workbench.impl.view.WorkbenchView;
  */
 public class PaletteView extends WorkbenchView {
 
+	/**
+	 * Instantiates a new palette view.
+	 */
 	public PaletteView() {
 		super("General", "Palette");
 	}

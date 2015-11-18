@@ -12,11 +12,17 @@ import org.jboss.reddeer.core.lookup.ShellLookup;
 
 public class ActiveShellExists extends AbstractWaitCondition {
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.common.condition.WaitCondition#test()
+	 */
 	@Override
 	public boolean test() {
 		return ShellLookup.getInstance().getCurrentActiveShell() != null;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.common.condition.AbstractWaitCondition#description()
+	 */
 	@Override
 	public String description() {
 		return "active shell exists";

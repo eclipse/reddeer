@@ -28,12 +28,21 @@ public class PropertyBasedConfigurator implements RequirementConfigurator{
 	
 	private Map<Class<? extends Requirement<?>>, PropertyBasedConfiguration> propertyConfigurations;
 	
+	/**
+	 * Instantiates a new property based configurator.
+	 *
+	 * @param reader the reader
+	 * @param setter the setter
+	 */
 	public PropertyBasedConfigurator(XMLReader reader, ConfigurationSetter setter) {
 		super();
 		this.reader = reader;
 		this.setter = setter;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.junit.internal.configuration.configurator.RequirementConfigurator#configure(org.jboss.reddeer.junit.requirement.Requirement)
+	 */
 	@Override
 	public void configure(Requirement<?> requirement) {
 		if (!(requirement instanceof PropertyConfiguration)){
@@ -48,6 +57,11 @@ public class PropertyBasedConfigurator implements RequirementConfigurator{
 		log.debug("Configuration successfully set");
 	}
 	
+	/**
+	 * Gets the property configurations.
+	 *
+	 * @return the property configurations
+	 */
 	public Map<Class<? extends Requirement<?>>, PropertyBasedConfiguration> getPropertyConfigurations(){
 		if (propertyConfigurations == null){
 			propertyConfigurations = loadPropertyConfigurations();
@@ -55,6 +69,11 @@ public class PropertyBasedConfigurator implements RequirementConfigurator{
 		return propertyConfigurations;
 	}
 	
+	/**
+	 * Load property configurations.
+	 *
+	 * @return the map< class<? extends requirement<?>>, property based configuration>
+	 */
 	protected Map<Class<? extends Requirement<?>>, PropertyBasedConfiguration> loadPropertyConfigurations(){
 		List<PropertyBasedConfiguration> list = reader.getConfiguration(PropertyBasedConfiguration.class);
 		Map<Class<? extends Requirement<?>>, PropertyBasedConfiguration> map = new HashMap<Class<? extends Requirement<?>>, PropertyBasedConfiguration>();

@@ -10,10 +10,21 @@ public class RedDeerConfigurationException extends RuntimeException {
 
 	private static final long serialVersionUID = 2832066367510275146L;
 
+	/**
+	 * Instantiates a new red deer configuration exception.
+	 *
+	 * @param message the message
+	 * @param cause the cause
+	 */
 	public RedDeerConfigurationException(String message, Throwable cause) {
 		super(message, cause);
 	}
 
+	/**
+	 * Instantiates a new red deer configuration exception.
+	 *
+	 * @param message the message
+	 */
 	public RedDeerConfigurationException(String message) {
 		super(message);
 	}

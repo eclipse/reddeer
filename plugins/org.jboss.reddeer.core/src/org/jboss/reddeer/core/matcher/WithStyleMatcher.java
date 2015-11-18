@@ -27,6 +27,9 @@ public class WithStyleMatcher extends BaseMatcher<Integer> {
 		this.style = style;
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.hamcrest.Matcher#matches(java.lang.Object)
+	 */
 	@Override
 	public boolean matches(Object item) {
 		if (item instanceof Widget){
@@ -41,11 +44,17 @@ public class WithStyleMatcher extends BaseMatcher<Integer> {
 		return false;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.hamcrest.SelfDescribing#describeTo(org.hamcrest.Description)
+	 */
 	@Override
 	public void describeTo(Description description) {
 		description.appendText("has style " + style);
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.hamcrest.BaseMatcher#toString()
+	 */
 	@Override
 	public String toString() {
 		return "Widget matcher matching widgets with style: " + style;

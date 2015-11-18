@@ -16,15 +16,30 @@ import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
  */
 public class NewServerWizardPage extends WizardPage {
 
+	/**
+	 * Select type.
+	 *
+	 * @param type the type
+	 */
 	public void selectType(String... type){
 		new WaitUntil(new TreeHasSelectedItems(new DefaultTree()),TimePeriod.NORMAL,false);
 		new DefaultTreeItem(type).select();
 	}
 
+	/**
+	 * Sets the name.
+	 *
+	 * @param name the new name
+	 */
 	public void setName(String name){
 		new LabeledText("Server name:").setText(name);
 	}
 
+	/**
+	 * Sets the host name.
+	 *
+	 * @param name the new host name
+	 */
 	public void setHostName(String name){
 		new LabeledText("Server's host name:").setText(name);
 	}

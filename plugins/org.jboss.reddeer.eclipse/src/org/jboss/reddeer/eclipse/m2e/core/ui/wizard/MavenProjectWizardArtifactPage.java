@@ -13,79 +13,89 @@ import org.jboss.reddeer.swt.impl.text.LabeledText;
 public class MavenProjectWizardArtifactPage extends WizardPage{
 	
 	/**
-	 * Set project package
-	 * @param projectPackage
+	 * Set project package.
+	 *
+	 * @param projectPackage the new package
 	 */
 	public void setPackage(String projectPackage){
 		new LabeledCombo(new DefaultGroup("Artifact"),"Packaging:").setText(projectPackage);
 	}
 	
 	/**
-	 * Set project group id
-	 * @param groupId
+	 * Set project group id.
+	 *
+	 * @param groupId the new group id
 	 */
 	public void setGroupId(String groupId){
 		new LabeledCombo(new DefaultGroup("Artifact"),"Group Id:").setText(groupId);
 	}
 	
 	/**
-	 * Set project name
-	 * @param name
+	 * Set project name.
+	 *
+	 * @param name the new name
 	 */
 	public void setName(String name){
 		new LabeledCombo(new DefaultGroup("Artifact"),"Name:").setText(name);
 	}
 
 	/**
-	 * Set project description
-	 * @param description
+	 * Set project description.
+	 *
+	 * @param description the new description
 	 */
 	public void setDescription(String description){
 		new LabeledText(new DefaultGroup("Artifact"),"Description:").setText(description);
 	}
 	
 	/**
-	 * Set parent project group id
-	 * @param group id
+	 * Set parent project group id.
+	 *
+	 * @param groupId the new parent group id
 	 */
 	public void setParentGroupId(String groupId){
 		new LabeledCombo(new DefaultGroup("Parent Project"),"Group Id:").setText(groupId);
 	}
 
 	/**
-	 * Set parent project artifact id
-	 * @param artifactId
+	 * Set parent project artifact id.
+	 *
+	 * @param artifactid the new parent artifact id
 	 */
 	public void setParentArtifactId(String artifactid){
 		new LabeledText(new DefaultGroup("Parent Project"),"Artifact Id:").setText(artifactid);
 	}
 	
 	/**
-	 * Set parent project version
-	 * @param version
+	 * Set parent project version.
+	 *
+	 * @param version the new parent version
 	 */
 	public void setParentVersion(String version){
 		new LabeledText(new DefaultGroup("Parent Project"),"Version:").setText(version);
 	}
 
 	/**
-	 * Set project artifact id
-	 * @param artifactId
+	 * Set project artifact id.
+	 *
+	 * @param artifactId the new artifact id
 	 */
 	public void setArtifactId(String artifactId){
 		new LabeledCombo(new DefaultGroup("Artifact"),"Artifact Id:").setText(artifactId);
 	}
 	
 	/**
-	 * Set project version
-	 * @param version
+	 * Set project version.
+	 *
+	 * @param version the new version
 	 */
 	public void setVersion(String version){
 		new LabeledCombo(new DefaultGroup("Artifact"),"Version:").setText(version);
 	}
 	
 	/**
-	 * Get project package
+	 * Get project package.
+	 *
 	 * @return project package
 	 */
 	public String getPackage(){
@@ -93,7 +103,8 @@ public class MavenProjectWizardArtifactPage extends WizardPage{
 	}
 	
 	/**
-	 * Get project group id
+	 * Get project group id.
+	 *
 	 * @return project group id
 	 */
 	public String getGroupId(){
@@ -101,7 +112,8 @@ public class MavenProjectWizardArtifactPage extends WizardPage{
 	}
 	
 	/**
-	 * Get project artifact id
+	 * Get project artifact id.
+	 *
 	 * @return project artifact id
 	 */
 	public String getArtifactId(){
@@ -109,7 +121,8 @@ public class MavenProjectWizardArtifactPage extends WizardPage{
 	}
 	
 	/**
-	 * Get project version
+	 * Get project version.
+	 *
 	 * @return project version
 	 */
 	public String getVersion(){

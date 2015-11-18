@@ -221,11 +221,17 @@ public class ShellLookup {
 	 */
 	class ShellIsFocused extends AbstractWaitCondition {
 		
+		/* (non-Javadoc)
+		 * @see org.jboss.reddeer.common.condition.WaitCondition#test()
+		 */
 		@Override
 		public boolean test() {
 			return getCurrentFocusShell() != null;
 		}
 		
+		/* (non-Javadoc)
+		 * @see org.jboss.reddeer.common.condition.AbstractWaitCondition#description()
+		 */
 		@Override
 		public String description() {
 			return "shell is focused";

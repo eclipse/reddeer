@@ -25,9 +25,11 @@ public class ObjectUtil {
 	
 	/**
 	 * Invokes method using reflection. Widget based method are executed in UI thread.
-	 * 
+	 *
 	 * @param object object to invoke method on
 	 * @param methodName method name to be invoked
+	 * @param argTypes the arg types
+	 * @param args the args
 	 * @return result of the method invocation
 	 */
 	public static Object invokeMethod(final Object object, String methodName, final Class<?>[] argTypes, final Object[] args) {

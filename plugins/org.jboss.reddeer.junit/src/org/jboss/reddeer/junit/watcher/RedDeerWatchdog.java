@@ -17,6 +17,9 @@ import org.junit.runner.Description;
 public class RedDeerWatchdog extends TestWatcher {
 	Logger log = Logger.getLogger(RedDeerWatchdog.class);
 
+	/* (non-Javadoc)
+	 * @see org.junit.rules.TestWatcher#failed(java.lang.Throwable, org.junit.runner.Description)
+	 */
 	@Override
 	protected void failed(Throwable e, Description description) {
 		if (ExecutionSetting.getInstance().isPauseFailedTest()) {

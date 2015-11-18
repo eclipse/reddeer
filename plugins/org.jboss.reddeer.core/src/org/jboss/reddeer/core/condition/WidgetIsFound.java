@@ -26,7 +26,9 @@ public class WidgetIsFound <T extends Widget> extends AbstractWaitCondition {
 	WidgetLookup widgetLookup = WidgetLookup.getInstance();
 	
 	/**
-	 * Looks for widgets under given parent control with given index and matching matchers
+	 * Looks for widgets under given parent control with given index and matching matchers.
+	 *
+	 * @param <T> the generic type
 	 * @param parent given parent control
 	 * @param index given index
 	 * @param matchers given matchers
@@ -43,7 +45,9 @@ public class WidgetIsFound <T extends Widget> extends AbstractWaitCondition {
 	}
 
 	/**
-	 * Looks for first widget under given parent control matching matchers
+	 * Looks for first widget under given parent control matching matchers.
+	 *
+	 * @param <T> the generic type
 	 * @param parent given parent control
 	 * @param matchers given matchers
 	 */	
@@ -53,7 +57,9 @@ public class WidgetIsFound <T extends Widget> extends AbstractWaitCondition {
 	}
 
 	/**
-	 * Looks for first widget under default parent control matching matchers
+	 * Looks for first widget under default parent control matching matchers.
+	 *
+	 * @param <T> the generic type
 	 * @param matchers given matchers
 	 */		
 	@SuppressWarnings("hiding")
@@ -62,7 +68,8 @@ public class WidgetIsFound <T extends Widget> extends AbstractWaitCondition {
 	}
 
 	/**
-	 * Tests if given widget is found
+	 * Tests if given widget is found.
+	 *
 	 * @return true if widget is found, false otherwise
 	 */
 	public boolean test() {
@@ -76,7 +83,8 @@ public class WidgetIsFound <T extends Widget> extends AbstractWaitCondition {
 	}
 
 	/**
-	 * Returns found widget
+	 * Returns found widget.
+	 *
 	 * @return found widget
 	 */
 	public Widget getWidget(){
@@ -85,7 +93,9 @@ public class WidgetIsFound <T extends Widget> extends AbstractWaitCondition {
 	}
 	
 	/**
-	 * Returns condition description
+	 * Returns condition description.
+	 *
+	 * @return the string
 	 */
 	@Override
 	public String description() {

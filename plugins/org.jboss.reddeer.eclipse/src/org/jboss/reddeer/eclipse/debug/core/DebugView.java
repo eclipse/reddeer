@@ -14,6 +14,9 @@ import org.jboss.reddeer.workbench.impl.view.WorkbenchView;
  */
 public class DebugView extends WorkbenchView {
 
+	/**
+	 * Instantiates a new debug view.
+	 */
 	public DebugView() {
 		super("Debug");
 	}

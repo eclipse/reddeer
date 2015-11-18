@@ -24,6 +24,11 @@ public class ViewerLookup {
 
 	}
 
+	/**
+	 * Gets the single instance of ViewerLookup.
+	 *
+	 * @return single instance of ViewerLookup
+	 */
 	public static ViewerLookup getInstance() {
 		if (instance == null) {
 			instance = new ViewerLookup();

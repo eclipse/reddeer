@@ -20,78 +20,171 @@ public class DatabaseProfile {
 
 	private DriverDefinition driverDefinition;
 
+	/**
+	 * Gets the name.
+	 *
+	 * @return the name
+	 */
 	public String getName() {
 		return name;
 	}
 
+	/**
+	 * Sets the name.
+	 *
+	 * @param name the new name
+	 */
 	public void setName(String name) {
 		this.name = name;
 	}
 
+	/**
+	 * Gets the database.
+	 *
+	 * @return the database
+	 */
 	public String getDatabase() {
 		return database;
 	}
 
+	/**
+	 * Sets the database.
+	 *
+	 * @param database the new database
+	 */
 	public void setDatabase(String database) {
 		this.database = database;
 	}
 
+	/**
+	 * Gets the hostname.
+	 *
+	 * @return the hostname
+	 */
 	public String getHostname() {
 		return hostname;
 	}
 
+	/**
+	 * Sets the hostname.
+	 *
+	 * @param hostname the new hostname
+	 */
 	public void setHostname(String hostname) {
 		this.hostname = hostname;
 	}
 
+	/**
+	 * Gets the port.
+	 *
+	 * @return the port
+	 */
 	public String getPort() {
 		return port;
 	}
 
+	/**
+	 * Sets the port.
+	 *
+	 * @param port the new port
+	 */
 	public void setPort(String port) {
 		this.port = port;
 	}
 
+	/**
+	 * Gets the username.
+	 *
+	 * @return the username
+	 */
 	public String getUsername() {
 		return username;
 	}
 
+	/**
+	 * Sets the username.
+	 *
+	 * @param username the new username
+	 */
 	public void setUsername(String username) {
 		this.username = username;
 	}
 
+	/**
+	 * Gets the password.
+	 *
+	 * @return the password
+	 */
 	public String getPassword() {
 		return password;
 	}
 
+	/**
+	 * Sets the password.
+	 *
+	 * @param password the new password
+	 */
 	public void setPassword(String password) {
 		this.password = password;
 	}
 
+	/**
+	 * Gets the vendor.
+	 *
+	 * @return the vendor
+	 */
 	public String getVendor() {
 		return vendor;
 	}
 
+	/**
+	 * Sets the vendor.
+	 *
+	 * @param vendor the new vendor
+	 */
 	public void setVendor(String vendor) {
 		this.vendor = vendor;
 	}
 
+	/**
+	 * Gets the url.
+	 *
+	 * @return the url
+	 */
 	public String getUrl() {
 		return url;
 	}
 
+	/**
+	 * Sets the url.
+	 *
+	 * @param url the new url
+	 */
 	public void setUrl(String url) {
 		this.url = url;
 	}
 
+	/**
+	 * Gets the driver definition.
+	 *
+	 * @return the driver definition
+	 */
 	public DriverDefinition getDriverDefinition() {
 		return driverDefinition;
 	}
 
+	/**
+	 * Sets the driver definition.
+	 *
+	 * @param driverDefinition the new driver definition
+	 */
 	public void setDriverDefinition(DriverDefinition driverDefinition) {
 		this.driverDefinition = driverDefinition;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -108,6 +201,9 @@ public class DatabaseProfile {
 		return result;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

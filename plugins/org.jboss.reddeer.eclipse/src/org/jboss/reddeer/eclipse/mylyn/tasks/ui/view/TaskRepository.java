@@ -24,18 +24,34 @@ import org.jboss.reddeer.swt.impl.menu.ContextMenu;
 		
 		private TreeItem treeItem;
 
+		/**
+		 * Instantiates a new task repository.
+		 *
+		 * @param treeItem the tree item
+		 */
 		public TaskRepository(TreeItem treeItem) {
 			this.treeItem = treeItem;
 		}
 
+		/**
+		 * Open.
+		 */
 		public void open() {
 			throw new UnsupportedOperationException();
 		}
 
+		/**
+		 * Delete.
+		 */
 		public void delete() {
 			delete(false);
 		}
 
+		/**
+		 * Delete.
+		 *
+		 * @param stopFirst the stop first
+		 */
 		public void delete(boolean stopFirst) {
 			log.info("Deleting Repository");
 			select();
@@ -45,10 +61,18 @@ import org.jboss.reddeer.swt.impl.menu.ContextMenu;
 			new WaitWhile(new JobIsRunning(), TIMEOUT);
 		}
 
+		/**
+		 * Select.
+		 */
 		protected void select() {
 			treeItem.select();
 		}
 
+		/**
+		 * Gets the name.
+		 *
+		 * @return the name
+		 */
 		public String getName(){
 			return treeItem.getText();
 		}

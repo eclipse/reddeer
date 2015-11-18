@@ -73,11 +73,17 @@ public class TimePeriod {
 		return new TimePeriod(seconds);
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	@Override
 	public String toString() {
 		return "Time period " + seconds + " s (factor " + FACTOR + " was used).";
 	}
 	
+	/**
+	 * Update factor.
+	 */
 	public static void updateFactor() {
 		FACTOR = RedDeerProperties.TIME_PERIOD_FACTOR.getFloatValue();
 	}

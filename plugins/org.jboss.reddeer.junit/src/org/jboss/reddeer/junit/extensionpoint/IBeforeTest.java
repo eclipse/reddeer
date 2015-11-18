@@ -11,8 +11,8 @@ public interface IBeforeTest {
 	
 	/**
 	 * Contains action proceeded prior test class @BeforeClass is run
-	 * Method is run only when method hasToRun() returns true
-	 * 
+	 * Method is run only when method hasToRun() returns true.
+	 *
 	 * @param config Config ID
 	 * @param testClass Test class
 	 */
@@ -20,8 +20,8 @@ public interface IBeforeTest {
 	
 	/**
 	 * Contains action proceeded prior test @Before is run
-	 * Method is run only when method hasToRun() returns true
-	 * 
+	 * Method is run only when method hasToRun() returns true.
+	 *
 	 * @param config Config ID
 	 * @param target Target object
 	 * @param method Test method
@@ -30,8 +30,9 @@ public interface IBeforeTest {
 	
 	/**
 	 * Returns true when method runBeforeTest() has to run
-	 * Could be use to run method runBeforeTest() only once
-	 * @return
+	 * Could be use to run method runBeforeTest() only once.
+	 *
+	 * @return true, if successful
 	 */
 	public boolean hasToRun();
 }

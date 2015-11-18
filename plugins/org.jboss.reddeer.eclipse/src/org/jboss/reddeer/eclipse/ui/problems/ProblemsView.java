@@ -161,6 +161,9 @@ public class ProblemsView extends WorkbenchView{
 			this.text = text;
 		}
 		
+		/* (non-Javadoc)
+		 * @see java.lang.Enum#toString()
+		 */
 		public String toString() {
 			return text;
 		}

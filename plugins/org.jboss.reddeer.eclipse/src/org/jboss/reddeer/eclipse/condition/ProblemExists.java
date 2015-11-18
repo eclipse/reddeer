@@ -32,12 +32,18 @@ public class ProblemExists extends AbstractWaitCondition {
 		problemsView.open();
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.common.condition.WaitCondition#test()
+	 */
 	@Override
 	public boolean test() {
 		problemsView.activate();
 		return !problemsView.getProblems(problemType, matchers).isEmpty();
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.common.condition.AbstractWaitCondition#description()
+	 */
 	@Override
 	public String description() {
 		return " problem of type " + problemType + " exists in Problems view.";

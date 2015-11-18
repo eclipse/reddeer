@@ -15,6 +15,13 @@ import org.hamcrest.Matcher;
  */
 public abstract class Finder<T> {
 
+	/**
+	 * Find.
+	 *
+	 * @param parent the parent
+	 * @param matcher the matcher
+	 * @return the list
+	 */
 	public List<T> find(T parent, Matcher<?> matcher) {
 		List<T> list = new ArrayList<T>();
 		Stack<T> stack = new Stack<T>();
@@ -40,5 +47,11 @@ public abstract class Finder<T> {
 		return list;
 	}
 
+	/**
+	 * Gets the children.
+	 *
+	 * @param child the child
+	 * @return the children
+	 */
 	public abstract List<T> getChildren(T child);
 }

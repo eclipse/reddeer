@@ -25,8 +25,9 @@ public class GenerateHashCodeEqualsDialog {
 	private Shell shell;
 	
 	/**
-	 * Opens generate hashcode and equals dialog
-	 * @param viaShellMenu true if dialog should be opened via shell menu, 
+	 * Opens generate hashcode and equals dialog.
+	 *
+	 * @param viaShellMenu true if dialog should be opened via shell menu,
 	 * 	false if context menu should be used
 	 */
 	public void open(boolean viaShellMenu){
@@ -39,7 +40,8 @@ public class GenerateHashCodeEqualsDialog {
 	}
 	
 	/**
-	 * Returns class fields
+	 * Returns class fields.
+	 *
 	 * @return list of class fields
 	 */
 	public List<ClassField> getFields(){
@@ -51,7 +53,8 @@ public class GenerateHashCodeEqualsDialog {
 	}
 	
 	/**
-	 * Returns possible insertion points
+	 * Returns possible insertion points.
+	 *
 	 * @return list of possible insertion points
 	 */
 	public List<String> getInsertionPoint(){
@@ -59,7 +62,8 @@ public class GenerateHashCodeEqualsDialog {
 	}
 	
 	/**
-	 * Sets insertion point
+	 * Sets insertion point.
+	 *
 	 * @param insertionPoint to set
 	 */
 	public void setInsertionPoint(String insertionPoint){
@@ -67,7 +71,8 @@ public class GenerateHashCodeEqualsDialog {
 	}
 	
 	/**
-	 * Checks if dialog should generate comments
+	 * Checks if dialog should generate comments.
+	 *
 	 * @return true if dialog should generate comments, false otherwise
 	 */
 	public boolean isGenerateMethodComments(){
@@ -75,7 +80,8 @@ public class GenerateHashCodeEqualsDialog {
 	}
 	
 	/**
-	 * Checks if dialog should use instanceof
+	 * Checks if dialog should use instanceof.
+	 *
 	 * @return true if dialog should use instanceof, false otherwise
 	 */
 	public boolean isUseInstanceofToCompareTypes(){
@@ -83,7 +89,8 @@ public class GenerateHashCodeEqualsDialog {
 	}
 	
 	/**
-	 * Checks if dialog should use blocks in if statements
+	 * Checks if dialog should use blocks in if statements.
+	 *
 	 * @return true if dialog should use blocks in if statements, false otherwise
 	 */
 	public boolean isUseBlocksInIfStatements(){
@@ -91,7 +98,8 @@ public class GenerateHashCodeEqualsDialog {
 	}
 	
 	/**
-	 * Check/Uncheck if dialog should generate comments
+	 * Check/Uncheck if dialog should generate comments.
+	 *
 	 * @param toggle true if dialog should generate comments, false otherwise
 	 */
 	public void toggleGenerateMethodComments(boolean toggle){
@@ -99,7 +107,9 @@ public class GenerateHashCodeEqualsDialog {
 	}
 	
 	/**
-	 * Check/Uncheck if dialog should use instanceof
+	 * Check/Uncheck if dialog should use instanceof.
+	 *
+	 * @param toggle the toggle
 	 * @Param toggle true if dialog should use instanceof, false otherwise
 	 */
 	public void toggleUseInstanceofToCompareTypes(boolean toggle){
@@ -107,7 +117,8 @@ public class GenerateHashCodeEqualsDialog {
 	}
 	
 	/**
-	 * Check/Uncheck if dialog should use blocks in if statements
+	 * Check/Uncheck if dialog should use blocks in if statements.
+	 *
 	 * @param toggle true if dialog should use blocks in if statements, false otherwise
 	 */
 	public void toggleUseBlocksInIfStatements(boolean toggle){
@@ -115,21 +126,21 @@ public class GenerateHashCodeEqualsDialog {
 	}
 	
 	/**
-	 * Selects all class fields
+	 * Selects all class fields.
 	 */
 	public void selectAll(){
 		new PushButton("Select All").click();
 	}
 	
 	/**
-	 * Deselects all class fields
+	 * Deselects all class fields.
 	 */
 	public void deselectAll(){
 		new PushButton("Deselect All").click();
 	}
 	
 	/**
-	 * Press ok
+	 * Press ok.
 	 */
 	public void ok(){
 		String shellText = shell.getText();
@@ -138,7 +149,7 @@ public class GenerateHashCodeEqualsDialog {
 	}
 	
 	/**
-	 * Press cancel
+	 * Press cancel.
 	 */
 	public void cancel(){
 		String shellText = shell.getText();

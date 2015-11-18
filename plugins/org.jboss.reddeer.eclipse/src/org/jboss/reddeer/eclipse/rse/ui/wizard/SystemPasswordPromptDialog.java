@@ -22,7 +22,8 @@ public class SystemPasswordPromptDialog {
 	}
 	
 	/**
-	 * Get Shell of the Remote System password prompt dialog
+	 * Get Shell of the Remote System password prompt dialog.
+	 *
 	 * @return Shell
 	 */
 	public Shell getShell(){

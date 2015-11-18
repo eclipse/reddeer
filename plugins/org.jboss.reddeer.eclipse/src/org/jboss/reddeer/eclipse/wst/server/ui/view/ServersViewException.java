@@ -12,10 +12,21 @@ public class ServersViewException extends EclipseLayerException {
 
 	private static final long serialVersionUID = -5850409602777204031L;
 
+	/**
+	 * Instantiates a new servers view exception.
+	 *
+	 * @param message the message
+	 */
 	public ServersViewException(String message) {
 		super(message);
 	}
 
+	/**
+	 * Instantiates a new servers view exception.
+	 *
+	 * @param message the message
+	 * @param cause the cause
+	 */
 	public ServersViewException(String message, Throwable cause) {
 		super(message, cause);
 	}

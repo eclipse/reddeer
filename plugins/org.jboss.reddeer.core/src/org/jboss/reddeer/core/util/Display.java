@@ -55,7 +55,8 @@ public class Display {
 
 	/**
 	 * Run sync in UI thread with ability to return result.
-	 * 
+	 *
+	 * @param <T> the generic type
 	 * @param runnable runnable
 	 * @return result of runnable
 	 */	

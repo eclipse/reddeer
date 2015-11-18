@@ -14,38 +14,81 @@ public class DriverDefinition {
 	private String driverClass;
 	private DriverTemplate driverTemplate;
 
+	/**
+	 * Gets the driver name.
+	 *
+	 * @return the driver name
+	 */
 	public String getDriverName() {
 		return driverName;
 	}
 
+	/**
+	 * Sets the driver name.
+	 *
+	 * @param driverName the new driver name
+	 */
 	public void setDriverName(String driverName) {
 		this.driverName = driverName;
 	}
 
+	/**
+	 * Sets the driver library.
+	 *
+	 * @param driverLibrary the new driver library
+	 */
 	public void setDriverLibrary(String driverLibrary) {
 		this.driverLibrary = driverLibrary;
 	}
 
+	/**
+	 * Sets the driver template.
+	 *
+	 * @param driverTemplate the new driver template
+	 */
 	public void setDriverTemplate(DriverTemplate driverTemplate) {
 		this.driverTemplate = driverTemplate;
 	}
 
+	/**
+	 * Gets the driver library.
+	 *
+	 * @return the driver library
+	 */
 	public String getDriverLibrary() {
 		return driverLibrary;
 	}
 
+	/**
+	 * Gets the driver class.
+	 *
+	 * @return the driver class
+	 */
 	public String getDriverClass() {
 		return driverClass;
 	}
 
+	/**
+	 * Sets the driver class.
+	 *
+	 * @param driverClass the new driver class
+	 */
 	public void setDriverClass(String driverClass) {
 		this.driverClass = driverClass;
 	}
 
+	/**
+	 * Gets the driver template.
+	 *
+	 * @return the driver template
+	 */
 	public DriverTemplate getDriverTemplate() {
 		return driverTemplate;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -57,6 +100,9 @@ public class DriverDefinition {
 		return result;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

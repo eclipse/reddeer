@@ -10,5 +10,10 @@ import org.jboss.reddeer.junit.requirement.Requirement;
  */
 public interface RequirementConfigurator {
 
+	/**
+	 * Configure.
+	 *
+	 * @param requirement the requirement
+	 */
 	void configure(Requirement<?> requirement);
 }

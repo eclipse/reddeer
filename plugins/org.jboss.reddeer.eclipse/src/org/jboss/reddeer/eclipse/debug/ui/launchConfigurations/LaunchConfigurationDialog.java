@@ -34,10 +34,15 @@ public abstract class LaunchConfigurationDialog {
 	 */
 	public abstract String getTitle();
 
+	/**
+	 * Gets the menu item name.
+	 *
+	 * @return the menu item name
+	 */
 	protected abstract String getMenuItemName();
 
 	/**
-	 * Open the dialog using top menu
+	 * Open the dialog using top menu.
 	 */
 	public void open() {
 		log.info("Open launch configuration dialog");
@@ -49,9 +54,9 @@ public abstract class LaunchConfigurationDialog {
 	}
 
 	/**
-	 * Select the launch configuration
-	 * 
-	 * @param configuration
+	 * Select the launch configuration.
+	 *
+	 * @param configuration the configuration
 	 */
 	public void select(LaunchConfiguration configuration) {
 		log.info("Select launch configuration " + configuration.getType());
@@ -60,9 +65,10 @@ public abstract class LaunchConfigurationDialog {
 	}
 	
 	/**
-	 * Select the launch configuration with the specified name
-	 * 
-	 * @param configuration
+	 * Select the launch configuration with the specified name.
+	 *
+	 * @param configuration the configuration
+	 * @param name the name
 	 */
 	public void select(LaunchConfiguration configuration, String name) {
 		log.info("Select launch configuration " + configuration.getType() + " with name " + name);
@@ -73,8 +79,9 @@ public abstract class LaunchConfigurationDialog {
 	}
 
 	/**
-	 * Create new configuration with default name
-	 * @param configuration
+	 * Create new configuration with default name.
+	 *
+	 * @param configuration the configuration
 	 */
 	public void create(LaunchConfiguration configuration){
 		log.info("Create new launch configuration " + configuration.getType());
@@ -82,9 +89,10 @@ public abstract class LaunchConfigurationDialog {
 	}
 
 	/**
-	 * Create new configuration with specified name
-	 * @param configuration
-	 * @param name
+	 * Create new configuration with specified name.
+	 *
+	 * @param configuration the configuration
+	 * @param name the name
 	 */
 	public void create(LaunchConfiguration configuration, String name){
 		log.info("Create new launch configuration " + configuration.getType() + " with name " + name);
@@ -99,9 +107,10 @@ public abstract class LaunchConfigurationDialog {
 	}
 	
 	/**
-	 * Delete the configuration with specified name
-	 * @param configuration
-	 * @param name
+	 * Delete the configuration with specified name.
+	 *
+	 * @param configuration the configuration
+	 * @param name the name
 	 */
 	public void delete(LaunchConfiguration configuration, String name){
 		log.info("Delete launch configuration " + configuration.getType() + " with name " + name);
@@ -113,7 +122,7 @@ public abstract class LaunchConfigurationDialog {
 	}
 	
 	/**
-	 * Run the selected run configuration
+	 * Run the selected run configuration.
 	 */
 	public void run(){
 		log.info("Run the launch configuration");
@@ -127,7 +136,7 @@ public abstract class LaunchConfigurationDialog {
 	}
 
 	/**
-	 * Close the dialog
+	 * Close the dialog.
 	 */
 	public void close(){
 		log.info("Close the launch configuration dialog");

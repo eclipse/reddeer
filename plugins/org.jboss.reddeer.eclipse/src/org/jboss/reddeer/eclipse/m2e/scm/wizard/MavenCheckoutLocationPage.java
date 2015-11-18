@@ -11,7 +11,8 @@ import org.jboss.reddeer.swt.impl.text.LabeledText;
 public class MavenCheckoutLocationPage extends WizardPage{
 	
 	/**
-	 * Get available SCM types
+	 * Get available SCM types.
+	 *
 	 * @return list of available SCM types
 	 */
 	public List<String> getAvailableSCMTypes(){
@@ -19,7 +20,8 @@ public class MavenCheckoutLocationPage extends WizardPage{
 	}
 	
 	/**
-	 * Get selected SCM type
+	 * Get selected SCM type.
+	 *
 	 * @return selected SCM type
 	 */
 	public String getSelectedSCMType(){
@@ -27,7 +29,8 @@ public class MavenCheckoutLocationPage extends WizardPage{
 	}
 	
 	/**
-	 * Set SCM type
+	 * Set SCM type.
+	 *
 	 * @param scmType to select
 	 */
 	public void setSCMType(String scmType){
@@ -35,7 +38,8 @@ public class MavenCheckoutLocationPage extends WizardPage{
 	}
 	
 	/**
-	 * Set SCM URL
+	 * Set SCM URL.
+	 *
 	 * @param scmURL to select
 	 */
 	public void setSCMURL(String scmURL){
@@ -43,7 +47,8 @@ public class MavenCheckoutLocationPage extends WizardPage{
 	}
 	
 	/**
-	 * Get selected SCM URL
+	 * Get selected SCM URL.
+	 *
 	 * @return selected SCM URL
 	 */
 	public String getSCMURL(){
@@ -51,7 +56,8 @@ public class MavenCheckoutLocationPage extends WizardPage{
 	}
 	
 	/**
-	 * Get available SCM URLs
+	 * Get available SCM URLs.
+	 *
 	 * @return list of available SCM URLs
 	 */
 	public List<String> getAvailableSCMURLs(){
@@ -59,15 +65,17 @@ public class MavenCheckoutLocationPage extends WizardPage{
 	}
 	
 	/**
-	 * Toggle checkout head revision 
-	 * @param toggle
+	 * Toggle checkout head revision .
+	 *
+	 * @param toggle the toggle
 	 */
 	public void toggleCheckoutHeadRevision(boolean toggle){
 		 new CheckBox("Check out Head Revision").toggle(toggle);
 	}
 	
 	/**
-	 * Check if checkout head revision is checked
+	 * Check if checkout head revision is checked.
+	 *
 	 * @return true if checkout head revision is checked, false otherwise
 	 */
 	public boolean isCheckoutHeadRevision(){
@@ -75,7 +83,8 @@ public class MavenCheckoutLocationPage extends WizardPage{
 	}
 
 	/**
-	 * Set revision
+	 * Set revision.
+	 *
 	 * @param revision to set
 	 */
 	public void setRevision(String revision){
@@ -83,15 +92,17 @@ public class MavenCheckoutLocationPage extends WizardPage{
 	}
 	
 	/**
-	 * Toggle checkout all projects
-	 * @param toggle
+	 * Toggle checkout all projects.
+	 *
+	 * @param toggle the toggle
 	 */
 	public void toggleCheckoutAllProjects(boolean toggle){
 		new CheckBox("Check out All Projects").toggle(toggle);
 	}
 	
 	/**
-	 * Check if checkout all projects is checked
+	 * Check if checkout all projects is checked.
+	 *
 	 * @return true if checkout all projects is checked, false otherwise
 	 */
 	public boolean isCheckoutAllProjects(){

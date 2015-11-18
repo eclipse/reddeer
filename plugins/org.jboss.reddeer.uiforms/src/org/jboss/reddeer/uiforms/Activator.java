@@ -15,7 +15,7 @@ public class Activator extends AbstractUIPlugin {
 	private static Activator plugin;
 	
 	/**
-	 * The constructor
+	 * The constructor.
 	 */
 	public Activator() {
 	}
@@ -39,7 +39,7 @@ public class Activator extends AbstractUIPlugin {
 	}
 
 	/**
-	 * Returns the shared instance
+	 * Returns the shared instance.
 	 *
 	 * @return the shared instance
 	 */

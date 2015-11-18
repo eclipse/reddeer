@@ -28,21 +28,35 @@ public class ServerRequirementConfig implements IServerReqConfig {
 	})
 	private List<IServerFamily> family;
 	
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.requirements.server.IServerReqConfig#getServerFamily()
+	 */
 	@Override
 	public IServerFamily getServerFamily(){
 		return this.family.get(0); //always: size() == 1 
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.requirements.server.IServerReqConfig#getRuntime()
+	 */
 	@Override
 	public String getRuntime() {
 		return runtime;
 	}
 
+	/**
+	 * Sets the runtime.
+	 *
+	 * @param runtime the new runtime
+	 */
 	@XmlElement(namespace="http://www.jboss.org/NS/ServerReq")
 	public void setRuntime(String runtime) {
 		this.runtime = runtime;
 	}
 	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
 	public boolean equals(Object arg) {
 		if(arg == null || !(arg instanceof ServerRequirementConfig))
 			return false;

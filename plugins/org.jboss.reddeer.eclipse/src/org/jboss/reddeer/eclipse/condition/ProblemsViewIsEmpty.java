@@ -23,6 +23,9 @@ public class ProblemsViewIsEmpty extends AbstractWaitCondition {
 		problemsView.open();
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.common.condition.WaitCondition#test()
+	 */
 	@Override
 	public boolean test() {
 		problemsView.activate();
@@ -31,6 +34,9 @@ public class ProblemsViewIsEmpty extends AbstractWaitCondition {
 		return new DefaultTree().getItems().isEmpty();
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.common.condition.AbstractWaitCondition#description()
+	 */
 	@Override
 	public String description() {
 		return " Problems view is empty.";

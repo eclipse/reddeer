@@ -11,5 +11,11 @@ import org.jboss.reddeer.junit.execution.TestMethodShouldRun;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
 public @interface RunIf {
+	
+	/**
+	 * Condition class.
+	 *
+	 * @return the class<? extends test method should run>
+	 */
 	Class<? extends TestMethodShouldRun> conditionClass();
 }

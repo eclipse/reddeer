@@ -12,16 +12,18 @@ import org.jboss.reddeer.core.matcher.WithTextMatcher;
 public class XMLMultiPageEditor extends AbstractXMLEditor {
 
 	/**
-	 * Find XMLMultiPageEditorPart with the given title
-	 * @param title
+	 * Find XMLMultiPageEditorPart with the given title.
+	 *
+	 * @param title the title
 	 */
 	public XMLMultiPageEditor(String title) {
 		this(new WithTextMatcher(title));
 	}
 	
 	/**
-	 * Find XMLMultiPageEditorPart with the given title matcher
-	 * @param title
+	 * Find XMLMultiPageEditorPart with the given title matcher.
+	 *
+	 * @param titleMatcher the title matcher
 	 */
 	@SuppressWarnings("unchecked")
 	public XMLMultiPageEditor(Matcher<String> titleMatcher) {

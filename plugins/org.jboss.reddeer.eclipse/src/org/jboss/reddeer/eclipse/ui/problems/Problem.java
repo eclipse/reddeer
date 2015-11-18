@@ -109,7 +109,8 @@ public class Problem {
 	}
 	
 	/**
-	 * Open quickfix
+	 * Open quickfix.
+	 *
 	 * @return Quickfix wizard
 	 */
 	public QuickFixWizard openQuickFix(){
@@ -127,6 +128,9 @@ public class Problem {
 		return null;
 	}
 	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();

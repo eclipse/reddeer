@@ -16,18 +16,22 @@ public class ConsoleHasLaunch extends AbstractWaitCondition {
 
 	/**
 	 * Construct the condition.
-	 * 
-	 * @param text Text
 	 */
 	public ConsoleHasLaunch() {
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.common.condition.WaitCondition#test()
+	 */
 	@Override
 	public boolean test() {
 		consoleView.open();
 		return consoleView.consoleHasLaunch();
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.common.condition.AbstractWaitCondition#description()
+	 */
 	@Override
 	public String description() {
 		return "console contains launch";

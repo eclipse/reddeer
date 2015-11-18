@@ -27,11 +27,17 @@ public class IsToolActivated extends AbstractWaitCondition {
 		this.tool = label;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.common.condition.WaitCondition#test()
+	 */
 	@Override
 	public boolean test() {
 		return palette.getActiveTool().equals(tool);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.common.condition.AbstractWaitCondition#description()
+	 */
 	@Override
 	public String description() {
 		return "tool with label '" + tool + "' is activated";

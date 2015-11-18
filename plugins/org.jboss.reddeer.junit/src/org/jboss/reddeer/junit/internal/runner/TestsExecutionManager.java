@@ -35,8 +35,8 @@ public class TestsExecutionManager {
 	
 	/**
 	 * Adds the specified <var>testClass</var> to the manager
-	 * as test class WITHOUT A RUN
-	 * 
+	 * as test class WITHOUT A RUN.
+	 *
 	 * @param testClass test {@link Class} to be added
 	 * 				as test class without a run
 	 */
@@ -46,8 +46,8 @@ public class TestsExecutionManager {
 	
 	/**
 	 * Adds the specified <var>testClass</var> to the manager
-	 * as test class WITH A RUN
-	 * 
+	 * as test class WITH A RUN.
+	 *
 	 * @param testClass test {@link Class} to be added
 	 * 				as test class with a run
 	 */
@@ -57,8 +57,8 @@ public class TestsExecutionManager {
 	}
 	
 	/**
-	 * Calculates the number of tests without a run
-	 * 
+	 * Calculates the number of tests without a run.
+	 *
 	 * @return the number of tests without a run
 	 */
 	public boolean allTestsAreExecuted() {
@@ -68,9 +68,9 @@ public class TestsExecutionManager {
 	
 	/**
 	 * Returns <code>true</code> if the specified test {@link Class}
-	 * has a run
-	 * 
-	 * @param testClass test {@link Class} whose status is to be tested 
+	 * has a run.
+	 *
+	 * @param testClass test {@link Class} whose status is to be tested
 	 * @return <code>true</code> if the specified test class has a run
 	 */
 	public boolean isExecuted(Class<?> testClass) {

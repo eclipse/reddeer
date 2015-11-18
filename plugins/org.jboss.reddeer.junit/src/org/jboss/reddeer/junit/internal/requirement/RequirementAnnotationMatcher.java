@@ -14,6 +14,9 @@ import org.jboss.reddeer.junit.requirement.Requirement;
  */
 public class RequirementAnnotationMatcher extends TypeSafeMatcher<Annotation> {
 
+	/* (non-Javadoc)
+	 * @see org.hamcrest.TypeSafeMatcher#matchesSafely(java.lang.Object)
+	 */
 	@Override
 	public boolean matchesSafely(Annotation annotation) {
 		Class<?> enclosingType = annotation.annotationType().getEnclosingClass();
@@ -25,6 +28,9 @@ public class RequirementAnnotationMatcher extends TypeSafeMatcher<Annotation> {
 		return Requirement.class.isAssignableFrom(enclosingType);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.hamcrest.SelfDescribing#describeTo(org.hamcrest.Description)
+	 */
 	@Override
 	public void describeTo(Description description) {
 		

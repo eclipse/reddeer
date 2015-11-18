@@ -27,6 +27,9 @@ public class WizardProjectsImportPage extends WizardPage {
 	
 	private static final Logger log = Logger.getLogger(WizardProjectsImportPage.class);
 
+	/**
+	 * Instantiates a new wizard projects import page.
+	 */
 	public WizardProjectsImportPage() {
 		super();
 	}
@@ -40,6 +43,9 @@ public class WizardProjectsImportPage extends WizardPage {
 		
 		public String name;
 		
+		/* (non-Javadoc)
+		 * @see java.lang.Object#toString()
+		 */
 		@Override
 		public String toString() {
 			return "ImportProject[" + isChecked + ", " + name + "]";
@@ -131,6 +137,12 @@ public class WizardProjectsImportPage extends WizardPage {
 		new PushButton("Deselect All").click();
 	}
 	
+	/**
+	 * Sets the path.
+	 *
+	 * @param radioText the radio text
+	 * @param path the path
+	 */
 	protected void setPath(String radioText, String path){
 		new RadioButton(radioText).click();
 		if(radioText.equals("Select root directory:")){

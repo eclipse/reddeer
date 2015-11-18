@@ -12,14 +12,27 @@ import java.lang.annotation.Annotation;
  */
 public interface Requirement<T extends Annotation> {
 	
+	/**
+	 * Can fulfill.
+	 *
+	 * @return true, if successful
+	 */
 	boolean canFulfill();
 
+	/**
+	 * Fulfill.
+	 */
 	void fulfill();
 	
+	/**
+	 * Sets the declaration.
+	 *
+	 * @param declaration the new declaration
+	 */
 	void setDeclaration(T declaration);
 	
 	/**
-	 * Clean up after requirement
+	 * Clean up after requirement.
 	 */
 	void cleanUp();
 }

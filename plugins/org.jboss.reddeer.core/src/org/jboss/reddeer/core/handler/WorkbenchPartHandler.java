@@ -49,7 +49,8 @@ public class WorkbenchPartHandler {
 	
 	/**
 	 * Gets title of specified {@link IWorkbenchPart}.
-	 * 
+	 *
+	 * @param workbenchPart the workbench part
 	 * @return title of specified workbench part
 	 */
 	public String getTitle(final IWorkbenchPart workbenchPart) {
@@ -64,7 +65,8 @@ public class WorkbenchPartHandler {
 	
 	/**
 	 * Gets title tool tip of specified {@link IWorkbenchPart}.
-	 * 
+	 *
+	 * @param workbenchPart the workbench part
 	 * @return title tool tip text of specified workbench part
 	 */
 	public String getTitleToolTip(final IWorkbenchPart workbenchPart) {
@@ -177,8 +179,9 @@ public class WorkbenchPartHandler {
 	
 	/**
 	 * Gets title of Workbench part containing specified widget.
-	 * 
+	 *
 	 * @param widget widget of workbench part to get title of
+	 * @return the title of workbench part with widget
 	 */
 	public String getTitleOfWorkbenchPartWithWidget (Widget widget) {
 		

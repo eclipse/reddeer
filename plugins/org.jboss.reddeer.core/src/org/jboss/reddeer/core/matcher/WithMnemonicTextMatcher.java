@@ -41,17 +41,26 @@ public class WithMnemonicTextMatcher extends AbstractWidgetWithTextMatcher {
 		this.matcher = matcher;
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.core.matcher.AbstractWidgetWithTextMatcher#matches(java.lang.String)
+	 */
 	@Override
 	protected boolean matches(String extractedText) {
 		String textToMatch = extractedText.replaceAll("&", "").split("\t")[0];
 		return matcher.matches(textToMatch);
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.hamcrest.SelfDescribing#describeTo(org.hamcrest.Description)
+	 */
 	@Override
 	public void describeTo(Description description) {
 		description.appendText("has text that without mnenomic ").appendDescriptionOf(matcher);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.hamcrest.BaseMatcher#toString()
+	 */
 	@Override
 	public String toString() {
 		return "Matcher matching widgets with text that without mnenomic matches: " + matcher;

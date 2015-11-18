@@ -41,39 +41,45 @@ public class BuildPathsPropertyPage extends PropertyPage {
 	public BuildPathsPropertyPage() {
 		super(NAME);
 	}
+	
 	/**
-	 * Activates Source tab 
+	 * Activates Source tab.
 	 */
 	public void activateSourceTab(){
 		new DefaultTabItem("Source").activate();
 		new WaitWhile(new JobIsRunning());
 	}
+	
 	/**
-	 * Activates Projects tab 
+	 * Activates Projects tab.
 	 */
 	public void activateProjectsTab(){
 		new DefaultTabItem("Projects").activate();
 		new WaitWhile(new JobIsRunning());
 	}
+	
 	/**
-	 * Activates Libraries tab 
+	 * Activates Libraries tab.
 	 */
 	public void activateLibrariesTab(){
 		new DefaultTabItem("Libraries").activate();
 		new WaitWhile(new JobIsRunning());
 	}
+	
 	/**
-	 * Activates Order and Export tab 
+	 * Activates Order and Export tab.
 	 */
 	public void activateOrderAndExportTab(){
 		new DefaultTabItem("Order and Export").activate();
 		new WaitWhile(new JobIsRunning());
 	}
+	
 	/**
-	 * Adds new variable to Build Path Libraries
-	 * @param name
-	 * @param value
-	 * @param overwriteIfExists
+	 * Adds new variable to Build Path Libraries.
+	 *
+	 * @param name the name
+	 * @param value the value
+	 * @param overwriteIfExists the overwrite if exists
 	 * @return added variable label
 	 */
 	public String addVariable(String name , String value , boolean overwriteIfExists){
@@ -96,10 +102,12 @@ public class BuildPathsPropertyPage extends PropertyPage {
 		new WaitWhile(new JobIsRunning());
 		return result;
 	}
+	
 	/**
-	 * Removes variable from Build Path Libraries
-	 * @param label
-	 * @param removeGlobally
+	 * Removes variable from Build Path Libraries.
+	 *
+	 * @param label the label
+	 * @param removeGlobally the remove globally
 	 */
 	public void removeVariable(String label, boolean removeGlobally){
 		log.info("Removing variable: " + label);
@@ -126,15 +134,20 @@ public class BuildPathsPropertyPage extends PropertyPage {
 		new PushButton("Apply").click();
 		new WaitWhile(new JobIsRunning());
 	}
+	
 	/**
-	 * Selects library matching matcher 
-	 * @param matcher
+	 * Selects library matching matcher .
+	 *
+	 * @param matcher the matcher
 	 */
 	public void selectLibrary (Matcher<org.eclipse.swt.widgets.TreeItem> matcher){
 		new DefaultTreeItem(getLibraryTree(),matcher).select();
 	}
+	
 	/**
-	 * Returns list with defined libraries on build path 
+	 * Returns list with defined libraries on build path.
+	 *
+	 * @return the libraries
 	 */
 	public List<String> getLibraries (){
 		LinkedList<String> libraries = new LinkedList<String>();

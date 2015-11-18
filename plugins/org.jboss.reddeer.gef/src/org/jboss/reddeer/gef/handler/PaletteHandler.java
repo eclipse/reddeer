@@ -29,6 +29,11 @@ public class PaletteHandler {
 
 	}
 
+	/**
+	 * Gets the single instance of PaletteHandler.
+	 *
+	 * @return single instance of PaletteHandler
+	 */
 	public static PaletteHandler getInstance() {
 		if (instance == null) {
 			instance = new PaletteHandler();

@@ -11,11 +11,17 @@ package org.jboss.reddeer.common.condition;
  */
 public abstract class AbstractWaitCondition implements WaitCondition {
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.common.condition.WaitCondition#description()
+	 */
 	@Override
 	public String description() {
 		return getClass().getCanonicalName();
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.common.condition.WaitCondition#errorMessage()
+	 */
 	@Override
 	public String errorMessage() {
 		return description();

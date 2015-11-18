@@ -22,9 +22,8 @@ public class BrowserView extends WorkbenchView {
 
 	/**
 	 * Constructor of BrowserView Class
-	 * Check if Internal Web Browser view exists
-	 * 
-	 * @throws ViewNotFoundException if the view does not exist
+	 * Check if Internal Web Browser view exists.
+	 *
 	 * @see WorkbenchView
 	 */
 	public BrowserView() {
@@ -32,7 +31,7 @@ public class BrowserView extends WorkbenchView {
 	}
 	
 	/**
-	 * Opens Internal Web Browser view
+	 * Opens Internal Web Browser view.
 	 */
 	@Override
 	public void open() {
@@ -43,9 +42,9 @@ public class BrowserView extends WorkbenchView {
 	};
 
 	/**
-	 * Opens page with given URL in browser
-	 * 
-	 * @param url
+	 * Opens page with given URL in browser.
+	 *
+	 * @param url the url
 	 */
 	public void openPageURL(String url) {
 		activate();
@@ -54,7 +53,7 @@ public class BrowserView extends WorkbenchView {
 	}
 
 	/**
-	 * Refreshes currently opened page in browser
+	 * Refreshes currently opened page in browser.
 	 */
 	public void refreshPage() {
 		activate();
@@ -63,7 +62,7 @@ public class BrowserView extends WorkbenchView {
 	}
 
 	/**
-	 * Go to the previous page in browser
+	 * Go to the previous page in browser.
 	 */
 	public void back() {
 		activate();
@@ -74,7 +73,7 @@ public class BrowserView extends WorkbenchView {
 	}
 
 	/**
-	 * Go to the next page in browser
+	 * Go to the next page in browser.
 	 */
 	public void forward() {
 		activate();
@@ -85,8 +84,8 @@ public class BrowserView extends WorkbenchView {
 	}
 
 	/**
-	 * Gets URL of the currently opened page
-	 * 
+	 * Gets URL of the currently opened page.
+	 *
 	 * @return String URL of the current page
 	 */
 	public String getPageURL() {
@@ -95,8 +94,8 @@ public class BrowserView extends WorkbenchView {
 	}
 	
 	/**
-	 * Gets Text of the currently opened page
-	 * 
+	 * Gets Text of the currently opened page.
+	 *
 	 * @return String Text of the current page
 	 */
 	public String getText() {

@@ -63,10 +63,10 @@ public class TreeItemLookup {
 	 * Example:
 	 * Tree item with path "A", "AA", "AAB" can be matched by the following
 	 * path matchers - new TreeItemRegexMatcher("A"), new TreeItemRegexMatcher("A+"), new TreeItemRegexMatcher("A+B").
-	 * 
+	 *
 	 * @param tree tree to walk through
-	 * @param matchers matchers to match path to tree item, each of them matches one tree item on the path
-	 * @return tree items matching specified matchers in specified tree 
+	 * @param pathItemMatchers the path item matchers
+	 * @return tree items matching specified matchers in specified tree
 	 */
 	public List<TreeItem> getTreeItems(Tree tree, Matcher<TreeItem>... pathItemMatchers){
 		new WaitUntil(new TreeHasChildren(tree));
@@ -100,9 +100,9 @@ public class TreeItemLookup {
 	 * Example:
 	 * Tree item with path "A", "AA", "AAB" can be matched by the following
 	 * path matchers - new TreeItemRegexMatcher("A"), new TreeItemRegexMatcher("A+"), new TreeItemRegexMatcher("A+B").
-	 * 
+	 *
 	 * @param treeItem tree item to walk through
-	 * @param matchers matchers to match path to tree item, each of them matches one tree item on the path
+	 * @param pathItemMatchers the path item matchers
 	 * @return tree items matching specified matchers in specified tree item
 	 */
 	public List<TreeItem> getTreeItems(TreeItem treeItem, Matcher<TreeItem>... pathItemMatchers){
@@ -159,16 +159,28 @@ public class TreeItemLookup {
 	 */
 	class TreeHasChildren extends AbstractWaitCondition {
 		private Tree tree;
+		
+		/**
+		 * Instantiates a new tree has children.
+		 *
+		 * @param tree the tree
+		 */
 		public TreeHasChildren(Tree tree) {
 			super();
 			this.tree = tree;
 		}
 		
+		/* (non-Javadoc)
+		 * @see org.jboss.reddeer.common.condition.WaitCondition#test()
+		 */
 		@Override
 		public boolean test() {
 			return TreeHandler.getInstance().getSWTItems(tree).size() > 0;		
 		}
 		
+		/* (non-Javadoc)
+		 * @see org.jboss.reddeer.common.condition.AbstractWaitCondition#description()
+		 */
 		@Override
 		public String description() {
 			return "tree has children";
@@ -185,15 +197,26 @@ public class TreeItemLookup {
 		
 		private final TreeItem treeItem;
 		
+		/**
+		 * Instantiates a new tree item has children.
+		 *
+		 * @param treeItem the tree item
+		 */
 		public TreeItemHasChildren(TreeItem treeItem) {
 			this.treeItem = treeItem;
 		}
 
+		/* (non-Javadoc)
+		 * @see org.jboss.reddeer.common.condition.WaitCondition#test()
+		 */
 		@Override
 		public boolean test() {
 			return TreeItemHandler.getInstance().getChildrenItems(treeItem).size() > 0;
 		}
 
+		/* (non-Javadoc)
+		 * @see org.jboss.reddeer.common.condition.AbstractWaitCondition#description()
+		 */
 		@Override
 		public String description() {
 			return "treeItem " + TreeItemHandler.getInstance().getText(treeItem, 0) + " has children";

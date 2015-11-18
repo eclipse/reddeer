@@ -11,27 +11,56 @@ public class DriverTemplate {
 	private String type;
 	private String version;
 
+	/**
+	 * Instantiates a new driver template.
+	 *
+	 * @param name the name
+	 * @param version the version
+	 */
 	public DriverTemplate(String name, String version) {
 		this.type = name;
 		this.version = version;
 	}
 
+	/**
+	 * Gets the type.
+	 *
+	 * @return the type
+	 */
 	public String getType() {
 		return type;
 	}
 
+	/**
+	 * Sets the type.
+	 *
+	 * @param type the new type
+	 */
 	public void setType(String type) {
 		this.type = type;
 	}
 
+	/**
+	 * Sets the version.
+	 *
+	 * @param version the new version
+	 */
 	public void setVersion(String version) {
 		this.version = version;
 	}
 
+	/**
+	 * Gets the version.
+	 *
+	 * @return the version
+	 */
 	public String getVersion() {
 		return version;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -41,6 +70,9 @@ public class DriverTemplate {
 		return result;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

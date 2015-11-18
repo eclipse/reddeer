@@ -13,6 +13,9 @@ import org.junit.runners.parameterized.TestWithParameters;
  */
 public class ParameterizedRequirementsRunnerFactory implements ParametersRunnerFactory {
 
+	/* (non-Javadoc)
+	 * @see org.junit.runners.parameterized.ParametersRunnerFactory#createRunnerForTestWithParameters(org.junit.runners.parameterized.TestWithParameters)
+	 */
 	@Override
 	public Runner createRunnerForTestWithParameters(TestWithParameters test) throws InitializationError {
 		return new ParameterizedRequirementsRunner(test);

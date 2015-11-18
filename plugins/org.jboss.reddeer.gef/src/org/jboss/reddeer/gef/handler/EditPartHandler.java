@@ -23,6 +23,11 @@ public class EditPartHandler {
 
 	}
 
+	/**
+	 * Gets the single instance of EditPartHandler.
+	 *
+	 * @return single instance of EditPartHandler
+	 */
 	public static EditPartHandler getInstance() {
 		if (instance == null) {
 			instance = new EditPartHandler();

@@ -29,6 +29,9 @@ public class ProblemsDescriptionMatcher extends AbstractProblemMatcher {
 		super(matcher);
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.eclipse.ui.problems.matcher.AbstractProblemMatcher#getColumn()
+	 */
 	@Override
 	public Column getColumn() {
 		return Column.DESCRIPTION;

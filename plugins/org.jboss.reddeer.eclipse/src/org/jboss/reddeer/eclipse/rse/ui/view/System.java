@@ -30,27 +30,39 @@ public class System {
 	protected TreeItem treeItem;
 	protected String label;
 	
+	/**
+	 * Instantiates a new system.
+	 *
+	 * @param treeItem the tree item
+	 */
 	public System(TreeItem treeItem) {
 		this.treeItem = treeItem;
 		this.label = treeItem.getText();
 	}
 	
+	/**
+	 * Gets the label.
+	 *
+	 * @return the label
+	 */
 	public String getLabel(){
 		return label;
 	}
 	
 	/**
-	 * Connect to Remote System without password
-	 * @param username
+	 * Connect to Remote System without password.
+	 *
+	 * @param username the username
 	 */
 	public void connect(String username){
 		connect(username, "");
 	}
 	
 	/**
-	 * Connect to Remote System
-	 * @param username
-	 * @param password
+	 * Connect to Remote System.
+	 *
+	 * @param username the username
+	 * @param password the password
 	 */
 	public void connect(String username, String password){
 		log.info("Connecting to remote system " + getLabel());
@@ -65,7 +77,7 @@ public class System {
 	}
 
 	/**
-	 * Disconnect from Remote System
+	 * Disconnect from Remote System.
 	 */
 	public void disconnect(){
 		log.info("Disconnecting from remote system " + getLabel());
@@ -75,7 +87,8 @@ public class System {
 	}
 	
 	/**
-	 * Check whether remote system is connected or not 
+	 * Check whether remote system is connected or not .
+	 *
 	 * @return true if Remote System is connected
 	 */
 	public boolean isConnected(){
@@ -89,12 +102,15 @@ public class System {
 		return true;
 	}
 	
+	/**
+	 * Select.
+	 */
 	protected void select() {
 		treeItem.select();
 	}
 	
 	/**
-	 * Delete Remote System
+	 * Delete Remote System.
 	 */
 	public void delete(){
 		log.info("Deleting system " + getLabel());

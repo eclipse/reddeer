@@ -31,8 +31,8 @@ public class RuntimesPropertyPage extends PropertyPage {
 	
 	/**
 	 * Selects the given runtime. 
-	 * 
-	 * @param runtimeName
+	 *
+	 * @param runtimeName the runtime name
 	 */
 	public void selectRuntime(String runtimeName){
 		log.info("Select runtime '" + runtimeName + "'");
@@ -40,8 +40,9 @@ public class RuntimesPropertyPage extends PropertyPage {
 	}
 	
 	/**
-	 * Returns names of all selected runtimes
-	 * @return
+	 * Returns names of all selected runtimes.
+	 *
+	 * @return the selected runtimes
 	 */
 	public List<String> getSelectedRuntimes(){
 		List<String> runtimes = new ArrayList<String>();

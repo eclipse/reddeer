@@ -26,10 +26,20 @@ public class ConfiguredServerInfo {
 		this.config = config;
 	}
 	
+	/**
+	 * Gets the server name.
+	 *
+	 * @return the server name
+	 */
 	public String getServerName() {
 		return serverName;
 	}
 	
+	/**
+	 * Gets the config.
+	 *
+	 * @return the config
+	 */
 	public IServerReqConfig getConfig() {
 		return config;
 	}

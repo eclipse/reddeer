@@ -16,6 +16,9 @@ public class ConnectionProfileSelectPage extends WizardPage {
 	public static final String LABEL_NAME = "Name:";
 	public static final String LABEL_DESCRIPTION = "Description (optional):";
 
+	/**
+	 * Instantiates a new connection profile select page.
+	 */
 	public ConnectionProfileSelectPage() {
 		super();
 	}

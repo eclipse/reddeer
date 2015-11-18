@@ -22,6 +22,9 @@ import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
  */
 public class StoragePreferencePage extends PreferencePage {
 
+	/**
+	 * Instantiates a new storage preference page.
+	 */
 	public StoragePreferencePage() {
 		super(new String[] {"General", "Security", "Secure Storage"});
 	}

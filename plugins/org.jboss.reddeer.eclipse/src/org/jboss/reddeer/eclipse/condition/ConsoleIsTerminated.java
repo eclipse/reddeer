@@ -15,18 +15,22 @@ public class ConsoleIsTerminated extends AbstractWaitCondition {
 
 	/**
 	 * Construct the condition.
-	 * 
-	 * @param text Text
 	 */
 	public ConsoleIsTerminated() {
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.common.condition.WaitCondition#test()
+	 */
 	@Override
 	public boolean test() {
 		consoleView.open();
 		return consoleView.consoleIsTerminated();
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.common.condition.AbstractWaitCondition#description()
+	 */
 	@Override
 	public String description() {
 		return "console is terminated";

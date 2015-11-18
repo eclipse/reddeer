@@ -16,10 +16,18 @@ public class IsToolEntryWithParent extends BaseMatcher<PaletteEntry> {
 
 	private String label;
 
+	/**
+	 * Instantiates a new checks if is tool entry with parent.
+	 *
+	 * @param label the label
+	 */
 	public IsToolEntryWithParent(String label) {
 		this.label = label;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.hamcrest.Matcher#matches(java.lang.Object)
+	 */
 	@Override
 	public boolean matches(Object obj) {
 		if (obj instanceof ToolEntry) {
@@ -30,6 +38,9 @@ public class IsToolEntryWithParent extends BaseMatcher<PaletteEntry> {
 		return false;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.hamcrest.SelfDescribing#describeTo(org.hamcrest.Description)
+	 */
 	@Override
 	public void describeTo(Description desc) {
 

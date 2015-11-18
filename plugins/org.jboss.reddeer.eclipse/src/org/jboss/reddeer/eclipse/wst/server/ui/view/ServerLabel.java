@@ -12,10 +12,18 @@ import org.jboss.reddeer.swt.api.TreeItem;
  */
 public class ServerLabel extends AbstractLabel {
 
+	/**
+	 * Instantiates a new server label.
+	 *
+	 * @param item the item
+	 */
 	public ServerLabel(TreeItem item) {
 		parse(item);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.eclipse.wst.server.ui.view.AbstractLabel#parseSingleStateDecoration(java.lang.String)
+	 */
 	@Override
 	protected void parseSingleStateDecoration(String stateString) {
 			state = ServerState.getByText(stateString);

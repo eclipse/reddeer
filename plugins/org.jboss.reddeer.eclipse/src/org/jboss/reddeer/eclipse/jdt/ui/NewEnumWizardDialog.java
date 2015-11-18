@@ -17,6 +17,11 @@ public class NewEnumWizardDialog extends NewWizardDialog {
 		super("Java", "Enum");
 	}
 
+	/**
+	 * Gets the first page.
+	 *
+	 * @return the first page
+	 */
 	public NewEnumWizardPage getFirstPage() {
 		return new NewEnumWizardPage();
 	}

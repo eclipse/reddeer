@@ -11,13 +11,17 @@ import org.jboss.reddeer.swt.api.TreeItem;
 public class JavaProject extends Project {
 
 	/**
-	 * Creates object representing java project
-	 * @param item
+	 * Creates object representing java project.
+	 *
+	 * @param item the item
 	 */
 	public JavaProject(TreeItem item) {
 		super(item);
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.eclipse.core.resources.Project#getNatureIds()
+	 */
 	@Override
 	public String[] getNatureIds() {
 		return new String[] {"org.eclipse.jdt.core.javanature"};

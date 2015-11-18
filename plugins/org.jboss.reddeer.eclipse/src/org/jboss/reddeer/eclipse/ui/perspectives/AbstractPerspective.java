@@ -43,7 +43,7 @@ public abstract class AbstractPerspective {
 	}
 
 	/**
-	 * Opens the perspective
+	 * Opens the perspective.
 	 */
 	public void open() {
 		log.info("Open perspective: '" + getPerspectiveLabel() + "'");
@@ -66,6 +66,9 @@ public abstract class AbstractPerspective {
 		}
 	}
 
+	/**
+	 * Reset.
+	 */
 	public void reset(){
 		if (!isOpened()){
 			throw new EclipseLayerException("Trying to reset perspective that is not open") ;

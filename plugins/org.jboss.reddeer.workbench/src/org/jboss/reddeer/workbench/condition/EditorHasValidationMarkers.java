@@ -18,7 +18,8 @@ public class EditorHasValidationMarkers extends AbstractWaitCondition {
 	private int line;
 	
 	/**
-	 * Default constructor
+	 * Default constructor.
+	 *
 	 * @param editor which should be used to find validation markers
 	 */
 	public EditorHasValidationMarkers(Editor editor) {
@@ -26,7 +27,8 @@ public class EditorHasValidationMarkers extends AbstractWaitCondition {
 	}
 	
 	/**
-	 * Wait for marker with specified type
+	 * Wait for marker with specified type.
+	 *
 	 * @param editor which should be used to find validation markers
 	 * @param type of validation marker to find
 	 */
@@ -35,7 +37,8 @@ public class EditorHasValidationMarkers extends AbstractWaitCondition {
 	}
 	
 	/**
-	 * Wait for marker on specified line
+	 * Wait for marker on specified line.
+	 *
 	 * @param editor which should be used to find validation markers
 	 * @param line on which marker should be found
 	 */
@@ -44,10 +47,11 @@ public class EditorHasValidationMarkers extends AbstractWaitCondition {
 	}
 	
 	/**
-	 * Wait for marker with specified type and on specified line
+	 * Wait for marker with specified type and on specified line.
+	 *
 	 * @param editor which should be used to find validation markers
-	 * @param line on which marker should be found
 	 * @param type of validation marker to find
+	 * @param line on which marker should be found
 	 */
 	public EditorHasValidationMarkers(Editor editor, String type, int line) {
 		this.editor = editor;
@@ -55,6 +59,9 @@ public class EditorHasValidationMarkers extends AbstractWaitCondition {
 		this.line = line;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.common.condition.WaitCondition#test()
+	 */
 	@Override
 	public boolean test() {
 		editor.activate();
@@ -92,6 +99,9 @@ public class EditorHasValidationMarkers extends AbstractWaitCondition {
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.common.condition.AbstractWaitCondition#description()
+	 */
 	@Override
 	public String description() {
 		String description;

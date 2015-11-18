@@ -37,10 +37,12 @@ public class FileEditorsPreferencePage extends PreferencePage {
 	public FileEditorsPreferencePage() {
 		super(new String[] {"General", "Editors" ,PAGE_NAME});
 	}
+	
 	/**
-	 * Returns true if all file types are defined
+	 * Returns true if all file types are defined.
+	 *
 	 * @param fileTypes - file types to be defined
-	 * @return
+	 * @return true, if successful
 	 */
 	public boolean containsFileTypes(String... fileTypes){
 		boolean contains = true;
@@ -53,10 +55,12 @@ public class FileEditorsPreferencePage extends PreferencePage {
 		}
 		return contains;
 	}
+	
 	/**
-	 * Returns true if all specified associated editors are defined
+	 * Returns true if all specified associated editors are defined.
+	 *
 	 * @param associatedEditors - associated editors to be defined
-	 * @return
+	 * @return true, if successful
 	 */
 	public boolean containsAssociatedEditors(String... associatedEditors){
 		boolean contains = true;
@@ -70,9 +74,11 @@ public class FileEditorsPreferencePage extends PreferencePage {
 		}
 		return contains;
 	}
+	
 	/**
 	 * Selects file types. Peviously selected file types are deselected.
-	 * @param fileType - file types to be selected
+	 *
+	 * @param fileTypes the file types
 	 */
 	public void selectFileTypes(String... fileTypes){
 		Table tbFileTypes = getFileTypesTable();
@@ -103,9 +109,11 @@ public class FileEditorsPreferencePage extends PreferencePage {
 		tbAssocitedEditrs.deselectAll();
 		tbAssocitedEditrs.select(editorsToSelect);
 	}
+	
 	/**
-	 * Returns defined file types
-	 * @return
+	 * Returns defined file types.
+	 *
+	 * @return the defined file types
 	 */
 	public List<String> getDefinedFileTypes() {
 		
@@ -117,9 +125,11 @@ public class FileEditorsPreferencePage extends PreferencePage {
 		
 		return result;
 	}
+	
 	/**
-	 * Returns associated editors names without 'default' or 'locked by' texts
-	 * @return
+	 * Returns associated editors names without 'default' or 'locked by' texts.
+	 *
+	 * @return the associated editors
 	 */
 	public List<String> getAssociatedEditors() {
 		
@@ -131,9 +141,11 @@ public class FileEditorsPreferencePage extends PreferencePage {
 		
 		return result;
 	}
+	
 	/**
-	 * Returns associated editors complete labels including without 'default' or 'locked by' texts
-	 * @return
+	 * Returns associated editors complete labels including without 'default' or 'locked by' texts.
+	 *
+	 * @return the associated editors lables
 	 */
 	public List<String> getAssociatedEditorsLables() {
 		
@@ -145,8 +157,10 @@ public class FileEditorsPreferencePage extends PreferencePage {
 		
 		return result;
 	}
+	
 	/**
-	 * Adds file type
+	 * Adds file type.
+	 *
 	 * @param fileType - file type name to add
 	 */
 	public void addFileType (String fileType){
@@ -156,9 +170,12 @@ public class FileEditorsPreferencePage extends PreferencePage {
 		new LabeledText("File type:").setText(fileType);
 		new OkButton().click();
 	}
+	
 	/**
-	 * Adds associated editor
+	 * Adds associated editor.
+	 *
 	 * @param associatedEditor - associated editor name to add
+	 * @param selectInternalEditor the select internal editor
 	 */
 	public void addAssociatedEditor (String associatedEditor , boolean selectInternalEditor){
 		log.debug("Adding associated editor: '" + associatedEditor + "'");
@@ -173,8 +190,10 @@ public class FileEditorsPreferencePage extends PreferencePage {
 		new DefaultTreeItem(associatedEditor).select();;
 		new OkButton().click();
 	}
+	
 	/**
-	 * Removes file type
+	 * Removes file type.
+	 *
 	 * @param fileType - file type name to remove
 	 */
 	public void removeFileType (String fileType){
@@ -182,8 +201,10 @@ public class FileEditorsPreferencePage extends PreferencePage {
 		log.debug("Removing file type '" + fileType + "'");
 		new PushButton("Remove").click();
 	}
+	
 	/**
-	 * Removes associated editor
+	 * Removes associated editor.
+	 *
 	 * @param associatedEditor - associated editor name to remove
 	 */
 	public void removeAssociatedEditor (String associatedEditor){
@@ -191,8 +212,10 @@ public class FileEditorsPreferencePage extends PreferencePage {
 		log.debug("Removing associated editor '" + associatedEditor + "'");
 		new PushButton(1, new WithMnemonicTextMatcher("Remove")).click();
 	}
+	
 	/**
-	 * Sets associated editor as default
+	 * Sets associated editor as default.
+	 *
 	 * @param associatedEditor - name of associated editor to be set as default
 	 */
 	public void setAssociatedEditorAsDefault (String associatedEditor) {

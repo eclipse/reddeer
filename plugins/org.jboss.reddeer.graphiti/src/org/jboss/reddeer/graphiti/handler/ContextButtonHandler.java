@@ -27,6 +27,11 @@ public class ContextButtonHandler {
 
 	}
 
+	/**
+	 * Gets the single instance of ContextButtonHandler.
+	 *
+	 * @return single instance of ContextButtonHandler
+	 */
 	public static ContextButtonHandler getInstance() {
 		if (instance == null) {
 			instance = new ContextButtonHandler();

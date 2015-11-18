@@ -21,6 +21,9 @@ public class DefaultReferencedComposite implements ReferencedComposite {
 		this.control = control;
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.core.reference.ReferencedComposite#getControl()
+	 */
 	@Override
 	public Control getControl() {
 		return control;

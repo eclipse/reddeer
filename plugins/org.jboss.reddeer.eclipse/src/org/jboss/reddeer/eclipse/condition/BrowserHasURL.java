@@ -50,15 +50,18 @@ public class BrowserHasURL extends AbstractWaitCondition {
 	
 	/**
 	 * Construct a condition with a given browser editor and URL matcher.
-	 * 
+	 *
 	 * @param browser Browser editor
-	 * @param expectedURL URL matcher
+	 * @param expectedURLMatcher the expected url matcher
 	 */
 	public BrowserHasURL(BrowserEditor browser,Matcher<String> expectedURLMatcher){
 		this.browserEditor = browser;
 		this.expectedURLMatcher = expectedURLMatcher;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.common.condition.WaitCondition#test()
+	 */
 	@Override
 	public boolean test() {
 		if (expectedURLMatcher != null){
@@ -77,6 +80,9 @@ public class BrowserHasURL extends AbstractWaitCondition {
 		
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.common.condition.AbstractWaitCondition#description()
+	 */
 	@Override
 	public String description() {
 		if(expectedURLMatcher != null){

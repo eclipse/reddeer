@@ -85,8 +85,8 @@ public class MenuLookup {
 	
 	/**
 	 * Looks for ActionContributionItem matching matchers.
-	 * 
-	 * @param cintItems items to match with matchers
+	 *
+	 * @param contItems the cont items
 	 * @param matchers menu item text matchers
 	 * @return action contribution item
 	 */

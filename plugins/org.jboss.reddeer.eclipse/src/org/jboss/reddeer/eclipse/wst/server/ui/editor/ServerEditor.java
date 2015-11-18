@@ -10,6 +10,11 @@ import org.jboss.reddeer.workbench.impl.editor.AbstractEditor;
  */
 public class ServerEditor extends AbstractEditor {
 
+	/**
+	 * Instantiates a new server editor.
+	 *
+	 * @param title the title
+	 */
 	public ServerEditor(String title) {
 		super(title);
 	}

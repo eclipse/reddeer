@@ -11,12 +11,18 @@ public class ClassField {
 	
 	private TreeItem item;
 	
+	/**
+	 * Instantiates a new class field.
+	 *
+	 * @param item the item
+	 */
 	public ClassField(TreeItem item){
 		this.item = item;
 	}
 	
 	/**
-	 * Returns class field name
+	 * Returns class field name.
+	 *
 	 * @return class field name
 	 */
 	public String getFieldName(){
@@ -24,7 +30,8 @@ public class ClassField {
 	}
 	
 	/**
-	 * Check/Uncheck class field
+	 * Check/Uncheck class field.
+	 *
 	 * @param toggle true if class field should be checked, false otherwise
 	 */
 	public void toggleField(boolean toggle){
@@ -32,7 +39,8 @@ public class ClassField {
 	}
 	
 	/**
-	 * Checks if class field is checked
+	 * Checks if class field is checked.
+	 *
 	 * @return true if class field is checked, false otherwise
 	 */
 	public boolean isFieldChecked(){

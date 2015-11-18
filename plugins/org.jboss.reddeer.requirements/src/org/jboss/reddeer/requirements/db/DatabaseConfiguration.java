@@ -69,7 +69,8 @@ public class DatabaseConfiguration {
 
     /**
      * Sets database driver vendor.
-     * @param driverName database driver vendor
+     *
+     * @param driverVendor the new driver vendor
      */
     @XmlElement(namespace = "http://www.jboss.org/NS/db-schema")
 	public void setDriverVendor(String driverVendor) {
@@ -94,7 +95,8 @@ public class DatabaseConfiguration {
 	}
 
 	/**
-	 * Get database driverType
+	 * Get database driverType.
+	 *
 	 * @return database driver type
 	 */
 	public String getDriverType() {
@@ -120,7 +122,8 @@ public class DatabaseConfiguration {
 
 	/**
 	 * Sets database driver profile version.
-	 * @param database driver profile version
+	 *
+	 * @param driverVersion the new driver type version
 	 */
 	@XmlElement(namespace="http://www.jboss.org/NS/db-schema")
 	public void setDriverTypeVersion(String driverVersion) {
@@ -128,7 +131,8 @@ public class DatabaseConfiguration {
 	}
 
 	/**
-	 *Gets database profile name 
+	 * Gets database profile name .
+	 *
 	 * @return database profile name
 	 */
 	public String getProfileName() {
@@ -145,7 +149,8 @@ public class DatabaseConfiguration {
 	}
 
 	/**
-	 * Return driver type
+	 * Return driver type.
+	 *
 	 * @return driver type
 	 */
 	public String getType() {
@@ -188,7 +193,8 @@ public class DatabaseConfiguration {
 	}
 
 	/**
-	 * Sets driver file path 
+	 * Sets driver file path .
+	 *
 	 * @param driverPath drive filepath
 	 */
 	@XmlElement(namespace = "http://www.jboss.org/NS/db-schema")

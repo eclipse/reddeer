@@ -63,11 +63,17 @@ public class TreeItemTextMatcher extends TypeSafeMatcher<TreeItem> {
 		this.index = index;
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.hamcrest.TypeSafeMatcher#matchesSafely(java.lang.Object)
+	 */
 	@Override
 	protected boolean matchesSafely(TreeItem item) {
 		return expectedTextMatcher.matches(TreeItemHandler.getInstance().getText(item, index));
 	}
 
+	/* (non-Javadoc)
+	 * @see org.hamcrest.SelfDescribing#describeTo(org.hamcrest.Description)
+	 */
 	@Override
 	public void describeTo(Description description) {
 		description.appendText("tree item text on position ");

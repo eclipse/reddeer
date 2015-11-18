@@ -28,6 +28,9 @@ public class WidgetIsChecked extends AbstractWaitCondition {
 		this.widget = widget;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.common.condition.WaitCondition#test()
+	 */
 	@Override
 	public boolean test() {
 		Boolean ret = Display.syncExec(new ResultRunnable<Boolean>() {
@@ -50,6 +53,9 @@ public class WidgetIsChecked extends AbstractWaitCondition {
 		return ret;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.common.condition.AbstractWaitCondition#description()
+	 */
 	@Override
 	public String description() {
 		return "widget is checked";

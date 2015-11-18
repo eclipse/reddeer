@@ -56,6 +56,7 @@ public class WidgetLookup {
 	/**
 	 * Method looks for active widget located in specified referenced composite, laying on specified index and matching specified matchers.
 	 *
+	 * @param <T> the generic type
 	 * @param refComposite reference composite to search for widgets
 	 * @param clazz class type of widget
 	 * @param index index of widget within referenced composite
@@ -87,6 +88,8 @@ public class WidgetLookup {
 	
 	/**
 	 * Method looks for active widgets located in specified referenced composite and matching specified matchers.
+	 *
+	 * @param <T> the generic type
 	 * @param refComposite reference composite to search for widgets
 	 * @param clazz class type of widgets
 	 * @param matchers matchers to match widget
@@ -112,7 +115,8 @@ public class WidgetLookup {
 	}
 
 	/**
-	 * Finds parent control of active widget 
+	 * Finds parent control of active widget .
+	 *
 	 * @return parent control of active widget  or throws an exception if null
 	 */
 	public Control findParent(){
@@ -129,9 +133,11 @@ public class WidgetLookup {
 	}
 
 	/**
-	 * Finds active widget or reference composite matching given matcher
+	 * Finds active widget or reference composite matching given matcher.
+	 *
+	 * @param <T> the generic type
 	 * @param refComposite given reference composite
-	 * @param matcher given matcher 
+	 * @param matcher given matcher
 	 * @return active widget
 	 */
 	@SuppressWarnings({ "rawtypes", "unchecked" })
@@ -186,6 +192,12 @@ public class WidgetLookup {
 		return control;
 	}
 
+	/**
+	 * Gets the shell for active workbench.
+	 *
+	 * @param workbenchReference the workbench reference
+	 * @return the shell for active workbench
+	 */
 	protected Shell getShellForActiveWorkbench(IWorkbenchPartReference workbenchReference) {
 		if (workbenchReference == null) {
 			return null;
@@ -202,7 +214,9 @@ public class WidgetLookup {
 	}
 
 	/**
-	 * Get widget with given index from list of widgets 
+	 * Get widget with given index from list of widgets .
+	 *
+	 * @param <T> the generic type
 	 * @param widgets list of widgets
 	 * @param index widget index
 	 * @return widget with given index or null if out of range
@@ -220,7 +234,8 @@ public class WidgetLookup {
 
 	/**
 	 * Finds list of controls matching specified matcher for active parent widget.
-	 * 
+	 *
+	 * @param <T> the generic type
 	 * @param matcher matcher to match parent controls
 	 * @param recursive true for recursive lookup of control widgets
 	 * @return list of parent controls for active parent or single parent control
@@ -361,6 +376,11 @@ public class WidgetLookup {
 		return sb.toString();
 	}
 
+	/**
+	 * Find all parent widgets.
+	 *
+	 * @return the list
+	 */
 	public List<Control> findAllParentWidgets() {
 		List<Control> allWidgets = findControls(findParent(), new BaseMatcher<Control>() {
 

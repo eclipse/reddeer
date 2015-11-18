@@ -180,6 +180,7 @@ public class StyledTextHandler {
 	/**
 	 * Gets the current position of the cursor.
 	 *
+	 * @param styledText the styled text
 	 * @return zero based position of the cursor in the styled text.
 	 */
 	public Point getCursorPosition(final StyledText styledText) {
@@ -197,11 +198,10 @@ public class StyledTextHandler {
 	
 	/**
 	 * Returns offset of the line within specified styled text.
-	 * 
-	 * @param styledText
-	 *            stylerText to get offset from
-	 * @param line
-	 *            line to get offset of
+	 *
+	 * @param styledText            stylerText to get offset from
+	 * @param line            line to get offset of
+	 * @return the line offset
 	 */
 	public int getLineOffset(final StyledText styledText, final int line) {
 		

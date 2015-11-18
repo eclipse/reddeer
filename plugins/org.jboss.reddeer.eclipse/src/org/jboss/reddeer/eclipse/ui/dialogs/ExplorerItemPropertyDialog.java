@@ -18,7 +18,8 @@ public class ExplorerItemPropertyDialog extends PropertyDialog {
 	private AbstractExplorerItem item;
 	
 	/**
-	 * 
+	 * Instantiates a new explorer item property dialog.
+	 *
 	 * @param item Explorer item to whom this dialog belongs
 	 */
 	public ExplorerItemPropertyDialog(AbstractExplorerItem item){
@@ -28,7 +29,6 @@ public class ExplorerItemPropertyDialog extends PropertyDialog {
 	/**
 	 * Opens "Properties" for the explorer item and selects the right property page from the Properties dialog. 
 	 * <br />
-	 * @param page
 	 */
 	protected void openImpl(){
 		log.info("Open Properties for explorer item '" + item.getName() + "' by context menu");
@@ -36,6 +36,9 @@ public class ExplorerItemPropertyDialog extends PropertyDialog {
 		new ContextMenu("Properties").select();;
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.eclipse.ui.dialogs.PropertyDialog#getResourceName()
+	 */
 	protected String getResourceName() {
 		return item.getName();
 	}

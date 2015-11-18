@@ -21,26 +21,54 @@ public class ConnectionProfileFlatFilePage extends WizardPage {
 	public static final String LABEL_FISRT_LINE_NAME = "Use first line as column name indicator.";
 	public static final String LABEL_SECOND_LINE_TYPE = "Use second line as data type indicator.";
 
+	/**
+	 * Instantiates a new connection profile flat file page.
+	 */
 	public ConnectionProfileFlatFilePage() {
 		super();
 	}
 	
+	/**
+	 * Sets the home folder.
+	 *
+	 * @param folder the new home folder
+	 */
 	public void setHomeFolder(String folder) {
 		new DefaultText(0).setText(folder);
 	}
 
+	/**
+	 * Sets the charset.
+	 *
+	 * @param charset the new charset
+	 */
 	public void setCharset(String charset) {
 		new LabeledCombo(LABEL_CHARSET).setSelection(charset);
 	}
 
+	/**
+	 * Sets the style.
+	 *
+	 * @param style the new style
+	 */
 	public void setStyle(String style) {
 		new LabeledCombo(LABEL_STYLE).setSelection(style);
 	}
 
+	/**
+	 * Use first line as name indicator.
+	 *
+	 * @param use the use
+	 */
 	public void useFirstLineAsNameIndicator(boolean use) {
 		useProperty(LABEL_FISRT_LINE_NAME, use);
 	}
 
+	/**
+	 * Use second line as type indicator.
+	 *
+	 * @param use the use
+	 */
 	public void useSecondLineAsTypeIndicator(boolean use) {
 		useProperty(LABEL_SECOND_LINE_TYPE, use);
 	}

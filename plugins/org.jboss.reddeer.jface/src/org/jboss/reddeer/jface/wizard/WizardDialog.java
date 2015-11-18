@@ -33,6 +33,9 @@ public class WizardDialog {
 
 	protected final Logger log = Logger.getLogger(this.getClass());
 
+	/**
+	 * Instantiates a new wizard dialog.
+	 */
 	public WizardDialog() {	}
 
 	/**
@@ -91,16 +94,18 @@ public class WizardDialog {
 	}
 
 	/**
-	 * Returns current dialog title
-	 * @return
+	 * Returns current dialog title.
+	 *
+	 * @return the title
 	 */
 	public String getTitle() {
 		return new DefaultShell().getText();
 	}
 	
 	/**
-	 * Returns current dialog page title
-	 * @return
+	 * Returns current dialog page title.
+	 *
+	 * @return the page title
 	 */
 	public String getPageTitle() {
 		Shell shell = new DefaultShell();
@@ -112,8 +117,9 @@ public class WizardDialog {
 	}
 	
 	/**
-	 * Returns current dialog page description
-	 * @return
+	 * Returns current dialog page description.
+	 *
+	 * @return the page description
 	 */
 	public String getPageDescription() {
 		Shell shell = new DefaultShell();
@@ -125,24 +131,27 @@ public class WizardDialog {
 	}
 	
 	/**
-	 * Returns true in case Finish button is enabled
-	 * @return
+	 * Returns true in case Finish button is enabled.
+	 *
+	 * @return true, if is finish enabled
 	 */	
 	public boolean isFinishEnabled() {
 		return new FinishButton().isEnabled();
 	}
 	
 	/**
-	 * Returns true in case Next button is enabled
-	 * @return
+	 * Returns true in case Next button is enabled.
+	 *
+	 * @return true, if is next enabled
 	 */
 	public boolean isNextEnabled() {
 		return new NextButton().isEnabled();
 	}
 	
 	/**
-	 * Returns true in case Back button is enabled
-	 * @return
+	 * Returns true in case Back button is enabled.
+	 *
+	 * @return true, if is back enabled
 	 */
 	public boolean isBackEnabled() {
 		return new BackButton().isEnabled();

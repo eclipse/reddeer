@@ -60,6 +60,12 @@ public class DataSourceExplorer extends WorkbenchView {
 		return getItems("ODA Data Sources", "XML Data Source");
 	}
 
+	/**
+	 * Gets the items.
+	 *
+	 * @param path the path
+	 * @return the items
+	 */
 	protected List<String> getItems(String... path) {
 		activate();
 		TreeItem root = new DefaultTreeItem(path);

@@ -22,11 +22,17 @@ public class RemoteSystemIsConnected extends AbstractWaitCondition {
 		this.system = system;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.common.condition.WaitCondition#test()
+	 */
 	@Override
 	public boolean test() {
 			return system.isConnected();
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.common.condition.AbstractWaitCondition#description()
+	 */
 	@Override
 	public String description() {
 		return "remote system with name: " + this.system.getLabel() + "is connected";

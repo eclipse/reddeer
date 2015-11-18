@@ -43,6 +43,9 @@ public class ShellWithTextIsActive extends AbstractWaitCondition {
 		this.matcher = matcher;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.common.condition.WaitCondition#test()
+	 */
 	@Override
 	public boolean test() {
 		Shell currentActiveShell = ShellLookup.getInstance()
@@ -67,6 +70,9 @@ public class ShellWithTextIsActive extends AbstractWaitCondition {
 		return matches;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.common.condition.AbstractWaitCondition#description()
+	 */
 	@Override
 	public String description() {
 		return "shell with text matching" + matcher.toString() + " is active";
