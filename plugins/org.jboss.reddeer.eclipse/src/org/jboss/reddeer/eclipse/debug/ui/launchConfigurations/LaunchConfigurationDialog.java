@@ -5,6 +5,7 @@ import org.jboss.reddeer.common.wait.TimePeriod;
 import org.jboss.reddeer.common.wait.WaitUntil;
 import org.jboss.reddeer.common.wait.WaitWhile;
 import org.jboss.reddeer.core.condition.JobIsRunning;
+import org.jboss.reddeer.core.condition.ProgressInformationShellIsActive;
 import org.jboss.reddeer.core.condition.ShellWithTextIsActive;
 import org.jboss.reddeer.swt.api.Button;
 import org.jboss.reddeer.swt.api.Menu;
@@ -97,6 +98,9 @@ public abstract class LaunchConfigurationDialog {
 	public void create(LaunchConfiguration configuration, String name){
 		log.info("Create new launch configuration " + configuration.getType() + " with name " + name);
 		TreeItem t = new DefaultTreeItem(configuration.getType());
+		t.select();
+		
+		new WaitWhile(new ProgressInformationShellIsActive());
 		t.select();
 
 		new ContextMenu("New").select();

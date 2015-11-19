@@ -56,8 +56,8 @@ public abstract class AbstractLaunchConfigurationDialogTest {
 		try {
 			new DefaultTreeItem(configuration.getType(), getConfigurationName());
 			fail("The configuration shoud have been deleted");
-		} catch (CoreLayerException e){
-			assertTrue(true);
+		} catch (RedDeerException e){
+			// ok, this is expected
 		}
 	}
 	
