@@ -7,7 +7,6 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import org.jboss.reddeer.junit.configuration.RedDeerConfigurationException;
 import org.jboss.reddeer.junit.requirement.Requirement;
 
 /**
@@ -61,62 +60,5 @@ public class PropertyBasedConfiguration {
 	@XmlAttribute(name = "class")
 	public String getRequirementClassName() {
 		return clazz;
-	}
-
-	/**
-	 * Gets the requirement class.
-	 *
-	 * @return Requirement class looked up in running Eclipse/OSGi
-	 * @since 0.2
-	 */
-	public Class<? extends Requirement<?>> getRequirementClass() {
-		if (className == null) {
-			className = createClass(getRequirementClassName());
-		}
-		return className;
-	}
-
-	/*
-	 * Search Eclipse Platform command line arguments for test plugin (bundle)
-	 * where test classes are looked up
-	 */
-	@SuppressWarnings({ "unchecked", "rawtypes" })
-	private Class<? extends Requirement<?>> createClass(String name) {
-		try {
-			try{
-				org.eclipse.core.runtime.Platform.getCommandLineArgs();
-			} catch (NoClassDefFoundError ex){
-				try{
-					return (Class<? extends Requirement<?>>) Class.forName(name);
-				}catch (ClassNotFoundException e) {
-					e.printStackTrace();
-					throw new RedDeerConfigurationException(
-							"The requirement class defined in the XML configuration file cannot be created. See details below",	e);
-				}
-			}
-			String testPlugin = "";
-			String[] args = org.eclipse.core.runtime.Platform.getCommandLineArgs();
-			for (int i = 0; i < args.length; i++) {
-				System.out.println(args[i]);
-				if (args[i].contains("testpluginname")) {
-					testPlugin = args[i + 1];
-				}
-			}
-
-			Class clazz1;
-			try {
-				// load class from Eclipse bundle (if running as RedDeer Test)
-				clazz1 = org.eclipse.core.runtime.Platform.getBundle(testPlugin).loadClass(name);
-			} catch (NullPointerException e) {
-				// load class from junit classpath (if running as JUnit test)
-				clazz1 = Class.forName(name);
-			}
-			
-			return (Class<? extends Requirement<?>>) clazz1;
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-			throw new RedDeerConfigurationException(
-					"The requirement class defined in the XML configuration file cannot be created. See details below",	e);
-		}
 	}
 }

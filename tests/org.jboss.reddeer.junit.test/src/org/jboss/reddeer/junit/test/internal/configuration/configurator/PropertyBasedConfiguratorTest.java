@@ -1,8 +1,8 @@
 package org.jboss.reddeer.junit.test.internal.configuration.configurator;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.isA;
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.isA;
 import static org.junit.Assert.assertSame;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.mock;
@@ -95,7 +95,7 @@ public class PropertyBasedConfiguratorTest {
 		
 		for (Class clazz : classes){
 			PropertyBasedConfiguration config = mock(PropertyBasedConfiguration.class);
-			when(config.getRequirementClass()).thenReturn(clazz);
+			when(config.getRequirementClassName()).thenReturn(clazz.getCanonicalName());
 			configs.add(config);
 		}
 		

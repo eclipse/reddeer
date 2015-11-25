@@ -26,7 +26,7 @@ public class PropertyBasedConfigurator implements RequirementConfigurator{
 	
 	private ConfigurationSetter setter;
 	
-	private Map<Class<? extends Requirement<?>>, PropertyBasedConfiguration> propertyConfigurations;
+	private Map<String, PropertyBasedConfiguration> propertyConfigurations;
 	
 	/**
 	 * Instantiates a new property based configurator.
@@ -49,7 +49,7 @@ public class PropertyBasedConfigurator implements RequirementConfigurator{
 			throw new IllegalArgumentException("The requirement does not implement " + PropertyConfiguration.class);
 		}
 		log.debug("Setting property based configuration to requirement " + requirement.getClass());
-		PropertyBasedConfiguration config = getPropertyConfigurations().get(requirement.getClass());
+		PropertyBasedConfiguration config = getPropertyConfigurations().get(requirement.getClass().getCanonicalName());
 		if (config == null){
 			throw new RedDeerConfigurationException("The configuration for requirement " + requirement.getClass() + " was not found in the XML file");
 		}
@@ -62,7 +62,7 @@ public class PropertyBasedConfigurator implements RequirementConfigurator{
 	 *
 	 * @return the property configurations
 	 */
-	public Map<Class<? extends Requirement<?>>, PropertyBasedConfiguration> getPropertyConfigurations(){
+	public Map<String, PropertyBasedConfiguration> getPropertyConfigurations(){
 		if (propertyConfigurations == null){
 			propertyConfigurations = loadPropertyConfigurations();
 		}
@@ -74,15 +74,15 @@ public class PropertyBasedConfigurator implements RequirementConfigurator{
 	 *
 	 * @return the map< class<? extends requirement<?>>, property based configuration>
 	 */
-	protected Map<Class<? extends Requirement<?>>, PropertyBasedConfiguration> loadPropertyConfigurations(){
+	protected Map<String, PropertyBasedConfiguration> loadPropertyConfigurations(){
 		List<PropertyBasedConfiguration> list = reader.getConfiguration(PropertyBasedConfiguration.class);
-		Map<Class<? extends Requirement<?>>, PropertyBasedConfiguration> map = new HashMap<Class<? extends Requirement<?>>, PropertyBasedConfiguration>();
+		Map<String, PropertyBasedConfiguration> map = new HashMap<String, PropertyBasedConfiguration>();
 		
 		for (PropertyBasedConfiguration config : list){
-			if (map.containsKey(config.getRequirementClass())){
-				throw new RedDeerConfigurationException("There is more than one configuration in the XML file for requirement class " + config.getRequirementClass());
+			if (map.containsKey(config.getRequirementClassName())){
+				throw new RedDeerConfigurationException("There is more than one configuration in the XML file for requirement class " + config.getRequirementClassName());
 			}
-			map.put(config.getRequirementClass(), config);
+			map.put(config.getRequirementClassName(), config);
 		}
 		
 		return map;
