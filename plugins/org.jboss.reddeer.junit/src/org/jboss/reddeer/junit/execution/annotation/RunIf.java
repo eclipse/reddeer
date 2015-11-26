@@ -8,6 +8,10 @@ import java.lang.annotation.Target;
 import org.jboss.reddeer.junit.execution.TestMethodShouldRun;
 
 
+/**
+ * Annotation for marking a junit test method as conditional. Please see {@link TestMethodShouldRun}  
+ *
+ */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
 public @interface RunIf {
