@@ -1,6 +1,6 @@
-<testrun xmlns="http://www.jboss.org/NS/Req" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<reddeer xmlns="http://www.jboss.org/NS/Req" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:user="http://www.jboss.org/NS/user-schema"
-	xsi:schemaLocation="http://www.jboss.org/NS/Req http://www.jboss.org/schema/reddeer/RedDeerSchema.xsd http://www.jboss.org/NS/user-schema user-schema.xsd">
+	xsi:schemaLocation="http://www.jboss.org/NS/Req http://www.jboss.org/schema/reddeer/v1/RedDeerSchema.xsd http://www.jboss.org/NS/user-schema user-schema.xsd">
 
 	<requirements>
 		<requirement
@@ -15,4 +15,4 @@
 			<user:port>9990</user:port>
 		</user:user-requirement>
 	</requirements>
-</testrun>
+</reddeer>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	elementFormDefault="qualified" targetNamespace="http://www.jboss.org/NS/ServerReq"
+	xmlns:server="http://www.jboss.org/NS/ServerReq" xmlns:rd="http://www.jboss.org/NS/Req">
+
+	<!-- Import basic RedDeer requirements -->
+	<xs:import namespace="http://www.jboss.org/NS/Req"
+		schemaLocation="http://www.jboss.org/schema/reddeer/v1/RedDeerSchema.xsd" />
+
+	<!-- Specify user-requirement -->
+	<xs:element name="server-requirement" type="server:serverRequirementType"
+		substitutionGroup="rd:abstractRequirement">
+		<xs:annotation>
+			<xs:documentation>Some documentation</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+	<!-- type for user-requirement -->
+	<xs:complexType name="serverRequirementType">
+		<xs:complexContent>
+			<xs:extension base="rd:abstractRequirementType">
+				<xs:sequence>
+					<xs:element name="type" maxOccurs="1" minOccurs="1"
+						type="server:serverType" />
+					<xs:element name="runtime" type="xs:string" minOccurs="0"
+						maxOccurs="1" />
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<!-- version type -->
+	<xs:simpleType name="abstractVersion">
+		<xs:restriction base="xs:string" />
+		<!-- Define here all allowed server versions. Use xs:enumeration. -->
+	</xs:simpleType>
+
+
+	<!-- Abstract family type -->
+	<xs:complexType name="abstractFamily" abstract="true">
+		<xs:attribute name="version" type="server:abstractVersion"
+			use="required" />
+	</xs:complexType>
+
+
+	<!-- Abstract Family -->
+	<xs:element name="abstractFamily" abstract="true"
+		type="server:abstractFamily" />
+
+
+	<!-- Abstract server type. All allowed server types from your requirement 
+		will be listed here -->
+	<xs:complexType name="serverType">
+		<xs:choice>
+			<!-- Here you can define more server families to be used in you requirements. 
+				e.g. you can have JBoss AS server family and JBoss Enterprise Application 
+				Platform server family accepted. -->
+			<xs:element ref="server:abstractFamily" minOccurs="1"
+				maxOccurs="1" />
+		</xs:choice>
+	</xs:complexType>
+</xs:schema>

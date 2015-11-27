@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://www.jboss.org/NS/jre-schema" xmlns:jre="http://www.jboss.org/NS/jre-schema"
+	elementFormDefault="qualified" xmlns:rd="http://www.jboss.org/NS/Req">
+
+
+	<xs:import schemaLocation="http://www.jboss.org/schema/reddeer/v1/RedDeerSchema.xsd"
+		namespace="http://www.jboss.org/NS/Req">
+	</xs:import>
+
+	<!-- Specify jre-requirement -->
+	<xs:element name="jre-requirement" type="jre:jreRequirementType"
+		substitutionGroup="rd:abstractRequirement">
+		<xs:annotation>
+			<xs:documentation>Specifies all data needed to create a JRE
+				requirement
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+	<!-- type for database-requirement -->
+	<xs:complexType name="jreRequirementType">
+		<xs:complexContent>
+			<xs:extension base="rd:abstractRequirementType">
+				<xs:all>
+					<xs:element name="name" type="xs:string" minOccurs="0"
+						maxOccurs="1" />
+					<xs:element name="version" type="xs:double" minOccurs="0"
+						maxOccurs="1" />
+					<xs:element name="path" type="xs:string" minOccurs="0"
+						maxOccurs="1" />
+				</xs:all>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>
