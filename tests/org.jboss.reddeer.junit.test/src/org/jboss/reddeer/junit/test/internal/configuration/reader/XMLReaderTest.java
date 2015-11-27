@@ -11,13 +11,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import org.jboss.reddeer.junit.configuration.RedDeerConfigurationException;
 import org.jboss.reddeer.junit.internal.configuration.reader.XMLReader;
-import org.junit.Ignore;
 import org.junit.Test;
 
-@Ignore
 public class XMLReaderTest {
 
-	private static final String CONFIG_DIR_ROOT = "src/test/resources/org/jboss/reddeer/junit/internal/configuration/reader/";
+	private static final String CONFIG_DIR_ROOT = "resources/org/jboss/reddeer/junit/internal/configuration/reader/";
 
 	private XMLReader reader;
 

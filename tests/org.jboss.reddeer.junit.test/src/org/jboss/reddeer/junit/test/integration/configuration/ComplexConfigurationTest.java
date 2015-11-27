@@ -11,15 +11,13 @@ import org.jboss.reddeer.junit.internal.configuration.RequirementsConfiguration;
 import org.jboss.reddeer.junit.internal.configuration.SuiteConfiguration;
 import org.jboss.reddeer.junit.internal.configuration.TestRunConfiguration;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
-@Ignore
 public class ComplexConfigurationTest {
 
 	@Before
 	public void setup(){
-		System.setProperty(RedDeerProperties.CONFIG_FILE.getName(), "src/test/resources/org/jboss/reddeer/junit/integration/configuration");
+		System.setProperty(RedDeerProperties.CONFIG_FILE.getName(), "resources/org/jboss/reddeer/junit/integration/configuration");
 	}
 	
 	@Test

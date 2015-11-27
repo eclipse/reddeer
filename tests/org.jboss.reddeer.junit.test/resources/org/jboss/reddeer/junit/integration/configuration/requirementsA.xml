@@ -7,10 +7,10 @@
 
 	<requirements>
 	
-		<requirement class="org.jboss.reddeer.junit.integration.configuration.RequirementA" name="req1">
+		<requirement class="org.jboss.reddeer.junit.test.integration.configuration.RequirementA" name="req1">
 			<property key="a" value="1" />
 		</requirement>
-		<requirement class="org.jboss.reddeer.junit.integration.configuration.RequirementB" name="req2">
+		<requirement class="org.jboss.reddeer.junit.test.integration.configuration.RequirementB" name="req2">
 			<property key="b" value="2" />
 			<property key="a" value="3" />
 		</requirement>

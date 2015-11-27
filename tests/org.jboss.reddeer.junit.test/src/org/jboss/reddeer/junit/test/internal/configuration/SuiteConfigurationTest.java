@@ -24,7 +24,6 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
-@Ignore
 public class SuiteConfigurationTest {
 
 	private static final String LOCATIONS_ROOT_DIR;
@@ -33,10 +32,6 @@ public class SuiteConfigurationTest {
 
 	static{
 		StringBuffer sbRootDir = new StringBuffer("");
-		sbRootDir.append("src");
-		sbRootDir.append(File.separator);
-		sbRootDir.append("test");
-		sbRootDir.append(File.separator);
 		sbRootDir.append("resources");
 		sbRootDir.append(File.separator);
 		sbRootDir.append("org");
