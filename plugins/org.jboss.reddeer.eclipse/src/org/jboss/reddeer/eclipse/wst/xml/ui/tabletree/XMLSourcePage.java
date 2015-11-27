@@ -45,7 +45,7 @@ public class XMLSourcePage extends TextEditor {
 	 * 	<li> XML with no namespaces defined:<br>
 	 *  	String result = page.evaluateXPath("/a/b1/c/text()");
 	 * 	<li> XML with namespaces defined (note the ":" sign for default namespace)<br>
-	 * 		String result = page.evaluateXPath("/:testrun/:requirements/server:server-requirement/@name");
+	 * 		String result = page.evaluateXPath("/:reddeer/:requirements/server:server-requirement/@name");
 	 * </ul>
 	 *
 	 * @param xPathExpression the x path expression

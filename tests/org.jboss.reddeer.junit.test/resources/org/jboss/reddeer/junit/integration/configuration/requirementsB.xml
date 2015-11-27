@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testrun 
+<reddeer 
 	xmlns="http://www.jboss.org/NS/Req" 
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:java="http://www.jboss.org/NS/JavaReq"
-	xsi:schemaLocation="http://www.jboss.org/NS/Req http://www.jboss.org/schema/reddeer/RedDeerSchema.xsd http://www.jboss.org/NS/JavaReq JavaRequirements.xsd">
+	xsi:schemaLocation="http://www.jboss.org/NS/Req http://www.jboss.org/schema/reddeer/v1/RedDeerSchema.xsd http://www.jboss.org/NS/JavaReq JavaRequirements.xsd">
 
 	<requirements>
 	
@@ -19,4 +19,4 @@
 			<java:runtime>/java</java:runtime>
 		</java:java-requirement>
 	</requirements>
-</testrun>
+</reddeer>

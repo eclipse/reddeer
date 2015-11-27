@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-  <testrun
+  <reddeer
         xmlns="http://www.jboss.org/NS/Req"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:schemaLocation="http://www.jboss.org/NS/Req RedDeerRequirements.xsd">
+        xsi:schemaLocation="http://www.jboss.org/NS/Req http://www.jboss.org/schema/reddeer/v1/RedDeerSchema.xsd">
 
 	<requirements>
 		<requirement class="org.jboss.reddeer.junit.injection.UserRequirement" name="userRequirement">
@@ -11,4 +11,4 @@
 			<property key="password" value="abc123" />
 		</requirement>
 	</requirements>
-</testrun>
+</reddeer>

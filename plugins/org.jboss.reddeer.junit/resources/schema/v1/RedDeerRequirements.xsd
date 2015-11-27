@@ -2,10 +2,10 @@
 <!-- RedDeer by Red Hat -->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
 	targetNamespace="http://www.jboss.org/NS/Req" xmlns:rd="http://www.jboss.org/NS/Req"
-	elementFormDefault="qualified">
+	elementFormDefault="qualified" version="1.0.0">
 
 	<!-- Root element -->
-	<xs:element name="testrun" type="rd:testrunType">
+	<xs:element name="reddeer" type="rd:testrunType">
 		<!-- Unique requirement 'name' attribute restriction -->
 		<xs:unique name="uniqueReqName">
 			<xs:selector xpath="*/*" />
