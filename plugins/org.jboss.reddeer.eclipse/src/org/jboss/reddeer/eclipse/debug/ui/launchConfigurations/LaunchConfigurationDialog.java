@@ -1,5 +1,8 @@
 package org.jboss.reddeer.eclipse.debug.ui.launchConfigurations;
 
+import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Shell;
+import org.jboss.reddeer.common.exception.RedDeerException;
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.common.wait.TimePeriod;
 import org.jboss.reddeer.common.wait.WaitUntil;
@@ -7,6 +10,9 @@ import org.jboss.reddeer.common.wait.WaitWhile;
 import org.jboss.reddeer.core.condition.JobIsRunning;
 import org.jboss.reddeer.core.condition.ProgressInformationShellIsActive;
 import org.jboss.reddeer.core.condition.ShellWithTextIsActive;
+import org.jboss.reddeer.core.handler.WidgetHandler;
+import org.jboss.reddeer.core.lookup.ShellLookup;
+import org.jboss.reddeer.core.lookup.WidgetLookup;
 import org.jboss.reddeer.swt.api.Button;
 import org.jboss.reddeer.swt.api.Menu;
 import org.jboss.reddeer.swt.api.TreeItem;
@@ -103,7 +109,38 @@ public abstract class LaunchConfigurationDialog {
 		new WaitWhile(new ProgressInformationShellIsActive());
 		t.select();
 
-		new ContextMenu("New").select();
+		log.info("Wait until");
+		new WaitUntil(new JobIsRunning(), TimePeriod.SHORT, false);
+		log.info("Wait while");
+		new WaitWhile(new JobIsRunning(), TimePeriod.NORMAL);
+		
+		log.info("Active shells:");
+		for (Shell shell : ShellLookup.getInstance().getShells()){
+			log.info("\t" + WidgetHandler.getInstance().getText(shell));
+		}
+		
+		log.info("Default shell: " + new DefaultShell(getTitle()));
+		log.info("Focused control: " + WidgetLookup.getInstance().getFocusControl());
+		Control c = WidgetLookup.getInstance().getFocusControl();
+		if (c instanceof Shell){
+			log.info("Focused control is shell: " + WidgetHandler.getInstance().getText(c));
+		}
+		
+		log.info("Select tree item again");
+		t.select();
+		
+		log.info("Focused control: " + WidgetLookup.getInstance().getFocusControl());
+		c = WidgetLookup.getInstance().getFocusControl();
+		if (c instanceof Shell){
+			log.info("Focused control is shell: " + WidgetHandler.getInstance().getText(c));
+		}
+		try {
+			new ContextMenu("New").select();
+		} catch (RedDeerException e){
+			log.error("Error: " + new DefaultShell().getText());
+			new WaitWhile(new JobIsRunning(), TimePeriod.NONE);
+			throw e;
+		}
 		if (name != null){
 			configuration.setName(name);
 			configuration.apply();
