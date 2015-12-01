@@ -2,6 +2,7 @@ package org.jboss.reddeer.swt.impl.text;
 
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.common.logging.Logger;
+import org.jboss.reddeer.common.wait.WaitWhile;
 import org.jboss.reddeer.swt.api.Text;
 import org.jboss.reddeer.core.handler.TextHandler;
 import org.jboss.reddeer.core.handler.WidgetHandler;
@@ -82,10 +83,15 @@ public abstract class AbstractText extends AbstractWidget<org.eclipse.swt.widget
 		log.info("Type text " + text);
 		setText("");
 		setFocus();
-		KeyboardFactory.getKeyboard().type(text);
-		
+		forceFocus();
+		KeyboardFactory.getKeyboard().type(text);		
 	}
 	
+	private void forceFocus() {
+		log.debug("Force focus to receive keyboard events");
+		WidgetHandler.getInstance().forceFocus(swtWidget);
+	}
+
 	/* (non-Javadoc)
 	 * @see org.jboss.reddeer.swt.api.Text#isReadOnly()
 	 */
