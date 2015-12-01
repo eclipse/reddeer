@@ -98,7 +98,7 @@ public class LabeledTextTest extends SWTLayerTestCase {
 		
 		LabelTestUtils.createLabel(shell, "Test label4");
 		Composite composite = new Composite(shell, SWT.LEFT);
-		Text text4 = TextTestUtils.createText(composite, "Test text4");
+		TextTestUtils.createText(composite, "Test text4");
 	}
 	
 	@Test
