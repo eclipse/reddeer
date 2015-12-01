@@ -1,6 +1,7 @@
 package org.jboss.reddeer.eclipse.test.ui.problems;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
@@ -10,6 +11,11 @@ import java.util.List;
 
 import org.hamcrest.core.Is;
 import org.hamcrest.core.StringStartsWith;
+import org.jboss.reddeer.common.exception.WaitTimeoutExpiredException;
+import org.jboss.reddeer.common.wait.TimePeriod;
+import org.jboss.reddeer.common.wait.WaitUntil;
+import org.jboss.reddeer.common.wait.WaitWhile;
+import org.jboss.reddeer.core.condition.JobIsRunning;
 import org.jboss.reddeer.eclipse.condition.ExactNumberOfProblemsExists;
 import org.jboss.reddeer.eclipse.condition.ProblemExists;
 import org.jboss.reddeer.eclipse.condition.ProblemsViewIsEmpty;
@@ -19,8 +25,9 @@ import org.jboss.reddeer.eclipse.jdt.ui.ide.NewJavaProjectWizardDialog;
 import org.jboss.reddeer.eclipse.jdt.ui.ide.NewJavaProjectWizardPage;
 import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.PackageExplorer;
 import org.jboss.reddeer.eclipse.ui.problems.Problem;
-import org.jboss.reddeer.eclipse.ui.problems.ProblemsView.ProblemType;
 import org.jboss.reddeer.eclipse.ui.problems.ProblemsView;
+import org.jboss.reddeer.eclipse.ui.problems.ProblemsView.Column;
+import org.jboss.reddeer.eclipse.ui.problems.ProblemsView.ProblemType;
 import org.jboss.reddeer.eclipse.ui.problems.matcher.ProblemsDescriptionMatcher;
 import org.jboss.reddeer.eclipse.ui.problems.matcher.ProblemsLocationMatcher;
 import org.jboss.reddeer.eclipse.ui.problems.matcher.ProblemsPathMatcher;
@@ -30,11 +37,6 @@ import org.jboss.reddeer.eclipse.ui.views.markers.QuickFixPage;
 import org.jboss.reddeer.eclipse.ui.views.markers.QuickFixWizard;
 import org.jboss.reddeer.eclipse.utils.DeleteUtils;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
-import org.jboss.reddeer.core.condition.JobIsRunning;
-import org.jboss.reddeer.common.exception.WaitTimeoutExpiredException;
-import org.jboss.reddeer.common.wait.TimePeriod;
-import org.jboss.reddeer.common.wait.WaitUntil;
-import org.jboss.reddeer.common.wait.WaitWhile;
 import org.jboss.reddeer.workbench.impl.editor.TextEditor;
 import org.junit.After;
 import org.junit.Before;
@@ -82,8 +84,83 @@ public class ProblemsViewTest {
 	
 	@After
 	public void tearDown() {
+		problemsView.showDefaultProblemColumns();
 		pkgExplorer.open();
 		DeleteUtils.forceProjectDeletion(pkgExplorer.getProject(PROJECT_NAME),true);
+	}
+	
+	@Test
+	public void testShowProblemColumns() {
+		problemsView.showDefaultProblemColumns();
+	
+		assertFalse("ID column should not be shown at this point, but it is.",
+				problemsView.getProblemColumns().contains(Column.ID.toString()));
+		assertFalse("Creation Time column should not be shown at this point, but it is.",
+				problemsView.getProblemColumns().contains(Column.CREATION_TIME.toString()));
+		
+		problemsView.showProblemColumns(Column.ID, Column.CREATION_TIME, Column.DESCRIPTION);
+		
+		assertTrue("ID column should be shown at this point, but it is not.",
+				problemsView.getProblemColumns().contains(Column.ID.toString()));
+		assertTrue("Creation Time column should be shown at this point, but it is not.",
+				problemsView.getProblemColumns().contains(Column.CREATION_TIME.toString()));
+	}
+	
+	@Test
+	public void testHideProblemColumns() {
+		problemsView.showDefaultProblemColumns();
+		
+		assertTrue("Resource problem column should be shown at this point, but it is not",
+				problemsView.getProblemColumns().contains(Column.RESOURCE.toString()));
+		
+		problemsView.hideProblemColumn(Column.RESOURCE, Column.LOCATION, Column.ID);
+		
+		assertFalse("Resource problem column should be hidden at this point, but it is not.",
+				problemsView.getProblemColumns().contains(Column.RESOURCE.toString()));
+		assertFalse("Location problem column should be hidden at this point, but it is not.",
+				problemsView.getProblemColumns().contains(Column.LOCATION.toString()));
+	}
+	
+	@Test
+	public void testShowProblemColumnNullArgument() {
+		problemsView.showProblemColumns((Column[]) null);
+		// pass
+	}
+	
+	@Test
+	public void testShowProblemColumnEmptyArrayArgument() {
+		problemsView.showProblemColumns(new Column[] {});
+		// pass
+	}
+	
+	@Test
+	public void testShowVisibleProblemColumn() {
+		problemsView.showDefaultProblemColumns();
+		problemsView.showProblemColumns(Column.DESCRIPTION);
+		
+		assertTrue("Description problem column should be visible, but it is not.",
+				problemsView.getProblemColumns().contains(Column.DESCRIPTION.toString()));
+	}
+	
+	@Test
+	public void testHideProblemColumnsNullArgument() {
+		problemsView.hideProblemColumn((Column[]) null);
+		// pass
+	}
+	
+	@Test
+	public void testHideProblemColumnsEmptyArrayArgument() {
+		problemsView.hideProblemColumn(new Column[] {});
+		// pass
+	}
+	
+	@Test
+	public void testHideHiddenProblemColumn() {
+		problemsView.showDefaultProblemColumns();
+		problemsView.hideProblemColumn(Column.ID);
+		
+		assertFalse("ID problem column should not be visible, but it is.",
+				problemsView.getProblemColumns().contains(Column.ID.toString()));
 	}
 	
 	@Test

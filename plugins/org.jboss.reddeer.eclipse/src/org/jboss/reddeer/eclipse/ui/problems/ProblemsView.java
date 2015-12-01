@@ -1,16 +1,23 @@
 package org.jboss.reddeer.eclipse.ui.problems;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
 import org.jboss.reddeer.common.wait.TimePeriod;
 import org.jboss.reddeer.common.wait.WaitUntil;
 import org.jboss.reddeer.common.wait.WaitWhile;
+import org.jboss.reddeer.core.condition.ShellWithTextIsAvailable;
 import org.jboss.reddeer.eclipse.condition.AbstractExtendedMarkersViewIsUpdating;
 import org.jboss.reddeer.eclipse.exception.EclipseLayerException;
 import org.jboss.reddeer.eclipse.ui.problems.matcher.AbstractProblemMatcher;
 import org.jboss.reddeer.swt.api.TreeItem;
+import org.jboss.reddeer.swt.impl.button.OkButton;
+import org.jboss.reddeer.swt.impl.button.PushButton;
+import org.jboss.reddeer.swt.impl.menu.ViewMenu;
+import org.jboss.reddeer.swt.impl.shell.DefaultShell;
+import org.jboss.reddeer.swt.impl.table.DefaultTable;
 import org.jboss.reddeer.swt.impl.tree.DefaultTree;
 import org.jboss.reddeer.workbench.impl.view.WorkbenchView;
 
@@ -106,6 +113,99 @@ public class ProblemsView extends WorkbenchView{
 	public List<String> getProblemColumns() {
 		activate();
 		return new DefaultTree().getHeaderColumns();
+	}
+	
+	/**
+	 * Shows specified columns in a tree of problems view. 
+	 * If one of columns is already shown, nothing happens for that one,
+	 * others are shows as expected.
+	 * 
+	 * @param columns columns to show in a tree of problems view
+	 */
+	public void showProblemColumns(Column... columns) {
+		String[] columnsToShow = getColumnsToShow(columns);
+		if (columnsToShow.length > 0) {
+			openConfigureColumnsShell();
+			
+			new DefaultTable(0).select(columnsToShow);
+			new PushButton("Show ->").click();
+			
+			confirmChangesAndCloseConfigureColumnsShell();
+		}
+	}
+	
+	/**
+	 * Hides specified column in a tree of problems view.
+	 * If one of columns is already hidden, nothing happens for that one,
+	 * other are hidden as expected.
+	 * 
+	 * @param columns columns to hide in a tree of problems view 
+	 */
+	public void hideProblemColumn(Column... columns) {
+		String[] columnsToHide = getColumnsToHide(columns);
+		if (columnsToHide.length > 0) {
+			openConfigureColumnsShell();
+			
+			new DefaultTable(1).select(columnsToHide);
+			new PushButton("<- Hide ").click();
+			
+			confirmChangesAndCloseConfigureColumnsShell();
+		}
+	}
+	
+	private String[] getColumnsToHide(Column[] columns) {
+		List<String> visibleColumns = getProblemColumns();
+		List<String> columnsToHide = new ArrayList<String>();
+		
+		if (columns != null && columns.length > 0) {
+			for (Column column: columns) {
+				if (visibleColumns.contains(column.toString())) {
+					columnsToHide.add(column.toString());
+				}
+			}
+		}
+		
+		return columnsToHide.toArray(new String[columnsToHide.size()]);
+	}
+	
+	private String[] getColumnsToShow(Column[] columns) {
+		List<String> visibleColumns = getProblemColumns();
+		List<String> columnsToShow = new ArrayList<String>();
+		
+
+		if (columns != null && columns.length > 0) {
+			for (Column column: columns) {
+				if (!visibleColumns.contains(column.toString())) {
+					columnsToShow.add(column.toString());
+				}
+			}
+		}
+		
+		return columnsToShow.toArray(new String[columnsToShow.size()]);
+	}
+	
+	/**
+	 * Shows default problem columns for a problems view.
+	 */
+	public void showDefaultProblemColumns() {
+		openConfigureColumnsShell();
+		
+		new PushButton("Restore Defaults").click();
+		
+		confirmChangesAndCloseConfigureColumnsShell();
+	}
+	
+	private void openConfigureColumnsShell() {
+		activate();
+		new ViewMenu("View Menu", "Configure Columns...").select();
+		
+		new DefaultShell("Configure Columns");
+	}
+	
+	private void confirmChangesAndCloseConfigureColumnsShell() {
+		new OkButton().click();
+		
+		new WaitWhile(new ShellWithTextIsAvailable("Configure Columns"));
 	}
 	
 	/**
