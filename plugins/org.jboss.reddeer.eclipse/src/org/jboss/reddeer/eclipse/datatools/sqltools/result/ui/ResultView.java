@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.jboss.reddeer.common.platform.RunningPlatform;
+import org.jboss.reddeer.common.wait.TimePeriod;
+import org.jboss.reddeer.common.wait.WaitUntil;
 import org.jboss.reddeer.common.wait.WaitWhile;
 import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.swt.condition.TreeHasChildren;
@@ -52,6 +54,7 @@ public class ResultView extends WorkbenchView {
 	public void removeAllResults() {
 		open();
 		DefaultTree tree = new DefaultTree();
+		new WaitUntil(new TreeHasChildren(tree),TimePeriod.NORMAL, false);
 		String tooltip = "Remove All Visible Results (Shift+Delete)";
 		if (RunningPlatform.isOSX()) {
 			tooltip = "Remove All Visible Results (⇧⌦)";
