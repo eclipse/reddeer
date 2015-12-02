@@ -15,6 +15,7 @@ import org.eclipse.jface.viewers.ColumnViewer;
 import org.eclipse.jface.viewers.ColumnWeightData;
 import org.eclipse.jface.viewers.ComboBoxViewerCellEditor;
 import org.eclipse.jface.viewers.EditingSupport;
+import org.eclipse.jface.viewers.ICellEditorListener;
 import org.eclipse.jface.viewers.TableLayout;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TableViewerColumn;
@@ -226,12 +227,19 @@ public class RedDeerJUnitTab extends AbstractLaunchConfigurationTab {
 				RedDeerLauncherProperties property = (RedDeerLauncherProperties) element;
 
 				if (property.getProperty().getType() == RedDeerPropertyType.TEXT){
-					return new TextCellEditor((Composite) getViewer().getControl());
+					TextCellEditor te = new TextCellEditor((Composite) getViewer().getControl());
+					te.addListener(new CustomCellEditorListener(te, element));
+					return te;
+				} else if (property.getProperty().getType() == RedDeerPropertyType.FLOAT){
+						TextCellEditor te = new TextCellEditor((Composite) getViewer().getControl());
+						te.addListener(new CustomCellEditorListener(te, element));
+						return te;
 				} else {
 					ComboBoxViewerCellEditor cellEditor = new ComboBoxViewerCellEditor((Composite) getViewer().getControl(), SWT.READ_ONLY);
 					cellEditor.setLabelProvider(new ColumnLabelProvider());
 					cellEditor.setContentProvider(new ArrayContentProvider());
 					cellEditor.setInput(property.getProperty().getSupportedValues());
+					cellEditor.addListener(new CustomCellEditorListener(cellEditor, element));
 					return cellEditor;
 				}
 			}
@@ -242,6 +250,9 @@ public class RedDeerJUnitTab extends AbstractLaunchConfigurationTab {
 		protected Object getValue(Object element) {
 			if (element instanceof RedDeerLauncherProperties){
 				RedDeerLauncherProperties property = (RedDeerLauncherProperties) element;
+				if(property.getCurrentValue() == null){
+					return "";
+				}
 				return property.getCurrentValue();
 			}
 
@@ -252,12 +263,43 @@ public class RedDeerJUnitTab extends AbstractLaunchConfigurationTab {
 		protected void setValue(Object element, Object value) {
 			if (element instanceof RedDeerLauncherProperties){
 				RedDeerLauncherProperties property = (RedDeerLauncherProperties) element;
-				property.setCurrentValue(value.toString());
+				if(value == null || value.equals("")){
+					property.setCurrentValue(null);
+				} else {
+					property.setCurrentValue(value.toString());
+				}
 			}
 
 			getViewer().update(element, null);
 			setDirty(true);
 			updateLaunchConfigurationDialog();
+		}
+		
+		private class CustomCellEditorListener implements ICellEditorListener{
+			
+			private CellEditor editor;
+			private Object element;
+			
+			public CustomCellEditorListener(CellEditor editor, Object element) {
+				this.editor = editor;
+				this.element = element;
+			}
+
+			@Override
+			public void applyEditorValue() {
+				
+			}
+
+			@Override
+			public void cancelEditor() {
+				
+			}
+
+			@Override
+			public void editorValueChanged(boolean arg0, boolean arg1) {
+				RedDeerEditingSupport.this.setValue(element,editor.getValue());
+			}
+			
 		}
 	}
 }
