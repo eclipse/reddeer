@@ -2,7 +2,7 @@
 <?eclipse version="3.2"?>
 <plugin>
    <extension point="org.eclipse.wst.server.core.runtimeTypes">
-   		<runtimeType id="org.jboss.reddeer.eclipse.test.wst.server.testserverruntime" name="Test runtime" description="Testing runtime" facetRuntimeComponent="org.eclipse.wst.server.http.runtime" facetRuntimeVersion="1.0" class="org.jboss.reddeer.eclipse.test.wst.server.TestServerRuntime">
+   		<runtimeType id="org.jboss.reddeer.eclipse.test.wst.server.testserverruntime" name="Test runtime" description="Testing runtime" facetRuntimeComponent="org.eclipse.wst.server.http.runtime" facetRuntimeVersion="1.0" class="org.jboss.reddeer.eclipse.test.wst.server.ui.TestServerRuntime">
    			<moduleType types="PHP" versions="1.0"/>
    			<moduleType types="wst.web" versions="1.0"/>
    		</runtimeType>
