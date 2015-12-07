@@ -9,7 +9,8 @@ import org.jboss.reddeer.junit.internal.configuration.TestRunConfiguration;
 import org.jboss.reddeer.junit.internal.requirement.Requirements;
 import org.jboss.reddeer.junit.internal.requirement.RequirementsBuilder;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
-import org.jboss.reddeer.requirements.autobuilding.AutoBuildingRequirement.AutoBuilding;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -18,12 +19,27 @@ import org.junit.runner.RunWith;
  * @author Andrej Podhradsky
  *
  */
-@AutoBuilding(false)
 @RunWith(RedDeerSuite.class)
 public class AutoBuildingRequirementTest {
 
+	private static boolean autoBuilding;
+
+	@BeforeClass
+	public static void getOriginalValueOfAutoBuilding() {
+		autoBuilding = PreferencesUtil.isAutoBuildingOn();
+	}
+
+	@AfterClass
+	public static void setAutoBuildingToOriginalValue() {
+		if (autoBuilding) {
+			PreferencesUtil.setAutoBuildingOn();
+		} else {
+			PreferencesUtil.setAutoBuildingOff();
+		}
+	}
+
 	@Test
-	public void autoBuildRequirementOnCleanUpTest() {
+	public void autoBuildRequirementOnTest() {
 		PreferencesUtil.setAutoBuildingOff();
 		Requirements requirements = getRequirements(AutoBuildingRequirementOnTest.class);
 		assertTrue(requirements.canFulfill());
@@ -34,12 +50,23 @@ public class AutoBuildingRequirementTest {
 	}
 
 	@Test
-	public void autoBuildRequirementOffCleanUpTest() {
+	public void autoBuildRequirementOffTest() {
 		PreferencesUtil.setAutoBuildingOn();
 		Requirements requirements = getRequirements(AutoBuildingRequirementOffTest.class);
 		assertTrue(requirements.canFulfill());
 		requirements.fulfill();
 		assertFalse(PreferencesUtil.isAutoBuildingOn());
+		requirements.cleanUp();
+		assertTrue(PreferencesUtil.isAutoBuildingOn());
+	}
+
+	@Test
+	public void autoBuildRequirementOffWithoutCleanupTest() {
+		PreferencesUtil.setAutoBuildingOff();
+		Requirements requirements = getRequirements(AutoBuildingRequirementWithoutCleanupTest.class);
+		assertTrue(requirements.canFulfill());
+		requirements.fulfill();
+		assertTrue(PreferencesUtil.isAutoBuildingOn());
 		requirements.cleanUp();
 		assertTrue(PreferencesUtil.isAutoBuildingOn());
 	}

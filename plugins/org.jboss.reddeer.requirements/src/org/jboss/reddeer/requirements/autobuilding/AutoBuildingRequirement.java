@@ -10,8 +10,8 @@ import org.jboss.reddeer.junit.requirement.Requirement;
 import org.jboss.reddeer.requirements.autobuilding.AutoBuildingRequirement.AutoBuilding;
 
 /**
- * This requirement ensures that the setting for auto building is set on/off.
- * During the cleanup phase the change is set back.
+ * This requirement ensures that the setting for auto building is set on/off. During the cleanup phase the change is set
+ * back.
  * 
  * @author Andrej Podhradsky
  *
@@ -24,16 +24,25 @@ public class AutoBuildingRequirement implements Requirement<AutoBuilding> {
 	@Retention(RetentionPolicy.RUNTIME)
 	@Target(ElementType.TYPE)
 	public @interface AutoBuilding {
-		
+
 		/**
 		 * Value.
 		 *
-		 * @return true, if successful
+		 * @return true if the auto building is on, false otherwise
 		 */
 		boolean value() default true;
+
+		/**
+		 * Cleanup. The default value is true.
+		 *
+		 * @return true if the cleanup is required, false otherwise
+		 */
+		boolean cleanup() default true;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.jboss.reddeer.junit.requirement.Requirement#canFulfill()
 	 */
 	@Override
@@ -41,7 +50,9 @@ public class AutoBuildingRequirement implements Requirement<AutoBuilding> {
 		return true;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.jboss.reddeer.junit.requirement.Requirement#fulfill()
 	 */
 	@Override
@@ -54,19 +65,26 @@ public class AutoBuildingRequirement implements Requirement<AutoBuilding> {
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see org.jboss.reddeer.junit.requirement.Requirement#setDeclaration(java.lang.annotation.Annotation)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.jboss.reddeer.junit.requirement.Requirement#setDeclaration(java.lang. annotation.Annotation)
 	 */
 	@Override
 	public void setDeclaration(AutoBuilding autoBuilding) {
 		this.autoBuilding = autoBuilding;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.jboss.reddeer.junit.requirement.Requirement#cleanUp()
 	 */
 	@Override
 	public void cleanUp() {
+		if (!autoBuilding.cleanup()) {
+			return;
+		}
 		if (autoBuildingOriginalValue) {
 			PreferencesUtil.setAutoBuildingOn();
 		} else {
