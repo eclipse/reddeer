@@ -1,12 +1,15 @@
 package org.jboss.reddeer.eclipse.debug.ui.launchConfigurations;
 
+import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Tree;
+import org.jboss.reddeer.common.condition.WaitCondition;
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.common.wait.TimePeriod;
 import org.jboss.reddeer.common.wait.WaitUntil;
 import org.jboss.reddeer.common.wait.WaitWhile;
 import org.jboss.reddeer.core.condition.JobIsRunning;
-import org.jboss.reddeer.core.condition.ProgressInformationShellIsActive;
 import org.jboss.reddeer.core.condition.ShellWithTextIsActive;
+import org.jboss.reddeer.core.lookup.WidgetLookup;
 import org.jboss.reddeer.swt.api.Button;
 import org.jboss.reddeer.swt.api.Menu;
 import org.jboss.reddeer.swt.api.TreeItem;
@@ -95,21 +98,20 @@ public abstract class LaunchConfigurationDialog {
 	 * @param configuration the configuration
 	 * @param name the name
 	 */
-	public void create(LaunchConfiguration configuration, String name){
+	public void create(LaunchConfiguration configuration, String name) {
 		log.info("Create new launch configuration " + configuration.getType() + " with name " + name);
-		TreeItem t = new DefaultTreeItem(configuration.getType());
-		t.select();
-		
-		new WaitWhile(new ProgressInformationShellIsActive());
+		final TreeItem t = new DefaultTreeItem(configuration.getType());
 		t.select();
 
+		new WaitUntil(new TreeIsSelectedAndHasFocus(t));
+
 		new ContextMenu("New").select();
-		if (name != null){
+		if (name != null) {
 			configuration.setName(name);
 			configuration.apply();
 		}
 	}
-	
+
 	/**
 	 * Delete the configuration with specified name.
 	 *
@@ -151,5 +153,34 @@ public abstract class LaunchConfigurationDialog {
 
 		new WaitWhile(new ShellWithTextIsActive(shellText));
 		new WaitWhile(new JobIsRunning());
+	}
+	
+	private class TreeIsSelectedAndHasFocus implements WaitCondition{
+
+		private TreeItem item;
+		
+		public TreeIsSelectedAndHasFocus(TreeItem item) {
+			this.item = item;
+		}
+		
+		@Override
+		public boolean test() {
+			Control focusControl = WidgetLookup.getInstance().getFocusControl();
+			if (!(focusControl instanceof Tree)){
+				return false;
+			}
+			return item.isSelected();
+		}
+
+		@Override
+		public String description() {
+			return "Tree has focus and TreeItem "+item.getText()+" is selected";
+		}
+
+		@Override
+		public String errorMessage() {
+			return "Tree does not has focus or TreeItem "+item.getText()+" is not selected";
+		}
+		
 	}
 }
