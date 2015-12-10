@@ -213,7 +213,7 @@ public class WidgetHandler {
 				List<Control> allWidgets = WidgetLookup.getInstance().findAllParentWidgets();
 				int widgetIndex = allWidgets.indexOf(w);
 				if (widgetIndex < 0) {
-					throw new CoreLayerException("Wrong implementation for finding labels!");
+					return null;
 				}
 				ListIterator<? extends Widget> listIterator = allWidgets.listIterator(widgetIndex);
 				while (listIterator.hasPrevious()) {
