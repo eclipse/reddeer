@@ -9,7 +9,7 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Require-Bundle: org.eclipse.ui;visibility:=reexport,
  org.eclipse.core.runtime;visibility:=reexport,
  org.eclipse.equinox.event;visibility:=reexport,
- org.junit;bundle-version="4.11.0";visibility:=reexport,
+ org.junit;visibility:=reexport,
  org.hamcrest.core;bundle-version="1.3.0";visibility:=reexport,
  org.jboss.reddeer.common;bundle-version="[1.0,1.1)";visibility:=reexport,
  org.jboss.reddeer.core;bundle-version="[1.0,1.1)";visibility:=reexport,
