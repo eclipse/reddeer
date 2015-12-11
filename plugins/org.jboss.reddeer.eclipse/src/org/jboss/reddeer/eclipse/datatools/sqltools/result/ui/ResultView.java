@@ -61,7 +61,7 @@ public class ResultView extends WorkbenchView {
 		}
 		DefaultToolItem item = new DefaultToolItem(tooltip);
 		item.click();
-		new WaitWhile(new TreeHasChildren(tree));
+		new WaitWhile(new TreeHasChildren(tree), TimePeriod.LONG);
 	}
 
 }
