@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: RedDeer Code Generator Component Tests
 Bundle-Vendor: JBoss by Red Hat
 Bundle-SymbolicName: org.jboss.reddeer.generator.test
-Bundle-Version: 1.0.0.qualifier
+Bundle-Version: 1.0.0.Final
 Bundle-Activator: org.jboss.reddeer.generator.test.Activator
 Require-Bundle: org.jboss.reddeer.go;bundle-version="[1.0,1.1)",
  org.jboss.reddeer.generator;bundle-version="[1.0,1.1)"
