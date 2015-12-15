@@ -29,6 +29,8 @@ import org.junit.runner.notification.Failure;
 import org.junit.runner.notification.RunListener;
 import org.junit.runner.notification.RunNotifier;
 import org.junit.runners.BlockJUnit4ClassRunner;
+import org.junit.runners.Parameterized.Parameter;
+import org.junit.runners.model.FrameworkField;
 import org.junit.runners.model.FrameworkMethod;
 import org.junit.runners.model.InitializationError;
 import org.junit.runners.model.Statement;
@@ -281,6 +283,22 @@ public class RequirementsRunner extends BlockJUnit4ClassRunner {
 			 return false;
 		 }
 	 }
+ 	
+ 	@Override
+ 	protected void validateConstructor(List<Throwable> errors) {
+        validateOnlyOneConstructor(errors);
+        if (fieldsAreAnnotated()) {
+            validateZeroArgConstructor(errors);
+        }
+ 	}
+ 	
+ 	 private List<FrameworkField> getAnnotatedFieldsByParameter() {
+         return getTestClass().getAnnotatedFields(Parameter.class);
+     }
+
+     private boolean fieldsAreAnnotated() {
+         return !getAnnotatedFieldsByParameter().isEmpty();
+     }
 	
 	/**
 	 * Sets the requirements injector.
