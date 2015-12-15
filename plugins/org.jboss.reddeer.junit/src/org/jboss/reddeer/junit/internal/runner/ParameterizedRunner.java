@@ -1,5 +1,7 @@
 package org.jboss.reddeer.junit.internal.runner;
 
+import static org.junit.Assert.assertNotNull;
+
 import java.util.List;
 
 import org.jboss.reddeer.junit.extensionpoint.IAfterTest;
@@ -27,7 +29,7 @@ public class ParameterizedRunner extends Parameterized {
 	private List<IBeforeTest> beforeTestExtensions;
 	private List<IAfterTest> afterTestExtensions;
 
-	private RequirementsRunner requirementsRunner;
+	private RequirementsRunner firstChildRunner;
 	
 	/**
 	 * Instantiates a new parameterized runner.
@@ -43,7 +45,6 @@ public class ParameterizedRunner extends Parameterized {
 	public ParameterizedRunner(Class<?> clazz, Requirements requirements, String configId, RunListener[] runListeners,
 			List<IBeforeTest> beforeTestExtensions, List<IAfterTest> afterTestExtensions) throws Throwable {
 		super(clazz);
-		this.requirementsRunner = new RequirementsRunner(clazz, requirements, configId, runListeners, beforeTestExtensions, afterTestExtensions);
 		
 		this.requirements = requirements;
 		this.configId = configId;
@@ -74,6 +75,9 @@ public class ParameterizedRunner extends Parameterized {
 				testRunner.setRunListeners(runListeners);
 				testRunner.setAfterTestExtensions(afterTestExtensions);
 				testRunner.setBeforeTestExtensions(beforeTestExtensions);
+				if (firstChildRunner == null){
+					firstChildRunner = testRunner;
+				}
 			} else {
 				return null;
 			}
@@ -81,19 +85,29 @@ public class ParameterizedRunner extends Parameterized {
 		return children;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.junit.runners.ParentRunner#withBeforeClasses(org.junit.runners.model.Statement)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.junit.runners.ParentRunner#withBeforeClasses(org.junit.runners.model.
+	 * Statement)
 	 */
 	@Override
 	protected Statement withBeforeClasses(Statement statement) {
-		return requirementsRunner.withBeforeClasses(statement);
+		assertNotNull(firstChildRunner);
+		return firstChildRunner.withBeforeClasses(statement);
 	}
 
-	/* (non-Javadoc)
-	 * @see org.junit.runners.ParentRunner#withAfterClasses(org.junit.runners.model.Statement)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.junit.runners.ParentRunner#withAfterClasses(org.junit.runners.model.
+	 * Statement)
 	 */
 	@Override
-	 protected Statement withAfterClasses(Statement statement) {
-      return requirementsRunner.withAfterClasses(statement);
-   }
+	protected Statement withAfterClasses(Statement statement) {
+		assertNotNull(firstChildRunner);
+		return firstChildRunner.withAfterClasses(statement);
+	}
 }
