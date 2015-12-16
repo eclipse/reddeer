@@ -5,7 +5,7 @@
 	<groupId>org.jboss.reddeer</groupId>
 	<artifactId>parent</artifactId>
 	<name>Red Deer Parent POM File</name>
-	<version>1.0.0.Final</version>
+	<version>1.1.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	
 	<properties>

@@ -3,12 +3,12 @@ Bundle-ManifestVersion: 2
 Bundle-Name: RedDeer Examples
 Bundle-Vendor: JBoss by Red Hat
 Bundle-SymbolicName: org.jboss.reddeer.examples
-Bundle-Version: 1.0.0.Final
-Require-Bundle: org.jboss.reddeer.eclipse;bundle-version="[1.0,1.1)",
- org.jboss.reddeer.jface;bundle-version="[1.0,1.1)",
- org.jboss.reddeer.junit;bundle-version="[1.0,1.1)",
+Bundle-Version: 1.1.0.qualifier
+Require-Bundle: org.jboss.reddeer.eclipse;bundle-version="[1.1,1.2)",
+ org.jboss.reddeer.jface;bundle-version="[1.1,1.2)",
+ org.jboss.reddeer.junit;bundle-version="[1.1,1.2)",
  org.junit;bundle-version="4.11.0",
- org.jboss.reddeer.swt;bundle-version="[1.0,1.1)",
- org.jboss.reddeer.workbench;bundle-version="[1.0,1.1)",
+ org.jboss.reddeer.swt;bundle-version="[1.1,1.2)",
+ org.jboss.reddeer.workbench;bundle-version="[1.1,1.2)",
  org.eclipse.ui.workbench
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
