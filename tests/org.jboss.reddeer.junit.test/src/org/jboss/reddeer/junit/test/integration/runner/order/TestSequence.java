@@ -1,6 +1,7 @@
 package org.jboss.reddeer.junit.test.integration.runner.order;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class TestSequence {
@@ -28,6 +29,12 @@ public class TestSequence {
 	private static final String AFTER = "AFTER";
 	
 	private static final String TEST = "TEST";
+	
+	private static final String TEST_WITH_PARAMETER = "TEST_WITH_PARAMETER";
+	
+	private static final String CONSTRUCT_TEST = "CONSTRUCT_TEST";
+	
+	private static final String CONSTRUCT_TEST_WITH_PARAMETER = "CONSTRUCT_TEST_WITH_PARAMETER";
 
 	private static List<Object> realSequence = new ArrayList<Object>();
 	
@@ -83,8 +90,20 @@ public class TestSequence {
 		realSequence.add(createTest(c));
 	}
 	
+	public static void addTestWithParam(Class<?> c , Object param){
+		realSequence.add(createTestWithParam(c, param));
+	}
+	
 	public static void addCleanup(Class<?> c){
 		realSequence.add(createCleanup(c));
+	}
+	
+	public static void addConstructTest(Class<?> c){
+		realSequence.add(constructTest(c));
+	}
+	
+	public static void addConstructTestWithParam(Class<?> c, Object param){
+		realSequence.add(constructTestWithParam(c, param));
 	}
 	
 	public static String createIBefore(Class<?> c){
@@ -131,7 +150,87 @@ public class TestSequence {
 		return c + " - " + TEST;
 	}
 	
+	public static String createTestWithParam(Class<?> c , Object parameter){
+		return c + " - " + parameter + " - " + TEST_WITH_PARAMETER;
+	}
+	
 	public static String createCleanup(Class<?> c){
 		return c+ " - " + CLEANUP;
+	}
+	
+	public static String constructTest(Class<?> c){
+		return c+ " - " + CONSTRUCT_TEST;
+	}
+	
+	public static String constructTestWithParam(Class<?> c , Object parameter){
+		return c + " - " + parameter + " - "  + CONSTRUCT_TEST_WITH_PARAMETER;
+	}
+	
+	public static String diffRealSequence (List<?> compareSequence){
+		String result = null;
+		if (realSequence != null && compareSequence != null){
+			StringBuilder sbDiff = new StringBuilder("Real sequence vs. compared sequence:\n");
+			Iterator<?> itRealSequence = realSequence.iterator();
+			Iterator<?> itCompareSequence = compareSequence.iterator();
+			int step = 0;
+			boolean equals = true;
+			while (itRealSequence.hasNext() && itCompareSequence.hasNext()){
+				Object realItem = itRealSequence.next();
+				Object comparedItem = itCompareSequence.next();
+				sbDiff.append(step);
+				sbDiff.append(". ");
+				sbDiff.append(realItem.toString());
+				if (realItem.equals(comparedItem)){
+					sbDiff.append(" == ");
+				}
+				else{
+					sbDiff.append(" != ");
+					if (equals){
+						equals = false;
+					}
+				}
+				sbDiff.append(comparedItem.toString());
+				sbDiff.append("\n");
+				step++;
+			}
+			while (itRealSequence.hasNext()) {
+				Object realItem = itRealSequence.next();
+				sbDiff.append(step);
+				sbDiff.append(". ");
+				sbDiff.append(realItem.toString());
+				sbDiff.append(" != ");
+				if (equals){
+					equals = false;
+				}
+				sbDiff.append("<null>");
+				sbDiff.append("\n");
+				step++;
+			}
+			while (itCompareSequence.hasNext()) {
+				Object compareItem = itCompareSequence.next();
+				sbDiff.append(step);
+				sbDiff.append(". ");
+				sbDiff.append("<null>");
+				sbDiff.append(" != ");
+				if (equals){
+					equals = false;
+				}
+				sbDiff.append(compareItem.toString());
+				sbDiff.append("\n");
+				step++;
+			}
+			if (!equals){
+				result = sbDiff.toString();
+			}
+		}
+		else{
+			if (realSequence != null){
+				result = "Compared sequence is null but real sequence is not";
+			}
+			else{
+				result = "Real sequence is null but compared sequence is not";
+			}
+		}
+		return result;
 	}
 }
