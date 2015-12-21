@@ -1,15 +1,12 @@
 package org.jboss.reddeer.eclipse.wst.server.ui.wizard;
 
-import org.hamcrest.Matcher;
 import org.hamcrest.core.StringContains;
-import org.jboss.reddeer.common.wait.TimePeriod;
 import org.jboss.reddeer.common.wait.WaitUntil;
-import org.jboss.reddeer.common.wait.WaitWhile;
-import org.jboss.reddeer.core.condition.JobIsRunning;
+import org.jboss.reddeer.core.condition.NamedThreadHasStatus;
 import org.jboss.reddeer.jface.wizard.WizardPage;
-import org.jboss.reddeer.swt.condition.TreeHasSelectedItems;
+import org.jboss.reddeer.swt.condition.WidgetIsEnabled;
+import org.jboss.reddeer.swt.impl.button.NextButton;
 import org.jboss.reddeer.swt.impl.text.LabeledText;
-import org.jboss.reddeer.swt.impl.tree.DefaultTree;
 import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
 
 /**
@@ -28,9 +25,8 @@ public class NewServerWizardPage extends WizardPage {
 	 *            the type
 	 */
 	public void selectType(String... type) {
-		new WaitUntil(new TreeHasSelectedItems(new DefaultTree()), TimePeriod.NORMAL, false);
-		new WaitWhile(new JobIsRunning(new Matcher[] { new StringContains("Decoration") }, null, false),
-				TimePeriod.NORMAL, false);
+		new WaitUntil(new NamedThreadHasStatus(new StringContains("Initializing Servers view"), Thread.State.TERMINATED, true));
+		new WaitUntil(new WidgetIsEnabled(new NextButton()));
 		new DefaultTreeItem(type).select();
 	}
 
