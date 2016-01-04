@@ -11,7 +11,6 @@
 package org.jboss.reddeer.eclipse.ui.problems;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -19,6 +18,7 @@ import org.jboss.reddeer.common.wait.TimePeriod;
 import org.jboss.reddeer.common.wait.WaitUntil;
 import org.jboss.reddeer.common.wait.WaitWhile;
 import org.jboss.reddeer.core.condition.ShellWithTextIsAvailable;
+import org.jboss.reddeer.core.exception.CoreLayerException;
 import org.jboss.reddeer.eclipse.condition.AbstractExtendedMarkersViewIsUpdating;
 import org.jboss.reddeer.eclipse.exception.EclipseLayerException;
 import org.jboss.reddeer.eclipse.ui.problems.matcher.AbstractProblemMatcher;
@@ -64,13 +64,20 @@ public class ProblemsView extends WorkbenchView{
 	 */
 	private List<TreeItem> filterProblemType(List<TreeItem> list, ProblemType problemType){
 		for (TreeItem problemSeverityTreeItem : list) {
-			if (problemSeverityTreeItem.getText().matches("^Errors \\(\\d+ item.*\\)") 
-					&& problemType == ProblemType.ERROR) {
-				return problemSeverityTreeItem.getItems();
-			} 
-			if (problemSeverityTreeItem.getText().matches("^Warnings \\(\\d+ item.*\\)")
-					&& problemType == ProblemType.WARNING) {
-				return problemSeverityTreeItem.getItems();
+			try{
+				if (problemSeverityTreeItem.getText().matches("^Errors \\(\\d+ item.*\\)") 
+						&& problemType == ProblemType.ERROR) {
+					return problemSeverityTreeItem.getItems();
+				} 
+				if (problemSeverityTreeItem.getText().matches("^Warnings \\(\\d+ item.*\\)")
+						&& problemType == ProblemType.WARNING) {
+					return problemSeverityTreeItem.getItems();
+				}
+			} catch (CoreLayerException ex){
+				//if widget is disposed we can ignore it - problem disappeared
+				if(!problemSeverityTreeItem.isDisposed()){
+					throw ex;
+				}
 			}
 		}
 		return new LinkedList<TreeItem>();
@@ -101,9 +108,16 @@ public class ProblemsView extends WorkbenchView{
 			boolean itemFitsMatchers = true;
 			if(matchers != null){
 				for (AbstractProblemMatcher matcher: matchers) {
-					if (!matcher.matches(item.getCell(getIndexOfColumn(matcher.getColumn())))) {
-						itemFitsMatchers = false;
-						break;
+					try{
+						if (!matcher.matches(item.getCell(getIndexOfColumn(matcher.getColumn())))) {
+							itemFitsMatchers = false;
+							break;
+						}
+					} catch (CoreLayerException ex){
+						//if widget is disposed we can ignore it - problem disappeared
+						if(!item.isDisposed()){
+							throw ex;
+						}
 					}
 				}
 			}
