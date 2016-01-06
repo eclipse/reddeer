@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Requirements Test
 Bundle-SymbolicName: org.jboss.reddeer.requirements.test
-Bundle-Version: 1.0.0.Final
+Bundle-Version: 1.0.1.Final
 Bundle-Activator: org.jboss.reddeer.requirements.test.Activator
 Require-Bundle: org.jboss.reddeer.go;bundle-version="[1.0,1.1)"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
