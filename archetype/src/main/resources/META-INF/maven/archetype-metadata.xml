@@ -7,7 +7,7 @@
       <defaultValue>mars</defaultValue>
     </requiredProperty>
     <requiredProperty key="reddeer_version">
-      <defaultValue>1.0.1</defaultValue>
+      <defaultValue>1.0.2</defaultValue>
     </requiredProperty>
     <requiredProperty key="version">
        <defaultValue>1.0.0-SNAPSHOT</defaultValue>
