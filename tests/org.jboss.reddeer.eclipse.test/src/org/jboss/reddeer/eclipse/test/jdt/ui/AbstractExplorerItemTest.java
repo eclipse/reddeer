@@ -148,6 +148,17 @@ public abstract class AbstractExplorerItemTest {
 				" but it should be deleted.",
 				explorer.getProject(PROJECT_NAME).getChild(PROJECT_ITEM_TEXT).containsItem("files"));
 	}
+	
+	@Test
+	public void testExpand() {
+		projectItem.collapse();
+		assertFalse(projectItem.isExpanded());
+		assertFalse(projectItem.getTreeItem().isExpanded());
+		
+		projectItem.expand();
+		assertTrue(projectItem.isExpanded());
+		assertTrue(projectItem.getTreeItem().isExpanded());
+	}
 
 	protected void getChild(String... pathToItem) {
 		explorer.getProject(PROJECT_NAME).getProjectItem(PROJECT_ITEM_TEXT).select();
