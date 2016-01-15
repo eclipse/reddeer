@@ -63,7 +63,8 @@ public class ViewMenu extends AbstractMenu implements Menu {
 	 */
 	@Override
 	public boolean isSelected() {
-		return false;
+
+		return item.getAction().isChecked();
 	}
 
 	/* (non-Javadoc)
