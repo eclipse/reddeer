@@ -12,6 +12,7 @@ package org.jboss.reddeer.core.handler;
 
 
 import org.eclipse.jface.action.ActionContributionItem;
+import org.eclipse.jface.action.IAction;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.MenuItem;
@@ -73,7 +74,17 @@ public class MenuHandler {
 			throw new CoreLayerException("Menu item " +actionNormalized+" is not enabled");
 		} else if(!item.isVisible()){
 			throw new CoreLayerException("Menu item " +actionNormalized+" is not visible");
-		} else{
+		} else if ((item.getAction().getStyle() == IAction.AS_CHECK_BOX) || (item.getAction().getStyle() == IAction.AS_RADIO_BUTTON)) {
+			log.info("Click on styled contribution item: " + actionNormalized);
+			Display.syncExec(new Runnable() {
+
+				@Override
+				public void run() {
+					item.getAction().setChecked(!item.getAction().isChecked());
+					item.getAction().run();
+				}
+			});
+		} else {
 			log.info("Click on contribution item: " + actionNormalized);
 			Display.asyncExec(new Runnable() {
 				@Override
