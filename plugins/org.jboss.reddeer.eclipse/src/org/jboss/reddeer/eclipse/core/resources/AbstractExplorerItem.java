@@ -247,9 +247,25 @@ public abstract class AbstractExplorerItem {
 	}
 	
 	/**
+	 * Expands the explorer item.
+	 */
+	public void expand() {
+		treeItem.expand();
+	}
+	
+	/**
 	 * Collapses the explorer item.
 	 */
 	public void collapse() {
 		treeItem.collapse();
+	}
+	
+	/**
+	 * Detects if the explorer item is expanded.
+	 * 
+	 * @return true if the explorer item is expanded, false otherwise
+	 */
+	public boolean isExpanded() {
+		return treeItem.isExpanded();
 	}
 }
