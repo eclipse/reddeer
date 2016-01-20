@@ -139,10 +139,10 @@ public interface Table extends Widget, ReferencedComposite {
 	/**
 	 * Returns table items matching the matcher.
 	 * 
-	 * @param matcher matcher for items matching
+	 * @param matchers array of matchers for items matching
 	 * @return table items matching the matcher
 	 */
-	List<TableItem> getItems(Matcher<TableItem> matcher);
+	List<TableItem> getItems(Matcher<TableItem>... matchers);
 
 	org.eclipse.swt.widgets.Table getSWTWidget();
 	/**

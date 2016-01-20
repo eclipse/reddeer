@@ -91,11 +91,15 @@ public abstract class AbstractTable extends AbstractWidget<org.eclipse.swt.widge
 	 * @see org.jboss.reddeer.swt.api.Table#getItems(org.hamcrest.Matcher)
 	 */
 	@Override
-	public List<TableItem> getItems(Matcher<TableItem> matcher) {
+	public List<TableItem> getItems(Matcher<TableItem>... matchers) {
 		List<TableItem> matchedItems = new ArrayList<TableItem>();
 		
 		for (TableItem item : getItems()){
-			if (matcher.matches(item)){
+			int index = 0;
+			while (index < matchers.length && matchers[index].matches(item)){
+				index++;
+			}
+			if (index == matchers.length){
 				matchedItems.add(item);
 			}
 		}
