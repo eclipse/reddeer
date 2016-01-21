@@ -91,7 +91,7 @@ public class TextEditor extends AbstractEditor implements Editor {
 	 * @return content of this editor
 	 */
 	public String getText() {
-		return TextEditorHandler.getInstance().getDocument(getTextEditorPart()).get();
+		return TextEditorHandler.getInstance().getDocument((ITextEditor)getEditorPart()).get();
 	}
 	
 	/**
@@ -102,7 +102,7 @@ public class TextEditor extends AbstractEditor implements Editor {
 	 */
 	public void setText(final String text) {
 		log.info("Set text to editor");
-		TextEditorHandler.getInstance().setText(getTextEditorPart(), text);
+		TextEditorHandler.getInstance().setText((ITextEditor)getEditorPart(), text);
 	}
 	
 	/**
@@ -111,7 +111,7 @@ public class TextEditor extends AbstractEditor implements Editor {
 	 * @return text at given line
 	 */
 	public String getTextAtLine(final int line) {
-		return TextEditorHandler.getInstance().getTextAtLine(getTextEditorPart(), line);
+		return TextEditorHandler.getInstance().getTextAtLine((ITextEditor)getEditorPart(), line);
 	}
 	
 	/**
@@ -119,7 +119,7 @@ public class TextEditor extends AbstractEditor implements Editor {
 	 * @return number of lines
 	 */
 	public int getNumberOfLines() {
-		return TextEditorHandler.getInstance().getNumberOfLines(getTextEditorPart());
+		return TextEditorHandler.getInstance().getNumberOfLines((ITextEditor)getEditorPart());
 	}
 	
 	/**
@@ -135,7 +135,7 @@ public class TextEditor extends AbstractEditor implements Editor {
 	 */
 	public void insertText(final int line, final int offset, final String text) {
 		log.info("Insert text to editor at line " + line + ", offser " + offset);
-		TextEditorHandler.getInstance().insertText(getTextEditorPart(), line, offset, text);
+		TextEditorHandler.getInstance().insertText((ITextEditor)getEditorPart(), line, offset, text);
 	}
 	
 	/**
@@ -150,7 +150,7 @@ public class TextEditor extends AbstractEditor implements Editor {
 	 */
 	public void insertText(final int offset, final String text) {
 		log.info("Insert text to editor at offser " + offset);
-		TextEditorHandler.getInstance().insertText(getTextEditorPart(), offset, text);
+		TextEditorHandler.getInstance().insertText((ITextEditor)getEditorPart(), offset, text);
 	}
 	
 	/**
@@ -164,7 +164,7 @@ public class TextEditor extends AbstractEditor implements Editor {
 		log.info("Insert text to editor at line " + line);
 		try {
 			insertText(line, 0, text + TextEditorHandler.getInstance()
-					.getDocument(getTextEditorPart()).getLineDelimiter(line));
+					.getDocument((ITextEditor)getEditorPart()).getLineDelimiter(line));
 		} catch (BadLocationException e) {
 			throw new WorkbenchLayerException("Line provided is invalid for this editor", e);
 		}
@@ -177,7 +177,7 @@ public class TextEditor extends AbstractEditor implements Editor {
 	 * @return string of selected text
 	 */
 	public String getSelectedText() {
-		return TextEditorHandler.getInstance().getSelectedText(getTextEditorPart());
+		return TextEditorHandler.getInstance().getSelectedText((ITextEditor)getEditorPart());
 	}
 	
 	
@@ -187,7 +187,7 @@ public class TextEditor extends AbstractEditor implements Editor {
 	 */
 	public void selectLine(final int lineNumber) {
 		log.info("Select line " + lineNumber + " in editor");
-		TextEditorHandler.getInstance().selectLine(getTextEditorPart(), lineNumber);
+		TextEditorHandler.getInstance().selectLine((ITextEditor)getEditorPart(), lineNumber);
 	}
 	
 	/**
@@ -197,7 +197,7 @@ public class TextEditor extends AbstractEditor implements Editor {
 	 */
 	public void selectText(String text) {
 		log.info("Select text in editor");
-		TextEditorHandler.getInstance().selectText(getTextEditorPart(), text, 0);
+		TextEditorHandler.getInstance().selectText((ITextEditor)getEditorPart(), text, 0);
 	}
 	
 	/**
@@ -208,7 +208,7 @@ public class TextEditor extends AbstractEditor implements Editor {
 	 */
 	public void selectText(String text, int index) {
 		log.info("Select text in editor with index " + index);
-		TextEditorHandler.getInstance().selectText(getTextEditorPart(), text, index);
+		TextEditorHandler.getInstance().selectText((ITextEditor)getEditorPart(), text, index);
 	}
 	
 	/**
@@ -256,7 +256,7 @@ public class TextEditor extends AbstractEditor implements Editor {
 	 * @return offset of text, -1 if text was not found
 	 */
 	public int getPositionOfText(String text, int index) {
-		return TextEditorHandler.getInstance().getPositionOfText(getTextEditorPart(), text, index);
+		return TextEditorHandler.getInstance().getPositionOfText((ITextEditor)getEditorPart(), text, index);
 	}
 	/**
 	 * Gets the current position of the cursor.
@@ -276,10 +276,11 @@ public class TextEditor extends AbstractEditor implements Editor {
 		ITextSelection textSelection = (ITextSelection) getEditorPart().getSite().getSelectionProvider().getSelection();
 		return textSelection.getOffset();
 	}
-	
+
 	/**
 	 * Returns text editor widget.
 	 * @return text editor widget
+	 * @deprecated since 1.1.0. Use {@link AbstractEditor.getEditorPart()} instead.
 	 */
 	protected ITextEditor getTextEditorPart() {
 		return (ITextEditor) getEditorPart();
