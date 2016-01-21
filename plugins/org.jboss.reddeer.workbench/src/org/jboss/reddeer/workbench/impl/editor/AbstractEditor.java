@@ -289,7 +289,7 @@ public class AbstractEditor implements Editor {
         return caw.getContentAssistTable() == null ? null : new ContentAssistant(caw.getContentAssistTable());
 	}
 	
-    protected IEditorPart getEditorPart() {
+    public IEditorPart getEditorPart() {
         return editorPart;
     }
 }
