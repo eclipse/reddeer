@@ -39,6 +39,17 @@ public class ShellWithTextIsAvailable extends AbstractWaitCondition {
 		InstanceValidator.checkNotNull(title, "title");
 		this.matcher = new WithTextMatcher(title);
 	}
+	
+	/**
+	 * Constructs ShellWithTextIsAvailable wait condition. Condition is met when
+	 * a shell matching matcher is available.
+	 * 
+	 * @param matcher matcher matching title of the shell
+	 */
+	public ShellWithTextIsAvailable(Matcher<String> matcher) {
+		InstanceValidator.checkNotNull(matcher, "matcher");
+		this.matcher = matcher;
+	}
 
 	/* (non-Javadoc)
 	 * @see org.jboss.reddeer.common.condition.WaitCondition#test()
