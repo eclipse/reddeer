@@ -120,4 +120,12 @@ public class LogMessage {
 		return lm;
 	}
 
+	@Override
+	public String toString() {
+		return "LogMessage [getSeverity()=" + getSeverity() + ", getMessage()=" + getMessage() + ", getPlugin()="
+				+ getPlugin() + ", getDate()=" + getDate() + ", getStackTrace()=" + getStackTrace()
+				+ ", getSessionData()=" + getSessionData() + ", getSubLogMessages()=" + getSubLogMessages() + "]";
+	}
+	
+	
 }
