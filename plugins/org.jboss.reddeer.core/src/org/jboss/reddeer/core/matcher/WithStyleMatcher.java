@@ -45,7 +45,7 @@ public class WithStyleMatcher extends BaseMatcher<Integer> {
 		if (item instanceof Widget){
 			try {
 				Integer widgetStyle = WidgetHandler.getInstance().getStyle((Widget)item);
-				return (widgetStyle.intValue() & style) != 0;
+				return (widgetStyle.intValue() & style) == style;
 			} catch (CoreLayerException sle) {
 				// object is not supported by widget handler mechanism 'getStyle'
 				return false;
