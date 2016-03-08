@@ -158,6 +158,22 @@ public class WidgetLookup {
 		return widgets;
 	}
 
+	/**
+	 * Finds active widget or reference composite matching given matcher with given index in the list of all matching widgets.
+	 * 
+	 * @param refComposite given reference composite
+	 * @param matcher given matcher
+	 * @param index index of widget in the list built by activeWidgets(Control, Matcher) method.
+	 * @return active widget
+	 */
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	public <T extends Widget> T activeWidget(Control refComposite, Matcher matcher, int index) {
+		String widgetDescription = "widget with index " + index;
+		logger.trace("Looking up " + widgetDescription + " with specified parent and matchers");
+		T widget = (T)findControl(refComposite, matcher, true, index);
+		logger.trace(widgetDescription + (widget != null ? " is found" : "is not found"));
+		return widget;
+	}
 
 	/**
 	 * Finds out whether extra shell (shell different than workbench shell) is active.
@@ -276,6 +292,34 @@ public class WidgetLookup {
 		return ret;
 	}
 
+	private <T extends Widget> T findControl(final Widget parentWidget, 
+			final Matcher<T> matcher, final boolean recursive, final int index) {
+		T ret = Display.syncExec(new ResultRunnable<T>() {
+
+			@Override
+			public T run() {
+				return findControlUI(parentWidget, matcher, recursive, new Index(index));
+			}
+		});
+		return ret;
+	}
+
+	private static class Index {
+		private int value;
+
+		public Index(int index) {
+			value = index;
+		}
+
+		public boolean isFirst() {
+			return value <= 0;
+		}
+
+		public void passed() {
+			value--;
+		}
+	}
+
 	/**
 	 * Gets control with focus.
 	 * 
@@ -328,6 +372,30 @@ public class WidgetLookup {
 		return new ArrayList<T>(controls);
 	}
 
+	@SuppressWarnings("unchecked")
+	private <T extends Widget> T findControlUI(final Widget parentWidget, final Matcher<T> matcher, final boolean recursive, Index index) {
+		if ((parentWidget == null) || parentWidget.isDisposed() || !visible(parentWidget)) {
+			return null;
+		}
+
+		if (matcher.matches(parentWidget))
+			try {
+				T control = (T) parentWidget;
+				if(index.isFirst()) {
+					return control;
+				} else {
+					index.passed();
+				}
+			} catch (ClassCastException exception) {
+				throw new IllegalArgumentException("The specified matcher should only match against is declared type.", exception);
+			}
+		if (recursive) {
+			List<Widget> children = WidgetResolver.getInstance().getChildren(parentWidget);
+			return findControlUI(children, matcher, recursive, index);
+		}
+		return null;
+	}
+
 	/**
 	 * Gets list of children control widgets matching specified matcher from specified list of widgets. Method
 	 * can be used recursively to get all children in descendants.
@@ -345,6 +413,16 @@ public class WidgetLookup {
 			list.addAll(findControlsUI(w, matcher, recursive));
 		}
 		return new ArrayList<T>(list);
+	}
+
+	private <T extends Widget> T findControlUI(final List<Widget> widgets, final Matcher<T> matcher, final boolean recursive, Index index) {
+		for (Widget w : widgets) {
+			T control = findControlUI(w, matcher, recursive, index);
+			if(control != null) {
+				return control;
+			}
+		}
+		return null;
 	}
 
 	/**
