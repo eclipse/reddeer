@@ -230,10 +230,7 @@ public class RequirementsRunner extends BlockJUnit4ClassRunner {
 	 * @see org.junit.runners.ParentRunner#withBeforeClasses(org.junit.runners.model.Statement)
 	 */
 	@Override
-	protected Statement withBeforeClasses(Statement statement) {
-		log.debug("Injecting fulfilled requirements into static fields of test class");
-		requirementsInjector.inject(getTestClass().getJavaClass(), requirements);
-		
+	protected Statement withBeforeClasses(Statement statement) {		
         List<FrameworkMethod> beforeClassMethods = getTestClass().getAnnotatedMethods(BeforeClass.class);
         
         Statement runBeforeClass = new RunBefores(configId, statement, getTestClass(), beforeClassMethods);
@@ -248,6 +245,14 @@ public class RequirementsRunner extends BlockJUnit4ClassRunner {
 	@Override
 	protected String testName(FrameworkMethod method) {
 		return method.getName()+" "+configId;
+	}
+	
+	@Override
+	protected Statement classBlock(final RunNotifier notifier) {
+		log.debug("Injecting fulfilled requirements into static fields of test class");
+		requirementsInjector.inject(getTestClass().getJavaClass(), requirements);
+		
+		return super.classBlock(notifier);
 	}
 	
 	/* (non-Javadoc)
