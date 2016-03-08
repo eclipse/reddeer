@@ -84,7 +84,7 @@ public class WidgetIsFound <T extends Widget> extends AbstractWaitCondition {
 	 */
 	public boolean test() {
 		
-		properWidget = widgetLookup.getProperWidget(widgetLookup.activeWidgets(parent, am), index);
+		properWidget = widgetLookup.activeWidget(parent, am, index);
 
 		if(properWidget == null){
 			return false;
