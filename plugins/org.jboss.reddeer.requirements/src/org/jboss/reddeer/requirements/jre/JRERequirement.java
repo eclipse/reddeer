@@ -16,8 +16,6 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 import org.jboss.reddeer.common.logging.Logger;
-import org.jboss.reddeer.common.wait.WaitWhile;
-import org.jboss.reddeer.core.condition.JobIsRunning;
 import org.jboss.reddeer.eclipse.jdt.ui.preferences.JREsPreferencePage;
 import org.jboss.reddeer.junit.requirement.CustomConfiguration;
 import org.jboss.reddeer.junit.requirement.Requirement;
@@ -72,7 +70,6 @@ public class JRERequirement implements Requirement<JRE>, CustomConfiguration<JRE
 					+ ") does not match version in JRE annotation(" + jre.value() + ").");
 			return false;
 		}
-		new WaitWhile(new JobIsRunning());
 		log.info("JRE Requirement canFulfill performed");
 		log.debug("Configuration (name,version,path): %s, %s, %s", configuration.getName(), configuration.getVersion(),
 				configuration.getPath());
