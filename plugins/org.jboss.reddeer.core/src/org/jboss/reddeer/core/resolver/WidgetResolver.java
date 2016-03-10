@@ -14,8 +14,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import javax.xml.soap.Text;
-
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.custom.CTabItem;
 import org.eclipse.swt.widgets.Composite;
@@ -80,12 +78,9 @@ public class WidgetResolver  {
 		TabItem.class,
 		ToolBar.class,
 		Composite.class,
-		Control.class,
-		Text.class
+		Control.class
 	};
 	
-	private TabItem[] items;
-
 	/**
 	 * Returns parent of specified widget. If widget is not resolvable, return null.
 	 * Must be called from UI Thread.
@@ -94,7 +89,6 @@ public class WidgetResolver  {
 	 * @return parent widget or null
 	 */
 	public Widget getParent(Widget w) {
-		if (isResolvable(w)) {
 			if (w instanceof ExpandBar) {
 				return ((ExpandBar) w).getParent();
 			}
@@ -116,31 +110,36 @@ public class WidgetResolver  {
 			else if (w instanceof ToolBar) {
 				return ((ToolBar) w).getParent();
 			}
+			else if (w instanceof ToolItem) {
+				return ((ToolItem) w).getParent();
+			}
+			else if (w instanceof TableItem) {
+				return ((TableItem) w).getParent();
+			}
 			else if (w instanceof Composite) {
-				// Control
-				Composite parent = w instanceof Control ? ((Control) w).getParent() : null;
+				Composite parent = ((Composite)w).getParent();
 				
 				// If composite under TabFolder find widget under TabFolder siblings
-				if ((w instanceof Composite) && (parent instanceof TabFolder)) {
+				if (parent instanceof TabFolder) {
 						
 					if ((parent == null) || parent.isDisposed()) {
 						throw new CoreLayerException("TabFolder is null or disposed while resolving");
 					}
 					TabItem[] tabItems = ((TabFolder) parent).getItems();
 
-					int index = -1;
-					index = Arrays.asList(tabItems).indexOf(w);
+					int index = Arrays.asList(tabItems).indexOf(w);
 					
-					if (index == -1) throw new CoreLayerException("Widget not found under TabFolder");
+					if (index == -1) {
+						throw new CoreLayerException("Widget not found under TabFolder");
+					}
 					
-					return items[index];
+					return tabItems[index];
 				}
 				return parent;
 			}
 			else if (w instanceof Control) {
 				return ((Control) w).getParent();
 			}
-		}
 		log.warn("Cannot find parent of widget. Widget type is not supported (" + w.getClass() + ")");
 		return null;
 	}
