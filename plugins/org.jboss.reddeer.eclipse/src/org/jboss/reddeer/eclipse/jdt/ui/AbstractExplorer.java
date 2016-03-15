@@ -13,6 +13,7 @@ package org.jboss.reddeer.eclipse.jdt.ui;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.common.wait.TimePeriod;
 import org.jboss.reddeer.common.wait.WaitWhile;
 import org.jboss.reddeer.core.condition.JobIsRunning;
@@ -40,6 +41,8 @@ import org.jboss.reddeer.workbench.impl.view.WorkbenchView;
  *
  */
 public class AbstractExplorer extends WorkbenchView {
+	
+	protected static final Logger log = Logger.getLogger(AbstractExplorer.class);
 
 	public AbstractExplorer(String viewTitle) {
 		super(viewTitle);
@@ -101,9 +104,10 @@ public class AbstractExplorer extends WorkbenchView {
 
 		TreeViewerHandler treeViewerHandler = TreeViewerHandler.getInstance();
 		
-		for (TreeItem item : getTree().getItems()){			
-			if (org.jboss.reddeer.direct.project.Project
-					.isProject(treeViewerHandler.getNonStyledText(item))) {
+		for (TreeItem item : getTree().getItems()){
+			String projectName = treeViewerHandler.getNonStyledText(item);
+			log.debug("Getting project with name "+projectName);
+			if (org.jboss.reddeer.direct.project.Project.isProject(projectName)) {
 				projects.add(new Project(item));
 			}
 		}
