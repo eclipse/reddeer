@@ -7,7 +7,7 @@ import org.eclipse.core.runtime.IStatus;
 import org.jboss.reddeer.common.wait.WaitUntil;
 import org.jboss.reddeer.common.wait.WaitWhile;
 import org.jboss.reddeer.core.condition.ProgressInformationShellIsActive;
-import org.jboss.reddeer.core.condition.ShellWithTextIsActive;
+import org.jboss.reddeer.core.condition.ShellWithTextIsAvailable;
 import org.jboss.reddeer.swt.api.Menu;
 import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.swt.impl.button.CheckBox;
@@ -142,7 +142,7 @@ public class LogView extends WorkbenchView{
 		cm.select();
 		new DefaultShell(CONFIRM_DLG);
 		new OkButton().click();
-		new WaitWhile(new ShellWithTextIsActive(CONFIRM_DLG));
+		new WaitWhile(new ShellWithTextIsAvailable(CONFIRM_DLG));
 	}
 
 	/**
@@ -159,7 +159,8 @@ public class LogView extends WorkbenchView{
 	private void setFilter(String severity){
 		ViewMenu tmenu = new ViewMenu("Filters...");
 		tmenu.select();
-		new WaitUntil(new ShellWithTextIsActive("Log Filters"));
+		new WaitUntil(new ShellWithTextIsAvailable("Log Filters"));
+		new DefaultShell("Log Filters");
 		new CheckBox(OK_SEVERITY).toggle(false);
 		new CheckBox(INFORMATION_SEVERITY).toggle(false);
 		new CheckBox( WARNING_SEVERITY).toggle(false);
@@ -167,7 +168,7 @@ public class LogView extends WorkbenchView{
 		new CheckBox(severity).toggle(true);
 		new CheckBox("Limit visible events to:").toggle(false);
 		new PushButton("OK").click();
-		new WaitWhile(new ShellWithTextIsActive("Log Filters"));
+		new WaitWhile(new ShellWithTextIsAvailable("Log Filters"));
 		new WaitWhile(new ProgressInformationShellIsActive());
 	}
 }
