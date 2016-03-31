@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<reddeer xmlns="http://www.jboss.org/NS/Req" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.jboss.org/NS/Req http://www.jboss.org/schema/reddeer/v1/RedDeerSchema.xsd">
+
+	<requirements>
+		<requirement
+			class="org.jboss.reddeer.junit.test.integration.runner.injection.InjectRequirementsBeforRunIfTest.ARequirementImpl"
+			name="aRequirement">
+			<property key="a" value="1" />
+		</requirement>
+	</requirements>
+
+</reddeer>
