@@ -355,7 +355,7 @@ public class ProblemsViewTest {
 		QuickFixWizard qw = new ProblemsView().getProblems(ProblemType.WARNING).get(0).openQuickFix();
 		QuickFixPage qp = new QuickFixPage();
 		List<String> problems = qp.getAvailableFixes();
-		assertTrue(problems.size() == 3);
+		assertTrue(problems.size() == 4);
 		qp.selectFix("Add @SuppressWarnings 'unused' to 'i'");
 		qw.finish();
 		TextEditor te = new TextEditor("WarningTestClass.java");
