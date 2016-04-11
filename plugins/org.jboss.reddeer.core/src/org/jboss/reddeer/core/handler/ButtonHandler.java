@@ -94,6 +94,7 @@ public class ButtonHandler {
 							WidgetHandler.getInstance().notify(SWT.Deactivate,
 									sibling);
 							sibling.setSelection(false);
+							WidgetHandler.getInstance().notify(SWT.Selection, sibling);
 						}
 					}
 				}
