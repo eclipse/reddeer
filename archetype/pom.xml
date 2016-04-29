@@ -37,6 +37,12 @@
 		</developer>
 	</developers>
 
+	<properties>
+		<!-- workaround for https://issues.jboss.org/browse/JBIDE-22248 and https://engineering.redhat.com/rt/Ticket/Display.html?id=401756 -->
+		<!-- <jbossNexus>repository.jboss.org</jbossNexus> -->
+		<jbossNexus>origin-repository.jboss.org</jbossNexus>
+	</properties>
+	
 	<build>
 		<extensions>
 			<extension>
@@ -63,14 +69,14 @@
 		<snapshotRepository>
 			<id>jboss-snapshots-repository</id>
 			<name>JBoss Snapshots Repository</name>
-			<url>https://repository.jboss.org/nexus/content/repositories/snapshots/</url>
+			<url>https://${jbossNexus}/nexus/content/repositories/snapshots/</url>
 			<uniqueVersion>false</uniqueVersion>
 		</snapshotRepository>
 		<repository>
 			<id>jboss-releases-repository</id>
 			<name>JBoss Releases Repository</name>
 			<uniqueVersion>false</uniqueVersion>
-			<url>https://repository.jboss.org/nexus/service/local/staging/deploy/maven2/</url>
+			<url>https://${jbossNexus}/nexus/service/local/staging/deploy/maven2/</url>
 		</repository>
 	</distributionManagement>
 
