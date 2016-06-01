@@ -112,7 +112,7 @@ public class ComboHandler {
 						i++;
 					}
 					throw new CoreLayerException(
-							"Nonexisting item in combo was requested");
+							"Nonexisting item in combo with text \"" + text + "\" was requested");
 				} else {
 					combo.select(index);
 				}

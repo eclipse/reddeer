@@ -113,7 +113,8 @@ public class CComboHandler {
 						log.info("    " + item + "(index " + i);
 						i++;
 					}
-					throw new CoreLayerException("Nonexisting item in custom combo was requested");
+					throw new CoreLayerException("Nonexisting item in custom combo with text \"" 
+												+ text + "\" was requested");
 				} else {
 					ccombo.select(index);
 				}
