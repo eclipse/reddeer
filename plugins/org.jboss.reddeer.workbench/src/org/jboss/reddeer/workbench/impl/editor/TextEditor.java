@@ -16,8 +16,6 @@ import org.eclipse.swt.graphics.Point;
 import org.eclipse.ui.texteditor.ITextEditor;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.common.logging.Logger;
-import org.jboss.reddeer.common.wait.WaitWhile;
-import org.jboss.reddeer.core.condition.JobIsRunning;
 import org.jboss.reddeer.core.handler.StyledTextHandler;
 import org.jboss.reddeer.core.handler.TextEditorHandler;
 import org.jboss.reddeer.core.lookup.EditorPartLookup;
@@ -243,9 +241,7 @@ public class TextEditor extends AbstractEditor implements Editor {
 	public void setCursorPosition(int offset) {
 		log.info("Set cursor position to offset: " + offset);
 		activate();
-		DefaultStyledText dst = new DefaultStyledText();
-		dst.selectPosition(offset);
-		new WaitWhile(new JobIsRunning());
+		TextEditorHandler.getInstance().setCursorPosition((ITextEditor)getEditorPart(), offset);
 	}
 
 	/**
