@@ -337,6 +337,23 @@ public class TextEditorHandler {
 	}
 	
 	/**
+	 * Sets cursor position to specified offset in specified text editor.
+	 * 
+	 * @param editor editor to handle
+	 * @param offset where cursor should be set 
+	 */
+	public void setCursorPosition(final ITextEditor editor, final int offset) {
+		Display.syncExec(new Runnable() {
+
+			@Override
+			public void run() {
+				editor.selectAndReveal(offset, 0);
+			}
+
+		});
+	}
+	
+	/**
 	 * Returns offset of the line within specified text editor.
 	 *
 	 * @param editor editor to handle
