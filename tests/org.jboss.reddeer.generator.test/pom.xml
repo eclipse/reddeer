@@ -12,23 +12,4 @@
 		<version>1.1.0-SNAPSHOT</version>
 	</parent>
 
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.eclipse.tycho</groupId>
-				<artifactId>tycho-surefire-plugin</artifactId>
-				<configuration>
-					<useUIThread>false</useUIThread>
-					<dependencies combine.children="append">
-						<dependency>
-							<type>p2-installable-unit</type>
-							<artifactId>org.eclipse.gef.feature.feature.group</artifactId>
-							<artifactId>org.eclipse.gef.examples.feature.group</artifactId>
-							<version>0.0.0</version>
-						</dependency>
-					</dependencies>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
 </project>
