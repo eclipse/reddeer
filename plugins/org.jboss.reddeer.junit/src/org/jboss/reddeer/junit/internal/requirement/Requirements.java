@@ -80,7 +80,7 @@ public class Requirements implements Requirement<Annotation>, Iterable<Requireme
 				boolean canFulfillReq = r.canFulfill();
 				log.info("Requirement " + r.getClass() + " can be fulfilled: " + canFulfillReq);
 				canFulfill = canFulfill && canFulfillReq;
-			} catch (RuntimeException ex) {
+			} catch (Throwable ex) {
 				ScreenshotCapturer screenshotCapturer = ScreenshotCapturer.getInstance();
 				try {
 					screenshotCapturer.captureScreenshotOnFailure(configID, 
@@ -103,7 +103,7 @@ public class Requirements implements Requirement<Annotation>, Iterable<Requireme
 			try {
 				log.info("Fulfilling requirement of " + r.getClass());
 				r.fulfill();
-			} catch (RuntimeException ex) {
+			} catch (Throwable ex) {
 				ScreenshotCapturer screenshotCapturer = ScreenshotCapturer.getInstance();
 				try {
 					screenshotCapturer.captureScreenshotOnFailure(configID, 
@@ -133,7 +133,7 @@ public class Requirements implements Requirement<Annotation>, Iterable<Requireme
 			try {
 				log.info("Cleaning up requirement of " + r.getClass());
 				r.cleanUp();
-			} catch (RuntimeException ex) {
+			} catch (Throwable ex) {
 				ScreenshotCapturer screenshotCapturer = ScreenshotCapturer.getInstance();
 				try {
 					screenshotCapturer.captureScreenshotOnFailure(configID, 
