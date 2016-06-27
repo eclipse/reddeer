@@ -22,10 +22,16 @@ summary {
   display: block;
 }
 
+#content_frame {
+  border: none;
+  overflow: hidden;
+  width: 690px;
+}
+
 #navigation {
-	padding: 10px;
-	font-size: 2.2em;
-	text-align: center;
+  padding: 10px;
+  font-size: 2.2em;
+  text-align: center;
 }
 
 a {
@@ -35,6 +41,16 @@ a {
 h1 {
   margin: 0.67em 0;
   font-size: 2em;
+}
+
+h2 {
+  margin: 0.61em 0;
+  fonti-size: 1.6em;	
+}
+
+h3 {
+  margin: 0.55em 0;
+  fonti-size: 1.3em;	
 }
 
 table {
@@ -198,20 +214,19 @@ code, pre {
   margin-bottom: 30px;
   font-family: Monaco, "Bitstream Vera Sans Mono", "Lucida Console", Terminal, monospace;
   font-size: 13px;
+  font-weight: bolder;
   color: #222;
 }
 
 code {
   padding: 0 3px;
-  background-color: #f2f8fc;
-  border: solid 1px #dbe7f3;
+  border: none;
 }
 
 pre {
   padding: 20px;
   overflow: auto;
   text-shadow: none;
-  background: #fff;
   border: solid 1px #f2f2f2;
 }
 

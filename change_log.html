@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
+  </head>
+
+  <body>
+    <h1>Release notes</h1>
+    <h2>1.0.0 (2015-12-16)</h2>
+    <pre><code>http://download.jboss.org/jbosstools/updates/stable/mars/core/reddeer/1.0.0/</code></pre>
+    <p>RedDeer 1.0 supports Eclipse Mars (EE). This version brings mainly lots of bug fixes and multiple other enhancements</p>
+    <p>About (~60) bugs were fixeed and other issues (~160 in total) resolved 
+    <a href="https://github.com/jboss-reddeer/reddeer/issues?q=milestone%3A1.0.0" target="_blank">here</a></p>
+    <h2>0.8.0 (2015-08-06)</h2>
+    <pre><code>http://download.jboss.org/jbosstools/updates/stable/mars/core/reddeer/0.8.0/</code></pre>
+    <p>RedDeer 0.8 supports Eclipse Mars (EE). This version is mainly about architecture improvements, related re-factoring and lot of bug fixes. In terms of these changes lots of underlying functionality went into o.j.r.common and mainly to o.j.r.core plugin. This helped us to keep architecture cleaner and to avoid cross dependency issues we have faced. Still you can also find multiple API and tooling features and enhancements in this release, for example:</p>
+	<p>You can also find some new features/API like:</p>
+	<ul>
+	  <li>Utility Project Wizard</li>
+	  <li>Property Dialog</li>
+	  <li><a href="https://github.com/jboss-reddeer/reddeer/wiki/RedDeer-Log-Parser" target="_blank">Log Parser</a></li>
+	  <li><a href="https://github.com/jboss-reddeer/reddeer/wiki/RedDeer-Spy-view" target="_blank"> RedDeer Spy View</a></li>
+	  <li><a href="https://github.com/jboss-reddeer/reddeer/wiki/User-Profile" target="_blank">User Profile support</a></li>
+	</ul>
+	<p>Now when you're creating test plugin you can simply add o.j.r.go dependency and start coding</p>
+	<p>Also many (~70) bug fixes and other issues (~180 in total) resolved 
+	<a href="https://github.com/jboss-reddeer/reddeer/issues?q=milestone%3A0.8.0" target="_blank">here</a></p>
+	<h3>0.7.0 (2015-03-17) - version for Luna</h3>
+	<ul>
+	  <li>Add isActive method for View<br /></li>
+	  <li>Create WorkbenchHandler (View + Editor handler)</li>
+	  <li>Get Tree header text<br /></li>
+	  <li>Use wait condition also when getting warnings<br /></li>
+	  <li>Add debug information in case view is not found<br /></li>
+	  <li>Fix warnings during building reddeer project<br /></li>
+	  <li>AbstractExplorerItem doesn't provide diagnostic info when exception is thrown<br /></li>
+	  <li>Project Facets property page<br /></li>
+	  <li>Allow custom wait time on wizard finish<br /></li>
+	  <li>Extend RedDeer launcher so that setting of RD properties is easier<br /></li>
+	  <li>Create File Association preferences page<br /></li>
+	  <li>Modify AbstractExplorerItem to allow implement its own descendant<br /></li>
+	  <li>Add condition to check if project exists<br /></li>
+	  <li>Capture screenshot when requirement fails<br /></li>
+	  <li>Create annotation <span>@RunIf</span> for conditional test execution<br /></li>
+	  <li>Add logging to content assist<br /></li>
+	  <li>Close all editors fails when there's no editor</li>
+	  <li>Improve waiting when deleting projects<br /></li>
+	  <li>Create extension to disable automatic updates<br /></li>
+	  <li>Refactor usage of deprecated constructors.</li>
+	  <li>Log thrown exception from test immediately<br /></li>
+	  <li>Enhance Table API and implementation<br /></li>
+	  <li>Enhance problem view<br /></li>
+	  <li>Add possibility to disable automatic updates shell</li>
+	  <li>Add possibility to delete with custom timeout<br /></li>
+	  <li>Add condition waiting for constructor to finish successfully<br /></li>
+	  <li>Improve logging in Servers view<br /></li>
+	  <li>Add logging to workbench plugin<br /></li>
+	  <li>Add ToolItem to WidgetResolver<br /></li>
+	  <li>Fix screenshot file naming and location bug</li>
+	  <li>Refactor packages for WorkbenchPreferenceDialog and PreferencePages<br /></li>
+	  <li>Improve TreeItemNotFound exception logging<br /></li>
+	  <li>Add condition to check if project contains project item<br /></li>
+	  <li>Extension to set Opening associated perspective behavior<br /></li>
+	  <li>Add constructor to AbstractEditor to allow locate editor by class<br /></li>
+	  <li>Add possibility to manage view containing project from project itself<br /></li>
+	  <li>Implement AbstractExplorerItem containing logic common for Project and ProjectItem<br /></li>
+	  <li>Refactor DefaulttreeItem to comply to default constructors<br /></li>
+	  <li>Add method getTitle() to workbench part<br /></li>
+	  <li>Secure Storage support implemented<br /></li>
+	  <li>Possibility to filter validation markers<br /></li>
+  	  <li>PreferencePage should make sure that shell is opened<br /></li>
+	  <li>Created wait condition for validation markers<br /></li>
+  	  <li>AnnotationsFinder should also find annotations of super classes<br /></li>
+	  <li>Implement not implemented methods in ServerModule<br /></li>
+	  <li>Add method setCursorPosition to TextEditor<br /></li>
+	  <li>View methods should expect the same prerequisites<br /></li>
+	  <li>Initial Red Deer product<br /></li>
+ 	  <li>Maximize and restore logs added to WorkbenchShell</li>
+	  <li>AbstractWidget provided and Widget implementations updated<br /></li>
+	  <li>Widget constructors reduced only to the necessary constructors</li>
+	  <li>Support for STEP type log message<br /></li>
+	  <li>over 140 issues resolved, see 
+	  <a href="https://github.com/jboss-reddeer/reddeer/issues?q=milestone%3A0.7.0" target="_blank">more</a></li>
+	</ul>
+	<h3>0.6.0 (2014-09-10) - version for Luna</h3>
+	<ul>
+	  <li>Added filter possibilities to ProblemsView</li>
+	  <li>EJB Wizard support added</li>
+	  <li>Quickfix, OpenOn and validation markers support for editor</li>
+	  <li>Ability to select text in styled text</li>
+	  <li>Support for Content Assist</li>
+	  <li>Server requirement extension support</li>
+	  <li>Drop Down Toolbar Item click support</li>
+	  <li>Refactored Graphiti EditPart Implementation</li>
+	  <li>Improved Preference Dialog and Pages API</li>
+	  <li>Implemented support for ExpandableComposite</li>
+	  <li>Connection profiles support for generic JDBC type implemented</li>
+	  <li>Added support for submenu in graphiti context menu</li>
+	  <li>over 200 issues resolved, see 
+	  <a href="https://github.com/jboss-reddeer/reddeer/issues?q=milestone%3A0.6.0" target="_blank">more</a></li>
+	</ul>
+	<h3>0.5.0 (2014-04-07) - version for Luna</h3>
+	<ul>
+	  <li>Initial version of RedDeer recorder added</li>
+	  <li>Predefined push buttons implementations</li>
+	  <li>Navigator View implemented</li>
+	  <li>Editor significantly improved</li>
+	  <li>Support for tool items located under editors</li>
+	  <li>Implemented browser editor</li>
+	  <li>Improved table support</li>
+	  <li>Keyboard support implemented</li>
+	  <li>Wizard for creating Annotation added</li>
+	  <li>Improved logging and lots of refactoring</li>
+	  <li>Screenshot and screencast recorder</li>
+	  <li>JavaDoc online</li>
+	  <li>Improved documentation</li>
+	  <li>almost 150 bug fixes/improvements available in total, see
+	  <a href="https://github.com/jboss-reddeer/reddeer/issues?labels=&amp;milestone=8&amp;state=closed" target="_blank">more</a></li>
+	</ul>
+	<h3>0.4.0 (2013-10-03)</h3>
+	<ul>
+	  <li>No SWTBot dependencies in RedDeer</li>
+	  <li>Reference composite API reimplemented</li>
+	  <li>Table implementation</li>
+	  <li>UIForms support added</li>
+	  <li>Almost Widgets reimplemented/improved</li>
+	  <li>UI Wizards icons update</li>
+	  <li>Optional Waits support</li>
+	  <li>No log4j dependencies in RedDeer</li>
+	  <li>Userguide improvements</li>
+	  <li>Codebase tree structure</li>
+	  <li>more than 100 bug fixes/improvements available, see
+	  <a href="https://github.com/jboss-reddeer/reddeer/issues?labels=&amp;milestone=5&amp;page=1&amp;state=closed" target="_blank">more</a></li>
+	</ul>
+	<h3>0.3.1 (Service version for Kepler, 2013-05-07 )</h3>
+	<ul>
+	  <li>Unable to locate LabeledText when an icon is present bug</li>
+	  <li>Set focus to view when instantiated if it's open enhancement</li>
+	  <li>Opening preference dialog takes more time than expected bug</li>
+	  <li>Implicit focus is set and error logged when no control in opened view has a focus enhancement blocker</li>
+	</ul>
+	<h3>0.3 (2013-05-07) - version for Kepler</h3>
+	<ul>
+	  <li>Migration to Kepler</li>
+	  <li>Remove SWTBot Dependency from Views enhancement</li>
+	  <li>Improved logging without multiple log4jxml and ability to enable debug messages added enhancement</li>
+	</ul>
+	<h3>0.2 (2013-05-07) - version for Juno</h3>
+	<ul>
+	  <li>Added support for composite widget approach</li>
+	  <li>Create new plugin with basic requirements (clean workspace, open perspective, ...)</li>
+	  <li>RedDeer Project wizard is available</li>
+	  <li>Added possibility to check table item</li>
+	  <li>Added TableHasRows condition</li>
+	  <li>Added possibility to choose table row according to column index and name</li>
+	  <li>Added constructor for LabeledText within group</li>
+	  <li>Added DefaultTree/DefaultTreeItem. Previous implementations: ShellTree(Item)/ViewTree(Item) are now deprecated</li>
+	  <li>RedDeer source feature is available on update site</li>
+	  <li>Added support for List widget in SWT layer</li>
+	  <li>BrowserView implementation</li>
+	  <li>StyledText widget implementation without SWTBot dependencies</li>
+	  <li>Abstract Editor implementation without SWTBot dependencies</li>
+	  <li>Text reimplementation without SWTBot dependencies</li>
+	  <li>Project Explorer View implementation</li>
+	  <li>Wizard API supporting dynamic pages reimplementation</li>
+	  <li>Added implicit conditions on Workbench layer</li>
+	  <li>Added implicit conditions on SWT layer</li>
+	  <li>Added implicit conditions on Eclipse layer</li>
+	  <li>Added possibility to select Tool item in any shell</li>
+	  <li>Support for Eclipse Forms</li>
+	  <li><a href="https://github.com/jboss-reddeer/reddeer/issues?labels=bug&amp;milestone=4&amp;page=1&amp;state=closed"
+	    target="_blank">Many bug fixes</a></li>
+	</ul>
+	<p>For complete list of resolved issues click 
+	<a href="https://github.com/jboss-reddeer/reddeer/issues?labels=&amp;milestone=4&amp;page=1&amp;state=closed" target="_blank">here</a></p>
+	<h3>0.1 (2012-12-03)</h3>
+	<ul>
+	  <li>Command menus support added</li>
+	  <li>Table implementation added</li>
+	  <li>ViewToolBar, WorkbenchToolbar and ToolItem support added</li>
+	  <li>OutlineView added</li>
+	  <li>JavaPerspective added</li>
+	  <li>DataTools Connection profiles support added</li>
+	  <li>Target platform changed to 4.2.1</li>
+	  <li>Many others</li>
+	</ul>
+	<h3>0.0.2 (2012-10-04)</h3>
+	<ul>
+	  <li>ImportWizardDialog implemented</li>
+	  <li>ConsoleView implemented</li>
+	  <li>ErrorLog implemented</li>
+	</ul>
+	<h3>0.0.1 (2012-09-27)</h3>
+	<ul>
+	  <li>Initial wait conditions added</li>
+	  <li>Initial JUnit layer with XML configuration added</li>
+	  <li>SWTLayer - Browser, Button, CLabel, Combo, Label, Menu, Shell, Text, Tree implementation add</li>
+	  <li>JFACE - Basic Wizard and Preference page implementation added</li>
+	  <li>Workbench - Basic View implementation added</li>
+	  <li>Basic regex lookup implementation added</li>
+	  <li>Eclipse - NewJavaProjectWizard, PackageExplorer,ProblemsView, LogView,ServersView,NewRuntimeWizard added</li>
+	</ul>
+	<br>
+  </body>
+</html>
