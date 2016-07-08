@@ -1,9 +1,9 @@
-function load_page(page){
+function loadPage(page){
 	var innerHtml = '<iframe id="content_frame" scrolling="no" src="' + page + '" onload="resizeIframe(this)"></iframe>';
 	document.getElementById("main-content").innerHTML=innerHtml;
 }
 
-function load_page_from_iframe(page) {
+function loadPageFromIframe(page) {
 	document.location.href = page;
 }
 
