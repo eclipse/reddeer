@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css">
 
+	<link rel="import" href="home.html">
+	<link rel="import" href="installation.html">
+	<link rel="import" href="change_log.html">
+
  	<script src="javascripts/main.js"></script>
  	
     <!--[if lt IE 9]>
@@ -13,31 +17,35 @@
 
     <title>RedDeer</title>
   </head>
-
-  <body>
-    <header>
+  
+  <body> 
+    <div id="header">
       <div class="inner">
-        <h1>RedDeer</h1>
-        <h2>Eclipse Testing Framework</h2>
+        <h1 id="header_h1">RedDeer</h1>
+        <h2 id="header_h2">Eclipse Testing Framework</h2>
         <a href="https://github.com/jboss-reddeer/reddeer" id="github_button" target="_blank">
           <small>View project on</small> 
           GitHub
         </a>
       </div>
-    </header>
-
+    </div>
+    
 	<div id="navigation">
-	  <a href="#" onclick="load_page('home.html')">Home</a> |
-	  <a href="#" onclick="load_page('installation.html')">Installation</a> |
+	  <a href="#" onclick="loadPage('home.html')">Home</a> |
+	  <a href="#" onclick="loadPage('installation.html')">Installation</a> |
 	  <a href="https://github.com/jboss-reddeer/reddeer/wiki/User-Guide" target="_blank">User Guide</a> |
-	  <a href="#" onclick="load_page('change_log.html')">Change Log</a>
+	  <a href="#" onclick="loadPage('change_log.html')">Change Log</a>
 	</div>
-
-    <div id="content-wrapper">
-      <div id="inner">   
+	
+	<div id="menu-wrapper">
+		<!-- here goes menu -->
+	</div>
+	
+    <div id="content-wrapper">   
+      <div class="inner">   
         <div id="main-content">
           <script>
-          load_page('home.html');
+          loadPage('home.html');
           </script>
         </div>
       
