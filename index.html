@@ -1,65 +1,65 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset='utf-8'>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css">
+<head>
+<meta charset='utf-8'>
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, maximum-scale=1">
+<link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css">
 
-	<link rel="import" href="home.html">
-	<link rel="import" href="installation.html">
-	<link rel="import" href="change_log.html">
+<link rel="import" href="home.html">
+<link rel="import" href="installation.html">
+<link rel="import" href="change_log.html">
 
- 	<script src="javascripts/main.js"></script>
- 	
-    <!--[if lt IE 9]>
+<script src="javascripts/main.js"></script>
+
+<!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
 
-    <title>RedDeer</title>
-  </head>
-  
-  <body> 
-    <div id="header">
-      <div class="inner">
-        <h1 id="header_h1">RedDeer</h1>
-        <h2 id="header_h2">Eclipse Testing Framework</h2>
-        <a href="https://github.com/jboss-reddeer/reddeer" id="github_button" target="_blank">
-          <small>View project on</small> 
-          GitHub
-        </a>
-      </div>
-    </div>
-    
+<title>RedDeer</title>
+</head>
+
+<body>
+	<div id="header">
+		<div class="inner">
+			<h1 id="header_h1">RedDeer</h1>
+			<h2 id="header_h2">Eclipse Testing Framework</h2>
+			<a href="https://github.com/jboss-reddeer/reddeer" id="github_button"
+				target="_blank"> <small>View project on</small> GitHub
+			</a>
+		</div>
+	</div>
+
 	<div id="navigation">
-	  <a href="#" onclick="loadPage('home.html')">Home</a> |
-	  <a href="#" onclick="loadPage('installation.html')">Installation</a> |
-	  <a href="https://github.com/jboss-reddeer/reddeer/wiki/User-Guide" target="_blank">User Guide</a> |
-	  <a href="#" onclick="loadPage('change_log.html')">Change Log</a>
+		<a href="#" onclick="loadPage('home.html')">Home</a> | <a href="#"
+			onclick="loadPage('installation.html')">Installation</a> | <a
+			href="https://github.com/jboss-reddeer/reddeer/wiki/User-Guide"
+			target="_blank">User Guide</a> | <a href="#"
+			onclick="loadPage('change_log.html')">Change Log</a>
 	</div>
-	
+
 	<div id="menu-wrapper">
-		<!-- here goes menu -->
+		<script>
+			generateMenu('change_log.html');
+		</script>
 	</div>
-	
-    <div id="content-wrapper">   
-      <div class="inner">   
-        <div id="main-content">
-          <script>
-          loadPage('home.html');
-          </script>
-        </div>
-      
-        <div id="sidebar">
-          <a href="https://github.com/jboss-reddeer/reddeer/zipball/master" class="side_button">
-            <small>Download</small>
-            .zip file
-          </a>
-          <a href="https://github.com/jboss-reddeer/reddeer/tarball/master" class="side_button">
-            <small>Download</small>
-            .tar.gz file
-          </a>         
-        </div>
-      </div>
-    </div>
-  </body>
+
+	<div id="content-wrapper">
+		<div class="inner">
+			<div id="main-content">
+				<script>
+					loadPage('home.html');
+				</script>
+			</div>
+
+			<div id="sidebar">
+				<a href="https://github.com/jboss-reddeer/reddeer/zipball/master"
+					class="side_button"> <small>Download</small> .zip file
+				</a> <a href="https://github.com/jboss-reddeer/reddeer/tarball/master"
+					class="side_button"> <small>Download</small> .tar.gz file
+				</a>
+			</div>
+		</div>
+	</div>
+</body>
 </html>
