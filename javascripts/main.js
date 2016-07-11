@@ -1,13 +1,14 @@
-function loadPage(page){
-	var innerHtml = '<iframe id="content_frame" scrolling="no" src="' + page + '" onload="resizeIframe(this)"></iframe>';
-	document.getElementById("main-content").innerHTML=innerHtml;
+function loadPage(page) {
+	var xhttp = new XMLHttpRequest();
+	xhttp.onreadystatechange = function() {
+		if (xhttp.readyState == 4 && xhttp.status == 200) {
+			setHtmlForElement("main-content", xhttp.responseText);
+		}
+	};
+	xhttp.open("GET", page, true);
+	xhttp.send();
 }
 
-function loadPageFromIframe(page) {
-	document.location.href = page;
-}
-
-function resizeIframe(object) {
-    object.style.height = object.contentWindow.document.body.scrollHeight + 'px';
-    object.style.width = object.contentWindow.document.body.scrollWidth + 'px';
+function setHtmlForElement(elementID, html) {
+	document.getElementById(elementID).innerHTML = html;
 }

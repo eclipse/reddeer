@@ -155,7 +155,7 @@ body {
 }
 
 p {
-  margin-top: 0;
+  margin: 0.7em;
 }
 
 a {
@@ -226,18 +226,12 @@ a.side_button small {
   background: transparent url(../images/github-button.png) 0 0 no-repeat;
 }
 
-code, pre {
-  margin-bottom: 30px;
-  font-family: Monaco, "Bitstream Vera Sans Mono", "Lucida Console", Terminal, monospace;
-  font-size: 13px;
-  font-weight: bolder;
-  color: #222;
-  background: white;
-}
-
 code {
-  padding: 0 3px;
-  border: none;
+  font-family: "Courier New", Courier, monospace;
+  background: #e8e8e8;
+  font-size: 13px;
+  margin: 1.7em;
+  padding: 0.7em 1.1em 0.7em 1.1em;
 }
 
 pre {
