@@ -180,6 +180,31 @@ public class TextEditorHandler {
             }
         });
     }
+    
+    /**
+     * Returns line number of i-th occurrence of given text.
+     *  
+     * @param editor editor to handle
+     * @param text text to find
+     * @param textIndex index of text occurrence in editor
+     * @return line number of text found, -1 otherwise
+     */    
+    public int getLineOfText(final ITextEditor editor, final String text, final int textIndex) {
+    	return Display.syncExec(new ResultRunnable<Integer>() {
+
+			@Override
+			public Integer run() {
+				int textOffset = getPositionOfText(editor, text, textIndex);
+				int line = -1;
+				try {
+					line = getDocument(editor).getLineOfOffset(textOffset);
+				} catch (BadLocationException e) {
+					line = -1;
+				}
+				return line;
+			}
+    	});
+    }
 
     /**
      * Selects line with specified number in specified text editor.
