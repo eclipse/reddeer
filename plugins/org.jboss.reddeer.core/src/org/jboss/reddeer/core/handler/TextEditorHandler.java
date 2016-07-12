@@ -182,6 +182,30 @@ public class TextEditorHandler {
     }
 
     /**
+     * Returns line number of first occurrence of given text.
+     *  
+     * @param editor editor to handle
+     * @param text text to find
+     * @return line number of text found, -1 otherwise
+     */    
+    public int getLineOfText(final ITextEditor editor, final String text) {
+    	return Display.syncExec(new ResultRunnable<Integer>() {
+
+			@Override
+			public Integer run() {
+				int textOffset = getPositionOfText(editor, text);
+				int line = -1;
+				try {
+					line = getDocument(editor).getLineOfOffset(textOffset);
+				} catch (BadLocationException e) {
+					line = -1;
+				}
+				return line;
+			}
+    	});
+    }
+
+    /**
      * Selects line with specified number in specified text editor.
      * 
      * @param editor editor to handle

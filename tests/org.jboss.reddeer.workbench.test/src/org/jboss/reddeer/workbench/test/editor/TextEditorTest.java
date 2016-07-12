@@ -257,7 +257,15 @@ public class TextEditorTest {
 		assertEquals("\t\tSystem.out.println(\"\");", textEditor.getTextAtLine(4));
 	}
 	
-
+	@Test
+	public void getLineOfText() {
+		TextEditor textEditor = TextEditorTest.openJavaFile();
+		collapseTextInJavaFile();
+		assertEquals(1, textEditor.getLineOfText("JavaClass"));
+		assertEquals(3, textEditor.getLineOfText("public JavaClass"));
+		assertEquals(-1, textEditor.getLineOfText("public void"));
+	}
+	
 	@Test
 	public void getMarkers(){
 		TextEditor textEditor = TextEditorTest.openJavaFile();

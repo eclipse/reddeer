@@ -121,6 +121,14 @@ public class TextEditor extends AbstractEditor implements Editor {
 	}
 	
 	/**
+	 * Returns line number of the first occurrence of given text in editor.
+	 * @return line number of text
+	 */	
+	public int getLineOfText(String text) {
+		return TextEditorHandler.getInstance().getLineOfText((ITextEditor)getEditorPart(), text);
+	}
+	
+	/**
 	 * Inserts text on defined line and offset. Note, that offset doesn't mean column to which insert will be performed,
 	 * but it means nth character from start of the line. 
 	 * Thus inserting after first tab character means to insert with offset 1, 
