@@ -260,7 +260,6 @@ public class TextEditorTest {
 	@Test
 	public void getLineOfText() {
 		TextEditor textEditor = TextEditorTest.openJavaFile();
-		collapseTextInJavaFile();
 		assertEquals(1, textEditor.getLineOfText("JavaClass"));
 		assertEquals(3, textEditor.getLineOfText("public JavaClass"));
 		assertEquals(-1, textEditor.getLineOfText("Some text not present in editor"));
