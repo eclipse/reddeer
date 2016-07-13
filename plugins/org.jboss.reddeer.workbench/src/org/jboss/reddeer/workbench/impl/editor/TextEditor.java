@@ -126,7 +126,7 @@ public class TextEditor extends AbstractEditor implements Editor {
 	 * @return line number of text, or -1 if text was not found
 	 */	
 	public int getLineOfText(final String text) {
-		return TextEditorHandler.getInstance().getLineOfText((ITextEditor)getEditorPart(), text);
+		return getLineOfText(text, 0);
 	}
 
 	/**
