@@ -121,11 +121,23 @@ public class TextEditor extends AbstractEditor implements Editor {
 	}
 	
 	/**
-	 * Returns line number of the first occurrence of given text in editor.
-	 * @return line number of text
+	 * Returns line number of the first occurrence of given text in editor, or -1 if text is not found.
+	 * @param text to be searched for
+	 * @return line number of text, or -1 if text was not found
 	 */	
-	public int getLineOfText(String text) {
+	public int getLineOfText(final String text) {
 		return TextEditorHandler.getInstance().getLineOfText((ITextEditor)getEditorPart(), text);
+	}
+
+	/**
+	 * Returns line number of i-th occurrence of given text in editor. 
+	 * If text is not found or its i-th occurrence is not present -1 is returned instead.
+	 * @param text to search for
+	 * @param textIndex index of text (i-th occurrence)
+	 * @return line number of the i-th text occurrence, or -1 if was not found on given position 
+	 */	
+	public int getLineOfText(final String text, final int textIndex) {
+		return TextEditorHandler.getInstance().getLineOfText((ITextEditor)getEditorPart(), text, textIndex);
 	}
 	
 	/**

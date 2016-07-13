@@ -263,7 +263,16 @@ public class TextEditorTest {
 		collapseTextInJavaFile();
 		assertEquals(1, textEditor.getLineOfText("JavaClass"));
 		assertEquals(3, textEditor.getLineOfText("public JavaClass"));
-		assertEquals(-1, textEditor.getLineOfText("public void"));
+		assertEquals(-1, textEditor.getLineOfText("Some text not present in editor"));
+	}
+	
+	@Test
+	public void getLineOfTextIndex() {
+		TextEditor textEditor = TextEditorTest.openJavaFile();
+		assertEquals(1, textEditor.getLineOfText("JavaClass", 0));
+		assertEquals(3, textEditor.getLineOfText("JavaClass", 1));
+		assertEquals(-1, textEditor.getLineOfText("JavaClass", 2));
+		assertEquals(-1, textEditor.getLineOfText("Some text not present in editor", 0));
 	}
 	
 	@Test
