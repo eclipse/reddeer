@@ -29,6 +29,7 @@ import org.eclipse.swt.widgets.TabItem;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.swt.widgets.Widget;
+import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.core.exception.CoreLayerException;
 import org.jboss.reddeer.core.lookup.WidgetLookup;
 import org.jboss.reddeer.core.resolver.WidgetResolver;
@@ -46,6 +47,8 @@ import org.jboss.reddeer.core.util.ResultRunnable;
 public class WidgetHandler {
 
 	private static WidgetHandler instance;
+	
+	private static final Logger log = Logger.getLogger(WidgetHandler.class);
 
 	private WidgetHandler() {
 
@@ -383,6 +386,7 @@ public class WidgetHandler {
 			final Widget widget) {
 		createEvent.type = eventType;
 
+		log.trace("Notify "+widget+" with event "+eventType);
 		Display.asyncExec(new Runnable() {
 			public void run() {
 				if ((widget == null) || widget.isDisposed()) {
@@ -393,6 +397,7 @@ public class WidgetHandler {
 			}
 		});
 
+		log.trace("Wait for synchronization");
 		// Wait for synchronization
 		Display.syncExec(new Runnable() {
 			public void run() {

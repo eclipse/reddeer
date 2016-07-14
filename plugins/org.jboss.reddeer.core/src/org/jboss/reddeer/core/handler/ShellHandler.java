@@ -73,6 +73,7 @@ public class ShellHandler {
 	 */
 	public void closeShell(final Shell swtShell) {
 
+		log.trace("Closing shell");
 		Display.syncExec(new Runnable() {
 			@Override
 			public void run() {

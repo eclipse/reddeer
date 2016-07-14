@@ -15,14 +15,13 @@ import org.eclipse.swt.widgets.Control;
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.common.wait.WaitUntil;
 import org.jboss.reddeer.common.wait.WaitWhile;
-import org.jboss.reddeer.core.condition.ShellWithTextIsAvailable;
 import org.jboss.reddeer.core.handler.ShellHandler;
 import org.jboss.reddeer.core.handler.WidgetHandler;
 import org.jboss.reddeer.core.util.DiagnosticTool;
 import org.jboss.reddeer.swt.api.Shell;
 import org.jboss.reddeer.swt.condition.ShellIsActive;
+import org.jboss.reddeer.swt.condition.ShellIsAvailable;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
-import org.jboss.reddeer.swt.impl.button.CancelButton;
 
 /**
  * Abstract class for all Shells
@@ -97,13 +96,8 @@ public abstract class AbstractShell implements Shell {
 	public void close() {
 		String text = getText();
 		log.info("Close shell " + text);
-		try {
-			new CancelButton().click();
-		} catch (Exception e) {
-			WidgetHandler.getInstance().notify(SWT.Close, swtShell);
-			ShellHandler.getInstance().closeShell(swtShell);
-		}
-		new WaitWhile(new ShellWithTextIsAvailable(text));
+		ShellHandler.getInstance().closeShell(swtShell);
+		new WaitWhile(new ShellIsAvailable(this));
 	}
 
 	/* (non-Javadoc)
