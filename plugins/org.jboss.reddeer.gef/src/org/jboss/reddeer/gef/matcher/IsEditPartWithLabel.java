@@ -7,7 +7,7 @@
  * 
  * Contributors: 
  * Red Hat, Inc. - initial API and implementation 
- ******************************************************************************/ 
+ ******************************************************************************/
 package org.jboss.reddeer.gef.matcher;
 
 import java.util.List;
@@ -19,6 +19,8 @@ import org.eclipse.gef.EditPart;
 import org.eclipse.gef.GraphicalEditPart;
 import org.hamcrest.BaseMatcher;
 import org.hamcrest.Description;
+import org.hamcrest.Matcher;
+import org.hamcrest.core.Is;
 import org.hamcrest.core.IsInstanceOf;
 import org.jboss.reddeer.gef.finder.FigureFinder;
 
@@ -31,18 +33,31 @@ import org.jboss.reddeer.gef.finder.FigureFinder;
  */
 public class IsEditPartWithLabel extends BaseMatcher<EditPart> {
 
-	private String label;
+	private Matcher<String> matcher;
 
 	/**
 	 * Constructs a matcher with a given label.
 	 * 
-	 * @param label Label
+	 * @param label
+	 *            Label
 	 */
 	public IsEditPartWithLabel(String label) {
-		this.label = label;
+		this(Is.<String> is(label));
 	}
 
-	/* (non-Javadoc)
+	/**
+	 * Constructs a matcher with a given matcher.
+	 * 
+	 * @param matcher
+	 *            Matcher
+	 */
+	public IsEditPartWithLabel(Matcher<String> matcher) {
+		this.matcher = matcher;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.hamcrest.Matcher#matches(java.lang.Object)
 	 */
 	@Override
@@ -53,14 +68,14 @@ public class IsEditPartWithLabel extends BaseMatcher<EditPart> {
 				List<IFigure> labels = new FigureFinder().find(gep.getFigure(), new IsInstanceOf(Label.class));
 				for (IFigure figure : labels) {
 					String label = ((Label) figure).getText();
-					if (this.label.trim().equals(label.trim())) {
+					if (matcher.matches(label)) {
 						return true;
 					}
 				}
 				List<IFigure> textFlows = new FigureFinder().find(gep.getFigure(), new IsInstanceOf(TextFlow.class));
 				for (IFigure figure : textFlows) {
 					String text = ((TextFlow) figure).getText();
-					if (this.label.trim().equals(text.trim())) {
+					if (matcher.matches(text)) {
 						return true;
 					}
 				}
@@ -69,11 +84,13 @@ public class IsEditPartWithLabel extends BaseMatcher<EditPart> {
 		return false;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.hamcrest.SelfDescribing#describeTo(org.hamcrest.Description)
 	 */
 	@Override
 	public void describeTo(Description description) {
-		description.appendText("is EditPart with label '" + label + "'");
+		description.appendText("is EditPart with label '" + matcher.toString() + "'");
 	}
 }
