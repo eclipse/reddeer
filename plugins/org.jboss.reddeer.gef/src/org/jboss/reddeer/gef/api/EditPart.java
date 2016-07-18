@@ -7,7 +7,7 @@
  * 
  * Contributors: 
  * Red Hat, Inc. - initial API and implementation 
- ******************************************************************************/ 
+ ******************************************************************************/
 package org.jboss.reddeer.gef.api;
 
 /**
@@ -31,8 +31,16 @@ public interface EditPart {
 	/**
 	 * Sets the edit part with a given label.
 	 *
-	 * @param label the new label
+	 * @param label
+	 *            the new label
 	 */
 	void setLabel(String label);
+
+	/**
+	 * Returns GEF Edit Part enclosed by this edit part.
+	 * 
+	 * @return the enclosed edit part
+	 */
+	org.eclipse.gef.EditPart getGEFEditPart();
 
 }

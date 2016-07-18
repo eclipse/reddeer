@@ -95,6 +95,11 @@ public abstract class AbstractEditPart implements EditPart, ReferencedComposite 
 		return editPart.getViewer().getControl();
 	}
 
+	@Override
+	public org.eclipse.gef.EditPart getGEFEditPart() {
+		return editPart;
+	}
+
 	protected IFigure getFigure() {
 		return EditPartHandler.getInstance().getFigure(editPart);
 	}
