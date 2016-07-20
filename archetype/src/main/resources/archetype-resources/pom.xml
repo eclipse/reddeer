@@ -15,6 +15,8 @@
 #set ($rd_repository = 'http://download.jboss.org/jbosstools/updates/stable/mars/core/reddeer/1.0.0/')
 #elseif ($reddeer_version == "1.0.1")
 #set ($rd_repository = 'http://download.jboss.org/jbosstools/updates/stable/mars/core/reddeer/1.0.1/')
+#elseif ($reddeer_version == "1.0.2")
+#set ($rd_repository = 'http://download.jboss.org/jbosstools/updates/stable/mars/core/reddeer/1.0.2/')
 #else
 #set ($rd_repository = 'http://download.jboss.org/jbosstools/mars/snapshots/builds/reddeer_master/')
 #end

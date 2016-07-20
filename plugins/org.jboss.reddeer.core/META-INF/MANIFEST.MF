@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: RedDeer Core
 Bundle-Vendor: JBoss by Red Hat
 Bundle-SymbolicName: org.jboss.reddeer.core
-Bundle-Version: 1.0.2.qualifier
+Bundle-Version: 1.0.2.Final
 Bundle-Activator: org.jboss.reddeer.core.Activator
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
