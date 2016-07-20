@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>org.jboss.reddeer</groupId>
 		<artifactId>features</artifactId>
-		<version>1.0.2.Final</version>
+		<version>1.0.3-SNAPSHOT</version>
 	</parent>
 	
 	<name>Red Deer Help Feature</name>

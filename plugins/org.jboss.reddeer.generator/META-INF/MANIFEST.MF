@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: RedDeer Code Generator
 Bundle-SymbolicName: org.jboss.reddeer.generator;singleton:=true
-Bundle-Version: 1.0.2.Final
+Bundle-Version: 1.0.3.qualifier
 Bundle-Activator: org.jboss.reddeer.generator.Activator
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,

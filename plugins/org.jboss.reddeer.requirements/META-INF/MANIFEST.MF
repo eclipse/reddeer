@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Reddeer Requirements support
 Bundle-SymbolicName: org.jboss.reddeer.requirements
-Bundle-Version: 1.0.2.Final
+Bundle-Version: 1.0.3.qualifier
 Bundle-Activator: org.jboss.reddeer.requirements.Activator
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,

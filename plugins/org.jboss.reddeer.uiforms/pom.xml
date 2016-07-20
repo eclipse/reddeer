@@ -9,6 +9,6 @@
 	<parent>
 		<groupId>org.jboss.reddeer</groupId>
                 <artifactId>plugins</artifactId>
-		<version>1.0.2.Final</version>
+		<version>1.0.3-SNAPSHOT</version>
 	</parent>
 </project>
