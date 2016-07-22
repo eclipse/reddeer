@@ -22,6 +22,8 @@
 				 you can override this value to be Nightly Build, Development Milestone, or Stable Release, or set to &amp;shy; (soft hyphen) to leave blank -->
 		<update.site.description>&amp;shy;</update.site.description>
 		<targetEclipseVersion>4.6 (Neon)</targetEclipseVersion>
+        <BUILD_TIMESTAMP>${maven.build.timestamp}</BUILD_TIMESTAMP>
+        <maven.build.timestamp.format>yyyy-MM-dd_HH-mm-ss</maven.build.timestamp.format>
 	</properties>
 	
 	<modules>

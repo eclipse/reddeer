@@ -13,10 +13,8 @@
 	</parent>
 
 	<properties>
-		<!-- Mars convention -->
-		<publishingPath>mars/snapshots/builds/${JOB_NAME}/${BUILD_ID}-B${BUILD_NUMBER}/all/repo/</publishingPath>
-		<!-- Luna convention: TODO JBIDE-18772: remove this when master build only works for Mars -->
-		<publishingPath>builds/staging/${JOB_NAME}/all/repo/</publishingPath>
+		<!-- BUILD_TIMESTAMP is defined in root pom -->
+		<publishingPath>neon/snapshots/builds/${JOB_NAME}/${BUILD_TIMESTAMP}-B${BUILD_NUMBER}/all/repo/</publishingPath>
 		<update.site.name>Red Deer</update.site.name>
 	</properties>
 
