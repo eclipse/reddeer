@@ -10,8 +10,10 @@
  ******************************************************************************/ 
 package org.jboss.reddeer.eclipse.wst.server.ui.wizard;
 
+import org.hamcrest.core.StringContains;
+import org.jboss.reddeer.common.wait.WaitUntil;
+import org.jboss.reddeer.core.condition.NamedThreadHasStatus;
 import org.jboss.reddeer.jface.wizard.WizardPage;
-import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
 
 /**
@@ -34,8 +36,8 @@ public class NewRuntimeWizardPage extends WizardPage {
 	 *
 	 * @param type the type
 	 */
-	public void selectType(String... type){
-		TreeItem t = new DefaultTreeItem(type);
-		t.select();
+	public void selectType(String... type) {
+		new WaitUntil(new NamedThreadHasStatus(new StringContains("Initializing Servers view"), Thread.State.TERMINATED, true));
+		new DefaultTreeItem(type).select();
 	}
 }
