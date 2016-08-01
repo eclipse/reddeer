@@ -11,9 +11,12 @@
 package org.jboss.reddeer.core.handler;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.Event;
+import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
-import org.jboss.reddeer.common.exception.WaitTimeoutExpiredException;
+import org.jboss.reddeer.common.condition.AbstractWaitCondition;
+import org.jboss.reddeer.common.exception.RedDeerException;
 import org.jboss.reddeer.common.wait.TimePeriod;
 import org.jboss.reddeer.common.wait.WaitUntil;
 import org.jboss.reddeer.common.wait.WaitWhile;
@@ -123,38 +126,41 @@ public class TableItemHandler {
 							+ swtTableItem.getText()
 							+ " because table does not have SWT.CHECK style");
 				}
-				swtTableItem.setChecked(check);
+			}
+		});
+
+		final TableCheckListener listener = new TableCheckListener();
+		
+		Display.syncExec(new Runnable() {
+			@Override
+			public void run() {
+				swtTableItem.getParent().addListener(SWT.Selection, listener);
 			}
 		});
 		
 		try{
-			if (check){
-				new WaitUntil(new WidgetIsChecked(swtTableItem),TimePeriod.SHORT);
-			}
-			else{
-				new WaitWhile(new WidgetIsChecked(swtTableItem),TimePeriod.SHORT);
-			}	
-		} catch (WaitTimeoutExpiredException wtee){
-			// On MacOS setChecked on TableItem has to be called twice
 			Display.syncExec(new Runnable() {
 				@Override
 				public void run() {
-					if (check != swtTableItem.getChecked()){
-						swtTableItem.setChecked(check);
-					}
+					swtTableItem.setChecked(check);
+					swtTableItem.getParent().update();
+				}
+			});
+			
+			new WaitUntil(new TableHeardCheckNotification(swtTableItem, listener), TimePeriod.SHORT);
+			
+		} catch (RedDeerException ex){
+			throw ex;
+		} finally {
+			Display.syncExec(new Runnable() {
+				@Override
+				public void run() {
+					swtTableItem.getParent().removeListener(SWT.Selection, listener);
 				}
 			});
 		}
+
 		
-		if (check){
-			new WaitUntil(new WidgetIsChecked(swtTableItem),TimePeriod.SHORT);
-		}
-		else{
-			new WaitWhile(new WidgetIsChecked(swtTableItem),TimePeriod.SHORT);
-		}
-		
-		WidgetHandler.getInstance().notifyItem(SWT.Selection,
-				SWT.CHECK, WidgetHandler.getInstance().getParent(swtTableItem), swtTableItem);
 
 	}
 
@@ -201,5 +207,47 @@ public class TableItemHandler {
 				tableItem.getParent().forceFocus();
 			}
 		});
+	}
+	
+	
+	private class TableCheckListener implements Listener {
+
+		private boolean heard = false;
+
+		@Override
+		public void handleEvent(Event arg0) {
+			heard = true;
+		}
+
+		public boolean isHeard() {
+			return heard;
+		}
+
+	}
+	
+	
+	private class TableHeardCheckNotification extends AbstractWaitCondition {
+
+		private org.eclipse.swt.widgets.TableItem tableItem;
+		private TableCheckListener listener;
+
+		public TableHeardCheckNotification( org.eclipse.swt.widgets.TableItem tableItem,
+				TableCheckListener listener) {
+			this.tableItem = tableItem;
+			this.listener = listener;
+		}
+
+		@Override
+		public boolean test() {
+			WidgetHandler.getInstance().notifyItem(SWT.Selection,
+					SWT.CHECK, WidgetHandler.getInstance().getParent(tableItem), tableItem);
+			return listener.isHeard();
+		}
+
+		@Override
+		public String description() {
+			return "table heard check notification";
+		}
+
 	}
 }
