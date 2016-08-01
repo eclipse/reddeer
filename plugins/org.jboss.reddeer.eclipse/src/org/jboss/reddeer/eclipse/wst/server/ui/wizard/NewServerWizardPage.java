@@ -14,9 +14,11 @@ import org.hamcrest.core.StringContains;
 import org.jboss.reddeer.common.wait.WaitUntil;
 import org.jboss.reddeer.core.condition.NamedThreadHasStatus;
 import org.jboss.reddeer.jface.wizard.WizardPage;
+import org.jboss.reddeer.swt.condition.TreeContainsItem;
 import org.jboss.reddeer.swt.condition.WidgetIsEnabled;
 import org.jboss.reddeer.swt.impl.button.NextButton;
 import org.jboss.reddeer.swt.impl.text.LabeledText;
+import org.jboss.reddeer.swt.impl.tree.DefaultTree;
 import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
 
 /**
@@ -36,8 +38,9 @@ public class NewServerWizardPage extends WizardPage {
 	 */
 	public void selectType(String... type) {
 		new WaitUntil(new NamedThreadHasStatus(new StringContains("Initializing Servers view"), Thread.State.TERMINATED, true));
-		new WaitUntil(new WidgetIsEnabled(new NextButton()));
+		new WaitUntil(new TreeContainsItem(new DefaultTree(), type));
 		new DefaultTreeItem(type).select();
+		new WaitUntil(new WidgetIsEnabled(new NextButton()));
 	}
 
 	/**
