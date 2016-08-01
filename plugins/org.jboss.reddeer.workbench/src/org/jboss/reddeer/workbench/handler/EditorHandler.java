@@ -27,11 +27,11 @@ import org.eclipse.ui.texteditor.IDocumentProvider;
 import org.eclipse.ui.texteditor.ITextEditor;
 import org.eclipse.ui.texteditor.SimpleMarkerAnnotation;
 import org.jboss.reddeer.common.logging.Logger;
-import org.jboss.reddeer.core.condition.ShellWithTextIsActive;
 import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.jboss.reddeer.core.util.Display;
 import org.jboss.reddeer.core.util.ResultRunnable;
+import org.jboss.reddeer.core.condition.ShellWithTextIsAvailable;
 import org.jboss.reddeer.core.handler.WorkbenchPartHandler;
 import org.jboss.reddeer.common.wait.WaitWhile;
 import org.jboss.reddeer.workbench.exception.WorkbenchLayerException;
@@ -152,7 +152,7 @@ public class EditorHandler {
             });
             new DefaultShell("Save Resource");
             new PushButton("Yes").click();
-            new WaitWhile(new ShellWithTextIsActive("Save Resource"));
+            new WaitWhile(new ShellWithTextIsAvailable("Save Resource"));
         } else {
             Display.syncExec(new Runnable() {
 

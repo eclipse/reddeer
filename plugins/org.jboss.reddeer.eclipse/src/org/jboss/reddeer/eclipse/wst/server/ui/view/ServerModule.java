@@ -14,7 +14,6 @@ import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.common.wait.WaitUntil;
 import org.jboss.reddeer.common.wait.WaitWhile;
 import org.jboss.reddeer.core.condition.JobIsRunning;
-import org.jboss.reddeer.core.condition.ShellWithTextIsActive;
 import org.jboss.reddeer.core.condition.ShellWithTextIsAvailable;
 import org.jboss.reddeer.eclipse.exception.EclipseLayerException;
 import org.jboss.reddeer.swt.api.TreeItem;
@@ -71,10 +70,9 @@ public class ServerModule {
 		log.info("Remove server module with name '" + getLabel().getName() + "'");
 		final String workbenchTitle = new WorkbenchShell().getText();
 		new ShellMenu("Edit", "Delete").select();
-		new WaitUntil(new ShellWithTextIsActive("Server"));
+		new WaitUntil(new ShellWithTextIsAvailable("Server"));
 		new PushButton("OK").click();
 		new WaitWhile(new ShellWithTextIsAvailable("Server"));
-		new WaitUntil(new ShellWithTextIsActive(workbenchTitle));
 		new WaitWhile(new JobIsRunning());
 		treeItem = null;
 	}

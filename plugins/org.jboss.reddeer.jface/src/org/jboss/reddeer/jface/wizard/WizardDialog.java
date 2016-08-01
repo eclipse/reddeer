@@ -16,7 +16,7 @@ import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.common.wait.TimePeriod;
 import org.jboss.reddeer.common.wait.WaitWhile;
 import org.jboss.reddeer.core.condition.JobIsRunning;
-import org.jboss.reddeer.core.condition.ShellWithTextIsActive;
+import org.jboss.reddeer.core.condition.ShellWithTextIsAvailable;
 import org.jboss.reddeer.core.handler.WidgetHandler;
 import org.jboss.reddeer.core.reference.DefaultReferencedComposite;
 import org.jboss.reddeer.swt.api.Button;
@@ -66,7 +66,7 @@ public class WizardDialog {
 		Button button = new FinishButton();
 		button.click();
 
-		new WaitWhile(new ShellWithTextIsActive(shellText), timeout);
+		new WaitWhile(new ShellWithTextIsAvailable(shellText), timeout);
 		new WaitWhile(new JobIsRunning(), timeout);
 	}
 	
@@ -80,7 +80,7 @@ public class WizardDialog {
 		new WaitWhile(new JobIsRunning());
 		new CancelButton().click();
 
-		new WaitWhile(new ShellWithTextIsActive(shellText));
+		new WaitWhile(new ShellWithTextIsAvailable(shellText));
 		new WaitWhile(new JobIsRunning());
 	}
 

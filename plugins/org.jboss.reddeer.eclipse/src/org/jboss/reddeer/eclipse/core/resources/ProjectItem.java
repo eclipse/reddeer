@@ -16,7 +16,7 @@ import org.jboss.reddeer.common.matcher.RegexMatcher;
 import org.jboss.reddeer.common.wait.TimePeriod;
 import org.jboss.reddeer.common.wait.WaitUntil;
 import org.jboss.reddeer.common.wait.WaitWhile;
-import org.jboss.reddeer.core.condition.ShellWithTextIsActive;
+import org.jboss.reddeer.core.condition.ShellWithTextIsAvailable;
 import org.jboss.reddeer.core.matcher.WithMnemonicTextMatcher;
 import org.jboss.reddeer.core.matcher.WithTextMatcher;
 import org.jboss.reddeer.direct.preferences.Preferences;
@@ -66,10 +66,10 @@ public class ProjectItem extends ExplorerItem {
 	public void openWith(String editor) {
 		select();
 		new ContextMenu("Open With", "Other...").select();;
-		new WaitUntil(new ShellWithTextIsActive("Editor Selection"));
+		new WaitUntil(new ShellWithTextIsAvailable("Editor Selection"));
 		new DefaultTreeItem(editor).select();
 		new OkButton().click();
-		new WaitWhile(new ShellWithTextIsActive("Editor Selection"));
+		new WaitWhile(new ShellWithTextIsAvailable("Editor Selection"));
 	}
 	
 	/**

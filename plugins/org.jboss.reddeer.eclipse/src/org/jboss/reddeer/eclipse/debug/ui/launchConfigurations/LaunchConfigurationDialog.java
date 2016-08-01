@@ -18,7 +18,7 @@ import org.jboss.reddeer.common.wait.TimePeriod;
 import org.jboss.reddeer.common.wait.WaitUntil;
 import org.jboss.reddeer.common.wait.WaitWhile;
 import org.jboss.reddeer.core.condition.JobIsRunning;
-import org.jboss.reddeer.core.condition.ShellWithTextIsActive;
+import org.jboss.reddeer.core.condition.ShellWithTextIsAvailable;
 import org.jboss.reddeer.core.lookup.WidgetLookup;
 import org.jboss.reddeer.swt.api.Button;
 import org.jboss.reddeer.swt.api.Menu;
@@ -147,7 +147,7 @@ public abstract class LaunchConfigurationDialog {
 		Button button = new PushButton("Run");
 		button.click();
 
-		new WaitWhile(new ShellWithTextIsActive(shellText), TimePeriod.VERY_LONG);
+		new WaitWhile(new ShellWithTextIsAvailable(shellText), TimePeriod.VERY_LONG);
 		new WaitWhile(new JobIsRunning(), TimePeriod.VERY_LONG);			
 	}
 
@@ -161,7 +161,7 @@ public abstract class LaunchConfigurationDialog {
 		Button button = new PushButton("Close");
 		button.click();
 
-		new WaitWhile(new ShellWithTextIsActive(shellText));
+		new WaitWhile(new ShellWithTextIsAvailable(shellText));
 		new WaitWhile(new JobIsRunning());
 	}
 	

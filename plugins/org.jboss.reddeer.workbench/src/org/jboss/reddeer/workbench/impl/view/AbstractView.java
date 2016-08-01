@@ -22,7 +22,7 @@ import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.common.matcher.RegexMatcher;
 import org.jboss.reddeer.common.wait.WaitUntil;
 import org.jboss.reddeer.common.wait.WaitWhile;
-import org.jboss.reddeer.core.condition.ShellWithTextIsActive;
+import org.jboss.reddeer.core.condition.ShellWithTextIsAvailable;
 import org.jboss.reddeer.core.handler.ViewHandler;
 import org.jboss.reddeer.core.handler.WidgetHandler;
 import org.jboss.reddeer.core.handler.WorkbenchPartHandler;
@@ -228,7 +228,7 @@ public class AbstractView implements View {
 		new DefaultShell(SHOW_VIEW);
 		new DefaultTreeItem(path).select();
 		new OkButton().click();
-		new WaitWhile(new ShellWithTextIsActive(SHOW_VIEW));
+		new WaitWhile(new ShellWithTextIsAvailable(SHOW_VIEW));
 		new WaitUntil(new ViewCTabIsAvailable());
 	}
 
