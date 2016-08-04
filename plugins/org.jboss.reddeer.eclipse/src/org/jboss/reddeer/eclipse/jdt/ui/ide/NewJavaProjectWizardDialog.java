@@ -16,7 +16,7 @@ import org.jboss.reddeer.common.wait.TimePeriod;
 import org.jboss.reddeer.common.wait.WaitUntil;
 import org.jboss.reddeer.common.wait.WaitWhile;
 import org.jboss.reddeer.core.condition.JobIsRunning;
-import org.jboss.reddeer.core.condition.ShellWithTextIsActive;
+import org.jboss.reddeer.core.condition.ShellWithTextIsAvailable;
 import org.jboss.reddeer.jface.wizard.NewWizardDialog;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.impl.button.PushButton;
@@ -54,7 +54,7 @@ public class NewJavaProjectWizardDialog extends NewWizardDialog {
 		if (isWaitForOpenAssociatedPerspective()) {
 			final String openAssociatedPerspectiveShellText = "Open Associated Perspective?";
 			try {
-				new WaitUntil(new ShellWithTextIsActive(
+				new WaitUntil(new ShellWithTextIsAvailable(
 						openAssociatedPerspectiveShellText),
 						TimePeriod.getCustom(20), false);
 				// Try to find open perspective test
@@ -64,7 +64,7 @@ public class NewJavaProjectWizardDialog extends NewWizardDialog {
 				} else {
 					new PushButton("No").click();
 				}
-				new WaitWhile(new ShellWithTextIsActive(
+				new WaitWhile(new ShellWithTextIsAvailable(
 						openAssociatedPerspectiveShellText), TimePeriod.LONG);
 			} catch (WaitTimeoutExpiredException wtee) {
 				log.info("Shell 'Open Associated Perspective' wasn't shown");
@@ -74,7 +74,7 @@ public class NewJavaProjectWizardDialog extends NewWizardDialog {
 
 		}
 
-		new WaitWhile(new ShellWithTextIsActive("New Java Project"));
+		new WaitWhile(new ShellWithTextIsAvailable("New Java Project"));
 		new WaitWhile(new JobIsRunning(), TimePeriod.LONG);
 
 	}

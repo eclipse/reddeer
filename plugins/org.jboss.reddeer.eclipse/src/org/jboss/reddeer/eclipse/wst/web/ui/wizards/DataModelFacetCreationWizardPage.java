@@ -11,7 +11,7 @@
 package org.jboss.reddeer.eclipse.wst.web.ui.wizards;
 
 import org.jboss.reddeer.common.wait.WaitWhile;
-import org.jboss.reddeer.core.condition.ShellWithTextIsActive;
+import org.jboss.reddeer.core.condition.ShellWithTextIsAvailable;
 import org.jboss.reddeer.jface.wizard.WizardPage;
 import org.jboss.reddeer.swt.impl.button.CheckBox;
 import org.jboss.reddeer.swt.impl.button.PushButton;
@@ -185,7 +185,7 @@ public class DataModelFacetCreationWizardPage extends WizardPage {
 			new DefaultShell("Project Facets");
 		}
 		new PushButton("OK").click();
-		new WaitWhile(new ShellWithTextIsActive("Project Facets"));
+		new WaitWhile(new ShellWithTextIsAvailable("Project Facets"));
 	}
 
 }

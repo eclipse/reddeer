@@ -11,7 +11,7 @@
 package org.jboss.reddeer.eclipse.datatools.ui.wizard;
 
 import org.jboss.reddeer.common.wait.WaitUntil;
-import org.jboss.reddeer.core.condition.ShellWithTextIsActive;
+import org.jboss.reddeer.core.condition.ShellWithTextIsAvailable;
 import org.jboss.reddeer.core.util.Display;
 import org.jboss.reddeer.jface.wizard.WizardPage;
 import org.jboss.reddeer.swt.api.Tree;
@@ -89,7 +89,7 @@ public class DriverDefinitionPage extends WizardPage {
 		new DefaultTreeItem("General","Driver Class").doubleClick();
 		new PushButton("...").click();
 		String dlgTitle = "Available Classes from Jar List";
-		new WaitUntil(new ShellWithTextIsActive(dlgTitle));
+		new WaitUntil(new ShellWithTextIsAvailable(dlgTitle));
 		new DefaultShell(dlgTitle);
 		new RadioButton(0).click();
 		new DefaultText("").setText(driverClass);

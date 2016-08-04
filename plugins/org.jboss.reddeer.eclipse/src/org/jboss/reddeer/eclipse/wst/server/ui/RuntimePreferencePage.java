@@ -13,13 +13,16 @@ package org.jboss.reddeer.eclipse.wst.server.ui;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.jboss.reddeer.common.exception.RedDeerException;
 import org.jboss.reddeer.common.logging.Logger;
-import org.jboss.reddeer.core.condition.ShellWithTextIsActive;
+import org.jboss.reddeer.core.condition.ShellWithTextIsAvailable;
 import org.jboss.reddeer.eclipse.exception.EclipseLayerException;
 import org.jboss.reddeer.eclipse.wst.server.ui.wizard.NewRuntimeWizardDialog;
 import org.jboss.reddeer.jface.preference.PreferencePage;
 import org.jboss.reddeer.swt.api.Table;
+import org.jboss.reddeer.swt.impl.button.OkButton;
 import org.jboss.reddeer.swt.impl.button.PushButton;
+import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.jboss.reddeer.swt.impl.table.DefaultTable;
 
 /**
@@ -73,8 +76,11 @@ public class RuntimePreferencePage extends PreferencePage {
 		log.info("Removing runtime '" + runtime + "'");
 		selectRuntime(runtime.getName());
 		new PushButton("Remove").click();
-		if(new ShellWithTextIsActive("Server").test()){
-			new PushButton("OK").click();
+		try{
+			new DefaultShell("Server");
+			new OkButton().click();
+		} catch (RedDeerException e) {
+			log.debug("Server shell was not opened");
 		}
 	}
 	

@@ -12,7 +12,7 @@ package org.jboss.reddeer.eclipse.ui.ide;
 
 import org.jboss.reddeer.common.wait.WaitUntil;
 import org.jboss.reddeer.common.wait.WaitWhile;
-import org.jboss.reddeer.core.condition.ShellWithTextIsActive;
+import org.jboss.reddeer.core.condition.ShellWithTextIsAvailable;
 import org.jboss.reddeer.swt.condition.WidgetIsEnabled;
 import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
@@ -53,7 +53,7 @@ public class RepoConnectionDialog extends DefaultShell {
 	 */
 	public void cancel() {
 		new PushButton("Cancel").click();
-		new WaitWhile(new ShellWithTextIsActive(TITLE));
+		new WaitWhile(new ShellWithTextIsAvailable(TITLE));
 	}
 	
 	/**
@@ -61,7 +61,7 @@ public class RepoConnectionDialog extends DefaultShell {
 	 */
 	public void finish() {
 		new PushButton("Finish").click();
-		new WaitWhile(new ShellWithTextIsActive(TITLE));
+		new WaitWhile(new ShellWithTextIsAvailable(TITLE));
 	}
 	
 	/**

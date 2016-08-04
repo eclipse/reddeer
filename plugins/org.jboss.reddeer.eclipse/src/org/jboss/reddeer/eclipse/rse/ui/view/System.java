@@ -15,7 +15,7 @@ import org.jboss.reddeer.common.wait.TimePeriod;
 import org.jboss.reddeer.common.wait.WaitUntil;
 import org.jboss.reddeer.common.wait.WaitWhile;
 import org.jboss.reddeer.core.condition.JobIsRunning;
-import org.jboss.reddeer.core.condition.ShellWithTextIsActive;
+import org.jboss.reddeer.core.condition.ShellWithTextIsAvailable;
 import org.jboss.reddeer.core.exception.CoreLayerException;
 import org.jboss.reddeer.eclipse.condition.RemoteSystemExists;
 import org.jboss.reddeer.eclipse.condition.RemoteSystemIsConnected;
@@ -132,7 +132,7 @@ public class System {
 		if(isConnected())
 			disconnect();
 		new ContextMenu("Delete...").select();	
-		new WaitUntil(new ShellWithTextIsActive("Delete Confirmation"),TimePeriod.NORMAL);
+		new WaitUntil(new ShellWithTextIsAvailable("Delete Confirmation"),TimePeriod.NORMAL);
 		new PushButton("Delete").click();
 		new WaitWhile(new RemoteSystemExists(getLabel()), TIMEOUT);
 		new WaitWhile(new JobIsRunning(), TIMEOUT);

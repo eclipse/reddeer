@@ -19,10 +19,7 @@ import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.common.logging.Logger;
-import org.jboss.reddeer.common.wait.WaitUntil;
-import org.jboss.reddeer.core.condition.ShellWithTextIsActive;
 import org.jboss.reddeer.core.exception.Thrower;
-import org.jboss.reddeer.core.handler.WidgetHandler;
 import org.jboss.reddeer.core.reference.DefaultReferencedComposite;
 import org.jboss.reddeer.core.reference.ReferencedComposite;
 import org.jboss.reddeer.core.util.Display;
@@ -79,15 +76,16 @@ public class ToolItemLookup {
 	 * 
 	 * @param matcher matcher to match workbench tool item
 	 * @return workbench tool item matching specified matcher
+	 * @deprecated sice 1.1.0
 	 */
 	public ToolItem getWorkbenchToolItem(Matcher<String> matcher) {
 		ToolBarLookup tl = ToolBarLookup.getInstance();
 		List<ToolBar> workbenchToolBars = tl.getWorkbenchToolBars();
 		
 		Shell swtShell = ShellLookup.getInstance().getWorkbenchShell();
-		String text = WidgetHandler.getInstance().getText(swtShell);
-		WidgetHandler.getInstance().setFocus(swtShell);
-		new WaitUntil(new ShellWithTextIsActive(text));
+		if(swtShell == null){
+			Thrower.objectIsNull(swtShell, "There is no active workbench shell");
+		}
 		
 		final ToolItem ti = getToolItem(new DefaultReferencedComposite((Control) swtShell), 0, matcher);
 		
