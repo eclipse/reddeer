@@ -384,35 +384,31 @@ public class TreeItemHandler {
 	 *            time period to wait for
 	 */
 	public void expand(final TreeItem swtTreeItem, TimePeriod timePeriod) {
+		logger.debug("Expand Tree Item " + WidgetHandler.getInstance().getText(swtTreeItem));
+
 		final TreeExpandListener tel = new TreeExpandListener();
+
+		Display.syncExec(new Runnable() {
+			@Override
+			public void run() {
+				swtTreeItem.getParent().addListener(SWT.Expand, tel);
+			}
+		});
+
 		try {
-			logger.debug("Expand Tree Item " + WidgetHandler.getInstance().getText(swtTreeItem));
-
-			Display.syncExec(new Runnable() {
-				@Override
-				public void run() {
-					swtTreeItem.getParent().addListener(SWT.Expand, tel);
-				}
-			});
-
-			new WaitUntil(new TreeHeardExpandNotification(swtTreeItem, tel), timePeriod);
-			logger.info("Expanded: " + WidgetHandler.getInstance().getText(swtTreeItem));
-
-			Display.syncExec(new Runnable() {
-				@Override
-				public void run() {
-					swtTreeItem.setExpanded(true);
-					swtTreeItem.getParent().update();
-				}
-			});
-		} finally {
-			Display.syncExec(new Runnable() {
-				@Override
-				public void run() {
-					swtTreeItem.getParent().removeListener(SWT.Expand, tel);
-				}
-			});
+			new WaitUntil(new TreeHeardExpandNotification(swtTreeItem, tel, false), timePeriod);
+		} catch (WaitTimeoutExpiredException ex) {
+			new WaitUntil(new TreeHeardExpandNotification(swtTreeItem, tel, true), timePeriod);
 		}
+		logger.info("Expanded: " + WidgetHandler.getInstance().getText(swtTreeItem));
+
+		Display.syncExec(new Runnable() {
+			@Override
+			public void run() {
+				swtTreeItem.setExpanded(true);
+				swtTreeItem.getParent().update();
+			}
+		});
 	}
 
 	/**
@@ -505,17 +501,31 @@ public class TreeItemHandler {
 
 		private org.eclipse.swt.widgets.TreeItem treeItem;
 		private TreeExpandListener listener;
+		private boolean sync;
 
-		public TreeHeardExpandNotification(org.eclipse.swt.widgets.TreeItem treeItem, TreeExpandListener listener) {
+		public TreeHeardExpandNotification(org.eclipse.swt.widgets.TreeItem treeItem, TreeExpandListener listener,
+				boolean sync) {
 			this.treeItem = treeItem;
 			this.listener = listener;
+			this.sync = sync;
 		}
 
 		@Override
 		public boolean test() {
-			TreeHandler.getInstance().notifyTreeSync(treeItem,
-					TreeHandler.getInstance().createEventForTree(treeItem, SWT.Expand));
-			return listener.isHeard();
+			if (!isExpanded(treeItem)) {
+				if (sync) {
+					TreeHandler.getInstance().notifyTreeSync(treeItem,
+							TreeHandler.getInstance().createEventForTree(treeItem, SWT.Expand));
+				} else {
+					TreeHandler.getInstance().notifyTree(treeItem,
+							TreeHandler.getInstance().createEventForTree(treeItem, SWT.Expand));
+				}
+				return listener.isHeard();
+			} else {
+				logger.debug("Tree Item " + WidgetHandler.getInstance().getText(treeItem)
+						+ " is already expanded. No action performed");
+			}
+			return true;
 		}
 
 		@Override
