@@ -22,7 +22,7 @@
 						<dependency>
 							<type>p2-installable-unit</type>
 							<artifactId>org.mockito</artifactId>
-							<version>0.0.0</version>
+							<version>1.9.5</version>
 						</dependency>
 						<dependency>
 							<type>p2-installable-unit</type>
