@@ -1,5 +1,7 @@
 package org.jboss.reddeer.swt.condition;
 
+import java.util.Arrays;
+
 import org.jboss.reddeer.common.condition.AbstractWaitCondition;
 import org.jboss.reddeer.swt.api.Tree;
 import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
@@ -33,7 +35,7 @@ public class TreeContainsItem extends AbstractWaitCondition {
 
 	@Override
 	public String description() {
-		return "tree contains item '" + itemPath;
+		return "tree contains item '" + Arrays.toString(itemPath);
 	}
 
 }
