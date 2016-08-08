@@ -43,7 +43,6 @@ public class QuickFixWizard {
 	 */
 	public void finish(){
 		new FinishButton().click();
-		new WaitWhile(new ShellWithTextIsAvailable("Quick Fix"));
 	}
 
 }
