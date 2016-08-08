@@ -73,8 +73,24 @@ public class WidgetLookup {
 	 * @param matchers matchers to match widget
 	 * @return widget located withing specified referenced composite, laying on specified index and matching specified matchers
 	 */
-	@SuppressWarnings({ "rawtypes","unchecked" })
+	@SuppressWarnings("rawtypes")
 	public <T extends Widget> T activeWidget(ReferencedComposite refComposite, Class<T> clazz, int index, Matcher... matchers) {				
+		return activeWidget(refComposite, clazz, index, TimePeriod.SHORT , matchers);
+	}
+	
+	/**
+	 * Method looks for active widget located in specified referenced composite, laying on specified index and matching specified matchers.
+	 *
+	 * @param <T> the generic type
+	 * @param refComposite reference composite to search for widgets
+	 * @param clazz class type of widget
+	 * @param index index of widget within referenced composite
+	 * @param timePeriod defines how long should we wait for widget to be found
+	 * @param matchers matchers to match widget
+	 * @return widget located withing specified referenced composite, laying on specified index and matching specified matchers
+	 */
+	@SuppressWarnings({ "rawtypes","unchecked" })
+	public <T extends Widget> T activeWidget(ReferencedComposite refComposite, Class<T> clazz, int index, TimePeriod timePeriod, Matcher... matchers) {				
 		logger.debug("Looking up active widget with class type " + clazz.getName() +  ", index " + index + " and " + createMatcherDebugMsg(matchers));
 
 		ClassMatcher cm = new ClassMatcher(clazz);
@@ -84,14 +100,13 @@ public class WidgetLookup {
 		Control parentControl = getParentControl(refComposite);
 		WidgetIsFound found = new WidgetIsFound(parentControl, index, am.getMatchers());
 		try{
-			new WaitUntil(found, TimePeriod.SHORT);
+			new WaitUntil(found, timePeriod);
 		} catch (WaitTimeoutExpiredException ex){
 			String exceptionText = "No matching widget found with " + am.toString();
 			exceptionText += "\n" + new DiagnosticTool().getDiagnosticInformation(parentControl);
 			logger.error("Active widget with class type " + clazz.getName() +  " and index " + index + " was not found");
 			throw new CoreLayerException(exceptionText, ex);
 		}
-
 		logger.debug("Active widget with class type " + clazz.getName() +  " and index " + index + " was found");
 		return (T)found.getWidget();
 	}
