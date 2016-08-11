@@ -11,6 +11,7 @@
 package org.jboss.reddeer.workbench.condition;
 
 import org.jboss.reddeer.common.condition.AbstractWaitCondition;
+import org.jboss.reddeer.common.exception.RedDeerException;
 import org.jboss.reddeer.workbench.impl.editor.DefaultEditor;
 
 /**
@@ -36,7 +37,11 @@ public class EditorWithTitleIsActive extends AbstractWaitCondition {
 	 */
 	@Override
 	public boolean test() {
-		return new DefaultEditor().getTitle().equals(title);
+		try{
+			return new DefaultEditor().getTitle().equals(title);
+		} catch (RedDeerException e) {
+			return false;
+		}
 	}
 
 	/* (non-Javadoc)
