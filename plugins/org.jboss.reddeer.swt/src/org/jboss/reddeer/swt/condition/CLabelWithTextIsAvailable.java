@@ -18,6 +18,7 @@ import org.jboss.reddeer.swt.impl.clabel.DefaultCLabel;
  * Wait condition to wait for a CLabel widget with specified text is available.
  * 
  * @author mlabuda@redhat.com
+ * @deprecated since 1.1.0. Use {@link WidgetIsFound} instead.
  *
  */
 public class CLabelWithTextIsAvailable extends AbstractWaitCondition {
