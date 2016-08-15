@@ -19,6 +19,7 @@ import org.jboss.reddeer.core.handler.BrowserHandler;
 import org.jboss.reddeer.core.reference.ReferencedComposite;
 import org.jboss.reddeer.swt.api.Browser;
 import org.jboss.reddeer.swt.condition.PageIsLoaded;
+import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.impl.browser.internal.BrowserProgressListener;
 import org.jboss.reddeer.swt.widgets.AbstractWidget;
 
@@ -44,7 +45,7 @@ public abstract class AbstractBrowser extends AbstractWidget<org.eclipse.swt.bro
 		super(org.eclipse.swt.browser.Browser.class, referencedComposite, index, matchers);
 		this.browserProgressListener = new BrowserProgressListener(this);
 	}
-	
+
 	/* (non-Javadoc)
 	 * @see org.jboss.reddeer.swt.api.Browser#isPageLoaded()
 	 */
@@ -64,7 +65,9 @@ public abstract class AbstractBrowser extends AbstractWidget<org.eclipse.swt.bro
 			new WaitUntil(new PageIsLoaded(this), TimePeriod.LONG);
 			// Unfortunately Browser needs some time to get ready even when page is fully loaded
 			AbstractWait.sleep(TimePeriod.SHORT);
-		}
+		} else {
+			throw new SWTLayerException("forward action was not successful");
+		} 
 		resetProgressListener();
 	}
 
@@ -80,6 +83,8 @@ public abstract class AbstractBrowser extends AbstractWidget<org.eclipse.swt.bro
 			// Unfortunately Browser needs some time to get ready even when page
 			// is fully loaded
 			AbstractWait.sleep(TimePeriod.SHORT);
+		} else {
+			throw new SWTLayerException("back action was not successful");
 		}
 		resetProgressListener();
 	}
@@ -95,6 +100,8 @@ public abstract class AbstractBrowser extends AbstractWidget<org.eclipse.swt.bro
 			new WaitUntil(new PageIsLoaded(this), TimePeriod.LONG);
 			// Unfortunately Browser needs some time to get ready even when page is fully loaded
 			AbstractWait.sleep(TimePeriod.NORMAL);
+		} else {
+			throw new SWTLayerException("setUrl action was not successful");
 		}
 		resetProgressListener();
 	}
