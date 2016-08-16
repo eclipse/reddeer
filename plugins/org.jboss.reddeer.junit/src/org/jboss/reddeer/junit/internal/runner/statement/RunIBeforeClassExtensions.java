@@ -13,6 +13,7 @@ package org.jboss.reddeer.junit.internal.runner.statement;
 import java.util.List;
 
 import org.jboss.reddeer.common.logging.Logger;
+import org.jboss.reddeer.junit.execution.PriorityComparator;
 import org.jboss.reddeer.junit.extensionpoint.IBeforeTest;
 import org.junit.runners.model.Statement;
 import org.junit.runners.model.TestClass;
@@ -54,6 +55,7 @@ public class RunIBeforeClassExtensions extends AbstractStatementWithScreenshot {
 
 		log.debug("Run before class extensions for test class " + testClass.getJavaClass().getName());
 		try {
+			befores.sort(new PriorityComparator());
 			for (IBeforeTest bfr : befores) {
 				before = bfr;
 				if (before.hasToRun()){

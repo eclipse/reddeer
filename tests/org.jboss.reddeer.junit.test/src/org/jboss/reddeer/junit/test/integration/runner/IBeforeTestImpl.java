@@ -31,4 +31,9 @@ public class IBeforeTestImpl implements IBeforeTest {
 	public boolean hasToRun() {
 		return true;
 	}
+
+	@Override
+	public long getPriority() {
+		return 0;
+	}
 }

@@ -14,6 +14,7 @@ import org.eclipse.core.runtime.Platform;
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.common.properties.RedDeerProperties;
 import org.jboss.reddeer.eclipse.ui.dialogs.PerspectivesPreferencePage;
+import org.jboss.reddeer.junit.extension.ExtensionPriority;
 import org.jboss.reddeer.junit.extensionpoint.IBeforeTest;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.workbench.ui.dialogs.WorkbenchPreferenceDialog;
@@ -99,6 +100,11 @@ public class SetOpenAssociatedPerspectiveExt implements IBeforeTest {
 	@Override
 	public boolean hasToRun() {
 		return true;
+	}
+
+	@Override
+	public long getPriority() {
+		return ExtensionPriority.SET_OPEN_ASSOCIATED_PERSPECTIVE_PRIORITY;
 	}
 
 }

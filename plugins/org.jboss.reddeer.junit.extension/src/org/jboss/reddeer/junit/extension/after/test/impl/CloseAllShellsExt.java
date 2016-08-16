@@ -19,6 +19,7 @@ import org.jboss.reddeer.core.handler.IBeforeShellIsClosed;
 import org.jboss.reddeer.core.handler.ShellHandler;
 import org.jboss.reddeer.core.handler.WidgetHandler;
 import org.jboss.reddeer.junit.TestInfo;
+import org.jboss.reddeer.junit.extension.ExtensionPriority;
 import org.jboss.reddeer.junit.extensionpoint.IAfterTest;
 import org.jboss.reddeer.junit.screenshot.CaptureScreenshotException;
 import org.jboss.reddeer.junit.screenshot.ScreenshotCapturer;
@@ -130,6 +131,11 @@ public class CloseAllShellsExt implements IAfterTest {
 		public List<String> getClosedShellsTitles(){
 			return this.closedShellsTitles;
 		}
+	}
+	
+	@Override
+	public long getPriority() {
+		return ExtensionPriority.CLOSE_ALL_SHELLS_PRIORITY;
 	}
 
 }

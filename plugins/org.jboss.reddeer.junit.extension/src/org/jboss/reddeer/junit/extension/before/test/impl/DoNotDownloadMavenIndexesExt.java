@@ -15,6 +15,7 @@ import org.jboss.reddeer.common.exception.RedDeerException;
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.common.properties.RedDeerProperties;
 import org.jboss.reddeer.eclipse.m2e.core.ui.preferences.MavenPreferencePage;
+import org.jboss.reddeer.junit.extension.ExtensionPriority;
 import org.jboss.reddeer.junit.extensionpoint.IBeforeTest;
 import org.jboss.reddeer.workbench.ui.dialogs.WorkbenchPreferenceDialog;
 import org.junit.runners.model.FrameworkMethod;
@@ -97,5 +98,10 @@ public class DoNotDownloadMavenIndexesExt implements IBeforeTest {
 	@Override
 	public boolean hasToRun() {
 		return DoNotDownloadMavenIndexesExt.DISABLE_MAVEN_DOWNLOAD_REPO_INDEX;
+	}
+
+	@Override
+	public long getPriority() {
+		return ExtensionPriority.DO_NOT_DOWNLOAD_MAVEN_INDICES_PRIORITY;
 	}
 }

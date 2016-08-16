@@ -15,6 +15,7 @@ import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.common.properties.RedDeerProperties;
 import org.jboss.reddeer.core.lookup.WorkbenchPartLookup;
 import org.jboss.reddeer.core.util.Display;
+import org.jboss.reddeer.junit.extension.ExtensionPriority;
 import org.jboss.reddeer.junit.extensionpoint.IBeforeTest;
 import org.junit.runners.model.FrameworkMethod;
 import org.junit.runners.model.TestClass;
@@ -71,6 +72,11 @@ public class CloseWelcomeScreenExt implements IBeforeTest {
 	@Override
 	public boolean hasToRun() {
 		return CloseWelcomeScreenExt.CLOSE_WELCOME_SCREEN;
+	}
+
+	@Override
+	public long getPriority() {
+		return ExtensionPriority.CLOSE_WELCOME_SCREEN_PRIORITY;
 	}
 
 }
