@@ -31,4 +31,9 @@ public class IAfterTestImpl implements IAfterTest {
 	public boolean hasToRun() {
 		return true;
 	}
+
+	@Override
+	public long getPriority() {
+		return 0;
+	}
 }

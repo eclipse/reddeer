@@ -10,6 +10,7 @@
  ******************************************************************************/ 
 package org.jboss.reddeer.junit.extensionpoint;
 
+import org.jboss.reddeer.junit.execution.IExecutionPriority;
 import org.junit.runners.model.FrameworkMethod;
 import org.junit.runners.model.TestClass;
 
@@ -17,7 +18,7 @@ import org.junit.runners.model.TestClass;
  * Eclipse extension for running some action after @AfterClass methods or after @After methods
  *
  */
-public interface IAfterTest {
+public interface IAfterTest extends IExecutionPriority {
 
 	/**
 	 * Contains action proceeded after @AfterClass methods. Method is run only when

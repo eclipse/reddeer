@@ -10,6 +10,7 @@
  ******************************************************************************/ 
 package org.jboss.reddeer.junit.extensionpoint;
 
+import org.jboss.reddeer.junit.execution.IExecutionPriority;
 import org.junit.runners.model.FrameworkMethod;
 import org.junit.runners.model.TestClass;
 
@@ -17,7 +18,7 @@ import org.junit.runners.model.TestClass;
  * Eclipse extension for running some action before @BeforeClass methods or before @Before methods
  *
  */
-public interface IBeforeTest {
+public interface IBeforeTest extends IExecutionPriority {
 	
 	/**
 	 * Contains action proceeded prior test class @BeforeClass is run

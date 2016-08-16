@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.jboss.reddeer.common.logging.Logger;
+import org.jboss.reddeer.junit.execution.PriorityComparator;
 import org.jboss.reddeer.junit.extensionpoint.IAfterTest;
 import org.junit.runners.model.MultipleFailureException;
 import org.junit.runners.model.Statement;
@@ -62,8 +63,8 @@ public class RunIAfterClassExtensions extends AbstractStatementWithScreenshot {
 
 		IAfterTest after = null;
 
-
 		log.debug("Run after class extensions for test class " + testClass.getJavaClass().getName());
+		afters.sort(new PriorityComparator());
 		for (IAfterTest each : afters) {
 			after = each;
 			try {
