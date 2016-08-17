@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Red Deer Snippets
 Bundle-SymbolicName: snippets
-Bundle-Version: 1.1.0.qualifier
+Bundle-Version: 1.1.0.Final
 Bundle-ActivationPolicy: lazy
 Bundle-Vendor: JBoss by Red Hat
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7

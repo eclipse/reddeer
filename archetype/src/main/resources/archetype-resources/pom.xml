@@ -13,8 +13,10 @@
 #set ($rd_repository = 'http://download.jboss.org/jbosstools/updates/stable/mars/core/reddeer/0.8.0/')
 #elseif ($reddeer_version == "1.0.0")
 #set ($rd_repository = 'http://download.jboss.org/jbosstools/updates/stable/mars/core/reddeer/1.0.0/')
+#elseif ($reddeer_version == "1.1.0")
+#set ($rd_repository = 'http://download.jboss.org/jbosstools/neon/stable/updates/reddeer/1.1.0/')
 #else
-#set ($rd_repository = 'http://download.jboss.org/jbosstools/mars/snapshots/builds/reddeer_master/')
+#set ($rd_repository = 'http://download.jboss.org/jbosstools/neon/snapshots/builds/reddeer_master/')
 #end
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
