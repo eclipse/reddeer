@@ -3,10 +3,10 @@ Bundle-ManifestVersion: 2
 Bundle-Name: RedDeer Eclipse Component Tests
 Bundle-Vendor: JBoss by Red Hat
 Bundle-SymbolicName: org.jboss.reddeer.eclipse.test;singleton:=true
-Bundle-Version: 1.1.0.Final
+Bundle-Version: 1.2.0.qualifier
 Bundle-Activator: org.jboss.reddeer.eclipse.test.Activator
-Require-Bundle: org.jboss.reddeer.go;bundle-version="[1.1,1.2)",
- org.jboss.reddeer.gef;bundle-version="[1.1,1.2)",
+Require-Bundle: org.jboss.reddeer.go;bundle-version="[1.2,1.3)",
+ org.jboss.reddeer.gef;bundle-version="[1.2,1.3)",
  org.eclipse.jst.servlet.ui,
  org.eclipse.jdt.debug.ui,
  org.eclipse.wst.server.core,
