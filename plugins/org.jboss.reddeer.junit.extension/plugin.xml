@@ -12,11 +12,17 @@
       <client
             class="org.jboss.reddeer.junit.extension.before.test.impl.SetOpenAssociatedPerspectiveExt">
       </client>
+      <client
+      		class="org.jboss.reddeer.junit.extension.log.collector.BeforesLogCollector">
+      </client>
    </extension>
    <extension
          point="org.jboss.reddeer.junit.after.test">
       <client
             class="org.jboss.reddeer.junit.extension.after.test.impl.CloseAllShellsExt">
+      </client>
+      <client
+      		class="org.jboss.reddeer.junit.extension.log.collector.AftersLogCollector">
       </client>
    </extension>
    <extension

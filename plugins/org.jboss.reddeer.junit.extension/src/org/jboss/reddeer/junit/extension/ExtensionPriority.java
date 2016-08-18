@@ -22,7 +22,9 @@ public class ExtensionPriority {
 	public static final long CLOSE_WELCOME_SCREEN_PRIORITY = 1000000;
 	public static final long SET_OPEN_ASSOCIATED_PERSPECTIVE_PRIORITY = 10000;
 	public static final long DO_NOT_DOWNLOAD_MAVEN_INDICES_PRIORITY = 1000;
+	public static final long BEFORES_LOG_COLLECTOR_PRIORITY = Long.MAX_VALUE;
 	
 	// After extensions priorities
 	public static final long CLOSE_ALL_SHELLS_PRIORITY = -1000000;
+	public static final long AFTERSLOG_COLLECTOR_PRIORITY = Long.MIN_VALUE;
 }
