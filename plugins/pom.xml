@@ -37,7 +37,6 @@
 		<module>org.jboss.reddeer.generator</module>
 		<module>org.jboss.reddeer.go</module>
 		<module>org.jboss.reddeer.logparser</module>
-		<module>org.jboss.reddeer.help</module>
   </modules>
 	
 </project>

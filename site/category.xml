@@ -10,16 +10,10 @@
 	<category-def label="3. RedDeer Tools" name="ToolFeatures">
 		<description>RedDeer Tool: Contains RedDeer tools.</description>
 	</category-def>
-	<category-def label="4. RedDeer Documentation" name="Documentation">
-		<description>RedDeer Documentation: RedDeer documentation in Eclipse Help.</description>
-	</category-def>
-	<category-def label="5. RedDeer Sources" name="AllSources">
+	<category-def label="4. RedDeer Sources" name="AllSources">
 		<description>RedDeer Sources: Contains RedDeer source features.</description>
 	</category-def>
 
-	<feature url="org.jboss.reddeer.help.feature.qualifier" id="org.jboss.reddeer.help.feature" version="0.0.0">
-		<category name="Documentation"/>
-	</feature>
 	<feature url="org.jboss.reddeer.eclipse.feature.qualifier" id="org.jboss.reddeer.eclipse.feature" version="0.0.0">
 		<category name="RuntimeAPIFeatures"/>
 	</feature>
