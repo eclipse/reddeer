@@ -76,7 +76,7 @@ public class PaletteHandler {
 	 *            Tool entry
 	 */
 	public void activateTool(final PaletteViewer paletteViewer, final ToolEntry toolEntry) {
-		Display.syncExec(new Runnable() {
+		Display.asyncExec(new Runnable() {
 			@Override
 			public void run() {
 				paletteViewer.setActiveTool(toolEntry);
