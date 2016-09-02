@@ -12,4 +12,5 @@ Require-Bundle: org.eclipse.ui,
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Export-Package: org.jboss.reddeer.direct.preferences,
- org.jboss.reddeer.direct.project
+ org.jboss.reddeer.direct.project,
+ org.jboss.reddeer.direct.platform
