@@ -53,6 +53,6 @@ public class BeforesLogCollector extends LogCollector implements IBeforeTest{
 
 	@Override
 	public boolean hasToRun() {
-		return RedDeerProperties.LOG_COLLECTOR_ENABLED.getBooleanValue() && hasToRun;
+		return RedDeerProperties.LOG_COLLECTOR_ENABLED.getBooleanValue() && hasToRun && eclipseLogFileExists();
 	}
 }

@@ -20,8 +20,8 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.direct.platform.Platform;
-
 
 /**
  * Log collector collect Eclipse workbench log and process it for a specific test class and test methods.
@@ -33,14 +33,14 @@ import org.jboss.reddeer.direct.platform.Platform;
 public class LogCollector {
 
 	private static final long timestamp = System.currentTimeMillis();
-	
+	private static final Logger log = Logger.getLogger(LogCollector.class);
+
 	/**
-	 * Gets file name for a file with collected log entries. File name
-	 * contains config name and time stamp.
+	 * Gets file name for a file with collected log entries. File name contains
+	 * config name and time stamp.
 	 * 
-	 * @param config
-	 *            RedDeer config
-	 * @param className  test class name
+	 * @param config RedDeer config
+	 * @param className test class name
 	 * @return file name of log file
 	 */
 	public String getFileName(String config, String className) {
@@ -50,13 +50,13 @@ public class LogCollector {
 	/**
 	 * Gets log file ID in form of date in format yyyy-MM-dd_HH-mm-ss.
 	 * 
-	 * @return id of log file in 
+	 * @return id of log file in
 	 */
 	private String getID() {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
 		return dateFormat.format(new Date(timestamp)).toString();
 	}
-	
+
 	/**
 	 * Gets location of directory where file with collected log entries
 	 * is/supposed to be saved. Directory is set by default to target/reddeer-log.
@@ -64,8 +64,8 @@ public class LogCollector {
 	 * @return path to log directory
 	 */
 	public String getDirectory() {
-		return System.getProperty("user.dir") + File.separator + "target" + File.separator +
-				"reddeer-log" + File.separator;
+		return System.getProperty("user.dir") + File.separator + "target" + File.separator + "reddeer-log"
+				+ File.separator;
 	}
 
 	/**
@@ -79,9 +79,10 @@ public class LogCollector {
 	public String getLogFilePath(String config, String className) {
 		return getDirectory() + File.separator + getFileName(config, className);
 	}
-	
+
 	/**
 	 * Gets RedDeer log file for specified config. If file does not exists, it is created at first.
+	 * 
 	 * @param config RedDeer config
 	 * @param className test class name
 	 * @return log file
@@ -100,32 +101,41 @@ public class LogCollector {
 		}
 		return logFile;
 	}
-	
+
 	/**
 	 * Processes workbench log. It copies log entries from Eclipse workbench log to RedDeer log file of 
 	 * a specific test class.
 	 * 
-	 * @param config RedDeer config 
-	 * @param class test class name
+	 * @param config RedDeer config
+	 * @param className test class name
 	 * @param logDescription description related to log entries
 	 */
-	public  void processWorkbenchLog(String config, String className, String logDescription) {
-		try (BufferedReader br = new BufferedReader(new FileReader(Platform.getWorkbenchLog()));
-				BufferedWriter bw = new BufferedWriter(new FileWriter(getLogFile(config, className), true))) {
-			String line = br.readLine();
-			if (line != null) {
-				bw.write(logDescription + "\n\n");
-				bw.write(line + "\n");
-				while ((line = br.readLine()) != null) {
+	public void processWorkbenchLog(String config, String className, String logDescription) {
+		if(eclipseLogFileExists()){
+			try (BufferedReader br = new BufferedReader(new FileReader(Platform.getWorkbenchLog()));
+					BufferedWriter bw = new BufferedWriter(new FileWriter(getLogFile(config, className), true))) {
+				String line = br.readLine();
+				if (line != null) {
+					bw.write(logDescription + "\n\n");
 					bw.write(line + "\n");
+					while ((line = br.readLine()) != null) {
+						bw.write(line + "\n");
+					}
+					bw.write("\n\n");
 				}
-				bw.write("\n\n");
+			} catch (FileNotFoundException e) {
+				// Should not happen
+				e.printStackTrace();
+			} catch (IOException e1) {
+				e1.printStackTrace();
 			}
-		} catch (FileNotFoundException e) {
-			// Should not happen
-			e.printStackTrace();
-		} catch (IOException e1) {
-			e1.printStackTrace();
+		} else {
+			log.debug("Log file does not exist");
 		}
+	}
+	
+	protected boolean eclipseLogFileExists(){
+		File logFile = Platform.getWorkbenchLog();
+		return  logFile != null && logFile.exists();
 	}
 }
