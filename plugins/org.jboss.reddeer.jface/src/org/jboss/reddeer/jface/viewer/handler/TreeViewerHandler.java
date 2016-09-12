@@ -11,15 +11,16 @@
 package org.jboss.reddeer.jface.viewer.handler;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.swt.custom.StyleRange;
+import org.jboss.reddeer.core.util.Display;
+import org.jboss.reddeer.core.util.ResultRunnable;
 import org.jboss.reddeer.jface.exception.JFaceLayerException;
 import org.jboss.reddeer.swt.api.Tree;
 import org.jboss.reddeer.swt.api.TreeItem;
-import org.jboss.reddeer.core.util.Display;
-import org.jboss.reddeer.core.util.ResultRunnable;
 
 /**
  * Represents handler for TreeViewer widget.
@@ -46,38 +47,6 @@ public class TreeViewerHandler {
 	}
 	
 	/**
-	 * Gets {@link TreeItem} with specified name placed under 
-	 * specified {@link Tree}. If there are more items with specified name
-	 * then method throws JFaceLayerException.
-	 * 
-	 * @param tree tree where to find tree item
-	 * @param name name of the tree item to find
-	 * @return tree item with specified name placed under specified tree
-	 */
-	public TreeItem getTreeItem(Tree tree, String name) {
-		Iterator<TreeItem> iterator = tree.getItems().iterator();
-		List<TreeItem> foundItems = new ArrayList<TreeItem>();
-		while (iterator.hasNext()) {
-			TreeItem item = iterator.next();
-			if (getNonStyledText(item).equals(name)) {
-				foundItems.add(item);
-			}
-		}
-
-		if (foundItems.size() == 0) {
-			throw new JFaceLayerException("There is no item with name " + name + " placed " +
-				"under specified tree");
-		}
-		
-		if (foundItems.size() > 1) {
-			throw new JFaceLayerException("Cannot choose specific tree item with name " + name + ""
-					+ " because there are more items with specified name placed under specified tree."); 
-		}
-		
-		return foundItems.get(0);
-	}
-	
-	/**
 	 * Gets {@link TreeItem} defined by specified path placed under 
 	 * specified {@link Tree}.  If there are more items with specified name
 	 * then method throws JFaceLayerException.
@@ -87,51 +56,7 @@ public class TreeViewerHandler {
 	 * @return tree item placed under specified tree
 	 */
 	public TreeItem getTreeItem(Tree tree, String... path) {
-		TreeItem item;
-		
-		TreeItem parentItem = getTreeItem(tree, path[0]);
-		item = parentItem;
-	
-		if (path.length > 1) {
-			String[] pathToItem = new String[path.length-1];
-			System.arraycopy(path, 1, pathToItem, 0, path.length - 1);
-			item = getTreeItem(parentItem, pathToItem);
-		}
-		
-		return item;
-	}
-	
-	
-	/**
-	 * Gets tree item specified by a name without decorators - styled text.
-	 * If there are more items with specified name then method throws JFaceLayerException.
-	 * 
-	 * @param treeItem parent item of desired item 
-	 * @param name of desired item
-	 * @return tree item with specified name
-	 */
-	public TreeItem getTreeItem(TreeItem treeItem, String name) {
-		Iterator<TreeItem> iterator = treeItem.getItems().iterator();
-		List<TreeItem> foundItems = new ArrayList<TreeItem>();
-		while (iterator.hasNext()) {
-			TreeItem item = iterator.next();
-			if (getNonStyledText(item).equals(name)) {
-				foundItems.add(item);
-			}
-		}
-
-		if (foundItems.size() == 0) {
-			throw new JFaceLayerException("There is no item with name " + name + " placed "
-				+ "under specified tree item");
-		}
-		
-		if (foundItems.size() > 1) {
-			throw new JFaceLayerException("Cannot choose specific tree item with name " + name 
-					+ " because there are more items with specified name"
-					+ " placed under specified tree item."); 
-		}
-		
-		return foundItems.get(0);
+		return getTreeItem(tree.getItems().iterator(), path);
 	}
 	
 	/**
@@ -143,18 +68,76 @@ public class TreeViewerHandler {
 	 * @return the tree item
 	 */
 	public TreeItem getTreeItem(TreeItem treeItem, String... path) {
-		TreeItem item = treeItem;
-		int index = 0;
+		return getTreeItem(treeItem.getItems().iterator(), path);
+	}
+	
+	private TreeItem getTreeItem(Iterator<TreeItem> iterator, String... path) {
+		List<TreeItem> resultItems = getTreeItems(iterator, path);
+
+		if (resultItems.size() > 1) {
+			throw new JFaceLayerException("There are more items matching specified path so result is ambiguous. " +
+					"To obtain all such items, please use method getTreeItems with same parameters");
+		}
 		
-		while (index < path.length - 1) {
-			item = getTreeItem(item, path[index]);
-			if (!item.isExpanded()) {
-				item.expand();
+		return resultItems.get(0);
+	}	
+	
+	/**
+	 * Gets {@link TreeItem}s defined by a specified path placed under 
+	 * a specified {@link Tree}. If there are no suitable items under a 
+	 * specified tree, {@link JFaceLayerException} is thrown.
+	 * 
+	 * @param tree tree where to find tree items
+	 * @param path path to tree items
+	 * @return tree items placed under a specified tree
+	 */
+	public List<TreeItem> getTreeItems(Tree tree, String... path) {
+		return getTreeItems(tree.getItems().iterator(), path);
+	}
+	
+	/**
+	 * Gets {@link TreeItem}s defined by a specified path placed under 
+	 * a specified {@link TreeItem}. If there are no suitable items under a 
+	 * specified tree item, {@link JFaceLayerException} is thrown.
+	 * 
+	 * @param tree item tree item where to find tree items
+	 * @param path path to tree items
+	 * @return tree items placed under a specified tree item
+	 */
+	public List<TreeItem> getTreeItems(TreeItem item, String... path) {
+		return getTreeItems(item.getItems().iterator(), path);
+	}
+	
+	private List<TreeItem> getTreeItems(Iterator<TreeItem> iterator, String... path) {
+		if (path == null || path.length == 0) {
+			throw new IllegalArgumentException("Path to a tree item cannot be null");
+		}
+		
+		int index = 0;               
+		Iterator<TreeItem> nestedItemsIterator = iterator;
+		List<TreeItem> resultItems = new ArrayList<TreeItem>();
+	
+		while (index < path.length) {
+			List<TreeItem> nestedItems = new ArrayList<TreeItem>();
+			while (nestedItemsIterator.hasNext()) {
+				TreeItem item = nestedItemsIterator.next();
+				if (getNonStyledText(item).equals(path[index])) {
+					if (index == path.length - 1) {
+						resultItems.add(item);
+					} else {
+						nestedItems.addAll(item.getItems());
+					}
+				}
 			}
+			nestedItemsIterator = nestedItems.iterator();
 			index++;
 		}
 		
-		return getTreeItem(item, path[index]);
+		if (resultItems.size() == 0) {
+			throw new JFaceLayerException("There is no tree item with path " + Arrays.toString(path));
+		} 
+		
+		return resultItems;
 	}
 	
 	private TreeItemTexts parseText(TreeItem item) {
