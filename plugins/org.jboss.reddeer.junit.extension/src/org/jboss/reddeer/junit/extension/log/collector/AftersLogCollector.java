@@ -56,7 +56,7 @@ public class AftersLogCollector extends LogCollector implements IAfterTest {
 
 	@Override
 	public boolean hasToRun() {
-		return RedDeerProperties.LOG_COLLECTOR_ENABLED.getBooleanValue();
+		return RedDeerProperties.LOG_COLLECTOR_ENABLED.getBooleanValue() && eclipseLogFileExists();
 	}
 
 	private void constructAfterTestMethodDescription(String testMethodName) {
