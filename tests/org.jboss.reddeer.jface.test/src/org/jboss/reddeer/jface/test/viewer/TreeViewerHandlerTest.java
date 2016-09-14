@@ -11,316 +11,92 @@
 package org.jboss.reddeer.jface.test.viewer;
 
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
-import org.eclipse.jface.preference.JFacePreferences;
-import org.eclipse.jface.resource.JFaceResources;
-import org.eclipse.jface.viewers.ITreeContentProvider;
-import org.eclipse.jface.viewers.StyledCellLabelProvider;
-import org.eclipse.jface.viewers.StyledString;
-import org.eclipse.jface.viewers.TreeViewer;
-import org.eclipse.jface.viewers.Viewer;
-import org.eclipse.jface.viewers.ViewerCell;
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.graphics.RGB;
-import org.eclipse.swt.layout.GridData;
-import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Event;
-import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.Shell;
+import java.util.List;
+
 import org.jboss.reddeer.jface.exception.JFaceLayerException;
 import org.jboss.reddeer.jface.viewer.handler.TreeViewerHandler;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
-import org.jboss.reddeer.core.condition.ShellWithTextIsActive;
+import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.swt.impl.tree.DefaultTree;
-import org.jboss.reddeer.common.wait.WaitWhile;
-import org.junit.After;
-import org.junit.Before;
+import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(RedDeerSuite.class)
-public class TreeViewerHandlerTest {
-
-	private static String title = "Testing shell";
+public class TreeViewerHandlerTest extends PrepareTreeWithStyledItems {
 	
 	private TreeViewerHandler treeViewerHandler = TreeViewerHandler.getInstance();
 	
-	@Before
-	public void setUp() {
-		org.jboss.reddeer.core.util.Display.syncExec(new Runnable() {
-			@Override
-			public void run() {
-				JFaceResources.getColorRegistry().put(JFacePreferences.COUNTER_COLOR,
-						new RGB(0, 127, 174));
-
-				Shell shell = new Shell(Display.getDefault(), SWT.CLOSE | SWT.RESIZE);
-				shell.setText(title);
-				shell.setSize(400, 400);
-				shell.setLayout(new GridLayout(2, false));
-				
-				Composite composite = createPartControl(shell);
-				composite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 2,
-						1));
-				
-				shell.open();
-			}
-		});
-	}
-
-	@After
-	public void cleanup() {
-		org.jboss.reddeer.core.util.Display.syncExec(new Runnable() {
-			@Override
-			public void run() {
-				for (Shell shell : org.jboss.reddeer.core.util.Display.getDisplay().getShells()) {
-					if (shell.getText().equals(title)) {
-						shell.dispose();
-						break;
-					}
-				}
-				new WaitWhile(new ShellWithTextIsActive(title));
-			}
-		});
-	}
-	
+	private String[] pathXXX = new String[] {"item x", "item xx", "item xxx"};
+	private String[] path000 = new String[] {"item 0", "item 00", "item 000"};
+	private String[] path111 = new String[] {"item 1", "item 11", "item 111"};
 	
 	@Test
-	public void nonStyledTextTreeItem1Tree1() {
-		String txt = treeViewerHandler.getNonStyledText(new DefaultTree(0).getItems().get(0));
-		assertTrue("Non-styled was "+ "'" + txt + "', but should be '0nonstyled1'", txt.equals("0nonstyled1"));
+	public void testGetNonstyledItem000() {
+		TreeItem item = treeViewerHandler.getTreeItem(new DefaultTree(), path000);
+		assertTrue("There should be no styles for nonstyled item", treeViewerHandler.getStyledTexts(item) == null);
+	}
+	
+	@Test(expected = JFaceLayerException.class)
+	public void getNonexistingItem() {
+		treeViewerHandler.getTreeItem(new DefaultTreeItem("item 0"), "item 10");
 	}
 	
 	@Test
-	public void nonStyledTextTreeItem2Tree1() {
-		String txt = treeViewerHandler.getNonStyledText(new DefaultTree(0).getItems().get(1));
-		assertTrue("Non-styled was "+ "'" + txt + "', but should be '1nonstyled1'", txt.equals("1nonstyled1"));
+	public void getStyledTextOfItem111() {
+		TreeItem item = treeViewerHandler.getTreeItem(new DefaultTree(), path111);
+		assertTrue("There should be 2 styles for the tree but there are not",
+				treeViewerHandler.getStyledTexts(item).length == 2);
+		assertTrue("Style texts does not match", treeViewerHandler.getStyledTexts(item)[0].equals("prefix") &&
+				treeViewerHandler.getStyledTexts(item)[1].equals("postfix"));
+	}
+	
+	@Test(expected = JFaceLayerException.class)
+	public void getDuplicativeItemX() {
+		treeViewerHandler.getTreeItem(new DefaultTree(), "item x");
 	}
 	
 	@Test
-	public void nonStyledTextTreeItem3Tree1() {
-		String txt = treeViewerHandler.getNonStyledText(new DefaultTree(0).getItems().get(2));
-		assertTrue("Non-styled was "+ "'" + txt + "', but should be '2nonstyled1'", txt.equals("2nonstyled1"));
+	public void getDuplicativeItemsXXX() {
+		List<TreeItem> items = treeViewerHandler.getTreeItems(new DefaultTree(), pathXXX);
+		int size = items.size();
+		assertTrue("There should be precisely 8 duplicative items, but there is/are " + size + " item(s)", 
+				items.size() == 8);
 	}
 	
 	@Test
-	public void nonStyledTextTreeItem4Tree1() {
-		String txt = treeViewerHandler.getNonStyledText(new DefaultTree(0).getItems().get(3));
-		assertTrue("Non-styled was "+ "'" + txt + "', but should be '3nonstyled1'", txt.equals("3nonstyled1"));
-	}
-	
-	@Test 
-	public void getStyledPrefixTreeItem2Tree1() {
-		String txt = treeViewerHandler.getStyledTexts(new DefaultTree(0).getItems().get(1))[0];
-		assertTrue("Styled prefix was "+ "'" + txt + "', but should be '1spre1'", txt.equals("1spre1"));
-	}
-	
-	@Test 
-	public void getStyledPrefixTreeItem4Tree1() {
-		String txt = treeViewerHandler.getStyledTexts(new DefaultTree(0).getItems().get(3))[0];		
-		assertTrue("Styled prefix was "+ "'" + txt + "', but should be '3spre1'", txt.equals("3spre1"));
+	public void getDuplicativeItemsXY() {
+		List<TreeItem> items = treeViewerHandler.getTreeItems(new DefaultTree(), "item x", "item xy");
+		int size = items.size();
+		assertTrue("There should be precisely 4 duplicative items, but there is/are " + size + " item(s)", 
+				size == 4);
 	}
 	
 	@Test
-	public void getStyledPostfixTreeItem3Tree1() {
-		String txt = treeViewerHandler.getStyledTexts(new DefaultTree(0).getItems().get(2))[0];
-		assertTrue("Styled postfix was "+ "'" + txt + "', but should be '2spost1'", txt.equals("2spost1"));
+	public void getDuplicativeItemsX() {
+		assertTrue("There should be precisely two items retrieved, but it did not happened",
+				treeViewerHandler.getTreeItems(new DefaultTree(), "item x").size() == 2);
 	}
 	
 	@Test
-	public void getStyledPostfixTreeItem4Tree1() {
-		String txt = treeViewerHandler.getStyledTexts(new DefaultTree(0).getItems().get(3))[1];		
-		assertTrue("Styled postfix was "+ "'" + txt + "', but should be '3spost1'", txt.equals("3spost1"));
+	public void getDuplicativeItemsFromItemXY() {
+		TreeItem itemXY = treeViewerHandler.getTreeItems(new DefaultTree(), "item x", "item xy").get(0);
+		int size = treeViewerHandler.getTreeItems(itemXY, "item xyy").size();
+		assertTrue("There should be precisely 2 duplicative items, but there is/are " + size + "item(s)",
+				size == 2);
 	}
 	
 	@Test
-	public void treeItem1Tree2() {
-		try {
-			treeViewerHandler.getTreeItem(new DefaultTree(1), "0nonstyled2");
-		} catch (JFaceLayerException ex) {
-			fail("Cannot get TreeItem 1 from second tree");
-		}
+	public void getStyledTextsOfItemXXX() {
+		String[] styles = treeViewerHandler.getStyledTexts(
+				treeViewerHandler.getTreeItems(new DefaultTree(), pathXXX).get(0));
+		assertTrue("There should be styled prefix and postfix", styles[0].equals("prefix") && 
+				styles[1].equals("postfix"));
 	}
 	
-	@Test
-	public void treeItem1Tree1() {
-		try {
-			treeViewerHandler.getTreeItem(new DefaultTree(0), new String[] {"0nonstyled1"});
-		} catch (JFaceLayerException ex) {
-			fail("Cannot get TreeItem 1 from first tree");
-		}
-	}
-	
-	@Test
-	public void treeItem1PathTree2() {
-		try {
-			treeViewerHandler.getTreeItem(new DefaultTree(1), new String[] {"0nonstyled2"});
-		} catch (JFaceLayerException ex) {
-			fail("Cannot get TreeItem 1 from second tree");
-		}
-	}
-	
-	@Test
-	public void treeItem2Tree2() {
-		try {
-			treeViewerHandler.getTreeItem(new DefaultTree(1), "1nonstyled2");
-		} catch (JFaceLayerException ex) {
-			fail("Cannot get TreeItem 2 from second tree");
-		}
-	}
-	
-	@Test
-	public void treeItem3Tree2() {
-		try {
-			treeViewerHandler.getTreeItem(new DefaultTree(1), "2nonstyled2");
-		} catch (JFaceLayerException ex) {
-			fail("Cannot get TreeItem 3 from second tree");
-		}
-	}
-	
-	@Test
-	public void treeItem4Tree2() {
-		try {
-			treeViewerHandler.getTreeItem(new DefaultTree(1), "3nonstyled2");
-		} catch (JFaceLayerException ex) {
-			fail("Cannot get TreeItem 4 from second tree");
-		}
-	}
-	
-	private Composite createPartControl(Composite parent) {
-		Composite composite = new Composite(parent, SWT.NONE);
-
-		composite.setLayout(new GridLayout(2, true));
-
-		Label label = new Label(composite, SWT.NONE);
-		label.setLayoutData(new GridData(SWT.BEGINNING, SWT.CENTER, false, false));
-		label.setText("Tree with decorators #1");
-		
-		Label label2 = new Label(composite, SWT.NONE);
-		label2.setLayoutData(new GridData(SWT.END, SWT.CENTER, false, false));
-		label2.setText("Tree with decorators #2");
-
-		// First tree  viewer
-		final TreeViewer treeViewer = new TreeViewer(composite, SWT.MULTI
-				| SWT.H_SCROLL | SWT.V_SCROLL);
-		
-		StyledTreeItemLabelProvider labelProvider = new StyledTreeItemLabelProvider(1);
-		TreeItemProvider treeItemProvider = new TreeItemProvider();
-		
-		treeViewer.setLabelProvider(labelProvider);
-		treeViewer.setContentProvider(treeItemProvider);
-
-		GridData data = new GridData(GridData.BEGINNING, GridData.FILL, true, true);
-		treeViewer.getControl().setLayoutData(data);
-		treeViewer.setInput(new Object());
-
-		// Second tree viewer
-		final TreeViewer treeViewer2 = new TreeViewer(composite, SWT.MULTI
-				| SWT.H_SCROLL | SWT.V_SCROLL);
-		
-		StyledTreeItemLabelProvider labelProvider2 = new StyledTreeItemLabelProvider(2);
-		TreeItemProvider treeItemProvider2 = new TreeItemProvider();
-		
-		treeViewer2.setLabelProvider(labelProvider2);
-		treeViewer2.setContentProvider(treeItemProvider2);
-
-		GridData data2 = new GridData(GridData.END, GridData.FILL, true, true);
-		treeViewer2.getControl().setLayoutData(data2);
-		treeViewer2.setInput(new Object());
-		
-		return composite;
-	}
-
-	private static class StyledTreeItemLabelProvider extends StyledCellLabelProvider {
-
-		private int modifier;
-		
-		public StyledTreeItemLabelProvider(int modifier) {
-			this.modifier = modifier;
-		}
-
-		@Override
-		public void update(ViewerCell cell) {
-			// result on given cell text
-			String cellText = (String) cell.getElement();
-			
-			StyledString styledLabel = new StyledString();
-
-			String customLabel;
-			if (cellText.contains("1")) {
-				if (cellText.contains("2")) {
-					customLabel = "3";
-				} else {
-					customLabel = "1";
-				}
-			} else {
-				if (cellText.contains("2")) {
-					customLabel = "2";
-				} else {
-					customLabel = "0";
-				}
-			}
-			
-			if (cellText.contains("1")) {
-				styledLabel.append(customLabel + "spre" + modifier, StyledString.COUNTER_STYLER);
-				styledLabel.append(" ", null);
-			}
-
-			styledLabel.append(customLabel + "nonstyled" + modifier, null);
-			
-			if (cellText.contains("2")) {
-				styledLabel.append(" ", null);
-				styledLabel.append(customLabel + "spost" + modifier, StyledString.COUNTER_STYLER);
-			}
-			
-			cell.setText(styledLabel.toString());
-			cell.setStyleRanges(styledLabel.getStyleRanges());
-
-			super.update(cell);
-		}
-
-		@Override
-		protected void measure(Event event, Object element) {
-			super.measure(event, element);
-		}
-	}
-	
-	private static class TreeItemProvider implements ITreeContentProvider {
-
-		@Override
-		public Object[] getElements(Object element) {
-			String[] items = new String[4];
-			// 1 mean styled prefix, 0 non-styled text, 2 styled postfix
-			items[0] = "0";
-			items[1] = "1 0";
-			items[2] = "0 2";
-			items[3] = "1 0 2";
-			return items;
-		}
-
-		@Override
-		public void dispose() {
-		}
-
-		@Override
-		public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
-		}
-
-		@Override
-		public Object[] getChildren(Object arg0) {
-			return null;
-		}
-
-		@Override
-		public Object getParent(Object arg0) {
-			return null;
-		}
-
-		@Override
-		public boolean hasChildren(Object arg0) {
-			return false;
-		}
+	@Test(expected = JFaceLayerException.class)
+	public void getNonExistingItems() {
+		treeViewerHandler.getTreeItems(new DefaultTree(), "non", "existing", "path");
 	}
 }
