@@ -9,6 +9,14 @@ function loadPage(page) {
 	xhttp.send();
 }
 
+function initPage() {
+	if (window.location.hash) {
+		loadPage(window.location.hash.substring(1).concat(".html"));
+	} else {
+		loadPage('home.html');
+	}
+}
+
 function setHtmlForElement(elementID, html) {
 	document.getElementById(elementID).innerHTML = html;
 }
