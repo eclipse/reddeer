@@ -33,10 +33,7 @@ public class Project {
 	 */
 	public static void delete(String projectName, boolean deleteContent , boolean force ){
 		try {
-			ResourcesPlugin.getWorkspace()
-				.getRoot()
-				.getProject(projectName)
-				.delete(deleteContent, force, null);
+			getProject(projectName).delete(deleteContent, force, null);
 		} catch (CoreException ce) {
 			throw new RuntimeException("Unable to delete project " + projectName, ce);
 		}
@@ -49,11 +46,10 @@ public class Project {
 	 * @return list of project ids or null if project does not exist or there is no nature IDl
 	 */
 	public static List<String> getProjectNatureIds(final String projectName) {
-		IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(projectName);
 		List<String> natureIds = null;
 		
 		try {
-			natureIds = Arrays.asList(project.getDescription().getNatureIds());
+			natureIds = Arrays.asList(getProject(projectName).getDescription().getNatureIds());
 		} catch (CoreException ex) {
 			throw new RuntimeException("Cannot get natures of project " + projectName +". Project is not opened.");
 		}
@@ -67,7 +63,21 @@ public class Project {
 	 * @return true if project exists, false otherwise
 	 */
 	public static boolean isProject(String projectName) {
-		IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(projectName);
-		return project.exists();
+		return getProject(projectName).exists();
+
+	}
+	
+	/**
+	 * Checks if project with given name is open.
+	 *
+	 * @param projectName name of the project to check
+	 * @return true if project is open, false otherwise
+	 */
+	public static boolean isOpen(String projectName) {
+		return getProject(projectName).isOpen();
+	}
+	
+	private static IProject getProject(String projectName){
+		return ResourcesPlugin.getWorkspace().getRoot().getProject(projectName);
 	}
 }

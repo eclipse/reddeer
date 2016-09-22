@@ -12,6 +12,7 @@ package org.jboss.reddeer.eclipse.core.resources;
 
 import java.util.List;
 
+import org.jboss.reddeer.common.exception.RedDeerException;
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.common.matcher.RegexMatcher;
 import org.jboss.reddeer.common.wait.TimePeriod;
@@ -77,9 +78,9 @@ public abstract class AbstractProject extends ExplorerItem {
 	 *            whether project should be deleted from file system or not
 	 */
 	public void delete(boolean deleteFromFileSystem) {
-		// no need to activate, it is activated in refresh() method 
-		refresh();
-
+		if(org.jboss.reddeer.direct.project.Project.isOpen(getName())){
+			refresh();
+		}
 		log.debug("Delete project '" + getName() + "' via Explorer");
 
 		// delete via context menu
