@@ -187,8 +187,10 @@ public class WidgetResolver  {
 		} else if (w instanceof ToolItem) {
 			// do nothing
 		} else if (w instanceof Table) {
-			Widget[] items = ((Table) w).getItems();
-			children = Arrays.asList(items);
+			List<Widget> tempList = new ArrayList<Widget>();
+			tempList.addAll(Arrays.asList(((Table)w).getChildren()));
+			tempList.addAll(Arrays.asList(((Table)w).getItems()));
+			children = tempList;
 		}
 		else if (w instanceof TableItem) {
 			// do nothing
