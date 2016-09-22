@@ -40,6 +40,14 @@ summary {
   margin: 0 auto;
 }
 
+.left_inner {
+  display: block;
+  float: left;
+  position: relative;
+  width: 400px;
+  margin: 0 auto;
+}
+
 #header_h1 {
   width: 540px;
   margin-top: 0;
@@ -73,15 +81,23 @@ summary {
   background: #fafafa;
 }
 
-#menu_wrapper {
+#menu-wrapper {
   border: none;
-  padding: 10px;
-  font-size: 1.8em;
+  padding: 15px;
+  font-size: 1.5em;
   margin-left: 1em;
-  top: 220px;
+  top: 235px;
   width: 20%;
   position: fixed;
   z-index: 2;
+}
+
+.menu-item:before {
+  display: block; 
+  content: " "; 
+  margin-top: -267px; 
+  height: 267px; 
+  visibility: hidden; 
 }
 
 #content_frame {
