@@ -307,15 +307,24 @@ public class Server {
 	 * @param resultState the result state
 	 */
 	protected void operateServerState(String menuItem, ServerState resultState){
-		log.debug("Operate server's state: '" + menuItem + "'");
-		select();
+		log.debug("Triggering action: " + menuItem + " on server " + getLabel().getName());
+		ServerState currentState = getLabel().getState();
+		
+		select();		
 		new ContextMenu(menuItem).select();
-		new WaitUntil(new JobIsRunning(), TIMEOUT);
+		
+		// Wait while server state change takes effect and then wait while state changing job is running
+		new WaitWhile(new ServerStateCondition(currentState), TIMEOUT);
+		new WaitWhile(new JobIsRunning(), TIMEOUT);
+		
+		// Wait until server gets to correct state and then wait for running jobs
 		new WaitUntil(new ServerStateCondition(resultState), TIMEOUT);
 		new WaitWhile(new JobIsRunning(), TIMEOUT);
 
-		//check if the server has expected state after jobs are done
-		new WaitUntil(new ServerStateCondition(resultState), TIMEOUT);
+		// Test state one more time, because state is depending on settings e.g. port accessibility and something
+		// could go wrong at changing state and server could fail to get to the state 
+		new WaitUntil(new ServerStateCondition(resultState), TimePeriod.NONE);
+		
 		log.debug("Operate server's state finished, the result server's state is: '" + getLabel().getState() + "'");
 	}
 
@@ -373,6 +382,12 @@ public class Server {
 		public String description() {
 			return "server's state is: " + expectedState.getText();
 		}
+		
+		@Override
+		public String errorMessage() {
+			return "Server expected state was " + expectedState.getText() + " but current state is "
+					+ getLabel().getState().getText(); 
+		}
 	}
 
 	private class ServerPublishStateCondition extends AbstractWaitCondition {
@@ -391,6 +406,12 @@ public class Server {
 		@Override
 		public String description() {
 			return "server's publish state is " + expectedState.getText();
+		}
+		
+		@Override
+		public String errorMessage() {
+			return "Server expected state was " + expectedState.getText() + " but current state is "
+					+ getLabel().getPublishState().getText(); 
 		}
 	}
 	
