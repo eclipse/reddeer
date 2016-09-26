@@ -438,6 +438,9 @@ public class WidgetHandler {
 		event.button = button;
 		event.x = x;
 		event.y = y;
+		if(eventType == SWT.MouseDoubleClick){
+			event.count=2;
+		}
 		return event;
 	}
 	
