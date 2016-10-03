@@ -34,18 +34,11 @@ public class NewJavaProjectWizardDialog extends NewWizardDialog {
 		super("Java", "Java Project");
 	}
 
-	/* (non-Javadoc)
-	 * @see org.jboss.reddeer.jface.wizard.WizardDialog#finish()
-	 */
-	@Override
-	public void finish() {
-		finish(false);
-	}
-
 	/**
 	 * Closes dialog clicking on finish button.
 	 * @param openAssociatedPerspective - true when associated perspective
 	 * has to be open
+	 * @deprecated since 1.2.0
 	 */
 	public void finish(boolean openAssociatedPerspective) {
 		log.debug("Finish wizard dialog");
@@ -74,7 +67,7 @@ public class NewJavaProjectWizardDialog extends NewWizardDialog {
 
 		}
 
-		new WaitWhile(new ShellWithTextIsAvailable("New Java Project"));
+		new WaitWhile(new ShellWithTextIsAvailable("New Java Project"), TimePeriod.LONG);
 		new WaitWhile(new JobIsRunning(), TimePeriod.LONG);
 
 	}
