@@ -36,7 +36,7 @@ public class JUnitHasFinished extends AbstractWaitCondition {
 	 */
 	public JUnitHasFinished() {
 		junitView = new JUnitView();
-		junitJobIsRunning = new JobIsRunning(new Matcher[] { StringContains.containsString("JUnit") }, null, false);
+		junitJobIsRunning = new JobIsRunning(StringContains.containsString("JUnit"), false);
 	}
 
 	/* (non-Javadoc)
