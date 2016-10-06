@@ -13,6 +13,9 @@
 	<category-def label="4. RedDeer Sources" name="AllSources">
 		<description>RedDeer Sources: Contains RedDeer source features.</description>
 	</category-def>
+	<category-def label="5. RedDeer Graphiti" name="GraphitiFeatures">
+		<description>RedDeer Graphiti: Graphiti, GEF features, tools and its sources</description>
+	</category-def>
 
 	<feature url="org.jboss.reddeer.eclipse.feature.qualifier" id="org.jboss.reddeer.eclipse.feature" version="0.0.0">
 		<category name="RuntimeAPIFeatures"/>
@@ -35,12 +38,12 @@
 	</feature>
 
 	<feature url="org.jboss.reddeer.gef.spy.feature.qualifier" id="org.jboss.reddeer.gef.spy.feature" version="0.0.0">
-		<category name="ToolFeatures"/>
+		<category name="GraphitiFeatures"/>
 	</feature>
 
-        <feature url="org.jboss.reddeer.logparser.feature.qualifier" id="org.jboss.reddeer.logparser.feature" version="0.0.0">
-                <category name="ToolFeatures"/>
-        </feature>
+    <feature url="org.jboss.reddeer.logparser.feature.qualifier" id="org.jboss.reddeer.logparser.feature" version="0.0.0">
+            <category name="ToolFeatures"/>
+    </feature>
 
 	<feature url="org.jboss.reddeer.tests.feature.qualifier" id="org.jboss.reddeer.tests.feature" version="0.0.0">
 	</feature>
@@ -57,7 +60,7 @@
 	</feature>
 
 	<feature url="org.jboss.reddeer.graphiti.feature.qualifier" id="org.jboss.reddeer.graphiti.feature" version="0.0.0">
-		<category name="RuntimeAPIFeatures"/>
+		<category name="GraphitiFeatures"/>
 	</feature>
 
 	<feature url="org.jboss.reddeer.eclipse.feature.source.qualifier" id="org.jboss.reddeer.eclipse.feature.source" version="0.0.0">
@@ -91,7 +94,7 @@
 	</feature>
 
 	<feature url="org.jboss.reddeer.graphiti.feature.source.qualifier" id="org.jboss.reddeer.graphiti.feature.source" version="0.0.0">
-		<category name="AllSources"/>
+		<category name="GraphitiFeatures"/>
 	</feature>
 
 	<feature url="org.jboss.reddeer.selenium.feature.qualifier" id="org.jboss.reddeer.selenium.feature" version="0.0.0">
