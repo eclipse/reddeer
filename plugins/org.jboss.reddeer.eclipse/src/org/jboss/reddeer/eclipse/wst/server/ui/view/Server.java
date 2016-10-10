@@ -313,14 +313,17 @@ public class Server {
 		select();		
 		new ContextMenu(menuItem).select();
 		
+		log.trace("Action on server triggered. Waiting while current state of server gets changed");
 		// Wait while server state change takes effect and then wait while state changing job is running
 		new WaitWhile(new ServerStateCondition(currentState), TIMEOUT);
 		new WaitWhile(new JobIsRunning(), TIMEOUT);
 		
+		log.trace("Waiting until server state gets to result state.");
 		// Wait until server gets to correct state and then wait for running jobs
 		new WaitUntil(new ServerStateCondition(resultState), TIMEOUT);
 		new WaitWhile(new JobIsRunning(), TIMEOUT);
 
+		log.trace("Performing final check on correct server state.");
 		// Test state one more time, because state is depending on settings e.g. port accessibility and something
 		// could go wrong at changing state and server could fail to get to the state 
 		new WaitUntil(new ServerStateCondition(resultState), TimePeriod.NONE);
