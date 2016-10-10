@@ -39,8 +39,34 @@ public class JobIsRunning extends AbstractWaitCondition {
 	}
 
 	/**
+	 * Constructs JobIsRunning wait condition. Condition is met when job is running.
+	 * Test only jobs matching the specified matcher. Skips all system jobs.
+	 * 
+	 * @param consideredJob checks only jobs matching a specified matcher. Use in case
+	 * you want to make sure all jobs matching a specified matcher are running and 
+	 * you do not care about other jobs.
+	 */
+	public JobIsRunning(Matcher consideredJob) {
+		this(new Matcher[] {consideredJob});
+	}
+	
+	/**
+	 * Constructs JobIsRunning wait condition. Condition is met when job is running.
+	 * Test only jobs matching the specified matcher. Can enable/disable check on
+	 * system jobs.
+	 * 
+	 * @param consideredJob checks only jobs matching a specified matcher. Use in case
+	 * you want to make sure all jobs matching a specified matcher are running and 
+	 * you do not care about other jobs.
+	 * @param skipSystemJobs if true, then all system jobs are skipped
+	 */
+	public JobIsRunning(Matcher consideredJob, boolean skipSystemJobs) {
+		this(new Matcher[] {consideredJob}, null, skipSystemJobs);
+	}
+	
+	/**
 	 * Constructs JobIsRunning wait condition. Condition is met when job(s) is/are running.
-	 * Test only jobs matching the specified matchers.
+	 * Test only jobs matching the specified matchers. Skips all system jobs.
 	 * 
 	 * @param consideredJobs If not <code>null</code>, only jobs whose name matches
 	 * any of these matchers will be tested. Use in case you want to make sure all
@@ -54,7 +80,7 @@ public class JobIsRunning extends AbstractWaitCondition {
 	/**
 	 * Constructs JobIsRunning wait condition. Condition is met when job(s) is/are running.
 	 * Test only jobs matching the specified matchers which are not excluded by 
-	 * another specified matchers.
+	 * another specified matchers. Skips all system jobs.
 	 * 
 	 * @param consideredJobs If not <code>null</code>, only jobs whose name matches
 	 * any of these matchers will be tested. Use in case you want to make sure all
