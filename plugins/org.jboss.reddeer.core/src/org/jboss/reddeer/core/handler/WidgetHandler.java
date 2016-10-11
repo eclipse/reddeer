@@ -386,7 +386,7 @@ public class WidgetHandler {
 			final Widget widget) {
 		createEvent.type = eventType;
 
-		log.trace("Notify "+widget+" with event "+eventType);
+		log.trace("Notify " + widget.getClass().getSimpleName() + " with event " + eventType);
 		Display.asyncExec(new Runnable() {
 			public void run() {
 				if ((widget == null) || widget.isDisposed()) {
