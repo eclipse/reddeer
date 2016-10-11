@@ -7,13 +7,17 @@
  * 
  * Contributors: 
  * Red Hat, Inc. - initial API and implementation 
- ******************************************************************************/ 
+ ******************************************************************************/
 package org.jboss.reddeer.workbench.test.view;
 
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
+import org.jboss.reddeer.swt.impl.menu.ShellMenu;
+import org.jboss.reddeer.swt.impl.text.LabeledText;
 import org.jboss.reddeer.workbench.api.View;
 import org.jboss.reddeer.workbench.exception.WorkbenchLayerException;
 import org.jboss.reddeer.workbench.impl.view.WorkbenchView;
+import org.jboss.reddeer.workbench.test.ui.views.DirtyLabelView;
+import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -25,7 +29,7 @@ public class ViewTest {
 		new WorkbenchView("Workbench Test");
 	}
 
-	@Test(expected=WorkbenchLayerException.class)
+	@Test(expected = WorkbenchLayerException.class)
 	public void testInitializeNonregisteredView() {
 		new WorkbenchView("Nonexist View");
 	}
@@ -65,13 +69,13 @@ public class ViewTest {
 		markersView.close();
 	}
 
-	@Test(expected=WorkbenchLayerException.class)
+	@Test(expected = WorkbenchLayerException.class)
 	public void testCloseNoninitializedView() {
 		View customView = new WorkbenchView("Workbench Test");
 		customView.close();
 	}
 
-	@Test(expected=WorkbenchLayerException.class)
+	@Test(expected = WorkbenchLayerException.class)
 	public void testActivateNoninitializedView() {
 		View customView = new WorkbenchView("Workbench Test");
 		customView.activate();
@@ -81,7 +85,7 @@ public class ViewTest {
 	public void testActivateNonFocusedView() {
 		View customView = new WorkbenchView("Workbench Test");
 		customView.open();
-		
+
 		View markersView = new WorkbenchView("Markers");
 		markersView.open();
 
@@ -100,4 +104,35 @@ public class ViewTest {
 		customView.restore();
 		customView.close();
 	}
+
+	/* Tests with a dirty view */
+	
+	@After
+	public void restoreDefaultDirtyValue() {
+		setDefaultDirtyValue(DirtyLabelView.DEFAULT_DIRTY_VALUE);
+	}
+
+	@Test
+	public void testOpenAndCloseDirtyView() {
+		setDefaultDirtyValue(true);
+		View customView = new WorkbenchView("Workbench Dirty Test");
+		customView.open();
+		customView.close();
+	}
+
+	@Test
+	public void testActivateDirtyAndNonDirtyView() {
+		View customView = new WorkbenchView("Workbench Dirty Test");
+		customView.open();
+		new LabeledText("Test field: ").setText("hello");
+		customView.activate();
+		new ShellMenu("File", "Save").select();
+		customView.activate();
+		customView.close();
+	}
+
+	private void setDefaultDirtyValue(boolean isDirty) {
+		System.setProperty(DirtyLabelView.DEFAULT_DIRTY_PROPERTY, String.valueOf(isDirty));
+	}
+
 }

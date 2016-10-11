@@ -67,7 +67,7 @@ public class AbstractView implements View {
 	 *            of view to initialize
 	 */
 	public AbstractView(String viewToolTip) {
-		this(new WithTextMatcher(viewToolTip));
+		this(new WithTextMatcher(new RegexMatcher("\\*?" + viewToolTip)));
 	}
 
 	/**
@@ -120,7 +120,7 @@ public class AbstractView implements View {
 	 */
 	@Override
 	public void activate() {
-		log.info("Activate view " + viewTitle());
+		log.info("Activate view " + getTitle());
 		cTabItemIsNotNull();
 		getViewCTabItem().activate();
 		ViewHandler.getInstance().focusChildControl();
@@ -139,7 +139,7 @@ public class AbstractView implements View {
 			if (!isOpened()){
 				return cTabItem;
 			}
-			log.debug("Looking up CTabItem with text " + viewTitle());
+			log.debug("Looking up CTabItem with text " + getTitle());
 			cTabItem = new DefaultCTabItem(new WorkbenchShell(), viewNameMatcher);
 		}
 		return cTabItem; 
@@ -189,10 +189,6 @@ public class AbstractView implements View {
 		return path;
 	}
 
-	private String viewTitle() {
-		return path[path.length - 1];
-	}
-
 	/* (non-Javadoc)
 	 * @see org.jboss.reddeer.workbench.api.WorkbenchPart#close()
 	 */
@@ -209,10 +205,10 @@ public class AbstractView implements View {
 	 */
 	@Override
 	public void open() {
-		log.info("Open view " + viewTitle());
+		log.info("Open view " + getTitle());
 		// view is not opened, it has to be opened via menu
 		if (getViewCTabItem() == null){
-			log.info("Open " + viewTitle() + " view via menu.");
+			log.info("Open " + getTitle() + " view via menu.");
 			openViaMenu();
 		}
 		activate();
@@ -237,8 +233,7 @@ public class AbstractView implements View {
 		@Override
 		public boolean test() {
 			try {
-				getViewCTabItem();
-				return true;
+				return getViewCTabItem() != null;
 			} catch (Exception e){
 				return false;
 			}
@@ -266,7 +261,7 @@ public class AbstractView implements View {
 	 * @return Title of the view
 	 */
 	public String getTitle() {
-		return viewTitle();
+		return path[path.length - 1];
 	}
 
 	/* (non-Javadoc)
@@ -285,7 +280,7 @@ public class AbstractView implements View {
 		List<org.eclipse.swt.custom.CTabItem> tabs = WidgetLookup.getInstance().activeWidgets(new WorkbenchShell(), org.eclipse.swt.custom.CTabItem.class);
 		for (org.eclipse.swt.custom.CTabItem tab : tabs){
 			String text = WidgetHandler.getInstance().getText(tab);
-			if (viewTitle().equals(text)){
+			if (viewNameMatcher.matches(text)){
 				return true;
 			}
 		}
