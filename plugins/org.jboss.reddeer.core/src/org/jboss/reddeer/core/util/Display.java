@@ -28,8 +28,6 @@ public class Display {
 	private static org.eclipse.swt.widgets.Display display;
 	private static SyncInterceptorManager sim = SyncInterceptorManager.getInstance();
 
-	private static boolean firstAttempt = true;
-
 	private Display(){
 		super();
 	}
@@ -80,13 +78,8 @@ public class Display {
 		ErrorHandlingRunnable<T> errorHandlingRunnable = new ErrorHandlingRunnable<T>(runnable);
 
 		if (!isUIThread()) {
-			firstAttempt = true;
 			Display.getDisplay().syncExec(errorHandlingRunnable);
 		} else {
-			if (firstAttempt) {
-				log.debug("UI Call chaining attempt");
-				firstAttempt = false;
-			}
 			if (runnable instanceof ErrorHandlingRunnable){
 				errorHandlingRunnable = (ErrorHandlingRunnable<T>) runnable;
 			}
