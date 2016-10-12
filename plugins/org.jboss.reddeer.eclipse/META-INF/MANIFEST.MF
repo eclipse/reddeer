@@ -25,6 +25,7 @@ Require-Bundle: org.eclipse.ui,
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Export-Package: org.jboss.reddeer.eclipse,
+ org.jboss.reddeer.eclipse.arquillian.ui.preferences,
  org.jboss.reddeer.eclipse.condition,
  org.jboss.reddeer.eclipse.core.resources,
  org.jboss.reddeer.eclipse.datatools.sqltools.result.ui,
@@ -81,4 +82,5 @@ Export-Package: org.jboss.reddeer.eclipse,
  org.jboss.reddeer.eclipse.wst.web.ui.wizards,
  org.jboss.reddeer.eclipse.wst.xml.ui.tabletree
 Import-Package: org.eclipse.ui.internal.views.markers,
+ org.jboss.reddeer.uiforms.impl.formtext,
  org.junit
