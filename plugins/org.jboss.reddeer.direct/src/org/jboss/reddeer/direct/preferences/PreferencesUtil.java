@@ -7,21 +7,25 @@
  * 
  * Contributors: 
  * Red Hat, Inc. - initial API and implementation 
- ******************************************************************************/ 
+ ******************************************************************************/
 package org.jboss.reddeer.direct.preferences;
+
+import java.util.Arrays;
 
 import org.jboss.reddeer.common.logging.Logger;
 
 /**
  * This is a util class for setting common preferences.
  * 
- * @author Andrej Podhradsky
+ * @author Andrej Podhradsky (apodhrad@redhat.com)
  *
  */
 public class PreferencesUtil {
 
 	public static final String AUTO_BUILDING_PLUGIN = "org.eclipse.core.resources";
 	public static final String AUTO_BUILDING_KEY = "description.autobuilding";
+	public static final String OPEN_ASSOCIATED_PERSPECTIVE_PLUGIN = "org.eclipse.ui.ide";
+	public static final String OPEN_ASSOCIATED_PERSPECTIVE_KEY = "SWITCH_PERSPECTIVE_ON_PROJECT_CREATION";
 
 	private static final Logger log = Logger.getLogger(PreferencesUtil.class);
 
@@ -49,4 +53,48 @@ public class PreferencesUtil {
 		log.info("Setting the auto building OFF.");
 		Preferences.set(AUTO_BUILDING_PLUGIN, AUTO_BUILDING_KEY, "false");
 	}
+
+	/**
+	 * Returns the option for opening the associated perspective when creating a new project
+	 * 
+	 * @return the option for opening the associated perspective when creating a new project
+	 */
+	public static String getOpenAssociatedPerspective() {
+		return Preferences.get(OPEN_ASSOCIATED_PERSPECTIVE_PLUGIN, OPEN_ASSOCIATED_PERSPECTIVE_KEY);
+	}
+
+	/**
+	 * Sets the way of opening the associated perspective when creating a new project.
+	 * 
+	 * @param value
+	 *            always|never|prompt
+	 */
+	public static void setOpenAssociatedPerspective(String value) {
+		oneOf(value, "always", "never", "prompt");
+		Preferences.set(OPEN_ASSOCIATED_PERSPECTIVE_PLUGIN, OPEN_ASSOCIATED_PERSPECTIVE_KEY, value);
+	}
+
+	/**
+	 * Validates a given text whether it is one of specified strings.
+	 * 
+	 * @param text
+	 *            a text to be validated
+	 * @param strings
+	 *            allowed strings including a null value
+	 * @return the validated text
+	 * @throws IllegalArgumentException
+	 *             if the text is not one of the allowed strings
+	 */
+	private static String oneOf(String text, String... strings) {
+		for (String string : strings) {
+			if (string == null && text == null) {
+				return text;
+			}
+			if (string != null && string.equals(text)) {
+				return text;
+			}
+		}
+		throw new IllegalArgumentException("Expected one of " + Arrays.toString(strings) + " but was '" + text + "'");
+	}
+
 }
