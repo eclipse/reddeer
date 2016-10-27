@@ -28,7 +28,6 @@ import org.jboss.reddeer.junit.internal.runner.statement.RunIAfterTestExtensions
 import org.jboss.reddeer.junit.internal.runner.statement.RunIBeforeClassExtensions;
 import org.jboss.reddeer.junit.internal.runner.statement.RunIBeforeTestExtensions;
 import org.jboss.reddeer.junit.internal.runner.statement.RunTestMethod;
-import org.jboss.reddeer.junit.internal.screenrecorder.ScreenCastingRunListener;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -145,9 +144,7 @@ public class RequirementsRunner extends BlockJUnit4ClassRunner {
 	@Override
 	public void run(RunNotifier runNotifier) {
 		LoggingRunListener loggingRunListener = new LoggingRunListener();
-		ScreenCastingRunListener screenCastingRunListener = new ScreenCastingRunListener();
 		runNotifier.addListener(loggingRunListener);
-		runNotifier.addListener(screenCastingRunListener);
 		if (runListeners != null){
 			for (RunListener listener : runListeners){
 				runNotifier.addListener(listener);
@@ -159,7 +156,6 @@ public class RequirementsRunner extends BlockJUnit4ClassRunner {
 				runNotifier.removeListener(listener);
 			}
 		}
-		runNotifier.removeListener(screenCastingRunListener);
 		runNotifier.removeListener(loggingRunListener);
 	}
 	

@@ -42,7 +42,6 @@
 <stringAttribute key="rd.launch.property.rd.logLevel" value="ALL"/>
 <stringAttribute key="rd.launch.property.rd.logMessageFilter" value="ALL"/>
 <stringAttribute key="rd.launch.property.rd.pauseFailedTest" value="false"/>
-<stringAttribute key="rd.launch.property.rd.recordScreenCast" value="false"/>
 <stringAttribute key="rd.launch.property.rd.openAssociatedPerspective" value="never"/>
 <booleanAttribute key="show_selected_only" value="false"/>
 <stringAttribute key="templateConfig" value="${target_home}/configuration/config.ini"/>

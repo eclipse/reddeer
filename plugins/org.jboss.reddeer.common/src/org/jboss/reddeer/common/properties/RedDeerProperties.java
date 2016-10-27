@@ -44,8 +44,6 @@ public enum RedDeerProperties {
 
 	CAPTURE_SCREENSHOT("rd.captureScreenshot", true),
 
-	RECORD_SCREENCAST("rd.recordScreenCast", false),
-
 	RELATIVE_SCREENSHOT_DIRECTORY("rd.relativeScreenshotDirectory", (String) null),
 
 	OPEN_ASSOCIATED_PERSPECTIVE("rd.openAssociatedPerspective", "never"),
