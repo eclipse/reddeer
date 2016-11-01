@@ -17,14 +17,15 @@ import org.eclipse.wst.server.core.IModule;
 import org.eclipse.wst.server.ui.IServerModule;
 import org.hamcrest.Matcher;
 import org.hamcrest.core.IsEqual;
-import org.jboss.reddeer.common.condition.AbstractWaitCondition;
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.common.wait.TimePeriod;
 import org.jboss.reddeer.common.wait.WaitUntil;
 import org.jboss.reddeer.common.wait.WaitWhile;
 import org.jboss.reddeer.core.condition.JobIsRunning;
 import org.jboss.reddeer.core.util.Display;
+import org.jboss.reddeer.eclipse.condition.ServerHasPublishState;
 import org.jboss.reddeer.eclipse.condition.ServerExists;
+import org.jboss.reddeer.eclipse.condition.ServerHasState;
 import org.jboss.reddeer.eclipse.exception.EclipseLayerException;
 import org.jboss.reddeer.eclipse.wst.server.ui.editor.ServerEditor;
 import org.jboss.reddeer.eclipse.wst.server.ui.view.ServersViewEnums.ServerPublishState;
@@ -315,18 +316,18 @@ public class Server {
 		
 		log.trace("Action on server triggered. Waiting while current state of server gets changed");
 		// Wait while server state change takes effect and then wait while state changing job is running
-		new WaitWhile(new ServerStateCondition(currentState), TIMEOUT);
+		new WaitWhile(new ServerHasState(this, currentState), TIMEOUT);
 		new WaitWhile(new JobIsRunning(), TIMEOUT);
 		
 		log.trace("Waiting until server state gets to result state.");
 		// Wait until server gets to correct state and then wait for running jobs
-		new WaitUntil(new ServerStateCondition(resultState), TIMEOUT);
+		new WaitUntil(new ServerHasState(this, resultState), TIMEOUT);
 		new WaitWhile(new JobIsRunning(), TIMEOUT);
 
 		log.trace("Performing final check on correct server state.");
 		// Test state one more time, because state is depending on settings e.g. port accessibility and something
 		// could go wrong at changing state and server could fail to get to the state 
-		new WaitUntil(new ServerStateCondition(resultState), TimePeriod.NONE);
+		new WaitUntil(new ServerHasState(this, resultState), TimePeriod.NONE);
 		
 		log.debug("Operate server's state finished, the result server's state is: '" + getLabel().getState() + "'");
 	}
@@ -336,8 +337,8 @@ public class Server {
 	 */
 	protected void waitForPublish(){
 		new WaitUntil(new JobIsRunning(), TIMEOUT);
-		new WaitWhile(new ServerPublishStateCondition(ServerPublishState.PUBLISHING), TIMEOUT);
-		new WaitUntil(new ServerPublishStateCondition(ServerPublishState.SYNCHRONIZED), TIMEOUT);
+		new WaitWhile(new ServerHasPublishState(this, ServerPublishState.PUBLISHING), TIMEOUT);
+		new WaitUntil(new ServerHasPublishState(this, ServerPublishState.SYNCHRONIZED), TIMEOUT);
 	}
 	
 	/**
@@ -366,56 +367,6 @@ public class Server {
 	protected void activate(){
 		view.activate();
 		select();
-	}
-
-	private class ServerStateCondition extends AbstractWaitCondition {
-
-		private ServerState expectedState;
-
-		private ServerStateCondition(ServerState expectedState) {
-			this.expectedState = expectedState;
-		}
-
-		@Override
-		public boolean test() {
-			return expectedState.equals(getLabel().getState());
-		}
-
-		@Override
-		public String description() {
-			return "server's state is: " + expectedState.getText();
-		}
-		
-		@Override
-		public String errorMessage() {
-			return "Server expected state was " + expectedState.getText() + " but current state is "
-					+ getLabel().getState().getText(); 
-		}
-	}
-
-	private class ServerPublishStateCondition extends AbstractWaitCondition {
-
-		private ServerPublishState expectedState;
-
-		private ServerPublishStateCondition(ServerPublishState expectedState) {
-			this.expectedState = expectedState;
-		}
-
-		@Override
-		public boolean test() {
-			return expectedState.equals(getLabel().getPublishState());
-		}
-
-		@Override
-		public String description() {
-			return "server's publish state is " + expectedState.getText();
-		}
-		
-		@Override
-		public String errorMessage() {
-			return "Server expected state was " + expectedState.getText() + " but current state is "
-					+ getLabel().getPublishState().getText(); 
-		}
 	}
 	
 	/**
