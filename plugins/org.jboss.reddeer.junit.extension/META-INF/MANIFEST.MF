@@ -3,20 +3,20 @@ Bundle-ManifestVersion: 2
 Bundle-Name: RedDeer JUnit Extensions
 Bundle-Vendor: JBoss by Red Hat
 Bundle-SymbolicName: org.jboss.reddeer.junit.extension;singleton:=true
-Bundle-Version: 1.2.0.Final
+Bundle-Version: 1.3.0.qualifier
 Bundle-Activator: org.jboss.reddeer.junit.extension.Activator
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  org.apache.commons.logging;bundle-version="1.1.1",
- org.jboss.reddeer.eclipse;bundle-version="[1.2,1.3)",
- org.jboss.reddeer.junit;bundle-version="[1.2,1.3)",
- org.jboss.reddeer.jface;bundle-version="[1.2,1.3)",
- org.jboss.reddeer.swt;bundle-version="[1.2,1.3)",
- org.jboss.reddeer.core;bundle-version="[1.2,1.3)",
- org.jboss.reddeer.workbench;bundle-version="[1.2,1.3)",
+ org.jboss.reddeer.eclipse;bundle-version="[1.3,1.4)",
+ org.jboss.reddeer.junit;bundle-version="[1.3,1.4)",
+ org.jboss.reddeer.jface;bundle-version="[1.3,1.4)",
+ org.jboss.reddeer.swt;bundle-version="[1.3,1.4)",
+ org.jboss.reddeer.core;bundle-version="[1.3,1.4)",
+ org.jboss.reddeer.workbench;bundle-version="[1.3,1.4)",
  org.junit;bundle-version="4.11.0",
- org.jboss.reddeer.common;bundle-version="[1.2,1.3)",
- org.jboss.reddeer.direct;bundle-version="[1.2,1.3)"
+ org.jboss.reddeer.common;bundle-version="[1.3,1.4)",
+ org.jboss.reddeer.direct;bundle-version="[1.3,1.4)"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ClassPath: .
 Import-Package: org.jboss.reddeer.junit.screenshot

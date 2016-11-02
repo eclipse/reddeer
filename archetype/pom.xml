@@ -4,7 +4,7 @@
 	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.jboss.reddeer</groupId>
-	<version>1.2.0.Final</version>
+	<version>1.3.0-SNAPSHOT</version>
 	<artifactId>jboss-reddeer-archetype</artifactId>
 	<packaging>maven-archetype</packaging>
 	<name>Red Deer Archetype</name>
