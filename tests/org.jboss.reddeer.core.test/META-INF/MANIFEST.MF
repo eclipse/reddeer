@@ -3,8 +3,8 @@ Bundle-ManifestVersion: 2
 Bundle-Name: RedDeer Core Component Tests
 Bundle-Vendor: JBoss by Red Hat
 Bundle-SymbolicName: org.jboss.reddeer.core.test;singleton:=true
-Bundle-Version: 1.2.0.Final
+Bundle-Version: 1.3.0.qualifier
 Bundle-Activator: org.jboss.reddeer.core.test.Activator
-Require-Bundle: org.jboss.reddeer.go;bundle-version="[1.2,1.3)"
+Require-Bundle: org.jboss.reddeer.go;bundle-version="[1.3,1.4)"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7

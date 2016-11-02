@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: RedDeer Go
 Bundle-Vendor: JBoss by Red Hat
 Bundle-SymbolicName: org.jboss.reddeer.go
-Bundle-Version: 1.2.0.Final
+Bundle-Version: 1.3.0.qualifier
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Require-Bundle: org.eclipse.ui;visibility:=reexport,
@@ -11,14 +11,14 @@ Require-Bundle: org.eclipse.ui;visibility:=reexport,
  org.eclipse.equinox.event;visibility:=reexport,
  org.junit;visibility:=reexport,
  org.hamcrest.core;bundle-version="1.3.0";visibility:=reexport,
- org.jboss.reddeer.common;bundle-version="[1.2,1.3)";visibility:=reexport,
- org.jboss.reddeer.core;bundle-version="[1.2,1.3)";visibility:=reexport,
- org.jboss.reddeer.direct;bundle-version="[1.2,1.3)";visibility:=reexport,
- org.jboss.reddeer.eclipse;bundle-version="[1.2,1.3)";visibility:=reexport,
- org.jboss.reddeer.jface;bundle-version="[1.2,1.3)";visibility:=reexport,
- org.jboss.reddeer.junit;bundle-version="[1.2,1.3)";visibility:=reexport,
- org.jboss.reddeer.junit.extension;bundle-version="[1.2,1.3)";visibility:=reexport,
- org.jboss.reddeer.requirements;bundle-version="[1.2,1.3)";visibility:=reexport,
- org.jboss.reddeer.swt;bundle-version="[1.2,1.3)";visibility:=reexport,
- org.jboss.reddeer.uiforms;bundle-version="[1.2,1.3)";visibility:=reexport,
- org.jboss.reddeer.workbench;bundle-version="[1.2,1.3)";visibility:=reexport
+ org.jboss.reddeer.common;bundle-version="[1.3,1.4)";visibility:=reexport,
+ org.jboss.reddeer.core;bundle-version="[1.3,1.4)";visibility:=reexport,
+ org.jboss.reddeer.direct;bundle-version="[1.3,1.4)";visibility:=reexport,
+ org.jboss.reddeer.eclipse;bundle-version="[1.3,1.4)";visibility:=reexport,
+ org.jboss.reddeer.jface;bundle-version="[1.3,1.4)";visibility:=reexport,
+ org.jboss.reddeer.junit;bundle-version="[1.3,1.4)";visibility:=reexport,
+ org.jboss.reddeer.junit.extension;bundle-version="[1.3,1.4)";visibility:=reexport,
+ org.jboss.reddeer.requirements;bundle-version="[1.3,1.4)";visibility:=reexport,
+ org.jboss.reddeer.swt;bundle-version="[1.3,1.4)";visibility:=reexport,
+ org.jboss.reddeer.uiforms;bundle-version="[1.3,1.4)";visibility:=reexport,
+ org.jboss.reddeer.workbench;bundle-version="[1.3,1.4)";visibility:=reexport
