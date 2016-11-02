@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?><archetype-descriptor name="eclipse.plugin.archetype">
   <requiredProperties>
     <requiredProperty key="tycho_version">
-      <defaultValue>0.18.1</defaultValue>
+      <defaultValue>0.22.0</defaultValue>
     </requiredProperty>
     <requiredProperty key="eclipse_platform">
       <defaultValue>neon</defaultValue>
