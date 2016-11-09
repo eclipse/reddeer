@@ -7,7 +7,7 @@
       <defaultValue>neon</defaultValue>
     </requiredProperty>
     <requiredProperty key="reddeer_version">
-      <defaultValue>1.2.0</defaultValue>
+      <defaultValue>1.2.1</defaultValue>
     </requiredProperty>
     <requiredProperty key="version">
        <defaultValue>1.0.0-SNAPSHOT</defaultValue>

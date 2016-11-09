@@ -2,7 +2,7 @@
 <feature
       id="org.jboss.reddeer.swt.feature"
       label="%featureName"
-      version="1.2.0.Final"
+      version="1.2.1.Final"
       provider-name="JBoss by Red Hat">
 
    <description url="https://github.com/jboss-reddeer/reddeer/wiki">
