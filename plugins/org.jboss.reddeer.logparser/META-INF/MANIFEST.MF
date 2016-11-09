@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Log Parser
 Bundle-SymbolicName: org.jboss.reddeer.logparser;singleton:=true
-Bundle-Version: 1.2.0.Final
+Bundle-Version: 1.2.1.Final
 Bundle-Activator: org.jboss.reddeer.logparser.LogParserActivator
 Bundle-Vendor: Red Hat
 Require-Bundle: org.eclipse.ui,
