@@ -10,8 +10,6 @@
  ******************************************************************************/ 
 package org.jboss.reddeer.common.platform;
 
-import org.eclipse.core.runtime.Platform;
-
 /**
  * Running platforms provides information about currently running instance
  * like Operation System, etc.
@@ -20,7 +18,7 @@ import org.eclipse.core.runtime.Platform;
  */
 public final class RunningPlatform {
 	
-	private static final String CURRENT_OS = Platform.getOS().toLowerCase();
+	private static final String CURRENT_OS = System.getProperty("os.name").toLowerCase();
 	
 	private RunningPlatform() {};
 
@@ -61,7 +59,7 @@ public final class RunningPlatform {
 	 * @return true if running platform is OSX
 	 */	
 	public static boolean isOSX() {
-		return CURRENT_OS.startsWith("macosx");
+		return CURRENT_OS.startsWith("mac");
 	}
 
 	/**

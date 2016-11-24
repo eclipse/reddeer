@@ -15,10 +15,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
 
-import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.Status;
-import org.eclipse.ui.statushandlers.StatusManager;
-import org.jboss.reddeer.common.Activator;
+import org.jboss.reddeer.common.logging.Logger;
 /**
  * Handles User Profile logic
  * @author vlado pakan
@@ -30,31 +27,27 @@ public class UserProfile {
 	public static final String PROGRAM_ARGS_KEY = "programArgs";
 	private Properties userProfileProps = null;
 	private static UserProfile userProfile = null;
+	private static final Logger log = Logger.getLogger(UserProfile.class);
 	
 	private UserProfile() {
 		File userProfileFile = new File(System.getProperty("user.home"), ".reddeer");
 		if (userProfileFile.exists()) {
-			StatusManager.getManager().handle(new Status(IStatus.INFO, Activator.PLUGIN_ID,
-					"Loading RedDeer properties from user profile file: " + userProfileFile.getAbsolutePath()),StatusManager.LOG);
+			log.info("Loading RedDeer properties from user profile file: " + userProfileFile.getAbsolutePath());
 			FileInputStream fis = null;
 			try {
 				fis = new FileInputStream(userProfileFile);
 				userProfileProps = new Properties();
 				userProfileProps.load(fis);
 			} catch (IOException ioe) {
-				StatusManager.getManager().handle(new Status(IStatus.INFO, Activator.PLUGIN_ID,
-						"Loading RedDeer properties from user profile file: " + userProfileFile.getAbsolutePath(),
-						ioe),StatusManager.LOG);
+				log.error("Error while loading RedDeer properties from user profile file: " + userProfileFile.getAbsolutePath());
+				ioe.printStackTrace();
 			} finally {
 				if (fis != null) {
 					try {
 						fis.close();
 					} catch (IOException ioe) {
-						StatusManager.getManager()
-								.handle(new Status(IStatus.INFO, Activator.PLUGIN_ID,
-										"Loading RedDeer properties from user profile file: "
-												+ userProfileFile.getAbsolutePath(),
-										ioe),StatusManager.LOG);
+						log.error("Error while loading RedDeer properties from user profile file: " + userProfileFile.getAbsolutePath());
+						ioe.printStackTrace();
 					}
 				}
 			}
@@ -62,7 +55,7 @@ public class UserProfile {
 	}
 	
 	/**
-	 * Returns USerProfile instance .
+	 * Returns UserProfile instance .
 	 *
 	 * @return single instance of UserProfile
 	 */
@@ -82,7 +75,6 @@ public class UserProfile {
 	 */
 	public String getProperty (String key){
 		String value = null;
-		
 		if(userProfileProps != null	&& userProfileProps.containsKey(key)){
 			value = userProfileProps.getProperty(key);
 		}
