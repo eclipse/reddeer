@@ -27,4 +27,5 @@ Export-Package: org.jboss.reddeer.requirements.autobuilding,
  org.jboss.reddeer.requirements.jre,
  org.jboss.reddeer.requirements.openperspective,
  org.jboss.reddeer.requirements.server,
- org.jboss.reddeer.requirements.server.apache.tomcat
+ org.jboss.reddeer.requirements.server.apache.tomcat,
+ org.jboss.reddeer.requirements.security
