@@ -11,10 +11,10 @@
 package org.jboss.reddeer.workbench.impl.shell;
 
 import org.jboss.reddeer.common.logging.Logger;
-import org.jboss.reddeer.core.lookup.ShellLookup;
-import org.jboss.reddeer.core.util.Display;
-import org.jboss.reddeer.core.util.ResultRunnable;
+import org.jboss.reddeer.common.util.Display;
+import org.jboss.reddeer.common.util.ResultRunnable;
 import org.jboss.reddeer.swt.impl.shell.AbstractShell;
+import org.jboss.reddeer.workbench.core.lookup.WorkbenchShellLookup;
 
 /**
  * WorkbenchShell is Shell implementation for WorkbenchShell
@@ -30,7 +30,7 @@ public class WorkbenchShell extends AbstractShell {
 	 * Default Constructor for a WorkbenchShell.
 	 */
 	public WorkbenchShell() {
-		super(ShellLookup.getInstance().getWorkbenchShell());
+		super(WorkbenchShellLookup.getInstance().getWorkbenchShell());
 		setFocus();
 		log.debug("Workbench shell has title '" + getText() + "'");
 	}

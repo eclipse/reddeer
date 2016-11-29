@@ -17,20 +17,15 @@ import static org.junit.Assert.fail;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Label;
 import org.jboss.reddeer.common.exception.WaitTimeoutExpiredException;
+import org.jboss.reddeer.common.util.Display;
 import org.jboss.reddeer.common.wait.TimePeriod;
 import org.jboss.reddeer.common.wait.WaitUntil;
-import org.jboss.reddeer.core.condition.ShellWithTextIsActive;
 import org.jboss.reddeer.core.condition.ShellWithTextIsAvailable;
 import org.jboss.reddeer.core.exception.CoreLayerException;
-import org.jboss.reddeer.core.handler.ShellHandler;
-import org.jboss.reddeer.core.util.Display;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.swt.api.Shell;
-import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.label.DefaultLabel;
-import org.jboss.reddeer.swt.impl.menu.ShellMenu;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
-import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
 import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -98,49 +93,8 @@ public class DefaultShellTest {
 	@Test
 	public void testEmptyTitleShellWithCondition() {
 		createSimpleShell("");
-		new WaitUntil(new ShellWithTextIsActive(""));
 		shell1 = new DefaultShell("");
 		assertTrue(shell1.getText().equals(""));
-	}
-	
-	@Test
-	public void closeAllShellsTest() {
-		createSimpleShell("Shell 1");
-		createSimpleShell("Shell 2");
-		
-		ShellHandler.getInstance().closeAllNonWorbenchShells();
-		
-		try {
-			new WaitUntil(new ShellWithTextIsAvailable("Shell 1"), TimePeriod.NONE);
-			fail("'Shell 1' should be closed");
-		} catch (WaitTimeoutExpiredException e) {
-			// ok
-		}
-
-		try {
-			new WaitUntil(new ShellWithTextIsAvailable("Shell 2"), TimePeriod.NONE);
-			fail("'Shell 2' should be closed");
-		} catch (WaitTimeoutExpiredException e) {
-			// ok
-		}
-	}
-	
-	@Test
-	public void closeAllShellsTest2() {
-			
-		// Show View window
-		new ShellMenu("Window", "Show View", "Other...").select();
-		ShellHandler.getInstance().closeAllNonWorbenchShells();
-		if (!checkShell("Show View")) fail("'Show View' should be closed");
-		
-		// New Server Runtime window
-		new ShellMenu("Window", "Preferences").select();
-		new DefaultTreeItem("Server", "Runtime Environments").select();
-		new PushButton("Add...").click();
-		ShellHandler.getInstance().closeAllNonWorbenchShells();
-		
-		if (!checkShell("New Server Runtime Environment")) fail("'New Server Runtime Environment' should be closed");
-		if (!checkShell("Preferences")) fail("'Preferences' should be closed");
 	}
 	
 	private static void createSimpleShell(final String title) {

@@ -10,6 +10,7 @@
  ******************************************************************************/ 
 package org.jboss.reddeer.swt.api;
 
+import java.util.List;
 import org.eclipse.swt.widgets.MenuItem;
 import org.jboss.reddeer.swt.widgets.Widget;
 
@@ -43,5 +44,13 @@ public interface Menu extends Widget {
 	String getText();
 
 	MenuItem getSWTWidget();
+	
+	
+	/**
+	 * Returns text of child items of the menu.
+	 * 
+	 * @return text of child items of the menu
+	 */
+	List<String> getChildItems();
 
 }

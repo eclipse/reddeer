@@ -15,12 +15,12 @@ import org.eclipse.swt.widgets.Control;
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.common.wait.TimePeriod;
 import org.jboss.reddeer.common.wait.WaitWhile;
-import org.jboss.reddeer.core.condition.JobIsRunning;
-import org.jboss.reddeer.core.condition.ShellWithTextIsAvailable;
 import org.jboss.reddeer.core.handler.WidgetHandler;
 import org.jboss.reddeer.core.reference.DefaultReferencedComposite;
+import org.jboss.reddeer.workbench.core.condition.JobIsRunning;
 import org.jboss.reddeer.swt.api.Button;
 import org.jboss.reddeer.swt.api.Shell;
+import org.jboss.reddeer.swt.condition.ShellIsAvailable;
 import org.jboss.reddeer.swt.impl.button.BackButton;
 import org.jboss.reddeer.swt.impl.button.CancelButton;
 import org.jboss.reddeer.swt.impl.button.FinishButton;
@@ -62,12 +62,16 @@ public class WizardDialog {
 	public void finish(TimePeriod timeout) {
 		log.info("Finish wizard");
 
-		String shellText = new DefaultShell().getText();
+		Shell shell = new DefaultShell();
 		Button button = new FinishButton();
 		button.click();
 
-		new WaitWhile(new ShellWithTextIsAvailable(shellText), timeout);
-		new WaitWhile(new JobIsRunning(), timeout);
+		new WaitWhile(new ShellIsAvailable(shell), timeout);
+		try{
+			new WaitWhile(new JobIsRunning(), timeout);
+		} catch (NoClassDefFoundError e) {
+			// do nothing, reddeer.workbench plugin is not available
+		}
 	}
 	
 	/**
@@ -76,12 +80,15 @@ public class WizardDialog {
 	public void cancel() {
 		log.info("Cancel wizard");
 
-		String shellText = new DefaultShell().getText();
-		new WaitWhile(new JobIsRunning());
+		Shell shell = new DefaultShell();
 		new CancelButton().click();
 
-		new WaitWhile(new ShellWithTextIsAvailable(shellText));
-		new WaitWhile(new JobIsRunning());
+		new WaitWhile(new ShellIsAvailable(shell));
+		try{
+			new WaitWhile(new JobIsRunning());
+		} catch (NoClassDefFoundError e) {
+			// do nothing, reddeer.workbench plugin is not available
+		}
 	}
 
 	/**

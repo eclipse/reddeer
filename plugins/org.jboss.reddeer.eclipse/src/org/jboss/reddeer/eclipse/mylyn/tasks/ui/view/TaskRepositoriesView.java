@@ -13,8 +13,8 @@ package org.jboss.reddeer.eclipse.mylyn.tasks.ui.view;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.common.wait.TimePeriod;
-import org.jboss.reddeer.common.wait.WaitUntil;
 import org.jboss.reddeer.common.wait.WaitWhile;
 import org.jboss.reddeer.eclipse.exception.EclipseLayerException;
 import org.jboss.reddeer.eclipse.mylyn.tasks.ui.wizards.NewRepositoryWizard;
@@ -39,6 +39,8 @@ import org.jboss.reddeer.workbench.impl.view.WorkbenchView;
  *
  */
 public class TaskRepositoriesView extends WorkbenchView {
+	
+	private static final Logger log = Logger.getLogger(TaskRepositoriesView.class);
 	
 	public static final String TITLE = "Task Repositories";
 	
@@ -145,9 +147,11 @@ public class TaskRepositoriesView extends WorkbenchView {
 		try {
 			tree = getRepositoriesTree();
 		} catch (SWTLayerException e){
+			log.debug("No Task repository is defined");
 			return new ArrayList<TaskRepository>();
 		}
-		for (TreeItem item : tree.getItems()){
+		for (TreeItem item : tree.getAllItems()){
+			log.debug("Found Task repository: "+item.getText());
 			repositories.add(new TaskRepository(item));
 		}
 		return repositories;

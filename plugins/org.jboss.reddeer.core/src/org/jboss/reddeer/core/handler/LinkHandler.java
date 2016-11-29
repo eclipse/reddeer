@@ -20,9 +20,9 @@ import java.util.regex.Pattern;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Link;
+import org.jboss.reddeer.common.util.Display;
+import org.jboss.reddeer.common.util.ResultRunnable;
 import org.jboss.reddeer.core.exception.CoreLayerException;
-import org.jboss.reddeer.core.util.Display;
-import org.jboss.reddeer.core.util.ResultRunnable;
 
 /**
  * Contains methods for handling UI operations on {@link Link} widgets.

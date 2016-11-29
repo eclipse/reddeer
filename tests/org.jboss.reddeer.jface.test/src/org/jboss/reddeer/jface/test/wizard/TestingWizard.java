@@ -18,9 +18,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
-import org.jboss.reddeer.core.util.Display;
-import org.jboss.reddeer.common.wait.AbstractWait;
-import org.jboss.reddeer.common.wait.TimePeriod;
+import org.jboss.reddeer.common.util.Display;
 
 public class TestingWizard extends Wizard {
 
@@ -43,7 +41,12 @@ public class TestingWizard extends Wizard {
 
 	@Override
 	public boolean performFinish() {
-		AbstractWait.sleep(TimePeriod.getCustom(5));
+		try {
+			Thread.sleep(5000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return true;
 	}
 

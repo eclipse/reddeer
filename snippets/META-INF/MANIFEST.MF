@@ -6,11 +6,4 @@ Bundle-Version: 2.0.0.qualifier
 Bundle-ActivationPolicy: lazy
 Bundle-Vendor: JBoss by Red Hat
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
-Require-Bundle: org.junit, 
- org.jboss.reddeer.junit, 
- org.jboss.reddeer.swt,
- org.jboss.reddeer.workbench,
- org.jboss.reddeer.core,
- org.jboss.reddeer.common,
- org.jboss.reddeer.eclipse,
- org.jboss.reddeer.requirements
+Require-Bundle: org.jboss.reddeer.go

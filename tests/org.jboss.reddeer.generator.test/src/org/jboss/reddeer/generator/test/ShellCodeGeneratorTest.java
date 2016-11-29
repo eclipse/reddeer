@@ -11,10 +11,10 @@
 package org.jboss.reddeer.generator.test;
 
 import org.eclipse.swt.widgets.Shell;
+import org.jboss.reddeer.common.util.Display;
 import org.jboss.reddeer.generator.CodeGenerator;
 import org.jboss.reddeer.generator.ShellCodeGenerator;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
-import org.jboss.reddeer.core.util.Display;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;

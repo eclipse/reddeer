@@ -18,7 +18,7 @@ import org.jboss.reddeer.workbench.ui.dialogs.WorkbenchPreferenceDialog;
 import org.jboss.reddeer.eclipse.m2e.core.ui.preferences.MavenSettingsPreferencePage;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.requirements.cleanworkspace.CleanWorkspaceRequirement.CleanWorkspace;
-import org.jboss.reddeer.core.condition.JobIsRunning;
+import org.jboss.reddeer.workbench.core.condition.JobIsRunning;
 import org.jboss.reddeer.common.wait.TimePeriod;
 import org.jboss.reddeer.common.wait.WaitWhile;
 import org.junit.After;

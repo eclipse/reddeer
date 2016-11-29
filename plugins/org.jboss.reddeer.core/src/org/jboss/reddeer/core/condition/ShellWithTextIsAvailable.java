@@ -15,9 +15,9 @@ import org.hamcrest.Matcher;
 import org.jboss.reddeer.common.condition.AbstractWaitCondition;
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.common.wait.TimePeriod;
-import org.jboss.reddeer.core.lookup.ShellLookup;
 import org.jboss.reddeer.core.matcher.WithTextMatcher;
 import org.jboss.reddeer.core.util.InstanceValidator;
+import org.jboss.reddeer.core.lookup.ShellLookup;
 
 /**
  * Condition is met when a shell with specific text (title) is available.

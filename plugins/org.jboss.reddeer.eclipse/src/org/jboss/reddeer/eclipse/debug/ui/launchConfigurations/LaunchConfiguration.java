@@ -12,10 +12,10 @@ package org.jboss.reddeer.eclipse.debug.ui.launchConfigurations;
 
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.common.wait.WaitWhile;
-import org.jboss.reddeer.core.condition.JobIsRunning;
 import org.jboss.reddeer.swt.api.Button;
 import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.text.LabeledText;
+import org.jboss.reddeer.workbench.core.condition.JobIsRunning;
 
 /**
  * Represents one type of launch configuration in Launch configuration dialog. <br> 

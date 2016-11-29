@@ -48,6 +48,7 @@ public class ButtonTest extends SWTLayerTestCase {
 	private Text selectionText = null;
 	
 	private SelectionListener selectionListener;
+	org.eclipse.swt.widgets.Text txSelection;
 
 	@Override
 	protected void createControls(Shell shell) {
@@ -56,7 +57,7 @@ public class ButtonTest extends SWTLayerTestCase {
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
 				org.eclipse.swt.widgets.Button selectedButton = (org.eclipse.swt.widgets.Button) arg0.widget;
-				getSelectionText().setText(selectedButton.getData().toString());
+				txSelection.setText(selectedButton.getData().toString());
 			}
 
 			@Override
@@ -70,7 +71,7 @@ public class ButtonTest extends SWTLayerTestCase {
 		createButtons(ButtonTest.CHECK_BOX_LABEL_PREFIX, SWT.CHECK, shell);
 		createButtons(ButtonTest.ARROW_BUTTON_LABEL_PREFIX, SWT.ARROW, shell);
 
-		org.eclipse.swt.widgets.Text txSelection = new org.eclipse.swt.widgets.Text(
+		txSelection = new org.eclipse.swt.widgets.Text(
 				shell, SWT.BORDER);
 		txSelection.setText("<text of selected button>");
 	}

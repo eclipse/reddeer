@@ -15,9 +15,9 @@ import java.util.Arrays;
 import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.graphics.Point;
 import org.jboss.reddeer.common.logging.Logger;
+import org.jboss.reddeer.common.util.Display;
+import org.jboss.reddeer.common.util.ResultRunnable;
 import org.jboss.reddeer.core.exception.CoreLayerException;
-import org.jboss.reddeer.core.util.Display;
-import org.jboss.reddeer.core.util.ResultRunnable;
 
 /**
  * Contains methods for handling UI operations on {@link CCombo} widgets.

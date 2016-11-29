@@ -29,12 +29,12 @@ import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 import org.jboss.reddeer.swt.condition.TableContainsItem;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
+import org.jboss.reddeer.common.exception.RedDeerException;
 import org.jboss.reddeer.common.exception.WaitTimeoutExpiredException;
 import org.jboss.reddeer.swt.impl.table.DefaultTable;
 import org.jboss.reddeer.swt.matcher.CheckedTableItemMatcher;
 import org.jboss.reddeer.swt.test.SWTLayerTestCase;
 import org.jboss.reddeer.common.wait.WaitUntil;
-import org.jboss.reddeer.core.exception.CoreLayerException;
 import org.junit.Test;
 
 public class DefaultTableTest extends SWTLayerTestCase{
@@ -167,7 +167,7 @@ public class DefaultTableTest extends SWTLayerTestCase{
 		new DefaultTable().select(1);
 	}
 	
-	@Test(expected = CoreLayerException.class)
+	@Test(expected = RedDeerException.class)
 	public void testMultiSelectionTableCheck(){
 		new DefaultTable().getItem(2).setChecked(true);
 	}
@@ -209,12 +209,12 @@ public class DefaultTableTest extends SWTLayerTestCase{
 		assertTrue("Table should have no selected items", selected == 0);
 	}
 
-	@Test(expected = CoreLayerException.class)
+	@Test(expected = RedDeerException.class)
 	public void testSingleSelectionTableWithMultiSelection(){
 		new DefaultTable(1).select(1,2,3,4);
 	}
 	
-	@Test(expected = CoreLayerException.class)
+	@Test(expected = RedDeerException.class)
 	public void testSingleSelectionTableCheck(){
 		new DefaultTable(1).getItem(1).setChecked(true);
 	}
@@ -230,7 +230,7 @@ public class DefaultTableTest extends SWTLayerTestCase{
 		new DefaultTable(2).select(1);
 	}
 	
-	@Test(expected = CoreLayerException.class)
+	@Test(expected = RedDeerException.class)
 	public void testCheckTableWithMultiSelection(){
 		new DefaultTable(2).select(1,2,3,4);
 	}

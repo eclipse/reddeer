@@ -17,7 +17,6 @@ import static org.junit.Assert.assertTrue;
 
 import java.lang.reflect.Field;
 
-import org.jboss.reddeer.core.exception.CoreLayerException;
 import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.PackageExplorer;
 import org.jboss.reddeer.eclipse.ui.dialogs.WizardNewProjectCreationPage;
 import org.jboss.reddeer.eclipse.ui.ide.NewFileCreationWizardDialog;
@@ -29,6 +28,7 @@ import org.jboss.reddeer.requirements.cleanworkspace.CleanWorkspaceRequirement;
 import org.jboss.reddeer.requirements.cleanworkspace.CleanWorkspaceRequirement.CleanWorkspace;
 import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.workbench.api.Editor;
+import org.jboss.reddeer.workbench.core.exception.WorkbenchCoreLayerException;
 import org.jboss.reddeer.workbench.handler.EditorHandler;
 import org.jboss.reddeer.workbench.impl.editor.DefaultEditor;
 import org.jboss.reddeer.workbench.test.ui.editor.SimpleEditor;
@@ -83,13 +83,13 @@ public class EditorTest {
 		new CleanWorkspaceRequirement().fulfill();
 	}
 
-	@Test(expected = CoreLayerException.class)
+	@Test(expected = WorkbenchCoreLayerException.class)
 	public void noEditorsOpenedTest() {
 		new DefaultEditor().closeAll(false);
 		new DefaultEditor();
 	}
 
-	@Test(expected = CoreLayerException.class)
+	@Test(expected = WorkbenchCoreLayerException.class)
 	public void noEditorOpenedTest() {
 		new DefaultEditor().close(false);
 		new DefaultEditor();
@@ -180,7 +180,7 @@ public class EditorTest {
 		assertNotNull(editor);
 	}
 
-	@Test(expected = CoreLayerException.class)
+	@Test(expected = WorkbenchCoreLayerException.class)
 	public void getEditorByTitleWrongTest() {
 		new DefaultEditor("Wrong Name Of Editor");
 	}
@@ -197,7 +197,7 @@ public class EditorTest {
 																	// editors
 	}
 
-	@Test(expected = CoreLayerException.class)
+	@Test(expected = WorkbenchCoreLayerException.class)
 	public void closeNotActiveEditorTest() {
 		Editor editor = new DefaultEditor();
 		PackageExplorer packageExplorer = new PackageExplorer();

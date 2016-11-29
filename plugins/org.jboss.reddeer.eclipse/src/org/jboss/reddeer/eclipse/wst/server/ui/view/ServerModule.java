@@ -13,13 +13,15 @@ package org.jboss.reddeer.eclipse.wst.server.ui.view;
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.common.wait.WaitUntil;
 import org.jboss.reddeer.common.wait.WaitWhile;
-import org.jboss.reddeer.core.condition.JobIsRunning;
-import org.jboss.reddeer.core.condition.ShellWithTextIsAvailable;
+import org.jboss.reddeer.core.condition.WidgetIsDisposed;
 import org.jboss.reddeer.eclipse.exception.EclipseLayerException;
+import org.jboss.reddeer.swt.api.Shell;
 import org.jboss.reddeer.swt.api.TreeItem;
+import org.jboss.reddeer.swt.condition.ShellIsAvailable;
 import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.menu.ShellMenu;
-import org.jboss.reddeer.workbench.impl.shell.WorkbenchShell;
+import org.jboss.reddeer.swt.impl.shell.DefaultShell;
+import org.jboss.reddeer.workbench.core.condition.JobIsRunning;
 
 /**
  * Represents a module assigned to server {@link Server} on {@link ServersView}.
@@ -68,12 +70,12 @@ public class ServerModule {
 			throw new EclipseLayerException("ServerModule was already removed");
 		}
 		log.info("Remove server module with name '" + getLabel().getName() + "'");
-		final String workbenchTitle = new WorkbenchShell().getText();
 		new ShellMenu("Edit", "Delete").select();
-		new WaitUntil(new ShellWithTextIsAvailable("Server"));
+		Shell serverShell = new DefaultShell("Server");
 		new PushButton("OK").click();
-		new WaitWhile(new ShellWithTextIsAvailable("Server"));
+		new WaitWhile(new ShellIsAvailable(serverShell));
 		new WaitWhile(new JobIsRunning());
+		new WaitUntil(new WidgetIsDisposed(treeItem.getSWTWidget()));
 		treeItem = null;
 	}
 	

@@ -18,11 +18,11 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Shell;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.swt.api.StyledText;
-import org.jboss.reddeer.core.condition.ShellWithTextIsActive;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.jboss.reddeer.swt.impl.styledtext.DefaultStyledText;
-import org.jboss.reddeer.core.util.Display;
+import org.jboss.reddeer.common.util.Display;
 import org.jboss.reddeer.common.wait.WaitWhile;
+import org.jboss.reddeer.core.condition.ShellWithTextIsAvailable;
 import org.jboss.reddeer.workbench.impl.view.WorkbenchView;
 import org.junit.After;
 import org.junit.BeforeClass;
@@ -97,8 +97,7 @@ public class StyledTextTest {
 
 			@Override
 			public void run() {
-				for (Shell shell : org.jboss.reddeer.core.
-						util.Display.getDisplay().getShells()) {
+				for (Shell shell : org.jboss.reddeer.common.util.Display.getDisplay().getShells()) {
 					if (shell.getText().equals("Testing shell")) {
 						shell.dispose();
 						break;
@@ -106,7 +105,7 @@ public class StyledTextTest {
 				}
 			}
 		});
-		new WaitWhile(new ShellWithTextIsActive("Testing shell"));
+		new WaitWhile(new ShellWithTextIsAvailable("Testing shell"));
 	}
 
 }

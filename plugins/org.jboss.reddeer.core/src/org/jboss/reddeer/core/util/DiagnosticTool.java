@@ -14,8 +14,11 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Widget;
+import org.jboss.reddeer.common.util.Display;
+import org.jboss.reddeer.common.util.ResultRunnable;
 import org.jboss.reddeer.core.handler.WidgetHandler;
 import org.jboss.reddeer.core.lookup.ShellLookup;
+import org.jboss.reddeer.core.lookup.WidgetLookup;
 
 /**
  * A diagnostic tool which can be used for getting information about available
@@ -130,7 +133,7 @@ public class DiagnosticTool {
 		StringBuffer result = new StringBuffer();
 		result.append(widget.getClass());
 		try {
-			String label = WidgetHandler.getInstance().getLabel(widget);
+			String label = WidgetLookup.getInstance().getLabel(widget);
 			if (label != null) {
 				result.append(" with label '" + label + "'");
 			}

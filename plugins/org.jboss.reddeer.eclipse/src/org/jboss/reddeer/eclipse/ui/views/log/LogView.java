@@ -24,9 +24,9 @@ import org.jboss.reddeer.swt.impl.button.CheckBox;
 import org.jboss.reddeer.swt.impl.button.OkButton;
 import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.menu.ContextMenu;
-import org.jboss.reddeer.swt.impl.menu.ViewMenu;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.jboss.reddeer.swt.impl.tree.DefaultTree;
+import org.jboss.reddeer.workbench.impl.menu.ViewMenu;
 import org.jboss.reddeer.workbench.impl.view.WorkbenchView;
 
 /**

@@ -17,11 +17,11 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Event;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.common.logging.Logger;
+import org.jboss.reddeer.common.util.Display;
 import org.jboss.reddeer.swt.api.Combo;
 import org.jboss.reddeer.core.handler.ComboHandler;
 import org.jboss.reddeer.core.handler.WidgetHandler;
 import org.jboss.reddeer.core.reference.ReferencedComposite;
-import org.jboss.reddeer.core.util.Display;
 import org.jboss.reddeer.swt.widgets.AbstractWidget;
 
 /**

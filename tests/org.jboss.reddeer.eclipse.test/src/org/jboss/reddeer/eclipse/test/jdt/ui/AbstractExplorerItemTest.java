@@ -21,7 +21,7 @@ import java.util.List;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.jboss.reddeer.common.wait.TimePeriod;
 import org.jboss.reddeer.common.wait.WaitWhile;
-import org.jboss.reddeer.core.condition.JobIsRunning;
+import org.jboss.reddeer.workbench.core.condition.JobIsRunning;
 import org.jboss.reddeer.eclipse.core.resources.Project;
 import org.jboss.reddeer.eclipse.core.resources.ProjectItem;
 import org.jboss.reddeer.eclipse.exception.EclipseLayerException;

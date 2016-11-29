@@ -13,7 +13,6 @@ package org.jboss.reddeer.eclipse.m2e.core.ui.wizard;
 import org.jboss.reddeer.common.wait.TimePeriod;
 import org.jboss.reddeer.common.wait.WaitUntil;
 import org.jboss.reddeer.common.wait.WaitWhile;
-import org.jboss.reddeer.core.condition.JobIsRunning;
 import org.jboss.reddeer.eclipse.exception.EclipseLayerException;
 import org.jboss.reddeer.jface.wizard.WizardPage;
 import org.jboss.reddeer.swt.api.Table;
@@ -21,6 +20,7 @@ import org.jboss.reddeer.swt.api.TableItem;
 import org.jboss.reddeer.swt.condition.TableHasRows;
 import org.jboss.reddeer.swt.impl.combo.DefaultCombo;
 import org.jboss.reddeer.swt.impl.table.DefaultTable;
+import org.jboss.reddeer.workbench.core.condition.JobIsRunning;
 
 /**
  * Second wizard page for creating maven project

@@ -10,8 +10,8 @@
  ******************************************************************************/ 
 package org.jboss.reddeer.core.handler;
 
-import org.jboss.reddeer.core.util.Display;
-import org.jboss.reddeer.core.util.ResultRunnable;
+import org.jboss.reddeer.common.util.Display;
+import org.jboss.reddeer.common.util.ResultRunnable;
 
 /**
  * Contains methods for handling UI operations on

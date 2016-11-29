@@ -16,10 +16,10 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Widget;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.common.condition.AbstractWaitCondition;
+import org.jboss.reddeer.common.matcher.AndMatcher;
 import org.jboss.reddeer.common.platform.RunningPlatform;
 import org.jboss.reddeer.core.handler.WidgetHandler;
 import org.jboss.reddeer.core.lookup.WidgetLookup;
-import org.jboss.reddeer.core.matcher.AndMatcher;
 
 /**
  * WidgetIsFound is general condition to find desired widget

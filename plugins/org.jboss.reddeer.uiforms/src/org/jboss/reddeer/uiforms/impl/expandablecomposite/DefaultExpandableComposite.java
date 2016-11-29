@@ -15,9 +15,9 @@ import org.eclipse.ui.forms.widgets.ExpandableComposite;
 import org.hamcrest.BaseMatcher;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
+import org.jboss.reddeer.common.matcher.MatcherBuilder;
 import org.jboss.reddeer.core.lookup.WidgetLookup;
 import org.jboss.reddeer.core.matcher.ClassMatcher;
-import org.jboss.reddeer.core.matcher.MatcherBuilder;
 import org.jboss.reddeer.core.matcher.WithMnemonicTextMatcher;
 import org.jboss.reddeer.core.reference.ReferencedComposite;
 

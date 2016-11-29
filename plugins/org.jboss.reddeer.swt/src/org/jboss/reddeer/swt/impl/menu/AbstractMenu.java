@@ -10,10 +10,15 @@
  ******************************************************************************/ 
 package org.jboss.reddeer.swt.impl.menu;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.eclipse.swt.widgets.MenuItem;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.swt.api.Menu;
+import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.core.handler.MenuHandler;
+import org.jboss.reddeer.core.handler.WidgetHandler;
 import org.jboss.reddeer.core.lookup.MenuLookup;
 
 /**
@@ -29,26 +34,55 @@ public abstract class AbstractMenu implements Menu {
 	protected MenuLookup ml = MenuLookup.getInstance();
 	protected MenuHandler mh = MenuHandler.getInstance();
 	protected MenuItem menuItem = null;
+	private static final Logger log = Logger.getLogger(AbstractMenu.class);
 
 
 	/* (non-Javadoc)
 	 * @see org.jboss.reddeer.swt.api.Menu#select()
 	 */
 	@Override
-	public abstract void select();
+	public void select(){
+		log.info("Select menu item with text " + getText());
+		mh.select(menuItem);
+	}
 	
 	/* (non-Javadoc)
 	 * @see org.jboss.reddeer.swt.api.Menu#isSelected()
 	 */
 	@Override
-	public abstract boolean isSelected();
+	public boolean isSelected(){
+		return mh.isSelected(menuItem);
+	}
 	
-	/* (non-Javadoc)
-	 * @see org.jboss.reddeer.swt.api.Menu#getText()
-	 */
 	@Override
 	public String getText() {
-		throw new UnsupportedOperationException("not yet implemented");
+		return mh.getMenuItemText(menuItem).replace("&", "");
+	}
+	
+	@Override
+	public boolean isEnabled() {
+		return mh.isEnabled(menuItem);
+	}
+	
+	@Override
+	public boolean isDisposed() {
+		return WidgetHandler.getInstance().isDisposed(menuItem);
+	}
+	
+	@Override
+	public List<String> getChildItems() {
+		List<String> itemsText = new ArrayList<>();
+		MenuItem[] items = mh.getMenuItems(menuItem);
+		if(items != null){
+			for(MenuItem i: items){
+				itemsText.add(mh.getMenuItemText(i).replace("&", ""));
+			}
+		}
+		return itemsText;
+	}
+	
+	public MenuItem getSWTWidget(){
+		return menuItem;
 	}
 	
 }

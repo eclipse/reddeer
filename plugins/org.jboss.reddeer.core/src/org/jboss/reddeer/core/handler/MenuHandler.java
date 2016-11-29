@@ -10,16 +10,14 @@
  ******************************************************************************/ 
 package org.jboss.reddeer.core.handler;
 
-
-import org.eclipse.jface.action.ActionContributionItem;
-import org.eclipse.jface.action.IAction;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Event;
+import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
 import org.jboss.reddeer.common.logging.Logger;
+import org.jboss.reddeer.common.util.Display;
+import org.jboss.reddeer.common.util.ResultRunnable;
 import org.jboss.reddeer.core.exception.CoreLayerException;
-import org.jboss.reddeer.core.util.Display;
-import org.jboss.reddeer.core.util.ResultRunnable;
 
 /**
  * Contains methods for handling UI operations on {@link MenuItem} widgets.
@@ -62,37 +60,6 @@ public class MenuHandler {
 				return false;
 			}
 		});
-	}
-
-	/**
-	 * Selects (click) for ActionContributionItem.
-	 * @param item to click
-	 */
-	public void select(final ActionContributionItem item){
-		String actionNormalized = item.getAction().getText().replace("&", "");
-		if(!item.isEnabled()){
-			throw new CoreLayerException("Menu item " +actionNormalized+" is not enabled");
-		} else if(!item.isVisible()){
-			throw new CoreLayerException("Menu item " +actionNormalized+" is not visible");
-		} else if ((item.getAction().getStyle() == IAction.AS_CHECK_BOX) || (item.getAction().getStyle() == IAction.AS_RADIO_BUTTON)) {
-			log.info("Click on styled contribution item: " + actionNormalized);
-			Display.syncExec(new Runnable() {
-
-				@Override
-				public void run() {
-					item.getAction().setChecked(!item.getAction().isChecked());
-					item.getAction().run();
-				}
-			});
-		} else {
-			log.info("Click on contribution item: " + actionNormalized);
-			Display.asyncExec(new Runnable() {
-				@Override
-				public void run() {
-					item.getAction().run();
-				}
-			});
-		}
 	}
 
 	/**
@@ -192,6 +159,25 @@ public class MenuHandler {
 			@Override
 			public Boolean run() {
 				return item.isEnabled();
+			}
+		});
+	}
+	
+	/**
+	 * Returns menu items or null
+	 * 
+	 * @param item given MenuItem
+	 * @return menu items of given menu or null
+	 */
+	public MenuItem[] getMenuItems(final MenuItem item){
+		return Display.syncExec(new ResultRunnable<MenuItem[]>() {
+			@Override
+			public MenuItem[] run() {
+				Menu menu = item.getMenu();
+				if(menu != null){
+					return menu.getItems();
+				}
+				return null;
 			}
 		});
 	}

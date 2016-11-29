@@ -16,8 +16,8 @@ import org.jboss.reddeer.common.condition.AbstractWaitCondition;
 import org.jboss.reddeer.common.exception.RedDeerException;
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.core.handler.WidgetHandler;
-import org.jboss.reddeer.core.lookup.ShellLookup;
 import org.jboss.reddeer.core.util.InstanceValidator;
+import org.jboss.reddeer.core.lookup.ShellLookup;
 
 /**
  * Condition is met when a shell with specified text (title) is active.

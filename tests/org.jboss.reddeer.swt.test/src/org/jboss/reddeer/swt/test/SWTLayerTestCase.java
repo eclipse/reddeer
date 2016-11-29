@@ -11,9 +11,9 @@
 package org.jboss.reddeer.swt.test;
 
 import org.eclipse.swt.widgets.Shell;
+import org.jboss.reddeer.common.util.Display;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.swt.test.utils.ShellTestUtils;
-import org.jboss.reddeer.core.util.Display;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.runner.RunWith;

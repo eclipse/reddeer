@@ -34,6 +34,7 @@ public class ScaleTest extends SWTLayerTestCase{
 	private static final int[] SCALE_INIT_VALUE = new int[]{50,150};
 	private Text selectionText = null;
 	private SelectionListener selectionListener;
+	private org.eclipse.swt.widgets.Text txSelection;
 
 	@Override
 	protected void createControls(Shell shell){
@@ -41,7 +42,7 @@ public class ScaleTest extends SWTLayerTestCase{
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
 				org.eclipse.swt.widgets.Scale selectedScale = (org.eclipse.swt.widgets.Scale)arg0.widget;
-				getSelectionText().setText(String.valueOf(selectedScale.getSelection()));
+				txSelection.setText(String.valueOf(selectedScale.getSelection()));
 			}
 			
 			@Override
@@ -57,7 +58,7 @@ public class ScaleTest extends SWTLayerTestCase{
 			scale.setSelection(ScaleTest.SCALE_INIT_VALUE[index]);
 			scale.addSelectionListener(selectionListener);
 		}
-		org.eclipse.swt.widgets.Text txSelection = new org.eclipse.swt.widgets.Text(shell,SWT.BORDER);
+		txSelection = new org.eclipse.swt.widgets.Text(shell,SWT.BORDER);
 		txSelection.setText("<value of selected scale>");
 	}
 

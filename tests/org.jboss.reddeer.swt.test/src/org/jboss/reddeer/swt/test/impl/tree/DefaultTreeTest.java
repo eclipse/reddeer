@@ -22,6 +22,7 @@ import org.hamcrest.Description;
 import org.hamcrest.TypeSafeMatcher;
 import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.swt.impl.tree.DefaultTree;
+import org.junit.Before;
 import org.junit.Test;
 
 public class DefaultTreeTest extends AbstractTreeTest {
@@ -31,6 +32,10 @@ public class DefaultTreeTest extends AbstractTreeTest {
 	@Override
 	protected void createControls(Shell shell) {
 		super.createControls(shell);
+	}
+	
+	@Before
+	public void initTree(){
 		tree = new DefaultTree();
 	}
 

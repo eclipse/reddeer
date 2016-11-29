@@ -12,9 +12,9 @@ package org.jboss.reddeer.generator.test.utils;
 
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Shell;
+import org.jboss.reddeer.common.util.Display;
+import org.jboss.reddeer.common.util.ResultRunnable;
 import org.jboss.reddeer.core.handler.ShellHandler;
-import org.jboss.reddeer.core.util.Display;
-import org.jboss.reddeer.core.util.ResultRunnable;
 import org.jboss.reddeer.generator.CodeGenerator;
 import org.junit.Assert;
 
@@ -23,15 +23,7 @@ public class CodeGeneratorTestUtils {
 	private static Shell shell;
 
 	public static void assertConstructorCode(String expectedCode, final CodeGenerator generator, final Control control) {
-		String actualCode = Display.syncExec(new ResultRunnable<String>() {
-
-			@Override
-			public String run() {
-				return generator.getConstructor(control);
-			}
-
-		});
-		Assert.assertEquals(expectedCode, actualCode);
+		Assert.assertEquals(expectedCode, generator.getConstructor(control));
 	}
 
 	public static void closeTestingShell() {

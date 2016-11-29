@@ -14,8 +14,8 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Widget;
 import org.jboss.reddeer.common.logging.Logger;
+import org.jboss.reddeer.common.util.Display;
 import org.jboss.reddeer.core.lookup.WidgetLookup;
-import org.jboss.reddeer.core.util.Display;
 
 /**
  * Class for operating with keyboard

@@ -12,8 +12,8 @@ package org.jboss.reddeer.eclipse.wst.server.ui.wizard;
 
 import org.jboss.reddeer.common.wait.TimePeriod;
 import org.jboss.reddeer.common.wait.WaitUntil;
-import org.jboss.reddeer.core.condition.JobIsKilled;
 import org.jboss.reddeer.jface.wizard.NewWizardDialog;
+import org.jboss.reddeer.workbench.core.condition.JobIsKilled;
 
 /**
  * Represents the wizard for creating new servers. It provides access to the first wizard page {@link NewServerWizardPage}. 

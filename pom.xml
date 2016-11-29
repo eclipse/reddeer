@@ -1,40 +1,42 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	
+
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.jboss.reddeer</groupId>
 	<artifactId>parent</artifactId>
 	<name>Red Deer Parent POM File</name>
 	<version>2.0.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
-	
+
 	<properties>
-		<!-- when you're ready to move to building with JDK 8, you can move up to Tycho 0.23.1 -->
-		<tycho-version>0.22.0</tycho-version>
+		<tycho-version>0.26.0</tycho-version>
 		<tychoExtrasVersion>${tycho-version}</tychoExtrasVersion>
-		<jbossTychoPluginsVersion>0.23.1</jbossTychoPluginsVersion>
+		<jbossTychoPluginsVersion>0.26.0</jbossTychoPluginsVersion>
 		<eclipse-target-site>http://download.eclipse.org/releases/neon</eclipse-target-site>
 		<swtbot-update-site>http://download.eclipse.org/technology/swtbot/releases/2.2.1</swtbot-update-site>
 		<eclipse-orbit-update-site>http://download.eclipse.org/tools/orbit/downloads/drops/R20150821153341/repository/</eclipse-orbit-update-site>
 		<download-plugin-version>1.2.1</download-plugin-version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<!-- In the update site's site/pom.xml (that calls jbosstools-maven-plugins/tycho-plugins/repository-utils)
-				 you can override this value to be Nightly Build, Development Milestone, or Stable Release, or set to &amp;shy; (soft hyphen) to leave blank -->
+		<!-- In the update site's site/pom.xml (that calls jbosstools-maven-plugins/tycho-plugins/repository-utils) 
+			you can override this value to be Nightly Build, Development Milestone, or 
+			Stable Release, or set to &amp;shy; (soft hyphen) to leave blank -->
 		<update.site.description>&amp;shy;</update.site.description>
 		<targetEclipseVersion>4.6 (Neon)</targetEclipseVersion>
-        <BUILD_TIMESTAMP>${maven.build.timestamp}</BUILD_TIMESTAMP>
-        <maven.build.timestamp.format>yyyy-MM-dd_HH-mm-ss</maven.build.timestamp.format>
+		<BUILD_TIMESTAMP>${maven.build.timestamp}</BUILD_TIMESTAMP>
+		<maven.build.timestamp.format>yyyy-MM-dd_HH-mm-ss</maven.build.timestamp.format>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
 	</properties>
-	
+
 	<modules>
 		<module>plugins</module>
-        <module>tests</module>
+		<module>tests</module>
 		<module>features</module>
 		<module>site</module>
 		<module>archetype</module>
 		<module>snippets</module>
 	</modules>
-	
+
 	<build>
 		<sourceDirectory>src</sourceDirectory>
 		<resources>
@@ -48,14 +50,14 @@
 				<groupId>org.eclipse.tycho</groupId>
 				<artifactId>tycho-maven-plugin</artifactId>
 				<version>${tycho-version}</version>
-                <extensions>true</extensions>
-			</plugin>				
-            <plugin>
-                <groupId>org.eclipse.tycho</groupId>
+				<extensions>true</extensions>
+			</plugin>
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
 				<artifactId>tycho-packaging-plugin</artifactId>
 				<version>${tycho-version}</version>
-            </plugin>
-            <plugin>
+			</plugin>
+			<plugin>
 				<groupId>org.eclipse.tycho</groupId>
 				<artifactId>target-platform-configuration</artifactId>
 				<version>${tycho-version}</version>
@@ -147,12 +149,12 @@
 	</repositories>
 
 	<profiles>
-	  <profile>
-	    <id>product</id>
-	    <modules>
-	      <module>features/org.jboss.reddeer.ide.feature</module>
-	      <module>product</module>
-	    </modules>
-	  </profile>
+		<profile>
+			<id>product</id>
+			<modules>
+				<module>features/org.jboss.reddeer.ide.feature</module>
+				<module>product</module>
+			</modules>
+		</profile>
 	</profiles>
 </project>

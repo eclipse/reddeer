@@ -13,7 +13,7 @@ package org.jboss.reddeer.core.matcher;
 import org.eclipse.swt.widgets.Widget;
 import org.hamcrest.BaseMatcher;
 import org.hamcrest.Description;
-import org.jboss.reddeer.core.exception.CoreLayerException;
+import org.jboss.reddeer.common.exception.RedDeerException;
 import org.jboss.reddeer.core.handler.WidgetHandler;
 
 /**
@@ -88,7 +88,7 @@ public abstract class AbstractWidgetWithTextMatcher extends BaseMatcher<String> 
 	protected String extractWidgetText(Widget widget) {
 		try {
 			return WidgetHandler.getInstance().getText(widget);
-		} catch (CoreLayerException ex) {
+		} catch (RedDeerException ex) {
 			return null;
 		}
 	}

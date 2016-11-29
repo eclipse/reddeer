@@ -16,7 +16,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 import org.eclipse.ui.PlatformUI;
-import org.jboss.reddeer.core.util.Display;
+import org.jboss.reddeer.common.util.Display;
 import org.jboss.reddeer.junit.requirement.Requirement;
 import org.jboss.reddeer.junit.requirement.RequirementException;
 import org.jboss.reddeer.requirements.closeeditors.CloseAllEditorsRequirement.CloseAllEditors;

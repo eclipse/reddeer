@@ -28,13 +28,11 @@ import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.texteditor.ITextEditor;
 import org.jboss.reddeer.common.exception.RedDeerException;
 import org.jboss.reddeer.common.platform.RunningPlatform;
+import org.jboss.reddeer.common.util.Display;
 import org.jboss.reddeer.common.wait.AbstractWait;
 import org.jboss.reddeer.common.wait.TimePeriod;
 import org.jboss.reddeer.common.wait.WaitUntil;
 import org.jboss.reddeer.core.condition.ShellWithTextIsAvailable;
-import org.jboss.reddeer.core.exception.CoreLayerException;
-import org.jboss.reddeer.core.handler.ShellHandler;
-import org.jboss.reddeer.core.util.Display;
 import org.jboss.reddeer.eclipse.core.resources.Project;
 import org.jboss.reddeer.eclipse.core.resources.ProjectItem;
 import org.jboss.reddeer.eclipse.jdt.ui.ProjectExplorer;
@@ -52,6 +50,7 @@ import org.jboss.reddeer.requirements.cleanworkspace.CleanWorkspaceRequirement.C
 import org.jboss.reddeer.swt.keyboard.KeyboardFactory;
 import org.jboss.reddeer.workbench.exception.WorkbenchLayerException;
 import org.jboss.reddeer.workbench.handler.EditorHandler;
+import org.jboss.reddeer.workbench.handler.WorkbenchShellHandler;
 import org.jboss.reddeer.workbench.impl.editor.TextEditor;
 import org.jboss.reddeer.workbench.impl.shell.WorkbenchShell;
 import org.junit.After;
@@ -203,7 +202,7 @@ public class TextEditorTest {
 	public void closeContentAssistUsingCloseAllShells(){
 		TextEditor textEditor = TextEditorTest.openJavaFile();
 		ContentAssistant ca = textEditor.openContentAssistant();
-		ShellHandler.getInstance().closeAllNonWorbenchShells();
+		WorkbenchShellHandler.getInstance().closeAllNonWorbenchShells();
 
 		try {
 			new WaitUntil(new ShellWithTextIsAvailable(""), TimePeriod.NONE);
@@ -230,7 +229,7 @@ public class TextEditorTest {
 		TextEditor textEditor = TextEditorTest.openJavaFile();
 		textEditor.selectText("JavaClass");
 		ContentAssistant ca = textEditor.openOpenOnAssistant();
-		ShellHandler.getInstance().closeAllNonWorbenchShells();
+		WorkbenchShellHandler.getInstance().closeAllNonWorbenchShells();
 
 		try {
 			new WaitUntil(new ShellWithTextIsAvailable(""), TimePeriod.NONE);
@@ -378,7 +377,7 @@ public class TextEditorTest {
 		assertEquals("JavaClass",textEditor.getSelectedText());
 	}
 	
-	@Test(expected = CoreLayerException.class)
+	@Test(expected = RedDeerException.class)
 	public void selectTextTest2(){
 		TextEditor textEditor = TextEditorTest.openJavaFile();
 		collapseTextInJavaFile();

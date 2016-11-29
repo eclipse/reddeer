@@ -18,8 +18,8 @@ import org.eclipse.gef.palette.ToolEntry;
 import org.eclipse.gef.ui.palette.PaletteViewer;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.common.logging.Logger;
-import org.jboss.reddeer.core.util.Display;
-import org.jboss.reddeer.core.util.ResultRunnable;
+import org.jboss.reddeer.common.util.Display;
+import org.jboss.reddeer.common.util.ResultRunnable;
 import org.jboss.reddeer.gef.finder.PaletteEntryFinder;
 
 /**

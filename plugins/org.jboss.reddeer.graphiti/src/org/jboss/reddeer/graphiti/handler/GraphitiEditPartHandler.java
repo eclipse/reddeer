@@ -23,12 +23,12 @@ import org.eclipse.graphiti.tb.IContextButtonEntry;
 import org.eclipse.graphiti.tb.IContextButtonPadData;
 import org.eclipse.graphiti.tb.IToolBehaviorProvider;
 import org.jboss.reddeer.common.logging.Logger;
+import org.jboss.reddeer.common.util.Display;
+import org.jboss.reddeer.common.util.ResultRunnable;
 import org.jboss.reddeer.graphiti.GraphitiLayerException;
 import org.jboss.reddeer.graphiti.api.ContextButton;
 import org.jboss.reddeer.graphiti.impl.contextbutton.internal.BasicContextButton;
 import org.jboss.reddeer.graphiti.lookup.DiagramEditorLookup;
-import org.jboss.reddeer.core.util.Display;
-import org.jboss.reddeer.core.util.ResultRunnable;
 
 /**
  * Handler for Graphiti UI operations.

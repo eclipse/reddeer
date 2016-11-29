@@ -14,13 +14,13 @@ import org.jboss.reddeer.common.exception.RedDeerException;
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.common.wait.TimePeriod;
 import org.jboss.reddeer.common.wait.WaitWhile;
-import org.jboss.reddeer.core.condition.JobIsRunning;
 import org.jboss.reddeer.jface.wizard.WizardDialog;
 import org.jboss.reddeer.swt.api.Shell;
 import org.jboss.reddeer.swt.condition.ShellIsAvailable;
 import org.jboss.reddeer.swt.impl.button.FinishButton;
 import org.jboss.reddeer.swt.impl.button.OkButton;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
+import org.jboss.reddeer.workbench.core.condition.JobIsRunning;
 
 /**
  * Wizard for adding and removing modules on the server. 

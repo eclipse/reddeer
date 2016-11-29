@@ -14,9 +14,9 @@ import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.swt.widgets.Widget;
 import org.jboss.reddeer.common.condition.AbstractWaitCondition;
+import org.jboss.reddeer.common.util.Display;
+import org.jboss.reddeer.common.util.ResultRunnable;
 import org.jboss.reddeer.core.exception.CoreLayerException;
-import org.jboss.reddeer.core.util.Display;
-import org.jboss.reddeer.core.util.ResultRunnable;
 
 /**
  * Condition is met when specified Eclipse Widget is checked.

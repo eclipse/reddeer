@@ -1,21 +1,20 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	
+
 	<modelVersion>4.0.0</modelVersion>
-        <parent>
-                <groupId>org.jboss.reddeer</groupId>
-                <artifactId>parent</artifactId>
-                <version>2.0.0-SNAPSHOT</version>
-        </parent>
-	<groupId>org.jboss.reddeer</groupId>
+	<parent>
+		<groupId>org.jboss.reddeer</groupId>
+		<artifactId>parent</artifactId>
+		<version>2.0.0-SNAPSHOT</version>
+	</parent>
 	<artifactId>tests</artifactId>
 	<name>Red Deer Tests</name>
 	<packaging>pom</packaging>
-	
+
 	<properties>
- 		<rd.closeShells>true</rd.closeShells>
- 		<rd.closeWelcomeScreen>true</rd.closeWelcomeScreen>
- 		<rd.disableMavenIndex>true</rd.disableMavenIndex>
+		<rd.closeShells>true</rd.closeShells>
+		<rd.closeWelcomeScreen>true</rd.closeWelcomeScreen>
+		<rd.disableMavenIndex>true</rd.disableMavenIndex>
 		<junitExtensionsProperties>-Drd.closeShells=${rd.closeShells} -Drd.closeWelcomeScreen=${rd.closeWelcomeScreen} -Drd.disableMavenIndex=${rd.disableMavenIndex}</junitExtensionsProperties>
 		<!-- placeholder for properties of RedDeer JUnit extensions -->
 		<platformSystemProperties></platformSystemProperties>
@@ -25,7 +24,7 @@
 		<relativeScreenshotDirectory>.${file.separator}target${file.separator}screenshots</relativeScreenshotDirectory>
 		<surefire.timeout>2400</surefire.timeout>
 	</properties>
-	
+
 	<modules>
 		<module>org.jboss.reddeer.common.test</module>
 		<module>org.jboss.reddeer.core.test</module>
@@ -48,7 +47,7 @@
 				<groupId>org.eclipse.tycho</groupId>
 				<artifactId>tycho-surefire-plugin</artifactId>
 				<version>${tycho-version}</version>
-		
+
 				<configuration>
 					<useUIHarness>true</useUIHarness>
 					<useUIThread>false</useUIThread>
@@ -62,6 +61,7 @@
 							<artifactId>org.eclipse.platform</artifactId>
 							<version>0.0.0</version>
 						</dependency>
+						<!-- 
 						<dependency>
 							<groupId>org.jmock</groupId>
 							<artifactId>jmock-legacy</artifactId>
@@ -72,6 +72,7 @@
 							<artifactId>jmock-junit4</artifactId>
 							<version>2.5.1</version>
 						</dependency>
+						 -->
 						<dependency>
 							<type>p2-installable-unit</type>
 							<artifactId>org.eclipse.jdt.ui</artifactId>
@@ -93,10 +94,10 @@
 					</includes>
 				</configuration>
 			</plugin>
-		
+
 		</plugins>
 	</build>
-	
+
 	<profiles>
 		<profile>
 			<!-- Workaround for https://bugs.eclipse.org/bugs/show_bug.cgi?id=388084 -->

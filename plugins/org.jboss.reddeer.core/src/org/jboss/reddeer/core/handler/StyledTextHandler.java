@@ -13,11 +13,9 @@ package org.jboss.reddeer.core.handler;
 
 import org.eclipse.swt.custom.StyledText;
 import org.eclipse.swt.graphics.Point;
-import org.jboss.reddeer.common.wait.AbstractWait;
-import org.jboss.reddeer.common.wait.TimePeriod;
+import org.jboss.reddeer.common.util.Display;
+import org.jboss.reddeer.common.util.ResultRunnable;
 import org.jboss.reddeer.core.exception.CoreLayerException;
-import org.jboss.reddeer.core.util.Display;
-import org.jboss.reddeer.core.util.ResultRunnable;
 
 /**
  * Contains methods for handling UI operations on {@link StyledText} widgets.

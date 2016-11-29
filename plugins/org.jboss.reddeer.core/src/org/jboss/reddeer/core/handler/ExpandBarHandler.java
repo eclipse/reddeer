@@ -14,8 +14,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.eclipse.swt.widgets.ExpandItem;
-import org.jboss.reddeer.core.util.Display;
-import org.jboss.reddeer.core.util.ResultRunnable;
+import org.jboss.reddeer.common.util.Display;
+import org.jboss.reddeer.common.util.ResultRunnable;
 
 /**
  * Contains methods for handling UI operations on

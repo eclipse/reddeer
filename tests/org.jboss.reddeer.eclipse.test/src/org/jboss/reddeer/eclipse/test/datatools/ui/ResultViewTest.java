@@ -18,8 +18,8 @@ import java.util.List;
 import org.jboss.reddeer.common.wait.TimePeriod;
 import org.jboss.reddeer.common.wait.WaitUntil;
 import org.jboss.reddeer.common.wait.WaitWhile;
-import org.jboss.reddeer.core.condition.JobIsRunning;
-import org.jboss.reddeer.core.condition.ShellWithTextIsActive;
+import org.jboss.reddeer.workbench.core.condition.JobIsRunning;
+import org.jboss.reddeer.core.condition.ShellWithTextIsAvailable;
 import org.jboss.reddeer.core.matcher.TreeItemRegexMatcher;
 import org.jboss.reddeer.eclipse.datatools.sqltools.result.ui.ResultView;
 import org.jboss.reddeer.eclipse.datatools.sqltools.result.ui.SQLResult;
@@ -33,13 +33,16 @@ import org.jboss.reddeer.eclipse.datatools.ui.wizard.ConnectionProfileWizard;
 import org.jboss.reddeer.eclipse.datatools.ui.wizard.DriverDefinitionPage;
 import org.jboss.reddeer.eclipse.datatools.ui.wizard.DriverDefinitionWizard;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
+import org.jboss.reddeer.swt.api.Shell;
 import org.jboss.reddeer.swt.api.TableItem;
 import org.jboss.reddeer.swt.api.TreeItem;
+import org.jboss.reddeer.swt.condition.ShellIsAvailable;
 import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.button.YesButton;
 import org.jboss.reddeer.swt.impl.combo.DefaultCombo;
 import org.jboss.reddeer.swt.impl.combo.LabeledCombo;
 import org.jboss.reddeer.swt.impl.menu.ContextMenu;
+import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.jboss.reddeer.swt.impl.styledtext.DefaultStyledText;
 import org.jboss.reddeer.swt.impl.table.DefaultTable;
 import org.jboss.reddeer.swt.impl.table.DefaultTableItem;
@@ -69,10 +72,9 @@ public class ResultViewTest {
 		for (int i = 0; i < items.size(); i++) {
 			new DefaultTableItem(0).select();
 			new PushButton("Remove").click();
-			new WaitUntil(new ShellWithTextIsActive("Confirm Driver Removal"));
+			Shell removalShell = new DefaultShell("Confirm Driver Removal");
 			new YesButton().click();
-			new WaitWhile(new ShellWithTextIsActive("Confirm Driver Removal"));
-			new WaitUntil(new ShellWithTextIsActive("Preferences"));
+			new WaitWhile(new ShellIsAvailable(removalShell));
 		}
 		
 		preferenceDialog.ok();
@@ -87,9 +89,9 @@ public class ResultViewTest {
 		for (TreeItem i : cpitems) {
 			i.select();
 			new ContextMenu("Delete").select();
-			new WaitUntil(new ShellWithTextIsActive("Delete confirmation"));
+			Shell deleteShell = new DefaultShell("Delete confirmation");
 			new YesButton().click();
-			new WaitWhile(new ShellWithTextIsActive("Delete confirmation"));				
+			new WaitWhile(new ShellIsAvailable(deleteShell));		
 		}
 
 		new WaitWhile(new JobIsRunning());
@@ -128,8 +130,8 @@ public class ResultViewTest {
 		new WaitWhile(new JobIsRunning());
 		new ContextMenu("Execute All").select();
 		
-		new WaitUntil(new ShellWithTextIsActive("SQL Statement Execution"),TimePeriod.LONG, false);
-		new WaitWhile(new ShellWithTextIsActive("SQL Statement Execution"),TimePeriod.LONG, false);
+		new WaitUntil(new ShellWithTextIsAvailable("SQL Statement Execution"),TimePeriod.LONG, false);
+		new WaitWhile(new ShellWithTextIsAvailable("SQL Statement Execution"),TimePeriod.LONG, false);
 		
 		scrapbook.close(false);
 	}
