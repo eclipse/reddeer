@@ -29,16 +29,16 @@ import org.jboss.reddeer.swt.impl.menu.ShellMenu;
 import org.jboss.reddeer.swt.keyboard.KeyboardFactory;
 import org.jboss.reddeer.core.lookup.ShellLookup;
 import org.jboss.reddeer.core.matcher.WithTextMatcher;
+import org.jboss.reddeer.workbench.matcher.EditorPartTitleMatcher;
 import org.jboss.reddeer.common.wait.AbstractWait;
 import org.jboss.reddeer.common.wait.TimePeriod;
 import org.jboss.reddeer.common.wait.WaitUntil;
 import org.jboss.reddeer.workbench.api.Editor;
 import org.jboss.reddeer.workbench.condition.ContentAssistantShellIsOpened;
+import org.jboss.reddeer.workbench.core.lookup.EditorPartLookup;
 import org.jboss.reddeer.workbench.exception.WorkbenchLayerException;
 import org.jboss.reddeer.workbench.handler.EditorHandler;
-import org.jboss.reddeer.core.handler.WorkbenchPartHandler;
-import org.jboss.reddeer.core.lookup.EditorPartLookup;
-import org.jboss.reddeer.core.matcher.EditorPartTitleMatcher;
+import org.jboss.reddeer.workbench.handler.WorkbenchPartHandler;
 
 /**
  * Abstract class for all Editor implementations.

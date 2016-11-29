@@ -17,6 +17,7 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swtbot.generator.framework.WidgetUtils;
 import org.jboss.reddeer.swt.generator.framework.rules.RedDeerUtils;
 import org.jboss.reddeer.core.handler.WidgetHandler;
+import org.jboss.reddeer.core.lookup.WidgetLookup;
 
 /**
  * Code generator for combo boxes.
@@ -37,7 +38,7 @@ public class ComboCodeGenerator implements CodeGenerator {
 			throw new IllegalArgumentException("Given " + control.getClass() + "is not supported");
 		}
 		String type = "LabeledCombo";
-		String label = WidgetHandler.getInstance().getLabel(control);
+		String label = WidgetLookup.getInstance().getLabel(control);
 		if (label == null || label.isEmpty()) {
 			type = "DefaultCombo";
 			label = String.valueOf(WidgetUtils.getIndex(control));
@@ -52,7 +53,7 @@ public class ComboCodeGenerator implements CodeGenerator {
 	public String getGeneratedCode(Control control) {
 		if (isSupported(control)) {
 			// TODO you could rather parse the constructor to get the label
-			String label = WidgetHandler.getInstance().getLabel(control);
+			String label = WidgetLookup.getInstance().getLabel(control);
 			if (label == null || label.isEmpty()) {
 				return null;
 			}

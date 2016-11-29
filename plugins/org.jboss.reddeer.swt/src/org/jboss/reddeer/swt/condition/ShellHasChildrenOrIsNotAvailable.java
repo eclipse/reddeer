@@ -11,9 +11,10 @@
 package org.jboss.reddeer.swt.condition;
 
 import org.jboss.reddeer.common.condition.AbstractWaitCondition;
+import org.jboss.reddeer.common.exception.RedDeerException;
 import org.jboss.reddeer.common.logging.Logger;
-import org.jboss.reddeer.core.exception.CoreLayerException;
 import org.jboss.reddeer.core.handler.ShellHandler;
+import org.jboss.reddeer.core.lookup.ShellLookup;
 import org.jboss.reddeer.swt.api.Shell;
 
 /**
@@ -38,12 +39,11 @@ public class ShellHasChildrenOrIsNotAvailable extends AbstractWaitCondition {
 	public boolean test() {
 		int childShells = 0;
 		org.eclipse.swt.widgets.Shell swtShell = shell.getSWTWidget();
-		ShellHandler handler = ShellHandler.getInstance();
 		try {
-			childShells = handler.getShells(swtShell).length;
-		} catch (CoreLayerException e) {
+			childShells = ShellLookup.getInstance().getShells(swtShell).length;
+		} catch (RedDeerException e) {
 			if(swtShell != null){
-				return handler.isDisposed(swtShell);
+				return ShellHandler.getInstance().isDisposed(swtShell);
 			}
 			return true;
 		}

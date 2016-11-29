@@ -19,11 +19,11 @@ import org.jboss.reddeer.jface.wizard.WizardDialog;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.swt.api.CLabel;
 import org.jboss.reddeer.swt.api.Shell;
-import org.jboss.reddeer.core.condition.ShellWithTextIsActive;
 import org.jboss.reddeer.swt.impl.clabel.DefaultCLabel;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.jboss.reddeer.workbench.impl.shell.WorkbenchShell;
 import org.jboss.reddeer.common.wait.WaitUntil;
+import org.jboss.reddeer.core.condition.ShellWithTextIsAvailable;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -41,7 +41,7 @@ public class WizardDialogTest {
 	@Before
 	public void setUp(){
 		shell = new WorkbenchShell().getSWTWidget();
-		org.jboss.reddeer.core.util.Display.asyncExec(new Runnable() {
+		org.jboss.reddeer.common.util.Display.asyncExec(new Runnable() {
 
 			@Override
 			public void run() {
@@ -52,7 +52,7 @@ public class WizardDialogTest {
 				swtWizardDialog.open();
 			}
 		});
-		new WaitUntil(new ShellWithTextIsActive(TestingWizard.TITLE));
+		new WaitUntil(new ShellWithTextIsAvailable(TestingWizard.TITLE));
 		wizardDialog = new WizardDialog();
 	}
 

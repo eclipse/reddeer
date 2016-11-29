@@ -23,9 +23,7 @@ import org.jboss.reddeer.common.matcher.RegexMatcher;
 import org.jboss.reddeer.common.wait.WaitUntil;
 import org.jboss.reddeer.common.wait.WaitWhile;
 import org.jboss.reddeer.core.condition.ShellWithTextIsAvailable;
-import org.jboss.reddeer.core.handler.ViewHandler;
 import org.jboss.reddeer.core.handler.WidgetHandler;
-import org.jboss.reddeer.core.handler.WorkbenchPartHandler;
 import org.jboss.reddeer.core.lookup.WidgetLookup;
 import org.jboss.reddeer.core.matcher.WithTextMatcher;
 import org.jboss.reddeer.core.matcher.WithTextMatchers;
@@ -39,6 +37,8 @@ import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
 import org.jboss.reddeer.workbench.api.View;
 import org.jboss.reddeer.workbench.api.WorkbenchPart;
 import org.jboss.reddeer.workbench.exception.WorkbenchLayerException;
+import org.jboss.reddeer.workbench.handler.ViewHandler;
+import org.jboss.reddeer.workbench.handler.WorkbenchPartHandler;
 import org.jboss.reddeer.workbench.impl.shell.WorkbenchShell;
 
 /**
@@ -235,6 +235,7 @@ public class AbstractView implements View {
 			try {
 				return getViewCTabItem() != null;
 			} catch (Exception e){
+				e.printStackTrace();
 				return false;
 			}
 		}

@@ -20,7 +20,6 @@ import org.jboss.reddeer.core.reference.ReferencedComposite;
 import org.jboss.reddeer.swt.api.Browser;
 import org.jboss.reddeer.swt.condition.PageIsLoaded;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
-import org.jboss.reddeer.swt.impl.browser.internal.BrowserProgressListener;
 import org.jboss.reddeer.swt.widgets.AbstractWidget;
 
 /**

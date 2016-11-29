@@ -7,16 +7,16 @@
  * 
  * Contributors: 
  * Red Hat, Inc. - initial API and implementation 
- ******************************************************************************/ 
+ ******************************************************************************/
 package org.jboss.reddeer.junit.extension.after.test.impl;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.swt.widgets.Shell;
+import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.common.properties.RedDeerProperties;
 import org.jboss.reddeer.core.handler.IBeforeShellIsClosed;
-import org.jboss.reddeer.core.handler.ShellHandler;
 import org.jboss.reddeer.core.handler.WidgetHandler;
 import org.jboss.reddeer.junit.TestInfo;
 import org.jboss.reddeer.junit.extension.ExtensionPriority;
@@ -26,6 +26,7 @@ import org.jboss.reddeer.junit.screenshot.ScreenshotCapturer;
 import org.junit.Assert;
 import org.junit.runners.model.FrameworkMethod;
 import org.junit.runners.model.TestClass;
+import org.jboss.reddeer.workbench.handler.WorkbenchShellHandler;
 
 /**
  * Extension for Extension point org.jboss.reddeer.junit.after.test. It closes
@@ -40,6 +41,7 @@ import org.junit.runners.model.TestClass;
 public class CloseAllShellsExt implements IAfterTest {
 
 	public static final boolean CLOSE_ALL_SHELLS = RedDeerProperties.CLOSE_ALL_SHELLS.getBooleanValue();
+	private static final Logger log = Logger.getLogger(CloseAllShellsExt.class);
 
 	private String config;
 
@@ -58,6 +60,7 @@ public class CloseAllShellsExt implements IAfterTest {
 
 		run();
 	}
+
 	/**
 	 * See {@link IAfterTest}
 	 */
@@ -71,10 +74,9 @@ public class CloseAllShellsExt implements IAfterTest {
 		run();
 	}
 
-	private void run(){
-		BeforeShellIsClosedAdapter beforeShellIsClosedAdapter = 
-				new BeforeShellIsClosedAdapter();
-		ShellHandler.getInstance().closeAllNonWorbenchShells(beforeShellIsClosedAdapter);
+	private void run() {
+		BeforeShellIsClosedAdapter beforeShellIsClosedAdapter = new BeforeShellIsClosedAdapter();
+		WorkbenchShellHandler.getInstance().closeAllNonWorbenchShells(beforeShellIsClosedAdapter);
 		if (beforeShellIsClosedAdapter.getClosedShellsTitles().size() > 0) {
 			Assert.fail("The following shells remained open " + beforeShellIsClosedAdapter.getClosedShellsTitles());
 		}
@@ -87,39 +89,34 @@ public class CloseAllShellsExt implements IAfterTest {
 	public boolean hasToRun() {
 		return CLOSE_ALL_SHELLS;
 	}
+
 	/**
 	 * See {@link IBeforeShellIsClosed}
 	 */
-	private class BeforeShellIsClosedAdapter implements IBeforeShellIsClosed{
+	private class BeforeShellIsClosedAdapter implements IBeforeShellIsClosed {
 
 		private List<String> closedShellsTitles;
 
-		public BeforeShellIsClosedAdapter (){
+		public BeforeShellIsClosedAdapter() {
 			this.closedShellsTitles = new ArrayList<>();
 		}
 
 		public void runBeforeShellIsClosed(Shell shell) {
-			String shellTitle = WidgetHandler.getInstance().getText(shell); 
+			String shellTitle = WidgetHandler.getInstance().getText(shell);
 
 			closedShellsTitles.add(shellTitle);
 			try {
 				String fileName;
 				if (testClass != null) {
-					fileName = ScreenshotCapturer.getScreenshotFileName(
-							testClass.getJavaClass(),
-							null,
+					fileName = ScreenshotCapturer.getScreenshotFileName(testClass.getJavaClass(), null,
 							"CloseAllShellsExt_closing_" + shellTitle);
-				} else if (target instanceof TestInfo){
-					TestInfo testInfo = (TestInfo)target;
+				} else if (target instanceof TestInfo) {
+					TestInfo testInfo = (TestInfo) target;
 					config = testInfo.getConfig();
-					fileName = ScreenshotCapturer.getScreenshotFileName(
-							testInfo.getTestObjectClass(),
-							testInfo.getMethodName(),
-							"CloseAllShellsExt_closing_" + shellTitle);
-				}else {
-					fileName = ScreenshotCapturer.getScreenshotFileName(
-							target.getClass(),
-							method.getName(),
+					fileName = ScreenshotCapturer.getScreenshotFileName(testInfo.getTestObjectClass(),
+							testInfo.getMethodName(), "CloseAllShellsExt_closing_" + shellTitle);
+				} else {
+					fileName = ScreenshotCapturer.getScreenshotFileName(target.getClass(), method.getName(),
 							"CloseAllShellsExt_closing_" + shellTitle);
 				}
 				ScreenshotCapturer.getInstance().captureScreenshotOnFailure(config, fileName);
@@ -128,11 +125,11 @@ public class CloseAllShellsExt implements IAfterTest {
 			}
 		}
 
-		public List<String> getClosedShellsTitles(){
+		public List<String> getClosedShellsTitles() {
 			return this.closedShellsTitles;
 		}
 	}
-	
+
 	@Override
 	public long getPriority() {
 		return ExtensionPriority.CLOSE_ALL_SHELLS_PRIORITY;

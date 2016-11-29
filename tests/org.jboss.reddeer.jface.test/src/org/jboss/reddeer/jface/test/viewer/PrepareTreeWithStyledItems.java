@@ -28,7 +28,7 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.jboss.reddeer.common.wait.WaitWhile;
-import org.jboss.reddeer.core.condition.ShellWithTextIsActive;
+import org.jboss.reddeer.core.condition.ShellWithTextIsAvailable;
 import org.junit.After;
 import org.junit.Before;
 
@@ -46,7 +46,7 @@ public class PrepareTreeWithStyledItems {
 	
 	@Before
 	public void setUp() {
-		org.jboss.reddeer.core.util.Display.syncExec(new Runnable() {
+		org.jboss.reddeer.common.util.Display.syncExec(new Runnable() {
 			@Override
 			public void run() {
 				JFaceResources.getColorRegistry().put(JFacePreferences.COUNTER_COLOR,
@@ -68,18 +68,18 @@ public class PrepareTreeWithStyledItems {
 
 	@After
 	public void cleanup() {
-		org.jboss.reddeer.core.util.Display.syncExec(new Runnable() {
+		org.jboss.reddeer.common.util.Display.syncExec(new Runnable() {
 			@Override
 			public void run() {
-				for (Shell shell : org.jboss.reddeer.core.util.Display.getDisplay().getShells()) {
+				for (Shell shell : org.jboss.reddeer.common.util.Display.getDisplay().getShells()) {
 					if (shell.getText().equals(title)) {
 						shell.dispose();
 						break;
 					}
 				}
-				new WaitWhile(new ShellWithTextIsActive(title));
 			}
 		});
+		new WaitWhile(new ShellWithTextIsAvailable(title));
 	}
 	
 	

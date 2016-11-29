@@ -21,9 +21,9 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Tree;
 import org.jboss.reddeer.common.logging.Logger;
+import org.jboss.reddeer.common.util.Display;
 import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.swt.impl.tree.AbstractTreeItem;
-import org.jboss.reddeer.core.util.Display;
 /**
  * Defines Tree listeners for tests of Tree and TreeItem
  * @author vpakan

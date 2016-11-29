@@ -13,17 +13,17 @@ package org.jboss.reddeer.core.lookup;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.ui.PlatformUI;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.common.condition.AbstractWaitCondition;
+import org.jboss.reddeer.common.util.Display;
+import org.jboss.reddeer.common.util.ResultRunnable;
 import org.jboss.reddeer.common.wait.TimePeriod;
 import org.jboss.reddeer.common.wait.WaitUntil;
 import org.jboss.reddeer.core.condition.ActiveShellExists;
 import org.jboss.reddeer.core.condition.ShellMatchingMatcherIsAvailable;
 import org.jboss.reddeer.core.matcher.WithTextMatcher;
-import org.jboss.reddeer.core.util.Display;
-import org.jboss.reddeer.core.util.ResultRunnable;
 
 /**
  * Shell Lookup provides methods for looking up various shells. 
@@ -151,21 +151,31 @@ public class ShellLookup {
 			new WaitUntil(new ShellMatchingMatcherIsAvailable(matcher), timePeriod, false);
 		}
 		
-		return Display.syncExec(new ResultRunnable<Shell>() {
+		Shell[] shells = Display.syncExec(new ResultRunnable<Shell[]>() {
 			
 			@Override
-			public Shell run() {
-				Shell[] shell = Display.getDisplay().getShells(); 
-				for (int i = 0; i < shell.length; i++) {
-					if(matcher.matches(shell[i])) {
-						if (shell[i].isVisible()) {
-							return shell[i];
-						}
-					}
-				}
-				return null;
+			public Shell[] run() {
+				return Display.getDisplay().getShells(); 
 			}
 		});
+		
+		for(final Shell s: shells){
+			if(matcher.matches(s)) {
+				Shell visibleShell = Display.syncExec(new ResultRunnable<Shell>() {
+					@Override
+					public Shell run() {
+						if (!s.isDisposed() && s.isVisible()) {
+							return s;
+						}
+						return null;
+					}
+				});
+				if(visibleShell != null){
+					return visibleShell;
+				}
+			}
+		}
+		return null;
 	}
 	
 	/**
@@ -213,15 +223,28 @@ public class ShellLookup {
 	}
 	
 	/**
-	 * Gets active workbench shell.
-	 * 
-	 * @return active workbench shell
+	 * Returns shell parent.
+	 *
+	 * @param shell the shell
+	 * @return the parent shell
 	 */
-	public Shell getWorkbenchShell() {
-		return Display.syncExec(new ResultRunnable<Shell>() {
+	public Shell getParentShell(Shell shell){
+		Control parent = WidgetLookup.getInstance().getParent(shell);
+		return parent == null ? null : (Shell)parent;
+	}
+	
+	/**
+	 * Return child shells.
+	 *
+	 * @param shell the shell
+	 * @return the shells
+	 */
+	public Shell[] getShells(final Shell shell){
+		return Display.syncExec(new ResultRunnable<Shell[]>() {
+
 			@Override
-			public Shell run() {
-				return PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell();
+			public Shell[] run() {
+				return shell.getShells();
 			}
 		});
 	}

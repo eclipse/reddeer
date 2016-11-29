@@ -7,17 +7,20 @@
  * 
  * Contributors: 
  * Red Hat, Inc. - initial API and implementation 
- ******************************************************************************/ 
+ ******************************************************************************/
 package org.jboss.reddeer.workbench.ui.dialogs;
 
+import org.eclipse.ui.dialogs.PreferencesUtil;
 import org.jboss.reddeer.common.logging.Logger;
+import org.jboss.reddeer.common.platform.RunningPlatform;
+import org.jboss.reddeer.common.util.Display;
 import org.jboss.reddeer.jface.preference.PreferenceDialog;
 import org.jboss.reddeer.swt.api.Menu;
 import org.jboss.reddeer.swt.impl.menu.ShellMenu;
 
 /**
- * Workbench Preference Dialog implementation that is opened
- * via shell menu Window -> Preferences.
+ * Workbench Preference Dialog implementation that is opened via shell menu
+ * Window -> Preferences.
  *
  * @author Jiri Peterka
  * @author Radoslav Rabara
@@ -29,7 +32,9 @@ public class WorkbenchPreferenceDialog extends PreferenceDialog {
 
 	private final Logger log = Logger.getLogger(WorkbenchPreferenceDialog.class);
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.jboss.reddeer.jface.preference.PreferenceDialog#getTitle()
 	 */
 	@Override
@@ -37,13 +42,37 @@ public class WorkbenchPreferenceDialog extends PreferenceDialog {
 		return DIALOG_TITLE;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.jboss.reddeer.jface.preference.PreferenceDialog#openImpl()
 	 */
 	@Override
 	protected void openImpl() {
-		log.info("Open Preferences by menu");
-		Menu menu = new ShellMenu("Window", "Preferences");
-		menu.select();
+		if (RunningPlatform.isOSX()) {
+			log.info("Open Preferences directly on Mac OSX");
+			handleMacMenu();
+		} else {
+			log.info("Open Preferences by menu");
+			Menu menu = new ShellMenu("Window", "Preferences");
+			menu.select();
+		}
+	}
+
+	private void handleMacMenu() {
+		Display.asyncExec(new Runnable() {
+			@Override
+			public void run() {
+				org.eclipse.jface.preference.PreferenceDialog dialog = PreferencesUtil.createPreferenceDialogOn(null,
+						null, null, null);
+				dialog.open();
+			}
+		});
+		Display.syncExec(new Runnable() {
+			@Override
+			public void run() {
+				// do nothing just process UI events
+			}
+		});
 	}
 }

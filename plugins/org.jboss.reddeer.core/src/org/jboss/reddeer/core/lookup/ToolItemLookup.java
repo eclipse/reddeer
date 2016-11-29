@@ -10,22 +10,16 @@
  ******************************************************************************/ 
 package org.jboss.reddeer.core.lookup;
 
-import java.util.List;
-
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.common.logging.Logger;
-import org.jboss.reddeer.core.exception.Thrower;
-import org.jboss.reddeer.core.reference.DefaultReferencedComposite;
-import org.jboss.reddeer.core.reference.ReferencedComposite;
-import org.jboss.reddeer.core.util.Display;
-import org.jboss.reddeer.core.util.ResultRunnable;
+import org.jboss.reddeer.common.util.Display;
+import org.jboss.reddeer.common.util.ResultRunnable;
 import org.jboss.reddeer.core.lookup.WidgetLookup;
-import org.jboss.reddeer.core.lookup.ToolBarLookup;
+import org.jboss.reddeer.core.reference.ReferencedComposite;
 
 /**
  * Tool item lookup provides methods for looking up various tool items.
@@ -69,39 +63,6 @@ public class ToolItemLookup {
 		}
 		return WidgetLookup.getInstance().activeWidget(rc, ToolItem.class, index,
 				matchers);
-	}
-
-	/**
-	 * Gets workbench tool item matching specified matcher.
-	 * 
-	 * @param matcher matcher to match workbench tool item
-	 * @return workbench tool item matching specified matcher
-	 * @deprecated sice 1.1.0
-	 */
-	public ToolItem getWorkbenchToolItem(Matcher<String> matcher) {
-		ToolBarLookup tl = ToolBarLookup.getInstance();
-		List<ToolBar> workbenchToolBars = tl.getWorkbenchToolBars();
-		
-		Shell swtShell = ShellLookup.getInstance().getWorkbenchShell();
-		if(swtShell == null){
-			Thrower.objectIsNull(swtShell, "There is no active workbench shell");
-		}
-		
-		final ToolItem ti = getToolItem(new DefaultReferencedComposite((Control) swtShell), 0, matcher);
-		
-		ToolBar tb = Display.syncExec(new ResultRunnable<ToolBar>() {
-			@Override
-			public ToolBar run() {
-				return ti.getParent();
-			}
-		});
-		if (workbenchToolBars.contains(tb)) {
-			return ti;
-		} else {
-			Thrower.objectIsNull(ti, "ToolItem matching " + matcher.toString()
-					+ " cannot be found in any workbench toolbar");
-		}
-		return null;
 	}
 	
 	/**

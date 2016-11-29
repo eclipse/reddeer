@@ -23,12 +23,12 @@ import org.jboss.reddeer.core.exception.CoreLayerException;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.menu.ShellMenu;
-import org.jboss.reddeer.swt.impl.menu.ViewMenu;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.jboss.reddeer.swt.impl.text.DefaultText;
 import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
 import org.jboss.reddeer.swt.test.handler.ParameterizedHandler;
 import org.jboss.reddeer.swt.test.handler.ViewActionWithId;
+import org.jboss.reddeer.workbench.impl.menu.ViewMenu;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 

@@ -21,7 +21,7 @@ import org.jboss.reddeer.common.wait.AbstractWait;
 import org.jboss.reddeer.common.wait.TimePeriod;
 import org.jboss.reddeer.common.wait.WaitUntil;
 import org.jboss.reddeer.common.wait.WaitWhile;
-import org.jboss.reddeer.core.condition.JobIsRunning;
+import org.jboss.reddeer.workbench.core.condition.JobIsRunning;
 import org.jboss.reddeer.core.matcher.WithTextMatchers;
 import org.jboss.reddeer.eclipse.condition.ConsoleHasLabel;
 import org.jboss.reddeer.eclipse.condition.ConsoleHasLaunch;

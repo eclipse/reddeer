@@ -35,7 +35,6 @@ import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.jboss.reddeer.eclipse.ui.project.ProjectSettingValidator;
-import org.jboss.reddeer.swt.impl.button.CheckBox;
 import org.jboss.reddeer.ui.Activator;
 
 /**

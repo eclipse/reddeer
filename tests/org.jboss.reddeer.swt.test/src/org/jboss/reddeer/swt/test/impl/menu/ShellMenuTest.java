@@ -16,8 +16,6 @@ import static org.junit.Assert.fail;
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.common.matcher.RegexMatcher;
 import org.jboss.reddeer.core.exception.CoreLayerException;
-import org.jboss.reddeer.core.matcher.WithMnemonicTextMatcher;
-import org.jboss.reddeer.core.matcher.WithTextMatcher;
 import org.jboss.reddeer.core.matcher.WithTextMatchers;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.swt.api.Menu;
@@ -41,27 +39,6 @@ public class ShellMenuTest {
 	}
 
 	@Test
-	public void preferencesMenuTest() {
-		log.info("Preferences menu test");
-		new DefaultShell();
-		Menu m = new ShellMenu("Window", "Preferences");
-		m.select();
-		Shell s = new DefaultShell("Preferences");
-		s.close();
-	}
-
-	@Test
-	public void aboutMenuTest() {
-		log.info("About menu test");
-		new DefaultShell();
-		@SuppressWarnings("unchecked")
-		Menu m = new ShellMenu(new WithMnemonicTextMatcher("Help"), new WithTextMatcher(new RegexMatcher("About.*")));
-		m.select();
-		Shell s = new DefaultShell();
-		s.close();
-	}
-
-	@Test
 	public void logTest() {
 		log.debug("debug");
 		log.error("error");
@@ -75,7 +52,7 @@ public class ShellMenuTest {
 
 		log.info("regex menu test");
 		try {
-			RegexMatcher[] regexMatchers = { new RegexMatcher("Win.*"), new RegexMatcher("Pref.*") };
+			RegexMatcher[] regexMatchers = { new RegexMatcher("Fi.*"), new RegexMatcher("Ne.*") };
 			WithTextMatchers m = new WithTextMatchers(regexMatchers);
 			new ShellMenu(m.getMatchers());
 		} catch (SWTLayerException e) {
@@ -88,7 +65,7 @@ public class ShellMenuTest {
 	public void unavailableMenuTest() {
 		log.info("unavailable regex menu test");
 		try {
-			RegexMatcher[] regexMatchers = { new RegexMatcher("Win.*"), new RegexMatcher("Prefz.*") };
+			RegexMatcher[] regexMatchers = { new RegexMatcher("Fi.*"), new RegexMatcher("Nez.*") };
 			WithTextMatchers m = new WithTextMatchers(regexMatchers);
 			new ShellMenu(m.getMatchers());
 			fail("exception should be thrown");
@@ -100,7 +77,7 @@ public class ShellMenuTest {
 	@Test
 	public void shellMenuItemTextTest() {
 		new DefaultShell();
-		Menu menu = new ShellMenu("Window", "Preferences");
+		Menu menu = new ShellMenu("File", "New");
 		assertTrue("Menuitem text not expected to be empty", !menu.getText().equals(""));
 	}
 

@@ -17,13 +17,11 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
 import org.jboss.reddeer.common.condition.AbstractWaitCondition;
 import org.jboss.reddeer.common.exception.RedDeerException;
+import org.jboss.reddeer.common.util.Display;
+import org.jboss.reddeer.common.util.ResultRunnable;
 import org.jboss.reddeer.common.wait.TimePeriod;
 import org.jboss.reddeer.common.wait.WaitUntil;
-import org.jboss.reddeer.common.wait.WaitWhile;
-import org.jboss.reddeer.core.condition.WidgetIsChecked;
 import org.jboss.reddeer.core.exception.CoreLayerException;
-import org.jboss.reddeer.core.util.Display;
-import org.jboss.reddeer.core.util.ResultRunnable;
 
 /**
  * Contains methods for handling UI operations on {@link TableItem} widgets.
@@ -240,7 +238,7 @@ public class TableItemHandler {
 		@Override
 		public boolean test() {
 			WidgetHandler.getInstance().notifyItem(SWT.Selection,
-					SWT.CHECK, WidgetHandler.getInstance().getParent(tableItem), tableItem);
+					SWT.CHECK, getParent(tableItem), tableItem);
 			return listener.isHeard();
 		}
 

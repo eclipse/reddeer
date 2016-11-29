@@ -2,7 +2,7 @@ package org.jboss.reddeer.gef.handler;
 
 import org.eclipse.draw2d.IFigure;
 import org.jboss.reddeer.common.logging.Logger;
-import org.jboss.reddeer.core.util.ObjectUtil;
+import org.jboss.reddeer.common.util.ObjectUtil;
 
 /**
  * Handler for {@link org.eclipse.draw2d.IFigure}.

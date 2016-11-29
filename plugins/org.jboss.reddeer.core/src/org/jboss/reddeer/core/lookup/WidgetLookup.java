@@ -12,32 +12,37 @@ package org.jboss.reddeer.core.lookup;
 
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.ListIterator;
 
+import org.eclipse.swt.custom.CLabel;
+import org.eclipse.swt.layout.FormData;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Widget;
-import org.eclipse.ui.IWorkbenchPart;
-import org.eclipse.ui.IWorkbenchPartReference;
-import org.eclipse.ui.IWorkbenchSite;
 import org.hamcrest.BaseMatcher;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
+import org.jboss.reddeer.common.exception.RedDeerException;
 import org.jboss.reddeer.common.exception.WaitTimeoutExpiredException;
 import org.jboss.reddeer.common.logging.Logger;
+import org.jboss.reddeer.common.matcher.AndMatcher;
+import org.jboss.reddeer.common.matcher.MatcherBuilder;
+import org.jboss.reddeer.common.util.Display;
+import org.jboss.reddeer.common.util.ObjectUtil;
+import org.jboss.reddeer.common.util.ResultRunnable;
 import org.jboss.reddeer.common.wait.TimePeriod;
 import org.jboss.reddeer.common.wait.WaitUntil;
 import org.jboss.reddeer.core.condition.WidgetIsFound;
 import org.jboss.reddeer.core.exception.CoreLayerException;
 import org.jboss.reddeer.core.handler.WidgetHandler;
-import org.jboss.reddeer.core.matcher.AndMatcher;
 import org.jboss.reddeer.core.matcher.ClassMatcher;
-import org.jboss.reddeer.core.matcher.MatcherBuilder;
 import org.jboss.reddeer.core.reference.ReferencedComposite;
 import org.jboss.reddeer.core.resolver.WidgetResolver;
 import org.jboss.reddeer.core.util.DiagnosticTool;
-import org.jboss.reddeer.core.util.Display;
-import org.jboss.reddeer.core.util.ResultRunnable;
+import org.jboss.reddeer.workbench.core.lookup.WorkbenchPartLookup;
 
 /**
  * Widget lookup provides methods for looking up eclipse widgets.
@@ -196,8 +201,10 @@ public class WidgetLookup {
 	 * @return true if extra shell is active, false otherwise
 	 */
 	public boolean isExtraShellActive() {
-		IWorkbenchPartReference activeWorkbenchReference = WorkbenchPartLookup.getInstance().findActiveWorkbenchPartReference();
-		Shell activeWorkbenchParentShell = getShellForActiveWorkbench(activeWorkbenchReference);
+		Shell activeWorkbenchParentShell = null;
+		if(getWorkbenchLookup() != null){
+			activeWorkbenchParentShell = getWorkbenchLookup().getShellForActiveWorkbench();
+		}
 
 		Shell activeShell = ShellLookup.getInstance().getActiveShell();
 		if (activeWorkbenchParentShell == null || activeWorkbenchParentShell != activeShell){
@@ -214,9 +221,12 @@ public class WidgetLookup {
 	 */
 	public Control getActiveWidgetParentControl() {
 		Control control = null;
-
-		IWorkbenchPartReference activeWorkbenchReference =  WorkbenchPartLookup.getInstance().findActiveWorkbenchPartReference();
-		Shell activeWorkbenchParentShell = getShellForActiveWorkbench(activeWorkbenchReference);
+		
+		Shell activeWorkbenchParentShell = null;
+		if(getWorkbenchLookup() != null){
+			activeWorkbenchParentShell = getWorkbenchLookup().getShellForActiveWorkbench();
+		}
+		
 		Shell activeShell = ShellLookup.getInstance().getActiveShell();
 
 		if ((activeWorkbenchParentShell == null || !activeWorkbenchParentShell.equals(activeShell))
@@ -225,33 +235,12 @@ public class WidgetLookup {
 			control = activeShell;	
 		}			
 		else {
-			if (activeWorkbenchReference != null){
-				logger.trace("Setting workbench part with title \"" + getTitle(activeWorkbenchReference) + "\"as the parent");
-				control = WorkbenchPartLookup.getInstance().getWorkbenchControl(activeWorkbenchReference);
+			if (getWorkbenchLookup() != null && getWorkbenchLookup().getActiveWorkbenchPartTitle() != null){
+				logger.trace("Setting workbench part with title \"" + getWorkbenchLookup().getActiveWorkbenchPartTitle() + "\"as the parent");
+				control = getWorkbenchLookup().getActiveWorkbenchPartControl();
 			}
 		}	
 		return control;
-	}
-
-	/**
-	 * Gets the shell for active workbench.
-	 *
-	 * @param workbenchReference the workbench reference
-	 * @return the shell for active workbench
-	 */
-	protected Shell getShellForActiveWorkbench(IWorkbenchPartReference workbenchReference) {
-		if (workbenchReference == null) {
-			return null;
-		}
-		IWorkbenchPart wPart = workbenchReference.getPart(true);
-		if (wPart == null) {
-			return null;
-		}
-		IWorkbenchSite wSite = wPart.getSite();
-		if (wSite == null) {
-			return null;
-		}
-		return wSite.getShell();
 	}
 
 	/**
@@ -296,27 +285,12 @@ public class WidgetLookup {
 	 */
 	private <T extends Widget> List<T> findControls(final Widget parentWidget, 
 			final Matcher<T> matcher, final boolean recursive) {
-		List<T> ret = Display.syncExec(new ResultRunnable<List<T>>() {
-
-			@Override
-			public List<T> run() {
-				List<T> findControlsUI = findControlsUI(parentWidget, matcher, recursive);
-				return findControlsUI;
-			}
-		});
-		return ret;
+		return findControlsUI(parentWidget, matcher, recursive);
 	}
 
 	private <T extends Widget> T findControl(final Widget parentWidget, 
 			final Matcher<T> matcher, final boolean recursive, final int index) {
-		T ret = Display.syncExec(new ResultRunnable<T>() {
-
-			@Override
-			public T run() {
-				return findControlUI(parentWidget, matcher, recursive, new Index(index));
-			}
-		});
-		return ret;
+		return findControlUI(parentWidget, matcher, recursive, new Index(index));
 	}
 
 	private static class Index {
@@ -381,7 +355,13 @@ public class WidgetLookup {
 				throw new IllegalArgumentException("The specified matcher should only match against is declared type.", exception);
 			}
 		if (recursive) {
-			List<Widget> children = WidgetResolver.getInstance().getChildren(parentWidget);
+			List<Widget> children = Display.syncExec(new ResultRunnable<List<Widget>>() {
+
+				@Override
+				public List<Widget> run() {
+					return WidgetResolver.getInstance().getChildren(parentWidget);
+				}
+			});
 			controls.addAll(findControlsUI(children, matcher, recursive));
 		}
 		return new ArrayList<T>(controls);
@@ -405,7 +385,13 @@ public class WidgetLookup {
 				throw new IllegalArgumentException("The specified matcher should only match against is declared type.", exception);
 			}
 		if (recursive) {
-			List<Widget> children = WidgetResolver.getInstance().getChildren(parentWidget);
+			List<Widget> children = Display.syncExec(new ResultRunnable<List<Widget>>() {
+
+				@Override
+				public List<Widget> run() {
+					return WidgetResolver.getInstance().getChildren(parentWidget);
+				}
+			});
 			return findControlUI(children, matcher, recursive, index);
 		}
 		return null;
@@ -446,15 +432,12 @@ public class WidgetLookup {
 	 * @param w widget to resolve
 	 * @return true if widget is visible, false otherwise
 	 */
-	private boolean visible(Widget w) {
-		return !((w instanceof Control) && !((Control) w).getVisible());
-	}
+	private boolean visible(final Widget w) {
+		return Display.syncExec(new ResultRunnable<Boolean>() {
 
-	private String getTitle(final IWorkbenchPartReference part){
-		return Display.syncExec(new ResultRunnable<String>() {
 			@Override
-			public String run() {
-				return part.getTitle();
+			public Boolean run() {
+				return !((w instanceof Control) && !((Control) w).getVisible());
 			}
 		});
 	}
@@ -499,6 +482,157 @@ public class WidgetLookup {
 			
 		}, true);
 		return allWidgets;
+	}
+	
+	private WorkbenchPartLookup getWorkbenchLookup(){
+		try{
+			WorkbenchPartLookup wp = WorkbenchPartLookup.getInstance();
+			return wp;
+		} catch (NoClassDefFoundError e) {
+			logger.trace("Workbench not available");
+			return null;
+		}
+	}
+	
+	/**
+	 * Gets label of specified widget.
+	 *
+	 * @param <T> the generic type
+	 * @param w widget to handle
+	 * @return label of specified widget
+	 */
+	public <T extends Widget> String getLabel(final T w) {
+		String label = Display.syncExec(new ResultRunnable<String>() {
+
+			@Override
+			public String run() {
+				Control parent = ((Control) w).getParent();
+				java.util.List<Widget> children = WidgetResolver.getInstance()
+						.getChildren(parent);
+				// check whether a label is defined using form data layout
+				for (Widget child : children) {
+					if (child instanceof Label || child instanceof CLabel) {
+						Object layoutData = ((Control) child).getLayoutData();
+						if (layoutData instanceof FormData) {
+							FormData formData = (FormData) layoutData;
+							if (formData.right != null && w.equals(formData.right.control)) {
+								if (child instanceof Label) {
+									return ((Label) child).getText();
+								} else if (child instanceof CLabel) {
+									return ((CLabel) child).getText();
+								}
+							}
+						}
+					}
+				}
+				return null;
+			}
+		});
+		
+		if(label == null){
+			final List<Control> allWidgets = WidgetLookup.getInstance().findAllParentWidgets();
+			label = Display.syncExec(new ResultRunnable<String>() {
+
+				@Override
+				public String run() {
+					int widgetIndex = allWidgets.indexOf(w);
+					if (widgetIndex < 0) {
+						return null;
+					}
+					ListIterator<? extends Widget> listIterator = allWidgets.listIterator(widgetIndex);
+					while (listIterator.hasPrevious()) {
+						Widget previousWidget = listIterator.previous();
+						if (previousWidget instanceof Label) {
+							Label label = (Label) previousWidget;
+							if (label.getImage() == null) {
+								return label.getText();
+							}
+						}
+						if (previousWidget instanceof CLabel) {
+							CLabel cLabel = (CLabel) previousWidget;
+							if (cLabel.getImage() == null) {
+								return cLabel.getText();
+							}
+						}
+					}
+					return null;
+				}
+			});
+		}
+		if (label != null) {
+			label = label.replaceAll("&", "").split("\t")[0];
+		}
+		return label;
+	}
+	
+	/**
+	 * Gets path to widget within widget tree including widget getting path for
+	 * as last element of returned list.
+	 *
+	 * @param widget widget to get path for
+	 * @param classFilter optional array of classes included in returned list
+	 * @return ordered list of widgets
+	 */
+	public List<Widget> getPathToWidget(final Widget widget, final Class<?>... classFilter) {
+		final Control firstParent = getParent(widget);
+		List<Widget> parents = Display.syncExec(new ResultRunnable<List<Widget>>() {
+			@Override
+			public List<Widget> run() {
+				LinkedList<Widget> result = new LinkedList<Widget>();
+				if (isClassOf(widget.getClass(), classFilter)){
+					result.add(widget);
+				}
+				Control control = firstParent;
+				while (control != null){
+					if (isClassOf(control.getClass(), classFilter)){
+						result.addFirst(control);
+					}
+					control = control.getParent();
+				}
+				return result;
+			}
+		});
+		return parents;
+	}
+	
+	private boolean isClassOf(Class<?> clazz,Class<?>[] classes){
+		boolean filterPassed = false;
+		if (classes != null && classes.length > 0){
+			int index = 0;
+			while (!filterPassed && index < classes.length){
+				if (clazz.getName().equals(classes[index].getName())){
+					filterPassed = true;
+				}
+				index++;
+			}
+		}
+		else{
+			filterPassed = true;
+		}
+		
+		return filterPassed;
+	}
+	
+	/**
+	 * Gets parent of specified widget.
+	 * 
+	 * @param widget widget to find parent
+	 * @return parent widget of specified widget
+	 */
+	public Control getParent(final Widget widget) {
+		Object o = ObjectUtil.invokeMethod(widget, "getParent");
+
+		if (o == null){
+			return null;
+		}
+
+		if (o instanceof Control) {
+			return (Control) o;
+		}
+
+		throw new RedDeerException(
+				"Return value of method getObject() on class " + o.getClass()
+						+ " should be Control, but was " + o.getClass());
 	}
 
 }

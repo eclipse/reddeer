@@ -13,6 +13,8 @@ package org.jboss.reddeer.eclipse.test.jdt.internal.ui;
 import static org.junit.Assert.assertTrue;
 
 import org.eclipse.ui.PlatformUI;
+import org.jboss.reddeer.common.util.Display;
+import org.jboss.reddeer.common.util.ResultRunnable;
 import org.jboss.reddeer.eclipse.ui.perspectives.AbstractPerspective;
 import org.jboss.reddeer.eclipse.ui.perspectives.DebugPerspective;
 import org.jboss.reddeer.eclipse.ui.perspectives.JavaBrowsingPerspective;
@@ -21,8 +23,6 @@ import org.jboss.reddeer.eclipse.ui.perspectives.JavaTypeHierarchyPerspective;
 import org.jboss.reddeer.eclipse.ui.perspectives.ResourcePerspective;
 import org.jboss.reddeer.eclipse.ui.perspectives.TeamSynchronizingPerspective;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
-import org.jboss.reddeer.core.util.Display;
-import org.jboss.reddeer.core.util.ResultRunnable;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 

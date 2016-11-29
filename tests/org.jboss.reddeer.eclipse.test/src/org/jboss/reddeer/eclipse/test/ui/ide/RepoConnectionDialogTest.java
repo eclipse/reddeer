@@ -16,6 +16,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.jboss.reddeer.eclipse.equinox.security.ui.StoragePreferencePage;
+import org.jboss.reddeer.eclipse.mylyn.tasks.ui.view.TaskRepositoriesView;
+import org.jboss.reddeer.eclipse.mylyn.tasks.ui.view.TaskRepository;
 import org.jboss.reddeer.workbench.ui.dialogs.WorkbenchPreferenceDialog;
 import org.jboss.reddeer.eclipse.ui.ide.RepoConnectionDialog;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
@@ -49,24 +51,11 @@ public class RepoConnectionDialogTest  {
 	
 	@Test
 	public void getDialogTest() {
-		new ShellMenu("Window", "Show View", "Other...").select();		
-		DefaultTreeItem taskRepositories = new DefaultTreeItem ("Mylyn", "Task Repositories");
-		taskRepositories.select();		
-		new PushButton("OK").click();
-				
-		AbstractWait.sleep(TimePeriod.NORMAL);
+		TaskRepositoriesView repositoriesView = new TaskRepositoriesView();
+		repositoriesView.open();
+		TaskRepository repo = repositoriesView.getTaskRepository("Eclipse.org");
+		repo.select();
 		
-		DefaultTree RepoTree = new DefaultTree();
-		List<TreeItem> repoItems = RepoTree.getAllItems();
-		
-		ArrayList<String> repoList = new ArrayList<String>();
-		int i = 0;
-		for (TreeItem item : repoItems) {
-			repoList.add(i++, item.getText());
-		}
-		int elementIndex = repoList.indexOf("Eclipse.org");
-		
-		repoItems.get(elementIndex).select();	
 		new ShellMenu("File", "Properties").select();  
 		
 		repoConnectionDialog = new RepoConnectionDialog();

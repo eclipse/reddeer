@@ -15,10 +15,10 @@ import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.common.wait.TimePeriod;
 import org.jboss.reddeer.common.wait.WaitUntil;
 import org.jboss.reddeer.common.wait.WaitWhile;
-import org.jboss.reddeer.core.condition.JobIsRunning;
 import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.menu.ContextMenu;
+import org.jboss.reddeer.workbench.core.condition.JobIsRunning;
 
 	/**
 	 * Represents a TaskRepository on {@link TaskRepositoriesView}. 
@@ -74,7 +74,7 @@ import org.jboss.reddeer.swt.impl.menu.ContextMenu;
 		/**
 		 * Select.
 		 */
-		protected void select() {
+		public void select() {
 			treeItem.select();
 		}
 

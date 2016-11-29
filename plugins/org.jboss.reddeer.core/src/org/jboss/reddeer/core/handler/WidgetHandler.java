@@ -10,19 +10,12 @@
  ******************************************************************************/ 
 package org.jboss.reddeer.core.handler;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.ListIterator;
-
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.custom.CTabItem;
-import org.eclipse.swt.layout.FormData;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Event;
-import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.TabFolder;
 import org.eclipse.swt.widgets.TabItem;
@@ -30,12 +23,11 @@ import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.swt.widgets.Widget;
 import org.jboss.reddeer.common.logging.Logger;
+import org.jboss.reddeer.common.util.Display;
+import org.jboss.reddeer.common.util.ObjectUtil;
+import org.jboss.reddeer.common.util.ResultRunnable;
 import org.jboss.reddeer.core.exception.CoreLayerException;
 import org.jboss.reddeer.core.lookup.WidgetLookup;
-import org.jboss.reddeer.core.resolver.WidgetResolver;
-import org.jboss.reddeer.core.util.Display;
-import org.jboss.reddeer.core.util.ObjectUtil;
-import org.jboss.reddeer.core.util.ResultRunnable;
 
 /**
  * Contains methods for handling UI operations on {@link Widget}. 
@@ -190,67 +182,6 @@ public class WidgetHandler {
 		throw new CoreLayerException(
 				"Return value of method getText() on class " + o.getClass()
 						+ " should be String, but was " + o.getClass());
-	}
-
-	/**
-	 * Gets label of specified widget.
-	 *
-	 * @param <T> the generic type
-	 * @param w widget to handle
-	 * @return label of specified widget
-	 */
-	public <T extends Widget> String getLabel(final T w) {
-		String label = Display.syncExec(new ResultRunnable<String>() {
-
-			@Override
-			public String run() {
-				Control parent = ((Control) w).getParent();
-				java.util.List<Widget> children = WidgetResolver.getInstance()
-						.getChildren(parent);
-				// check whether a label is defined using form data layout
-				for (Widget child : children) {
-					if (child instanceof Label || child instanceof CLabel) {
-						Object layoutData = ((Control) child).getLayoutData();
-						if (layoutData instanceof FormData) {
-							FormData formData = (FormData) layoutData;
-							if (formData.right != null && w.equals(formData.right.control)) {
-								if (child instanceof Label) {
-									return ((Label) child).getText();
-								} else if (child instanceof CLabel) {
-									return ((CLabel) child).getText();
-								}
-							}
-						}
-					}
-				}
-				List<Control> allWidgets = WidgetLookup.getInstance().findAllParentWidgets();
-				int widgetIndex = allWidgets.indexOf(w);
-				if (widgetIndex < 0) {
-					return null;
-				}
-				ListIterator<? extends Widget> listIterator = allWidgets.listIterator(widgetIndex);
-				while (listIterator.hasPrevious()) {
-					Widget previousWidget = listIterator.previous();
-					if (previousWidget instanceof Label) {
-						Label label = (Label) previousWidget;
-						if (label.getImage() == null) {
-							return label.getText();
-						}
-					}
-					if (previousWidget instanceof CLabel) {
-						CLabel cLabel = (CLabel) previousWidget;
-						if (cLabel.getImage() == null) {
-							return cLabel.getText();
-						}
-					}
-				}
-				return null;
-			}
-		});
-		if (label != null) {
-			label = label.replaceAll("&", "").split("\t")[0];
-		}
-		return label;
 	}
 
 	/**
@@ -445,58 +376,6 @@ public class WidgetHandler {
 	}
 	
 	/**
-	 * Gets path to widget within widget tree including widget getting path for
-	 * as last element of returned list.
-	 *
-	 * @param widget widget to get path for
-	 * @param classFilter optional array of classes included in returned list
-	 * @return ordered list of widgets
-	 */
-	public List<Widget> getPathToWidget(final Widget widget, final Class<?>... classFilter) {
-		final Control firstParent = getParent(widget);
-		List<Widget> parents = Display.syncExec(new ResultRunnable<List<Widget>>() {
-			@Override
-			public List<Widget> run() {
-				LinkedList<Widget> result = new LinkedList<Widget>();
-				if (WidgetHandler.isClassOf(widget.getClass(), classFilter)){
-					result.add(widget);
-				}
-				Control control = firstParent;
-				while (control != null){
-					if (WidgetHandler.isClassOf(control.getClass(), classFilter)){
-						result.addFirst(control);
-					}
-					control = control.getParent();
-				}
-				return result;
-			}
-		});
-		return parents;
-	}
-	
-	/**
-	 * Gets parent of specified widget.
-	 * 
-	 * @param widget widget to find parent
-	 * @return parent widget of specified widget
-	 */
-	public Control getParent(final Widget widget) {
-		Object o = ObjectUtil.invokeMethod(widget, "getParent");
-
-		if (o == null){
-			return null;
-		}
-
-		if (o instanceof Control) {
-			return (Control) o;
-		}
-
-		throw new CoreLayerException(
-				"Return value of method getObject() on class " + o.getClass()
-						+ " should be Control, but was " + o.getClass());
-	}
-	
-	/**
 	 * Returns control children.
 	 *
 	 * @param composite the composite
@@ -509,24 +388,6 @@ public class WidgetHandler {
 				return composite.getChildren();
 			}
 		});
-	}
-	
-	private static boolean isClassOf(Class<?> clazz,Class<?>[] classes){
-		boolean filterPassed = false;
-		if (classes != null && classes.length > 0){
-			int index = 0;
-			while (!filterPassed && index < classes.length){
-				if (clazz.getName().equals(classes[index].getName())){
-					filterPassed = true;
-				}
-				index++;
-			}
-		}
-		else{
-			filterPassed = true;
-		}
-		
-		return filterPassed;
 	}
 
 	/**

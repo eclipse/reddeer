@@ -14,8 +14,8 @@ import org.eclipse.swt.widgets.Shell;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.common.condition.AbstractWaitCondition;
 import org.jboss.reddeer.common.logging.Logger;
-import org.jboss.reddeer.core.lookup.ShellLookup;
 import org.jboss.reddeer.core.util.InstanceValidator;
+import org.jboss.reddeer.core.lookup.ShellLookup;
 
 /**
  * Condition is met when a shell matching title with the specified matcher is available.  

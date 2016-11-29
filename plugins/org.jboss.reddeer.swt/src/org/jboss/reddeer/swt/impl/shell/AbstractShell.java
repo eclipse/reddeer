@@ -10,7 +10,6 @@
  ******************************************************************************/ 
 package org.jboss.reddeer.swt.impl.shell;
 
-import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Control;
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.common.wait.WaitUntil;

@@ -18,14 +18,14 @@ import org.jboss.reddeer.eclipse.ui.views.properties.TabbedPropertyList;
 import org.jboss.reddeer.gef.editor.GEFEditor;
 import org.jboss.reddeer.gef.impl.editpart.LabeledEditPart;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
-import org.jboss.reddeer.core.condition.JobIsRunning;
-import org.jboss.reddeer.core.condition.ShellWithTextIsActive;
+import org.jboss.reddeer.workbench.core.condition.JobIsRunning;
 import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.menu.ShellMenu;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.jboss.reddeer.swt.impl.text.LabeledText;
 import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
 import org.jboss.reddeer.common.wait.WaitWhile;
+import org.jboss.reddeer.core.condition.ShellWithTextIsAvailable;
 import org.jboss.reddeer.uiforms.impl.section.DefaultSection;
 import org.junit.AfterClass;
 import org.junit.Assert;
@@ -53,7 +53,7 @@ public class TabbedPropertiesTest {
 		new PushButton("Next >").click();
 		new LabeledText("Project name:").setText("test");
 		new PushButton("Finish").click();
-		new WaitWhile(new ShellWithTextIsActive("New Project"));
+		new WaitWhile(new ShellWithTextIsAvailable("New Project"));
 		new WaitWhile(new JobIsRunning());
 
 		new ProjectExplorer().getProject("test").select();
@@ -63,7 +63,7 @@ public class TabbedPropertiesTest {
 		new DefaultTreeItem("XML", "XML Schema File").select();
 		new PushButton("Next >").click();
 		new PushButton("Finish").click();
-		new WaitWhile(new ShellWithTextIsActive("New"));
+		new WaitWhile(new ShellWithTextIsAvailable("New"));
 		new WaitWhile(new JobIsRunning());
 	}
 

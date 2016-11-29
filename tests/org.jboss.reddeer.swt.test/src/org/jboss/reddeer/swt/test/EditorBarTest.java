@@ -15,8 +15,8 @@ import static org.junit.Assert.assertTrue;
 import org.jboss.reddeer.eclipse.jdt.ui.ProjectExplorer;
 import org.jboss.reddeer.eclipse.utils.DeleteUtils;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
-import org.jboss.reddeer.core.condition.JobIsRunning;
-import org.jboss.reddeer.core.condition.ShellWithTextIsActive;
+import org.jboss.reddeer.swt.api.Shell;
+import org.jboss.reddeer.swt.condition.ShellIsAvailable;
 import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.menu.ShellMenu;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
@@ -26,8 +26,8 @@ import org.jboss.reddeer.swt.impl.toolbar.DefaultToolItem;
 import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
 import org.jboss.reddeer.swt.test.ui.editor.EditorState;
 import org.jboss.reddeer.common.wait.TimePeriod;
-import org.jboss.reddeer.common.wait.WaitUntil;
 import org.jboss.reddeer.common.wait.WaitWhile;
+import org.jboss.reddeer.workbench.core.condition.JobIsRunning;
 import org.jboss.reddeer.workbench.impl.editor.DefaultEditor;
 import org.junit.After;
 import org.junit.Before;
@@ -47,11 +47,11 @@ public class EditorBarTest {
 		new DefaultShell("New");
 		new DefaultTreeItem("General","Project").select();
 		new PushButton("Next >").click();
-		new WaitUntil(new ShellWithTextIsActive("New Project"));
+		Shell projectShell = new DefaultShell("New Project");
 		new LabeledText("Project name:").setText(projectName);
 		new PushButton("Finish").click();
 		
-		new WaitWhile(new ShellWithTextIsActive("New Project"), TimePeriod.LONG);
+		new WaitWhile(new ShellIsAvailable(projectShell), TimePeriod.LONG);
 		new WaitWhile(new JobIsRunning(), TimePeriod.LONG);
 		
 		ProjectExplorer pe = new ProjectExplorer();
@@ -60,10 +60,10 @@ public class EditorBarTest {
 
 
 		new ShellMenu("File","New","File").select();
-		new DefaultShell("New File").setFocus();
+		Shell fileShell = new DefaultShell("New File");
 		new LabeledText("File name:").setText("test.tlb");
 		new PushButton("Finish").click();
-		new WaitWhile(new ShellWithTextIsActive("New File"));
+		new WaitWhile(new ShellIsAvailable(fileShell));
 		new DefaultEditor("editor-with-toolbar");
 	}
 

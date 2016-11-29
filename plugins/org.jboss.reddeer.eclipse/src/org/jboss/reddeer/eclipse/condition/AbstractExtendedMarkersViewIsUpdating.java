@@ -15,11 +15,11 @@ import java.lang.reflect.Method;
 import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.internal.views.markers.ExtendedMarkersView;
 import org.jboss.reddeer.common.condition.AbstractWaitCondition;
-import org.jboss.reddeer.core.lookup.WorkbenchPartLookup;
-import org.jboss.reddeer.core.util.Display;
-import org.jboss.reddeer.core.util.ResultRunnable;
+import org.jboss.reddeer.common.util.Display;
+import org.jboss.reddeer.common.util.ResultRunnable;
 import org.jboss.reddeer.eclipse.exception.EclipseLayerException;
 import org.jboss.reddeer.workbench.impl.view.AbstractView;
+import org.jboss.reddeer.workbench.core.lookup.WorkbenchPartLookup;
 
 /**
  * Returns true if marker based view is updating its UI. This is an abstract class and 

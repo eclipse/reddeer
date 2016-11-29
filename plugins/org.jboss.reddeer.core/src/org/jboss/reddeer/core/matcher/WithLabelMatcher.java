@@ -21,7 +21,7 @@ import org.hamcrest.BaseMatcher;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.core.Is;
-import org.jboss.reddeer.core.handler.WidgetHandler;
+import org.jboss.reddeer.core.lookup.WidgetLookup;
 
 /**
  * Matcher matching text to label of {@link Widget}.
@@ -78,7 +78,7 @@ public class WithLabelMatcher extends BaseMatcher<String> {
 	public boolean matches(Object item) {		
 		if ((item instanceof List) || (item instanceof Text) || (item instanceof Button)
 				|| (item instanceof Combo) || (item instanceof CCombo) || (item instanceof Spinner)) {
-			String widgetLabel = WidgetHandler.getInstance().getLabel((Widget)item);
+			String widgetLabel = WidgetLookup.getInstance().getLabel((Widget)item);
 			if (widgetLabel != null && matcher.matches(widgetLabel)) {
 				return true;
 			}

@@ -12,7 +12,6 @@ package org.jboss.reddeer.swt.condition;
 
 
 import org.jboss.reddeer.common.condition.AbstractWaitCondition;
-import org.jboss.reddeer.common.condition.WaitCondition;
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.swt.api.Tree;
 

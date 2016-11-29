@@ -17,14 +17,14 @@ import org.eclipse.ui.texteditor.ITextEditor;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.core.handler.StyledTextHandler;
-import org.jboss.reddeer.core.handler.TextEditorHandler;
-import org.jboss.reddeer.core.lookup.EditorPartLookup;
-import org.jboss.reddeer.core.matcher.EditorPartClassMatcher;
-import org.jboss.reddeer.core.matcher.EditorPartTitleMatcher;
 import org.jboss.reddeer.core.matcher.WithTextMatcher;
+import org.jboss.reddeer.workbench.matcher.EditorPartClassMatcher;
+import org.jboss.reddeer.workbench.matcher.EditorPartTitleMatcher;
 import org.jboss.reddeer.swt.impl.styledtext.DefaultStyledText;
 import org.jboss.reddeer.workbench.api.Editor;
+import org.jboss.reddeer.workbench.core.lookup.EditorPartLookup;
 import org.jboss.reddeer.workbench.exception.WorkbenchLayerException;
+import org.jboss.reddeer.workbench.handler.TextEditorHandler;
 
 /**
  * Represents text editors (implementing interface ITextEditor)

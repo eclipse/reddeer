@@ -12,7 +12,7 @@ package org.jboss.reddeer.eclipse.test.ui.search;
 
 import static org.junit.Assert.assertTrue;
 
-import org.jboss.reddeer.core.handler.WorkbenchPartHandler;
+import org.jboss.reddeer.workbench.core.lookup.WorkbenchPartLookup;
 import org.jboss.reddeer.eclipse.ui.search.SearchView;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.junit.After;
@@ -42,7 +42,7 @@ public class SearchViewTest {
 	@Test
 	public void testOpen() {
 		searchView.open();
-		String activeViewTitle = WorkbenchPartHandler.getInstance().getActiveViewTitle();
+		String activeViewTitle = WorkbenchPartLookup.getInstance().getActiveWorkbenchPartTitle();
 		assertTrue("Active view has to be Search but is"
 				+ activeViewTitle, activeViewTitle.equals("Search"));
 	}

@@ -16,10 +16,10 @@ import java.util.List;
 import org.eclipse.graphiti.tb.ContextButtonEntry;
 import org.eclipse.graphiti.tb.IContextButtonEntry;
 import org.jboss.reddeer.common.logging.Logger;
+import org.jboss.reddeer.common.util.Display;
+import org.jboss.reddeer.common.util.ResultRunnable;
 import org.jboss.reddeer.graphiti.api.ContextButton;
 import org.jboss.reddeer.graphiti.impl.contextbutton.internal.BasicContextButton;
-import org.jboss.reddeer.core.util.Display;
-import org.jboss.reddeer.core.util.ResultRunnable;
 
 /**
  * Handler for ContextButton operations.

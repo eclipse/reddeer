@@ -14,12 +14,12 @@ import org.eclipse.swt.widgets.TreeItem;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
+import org.jboss.reddeer.common.matcher.AndMatcher;
+import org.jboss.reddeer.common.util.Display;
+import org.jboss.reddeer.common.util.ResultRunnable;
 import org.jboss.reddeer.core.handler.TreeItemHandler;
 import org.jboss.reddeer.core.lookup.TreeItemLookup;
-import org.jboss.reddeer.core.matcher.AndMatcher;
 import org.jboss.reddeer.core.matcher.TreeItemTextMatcher;
-import org.jboss.reddeer.core.util.Display;
-import org.jboss.reddeer.core.util.ResultRunnable;
 import org.jboss.reddeer.swt.impl.tree.DefaultTree;
 
 /**

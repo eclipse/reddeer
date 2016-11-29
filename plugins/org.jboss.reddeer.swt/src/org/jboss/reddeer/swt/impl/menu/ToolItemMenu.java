@@ -10,12 +10,10 @@
  ******************************************************************************/ 
 package org.jboss.reddeer.swt.impl.menu;
 
-import org.eclipse.swt.widgets.MenuItem;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.swt.api.ToolItem;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.core.handler.ToolItemHandler;
-import org.jboss.reddeer.core.handler.WidgetHandler;
 import org.jboss.reddeer.core.matcher.WithMnemonicTextMatchers;
 
 /**
@@ -55,51 +53,12 @@ public class ToolItemMenu extends AbstractMenu {
 	}
 
 	/* (non-Javadoc)
-	 * @see org.jboss.reddeer.swt.api.Menu#getSWTWidget()
-	 */
-	@Override
-	public MenuItem getSWTWidget() {
-		return menuItem;
-	}
-
-	/* (non-Javadoc)
-	 * @see org.jboss.reddeer.swt.widgets.Widget#isEnabled()
-	 */
-	@Override
-	public boolean isEnabled() {
-		return mh.isEnabled(menuItem);
-	}
-
-	/* (non-Javadoc)
-	 * @see org.jboss.reddeer.swt.impl.menu.AbstractMenu#select()
-	 */
-	@Override
-	public void select() {
-		mh.select(menuItem);
-	}
-
-	/* (non-Javadoc)
 	 * @see org.jboss.reddeer.swt.impl.menu.AbstractMenu#isSelected()
 	 */
 	@Override
 	public boolean isSelected() {
 		return false;
 	}
-
-	/* (non-Javadoc)
-	 * @see org.jboss.reddeer.swt.impl.menu.AbstractMenu#getText()
-	 */
-	@Override
-	public String getText() {
-		return mh.getMenuItemText(menuItem);
-	}
 	
-	/* (non-Javadoc)
-	 * @see org.jboss.reddeer.swt.widgets.Widget#isDisposed()
-	 */
-	@Override
-	public boolean isDisposed() {
-		return WidgetHandler.getInstance().isDisposed(menuItem);
-	}
 }
 

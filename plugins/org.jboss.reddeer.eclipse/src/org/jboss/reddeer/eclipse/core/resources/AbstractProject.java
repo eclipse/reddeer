@@ -12,7 +12,6 @@ package org.jboss.reddeer.eclipse.core.resources;
 
 import java.util.List;
 
-import org.jboss.reddeer.common.exception.RedDeerException;
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.common.matcher.RegexMatcher;
 import org.jboss.reddeer.common.wait.TimePeriod;

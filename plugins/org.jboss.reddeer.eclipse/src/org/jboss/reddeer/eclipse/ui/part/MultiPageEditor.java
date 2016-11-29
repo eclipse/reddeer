@@ -16,13 +16,13 @@ import org.eclipse.ui.part.MultiPageEditorPart;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
-import org.jboss.reddeer.core.matcher.EditorPartTitleMatcher;
-import org.jboss.reddeer.core.matcher.MatcherBuilder;
+import org.jboss.reddeer.common.matcher.MatcherBuilder;
+import org.jboss.reddeer.common.util.Display;
+import org.jboss.reddeer.common.util.ResultRunnable;
 import org.jboss.reddeer.core.matcher.WithTextMatcher;
-import org.jboss.reddeer.core.util.Display;
-import org.jboss.reddeer.core.util.ResultRunnable;
 import org.jboss.reddeer.swt.impl.ctab.DefaultCTabItem;
 import org.jboss.reddeer.workbench.impl.editor.AbstractEditor;
+import org.jboss.reddeer.workbench.matcher.EditorPartTitleMatcher;
 
 /**
  * Represents {@link MultiPageEditorPart} - an editor with multiple pages, 

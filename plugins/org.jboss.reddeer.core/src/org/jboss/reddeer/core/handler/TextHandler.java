@@ -12,9 +12,9 @@ package org.jboss.reddeer.core.handler;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Text;
+import org.jboss.reddeer.common.util.Display;
+import org.jboss.reddeer.common.util.ResultRunnable;
 import org.jboss.reddeer.core.exception.CoreLayerException;
-import org.jboss.reddeer.core.util.Display;
-import org.jboss.reddeer.core.util.ResultRunnable;
 
 /**
  * Contains methods for handling UI operations on {@link Text} widgets.

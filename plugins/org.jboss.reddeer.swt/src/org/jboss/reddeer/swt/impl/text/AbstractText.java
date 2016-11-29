@@ -12,7 +12,6 @@ package org.jboss.reddeer.swt.impl.text;
 
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.common.logging.Logger;
-import org.jboss.reddeer.common.wait.WaitWhile;
 import org.jboss.reddeer.swt.api.Text;
 import org.jboss.reddeer.core.handler.TextHandler;
 import org.jboss.reddeer.core.handler.WidgetHandler;

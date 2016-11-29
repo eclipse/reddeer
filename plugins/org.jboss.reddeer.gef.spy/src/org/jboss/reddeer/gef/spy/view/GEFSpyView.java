@@ -32,10 +32,10 @@ import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.ViewPart;
-import org.jboss.reddeer.core.lookup.EditorPartLookup;
 import org.jboss.reddeer.gef.handler.EditPartHandler;
 import org.jboss.reddeer.gef.lookup.ViewerLookup;
 import org.jboss.reddeer.gef.spy.TreeNodeExt;
+import org.jboss.reddeer.workbench.core.lookup.EditorPartLookup;
 
 /**
  * GEFSpy View.

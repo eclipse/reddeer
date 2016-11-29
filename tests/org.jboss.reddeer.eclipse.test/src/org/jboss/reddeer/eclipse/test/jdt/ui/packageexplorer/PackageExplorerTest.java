@@ -13,7 +13,7 @@ package org.jboss.reddeer.eclipse.test.jdt.ui.packageexplorer;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import org.jboss.reddeer.core.handler.WorkbenchPartHandler;
+import org.jboss.reddeer.workbench.core.lookup.WorkbenchPartLookup;
 import org.jboss.reddeer.eclipse.core.resources.Project;
 import org.jboss.reddeer.eclipse.jdt.ui.ide.NewJavaProjectWizardDialog;
 import org.jboss.reddeer.eclipse.jdt.ui.ide.NewJavaProjectWizardPage;
@@ -68,7 +68,7 @@ public class PackageExplorerTest {
 	public void open() {
 		packageExplorer = new PackageExplorer();
 		packageExplorer.open();
-		String currentViewTitle = WorkbenchPartHandler.getInstance().getActiveViewTitle();
+		String currentViewTitle = WorkbenchPartLookup.getInstance().getActiveWorkbenchPartTitle();
 		assertTrue("Active View has to be Package Explorer but is "
 				+ currentViewTitle, currentViewTitle.equals("Package Explorer"));
 	}

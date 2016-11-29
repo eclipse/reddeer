@@ -24,16 +24,17 @@ import org.eclipse.swt.events.TreeListener;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Tree;
 import org.jboss.reddeer.common.exception.WaitTimeoutExpiredException;
+import org.jboss.reddeer.common.util.Display;
 import org.jboss.reddeer.common.wait.TimePeriod;
 import org.jboss.reddeer.core.exception.CoreLayerException;
 import org.jboss.reddeer.core.matcher.TreeItemRegexMatcher;
 import org.jboss.reddeer.core.matcher.TreeItemTextMatcher;
-import org.jboss.reddeer.core.util.Display;
 import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.swt.impl.tree.DefaultTree;
 import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
 import org.jboss.reddeer.swt.test.ui.views.TreeEventsListener;
 import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 public class DefaultTreeItemTest extends AbstractTreeTest {
@@ -46,6 +47,10 @@ public class DefaultTreeItemTest extends AbstractTreeTest {
 	@Override
 	protected void createControls(Shell shell) {
 		super.createControls(shell);
+	}
+	
+	@Before
+	public void initTree(){
 		tree = new DefaultTree();
 	}
 

@@ -30,8 +30,8 @@ import org.jboss.reddeer.swt.impl.button.OkButton;
 import org.jboss.reddeer.swt.impl.button.YesButton;
 import org.jboss.reddeer.swt.impl.text.DefaultText;
 import org.jboss.reddeer.swt.test.SWTLayerTestCase;
+import org.jboss.reddeer.common.util.Display;
 import org.jboss.reddeer.core.exception.CoreLayerException;
-import org.jboss.reddeer.core.util.Display;
 import org.junit.Test;
 
 public class PredefinedButtonTest extends SWTLayerTestCase {
@@ -46,7 +46,8 @@ public class PredefinedButtonTest extends SWTLayerTestCase {
 	private String[] BACK_BUTTON = { "< &Back", "BACK", "back", "bACK" };
 	private String[] FINISH_BUTTON = { "&Finish", "FINISH", "finish", "fINISH" };
 
-	private List<org.eclipse.swt.widgets.Button> buttons = new ArrayList<org.eclipse.swt.widgets.Button>();;
+	private List<org.eclipse.swt.widgets.Button> buttons = new ArrayList<org.eclipse.swt.widgets.Button>();
+	private org.eclipse.swt.widgets.Text txSelection;
 
 	@Override
 	protected void createControls(Shell shell) {
@@ -57,7 +58,7 @@ public class PredefinedButtonTest extends SWTLayerTestCase {
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
 				org.eclipse.swt.widgets.Button selectedButton = (org.eclipse.swt.widgets.Button) arg0.widget;
-				getSelectionText().setText(selectedButton.getData().toString());
+				txSelection.setText(selectedButton.getData().toString());
 			}
 
 			@Override
@@ -74,7 +75,7 @@ public class PredefinedButtonTest extends SWTLayerTestCase {
 		createButtons(BACK_BUTTON, SWT.PUSH, shell);
 		createButtons(FINISH_BUTTON, SWT.PUSH, shell);
 
-		org.eclipse.swt.widgets.Text txSelection = new org.eclipse.swt.widgets.Text(
+		txSelection = new org.eclipse.swt.widgets.Text(
 				shell, SWT.BORDER);
 		txSelection.setText("<text of selected button>");
 	}

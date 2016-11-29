@@ -21,13 +21,13 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.ui.part.ViewPart;
 import org.hamcrest.core.IsInstanceOf;
+import org.jboss.reddeer.core.lookup.WidgetLookup;
 import org.jboss.reddeer.generator.ButtonCodeGenerator;
 import org.jboss.reddeer.generator.CodeGenerator;
 import org.jboss.reddeer.generator.ComboCodeGenerator;
 import org.jboss.reddeer.generator.ShellCodeGenerator;
 import org.jboss.reddeer.generator.TextCodeGenerator;
 import org.jboss.reddeer.generator.finder.ControlFinder;
-import org.jboss.reddeer.core.lookup.WidgetLookup;
 
 /**
  * Code Generator view.

@@ -12,8 +12,8 @@ package org.jboss.reddeer.core.handler;
 
 import org.eclipse.swt.widgets.TabFolder;
 import org.eclipse.swt.widgets.TabItem;
-import org.jboss.reddeer.core.util.Display;
-import org.jboss.reddeer.core.util.ResultRunnable;
+import org.jboss.reddeer.common.util.Display;
+import org.jboss.reddeer.common.util.ResultRunnable;
 
 /**
  * Contains methods for handling UI operations on {@link TabFolder} widgets.

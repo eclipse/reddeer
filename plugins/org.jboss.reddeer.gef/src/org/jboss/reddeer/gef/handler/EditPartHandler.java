@@ -15,7 +15,7 @@ import org.eclipse.gef.EditPart;
 import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.requests.DirectEditRequest;
 import org.jboss.reddeer.common.logging.Logger;
-import org.jboss.reddeer.core.util.Display;
+import org.jboss.reddeer.common.util.Display;
 
 /**
  * Handler for {@link org.eclipse.gef.EditPart}.

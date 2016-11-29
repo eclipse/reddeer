@@ -13,10 +13,10 @@ package org.jboss.reddeer.junit.extension.before.test.impl;
 import org.eclipse.ui.IViewReference;
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.common.properties.RedDeerProperties;
-import org.jboss.reddeer.core.lookup.WorkbenchPartLookup;
-import org.jboss.reddeer.core.util.Display;
+import org.jboss.reddeer.common.util.Display;
 import org.jboss.reddeer.junit.extension.ExtensionPriority;
 import org.jboss.reddeer.junit.extensionpoint.IBeforeTest;
+import org.jboss.reddeer.workbench.core.lookup.WorkbenchPartLookup;
 import org.junit.runners.model.FrameworkMethod;
 import org.junit.runners.model.TestClass;
 /**

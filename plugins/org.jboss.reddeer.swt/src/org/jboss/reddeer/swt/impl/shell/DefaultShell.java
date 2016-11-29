@@ -12,8 +12,8 @@ package org.jboss.reddeer.swt.impl.shell;
 
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.common.logging.Logger;
-import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.core.lookup.ShellLookup;
+import org.jboss.reddeer.swt.exception.SWTLayerException;
 
 /**
  * Default shell returns active shell if available if not it returns first

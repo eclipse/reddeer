@@ -34,6 +34,7 @@ import org.jboss.reddeer.swt.impl.toolbar.DefaultToolItem;
 import org.jboss.reddeer.swt.impl.tree.DefaultTree;
 import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
 import org.jboss.reddeer.workbench.impl.shell.WorkbenchShell;
+import org.jboss.reddeer.workbench.ui.dialogs.WorkbenchPreferenceDialog;
 import org.jboss.tools.reddeer.swt.test.model.TestModel;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -97,12 +98,8 @@ public class DefaultToolBarTest {
 	}
 	
 	private void openPreferences() {
-		RegexMatcher[] array = { new RegexMatcher("Window.*"),
-				new RegexMatcher("Preferences.*") };
-		WithTextMatchers m = new WithTextMatchers(array);
-		Menu menu = new ShellMenu(m.getMatchers());
-		menu.select();
-		new DefaultShell("Preferences");
+		WorkbenchPreferenceDialog wd = new WorkbenchPreferenceDialog();
+		wd.open();
 		TreeItem item = new DefaultTreeItem("General");
 		item.select();
 	}
