@@ -38,7 +38,7 @@ public class MatcherBuilder {
 	}
 
 	/**
-	 * Adds matcher into array of matchers.
+	 * Adds matcher to the beginning of array of matchers.
 	 * 
 	 * @param matchers array of matchers
 	 * @param matcher matcher to add to array of matchers
@@ -47,10 +47,10 @@ public class MatcherBuilder {
 	@SuppressWarnings("rawtypes")
 	public Matcher[] addMatcher(Matcher[] matchers, Matcher matcher) {
 		Matcher[] finalMatchers = new Matcher[matchers.length + 1];
-		for (int i = 0; i < matchers.length; i++) {
-			finalMatchers[i] = matchers[i];
+		finalMatchers[0]=matcher;
+		for (int i = 1; i < finalMatchers.length; i++) {
+			finalMatchers[i] = matchers[i-1];
 		}
-		finalMatchers[finalMatchers.length - 1] = matcher;
 
 		return finalMatchers;
 	}
