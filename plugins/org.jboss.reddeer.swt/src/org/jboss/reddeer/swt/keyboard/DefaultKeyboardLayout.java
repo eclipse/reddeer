@@ -21,15 +21,18 @@ import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.eclipse.jface.bindings.keys.KeyStroke;
-import org.eclipse.jface.bindings.keys.ParseException;
 import org.eclipse.swt.SWT;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
+import org.jboss.reddeer.swt.keyboard.internal.ModifierKeysBinding;
 
 /**
  * This class handles decomposition of some characters to keystrokes by given
  * configuration file.
  * 
+ * Each line in configuration file has to be in format 
+ * <pre>
+ * &ltcharacter&gt &ltmodifierKey1&gt+&ltmodifierKey2&gt+...+&ltnatuarlKey&gt
+ * </pre>
  * Note, that for now only default.keyboard (en_US) will be taken in
  * consideration. Possibility to provide your own configuration file will be
  * added in future.
@@ -64,9 +67,6 @@ public class DefaultKeyboardLayout {
 		try {
 			loadKeyboardLayoutFile(br);
 		} catch (IOException e) {
-			throw new SWTLayerException(
-					"Unable to parse keyboard layout config file", e);
-		} catch (ParseException e) {
 			throw new SWTLayerException(
 					"Unable to parse keyboard layout config file", e);
 		}
@@ -113,19 +113,27 @@ public class DefaultKeyboardLayout {
 		return new int[] { c };
 	}
 
-	private void loadKeyboardLayoutFile(BufferedReader in) throws IOException,
-			ParseException {
+	private void loadKeyboardLayoutFile(BufferedReader in) throws IOException {
 		keyMap = new HashMap<Character, int[]>();
 		String line;
 		while ((line = in.readLine()) != null) {
 			char ch = line.charAt(0);
 			String keystrokeString = line.substring(2).replaceAll("\\s+", "");
-			KeyStroke keyStroke = KeyStroke.getInstance(keystrokeString);
-			if (keyStroke.getModifierKeys() != 0) {
-				keyMap.put(ch, new int[] { keyStroke.getModifierKeys(), ch });
-			}
+			int[] keyStroke = getKeyStroke(keystrokeString);
+			keyMap.put(ch, keyStroke);
 		}
 		in.close();
+	}
+
+	private int[] getKeyStroke(String keystrokeString) {
+		String[] split = keystrokeString.split("\\+");
+		int modifierKeys = 0;
+		ModifierKeysBinding modifierKeysBinding = new ModifierKeysBinding();
+		for (int i=0; i<split.length-1; i++){
+			modifierKeys |= modifierKeysBinding.getModifierKeyFromString(split[i]);
+		}
+		char naturalKey = split[split.length-1].charAt(0);
+		return new int[] {modifierKeys, naturalKey};
 	}
 
 	private String myPackage() {
@@ -145,7 +153,7 @@ public class DefaultKeyboardLayout {
 		try{
 			isOn = DefaultKeyboardLayout.toolkit.getLockingKeyState(KeyEvent.VK_CAPS_LOCK);	
 		} catch (HeadlessException he){
-			// current OS doesn't implement getLockingKeyState(KeyEvent.VK_CAPS_LOCC) nethod correctly
+			// current OS doesn't implement getLockingKeyState(KeyEvent.VK_CAPS_LOCC) method correctly
 			// therefore method returns default value i. e. false
 		}
 		
