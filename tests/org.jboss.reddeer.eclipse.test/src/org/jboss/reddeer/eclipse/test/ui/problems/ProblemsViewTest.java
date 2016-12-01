@@ -47,6 +47,7 @@ import org.jboss.reddeer.eclipse.ui.views.markers.QuickFixPage;
 import org.jboss.reddeer.eclipse.ui.views.markers.QuickFixWizard;
 import org.jboss.reddeer.eclipse.utils.DeleteUtils;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
+import org.jboss.reddeer.requirements.cleanworkspace.CleanWorkspaceRequirement.CleanWorkspace;
 import org.jboss.reddeer.workbench.impl.editor.TextEditor;
 import org.junit.After;
 import org.junit.Before;
@@ -63,6 +64,7 @@ import org.junit.runner.RunWith;
  * @author mlabuda@redhat.com
  */
 @RunWith(RedDeerSuite.class)
+@CleanWorkspace
 public class ProblemsViewTest {
 
 	private PackageExplorer pkgExplorer;
