@@ -198,10 +198,13 @@ public class OutlineViewTest{
 		NewJavaProjectWizardPage javaWizardPage = new NewJavaProjectWizardPage();
 		javaWizardPage.setProjectName(TEST_PROJECT_NAME);
 		
-		javaProject.finish(false);
+		javaProject.finish();
 	}
 	
 	private static void createJavaClass() {
+		packageExplorer = new PackageExplorer();
+		packageExplorer.open();
+		packageExplorer.getProject(TEST_PROJECT_NAME).select();
 		NewJavaClassWizardDialog javaClassDialog = new NewJavaClassWizardDialog();
 		javaClassDialog.open();
 		
