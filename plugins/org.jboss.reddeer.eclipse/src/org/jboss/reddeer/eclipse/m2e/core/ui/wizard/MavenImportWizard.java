@@ -58,6 +58,8 @@ public class MavenImportWizard extends ImportWizardDialog {
 		Shell shell = new DefaultShell(TITLE);
 		new PushButton("Finish").click();
 		new WaitWhile(new ShellIsAvailable(shell), TimePeriod.NORMAL);
+		new WaitUntil(new JobIsRunning(), TimePeriod.NORMAL, false);
+		new WaitWhile(new JobIsRunning(), timeout);
 
 		// check whether there some addition dialog
 		try {
