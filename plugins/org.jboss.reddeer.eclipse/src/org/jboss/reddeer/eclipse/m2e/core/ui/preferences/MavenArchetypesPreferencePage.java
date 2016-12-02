@@ -260,7 +260,7 @@ public class MavenArchetypesPreferencePage extends PreferencePage {
 	 */
 	protected String verifyURL() {
 		new PushButton(VERIFY_BUTTON).click();
-		new WaitWhile(new JobIsRunning(), TimePeriod.NORMAL);
+		new WaitWhile(new JobIsRunning(), TimePeriod.LONG);
 		Text labeledText = new LabeledText(REMOTE_CATALOG_SHELL);
 		String text = labeledText.getText();
 		return text;
