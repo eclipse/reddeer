@@ -16,21 +16,20 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.lang.reflect.Field;
-import java.util.List;
 
 import org.jboss.reddeer.core.exception.CoreLayerException;
-import org.jboss.reddeer.eclipse.core.resources.Project;
-import org.jboss.reddeer.eclipse.jdt.ui.ProjectExplorer;
 import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.PackageExplorer;
 import org.jboss.reddeer.eclipse.ui.dialogs.WizardNewProjectCreationPage;
 import org.jboss.reddeer.eclipse.ui.ide.NewFileCreationWizardDialog;
 import org.jboss.reddeer.eclipse.ui.ide.NewFileCreationWizardPage;
 import org.jboss.reddeer.eclipse.ui.problems.ProblemsView;
 import org.jboss.reddeer.eclipse.ui.wizards.newresource.BasicNewProjectResourceWizard;
-import org.jboss.reddeer.eclipse.utils.DeleteUtils;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
+import org.jboss.reddeer.requirements.cleanworkspace.CleanWorkspaceRequirement;
+import org.jboss.reddeer.requirements.cleanworkspace.CleanWorkspaceRequirement.CleanWorkspace;
 import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.workbench.api.Editor;
+import org.jboss.reddeer.workbench.handler.EditorHandler;
 import org.jboss.reddeer.workbench.impl.editor.DefaultEditor;
 import org.jboss.reddeer.workbench.test.ui.editor.SimpleEditor;
 import org.junit.After;
@@ -41,6 +40,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(RedDeerSuite.class)
+@CleanWorkspace
 public class EditorTest {
 
 	@BeforeClass
@@ -75,22 +75,12 @@ public class EditorTest {
 
 	@After
 	public void teardown() {
-		try {
-			new DefaultEditor().close(false);
-			new DefaultEditor().close(false);
-		} catch (CoreLayerException ex) {
-			// do nothing. We just want to have clean workspace
-		}
+		EditorHandler.getInstance().closeAll(true);
 	}
 	
 	@AfterClass
 	public static void teardownClass(){
-		ProjectExplorer projectExplorer = new ProjectExplorer();
-		projectExplorer.open();
-		List<Project> projects = projectExplorer.getProjects();
-		for (Project p: projects){
-			DeleteUtils.forceProjectDeletion(p,true);
-		}
+		new CleanWorkspaceRequirement().fulfill();
 	}
 
 	@Test(expected = CoreLayerException.class)

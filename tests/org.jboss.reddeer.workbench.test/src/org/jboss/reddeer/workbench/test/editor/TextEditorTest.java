@@ -47,6 +47,8 @@ import org.jboss.reddeer.eclipse.ui.wizards.newresource.BasicNewProjectResourceW
 import org.jboss.reddeer.eclipse.utils.DeleteUtils;
 import org.jboss.reddeer.jface.text.contentassist.ContentAssistant;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
+import org.jboss.reddeer.requirements.cleanworkspace.CleanWorkspaceRequirement;
+import org.jboss.reddeer.requirements.cleanworkspace.CleanWorkspaceRequirement.CleanWorkspace;
 import org.jboss.reddeer.swt.keyboard.KeyboardFactory;
 import org.jboss.reddeer.workbench.exception.WorkbenchLayerException;
 import org.jboss.reddeer.workbench.handler.EditorHandler;
@@ -59,9 +61,12 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(RedDeerSuite.class)
+@CleanWorkspace
 public class TextEditorTest {
+	
 	private static String ORIGINAL_JAVA_FILE_TEXT = "";
 	private static final String JAVA_CLASS_FILE_NAME = "JavaClass.java";
+	
 	@BeforeClass
 	public static void setup(){
 		EditorHandler.getInstance().closeAll(true);
@@ -87,10 +92,7 @@ public class TextEditorTest {
 	
 	@AfterClass
 	public static void teardownClass(){
-		ProjectExplorer pe = new ProjectExplorer();
-		for (Project p : pe.getProjects()){
-			DeleteUtils.forceProjectDeletion(p,true);
-		}
+		new CleanWorkspaceRequirement().fulfill();
 	}
 
 	@After
@@ -393,7 +395,9 @@ public class TextEditorTest {
 	}
 
 	private static TextEditor openJavaFile(){
-		ProjectItem javaFile = new ProjectExplorer().getProject("TextEditorTestProject")
+		ProjectExplorer pe  = new ProjectExplorer();
+		pe.open();
+		ProjectItem javaFile = pe.getProject("TextEditorTestProject")
 				.getProjectItem("src", "test", TextEditorTest.JAVA_CLASS_FILE_NAME);
 		javaFile.open();
 		return new TextEditor(TextEditorTest.JAVA_CLASS_FILE_NAME);
