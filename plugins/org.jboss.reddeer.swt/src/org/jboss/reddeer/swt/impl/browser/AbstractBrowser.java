@@ -10,7 +10,11 @@
  ******************************************************************************/ 
 package org.jboss.reddeer.swt.impl.browser;
 
+import java.util.function.Function;
+
 import org.hamcrest.Matcher;
+import org.jboss.reddeer.common.condition.AbstractWaitCondition;
+import org.jboss.reddeer.common.exception.WaitTimeoutExpiredException;
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.common.wait.AbstractWait;
 import org.jboss.reddeer.common.wait.TimePeriod;
@@ -61,13 +65,17 @@ public abstract class AbstractBrowser extends AbstractWidget<org.eclipse.swt.bro
 	public void forward() {
 		log.info("Browser forward");
 		setUpProgressListener();
-		if (BrowserHandler.getInstance().forward(this.getSWTWidget())){
-			new WaitUntil(new PageIsLoaded(this), TimePeriod.LONG);
-			// Unfortunately Browser needs some time to get ready even when page is fully loaded
-			AbstractWait.sleep(TimePeriod.SHORT);
-		} else {
+		Function<org.eclipse.swt.browser.Browser, Boolean> forward= (x) -> BrowserHandler.getInstance().forward(x);
+		try{
+			new WaitUntil(new ActionIsSuccessfull(forward));
+		} catch (WaitTimeoutExpiredException e) {
+			resetProgressListener();
 			throw new SWTLayerException("forward action was not successful");
-		} 
+		}
+		new WaitUntil(new PageIsLoaded(this), TimePeriod.LONG);
+		// Unfortunately Browser needs some time to get ready even when page
+		// is fully loaded
+		AbstractWait.sleep(TimePeriod.SHORT);
 		resetProgressListener();
 	}
 
@@ -78,14 +86,17 @@ public abstract class AbstractBrowser extends AbstractWidget<org.eclipse.swt.bro
 	public void back() {
 		log.info("Browser back");
 		setUpProgressListener();
-		if (BrowserHandler.getInstance().back(this.getSWTWidget())) {
-			new WaitUntil(new PageIsLoaded(this), TimePeriod.LONG);
-			// Unfortunately Browser needs some time to get ready even when page
-			// is fully loaded
-			AbstractWait.sleep(TimePeriod.SHORT);
-		} else {
-			throw new SWTLayerException("back action was not successful");
+		Function<org.eclipse.swt.browser.Browser, Boolean> back= (x) -> BrowserHandler.getInstance().back(x);
+		try{
+			new WaitUntil(new ActionIsSuccessfull(back));
+		} catch (WaitTimeoutExpiredException e) {
+			resetProgressListener();
+			throw new SWTLayerException("forward action was not successful");
 		}
+		new WaitUntil(new PageIsLoaded(this), TimePeriod.LONG);
+		// Unfortunately Browser needs some time to get ready even when page
+		// is fully loaded
+		AbstractWait.sleep(TimePeriod.SHORT);
 		resetProgressListener();
 	}
 
@@ -158,5 +169,20 @@ public abstract class AbstractBrowser extends AbstractWidget<org.eclipse.swt.bro
 	private void resetProgressListener (){
 		BrowserHandler.getInstance().removeProgressListener(this.getSWTWidget(), browserProgressListener);
 		browserProgressListener.setDone(true);
+	}
+	
+	private class ActionIsSuccessfull extends AbstractWaitCondition{
+		
+		private Function<org.eclipse.swt.browser.Browser, Boolean> browserFunction;
+		
+		public ActionIsSuccessfull(Function<org.eclipse.swt.browser.Browser, Boolean> browserFunction) {
+			this.browserFunction = browserFunction;
+		}
+
+		@Override
+		public boolean test() {
+			return browserFunction.apply(swtWidget);
+		}
+		
 	}
 }
