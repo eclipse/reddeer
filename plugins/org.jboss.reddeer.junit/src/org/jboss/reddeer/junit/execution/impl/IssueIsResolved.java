@@ -43,6 +43,7 @@ public class IssueIsResolved implements TestMethodShouldRun {
 	public boolean shouldRun(FrameworkMethod method) {
 		boolean skipUnresolvedIssues = Boolean.valueOf(System.getProperty(SKIP_UNRESILVED_ISSUES, "false"));
 		if (!skipUnresolvedIssues) {
+			log.info(SKIP_UNRESILVED_ISSUES + " property is set to false. Test will not be skipped");
 			return true;
 		}
 		List<IIssueTracker> issueTrackers = RedDeerSuite.getIssueTrackerExtensions();
