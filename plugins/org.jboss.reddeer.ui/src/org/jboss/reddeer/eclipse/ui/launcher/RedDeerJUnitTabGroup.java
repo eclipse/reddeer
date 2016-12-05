@@ -10,9 +10,12 @@
  ******************************************************************************/ 
 package org.jboss.reddeer.eclipse.ui.launcher;
 
+import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
 import org.eclipse.debug.ui.ILaunchConfigurationDialog;
 import org.eclipse.debug.ui.ILaunchConfigurationTab;
 import org.eclipse.jdt.debug.ui.launchConfigurations.JavaArgumentsTab;
+import org.eclipse.jdt.internal.junit.launcher.JUnitLaunchConfigurationConstants;
+import org.eclipse.jdt.internal.junit.launcher.TestKindRegistry;
 import org.eclipse.jdt.junit.launcher.JUnitLaunchConfigurationTab;
 import org.eclipse.pde.ui.launcher.JUnitTabGroup;
 import org.jboss.reddeer.eclipse.jdt.debug.ui.launchConfigurations.RedDeerJavaArgumentsTab;
@@ -46,6 +49,12 @@ public class RedDeerJUnitTabGroup extends JUnitTabGroup {
 		if (index < tabs.length){
 			tabs[index] = new RedDeerJavaArgumentsTab();
 		}
+	}
+	
+	@Override
+	public void setDefaults(ILaunchConfigurationWorkingCopy configuration) {
+		super.setDefaults(configuration);
+		configuration.setAttribute(JUnitLaunchConfigurationConstants.ATTR_TEST_RUNNER_KIND,TestKindRegistry.JUNIT4_TEST_KIND_ID);
 	}
 
 }
