@@ -32,7 +32,7 @@ import org.jboss.reddeer.workbench.impl.view.WorkbenchView;
 /**
  * Represents Console view in Eclipse
  * 
- * @author jjankovi
+ * @author jjankovi, mlabuda@redhat.com
  *
  */
 public class ConsoleView extends WorkbenchView {
@@ -45,14 +45,20 @@ public class ConsoleView extends WorkbenchView {
 	}
 	
 	/**
-	 * Returns console test.
+	 * Gets text from console. 
 	 * 
-	 * @return Console text
+	 * @return console text, if there is a console, null otherwise
 	 */
 	public String getConsoleText() {
 		activate();
-		new WaitUntil(new WidgetIsFound<org.eclipse.swt.custom.StyledText>(
-				new ClassMatcher(org.eclipse.swt.custom.StyledText.class)));
+		WidgetIsFound<org.eclipse.swt.custom.StyledText> widgetIsFound = 
+				new WidgetIsFound<org.eclipse.swt.custom.StyledText>(
+				new ClassMatcher(org.eclipse.swt.custom.StyledText.class));
+		new WaitUntil(widgetIsFound, TimePeriod.NORMAL, false);
+		// Checck whether there is a console to display or not
+		if (widgetIsFound.getWidget() == null) {
+			return null;
+		}
 		// wait for text to appear
 		new WaitWhile(new ConsoleHasText(""),TimePeriod.SHORT,false);
 		return new DefaultStyledText().getText();

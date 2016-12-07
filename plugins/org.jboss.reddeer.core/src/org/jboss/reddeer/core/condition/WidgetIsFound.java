@@ -98,7 +98,9 @@ public class WidgetIsFound <T extends Widget> extends AbstractWaitCondition {
 	 * @return found widget
 	 */
 	public Widget getWidget(){
-		setFocus();
+		if (properWidget != null) {
+			setFocus();
+		}
 		return properWidget;
 	}
 	
