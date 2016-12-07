@@ -80,6 +80,18 @@ public class ConsoleViewTest {
 	}
 	
 	@Test
+	public void testConsoleHasAnyText() {
+		consoleView = new ConsoleView();
+		while (consoleView.consoleHasLaunch()) {
+			consoleView.terminateConsole();
+			consoleView.removeLaunch();
+		}
+		
+		assertFalse("ConsoleHasText wait condition should be false, because there is no text in console",
+				new ConsoleHasText().test());
+	}
+	
+	@Test
 	public void testConsoleSwitching() {
 		consoleView = new ConsoleView();
 		consoleView.open();
@@ -222,7 +234,7 @@ public class ConsoleViewTest {
 		NewJavaProjectWizardPage javaWizardPage = new NewJavaProjectWizardPage();
 		javaWizardPage.setProjectName(TEST_PROJECT_NAME);
 
-		javaProject.finish(false);
+		javaProject.finish();
 	}
 
 	private static void createJavaClass(String name, String text) {
