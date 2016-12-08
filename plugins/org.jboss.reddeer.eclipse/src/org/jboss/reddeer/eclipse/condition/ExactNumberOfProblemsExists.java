@@ -14,10 +14,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.jboss.reddeer.common.condition.AbstractWaitCondition;
+import org.jboss.reddeer.eclipse.ui.markers.matcher.AbstractMarkerMatcher;
 import org.jboss.reddeer.eclipse.ui.problems.Problem;
-import org.jboss.reddeer.eclipse.ui.problems.ProblemsView;
-import org.jboss.reddeer.eclipse.ui.problems.ProblemsView.ProblemType;
-import org.jboss.reddeer.eclipse.ui.problems.matcher.AbstractProblemMatcher;
+import org.jboss.reddeer.eclipse.ui.views.ProblemsView;
+import org.jboss.reddeer.eclipse.ui.views.ProblemsView.ProblemType;
 
 /**
  * Wait condition expects existence of specific amount of problems in Problems view.
@@ -26,7 +26,7 @@ import org.jboss.reddeer.eclipse.ui.problems.matcher.AbstractProblemMatcher;
  */
 public class ExactNumberOfProblemsExists extends AbstractWaitCondition {
 	
-	private AbstractProblemMatcher[] problemMatchers;
+	private AbstractMarkerMatcher[] problemMatchers;
 	private ProblemType problemType;
 	private int expectedProblemsCount;
 	
@@ -42,18 +42,19 @@ public class ExactNumberOfProblemsExists extends AbstractWaitCondition {
 	 * @param count number of the problems
 	 */
 	public ExactNumberOfProblemsExists(ProblemType type, int count) {
-		this(type, count, new AbstractProblemMatcher[]{});
+		this(type, count, new AbstractMarkerMatcher[]{});
 	}
 
 	/**
 	 * Constructs the condition for the specified problem type and
-	 * the specified count of the problems matching specified matchers.
+	 * the specified count of the problems matching specified marker matchers.
 	 * 
 	 * @param type type of the problems
 	 * @param count number of the problems
 	 * @param matchers problem matchers
 	 */
-	public ExactNumberOfProblemsExists(ProblemType type, int count, AbstractProblemMatcher... matchers) {
+	@SuppressWarnings("unchecked")
+	public <T extends AbstractMarkerMatcher> ExactNumberOfProblemsExists(ProblemType type, int count, T... matchers) {
 		problemType = type;
 		expectedProblemsCount = count;
 		problemMatchers = matchers;
@@ -62,9 +63,6 @@ public class ExactNumberOfProblemsExists extends AbstractWaitCondition {
 		problemsView.open();
 	}
 
-	/* (non-Javadoc)
-	 * @see org.jboss.reddeer.common.condition.WaitCondition#test()
-	 */
 	@Override
 	public boolean test() {
 		problemsView.activate();
@@ -74,9 +72,6 @@ public class ExactNumberOfProblemsExists extends AbstractWaitCondition {
 		return problems.size() == expectedProblemsCount;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.jboss.reddeer.common.condition.AbstractWaitCondition#description()
-	 */
 	@Override
 	public String description() {
 		return "number of problems in Problems view is " + problems.size() + ".\n"
