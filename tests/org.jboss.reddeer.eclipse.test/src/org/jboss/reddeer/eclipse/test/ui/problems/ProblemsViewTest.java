@@ -34,15 +34,15 @@ import org.jboss.reddeer.eclipse.jdt.ui.NewJavaClassWizardPage;
 import org.jboss.reddeer.eclipse.jdt.ui.ide.NewJavaProjectWizardDialog;
 import org.jboss.reddeer.eclipse.jdt.ui.ide.NewJavaProjectWizardPage;
 import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.PackageExplorer;
+import org.jboss.reddeer.eclipse.ui.markers.matcher.MarkerDescriptionMatcher;
+import org.jboss.reddeer.eclipse.ui.markers.matcher.MarkerLocationMatcher;
+import org.jboss.reddeer.eclipse.ui.markers.matcher.MarkerPathMatcher;
+import org.jboss.reddeer.eclipse.ui.markers.matcher.MarkerResourceMatcher;
+import org.jboss.reddeer.eclipse.ui.markers.matcher.MarkerTypeMatcher;
 import org.jboss.reddeer.eclipse.ui.problems.Problem;
-import org.jboss.reddeer.eclipse.ui.problems.ProblemsView;
-import org.jboss.reddeer.eclipse.ui.problems.ProblemsView.Column;
-import org.jboss.reddeer.eclipse.ui.problems.ProblemsView.ProblemType;
-import org.jboss.reddeer.eclipse.ui.problems.matcher.ProblemsDescriptionMatcher;
-import org.jboss.reddeer.eclipse.ui.problems.matcher.ProblemsLocationMatcher;
-import org.jboss.reddeer.eclipse.ui.problems.matcher.ProblemsPathMatcher;
-import org.jboss.reddeer.eclipse.ui.problems.matcher.ProblemsResourceMatcher;
-import org.jboss.reddeer.eclipse.ui.problems.matcher.ProblemsTypeMatcher;
+import org.jboss.reddeer.eclipse.ui.views.AbstractMarkersSupportView.Column;
+import org.jboss.reddeer.eclipse.ui.views.ProblemsView;
+import org.jboss.reddeer.eclipse.ui.views.ProblemsView.ProblemType;
 import org.jboss.reddeer.eclipse.ui.views.markers.QuickFixPage;
 import org.jboss.reddeer.eclipse.ui.views.markers.QuickFixWizard;
 import org.jboss.reddeer.eclipse.utils.DeleteUtils;
@@ -265,10 +265,10 @@ public class ProblemsViewTest {
 		createWarning();
 		createError();
 		try {
-			new WaitUntil(new ExactNumberOfProblemsExists(ProblemType.ANY, 2), TimePeriod.NORMAL);
+			new WaitUntil(new ExactNumberOfProblemsExists(ProblemType.ALL, 2), TimePeriod.NORMAL);
 		} catch (WaitTimeoutExpiredException ex) {
 			fail("Wait condition exact number of problems exists did not pass altough it should. There is "
-					+ "following amount of problems: " + problemsView.getProblems(ProblemType.ANY) 
+					+ "following amount of problems: " + problemsView.getProblems(ProblemType.ALL) 
 					+ " altough there should be precisely 2 problems");
 		}
 	}
@@ -287,11 +287,11 @@ public class ProblemsViewTest {
 		new WaitUntil(new ProblemExists(ProblemType.WARNING), TimePeriod.NORMAL);
 		new WaitUntil(new ProblemExists(ProblemType.ERROR), TimePeriod.NORMAL);
 		List<Problem> errors = new ProblemsView().getProblems(ProblemType.ERROR,
-				new ProblemsDescriptionMatcher(Is.is(ERROR_DESCRIPTION)),
-				new ProblemsResourceMatcher(resource),
-				new ProblemsPathMatcher(StringStartsWith.startsWith(projectPath)),
-				new ProblemsLocationMatcher(Is.is(ERROR_LOCATION)),
-				new ProblemsTypeMatcher(Is.is(JAVA_PROBLEM)));
+				new MarkerDescriptionMatcher(Is.is(ERROR_DESCRIPTION)),
+				new MarkerResourceMatcher(resource),
+				new MarkerPathMatcher(StringStartsWith.startsWith(projectPath)),
+				new MarkerLocationMatcher(Is.is(ERROR_LOCATION)),
+				new MarkerTypeMatcher(Is.is(JAVA_PROBLEM)));
 
 		assertEquals(1, errors.size());
 		Problem error = errors.get(0);
@@ -303,8 +303,8 @@ public class ProblemsViewTest {
 
 		/* verify filtered java problem errors with the specified description */
 		errors = problemsView.getProblems(ProblemType.ERROR,
-				new ProblemsDescriptionMatcher(Is.is(ERROR_DESCRIPTION)),
-				new ProblemsTypeMatcher(Is.is(JAVA_PROBLEM)));
+				new MarkerDescriptionMatcher(Is.is(ERROR_DESCRIPTION)),
+				new MarkerTypeMatcher(Is.is(JAVA_PROBLEM)));
 		assertEquals("Errors node should contain two " + JAVA_PROBLEM
 				+ " errors with description equal to \"" + ERROR_DESCRIPTION
 				+ "\", but:\n" + getProblems(), 2, errors.size());
@@ -326,11 +326,11 @@ public class ProblemsViewTest {
 		new WaitUntil(new ProblemExists(ProblemType.WARNING), TimePeriod.NORMAL);
 		new WaitUntil(new ProblemExists(ProblemType.ERROR), TimePeriod.NORMAL);
 		List<Problem> warnings = new ProblemsView().getProblems(ProblemType.WARNING,
-				new ProblemsDescriptionMatcher(Is.is(warningDescription)),
-				new ProblemsResourceMatcher(Is.is(resource)),
-				new ProblemsPathMatcher(StringStartsWith.startsWith(projectPath)),
-				new ProblemsLocationMatcher(Is.is(WARNING_LOCATION)),
-				new ProblemsTypeMatcher(Is.is(JAVA_PROBLEM)));
+				new MarkerDescriptionMatcher(Is.is(warningDescription)),
+				new MarkerResourceMatcher(Is.is(resource)),
+				new MarkerPathMatcher(StringStartsWith.startsWith(projectPath)),
+				new MarkerLocationMatcher(Is.is(WARNING_LOCATION)),
+				new MarkerTypeMatcher(Is.is(JAVA_PROBLEM)));
 
 		assertEquals(1, warnings.size());
 		Problem warning = warnings.get(0);
@@ -343,8 +343,8 @@ public class ProblemsViewTest {
 
 		/* verify filtered warnings in the specified location of the specified project*/
 		warnings = problemsView.getProblems(ProblemType.WARNING,
-				new ProblemsPathMatcher(StringStartsWith.startsWith(projectPath)),
-				new ProblemsLocationMatcher(Is.is(WARNING_LOCATION)));
+				new MarkerPathMatcher(StringStartsWith.startsWith(projectPath)),
+				new MarkerLocationMatcher(Is.is(WARNING_LOCATION)));
 		assertEquals("Warnings node should contain two " + JAVA_PROBLEM
 				+ " warnings in the location \"" + WARNING_LOCATION
 				+ "\" of the project with path \"" + projectPath

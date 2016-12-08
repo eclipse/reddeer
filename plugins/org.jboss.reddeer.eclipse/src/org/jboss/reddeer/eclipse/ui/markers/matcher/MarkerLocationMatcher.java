@@ -8,40 +8,37 @@
  * Contributors: 
  * Red Hat, Inc. - initial API and implementation 
  ******************************************************************************/ 
-package org.jboss.reddeer.eclipse.ui.problems.matcher;
+package org.jboss.reddeer.eclipse.ui.markers.matcher;
 
 import org.hamcrest.Matcher;
-import org.jboss.reddeer.eclipse.ui.problems.ProblemsView.Column;
+import org.jboss.reddeer.eclipse.ui.views.AbstractMarkersSupportView.Column;
 
 /**
- * Problem matcher for column Location of a problem.
+ * Marker matcher for column Location of a marker.
  * 
  * @author mlabuda@redhat.com
  * @since 0.7
  */
-public class ProblemsLocationMatcher extends AbstractProblemMatcher {
+public class MarkerLocationMatcher extends AbstractMarkerMatcher {
 
 	/**
-	 * Creates a new problem matcher matching to whole text of Location column.
+	 * Creates a new marker matcher matching to whole text of Location column.
 	 * 
-	 * @param text whole Location column text of a problem to match
+	 * @param text whole Location column text of a marker to match
 	 */
-	public ProblemsLocationMatcher(String text) {
+	public MarkerLocationMatcher(String text) {
 		super(text);
 	}
 	
 	/**
-	 * Creates a new problem matcher matching with matcher for Location column.
+	 * Creates a new marker matcher matching with matcher for Location column.
 	 * 
-	 * @param matcher matcher to match Location column of a problem
+	 * @param matcher matcher to match Location column of a marker
 	 */
-	public ProblemsLocationMatcher(Matcher<String> matcher) {
+	public MarkerLocationMatcher(Matcher<String> matcher) {
 		super(matcher);
 	}
 	
-	/* (non-Javadoc)
-	 * @see org.jboss.reddeer.eclipse.ui.problems.matcher.AbstractProblemMatcher#getColumn()
-	 */
 	@Override
 	public Column getColumn() {
 		return Column.LOCATION;

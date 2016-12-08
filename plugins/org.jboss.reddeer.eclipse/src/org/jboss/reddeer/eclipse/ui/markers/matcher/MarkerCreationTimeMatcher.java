@@ -8,42 +8,39 @@
  * Contributors: 
  * Red Hat, Inc. - initial API and implementation 
  ******************************************************************************/ 
-package org.jboss.reddeer.eclipse.ui.problems.matcher;
+package org.jboss.reddeer.eclipse.ui.markers.matcher;
 
 import org.hamcrest.Matcher;
-import org.jboss.reddeer.eclipse.ui.problems.ProblemsView.Column;
+import org.jboss.reddeer.eclipse.ui.views.AbstractMarkersSupportView.Column;
 
 /**
- * Problem matcher for column Path of a problem.
+ * Marker matcher for column Creation Time of a marker.
  * 
  * @author mlabuda@redhat.com
  * @since 0.7
  */
-public class ProblemsPathMatcher extends AbstractProblemMatcher {
-	
+public class MarkerCreationTimeMatcher extends AbstractMarkerMatcher {
+
 	/**
-	 * Creates a new problem matcher matching to whole text of Path column.
+	 * Creates a new Marker matcher matching to whole text of Creation Time column.
 	 * 
-	 * @param text whole Path column text of a problem to match
+	 * @param text whole Creation Time column text of a Marker to match
 	 */
-	public ProblemsPathMatcher(String text) {
+	public MarkerCreationTimeMatcher(String text) {
 		super(text);
 	}
 	
 	/**
-	 * Creates a new problem matcher matching with matcher for Path column.
+	 * Creates a new Marker matcher matching with matcher for Creation Time column.
 	 * 
-	 * @param matcher matcher to match Path column of a problem
+	 * @param matcher matcher to match Creation Time column of a Marker
 	 */
-	public ProblemsPathMatcher(Matcher<String> matcher) {
+	public MarkerCreationTimeMatcher(Matcher<String> matcher) {
 		super(matcher);
 	}
 	
-	/* (non-Javadoc)
-	 * @see org.jboss.reddeer.eclipse.ui.problems.matcher.AbstractProblemMatcher#getColumn()
-	 */
 	@Override
 	public Column getColumn() {
-		return Column.PATH;
+		return Column.CREATION_TIME;
 	}
 }
