@@ -22,7 +22,7 @@ import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.PackageExplorer;
 import org.jboss.reddeer.eclipse.ui.dialogs.WizardNewProjectCreationPage;
 import org.jboss.reddeer.eclipse.ui.ide.NewFileCreationWizardDialog;
 import org.jboss.reddeer.eclipse.ui.ide.NewFileCreationWizardPage;
-import org.jboss.reddeer.eclipse.ui.problems.ProblemsView;
+import org.jboss.reddeer.eclipse.ui.views.ProblemsView;
 import org.jboss.reddeer.eclipse.ui.wizards.newresource.BasicNewProjectResourceWizard;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.requirements.cleanworkspace.CleanWorkspaceRequirement;

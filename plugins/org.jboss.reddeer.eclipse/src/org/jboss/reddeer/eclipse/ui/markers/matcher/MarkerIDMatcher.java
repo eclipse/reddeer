@@ -8,42 +8,39 @@
  * Contributors: 
  * Red Hat, Inc. - initial API and implementation 
  ******************************************************************************/ 
-package org.jboss.reddeer.eclipse.ui.problems.matcher;
+package org.jboss.reddeer.eclipse.ui.markers.matcher;
 
 import org.hamcrest.Matcher;
-import org.jboss.reddeer.eclipse.ui.problems.ProblemsView.Column;
+import org.jboss.reddeer.eclipse.ui.views.AbstractMarkersSupportView.Column;
 
 /**
- * Problem matcher for column Type of a problem.
+ * Marker matcher for column ID of a problem.
  * 
  * @author mlabuda@redhat.com
  * @since 0.7
  */
-public class ProblemsTypeMatcher extends AbstractProblemMatcher {
-	
+public class MarkerIDMatcher extends AbstractMarkerMatcher {
+
 	/**
-	 * Creates a new problem matcher matching to whole text of Type column.
+	 * Creates a new marker matcher matching to whole text of ID column.
 	 * 
-	 * @param text whole Type column text of a problem to match
+	 * @param text whole ID column text of a marker to match
 	 */
-	public ProblemsTypeMatcher(String text) {
+	public MarkerIDMatcher(String text) {
 		super(text);
 	}
 	
 	/**
-	 * Creates a new problem matcher matching with matcher for Type column.
+	 * Creates a new marker matcher matching with matcher for ID column.
 	 * 
-	 * @param matcher matcher to match Type column of a problem
+	 * @param matcher matcher to match ID column of a marker
 	 */
-	public ProblemsTypeMatcher(Matcher<String> matcher) {
+	public MarkerIDMatcher(Matcher<String> matcher) {
 		super(matcher);
 	}
 	
-	/* (non-Javadoc)
-	 * @see org.jboss.reddeer.eclipse.ui.problems.matcher.AbstractProblemMatcher#getColumn()
-	 */
 	@Override
 	public Column getColumn() {
-		return Column.TYPE;
+		return Column.ID;
 	}
 }

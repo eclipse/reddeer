@@ -12,17 +12,17 @@ package org.jboss.reddeer.swt.test.impl.menu;
 
 import static org.junit.Assert.assertEquals;
 
+import org.jboss.reddeer.common.matcher.RegexMatcher;
+import org.jboss.reddeer.core.matcher.WithTooltipTextMatcher;
 import org.jboss.reddeer.eclipse.ui.console.ConsoleView;
 import org.jboss.reddeer.eclipse.ui.perspectives.JavaPerspective;
-import org.jboss.reddeer.eclipse.ui.problems.ProblemsView;
+import org.jboss.reddeer.eclipse.ui.views.ProblemsView;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.requirements.openperspective.OpenPerspectiveRequirement.OpenPerspective;
 import org.jboss.reddeer.swt.api.ToolItem;
 import org.jboss.reddeer.swt.impl.menu.ToolItemMenu;
-import org.jboss.reddeer.workbench.impl.shell.WorkbenchShell;
 import org.jboss.reddeer.swt.impl.toolbar.DefaultToolItem;
-import org.jboss.reddeer.common.matcher.RegexMatcher;
-import org.jboss.reddeer.core.matcher.WithTooltipTextMatcher;
+import org.jboss.reddeer.workbench.impl.shell.WorkbenchShell;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
