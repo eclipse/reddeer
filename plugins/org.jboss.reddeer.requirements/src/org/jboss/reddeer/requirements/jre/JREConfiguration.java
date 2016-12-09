@@ -56,13 +56,25 @@ public class JREConfiguration {
 	}
 
 	
+	private static String safeProperty(String s) {
+		if (s != null && s.startsWith("${") && s.endsWith("}")) {
+			String key = s.substring(2, s.length() - 1);
+			String v = System.getProperty(key);
+			if (v != null) {
+				return v;
+			}
+		}
+
+		return s;
+	}
+	
 	/**
 	 * Sets name of this JRE used in eclipse.
 	 * @param name Name of this JRE.
 	 */
 	@XmlElement(namespace = "http://www.jboss.org/NS/jre-schema")
 	public void setName(String name) {
-		this.name = name;
+		this.name = safeProperty(name);
 	}
 
 	
@@ -72,7 +84,7 @@ public class JREConfiguration {
 	 */
 	@XmlElement(namespace = "http://www.jboss.org/NS/jre-schema")
 	public void setPath(String path) {
-		this.path = path;
+		this.path = safeProperty(path);
 	}
 
 	
