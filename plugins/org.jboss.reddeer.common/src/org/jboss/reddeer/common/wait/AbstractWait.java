@@ -13,6 +13,7 @@ package org.jboss.reddeer.common.wait;
 import org.jboss.reddeer.common.condition.WaitCondition;
 import org.jboss.reddeer.common.exception.WaitTimeoutExpiredException;
 import org.jboss.reddeer.common.logging.Logger;
+import org.jboss.reddeer.core.util.Display;
 
 /**
  * Common ancestor for waiting classes. Contains abstract
@@ -169,6 +170,9 @@ public abstract class AbstractWait {
 	 * @param timePeriod time period to sleep
 	 */
 	public static void sleep(TimePeriod timePeriod) {
+		if(Thread.currentThread().equals(Display.getDisplay().getThread())) {
+			throw new RuntimeException("Tried to execute sleep in UI thread!");
+		}
 		try {
 			Thread.sleep(timePeriod.getSeconds() * 1000);
 		} catch (InterruptedException e) {
