@@ -18,11 +18,12 @@ import org.jboss.reddeer.common.wait.TimePeriod;
 import org.jboss.reddeer.common.wait.WaitUntil;
 import org.jboss.reddeer.common.wait.WaitWhile;
 import org.jboss.reddeer.core.condition.ShellWithTextIsAvailable;
+import org.jboss.reddeer.core.condition.WidgetIsFound;
 import org.jboss.reddeer.core.lookup.WidgetLookup;
+import org.jboss.reddeer.core.matcher.WithTextMatcher;
 import org.jboss.reddeer.swt.api.Button;
 import org.jboss.reddeer.swt.api.Menu;
 import org.jboss.reddeer.swt.api.TreeItem;
-import org.jboss.reddeer.swt.condition.CLabelWithTextIsAvailable;
 import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.button.YesButton;
 import org.jboss.reddeer.swt.impl.menu.ContextMenu;
@@ -89,7 +90,7 @@ public abstract class LaunchConfigurationDialog {
 		TreeItem t = new DefaultTreeItem(configuration.getType(), name);
 		t.select();
 
-		new WaitUntil(new CLabelWithTextIsAvailable(name), TimePeriod.NORMAL, false);
+		new WaitUntil(new WidgetIsFound<org.eclipse.swt.custom.CLabel>(new WithTextMatcher(name)), TimePeriod.NORMAL, false);
 	}
 
 	/**
