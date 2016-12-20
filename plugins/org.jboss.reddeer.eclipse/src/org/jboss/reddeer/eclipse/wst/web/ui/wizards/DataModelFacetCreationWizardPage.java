@@ -169,14 +169,15 @@ public class DataModelFacetCreationWizardPage extends WizardPage {
 	
 	/**
 	 * Activates project facet.
-	 * @param facet facet name
+	 * @param facetPath path to Facet in tree of facets.
 	 * @param version facet version, can be null - than version is left default
 	 */
-	public void activateFacet(final String facet, final String version) {
+	public void activateFacet(final String version, final String... facetPath) {
 		new PushButton("Modify...").click();
 		new DefaultShell("Project Facets");
-		new DefaultTreeItem(facet).select();
-		new DefaultTreeItem(facet).setChecked(true);
+		DefaultTreeItem facetTreeItem = new DefaultTreeItem(facetPath);
+		facetTreeItem.select();
+		facetTreeItem.setChecked(true);
 		if (version != null) {
 			new ContextMenu("Change Version...").select();
 			new DefaultShell("Change Version");
