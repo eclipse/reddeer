@@ -28,6 +28,10 @@ public abstract class AbstractScale extends AbstractWidget<org.eclipse.swt.widge
 		super(org.eclipse.swt.widgets.Scale.class, refComposite, index, matchers);
 	}
 	
+	protected AbstractScale(org.eclipse.swt.widgets.Scale widget){
+		super(widget);
+	}
+	
 	/**
 	 * See {@link Scale}.
 	 *

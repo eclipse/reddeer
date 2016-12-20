@@ -29,6 +29,10 @@ public class DefaultCombo extends AbstractCombo implements Combo{
 		this((ReferencedComposite) null);
 	}
 	
+	public DefaultCombo(org.eclipse.swt.widgets.Combo widget) {
+		super(widget);
+	}
+	
 	/**
 	 * Finds combo inside given referenced composite.
 	 *

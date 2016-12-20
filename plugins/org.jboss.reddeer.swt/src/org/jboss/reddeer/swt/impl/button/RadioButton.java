@@ -33,6 +33,10 @@ public class RadioButton extends AbstractButton {
 		this((ReferencedComposite) null);
 	}
 	
+	public RadioButton(org.eclipse.swt.widgets.Button widget){
+		super(widget);
+	}
+	
 	/**
 	 * Creates Radio button inside given composite.
 	 *

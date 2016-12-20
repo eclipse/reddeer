@@ -29,6 +29,10 @@ public class DefaultLabel extends AbstractLabel {
 		this((ReferencedComposite) null);
 	}
 	
+	public DefaultLabel(org.eclipse.swt.widgets.Label widget){
+		super(widget);
+	}
+	
 	/**
 	 * Label with index 0 inside given composite.
 	 *

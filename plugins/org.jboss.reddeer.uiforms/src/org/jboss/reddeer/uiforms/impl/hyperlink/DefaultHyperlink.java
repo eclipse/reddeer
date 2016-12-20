@@ -30,6 +30,10 @@ public class DefaultHyperlink extends AbstractHyperlink {
 		this(0);
 	}
 	
+	public DefaultHyperlink(org.eclipse.ui.forms.widgets.Hyperlink widget){
+		super(widget);
+	}
+	
 	/**
 	 * Represents the hyperlink with the specified order that matches given matchers.
 	 *

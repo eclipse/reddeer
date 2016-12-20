@@ -8,7 +8,7 @@
  * Contributors: 
  * Red Hat, Inc. - initial API and implementation 
  ******************************************************************************/ 
-package org.jboss.reddeer.swt.impl.progressbar;
+package org.jboss.reddeer.core.handler;
 
 import org.eclipse.swt.widgets.ProgressBar;
 import org.jboss.reddeer.common.util.Display;

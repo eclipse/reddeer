@@ -31,6 +31,10 @@ public class DefaultTabItem extends AbstractTabItem {
 		this((ReferencedComposite) null);
 	}
 	
+	public DefaultTabItem(org.eclipse.swt.widgets.TabItem widget){
+		super(widget);
+	}
+	
 	/**
 	 * TabItem with index 0 inside given composite.
 	 *

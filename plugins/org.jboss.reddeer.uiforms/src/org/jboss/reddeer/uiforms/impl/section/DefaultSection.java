@@ -29,6 +29,10 @@ public class DefaultSection extends AbstractSection {
 		this(0);
 	}
 	
+	public DefaultSection(org.eclipse.ui.forms.widgets.Section widget){
+		super(widget);
+	}
+	
 	/**
 	 * Represents the section with the specified order that matches given matchers.
 	 *

@@ -10,6 +10,7 @@
  ******************************************************************************/ 
 package org.jboss.reddeer.swt.impl.shell;
 
+import org.eclipse.swt.widgets.Shell;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.core.lookup.ShellLookup;
@@ -38,6 +39,10 @@ public class DefaultShell extends AbstractShell {
 		} catch (Exception e) {
 			throw new SWTLayerException("No shell with title '" + title + "' is available", e);
 		}
+	}
+	
+	public DefaultShell(Shell widget){
+		super(widget);
 	}
 
 	/**

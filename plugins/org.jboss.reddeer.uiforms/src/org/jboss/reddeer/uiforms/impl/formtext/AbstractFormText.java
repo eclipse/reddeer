@@ -23,6 +23,10 @@ public abstract class AbstractFormText extends AbstractWidget<org.eclipse.ui.for
 		super(org.eclipse.ui.forms.widgets.FormText.class, refComposite, index, matchers);
 		setFocus();
 	}
+	
+	protected AbstractFormText(org.eclipse.ui.forms.widgets.FormText widget){
+		super(widget);
+	}
 
 	public String getSelectionText() {
 		return null;

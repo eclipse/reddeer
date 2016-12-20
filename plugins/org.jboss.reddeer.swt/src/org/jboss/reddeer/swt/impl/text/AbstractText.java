@@ -32,6 +32,10 @@ public abstract class AbstractText extends AbstractWidget<org.eclipse.swt.widget
 		super(org.eclipse.swt.widgets.Text.class, refComposite, index, matchers);
 	}
 	
+	protected AbstractText(org.eclipse.swt.widgets.Text widget){
+		super(widget);
+	}
+	
 	/* (non-Javadoc)
 	 * @see org.jboss.reddeer.swt.api.Text#setText(java.lang.String)
 	 */

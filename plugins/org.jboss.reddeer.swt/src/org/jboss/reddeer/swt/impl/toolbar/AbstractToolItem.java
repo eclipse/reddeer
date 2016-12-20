@@ -30,6 +30,10 @@ public abstract class AbstractToolItem extends AbstractWidget<org.eclipse.swt.wi
 	protected AbstractToolItem(ReferencedComposite refComposite, int index, Matcher<?>... matchers) {
 		super(org.eclipse.swt.widgets.ToolItem.class, refComposite == null ? ToolItemLookup.getInstance().findReferencedComposite() : refComposite, index, matchers);
 	}
+	
+	protected AbstractToolItem(org.eclipse.swt.widgets.ToolItem widget){
+		super(widget);
+	}
 
 	private static final Logger log = Logger.getLogger(AbstractToolItem.class);
 

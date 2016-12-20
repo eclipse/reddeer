@@ -23,6 +23,10 @@ public class DefaultTableItem extends AbstractTableItem{
 		this((ReferencedComposite) null);
 	}
 	
+	public DefaultTableItem(org.eclipse.swt.widgets.TableItem widget){
+		super(widget);
+	}
+	
 	/**
 	 * TableItem inside given composite.
 	 *

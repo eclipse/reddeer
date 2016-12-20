@@ -30,6 +30,10 @@ public class DefaultList extends AbstractList implements List{
 		this((ReferencedComposite) null);
 	}
 	
+	public DefaultList(org.eclipse.swt.widgets.List widget){
+		super(widget);
+	}
+	
 	/**
 	 * List with index 0 inside given composite.
 	 *

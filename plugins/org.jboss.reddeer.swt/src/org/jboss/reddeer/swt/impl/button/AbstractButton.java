@@ -36,6 +36,10 @@ import org.jboss.reddeer.swt.widgets.AbstractWidget;
 public abstract class AbstractButton extends AbstractWidget<org.eclipse.swt.widgets.Button> implements Button {
 
 	private static final Logger log = Logger.getLogger(AbstractButton.class);
+	
+	protected AbstractButton(org.eclipse.swt.widgets.Button widget){
+		super(widget);
+	}
 
 	protected AbstractButton (ReferencedComposite refComposite, int index, int style, Matcher<?>... matchers){
         super(org.eclipse.swt.widgets.Button.class, refComposite, index, createMatchers(style, matchers));

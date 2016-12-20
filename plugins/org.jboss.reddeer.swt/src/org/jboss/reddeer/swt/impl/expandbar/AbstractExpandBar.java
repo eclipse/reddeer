@@ -20,7 +20,6 @@ import org.jboss.reddeer.swt.api.ExpandBar;
 import org.jboss.reddeer.swt.api.ExpandBarItem;
 import org.jboss.reddeer.core.handler.ExpandBarHandler;
 import org.jboss.reddeer.core.handler.WidgetHandler;
-import org.jboss.reddeer.swt.impl.expandbar.internal.BasicExpandBarItem;
 import org.jboss.reddeer.core.reference.ReferencedComposite;
 import org.jboss.reddeer.swt.widgets.AbstractWidget;
 
@@ -62,7 +61,7 @@ public abstract class AbstractExpandBar extends AbstractWidget<org.eclipse.swt.w
 		List<org.eclipse.swt.widgets.ExpandItem> items = ExpandBarHandler.getInstance().getSWTItems(this.getSWTWidget());
 		List<ExpandBarItem> result = new ArrayList<ExpandBarItem>();
 		for (ExpandItem item: items) {
-			result.add(new BasicExpandBarItem(item));
+			result.add(new DefaultExpandBarItem(item));
 		}
 		return result;
 	}

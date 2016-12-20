@@ -35,6 +35,10 @@ public abstract class AbstractStyledText extends AbstractWidget<org.eclipse.swt.
 		super(org.eclipse.swt.custom.StyledText.class, refComposite, index, matchers);
 	}
     
+    protected AbstractStyledText(org.eclipse.swt.custom.StyledText widget) {
+		super(widget);
+	}
+    
     /**
      * Returns styledtext text.
      * @return text of this StyledText

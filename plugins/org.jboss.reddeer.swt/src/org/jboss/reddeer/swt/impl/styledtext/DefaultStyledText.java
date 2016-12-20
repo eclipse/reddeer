@@ -30,6 +30,10 @@ public class DefaultStyledText extends AbstractStyledText implements StyledText 
 		this((ReferencedComposite) null);
 	}
 	
+	public DefaultStyledText(org.eclipse.swt.custom.StyledText widget){
+		super(widget);
+	}
+	
 	/**
 	 * StyledText inside given composite.
 	 *

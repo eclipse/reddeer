@@ -27,8 +27,6 @@ import org.jboss.reddeer.core.matcher.TreeItemTextMatcher;
 import org.jboss.reddeer.swt.api.Tree;
 import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.swt.condition.TreeItemHasMinChildren;
-import org.jboss.reddeer.swt.impl.tree.internal.BasicTree;
-import org.jboss.reddeer.swt.impl.tree.internal.BasicTreeItem;
 import org.jboss.reddeer.swt.widgets.AbstractWidget;
 
 /**
@@ -134,7 +132,7 @@ public abstract class AbstractTreeItem extends AbstractWidget<org.eclipse.swt.wi
 	 * @return direct descendant specified with parameters
 	 */
 	public TreeItem getItem(final String text) {
-		return new BasicTreeItem(treeItemHandler.getItem(swtWidget, text));
+		return new DefaultTreeItem(treeItemHandler.getItem(swtWidget, text));
 	}
 	
 	/* (non-Javadoc)
@@ -143,7 +141,7 @@ public abstract class AbstractTreeItem extends AbstractWidget<org.eclipse.swt.wi
 	@Override
 	public TreeItem getItem(String... path) {
 		org.eclipse.swt.widgets.TreeItem swtItem = TreeItemLookup.getInstance().getTreeItem(getSWTWidget(), 0, createMatchers(path));
-		return new BasicTreeItem(swtItem);
+		return new DefaultTreeItem(swtItem);
 	}
 
 	/**
@@ -221,7 +219,7 @@ public abstract class AbstractTreeItem extends AbstractWidget<org.eclipse.swt.wi
 		LinkedList<TreeItem> items = new LinkedList<TreeItem>();
 		List<org.eclipse.swt.widgets.TreeItem> eclipseItems = treeItemHandler.getChildrenItems(swtWidget);
 		for (org.eclipse.swt.widgets.TreeItem swtTreeItem : eclipseItems) {
-			items.addLast(new BasicTreeItem(swtTreeItem));
+			items.addLast(new DefaultTreeItem(swtTreeItem));
 		}
 		return items;
 	}
@@ -233,7 +231,7 @@ public abstract class AbstractTreeItem extends AbstractWidget<org.eclipse.swt.wi
 	 */
 	@Override
 	public Tree getParent() {
-		return new BasicTree(treeItemHandler.getParent(swtWidget));
+		return new DefaultTree(treeItemHandler.getParent(swtWidget));
 	}
 
 	/**

@@ -28,6 +28,10 @@ public class DefaultCLabel extends AbstractCLabel {
 		this((ReferencedComposite) null);
 	}
 	
+	public DefaultCLabel(org.eclipse.swt.custom.CLabel widget){
+		super(widget);
+	}
+	
 	/**
 	 * CLabel with index 0 inside given composite.
 	 *

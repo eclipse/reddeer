@@ -19,7 +19,6 @@ import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.core.handler.TableHandler;
 import org.jboss.reddeer.core.handler.TableItemHandler;
 import org.jboss.reddeer.core.handler.WidgetHandler;
-import org.jboss.reddeer.swt.impl.table.internal.BasicTable;
 import org.jboss.reddeer.core.reference.ReferencedComposite;
 import org.jboss.reddeer.swt.widgets.AbstractWidget;
 
@@ -108,7 +107,7 @@ public class AbstractTableItem extends AbstractWidget<org.eclipse.swt.widgets.Ta
 	 */
 	@Override
 	public Table getParent() {
-		return new BasicTable(TableItemHandler.getInstance().getParent(swtWidget));
+		return new DefaultTable(TableItemHandler.getInstance().getParent(swtWidget));
 	}
 	
 	/* (non-Javadoc)

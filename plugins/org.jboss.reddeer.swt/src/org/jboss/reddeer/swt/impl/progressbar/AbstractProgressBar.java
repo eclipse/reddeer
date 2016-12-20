@@ -12,6 +12,7 @@ package org.jboss.reddeer.swt.impl.progressbar;
 
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.swt.api.ProgressBar;
+import org.jboss.reddeer.core.handler.ProgressBarHandler;
 import org.jboss.reddeer.core.reference.ReferencedComposite;
 import org.jboss.reddeer.swt.widgets.AbstractWidget;
 
@@ -26,6 +27,10 @@ public abstract class AbstractProgressBar extends AbstractWidget<org.eclipse.swt
 	
 	protected AbstractProgressBar(ReferencedComposite refComposite, int index, Matcher<?>... matchers){
 		super(org.eclipse.swt.widgets.ProgressBar.class, null, index, matchers);
+	}
+	
+	protected AbstractProgressBar(org.eclipse.swt.widgets.ProgressBar widget) {
+		super(widget);
 	}
 	
 	/**

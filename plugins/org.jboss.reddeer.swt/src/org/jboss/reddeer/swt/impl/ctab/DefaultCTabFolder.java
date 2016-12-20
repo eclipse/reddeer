@@ -82,7 +82,7 @@ public class DefaultCTabFolder extends AbstractCTabFolder {
 	 * Constructs CTabFolder from given swt widget
 	 * @param swtWidget
 	 */
-	DefaultCTabFolder(CTabFolder swtWidget){
+	public DefaultCTabFolder(CTabFolder swtWidget){
 		super(swtWidget);
 	}
 }

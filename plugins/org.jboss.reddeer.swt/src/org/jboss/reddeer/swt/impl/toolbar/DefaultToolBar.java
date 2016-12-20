@@ -28,6 +28,10 @@ public class DefaultToolBar extends AbstractToolBar {
 	public DefaultToolBar() {
 		this(0);
 	}
+	
+	public DefaultToolBar(org.eclipse.swt.widgets.ToolBar widget){
+		super(widget);
+	}
 
 	/**
 	 * Constructor for nth toolbar in currently active shell.

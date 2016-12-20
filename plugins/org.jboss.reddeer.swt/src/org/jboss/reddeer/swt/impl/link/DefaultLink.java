@@ -23,6 +23,10 @@ public class DefaultLink extends AbstractLink{
 		this((ReferencedComposite) null);
 	}
 	
+	public DefaultLink(org.eclipse.swt.widgets.Link widget){
+		super(widget);
+	}
+	
 	/**
 	 * Link with index 0 inside given composite.
 	 *

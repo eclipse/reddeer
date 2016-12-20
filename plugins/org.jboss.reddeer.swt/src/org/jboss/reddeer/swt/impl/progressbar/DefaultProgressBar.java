@@ -23,6 +23,10 @@ public class DefaultProgressBar extends AbstractProgressBar {
 		this((ReferencedComposite) null);
 	}
 	
+	public DefaultProgressBar(org.eclipse.swt.widgets.ProgressBar widget) {
+		super(widget);
+	}
+	
 	/**
 	 * ProgressBar with index 0 inside given composite.
 	 *

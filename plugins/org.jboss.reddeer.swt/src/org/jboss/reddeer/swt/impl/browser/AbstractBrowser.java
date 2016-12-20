@@ -44,6 +44,10 @@ public abstract class AbstractBrowser extends AbstractWidget<org.eclipse.swt.bro
 		super(org.eclipse.swt.browser.Browser.class, referencedComposite, index, matchers);
 		this.browserProgressListener = new BrowserProgressListener(this);
 	}
+	
+	public AbstractBrowser(org.eclipse.swt.browser.Browser widget){
+		super(widget);
+	}
 
 	/* (non-Javadoc)
 	 * @see org.jboss.reddeer.swt.api.Browser#isPageLoaded()

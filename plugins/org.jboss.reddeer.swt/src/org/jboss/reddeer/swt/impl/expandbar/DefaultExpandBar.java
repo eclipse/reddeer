@@ -27,6 +27,10 @@ public class DefaultExpandBar extends AbstractExpandBar {
 		this(0);
 	}
 	
+	public DefaultExpandBar(org.eclipse.swt.widgets.ExpandBar widget){
+		super(widget);
+	}
+	
 	/**
 	 * ExpandBar inside given composite.
 	 *

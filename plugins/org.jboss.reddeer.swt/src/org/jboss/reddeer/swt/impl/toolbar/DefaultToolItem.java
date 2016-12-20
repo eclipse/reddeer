@@ -32,6 +32,10 @@ public class DefaultToolItem extends AbstractToolItem {
 	public DefaultToolItem() {
 		this(null, 0);
 	}
+	
+	public DefaultToolItem(org.eclipse.swt.widgets.ToolItem widget){
+		super(widget);
+	}
 
 	/**
 	 * Constructor for first ToolItem inside given {@link ReferencedComposite}.

@@ -16,7 +16,6 @@ import org.jboss.reddeer.swt.api.ExpandBar;
 import org.jboss.reddeer.swt.api.ExpandBarItem;
 import org.jboss.reddeer.core.handler.ExpandBarItemHandler;
 import org.jboss.reddeer.core.handler.WidgetHandler;
-import org.jboss.reddeer.swt.impl.expandbar.internal.BasicExpandBar;
 import org.jboss.reddeer.swt.widgets.AbstractWidget;
 import org.jboss.reddeer.common.wait.AbstractWait;
 import org.jboss.reddeer.common.wait.TimePeriod;
@@ -125,7 +124,7 @@ public abstract class AbstractExpandBarItem extends AbstractWidget<org.eclipse.s
 	 */
 	@Override
 	public ExpandBar getParent() {
-		return new BasicExpandBar(swtParent);
+		return new DefaultExpandBar(swtParent);
 	}
 	
 	/**

@@ -30,6 +30,10 @@ public abstract class AbstractSpinner extends AbstractWidget<org.eclipse.swt.wid
 	protected AbstractSpinner(ReferencedComposite refComposite, int index, Matcher<?>... matchers) {
 		super(org.eclipse.swt.widgets.Spinner.class, refComposite, index, matchers);
 	}
+	
+	protected AbstractSpinner(org.eclipse.swt.widgets.Spinner widget) {
+		super(widget);
+	}
 
 	/* (non-Javadoc)
 	 * @see org.jboss.reddeer.swt.api.Spinner#getValue()

@@ -29,6 +29,10 @@ public class DefaultForm extends AbstractForm {
 		this(0);
 	}
 	
+	public DefaultForm(org.eclipse.ui.forms.widgets.Form widget){
+		super(widget);
+	}
+	
 	/**
 	 * Represents the form with the specified order that matches given matchers.
 	 *

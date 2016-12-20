@@ -28,6 +28,9 @@ public class DefaultTree extends AbstractTree {
 		this((ReferencedComposite) null);
 	}
 	
+	public DefaultTree(org.eclipse.swt.widgets.Tree widget){
+		super(widget);
+	}
 	/**
 	 * Tree with index 0 inside given composite.
 	 *

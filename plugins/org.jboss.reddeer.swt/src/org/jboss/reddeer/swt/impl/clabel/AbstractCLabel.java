@@ -28,6 +28,10 @@ public abstract class AbstractCLabel extends AbstractWidget<org.eclipse.swt.cust
 		super(org.eclipse.swt.custom.CLabel.class, refComposite, index, matchers);
 	}
 	
+	protected AbstractCLabel(org.eclipse.swt.custom.CLabel widget){
+		super(widget);
+	}
+	
 	/* (non-Javadoc)
 	 * @see org.jboss.reddeer.swt.api.CLabel#getText()
 	 */

@@ -30,6 +30,10 @@ public class DefaultSpinner extends AbstractSpinner implements Spinner {
 		this((ReferencedComposite) null);
 	}
 	
+	public DefaultSpinner(org.eclipse.swt.widgets.Spinner widget) {
+		super(widget);
+	}
+	
 	/**
 	 * Spinner with index 0 inside given composite.
 	 *

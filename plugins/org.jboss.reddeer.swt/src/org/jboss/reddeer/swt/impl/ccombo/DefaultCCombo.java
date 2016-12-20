@@ -29,6 +29,10 @@ public class DefaultCCombo extends AbstractCCombo implements CCombo {
 	public DefaultCCombo() {
 		this((ReferencedComposite) null);
 	}
+	
+	public DefaultCCombo(org.eclipse.swt.custom.CCombo widget){
+		super(widget);
+	}
 
 	/**
 	 * Finds custom combo inside given referenced composite.

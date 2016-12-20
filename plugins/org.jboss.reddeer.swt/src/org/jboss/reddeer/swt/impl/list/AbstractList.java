@@ -31,6 +31,10 @@ public abstract class AbstractList extends AbstractWidget<org.eclipse.swt.widget
 	protected AbstractList(ReferencedComposite refComposite, int index, Matcher<?>... matchers) {
 		super(org.eclipse.swt.widgets.List.class, refComposite, index, matchers);
 	}
+	
+	protected AbstractList(org.eclipse.swt.widgets.List widget){
+		super(widget);
+	}
 
 	/* (non-Javadoc)
 	 * @see org.jboss.reddeer.swt.api.List#select(java.lang.String)

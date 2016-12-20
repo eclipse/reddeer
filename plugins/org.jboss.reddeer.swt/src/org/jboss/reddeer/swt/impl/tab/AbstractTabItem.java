@@ -39,6 +39,10 @@ public abstract class AbstractTabItem extends AbstractWidget<org.eclipse.swt.wid
 		swtParent = TabItemHandler.getInstance().getTabFolder(swtWidget);
 	}
 	
+	protected AbstractTabItem(org.eclipse.swt.widgets.TabItem widget){
+		super(widget);
+	}
+	
 	/**
 	 * See {@link TabItem}.
 	 */

@@ -23,7 +23,6 @@ import org.jboss.reddeer.swt.api.TableItem;
 import org.jboss.reddeer.swt.condition.TableHasRows;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.core.handler.TableHandler;
-import org.jboss.reddeer.swt.impl.table.internal.BasicTableItem;
 import org.jboss.reddeer.core.reference.ReferencedComposite;
 import org.jboss.reddeer.common.wait.TimePeriod;
 import org.jboss.reddeer.common.wait.WaitUntil;
@@ -82,7 +81,7 @@ public abstract class AbstractTable extends AbstractWidget<org.eclipse.swt.widge
 		org.eclipse.swt.widgets.TableItem[] items = TableHandler.getInstance().getSWTItems(swtWidget);
 		List<TableItem> tableItems = new ArrayList<TableItem>();
 		for(org.eclipse.swt.widgets.TableItem i: items){
-			tableItems.add(new BasicTableItem(i));
+			tableItems.add(new DefaultTableItem(i));
 		}
 		return tableItems;
 	}
@@ -113,7 +112,7 @@ public abstract class AbstractTable extends AbstractWidget<org.eclipse.swt.widge
 	public TableItem getItem(final int index) {
 		waitUntilTableHasRows();
 		org.eclipse.swt.widgets.TableItem tItem = TableHandler.getInstance().getSWTItem(swtWidget, index);
-		return new BasicTableItem(tItem);
+		return new DefaultTableItem(tItem);
 	}
 	
 	/* (non-Javadoc)
@@ -124,7 +123,7 @@ public abstract class AbstractTable extends AbstractWidget<org.eclipse.swt.widge
 		waitUntilTableHasRows();
 		int row = TableHandler.getInstance().indexOf(swtWidget, itemText, 0);
 		org.eclipse.swt.widgets.TableItem tItem = TableHandler.getInstance().getSWTItem(swtWidget, row);
-		return new BasicTableItem(tItem);
+		return new DefaultTableItem(tItem);
 	}
 	
 	/* (non-Javadoc)
@@ -135,7 +134,7 @@ public abstract class AbstractTable extends AbstractWidget<org.eclipse.swt.widge
 		waitUntilTableHasRows();
 		int row = TableHandler.getInstance().indexOf(swtWidget, itemText, column);
 		org.eclipse.swt.widgets.TableItem tItem = TableHandler.getInstance().getSWTItem(swtWidget, row);
-		return new BasicTableItem(tItem);
+		return new DefaultTableItem(tItem);
 	}
 
 	/* (non-Javadoc)

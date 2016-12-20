@@ -16,6 +16,7 @@ import java.util.List;
 import org.eclipse.swt.widgets.MenuItem;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.swt.api.Menu;
+import org.jboss.reddeer.swt.widgets.AbstractWidget;
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.core.handler.MenuHandler;
 import org.jboss.reddeer.core.handler.WidgetHandler;

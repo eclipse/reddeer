@@ -10,6 +10,7 @@
  ******************************************************************************/ 
 package org.jboss.reddeer.workbench.impl.editor;
 
+import org.eclipse.ui.IEditorPart;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.workbench.api.Editor;
 
@@ -26,6 +27,10 @@ public class DefaultEditor extends AbstractEditor implements Editor {
 	 */
 	public DefaultEditor() {
 		super();
+	}
+	
+	public DefaultEditor(IEditorPart editorPart){
+		super(editorPart);
 	}
 
 	/**
