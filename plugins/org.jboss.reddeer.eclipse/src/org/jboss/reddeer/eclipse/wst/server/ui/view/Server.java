@@ -300,7 +300,7 @@ public class Server {
 	/**
 	 * Selects the server.
 	 */
-	protected void select() {
+	public void select() {
 		treeItem.select();
 	}
 

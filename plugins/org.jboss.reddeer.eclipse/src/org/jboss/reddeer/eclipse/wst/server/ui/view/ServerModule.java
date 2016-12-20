@@ -86,4 +86,11 @@ public class ServerModule {
 		view.activate();
 		treeItem.select();
 	}
+	
+	/**
+	 * Select the server module
+	 */
+	public void select(){
+		treeItem.select();
+	}
 }
