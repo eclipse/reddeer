@@ -17,4 +17,6 @@ Export-Package: org.jboss.reddeer.uiforms.api,
  org.jboss.reddeer.uiforms.impl.form,
  org.jboss.reddeer.uiforms.impl.formtext,
  org.jboss.reddeer.uiforms.impl.hyperlink,
- org.jboss.reddeer.uiforms.impl.section
+ org.jboss.reddeer.uiforms.impl.section,
+ org.jboss.reddeer.uiforms.matcher,
+ org.jboss.reddeer.uiforms.handler
