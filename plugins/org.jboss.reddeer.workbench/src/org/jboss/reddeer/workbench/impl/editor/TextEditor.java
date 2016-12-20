@@ -292,13 +292,5 @@ public class TextEditor extends AbstractEditor implements Editor {
 		ITextSelection textSelection = (ITextSelection) getEditorPart().getSite().getSelectionProvider().getSelection();
 		return textSelection.getOffset();
 	}
-
-	/**
-	 * Returns text editor widget.
-	 * @return text editor widget
-	 * @deprecated since 1.1.0. Use {@link AbstractEditor.getEditorPart()} instead.
-	 */
-	protected ITextEditor getTextEditorPart() {
-		return (ITextEditor) getEditorPart();
-	}
+	
 }

@@ -56,7 +56,7 @@ public class BuildPathsPropertyPageTest {
 		javaProject.open();
 		NewJavaProjectWizardPage javaWizardPage = new NewJavaProjectWizardPage();
 		javaWizardPage.setProjectName(TEST_PROJECT_NAME);
-		javaProject.finish(false);
+		javaProject.finish();
 	}
 	
 	@AfterClass
