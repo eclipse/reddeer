@@ -10,6 +10,7 @@
  ******************************************************************************/ 
 package org.jboss.reddeer.eclipse.rse.ui.view;
 
+import org.jboss.reddeer.common.exception.RedDeerException;
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.common.wait.TimePeriod;
 import org.jboss.reddeer.common.wait.WaitUntil;
@@ -19,10 +20,13 @@ import org.jboss.reddeer.core.exception.CoreLayerException;
 import org.jboss.reddeer.eclipse.condition.RemoteSystemExists;
 import org.jboss.reddeer.eclipse.condition.RemoteSystemIsConnected;
 import org.jboss.reddeer.eclipse.rse.ui.wizard.SystemPasswordPromptDialog;
+import org.jboss.reddeer.swt.api.Shell;
 import org.jboss.reddeer.swt.api.TreeItem;
+import org.jboss.reddeer.swt.condition.ShellIsAvailable;
 import org.jboss.reddeer.swt.impl.button.PushButton;
+import org.jboss.reddeer.swt.impl.button.YesButton;
 import org.jboss.reddeer.swt.impl.menu.ContextMenu;
-import org.jboss.reddeer.swt.impl.text.LabeledText;
+import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.jboss.reddeer.workbench.core.condition.JobIsRunning;
 
 /**
@@ -75,15 +79,47 @@ public class System {
 	 * @param password the password
 	 */
 	public void connect(String username, String password){
+		connect(username,password, TimePeriod.NORMAL);
+	}
+	
+	/**
+	 * Connect to Remote System.
+	 *
+	 * @param username the username
+	 * @param password the password
+	 * @param timeout how log should we wait when remote communication is happening
+	 */
+	public void connect(String username, String password, TimePeriod timeout){
 		log.info("Connecting to remote system " + getLabel());
 		select();
 		new ContextMenu("Connect").select();
-		new SystemPasswordPromptDialog();
-		new LabeledText("User ID:").setText(username);
-		new LabeledText("Password (optional):").setText(password);
-		new PushButton("OK").click();
+		SystemPasswordPromptDialog systemPassDialog = new SystemPasswordPromptDialog();
+		systemPassDialog.setUserID(username);
+		systemPassDialog.setPassword(password);
+		systemPassDialog.OK();
 		
-		new WaitUntil(new RemoteSystemIsConnected(this));
+		//accept public key may be requested
+		new WaitUntil(new ShellWithTextIsAvailable("Warning"),timeout,false);
+		try{
+			Shell authenticityShell = new DefaultShell("Warning");
+			//accept public key
+			new YesButton().click();
+			new WaitWhile(new ShellIsAvailable(authenticityShell),timeout);
+			
+			try{
+				//known_hosts file may not exist
+				Shell knownHosts = new DefaultShell("Warning");
+				//accept to create known_hosts file
+				new YesButton().click();
+				new WaitWhile(new ShellIsAvailable(knownHosts),timeout);
+			} catch (RedDeerException ex) {
+				log.debug("Known_hosts shell was not opened");
+			}
+		} catch (RedDeerException ex){
+			log.debug("Authenticity shell was not opened");
+		}
+		
+		new WaitUntil(new RemoteSystemIsConnected(this),timeout);
 	}
 
 	/**
@@ -132,8 +168,9 @@ public class System {
 		if(isConnected())
 			disconnect();
 		new ContextMenu("Delete...").select();	
-		new WaitUntil(new ShellWithTextIsAvailable("Delete Confirmation"),TimePeriod.NORMAL);
+		Shell deleteShell = new DefaultShell("Delete Confirmation");
 		new PushButton("Delete").click();
+		new WaitWhile(new ShellIsAvailable(deleteShell));
 		new WaitWhile(new RemoteSystemExists(getLabel()), TIMEOUT);
 		new WaitWhile(new JobIsRunning(), TIMEOUT);
 	}
