@@ -31,6 +31,10 @@ public abstract class AbstractExpandableComposite extends AbstractWidget<Expanda
 	protected AbstractExpandableComposite(ReferencedComposite refComposite, int index, Matcher<?>... matchers){
 		super(ExpandableComposite.class, refComposite, index, matchers);
 	}
+	
+	protected AbstractExpandableComposite(ExpandableComposite widget) {
+		super(widget);
+	}
 
 	@Override
 	public String getText() {

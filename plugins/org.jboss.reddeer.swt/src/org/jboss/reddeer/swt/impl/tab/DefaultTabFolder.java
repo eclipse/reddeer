@@ -28,6 +28,10 @@ public class DefaultTabFolder extends AbstractTabFolder {
 		this((ReferencedComposite) null);
 	}
 	
+	public DefaultTabFolder(org.eclipse.swt.widgets.TabFolder widget) {
+		super(widget);
+	}
+	
 	/**
 	 * TabFolder with index 0 inside given composite.
 	 *

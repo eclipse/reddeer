@@ -29,6 +29,10 @@ public class ArrowButton extends AbstractButton implements Button {
 		this((ReferencedComposite) null);
 	}
 	
+	public ArrowButton(org.eclipse.swt.widgets.Button widget){
+		super(widget);
+	}
+	
 	/**
 	 * Arrow button with index 0 inside given composite.
 	 *

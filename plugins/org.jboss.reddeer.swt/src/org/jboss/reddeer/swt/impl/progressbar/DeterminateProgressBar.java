@@ -10,6 +10,7 @@
  ******************************************************************************/ 
 package org.jboss.reddeer.swt.impl.progressbar;
 
+import org.jboss.reddeer.core.handler.ProgressBarHandler;
 import org.jboss.reddeer.core.matcher.WithStyleMatcher;
 
 

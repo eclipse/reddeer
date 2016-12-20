@@ -38,6 +38,10 @@ public abstract class AbstractCombo extends AbstractWidget<org.eclipse.swt.widge
 		super(org.eclipse.swt.widgets.Combo.class, refComposite, index, matchers);
 	}
 	
+	protected AbstractCombo(org.eclipse.swt.widgets.Combo widget) {
+		super(widget);
+	}
+	
 	/**
 	 * See {@link Combo}.
 	 *

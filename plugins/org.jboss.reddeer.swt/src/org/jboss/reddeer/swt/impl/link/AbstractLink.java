@@ -27,6 +27,10 @@ public abstract class AbstractLink extends AbstractWidget<org.eclipse.swt.widget
 		super(org.eclipse.swt.widgets.Link.class, refComposite, index, matchers);
 	}
 	
+	protected AbstractLink(org.eclipse.swt.widgets.Link widget){
+		super(widget);
+	}
+	
 	/* (non-Javadoc)
 	 * @see org.jboss.reddeer.swt.api.Link#getText()
 	 */

@@ -27,6 +27,10 @@ public class InternalBrowser extends AbstractBrowser{
 		this((ReferencedComposite) null);
 	}
 	
+	public InternalBrowser(org.eclipse.swt.browser.Browser widget){
+		super(widget);
+	}
+	
 	/**
 	 * Finds first Browser inside given composite.
 	 *

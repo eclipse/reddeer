@@ -24,6 +24,10 @@ public class AnchorLink extends AbstractLink implements Link{
 		this((ReferencedComposite) null);
 	}
 	
+	public AnchorLink(org.eclipse.swt.widgets.Link widget){
+		super(widget);
+	}
+	
 	/**
 	 * Link with index 0 inside given composite.
 	 *

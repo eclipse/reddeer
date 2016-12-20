@@ -27,6 +27,10 @@ public class DefaultScale extends AbstractScale {
 		this((ReferencedComposite) null);
 	}
 	
+	public DefaultScale(org.eclipse.swt.widgets.Scale widget){
+		super(widget);
+	}
+	
 	/**
 	 * Scale with index 0 inside given composite.
 	 *

@@ -30,6 +30,10 @@ public class PushButton extends AbstractButton implements Button {
 		this((ReferencedComposite) null);
 	}
 	
+	public PushButton(org.eclipse.swt.widgets.Button widget){
+		super(widget);
+	}
+	
 	/**
 	 * Push button with index 0 inside given composite.
 	 *

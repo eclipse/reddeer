@@ -27,6 +27,11 @@ public abstract class AbstractWidget<T extends org.eclipse.swt.widgets.Widget> i
 
 	protected T swtWidget;
 	
+	/**
+	 * Instantiates a new reddeer widget
+	 * 
+	 * @param widget
+	 */
 	protected AbstractWidget(T swtWidget) {
 		if (swtWidget == null){
 			throw new SWTLayerException("SWT widget provided is null");

@@ -101,7 +101,7 @@ public class DefaultCTabItem extends AbstractCTabItem {
 	 * Constructs CTabItem from given swt widget
 	 * @param swtWidget
 	 */
-	DefaultCTabItem(CTabItem swtWidget){
+	public DefaultCTabItem(CTabItem swtWidget){
 		super(swtWidget);
 	}
 }

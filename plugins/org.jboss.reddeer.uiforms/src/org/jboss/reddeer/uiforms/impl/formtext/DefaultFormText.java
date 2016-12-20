@@ -30,6 +30,10 @@ public class DefaultFormText extends AbstractFormText {
 	public DefaultFormText() {
 		this(0);
 	}
+	
+	public DefaultFormText(org.eclipse.ui.forms.widgets.FormText widget){
+		super(widget);
+	}
 
 	/**
 	 * Represents nth widget of type FormText that matches given matchers.

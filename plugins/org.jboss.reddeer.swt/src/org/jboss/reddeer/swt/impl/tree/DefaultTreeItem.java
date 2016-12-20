@@ -37,6 +37,10 @@ public class DefaultTreeItem extends AbstractTreeItem {
 		this(new DefaultTree(), treeItemPath);
 	}
 	
+	public DefaultTreeItem(org.eclipse.swt.widgets.TreeItem widget) {
+		super(widget);
+	}
+	
 	/**
 	 * Tree item in specified tree with specified path will be constructed .
 	 *

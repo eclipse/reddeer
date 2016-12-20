@@ -33,6 +33,10 @@ public class ToggleButton extends AbstractButton {
 		this((ReferencedComposite) null);
 	}
 	
+	public ToggleButton(org.eclipse.swt.widgets.Button widget){
+		super(widget);
+	}
+	
 	/**
 	 * Creates Toggle button inside given composite.
 	 *

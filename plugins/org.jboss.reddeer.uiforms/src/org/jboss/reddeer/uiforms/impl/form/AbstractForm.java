@@ -30,6 +30,10 @@ public abstract class AbstractForm extends AbstractWidget<org.eclipse.ui.forms.w
 		setFocus();
 	}
 	
+	protected AbstractForm(org.eclipse.ui.forms.widgets.Form widget){
+		super(widget);
+	}
+	
 	@Override
 	public Control getControl() {
 		return swtWidget.getBody();

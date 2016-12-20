@@ -22,6 +22,10 @@ public abstract class AbstractLabel extends AbstractWidget<org.eclipse.swt.widge
 		super(org.eclipse.swt.widgets.Label.class, refComposite, index, matchers);
 	}
 	
+	protected AbstractLabel(org.eclipse.swt.widgets.Label widget){
+		super(widget);
+	}
+	
 	/* (non-Javadoc)
 	 * @see org.jboss.reddeer.swt.api.Label#getText()
 	 */

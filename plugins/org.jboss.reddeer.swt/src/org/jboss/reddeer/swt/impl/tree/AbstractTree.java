@@ -20,7 +20,6 @@ import org.jboss.reddeer.swt.api.Tree;
 import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.core.handler.TreeHandler;
 import org.jboss.reddeer.core.handler.TreeItemHandler;
-import org.jboss.reddeer.swt.impl.tree.internal.BasicTreeItem;
 import org.jboss.reddeer.core.reference.ReferencedComposite;
 import org.jboss.reddeer.swt.widgets.AbstractWidget;
 
@@ -55,7 +54,7 @@ public abstract class AbstractTree extends AbstractWidget<org.eclipse.swt.widget
 		LinkedList<TreeItem> items = new LinkedList<TreeItem>();
 		List<org.eclipse.swt.widgets.TreeItem> eclipseItems = treeHandler.getSWTItems(swtWidget);
 		for (org.eclipse.swt.widgets.TreeItem swtTreeItem : eclipseItems) {
-			items.addLast(new BasicTreeItem(swtTreeItem));
+			items.addLast(new DefaultTreeItem(swtTreeItem));
 		}
 		return items;
 	}
@@ -78,7 +77,7 @@ public abstract class AbstractTree extends AbstractWidget<org.eclipse.swt.widget
 	public List<TreeItem> getSelectedItems() {
 		List<TreeItem> selectedItems = new ArrayList<TreeItem>();
 		for (org.eclipse.swt.widgets.TreeItem swtItem : treeHandler.getSelection(swtWidget)) {
-			selectedItems.add(new BasicTreeItem(swtItem));
+			selectedItems.add(new DefaultTreeItem(swtItem));
 		}
 		return selectedItems;
 	}

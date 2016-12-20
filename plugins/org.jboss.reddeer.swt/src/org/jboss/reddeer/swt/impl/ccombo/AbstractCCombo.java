@@ -37,6 +37,10 @@ public abstract class AbstractCCombo extends AbstractWidget<org.eclipse.swt.cust
 	protected AbstractCCombo(ReferencedComposite refComposite, int index, Matcher<?>... matchers) {
 		super(org.eclipse.swt.custom.CCombo.class, refComposite, index, matchers);
 	}
+	
+	protected AbstractCCombo(org.eclipse.swt.custom.CCombo widget){
+		super(widget);
+	}
 
 	/* (non-Javadoc)
 	 * @see org.jboss.reddeer.swt.api.CCombo#setText(java.lang.String)

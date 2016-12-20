@@ -30,6 +30,10 @@ public abstract class AbstractHyperlink extends AbstractWidget<org.eclipse.ui.fo
 		setFocus();
 	}
 	
+	protected AbstractHyperlink(org.eclipse.ui.forms.widgets.Hyperlink widget){
+		super(widget);
+	}
+	
 	public String getText() {
 		return WidgetHandler.getInstance().getText(swtWidget);
 	}

@@ -29,6 +29,10 @@ public class DefaultText extends AbstractText implements Text {
 		this((ReferencedComposite) null);
 	}
 	
+	public DefaultText(org.eclipse.swt.widgets.Text widget){
+		super(widget);
+	}
+	
 	/**
 	 * Text with text value.
 	 *

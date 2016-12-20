@@ -46,6 +46,10 @@ public class DefaultExpandableComposite extends AbstractExpandableComposite {
 	public DefaultExpandableComposite() {
 		this(0);
 	}
+	
+	public DefaultExpandableComposite(ExpandableComposite widget) {
+		super(widget);
+	}
 
 	/**
 	 * Represents the first expandable composite inside the specified

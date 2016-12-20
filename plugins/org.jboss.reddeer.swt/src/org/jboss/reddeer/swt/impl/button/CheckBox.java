@@ -34,6 +34,10 @@ public class CheckBox extends AbstractButton {
 		this((ReferencedComposite) null);
 	}
 	
+	public CheckBox(org.eclipse.swt.widgets.Button widget){
+		super(widget);
+	}
+	
 	/**
 	 * Checkbox inside given referencedComposite.
 	 *

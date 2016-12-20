@@ -28,6 +28,10 @@ public class DefaultTable extends AbstractTable implements Table {
 		this((ReferencedComposite) null);
 	}
 	
+	public DefaultTable(org.eclipse.swt.widgets.Table widget){
+		super(widget);
+	}
+	
 	/**
 	 * Table with index 0 inside given composite.
 	 *

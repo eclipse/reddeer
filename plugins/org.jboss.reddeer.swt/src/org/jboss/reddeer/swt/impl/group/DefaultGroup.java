@@ -32,6 +32,10 @@ public class DefaultGroup extends AbstractWidget<Group> implements org.jboss.red
 	public DefaultGroup(){
 		this(null, 0);		
 	}
+	
+	public DefaultGroup(Group widget){
+		super(widget);
+	}
 
 	/**
 	 * Group inside given composite.

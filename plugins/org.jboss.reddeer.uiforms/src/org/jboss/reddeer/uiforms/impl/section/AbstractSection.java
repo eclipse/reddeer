@@ -38,6 +38,10 @@ public abstract class AbstractSection extends AbstractWidget<org.eclipse.ui.form
 		setFocus();
 	}
 	
+	protected AbstractSection(org.eclipse.ui.forms.widgets.Section widget){
+		super(widget);
+	}
+	
 	/* (non-Javadoc)
 	 * @see org.jboss.reddeer.core.reference.ReferencedComposite#getControl()
 	 */
