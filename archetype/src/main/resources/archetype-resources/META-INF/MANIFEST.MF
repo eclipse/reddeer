@@ -6,11 +6,6 @@
 #else 
 #set ($futureVersion = $version)
 #end
-#if ($reddeer_version == "2.0.0")
-#set ($rd_version = ';bundle-version="2.0.0"')
-#else
-#set ($rd_version = '')
-#end
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: ${artifactId} Reddeer Test
@@ -18,4 +13,4 @@ Bundle-SymbolicName: ${artifactId}
 Bundle-Version: ${futureVersion}.qualifier
 Bundle-Activator: ${package}.Activator
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
-Require-Bundle: org.jboss.reddeer.go${rd_version}
+Require-Bundle: org.jboss.reddeer.go
