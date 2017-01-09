@@ -7,7 +7,7 @@
  * 
  * Contributors: 
  * Red Hat, Inc. - initial API and implementation 
- ******************************************************************************/ 
+ ******************************************************************************/
 package org.jboss.reddeer.junit.runner;
 
 import java.util.ArrayList;
@@ -36,7 +36,8 @@ import org.junit.runners.model.RunnerBuilder;
 
 /**
  * 
- * Allows to run the tests (single or a suite) for each configuration file provided.
+ * Allows to run the tests (single or a suite) for each configuration file
+ * provided.
  * 
  * @author Lucia Jelinkova
  * 
@@ -52,40 +53,53 @@ public class RedDeerSuite extends Suite {
 	private static List<IBeforeTest> beforeTestExtensions = RedDeerSuite.initializeBeforeTestExtensions();
 
 	private static List<IAfterTest> afterTestExtensions = RedDeerSuite.initializeAfterTestExtensions();
-	
+
 	private static List<IIssueTracker> issueTrackerExtensions;
+	private String suiteName;
 
 	/**
 	 * Called by the JUnit framework.
 	 *
-	 * @param clazz the clazz
-	 * @param builder the builder
-	 * @throws InitializationError the initialization error
+	 * @param clazz
+	 *            the clazz
+	 * @param builder
+	 *            the builder
+	 * @throws InitializationError
+	 *             the initialization error
 	 */
 	public RedDeerSuite(Class<?> clazz, RunnerBuilder builder) throws InitializationError {
 		this(clazz, builder, new SuiteConfiguration());
 	}
 
 	/**
-	 * The {@link EmptySuite} makes sure that the @BeforeClass and @AfterClass are not called on the suite class too
-	 * often.
+	 * The {@link EmptySuite} makes sure that the @BeforeClass and @AfterClass
+	 * are not called on the suite class too often.
 	 *
-	 * @param clazz the clazz
-	 * @param builder the builder
-	 * @param config the config
-	 * @throws InitializationError the initialization error
+	 * @param clazz
+	 *            the clazz
+	 * @param builder
+	 *            the builder
+	 * @param config
+	 *            the config
+	 * @throws InitializationError
+	 *             the initialization error
 	 */
-	protected RedDeerSuite(Class<?> clazz, RunnerBuilder builder, SuiteConfiguration config) throws InitializationError {
+	protected RedDeerSuite(Class<?> clazz, RunnerBuilder builder, SuiteConfiguration config)
+			throws InitializationError {
 		super(EmptySuite.class, createSuite(clazz, config));
+		this.suiteName = clazz.getName();
 	}
 
 	/**
 	 * Creates a new suite for each configuration file found.
 	 *
-	 * @param clazz the clazz
-	 * @param config the config
+	 * @param clazz
+	 *            the clazz
+	 * @param config
+	 *            the config
 	 * @return the list
-	 * @throws InitializationError the initialization error
+	 * @throws InitializationError
+	 *             the initialization error
 	 */
 	public static List<Runner> createSuite(Class<?> clazz, SuiteConfiguration config) throws InitializationError {
 		log.info("Creating RedDeer suite...");
@@ -94,16 +108,15 @@ public class RedDeerSuite extends Suite {
 		boolean isSuite = isSuite(clazz);
 
 		for (TestRunConfiguration testRunConfig : config.getTestRunConfigurations()) {
-			log.info("Adding suite with name " + testRunConfig.getId() + " to RedDeer suite");
+			log.info("Adding config with name " + testRunConfig.getId() + " to RedDeer suite");
+			RequirementsRunnerBuilder reqRunnerBuilder = new RequirementsRunnerBuilder(testRunConfig, runListeners,
+					beforeTestExtensions, afterTestExtensions, testsManager);
 			if (isSuite) {
-				configuredSuites.add(new NamedSuite(clazz, new RequirementsRunnerBuilder(testRunConfig, runListeners,
-						beforeTestExtensions, afterTestExtensions, testsManager), testRunConfig.getId()));
+				configuredSuites.add(new NamedSuite(clazz, reqRunnerBuilder, testRunConfig.getId()));
 			} else {
-				configuredSuites.add(new NamedSuite(new Class[] { clazz }, new RequirementsRunnerBuilder(testRunConfig,
-						runListeners, beforeTestExtensions, afterTestExtensions, testsManager), testRunConfig.getId()));
+				configuredSuites.add(new NamedSuite(new Class[] { clazz }, reqRunnerBuilder, testRunConfig.getId()));
 			}
 		}
-
 		if (!testsManager.allTestsAreExecuted()) {
 			if (isSuite) {
 				configuredSuites.add(new TestsWithoutExecutionSuite(clazz, testsManager));
@@ -120,12 +133,14 @@ public class RedDeerSuite extends Suite {
 		return annotation != null;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.junit.runners.ParentRunner#getName()
 	 */
 	@Override
 	protected String getName() {
-		return "Red Deer Suite";
+		return suiteName;
 	}
 
 	/**
@@ -163,7 +178,7 @@ public class RedDeerSuite extends Suite {
 		}
 		return afterTestExts;
 	}
-	
+
 	/**
 	 * Gets a list of issue tracker extensions.
 	 * 
@@ -175,7 +190,7 @@ public class RedDeerSuite extends Suite {
 		}
 		return issueTrackerExtensions;
 	}
-	
+
 	/**
 	 * Initializes all Issue tracker extensions
 	 */

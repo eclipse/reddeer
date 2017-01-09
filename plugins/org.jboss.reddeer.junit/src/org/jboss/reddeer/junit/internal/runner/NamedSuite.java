@@ -23,6 +23,7 @@ import org.junit.runners.model.RunnerBuilder;
 public class NamedSuite extends Suite {
 	
 	private final String suiteName;
+	private final RunnerBuilder builder;
 
 	/**
 	 * Constructor used for suites. 
@@ -34,6 +35,7 @@ public class NamedSuite extends Suite {
 	 */
 	public NamedSuite(Class<?> clazz, RunnerBuilder builder, String name) throws InitializationError {
 		super(clazz, builder);
+		this.builder = builder;
 		this.suiteName = name;
 	}
 	
@@ -47,6 +49,7 @@ public class NamedSuite extends Suite {
 	 */
 	public NamedSuite(Class<?>[] classes, RunnerBuilder builder, String name) throws InitializationError {
 		super(builder, EmptySuite.class, classes);
+		this.builder = builder;
 		this.suiteName = name;
 	}
 	
@@ -64,5 +67,13 @@ public class NamedSuite extends Suite {
 	@Override
 	public String toString() {
 		return "Suite '" + suiteName + "'";
+	}
+	
+	/**
+	 * Gets runner builder
+	 * @return runner builder
+	 */
+	public RunnerBuilder getRunnerBuilder(){
+		return builder;
 	}
 }
