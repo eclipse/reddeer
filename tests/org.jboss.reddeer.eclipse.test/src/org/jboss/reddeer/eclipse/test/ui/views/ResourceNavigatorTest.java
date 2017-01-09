@@ -13,11 +13,11 @@ package org.jboss.reddeer.eclipse.test.ui.views;
 import static org.junit.Assert.assertTrue;
 
 import org.jboss.reddeer.eclipse.core.resources.Project;
+import org.jboss.reddeer.eclipse.core.resources.ProjectItem;
 import org.jboss.reddeer.eclipse.jdt.ui.NewJavaClassWizardDialog;
 import org.jboss.reddeer.eclipse.jdt.ui.NewJavaClassWizardPage;
 import org.jboss.reddeer.eclipse.jdt.ui.ide.NewJavaProjectWizardDialog;
 import org.jboss.reddeer.eclipse.jdt.ui.ide.NewJavaProjectWizardPage;
-import org.jboss.reddeer.eclipse.core.resources.ProjectItem;
 import org.jboss.reddeer.eclipse.ui.views.navigator.ResourceNavigator;
 import org.jboss.reddeer.eclipse.utils.DeleteUtils;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
@@ -68,9 +68,9 @@ public class ResourceNavigatorTest {
 		Project project = navigator.getProject(PROJECT_NAME);
 		ProjectItem item = project.getProjectItem(SOURCE_FOLDER);
 		for(String name : PACKAGE_NAME.split("[.]")) {
-			item = item.getChild(name);
+			item = item.getProjectItem(name);
 		}
-		item = item.getChild(CLASS_NAME+".java");
+		item = item.getProjectItem(CLASS_NAME+".java");
 	}
 
 	/**

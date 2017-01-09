@@ -13,7 +13,7 @@ package org.jboss.reddeer.eclipse.test.jdt.ui.dialogs;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import org.jboss.reddeer.eclipse.core.resources.Project;
+import org.jboss.reddeer.eclipse.core.resources.DefaultProject;
 import org.jboss.reddeer.eclipse.exception.EclipseLayerException;
 import org.jboss.reddeer.eclipse.jdt.ui.NewJavaClassWizardDialog;
 import org.jboss.reddeer.eclipse.jdt.ui.NewJavaClassWizardPage;
@@ -39,7 +39,7 @@ public class GenerateHashAndEqualsTest {
 		PackageExplorer pe = new PackageExplorer();
 		pe.open();
 		try{
-			Project testProject = pe.getProject("GenHashProject");
+			DefaultProject testProject = pe.getProject("GenHashProject");
 			DeleteUtils.forceProjectDeletion(testProject,true);
 		} catch (EclipseLayerException ele){
 			// do nothing

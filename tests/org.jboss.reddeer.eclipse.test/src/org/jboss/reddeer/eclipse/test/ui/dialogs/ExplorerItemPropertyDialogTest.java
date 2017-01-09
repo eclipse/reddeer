@@ -19,11 +19,11 @@ import org.jboss.reddeer.common.exception.WaitTimeoutExpiredException;
 import org.jboss.reddeer.common.wait.TimePeriod;
 import org.jboss.reddeer.common.wait.WaitUntil;
 import org.jboss.reddeer.core.condition.ShellWithTextIsAvailable;
-import org.jboss.reddeer.eclipse.core.resources.Project;
+import org.jboss.reddeer.eclipse.core.resources.DefaultProject;
 import org.jboss.reddeer.eclipse.jdt.ui.ide.NewJavaProjectWizardDialog;
 import org.jboss.reddeer.eclipse.jdt.ui.ide.NewJavaProjectWizardPage;
 import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.PackageExplorer;
-import org.jboss.reddeer.eclipse.ui.dialogs.ExplorerItemPropertyDialog;
+import org.jboss.reddeer.eclipse.ui.dialogs.ResourcePropertyDialog;
 import org.jboss.reddeer.eclipse.ui.dialogs.PropertyPage;
 import org.jboss.reddeer.eclipse.utils.DeleteUtils;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
@@ -41,9 +41,9 @@ public class ExplorerItemPropertyDialogTest {
 
 	private static final String PROJECT_NAME = "Property test project";
 
-	private static Project project;
+	private static DefaultProject project;
 
-	private ExplorerItemPropertyDialog dialog;
+	private ResourcePropertyDialog dialog;
 
 	private PropertyPage page;
 
@@ -62,7 +62,7 @@ public class ExplorerItemPropertyDialogTest {
 
 	@Before
 	public void setup() {
-		dialog = new ExplorerItemPropertyDialog(project);
+		dialog = new ResourcePropertyDialog(project);
 		page = new TestPropertyPageRedDeer();
 	}
 

@@ -74,9 +74,9 @@ public class WebProjectTest {
 		tp.setGenerateWebXmlDeploymentDescriptor(true);
 		ww.finish();
 		assertTrue(packageExplorer.containsProject(projectName));
-		assertTrue(packageExplorer.getProject(projectName).containsItem("source"));
-		assertFalse(packageExplorer.getProject(projectName).containsItem("src"));
-		assertTrue(packageExplorer.getProject(projectName).containsItem("WebContent","WEB-INF","web.xml"));
+		assertTrue(packageExplorer.getProject(projectName).containsResource("source"));
+		assertFalse(packageExplorer.getProject(projectName).containsResource("src"));
+		assertTrue(packageExplorer.getProject(projectName).containsResource("WebContent","WEB-INF","web.xml"));
 	}
 
 }

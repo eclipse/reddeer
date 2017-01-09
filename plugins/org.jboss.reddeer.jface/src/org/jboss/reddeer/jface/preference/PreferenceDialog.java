@@ -92,7 +92,7 @@ public abstract class PreferenceDialog {
 		TreeItem t = new DefaultTreeItem(path);
 		t.select();
 		
-		new WaitUntil(new WidgetIsFound<CLabel>(new WithTextMatcher(path[path.length-1])), TimePeriod.SHORT, false);
+		new WaitUntil(new WidgetIsFound(CLabel.class, new WithTextMatcher(path[path.length-1])), TimePeriod.SHORT, false);
 	}
 	
 	/**

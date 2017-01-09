@@ -1,5 +1,5 @@
 /******************************************************************************* 
- * Copyright (c) 2016 Red Hat, Inc. 
+ * Copyright (c) 2017 Red Hat, Inc. 
  * Distributed under license by Red Hat, Inc. All rights reserved. 
  * This program is made available under the terms of the 
  * Eclipse Public License v1.0 which accompanies this distribution, 
@@ -13,28 +13,19 @@ package org.jboss.reddeer.eclipse.core.resources;
 import org.jboss.reddeer.swt.api.TreeItem;
 
 /**
- * Represents an item in the explorer
+ * Represents a project with maven nature inside of explorer view.
  * 
- * @author Jan Richter
- *
+ * @author mlabuda@redhat.com
+ * @since 2.0
  */
-public class ExplorerItem extends AbstractExplorerItem{
+public class MavenProject extends DefaultProject {
 
-	/**
-	 * Creates {@link ExplorerItem}.
-	 *
-	 * @param treeItem the tree item
-	 */
-	public ExplorerItem(TreeItem treeItem) {
-		super(treeItem);
+	public MavenProject(TreeItem item) {
+		super(item);
 	}
-	
-	/* (non-Javadoc)
-	 * @see org.jboss.reddeer.eclipse.core.resources.AbstractExplorerItem#select()
-	 */
+
 	@Override
-	public void select() {
-		activateWrappingView();
-		treeItem.select();
+	public String[] getNatureIds() {
+		return new String[] { "org.eclipse.m2e.core.maven2Nature" };
 	}
 }

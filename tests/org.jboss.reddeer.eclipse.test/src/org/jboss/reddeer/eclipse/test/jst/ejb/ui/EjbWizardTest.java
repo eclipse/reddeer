@@ -12,7 +12,7 @@ package org.jboss.reddeer.eclipse.test.jst.ejb.ui;
 
 import static org.junit.Assert.assertTrue;
 
-import org.jboss.reddeer.eclipse.core.resources.Project;
+import org.jboss.reddeer.eclipse.core.resources.DefaultProject;
 import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.PackageExplorer;
 import org.jboss.reddeer.eclipse.jst.ejb.ui.EjbProjectFirstPage;
 import org.jboss.reddeer.eclipse.jst.ejb.ui.EjbProjectWizard;
@@ -32,7 +32,7 @@ public class EjbWizardTest {
 	public void delete(){
 		PackageExplorer pe = new PackageExplorer();
 		pe.open();
-		for(Project p: pe.getProjects()){
+		for(DefaultProject p: pe.getProjects()){
 			DeleteUtils.forceProjectDeletion(p,true);
 		}
 	}

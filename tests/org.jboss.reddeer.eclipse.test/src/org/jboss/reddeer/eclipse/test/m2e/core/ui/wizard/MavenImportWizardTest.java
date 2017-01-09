@@ -15,7 +15,7 @@ import static org.jboss.reddeer.eclipse.m2e.core.ui.wizard.MavenImportWizard.imp
 import java.io.File;
 import java.util.List;
 
-import org.jboss.reddeer.eclipse.core.resources.Project;
+import org.jboss.reddeer.eclipse.core.resources.DefaultProject;
 import org.jboss.reddeer.eclipse.jdt.ui.ProjectExplorer;
 import org.jboss.reddeer.eclipse.test.Activator;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
@@ -55,8 +55,8 @@ public class MavenImportWizardTest {
 	private void assertProject(String projectName) {
 		ProjectExplorer pe = new ProjectExplorer();
 		pe.open();
-		List<Project> projects = pe.getProjects();
-		for (Project project : projects) {
+		List<DefaultProject> projects = pe.getProjects();
+		for (DefaultProject project : projects) {
 			if (project.getName().equals(projectName)) {
 				return;
 			}

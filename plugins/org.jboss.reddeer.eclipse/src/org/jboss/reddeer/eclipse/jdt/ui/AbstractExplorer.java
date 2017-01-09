@@ -17,8 +17,9 @@ import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.common.wait.TimePeriod;
 import org.jboss.reddeer.common.wait.WaitWhile;
 import org.jboss.reddeer.eclipse.core.resources.AbstractProject;
-import org.jboss.reddeer.eclipse.core.resources.ExplorerItem;
-import org.jboss.reddeer.eclipse.core.resources.Project;
+import org.jboss.reddeer.eclipse.core.resources.DefaultProject;
+import org.jboss.reddeer.eclipse.core.resources.DefaultProjectItem;
+import org.jboss.reddeer.eclipse.core.resources.ProjectItem;
 import org.jboss.reddeer.eclipse.exception.EclipseLayerException;
 import org.jboss.reddeer.eclipse.utils.DeleteUtils;
 import org.jboss.reddeer.jface.viewer.handler.TreeViewerHandler;
@@ -67,10 +68,10 @@ public class AbstractExplorer extends WorkbenchView {
 	 * Selects all projects. If there are not projects do nothing.
 	 */
 	public void selectAllProjects(){
-		List<Project> projects = getProjects();
+		List<DefaultProject> projects = getProjects();
 		List<TreeItem> projectsItems = new ArrayList<TreeItem>();
 		if (projects.size() > 0) {
-			for (Project project: projects) {
+			for (DefaultProject project: projects) {
 				projectsItems.add(project.getTreeItem());
 			}
 		}
@@ -99,8 +100,8 @@ public class AbstractExplorer extends WorkbenchView {
 	 * 
 	 * @return list of projects in explorer
 	 */
-	public List<Project> getProjects(){
-		List<Project> projects = new ArrayList<Project>();
+	public List<DefaultProject> getProjects(){
+		List<DefaultProject> projects = new ArrayList<DefaultProject>();
 
 		TreeViewerHandler treeViewerHandler = TreeViewerHandler.getInstance();
 		
@@ -108,21 +109,21 @@ public class AbstractExplorer extends WorkbenchView {
 			String projectName = treeViewerHandler.getNonStyledText(item);
 			log.debug("Getting project with name "+projectName);
 			if (org.jboss.reddeer.direct.project.Project.isProject(projectName)) {
-				projects.add(new Project(item));
+				projects.add(new DefaultProject(item));
 			}
 		}
 		return projects;
 	}
 	
 	/**
-	 * Provides list of all items in explorer.
+	 * Provides list of all project items in the explorer.
 	 * @return list of explorer items
 	 */
-	public List<ExplorerItem> getExplorerItems() {
-		List<ExplorerItem> items = new ArrayList<ExplorerItem>();
+	public List<ProjectItem> getProjectItems() {
+		List<ProjectItem> items = new ArrayList<ProjectItem>();
 		
 		for (TreeItem item : getTree().getItems()) {
-			items.add(new ExplorerItem(item));
+			items.add(new DefaultProjectItem(item));
 		}		
 		return items;
 	}
@@ -175,9 +176,9 @@ public class AbstractExplorer extends WorkbenchView {
 	 * @param projectName name of a project
 	 * @return project with specified name
 	 */
-	public Project getProject(String projectName){
+	public DefaultProject getProject(String projectName){
 		activate();
-		for (Project project : getProjects()){
+		for (DefaultProject project : getProjects()){
 			if (project.getName().equals(projectName)){
 				return project;
 			}

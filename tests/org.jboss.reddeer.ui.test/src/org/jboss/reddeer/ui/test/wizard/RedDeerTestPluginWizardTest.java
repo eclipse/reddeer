@@ -20,7 +20,7 @@ import static org.junit.Assert.fail;
 import java.util.Collection;
 
 import org.jboss.reddeer.common.exception.RedDeerException;
-import org.jboss.reddeer.eclipse.core.resources.Project;
+import org.jboss.reddeer.eclipse.core.resources.DefaultProject;
 import org.jboss.reddeer.eclipse.jdt.ui.ProjectExplorer;
 import org.jboss.reddeer.eclipse.ui.views.contentoutline.OutlineView;
 import org.jboss.reddeer.swt.api.TreeItem;
@@ -69,7 +69,7 @@ public class RedDeerTestPluginWizardTest extends RedDeerWizardTestCase {
 		wizard.finish();
 
 		ProjectExplorer explorer = new ProjectExplorer();
-		Project project = null;
+		DefaultProject project = null;
 		try {
 			project = explorer.getProject(PLUGIN_ID);
 		} catch (RedDeerException ex) {
@@ -81,7 +81,7 @@ public class RedDeerTestPluginWizardTest extends RedDeerWizardTestCase {
 		checkExampleTest(project);
 	}
 	
-	private void checkExampleTest(Project project) {
+	private void checkExampleTest(DefaultProject project) {
 		project.getProjectItem("src", "org.reddeer.test", "RedDeerTest.java").open();
 		OutlineView view = new OutlineView();
 		view.open();
@@ -102,7 +102,7 @@ public class RedDeerTestPluginWizardTest extends RedDeerWizardTestCase {
 		assertNotNull("Cannot locate example test method", testMethod);
 	}
 
-	private void checkManifest(Project project) {
+	private void checkManifest(DefaultProject project) {
 		project.getProjectItem("META-INF", "MANIFEST.MF").open();
 		assertTrue(new LabeledText("ID:").getText().equals(PLUGIN_ID));
 		assertTrue(new LabeledText("Version:").getText().equals(VERSION));
@@ -110,15 +110,15 @@ public class RedDeerTestPluginWizardTest extends RedDeerWizardTestCase {
 		assertTrue(new LabeledText("Vendor:").getText().equals(PLUGIN_PROVIDER));
 	}
 	
-	private void checkProjectResources(Project project) {
-		assertTrue("Project does not contain build.properties file", project.containsItem("build.properties"));
+	private void checkProjectResources(DefaultProject project) {
+		assertTrue("Project does not contain build.properties file", project.containsResource("build.properties"));
 		assertTrue("Project does not contain pluginCustomization.ini file",
-				project.containsItem("pluginCustomization.ini"));
+				project.containsResource("pluginCustomization.ini"));
 		assertTrue("Project does not contain MANIFEST.MF file",
-				project.containsItem("META-INF", "MANIFEST.MF"));
+				project.containsResource("META-INF", "MANIFEST.MF"));
 		assertTrue("Project does not contain example test",
-				project.containsItem("src", "org.reddeer.test", "RedDeerTest.java"));
-		assertTrue("Project does not contain RedDeerTest.launch file", project.containsItem("RedDeerTest.launch"));
+				project.containsResource("src", "org.reddeer.test", "RedDeerTest.java"));
+		assertTrue("Project does not contain RedDeerTest.launch file", project.containsResource("RedDeerTest.launch"));
 	}
 
 	private void fillInWizard() {

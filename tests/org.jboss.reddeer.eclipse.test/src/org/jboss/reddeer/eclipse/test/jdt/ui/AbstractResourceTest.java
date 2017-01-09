@@ -12,19 +12,15 @@ package org.jboss.reddeer.eclipse.test.jdt.ui;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import java.io.File;
 import java.io.FileWriter;
-import java.util.List;
 
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.jboss.reddeer.common.wait.TimePeriod;
 import org.jboss.reddeer.common.wait.WaitWhile;
-import org.jboss.reddeer.workbench.core.condition.JobIsRunning;
-import org.jboss.reddeer.eclipse.core.resources.Project;
+import org.jboss.reddeer.eclipse.core.resources.DefaultProject;
 import org.jboss.reddeer.eclipse.core.resources.ProjectItem;
-import org.jboss.reddeer.eclipse.exception.EclipseLayerException;
 import org.jboss.reddeer.eclipse.jdt.ui.AbstractExplorer;
 import org.jboss.reddeer.eclipse.jdt.ui.NewJavaClassWizardDialog;
 import org.jboss.reddeer.eclipse.jdt.ui.NewJavaClassWizardPage;
@@ -37,6 +33,7 @@ import org.jboss.reddeer.eclipse.ui.perspectives.JavaPerspective;
 import org.jboss.reddeer.eclipse.utils.DeleteUtils;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.requirements.openperspective.OpenPerspectiveRequirement.OpenPerspective;
+import org.jboss.reddeer.workbench.core.condition.JobIsRunning;
 import org.jboss.reddeer.workbench.handler.EditorHandler;
 import org.jboss.reddeer.workbench.impl.editor.DefaultEditor;
 import org.junit.After;
@@ -48,7 +45,7 @@ import org.junit.runner.RunWith;
 
 @RunWith(RedDeerSuite.class)
 @OpenPerspective(JavaPerspective.class)
-public abstract class AbstractExplorerItemTest {
+public abstract class AbstractResourceTest {
 
 	public static final String PROJECT_NAME = "ProjectItemTestProject";
 	public static final String PROJECT_ITEM_TEXT = "src";
@@ -59,8 +56,8 @@ public abstract class AbstractExplorerItemTest {
 	protected static AbstractExplorer explorer;
 	protected ProjectItem projectItem;
 
-	public AbstractExplorerItemTest(AbstractExplorer explorer) {
-		AbstractExplorerItemTest.explorer=explorer;
+	public AbstractResourceTest(AbstractExplorer explorer) {
+		AbstractResourceTest.explorer=explorer;
 	}
 
 	@BeforeClass
@@ -114,7 +111,7 @@ public abstract class AbstractExplorerItemTest {
 
 	protected void selectNonVisibleItem(String... projectItemPath) {
 		explorer.activate();
-		Project project = explorer.getProject(PROJECT_NAME);
+		DefaultProject project = explorer.getProject(PROJECT_NAME);
 		project.getProjectItem(PROJECT_ITEM_TEXT).select();
 
 		EditorHandler.getInstance().closeAll(true);
@@ -142,11 +139,11 @@ public abstract class AbstractExplorerItemTest {
 		out.flush();
 		out.close();
 		// Delete the file
-		ProjectItem folder = explorer.getProject(PROJECT_NAME).getProjectItem(PROJECT_ITEM_TEXT).getChild("files");
+		ProjectItem folder = explorer.getProject(PROJECT_NAME).getProjectItem(PROJECT_ITEM_TEXT, "files");
 		folder.delete();
 		assertFalse("Project " + PROJECT_NAME + " contains project item " + PROJECT_ITEM_TEXT +
 				" but it should be deleted.",
-				explorer.getProject(PROJECT_NAME).getChild(PROJECT_ITEM_TEXT).containsItem("files"));
+				explorer.getProject(PROJECT_NAME).getProjectItem(PROJECT_ITEM_TEXT).containsResource("files"));
 	}
 	
 	@Test
@@ -158,27 +155,6 @@ public abstract class AbstractExplorerItemTest {
 		projectItem.expand();
 		assertTrue(projectItem.isExpanded());
 		assertTrue(projectItem.getTreeItem().isExpanded());
-	}
-
-	protected void getChild(String... pathToItem) {
-		explorer.getProject(PROJECT_NAME).getProjectItem(PROJECT_ITEM_TEXT).select();
-
-		try {
-			explorer.getProject(PROJECT_NAME).getProjectItem(pathToItem)
-			.getChild(JAVA_CLASS_FILE_NAME);
-		} catch (EclipseLayerException ex) {
-			fail("Child item " + JAVA_CLASS_FILE_NAME + " has not been found.");
-		}
-	}
-
-	protected void getChildren(String... pathToItem) {
-		explorer.getProject(PROJECT_NAME).getProjectItem(PROJECT_ITEM_TEXT).select();
-
-		List<ProjectItem> srcChildren = explorer.getProject(PROJECT_NAME).getProjectItem(pathToItem)
-				.getChildren();
-
-		assertTrue("There have to be 2 items presented, but number of items is " + srcChildren.size() + ".",
-				srcChildren.size() == 2);
 	}
 
 	protected static void createJavaClass(final String javaClassName) {

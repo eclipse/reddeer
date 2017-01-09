@@ -98,16 +98,12 @@ public class WidgetLookup {
 	public <T extends Widget> T activeWidget(ReferencedComposite refComposite, Class<T> clazz, int index, TimePeriod timePeriod, Matcher... matchers) {				
 		logger.debug("Looking up active widget with class type " + clazz.getName() +  ", index " + index + " and " + createMatcherDebugMsg(matchers));
 
-		ClassMatcher cm = new ClassMatcher(clazz);
-		Matcher[] allMatchers = MatcherBuilder.getInstance().addMatcher(matchers, cm);
-		AndMatcher am  = new AndMatcher(allMatchers);
-
 		Control parentControl = getParentControl(refComposite);
-		WidgetIsFound found = new WidgetIsFound(parentControl, index, am.getMatchers());
+		WidgetIsFound found = new WidgetIsFound(clazz, parentControl, index, matchers);
 		try{
 			new WaitUntil(found, timePeriod);
 		} catch (WaitTimeoutExpiredException ex){
-			String exceptionText = "No matching widget found with " + am.toString();
+			String exceptionText = "No matching widget found with " + found.getAndMatcher().toString();
 			exceptionText += "\n" + new DiagnosticTool().getDiagnosticInformation(parentControl);
 			logger.error("Active widget with class type " + clazz.getName() +  " and index " + index + " was not found");
 			throw new CoreLayerException(exceptionText, ex);

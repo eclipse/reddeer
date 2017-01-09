@@ -26,7 +26,7 @@ import org.jboss.reddeer.core.exception.CoreLayerException;
 import org.jboss.reddeer.core.lookup.ShellLookup;
 import org.jboss.reddeer.core.matcher.WithTextMatcher;
 import org.jboss.reddeer.core.reference.ReferencedComposite;
-import org.jboss.reddeer.eclipse.core.resources.Project;
+import org.jboss.reddeer.eclipse.core.resources.DefaultProject;
 import org.jboss.reddeer.swt.condition.ShellHasChildrenOrIsNotAvailable;
 import org.jboss.reddeer.swt.condition.ShellIsAvailable;
 import org.jboss.reddeer.swt.impl.button.PushButton;
@@ -75,7 +75,7 @@ public class DeleteUtils {
 	 * @param project the project
 	 * @param deleteFromFileSystem the delete from file system
 	 */
-	public static void forceProjectDeletion(Project project, boolean deleteFromFileSystem) {
+	public static void forceProjectDeletion(DefaultProject project, boolean deleteFromFileSystem) {
 		try {
 			project.delete(deleteFromFileSystem);
 		} catch (RedDeerException ele) {

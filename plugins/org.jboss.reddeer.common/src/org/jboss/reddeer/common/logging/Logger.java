@@ -36,7 +36,7 @@ public class Logger {
 	private static final String fatal = "FATAL";
 	private static final String step = "STEP";
 
-	private Class<? extends Object> loggerClass;
+	private Class<?> loggerClass;
 
 	/**
 	 * Returns logger based on given class.
@@ -44,7 +44,7 @@ public class Logger {
 	 * @param c given class
 	 * @return logger instance
 	 */
-	public static Logger getLogger(Class<? extends Object> c) {
+	public static Logger getLogger(Class<?> c) {
 		return new Logger(c);
 	}
 
@@ -53,7 +53,7 @@ public class Logger {
 	 *
 	 * @param c given class
 	 */
-	public Logger(Class<? extends Object> c) {
+	public Logger(Class<?> c) {
 		this.loggerClass = c;
 	}
 

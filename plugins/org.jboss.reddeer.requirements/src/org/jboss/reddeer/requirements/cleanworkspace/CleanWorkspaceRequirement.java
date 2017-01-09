@@ -18,7 +18,7 @@ import java.lang.annotation.Target;
 
 import org.jboss.reddeer.common.exception.RedDeerException;
 import org.jboss.reddeer.common.logging.Logger;
-import org.jboss.reddeer.eclipse.core.resources.Project;
+import org.jboss.reddeer.eclipse.core.resources.DefaultProject;
 import org.jboss.reddeer.eclipse.jdt.ui.ProjectExplorer;
 import org.jboss.reddeer.junit.requirement.Requirement;
 import org.jboss.reddeer.requirements.cleanworkspace.CleanWorkspaceRequirement.CleanWorkspace;
@@ -83,7 +83,7 @@ public class CleanWorkspaceRequirement implements Requirement<CleanWorkspace> {
 			log.debug("Exception was thrown:");
 			ex.printStackTrace();
 			log.debug("Delete projects via Eclipse API ");
-			for (Project project : pe.getProjects()){
+			for (DefaultProject project : pe.getProjects()){
 				org.jboss.reddeer.direct.project.Project.delete(project.getName(), true, true);
 			}
 		}

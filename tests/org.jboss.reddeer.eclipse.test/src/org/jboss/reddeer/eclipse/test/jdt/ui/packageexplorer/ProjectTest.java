@@ -13,7 +13,7 @@ package org.jboss.reddeer.eclipse.test.jdt.ui.packageexplorer;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import org.jboss.reddeer.eclipse.core.resources.Project;
+import org.jboss.reddeer.eclipse.core.resources.DefaultProject;
 import org.jboss.reddeer.eclipse.jdt.ui.ide.NewJavaProjectWizardDialog;
 import org.jboss.reddeer.eclipse.jdt.ui.ide.NewJavaProjectWizardPage;
 import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.PackageExplorer;
@@ -35,9 +35,9 @@ public class ProjectTest {
 	private static final String PROJECT_NAME_2 = "ProjectTestProject2";
 	private static final String PROJECT_NAME_3 = "ProjectTestProject3";
 	private static PackageExplorer packageExplorer;
-	private static Project project0;
-	private static Project project1;
-	private static Project project2;
+	private static DefaultProject project0;
+	private static DefaultProject project1;
+	private static DefaultProject project2;
 		
 	@BeforeClass
 	public static void setUp(){
@@ -79,8 +79,8 @@ public class ProjectTest {
 	
 	@Test
 	public void selectProjectItem(){
-		project1.getChild("src").select();
-		assertTrue(project1.getChild("src").isSelected());
+		project1.getProjectItem("src").select();
+		assertTrue(project1.getProjectItem("src").isSelected());
 		assertFalse(project1.isSelected());
 		project1.select();
 		assertTrue(project1.isSelected());
@@ -104,7 +104,7 @@ public class ProjectTest {
 	public static void tearDown() {
 		packageExplorer.close();
 		packageExplorer.open();
-		for (Project p : packageExplorer.getProjects()){
+		for (DefaultProject p : packageExplorer.getProjects()){
 			DeleteUtils.forceProjectDeletion(p, true);
 		}
 	}

@@ -11,29 +11,29 @@
 package org.jboss.reddeer.eclipse.ui.dialogs;
 
 import org.jboss.reddeer.common.logging.Logger;
-import org.jboss.reddeer.eclipse.core.resources.AbstractExplorerItem;
+import org.jboss.reddeer.eclipse.core.resources.Resource;
 import org.jboss.reddeer.swt.impl.menu.ContextMenu;
 
 /**
- * Represents property dialog that is open after right-click on explorer item and
+ * Represents property dialog that is open after right-click on a resource tree item and
  * select Properties context menu. 
  * 
  * @author Lucia Jelinkova
  *
  */
-public class ExplorerItemPropertyDialog extends PropertyDialog {
+public class ResourcePropertyDialog extends PropertyDialog {
 
-	private final Logger log = Logger.getLogger(ExplorerItemPropertyDialog.class);
+	private final Logger log = Logger.getLogger(ResourcePropertyDialog.class);
 	
-	private AbstractExplorerItem item;
+	private Resource resource;
 	
 	/**
 	 * Instantiates a new explorer item property dialog.
 	 *
 	 * @param item Explorer item to whom this dialog belongs
 	 */
-	public ExplorerItemPropertyDialog(AbstractExplorerItem item){
-		this.item = item;
+	public ResourcePropertyDialog(Resource resource){
+		this.resource = resource;
 	}
 	
 	/**
@@ -41,15 +41,12 @@ public class ExplorerItemPropertyDialog extends PropertyDialog {
 	 * <br />
 	 */
 	protected void openImpl(){
-		log.info("Open Properties for explorer item '" + item.getName() + "' by context menu");
-		item.select();
+		log.info("Open Properties for explorer item '" + resource.getName() + "' by context menu");
+		resource.select();
 		new ContextMenu("Properties").select();;
 	}
 	
-	/* (non-Javadoc)
-	 * @see org.jboss.reddeer.eclipse.ui.dialogs.PropertyDialog#getResourceName()
-	 */
 	protected String getResourceName() {
-		return item.getName();
+		return resource.getName();
 	}
 }

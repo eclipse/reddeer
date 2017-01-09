@@ -13,12 +13,12 @@ package org.jboss.reddeer.eclipse.core.resources;
 import org.jboss.reddeer.swt.api.TreeItem;
 
 /**
- * Represents Java project inside Project explorer, Package explorer or Resource Navigator.
+ * Represents Java project inside of explorer view.
  * 
  * @author mlabuda@redhat.com
  *
  */
-public class JavaProject extends Project {
+public class JavaProject extends DefaultProject {
 
 	/**
 	 * Creates object representing java project.
@@ -28,10 +28,7 @@ public class JavaProject extends Project {
 	public JavaProject(TreeItem item) {
 		super(item);
 	}
-	
-	/* (non-Javadoc)
-	 * @see org.jboss.reddeer.eclipse.core.resources.Project#getNatureIds()
-	 */
+
 	@Override
 	public String[] getNatureIds() {
 		return new String[] {"org.eclipse.jdt.core.javanature"};
