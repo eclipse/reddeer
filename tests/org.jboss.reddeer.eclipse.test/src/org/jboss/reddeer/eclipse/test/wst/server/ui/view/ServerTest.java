@@ -35,6 +35,7 @@ import org.jboss.reddeer.eclipse.wst.server.ui.wizard.ModifyModulesDialog;
 import org.jboss.reddeer.eclipse.wst.server.ui.wizard.ModifyModulesPage;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.junit.AfterClass;
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -47,7 +48,7 @@ public class ServerTest extends ServersViewTestCase {
 
 	private static final String SERVER_2 = "Server 2";
 
-	private static Server server1;
+	private Server server1;
 	
 	private static Server server2;
 
@@ -56,8 +57,8 @@ public class ServerTest extends ServersViewTestCase {
 		importProjects();
 	}
 
-	@BeforeClass
-	public static void createServers(){
+	@Before
+	public void createServers(){
 		createServer(SERVER_1);
 		server1 = getServersView().getServer(SERVER_1);
 	}
@@ -84,11 +85,14 @@ public class ServerTest extends ServersViewTestCase {
 			dialog.finish();
 		}
 		
+		server1.delete();
+		
 		try {
 			getServersView().getServer(SERVER_2).delete();
 		} catch (EclipseLayerException e) {
 			// ok, already deleted
 		}
+		
 		try {
 			new WaitUntil(new ShellWithTextIsAvailable(ModifyModulesDialog.DIALOG_TITLE), TimePeriod.NONE);
 			new DefaultShell(ModifyModulesDialog.DIALOG_TITLE).close();
@@ -202,9 +206,10 @@ public class ServerTest extends ServersViewTestCase {
 		createServer(SERVER_2);
 		server2 = getServersView().getServer(SERVER_2);
 		
+		System.out.println("saa");
 		server2.start();
 		server2.delete(false);
-
+		
 		List<Server> servers = getServersView().getServers();
 		assertThat(servers.size(), is(1));
 		assertThat(servers.get(0).getLabel().getName(), is(SERVER_1));
@@ -217,7 +222,7 @@ public class ServerTest extends ServersViewTestCase {
 		
 		server2.start();
 		server2.delete(true);
-
+		
 		List<Server> servers = getServersView().getServers();
 		assertThat(servers.size(), is(1));
 		assertThat(servers.get(0).getLabel().getName(), is(SERVER_1));
