@@ -15,7 +15,7 @@ Require-Bundle: org.eclipse.ui,
  org.jboss.reddeer.common;bundle-version="[2.0,2.1)",
  org.jboss.reddeer.core;bundle-version="[2.0,2.1)",
  org.jboss.reddeer.direct;bundle-version="[2.0,2.1)"
-Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
 Bundle-Vendor: JBoss by Red Hat
 Export-Package: org.jboss.reddeer.requirements.autobuilding,
