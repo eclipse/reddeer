@@ -10,7 +10,7 @@ Require-Bundle: org.jboss.reddeer.common;bundle-version="[2.0,2.1)",
  org.eclipse.core.runtime,
  org.hamcrest.core
 Bundle-ActivationPolicy: lazy
-Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Export-Package: org.jboss.reddeer.workbench.core.condition,
  org.jboss.reddeer.workbench.core.exception,
  org.jboss.reddeer.workbench.core.lookup
