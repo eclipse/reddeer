@@ -53,7 +53,7 @@ public static final File ZIP_FILE = new File(Activator.getTestResourcesLocation(
 		
 		PackageExplorer explorer = new PackageExplorer();
 		explorer.open();
-		explorer.getProject(PROJECT_NAME).getChild(FILE_NAME).open();
+		explorer.getProject(PROJECT_NAME).getProjectItem(FILE_NAME).open();
 		
 		XMLMultiPageEditor editor = new XMLMultiPageEditor(FILE_NAME);
 		page = editor.getDesignPage();

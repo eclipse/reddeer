@@ -64,7 +64,7 @@ public static final File ZIP_FILE = new File(Activator.getTestResourcesLocation(
 	
 	@Test
 	public void evaluateXPath(){
-		explorer.getProject(PROJECT_NAME).getChild(FILE_NAME).open();
+		explorer.getProject(PROJECT_NAME).getProjectItem(FILE_NAME).open();
 		
 		XMLMultiPageEditor editor = new XMLMultiPageEditor(FILE_NAME);
 		XMLSourcePage page = editor.getSourcePage();
@@ -75,7 +75,7 @@ public static final File ZIP_FILE = new File(Activator.getTestResourcesLocation(
 	
 	@Test
 	public void evaluateXPath_withNamespace(){
-		explorer.getProject(PROJECT_NAME).getChild(NAMESPACES_FILE_NAME).openWith("XML Editor");
+		explorer.getProject(PROJECT_NAME).getProjectItem(NAMESPACES_FILE_NAME).openWith("XML Editor");
 		
 		XMLMultiPageEditor editor = new XMLMultiPageEditor(NAMESPACES_FILE_NAME);
 		XMLSourcePage page = editor.getSourcePage();

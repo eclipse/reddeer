@@ -18,7 +18,6 @@ import org.jboss.reddeer.common.wait.WaitUntil;
 import org.jboss.reddeer.common.wait.WaitWhile;
 import org.jboss.reddeer.core.condition.WidgetIsFound;
 import org.jboss.reddeer.core.exception.CoreLayerException;
-import org.jboss.reddeer.core.matcher.ClassMatcher;
 import org.jboss.reddeer.eclipse.condition.ConsoleHasLabel;
 import org.jboss.reddeer.eclipse.condition.ConsoleHasLaunch;
 import org.jboss.reddeer.eclipse.condition.ConsoleIsTerminated;
@@ -51,9 +50,7 @@ public class ConsoleView extends WorkbenchView {
 	 */
 	public String getConsoleText() {
 		activate();
-		WidgetIsFound<org.eclipse.swt.custom.StyledText> widgetIsFound = 
-				new WidgetIsFound<org.eclipse.swt.custom.StyledText>(
-				new ClassMatcher(org.eclipse.swt.custom.StyledText.class));
+		WidgetIsFound widgetIsFound = new WidgetIsFound(org.eclipse.swt.custom.StyledText.class);
 		new WaitUntil(widgetIsFound, TimePeriod.NORMAL, false);
 		// Checck whether there is a console to display or not
 		if (widgetIsFound.getWidget() == null) {

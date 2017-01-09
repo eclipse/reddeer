@@ -15,7 +15,7 @@ import static org.hamcrest.core.Is.is;
 
 import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.PackageExplorer;
 import org.jboss.reddeer.eclipse.test.wst.server.ui.view.ServersViewTestCase;
-import org.jboss.reddeer.eclipse.ui.dialogs.ExplorerItemPropertyDialog;
+import org.jboss.reddeer.eclipse.ui.dialogs.ResourcePropertyDialog;
 import org.jboss.reddeer.eclipse.ui.wizards.datatransfer.ExternalProjectImportWizardDialog;
 import org.jboss.reddeer.eclipse.ui.wizards.datatransfer.WizardProjectsImportPage;
 import org.jboss.reddeer.eclipse.utils.DeleteUtils;
@@ -51,7 +51,7 @@ public class FacetsPropertyPageTest {
 
 	@After
 	public void cleanup() {
-		ExplorerItemPropertyDialog dialog = new ExplorerItemPropertyDialog(new PackageExplorer().getProject(PROJECT));
+		ResourcePropertyDialog dialog = new ResourcePropertyDialog(new PackageExplorer().getProject(PROJECT));
 		if (dialog.isOpen()) {
 			dialog.cancel();
 		}
@@ -62,7 +62,7 @@ public class FacetsPropertyPageTest {
 
 	@Test
 	public void selectFacet() {
-		ExplorerItemPropertyDialog dialog = new ExplorerItemPropertyDialog(new PackageExplorer().getProject(PROJECT));
+		ResourcePropertyDialog dialog = new ResourcePropertyDialog(new PackageExplorer().getProject(PROJECT));
 		FacetsPropertyPage facetsPage = new FacetsPropertyPage();
 		
 		dialog.open();
@@ -81,7 +81,7 @@ public class FacetsPropertyPageTest {
 
 	@Test
 	public void selectVersion() {
-		ExplorerItemPropertyDialog dialog = new ExplorerItemPropertyDialog(new PackageExplorer().getProject(PROJECT));
+		ResourcePropertyDialog dialog = new ResourcePropertyDialog(new PackageExplorer().getProject(PROJECT));
 		FacetsPropertyPage facetsPage = new FacetsPropertyPage();
 		
 		dialog.open();

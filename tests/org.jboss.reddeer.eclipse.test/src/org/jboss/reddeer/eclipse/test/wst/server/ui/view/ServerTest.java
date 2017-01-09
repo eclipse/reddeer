@@ -21,7 +21,7 @@ import org.jboss.reddeer.common.matcher.RegexMatcher;
 import org.jboss.reddeer.common.wait.TimePeriod;
 import org.jboss.reddeer.common.wait.WaitUntil;
 import org.jboss.reddeer.core.condition.ShellWithTextIsAvailable;
-import org.jboss.reddeer.eclipse.core.resources.Project;
+import org.jboss.reddeer.eclipse.core.resources.DefaultProject;
 import org.jboss.reddeer.eclipse.exception.EclipseLayerException;
 import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.PackageExplorer;
 import org.jboss.reddeer.eclipse.utils.DeleteUtils;
@@ -66,7 +66,7 @@ public class ServerTest extends ServersViewTestCase {
 	public static void removeProjects(){
 		PackageExplorer explorer = new PackageExplorer();
 		explorer.open();
-		for (Project project : explorer.getProjects()){
+		for (DefaultProject project : explorer.getProjects()){
 			DeleteUtils.forceProjectDeletion(project,true);
 		}
 	}

@@ -34,7 +34,6 @@
 		<module>features</module>
 		<module>site</module>
 		<module>archetype</module>
-		<module>snippets</module>
 	</modules>
 
 	<build>

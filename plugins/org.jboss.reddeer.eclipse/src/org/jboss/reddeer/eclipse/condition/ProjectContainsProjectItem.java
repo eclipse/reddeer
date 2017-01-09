@@ -11,7 +11,7 @@
 package org.jboss.reddeer.eclipse.condition;
 
 import org.jboss.reddeer.common.condition.AbstractWaitCondition;
-import org.jboss.reddeer.eclipse.core.resources.Project;
+import org.jboss.reddeer.eclipse.core.resources.DefaultProject;
 import org.jboss.reddeer.eclipse.exception.EclipseLayerException;
 
 /**
@@ -21,7 +21,7 @@ import org.jboss.reddeer.eclipse.exception.EclipseLayerException;
  */
 public class ProjectContainsProjectItem extends AbstractWaitCondition {
 	
-	private Project project;
+	private DefaultProject project;
 	private String[] path;
 	
 	/**
@@ -30,7 +30,7 @@ public class ProjectContainsProjectItem extends AbstractWaitCondition {
 	 * @param project to check
 	 * @param itemPath path of item (including item) to search for
 	 */
-	public ProjectContainsProjectItem(Project project, String... itemPath) {
+	public ProjectContainsProjectItem(DefaultProject project, String... itemPath) {
 		this.project = project;
 		this.path = itemPath;
 	}

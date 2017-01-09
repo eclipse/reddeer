@@ -18,11 +18,11 @@ import org.jboss.reddeer.common.exception.WaitTimeoutExpiredException;
 import org.jboss.reddeer.common.wait.TimePeriod;
 import org.jboss.reddeer.common.wait.WaitUntil;
 import org.jboss.reddeer.core.condition.ShellWithTextIsAvailable;
-import org.jboss.reddeer.eclipse.core.resources.Project;
+import org.jboss.reddeer.eclipse.core.resources.DefaultProject;
 import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.PackageExplorer;
 import org.jboss.reddeer.eclipse.test.wst.server.ui.TestServerRuntime;
 import org.jboss.reddeer.eclipse.test.wst.server.ui.view.ServersViewTestCase;
-import org.jboss.reddeer.eclipse.ui.dialogs.ExplorerItemPropertyDialog;
+import org.jboss.reddeer.eclipse.ui.dialogs.ResourcePropertyDialog;
 import org.jboss.reddeer.eclipse.ui.wizards.datatransfer.ExternalProjectImportWizardDialog;
 import org.jboss.reddeer.eclipse.ui.wizards.datatransfer.WizardProjectsImportPage;
 import org.jboss.reddeer.eclipse.utils.DeleteUtils;
@@ -44,9 +44,9 @@ public class RuntimesPropertyPageTest {
 
 	private static final String PROJECT = "server-project";
 	
-	private ExplorerItemPropertyDialog dialog;
+	private ResourcePropertyDialog dialog;
 	
-	private Project project;
+	private DefaultProject project;
 	
 	@Before
 	public void createProject(){
@@ -102,7 +102,7 @@ public class RuntimesPropertyPageTest {
 	
 	@Test
 	public void selectRuntime() {
-		dialog = new ExplorerItemPropertyDialog(getProject());
+		dialog = new ResourcePropertyDialog(getProject());
 		RuntimesPropertyPage propertyPage = new RuntimesPropertyPage();
 		
 		dialog.open();
@@ -116,7 +116,7 @@ public class RuntimesPropertyPageTest {
  		assertThat(propertyPage.getSelectedRuntimes().get(0), is(TestServerRuntime.NAME));
  	}
 	
-	public Project getProject() {
+	public DefaultProject getProject() {
 		if (project == null){
 			PackageExplorer packageExplorer = new PackageExplorer();
 			packageExplorer.open();

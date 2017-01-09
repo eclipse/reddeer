@@ -27,9 +27,6 @@ public abstract class PropertyDialog extends PreferenceDialog {
 	 */
 	protected abstract String getResourceName();
 	
-	/* (non-Javadoc)
-	 * @see org.jboss.reddeer.jface.preference.PreferenceDialog#getTitle()
-	 */
 	public String getTitle(){
 		return "Properties for " + getResourceName();
 	}

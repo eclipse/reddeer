@@ -22,6 +22,7 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.jboss.reddeer.common.wait.WaitWhile;
 import org.jboss.reddeer.workbench.core.condition.JobIsRunning;
+import org.jboss.reddeer.eclipse.core.resources.DefaultProject;
 import org.jboss.reddeer.eclipse.core.resources.Project;
 import org.jboss.reddeer.eclipse.jdt.ui.ProjectExplorer;
 import org.jboss.reddeer.eclipse.jdt.ui.ide.NewJavaProjectWizardDialog;
@@ -29,7 +30,7 @@ import org.jboss.reddeer.eclipse.jdt.ui.ide.NewJavaProjectWizardPage;
 import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.PackageExplorer;
 import org.jboss.reddeer.eclipse.jdt.ui.preferences.BuildPathsPropertyPage;
 import org.jboss.reddeer.eclipse.test.Activator;
-import org.jboss.reddeer.eclipse.ui.dialogs.ExplorerItemPropertyDialog;
+import org.jboss.reddeer.eclipse.ui.dialogs.ResourcePropertyDialog;
 import org.jboss.reddeer.eclipse.ui.perspectives.JavaPerspective;
 import org.jboss.reddeer.eclipse.utils.DeleteUtils;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
@@ -46,8 +47,8 @@ import org.junit.runner.RunWith;
 public class BuildPathsPropertyPageTest {
 
 	private static final String TEST_PROJECT_NAME = "buildpathspropertypagetest";
-	private Project project;
-	private ExplorerItemPropertyDialog propertiesDialog = null;
+	private DefaultProject project;
+	private ResourcePropertyDialog propertiesDialog = null;
 	private BuildPathsPropertyPage buildPathsPropertyPage = null;
 	
 	@BeforeClass
@@ -63,14 +64,14 @@ public class BuildPathsPropertyPageTest {
 	public static void teardownClass(){
 		ProjectExplorer pe = new ProjectExplorer();
 		pe.open();
-		for (Project p : pe.getProjects()){
+		for (DefaultProject p : pe.getProjects()){
 			DeleteUtils.forceProjectDeletion(p,true);
 		}
 	}
 	
 	@Before
 	public void setUp(){
-		propertiesDialog = new ExplorerItemPropertyDialog(getProject());
+		propertiesDialog = new ResourcePropertyDialog(getProject());
 		buildPathsPropertyPage = new BuildPathsPropertyPage();
 		propertiesDialog.open();
 		propertiesDialog.select(buildPathsPropertyPage);

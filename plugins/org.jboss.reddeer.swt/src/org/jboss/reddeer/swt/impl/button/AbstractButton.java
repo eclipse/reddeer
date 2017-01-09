@@ -52,7 +52,7 @@ public abstract class AbstractButton extends AbstractWidget<org.eclipse.swt.widg
         }   
 	}
 	
-	private static Matcher<?>[] createMatchers(int style, Matcher<?>... matchers) {
+	public static Matcher<?>[] createMatchers(int style, Matcher<?>... matchers) {
 		List<Matcher<?>> list= new ArrayList<Matcher<?>>();
 
 		list.add(new WithStyleMatcher(style));			

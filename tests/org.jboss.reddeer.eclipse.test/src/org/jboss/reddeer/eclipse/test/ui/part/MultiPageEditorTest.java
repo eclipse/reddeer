@@ -52,7 +52,7 @@ public class MultiPageEditorTest {
 		
 		PackageExplorer explorer = new PackageExplorer();
 		explorer.open();
-		explorer.getProject(PROJECT_NAME).getChild(FILE_NAME).open();
+		explorer.getProject(PROJECT_NAME).getProjectItem(FILE_NAME).open();
 		
 		editor = new MultiPageEditor(FILE_NAME);
 	}

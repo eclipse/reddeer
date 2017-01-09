@@ -15,7 +15,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 import java.util.List;
 
-import org.jboss.reddeer.eclipse.core.resources.Project;
+import org.jboss.reddeer.eclipse.core.resources.DefaultProject;
 import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.PackageExplorer;
 import org.jboss.reddeer.eclipse.utils.DeleteUtils;
 import org.jboss.reddeer.eclipse.wst.server.ui.view.Server;
@@ -48,7 +48,7 @@ public class ModifyModulesDialogTest extends ServersViewTestCase{
 	public static void removeProjects(){
 		PackageExplorer explorer = new PackageExplorer();
 		explorer.open();
-		for (Project project : explorer.getProjects()){
+		for (DefaultProject project : explorer.getProjects()){
 			DeleteUtils.forceProjectDeletion(project, true);
 		}
 	}

@@ -14,7 +14,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import org.jboss.reddeer.workbench.core.lookup.WorkbenchPartLookup;
-import org.jboss.reddeer.eclipse.core.resources.Project;
+import org.jboss.reddeer.eclipse.core.resources.DefaultProject;
 import org.jboss.reddeer.eclipse.jdt.ui.ide.NewJavaProjectWizardDialog;
 import org.jboss.reddeer.eclipse.jdt.ui.ide.NewJavaProjectWizardPage;
 import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.PackageExplorer;
@@ -32,9 +32,9 @@ public class PackageExplorerTest {
 	private static final String PROJECT_NAME_2 = "PackageExplorerTestProject2";
 	private static final String PROJECT_NAME_3 = "PackageExplorerTestProject3";
 	private static PackageExplorer packageExplorer;
-	private static Project project0;
-	private static Project project1;
-	private static Project project2;
+	private static DefaultProject project0;
+	private static DefaultProject project1;
+	private static DefaultProject project2;
 
 	@BeforeClass
 	public static void setUp() {
@@ -122,7 +122,7 @@ public class PackageExplorerTest {
 	@AfterClass
 	public static void tearDown() {
 		if (packageExplorer != null){
-			for (Project p : packageExplorer.getProjects()){
+			for (DefaultProject p : packageExplorer.getProjects()){
 				DeleteUtils.forceProjectDeletion(p, true);
 			}
 		}
