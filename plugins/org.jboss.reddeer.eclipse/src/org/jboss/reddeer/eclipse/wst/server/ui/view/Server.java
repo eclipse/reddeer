@@ -30,7 +30,9 @@ import org.jboss.reddeer.eclipse.wst.server.ui.editor.ServerEditor;
 import org.jboss.reddeer.eclipse.wst.server.ui.view.ServersViewEnums.ServerPublishState;
 import org.jboss.reddeer.eclipse.wst.server.ui.view.ServersViewEnums.ServerState;
 import org.jboss.reddeer.eclipse.wst.server.ui.wizard.ModifyModulesDialog;
+import org.jboss.reddeer.swt.api.Shell;
 import org.jboss.reddeer.swt.api.TreeItem;
+import org.jboss.reddeer.swt.condition.ShellIsAvailable;
 import org.jboss.reddeer.swt.impl.button.CheckBox;
 import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.menu.ContextMenu;
@@ -262,8 +264,9 @@ public class Server {
 		activate();
 		log.info("Clean server '" + getLabel().getName() + "'");
 		new ContextMenu("Clean...").select();
-		new DefaultShell("Server");
+		Shell serverShell = new DefaultShell("Server");
 		new PushButton("OK").click();
+		new WaitWhile(new ShellIsAvailable(serverShell));
 		waitForPublish();
 	}
 
@@ -288,11 +291,12 @@ public class Server {
 		ServerState state = getLabel().getState();
 
 		new ContextMenu("Delete").select();
-		new DefaultShell("Delete Server");
+		Shell deleteShell  =new DefaultShell("Delete Server");
 		if (!ServerState.STOPPED.equals(state) && !ServerState.NONE.equals(state)) {
 			new CheckBox().toggle(stopFirst);
 		}
 		new PushButton("OK").click();
+		new WaitWhile(new ShellIsAvailable(deleteShell));
 		new WaitWhile(new ServerExists(name), TIMEOUT);
 		new WaitWhile(new JobIsRunning(), TIMEOUT);
 	}
@@ -348,6 +352,7 @@ public class Server {
 		new WaitUntil(new JobIsRunning(), TIMEOUT);
 		new WaitWhile(new ServerHasPublishState(this, ServerPublishState.PUBLISHING), TIMEOUT);
 		new WaitUntil(new ServerHasPublishState(this, ServerPublishState.SYNCHRONIZED), TIMEOUT);
+		new WaitWhile(new JobIsRunning(), TIMEOUT);
 	}
 
 	/**
