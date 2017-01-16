@@ -75,19 +75,19 @@ public class ServerRequirement extends ServerReqBase
 	 */
 	@Override
 	public void fulfill() {
-		if(lastServerConfiguration == null || !isLastConfiguredServerPresent(lastServerConfiguration)) {
+		if(lastServerConfiguration == null || !isLastConfiguredServerPresent()) {
 			LOGGER.info("Setup server");
 			setupServerAdapter();
-			lastServerConfiguration = new ConfiguredServerInfo(getServerNameLabelText(config), config);
+			lastServerConfiguration = new ConfiguredServerInfo(getServerNameLabelText(), config);
 		}
-		setupServerState(server.state(), lastServerConfiguration);
+		setupServerState(server.state());
 	}
 
 	/* (non-Javadoc)
 	 * @see org.jboss.reddeer.requirements.server.ServerReqBase#getServerTypeLabelText(org.jboss.reddeer.requirements.server.IServerReqConfig)
 	 */
 	@Override
-	public String getServerTypeLabelText(IServerReqConfig config) {
+	public String getServerTypeLabelText() {
 		return config.getServerFamily().getLabel() + " v" + 
 				config.getServerFamily().getVersion() + " Server";
 	}
@@ -96,15 +96,15 @@ public class ServerRequirement extends ServerReqBase
 	 * @see org.jboss.reddeer.requirements.server.ServerReqBase#getServerNameLabelText(org.jboss.reddeer.requirements.server.IServerReqConfig)
 	 */
 	@Override
-	public String getServerNameLabelText(IServerReqConfig config) {
-		return getServerTypeLabelText(config) + " at localhost";
+	public String getServerNameLabelText() {
+		return getServerTypeLabelText() + " at localhost";
 	}
 
 	/* (non-Javadoc)
 	 * @see org.jboss.reddeer.requirements.server.ServerReqBase#getRuntimeNameLabelText(org.jboss.reddeer.requirements.server.IServerReqConfig)
 	 */
 	@Override
-	public String getRuntimeNameLabelText(IServerReqConfig config) {
+	public String getRuntimeNameLabelText() {
 		return config.getServerFamily().getCategory() + " " + 
 				config.getServerFamily().getLabel() + " v" + 
 				config.getServerFamily().getVersion() + " Runtime";
@@ -117,11 +117,11 @@ public class ServerRequirement extends ServerReqBase
 		
 		NewServerWizardPage swpage = new NewServerWizardPage();
 		
-		swpage.selectType(config.getServerFamily().getCategory(), getServerTypeLabelText(config));
-		swpage.setName(getServerNameLabelText(config));
+		swpage.selectType(config.getServerFamily().getCategory(), getServerTypeLabelText());
+		swpage.setName(getServerNameLabelText());
 		swd.next();
 		
-		new DefaultText(0).setText(getRuntimeNameLabelText(config));
+		new DefaultText(0).setText(getRuntimeNameLabelText());
 		new DefaultText(1).setText(config.getRuntime());
 	
 		swd.finish();
@@ -166,8 +166,13 @@ public class ServerRequirement extends ServerReqBase
 	@Override
 	public void cleanUp() {
 		if(server.cleanup() && config != null){
-			removeLastRequiredServerAndRuntime(lastServerConfiguration);
+			removeLastRequiredServerAndRuntime();
 			lastServerConfiguration = null;
 		}
+	}
+
+	@Override
+	public ConfiguredServerInfo getConfiguredConfig() {
+		return lastServerConfiguration;
 	}	
 }

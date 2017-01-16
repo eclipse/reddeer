@@ -48,10 +48,10 @@ public abstract class ServerReqBase {
 	 * @param lastServerConfig the last server config
 	 * @throws ConfiguredServerNotFoundException the configured server not found exception
 	 */
-	protected void setupServerState(ServerReqState requiredState, ConfiguredServerInfo lastServerConfig) throws ConfiguredServerNotFoundException {
-		LOGGER.info("Checking the state of the server '"+lastServerConfig.getServerName()+"'");
+	protected void setupServerState(ServerReqState requiredState) throws ConfiguredServerNotFoundException {
+		LOGGER.info("Checking the state of the server '"+getConfiguredConfig().getServerName()+"'");
 		
-		org.jboss.reddeer.eclipse.wst.server.ui.view.Server serverInView = getConfiguredServer(lastServerConfig);
+		org.jboss.reddeer.eclipse.wst.server.ui.view.Server serverInView = getConfiguredServer();
 		
 		ServerState state = serverInView.getLabel().getState();
 		switch(state) {
@@ -75,23 +75,23 @@ public abstract class ServerReqBase {
 	 * 
 	 * @param lastServerConfig Server information.
 	 */
-	protected void removeLastRequiredServerAndRuntime(ConfiguredServerInfo lastServerConfig) {
+	protected void removeLastRequiredServerAndRuntime() {
 		try {
-			org.jboss.reddeer.eclipse.wst.server.ui.view.Server serverInView = getConfiguredServer(lastServerConfig);
+			org.jboss.reddeer.eclipse.wst.server.ui.view.Server serverInView = getConfiguredServer();
 			//remove server added by last requirement
 			serverInView.delete(true);
-			removeRuntime(lastServerConfig);
+			removeRuntime();
 		} catch(ConfiguredServerNotFoundException e) {
 			//server had been already removed
 		}
 	}
 
-	private void removeRuntime(ConfiguredServerInfo lastServerConfig) {
+	private void removeRuntime() {
 		WorkbenchPreferenceDialog preferenceDialog = new WorkbenchPreferenceDialog();
 		preferenceDialog.open();
 		RuntimePreferencePage runtimePage = new RuntimePreferencePage();
 		preferenceDialog.select(runtimePage);
-		String runtimeName = getRuntimeNameLabelText(lastServerConfig.getConfig());
+		String runtimeName = getRuntimeNameLabelText();
 		runtimePage.removeRuntime(new Runtime(runtimeName, "test"));
 		preferenceDialog.ok();
 	}
@@ -103,13 +103,13 @@ public abstract class ServerReqBase {
 	 * @return the configured server
 	 * @throws ConfiguredServerNotFoundException the configured server not found exception
 	 */
-	protected org.jboss.reddeer.eclipse.wst.server.ui.view.Server getConfiguredServer(ConfiguredServerInfo lastServerConfig)
+	protected org.jboss.reddeer.eclipse.wst.server.ui.view.Server getConfiguredServer()
 			throws ConfiguredServerNotFoundException {
 		getServersView().open();
-		if(lastServerConfig == null){
+		if(getConfiguredConfig() == null){
 			throw new ConfiguredServerNotFoundException("Server has already been removed");
 		} 
-		final String serverName = lastServerConfig.getServerName();
+		final String serverName = getConfiguredConfig().getServerName();
 		try {
 			return getServersView().getServer(serverName);
 		} catch(EclipseLayerException e) {
@@ -124,9 +124,9 @@ public abstract class ServerReqBase {
 	 * @param lastServerConfig the last server config
 	 * @return true, if is last configured server present
 	 */
-	protected boolean isLastConfiguredServerPresent(ConfiguredServerInfo lastServerConfig) {
+	protected boolean isLastConfiguredServerPresent() {
 		try {
-			getConfiguredServer(lastServerConfig);
+			getConfiguredServer();
 		} catch(ConfiguredServerNotFoundException e) {
 			return false;
 		}
@@ -137,35 +137,29 @@ public abstract class ServerReqBase {
 	/**
 	 * Gets the server type label text.
 	 *
-	 * @param config - server requirement configuration which will be used
-	 * to return appropriate server type label text.
 	 * @return server type label text.
 	 */
-	public String getServerTypeLabelText(IServerReqConfig config) {
-		return config.getServerFamily().getLabel() + " "
-				+ config.getServerFamily().getVersion();
+	public String getServerTypeLabelText() {
+		return getConfig().getServerFamily().getLabel() + " "
+				+ getConfig().getServerFamily().getVersion();
 	}
 	
 	/**
 	 * Gets the server name label text.
 	 *
-	 * @param config - server requirement configuration which will be used
-	 * to return appropriate server name label text. 
 	 * @return server name label text
 	 */
-	public String getServerNameLabelText(IServerReqConfig config) {
-		return getServerTypeLabelText(config) + " Server";
+	public String getServerNameLabelText() {
+		return getServerTypeLabelText() + " Server";
 	}
 
 	/**
 	 * Gets the runtime name label text.
 	 *
-	 * @param config - server requirement configuration which will be used
-	 * to return appropriate runtime name label text. 
 	 * @return runtime name label text
 	 */
-	public String getRuntimeNameLabelText(IServerReqConfig config) {
-		return getServerTypeLabelText(config) + " Runtime";
+	public String getRuntimeNameLabelText() {
+		return getServerTypeLabelText() + " Runtime";
 	}
 
 	/**
@@ -188,7 +182,11 @@ public abstract class ServerReqBase {
 	 */
 	protected ServersView createServersView() {
 		return new ServersView();
-	}	
+	}
+	
+	public abstract IServerReqConfig getConfig();
+	
+	public abstract ConfiguredServerInfo getConfiguredConfig();
 
 	/**
 	 * Exception thrown when configured server was not found.

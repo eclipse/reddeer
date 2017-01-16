@@ -37,7 +37,7 @@ public class ServerRunningTest {
 		
 		ServersView sw = new ServersView();
 		sw.open();
-		Server s = sw.getServer(requirement.getServerNameLabelText(requirement.getConfig()));
+		Server s = sw.getServer(requirement.getServerNameLabelText());
 		assertTrue(s.getLabel().getState().equals(ServerState.STARTED));
 	}
 
