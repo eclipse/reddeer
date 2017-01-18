@@ -391,14 +391,14 @@ public class WidgetHandler {
 	}
 
 	/**
-	 * Force focus to SWT Widget. Use with caution
-	 * @param swtWidget SWT widget
+	 * Force focus to SWT Control. Use with caution
+	 * @param control SWT Control
 	 */
-	public boolean forceFocus(final org.eclipse.swt.widgets.Text swtWidget) {
+	public boolean forceFocus(final org.eclipse.swt.widgets.Control control) {
 		return Display.syncExec(new ResultRunnable<Boolean>() {
 			@Override
 			public Boolean run() {
-				boolean ret = swtWidget.forceFocus();
+				boolean ret = control.forceFocus();
 				return ret;
 			}
 		});		
