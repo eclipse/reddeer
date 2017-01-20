@@ -13,6 +13,9 @@
             class="org.jboss.reddeer.junit.extension.before.test.impl.SetOpenAssociatedPerspectiveExt">
       </client>
       <client
+            class="org.jboss.reddeer.junit.extension.before.test.impl.MaximizeAndFocusWorkbench">
+      </client>
+      <client
       		class="org.jboss.reddeer.junit.extension.log.collector.BeforesLogCollector">
       </client>
    </extension>

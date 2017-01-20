@@ -121,5 +121,45 @@ public abstract class AbstractShell implements Shell {
 	public boolean isDisposed() {
 		return WidgetHandler.getInstance().isDisposed(swtShell);
 	}
+	
+	/* (non-Javadoc)
+	 * @see @see org.jboss.reddeer.swt.api.Shell#isMaximized()
+	 */
+	@Override
+	public boolean isMaximized() {
+		return ShellHandler.getInstance().isMaximized(swtShell);
+	}
+	
+	/* (non-Javadoc)
+	 * @see @see org.jboss.reddeer.swt.api.Shell#isMinimized()
+	 */
+	@Override
+	public boolean isMinimized() {
+		return ShellHandler.getInstance().isMinimized(swtShell);
+	}
+	
+	/* (non-Javadoc)
+	 * @see @see org.jboss.reddeer.swt.api.Shell#maximize()
+	 */
+	@Override
+	public void maximize() {
+		ShellHandler.getInstance().maximize(swtShell);
+	}
+	
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.swt.api.Shell#minimize()
+	 */
+	@Override
+	public void minimize() {
+		ShellHandler.getInstance().minimize(swtShell);
+	}
+	
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.swt.api.Shell#restore()
+	 */
+	@Override
+	public void restore() {
+		ShellHandler.getInstance().restore(swtShell);
+	}
 
 }

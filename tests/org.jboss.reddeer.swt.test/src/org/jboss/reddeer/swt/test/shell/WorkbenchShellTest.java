@@ -31,6 +31,7 @@ public class WorkbenchShellTest {
 	@Test
 	public void maximizeWorkbenshShellTest() {
 		WorkbenchShell workbenchShell = new WorkbenchShell();
+		workbenchShell.restore();
 		assertFalse(workbenchShell.isMaximized());
 		workbenchShell.maximize();
 		assertTrue(workbenchShell.isMaximized());

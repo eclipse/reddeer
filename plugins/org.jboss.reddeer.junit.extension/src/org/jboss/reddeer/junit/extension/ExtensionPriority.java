@@ -19,6 +19,8 @@ package org.jboss.reddeer.junit.extension;
 public class ExtensionPriority {
 
 	// Before extensions priorities
+
+	public static final long MAXIMIZE_WORKBENCH = 10000000;
 	public static final long CLOSE_WELCOME_SCREEN_PRIORITY = 1000000;
 	public static final long SET_OPEN_ASSOCIATED_PERSPECTIVE_PRIORITY = 10000;
 	public static final long DO_NOT_DOWNLOAD_MAVEN_INDICES_PRIORITY = 1000;

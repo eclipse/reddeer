@@ -36,6 +36,8 @@ public enum RedDeerProperties {
 	DISABLE_MAVEN_REPOSITORY_DOWNLOAD("rd.disableMavenIndex", true),
 	
 	LOG_COLLECTOR_ENABLED("rd.logCollectorEnabled", true),
+	
+	MAXIMIZE_WORKBENCH_ENABLED("rd.maximizeWorkbench", true),
 
 	/**
 	 * System property pointing either to the configuration file or to the configuration directory. 
