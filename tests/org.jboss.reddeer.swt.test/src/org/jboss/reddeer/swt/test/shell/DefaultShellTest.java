@@ -16,11 +16,7 @@ import static org.junit.Assert.fail;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Label;
-import org.jboss.reddeer.common.exception.WaitTimeoutExpiredException;
 import org.jboss.reddeer.common.util.Display;
-import org.jboss.reddeer.common.wait.TimePeriod;
-import org.jboss.reddeer.common.wait.WaitUntil;
-import org.jboss.reddeer.core.condition.ShellWithTextIsAvailable;
 import org.jboss.reddeer.core.exception.CoreLayerException;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.swt.api.Shell;
@@ -97,6 +93,21 @@ public class DefaultShellTest {
 		assertTrue(shell1.getText().equals(""));
 	}
 	
+	@Test
+	public void manipulateShellTest(){
+		createSimpleShell("MaxMin");
+		shell1 = new DefaultShell("MaxMin");
+		shell1.maximize();
+		assertTrue(shell1.isMaximized());
+		shell1.restore();
+		assertFalse(shell1.isMaximized());
+		shell1.minimize();
+		assertTrue(shell1.isMinimized());
+		shell1.restore();
+		assertFalse(shell1.isMinimized());
+		
+	}
+	
 	private static void createSimpleShell(final String title) {
 		Display.syncExec(new Runnable() {
 
@@ -122,25 +133,5 @@ public class DefaultShellTest {
 		if (shell2 != null){
 			shell2.close();
 		}
-	}
-	
-	/**
-	 * Checks whether the shell with specified name is open.
-	 * Closes shell and return false, if is open. 
-	 * 
-	 * @param name Title of a shell
-	 * @return <b>true</b> - the shell is closed
-	 *         <b>false</b> - the shell was opened
-	 */
-	private boolean checkShell(String name) {
-		
-		try {
-			new WaitUntil(new ShellWithTextIsAvailable(name), TimePeriod.NONE);
-		} catch (WaitTimeoutExpiredException ex) {
-			return true;
-		}
-		
-		new DefaultShell().close();
-		return false;
 	}
 }

@@ -46,9 +46,37 @@ public interface Shell extends Widget, ReferencedComposite {
 	boolean isFocused();
 
 	/**
-	 * Closes the shell.
+	 * Closes the shell
 	 */
 	void close();
+	
+	
+	/**
+	 * Maximize shell
+	 */
+	void maximize();
+	
+	/**
+	 * Minimize shell
+	 */
+	void minimize();
+	
+	/**
+	 * Restore shell
+	 */
+	void restore();
+	
+	/**
+	 * Check if shell is maximized.
+	 * @return true if shell is maximized, false otherwise
+	 */
+	boolean isMaximized();
+	
+	/**
+	 * Check if shell is minimized.
+	 * @return true if shell is minimized, false otherwise
+	 */
+	boolean isMinimized();
 	
 	org.eclipse.swt.widgets.Shell getSWTWidget();
 

@@ -53,8 +53,10 @@ public class ShellHandler {
 	 * @param swtShell shell to close
 	 */
 	public void closeShell(final Shell swtShell) {
-
-		log.trace("Closing shell");
+		
+		if(!isDisposed(swtShell)){
+			log.info("Closing shell '" +WidgetHandler.getInstance().getText(swtShell)+ "'");
+		}
 		Display.syncExec(new Runnable() {
 			@Override
 			public void run() {
@@ -129,6 +131,74 @@ public class ShellHandler {
 			@Override
 			public Boolean run() {
 				return shell.isDisposed();
+			}
+		});
+	}
+	
+	/**
+	 * Maximize shell.
+	 */
+	public void maximize(final Shell swtShell) {
+		log.info("Maximize shell '" +WidgetHandler.getInstance().getText(swtShell)+ "'");
+		Display.syncExec(new Runnable() {
+
+			public void run() {
+				swtShell.setMaximized(true);
+			}
+		});
+	}
+	
+	/**
+	 * Minimize shell.
+	 */
+	public void minimize(final Shell swtShell) {
+		log.info("Minimize shell '" +WidgetHandler.getInstance().getText(swtShell)+ "'");
+		Display.syncExec(new Runnable() {
+
+			public void run() {
+				swtShell.setMinimized(true);
+			}
+		});
+	}
+
+	/**
+	 * Restore shell.
+	 */
+	public void restore(final Shell swtShell) {
+		log.info("Restore shell '" +WidgetHandler.getInstance().getText(swtShell)+ "'");
+		Display.syncExec(new Runnable() {
+
+			public void run() {
+				swtShell.setMaximized(false);
+				swtShell.setMinimized(false);
+			}
+		});
+	}
+
+	/**
+	 * Return true if shell is maximized, false otherwise.
+	 *
+	 * @return true if shell is maximized
+	 */
+	public boolean isMaximized(final Shell swtShell) {
+		return Display.syncExec(new ResultRunnable<Boolean>() {
+
+			public Boolean run() {
+				return swtShell.getMaximized();
+			}
+		});
+	}
+	
+	/**
+	 * Return true if shell is minimized, false otherwise.
+	 *
+	 * @return true if shell is minimized
+	 */
+	public boolean isMinimized(final Shell swtShell) {
+		return Display.syncExec(new ResultRunnable<Boolean>() {
+
+			public Boolean run() {
+				return swtShell.getMinimized();
 			}
 		});
 	}
