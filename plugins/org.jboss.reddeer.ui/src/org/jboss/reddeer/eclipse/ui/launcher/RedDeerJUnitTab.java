@@ -7,7 +7,7 @@
  * 
  * Contributors: 
  * Red Hat, Inc. - initial API and implementation 
- ******************************************************************************/ 
+ ******************************************************************************/
 package org.jboss.reddeer.eclipse.ui.launcher;
 
 import java.util.List;
@@ -24,21 +24,39 @@ import org.eclipse.jface.viewers.ColumnLayoutData;
 import org.eclipse.jface.viewers.ColumnViewer;
 import org.eclipse.jface.viewers.ColumnWeightData;
 import org.eclipse.jface.viewers.ComboBoxViewerCellEditor;
+import org.eclipse.jface.viewers.DialogCellEditor;
 import org.eclipse.jface.viewers.EditingSupport;
 import org.eclipse.jface.viewers.ICellEditorListener;
 import org.eclipse.jface.viewers.TableLayout;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.jface.viewers.TextCellEditor;
+import org.eclipse.jface.viewers.ViewerCell;
+import org.eclipse.jface.viewers.ViewerColumn;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.TableEditor;
+import org.eclipse.swt.events.FocusAdapter;
+import org.eclipse.swt.events.FocusEvent;
+import org.eclipse.swt.events.KeyAdapter;
+import org.eclipse.swt.events.KeyEvent;
+import org.eclipse.swt.events.MouseAdapter;
+import org.eclipse.swt.events.MouseEvent;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Table;
+import org.eclipse.swt.widgets.TableItem;
+import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.PlatformUI;
 import org.jboss.reddeer.common.exception.RedDeerException;
+import org.jboss.reddeer.common.properties.RedDeerProperties;
 import org.jboss.reddeer.common.properties.RedDeerPropertyType;
 
 /**
@@ -68,7 +86,6 @@ public class RedDeerJUnitTab extends AbstractLaunchConfigurationTab {
 		PlatformUI.getWorkbench().getHelpSystem().setHelp(getControl(), getHelpContextId());
 	}
 
-
 	@Override
 	public String getName() {
 		return "Red Deer";
@@ -77,7 +94,7 @@ public class RedDeerJUnitTab extends AbstractLaunchConfigurationTab {
 	@Override
 	public void initializeFrom(ILaunchConfiguration configuration) {
 		RedDeerLauncherProperties[] currentInput = RedDeerLauncherProperties.getInitialRedDeerLauncherProperties();
-		for (RedDeerLauncherProperties property : currentInput){
+		for (RedDeerLauncherProperties property : currentInput) {
 			try {
 				property.load(configuration);
 			} catch (CoreException e) {
@@ -90,8 +107,8 @@ public class RedDeerJUnitTab extends AbstractLaunchConfigurationTab {
 
 	@Override
 	public void performApply(ILaunchConfigurationWorkingCopy config) {
-		RedDeerJUnitTab.savePropertiesToLaunchConfiguration(config, 
-			(RedDeerLauncherProperties[]) propertiesViewer.getInput());
+		RedDeerJUnitTab.savePropertiesToLaunchConfiguration(config,
+				(RedDeerLauncherProperties[]) propertiesViewer.getInput());
 	}
 
 	/**
@@ -106,10 +123,11 @@ public class RedDeerJUnitTab extends AbstractLaunchConfigurationTab {
 			property.save(config);
 		}
 	}
-	
+
 	@Override
 	public void setDefaults(ILaunchConfigurationWorkingCopy config) {
-		// no need to set defaults to config, table is initialized with right values
+		// no need to set defaults to config, table is initialized with right
+		// values
 	}
 
 	@Override
@@ -118,15 +136,16 @@ public class RedDeerJUnitTab extends AbstractLaunchConfigurationTab {
 
 		try {
 			List<RedDeerLauncherProperties> properties = RedDeerLauncherProperties.loadAll(launchConfig);
-			for (RedDeerLauncherProperties property : properties){
+			for (RedDeerLauncherProperties property : properties) {
 				isDoubleDefined = isDoubleDefined || property.isDoubleDefined();
 			}
 		} catch (CoreException e) {
 			throw new RedDeerException("Cannot read launcher configuration");
 		}
 
-		if (isDoubleDefined){
-			setErrorMessage("Some RedDeer parameters are defined on Arguments tab, VM arguments section. You need to remove them.");
+		if (isDoubleDefined) {
+			setErrorMessage(
+					"Some RedDeer parameters are defined on Arguments tab, VM arguments section. You need to remove them.");
 		} else {
 			setErrorMessage(null);
 		}
@@ -134,22 +153,19 @@ public class RedDeerJUnitTab extends AbstractLaunchConfigurationTab {
 		return super.isValid(launchConfig) && !isDoubleDefined;
 	}
 
-	private void setLayout(Composite composite){
+	private void setLayout(Composite composite) {
 		GridLayout layout = new GridLayout(1, true);
 		GridData layoutData = new GridData(SWT.FILL, SWT.FILL, true, true);
 		composite.setLayout(layout);
 		composite.setLayoutData(layoutData);
 	}
 
-	private void setLayout(Table table){
+	private void setLayout(Table table) {
 		GridData gd = new GridData(GridData.FILL_BOTH);
 		gd.heightHint = 90;
 		table.setLayoutData(gd);
 
-		ColumnLayoutData[] layouts= {
-				new ColumnWeightData(150,150),
-				new ColumnWeightData(120,120)
-		};
+		ColumnLayoutData[] layouts = { new ColumnWeightData(150, 150), new ColumnWeightData(120, 120) };
 
 		TableLayout layout = new TableLayout();
 		for (int i = 0; i < layouts.length; i++) {
@@ -159,8 +175,8 @@ public class RedDeerJUnitTab extends AbstractLaunchConfigurationTab {
 	}
 
 	private TableViewer createPropertiesSection(Composite parent) {
-		TableViewer viewer = new TableViewer(parent, SWT.SINGLE | SWT.FULL_SELECTION | SWT.H_SCROLL
-				| SWT.V_SCROLL | SWT.BORDER);
+		TableViewer viewer = new TableViewer(parent,
+				SWT.SINGLE | SWT.FULL_SELECTION | SWT.H_SCROLL | SWT.V_SCROLL | SWT.BORDER);
 
 		Table table = viewer.getTable();
 		setLayout(table);
@@ -181,8 +197,8 @@ public class RedDeerJUnitTab extends AbstractLaunchConfigurationTab {
 		valueColumn.getColumn().setMoveable(true);
 		valueColumn.setEditingSupport(new RedDeerEditingSupport(viewer));
 
-		viewer.setContentProvider(new  ArrayContentProvider());
- 
+		viewer.setContentProvider(new ArrayContentProvider());
+
 		return viewer;
 	}
 
@@ -219,6 +235,13 @@ public class RedDeerJUnitTab extends AbstractLaunchConfigurationTab {
 			return null;
 		}
 	}
+	
+	private class CustomTextCellEditor extends TextCellEditor{
+		@Override
+		public Control createControl(Composite parent) {
+			return super.createControl(parent);
+		}
+	}
 
 	private class RedDeerEditingSupport extends EditingSupport {
 
@@ -233,19 +256,28 @@ public class RedDeerJUnitTab extends AbstractLaunchConfigurationTab {
 
 		@Override
 		protected CellEditor getCellEditor(Object element) {
-			if (element instanceof RedDeerLauncherProperties){
+			if (element instanceof RedDeerLauncherProperties) {
 				RedDeerLauncherProperties property = (RedDeerLauncherProperties) element;
-
-				if (property.getProperty().getType() == RedDeerPropertyType.TEXT){
+				RedDeerProperties prop = ((RedDeerLauncherProperties) element).getProperty();
+				
+				//use DialogTextEditor for directory properties 
+				if (prop.equals(RedDeerProperties.CONFIG_FILE)
+						|| prop.equals(RedDeerProperties.RELATIVE_SCREENSHOT_DIRECTORY)) {
+					
+					DialogTextEditor dte = new DialogTextEditor((Composite) getViewer().getControl());
+					dte.addListener(new CustomCellEditorListener(dte, element));
+					return dte;
+				} else if (property.getProperty().getType() == RedDeerPropertyType.TEXT) {
 					TextCellEditor te = new TextCellEditor((Composite) getViewer().getControl());
 					te.addListener(new CustomCellEditorListener(te, element));
 					return te;
-				} else if (property.getProperty().getType() == RedDeerPropertyType.FLOAT){
-						TextCellEditor te = new TextCellEditor((Composite) getViewer().getControl());
-						te.addListener(new CustomCellEditorListener(te, element));
-						return te;
+				} else if (property.getProperty().getType() == RedDeerPropertyType.FLOAT) {
+					TextCellEditor te = new TextCellEditor((Composite) getViewer().getControl());
+					te.addListener(new CustomCellEditorListener(te, element));
+					return te;
 				} else {
-					ComboBoxViewerCellEditor cellEditor = new ComboBoxViewerCellEditor((Composite) getViewer().getControl(), SWT.READ_ONLY);
+					ComboBoxViewerCellEditor cellEditor = new ComboBoxViewerCellEditor(
+							(Composite) getViewer().getControl(), SWT.READ_ONLY);
 					cellEditor.setLabelProvider(new ColumnLabelProvider());
 					cellEditor.setContentProvider(new ArrayContentProvider());
 					cellEditor.setInput(property.getProperty().getSupportedValues());
@@ -258,9 +290,9 @@ public class RedDeerJUnitTab extends AbstractLaunchConfigurationTab {
 
 		@Override
 		protected Object getValue(Object element) {
-			if (element instanceof RedDeerLauncherProperties){
+			if (element instanceof RedDeerLauncherProperties) {
 				RedDeerLauncherProperties property = (RedDeerLauncherProperties) element;
-				if(property.getCurrentValue() == null){
+				if (property.getCurrentValue() == null) {
 					return "";
 				}
 				return property.getCurrentValue();
@@ -271,9 +303,9 @@ public class RedDeerJUnitTab extends AbstractLaunchConfigurationTab {
 
 		@Override
 		protected void setValue(Object element, Object value) {
-			if (element instanceof RedDeerLauncherProperties){
+			if (element instanceof RedDeerLauncherProperties) {
 				RedDeerLauncherProperties property = (RedDeerLauncherProperties) element;
-				if(value == null || value.equals("")){
+				if (value == null || value.equals("")) {
 					property.setCurrentValue(null);
 				} else {
 					property.setCurrentValue(value.toString());
@@ -284,12 +316,12 @@ public class RedDeerJUnitTab extends AbstractLaunchConfigurationTab {
 			setDirty(true);
 			updateLaunchConfigurationDialog();
 		}
-		
-		private class CustomCellEditorListener implements ICellEditorListener{
-			
+
+		private class CustomCellEditorListener implements ICellEditorListener {
+
 			private CellEditor editor;
 			private Object element;
-			
+
 			public CustomCellEditorListener(CellEditor editor, Object element) {
 				this.editor = editor;
 				this.element = element;
@@ -297,19 +329,19 @@ public class RedDeerJUnitTab extends AbstractLaunchConfigurationTab {
 
 			@Override
 			public void applyEditorValue() {
-				
+
 			}
 
 			@Override
 			public void cancelEditor() {
-				
+
 			}
 
 			@Override
 			public void editorValueChanged(boolean arg0, boolean arg1) {
-				RedDeerEditingSupport.this.setValue(element,editor.getValue());
+				RedDeerEditingSupport.this.setValue(element, editor.getValue());
 			}
-			
+
 		}
 	}
 }
