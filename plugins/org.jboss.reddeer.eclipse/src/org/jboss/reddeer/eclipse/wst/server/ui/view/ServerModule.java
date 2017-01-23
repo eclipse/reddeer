@@ -15,12 +15,21 @@ import static org.jboss.reddeer.common.wait.WaitProvider.waitWhile;
 
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.common.wait.GroupWait;
+import org.jboss.reddeer.common.matcher.RegexMatcher;
+import org.jboss.reddeer.common.wait.TimePeriod;
+import org.jboss.reddeer.common.wait.WaitUntil;
+import org.jboss.reddeer.common.wait.WaitWhile;
+import org.jboss.reddeer.core.condition.ShellWithTextIsAvailable;
 import org.jboss.reddeer.core.condition.WidgetIsDisposed;
+import org.jboss.reddeer.core.matcher.WithTextMatcher;
+import org.jboss.reddeer.eclipse.condition.ServerModuleHasState;
 import org.jboss.reddeer.eclipse.exception.EclipseLayerException;
+import org.jboss.reddeer.eclipse.wst.server.ui.view.ServersViewEnums.ServerState;
 import org.jboss.reddeer.swt.api.Shell;
 import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.swt.condition.ShellIsAvailable;
 import org.jboss.reddeer.swt.impl.button.PushButton;
+import org.jboss.reddeer.swt.impl.menu.ContextMenu;
 import org.jboss.reddeer.swt.impl.menu.ShellMenu;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.jboss.reddeer.workbench.core.condition.JobIsRunning;
@@ -59,7 +68,7 @@ public class ServerModule {
 	 * @return the label
 	 */
 	public ModuleLabel getLabel() {
-		activate();
+		select();
 		return new ModuleLabel(treeItem);
 	}
 
@@ -67,7 +76,7 @@ public class ServerModule {
 	 * Removes the server module.
 	 */
 	public void remove(){
-		activate();
+		select();
 		if (treeItem == null) {
 			throw new EclipseLayerException("ServerModule was already removed");
 		}
@@ -78,6 +87,9 @@ public class ServerModule {
 		new GroupWait(waitWhile(new ShellIsAvailable(serverShell)),
 				waitWhile(new JobIsRunning()), waitUntil(new WidgetIsDisposed(treeItem.getSWTWidget())));
 		treeItem = null;
+		WithTextMatcher shellMatcher = new WithTextMatcher(new RegexMatcher("Publishing to .*"));
+		new WaitUntil(new ShellWithTextIsAvailable(shellMatcher), TimePeriod.NORMAL,false);
+		new WaitWhile(new ShellWithTextIsAvailable(shellMatcher), TimePeriod.LONG);
 	}
 	
 	/**
@@ -85,13 +97,77 @@ public class ServerModule {
 	 */
 	protected void activate(){
 		view.activate();
-		treeItem.select();
 	}
 	
 	/**
 	 * Select the server module
 	 */
 	public void select(){
+		activate();
 		treeItem.select();
 	}
+	
+	/**
+	 * Check if server module can be started (start menu item is enabled)
+	 * @return true if server module can be started, false otherwise
+	 */
+	public boolean canStart(){
+		select();
+		return new ContextMenu("Start").isEnabled();
+	}
+	
+	/**
+	 * Check if server module can be restarted (restart menu item is enabled)
+	 * @return true if server module can be restarted, false otherwise
+	 */
+	public boolean canRestart(){
+		select();
+		return new ContextMenu("Restart").isEnabled();
+	}
+	
+	/**
+	 * Check if server module can be stopped (stop menu item is enabled)
+	 * @return true if server module can be stopped, false otherwise
+	 */
+	public boolean canStop(){
+		select();
+		return new ContextMenu("Stop").isEnabled();
+	}
+	
+	/**
+	 * Start server module
+	 */
+	public void start(){
+		log.info("Start server module with name '" + getLabel().getName() + "'");
+		select();
+		new ContextMenu("Start").select();
+		new WaitWhile(new JobIsRunning());
+		new WaitUntil(new ServerModuleHasState(this, ServerState.STARTED));
+		new WaitWhile(new JobIsRunning());
+	}
+	
+	/**
+	 * Stop server module
+	 */
+	public void stop(){
+		log.info("Stop server module with name '" + getLabel().getName() + "'");
+		select();
+		new ContextMenu("Stop").select();
+		new WaitWhile(new JobIsRunning());
+		new WaitUntil(new ServerModuleHasState(this, ServerState.STOPPED));
+		new WaitWhile(new JobIsRunning());
+	}
+	
+	/**
+	 * Restart server module
+	 */
+	public void restart(){
+		log.info("Restart server module with name '" + getLabel().getName() + "'");
+		select();
+		new ContextMenu("Restart").select();
+		new WaitWhile(new JobIsRunning());
+		new WaitUntil(new ServerModuleHasState(this, ServerState.STARTED));
+		new WaitWhile(new JobIsRunning());
+	}
 }
+

@@ -10,12 +10,14 @@
  ******************************************************************************/ 
 package org.jboss.reddeer.eclipse.wst.server.ui.wizard;
 
-import org.jboss.reddeer.common.exception.RedDeerException;
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.common.wait.TimePeriod;
+import org.jboss.reddeer.common.wait.WaitUntil;
 import org.jboss.reddeer.common.wait.WaitWhile;
+import org.jboss.reddeer.core.handler.ShellHandler;
 import org.jboss.reddeer.jface.wizard.WizardDialog;
 import org.jboss.reddeer.swt.api.Shell;
+import org.jboss.reddeer.swt.condition.ShellHasChildrenOrIsNotAvailable;
 import org.jboss.reddeer.swt.condition.ShellIsAvailable;
 import org.jboss.reddeer.swt.impl.button.FinishButton;
 import org.jboss.reddeer.swt.impl.button.OkButton;
@@ -42,16 +44,13 @@ public class ModifyModulesDialog extends WizardDialog {
 		
 		Shell s = new DefaultShell(DIALOG_TITLE);
 		new FinishButton().click();
-		
-		try{
+		new WaitUntil(new ShellHasChildrenOrIsNotAvailable(s));
+		if(!ShellHandler.getInstance().isDisposed(s.getSWTWidget())){
 			Shell serverShell = new DefaultShell("Server");
 			new OkButton().click();
 			new WaitWhile(new ShellIsAvailable(serverShell));
-		} catch (RedDeerException e) {
-			log.debug("Dialog '"+DIALOG_TITLE+"' did not ask for confirmation");
+			new WaitWhile(new ShellIsAvailable(s), timeout);
 		}
-	
-		new WaitWhile(new ShellIsAvailable(s), timeout);
 		new WaitWhile(new JobIsRunning(), timeout);
 	}
 }
