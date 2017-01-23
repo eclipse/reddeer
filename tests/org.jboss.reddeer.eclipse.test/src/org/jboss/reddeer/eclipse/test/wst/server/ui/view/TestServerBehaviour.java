@@ -13,6 +13,7 @@ package org.jboss.reddeer.eclipse.test.wst.server.ui.view;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.debug.core.ILaunch;
+import org.eclipse.wst.server.core.IModule;
 import org.eclipse.wst.server.core.IServer;
 import org.eclipse.wst.server.core.model.ServerBehaviourDelegate;
 import org.jboss.reddeer.common.wait.AbstractWait;
@@ -41,7 +42,41 @@ public class TestServerBehaviour extends ServerBehaviourDelegate {
 	}
 
 	protected void publishServer(int kind, org.eclipse.core.runtime.IProgressMonitor monitor) throws org.eclipse.core.runtime.CoreException {
+		setServerPublishState(kind);
 		AbstractWait.sleep(TimePeriod.SHORT);
 		setServerPublishState(IServer.PUBLISH_STATE_NONE);
 	}
+	
+	@Override
+	public boolean canRestartModule(IModule[] module){
+		return true;
+	}
+	
+	@Override
+	public boolean canPublishModule(IModule[] module){
+		return true;
+	}
+	
+	@Override
+	public void startModule(IModule[] module, IProgressMonitor monitor) throws CoreException {
+		setModuleState(module, IServer.STATE_STARTING);
+		AbstractWait.sleep(TimePeriod.SHORT);
+		setModuleState(module, IServer.STATE_STARTED);
+	}
+	
+	@Override
+	public void restartModule(IModule[] module, IProgressMonitor monitor) throws CoreException {
+		setModuleState(module, IServer.STATE_STARTING);
+		AbstractWait.sleep(TimePeriod.SHORT);
+		setModuleState(module, IServer.STATE_STARTED);
+	}
+	
+	@Override
+	public void stopModule(IModule[] module, IProgressMonitor monitor) throws CoreException {
+		setModuleState(module, IServer.STATE_STOPPING);
+		AbstractWait.sleep(TimePeriod.SHORT);
+		setModuleState(module, IServer.STATE_STOPPED);
+	}
+	
+	
 }
