@@ -182,6 +182,7 @@ public abstract class AbstractWait {
 	 *            time period to sleep
 	 */
 	public static void sleep(TimePeriod timePeriod) {
+		log.debug("Wait "+timePeriod.getSeconds() +" seconds");
 		if (Thread.currentThread().equals(Display.getDisplay().getThread())) {
 			throw new RuntimeException("Tried to execute sleep in UI thread!");
 		}
