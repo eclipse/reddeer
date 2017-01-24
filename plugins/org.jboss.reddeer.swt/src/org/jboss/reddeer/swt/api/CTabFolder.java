@@ -25,4 +25,11 @@ public interface CTabFolder extends Widget {
 	 * @return selected tab within the folder
 	 */
 	CTabItem getSelection();
+	
+	/**
+	 * Gets tab item labels.
+	 * 
+	 * @return labels of the tab item
+	 */
+	String[] getTabItemLabels();
 }

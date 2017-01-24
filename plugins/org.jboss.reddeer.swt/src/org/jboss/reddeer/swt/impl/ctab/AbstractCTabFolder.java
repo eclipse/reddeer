@@ -11,6 +11,8 @@
 package org.jboss.reddeer.swt.impl.ctab;
 
 import org.hamcrest.Matcher;
+import org.jboss.reddeer.core.handler.CTabFolderHandler;
+import org.jboss.reddeer.core.handler.WidgetHandler;
 import org.jboss.reddeer.core.reference.ReferencedComposite;
 import org.jboss.reddeer.swt.api.CTabFolder;
 import org.jboss.reddeer.swt.api.CTabItem;
@@ -38,5 +40,18 @@ public class AbstractCTabFolder extends AbstractWidget<org.eclipse.swt.custom.CT
 	@Override
 	public CTabItem getSelection() {
 		return new DefaultCTabItem(swtWidget.getSelection());
+	}
+	
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.swt.api.TabFolder#getTabItemLabels()
+	 */
+	@Override
+	public String[] getTabItemLabels() {
+		org.eclipse.swt.custom.CTabItem[] tabItem = CTabFolderHandler.getInstance().getTabItems(swtWidget);
+		String[] tabItemLabel = new String[tabItem.length];
+		for (int i = 0; i < tabItem.length; i++) {
+			tabItemLabel[i] = WidgetHandler.getInstance().getText(tabItem[i]);
+		}
+		return tabItemLabel;
 	}
 }
