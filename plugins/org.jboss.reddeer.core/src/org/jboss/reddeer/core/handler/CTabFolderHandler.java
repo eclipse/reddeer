@@ -11,7 +11,9 @@
 package org.jboss.reddeer.core.handler;
 
 import org.eclipse.swt.custom.CTabFolder;
+import org.eclipse.swt.custom.CTabItem;
 import org.jboss.reddeer.common.util.Display;
+import org.jboss.reddeer.common.util.ResultRunnable;
 
 /**
  * Contains methods for handling UI operations on {@link CTabFolder} widgets.
@@ -52,4 +54,21 @@ public class CTabFolderHandler {
 			}
 		});
 	}
+	
+	/**
+	 * Gets tab items nested in specified {@link CTabFolder}.
+	 * 
+	 * @param tabFolder tab folder to handle
+	 * @return tab items nested in specified tab folder
+	 */
+	public CTabItem[] getTabItems(final CTabFolder tabFolder) {
+		return Display.syncExec(new ResultRunnable<CTabItem[]>() {
+			@Override
+			public CTabItem[] run() {
+				return tabFolder.getItems();
+			}
+		});
+	}
 }
+
+
