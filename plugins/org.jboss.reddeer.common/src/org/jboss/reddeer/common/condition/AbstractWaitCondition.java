@@ -17,6 +17,7 @@ package org.jboss.reddeer.common.condition;
  * simply calls the method description().
  * 
  * @author Andrej Podhradsky
+ * @contributor jkopriva@redhat.com
  *
  */
 public abstract class AbstractWaitCondition implements WaitCondition {
@@ -30,10 +31,18 @@ public abstract class AbstractWaitCondition implements WaitCondition {
 	}
 
 	/* (non-Javadoc)
-	 * @see org.jboss.reddeer.common.condition.WaitCondition#errorMessage()
+	 * @see org.jboss.reddeer.common.condition.WaitCondition#errorMessageWhile()
 	 */
 	@Override
-	public String errorMessage() {
+	public String errorMessageWhile() {
+		return description();
+	}
+	
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.common.condition.WaitCondition#errorMessageUntil()
+	 */
+	@Override
+	public String errorMessageUntil() {
 		return description();
 	}
 

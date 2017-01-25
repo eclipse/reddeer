@@ -14,30 +14,53 @@ import org.jboss.reddeer.common.condition.AbstractWaitCondition;
 import org.jboss.reddeer.eclipse.wst.server.ui.view.Server;
 import org.jboss.reddeer.eclipse.wst.server.ui.view.ServersViewEnums.ServerPublishState;
 
+/**
+ * 
+ * @author odockal
+ * @contributor jkopriva@redhat.com
+ *
+ */
+
 public class ServerHasPublishState extends AbstractWaitCondition {
 
-	private ServerPublishState expectedState;
+	private ServerPublishState expectedPublishState;
+	private ServerPublishState currentPublishState;
 	private Server server;
 
 	public ServerHasPublishState(Server server, ServerPublishState expectedState) {
-		this.expectedState = expectedState;
+		this.expectedPublishState = expectedState;
 		this.server = server;
 	}
 
 	@Override
 	public boolean test() {
-		return expectedState.equals(server.getLabel().getPublishState());
+		this.currentPublishState = server.getLabel().getPublishState();
+		return expectedPublishState.equals(this.currentPublishState);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.common.condition.AbstractWaitCondition#description()
+	 */
 	@Override
 	public String description() {
-		return "server's publish state is " + expectedState.getText();
+		return "server's publish state is '" + expectedPublishState.getText() + "'";
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.common.condition.AbstractWaitCondition#errorMessageUntil()
+	 */
 	@Override
-	public String errorMessage() {
-		return "Server expected state was " + expectedState.getText() + " but current state is "
-				+ server.getLabel().getPublishState().getText(); 
+	public String errorMessageUntil() {
+		return "Server still has publish state '" + expectedPublishState.getText() + "'";
+	}
+	
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.common.condition.AbstractWaitCondition#errorMessageWhile()
+	 */
+	@Override
+	public String errorMessageWhile() {
+		return "server expected state was '" + expectedPublishState.getText() + "' but current state is '"
+				+ currentPublishState.getText() + "'"; 
 	}
 
 }

@@ -10,6 +10,9 @@
  ******************************************************************************/ 
 package org.jboss.reddeer.eclipse.condition;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.jboss.reddeer.common.condition.AbstractWaitCondition;
 import org.jboss.reddeer.eclipse.jdt.ui.AbstractExplorer;
 import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.PackageExplorer;
@@ -17,6 +20,7 @@ import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.PackageExplorer;
 /**
  * Returns true if project exists in explorer
  * @author rawagner
+ * @contributor jkopriva@redhat.com
  *
  */
 public class ProjectExists extends AbstractWaitCondition{
@@ -59,5 +63,22 @@ public class ProjectExists extends AbstractWaitCondition{
 	@Override
 	public String description() {
 		return "Project "+projectName+" exists.";
+	}
+	
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.common.condition.WaitCondition#errorMessageWhile()
+	 */
+	@Override
+	public String errorMessageWhile() {
+		return "Project with name '" + projectName + "' still exists.";
+	}
+	
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.common.condition.WaitCondition#errorMessageUntil()
+	 */
+	@Override
+	public String errorMessageUntil() {
+		List<String> projects = explorer.getProjects().stream().map(it -> it.getName()).collect(Collectors.toList());
+		return "Project with name '" + projectName + "' does not exists. Existing projects: " + projects.toString();
 	}
 }

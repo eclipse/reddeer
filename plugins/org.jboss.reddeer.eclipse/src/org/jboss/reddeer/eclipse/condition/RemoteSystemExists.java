@@ -10,6 +10,9 @@
  ******************************************************************************/ 
 package org.jboss.reddeer.eclipse.condition;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.jboss.reddeer.common.condition.AbstractWaitCondition;
 import org.jboss.reddeer.common.exception.RedDeerException;
 import org.jboss.reddeer.eclipse.rse.ui.view.SystemView;
@@ -18,11 +21,13 @@ import org.jboss.reddeer.eclipse.rse.ui.view.SystemView;
  * Returns true, if there is remote system with specified name
  * 
  * @author Pavol Srna
+ * @contributor jkopriva@redhat.com
  *
  */
 public class RemoteSystemExists extends AbstractWaitCondition {
 
 	private String name;
+	private SystemView view;
 	
 	/**
 	 * Constructs the condition with a given text.
@@ -31,6 +36,7 @@ public class RemoteSystemExists extends AbstractWaitCondition {
 	 */
 	public RemoteSystemExists(String name) {
 		this.name = name;
+		this.view = new SystemView();
 	}
 
 	/* (non-Javadoc)
@@ -39,7 +45,7 @@ public class RemoteSystemExists extends AbstractWaitCondition {
 	@Override
 	public boolean test() {
 		try{
-			new SystemView().getSystem(this.name);
+			view.getSystem(this.name);
 			return true;
 		} catch (RedDeerException rde){
 			return false;
@@ -52,6 +58,23 @@ public class RemoteSystemExists extends AbstractWaitCondition {
 	@Override
 	public String description() {
 		return "there is remote system with name: " + this.name;
+	}
+	
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.common.condition.WaitCondition#errorMessage()
+	 */
+	@Override
+	public String errorMessageWhile() {
+		return "system with name: '" + this.name + "' has been found.";
+	}
+	
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.common.condition.WaitCondition#errorMessage()
+	 */
+	@Override
+	public String errorMessageUntil() {
+		List<String> systems = view.getSystems().stream().map(it -> it.getLabel()).collect(Collectors.toList());
+		return "system with name: '" + this.name + "' has not been found. Existing systems: " + systems.toString();
 	}
 	
 }

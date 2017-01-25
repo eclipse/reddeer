@@ -11,6 +11,7 @@
 package org.jboss.reddeer.common.wait;
 
 import org.jboss.reddeer.common.condition.WaitCondition;
+import org.jboss.reddeer.common.exception.WaitTimeoutExpiredException;
 import org.jboss.reddeer.common.wait.AbstractWait;
 import org.jboss.reddeer.common.wait.TimePeriod;
 
@@ -20,6 +21,7 @@ import org.jboss.reddeer.common.wait.TimePeriod;
  * 
  * @author Vlado Pakan
  * @author Lucia Jelinkova
+ * @contributor jkopriva@redhat.com
  * 
  */
 public class WaitUntil extends AbstractWait {
@@ -96,5 +98,20 @@ public class WaitUntil extends AbstractWait {
 	@Override
 	protected String description() {
 		return "Waiting until ";
+	}
+	
+	/**
+	 * Throws an exception, if timeout exceeded and creates error message. 
+	 * Calls errorMessageUntil of condition.
+	 * 
+	 * @param timeout
+	 *            exceeded timeout
+	 * @param condition
+	 *            failed wait condition
+	 */
+	@Override
+	protected void throwWaitTimeOutException(TimePeriod timeout, WaitCondition condition) {
+		throw new WaitTimeoutExpiredException(
+				"Timeout after: " + timeout.getSeconds() + " s.: " + condition.errorMessageUntil());
 	}
 }

@@ -20,6 +20,8 @@ import org.jboss.reddeer.common.condition.AbstractWaitCondition;
  * Condition is met when thread with matching name has required state
  * 
  * @author vlado pakan
+ * @contributor jkopriva@redhat.com
+ * 
  */
 public class NamedThreadHasStatus extends AbstractWaitCondition {
 
@@ -70,19 +72,36 @@ public class NamedThreadHasStatus extends AbstractWaitCondition {
 	}
 
 	/* (non-Javadoc)
-	 * @see org.jboss.reddeer.common.condition.AbstractWaitCondition#errorMessage()
+	 * @see org.jboss.reddeer.common.condition.AbstractWaitCondition#errorMessageWhile()
 	 */
 	@Override
-	public String errorMessage() {
-		StringBuilder msg = new StringBuilder("The following threads are avaiable:\n");
+	public String errorMessageWhile() {
+		return createErrorMessageWithThreadList("The following threads are still available:\n");
+	}
+	
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.common.condition.AbstractWaitCondition#errorMessageUntil()
+	 */
+	@Override
+	public String errorMessageUntil() {
+		return createErrorMessageWithThreadList("The threads have not been found.The following threads are available:\n");
+	}
+	
+	/**
+	 * Creates error message for methods errorMessageWhile() and errorMessageUntil() with job names.
+	 * 
+	 * @param messageStart start of the error message with job list
+	 */
+	private String createErrorMessageWithThreadList(String messageStart){
+		StringBuilder message = new StringBuilder(messageStart);
 		for (Thread thread : currentThreads){
 			if (thread != null){
-				msg.append(thread.getName());
-				msg.append(":");
-				msg.append(thread.getState());
-				msg.append("\n");
+				message.append(thread.getName());
+				message.append(":");
+				message.append(thread.getState());
+				message.append("\n");
 			}
 		}
-		return msg.toString();
+		return message.toString();
 	}
 }

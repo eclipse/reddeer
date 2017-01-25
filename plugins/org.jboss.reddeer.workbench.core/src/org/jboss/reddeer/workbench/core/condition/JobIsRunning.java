@@ -163,12 +163,29 @@ public class JobIsRunning extends AbstractWaitCondition {
 	}
 
 	/* (non-Javadoc)
-	 * @see org.jboss.reddeer.common.condition.AbstractWaitCondition#errorMessage()
+	 * @see org.jboss.reddeer.common.condition.AbstractWaitCondition#errorMessageWhile()
+	 */
+	@Override
+	public String errorMessageWhile() {
+		return createErrorMesssageWithJobsList("The following jobs are still running:\n");
+	}
+	
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.common.condition.AbstractWaitCondition#errorMessageUntil()
+	 */
+	@Override
+	public String errorMessageUntil() {
+		return createErrorMesssageWithJobsList("The following jobs are not running:\n");
+	}
+	
+	/**
+	 * Creates error message for methods errorMessageWhile() and errorMessageUntil() with job names.
+	 * 
+	 * @param messageStart start of the error message with job list
 	 */
 	@SuppressWarnings("unchecked")
-	@Override
-	public String errorMessage() {
-		StringBuilder msg = new StringBuilder("The following jobs are still running\n");
+	private String createErrorMesssageWithJobsList(String messageStart){
+		StringBuilder msg = new StringBuilder(messageStart);
 		for (Job job: currentJobs) {
 			if (excludeJobs != null && CoreMatchers.anyOf(excludeJobs).matches(job.getName()))
 				continue;

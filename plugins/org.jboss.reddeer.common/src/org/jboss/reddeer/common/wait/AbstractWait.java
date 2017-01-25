@@ -21,6 +21,7 @@ import org.jboss.reddeer.common.util.Display;
  * 
  * @author Vlado Pakan
  * @author Lucia Jelinkova
+ * @contributor jkopriva@redhat.com
  * 
  */
 public abstract class AbstractWait {
@@ -197,13 +198,27 @@ public abstract class AbstractWait {
 		if (System.currentTimeMillis() > limit) {
 			if (throwTimeoutException()) {
 				log.debug(this.description() + condition.description() + " failed, an exception will be thrown");
-				throw new WaitTimeoutExpiredException(
-						"Timeout after: " + timeout.getSeconds() + " s.: " + condition.errorMessage());
+				throwWaitTimeOutException(timeout, condition);
 			} else {
 				log.debug(this.description() + condition.description() + " failed, NO exception will be thrown");
 				return true;
 			}
 		}
 		return false;
+	}
+	
+	/**
+	 * Throws an exception, if timeout has exceeded and creates error message. Calls
+	 * condtion's method description - this method is overridden with more
+	 * specific error message call in WaitWhile/WaitUntil.
+	 * 
+	 * @param timeout
+	 *            exceeded timeout
+	 * @param condition
+	 *            failed wait condition
+	 */
+	protected void throwWaitTimeOutException(TimePeriod timeout, WaitCondition condition) {
+		throw new WaitTimeoutExpiredException(
+				"Timeout after: " + timeout.getSeconds() + " s.: " + condition.description());
 	}
 }

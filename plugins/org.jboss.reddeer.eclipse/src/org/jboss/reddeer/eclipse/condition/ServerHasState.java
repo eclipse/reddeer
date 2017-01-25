@@ -17,11 +17,14 @@ import org.jboss.reddeer.eclipse.wst.server.ui.view.ServersViewEnums.ServerState
 /**
  * 
  * @author odockal
+ * @contributor jkopriva@redhat.com
  *
  */
+
 public class ServerHasState extends AbstractWaitCondition {
 
 	private ServerState expectedState;
+	private ServerState currentState;
 	private Server server;
 
 	public ServerHasState(Server server, ServerState expectedState) {
@@ -31,18 +34,33 @@ public class ServerHasState extends AbstractWaitCondition {
 
 	@Override
 	public boolean test() {
-		return expectedState.equals(server.getLabel().getState());
+		this.currentState = server.getLabel().getState();
+		return expectedState.equals(this.currentState);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.common.condition.AbstractWaitCondition#description()
+	 */
 	@Override
 	public String description() {
 		return "server's state is: " + expectedState.getText();
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.common.condition.AbstractWaitCondition#errorMessageWhile()
+	 */
 	@Override
-	public String errorMessage() {
-		return "Server expected state was " + expectedState.getText() + " but current state is "
-				+ server.getLabel().getState().getText(); 
+	public String errorMessageWhile() {
+		return "Server still has state '" + currentState.getText() + "'"; 
+	}
+	
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.common.condition.AbstractWaitCondition#errorMessageUntil()
+	 */
+	@Override
+	public String errorMessageUntil() {
+		return "server state was '" + currentState.getText() + "'" + " but expected state is '"
+				+ expectedState.getText() + "'"; 
 	}
 
 }

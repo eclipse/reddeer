@@ -183,14 +183,28 @@ public abstract class LaunchConfigurationDialog {
 			return item.isSelected();
 		}
 
+		/* (non-Javadoc)
+		 * @see org.jboss.reddeer.common.condition.AbstractWaitCondition#description()
+		 */
 		@Override
 		public String description() {
 			return "Tree has focus and TreeItem "+item.getText()+" is selected";
 		}
 
+		/* (non-Javadoc)
+		 * @see org.jboss.reddeer.common.condition.AbstractWaitCondition#errorMessageWhile()
+		 */
 		@Override
-		public String errorMessage() {
-			return "Tree does not has focus or TreeItem "+item.getText()+" is not selected";
+		public String errorMessageWhile() {
+			return "TreeItem '" + item.getText() + "' has focus and is selected ";
+		}
+		
+		/* (non-Javadoc)
+		 * @see org.jboss.reddeer.common.condition.AbstractWaitCondition#errorMessageUntil()
+		 */
+		@Override
+		public String errorMessageUntil() {
+			return "Tree does not has focus or TreeItem '"+item.getText()+"' is not selected";
 		}
 		
 	}
