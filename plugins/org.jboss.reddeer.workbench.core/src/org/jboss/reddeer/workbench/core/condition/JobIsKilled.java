@@ -55,14 +55,28 @@ public class JobIsKilled extends AbstractWaitCondition {
 		return killedJobs.equals(jobsToBeKilled);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.common.condition.AbstractWaitCondition#description()
+	 */
 	@Override
 	public String description() {
 		return "at least one job is waiting for killing";
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.common.condition.AbstractWaitCondition#errorMessageWhile()
+	 */
 	@Override
-	public String errorMessage() {
+	public String errorMessageWhile() {
 		return "The following jobs were not killed " + jobsToBeKilled;
+	}
+	
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.common.condition.AbstractWaitCondition#errorMessageUntil()
+	 */
+	@Override
+	public String errorMessageUntil() {
+		return "The following jobs has not been found: " + jobsToBeKilled;
 	}
 
 }

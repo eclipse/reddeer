@@ -14,6 +14,8 @@ package org.jboss.reddeer.common.condition;
  * Interface WaitCondition offers API for wait conditions. 
  * 
  * @author mlabuda
+ * @contributor jkopriva@redhat.com
+ * 
  */
 public interface WaitCondition {
 
@@ -32,12 +34,22 @@ public interface WaitCondition {
 	 */
 	String description();
 	
-
 	/**
-	 * Gets error message if the condition fails. This is 
-	 * useful in logging.
+	 * Gets error message if the condition fails in WaitWhile. Should be used when user wants
+	 * to distinguish error messages when calling from WaitWhile or WaitUntil.
+	 * This is useful in logging.
 	 * 
 	 * @return description of specific wait condition
 	 */
-	String errorMessage();
+	String errorMessageWhile();
+
+	/**
+	 * Gets error message if the condition fails in WaitUntil. Should be used when user wants
+	 * to distinguish error messages when calling from WaitWhile or WaitUntil.
+	 * This is useful in logging.
+	 * 
+	 * @return description of specific wait condition
+	 */
+	String errorMessageUntil();
+	
 }
