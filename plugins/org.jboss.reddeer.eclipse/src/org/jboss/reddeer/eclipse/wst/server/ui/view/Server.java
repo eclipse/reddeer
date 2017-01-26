@@ -1,5 +1,5 @@
 /******************************************************************************* 
- * Copyright (c) 2016 Red Hat, Inc. 
+ * Copyright (c) 2017 Red Hat, Inc. 
  * Distributed under license by Red Hat, Inc. All rights reserved. 
  * This program is made available under the terms of the 
  * Eclipse Public License v1.0 which accompanies this distribution, 
@@ -10,34 +10,14 @@
  ******************************************************************************/
 package org.jboss.reddeer.eclipse.wst.server.ui.view;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.wst.server.core.IModule;
-import org.eclipse.wst.server.ui.IServerModule;
+import org.eclipse.core.runtime.IAdaptable;
 import org.hamcrest.Matcher;
-import org.hamcrest.core.IsEqual;
-import org.jboss.reddeer.common.logging.Logger;
-import org.jboss.reddeer.common.util.Display;
 import org.jboss.reddeer.common.wait.TimePeriod;
-import org.jboss.reddeer.common.wait.WaitUntil;
-import org.jboss.reddeer.common.wait.WaitWhile;
-import org.jboss.reddeer.eclipse.condition.ServerHasPublishState;
-import org.jboss.reddeer.eclipse.condition.ServerExists;
-import org.jboss.reddeer.eclipse.condition.ServerHasState;
-import org.jboss.reddeer.eclipse.exception.EclipseLayerException;
 import org.jboss.reddeer.eclipse.wst.server.ui.editor.ServerEditor;
-import org.jboss.reddeer.eclipse.wst.server.ui.view.ServersViewEnums.ServerPublishState;
-import org.jboss.reddeer.eclipse.wst.server.ui.view.ServersViewEnums.ServerState;
 import org.jboss.reddeer.eclipse.wst.server.ui.wizard.ModifyModulesDialog;
-import org.jboss.reddeer.swt.api.Shell;
 import org.jboss.reddeer.swt.api.TreeItem;
-import org.jboss.reddeer.swt.condition.ShellIsAvailable;
-import org.jboss.reddeer.swt.impl.button.CheckBox;
-import org.jboss.reddeer.swt.impl.button.PushButton;
-import org.jboss.reddeer.swt.impl.menu.ContextMenu;
-import org.jboss.reddeer.swt.impl.shell.DefaultShell;
-import org.jboss.reddeer.workbench.core.condition.JobIsRunning;
 
 /**
  * Represents a server on {@link ServersView}. Contains both, the server data
@@ -45,353 +25,173 @@ import org.jboss.reddeer.workbench.core.condition.JobIsRunning;
  * Stop, Delete etc.). For operations that can be invoked on project added to
  * server see {@link ServerModule}
  * 
- * @author Lucia Jelinkova
+ * @author Lucia Jelinkova, mlabuda@redhat.com
  * 
  */
-public class Server {
-
-	private static final TimePeriod TIMEOUT = TimePeriod.VERY_LONG;
-
-	private static final String ADD_AND_REMOVE = "Add and Remove...";
-
-	private static final Logger log = Logger.getLogger(Server.class);
-
-	protected TreeItem treeItem;
-
-	protected ServersView view;
+public interface Server extends IAdaptable {
 
 	/**
-	 * Instantiates a new server.
-	 *
-	 * @param treeItem
-	 *            the tree item
-	 * @param view
-	 *            the view
+	 * Gets underlying tree item
+	 * @return tree item representing server
 	 */
-	protected Server(TreeItem treeItem, ServersView view) {
-		this.treeItem = treeItem;
-		this.view = view;
-	}
-
+	public TreeItem getTreeItem();
+	
+	/**
+	 * Returns true if underlying tree item is not null and is not disposed.
+	 *
+	 * @return true if treeItem is not null or is not disposed, false otherwise
+	 */
+	public boolean isValid();
+	
 	/**
 	 * Returns a server label.
 	 * 
 	 * @return Server label
 	 */
-	public ServerLabel getLabel() {
-		activate();
-		return new ServerLabel(treeItem);
-	}
-
+	public ServerLabel getLabel();
+	
 	/**
-	 * Returns list of modules.
-	 * 
-	 * @return List of modules
+	 * Selects the server.
 	 */
-	public List<ServerModule> getModules() {
-		activate();
-		final List<ServerModule> modules = new ArrayList<ServerModule>();
-
-		for (final TreeItem item : treeItem.getItems()) {
-			Display.syncExec(new Runnable() {
-
-				@Override
-				public void run() {
-					org.eclipse.swt.widgets.TreeItem swtItem = item.getSWTWidget();
-					Object data = swtItem.getData();
-					if (data instanceof IModule || data instanceof IServerModule) {
-						modules.add(createServerModule(item));
-					}
-				}
-			});
-		}
-
-		return modules;
-	}
-
-	/**
-	 * Return a module with a given name.
-	 * 
-	 * @param name
-	 *            Module name
-	 * @return Module
-	 */
-	public ServerModule getModule(String name) {
-		return getModule(new IsEqual<String>(name));
-	}
-
-	/**
-	 * Return a module matching a given matcher.
-	 * 
-	 * @param stringMatcher
-	 *            matcher to match against module name.
-	 * @return Module
-	 */
-	public ServerModule getModule(Matcher<String> stringMatcher) {
-		activate();
-		for (ServerModule module : getModules()) {
-			if (stringMatcher.matches(module.getLabel().getName())) {
-				return module;
-			}
-		}
-		throw new EclipseLayerException("There is no module with name matching matcher " + stringMatcher.toString()
-				+ " on server " + getLabel().getName());
-	}
-
-	/**
-	 * Opens a dialog for adding/removing modules.
-	 * 
-	 * @return Dialog for adding/removing modules
-	 */
-	public ModifyModulesDialog addAndRemoveModules() {
-		activate();
-		log.info("Add and remove modules of server");
-		new ContextMenu(ADD_AND_REMOVE).select();
-		return new ModifyModulesDialog();
-	}
-
+	public void select();
+	
 	/**
 	 * Opens the server editor.
 	 * 
 	 * @return Server editor
 	 */
-	public ServerEditor open() {
-		activate();
-		log.info("Open server's editor");
-		new ContextMenu("Open").select();
-		return createServerEditor(getLabel().getName());
-	}
-
+	public ServerEditor open();
+	
 	/**
 	 * Starts the server.
 	 */
-	public void start() {
-		activate();
-		log.info("Start server " + getLabel().getName());
-		if (!ServerState.STOPPED.equals(getLabel().getState())) {
-			throw new ServersViewException("Cannot start server because it is not stopped");
-		}
-		operateServerState("Start", ServerState.STARTED);
-	}
-
-	/**
-	 * Debugs the server.
-	 */
-	public void debug() {
-		activate();
-		log.info("Start server in debug '" + getLabel().getName() + "'");
-		if (!ServerState.STOPPED.equals(getLabel().getState())) {
-			throw new ServersViewException("Cannot debug server because it is not stopped");
-		}
-		operateServerState("Debug", ServerState.DEBUGGING);
-	}
-
-	/**
-	 * Profiles the server.
-	 */
-	public void profile() {
-		activate();
-		log.info("Start server in profiling mode '" + getLabel().getName() + "'");
-		if (!ServerState.STOPPED.equals(getLabel().getState())) {
-			throw new ServersViewException("Cannot profile server because it is not stopped");
-		}
-		operateServerState("Profile", ServerState.PROFILING);
-	}
-
-	/**
-	 * Restarts the server.
-	 */
-	public void restart() {
-		activate();
-		log.info("Restart server '" + getLabel().getName() + "'");
-		if (!getLabel().getState().isRunningState()) {
-			throw new ServersViewException("Cannot restart server because it is not running");
-		}
-		operateServerState("Restart", ServerState.STARTED);
-	}
-
-	/**
-	 * Restarts the server in debug.
-	 */
-	public void restartInDebug() {
-		activate();
-		log.info("Restart server in debug '" + getLabel().getName() + "'");
-		if (!getLabel().getState().isRunningState()) {
-			throw new ServersViewException("Cannot restart server in debug because it is not running");
-		}
-		operateServerState("Restart in Debug", ServerState.DEBUGGING);
-	}
-
-	/**
-	 * Restarts the server in profile.
-	 */
-	public void restartInProfile() {
-		activate();
-		log.info("Restart server in profile '" + getLabel().getName() + "'");
-		if (!getLabel().getState().isRunningState()) {
-			throw new ServersViewException("Cannot restart server in profile because it is not running");
-		}
-		operateServerState("Restart in Profile", ServerState.PROFILING);
-	}
-
+	public void start();
+	
 	/**
 	 * Stops the server.
 	 */
-	public void stop() {
-		activate();
-		log.info("Stop server '" + getLabel().getName() + "'");
-		ServerState state = getLabel().getState();
-		if (!ServerState.STARTING.equals(state) && !state.isRunningState()) {
-			throw new ServersViewException("Cannot stop server because it not running");
-		}
-		operateServerState("Stop", ServerState.STOPPED);
-	}
-
+	public void stop();
+	
+	/**
+	 * Restarts the server.
+	 */
+	public void restart();
+	
+	/**
+	 * Restarts the server in debug.
+	 */
+	public void restartInDebug();
+	
+	/**
+	 * Restarts the server in profile.
+	 */
+	public void restartInProfile();
+	
+	/**
+	 * Debugs the server.
+	 */
+	public void debug();
+	
+	/**
+	 * Profiles the server.
+	 */
+	public void profile();
+	
 	/**
 	 * Publishes the server.
 	 */
-	public void publish() {
-		activate();
-		log.info("Publish server '" + getLabel().getName() + "'");
-		new ContextMenu("Publish").select();
-		waitForPublish();
-	}
-
+	public void publish();
+	
 	/**
 	 * Cleans the server.
 	 */
-	public void clean() {
-		activate();
-		log.info("Clean server '" + getLabel().getName() + "'");
-		new ContextMenu("Clean...").select();
-		Shell serverShell = new DefaultShell("Server");
-		new PushButton("OK").click();
-		new WaitWhile(new ShellIsAvailable(serverShell));
-		waitForPublish();
-	}
-
+	public void clean();
+	
 	/**
 	 * Deletes the server. The server is not stop first.
 	 */
-	public void delete() {
-		activate();
-		delete(false);
-	}
-
+	public void delete();
+	
 	/**
 	 * Deletes the server. You can specify whether the server is stop first.
 	 * 
 	 * @param stopFirst
 	 *            Indicates whether the server is stop first.
 	 */
-	public void delete(boolean stopFirst) {
-		activate();
-		final String name = getLabel().getName();
-		log.info("Delete server '" + name + "'. Stop server first: " + stopFirst);
-		ServerState state = getLabel().getState();
-
-		new ContextMenu("Delete").select();
-		Shell deleteShell  =new DefaultShell("Delete Server");
-		if (!ServerState.STOPPED.equals(state) && !ServerState.NONE.equals(state)) {
-			new CheckBox().toggle(stopFirst);
-		}
-		new PushButton("OK").click();
-		new WaitWhile(new ShellIsAvailable(deleteShell));
-		new WaitWhile(new ServerExists(name), TIMEOUT);
-		new WaitWhile(new JobIsRunning(), TIMEOUT);
-	}
-
+	public void delete(boolean stopFirst);
+	
 	/**
-	 * Selects the server.
+	 * Gets timeout of server for changing its state.
+	 * It is a time period to wait until a server get to the specified state.
+	 * It consist of time to change current state to temporarily state, if there is any
+	 * and of time to get to the final state. Other words, time out is whole time to get from 
+	 * initial state to final state.
+	 * 
+	 * @return TimePeriod to time out if server does not get to final state in the given timeout
 	 */
-	public void select() {
-		treeItem.select();
-	}
-
+	public TimePeriod getServerStateChangeTimeout();
+	
 	/**
-	 * Operate server state.
+	 * Sets timeout of server for changing its state.
+	 * It is a time period to wait until a server get to the specified state.
+	 * It consist of time to change current state to temporarily state, if there is any
+	 * and of time to get to the final state. Other words, time out is whole time to get from 
+	 * initial state to final state.
 	 *
-	 * @param menuItem
-	 *            the menu item
-	 * @param resultState
-	 *            the result state
+	 * @param timeout timeout to wait from getting server from initial state to desired state
 	 */
-	protected void operateServerState(String menuItem, ServerState resultState) {
-		log.debug("Triggering action: " + menuItem + " on server " + getLabel().getName());
-		ServerState currentState = getLabel().getState();
-
-		select();
-		new ContextMenu(menuItem).select();
-
-		log.trace("Action on server triggered. Waiting while current state of server gets changed");
-		// Wait while server state change takes effect and then wait while state
-		// changing job is running
-		new WaitWhile(new ServerHasState(this, currentState), TIMEOUT);
-		new WaitWhile(new JobIsRunning(), TIMEOUT);
-
-		log.trace("Waiting until server state gets to result state.");
-		// Wait until server gets to correct state and then wait for running
-		// jobs
-		new WaitUntil(new ServerHasState(this, resultState), TIMEOUT);
-		new WaitWhile(new JobIsRunning(), TIMEOUT);
-
-		log.trace("Performing final check on correct server state.");
-		// Test state one more time, because state is depending on settings e.g.
-		// port accessibility and something
-		// could go wrong at changing state and server could fail to get to the
-		// state
-		new WaitUntil(new ServerHasState(this, resultState), TimePeriod.NONE);
-
-		log.debug("Operate server's state finished, the result server's state is: '" + getLabel().getState() + "'");
-	}
-
+	public void setServerStateChangeTimeout(TimePeriod timeout);
+	
 	/**
-	 * Wait for publish.
+	 * Gets server timeout for publishing.
+	 * 
+	 * @return TimePeriod to time out if server did not finished publish in the timeout
 	 */
-	protected void waitForPublish() {
-		new WaitUntil(new JobIsRunning(), TIMEOUT);
-		new WaitWhile(new ServerHasPublishState(this, ServerPublishState.PUBLISHING), TIMEOUT);
-		new WaitUntil(new ServerHasPublishState(this, ServerPublishState.SYNCHRONIZED), TIMEOUT);
-		new WaitWhile(new JobIsRunning(), TIMEOUT);
-	}
-
+	public TimePeriod getServerPublishTimeout();
+	
 	/**
-	 * Creates the server module.
-	 *
-	 * @param item
-	 *            the item
-	 * @return the server module
+	 * Sets timeout for publishing to server.
+	 * 
+	 * @param timeout time period to time out if server did not finished publish in the timeout
 	 */
-	protected ServerModule createServerModule(TreeItem item) {
-		return new ServerModule(item, view);
-	}
-
+	public void setServerPublishTimeout(TimePeriod timeout);
+	
 	/**
-	 * Creates the server editor.
-	 *
-	 * @param title
-	 *            the title
-	 * @return the server editor
+	 * Opens a dialog for adding/removing modules.
+	 * 
+	 * @return Dialog for adding/removing modules
 	 */
-	protected ServerEditor createServerEditor(String title) {
-		return new ServerEditor(title);
-	}
-
+	public ModifyModulesDialog addAndRemoveModules();
+	
 	/**
-	 * Activate.
+	 * Activates server view where this server belongs to.
 	 */
-	protected void activate() {
-		view.activate();
-		select();
-	}
-
+	public void activate();
+	
 	/**
-	 * Returns true when underlying treeItem is not null and is not disposed.
-	 *
-	 * @return true, if is valid
+	 * Gets a module with a given name.
+	 * 
+	 * @param name
+	 *            Module name
+	 * @return Module
 	 */
-	public boolean isValid() {
-		return treeItem != null && !treeItem.isDisposed();
-	}
-
+	public ServerModule getModule(String name);
+	
+	/**
+	 * Gets a module matching a matcher.
+	 * 
+	 * @param stringMatcher
+	 *            matcher to match against module name.
+	 * @return Module
+	 */
+	public ServerModule getModule(Matcher<String> stringMatcher);
+	
+	/**
+	 * Gets a list of modules.
+	 * 
+	 * @return List of modules
+	 */
+	public List<ServerModule> getModules();
+	
+	
 }

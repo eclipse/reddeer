@@ -27,7 +27,8 @@ import org.jboss.reddeer.workbench.impl.view.WorkbenchView;
 
 /**
  * Represents the Servers view. This class contains methods that can be invoked even 
- * if no server is selected. You can invoke server specific operations on {@link Server} instances. 
+ * if no server is selected. You can invoke server specific operations on instances 
+ * of {@link Server} implementation. 
  * 
  * @author Lucia Jelinkova
  *
@@ -59,37 +60,46 @@ public class ServersView extends WorkbenchView {
 	}
 
 	/**
-	 * Returns list of servers.
-	 * 
-	 * @return List of servers
+	 * Gets list of default servers. Default server is basic implementation of 
+	 * {@link Server} interface.
 	 */
-	public List<Server> getServers(){
-		List<Server> servers = new ArrayList<Server>();
+	public List<DefaultServer> getServers() {
+		List<DefaultServer> servers = new ArrayList<DefaultServer>();
 
 		Tree tree;
 		try {
 			tree = getServersTree();
 		} catch (CoreLayerException e){
-			return new ArrayList<Server>();
+			return new ArrayList<DefaultServer>();
 		}
 		for (TreeItem item : tree.getItems()){
 			if (item != null && !item.isDisposed()){
-				servers.add(createServer(item));	
+				servers.add(new DefaultServer(item));	
 			}			
 		}
 		return servers;
 	}
 
 	/**
-	 * Returns a server with a given name.
+	 * Gets a default server with a given name.
 	 * 
 	 * @param name Server name
 	 * @return Server with a given name.
 	 */
 	public Server getServer(String name){
+		return getServer(DefaultServer.class, name);
+	}
+	
+	/**
+	 * Gets a server of specified type with the given name.
+	 * @param clazz type of a server
+	 * @param name name of a server
+	 * @return server of specified type with the given name
+	 */
+	public <T extends Server> T getServer(Class<T> clazz, String name) {
 		for (Server server : getServers()){
 			if (server.isValid() && server.getLabel().getName().equals(name)){
-				return server;
+				return server.getAdapter(clazz);
 			}
 		}
 		log.info("Requested server '" + name + "' was not found on Servers view");
@@ -106,19 +116,9 @@ public class ServersView extends WorkbenchView {
 		activate();
 		return new DefaultTree();
 	}
-
-	/**
-	 * Creates the server.
-	 *
-	 * @param item the item
-	 * @return the server
-	 */
-	protected Server createServer(TreeItem item){
-		return new Server(item, this);
-	}
 	
 	private Object[] getServersNames() {
-		List<Server> servers = getServers();
+		List<DefaultServer> servers = getServers();
 		Object[] names = new Object[servers.size()];
 		
 		for (int i = 0; i < servers.size(); i++){

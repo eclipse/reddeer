@@ -26,6 +26,7 @@ import org.jboss.reddeer.eclipse.exception.EclipseLayerException;
 import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.PackageExplorer;
 import org.jboss.reddeer.eclipse.utils.DeleteUtils;
 import org.jboss.reddeer.eclipse.wst.server.ui.editor.ServerEditor;
+import org.jboss.reddeer.eclipse.wst.server.ui.view.DefaultServer;
 import org.jboss.reddeer.eclipse.wst.server.ui.view.Server;
 import org.jboss.reddeer.eclipse.wst.server.ui.view.ServerModule;
 import org.jboss.reddeer.eclipse.wst.server.ui.view.ServersViewEnums.ServerPublishState;
@@ -205,7 +206,7 @@ public class ServerTest extends ServersViewTestCase {
 		server2.start();
 		server2.delete(false);
 
-		List<Server> servers = getServersView().getServers();
+		List<DefaultServer> servers = getServersView().getServers();
 		assertThat(servers.size(), is(1));
 		assertThat(servers.get(0).getLabel().getName(), is(SERVER_1));
 	}
@@ -218,7 +219,7 @@ public class ServerTest extends ServersViewTestCase {
 		server2.start();
 		server2.delete(true);
 
-		List<Server> servers = getServersView().getServers();
+		List<DefaultServer> servers = getServersView().getServers();
 		assertThat(servers.size(), is(1));
 		assertThat(servers.get(0).getLabel().getName(), is(SERVER_1));
 	}

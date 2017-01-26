@@ -16,7 +16,7 @@ import static org.junit.Assert.assertThat;
 import java.util.List;
 
 import org.jboss.reddeer.eclipse.test.wst.server.ui.view.TestServer;
-import org.jboss.reddeer.eclipse.wst.server.ui.view.Server;
+import org.jboss.reddeer.eclipse.wst.server.ui.view.DefaultServer;
 import org.jboss.reddeer.eclipse.wst.server.ui.view.ServersView;
 import org.jboss.reddeer.eclipse.wst.server.ui.wizard.NewServerWizardDialog;
 import org.jboss.reddeer.eclipse.wst.server.ui.wizard.NewServerWizardPage;
@@ -61,7 +61,7 @@ public class NewServerWizardPageTest {
 		
 		wizard.finish();
 		
-		List<Server> servers = view.getServers();
+		List<DefaultServer> servers = view.getServers();
 		assertThat(servers.size(), is(1));
 		assertThat(servers.get(0).getLabel().getName(), is("ABC server"));
 	}
@@ -78,7 +78,7 @@ public class NewServerWizardPageTest {
 			wizard.cancel();
 		}
 
-		for (Server server : view.getServers()){
+		for (DefaultServer server : view.getServers()){
 			server.delete(false);
 		}
 	}

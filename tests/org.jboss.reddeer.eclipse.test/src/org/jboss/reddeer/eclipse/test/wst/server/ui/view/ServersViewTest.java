@@ -17,6 +17,7 @@ import static org.junit.Assert.assertThat;
 import java.util.List;
 
 import org.jboss.reddeer.eclipse.exception.EclipseLayerException;
+import org.jboss.reddeer.eclipse.wst.server.ui.view.DefaultServer;
 import org.jboss.reddeer.eclipse.wst.server.ui.view.Server;
 import org.jboss.reddeer.eclipse.wst.server.ui.wizard.NewServerWizardDialog;
 import org.jboss.reddeer.swt.api.Shell;
@@ -28,7 +29,7 @@ public class ServersViewTest extends ServersViewTestCase{
 	@Override
 	public void tearDown() {
 		super.tearDown();
-		for (Server server : getServersView().getServers()){
+		for (DefaultServer server : getServersView().getServers()){
 			server.delete(false);
 		}
 	}
@@ -43,7 +44,7 @@ public class ServersViewTest extends ServersViewTestCase{
 
 	@Test
 	public void getServers_noServers(){
-		List<Server> servers = getServersView().getServers();
+		List<DefaultServer> servers = getServersView().getServers();
 		
 		assertThat(servers.size(), is(0));
 	}
@@ -53,7 +54,7 @@ public class ServersViewTest extends ServersViewTestCase{
 		createServer("Server AB");
 		createServer("Server A");
 
-		List<Server> servers = getServersView().getServers();
+		List<DefaultServer> servers = getServersView().getServers();
 		assertThat(servers.size(), is(2));
 		assertThat(servers.get(0).getLabel().getName(), is("Server A"));
 		assertThat(servers.get(1).getLabel().getName(), is("Server AB"));
