@@ -16,6 +16,7 @@ import static org.jboss.reddeer.common.wait.WaitProvider.waitWhile;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Button;
 import org.hamcrest.Matcher;
+import org.jboss.reddeer.common.adaptable.RedDeerAdaptable;
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.common.matcher.RegexMatcher;
 import org.jboss.reddeer.common.wait.GroupWait;
@@ -41,7 +42,7 @@ import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.jboss.reddeer.workbench.core.condition.JobIsRunning;
 import org.jboss.reddeer.workbench.handler.WorkbenchPartHandler;
 
-public abstract class AbstractResource implements Resource {
+public abstract class AbstractResource implements Resource, RedDeerAdaptable<Resource> {
 
 	protected Logger logger = new Logger(AbstractResource.class);
 
@@ -166,6 +167,16 @@ public abstract class AbstractResource implements Resource {
 		deleteResource(true);
 	}
 		
+	@Override
+	public Object[] getAdapterConstructorArguments() {
+		return new Object[] {treeItem};
+	}
+	
+	@Override
+	public Class<?>[] getAdapterConstructorClasses() {
+		return new Class<?>[] {TreeItem.class};
+	}
+	
 	protected void deleteResource(boolean deleteFromFileSystem) {
 		String parentTreeItemText = treeItem.getPath()[0];
 		if (org.jboss.reddeer.direct.project.Project.isProject(parentTreeItemText) &&

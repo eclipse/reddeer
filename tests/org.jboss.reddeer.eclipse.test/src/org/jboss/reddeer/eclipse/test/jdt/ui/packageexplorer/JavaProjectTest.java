@@ -11,7 +11,7 @@
 package org.jboss.reddeer.eclipse.test.jdt.ui.packageexplorer;
 
 import org.jboss.reddeer.eclipse.core.resources.JavaProject;
-import org.jboss.reddeer.eclipse.exception.EclipseLayerException;
+import org.jboss.reddeer.eclipse.core.resources.Project;
 import org.jboss.reddeer.eclipse.jdt.ui.ide.NewJavaProjectWizardDialog;
 import org.jboss.reddeer.eclipse.jdt.ui.ide.NewJavaProjectWizardPage;
 import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.PackageExplorer;
@@ -42,12 +42,8 @@ public class JavaProjectTest {
 	
 	@Test
 	public void testGetJavaProject() {
-			JavaProject javaProject = packageExplorer.getProject(PROJECT_NAME_0, JavaProject.class);
-	}
-	
-	@Test(expected=EclipseLayerException.class)
-	public void testGetNonExistingJavaProject() {
-		JavaProject javaProject = packageExplorer.getProject("NONEXISTINGPROJECT", JavaProject.class);
+		Project project= packageExplorer.getProject(PROJECT_NAME_0);
+		project.getAdapter(JavaProject.class);
 	}
 	
 	@AfterClass

@@ -13,7 +13,6 @@ package org.jboss.reddeer.eclipse.wst.server.ui.view;
 import static org.jboss.reddeer.common.wait.WaitProvider.waitUntil;
 import static org.jboss.reddeer.common.wait.WaitProvider.waitWhile;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,6 +20,7 @@ import org.eclipse.wst.server.core.IModule;
 import org.eclipse.wst.server.ui.IServerModule;
 import org.hamcrest.Matcher;
 import org.hamcrest.core.IsEqual;
+import org.jboss.reddeer.common.adaptable.RedDeerAdaptable;
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.common.util.Display;
 import org.jboss.reddeer.common.wait.GroupWait;
@@ -50,7 +50,7 @@ import org.jboss.reddeer.workbench.core.condition.JobIsRunning;
  * @author Lucia Jelinkova, mlabuda@redhat.com
  * 
  */
-public class AbstractServer implements Server {
+public class AbstractServer implements Server, RedDeerAdaptable<Server> {
 	
 	private TimePeriod stateChangeTimeout = TimePeriod.getCustom(600);
 	
@@ -292,22 +292,15 @@ public class AbstractServer implements Server {
 
 		return modules;
 	}
+
+	@Override
+	public Object[] getAdapterConstructorArguments() {
+		return new Object[] {treeItem};
+	}
 	
 	@Override
-	public <T> T getAdapter(Class<T> clazz) {
-		if (! Server.class.isAssignableFrom(clazz)) {
-			throw new EclipseLayerException("Class of adaptable server is not assignable from Server class."
-					+ " Make sure the class provided as an argument is implements a Server interface or extends"
-					+ " AbstractServer class.");
-		}
-		try {
-			return clazz.getConstructor(TreeItem.class).newInstance(treeItem);
-		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException
-				| NoSuchMethodException | SecurityException e) {
-			throw new EclipseLayerException("Cannot instantiate a server of type " + clazz.getName() +
-					". Ensure that provided type of the server to get has constructor with precisely one "
-					+ "parameter which is of type " + TreeItem.class.getName());
-		}
+	public Class<?>[] getAdapterConstructorClasses() {
+		return new Class<?>[] {TreeItem.class};
 	}
 	
 	/**
@@ -381,5 +374,4 @@ public class AbstractServer implements Server {
 	private ServerEditor createServerEditor(String title) {
 		return new ServerEditor(title);
 	}
-
 }

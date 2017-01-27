@@ -12,8 +12,8 @@ package org.jboss.reddeer.eclipse.wst.server.ui.view;
 
 import java.util.List;
 
-import org.eclipse.core.runtime.IAdaptable;
 import org.hamcrest.Matcher;
+import org.jboss.reddeer.common.adaptable.RedDeerAdaptable;
 import org.jboss.reddeer.common.wait.TimePeriod;
 import org.jboss.reddeer.eclipse.wst.server.ui.editor.ServerEditor;
 import org.jboss.reddeer.eclipse.wst.server.ui.wizard.ModifyModulesDialog;
@@ -28,7 +28,7 @@ import org.jboss.reddeer.swt.api.TreeItem;
  * @author Lucia Jelinkova, mlabuda@redhat.com
  * 
  */
-public interface Server extends IAdaptable {
+public interface Server extends RedDeerAdaptable<Server> {
 
 	/**
 	 * Gets underlying tree item
