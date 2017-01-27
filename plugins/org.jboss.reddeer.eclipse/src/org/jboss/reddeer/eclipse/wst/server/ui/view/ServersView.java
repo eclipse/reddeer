@@ -91,12 +91,12 @@ public class ServersView extends WorkbenchView {
 	}
 	
 	/**
-	 * Gets a server of specified type with the given name.
+	 * Gets a server of specified type with a given name
 	 * @param clazz type of a server
-	 * @param name name of a server
-	 * @return server of specified type with the given name
+	 * @param name Server name
+	 * @return Server of specified type with a given name
 	 */
-	public <T extends Server> T getServer(Class<T> clazz, String name) {
+	public <T extends Server> Server getServer(Class<T> clazz, String name) {
 		for (Server server : getServers()){
 			if (server.isValid() && server.getLabel().getName().equals(name)){
 				return server.getAdapter(clazz);

@@ -12,6 +12,7 @@ package org.jboss.reddeer.eclipse.core.resources;
 
 import java.util.List;
 
+import org.jboss.reddeer.common.adaptable.RedDeerAdaptable;
 import org.jboss.reddeer.common.wait.TimePeriod;
 import org.jboss.reddeer.swt.api.TreeItem;
 
@@ -21,7 +22,7 @@ import org.jboss.reddeer.swt.api.TreeItem;
  * @author mlabuda@redhat.com
  * @since 2.0
  */
-public interface Resource {
+public interface Resource extends RedDeerAdaptable<Resource> {
 
 	/////////////////////////////////////
 	// RESOURCE TREE ITEM MANIPULATION //
