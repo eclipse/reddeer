@@ -84,19 +84,13 @@ public class WaitUntil extends AbstractWait {
 		super(condition, timeout, throwWaitTimeoutExpiredException, testPeriod);
 	}
 	
-	/* (non-Javadoc)
-	 * @see org.jboss.reddeer.common.wait.AbstractWait#stopWaiting(org.jboss.reddeer.common.condition.WaitCondition)
-	 */
 	@Override
-	protected boolean stopWaiting(WaitCondition condition) {
+	public boolean stopWaiting(WaitCondition condition) {
 		return condition.test();
 	}
 
-	/* (non-Javadoc)
-	 * @see org.jboss.reddeer.common.wait.AbstractWait#description()
-	 */
 	@Override
-	protected String description() {
+	public String description() {
 		return "Waiting until ";
 	}
 	

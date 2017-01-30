@@ -10,6 +10,7 @@
  ******************************************************************************/ 
 package org.jboss.reddeer.eclipse.test.ui.problems;
 
+import static org.jboss.reddeer.common.wait.WaitProvider.waitUntil;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -22,10 +23,11 @@ import java.util.List;
 import org.hamcrest.core.Is;
 import org.hamcrest.core.StringStartsWith;
 import org.jboss.reddeer.common.exception.WaitTimeoutExpiredException;
+import org.jboss.reddeer.common.wait.GroupWait;
 import org.jboss.reddeer.common.wait.TimePeriod;
+import org.jboss.reddeer.common.wait.WaitProvider;
 import org.jboss.reddeer.common.wait.WaitUntil;
 import org.jboss.reddeer.common.wait.WaitWhile;
-import org.jboss.reddeer.workbench.core.condition.JobIsRunning;
 import org.jboss.reddeer.eclipse.condition.ExactNumberOfProblemsExists;
 import org.jboss.reddeer.eclipse.condition.ProblemExists;
 import org.jboss.reddeer.eclipse.condition.ProblemsViewIsEmpty;
@@ -48,6 +50,7 @@ import org.jboss.reddeer.eclipse.ui.views.markers.QuickFixWizard;
 import org.jboss.reddeer.eclipse.utils.DeleteUtils;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.requirements.cleanworkspace.CleanWorkspaceRequirement.CleanWorkspace;
+import org.jboss.reddeer.workbench.core.condition.JobIsRunning;
 import org.jboss.reddeer.workbench.impl.editor.TextEditor;
 import org.junit.After;
 import org.junit.Before;
@@ -284,8 +287,8 @@ public class ProblemsViewTest {
 		createWarning();
 
 		/* get filtered errors */
-		new WaitUntil(new ProblemExists(ProblemType.WARNING), TimePeriod.NORMAL);
-		new WaitUntil(new ProblemExists(ProblemType.ERROR), TimePeriod.NORMAL);
+		new GroupWait(waitUntil(new ProblemExists(ProblemType.WARNING)),
+				waitUntil(new ProblemExists(ProblemType.ERROR)));
 		List<Problem> errors = new ProblemsView().getProblems(ProblemType.ERROR,
 				new MarkerDescriptionMatcher(Is.is(ERROR_DESCRIPTION)),
 				new MarkerResourceMatcher(resource),
@@ -323,8 +326,8 @@ public class ProblemsViewTest {
 		createError();
 
 		/* get filtered warnings */
-		new WaitUntil(new ProblemExists(ProblemType.WARNING), TimePeriod.NORMAL);
-		new WaitUntil(new ProblemExists(ProblemType.ERROR), TimePeriod.NORMAL);
+		new GroupWait(waitUntil(new ProblemExists(ProblemType.WARNING)),
+				WaitProvider.waitUntil(new ProblemExists(ProblemType.ERROR)));
 		List<Problem> warnings = new ProblemsView().getProblems(ProblemType.WARNING,
 				new MarkerDescriptionMatcher(Is.is(warningDescription)),
 				new MarkerResourceMatcher(Is.is(resource)),

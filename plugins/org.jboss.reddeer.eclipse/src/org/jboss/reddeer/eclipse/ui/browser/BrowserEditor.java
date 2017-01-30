@@ -10,15 +10,18 @@
  ******************************************************************************/ 
 package org.jboss.reddeer.eclipse.ui.browser;
 
+import static org.jboss.reddeer.common.wait.WaitProvider.waitUntil;
+import static org.jboss.reddeer.common.wait.WaitProvider.waitWhile;
+
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.internal.browser.WebBrowserEditor;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
 import org.jboss.reddeer.common.matcher.MatcherBuilder;
+import org.jboss.reddeer.common.wait.GroupWait;
 import org.jboss.reddeer.common.wait.TimePeriod;
 import org.jboss.reddeer.common.wait.WaitUntil;
-import org.jboss.reddeer.common.wait.WaitWhile;
 import org.jboss.reddeer.core.matcher.WithTextMatcher;
 import org.jboss.reddeer.eclipse.condition.BrowserHasURL;
 import org.jboss.reddeer.swt.condition.PageIsLoaded;
@@ -78,8 +81,7 @@ public class BrowserEditor extends AbstractEditor{
 	public void back() {
 		String prevUrl = browser.getURL();
 		browser.back();
-		new WaitWhile(new BrowserHasURL(this, prevUrl), TIMEOUT);
-		new WaitUntil(new PageIsLoaded(browser), TIMEOUT);
+		new GroupWait(TIMEOUT, waitWhile(new BrowserHasURL(this, prevUrl)), waitUntil(new PageIsLoaded(browser)));
 	}
 
 	/**
@@ -88,8 +90,8 @@ public class BrowserEditor extends AbstractEditor{
 	public void forward() {
 		String prevUrl = browser.getURL();
 		browser.forward();
-		new WaitWhile(new BrowserHasURL(this, prevUrl), TIMEOUT);
-		new WaitUntil(new PageIsLoaded(browser), TIMEOUT);
+		
+		new GroupWait(TIMEOUT, waitWhile(new BrowserHasURL(this, prevUrl)), waitUntil(new PageIsLoaded(browser)));
 	}
 
 	/**

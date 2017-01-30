@@ -10,7 +10,10 @@
  ******************************************************************************/ 
 package org.jboss.reddeer.eclipse.wst.server.ui.wizard;
 
+import static org.jboss.reddeer.common.wait.WaitProvider.waitUntil;
+
 import org.hamcrest.core.StringContains;
+import org.jboss.reddeer.common.wait.GroupWait;
 import org.jboss.reddeer.common.wait.WaitUntil;
 import org.jboss.reddeer.core.condition.NamedThreadHasStatus;
 import org.jboss.reddeer.jface.wizard.WizardPage;
@@ -37,8 +40,8 @@ public class NewServerWizardPage extends WizardPage {
 	 *            the type
 	 */
 	public void selectType(String... type) {
-		new WaitUntil(new NamedThreadHasStatus(new StringContains("Initializing Servers view"), Thread.State.TERMINATED, true));
-		new WaitUntil(new TreeContainsItem(new DefaultTree(), type));
+		new GroupWait(waitUntil(new NamedThreadHasStatus(new StringContains("Initializing Servers view"), Thread.State.TERMINATED, true)),
+				waitUntil(new TreeContainsItem(new DefaultTree(), type)));
 		new DefaultTreeItem(type).select();
 		new WaitUntil(new WidgetIsEnabled(new NextButton()));
 	}

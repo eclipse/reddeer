@@ -10,9 +10,11 @@
  ******************************************************************************/ 
 package org.jboss.reddeer.eclipse.wst.server.ui.view;
 
+import static org.jboss.reddeer.common.wait.WaitProvider.waitUntil;
+import static org.jboss.reddeer.common.wait.WaitProvider.waitWhile;
+
 import org.jboss.reddeer.common.logging.Logger;
-import org.jboss.reddeer.common.wait.WaitUntil;
-import org.jboss.reddeer.common.wait.WaitWhile;
+import org.jboss.reddeer.common.wait.GroupWait;
 import org.jboss.reddeer.core.condition.WidgetIsDisposed;
 import org.jboss.reddeer.eclipse.exception.EclipseLayerException;
 import org.jboss.reddeer.swt.api.Shell;
@@ -73,9 +75,8 @@ public class ServerModule {
 		new ShellMenu("Edit", "Delete").select();
 		Shell serverShell = new DefaultShell("Server");
 		new PushButton("OK").click();
-		new WaitWhile(new ShellIsAvailable(serverShell));
-		new WaitWhile(new JobIsRunning());
-		new WaitUntil(new WidgetIsDisposed(treeItem.getSWTWidget()));
+		new GroupWait(waitWhile(new ShellIsAvailable(serverShell)),
+				waitWhile(new JobIsRunning()), waitUntil(new WidgetIsDisposed(treeItem.getSWTWidget())));
 		treeItem = null;
 	}
 	

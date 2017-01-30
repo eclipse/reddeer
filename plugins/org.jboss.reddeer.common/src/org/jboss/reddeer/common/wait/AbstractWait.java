@@ -16,16 +16,16 @@ import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.common.util.Display;
 
 /**
- * Common ancestor for waiting classes. Contains abstract
- * {@link #stopWaiting(WaitCondition)} method that is called in the constructor.
+ * Partial (abstract) implementation of {@link Wait} interface.
  * 
  * @author Vlado Pakan
  * @author Lucia Jelinkova
  * @contributor jkopriva@redhat.com
- * 
- */
-public abstract class AbstractWait {
+ * @author mlabuda@redhat.com
 
+ */
+public abstract class AbstractWait implements Wait {
+	
 	/**
 	 * Wait logger.
 	 */
@@ -114,25 +114,8 @@ public abstract class AbstractWait {
 		wait(condition, testPeriod);
 	}
 
-	/**
-	 * Condition if the waiting should stop.
-	 * 
-	 * @param condition
-	 *            wait condition to met
-	 * @return true if the while loop should continue, false otherwise
-	 */
-	protected abstract boolean stopWaiting(WaitCondition condition);
-
-	/**
-	 * Gets description of specific wait condition. Description should provide
-	 * information about nature of wait condition followed by space character.
-	 * Purpose of this method is logging.
-	 * 
-	 * @return description of specific wait condition
-	 */
-	protected abstract String description();
-
-	private void wait(WaitCondition condition, TimePeriod testPeriod) {
+	@Override
+	public void wait(WaitCondition condition, TimePeriod testPeriod) {
 		log.debug(this.description() + condition.description() + "...");
 
 		long limit;
@@ -193,7 +176,7 @@ public abstract class AbstractWait {
 			throw new RuntimeException("Sleep interrupted", e);
 		}
 	}
-
+	
 	private boolean timeoutExceeded(WaitCondition condition, long limit) {
 		if (System.currentTimeMillis() > limit) {
 			if (throwTimeoutException()) {

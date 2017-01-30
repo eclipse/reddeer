@@ -10,6 +10,9 @@
  ******************************************************************************/
 package org.jboss.reddeer.eclipse.wst.server.ui.view;
 
+import static org.jboss.reddeer.common.wait.WaitProvider.waitUntil;
+import static org.jboss.reddeer.common.wait.WaitProvider.waitWhile;
+
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +23,7 @@ import org.hamcrest.Matcher;
 import org.hamcrest.core.IsEqual;
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.common.util.Display;
+import org.jboss.reddeer.common.wait.GroupWait;
 import org.jboss.reddeer.common.wait.TimePeriod;
 import org.jboss.reddeer.common.wait.WaitUntil;
 import org.jboss.reddeer.common.wait.WaitWhile;
@@ -310,21 +314,11 @@ public class AbstractServer implements Server {
 	 * Wait for publish.
 	 */
 	protected void waitForPublish() {
-		TimePeriod remainingTimeout;
-		long startTimeOfAction = System.currentTimeMillis();
-		new WaitUntil(new JobIsRunning(), getServerPublishTimeout());
-		remainingTimeout = getRemainingTimeoutPeriod(getServerPublishTimeout(), startTimeOfAction);
-		startTimeOfAction = System.currentTimeMillis();
-		new WaitWhile(new ServerHasPublishState(this, ServerPublishState.PUBLISHING), 
-				getRemainingTimeoutPeriod(remainingTimeout, startTimeOfAction));
-		remainingTimeout = getRemainingTimeoutPeriod(getServerPublishTimeout(), startTimeOfAction);
-		startTimeOfAction = System.currentTimeMillis();
-		new WaitUntil(new ServerHasPublishState(this, ServerPublishState.SYNCHRONIZED), 
-				getRemainingTimeoutPeriod(remainingTimeout, startTimeOfAction));
-		remainingTimeout = getRemainingTimeoutPeriod(getServerPublishTimeout(), startTimeOfAction);
-		startTimeOfAction = System.currentTimeMillis();
-		new WaitWhile(new JobIsRunning(), getRemainingTimeoutPeriod(remainingTimeout, startTimeOfAction));
-	}
+		new GroupWait(getServerPublishTimeout(), waitUntil(new JobIsRunning()),
+				waitWhile(new ServerHasPublishState(this, ServerPublishState.PUBLISHING)),
+				waitUntil(new ServerHasPublishState(this, ServerPublishState.SYNCHRONIZED)),
+				waitWhile(new JobIsRunning()));
+	}	
 	
 	/**
 	 * Operate server state.
@@ -337,8 +331,7 @@ public class AbstractServer implements Server {
 	protected void operateServerState(String menuItem, ServerState resultState) {
 		log.debug("Triggering action: " + menuItem + " on server " + getLabel().getName());
 		ServerState currentState = getLabel().getState();
-		long startTimeOfAction;
-		TimePeriod remainingTimeout;
+		TimePeriod remainingTimeout = getServerStateChangeTimeout();
 		
 		select();
 		new ContextMenu(menuItem).select();
@@ -346,20 +339,14 @@ public class AbstractServer implements Server {
 		log.trace("Action on server triggered. Waiting while current state of server gets changed");
 		// Wait while server state change takes effect and then wait while state
 		// changing job is running
-		startTimeOfAction = System.currentTimeMillis();
-		new WaitWhile(new ServerHasState(this, currentState), getServerStateChangeTimeout());
-		remainingTimeout = getRemainingTimeoutPeriod(getServerStateChangeTimeout(), startTimeOfAction);
-		startTimeOfAction = System.currentTimeMillis();
-		new WaitWhile(new JobIsRunning(), remainingTimeout);
-		remainingTimeout = getRemainingTimeoutPeriod(remainingTimeout, startTimeOfAction);
+		remainingTimeout = new GroupWait(remainingTimeout, waitWhile(new ServerHasState(this, currentState)), 
+				waitWhile(new JobIsRunning())).getRemainingTimeout();
 		
 		log.trace("Waiting until server state gets to result state.");
 		// Wait until server gets to correct state and then wait for running
 		// jobs
-		startTimeOfAction = System.currentTimeMillis();
-		new WaitUntil(new ServerHasState(this, resultState), remainingTimeout);
-		remainingTimeout = getRemainingTimeoutPeriod(remainingTimeout, startTimeOfAction);
-		new WaitWhile(new JobIsRunning(), remainingTimeout);
+		new GroupWait(remainingTimeout, waitUntil(new ServerHasState(this, resultState)), 
+				waitWhile(new JobIsRunning()));
 
 		log.trace("Performing final check on correct server state.");
 		// Test state one more time, because state is depending on settings e.g.
