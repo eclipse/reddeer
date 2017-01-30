@@ -10,6 +10,7 @@
  ******************************************************************************/ 
 package org.jboss.reddeer.eclipse.test.ui.console;
 
+import static org.jboss.reddeer.common.wait.WaitProvider.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
@@ -18,6 +19,7 @@ import org.hamcrest.core.IsEqual;
 import org.hamcrest.core.IsNull;
 import org.jboss.reddeer.common.matcher.RegexMatcher;
 import org.jboss.reddeer.common.wait.AbstractWait;
+import org.jboss.reddeer.common.wait.GroupWait;
 import org.jboss.reddeer.common.wait.TimePeriod;
 import org.jboss.reddeer.common.wait.WaitUntil;
 import org.jboss.reddeer.common.wait.WaitWhile;
@@ -161,8 +163,8 @@ public class ConsoleViewTest {
 	@Test
 	public void consoleHasNoChangeTest() {
 		runTestClass(TEST_CLASS_LOOP2_NAME);
-		new WaitUntil(new ConsoleHasText("Start"));
-		new WaitUntil(new ConsoleHasNoChange(TimePeriod.getCustom(11)), TimePeriod.LONG);
+		new GroupWait(TimePeriod.LONG, waitUntil(new ConsoleHasText("Start")),
+				waitUntil(new ConsoleHasNoChange(TimePeriod.getCustom(11))));
 		consoleView.open();
 		consoleView.terminateConsole();
 		// compare the text without white spaces
@@ -260,7 +262,7 @@ public class ConsoleViewTest {
 				new RegexMatcher(".*Java Application.*") };
 		WithTextMatchers m = new WithTextMatchers(array);
 		new ShellMenu(m.getMatchers()).select();
-		new WaitUntil(new ConsoleHasLabel(new RegexMatcher(".*" + name	+ ".*")));
-		new WaitWhile(new JobIsRunning());		
+		new GroupWait(TimePeriod.getCustom(20), waitUntil(new ConsoleHasLabel(new RegexMatcher(".*" + name	+ ".*"))),
+				waitWhile(new JobIsRunning()));		
 	}
 }

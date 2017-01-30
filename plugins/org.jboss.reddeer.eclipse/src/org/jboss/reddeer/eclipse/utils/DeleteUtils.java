@@ -10,6 +10,8 @@
  ******************************************************************************/ 
 package org.jboss.reddeer.eclipse.utils;
 
+import static org.jboss.reddeer.common.wait.WaitProvider.*;
+
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Shell;
 import org.hamcrest.BaseMatcher;
@@ -19,6 +21,7 @@ import org.jboss.reddeer.common.exception.RedDeerException;
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.common.matcher.AndMatcher;
 import org.jboss.reddeer.common.matcher.RegexMatcher;
+import org.jboss.reddeer.common.wait.GroupWait;
 import org.jboss.reddeer.common.wait.TimePeriod;
 import org.jboss.reddeer.common.wait.WaitUntil;
 import org.jboss.reddeer.common.wait.WaitWhile;
@@ -59,13 +62,14 @@ public class DeleteUtils {
 		} catch (RedDeerException ex){
 			log.debug("Delete shell is disposed.");
 		} finally {
+			TimePeriod remainingTimeout = timeout;
 			if (childShells == 1) {
 				org.jboss.reddeer.swt.api.Shell s = new ShellWithButton("Delete.*", "Continue");
 				new PushButton("Continue").click();
-				new WaitWhile(new ShellIsAvailable(s), timeout);
-				new WaitWhile(new ShellIsAvailable(deleteShell), timeout);
+				remainingTimeout = new GroupWait(timeout, waitWhile(new ShellIsAvailable(s)), 
+						waitWhile(new ShellIsAvailable(deleteShell))).getRemainingTimeout();
 			}
-			new WaitWhile(new JobIsRunning(), timeout);
+			new WaitWhile(new JobIsRunning(), remainingTimeout);
 		}
 	}
 

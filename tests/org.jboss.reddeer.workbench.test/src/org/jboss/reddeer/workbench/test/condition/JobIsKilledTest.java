@@ -1,18 +1,20 @@
 package org.jboss.reddeer.workbench.test.condition;
 
+import static org.jboss.reddeer.common.wait.WaitProvider.*;
+
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
 import org.jboss.reddeer.common.condition.AbstractWaitCondition;
 import org.jboss.reddeer.common.exception.WaitTimeoutExpiredException;
-import org.jboss.reddeer.common.wait.AbstractWait;
+import org.jboss.reddeer.common.wait.GroupWait;
 import org.jboss.reddeer.common.wait.TimePeriod;
 import org.jboss.reddeer.common.wait.WaitUntil;
 import org.jboss.reddeer.common.wait.WaitWhile;
+import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.workbench.core.condition.JobIsKilled;
 import org.jboss.reddeer.workbench.core.condition.JobIsRunning;
-import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -71,8 +73,8 @@ public class JobIsKilledTest {
 		testJob.schedule();
 
 		try {
-			new WaitUntil(new JobHasState(testJob, Job.RUNNING));
-			new WaitUntil(new JobIsKilled(TEST_JOB_EXCEPTION_NAME));
+			new GroupWait(waitUntil(new JobHasState(testJob, Job.RUNNING)),
+					waitUntil(new JobIsKilled(TEST_JOB_EXCEPTION_NAME)));
 		} catch (WaitTimeoutExpiredException wte) {
 			new WaitWhile(new JobIsRunning(), TimePeriod.LONG);
 			return;

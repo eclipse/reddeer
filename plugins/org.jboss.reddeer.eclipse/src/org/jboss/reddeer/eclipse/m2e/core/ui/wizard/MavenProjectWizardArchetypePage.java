@@ -10,9 +10,11 @@
  ******************************************************************************/ 
 package org.jboss.reddeer.eclipse.m2e.core.ui.wizard;
 
+import static org.jboss.reddeer.common.wait.WaitProvider.waitUntil;
+import static org.jboss.reddeer.common.wait.WaitProvider.waitWhile;
+
+import org.jboss.reddeer.common.wait.GroupWait;
 import org.jboss.reddeer.common.wait.TimePeriod;
-import org.jboss.reddeer.common.wait.WaitUntil;
-import org.jboss.reddeer.common.wait.WaitWhile;
 import org.jboss.reddeer.eclipse.exception.EclipseLayerException;
 import org.jboss.reddeer.jface.wizard.WizardPage;
 import org.jboss.reddeer.swt.api.Table;
@@ -66,8 +68,8 @@ public class MavenProjectWizardArchetypePage extends WizardPage{
 	 */
 	public void selectArchetypeCatalog(String catalog){
 		new DefaultCombo(0).setSelection(catalog);
-		new WaitWhile(new JobIsRunning(), TimePeriod.VERY_LONG);
-		new WaitUntil(new TableHasRows(new DefaultTable()),TimePeriod.LONG);
+		new GroupWait(TimePeriod.VERY_LONG, waitWhile(new JobIsRunning()),
+				waitUntil(new TableHasRows(new DefaultTable())));
 	}
 	
 	/**

@@ -20,7 +20,6 @@ import org.jboss.reddeer.common.util.Display;
 import org.jboss.reddeer.common.util.ResultRunnable;
 import org.jboss.reddeer.common.wait.AbstractWait;
 import org.jboss.reddeer.common.wait.TimePeriod;
-import org.jboss.reddeer.core.handler.WidgetHandler;
 
 /**
  * Contains methods for handling UI operations on {@link ExpandBarItem} widgets.

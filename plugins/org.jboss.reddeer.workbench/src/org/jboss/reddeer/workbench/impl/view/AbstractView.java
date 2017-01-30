@@ -10,6 +10,9 @@
  ******************************************************************************/ 
 package org.jboss.reddeer.workbench.impl.view;
 
+import static org.jboss.reddeer.common.wait.WaitProvider.waitUntil;
+import static org.jboss.reddeer.common.wait.WaitProvider.waitWhile;
+
 import java.util.List;
 
 import org.eclipse.ui.PlatformUI;
@@ -20,8 +23,7 @@ import org.hamcrest.Matcher;
 import org.jboss.reddeer.common.condition.AbstractWaitCondition;
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.common.matcher.RegexMatcher;
-import org.jboss.reddeer.common.wait.WaitUntil;
-import org.jboss.reddeer.common.wait.WaitWhile;
+import org.jboss.reddeer.common.wait.GroupWait;
 import org.jboss.reddeer.core.condition.ShellWithTextIsAvailable;
 import org.jboss.reddeer.core.handler.WidgetHandler;
 import org.jboss.reddeer.core.lookup.WidgetLookup;
@@ -224,8 +226,8 @@ public class AbstractView implements View {
 		new DefaultShell(SHOW_VIEW);
 		new DefaultTreeItem(path).select();
 		new OkButton().click();
-		new WaitWhile(new ShellWithTextIsAvailable(SHOW_VIEW));
-		new WaitUntil(new ViewCTabIsAvailable());
+		new GroupWait(waitWhile(new ShellWithTextIsAvailable(SHOW_VIEW)),
+				waitUntil(new ViewCTabIsAvailable()));
 	}
 
 	private class ViewCTabIsAvailable extends AbstractWaitCondition {

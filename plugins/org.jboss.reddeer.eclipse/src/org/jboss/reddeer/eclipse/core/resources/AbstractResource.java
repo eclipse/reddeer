@@ -10,13 +10,16 @@
  ******************************************************************************/ 
 package org.jboss.reddeer.eclipse.core.resources;
 
+import static org.jboss.reddeer.common.wait.WaitProvider.waitUntil;
+import static org.jboss.reddeer.common.wait.WaitProvider.waitWhile;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Button;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.common.matcher.RegexMatcher;
+import org.jboss.reddeer.common.wait.GroupWait;
 import org.jboss.reddeer.common.wait.TimePeriod;
-import org.jboss.reddeer.common.wait.WaitUntil;
 import org.jboss.reddeer.common.wait.WaitWhile;
 import org.jboss.reddeer.core.condition.WidgetIsFound;
 import org.jboss.reddeer.core.matcher.WithMnemonicTextMatcher;
@@ -141,8 +144,8 @@ public abstract class AbstractResource implements Resource {
 		Preferences.set("org.eclipse.debug.ui", "DEBUG.consoleOpenOnOut", "false");
 
 		runAs("JUnit Test");
-		new WaitWhile(new JUnitHasFinished(), timeout);
-		new WaitUntil(new JUnitHasFinished(), timeout);
+		new GroupWait(timeout, waitWhile(new JUnitHasFinished()),
+				waitUntil(new JUnitHasFinished()));
 
 		// set the settings back
 		Preferences.set("org.eclipse.debug.ui", "DEBUG.consoleOpenOnErr", consoleOpenOnErr);

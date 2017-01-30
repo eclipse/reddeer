@@ -10,11 +10,13 @@
  ******************************************************************************/ 
 package org.jboss.reddeer.eclipse.mylyn.tasks.ui.view;
 
+import static org.jboss.reddeer.common.wait.WaitProvider.waitUntil;
+import static org.jboss.reddeer.common.wait.WaitProvider.waitWhile;
+
 import org.jboss.reddeer.common.condition.AbstractWaitCondition;
 import org.jboss.reddeer.common.logging.Logger;
+import org.jboss.reddeer.common.wait.GroupWait;
 import org.jboss.reddeer.common.wait.TimePeriod;
-import org.jboss.reddeer.common.wait.WaitUntil;
-import org.jboss.reddeer.common.wait.WaitWhile;
 import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.menu.ContextMenu;
@@ -60,8 +62,7 @@ public class TaskList {
 		select();
 		new ContextMenu("Delete").select();
 		new PushButton("OK").click();
-		new WaitUntil(new TreeItemIsDisposed(treeItem), TIMEOUT);
-		new WaitWhile(new JobIsRunning(), TIMEOUT);
+		new GroupWait(TIMEOUT, waitUntil(new TreeItemIsDisposed(treeItem)), waitWhile(new JobIsRunning()));
 	}
 
 	/**
