@@ -1,5 +1,5 @@
 /******************************************************************************* 
- * Copyright (c) 2016 Red Hat, Inc. 
+ * Copyright (c) 2017 Red Hat, Inc. 
  * Distributed under license by Red Hat, Inc. All rights reserved. 
  * This program is made available under the terms of the 
  * Eclipse Public License v1.0 which accompanies this distribution, 
@@ -8,58 +8,54 @@
  * Contributors: 
  * Red Hat, Inc. - initial API and implementation 
  ******************************************************************************/ 
-package org.jboss.reddeer.junit.test.integration.configuration;
+package org.jboss.reddeer.junit.test.internal.requirement;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import org.jboss.reddeer.junit.requirement.PropertyConfiguration;
+import org.jboss.reddeer.junit.requirement.CustomConfiguration;
 import org.jboss.reddeer.junit.requirement.Requirement;
-import org.jboss.reddeer.junit.test.integration.configuration.RequirementB.RequirementBAnnotation;
+import org.jboss.reddeer.junit.test.internal.requirement.TestCustomJavaRequirement.CustomJavaAnnotation;
 
-public class RequirementB implements Requirement<RequirementBAnnotation>, PropertyConfiguration {
+public class TestCustomJavaRequirement implements Requirement<CustomJavaAnnotation>, CustomConfiguration<TestCustomJavaConfiguration> {
 
+	private TestCustomJavaConfiguration config;
+	
 	@Retention(RetentionPolicy.RUNTIME)
 	@Target(ElementType.TYPE)
-	public @interface RequirementBAnnotation {
-	}	
-	
-	private String a;
-	
-	private String b;
+	public @interface CustomJavaAnnotation {
+	}
 	
 	public boolean canFulfill() {
-		return false;
+		return true;
 	}
 
 	public void fulfill() {
 	}
 	
-	public void setA(String a) {
-		this.a = a;
-	}
-	
-	public void setB(String b) {
-		this.b = b;
-	}
-	
-	public String getA() {
-		return a;
-	}
-	
-	public String getB() {
-		return b;
-	}
-	
 	@Override
-	public void setDeclaration(RequirementBAnnotation declaration) {
+	public void setDeclaration(CustomJavaAnnotation declaration) {
 	}
 
 	@Override
 	public void cleanUp() {
 		// TODO Auto-generated method stub
-		
 	}
+
+	@Override
+	public Class<TestCustomJavaConfiguration> getConfigurationClass() {
+		return TestCustomJavaConfiguration.class;
+	}
+
+	@Override
+	public void setConfiguration(TestCustomJavaConfiguration config) {
+		this.config = config;
+	}
+	
+	public TestCustomJavaConfiguration getConfig() {
+		return config;
+	}
+
 }

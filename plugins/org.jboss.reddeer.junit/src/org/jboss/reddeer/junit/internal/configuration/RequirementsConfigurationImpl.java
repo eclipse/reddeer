@@ -10,11 +10,12 @@
  ******************************************************************************/ 
 package org.jboss.reddeer.junit.internal.configuration;
 
+import java.util.List;
+
 import org.jboss.reddeer.junit.internal.configuration.configurator.CustomConfigurator;
 import org.jboss.reddeer.junit.internal.configuration.configurator.NullConfigurator;
 import org.jboss.reddeer.junit.internal.configuration.configurator.PropertyBasedConfigurator;
 import org.jboss.reddeer.junit.internal.configuration.configurator.RequirementConfigurator;
-import org.jboss.reddeer.junit.internal.configuration.reader.XMLReader;
 import org.jboss.reddeer.junit.internal.configuration.setter.ConfigurationSetter;
 import org.jboss.reddeer.junit.requirement.CustomConfiguration;
 import org.jboss.reddeer.junit.requirement.PropertyConfiguration;
@@ -31,7 +32,7 @@ import org.jboss.reddeer.junit.requirement.Requirement;
  * @author Lucia Jelinkova
  * @see TestRunConfiguration
  */
-public class RequirementsConfigurationImpl implements RequirementsConfiguration{
+public class RequirementsConfigurationImpl implements RequirementsConfiguration {
 	
 	private NullConfigurator voidConfigurator;
 	
@@ -42,19 +43,19 @@ public class RequirementsConfigurationImpl implements RequirementsConfiguration{
 	/**
 	 * Instantiates a new requirements configuration impl.
 	 *
-	 * @param reader the reader
+	 * @param configurations list of configurations values
 	 */
-	public RequirementsConfigurationImpl(XMLReader reader) {
+	public RequirementsConfigurationImpl(List<Object> configurations) {
 		super();
 		this.voidConfigurator = new NullConfigurator();
-		this.propertyConfigurator = new PropertyBasedConfigurator(reader, new ConfigurationSetter());
-		this.customConfigurator = new CustomConfigurator(reader);
+		this.propertyConfigurator = new PropertyBasedConfigurator(configurations, new ConfigurationSetter());
+		this.customConfigurator = new CustomConfigurator(configurations);
 	}
 	
 	/* (non-Javadoc)
 	 * @see org.jboss.reddeer.junit.internal.configuration.RequirementsConfiguration#configure(org.jboss.reddeer.junit.requirement.Requirement)
 	 */
-	public void configure(Requirement<?> requirement){
+	public void configure(Requirement<?> requirement) {
 		getConfigurator(requirement).configure(requirement);
 	}
 	
@@ -64,12 +65,12 @@ public class RequirementsConfigurationImpl implements RequirementsConfiguration{
 	 * @param requirement the requirement
 	 * @return the configurator
 	 */
-	public RequirementConfigurator getConfigurator(Requirement<?> requirement){
+	public RequirementConfigurator getConfigurator(Requirement<?> requirement) {
 		if (requirement instanceof PropertyConfiguration){
 			return propertyConfigurator;
 		}
 		
-		if (requirement instanceof CustomConfiguration<?>){
+		if (requirement instanceof CustomConfiguration<?>) {
 			return customConfigurator;
 		}
 		return voidConfigurator;

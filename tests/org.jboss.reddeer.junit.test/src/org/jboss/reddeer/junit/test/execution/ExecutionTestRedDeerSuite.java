@@ -35,7 +35,7 @@ public class ExecutionTestRedDeerSuite extends Suite {
 	
 	public ExecutionTestRedDeerSuite(Class<?> clazz, RunnerBuilder builder)
 			throws InitializationError {
-		this(clazz, builder, new SuiteConfiguration());
+		this(clazz, builder, new SuiteConfiguration(clazz));
 	}
 
 	protected ExecutionTestRedDeerSuite(Class<?> clazz, RunnerBuilder builder,

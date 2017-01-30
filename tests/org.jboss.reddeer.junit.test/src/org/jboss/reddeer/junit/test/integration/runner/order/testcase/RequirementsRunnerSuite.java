@@ -51,18 +51,6 @@ public class RequirementsRunnerSuite extends TestSequenceRedDeerSuite {
 		expectedSequence.add(createAfterClass(RequirementsRunnerTest.class));
 		expectedSequence.add(createCleanup(RunnerIntegrationPropertyRequirement.class));
 		expectedSequence.add(createIAfterClass(IAfterTestImpl.class));
-		// suite 2
-		expectedSequence.add(createIBeforeClass(IBeforeTestImpl.class));
-		expectedSequence.add(createFulfill(RunnerIntegrationPropertyRequirement.class));
-		expectedSequence.add(createBeforeClass(RequirementsRunnerTest.class));
-		expectedSequence.add(createIBefore(IBeforeTestImpl.class));
-		expectedSequence.add(createBefore(RequirementsRunnerTest.class));
-		expectedSequence.add(createTest(RequirementsRunnerTest.class));
-		expectedSequence.add(createAfter(RequirementsRunnerTest.class));
-		expectedSequence.add(createIAfter(IAfterTestImpl.class));
-		expectedSequence.add(createAfterClass(RequirementsRunnerTest.class));
-		expectedSequence.add(createCleanup(RunnerIntegrationPropertyRequirement.class));
-		expectedSequence.add(createIAfterClass(IAfterTestImpl.class));
 	}
 	
 	public RequirementsRunnerSuite(Class<?> clazz, RunnerBuilder builder,

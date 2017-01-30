@@ -41,5 +41,4 @@ public class NullTestRunConfigurationTest {
 		assertSame(configuration1, configuration2);
 		assertThat(configuration1, instanceOf(NullRequirementsConfiguration.class));
 	}
-	
 }

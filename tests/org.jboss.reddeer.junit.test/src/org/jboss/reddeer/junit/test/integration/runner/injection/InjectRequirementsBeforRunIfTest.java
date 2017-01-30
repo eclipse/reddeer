@@ -51,7 +51,7 @@ public class InjectRequirementsBeforRunIfTest {
 
 	public static class RedDeerSuiteExt extends RedDeerSuite {
 
-		protected static final String LOCATIONS_ROOT_DIR = "resources/org/jboss/reddeer/junit/test/integration/runner/injection";
+		protected static final String LOCATIONS_ROOT_DIR = "resources/org/jboss/reddeer/junit/test/integration/runner/injection/fileA.xml";
 
 		public RedDeerSuiteExt(Class<?> clazz, RunnerBuilder builder) throws InitializationError {
 			super(heck(clazz), builder);

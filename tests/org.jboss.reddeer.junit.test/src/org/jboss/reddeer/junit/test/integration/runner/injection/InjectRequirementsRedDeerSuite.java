@@ -18,7 +18,7 @@ import org.junit.runners.model.RunnerBuilder;
 
 public class InjectRequirementsRedDeerSuite extends RedDeerSuite {
 
-	protected static final String LOCATIONS_ROOT_DIR = "resources/org/jboss/reddeer/junit/integration/runner/order";
+	protected static final String LOCATIONS_ROOT_DIR = "resources/org/jboss/reddeer/junit/integration/runner/order/fileC.xml";
 	
 	public InjectRequirementsRedDeerSuite(Class<?> clazz, RunnerBuilder builder)
 			throws InitializationError {

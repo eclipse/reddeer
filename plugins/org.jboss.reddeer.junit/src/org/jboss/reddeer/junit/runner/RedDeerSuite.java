@@ -13,12 +13,14 @@ package org.jboss.reddeer.junit.runner;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.junit.extensionpoint.IAfterTest;
 import org.jboss.reddeer.junit.extensionpoint.IBeforeTest;
 import org.jboss.reddeer.junit.extensionpoint.IIssueTracker;
 import org.jboss.reddeer.junit.internal.configuration.SuiteConfiguration;
+import org.jboss.reddeer.junit.internal.configuration.TestClassRequirementMap;
 import org.jboss.reddeer.junit.internal.configuration.TestRunConfiguration;
 import org.jboss.reddeer.junit.internal.extensionpoint.AfterTestInitialization;
 import org.jboss.reddeer.junit.internal.extensionpoint.BeforeTestInitialization;
@@ -40,6 +42,7 @@ import org.junit.runners.model.RunnerBuilder;
  * provided.
  * 
  * @author Lucia Jelinkova
+ * @author Ondrej Dockal
  * 
  */
 public class RedDeerSuite extends Suite {
@@ -56,7 +59,7 @@ public class RedDeerSuite extends Suite {
 
 	private static List<IIssueTracker> issueTrackerExtensions;
 	private String suiteName;
-
+	
 	/**
 	 * Called by the JUnit framework.
 	 *
@@ -68,7 +71,7 @@ public class RedDeerSuite extends Suite {
 	 *             the initialization error
 	 */
 	public RedDeerSuite(Class<?> clazz, RunnerBuilder builder) throws InitializationError {
-		this(clazz, builder, new SuiteConfiguration());
+		this(clazz, builder, new SuiteConfiguration(clazz));
 	}
 
 	/**
@@ -86,7 +89,7 @@ public class RedDeerSuite extends Suite {
 	 */
 	protected RedDeerSuite(Class<?> clazz, RunnerBuilder builder, SuiteConfiguration config)
 			throws InitializationError {
-		super(EmptySuite.class, createSuite(clazz, config));
+		super(EmptySuite.class, createSuites(clazz, config));
 		this.suiteName = clazz.getName();
 	}
 
@@ -101,20 +104,17 @@ public class RedDeerSuite extends Suite {
 	 * @throws InitializationError
 	 *             the initialization error
 	 */
-	public static List<Runner> createSuite(Class<?> clazz, SuiteConfiguration config) throws InitializationError {
+	public static List<Runner> createSuites(Class<?> clazz, SuiteConfiguration config) throws InitializationError {
 		log.info("Creating RedDeer suite...");
 		TestsExecutionManager testsManager = new TestsExecutionManager();
 		List<Runner> configuredSuites = new ArrayList<Runner>();
 		boolean isSuite = isSuite(clazz);
-
-		for (TestRunConfiguration testRunConfig : config.getTestRunConfigurations()) {
-			log.info("Adding config with name " + testRunConfig.getId() + " to RedDeer suite");
-			RequirementsRunnerBuilder reqRunnerBuilder = new RequirementsRunnerBuilder(testRunConfig, runListeners,
-					beforeTestExtensions, afterTestExtensions, testsManager);
-			if (isSuite) {
-				configuredSuites.add(new NamedSuite(clazz, reqRunnerBuilder, testRunConfig.getId()));
-			} else {
-				configuredSuites.add(new NamedSuite(new Class[] { clazz }, reqRunnerBuilder, testRunConfig.getId()));
+		
+		Map<TestClassRequirementMap, List<TestRunConfiguration>> testRunConfigMatrix = config.getTestRunConfigurations();
+		for (TestClassRequirementMap testRunClasses : testRunConfigMatrix.keySet()) {
+			for (TestRunConfiguration testRunConfig : testRunConfigMatrix.get(testRunClasses)) {
+				RequirementsRunnerBuilder reqRunnerBuilder = buildRequirementRunnerBuilder(testsManager, testRunConfig);
+				configuredSuites.add(new NamedSuite(testRunClasses.getClassesAsArray(), reqRunnerBuilder, testRunConfig.getId()));
 			}
 		}
 		if (!testsManager.allTestsAreExecuted()) {
@@ -127,7 +127,13 @@ public class RedDeerSuite extends Suite {
 		log.info("RedDeer suite created");
 		return configuredSuites;
 	}
-
+	
+	private static RequirementsRunnerBuilder buildRequirementRunnerBuilder(TestsExecutionManager manager, TestRunConfiguration testRunConfig) {
+		log.info("Adding config with name " + testRunConfig.getId() + " to RedDeer suite");
+		return new RequirementsRunnerBuilder(testRunConfig, runListeners,
+				beforeTestExtensions, afterTestExtensions, manager);	
+	}
+	
 	private static boolean isSuite(Class<?> clazz) {
 		SuiteClasses annotation = clazz.getAnnotation(SuiteClasses.class);
 		return annotation != null;

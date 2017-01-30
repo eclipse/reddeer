@@ -44,8 +44,9 @@ public class RequirementsBuilder {
 		checkArguments(clazz, config);
 		List<Requirement<?>> requirements = new ArrayList<Requirement<?>>();
 		
-		log.info("Creating requirements for test " + clazz);
-		for (Annotation annotation : finder.find(clazz)){
+		log.info("Build method - Creating requirements for test " + clazz);
+		for (Annotation annotation : this.finder.find(clazz)){
+			log.info("### adding builded configuration for annotation " + annotation.toString());
 			requirements.add(build(annotation, config));
 		}
 		

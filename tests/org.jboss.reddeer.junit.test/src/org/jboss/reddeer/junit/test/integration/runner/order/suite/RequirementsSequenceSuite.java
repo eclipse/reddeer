@@ -74,34 +74,7 @@ public class RequirementsSequenceSuite extends TestSequenceRedDeerSuite {
 		expectedSequence.add(createIAfter(IAfterTestImpl.class));
 		expectedSequence.add(createAfterClass(NoRequirementsTestCase.class));
 		expectedSequence.add(createIAfterClass(IAfterTestImpl.class));
-		// suite 2
-		// test class 1
-		expectedSequence.add(createIBeforeClass(IBeforeTestImpl.class));
-		expectedSequence.add(createFulfill(RunnerIntegrationPropertyRequirement.class));
-		expectedSequence.add(createBeforeClass(RequirementsTestCase.class));
-		expectedSequence.add(createIBefore(IBeforeTestImpl.class));
-		expectedSequence.add(createBefore(RequirementsTestCase.class));
-		expectedSequence.add(createTest(RequirementsTestCase.class));
-		expectedSequence.add(createAfter(RequirementsTestCase.class));
-		expectedSequence.add(createIAfter(IAfterTestImpl.class));
-		expectedSequence.add(createIBefore(IBeforeTestImpl.class));
-		expectedSequence.add(createBefore(RequirementsTestCase.class));
-		expectedSequence.add(createTest(RequirementsTestCase.class));
-		expectedSequence.add(createAfter(RequirementsTestCase.class));
-		expectedSequence.add(createIAfter(IAfterTestImpl.class));
-		expectedSequence.add(createAfterClass(RequirementsTestCase.class));
-		expectedSequence.add(createCleanup(RunnerIntegrationPropertyRequirement.class));
-		expectedSequence.add(createIAfterClass(IAfterTestImpl.class));
-		// test class 2
-		expectedSequence.add(createIBeforeClass(IBeforeTestImpl.class));
-		expectedSequence.add(createBeforeClass(NoRequirementsTestCase.class));
-		expectedSequence.add(createIBefore(IBeforeTestImpl.class));
-		expectedSequence.add(createBefore(NoRequirementsTestCase.class));
-		expectedSequence.add(createTest(NoRequirementsTestCase.class));
-		expectedSequence.add(createAfter(NoRequirementsTestCase.class));
-		expectedSequence.add(createIAfter(IAfterTestImpl.class));
-		expectedSequence.add(createAfterClass(NoRequirementsTestCase.class));
-		expectedSequence.add(createIAfterClass(IAfterTestImpl.class));
+		// no suite 2, only one suite run with config.xml file
 	}
 
 	public RequirementsSequenceSuite(Class<?> clazz, RunnerBuilder builder,

@@ -10,14 +10,11 @@
  ******************************************************************************/ 
 package org.jboss.reddeer.junit.internal.configuration.configurator;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.junit.configuration.RedDeerConfigurationException;
 import org.jboss.reddeer.junit.internal.configuration.entity.PropertyBasedConfiguration;
-import org.jboss.reddeer.junit.internal.configuration.reader.XMLReader;
 import org.jboss.reddeer.junit.internal.configuration.setter.ConfigurationSetter;
 import org.jboss.reddeer.junit.requirement.PropertyConfiguration;
 import org.jboss.reddeer.junit.requirement.Requirement;
@@ -26,75 +23,62 @@ import org.jboss.reddeer.junit.requirement.Requirement;
  * Reads property based configuration from XML file and sets the found properties into the requirement.  
  * 
  * @author Lucia Jelinkova
+ * @author Ondrej Dockal
  *
  */
-public class PropertyBasedConfigurator implements RequirementConfigurator{
+public class PropertyBasedConfigurator implements RequirementConfigurator {
 
 	private static final Logger log = Logger.getLogger(PropertyBasedConfigurator.class);
 	
-	private XMLReader reader;
+	private List<Object> configurations;
 	
 	private ConfigurationSetter setter;
 	
-	private Map<String, PropertyBasedConfiguration> propertyConfigurations;
-	
 	/**
-	 * Instantiates a new property based configurator.
+	 * Instantiates a property based configurator.
 	 *
-	 * @param reader the reader
+	 * @param configurations the configurations
 	 * @param setter the setter
 	 */
-	public PropertyBasedConfigurator(XMLReader reader, ConfigurationSetter setter) {
-		super();
-		this.reader = reader;
+	public PropertyBasedConfigurator(List<Object> configurations, ConfigurationSetter setter) {
+		this.configurations = configurations;
 		this.setter = setter;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.jboss.reddeer.junit.internal.configuration.configurator.RequirementConfigurator#configure(org.jboss.reddeer.junit.requirement.Requirement)
+	/**
+	* Iterate over all configurations and tries to cast the configuration object to expected configuration class
+	* that must implement {@link PropertyBasedConfiguration}.
+	* Each configuration is set via {@link ConfigurationSetter}, that assures that configuration is set to proper requirement.
+	* Class cast exception is caught and iteration continues, if any configuration fits, 
+	* {@link RedDeerConfigurationException} is thrown.
 	 */
 	@Override
 	public void configure(Requirement<?> requirement) {
+		
 		if (!(requirement instanceof PropertyConfiguration)){
 			throw new IllegalArgumentException("The requirement does not implement " + PropertyConfiguration.class);
 		}
-		log.debug("Setting property based configuration to requirement " + requirement.getClass());
-		PropertyBasedConfiguration config = getPropertyConfigurations().get(requirement.getClass().getCanonicalName());
-		if (config == null){
-			throw new RedDeerConfigurationException("The configuration for requirement " + requirement.getClass() + " was not found in the XML file");
-		}
-		setter.set(requirement, config);
-		log.debug("Configuration successfully set");
-	}
-	
-	/**
-	 * Gets the property configurations.
-	 *
-	 * @return the property configurations
-	 */
-	public Map<String, PropertyBasedConfiguration> getPropertyConfigurations(){
-		if (propertyConfigurations == null){
-			propertyConfigurations = loadPropertyConfigurations();
-		}
-		return propertyConfigurations;
-	}
-	
-	/**
-	 * Load property configurations.
-	 *
-	 * @return map containing property based configuration
-	 */
-	protected Map<String, PropertyBasedConfiguration> loadPropertyConfigurations(){
-		List<PropertyBasedConfiguration> list = reader.getConfiguration(PropertyBasedConfiguration.class);
-		Map<String, PropertyBasedConfiguration> map = new HashMap<String, PropertyBasedConfiguration>();
-		
-		for (PropertyBasedConfiguration config : list){
-			if (map.containsKey(config.getRequirementClassName())){
-				throw new RedDeerConfigurationException("There is more than one configuration in the XML file for requirement class " + config.getRequirementClassName());
+
+		boolean configurationSet = false;
+		for (Object configuration : this.configurations) {
+			if (PropertyBasedConfiguration.class.isAssignableFrom(configuration.getClass())) {
+				try {
+					log.debug("Setting property based configuration to requirement " + requirement.getClass());
+					PropertyBasedConfiguration config = (PropertyBasedConfiguration) configuration;
+					if (requirement.getClass().getCanonicalName().equalsIgnoreCase(config.getRequirementClassName())) {
+						setter.set(requirement, config);
+						log.debug("Configuration successfully set");
+						configurationSet = true;
+						break;
+					}
+				} catch (RedDeerConfigurationException e) {
+					log.error("This property based configuration (" + configuration + ") cannot be set to " + requirement.toString());
+				}
 			}
-			map.put(config.getRequirementClassName(), config);
 		}
-		
-		return map;
+		if (!configurationSet) {
+			throw new RedDeerConfigurationException("None of the given configurations "
+					+ "could have ben set as configuration of the requirement " + requirement.getClass().getName());
+		}
 	}
 }

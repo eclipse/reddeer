@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<reddeer
+	xmlns="http://www.jboss.org/NS/Req" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:server="http://www.jboss.org/NS/ServerReq"
+	xmlns:jre="http://www.jboss.org/NS/jre-schema"
+	xsi:schemaLocation="http://www.jboss.org/NS/Req http://www.jboss.org/schema/reddeer/v1/RedDeerSchema.xsd
+						http://www.jboss.org/NS/jre-schema http://www.jboss.org/schema/reddeer/v1/JRERequirement.xsd
+						http://www.jboss.org/NS/ServerReq http://www.jboss.org/schema/reddeer/v1/ApacheServerRequirements.xsd">
+
+	<requirements>
+		<!-- Example server configuration -->
+		
+		<server:server-requirement name="Tomcat7">
+			<server:type>
+				<server:familyApacheTomcat version="7.0" />
+			</server:type>
+			<server:runtime>${apache-tomcat-7.home}</server:runtime>
+		</server:server-requirement>
+		<!--
+		<server:jboss-server-requirement name="AS-7.1">
+			<server:type>
+				<server:familyAS version="7.1"></server:familyAS>
+			</server:type>
+			<server:runtime>/home/odockal/Programs/Server/jboss-eap-7.0</server:runtime>
+		</server:jboss-server-requirement>  -->
+		<server:server-requirement name="Tomcat8">
+			<server:type>
+				<server:familyApacheTomcat version="8.0" />
+			</server:type>
+			<server:runtime>${apache-tomcat-8.home}</server:runtime>
+		</server:server-requirement>
+		
+		<!-- JRE requirement definition -->
+		<jre:jre-requirement name="JRE-1.7">
+        	<jre:name>jre</jre:name>
+        	<jre:version>1.7</jre:version>
+        	<jre:path>/home/odockal/Programs/Java/jre1.7.0_80</jre:path>
+		</jre:jre-requirement> 
+		<jre:jre-requirement name="JRE-1.8">
+        	<jre:name>jre</jre:name>
+        	<jre:version>1.8</jre:version>
+        	<jre:path>/home/odockal/Programs/Java/jre1.8.0_121</jre:path>
+		</jre:jre-requirement>
+		<jre:jre-requirement name="JRE-1.71">
+        	<jre:name>jre</jre:name>
+        	<jre:version>1.7</jre:version>
+        	<jre:path>/home/odockal/Programs/Java/jre1.7.0_80</jre:path>
+		</jre:jre-requirement> 
+		<jre:jre-requirement name="JRE-1.81">
+        	<jre:name>jre</jre:name>
+        	<jre:version>1.8</jre:version>
+        	<jre:path>/home/odockal/Programs/Java/jre1.8.0_121</jre:path>
+		</jre:jre-requirement>    
+		<!-- Property requirements -->
+		<requirement class="org.jboss.reddeer.req.test.UserRequirement"
+            name="userRequirement">
+            <property key="name" value="USERS_ADMINISTRATION" />
+            <property key="ip" value="127.0.0.1" />
+        </requirement>
+	</requirements>
+</reddeer>
