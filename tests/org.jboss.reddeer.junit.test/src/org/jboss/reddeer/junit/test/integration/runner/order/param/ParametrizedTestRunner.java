@@ -58,25 +58,6 @@ public class ParametrizedTestRunner extends TestSequenceRedDeerSuite {
 		expectedSequence.add(createAfterClass(ParametrizedTest.class));
 		expectedSequence.add(createCleanup(RunnerIntegrationPropertyRequirement.class));
 		expectedSequence.add(createIAfterClass(IAfterTestImpl.class));
-		// suite 2
-		expectedSequence.add(createIBeforeClass(IBeforeTestImpl.class));
-		expectedSequence.add(createFulfill(RunnerIntegrationPropertyRequirement.class));
-		expectedSequence.add(createBeforeClass(ParametrizedTest.class));
-		// param 1
-		expectedSequence.add(createIBefore(IBeforeTestImpl.class));
-		expectedSequence.add(createBefore(ParametrizedTest.class));
-		expectedSequence.add(createTest(ParametrizedTest.class));
-		expectedSequence.add(createAfter(ParametrizedTest.class));
-		expectedSequence.add(createIAfter(IAfterTestImpl.class));
-		// param 2
-		expectedSequence.add(createIBefore(IBeforeTestImpl.class));
-		expectedSequence.add(createBefore(ParametrizedTest.class));
-		expectedSequence.add(createTest(ParametrizedTest.class));
-		expectedSequence.add(createAfter(ParametrizedTest.class));
-		expectedSequence.add(createIAfter(IAfterTestImpl.class));
-		expectedSequence.add(createAfterClass(ParametrizedTest.class));
-		expectedSequence.add(createCleanup(RunnerIntegrationPropertyRequirement.class));
-		expectedSequence.add(createIAfterClass(IAfterTestImpl.class));
 	}
 	
 	public ParametrizedTestRunner(Class<?> clazz, RunnerBuilder builder,

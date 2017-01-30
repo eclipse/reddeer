@@ -58,5 +58,5 @@ public interface Requirement<T extends Annotation> extends IExecutionPriority {
 	default long getPriority() {
 		return 0;
 	}
-	
 }
+

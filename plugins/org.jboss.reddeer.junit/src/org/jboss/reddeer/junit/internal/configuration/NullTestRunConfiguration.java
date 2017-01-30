@@ -16,8 +16,6 @@ package org.jboss.reddeer.junit.internal.configuration;
  * @author rhopp
  *
  */
-
-
 public class NullTestRunConfiguration implements TestRunConfiguration {
 
 	private RequirementsConfiguration requirementsConfiguration;

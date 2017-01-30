@@ -10,6 +10,7 @@
  ******************************************************************************/
 package org.jboss.reddeer.junit.test.internal.requirement.parameterized.inject;
 
+import org.jboss.reddeer.common.properties.RedDeerProperties;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.junit.Test;
 import org.junit.internal.builders.AllDefaultPossibilitiesBuilder;
@@ -21,6 +22,7 @@ public class ParameterizedRequirementTest {
 
 	@Test
 	public void testStaticInject() throws InitializationError {
+		System.clearProperty(RedDeerProperties.CONFIG_FILE.getName());
 		RunNotifier notifier = new RunNotifier();
 		RedDeerSuite rs = new RedDeerSuite(ParameterizedStaticReqTestClazz.class, new AllDefaultPossibilitiesBuilder(true));
 		rs.run(notifier);

@@ -1,5 +1,5 @@
 /******************************************************************************* 
- * Copyright (c) 2016 Red Hat, Inc. 
+ * Copyright (c) 2017 Red Hat, Inc. 
  * Distributed under license by Red Hat, Inc. All rights reserved. 
  * This program is made available under the terms of the 
  * Eclipse Public License v1.0 which accompanies this distribution, 
@@ -8,7 +8,7 @@
  * Contributors: 
  * Red Hat, Inc. - initial API and implementation 
  ******************************************************************************/ 
-package org.jboss.reddeer.requirements.server.apache.tomcat;
+package org.jboss.reddeer.junit.test.internal.requirement;
 
 import java.util.List;
 
@@ -18,17 +18,10 @@ import javax.xml.bind.annotation.XmlElements;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.jboss.reddeer.requirements.server.IServerFamily;
-import org.jboss.reddeer.requirements.server.IServerReqConfig;
-
-
-/**
- * 
- * @author Pavol Srna 
- *
- */
+import org.jboss.reddeer.requirements.server.apache.tomcat.FamilyApacheTomcat;
 
 @XmlRootElement(name="server-requirement", namespace="http://www.jboss.org/NS/ServerReq")
-public class ServerRequirementConfig implements IServerReqConfig {
+public class TestCustomServerConfiguration {
 	
 	private String runtime;
 	
@@ -38,18 +31,10 @@ public class ServerRequirementConfig implements IServerReqConfig {
 	})
 	private List<IServerFamily> family;
 	
-	/* (non-Javadoc)
-	 * @see org.jboss.reddeer.requirements.server.IServerReqConfig#getServerFamily()
-	 */
-	@Override
-	public IServerFamily getServerFamily(){
+	public IServerFamily getServerFamily() {
 		return this.family.get(0); //always: size() == 1 
 	}
 	
-	/* (non-Javadoc)
-	 * @see org.jboss.reddeer.requirements.server.IServerReqConfig#getRuntime()
-	 */
-	@Override
 	public String getRuntime() {
 		return runtime;
 	}
@@ -62,27 +47,5 @@ public class ServerRequirementConfig implements IServerReqConfig {
 	@XmlElement(namespace="http://www.jboss.org/NS/ServerReq")
 	public void setRuntime(String runtime) {
 		this.runtime = runtime;
-	}
-	
-	/* (non-Javadoc)
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
-	public boolean equals(Object arg) {
-		if(arg == null || !(arg instanceof ServerRequirementConfig))
-			return false;
-		if(arg == this)
-			return true;
-		ServerRequirementConfig conf = (ServerRequirementConfig) arg;
-		IServerFamily family1 = this.getServerFamily();
-		IServerFamily family2 = conf.getServerFamily();
-		if(!runtime.equals(conf.runtime) || (family1 == null && family2 != null))
-			return false;
-		return family1.getLabel().equals(family2.getLabel()) && family1.getVersion().equals(family2.getVersion());
-	}
-
-	@Override
-	public int hashCode() {
-		// TODO Auto-generated method stub
-		return super.hashCode();
 	}
 }

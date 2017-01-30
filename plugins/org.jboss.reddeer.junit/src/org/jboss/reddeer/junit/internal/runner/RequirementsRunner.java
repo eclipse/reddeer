@@ -134,7 +134,7 @@ public class RequirementsRunner extends BlockJUnit4ClassRunner {
 	@Override
 	public Object createTest() throws Exception {
 		Object testInstance = super.createTest();
-		log.debug("Injecting fulfilled requirements into test instance");
+		log.debug("Injecting fulfilled requirements into test instance: " + requirements.getClass().getName());
 		requirementsInjector.inject(testInstance, requirements);
 		return testInstance;
 	}
@@ -246,7 +246,7 @@ public class RequirementsRunner extends BlockJUnit4ClassRunner {
 	
 	@Override
 	protected Statement classBlock(final RunNotifier notifier) {
-		log.debug("Injecting fulfilled requirements into static fields of test class");
+		log.debug("Injecting fulfilled requirements into static fields of test class: " + requirements.getClass().getName());
 		requirementsInjector.inject(getTestClass().getJavaClass(), requirements);
 		
 		return super.classBlock(notifier);

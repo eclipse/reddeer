@@ -21,15 +21,11 @@ import org.jboss.reddeer.junit.internal.configuration.TestRunConfiguration;
 import org.jboss.reddeer.junit.internal.requirement.Requirements;
 import org.jboss.reddeer.junit.internal.requirement.RequirementsBuilder;
 import org.junit.Ignore;
-import org.junit.Test;
 import org.junit.runner.Runner;
 import org.junit.runner.notification.RunListener;
-import org.junit.runners.BlockJUnit4ClassRunner;
 import org.junit.runners.Parameterized.Parameters;
 import org.junit.runners.Suite;
-import org.junit.runners.model.InitializationError;
 import org.junit.runners.model.RunnerBuilder;
-import org.junit.runners.model.TestClass;
 
 /**
  * Checks if the requirements on the test class can be fulfilled and creates a runner for the test class or
@@ -98,13 +94,14 @@ public class RequirementsRunnerBuilder extends RunnerBuilder {
 		if (clazz.getAnnotation(Ignore.class) != null) {
 			return new IgnoredClassRunner(clazz);
 		}
-		if(clazz.getAnnotation(Suite.SuiteClasses.class) != null){
+		if(clazz.getAnnotation(Suite.SuiteClasses.class) != null) { 
 			return new Suite(clazz, this);
 		}
 		log.info("Found test " + clazz);
 		if(testsManager != null) {
 			testsManager.addTest(clazz);
 		}
+		// here comes all the logic of loading a config and connecting them with requirements
 		Requirements requirements = requirementsBuilder.build(clazz, config.getRequirementConfiguration(), config.getId());
 		if (requirements.canFulfill()){
 			log.info("All requirements can be fulfilled, the test will run");

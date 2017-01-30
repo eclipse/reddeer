@@ -1,5 +1,5 @@
 /******************************************************************************* 
- * Copyright (c) 2016 Red Hat, Inc. 
+ * Copyright (c) 2017 Red Hat, Inc. 
  * Distributed under license by Red Hat, Inc. All rights reserved. 
  * This program is made available under the terms of the 
  * Eclipse Public License v1.0 which accompanies this distribution, 
@@ -8,8 +8,9 @@
  * Contributors: 
  * Red Hat, Inc. - initial API and implementation 
  ******************************************************************************/ 
-package org.jboss.reddeer.junit.test.integration.configuration;
+package org.jboss.reddeer.junit.test.internal.requirement;
 
+import java.lang.annotation.Annotation;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -17,44 +18,32 @@ import java.lang.annotation.Target;
 
 import org.jboss.reddeer.junit.requirement.PropertyConfiguration;
 import org.jboss.reddeer.junit.requirement.Requirement;
-import org.jboss.reddeer.junit.test.integration.configuration.RequirementB.RequirementBAnnotation;
 
-public class RequirementB implements Requirement<RequirementBAnnotation>, PropertyConfiguration {
+public class TestPropertyRequirementA implements Requirement<Annotation>, PropertyConfiguration {
 
+	private String property1;
+	
 	@Retention(RetentionPolicy.RUNTIME)
 	@Target(ElementType.TYPE)
-	public @interface RequirementBAnnotation {
+	public @interface PropertyAnnotationA {
 	}	
 	
-	private String a;
-	
-	private String b;
-	
+	@Override
 	public boolean canFulfill() {
+		// TODO Auto-generated method stub
 		return false;
 	}
 
-	public void fulfill() {
-	}
-	
-	public void setA(String a) {
-		this.a = a;
-	}
-	
-	public void setB(String b) {
-		this.b = b;
-	}
-	
-	public String getA() {
-		return a;
-	}
-	
-	public String getB() {
-		return b;
-	}
-	
 	@Override
-	public void setDeclaration(RequirementBAnnotation declaration) {
+	public void fulfill() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setDeclaration(Annotation declaration) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
@@ -62,4 +51,13 @@ public class RequirementB implements Requirement<RequirementBAnnotation>, Proper
 		// TODO Auto-generated method stub
 		
 	}
+
+	public String getProperty1() {
+		return property1;
+	}
+
+	public void setProperty1(String property1) {
+		this.property1 = property1;
+	}
+
 }

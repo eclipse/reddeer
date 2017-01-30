@@ -16,12 +16,13 @@ import static org.junit.Assert.assertSame;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.withSettings;
 
+import java.util.ArrayList;
+
 import org.jboss.reddeer.junit.internal.configuration.RequirementsConfigurationImpl;
 import org.jboss.reddeer.junit.internal.configuration.configurator.CustomConfigurator;
 import org.jboss.reddeer.junit.internal.configuration.configurator.NullConfigurator;
 import org.jboss.reddeer.junit.internal.configuration.configurator.PropertyBasedConfigurator;
 import org.jboss.reddeer.junit.internal.configuration.configurator.RequirementConfigurator;
-import org.jboss.reddeer.junit.internal.configuration.reader.XMLReader;
 import org.jboss.reddeer.junit.requirement.CustomConfiguration;
 import org.jboss.reddeer.junit.requirement.PropertyConfiguration;
 import org.jboss.reddeer.junit.requirement.Requirement;
@@ -30,7 +31,7 @@ import org.junit.Test;
 
 public class RequirementsConfigurationImplTest {
 
-	private RequirementsConfigurationImpl config = new RequirementsConfigurationImpl(mock(XMLReader.class));
+	private RequirementsConfigurationImpl config = new RequirementsConfigurationImpl(new ArrayList<Object>());
 
 	@Test
 	public void propertyBased_caching(){

@@ -84,7 +84,7 @@ public class JRERequirement implements Requirement<JRE>, CustomConfiguration<JRE
 			return false;
 		}
 	}
-
+	
 	/**
 	 * Adds new JRE using Preferences &gt; Java &gt; Installed JRE's, Add JRE wizard.
 	 */

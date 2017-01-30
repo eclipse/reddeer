@@ -1,5 +1,5 @@
 /******************************************************************************* 
- * Copyright (c) 2016 Red Hat, Inc. 
+ * Copyright (c) 2017 Red Hat, Inc. 
  * Distributed under license by Red Hat, Inc. All rights reserved. 
  * This program is made available under the terms of the 
  * Eclipse Public License v1.0 which accompanies this distribution, 
@@ -10,59 +10,52 @@
  ******************************************************************************/ 
 package org.jboss.reddeer.junit.internal.configuration;
 
-import java.io.File;
-
-import org.jboss.reddeer.junit.internal.configuration.reader.XMLReader;
+import java.util.List;
 
 /**
- * Configuration associated with one configuration file representing one run of the tests. 
+ * Configuration associated with one list of possible configurations representing one run of the tests. 
  * 
  * @author Lucia Jelinkova
+ * @author Ondrej Dockal
  *
  */
 public class TestRunConfigurationImpl implements TestRunConfiguration {
 
-	private File file;
-	
-	private String id;
-	
-	private XMLReader configurationReader;
+	private String id = "";
+
+	private List<Object> configurationSet;
 	
 	private RequirementsConfiguration requirementsConfiguration;
 	
 	/**
 	 * Instantiates a new test run configuration impl.
 	 *
-	 * @param file the file
+	 * @param configurations list of configurations values
 	 */
-	public TestRunConfigurationImpl(File file) {
-		this.file = file;
+	public TestRunConfigurationImpl(List<Object> configurations) {
+		this.configurationSet = configurations;
 	}
 	
 	/* (non-Javadoc)
 	 * @see org.jboss.reddeer.junit.internal.configuration.TestRunConfiguration#getId()
 	 */
 	public String getId() {
-		if (id == null){
-			id = file.getName();
+		if (id.isEmpty()){
+			for (Object config : configurationSet) {
+				if (!id.isEmpty()) id += " ";
+				id += config.getClass().getSimpleName();
+			}
 		}
-		return id;
+		return !id.isEmpty() ? id : "Empty Configuration";
 	}
 	
 	/* (non-Javadoc)
 	 * @see org.jboss.reddeer.junit.internal.configuration.TestRunConfiguration#getRequirementConfiguration()
 	 */
-	public RequirementsConfiguration getRequirementConfiguration(){
+	public RequirementsConfiguration getRequirementConfiguration() {
 		if (requirementsConfiguration == null){
-			requirementsConfiguration = new RequirementsConfigurationImpl(getConfigurationReader());
+			requirementsConfiguration = new RequirementsConfigurationImpl(this.configurationSet);
 		}
 		return requirementsConfiguration;
-	}
-	
-	private XMLReader getConfigurationReader() {
-		if (configurationReader == null){
-			configurationReader = new XMLReader(file);
-		}
-		return configurationReader;
 	}
 }

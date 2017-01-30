@@ -10,13 +10,23 @@
  ******************************************************************************/ 
 package org.jboss.reddeer.junit.test.integration.configuration;
 
-import java.lang.annotation.Annotation;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+import org.jboss.reddeer.junit.test.integration.configuration.RequirementA.RequirementAAnnotation;
 
 import org.jboss.reddeer.junit.requirement.PropertyConfiguration;
 import org.jboss.reddeer.junit.requirement.Requirement;
 
-public class RequirementA implements Requirement<Annotation>, PropertyConfiguration {
+public class RequirementA implements Requirement<RequirementAAnnotation>, PropertyConfiguration {
 
+	
+	@Retention(RetentionPolicy.RUNTIME)
+	@Target(ElementType.TYPE)
+	public @interface RequirementAAnnotation {
+	}	
+	
 	private String a;
 	
 	public boolean canFulfill() {
@@ -35,12 +45,11 @@ public class RequirementA implements Requirement<Annotation>, PropertyConfigurat
 	}
 	
 	@Override
-	public void setDeclaration(Annotation declaration) {
+	public void setDeclaration(RequirementAAnnotation declaration) {
 	}
 
 	@Override
 	public void cleanUp() {
 		// TODO Auto-generated method stub
-		
 	}
 }

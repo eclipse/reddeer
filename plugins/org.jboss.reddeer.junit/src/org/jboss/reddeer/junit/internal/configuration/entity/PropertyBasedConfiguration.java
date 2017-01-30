@@ -17,8 +17,6 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import org.jboss.reddeer.junit.requirement.Requirement;
-
 /**
  * JAXB annotated class for reading the default (property based) configuration.
  * 
@@ -32,8 +30,8 @@ public class PropertyBasedConfiguration {
 
 	private String clazz;
 
-	private Class<? extends Requirement<?>> className;
-
+	private String requirementName;
+	
 	/**
 	 * Sets the properties.
 	 *
@@ -61,6 +59,15 @@ public class PropertyBasedConfiguration {
 	public void setRequirementClassName(String clazz) {
 		this.clazz = clazz;
 	}
+	
+	/**
+	 * Sets the requirement name.
+	 * 
+	 * @param requirementName the name of requirement
+	 */
+	public void setRequirementName(String requirementName) {
+		this.requirementName = requirementName;
+	}
 
 	/**
 	 * Gets the requirement class name.
@@ -70,5 +77,14 @@ public class PropertyBasedConfiguration {
 	@XmlAttribute(name = "class")
 	public String getRequirementClassName() {
 		return clazz;
+	}
+	
+	/**
+	 * Gets the requirement name.
+	 * @return Name of the requirement that is unique
+	 */
+	@XmlAttribute(name = "name")
+	public String getRequirementName() {
+		return requirementName;
 	}
 }

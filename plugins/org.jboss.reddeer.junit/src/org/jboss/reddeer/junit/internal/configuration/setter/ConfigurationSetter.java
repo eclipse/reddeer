@@ -28,7 +28,7 @@ import org.jboss.reddeer.junit.requirement.Requirement;
 public class ConfigurationSetter {
 
 	/**
-	 * Sets the.
+	 * Sets the 
 	 *
 	 * @param requirement the requirement
 	 * @param configuration the configuration
@@ -39,7 +39,7 @@ public class ConfigurationSetter {
 		}
 	}
 	
-	private void inject(Requirement<?> requirement, Property property){
+	private void inject(Requirement<?> requirement, Property property) {
 		inject(requirement, property.getKey(), property.getValue());
 	}
 	
