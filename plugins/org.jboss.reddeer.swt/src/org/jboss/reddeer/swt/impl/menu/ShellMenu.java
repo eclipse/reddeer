@@ -67,18 +67,6 @@ public class ShellMenu extends AbstractMenu implements Menu {
 			return false;
 		}
 	}
-
-	/* (non-Javadoc)
-	 * @see org.jboss.reddeer.swt.impl.menu.AbstractMenu#getText()
-	 */
-	@Override
-	public String getText() {
-		if (menuItem == null) {
-			menuItem = ml.lookFor(ml.getActiveShellTopMenuItems(), matchers);
-		}
-		String text = mh.getMenuItemText(menuItem);
-		return text;
-	}
 	
 	/* (non-Javadoc)
 	 * @see org.jboss.reddeer.swt.api.Menu#getSWTWidget()

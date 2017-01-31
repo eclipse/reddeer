@@ -16,7 +16,6 @@ import java.util.List;
 import org.eclipse.swt.widgets.MenuItem;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.swt.api.Menu;
-import org.jboss.reddeer.swt.widgets.AbstractWidget;
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.core.handler.MenuHandler;
 import org.jboss.reddeer.core.handler.WidgetHandler;
@@ -30,7 +29,6 @@ import org.jboss.reddeer.core.lookup.MenuLookup;
  */
 public abstract class AbstractMenu implements Menu {
 
-	protected String[] path;
 	protected Matcher<String>[] matchers;
 	protected MenuLookup ml = MenuLookup.getInstance();
 	protected MenuHandler mh = MenuHandler.getInstance();
@@ -86,4 +84,28 @@ public abstract class AbstractMenu implements Menu {
 		return menuItem;
 	}
 	
+	@Override
+	public List<Menu> getMenuItems() {
+		MenuItem[] items = ml.getItemsFromMenu(mh.getMenuFromMenuItem(menuItem));
+		List<Menu> menus = new ArrayList<>(items.length);
+		
+		for (MenuItem item : items){
+			if(mh.getMenuItemText(item).isEmpty())		
+				continue;
+
+			menus.add(new DefaultMenu(item));
+		}
+		return menus;
+	}
+	
+	@Override
+	public List<Menu> getAvailableChildItems() {
+		List<Menu> availableItems = new ArrayList<>();
+
+		for (Menu item : getMenuItems()) {
+			if(item.isEnabled())
+				availableItems.add(item);
+		}
+		return availableItems;
+	}
 }

@@ -7,10 +7,11 @@
  * 
  * Contributors: 
  * Red Hat, Inc. - initial API and implementation 
- ******************************************************************************/ 
+ ******************************************************************************/
 package org.jboss.reddeer.workbench.test.editor;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
@@ -49,6 +50,7 @@ import org.jboss.reddeer.swt.keyboard.KeyboardFactory;
 import org.jboss.reddeer.workbench.exception.WorkbenchLayerException;
 import org.jboss.reddeer.workbench.handler.EditorHandler;
 import org.jboss.reddeer.workbench.handler.WorkbenchShellHandler;
+import org.jboss.reddeer.workbench.impl.editor.AbstractEditor.ContentAssistantEnum;
 import org.jboss.reddeer.workbench.impl.editor.TextEditor;
 import org.jboss.reddeer.workbench.impl.shell.WorkbenchShell;
 import org.junit.After;
@@ -60,12 +62,12 @@ import org.junit.runner.RunWith;
 @RunWith(RedDeerSuite.class)
 @CleanWorkspace
 public class TextEditorTest {
-	
+
 	private static String ORIGINAL_JAVA_FILE_TEXT = "";
 	private static final String JAVA_CLASS_FILE_NAME = "JavaClass.java";
-	
+
 	@BeforeClass
-	public static void setup(){
+	public static void setup() {
 		EditorHandler.getInstance().closeAll(true);
 		BasicNewProjectResourceWizard projectWizard = new BasicNewProjectResourceWizard();
 		projectWizard.open();
@@ -74,7 +76,8 @@ public class TextEditorTest {
 		TextEditorTest.importTestProject();
 		TextEditor javaTextEditor = TextEditorTest.openJavaFile();
 		TextEditorTest.ORIGINAL_JAVA_FILE_TEXT = javaTextEditor.getText();
-		// this has to be here because of Eclipse incorrect behavior on MS Windows
+		// this has to be here because of Eclipse incorrect behavior on MS
+		// Windows
 		javaTextEditor.setCursorPosition(0, 13);
 		KeyboardFactory.getKeyboard().type("a");
 		javaTextEditor.save();
@@ -86,14 +89,14 @@ public class TextEditorTest {
 		javaTextEditor.save();
 		EditorHandler.getInstance().closeAll(true);
 	}
-	
+
 	@AfterClass
-	public static void teardownClass(){
+	public static void teardownClass() {
 		new CleanWorkspaceRequirement().fulfill();
 	}
 
 	@After
-	public void teardown(){
+	public void teardown() {
 		// set java class file content to original
 		TextEditor javaTextEditor = TextEditorTest.openJavaFile();
 		javaTextEditor.setText(TextEditorTest.ORIGINAL_JAVA_FILE_TEXT);
@@ -101,8 +104,22 @@ public class TextEditorTest {
 		EditorHandler.getInstance().closeAll(true);
 	}
 
-	@Test(expected=WorkbenchLayerException.class)
-	public void notTextEditorTest(){
+	@Test
+	public void getAvailableContextAssistantTest() {
+		TextEditor javaTextEditor = TextEditorTest.openJavaFile();
+		assertFalse(javaTextEditor.getAvailableContentAssistants().isEmpty());
+	}
+
+	@Test
+	public void openSpecificContextAssistantTest() {
+		TextEditor javaTextEditor = TextEditorTest.openJavaFile();
+		ContentAssistant assistant = javaTextEditor.openContentAssistant(ContentAssistantEnum.JAVA);
+		assertFalse(assistant.getProposals().isEmpty());
+		assistant.close();
+	}
+
+	@Test(expected = WorkbenchLayerException.class)
+	public void notTextEditorTest() {
 
 		NewFileCreationWizardDialog newFileDialog = new NewFileCreationWizardDialog();
 		newFileDialog.open();
@@ -114,7 +131,7 @@ public class TextEditorTest {
 	}
 
 	@Test
-	public void getTextTest() throws AWTException{
+	public void getTextTest() throws AWTException {
 		NewFileCreationWizardDialog newFileDialog = new NewFileCreationWizardDialog();
 		newFileDialog.open();
 		NewFileCreationWizardPage page = new NewFileCreationWizardPage();
@@ -127,7 +144,7 @@ public class TextEditorTest {
 
 			@Override
 			public void run() {
-				ITextEditor textEditor = (ITextEditor)getEditorPart(editor);
+				ITextEditor textEditor = (ITextEditor) getEditorPart(editor);
 				IDocument doc = textEditor.getDocumentProvider().getDocument(textEditor.getEditorInput());
 				try {
 					doc.replace(0, 0, "testText");
@@ -140,9 +157,9 @@ public class TextEditorTest {
 		assertEquals("testText", editor.getText());
 		editor.close();
 	}
-	
+
 	@Test
-	public void setCursorPosition(){
+	public void setCursorPosition() {
 		final String firstLine = "package test;";
 		final String firstLineAppend = "testtext";
 		TextEditor textEditor = TextEditorTest.openJavaFile();
@@ -151,13 +168,13 @@ public class TextEditorTest {
 		KeyboardFactory.getKeyboard().type(firstLineAppend);
 		textEditor.save();
 		String text = textEditor.getText().toLowerCase();
-				
-		assertTrue("Editor doesn't contain expected text at expected position\n"
-						+ text, text.startsWith(firstLine + firstLineAppend));
+
+		assertTrue("Editor doesn't contain expected text at expected position\n" + text,
+				text.startsWith(firstLine + firstLineAppend));
 	}
-	
+
 	@Test
-	public void setCursorPositionByOffset(){
+	public void setCursorPositionByOffset() {
 		final String firstLine = "package test;";
 		final String firstLineAppend = "testtext";
 		TextEditor textEditor = TextEditorTest.openJavaFile();
@@ -166,12 +183,12 @@ public class TextEditorTest {
 		KeyboardFactory.getKeyboard().type(firstLineAppend);
 		textEditor.save();
 		String text = textEditor.getText().toLowerCase();
-		assertTrue("Editor doesn't contain expected text at expected position\n"
-						+ text, text.startsWith(firstLine + firstLineAppend));
+		assertTrue("Editor doesn't contain expected text at expected position\n" + text,
+				text.startsWith(firstLine + firstLineAppend));
 	}
-	
+
 	@Test
-	public void contentAssist(){
+	public void contentAssist() {
 		TextEditor textEditor = TextEditorTest.openJavaFile();
 		textEditor.setCursorPosition(0, 0);
 		textEditor.insertLine(0, "");
@@ -181,13 +198,13 @@ public class TextEditorTest {
 		ca.chooseProposal("enum");
 		assertTrue(textEditor.getText().contains("enum"));
 	}
-	
+
 	@Test
-	public void closeContentAssist(){
+	public void closeContentAssist() {
 		TextEditor textEditor = TextEditorTest.openJavaFile();
 		ContentAssistant ca = textEditor.openContentAssistant();
 		ca.close();
-		
+
 		try {
 			new WaitUntil(new ShellWithTextIsAvailable(""), TimePeriod.NONE);
 			fail("ContentAssistant wasn't close");
@@ -197,7 +214,7 @@ public class TextEditorTest {
 	}
 
 	@Test
-	public void closeContentAssistUsingCloseAllShells(){
+	public void closeContentAssistUsingCloseAllShells() {
 		TextEditor textEditor = TextEditorTest.openJavaFile();
 		ContentAssistant ca = textEditor.openContentAssistant();
 		WorkbenchShellHandler.getInstance().closeAllNonWorbenchShells();
@@ -212,7 +229,7 @@ public class TextEditorTest {
 		}
 	}
 
-	public void openOnAssist(){
+	public void openOnAssist() {
 		TextEditor textEditor = TextEditorTest.openJavaFile();
 		textEditor.selectText("println");
 		ContentAssistant ca = textEditor.openOpenOnAssistant();
@@ -221,9 +238,9 @@ public class TextEditorTest {
 		ca.chooseProposal("Open Declaration");
 		new TextEditor("PrintStream.class");
 	}
-	
+
 	@Test
-	public void closeOpenOnAssistUsingCloseAllShells(){
+	public void closeOpenOnAssistUsingCloseAllShells() {
 		TextEditor textEditor = TextEditorTest.openJavaFile();
 		textEditor.selectText("JavaClass");
 		ContentAssistant ca = textEditor.openOpenOnAssistant();
@@ -238,9 +255,9 @@ public class TextEditorTest {
 			// ok, this is expected
 		}
 	}
-	
+
 	@Test
-	public void quickFixAssist(){
+	public void quickFixAssist() {
 		TextEditor textEditor = TextEditorTest.openJavaFile();
 		textEditor.selectText("JavaClass");
 		ContentAssistant ca = textEditor.openQuickFixContentAssistant();
@@ -250,12 +267,12 @@ public class TextEditorTest {
 	}
 
 	@Test
-	public void getTextAtLineTest(){
+	public void getTextAtLineTest() {
 		TextEditor textEditor = TextEditorTest.openJavaFile();
 		collapseTextInJavaFile();
 		assertEquals("\t\tSystem.out.println(\"\");", textEditor.getTextAtLine(4));
 	}
-	
+
 	@Test
 	public void getLineOfText() {
 		TextEditor textEditor = TextEditorTest.openJavaFile();
@@ -263,7 +280,7 @@ public class TextEditorTest {
 		assertEquals(3, textEditor.getLineOfText("public JavaClass"));
 		assertEquals(-1, textEditor.getLineOfText("Some text not present in editor"));
 	}
-	
+
 	@Test
 	public void getLineOfTextIndex() {
 		TextEditor textEditor = TextEditorTest.openJavaFile();
@@ -272,69 +289,70 @@ public class TextEditorTest {
 		assertEquals(-1, textEditor.getLineOfText("JavaClass", 2));
 		assertEquals(-1, textEditor.getLineOfText("Some text not present in editor", 0));
 	}
-	
+
 	@Test
-	public void getMarkers(){
+	public void getMarkers() {
 		TextEditor textEditor = TextEditorTest.openJavaFile();
 		textEditor.setText(textEditor.getText().replace("System", "Systemx"));
 		textEditor.save();
 		AbstractWait.sleep(TimePeriod.SHORT);
-		assertEquals(1,textEditor.getMarkers().size());
+		assertEquals(1, textEditor.getMarkers().size());
 		assertEquals("Systemx cannot be resolved", textEditor.getMarkers().get(0).getText());
 	}
-	
+
 	@Test
-	public void getAYTMarkers(){
+	public void getAYTMarkers() {
 		TextEditor textEditor = TextEditorTest.openJavaFile();
 		textEditor.setText(textEditor.getText().replace("System", "Systemx"));
-		//textEditor.save();
+		// textEditor.save();
 		AbstractWait.sleep(TimePeriod.SHORT);
-		assertEquals(1,textEditor.getMarkers().size());
-		assertEquals("Systemx cannot be resolved",textEditor.getMarkers().get(0).getText());
+		assertEquals(1, textEditor.getMarkers().size());
+		assertEquals("Systemx cannot be resolved", textEditor.getMarkers().get(0).getText());
 		assertEquals(5, textEditor.getMarkers().get(0).getLineNumber());
 	}
 
 	@Test
-	public void getFoldedTextTest(){
+	public void getFoldedTextTest() {
 		TextEditor textEditor = TextEditorTest.openJavaFile();
 		collapseTextInJavaFile();
 		assertEquals(94, textEditor.getText().replaceAll("\r", "").length());
 	}
 
 	@Test
-	public void insertTextTest(){
+	public void insertTextTest() {
 		TextEditor textEditor = TextEditorTest.openJavaFile();
 		textEditor.insertText(4, 22, "test");
 		assertEquals("\t\tSystem.out.println(\"test\");", new TextEditor().getTextAtLine(4));
 	}
 
 	@Test
-	public void insertLineTest(){
+	public void insertLineTest() {
 		TextEditor textEditor = TextEditorTest.openJavaFile();
 		textEditor.insertLine(4, "\t\ttestLine;");
-		assertEquals(106, textEditor.getText().replaceAll("\r", "").length()); //dirty hack for windows carriage return
+		// dirty hack for windows carriage return
+		assertEquals(106, textEditor.getText().replaceAll("\r", "").length());
 		assertEquals("\t\ttestLine;", new TextEditor().getTextAtLine(4));
 		assertEquals("\t\tSystem.out.println(\"\");", new TextEditor().getTextAtLine(5));
 	}
-	
+
 	@Test
-	public void insertTextBehind(){
+	public void insertTextBehind() {
 		TextEditor textEditor = TextEditorTest.openJavaFile();
 		int offset = textEditor.getPositionOfText("class");
 		textEditor.insertText(offset, "static ");
 		assertTrue(textEditor.getText().contains("public static class"));
 	}
-	
+
 	@Test
-	public void insertTextAfter(){
+	public void insertTextAfter() {
 		TextEditor textEditor = TextEditorTest.openJavaFile();
 		int offset = textEditor.getPositionOfText("JavaClass");
-		textEditor.insertText(offset+"JavaClass".length(), " extends String");
+		textEditor.insertText(offset + "JavaClass".length(), " extends String");
 		assertTrue(textEditor.getText().contains("public class JavaClass extends String"));
 	}
-	
+
 	@Test
-	public void testGetPositionOfText(){
+	public void testGetPositionOfText() {
 		TextEditor textEditor = TextEditorTest.openJavaFile();
 		int offset1 = textEditor.getPositionOfText("JavaClass", 0);
 		assertTrue(offset1 > 0);
@@ -345,69 +363,69 @@ public class TextEditorTest {
 	}
 
 	@Test
-	public void getSelectedTextTest(){
+	public void getSelectedTextTest() {
 		TextEditor textEditor = TextEditorTest.openJavaFile();
 		KeyboardFactory.getKeyboard().select(15, false);
 		assertEquals("package test;\np", textEditor.getSelectedText().replaceAll("\r", ""));
 	}
 
 	@Test
-	public void selectLineTest(){
+	public void selectLineTest() {
 		TextEditor textEditor = TextEditorTest.openJavaFile();
 		collapseTextInJavaFile();
 		textEditor.selectLine(7);
-		assertEquals("}\n", textEditor.getSelectedText().replaceAll("\r",""));
+		assertEquals("}\n", textEditor.getSelectedText().replaceAll("\r", ""));
 	}
-	
+
 	@Test
-	public void selectTextTest(){
+	public void selectTextTest() {
 		TextEditor textEditor = TextEditorTest.openJavaFile();
 		collapseTextInJavaFile();
 		textEditor.selectText("JavaClass");
-		assertEquals("JavaClass",textEditor.getSelectedText());
-	}
-	
-	@Test
-	public void selectTextTest1(){
-		TextEditor textEditor = TextEditorTest.openJavaFile();
-		collapseTextInJavaFile();
-		textEditor.selectText("JavaClass",1);
-		assertEquals("JavaClass",textEditor.getSelectedText());
-	}
-	
-	@Test(expected = RedDeerException.class)
-	public void selectTextTest2(){
-		TextEditor textEditor = TextEditorTest.openJavaFile();
-		collapseTextInJavaFile();
-		textEditor.selectText("JavaClass",2);
+		assertEquals("JavaClass", textEditor.getSelectedText());
 	}
 
-	private void collapseTextInJavaFile(){
+	@Test
+	public void selectTextTest1() {
+		TextEditor textEditor = TextEditorTest.openJavaFile();
+		collapseTextInJavaFile();
+		textEditor.selectText("JavaClass", 1);
+		assertEquals("JavaClass", textEditor.getSelectedText());
+	}
+
+	@Test(expected = RedDeerException.class)
+	public void selectTextTest2() {
+		TextEditor textEditor = TextEditorTest.openJavaFile();
+		collapseTextInJavaFile();
+		textEditor.selectText("JavaClass", 2);
+	}
+
+	private void collapseTextInJavaFile() {
 		moveCursorDown(4);
-		if (RunningPlatform.isOSX()){
+		if (RunningPlatform.isOSX()) {
 			KeyboardFactory.getKeyboard().invokeKeyCombination(SWT.COMMAND, SWT.KEYPAD_SUBTRACT);
-		}else{
+		} else {
 			KeyboardFactory.getKeyboard().invokeKeyCombination(SWT.CONTROL, SWT.KEYPAD_SUBTRACT);
 		}
 	}
 
-	private static TextEditor openJavaFile(){
-		ProjectExplorer pe  = new ProjectExplorer();
+	private static TextEditor openJavaFile() {
+		ProjectExplorer pe = new ProjectExplorer();
 		pe.open();
-		ProjectItem javaFile = pe.getProject("TextEditorTestProject")
-				.getProjectItem("src", "test", TextEditorTest.JAVA_CLASS_FILE_NAME);
+		ProjectItem javaFile = pe.getProject("TextEditorTestProject").getProjectItem("src", "test",
+				TextEditorTest.JAVA_CLASS_FILE_NAME);
 		javaFile.open();
 		return new TextEditor(TextEditorTest.JAVA_CLASS_FILE_NAME);
 	}
 
-	private void moveCursorDown(int count){
-		for(int i=0; i<count; i++){
+	private void moveCursorDown(int count) {
+		for (int i = 0; i < count; i++) {
 			KeyboardFactory.getKeyboard().type(SWT.ARROW_DOWN);
 		}
 	}
 
-	private static void importTestProject(){
-		URL resourceURL = null; 
+	private static void importTestProject() {
+		URL resourceURL = null;
 		try {
 			resourceURL = FileLocator.toFileURL(Platform.getBundle("org.jboss.reddeer.workbench.test").getEntry("/"));
 		} catch (IOException e1) {
@@ -415,16 +433,15 @@ public class TextEditorTest {
 		}
 		ExternalProjectImportWizardDialog epw = new ExternalProjectImportWizardDialog();
 		epw.open();
-		new WizardProjectsImportPage().setRootDirectory(resourceURL.getFile()+"resources/TextEditorTestProject/");
+		new WizardProjectsImportPage().setRootDirectory(resourceURL.getFile() + "resources/TextEditorTestProject/");
 		new WizardProjectsImportPage().copyProjectsIntoWorkspace(true);
 		epw.finish();
 	}
 
-	private IEditorPart getEditorPart(TextEditor editor){
+	private IEditorPart getEditorPart(TextEditor editor) {
 		Field editorField = null;
 		try {
-			editorField = editor.getClass().getSuperclass()
-					.getDeclaredField("editorPart");
+			editorField = editor.getClass().getSuperclass().getDeclaredField("editorPart");
 			editorField.setAccessible(true);
 			return (IEditorPart) editorField.get(editor);
 		} catch (NoSuchFieldException e) {

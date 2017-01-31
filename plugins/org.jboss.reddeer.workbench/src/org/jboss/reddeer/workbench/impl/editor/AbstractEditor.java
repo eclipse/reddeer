@@ -10,6 +10,7 @@
  ******************************************************************************/ 
 package org.jboss.reddeer.workbench.impl.editor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.jface.bindings.TriggerSequence;
@@ -25,8 +26,10 @@ import org.hamcrest.Matcher;
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.jface.text.contentassist.ContentAssistant;
 import org.jboss.reddeer.common.exception.WaitTimeoutExpiredException;
+import org.jboss.reddeer.swt.api.Menu;
 import org.jboss.reddeer.swt.impl.menu.ShellMenu;
 import org.jboss.reddeer.swt.keyboard.KeyboardFactory;
+import org.jboss.reddeer.core.handler.MenuHandler;
 import org.jboss.reddeer.core.lookup.ShellLookup;
 import org.jboss.reddeer.core.matcher.WithTextMatcher;
 import org.jboss.reddeer.workbench.matcher.EditorPartTitleMatcher;
@@ -44,7 +47,7 @@ import org.jboss.reddeer.workbench.handler.WorkbenchPartHandler;
  * Abstract class for all Editor implementations.
  * @author rawagner
  */
-public class AbstractEditor implements Editor {
+public abstract class AbstractEditor implements Editor {
 
     protected static final Logger log = Logger.getLogger(AbstractEditor.class);
     
@@ -153,31 +156,68 @@ public class AbstractEditor implements Editor {
      */
     @Override
     public ContentAssistant openContentAssistant() {
+    	Menu assistMenu = new ShellMenu("Edit", "Content Assist");
+    	boolean hasAssistMenuChildren = MenuHandler.getInstance().getMenuFromMenuItem(assistMenu.getSWTWidget()) != null;
+    	
+    	if (hasAssistMenuChildren)
+    		return openContentAssistant(ContentAssistantEnum.DEFAULT);
+    	else
+    		return openContentAssistant("Edit", "Content Assist");
+    }
+    
+	public ContentAssistant openContentAssistant(ContentAssistantEnum assistantType) {
+		return openContentAssistant(assistantType.getLabel());
+	}
+
+	public ContentAssistant openContentAssistant(String assistantLabel) {
+		return openContentAssistant("Edit", "Content Assist", assistantLabel);
+	}
+	
+    private ContentAssistant openContentAssistant(String... assistantMenuPath) {
+    	String assistantLabel = assistantMenuPath[assistantMenuPath.length - 1];
+    	
     	activate();
-    	log.info("Open editor's content assistant");
+    	log.info("Open editor's " + assistantLabel + " content assistant");
         AbstractWait.sleep(TimePeriod.SHORT);
-        Shell[] shells1 = ShellLookup.getInstance().getShells();
-        IBindingService bindingService = (IBindingService) PlatformUI
-                .getWorkbench().getAdapter(IBindingService.class);
-        TriggerSequence[] sequence = bindingService
-                .getActiveBindingsFor(ITextEditorActionDefinitionIds.CONTENT_ASSIST_PROPOSALS);
-        if (sequence.length > 0 && sequence[0].getTriggers().length > 0) {
-            if (sequence[0].getTriggers()[0] instanceof KeyStroke) {
-                KeyStroke k = ((KeyStroke) sequence[0].getTriggers()[0]);
-                KeyboardFactory.getKeyboard().invokeKeyCombination(
-                        k.getModifierKeys(), k.getNaturalKey());
-            } else {
-                throw new WorkbenchLayerException(
-                        "Unable to find key combination which invokes Content Assistant");
-            }
-        } else {
-            throw new WorkbenchLayerException(
-                    "Unable to find key combination which invokes Content Assistant");
+        Shell[] shells = ShellLookup.getInstance().getShells();
+        
+        ShellMenu menu;
+        try {
+        	menu = new ShellMenu(assistantMenuPath);        	
+        } catch (Throwable e) {
+        	throw new WorkbenchLayerException("Content assistant " + assistantLabel + " does not exist!", e);
+		}
+        
+        if(!menu.isEnabled()){
+        	throw new WorkbenchLayerException("Content assistant " + assistantLabel + " is disabled!");
         }
+        
+        menu.select();        
         ContentAssistantShellIsOpened caw = new ContentAssistantShellIsOpened(
-                shells1);
+                shells);
         new WaitUntil(caw);
         return new ContentAssistant(caw.getContentAssistTable());
+    }
+    
+	/**
+	 * Retrieves callable content assistants.
+	 * @return List of assistants enums.
+	 */
+	public List<ContentAssistantEnum> getAvailableContentAssistants() {
+    	activate();
+        AbstractWait.sleep(TimePeriod.SHORT);
+
+        List<Menu> availableMenus = new ShellMenu("Edit", "Content Assist").getAvailableChildItems();
+        List<ContentAssistantEnum> result = new ArrayList<>(availableMenus.size());
+
+        for (Menu availableMenu : availableMenus) {
+        	String label = MenuHandler.getInstance().getLabelFromText(availableMenu.getText());
+			ContentAssistantEnum assistantType = ContentAssistantEnum.resolveLabel(label);
+			if(assistantType != null)
+				result.add(assistantType);
+		}
+        
+        return result;
     }
 
     /**
@@ -291,5 +331,42 @@ public class AbstractEditor implements Editor {
 	
     public IEditorPart getEditorPart() {
         return editorPart;
+    }
+    
+    public enum ContentAssistantEnum {
+    	DEFAULT("Default"),
+    	JAVA_TYPE("Java Type Proposals"),
+    	JAVA_NON_TYPE("Java Non-Type Proposals"),
+    	JAVA("Java Proposals"),
+    	TEMPLATE("Template Proposals"),
+    	WORD("Word Proposals"),
+    	SWT_TEMPLATE("SWT Template Proposals"),
+    	JAXB("JAXB Proposals"),
+    	JPA("JPA Proposals"),
+    	JAX_RS("JAX-WS Proposals"),
+    	API_TOOLS("API Tools Proposals"),
+    	ADAPTIVE_TEMPLATE_RECOMMENDERS("Adaptive Template Proposals (Code Recommenders)"),
+    	CHAIN_RECOMMENDERS("Chain Proposals (Code Recommenders)"),
+    	JAVA_RECOMMENDERS("Java Proposals (Code Recommenders)"),
+    	PARAMETER_HINTS("Parameter Hints");
+
+    	private String label;
+
+		public String getLabel() {
+			return label;
+		}
+
+    	ContentAssistantEnum(String label) { 
+    		this.label = label; 
+    	}
+
+    	public static ContentAssistantEnum resolveLabel(String label){
+    		for (ContentAssistantEnum value : ContentAssistantEnum.values())
+    			if (value.getLabel().equals(label)) 
+    				return value;				
+    		
+    		return null;
+    	}
+
     }
 }
