@@ -10,6 +10,10 @@
  ******************************************************************************/ 
 package org.jboss.reddeer.core.handler;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Menu;
@@ -180,6 +184,54 @@ public class MenuHandler {
 				return null;
 			}
 		});
+	}
+	
+	public Menu getMenuFromMenuItem(final MenuItem item) {
+		return Display.syncExec(new ResultRunnable<Menu>() {
+			@Override
+			public Menu run() { 
+				return item.getMenu(); 
+			}
+		});
+	}
+
+	public String[] getMenuPath(final MenuItem item) {
+		List<String> titles = Display.syncExec(new ResultRunnable<List<String>>() {
+			@Override
+			public List<String> run() { 
+				MenuItem i = item;
+				List<String> titles = new ArrayList<>();
+				
+				while (i != null) {
+					titles.add(i.getText());					
+					i = i.getParent().getParentItem();					
+				}
+				return titles;
+			}
+		});
+		
+		List<String> path = new ArrayList<>(titles.size());
+		for (String title : titles){
+			path.add(getLabelFromText(title));
+		}
+		
+		Collections.reverse(path);
+		return path.toArray(new String[1]);
+	}
+
+	/**
+	 * Formats title from Menu object to label. Removes '&' and shortcut from title.
+	 * @param title text attribute of Menu object.
+	 * @return Formatted label.
+	 */
+	public String getLabelFromText(String text) {
+		String label = text.trim();
+		
+		// '\t' separates name and shortcut
+		if(label.contains("\t")) 
+			label = label.substring(0, label.indexOf("\t"));
+		
+		return label;		
 	}
 
 }

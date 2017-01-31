@@ -52,5 +52,17 @@ public interface Menu extends Widget {
 	 * @return text of child items of the menu
 	 */
 	List<String> getChildItems();
+	
+	/**
+	 * Returns menu items (child elements).
+	 * @return List of inner Menus.
+	 */
+	List<Menu> getMenuItems();
+
+	/**
+	 * Retrieves available menu items.
+	 * @return List of enabled child menus.
+	 */
+	List<Menu> getAvailableChildItems();
 
 }
