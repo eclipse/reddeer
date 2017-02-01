@@ -224,6 +224,16 @@ public class TreeHandler {
 				swtTreeItem.getParent().notifyListeners(event.type, event);
 			}
 		});
+		
+		//process async events
+		Display.syncExec(new Runnable() {
+			
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 	}
 	
 	/**
@@ -240,6 +250,15 @@ public class TreeHandler {
 		Display.asyncExec(new Runnable() {
 			public void run() {
 				swtTreeItem.getParent().notifyListeners(eventType, event);
+			}
+		});
+		//process async events
+		Display.syncExec(new Runnable() {
+			
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				
 			}
 		});
 	}
