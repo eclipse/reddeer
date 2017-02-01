@@ -136,7 +136,7 @@ public abstract class PreferenceDialog {
 	 * @return true if the dialog is open, false otherwise
 	 */
 	public boolean isOpen() {
-		Shell shell = ShellLookup.getInstance().getShell(getTitle(),TimePeriod.SHORT);
+		Shell shell = ShellLookup.getInstance().getShell(getTitle(),TimePeriod.NONE);
 		return (shell != null);		
 	}
 }
