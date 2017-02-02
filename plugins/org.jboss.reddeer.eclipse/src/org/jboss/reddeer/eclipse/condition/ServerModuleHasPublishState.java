@@ -40,7 +40,12 @@ public class ServerModuleHasPublishState extends AbstractWaitCondition{
 	}
 	
 	@Override
-	public String errorMessage() {
+	public String errorMessageWhile() {
+		return "Server module still has publish state " + state.getText(); 
+	}
+	
+	@Override
+	public String errorMessageUntil() {
 		return "Server module expected publis state was " + state.getText() + " but current publis state is "
 				+ module.getLabel().getState().getText(); 
 	}
