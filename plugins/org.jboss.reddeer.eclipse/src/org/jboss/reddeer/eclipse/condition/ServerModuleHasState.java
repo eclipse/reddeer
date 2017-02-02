@@ -40,7 +40,12 @@ public class ServerModuleHasState extends AbstractWaitCondition{
 	}
 	
 	@Override
-	public String errorMessage() {
+	public String errorMessageWhile() {
+		return "Server module still has state " + state.getText(); 
+	}
+	
+	@Override
+	public String errorMessageUntil() {
 		return "Server module expected state was " + state.getText() + " but current state is "
 				+ module.getLabel().getState().getText(); 
 	}
