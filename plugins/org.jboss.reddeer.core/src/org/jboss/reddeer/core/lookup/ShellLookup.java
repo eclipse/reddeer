@@ -61,11 +61,16 @@ public class ShellLookup {
 	 * or shell with highest index if there is no active or focused shell
 	 */
 	public Shell getActiveShell() {
-		new WaitUntil(new ActiveShellExists(), TimePeriod.SHORT, false);
+		if( !Thread.currentThread().equals(Display.getDisplay().getThread())) {
+			new WaitUntil(new ActiveShellExists(), TimePeriod.SHORT, false);
+		}
+		
 		Shell activeShell = getCurrentActiveShell();
 		// try to find shell with focus
-		if (activeShell == null) {
-			new WaitUntil(new ShellIsFocused(), TimePeriod.SHORT, false);
+		if (activeShell == null ) {
+			if(!Thread.currentThread().equals(Display.getDisplay().getThread())) {
+				new WaitUntil(new ShellIsFocused(), TimePeriod.SHORT, false);
+			}
 			activeShell = getCurrentFocusShell();
 		}
 		// if still no shell found, last visible shell will be returned

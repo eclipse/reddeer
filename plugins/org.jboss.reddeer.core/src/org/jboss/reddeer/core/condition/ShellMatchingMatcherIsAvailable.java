@@ -57,6 +57,6 @@ public class ShellMatchingMatcherIsAvailable extends AbstractWaitCondition {
 	 */
 	@Override
 	public String description() {
-		return "shell matching matcher is available.";
+		return "shell matching matcher is available: " + matcher.toString();
 	}
 }
