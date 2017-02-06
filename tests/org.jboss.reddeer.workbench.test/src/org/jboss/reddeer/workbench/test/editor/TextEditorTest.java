@@ -336,6 +336,16 @@ public class TextEditorTest {
 	}
 
 	@Test
+	public void insertLineIntoLastEditorLineTest(){
+		TextEditor textEditor = TextEditorTest.openJavaFile();
+		int lastIndex = textEditor.getNumberOfLines() - 1;
+		String newText = "newText";
+		textEditor.insertLine(lastIndex, newText);
+		String insertedLine = new TextEditor().getTextAtLine(lastIndex);
+		assertEquals(newText, insertedLine);
+	}
+
+	@Test
 	public void insertTextBehind() {
 		TextEditor textEditor = TextEditorTest.openJavaFile();
 		int offset = textEditor.getPositionOfText("class");

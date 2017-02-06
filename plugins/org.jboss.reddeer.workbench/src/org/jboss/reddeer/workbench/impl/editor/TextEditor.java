@@ -180,8 +180,11 @@ public class TextEditor extends AbstractEditor implements Editor {
 	public void insertLine(final int line, final String text) {
 		log.info("Insert text to editor at line " + line);
 		try {
-			insertText(line, 0, text + TextEditorHandler.getInstance()
-					.getDocument((ITextEditor)getEditorPart()).getLineDelimiter(line));
+			String delimiter = TextEditorHandler.getInstance()
+					.getDocument((ITextEditor)getEditorPart()).getLineDelimiter(line);
+			delimiter = delimiter == null ? System.lineSeparator() : delimiter;
+			
+			insertText(line, 0, text + delimiter);
 		} catch (BadLocationException e) {
 			throw new WorkbenchLayerException("Line provided is invalid for this editor", e);
 		}
