@@ -83,13 +83,7 @@ public class Requirements implements Requirement<Annotation>, Iterable<Requireme
 				log.info("Requirement " + r.getClass() + " can be fulfilled: " + canFulfillReq);
 				canFulfill = canFulfill && canFulfillReq;
 			} catch (Throwable ex) {
-				ScreenshotCapturer screenshotCapturer = ScreenshotCapturer.getInstance();
-				try {
-					screenshotCapturer.captureScreenshotOnFailure(configID, 
-							ScreenshotCapturer.getScreenshotFileName(clazz, null, r.getClass().getSimpleName()));
-				} catch (CaptureScreenshotException e) {
-					e.printInfo(log);
-				}
+				handleException(ex, r);
 				throw ex;
 			}
 		}
@@ -106,13 +100,7 @@ public class Requirements implements Requirement<Annotation>, Iterable<Requireme
 				log.info("Fulfilling requirement of " + r.getClass());
 				r.fulfill();
 			} catch (Throwable ex) {
-				ScreenshotCapturer screenshotCapturer = ScreenshotCapturer.getInstance();
-				try {
-					screenshotCapturer.captureScreenshotOnFailure(configID, 
-							ScreenshotCapturer.getScreenshotFileName(clazz, null, r.getClass().getSimpleName()));
-				} catch (CaptureScreenshotException e) {
-					e.printInfo(log);
-				}
+				handleException(ex, r);
 				throw ex;
 			}
 		}
@@ -136,16 +124,22 @@ public class Requirements implements Requirement<Annotation>, Iterable<Requireme
 				log.info("Cleaning up requirement of " + r.getClass());
 				r.cleanUp();
 			} catch (Throwable ex) {
-				ScreenshotCapturer screenshotCapturer = ScreenshotCapturer.getInstance();
-				try {
-					screenshotCapturer.captureScreenshotOnFailure(configID, 
-							ScreenshotCapturer.getScreenshotFileName(clazz, null, r.getClass().getSimpleName()));
-				} catch (CaptureScreenshotException e) {
-					e.printInfo(log);
-				}
+				handleException(ex, r);
 				throw ex;
 			}
 		}
 		
+	}
+	
+	private void handleException(Throwable ex, Requirement<?> r) {
+		if (ScreenshotCapturer.shouldCaptureScreenshotOnException(ex)) {
+			ScreenshotCapturer screenshotCapturer = ScreenshotCapturer.getInstance();
+			try {
+				screenshotCapturer.captureScreenshotOnFailure(configID,
+						ScreenshotCapturer.getScreenshotFileName(clazz, null, r.getClass().getSimpleName()));
+			} catch (CaptureScreenshotException e) {
+				e.printInfo(log);
+			}
+		}
 	}
 }

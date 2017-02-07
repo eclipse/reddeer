@@ -12,6 +12,7 @@ package org.jboss.reddeer.junit.internal.runner.statement;
 
 import java.util.List;
 
+import org.jboss.reddeer.junit.screenshot.ScreenshotCapturer;
 import org.junit.runners.model.FrameworkMethod;
 import org.junit.runners.model.Statement;
 import org.junit.runners.model.TestClass;
@@ -68,11 +69,13 @@ public class RunBefores extends AbstractStatementWithScreenshot {
 				before.invokeExplosively(target);
 			}
 		} catch (Throwable throwable) {
-			if (isClassLevel()){
-				frameworkMethod = before;
-				createScreenshot("BeforeClass");
-			} else {
-				createScreenshot("Before_" + before.getName());				
+			if(ScreenshotCapturer.shouldCaptureScreenshotOnException(throwable)){
+				if (isClassLevel()){
+					frameworkMethod = before;
+					createScreenshot("BeforeClass");
+				} else {
+					createScreenshot("Before_" + before.getName());				
+				}
 			}
 			throw throwable;
 		}

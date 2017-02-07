@@ -13,6 +13,7 @@ package org.jboss.reddeer.junit.internal.runner.statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.jboss.reddeer.junit.screenshot.ScreenshotCapturer;
 import org.junit.runners.model.FrameworkMethod;
 import org.junit.runners.model.MultipleFailureException;
 import org.junit.runners.model.Statement;
@@ -75,10 +76,12 @@ public class RunAfters extends AbstractStatementWithScreenshot {
 				frameworkMethod = each; 
 				frameworkMethod.invokeExplosively(target);
 			} catch (Throwable e) {
-				if (isClassLevel()){
-					createScreenshot("AfterClass");
-				} else {
-					createScreenshot("After");				
+				if(ScreenshotCapturer.shouldCaptureScreenshotOnException(e)){
+					if (isClassLevel()){
+						createScreenshot("AfterClass");
+					} else {
+						createScreenshot("After");				
+					}
 				}
 				errors.add(e);
 			}
