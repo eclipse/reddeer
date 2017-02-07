@@ -16,6 +16,7 @@ import java.util.List;
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.junit.execution.PriorityComparator;
 import org.jboss.reddeer.junit.extensionpoint.IAfterTest;
+import org.jboss.reddeer.junit.screenshot.ScreenshotCapturer;
 import org.junit.runners.model.MultipleFailureException;
 import org.junit.runners.model.Statement;
 import org.junit.runners.model.TestClass;
@@ -69,8 +70,10 @@ public class RunIAfterClassExtensions extends AbstractStatementWithScreenshot {
 					after.runAfterTestClass(config, testClass);
 				}
 			} catch (Throwable e) {
-				log.error("Run method runAfterTestClass() of class " + after.getClass().getCanonicalName() + " failed", e);
-				createScreenshot("AfterClassExt", after.getClass());
+				if(ScreenshotCapturer.shouldCaptureScreenshotOnException(e)){
+					log.error("Run method runAfterTestClass() of class " + after.getClass().getCanonicalName() + " failed", e);
+					createScreenshot("AfterClassExt", after.getClass());
+				}
 				errors.add(e);
 			}
 		}

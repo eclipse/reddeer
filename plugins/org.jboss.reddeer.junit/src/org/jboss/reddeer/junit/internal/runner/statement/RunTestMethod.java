@@ -11,6 +11,7 @@
 package org.jboss.reddeer.junit.internal.runner.statement;
 
 import org.jboss.reddeer.common.logging.Logger;
+import org.jboss.reddeer.junit.screenshot.ScreenshotCapturer;
 import org.junit.Test;
 import org.junit.runners.model.FrameworkMethod;
 import org.junit.runners.model.TestClass;
@@ -46,12 +47,14 @@ public class RunTestMethod extends AbstractStatementWithScreenshot {
     		frameworkMethod.invokeExplosively(target);	
     	} catch (Throwable t){
     		Test annotation = (Test) frameworkMethod.getAnnotations()[0];
-    		if (annotation.expected().getName().equals("org.junit.Test$None") ||
-    			!annotation.expected().isAssignableFrom(t.getClass())) {
-    				log.error("Test " + target.getClass().getName() 
-    					+ "." + frameworkMethod.getName()
-    					+ " throws exception: ",t);
-	    			createScreenshot();
+    		if (ScreenshotCapturer.shouldCaptureScreenshotOnException(t) 
+    				&& (annotation.expected().getName().equals("org.junit.Test$None")
+    						|| !annotation.expected().isAssignableFrom(t.getClass()))) {
+    			
+    			log.error("Test " + target.getClass().getName() 
+    				+ "." + frameworkMethod.getName()
+    				+ " throws exception: ",t);
+	    		createScreenshot();
     		}
     		throw t;
     	}

@@ -20,6 +20,7 @@ import org.eclipse.swt.graphics.ImageLoader;
 import org.eclipse.swt.widgets.Display;
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.common.properties.RedDeerProperties;
+import org.junit.AssumptionViolatedException;
 
 /**
  * This class provides capabilities to capture screenshot of display. 
@@ -249,6 +250,16 @@ public class ScreenshotCapturer {
 		} catch (Exception ex) {
 			throw new CaptureScreenshotException(ex.getMessage(), ex.getCause());
 		}
+	}
+	
+	/**
+	 * Tests if screenshot is required on throwable.
+	 * 
+	 * @param throwable the throwable
+	 * @return true if required, false otherwise
+	 */
+	public static boolean shouldCaptureScreenshotOnException(Throwable throwable){
+		return !(throwable instanceof AssumptionViolatedException);
 	}
 	
 	private String getAlteredScreenshotFileName(String screenshotFileName) {

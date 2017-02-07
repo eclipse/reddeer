@@ -14,6 +14,7 @@ import java.util.List;
 
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.junit.extensionpoint.IBeforeTest;
+import org.jboss.reddeer.junit.screenshot.ScreenshotCapturer;
 import org.junit.runners.model.FrameworkMethod;
 import org.junit.runners.model.Statement;
 import org.junit.runners.model.TestClass;
@@ -61,8 +62,10 @@ public class RunIBeforeTestExtensions extends AbstractStatementWithScreenshot {
 				}
 			}
 		} catch (Throwable e) {
-			log.error("Run method runBeforeTest() of class " + before.getClass().getCanonicalName() + " failed", e);
-			createScreenshot("BeforeTestExt", before.getClass());
+			if(ScreenshotCapturer.shouldCaptureScreenshotOnException(e)){
+				log.error("Run method runBeforeTest() of class " + before.getClass().getCanonicalName() + " failed", e);
+				createScreenshot("BeforeTestExt", before.getClass());
+			}
 			throw e;
 		}
 
