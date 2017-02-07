@@ -429,6 +429,10 @@ public class WidgetLookup {
 	 * @return true if widget is visible, false otherwise
 	 */
 	private boolean visible(final Widget w) {
+		if (w.isDisposed()) {
+			return false;
+		}
+		
 		return Display.syncExec(new ResultRunnable<Boolean>() {
 
 			@Override
