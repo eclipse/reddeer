@@ -23,12 +23,12 @@ import org.jboss.reddeer.common.condition.WaitCondition;
 public interface Wait {
 	
 	/**
-	 * Waits for a specified time period to met wait condition.
+	 * Waits for a wait condition to met.
 	 * 
 	 * @param condition wait condition to met 
-	 * @param testPeriod time period to wait for
+	 * @param testPeriod test tick period in milliseconds
 	 */
-	public void wait(WaitCondition condition, TimePeriod testPeriod);
+	public void wait(WaitCondition condition, long testPeriod);
 	
 	/**
 	 * Gets info whether a condition should stop waiting or not.

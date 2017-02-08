@@ -75,7 +75,7 @@ public class WaitWhile extends AbstractWait {
 	 * condition is performed
 	 */
 	public WaitWhile(WaitCondition condition, TimePeriod timeout,
-			boolean throwWaitTimeoutExpiredException, TimePeriod testPeriod) {
+			boolean throwWaitTimeoutExpiredException, long testPeriod) {
 		super(condition, timeout, throwWaitTimeoutExpiredException, testPeriod);
 	}
 	
