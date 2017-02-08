@@ -80,7 +80,7 @@ public class WaitUntil extends AbstractWait {
 	 * 
 	 */
 	public WaitUntil(WaitCondition condition, TimePeriod timeout,
-			boolean throwWaitTimeoutExpiredException, TimePeriod testPeriod) {
+			boolean throwWaitTimeoutExpiredException, long testPeriod) {
 		super(condition, timeout, throwWaitTimeoutExpiredException, testPeriod);
 	}
 	

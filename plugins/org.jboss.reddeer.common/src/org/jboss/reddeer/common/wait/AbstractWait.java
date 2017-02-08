@@ -30,7 +30,9 @@ public abstract class AbstractWait implements Wait {
 	 * Wait logger.
 	 */
 	private static final Logger log = Logger.getLogger(AbstractWait.class);
-
+	// Default wait tick period in milliseconds
+	private static final long DEFAULT_TICK_PERIOD = 500;
+	
 	private TimePeriod timeout;
 
 	private boolean throwTimeoutException = true;
@@ -76,7 +78,7 @@ public abstract class AbstractWait implements Wait {
 	 *             the wait timeout expired exception
 	 */
 	public AbstractWait(WaitCondition condition, TimePeriod timePeriod, boolean throwRuntimeException) {
-		this(condition, timePeriod, throwRuntimeException, TimePeriod.SHORT);
+		this(condition, timePeriod, throwRuntimeException, DEFAULT_TICK_PERIOD);
 	}
 
 	/**
@@ -94,20 +96,20 @@ public abstract class AbstractWait implements Wait {
 	 *            period
 	 * @param testPeriod
 	 *            time to wait before another testing of a wait condition is
-	 *            performed
+	 *            performed in milliseconds
 	 * @throws WaitTimeoutExpiredException
 	 *             the wait timeout expired exception
 	 */
 	public AbstractWait(WaitCondition condition, TimePeriod timePeriod, boolean throwRuntimeException,
-			TimePeriod testPeriod) {
+			long testPeriod) {
 		if (condition == null) {
 			throw new IllegalArgumentException("condition can't be null");
 		}
 		if (timePeriod == null) {
 			throw new IllegalArgumentException("timePeriod can't be null");
 		}
-		if (testPeriod == null) {
-			throw new IllegalArgumentException("testPeriod cannot be null.");
+		if (testPeriod < 0) {
+			throw new IllegalArgumentException("testPeriod can't be lesser than 0 milliseconds.");
 		}
 		this.timeout = timePeriod;
 		this.throwTimeoutException = throwRuntimeException;
@@ -115,7 +117,7 @@ public abstract class AbstractWait implements Wait {
 	}
 
 	@Override
-	public void wait(WaitCondition condition, TimePeriod testPeriod) {
+	public void wait(WaitCondition condition, long testPeriod) {
 		log.debug(this.description() + condition.description() + "...");
 
 		long limit;
@@ -166,12 +168,16 @@ public abstract class AbstractWait implements Wait {
 	 *            time period to sleep
 	 */
 	public static void sleep(TimePeriod timePeriod) {
-		log.debug("Wait "+timePeriod.getSeconds() +" seconds");
+		log.debug("Wait for " + timePeriod.getSeconds() + " seconds");
+		sleep(timePeriod.getSeconds() * 1000);
+	}
+	
+	private static void sleep(long milliseconds) {
 		if (Thread.currentThread().equals(Display.getDisplay().getThread())) {
 			throw new RuntimeException("Tried to execute sleep in UI thread!");
 		}
 		try {
-			Thread.sleep(timePeriod.getSeconds() * 1000);
+			Thread.sleep(milliseconds);
 		} catch (InterruptedException e) {
 			throw new RuntimeException("Sleep interrupted", e);
 		}

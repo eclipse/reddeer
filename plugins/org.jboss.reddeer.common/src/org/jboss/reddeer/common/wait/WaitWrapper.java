@@ -89,7 +89,7 @@ public class WaitWrapper extends AbstractWait {
 	}
 	
 	@Override
-	public void wait(WaitCondition condition, TimePeriod testPeriod) {
+	public void wait(WaitCondition condition, long testPeriod) {
 		// NOTHING TO WAIT FOR
 	}
 }
