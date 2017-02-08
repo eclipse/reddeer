@@ -21,10 +21,6 @@
 		<category name="RuntimeAPIFeatures"/>
 	</feature>
 
-	<feature url="org.jboss.reddeer.rcp.feature.qualifier" id="org.jboss.reddeer.rcp.feature" version="0.0.0">
-		<category name="RuntimeAPIFeatures"/>
-	</feature>
-
 	<feature url="org.jboss.reddeer.swt.feature.qualifier" id="org.jboss.reddeer.swt.feature" version="0.0.0">
 		<category name="RuntimeAPIFeatures"/>
 	</feature>
@@ -61,10 +57,6 @@
 	</feature>
 
 	<feature url="org.jboss.reddeer.eclipse.feature.source.qualifier" id="org.jboss.reddeer.eclipse.feature.source" version="0.0.0">
-		<category name="AllSources"/>
-	</feature>
-
-	<feature url="org.jboss.reddeer.feature.rcp.source.qualifier" id="org.jboss.reddeer.rcp.feature.source" version="0.0.0">
 		<category name="AllSources"/>
 	</feature>
 
