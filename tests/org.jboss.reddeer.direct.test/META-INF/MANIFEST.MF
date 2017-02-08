@@ -7,5 +7,5 @@ Bundle-Version: 2.0.0.qualifier
 Bundle-Activator: org.jboss.reddeer.direct.test.Activator
 Require-Bundle: org.jboss.reddeer.go;bundle-version="[2.0,2.1)"
 Bundle-ActivationPolicy: lazy
-Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Export-Package: org.jboss.reddeer.direct.test

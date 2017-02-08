@@ -15,6 +15,6 @@ Require-Bundle: org.jboss.reddeer.go;bundle-version="[2.0,2.1)",
  org.eclipse.core.databinding.observable,
  org.eclipse.core.databinding.property;bundle-version="1.5.0"
 Bundle-ActivationPolicy: lazy
-Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Export-Package: org.jboss.reddeer.swt.test
 Import-Package: org.eclipse.ui.texteditor

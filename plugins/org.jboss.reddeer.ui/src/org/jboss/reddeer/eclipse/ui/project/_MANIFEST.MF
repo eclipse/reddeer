@@ -5,6 +5,6 @@ Bundle-SymbolicName: @PLUGIN_ID@;singleton:=true
 Bundle-Version: @PLUGIN_VERSION@
 Bundle-ActivationPolicy: lazy
 Bundle-Vendor: @PLUGIN_PROVIDER@
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Require-Bundle: org.junit, org.jboss.reddeer.go
 
