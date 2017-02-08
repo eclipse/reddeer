@@ -17,12 +17,11 @@ import org.jboss.reddeer.common.wait.TimePeriod;
 import org.jboss.reddeer.common.wait.WaitUntil;
 import org.jboss.reddeer.common.wait.WaitWhile;
 import org.jboss.reddeer.core.condition.WidgetIsFound;
-import org.jboss.reddeer.core.exception.CoreLayerException;
+import org.jboss.reddeer.core.handler.WidgetHandler;
+import org.jboss.reddeer.core.matcher.WithTextMatcher;
 import org.jboss.reddeer.eclipse.condition.ConsoleHasLabel;
 import org.jboss.reddeer.eclipse.condition.ConsoleHasLaunch;
 import org.jboss.reddeer.eclipse.condition.ConsoleIsTerminated;
-import org.jboss.reddeer.swt.exception.SWTLayerException;
-import org.jboss.reddeer.swt.impl.label.DefaultLabel;
 import org.jboss.reddeer.swt.impl.menu.ToolItemMenu;
 import org.jboss.reddeer.swt.impl.styledtext.DefaultStyledText;
 import org.jboss.reddeer.swt.impl.toolbar.DefaultToolItem;
@@ -36,6 +35,9 @@ import org.jboss.reddeer.workbench.impl.view.WorkbenchView;
  */
 public class ConsoleView extends WorkbenchView {
 
+	private static final String TERMINATE = "Terminate";
+	private static final String CLEAR_CONSOLE = "Clear Console";
+	
 	/**
 	 * Constructs the view with "Console".
 	 */
@@ -52,7 +54,7 @@ public class ConsoleView extends WorkbenchView {
 		activate();
 		WidgetIsFound widgetIsFound = new WidgetIsFound(org.eclipse.swt.custom.StyledText.class);
 		new WaitUntil(widgetIsFound, TimePeriod.NORMAL, false);
-		// Checck whether there is a console to display or not
+		// Check whether there is a console to display or not
 		if (widgetIsFound.getWidget() == null) {
 			return null;
 		}
@@ -67,9 +69,18 @@ public class ConsoleView extends WorkbenchView {
 	public void clearConsole() {
 		log.info("Clearing console");
 		activate();		
-		new DefaultToolItem("Clear Console").click();
+		new DefaultToolItem(CLEAR_CONSOLE).click();
 		new WaitUntil(new ConsoleHasText(""));
 		log.info("Console cleared");
+	}
+	
+	/**
+	 * Finds out whether console can be cleared or not.
+	 * 
+	 * @return true if console can be cleared (there is a tool item Clear Console and is enabled), false otherwise
+	 */
+	public boolean canClearConsole() {
+		return toolItemExistsAndIsEnabled(CLEAR_CONSOLE);
 	}
 	
 	/**
@@ -99,7 +110,7 @@ public class ConsoleView extends WorkbenchView {
 	public void terminateConsole() {
 		log.info("Terminating console");
 		activate();
-		DefaultToolItem terminate = new DefaultToolItem("Terminate");
+		DefaultToolItem terminate = new DefaultToolItem(TERMINATE);
 		if (terminate.isEnabled()) {
 			terminate.click();
 			new WaitUntil(new ConsoleIsTerminated());
@@ -107,6 +118,33 @@ public class ConsoleView extends WorkbenchView {
 		} else {
 			log.info("Console was terminated earlier");
 		}
+	}
+	
+	/**
+	 * Finds out whether a console can be terminated or not
+	 * 
+	 * @return true if console has terminate tool item and it is enabled, false otherwise
+	 */
+	public boolean canTerminateConsole() {
+		return toolItemExistsAndIsEnabled(TERMINATE);
+	}
+	
+	/**
+	 * Finds out whether a tool item with specified text exists and is enabled or not.
+	 * 
+	 * @param toolItemText
+	 * @return if tool item exists and is enabled, false otherwise
+	 */
+	private boolean toolItemExistsAndIsEnabled(String toolItemText) {
+		activate();
+		WidgetIsFound widgetIsFound = new WidgetIsFound(org.eclipse.swt.widgets.ToolItem.class,
+				new WithTextMatcher(toolItemText));
+		widgetIsFound.test();
+		org.eclipse.swt.widgets.Widget widget = widgetIsFound.getWidget();
+		if (widget == null) {
+			return false;
+		}
+		return new DefaultToolItem((org.eclipse.swt.widgets.ToolItem) widget).isEnabled();
 	}
 	
 	/**
@@ -120,18 +158,13 @@ public class ConsoleView extends WorkbenchView {
 	}
 	
 	/**
-	 * Returns true when console has launch.
+	 * Returns true if console has launch.
 	 *
 	 * @return true, if successful
 	 */
 	public boolean consoleHasLaunch() {
 		activate();
-		try{
-			new DefaultStyledText();
-		}catch(CoreLayerException ex){
-			return false;
-		}
-		return true;
+		return new WidgetIsFound(org.eclipse.swt.custom.StyledText.class).test();
 	}
 	
 	/**
@@ -184,12 +217,11 @@ public class ConsoleView extends WorkbenchView {
 
 		@Override
 		public boolean test() {
-			try {
-				DefaultStyledText dstConsole = new DefaultStyledText();
-				return dstConsole.getText().equals(this.consoleText);
-			} catch (CoreLayerException ex) {
-				return false;
-			}
+			WidgetIsFound widgetIsFound = new WidgetIsFound(org.eclipse.swt.custom.StyledText.class);
+			widgetIsFound.test();
+			org.eclipse.swt.widgets.Widget swtWidget = widgetIsFound.getWidget();
+			return (swtWidget == null) ? false : consoleText.equals(
+					WidgetHandler.getInstance().getText(swtWidget));
 		}
 
 		@Override
@@ -200,18 +232,15 @@ public class ConsoleView extends WorkbenchView {
 	}
 	
 	/**
-	 * Returns console label title or null when console has no label  .
+	 * Returns console label title or null when console has no label.
 	 *
 	 * @return the console label
 	 */
 	public String getConsoleLabel (){
-		String consoleLabel = null;
 		activate();
-		try{
-			consoleLabel = new DefaultLabel().getText();
-		} catch (SWTLayerException ex) {
-			consoleLabel = null;
-		}
-		return consoleLabel;
+		WidgetIsFound widgetIsFound = new WidgetIsFound(org.eclipse.swt.widgets.Label.class);
+		widgetIsFound.test();
+		org.eclipse.swt.widgets.Widget swtWidget = widgetIsFound.getWidget();
+		return (swtWidget == null) ? null : WidgetHandler.getInstance().getText(swtWidget);
 	}
 }
