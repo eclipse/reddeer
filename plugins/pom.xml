@@ -29,7 +29,6 @@
 		<module>org.jboss.reddeer.junit</module>
 		<module>org.jboss.reddeer.junit.extension</module>
 		<module>org.jboss.reddeer.selenium</module>
-		<module>org.jboss.reddeer.examples</module>
 		<module>org.jboss.reddeer.requirements</module>
 		<module>org.jboss.reddeer.ui</module>
 		<module>org.jboss.reddeer.spy</module>

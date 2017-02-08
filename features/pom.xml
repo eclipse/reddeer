@@ -15,7 +15,6 @@
 	
 	<modules>
 		<module>org.jboss.reddeer.eclipse.feature</module>
-		<module>org.jboss.reddeer.examples.feature</module>
 		<module>org.jboss.reddeer.gef.spy.feature</module>
 		<module>org.jboss.reddeer.rcp.feature</module>
 		<module>org.jboss.reddeer.swt.feature</module>
