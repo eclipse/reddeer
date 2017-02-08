@@ -9,5 +9,5 @@ Require-Bundle: org.jboss.reddeer.go;bundle-version="[2.0,2.1)",
  org.eclipse.jface.text,
  org.eclipse.jdt
 Bundle-ActivationPolicy: lazy
-Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Import-Package: org.eclipse.ui.texteditor

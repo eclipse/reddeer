@@ -8,4 +8,4 @@ Bundle-Activator: org.jboss.reddeer.jface.test.Activator
 Require-Bundle: org.jboss.reddeer.go;bundle-version="[2.0,2.1)",
  org.jboss.reddeer.swt.test;bundle-version="[2.0,2.1)"
 Bundle-ActivationPolicy: lazy
-Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
