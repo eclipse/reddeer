@@ -43,7 +43,7 @@ public class HyperLinkHandler {
 	}
 
 	/**
-	 * Activates specified {@link HyperLink} widget.
+	 * Activates specified hyper link widget.
 	 *
 	 * @param hyperLink the hyper link
 	 */
@@ -61,7 +61,7 @@ public class HyperLinkHandler {
 	}
 	
 	/**
-	 * Notifies specified {@link HyperLink} widget with specified event.
+	 * Notifies specified hyper link widget with specified event.
 	 *  
 	 * @param eventType event to notify specified hyper link about
 	 * @param widget widget to notify

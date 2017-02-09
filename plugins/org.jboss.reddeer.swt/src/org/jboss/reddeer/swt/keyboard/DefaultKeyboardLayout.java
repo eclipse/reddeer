@@ -31,7 +31,7 @@ import org.jboss.reddeer.swt.keyboard.internal.ModifierKeysBinding;
  * 
  * Each line in configuration file has to be in format 
  * <pre>
- * &ltcharacter&gt &ltmodifierKey1&gt+&ltmodifierKey2&gt+...+&ltnatuarlKey&gt
+ * &lt;character&gt; &lt;modifierKey1&gt;+&lt;modifierKey2&gt;+...+&lt;natuarlKey&gt;
  * </pre>
  * Note, that for now only default.keyboard (en_US) will be taken in
  * consideration. Possibility to provide your own configuration file will be

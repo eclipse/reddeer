@@ -79,7 +79,7 @@ public class TreeItemHandler {
 	}
 
 	/**
-	 * Gets tool tip of specified {@link TreeItem}.
+	 * Gets tool tip of specified tree item.
 	 * 
 	 * @param item
 	 *            item to handle
@@ -96,7 +96,7 @@ public class TreeItemHandler {
 	}
 
 	/**
-	 * Finds out whether specified {@link TreeItem} is checked or not.
+	 * Finds out whether specified tree item is checked or not.
 	 * 
 	 * @param item
 	 *            item to handle
@@ -114,7 +114,7 @@ public class TreeItemHandler {
 
 	/**
 	 * Sets specified text to column on the position specified by index in
-	 * specified {@link TreeItem}.
+	 * specified tree item.
 	 * 
 	 * @param treeItem
 	 *            tree item to handle
@@ -134,7 +134,7 @@ public class TreeItemHandler {
 	}
 
 	/**
-	 * Selects specified {@link TreeItem}s in currently focused tree.
+	 * Selects specified tree items in currently focused tree.
 	 *
 	 * @param selection
 	 *            the selection
@@ -161,7 +161,7 @@ public class TreeItemHandler {
 	}
 
 	/**
-	 * See {@link TreeItem#select()}.
+	 * Selects swt tree item.
 	 * 
 	 * @param swtTreeItem
 	 *            tree item to handle
@@ -182,7 +182,7 @@ public class TreeItemHandler {
 	}
 
 	/**
-	 * See {@link TreeItem#getItem(String)}.
+	 * Get child swt tree item with specified text.
 	 * 
 	 * @param swtTreeItem
 	 *            tree item to handle
@@ -228,8 +228,7 @@ public class TreeItemHandler {
 	}
 
 	/**
-	 * Gets children {@link TreeItem}s of specified
-	 * {@link org.eclipse.swt.widgets.TreeItem}.
+	 * Gets children of specified swt tree item.
 	 * 
 	 * @param swtTreeItem
 	 *            tree item to handle
@@ -247,7 +246,7 @@ public class TreeItemHandler {
 	}
 
 	/**
-	 * See {@link TreeItem#getParent()}.
+	 * Gets parent of specified swt tree item.
 	 * 
 	 * @param swtTreeItem
 	 *            tree item to handle
@@ -263,7 +262,7 @@ public class TreeItemHandler {
 	}
 
 	/**
-	 * See {@link TreeItem#getPath()}.
+	 * Gets path to specified swt tree item.
 	 * 
 	 * @param swtTreeItem
 	 *            tree item to handle
@@ -285,7 +284,7 @@ public class TreeItemHandler {
 	}
 
 	/**
-	 * See {@link TreeItem#isChecked()}.
+	 * Finds out whether a specified swt tree item is checked or not.
 	 * 
 	 * @param swtTreeItem
 	 *            tree item to handle
@@ -301,7 +300,7 @@ public class TreeItemHandler {
 	}
 
 	/**
-	 * See {@link TreeItem#setChecked(boolean)}.
+	 * Set or unset check on specified swt tree item.
 	 * 
 	 * @param swtTreeItem
 	 *            tree item to handle
@@ -324,7 +323,7 @@ public class TreeItemHandler {
 	}
 
 	/**
-	 * See {@link TreeItem#isSelected()}.
+	 * Finds out whether a specified swt tree item is selected or not.
 	 * 
 	 * @param swtTreeItem
 	 *            tree item to handle
@@ -340,7 +339,7 @@ public class TreeItemHandler {
 	}
 
 	/**
-	 * See {@link TreeItem#collapse()}.
+	 * Collapses specified swt tree item.
 	 * 
 	 * @param swtTreeItem
 	 *            tree item to handle
@@ -366,7 +365,7 @@ public class TreeItemHandler {
 	}
 
 	/**
-	 * See {@link TreeItem#expand}.
+	 * Expands specified swt tree item.
 	 * 
 	 * @param swtTreeItem
 	 *            tree item to handle
@@ -376,7 +375,7 @@ public class TreeItemHandler {
 	}
 
 	/**
-	 * See {@link TreeItem#expand(TimePeriod)}.
+	 * Expands specified swt tree item and wait for it for specified time period.
 	 * 
 	 * @param swtTreeItem
 	 *            tree item to handle

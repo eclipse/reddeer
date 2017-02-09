@@ -20,7 +20,7 @@ import org.jboss.reddeer.swt.impl.menu.ShellMenu;
 
 /**
  * Workbench Preference Dialog implementation that is opened via shell menu
- * Window -> Preferences.
+ * Window &gt; Preferences.
  *
  * @author Jiri Peterka
  * @author Radoslav Rabara
@@ -32,21 +32,11 @@ public class WorkbenchPreferenceDialog extends PreferenceDialog {
 
 	private final Logger log = Logger.getLogger(WorkbenchPreferenceDialog.class);
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.jboss.reddeer.jface.preference.PreferenceDialog#getTitle()
-	 */
 	@Override
 	public String getTitle() {
 		return DIALOG_TITLE;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.jboss.reddeer.jface.preference.PreferenceDialog#openImpl()
-	 */
 	@Override
 	protected void openImpl() {
 		if (RunningPlatform.isOSX()) {

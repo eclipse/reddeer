@@ -16,12 +16,12 @@ import org.junit.runners.model.InitializationError;
 import org.junit.runners.model.RunnerBuilder;
 
 /**
- * Suite containing tests without a run.<br/>
- * <br/>
+ * Suite containing tests without a run.<br>
+ * <br>
  * 
  * It doesn't execute tests. The suite only informs that there are tests, whose
  * requirements were not fulfilled for any test configuration
- * so the tests were not executed at all.<br/>
+ * so the tests were not executed at all.<br>
  * 
  * @author Radoslav Rabara
  *

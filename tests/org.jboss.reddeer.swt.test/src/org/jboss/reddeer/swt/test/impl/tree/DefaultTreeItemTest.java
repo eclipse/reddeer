@@ -226,7 +226,8 @@ public class DefaultTreeItemTest extends AbstractTreeTest {
 		DefaultTreeItem dfi2 = new DefaultTreeItem("A","AA","AAB");
 		DefaultTreeItem dfi3 = new DefaultTreeItem("C");
 		DefaultTreeItem dfiNotSelected = new DefaultTreeItem("A","AA");
-		TreeEventsListener treeEventsListener = new TreeEventsListener(dfi0.getParent().getSWTWidget());
+		TreeEventsListener treeEventsListener = new TreeEventsListener(
+				dfi0.getParent().getSWTWidget());
 		treeEventsListener.addListeners();
 		dfi0.getParent().selectItems(dfi0,dfi1,dfi2,dfi3);
 		assertTrue("TreeItem " + printFormattedStringArray(dfi0.getPath())
@@ -263,7 +264,8 @@ public class DefaultTreeItemTest extends AbstractTreeTest {
 	public void testDoubleClick(){
 		createTreeItems(tree.getSWTWidget());
 		DefaultTreeItem dfi = new DefaultTreeItem("A","AA");
-		TreeEventsListener treeEventsListener = new TreeEventsListener(dfi.getParent().getSWTWidget());
+		TreeEventsListener treeEventsListener = new TreeEventsListener(
+				dfi.getParent().getSWTWidget());
 		treeEventsListener.addListeners();
 		dfi.doubleClick();
 		assertTrue("Selection event was not fired",treeEventsListener.wasSelectionEvent());

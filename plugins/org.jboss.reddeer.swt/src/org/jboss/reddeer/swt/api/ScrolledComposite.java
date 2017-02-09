@@ -18,6 +18,6 @@ import org.jboss.reddeer.swt.widgets.Widget;
  * @author Jiri Peterka
  *
  */
-public interface ScrolledComposite extends Widget {
+public interface ScrolledComposite extends Widget<org.eclipse.swt.custom.ScrolledComposite> {
 
 }

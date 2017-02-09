@@ -22,7 +22,7 @@ import org.jboss.reddeer.common.wait.AbstractWait;
 import org.jboss.reddeer.common.wait.TimePeriod;
 
 /**
- * Contains methods for handling UI operations on {@link ExpandBarItem} widgets.
+ * Contains methods for handling UI operations on {@link ExpandItem} widgets.
  * 
  * @author Vlado Pakan
  *

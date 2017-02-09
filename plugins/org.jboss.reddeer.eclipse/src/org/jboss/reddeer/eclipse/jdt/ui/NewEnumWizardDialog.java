@@ -21,7 +21,7 @@ import org.jboss.reddeer.jface.wizard.NewWizardDialog;
 public class NewEnumWizardDialog extends NewWizardDialog {
 
 	/**
-	 * Construct the wizard with Java > Enum.
+	 * Construct the wizard with "Java" &gt; "Enum".
 	 */
 	public NewEnumWizardDialog() {
 		super("Java", "Enum");

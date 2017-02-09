@@ -182,6 +182,7 @@ public class AbstractMarkersSupportView extends WorkbenchView {
 	/**
 	 * Gets markers of any type matching specified matcher as a list of markers of specific class.
 	 * 
+	 * @param <T> type of marker
 	 * @param clazz class of marker to get
 	 * @param markerType type of a marker (Error, Warning, Java Problem etc.)
 	 * @param matchers matchers to filter markers

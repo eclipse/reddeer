@@ -19,7 +19,7 @@ import org.jboss.reddeer.swt.widgets.Widget;
  * @author Jiri Peterka
  * 
  */
-public interface Shell extends Widget, ReferencedComposite {
+public interface Shell extends Widget<org.eclipse.swt.widgets.Shell>, ReferencedComposite {
 
 	/**
 	 * Returns title of the shell.
@@ -77,7 +77,4 @@ public interface Shell extends Widget, ReferencedComposite {
 	 * @return true if shell is minimized, false otherwise
 	 */
 	boolean isMinimized();
-	
-	org.eclipse.swt.widgets.Shell getSWTWidget();
-
 }

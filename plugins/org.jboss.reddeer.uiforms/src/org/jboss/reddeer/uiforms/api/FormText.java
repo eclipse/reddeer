@@ -19,7 +19,7 @@ import org.jboss.reddeer.swt.widgets.Widget;
  *
  */
 
-public interface FormText extends Widget{
+public interface FormText extends Widget<org.eclipse.ui.forms.widgets.FormText> {
 
 	/**
 	 * Returns whole text of this FormText.

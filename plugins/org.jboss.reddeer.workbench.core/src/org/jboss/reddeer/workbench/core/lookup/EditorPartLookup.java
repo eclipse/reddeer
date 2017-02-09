@@ -53,7 +53,7 @@ public class EditorPartLookup {
 	
 	/**
 	 * Gets currently active or first inactive editor. If there is no opened editor,  
-	 * {@link WorkbenchLayerException} is thrown
+	 * {@link WorkbenchCoreLayerException} is thrown
 	 * . 
 	 * @return active or first inactive editor. 
 	 */
@@ -99,7 +99,7 @@ public class EditorPartLookup {
 	}
 	
 	/**
-	 * Gets editor matching specified matchers. If there is no opened editor, {@link WorkbenchLayerException}
+	 * Gets editor matching specified matchers. If there is no opened editor, {@link WorkbenchCoreLayerException}
 	 * is thrown.
 	 * 
 	 * @param matchers matchers to match editor

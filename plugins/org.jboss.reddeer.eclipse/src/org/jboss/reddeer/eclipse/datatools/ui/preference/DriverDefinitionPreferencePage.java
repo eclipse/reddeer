@@ -27,7 +27,7 @@ import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 public class DriverDefinitionPreferencePage extends PreferencePage {
 
 	/**
-	 * Construct a preference page with Data Management > Connectivity > Driver Definitions.
+	 * Construct a preference page with Data Management &gt; Connectivity &gt; Driver Definitions.
 	 */
 	public DriverDefinitionPreferencePage() {
 		super(new String[] {"Data Management", "Connectivity", "Driver Definitions"});

@@ -17,9 +17,9 @@ import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 
 /**
- * Matcher matching conjunctive satisfaction of all matchers.<br/>
+ * Matcher matching conjunctive satisfaction of all matchers.<br>
  * 
- * Provides logical operation AND for {@link Matcher}s.
+ * Provides logical operation AND for Matcher.
  * 
  * @author Jiri Peterka
  * @author Radoslav Rabara

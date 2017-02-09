@@ -49,17 +49,11 @@ public abstract class AbstractBrowser extends AbstractWidget<org.eclipse.swt.bro
 		super(widget);
 	}
 
-	/* (non-Javadoc)
-	 * @see org.jboss.reddeer.swt.api.Browser#isPageLoaded()
-	 */
 	@Override
 	public boolean isPageLoaded() {
 		return browserProgressListener.isDone();
 	}
 
-	/* (non-Javadoc)
-	 * @see org.jboss.reddeer.swt.api.Browser#forward()
-	 */
 	@Override
 	public void forward() {
 		log.info("Browser forward");
@@ -74,9 +68,6 @@ public abstract class AbstractBrowser extends AbstractWidget<org.eclipse.swt.bro
 		resetProgressListener();
 	}
 
-	/* (non-Javadoc)
-	 * @see org.jboss.reddeer.swt.api.Browser#back()
-	 */
 	@Override
 	public void back() {
 		log.info("Browser back");
@@ -92,9 +83,6 @@ public abstract class AbstractBrowser extends AbstractWidget<org.eclipse.swt.bro
 		resetProgressListener();
 	}
 
-	/* (non-Javadoc)
-	 * @see org.jboss.reddeer.swt.api.Browser#setURL(java.lang.String)
-	 */
 	@Override
 	public void setURL(String url) {
 		log.info("Set browser URL to '" + url + "'");
@@ -109,45 +97,30 @@ public abstract class AbstractBrowser extends AbstractWidget<org.eclipse.swt.bro
 		resetProgressListener();
 	}
 	
-	/* (non-Javadoc)
-	 * @see org.jboss.reddeer.swt.api.Browser#getURL()
-	 */
 	@Override
 	public String getURL() {
 		new WaitUntil(new PageIsLoaded(this));
 		return BrowserHandler.getInstance().getURL(this.getSWTWidget());	
 	}
 	
-	/* (non-Javadoc)
-	 * @see org.jboss.reddeer.swt.api.Browser#getText()
-	 */
 	@Override
 	public String getText() {
 		new WaitUntil(new PageIsLoaded(this));
 		return BrowserHandler.getInstance().getText(this.getSWTWidget());	
 	}
 	
-	/* (non-Javadoc)
-	 * @see org.jboss.reddeer.swt.api.Browser#refresh()
-	 */
 	@Override
 	public void refresh() {
 		log.info("Browser refresh");
 		BrowserHandler.getInstance().refresh(this.getSWTWidget());		
 	}
 	
-	/* (non-Javadoc)
-	 * @see org.jboss.reddeer.swt.api.Browser#evaluate(java.lang.String)
-	 */
 	@Override
 	public Object evaluate(String script) {
 		log.info("Evaluate script: " + script);
 		return BrowserHandler.getInstance().evaluate(this.getSWTWidget(), script);
 	}
 
-	/* (non-Javadoc)
-	 * @see org.jboss.reddeer.swt.api.Browser#execute(java.lang.String)
-	 */
 	@Override
 	public boolean execute(String script) {
 		log.info("Execute script: " + script);

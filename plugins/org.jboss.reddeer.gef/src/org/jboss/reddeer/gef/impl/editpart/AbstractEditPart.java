@@ -41,7 +41,7 @@ public abstract class AbstractEditPart implements EditPart, ReferencedComposite 
 	/**
 	 * Constructs edit part from {@link org.eclipse.gef.EditPart}.
 	 * 
-	 * @param editPart
+	 * @param editPart edit part
 	 */
 	public AbstractEditPart(org.eclipse.gef.EditPart editPart) {
 		this.editPart = editPart;
@@ -50,7 +50,7 @@ public abstract class AbstractEditPart implements EditPart, ReferencedComposite 
 	/**
 	 * Constructs edit part which fulfills a given matcher.
 	 * 
-	 * @param editPart
+	 * @param matcher matcher to match edit part
 	 */
 	public AbstractEditPart(Matcher<org.eclipse.gef.EditPart> matcher) {
 		this(matcher, 0);
@@ -59,7 +59,8 @@ public abstract class AbstractEditPart implements EditPart, ReferencedComposite 
 	/**
 	 * Constructs edit part which fulfills a given matcher at the specified index.
 	 * 
-	 * @param editPart
+	 * @param matcher matcher to match edit part
+	 * @param index index of edit part
 	 */
 	public AbstractEditPart(Matcher<org.eclipse.gef.EditPart> matcher, int index) {
 		this(EditPartLookup.getInstance().findEditPart(matcher, index,

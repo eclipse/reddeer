@@ -20,7 +20,7 @@ import org.jboss.reddeer.swt.widgets.Widget;
  * @author Jiri Peterka
  *
  */
-public interface Combo extends Widget {
+public interface Combo extends Widget<org.eclipse.swt.widgets.Combo> {
 
 	/**
 	 * Sets text to the combo.
@@ -78,7 +78,4 @@ public interface Combo extends Widget {
 	 * @return true if combo is enabled, false otherwise
 	 */
 	boolean isEnabled();
-
-	org.eclipse.swt.widgets.Combo getSWTWidget();
-
 }

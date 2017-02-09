@@ -12,7 +12,7 @@ package org.jboss.reddeer.jface.wizard;
 
 
 /**
- * Superclass for new object wizard dialogs. It opens the new object wizard by clicking File -> New -> Other... 
+ * Superclass for new object wizard dialogs. It opens the new object wizard by clicking File &gt; New &gt; Other... 
  * and selects an appropriate wizard in the dialog. 
  * 
  * @author vpakan
@@ -31,17 +31,11 @@ public abstract class NewWizardDialog extends TopMenuWizardDialog {
 		super(path);
 	}
 	
-	/* (non-Javadoc)
-	 * @see org.jboss.reddeer.jface.wizard.TopMenuWizardDialog#getDialogTitle()
-	 */
 	@Override
 	protected String getDialogTitle() {
 		return DIALOG_TITLE;
 	}
 	
-	/* (non-Javadoc)
-	 * @see org.jboss.reddeer.jface.wizard.TopMenuWizardDialog#getMenuPath()
-	 */
 	@Override
 	protected String[] getMenuPath() {
 		return new String[]{"File", "New", "Other..."};

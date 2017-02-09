@@ -35,7 +35,9 @@ import org.jboss.reddeer.eclipse.jdt.debug.ui.launchConfigurations.RedDeerJavaAr
 public class RedDeerJUnitTabGroup extends JUnitTabGroup {
 
 	/**
-	 * @see {@link org.eclipse.pde.ui.launcher.JUnitTabGroup#createTabs(ILaunchConfigurationDialog, String)}
+	 * Creates tabs for RedDeer JUnit tab group.
+	 * @param dialog dialog
+	 * @param mode mode
 	 */
 	public void createTabs(ILaunchConfigurationDialog dialog, String mode) {
 		super.createTabs(dialog, mode);

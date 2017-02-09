@@ -18,7 +18,7 @@ import org.jboss.reddeer.swt.widgets.Widget;
  * @author Jiri Peterka
  *
  */
-public interface ToolItem extends Widget {
+public interface ToolItem extends Widget<org.eclipse.swt.widgets.ToolItem> {
 
 	/**
 	 * Clicks the tool item.
@@ -45,6 +45,4 @@ public interface ToolItem extends Widget {
 	 * @param toggle the button of the tool item or not
 	 */
 	void toggle(boolean toggle);
-
-	org.eclipse.swt.widgets.ToolItem getSWTWidget();
 }

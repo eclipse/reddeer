@@ -34,8 +34,6 @@ import org.jboss.reddeer.workbench.impl.view.WorkbenchView;
 
 /**
  * Represents the TaskRepositories view. 
- *  
- * @author 
  *
  */
 public class TaskRepositoriesView extends WorkbenchView {

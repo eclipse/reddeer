@@ -15,7 +15,7 @@ import org.jboss.reddeer.core.matcher.WithTextMatcher;
 
 
 /**
- * Class for more comfortable work with multiple {@link WithTextMatcher} matchers.<br/>
+ * Class for more comfortable work with multiple {@link WithTextMatcher} matchers.<br>
  * 
  * Usage example:
  * <code> 

@@ -49,7 +49,7 @@ public class ModifierKeysBinding {
 	 * Translates modifier key name ("shift" for example) to it's SWT integer
 	 * constant counterpart (SWT.SHIFT for example).
 	 * 
-	 * @param keyName
+	 * @param keyName name of the key
 	 * @return integer of SWT constant for given keyName.
 	 * @throws SWTLayerException when keyName is not recognized.
 	 */

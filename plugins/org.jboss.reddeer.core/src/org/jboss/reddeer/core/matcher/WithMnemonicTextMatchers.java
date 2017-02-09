@@ -14,7 +14,7 @@ import org.hamcrest.Matcher;
 import org.jboss.reddeer.core.matcher.WithMnemonicTextMatcher;
  
 /**
- * Class for more comfortable work with multiple {@link WithMnemonicTextMatcher} matchers.<br/>
+ * Class for more comfortable work with multiple {@link WithMnemonicTextMatcher} matchers.<br>
  * 
  * Usage example:
  * <code> 

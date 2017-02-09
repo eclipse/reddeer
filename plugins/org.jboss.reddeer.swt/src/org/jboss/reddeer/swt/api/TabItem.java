@@ -18,7 +18,7 @@ import org.jboss.reddeer.swt.widgets.Widget;
  * @author apodhrad
  * 
  */
-public interface TabItem extends Widget {
+public interface TabItem extends Widget<org.eclipse.swt.widgets.TabItem> {
 
 	/**
 	 * Activates the tab item.
@@ -31,6 +31,4 @@ public interface TabItem extends Widget {
 	 * @return text of the tab item
 	 */
 	String getText();
-
-	org.eclipse.swt.widgets.TabItem getSWTWidget();
 }

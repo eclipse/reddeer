@@ -22,8 +22,7 @@ import org.junit.runners.model.TestClass;
 
 /**
  * 
- * Statement which runs {@link IAfterTest#runAfterTest(Object)} methods of
- * defined extensions. Upon failure a screenshot is captured.
+ * Statement which runs methods of defined extensions. Upon failure a screenshot is captured.
  * 
  * @author Lucia Jelinkova
  *
@@ -50,9 +49,6 @@ public class RunIAfterTestExtensions extends AbstractStatementWithScreenshot {
 		this.afters = afters;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.junit.runners.model.Statement#evaluate()
-	 */
 	@Override
 	public void evaluate() throws Throwable {
 		List<Throwable> errors = new ArrayList<Throwable>();

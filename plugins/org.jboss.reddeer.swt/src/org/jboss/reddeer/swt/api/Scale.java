@@ -18,7 +18,7 @@ import org.jboss.reddeer.swt.widgets.Widget;
  * @author Jiri Peterka
  *
  */
-public interface Scale extends Widget {
+public interface Scale extends Widget<org.eclipse.swt.widgets.Scale> {
 
 	/**
 	 * Returns minimum value of the scale.
@@ -52,6 +52,4 @@ public interface Scale extends Widget {
 	 * Sets focus on the scale.
 	 */
 	void setFocus();
-
-	org.eclipse.swt.widgets.Scale getSWTWidget();
 }

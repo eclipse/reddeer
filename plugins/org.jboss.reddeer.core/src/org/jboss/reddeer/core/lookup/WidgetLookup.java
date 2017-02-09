@@ -177,6 +177,7 @@ public class WidgetLookup {
 	/**
 	 * Finds active widget or reference composite matching given matcher with given index in the list of all matching widgets.
 	 * 
+	 * @param <T> type of a widget
 	 * @param refComposite given reference composite
 	 * @param matcher given matcher
 	 * @param index index of widget in the list built by activeWidgets(Control, Matcher) method.

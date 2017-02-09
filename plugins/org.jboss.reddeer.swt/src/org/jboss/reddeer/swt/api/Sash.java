@@ -18,6 +18,6 @@ import org.jboss.reddeer.swt.widgets.Widget;
  * @author Jiri Peterka
  *
  */
-public interface Sash extends Widget {
+public interface Sash extends Widget<org.eclipse.swt.widgets.Sash> {
 
 }

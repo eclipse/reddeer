@@ -49,8 +49,8 @@ public class XMLSourcePage extends TextEditor {
 	}
 
 	/**
-	 * Evaluate given XPath. The method can work with the namespaces too.</br>
-	 * Examples: </br>
+	 * Evaluate given XPath. The method can work with the namespaces too.<br>
+	 * Examples: <br>
 	 * <ul>
 	 * 	<li> XML with no namespaces defined:<br>
 	 *  	String result = page.evaluateXPath("/a/b1/c/text()");

@@ -137,6 +137,7 @@ public class ShellHandler {
 	
 	/**
 	 * Maximize shell.
+	 * @param swtShell swt shell to maximize
 	 */
 	public void maximize(final Shell swtShell) {
 		log.info("Maximize shell '" +WidgetHandler.getInstance().getText(swtShell)+ "'");
@@ -150,6 +151,8 @@ public class ShellHandler {
 	
 	/**
 	 * Minimize shell.
+	 * 
+	 * @param swtShell swt shell to minimize
 	 */
 	public void minimize(final Shell swtShell) {
 		log.info("Minimize shell '" +WidgetHandler.getInstance().getText(swtShell)+ "'");
@@ -163,6 +166,8 @@ public class ShellHandler {
 
 	/**
 	 * Restore shell.
+	 * 
+	 * @param swtShell swt shell to restore
 	 */
 	public void restore(final Shell swtShell) {
 		log.info("Restore shell '" +WidgetHandler.getInstance().getText(swtShell)+ "'");
@@ -178,6 +183,7 @@ public class ShellHandler {
 	/**
 	 * Return true if shell is maximized, false otherwise.
 	 *
+	 * @param swtShell swt shell
 	 * @return true if shell is maximized
 	 */
 	public boolean isMaximized(final Shell swtShell) {
@@ -192,6 +198,7 @@ public class ShellHandler {
 	/**
 	 * Return true if shell is minimized, false otherwise.
 	 *
+	 * @param swtShell swt shell
 	 * @return true if shell is minimized
 	 */
 	public boolean isMinimized(final Shell swtShell) {

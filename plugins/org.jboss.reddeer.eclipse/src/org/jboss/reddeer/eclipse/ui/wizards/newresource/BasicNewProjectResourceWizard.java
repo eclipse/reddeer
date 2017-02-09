@@ -21,7 +21,7 @@ import org.jboss.reddeer.jface.wizard.NewWizardDialog;
 public class BasicNewProjectResourceWizard extends NewWizardDialog {
 	
 	/**
-	 * Constructs the wizard with "General" > "Project".
+	 * Constructs the wizard with "General" - "Project".
 	 */
 	public BasicNewProjectResourceWizard() {
 		super("General", "Project");

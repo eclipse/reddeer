@@ -30,7 +30,7 @@ public class ResourcePropertyDialog extends PropertyDialog {
 	/**
 	 * Instantiates a new explorer item property dialog.
 	 *
-	 * @param item Explorer item to whom this dialog belongs
+	 * @param resource resource item to get its property dialog
 	 */
 	public ResourcePropertyDialog(Resource resource){
 		this.resource = resource;
@@ -38,7 +38,7 @@ public class ResourcePropertyDialog extends PropertyDialog {
 	
 	/**
 	 * Opens "Properties" for the explorer item and selects the right property page from the Properties dialog. 
-	 * <br />
+	 * 
 	 */
 	protected void openImpl(){
 		log.info("Open Properties for explorer item '" + resource.getName() + "' by context menu");

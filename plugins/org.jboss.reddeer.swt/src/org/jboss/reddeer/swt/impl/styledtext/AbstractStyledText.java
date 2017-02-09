@@ -74,8 +74,7 @@ public abstract class AbstractStyledText extends AbstractWidget<org.eclipse.swt.
      *
      * @param line line to insert text
      * @param column column to insert text
-     * @param text the text
-     * @Param text to insert
+     * @param text to insert
      */
     @Override
     public void insertText(final int line, final int column, final String text) {

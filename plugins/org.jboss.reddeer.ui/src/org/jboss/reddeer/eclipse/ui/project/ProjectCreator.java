@@ -44,7 +44,8 @@ public class ProjectCreator {
 	 * @param pluginName to be used
 	 * @param pluginVersion to be used
 	 * @param pluginProvider to be used
-	 * @param WorkspaceRoot
+	 * @param generateTest whether should generate test or not
+	 * @param root workspace root
 	 */
 	public ProjectCreator(String pluginId, String pluginName,
 			String pluginVersion, String pluginProvider, boolean generateTest, IWorkspaceRoot root) {
@@ -59,7 +60,7 @@ public class ProjectCreator {
 	/**
 	 * Create default project structure in workspace after wizard end.
 	 * 
-	 * @throws CoreException
+	 * @throws CoreException if something goes wrong
 	 */
 	public void create() throws CoreException {
 		IProject project = getProject();

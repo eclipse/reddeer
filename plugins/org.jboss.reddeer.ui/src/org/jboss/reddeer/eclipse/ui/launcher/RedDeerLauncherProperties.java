@@ -47,9 +47,10 @@ public class RedDeerLauncherProperties {
 
 	/**
 	 * Loads all red deer properties from config file. 
-	 * @param configuration
-	 * @return
-	 * @throws CoreException
+	 * 
+	 * @param configuration configuration
+	 * @return list of RedDeer launcher properties
+	 * @throws CoreException if something goes wrong
 	 */
 	public static List<RedDeerLauncherProperties> loadAll(ILaunchConfiguration configuration) throws CoreException{
 		List<RedDeerLauncherProperties> properties = new ArrayList<RedDeerLauncherProperties>();
@@ -85,8 +86,8 @@ public class RedDeerLauncherProperties {
 
 	/**
 	 * Loads value from the specified configuration
-	 * @param config
-	 * @throws CoreException 
+	 * @param config config to load
+	 * @throws CoreException if something goes wrong
 	 */
 	public void load(ILaunchConfiguration config) throws CoreException{
 		for (String key : config.getAttributes().keySet()){
@@ -99,7 +100,7 @@ public class RedDeerLauncherProperties {
 
 	/**
 	 * Resets current value to default value and removes attribute from configuration
-	 * @param config
+	 * @param config config to set to default
 	 */
 	public void setDefaults(ILaunchConfigurationWorkingCopy config){
 		config.removeAttribute(getConfigKey());
@@ -108,27 +109,35 @@ public class RedDeerLauncherProperties {
 	
 	/**
 	 * RedDeer property definition
-	 * @return
+	 * 
+	 * @return RedDeer properties
 	 */
 	public RedDeerProperties getProperty() {
 		return property;
 	}
 
 	/**
-	 * Current value of RedDeer property
-	 * @return
+	 * Gets current value of RedDeer property
+	 * 
+	 * @return get current value of RedDeer property
 	 */
 	public String getCurrentValue() {
 		return currentValue;
 	}
 
-	public void setCurrentValue(String currentValue) {
-		this.currentValue = currentValue;
+	/**
+	 * Sets value of RedDeer property
+	 * 
+	 * @param newValue set new value to current value
+	 */
+	public void setCurrentValue(String newValue) {
+		this.currentValue = newValue;
 	}
 
 	/**
 	 * Indicator for the case that the property is defined also on Arguments tab, VM arguments
-	 * @param currentValue
+	 * 
+	 * @return true if is double defined, false otherwise
 	 */
 	public boolean isDoubleDefined() {
 		return doubleDefined;
@@ -136,7 +145,8 @@ public class RedDeerLauncherProperties {
 
 	/**
 	 * Stores itself into the specified configuration
-	 * @param config
+	 * 
+	 * @param config config to save
 	 */
 	public void save(ILaunchConfigurationWorkingCopy config) {
 		config.setAttribute(getConfigKey(), getCurrentValue());
@@ -155,9 +165,11 @@ public class RedDeerLauncherProperties {
 			doubleDefined = false;
 		}
 	}
+	
 	/**
 	 * Returns initial RedDeer Launcher properties
-	 * @return
+	 * 
+	 * @return array of RedDeer launcher properities
 	 */
 	static RedDeerLauncherProperties[] getInitialRedDeerLauncherProperties(){
 		RedDeerProperties[] properties = RedDeerProperties.values();

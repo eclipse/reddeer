@@ -49,6 +49,7 @@ public class ExactNumberOfProblemsExists extends AbstractWaitCondition {
 	 * Constructs the condition for the specified problem type and
 	 * the specified count of the problems matching specified marker matchers.
 	 * 
+	 * @param <T> marker matcher type
 	 * @param type type of the problems
 	 * @param count number of the problems
 	 * @param matchers problem matchers

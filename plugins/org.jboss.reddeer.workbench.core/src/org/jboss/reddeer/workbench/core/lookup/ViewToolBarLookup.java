@@ -37,7 +37,7 @@ public class ViewToolBarLookup {
 	 * Gets ToolBar of currently active View.
 	 * 
 	 * @return tool bar of active view
-	 * @throws CoreLayerException if there is no active view
+	 * @throws WorkbenchCoreLayerException if there is no active view
 	 */
 	public ToolBar getViewToolBar() {
 		ToolBar toolbar = Display.syncExec(new ResultRunnable<ToolBar>() {

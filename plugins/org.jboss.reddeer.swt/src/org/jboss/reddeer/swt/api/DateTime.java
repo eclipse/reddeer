@@ -18,6 +18,6 @@ import org.jboss.reddeer.swt.widgets.Widget;
  * @author Jiri Peterka
  *
  */
-public interface DateTime extends Widget {
+public interface DateTime extends Widget<org.eclipse.swt.widgets.DateTime> {
 
 }

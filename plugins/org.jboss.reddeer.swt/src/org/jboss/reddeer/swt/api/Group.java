@@ -19,7 +19,7 @@ import org.jboss.reddeer.swt.widgets.Widget;
  * @author Jiri Peterka
  *
  */
-public interface Group extends ReferencedComposite, Widget {
+public interface Group extends ReferencedComposite, Widget<org.eclipse.swt.widgets.Group> {
 	
 	/**
 	 * Gets text of the group.
@@ -28,7 +28,4 @@ public interface Group extends ReferencedComposite, Widget {
 	 * @return text of the group
 	 */
 	String getText();
-	
-	org.eclipse.swt.widgets.Group getSWTWidget();
-
 }

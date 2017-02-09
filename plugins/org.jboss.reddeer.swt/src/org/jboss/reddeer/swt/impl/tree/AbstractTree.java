@@ -59,9 +59,6 @@ public abstract class AbstractTree extends AbstractWidget<org.eclipse.swt.widget
 		return items;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.jboss.reddeer.swt.api.Tree#selectItems(org.jboss.reddeer.swt.api.TreeItem[])
-	 */
 	public void selectItems(final TreeItem... treeItems) {
 		// Tree items should be logged, however, the names needs to 
 		// be retrieved in UI thread so it might be a performance issue

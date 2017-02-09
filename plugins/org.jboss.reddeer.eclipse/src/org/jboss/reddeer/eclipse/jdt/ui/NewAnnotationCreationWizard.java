@@ -18,7 +18,7 @@ import org.jboss.reddeer.jface.wizard.NewWizardDialog;
 public class NewAnnotationCreationWizard extends NewWizardDialog {
 
 	/**
-	 * Constructs the wizard with Java > Annotation.
+	 * Constructs the wizard with "Java" &gt; "Annotation".
 	 */
 	public NewAnnotationCreationWizard() {
 		super("Java", "Annotation");

@@ -20,7 +20,7 @@ import org.jboss.reddeer.common.condition.AbstractWaitCondition;
  * Condition is met when thread with matching name has required state
  * 
  * @author vlado pakan
- * @contributor jkopriva@redhat.com
+ * @author jkopriva@redhat.com
  * 
  */
 public class NamedThreadHasStatus extends AbstractWaitCondition {
@@ -33,9 +33,9 @@ public class NamedThreadHasStatus extends AbstractWaitCondition {
 	 * Condition is met when thread with name matching nameMatcher has state equals to state
 	 * In case returnTrueIfDoesNotExist parameter is set to true condition is fulfilled also
 	 * when matching thread does not exists 
-	 * @param nameMatcher
-	 * @param state
-	 * @param returnTrueIfDoesNotExist
+	 * @param nameMatcher name matcher
+	 * @param state state
+	 * @param returnTrueIfDoesNotExist should return true if does not exist
 	 * 
 	 */
 	public NamedThreadHasStatus(Matcher<String> nameMatcher , Thread.State state, boolean returnTrueIfDoesNotExist) {
@@ -44,9 +44,6 @@ public class NamedThreadHasStatus extends AbstractWaitCondition {
 		this.returnTrueIfDoesNotExist = returnTrueIfDoesNotExist;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.jboss.reddeer.common.condition.WaitCondition#test()
-	 */
 	@Override
 	public boolean test() {
 		currentThreads = Thread.getAllStackTraces().keySet();
@@ -63,25 +60,16 @@ public class NamedThreadHasStatus extends AbstractWaitCondition {
 		return hasState || (threadNotFound && returnTrueIfDoesNotExist);
 	}
 
-	/* (non-Javadoc)
-	 * @see org.jboss.reddeer.common.condition.AbstractWaitCondition#description()
-	 */
 	@Override
 	public String description() {
 		return "thread with name matching" + this.nameMatcher + " has state " + this.state;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.jboss.reddeer.common.condition.AbstractWaitCondition#errorMessageWhile()
-	 */
 	@Override
 	public String errorMessageWhile() {
 		return createErrorMessageWithThreadList("The following threads are still available:\n");
 	}
 	
-	/* (non-Javadoc)
-	 * @see org.jboss.reddeer.common.condition.AbstractWaitCondition#errorMessageUntil()
-	 */
 	@Override
 	public String errorMessageUntil() {
 		return createErrorMessageWithThreadList("The threads have not been found.The following threads are available:\n");

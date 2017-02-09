@@ -48,7 +48,8 @@ public class DefaultTreeItem extends AbstractTreeItem {
 	 * @param treeItemPath the tree item path
 	 */
 	public DefaultTreeItem(Tree tree, String... treeItemPath) {
-		super(TreeItemLookup.getInstance().getTreeItem(tree.getSWTWidget(), 0, createMatchers(treeItemPath)));
+		super(TreeItemLookup.getInstance().getTreeItem(tree.getSWTWidget(),
+				0, createMatchers(treeItemPath)));
 	}
 	
 	/**
@@ -67,7 +68,8 @@ public class DefaultTreeItem extends AbstractTreeItem {
 	 * @param treeItemPath the tree item path
 	 */
 	public DefaultTreeItem(Tree tree, Matcher<org.eclipse.swt.widgets.TreeItem>... treeItemPath) {
-		super(TreeItemLookup.getInstance().getTreeItem(tree.getSWTWidget(), 0, treeItemPath));
+		super(TreeItemLookup.getInstance().getTreeItem(tree.getSWTWidget(),
+				0, treeItemPath));
 	}
 	
 	/**
@@ -88,7 +90,8 @@ public class DefaultTreeItem extends AbstractTreeItem {
 	 * @param treeItemPath the tree item path
 	 */
 	public DefaultTreeItem(Tree tree, int index, Matcher<org.eclipse.swt.widgets.TreeItem>... treeItemPath) {
-		super(TreeItemLookup.getInstance().getTreeItem(tree.getSWTWidget(), index, treeItemPath));
+		super(TreeItemLookup.getInstance().getTreeItem(tree.getSWTWidget(),
+				index, treeItemPath));
 	}
 
 	private static Matcher<org.eclipse.swt.widgets.TreeItem>[] createMatchers(String[] treeItemPath) {

@@ -227,8 +227,6 @@ public class WorkbenchPartLookup {
 	/**
 	 * Gets the shell for active workbench.
 	 *
-	 * @param workbenchReference
-	 *            the workbench reference
 	 * @return the shell for active workbench
 	 */
 	public Shell getShellForActiveWorkbench() {

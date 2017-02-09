@@ -36,7 +36,7 @@ public class SystemView extends WorkbenchView {
 	private static final Logger log = Logger.getLogger(SystemView.class);
 	
 	/**
-	 * Constructs the view with {@value # TITLE}.
+	 * Creates a new System view instance.
 	 */
 	public SystemView() {
 		super(TITLE);
@@ -60,7 +60,7 @@ public class SystemView extends WorkbenchView {
 	/**
 	 * Get list of all Remote Systems in tree.
 	 *
-	 * @return List<System>
+	 * @return list of systems
 	 */
 	public List<System> getSystems(){
 		List<System> systems = new ArrayList<System>();

@@ -19,7 +19,7 @@ import org.jboss.reddeer.swt.widgets.Widget;
  * @author Andrej Podhradsky
  *
  */
-public interface TabFolder extends Widget {
+public interface TabFolder extends Widget<org.eclipse.swt.widgets.TabFolder> {
 
 	/**
 	 * Gets tab item labels.

@@ -100,9 +100,9 @@ public class TreeViewerHandler {
 	 * a specified {@link TreeItem}. If there are no suitable items under a 
 	 * specified tree item, {@link JFaceLayerException} is thrown.
 	 * 
-	 * @param tree item tree item where to find tree items
+	 * @param item tree item where to find tree items
 	 * @param path path to tree items
-	 * @return tree items placed under a specified tree item
+	 * @return list of tree items placed under a specified tree item
 	 */
 	public List<TreeItem> getTreeItems(TreeItem item, String... path) {
 		return getTreeItems(item.getItems().iterator(), path);
@@ -141,7 +141,7 @@ public class TreeViewerHandler {
 	}
 	
 	private TreeItemTexts parseText(TreeItem item) {
-		final org.eclipse.swt.widgets.TreeItem swtTreeItem = item.getSWTWidget();
+		final org.eclipse.swt.widgets.TreeItem swtTreeItem = (org.eclipse.swt.widgets.TreeItem) item.getSWTWidget();
 		return Display.syncExec(new ResultRunnable<TreeViewerHandler.TreeItemTexts>() {
 
 			@Override

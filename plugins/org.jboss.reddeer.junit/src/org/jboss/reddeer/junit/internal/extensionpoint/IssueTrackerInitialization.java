@@ -34,6 +34,8 @@ public class IssueTrackerInitialization {
 
 	/**
 	 * Initializes all issue tracker extensions
+	 * 
+	 * @return list of issue trackers
 	 */
 	public static List<IIssueTracker> initialize() {
 		LinkedList<IIssueTracker> issueTrackers = new LinkedList<IIssueTracker>();

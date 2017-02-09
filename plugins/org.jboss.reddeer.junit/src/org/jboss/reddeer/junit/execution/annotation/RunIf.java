@@ -19,7 +19,7 @@ import org.jboss.reddeer.junit.execution.TestMethodShouldRun;
 
 
 /**
- * Annotation for marking a junit test method as conditional. Please see {@link TestMethodShouldRun}  
+ * Annotation for marking a junit test method as conditional.  
  *
  */
 @Retention(RetentionPolicy.RUNTIME)
@@ -29,7 +29,7 @@ public @interface RunIf {
 	/**
 	 * Condition class.
 	 *
-	 * @return the class<? extends test method should run>
+	 * @return condition class to check whether a test method should run
 	 */
 	Class<? extends TestMethodShouldRun> conditionClass();
 }

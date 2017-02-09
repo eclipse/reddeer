@@ -18,6 +18,6 @@ import org.jboss.reddeer.swt.widgets.Widget;
  * @author Jiri Peterka
  *
  */
-public interface Tray extends Widget {
+public interface Tray extends Widget<org.eclipse.swt.widgets.Tray> {
 
 }

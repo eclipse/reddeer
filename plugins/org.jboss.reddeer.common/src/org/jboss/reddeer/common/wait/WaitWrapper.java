@@ -30,8 +30,7 @@ public class WaitWrapper extends AbstractWait {
 	 * runtime exception of waiting is thrown.
 	 * 
 	 * @param waitCondition wait condition to wrap
-	 * @param waitWhile whether a waiting should be while or not,
-	 * if it is false, waiting is until
+	 * @param waitType wait type
 	 */
 	public WaitWrapper(WaitCondition waitCondition, WaitType waitType) {
 		this(waitCondition, waitType, true);
@@ -41,8 +40,7 @@ public class WaitWrapper extends AbstractWait {
 	 * Constructs a new wait wrapper.
 	 * 
 	 * @param waitCondition wait condition to wrap
-	 * @param waitWhile whether a waiting should be while or not,
-	 * if it is false, waiting is until
+	 * @param waitType wait type
 	 * @param throwRuntimeException whether a wait timeout expired exception should be thrown or not
 	 */
 	public WaitWrapper(WaitCondition waitCondition, WaitType waitType, boolean throwRuntimeException) {

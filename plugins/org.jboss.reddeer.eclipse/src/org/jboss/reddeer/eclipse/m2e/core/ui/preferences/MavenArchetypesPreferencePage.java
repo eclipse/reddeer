@@ -30,7 +30,7 @@ import org.jboss.reddeer.swt.impl.text.LabeledText;
 import org.jboss.reddeer.workbench.core.condition.JobIsRunning;
 
 /**
- * Class representing "Maven->Archetypes" preference page.
+ * Class representing "Maven" &gt; "Archetypes" preference page.
  * 
  * @author jkopriva
  *
@@ -50,7 +50,7 @@ public class MavenArchetypesPreferencePage extends PreferencePage {
 	private static final Logger log = Logger.getLogger(MavenArchetypesPreferencePage.class);
 
 	/**
-	 * Construct the preference page with "Maven" > "Archetypes".
+	 * Construct the preference page with "Maven" &gt; "Archetypes".
 	 */
 	public MavenArchetypesPreferencePage() {
 		super(new String[] { "Maven", "Archetypes" });
@@ -95,6 +95,7 @@ public class MavenArchetypesPreferencePage extends PreferencePage {
 	 *            URL to the remote XML catalog file, e.g. archetype-catalog.xml
 	 * @param description
 	 *            description of the local catalog
+	 * @param verify whether a catalog URL should be verified
 	 * @return verificationResult status of verification
 	 */
 	public String addRemoteCatalog(String catalogFileURL, String description, boolean verify) {
@@ -228,7 +229,8 @@ public class MavenArchetypesPreferencePage extends PreferencePage {
 	/**
 	 * If catalog with given name is available, returns true, otherwise false.
 	 * 
-	 * @return true - catalog with given name exists, otherwise false
+	 * @param catalogName catalog name
+	 * @return true if catalog with given name exists, false otherwise
 	 */
 	public boolean containsCatalog(String catalogName) {
 		for (String name : getCatalogNames()) {

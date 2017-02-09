@@ -33,15 +33,14 @@ import org.jboss.reddeer.swt.widgets.AbstractWidget;
 public class TabbedPropertyList extends AbstractWidget<org.eclipse.swt.widgets.Composite> {
 
 	/**
-	 * Finds tabbed property list. The widget is of type {@link org.eclipse.widgets.Composite}.
+	 * Finds tabbed property list.
 	 */
 	public TabbedPropertyList() {
 		this(null, 0);
 	}
 
 	/**
-	 * Finds tabbed property list in the specified referenced composite and at the given index. The widget is of type
-	 * {@link org.eclipse.widgets.Composite}.
+	 * Finds tabbed property list in the specified referenced composite and at the given index. 
 	 * 
 	 * @param ref
 	 *            Referenced Composite

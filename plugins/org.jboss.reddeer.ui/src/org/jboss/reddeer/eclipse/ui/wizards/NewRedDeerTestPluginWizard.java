@@ -44,11 +44,6 @@ public class NewRedDeerTestPluginWizard extends Wizard implements INewWizard {
 		addPage(wizardPage);
 	}
 
-	/**
-	 * Starts the project creation process.
-	 * 
-	 * @see {@link org.eclipse.jface.wizard.performFinish}
-	 */
 	@Override
 	public boolean performFinish() {
 		String pluginName = wizardPage.pluginName();
@@ -71,7 +66,10 @@ public class NewRedDeerTestPluginWizard extends Wizard implements INewWizard {
 
 
 	/**
-	 * @see {@link org.eclipse.ui.iWorkbenchWizard.init}
+	 * Inits a new RedDeer test plugin.
+	 * 
+	 * @param workbench workbench to init on
+	 * @param selection selection
 	 */
 	public void init(IWorkbench workbench, IStructuredSelection selection) {
 		// intentionally left blank

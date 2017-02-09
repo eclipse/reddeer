@@ -52,7 +52,7 @@ public class LinkHandler {
 
 	/**
 	 * Parses text of specified {@link Link} to get anchors.
-	 * <p/>
+	 * <br>
 	 * Example
 	 * "This is a &lt;a&gt;link1&lt;/a&gt; and &lt;a&gt;link2&lt;/a&gt;" will
 	 * result in ["link1","link2"]
@@ -71,7 +71,7 @@ public class LinkHandler {
 	}
 
 	/**
-	 * Gets text, passed as {@link Event.text} in the selection event, 
+	 * Gets text, passed as Event.text in the selection event, 
 	 * of the anchor in specified link, with specified text, on the specified index.
 	 * 
 	 * @param link link to handle
@@ -97,7 +97,7 @@ public class LinkHandler {
 	}
 
 	/**
-	 * Gets text, passed as {@link Event.text} in the selection event,
+	 * Gets text, passed as Event.text in the selection event,
 	 * of the anchor in specified link, on specified index.
 	 * 
 	 * @param link link to handle
@@ -120,7 +120,7 @@ public class LinkHandler {
 
 	/**
 	 * Gets text without anchor characters.
-	 * <p/>
+	 * <br>
 	 * For link with the text "This is a &lt;a&gt;link&lt;/a&gt;" this method
 	 * returns "This is a link".
 	 * 

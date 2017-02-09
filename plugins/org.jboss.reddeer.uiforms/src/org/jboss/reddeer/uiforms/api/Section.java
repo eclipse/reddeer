@@ -19,7 +19,7 @@ import org.jboss.reddeer.swt.widgets.Widget;
  * @author Lucia Jelinkova
  *
  */
-public interface Section extends ReferencedComposite, Widget {
+public interface Section extends ReferencedComposite, Widget<org.eclipse.ui.forms.widgets.Section> {
 
 	/**
 	 * Returns the title of the section. 

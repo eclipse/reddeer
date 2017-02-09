@@ -19,7 +19,7 @@ import org.jboss.reddeer.swt.widgets.Widget;
  * @author Radoslav Rabara
  *
  */
-public interface ExpandableComposite extends ReferencedComposite, Widget {
+public interface ExpandableComposite extends ReferencedComposite, Widget<org.eclipse.ui.forms.widgets.ExpandableComposite> {
 
 	/**
 	 * Returns the title string.

@@ -14,7 +14,7 @@ import org.jboss.reddeer.jface.wizard.WizardPage;
 import org.jboss.reddeer.swt.impl.list.DefaultList;
 
 /**
- * First page of "Add JRE" wizard accesible from Preferences->Java->Installed
+ * First page of "Add JRE" wizard accesible from Preferences &gt; Java &gt; Installed
  * JREs.
  * 
  * @author rhopp

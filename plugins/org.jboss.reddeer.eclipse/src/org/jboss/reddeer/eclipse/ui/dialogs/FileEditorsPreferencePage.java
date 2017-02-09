@@ -42,7 +42,7 @@ public class FileEditorsPreferencePage extends PreferencePage {
 	private static final Logger log = Logger.getLogger(FileEditorsPreferencePage.class);
 	
 	/**
-	 * Constructs the preference page with "Server" > {@value #PAGE_NAME}.
+	 * Constructs the preference page.
 	 */
 	public FileEditorsPreferencePage() {
 		super(new String[] {"General", "Editors" ,PAGE_NAME});
@@ -52,7 +52,7 @@ public class FileEditorsPreferencePage extends PreferencePage {
 	 * Returns true if all file types are defined.
 	 *
 	 * @param fileTypes - file types to be defined
-	 * @return true, if successful
+	 * @return true if successful, false otherwise
 	 */
 	public boolean containsFileTypes(String... fileTypes){
 		boolean contains = true;

@@ -20,11 +20,11 @@ import org.jboss.reddeer.swt.widgets.Widget;
  * @author Jiri Peterka, rhopp
  *
  */
-public interface Link extends Widget {
+public interface Link extends Widget<org.eclipse.swt.widgets.Link> {
 
 	/**
 	 * Returns text of link stripped of &lt;a&gt; and &lt;/a&gt; tags.
-	 * <p/>
+	 * <br>
 	 * For example "This is a &lt;a&gt;link&lt;/a&gt;" will result in
 	 * "This is a link".
 	 * 
@@ -34,7 +34,7 @@ public interface Link extends Widget {
 
 	/**
 	 * Returns array of anchor texts (text between &lt;a&gt; and &lt;/a&gt;).
-	 * <p/>
+	 * <br>
 	 * For example "This is a &lt;a&gt;link&lt;/a&gt;" will result in "link".
 	 * 
 	 * @return list of texts between &lt;a&gt; and &lt;/a&gt;
@@ -46,11 +46,11 @@ public interface Link extends Widget {
 	 * 
 	 * Link widget can have multiple anchors in itself. Example:
 	 * "Link &lt;a&gt;link1&lt;/a&gt; and &lt;A href="test"&gt;link2&lt;A\&gt;"
-	 * <p/>
+	 * <br>
 	 * 
 	 * link.click(link1) invokes SWT.Selection event with "link1" as event's
 	 * text.
-	 * <p/>
+	 * <br>
 	 * link.click(link2) invokes SWT.Selection event with "test" as event's
 	 * text.
 	 * 
@@ -69,7 +69,4 @@ public interface Link extends Widget {
 	 * @param index index of anchor
 	 */
 	void click(int index);
-
-	org.eclipse.swt.widgets.Link getSWTWidget();
-
 }

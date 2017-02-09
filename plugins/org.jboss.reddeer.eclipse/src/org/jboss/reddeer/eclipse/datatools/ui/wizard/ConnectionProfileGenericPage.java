@@ -39,11 +39,6 @@ public class ConnectionProfileGenericPage extends ConnectionProfileDatabasePage 
 		super();
 	}
 
-	/**
-	 * Sets hostname (URL).
-	 *
-	 * @param hostname the new hostname
-	 */
 	@Override
 	public void setHostname(String hostname) {
 		new LabeledText(LABEL_HOST).setText(hostname);
@@ -65,10 +60,7 @@ public class ConnectionProfileGenericPage extends ConnectionProfileDatabasePage 
 		throw new UnsupportedOperationException();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * @see org.jboss.reddeer.eclipse.datatools.ui.wizard.ConnectionProfileDatabasePage#setDatabase(java.lang.String)
-	 */
+	@Override
 	public void setDatabase(String database) {
 		new LabeledText(LABEL_DATABASE).setText(database);
 	}
@@ -78,8 +70,8 @@ public class ConnectionProfileGenericPage extends ConnectionProfileDatabasePage 
 	 *
 	 * @return the database
 	 */
-	public void getDatabase() {
-		new LabeledText(LABEL_DATABASE).getText();
+	public String getDatabase() {
+		return new LabeledText(LABEL_DATABASE).getText();
 	}
 
 	/**
@@ -100,11 +92,6 @@ public class ConnectionProfileGenericPage extends ConnectionProfileDatabasePage 
 		return new LabeledText(LABEL_USER_NAME).getText();
 	}
 
-	/**
-	 * Sets username for generic profile.
-	 *
-	 * @param userName the new username
-	 */
 	@Override
 	public void setUsername(String userName) {
 		new LabeledText(LABEL_USER_NAME).setText(userName);
@@ -138,11 +125,6 @@ public class ConnectionProfileGenericPage extends ConnectionProfileDatabasePage 
 		return "";
 	}
 
-	/**
-	 * Sets port (does nothing for this profile).
-	 *
-	 * @param port the new port
-	 */
 	@Override
 	public void setPort(String port) {
 		// does nothing for this profile

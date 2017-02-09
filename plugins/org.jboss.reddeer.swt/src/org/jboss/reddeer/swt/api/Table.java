@@ -22,7 +22,7 @@ import org.jboss.reddeer.swt.widgets.Widget;
  * @author Jiri Peterka
  *
  */
-public interface Table extends Widget, ReferencedComposite {
+public interface Table extends Widget<org.eclipse.swt.widgets.Table>, ReferencedComposite {
 
 	/**
 	 * Returns true if table contains item with specified text.
@@ -143,10 +143,11 @@ public interface Table extends Widget, ReferencedComposite {
 	 * @return table items matching the matcher
 	 */
 	List<TableItem> getItems(Matcher<TableItem>... matchers);
-
-	org.eclipse.swt.widgets.Table getSWTWidget();
+	
 	/**
-	 * Returns currently selected table items.
+	 * Gets currently selected table items.
+	 * 
+	 * @return list of selected table items
 	 */
 	List<TableItem> getSelectetItems();
 }

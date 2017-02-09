@@ -20,17 +20,16 @@ import org.jboss.reddeer.swt.exception.SWTLayerException;
  * Abstract widget implementation that looks up and stores swt widget. 
  *  
  * @author Lucia Jelinkova
- *
- * @param <T>
+ * 
  */
-public abstract class AbstractWidget<T extends org.eclipse.swt.widgets.Widget> implements Widget {
+public abstract class AbstractWidget<T extends org.eclipse.swt.widgets.Widget> implements Widget<T> {
 
 	protected T swtWidget;
 	
 	/**
-	 * Instantiates a new reddeer widget
+	 * Instantiates a new RedDeer widget.
 	 * 
-	 * @param widget
+	 * @param swtWidget swt widget to encapsulate
 	 */
 	protected AbstractWidget(T swtWidget) {
 		if (swtWidget == null){
@@ -42,29 +41,28 @@ public abstract class AbstractWidget<T extends org.eclipse.swt.widgets.Widget> i
 		this.swtWidget = swtWidget;
 	}
 	
+	/**
+	 * Instantiate a new RedDeer widget.
+	 * 
+	 * @param widgetClass eclipse SWT widget class
+	 * @param refComposite referenced composite
+	 * @param index index of widget
+	 * @param matchers matchers to match widget
+	 */
 	protected AbstractWidget(Class<T> widgetClass, ReferencedComposite refComposite, int index, Matcher<?>... matchers) {
 		swtWidget = WidgetLookup.getInstance().activeWidget(refComposite, widgetClass, index, matchers);
 	}
 	
-	/* (non-Javadoc)
-	 * @see org.jboss.reddeer.swt.widgets.Widget#getSWTWidget()
-	 */
 	@Override
 	public T getSWTWidget() {
 		return swtWidget;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.jboss.reddeer.swt.widgets.Widget#isEnabled()
-	 */
 	@Override
 	public boolean isEnabled() {
 		return WidgetHandler.getInstance().isEnabled(swtWidget);
 	}
 	
-	/* (non-Javadoc)
-	 * @see org.jboss.reddeer.swt.widgets.Widget#isDisposed()
-	 */
 	@Override
 	public boolean isDisposed() {
 		return WidgetHandler.getInstance().isDisposed(swtWidget);

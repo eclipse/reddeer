@@ -51,9 +51,9 @@ public abstract class AbstractResource implements Resource, RedDeerAdaptable<Res
 	protected TreeViewerHandler treeViewerHandler = TreeViewerHandler.getInstance();
 
 	/**
-	 * Creates an instance of AbstractResource from {@link TreeItem}
+	 * Creates an instance of AbstractResource.
 	 * 
-	 * @param treeItem
+	 * @param treeItem tree item to encapsulate
 	 */
 	public AbstractResource(TreeItem treeItem) {
 		if (treeItem == null) {

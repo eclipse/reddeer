@@ -20,8 +20,7 @@ import org.jboss.reddeer.eclipse.rse.ui.view.SystemView;
 /**
  * Returns true, if there is remote system with specified name
  * 
- * @author Pavol Srna
- * @contributor jkopriva@redhat.com
+ * @author Pavol Srna, jkopriva@redhat.com
  *
  */
 public class RemoteSystemExists extends AbstractWaitCondition {

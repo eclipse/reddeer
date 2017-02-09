@@ -37,7 +37,7 @@ public class MavenImportWizard extends ImportWizardDialog {
 	private MavenImportWizardPage page;
 
 	/**
-	 * Constructs ImportWizard with "Maven > Existing Maven Projects".
+	 * Constructs ImportWizard with "Maven" &gt; "Existing Maven Projects".
 	 */
 	public MavenImportWizard() {
 		super("Maven", "Existing Maven Projects");

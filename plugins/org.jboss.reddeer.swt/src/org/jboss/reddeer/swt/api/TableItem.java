@@ -19,7 +19,7 @@ import org.jboss.reddeer.swt.widgets.Widget;
  * @author  Jiri Peterka
  *
  */
-public interface TableItem extends Widget {
+public interface TableItem extends Widget<org.eclipse.swt.widgets.TableItem> {
 
 	/**
 	 * Returns the text of table item.
@@ -107,6 +107,4 @@ public interface TableItem extends Widget {
 	 * @param column to click on
 	 */
 	void doubleClick(int column);
-
-	org.eclipse.swt.widgets.TableItem getSWTWidget();
 }

@@ -18,7 +18,7 @@ import org.jboss.reddeer.swt.widgets.Widget;
  * @author Vlado Pakan
  *
  */
-public interface CTabItem extends Widget {
+public interface CTabItem extends Widget<org.eclipse.swt.custom.CTabItem> {
 
 	/**
 	 * Activates CTab item.
@@ -57,8 +57,6 @@ public interface CTabItem extends Widget {
 	 */
 	boolean isShowing();
 
-	org.eclipse.swt.custom.CTabItem getSWTWidget();
-	
 	/**
 	 * Returns parent folder {@link CTabFolder}
 	 * @return parent folder

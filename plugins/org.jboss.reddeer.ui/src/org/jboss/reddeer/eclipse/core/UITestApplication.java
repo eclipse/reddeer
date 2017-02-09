@@ -24,7 +24,7 @@ import org.eclipse.ui.testing.TestableObject;
 
 /**
  * Just a copy of
- * {@link org.eclipse.pde.internal.junit.runtime.UITestApplication} with
+ * org.eclipse.pde.internal.junit.runtime.UITestApplication with
  * {@link #runTests()} overridden so that the tests run in a non-UI thread.
  * 
  * @author Ketan Padegaonkar &lt;KetanPadegaonkar [at] gmail [dot] com&gt;
@@ -38,9 +38,9 @@ public class UITestApplication implements IApplication, ITestHarness {
 	private IApplication fApplication;
 
 	/**
+	 * Starts UI Test application from context.
 	 * 
-	 * @see org.eclipse.equinox.app.IApplication#start(org.eclipse.equinox.app.
-	 * IApplicationContext)
+	 * @param context context to start
 	 */
 	public Object start(IApplicationContext context) throws Exception {
 		String[] args = (String[]) context.getArguments().get(

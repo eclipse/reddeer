@@ -19,7 +19,7 @@ import org.jboss.reddeer.swt.widgets.Widget;
  * @author Lucia Jelinkova
  *
  */
-public interface Form extends ReferencedComposite, Widget {
+public interface Form extends ReferencedComposite, Widget<org.eclipse.ui.forms.widgets.Form> {
 
 	/**
 	 * Returns form's title. 

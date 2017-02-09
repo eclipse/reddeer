@@ -22,7 +22,7 @@ public class NewConnectionWizardDialog extends NewWizardDialog{
 	public static final String TITLE = "New Connection";
 	
 	/**
-	 * Constructs the wizard with "Remote System Explorer" > {@value #TITLE}.
+	 * Constructs the wizard with "Remote System Explorer" &gt; {@value #TITLE}.
 	 */
 	public NewConnectionWizardDialog() {
 		super("Remote System Explorer", "Connection");
