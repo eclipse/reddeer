@@ -14,6 +14,7 @@ import java.util.List;
 
 import org.jboss.reddeer.common.exception.RedDeerException;
 import org.jboss.reddeer.common.logging.Logger;
+import org.jboss.reddeer.junit.execution.TestMethodShouldRun;
 import org.jboss.reddeer.junit.execution.annotation.RunIf;
 import org.jboss.reddeer.junit.extensionpoint.IAfterTest;
 import org.jboss.reddeer.junit.extensionpoint.IBeforeTest;
@@ -268,7 +269,7 @@ public class RequirementsRunner extends BlockJUnit4ClassRunner {
 		 boolean ignoreAnnotationIsPresented = child.getAnnotation(Ignore.class) != null;
 		 if (runIfAnnotation != null) {
 			 try {
-				if (runIfAnnotation.conditionClass().newInstance().shouldRun(child)) {
+				if (shouldRun(runIfAnnotation, child)) {
 					if (ignoreAnnotationIsPresented) {
 						log.info(testIsIgnoredTemplate + " @Ignore annotation is presented.");
 						return true;
@@ -300,6 +301,28 @@ public class RequirementsRunner extends BlockJUnit4ClassRunner {
 	 */
 	public void setRequirementsInjector(RequirementsInjector requirementsInjector) {
 		this.requirementsInjector = requirementsInjector;
+	}
+	
+	/**
+	 * Returns true if operation is AND and all condition classes return true in shouldRun(child).
+	 * Returns true if operation is OR and at least one of condition classes returns true in shouldRun(child).
+	 * Otherwise, returns false.
+	 * 
+	 * @param runIfAnnotation the @RunIf annotation
+	 * @param child the child
+	 * @return true if the run condition was met, false otherwise
+	 * @throws IllegalAccessException if one of condition classes is not accessible
+	 * @throws InstantiationException if one of condition classes cannot be instantiated
+	 */
+	private boolean shouldRun(RunIf runIfAnnotation, FrameworkMethod child) throws IllegalAccessException, InstantiationException {
+	    boolean isAnd = RunIf.Operation.AND.equals(runIfAnnotation.operation());
+	    for (Class<? extends TestMethodShouldRun> coditionClass: runIfAnnotation.conditionClass()) {
+	        boolean b = coditionClass.newInstance().shouldRun(child);
+	        if(isAnd != b) {
+	            return b;
+	        }
+	    }
+	    return isAnd;
 	}
 
 	private class LoggingRunListener extends RunListener {
