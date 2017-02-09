@@ -13,6 +13,7 @@ package org.jboss.reddeer.junit.test.execution;
 import static org.junit.Assert.fail;
 
 import org.jboss.reddeer.junit.execution.annotation.RunIf;
+import org.jboss.reddeer.junit.execution.annotation.RunIf.Operation;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -55,5 +56,47 @@ public class TestMethodShouldRunTest {
 	@Ignore
 	public void testShouldNotRun4() {
 		fail("Test was not supposed to run because @Ignore annotation is presented and run condition was not met.");
+	}
+	
+	@Test
+	@RunIf(conditionClass={ShouldRun.class, ShouldRun.class}, operation=Operation.AND)
+	public void testShouldRun3() {
+		// PASSED
+	}
+	
+	@Test
+	@RunIf(conditionClass={ShouldRun.class, ShouldRun.class}, operation=Operation.OR)
+	public void testShouldRun4() {
+		// PASSED
+	}
+	
+	@Test
+	@RunIf(conditionClass={ShouldRun.class, ShouldNotRun.class}, operation=Operation.OR)
+	public void testShouldRun5() {
+		// PASSED
+	}
+	
+	@Test
+	@RunIf(conditionClass={ShouldRun.class, ShouldNotRun.class}, operation=Operation.AND)
+	public void testShouldNotRun5() {
+		fail("Test was not supposed to run because run if condition was not met.");
+	}
+	
+	@Test
+	@RunIf(conditionClass={ShouldNotRun.class, ShouldNotRun.class}, operation=Operation.OR)
+	public void testShouldNotRun6() {
+		fail("Test was not supposed to run because run if condition was not met.");
+	}
+	
+	@Test
+	@RunIf(conditionClass={ShouldNotRun.class, ShouldNotRun.class}, operation=Operation.AND)
+	public void testShouldNotRun7() {
+		fail("Test was not supposed to run because run if condition was not met.");
+	}
+
+	@Test
+	@RunIf(conditionClass={ShouldRun.class, ShouldNotRun.class})
+	public void testShouldNotRun8() {
+		fail("Test was not supposed to run because run if condition was not met.");
 	}
 }

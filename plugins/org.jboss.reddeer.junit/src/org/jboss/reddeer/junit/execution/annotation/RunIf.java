@@ -26,10 +26,24 @@ import org.jboss.reddeer.junit.execution.TestMethodShouldRun;
 @Target(ElementType.METHOD)
 public @interface RunIf {
 	
+	public enum Operation {
+        AND,
+        OR;
+    }
+	
 	/**
 	 * Condition class.
 	 *
 	 * @return the class<? extends test method should run>
 	 */
-	Class<? extends TestMethodShouldRun> conditionClass();
+	Class<? extends TestMethodShouldRun>[] conditionClass();
+	
+	/**
+     * In case of several condition classes, if AND operation is selected then all conditions should pass,
+     * if OR operation is selected then at least one condition should pass.
+     * Defaults to AND
+     *  
+     * @return either Operation.AND or Operation.OR, defaults to Operation.AND
+     */
+    Operation operation() default Operation.AND;
 }
