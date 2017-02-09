@@ -42,7 +42,6 @@ public class ModifyModulesPage extends WizardPage {
 	/**
 	 * Adds all available modules to the server.
 	 *
-	 * @see {@link #getAvailableModules()}
 	 */
 	public void addAll() {
 		new PushButton("Add All >>").click();

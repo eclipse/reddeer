@@ -35,7 +35,7 @@ public class AbstractGraphitiEditPart extends AbstractEditPart implements Graphi
 	/**
 	 * Constructs graphiti edit part from {@link org.eclipse.gef.EditPart}.
 	 * 
-	 * @param editPart
+	 * @param editPart edit part
 	 */
 	public AbstractGraphitiEditPart(org.eclipse.gef.EditPart editPart) {
 		super(editPart);
@@ -44,16 +44,17 @@ public class AbstractGraphitiEditPart extends AbstractEditPart implements Graphi
 	/**
 	 * Constructs graphiti edit part which fulfills a given matcher.
 	 * 
-	 * @param editPart
+	 * @param matcher matcher to match edit part
+	 * @param index index of edit part
 	 */
 	public AbstractGraphitiEditPart(Matcher<EditPart> matcher, int index) {
 		super(matcher, index);
 	}
 
 	/**
-	 * Constructs graphit edit part which fulfills a given matcher at the specified index.
+	 * Constructs graphiti edit part which fulfills a given matcher at the specified index.
 	 * 
-	 * @param editPart
+	 * @param matcher matcher to match edit part 
 	 */
 	public AbstractGraphitiEditPart(Matcher<EditPart> matcher) {
 		super(matcher);

@@ -20,28 +20,27 @@ import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.actions.ActionFactory;
 import org.eclipse.ui.keys.IBindingService;
-import org.eclipse.ui.part.WorkbenchPart;
 import org.eclipse.ui.texteditor.ITextEditorActionDefinitionIds;
 import org.hamcrest.Matcher;
-import org.jboss.reddeer.common.logging.Logger;
-import org.jboss.reddeer.jface.text.contentassist.ContentAssistant;
 import org.jboss.reddeer.common.exception.WaitTimeoutExpiredException;
-import org.jboss.reddeer.swt.api.Menu;
-import org.jboss.reddeer.swt.impl.menu.ShellMenu;
-import org.jboss.reddeer.swt.keyboard.KeyboardFactory;
-import org.jboss.reddeer.core.handler.MenuHandler;
-import org.jboss.reddeer.core.lookup.ShellLookup;
-import org.jboss.reddeer.core.matcher.WithTextMatcher;
-import org.jboss.reddeer.workbench.matcher.EditorPartTitleMatcher;
+import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.common.wait.AbstractWait;
 import org.jboss.reddeer.common.wait.TimePeriod;
 import org.jboss.reddeer.common.wait.WaitUntil;
+import org.jboss.reddeer.core.handler.MenuHandler;
+import org.jboss.reddeer.core.lookup.ShellLookup;
+import org.jboss.reddeer.core.matcher.WithTextMatcher;
+import org.jboss.reddeer.jface.text.contentassist.ContentAssistant;
+import org.jboss.reddeer.swt.api.Menu;
+import org.jboss.reddeer.swt.impl.menu.ShellMenu;
+import org.jboss.reddeer.swt.keyboard.KeyboardFactory;
 import org.jboss.reddeer.workbench.api.Editor;
 import org.jboss.reddeer.workbench.condition.ContentAssistantShellIsOpened;
 import org.jboss.reddeer.workbench.core.lookup.EditorPartLookup;
 import org.jboss.reddeer.workbench.exception.WorkbenchLayerException;
 import org.jboss.reddeer.workbench.handler.EditorHandler;
 import org.jboss.reddeer.workbench.handler.WorkbenchPartHandler;
+import org.jboss.reddeer.workbench.matcher.EditorPartTitleMatcher;
 
 /**
  * Abstract class for all Editor implementations.
@@ -151,9 +150,6 @@ public abstract class AbstractEditor implements Editor {
                 .performAction(ActionFactory.MINIMIZE);
     }
 
-    /**
-     * @see org.jboss.reddeer.workbench.api.Editor#openContentAssistant()
-     */
     @Override
     public ContentAssistant openContentAssistant() {
     	Menu assistMenu = new ShellMenu("Edit", "Content Assist");
@@ -220,9 +216,6 @@ public abstract class AbstractEditor implements Editor {
         return result;
     }
 
-    /**
-     * @see org.jboss.reddeer.workbench.api.Editor#openOpenOnAssistant()
-     */
     @Override
     public ContentAssistant openOpenOnAssistant() {
     	activate();
@@ -240,9 +233,6 @@ public abstract class AbstractEditor implements Editor {
         }
     }
 
-    /**
-     * @see org.jboss.reddeer.workbench.api.Editor#openQuickFixContentAssistant()
-     */
     @Override
     public ContentAssistant openQuickFixContentAssistant() {
     	activate();
@@ -272,18 +262,12 @@ public abstract class AbstractEditor implements Editor {
         return new ContentAssistant(caw.getContentAssistTable());
     }
 
-    /**
-     * @see org.jboss.reddeer.workbench.api.Editor#getMarkers()
-     */
     @Override
     public List<Marker> getMarkers() {
     	activate();
         return EditorHandler.getInstance().getMarkers(editorPart);
     }
 
-    /**
-     * {@link WorkbenchPart.restore}
-     */
     @Override
     public void restore() {
         // in order to restore maximized window maximized action has to be
@@ -294,19 +278,12 @@ public abstract class AbstractEditor implements Editor {
                 .performAction(ActionFactory.MAXIMIZE);
     }
 
-    /**
-     * {@link WorkbenchPart.activate}
-     */
     @Override
     public void activate() {
     	log.info("Activate editor with title " + getTitle());
         EditorHandler.getInstance().activate(editorPart);
     }
 
-    /**
-     * {@link Editor#closeAll}
-     * @see org.jboss.reddeer.workbench.api.Editor#closeAll(boolean)
-     */
 	@Override
 	public void closeAll(boolean save) {
 		if (save){
@@ -317,9 +294,8 @@ public abstract class AbstractEditor implements Editor {
 		EditorHandler.getInstance().closeAll(save);
 		
 	}
-    /**
-     * {@link Editor.getAutoContentAssistant}
-     */
+	
+	@Override
 	public ContentAssistant getAutoContentAssistant(Runnable execute){
         Shell[] shells1 = ShellLookup.getInstance().getShells();
         execute.run();

@@ -40,7 +40,7 @@ public class Templatizer {
 	}
 
 	/**
-	 * @param File contents
+	 * @param contents file contents
 	 * @return Replaced placeholders with specified values.
 	 */
 	public String templatize(String contents) {

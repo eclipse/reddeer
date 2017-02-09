@@ -37,7 +37,6 @@ import org.jboss.reddeer.swt.impl.menu.ShellMenu;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
 import org.jboss.reddeer.workbench.api.View;
-import org.jboss.reddeer.workbench.api.WorkbenchPart;
 import org.jboss.reddeer.workbench.exception.WorkbenchLayerException;
 import org.jboss.reddeer.workbench.handler.ViewHandler;
 import org.jboss.reddeer.workbench.handler.WorkbenchPartHandler;
@@ -85,9 +84,6 @@ public class AbstractView implements View {
 		cTabItem = getViewCTabItem();
 	}
 
-	/* (non-Javadoc)
-	 * @see org.jboss.reddeer.workbench.api.WorkbenchPart#maximize()
-	 */
 	@Override
 	public void maximize() {
 		activate();
@@ -95,9 +91,6 @@ public class AbstractView implements View {
 		WorkbenchPartHandler.getInstance().performAction(ActionFactory.MAXIMIZE);
 	}
 
-	/* (non-Javadoc)
-	 * @see org.jboss.reddeer.workbench.api.WorkbenchPart#minimize()
-	 */
 	@Override
 	public void minimize() {
 		activate();
@@ -105,9 +98,6 @@ public class AbstractView implements View {
 		WorkbenchPartHandler.getInstance().performAction(ActionFactory.MINIMIZE);
 	}
 
-	/**
-	 * {@link WorkbenchPart.restore}
-	 */
 	@Override
 	public void restore() {
 		activate();
@@ -117,9 +107,6 @@ public class AbstractView implements View {
 		WorkbenchPartHandler.getInstance().performAction(ActionFactory.MAXIMIZE);
 	}
 
-	/**
-	 * {@link WorkbenchPart.activate}
-	 */
 	@Override
 	public void activate() {
 		log.info("Activate view " + getTitle());
@@ -191,9 +178,6 @@ public class AbstractView implements View {
 		return path;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.jboss.reddeer.workbench.api.WorkbenchPart#close()
-	 */
 	@Override
 	public void close() {
 		activate();
@@ -202,9 +186,6 @@ public class AbstractView implements View {
 		cTabItem = null;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.jboss.reddeer.workbench.api.View#open()
-	 */
 	@Override
 	public void open() {
 		log.info("Open view " + getTitle());
@@ -267,17 +248,11 @@ public class AbstractView implements View {
 		return path[path.length - 1];
 	}
 
-	/* (non-Javadoc)
-	 * @see org.jboss.reddeer.workbench.api.View#isVisible()
-	 */
 	@Override
 	public boolean isVisible() {
 		return getViewCTabItem().isShowing();
 	}
 	
-	/* (non-Javadoc)
-	 * @see org.jboss.reddeer.workbench.api.View#isOpened()
-	 */
 	@Override
 	public boolean isOpened() {
 		List<org.eclipse.swt.custom.CTabItem> tabs = WidgetLookup.getInstance().activeWidgets(new WorkbenchShell(), org.eclipse.swt.custom.CTabItem.class);

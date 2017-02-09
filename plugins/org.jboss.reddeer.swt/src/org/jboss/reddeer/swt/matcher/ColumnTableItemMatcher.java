@@ -18,8 +18,8 @@ public class ColumnTableItemMatcher extends TypeSafeMatcher<TableItem> {
 	/**
 	 * Creates matcher for matching tree item with text of column with index columnIndex 
 	 * is equal to columnText
-	 * @param columnIndex
-	 * @param columnText
+	 * @param columnIndex index of column
+	 * @param columnText matcher to match column
 	 */
 	public ColumnTableItemMatcher (int columnIndex , String columnText){
 		this(columnIndex,new IsEqual<String>(columnText));
@@ -27,8 +27,8 @@ public class ColumnTableItemMatcher extends TypeSafeMatcher<TableItem> {
 	/**
 	 * Creates matcher for matching tree item with text of column with index columnIndex 
 	 * matching matcher
-	 * @param columnIndex
-	 * @param matcher
+	 * @param columnIndex index of column
+	 * @param matcher matcher to match column
 	 */
 	public ColumnTableItemMatcher (int columnIndex , Matcher<String> matcher){
 		this.columnIndex = columnIndex;

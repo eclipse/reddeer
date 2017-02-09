@@ -18,7 +18,7 @@ import org.jboss.reddeer.swt.widgets.Widget;
  * @author Jiri Peterka
  *
  */
-public interface Button extends Widget {
+public interface Button extends Widget<org.eclipse.swt.widgets.Button> {
 
 	/**
 	 * Performs click on the button.
@@ -45,6 +45,4 @@ public interface Button extends Widget {
 	 * @return true if this button is enabled, false otherwise
 	 */
 	boolean isEnabled();
-
-	org.eclipse.swt.widgets.Button getSWTWidget();
 }

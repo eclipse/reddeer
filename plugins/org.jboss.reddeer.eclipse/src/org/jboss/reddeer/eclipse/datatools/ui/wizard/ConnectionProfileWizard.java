@@ -28,7 +28,7 @@ import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 /**
  * A wizard dialog for creating a connection profile.
  * 
- * Connections Profiles -> Connection Profile
+ * Connections Profiles &gt; Connection Profile
  * 
  * @author apodhrad, jpeterka
  * 

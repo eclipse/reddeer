@@ -13,9 +13,8 @@ package org.jboss.reddeer.common.condition;
 /**
  * Interface WaitCondition offers API for wait conditions. 
  * 
- * @author mlabuda
- * @contributor jkopriva@redhat.com
- * 
+ * @author mlabuda@redhat.com
+ * @author jkopriva@redhat.com
  */
 public interface WaitCondition {
 

@@ -82,7 +82,7 @@ public class PropertyBasedConfigurator implements RequirementConfigurator{
 	/**
 	 * Load property configurations.
 	 *
-	 * @return the map< class<? extends requirement<?>>, property based configuration>
+	 * @return map containing property based configuration
 	 */
 	protected Map<String, PropertyBasedConfiguration> loadPropertyConfigurations(){
 		List<PropertyBasedConfiguration> list = reader.getConfiguration(PropertyBasedConfiguration.class);

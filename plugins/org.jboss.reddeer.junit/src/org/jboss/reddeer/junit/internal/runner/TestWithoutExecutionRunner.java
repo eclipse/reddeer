@@ -19,7 +19,7 @@ import org.junit.runners.model.InitializationError;
 
 /**
  * Special runner invoking {@link InitializationError}
- * for each test class.<br/>
+ * for each test class.<br>
  * 
  * It doesn't run tests, it just provide information about tests
  * in error's message.

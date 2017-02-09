@@ -20,12 +20,14 @@ package org.jboss.reddeer.eclipse.ui.wizards;
 public interface WizardPageSettings {
 
 	/**
-	 * @param Error message to be set 
+	 * Sets new error message.
+	 * @param newMessage new Error message to be set 
 	 */
 	void setErrorMessage(String newMessage);
 
 	/**
-	 * @param Wizard page completion
+	 * Sets page completions.
+	 * @param complete set page completion
 	 */
 	void setPageComplete(boolean complete);
 

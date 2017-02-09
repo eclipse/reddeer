@@ -11,7 +11,7 @@
 package org.jboss.reddeer.eclipse.jdt.ui.preferences;
 
 /**
- * POJO representing row in "Installed JREs" table (Preferences->Java->Installed
+ * POJO representing row in "Installed JREs" table (Preferences &gt; Java &gt; Installed
  * JREs).
  * 
  * @author rhopp

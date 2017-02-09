@@ -40,7 +40,7 @@ public class RuntimePreferencePage extends PreferencePage {
 	private static final Logger log = Logger.getLogger(RuntimePreferencePage.class);
 	
 	/**
-	 * Constructs the preference page with "Server" > {@value #PAGE_NAME}.
+	 * Constructs the preference page with "Server" &gt; {@value #PAGE_NAME}.
 	 */
 	public RuntimePreferencePage() {
 		super(new String[] {"Server", PAGE_NAME});

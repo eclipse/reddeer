@@ -18,7 +18,7 @@ import org.jboss.reddeer.core.handler.WidgetHandler;
 
 /**
  * This class provides a skeletal implementation for all matchers
- * that matches {@link Widget}s with specified {@link String}.<br/>
+ * that matches {@link Widget}s with specified {@link String}.<br>
  * 
  * To implement a matcher matching {@link Widget} with specified string,
  * the programmer needs only to extend this class and provide implementation for
@@ -29,11 +29,11 @@ import org.jboss.reddeer.core.handler.WidgetHandler;
  * with extracted text that is given as parameter</li>
  * <li>Method {@link #describeTo(Description)} provides description
  * of the matcher</li>
- * <ul>
+ * </ul>
  * 
  * Method {@link #matches(Object)} is final and can't be overridden
  * because all evaluation of extracted text must be in
- * {@link #matches(String)} method.<br/>
+ * {@link #matches(String)} method.<br>
  * 
  * The programmer should not forget to override {@link #toString()} method,
  * which provides information about the matcher.

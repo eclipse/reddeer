@@ -18,7 +18,7 @@ import org.jboss.reddeer.swt.widgets.Widget;
  * @author Andrej Podhradsky
  * 
  */
-public interface Spinner extends Widget {
+public interface Spinner extends Widget<org.eclipse.swt.widgets.Spinner> {
 
 	/**
 	 * Gets value of the spinner.
@@ -33,6 +33,4 @@ public interface Spinner extends Widget {
 	 * @param value value of the spinner to set
 	 */
 	void setValue(int value);
-	
-	org.eclipse.swt.widgets.Spinner getSWTWidget();
 }

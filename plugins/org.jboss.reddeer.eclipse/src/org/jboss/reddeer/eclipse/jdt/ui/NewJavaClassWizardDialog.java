@@ -18,7 +18,7 @@ import org.jboss.reddeer.jface.wizard.NewWizardDialog;
 public class NewJavaClassWizardDialog extends NewWizardDialog {
 	
 	/**
-	 * Constructs the wizard with Java > Class.
+	 * Constructs the wizard with "Java" &gt; "Class".
 	 */
 	public NewJavaClassWizardDialog() {
 		super("Java", "Class");

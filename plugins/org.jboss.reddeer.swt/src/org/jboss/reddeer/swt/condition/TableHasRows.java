@@ -44,8 +44,8 @@ public class TableHasRows extends AbstractWaitCondition {
 	 * 
 	 * @param table
 	 *            table which should contain row to the condition be met
-	 * @param matchers
-	 *            matchers - e.g. Regexmatcher, custom matcher...
+	 * @param matcher
+	 *            matcher to match table - e.g. Regexmatcher, custom matcher...
 	 */
 	public TableHasRows(Table table, Matcher<?> matcher) {
 		this.table = table;

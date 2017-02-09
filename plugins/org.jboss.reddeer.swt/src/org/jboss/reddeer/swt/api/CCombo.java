@@ -20,7 +20,7 @@ import org.jboss.reddeer.swt.widgets.Widget;
  * @author Andrej Podhradsky
  *
  */
-public interface CCombo extends Widget {
+public interface CCombo extends Widget<org.eclipse.swt.custom.CCombo> {
 
 	/**
 	 * Sets text to the custom combo.
@@ -82,7 +82,4 @@ public interface CCombo extends Widget {
 	 * @return true if custom combo is enabled, false otherwise
 	 */
 	boolean isEnabled();
-
-	org.eclipse.swt.custom.CCombo getSWTWidget();
-
 }

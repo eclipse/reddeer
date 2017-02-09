@@ -220,8 +220,8 @@ public class MenuHandler {
 	}
 
 	/**
-	 * Formats title from Menu object to label. Removes '&' and shortcut from title.
-	 * @param title text attribute of Menu object.
+	 * Formats title from Menu object to label. Removes '&amp;' and shortcut from title.
+	 * @param text title text attribute of Menu object.
 	 * @return Formatted label.
 	 */
 	public String getLabelFromText(String text) {

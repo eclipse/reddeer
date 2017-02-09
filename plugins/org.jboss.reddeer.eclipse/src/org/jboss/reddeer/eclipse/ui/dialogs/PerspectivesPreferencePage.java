@@ -22,7 +22,7 @@ import org.jboss.reddeer.swt.impl.group.DefaultGroup;
 public class PerspectivesPreferencePage extends PreferencePage {
 
 	/** 
-	 * Constructs the preference page with "General > Perspectives".
+	 * Constructs the preference page with "General &gt; Perspectives".
 	 */
 	public PerspectivesPreferencePage() {
 		super(new String[] {"General", "Perspectives"});

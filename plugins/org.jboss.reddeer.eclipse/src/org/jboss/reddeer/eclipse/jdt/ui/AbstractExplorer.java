@@ -189,6 +189,7 @@ public class AbstractExplorer extends WorkbenchView {
 	/**
 	 * Gets project with specific project type defined by subclass of Abstract Project.
 	 * 
+	 * @param <T> specific project type
 	 * @param projectName name of project to get
 	 * @param projectType type of project to get
 	 * @return project of specific type with defined name

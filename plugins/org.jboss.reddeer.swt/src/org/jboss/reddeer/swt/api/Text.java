@@ -18,7 +18,7 @@ import org.jboss.reddeer.swt.widgets.Widget;
  * @author Jiri Peterka
  *
  */
-public interface Text extends Widget {
+public interface Text extends Widget<org.eclipse.swt.widgets.Text> {
 
 	/**
 	 * Sets text to the text widget.
@@ -66,6 +66,4 @@ public interface Text extends Widget {
 	 * @return true if the text is read only, false otherwise
 	 */
 	boolean isReadOnly();
-	
-	org.eclipse.swt.widgets.Text getSWTWidget();
 }

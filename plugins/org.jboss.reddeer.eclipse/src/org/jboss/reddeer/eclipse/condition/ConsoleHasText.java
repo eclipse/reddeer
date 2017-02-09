@@ -16,8 +16,7 @@ import org.jboss.reddeer.eclipse.ui.console.ConsoleView;
 /**
  * Wait condition for existence of text.
  * 
- * @author apodhrad, mlabuda@redhat.com
- * @contributor jkopriva@redhat.com
+ * @author apodhrad, mlabuda@redhat.com, jkopriva@redhat.com
  * 
  */
 public class ConsoleHasText extends AbstractWaitCondition {

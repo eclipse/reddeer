@@ -18,6 +18,6 @@ import org.jboss.reddeer.swt.widgets.Widget;
  * @author Jiri Peterka
  *
  */
-public interface CoolBar extends Widget {
+public interface CoolBar extends Widget<org.eclipse.swt.widgets.CoolBar> {
 
 }

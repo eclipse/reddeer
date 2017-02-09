@@ -72,7 +72,7 @@ public class MenuLookup {
 
 	/**
 	 * Gets top level menu items of focused control.
-	 * Does not work with dynamic menus from e4 - see {@link #MenuLookup.getMenuContributionItems()}.
+	 * Does not work with dynamic menus from e4.
 	 * 
 	 * @return array of top menu items of focused control
 	 */

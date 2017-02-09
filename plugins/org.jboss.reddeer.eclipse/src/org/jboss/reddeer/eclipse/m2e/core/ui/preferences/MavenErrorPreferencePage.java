@@ -15,7 +15,7 @@ import org.jboss.reddeer.jface.preference.PreferencePage;
 import org.jboss.reddeer.swt.impl.combo.LabeledCombo;
 
 /**
- * Class representing "Maven->Errors/Warnings" preference page.
+ * Class representing "Maven" &gt; "Errors/Warnings" preference page.
  * 
  * @author jkopriva, ldimaggi
  */
@@ -51,98 +51,98 @@ public class MavenErrorPreferencePage extends PreferencePage {
 	}
 	
 	/**
-	 * Construct the preference page with "Maven" > "Errors/Warnings".
+	 * Construct the preference page with "Maven" &gt; "Errors/Warnings".
 	 */
 	public MavenErrorPreferencePage() {
 		super(new String[] { "Maven", "Errors/Warnings" });
 	}
 		
 	/**
-	 * Gets message severity level of "groupId duplicate of parent groupId" in Maven Error/Warning Preference page
-	 * @return String value of selected item in labeled combo
+	 * Gets message severity level of {@value #GROUP_ID} in Maven Error/Warning Preference page
+	 * @return severity of {@value #GROUP_ID}
 	 */	
 	public String getGroupId () {
 		return new LabeledCombo(GROUP_ID).getSelection();
 	}
 	
 	/**
-	 * Sets message severity level of "groupId duplicate of parent groupId" from Maven Error/Warning Preference page
-	 * @param groupId
+	 * Sets message severity level of {@value #GROUP_ID} from Maven Error/Warning Preference page
+	 * @param groupIdSeverity group id severity
 	 */
-	public void setGroupId (MavenErrorSeverity groupId) {
-		new LabeledCombo(GROUP_ID).setSelection(groupId.getValue());
-		log.info("Set Maven error/warning Group ID to: " + groupId.getValue());
+	public void setGroupId (MavenErrorSeverity groupIdSeverity) {
+		new LabeledCombo(GROUP_ID).setSelection(groupIdSeverity.getValue());
+		log.info("Set Maven error/warning Group ID to: " + groupIdSeverity.getValue());
 	}
 		
 	/**
-	 * Gets message severity level of "version duplicate of parent version" in Maven Error/Warning Preference page
-	 * @return String value of selected item in labeled combo
+	 * Gets message severity level of {@value #VERSION} in Maven Error/Warning Preference page
+	 * @return severity of {@value #VERSION}
 	 */	
 	public String getVersion () {
 		return new LabeledCombo(VERSION).getSelection();
 	}
 	
 	/**
-	 * Sets message severity level of "version duplicate of parent version" from Maven Error/Warning Preference page
-	 * @param version  
+	 * Sets message severity level of {@value #VERSION} from Maven Error/Warning Preference page
+	 * @param versionSeverity version severity
 	 */
-	public void setVersion (MavenErrorSeverity version) {
-		new LabeledCombo(VERSION).setSelection(version.getValue());
-		log.info("Set Maven error/warning Version to: " + version);
+	public void setVersion (MavenErrorSeverity versionSeverity) {
+		new LabeledCombo(VERSION).setSelection(versionSeverity.getValue());
+		log.info("Set Maven error/warning Version to: " + versionSeverity);
 	}
 	
 	/**
-	 * Gets message severity level of "Out-of-date project configuration" in Maven Error/Warning Preference page
-	 * @return String value of selected item in labeled combo
+	 * Gets message severity level of {@value #PROJECT_CONFIG} in Maven Error/Warning Preference page
+	 * @return severity of {@value #PROJECT_CONFIG}
 	 */		
 	public String getProjectConfig () {
 		return new LabeledCombo(PROJECT_CONFIG).getSelection();
 	}
 	
 	/**
-	 * Sets message severity level of "Out-of-date project configuration" 
+	 * Sets message severity level of {@value #PROJECT_CONFIG} 
 	 * from Maven Error/Warning Preference page
-	 * @param version  
+	 * @param projectConfigSeverity project configuration severity
 	 */
-	public void setProjectConfig (MavenErrorSeverity projectConfig) {
-		new LabeledCombo(PROJECT_CONFIG).setSelection(projectConfig.getValue());
-		log.info("Set Maven error/warning Project Config to: " + projectConfig);
+	public void setProjectConfig(MavenErrorSeverity projectConfigSeverity) {
+		new LabeledCombo(PROJECT_CONFIG).setSelection(projectConfigSeverity.getValue());
+		log.info("Set Maven error/warning Project Config to: " + projectConfigSeverity);
 	}
 	
 	/**
-	 * Gets message severity level of "Plugin execution not covered by lifecycle configuration" in Maven Error/Warning Preference page
-	 * @return String value of selected item in labeled combo
+	 * Gets message severity level of {@value #PLUGIN_EXECUTION} in Maven Error/Warning Preference page
+	 * @return severity of {@value #PLUGIN_EXECUTION}
 	 */		
 	public String getPluginExecution () {
 		return new LabeledCombo(PLUGIN_EXECUTION).getSelection();
 	}
 	
 	/**
-	 * Sets message severity level of "Plugin execution not covered by lifecycle configuration" 
+	 * Sets message severity level of {@value #PLUGIN_EXECUTION} 
 	 * from Maven Error/Warning Preference page
-	 * @param version  
+	 * @param pluginExecutionSeverity plugin execution severity
 	 */
-	public void setPluginExecution (MavenErrorSeverity pluginExecution) {
-		new LabeledCombo(PLUGIN_EXECUTION).setSelection(pluginExecution.getValue());
-		log.info("Set Maven error/warning Plugin Execution to: " + pluginExecution);
+	public void setPluginExecution (MavenErrorSeverity pluginExecutionSeverity) {
+		new LabeledCombo(PLUGIN_EXECUTION).setSelection(pluginExecutionSeverity.getValue());
+		log.info("Set Maven error/warning Plugin Execution to: " + pluginExecutionSeverity);
 	}
 	
 	/**
-	 * Gets message severity level of "Overriding managed version" in Maven Error/Warning Preference page
-	 * @return String value of selected item in labeled combo
+	 * Gets message severity level of  {@value #MANAGED_VERSION} in Maven Error/Warning Preference page
+	 * @return severity of {@value #MANAGED_VERSION}
 	 */		
 	public String getManagedVersion () {
 		return new LabeledCombo(MANAGED_VERSION).getSelection();
 	}
 	
 	/**
-	 * Sets message severity level of "Overriding managed version" 
+	 * Sets message severity level of {@value #MANAGED_VERSION} 
 	 * from Maven Error/Warning Preference page
-	 * @param version  
+	 * @param managedVersionSeverity severity of managedVersion
 	 */
-	public void setManagedVersion (MavenErrorSeverity managedVersion) {
-		new LabeledCombo(MANAGED_VERSION).setSelection(managedVersion.getValue());
-		log.info("Set Maven error/warning Managed Version to: " + managedVersion);
+	public void setManagedVersion (MavenErrorSeverity managedVersionSeverity) {
+		new LabeledCombo(MANAGED_VERSION).setSelection(managedVersionSeverity.getValue());
+		log.info("Set Maven error/warning Managed Version to: " + managedVersionSeverity);
 	}
 
 

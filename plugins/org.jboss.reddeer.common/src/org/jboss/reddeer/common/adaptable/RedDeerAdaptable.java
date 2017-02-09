@@ -31,6 +31,7 @@ public interface RedDeerAdaptable<K> {
 	/**
 	 * Gets adapted object of a specific class
 	 * 
+	 * @param <V> class extending top level adaptable object
 	 * @param clazz
 	 *            class of a adapted object
 	 * @return adapted object
@@ -86,7 +87,7 @@ public interface RedDeerAdaptable<K> {
 	/**
 	 * Gets all arguments used to construct an adapted object. Arguments must be
 	 * in order and match a set of arguments used in a constructor of adaptable
-	 * object <K>.
+	 * object.
 	 * 
 	 * @return array of constructor arguments of adaptable objects suitable for passing to adapted object
 	 */
@@ -95,7 +96,7 @@ public interface RedDeerAdaptable<K> {
 	/**
 	 * Gets classes of all arguments used to construct an adapted object. Classes must be
 	 * in order and match a set of classes of arguments used in a constructor of adaptable
-	 * object <K>.
+	 * object &lt;K&gt;.
 	 * 
 	 * @return array of constructor classes of arguments of adaptable objects suitable for passing to adapted object
 	 */

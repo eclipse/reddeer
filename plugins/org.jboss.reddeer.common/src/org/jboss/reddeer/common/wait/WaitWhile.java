@@ -21,7 +21,7 @@ import org.jboss.reddeer.common.wait.TimePeriod;
  * 
  * @author Vlado Pakan
  * @author Lucia Jelinkova
- * @contributor jkopriva@redhat.com
+ * @author jkopriva@redhat.com
  * 
  */
 public class WaitWhile extends AbstractWait {

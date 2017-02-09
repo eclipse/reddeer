@@ -28,7 +28,7 @@ public class ListChild extends Widget {
 	 * Creates a new ListChild with specified text.
 	 * 
 	 * @param parent parent of list child
-	 * @param text
+	 * @param text text of child
 	 */
 	public ListChild(Widget parent, String text) {
 		super(parent, SWT.NONE);

@@ -69,8 +69,7 @@ public class LogCollector {
 	}
 
 	/**
-	 * Gets path to RedDeer log file. Path consists of log directory and log file name. See 
-	 * {@link #getDirectory()} and {@link #getFileName(String)}.
+	 * Gets path to RedDeer log file. Path consists of log directory and log file name.
 	 * 
 	 * @param config RedDeer config
 	 * @param className test class name

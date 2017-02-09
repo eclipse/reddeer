@@ -50,7 +50,7 @@ public class GroupWait {
 	}
 	
 	/**
-	 * Creates a new group wait with progressive {@link TimePeriod.NORMAL} timeout (decreasing) and
+	 * Creates a new group wait with progressive TimePeriod.NORMAL timeout (decreasing) and
 	 * various wrapped waits.
 	 *  
 	 * @param waitings waiting to wait
@@ -61,6 +61,8 @@ public class GroupWait {
 	
 	/**
 	 * Gets timeout which remained after all waitings.
+	 * 
+	 * @return remaining timeout
 	 */
 	public TimePeriod getRemainingTimeout() {
 		return remainingTimeout;

@@ -23,7 +23,7 @@ import org.jboss.reddeer.junit.configuration.RedDeerConfigurationException;
 /**
  * Finds configuration files and provides access to that configuration.
  * 
- * The configuration files location is specified via a system property {@link #PROPERTY_CONFIG_LOC}. It can points 
+ * The configuration files location is specified via a system property. It can points 
  * either to a single file or to a directory. Please note that the directory cannot contain any other files except for the
  * configuration files and that it is not processed recursively. 
  * 

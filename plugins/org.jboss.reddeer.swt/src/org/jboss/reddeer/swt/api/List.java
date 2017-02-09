@@ -18,7 +18,7 @@ import org.jboss.reddeer.swt.widgets.Widget;
  * @author Jiri Peterka
  *
  */
-public interface List extends Widget {
+public interface List extends Widget<org.eclipse.swt.widgets.List> {
 
 	/**
 	 * Selects item in the list.
@@ -88,7 +88,4 @@ public interface List extends Widget {
 	 * Selects all list items.
 	 */
 	void selectAll();
-
-	org.eclipse.swt.widgets.List getSWTWidget();
-
 }

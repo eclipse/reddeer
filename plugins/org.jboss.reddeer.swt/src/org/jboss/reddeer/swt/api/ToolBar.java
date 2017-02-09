@@ -19,8 +19,5 @@ import org.jboss.reddeer.swt.widgets.Widget;
  * @author Jiri Peterka
  *
  */
-public interface ToolBar extends Widget, ReferencedComposite{
-	
-	org.eclipse.swt.widgets.ToolBar getSWTWidget();
-
+public interface ToolBar extends Widget<org.eclipse.swt.widgets.ToolBar>, ReferencedComposite{
 }

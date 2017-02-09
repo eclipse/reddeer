@@ -19,7 +19,7 @@ import org.jboss.reddeer.swt.widgets.Widget;
  * @author rhopp
  *
  */
-public interface ProgressBar extends Widget {
+public interface ProgressBar extends Widget<org.eclipse.swt.widgets.ProgressBar> {
 
 	/**
 	 * Gets state of the progress bar.
@@ -27,7 +27,4 @@ public interface ProgressBar extends Widget {
 	 * @return current state (SWT.NORMAL, SWT.ERROR, SWT.PAUSED)
 	 */
 	int getState();
-
-	org.eclipse.swt.widgets.ProgressBar getSWTWidget();
-
 }

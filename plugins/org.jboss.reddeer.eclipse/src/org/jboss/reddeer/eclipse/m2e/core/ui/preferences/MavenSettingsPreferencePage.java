@@ -23,7 +23,7 @@ import org.jboss.reddeer.swt.impl.text.DefaultText;
 import org.jboss.reddeer.workbench.core.condition.JobIsRunning;
 
 /**
- * Class representing "Maven->User Settings" preference page.
+ * Class representing "Maven" &gt; "User Settings" preference page.
  * 
  * @author rhopp
  *
@@ -35,7 +35,7 @@ public class MavenSettingsPreferencePage extends PreferencePage {
 	private static final String REINDEX = "Reindex";
 
 	/**
-	 * Construct the preference page with "Maven" > "User Settings".
+	 * Construct the preference page with "Maven" &gt; "User Settings".
 	 */
 	public MavenSettingsPreferencePage() {
 		super(new String[] {"Maven", "User Settings"});
@@ -46,7 +46,6 @@ public class MavenSettingsPreferencePage extends PreferencePage {
 	 * (max. 1 minute)
 	 * 
 	 */
-
 	public void updateSettings() {
 		new PushButton(UPDATE_SETTINGS).click();
 		new WaitUntil(new JobIsRunning(), TimePeriod.LONG);
@@ -57,7 +56,6 @@ public class MavenSettingsPreferencePage extends PreferencePage {
 	 * 
 	 * @param path Path to settings.xml file
 	 */
-	
 	public void setUserSettingsLocation(String path) {
 		getSettingsXMLTextWidget().setText(path);
 	}
@@ -67,7 +65,6 @@ public class MavenSettingsPreferencePage extends PreferencePage {
 	 *
 	 * @return content of User Settings location
 	 */
-	
 	public String getUserSettingsLocation() {
 		return getSettingsXMLTextWidget().getText();
 	}
@@ -77,7 +74,6 @@ public class MavenSettingsPreferencePage extends PreferencePage {
 	 * minutes)
 	 * 
 	 */
-
 	public void reindex() {
 		new PushButton(REINDEX).click();
 		new WaitWhile(new JobIsRunning(), TimePeriod.VERY_LONG);
@@ -87,9 +83,8 @@ public class MavenSettingsPreferencePage extends PreferencePage {
 	/**
 	 * Retrieves first DefaultText relative to parent of "Update Settings" push button.
 	 * 
-	 * @return
+	 * @return default text of settings xml
 	 */
-	
 	private DefaultText getSettingsXMLTextWidget() {
 		final PushButton button = new PushButton(UPDATE_SETTINGS);
 		return Display.syncExec(new ResultRunnable<DefaultText>() {

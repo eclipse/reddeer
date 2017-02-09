@@ -17,7 +17,7 @@ package org.jboss.reddeer.common.condition;
  * simply calls the method description().
  * 
  * @author Andrej Podhradsky
- * @contributor jkopriva@redhat.com
+ * @author jkopriva@redhat.com
  *
  */
 public abstract class AbstractWaitCondition implements WaitCondition {

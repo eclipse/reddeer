@@ -18,7 +18,7 @@ import org.jboss.reddeer.swt.widgets.Widget;
  * @author Jiri Peterka
  *
  */
-public interface Browser extends Widget {
+public interface Browser extends Widget<org.eclipse.swt.browser.Browser> {
 
 	/**
 	 * Indicates whether a page is loaded or not.
@@ -64,25 +64,21 @@ public interface Browser extends Widget {
 	void refresh();
 
 	/**
-	 * Evaluates given script and returns its output. For more information see
-	 * {@link org.eclipse.swt.browser.Browser#evaluate(String)}.
+	 * Evaluates given script and returns its output.
 	 * 
 	 * @param script
 	 *            Script to evaluate;
+	 * @return output of script's evaluation
 	 */
-
 	Object evaluate(String script);
 
 	/**
-	 * Executes given script. For more information see
-	 * {@link org.eclipse.swt.browser.Browser#execute(String)}.
+	 * Executes given script.
 	 * 
 	 * @param script
 	 *            Script to execute.
+	 * @return true if script was executed successfully, false otherwise           
+	 *           
 	 */
-
 	boolean execute(String script);
-	
-	org.eclipse.swt.browser.Browser getSWTWidget();
-
 }

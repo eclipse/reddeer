@@ -16,8 +16,7 @@ import org.jboss.reddeer.eclipse.wst.server.ui.view.ServersViewEnums.ServerPubli
 
 /**
  * 
- * @author odockal
- * @contributor jkopriva@redhat.com
+ * @author odockal, jkopriva@redhat.com
  *
  */
 
@@ -38,25 +37,16 @@ public class ServerHasPublishState extends AbstractWaitCondition {
 		return expectedPublishState.equals(this.currentPublishState);
 	}
 
-	/* (non-Javadoc)
-	 * @see org.jboss.reddeer.common.condition.AbstractWaitCondition#description()
-	 */
 	@Override
 	public String description() {
 		return "server's publish state is '" + expectedPublishState.getText() + "'";
 	}
 	
-	/* (non-Javadoc)
-	 * @see org.jboss.reddeer.common.condition.AbstractWaitCondition#errorMessageUntil()
-	 */
 	@Override
 	public String errorMessageUntil() {
 		return "Server still has publish state '" + expectedPublishState.getText() + "'";
 	}
 	
-	/* (non-Javadoc)
-	 * @see org.jboss.reddeer.common.condition.AbstractWaitCondition#errorMessageWhile()
-	 */
 	@Override
 	public String errorMessageWhile() {
 		return "server expected state was '" + expectedPublishState.getText() + "' but current state is '"

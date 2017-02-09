@@ -21,9 +21,9 @@ import java.util.TreeSet;
  * <li>Test classes <b>without</b> a run</li>
  * </ul>
  * 
- * Usage:<br/>
+ * Usage:<br>
  * Add test class to {@link TestsExecutionManager} using method {@link #addTest(Class)}.
- * It will be added as test without a run.<br/><br/>
+ * It will be added as test without a run.<br><br>
  * 
  * If the test class has a run, change the state of the test class
  * using method {@link #addExecutedTest(Class)}.

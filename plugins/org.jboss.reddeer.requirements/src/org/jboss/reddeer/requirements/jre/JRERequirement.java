@@ -24,7 +24,7 @@ import org.jboss.reddeer.workbench.ui.dialogs.WorkbenchPreferenceDialog;
 
 /**
  * Requirement for specific JRE. This requirement will add new JRE to eclipse
- * using Preferences->Java->Installed JRE's
+ * using Preferences &gt; Java &gt; Installed JRE's
  * 
  * @author rhopp
  *
@@ -62,7 +62,6 @@ public class JRERequirement implements Requirement<JRE>, CustomConfiguration<JRE
 	 *
 	 * @return true, if successful
 	 */
-
 	@Override
 	public boolean canFulfill() {
 		if ((jre.value() > 0) && (jre.value() != Double.valueOf(configuration.getVersion()))) {
@@ -87,7 +86,7 @@ public class JRERequirement implements Requirement<JRE>, CustomConfiguration<JRE
 	}
 
 	/**
-	 * Adds new JRE using Preferences->Java->Installed JRE's, Add JRE wizard.
+	 * Adds new JRE using Preferences &gt; Java &gt; Installed JRE's, Add JRE wizard.
 	 */
 	@Override
 	public void fulfill() {
@@ -103,18 +102,12 @@ public class JRERequirement implements Requirement<JRE>, CustomConfiguration<JRE
 		dialog.ok();
 	}
 
-	/* (non-Javadoc)
-	 * @see org.jboss.reddeer.junit.requirement.Requirement#setDeclaration(java.lang.annotation.Annotation)
-	 */
 	@Override
 	public void setDeclaration(JRE declaration) {
 		this.jre = declaration;
 
 	}
 
-	/* (non-Javadoc)
-	 * @see org.jboss.reddeer.junit.requirement.Requirement#cleanUp()
-	 */
 	@Override
 	public void cleanUp() {
 		if (jre.cleanup()) {
@@ -127,17 +120,11 @@ public class JRERequirement implements Requirement<JRE>, CustomConfiguration<JRE
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see org.jboss.reddeer.junit.requirement.CustomConfiguration#getConfigurationClass()
-	 */
 	@Override
 	public Class<JREConfiguration> getConfigurationClass() {
 		return JREConfiguration.class;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.jboss.reddeer.junit.requirement.CustomConfiguration#setConfiguration(java.lang.Object)
-	 */
 	@Override
 	public void setConfiguration(JREConfiguration config) {
 		this.configuration = config;

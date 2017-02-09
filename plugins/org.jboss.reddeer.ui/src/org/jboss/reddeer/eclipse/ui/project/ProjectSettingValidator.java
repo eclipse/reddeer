@@ -54,7 +54,7 @@ public class ProjectSettingValidator {
 	/**
 	 * Validate the RedDeer wizard page text inputs and set appropriate error
 	 * messages.
-	 * <br/>
+	 * <br>
 	 * <ul>
 	 * <li>Plugin name - cannot be empty, must be unique</li>
 	 * <li>Plugin id - cannot be empty, must contain alphanumeric chars</li>

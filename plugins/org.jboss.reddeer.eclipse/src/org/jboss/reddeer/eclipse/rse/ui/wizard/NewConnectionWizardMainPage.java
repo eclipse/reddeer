@@ -28,7 +28,7 @@ import org.jboss.reddeer.swt.impl.text.DefaultText;
 public class NewConnectionWizardMainPage extends WizardPage {
 
 	/**
-	 * Set Host name.
+	 * Sets Host name.
 	 *
 	 * @param hostname the new host name
 	 */
@@ -37,7 +37,7 @@ public class NewConnectionWizardMainPage extends WizardPage {
 	}
 
 	/**
-	 * Set Connection name.
+	 * Sets Connection name.
 	 *
 	 * @param name the new connection name
 	 */
@@ -46,9 +46,9 @@ public class NewConnectionWizardMainPage extends WizardPage {
 	}
 	
 	/**
-	 * Return list of all defined host names.
+	 * Gets list of all defined host names.
 	 *
-	 * @return List<String> hostnames
+	 * @return list of host names
 	 */
 	public List<String> getHostNames() {
 		List<String> items = new LinkedList<String>(getHostNameCombo().getItems());

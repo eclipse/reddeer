@@ -20,7 +20,7 @@ import org.jboss.reddeer.swt.widgets.Widget;
  * @author Vlado Pakan
  *
  */
-public interface ExpandBarItem extends ReferencedComposite, Widget {
+public interface ExpandBarItem extends ReferencedComposite, Widget<org.eclipse.swt.widgets.ExpandItem> {
 	
 	/**
 	 * Returns the text of the expand bar item.
@@ -74,6 +74,4 @@ public interface ExpandBarItem extends ReferencedComposite, Widget {
 	 * @return true if expand bar item is collapsed, false otherwise
 	 */
 	boolean isExpanded();
-
-	org.eclipse.swt.widgets.ExpandItem getSWTWidget();
 }

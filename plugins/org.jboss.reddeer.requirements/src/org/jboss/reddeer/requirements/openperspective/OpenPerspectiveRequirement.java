@@ -23,15 +23,15 @@ import org.jboss.reddeer.requirements.exception.RequirementsLayerException;
 import org.jboss.reddeer.requirements.openperspective.OpenPerspectiveRequirement.OpenPerspective;
 
 /**
- * Open perspective requirement<br/><br/>
+ * Open perspective requirement<br><br>
  * 
  * This {@link Requirement} ensures, that given perspective is active before actual test
- * execution.<br/><br/>
+ * execution.<br><br>
  * 
  * Annotate test class with {@link OpenPerspective} annotation to have
- * the given perspective opened before the test cases are executed.<br/><br/>
+ * the given perspective opened before the test cases are executed.<br><br>
  * 
- * Example:<br/>
+ * Example:<br>
  * <pre>
  * {@code @OpenPerspective(DebugPerspective.class)
  * public class TestClass {
@@ -55,14 +55,14 @@ public class OpenPerspectiveRequirement implements Requirement<OpenPerspective> 
 		/**
 		 * specified perspective.
 		 *
-		 * @return the class<? extends abstract perspective>
+		 * @return the class&lt;? extends abstract perspective&gt;
 		 */
 		Class<? extends AbstractPerspective> value();
 		
 		/**
 		 * If true, perspective will be reset to default. 
 		 *
-		 * @return true, if successful
+		 * @return true if successful, false otherwise
 		 */
 		boolean reset() default true;
 	}

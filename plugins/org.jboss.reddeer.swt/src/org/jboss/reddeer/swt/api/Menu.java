@@ -21,7 +21,7 @@ import org.jboss.reddeer.swt.widgets.Widget;
  *
  */
 
-public interface Menu extends Widget {
+public interface Menu extends Widget<MenuItem> {
 
 	/**
 	 * Selects the menu.
@@ -41,10 +41,7 @@ public interface Menu extends Widget {
 	 * 
 	 * @return menu text
 	 */
-	String getText();
-
-	MenuItem getSWTWidget();
-	
+	String getText();	
 	
 	/**
 	 * Returns text of child items of the menu.

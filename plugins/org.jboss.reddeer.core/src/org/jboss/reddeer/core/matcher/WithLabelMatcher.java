@@ -58,9 +58,6 @@ public class WithLabelMatcher extends BaseMatcher<String> {
 		this.matcher = matcher;
 	}
 	
-	/* (non-Javadoc)
-	 * @see org.hamcrest.SelfDescribing#describeTo(org.hamcrest.Description)
-	 */
 	@Override
 	public void describeTo(Description description) {
 		description.appendText("with label ").appendDescriptionOf(matcher);
@@ -70,8 +67,7 @@ public class WithLabelMatcher extends BaseMatcher<String> {
 	 * Matches specified object to text or text matcher provided in constructor of this object.
 	 *
 	 * @param item the item
-	 * @return true, if successful
-	 * @returns true if label of specified object is matching text or
+	 * @return true if label of specified object is matching text or
 	 * text matcher of this object, false otherwise
 	 */
 	@Override
@@ -86,9 +82,6 @@ public class WithLabelMatcher extends BaseMatcher<String> {
 		return false;
 	}
 	
-	/* (non-Javadoc)
-	 * @see org.hamcrest.BaseMatcher#toString()
-	 */
 	@Override
 	public String toString() {
 		return "Matcher matching widget with label:\n" + matcher.toString();

@@ -20,7 +20,7 @@ import org.jboss.reddeer.swt.widgets.Widget;
  * @author Vlado Pakan
  *
  */
-public interface ExpandBar extends Widget {
+public interface ExpandBar extends Widget<org.eclipse.swt.widgets.ExpandBar> {
 	
 	/**
 	 * Finds out how many expand bar items are nested in the expand bar.
@@ -50,6 +50,4 @@ public interface ExpandBar extends Widget {
 	 * Collapses all expand bar items nested in the expand bar. 
 	 */
 	void collapseAll();
-
-	org.eclipse.swt.widgets.ExpandBar getSWTWidget();
 }

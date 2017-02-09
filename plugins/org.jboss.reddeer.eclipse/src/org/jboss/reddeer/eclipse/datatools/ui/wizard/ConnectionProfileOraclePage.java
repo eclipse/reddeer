@@ -39,9 +39,6 @@ public class ConnectionProfileOraclePage extends ConnectionProfileDatabasePage {
 		super();
 	}
 
-	/* (non-Javadoc)
-	 * @see org.jboss.reddeer.eclipse.datatools.ui.wizard.ConnectionProfileDatabasePage#setHostname(java.lang.String)
-	 */
 	@Override
 	public void setHostname(String hostname) {
 		new LabeledText(LABEL_HOST).setText(hostname);
@@ -63,9 +60,6 @@ public class ConnectionProfileOraclePage extends ConnectionProfileDatabasePage {
 		throw new UnsupportedOperationException();
 	}
 
-	/* (non-Javadoc)
-	 * @see org.jboss.reddeer.eclipse.datatools.ui.wizard.ConnectionProfileDatabasePage#setDatabase(java.lang.String)
-	 */
 	@Override
 	public void setDatabase(String database) {
 		new LabeledText(LABEL_DATABASE).setText(database);
@@ -76,8 +70,8 @@ public class ConnectionProfileOraclePage extends ConnectionProfileDatabasePage {
 	 *
 	 * @return the database
 	 */
-	public void getDatabase() {
-		new LabeledText(LABEL_DATABASE).getText();
+	public String getDatabase() {
+		return new LabeledText(LABEL_DATABASE).getText();
 	}
 
 	/**
@@ -98,9 +92,6 @@ public class ConnectionProfileOraclePage extends ConnectionProfileDatabasePage {
 		return new LabeledText(LABEL_USER_NAME).getText();
 	}
 
-	/* (non-Javadoc)
-	 * @see org.jboss.reddeer.eclipse.datatools.ui.wizard.ConnectionProfileDatabasePage#setUsername(java.lang.String)
-	 */
 	@Override
 	public void setUsername(String userName) {
 		new LabeledText(LABEL_USER_NAME).setText(userName);
@@ -115,9 +106,6 @@ public class ConnectionProfileOraclePage extends ConnectionProfileDatabasePage {
 		return new LabeledText(LABEL_PASSWORD).getText();
 	}
 
-	/* (non-Javadoc)
-	 * @see org.jboss.reddeer.eclipse.datatools.ui.wizard.ConnectionProfileDatabasePage#setPassword(java.lang.String)
-	 */
 	@Override
 	public void setPassword(String password) {
 		new LabeledText(LABEL_PASSWORD).setText(password);
@@ -133,9 +121,6 @@ public class ConnectionProfileOraclePage extends ConnectionProfileDatabasePage {
 		return new LabeledText(LABEL_PORT_NUMBER).getText();
 	}
 
-	/* (non-Javadoc)
-	 * @see org.jboss.reddeer.eclipse.datatools.ui.wizard.ConnectionProfileDatabasePage#setPort(java.lang.String)
-	 */
 	@Override
 	public void setPort(String port) {
 		new LabeledText(LABEL_PORT_NUMBER).setText(port);

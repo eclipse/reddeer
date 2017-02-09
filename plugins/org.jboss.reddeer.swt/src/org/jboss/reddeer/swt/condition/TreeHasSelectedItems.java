@@ -37,7 +37,8 @@ public class TreeHasSelectedItems extends AbstractWaitCondition {
 	}
 	/**
 	 * Construct tree has selected items condition. 
-	 * @param tree given tree
+	 * @param tree tree to check for selected items
+	 * @param numSelectedItems number of selected items
 	 */
 	public TreeHasSelectedItems(Tree tree , int numSelectedItems) {
 		super();

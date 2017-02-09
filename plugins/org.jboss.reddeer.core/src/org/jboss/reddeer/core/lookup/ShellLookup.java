@@ -55,7 +55,7 @@ public class ShellLookup {
 	 * Gets active shell.
 	 * If there is no active shell at the moment waits for a shell to become active.
 	 * If there is no active shell even after waiting has finished then shell with focus is returned.
-	 * If there still is no active shell, shell with highest index is returned {@link #org.eclipse.swt.widgets.Display.getShells()}.
+	 * If there still is no active shell, shell with highest index is returned.
 	 * 
 	 * @return active shell, or focused shell if there is no active shell 
 	 * or shell with highest index if there is no active or focused shell

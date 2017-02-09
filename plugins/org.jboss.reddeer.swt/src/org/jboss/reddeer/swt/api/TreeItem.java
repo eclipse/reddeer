@@ -21,7 +21,7 @@ import org.jboss.reddeer.swt.widgets.Widget;
  * @author Jiri Peterka, Marian Labuda
  *
  */
-public interface TreeItem extends Widget {
+public interface TreeItem extends Widget<org.eclipse.swt.widgets.TreeItem> {
 
 	/**
 	 * Gets whole text of the tree item.
@@ -175,6 +175,4 @@ public interface TreeItem extends Widget {
 	  * @param text text to set
 	  */
 	 void setText(String text);
-	 
-	 org.eclipse.swt.widgets.TreeItem getSWTWidget();
 }

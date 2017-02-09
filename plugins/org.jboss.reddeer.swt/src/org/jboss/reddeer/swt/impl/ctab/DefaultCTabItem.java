@@ -99,7 +99,7 @@ public class DefaultCTabItem extends AbstractCTabItem {
 	
 	/**
 	 * Constructs CTabItem from given swt widget
-	 * @param swtWidget
+	 * @param swtWidget swt widget to encapsulate in this widget
 	 */
 	public DefaultCTabItem(CTabItem swtWidget){
 		super(swtWidget);

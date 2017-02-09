@@ -215,7 +215,6 @@ public class ScreenshotCapturer {
 	 * CaptureScreenshotException is thrown.
 	 *
 	 * @param path the path
-	 * @return path where screenshot should be stored
 	 * @throws CaptureScreenshotException             on failure of creating directories
 	 */
 	public void createDirectories(String path) throws CaptureScreenshotException {

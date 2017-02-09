@@ -393,6 +393,7 @@ public class WidgetHandler {
 	/**
 	 * Force focus to SWT Control. Use with caution
 	 * @param control SWT Control
+	 * @return true if control was focused, false otherwise
 	 */
 	public boolean forceFocus(final org.eclipse.swt.widgets.Control control) {
 		return Display.syncExec(new ResultRunnable<Boolean>() {

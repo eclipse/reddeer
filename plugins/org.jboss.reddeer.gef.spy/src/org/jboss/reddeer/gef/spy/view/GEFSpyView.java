@@ -59,8 +59,9 @@ public class GEFSpyView extends ViewPart {
 	}
 
 	/**
+	 * Gets tree viewer. 
 	 * 
-	 * @return
+	 * @return tree viewer 
 	 */
 	public TreeViewer getTreeViewer() {
 		return treeViewer;

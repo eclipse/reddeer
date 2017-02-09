@@ -60,8 +60,9 @@ public class ServersView extends WorkbenchView {
 	}
 
 	/**
-	 * Gets list of default servers. Default server is basic implementation of 
-	 * {@link Server} interface.
+	 * Gets list of default servers.
+	 * 
+	 * @return list of default servers
 	 */
 	public List<DefaultServer> getServers() {
 		List<DefaultServer> servers = new ArrayList<DefaultServer>();
@@ -92,6 +93,8 @@ public class ServersView extends WorkbenchView {
 	
 	/**
 	 * Gets a server of specified type with a given name
+	 * 
+	 * @param <T> type of server
 	 * @param clazz type of a server
 	 * @param name Server name
 	 * @return Server of specified type with a given name

@@ -18,7 +18,7 @@ import org.jboss.reddeer.swt.widgets.Widget;
  * @author Jiri Peterka
  *
  */
-public interface CTabFolder extends Widget {
+public interface CTabFolder extends Widget<org.eclipse.swt.custom.CTabFolder> {
 
 	/**
 	 * Returns selected {@link CTabItem} within the folder

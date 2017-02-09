@@ -18,7 +18,7 @@ import org.jboss.reddeer.swt.widgets.Widget;
  * @author Jiri Peterka
  *
  */
-public interface CLabel extends Widget {
+public interface CLabel extends Widget<org.eclipse.swt.custom.CLabel> {
 	
 	/**
 	 * Returns text of the CLabel.
@@ -49,6 +49,4 @@ public interface CLabel extends Widget {
 	 * @return true if CLabel contains image, false otherwise
 	 */
 	boolean hasImage();
-
-	org.eclipse.swt.custom.CLabel getSWTWidget();
 }

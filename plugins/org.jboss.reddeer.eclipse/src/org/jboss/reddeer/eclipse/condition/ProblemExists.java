@@ -32,6 +32,7 @@ public class ProblemExists extends AbstractWaitCondition {
 	 * met once there is a problem of specified problem type. If there are any markers matchers, a problem of 
 	 * specified problem type has to match to those markers matchers.
 	 * 
+	 * @param <T> marker matcher type
 	 * @param problemType type of a problem (warning or error)
 	 * @param matchers matchers for a problem
 	 */

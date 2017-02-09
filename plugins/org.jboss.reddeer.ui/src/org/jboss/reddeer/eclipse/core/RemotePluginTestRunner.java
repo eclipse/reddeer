@@ -59,6 +59,7 @@ public class RemotePluginTestRunner extends RemoteTestRunner {
 	 * -testpluginname: the name of the plugin containing the tests.
 	 * </pre>
 	 * 
+	 * @param args arguments to run remote plugin test runner
 	 * @see RemoteTestRunner
 	 */
 

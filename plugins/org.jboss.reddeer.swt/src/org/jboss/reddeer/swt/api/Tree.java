@@ -20,7 +20,7 @@ import org.jboss.reddeer.swt.widgets.Widget;
  * @author Jiri Peterka
  * 
  */
-public interface Tree extends Widget {
+public interface Tree extends Widget<org.eclipse.swt.widgets.Tree> {
 
 	/**
 	 * Gets top level tree items.
@@ -46,7 +46,7 @@ public interface Tree extends Widget {
 	/**
 	 * Gets the selected tree items.
 	 * 
-	 * @param treeItems tree items which are selected
+	 * @return tree items which are selected
 	 */
 	List<TreeItem> getSelectedItems();
 
@@ -73,6 +73,4 @@ public interface Tree extends Widget {
 	 * @return list of String inside header columns
 	 */
 	List<String> getHeaderColumns();
-
-	org.eclipse.swt.widgets.Tree getSWTWidget();
 }

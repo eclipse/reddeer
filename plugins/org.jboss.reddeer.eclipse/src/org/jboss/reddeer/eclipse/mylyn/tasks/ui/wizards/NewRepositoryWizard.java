@@ -13,7 +13,7 @@ package org.jboss.reddeer.eclipse.mylyn.tasks.ui.wizards;
 import org.jboss.reddeer.jface.wizard.NewWizardDialog;
 
 /**
- * Represents new file creation wizard dialog (General -> File)
+ * Represents new file creation wizard dialog "General" &gt; "File"
  * 
  * @author ldimaggi
  *
@@ -21,7 +21,7 @@ import org.jboss.reddeer.jface.wizard.NewWizardDialog;
 public class NewRepositoryWizard extends NewWizardDialog {
 
 	/**
-	 * Construct the wizard with "General" > "File".
+	 * Construct the wizard with "General" &gt; "File".
 	 */
 	public NewRepositoryWizard() {
 		super("General", "File");

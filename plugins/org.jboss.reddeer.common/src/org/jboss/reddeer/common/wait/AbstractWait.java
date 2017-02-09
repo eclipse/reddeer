@@ -20,7 +20,7 @@ import org.jboss.reddeer.common.util.Display;
  * 
  * @author Vlado Pakan
  * @author Lucia Jelinkova
- * @contributor jkopriva@redhat.com
+ * @author jkopriva@redhat.com
  * @author mlabuda@redhat.com
 
  */

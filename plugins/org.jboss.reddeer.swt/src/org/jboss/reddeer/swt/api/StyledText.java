@@ -19,7 +19,7 @@ import org.jboss.reddeer.swt.widgets.Widget;
  * @author Jiri Peterka
  *
  */
-public interface StyledText extends Widget {
+public interface StyledText extends Widget<org.eclipse.swt.custom.StyledText> {
 
 	/**
 	 * Gets text of the styled text.
@@ -96,8 +96,6 @@ public interface StyledText extends Widget {
 	 * @param end selection end offset
 	 */
 	void setSelection(final int start, final int end);
-
-	org.eclipse.swt.custom.StyledText getSWTWidget();
 	
 	/**
 	 * Gets the current position of the cursor.

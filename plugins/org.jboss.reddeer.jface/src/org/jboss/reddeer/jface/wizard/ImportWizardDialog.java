@@ -12,7 +12,7 @@ package org.jboss.reddeer.jface.wizard;
 
 
 /**
- * Superclass for import wizard dialogs. It opens the import wizard by clicking File -> Import... 
+ * Superclass for import wizard dialogs. It opens the import wizard by clicking File &gt; Import... 
  * and selects an appropriate wizard in the dialog. 
  *   
  * @author Lucia Jelinkova
@@ -31,17 +31,11 @@ public abstract class ImportWizardDialog extends TopMenuWizardDialog {
 		super(path);
 	}
 
-	/* (non-Javadoc)
-	 * @see org.jboss.reddeer.jface.wizard.TopMenuWizardDialog#getDialogTitle()
-	 */
 	@Override
 	protected String getDialogTitle() {
 		return DIALOG_TITLE;
 	}
 	
-	/* (non-Javadoc)
-	 * @see org.jboss.reddeer.jface.wizard.TopMenuWizardDialog#getMenuPath()
-	 */
 	@Override
 	protected String[] getMenuPath() {
 		return new String[]{"File", "Import..."};

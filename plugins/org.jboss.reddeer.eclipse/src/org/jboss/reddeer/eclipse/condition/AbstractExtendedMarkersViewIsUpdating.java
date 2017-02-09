@@ -35,8 +35,8 @@ public abstract class AbstractExtendedMarkersViewIsUpdating extends AbstractWait
 
 	/**
 	 * Construct the condition.
-	 * @param abstractView 
-	 * @param class1 
+	 * @param abstractView abstract view
+	 * @param viewClass view class
 	 */
 	public AbstractExtendedMarkersViewIsUpdating(AbstractView abstractView, final Class<? extends ExtendedMarkersView> viewClass) {
 		abstractView.open();

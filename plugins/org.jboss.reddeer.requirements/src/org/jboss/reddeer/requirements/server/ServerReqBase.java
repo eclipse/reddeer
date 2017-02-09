@@ -45,7 +45,6 @@ public abstract class ServerReqBase {
 	 * Setup server state.
 	 *
 	 * @param requiredState the required state
-	 * @param lastServerConfig the last server config
 	 * @throws ConfiguredServerNotFoundException the configured server not found exception
 	 */
 	protected void setupServerState(ServerReqState requiredState) throws ConfiguredServerNotFoundException {
@@ -72,8 +71,6 @@ public abstract class ServerReqBase {
 	
 	/**
 	 * Removes given server and its runtime.
-	 * 
-	 * @param lastServerConfig Server information.
 	 */
 	protected void removeLastRequiredServerAndRuntime() {
 		try {
@@ -99,7 +96,6 @@ public abstract class ServerReqBase {
 	/**
 	 * Gets the configured server.
 	 *
-	 * @param lastServerConfig the last server config
 	 * @return the configured server
 	 * @throws ConfiguredServerNotFoundException the configured server not found exception
 	 */
@@ -121,7 +117,6 @@ public abstract class ServerReqBase {
 	/**
 	 * Checks if is last configured server present.
 	 *
-	 * @param lastServerConfig the last server config
 	 * @return true, if is last configured server present
 	 */
 	protected boolean isLastConfiguredServerPresent() {

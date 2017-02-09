@@ -125,7 +125,7 @@ public class CellEditor implements ReferencedComposite {
 			public org.eclipse.jface.viewers.CellEditor run() {
 				org.eclipse.jface.viewers.CellEditor cellEditor = null;
 
-				TableColumn col = tableItem.getParent().getSWTWidget().getColumn(index);
+				TableColumn col = ((org.eclipse.swt.widgets.Table) tableItem.getParent().getSWTWidget()).getColumn(index);
 				Object colData = col.getData(COLUMN_VIEWER_ID);
 				ViewerColumn viewCol = (ViewerColumn) colData;
 				ColumnViewerEditor colViewerEditor = viewCol.getViewer().getColumnViewerEditor();

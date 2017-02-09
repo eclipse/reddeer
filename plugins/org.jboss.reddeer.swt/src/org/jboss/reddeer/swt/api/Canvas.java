@@ -18,6 +18,6 @@ import org.jboss.reddeer.swt.widgets.Widget;
  * @author Jiri Peterka
  *
  */
-public interface Canvas extends Widget {
+public interface Canvas extends Widget<org.eclipse.swt.widgets.Canvas> {
 
 }

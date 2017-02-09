@@ -145,8 +145,8 @@ public class ConsoleView extends WorkbenchView {
 	}
 	
 	/**
-	 * Switches console to the one with name
-	 * <code>text<code> using "Display Selected Console" ToolItem.
+	 * Switches console to the one with specified name
+	 * using "Display Selected Console" ToolItem.
 	 * 
 	 * @param text Name of console to switch to.
 	 */

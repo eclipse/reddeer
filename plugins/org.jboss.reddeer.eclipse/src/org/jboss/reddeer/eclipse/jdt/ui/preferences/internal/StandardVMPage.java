@@ -15,11 +15,10 @@ import org.jboss.reddeer.jface.wizard.WizardPage;
 import org.jboss.reddeer.swt.impl.text.DefaultText;
 
 /**
- * Second page of "Add JRE" wizard accesible from Preferences->Java->Installed
+ * Second page of "Add JRE" wizard accesible from Preferences &gt; Java &gt; Installed
  * JREs.
  * 
  */
-
 public class StandardVMPage extends WizardPage {
 
 	/**

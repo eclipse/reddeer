@@ -13,7 +13,7 @@ package org.jboss.reddeer.core.handler;
 import org.eclipse.swt.widgets.Shell;
 
 /**
- * Interface used as a hook for method {@link ShellHandler#closeAllNonWorbenchShells()}.
+ * Interface used as a hook for closing shells.
  * 
  * @author Vlado Pakan
  *
@@ -21,8 +21,7 @@ import org.eclipse.swt.widgets.Shell;
 public interface IBeforeShellIsClosed {
 	
 	/**
-	 * Method is called right before closing shell within method
-	 * {@link ShellHandler#closeAllNonWorbenchShells(IBeforeShellIsClosed)}.
+	 * Method is called right before closing shell.
 	 * 
 	 * @param shell shell to close
 	 */

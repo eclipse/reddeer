@@ -18,7 +18,7 @@ import org.jboss.reddeer.swt.widgets.Widget;
  * @author Lucia Jelinkova
  *
  */
-public interface Hyperlink extends Widget {
+public interface Hyperlink extends Widget<org.eclipse.ui.forms.widgets.Hyperlink> {
 
 	/**
 	 * Returns hyperlink's text .

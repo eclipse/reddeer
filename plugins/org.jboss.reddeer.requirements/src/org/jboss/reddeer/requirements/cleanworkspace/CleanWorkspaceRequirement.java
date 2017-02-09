@@ -25,15 +25,15 @@ import org.jboss.reddeer.requirements.cleanworkspace.CleanWorkspaceRequirement.C
 import org.jboss.reddeer.workbench.handler.EditorHandler;
 
 /**
- * Clean workspace requirement<br/><br/>
+ * Clean workspace requirement<br><br>
  * 
  * This {@link Requirement} ensures, that all projects are deleted from workspace
- * (aka. workspace is clean).<br/><br>
+ * (aka. workspace is clean).<br><br>
  * 
  * Annotate test class with {@link CleanWorkspace} annotation to have clean
- * workspace before the test cases are executed.<br/><br/>
+ * workspace before the test cases are executed.<br><br>
  * 
- * Example:<br/>
+ * Example:<br>
  * <pre>
  * {@code @CleanWorkspace
  * public class TestClass {

@@ -18,7 +18,7 @@ import org.jboss.reddeer.swt.widgets.Widget;
  * @author Jiri Peterka
  *
  */
-public interface Label extends Widget {
+public interface Label extends Widget<org.eclipse.swt.widgets.Label> {
 
 	/**
 	 * Returns the text of the label.
@@ -32,8 +32,5 @@ public interface Label extends Widget {
 	 * 
 	 * @return true if label is visible, false otherwise
 	 */
-	boolean isVisible();
-	
-	org.eclipse.swt.widgets.Label getSWTWidget();
-	
+	boolean isVisible();	
 }

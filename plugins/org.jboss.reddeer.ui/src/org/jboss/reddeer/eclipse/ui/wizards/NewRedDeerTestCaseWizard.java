@@ -65,11 +65,6 @@ public class NewRedDeerTestCaseWizard extends Wizard implements INewWizard {
 		addPage(wizardPageTwo);
 	}
 
-	/**
-	 * Creates the Red Deer Test Case class
-	 * 
-	 * @see {@link org.eclipse.jface.wizard.performFinish}
-	 */
 	@Override
 	public boolean performFinish() {
 		IRunnableWithProgress runnable= wizardPageOne.getRunnable();
@@ -126,7 +121,10 @@ public class NewRedDeerTestCaseWizard extends Wizard implements INewWizard {
 	}
 
 	/**
-	 * @see {@link org.eclipse.ui.iWorkbenchWizard.init}
+	 * Init a new RedDeer test case.
+	 * 
+	 * @param workbench workbench to init test case on
+	 * @param selection selection
 	 */
 	public void init(IWorkbench workbench, IStructuredSelection selection) {
 		this.selection = selection;

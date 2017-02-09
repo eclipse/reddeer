@@ -117,10 +117,9 @@ public class GenerateHashCodeEqualsDialog {
 	}
 	
 	/**
-	 * Check/Uncheck if dialog should use instanceof.
+	 * Check/Uncheck to use instanceof.
 	 *
-	 * @param toggle the toggle
-	 * @Param toggle true if dialog should use instanceof, false otherwise
+	 * @param toggle true if dialog should use instanceof, false otherwise
 	 */
 	public void toggleUseInstanceofToCompareTypes(boolean toggle){
 		new CheckBox("Use 'instanceof' to compare types").toggle(toggle);

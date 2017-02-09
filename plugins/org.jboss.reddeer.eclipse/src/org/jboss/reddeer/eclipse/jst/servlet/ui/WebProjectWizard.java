@@ -21,7 +21,7 @@ public class WebProjectWizard extends NewWizardDialog{
 	public static final String NAME="Dynamic Web Project";
 	
 	/**
-	 * Construct the wizard with {@value #CATEGORY} > {@value #NAME}.
+	 * Construct the wizard with {@value #CATEGORY} &gt; {@value #NAME}.
 	 */
 	public WebProjectWizard(){
 		super(CATEGORY,NAME);

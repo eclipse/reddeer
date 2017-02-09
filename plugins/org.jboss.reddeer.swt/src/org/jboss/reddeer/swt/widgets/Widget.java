@@ -10,26 +10,30 @@
  ******************************************************************************/ 
 package org.jboss.reddeer.swt.widgets;
 
-public interface Widget {
+/**
+ * Interface for all RedDeer widgets.
+ *
+ */
+public interface Widget<T extends org.eclipse.swt.widgets.Widget> {
 
 	/**
-	 * Returns SWT Widget enclosed by this widget
+	 * Gets an encapsulated SWT widget.
 	 * 
-	 * @return
+	 * @return SWT widget encapsulated by this widget
 	 */
-	org.eclipse.swt.widgets.Widget getSWTWidget();
+	T getSWTWidget();
 
 	/**
-	 * Returns true when widget is enabled, false otherwise
+	 * Finds out whether a widget is enabled.
 	 * 
-	 * @return
+	 * @return true if widget is enabled, false otherwise
 	 */
 	boolean isEnabled();
 	
 	/**
-	 * Returns true when widget is disposed, false otherwise
+	 * Finds out whether a widget is disposed.
 	 * 
-	 * @return
+	 * @return true if widget is disposed, false otherwise
 	 */
 	boolean isDisposed();
 

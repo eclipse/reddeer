@@ -15,8 +15,8 @@ import org.jboss.reddeer.core.matcher.WithTooltipTextMatcher;
 import org.jboss.reddeer.core.reference.ReferencedComposite;
 
 /**
- * Default ToolItem implementation.</p> Do not use for ToolItem inside View
- * ToolBar. For this, please use {@link ViewToolItem}.
+ * Default ToolItem implementation.<br> Do not use for ToolItem inside View
+ * ToolBar.
  * 
  * @author Jiri Peterka
  * @author Radim Hopp

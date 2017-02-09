@@ -20,8 +20,7 @@ import org.jboss.reddeer.eclipse.wst.server.ui.view.ServersView;
 /**
  * Returns true, if there is server with specified name
  * 
- * @author Vlado Pakan
- * @contributor jkopriva@redhat.com
+ * @author Vlado Pakan, jkopriva@redhat.com
  *
  */
 public class ServerExists extends AbstractWaitCondition {
@@ -41,9 +40,6 @@ public class ServerExists extends AbstractWaitCondition {
 		view.open();
 	}
 
-	/* (non-Javadoc)
-	 * @see org.jboss.reddeer.common.condition.WaitCondition#test()
-	 */
 	@Override
 	public boolean test() {
 		try{
@@ -54,25 +50,16 @@ public class ServerExists extends AbstractWaitCondition {
 		}		
 	}
 	
-	/* (non-Javadoc)
-	 * @see org.jboss.reddeer.common.condition.AbstractWaitCondition#description()
-	 */
 	@Override
 	public String description() {
 		return "there is server with name: " + this.name;
 	}
 	
-	/* (non-Javadoc)
-	 * @see org.jboss.reddeer.common.condition.WaitCondition#errorMessageWhile()
-	 */
 	@Override
 	public String errorMessageWhile() {
 		return "server with name: '" + this.name + "' has been found.";
 	}
 
-	/* (non-Javadoc)
-	 * @see org.jboss.reddeer.common.condition.WaitCondition#errorMessageUntil()
-	 */
 	@Override
 	public String errorMessageUntil() {
 		List<String> servers = view.getServers().stream().map(it -> it.getLabel().getName()).collect(Collectors.toList());

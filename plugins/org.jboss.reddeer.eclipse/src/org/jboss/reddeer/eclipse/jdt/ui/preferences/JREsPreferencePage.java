@@ -24,7 +24,7 @@ import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.table.DefaultTable;
 
 /**
- * Class representing JRE Preference page (Java->Installed JREs).
+ * Class representing JRE Preference page (Java &gt; Installed JREs).
  * 
  * @author rhopp
  *

@@ -16,7 +16,7 @@ import org.hamcrest.Matcher;
 import org.hamcrest.core.Is;
 
 /**
- * Matcher matching mnemonic text of widgets.<br/>
+ * Matcher matching mnemonic text of widgets.<br>
  * 
  * Removes all ampersands and shortcuts from input text before matching.
  * Should be used for menu item label matching.

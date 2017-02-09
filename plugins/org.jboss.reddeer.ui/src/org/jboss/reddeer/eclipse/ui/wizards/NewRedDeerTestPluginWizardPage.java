@@ -38,7 +38,7 @@ import org.jboss.reddeer.eclipse.ui.project.ProjectSettingValidator;
 import org.jboss.reddeer.ui.Activator;
 
 /**
- * Wizard page implementation for the RedDeer New Test Plugin wizard.<br/>
+ * Wizard page implementation for the RedDeer New Test Plugin wizard.<br>
  * Sets wizard page title, description and image descriptor.
  * 
  * @author sbunciak
@@ -63,9 +63,8 @@ public class NewRedDeerTestPluginWizardPage extends WizardPage implements
 	
 	/**
 	 * Creates new RedDeer test plugin wizard page instance, sets title,
-	 * description & image desriptor
+	 * description &amp; image descriptor.
 	 * 
-	 * @see {@link org.eclipse.jface.wizard.WizardPage}
 	 */
 	protected NewRedDeerTestPluginWizardPage() {
 		super("New RedDeer Test Plugin");
@@ -82,7 +81,7 @@ public class NewRedDeerTestPluginWizardPage extends WizardPage implements
 
 	/**
 	 * 
-	 * Create wizard page controls: <br/>
+	 * Create wizard page controls: <br>
 	 * <ul>
 	 * <li>Plugin name</li>
 	 * <li>Plugin id</li>

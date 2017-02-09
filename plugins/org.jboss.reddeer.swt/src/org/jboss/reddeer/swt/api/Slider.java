@@ -18,6 +18,6 @@ import org.jboss.reddeer.swt.widgets.Widget;
  * @author Jiri Peterka
  *
  */
-public interface Slider extends Widget {
+public interface Slider extends Widget<org.eclipse.swt.widgets.Slider> {
 
 }

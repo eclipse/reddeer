@@ -176,7 +176,6 @@ public class BrowserHandler {
 	 * 
 	 * @return true if script was executed successfully.
 	 */
-
 	public boolean execute(final org.eclipse.swt.browser.Browser browser, final String script) {
 		return Display.syncExec(new ResultRunnable<Boolean>() {
 
