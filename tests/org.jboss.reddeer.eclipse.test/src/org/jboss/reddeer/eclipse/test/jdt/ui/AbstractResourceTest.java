@@ -22,10 +22,10 @@ import org.jboss.reddeer.common.wait.WaitWhile;
 import org.jboss.reddeer.eclipse.core.resources.DefaultProject;
 import org.jboss.reddeer.eclipse.core.resources.ProjectItem;
 import org.jboss.reddeer.eclipse.jdt.ui.AbstractExplorer;
-import org.jboss.reddeer.eclipse.jdt.ui.NewJavaClassWizardDialog;
-import org.jboss.reddeer.eclipse.jdt.ui.NewJavaClassWizardPage;
-import org.jboss.reddeer.eclipse.jdt.ui.ide.NewJavaProjectWizardDialog;
-import org.jboss.reddeer.eclipse.jdt.ui.ide.NewJavaProjectWizardPage;
+import org.jboss.reddeer.eclipse.jdt.ui.wizards.JavaProjectWizard;
+import org.jboss.reddeer.eclipse.jdt.ui.wizards.NewClassCreationWizard;
+import org.jboss.reddeer.eclipse.jdt.ui.wizards.NewClassWizardPage;
+import org.jboss.reddeer.eclipse.jdt.ui.wizards.NewJavaProjectWizardPageOne;
 import org.jboss.reddeer.eclipse.ui.console.ConsoleView;
 import org.jboss.reddeer.eclipse.ui.ide.NewFileCreationWizardDialog;
 import org.jboss.reddeer.eclipse.ui.ide.NewFileCreationWizardPage;
@@ -62,9 +62,9 @@ public abstract class AbstractResourceTest {
 
 	@BeforeClass
 	public static void importProject() {
-		NewJavaProjectWizardDialog dialog = new NewJavaProjectWizardDialog();
+		JavaProjectWizard dialog = new JavaProjectWizard();
 		dialog.open();
-		NewJavaProjectWizardPage page1 = new NewJavaProjectWizardPage();
+		NewJavaProjectWizardPageOne page1 = new NewJavaProjectWizardPageOne();
 		page1.setProjectName(PROJECT_NAME);
 		dialog.finish();		
 
@@ -158,10 +158,10 @@ public abstract class AbstractResourceTest {
 	}
 
 	protected static void createJavaClass(final String javaClassName) {
-		NewJavaClassWizardDialog newJavaClassDialog = new NewJavaClassWizardDialog();
+		NewClassCreationWizard newJavaClassDialog = new NewClassCreationWizard();
 		newJavaClassDialog.open();
 
-		NewJavaClassWizardPage wizardPage = new NewJavaClassWizardPage();
+		NewClassWizardPage wizardPage = new NewClassWizardPage();
 		wizardPage.setName(javaClassName);
 		newJavaClassDialog.finish();
 

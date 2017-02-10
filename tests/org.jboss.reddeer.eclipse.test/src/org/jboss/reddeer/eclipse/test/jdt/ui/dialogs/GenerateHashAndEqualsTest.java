@@ -15,12 +15,12 @@ import static org.junit.Assert.assertTrue;
 
 import org.jboss.reddeer.eclipse.core.resources.DefaultProject;
 import org.jboss.reddeer.eclipse.exception.EclipseLayerException;
-import org.jboss.reddeer.eclipse.jdt.ui.NewJavaClassWizardDialog;
-import org.jboss.reddeer.eclipse.jdt.ui.NewJavaClassWizardPage;
 import org.jboss.reddeer.eclipse.jdt.ui.dialogs.GenerateHashCodeEqualsDialog;
-import org.jboss.reddeer.eclipse.jdt.ui.ide.NewJavaProjectWizardDialog;
-import org.jboss.reddeer.eclipse.jdt.ui.ide.NewJavaProjectWizardPage;
 import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.PackageExplorer;
+import org.jboss.reddeer.eclipse.jdt.ui.wizards.JavaProjectWizard;
+import org.jboss.reddeer.eclipse.jdt.ui.wizards.NewClassCreationWizard;
+import org.jboss.reddeer.eclipse.jdt.ui.wizards.NewClassWizardPage;
+import org.jboss.reddeer.eclipse.jdt.ui.wizards.NewJavaProjectWizardPageOne;
 import org.jboss.reddeer.eclipse.utils.DeleteUtils;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.requirements.cleanworkspace.CleanWorkspaceRequirement.CleanWorkspace;
@@ -49,14 +49,14 @@ public class GenerateHashAndEqualsTest {
 	@Test
 	public void generateHashAndEquals(){
 		new WorkbenchShell().maximize();
-		NewJavaProjectWizardDialog jp = new NewJavaProjectWizardDialog();
+		JavaProjectWizard jp = new JavaProjectWizard();
 		jp.open();
-		new NewJavaProjectWizardPage().setProjectName("GenHashProject");
+		new NewJavaProjectWizardPageOne().setProjectName("GenHashProject");
 		jp.finish();
 		
-		NewJavaClassWizardDialog jc = new NewJavaClassWizardDialog();
+		NewClassCreationWizard jc = new NewClassCreationWizard();
 		jc.open();
-		NewJavaClassWizardPage jpp = new NewJavaClassWizardPage();
+		NewClassWizardPage jpp = new NewClassWizardPage();
 		jpp.setName("GenHash");
 		jc.finish();
 		

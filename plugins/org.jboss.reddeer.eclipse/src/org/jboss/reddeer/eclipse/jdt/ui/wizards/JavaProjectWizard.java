@@ -8,19 +8,19 @@
  * Contributors: 
  * Red Hat, Inc. - initial API and implementation 
  ******************************************************************************/ 
-package org.jboss.reddeer.eclipse.jdt.ui.ide;
+package org.jboss.reddeer.eclipse.jdt.ui.wizards;
 
 import org.jboss.reddeer.jface.wizard.NewWizardDialog;
 
 /**
  * Wizard dialog for creating new Java project.
  */
-public class NewJavaProjectWizardDialog extends NewWizardDialog {
+public class JavaProjectWizard extends NewWizardDialog {
 
 	/**
 	 * Constructs the wizard with Java &gt; Java Project.
 	 */
-	public NewJavaProjectWizardDialog() {
+	public JavaProjectWizard() {
 		super("Java", "Java Project");
 	}
 	

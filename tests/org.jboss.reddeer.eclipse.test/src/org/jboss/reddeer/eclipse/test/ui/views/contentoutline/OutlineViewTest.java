@@ -13,11 +13,11 @@ package org.jboss.reddeer.eclipse.test.ui.views.contentoutline;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 import org.hamcrest.core.Is;
-import org.jboss.reddeer.eclipse.jdt.ui.NewJavaClassWizardDialog;
-import org.jboss.reddeer.eclipse.jdt.ui.NewJavaClassWizardPage;
-import org.jboss.reddeer.eclipse.jdt.ui.ide.NewJavaProjectWizardDialog;
-import org.jboss.reddeer.eclipse.jdt.ui.ide.NewJavaProjectWizardPage;
 import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.PackageExplorer;
+import org.jboss.reddeer.eclipse.jdt.ui.wizards.JavaProjectWizard;
+import org.jboss.reddeer.eclipse.jdt.ui.wizards.NewClassCreationWizard;
+import org.jboss.reddeer.eclipse.jdt.ui.wizards.NewClassWizardPage;
+import org.jboss.reddeer.eclipse.jdt.ui.wizards.NewJavaProjectWizardPageOne;
 import org.jboss.reddeer.eclipse.ui.views.contentoutline.OutlineView;
 import org.jboss.reddeer.eclipse.utils.DeleteUtils;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
@@ -192,10 +192,10 @@ public class OutlineViewTest{
 	
 
 	private static void createJavaProject() {
-		NewJavaProjectWizardDialog javaProject = new NewJavaProjectWizardDialog();
+		JavaProjectWizard javaProject = new JavaProjectWizard();
 		javaProject.open();
 		
-		NewJavaProjectWizardPage javaWizardPage = new NewJavaProjectWizardPage();
+		NewJavaProjectWizardPageOne javaWizardPage = new NewJavaProjectWizardPageOne();
 		javaWizardPage.setProjectName(TEST_PROJECT_NAME);
 		
 		javaProject.finish();
@@ -205,10 +205,10 @@ public class OutlineViewTest{
 		packageExplorer = new PackageExplorer();
 		packageExplorer.open();
 		packageExplorer.getProject(TEST_PROJECT_NAME).select();
-		NewJavaClassWizardDialog javaClassDialog = new NewJavaClassWizardDialog();
+		NewClassCreationWizard javaClassDialog = new NewClassCreationWizard();
 		javaClassDialog.open();
 		
-		NewJavaClassWizardPage wizardPage = new NewJavaClassWizardPage();
+		NewClassWizardPage wizardPage = new NewClassWizardPage();
 		wizardPage.setName("TestClass");
 		wizardPage.setPackage("test");
 		wizardPage.setStaticMainMethod(true);

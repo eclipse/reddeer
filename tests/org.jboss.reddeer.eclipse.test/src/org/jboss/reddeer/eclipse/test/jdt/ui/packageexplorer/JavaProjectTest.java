@@ -12,9 +12,9 @@ package org.jboss.reddeer.eclipse.test.jdt.ui.packageexplorer;
 
 import org.jboss.reddeer.eclipse.core.resources.JavaProject;
 import org.jboss.reddeer.eclipse.core.resources.Project;
-import org.jboss.reddeer.eclipse.jdt.ui.ide.NewJavaProjectWizardDialog;
-import org.jboss.reddeer.eclipse.jdt.ui.ide.NewJavaProjectWizardPage;
 import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.PackageExplorer;
+import org.jboss.reddeer.eclipse.jdt.ui.wizards.JavaProjectWizard;
+import org.jboss.reddeer.eclipse.jdt.ui.wizards.NewJavaProjectWizardPageOne;
 import org.jboss.reddeer.eclipse.utils.DeleteUtils;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.junit.AfterClass;
@@ -30,9 +30,9 @@ public class JavaProjectTest {
 		
 	@BeforeClass
 	public static void setUp(){
-		NewJavaProjectWizardDialog dialog = new NewJavaProjectWizardDialog();
+		JavaProjectWizard dialog = new JavaProjectWizard();
 		dialog.open();
-		NewJavaProjectWizardPage page1 = new NewJavaProjectWizardPage();
+		NewJavaProjectWizardPageOne page1 = new NewJavaProjectWizardPageOne();
 		page1.setProjectName(PROJECT_NAME_0);
 		dialog.finish();
 

@@ -20,9 +20,9 @@ import org.jboss.reddeer.common.wait.TimePeriod;
 import org.jboss.reddeer.common.wait.WaitUntil;
 import org.jboss.reddeer.core.condition.ShellWithTextIsAvailable;
 import org.jboss.reddeer.eclipse.core.resources.DefaultProject;
-import org.jboss.reddeer.eclipse.jdt.ui.ide.NewJavaProjectWizardDialog;
-import org.jboss.reddeer.eclipse.jdt.ui.ide.NewJavaProjectWizardPage;
 import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.PackageExplorer;
+import org.jboss.reddeer.eclipse.jdt.ui.wizards.JavaProjectWizard;
+import org.jboss.reddeer.eclipse.jdt.ui.wizards.NewJavaProjectWizardPageOne;
 import org.jboss.reddeer.eclipse.ui.dialogs.ResourcePropertyDialog;
 import org.jboss.reddeer.eclipse.ui.dialogs.PropertyPage;
 import org.jboss.reddeer.eclipse.utils.DeleteUtils;
@@ -49,9 +49,9 @@ public class ExplorerItemPropertyDialogTest {
 
 	@BeforeClass
 	public static void createProject(){
-		NewJavaProjectWizardDialog wizardDialog = new NewJavaProjectWizardDialog();
+		JavaProjectWizard wizardDialog = new JavaProjectWizard();
 		wizardDialog.open();
-		NewJavaProjectWizardPage page1 = new NewJavaProjectWizardPage();
+		NewJavaProjectWizardPageOne page1 = new NewJavaProjectWizardPageOne();
 		page1.setProjectName(PROJECT_NAME);
 		wizardDialog.finish();		
 		

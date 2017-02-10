@@ -31,11 +31,11 @@ import org.jboss.reddeer.common.wait.WaitWhile;
 import org.jboss.reddeer.eclipse.condition.ExactNumberOfProblemsExists;
 import org.jboss.reddeer.eclipse.condition.ProblemExists;
 import org.jboss.reddeer.eclipse.condition.ProblemsViewIsEmpty;
-import org.jboss.reddeer.eclipse.jdt.ui.NewJavaClassWizardDialog;
-import org.jboss.reddeer.eclipse.jdt.ui.NewJavaClassWizardPage;
-import org.jboss.reddeer.eclipse.jdt.ui.ide.NewJavaProjectWizardDialog;
-import org.jboss.reddeer.eclipse.jdt.ui.ide.NewJavaProjectWizardPage;
 import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.PackageExplorer;
+import org.jboss.reddeer.eclipse.jdt.ui.wizards.JavaProjectWizard;
+import org.jboss.reddeer.eclipse.jdt.ui.wizards.NewClassCreationWizard;
+import org.jboss.reddeer.eclipse.jdt.ui.wizards.NewClassWizardPage;
+import org.jboss.reddeer.eclipse.jdt.ui.wizards.NewJavaProjectWizardPageOne;
 import org.jboss.reddeer.eclipse.ui.markers.matcher.MarkerDescriptionMatcher;
 import org.jboss.reddeer.eclipse.ui.markers.matcher.MarkerLocationMatcher;
 import org.jboss.reddeer.eclipse.ui.markers.matcher.MarkerPathMatcher;
@@ -86,9 +86,9 @@ public class ProblemsViewTest {
 
 	@Before
 	public void setUp() {
-		NewJavaProjectWizardDialog dialog = new NewJavaProjectWizardDialog();
+		JavaProjectWizard dialog = new JavaProjectWizard();
 		dialog.open();
-		NewJavaProjectWizardPage page1 = new NewJavaProjectWizardPage(); 
+		NewJavaProjectWizardPageOne page1 = new NewJavaProjectWizardPageOne(); 
 		page1.setProjectName(PROJECT_NAME);
 		dialog.finish();
 		problemsView = new ProblemsView();
@@ -378,11 +378,11 @@ public class ProblemsViewTest {
 	private void createProblem(boolean error, final String newClassName) {
 		pkgExplorer.open();
 		pkgExplorer.getProject(PROJECT_NAME).getProjectItem("src").select();
-		NewJavaClassWizardDialog newJavaClassDialog =
-				new NewJavaClassWizardDialog();
+		NewClassCreationWizard newJavaClassDialog =
+				new NewClassCreationWizard();
 		newJavaClassDialog.open();
 		
-		NewJavaClassWizardPage wizardPage = new NewJavaClassWizardPage();
+		NewClassWizardPage wizardPage = new NewClassWizardPage();
 		wizardPage.setName(newClassName);
 		newJavaClassDialog.finish();
 		new WaitWhile(new JobIsRunning(), TimePeriod.LONG);

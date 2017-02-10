@@ -15,8 +15,8 @@ import static org.junit.Assert.assertTrue;
 
 import org.jboss.reddeer.eclipse.jdt.ui.NewEnumWizardDialog;
 import org.jboss.reddeer.eclipse.jdt.ui.NewEnumWizardPage;
-import org.jboss.reddeer.eclipse.jdt.ui.ide.NewJavaProjectWizardDialog;
-import org.jboss.reddeer.eclipse.jdt.ui.ide.NewJavaProjectWizardPage;
+import org.jboss.reddeer.eclipse.jdt.ui.wizards.JavaProjectWizard;
+import org.jboss.reddeer.eclipse.jdt.ui.wizards.NewJavaProjectWizardPageOne;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.requirements.cleanworkspace.CleanWorkspaceRequirement.CleanWorkspace;
 import org.jboss.reddeer.workbench.impl.editor.TextEditor;
@@ -29,9 +29,9 @@ public class EnumWizardTest {
 	
 	@Test
 	public void createEnumClass(){
-		NewJavaProjectWizardDialog jp = new NewJavaProjectWizardDialog();
+		JavaProjectWizard jp = new JavaProjectWizard();
 		jp.open();
-		new NewJavaProjectWizardPage().setProjectName("EnumProject");
+		new NewJavaProjectWizardPageOne().setProjectName("EnumProject");
 		jp.finish();
 		
 		NewEnumWizardDialog ed = new NewEnumWizardDialog();

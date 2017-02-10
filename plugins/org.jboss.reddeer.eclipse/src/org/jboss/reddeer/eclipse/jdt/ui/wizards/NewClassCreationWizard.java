@@ -8,19 +8,19 @@
  * Contributors: 
  * Red Hat, Inc. - initial API and implementation 
  ******************************************************************************/ 
-package org.jboss.reddeer.eclipse.jdt.ui;
+package org.jboss.reddeer.eclipse.jdt.ui.wizards;
 
 import org.jboss.reddeer.jface.wizard.NewWizardDialog;
 
 /**
  * Wizard dialog for creating a java class.
  */
-public class NewJavaClassWizardDialog extends NewWizardDialog {
+public class NewClassCreationWizard extends NewWizardDialog {
 	
 	/**
 	 * Constructs the wizard with "Java" &gt; "Class".
 	 */
-	public NewJavaClassWizardDialog() {
+	public NewClassCreationWizard() {
 		super("Java", "Class");
 	}
 }
