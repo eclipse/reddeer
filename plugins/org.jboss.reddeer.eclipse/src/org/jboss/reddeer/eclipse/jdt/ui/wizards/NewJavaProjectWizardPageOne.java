@@ -8,7 +8,7 @@
  * Contributors: 
  * Red Hat, Inc. - initial API and implementation 
  ******************************************************************************/ 
-package org.jboss.reddeer.eclipse.jdt.ui.ide;
+package org.jboss.reddeer.eclipse.jdt.ui.wizards;
 
 import org.jboss.reddeer.jface.wizard.WizardPage;
 import org.jboss.reddeer.swt.impl.button.CheckBox;
@@ -21,7 +21,7 @@ import org.jboss.reddeer.swt.impl.text.LabeledText;
  *
  */
 
-public class NewJavaProjectWizardPage extends WizardPage {
+public class NewJavaProjectWizardPageOne extends WizardPage {
 
 	/**
 	 * Sets a given project name.

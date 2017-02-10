@@ -25,10 +25,10 @@ import org.jboss.reddeer.workbench.core.condition.JobIsRunning;
 import org.jboss.reddeer.eclipse.core.resources.DefaultProject;
 import org.jboss.reddeer.eclipse.core.resources.Project;
 import org.jboss.reddeer.eclipse.jdt.ui.ProjectExplorer;
-import org.jboss.reddeer.eclipse.jdt.ui.ide.NewJavaProjectWizardDialog;
-import org.jboss.reddeer.eclipse.jdt.ui.ide.NewJavaProjectWizardPage;
 import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.PackageExplorer;
 import org.jboss.reddeer.eclipse.jdt.ui.preferences.BuildPathsPropertyPage;
+import org.jboss.reddeer.eclipse.jdt.ui.wizards.JavaProjectWizard;
+import org.jboss.reddeer.eclipse.jdt.ui.wizards.NewJavaProjectWizardPageOne;
 import org.jboss.reddeer.eclipse.test.Activator;
 import org.jboss.reddeer.eclipse.ui.dialogs.ResourcePropertyDialog;
 import org.jboss.reddeer.eclipse.ui.perspectives.JavaPerspective;
@@ -53,9 +53,9 @@ public class BuildPathsPropertyPageTest {
 	
 	@BeforeClass
 	public static void setupClass(){
-		NewJavaProjectWizardDialog javaProject = new NewJavaProjectWizardDialog();
+		JavaProjectWizard javaProject = new JavaProjectWizard();
 		javaProject.open();
-		NewJavaProjectWizardPage javaWizardPage = new NewJavaProjectWizardPage();
+		NewJavaProjectWizardPageOne javaWizardPage = new NewJavaProjectWizardPageOne();
 		javaWizardPage.setProjectName(TEST_PROJECT_NAME);
 		javaProject.finish();
 	}

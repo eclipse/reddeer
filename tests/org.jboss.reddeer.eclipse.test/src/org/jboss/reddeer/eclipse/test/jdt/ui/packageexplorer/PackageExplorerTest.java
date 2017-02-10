@@ -15,9 +15,9 @@ import static org.junit.Assert.assertTrue;
 
 import org.jboss.reddeer.workbench.core.lookup.WorkbenchPartLookup;
 import org.jboss.reddeer.eclipse.core.resources.DefaultProject;
-import org.jboss.reddeer.eclipse.jdt.ui.ide.NewJavaProjectWizardDialog;
-import org.jboss.reddeer.eclipse.jdt.ui.ide.NewJavaProjectWizardPage;
 import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.PackageExplorer;
+import org.jboss.reddeer.eclipse.jdt.ui.wizards.JavaProjectWizard;
+import org.jboss.reddeer.eclipse.jdt.ui.wizards.NewJavaProjectWizardPageOne;
 import org.jboss.reddeer.eclipse.utils.DeleteUtils;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.junit.AfterClass;
@@ -38,21 +38,21 @@ public class PackageExplorerTest {
 
 	@BeforeClass
 	public static void setUp() {
-		NewJavaProjectWizardDialog dialog = new NewJavaProjectWizardDialog();
+		JavaProjectWizard dialog = new JavaProjectWizard();
 		dialog.open();
-		NewJavaProjectWizardPage page1 = new NewJavaProjectWizardPage();
+		NewJavaProjectWizardPageOne page1 = new NewJavaProjectWizardPageOne();
 		page1.setProjectName(PackageExplorerTest.PROJECT_NAME_0);
 		dialog.finish();
 		
-		dialog = new NewJavaProjectWizardDialog();
+		dialog = new JavaProjectWizard();
 		dialog.open();
-		page1 = new NewJavaProjectWizardPage();
+		page1 = new NewJavaProjectWizardPageOne();
 		page1.setProjectName(PackageExplorerTest.PROJECT_NAME_1);
 		dialog.finish();
 		
-		dialog = new NewJavaProjectWizardDialog();
+		dialog = new JavaProjectWizard();
 		dialog.open();
-		page1 = new NewJavaProjectWizardPage();
+		page1 = new NewJavaProjectWizardPageOne();
 		page1.setProjectName(PackageExplorerTest.PROJECT_NAME_2);
 		dialog.finish();
 
@@ -96,10 +96,10 @@ public class PackageExplorerTest {
 	}
 	@Test
 	public void delete() {
-		NewJavaProjectWizardDialog dialog = new NewJavaProjectWizardDialog();
+		JavaProjectWizard dialog = new JavaProjectWizard();
 		dialog.open();
 		
-		NewJavaProjectWizardPage page1 = new NewJavaProjectWizardPage();
+		NewJavaProjectWizardPageOne page1 = new NewJavaProjectWizardPageOne();
 		page1.setProjectName(PackageExplorerTest.PROJECT_NAME_3);
 		dialog.finish();
 		

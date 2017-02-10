@@ -24,12 +24,12 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 import org.jboss.reddeer.common.util.Display;
 import org.jboss.reddeer.core.exception.CoreLayerException;
-import org.jboss.reddeer.eclipse.jdt.ui.NewJavaClassWizardDialog;
-import org.jboss.reddeer.eclipse.jdt.ui.NewJavaClassWizardPage;
 import org.jboss.reddeer.eclipse.jdt.ui.ProjectExplorer;
-import org.jboss.reddeer.eclipse.jdt.ui.ide.NewJavaProjectWizardDialog;
-import org.jboss.reddeer.eclipse.jdt.ui.ide.NewJavaProjectWizardPage;
 import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.PackageExplorer;
+import org.jboss.reddeer.eclipse.jdt.ui.wizards.JavaProjectWizard;
+import org.jboss.reddeer.eclipse.jdt.ui.wizards.NewClassCreationWizard;
+import org.jboss.reddeer.eclipse.jdt.ui.wizards.NewClassWizardPage;
+import org.jboss.reddeer.eclipse.jdt.ui.wizards.NewJavaProjectWizardPageOne;
 import org.jboss.reddeer.eclipse.ui.perspectives.JavaPerspective;
 import org.jboss.reddeer.eclipse.utils.DeleteUtils;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
@@ -53,14 +53,14 @@ public class ContextMenuTest {
 	
 	@BeforeClass
 	public static void createProject() {
-		NewJavaProjectWizardDialog projectWizard = new NewJavaProjectWizardDialog();
+		JavaProjectWizard projectWizard = new JavaProjectWizard();
 		projectWizard.open();
-		new NewJavaProjectWizardPage().setProjectName(projectName);
+		new NewJavaProjectWizardPageOne().setProjectName(projectName);
 		projectWizard.finish();
 		
-		NewJavaClassWizardDialog classWizard = new NewJavaClassWizardDialog();
+		NewClassCreationWizard classWizard = new NewClassCreationWizard();
 		classWizard.open();
-		NewJavaClassWizardPage page = new NewJavaClassWizardPage();
+		NewClassWizardPage page = new NewClassWizardPage();
 		page.setName("TestClass");
 		page.setStaticMainMethod(true);
 		classWizard.finish();

@@ -18,10 +18,10 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import org.jboss.reddeer.eclipse.jdt.ui.NewJavaClassWizardDialog;
-import org.jboss.reddeer.eclipse.jdt.ui.NewJavaClassWizardPage;
-import org.jboss.reddeer.eclipse.jdt.ui.ide.NewJavaProjectWizardDialog;
-import org.jboss.reddeer.eclipse.jdt.ui.ide.NewJavaProjectWizardPage;
+import org.jboss.reddeer.eclipse.jdt.ui.wizards.JavaProjectWizard;
+import org.jboss.reddeer.eclipse.jdt.ui.wizards.NewClassCreationWizard;
+import org.jboss.reddeer.eclipse.jdt.ui.wizards.NewClassWizardPage;
+import org.jboss.reddeer.eclipse.jdt.ui.wizards.NewJavaProjectWizardPageOne;
 import org.jboss.reddeer.swt.api.Tree;
 import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.swt.impl.button.FinishButton;
@@ -179,14 +179,14 @@ public class RedDeerTestCaseWizardTest extends RedDeerWizardTestCase {
 	}
 
 	private static void createTestProject() {
-		NewJavaProjectWizardDialog dialog = new NewJavaProjectWizardDialog();
+		JavaProjectWizard dialog = new JavaProjectWizard();
 		dialog.open();
-		new NewJavaProjectWizardPage().setProjectName(PROJECT_NAME);
+		new NewJavaProjectWizardPageOne().setProjectName(PROJECT_NAME);
 		dialog.finish();
 
-		NewJavaClassWizardDialog classDialog = new NewJavaClassWizardDialog();
+		NewClassCreationWizard classDialog = new NewClassCreationWizard();
 		classDialog.open();
-		NewJavaClassWizardPage classPage = new NewJavaClassWizardPage();
+		NewClassWizardPage classPage = new NewClassWizardPage();
 		classPage.setName(CLASS_NAME);
 		classPage.setPackage(PACKAGE);
 		classDialog.finish();

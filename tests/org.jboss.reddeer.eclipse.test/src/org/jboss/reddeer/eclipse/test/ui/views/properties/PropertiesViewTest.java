@@ -17,9 +17,9 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.jboss.reddeer.core.exception.CoreLayerException;
-import org.jboss.reddeer.eclipse.jdt.ui.ide.NewJavaProjectWizardDialog;
-import org.jboss.reddeer.eclipse.jdt.ui.ide.NewJavaProjectWizardPage;
 import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.PackageExplorer;
+import org.jboss.reddeer.eclipse.jdt.ui.wizards.JavaProjectWizard;
+import org.jboss.reddeer.eclipse.jdt.ui.wizards.NewJavaProjectWizardPageOne;
 import org.jboss.reddeer.eclipse.ui.views.properties.PropertiesView;
 import org.jboss.reddeer.eclipse.ui.views.properties.PropertiesViewProperty;
 import org.jboss.reddeer.eclipse.utils.DeleteUtils;
@@ -39,9 +39,9 @@ public class PropertiesViewTest {
 
 	@Before
 	public void setUp() {
-		NewJavaProjectWizardDialog dialog = new NewJavaProjectWizardDialog();
+		JavaProjectWizard dialog = new JavaProjectWizard();
 		dialog.open();
-		NewJavaProjectWizardPage page1 =new NewJavaProjectWizardPage();
+		NewJavaProjectWizardPageOne page1 =new NewJavaProjectWizardPageOne();
 		page1.setProjectName(PropertiesViewTest.TEST_PROJECT_NAME);
 		dialog.finish();
 		new PackageExplorer().getProject(PropertiesViewTest.TEST_PROJECT_NAME)

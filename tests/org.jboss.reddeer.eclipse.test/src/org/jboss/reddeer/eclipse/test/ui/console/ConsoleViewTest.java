@@ -30,11 +30,11 @@ import org.jboss.reddeer.eclipse.condition.ConsoleHasLaunch;
 import org.jboss.reddeer.eclipse.condition.ConsoleHasNoChange;
 import org.jboss.reddeer.eclipse.condition.ConsoleHasText;
 import org.jboss.reddeer.eclipse.condition.ConsoleIsTerminated;
-import org.jboss.reddeer.eclipse.jdt.ui.NewJavaClassWizardDialog;
-import org.jboss.reddeer.eclipse.jdt.ui.NewJavaClassWizardPage;
-import org.jboss.reddeer.eclipse.jdt.ui.ide.NewJavaProjectWizardDialog;
-import org.jboss.reddeer.eclipse.jdt.ui.ide.NewJavaProjectWizardPage;
 import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.PackageExplorer;
+import org.jboss.reddeer.eclipse.jdt.ui.wizards.JavaProjectWizard;
+import org.jboss.reddeer.eclipse.jdt.ui.wizards.NewClassCreationWizard;
+import org.jboss.reddeer.eclipse.jdt.ui.wizards.NewClassWizardPage;
+import org.jboss.reddeer.eclipse.jdt.ui.wizards.NewJavaProjectWizardPageOne;
 import org.jboss.reddeer.eclipse.ui.console.ConsoleView;
 import org.jboss.reddeer.eclipse.ui.perspectives.JavaPerspective;
 import org.jboss.reddeer.eclipse.utils.DeleteUtils;
@@ -230,20 +230,20 @@ public class ConsoleViewTest {
 	}
 
 	private static void createJavaProject() {
-		NewJavaProjectWizardDialog javaProject = new NewJavaProjectWizardDialog();
+		JavaProjectWizard javaProject = new JavaProjectWizard();
 		javaProject.open();
 
-		NewJavaProjectWizardPage javaWizardPage = new NewJavaProjectWizardPage();
+		NewJavaProjectWizardPageOne javaWizardPage = new NewJavaProjectWizardPageOne();
 		javaWizardPage.setProjectName(TEST_PROJECT_NAME);
 
 		javaProject.finish();
 	}
 
 	private static void createJavaClass(String name, String text) {
-		NewJavaClassWizardDialog javaClassDialog = new NewJavaClassWizardDialog();
+		NewClassCreationWizard javaClassDialog = new NewClassCreationWizard();
 		javaClassDialog.open();
 
-		NewJavaClassWizardPage wizardPage = new NewJavaClassWizardPage();
+		NewClassWizardPage wizardPage = new NewClassWizardPage();
 		wizardPage.setName(name);
 		wizardPage.setPackage("test");
 		wizardPage.setStaticMainMethod(true);
