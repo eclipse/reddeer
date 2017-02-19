@@ -12,15 +12,17 @@ package org.jboss.reddeer.junit.requirement;
 
 import java.lang.annotation.Annotation;
 
+import org.jboss.reddeer.junit.execution.IExecutionPriority;
+
 /**
  * 
  * Represents one requirement that should be fulfilled before the test runs. 
  * If it cannot be fulfilled the test should be ignored.
  * 
- * @author Lucia Jelinkova
+ * @author Lucia Jelinkova, Ondrej Dockal
  *
  */
-public interface Requirement<T extends Annotation> {
+public interface Requirement<T extends Annotation> extends IExecutionPriority {
 	
 	/**
 	 * Can fulfill.
@@ -45,4 +47,16 @@ public interface Requirement<T extends Annotation> {
 	 * Clean up after requirement.
 	 */
 	void cleanUp();
+	
+	/**
+	 * Decides whether it is possible to accept specific requirement's configuration object or not
+	 * @return true, if declaration fits in
+	 */
+	default boolean isDeclarationAcceptable() { return true; }
+	
+	@Override
+	default long getPriority() {
+		return 0;
+	}
+	
 }

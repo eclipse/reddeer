@@ -48,6 +48,5 @@ public class TestRequirementA implements Requirement<Annotation> {
 	@Override
 	public void cleanUp() {
 		// TODO Auto-generated method stub
-		
 	}
 }

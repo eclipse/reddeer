@@ -116,6 +116,19 @@ public class RequirementsTest {
 		verify(requirement2).cleanUp();
 	}
 	
+	@Test
+	public void sortByPriority() {
+		Requirement<?> requirement1 = new TestRequirementA();
+		Requirement<?> requirement2 = new TestRequirementB();
+		Requirement<?> requirement3 = new TestRequirementC();
+		Requirements requirements = new Requirements(
+					asList(requirement1, requirement2, requirement3),String.class, null);
+		Iterator<Requirement<?>> iterator = requirements.iterator();
+		assertSame("TestRequirementC was expected", requirement3, iterator.next());
+		assertSame("TestRequirementB was expected", requirement2, iterator.next());
+		assertSame("TestRequirementA was expected", requirement1, iterator.next());
+	}
+	
 	private List<Requirement<?>> asList(Requirement<?>... requirements) {
 		return Arrays.asList(requirements);
 	}

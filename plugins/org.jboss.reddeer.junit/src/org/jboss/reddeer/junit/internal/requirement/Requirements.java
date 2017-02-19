@@ -15,6 +15,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.jboss.reddeer.common.logging.Logger;
+import org.jboss.reddeer.junit.execution.PriorityComparator;
 import org.jboss.reddeer.junit.requirement.Requirement;
 import org.jboss.reddeer.junit.screenshot.CaptureScreenshotException;
 import org.jboss.reddeer.junit.screenshot.ScreenshotCapturer;
@@ -47,6 +48,7 @@ public class Requirements implements Requirement<Annotation>, Iterable<Requireme
 		if (clazz == null) {
 			throw new IllegalArgumentException("The class containing requirements is null");
 		}
+		requirements.sort(new PriorityComparator());
 		this.requirements = requirements;
 		this.clazz = clazz;
 		this.configID = configID;
