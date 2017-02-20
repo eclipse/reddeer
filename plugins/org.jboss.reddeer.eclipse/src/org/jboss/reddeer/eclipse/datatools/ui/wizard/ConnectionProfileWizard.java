@@ -16,6 +16,10 @@ import java.util.Map;
 import org.jboss.reddeer.common.wait.TimePeriod;
 import org.jboss.reddeer.common.wait.WaitUntil;
 import org.jboss.reddeer.core.condition.ShellWithTextIsAvailable;
+import org.jboss.reddeer.eclipse.datatools.connectivity.db.generic.ui.GenericJDBCDBProfileDetailsWizardPage;
+import org.jboss.reddeer.eclipse.datatools.connectivity.ui.wizards.ExtensibleProfileDetailsWizardPage;
+import org.jboss.reddeer.eclipse.datatools.enablement.msft.sqlserver.ui.connection.SQLServerDBProfileDetailsWizardPage;
+import org.jboss.reddeer.eclipse.datatools.enablement.oracle.ui.OracleDBProfileDetailsWizardPage;
 import org.jboss.reddeer.eclipse.datatools.ui.DatabaseProfile;
 import org.jboss.reddeer.eclipse.datatools.ui.DriverDefinition;
 import org.jboss.reddeer.eclipse.datatools.ui.FlatFileProfile;
@@ -35,7 +39,7 @@ import org.jboss.reddeer.swt.impl.shell.DefaultShell;
  */
 public class ConnectionProfileWizard extends NewWizardDialog {
 
-	protected Map<String, ConnectionProfileDatabasePage> wizardMap;
+	protected Map<String, ExtensibleProfileDetailsWizardPage> wizardMap;
 
 	/**
 	 * Instantiates a new connection profile wizard.
@@ -43,10 +47,10 @@ public class ConnectionProfileWizard extends NewWizardDialog {
 	public ConnectionProfileWizard() {
 		super("Connection Profiles", "Connection Profile");
 
-		wizardMap = new HashMap<String, ConnectionProfileDatabasePage>();
-		wizardMap.put("Oracle", new ConnectionProfileOraclePage());
-		wizardMap.put("SQL Server", new ConnectionProfileSQLServerPage());
-		wizardMap.put("Generic JDBC", new ConnectionProfileGenericPage());
+		wizardMap = new HashMap<String, ExtensibleProfileDetailsWizardPage>();
+		wizardMap.put("Oracle", new OracleDBProfileDetailsWizardPage());
+		wizardMap.put("SQL Server", new SQLServerDBProfileDetailsWizardPage());
+		wizardMap.put("Generic JDBC", new GenericJDBCDBProfileDetailsWizardPage());
 	}
 
 	/**
@@ -70,7 +74,7 @@ public class ConnectionProfileWizard extends NewWizardDialog {
 
 		next();
 
-		ConnectionProfileDatabasePage dbPage = wizardMap.get(dbProfile.getVendor());
+		ExtensibleProfileDetailsWizardPage dbPage = wizardMap.get(dbProfile.getVendor());
 		DriverDefinition drvDef = dbProfile.getDriverDefinition();
 		dbPage.setDriver(drvDef.getDriverName());
 		dbPage.setDatabase(dbProfile.getDatabase());
