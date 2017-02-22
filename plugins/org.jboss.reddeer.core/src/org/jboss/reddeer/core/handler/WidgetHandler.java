@@ -404,4 +404,18 @@ public class WidgetHandler {
 			}
 		});		
 	}
+
+	/**
+	 * Force focus to SWT Widget. Use with caution
+	 * @param swtWidget SWT widget
+	 */
+	public boolean forceFocus(final org.eclipse.swt.widgets.Text swtWidget) {
+		return Display.syncExec(new ResultRunnable<Boolean>() {
+			@Override
+			public Boolean run() {
+				boolean ret = swtWidget.forceFocus();
+				return ret;
+			}
+		});		
+	}
 }
