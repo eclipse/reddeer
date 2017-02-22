@@ -55,30 +55,41 @@ public class MavenImportWizard extends ImportWizardDialog {
 
 	@Override
 	public void finish(TimePeriod timeout) {
+		finish(timeout, true);
+	}
+	
+	/**
+	 * Finish dialog
+	 * @param timeout timeout for jobs after importing maven project
+	 * @param waitForResolve if finish method should wait and deal with resolve dialog
+	 */
+	public void finish(TimePeriod timeout, boolean waitForResolve){
 		Shell shell = new DefaultShell(TITLE);
 		new PushButton("Finish").click();
 		new WaitWhile(new ShellIsAvailable(shell), TimePeriod.NORMAL);
 		new WaitUntil(new JobIsRunning(), TimePeriod.NORMAL, false);
 		new WaitWhile(new JobIsRunning(), timeout);
+		
+		if(waitForResolve){
+			// check whether there some addition dialog
+			try {
+				ResolveDialog dialog = new ResolveDialog();
+				dialog.resolveAllLater();
+				dialog.finish();
+			} catch (Exception e) {
+				// ok, it means that the warning wasn't displayed
+			}
+			// check whether there some addition dialog
+			try {
+				IncompleteDialog dialog = new IncompleteDialog();
+				dialog.ok();
+			} catch (CoreLayerException | SWTLayerException e) {
+				// ok, it means that the warning wasn't displayed
+			}
 
-		// check whether there some addition dialog
-		try {
-			ResolveDialog dialog = new ResolveDialog();
-			dialog.resolveAllLater();
-			dialog.finish();
-		} catch (Exception e) {
-			// ok, it means that the warning wasn't displayed
+			new WaitUntil(new JobIsRunning(), TimePeriod.NORMAL, false);
+			new WaitWhile(new JobIsRunning(), timeout);
 		}
-		// check whether there some addition dialog
-		try {
-			IncompleteDialog dialog = new IncompleteDialog();
-			dialog.ok();
-		} catch (CoreLayerException | SWTLayerException e) {
-			// ok, it means that the warning wasn't displayed
-		}
-
-		new WaitUntil(new JobIsRunning(), TimePeriod.NORMAL, false);
-		new WaitWhile(new JobIsRunning(), timeout);
 	}
 
 	/**
