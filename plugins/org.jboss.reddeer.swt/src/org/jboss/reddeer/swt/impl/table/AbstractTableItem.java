@@ -12,14 +12,17 @@ package org.jboss.reddeer.swt.impl.table;
 
 import org.eclipse.swt.graphics.Image;
 import org.hamcrest.Matcher;
+import org.jboss.reddeer.common.condition.WaitCondition;
 import org.jboss.reddeer.common.logging.Logger;
-import org.jboss.reddeer.swt.api.Table;
-import org.jboss.reddeer.swt.api.TableItem;
-import org.jboss.reddeer.swt.api.TreeItem;
+import org.jboss.reddeer.common.wait.WaitUntil;
 import org.jboss.reddeer.core.handler.TableHandler;
 import org.jboss.reddeer.core.handler.TableItemHandler;
 import org.jboss.reddeer.core.handler.WidgetHandler;
 import org.jboss.reddeer.core.reference.ReferencedComposite;
+import org.jboss.reddeer.swt.api.Table;
+import org.jboss.reddeer.swt.api.TableItem;
+import org.jboss.reddeer.swt.api.TreeItem;
+import org.jboss.reddeer.swt.impl.table.internal.BasicTable;
 import org.jboss.reddeer.swt.widgets.AbstractWidget;
 
 public class AbstractTableItem extends AbstractWidget<org.eclipse.swt.widgets.TableItem> implements TableItem {
@@ -44,6 +47,7 @@ public class AbstractTableItem extends AbstractWidget<org.eclipse.swt.widgets.Ta
 		log.info((check ? "Check" : "Uncheck") + " table Item " + getText()
 				+ ":");
 		TableItemHandler.getInstance().setChecked(swtWidget, check);
+		new WaitUntil(new TableItemIsCheckedCondition(check));
 	}
 
 	/* (non-Javadoc)
@@ -143,5 +147,27 @@ public class AbstractTableItem extends AbstractWidget<org.eclipse.swt.widgets.Ta
 	public void doubleClick(int column){
 		log.info("Double click column " + column + " of table item " + getText());
 		TableHandler.getInstance().doubleClick(swtWidget, column);
+	}
+	
+	private class TableItemIsCheckedCondition implements WaitCondition {
+		
+		private boolean checked;
+		
+		public TableItemIsCheckedCondition(boolean checked) {
+			this.checked = checked;
+		}
+		
+		@Override
+		public boolean test() {
+			if (checked){
+				return isChecked();
+			}
+			return !isChecked();
+		}
+		
+		@Override
+		public String description() {
+			return "table item is " + (checked ? "checked" : "unchecked");
+		}
 	}
 }
