@@ -394,11 +394,11 @@ public class TreeItemHandler {
 			}
 		});
 
-		try {
+		//try {
 			new WaitUntil(new TreeHeardExpandNotification(swtTreeItem, tel, false), timePeriod);
-		} catch (WaitTimeoutExpiredException ex) {
-			new WaitUntil(new TreeHeardExpandNotification(swtTreeItem, tel, true), timePeriod);
-		}
+		//} catch (WaitTimeoutExpiredException ex) {
+		//	new WaitUntil(new TreeHeardExpandNotification(swtTreeItem, tel, true), timePeriod);
+		//}
 		logger.info("Expanded: " + WidgetHandler.getInstance().getText(swtTreeItem));
 
 		Display.syncExec(new Runnable() {
