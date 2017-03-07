@@ -90,7 +90,7 @@ public class TaskRepositoriesView extends WorkbenchView {
 		DefaultShell shellThatTakesLongTimeToClose = new DefaultShell("Activate Task");
 		new DefaultText().setText(taskName);
 		new PushButton("OK").click();	
-		new WaitWhile(new ShellIsAvailable(shellThatTakesLongTimeToClose), TimePeriod.LONG);
+		new WaitWhile(new ShellIsAvailable(shellThatTakesLongTimeToClose), TimePeriod.VERY_LONG);
 	}
 	
 	/**
