@@ -109,6 +109,13 @@ public class LabeledTextTest extends SWTLayerTestCase {
 		LabelTestUtils.createLabel(shell, "Test label4");
 		Composite composite = new Composite(shell, SWT.LEFT);
 		TextTestUtils.createText(composite, "Test text4");
+		
+		LabelTestUtils.createLabel(shell, "Required label1*");
+		TextTestUtils.createText(shell, "Required text1");
+		LabelTestUtils.createLabel(shell, "Required label2 *");
+		TextTestUtils.createText(shell, "Required text2");
+		LabelTestUtils.createLabel(shell, "Special label?");
+		TextTestUtils.createText(shell, "Special text");
 	}
 	
 	@Test
@@ -151,6 +158,36 @@ public class LabeledTextTest extends SWTLayerTestCase {
 	public void findLabeledTextWithOutsideLabel(){
 		new DefaultShell(SHELL_TITLE);
 		assertTrue(new LabeledText("Test label4").getText().equals("Test text4"));
+	}
+	
+	@Test
+	public void findLabeledTextWithAsterisk() {
+		new DefaultShell(SHELL_TITLE);
+		assertEquals("Required text1", new LabeledText("Required label1*").getText());
+	}
+
+	@Test
+	public void findLabeledTextForRequiredField() {
+		new DefaultShell(SHELL_TITLE);
+		assertEquals("Required text1", new LabeledText("Required label1").getText());
+	}
+	
+	@Test
+	public void findLabeledTextWithAsteriskWithSpace() {
+		new DefaultShell(SHELL_TITLE);
+		assertEquals("Required text2", new LabeledText("Required label2 *").getText());
+	}
+
+	@Test
+	public void findLabeledTextForRequiredFieldWithSpace() {
+		new DefaultShell(SHELL_TITLE);
+		assertEquals("Required text2", new LabeledText("Required label2").getText());
+	}
+	
+	@Test
+	public void findLabeledTextWithSpecialChar() {
+		new DefaultShell(SHELL_TITLE);
+		assertEquals("Special text", new LabeledText("Special label?").getText());
 	}
 
 	@Test
