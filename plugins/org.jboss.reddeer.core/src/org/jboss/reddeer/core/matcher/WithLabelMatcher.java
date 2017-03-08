@@ -75,8 +75,15 @@ public class WithLabelMatcher extends BaseMatcher<String> {
 		if ((item instanceof List) || (item instanceof Text) || (item instanceof Button)
 				|| (item instanceof Combo) || (item instanceof CCombo) || (item instanceof Spinner)) {
 			String widgetLabel = WidgetLookup.getInstance().getLabel((Widget)item);
-			if (widgetLabel != null && matcher.matches(widgetLabel)) {
-				return true;
+			if (widgetLabel != null) {
+				// Ignore asterisk and spaces
+				String widgetLabel2 = widgetLabel.trim();
+				if (widgetLabel2.endsWith("*")) {
+					widgetLabel2 = widgetLabel2.substring(0, widgetLabel2.length() - 1).trim();
+				}
+				if (matcher.matches(widgetLabel) || matcher.matches(widgetLabel2)) {
+					return true;
+				}
 			}
 		}
 		return false;
