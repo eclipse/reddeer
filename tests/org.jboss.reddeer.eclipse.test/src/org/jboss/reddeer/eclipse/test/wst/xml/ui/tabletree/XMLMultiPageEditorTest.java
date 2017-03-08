@@ -12,6 +12,7 @@ package org.jboss.reddeer.eclipse.test.wst.xml.ui.tabletree;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
@@ -21,6 +22,7 @@ import org.jboss.reddeer.eclipse.test.Activator;
 import org.jboss.reddeer.eclipse.test.ui.part.MultiPageEditorTest;
 import org.jboss.reddeer.eclipse.ui.wizards.datatransfer.ExternalProjectImportWizardDialog;
 import org.jboss.reddeer.eclipse.ui.wizards.datatransfer.WizardProjectsImportPage;
+import org.jboss.reddeer.eclipse.wst.xml.ui.tabletree.XMLEditorFile;
 import org.jboss.reddeer.eclipse.wst.xml.ui.tabletree.XMLMultiPageEditor;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.swt.impl.styledtext.DefaultStyledText;
@@ -91,4 +93,17 @@ public static final File ZIP_FILE = new File(Activator.getTestResourcesLocation(
 		
 		assertTrue(editor.getSourcePage().getText().contains("</a>"));
 	}
+
+	@Test
+	public void testGettingingAssociatedXMLEditorFile() {
+		XMLEditorFile xmlEditorFile = editor.getAssociatedFile();
+		assertEquals("/" + PROJECT_NAME + "/" + FILE_NAME, xmlEditorFile.getRelativePath());
+	}
+
+	@Test
+	public void testEvaluatingXPathOnAssociatedXMLEditorFile() {
+		XMLEditorFile xmlEditorFile = editor.getAssociatedFile();
+		assertEquals("4", xmlEditorFile.xpath("/a/b1[2]/@y"));
+	}
+
 }

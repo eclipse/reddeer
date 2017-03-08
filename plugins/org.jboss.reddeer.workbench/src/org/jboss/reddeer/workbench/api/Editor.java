@@ -88,4 +88,11 @@ public interface Editor extends WorkbenchPart {
      * @return Content assistant
      */
     ContentAssistant getAutoContentAssistant(Runnable execute);
+
+    /**
+     * Returns an editor file associated to the editor.
+     * 
+     * @return Editor file associated to the editor
+     */
+    EditorFile getAssociatedFile();  
 }
