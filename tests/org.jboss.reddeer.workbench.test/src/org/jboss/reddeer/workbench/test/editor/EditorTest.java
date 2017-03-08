@@ -7,7 +7,7 @@
  * 
  * Contributors: 
  * Red Hat, Inc. - initial API and implementation 
- ******************************************************************************/ 
+ ******************************************************************************/
 package org.jboss.reddeer.workbench.test.editor;
 
 import static org.junit.Assert.assertEquals;
@@ -43,24 +43,26 @@ import org.junit.runner.RunWith;
 @CleanWorkspace
 public class EditorTest {
 
+	private static final String PROJECT_NAME = "testProject";
+
 	@BeforeClass
 	public static void setupClass() {
 		BasicNewProjectResourceWizard projectWizard = new BasicNewProjectResourceWizard();
 		projectWizard.open();
-		new WizardNewProjectCreationPage().setProjectName("testProject");
+		new WizardNewProjectCreationPage().setProjectName(PROJECT_NAME);
 		projectWizard.finish();
 		NewFileCreationWizardDialog newFileDialog = new NewFileCreationWizardDialog();
 		newFileDialog.open();
 		NewFileCreationWizardPage page = new NewFileCreationWizardPage();
 		page.setFileName("editorTest.min");
-		page.setFolderPath("testProject");
+		page.setFolderPath(PROJECT_NAME);
 		newFileDialog.finish();
 		new DefaultEditor().close(false);
 		newFileDialog = new NewFileCreationWizardDialog();
 		newFileDialog.open();
 		page = new NewFileCreationWizardPage();
 		page.setFileName("editorTest1.min");
-		page.setFolderPath("testProject");
+		page.setFolderPath(PROJECT_NAME);
 		newFileDialog.finish();
 		new DefaultEditor().close(false);
 	}
@@ -69,17 +71,16 @@ public class EditorTest {
 	public void setup() {
 		PackageExplorer packageExplorer = new PackageExplorer();
 		packageExplorer.open();
-		packageExplorer.getProject("testProject")
-				.getProjectItem("editorTest.min").open();
+		packageExplorer.getProject(PROJECT_NAME).getProjectItem("editorTest.min").open();
 	}
 
 	@After
 	public void teardown() {
 		EditorHandler.getInstance().closeAll(true);
 	}
-	
+
 	@AfterClass
-	public static void teardownClass(){
+	public static void teardownClass() {
 		new CleanWorkspaceRequirement().fulfill();
 	}
 
@@ -94,7 +95,7 @@ public class EditorTest {
 		new DefaultEditor().close(false);
 		new DefaultEditor();
 	}
-	
+
 	@Test
 	public void closeDirtyWithSaveTest() {
 		DefaultEditor editor = new DefaultEditor();
@@ -114,7 +115,7 @@ public class EditorTest {
 		editor.closeAll(true);
 		assertFalse(editorPart.dirty);
 	}
-	
+
 	@Test
 	public void closeDirtyEditorsWithoutSaveTest() {
 		DefaultEditor editor = new DefaultEditor();
@@ -152,8 +153,7 @@ public class EditorTest {
 	public void getTitleTest() {
 		DefaultEditor editor = new DefaultEditor();
 		System.out.println(editor.isDirty());
-		assertEquals("Editor does not have expected title", "editorTest.min",
-				editor.getTitle());
+		assertEquals("Editor does not have expected title", "editorTest.min", editor.getTitle());
 	}
 
 	@Test
@@ -172,8 +172,7 @@ public class EditorTest {
 		assertNotNull(editor);
 		PackageExplorer packageExplorer = new PackageExplorer();
 		packageExplorer.open();
-		packageExplorer.getProject("testProject")
-				.getProjectItem("editorTest1.min").open();
+		packageExplorer.getProject(PROJECT_NAME).getProjectItem("editorTest1.min").open();
 		editor = new DefaultEditor("editorTest.min");
 		assertNotNull(editor);
 		editor = new DefaultEditor("editorTest1.min");
@@ -189,8 +188,7 @@ public class EditorTest {
 	public void switchEditorTest() {
 		PackageExplorer packageExplorer = new PackageExplorer();
 		packageExplorer.open();
-		packageExplorer.getProject("testProject")
-				.getProjectItem("editorTest1.min").open();
+		packageExplorer.getProject(PROJECT_NAME).getProjectItem("editorTest1.min").open();
 		assertTrue(new DefaultEditor().isActive());
 		assertTrue(new DefaultEditor("editorTest.min").isActive()); // should
 																	// switch
@@ -202,33 +200,48 @@ public class EditorTest {
 		Editor editor = new DefaultEditor();
 		PackageExplorer packageExplorer = new PackageExplorer();
 		packageExplorer.open();
-		packageExplorer.getProject("testProject")
-				.getProjectItem("editorTest1.min").open();
+		packageExplorer.getProject(PROJECT_NAME).getProjectItem("editorTest1.min").open();
 		editor.close(false);
 		new DefaultEditor("editorTest.min"); // should be closed now
 	}
-	
+
 	@Test
-	public void isNotActiveTest(){
+	public void isNotActiveTest() {
 		DefaultEditor editor = new DefaultEditor();
 		new ProblemsView().open();
 		assertFalse(editor.isActive());
 		assertTrue(new DefaultEditor().isActive());
 	}
 
+	@Test
+	public void getEditorFileTest() {
+		openFile("editorTest.min");
+		DefaultEditor editor = new DefaultEditor("editorTest.min");
+		assertEquals("/" + PROJECT_NAME + "/editorTest.min", editor.getAssociatedFile().getRelativePath());
+
+		openFile("editorTest1.min");
+		DefaultEditor editor1 = new DefaultEditor("editorTest1.min");
+		assertEquals("/" + PROJECT_NAME + "/editorTest1.min", editor1.getAssociatedFile().getRelativePath());
+	}
+
 	private SimpleEditor getEditorPart(Editor editor) {
-        Field editorField = null;
-        try {
-                editorField = editor.getClass().getSuperclass()
-                                .getDeclaredField("editorPart");
-                editorField.setAccessible(true);
-                return (SimpleEditor) editorField.get(editor);
-        } catch (NoSuchFieldException e) {
-                e.printStackTrace();
-        } catch (IllegalAccessException e) {
-                e.printStackTrace();
-        }
-        return null;
-}
-	
+		Field editorField = null;
+		try {
+			editorField = editor.getClass().getSuperclass().getDeclaredField("editorPart");
+			editorField.setAccessible(true);
+			return (SimpleEditor) editorField.get(editor);
+		} catch (NoSuchFieldException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	private void openFile(String fileName) {
+		PackageExplorer packageExplorer = new PackageExplorer();
+		packageExplorer.open();
+		packageExplorer.getProject(PROJECT_NAME).getProjectItem(fileName).open();
+	}
+
 }

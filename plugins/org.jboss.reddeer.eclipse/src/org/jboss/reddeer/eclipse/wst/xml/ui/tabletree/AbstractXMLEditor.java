@@ -93,4 +93,10 @@ public abstract class AbstractXMLEditor extends MultiPageEditor {
 		throw new EclipseLayerException("Expected " + ITextEditor.class + 
 				" but was " + o.getClass());
 	}
+
+	@Override
+	public XMLEditorFile getAssociatedFile() {
+		return new XMLEditorFile(super.getAssociatedFile());
+	}
+
 }

@@ -13,9 +13,11 @@ package org.jboss.reddeer.workbench.impl.editor;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.core.resources.IFile;
 import org.eclipse.jface.bindings.TriggerSequence;
 import org.eclipse.jface.bindings.keys.KeyStroke;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.actions.ActionFactory;
@@ -35,6 +37,7 @@ import org.jboss.reddeer.swt.api.Menu;
 import org.jboss.reddeer.swt.impl.menu.ShellMenu;
 import org.jboss.reddeer.swt.keyboard.KeyboardFactory;
 import org.jboss.reddeer.workbench.api.Editor;
+import org.jboss.reddeer.workbench.api.EditorFile;
 import org.jboss.reddeer.workbench.condition.ContentAssistantShellIsOpened;
 import org.jboss.reddeer.workbench.core.lookup.EditorPartLookup;
 import org.jboss.reddeer.workbench.exception.WorkbenchLayerException;
@@ -304,11 +307,21 @@ public abstract class AbstractEditor implements Editor {
         new WaitUntil(caw,TimePeriod.NORMAL,false);
         return caw.getContentAssistTable() == null ? null : new ContentAssistant(caw.getContentAssistTable());
 	}
-	
-    public IEditorPart getEditorPart() {
-        return editorPart;
-    }
-    
+
+	@Override
+	public EditorFile getAssociatedFile() {
+		IEditorInput editorInput = editorPart.getEditorInput();
+		IFile iFile = editorInput.getAdapter(IFile.class);
+		if (iFile == null) {
+			throw new WorkbenchLayerException("No file is associated to the editor");
+		}
+		return new DefaultEditorFile(iFile);
+	}
+
+	public IEditorPart getEditorPart() {
+		return editorPart;
+	}
+
     public enum ContentAssistantEnum {
     	DEFAULT("Default"),
     	JAVA_TYPE("Java Type Proposals"),
