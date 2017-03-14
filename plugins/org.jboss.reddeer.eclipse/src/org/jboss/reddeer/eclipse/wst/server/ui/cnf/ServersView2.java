@@ -117,7 +117,7 @@ public class ServersView2 extends WorkbenchView {
 	 */
 	protected Tree getServersTree(){
 		activate();
-		return new DefaultTree();
+		return new DefaultTree(cTabItem);
 	}
 	
 	private Object[] getServersNames() {

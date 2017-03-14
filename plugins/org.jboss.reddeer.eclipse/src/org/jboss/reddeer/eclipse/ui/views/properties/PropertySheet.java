@@ -52,7 +52,7 @@ public class PropertySheet extends WorkbenchView{
 	public List<PropertiesViewProperty> getProperties(){
 		activate();
 		LinkedList<PropertiesViewProperty> properties = new LinkedList<PropertiesViewProperty>();
-		for (TreeItem treeItem : new DefaultTree().getAllItems()){
+		for (TreeItem treeItem : new DefaultTree(cTabItem).getAllItems()){
 			properties.add(new PropertiesViewProperty(treeItem));
 		}
 		return properties;
@@ -66,7 +66,7 @@ public class PropertySheet extends WorkbenchView{
 	 */
 	public PropertiesViewProperty getProperty(String... propertyNamePath){
 		activate();
-		return new PropertiesViewProperty(new DefaultTreeItem(propertyNamePath));
+		return new PropertiesViewProperty(new DefaultTreeItem(new DefaultTree(cTabItem), propertyNamePath));
 	}
 	
 	/**
@@ -76,7 +76,7 @@ public class PropertySheet extends WorkbenchView{
 	 */
 	public void toggleShowCategories(boolean toggle){
 		activate();
-		new DefaultToolItem("Show Categories")
+		new DefaultToolItem(cTabItem.getFolder(), "Show Categories")
 			.toggle(toggle);
 	}
 
@@ -88,7 +88,7 @@ public class PropertySheet extends WorkbenchView{
 	 */
 	public void toggleShowAdvancedProperties(boolean toggle){
 		activate();
-		new DefaultToolItem("Show Advanced Properties")
+		new DefaultToolItem(cTabItem.getFolder(), "Show Advanced Properties")
 			.toggle(toggle);
 	}
 	
@@ -102,7 +102,7 @@ public class PropertySheet extends WorkbenchView{
 		List<String> old = new ArrayList<String>();
 		
 		try{
-			old = new TabbedPropertyList().getTabs();
+			old = new TabbedPropertyList(cTabItem, 0).getTabs();
 		}catch(Exception ex) {
 			//probably not rendered yet
 		}
@@ -110,7 +110,7 @@ public class PropertySheet extends WorkbenchView{
 			new WaitUntil(new AnotherTabsRendered(old), TimePeriod.NORMAL, false);	
 		}
 		
-		new TabbedPropertyList().selectTab(label);
+		new TabbedPropertyList(cTabItem, 0).selectTab(label);
 	}
 	
 	private class AnotherTabsRendered extends AbstractWaitCondition {
@@ -126,7 +126,7 @@ public class PropertySheet extends WorkbenchView{
 			List<String> actual = new ArrayList<String>();
 			
 			try{
-				actual = new TabbedPropertyList().getTabs();
+				actual = new TabbedPropertyList(cTabItem, 0).getTabs();
 			}catch(Exception ex) {
 				//probably not rendered yet
 			}

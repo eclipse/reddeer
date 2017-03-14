@@ -17,6 +17,7 @@ import org.jboss.reddeer.common.platform.RunningPlatform;
 import org.jboss.reddeer.common.wait.TimePeriod;
 import org.jboss.reddeer.common.wait.WaitUntil;
 import org.jboss.reddeer.common.wait.WaitWhile;
+import org.jboss.reddeer.swt.api.Tree;
 import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.swt.condition.TreeHasChildren;
 import org.jboss.reddeer.swt.impl.toolbar.DefaultToolItem;
@@ -45,7 +46,7 @@ public class ResultView extends WorkbenchView {
 	 */
 	public List<SQLResult> getResults() {
 		open();
-		DefaultTree tree = new DefaultTree();
+		Tree tree = getViewTree();
 		List<TreeItem> items = tree.getItems();
 		List<SQLResult> results = new ArrayList<SQLResult>();
 
@@ -63,15 +64,19 @@ public class ResultView extends WorkbenchView {
 	 */
 	public void removeAllResults() {
 		open();
-		DefaultTree tree = new DefaultTree();
+		Tree tree = getViewTree();
 		new WaitUntil(new TreeHasChildren(tree),TimePeriod.NORMAL, false);
 		String tooltip = "Remove All Visible Results (Shift+Delete)";
 		if (RunningPlatform.isOSX()) {
 			tooltip = "Remove All Visible Results (⇧⌦)";
 		}
-		DefaultToolItem item = new DefaultToolItem(tooltip);
+		DefaultToolItem item = new DefaultToolItem(cTabItem.getFolder(), tooltip);
 		item.click();
 		new WaitWhile(new TreeHasChildren(tree), TimePeriod.LONG);
+	}
+	
+	private Tree getViewTree(){
+		return new DefaultTree(cTabItem);
 	}
 
 }

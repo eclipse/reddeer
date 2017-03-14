@@ -53,7 +53,7 @@ public class BreakpointsView extends WorkbenchView {
 	public void addJavaExceptionBreakpoint(String exception) {
 		log.info("Adding java exception breakpoint '" + exception + "'");
 		open();
-		new DefaultToolItem("Add Java Exception Breakpoint").click();
+		new DefaultToolItem(cTabItem.getFolder(), "Add Java Exception Breakpoint").click();
 		new DefaultShell("Add Java Exception Breakpoint");
 		new DefaultText().setText(exception);
 		new WaitUntil(new WidgetIsEnabled(new OkButton()), TimePeriod.LONG);
@@ -83,7 +83,7 @@ public class BreakpointsView extends WorkbenchView {
 		log.info("Accessing breakpoints in Breakpoints view");
 		open();
 		AbstractWait.sleep(TimePeriod.SHORT);
-		List<TreeItem> items = new DefaultTree().getItems();
+		List<TreeItem> items = new DefaultTree(cTabItem).getItems();
 		for (TreeItem item : items) {
 			log.debug("\tfound: " + item.getText());
 			if (item.getText().contains(label)) {
@@ -99,8 +99,8 @@ public class BreakpointsView extends WorkbenchView {
 	public void removeAllBreakpoints() {
 		log.info("Removing all breakpoints from Breakpoints view");
 		open();
-		if (new DefaultToolItem("Remove All Breakpoints").isEnabled()) {
-			new DefaultToolItem("Remove All Breakpoints").click();
+		if (new DefaultToolItem(cTabItem.getFolder(), "Remove All Breakpoints").isEnabled()) {
+			new DefaultToolItem(cTabItem.getFolder(), "Remove All Breakpoints").click();
 			new DefaultShell("Remove All Breakpoints").setFocus();
 			new PushButton("Yes").click();
 		}
@@ -114,7 +114,7 @@ public class BreakpointsView extends WorkbenchView {
 	public void importBreakpoints(String path) {
 		log.info("Importing breakpoints from '" + path + "'");
 		open();
-		new DefaultTree(0).setFocus();
+		new DefaultTree(cTabItem).setFocus();
 		new ContextMenu("Import Breakpoints...").select();
 		new DefaultShell("Import Breakpoints");
 		new LabeledText("From file:").setText(path);

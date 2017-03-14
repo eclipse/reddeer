@@ -52,7 +52,7 @@ public class ConsoleView extends WorkbenchView {
 	 */
 	public String getConsoleText() {
 		activate();
-		WidgetIsFound widgetIsFound = new WidgetIsFound(org.eclipse.swt.custom.StyledText.class);
+		WidgetIsFound widgetIsFound = new WidgetIsFound(org.eclipse.swt.custom.StyledText.class, cTabItem.getControl());
 		new WaitUntil(widgetIsFound, TimePeriod.NORMAL, false);
 		// Check whether there is a console to display or not
 		if (widgetIsFound.getWidget() == null) {
@@ -60,7 +60,7 @@ public class ConsoleView extends WorkbenchView {
 		}
 		// wait for text to appear
 		new WaitWhile(new ConsoleHasText(""),TimePeriod.SHORT,false);
-		return new DefaultStyledText().getText();
+		return new DefaultStyledText(cTabItem).getText();
 	}
 	
 	/**
@@ -69,7 +69,7 @@ public class ConsoleView extends WorkbenchView {
 	public void clearConsole() {
 		log.info("Clearing console");
 		activate();		
-		new DefaultToolItem(CLEAR_CONSOLE).click();
+		new DefaultToolItem(cTabItem.getFolder(), CLEAR_CONSOLE).click();
 		new WaitUntil(new ConsoleHasText(""));
 		log.info("Console cleared");
 	}
@@ -89,7 +89,7 @@ public class ConsoleView extends WorkbenchView {
 	public void removeLaunch() {
 		log.info("Removing launch from console");
 		activate();
-		new DefaultToolItem("Remove Launch").click();
+		new DefaultToolItem(cTabItem.getFolder(), "Remove Launch").click();
 		log.info("Launch removed");
 	}
 	
@@ -99,7 +99,7 @@ public class ConsoleView extends WorkbenchView {
 	public void removeAllTerminatedLaunches() {
 		log.info("Removing terminated launches from console");
 		activate();
-		new DefaultToolItem("Remove All Terminated Launches").click();
+		new DefaultToolItem(cTabItem.getFolder(), "Remove All Terminated Launches").click();
 		new WaitWhile(new ConsoleHasLaunch());
 		log.info("Terminated launches cleared");
 	}
@@ -110,7 +110,7 @@ public class ConsoleView extends WorkbenchView {
 	public void terminateConsole() {
 		log.info("Terminating console");
 		activate();
-		DefaultToolItem terminate = new DefaultToolItem(TERMINATE);
+		DefaultToolItem terminate = new DefaultToolItem(cTabItem.getFolder(), TERMINATE);
 		if (terminate.isEnabled()) {
 			terminate.click();
 			new WaitUntil(new ConsoleIsTerminated());
@@ -137,7 +137,7 @@ public class ConsoleView extends WorkbenchView {
 	 */
 	private boolean toolItemExistsAndIsEnabled(String toolItemText) {
 		activate();
-		WidgetIsFound widgetIsFound = new WidgetIsFound(org.eclipse.swt.widgets.ToolItem.class,
+		WidgetIsFound widgetIsFound = new WidgetIsFound(org.eclipse.swt.widgets.ToolItem.class, cTabItem.getFolder().getControl(), 
 				new WithTextMatcher(toolItemText));
 		widgetIsFound.test();
 		org.eclipse.swt.widgets.Widget widget = widgetIsFound.getWidget();
@@ -154,7 +154,7 @@ public class ConsoleView extends WorkbenchView {
 	 */
 	public void toggleShowConsoleOnStandardOutChange(boolean toggle){
 		activate();
-		new DefaultToolItem("Show Console When Standard Out Changes").toggle(toggle);
+		new DefaultToolItem(cTabItem.getFolder(), "Show Console When Standard Out Changes").toggle(toggle);
 	}
 	
 	/**
@@ -164,7 +164,7 @@ public class ConsoleView extends WorkbenchView {
 	 */
 	public boolean consoleHasLaunch() {
 		activate();
-		return new WidgetIsFound(org.eclipse.swt.custom.StyledText.class).test();
+		return new WidgetIsFound(org.eclipse.swt.custom.StyledText.class, cTabItem.getControl()).test();
 	}
 	
 	/**
@@ -197,7 +197,7 @@ public class ConsoleView extends WorkbenchView {
 	@SuppressWarnings("unchecked")
 	public void switchConsole(Matcher<String> textMatcher){
 		activate();
-		ToolItemMenu menu = new ToolItemMenu(new DefaultToolItem("Display Selected Console"), textMatcher);
+		ToolItemMenu menu = new ToolItemMenu(new DefaultToolItem(cTabItem.getFolder(), "Display Selected Console"), textMatcher);
 		menu.select();
 		new WaitUntil(new ConsoleHasLabel(textMatcher));
 	}
@@ -217,7 +217,7 @@ public class ConsoleView extends WorkbenchView {
 
 		@Override
 		public boolean test() {
-			WidgetIsFound widgetIsFound = new WidgetIsFound(org.eclipse.swt.custom.StyledText.class);
+			WidgetIsFound widgetIsFound = new WidgetIsFound(org.eclipse.swt.custom.StyledText.class, cTabItem.getControl());
 			widgetIsFound.test();
 			org.eclipse.swt.widgets.Widget swtWidget = widgetIsFound.getWidget();
 			return (swtWidget == null) ? false : consoleText.equals(
@@ -236,9 +236,9 @@ public class ConsoleView extends WorkbenchView {
 	 *
 	 * @return the console label
 	 */
-	public String getConsoleLabel (){
+	public String getConsoleLabel(){
 		activate();
-		WidgetIsFound widgetIsFound = new WidgetIsFound(org.eclipse.swt.widgets.Label.class);
+		WidgetIsFound widgetIsFound = new WidgetIsFound(org.eclipse.swt.widgets.Label.class, cTabItem.getControl());
 		widgetIsFound.test();
 		org.eclipse.swt.widgets.Widget swtWidget = widgetIsFound.getWidget();
 		return (swtWidget == null) ? null : WidgetHandler.getInstance().getText(swtWidget);

@@ -10,6 +10,7 @@
  ******************************************************************************/ 
 package org.jboss.reddeer.swt.api;
 
+import org.jboss.reddeer.core.reference.ReferencedComposite;
 import org.jboss.reddeer.swt.widgets.Widget;
 
 /**
@@ -18,7 +19,7 @@ import org.jboss.reddeer.swt.widgets.Widget;
  * @author Jiri Peterka
  *
  */
-public interface CTabFolder extends Widget<org.eclipse.swt.custom.CTabFolder> {
+public interface CTabFolder extends Widget<org.eclipse.swt.custom.CTabFolder>, ReferencedComposite{
 
 	/**
 	 * Returns selected {@link CTabItem} within the folder

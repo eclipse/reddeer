@@ -100,7 +100,7 @@ public class SystemViewPart extends WorkbenchView {
 	 */
 	protected Tree getSystemTree(){
 		activate();
-		return new DefaultTree();
+		return new DefaultTree(cTabItem);
 	}
 
 	/**

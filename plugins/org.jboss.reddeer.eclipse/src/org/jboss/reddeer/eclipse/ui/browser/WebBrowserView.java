@@ -50,7 +50,7 @@ public class WebBrowserView extends WorkbenchView {
 	public void open() {
 		if (browser == null){
 			super.open();
-			browser = new InternalBrowser();
+			browser = new InternalBrowser(cTabItem);
 		}
 	};
 

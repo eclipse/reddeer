@@ -10,6 +10,7 @@
  ******************************************************************************/ 
 package org.jboss.reddeer.swt.api;
 
+import org.jboss.reddeer.core.reference.ReferencedComposite;
 import org.jboss.reddeer.swt.widgets.Widget;
 
 /**
@@ -18,7 +19,7 @@ import org.jboss.reddeer.swt.widgets.Widget;
  * @author apodhrad
  * 
  */
-public interface TabItem extends Widget<org.eclipse.swt.widgets.TabItem> {
+public interface TabItem extends Widget<org.eclipse.swt.widgets.TabItem>, ReferencedComposite {
 
 	/**
 	 * Activates the tab item.

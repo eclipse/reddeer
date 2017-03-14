@@ -10,6 +10,7 @@
  ******************************************************************************/ 
 package org.jboss.reddeer.core.handler;
 
+import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.TabFolder;
 import org.eclipse.swt.widgets.TabItem;
@@ -56,6 +57,21 @@ public class TabItemHandler {
 						return swtTabItem.getParent();
 					}
 				});
+	}
+	
+	/**
+	 * Gets the control that is displayed in the content area of the tab item.
+	 * @param tabItem item to handler
+	 * @return control that is displayed in the content area of the tab item
+	 */
+	public Control getControl(final TabItem tabItem){
+		return Display.syncExec(new ResultRunnable<Control>() {
+			
+			@Override
+			public Control run() {
+				return tabItem.getControl();
+			}
+		});
 	}
 
 	/**
