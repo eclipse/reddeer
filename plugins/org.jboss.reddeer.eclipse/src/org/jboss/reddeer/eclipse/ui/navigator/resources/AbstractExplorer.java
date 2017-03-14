@@ -167,7 +167,7 @@ public class AbstractExplorer extends WorkbenchView {
 
 	private DefaultTree getTree(){
 		activate();
-		return new DefaultTree();
+		return new DefaultTree(cTabItem);
 	}
 		
 	/**

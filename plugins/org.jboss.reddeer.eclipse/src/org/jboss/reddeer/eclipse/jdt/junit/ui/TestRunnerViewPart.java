@@ -43,7 +43,7 @@ public class TestRunnerViewPart extends WorkbenchView {
 	 */
 	public String getRunStatus() {
 		activate();
-		return new LabeledText("Runs: ").getText().trim();
+		return new LabeledText(cTabItem, "Runs: ").getText().trim();
 	}
 
 	/**
@@ -53,7 +53,7 @@ public class TestRunnerViewPart extends WorkbenchView {
 	 */
 	public int getNumberOfErrors() {
 		activate();
-		String errorStatus = new LabeledText("Errors: ").getText().trim();
+		String errorStatus = new LabeledText(cTabItem, "Errors: ").getText().trim();
 		return Integer.valueOf(errorStatus);
 	}
 
@@ -64,7 +64,7 @@ public class TestRunnerViewPart extends WorkbenchView {
 	 */
 	public int getNumberOfFailures() {
 		activate();
-		String errorStatus = new LabeledText("Failures: ").getText().trim();
+		String errorStatus = new LabeledText(cTabItem, "Failures: ").getText().trim();
 		return Integer.valueOf(errorStatus);
 	}
 
@@ -75,7 +75,7 @@ public class TestRunnerViewPart extends WorkbenchView {
 	 */
 	public String getViewStatus() {
 		activate();
-		return new DefaultLabel().getText().trim();
+		return new DefaultLabel(cTabItem).getText().trim();
 	}
 	
 	/**
@@ -83,7 +83,7 @@ public class TestRunnerViewPart extends WorkbenchView {
 	 */
 	public void removeAllRuns() {
 		activate();
-		new DefaultToolItem("Test Run History...").click();
+		new DefaultToolItem(cTabItem.getFolder(), "Test Run History...").click();
 		new DefaultShell("Test Runs");
 		new PushButton("Remove All").click();
 		new OkButton().click();

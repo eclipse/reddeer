@@ -14,6 +14,7 @@ import org.jboss.reddeer.common.condition.AbstractWaitCondition;
 import org.jboss.reddeer.common.wait.WaitUntil;
 import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.swt.impl.styledtext.DefaultStyledText;
+import org.jboss.reddeer.swt.impl.tree.DefaultTree;
 import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
 import org.jboss.reddeer.workbench.impl.view.WorkbenchView;
 
@@ -46,7 +47,7 @@ public class VariablesView extends WorkbenchView {
 			@Override
 			public boolean test() {
 				try {
-					TreeItem variable = new DefaultTreeItem(variablePath);
+					TreeItem variable = new DefaultTreeItem(new DefaultTree(cTabItem), variablePath);
 					variable.select();
 					return variable.isSelected();
 				} catch (Exception e) {
@@ -63,7 +64,7 @@ public class VariablesView extends WorkbenchView {
 
 			@Override
 			public boolean test() {
-				return new DefaultStyledText().getText().length() > 0;
+				return new DefaultStyledText(cTabItem).getText().length() > 0;
 			}
 
 			@Override
@@ -72,7 +73,7 @@ public class VariablesView extends WorkbenchView {
 			}
 		});
 
-		return new DefaultStyledText().getText();
+		return new DefaultStyledText(cTabItem).getText();
 	}
 
 }

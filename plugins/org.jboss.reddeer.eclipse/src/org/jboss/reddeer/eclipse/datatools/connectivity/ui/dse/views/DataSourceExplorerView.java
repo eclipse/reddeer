@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.jboss.reddeer.swt.api.TreeItem;
+import org.jboss.reddeer.swt.impl.tree.DefaultTree;
 import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
 import org.jboss.reddeer.workbench.impl.view.WorkbenchView;
 
@@ -78,7 +79,7 @@ public class DataSourceExplorerView extends WorkbenchView {
 	 */
 	protected List<String> getItems(String... path) {
 		activate();
-		TreeItem root = new DefaultTreeItem(path);
+		TreeItem root = new DefaultTreeItem(new DefaultTree(cTabItem),path);
 		List<String> list = new ArrayList<String>();
 		for (TreeItem treeItem : root.getItems()) {
 			list.add(treeItem.getText());

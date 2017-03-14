@@ -21,6 +21,7 @@ import org.jboss.reddeer.common.wait.WaitUntil;
 import org.jboss.reddeer.common.wait.WaitWhile;
 import org.jboss.reddeer.core.condition.ShellWithTextIsAvailable;
 import org.jboss.reddeer.swt.api.Menu;
+import org.jboss.reddeer.swt.api.Tree;
 import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.swt.impl.button.CheckBox;
 import org.jboss.reddeer.swt.impl.button.OkButton;
@@ -67,7 +68,7 @@ public class LogView extends WorkbenchView{
 		activate();
 		setFilter(OK_SEVERITY);
 		activate();
-		DefaultTree tree = new DefaultTree();
+		Tree tree = getViewTree();
 		List<TreeItem> treeItems = tree.getAllItems();
 		List<LogMessage> messages = new ArrayList<LogMessage>();
 		for(TreeItem item : treeItems){
@@ -85,7 +86,7 @@ public class LogView extends WorkbenchView{
 		activate();
 		setFilter(INFORMATION_SEVERITY);
 		activate();
-		DefaultTree tree = new DefaultTree();
+		Tree tree = getViewTree();
 		List<TreeItem> treeItems = tree.getAllItems();
 		List<LogMessage> messages = new ArrayList<LogMessage>();
 		for(TreeItem item : treeItems){
@@ -103,7 +104,7 @@ public class LogView extends WorkbenchView{
 		activate();
 		setFilter(WARNING_SEVERITY);
 		activate();
-		DefaultTree tree = new DefaultTree();
+		Tree tree = getViewTree();
 		List<TreeItem> treeItems = tree.getAllItems();
 		List<LogMessage> messages = new ArrayList<LogMessage>();
 		for(TreeItem item : treeItems){
@@ -121,7 +122,7 @@ public class LogView extends WorkbenchView{
 		activate();
 		setFilter(ERROR_SEVERITY);
 		activate();
-		DefaultTree tree = new DefaultTree();
+		Tree tree = getViewTree();
 		List<TreeItem> treeItems = tree.getAllItems();
 		List<LogMessage> messages = new ArrayList<LogMessage>();
 		for(TreeItem item : treeItems){
@@ -135,7 +136,7 @@ public class LogView extends WorkbenchView{
 	 */
 	public void clearLog() {
 		activate();
-		new DefaultTree().setFocus();
+		getViewTree();
 		Menu cm = new ContextMenu(CLEAR_LOG);
 		cm.select();	
 	}
@@ -145,7 +146,7 @@ public class LogView extends WorkbenchView{
 	 */
 	public void deleteLog() {
 		activate();
-		new DefaultTree().setFocus();
+		getViewTree();
 		Menu cm = new ContextMenu(DELETE_LOG);
 		if (!cm.isEnabled()) {
 			log.debug("Unable to delete log. \"" + DELETE_LOG + "\" menu item is not enabled.");
@@ -162,7 +163,7 @@ public class LogView extends WorkbenchView{
 	 */
 	public void restoreLog() {
 		activate();
-		new DefaultTree().setFocus();
+		getViewTree();
 		Menu cm = new ContextMenu(RESTORE_LOG);
 		cm.select();			
 	}
@@ -182,5 +183,9 @@ public class LogView extends WorkbenchView{
 		new PushButton("OK").click();
 		new GroupWait(waitWhile(new ShellWithTextIsAvailable("Log Filters")),
 				waitWhile(new ShellWithTextIsAvailable("Progress Information")));
+	}
+	
+	private Tree getViewTree(){
+		return new DefaultTree(cTabItem);
 	}
 }

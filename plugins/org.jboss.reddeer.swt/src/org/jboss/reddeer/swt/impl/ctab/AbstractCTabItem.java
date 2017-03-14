@@ -10,6 +10,7 @@
  ******************************************************************************/ 
 package org.jboss.reddeer.swt.impl.ctab;
 
+import org.eclipse.swt.widgets.Control;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.core.handler.CTabItemHandler;
@@ -111,6 +112,11 @@ public abstract class AbstractCTabItem extends AbstractWidget<org.eclipse.swt.cu
 	@Override
 	public CTabFolder getFolder() {
 		return new DefaultCTabFolder(swtParent);
+	}
+	
+	@Override
+	public Control getControl(){
+		return cTabItemHandler.getControl(swtWidget);
 	}
 
 	/* (non-Javadoc)

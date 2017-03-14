@@ -22,6 +22,7 @@ import org.jboss.reddeer.eclipse.exception.EclipseLayerException;
 import org.jboss.reddeer.eclipse.ui.markers.AbstractMarker;
 import org.jboss.reddeer.eclipse.ui.markers.matcher.AbstractMarkerMatcher;
 import org.jboss.reddeer.jface.viewer.handler.TreeViewerHandler;
+import org.jboss.reddeer.swt.api.Tree;
 import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.swt.impl.button.OkButton;
 import org.jboss.reddeer.swt.impl.button.PushButton;
@@ -52,7 +53,7 @@ public class AbstractMarkersSupportView extends WorkbenchView {
 	 */
 	public List<String> getProblemColumns() {
 		activate();
-		return new DefaultTree().getHeaderColumns();
+		return getViewTree().getHeaderColumns();
 	}
 	
 	/**
@@ -124,7 +125,7 @@ public class AbstractMarkersSupportView extends WorkbenchView {
 	 * @return index of a specified column
 	 */
 	public int getIndexOfColumn(String column) {
-		return getColumnIndex(new DefaultTree().getHeaderColumns(), column);
+		return getColumnIndex(getViewTree().getHeaderColumns(), column);
 	}
 	
 	/**
@@ -134,7 +135,7 @@ public class AbstractMarkersSupportView extends WorkbenchView {
 	 * @return index of a specified column
 	 */
 	public int getIndexOfColumn(Column column) {
-		return getColumnIndex(new DefaultTree().getHeaderColumns(), column.toString());
+		return getColumnIndex(getViewTree().getHeaderColumns(), column.toString());
 	}	
 	
 	private String[] getColumnsToHide(Column[] columns) {
@@ -246,7 +247,7 @@ public class AbstractMarkersSupportView extends WorkbenchView {
 		// suffix of marker type can be '(XX items)' or 'XXX of XXX items) 
 		String markerTypeSuffix = " \\(\\d+ .*\\)";
 		activate();
-		List<TreeItem> markerTypeItems = new DefaultTree().getItems();
+		List<TreeItem> markerTypeItems = getViewTree().getItems();
 		for (TreeItem item: markerTypeItems) {
 			try {
 				if (item.getText().matches(markerType + markerTypeSuffix)) {
@@ -262,6 +263,10 @@ public class AbstractMarkersSupportView extends WorkbenchView {
 		}
 		// If there is no group of specific marker type, return null
 		return null;
+	}
+	
+	private Tree getViewTree(){
+		return new DefaultTree(cTabItem);
 	}
 	
 	/**

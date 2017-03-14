@@ -42,7 +42,7 @@ public class SearchView extends WorkbenchView {
 	public boolean isSearchEmpty() {
 		activate();
 		try {
-			new DefaultLink(new WithTextMatcher(
+			new DefaultLink(cTabItem, new WithTextMatcher(
 					"No search results available. Start a search from the <a>search dialog</a>..."));
 			return true;
 		} catch (CoreLayerException e){
@@ -58,7 +58,7 @@ public class SearchView extends WorkbenchView {
 		List<SearchResult> results = new ArrayList<SearchResult>();
 		activate();
 		if (!isSearchEmpty()){
-			DefaultTree tree = new DefaultTree();
+			DefaultTree tree = new DefaultTree(cTabItem);
 			for (TreeItem item : tree.getAllItems()) {
 				results.add(new SearchResult(item));
 			}

@@ -10,6 +10,7 @@
  ******************************************************************************/ 
 package org.jboss.reddeer.swt.api;
 
+import org.jboss.reddeer.core.reference.ReferencedComposite;
 import org.jboss.reddeer.swt.widgets.Widget;
 
 /**
@@ -18,7 +19,7 @@ import org.jboss.reddeer.swt.widgets.Widget;
  * @author Vlado Pakan
  *
  */
-public interface CTabItem extends Widget<org.eclipse.swt.custom.CTabItem> {
+public interface CTabItem extends Widget<org.eclipse.swt.custom.CTabItem>, ReferencedComposite {
 
 	/**
 	 * Activates CTab item.

@@ -106,7 +106,7 @@ public class ContentOutline extends WorkbenchView {
 	
 	private Collection<TreeItem>getTreeForView() {
 		try {
-			DefaultTree tree = new DefaultTree();
+			DefaultTree tree = new DefaultTree(cTabItem);
 			new WaitUntil(new TreeHasChildren(tree),TimePeriod.NORMAL,false);
 
 			return tree.getItems();
@@ -118,7 +118,7 @@ public class ContentOutline extends WorkbenchView {
 	
 	private void clickOnToolTip(String regex) {
 		WithTooltipTextMatcher rm = new WithTooltipTextMatcher(new RegexMatcher(regex));
-		new DefaultToolItem(rm).click();
+		new DefaultToolItem(cTabItem.getFolder(), rm).click();
 	}
 	
 }

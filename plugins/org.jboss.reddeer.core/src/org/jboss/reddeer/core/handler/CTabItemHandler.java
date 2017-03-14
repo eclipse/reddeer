@@ -16,6 +16,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.custom.CTabItem;
 import org.eclipse.swt.graphics.Rectangle;
+import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Event;
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.common.util.Display;
@@ -64,6 +65,21 @@ public class CTabItemHandler {
 			instance = new CTabItemHandler();
 		}
 		return instance;
+	}
+	
+	/**
+	 * Gets the control that is displayed in the content area of the tab item.
+	 * @param ctabItem item to handler
+	 * @return control that is displayed in the content area of the tab item
+	 */
+	public Control getControl(final CTabItem ctabItem){
+		return Display.syncExec(new ResultRunnable<Control>() {
+			
+			@Override
+			public Control run() {
+				return ctabItem.getControl();
+			}
+		});
 	}
 
 	/**
