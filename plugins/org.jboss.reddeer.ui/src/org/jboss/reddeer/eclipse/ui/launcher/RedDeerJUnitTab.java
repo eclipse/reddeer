@@ -24,40 +24,24 @@ import org.eclipse.jface.viewers.ColumnLayoutData;
 import org.eclipse.jface.viewers.ColumnViewer;
 import org.eclipse.jface.viewers.ColumnWeightData;
 import org.eclipse.jface.viewers.ComboBoxViewerCellEditor;
-import org.eclipse.jface.viewers.DialogCellEditor;
 import org.eclipse.jface.viewers.EditingSupport;
 import org.eclipse.jface.viewers.ICellEditorListener;
 import org.eclipse.jface.viewers.TableLayout;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.jface.viewers.TextCellEditor;
-import org.eclipse.jface.viewers.ViewerCell;
-import org.eclipse.jface.viewers.ViewerColumn;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.custom.TableEditor;
-import org.eclipse.swt.events.FocusAdapter;
-import org.eclipse.swt.events.FocusEvent;
-import org.eclipse.swt.events.KeyAdapter;
-import org.eclipse.swt.events.KeyEvent;
-import org.eclipse.swt.events.MouseAdapter;
-import org.eclipse.swt.events.MouseEvent;
-import org.eclipse.swt.events.SelectionAdapter;
-import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Table;
-import org.eclipse.swt.widgets.TableItem;
-import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.PlatformUI;
 import org.jboss.reddeer.common.exception.RedDeerException;
 import org.jboss.reddeer.common.properties.RedDeerProperties;
 import org.jboss.reddeer.common.properties.RedDeerPropertyType;
+import org.jboss.reddeer.ui.Activator;
 
 /**
  * Specialized tab for configuring Red Deer properties
@@ -89,6 +73,11 @@ public class RedDeerJUnitTab extends AbstractLaunchConfigurationTab {
 	@Override
 	public String getName() {
 		return "Red Deer";
+	}
+	
+	@Override
+	public Image getImage() {
+		return Activator.getDefault().getImageRegistry().get(Activator.REDDEER_RUNNER);
 	}
 
 	@Override
@@ -236,13 +225,6 @@ public class RedDeerJUnitTab extends AbstractLaunchConfigurationTab {
 		}
 	}
 	
-	private class CustomTextCellEditor extends TextCellEditor{
-		@Override
-		public Control createControl(Composite parent) {
-			return super.createControl(parent);
-		}
-	}
-
 	private class RedDeerEditingSupport extends EditingSupport {
 
 		public RedDeerEditingSupport(ColumnViewer viewer) {

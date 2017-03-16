@@ -15,10 +15,6 @@ import java.util.List;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.core.runtime.FileLocator;
-import org.eclipse.core.runtime.Path;
-import org.eclipse.core.runtime.Platform;
-import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.pde.core.plugin.TargetPlatform;
 import org.eclipse.swt.SWT;
@@ -72,9 +68,7 @@ public class NewRedDeerTestPluginWizardPage extends WizardPage implements
 
 		setDescription("Specify the test plugin properties.");
 
-		setImageDescriptor(ImageDescriptor.createFromURL(FileLocator.find(
-				Platform.getBundle(Activator.PLUGIN_ID), new Path(
-						"resources/reddeer_icon.png"), null)));
+		setImageDescriptor(Activator.getDefault().getImageRegistry().getDescriptor(Activator.REDDEER_ICON));
 		setPageComplete(false);
 
 	}
