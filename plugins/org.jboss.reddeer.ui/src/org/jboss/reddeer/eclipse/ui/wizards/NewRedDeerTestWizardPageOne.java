@@ -11,10 +11,7 @@
 package org.jboss.reddeer.eclipse.ui.wizards;
 
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.Path;
-import org.eclipse.core.runtime.Platform;
 import org.eclipse.jdt.core.IBuffer;
 import org.eclipse.jdt.core.ISourceRange;
 import org.eclipse.jdt.core.IType;
@@ -25,7 +22,6 @@ import org.eclipse.jdt.core.compiler.IScanner;
 import org.eclipse.jdt.core.compiler.ITerminalSymbols;
 import org.eclipse.jdt.core.compiler.InvalidInputException;
 import org.eclipse.jdt.junit.wizards.NewTestCaseWizardPageOne;
-import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.jboss.reddeer.ui.Activator;
 
@@ -41,9 +37,7 @@ public class NewRedDeerTestWizardPageOne extends NewTestCaseWizardPageOne {
 		super(pageTwo);
 		setTitle("Red Deer Test Case");
 
-		setImageDescriptor(ImageDescriptor.createFromURL(FileLocator.find(
-				Platform.getBundle(Activator.PLUGIN_ID), new Path(
-						"resources/reddeer_icon.png"), null)));
+		setImageDescriptor(Activator.getDefault().getImageRegistry().getDescriptor(Activator.REDDEER_ICON));
 	}
 
 	@Override
