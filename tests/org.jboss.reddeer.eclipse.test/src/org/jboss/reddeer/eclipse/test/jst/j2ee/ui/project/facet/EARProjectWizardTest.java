@@ -16,6 +16,7 @@ import static org.junit.Assert.assertTrue;
 import org.jboss.reddeer.eclipse.jst.j2ee.ui.project.facet.EarProjectFirstPage;
 import org.jboss.reddeer.eclipse.jst.j2ee.ui.project.facet.EarProjectInstallPage;
 import org.jboss.reddeer.eclipse.jst.j2ee.ui.project.facet.EarProjectWizard;
+import org.jboss.reddeer.eclipse.jst.j2ee.wizard.DefaultJ2EEComponentCreationWizard;
 import org.jboss.reddeer.eclipse.jst.j2ee.wizard.NewJ2EEComponentSelectionPage;
 import org.jboss.reddeer.eclipse.jst.servlet.ui.project.facet.WebProjectFirstPage;
 import org.jboss.reddeer.eclipse.jst.servlet.ui.project.facet.WebProjectWizard;
@@ -65,12 +66,13 @@ public class EARProjectWizardTest {
 		ear.next();
 		EarProjectInstallPage ip = new EarProjectInstallPage();
 		assertFalse(ip.isGenerateApplicationXML());
-		NewJ2EEComponentSelectionPage jee=ip.newModule();
+		DefaultJ2EEComponentCreationWizard componentWizard = ip.newModule();
+		NewJ2EEComponentSelectionPage jee= new NewJ2EEComponentSelectionPage();
 		String ejb = jee.getEJBModuleName();
 		String conn = jee.getConnectorModuleName();
 		String web = jee.getWebModuleName();
 		String appClient = jee.getApplicationClientModuleName();
-		jee.finish();
+		componentWizard.finish();
 		ear.finish();
 		
 		ProjectExplorer explorer = new ProjectExplorer();
@@ -91,7 +93,8 @@ public class EARProjectWizardTest {
 		ear.next();
 		EarProjectInstallPage ip = new EarProjectInstallPage();
 		assertFalse(ip.isGenerateApplicationXML());
-		NewJ2EEComponentSelectionPage jee=ip.newModule();
+		ip.newModule();
+		NewJ2EEComponentSelectionPage jee= new NewJ2EEComponentSelectionPage();
 		jee.toggleCreateDefaultModules(false);
 		WebProjectWizard ww = jee.addWeb();
 		WebProjectFirstPage wp = new WebProjectFirstPage();

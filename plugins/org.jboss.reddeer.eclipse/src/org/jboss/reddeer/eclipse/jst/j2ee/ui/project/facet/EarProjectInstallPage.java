@@ -13,12 +13,11 @@ package org.jboss.reddeer.eclipse.jst.j2ee.ui.project.facet;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.jboss.reddeer.eclipse.jst.j2ee.wizard.NewJ2EEComponentSelectionPage;
+import org.jboss.reddeer.eclipse.jst.j2ee.wizard.DefaultJ2EEComponentCreationWizard;
 import org.jboss.reddeer.jface.wizard.WizardPage;
 import org.jboss.reddeer.swt.api.TableItem;
 import org.jboss.reddeer.swt.impl.button.CheckBox;
 import org.jboss.reddeer.swt.impl.button.PushButton;
-import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.jboss.reddeer.swt.impl.table.DefaultTable;
 import org.jboss.reddeer.swt.impl.text.LabeledText;
 
@@ -31,10 +30,9 @@ public class EarProjectInstallPage extends WizardPage{
 	 * Opens a wizard page for adding new module.
 	 * @return Wizard page for adding new module
 	 */
-	public NewJ2EEComponentSelectionPage newModule(){
+	public DefaultJ2EEComponentCreationWizard newModule(){
 		new PushButton("New Module...").click();
-		new DefaultShell("Create default Java EE modules.");
-		return new NewJ2EEComponentSelectionPage();
+		return new DefaultJ2EEComponentCreationWizard();
 	}
 	
 	/**
