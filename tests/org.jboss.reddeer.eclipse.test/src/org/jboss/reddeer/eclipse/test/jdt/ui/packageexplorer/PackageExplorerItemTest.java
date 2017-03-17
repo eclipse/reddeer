@@ -10,14 +10,14 @@
  ******************************************************************************/ 
 package org.jboss.reddeer.eclipse.test.jdt.ui.packageexplorer;
 
-import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.PackageExplorer;
+import org.jboss.reddeer.eclipse.jdt.ui.packageview.PackageExplorerPart;
 import org.jboss.reddeer.eclipse.test.jdt.ui.AbstractResourceTest;
 import org.junit.Test;
 
 public class PackageExplorerItemTest extends AbstractResourceTest {
 
 	public PackageExplorerItemTest() {
-		super(new PackageExplorer());
+		super(new PackageExplorerPart());
 	}
 	
 	@Test

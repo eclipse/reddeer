@@ -12,7 +12,7 @@ package org.jboss.reddeer.eclipse.test.jdt.ui.junit;
 
 import static org.junit.Assert.assertEquals;
 
-import org.jboss.reddeer.eclipse.jdt.ui.junit.JUnitView;
+import org.jboss.reddeer.eclipse.jdt.junit.ui.TestRunnerViewPart;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -28,35 +28,35 @@ public class JUnitViewTest {
 
 	@BeforeClass
 	public static void clearAllTestRuns() {
-		JUnitView junitView = new JUnitView();
+		TestRunnerViewPart junitView = new TestRunnerViewPart();
 		junitView.open();
 		junitView.removeAllRuns();
 	}
 
 	@Test
 	public void getRunsTest() {
-		JUnitView jUnitView = new JUnitView();
+		TestRunnerViewPart jUnitView = new TestRunnerViewPart();
 		jUnitView.open();
 		assertEquals("0/0", jUnitView.getRunStatus());
 	}
 
 	@Test
 	public void getErrorsTest() {
-		JUnitView jUnitView = new JUnitView();
+		TestRunnerViewPart jUnitView = new TestRunnerViewPart();
 		jUnitView.open();
 		assertEquals(0, jUnitView.getNumberOfErrors());
 	}
 
 	@Test
 	public void getFailuresTest() {
-		JUnitView jUnitView = new JUnitView();
+		TestRunnerViewPart jUnitView = new TestRunnerViewPart();
 		jUnitView.open();
 		assertEquals(0, jUnitView.getNumberOfFailures());
 	}
 
 	@Test
 	public void getViewStatusTest() {
-		JUnitView jUnitView = new JUnitView();
+		TestRunnerViewPart jUnitView = new TestRunnerViewPart();
 		jUnitView.open();
 		assertEquals("", jUnitView.getViewStatus());
 	}

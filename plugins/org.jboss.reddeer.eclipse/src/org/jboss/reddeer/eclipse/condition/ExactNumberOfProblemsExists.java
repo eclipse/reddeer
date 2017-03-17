@@ -16,8 +16,8 @@ import java.util.List;
 import org.jboss.reddeer.common.condition.AbstractWaitCondition;
 import org.jboss.reddeer.eclipse.ui.markers.matcher.AbstractMarkerMatcher;
 import org.jboss.reddeer.eclipse.ui.problems.Problem;
-import org.jboss.reddeer.eclipse.ui.views.ProblemsView;
-import org.jboss.reddeer.eclipse.ui.views.ProblemsView.ProblemType;
+import org.jboss.reddeer.eclipse.ui.views.markers.ProblemsView;
+import org.jboss.reddeer.eclipse.ui.views.markers.ProblemsView.ProblemType;
 
 /**
  * Wait condition expects existence of specific amount of problems in Problems view.

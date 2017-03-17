@@ -15,7 +15,7 @@ import static org.junit.Assert.fail;
 
 import java.lang.reflect.Field;
 
-import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.PackageExplorer;
+import org.jboss.reddeer.eclipse.jdt.ui.packageview.PackageExplorerPart;
 import org.jboss.reddeer.eclipse.jdt.ui.wizards.JavaProjectWizard;
 import org.jboss.reddeer.eclipse.jdt.ui.wizards.NewJavaProjectWizardPageOne;
 import org.jboss.reddeer.junit.internal.configuration.NullTestRunConfiguration;
@@ -77,7 +77,7 @@ public class CleanWorkspaceRequirementTest {
 		projectWizard.open();
 		new NewJavaProjectWizardPageOne().setProjectName("TestProject");
 		projectWizard.finish();
-		PackageExplorer packageExplorer = new PackageExplorer();
+		PackageExplorerPart packageExplorer = new PackageExplorerPart();
 		packageExplorer.open();
 		assertFalse("Project should be imported, but isn't",
 				packageExplorer.getProjects().isEmpty());

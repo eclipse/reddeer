@@ -12,9 +12,9 @@ package org.jboss.reddeer.eclipse.test.datatools.ui;
 
 import java.io.File;
 
+import org.jboss.reddeer.eclipse.datatools.connectivity.ui.preferences.DriverPreferences;
 import org.jboss.reddeer.eclipse.datatools.ui.DriverDefinition;
 import org.jboss.reddeer.eclipse.datatools.ui.DriverTemplate;
-import org.jboss.reddeer.eclipse.datatools.ui.preference.DriverDefinitionPreferencePage;
 import org.jboss.reddeer.workbench.ui.dialogs.WorkbenchPreferenceDialog;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.swt.impl.table.DefaultTable;
@@ -34,7 +34,7 @@ public class DriverDefinitionTest {
 		WorkbenchPreferenceDialog dialog = new WorkbenchPreferenceDialog();
 		dialog.open();
 		
-		DriverDefinitionPreferencePage preferencePage = new DriverDefinitionPreferencePage();
+		DriverPreferences preferencePage = new DriverPreferences();
 		dialog.select(preferencePage);
 		preferencePage.addDriverDefinition().create(createTestDriverDefinition());
 		// test if a driver was successfully created

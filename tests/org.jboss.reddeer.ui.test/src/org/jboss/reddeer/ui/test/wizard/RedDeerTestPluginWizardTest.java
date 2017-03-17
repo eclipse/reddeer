@@ -21,8 +21,8 @@ import java.util.Collection;
 
 import org.jboss.reddeer.common.exception.RedDeerException;
 import org.jboss.reddeer.eclipse.core.resources.DefaultProject;
-import org.jboss.reddeer.eclipse.jdt.ui.ProjectExplorer;
-import org.jboss.reddeer.eclipse.ui.views.contentoutline.OutlineView;
+import org.jboss.reddeer.eclipse.ui.navigator.resources.ProjectExplorer;
+import org.jboss.reddeer.eclipse.ui.views.contentoutline.ContentOutline;
 import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.swt.impl.button.CheckBox;
 import org.jboss.reddeer.swt.impl.button.FinishButton;
@@ -83,7 +83,7 @@ public class RedDeerTestPluginWizardTest extends RedDeerWizardTestCase {
 	
 	private void checkExampleTest(DefaultProject project) {
 		project.getProjectItem("src", "org.reddeer.test", "RedDeerTest.java").open();
-		OutlineView view = new OutlineView();
+		ContentOutline view = new ContentOutline();
 		view.open();
 		
 		Collection<TreeItem> outline = view.outlineElements();

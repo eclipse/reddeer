@@ -15,13 +15,13 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 import java.io.File;
 
-import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.PackageExplorer;
+import org.jboss.reddeer.eclipse.jdt.ui.packageview.PackageExplorerPart;
 import org.jboss.reddeer.eclipse.test.Activator;
 import org.jboss.reddeer.eclipse.test.ui.part.MultiPageEditorTest;
 import org.jboss.reddeer.eclipse.ui.wizards.datatransfer.ExternalProjectImportWizardDialog;
 import org.jboss.reddeer.eclipse.ui.wizards.datatransfer.WizardProjectsImportPage;
 import org.jboss.reddeer.eclipse.wst.xml.ui.tabletree.XMLEditorFile;
-import org.jboss.reddeer.eclipse.wst.xml.ui.tabletree.XMLMultiPageEditor;
+import org.jboss.reddeer.eclipse.wst.xml.ui.tabletree.XMLMultiPageEditorPart;
 import org.jboss.reddeer.eclipse.wst.xml.ui.tabletree.XMLSourcePage;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.junit.AfterClass;
@@ -41,7 +41,7 @@ public class XMLSourcePageTest {
 
 	protected static final String NAMESPACES_FILE_NAME = "TomcatServerRequirement.xml";
 
-	private static PackageExplorer explorer;
+	private static PackageExplorerPart explorer;
 
 	@BeforeClass
 	public static void importProject() {
@@ -54,7 +54,7 @@ public class XMLSourcePageTest {
 
 		wizard.finish();
 
-		explorer = new PackageExplorer();
+		explorer = new PackageExplorerPart();
 		explorer.open();
 	}
 
@@ -68,7 +68,7 @@ public class XMLSourcePageTest {
 	public void evaluateXPath() {
 		explorer.getProject(PROJECT_NAME).getProjectItem(FILE_NAME).open();
 
-		XMLMultiPageEditor editor = new XMLMultiPageEditor(FILE_NAME);
+		XMLMultiPageEditorPart editor = new XMLMultiPageEditorPart(FILE_NAME);
 		XMLSourcePage page = editor.getSourcePage();
 		XMLEditorFile xmlEditorFile = page.getAssociatedFile();
 
@@ -80,7 +80,7 @@ public class XMLSourcePageTest {
 	public void evaluateXPathWithNamespace() {
 		explorer.getProject(PROJECT_NAME).getProjectItem(NAMESPACES_FILE_NAME).openWith("XML Editor");
 
-		XMLMultiPageEditor editor = new XMLMultiPageEditor(NAMESPACES_FILE_NAME);
+		XMLMultiPageEditorPart editor = new XMLMultiPageEditorPart(NAMESPACES_FILE_NAME);
 		XMLSourcePage page = editor.getSourcePage();
 		XMLEditorFile xmlEditorFile = page.getAssociatedFile();
 
@@ -92,7 +92,7 @@ public class XMLSourcePageTest {
 	public void evaluateXPathWithIgnoringNamespace() {
 		explorer.getProject(PROJECT_NAME).getProjectItem(NAMESPACES_FILE_NAME).openWith("XML Editor");
 
-		XMLMultiPageEditor editor = new XMLMultiPageEditor(NAMESPACES_FILE_NAME);
+		XMLMultiPageEditorPart editor = new XMLMultiPageEditorPart(NAMESPACES_FILE_NAME);
 		XMLSourcePage page = editor.getSourcePage();
 		XMLEditorFile xmlEditorFile = page.getAssociatedFile();
 

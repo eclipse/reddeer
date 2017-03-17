@@ -14,11 +14,11 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.PackageExplorer;
-import org.jboss.reddeer.eclipse.jst.servlet.ui.WebProjectFirstPage;
-import org.jboss.reddeer.eclipse.jst.servlet.ui.WebProjectSecondPage;
-import org.jboss.reddeer.eclipse.jst.servlet.ui.WebProjectThirdPage;
-import org.jboss.reddeer.eclipse.jst.servlet.ui.WebProjectWizard;
+import org.jboss.reddeer.eclipse.jdt.ui.packageview.PackageExplorerPart;
+import org.jboss.reddeer.eclipse.jst.servlet.ui.project.facet.WebProjectFirstPage;
+import org.jboss.reddeer.eclipse.jst.servlet.ui.project.facet.WebProjectSecondPage;
+import org.jboss.reddeer.eclipse.jst.servlet.ui.project.facet.WebProjectThirdPage;
+import org.jboss.reddeer.eclipse.jst.servlet.ui.project.facet.WebProjectWizard;
 import org.jboss.reddeer.eclipse.ui.perspectives.JavaEEPerspective;
 import org.jboss.reddeer.eclipse.utils.DeleteUtils;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
@@ -32,12 +32,12 @@ import org.junit.runner.RunWith;
 @RunWith(RedDeerSuite.class)
 public class WebProjectTest {
 	
-	private PackageExplorer packageExplorer;
+	private PackageExplorerPart packageExplorer;
 	private String projectName = "web project";
 	
 	@Before
 	public void openPackageExplorer() {
-		packageExplorer = new PackageExplorer();
+		packageExplorer = new PackageExplorerPart();
 		packageExplorer.open();
 	}
 	

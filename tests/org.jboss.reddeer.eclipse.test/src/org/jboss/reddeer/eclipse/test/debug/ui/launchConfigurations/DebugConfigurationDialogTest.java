@@ -10,14 +10,14 @@
  ******************************************************************************/ 
 package org.jboss.reddeer.eclipse.test.debug.ui.launchConfigurations;
 
-import org.jboss.reddeer.eclipse.debug.ui.launchConfigurations.DebugConfigurationDialog;
+import org.jboss.reddeer.eclipse.debug.ui.launchConfigurations.DebugConfigurationsDialog;
 import org.junit.Before;
 
 public class DebugConfigurationDialogTest extends AbstractLaunchConfigurationDialogTest {
 
 	@Before
 	public void setup(){
-		dialog = new DebugConfigurationDialog();
+		dialog = new DebugConfigurationsDialog();
 	}
 	
 	@Override

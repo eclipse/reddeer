@@ -15,14 +15,14 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 import java.io.File;
 
-import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.PackageExplorer;
+import org.jboss.reddeer.eclipse.jdt.ui.packageview.PackageExplorerPart;
 import org.jboss.reddeer.eclipse.test.Activator;
 import org.jboss.reddeer.eclipse.test.ui.part.MultiPageEditorTest;
 import org.jboss.reddeer.eclipse.ui.wizards.datatransfer.ExternalProjectImportWizardDialog;
 import org.jboss.reddeer.eclipse.ui.wizards.datatransfer.WizardProjectsImportPage;
 import org.jboss.reddeer.eclipse.wst.xml.ui.tabletree.XMLDesignPage;
 import org.jboss.reddeer.eclipse.wst.xml.ui.tabletree.XMLDesignPage.XMLDesignPageNode;
-import org.jboss.reddeer.eclipse.wst.xml.ui.tabletree.XMLMultiPageEditor;
+import org.jboss.reddeer.eclipse.wst.xml.ui.tabletree.XMLMultiPageEditorPart;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -51,17 +51,17 @@ public static final File ZIP_FILE = new File(Activator.getTestResourcesLocation(
 
 		wizard.finish();
 		
-		PackageExplorer explorer = new PackageExplorer();
+		PackageExplorerPart explorer = new PackageExplorerPart();
 		explorer.open();
 		explorer.getProject(PROJECT_NAME).getProjectItem(FILE_NAME).open();
 		
-		XMLMultiPageEditor editor = new XMLMultiPageEditor(FILE_NAME);
+		XMLMultiPageEditorPart editor = new XMLMultiPageEditorPart(FILE_NAME);
 		page = editor.getDesignPage();
 	}
 	
 	@AfterClass
 	public static void cleanProject(){
-		PackageExplorer explorer = new PackageExplorer();
+		PackageExplorerPart explorer = new PackageExplorerPart();
 		explorer.open();
 		explorer.getProject(PROJECT_NAME).delete(true);
 	}

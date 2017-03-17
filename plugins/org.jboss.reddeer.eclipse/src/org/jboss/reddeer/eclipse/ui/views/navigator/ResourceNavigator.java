@@ -10,7 +10,7 @@
  ******************************************************************************/ 
 package org.jboss.reddeer.eclipse.ui.views.navigator;
 
-import org.jboss.reddeer.eclipse.jdt.ui.AbstractExplorer;
+import org.jboss.reddeer.eclipse.ui.navigator.resources.AbstractExplorer;
 
 /**
  * Navigator RedDeer implementation

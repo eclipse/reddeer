@@ -19,7 +19,7 @@ import org.jboss.reddeer.core.condition.ShellWithTextIsAvailable;
 import org.jboss.reddeer.core.exception.CoreLayerException;
 import org.jboss.reddeer.eclipse.condition.RemoteSystemExists;
 import org.jboss.reddeer.eclipse.condition.RemoteSystemIsConnected;
-import org.jboss.reddeer.eclipse.rse.ui.wizard.SystemPasswordPromptDialog;
+import org.jboss.reddeer.eclipse.rse.ui.dialogs.SystemPasswordPromptDialog;
 import org.jboss.reddeer.swt.api.Shell;
 import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.swt.condition.ShellIsAvailable;
@@ -30,7 +30,7 @@ import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.jboss.reddeer.workbench.core.condition.JobIsRunning;
 
 /**
- * This class represents a system on {@link SystemView}. It contains the system label
+ * This class represents a system on {@link SystemViewPart}. It contains the system label
  * and operations that can be invoked on the remote system (Connect, Disconnect, Delete). 
  * @author Pavol Srna
  *

@@ -13,7 +13,7 @@ package org.jboss.reddeer.eclipse.test.ui.search;
 import static org.junit.Assert.assertTrue;
 
 import org.jboss.reddeer.workbench.core.lookup.WorkbenchPartLookup;
-import org.jboss.reddeer.eclipse.ui.search.SearchView;
+import org.jboss.reddeer.eclipse.search2.ui.SearchView;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.junit.After;
 import org.junit.Before;

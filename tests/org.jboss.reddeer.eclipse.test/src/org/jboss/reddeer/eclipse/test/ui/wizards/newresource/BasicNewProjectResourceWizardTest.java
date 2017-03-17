@@ -15,10 +15,10 @@ import static org.junit.Assert.assertTrue;
 import java.io.File;
 
 import org.jboss.reddeer.eclipse.exception.EclipseLayerException;
-import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.PackageExplorer;
-import org.jboss.reddeer.eclipse.ui.dialogs.WizardNewProjectCreationPage;
+import org.jboss.reddeer.eclipse.jdt.ui.packageview.PackageExplorerPart;
 import org.jboss.reddeer.eclipse.ui.dialogs.WizardNewProjectReferencePage;
 import org.jboss.reddeer.eclipse.ui.wizards.newresource.BasicNewProjectResourceWizard;
+import org.jboss.reddeer.eclipse.ui.wizards.newresource.BasicNewProjectResourceWizardFirstPage;
 import org.jboss.reddeer.eclipse.utils.DeleteUtils;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.junit.After;
@@ -31,7 +31,7 @@ public class BasicNewProjectResourceWizardTest {
 
 	private static final String DEFAULT_PROJECT_NAME = "defaultGeneralProject";
 	private static final String CUSTOMIZED_PROJECT_NAME = "customizedGeneralProject";
-	private PackageExplorer packageExplorer;
+	private PackageExplorerPart packageExplorer;
 	private static final String CUSTOM_PROJECT_LOCATION = System
 			.getProperty("java.io.tmpdir")
 			+ File.separator
@@ -39,7 +39,7 @@ public class BasicNewProjectResourceWizardTest {
 
 	@Before
 	public void setUp() {
-		packageExplorer = new PackageExplorer();
+		packageExplorer = new PackageExplorerPart();
 	}
 
 	@Test
@@ -48,7 +48,7 @@ public class BasicNewProjectResourceWizardTest {
 		packageExplorer.open();
 		BasicNewProjectResourceWizard wizardDialog = new BasicNewProjectResourceWizard();
 		wizardDialog.open();
-		WizardNewProjectCreationPage projectPage = new WizardNewProjectCreationPage();
+		BasicNewProjectResourceWizardFirstPage projectPage = new BasicNewProjectResourceWizardFirstPage();
 		projectPage
 				.setProjectName(BasicNewProjectResourceWizardTest.DEFAULT_PROJECT_NAME);
 		wizardDialog.finish();
@@ -87,7 +87,7 @@ public class BasicNewProjectResourceWizardTest {
 		// create default project
 		BasicNewProjectResourceWizard wizardDialog = new BasicNewProjectResourceWizard();
 		wizardDialog.open();
-		WizardNewProjectCreationPage projectPage = new WizardNewProjectCreationPage();
+		BasicNewProjectResourceWizardFirstPage projectPage = new BasicNewProjectResourceWizardFirstPage();
 		projectPage
 				.setProjectName(BasicNewProjectResourceWizardTest.DEFAULT_PROJECT_NAME);
 		wizardDialog.finish();

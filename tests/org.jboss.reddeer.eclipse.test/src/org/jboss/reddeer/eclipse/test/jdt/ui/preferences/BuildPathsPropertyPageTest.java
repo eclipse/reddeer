@@ -24,13 +24,13 @@ import org.jboss.reddeer.common.wait.WaitWhile;
 import org.jboss.reddeer.workbench.core.condition.JobIsRunning;
 import org.jboss.reddeer.eclipse.core.resources.DefaultProject;
 import org.jboss.reddeer.eclipse.core.resources.Project;
-import org.jboss.reddeer.eclipse.jdt.ui.ProjectExplorer;
-import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.PackageExplorer;
+import org.jboss.reddeer.eclipse.jdt.ui.packageview.PackageExplorerPart;
 import org.jboss.reddeer.eclipse.jdt.ui.preferences.BuildPathsPropertyPage;
 import org.jboss.reddeer.eclipse.jdt.ui.wizards.JavaProjectWizard;
 import org.jboss.reddeer.eclipse.jdt.ui.wizards.NewJavaProjectWizardPageOne;
 import org.jboss.reddeer.eclipse.test.Activator;
 import org.jboss.reddeer.eclipse.ui.dialogs.ResourcePropertyDialog;
+import org.jboss.reddeer.eclipse.ui.navigator.resources.ProjectExplorer;
 import org.jboss.reddeer.eclipse.ui.perspectives.JavaPerspective;
 import org.jboss.reddeer.eclipse.utils.DeleteUtils;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
@@ -104,7 +104,7 @@ public class BuildPathsPropertyPageTest {
 			buildPathsPropertyPage.getLibraries().contains(addedVariableLabel));
 		propertiesDialog.ok();
 		new WaitWhile(new JobIsRunning());
-		new PackageExplorer().open();
+		new PackageExplorerPart().open();
 		getProject().select();
 		propertiesDialog.open();
 		propertiesDialog.select(buildPathsPropertyPage);
@@ -116,7 +116,7 @@ public class BuildPathsPropertyPageTest {
 	
 	public Project getProject() {
 		if (project == null){
-			PackageExplorer packageExplorer = new PackageExplorer();
+			PackageExplorerPart packageExplorer = new PackageExplorerPart();
 			packageExplorer.open();
 			project = packageExplorer.getProject(TEST_PROJECT_NAME);
 		}

@@ -12,8 +12,8 @@ package org.jboss.reddeer.eclipse.test.wst.html.ui.wizard;
 
 import static org.junit.Assert.*;
 
-import org.jboss.reddeer.eclipse.jst.servlet.ui.WebProjectFirstPage;
-import org.jboss.reddeer.eclipse.jst.servlet.ui.WebProjectWizard;
+import org.jboss.reddeer.eclipse.jst.servlet.ui.project.facet.WebProjectFirstPage;
+import org.jboss.reddeer.eclipse.jst.servlet.ui.project.facet.WebProjectWizard;
 import org.jboss.reddeer.eclipse.wst.html.ui.wizard.NewHTMLFileWizardPage;
 import org.jboss.reddeer.eclipse.wst.html.ui.wizard.NewHTMLTemplatesWizardPage;
 import org.jboss.reddeer.eclipse.wst.html.ui.wizard.NewHTMLWizard;

@@ -12,8 +12,8 @@ package org.jboss.reddeer.eclipse.ui.markers;
 
 import java.util.List;
 
-import org.jboss.reddeer.eclipse.ui.views.MarkersView;
-import org.jboss.reddeer.eclipse.ui.views.AbstractMarkersSupportView.Column;
+import org.jboss.reddeer.eclipse.ui.views.markers.AllMarkersView;
+import org.jboss.reddeer.eclipse.ui.views.markers.AbstractMarkersSupportView.Column;
 import org.jboss.reddeer.swt.api.TreeItem;
 
 /**
@@ -43,7 +43,7 @@ public class Marker extends AbstractMarker {
 	
 	@Override
 	protected String getCell(Column column) {
-		MarkersView markersView = new MarkersView();
+		AllMarkersView markersView = new AllMarkersView();
 		List<String> columns = markersView.getProblemColumns();
 		if (columns.contains(column.toString())) {
 			return markerItem.getCell(markersView.getIndexOfColumn(column));

@@ -10,8 +10,8 @@
  ******************************************************************************/ 
 package org.jboss.reddeer.eclipse.ui.markers;
 
-import org.jboss.reddeer.eclipse.ui.views.AbstractMarkersSupportView.Column;
 import org.jboss.reddeer.eclipse.ui.views.markers.QuickFixWizard;
+import org.jboss.reddeer.eclipse.ui.views.markers.AbstractMarkersSupportView.Column;
 import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.swt.impl.menu.ContextMenu;
 

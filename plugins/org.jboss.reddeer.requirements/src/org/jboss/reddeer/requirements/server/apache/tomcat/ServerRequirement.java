@@ -16,7 +16,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 import org.jboss.reddeer.common.logging.Logger;
-import org.jboss.reddeer.eclipse.wst.server.ui.wizard.NewServerWizardDialog;
+import org.jboss.reddeer.eclipse.wst.server.ui.wizard.NewServerWizard;
 import org.jboss.reddeer.eclipse.wst.server.ui.wizard.NewServerWizardPage;
 import org.jboss.reddeer.junit.requirement.CustomConfiguration;
 import org.jboss.reddeer.junit.requirement.Requirement;
@@ -112,7 +112,7 @@ public class ServerRequirement extends ServerReqBase
 	
 	private void setupServerAdapter(){
 		
-		NewServerWizardDialog swd = new NewServerWizardDialog();
+		NewServerWizard swd = new NewServerWizard();
 		swd.open();
 		
 		NewServerWizardPage swpage = new NewServerWizardPage();

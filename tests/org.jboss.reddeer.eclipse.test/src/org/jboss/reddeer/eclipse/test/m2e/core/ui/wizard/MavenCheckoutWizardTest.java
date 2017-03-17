@@ -13,8 +13,8 @@ package org.jboss.reddeer.eclipse.test.m2e.core.ui.wizard;
 
 import static org.junit.Assert.*;
 
-import org.jboss.reddeer.eclipse.m2e.core.ui.wizard.MavenCheckoutWizard;
-import org.jboss.reddeer.eclipse.m2e.scm.wizard.MavenCheckoutLocationPage;
+import org.jboss.reddeer.eclipse.m2e.scm.wizards.MavenCheckoutLocationPage;
+import org.jboss.reddeer.eclipse.m2e.scm.wizards.MavenCheckoutWizard;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.junit.Test;
 import org.junit.runner.RunWith;

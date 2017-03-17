@@ -13,9 +13,9 @@ package org.jboss.reddeer.eclipse.ui.problems;
 import java.util.List;
 
 import org.jboss.reddeer.eclipse.ui.markers.AbstractMarker;
-import org.jboss.reddeer.eclipse.ui.views.ProblemsView;
-import org.jboss.reddeer.eclipse.ui.views.AbstractMarkersSupportView.Column;
-import org.jboss.reddeer.eclipse.ui.views.ProblemsView.ProblemType;
+import org.jboss.reddeer.eclipse.ui.views.markers.ProblemsView;
+import org.jboss.reddeer.eclipse.ui.views.markers.AbstractMarkersSupportView.Column;
+import org.jboss.reddeer.eclipse.ui.views.markers.ProblemsView.ProblemType;
 import org.jboss.reddeer.swt.api.TreeItem;
 
 /**

@@ -11,11 +11,10 @@
 package org.jboss.reddeer.eclipse.wst.xml.ui.tabletree;
 
 import org.eclipse.ui.IEditorPart;
-import org.eclipse.ui.part.MultiPageEditorPart;
 import org.eclipse.ui.texteditor.ITextEditor;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.eclipse.exception.EclipseLayerException;
-import org.jboss.reddeer.eclipse.ui.part.MultiPageEditor;
+import org.jboss.reddeer.eclipse.ui.part.MultiPageEditorPart;
 
 /**
  * This is common ancestor for all XML based editor that
@@ -24,7 +23,7 @@ import org.jboss.reddeer.eclipse.ui.part.MultiPageEditor;
  * @author Lucia Jelinkova
  *
  */
-public abstract class AbstractXMLEditor extends MultiPageEditor {
+public abstract class AbstractXMLEditor extends MultiPageEditorPart {
 
 	/**
 	 * Find editor extending {@link MultiPageEditorPart} 
@@ -36,7 +35,7 @@ public abstract class AbstractXMLEditor extends MultiPageEditor {
 	 */
 	@SuppressWarnings("unchecked")
 	public AbstractXMLEditor(Matcher<String> titleMatcher, 
-			Class<? extends MultiPageEditorPart> clazz, Matcher<IEditorPart>... matchers) {
+			Class<? extends org.eclipse.ui.part.MultiPageEditorPart> clazz, Matcher<IEditorPart>... matchers) {
 		super(titleMatcher, clazz, matchers);
 	}
 	

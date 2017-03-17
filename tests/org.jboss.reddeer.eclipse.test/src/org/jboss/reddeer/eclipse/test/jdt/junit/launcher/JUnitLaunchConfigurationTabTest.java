@@ -17,10 +17,10 @@ import org.jboss.reddeer.common.exception.RedDeerException;
 import org.jboss.reddeer.common.wait.TimePeriod;
 import org.jboss.reddeer.common.wait.WaitUntil;
 import org.jboss.reddeer.core.condition.ShellWithTextIsAvailable;
-import org.jboss.reddeer.eclipse.debug.ui.launchConfigurations.LaunchConfigurationDialog;
-import org.jboss.reddeer.eclipse.debug.ui.launchConfigurations.RunConfigurationDialog;
-import org.jboss.reddeer.eclipse.jdt.junit.launcher.JUnitLaunchConfiguration;
-import org.jboss.reddeer.eclipse.jdt.junit.launcher.JUnitLaunchConfigurationTab;
+import org.jboss.reddeer.eclipse.debug.ui.launchConfigurations.JUnitLaunchConfiguration;
+import org.jboss.reddeer.eclipse.debug.ui.launchConfigurations.JUnitLaunchConfigurationTab;
+import org.jboss.reddeer.eclipse.debug.ui.launchConfigurations.LaunchConfigurationsDialog;
+import org.jboss.reddeer.eclipse.debug.ui.launchConfigurations.RunConfigurationsDialog;
 import org.jboss.reddeer.eclipse.ui.perspectives.JavaPerspective;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.requirements.openperspective.OpenPerspectiveRequirement.OpenPerspective;
@@ -36,11 +36,11 @@ public class JUnitLaunchConfigurationTabTest {
 	
 	private static final String CONFIGURATION_NAME = JUnitLaunchConfigurationTabTest.class + "_test_config";
 
-	protected LaunchConfigurationDialog dialog;
+	protected LaunchConfigurationsDialog dialog;
 
 	@Before
 	public void openDialog(){
-		dialog = new RunConfigurationDialog();
+		dialog = new RunConfigurationsDialog();
 		dialog.open();
 	}
 	

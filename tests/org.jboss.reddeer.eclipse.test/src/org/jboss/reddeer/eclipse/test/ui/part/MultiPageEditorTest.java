@@ -14,9 +14,9 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 
-import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.PackageExplorer;
+import org.jboss.reddeer.eclipse.jdt.ui.packageview.PackageExplorerPart;
 import org.jboss.reddeer.eclipse.test.Activator;
-import org.jboss.reddeer.eclipse.ui.part.MultiPageEditor;
+import org.jboss.reddeer.eclipse.ui.part.MultiPageEditorPart;
 import org.jboss.reddeer.eclipse.ui.wizards.datatransfer.ExternalProjectImportWizardDialog;
 import org.jboss.reddeer.eclipse.ui.wizards.datatransfer.WizardProjectsImportPage;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
@@ -37,7 +37,7 @@ public class MultiPageEditorTest {
 	
 	protected static final String FILE_NAME = "file.xml";
 	
-	private static MultiPageEditor editor;
+	private static MultiPageEditorPart editor;
 	
 	@BeforeClass
 	public static void importProject(){
@@ -50,16 +50,16 @@ public class MultiPageEditorTest {
 
 		wizard.finish();
 		
-		PackageExplorer explorer = new PackageExplorer();
+		PackageExplorerPart explorer = new PackageExplorerPart();
 		explorer.open();
 		explorer.getProject(PROJECT_NAME).getProjectItem(FILE_NAME).open();
 		
-		editor = new MultiPageEditor(FILE_NAME);
+		editor = new MultiPageEditorPart(FILE_NAME);
 	}
 	
 	@AfterClass
 	public static void cleanProject(){
-		PackageExplorer explorer = new PackageExplorer();
+		PackageExplorerPart explorer = new PackageExplorerPart();
 		explorer.open();
 		explorer.getProject(PROJECT_NAME).delete(true);
 	}
@@ -70,7 +70,7 @@ public class MultiPageEditorTest {
 		new DefaultTreeItem("a", "b1");
 		
 		// loose focus
-		new PackageExplorer().open();
+		new PackageExplorerPart().open();
 		
 		editor.selectPage("Source");
 		assertTrue(new DefaultStyledText().getText().contains("</a>"));

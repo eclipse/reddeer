@@ -12,8 +12,8 @@ package org.jboss.reddeer.eclipse.test.wst.jsdt.ui.wizards;
 
 import static org.junit.Assert.assertTrue;
 
-import org.jboss.reddeer.eclipse.jdt.ui.ProjectExplorer;
-import org.jboss.reddeer.eclipse.wst.jsdt.ui.wizards.JavaProjectWizardDialog;
+import org.jboss.reddeer.eclipse.ui.navigator.resources.ProjectExplorer;
+import org.jboss.reddeer.eclipse.wst.jsdt.ui.wizards.JavaProjectWizard;
 import org.jboss.reddeer.eclipse.wst.jsdt.ui.wizards.JavaProjectWizardFirstPage;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.requirements.cleanworkspace.CleanWorkspaceRequirement.CleanWorkspace;
@@ -28,7 +28,7 @@ public class JavaProjectWizardFirstPageTest {
 
 	@Test
 	public void setName() {
-		JavaProjectWizardDialog dialog = new JavaProjectWizardDialog();
+		JavaProjectWizard dialog = new JavaProjectWizard();
 		dialog.open();
 		JavaProjectWizardFirstPage dialogPage = new JavaProjectWizardFirstPage();
 		dialogPage.setName(PROJECT_NAME);

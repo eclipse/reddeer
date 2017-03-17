@@ -12,7 +12,7 @@ package org.jboss.reddeer.eclipse.test.ui.dialogs;
 
 import static org.junit.Assert.assertTrue;
 
-import org.jboss.reddeer.eclipse.ui.dialogs.PerspectivesPreferencePage;
+import org.jboss.reddeer.eclipse.ui.ide.dialogs.IDEPerspectivesPreferencePage;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.workbench.ui.dialogs.WorkbenchPreferenceDialog;
@@ -30,8 +30,8 @@ public class PerspectivesPreferencePageTest {
 	public void checkAllPreferences() {
 
 		preferencesDialog.open();
-		PerspectivesPreferencePage perspectivesPreferencePage = 
-			new PerspectivesPreferencePage();
+		IDEPerspectivesPreferencePage perspectivesPreferencePage = 
+			new IDEPerspectivesPreferencePage();
 		preferencesDialog.select(perspectivesPreferencePage);
 
 		perspectivesPreferencePage.checkAlwaysOpenAssociatedPerspective();

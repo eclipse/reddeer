@@ -12,8 +12,8 @@ package org.jboss.reddeer.eclipse.test.equinox.security.ui;
 
 import static org.junit.Assert.assertTrue;
 
-import org.jboss.reddeer.eclipse.equinox.security.ui.StoragePreferencePage;
 import org.jboss.reddeer.workbench.ui.dialogs.WorkbenchPreferenceDialog;
+import org.jboss.reddeer.eclipse.equinox.security.ui.storage.StoragePreferencePage;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.swt.impl.tab.DefaultTabItem;
 import org.jboss.reddeer.swt.impl.table.DefaultTable;

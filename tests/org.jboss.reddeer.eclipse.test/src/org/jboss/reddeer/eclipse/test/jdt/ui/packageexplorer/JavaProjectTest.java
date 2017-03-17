@@ -12,7 +12,7 @@ package org.jboss.reddeer.eclipse.test.jdt.ui.packageexplorer;
 
 import org.jboss.reddeer.eclipse.core.resources.JavaProject;
 import org.jboss.reddeer.eclipse.core.resources.Project;
-import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.PackageExplorer;
+import org.jboss.reddeer.eclipse.jdt.ui.packageview.PackageExplorerPart;
 import org.jboss.reddeer.eclipse.jdt.ui.wizards.JavaProjectWizard;
 import org.jboss.reddeer.eclipse.jdt.ui.wizards.NewJavaProjectWizardPageOne;
 import org.jboss.reddeer.eclipse.utils.DeleteUtils;
@@ -26,7 +26,7 @@ import org.junit.runner.RunWith;
 public class JavaProjectTest {
 
 	private static final String PROJECT_NAME_0 = "JavaTestProject0";
-	private static PackageExplorer packageExplorer;
+	private static PackageExplorerPart packageExplorer;
 		
 	@BeforeClass
 	public static void setUp(){
@@ -36,7 +36,7 @@ public class JavaProjectTest {
 		page1.setProjectName(PROJECT_NAME_0);
 		dialog.finish();
 
-		packageExplorer = new PackageExplorer();
+		packageExplorer = new PackageExplorerPart();
 		packageExplorer.open();
 	}
 	

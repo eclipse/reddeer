@@ -14,8 +14,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.jboss.reddeer.common.condition.AbstractWaitCondition;
-import org.jboss.reddeer.eclipse.jdt.ui.AbstractExplorer;
-import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.PackageExplorer;
+import org.jboss.reddeer.eclipse.jdt.ui.packageview.PackageExplorerPart;
+import org.jboss.reddeer.eclipse.ui.navigator.resources.AbstractExplorer;
 
 /**
  * Returns true if project exists in explorer
@@ -33,7 +33,7 @@ public class ProjectExists extends AbstractWaitCondition{
 	 * @param projectName name of the project to find
 	 */
 	public ProjectExists(String projectName) {
-		this(projectName , new PackageExplorer());
+		this(projectName , new PackageExplorerPart());
 	}
 	
 	/**

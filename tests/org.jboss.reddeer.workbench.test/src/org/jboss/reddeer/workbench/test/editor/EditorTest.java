@@ -17,12 +17,12 @@ import static org.junit.Assert.assertTrue;
 
 import java.lang.reflect.Field;
 
-import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.PackageExplorer;
-import org.jboss.reddeer.eclipse.ui.dialogs.WizardNewProjectCreationPage;
-import org.jboss.reddeer.eclipse.ui.ide.NewFileCreationWizardDialog;
-import org.jboss.reddeer.eclipse.ui.ide.NewFileCreationWizardPage;
-import org.jboss.reddeer.eclipse.ui.views.ProblemsView;
+import org.jboss.reddeer.eclipse.jdt.ui.packageview.PackageExplorerPart;
+import org.jboss.reddeer.eclipse.ui.dialogs.WizardNewFileCreationPage;
+import org.jboss.reddeer.eclipse.ui.views.markers.ProblemsView;
+import org.jboss.reddeer.eclipse.ui.wizards.newresource.BasicNewFileResourceWizard;
 import org.jboss.reddeer.eclipse.ui.wizards.newresource.BasicNewProjectResourceWizard;
+import org.jboss.reddeer.eclipse.ui.wizards.newresource.BasicNewProjectResourceWizardFirstPage;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.requirements.cleanworkspace.CleanWorkspaceRequirement;
 import org.jboss.reddeer.requirements.cleanworkspace.CleanWorkspaceRequirement.CleanWorkspace;
@@ -49,18 +49,18 @@ public class EditorTest {
 	public static void setupClass() {
 		BasicNewProjectResourceWizard projectWizard = new BasicNewProjectResourceWizard();
 		projectWizard.open();
-		new WizardNewProjectCreationPage().setProjectName(PROJECT_NAME);
+		new BasicNewProjectResourceWizardFirstPage().setProjectName(PROJECT_NAME);
 		projectWizard.finish();
-		NewFileCreationWizardDialog newFileDialog = new NewFileCreationWizardDialog();
+		BasicNewFileResourceWizard newFileDialog = new BasicNewFileResourceWizard();
 		newFileDialog.open();
-		NewFileCreationWizardPage page = new NewFileCreationWizardPage();
+		WizardNewFileCreationPage page = new WizardNewFileCreationPage();
 		page.setFileName("editorTest.min");
 		page.setFolderPath(PROJECT_NAME);
 		newFileDialog.finish();
 		new DefaultEditor().close(false);
-		newFileDialog = new NewFileCreationWizardDialog();
+		newFileDialog = new BasicNewFileResourceWizard();
 		newFileDialog.open();
-		page = new NewFileCreationWizardPage();
+		page = new WizardNewFileCreationPage();
 		page.setFileName("editorTest1.min");
 		page.setFolderPath(PROJECT_NAME);
 		newFileDialog.finish();
@@ -69,7 +69,7 @@ public class EditorTest {
 
 	@Before
 	public void setup() {
-		PackageExplorer packageExplorer = new PackageExplorer();
+		PackageExplorerPart packageExplorer = new PackageExplorerPart();
 		packageExplorer.open();
 		packageExplorer.getProject(PROJECT_NAME).getProjectItem("editorTest.min").open();
 	}
@@ -170,7 +170,7 @@ public class EditorTest {
 	public void getEditorByTitleTest() {
 		DefaultEditor editor = new DefaultEditor("editorTest.min");
 		assertNotNull(editor);
-		PackageExplorer packageExplorer = new PackageExplorer();
+		PackageExplorerPart packageExplorer = new PackageExplorerPart();
 		packageExplorer.open();
 		packageExplorer.getProject(PROJECT_NAME).getProjectItem("editorTest1.min").open();
 		editor = new DefaultEditor("editorTest.min");
@@ -186,7 +186,7 @@ public class EditorTest {
 
 	@Test
 	public void switchEditorTest() {
-		PackageExplorer packageExplorer = new PackageExplorer();
+		PackageExplorerPart packageExplorer = new PackageExplorerPart();
 		packageExplorer.open();
 		packageExplorer.getProject(PROJECT_NAME).getProjectItem("editorTest1.min").open();
 		assertTrue(new DefaultEditor().isActive());
@@ -198,7 +198,7 @@ public class EditorTest {
 	@Test(expected = WorkbenchCoreLayerException.class)
 	public void closeNotActiveEditorTest() {
 		Editor editor = new DefaultEditor();
-		PackageExplorer packageExplorer = new PackageExplorer();
+		PackageExplorerPart packageExplorer = new PackageExplorerPart();
 		packageExplorer.open();
 		packageExplorer.getProject(PROJECT_NAME).getProjectItem("editorTest1.min").open();
 		editor.close(false);
@@ -239,7 +239,7 @@ public class EditorTest {
 	}
 
 	private void openFile(String fileName) {
-		PackageExplorer packageExplorer = new PackageExplorer();
+		PackageExplorerPart packageExplorer = new PackageExplorerPart();
 		packageExplorer.open();
 		packageExplorer.getProject(PROJECT_NAME).getProjectItem(fileName).open();
 	}

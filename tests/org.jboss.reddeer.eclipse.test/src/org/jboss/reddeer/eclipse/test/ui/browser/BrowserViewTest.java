@@ -13,7 +13,7 @@ package org.jboss.reddeer.eclipse.test.ui.browser;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 
-import org.jboss.reddeer.eclipse.ui.browser.BrowserView;
+import org.jboss.reddeer.eclipse.ui.browser.WebBrowserView;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.junit.After;
 import org.junit.Before;
@@ -23,14 +23,14 @@ import org.junit.runner.RunWith;
 //@Ignore	// https://github.com/jboss-reddeer/reddeer/issues/219
 @RunWith(RedDeerSuite.class)
 public class BrowserViewTest {
-	protected static BrowserView browserView;
+	protected static WebBrowserView browserView;
 
 	protected static final String FIRST_PAGE = "https://www.google.cz/?q=redhat";
 	protected static final String SECOND_PAGE = "https://www.google.cz/?q=jboss";
 	
 	@Before
 	public void openBrowser(){
-		browserView = new BrowserView();
+		browserView = new WebBrowserView();
 		browserView.open();
 	}
 	

@@ -17,9 +17,9 @@ import static org.junit.Assert.assertThat;
 import java.util.List;
 
 import org.jboss.reddeer.eclipse.exception.EclipseLayerException;
-import org.jboss.reddeer.eclipse.wst.server.ui.view.DefaultServer;
-import org.jboss.reddeer.eclipse.wst.server.ui.view.Server;
-import org.jboss.reddeer.eclipse.wst.server.ui.wizard.NewServerWizardDialog;
+import org.jboss.reddeer.eclipse.wst.server.ui.cnf.DefaultServer;
+import org.jboss.reddeer.eclipse.wst.server.ui.cnf.Server;
+import org.jboss.reddeer.eclipse.wst.server.ui.wizard.NewServerWizard;
 import org.jboss.reddeer.swt.api.Shell;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.junit.Test;
@@ -39,7 +39,7 @@ public class ServersViewTest extends ServersViewTestCase{
 		wizardDialog = getServersView().newServer();
 
 		Shell shell = new DefaultShell();
-		assertThat(shell.getText(), is(NewServerWizardDialog.TITLE));
+		assertThat(shell.getText(), is(NewServerWizard.TITLE));
 	}
 
 	@Test

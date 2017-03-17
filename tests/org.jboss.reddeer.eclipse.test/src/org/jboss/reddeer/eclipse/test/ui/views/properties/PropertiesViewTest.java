@@ -17,11 +17,11 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.jboss.reddeer.core.exception.CoreLayerException;
-import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.PackageExplorer;
+import org.jboss.reddeer.eclipse.jdt.ui.packageview.PackageExplorerPart;
 import org.jboss.reddeer.eclipse.jdt.ui.wizards.JavaProjectWizard;
 import org.jboss.reddeer.eclipse.jdt.ui.wizards.NewJavaProjectWizardPageOne;
 import org.jboss.reddeer.eclipse.ui.perspectives.JavaPerspective;
-import org.jboss.reddeer.eclipse.ui.views.properties.PropertiesView;
+import org.jboss.reddeer.eclipse.ui.views.properties.PropertySheet;
 import org.jboss.reddeer.eclipse.ui.views.properties.PropertiesViewProperty;
 import org.jboss.reddeer.eclipse.utils.DeleteUtils;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
@@ -47,13 +47,13 @@ public class PropertiesViewTest {
 		NewJavaProjectWizardPageOne page1 =new NewJavaProjectWizardPageOne();
 		page1.setProjectName(PropertiesViewTest.TEST_PROJECT_NAME);
 		dialog.finish();
-		new PackageExplorer().getProject(PropertiesViewTest.TEST_PROJECT_NAME)
+		new PackageExplorerPart().getProject(PropertiesViewTest.TEST_PROJECT_NAME)
 				.getTreeItem().select();
 	}
 	
 	@Test
 	public void getProperty(){
-		PropertiesView propertiesView = new PropertiesView();
+		PropertySheet propertiesView = new PropertySheet();
 		propertiesView.open();
 		propertiesView.toggleShowCategories(true);
 		String namePropertyValue = propertiesView.getProperty("Info","name")
@@ -65,7 +65,7 @@ public class PropertiesViewTest {
 
 	@Test
 	public void getProperties(){
-		PropertiesView propertiesView = new PropertiesView();
+		PropertySheet propertiesView = new PropertySheet();
 		propertiesView.open();
 		propertiesView.toggleShowCategories(true);
 		List<PropertiesViewProperty> properties = propertiesView.getProperties();
@@ -85,13 +85,13 @@ public class PropertiesViewTest {
 	
 	@Test(expected=CoreLayerException.class)
 	public void getNonExistingProperty(){
-		PropertiesView propertiesView = new PropertiesView();
+		PropertySheet propertiesView = new PropertySheet();
 		propertiesView.getProperty("@#$_NON_EXISTING_PROPERTY_%^$");
 	}
 	
 	@Test
 	public void toggleShowCategories(){
-		PropertiesView propertiesView = new PropertiesView();
+		PropertySheet propertiesView = new PropertySheet();
 		propertiesView.open();
 		propertiesView.toggleShowCategories(true);
 		final String infoPropName="Info";
@@ -105,7 +105,7 @@ public class PropertiesViewTest {
 	}
 	@After
 	public void tearDown() {
-		PackageExplorer packageExplorer = new PackageExplorer();
+		PackageExplorerPart packageExplorer = new PackageExplorerPart();
 		packageExplorer.open();
 		if (packageExplorer.containsProject(PropertiesViewTest.TEST_PROJECT_NAME)) {
 			DeleteUtils.forceProjectDeletion(packageExplorer.getProject(PropertiesViewTest.TEST_PROJECT_NAME),
@@ -113,7 +113,7 @@ public class PropertiesViewTest {
 		}
 	}
 	
-	private boolean containsProperty(PropertiesView propertiesView , String... propertyNamePath){
+	private boolean containsProperty(PropertySheet propertiesView , String... propertyNamePath){
 		boolean result = false;
 		try{
 			propertiesView.getProperty(propertyNamePath);

@@ -18,19 +18,19 @@ import java.io.File;
 
 import org.jboss.reddeer.common.wait.TimePeriod;
 import org.jboss.reddeer.common.wait.WaitUntil;
+import org.jboss.reddeer.eclipse.condition.LaunchIsSuspended;
+import org.jboss.reddeer.eclipse.condition.LaunchIsTerminated;
 import org.jboss.reddeer.eclipse.core.resources.Project;
 import org.jboss.reddeer.eclipse.core.resources.ProjectItem;
-import org.jboss.reddeer.eclipse.debug.core.Breakpoint;
-import org.jboss.reddeer.eclipse.debug.core.BreakpointsView;
-import org.jboss.reddeer.eclipse.debug.core.DebugView;
-import org.jboss.reddeer.eclipse.debug.core.IsSuspended;
-import org.jboss.reddeer.eclipse.debug.core.IsTerminated;
-import org.jboss.reddeer.eclipse.debug.core.ResumeButton;
-import org.jboss.reddeer.eclipse.debug.core.VariablesView;
-import org.jboss.reddeer.eclipse.jdt.ui.ProjectExplorer;
+import org.jboss.reddeer.eclipse.debug.ui.views.breakpoints.Breakpoint;
+import org.jboss.reddeer.eclipse.debug.ui.views.breakpoints.BreakpointsView;
+import org.jboss.reddeer.eclipse.debug.ui.views.launch.LaunchView;
+import org.jboss.reddeer.eclipse.debug.ui.views.launch.ResumeButton;
+import org.jboss.reddeer.eclipse.debug.ui.views.variables.VariablesView;
 import org.jboss.reddeer.eclipse.m2e.core.ui.wizard.MavenProjectWizard;
 import org.jboss.reddeer.eclipse.m2e.core.ui.wizard.MavenProjectWizardArchetypePage;
 import org.jboss.reddeer.eclipse.m2e.core.ui.wizard.MavenProjectWizardArchetypeParametersPage;
+import org.jboss.reddeer.eclipse.ui.navigator.resources.ProjectExplorer;
 import org.jboss.reddeer.eclipse.ui.perspectives.DebugPerspective;
 import org.jboss.reddeer.eclipse.utils.DeleteUtils;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
@@ -106,15 +106,15 @@ public class DebuggerTest {
 		ProjectItem appTest = appProject.getProjectItem("src/test/java", "com.example.debugger", "AppTest.java");
 		appTest.debugAs("JUnit Test");
 
-		new WaitUntil(new IsSuspended());
-		Assert.assertEquals("AppTest.suite() line: 28", new DebugView().getSelectedText());
+		new WaitUntil(new LaunchIsSuspended());
+		Assert.assertEquals("AppTest.suite() line: 28", new LaunchView().getSelectedText());
 		new ResumeButton().click();
-		new WaitUntil(new IsSuspended());
-		assertEquals("AppTest.testApp() line: 36", new DebugView().getSelectedText());
-		new DebugView().getSelectedItem().select();
+		new WaitUntil(new LaunchIsSuspended());
+		assertEquals("AppTest.testApp() line: 36", new LaunchView().getSelectedText());
+		new LaunchView().getSelectedItem().select();
 		assertEquals("testApp(com.example.debugger.AppTest)", new VariablesView().getValue("this"));
 		new ResumeButton().click();
-		new WaitUntil(new IsTerminated());
+		new WaitUntil(new LaunchIsTerminated());
 	}
 
 	@Test
@@ -133,10 +133,10 @@ public class DebuggerTest {
 		ProjectItem appTest = appProject.getProjectItem("src/test/java", "com.example.debugger", "AppTest.java");
 		appTest.debugAs("JUnit Test");
 
-		new WaitUntil(new IsSuspended());
-		assertEquals("AppTest.suite() line: 28", new DebugView().getSelectedText());
+		new WaitUntil(new LaunchIsSuspended());
+		assertEquals("AppTest.suite() line: 28", new LaunchView().getSelectedText());
 		new ResumeButton().click();
-		new WaitUntil(new IsTerminated());
+		new WaitUntil(new LaunchIsTerminated());
 	}
 
 	@Test
@@ -156,10 +156,10 @@ public class DebuggerTest {
 		ProjectItem appTest = appProject.getProjectItem("src/test/java", "com.example.debugger", "AppTest.java");
 		appTest.debugAs("JUnit Test");
 
-		new WaitUntil(new IsSuspended());
-		assertEquals("AppTest.testApp() line: 36", new DebugView().getSelectedText());
+		new WaitUntil(new LaunchIsSuspended());
+		assertEquals("AppTest.testApp() line: 36", new LaunchView().getSelectedText());
 		new ResumeButton().click();
-		new WaitUntil(new IsTerminated());
+		new WaitUntil(new LaunchIsTerminated());
 	}
 
 }

@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 
 import org.jboss.reddeer.common.condition.AbstractWaitCondition;
 import org.jboss.reddeer.common.exception.RedDeerException;
-import org.jboss.reddeer.eclipse.wst.server.ui.view.ServersView;
+import org.jboss.reddeer.eclipse.wst.server.ui.cnf.ServersView2;
 
 /**
  * Returns true, if there is server with specified name
@@ -25,7 +25,7 @@ import org.jboss.reddeer.eclipse.wst.server.ui.view.ServersView;
  */
 public class ServerExists extends AbstractWaitCondition {
 
-	private ServersView view;
+	private ServersView2 view;
 	
 	private String name;
 	
@@ -36,7 +36,7 @@ public class ServerExists extends AbstractWaitCondition {
 	 */
 	public ServerExists(String name) {
 		this.name = name;
-		view = new ServersView();
+		view = new ServersView2();
 		view.open();
 	}
 

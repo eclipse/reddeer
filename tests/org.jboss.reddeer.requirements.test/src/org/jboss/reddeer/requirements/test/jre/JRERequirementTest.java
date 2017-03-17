@@ -16,8 +16,8 @@ import static org.junit.Assert.assertTrue;
 import java.io.File;
 import java.util.List;
 
+import org.jboss.reddeer.eclipse.jdt.debug.ui.jres.JREsPreferencePage;
 import org.jboss.reddeer.eclipse.jdt.ui.preferences.JREItem;
-import org.jboss.reddeer.eclipse.jdt.ui.preferences.JREsPreferencePage;
 import org.jboss.reddeer.junit.requirement.inject.InjectRequirement;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.requirements.jre.JRERequirement;
