@@ -24,7 +24,7 @@ import org.jboss.reddeer.swt.widgets.AbstractWidget;
  * @author Andrej Podhradsky
  * 
  */
-public class AbstractTabFolder extends AbstractWidget<org.eclipse.swt.widgets.TabFolder> implements TabFolder {
+public abstract class AbstractTabFolder extends AbstractWidget<org.eclipse.swt.widgets.TabFolder> implements TabFolder {
 
 	protected AbstractTabFolder(ReferencedComposite refComposite, int index, Matcher<?>... matchers){
 		super(org.eclipse.swt.widgets.TabFolder.class, refComposite, index, matchers);

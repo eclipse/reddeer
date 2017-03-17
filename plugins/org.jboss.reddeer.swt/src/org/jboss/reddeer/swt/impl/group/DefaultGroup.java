@@ -10,13 +10,10 @@
  ******************************************************************************/ 
 package org.jboss.reddeer.swt.impl.group;
 
-import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Group;
 import org.hamcrest.Matcher;
-import org.jboss.reddeer.core.handler.WidgetHandler;
 import org.jboss.reddeer.core.matcher.WithMnemonicTextMatcher;
 import org.jboss.reddeer.core.reference.ReferencedComposite;
-import org.jboss.reddeer.swt.widgets.AbstractWidget;
 
 /**
  * Default Group implementation
@@ -24,7 +21,7 @@ import org.jboss.reddeer.swt.widgets.AbstractWidget;
  * @since 0.4
  *
  */
-public class DefaultGroup extends AbstractWidget<Group> implements org.jboss.reddeer.swt.api.Group {
+public class DefaultGroup extends AbstractGroup {
 
 	/**
 	 * Default group constructor.
@@ -102,24 +99,6 @@ public class DefaultGroup extends AbstractWidget<Group> implements org.jboss.red
 	 * @param matchers the matchers
 	 */
 	public DefaultGroup(ReferencedComposite referencedComposite, int index, Matcher<?>... matchers){
-		super(Group.class, referencedComposite, index, matchers);
-	}
-
-	/* (non-Javadoc)
-	 * @see org.jboss.reddeer.swt.api.Group#getText()
-	 */
-	@Override
-	public String getText() {
-		return WidgetHandler.getInstance().getText(swtWidget);
-	}
-
-	/**
-	 * Gets the control.
-	 *
-	 * @return the control
-	 */
-	@Override
-	public Control getControl() {
-		return swtWidget;
+		super(referencedComposite, index, matchers);
 	}
 }
