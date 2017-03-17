@@ -16,6 +16,7 @@ import static org.junit.Assert.assertFalse;
 
 import java.io.File;
 
+import org.jboss.reddeer.common.wait.TimePeriod;
 import org.jboss.reddeer.common.wait.WaitUntil;
 import org.jboss.reddeer.eclipse.core.resources.Project;
 import org.jboss.reddeer.eclipse.core.resources.ProjectItem;
@@ -71,7 +72,7 @@ public class DebuggerTest {
 		MavenProjectWizardArchetypeParametersPage artifactPage = new MavenProjectWizardArchetypeParametersPage();
 		artifactPage.setGroupId("com.example");
 		artifactPage.setArtifactId("debugger");
-		mavenProjectWizard.finish();
+		mavenProjectWizard.finish(TimePeriod.VERY_LONG);
 	}
 
 	@Before
