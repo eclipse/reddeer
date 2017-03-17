@@ -10,19 +10,12 @@
  ******************************************************************************/ 
 package org.jboss.reddeer.eclipse.jst.j2ee.wizard;
 
-import org.jboss.reddeer.common.wait.AbstractWait;
-import org.jboss.reddeer.common.wait.TimePeriod;
-import org.jboss.reddeer.common.wait.WaitUntil;
-import org.jboss.reddeer.common.wait.WaitWhile;
 import org.jboss.reddeer.eclipse.jst.servlet.ui.project.facet.WebProjectWizard;
 import org.jboss.reddeer.jface.wizard.WizardPage;
-import org.jboss.reddeer.swt.condition.WidgetIsEnabled;
 import org.jboss.reddeer.swt.impl.button.CheckBox;
 import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.button.RadioButton;
-import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.jboss.reddeer.swt.impl.text.DefaultText;
-import org.jboss.reddeer.workbench.core.condition.JobIsRunning;
 
 public class NewJ2EEComponentSelectionPage extends WizardPage{
 	
@@ -227,19 +220,6 @@ public class NewJ2EEComponentSelectionPage extends WizardPage{
 	 */
 	public String getConnectorModuleName(){
 		return new DefaultText(3).getText();
-	}
-	
-
-	/**
-	 * Finish.
-	 */
-	public void finish(){
-		new WaitUntil(new WidgetIsEnabled(new PushButton("Finish")));
-		new PushButton("Finish").click();
-		new WaitWhile(new JobIsRunning());
-		new DefaultShell("New EAR Application Project");
-		//have to wait otherwise SWT exception is thrown
-		AbstractWait.sleep(TimePeriod.getCustom(3));
 	}
 	
 	
