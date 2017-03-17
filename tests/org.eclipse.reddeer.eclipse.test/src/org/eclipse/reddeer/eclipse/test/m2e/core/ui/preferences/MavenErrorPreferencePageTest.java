@@ -15,7 +15,6 @@ import static org.junit.Assert.assertTrue;
 import org.eclipse.reddeer.eclipse.m2e.core.ui.preferences.WarningsPreferencePage;
 import org.eclipse.reddeer.eclipse.m2e.core.ui.preferences.WarningsPreferencePage.MavenErrorSeverity;
 import org.eclipse.reddeer.junit.runner.RedDeerSuite;
-import org.eclipse.reddeer.swt.exception.SWTLayerException;
 import org.eclipse.reddeer.workbench.ui.dialogs.WorkbenchPreferenceDialog;
 import org.junit.After;
 import org.junit.Test;

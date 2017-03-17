@@ -17,7 +17,6 @@ import static org.junit.Assert.assertTrue;
 import java.util.List;
 
 import org.eclipse.reddeer.eclipse.ui.ide.ExtendedFileEditorsPreferencePage;
-import org.eclipse.reddeer.jface.preference.PreferenceDialog;
 import org.eclipse.reddeer.junit.runner.RedDeerSuite;
 import org.eclipse.reddeer.swt.api.TableItem;
 import org.eclipse.reddeer.swt.impl.button.PushButton;

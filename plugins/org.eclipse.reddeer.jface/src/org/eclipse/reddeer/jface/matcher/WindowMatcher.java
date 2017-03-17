@@ -14,8 +14,8 @@ import org.eclipse.jface.window.Window;
 import org.eclipse.swt.widgets.Shell;
 import org.hamcrest.BaseMatcher;
 import org.hamcrest.Description;
+import org.eclipse.reddeer.common.exception.RedDeerException;
 import org.eclipse.reddeer.core.handler.WidgetHandler;
-
 /**
  * Matches shell which is JFace Window
  * @author rawagner
@@ -33,9 +33,16 @@ public class WindowMatcher<T extends Window> extends BaseMatcher<T>{
 	@Override
 	public boolean matches(Object item) {
 		if(item instanceof Shell){
-			Object data = WidgetHandler.getInstance().getData((Shell)item);
-			if(data != null) {
-				return windowClass.isInstance(data);
+			try{
+				Object data = WidgetHandler.getInstance().getData((Shell)item);
+				if(data != null) {
+					return windowClass.isInstance(data);
+				}
+			} catch (RedDeerException e) {
+				if(((Shell) item).isDisposed()){
+					return false;
+				}
+				throw e;
 			}
 		}
 		return false;

@@ -29,6 +29,9 @@
       <client
       		class="org.eclipse.reddeer.junit.extension.log.collector.BeforesLogCollector">
       </client>
+      <client
+            class="org.eclipse.reddeer.junit.extension.before.test.impl.DisableAERI">
+      </client>
    </extension>
    <extension
          point="org.eclipse.reddeer.junit.after.test">

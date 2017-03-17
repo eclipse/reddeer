@@ -24,7 +24,9 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.ui.browser,
  org.eclipse.ui.workbench.texteditor,
  org.eclipse.ui.ide,
- org.eclipse.ui.views.log
+ org.eclipse.ui.views.log,
+ org.eclipse.reddeer.uiforms,
+ org.eclipse.ui.forms
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Export-Package: org.eclipse.reddeer.eclipse,
@@ -94,4 +96,5 @@ Export-Package: org.eclipse.reddeer.eclipse,
  org.eclipse.reddeer.eclipse.debug.ui.views.launch,
  org.eclipse.reddeer.eclipse.m2e.scm.wizards,
  org.eclipse.reddeer.eclipse.debug.ui.views.variables,
- org.eclipse.reddeer.eclipse.topmenu
+ org.eclipse.reddeer.eclipse.topmenu,
+ org.eclipse.reddeer.eclipse.epp.logging.aeri.ide.dialogs

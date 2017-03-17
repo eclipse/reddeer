@@ -10,12 +10,14 @@
  *******************************************************************************/
 package org.eclipse.reddeer.swt.api;
 
+import org.eclipse.reddeer.core.reference.ReferencedComposite;
+
 /**
  * API for scrolled composite manipulation.
  * 
  * @author Jiri Peterka
  *
  */
-public interface ScrolledComposite extends Control<org.eclipse.swt.custom.ScrolledComposite> {
+public interface ScrolledComposite extends Control<org.eclipse.swt.custom.ScrolledComposite>, ReferencedComposite {
 
 }

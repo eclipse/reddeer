@@ -37,4 +37,5 @@ Export-Package: org.eclipse.reddeer.swt.api,
  org.eclipse.reddeer.swt.impl.tree,
  org.eclipse.reddeer.swt.keyboard,
  org.eclipse.reddeer.swt.matcher,
- org.eclipse.reddeer.swt.widgets
+ org.eclipse.reddeer.swt.widgets,
+ org.eclipse.reddeer.swt.impl.composite
