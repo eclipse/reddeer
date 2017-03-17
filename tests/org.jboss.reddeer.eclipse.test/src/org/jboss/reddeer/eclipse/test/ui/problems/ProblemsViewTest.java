@@ -31,7 +31,7 @@ import org.jboss.reddeer.common.wait.WaitWhile;
 import org.jboss.reddeer.eclipse.condition.ExactNumberOfProblemsExists;
 import org.jboss.reddeer.eclipse.condition.ProblemExists;
 import org.jboss.reddeer.eclipse.condition.ProblemsViewIsEmpty;
-import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.PackageExplorer;
+import org.jboss.reddeer.eclipse.jdt.ui.packageview.PackageExplorerPart;
 import org.jboss.reddeer.eclipse.jdt.ui.wizards.JavaProjectWizard;
 import org.jboss.reddeer.eclipse.jdt.ui.wizards.NewClassCreationWizard;
 import org.jboss.reddeer.eclipse.jdt.ui.wizards.NewClassWizardPage;
@@ -42,11 +42,11 @@ import org.jboss.reddeer.eclipse.ui.markers.matcher.MarkerPathMatcher;
 import org.jboss.reddeer.eclipse.ui.markers.matcher.MarkerResourceMatcher;
 import org.jboss.reddeer.eclipse.ui.markers.matcher.MarkerTypeMatcher;
 import org.jboss.reddeer.eclipse.ui.problems.Problem;
-import org.jboss.reddeer.eclipse.ui.views.AbstractMarkersSupportView.Column;
-import org.jboss.reddeer.eclipse.ui.views.ProblemsView;
-import org.jboss.reddeer.eclipse.ui.views.ProblemsView.ProblemType;
+import org.jboss.reddeer.eclipse.ui.views.markers.ProblemsView;
 import org.jboss.reddeer.eclipse.ui.views.markers.QuickFixPage;
 import org.jboss.reddeer.eclipse.ui.views.markers.QuickFixWizard;
+import org.jboss.reddeer.eclipse.ui.views.markers.AbstractMarkersSupportView.Column;
+import org.jboss.reddeer.eclipse.ui.views.markers.ProblemsView.ProblemType;
 import org.jboss.reddeer.eclipse.utils.DeleteUtils;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.requirements.cleanworkspace.CleanWorkspaceRequirement.CleanWorkspace;
@@ -70,7 +70,7 @@ import org.junit.runner.RunWith;
 @CleanWorkspace
 public class ProblemsViewTest {
 
-	private PackageExplorer pkgExplorer;
+	private PackageExplorerPart pkgExplorer;
 	private ProblemsView problemsView;	
 
 	private static final String JAVA_PROBLEM = "Java Problem";
@@ -93,7 +93,7 @@ public class ProblemsViewTest {
 		dialog.finish();
 		problemsView = new ProblemsView();
 		problemsView.open();
-		pkgExplorer = new PackageExplorer();
+		pkgExplorer = new PackageExplorerPart();
 		pkgExplorer.open();
 	}
 	

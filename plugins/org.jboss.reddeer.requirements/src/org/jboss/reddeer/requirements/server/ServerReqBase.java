@@ -15,8 +15,8 @@ import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.eclipse.exception.EclipseLayerException;
 import org.jboss.reddeer.eclipse.wst.server.ui.Runtime;
 import org.jboss.reddeer.eclipse.wst.server.ui.RuntimePreferencePage;
-import org.jboss.reddeer.eclipse.wst.server.ui.view.ServersView;
-import org.jboss.reddeer.eclipse.wst.server.ui.view.ServersViewEnums.ServerState;
+import org.jboss.reddeer.eclipse.wst.server.ui.cnf.ServersView2;
+import org.jboss.reddeer.eclipse.wst.server.ui.cnf.ServersViewEnums.ServerState;
 import org.jboss.reddeer.workbench.ui.dialogs.WorkbenchPreferenceDialog;
 
 /**
@@ -39,7 +39,7 @@ public abstract class ServerReqBase {
 	
 	private static final Logger LOGGER = Logger.getLogger(ServerReqBase.class);
 	
-	private ServersView serversView;
+	private ServersView2 serversView;
 	
 	/**
 	 * Setup server state.
@@ -50,7 +50,7 @@ public abstract class ServerReqBase {
 	protected void setupServerState(ServerReqState requiredState) throws ConfiguredServerNotFoundException {
 		LOGGER.info("Checking the state of the server '"+getConfiguredConfig().getServerName()+"'");
 		
-		org.jboss.reddeer.eclipse.wst.server.ui.view.Server serverInView = getConfiguredServer();
+		org.jboss.reddeer.eclipse.wst.server.ui.cnf.Server serverInView = getConfiguredServer();
 		
 		ServerState state = serverInView.getLabel().getState();
 		switch(state) {
@@ -74,7 +74,7 @@ public abstract class ServerReqBase {
 	 */
 	protected void removeLastRequiredServerAndRuntime() {
 		try {
-			org.jboss.reddeer.eclipse.wst.server.ui.view.Server serverInView = getConfiguredServer();
+			org.jboss.reddeer.eclipse.wst.server.ui.cnf.Server serverInView = getConfiguredServer();
 			//remove server added by last requirement
 			serverInView.delete(true);
 			removeRuntime();
@@ -99,7 +99,7 @@ public abstract class ServerReqBase {
 	 * @return the configured server
 	 * @throws ConfiguredServerNotFoundException the configured server not found exception
 	 */
-	protected org.jboss.reddeer.eclipse.wst.server.ui.view.Server getConfiguredServer()
+	protected org.jboss.reddeer.eclipse.wst.server.ui.cnf.Server getConfiguredServer()
 			throws ConfiguredServerNotFoundException {
 		getServersView().open();
 		if(getConfiguredConfig() == null){
@@ -162,7 +162,7 @@ public abstract class ServerReqBase {
 	 *
 	 * @return the servers view
 	 */
-	protected ServersView getServersView() {
+	protected ServersView2 getServersView() {
 		if (serversView == null){
 			serversView = createServersView();
 		}
@@ -175,8 +175,8 @@ public abstract class ServerReqBase {
 	 *
 	 * @return the servers view
 	 */
-	protected ServersView createServersView() {
-		return new ServersView();
+	protected ServersView2 createServersView() {
+		return new ServersView2();
 	}
 	
 	public abstract IServerReqConfig getConfig();

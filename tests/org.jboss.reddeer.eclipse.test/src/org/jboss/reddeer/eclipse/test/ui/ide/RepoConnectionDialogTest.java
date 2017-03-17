@@ -12,24 +12,14 @@ package org.jboss.reddeer.eclipse.test.ui.ide;
 
 import static org.junit.Assert.assertTrue;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.jboss.reddeer.eclipse.equinox.security.ui.StoragePreferencePage;
-import org.jboss.reddeer.eclipse.mylyn.tasks.ui.view.TaskRepositoriesView;
-import org.jboss.reddeer.eclipse.mylyn.tasks.ui.view.TaskRepository;
+import org.jboss.reddeer.eclipse.equinox.security.ui.storage.StoragePreferencePage;
+import org.jboss.reddeer.eclipse.mylyn.tasks.ui.views.TaskRepositoriesView;
+import org.jboss.reddeer.eclipse.mylyn.tasks.ui.views.TaskRepository;
+import org.jboss.reddeer.eclipse.mylyn.tasks.ui.wizards.TaskRepositoryWizardDialog;
 import org.jboss.reddeer.workbench.ui.dialogs.WorkbenchPreferenceDialog;
-import org.jboss.reddeer.eclipse.ui.ide.RepoConnectionDialog;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.swt.api.TableItem;
-import org.jboss.reddeer.swt.api.TreeItem;
-import org.jboss.reddeer.swt.impl.button.PushButton;
-import org.jboss.reddeer.swt.impl.menu.ShellMenu;
 import org.jboss.reddeer.swt.impl.text.LabeledText;
-import org.jboss.reddeer.swt.impl.tree.DefaultTree;
-import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
-import org.jboss.reddeer.common.wait.AbstractWait;
-import org.jboss.reddeer.common.wait.TimePeriod;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -42,7 +32,7 @@ import org.junit.runner.RunWith;
  */
 @RunWith(RedDeerSuite.class)
 public class RepoConnectionDialogTest  {
-	RepoConnectionDialog repoConnectionDialog = null;
+	TaskRepositoryWizardDialog repoConnectionDialog = null;
 	
 	@Before
 	public void disableSecureStorage() {
@@ -54,19 +44,15 @@ public class RepoConnectionDialogTest  {
 		TaskRepositoriesView repositoriesView = new TaskRepositoriesView();
 		repositoriesView.open();
 		TaskRepository repo = repositoriesView.getTaskRepository("Eclipse.org");
-		repo.select();
+		repoConnectionDialog = repo.openProperties();
 		
-		new ShellMenu("File", "Properties").select();  
-		
-		repoConnectionDialog = new RepoConnectionDialog();
-		
-		assertTrue ("Properties title matches", repoConnectionDialog.getText().equals("Properties for Task Repository"));
+		assertTrue ("Properties title matches", repoConnectionDialog.getTitle().equals("Properties for Task Repository"));
 		
 		repoConnectionDialog.validateSettings();
 
 		assertTrue("Repo Connection Properties Invalid", new LabeledText("Bugzilla Repository Settings").getText().contains("Repository is valid"));
 	
-		repoConnectionDialog.close();
+		repoConnectionDialog.cancel();
 		
 		repoConnectionDialog = null;
 		
@@ -75,7 +61,7 @@ public class RepoConnectionDialogTest  {
 	@After
 	public void tearDown(){
 		if (repoConnectionDialog != null){
-			repoConnectionDialog.close();
+			repoConnectionDialog.cancel();
 		}
 		
 		setEnabledMasterPasswordPrompt(true);

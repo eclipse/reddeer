@@ -19,7 +19,7 @@ import org.jboss.reddeer.common.wait.WaitUntil;
 import org.jboss.reddeer.core.condition.ShellWithTextIsAvailable;
 import org.jboss.reddeer.core.exception.CoreLayerException;
 import org.jboss.reddeer.eclipse.debug.ui.launchConfigurations.LaunchConfiguration;
-import org.jboss.reddeer.eclipse.debug.ui.launchConfigurations.LaunchConfigurationDialog;
+import org.jboss.reddeer.eclipse.debug.ui.launchConfigurations.LaunchConfigurationsDialog;
 import org.jboss.reddeer.eclipse.ui.perspectives.JavaPerspective;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.requirements.openperspective.OpenPerspectiveRequirement.OpenPerspective;
@@ -33,7 +33,7 @@ import org.junit.runner.RunWith;
 @OpenPerspective(JavaPerspective.class)
 public abstract class AbstractLaunchConfigurationDialogTest {
 
-	protected LaunchConfigurationDialog dialog;
+	protected LaunchConfigurationsDialog dialog;
 	
 	protected abstract String getConfigurationName();
 	

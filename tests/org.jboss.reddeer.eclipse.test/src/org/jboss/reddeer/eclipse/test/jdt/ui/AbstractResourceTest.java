@@ -21,15 +21,15 @@ import org.jboss.reddeer.common.wait.TimePeriod;
 import org.jboss.reddeer.common.wait.WaitWhile;
 import org.jboss.reddeer.eclipse.core.resources.DefaultProject;
 import org.jboss.reddeer.eclipse.core.resources.ProjectItem;
-import org.jboss.reddeer.eclipse.jdt.ui.AbstractExplorer;
 import org.jboss.reddeer.eclipse.jdt.ui.wizards.JavaProjectWizard;
 import org.jboss.reddeer.eclipse.jdt.ui.wizards.NewClassCreationWizard;
 import org.jboss.reddeer.eclipse.jdt.ui.wizards.NewClassWizardPage;
 import org.jboss.reddeer.eclipse.jdt.ui.wizards.NewJavaProjectWizardPageOne;
 import org.jboss.reddeer.eclipse.ui.console.ConsoleView;
-import org.jboss.reddeer.eclipse.ui.ide.NewFileCreationWizardDialog;
-import org.jboss.reddeer.eclipse.ui.ide.NewFileCreationWizardPage;
+import org.jboss.reddeer.eclipse.ui.dialogs.WizardNewFileCreationPage;
+import org.jboss.reddeer.eclipse.ui.navigator.resources.AbstractExplorer;
 import org.jboss.reddeer.eclipse.ui.perspectives.JavaPerspective;
+import org.jboss.reddeer.eclipse.ui.wizards.newresource.BasicNewFileResourceWizard;
 import org.jboss.reddeer.eclipse.utils.DeleteUtils;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.requirements.openperspective.OpenPerspectiveRequirement.OpenPerspective;
@@ -168,10 +168,10 @@ public abstract class AbstractResourceTest {
 		new WaitWhile(new JobIsRunning(), TimePeriod.LONG);
 	}
 
-	private class NewFileCreationWizard extends NewFileCreationWizardPage {
+	private class NewFileCreationWizard extends WizardNewFileCreationPage {
 
 		public void createFile(String folder, String fileName) {
-			NewFileCreationWizardDialog wizard = new NewFileCreationWizardDialog();
+			BasicNewFileResourceWizard wizard = new BasicNewFileResourceWizard();
 			wizard.open();
 			setFileName(fileName);
 			setFolderPath(PROJECT_NAME, PROJECT_ITEM_TEXT, folder);

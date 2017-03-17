@@ -16,8 +16,8 @@ import java.io.File;
 import java.util.List;
 
 import org.jboss.reddeer.eclipse.core.resources.DefaultProject;
-import org.jboss.reddeer.eclipse.jdt.ui.ProjectExplorer;
 import org.jboss.reddeer.eclipse.test.Activator;
+import org.jboss.reddeer.eclipse.ui.navigator.resources.ProjectExplorer;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.junit.Assert;
 import org.junit.Test;

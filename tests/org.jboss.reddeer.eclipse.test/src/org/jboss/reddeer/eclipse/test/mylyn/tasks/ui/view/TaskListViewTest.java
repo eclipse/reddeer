@@ -12,7 +12,7 @@ package org.jboss.reddeer.eclipse.test.mylyn.tasks.ui.view;
 
 import static org.junit.Assert.assertTrue;
 
-import org.jboss.reddeer.eclipse.mylyn.tasks.ui.view.TaskListView;
+import org.jboss.reddeer.eclipse.mylyn.tasks.ui.views.TaskListView;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;

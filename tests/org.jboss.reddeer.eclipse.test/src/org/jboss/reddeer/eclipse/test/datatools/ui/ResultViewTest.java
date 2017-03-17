@@ -21,17 +21,16 @@ import org.jboss.reddeer.common.wait.WaitWhile;
 import org.jboss.reddeer.workbench.core.condition.JobIsRunning;
 import org.jboss.reddeer.core.condition.ShellWithTextIsAvailable;
 import org.jboss.reddeer.core.matcher.TreeItemRegexMatcher;
+import org.jboss.reddeer.eclipse.datatools.connectivity.ui.dialogs.DriverDialog;
+import org.jboss.reddeer.eclipse.datatools.connectivity.ui.dse.views.DataSourceExplorerView;
+import org.jboss.reddeer.eclipse.datatools.connectivity.ui.preferences.DriverPreferences;
+import org.jboss.reddeer.eclipse.datatools.connectivity.ui.wizards.NewCPWizard;
 import org.jboss.reddeer.eclipse.datatools.sqltools.result.ui.ResultView;
 import org.jboss.reddeer.eclipse.datatools.sqltools.result.ui.SQLResult;
 import org.jboss.reddeer.eclipse.datatools.sqltools.result.ui.SQLResultStatus;
 import org.jboss.reddeer.eclipse.datatools.ui.DatabaseProfile;
 import org.jboss.reddeer.eclipse.datatools.ui.DriverDefinition;
 import org.jboss.reddeer.eclipse.datatools.ui.DriverTemplate;
-import org.jboss.reddeer.eclipse.datatools.ui.preference.DriverDefinitionPreferencePage;
-import org.jboss.reddeer.eclipse.datatools.ui.view.DataSourceExplorer;
-import org.jboss.reddeer.eclipse.datatools.ui.wizard.ConnectionProfileWizard;
-import org.jboss.reddeer.eclipse.datatools.ui.wizard.DriverDefinitionPage;
-import org.jboss.reddeer.eclipse.datatools.ui.wizard.DriverDefinitionWizard;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.swt.api.Shell;
 import org.jboss.reddeer.swt.api.TableItem;
@@ -65,7 +64,7 @@ public class ResultViewTest {
 		// Driver definitions removal
 		WorkbenchPreferenceDialog preferenceDialog = new WorkbenchPreferenceDialog();
 		preferenceDialog.open();
-		DriverDefinitionPreferencePage preferencePage = new DriverDefinitionPreferencePage();
+		DriverPreferences preferencePage = new DriverPreferences();
 		preferenceDialog.select(preferencePage);
 		
 		List<TableItem> items = new DefaultTable().getItems();
@@ -81,7 +80,7 @@ public class ResultViewTest {
 		new WaitWhile(new JobIsRunning());
 		
 		// Connection profiles removal
-		DataSourceExplorer dse = new DataSourceExplorer();
+		DataSourceExplorerView dse = new DataSourceExplorerView();
 		dse.open();
 		DefaultTreeItem item = new DefaultTreeItem("Database Connections");
 		item.expand(TimePeriod.NORMAL);
@@ -96,7 +95,7 @@ public class ResultViewTest {
 
 		new WaitWhile(new JobIsRunning());
 		
-		DataSourceExplorer dataSourceExplorer = new DataSourceExplorer();
+		DataSourceExplorerView dataSourceExplorer = new DataSourceExplorerView();
 		dataSourceExplorer.open();
 		List<String> dbSources = dataSourceExplorer.getDatabaseConnections();
 		if (!dbSources.contains(profile)) {
@@ -106,7 +105,7 @@ public class ResultViewTest {
 	}		
 	
 	private static void performSQLStatement(String profile, String statement) {
-		DataSourceExplorer dse = new DataSourceExplorer();
+		DataSourceExplorerView dse = new DataSourceExplorerView();
 		dse.open();
 		@SuppressWarnings("unchecked")
 		TreeItem connectionItem = new DefaultTreeItem(new TreeItemRegexMatcher("Database Connections"), new TreeItemRegexMatcher(profile+".*"));
@@ -152,15 +151,14 @@ public class ResultViewTest {
 		WorkbenchPreferenceDialog d = new WorkbenchPreferenceDialog();
 		d.open();
 		d.select("Data Management", "Connectivity", "Driver Definitions");
-		DriverDefinitionPreferencePage preferencePage = new DriverDefinitionPreferencePage();		
-		DriverDefinitionWizard wizard = preferencePage
+		DriverPreferences preferencePage = new DriverPreferences();		
+		DriverDialog wizard = preferencePage
 				.addDriverDefinition();
-		DriverDefinitionPage page = new DriverDefinitionPage();
-		page.selectDriverTemplate("Generic JDBC Driver", "1.0");
-		page.setName(DRIVER_NAME);
-		page.addDriverLibrary(drvFile.getAbsolutePath());
-		page.setDriverClass("org.h2.Driver");
-		wizard.finish();
+		wizard.selectDriverTemplate("Generic JDBC Driver", "1.0");
+		wizard.setName(DRIVER_NAME);
+		wizard.addDriverLibrary(drvFile.getAbsolutePath());
+		wizard.setDriverClass("org.h2.Driver");
+		wizard.ok();
 		d.ok();
 
 		DatabaseProfile dbProfile = new DatabaseProfile();
@@ -175,7 +173,7 @@ public class ResultViewTest {
 		dbProfile.setVendor("Generic JDBC");
 
 		// Create connection profile
-		ConnectionProfileWizard w = new ConnectionProfileWizard();
+		NewCPWizard w = new NewCPWizard();
 		w.open();
 		w.createDatabaseProfile(dbProfile);
 	}

@@ -17,9 +17,9 @@ import org.jboss.reddeer.eclipse.condition.ServerExists;
 import org.jboss.reddeer.eclipse.test.Activator;
 import org.jboss.reddeer.eclipse.ui.wizards.datatransfer.ExternalProjectImportWizardDialog;
 import org.jboss.reddeer.eclipse.ui.wizards.datatransfer.WizardProjectsImportPage;
-import org.jboss.reddeer.eclipse.wst.server.ui.view.DefaultServer;
-import org.jboss.reddeer.eclipse.wst.server.ui.view.ServersView;
-import org.jboss.reddeer.eclipse.wst.server.ui.wizard.NewServerWizardDialog;
+import org.jboss.reddeer.eclipse.wst.server.ui.cnf.DefaultServer;
+import org.jboss.reddeer.eclipse.wst.server.ui.cnf.ServersView2;
+import org.jboss.reddeer.eclipse.wst.server.ui.wizard.NewServerWizard;
 import org.jboss.reddeer.eclipse.wst.server.ui.wizard.NewServerWizardPage;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
@@ -38,13 +38,13 @@ public class ServersViewTestCase {
 	
 	protected static final String PROJECT_3 = "server-project-3";
 	
-	private static ServersView serversView;
+	private static ServersView2 serversView;
 
-	protected static NewServerWizardDialog wizardDialog;
+	protected static NewServerWizard wizardDialog;
 	
 	@After
 	public void tearDown(){
-		if (wizardDialog != null && NewServerWizardDialog.TITLE.equals(new DefaultShell().getText())){
+		if (wizardDialog != null && NewServerWizard.TITLE.equals(new DefaultShell().getText())){
 			wizardDialog.cancel();
 		}
 	}
@@ -56,9 +56,9 @@ public class ServersViewTestCase {
 		}
 	}
 	
-	public static ServersView getServersView() {
+	public static ServersView2 getServersView() {
 		if (serversView == null){
-			serversView = new ServersView();
+			serversView = new ServersView2();
 			serversView.open();
 		}
 		return serversView;

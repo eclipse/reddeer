@@ -11,7 +11,7 @@
 package org.jboss.reddeer.eclipse.ui.markers.matcher;
 
 import org.hamcrest.Matcher;
-import org.jboss.reddeer.eclipse.ui.views.AbstractMarkersSupportView.Column;
+import org.jboss.reddeer.eclipse.ui.views.markers.AbstractMarkersSupportView.Column;
 
 /**
  * Marker matcher for column Creation Time of a marker.

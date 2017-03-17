@@ -14,8 +14,8 @@ import java.util.List;
 
 import org.jboss.reddeer.common.wait.WaitWhile;
 import org.jboss.reddeer.core.condition.ShellWithTextIsAvailable;
-import org.jboss.reddeer.eclipse.jdt.ui.ProjectExplorer;
-import org.jboss.reddeer.eclipse.ui.views.properties.PropertiesView;
+import org.jboss.reddeer.eclipse.ui.navigator.resources.ProjectExplorer;
+import org.jboss.reddeer.eclipse.ui.views.properties.PropertySheet;
 import org.jboss.reddeer.eclipse.ui.views.properties.TabbedPropertyList;
 import org.jboss.reddeer.gef.editor.GEFEditor;
 import org.jboss.reddeer.gef.impl.editpart.LabeledEditPart;
@@ -45,7 +45,7 @@ public class TabbedPropertiesTest {
 	@BeforeClass
 	public static void createGeneralProjectAndXsdFile() {
 		new ProjectExplorer().open();
-		new PropertiesView().open();
+		new PropertySheet().open();
 
 		new ShellMenu("File", "New", "Project...").select();
 		new DefaultShell("New Project");
@@ -82,7 +82,7 @@ public class TabbedPropertiesTest {
 		new GEFEditor("NewXMLSchema.xsd");
 		new LabeledEditPart("Elements").select();
 
-		new PropertiesView().open();
+		new PropertySheet().open();
 		new TabbedPropertyList().selectTab("Advanced");
 		new TabbedPropertyList().selectTab("General");
 		new TabbedPropertyList().selectTab("Documentation");
@@ -97,7 +97,7 @@ public class TabbedPropertiesTest {
 		new GEFEditor("NewXMLSchema.xsd");
 		new LabeledEditPart("Elements").select();
 
-		new PropertiesView().open();
+		new PropertySheet().open();
 		List<String> tabs = new TabbedPropertyList().getTabs();
 		Assert.assertEquals(4, tabs.size());
 		Assert.assertEquals("General", tabs.get(0));

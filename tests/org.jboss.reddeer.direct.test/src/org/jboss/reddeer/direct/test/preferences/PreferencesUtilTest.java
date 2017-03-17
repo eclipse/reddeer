@@ -15,7 +15,7 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import org.jboss.reddeer.direct.preferences.PreferencesUtil;
-import org.jboss.reddeer.eclipse.ui.dialogs.PerspectivesPreferencePage;
+import org.jboss.reddeer.eclipse.ui.ide.dialogs.IDEPerspectivesPreferencePage;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.swt.api.Menu;
 import org.jboss.reddeer.swt.impl.menu.ShellMenu;
@@ -59,7 +59,7 @@ public class PreferencesUtilTest {
 	@Test
 	public void getOpenAssociatedPerspectiveTest() {
 		WorkbenchPreferenceDialog preferencesDialog = new WorkbenchPreferenceDialog();
-		PerspectivesPreferencePage perspectivesPreferencePage = new PerspectivesPreferencePage();
+		IDEPerspectivesPreferencePage perspectivesPreferencePage = new IDEPerspectivesPreferencePage();
 		preferencesDialog.open();
 		preferencesDialog.select(perspectivesPreferencePage);
 
@@ -83,7 +83,7 @@ public class PreferencesUtilTest {
 		PreferencesUtil.setOpenAssociatedPerspective("always");
 
 		WorkbenchPreferenceDialog preferencesDialog = new WorkbenchPreferenceDialog();
-		PerspectivesPreferencePage perspectivesPreferencePage = new PerspectivesPreferencePage();
+		IDEPerspectivesPreferencePage perspectivesPreferencePage = new IDEPerspectivesPreferencePage();
 		preferencesDialog.open();
 		preferencesDialog.select(perspectivesPreferencePage);
 		assertTrue(perspectivesPreferencePage.isAlwaysOpenAssociatedPerspective());

@@ -18,8 +18,8 @@ import java.util.List;
 
 import org.jboss.reddeer.eclipse.exception.EclipseLayerException;
 import org.jboss.reddeer.eclipse.rse.ui.view.System;
-import org.jboss.reddeer.eclipse.rse.ui.wizard.NewConnectionWizardDialog;
-import org.jboss.reddeer.eclipse.rse.ui.wizard.NewConnectionWizardSelectionPage.SystemType;
+import org.jboss.reddeer.eclipse.rse.ui.wizards.newconnection.RSEMainNewConnectionWizard;
+import org.jboss.reddeer.eclipse.rse.ui.wizards.newconnection.RSENewConnectionWizardSelectionPage.SystemType;
 import org.jboss.reddeer.swt.api.Shell;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.junit.Test;
@@ -35,7 +35,7 @@ public class SystemViewTest extends SystemViewTestCase {
 		wizardDialog = remoteSystemView.newConnection();
 		
 		Shell shell = new DefaultShell();
-		assertThat(shell.getText(), is(NewConnectionWizardDialog.TITLE));
+		assertThat(shell.getText(), is(RSEMainNewConnectionWizard.TITLE));
 	}
 	
 	@Test

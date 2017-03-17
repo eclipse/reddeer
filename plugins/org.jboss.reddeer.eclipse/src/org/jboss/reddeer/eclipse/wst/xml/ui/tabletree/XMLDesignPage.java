@@ -23,7 +23,7 @@ import org.jboss.reddeer.core.matcher.TreeItemTextMatcher;
 import org.jboss.reddeer.swt.impl.tree.DefaultTree;
 
 /**
- * Represents the Design page of {@link XMLMultiPageEditor}. The page
+ * Represents the Design page of {@link XMLMultiPageEditorPart}. The page
  * allows to work with XML in tree format. 
  * @author Lucia Jelinkova
  *

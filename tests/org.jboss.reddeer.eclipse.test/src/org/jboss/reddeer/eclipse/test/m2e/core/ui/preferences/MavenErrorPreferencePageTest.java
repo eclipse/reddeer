@@ -12,8 +12,8 @@ package org.jboss.reddeer.eclipse.test.m2e.core.ui.preferences;
 
 import static org.junit.Assert.assertTrue;
 
-import org.jboss.reddeer.eclipse.m2e.core.ui.preferences.MavenErrorPreferencePage;
-import org.jboss.reddeer.eclipse.m2e.core.ui.preferences.MavenErrorPreferencePage.MavenErrorSeverity;
+import org.jboss.reddeer.eclipse.m2e.core.ui.preferences.WarningsPreferencePage;
+import org.jboss.reddeer.eclipse.m2e.core.ui.preferences.WarningsPreferencePage.MavenErrorSeverity;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.workbench.ui.dialogs.WorkbenchPreferenceDialog;
@@ -32,7 +32,7 @@ import org.junit.runner.RunWith;
 public class MavenErrorPreferencePageTest {
 
 	private WorkbenchPreferenceDialog preferencesDialog = new WorkbenchPreferenceDialog();	
-	private MavenErrorPreferencePage mavenPreferencePage = new MavenErrorPreferencePage();
+	private WarningsPreferencePage mavenPreferencePage = new WarningsPreferencePage();
 
 	@Test
 	public void checkAllPreferences() {

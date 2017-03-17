@@ -13,9 +13,9 @@ package org.jboss.reddeer.eclipse.test.jst.ejb.ui;
 import static org.junit.Assert.assertTrue;
 
 import org.jboss.reddeer.eclipse.core.resources.DefaultProject;
-import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.PackageExplorer;
-import org.jboss.reddeer.eclipse.jst.ejb.ui.EjbProjectFirstPage;
-import org.jboss.reddeer.eclipse.jst.ejb.ui.EjbProjectWizard;
+import org.jboss.reddeer.eclipse.jdt.ui.packageview.PackageExplorerPart;
+import org.jboss.reddeer.eclipse.jst.ejb.ui.project.facet.EjbProjectFirstPage;
+import org.jboss.reddeer.eclipse.jst.ejb.ui.project.facet.EjbProjectWizard;
 import org.jboss.reddeer.eclipse.ui.perspectives.JavaEEPerspective;
 import org.jboss.reddeer.eclipse.utils.DeleteUtils;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
@@ -30,7 +30,7 @@ public class EjbWizardTest {
 	
 	@After
 	public void delete(){
-		PackageExplorer pe = new PackageExplorer();
+		PackageExplorerPart pe = new PackageExplorerPart();
 		pe.open();
 		for(DefaultProject p: pe.getProjects()){
 			DeleteUtils.forceProjectDeletion(p,true);
@@ -44,7 +44,7 @@ public class EjbWizardTest {
         EjbProjectFirstPage firstPage = new EjbProjectFirstPage();
         firstPage.setProjectName("ejbProject");
         ejb.finish();
-        PackageExplorer pe = new PackageExplorer();
+        PackageExplorerPart pe = new PackageExplorerPart();
         pe.open();
         assertTrue(pe.containsProject("ejbProject"));
     }

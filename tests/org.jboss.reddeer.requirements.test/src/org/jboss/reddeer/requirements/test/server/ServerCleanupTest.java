@@ -12,7 +12,7 @@ package org.jboss.reddeer.requirements.test.server;
 
 import static org.junit.Assert.assertEquals;
 
-import org.jboss.reddeer.eclipse.wst.server.ui.view.ServersView;
+import org.jboss.reddeer.eclipse.wst.server.ui.cnf.ServersView2;
 import org.jboss.reddeer.junit.requirement.inject.InjectRequirement;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.requirements.server.ServerReqState;
@@ -31,7 +31,7 @@ public class ServerCleanupTest {
 	@Test
 	public void testServerCleanup(){
 		requirement.cleanUp();
-		ServersView sw = new ServersView();
+		ServersView2 sw = new ServersView2();
 		sw.open();
 		assertEquals(0,sw.getServers().size());
 	}

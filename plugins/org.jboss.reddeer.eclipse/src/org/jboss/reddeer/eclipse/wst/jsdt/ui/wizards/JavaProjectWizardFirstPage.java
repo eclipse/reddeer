@@ -14,7 +14,7 @@ import org.jboss.reddeer.jface.wizard.WizardPage;
 import org.jboss.reddeer.swt.impl.text.LabeledText;
 
 /**
- * Represents the first page displayed when invoked {@link JavaProjectWizardDialog}
+ * Represents the first page displayed when invoked {@link JavaProjectWizard}
  * 
  * @author Pavol Srna
  *

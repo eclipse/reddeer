@@ -14,7 +14,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import org.jboss.reddeer.eclipse.core.resources.DefaultProject;
-import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.PackageExplorer;
+import org.jboss.reddeer.eclipse.jdt.ui.packageview.PackageExplorerPart;
 import org.jboss.reddeer.eclipse.jdt.ui.wizards.JavaProjectWizard;
 import org.jboss.reddeer.eclipse.jdt.ui.wizards.NewJavaProjectWizardPageOne;
 import org.jboss.reddeer.eclipse.ui.perspectives.JavaPerspective;
@@ -34,7 +34,7 @@ public class ProjectTest {
 	private static final String PROJECT_NAME_1 = "ProjectTestProject1";
 	private static final String PROJECT_NAME_2 = "ProjectTestProject2";
 	private static final String PROJECT_NAME_3 = "ProjectTestProject3";
-	private static PackageExplorer packageExplorer;
+	private static PackageExplorerPart packageExplorer;
 	private static DefaultProject project0;
 	private static DefaultProject project1;
 	private static DefaultProject project2;
@@ -59,7 +59,7 @@ public class ProjectTest {
 		page1.setProjectName(ProjectTest.PROJECT_NAME_2);
 		dialog.finish();
 		
-		packageExplorer = new PackageExplorer();
+		packageExplorer = new PackageExplorerPart();
 		packageExplorer.open();
 		project0 = packageExplorer.getProject(ProjectTest.PROJECT_NAME_0);
 		project1 = packageExplorer.getProject(ProjectTest.PROJECT_NAME_1);

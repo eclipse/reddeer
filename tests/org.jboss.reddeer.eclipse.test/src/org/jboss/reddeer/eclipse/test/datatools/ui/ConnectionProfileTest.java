@@ -15,9 +15,9 @@ import static org.junit.Assert.assertTrue;
 import java.io.File;
 import java.util.List;
 
+import org.jboss.reddeer.eclipse.datatools.connectivity.ui.dse.views.DataSourceExplorerView;
+import org.jboss.reddeer.eclipse.datatools.connectivity.ui.wizards.NewCPWizard;
 import org.jboss.reddeer.eclipse.datatools.ui.FlatFileProfile;
-import org.jboss.reddeer.eclipse.datatools.ui.view.DataSourceExplorer;
-import org.jboss.reddeer.eclipse.datatools.ui.wizard.ConnectionProfileWizard;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -35,11 +35,11 @@ public class ConnectionProfileTest {
 		flatProfile.setCharset("UTF-8");
 		flatProfile.setStyle("CSV");
 
-		ConnectionProfileWizard connWizard = new ConnectionProfileWizard();
+		NewCPWizard connWizard = new NewCPWizard();
 		connWizard.open();
 		connWizard.createFlatFileProfile(flatProfile);
 
-		DataSourceExplorer dataSourceExplorer = new DataSourceExplorer();
+		DataSourceExplorerView dataSourceExplorer = new DataSourceExplorerView();
 		dataSourceExplorer.open();
 		List<String> flatFileSources = dataSourceExplorer.getFlatFileDataSources();
 		assertTrue("Profile '" + profile + "' isn't available", flatFileSources.contains(profile));

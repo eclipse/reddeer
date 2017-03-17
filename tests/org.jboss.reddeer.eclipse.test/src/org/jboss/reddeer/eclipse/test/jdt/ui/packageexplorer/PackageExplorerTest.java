@@ -15,7 +15,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.jboss.reddeer.workbench.core.lookup.WorkbenchPartLookup;
 import org.jboss.reddeer.eclipse.core.resources.DefaultProject;
-import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.PackageExplorer;
+import org.jboss.reddeer.eclipse.jdt.ui.packageview.PackageExplorerPart;
 import org.jboss.reddeer.eclipse.jdt.ui.wizards.JavaProjectWizard;
 import org.jboss.reddeer.eclipse.jdt.ui.wizards.NewJavaProjectWizardPageOne;
 import org.jboss.reddeer.eclipse.utils.DeleteUtils;
@@ -31,7 +31,7 @@ public class PackageExplorerTest {
 	private static final String PROJECT_NAME_1 = "PackageExplorerTestProject1";
 	private static final String PROJECT_NAME_2 = "PackageExplorerTestProject2";
 	private static final String PROJECT_NAME_3 = "PackageExplorerTestProject3";
-	private static PackageExplorer packageExplorer;
+	private static PackageExplorerPart packageExplorer;
 	private static DefaultProject project0;
 	private static DefaultProject project1;
 	private static DefaultProject project2;
@@ -56,7 +56,7 @@ public class PackageExplorerTest {
 		page1.setProjectName(PackageExplorerTest.PROJECT_NAME_2);
 		dialog.finish();
 
-		packageExplorer = new PackageExplorer();
+		packageExplorer = new PackageExplorerPart();
 		packageExplorer.open();
 		project0 = packageExplorer.getProject(PackageExplorerTest.PROJECT_NAME_0);
 		project1 = packageExplorer.getProject(PackageExplorerTest.PROJECT_NAME_1);
@@ -66,7 +66,7 @@ public class PackageExplorerTest {
 
 	@Test
 	public void open() {
-		packageExplorer = new PackageExplorer();
+		packageExplorer = new PackageExplorerPart();
 		packageExplorer.open();
 		String currentViewTitle = WorkbenchPartLookup.getInstance().getActiveWorkbenchPartTitle();
 		assertTrue("Active View has to be Package Explorer but is "
@@ -112,7 +112,7 @@ public class PackageExplorerTest {
 	}
 	@Test
 	public void getTitle() {
-		packageExplorer = new PackageExplorer();
+		packageExplorer = new PackageExplorerPart();
 		packageExplorer.open();
 		String pacakgeExplorerTitle = packageExplorer.getTitle();
 		assertTrue("Package Explorer has wrong title: '"

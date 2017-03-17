@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 
 import org.jboss.reddeer.common.condition.AbstractWaitCondition;
 import org.jboss.reddeer.common.exception.RedDeerException;
-import org.jboss.reddeer.eclipse.rse.ui.view.SystemView;
+import org.jboss.reddeer.eclipse.rse.ui.view.SystemViewPart;
 
 /**
  * Returns true, if there is remote system with specified name
@@ -26,7 +26,7 @@ import org.jboss.reddeer.eclipse.rse.ui.view.SystemView;
 public class RemoteSystemExists extends AbstractWaitCondition {
 
 	private String name;
-	private SystemView view;
+	private SystemViewPart view;
 	
 	/**
 	 * Constructs the condition with a given text.
@@ -35,7 +35,7 @@ public class RemoteSystemExists extends AbstractWaitCondition {
 	 */
 	public RemoteSystemExists(String name) {
 		this.name = name;
-		this.view = new SystemView();
+		this.view = new SystemViewPart();
 	}
 
 	/* (non-Javadoc)

@@ -13,12 +13,12 @@ package org.jboss.reddeer.eclipse.test.ui.views.contentoutline;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 import org.hamcrest.core.Is;
-import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.PackageExplorer;
+import org.jboss.reddeer.eclipse.jdt.ui.packageview.PackageExplorerPart;
 import org.jboss.reddeer.eclipse.jdt.ui.wizards.JavaProjectWizard;
 import org.jboss.reddeer.eclipse.jdt.ui.wizards.NewClassCreationWizard;
 import org.jboss.reddeer.eclipse.jdt.ui.wizards.NewClassWizardPage;
 import org.jboss.reddeer.eclipse.jdt.ui.wizards.NewJavaProjectWizardPageOne;
-import org.jboss.reddeer.eclipse.ui.views.contentoutline.OutlineView;
+import org.jboss.reddeer.eclipse.ui.views.contentoutline.ContentOutline;
 import org.jboss.reddeer.eclipse.utils.DeleteUtils;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.workbench.handler.EditorHandler;
@@ -31,8 +31,8 @@ import org.junit.runner.RunWith;
 @RunWith(RedDeerSuite.class)
 public class OutlineViewTest{
 
-	private OutlineView outlineView;
-	private static PackageExplorer packageExplorer;
+	private ContentOutline outlineView;
+	private static PackageExplorerPart packageExplorer;
 	private static final String TEST_PROJECT_NAME = "OutlineViewTestProject";
 	
 	@BeforeClass
@@ -50,7 +50,7 @@ public class OutlineViewTest{
 	public void testElementsInEmptyOutlineView() {
 		EditorHandler.getInstance().closeAll(true);
 		
-		outlineView = new OutlineView();
+		outlineView = new ContentOutline();
 		outlineView.open();
 		assertThat(outlineView.outlineElements().size(), Is.is(0));
 	}
@@ -59,7 +59,7 @@ public class OutlineViewTest{
 	public void testCollapseInEmptyOutlineView() {
 		EditorHandler.getInstance().closeAll(true);
 		
-		outlineView = new OutlineView();
+		outlineView = new ContentOutline();
 		outlineView.open();
 		outlineView.collapseAll();
 	}
@@ -68,7 +68,7 @@ public class OutlineViewTest{
 	public void testSortInEmptyOutlineView() {
 		EditorHandler.getInstance().closeAll(true);
 		
-		outlineView = new OutlineView();
+		outlineView = new ContentOutline();
 		outlineView.open();
 		outlineView.sort();
 	}
@@ -77,7 +77,7 @@ public class OutlineViewTest{
 	public void testHideFieldsInEmptyOutlineView() {
 		EditorHandler.getInstance().closeAll(true);
 		
-		outlineView = new OutlineView();
+		outlineView = new ContentOutline();
 		outlineView.open();
 		outlineView.sort();
 	}
@@ -86,7 +86,7 @@ public class OutlineViewTest{
 	public void testHideStaticFieldsAndMethodsInEmptyOutlineView() {
 		EditorHandler.getInstance().closeAll(true);
 		
-		outlineView = new OutlineView();
+		outlineView = new ContentOutline();
 		outlineView.open();
 		outlineView.sort();
 	}
@@ -95,7 +95,7 @@ public class OutlineViewTest{
 	public void testHideNonPublicMembersInEmptyOutlineView() {
 		EditorHandler.getInstance().closeAll(true);
 		
-		outlineView = new OutlineView();
+		outlineView = new ContentOutline();
 		outlineView.open();
 		outlineView.sort();
 	}
@@ -104,7 +104,7 @@ public class OutlineViewTest{
 	public void testHideLocalTypesInEmptyOutlineView() {
 		EditorHandler.getInstance().closeAll(true);
 		
-		outlineView = new OutlineView();
+		outlineView = new ContentOutline();
 		outlineView.open();
 		outlineView.sort();
 	}
@@ -113,7 +113,7 @@ public class OutlineViewTest{
 	public void testLinkWithEditorInEmptyOutlineView() {
 		EditorHandler.getInstance().closeAll(true);
 		
-		outlineView = new OutlineView();
+		outlineView = new ContentOutline();
 		outlineView.open();
 		outlineView.linkWithEditor();
 	}
@@ -122,7 +122,7 @@ public class OutlineViewTest{
 	public void testElementsInNonEmptyOutlineView() {
 		openTestClass();
 		
-		outlineView = new OutlineView();
+		outlineView = new ContentOutline();
 		outlineView.open();
 		assertThat(outlineView.outlineElements().size(), Is.is(2));
 	}
@@ -131,7 +131,7 @@ public class OutlineViewTest{
 	public void testCollapseInNonEmptyOutlineView() {
 		openTestClass();
 		
-		outlineView = new OutlineView();
+		outlineView = new ContentOutline();
 		outlineView.open();
 		outlineView.collapseAll();
 	}
@@ -140,7 +140,7 @@ public class OutlineViewTest{
 	public void testSortInNonEmptyOutlineView() {
 		openTestClass();
 		
-		outlineView = new OutlineView();
+		outlineView = new ContentOutline();
 		outlineView.open();
 		outlineView.sort();
 	}
@@ -149,7 +149,7 @@ public class OutlineViewTest{
 	public void testHideFieldsInNonEmptyOutlineView() {
 		openTestClass();
 		
-		outlineView = new OutlineView();
+		outlineView = new ContentOutline();
 		outlineView.open();
 		outlineView.sort();
 	}
@@ -158,7 +158,7 @@ public class OutlineViewTest{
 	public void testHideStaticFieldsAndMethodsInNonEmptyOutlineView() {
 		openTestClass();
 		
-		outlineView = new OutlineView();
+		outlineView = new ContentOutline();
 		outlineView.open();
 		outlineView.sort();
 	}
@@ -167,7 +167,7 @@ public class OutlineViewTest{
 	public void testHideNonPublicMembersInNonEmptyOutlineView() {
 		openTestClass();
 		
-		outlineView = new OutlineView();
+		outlineView = new ContentOutline();
 		outlineView.open();
 		outlineView.sort();
 	}
@@ -176,7 +176,7 @@ public class OutlineViewTest{
 	public void testHideLocalTypesInNonEmptyOutlineView() {
 		openTestClass();
 		
-		outlineView = new OutlineView();
+		outlineView = new ContentOutline();
 		outlineView.open();
 		outlineView.sort();
 	}
@@ -185,7 +185,7 @@ public class OutlineViewTest{
 	public void testLinkWithEditorInNonEmptyOutlineView() {
 		openTestClass();
 		
-		outlineView = new OutlineView();
+		outlineView = new ContentOutline();
 		outlineView.open();
 		outlineView.linkWithEditor();
 	}
@@ -202,7 +202,7 @@ public class OutlineViewTest{
 	}
 	
 	private static void createJavaClass() {
-		packageExplorer = new PackageExplorer();
+		packageExplorer = new PackageExplorerPart();
 		packageExplorer.open();
 		packageExplorer.getProject(TEST_PROJECT_NAME).select();
 		NewClassCreationWizard javaClassDialog = new NewClassCreationWizard();
@@ -216,7 +216,7 @@ public class OutlineViewTest{
 	}
 	
 	private void openTestClass() {
-		packageExplorer = new PackageExplorer();
+		packageExplorer = new PackageExplorerPart();
 		packageExplorer.open();
 		packageExplorer.getProject(TEST_PROJECT_NAME).getProjectItem(
 				"src","test","TestClass.java").open();

@@ -12,9 +12,9 @@ package org.jboss.reddeer.requirements.test.server;
 
 import static org.junit.Assert.assertTrue;
 
-import org.jboss.reddeer.eclipse.wst.server.ui.view.Server;
-import org.jboss.reddeer.eclipse.wst.server.ui.view.ServersView;
-import org.jboss.reddeer.eclipse.wst.server.ui.view.ServersViewEnums.ServerState;
+import org.jboss.reddeer.eclipse.wst.server.ui.cnf.Server;
+import org.jboss.reddeer.eclipse.wst.server.ui.cnf.ServersView2;
+import org.jboss.reddeer.eclipse.wst.server.ui.cnf.ServersViewEnums.ServerState;
 import org.jboss.reddeer.junit.requirement.inject.InjectRequirement;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.requirements.server.ServerReqState;
@@ -35,7 +35,7 @@ public class ServerRunningTest {
 	@Test
 	public void isServerRunningTest(){
 		
-		ServersView sw = new ServersView();
+		ServersView2 sw = new ServersView2();
 		sw.open();
 		Server s = sw.getServer(requirement.getServerNameLabelText());
 		assertTrue(s.getLabel().getState().equals(ServerState.STARTED));

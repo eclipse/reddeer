@@ -14,7 +14,7 @@ import org.eclipse.ui.texteditor.ITextEditor;
 import org.jboss.reddeer.workbench.impl.editor.TextEditor;
 
 /**
- * Represents the Source page of {@link XMLMultiPageEditor}.
+ * Represents the Source page of {@link XMLMultiPageEditorPart}.
  * 
  * @author Lucia Jelinkova
  *

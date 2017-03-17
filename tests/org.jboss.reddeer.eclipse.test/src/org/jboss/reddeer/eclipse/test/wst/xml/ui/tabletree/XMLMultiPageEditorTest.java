@@ -17,13 +17,13 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 
-import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.PackageExplorer;
+import org.jboss.reddeer.eclipse.jdt.ui.packageview.PackageExplorerPart;
 import org.jboss.reddeer.eclipse.test.Activator;
 import org.jboss.reddeer.eclipse.test.ui.part.MultiPageEditorTest;
 import org.jboss.reddeer.eclipse.ui.wizards.datatransfer.ExternalProjectImportWizardDialog;
 import org.jboss.reddeer.eclipse.ui.wizards.datatransfer.WizardProjectsImportPage;
 import org.jboss.reddeer.eclipse.wst.xml.ui.tabletree.XMLEditorFile;
-import org.jboss.reddeer.eclipse.wst.xml.ui.tabletree.XMLMultiPageEditor;
+import org.jboss.reddeer.eclipse.wst.xml.ui.tabletree.XMLMultiPageEditorPart;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.swt.impl.styledtext.DefaultStyledText;
 import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
@@ -41,7 +41,7 @@ public static final File ZIP_FILE = new File(Activator.getTestResourcesLocation(
 	
 	protected static final String FILE_NAME = "file.xml";
 	
-	private static XMLMultiPageEditor editor;
+	private static XMLMultiPageEditorPart editor;
 	
 	@BeforeClass
 	public static void importProject(){
@@ -54,16 +54,16 @@ public static final File ZIP_FILE = new File(Activator.getTestResourcesLocation(
 
 		wizard.finish();
 		
-		PackageExplorer explorer = new PackageExplorer();
+		PackageExplorerPart explorer = new PackageExplorerPart();
 		explorer.open();
 		explorer.getProject(PROJECT_NAME).getProjectItem(FILE_NAME).open();
 		
-		editor = new XMLMultiPageEditor(FILE_NAME);
+		editor = new XMLMultiPageEditorPart(FILE_NAME);
 	}
 	
 	@AfterClass
 	public static void cleanProject(){
-		PackageExplorer explorer = new PackageExplorer();
+		PackageExplorerPart explorer = new PackageExplorerPart();
 		explorer.open();
 		explorer.getProject(PROJECT_NAME).delete(true);
 	}

@@ -12,8 +12,8 @@ package org.jboss.reddeer.eclipse.condition;
 
 import org.jboss.reddeer.common.condition.AbstractWaitCondition;
 import org.jboss.reddeer.eclipse.ui.markers.matcher.AbstractMarkerMatcher;
-import org.jboss.reddeer.eclipse.ui.views.ProblemsView;
-import org.jboss.reddeer.eclipse.ui.views.ProblemsView.ProblemType;
+import org.jboss.reddeer.eclipse.ui.views.markers.ProblemsView;
+import org.jboss.reddeer.eclipse.ui.views.markers.ProblemsView.ProblemType;
 
 /**
  * Wait condition for existence of a problem. Condition wait for existence of a specific problem or problem type. 

@@ -12,12 +12,12 @@ package org.jboss.reddeer.eclipse.test.m2e.core.ui.wizard;
 
 import static org.junit.Assert.*;
 
-import org.jboss.reddeer.eclipse.jdt.ui.ProjectExplorer;
 import org.jboss.reddeer.eclipse.m2e.core.ui.wizard.MavenProjectWizard;
 import org.jboss.reddeer.eclipse.m2e.core.ui.wizard.MavenProjectWizardArchetypePage;
 import org.jboss.reddeer.eclipse.m2e.core.ui.wizard.MavenProjectWizardArchetypeParametersPage;
 import org.jboss.reddeer.eclipse.m2e.core.ui.wizard.MavenProjectWizardArtifactPage;
 import org.jboss.reddeer.eclipse.m2e.core.ui.wizard.MavenProjectWizardPage;
+import org.jboss.reddeer.eclipse.ui.navigator.resources.ProjectExplorer;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.junit.AfterClass;
 import org.junit.Test;

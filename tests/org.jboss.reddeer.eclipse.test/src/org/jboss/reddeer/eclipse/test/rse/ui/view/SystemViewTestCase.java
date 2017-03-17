@@ -12,11 +12,11 @@ package org.jboss.reddeer.eclipse.test.rse.ui.view;
 
 import org.jboss.reddeer.eclipse.condition.RemoteSystemExists;
 import org.jboss.reddeer.eclipse.rse.ui.view.System;
-import org.jboss.reddeer.eclipse.rse.ui.view.SystemView;
-import org.jboss.reddeer.eclipse.rse.ui.wizard.NewConnectionWizardDialog;
-import org.jboss.reddeer.eclipse.rse.ui.wizard.NewConnectionWizardMainPage;
-import org.jboss.reddeer.eclipse.rse.ui.wizard.NewConnectionWizardSelectionPage;
-import org.jboss.reddeer.eclipse.rse.ui.wizard.NewConnectionWizardSelectionPage.SystemType;
+import org.jboss.reddeer.eclipse.rse.ui.view.SystemViewPart;
+import org.jboss.reddeer.eclipse.rse.ui.wizards.newconnection.RSEDefaultNewConnectionWizardMainPage;
+import org.jboss.reddeer.eclipse.rse.ui.wizards.newconnection.RSEMainNewConnectionWizard;
+import org.jboss.reddeer.eclipse.rse.ui.wizards.newconnection.RSENewConnectionWizardSelectionPage;
+import org.jboss.reddeer.eclipse.rse.ui.wizards.newconnection.RSENewConnectionWizardSelectionPage.SystemType;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.jboss.reddeer.common.wait.WaitUntil;
@@ -28,9 +28,9 @@ import org.junit.runner.RunWith;
 @RunWith(RedDeerSuite.class)
 public class SystemViewTestCase {
 
-	protected SystemView remoteSystemView = new SystemView();
+	protected SystemViewPart remoteSystemView = new SystemViewPart();
 	
-	protected NewConnectionWizardDialog wizardDialog;
+	protected RSEMainNewConnectionWizard wizardDialog;
 	
 	
 	protected void createSystem(String hostname, SystemType type){
@@ -42,11 +42,11 @@ public class SystemViewTestCase {
 		remoteSystemView.open();
 		wizardDialog = remoteSystemView.newConnection();
 		
-		NewConnectionWizardSelectionPage selectionPage = new NewConnectionWizardSelectionPage();
+		RSENewConnectionWizardSelectionPage selectionPage = new RSENewConnectionWizardSelectionPage();
 		selectionPage.selectSystemType(type);
 		wizardDialog.next();
 		
-		NewConnectionWizardMainPage mainPage = new NewConnectionWizardMainPage();
+		RSEDefaultNewConnectionWizardMainPage mainPage = new RSEDefaultNewConnectionWizardMainPage();
 		
 		mainPage.setHostName(hostname);
 		mainPage.setConnectionName(connectionName);
@@ -60,7 +60,7 @@ public class SystemViewTestCase {
 	@After
 	public void tearDown(){
 		
-		if (wizardDialog != null && NewConnectionWizardDialog.TITLE.equals(new DefaultShell().getText())){
+		if (wizardDialog != null && RSEMainNewConnectionWizard.TITLE.equals(new DefaultShell().getText())){
 			wizardDialog.cancel();
 		}
 

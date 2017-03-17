@@ -13,7 +13,7 @@ package org.jboss.reddeer.eclipse.test.wst.common.project.facet.ui;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 
-import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.PackageExplorer;
+import org.jboss.reddeer.eclipse.jdt.ui.packageview.PackageExplorerPart;
 import org.jboss.reddeer.eclipse.test.wst.server.ui.view.ServersViewTestCase;
 import org.jboss.reddeer.eclipse.ui.dialogs.ResourcePropertyDialog;
 import org.jboss.reddeer.eclipse.ui.wizards.datatransfer.ExternalProjectImportWizardDialog;
@@ -45,24 +45,24 @@ public class FacetsPropertyPageTest {
 
 		wizard.finish();
 
-		PackageExplorer packageExplorer = new PackageExplorer();
+		PackageExplorerPart packageExplorer = new PackageExplorerPart();
 		packageExplorer.open();
 	}
 
 	@After
 	public void cleanup() {
-		ResourcePropertyDialog dialog = new ResourcePropertyDialog(new PackageExplorer().getProject(PROJECT));
+		ResourcePropertyDialog dialog = new ResourcePropertyDialog(new PackageExplorerPart().getProject(PROJECT));
 		if (dialog.isOpen()) {
 			dialog.cancel();
 		}
-		PackageExplorer explorer = new PackageExplorer();
+		PackageExplorerPart explorer = new PackageExplorerPart();
 		explorer.open();
 		DeleteUtils.forceProjectDeletion(explorer.getProject(PROJECT), true);
 	}
 
 	@Test
 	public void selectFacet() {
-		ResourcePropertyDialog dialog = new ResourcePropertyDialog(new PackageExplorer().getProject(PROJECT));
+		ResourcePropertyDialog dialog = new ResourcePropertyDialog(new PackageExplorerPart().getProject(PROJECT));
 		FacetsPropertyPage facetsPage = new FacetsPropertyPage();
 		
 		dialog.open();
@@ -81,7 +81,7 @@ public class FacetsPropertyPageTest {
 
 	@Test
 	public void selectVersion() {
-		ResourcePropertyDialog dialog = new ResourcePropertyDialog(new PackageExplorer().getProject(PROJECT));
+		ResourcePropertyDialog dialog = new ResourcePropertyDialog(new PackageExplorerPart().getProject(PROJECT));
 		FacetsPropertyPage facetsPage = new FacetsPropertyPage();
 		
 		dialog.open();

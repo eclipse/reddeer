@@ -12,8 +12,8 @@ package org.jboss.reddeer.requirements.test.server;
 
 import static org.junit.Assert.assertTrue;
 
-import org.jboss.reddeer.eclipse.wst.server.ui.view.Server;
-import org.jboss.reddeer.eclipse.wst.server.ui.view.ServersView;
+import org.jboss.reddeer.eclipse.wst.server.ui.cnf.Server;
+import org.jboss.reddeer.eclipse.wst.server.ui.cnf.ServersView2;
 import org.jboss.reddeer.junit.requirement.inject.InjectRequirement;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.requirements.server.ServerReqState;
@@ -34,7 +34,7 @@ public class ServerPresentTest {
 	@Test
 	public void isServerPresentTest(){
 		
-		ServersView sw = new ServersView();
+		ServersView2 sw = new ServersView2();
 		sw.open();
 		Server s = sw.getServer(requirement.getServerNameLabelText());
 		assertTrue(s != null);

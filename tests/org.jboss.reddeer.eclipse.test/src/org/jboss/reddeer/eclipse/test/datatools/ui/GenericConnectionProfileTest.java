@@ -18,14 +18,13 @@ import java.util.List;
 import org.jboss.reddeer.common.wait.TimePeriod;
 import org.jboss.reddeer.common.wait.WaitWhile;
 import org.jboss.reddeer.workbench.core.condition.JobIsRunning;
+import org.jboss.reddeer.eclipse.datatools.connectivity.ui.dialogs.DriverDialog;
+import org.jboss.reddeer.eclipse.datatools.connectivity.ui.dse.views.DataSourceExplorerView;
+import org.jboss.reddeer.eclipse.datatools.connectivity.ui.preferences.DriverPreferences;
+import org.jboss.reddeer.eclipse.datatools.connectivity.ui.wizards.NewCPWizard;
 import org.jboss.reddeer.eclipse.datatools.ui.DatabaseProfile;
 import org.jboss.reddeer.eclipse.datatools.ui.DriverDefinition;
 import org.jboss.reddeer.eclipse.datatools.ui.DriverTemplate;
-import org.jboss.reddeer.eclipse.datatools.ui.preference.DriverDefinitionPreferencePage;
-import org.jboss.reddeer.eclipse.datatools.ui.view.DataSourceExplorer;
-import org.jboss.reddeer.eclipse.datatools.ui.wizard.ConnectionProfileWizard;
-import org.jboss.reddeer.eclipse.datatools.ui.wizard.DriverDefinitionPage;
-import org.jboss.reddeer.eclipse.datatools.ui.wizard.DriverDefinitionWizard;
 import org.jboss.reddeer.workbench.ui.dialogs.WorkbenchPreferenceDialog;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.swt.api.Shell;
@@ -53,7 +52,7 @@ public class GenericConnectionProfileTest {
 		// Driver definition removal
 		WorkbenchPreferenceDialog preferenceDialog = new WorkbenchPreferenceDialog();
 		preferenceDialog.open();
-		DriverDefinitionPreferencePage preferencePage = new DriverDefinitionPreferencePage();
+		DriverPreferences preferencePage = new DriverPreferences();
 		preferenceDialog.select(preferencePage);
 		
 		List<TableItem> items = new DefaultTable().getItems();
@@ -69,7 +68,7 @@ public class GenericConnectionProfileTest {
 		new WaitWhile(new JobIsRunning());
 		
 		// Connection profiles removal
-		DataSourceExplorer dse = new DataSourceExplorer();
+		DataSourceExplorerView dse = new DataSourceExplorerView();
 		dse.open();
 		DefaultTreeItem item = new DefaultTreeItem("Database Connections");
 		item.expand(TimePeriod.NORMAL);
@@ -103,16 +102,15 @@ public class GenericConnectionProfileTest {
 		WorkbenchPreferenceDialog dialog = new WorkbenchPreferenceDialog();
 		dialog.open();
 		
-		DriverDefinitionPreferencePage preferencePage = new DriverDefinitionPreferencePage();
+		DriverPreferences preferencePage = new DriverPreferences();
 		dialog.select(preferencePage);
 		
-		DriverDefinitionWizard wizard = preferencePage.addDriverDefinition();
-		DriverDefinitionPage page = new DriverDefinitionPage();
-		page.selectDriverTemplate("Generic JDBC Driver", "1.0");
-		page.setName(DRIVER_NAME);
-		page.addDriverLibrary(drvFile.getAbsolutePath());
-		page.setDriverClass("org.h2.Driver");
-		wizard.finish();
+		DriverDialog wizard = preferencePage.addDriverDefinition();
+		wizard.selectDriverTemplate("Generic JDBC Driver", "1.0");
+		wizard.setName(DRIVER_NAME);
+		wizard.addDriverLibrary(drvFile.getAbsolutePath());
+		wizard.setDriverClass("org.h2.Driver");
+		wizard.ok();
 		dialog.ok();
 
 		
@@ -129,11 +127,11 @@ public class GenericConnectionProfileTest {
 		dbProfile.setVendor("Generic JDBC");
 		
 		// Create connection profile
-		ConnectionProfileWizard w = new ConnectionProfileWizard();		
+		NewCPWizard w = new NewCPWizard();		
 		w.open();
 		w.createDatabaseProfile(dbProfile);
 
-		DataSourceExplorer dataSourceExplorer = new DataSourceExplorer();
+		DataSourceExplorerView dataSourceExplorer = new DataSourceExplorerView();
 		dataSourceExplorer.open();
 		List<String> dbSources = dataSourceExplorer.getDatabaseConnections();
 		assertTrue("Profile '" + profile + "' isn't available", dbSources.contains(profile));

@@ -19,7 +19,7 @@ import org.jboss.reddeer.common.wait.TimePeriod;
 import org.jboss.reddeer.common.wait.WaitUntil;
 import org.jboss.reddeer.core.condition.ShellWithTextIsAvailable;
 import org.jboss.reddeer.eclipse.core.resources.DefaultProject;
-import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.PackageExplorer;
+import org.jboss.reddeer.eclipse.jdt.ui.packageview.PackageExplorerPart;
 import org.jboss.reddeer.eclipse.test.wst.server.ui.TestServerRuntime;
 import org.jboss.reddeer.eclipse.test.wst.server.ui.view.ServersViewTestCase;
 import org.jboss.reddeer.eclipse.ui.dialogs.ResourcePropertyDialog;
@@ -118,7 +118,7 @@ public class RuntimesPropertyPageTest {
 	
 	public DefaultProject getProject() {
 		if (project == null){
-			PackageExplorer packageExplorer = new PackageExplorer();
+			PackageExplorerPart packageExplorer = new PackageExplorerPart();
 			packageExplorer.open();
 			project = packageExplorer.getProject(PROJECT);
 		}

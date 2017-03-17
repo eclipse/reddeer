@@ -35,13 +35,13 @@ import org.jboss.reddeer.common.wait.TimePeriod;
 import org.jboss.reddeer.common.wait.WaitUntil;
 import org.jboss.reddeer.core.condition.ShellWithTextIsAvailable;
 import org.jboss.reddeer.eclipse.core.resources.ProjectItem;
-import org.jboss.reddeer.eclipse.jdt.ui.ProjectExplorer;
-import org.jboss.reddeer.eclipse.ui.dialogs.WizardNewProjectCreationPage;
-import org.jboss.reddeer.eclipse.ui.ide.NewFileCreationWizardDialog;
-import org.jboss.reddeer.eclipse.ui.ide.NewFileCreationWizardPage;
+import org.jboss.reddeer.eclipse.ui.dialogs.WizardNewFileCreationPage;
+import org.jboss.reddeer.eclipse.ui.navigator.resources.ProjectExplorer;
 import org.jboss.reddeer.eclipse.ui.wizards.datatransfer.ExternalProjectImportWizardDialog;
 import org.jboss.reddeer.eclipse.ui.wizards.datatransfer.WizardProjectsImportPage;
+import org.jboss.reddeer.eclipse.ui.wizards.newresource.BasicNewFileResourceWizard;
 import org.jboss.reddeer.eclipse.ui.wizards.newresource.BasicNewProjectResourceWizard;
+import org.jboss.reddeer.eclipse.ui.wizards.newresource.BasicNewProjectResourceWizardFirstPage;
 import org.jboss.reddeer.jface.text.contentassist.ContentAssistant;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.requirements.cleanworkspace.CleanWorkspaceRequirement;
@@ -71,7 +71,7 @@ public class TextEditorTest {
 		EditorHandler.getInstance().closeAll(true);
 		BasicNewProjectResourceWizard projectWizard = new BasicNewProjectResourceWizard();
 		projectWizard.open();
-		new WizardNewProjectCreationPage().setProjectName("testProject");
+		new BasicNewProjectResourceWizardFirstPage().setProjectName("testProject");
 		projectWizard.finish();
 		TextEditorTest.importTestProject();
 		TextEditor javaTextEditor = TextEditorTest.openJavaFile();
@@ -121,9 +121,9 @@ public class TextEditorTest {
 	@Test(expected = WorkbenchLayerException.class)
 	public void notTextEditorTest() {
 
-		NewFileCreationWizardDialog newFileDialog = new NewFileCreationWizardDialog();
+		BasicNewFileResourceWizard newFileDialog = new BasicNewFileResourceWizard();
 		newFileDialog.open();
-		NewFileCreationWizardPage page = new NewFileCreationWizardPage();
+		WizardNewFileCreationPage page = new WizardNewFileCreationPage();
 		page.setFileName("editorTest.min");
 		page.setFolderPath("testProject");
 		newFileDialog.finish();
@@ -132,9 +132,9 @@ public class TextEditorTest {
 
 	@Test
 	public void getTextTest() throws AWTException {
-		NewFileCreationWizardDialog newFileDialog = new NewFileCreationWizardDialog();
+		BasicNewFileResourceWizard newFileDialog = new BasicNewFileResourceWizard();
 		newFileDialog.open();
-		NewFileCreationWizardPage page = new NewFileCreationWizardPage();
+		WizardNewFileCreationPage page = new WizardNewFileCreationPage();
 		page.setFileName("textEditor.txt");
 		page.setFolderPath("testProject");
 		newFileDialog.finish();

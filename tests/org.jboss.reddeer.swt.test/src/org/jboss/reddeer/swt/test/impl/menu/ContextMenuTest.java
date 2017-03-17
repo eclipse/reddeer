@@ -24,12 +24,12 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 import org.jboss.reddeer.common.util.Display;
 import org.jboss.reddeer.core.exception.CoreLayerException;
-import org.jboss.reddeer.eclipse.jdt.ui.ProjectExplorer;
-import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.PackageExplorer;
+import org.jboss.reddeer.eclipse.jdt.ui.packageview.PackageExplorerPart;
 import org.jboss.reddeer.eclipse.jdt.ui.wizards.JavaProjectWizard;
 import org.jboss.reddeer.eclipse.jdt.ui.wizards.NewClassCreationWizard;
 import org.jboss.reddeer.eclipse.jdt.ui.wizards.NewClassWizardPage;
 import org.jboss.reddeer.eclipse.jdt.ui.wizards.NewJavaProjectWizardPageOne;
+import org.jboss.reddeer.eclipse.ui.navigator.resources.ProjectExplorer;
 import org.jboss.reddeer.eclipse.ui.perspectives.JavaPerspective;
 import org.jboss.reddeer.eclipse.utils.DeleteUtils;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
@@ -75,7 +75,7 @@ public class ContextMenuTest {
 	
 	@Test(expected=CoreLayerException.class)
 	public void disabledAction() throws InterruptedException {
-		PackageExplorer pex = new PackageExplorer();
+		PackageExplorerPart pex = new PackageExplorerPart();
 		pex.open();
 		pex.getProject(projectName).select();
 		new ContextMenu("Compare With","Each Other").select();
@@ -83,7 +83,7 @@ public class ContextMenuTest {
 	
 	@Test
 	public void dynamicEnabledAction() throws InterruptedException{
-		PackageExplorer pex = new PackageExplorer();
+		PackageExplorerPart pex = new PackageExplorerPart();
 		pex.open();
 		pex.getProject(projectName).select();
 		new ContextMenu("Configure","Convert to Maven Project").select();
@@ -93,7 +93,7 @@ public class ContextMenuTest {
 	
 	@Test
 	public void testOpenWithCheck(){
-		PackageExplorer pex = new PackageExplorer();
+		PackageExplorerPart pex = new PackageExplorerPart();
 		pex.open();
 		pex.getProject(projectName).getProjectItem("src","(default package)","TestClass.java").select();
 		new ContextMenu("Open With","Text Editor").select();

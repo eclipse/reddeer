@@ -16,9 +16,9 @@ import static org.junit.Assert.assertThat;
 import java.util.List;
 
 import org.jboss.reddeer.eclipse.test.wst.server.ui.view.TestServer;
-import org.jboss.reddeer.eclipse.wst.server.ui.view.DefaultServer;
-import org.jboss.reddeer.eclipse.wst.server.ui.view.ServersView;
-import org.jboss.reddeer.eclipse.wst.server.ui.wizard.NewServerWizardDialog;
+import org.jboss.reddeer.eclipse.wst.server.ui.cnf.DefaultServer;
+import org.jboss.reddeer.eclipse.wst.server.ui.cnf.ServersView2;
+import org.jboss.reddeer.eclipse.wst.server.ui.wizard.NewServerWizard;
 import org.jboss.reddeer.eclipse.wst.server.ui.wizard.NewServerWizardPage;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
@@ -34,15 +34,15 @@ public class NewServerWizardPageTest {
 	
 	private static final String SERVER_PATH = "Basic";
 	
-	private ServersView view;
+	private ServersView2 view;
 	
-	private NewServerWizardDialog wizard;
+	private NewServerWizard wizard;
 
 	private NewServerWizardPage wizardPage;
 	
 	@Before
 	public void setUp(){
-		view = new ServersView();
+		view = new ServersView2();
 		view.open();
 		wizard = view.newServer();
 		wizardPage = new NewServerWizardPage();
@@ -74,7 +74,7 @@ public class NewServerWizardPageTest {
 	
 	@After
 	public void tearDown(){
-		if (wizard != null && NewServerWizardDialog.TITLE.equals(new DefaultShell().getText())){
+		if (wizard != null && NewServerWizard.TITLE.equals(new DefaultShell().getText())){
 			wizard.cancel();
 		}
 

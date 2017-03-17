@@ -26,7 +26,7 @@ import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
 
 /**
  * Represents the first page displayed when invoked
- * {@link NewServerWizardDialog}
+ * {@link NewServerWizard}
  * 
  * @author Lucia Jelinkova
  *

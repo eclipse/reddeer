@@ -14,8 +14,8 @@ import static org.junit.Assert.assertEquals;
 
 import org.jboss.reddeer.common.wait.WaitWhile;
 import org.jboss.reddeer.core.condition.ShellWithTextIsAvailable;
-import org.jboss.reddeer.eclipse.jdt.ui.junit.JUnitView;
-import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.PackageExplorer;
+import org.jboss.reddeer.eclipse.jdt.junit.ui.TestRunnerViewPart;
+import org.jboss.reddeer.eclipse.jdt.ui.packageview.PackageExplorerPart;
 import org.jboss.reddeer.eclipse.jdt.ui.wizards.JavaProjectWizard;
 import org.jboss.reddeer.eclipse.jdt.ui.wizards.NewClassCreationWizard;
 import org.jboss.reddeer.eclipse.jdt.ui.wizards.NewClassWizardPage;
@@ -55,7 +55,7 @@ public class JUnitRunTest {
 		new NewClassWizardPage().setName("HelloTest");
 		classWizard.finish();
 
-		PackageExplorer explorer = new PackageExplorer();
+		PackageExplorerPart explorer = new PackageExplorerPart();
 		explorer.open();
 
 		explorer.getProject(PROJECT_NAME).select();
@@ -80,18 +80,18 @@ public class JUnitRunTest {
 
 	@AfterClass
 	public static void deleteTestProject() {
-		PackageExplorer explorer = new PackageExplorer();
+		PackageExplorerPart explorer = new PackageExplorerPart();
 		explorer.open();
 		DeleteUtils.forceProjectDeletion(explorer.getProject(PROJECT_NAME), true);
 	}
 
 	@Test
 	public void junitRunTest() {
-		PackageExplorer explorer = new PackageExplorer();
+		PackageExplorerPart explorer = new PackageExplorerPart();
 		explorer.open();
 		explorer.getProject(PROJECT_NAME).getProjectItem("src", "hellotest", "HelloTest.java").runAsJUnitTest();
 
-		JUnitView junitView = new JUnitView();
+		TestRunnerViewPart junitView = new TestRunnerViewPart();
 		junitView.open();
 
 		assertEquals("2/2", junitView.getRunStatus());

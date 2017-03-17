@@ -14,7 +14,7 @@ import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.core.IsEqual;
 import org.jboss.reddeer.core.matcher.AbstractWidgetWithTextMatcher;
-import org.jboss.reddeer.eclipse.ui.views.AbstractMarkersSupportView.Column;
+import org.jboss.reddeer.eclipse.ui.views.markers.AbstractMarkersSupportView.Column;
 
 /**
  * Abstract problem matcher is a parent matcher for a specific columns in view supporting markers.
