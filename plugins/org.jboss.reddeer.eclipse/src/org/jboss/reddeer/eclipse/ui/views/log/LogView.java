@@ -19,7 +19,6 @@ import org.eclipse.core.runtime.IStatus;
 import org.jboss.reddeer.common.wait.GroupWait;
 import org.jboss.reddeer.common.wait.WaitUntil;
 import org.jboss.reddeer.common.wait.WaitWhile;
-import org.jboss.reddeer.core.condition.ProgressInformationShellIsActive;
 import org.jboss.reddeer.core.condition.ShellWithTextIsAvailable;
 import org.jboss.reddeer.swt.api.Menu;
 import org.jboss.reddeer.swt.api.TreeItem;
@@ -182,6 +181,6 @@ public class LogView extends WorkbenchView{
 		new CheckBox("Limit visible events to:").toggle(false);
 		new PushButton("OK").click();
 		new GroupWait(waitWhile(new ShellWithTextIsAvailable("Log Filters")),
-				waitWhile(new ProgressInformationShellIsActive()));
+				waitWhile(new ShellWithTextIsAvailable("Progress Information")));
 	}
 }
