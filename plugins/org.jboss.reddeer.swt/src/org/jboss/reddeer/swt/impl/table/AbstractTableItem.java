@@ -22,7 +22,7 @@ import org.jboss.reddeer.core.handler.WidgetHandler;
 import org.jboss.reddeer.core.reference.ReferencedComposite;
 import org.jboss.reddeer.swt.widgets.AbstractWidget;
 
-public class AbstractTableItem extends AbstractWidget<org.eclipse.swt.widgets.TableItem> implements TableItem {
+public abstract class AbstractTableItem extends AbstractWidget<org.eclipse.swt.widgets.TableItem> implements TableItem {
 	
 	private static final Logger log = Logger.getLogger(AbstractTableItem.class);
 
