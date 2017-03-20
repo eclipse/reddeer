@@ -33,6 +33,7 @@ import org.jboss.reddeer.junit.test.internal.requirement.TestPropertyRequirement
 import org.jboss.reddeer.junit.test.internal.requirement.TestPropertyRequirementB.PropertyAnnotationB;
 import org.jboss.reddeer.junit.test.runner.UnfulfillableRequirement.Unfulfillable;
 import org.junit.After;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.Runner;
 import org.junit.runners.Suite.SuiteClasses;
@@ -57,8 +58,12 @@ public class RedDeerSuiteTest {
 		sbRootDir.append("test");
 		sbRootDir.append(File.separator);
 		sbRootDir.append("runner");
-		sbRootDir.append(File.separator);
 		LOCATIONS_ROOT_DIR = sbRootDir.toString();
+	}
+	
+	@BeforeClass
+	public static void setUp() {
+		System.clearProperty(RedDeerProperties.CONFIG_FILE.getName());
 	}
 	
 	@After
@@ -226,7 +231,6 @@ public class RedDeerSuiteTest {
 		// set rd.config property
 		System.setProperty(RedDeerProperties.CONFIG_FILE.getName(), 
 				LOCATIONS_ROOT_DIR + File.separator + "requirements4.xml");
-		
 		assertEquals(23, getTestCount(MixedRequirementsSuite.class));
 	}
 	
