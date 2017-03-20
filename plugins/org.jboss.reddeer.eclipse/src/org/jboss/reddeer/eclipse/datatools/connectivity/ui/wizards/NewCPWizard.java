@@ -24,7 +24,7 @@ import org.jboss.reddeer.eclipse.datatools.ui.DatabaseProfile;
 import org.jboss.reddeer.eclipse.datatools.ui.DriverDefinition;
 import org.jboss.reddeer.eclipse.datatools.ui.FlatFileProfile;
 import org.jboss.reddeer.eclipse.exception.EclipseLayerException;
-import org.jboss.reddeer.jface.wizard.NewWizardDialog;
+import org.jboss.reddeer.eclipse.topmenu.NewMenuWizard;
 import org.jboss.reddeer.swt.impl.button.OkButton;
 import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
@@ -37,7 +37,7 @@ import org.jboss.reddeer.swt.impl.shell.DefaultShell;
  * @author apodhrad, jpeterka
  * 
  */
-public class NewCPWizard extends NewWizardDialog {
+public class NewCPWizard extends NewMenuWizard {
 
 	protected Map<String, ExtensibleProfileDetailsWizardPage> wizardMap;
 
@@ -45,7 +45,7 @@ public class NewCPWizard extends NewWizardDialog {
 	 * Instantiates a new connection profile wizard.
 	 */
 	public NewCPWizard() {
-		super("Connection Profiles", "Connection Profile");
+		super("New Connection Profile","Connection Profiles", "Connection Profile");
 
 		wizardMap = new HashMap<String, ExtensibleProfileDetailsWizardPage>();
 		wizardMap.put("Oracle", new OracleDBProfileDetailsWizardPage());

@@ -10,8 +10,8 @@
  ******************************************************************************/ 
 package org.jboss.reddeer.gef.test.wizard;
 
-import org.jboss.reddeer.jface.wizard.NewWizardDialog;
-import org.jboss.reddeer.swt.impl.menu.ShellMenu;
+import org.jboss.reddeer.eclipse.topmenu.NewMenuWizard;
+import org.jboss.reddeer.eclipse.ui.dialogs.NewWizard;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.jboss.reddeer.swt.impl.text.LabeledText;
 import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
@@ -21,7 +21,7 @@ import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
  * @author Andrej Podhradsky (andrej.podhradsky@gmail.com)
  *
  */
-public class ExampleWizard extends NewWizardDialog {
+public class ExampleWizard extends NewMenuWizard {
 
 	public static final String FLOW_DIAGRAM = "Flow Diagram";
 	public static final String FLOW_SUFFIX = ".flow";
@@ -33,21 +33,24 @@ public class ExampleWizard extends NewWizardDialog {
 	private String example;
 
 	public ExampleWizard(String example) {
-		super("Examples", example);
+		super("","Examples", example);
 		this.example = example;
 	}
 
 	@Override
 	public void open() {
-		log.info("Opening wizard using top menu ");
-		new ShellMenu(getMenuPath()).select();
-		new DefaultShell(getDialogTitle());
-		try {
-			new DefaultTreeItem("Examples", example).select();
-		} catch (Exception e) {
-			new DefaultTreeItem("Examples", "GEF (Graphical Editing Framework)", example).select();
+		if(!isOpen()){
+			log.info("Opening wizard using top menu ");
+			NewWizard nw = new NewWizard();
+			nw.open();
+			try {
+				new DefaultTreeItem("Examples", example).select();
+			} catch (Exception e) {
+				new DefaultTreeItem("Examples", "GEF (Graphical Editing Framework)", example).select();
+			}
+			nw.next();
+			setShell(new DefaultShell(matcher));
 		}
-		next();
 	}
 
 	public void setName(String name) {

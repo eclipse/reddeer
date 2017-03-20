@@ -14,7 +14,6 @@ import org.jboss.reddeer.common.wait.WaitUntil;
 import org.jboss.reddeer.jface.wizard.WizardDialog;
 import org.jboss.reddeer.swt.condition.ControlIsEnabled;
 import org.jboss.reddeer.swt.impl.button.PushButton;
-import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 
 /**
  * Represents Mylyn Task Repository Properties dialog
@@ -25,7 +24,7 @@ import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 public class TaskRepositoryWizardDialog extends WizardDialog{
 	
 	public TaskRepositoryWizardDialog() {
-		new DefaultShell("Properties for Task Repository");
+		super("Properties for Task Repository");
 	}
 	
 	/**

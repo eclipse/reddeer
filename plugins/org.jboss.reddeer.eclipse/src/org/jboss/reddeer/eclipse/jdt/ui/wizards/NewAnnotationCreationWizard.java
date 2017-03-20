@@ -10,17 +10,17 @@
  ******************************************************************************/ 
 package org.jboss.reddeer.eclipse.jdt.ui.wizards;
 
-import org.jboss.reddeer.jface.wizard.NewWizardDialog;
+import org.jboss.reddeer.eclipse.topmenu.NewMenuWizard;
 
 /**
  * Wizard dialog for creating an annotation.
  */
-public class NewAnnotationCreationWizard extends NewWizardDialog {
+public class NewAnnotationCreationWizard extends NewMenuWizard {
 
 	/**
 	 * Constructs the wizard with "Java" &gt; "Annotation".
 	 */
 	public NewAnnotationCreationWizard() {
-		super("Java", "Annotation");
+		super("New Annotation Type","Java", "Annotation");
 	}
 }

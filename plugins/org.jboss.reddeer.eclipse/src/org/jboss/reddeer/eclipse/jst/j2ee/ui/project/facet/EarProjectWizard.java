@@ -10,12 +10,12 @@
  ******************************************************************************/ 
 package org.jboss.reddeer.eclipse.jst.j2ee.ui.project.facet;
 
-import org.jboss.reddeer.jface.wizard.NewWizardDialog;
+import org.jboss.reddeer.eclipse.topmenu.NewMenuWizard;
 
 /**
  * Wizard dialog for creating EAR project.
  */
-public class EarProjectWizard extends NewWizardDialog{
+public class EarProjectWizard extends NewMenuWizard{
 	
 	public static final String CATEGORY="Java EE";
 	public static final String NAME="Enterprise Application Project";
@@ -24,7 +24,7 @@ public class EarProjectWizard extends NewWizardDialog{
 	 * Constructs the wizard with {@value #CATEGORY}.
 	 */
 	public EarProjectWizard(){
-		super(CATEGORY,NAME);
+		super("New EAR Application Project",CATEGORY,NAME);
 	}
 
 }

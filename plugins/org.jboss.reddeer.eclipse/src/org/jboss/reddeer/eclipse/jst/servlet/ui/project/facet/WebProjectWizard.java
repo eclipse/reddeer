@@ -10,12 +10,12 @@
  ******************************************************************************/ 
 package org.jboss.reddeer.eclipse.jst.servlet.ui.project.facet;
 
-import org.jboss.reddeer.jface.wizard.NewWizardDialog;
+import org.jboss.reddeer.eclipse.topmenu.NewMenuWizard;
 
 /**
  * Wizard dialog for creating web project.
  */
-public class WebProjectWizard extends NewWizardDialog{
+public class WebProjectWizard extends NewMenuWizard{
 	
 	public static final String CATEGORY="Web";
 	public static final String NAME="Dynamic Web Project";
@@ -24,7 +24,7 @@ public class WebProjectWizard extends NewWizardDialog{
 	 * Construct the wizard with {@value #CATEGORY} &gt; {@value #NAME}.
 	 */
 	public WebProjectWizard(){
-		super(CATEGORY,NAME);
+		super("New Dynamic Web Project",CATEGORY,NAME);
 	}
 
 }

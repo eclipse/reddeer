@@ -57,10 +57,8 @@ public class ServersViewTestCase {
 	}
 	
 	public static ServersView2 getServersView() {
-		if (serversView == null){
-			serversView = new ServersView2();
-			serversView.open();
-		}
+		serversView = new ServersView2();
+		serversView.open();
 		return serversView;
 	}
 	

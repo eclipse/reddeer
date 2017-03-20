@@ -10,7 +10,7 @@
  ******************************************************************************/ 
 package org.jboss.reddeer.eclipse.ui.wizards.newresource;
 
-import org.jboss.reddeer.jface.wizard.NewWizardDialog;
+import org.jboss.reddeer.eclipse.topmenu.NewMenuWizard;
 
 /**
  * New General Project wizard
@@ -18,12 +18,12 @@ import org.jboss.reddeer.jface.wizard.NewWizardDialog;
  * @author vpakan
  * 
  */
-public class BasicNewProjectResourceWizard extends NewWizardDialog {
+public class BasicNewProjectResourceWizard extends NewMenuWizard {
 	
 	/**
 	 * Constructs the wizard with "General" - "Project".
 	 */
 	public BasicNewProjectResourceWizard() {
-		super("General", "Project");
+		super("New Project","General", "Project");
 	}
 }

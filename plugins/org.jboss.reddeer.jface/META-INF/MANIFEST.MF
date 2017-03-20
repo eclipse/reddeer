@@ -16,7 +16,12 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Export-Package: org.jboss.reddeer.jface.exception,
  org.jboss.reddeer.jface.preference,
  org.jboss.reddeer.jface.text.contentassist,
- org.jboss.reddeer.jface.viewer.handler,
  org.jboss.reddeer.jface.viewers,
  org.jboss.reddeer.jface.wizard,
- org.jboss.reddeer.jface.handler
+ org.jboss.reddeer.jface.handler,
+ org.jboss.reddeer.jface.dialogs,
+ org.jboss.reddeer.jface.matcher,
+ org.jboss.reddeer.jface.window,
+ org.jboss.reddeer.jface.condition,
+ org.jboss.reddeer.jface.api
+

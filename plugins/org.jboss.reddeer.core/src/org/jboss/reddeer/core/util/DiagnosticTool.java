@@ -13,9 +13,10 @@ package org.jboss.reddeer.core.util;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.swt.widgets.Widget;
 import org.jboss.reddeer.common.util.Display;
 import org.jboss.reddeer.common.util.ResultRunnable;
+import org.jboss.reddeer.core.handler.ControlHandler;
+import org.jboss.reddeer.core.handler.ShellHandler;
 import org.jboss.reddeer.core.lookup.ShellLookup;
 import org.jboss.reddeer.core.lookup.WidgetLookup;
 
@@ -125,12 +126,17 @@ public class DiagnosticTool {
 	 *            Widget
 	 * @return one line information about the widget
 	 */
-	protected String getWidgetInformation(Widget widget) {
+	protected String getWidgetInformation(Control widget) {
 		if (widget == null) {
 			return "null";
 		}
 		StringBuffer result = new StringBuffer();
 		result.append(widget.getClass());
+		Shell controlShell = ControlHandler.getInstance().getShell(widget);
+		if(controlShell != null){
+			result.append("[shell: '"+ShellHandler.getInstance().getText(controlShell)+"']");
+		}
+		
 		try {
 			String label = WidgetLookup.getInstance().getLabel(widget);
 			if (label != null) {

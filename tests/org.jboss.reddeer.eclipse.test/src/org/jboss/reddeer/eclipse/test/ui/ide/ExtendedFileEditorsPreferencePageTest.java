@@ -39,7 +39,7 @@ public class ExtendedFileEditorsPreferencePageTest {
 
     private static final String TEST_FILE_TYPE = "myFileType";
     private ExtendedFileEditorsPreferencePage prefPage;
-    private PreferenceDialog prefDialog;
+    private WorkbenchPreferenceDialog prefDialog;
 
     @Before
     public void setup() {

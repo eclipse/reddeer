@@ -15,7 +15,7 @@ import static org.hamcrest.core.Is.is;
 
 import org.jboss.reddeer.eclipse.jdt.ui.packageview.PackageExplorerPart;
 import org.jboss.reddeer.eclipse.test.wst.server.ui.view.ServersViewTestCase;
-import org.jboss.reddeer.eclipse.ui.dialogs.ResourcePropertyDialog;
+import org.jboss.reddeer.eclipse.ui.dialogs.PropertyDialog;
 import org.jboss.reddeer.eclipse.ui.wizards.datatransfer.ExternalProjectImportWizardDialog;
 import org.jboss.reddeer.eclipse.ui.wizards.datatransfer.WizardProjectsImportPage;
 import org.jboss.reddeer.eclipse.utils.DeleteUtils;
@@ -51,7 +51,7 @@ public class FacetsPropertyPageTest {
 
 	@After
 	public void cleanup() {
-		ResourcePropertyDialog dialog = new ResourcePropertyDialog(new PackageExplorerPart().getProject(PROJECT));
+		PropertyDialog dialog = new PropertyDialog(PROJECT);
 		if (dialog.isOpen()) {
 			dialog.cancel();
 		}
@@ -62,16 +62,15 @@ public class FacetsPropertyPageTest {
 
 	@Test
 	public void selectFacet() {
-		ResourcePropertyDialog dialog = new ResourcePropertyDialog(new PackageExplorerPart().getProject(PROJECT));
+		PropertyDialog dialog = new PackageExplorerPart().getProject(PROJECT).openProperties();
 		FacetsPropertyPage facetsPage = new FacetsPropertyPage();
 		
-		dialog.open();
 		dialog.select(facetsPage);
 		facetsPage.selectFacet(FACET1);
 		facetsPage.apply();
 		dialog.ok();
 
-		dialog.open();
+		dialog = new PackageExplorerPart().getProject(PROJECT).openProperties();
 		dialog.select(facetsPage);
 		assertThat(facetsPage.getSelectedFacets().get(0).getText(),
 				is(FACET1));
@@ -81,17 +80,16 @@ public class FacetsPropertyPageTest {
 
 	@Test
 	public void selectVersion() {
-		ResourcePropertyDialog dialog = new ResourcePropertyDialog(new PackageExplorerPart().getProject(PROJECT));
+		PropertyDialog dialog = new PackageExplorerPart().getProject(PROJECT).openProperties();
 		FacetsPropertyPage facetsPage = new FacetsPropertyPage();
 		
-		dialog.open();
 		dialog.select(facetsPage);
 		facetsPage.selectFacet(FACET1);
 		facetsPage.selectVersion(FACET1, FACET1_VERSION);
 		facetsPage.apply();
 		dialog.ok();
 		
-		dialog.open();
+		dialog = new PackageExplorerPart().getProject(PROJECT).openProperties();
 		dialog.select(facetsPage);
 		assertThat(facetsPage.getSelectedVersion(FACET1), is(FACET1_VERSION));
 

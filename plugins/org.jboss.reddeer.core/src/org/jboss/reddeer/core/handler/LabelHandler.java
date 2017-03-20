@@ -10,12 +10,14 @@
  ******************************************************************************/
 package org.jboss.reddeer.core.handler;
 
+import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Label;
 import org.jboss.reddeer.common.util.Display;
 import org.jboss.reddeer.common.util.ResultRunnable;
 
 /**
- * Contains methods for handling UI operations on {@link Label} widget
+ * Contains methods for handling UI operations on {@link Label} widgets.
+ * 
  * @author rawagner
  *
  */
@@ -23,7 +25,10 @@ public class LabelHandler {
 	
 	private static LabelHandler instance;
 	
-	private LabelHandler(){}
+
+	private LabelHandler(){
+		
+	}
 	
 	/**
 	 * Gets instance of LabelHandler
@@ -47,6 +52,20 @@ public class LabelHandler {
 			@Override
 			public String run() {
 				return label.getText();
+			}
+		});
+	}
+	/**
+	 * Returns label image
+	 * @param swtLabel label to get image from
+	 * @return label image
+	 */
+	public Image getImage(final Label swtLabel){
+		return Display.syncExec(new ResultRunnable<Image>() {
+
+			@Override
+			public Image run() {
+				return swtLabel.getImage();
 			}
 		});
 	}

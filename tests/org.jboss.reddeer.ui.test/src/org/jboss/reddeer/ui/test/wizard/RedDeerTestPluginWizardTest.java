@@ -142,5 +142,10 @@ public class RedDeerTestPluginWizardTest extends RedDeerWizardTestCase {
 		
 		assertTrue("Finish button is not enabled", new FinishButton().isEnabled());
 	}
+
+	@Override
+	String getWizardText() {
+		return "New RedDeer Test Plugin";
+	}
 	
 }

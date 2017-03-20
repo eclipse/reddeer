@@ -10,14 +10,8 @@
  ******************************************************************************/ 
 package org.jboss.reddeer.core.condition;
 
-import org.eclipse.swt.widgets.Shell;
 import org.hamcrest.Matcher;
-import org.jboss.reddeer.common.condition.AbstractWaitCondition;
-import org.jboss.reddeer.common.logging.Logger;
-import org.jboss.reddeer.common.wait.TimePeriod;
 import org.jboss.reddeer.core.matcher.WithTextMatcher;
-import org.jboss.reddeer.core.util.InstanceValidator;
-import org.jboss.reddeer.core.lookup.ShellLookup;
 
 /**
  * Condition is met when a shell with specific text (title) is available.
@@ -25,9 +19,7 @@ import org.jboss.reddeer.core.lookup.ShellLookup;
  * @author Andrej Podhradsky (andrej.podhradsky@gmail.com)
  * @author jniederm
  */
-public class ShellWithTextIsAvailable extends AbstractWaitCondition { 
-	private Matcher<String> matcher;
-	private static final Logger log = Logger.getLogger(ShellWithTextIsAvailable.class);
+public class ShellWithTextIsAvailable extends ShellMatchingMatcherIsAvailable { 
 
 	/**
 	 * Constructs ShellWithTextIsAvailable wait condition.
@@ -36,8 +28,7 @@ public class ShellWithTextIsAvailable extends AbstractWaitCondition {
 	 * @param title the title
 	 */
 	public ShellWithTextIsAvailable(String title) {
-		InstanceValidator.checkNotNull(title, "title");
-		this.matcher = new WithTextMatcher(title);
+		super(new WithTextMatcher(title));
 	}
 	
 	/**
@@ -47,25 +38,6 @@ public class ShellWithTextIsAvailable extends AbstractWaitCondition {
 	 * @param matcher matcher matching title of the shell
 	 */
 	public ShellWithTextIsAvailable(Matcher<String> matcher) {
-		InstanceValidator.checkNotNull(matcher, "matcher");
-		this.matcher = matcher;
-	}
-
-	/* (non-Javadoc)
-	 * @see org.jboss.reddeer.common.condition.WaitCondition#test()
-	 */
-	@Override
-	public boolean test() {
-		log.debug("Looking for shell with title matching '" + matcher + "'");
-		Shell shell = ShellLookup.getInstance().getShell(matcher, TimePeriod.NONE);
-		return shell != null;
-	}
-
-	/* (non-Javadoc)
-	 * @see org.jboss.reddeer.common.condition.AbstractWaitCondition#description()
-	 */
-	@Override
-	public String description() {
-		return "shell with title matching " + matcher + " is available";
+		super(matcher);
 	}
 }

@@ -8,7 +8,7 @@
  * Contributors: 
  * Red Hat, Inc. - initial API and implementation 
  ******************************************************************************/ 
-package org.jboss.reddeer.jface.viewer.handler;
+package org.jboss.reddeer.jface.handler;
 
 import java.util.ArrayList;
 import java.util.Arrays;

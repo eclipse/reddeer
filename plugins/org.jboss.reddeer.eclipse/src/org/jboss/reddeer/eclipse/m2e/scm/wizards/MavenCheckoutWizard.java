@@ -10,14 +10,14 @@
  ******************************************************************************/ 
 package org.jboss.reddeer.eclipse.m2e.scm.wizards;
 
-import org.jboss.reddeer.jface.wizard.NewWizardDialog;
+import org.jboss.reddeer.eclipse.topmenu.NewMenuWizard;
 
 /**
  * New Maven SCM Project Wizard Dialog
  * @author rawagner
  *
  */
-public class MavenCheckoutWizard extends NewWizardDialog{
+public class MavenCheckoutWizard extends NewMenuWizard{
 	
 	public static final String CATEGORY="Maven";
 	public static final String NAME="Check out Maven Projects from SCM";
@@ -27,7 +27,7 @@ public class MavenCheckoutWizard extends NewWizardDialog{
 	 * Default constructor.
 	 */
 	public MavenCheckoutWizard(){
-		super(CATEGORY,NAME);
+		super("Check out as Maven project from SCM",CATEGORY,NAME);
 	}
 
 }

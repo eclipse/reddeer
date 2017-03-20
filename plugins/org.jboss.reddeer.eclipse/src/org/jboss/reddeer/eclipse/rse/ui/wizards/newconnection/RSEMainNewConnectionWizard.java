@@ -10,22 +10,21 @@
  ******************************************************************************/ 
 package org.jboss.reddeer.eclipse.rse.ui.wizards.newconnection;
 
-import org.jboss.reddeer.jface.wizard.NewWizardDialog;
+import org.jboss.reddeer.eclipse.topmenu.NewMenuWizard;
 
 /**
  * This class represents the New Connection wizard dialog.
  * @author Pavol Srna
  *
  */
-public class RSEMainNewConnectionWizard extends NewWizardDialog{
-	
+public class RSEMainNewConnectionWizard extends NewMenuWizard{	
 	public static final String TITLE = "New Connection";
 	
 	/**
 	 * Constructs the wizard with "Remote System Explorer" &gt; {@value #TITLE}.
 	 */
 	public RSEMainNewConnectionWizard() {
-		super("Remote System Explorer", "Connection");
+		super(TITLE, "Remote System Explorer", "Connection");
 	}
 
 }

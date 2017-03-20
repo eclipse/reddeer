@@ -12,7 +12,7 @@ package org.jboss.reddeer.eclipse.wst.server.ui.cnf;
 
 import org.jboss.reddeer.eclipse.wst.server.ui.cnf.ServersViewEnums.ServerPublishState;
 import org.jboss.reddeer.eclipse.wst.server.ui.cnf.ServersViewEnums.ServerState;
-import org.jboss.reddeer.jface.viewer.handler.TreeViewerHandler;
+import org.jboss.reddeer.jface.handler.TreeViewerHandler;
 import org.jboss.reddeer.swt.api.TreeItem;
 
 /**

@@ -62,7 +62,7 @@ public class RuntimePreferencePageTest {
 		wizardPage.selectType(SERVER_PATH, SERVER_NAME);
 		wizardDialog.finish();
 		
-		preferencePage.addRuntime();
+		wizardDialog = preferencePage.addRuntime();
 		wizardPage = new NewRuntimeWizardPage();
 		wizardPage.selectType(SERVER_PATH, SERVER_NAME);
 		wizardDialog.finish();
@@ -89,7 +89,7 @@ public class RuntimePreferencePageTest {
 		wizardPage.selectType(SERVER_PATH, SERVER_NAME);
 		wizardDialog.finish();
 		
-		preferencePage.addRuntime();
+		wizardDialog = preferencePage.addRuntime();
 		wizardPage = new NewRuntimeWizardPage();
 		wizardPage.selectType(SERVER_PATH, SERVER_NAME);
 		wizardDialog.finish();

@@ -10,14 +10,14 @@
  ******************************************************************************/ 
 package org.jboss.reddeer.eclipse.jst.ejb.ui.project.facet;
 
-import org.jboss.reddeer.jface.wizard.NewWizardDialog;
+import org.jboss.reddeer.eclipse.topmenu.NewMenuWizard;
 
 /**
  * This class represents EJB Wizard dialog.
  * @author rawagner
  *
  */
-public class EjbProjectWizard extends NewWizardDialog {
+public class EjbProjectWizard extends NewMenuWizard {
 	
 	public static final String CATEGORY="EJB";
 	public static final String NAME="EJB Project";
@@ -25,7 +25,7 @@ public class EjbProjectWizard extends NewWizardDialog {
 	 * Default constructor.
 	 */
 	public EjbProjectWizard() {
-		super(CATEGORY, NAME);
+		super("New EJB Project",CATEGORY, NAME);
 	}
 
 }

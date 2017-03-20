@@ -10,14 +10,14 @@
  ******************************************************************************/ 
 package org.jboss.reddeer.eclipse.m2e.core.ui.wizard;
 
-import org.jboss.reddeer.jface.wizard.NewWizardDialog;
+import org.jboss.reddeer.eclipse.topmenu.NewMenuWizard;
 
 /**
  * New Maven Project Wizard Dialog
  * @author rawagner
  *
  */
-public class MavenProjectWizard extends NewWizardDialog{
+public class MavenProjectWizard extends NewMenuWizard{
 	
 	public static final String CATEGORY="Maven";
 	public static final String NAME="Maven Project";
@@ -26,7 +26,7 @@ public class MavenProjectWizard extends NewWizardDialog{
 	 * Default constructor.
 	 */
 	public MavenProjectWizard(){
-		super(CATEGORY,NAME);
+		super("New Maven Project",CATEGORY,NAME);
 	}
 
 }

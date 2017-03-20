@@ -173,7 +173,7 @@ public class MenuLookup {
 	 * @param s shell where menu bar items are looked up
 	 * @return array of menu items of specified shell 
 	 */
-	private MenuItem[] getMenuBarItems(final Shell s) {
+	public MenuItem[] getMenuBarItems(final Shell s) {
 
 		MenuItem[] items = Display.syncExec(new ResultRunnable<MenuItem[]>() {
 

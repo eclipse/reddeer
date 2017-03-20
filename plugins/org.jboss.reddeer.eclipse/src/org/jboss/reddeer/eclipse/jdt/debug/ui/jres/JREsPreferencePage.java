@@ -125,9 +125,9 @@ public class JREsPreferencePage extends PreferencePage {
 		new PushButton("Remove").click();
 	}
 
-	private WizardDialog openAddJREWizard() {
+	private AddVMInstallWizard openAddJREWizard() {
 		new PushButton("Add...").click();
-		WizardDialog wizard = new WizardDialog();
+		AddVMInstallWizard wizard = new AddVMInstallWizard();
 		new VMTypePage().selectType("Standard VM");
 		wizard.next();
 		return wizard;

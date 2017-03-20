@@ -18,7 +18,6 @@ import java.util.List;
 
 import org.jboss.reddeer.eclipse.wst.server.ui.cnf.Server;
 import org.jboss.reddeer.eclipse.wst.server.ui.cnf.ServerModule;
-import org.jboss.reddeer.eclipse.wst.server.ui.cnf.ServersViewEnums.ServerPublishState;
 import org.jboss.reddeer.eclipse.wst.server.ui.cnf.ServersViewEnums.ServerState;
 import org.jboss.reddeer.eclipse.wst.server.ui.wizard.ModifyModulesDialog;
 import org.jboss.reddeer.eclipse.wst.server.ui.wizard.ModifyModulesPage;

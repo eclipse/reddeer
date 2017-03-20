@@ -14,8 +14,6 @@ import static org.junit.Assert.assertFalse;
 
 import java.util.List;
 
-import org.jboss.reddeer.common.wait.AbstractWait;
-import org.jboss.reddeer.common.wait.TimePeriod;
 import org.jboss.reddeer.eclipse.mylyn.tasks.ui.views.TaskRepositoriesView;
 import org.jboss.reddeer.eclipse.mylyn.tasks.ui.views.TaskRepository;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;

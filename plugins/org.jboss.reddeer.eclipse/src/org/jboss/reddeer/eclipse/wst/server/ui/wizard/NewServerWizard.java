@@ -12,7 +12,7 @@ package org.jboss.reddeer.eclipse.wst.server.ui.wizard;
 
 import org.jboss.reddeer.common.wait.TimePeriod;
 import org.jboss.reddeer.common.wait.WaitUntil;
-import org.jboss.reddeer.jface.wizard.NewWizardDialog;
+import org.jboss.reddeer.eclipse.topmenu.NewMenuWizard;
 import org.jboss.reddeer.workbench.core.condition.JobIsKilled;
 
 /**
@@ -22,15 +22,14 @@ import org.jboss.reddeer.workbench.core.condition.JobIsKilled;
  * @author Lucia Jelinkova
  *
  */
-public class NewServerWizard extends NewWizardDialog {
-
+public class NewServerWizard extends NewMenuWizard {
 	public static final String TITLE = "New Server";
 	
 	/**
 	 * Instantiates a new new server wizard dialog.
 	 */
 	public NewServerWizard() {
-		super("Server", "Server");
+		super(TITLE, "Server", "Server");
 	}
 
 	@Override

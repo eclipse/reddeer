@@ -8,12 +8,13 @@
  * Contributors: 
  * Red Hat, Inc. - initial API and implementation 
  ******************************************************************************/ 
-package org.jboss.reddeer.jface.test.wizard;
+package org.jboss.reddeer.jface.test.dialogs;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
-import org.jboss.reddeer.jface.wizard.ImportWizardDialog;
+import org.jboss.reddeer.eclipse.topmenu.ImportMenuWizard;
+import org.jboss.reddeer.jface.test.dialogs.impl.TestingImportWizard;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.junit.After;
@@ -38,10 +39,10 @@ public class ImportWizardDialogTest {
 		importWizardDialog.cancel();
 	}
 	
-	private class ImportWizardDialogImpl extends ImportWizardDialog {
+	private class ImportWizardDialogImpl extends ImportMenuWizard {
 
 		public ImportWizardDialogImpl() {
-			super(TestingImportWizard.CATEGORY, TestingImportWizard.NAME);
+			super(TestingImportWizard.NAME, TestingImportWizard.CATEGORY, TestingImportWizard.NAME);
 		}
 	}
 }

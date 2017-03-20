@@ -16,11 +16,12 @@ import java.util.Collection;
 import java.util.List;
 
 import org.jboss.reddeer.eclipse.ui.navigator.resources.ProjectExplorer;
-import org.jboss.reddeer.eclipse.utils.DeleteUtils;
 import org.jboss.reddeer.gef.editor.GEFEditor;
 import org.jboss.reddeer.gef.test.wizard.ExampleWizard;
 import org.jboss.reddeer.gef.test.wizard.GeneralProjectWizard;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
+import org.jboss.reddeer.requirements.cleanworkspace.CleanWorkspaceRequirement;
+import org.jboss.reddeer.requirements.cleanworkspace.CleanWorkspaceRequirement.CleanWorkspace;
 import org.jboss.reddeer.workbench.impl.shell.WorkbenchShell;
 import org.junit.After;
 import org.junit.BeforeClass;
@@ -33,6 +34,7 @@ import org.junit.runner.RunWith;
  *
  */
 @RunWith(RedDeerSuite.class)
+@CleanWorkspace
 public class GEFEditorTest {
 
 	public static final String PROJECT_NAME = "test";
@@ -44,10 +46,7 @@ public class GEFEditorTest {
 
 	@After
 	public void deleteAllProjects() {
-		new GEFEditor().close();
-		ProjectExplorer projectExplorer = new ProjectExplorer();
-		projectExplorer.open();
-		DeleteUtils.forceProjectDeletion(projectExplorer.getProject(PROJECT_NAME),true);
+		new CleanWorkspaceRequirement().fulfill();
 	}
 
 	@Test

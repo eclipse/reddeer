@@ -66,7 +66,7 @@ public class ModifyModulesDialogTest extends ServersViewTestCase{
 		assertThat(modules.get(1).getLabel().getName(), is(PROJECT_2));
 		assertThat(modules.get(2).getLabel().getName(), is(PROJECT_3));
 		
-		server.addAndRemoveModules();
+		dialog = server.addAndRemoveModules();
 		page = new ModifyModulesPage();
 		page.remove(PROJECT_1, PROJECT_3);
 		dialog.finish();
@@ -88,7 +88,7 @@ public class ModifyModulesDialogTest extends ServersViewTestCase{
 		assertThat(modules.get(0).getLabel().getName(), is(PROJECT_1));
 		assertThat(modules.get(1).getLabel().getName(), is(PROJECT_3));
 		
-		server.addAndRemoveModules();
+		dialog = server.addAndRemoveModules();
 		page = new ModifyModulesPage();
 		page.removeAll();
 		dialog.finish();

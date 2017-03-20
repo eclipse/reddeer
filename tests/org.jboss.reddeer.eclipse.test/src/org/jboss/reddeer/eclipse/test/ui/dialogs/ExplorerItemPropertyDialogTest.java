@@ -15,15 +15,11 @@ import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertTrue;
 
-import org.jboss.reddeer.common.exception.WaitTimeoutExpiredException;
-import org.jboss.reddeer.common.wait.TimePeriod;
-import org.jboss.reddeer.common.wait.WaitUntil;
-import org.jboss.reddeer.core.condition.ShellWithTextIsAvailable;
 import org.jboss.reddeer.eclipse.core.resources.DefaultProject;
 import org.jboss.reddeer.eclipse.jdt.ui.packageview.PackageExplorerPart;
 import org.jboss.reddeer.eclipse.jdt.ui.wizards.JavaProjectWizard;
 import org.jboss.reddeer.eclipse.jdt.ui.wizards.NewJavaProjectWizardPageOne;
-import org.jboss.reddeer.eclipse.ui.dialogs.ResourcePropertyDialog;
+import org.jboss.reddeer.eclipse.ui.dialogs.PropertyDialog;
 import org.jboss.reddeer.eclipse.ui.dialogs.PropertyPage;
 import org.jboss.reddeer.eclipse.utils.DeleteUtils;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
@@ -43,7 +39,7 @@ public class ExplorerItemPropertyDialogTest {
 
 	private static DefaultProject project;
 
-	private ResourcePropertyDialog dialog;
+	private PropertyDialog dialog;
 
 	private PropertyPage page;
 
@@ -62,19 +58,14 @@ public class ExplorerItemPropertyDialogTest {
 
 	@Before
 	public void setup() {
-		dialog = new ResourcePropertyDialog(project);
+		dialog = project.openProperties();
 		page = new TestPropertyPageRedDeer();
 	}
 
 	@After 
 	public void cleanup(){
-		Shell shell = null;
-		try {
-			new WaitUntil(new ShellWithTextIsAvailable(dialog.getTitle()), TimePeriod.NONE);
-			shell = new DefaultShell(dialog.getTitle());
-			shell.close();
-		} catch (WaitTimeoutExpiredException e){
-			// not found, no action needed
+		if(dialog!=null && dialog.isOpen()){
+			dialog.cancel();
 		}
 	}
 
@@ -88,7 +79,7 @@ public class ExplorerItemPropertyDialogTest {
 		dialog.open();
 
 		Shell shell = new DefaultShell();
-		assertThat(shell.getText(), is(dialog.getTitle()));
+		assertThat(shell.getText(), is(dialog.getShell().getText()));
 
 		dialog.select(page);
 		assertThat(dialog.getPageName(), is(TestPropertyPage.PAGE_TITLE));
@@ -99,7 +90,7 @@ public class ExplorerItemPropertyDialogTest {
 		dialog.open();
 
 		Shell shell = new DefaultShell();
-		assertThat(shell.getText(), is(dialog.getTitle()));
+		assertThat(shell.getText(), is(dialog.getShell().getText()));
 
 		dialog.select(TestPropertyPage.PAGE_TITLE);
 		assertThat(dialog.getPageName(), is(TestPropertyPage.PAGE_TITLE));
@@ -109,10 +100,11 @@ public class ExplorerItemPropertyDialogTest {
 	public void ok(){
 		dialog.open();
 		dialog.select(page);
+		String dialogText = dialog.getShell().getText();
 		dialog.ok();
 
 		Shell shell = new DefaultShell();
-		assertThat(shell.getText(), is(not(dialog.getTitle())));
+		assertThat(shell.getText(), is(not(dialogText)));
 		assertTrue(TestPropertyPage.performOkCalled);
 	}
 
@@ -120,10 +112,11 @@ public class ExplorerItemPropertyDialogTest {
 	public void cancel(){
 		dialog.open();
 		dialog.select(page);
+		String dialogText = dialog.getShell().getText();
 		dialog.cancel();
 
 		Shell shell = new DefaultShell();
-		assertThat(shell.getText(), is(not(dialog.getTitle())));
+		assertThat(shell.getText(), is(not(dialogText)));
 		assertTrue(TestPropertyPage.performCancelCalled);
 	}
 
@@ -134,7 +127,7 @@ public class ExplorerItemPropertyDialogTest {
 		page.apply();
 
 		Shell shell = new DefaultShell();
-		assertThat(shell.getText(), is(dialog.getTitle()));
+		assertThat(shell.getText(), is(dialog.getShell().getText()));
 		assertThat(page.getName(), is(TestPropertyPage.PAGE_TITLE));
 		assertTrue(TestPropertyPage.performApplyCalled);
 	}
@@ -146,7 +139,7 @@ public class ExplorerItemPropertyDialogTest {
 		page.restoreDefaults();
 
 		Shell shell = new DefaultShell();
-		assertThat(shell.getText(), is(dialog.getTitle()));
+		assertThat(shell.getText(), is(dialog.getShell().getText()));
 		assertThat(page.getName(), is(TestPropertyPage.PAGE_TITLE));
 		assertTrue(TestPropertyPage.performDefaultsCalled);
 	}

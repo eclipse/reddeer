@@ -13,6 +13,8 @@ package org.jboss.reddeer.eclipse.wst.common.project.facet.ui;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.jboss.reddeer.common.wait.WaitWhile;
+import org.jboss.reddeer.core.condition.ShellWithTextIsAvailable;
 import org.jboss.reddeer.eclipse.ui.dialogs.PropertyPage;
 import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.swt.impl.button.OkButton;
@@ -84,6 +86,14 @@ public class FacetsPropertyPage extends PropertyPage {
 				facets.add(i);
 		}
 		return facets;
+	}
+	
+	/**
+	 * Apply preference page changes.
+	 */
+	public void apply() {
+		super.apply();
+		new WaitWhile(new ShellWithTextIsAvailable("Progress Information"));
 	}
 	
 	

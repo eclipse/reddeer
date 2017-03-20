@@ -10,20 +10,20 @@
  ******************************************************************************/
 package org.jboss.reddeer.eclipse.wst.html.ui.wizard;
 
-import org.jboss.reddeer.jface.wizard.NewWizardDialog;
+import org.jboss.reddeer.eclipse.topmenu.NewMenuWizard;
 
 /**
  * New HTML Wizard.
  * @author rawagner
  *
  */
-public class NewHTMLWizard extends NewWizardDialog{
+public class NewHTMLWizard extends NewMenuWizard{
 	
 	/**
 	 * Default constructor.
 	 */
 	public NewHTMLWizard(){
-		super("Web","HTML File");
+		super("New HTML File","Web","HTML File");
 	}
 
 }

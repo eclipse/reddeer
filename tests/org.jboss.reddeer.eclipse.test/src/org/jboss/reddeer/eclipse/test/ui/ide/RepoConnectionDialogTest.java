@@ -46,7 +46,7 @@ public class RepoConnectionDialogTest  {
 		TaskRepository repo = repositoriesView.getTaskRepository("Eclipse.org");
 		repoConnectionDialog = repo.openProperties();
 		
-		assertTrue ("Properties title matches", repoConnectionDialog.getTitle().equals("Properties for Task Repository"));
+		assertTrue ("Properties title matches", repoConnectionDialog.getShell().getText().equals("Properties for Task Repository"));
 		
 		repoConnectionDialog.validateSettings();
 

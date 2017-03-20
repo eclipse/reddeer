@@ -11,12 +11,11 @@
 package org.jboss.reddeer.eclipse.jst.j2ee.wizard;
 
 import org.jboss.reddeer.jface.wizard.WizardDialog;
-import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 
 public class DefaultJ2EEComponentCreationWizard extends WizardDialog{
 	
 	public DefaultJ2EEComponentCreationWizard() {
-		new DefaultShell("Create default Java EE modules.");
+		super("Create default Java EE modules.");
 	}
 
 }

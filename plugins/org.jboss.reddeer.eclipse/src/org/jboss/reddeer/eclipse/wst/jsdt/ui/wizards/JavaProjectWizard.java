@@ -10,7 +10,7 @@
  ******************************************************************************/ 
 package org.jboss.reddeer.eclipse.wst.jsdt.ui.wizards;
 
-import org.jboss.reddeer.jface.wizard.NewWizardDialog;
+import org.jboss.reddeer.eclipse.topmenu.NewMenuWizard;
 
 /**
  * Represents the wizard for creating new JavaScript project. It provides access to the first wizard page {@link JavaProjectWizardFirstPage}. 
@@ -18,7 +18,7 @@ import org.jboss.reddeer.jface.wizard.NewWizardDialog;
  * @author Pavol Srna
  *
  */
-public class JavaProjectWizard extends NewWizardDialog {
+public class JavaProjectWizard extends NewMenuWizard {
 
 	public static final String TITLE = "New JavaScript Project";
 	
@@ -26,7 +26,7 @@ public class JavaProjectWizard extends NewWizardDialog {
 	 * Instantiates a new java project wizard dialog.
 	 */
 	public JavaProjectWizard() {
-		super("JavaScript", "JavaScript Project");
+		super(TITLE, "JavaScript", "JavaScript Project");
 	}
 	
 }

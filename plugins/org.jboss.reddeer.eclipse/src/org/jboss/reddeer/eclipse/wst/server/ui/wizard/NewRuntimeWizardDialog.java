@@ -23,8 +23,12 @@ import org.jboss.reddeer.workbench.core.condition.JobIsKilled;
  *
  */
 public class NewRuntimeWizardDialog extends WizardDialog{
-
+	
 	public static final String DIALOG_TITLE = "New Server Runtime Environment";
+	
+	public NewRuntimeWizardDialog() {
+		super(DIALOG_TITLE);
+	}
 
 	@Override
 	public void finish(TimePeriod timeout) {

@@ -32,7 +32,7 @@ import org.jboss.reddeer.swt.impl.table.DefaultTableItem;
 import org.jboss.reddeer.swt.impl.tree.DefaultTree;
 import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
 import org.jboss.reddeer.workbench.core.condition.JobIsRunning;
-import org.jboss.reddeer.workbench.ui.dialogs.FilteredPreferenceDialog;
+import org.jboss.reddeer.workbench.ui.dialogs.WorkbenchPreferenceDialog;
 
 /**
  * "Java Build Path" property page. 
@@ -99,7 +99,7 @@ public class BuildPathsPropertyPage extends PropertyPage {
 		new PushButton("Add Variable...").click();
 		new DefaultShell("New Variable Classpath Entry");
 		new PushButton("Configure Variables...").click();
-		FilteredPreferenceDialog preferencesDialog = new FilteredPreferenceDialog();
+		WorkbenchPreferenceDialog preferencesDialog = new WorkbenchPreferenceDialog();
 		preferencesDialog.open();
 		String result = new ClasspathVariablesPreferencePage().addVariable(name, value, overwriteIfExists);
 		preferencesDialog.ok();
@@ -129,7 +129,7 @@ public class BuildPathsPropertyPage extends PropertyPage {
 			new DefaultShell("New Variable Classpath Entry");
 			new DefaultTableItem(label).select();
 			new PushButton("Configure Variables...").click();
-			new FilteredPreferenceDialog().open();
+			new WorkbenchPreferenceDialog().open();
 			new ClasspathVariablesPreferencePage().removeVariable(label);
 			new OkButton().click();
 			new DefaultShell("Classpath Variables Changed");

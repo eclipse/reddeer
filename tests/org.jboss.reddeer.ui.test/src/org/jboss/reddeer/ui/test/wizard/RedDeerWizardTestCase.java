@@ -14,9 +14,9 @@ package org.jboss.reddeer.ui.test.wizard;
 import java.util.logging.Logger;
 
 import org.jboss.reddeer.core.exception.CoreLayerException;
+import org.jboss.reddeer.eclipse.topmenu.NewMenuWizard;
 import org.jboss.reddeer.eclipse.ui.navigator.resources.ProjectExplorer;
 import org.jboss.reddeer.eclipse.utils.DeleteUtils;
-import org.jboss.reddeer.jface.wizard.NewWizardDialog;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.junit.After;
@@ -25,10 +25,10 @@ import org.junit.Before;
 import org.junit.runner.RunWith;
 
 @RunWith(RedDeerSuite.class)
-public class RedDeerWizardTestCase {
+public abstract class RedDeerWizardTestCase {
 
 	private static final Logger LOG = Logger.getLogger(RedDeerWizardTestCase.class.getName());
-	protected static NewWizardDialog wizard;
+	protected static NewMenuWizard wizard;
 	protected static String projectName;
 	
 	@Before
@@ -39,10 +39,10 @@ public class RedDeerWizardTestCase {
 	@After
 	public void close() {
 		try {
-			new DefaultShell(wizard.getTitle());
+			new DefaultShell(getWizardText());
 			wizard.cancel();
 		} catch (CoreLayerException ex){
-			LOG.info("Shell " + wizard.getTitle() + " is not open");
+			LOG.info("Shell " + getWizardText() + " is not open");
 		}
 	}
 	
@@ -52,4 +52,6 @@ public class RedDeerWizardTestCase {
 		pe.open();
 		DeleteUtils.forceProjectDeletion(pe.getProject(projectName),true);
 	}
+	
+	abstract String getWizardText();
 }

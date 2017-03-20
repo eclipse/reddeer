@@ -10,12 +10,13 @@
  ******************************************************************************/ 
 package org.jboss.reddeer.graphiti.test;
 
+import org.jboss.reddeer.eclipse.topmenu.NewMenuWizard;
 import org.jboss.reddeer.eclipse.ui.navigator.resources.ProjectExplorer;
+import org.jboss.reddeer.eclipse.ui.wizards.newresource.BasicNewProjectResourceWizard;
 import org.jboss.reddeer.eclipse.utils.DeleteUtils;
 import org.jboss.reddeer.gef.GEFLayerException;
 import org.jboss.reddeer.gef.editor.GEFEditor;
 import org.jboss.reddeer.graphiti.impl.graphitieditpart.LabeledGraphitiEditPart;
-import org.jboss.reddeer.jface.wizard.NewWizardDialog;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.combo.LabeledCombo;
@@ -78,11 +79,7 @@ public class LabeledGraphitiEditPartTest {
 		new PushButton("Cancel").click();
 	}
 
-	public class GeneralProjectWizard extends NewWizardDialog {
-
-		public GeneralProjectWizard() {
-			super("General", "Project");
-		}
+	public class GeneralProjectWizard extends BasicNewProjectResourceWizard {
 
 		public void create(String name) {
 			open();
@@ -91,10 +88,10 @@ public class LabeledGraphitiEditPartTest {
 		}
 	}
 
-	public class TutorialDiagramWizard extends NewWizardDialog {
+	public class TutorialDiagramWizard extends NewMenuWizard {
 
 		public TutorialDiagramWizard() {
-			super("Other", "Graphiti Example Diagram");
+			super("New Diagram", "Other", "Graphiti Example Diagram");
 		}
 
 		public void create(String name) {

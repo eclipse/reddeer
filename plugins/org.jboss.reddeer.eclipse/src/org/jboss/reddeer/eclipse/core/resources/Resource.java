@@ -14,6 +14,7 @@ import java.util.List;
 
 import org.jboss.reddeer.common.adaptable.RedDeerAdaptable;
 import org.jboss.reddeer.common.wait.TimePeriod;
+import org.jboss.reddeer.eclipse.ui.dialogs.PropertyDialog;
 import org.jboss.reddeer.swt.api.TreeItem;
 
 /**
@@ -184,4 +185,10 @@ public interface Resource extends RedDeerAdaptable<Resource> {
 	 * @return title of view containing the resource
 	 */
 	public String getTitleOfWrappingView();
+	
+	/**
+	 * Opens properties dialog for the resource
+	 * @return properties dialog for the resource
+	 */
+	PropertyDialog openProperties();
 }

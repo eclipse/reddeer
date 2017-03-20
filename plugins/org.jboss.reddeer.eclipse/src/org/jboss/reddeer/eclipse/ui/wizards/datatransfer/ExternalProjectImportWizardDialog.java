@@ -10,7 +10,7 @@
  ******************************************************************************/ 
 package org.jboss.reddeer.eclipse.ui.wizards.datatransfer;
 
-import org.jboss.reddeer.jface.wizard.ImportWizardDialog;
+import org.jboss.reddeer.eclipse.topmenu.ImportMenuWizard;
 
 /**
  * Wizard for importing external projects into the workspace. 
@@ -18,12 +18,12 @@ import org.jboss.reddeer.jface.wizard.ImportWizardDialog;
  * @author Lucia Jelinkova
  *
  */
-public class ExternalProjectImportWizardDialog extends ImportWizardDialog {
+public class ExternalProjectImportWizardDialog extends ImportMenuWizard {
 
 	/**
 	 * Construct the wizard with "General" &gt; "Existing Projects into Workspace".
 	 */
 	public ExternalProjectImportWizardDialog() {
-		super(new String[]{"General", "Existing Projects into Workspace"});
+		super("Import","General", "Existing Projects into Workspace");
 	}
 }

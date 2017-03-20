@@ -10,17 +10,17 @@
  ******************************************************************************/ 
 package org.jboss.reddeer.eclipse.jdt.ui.wizards;
 
-import org.jboss.reddeer.jface.wizard.NewWizardDialog;
+import org.jboss.reddeer.eclipse.topmenu.NewMenuWizard;
 
 /**
  * Wizard dialog for creating a java class.
  */
-public class NewClassCreationWizard extends NewWizardDialog {
+public class NewClassCreationWizard extends NewMenuWizard {
 	
 	/**
 	 * Constructs the wizard with "Java" &gt; "Class".
 	 */
 	public NewClassCreationWizard() {
-		super("Java", "Class");
+		super("New Java Class","Java", "Class");
 	}
 }

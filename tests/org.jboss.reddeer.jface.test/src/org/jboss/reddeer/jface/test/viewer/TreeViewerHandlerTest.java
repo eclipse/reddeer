@@ -15,7 +15,7 @@ import static org.junit.Assert.assertTrue;
 import java.util.List;
 
 import org.jboss.reddeer.jface.exception.JFaceLayerException;
-import org.jboss.reddeer.jface.viewer.handler.TreeViewerHandler;
+import org.jboss.reddeer.jface.handler.TreeViewerHandler;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.swt.impl.tree.DefaultTree;

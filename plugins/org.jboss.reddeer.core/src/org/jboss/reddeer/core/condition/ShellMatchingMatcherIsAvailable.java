@@ -14,6 +14,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.common.condition.AbstractWaitCondition;
 import org.jboss.reddeer.common.logging.Logger;
+import org.jboss.reddeer.common.matcher.AndMatcher;
 import org.jboss.reddeer.core.util.InstanceValidator;
 import org.jboss.reddeer.core.lookup.ShellLookup;
 
@@ -25,16 +26,18 @@ import org.jboss.reddeer.core.lookup.ShellLookup;
  */
 public class ShellMatchingMatcherIsAvailable extends AbstractWaitCondition {
 
-	private Matcher<String> matcher;
+	private AndMatcher matcher;
 	private Logger logger = Logger.getLogger(ShellMatchingMatcherIsAvailable.class);
+	private Shell foundShell;
 	
 	/**
 	 * Creates new ShellMatchingMatcherIsAvailable wait condition with specified matcher.
-	 * @param matcher matcher to match shell title
+	 * @param matchers matcher to match shell title
 	 */
-	public ShellMatchingMatcherIsAvailable(Matcher<String> matcher) {
-		InstanceValidator.checkNotNull(matcher, "matcher");
-		this.matcher = matcher;
+	public ShellMatchingMatcherIsAvailable(Matcher<?>... matchers) {
+		InstanceValidator.checkNotNull(matchers, "matcher");
+		AndMatcher am  = new AndMatcher(matchers);
+		this.matcher = am;
 	}
 
 	/* (non-Javadoc)
@@ -42,14 +45,23 @@ public class ShellMatchingMatcherIsAvailable extends AbstractWaitCondition {
 	 */
 	@Override
 	public boolean test() {
-		logger.debug("Looking for shell with title matching matcher");
+		logger.debug("Looking for shell matching "+matcher);
 		Shell[] availableShells = ShellLookup.getInstance().getShells();
 		for (Shell shell: availableShells) { 
 			if (matcher.matches(shell)) {
+				foundShell = shell;
 				return true;
 			}
 		}
 		return false;
+	}
+	
+	/**
+	 * Returns found shell or null if no shell was found
+	 * @return found shell
+	 */
+	public Shell getResult(){
+		return foundShell;
 	}
 
 	/* (non-Javadoc)
@@ -57,6 +69,16 @@ public class ShellMatchingMatcherIsAvailable extends AbstractWaitCondition {
 	 */
 	@Override
 	public String description() {
-		return "shell matching matcher is available.";
+		return "shell matching "+matcher+" is available.";
+	}
+	
+	@Override
+	public String errorMessageWhile() {
+		return "shell matching "+matcher+" is still available.";
+	}
+	
+	@Override
+	public String errorMessageUntil() {
+		return "shell matching "+matcher+" not found.";
 	}
 }

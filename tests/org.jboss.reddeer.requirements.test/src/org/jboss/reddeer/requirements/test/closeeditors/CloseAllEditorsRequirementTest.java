@@ -15,7 +15,8 @@ import static org.junit.Assert.fail;
 
 import java.lang.annotation.Annotation;
 
-import org.jboss.reddeer.jface.wizard.NewWizardDialog;
+import org.jboss.reddeer.eclipse.ui.dialogs.NewWizard;
+import org.jboss.reddeer.eclipse.ui.dialogs.NewWizardSelectionPage;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.requirements.closeeditors.CloseAllEditorsRequirement;
 import org.jboss.reddeer.requirements.closeeditors.CloseAllEditorsRequirement.CloseAllEditors;
@@ -31,17 +32,13 @@ public class CloseAllEditorsRequirementTest {
 
 	@Before
 	public void openEditors(){
-		UntitledTextFileWizardDialog dialog = new UntitledTextFileWizardDialog();
-		dialog.open();
-		dialog.finish();
-
-		dialog = new UntitledTextFileWizardDialog();
-		dialog.open();
-		dialog.finish();
-
-		dialog = new UntitledTextFileWizardDialog();
-		dialog.open();
-		dialog.finish();
+		for(int i=0;i<3;i++){
+			NewWizard newWizard = new NewWizard();
+			newWizard.open();
+			NewWizardSelectionPage nwp = new NewWizardSelectionPage();
+			nwp.selectProject("General","Untitled Text File");
+			newWizard.finish();
+		}
 	}
 
 	@Before
@@ -77,12 +74,5 @@ public class CloseAllEditorsRequirementTest {
 				return CloseAllEditors.class;
 			}
 		};
-	}
-
-	private class UntitledTextFileWizardDialog extends NewWizardDialog {
-
-		public UntitledTextFileWizardDialog() {
-			super("General", "Untitled Text File");
-		}
 	}
 }

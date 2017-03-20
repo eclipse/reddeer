@@ -10,18 +10,18 @@
  ******************************************************************************/ 
 package org.jboss.reddeer.eclipse.jdt.ui.wizards;
 
-import org.jboss.reddeer.jface.wizard.NewWizardDialog;
+import org.jboss.reddeer.eclipse.topmenu.NewMenuWizard;
 
 /**
  * Wizard dialog for creating new Java project.
  */
-public class JavaProjectWizard extends NewWizardDialog {
+public class JavaProjectWizard extends NewMenuWizard {
 
 	/**
 	 * Constructs the wizard with Java &gt; Java Project.
 	 */
 	public JavaProjectWizard() {
-		super("Java", "Java Project");
+		super("New Java Project", "Java", "Java Project");
 	}
 	
 }

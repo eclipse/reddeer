@@ -14,7 +14,6 @@ import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.common.wait.TimePeriod;
 import org.jboss.reddeer.common.wait.WaitUntil;
 import org.jboss.reddeer.common.wait.WaitWhile;
-import org.jboss.reddeer.core.handler.WidgetHandler;
 import org.jboss.reddeer.jface.wizard.WizardDialog;
 import org.jboss.reddeer.swt.api.Shell;
 import org.jboss.reddeer.swt.condition.ShellHasChildrenOrIsNotAvailable;
@@ -35,6 +34,10 @@ public class ModifyModulesDialog extends WizardDialog {
 	protected final Logger log = Logger.getLogger(this.getClass());
 	public static final String DIALOG_TITLE = "Add and Remove...";
 	
+	public ModifyModulesDialog() {
+		super(DIALOG_TITLE);
+	}
+	
 	/**
 	 * Click the finish button in wizard dialog.
 	 * @param timeout to wait for wizard shell to close.
@@ -42,14 +45,13 @@ public class ModifyModulesDialog extends WizardDialog {
 	public void finish(TimePeriod timeout) {
 		log.info("Finish wizard");
 		
-		Shell s = new DefaultShell(DIALOG_TITLE);
 		new FinishButton().click();
-		new WaitUntil(new ShellHasChildrenOrIsNotAvailable(s));
-		if(!WidgetHandler.getInstance().isDisposed(s.getSWTWidget())){
+		new WaitUntil(new ShellHasChildrenOrIsNotAvailable(getShell()));
+		if(!getShell().isDisposed()){
 			Shell serverShell = new DefaultShell("Server");
 			new OkButton().click();
 			new WaitWhile(new ShellIsAvailable(serverShell));
-			new WaitWhile(new ShellIsAvailable(s), timeout);
+			new WaitWhile(new ShellIsAvailable(getShell()), timeout);
 		}
 		new WaitWhile(new JobIsRunning(), timeout);
 	}
