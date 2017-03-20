@@ -55,7 +55,6 @@ public class ServersView2 extends WorkbenchView {
 		activate();
 		log.info("Create new server");
 		new ContextMenu("New","Server").select();
-		new DefaultShell("New Server");
 		return new NewServerWizard();
 	}
 

@@ -10,7 +10,7 @@
  ******************************************************************************/ 
 package org.jboss.reddeer.eclipse.ui.dialogs;
 
-import org.jboss.reddeer.jface.preference.PreferenceDialog;
+import org.jboss.reddeer.workbench.topmenu.TopMenuPreferencesDialog;
 
 /**
  * Property dialog implementation
@@ -18,16 +18,14 @@ import org.jboss.reddeer.jface.preference.PreferenceDialog;
  * @author Lucia Jelinkova
  *
  */
-public abstract class PropertyDialog extends PreferenceDialog {
-
-	/**
-	 * Returns the name of the resource as will be shown on the dialog's title.
-	 *
-	 * @return the resource name
-	 */
-	protected abstract String getResourceName();
+public class PropertyDialog extends TopMenuPreferencesDialog {
 	
-	public String getTitle(){
-		return "Properties for " + getResourceName();
+	public PropertyDialog(String resourceName) {
+		super("Properties for "+resourceName,"File","Properties");
+	}
+	
+	@Override
+	public Class<?> getEclipseClass() {
+		return org.eclipse.ui.internal.dialogs.PropertyDialog.class;
 	}
 }

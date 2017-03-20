@@ -11,18 +11,17 @@
 package org.jboss.reddeer.jface.preference;
 
 import org.eclipse.swt.custom.CLabel;
-import org.eclipse.swt.widgets.Shell;
-import org.jboss.reddeer.common.logging.Logger;
+import org.hamcrest.Matcher;
 import org.jboss.reddeer.common.wait.TimePeriod;
 import org.jboss.reddeer.common.wait.WaitUntil;
 import org.jboss.reddeer.common.wait.WaitWhile;
-import org.jboss.reddeer.core.condition.ShellWithTextIsAvailable;
 import org.jboss.reddeer.core.condition.WidgetIsFound;
-import org.jboss.reddeer.core.handler.ShellHandler;
-import org.jboss.reddeer.core.handler.WidgetHandler;
 import org.jboss.reddeer.core.lookup.ShellLookup;
 import org.jboss.reddeer.core.matcher.WithTextMatcher;
+import org.jboss.reddeer.jface.window.AbstractWindow;
+import org.jboss.reddeer.swt.api.Shell;
 import org.jboss.reddeer.swt.api.TreeItem;
+import org.jboss.reddeer.swt.condition.ShellIsAvailable;
 import org.jboss.reddeer.swt.impl.button.CancelButton;
 import org.jboss.reddeer.swt.impl.button.OkButton;
 import org.jboss.reddeer.swt.impl.clabel.DefaultCLabel;
@@ -35,37 +34,19 @@ import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
  * @author Lucia Jelinkova
  *
  */
-public abstract class PreferenceDialog {
+public class PreferenceDialog extends AbstractWindow{
+	
+	public PreferenceDialog(String text) {
+		super(text);
+	}
 
-	private static final Logger log = Logger.getLogger(PreferenceDialog.class);
-	
-	/**
-	 * Returns the title of the dialog.
-	 *
-	 * @return the title
-	 */
-	public abstract String getTitle();
-	
-	/**
-	 * Opens the dialog (e.g. by menu)
-	 */
-	protected abstract void openImpl();
-	
-	/**
-	 * Opens the dialog. Contains checks if the dialog is open, 
-	 * opening of the dialog (implementation by subclasses) and
-	 * activating the dialog's shell. 
-	 */
-	public void open() {
-		log.info("Open Preferences dialog");
+	public PreferenceDialog(Shell shell) {
+		super(shell);
+	}
 
-		if (isOpen()){
-			log.debug("Preferences dialog was already opened.");
-		} else{
-			openImpl();
-		}
-		
-		new DefaultShell(getTitle());
+
+	public PreferenceDialog(Matcher<?>...matchers) {
+		super(matchers);
 	}
 	
 	/**
@@ -110,34 +91,28 @@ public abstract class PreferenceDialog {
 	 * Presses Ok button on Property Dialog. 
 	 */
 	public void ok() {
-		final String parentShellText = ShellHandler.getInstance().getText(
-				ShellLookup.getInstance().getParentShell(new DefaultShell(getTitle()).getSWTWidget()));
+		org.eclipse.swt.widgets.Shell parentShell = ShellLookup.getInstance().getParentShell(getShell().getSWTWidget());
 		
 		OkButton ok = new OkButton();
 		ok.click();
-		new WaitWhile(new ShellWithTextIsAvailable(getTitle())); 
-		new DefaultShell(parentShellText);
+		new WaitWhile(new ShellIsAvailable(getShell())); 
+		new DefaultShell(parentShell);
 	}
 	
 	/**
 	 * Presses Cancel button on Property Dialog. 
 	 */
 	public void cancel() {
-		final String parentShellText = ShellHandler.getInstance().getText(
-				ShellLookup.getInstance().getParentShell(new DefaultShell(getTitle()).getSWTWidget()));
+		org.eclipse.swt.widgets.Shell parentShell = ShellLookup.getInstance().getParentShell(getShell().getSWTWidget());
 		
 		CancelButton cancel = new CancelButton();
 		cancel.click();
-		new WaitWhile(new ShellWithTextIsAvailable(getTitle())); 
-		new DefaultShell(parentShellText);
+		new WaitWhile(new ShellIsAvailable(getShell())); 
+		new DefaultShell(parentShell);
 	}
-	
-	/**
-	 * Checks if the specific preference dialog is open.
-	 * @return true if the dialog is open, false otherwise
-	 */
-	public boolean isOpen() {
-		Shell shell = ShellLookup.getInstance().getShell(getTitle(),TimePeriod.NONE);
-		return (shell != null);		
+
+	@Override
+	public Class<?> getEclipseClass() {
+		return org.eclipse.jface.preference.PreferenceDialog.class;
 	}
 }

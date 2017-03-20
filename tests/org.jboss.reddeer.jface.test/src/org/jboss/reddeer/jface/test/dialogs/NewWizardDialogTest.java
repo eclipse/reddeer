@@ -8,12 +8,13 @@
  * Contributors: 
  * Red Hat, Inc. - initial API and implementation 
  ******************************************************************************/ 
-package org.jboss.reddeer.jface.test.wizard;
+package org.jboss.reddeer.jface.test.dialogs;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.*;
 
-import org.jboss.reddeer.jface.wizard.NewWizardDialog;
+import org.jboss.reddeer.eclipse.topmenu.NewMenuWizard;
+import org.jboss.reddeer.jface.test.dialogs.impl.TestingNewWizard;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.junit.After;
@@ -27,21 +28,24 @@ public class NewWizardDialogTest {
 
 	@Test
 	public void open() {
+		assertNull(newWizardDialog.getShell());
 		newWizardDialog.open();
-
+		assertNotNull(newWizardDialog.getShell());
 		String wizardDialogText = new DefaultShell().getText();
 		assertThat(wizardDialogText, is(TestingNewWizard.NAME));
 	}
 
 	@After
 	public void tearDown(){
-		newWizardDialog.cancel();
+		if(newWizardDialog.isOpen()){
+			newWizardDialog.cancel();
+		}
 	}
 	
-	private class NewWizardDialogImpl extends NewWizardDialog {
+	private class NewWizardDialogImpl extends NewMenuWizard {
 
 		public NewWizardDialogImpl() {
-			super(TestingNewWizard.CATEGORY, TestingNewWizard.NAME);
+			super(TestingNewWizard.NAME, TestingNewWizard.CATEGORY, TestingNewWizard.NAME);
 		}
 	}
 }

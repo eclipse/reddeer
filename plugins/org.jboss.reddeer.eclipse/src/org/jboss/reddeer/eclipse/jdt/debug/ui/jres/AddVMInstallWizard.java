@@ -1,5 +1,5 @@
 /******************************************************************************* 
- * Copyright (c) 2016 Red Hat, Inc. 
+ * Copyright (c) 2017 Red Hat, Inc. 
  * Distributed under license by Red Hat, Inc. All rights reserved. 
  * This program is made available under the terms of the 
  * Eclipse Public License v1.0 which accompanies this distribution, 
@@ -8,4 +8,14 @@
  * Contributors: 
  * Red Hat, Inc. - initial API and implementation 
  ******************************************************************************/ 
-package org.jboss.reddeer.workbench.condition;
+package org.jboss.reddeer.eclipse.jdt.debug.ui.jres;
+
+import org.jboss.reddeer.jface.wizard.WizardDialog;
+
+public class AddVMInstallWizard extends WizardDialog{
+
+	public AddVMInstallWizard() {
+		super("Add JRE");
+	}
+
+}

@@ -8,7 +8,7 @@
  * Contributors: 
  * Red Hat, Inc. - initial API and implementation 
  ******************************************************************************/ 
-package org.jboss.reddeer.jface.test.wizard;
+package org.jboss.reddeer.jface.test.dialogs.impl;
 
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.Wizard;
@@ -53,6 +53,8 @@ public class TestingNewWizard extends Wizard implements INewWizard {
 		@Override
 		public void createControl(Composite parent) {
 			setControl(parent);
+			setErrorMessage("Error msg");
+			setMessage("Msg");
 		}
 	}
 }

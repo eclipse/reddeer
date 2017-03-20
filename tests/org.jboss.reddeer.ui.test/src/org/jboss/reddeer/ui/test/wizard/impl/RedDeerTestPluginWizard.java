@@ -11,14 +11,14 @@
 
 package org.jboss.reddeer.ui.test.wizard.impl;
 
-import org.jboss.reddeer.jface.wizard.NewWizardDialog;
+import org.jboss.reddeer.eclipse.topmenu.NewMenuWizard;
 
 /**
  * This class represents a new RedDeer Test Plug-in wizard
  * @author jrichter
  *
  */
-public class RedDeerTestPluginWizard extends NewWizardDialog {
+public class RedDeerTestPluginWizard extends NewMenuWizard {
 
 	public static final String CATEGORY="RedDeer";
 	public static final String NAME="RedDeer Test Plug-in";
@@ -27,6 +27,6 @@ public class RedDeerTestPluginWizard extends NewWizardDialog {
 	 * Default constructor
 	 */
 	public RedDeerTestPluginWizard() {
-		super(CATEGORY, NAME);
+		super("New RedDeer Test Plugin",CATEGORY, NAME);
 	}
 }

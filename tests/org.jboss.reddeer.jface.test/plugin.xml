@@ -8,7 +8,7 @@
           id="org.jboss.reddeer.jface.test.wizard.TestingNewWizard" 
           name="Testing new wizard" 
           category="org.jboss.reddeer.jface.test.wizard.category.new" 
-          class="org.jboss.reddeer.jface.test.wizard.TestingNewWizard"> 
+          class="org.jboss.reddeer.jface.test.dialogs.impl.TestingNewWizard"> 
           <selection class="org.eclipse.core.resources.IResource"/>          
       </wizard> 
    </extension>
@@ -19,7 +19,7 @@
           id="org.jboss.reddeer.jface.test.wizard.TestingImportWizard" 
           name="Testing import wizard" 
           category="org.jboss.reddeer.jface.test.wizard.category.import" 
-          class="org.jboss.reddeer.jface.test.wizard.TestingImportWizard"> 
+          class="org.jboss.reddeer.jface.test.dialogs.impl.TestingImportWizard"> 
           <selection class="org.eclipse.core.resources.IResource"/>          
       </wizard> 
    </extension>
@@ -30,7 +30,7 @@
           id="org.jboss.reddeer.jface.test.wizard.TestingExportWizard" 
           name="Testing export wizard" 
           category="org.jboss.reddeer.jface.test.wizard.category.export" 
-          class="org.jboss.reddeer.jface.test.wizard.TestingExportWizard"> 
+          class="org.jboss.reddeer.jface.test.dialogs.impl.TestingExportWizard"> 
           <selection class="org.eclipse.core.resources.IResource"/>          
       </wizard> 
    </extension>

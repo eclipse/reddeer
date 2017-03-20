@@ -8,12 +8,13 @@
  * Contributors: 
  * Red Hat, Inc. - initial API and implementation 
  ******************************************************************************/ 
-package org.jboss.reddeer.jface.test.wizard;
+package org.jboss.reddeer.jface.test.dialogs;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
-import org.jboss.reddeer.jface.wizard.ExportWizardDialog;
+import org.jboss.reddeer.eclipse.topmenu.ExportMenuWizard;
+import org.jboss.reddeer.jface.test.dialogs.impl.TestingExportWizard;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.junit.After;
@@ -38,10 +39,10 @@ public class ExportWizardDialogTest {
 		exportWizardDialog.cancel();
 	}
 	
-	private class ExportWizardDialogImpl extends ExportWizardDialog {
+	private class ExportWizardDialogImpl extends ExportMenuWizard {
 
 		public ExportWizardDialogImpl() {
-			super(TestingExportWizard.CATEGORY, TestingExportWizard.NAME);
+			super(TestingExportWizard.NAME, TestingExportWizard.CATEGORY, TestingExportWizard.NAME);
 		}
 	}
 }

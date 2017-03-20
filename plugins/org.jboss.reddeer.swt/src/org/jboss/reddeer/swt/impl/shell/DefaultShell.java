@@ -28,10 +28,10 @@ public class DefaultShell extends AbstractShell {
 	/**
 	 * Instantiates a new default shell.
 	 *
-	 * @param title the title
+	 * @param text shell text
 	 */
-	public DefaultShell(String title) {
-		super(ShellLookup.getInstance().getShell(title));
+	public DefaultShell(String text) {
+		super(ShellLookup.getInstance().getShell(text));
 	}
 	
 	public DefaultShell(Shell widget){
@@ -43,10 +43,10 @@ public class DefaultShell extends AbstractShell {
 	 * Creates a new DefaultShell matching specified matcher. First found shell with 
 	 * specified matcher is created. Beware, there is no strict (deterministic) order of shells.
 	 * 
-	 * @param matcher matcher to match title of a shell
+	 * @param matchers matchers to match title of a shell
 	 */
-	public DefaultShell(Matcher<String> matcher) {
-		super(ShellLookup.getInstance().getShell(matcher));
+	public DefaultShell(Matcher<?>... matchers) {
+		super(ShellLookup.getInstance().getShell(matchers));
 	}
 	
 	/**

@@ -13,6 +13,7 @@ package org.jboss.reddeer.swt.impl.menu;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.swt.api.Menu;
+import org.jboss.reddeer.swt.api.Shell;
 import org.jboss.reddeer.core.lookup.MenuLookup;
 import org.jboss.reddeer.core.matcher.WithMnemonicTextMatchers;
 
@@ -27,7 +28,8 @@ public class ShellMenu extends AbstractMenu implements Menu {
 	
 	/**
 	 * Uses WithMnemonicMatcher to match menu item label. It means that all ampersands
-	 * and shortcuts within menu item label are ignored when searching for menu
+	 * and shortcuts within menu item label are ignored when searching for menu.
+	 * Menu is found within currently focused shell.
 	 *
 	 * @param path the path
 	 */
@@ -37,7 +39,7 @@ public class ShellMenu extends AbstractMenu implements Menu {
 	
 	
 	/**
-	 * Instantiates a new shell menu.
+	 * Instantiates a new shell menu. Menu is found within currently focused shell.
 	 *
 	 * @param matchers the matchers
 	 */
@@ -46,24 +48,25 @@ public class ShellMenu extends AbstractMenu implements Menu {
 		super(MenuLookup.getInstance().lookFor(MenuLookup.getInstance().getActiveShellTopMenuItems(), matchers));
 	}
 	
-	/* (non-Javadoc)
-	 * @see org.jboss.reddeer.swt.impl.menu.AbstractMenu#select()
+	/**
+	 * Uses WithMnemonicMatcher to match menu item label. It means that all ampersands
+	 * and shortcuts within menu item label are ignored when searching for menu.
+	 *
+	 * @param shell to look for menu
+	 * @param path the path
 	 */
-	@Override
-	public void select() {
-		log.info("Select shell menu with text " + getText());
-		mh.select(swtWidget);
+	public ShellMenu(final Shell shell, final String... path) {
+		this(shell, new WithMnemonicTextMatchers(path).getMatchers());
 	}
 	
-	/* (non-Javadoc)
-	 * @see org.jboss.reddeer.swt.impl.menu.AbstractMenu#isSelected()
+	/**
+	 * Instantiates a new shell menu.
+	 *
+	 * @param shell to look for menu
+	 * @param matchers to match shell item path
 	 */
-	@Override
-	public boolean isSelected() {
-		if(swtWidget != null){
-			return mh.isSelected(swtWidget);
-		} else {
-			return false;
-		}
+	@SuppressWarnings("unchecked")
+	public ShellMenu(final Shell shell, final Matcher<String>... matchers) {
+		super(MenuLookup.getInstance().lookFor(MenuLookup.getInstance().getMenuBarItems(shell.getSWTWidget()), matchers));
 	}
 }

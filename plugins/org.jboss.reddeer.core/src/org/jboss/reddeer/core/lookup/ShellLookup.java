@@ -17,13 +17,16 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Shell;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.common.condition.AbstractWaitCondition;
+import org.jboss.reddeer.common.exception.WaitTimeoutExpiredException;
 import org.jboss.reddeer.common.util.Display;
 import org.jboss.reddeer.common.util.ResultRunnable;
 import org.jboss.reddeer.common.wait.TimePeriod;
 import org.jboss.reddeer.common.wait.WaitUntil;
 import org.jboss.reddeer.core.condition.ActiveShellExists;
 import org.jboss.reddeer.core.condition.ShellMatchingMatcherIsAvailable;
+import org.jboss.reddeer.core.exception.CoreLayerException;
 import org.jboss.reddeer.core.matcher.WithTextMatcher;
+import org.jboss.reddeer.core.util.DiagnosticTool;
 
 /**
  * Shell Lookup provides methods for looking up various shells. 
@@ -142,50 +145,30 @@ public class ShellLookup {
 	/**
 	 * Waits for specified time period for a shell matching specified matcher.
 	 * 
-	 * @param matcher matcher to match shell
+	 * @param matchers matchers to match shell
 	 * @param timePeriod time period to wait for
 	 * @return shell matching specified matcher
 	 */
-	public Shell getShell(final Matcher<String> matcher , TimePeriod timePeriod) {
-		if (!timePeriod.equals(TimePeriod.NONE)){
-			new WaitUntil(new ShellMatchingMatcherIsAvailable(matcher), timePeriod, false);
+	public Shell getShell(TimePeriod timePeriod, Matcher<?>... matchers) {
+		ShellMatchingMatcherIsAvailable shellCondition = new ShellMatchingMatcherIsAvailable(matchers);
+		try{
+			new WaitUntil(shellCondition, timePeriod);
+		}catch (WaitTimeoutExpiredException e) {
+			String exceptionText = shellCondition.errorMessageUntil();
+			exceptionText += "\n" + new DiagnosticTool().getShellsDiagnosticInformation();
+			throw new CoreLayerException(exceptionText);
 		}
-		
-		Shell[] shells = Display.syncExec(new ResultRunnable<Shell[]>() {
-			
-			@Override
-			public Shell[] run() {
-				return Display.getDisplay().getShells(); 
-			}
-		});
-		
-		for(final Shell s: shells){
-			if(matcher.matches(s)) {
-				Shell visibleShell = Display.syncExec(new ResultRunnable<Shell>() {
-					@Override
-					public Shell run() {
-						if (!s.isDisposed() && s.isVisible()) {
-							return s;
-						}
-						return null;
-					}
-				});
-				if(visibleShell != null){
-					return visibleShell;
-				}
-			}
-		}
-		return null;
+		return shellCondition.getResult();
 	}
 	
 	/**
 	 * Waits for normal time period for a shell matching specified matcher.
 	 * 
-	 * @param matcher matcher to match shell
+	 * @param matchers matchers to match shell
 	 * @return shell matching specified matcher
 	 */
-	public Shell getShell(final Matcher<String> matcher) {
-		return getShell(matcher , TimePeriod.NORMAL); 
+	public Shell getShell(Matcher<?>... matchers) {
+		return getShell(TimePeriod.NORMAL, matchers); 
 	}
 	
 	/**
@@ -196,7 +179,7 @@ public class ShellLookup {
 	 * @return shell with specified title
 	 */
 	public Shell getShell(String title , TimePeriod timePeriod) {
-		return getShell(new WithTextMatcher(title) , timePeriod);		
+		return getShell(timePeriod, new WithTextMatcher(title));		
 	}
 	
 	/**
@@ -206,7 +189,7 @@ public class ShellLookup {
 	 * @return shell with specified title
 	 */
 	public Shell getShell(String title) {
-		return getShell(new WithTextMatcher(title) , TimePeriod.NORMAL);		
+		return getShell(TimePeriod.NORMAL, new WithTextMatcher(title));		
 	}
 	
 	private Shell getLastVisibleShell() {

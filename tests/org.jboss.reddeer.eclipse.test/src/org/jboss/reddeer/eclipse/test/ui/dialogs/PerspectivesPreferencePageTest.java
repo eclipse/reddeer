@@ -14,7 +14,6 @@ import static org.junit.Assert.assertTrue;
 
 import org.jboss.reddeer.eclipse.ui.ide.dialogs.IDEPerspectivesPreferencePage;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
-import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.workbench.ui.dialogs.WorkbenchPreferenceDialog;
 import org.junit.After;
 import org.junit.Test;
@@ -54,11 +53,8 @@ public class PerspectivesPreferencePageTest {
 
 	@After
 	public void tearDown() {
-		// try to close preference dialog in case it stayed open
-		try {
+		if(preferencesDialog.isOpen()){
 			preferencesDialog.cancel();
-		} catch (SWTLayerException swtle) {
-			// do nothing
 		}
 	}
 }

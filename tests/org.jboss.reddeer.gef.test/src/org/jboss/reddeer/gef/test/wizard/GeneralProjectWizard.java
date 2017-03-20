@@ -11,7 +11,7 @@
 package org.jboss.reddeer.gef.test.wizard;
 
 
-import org.jboss.reddeer.jface.wizard.NewWizardDialog;
+import org.jboss.reddeer.eclipse.ui.wizards.newresource.BasicNewProjectResourceWizard;
 import org.jboss.reddeer.swt.impl.text.LabeledText;
 
 /**
@@ -19,11 +19,7 @@ import org.jboss.reddeer.swt.impl.text.LabeledText;
  * @author Andrej Podhradsky (andrej.podhradsky@gmail.com)
  *
  */
-public class GeneralProjectWizard extends NewWizardDialog {
-
-	public GeneralProjectWizard() {
-		super("General", "Project");
-	}
+public class GeneralProjectWizard extends BasicNewProjectResourceWizard {
 
 	public void create(String name) {
 		open();

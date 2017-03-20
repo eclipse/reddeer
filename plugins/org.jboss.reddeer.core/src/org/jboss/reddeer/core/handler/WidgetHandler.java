@@ -11,8 +11,6 @@
 package org.jboss.reddeer.core.handler;
 
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Widget;
 import org.jboss.reddeer.common.logging.Logger;
@@ -205,16 +203,17 @@ public class WidgetHandler {
 	}
 	
 	/**
-	 * Returns control children.
-	 *
-	 * @param composite the composite
-	 * @return the children
+	 * Returns widget data object
+	 * @param swtWidget widget to get data from
+	 * @return widget data
 	 */
-	public Control[] getChildren(final Composite composite) {
-		return Display.syncExec(new ResultRunnable<Control[]>() {
+	public Object getData(final Widget swtWidget){
+		log.debug("Get widget data");
+		return Display.syncExec(new ResultRunnable<Object>() {
+
 			@Override
-			public Control[] run() {
-				return composite.getChildren();
+			public Object run() {
+				return swtWidget.getData();
 			}
 		});
 	}

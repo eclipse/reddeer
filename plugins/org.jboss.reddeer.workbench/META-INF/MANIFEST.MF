@@ -33,4 +33,5 @@ Export-Package: org.jboss.reddeer.workbench,
  org.jboss.reddeer.workbench.impl.view,
  org.jboss.reddeer.workbench.lookup,
  org.jboss.reddeer.workbench.matcher,
- org.jboss.reddeer.workbench.ui.dialogs
+ org.jboss.reddeer.workbench.ui.dialogs,
+ org.jboss.reddeer.workbench.topmenu

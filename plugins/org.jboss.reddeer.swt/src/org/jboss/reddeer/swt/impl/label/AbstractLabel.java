@@ -10,6 +10,7 @@
  ******************************************************************************/ 
 package org.jboss.reddeer.swt.impl.label;
 
+import org.eclipse.swt.graphics.Image;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.swt.api.Label;
 import org.jboss.reddeer.core.handler.LabelHandler;
@@ -35,4 +36,11 @@ public abstract class AbstractLabel extends AbstractControl<org.eclipse.swt.widg
 		return text;
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.swt.api.Label#getImage()
+	 */
+	@Override
+	public Image getImage(){
+		return LabelHandler.getInstance().getImage(swtWidget);
+	}
 }

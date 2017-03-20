@@ -10,20 +10,18 @@
  ******************************************************************************/ 
 package org.jboss.reddeer.eclipse.ui.wizards.newresource;
 
-import org.jboss.reddeer.jface.wizard.NewWizardDialog;
-
+import org.jboss.reddeer.eclipse.topmenu.NewMenuWizard;
 /**
  * Represents new file creation wizard dialog (General &gt; File)
  * 
  * @author jjankovi
  *
  */
-public class BasicNewFileResourceWizard extends NewWizardDialog {
-
+public class BasicNewFileResourceWizard extends NewMenuWizard {
 	/**
 	 * Constructs the wizard with "General" &gt; "File".
 	 */
 	public BasicNewFileResourceWizard() {
-		super("General", "File");
+		super("New File","General", "File");
 	}
 }

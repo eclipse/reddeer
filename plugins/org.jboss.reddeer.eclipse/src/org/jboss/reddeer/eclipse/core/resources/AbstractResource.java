@@ -29,8 +29,9 @@ import org.jboss.reddeer.core.matcher.WithTextMatcher;
 import org.jboss.reddeer.direct.preferences.Preferences;
 import org.jboss.reddeer.eclipse.condition.JUnitHasFinished;
 import org.jboss.reddeer.eclipse.exception.EclipseLayerException;
+import org.jboss.reddeer.eclipse.ui.dialogs.PropertyDialog;
 import org.jboss.reddeer.eclipse.utils.DeleteUtils;
-import org.jboss.reddeer.jface.viewer.handler.TreeViewerHandler;
+import org.jboss.reddeer.jface.handler.TreeViewerHandler;
 import org.jboss.reddeer.swt.api.Shell;
 import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
@@ -250,6 +251,13 @@ public abstract class AbstractResource implements Resource, RedDeerAdaptable<Res
 	@Override
 	public void activateWrappingView() {
 		WorkbenchPartHandler.getInstance().activateWorkbenchPartWithWidget(treeItem.getSWTWidget());
+	}
+	
+	@Override
+	public PropertyDialog openProperties() {
+		select();
+		new ContextMenu("Properties").select();
+		return new PropertyDialog(getText());
 	}
 	
 	

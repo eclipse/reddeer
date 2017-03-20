@@ -10,7 +10,7 @@
  ******************************************************************************/ 
 package org.jboss.reddeer.eclipse.jdt.ui.wizards;
 
-import org.jboss.reddeer.jface.wizard.NewWizardDialog;
+import org.jboss.reddeer.eclipse.topmenu.NewMenuWizard;
 
 /**
  * Represents new enum wizard
@@ -18,13 +18,13 @@ import org.jboss.reddeer.jface.wizard.NewWizardDialog;
  * @author rawagner
  *
  */
-public class NewEnumCreationWizard extends NewWizardDialog {
-
+public class NewEnumCreationWizard extends NewMenuWizard {
+	
 	/**
 	 * Construct the wizard with "Java" &gt; "Enum".
 	 */
 	public NewEnumCreationWizard() {
-		super("Java", "Enum");
+		super("New Enum Type","Java", "Enum");
 	}
 
 	/**

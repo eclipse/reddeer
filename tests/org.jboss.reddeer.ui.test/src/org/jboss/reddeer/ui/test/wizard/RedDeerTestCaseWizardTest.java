@@ -191,4 +191,9 @@ public class RedDeerTestCaseWizardTest extends RedDeerWizardTestCase {
 		classPage.setPackage(PACKAGE);
 		classDialog.finish();
 	}
+
+	@Override
+	String getWizardText() {
+		return "New RedDeer Test Case";
+	}
 }

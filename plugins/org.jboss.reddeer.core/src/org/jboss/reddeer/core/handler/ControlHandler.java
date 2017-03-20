@@ -131,5 +131,20 @@ public class ControlHandler {
 			}
 		});		
 	}
+	
+	/**
+	 * Gets control's shell
+	 * @param control to handle
+	 * @return control's shell
+	 */
+	public Shell getShell(final org.eclipse.swt.widgets.Control control){
+		return Display.syncExec(new ResultRunnable<Shell>() {
+
+			@Override
+			public Shell run() {
+				return control.getShell();
+			}
+		});
+	}
 
 }

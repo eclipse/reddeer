@@ -29,7 +29,7 @@ import org.jboss.reddeer.eclipse.jdt.ui.preferences.BuildPathsPropertyPage;
 import org.jboss.reddeer.eclipse.jdt.ui.wizards.JavaProjectWizard;
 import org.jboss.reddeer.eclipse.jdt.ui.wizards.NewJavaProjectWizardPageOne;
 import org.jboss.reddeer.eclipse.test.Activator;
-import org.jboss.reddeer.eclipse.ui.dialogs.ResourcePropertyDialog;
+import org.jboss.reddeer.eclipse.ui.dialogs.PropertyDialog;
 import org.jboss.reddeer.eclipse.ui.navigator.resources.ProjectExplorer;
 import org.jboss.reddeer.eclipse.ui.perspectives.JavaPerspective;
 import org.jboss.reddeer.eclipse.utils.DeleteUtils;
@@ -48,7 +48,7 @@ public class BuildPathsPropertyPageTest {
 
 	private static final String TEST_PROJECT_NAME = "buildpathspropertypagetest";
 	private DefaultProject project;
-	private ResourcePropertyDialog propertiesDialog = null;
+	private PropertyDialog propertiesDialog = null;
 	private BuildPathsPropertyPage buildPathsPropertyPage = null;
 	
 	@BeforeClass
@@ -71,9 +71,8 @@ public class BuildPathsPropertyPageTest {
 	
 	@Before
 	public void setUp(){
-		propertiesDialog = new ResourcePropertyDialog(getProject());
+		propertiesDialog = getProject().openProperties();
 		buildPathsPropertyPage = new BuildPathsPropertyPage();
-		propertiesDialog.open();
 		propertiesDialog.select(buildPathsPropertyPage);
 	}
 	
@@ -105,8 +104,7 @@ public class BuildPathsPropertyPageTest {
 		propertiesDialog.ok();
 		new WaitWhile(new JobIsRunning());
 		new PackageExplorerPart().open();
-		getProject().select();
-		propertiesDialog.open();
+		propertiesDialog = getProject().openProperties();
 		propertiesDialog.select(buildPathsPropertyPage);
 		buildPathsPropertyPage.removeVariable(addedVariableLabel,true);
 		assertFalse("Libraries should not contain item:'" + addedVariableLabel + "'",

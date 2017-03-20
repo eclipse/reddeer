@@ -57,11 +57,8 @@ public class MavenErrorPreferencePageTest {
 
 	@After
 	public void tearDown(){
-		// try to close preference dialog in case it stayed open
-		try{
+		if(preferencesDialog.isOpen()){
 			preferencesDialog.cancel();
-		} catch (SWTLayerException swtle){
-			// do nothing
 		}
 	}
 }

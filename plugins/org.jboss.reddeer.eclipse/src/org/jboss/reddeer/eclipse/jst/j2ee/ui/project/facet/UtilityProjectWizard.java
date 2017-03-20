@@ -10,14 +10,14 @@
  ******************************************************************************/ 
 package org.jboss.reddeer.eclipse.jst.j2ee.ui.project.facet;
 
-import org.jboss.reddeer.jface.wizard.NewWizardDialog;
+import org.jboss.reddeer.eclipse.topmenu.NewMenuWizard;
 
 /**
  * Represents utility project wizard
  * @author rawagner
  *
  */
-public class UtilityProjectWizard extends NewWizardDialog{
+public class UtilityProjectWizard extends NewMenuWizard{
 	
 	public static final String CATEGORY="Java EE";
 	public static final String NAME="Utility Project";
@@ -26,7 +26,7 @@ public class UtilityProjectWizard extends NewWizardDialog{
 	 * Constructs the wizard with {@value #NAME}.
 	 */
 	public UtilityProjectWizard(){
-		super(CATEGORY,NAME);
+		super("New Java Utility Module",CATEGORY,NAME);
 	}
 
 }

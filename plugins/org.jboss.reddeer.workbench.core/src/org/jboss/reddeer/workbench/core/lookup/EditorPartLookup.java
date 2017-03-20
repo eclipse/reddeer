@@ -62,7 +62,7 @@ public class EditorPartLookup {
 		if (editorPart == null) {
 			final IEditorReference[] editorReferences = getAllEditors();
 			if(editorReferences.length == 0){
-				throw new WorkbenchCoreLayerException("There is no opened editor at the moment.");
+				throw new WorkbenchCoreLayerException("There is no open editor at the moment.");
 			}
 			editorPart = Display.syncExec(new ResultRunnable<IEditorPart>() {
 					

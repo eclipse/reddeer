@@ -10,6 +10,8 @@
  ******************************************************************************/ 
 package org.jboss.reddeer.swt.api;
 
+
+import org.eclipse.swt.graphics.Image;
 /**
  * API for label manipulation.
  * 
@@ -24,4 +26,10 @@ public interface Label extends Control<org.eclipse.swt.widgets.Label> {
 	 * @return text of the label
 	 */
 	String getText();
+	
+	/**
+	 * Returns label image
+	 * @return image of the label
+	 */
+	Image getImage();
 }

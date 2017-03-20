@@ -15,15 +15,17 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
+import org.jboss.reddeer.common.util.Display;
+import org.jboss.reddeer.core.exception.CoreLayerException;
+import org.jboss.reddeer.jface.test.dialogs.impl.TestingTitleAreaDialog;
 import org.jboss.reddeer.jface.wizard.WizardDialog;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.swt.api.CLabel;
 import org.jboss.reddeer.swt.api.Shell;
 import org.jboss.reddeer.swt.impl.clabel.DefaultCLabel;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
+import org.jboss.reddeer.workbench.handler.WorkbenchShellHandler;
 import org.jboss.reddeer.workbench.impl.shell.WorkbenchShell;
-import org.jboss.reddeer.common.wait.WaitUntil;
-import org.jboss.reddeer.core.condition.ShellWithTextIsAvailable;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -52,8 +54,7 @@ public class WizardDialogTest {
 				swtWizardDialog.open();
 			}
 		});
-		new WaitUntil(new ShellWithTextIsAvailable(TestingWizard.TITLE));
-		wizardDialog = new WizardDialog();
+		wizardDialog = new WizardDialog(TestingWizard.TITLE);
 	}
 
 	@Test
@@ -109,7 +110,7 @@ public class WizardDialogTest {
 	
 	@Test
 	public void getTitle() {
-		final String currentDialogTitle = wizardDialog.getTitle();
+		final String currentDialogTitle = wizardDialog.getShell().getText();
 		assertTrue("Expected current dialog title is '" + TestingWizard.TITLE + "'" +
 			"\nbut current dialog title is '" + currentDialogTitle + "'",
 			TestingWizard.TITLE.equals(currentDialogTitle));
@@ -117,7 +118,7 @@ public class WizardDialogTest {
 	
 	@Test
 	public void getPageTitle() {
-		final String currentPageTitle = wizardDialog.getPageTitle();
+		final String currentPageTitle = wizardDialog.getTitle();
 		assertTrue("Expected current page title is '" + TestingWizard.PAGE_TITLE + "'" +
 			"\nbut current page title is '" + currentPageTitle + "'",
 			TestingWizard.PAGE_TITLE.equals(currentPageTitle));
@@ -125,17 +126,37 @@ public class WizardDialogTest {
 	
 	@Test
 	public void getPageDescription() {
-		final String currentPageDescription = wizardDialog.getPageDescription();
+		final String currentPageDescription = wizardDialog.getMessage();
 		assertTrue("Expected current page description is '" + TestingWizard.PAGE_DESCRIPTION + "'" +
 			"\nbut current page description is '" + currentPageDescription + "'",
 			TestingWizard.PAGE_DESCRIPTION.equals(currentPageDescription));
 	}
+	
+	//should fail because opened wizard is TitleAreaDialog not WizardDialog
+	@Test(expected=CoreLayerException.class)
+	public void testTitleAreaDialogAsWizardDialog(){
+		Display.asyncExec(new Runnable() {
+			
+			@Override
+			public void run() {
+				TestingTitleAreaDialog tt = new TestingTitleAreaDialog(null);
+				tt.create();
+				tt.open();
+			}
+		});
+		new WizardImpl();
+		
+	}
 
 	@After
 	public void tearDown(){
-		Shell activeShell = new DefaultShell();
-		if (new DefaultShell().getText().equals(TestingWizard.TITLE)){
-			activeShell.close();
+		WorkbenchShellHandler.getInstance().closeAllNonWorbenchShells();
+	}
+	
+	private class WizardImpl extends WizardDialog {
+
+		public WizardImpl() {
+			super(TestingTitleAreaDialog.TEXT);
 		}
 	}
 

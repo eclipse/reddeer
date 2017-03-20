@@ -7,7 +7,7 @@
  * 
  * Contributors: 
  * Red Hat, Inc. - initial API and implementation 
- ******************************************************************************/ 
+ ******************************************************************************/
 package org.jboss.reddeer.eclipse.test.datatools.ui;
 
 import static org.junit.Assert.assertTrue;
@@ -46,7 +46,7 @@ import org.junit.runner.RunWith;
 public class GenericConnectionProfileTest {
 
 	private String fileName = "h2-1.4.178.jar";
-	
+
 	@Before
 	public void prepare() {
 		// Driver definition removal
@@ -54,7 +54,7 @@ public class GenericConnectionProfileTest {
 		preferenceDialog.open();
 		DriverPreferences preferencePage = new DriverPreferences();
 		preferenceDialog.select(preferencePage);
-		
+
 		List<TableItem> items = new DefaultTable().getItems();
 		for (int i = 0; i < items.size(); i++) {
 			new DefaultTableItem(0).select();
@@ -66,7 +66,7 @@ public class GenericConnectionProfileTest {
 		}
 		preferenceDialog.ok();
 		new WaitWhile(new JobIsRunning());
-		
+
 		// Connection profiles removal
 		DataSourceExplorerView dse = new DataSourceExplorerView();
 		dse.open();
@@ -78,33 +78,32 @@ public class GenericConnectionProfileTest {
 			new ContextMenu("Delete").select();
 			Shell deleteShell = new DefaultShell("Delete confirmation");
 			new YesButton().click();
-			new WaitWhile(new ShellIsAvailable(deleteShell));				
+			new WaitWhile(new ShellIsAvailable(deleteShell));
 		}
-		
+
 		new WaitWhile(new JobIsRunning());
 	}
-	
+
 	@Test
 	public void genericConnectionProfileTest() {
 		final String DRIVER_NAME = "Test H2 Driver";
 		File drvFile = new File("target" + File.separator + fileName);
-		
+
 		DriverTemplate dt = new DriverTemplate("Generic JDBC Driver", "1.0");
-		
+
 		DriverDefinition dd = new DriverDefinition();
 		dd.setDriverClass("org.h2.Driver");
 		dd.setDriverLibrary(drvFile.getAbsolutePath());
 		dd.setDriverName(DRIVER_NAME);
 		dd.setDriverTemplate(dt);
 
-	
 		// DriverDefinition
 		WorkbenchPreferenceDialog dialog = new WorkbenchPreferenceDialog();
 		dialog.open();
-		
+
 		DriverPreferences preferencePage = new DriverPreferences();
 		dialog.select(preferencePage);
-		
+
 		DriverDialog wizard = preferencePage.addDriverDefinition();
 		wizard.selectDriverTemplate("Generic JDBC Driver", "1.0");
 		wizard.setName(DRIVER_NAME);
@@ -113,21 +112,20 @@ public class GenericConnectionProfileTest {
 		wizard.ok();
 		dialog.ok();
 
-		
 		String profile = "myDBProfile";
 		DatabaseProfile dbProfile = new DatabaseProfile();
 		dbProfile.setDatabase("sakila");
 		dbProfile.setDatabase(profile);
 		dbProfile.setDriverDefinition(dd);
-		dbProfile.setHostname("jdbc:h2:tcp://localhost/sakila");	// URL 
+		dbProfile.setHostname("jdbc:h2:tcp://localhost/sakila"); // URL
 		dbProfile.setName("myDBProfile");
 		dbProfile.setPassword("");
 		dbProfile.setPort("8082");
 		dbProfile.setUsername("sa");
 		dbProfile.setVendor("Generic JDBC");
-		
+
 		// Create connection profile
-		NewCPWizard w = new NewCPWizard();		
+		NewCPWizard w = new NewCPWizard();
 		w.open();
 		w.createDatabaseProfile(dbProfile);
 

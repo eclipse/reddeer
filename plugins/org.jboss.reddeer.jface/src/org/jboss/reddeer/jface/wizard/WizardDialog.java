@@ -10,13 +10,11 @@
  ******************************************************************************/ 
 package org.jboss.reddeer.jface.wizard;
 
-import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Control;
+import org.hamcrest.Matcher;
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.common.wait.TimePeriod;
 import org.jboss.reddeer.common.wait.WaitWhile;
-import org.jboss.reddeer.core.handler.WidgetHandler;
-import org.jboss.reddeer.core.reference.DefaultReferencedComposite;
+import org.jboss.reddeer.jface.dialogs.TitleAreaDialog;
 import org.jboss.reddeer.workbench.core.condition.JobIsRunning;
 import org.jboss.reddeer.swt.api.Button;
 import org.jboss.reddeer.swt.api.Shell;
@@ -25,9 +23,6 @@ import org.jboss.reddeer.swt.impl.button.BackButton;
 import org.jboss.reddeer.swt.impl.button.CancelButton;
 import org.jboss.reddeer.swt.impl.button.FinishButton;
 import org.jboss.reddeer.swt.impl.button.NextButton;
-import org.jboss.reddeer.swt.impl.label.DefaultLabel;
-import org.jboss.reddeer.swt.impl.shell.DefaultShell;
-import org.jboss.reddeer.swt.impl.text.DefaultText;
 
 /**
  * A dialog where are wizard pages displayed. It can operate Next, Back, Cancel
@@ -39,14 +34,33 @@ import org.jboss.reddeer.swt.impl.text.DefaultText;
  * @since 0.6
  * 
  */
-public class WizardDialog {
+public class WizardDialog extends TitleAreaDialog{
 
 	protected final Logger log = Logger.getLogger(this.getClass());
-
+	
 	/**
-	 * Instantiates a new wizard dialog.
+	 * Finds WizardDialog with given text. Found shell must be instance of Eclipse WizardDialog
+	 * @param text WizardDialog text
 	 */
-	public WizardDialog() {	}
+	public WizardDialog(String text) {
+		super(text);
+	}
+	
+	/**
+	 * Implementations are responsible for making sure given shell is Eclipse WizardDialog.
+	 * @param shell instance of Eclipse WizardDialog
+	 */
+	public WizardDialog(Shell shell){
+		super(shell);
+	}
+	
+	/**
+	 * Finds WizardDialog matching given matchers. Found shell must be instance of Eclipse WizardDialog
+	 * @param matchers to match WizardDialog
+	 */
+	public WizardDialog(Matcher<?>... matchers) {
+		super(matchers);
+	}
 
 	/**
 	 * Click the finish button in wizard dialog.
@@ -60,13 +74,13 @@ public class WizardDialog {
 	 * @param timeout to wait for wizard shell to close.
 	 */
 	public void finish(TimePeriod timeout) {
+		checkShell();
 		log.info("Finish wizard");
 
-		Shell shell = new DefaultShell();
 		Button button = new FinishButton();
 		button.click();
 
-		new WaitWhile(new ShellIsAvailable(shell), timeout);
+		new WaitWhile(new ShellIsAvailable(getShell()), timeout);
 		try{
 			new WaitWhile(new JobIsRunning(), timeout);
 		} catch (NoClassDefFoundError e) {
@@ -78,12 +92,12 @@ public class WizardDialog {
 	 * Click the cancel button in wizard dialog.
 	 */
 	public void cancel() {
+		checkShell();
 		log.info("Cancel wizard");
 
-		Shell shell = new DefaultShell();
 		new CancelButton().click();
 
-		new WaitWhile(new ShellIsAvailable(shell));
+		new WaitWhile(new ShellIsAvailable(getShell()));
 		try{
 			new WaitWhile(new JobIsRunning());
 		} catch (NoClassDefFoundError e) {
@@ -95,6 +109,7 @@ public class WizardDialog {
 	 * Click the next button in wizard dialog.
 	 */
 	public void next() {
+		checkShell();
 		log.info("Go to next wizard page");
 
 		Button button = new NextButton();
@@ -105,46 +120,10 @@ public class WizardDialog {
 	 * Click the back button in wizard dialog.
 	 */
 	public void back() {
+		checkShell();
 		log.info("Go to previous wizard page");
 		Button button = new BackButton();
 		button.click();
-	}
-
-	/**
-	 * Returns current dialog title.
-	 *
-	 * @return the title
-	 */
-	public String getTitle() {
-		return new DefaultShell().getText();
-	}
-	
-	/**
-	 * Returns current dialog page title.
-	 *
-	 * @return the page title
-	 */
-	public String getPageTitle() {
-		Shell shell = new DefaultShell();
-		// Page Title is 3rd Label within first Composite of wizard dialog Shell and is inactive
-		Control labelControl = WidgetHandler.getInstance().getChildren(
-				((Composite)WidgetHandler.getInstance().getChildren(shell.getSWTWidget())[0]))[2];
-		
-		return new DefaultLabel(new DefaultReferencedComposite(labelControl)).getText();
-	}
-	
-	/**
-	 * Returns current dialog page description.
-	 *
-	 * @return the page description
-	 */
-	public String getPageDescription() {
-		Shell shell = new DefaultShell();
-		// Page Description is 5th Text within first Composite of wizard dialog Shell and is inactive 
-		Control labelControl = WidgetHandler.getInstance().getChildren(
-				((Composite)WidgetHandler.getInstance().getChildren(shell.getSWTWidget())[0]))[4];
-		
-		return new DefaultText(new DefaultReferencedComposite(labelControl)).getText();
 	}
 	
 	/**
@@ -153,6 +132,7 @@ public class WizardDialog {
 	 * @return true, if is finish enabled
 	 */	
 	public boolean isFinishEnabled() {
+		checkShell();
 		return new FinishButton().isEnabled();
 	}
 	
@@ -162,6 +142,7 @@ public class WizardDialog {
 	 * @return true, if is next enabled
 	 */
 	public boolean isNextEnabled() {
+		checkShell();
 		return new NextButton().isEnabled();
 	}
 	
@@ -171,6 +152,12 @@ public class WizardDialog {
 	 * @return true, if is back enabled
 	 */
 	public boolean isBackEnabled() {
+		checkShell();
 		return new BackButton().isEnabled();
+	}
+	
+	@Override
+	public Class<?> getEclipseClass(){
+		return org.eclipse.jface.wizard.WizardDialog.class;
 	}
 }
