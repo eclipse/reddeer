@@ -12,7 +12,7 @@
 		<tycho-version>0.26.0</tycho-version>
 		<tychoExtrasVersion>${tycho-version}</tychoExtrasVersion>
 		<jbossTychoPluginsVersion>0.26.0</jbossTychoPluginsVersion>
-		<eclipse-target-site>http://download.eclipse.org/releases/oxygen/</eclipse-target-site>
+		<eclipse-target-site>http://download.eclipse.org/releases/neon</eclipse-target-site>
 		<swtbot-update-site>http://download.eclipse.org/technology/swtbot/releases/2.2.1</swtbot-update-site>
 		<eclipse-orbit-update-site>http://download.eclipse.org/tools/orbit/downloads/drops/R20150821153341/repository/</eclipse-orbit-update-site>
 		<download-plugin-version>1.2.1</download-plugin-version>
@@ -21,7 +21,7 @@
 			you can override this value to be Nightly Build, Development Milestone, or 
 			Stable Release, or set to &amp;shy; (soft hyphen) to leave blank -->
 		<update.site.description>&amp;shy;</update.site.description>
-		<targetEclipseVersion>4.7 (Oxygen)</targetEclipseVersion>
+		<targetEclipseVersion>4.6 (Neon)</targetEclipseVersion>
 		<BUILD_TIMESTAMP>${maven.build.timestamp}</BUILD_TIMESTAMP>
 		<maven.build.timestamp.format>yyyy-MM-dd_HH-mm-ss</maven.build.timestamp.format>
 		<maven.compiler.source>1.8</maven.compiler.source>
