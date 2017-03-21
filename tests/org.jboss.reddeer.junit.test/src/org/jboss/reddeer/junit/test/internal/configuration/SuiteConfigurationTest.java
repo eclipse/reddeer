@@ -97,13 +97,13 @@ public class SuiteConfigurationTest {
 		String serverConfig = TestCustomServerConfiguration.class.getSimpleName();
 		
 		assertThat(testRuns.keySet().size(), is(4));
-		assertThat(testRuns.keySet(), hasItem(new TestClassRequirementSetMatcher(
+		assertThat(testRuns.keySet(), hasItem(new TestClassRequirementMapMatcher(
 				asSet(CustomJavaAnnotation.class))));
-		assertThat(testRuns.keySet(), hasItem(new TestClassRequirementSetMatcher(
+		assertThat(testRuns.keySet(), hasItem(new TestClassRequirementMapMatcher(
 				asSet(CustomServerAnnotation.class))));		
-		assertThat(testRuns.keySet(), hasItem(new TestClassRequirementSetMatcher(
+		assertThat(testRuns.keySet(), hasItem(new TestClassRequirementMapMatcher(
 						asSet(CustomJavaAnnotation.class, CustomServerAnnotation.class))));
-		assertThat(testRuns.keySet(), hasItem(new TestClassRequirementSetMatcher(
+		assertThat(testRuns.keySet(), hasItem(new TestClassRequirementMapMatcher(
 				asSet())));	
 		assertThat(testRuns.values(), hasItem(new TestRunConfigurationListMatcher(
 				Arrays.asList(javaConfig))));
@@ -203,11 +203,11 @@ public class SuiteConfigurationTest {
 		System.clearProperty(RedDeerProperties.CONFIG_FILE.getName());
 	}
 	
-	class TestClassRequirementSetMatcher extends TypeSafeMatcher<TestClassRequirementMap> {
+	class TestClassRequirementMapMatcher extends TypeSafeMatcher<TestClassRequirementMap> {
 
 		private Set<Class<?>> set;
 		
-		public TestClassRequirementSetMatcher(Set<Class<?>> set) {
+		public TestClassRequirementMapMatcher(Set<Class<?>> set) {
 			this.set = set;
 		}
 		

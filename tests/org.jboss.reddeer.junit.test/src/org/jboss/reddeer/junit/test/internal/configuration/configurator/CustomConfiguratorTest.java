@@ -14,7 +14,6 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import static org.mockito.Mockito.withSettings;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +21,6 @@ import java.util.List;
 import org.jboss.reddeer.junit.configuration.RedDeerConfigurationException;
 import org.jboss.reddeer.junit.internal.configuration.configurator.CustomConfigurator;
 import org.jboss.reddeer.junit.internal.configuration.entity.PropertyBasedConfiguration;
-import org.jboss.reddeer.junit.requirement.CustomConfiguration;
 import org.jboss.reddeer.junit.requirement.Requirement;
 import org.jboss.reddeer.junit.test.internal.requirement.TestCustomJavaConfiguration;
 import org.jboss.reddeer.junit.test.internal.requirement.TestCustomServerConfiguration;
@@ -56,22 +54,6 @@ public class CustomConfiguratorTest {
 		
 		verify(requirement).setConfiguration((TestCustomJavaConfiguration)argument.capture());
 		assertEquals(configurationObject, argument.getValue());
-	}
-	
-	@SuppressWarnings({ "rawtypes" })
-	//@Test
-	public void customConfig_readerArgument() {
-		ArgumentCaptor<Class> argument = ArgumentCaptor.forClass(Class.class);
-		configs.add(mock(Object.class));
-		configs.add(mock(Object.class));
-		configurator = new CustomConfigurator(configs);
-		
-		CustomConfiguration requirement = mock(CustomConfiguration.class, withSettings().extraInterfaces(Requirement.class));
-		when(requirement.getConfigurationClass()).thenReturn(Integer.class);
-		configurator.configure((Requirement) requirement);
-		
-		//verify(reader).getConfiguration(argument.capture());
-		assertEquals(Integer.class, argument.getValue());
 	}
 	
 	@Test(expected=RedDeerConfigurationException.class)
