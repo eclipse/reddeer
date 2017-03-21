@@ -10,7 +10,6 @@
  ******************************************************************************/ 
 package org.jboss.reddeer.junit.internal.configuration;
 
-import java.io.File;
 import java.lang.annotation.Annotation;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -24,8 +23,8 @@ import org.jboss.reddeer.junit.requirement.CustomConfiguration;
  * Provides set of all configuration classes obtained from given list of requirements.
  * Creates XML reader and processes xml file that contains test run configurations and groups them into 
  * list of all configurations represented by {@link RequirementConfiguration}.
+ * 
  * @author Ondrej Dockal
- *
  */
 public class TestRunConfigurationReader {
 	
@@ -37,24 +36,18 @@ public class TestRunConfigurationReader {
 	// all requirements that test classes use, used for cleaning up of requirement configuration that will not be used
 	private List<Annotation> allRequirements;
 	
-	private List<RequirementConfiguration> configurationList;
+	private List<RequirementConfiguration> configurationList = null;
 	
 	/**
-	 * Class instance that sets up requirement configuration classes and list of {@link RequirementConfiguration}.
-	 * @param file the configuration xml file
+	 * Class instance that sets up requirement configuration classes.
+	 * @param reader the configuration xml file reader
 	 * @param requirements list of all requirements
 	 */
-	public TestRunConfigurationReader(File file, List<Annotation> requirements) {
-		this.reader = new XMLReader(file);
+	public TestRunConfigurationReader(XMLReader reader, List<Annotation> requirements) {
+		this.reader = reader;
 		this.allRequirements = requirements;
-		this.configurationList = new ArrayList<>();
 		
 		setRequirementConfigurationClasses();
-		// uses loaded req. configurations to read configurations from config.xml file
-		readConfigurationXML();
-		// deletes configuration that will not be used by any test class requirements
-		cleanUpRequirementConfiguration();
-		// mix up all possible configuration
 	}
 	
 	/**
@@ -67,10 +60,18 @@ public class TestRunConfigurationReader {
 	}
 	
 	/**
-	 * Returns configuration list.
+	 * Instantiates empty list if null and fills it with {@link RequirementConfiguration} objects.
+	 * Returns {@link RequirementConfiguration} list.
 	 * @return list of requirement configuration objects
 	 */
 	public List<RequirementConfiguration> getConfigurationList() {
+		if (this.configurationList == null) {
+			this.configurationList = new ArrayList<>();
+			// uses loaded req. configurations to read configurations from config.xml file
+			readConfigurationXML();
+			// deletes configuration that will not be used by any test class requirements
+			cleanUpRequirementConfiguration();
+		}
 		return this.configurationList;
 	}
 	

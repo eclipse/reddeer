@@ -23,6 +23,7 @@ import java.util.Set;
 import org.jboss.reddeer.common.properties.RedDeerProperties;
 import org.jboss.reddeer.junit.configuration.RedDeerConfigurationException;
 import org.jboss.reddeer.junit.internal.annotation.AnnotationsFinder;
+import org.jboss.reddeer.junit.internal.configuration.reader.XMLReader;
 import org.jboss.reddeer.junit.internal.requirement.RequirementAnnotationMatcher;
 import org.jboss.reddeer.junit.requirement.CustomConfiguration;
 import org.jboss.reddeer.junit.requirement.PropertyConfiguration;
@@ -67,7 +68,7 @@ public class SuiteConfiguration {
 	 */
 	public TestRunConfigurationReader getConfigurationFromFile() {
 		File file = getConfigurationFile();
-		return file == null ? null : new TestRunConfigurationReader(file, this.annotationRequirements);
+		return file == null ? null : new TestRunConfigurationReader(new XMLReader(file), this.annotationRequirements);
 	}
 	
 	private void createTestRunConfigurations() {

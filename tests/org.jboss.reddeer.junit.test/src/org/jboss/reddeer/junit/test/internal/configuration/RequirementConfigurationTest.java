@@ -35,7 +35,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 
-public class RequirementConfigurationObjectTest {
+public class RequirementConfigurationTest {
 
 	private XMLReader reader;
 	
