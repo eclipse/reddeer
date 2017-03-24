@@ -18,11 +18,10 @@ import org.jboss.reddeer.swt.api.TableItem;
 import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.core.handler.TableHandler;
 import org.jboss.reddeer.core.handler.TableItemHandler;
-import org.jboss.reddeer.core.handler.WidgetHandler;
 import org.jboss.reddeer.core.reference.ReferencedComposite;
-import org.jboss.reddeer.swt.widgets.AbstractWidget;
+import org.jboss.reddeer.swt.widgets.AbstractItem;
 
-public abstract class AbstractTableItem extends AbstractWidget<org.eclipse.swt.widgets.TableItem> implements TableItem {
+public abstract class AbstractTableItem extends AbstractItem<org.eclipse.swt.widgets.TableItem> implements TableItem {
 	
 	private static final Logger log = Logger.getLogger(AbstractTableItem.class);
 
@@ -52,14 +51,6 @@ public abstract class AbstractTableItem extends AbstractWidget<org.eclipse.swt.w
 	@Override
 	public boolean isChecked() {
 		return TableItemHandler.getInstance().isChecked(swtWidget);
-	}
-	
-	/* (non-Javadoc)
-	 * @see org.jboss.reddeer.swt.api.TableItem#getText()
-	 */
-	@Override
-	public String getText() {
-		return WidgetHandler.getInstance().getText(swtWidget);
 	}
 	
 	/* (non-Javadoc)

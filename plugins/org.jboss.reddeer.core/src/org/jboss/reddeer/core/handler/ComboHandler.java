@@ -158,4 +158,35 @@ public class ComboHandler {
 			}
 		});
 	}
+	
+	/**
+	 * Sets text of combo
+	 * @param combo combo to handler
+	 * @param text that should be set to specified combo
+	 */
+	public void setText(final Combo combo, String text){
+		Display.syncExec(new Runnable() {
+			
+			@Override
+			public void run() {
+				combo.setText(text);
+				
+			}
+		});
+	}
+	
+	/**
+	 * Gets text of combo
+	 * @param combo to get text from
+	 * @return text of specified combo
+	 */
+	public String getText(final Combo combo){
+		return Display.syncExec(new ResultRunnable<String>() {
+
+			@Override
+			public String run() {
+				return combo.getText();
+			}
+		});
+	}
 }

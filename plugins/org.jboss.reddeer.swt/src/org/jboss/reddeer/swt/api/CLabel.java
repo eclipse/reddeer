@@ -10,7 +10,7 @@
  ******************************************************************************/ 
 package org.jboss.reddeer.swt.api;
 
-import org.jboss.reddeer.swt.widgets.Widget;
+import org.eclipse.swt.graphics.Image;
 
 /**
  * API for CLabel manipulation.
@@ -18,7 +18,7 @@ import org.jboss.reddeer.swt.widgets.Widget;
  * @author Jiri Peterka
  *
  */
-public interface CLabel extends Widget<org.eclipse.swt.custom.CLabel> {
+public interface CLabel extends Control<org.eclipse.swt.custom.CLabel> {
 	
 	/**
 	 * Returns text of the CLabel.
@@ -26,13 +26,6 @@ public interface CLabel extends Widget<org.eclipse.swt.custom.CLabel> {
 	 * @return text of the CLabel
 	 */
 	String getText();
-
-	/**
-	 * Returns ToolTip text on the CLabel.
-	 * 
-	 * @return ToolTip text
-	 */
-	String getTooltipText();
 
 	/**
 	 * Returns the horizontal alignment. The alignment style (SWT.LEFT,
@@ -44,9 +37,15 @@ public interface CLabel extends Widget<org.eclipse.swt.custom.CLabel> {
 	int getAlignment();
 
 	/**
-	 * Returns whether CLabel contains image or not.
+	 * Returns CLabel image.
 	 * 
-	 * @return true if CLabel contains image, false otherwise
+	 * @return Clabel image
 	 */
-	boolean hasImage();
+	Image getImage();
+	
+	/**
+	 * Returns CLabel tooltip text
+	 * @return CLabel tooltip text
+	 */
+	String getToolTipText();
 }

@@ -72,4 +72,19 @@ public class ExpandableCompositeHandler {
 				});
 		return expansionState;
 	}
+	
+	/**
+	 * Gets text of expandable composite
+	 * @param composite to handle
+	 * @return text of specified expandable composite
+	 */
+	public String getText(final ExpandableComposite composite){
+		return Display.syncExec(new ResultRunnable<String>() {
+
+			@Override
+			public String run() {
+				return composite.getText();
+			}
+		});
+	}
 }

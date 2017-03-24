@@ -231,10 +231,35 @@ public class CTabItemHandler {
 	 * @param ctabItem CTab item to handle
 	 */
 	public void setFocus(final CTabItem ctabItem) {
-		Display.syncExec(new Runnable() {
+		ControlHandler.getInstance().setFocus(getParent(ctabItem));
+	}
+	
+	/**
+	 * Gets parent of ctabitem
+	 * @param ctabItem to get parent of
+	 * @return instance of CTabFolder which is parent of ctabitem
+	 */
+	public CTabFolder getParent(final CTabItem ctabItem){
+		return Display.syncExec(new ResultRunnable<CTabFolder>() {
+
 			@Override
-			public void run() {
-				ctabItem.getParent().forceFocus();
+			public CTabFolder run() {
+				return ctabItem.getParent();
+			}
+		});
+	}
+	
+	/**
+	 * Gets tooltip text of ctabitem
+	 * @param tabItem to get tooltip text from
+	 * @return tooltip text of specified ctabitem
+	 */
+	public String getToolTipText(final CTabItem tabItem){
+		return Display.syncExec(new ResultRunnable<String>() {
+
+			@Override
+			public String run() {
+				return tabItem.getToolTipText();
 			}
 		});
 	}

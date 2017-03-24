@@ -15,7 +15,7 @@ import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.swt.api.Spinner;
 import org.jboss.reddeer.core.handler.SpinnerHandler;
 import org.jboss.reddeer.core.reference.ReferencedComposite;
-import org.jboss.reddeer.swt.widgets.AbstractWidget;
+import org.jboss.reddeer.swt.widgets.AbstractControl;
 
 /**
  * Abstract class for all Spinner implementations
@@ -23,7 +23,7 @@ import org.jboss.reddeer.swt.widgets.AbstractWidget;
  * @author Andrej Podhradsky
  * 
  */
-public abstract class AbstractSpinner extends AbstractWidget<org.eclipse.swt.widgets.Spinner> implements Spinner {
+public abstract class AbstractSpinner extends AbstractControl<org.eclipse.swt.widgets.Spinner> implements Spinner {
 
 	private static final Logger log = Logger.getLogger(AbstractSpinner.class);
 	

@@ -13,12 +13,15 @@ package org.jboss.reddeer.core.condition;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Item;
 import org.eclipse.swt.widgets.Widget;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.common.condition.AbstractWaitCondition;
 import org.jboss.reddeer.common.matcher.AndMatcher;
 import org.jboss.reddeer.common.matcher.MatcherBuilder;
 import org.jboss.reddeer.common.platform.RunningPlatform;
+import org.jboss.reddeer.core.handler.ControlHandler;
+import org.jboss.reddeer.core.handler.ItemHandler;
 import org.jboss.reddeer.core.handler.WidgetHandler;
 import org.jboss.reddeer.core.lookup.WidgetLookup;
 import org.jboss.reddeer.core.matcher.ClassMatcher;
@@ -98,7 +101,7 @@ public class WidgetIsFound extends AbstractWaitCondition {
 		properWidget = widgetLookup.activeWidget(parent, am, index);	
 		
 		if (properWidget == null || 
-				(properWidget instanceof Control && !WidgetHandler.getInstance().isVisible(properWidget))) {
+				(properWidget instanceof Control && !ControlHandler.getInstance().isVisible((Control)properWidget))) {
 			return false;
 		}
 		return true;
@@ -131,7 +134,11 @@ public class WidgetIsFound extends AbstractWaitCondition {
 				((WidgetHandler.getInstance().getStyle((Button)properWidget) & SWT.RADIO) != 0)){
 			// do not set focus because it also select radio button on Windows
 		} else {
-			WidgetHandler.getInstance().setFocus(properWidget);
+			if(properWidget instanceof Item){
+				ItemHandler.getInstance().setFocus((Item)properWidget);
+			} else if (properWidget instanceof Control){
+				ControlHandler.getInstance().setFocus((Control)properWidget);
+			}
 		}
 	}
 	

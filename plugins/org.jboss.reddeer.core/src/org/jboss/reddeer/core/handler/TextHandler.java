@@ -61,6 +61,21 @@ public class TextHandler {
 			}
 		});
 	}
+	
+	/**
+	 * Gets text of text widget
+	 * @param textWidget to handle
+	 * @return text of specified text widget
+	 */
+	public String getText(final Text textWidget){
+		return Display.syncExec(new ResultRunnable<String>() {
+
+			@Override
+			public String run() {
+				return textWidget.getText();
+			}
+		});
+	}
 
 	/**
 	 * Gets text from specified {@link Text} widget.

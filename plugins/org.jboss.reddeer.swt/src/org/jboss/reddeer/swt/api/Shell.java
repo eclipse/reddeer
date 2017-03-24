@@ -11,7 +11,6 @@
 package org.jboss.reddeer.swt.api;
 
 import org.jboss.reddeer.core.reference.ReferencedComposite;
-import org.jboss.reddeer.swt.widgets.Widget;
 
 /**
  * API for shell manipulation.
@@ -19,7 +18,7 @@ import org.jboss.reddeer.swt.widgets.Widget;
  * @author Jiri Peterka
  * 
  */
-public interface Shell extends Widget<org.eclipse.swt.widgets.Shell>, ReferencedComposite {
+public interface Shell extends Control<org.eclipse.swt.widgets.Shell>, ReferencedComposite {
 
 	/**
 	 * Returns title of the shell.
@@ -27,23 +26,6 @@ public interface Shell extends Widget<org.eclipse.swt.widgets.Shell>, Referenced
 	 * @return title of the shell.
 	 */
 	String getText();
-	
-	/**
-	 * Check if shell is visible.
-	 * @return true if shell is visible, false otherwise
-	 */
-	boolean isVisible();
-
-	/**
-	 * Sets focus on the shell.
-	 */
-	void setFocus();
-	
-	/**
-	 * Checks if shell is focused.
-	 * @return true if shell is focused, false otherwise
-	 */
-	boolean isFocused();
 
 	/**
 	 * Closes the shell

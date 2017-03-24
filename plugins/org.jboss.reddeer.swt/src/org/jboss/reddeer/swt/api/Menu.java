@@ -12,7 +12,6 @@ package org.jboss.reddeer.swt.api;
 
 import java.util.List;
 import org.eclipse.swt.widgets.MenuItem;
-import org.jboss.reddeer.swt.widgets.Widget;
 
 /**
  * API for menu (menu item) manipulation.
@@ -21,7 +20,7 @@ import org.jboss.reddeer.swt.widgets.Widget;
  *
  */
 
-public interface Menu extends Widget<MenuItem> {
+public interface Menu extends Item<MenuItem> {
 
 	/**
 	 * Selects the menu.
@@ -61,5 +60,11 @@ public interface Menu extends Widget<MenuItem> {
 	 * @return List of enabled child menus.
 	 */
 	List<Menu> getAvailableChildItems();
+	
+	/**
+	 * Checks if menu is enabled
+	 * @return true if menu is enabled, false otherwise
+	 */
+	boolean isEnabled();
 
 }

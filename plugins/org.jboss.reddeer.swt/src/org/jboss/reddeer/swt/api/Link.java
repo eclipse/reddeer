@@ -12,15 +12,13 @@ package org.jboss.reddeer.swt.api;
 
 import java.util.List;
 
-import org.jboss.reddeer.swt.widgets.Widget;
-
 /**
  * API for link manipulation.
  * 
  * @author Jiri Peterka, rhopp
  *
  */
-public interface Link extends Widget<org.eclipse.swt.widgets.Link> {
+public interface Link extends Control<org.eclipse.swt.widgets.Link> {
 
 	/**
 	 * Returns text of link stripped of &lt;a&gt; and &lt;/a&gt; tags.

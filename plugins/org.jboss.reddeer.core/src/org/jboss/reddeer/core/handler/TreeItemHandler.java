@@ -156,7 +156,7 @@ public class TreeItemHandler {
 		TreeHandler.getInstance().notifySelect(swtTree);
 		logger.debug("Selected Tree Items:");
 		for (TreeItem treeItem : selection) {
-			logger.debug("  " + WidgetHandler.getInstance().getText(treeItem));
+			logger.debug("  " + ItemHandler.getInstance().getText(treeItem));
 		}
 	}
 
@@ -175,10 +175,10 @@ public class TreeItemHandler {
 				swtTreeItem.getParent().setSelection(swtTreeItem);
 			}
 		});
-		logger.debug("Notify tree item " + WidgetHandler.getInstance().getText(swtTreeItem) + " about selection");
+		logger.debug("Notify tree item " + ItemHandler.getInstance().getText(swtTreeItem) + " about selection");
 		TreeHandler.getInstance().notifyTree(swtTreeItem,
 				TreeHandler.getInstance().createEventForTree(swtTreeItem, SWT.Selection));
-		logger.info("Selected tree item: " + WidgetHandler.getInstance().getText(swtTreeItem));
+		logger.info("Selected tree item: " + ItemHandler.getInstance().getText(swtTreeItem));
 	}
 
 	/**
@@ -192,7 +192,7 @@ public class TreeItemHandler {
 	 */
 	public TreeItem getItem(final TreeItem swtTreeItem, final String text) {
 		logger.debug(
-				"Get child tree item " + text + " of tree item " + WidgetHandler.getInstance().getText(swtTreeItem));
+				"Get child tree item " + text + " of tree item " + ItemHandler.getInstance().getText(swtTreeItem));
 		expand(swtTreeItem);
 		TreeItem result = Display.syncExec(new ResultRunnable<TreeItem>() {
 			@Override
@@ -309,7 +309,7 @@ public class TreeItemHandler {
 	 */
 	public void setChecked(final TreeItem swtTreeItem, final boolean check) {
 		logger.debug(
-				(check ? "Check" : "Uncheck") + "Tree Item " + WidgetHandler.getInstance().getText(swtTreeItem) + ":");
+				(check ? "Check" : "Uncheck") + "Tree Item " + ItemHandler.getInstance().getText(swtTreeItem) + ":");
 		Display.syncExec(new Runnable() {
 			@Override
 			public void run() {
@@ -319,7 +319,7 @@ public class TreeItemHandler {
 		logger.debug("Notify tree about check event");
 		TreeHandler.getInstance().notifyTree(swtTreeItem,
 				TreeHandler.getInstance().createEventForTree(swtTreeItem, SWT.Selection, SWT.CHECK));
-		logger.info((check ? "Checked: " : "Unchecked: ") + WidgetHandler.getInstance().getText(swtTreeItem));
+		logger.info((check ? "Checked: " : "Unchecked: ") + ItemHandler.getInstance().getText(swtTreeItem));
 	}
 
 	/**
@@ -345,7 +345,7 @@ public class TreeItemHandler {
 	 *            tree item to handle
 	 */
 	public void collapse(final TreeItem swtTreeItem) {
-		logger.debug("Collapse Tree Item " + WidgetHandler.getInstance().getText(swtTreeItem));
+		logger.debug("Collapse Tree Item " + ItemHandler.getInstance().getText(swtTreeItem));
 		if (isExpanded(swtTreeItem)) {
 			Display.syncExec(new Runnable() {
 				@Override
@@ -358,10 +358,10 @@ public class TreeItemHandler {
 			TreeHandler.getInstance().notifyTree(swtTreeItem,
 					TreeHandler.getInstance().createEventForTree(swtTreeItem, SWT.Collapse));
 		} else {
-			logger.debug("Tree Item " + WidgetHandler.getInstance().getText(swtTreeItem)
+			logger.debug("Tree Item " + ItemHandler.getInstance().getText(swtTreeItem)
 					+ " is already collapsed. No action performed");
 		}
-		logger.info("Collapsed: " + WidgetHandler.getInstance().getText(swtTreeItem));
+		logger.info("Collapsed: " + ItemHandler.getInstance().getText(swtTreeItem));
 	}
 
 	/**
@@ -383,7 +383,7 @@ public class TreeItemHandler {
 	 *            time period to wait for
 	 */
 	public void expand(final TreeItem swtTreeItem, TimePeriod timePeriod) {
-		logger.debug("Expand Tree Item " + WidgetHandler.getInstance().getText(swtTreeItem));
+		logger.debug("Expand Tree Item " + ItemHandler.getInstance().getText(swtTreeItem));
 
 		final TreeExpandListener tel = new TreeExpandListener();
 
@@ -399,7 +399,7 @@ public class TreeItemHandler {
 		} catch (WaitTimeoutExpiredException ex) {
 			new WaitUntil(new TreeHeardExpandNotification(swtTreeItem, tel, true), timePeriod);
 		}
-		logger.info("Expanded: " + WidgetHandler.getInstance().getText(swtTreeItem));
+		logger.info("Expanded: " + ItemHandler.getInstance().getText(swtTreeItem));
 
 		Display.syncExec(new Runnable() {
 			@Override
@@ -521,7 +521,7 @@ public class TreeItemHandler {
 				}
 				return listener.isHeard();
 			} else {
-				logger.debug("Tree Item " + WidgetHandler.getInstance().getText(treeItem)
+				logger.debug("Tree Item " + ItemHandler.getInstance().getText(treeItem)
 						+ " is already expanded. No action performed");
 			}
 			return true;
@@ -532,5 +532,14 @@ public class TreeItemHandler {
 			return "tree heard expand notification";
 		}
 
+	}
+
+	/**
+	 * Sets focus to tree item
+	 * @param swtItem to handle
+	 */
+	public void setFocus(TreeItem swtItem) {
+		ControlHandler.getInstance().setFocus(getParent(swtItem));
+		
 	}
 }

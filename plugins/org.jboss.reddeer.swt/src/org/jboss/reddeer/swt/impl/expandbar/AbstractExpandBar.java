@@ -10,18 +10,17 @@
  ******************************************************************************/ 
 package org.jboss.reddeer.swt.impl.expandbar;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
-import org.eclipse.swt.widgets.ExpandItem;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.swt.api.ExpandBar;
-import org.jboss.reddeer.swt.api.ExpandBarItem;
+import org.jboss.reddeer.swt.api.ExpandItem;
+import org.jboss.reddeer.core.handler.ControlHandler;
 import org.jboss.reddeer.core.handler.ExpandBarHandler;
-import org.jboss.reddeer.core.handler.WidgetHandler;
 import org.jboss.reddeer.core.reference.ReferencedComposite;
-import org.jboss.reddeer.swt.widgets.AbstractWidget;
+import org.jboss.reddeer.swt.widgets.AbstractControl;
 
 /**
  * Abstract class for all Expand Bar implementations
@@ -29,7 +28,7 @@ import org.jboss.reddeer.swt.widgets.AbstractWidget;
  * @author Vlado Pakan
  * 
  */
-public abstract class AbstractExpandBar extends AbstractWidget<org.eclipse.swt.widgets.ExpandBar> implements ExpandBar {
+public abstract class AbstractExpandBar extends AbstractControl<org.eclipse.swt.widgets.ExpandBar> implements ExpandBar {
 
 	private static final Logger logger = Logger.getLogger(AbstractExpandBar.class);
 
@@ -57,13 +56,10 @@ public abstract class AbstractExpandBar extends AbstractWidget<org.eclipse.swt.w
 	 * @return the items
 	 */
 	@Override
-	public List<ExpandBarItem> getItems() {
-		List<org.eclipse.swt.widgets.ExpandItem> items = ExpandBarHandler.getInstance().getSWTItems(this.getSWTWidget());
-		List<ExpandBarItem> result = new ArrayList<ExpandBarItem>();
-		for (ExpandItem item: items) {
-			result.add(new DefaultExpandBarItem(item));
-		}
-		return result;
+	public List<ExpandItem> getItems() {
+		List<org.eclipse.swt.widgets.ExpandItem> items = ExpandBarHandler.getInstance().getItems(swtWidget);
+		List<org.jboss.reddeer.swt.api.ExpandItem> rdItems = items.stream().map(t -> new DefaultExpandItem(t)).collect(Collectors.toList());
+		return rdItems;
 	}
 	
 	/**
@@ -71,7 +67,7 @@ public abstract class AbstractExpandBar extends AbstractWidget<org.eclipse.swt.w
 	 */
 	@Override
 	public void setFocus() {
-		WidgetHandler.getInstance().setFocus(this.getSWTWidget());
+		ControlHandler.getInstance().setFocus(this.getSWTWidget());
 
 	}
 	
@@ -81,7 +77,7 @@ public abstract class AbstractExpandBar extends AbstractWidget<org.eclipse.swt.w
 	@Override
 	public void expandAll() {
 		logger.info("Expand all expand bar items");
-		for (ExpandBarItem expandBarItem : getItems()){
+		for (ExpandItem expandBarItem : getItems()){
 			expandBarItem.expand();
 		}
 	}
@@ -92,7 +88,7 @@ public abstract class AbstractExpandBar extends AbstractWidget<org.eclipse.swt.w
 	@Override
 	public void collapseAll() {
 		logger.info("Collapse all expand bar items");
-		for (ExpandBarItem expandBarItem : getItems()){
+		for (ExpandItem expandBarItem : getItems()){
 			expandBarItem.collapse();
 		}
 	}

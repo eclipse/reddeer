@@ -37,7 +37,7 @@ import org.jboss.reddeer.common.wait.TimePeriod;
 import org.jboss.reddeer.common.wait.WaitUntil;
 import org.jboss.reddeer.core.condition.WidgetIsFound;
 import org.jboss.reddeer.core.exception.CoreLayerException;
-import org.jboss.reddeer.core.handler.WidgetHandler;
+import org.jboss.reddeer.core.handler.ShellHandler;
 import org.jboss.reddeer.core.matcher.ClassMatcher;
 import org.jboss.reddeer.core.reference.ReferencedComposite;
 import org.jboss.reddeer.core.resolver.WidgetResolver;
@@ -228,7 +228,7 @@ public class WidgetLookup {
 
 		if ((activeWorkbenchParentShell == null || !activeWorkbenchParentShell.equals(activeShell))
 				&& activeShell != null){
-			logger.trace("Setting active shell with title \"" + WidgetHandler.getInstance().getText(activeShell) + "\" as the parent");
+			logger.trace("Setting active shell with title \"" + ShellHandler.getInstance().getText(activeShell) + "\" as the parent");
 			control = activeShell;	
 		}			
 		else {

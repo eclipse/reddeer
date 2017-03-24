@@ -10,14 +10,12 @@
  ******************************************************************************/ 
 package org.jboss.reddeer.swt.api;
 
-import org.jboss.reddeer.swt.widgets.Widget;
-
 /**
  * API for composite manipulation.
  * 
  * @author Jiri Peterka
  *
  */
-public interface Composite extends Widget<org.eclipse.swt.widgets.Composite> {
+public interface Composite extends Control<org.eclipse.swt.widgets.Composite> {
 
 }

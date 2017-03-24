@@ -12,9 +12,8 @@ package org.jboss.reddeer.uiforms.impl.section;
 
 import org.eclipse.swt.widgets.Control;
 import org.hamcrest.Matcher;
-import org.jboss.reddeer.core.handler.WidgetHandler;
 import org.jboss.reddeer.core.reference.ReferencedComposite;
-import org.jboss.reddeer.swt.widgets.AbstractWidget;
+import org.jboss.reddeer.swt.widgets.AbstractControl;
 import org.jboss.reddeer.uiforms.api.Section;
 import org.jboss.reddeer.uiforms.handler.SectionHandler;
 
@@ -24,7 +23,7 @@ import org.jboss.reddeer.uiforms.handler.SectionHandler;
  * @author Lucia Jelinkova
  *
  */
-public abstract class AbstractSection extends AbstractWidget<org.eclipse.ui.forms.widgets.Section> implements Section {
+public abstract class AbstractSection extends AbstractControl<org.eclipse.ui.forms.widgets.Section> implements Section {
 
 	/**
 	 * Instantiates a new abstract section.
@@ -53,14 +52,7 @@ public abstract class AbstractSection extends AbstractWidget<org.eclipse.ui.form
 	 * @see org.jboss.reddeer.uiforms.api.Section#getText()
 	 */
 	public String getText() {
-		return WidgetHandler.getInstance().getText(swtWidget);
-	}
-	
-	/**
-	 * Sets the focus.
-	 */
-	protected void setFocus() {
-		WidgetHandler.getInstance().setFocus(swtWidget);
+		return SectionHandler.getInstance().getText(swtWidget);
 	}
 	
 	/* (non-Javadoc)

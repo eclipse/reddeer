@@ -54,8 +54,8 @@ public class ShellHandler {
 	 */
 	public void closeShell(final Shell swtShell) {
 		
-		if(!isDisposed(swtShell)){
-			log.info("Closing shell '" +WidgetHandler.getInstance().getText(swtShell)+ "'");
+		if(!WidgetHandler.getInstance().isDisposed(swtShell)){
+			log.info("Closing shell '" +getText(swtShell)+ "'");
 		}
 		Display.syncExec(new Runnable() {
 			@Override
@@ -88,59 +88,11 @@ public class ShellHandler {
 	}
 	
 	/**
-	 * Finds out whether specified {@link Shell} is visible or not.
-	 * 
-	 * @param shell shell to handle
-	 * @return true if shell is visible, false otherwise
-	 */
-	public boolean isVisible(final Shell shell) {
-		return Display.syncExec(new ResultRunnable<Boolean>() {
-
-			@Override
-			public Boolean run() {
-				return shell.isVisible();
-			}
-		});
-	}
-	
-	/**
-	 * Finds out whether specified {@link Shell} is focused or not.
-	 * 
-	 * @param shell shell to handle
-	 * @return true if shell is focused, false otherwise
-	 */
-	public boolean isFocused(final Shell shell) {
-		return Display.syncExec(new ResultRunnable<Boolean>() {
-
-			@Override
-			public Boolean run() {
-				return shell.isFocusControl();
-			}
-		});
-	}
-	
-	/**
-	 * Find out whether specified {@link Shell} is disposed or not.
-	 * 
-	 * @param shell shell to handle
-	 * @return true if shell is disposed, false otherwise
-	 */
-	public boolean isDisposed(final Shell shell) {
-		return Display.syncExec(new ResultRunnable<Boolean>() {
-
-			@Override
-			public Boolean run() {
-				return shell.isDisposed();
-			}
-		});
-	}
-	
-	/**
 	 * Maximize shell.
 	 * @param swtShell swt shell to maximize
 	 */
 	public void maximize(final Shell swtShell) {
-		log.info("Maximize shell '" +WidgetHandler.getInstance().getText(swtShell)+ "'");
+		log.info("Maximize shell '" +getText(swtShell)+ "'");
 		Display.syncExec(new Runnable() {
 
 			public void run() {
@@ -155,7 +107,7 @@ public class ShellHandler {
 	 * @param swtShell swt shell to minimize
 	 */
 	public void minimize(final Shell swtShell) {
-		log.info("Minimize shell '" +WidgetHandler.getInstance().getText(swtShell)+ "'");
+		log.info("Minimize shell '" +getText(swtShell)+ "'");
 		Display.syncExec(new Runnable() {
 
 			public void run() {
@@ -170,7 +122,7 @@ public class ShellHandler {
 	 * @param swtShell swt shell to restore
 	 */
 	public void restore(final Shell swtShell) {
-		log.info("Restore shell '" +WidgetHandler.getInstance().getText(swtShell)+ "'");
+		log.info("Restore shell '" +getText(swtShell)+ "'");
 		Display.syncExec(new Runnable() {
 
 			public void run() {
@@ -206,6 +158,21 @@ public class ShellHandler {
 
 			public Boolean run() {
 				return swtShell.getMinimized();
+			}
+		});
+	}
+	
+	/**
+	 * Gets text of shell
+	 * @param shell to handle
+	 * @return text of specified shell
+	 */
+	public String getText(final Shell shell){
+		return Display.syncExec(new ResultRunnable<String>() {
+
+			@Override
+			public String run() {
+				return shell.getText();
 			}
 		});
 	}

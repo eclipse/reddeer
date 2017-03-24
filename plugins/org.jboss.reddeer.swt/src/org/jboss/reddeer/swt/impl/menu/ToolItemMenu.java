@@ -12,8 +12,8 @@ package org.jboss.reddeer.swt.impl.menu;
 
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.swt.api.ToolItem;
-import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.core.handler.ToolItemHandler;
+import org.jboss.reddeer.core.lookup.MenuLookup;
 import org.jboss.reddeer.core.matcher.WithMnemonicTextMatchers;
 
 /**
@@ -44,20 +44,8 @@ public class ToolItemMenu extends AbstractMenu {
 	 */
 	@SuppressWarnings("unchecked")
 	public ToolItemMenu(ToolItem item, Matcher<String>... path) {
-		if (!tih.isDropDown(item.getSWTWidget())) {
-			throw new SWTLayerException(
-					"Given ToolItem isn't of style SWT.DROP_DOWN");
-		}
-		menuItem = ml.lookFor(ml.getToolItemMenuItems(item.getSWTWidget()),
-				path);
-	}
-
-	/* (non-Javadoc)
-	 * @see org.jboss.reddeer.swt.impl.menu.AbstractMenu#isSelected()
-	 */
-	@Override
-	public boolean isSelected() {
-		return false;
+		super(MenuLookup.getInstance().lookFor(MenuLookup.getInstance().getToolItemMenuItems(item.getSWTWidget()),
+				path));
 	}
 	
 }

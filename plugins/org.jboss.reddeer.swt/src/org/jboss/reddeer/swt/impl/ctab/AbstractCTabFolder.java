@@ -13,11 +13,11 @@ package org.jboss.reddeer.swt.impl.ctab;
 import org.eclipse.swt.widgets.Control;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.core.handler.CTabFolderHandler;
-import org.jboss.reddeer.core.handler.WidgetHandler;
+import org.jboss.reddeer.core.handler.ItemHandler;
 import org.jboss.reddeer.core.reference.ReferencedComposite;
 import org.jboss.reddeer.swt.api.CTabFolder;
 import org.jboss.reddeer.swt.api.CTabItem;
-import org.jboss.reddeer.swt.widgets.AbstractWidget;
+import org.jboss.reddeer.swt.widgets.AbstractControl;
 
 /**
  * Abstract class for all {@link CTabFolder} implementations
@@ -25,7 +25,7 @@ import org.jboss.reddeer.swt.widgets.AbstractWidget;
  * @author Lucia Jelinkova
  *
  */
-public abstract class AbstractCTabFolder extends AbstractWidget<org.eclipse.swt.custom.CTabFolder> implements CTabFolder {
+public abstract class AbstractCTabFolder extends AbstractControl<org.eclipse.swt.custom.CTabFolder> implements CTabFolder {
 
 	protected AbstractCTabFolder(ReferencedComposite referencedComposite, int index, Matcher<?>... matchers) {
 		super(org.eclipse.swt.custom.CTabFolder.class, referencedComposite, index, matchers);
@@ -51,7 +51,7 @@ public abstract class AbstractCTabFolder extends AbstractWidget<org.eclipse.swt.
 		org.eclipse.swt.custom.CTabItem[] tabItem = CTabFolderHandler.getInstance().getTabItems(swtWidget);
 		String[] tabItemLabel = new String[tabItem.length];
 		for (int i = 0; i < tabItem.length; i++) {
-			tabItemLabel[i] = WidgetHandler.getInstance().getText(tabItem[i]);
+			tabItemLabel[i] = ItemHandler.getInstance().getText(tabItem[i]);
 		}
 		return tabItemLabel;
 	}

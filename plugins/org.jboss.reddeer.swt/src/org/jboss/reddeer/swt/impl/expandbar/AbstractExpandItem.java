@@ -13,10 +13,9 @@ package org.jboss.reddeer.swt.impl.expandbar;
 import org.eclipse.swt.widgets.Control;
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.swt.api.ExpandBar;
-import org.jboss.reddeer.swt.api.ExpandBarItem;
-import org.jboss.reddeer.core.handler.ExpandBarItemHandler;
-import org.jboss.reddeer.core.handler.WidgetHandler;
-import org.jboss.reddeer.swt.widgets.AbstractWidget;
+import org.jboss.reddeer.swt.api.ExpandItem;
+import org.jboss.reddeer.core.handler.ExpandItemHandler;
+import org.jboss.reddeer.swt.widgets.AbstractItem;
 import org.jboss.reddeer.common.wait.AbstractWait;
 import org.jboss.reddeer.common.wait.TimePeriod;
 
@@ -26,39 +25,28 @@ import org.jboss.reddeer.common.wait.TimePeriod;
  * @author Vlado Pakan
  * 
  */
-public abstract class AbstractExpandBarItem extends AbstractWidget<org.eclipse.swt.widgets.ExpandItem> implements ExpandBarItem {
+public abstract class AbstractExpandItem extends AbstractItem<org.eclipse.swt.widgets.ExpandItem> implements ExpandItem {
 
-	private static final Logger logger = Logger.getLogger(AbstractExpandBarItem.class);
+	private static final Logger logger = Logger.getLogger(AbstractExpandItem.class);
 
 	protected org.eclipse.swt.widgets.ExpandBar swtParent;
 
-	protected AbstractExpandBarItem(final org.eclipse.swt.widgets.ExpandItem swtExpandItem) {
+	protected AbstractExpandItem(final org.eclipse.swt.widgets.ExpandItem swtExpandItem) {
 		super(swtExpandItem);
-		this.swtParent = ExpandBarItemHandler.getInstance().getParent(swtExpandItem);
-	}
-	
-	/**
-	 * See {@link ExpandBarItem}.
-	 *
-	 * @return the text
-	 */
-	@Override
-	public String getText() {
-		return WidgetHandler.getInstance().getText(swtWidget);
+		this.swtParent = ExpandItemHandler.getInstance().getParent(swtExpandItem);
 	}
 
 	/**
-	 * See {@link ExpandBarItem}.
+	 * See {@link ExpandItem}.
 	 *
 	 * @return the tool tip text
 	 */
-	@Override
 	public String getToolTipText() {
-		return WidgetHandler.getInstance().getToolTipText(swtWidget);
+		return ExpandItemHandler.getInstance().getToolTipText(swtWidget);
 	}
 
 	/**
-	 * See {@link ExpandBarItem}.
+	 * See {@link ExpandItem}.
 	 */
 	@Override
 	public void expand() {
@@ -66,7 +54,7 @@ public abstract class AbstractExpandBarItem extends AbstractWidget<org.eclipse.s
 	}
 	
 	/**
-	 * See {@link ExpandBarItem}.
+	 * See {@link ExpandItem}.
 	 *
 	 * @param timePeriod the time period
 	 */
@@ -74,7 +62,7 @@ public abstract class AbstractExpandBarItem extends AbstractWidget<org.eclipse.s
 	public void expand(TimePeriod timePeriod) {
 		logger.debug("Expand Expand Bar Item " + getText());
 		if (!isExpanded()) {
-			ExpandBarItemHandler.getInstance().expand(getSWTWidget(), getSWTParent());
+			ExpandItemHandler.getInstance().expand(getSWTWidget(), getSWTParent());
 			AbstractWait.sleep(timePeriod);
 			logger.info("Expand Bar Item " + getText()
 					+ " has been expanded");
@@ -85,13 +73,13 @@ public abstract class AbstractExpandBarItem extends AbstractWidget<org.eclipse.s
 	}
 	
 	/**
-	 * See {@link ExpandBarItem}.
+	 * See {@link ExpandItem}.
 	 */
 	@Override
 	public void collapse() {
 		logger.debug("Collapse Expand Bar Item " + getText());
 		if (isExpanded()) {
-			ExpandBarItemHandler.getInstance().collapse(getSWTWidget(), getSWTParent());
+			ExpandItemHandler.getInstance().collapse(getSWTWidget(), getSWTParent());
 			logger.info("Expand Bar Item " + getText()
 					+ " has been collapsed");
 		} else {
@@ -118,7 +106,7 @@ public abstract class AbstractExpandBarItem extends AbstractWidget<org.eclipse.s
 	}
 	
 	/**
-	 * See {@link ExpandBarItem}.
+	 * See {@link ExpandItem}.
 	 *
 	 * @return the parent
 	 */
@@ -128,12 +116,12 @@ public abstract class AbstractExpandBarItem extends AbstractWidget<org.eclipse.s
 	}
 	
 	/**
-	 * See {@link ExpandBarItem}.
+	 * See {@link ExpandItem}.
 	 *
 	 * @return true, if is expanded
 	 */
 	@Override
 	public boolean isExpanded() {
-		return ExpandBarItemHandler.getInstance().isExpanded(getSWTWidget());
+		return ExpandItemHandler.getInstance().isExpanded(getSWTWidget());
 	}
 }

@@ -11,9 +11,8 @@
 package org.jboss.reddeer.uiforms.impl.hyperlink;
 
 import org.hamcrest.Matcher;
-import org.jboss.reddeer.core.handler.WidgetHandler;
 import org.jboss.reddeer.core.reference.ReferencedComposite;
-import org.jboss.reddeer.swt.widgets.AbstractWidget;
+import org.jboss.reddeer.swt.widgets.AbstractControl;
 import org.jboss.reddeer.uiforms.api.Hyperlink;
 import org.jboss.reddeer.uiforms.handler.HyperLinkHandler;
 
@@ -23,7 +22,7 @@ import org.jboss.reddeer.uiforms.handler.HyperLinkHandler;
  * @author Lucia Jelinkova
  *
  */
-public abstract class AbstractHyperlink extends AbstractWidget<org.eclipse.ui.forms.widgets.Hyperlink> implements Hyperlink {
+public abstract class AbstractHyperlink extends AbstractControl<org.eclipse.ui.forms.widgets.Hyperlink> implements Hyperlink {
 
 	protected AbstractHyperlink(ReferencedComposite refComposite, int index, Matcher<?>... matchers){
 		super(org.eclipse.ui.forms.widgets.Hyperlink.class, refComposite, index, matchers);
@@ -35,14 +34,10 @@ public abstract class AbstractHyperlink extends AbstractWidget<org.eclipse.ui.fo
 	}
 	
 	public String getText() {
-		return WidgetHandler.getInstance().getText(swtWidget);
+		return HyperLinkHandler.getInstance().getText(swtWidget);
 	}
 	
 	public void activate() {
 		HyperLinkHandler.getInstance().activate(swtWidget);
-	}
-	
-	protected void setFocus() {
-		WidgetHandler.getInstance().setFocus(swtWidget);
 	}
 }

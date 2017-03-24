@@ -11,7 +11,7 @@
 package org.jboss.reddeer.uiforms.api;
 
 import org.jboss.reddeer.core.reference.ReferencedComposite;
-import org.jboss.reddeer.swt.widgets.Widget;
+import org.jboss.reddeer.swt.api.Widget;
 
 /**
  * Represents Section object. 

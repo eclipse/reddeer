@@ -17,7 +17,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.common.properties.RedDeerProperties;
 import org.jboss.reddeer.core.handler.IBeforeShellIsClosed;
-import org.jboss.reddeer.core.handler.WidgetHandler;
+import org.jboss.reddeer.core.handler.ShellHandler;
 import org.jboss.reddeer.junit.TestInfo;
 import org.jboss.reddeer.junit.extension.ExtensionPriority;
 import org.jboss.reddeer.junit.extensionpoint.IAfterTest;
@@ -102,7 +102,7 @@ public class CloseAllShellsExt implements IAfterTest {
 		}
 
 		public void runBeforeShellIsClosed(Shell shell) {
-			String shellTitle = WidgetHandler.getInstance().getText(shell);
+			String shellTitle = ShellHandler.getInstance().getText(shell);
 
 			closedShellsTitles.add(shellTitle);
 			try {

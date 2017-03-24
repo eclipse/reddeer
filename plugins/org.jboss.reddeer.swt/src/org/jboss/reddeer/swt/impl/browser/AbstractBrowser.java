@@ -20,14 +20,14 @@ import org.jboss.reddeer.core.reference.ReferencedComposite;
 import org.jboss.reddeer.swt.api.Browser;
 import org.jboss.reddeer.swt.condition.PageIsLoaded;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
-import org.jboss.reddeer.swt.widgets.AbstractWidget;
+import org.jboss.reddeer.swt.widgets.AbstractControl;
 
 /**
  * Abstract class for all Browsers implementations
  * @author Jiri Peterka
  *
  */
-public abstract class AbstractBrowser extends AbstractWidget<org.eclipse.swt.browser.Browser> implements Browser{
+public abstract class AbstractBrowser extends AbstractControl<org.eclipse.swt.browser.Browser> implements Browser{
 	
 	private static final Logger log = Logger.getLogger(AbstractBrowser.class);
 	

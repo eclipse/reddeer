@@ -16,7 +16,6 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Widget;
 import org.jboss.reddeer.common.util.Display;
 import org.jboss.reddeer.common.util.ResultRunnable;
-import org.jboss.reddeer.core.handler.WidgetHandler;
 import org.jboss.reddeer.core.lookup.ShellLookup;
 import org.jboss.reddeer.core.lookup.WidgetLookup;
 
@@ -141,7 +140,7 @@ public class DiagnosticTool {
 			// ignore, just provide as much information as possible
 		}
 		try {
-			String text = WidgetHandler.getInstance().getText(widget);
+			String text = TextWidgetUtil.getText(widget);
 			if (text != null) {
 				result.append(" with text '" + text + "'");
 			}

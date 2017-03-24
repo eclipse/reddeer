@@ -10,15 +10,13 @@
  ******************************************************************************/ 
 package org.jboss.reddeer.swt.api;
 
-import org.jboss.reddeer.swt.widgets.Widget;
-
 /**
  * API for button (push, radio and toggle) manipulation.
  * 
  * @author Jiri Peterka
  *
  */
-public interface Button extends Widget<org.eclipse.swt.widgets.Button> {
+public interface Button extends Control<org.eclipse.swt.widgets.Button> {
 
 	/**
 	 * Performs click on the button.
@@ -31,18 +29,4 @@ public interface Button extends Widget<org.eclipse.swt.widgets.Button> {
 	 * @return text on the button
 	 */
 	String getText();
-
-	/**
-	 * Returns the ToolTip of the button.
-	 * 
-	 * @return the ToolTip text on the button
-	 */
-	String getToolTipText();
-
-	/**
-	 * Finds out whether button is enabled or not.
-	 * 
-	 * @return true if this button is enabled, false otherwise
-	 */
-	boolean isEnabled();
 }

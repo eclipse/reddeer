@@ -14,12 +14,11 @@ import org.eclipse.swt.widgets.Control;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.core.handler.CTabItemHandler;
-import org.jboss.reddeer.core.handler.WidgetHandler;
 import org.jboss.reddeer.core.reference.ReferencedComposite;
 import org.jboss.reddeer.swt.api.CTabFolder;
 import org.jboss.reddeer.swt.api.CTabItem;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
-import org.jboss.reddeer.swt.widgets.AbstractWidget;
+import org.jboss.reddeer.swt.widgets.AbstractItem;
 
 /**
  * Abstract class for all CTabItem implementations
@@ -27,7 +26,7 @@ import org.jboss.reddeer.swt.widgets.AbstractWidget;
  * @author Vlado Pakan
  * 
  */
-public abstract class AbstractCTabItem extends AbstractWidget<org.eclipse.swt.custom.CTabItem> implements CTabItem {
+public abstract class AbstractCTabItem extends AbstractItem<org.eclipse.swt.custom.CTabItem> implements CTabItem {
 
 	private static final Logger logger = Logger.getLogger(AbstractCTabItem.class);
 
@@ -56,21 +55,11 @@ public abstract class AbstractCTabItem extends AbstractWidget<org.eclipse.swt.cu
 	/**
 	 * See {@link CTabItem}.
 	 *
-	 * @return the text
-	 */
-	@Override
-	public String getText() {
-		return WidgetHandler.getInstance().getText(swtWidget);
-	}
-
-	/**
-	 * See {@link CTabItem}.
-	 *
 	 * @return the tool tip text
 	 */
 	@Override
 	public String getToolTipText() {
-		return WidgetHandler.getInstance().getToolTipText(swtWidget);
+		return CTabItemHandler.getInstance().getToolTipText(swtWidget);
 	}
 
 	/**

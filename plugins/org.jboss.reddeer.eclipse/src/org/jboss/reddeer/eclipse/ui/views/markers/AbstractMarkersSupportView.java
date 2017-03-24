@@ -107,7 +107,7 @@ public class AbstractMarkersSupportView extends WorkbenchView {
 	
 	private void openConfigureColumnsShell() {
 		activate();
-		new ViewMenu("View Menu", "Configure Columns...").select();
+		new ViewMenu("Configure Columns...").select();
 		
 		new DefaultShell("Configure Columns");
 	}

@@ -12,6 +12,7 @@ package org.jboss.reddeer.uiforms.handler;
 
 import org.eclipse.ui.forms.widgets.Section;
 import org.jboss.reddeer.common.util.Display;
+import org.jboss.reddeer.common.util.ResultRunnable;
 
 /**
  * Contains methods for handling UI operations on
@@ -50,6 +51,21 @@ public class SectionHandler {
 			@Override
 			public void run() {
 				section.setExpanded(expanded);
+			}
+		});
+	}
+	
+	/**
+	 * Gets text of section
+	 * @param section to handle
+	 * @return text of specified section
+	 */
+	public String getText(final Section section){
+		return Display.syncExec(new ResultRunnable<String>() {
+
+			@Override
+			public String run() {
+				return section.getText();
 			}
 		});
 	}

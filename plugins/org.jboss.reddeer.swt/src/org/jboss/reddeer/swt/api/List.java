@@ -10,15 +10,13 @@
  ******************************************************************************/ 
 package org.jboss.reddeer.swt.api;
 
-import org.jboss.reddeer.swt.widgets.Widget;
-
 /**
  * API for list manipulation.
  * 
  * @author Jiri Peterka
  *
  */
-public interface List extends Widget<org.eclipse.swt.widgets.List> {
+public interface List extends Control<org.eclipse.swt.widgets.List> {
 
 	/**
 	 * Selects item in the list.

@@ -13,8 +13,8 @@ package org.jboss.reddeer.swt.condition;
 import org.jboss.reddeer.common.condition.AbstractWaitCondition;
 import org.jboss.reddeer.swt.api.TableItem;
 import org.jboss.reddeer.swt.api.TreeItem;
+import org.jboss.reddeer.swt.api.Widget;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
-import org.jboss.reddeer.swt.widgets.Widget;
 
 /**
  * Condition is met when specified widget is checked.

@@ -13,11 +13,11 @@ package org.jboss.reddeer.swt.impl.group;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Group;
 import org.hamcrest.Matcher;
-import org.jboss.reddeer.core.handler.WidgetHandler;
+import org.jboss.reddeer.core.handler.GroupHandler;
 import org.jboss.reddeer.core.reference.ReferencedComposite;
-import org.jboss.reddeer.swt.widgets.AbstractWidget;
+import org.jboss.reddeer.swt.widgets.AbstractControl;
 
-public abstract class AbstractGroup extends AbstractWidget<Group> implements org.jboss.reddeer.swt.api.Group{
+public abstract class AbstractGroup extends AbstractControl<Group> implements org.jboss.reddeer.swt.api.Group{
 	
 	/**
 	 * Group with given index inside given composite that matches given matchers.
@@ -39,7 +39,7 @@ public abstract class AbstractGroup extends AbstractWidget<Group> implements org
 	 */
 	@Override
 	public String getText() {
-		return WidgetHandler.getInstance().getText(swtWidget);
+		return GroupHandler.getInstance().getText(swtWidget);
 	}
 
 	/**

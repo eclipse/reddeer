@@ -199,12 +199,7 @@ public class TableItemHandler {
 	 * @param tableItem the new focus
 	 */
 	public void setFocus(final TableItem tableItem) {
-		Display.syncExec(new Runnable() {
-			@Override
-			public void run() {
-				tableItem.getParent().forceFocus();
-			}
-		});
+		ControlHandler.getInstance().setFocus(getParent(tableItem));
 	}
 	
 	

@@ -15,7 +15,7 @@ import java.util.List;
 
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.swt.api.ExpandBar;
-import org.jboss.reddeer.swt.api.ExpandBarItem;
+import org.jboss.reddeer.swt.api.ExpandItem;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.core.reference.ReferencedComposite;
 
@@ -25,18 +25,18 @@ import org.jboss.reddeer.core.reference.ReferencedComposite;
  * @author Vlado Pakan
  * 
  */
-public class DefaultExpandBarItem extends AbstractExpandBarItem {
+public class DefaultExpandItem extends AbstractExpandItem {
 
-	private static final Logger logger = Logger.getLogger(DefaultExpandBarItem.class);
+	private static final Logger logger = Logger.getLogger(DefaultExpandItem.class);
 
 	/**
 	 * Default parameter-less constructor.
 	 */
-	public DefaultExpandBarItem() {
+	public DefaultExpandItem() {
 		this(0);
 	}
 	
-	public DefaultExpandBarItem(org.eclipse.swt.widgets.ExpandItem widget){
+	public DefaultExpandItem(org.eclipse.swt.widgets.ExpandItem widget){
 		super(widget);
 	}
 	
@@ -45,7 +45,7 @@ public class DefaultExpandBarItem extends AbstractExpandBarItem {
 	 *
 	 * @param referencedComposite the referenced composite
 	 */
-	public DefaultExpandBarItem(ReferencedComposite referencedComposite) {
+	public DefaultExpandItem(ReferencedComposite referencedComposite) {
 		this(referencedComposite, 0);
 	}
 
@@ -54,7 +54,7 @@ public class DefaultExpandBarItem extends AbstractExpandBarItem {
 	 *
 	 * @param expandBarItemText the expand bar item text
 	 */
-	public DefaultExpandBarItem(String expandBarItemText) {
+	public DefaultExpandItem(String expandBarItemText) {
 		this(0, expandBarItemText);
 	}
 	
@@ -64,7 +64,7 @@ public class DefaultExpandBarItem extends AbstractExpandBarItem {
 	 * @param referencedComposite the referenced composite
 	 * @param expandBarItemText the expand bar item text
 	 */
-	public DefaultExpandBarItem(ReferencedComposite referencedComposite, String expandBarItemText) {
+	public DefaultExpandItem(ReferencedComposite referencedComposite, String expandBarItemText) {
 		this(referencedComposite, 0, expandBarItemText);
 	}
 
@@ -74,8 +74,8 @@ public class DefaultExpandBarItem extends AbstractExpandBarItem {
 	 * @param expandBarIndex the expand bar index
 	 * @param expandBarItemText the expand bar item text
 	 */
-	public DefaultExpandBarItem(int expandBarIndex, String expandBarItemText) {
-		super(DefaultExpandBarItem.findExpandBarItem(expandBarIndex, expandBarItemText));
+	public DefaultExpandItem(int expandBarIndex, String expandBarItemText) {
+		super(DefaultExpandItem.findExpandBarItem(expandBarIndex, expandBarItemText));
 	}
 	
 	/**
@@ -85,8 +85,8 @@ public class DefaultExpandBarItem extends AbstractExpandBarItem {
 	 * @param expandBarIndex the expand bar index
 	 * @param expandBarItemText the expand bar item text
 	 */
-	public DefaultExpandBarItem(ReferencedComposite referencedComposite, int expandBarIndex, String expandBarItemText) {
-		super(DefaultExpandBarItem.findExpandBarItem(referencedComposite, expandBarIndex, expandBarItemText));
+	public DefaultExpandItem(ReferencedComposite referencedComposite, int expandBarIndex, String expandBarItemText) {
+		super(DefaultExpandItem.findExpandBarItem(referencedComposite, expandBarIndex, expandBarItemText));
 	}
 
 	/**
@@ -94,7 +94,7 @@ public class DefaultExpandBarItem extends AbstractExpandBarItem {
 	 *
 	 * @param expandBarItemIndex the expand bar item index
 	 */
-	public DefaultExpandBarItem(int expandBarItemIndex) {
+	public DefaultExpandItem(int expandBarItemIndex) {
 		this(0, expandBarItemIndex);
 	}
 	
@@ -104,7 +104,7 @@ public class DefaultExpandBarItem extends AbstractExpandBarItem {
 	 * @param referencedComposite the referenced composite
 	 * @param expandBarItemIndex the expand bar item index
 	 */
-	public DefaultExpandBarItem(ReferencedComposite referencedComposite, int expandBarItemIndex) {
+	public DefaultExpandItem(ReferencedComposite referencedComposite, int expandBarItemIndex) {
 		this(referencedComposite, 0, expandBarItemIndex);
 	}
 
@@ -114,8 +114,8 @@ public class DefaultExpandBarItem extends AbstractExpandBarItem {
 	 * @param expandBarIndex the expand bar index
 	 * @param expandBarItemIndex the expand bar item index
 	 */
-	public DefaultExpandBarItem(int expandBarIndex, int expandBarItemIndex) {
-		super(DefaultExpandBarItem.findExpandBarItem(expandBarIndex, expandBarItemIndex));
+	public DefaultExpandItem(int expandBarIndex, int expandBarItemIndex) {
+		super(DefaultExpandItem.findExpandBarItem(expandBarIndex, expandBarItemIndex));
 	}
 	
 	/**
@@ -125,8 +125,8 @@ public class DefaultExpandBarItem extends AbstractExpandBarItem {
 	 * @param expandBarIndex the expand bar index
 	 * @param expandBarItemIndex the expand bar item index
 	 */
-	public DefaultExpandBarItem(ReferencedComposite referencedComposite, int expandBarIndex, int expandBarItemIndex) {
-		super(DefaultExpandBarItem.findExpandBarItem(referencedComposite, expandBarIndex, expandBarItemIndex));
+	public DefaultExpandItem(ReferencedComposite referencedComposite, int expandBarIndex, int expandBarItemIndex) {
+		super(DefaultExpandItem.findExpandBarItem(referencedComposite, expandBarIndex, expandBarItemIndex));
 	}
 	
 	/**
@@ -142,7 +142,7 @@ public class DefaultExpandBarItem extends AbstractExpandBarItem {
 			+ "\n  Expand Bar index: " + expandBarIndex
 			+ "\n  Expand Bar Item index: " + expandBarItemIndex);
 		ExpandBar expandBar = new DefaultExpandBar(expandBarIndex);
-		List<ExpandBarItem> items = expandBar.getItems();
+		List<ExpandItem> items = expandBar.getItems();
 		if (items.size() < expandBarItemIndex + 1) {
 			throw new SWTLayerException("No matching Expand Bar Item found");
 		} else {
@@ -163,7 +163,7 @@ public class DefaultExpandBarItem extends AbstractExpandBarItem {
 			+ "\n  Expand Bar index: " + expandBarIndex
 			+ "\n  Expand Bar Item index: " + expandBarItemIndex);
 		ExpandBar expandBar = new DefaultExpandBar(referencedComposite, expandBarIndex);
-		List<ExpandBarItem> items = expandBar.getItems();
+		List<ExpandItem> items = expandBar.getItems();
 		if (items.size() < expandBarItemIndex + 1) {
 			throw new SWTLayerException("No matching Expand Bar Item found");
 		} else {
@@ -184,10 +184,10 @@ public class DefaultExpandBarItem extends AbstractExpandBarItem {
 				+ "\n  Expand Bar Item text: " + expandBarItemText);
 		org.eclipse.swt.widgets.ExpandItem result = null;
 		ExpandBar expandBar = new DefaultExpandBar(expandBarIndex);
-		List<ExpandBarItem> items = expandBar.getItems();
+		List<ExpandItem> items = expandBar.getItems();
 		boolean isFound = false;
-		Iterator<ExpandBarItem> itExpandBarItem = items.iterator();
-		ExpandBarItem expandBarItem = null;
+		Iterator<ExpandItem> itExpandBarItem = items.iterator();
+		ExpandItem expandBarItem = null;
 		while (itExpandBarItem.hasNext() && (!isFound)) {
 			expandBarItem = itExpandBarItem.next();
 			if (expandBarItem.getText().equals(expandBarItemText)) {
@@ -216,10 +216,10 @@ public class DefaultExpandBarItem extends AbstractExpandBarItem {
 				+ "\n  Expand Bar Item text: " + expandBarItemText);
 		org.eclipse.swt.widgets.ExpandItem result = null;
 		ExpandBar expandBar = new DefaultExpandBar(referencedComposite, expandBarIndex);
-		List<ExpandBarItem> items = expandBar.getItems();
+		List<ExpandItem> items = expandBar.getItems();
 		boolean isFound = false;
-		Iterator<ExpandBarItem> itExpandBarItem = items.iterator();
-		ExpandBarItem expandBarItem = null;
+		Iterator<ExpandItem> itExpandBarItem = items.iterator();
+		ExpandItem expandBarItem = null;
 		while (itExpandBarItem.hasNext() && (!isFound)) {
 			expandBarItem = itExpandBarItem.next();
 			if (expandBarItem.getText().equals(expandBarItemText)) {

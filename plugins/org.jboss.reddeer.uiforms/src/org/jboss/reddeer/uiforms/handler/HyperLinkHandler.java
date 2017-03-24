@@ -14,6 +14,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.ui.forms.widgets.Hyperlink;
 import org.jboss.reddeer.common.util.Display;
+import org.jboss.reddeer.common.util.ResultRunnable;
 import org.jboss.reddeer.core.handler.WidgetHandler;
 
 /**
@@ -80,5 +81,20 @@ public class HyperLinkHandler {
 		event.x=0;
 		event.y=0;
 		return event;
+	}
+	
+	/**
+	 * Gets text of hyperlink
+	 * @param widget to handle
+	 * @return text of specified hyperlink
+	 */
+	public String getText(final Hyperlink widget){
+		return Display.syncExec(new ResultRunnable<String>() {
+
+			@Override
+			public String run() {
+				return widget.getText();
+			}
+		});
 	}
 }

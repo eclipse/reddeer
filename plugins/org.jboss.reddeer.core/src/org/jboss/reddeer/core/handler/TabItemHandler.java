@@ -125,10 +125,35 @@ public class TabItemHandler {
 	 * @param tabItem tab item to focus
 	 */
 	public void setFocus(final TabItem tabItem) {
-		Display.syncExec(new Runnable() {
+		ControlHandler.getInstance().setFocus(getParent(tabItem));
+	}
+	
+	/**
+	 * Gets parent of tab item
+	 * @param tabItem to handle
+	 * @return TabFolder which is parent of specified tab item
+	 */
+	public TabFolder getParent(final TabItem tabItem){
+		return Display.syncExec(new ResultRunnable<TabFolder>() {
+
 			@Override
-			public void run() {
-				tabItem.getParent().forceFocus();
+			public TabFolder run() {
+				return tabItem.getParent();
+			}
+		});
+	}
+
+	/**
+	 * Gets tooltip text of tab item
+	 * @param swtWidget to handle
+	 * @return tooltip text of specified tab item
+	 */
+	public String getToolTipText(TabItem swtWidget) {
+		return Display.syncExec(new ResultRunnable<String>() {
+
+			@Override
+			public String run() {
+				return swtWidget.getToolTipText();
 			}
 		});
 	}

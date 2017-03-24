@@ -11,36 +11,36 @@
 package org.jboss.reddeer.swt.condition;
 
 import org.jboss.reddeer.common.condition.AbstractWaitCondition;
-import org.jboss.reddeer.swt.widgets.Widget;
+import org.jboss.reddeer.swt.api.Control;
 
 /**
- * Condition is met when specified widget is enabled.
+ * Condition is met when specified control is enabled.
  * 
  * @author mlabuda@redhat.com
  *
  */
-public class WidgetIsEnabled extends AbstractWaitCondition {
+public class ControlIsEnabled extends AbstractWaitCondition {
 
-	private Widget widget;
+	private Control<?> control;
 
 	/**
-	 * Constructs WidgetIsEnabled wait condition.
-	 * Condition is met when specified widget is enabled.
+	 * Constructs ControltIsEnabled wait condition.
+	 * Condition is met when specified control is enabled.
 	 * 
-	 * @param widget widget which should be enabled to let the condition pass
+	 * @param control control which should be enabled to let the condition pass
 	 */
-	public WidgetIsEnabled(Widget widget) {
-		this.widget = widget;
+	public ControlIsEnabled(Control<?> control) {
+		this.control = control;
 	}
 
 	@Override
 	public boolean test() {
-		return widget.isEnabled();
+		return control.isEnabled();
 	}
 
 	@Override
 	public String description() {
-		return "widget is enabled";
+		return "control is enabled";
 	}
 
 }

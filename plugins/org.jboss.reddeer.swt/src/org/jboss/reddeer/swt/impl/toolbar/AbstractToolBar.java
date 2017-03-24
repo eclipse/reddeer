@@ -13,7 +13,7 @@ package org.jboss.reddeer.swt.impl.toolbar;
 import org.eclipse.swt.widgets.Control;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.swt.api.ToolBar;
-import org.jboss.reddeer.swt.widgets.AbstractWidget;
+import org.jboss.reddeer.swt.widgets.AbstractControl;
 import org.jboss.reddeer.core.reference.ReferencedComposite;
 
 /**
@@ -21,7 +21,7 @@ import org.jboss.reddeer.core.reference.ReferencedComposite;
  * @author Jiri Peterka
  *
  */
-public abstract class AbstractToolBar extends AbstractWidget<org.eclipse.swt.widgets.ToolBar> implements ToolBar{
+public abstract class AbstractToolBar extends AbstractControl<org.eclipse.swt.widgets.ToolBar> implements ToolBar{
 
 	protected AbstractToolBar(org.eclipse.swt.widgets.ToolBar widget) {
 		super(widget);

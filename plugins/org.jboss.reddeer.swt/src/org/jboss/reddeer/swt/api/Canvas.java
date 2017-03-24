@@ -10,14 +10,12 @@
  ******************************************************************************/ 
 package org.jboss.reddeer.swt.api;
 
-import org.jboss.reddeer.swt.widgets.Widget;
-
 /**
  * API for canvas manipulation.
  * 
  * @author Jiri Peterka
  *
  */
-public interface Canvas extends Widget<org.eclipse.swt.widgets.Canvas> {
+public interface Canvas extends Control<org.eclipse.swt.widgets.Canvas> {
 
 }

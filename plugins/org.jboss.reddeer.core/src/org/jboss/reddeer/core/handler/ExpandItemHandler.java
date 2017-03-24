@@ -27,14 +27,14 @@ import org.jboss.reddeer.common.wait.TimePeriod;
  * @author Vlado Pakan
  *
  */
-public class ExpandBarItemHandler {
+public class ExpandItemHandler {
 
 	private static final Logger logger = Logger
-			.getLogger(ExpandBarItemHandler.class);
+			.getLogger(ExpandItemHandler.class);
 
-	private static ExpandBarItemHandler instance;
+	private static ExpandItemHandler instance;
 
-	private ExpandBarItemHandler() {
+	private ExpandItemHandler() {
 
 	}
 
@@ -43,9 +43,9 @@ public class ExpandBarItemHandler {
 	 * 
 	 * @return instance of ExpandBarItemHandler
 	 */
-	public static ExpandBarItemHandler getInstance() {
+	public static ExpandItemHandler getInstance() {
 		if (instance == null) {
-			instance = new ExpandBarItemHandler();
+			instance = new ExpandItemHandler();
 		}
 		return instance;
 	}
@@ -58,9 +58,9 @@ public class ExpandBarItemHandler {
 	 */
 	public static void expand(TimePeriod timePeriod,
 			final ExpandItem expandItem) {
-		logger.debug("Expand Expand Bar Item " + WidgetHandler.getInstance().getText(expandItem));
-		if (!ExpandBarItemHandler.getInstance().isExpanded(expandItem)) {
-			ExpandBarItemHandler.notifyExpandBar(ExpandBarItemHandler
+		logger.debug("Expand Expand Bar Item " + ItemHandler.getInstance().getText(expandItem));
+		if (!ExpandItemHandler.getInstance().isExpanded(expandItem)) {
+			ExpandItemHandler.notifyExpandBar(ExpandItemHandler
 					.createEventForExpandBar(SWT.Expand, expandItem),
 					expandItem);
 			Display.syncExec(new Runnable() {
@@ -70,10 +70,10 @@ public class ExpandBarItemHandler {
 				}
 			});
 			AbstractWait.sleep(timePeriod);
-			logger.info("Expand Bar Item " + WidgetHandler.getInstance().getText(expandItem)
+			logger.info("Expand Bar Item " + ItemHandler.getInstance().getText(expandItem)
 					+ " has been expanded");
 		} else {
-			logger.debug("Expand Bar Item " + WidgetHandler.getInstance().getText(expandItem)
+			logger.debug("Expand Bar Item " + ItemHandler.getInstance().getText(expandItem)
 					+ " is already expanded. No action performed");
 		}
 	}
@@ -84,21 +84,21 @@ public class ExpandBarItemHandler {
 	 * @param expandItem expand item to handle
 	 */
 	public static void collapse(final ExpandItem expandItem) {
-		logger.debug("Collapse Expand Bar Item " + WidgetHandler.getInstance().getText(expandItem));
-		if (ExpandBarItemHandler.getInstance().isExpanded(expandItem)) {
+		logger.debug("Collapse Expand Bar Item " + ItemHandler.getInstance().getText(expandItem));
+		if (ExpandItemHandler.getInstance().isExpanded(expandItem)) {
 			Display.syncExec(new Runnable() {
 				@Override
 				public void run() {
 					expandItem.setExpanded(false);
 				}
 			});
-			ExpandBarItemHandler.notifyExpandBar(ExpandBarItemHandler
+			ExpandItemHandler.notifyExpandBar(ExpandItemHandler
 					.createEventForExpandBar(SWT.Collapse, expandItem),
 					expandItem);
-			logger.info("Expand Bar Item " + WidgetHandler.getInstance().getText(expandItem)
+			logger.info("Expand Bar Item " + ItemHandler.getInstance().getText(expandItem)
 					+ " has been collapsed");
 		} else {
-			logger.debug("Expand Bar Item " + WidgetHandler.getInstance().getText(expandItem)
+			logger.debug("Expand Bar Item " + ItemHandler.getInstance().getText(expandItem)
 					+ " is already collapsed. No action performed");
 		}
 	}
@@ -148,7 +148,7 @@ public class ExpandBarItemHandler {
 		event.display = Display.getDisplay();
 		event.time = (int) System.currentTimeMillis();
 		event.item = expandItem;
-		event.widget = ExpandBarItemHandler.getInstance().getParent(expandItem);
+		event.widget = ExpandItemHandler.getInstance().getParent(expandItem);
 		event.detail = detail;
 		return event;
 	}
@@ -258,5 +258,13 @@ public class ExpandBarItemHandler {
 				return item.getParent();
 			}
 		});
+	}
+	
+	/**
+	 * Sets focus to expandbar
+	 * @param expandItem to handle
+	 */
+	public void setFocus(ExpandItem expandItem) {
+		ControlHandler.getInstance().setFocus(getParent(expandItem));
 	}
 }

@@ -11,13 +11,11 @@
 package org.jboss.reddeer.swt.impl.menu;
 
 import org.eclipse.swt.widgets.MenuItem;
-import org.jboss.reddeer.core.matcher.WithMnemonicTextMatchers;
 
 public class DefaultMenu extends AbstractMenu {
 
 	public DefaultMenu(MenuItem item){
-		this.menuItem = item;		
-		this.matchers = new WithMnemonicTextMatchers(mh.getMenuPath(item)).getMatchers();
+		super(item);
 	}
 	
 }

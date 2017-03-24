@@ -14,7 +14,7 @@ import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.common.wait.TimePeriod;
 import org.jboss.reddeer.common.wait.WaitUntil;
 import org.jboss.reddeer.common.wait.WaitWhile;
-import org.jboss.reddeer.core.handler.ShellHandler;
+import org.jboss.reddeer.core.handler.WidgetHandler;
 import org.jboss.reddeer.jface.wizard.WizardDialog;
 import org.jboss.reddeer.swt.api.Shell;
 import org.jboss.reddeer.swt.condition.ShellHasChildrenOrIsNotAvailable;
@@ -45,7 +45,7 @@ public class ModifyModulesDialog extends WizardDialog {
 		Shell s = new DefaultShell(DIALOG_TITLE);
 		new FinishButton().click();
 		new WaitUntil(new ShellHasChildrenOrIsNotAvailable(s));
-		if(!ShellHandler.getInstance().isDisposed(s.getSWTWidget())){
+		if(!WidgetHandler.getInstance().isDisposed(s.getSWTWidget())){
 			Shell serverShell = new DefaultShell("Server");
 			new OkButton().click();
 			new WaitWhile(new ShellIsAvailable(serverShell));

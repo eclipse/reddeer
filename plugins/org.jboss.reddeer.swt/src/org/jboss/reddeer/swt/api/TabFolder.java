@@ -10,7 +10,7 @@
  ******************************************************************************/ 
 package org.jboss.reddeer.swt.api;
 
-import org.jboss.reddeer.swt.widgets.Widget;
+import java.util.List;
 
 /**
  * API for tab folder manipulation.
@@ -19,7 +19,7 @@ import org.jboss.reddeer.swt.widgets.Widget;
  * @author Andrej Podhradsky
  *
  */
-public interface TabFolder extends Widget<org.eclipse.swt.widgets.TabFolder> {
+public interface TabFolder extends Control<org.eclipse.swt.widgets.TabFolder> {
 
 	/**
 	 * Gets tab item labels.
@@ -27,4 +27,16 @@ public interface TabFolder extends Widget<org.eclipse.swt.widgets.TabFolder> {
 	 * @return labels of the tab item
 	 */
 	String[] getTabItemLabels();
+	
+	/**
+	 * Gets selected tab items
+	 * @return selected tab items
+	 */
+	List<TabItem> getSelection();
+	
+	/**
+	 * Gets tab items of tab folder
+	 * @return tab items of tab folder
+	 */
+	List<TabItem> getItems();
 }

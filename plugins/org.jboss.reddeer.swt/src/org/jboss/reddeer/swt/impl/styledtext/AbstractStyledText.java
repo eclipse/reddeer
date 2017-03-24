@@ -15,16 +15,14 @@ import org.hamcrest.Matcher;
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.swt.api.StyledText;
 import org.jboss.reddeer.core.handler.StyledTextHandler;
-import org.jboss.reddeer.core.handler.WidgetHandler;
 import org.jboss.reddeer.core.reference.ReferencedComposite;
-import org.jboss.reddeer.swt.widgets.AbstractWidget;
-
+import org.jboss.reddeer.swt.widgets.AbstractControl;
 /**
  * Abstract Styled Text contains common rutines for styled text widget.
  * Concrete impementations of styledtext should extend this class.
  * @author rawagner
  */
-public abstract class AbstractStyledText extends AbstractWidget<org.eclipse.swt.custom.StyledText> implements StyledText {
+public abstract class AbstractStyledText extends AbstractControl<org.eclipse.swt.custom.StyledText> implements StyledText {
     
     /**
      * Logger.
@@ -45,7 +43,7 @@ public abstract class AbstractStyledText extends AbstractWidget<org.eclipse.swt.
      */
     @Override
     public String getText() {
-        String text = WidgetHandler.getInstance().getText(swtWidget);
+        String text = StyledTextHandler.getInstance().getText(swtWidget);
         return text;
     }
 
@@ -56,17 +54,7 @@ public abstract class AbstractStyledText extends AbstractWidget<org.eclipse.swt.
     @Override
     public void setText(final String text) {
         log.info("Styled Text set to: " + text);
-        WidgetHandler.getInstance().setText(swtWidget, text);
-    }
-
-    /**
-     * Returns tooltip text.
-     * @return Tooltip text of this StyledText
-     */
-    @Override
-    public String getToolTipText() {
-        String tooltipText = WidgetHandler.getInstance().getToolTipText(swtWidget);
-        return tooltipText;
+        StyledTextHandler.getInstance().setText(swtWidget, text);
     }
 
     /**

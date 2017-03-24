@@ -124,4 +124,43 @@ public class ToolItemHandler {
 		WidgetHandler.getInstance().notifyItem(SWT.Selection, SWT.ARROW, item,
 				item);
 	}
+	
+	/**
+	 * Gets tooltip text of tool item
+	 * @param item to handle
+	 * @return tooltip text of specified tool item
+	 */
+	public String getToolTipText(final ToolItem item){
+		return Display.syncExec(new ResultRunnable<String>() {
+
+			@Override
+			public String run() {
+				return item.getToolTipText();
+			}
+		});
+	}
+	
+	/**
+	 * Checks if tool item is enabled
+	 * @param item to handle
+	 * @return true if tool item is enabled, false otherwise
+	 */
+	public boolean isEnabled(final ToolItem item){
+		return Display.syncExec(new ResultRunnable<Boolean>() {
+
+			@Override
+			public Boolean run() {
+				return item.isEnabled();
+			}
+		});
+	}
+
+	/**
+	 * Sets focus to tool item
+	 * @param swtItem to handle
+	 */
+	public void setFocus(ToolItem swtItem) {
+		ControlHandler.getInstance().setFocus(getParent(swtItem));
+		
+	}
 }

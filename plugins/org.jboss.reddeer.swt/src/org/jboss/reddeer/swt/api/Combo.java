@@ -12,15 +12,13 @@ package org.jboss.reddeer.swt.api;
 
 import java.util.List;
 
-import org.jboss.reddeer.swt.widgets.Widget;
-
 /**
  * API for combo (combo box) manipulation.
  * 
  * @author Jiri Peterka
  *
  */
-public interface Combo extends Widget<org.eclipse.swt.widgets.Combo> {
+public interface Combo extends Control<org.eclipse.swt.widgets.Combo> {
 
 	/**
 	 * Sets text to the combo.

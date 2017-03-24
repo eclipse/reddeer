@@ -14,7 +14,6 @@ import org.eclipse.swt.widgets.Shell;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.core.lookup.ShellLookup;
-import org.jboss.reddeer.swt.exception.SWTLayerException;
 
 /**
  * Default shell returns active shell if available if not it returns first
@@ -33,12 +32,6 @@ public class DefaultShell extends AbstractShell {
 	 */
 	public DefaultShell(String title) {
 		super(ShellLookup.getInstance().getShell(title));
-		try {
-			setFocus();
-			log.debug("Shell with title '" + title + "' found");
-		} catch (Exception e) {
-			throw new SWTLayerException("No shell with title '" + title + "' is available", e);
-		}
 	}
 	
 	public DefaultShell(Shell widget){
@@ -54,12 +47,6 @@ public class DefaultShell extends AbstractShell {
 	 */
 	public DefaultShell(Matcher<String> matcher) {
 		super(ShellLookup.getInstance().getShell(matcher));
-		try {
-			setFocus();
-			log.debug("Shell matching specified matcher is found and focused");
-		} catch (Exception e) {
-			throw new SWTLayerException("Shell matching specified matcher was not focused successfully.", e);
-		}
 	}
 	
 	/**
@@ -67,12 +54,6 @@ public class DefaultShell extends AbstractShell {
 	 */
 	public DefaultShell() {
 		super(ShellLookup.getInstance().getActiveShell());
-		try {
-			setFocus();
-			log.debug("Active shell with title '" + getText() + "' found");
-		} catch (Exception e) {
-			throw new SWTLayerException("No active shell is available at the moment", e);
-		}
 	}
 
 }

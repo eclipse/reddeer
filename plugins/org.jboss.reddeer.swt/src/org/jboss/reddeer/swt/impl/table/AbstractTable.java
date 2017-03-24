@@ -26,7 +26,7 @@ import org.jboss.reddeer.core.handler.TableHandler;
 import org.jboss.reddeer.core.reference.ReferencedComposite;
 import org.jboss.reddeer.common.wait.TimePeriod;
 import org.jboss.reddeer.common.wait.WaitUntil;
-import org.jboss.reddeer.swt.widgets.AbstractWidget;
+import org.jboss.reddeer.swt.widgets.AbstractControl;
 
 /**
  * Basic abstract class implementation for a table
@@ -34,7 +34,7 @@ import org.jboss.reddeer.swt.widgets.AbstractWidget;
  * @author Rastislav Wagner
  *
  */
-public abstract class AbstractTable extends AbstractWidget<org.eclipse.swt.widgets.Table> implements Table {
+public abstract class AbstractTable extends AbstractControl<org.eclipse.swt.widgets.Table> implements Table {
 	
 	private static final Logger log = Logger.getLogger(AbstractTable.class);
 	
@@ -89,6 +89,7 @@ public abstract class AbstractTable extends AbstractWidget<org.eclipse.swt.widge
 	/* (non-Javadoc)
 	 * @see org.jboss.reddeer.swt.api.Table#getItems(org.hamcrest.Matcher)
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<TableItem> getItems(Matcher<TableItem>... matchers) {
 		List<TableItem> matchedItems = new ArrayList<TableItem>();

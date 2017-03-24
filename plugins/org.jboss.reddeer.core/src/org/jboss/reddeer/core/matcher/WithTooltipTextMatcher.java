@@ -15,8 +15,8 @@ import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.core.IsEqual;
 import org.jboss.reddeer.core.exception.CoreLayerException;
-import org.jboss.reddeer.core.handler.WidgetHandler;
 import org.jboss.reddeer.core.matcher.AbstractWidgetWithTextMatcher;
+import org.jboss.reddeer.core.util.TextWidgetUtil;
 
 /**
  * Matcher matching tool tip of {@link Widget}.
@@ -56,7 +56,7 @@ public class WithTooltipTextMatcher extends AbstractWidgetWithTextMatcher {
 	@Override
 	protected String extractWidgetText(Widget widget) {
 		try{
-			return WidgetHandler.getInstance().getToolTipText(widget);
+			return TextWidgetUtil.getToolTipText(widget);
 		} catch (CoreLayerException ex) {
 			return null;
 		}

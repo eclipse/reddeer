@@ -10,11 +10,13 @@
  ******************************************************************************/ 
 package org.jboss.reddeer.eclipse.test.equinox.security.ui;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import org.jboss.reddeer.workbench.ui.dialogs.WorkbenchPreferenceDialog;
 import org.jboss.reddeer.eclipse.equinox.security.ui.storage.StoragePreferencePage;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
+import org.jboss.reddeer.swt.api.TabFolder;
 import org.jboss.reddeer.swt.impl.tab.DefaultTabItem;
 import org.jboss.reddeer.swt.impl.table.DefaultTable;
 import org.junit.After;
@@ -45,14 +47,18 @@ public class StoragePreferencePageTest {
 		StoragePreferencePage storagePage = new StoragePreferencePage();
 		workbenchPreferenceDialog.select(new StoragePreferencePage());
 		
+		TabFolder tabFolder = new DefaultTabItem("Contents").getTabFolder();
 		storagePage.selectContentTab();
-		assertTrue("TabItem Content has not been enabled", new DefaultTabItem("Contents").isEnabled());
+		assertTrue(tabFolder.getSelection().size() == 1);
+		assertEquals("Contents", tabFolder.getSelection().get(0).getText());
 		
 		storagePage.selectAdvancedTab();
-		assertTrue("TabItem Advanced has not been enabled", new DefaultTabItem("Advanced").isEnabled());
+		assertTrue(tabFolder.getSelection().size() == 1);
+		assertEquals("Advanced", tabFolder.getSelection().get(0).getText());
 		
 		storagePage.selectPasswordsTab();
-		assertTrue("TabItem Password has not been enabled", new DefaultTabItem("Password").isEnabled());
+		assertTrue(tabFolder.getSelection().size() == 1);
+		assertEquals("Password", tabFolder.getSelection().get(0).getText());
 	}
 	
 	@Test

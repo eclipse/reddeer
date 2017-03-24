@@ -161,4 +161,35 @@ public class CComboHandler {
 			}
 		});
 	}
+	
+	/**
+	 * Gets text of specified ccombo
+	 * @param ccombo to get text from
+	 * @return ccombo's text
+	 */
+	public String getText(final CCombo ccombo){
+		return Display.syncExec(new ResultRunnable<String>() {
+
+			@Override
+			public String run() {
+				return ccombo.getText();
+			}
+		});
+	}
+	
+	/**
+	 * Sets text to specified ccombo
+	 * @param ccombo to set text to
+	 * @param text which should be set to specified ccombo
+	 */
+	public void setText(final CCombo ccombo, final String text){
+		Display.syncExec(new Runnable() {
+			
+			@Override
+			public void run() {
+				ccombo.setText(text);
+				
+			}
+		});
+	}
 }

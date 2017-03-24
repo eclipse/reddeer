@@ -10,15 +10,13 @@
  ******************************************************************************/ 
 package org.jboss.reddeer.swt.api;
 
-import org.jboss.reddeer.swt.widgets.Widget;
-
 /**
  * API for HTML browser manipulation.
  * 
  * @author Jiri Peterka
  *
  */
-public interface Browser extends Widget<org.eclipse.swt.browser.Browser> {
+public interface Browser extends Control<org.eclipse.swt.browser.Browser> {
 
 	/**
 	 * Indicates whether a page is loaded or not.

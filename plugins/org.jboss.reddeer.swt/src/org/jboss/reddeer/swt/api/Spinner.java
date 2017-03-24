@@ -10,15 +10,13 @@
  ******************************************************************************/ 
 package org.jboss.reddeer.swt.api;
 
-import org.jboss.reddeer.swt.widgets.Widget;
-
 /**
  * API for spinner manipulation.
  * 
  * @author Andrej Podhradsky
  * 
  */
-public interface Spinner extends Widget<org.eclipse.swt.widgets.Spinner> {
+public interface Spinner extends Control<org.eclipse.swt.widgets.Spinner> {
 
 	/**
 	 * Gets value of the spinner.

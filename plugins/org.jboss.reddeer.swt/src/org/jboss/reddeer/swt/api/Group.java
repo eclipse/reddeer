@@ -11,7 +11,6 @@
 package org.jboss.reddeer.swt.api;
 
 import org.jboss.reddeer.core.reference.ReferencedComposite;
-import org.jboss.reddeer.swt.widgets.Widget;
 
 /**
  * API for group manipulation.
@@ -19,7 +18,7 @@ import org.jboss.reddeer.swt.widgets.Widget;
  * @author Jiri Peterka
  *
  */
-public interface Group extends ReferencedComposite, Widget<org.eclipse.swt.widgets.Group> {
+public interface Group extends ReferencedComposite, Control<org.eclipse.swt.widgets.Group> {
 	
 	/**
 	 * Gets text of the group.
