@@ -20,12 +20,13 @@ import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.common.platform.RunningPlatform;
 import org.jboss.reddeer.common.wait.WaitUntil;
 import org.jboss.reddeer.core.handler.ButtonHandler;
+import org.jboss.reddeer.core.handler.ControlHandler;
 import org.jboss.reddeer.core.handler.WidgetHandler;
 import org.jboss.reddeer.core.matcher.WithStyleMatcher;
 import org.jboss.reddeer.core.reference.ReferencedComposite;
 import org.jboss.reddeer.swt.api.Button;
-import org.jboss.reddeer.swt.condition.WidgetIsEnabled;
-import org.jboss.reddeer.swt.widgets.AbstractWidget;
+import org.jboss.reddeer.swt.condition.ControlIsEnabled;
+import org.jboss.reddeer.swt.widgets.AbstractControl;
 
 /**
  * Basic Button class is abstract class for all Button implementations
@@ -33,7 +34,7 @@ import org.jboss.reddeer.swt.widgets.AbstractWidget;
  * @author Jiri Peterka
  * 
  */
-public abstract class AbstractButton extends AbstractWidget<org.eclipse.swt.widgets.Button> implements Button {
+public abstract class AbstractButton extends AbstractControl<org.eclipse.swt.widgets.Button> implements Button {
 
 	private static final Logger log = Logger.getLogger(AbstractButton.class);
 	
@@ -48,7 +49,7 @@ public abstract class AbstractButton extends AbstractWidget<org.eclipse.swt.widg
                 ((WidgetHandler.getInstance().getStyle(swtWidget) & SWT.RADIO) != 0)){
                 // do not set focus because it also select radio button on Windows
         } else{
-        	WidgetHandler.getInstance().setFocus(swtWidget);        
+        	ControlHandler.getInstance().setFocus(swtWidget);        
         }   
 	}
 	
@@ -63,18 +64,13 @@ public abstract class AbstractButton extends AbstractWidget<org.eclipse.swt.widg
 	@Override
 	public void click() {
 		log.info("Click button " + getDescriptiveText());
-		new WaitUntil(new WidgetIsEnabled(this));
+		new WaitUntil(new ControlIsEnabled(this));
 		ButtonHandler.getInstance().click(swtWidget);
 	}
 	
 	@Override
 	public String getText() {
-		return WidgetHandler.getInstance().getText(swtWidget);
-	}
-	
-	@Override
-	public String getToolTipText() {
-		return WidgetHandler.getInstance().getToolTipText(swtWidget);
+		return ButtonHandler.getInstance().getText(swtWidget);
 	}
 
 	/**

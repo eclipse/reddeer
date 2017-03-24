@@ -10,21 +10,20 @@
  ******************************************************************************/ 
 package org.jboss.reddeer.swt.test.impl.expandbar;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.ExpandItem;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 import org.jboss.reddeer.swt.api.ExpandBar;
-import org.jboss.reddeer.swt.api.ExpandBarItem;
+import org.jboss.reddeer.swt.api.ExpandItem;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.core.exception.CoreLayerException;
 import org.jboss.reddeer.swt.impl.expandbar.DefaultExpandBar;
-import org.jboss.reddeer.swt.impl.expandbar.DefaultExpandBarItem;
+import org.jboss.reddeer.swt.impl.expandbar.DefaultExpandItem;
 import org.jboss.reddeer.swt.impl.text.DefaultText;
 import org.jboss.reddeer.swt.test.SWTLayerTestCase;
 import org.junit.Test;
@@ -48,7 +47,7 @@ public class ExpandBarTest extends SWTLayerTestCase{
 				label.setText(ExpandBarTest.TEXT_LABEL_PREFIX + itemIndex + rowIndex);
 				new Text (composite, SWT.BORDER);
 			}
-			ExpandItem item = new ExpandItem (bar, SWT.NONE, 0);
+			org.eclipse.swt.widgets.ExpandItem item = new org.eclipse.swt.widgets.ExpandItem (bar, SWT.NONE, 0);
 			item.setText(ExpandBarTest.EXPAND_ITEM_LABEL_PREFIX + itemIndex);
 			item.setHeight(composite.computeSize(SWT.DEFAULT, SWT.DEFAULT).y);
 			item.setControl(composite);
@@ -64,7 +63,7 @@ public class ExpandBarTest extends SWTLayerTestCase{
 				Text text = new Text (composite, SWT.BORDER);
 				text.setText(ExpandBarTest.TEXT_VALUE_PREFIX + itemIndex + rowIndex);
 			}
-			ExpandItem item = new ExpandItem (bar, SWT.NONE, 0);
+			org.eclipse.swt.widgets.ExpandItem item = new org.eclipse.swt.widgets.ExpandItem (bar, SWT.NONE, 0);
 			item.setText(ExpandBarTest.EXPAND_ITEM_LABEL_PREFIX + itemIndex);
 			item.setHeight(composite.computeSize(SWT.DEFAULT, SWT.DEFAULT).y);
 			item.setControl(composite);
@@ -75,7 +74,7 @@ public class ExpandBarTest extends SWTLayerTestCase{
 	public void findByIndexAndExpand(){
 		final int expandBarIndex = 1;
 		final int expandBarItemIndex = 0;
-		ExpandBarItem expandBarItem = new DefaultExpandBarItem(expandBarIndex,expandBarItemIndex);
+		ExpandItem expandBarItem = new DefaultExpandItem(expandBarIndex,expandBarItemIndex);
 		expandBarItem.expand();
 		assertTrue("Expand bar item " + expandBarItem.getText() + " is not expanded",
 			expandBarItem.isExpanded());
@@ -91,7 +90,7 @@ public class ExpandBarTest extends SWTLayerTestCase{
 		final int expandBarIndex = 1;
 		final int expandBarItemIndex = 1;
 		final String expandBarItemText = ExpandBarTest.EXPAND_ITEM_LABEL_PREFIX + expandBarItemIndex;
-		ExpandBarItem expandBarItem = new DefaultExpandBarItem(expandBarIndex,expandBarItemText);
+		ExpandItem expandBarItem = new DefaultExpandItem(expandBarIndex,expandBarItemText);
 		expandBarItem.expand();
 		assertTrue("Expand bar item " + expandBarItem.getText() + " is not expanded",
 			expandBarItem.isExpanded());
@@ -104,17 +103,17 @@ public class ExpandBarTest extends SWTLayerTestCase{
 	}
 	@Test(expected = CoreLayerException.class)
 	public void findNonExistingByIndex(){
-		new DefaultExpandBarItem(3,1);
+		new DefaultExpandItem(3,1);
 	}
 	@Test(expected = SWTLayerException.class)
 	public void findNonExistingByLabel(){
-		new DefaultExpandBarItem("NON_EXISTING_#$");
+		new DefaultExpandItem("NON_EXISTING_#$");
 	}
 	@Test
 	public void expandAll(){
 		ExpandBar expandBar = new DefaultExpandBar();
 		expandBar.expandAll();
-		for (ExpandBarItem expandBarItem : expandBar.getItems()){
+		for (ExpandItem expandBarItem : expandBar.getItems()){
 			assertTrue("Expand Bar Item " + expandBarItem.getText() + " is not expanded",
 				expandBarItem.isExpanded());
 		}
@@ -123,11 +122,11 @@ public class ExpandBarTest extends SWTLayerTestCase{
 	public void collapseAll(){
 		final int expandBarIndex = 1;
 		ExpandBar expandBar = new DefaultExpandBar(expandBarIndex);
-		new DefaultExpandBarItem(expandBarIndex, 0).expand();
-		new DefaultExpandBarItem(expandBarIndex, 2).expand();
-		new DefaultExpandBarItem(expandBarIndex, 4).expand();
+		new DefaultExpandItem(expandBarIndex, 0).expand();
+		new DefaultExpandItem(expandBarIndex, 2).expand();
+		new DefaultExpandItem(expandBarIndex, 4).expand();
 		expandBar.collapseAll();
-		for (ExpandBarItem expandBarItem : expandBar.getItems()){
+		for (ExpandItem expandBarItem : expandBar.getItems()){
 			assertTrue("Expand Bar Item " + expandBarItem.getText() + " is not collapsed",
 				!expandBarItem.isExpanded());
 		}
@@ -142,5 +141,10 @@ public class ExpandBarTest extends SWTLayerTestCase{
 		assertTrue("First expand bar has to have " + ExpandBarTest.EXPAND_BAR_1_NUM_ITEMS
 				+ " but has " + numItems,
 			numItems == ExpandBarTest.EXPAND_BAR_1_NUM_ITEMS);
+	}
+	
+	@Test
+	public void getBarItems(){
+		assertEquals(ExpandBarTest.EXPAND_BAR_0_NUM_ITEMS, new DefaultExpandBar().getItems().size());
 	}
 }

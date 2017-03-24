@@ -11,7 +11,6 @@
 package org.jboss.reddeer.swt.api;
 
 import org.jboss.reddeer.core.reference.ReferencedComposite;
-import org.jboss.reddeer.swt.widgets.Widget;
 
 /**
  * API for tab item manipulation.
@@ -19,17 +18,22 @@ import org.jboss.reddeer.swt.widgets.Widget;
  * @author apodhrad
  * 
  */
-public interface TabItem extends Widget<org.eclipse.swt.widgets.TabItem>, ReferencedComposite {
+public interface TabItem extends Item<org.eclipse.swt.widgets.TabItem>, ReferencedComposite {
 
 	/**
 	 * Activates the tab item.
 	 */
 	void activate();
-
+	
 	/**
-	 * Returns text of the tab item.
-	 * 
-	 * @return text of the tab item
+	 * Gets tooltip text of tab item
+	 * @return tooltip text of tab item
 	 */
-	String getText();
+	String getToolTipText();
+	
+	/**
+	 * Gets parent of tab item
+	 * @return TabFolder which is parent of tab item
+	 */
+	TabFolder getTabFolder();
 }

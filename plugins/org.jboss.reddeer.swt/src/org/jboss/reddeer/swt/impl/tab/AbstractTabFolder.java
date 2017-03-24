@@ -10,13 +10,17 @@
  ******************************************************************************/ 
 package org.jboss.reddeer.swt.impl.tab;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.eclipse.swt.widgets.TabItem;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.swt.api.TabFolder;
+import org.jboss.reddeer.core.handler.ItemHandler;
 import org.jboss.reddeer.core.handler.TabFolderHandler;
-import org.jboss.reddeer.core.handler.WidgetHandler;
 import org.jboss.reddeer.core.reference.ReferencedComposite;
-import org.jboss.reddeer.swt.widgets.AbstractWidget;
+import org.jboss.reddeer.swt.widgets.AbstractControl;
 
 /**
  * Abstract class for all TabFolder implementations
@@ -24,7 +28,7 @@ import org.jboss.reddeer.swt.widgets.AbstractWidget;
  * @author Andrej Podhradsky
  * 
  */
-public abstract class AbstractTabFolder extends AbstractWidget<org.eclipse.swt.widgets.TabFolder> implements TabFolder {
+public abstract class AbstractTabFolder extends AbstractControl<org.eclipse.swt.widgets.TabFolder> implements TabFolder {
 
 	protected AbstractTabFolder(ReferencedComposite refComposite, int index, Matcher<?>... matchers){
 		super(org.eclipse.swt.widgets.TabFolder.class, refComposite, index, matchers);
@@ -42,8 +46,26 @@ public abstract class AbstractTabFolder extends AbstractWidget<org.eclipse.swt.w
 		TabItem[] tabItem = TabFolderHandler.getInstance().getTabItems(swtWidget);
 		String[] tabItemLabel = new String[tabItem.length];
 		for (int i = 0; i < tabItem.length; i++) {
-			tabItemLabel[i] = WidgetHandler.getInstance().getText(tabItem[i]);
+			tabItemLabel[i] = ItemHandler.getInstance().getText(tabItem[i]);
 		}
 		return tabItemLabel;
 	}
+	
+	@Override
+	public List<org.jboss.reddeer.swt.api.TabItem> getSelection(){
+		List<TabItem> items = TabFolderHandler.getInstance().getSelection(swtWidget);
+		List<org.jboss.reddeer.swt.api.TabItem> rdItems = items.stream().map(t -> new DefaultTabItem(t)).collect(Collectors.toList());
+		return rdItems;
+	}
+	
+	@Override
+	public List<org.jboss.reddeer.swt.api.TabItem> getItems(){
+		List<TabItem> items = Arrays.asList(TabFolderHandler.getInstance().getTabItems(swtWidget));
+		List<org.jboss.reddeer.swt.api.TabItem> rdItems = items.stream().map(t -> new DefaultTabItem(t)).collect(Collectors.toList());
+		return rdItems;
+	}
+	
+	
+	
+	
 }

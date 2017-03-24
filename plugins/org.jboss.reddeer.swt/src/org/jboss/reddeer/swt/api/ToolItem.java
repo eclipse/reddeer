@@ -10,15 +10,13 @@
  ******************************************************************************/ 
 package org.jboss.reddeer.swt.api;
 
-import org.jboss.reddeer.swt.widgets.Widget;
-
 /**
  * API for tool bar item manipulation.
  * 
  * @author Jiri Peterka
  *
  */
-public interface ToolItem extends Widget<org.eclipse.swt.widgets.ToolItem> {
+public interface ToolItem extends Item<org.eclipse.swt.widgets.ToolItem> {
 
 	/**
 	 * Clicks the tool item.
@@ -45,4 +43,10 @@ public interface ToolItem extends Widget<org.eclipse.swt.widgets.ToolItem> {
 	 * @param toggle the button of the tool item or not
 	 */
 	void toggle(boolean toggle);
+	
+	/**
+	 * Checks if tool item is enabled
+	 * @return true if tool item is enabled, false otherwise
+	 */
+	boolean isEnabled();
 }

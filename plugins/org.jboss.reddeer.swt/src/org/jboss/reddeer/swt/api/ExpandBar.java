@@ -12,15 +12,13 @@ package org.jboss.reddeer.swt.api;
 
 import java.util.List;
 
-import org.jboss.reddeer.swt.widgets.Widget;
-
 /**
  * API for expand bar manipulation.
  * 
  * @author Vlado Pakan
  *
  */
-public interface ExpandBar extends Widget<org.eclipse.swt.widgets.ExpandBar> {
+public interface ExpandBar extends Control<org.eclipse.swt.widgets.ExpandBar> {
 	
 	/**
 	 * Finds out how many expand bar items are nested in the expand bar.
@@ -34,7 +32,7 @@ public interface ExpandBar extends Widget<org.eclipse.swt.widgets.ExpandBar> {
 	 * 
 	 * @return list of expand bar items in the expand bar
 	 */
-	List<ExpandBarItem> getItems();
+	List<ExpandItem> getItems();
 
 	/**
 	 * Sets focus on the expand bar.

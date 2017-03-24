@@ -10,6 +10,9 @@
  ******************************************************************************/ 
 package org.jboss.reddeer.core.handler;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.eclipse.swt.widgets.TabFolder;
 import org.eclipse.swt.widgets.TabItem;
 import org.jboss.reddeer.common.util.Display;
@@ -64,6 +67,21 @@ public class TabFolderHandler {
 			@Override
 			public void run() {
 				folder.forceFocus();
+			}
+		});
+	}
+	
+	/**
+	 * Gets list of selected tab items
+	 * @param folder to handle
+	 * @return list of selected tab items
+	 */
+	public List<TabItem> getSelection(final TabFolder folder){
+		return Display.syncExec(new ResultRunnable<List<TabItem>>() {
+
+			@Override
+			public List<TabItem> run() {
+				return Arrays.asList(folder.getSelection());
 			}
 		});
 	}

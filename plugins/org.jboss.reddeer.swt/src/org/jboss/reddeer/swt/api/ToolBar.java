@@ -11,7 +11,6 @@
 package org.jboss.reddeer.swt.api;
 
 import org.jboss.reddeer.core.reference.ReferencedComposite;
-import org.jboss.reddeer.swt.widgets.Widget;
 
 /**
  * API for tool bar manipulation.
@@ -19,5 +18,5 @@ import org.jboss.reddeer.swt.widgets.Widget;
  * @author Jiri Peterka
  *
  */
-public interface ToolBar extends Widget<org.eclipse.swt.widgets.ToolBar>, ReferencedComposite{
+public interface ToolBar extends Control<org.eclipse.swt.widgets.ToolBar>, ReferencedComposite{
 }

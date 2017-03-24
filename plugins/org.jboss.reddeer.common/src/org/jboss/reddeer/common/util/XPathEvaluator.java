@@ -109,8 +109,8 @@ public class XPathEvaluator {
 	 * 
 	 * @param target
 	 *            A target where to print the document
-	 * @throws IOException
-	 * @throws TransformerException
+	 * @throws IOException If any IO errors occur.
+	 * @throws TransformerException if exception occurs during transformation process
 	 */
 	public void printDocument(Result target) throws IOException, TransformerException {
 		TransformerFactory tf = TransformerFactory.newInstance();

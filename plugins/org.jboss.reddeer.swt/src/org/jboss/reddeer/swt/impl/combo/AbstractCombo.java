@@ -20,9 +20,8 @@ import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.common.util.Display;
 import org.jboss.reddeer.swt.api.Combo;
 import org.jboss.reddeer.core.handler.ComboHandler;
-import org.jboss.reddeer.core.handler.WidgetHandler;
 import org.jboss.reddeer.core.reference.ReferencedComposite;
-import org.jboss.reddeer.swt.widgets.AbstractWidget;
+import org.jboss.reddeer.swt.widgets.AbstractControl;
 
 /**
  * Abstract class for all Combo implementations
@@ -30,7 +29,7 @@ import org.jboss.reddeer.swt.widgets.AbstractWidget;
  * @author Vlado Pakan
  * 
  */
-public abstract class AbstractCombo extends AbstractWidget<org.eclipse.swt.widgets.Combo> implements Combo {
+public abstract class AbstractCombo extends AbstractControl<org.eclipse.swt.widgets.Combo> implements Combo {
 	
 	private static final Logger log = Logger.getLogger(AbstractCombo.class);
 
@@ -50,7 +49,7 @@ public abstract class AbstractCombo extends AbstractWidget<org.eclipse.swt.widge
 	@Override
 	public void setText(String str) {
 		log.info("Set text of Combo " + getText() + " to:" + str);
-		WidgetHandler.getInstance().setText(swtWidget, str);
+		ComboHandler.getInstance().setText(swtWidget, str);
 	}
 
 	/**
@@ -106,7 +105,7 @@ public abstract class AbstractCombo extends AbstractWidget<org.eclipse.swt.widge
 	 */
 	@Override
 	public String getText() {
-		return WidgetHandler.getInstance().getText(swtWidget);
+		return ComboHandler.getInstance().getText(swtWidget);
 	}
 	
 	/**

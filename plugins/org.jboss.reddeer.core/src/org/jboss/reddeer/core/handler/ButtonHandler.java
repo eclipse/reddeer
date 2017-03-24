@@ -128,4 +128,20 @@ public class ButtonHandler {
 				});
 		return selectionState;
 	}
+	
+	/**
+	 * Gets text of specified button
+	 * @param button to get text from
+	 * @return button's text
+	 */
+	public String getText(final Button button){
+		return Display.syncExec(new ResultRunnable<String>() {
+
+			@Override
+			public String run() {
+				return button.getText();
+			}
+		});
+		
+	}
 }

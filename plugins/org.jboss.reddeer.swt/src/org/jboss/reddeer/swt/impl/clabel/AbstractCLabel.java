@@ -10,19 +10,19 @@
  ******************************************************************************/ 
 package org.jboss.reddeer.swt.impl.clabel;
 
+import org.eclipse.swt.graphics.Image;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.swt.api.CLabel;
-import org.jboss.reddeer.common.util.ObjectUtil;
-import org.jboss.reddeer.core.handler.WidgetHandler;
+import org.jboss.reddeer.core.handler.CLabelHandler;
+import org.jboss.reddeer.core.handler.ControlHandler;
 import org.jboss.reddeer.core.reference.ReferencedComposite;
-import org.jboss.reddeer.swt.widgets.AbstractWidget;
-
+import org.jboss.reddeer.swt.widgets.AbstractControl;
 /**
  * Abstract class for all CLabel implementations
  * @author Jiri Peterka
  *
  */
-public abstract class AbstractCLabel extends AbstractWidget<org.eclipse.swt.custom.CLabel> implements CLabel {
+public abstract class AbstractCLabel extends AbstractControl<org.eclipse.swt.custom.CLabel> implements CLabel {
 	
 	protected AbstractCLabel(ReferencedComposite refComposite, int index, Matcher<?>... matchers){
 		super(org.eclipse.swt.custom.CLabel.class, refComposite, index, matchers);
@@ -37,36 +37,20 @@ public abstract class AbstractCLabel extends AbstractWidget<org.eclipse.swt.cust
 	 */
 	@Override
 	public String getText() {
-		return WidgetHandler.getInstance().getText(swtWidget);
+		return CLabelHandler.getInstance().getText(swtWidget);
 	}
 	
-	/**
-	 * See {@link CLabel}.
-	 *
-	 * @return the tooltip text
-	 */
-	@Override
-	public String getTooltipText() {
-		return WidgetHandler.getInstance().getToolTipText(swtWidget);
-	}
-	
-	/**
-	 * See {@link CLabel}.
-	 *
-	 * @return the alignment
-	 */
 	@Override
 	public int getAlignment() {
-		return (Integer)ObjectUtil.invokeMethod(swtWidget, "getAlignment");
+		return CLabelHandler.getInstance().getAlignment(swtWidget);
 	}
 	
-	/**
-	 * See {@link CLabel}.
-	 *
-	 * @return true, if successful
-	 */
 	@Override
-	public boolean hasImage() {
-		return ObjectUtil.invokeMethod(swtWidget, "getImage") != null;
+	public Image getImage() {
+		return CLabelHandler.getInstance().getImage(swtWidget);
+	}
+	
+	public String getToolTipText(){
+		return ControlHandler.getInstance().getToolTipText(swtWidget);
 	}
 }

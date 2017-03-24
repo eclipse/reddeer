@@ -11,7 +11,6 @@
 package org.jboss.reddeer.swt.api;
 
 import org.eclipse.swt.graphics.Point;
-import org.jboss.reddeer.swt.widgets.Widget;
 
 /**
  * API for styled text manipulation.
@@ -19,7 +18,7 @@ import org.jboss.reddeer.swt.widgets.Widget;
  * @author Jiri Peterka
  *
  */
-public interface StyledText extends Widget<org.eclipse.swt.custom.StyledText> {
+public interface StyledText extends Control<org.eclipse.swt.custom.StyledText> {
 
 	/**
 	 * Gets text of the styled text.
@@ -34,13 +33,6 @@ public interface StyledText extends Widget<org.eclipse.swt.custom.StyledText> {
 	 * @param text of the styled text to set
 	 */
 	void setText(String text);
-
-	/**
-	 * Gets ToolTip of the styled text.
-	 * 
-	 * @return ToolTip text of the styled text
-	 */
-	String getToolTipText();
 
 	/**
 	 * Inserts text into styled text at specified position.

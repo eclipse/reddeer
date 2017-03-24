@@ -13,7 +13,7 @@ package org.jboss.reddeer.swt.impl.menu;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.swt.api.Menu;
-import org.jboss.reddeer.swt.exception.SWTLayerException;
+import org.jboss.reddeer.core.lookup.MenuLookup;
 import org.jboss.reddeer.core.matcher.WithMnemonicTextMatchers;
 
 /**
@@ -45,12 +45,7 @@ public class ContextMenu extends AbstractMenu implements Menu {
 	 */
 	@SuppressWarnings("unchecked")
 	public ContextMenu(Matcher<String>... matchers) {
-
-		menuItem = ml.lookFor(ml.getTopMenuMenuItemsFromFocus(),matchers);
-		if(menuItem == null){
-			throw new SWTLayerException("No menu item found");
-		}
-		this.matchers = matchers;
+		super(MenuLookup.getInstance().lookFor(MenuLookup.getInstance().getTopMenuMenuItemsFromFocus(),matchers));
 		
 	}
 }

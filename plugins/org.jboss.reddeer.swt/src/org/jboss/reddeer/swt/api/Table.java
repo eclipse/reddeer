@@ -14,7 +14,6 @@ import java.util.List;
 
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.core.reference.ReferencedComposite;
-import org.jboss.reddeer.swt.widgets.Widget;
 
 /**
  * API for table manipulation.
@@ -22,7 +21,7 @@ import org.jboss.reddeer.swt.widgets.Widget;
  * @author Jiri Peterka
  *
  */
-public interface Table extends Widget<org.eclipse.swt.widgets.Table>, ReferencedComposite {
+public interface Table extends Control<org.eclipse.swt.widgets.Table>, ReferencedComposite {
 
 	/**
 	 * Returns true if table contains item with specified text.

@@ -11,7 +11,7 @@
 package org.jboss.reddeer.uiforms.api;
 
 import org.jboss.reddeer.core.reference.ReferencedComposite;
-import org.jboss.reddeer.swt.widgets.Widget;
+import org.jboss.reddeer.swt.api.Widget;
 
 /**
  * Represents Eclipse Form. This class will be used mainly for its children discovering

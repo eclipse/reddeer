@@ -224,4 +224,35 @@ public class StyledTextHandler {
 		return offset;
 
 	}
+	
+	/**
+	 * Gets text of styled text
+	 * @param styledText to handle
+	 * @return text of specified styled text
+	 */
+	public String getText(final StyledText styledText){
+		return Display.syncExec(new ResultRunnable<String>() {
+
+			@Override
+			public String run() {
+				return styledText.getText();
+			}
+		});
+	}
+	
+	/**
+	 * Sets text to styled text
+	 * @param styledText to handle
+	 * @param text to set to specified styled text
+	 */
+	public void setText(final StyledText styledText, String text){
+		Display.syncExec(new Runnable() {
+			
+			@Override
+			public void run() {
+				styledText.setText(text);
+				
+			}
+		});
+	}
 }

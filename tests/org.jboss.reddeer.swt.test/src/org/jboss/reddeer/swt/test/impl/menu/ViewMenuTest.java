@@ -21,13 +21,12 @@ import org.jboss.reddeer.core.condition.ShellWithTextIsAvailable;
 import org.jboss.reddeer.core.exception.CoreLayerException;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.swt.impl.button.PushButton;
-import org.jboss.reddeer.swt.impl.menu.ShellMenu;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.jboss.reddeer.swt.impl.text.DefaultText;
-import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
 import org.jboss.reddeer.swt.test.handler.ParameterizedHandler;
 import org.jboss.reddeer.swt.test.handler.ViewActionWithId;
 import org.jboss.reddeer.workbench.impl.menu.ViewMenu;
+import org.jboss.reddeer.workbench.impl.view.WorkbenchView;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -36,10 +35,8 @@ public class ViewMenuTest {
 
 	@Test
 	public void testErrorLogMenu() {
-		new ShellMenu("Window", "Show View", "Other...").select();
-		new DefaultTreeItem("General", "Error Log").select();
-		new PushButton("OK").click();
-		new ViewMenu("View Menu", "Filters...").select();
+		new WorkbenchView("Error Log").open();
+		new ViewMenu("Filters...").select();
 		new DefaultShell("Log Filters");
 		new PushButton("OK").click();
 		new WaitWhile(new ShellWithTextIsAvailable("Log Filters"));
@@ -48,9 +45,7 @@ public class ViewMenuTest {
 
 	@Test
 	public void testCheckStyledMenus() {
-		new ShellMenu("Window", "Show View", "Other...").select();
-		new DefaultTreeItem("General", "Error Log").select();
-		new PushButton("OK").click();
+		new WorkbenchView("Error Log").open();
 		ViewMenu filter = new ViewMenu("Show text filter");
 		boolean selected = filter.isSelected();
 		if (selected) {
@@ -76,9 +71,7 @@ public class ViewMenuTest {
 	@Test
 	public void parameterizedViewMenuItemTest() {
 		// open View
-		new ShellMenu("Window", "Show View", "Other...").select();
-		new DefaultTreeItem("RedDeer SWT", "RedDeer SWT").select();
-		new PushButton("OK").click();
+		new WorkbenchView("RedDeer SWT").open();
 
 		// click menu item A
 		new ViewMenu("submenu", "parameterizedMenuA").select();
@@ -94,10 +87,8 @@ public class ViewMenuTest {
 	@Test
 	public void actionWithIdViewMenuTest() {
 		// open View
-		new ShellMenu("Window", "Show View", "Other...").select();
-		new DefaultTreeItem("RedDeer SWT", "RedDeer SWT").select();
-		new PushButton("OK").click();
-
+		new WorkbenchView("RedDeer SWT").open();
+		
 		// click Action With Id Menu
 		assertFalse(ViewActionWithId.isToggled());
 		new ViewMenu("View Action with ID").select();

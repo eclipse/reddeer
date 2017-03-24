@@ -14,8 +14,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.swt.widgets.MenuItem;
-import org.hamcrest.Matcher;
 import org.jboss.reddeer.swt.api.Menu;
+import org.jboss.reddeer.swt.widgets.AbstractItem;
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.core.handler.MenuHandler;
 import org.jboss.reddeer.core.handler.WidgetHandler;
@@ -27,12 +27,14 @@ import org.jboss.reddeer.core.lookup.MenuLookup;
  * @author Jiri Peterka
  * 
  */
-public abstract class AbstractMenu implements Menu {
+public abstract class AbstractMenu extends AbstractItem<MenuItem> implements Menu {
 
-	protected Matcher<String>[] matchers;
+	protected AbstractMenu(MenuItem swtWidget) {
+		super(swtWidget);
+	}
+	
 	protected MenuLookup ml = MenuLookup.getInstance();
 	protected MenuHandler mh = MenuHandler.getInstance();
-	protected MenuItem menuItem = null;
 	private static final Logger log = Logger.getLogger(AbstractMenu.class);
 
 
@@ -42,7 +44,7 @@ public abstract class AbstractMenu implements Menu {
 	@Override
 	public void select(){
 		log.info("Select menu item with text " + getText());
-		mh.select(menuItem);
+		mh.select(swtWidget);
 	}
 	
 	/* (non-Javadoc)
@@ -50,28 +52,28 @@ public abstract class AbstractMenu implements Menu {
 	 */
 	@Override
 	public boolean isSelected(){
-		return mh.isSelected(menuItem);
+		return mh.isSelected(swtWidget);
 	}
 	
 	@Override
 	public String getText() {
-		return mh.getMenuItemText(menuItem).replace("&", "");
+		return mh.getMenuItemText(swtWidget).replace("&", "");
 	}
 	
 	@Override
 	public boolean isEnabled() {
-		return mh.isEnabled(menuItem);
+		return mh.isEnabled(swtWidget);
 	}
 	
 	@Override
 	public boolean isDisposed() {
-		return WidgetHandler.getInstance().isDisposed(menuItem);
+		return WidgetHandler.getInstance().isDisposed(swtWidget);
 	}
 	
 	@Override
 	public List<String> getChildItems() {
 		List<String> itemsText = new ArrayList<>();
-		MenuItem[] items = mh.getMenuItems(menuItem);
+		MenuItem[] items = mh.getMenuItems(swtWidget);
 		if(items != null){
 			for(MenuItem i: items){
 				itemsText.add(mh.getMenuItemText(i).replace("&", ""));
@@ -80,13 +82,9 @@ public abstract class AbstractMenu implements Menu {
 		return itemsText;
 	}
 	
-	public MenuItem getSWTWidget(){
-		return menuItem;
-	}
-	
 	@Override
 	public List<Menu> getMenuItems() {
-		MenuItem[] items = ml.getItemsFromMenu(mh.getMenuFromMenuItem(menuItem));
+		MenuItem[] items = ml.getItemsFromMenu(mh.getMenuFromMenuItem(swtWidget));
 		List<Menu> menus = new ArrayList<>(items.length);
 		
 		for (MenuItem item : items){

@@ -26,6 +26,7 @@ import org.jboss.reddeer.common.wait.WaitWhile;
 import org.jboss.reddeer.core.condition.ShellWithTextIsAvailable;
 import org.jboss.reddeer.core.exception.CoreLayerException;
 import org.jboss.reddeer.core.handler.ButtonHandler;
+import org.jboss.reddeer.core.handler.ControlHandler;
 import org.jboss.reddeer.core.handler.IBeforeShellIsClosed;
 import org.jboss.reddeer.core.handler.ShellHandler;
 import org.jboss.reddeer.core.handler.WidgetHandler;
@@ -84,7 +85,7 @@ public class WorkbenchShellHandler {
 					closeShellSafely(s);
 				}
 			} catch (CoreLayerException ex){
-				if(!ShellHandler.getInstance().isDisposed(s)){
+				if(!WidgetHandler.getInstance().isDisposed(s)){
 					throw ex;
 				}
 			}
@@ -114,8 +115,8 @@ public class WorkbenchShellHandler {
 				Iterator<Shell> itShell = shells.iterator();
 				while (itShell.hasNext() && result == null) {
 					Shell shell = itShell.next();
-					if (!shell.isDisposed() && WidgetHandler.getInstance().getText(shell)
-							.equals(WidgetHandler.getInstance().getText(activeShell))) {
+					if (!shell.isDisposed() && ShellHandler.getInstance().getText(shell)
+							.equals(ShellHandler.getInstance().getText(activeShell))) {
 						result = shell;
 					}
 				}
@@ -132,7 +133,7 @@ public class WorkbenchShellHandler {
 	 *            the swt shell
 	 */
 	private void closeShellSafely(Shell swtShell) {
-		String text = WidgetHandler.getInstance().getText(swtShell);
+		String text = ShellHandler.getInstance().getText(swtShell);
 		log.info("Close shell " + text);
 		try {
 			clickCancelButton();
@@ -149,7 +150,7 @@ public class WorkbenchShellHandler {
 		if (RunningPlatform.isWindows() && ((WidgetHandler.getInstance().getStyle(button) & SWT.RADIO) != 0)) {
 			// do not set focus because it also select radio button on Windows
 		} else {
-			WidgetHandler.getInstance().setFocus(button);
+			ControlHandler.getInstance().setFocus(button);
 		}
 		ButtonHandler.getInstance().click(button);
 	}

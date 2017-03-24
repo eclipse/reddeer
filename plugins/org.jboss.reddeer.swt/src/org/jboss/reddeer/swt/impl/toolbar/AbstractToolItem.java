@@ -13,10 +13,9 @@ package org.jboss.reddeer.swt.impl.toolbar;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.swt.api.ToolItem;
-import org.jboss.reddeer.swt.widgets.AbstractWidget;
+import org.jboss.reddeer.swt.widgets.AbstractItem;
 import org.jboss.reddeer.core.exception.Thrower;
 import org.jboss.reddeer.core.handler.ToolItemHandler;
-import org.jboss.reddeer.core.handler.WidgetHandler;
 import org.jboss.reddeer.core.lookup.ToolItemLookup;
 import org.jboss.reddeer.core.reference.ReferencedComposite;
 
@@ -25,7 +24,7 @@ import org.jboss.reddeer.core.reference.ReferencedComposite;
  * @author Jiri Peterka
  *
  */
-public abstract class AbstractToolItem extends AbstractWidget<org.eclipse.swt.widgets.ToolItem> implements ToolItem {
+public abstract class AbstractToolItem extends AbstractItem<org.eclipse.swt.widgets.ToolItem> implements ToolItem {
 	
 	protected AbstractToolItem(ReferencedComposite refComposite, int index, Matcher<?>... matchers) {
 		super(org.eclipse.swt.widgets.ToolItem.class, refComposite == null ? ToolItemLookup.getInstance().findReferencedComposite() : refComposite, index, matchers);
@@ -55,7 +54,7 @@ public abstract class AbstractToolItem extends AbstractWidget<org.eclipse.swt.wi
 	@Override
 	public String getToolTipText() {	
 		String tooltipText;
-		tooltipText = WidgetHandler.getInstance().getToolTipText(swtWidget);
+		tooltipText = ToolItemHandler.getInstance().getToolTipText(swtWidget);
 		return tooltipText;
 	}
 	
@@ -87,6 +86,6 @@ public abstract class AbstractToolItem extends AbstractWidget<org.eclipse.swt.wi
 	 */
 	@Override
 	public boolean isEnabled() {
-		return WidgetHandler.getInstance().isEnabled(swtWidget);
+		return ToolItemHandler.getInstance().isEnabled(swtWidget);
 	}
 }

@@ -50,7 +50,7 @@ public class ExpandBarHandler {
 	 * @param expandBar expand bar to handle
 	 * @return list of nested expand items on specified expand bar
 	 */
-	public List<org.eclipse.swt.widgets.ExpandItem> getSWTItems(
+	public List<org.eclipse.swt.widgets.ExpandItem> getItems(
 			final org.eclipse.swt.widgets.ExpandBar expandBar) {
 		return Display.syncExec(new ResultRunnable<List<org.eclipse.swt.widgets.ExpandItem>>() {
 			@Override

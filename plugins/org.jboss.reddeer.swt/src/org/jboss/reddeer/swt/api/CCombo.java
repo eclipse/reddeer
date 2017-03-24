@@ -12,15 +12,13 @@ package org.jboss.reddeer.swt.api;
 
 import java.util.List;
 
-import org.jboss.reddeer.swt.widgets.Widget;
-
 /**
  * API for custom combo box manipulation.
  * 
  * @author Andrej Podhradsky
  *
  */
-public interface CCombo extends Widget<org.eclipse.swt.custom.CCombo> {
+public interface CCombo extends Control<org.eclipse.swt.custom.CCombo> {
 
 	/**
 	 * Sets text to the custom combo.

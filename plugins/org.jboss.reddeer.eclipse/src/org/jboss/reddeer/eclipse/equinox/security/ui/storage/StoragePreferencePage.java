@@ -16,7 +16,7 @@ import org.jboss.reddeer.common.exception.WaitTimeoutExpiredException;
 import org.jboss.reddeer.common.wait.WaitUntil;
 import org.jboss.reddeer.jface.preference.PreferencePage;
 import org.jboss.reddeer.swt.api.TableItem;
-import org.jboss.reddeer.swt.condition.WidgetIsEnabled;
+import org.jboss.reddeer.swt.condition.ControlIsEnabled;
 import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.tab.DefaultTabItem;
 import org.jboss.reddeer.swt.impl.table.DefaultTable;
@@ -76,7 +76,7 @@ public class StoragePreferencePage extends PreferencePage {
 	 */
 	public boolean clearPasswords() {
 		try {
-			new WaitUntil(new WidgetIsEnabled(new PushButton("Clear Passwords")));
+			new WaitUntil(new ControlIsEnabled(new PushButton("Clear Passwords")));
 			new PushButton("Clear Passwords").click();
 			return true;
 		} catch(WaitTimeoutExpiredException ex) {

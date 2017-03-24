@@ -10,8 +10,6 @@
  ******************************************************************************/ 
 package org.jboss.reddeer.swt.api;
 
-import org.jboss.reddeer.swt.widgets.Widget;
-
 /**
  * API for progress bar manipulation.
  * 
@@ -19,7 +17,7 @@ import org.jboss.reddeer.swt.widgets.Widget;
  * @author rhopp
  *
  */
-public interface ProgressBar extends Widget<org.eclipse.swt.widgets.ProgressBar> {
+public interface ProgressBar extends Control<org.eclipse.swt.widgets.ProgressBar> {
 
 	/**
 	 * Gets state of the progress bar.

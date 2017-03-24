@@ -25,7 +25,7 @@ import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.common.matcher.RegexMatcher;
 import org.jboss.reddeer.common.wait.GroupWait;
 import org.jboss.reddeer.core.condition.ShellWithTextIsAvailable;
-import org.jboss.reddeer.core.handler.WidgetHandler;
+import org.jboss.reddeer.core.handler.ItemHandler;
 import org.jboss.reddeer.core.lookup.WidgetLookup;
 import org.jboss.reddeer.core.matcher.WithTextMatcher;
 import org.jboss.reddeer.core.matcher.WithTextMatchers;
@@ -257,7 +257,7 @@ public class AbstractView implements View {
 	public boolean isOpened() {
 		List<org.eclipse.swt.custom.CTabItem> tabs = WidgetLookup.getInstance().activeWidgets(new WorkbenchShell(), org.eclipse.swt.custom.CTabItem.class);
 		for (org.eclipse.swt.custom.CTabItem tab : tabs){
-			String text = WidgetHandler.getInstance().getText(tab);
+			String text = ItemHandler.getInstance().getText(tab);
 			if (viewNameMatcher.matches(text)){
 				return true;
 			}

@@ -21,9 +21,9 @@ import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.core.handler.TreeHandler;
 import org.jboss.reddeer.core.handler.TreeItemHandler;
 import org.jboss.reddeer.core.reference.ReferencedComposite;
-import org.jboss.reddeer.swt.widgets.AbstractWidget;
+import org.jboss.reddeer.swt.widgets.AbstractControl;
 
-public abstract class AbstractTree extends AbstractWidget<org.eclipse.swt.widgets.Tree> implements Tree {
+public abstract class AbstractTree extends AbstractControl<org.eclipse.swt.widgets.Tree> implements Tree {
 
 	private static final Logger logger = Logger.getLogger(AbstractTree.class);
 

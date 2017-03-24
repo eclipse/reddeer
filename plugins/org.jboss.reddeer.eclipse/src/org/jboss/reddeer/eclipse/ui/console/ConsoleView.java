@@ -17,7 +17,8 @@ import org.jboss.reddeer.common.wait.TimePeriod;
 import org.jboss.reddeer.common.wait.WaitUntil;
 import org.jboss.reddeer.common.wait.WaitWhile;
 import org.jboss.reddeer.core.condition.WidgetIsFound;
-import org.jboss.reddeer.core.handler.WidgetHandler;
+import org.jboss.reddeer.core.handler.LabelHandler;
+import org.jboss.reddeer.core.handler.StyledTextHandler;
 import org.jboss.reddeer.core.matcher.WithTextMatcher;
 import org.jboss.reddeer.eclipse.condition.ConsoleHasLabel;
 import org.jboss.reddeer.eclipse.condition.ConsoleHasLaunch;
@@ -221,7 +222,7 @@ public class ConsoleView extends WorkbenchView {
 			widgetIsFound.test();
 			org.eclipse.swt.widgets.Widget swtWidget = widgetIsFound.getWidget();
 			return (swtWidget == null) ? false : consoleText.equals(
-					WidgetHandler.getInstance().getText(swtWidget));
+					StyledTextHandler.getInstance().getText((org.eclipse.swt.custom.StyledText)swtWidget));
 		}
 
 		@Override
@@ -241,6 +242,6 @@ public class ConsoleView extends WorkbenchView {
 		WidgetIsFound widgetIsFound = new WidgetIsFound(org.eclipse.swt.widgets.Label.class, cTabItem.getControl());
 		widgetIsFound.test();
 		org.eclipse.swt.widgets.Widget swtWidget = widgetIsFound.getWidget();
-		return (swtWidget == null) ? null : WidgetHandler.getInstance().getText(swtWidget);
+		return (swtWidget == null) ? null : LabelHandler.getInstance().getText((org.eclipse.swt.widgets.Label)swtWidget);
 	}
 }

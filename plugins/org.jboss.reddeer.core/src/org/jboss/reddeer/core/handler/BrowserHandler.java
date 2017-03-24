@@ -65,7 +65,12 @@ public class BrowserHandler {
 	 * @return text in a page of specified browser
 	 */
 	public String getText(final org.eclipse.swt.browser.Browser browser) {
-		return WidgetHandler.getInstance().getText(browser);
+		return Display.syncExec(new ResultRunnable<String>() {
+			@Override
+			public String run() {
+				return browser.getText();
+			}
+		});
 	}
 
 	/**

@@ -13,9 +13,8 @@ package org.jboss.reddeer.uiforms.impl.expandablecomposite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.ui.forms.widgets.ExpandableComposite;
 import org.hamcrest.Matcher;
-import org.jboss.reddeer.core.handler.WidgetHandler;
 import org.jboss.reddeer.core.reference.ReferencedComposite;
-import org.jboss.reddeer.swt.widgets.AbstractWidget;
+import org.jboss.reddeer.swt.widgets.AbstractControl;
 import org.jboss.reddeer.uiforms.handler.ExpandableCompositeHandler;
 
 /**
@@ -26,7 +25,7 @@ import org.jboss.reddeer.uiforms.handler.ExpandableCompositeHandler;
  * @since 0.6
  *
  */
-public abstract class AbstractExpandableComposite extends AbstractWidget<ExpandableComposite> implements org.jboss.reddeer.uiforms.api.ExpandableComposite {
+public abstract class AbstractExpandableComposite extends AbstractControl<ExpandableComposite> implements org.jboss.reddeer.uiforms.api.ExpandableComposite {
 
 	protected AbstractExpandableComposite(ReferencedComposite refComposite, int index, Matcher<?>... matchers){
 		super(ExpandableComposite.class, refComposite, index, matchers);
@@ -38,7 +37,7 @@ public abstract class AbstractExpandableComposite extends AbstractWidget<Expanda
 
 	@Override
 	public String getText() {
-		return WidgetHandler.getInstance().getText(getSWTWidget());
+		return ExpandableCompositeHandler.getInstance().getText(getSWTWidget());
 	}
 
 	@Override

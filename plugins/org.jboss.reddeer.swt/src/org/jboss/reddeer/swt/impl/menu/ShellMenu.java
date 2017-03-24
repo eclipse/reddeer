@@ -10,10 +10,10 @@
  ******************************************************************************/ 
 package org.jboss.reddeer.swt.impl.menu;
 
-import org.eclipse.swt.widgets.MenuItem;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.swt.api.Menu;
+import org.jboss.reddeer.core.lookup.MenuLookup;
 import org.jboss.reddeer.core.matcher.WithMnemonicTextMatchers;
 
 /**
@@ -43,8 +43,7 @@ public class ShellMenu extends AbstractMenu implements Menu {
 	 */
 	@SuppressWarnings("unchecked")
 	public ShellMenu(final Matcher<String>... matchers) {
-		this.matchers = matchers;
-		menuItem = ml.lookFor(ml.getActiveShellTopMenuItems(), matchers);
+		super(MenuLookup.getInstance().lookFor(MenuLookup.getInstance().getActiveShellTopMenuItems(), matchers));
 	}
 	
 	/* (non-Javadoc)
@@ -53,7 +52,7 @@ public class ShellMenu extends AbstractMenu implements Menu {
 	@Override
 	public void select() {
 		log.info("Select shell menu with text " + getText());
-		mh.select(menuItem);
+		mh.select(swtWidget);
 	}
 	
 	/* (non-Javadoc)
@@ -61,17 +60,10 @@ public class ShellMenu extends AbstractMenu implements Menu {
 	 */
 	@Override
 	public boolean isSelected() {
-		if(menuItem != null){
-			return mh.isSelected(menuItem);
+		if(swtWidget != null){
+			return mh.isSelected(swtWidget);
 		} else {
 			return false;
 		}
-	}
-	
-	/* (non-Javadoc)
-	 * @see org.jboss.reddeer.swt.api.Menu#getSWTWidget()
-	 */
-	public MenuItem getSWTWidget(){
-		return menuItem;
 	}
 }

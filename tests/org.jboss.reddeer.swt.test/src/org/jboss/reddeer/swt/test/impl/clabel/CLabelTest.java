@@ -74,7 +74,7 @@ public class CLabelTest extends SWTLayerTestCase {
 	
 	@Test
 	public void getTooltipText(){
-		String tooltip = new DefaultCLabel(1).getTooltipText();
+		String tooltip = new DefaultCLabel(1).getToolTipText();
 		assertEquals("CLabel has wrong tooltip", CLABEL_TOOLTIP_PREFIX + CLABEL_PREFIX + 1, tooltip);
 	}
 	
@@ -86,8 +86,8 @@ public class CLabelTest extends SWTLayerTestCase {
 	
 	@Test
 	public void hasImage(){
-		assertFalse("Clabel should not have an image", new DefaultCLabel(0).hasImage());
-		assertTrue("Clabel should have an image", new DefaultCLabel(1).hasImage());
-		assertFalse("Clabel should not have an image", new DefaultCLabel(2).hasImage());
+		assertTrue("Clabel should not have an image", new DefaultCLabel(0).getImage() == null);
+		assertTrue("Clabel should have an image", new DefaultCLabel(1).getImage() != null);
+		assertTrue("Clabel should not have an image", new DefaultCLabel(2).getImage() == null);
 	}
 }

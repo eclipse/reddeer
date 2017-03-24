@@ -17,9 +17,9 @@ import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.swt.api.Link;
 import org.jboss.reddeer.core.handler.LinkHandler;
 import org.jboss.reddeer.core.reference.ReferencedComposite;
-import org.jboss.reddeer.swt.widgets.AbstractWidget;
+import org.jboss.reddeer.swt.widgets.AbstractControl;
 
-public abstract class AbstractLink extends AbstractWidget<org.eclipse.swt.widgets.Link> implements Link {
+public abstract class AbstractLink extends AbstractControl<org.eclipse.swt.widgets.Link> implements Link {
 
 	private static final Logger logger = Logger.getLogger(AbstractLink.class);
 

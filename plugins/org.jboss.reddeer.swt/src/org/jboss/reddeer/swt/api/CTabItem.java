@@ -11,34 +11,18 @@
 package org.jboss.reddeer.swt.api;
 
 import org.jboss.reddeer.core.reference.ReferencedComposite;
-import org.jboss.reddeer.swt.widgets.Widget;
-
 /**
  * API for CTab item manipulation.
  * 
  * @author Vlado Pakan
  *
  */
-public interface CTabItem extends Widget<org.eclipse.swt.custom.CTabItem>, ReferencedComposite {
+public interface CTabItem extends Item<org.eclipse.swt.custom.CTabItem>, ReferencedComposite {
 
 	/**
 	 * Activates CTab item.
 	 */
 	void activate();
-
-	/**
-	 * Returns the text of the CTab item.
-	 * 
-	 * @return text on the CTab item
-	 */
-	String getText();
-
-	/**
-	 * Returns the ToolTip text of the CTab item.
-	 * 
-	 * @return ToolTip text of the CTab item
-	 */
-	String getToolTipText();
 
 	/**
 	 * Closes CTabItem.
@@ -63,4 +47,10 @@ public interface CTabItem extends Widget<org.eclipse.swt.custom.CTabItem>, Refer
 	 * @return parent folder
 	 */
 	CTabFolder getFolder();
+	
+	/**
+	 * Gets tooltip text of CTabItem
+	 * @return tooltip text of CTabItem
+	 */
+	String getToolTipText();
 }

@@ -18,6 +18,7 @@ import org.jboss.reddeer.common.wait.WaitUntil;
 import org.jboss.reddeer.common.wait.WaitWhile;
 import org.jboss.reddeer.core.condition.ShellWithTextIsAvailable;
 import org.jboss.reddeer.core.condition.WidgetIsFound;
+import org.jboss.reddeer.core.handler.ShellHandler;
 import org.jboss.reddeer.core.handler.WidgetHandler;
 import org.jboss.reddeer.core.lookup.ShellLookup;
 import org.jboss.reddeer.core.matcher.WithTextMatcher;
@@ -109,7 +110,7 @@ public abstract class PreferenceDialog {
 	 * Presses Ok button on Property Dialog. 
 	 */
 	public void ok() {
-		final String parentShellText = WidgetHandler.getInstance().getText(
+		final String parentShellText = ShellHandler.getInstance().getText(
 				ShellLookup.getInstance().getParentShell(new DefaultShell(getTitle()).getSWTWidget()));
 		
 		OkButton ok = new OkButton();
@@ -122,7 +123,7 @@ public abstract class PreferenceDialog {
 	 * Presses Cancel button on Property Dialog. 
 	 */
 	public void cancel() {
-		final String parentShellText = WidgetHandler.getInstance().getText(
+		final String parentShellText = ShellHandler.getInstance().getText(
 				ShellLookup.getInstance().getParentShell(new DefaultShell(getTitle()).getSWTWidget()));
 		
 		CancelButton cancel = new CancelButton();

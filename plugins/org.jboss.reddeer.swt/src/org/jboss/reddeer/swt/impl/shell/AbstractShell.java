@@ -15,12 +15,11 @@ import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.common.wait.WaitUntil;
 import org.jboss.reddeer.common.wait.WaitWhile;
 import org.jboss.reddeer.core.handler.ShellHandler;
-import org.jboss.reddeer.core.handler.WidgetHandler;
 import org.jboss.reddeer.core.util.DiagnosticTool;
 import org.jboss.reddeer.swt.api.Shell;
 import org.jboss.reddeer.swt.condition.ShellIsActive;
 import org.jboss.reddeer.swt.condition.ShellIsAvailable;
-import org.jboss.reddeer.swt.exception.SWTLayerException;
+import org.jboss.reddeer.swt.widgets.AbstractControl;
 
 /**
  * Abstract class for all Shells
@@ -28,19 +27,13 @@ import org.jboss.reddeer.swt.exception.SWTLayerException;
  * @author Jiri Peterka
  * 
  */
-public abstract class AbstractShell implements Shell {
+public abstract class AbstractShell extends AbstractControl<org.eclipse.swt.widgets.Shell> implements Shell {
 
 	private static final Logger log = Logger.getLogger(AbstractShell.class);
 
-	protected org.eclipse.swt.widgets.Shell swtShell;
-
 	protected AbstractShell(org.eclipse.swt.widgets.Shell swtShell) {
-		if (swtShell != null) {
-			this.swtShell = swtShell;
-		} else {
-			String exceptionText = new DiagnosticTool().getShellsDiagnosticInformation();
-			throw new SWTLayerException("SWT Shell passed to constructor is null. " + exceptionText);
-		}
+		super(swtShell, () -> new DiagnosticTool().getShellsDiagnosticInformation());
+		setFocus();
 	}
 
 	/**
@@ -50,7 +43,7 @@ public abstract class AbstractShell implements Shell {
 	 */
 	@Override
 	public Control getControl() {
-		return swtShell;
+		return swtWidget;
 	}
 
 	/* (non-Javadoc)
@@ -58,7 +51,7 @@ public abstract class AbstractShell implements Shell {
 	 */
 	@Override
 	public String getText() {
-		String text = WidgetHandler.getInstance().getText(swtShell);
+		String text = ShellHandler.getInstance().getText(swtWidget);
 		return text;
 	}
 
@@ -68,24 +61,8 @@ public abstract class AbstractShell implements Shell {
 	@Override
 	public void setFocus() {
 		log.debug("Set focus to Shell " + getText());
-		WidgetHandler.getInstance().setFocus(swtShell);
+		ShellHandler.getInstance().setFocus(swtWidget);
 		new WaitUntil(new ShellIsActive(this));
-	}
-	
-	/* (non-Javadoc)
-	 * @see org.jboss.reddeer.swt.api.Shell#isVisible()
-	 */
-	@Override
-	public boolean isVisible(){
-		return ShellHandler.getInstance().isVisible(swtShell);
-	}
-	
-	/* (non-Javadoc)
-	 * @see org.jboss.reddeer.swt.api.Shell#isFocused()
-	 */
-	@Override
-	public boolean isFocused() {
-		return ShellHandler.getInstance().isFocused(swtShell);
 	}
 
 	/* (non-Javadoc)
@@ -95,31 +72,8 @@ public abstract class AbstractShell implements Shell {
 	public void close() {
 		String text = getText();
 		log.info("Close shell " + text);
-		ShellHandler.getInstance().closeShell(swtShell);
+		ShellHandler.getInstance().closeShell(swtWidget);
 		new WaitWhile(new ShellIsAvailable(this));
-	}
-
-	/* (non-Javadoc)
-	 * @see org.jboss.reddeer.swt.api.Shell#getSWTWidget()
-	 */
-	public org.eclipse.swt.widgets.Shell getSWTWidget() {
-		return swtShell;
-	}
-
-	/* (non-Javadoc)
-	 * @see org.jboss.reddeer.swt.widgets.Widget#isEnabled()
-	 */
-	@Override
-	public boolean isEnabled() {
-		return WidgetHandler.getInstance().isEnabled(swtShell);
-	}
-	
-	/* (non-Javadoc)
-	 * @see org.jboss.reddeer.swt.widgets.Widget#isDisposed()
-	 */
-	@Override
-	public boolean isDisposed() {
-		return WidgetHandler.getInstance().isDisposed(swtShell);
 	}
 	
 	/* (non-Javadoc)
@@ -127,7 +81,7 @@ public abstract class AbstractShell implements Shell {
 	 */
 	@Override
 	public boolean isMaximized() {
-		return ShellHandler.getInstance().isMaximized(swtShell);
+		return ShellHandler.getInstance().isMaximized(swtWidget);
 	}
 	
 	/* (non-Javadoc)
@@ -135,7 +89,7 @@ public abstract class AbstractShell implements Shell {
 	 */
 	@Override
 	public boolean isMinimized() {
-		return ShellHandler.getInstance().isMinimized(swtShell);
+		return ShellHandler.getInstance().isMinimized(swtWidget);
 	}
 	
 	/* (non-Javadoc)
@@ -143,7 +97,7 @@ public abstract class AbstractShell implements Shell {
 	 */
 	@Override
 	public void maximize() {
-		ShellHandler.getInstance().maximize(swtShell);
+		ShellHandler.getInstance().maximize(swtWidget);
 	}
 	
 	/* (non-Javadoc)
@@ -151,7 +105,7 @@ public abstract class AbstractShell implements Shell {
 	 */
 	@Override
 	public void minimize() {
-		ShellHandler.getInstance().minimize(swtShell);
+		ShellHandler.getInstance().minimize(swtWidget);
 	}
 	
 	/* (non-Javadoc)
@@ -159,7 +113,7 @@ public abstract class AbstractShell implements Shell {
 	 */
 	@Override
 	public void restore() {
-		ShellHandler.getInstance().restore(swtShell);
+		ShellHandler.getInstance().restore(swtWidget);
 	}
 
 }

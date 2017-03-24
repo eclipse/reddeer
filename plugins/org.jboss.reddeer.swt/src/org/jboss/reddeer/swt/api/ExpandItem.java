@@ -12,7 +12,6 @@ package org.jboss.reddeer.swt.api;
 
 import org.jboss.reddeer.core.reference.ReferencedComposite;
 import org.jboss.reddeer.common.wait.TimePeriod;
-import org.jboss.reddeer.swt.widgets.Widget;
 
 /**
  * API for expand bar item manipulation.
@@ -20,21 +19,7 @@ import org.jboss.reddeer.swt.widgets.Widget;
  * @author Vlado Pakan
  *
  */
-public interface ExpandBarItem extends ReferencedComposite, Widget<org.eclipse.swt.widgets.ExpandItem> {
-	
-	/**
-	 * Returns the text of the expand bar item.
-	 * 
-	 * @return text on the expand bar item
-	 */
-	String getText();
-
-	/**
-	 * Returns the ToolTip text of expand bar item.
-	 * 
-	 * @return ToolTip text on the expand bar item.
-	 */
-	String getToolTipText();
+public interface ExpandItem extends ReferencedComposite, Item<org.eclipse.swt.widgets.ExpandItem> {
 
 	/**
 	 * Expands the expand bar item.

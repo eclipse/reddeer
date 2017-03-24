@@ -13,7 +13,6 @@ package org.jboss.reddeer.swt.api;
 import java.util.List;
 
 import org.jboss.reddeer.common.wait.TimePeriod;
-import org.jboss.reddeer.swt.widgets.Widget;
 
 /**
  * API for tree item manipulation.
@@ -21,7 +20,7 @@ import org.jboss.reddeer.swt.widgets.Widget;
  * @author Jiri Peterka, Marian Labuda
  *
  */
-public interface TreeItem extends Widget<org.eclipse.swt.widgets.TreeItem> {
+public interface TreeItem extends Item<org.eclipse.swt.widgets.TreeItem> {
 
 	/**
 	 * Gets whole text of the tree item.
@@ -81,13 +80,6 @@ public interface TreeItem extends Widget<org.eclipse.swt.widgets.TreeItem> {
 	 * @return true if the tree item is selected, false otherwise
 	 */
 	boolean isSelected();
-	
-	/**
-	 * Returns whether the tree item is disposed or not.
-	 * 
-	 * @return true if the tree item is disposed, false otherwise
-	 */
-	boolean isDisposed();
 	
 	/**
 	 * Selects the tree item.

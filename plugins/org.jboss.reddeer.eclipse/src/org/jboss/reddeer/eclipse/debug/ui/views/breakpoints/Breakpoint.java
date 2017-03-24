@@ -100,7 +100,6 @@ public class Breakpoint extends AbstractTreeItem {
 	 *
 	 * @return true, if is enabled
 	 */
-	@Override
 	public boolean isEnabled() {
 		return isOperationEnabled("Disable");
 	}

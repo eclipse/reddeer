@@ -21,13 +21,12 @@ import org.jboss.reddeer.common.wait.TimePeriod;
 import org.jboss.reddeer.common.wait.WaitUntil;
 import org.jboss.reddeer.core.handler.TreeHandler;
 import org.jboss.reddeer.core.handler.TreeItemHandler;
-import org.jboss.reddeer.core.handler.WidgetHandler;
 import org.jboss.reddeer.core.lookup.TreeItemLookup;
 import org.jboss.reddeer.core.matcher.TreeItemTextMatcher;
 import org.jboss.reddeer.swt.api.Tree;
 import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.swt.condition.TreeItemHasMinChildren;
-import org.jboss.reddeer.swt.widgets.AbstractWidget;
+import org.jboss.reddeer.swt.widgets.AbstractItem;
 
 /**
  * Basic TreeItem class is abstract class for all Tree Item implementations
@@ -35,7 +34,7 @@ import org.jboss.reddeer.swt.widgets.AbstractWidget;
  * @author jjankovi, mlabuda@redhat.com
  * 
  */
-public abstract class AbstractTreeItem extends AbstractWidget<org.eclipse.swt.widgets.TreeItem> implements TreeItem {
+public abstract class AbstractTreeItem extends AbstractItem<org.eclipse.swt.widgets.TreeItem> implements TreeItem {
 
 	private static final Logger logger = Logger.getLogger(AbstractTreeItem.class);
 
@@ -53,16 +52,6 @@ public abstract class AbstractTreeItem extends AbstractWidget<org.eclipse.swt.wi
 	public void select() {
 		logger.info("Select tree item " + getText());
 		treeItemHandler.select(swtWidget);
-	}
-
-	/**
-	 * See {@link TreeItem}.
-	 *
-	 * @return the text
-	 */
-	@Override
-	public String getText() {
-		return WidgetHandler.getInstance().getText(swtWidget);
 	}
 
 	/**

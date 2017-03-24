@@ -8,7 +8,7 @@
  * Contributors: 
  * Red Hat, Inc. - initial API and implementation 
  ******************************************************************************/ 
-package org.jboss.reddeer.swt.widgets;
+package org.jboss.reddeer.swt.api;
 
 /**
  * Interface for all RedDeer widgets.
@@ -22,13 +22,6 @@ public interface Widget<T extends org.eclipse.swt.widgets.Widget> {
 	 * @return SWT widget encapsulated by this widget
 	 */
 	T getSWTWidget();
-
-	/**
-	 * Finds out whether a widget is enabled.
-	 * 
-	 * @return true if widget is enabled, false otherwise
-	 */
-	boolean isEnabled();
 	
 	/**
 	 * Finds out whether a widget is disposed.

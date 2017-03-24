@@ -93,7 +93,7 @@ import org.jboss.reddeer.workbench.core.condition.JobIsRunning;
 		
 		/**
 		 * Opens properties for task repository
-		 * @return
+		 * @return TaskRepositoryWizardDialog
 		 */
 		public TaskRepositoryWizardDialog openProperties(){
 			select();

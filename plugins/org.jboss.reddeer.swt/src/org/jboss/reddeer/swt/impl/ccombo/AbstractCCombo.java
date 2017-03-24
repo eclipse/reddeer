@@ -19,10 +19,9 @@ import org.hamcrest.Matcher;
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.common.util.Display;
 import org.jboss.reddeer.core.handler.CComboHandler;
-import org.jboss.reddeer.core.handler.WidgetHandler;
 import org.jboss.reddeer.core.reference.ReferencedComposite;
 import org.jboss.reddeer.swt.api.CCombo;
-import org.jboss.reddeer.swt.widgets.AbstractWidget;
+import org.jboss.reddeer.swt.widgets.AbstractControl;
 
 /**
  * Abstract class for all CCombo implementations
@@ -30,7 +29,7 @@ import org.jboss.reddeer.swt.widgets.AbstractWidget;
  * @author Andrej Podhradsky
  * 
  */
-public abstract class AbstractCCombo extends AbstractWidget<org.eclipse.swt.custom.CCombo> implements CCombo {
+public abstract class AbstractCCombo extends AbstractControl<org.eclipse.swt.custom.CCombo> implements CCombo {
 
 	private static final Logger log = Logger.getLogger(AbstractCCombo.class);
 
@@ -48,7 +47,7 @@ public abstract class AbstractCCombo extends AbstractWidget<org.eclipse.swt.cust
 	@Override
 	public void setText(String str) {
 		log.info("Set text of CCombo " + getText() + " to:" + str);
-		WidgetHandler.getInstance().setText(swtWidget, str);
+		CComboHandler.getInstance().setText(swtWidget, str);
 	}
 
 	/* (non-Javadoc)
@@ -92,7 +91,7 @@ public abstract class AbstractCCombo extends AbstractWidget<org.eclipse.swt.cust
 	 */
 	@Override
 	public String getText() {
-		return WidgetHandler.getInstance().getText(swtWidget);
+		return CComboHandler.getInstance().getText(swtWidget);
 	}
 
 	/* (non-Javadoc)

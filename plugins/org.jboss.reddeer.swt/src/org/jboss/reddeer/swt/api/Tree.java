@@ -12,15 +12,13 @@ package org.jboss.reddeer.swt.api;
 
 import java.util.List;
 
-import org.jboss.reddeer.swt.widgets.Widget;
-
 /**
  * API for tree manipulation.
  * 
  * @author Jiri Peterka
  * 
  */
-public interface Tree extends Widget<org.eclipse.swt.widgets.Tree> {
+public interface Tree extends Control<org.eclipse.swt.widgets.Tree> {
 
 	/**
 	 * Gets top level tree items.
@@ -49,11 +47,6 @@ public interface Tree extends Widget<org.eclipse.swt.widgets.Tree> {
 	 * @return tree items which are selected
 	 */
 	List<TreeItem> getSelectedItems();
-
-	/**
-	 * Sets focus on the tree.
-	 */
-	void setFocus();
 
 	/**
 	 * Unselects all selected items.

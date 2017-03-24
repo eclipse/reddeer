@@ -15,7 +15,7 @@ import org.hamcrest.core.IsEqual;
 import org.jboss.reddeer.common.condition.AbstractWaitCondition;
 import org.jboss.reddeer.common.exception.RedDeerException;
 import org.jboss.reddeer.common.logging.Logger;
-import org.jboss.reddeer.core.handler.WidgetHandler;
+import org.jboss.reddeer.core.handler.ShellHandler;
 import org.jboss.reddeer.core.util.InstanceValidator;
 import org.jboss.reddeer.core.lookup.ShellLookup;
 
@@ -67,7 +67,7 @@ public class ShellWithTextIsActive extends AbstractWaitCondition {
 
 		String activeText;
 		try {
-			activeText = WidgetHandler.getInstance()
+			activeText = ShellHandler.getInstance()
 					.getText(currentActiveShell);
 		} catch (RedDeerException e) {
 			log.debug("Unable to determine text of current active shell");

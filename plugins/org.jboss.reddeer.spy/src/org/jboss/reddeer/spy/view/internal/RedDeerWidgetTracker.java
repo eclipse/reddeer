@@ -42,7 +42,7 @@ import org.jboss.reddeer.common.exception.RedDeerException;
 import org.jboss.reddeer.spy.view.RedDeerSpy;
 import org.jboss.reddeer.spy.widget.ListChild;
 import org.jboss.reddeer.spy.widget.resolver.WidgetResolver;
-import org.jboss.reddeer.core.handler.WidgetHandler;
+import org.jboss.reddeer.core.util.TextWidgetUtil;
 
 /**
  * RedDeerWidgetTracker provides tracking widgets and flushing their output onto RedDeer Spy View as styled texts.
@@ -293,10 +293,9 @@ public class RedDeerWidgetTracker implements Runnable {
 	}
 	
 	private String getText(Control widget) {
-		WidgetHandler widgetHandler = WidgetHandler.getInstance();
 		String text = null;
 		try {
-			text = widgetHandler.getText(widget);
+			text = TextWidgetUtil.getText(widget);
 		} catch (RedDeerException ex) {	
 		}
 		return text;

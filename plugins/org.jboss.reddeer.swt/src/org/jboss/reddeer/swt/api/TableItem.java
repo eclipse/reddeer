@@ -11,7 +11,6 @@
 package org.jboss.reddeer.swt.api;
 
 import org.eclipse.swt.graphics.Image;
-import org.jboss.reddeer.swt.widgets.Widget;
 
 /**
  * API for table item manipulation.
@@ -19,14 +18,7 @@ import org.jboss.reddeer.swt.widgets.Widget;
  * @author  Jiri Peterka
  *
  */
-public interface TableItem extends Widget<org.eclipse.swt.widgets.TableItem> {
-
-	/**
-	 * Returns the text of table item.
-	 * 
-	 * @return text of the table item
-	 */
-	String getText();
+public interface TableItem extends Item<org.eclipse.swt.widgets.TableItem> {
 
 	/**
 	 * Finds out whether the table item is selected or not.

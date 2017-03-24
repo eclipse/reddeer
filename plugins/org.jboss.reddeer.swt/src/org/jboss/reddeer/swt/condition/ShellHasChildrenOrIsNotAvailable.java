@@ -13,7 +13,7 @@ package org.jboss.reddeer.swt.condition;
 import org.jboss.reddeer.common.condition.AbstractWaitCondition;
 import org.jboss.reddeer.common.exception.RedDeerException;
 import org.jboss.reddeer.common.logging.Logger;
-import org.jboss.reddeer.core.handler.ShellHandler;
+import org.jboss.reddeer.core.handler.WidgetHandler;
 import org.jboss.reddeer.core.lookup.ShellLookup;
 import org.jboss.reddeer.swt.api.Shell;
 
@@ -43,7 +43,7 @@ public class ShellHasChildrenOrIsNotAvailable extends AbstractWaitCondition {
 			childShells = ShellLookup.getInstance().getShells(swtShell).length;
 		} catch (RedDeerException e) {
 			if(swtShell != null){
-				return ShellHandler.getInstance().isDisposed(swtShell);
+				return WidgetHandler.getInstance().isDisposed(swtShell);
 			}
 			return true;
 		}

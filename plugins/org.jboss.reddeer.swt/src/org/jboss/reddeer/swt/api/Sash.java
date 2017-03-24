@@ -10,14 +10,12 @@
  ******************************************************************************/ 
 package org.jboss.reddeer.swt.api;
 
-import org.jboss.reddeer.swt.widgets.Widget;
-
 /**
  * API for sash (splitter) manipulation.
  * 
  * @author Jiri Peterka
  *
  */
-public interface Sash extends Widget<org.eclipse.swt.widgets.Sash> {
+public interface Sash extends Control<org.eclipse.swt.widgets.Sash> {
 
 }

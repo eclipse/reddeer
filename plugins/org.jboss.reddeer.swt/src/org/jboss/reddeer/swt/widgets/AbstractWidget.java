@@ -14,6 +14,7 @@ import org.hamcrest.Matcher;
 import org.jboss.reddeer.core.handler.WidgetHandler;
 import org.jboss.reddeer.core.lookup.WidgetLookup;
 import org.jboss.reddeer.core.reference.ReferencedComposite;
+import org.jboss.reddeer.swt.api.Widget;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
 
 /**
@@ -42,6 +43,24 @@ public abstract class AbstractWidget<T extends org.eclipse.swt.widgets.Widget> i
 	}
 	
 	/**
+	 * Instantiates a new RedDeer widget. If widget is null diagnostics runnable is run
+	 * @param swtWidget swt widget to encapsulate
+	 * @param diagnostics to run if swt widget is null
+	 */
+	protected AbstractWidget(T swtWidget, Runnable diagnostics){
+		if (swtWidget == null){
+			if(diagnostics != null){
+				diagnostics.run();
+			}
+			throw new SWTLayerException("SWT widget provided is null");
+		}
+		if (swtWidget.isDisposed()){
+			throw new SWTLayerException("SWT widget provided is disposed");
+		}
+		this.swtWidget = swtWidget;
+	}
+	
+	/**
 	 * Instantiate a new RedDeer widget.
 	 * 
 	 * @param widgetClass eclipse SWT widget class
@@ -56,11 +75,6 @@ public abstract class AbstractWidget<T extends org.eclipse.swt.widgets.Widget> i
 	@Override
 	public T getSWTWidget() {
 		return swtWidget;
-	}
-
-	@Override
-	public boolean isEnabled() {
-		return WidgetHandler.getInstance().isEnabled(swtWidget);
 	}
 	
 	@Override

@@ -12,7 +12,7 @@ package org.jboss.reddeer.eclipse.mylyn.tasks.ui.wizards;
 
 import org.jboss.reddeer.common.wait.WaitUntil;
 import org.jboss.reddeer.jface.wizard.WizardDialog;
-import org.jboss.reddeer.swt.condition.WidgetIsEnabled;
+import org.jboss.reddeer.swt.condition.ControlIsEnabled;
 import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 
@@ -33,9 +33,9 @@ public class TaskRepositoryWizardDialog extends WizardDialog{
 	 * as validation can be slow.
 	 */
 	public void validateSettings(){
-		new WaitUntil(new WidgetIsEnabled(new PushButton("Validate Settings")));
+		new WaitUntil(new ControlIsEnabled(new PushButton("Validate Settings")));
 		new PushButton("Validate Settings").click();
-		new WaitUntil(new WidgetIsEnabled(new PushButton("Validate Settings")));
+		new WaitUntil(new ControlIsEnabled(new PushButton("Validate Settings")));
 	}
 
 }

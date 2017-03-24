@@ -10,14 +10,12 @@
  ******************************************************************************/ 
 package org.jboss.reddeer.swt.api;
 
-import org.jboss.reddeer.swt.widgets.Widget;
-
 /**
  * API for scrolled composite manipulation.
  * 
  * @author Jiri Peterka
  *
  */
-public interface ScrolledComposite extends Widget<org.eclipse.swt.custom.ScrolledComposite> {
+public interface ScrolledComposite extends Control<org.eclipse.swt.custom.ScrolledComposite> {
 
 }

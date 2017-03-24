@@ -89,5 +89,16 @@ public class TabFolderTest extends SWTLayerTestCase {
 		assertEquals("Item 2", tabItemLabel[2]);
 		assertEquals("Item 3", tabItemLabel[3]);
 	}
+	
+	@Test
+	public void getSelectedFolderItems(){
+		new DefaultTabItem().activate();
+		assertTrue(new DefaultTabFolder().getSelection().size() == 1);
+	}
+	
+	@Test
+	public void getAllFolderItems(){
+		assertTrue(new DefaultTabFolder().getItems().size() == 4);
+	}
 
 }

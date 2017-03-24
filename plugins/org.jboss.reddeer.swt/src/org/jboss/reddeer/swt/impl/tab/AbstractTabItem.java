@@ -14,11 +14,11 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Control;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.common.logging.Logger;
+import org.jboss.reddeer.swt.api.TabFolder;
 import org.jboss.reddeer.swt.api.TabItem;
 import org.jboss.reddeer.core.handler.TabItemHandler;
-import org.jboss.reddeer.core.handler.WidgetHandler;
 import org.jboss.reddeer.core.reference.ReferencedComposite;
-import org.jboss.reddeer.swt.widgets.AbstractWidget;
+import org.jboss.reddeer.swt.widgets.AbstractItem;
 
 /**
  * Abstract class for all TabItem implementations
@@ -27,7 +27,7 @@ import org.jboss.reddeer.swt.widgets.AbstractWidget;
  * @author Vlado Pakan
  * 
  */
-public abstract class AbstractTabItem extends AbstractWidget<org.eclipse.swt.widgets.TabItem> implements TabItem {
+public abstract class AbstractTabItem extends AbstractItem<org.eclipse.swt.widgets.TabItem> implements TabItem {
 
 	private static final Logger logger = Logger.getLogger(AbstractTabItem.class);
 
@@ -61,13 +61,11 @@ public abstract class AbstractTabItem extends AbstractWidget<org.eclipse.swt.wid
 		return tabItemHandler.getControl(swtWidget);
 	}
 	
-	/**
-	 * See {@link TabItem}.
-	 *
-	 * @return the text
-	 */
-	@Override
-	public String getText() {
-		return WidgetHandler.getInstance().getText(swtWidget);
+	public String getToolTipText(){
+		return tabItemHandler.getToolTipText(swtWidget);
+	}
+	
+	public TabFolder getTabFolder(){
+		return new DefaultTabFolder(tabItemHandler.getTabFolder(swtWidget));
 	}
 }

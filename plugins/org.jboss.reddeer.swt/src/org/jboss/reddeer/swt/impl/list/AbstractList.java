@@ -16,7 +16,7 @@ import org.jboss.reddeer.common.logging.LoggingUtils;
 import org.jboss.reddeer.swt.api.List;
 import org.jboss.reddeer.core.handler.ListHandler;
 import org.jboss.reddeer.core.reference.ReferencedComposite;
-import org.jboss.reddeer.swt.widgets.AbstractWidget;
+import org.jboss.reddeer.swt.widgets.AbstractControl;
 
 /**
  * Abstract class for all List implementations
@@ -24,7 +24,7 @@ import org.jboss.reddeer.swt.widgets.AbstractWidget;
  * @author Rastislav Wagner
  * 
  */
-public abstract class AbstractList extends AbstractWidget<org.eclipse.swt.widgets.List> implements List {
+public abstract class AbstractList extends AbstractControl<org.eclipse.swt.widgets.List> implements List {
 
 	private static final Logger logger = Logger.getLogger(AbstractList.class);
 

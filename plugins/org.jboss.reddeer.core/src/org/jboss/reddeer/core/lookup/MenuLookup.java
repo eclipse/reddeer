@@ -24,6 +24,7 @@ import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.common.util.Display;
 import org.jboss.reddeer.common.util.ResultRunnable;
 import org.jboss.reddeer.core.exception.CoreLayerException;
+import org.jboss.reddeer.core.handler.ShellHandler;
 import org.jboss.reddeer.core.handler.ToolItemHandler;
 import org.jboss.reddeer.core.handler.WidgetHandler;
 
@@ -130,6 +131,9 @@ public class MenuLookup {
 	 */
 
 	public MenuItem[] getToolItemMenuItems(ToolItem item) {
+		if (!ToolItemHandler.getInstance().isDropDown(item)) {
+			throw new CoreLayerException("Given ToolItem isn't of style SWT.DROP_DOWN");
+		}
 		final ShowMenuListener l = new ShowMenuListener();
 		addMenuListener(l);
 		ToolItemHandler.getInstance().clickDropDown(item);
@@ -185,7 +189,7 @@ public class MenuLookup {
 			}
 		});
 		if(items == null){
-			String shellText = WidgetHandler.getInstance().getText(s);
+			String shellText = ShellHandler.getInstance().getText(s);
 			throw new CoreLayerException("Cannot find a menu bar of shell " + shellText);
 		}
 		return items;

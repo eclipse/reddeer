@@ -12,11 +12,11 @@ package org.jboss.reddeer.swt.impl.label;
 
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.swt.api.Label;
-import org.jboss.reddeer.core.handler.WidgetHandler;
+import org.jboss.reddeer.core.handler.LabelHandler;
 import org.jboss.reddeer.core.reference.ReferencedComposite;
-import org.jboss.reddeer.swt.widgets.AbstractWidget;
+import org.jboss.reddeer.swt.widgets.AbstractControl;
 
-public abstract class AbstractLabel extends AbstractWidget<org.eclipse.swt.widgets.Label> implements Label {
+public abstract class AbstractLabel extends AbstractControl<org.eclipse.swt.widgets.Label> implements Label {
 
 	protected AbstractLabel(ReferencedComposite refComposite, int index, Matcher<?>... matchers){
 		super(org.eclipse.swt.widgets.Label.class, refComposite, index, matchers);
@@ -31,16 +31,8 @@ public abstract class AbstractLabel extends AbstractWidget<org.eclipse.swt.widge
 	 */
 	@Override
 	public String getText() {
-		String text = WidgetHandler.getInstance().getText(swtWidget);
+		String text = LabelHandler.getInstance().getText(swtWidget);
 		return text;
 	}
 	
-	/* (non-Javadoc)
-	 * @see org.jboss.reddeer.swt.api.Label#isVisible()
-	 */
-	@Override
-	public boolean isVisible() {
-		boolean ret = WidgetHandler.getInstance().isVisible(swtWidget);
-		return ret;
-	}
 }
