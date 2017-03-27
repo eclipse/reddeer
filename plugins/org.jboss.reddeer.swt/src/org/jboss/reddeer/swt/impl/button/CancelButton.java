@@ -11,6 +11,7 @@
 package org.jboss.reddeer.swt.impl.button;
 
 import org.eclipse.swt.SWT;
+import org.jboss.reddeer.core.reference.ReferencedComposite;
 
 /**
  * Cancel button implementation
@@ -23,7 +24,26 @@ public class CancelButton extends PredefinedButton {
 	 * CancelButton default constructor.
 	 */
 	public CancelButton() {		
-		super(null, 0, "Cancel", SWT.PUSH);
+		this(null);
+		
+	}
+	
+	/**
+	 * Instantiates new CancelButton
+	 * @param referencedComposite composite where button should be looked up
+	 */
+	public CancelButton(ReferencedComposite referencedComposite) {		
+		this(referencedComposite, 0);
+		
+	}
+	
+	/**
+	 * Instantiates new CancelButton
+	 * @param referencedComposite composite where button should be looked up
+	 * @param index index of cancel button
+	 */
+	public CancelButton(ReferencedComposite referencedComposite, int index) {		
+		super(referencedComposite, index, "Cancel", SWT.PUSH);
 		
 	}
 

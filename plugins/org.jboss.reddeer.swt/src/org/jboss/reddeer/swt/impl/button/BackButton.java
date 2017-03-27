@@ -11,6 +11,7 @@
 package org.jboss.reddeer.swt.impl.button;
 
 import org.eclipse.swt.SWT;
+import org.jboss.reddeer.core.reference.ReferencedComposite;
 
 /**
  * BackButton is a simple button implementation for "Back" button
@@ -24,7 +25,26 @@ public class BackButton extends PredefinedButton {
 	 * BackButton default constructor.
 	 */
 	public BackButton() {		
-		super(null, 0, "< Back", SWT.PUSH);
+		this(null);
+		
+	}
+	
+	/**
+	 * Instantiates new BackButton
+	 * @param referencedComposite composite where button should be looked up
+	 */
+	public BackButton(ReferencedComposite referencedComposite) {		
+		this(referencedComposite, 0);
+		
+	}
+	
+	/**
+	 * Instantiates new BackButton
+	 * @param referencedComposite composite where button should be looked up
+	 * @param index index of back button
+	 */
+	public BackButton(ReferencedComposite referencedComposite, int index) {		
+		super(referencedComposite, index, "< Back", SWT.PUSH);
 		
 	}
 

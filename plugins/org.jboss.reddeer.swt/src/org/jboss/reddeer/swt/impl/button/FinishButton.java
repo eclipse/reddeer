@@ -11,6 +11,7 @@
 package org.jboss.reddeer.swt.impl.button;
 
 import org.eclipse.swt.SWT;
+import org.jboss.reddeer.core.reference.ReferencedComposite;
 
 /**
  * FinishButton is simple button implementation for "Finish" button
@@ -24,7 +25,26 @@ public class FinishButton extends PredefinedButton {
 	 * FinishButton default constructor.
 	 */
 	public FinishButton() {		
-		super(null, 0, "Finish", SWT.PUSH);
+		this(null);
+		
+	}
+	
+	/**
+	 * Instantiates new FinishButton
+	 * @param referencedComposite composite where button should be looked up
+	 */
+	public FinishButton(ReferencedComposite referencedComposite) {		
+		this(referencedComposite, 0);
+		
+	}
+	
+	/**
+	 * Instantiates new FinishButton
+	 * @param referencedComposite composite where button should be looked up
+	 * @param index index of finish button
+	 */
+	public FinishButton(ReferencedComposite referencedComposite, int index) {		
+		super(referencedComposite, index, "Finish", SWT.PUSH);
 		
 	}
 
