@@ -11,6 +11,7 @@
 package org.jboss.reddeer.swt.impl.button;
 
 import org.eclipse.swt.SWT;
+import org.jboss.reddeer.core.reference.ReferencedComposite;
 
 /**
  * OkButton is simple button implementation for OK button
@@ -24,7 +25,26 @@ public class OkButton extends PredefinedButton {
 	 * OkButton default constructor.
 	 */
 	public OkButton() {		
-		super(null, 0, "OK", SWT.PUSH);
+		this(null);
+		
+	}
+	
+	/**
+	 * Instantiates new OkButton
+	 * @param referencedComposite composite where button should be looked up
+	 */
+	public OkButton(ReferencedComposite referencedComposite) {		
+		this(referencedComposite, 0);
+		
+	}
+	
+	/**
+	 * Instantiates new OkButton
+	 * @param referencedComposite composite where button should be looked up
+	 * @param index index of ok button
+	 */
+	public OkButton(ReferencedComposite referencedComposite, int index) {		
+		super(referencedComposite, index, "OK", SWT.PUSH);
 		
 	}
 

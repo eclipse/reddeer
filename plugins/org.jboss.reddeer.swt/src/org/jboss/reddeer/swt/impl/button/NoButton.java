@@ -11,6 +11,7 @@
 package org.jboss.reddeer.swt.impl.button;
 
 import org.eclipse.swt.SWT;
+import org.jboss.reddeer.core.reference.ReferencedComposite;
 
 /**
  * NoButton is simple button implementation for "No" button
@@ -24,7 +25,26 @@ public class NoButton extends PredefinedButton {
 	 * NoButton default constructor.
 	 */
 	public NoButton() {		
-		super(null, 0, "No", SWT.PUSH);
+		this(null);
+		
+	}
+	
+	/**
+	 * Instantiates new NoButton
+	 * @param referencedComposite composite where button should be looked up
+	 */
+	public NoButton(ReferencedComposite referencedComposite) {		
+		this(referencedComposite, 0);
+		
+	}
+	
+	/**
+	 * Instantiates new NoButton
+	 * @param referencedComposite composite where button should be looked up
+	 * @param index index of no button
+	 */
+	public NoButton(ReferencedComposite referencedComposite, int index) {		
+		super(referencedComposite, index, "No", SWT.PUSH);
 		
 	}
 
