@@ -10,9 +10,7 @@
  *******************************************************************************/
 package org.eclipse.reddeer.eclipse.debug.ui.launchConfigurations;
 
-import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.Tree;
-import org.eclipse.reddeer.common.condition.WaitCondition;
+import org.eclipse.reddeer.common.condition.AbstractWaitCondition;
 import org.eclipse.reddeer.common.logging.Logger;
 import org.eclipse.reddeer.common.wait.TimePeriod;
 import org.eclipse.reddeer.common.wait.WaitUntil;
@@ -31,6 +29,8 @@ import org.eclipse.reddeer.swt.impl.menu.ShellMenu;
 import org.eclipse.reddeer.swt.impl.shell.DefaultShell;
 import org.eclipse.reddeer.swt.impl.tree.DefaultTreeItem;
 import org.eclipse.reddeer.workbench.core.condition.JobIsRunning;
+import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Tree;
 
 /**
  * Common ancestor for both the Run Configurations dialog and Debug configurations dialog. 
@@ -166,7 +166,7 @@ public abstract class LaunchConfigurationsDialog {
 		new WaitWhile(new JobIsRunning());
 	}
 	
-	private class TreeIsSelectedAndHasFocus implements WaitCondition{
+	private class TreeIsSelectedAndHasFocus extends AbstractWaitCondition{
 
 		private TreeItem item;
 		
@@ -206,6 +206,5 @@ public abstract class LaunchConfigurationsDialog {
 		public String errorMessageUntil() {
 			return "Tree does not has focus or TreeItem '"+item.getText()+"' is not selected";
 		}
-		
 	}
 }

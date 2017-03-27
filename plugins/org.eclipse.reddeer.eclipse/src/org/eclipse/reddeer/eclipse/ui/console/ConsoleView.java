@@ -56,7 +56,7 @@ public class ConsoleView extends WorkbenchView {
 		WidgetIsFound widgetIsFound = new WidgetIsFound(org.eclipse.swt.custom.StyledText.class, cTabItem.getControl());
 		new WaitUntil(widgetIsFound, TimePeriod.DEFAULT, false);
 		// Check whether there is a console to display or not
-		if (widgetIsFound.getWidget() == null) {
+		if (widgetIsFound.getResult() == null) {
 			return null;
 		}
 		// wait for text to appear
@@ -141,7 +141,7 @@ public class ConsoleView extends WorkbenchView {
 		WidgetIsFound widgetIsFound = new WidgetIsFound(org.eclipse.swt.widgets.ToolItem.class, cTabItem.getFolder().getControl(), 
 				new WithTextMatcher(toolItemText));
 		widgetIsFound.test();
-		org.eclipse.swt.widgets.Widget widget = widgetIsFound.getWidget();
+		org.eclipse.swt.widgets.Widget widget = widgetIsFound.getResult();
 		if (widget == null) {
 			return false;
 		}
@@ -220,7 +220,7 @@ public class ConsoleView extends WorkbenchView {
 		public boolean test() {
 			WidgetIsFound widgetIsFound = new WidgetIsFound(org.eclipse.swt.custom.StyledText.class, cTabItem.getControl());
 			widgetIsFound.test();
-			org.eclipse.swt.widgets.Widget swtWidget = widgetIsFound.getWidget();
+			org.eclipse.swt.widgets.Widget swtWidget = widgetIsFound.getResult();
 			return (swtWidget == null) ? false : consoleText.equals(
 					StyledTextHandler.getInstance().getText((org.eclipse.swt.custom.StyledText)swtWidget));
 		}
@@ -241,7 +241,7 @@ public class ConsoleView extends WorkbenchView {
 		activate();
 		WidgetIsFound widgetIsFound = new WidgetIsFound(org.eclipse.swt.widgets.Label.class, cTabItem.getControl());
 		widgetIsFound.test();
-		org.eclipse.swt.widgets.Widget swtWidget = widgetIsFound.getWidget();
+		org.eclipse.swt.widgets.Widget swtWidget = widgetIsFound.getResult();
 		return (swtWidget == null) ? null : LabelHandler.getInstance().getText((org.eclipse.swt.widgets.Label)swtWidget);
 	}
 }

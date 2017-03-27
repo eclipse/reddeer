@@ -21,6 +21,7 @@ import org.eclipse.reddeer.workbench.api.View;
 public class ViewIsOpen extends AbstractWaitCondition{
 	
 	private View view;
+	private View resultView;
 	
 	/**
 	 * Checks whether specified view is open
@@ -32,7 +33,11 @@ public class ViewIsOpen extends AbstractWaitCondition{
 
 	@Override
 	public boolean test() {
-		return view.isOpen();
+		if (view.isOpen()) {
+			this.resultView = view;
+			return true;
+		}
+		return false;
 	}
 	
 	@Override
@@ -49,6 +54,12 @@ public class ViewIsOpen extends AbstractWaitCondition{
 	@Override
 	public String errorMessageWhile() {
 		return "'"+view.getTitle()+"' view is still open";
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override 
+	public View getResult() {
+		return this.resultView;
 	}
 
 }

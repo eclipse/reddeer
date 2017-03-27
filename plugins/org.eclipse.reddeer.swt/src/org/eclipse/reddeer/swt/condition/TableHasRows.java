@@ -26,6 +26,7 @@ import org.eclipse.reddeer.swt.api.TableItem;
 public class TableHasRows extends AbstractWaitCondition {
 	private final Table table;
 	private final Matcher<?> matcher;
+	private List<TableItem> resultRows;
 
 	/**
 	 * Constructs TableHasRows wait condition. Condition is met when table has
@@ -50,6 +51,7 @@ public class TableHasRows extends AbstractWaitCondition {
 	public TableHasRows(Table table, Matcher<?> matcher) {
 		this.table = table;
 		this.matcher = matcher != null ? matcher : null;
+		this.resultRows = new ArrayList<>();
 	}
 
 	/**
@@ -73,7 +75,8 @@ public class TableHasRows extends AbstractWaitCondition {
 		if (this.table != null && this.matcher == null) {
 			return table.rowCount() > 0;
 		} else {
-			return !search().isEmpty();
+			this.resultRows = search();
+			return !this.resultRows.isEmpty();
 		}
 	}
 
@@ -81,4 +84,11 @@ public class TableHasRows extends AbstractWaitCondition {
 	public String description() {
 		return "table contains TableItems";
 	}
+
+	@SuppressWarnings("unchecked")
+	@Override 
+	public List<TableItem> getResult() {
+		return this.resultRows.isEmpty() ? null : this.resultRows;
+	}
+	
 }

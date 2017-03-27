@@ -26,6 +26,12 @@ public interface WaitCondition {
 	boolean test();
 	
 	/**
+	 * Returns null if condition is not satisfied or object of type T if test is true 
+	 * @return T object of type T
+	 */
+	<T> T getResult();
+	
+	/**
 	 * Gets description of specific condition. This is 
 	 * useful in logging.
 	 * 

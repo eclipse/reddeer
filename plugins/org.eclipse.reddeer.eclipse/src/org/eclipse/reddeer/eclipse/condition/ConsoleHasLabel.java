@@ -26,6 +26,7 @@ public class ConsoleHasLabel extends AbstractWaitCondition {
 
 	private Matcher<String> matcher;
 	private static ConsoleView consoleView = null;
+	private String resultLabel;
 
 	/**
 	 * Construct the condition with a given text.
@@ -52,7 +53,11 @@ public class ConsoleHasLabel extends AbstractWaitCondition {
 	@Override
 	public boolean test() {
 		String consoleLabel = ConsoleHasLabel.getConsoleLabel();
-		return matcher.matches(consoleLabel);
+		if (matcher.matches(consoleLabel)) {
+			this.resultLabel = consoleLabel;
+			return true;
+		}
+		return false;
 	}
 
 	/* (non-Javadoc)
@@ -71,4 +76,10 @@ public class ConsoleHasLabel extends AbstractWaitCondition {
 		return consoleView.getConsoleLabel();
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override 
+	public String getResult() {
+		return this.resultLabel;
+	}
+	
 }

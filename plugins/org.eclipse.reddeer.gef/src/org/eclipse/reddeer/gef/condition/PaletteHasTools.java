@@ -10,6 +10,8 @@
  *******************************************************************************/
 package org.eclipse.reddeer.gef.condition;
 
+import java.util.List;
+
 import org.eclipse.reddeer.common.condition.AbstractWaitCondition;
 import org.eclipse.reddeer.gef.api.Palette;
 
@@ -23,6 +25,7 @@ public class PaletteHasTools extends AbstractWaitCondition {
 
 	private Palette palette;
 	private int numberOfTools;
+	private List<String> resultTools;
 
 	/**
 	 * Contructs a condition which is fulfilled if a given palette has at least 1 tool.
@@ -52,7 +55,11 @@ public class PaletteHasTools extends AbstractWaitCondition {
 	 */
 	@Override
 	public boolean test() {
-		return palette.getTools().size() >= numberOfTools;
+		if ( palette.getTools().size() >= numberOfTools) {
+			this.resultTools = palette.getTools();
+			return true;
+		}
+		return false;
 	}
 
 	/* (non-Javadoc)
@@ -61,6 +68,12 @@ public class PaletteHasTools extends AbstractWaitCondition {
 	@Override
 	public String description() {
 		return "palette has " + numberOfTools + " tools";
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override 
+	public List<String> getResult() {
+		return this.resultTools;
 	}
 
 }

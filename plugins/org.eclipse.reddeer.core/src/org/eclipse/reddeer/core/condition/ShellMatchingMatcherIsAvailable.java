@@ -46,7 +46,7 @@ public class ShellMatchingMatcherIsAvailable extends AbstractWaitCondition {
 		Shell[] availableShells = ShellLookup.getInstance().getShells();
 		for (Shell shell: availableShells) { 
 			if (matcher.matches(shell)) {
-				foundShell = shell;
+				this.foundShell = shell;
 				return true;
 			}
 		}
@@ -57,8 +57,10 @@ public class ShellMatchingMatcherIsAvailable extends AbstractWaitCondition {
 	 * Returns found shell or null if no shell was found
 	 * @return found shell
 	 */
+	@SuppressWarnings("unchecked")
+	@Override
 	public Shell getResult(){
-		return foundShell;
+		return this.foundShell;
 	}
 
 	/* (non-Javadoc)

@@ -18,7 +18,7 @@ import org.eclipse.reddeer.common.condition.AbstractWaitCondition;
  * @author rawagner
  *
  */
-public class WidgetIsDisposed extends AbstractWaitCondition{
+public class WidgetIsDisposed extends AbstractWaitCondition {
 	
 	private Widget widget;
 	

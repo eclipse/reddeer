@@ -151,7 +151,7 @@ public class LogView extends WorkbenchView {
 		WidgetIsFound isTreeFound =
 				new WidgetIsFound(org.eclipse.swt.widgets.Tree.class, cTabItem.getFolder().getSWTWidget());
 		new WaitUntil(isTreeFound, TimePeriod.SHORT, false);
-		Widget tree = isTreeFound.getWidget();
+		Widget tree = isTreeFound.getResult();
 
 		return tree != null ? getMessagesFromTree(tree, severity) : new ArrayList<>();
 	}

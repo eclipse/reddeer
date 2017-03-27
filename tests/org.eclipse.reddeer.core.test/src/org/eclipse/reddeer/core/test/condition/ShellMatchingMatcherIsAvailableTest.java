@@ -71,6 +71,18 @@ public class ShellMatchingMatcherIsAvailableTest extends ShellTestBase {
 			assertNotAvailable(expectedNotAvailable);
 		}
 	}
+	
+	@Test
+	public void testShellGetResult() {
+		for (DefaultShell shell : getTestShells()) {
+			WaitCondition condition = conditions.get(shell);
+			condition.test();
+			assertNull(condition.getResult());
+			insertStyledText(shell);
+			condition.test();
+			assertTrue(shell.getSWTWidget().equals(condition.getResult()));
+		}
+	}
 
 	private String getExpectedContent(DefaultShell shell) {
 		return shell.getText() + " Styled text";

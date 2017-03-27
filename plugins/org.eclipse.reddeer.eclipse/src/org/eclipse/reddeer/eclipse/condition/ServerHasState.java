@@ -24,6 +24,7 @@ public class ServerHasState extends AbstractWaitCondition {
 
 	private ServerState expectedState;
 	private ServerState currentState;
+	private ServerState resultState;
 	private Server server;
 
 	public ServerHasState(Server server, ServerState expectedState) {
@@ -34,7 +35,11 @@ public class ServerHasState extends AbstractWaitCondition {
 	@Override
 	public boolean test() {
 		this.currentState = server.getLabel().getState();
-		return expectedState.equals(this.currentState);
+		if ( expectedState.equals(this.currentState)) {
+			this.resultState = currentState;
+			return true;
+		}
+		return false;
 	}
 
 	@Override
@@ -53,4 +58,10 @@ public class ServerHasState extends AbstractWaitCondition {
 				+ expectedState.getText() + "'"; 
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override 
+	public ServerState getResult() {
+		return this.resultState;
+	}
+	
 }

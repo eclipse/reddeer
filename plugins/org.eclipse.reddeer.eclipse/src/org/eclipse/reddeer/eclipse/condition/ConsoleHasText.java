@@ -23,6 +23,7 @@ public class ConsoleHasText extends AbstractWaitCondition {
 
 	private String text;
 	private ConsoleView consoleView;
+	private String resultText;
 	
 	/**
 	 * Creates new ConsoleHasText wait condition waiting until a console
@@ -51,8 +52,12 @@ public class ConsoleHasText extends AbstractWaitCondition {
 		if (consoleText == null) {
 			return false;
 		} else {
-			return consoleText.contains(text);
+			if (consoleText.contains(text)) {
+				this.resultText = consoleText;
+				return true;
+			}
 		}
+		return false;
 	}
 
 	@Override
@@ -76,4 +81,10 @@ public class ConsoleHasText extends AbstractWaitCondition {
 		return "console does not contain text: '" + text + "', Console output:\n" + consoleView.getConsoleText();
 	}
 	
+	@SuppressWarnings("unchecked")
+	@Override 
+	public String getResult() {
+		return this.resultText;
+	}	
+
 }
