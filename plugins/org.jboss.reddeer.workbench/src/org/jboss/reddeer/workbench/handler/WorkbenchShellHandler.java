@@ -20,7 +20,6 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Shell;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.common.logging.Logger;
-import org.jboss.reddeer.common.platform.RunningPlatform;
 import org.jboss.reddeer.common.wait.TimePeriod;
 import org.jboss.reddeer.common.wait.WaitWhile;
 import org.jboss.reddeer.core.condition.ShellWithTextIsAvailable;
@@ -147,11 +146,7 @@ public class WorkbenchShellHandler {
 	private void clickCancelButton() {
 		Button button = WidgetLookup.getInstance().activeWidget(null, Button.class, 0,
 				createMatchers(SWT.PUSH, new WithMnemonicTextMatcher("Cancel")));
-		if (RunningPlatform.isWindows() && ((WidgetHandler.getInstance().getStyle(button) & SWT.RADIO) != 0)) {
-			// do not set focus because it also select radio button on Windows
-		} else {
-			ControlHandler.getInstance().setFocus(button);
-		}
+		ControlHandler.getInstance().setFocus(button);
 		ButtonHandler.getInstance().click(button);
 	}
 

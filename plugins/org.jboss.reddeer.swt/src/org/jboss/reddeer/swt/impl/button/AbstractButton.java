@@ -14,14 +14,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.eclipse.swt.SWT;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.common.logging.Logger;
-import org.jboss.reddeer.common.platform.RunningPlatform;
 import org.jboss.reddeer.common.wait.WaitUntil;
 import org.jboss.reddeer.core.handler.ButtonHandler;
 import org.jboss.reddeer.core.handler.ControlHandler;
-import org.jboss.reddeer.core.handler.WidgetHandler;
 import org.jboss.reddeer.core.matcher.WithStyleMatcher;
 import org.jboss.reddeer.core.reference.ReferencedComposite;
 import org.jboss.reddeer.swt.api.Button;
@@ -44,13 +41,7 @@ public abstract class AbstractButton extends AbstractControl<org.eclipse.swt.wid
 
 	protected AbstractButton (ReferencedComposite refComposite, int index, int style, Matcher<?>... matchers){
         super(org.eclipse.swt.widgets.Button.class, refComposite, index, createMatchers(style, matchers));
-
-        if (RunningPlatform.isWindows() &&
-                ((WidgetHandler.getInstance().getStyle(swtWidget) & SWT.RADIO) != 0)){
-                // do not set focus because it also select radio button on Windows
-        } else{
-        	ControlHandler.getInstance().setFocus(swtWidget);        
-        }   
+        ControlHandler.getInstance().setFocus(swtWidget);
 	}
 	
 	public static Matcher<?>[] createMatchers(int style, Matcher<?>... matchers) {

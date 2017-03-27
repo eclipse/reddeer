@@ -13,6 +13,7 @@ package org.jboss.reddeer.core.handler;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Widget;
+import org.jboss.reddeer.common.platform.RunningPlatform;
 import org.jboss.reddeer.common.util.Display;
 import org.jboss.reddeer.common.util.ResultRunnable;
 import org.jboss.reddeer.core.handler.WidgetHandler;
@@ -143,5 +144,24 @@ public class ButtonHandler {
 			}
 		});
 		
+	}
+	
+	/**
+	 * Sets focus on button
+	 * @param button to handle
+	 */
+	public void setFocus(final Button button){
+		// do not set focus because it also select radio button on Windows
+		if (!(RunningPlatform.isWindows()  && 
+				((WidgetHandler.getInstance().getStyle(button) & SWT.RADIO) != 0))){
+			Display.syncExec(new Runnable() {
+			
+				@Override
+				public void run() {
+					button.setFocus();
+				
+				}
+			});
+		}
 	}
 }

@@ -10,6 +10,7 @@
  ******************************************************************************/
 package org.jboss.reddeer.core.handler;
 
+import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Shell;
 import org.jboss.reddeer.common.util.Display;
@@ -77,6 +78,8 @@ public class ControlHandler {
 
 		if (control instanceof Shell) {
 			ShellHandler.getInstance().setFocus((Shell) control);
+		} else if (control instanceof Button) {
+			ButtonHandler.getInstance().setFocus((Button)control);
 		} else {
 			Display.syncExec(new Runnable() {
 				@Override
