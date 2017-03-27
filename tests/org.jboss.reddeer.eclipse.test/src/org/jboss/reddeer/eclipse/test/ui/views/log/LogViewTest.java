@@ -153,7 +153,7 @@ public class LogViewTest {
 		logView.open();
 		assertFalse("There must be messages", logView.getErrorMessages().isEmpty());
 		logView.clearLog();				
-		assertFalse("There should be messages", logView.getErrorMessages().isEmpty());
+		assertTrue("There should be messages", logView.getErrorMessages().isEmpty());
 		logView.restoreLog();				
 		assertFalse("There should be messages", logView.getErrorMessages().isEmpty());			
 	}

@@ -7,138 +7,96 @@
  * 
  * Contributors: 
  * Red Hat, Inc. - initial API and implementation 
- ******************************************************************************/ 
+ ******************************************************************************/
 package org.jboss.reddeer.eclipse.ui.views.log;
 
-import static org.jboss.reddeer.common.wait.WaitProvider.waitWhile;
-
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.eclipse.core.runtime.IStatus;
-import org.jboss.reddeer.common.wait.GroupWait;
+import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.widgets.Widget;
+import org.eclipse.ui.internal.views.log.SharedImages;
+import org.jboss.reddeer.common.wait.TimePeriod;
 import org.jboss.reddeer.common.wait.WaitUntil;
 import org.jboss.reddeer.common.wait.WaitWhile;
 import org.jboss.reddeer.core.condition.ShellWithTextIsAvailable;
+import org.jboss.reddeer.core.condition.WidgetIsFound;
 import org.jboss.reddeer.swt.api.Menu;
 import org.jboss.reddeer.swt.api.Tree;
 import org.jboss.reddeer.swt.api.TreeItem;
-import org.jboss.reddeer.swt.impl.button.CheckBox;
 import org.jboss.reddeer.swt.impl.button.OkButton;
-import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.menu.ContextMenu;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.jboss.reddeer.swt.impl.tree.DefaultTree;
-import org.jboss.reddeer.workbench.impl.menu.ViewMenu;
 import org.jboss.reddeer.workbench.impl.view.WorkbenchView;
 
 /**
  * Represents Error Log view
  * 
  * @author rawagner
+ * @author jnovak
  *
  */
-public class LogView extends WorkbenchView{
+public class LogView extends WorkbenchView {
 
 	private final String DELETE_LOG = "Delete Log";
 	private final String CLEAR_LOG = "Clear Log Viewer";
 	private final String RESTORE_LOG = "Restore Log";
 	private final String CONFIRM_DLG = "Confirm Delete";
 
-	
-	public static final String OK_SEVERITY="OK";
-	public static final String INFORMATION_SEVERITY="Information";
-	public static final String WARNING_SEVERITY="Warning";
-	public static final String ERROR_SEVERITY="Error";
-	
 	/**
 	 * Constructs the view with "Error Log".
 	 */
-	public LogView(){
+	public LogView() {
 		super("Error Log");
 	}
-	
+
 	/**
 	 * Gets the OK messages.
 	 *
 	 * @return list of messages with severity OK (according to IStatus)
 	 */
-	
 	public List<LogMessage> getOKMessages() {
-		activate();
-		setFilter(OK_SEVERITY);
-		activate();
-		Tree tree = getViewTree();
-		List<TreeItem> treeItems = tree.getAllItems();
-		List<LogMessage> messages = new ArrayList<LogMessage>();
-		for(TreeItem item : treeItems){
-			messages.add(new LogMessage(item, IStatus.OK));
-		}
-		return messages;
+		return getMessages(Severity.OK);
 	}
-	
+
 	/**
 	 * Gets the info messages.
 	 *
 	 * @return list of messages with severity INFO (according to IStatus)
 	 */
 	public List<LogMessage> getInfoMessages() {
-		activate();
-		setFilter(INFORMATION_SEVERITY);
-		activate();
-		Tree tree = getViewTree();
-		List<TreeItem> treeItems = tree.getAllItems();
-		List<LogMessage> messages = new ArrayList<LogMessage>();
-		for(TreeItem item : treeItems){
-			messages.add(new LogMessage(item, IStatus.INFO));
-		}
-		return messages;
+		return getMessages(Severity.INFO);
 	}
-	
+
 	/**
 	 * Gets the warning messages.
 	 *
 	 * @return list of messages with severity WARNING (according to IStatus)
 	 */
 	public List<LogMessage> getWarningMessages() {
-		activate();
-		setFilter(WARNING_SEVERITY);
-		activate();
-		Tree tree = getViewTree();
-		List<TreeItem> treeItems = tree.getAllItems();
-		List<LogMessage> messages = new ArrayList<LogMessage>();
-		for(TreeItem item : treeItems){
-			messages.add(new LogMessage(item, IStatus.WARNING));
-		}
-		return messages;
+		return getMessages(Severity.WARNING);
 	}
-	
+
 	/**
 	 * Gets the error messages.
 	 *
 	 * @return list of messages with severity ERROR (according to IStatus)
 	 */
 	public List<LogMessage> getErrorMessages() {
-		activate();
-		setFilter(ERROR_SEVERITY);
-		activate();
-		Tree tree = getViewTree();
-		List<TreeItem> treeItems = tree.getAllItems();
-		List<LogMessage> messages = new ArrayList<LogMessage>();
-		for(TreeItem item : treeItems){
-			messages.add(new LogMessage(item, IStatus.ERROR));
-		}
-		return messages;
+		return getMessages(Severity.ERROR);
 	}
-	
+
 	/**
-	 * Clears Error lLog messages.
+	 * Clears Error log messages.
 	 */
 	public void clearLog() {
 		activate();
 		getViewTree();
 		Menu cm = new ContextMenu(CLEAR_LOG);
-		cm.select();	
+		cm.select();
 	}
 
 	/**
@@ -165,27 +123,68 @@ public class LogView extends WorkbenchView{
 		activate();
 		getViewTree();
 		Menu cm = new ContextMenu(RESTORE_LOG);
-		cm.select();			
+		cm.select();
 	}
-	
 
-	private void setFilter(String severity){
-		ViewMenu tmenu = new ViewMenu("Filters...");
-		tmenu.select();
-		new WaitUntil(new ShellWithTextIsAvailable("Log Filters"));
-		new DefaultShell("Log Filters");
-		new CheckBox(OK_SEVERITY).toggle(false);
-		new CheckBox(INFORMATION_SEVERITY).toggle(false);
-		new CheckBox( WARNING_SEVERITY).toggle(false);
-		new CheckBox(ERROR_SEVERITY).toggle(false);
-		new CheckBox(severity).toggle(true);
-		new CheckBox("Limit visible events to:").toggle(false);
-		new PushButton("OK").click();
-		new GroupWait(waitWhile(new ShellWithTextIsAvailable("Log Filters")),
-				waitWhile(new ShellWithTextIsAvailable("Progress Information")));
-	}
-	
-	private Tree getViewTree(){
+	private Tree getViewTree() {
 		return new DefaultTree(cTabItem);
 	}
+
+	private List<LogMessage> getMessages(Severity severity) {
+		activate();
+
+		WidgetIsFound isTreeFound =
+				new WidgetIsFound(org.eclipse.swt.widgets.Tree.class, cTabItem.getFolder().getSWTWidget());
+		new WaitUntil(isTreeFound, TimePeriod.SHORT, false);
+		Widget tree = isTreeFound.getWidget();
+
+		return tree != null ? getMessagesFromTree(tree, severity) : new ArrayList<>();
+	}
+
+	private List<LogMessage> getMessagesFromTree(Widget widget, Severity severity) {
+		DefaultTree tree = new DefaultTree((org.eclipse.swt.widgets.Tree) widget);
+		ArrayList<LogMessage> messages = new ArrayList<>();
+
+		for (TreeItem item : tree.getItems()) {
+			if (severityMatch(item, severity)) {
+				messages.add(new LogMessage(item, severity.getIStatus()));
+			}
+		}
+		return messages;
+	}
+
+	private boolean severityMatch(TreeItem item, Severity severity) {
+		Image itemImage = item.getImage();
+		return severity.getImages().contains(itemImage);
+	}
+
+	private enum Severity {
+
+		OK(IStatus.OK,
+			SharedImages.getImage(SharedImages.DESC_OK_ST_OBJ)),
+		INFO(IStatus.INFO,
+			SharedImages.getImage(SharedImages.DESC_INFO_ST_OBJ)),
+		WARNING(IStatus.WARNING,
+			SharedImages.getImage(SharedImages.DESC_WARNING_ST_OBJ)),
+		ERROR(IStatus.ERROR,
+			SharedImages.getImage(SharedImages.DESC_ERROR_ST_OBJ),
+			SharedImages.getImage(SharedImages.DESC_ERROR_STACK_OBJ));
+
+		private List<Image> images;
+		private int iStatus;
+
+		Severity(int iStatus, Image... image) {
+			this.images = Arrays.asList(image);
+			this.iStatus = iStatus;
+		}
+
+		public List<Image> getImages() {
+			return images;
+		}
+
+		public int getIStatus() {
+			return iStatus;
+		}
+	}
+
 }

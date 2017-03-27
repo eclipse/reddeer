@@ -14,6 +14,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Image;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.common.util.Display;
@@ -294,6 +295,11 @@ public abstract class AbstractTreeItem extends AbstractItem<org.eclipse.swt.widg
 		logger.info("Set text to tree item: " + text);
 		TreeItemHandler.getInstance().setText(swtWidget, 0, text);
 	}
+	
+	@Override
+	public Image getImage(){
+		return TreeItemHandler.getInstance().getImage(swtWidget); 
+	}	
 	
 	private Matcher<org.eclipse.swt.widgets.TreeItem>[] createMatchers(String[] treeItemPath) {
 		@SuppressWarnings("unchecked")
