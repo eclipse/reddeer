@@ -130,15 +130,10 @@ public class WidgetIsFound extends AbstractWaitCondition {
 	}
 
 	private void setFocus(){
-		if (RunningPlatform.isWindows() && properWidget instanceof Button &&
-				((WidgetHandler.getInstance().getStyle((Button)properWidget) & SWT.RADIO) != 0)){
-			// do not set focus because it also select radio button on Windows
-		} else {
-			if(properWidget instanceof Item){
-				ItemHandler.getInstance().setFocus((Item)properWidget);
-			} else if (properWidget instanceof Control){
-				ControlHandler.getInstance().setFocus((Control)properWidget);
-			}
+		if(properWidget instanceof Item){
+			ItemHandler.getInstance().setFocus((Item)properWidget);
+		} else if (properWidget instanceof Control){
+			ControlHandler.getInstance().setFocus((Control)properWidget);
 		}
 	}
 	
