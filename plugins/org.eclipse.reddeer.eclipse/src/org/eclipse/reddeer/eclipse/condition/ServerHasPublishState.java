@@ -24,6 +24,7 @@ public class ServerHasPublishState extends AbstractWaitCondition {
 
 	private ServerPublishState expectedPublishState;
 	private ServerPublishState currentPublishState;
+	private ServerPublishState resultPublishState;
 	private Server server;
 
 	public ServerHasPublishState(Server server, ServerPublishState expectedState) {
@@ -34,7 +35,11 @@ public class ServerHasPublishState extends AbstractWaitCondition {
 	@Override
 	public boolean test() {
 		this.currentPublishState = server.getLabel().getPublishState();
-		return expectedPublishState.equals(this.currentPublishState);
+		if (expectedPublishState.equals(this.currentPublishState)) {
+			this.resultPublishState = this.currentPublishState;
+			return true;
+		}
+		return false;
 	}
 
 	@Override
@@ -53,4 +58,10 @@ public class ServerHasPublishState extends AbstractWaitCondition {
 				+ currentPublishState.getText() + "'"; 
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override 
+	public ServerPublishState getResult() {
+		return this.resultPublishState;
+	}
+	
 }

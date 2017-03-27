@@ -29,10 +29,12 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.*;
+import static org.hamcrest.CoreMatchers.instanceOf;
 
 /**
  *
  * @author Jan Novak <jnovak@redhat.com>
+ * @author odockal <odockal@redhat.com>
  */
 public class WidgetIsFoundTest {
 
@@ -95,6 +97,16 @@ public class WidgetIsFoundTest {
 			assertFalse(condition.test());
 		}
 	}
+	
+	@Test
+	public void testGetResult() {
+		WidgetIsFound isFound = new WidgetIsFound(TableItem.class);
+		assertTrue(isFound.test());	
+		assertThat(isFound.getResult(), instanceOf(TableItem.class));
+		closeTable();
+		assertFalse(isFound.test());
+		assertNull(isFound.getResult());
+	}
 
 	@After
 	public void closeTable() {
@@ -105,7 +117,7 @@ public class WidgetIsFoundTest {
 	}
 
 	private void assertFoundInCorrectTable(WidgetIsFound isFound, DefaultTable table) {
-		Table containingTable = getParent((TableItem) isFound.getWidget());
+		Table containingTable = getParent((TableItem) isFound.getResult());
 		int actual = getTableStyle(containingTable);
 		int expected = getTableStyle(table.getSWTWidget());
 		assertEquals(expected, actual);
@@ -120,7 +132,7 @@ public class WidgetIsFoundTest {
 	}
 
 	private void assertIndexMatch(int expectedIndex, WidgetIsFound isFound) {
-		String indexCell = table.getIndexCell((TableItem) isFound.getWidget());
+		String indexCell = table.getIndexCell((TableItem) isFound.getResult());
 		assertTrue(indexCell.contains(String.valueOf(expectedIndex)));
 	}
 

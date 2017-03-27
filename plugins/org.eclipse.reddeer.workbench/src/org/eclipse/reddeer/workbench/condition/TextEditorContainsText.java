@@ -22,6 +22,7 @@ public class TextEditorContainsText extends AbstractWaitCondition{
 	
 	private String text;
 	private TextEditor editor;
+	private String resultText;
 	
 	/**
 	 * Default constructor
@@ -35,7 +36,11 @@ public class TextEditorContainsText extends AbstractWaitCondition{
 
 	@Override
 	public boolean test() {
-		return editor.getText().contains(text);
+		if (editor.getText().contains(text)) {
+			this.resultText = text;
+			return true;
+		}
+		return false;
 	}
 
 	@Override
@@ -43,4 +48,10 @@ public class TextEditorContainsText extends AbstractWaitCondition{
 		return "Editor '"+editor.getTitle()+"' contains text '"+text+"'";
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override 
+	public String getResult() {
+		return this.resultText;
+	}
+	
 }

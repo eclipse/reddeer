@@ -55,7 +55,7 @@ public class WindowIsAvailable extends AbstractWaitCondition{
 		Shell[] availableShells = ShellLookup.getInstance().getShells();
 		for (Shell shell: availableShells) { 
 			if (matcher.matches(shell)) {
-				foundShell = shell;
+				this.foundShell = shell;
 				return true;
 			}
 		}
@@ -66,8 +66,10 @@ public class WindowIsAvailable extends AbstractWaitCondition{
 	 * Returns found shell or null if no shell was found
 	 * @return found shell
 	 */
-	public Shell getResult(){
-		return foundShell;
+	@SuppressWarnings("unchecked")
+	@Override
+	public Shell getResult() {
+		return this.foundShell;
 	}
 
 	/* (non-Javadoc)

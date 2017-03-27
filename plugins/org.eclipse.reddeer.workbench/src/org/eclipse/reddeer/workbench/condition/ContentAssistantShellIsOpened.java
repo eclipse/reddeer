@@ -31,6 +31,7 @@ public class ContentAssistantShellIsOpened extends AbstractWaitCondition {
 
     private List<Shell> previousShells;
     private Table table = null;
+    private Shell resultShell;
 
     /**
      * Default constructor.
@@ -55,6 +56,7 @@ public class ContentAssistantShellIsOpened extends AbstractWaitCondition {
                 ShellHandler.getInstance().setFocus(s);
                 try {
                     table = new DefaultTable();
+                    this.resultShell = s;
                     return true;
                 } catch (CoreLayerException ex) {
                     continue;
@@ -79,5 +81,11 @@ public class ContentAssistantShellIsOpened extends AbstractWaitCondition {
     public final String description() {
         return "ContentAssistant shell is opened";
     }
+    
+	@SuppressWarnings("unchecked")
+	@Override 
+	public Shell getResult() {
+		return this.resultShell;
+	}
 
 }

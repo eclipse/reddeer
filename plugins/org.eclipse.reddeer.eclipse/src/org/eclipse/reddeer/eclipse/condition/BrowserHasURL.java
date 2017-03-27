@@ -24,6 +24,7 @@ public class BrowserHasURL extends AbstractWaitCondition {
 	private BrowserEditor browserEditor;
 	private String expectedURL;
 	private Matcher<String> expectedURLMatcher;
+	private String resultURL;
 	
 	/**
 	 * Construct a condition with a given browser view and expected URL.
@@ -74,20 +75,36 @@ public class BrowserHasURL extends AbstractWaitCondition {
 	 */
 	@Override
 	public boolean test() {
-		if (expectedURLMatcher != null){
+		boolean matches = false;
+		if (expectedURLMatcher != null) {
 			if(browser != null){
-				return expectedURLMatcher.matches(browser.getPageURL());
+				 matches = expectedURLMatcher.matches(browser.getPageURL());
+				 if (matches) {
+					 resultURL = browser.getPageURL();
+				 }
+				 return matches;
 			} else {
-				return expectedURLMatcher.matches(browserEditor.getPageURL());
+				matches = expectedURLMatcher.matches(browserEditor.getPageURL());
+				 if (matches) {
+					 resultURL = browserEditor.getPageURL();
+				 }
+				 return matches;
 			}
 		} else {
 			if(browser != null){
-				return browser.getPageURL().equals(expectedURL);
+				matches = browser.getPageURL().equals(expectedURL);
+				 if (matches) {
+					 resultURL = expectedURL;
+				 }
+				 return matches;
 			} else {
-				return browserEditor.getPageURL().equals(expectedURL);
+				matches = browserEditor.getPageURL().equals(expectedURL);
+				 if (matches) {
+					 resultURL = expectedURL;
+				 }
+				 return matches;
 			}
 		}
-		
 	}
 	
 	/* (non-Javadoc)
@@ -100,4 +117,13 @@ public class BrowserHasURL extends AbstractWaitCondition {
 		}
 		return "browser is pointed to URL: "+expectedURL;
 	}
+
+	/* (non-Javadoc)
+	 * @see org.eclipse.reddeer.common.condition.AbstractWaitCondition#description()
+	 */
+	@SuppressWarnings("unchecked")
+	@Override 
+	public String getResult() {
+		return this.resultURL;
 	}
+}

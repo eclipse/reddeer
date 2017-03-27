@@ -30,6 +30,10 @@ public class ShellTestBase {
 	private List<DefaultShell> shells = new ArrayList<>();
 
 	private final int TEST_SHELLS_COUNT = 5;
+	
+	protected int getTestShellsCount() {
+		return TEST_SHELLS_COUNT;
+	}
 
 	protected List<DefaultShell> getTestShells() {
 		return Collections.unmodifiableList(shells);
@@ -37,7 +41,7 @@ public class ShellTestBase {
 
 	@Before
 	public void openTestShells() {
-		for (int i = 1; i <= TEST_SHELLS_COUNT; i++) {
+		for (int i = 1; i <= getTestShellsCount(); i++) {
 			String shellTitle = "shell" + i;
 			Display.syncExec(() -> {
 				ShellTestUtils.createShell(shellTitle);

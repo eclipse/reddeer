@@ -110,7 +110,7 @@ public class WidgetLookup {
 			throw new CoreLayerException(exceptionText, ex);
 		}
 		logger.debug("Active widget with class type " + clazz.getName() +  " and index " + index + " was found");
-		return (T)found.getWidget();
+		return (T)found.getResult();
 	}
 	
 	/**

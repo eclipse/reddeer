@@ -11,9 +11,13 @@
 package org.eclipse.reddeer.swt.condition;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.eclipse.reddeer.common.condition.AbstractWaitCondition;
 import org.eclipse.reddeer.common.logging.Logger;
 import org.eclipse.reddeer.swt.api.Tree;
+import org.eclipse.reddeer.swt.api.TreeItem;
 
 /**
  * Condition is fulfilled when tree has selected specified amount of items.
@@ -22,18 +26,18 @@ import org.eclipse.reddeer.swt.api.Tree;
  *
  */
 public class TreeHasSelectedItems extends AbstractWaitCondition {
+	
 	private Logger log = Logger.getLogger(TreeHasSelectedItems.class);
 	private Tree tree;
 	private int numSelectedItems;
+	private List<TreeItem> resultItems;
 	
 	/**
 	 * Construct tree has selected items condition. 
 	 * @param tree given tree
 	 */
 	public TreeHasSelectedItems(Tree tree) {
-		super();
-		this.tree = tree;
-		this.numSelectedItems = 1;
+		this(tree, 1);
 	}
 	/**
 	 * Construct tree has selected items condition. 
@@ -44,13 +48,14 @@ public class TreeHasSelectedItems extends AbstractWaitCondition {
 		super();
 		this.numSelectedItems = numSelectedItems;
 		this.tree = tree;
+		this.resultItems = new ArrayList<>();
 	}
 
 	@Override
 	public boolean test() {
-		int count = tree.getSelectedItems().size();
-		log.trace("Count of selected tree items:" + count);
-		if (count == numSelectedItems) {
+		this.resultItems = tree.getSelectedItems();
+		log.trace("Count of selected tree items:" + this.resultItems.size());
+		if (this.resultItems.size() == numSelectedItems) {
 			log.trace(tree.getSelectedItems().get(0).getText());
 			return true;
 		}
@@ -60,5 +65,11 @@ public class TreeHasSelectedItems extends AbstractWaitCondition {
 	@Override
 	public String description() {
 		return "tree has " + numSelectedItems + " selected items";
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override 
+	public List<TreeItem> getResult() {
+		return this.resultItems.isEmpty() ? null : this.resultItems;
 	}
 }

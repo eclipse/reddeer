@@ -11,6 +11,7 @@
 package org.eclipse.reddeer.core.condition;
 
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Widget;
 import org.hamcrest.Matcher;
 import org.eclipse.reddeer.common.condition.AbstractWaitCondition;
@@ -32,6 +33,7 @@ public class WidgetIsFound extends AbstractWaitCondition {
 	private AndMatcher am;
 	private int index;
 	private Widget properWidget;
+	private Widget foundWidget;
 	private WidgetLookup widgetLookup = WidgetLookup.getInstance();
 	
 	/**
@@ -96,18 +98,11 @@ public class WidgetIsFound extends AbstractWaitCondition {
 		
 		if (properWidget == null || 
 				(properWidget instanceof Control && !ControlHandler.getInstance().isVisible((Control)properWidget))) {
+			this.foundWidget = null;
 			return false;
 		}
+		this.foundWidget = properWidget;
 		return true;
-	}
-
-	/**
-	 * Gets found widget.
-	 *
-	 * @return found widget
-	 */
-	public Widget getWidget(){
-		return properWidget;
 	}
 	
 	/**
@@ -126,5 +121,11 @@ public class WidgetIsFound extends AbstractWaitCondition {
 	 */
 	public AndMatcher getAndMatcher() {
 		return am;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override 
+	public Widget getResult() {
+		return this.foundWidget;
 	}
 }

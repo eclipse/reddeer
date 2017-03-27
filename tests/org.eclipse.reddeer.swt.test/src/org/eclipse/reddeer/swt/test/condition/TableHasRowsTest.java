@@ -11,6 +11,7 @@
 package org.eclipse.reddeer.swt.test.condition;
 
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.Assert.*;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.MouseEvent;
@@ -164,6 +165,23 @@ public class TableHasRowsTest extends SWTLayerTestCase {
 	@Test
 	public void tableContainsCellWithTextTest() {
 		assertThat("Table has not column 10", !new TableHasRows(new DefaultTable(), new AllTableMatcher("c5")).test());
+	}
+	
+	@Test
+	public void tableHasRowsGetResult() {
+		TableHasRows condition = new TableHasRows(new DefaultTable(), new ColumnMatcher("a1", 1));
+		TableHasRows condition2 = new TableHasRows(new DefaultTable(), new ColumnMatcher("xxx", 1));
+		assertTrue(condition.test());
+		assertThat("Wait condition does not return expected number of rows", condition.getResult().size() == 128);
+		assertTrue(!condition2.test());
+		assertThat("Wait condition does not return null", condition2.getResult() == null);
+	}
+	
+	@Test
+	public void tableHasRowsGetResultNoMatcher() {
+		TableHasRows condition = new TableHasRows(new DefaultTable());
+		assertTrue(condition.test());
+		assertThat("Wait condition is not null but should be", condition.getResult() == null);		
 	}
 
 	/*

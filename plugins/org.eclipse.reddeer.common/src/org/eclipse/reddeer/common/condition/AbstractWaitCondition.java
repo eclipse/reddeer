@@ -18,7 +18,7 @@ package org.eclipse.reddeer.common.condition;
  * 
  * @author Andrej Podhradsky
  * @author jkopriva@redhat.com
- *
+ * @author Ondrej Dockal
  */
 public abstract class AbstractWaitCondition implements WaitCondition {
 
@@ -44,6 +44,14 @@ public abstract class AbstractWaitCondition implements WaitCondition {
 	@Override
 	public String errorMessageUntil() {
 		return description();
+	}
+	
+	/* (non-Javadoc)
+	 * @see org.jboss.reddeer.common.condition.WaitCondition#errorMessageUntil()
+	 */
+	@Override
+	public <T> T getResult() {
+		return null;
 	}
 
 }

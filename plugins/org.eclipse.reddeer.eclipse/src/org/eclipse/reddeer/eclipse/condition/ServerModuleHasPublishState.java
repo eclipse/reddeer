@@ -23,6 +23,7 @@ public class ServerModuleHasPublishState extends AbstractWaitCondition{
 	
 	private ServerModule module;
 	private ServerPublishState state;
+	private ServerPublishState resultPublishState;
 	
 	public ServerModuleHasPublishState(ServerModule module, ServerPublishState state) {
 		this.module = module;
@@ -31,7 +32,11 @@ public class ServerModuleHasPublishState extends AbstractWaitCondition{
 
 	@Override
 	public boolean test() {
-		return state.equals(module.getLabel().getPublishState());
+		if (state.equals(module.getLabel().getPublishState())) {
+			this.resultPublishState = state;
+			return true;
+		}
+		return false;
 	}
 	
 	@Override
@@ -48,6 +53,12 @@ public class ServerModuleHasPublishState extends AbstractWaitCondition{
 	public String errorMessageUntil() {
 		return "Server module expected publis state was " + state.getText() + " but current publis state is "
 				+ module.getLabel().getState().getText(); 
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override 
+	public ServerPublishState getResult() {
+		return this.resultPublishState;
 	}
 
 }

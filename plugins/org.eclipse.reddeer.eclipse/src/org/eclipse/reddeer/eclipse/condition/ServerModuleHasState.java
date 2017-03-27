@@ -23,6 +23,7 @@ public class ServerModuleHasState extends AbstractWaitCondition{
 	
 	private ServerModule module;
 	private ServerState state;
+	private ServerState resultState;
 	
 	public ServerModuleHasState(ServerModule module, ServerState state) {
 		this.module = module;
@@ -31,7 +32,11 @@ public class ServerModuleHasState extends AbstractWaitCondition{
 
 	@Override
 	public boolean test() {
-		return state.equals(module.getLabel().getState());
+		if (state.equals(module.getLabel().getState())) {
+			this.resultState = state;
+			return true;
+		}
+		return false;
 	}
 	
 	@Override
@@ -50,4 +55,10 @@ public class ServerModuleHasState extends AbstractWaitCondition{
 				+ module.getLabel().getState().getText(); 
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override 
+	public ServerState getResult() {
+		return this.resultState;
+	}
+	
 }

@@ -22,7 +22,8 @@ import org.eclipse.reddeer.swt.api.Control;
 public class ControlIsEnabled extends AbstractWaitCondition {
 
 	private Control<?> control;
-
+	private Control<?> resultControl;
+	
 	/**
 	 * Constructs ControltIsEnabled wait condition.
 	 * Condition is met when specified control is enabled.
@@ -35,12 +36,22 @@ public class ControlIsEnabled extends AbstractWaitCondition {
 
 	@Override
 	public boolean test() {
-		return control.isEnabled();
+		if (control.isEnabled()) {
+			this.resultControl = control;
+			return true;
+		}
+		return false;
 	}
 
 	@Override
 	public String description() {
 		return "control is enabled";
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override 
+	public Control getResult() {
+		return this.resultControl;
 	}
 
 }

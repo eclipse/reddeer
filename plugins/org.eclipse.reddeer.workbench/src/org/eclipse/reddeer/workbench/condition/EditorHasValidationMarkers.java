@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.reddeer.workbench.condition;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.reddeer.common.condition.AbstractWaitCondition;
@@ -26,6 +27,7 @@ public class EditorHasValidationMarkers extends AbstractWaitCondition {
 	private Editor editor;
 	private String type;
 	private int line;
+	private List<Marker> resultMarkers;
 	
 	/**
 	 * Default constructor.
@@ -67,6 +69,7 @@ public class EditorHasValidationMarkers extends AbstractWaitCondition {
 		this.editor = editor;
 		this.type = type;
 		this.line = line;
+		this.resultMarkers = new ArrayList<>();
 	}
 
 	/* (non-Javadoc)
@@ -79,10 +82,12 @@ public class EditorHasValidationMarkers extends AbstractWaitCondition {
 		boolean toReturn = false;
 		if(type == null){
 			if(line == -1){
+				this.resultMarkers = markers;
 				toReturn = editor.getMarkers().size() > 0;
 			} else {
 				for(Marker m: markers){
 					if(m.getLineNumber() == line){
+						this.resultMarkers.add(m);
 						toReturn = true;
 						break;
 					}
@@ -92,6 +97,7 @@ public class EditorHasValidationMarkers extends AbstractWaitCondition {
 			if(line == -1){
 				for(Marker m: markers){
 					if(m.getType().equals(type)){
+						this.resultMarkers.add(m);
 						toReturn = true;
 						break;
 					}
@@ -99,6 +105,7 @@ public class EditorHasValidationMarkers extends AbstractWaitCondition {
 			} else {
 				for(Marker m: markers){
 					if(m.getType().equals(type) && m.getLineNumber() == line){
+						this.resultMarkers.add(m);
 						toReturn = true;
 						break;
 					}
@@ -131,4 +138,10 @@ public class EditorHasValidationMarkers extends AbstractWaitCondition {
 		return description;
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override 
+	public List<Marker> getResult() {
+		return this.resultMarkers.size() == 0 ? null : this.resultMarkers;
+	}
+	
 }

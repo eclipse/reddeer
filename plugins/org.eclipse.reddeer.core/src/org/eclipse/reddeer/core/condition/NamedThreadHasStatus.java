@@ -27,6 +27,7 @@ public class NamedThreadHasStatus extends AbstractWaitCondition {
 
 	private Matcher<String> nameMatcher;
 	private Thread.State state;
+	private Thread.State resultStatus;
 	private boolean returnTrueIfDoesNotExist;
 	private Set<Thread> currentThreads = Thread.getAllStackTraces().keySet();
 	/**
@@ -55,6 +56,9 @@ public class NamedThreadHasStatus extends AbstractWaitCondition {
 			if (nameMatcher.matches(thread.getName())){
 				threadNotFound = false;
 				hasState = thread.getState().equals(state);
+				if (hasState) {
+					resultStatus = thread.getState();
+				}
 			}
 		}
 		return hasState || (threadNotFound && returnTrueIfDoesNotExist);
@@ -91,5 +95,11 @@ public class NamedThreadHasStatus extends AbstractWaitCondition {
 			}
 		}
 		return message.toString();
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override 
+	public Thread.State getResult() {
+		return this.resultStatus;
 	}
 }

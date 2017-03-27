@@ -12,6 +12,7 @@ package org.eclipse.reddeer.eclipse.condition;
 
 import org.eclipse.reddeer.common.condition.AbstractWaitCondition;
 import org.eclipse.reddeer.eclipse.core.resources.DefaultProject;
+import org.eclipse.reddeer.eclipse.core.resources.ProjectItem;
 import org.eclipse.reddeer.eclipse.exception.EclipseLayerException;
 
 /**
@@ -23,6 +24,8 @@ public class ProjectContainsProjectItem extends AbstractWaitCondition {
 	
 	private DefaultProject project;
 	private String[] path;
+	private ProjectItem resultProject;
+	
 	
 	/**
 	 * Default Constructor.
@@ -41,7 +44,7 @@ public class ProjectContainsProjectItem extends AbstractWaitCondition {
 	@Override
 	public boolean test() {
 		try{
-			project.getProjectItem(path);
+			this.resultProject = project.getProjectItem(path);
 		} catch (EclipseLayerException ex){
 			return false;
 		}
@@ -54,6 +57,12 @@ public class ProjectContainsProjectItem extends AbstractWaitCondition {
 	@Override
 	public String description() {
 		return "Project "+project.getName()+ " contains project item "+path[path.length-1];
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override 
+	public ProjectItem getResult() {
+		return this.resultProject;
 	}
 	
 }

@@ -24,6 +24,7 @@ public class TableContainsItem extends AbstractWaitCondition {
 	private Table table;
 	private String item;
 	private int cellIndex;
+	private TableItem resultItem;
 
 	/**
 	 * Constructs TableContainsItem wait condition. Condition is met when the
@@ -44,6 +45,7 @@ public class TableContainsItem extends AbstractWaitCondition {
 	public boolean test() {
 		for (TableItem i : table.getItems()) {
 			if (i.getText(cellIndex).equals(item)) {
+				this.resultItem = i;
 				return true;
 			}
 		}
@@ -54,6 +56,12 @@ public class TableContainsItem extends AbstractWaitCondition {
 	public String description() {
 		return "table contains item with text '" + item + "' in cell "
 				+ cellIndex;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override 
+	public TableItem getResult() {
+		return this.resultItem;
 	}
 
 }

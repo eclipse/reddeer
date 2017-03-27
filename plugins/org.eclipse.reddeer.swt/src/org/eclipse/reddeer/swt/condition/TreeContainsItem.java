@@ -20,6 +20,7 @@ public class TreeContainsItem extends AbstractWaitCondition {
 
 	private Tree tree;
 	private String[] itemPath;
+	private DefaultTreeItem resultItem;
 
 	/**
 	 * Constructs TreeContainsItem wait condition. Condition is met when the
@@ -36,9 +37,10 @@ public class TreeContainsItem extends AbstractWaitCondition {
 	@Override
 	public boolean test() {
 		try{
-			new DefaultTreeItem(tree, itemPath);
+			this.resultItem = new DefaultTreeItem(tree, itemPath);
 			return true;
 		} catch (Exception e) {
+			this.resultItem = null;
 			return false;
 		}
 	}
@@ -46,6 +48,12 @@ public class TreeContainsItem extends AbstractWaitCondition {
 	@Override
 	public String description() {
 		return "tree contains item '" + Arrays.toString(itemPath);
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override 
+	public DefaultTreeItem getResult() {
+		return this.resultItem;
 	}
 
 }

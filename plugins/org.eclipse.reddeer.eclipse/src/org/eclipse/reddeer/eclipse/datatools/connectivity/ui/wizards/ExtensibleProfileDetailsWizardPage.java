@@ -61,7 +61,7 @@ public abstract class ExtensibleProfileDetailsWizardPage extends WizardPage {
 			WidgetIsFound widgetIsFound = new WidgetIsFound(Shell.class, new WithTextMatcher("Error"));
 			if (widgetIsFound.test()) {
 				new OkButton().click();
-				new WaitWhile(new ShellIsAvailable(new DefaultShell((Shell) widgetIsFound.getWidget())));
+				new WaitWhile(new ShellIsAvailable(new DefaultShell((Shell) widgetIsFound.getResult())));
 				return false;
 			}
 			throw new RedDeerException("Something went wrong and nor Success nor Error shell were shown. " +
