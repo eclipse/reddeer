@@ -11,7 +11,7 @@
 package org.jboss.reddeer.uiforms.api;
 
 import org.jboss.reddeer.core.reference.ReferencedComposite;
-import org.jboss.reddeer.swt.api.Widget;
+import org.jboss.reddeer.swt.api.Control;
 
 /**
  * Represents {@link org.eclipse.ui.forms.widgets.ExpandableComposite} object. 
@@ -19,7 +19,7 @@ import org.jboss.reddeer.swt.api.Widget;
  * @author Radoslav Rabara
  *
  */
-public interface ExpandableComposite extends ReferencedComposite, Widget<org.eclipse.ui.forms.widgets.ExpandableComposite> {
+public interface ExpandableComposite extends ReferencedComposite, Control<org.eclipse.ui.forms.widgets.ExpandableComposite> {
 
 	/**
 	 * Returns the title string.

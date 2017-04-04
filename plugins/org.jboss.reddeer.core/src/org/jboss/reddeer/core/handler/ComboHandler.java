@@ -26,23 +26,18 @@ import org.jboss.reddeer.core.exception.CoreLayerException;
  * @author Lucia Jelinkova
  *
  */
-public class ComboHandler {
-
-	private static ComboHandler instance;
+public class ComboHandler extends ControlHandler{
 
 	private static final Logger log = Logger.getLogger(ComboHandler.class);
-
-	private ComboHandler() {
-
-	}
-
+	private static ComboHandler instance;
+	
 	/**
 	 * Gets instance of ComboHandler.
 	 * 
 	 * @return instance of ComboHandler
 	 */
-	public static ComboHandler getInstance() {
-		if (instance == null) {
+	public static ComboHandler getInstance(){
+		if(instance == null){
 			instance = new ComboHandler();
 		}
 		return instance;

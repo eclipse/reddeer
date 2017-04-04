@@ -10,7 +10,7 @@
  ******************************************************************************/ 
 package org.jboss.reddeer.uiforms.api;
 
-import org.jboss.reddeer.swt.api.Widget;
+import org.jboss.reddeer.swt.api.Control;
 
 /**
  * Represents Hyperlink object
@@ -18,7 +18,7 @@ import org.jboss.reddeer.swt.api.Widget;
  * @author Lucia Jelinkova
  *
  */
-public interface Hyperlink extends Widget<org.eclipse.ui.forms.widgets.Hyperlink> {
+public interface Hyperlink extends Control<org.eclipse.ui.forms.widgets.Hyperlink> {
 
 	/**
 	 * Returns hyperlink's text .

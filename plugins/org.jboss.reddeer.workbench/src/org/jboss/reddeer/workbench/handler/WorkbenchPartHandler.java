@@ -36,17 +36,12 @@ import org.jboss.reddeer.workbench.exception.WorkbenchLayerException;
  */
 public class WorkbenchPartHandler {
 	
+	protected final Logger log = Logger.getLogger(this.getClass());
 	private static WorkbenchPartHandler instance;
 	
-	protected final Logger log = Logger.getLogger(this.getClass());
-	
-	private WorkbenchPartHandler(){
-		
-	}
-	
 	/**
-	 * Gets WorkbenchPartHandler instance.
-	 *  
+	 * Gets instance of WorkbenchPartHandler.
+	 * 
 	 * @return instance of WorkbenchPartHandler
 	 */
 	public static WorkbenchPartHandler getInstance(){

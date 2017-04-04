@@ -25,10 +25,8 @@ import org.jboss.reddeer.common.wait.WaitWhile;
 import org.jboss.reddeer.core.condition.ShellWithTextIsAvailable;
 import org.jboss.reddeer.core.exception.CoreLayerException;
 import org.jboss.reddeer.core.handler.ButtonHandler;
-import org.jboss.reddeer.core.handler.ControlHandler;
 import org.jboss.reddeer.core.handler.IBeforeShellIsClosed;
 import org.jboss.reddeer.core.handler.ShellHandler;
-import org.jboss.reddeer.core.handler.WidgetHandler;
 import org.jboss.reddeer.core.lookup.ShellLookup;
 import org.jboss.reddeer.core.lookup.WidgetLookup;
 import org.jboss.reddeer.core.matcher.WithMnemonicTextMatcher;
@@ -37,12 +35,14 @@ import org.jboss.reddeer.workbench.core.lookup.WorkbenchShellLookup;
 
 public class WorkbenchShellHandler {
 	
+	private final Logger log = Logger.getLogger(this.getClass());
 	private static WorkbenchShellHandler instance;
 	
-	private WorkbenchShellHandler(){}
-	
-	private final Logger log = Logger.getLogger(this.getClass());
-	
+	/**
+	 * Gets instance of WorkbenchShellHandler.
+	 * 
+	 * @return instance of WorkbenchShellHandler
+	 */
 	public static WorkbenchShellHandler getInstance(){
 		if(instance == null){
 			instance = new WorkbenchShellHandler();
@@ -84,7 +84,7 @@ public class WorkbenchShellHandler {
 					closeShellSafely(s);
 				}
 			} catch (CoreLayerException ex){
-				if(!WidgetHandler.getInstance().isDisposed(s)){
+				if(!ShellHandler.getInstance().isDisposed(s)){
 					throw ex;
 				}
 			}
@@ -137,7 +137,7 @@ public class WorkbenchShellHandler {
 		try {
 			clickCancelButton();
 		} catch (Exception e) {
-			WidgetHandler.getInstance().notify(SWT.Close, swtShell);
+			ShellHandler.getInstance().notifyWidget(SWT.Close, swtShell);
 			ShellHandler.getInstance().closeShell(swtShell);
 		}
 		new WaitWhile(new ShellWithTextIsAvailable(text));
@@ -146,7 +146,6 @@ public class WorkbenchShellHandler {
 	private void clickCancelButton() {
 		Button button = WidgetLookup.getInstance().activeWidget(null, Button.class, 0,
 				createMatchers(SWT.PUSH, new WithMnemonicTextMatcher("Cancel")));
-		ControlHandler.getInstance().setFocus(button);
 		ButtonHandler.getInstance().click(button);
 	}
 

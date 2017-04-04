@@ -24,25 +24,21 @@ import org.jboss.reddeer.core.exception.CoreLayerException;
  * TextEditor handler handles operations for TextEditor instances.
  * @author rhopp
  */
-public class TextEditorHandler {
-
-    private static TextEditorHandler instance;
-
-    private TextEditorHandler() {
-
-    }
-    
+public class TextEditorHandler extends EditorHandler{
+	
+	private static TextEditorHandler instance;
+	
 	/**
 	 * Gets instance of TextEditorHandler.
 	 * 
 	 * @return instance of TextEditorHandler
 	 */
-    public static TextEditorHandler getInstance() {
-        if (instance == null) {
-            instance = new TextEditorHandler();
-        }
-        return instance;
-    }
+	public static TextEditorHandler getInstance(){
+		if(instance == null){
+			instance = new TextEditorHandler();
+		}
+		return instance;
+	}
 
     /**
      * Sets specified text to specified {@link ITextEditor} editor. 

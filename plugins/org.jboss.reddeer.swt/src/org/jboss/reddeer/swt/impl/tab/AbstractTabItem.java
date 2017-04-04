@@ -31,13 +31,8 @@ public abstract class AbstractTabItem extends AbstractItem<org.eclipse.swt.widge
 
 	private static final Logger logger = Logger.getLogger(AbstractTabItem.class);
 
-	protected org.eclipse.swt.widgets.TabFolder swtParent;
-	
-	private TabItemHandler tabItemHandler = TabItemHandler.getInstance();
-
 	protected AbstractTabItem(ReferencedComposite refComposite, int index, Matcher<?>... matchers){
 		super(org.eclipse.swt.widgets.TabItem.class, refComposite, index, matchers);
-		swtParent = TabItemHandler.getInstance().getTabFolder(swtWidget);
 	}
 	
 	protected AbstractTabItem(org.eclipse.swt.widgets.TabItem widget){
@@ -50,22 +45,22 @@ public abstract class AbstractTabItem extends AbstractItem<org.eclipse.swt.widge
 	@Override
 	public void activate() {
 		logger.info("Activate " + this.getText());
-		tabItemHandler.select(swtWidget);
-		tabItemHandler.notifyTabFolder(
-			tabItemHandler.createEventForTabItem(swtWidget,SWT.Selection),
-			swtParent);
+		TabItemHandler.getInstance().select(swtWidget);
+		TabItemHandler.getInstance().notifyTabFolder(
+				TabItemHandler.getInstance().createEventForTabItem(swtWidget,SWT.Selection),
+			getTabFolder().getSWTWidget());
 	}
 	
 	@Override
 	public Control getControl(){
-		return tabItemHandler.getControl(swtWidget);
+		return TabItemHandler.getInstance().getControl(swtWidget);
 	}
 	
 	public String getToolTipText(){
-		return tabItemHandler.getToolTipText(swtWidget);
+		return TabItemHandler.getInstance().getToolTipText(swtWidget);
 	}
 	
 	public TabFolder getTabFolder(){
-		return new DefaultTabFolder(tabItemHandler.getTabFolder(swtWidget));
+		return new DefaultTabFolder(TabItemHandler.getInstance().getTabFolder(swtWidget));
 	}
 }

@@ -20,21 +20,17 @@ import org.jboss.reddeer.common.util.ResultRunnable;
  * @author Lucia Jelinkova
  *
  */
-public class SpinnerHandler {
-
+public class SpinnerHandler extends ControlHandler{
+	
 	private static SpinnerHandler instance;
-
-	private SpinnerHandler() {
-
-	}
-
+	
 	/**
 	 * Gets instance of SpinnerHandler.
 	 * 
 	 * @return instance of SpinnerHandler
 	 */
-	public static SpinnerHandler getInstance() {
-		if (instance == null) {
+	public static SpinnerHandler getInstance(){
+		if(instance == null){
 			instance = new SpinnerHandler();
 		}
 		return instance;

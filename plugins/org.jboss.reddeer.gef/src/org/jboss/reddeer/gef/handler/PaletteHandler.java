@@ -32,20 +32,15 @@ import org.jboss.reddeer.gef.finder.PaletteEntryFinder;
 public class PaletteHandler {
 
 	protected final Logger log = Logger.getLogger(this.getClass());
-
 	private static PaletteHandler instance;
-
-	private PaletteHandler() {
-
-	}
-
+	
 	/**
-	 * Gets the single instance of PaletteHandler.
-	 *
-	 * @return single instance of PaletteHandler
+	 * Gets instance of PaletteHandler.
+	 * 
+	 * @return instance of PaletteHandler
 	 */
-	public static PaletteHandler getInstance() {
-		if (instance == null) {
+	public static PaletteHandler getInstance(){
+		if(instance == null){
 			instance = new PaletteHandler();
 		}
 		return instance;

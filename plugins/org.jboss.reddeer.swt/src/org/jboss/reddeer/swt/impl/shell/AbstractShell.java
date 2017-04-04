@@ -33,7 +33,6 @@ public abstract class AbstractShell extends AbstractControl<org.eclipse.swt.widg
 
 	protected AbstractShell(org.eclipse.swt.widgets.Shell swtShell) {
 		super(swtShell, () -> new DiagnosticTool().getShellsDiagnosticInformation());
-		setFocus();
 	}
 
 	/**

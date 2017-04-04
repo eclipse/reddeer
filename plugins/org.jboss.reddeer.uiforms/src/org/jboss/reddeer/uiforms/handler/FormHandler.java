@@ -13,20 +13,20 @@ package org.jboss.reddeer.uiforms.handler;
 import org.eclipse.ui.forms.widgets.Form;
 import org.jboss.reddeer.common.util.Display;
 import org.jboss.reddeer.common.util.ResultRunnable;
+import org.jboss.reddeer.core.handler.ControlHandler;
 
 /**
  * Contains methods for handling UI operations on {@link Form} widget
  * @author rawagner
  *
  */
-public class FormHandler {
+public class FormHandler extends ControlHandler{
 	
 	private static FormHandler instance;
 	
-	private FormHandler(){}
-	
 	/**
-	 * Gets instance of FormHandler
+	 * Gets instance of FormHandler.
+	 * 
 	 * @return instance of FormHandler
 	 */
 	public static FormHandler getInstance(){

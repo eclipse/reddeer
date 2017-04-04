@@ -21,14 +21,13 @@ import org.jboss.reddeer.common.util.ResultRunnable;
  * @author rawagner
  *
  */
-public class CLabelHandler {
+public class CLabelHandler extends ControlHandler{
 	
 	private static CLabelHandler instance;
 	
-	private CLabelHandler(){}
-	
 	/**
-	 * Get instance of CLabelHander
+	 * Gets instance of CLabelHandler.
+	 * 
 	 * @return instance of CLabelHandler
 	 */
 	public static CLabelHandler getInstance(){

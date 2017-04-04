@@ -15,7 +15,7 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.ui.forms.widgets.Hyperlink;
 import org.jboss.reddeer.common.util.Display;
 import org.jboss.reddeer.common.util.ResultRunnable;
-import org.jboss.reddeer.core.handler.WidgetHandler;
+import org.jboss.reddeer.core.handler.ControlHandler;
 
 /**
  * Contains methods that handle UI operations on {@link Hyperlink} widgets. 
@@ -23,21 +23,17 @@ import org.jboss.reddeer.core.handler.WidgetHandler;
  * @author Lucia Jelinkova
  *
  */
-public class HyperLinkHandler {
-
+public class HyperLinkHandler extends ControlHandler{
+	
 	private static HyperLinkHandler instance;
-
-	private HyperLinkHandler() {
-
-	}
-
+	
 	/**
 	 * Gets instance of HyperLinkHandler.
 	 * 
 	 * @return instance of HyperLinkHandler
 	 */
-	public static HyperLinkHandler getInstance() {
-		if (instance == null) {
+	public static HyperLinkHandler getInstance(){
+		if(instance == null){
 			instance = new HyperLinkHandler();
 		}
 		return instance;
@@ -69,7 +65,7 @@ public class HyperLinkHandler {
 	 */
 	public void notifyHyperlink(int eventType, Hyperlink widget) {
 		Event event = createHyperlinkEvent(widget);
-		WidgetHandler.getInstance().notify(eventType, event, widget);
+		notifyWidget(eventType, event, widget);
 	}
 	
 	private Event createHyperlinkEvent(Hyperlink widget){

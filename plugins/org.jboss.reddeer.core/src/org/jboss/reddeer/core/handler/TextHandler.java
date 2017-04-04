@@ -22,21 +22,17 @@ import org.jboss.reddeer.core.exception.CoreLayerException;
  * @author Lucia Jelinkova
  *
  */
-public class TextHandler {
-
+public class TextHandler extends ControlHandler{
+	
 	private static TextHandler instance;
-
-	private TextHandler() {
-
-	}
-
+	
 	/**
 	 * Gets instance of TextHandler.
 	 * 
-	 * @return instance of TextHandler.
+	 * @return instance of TextHandler
 	 */
-	public static TextHandler getInstance() {
-		if (instance == null) {
+	public static TextHandler getInstance(){
+		if(instance == null){
 			instance = new TextHandler();
 		}
 		return instance;

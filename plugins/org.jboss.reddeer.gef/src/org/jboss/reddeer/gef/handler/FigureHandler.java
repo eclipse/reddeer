@@ -13,20 +13,15 @@ import org.jboss.reddeer.common.util.ObjectUtil;
 public class FigureHandler {
 
 	protected final Logger log = Logger.getLogger(this.getClass());
-
 	private static FigureHandler instance;
-
-	private FigureHandler() {
-
-	}
-
+	
 	/**
-	 * Gets the single instance of FigureHandler.
-	 *
-	 * @return single instance of FigureHandler
+	 * Gets instance of FigureHandler.
+	 * 
+	 * @return instance of FigureHandler
 	 */
-	public static FigureHandler getInstance() {
-		if (instance == null) {
+	public static FigureHandler getInstance(){
+		if(instance == null){
 			instance = new FigureHandler();
 		}
 		return instance;

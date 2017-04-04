@@ -88,7 +88,7 @@ public class CellEditor implements ReferencedComposite {
 	 */
 	public void deactivate() {
 		if (isActivated()) {
-			WidgetHandler.getInstance().notify(SWT.FocusOut, getControl());
+			WidgetHandler.getInstance().notifyWidget(SWT.FocusOut, getControl());
 		}
 	}
 

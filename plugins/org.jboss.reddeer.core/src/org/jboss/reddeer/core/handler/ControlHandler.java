@@ -10,7 +10,7 @@
  ******************************************************************************/
 package org.jboss.reddeer.core.handler;
 
-import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Shell;
 import org.jboss.reddeer.common.util.Display;
@@ -21,14 +21,13 @@ import org.jboss.reddeer.common.util.ResultRunnable;
  * @author rawagner
  *
  */
-public class ControlHandler {
+public class ControlHandler extends WidgetHandler{
 	
 	private static ControlHandler instance;
 	
-	private ControlHandler(){};
-	
 	/**
-	 * Gets instance of ControlHandler
+	 * Gets instance of ControlHandler.
+	 * 
 	 * @return instance of ControlHandler
 	 */
 	public static ControlHandler getInstance(){
@@ -75,19 +74,12 @@ public class ControlHandler {
 	 * @param control to handle
 	 */
 	public void setFocus(final Control control) {
-
-		if (control instanceof Shell) {
-			ShellHandler.getInstance().setFocus((Shell) control);
-		} else if (control instanceof Button) {
-			ButtonHandler.getInstance().setFocus((Button)control);
-		} else {
-			Display.syncExec(new Runnable() {
-				@Override
-				public void run() {
-					control.setFocus();
-				}
-			});
-		}
+		Display.syncExec(new Runnable() {
+			@Override
+			public void run() {
+				control.setFocus();
+			}
+		});
 	}
 	
 	/**
@@ -146,6 +138,16 @@ public class ControlHandler {
 			@Override
 			public Shell run() {
 				return control.getShell();
+			}
+		});
+	}
+	
+	public Composite getParent(final org.eclipse.swt.widgets.Control control){
+		return Display.syncExec(new ResultRunnable<Composite>() {
+
+			@Override
+			public Composite run() {
+				return control.getParent();
 			}
 		});
 	}

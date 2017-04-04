@@ -11,7 +11,7 @@
 package org.jboss.reddeer.uiforms.api;
 
 import org.jboss.reddeer.core.reference.ReferencedComposite;
-import org.jboss.reddeer.swt.api.Widget;
+import org.jboss.reddeer.swt.api.Control;
 
 /**
  * Represents Section object. 
@@ -19,7 +19,7 @@ import org.jboss.reddeer.swt.api.Widget;
  * @author Lucia Jelinkova
  *
  */
-public interface Section extends ReferencedComposite, Widget<org.eclipse.ui.forms.widgets.Section> {
+public interface Section extends ReferencedComposite, Control<org.eclipse.ui.forms.widgets.Section> {
 
 	/**
 	 * Returns the title of the section. 

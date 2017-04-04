@@ -13,6 +13,7 @@ package org.jboss.reddeer.uiforms.handler;
 import org.eclipse.ui.forms.widgets.Section;
 import org.jboss.reddeer.common.util.Display;
 import org.jboss.reddeer.common.util.ResultRunnable;
+import org.jboss.reddeer.core.handler.ControlHandler;
 
 /**
  * Contains methods for handling UI operations on
@@ -21,21 +22,19 @@ import org.jboss.reddeer.common.util.ResultRunnable;
  * @author Lucia Jelinkova
  *
  */
-public class SectionHandler {
-
-	private static SectionHandler instance = null;
-
-	private SectionHandler() {
-	}
-
+public class SectionHandler extends ControlHandler{
+	
+	private static SectionHandler instance;
+	
 	/**
 	 * Gets instance of SectionHandler.
 	 * 
 	 * @return instance of SectionHandler
 	 */
-	public static SectionHandler getInstance() {
-		if (instance == null)
+	public static SectionHandler getInstance(){
+		if(instance == null){
 			instance = new SectionHandler();
+		}
 		return instance;
 	}
 	

@@ -20,21 +20,17 @@ import org.jboss.reddeer.common.util.ResultRunnable;
  * @author Vlado Pakan
  *
  */
-public class ScaleHandler {
-
+public class ScaleHandler extends ControlHandler{
+	
 	private static ScaleHandler instance;
-
-	private ScaleHandler() {
-
-	}
-
+	
 	/**
 	 * Gets instance of ScaleHandler.
 	 * 
 	 * @return instance of ScaleHandler
 	 */
-	public static ScaleHandler getInstance() {
-		if (instance == null) {
+	public static ScaleHandler getInstance(){
+		if(instance == null){
 			instance = new ScaleHandler();
 		}
 		return instance;
@@ -99,6 +95,6 @@ public class ScaleHandler {
 				scale.setSelection(value);
 			}
 		});
-		WidgetHandler.getInstance().sendClickNotifications(scale);
+		sendClickNotifications(scale);
 	}
 }

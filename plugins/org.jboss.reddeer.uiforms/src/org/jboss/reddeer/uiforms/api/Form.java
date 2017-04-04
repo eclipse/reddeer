@@ -11,7 +11,7 @@
 package org.jboss.reddeer.uiforms.api;
 
 import org.jboss.reddeer.core.reference.ReferencedComposite;
-import org.jboss.reddeer.swt.api.Widget;
+import org.jboss.reddeer.swt.api.Control;
 
 /**
  * Represents Eclipse Form. This class will be used mainly for its children discovering
@@ -19,7 +19,7 @@ import org.jboss.reddeer.swt.api.Widget;
  * @author Lucia Jelinkova
  *
  */
-public interface Form extends ReferencedComposite, Widget<org.eclipse.ui.forms.widgets.Form> {
+public interface Form extends ReferencedComposite, Control<org.eclipse.ui.forms.widgets.Form> {
 
 	/**
 	 * Returns form's title. 
