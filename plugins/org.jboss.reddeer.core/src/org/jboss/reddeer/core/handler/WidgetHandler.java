@@ -24,22 +24,17 @@ import org.jboss.reddeer.common.util.ResultRunnable;
  * @author Jaroslav Jankovic
  */
 public class WidgetHandler {
-
-	private static WidgetHandler instance;
 	
 	private static final Logger log = Logger.getLogger(WidgetHandler.class);
-
-	private WidgetHandler() {
-
-	}
-
+	private static WidgetHandler instance;
+	
 	/**
 	 * Gets instance of WidgetHandler.
 	 * 
 	 * @return instance of WidgetHandler
 	 */
-	public static WidgetHandler getInstance() {
-		if (instance == null) {
+	public static WidgetHandler getInstance(){
+		if(instance == null){
 			instance = new WidgetHandler();
 		}
 		return instance;
@@ -84,7 +79,7 @@ public class WidgetHandler {
 	 * @param widget widget to handle
 	 */
 	public void sendClickNotifications(Widget widget) {
-		notify(SWT.Selection, widget);
+		notifyWidget(SWT.Selection, widget);
 	}
 
 	/**
@@ -94,9 +89,9 @@ public class WidgetHandler {
 	 * @param eventType type of the event
 	 * @param widget widget to handle
 	 */
-	public void notify(int eventType, Widget widget) {
+	public void notifyWidget(int eventType, Widget widget) {
 		Event event = createEvent(widget);
-		notify(eventType, event, widget);
+		notifyWidget(eventType, event, widget);
 	}
 
 	/**
@@ -111,7 +106,7 @@ public class WidgetHandler {
 	public void notifyItem(int eventType, int detail, Widget widget,
 			Widget widgetItem) {
 		Event event = createEventItem(eventType, detail, widget, widgetItem);
-		notify(eventType, event, widget);
+		notifyWidget(eventType, event, widget);
 	}
 
 	/**
@@ -130,7 +125,7 @@ public class WidgetHandler {
 			Widget widgetItem, int x, int y, int button) {
 		Event event = createMouseItemEvent(eventType, detail, widget,
 				widgetItem, x, y, button);
-		notify(eventType, event, widget);
+		notifyWidget(eventType, event, widget);
 	}
 
 	/**
@@ -140,7 +135,7 @@ public class WidgetHandler {
 	 * @param createEvent event
 	 * @param widget widget to handle
 	 */
-	public void notify(final int eventType, final Event createEvent,
+	public void notifyWidget(final int eventType, final Event createEvent,
 			final Widget widget) {
 		createEvent.type = eventType;
 

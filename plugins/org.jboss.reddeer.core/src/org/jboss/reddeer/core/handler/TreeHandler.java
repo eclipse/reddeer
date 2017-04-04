@@ -28,23 +28,18 @@ import org.jboss.reddeer.common.util.ResultRunnable;
  * @author Vlado Pakan
  * 
  */
-public class TreeHandler {
-
-	private static final Logger logger = Logger.getLogger(TreeHandler.class);
+public class TreeHandler extends ControlHandler{
 	
+	private static final Logger logger = Logger.getLogger(TreeHandler.class);
 	private static TreeHandler instance;
-
-	private TreeHandler() {
-
-	}
-
+	
 	/**
 	 * Gets instance of TreeHandler.
 	 * 
 	 * @return instance of TreeHandler
 	 */
-	public static TreeHandler getInstance() {
-		if (instance == null) {
+	public static TreeHandler getInstance(){
+		if(instance == null){
 			instance = new TreeHandler();
 		}
 		return instance;

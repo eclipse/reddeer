@@ -21,21 +21,17 @@ import org.jboss.reddeer.common.util.ResultRunnable;
  * @author Lucia Jelinkova
  *
  */
-public class CTabFolderHandler {
-
+public class CTabFolderHandler extends ControlHandler{
+	
 	private static CTabFolderHandler instance;
-
-	private CTabFolderHandler() {
-
-	}
-
+	
 	/**
 	 * Gets instance of CTabFolderHandler.
 	 * 
 	 * @return instance of CTabFolderHandler
 	 */
-	public static CTabFolderHandler getInstance() {
-		if (instance == null) {
+	public static CTabFolderHandler getInstance(){
+		if(instance == null){
 			instance = new CTabFolderHandler();
 		}
 		return instance;

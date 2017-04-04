@@ -88,7 +88,7 @@ public abstract class AbstractEditPart implements EditPart, ReferencedComposite 
 		EditPartHandler.getInstance().directEdit(editPart);
 		Text inputText = new DefaultText(this, 0);
 		inputText.setText(text);
-		WidgetHandler.getInstance().notify(SWT.DefaultSelection, inputText.getSWTWidget());
+		WidgetHandler.getInstance().notifyWidget(SWT.DefaultSelection, inputText.getSWTWidget());
 	}
 
 	@Override

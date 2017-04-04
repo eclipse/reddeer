@@ -14,37 +14,29 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.graphics.Image;
-import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 import org.jboss.reddeer.common.util.Display;
 import org.jboss.reddeer.common.util.ResultRunnable;
 import org.jboss.reddeer.core.exception.CoreLayerException;
-import org.jboss.reddeer.core.handler.TableItemHandler;
-import org.jboss.reddeer.core.handler.WidgetHandler;
 
 /**
  * Contains methods that handle UI operations on {@link TableHandler} widgets.
  * 
  * @author mlabuda
  */
-public class TableHandler {
-
+public class TableHandler extends ControlHandler{
+	
 	private static TableHandler instance;
-
-	private TableHandler() {
-
-	}
-
+	
 	/**
 	 * Gets instance of TableHandler.
 	 * 
 	 * @return instance of TableHandler
 	 */
-	public static TableHandler getInstance() {
-		if (instance == null) {
+	public static TableHandler getInstance(){
+		if(instance == null){
 			instance = new TableHandler();
 		}
 		return instance;
@@ -82,39 +74,6 @@ public class TableHandler {
 					result.add(column.getText());
 				}
 				return result;
-			}
-		});
-	}
-	
-	/**
-	 * Finds out whether specified {@link TableItem} is grayed or not.
-	 * 
-	 * @param tableItem table item to handle
-	 * @return true if specified table item is grayed, false otherwise
-	 */
-	public boolean isGrayed(final TableItem tableItem) {
-		return Display.syncExec(new ResultRunnable<Boolean>() {
-
-			@Override
-			public Boolean run() {
-				return tableItem.getGrayed();
-			}
-		});
-	}
-
-	/**
-	 * Gets image of specified {@link TableItem} on the position specified by index.
-	 *  
-	 * @param tableItem table item to handle
-	 * @param imageIndex index of image to get
-	 * @return image on position specified by index.
-	 */
-	public Image getItemImage(final TableItem tableItem, final int imageIndex) {
-		return Display.syncExec(new ResultRunnable<Image>() {
-
-			@Override
-			public Image run() {
-				return tableItem.getImage(imageIndex);
 			}
 		});
 	}
@@ -162,73 +121,6 @@ public class TableHandler {
 			@Override
 			public Integer run() {
 				return table.indexOf(tableItem);
-			}
-		});
-	}
-
-	/**
-	 * Clicks twice on specified column in specified table item.
-	 * 
-	 * @param tableItem table item to handle
-	 * @param column column to click on
-	 */
-	public void doubleClick(final TableItem tableItem, final int column) {
-		Display.syncExec(new Runnable() {
-
-			@Override
-			public void run() {
-				TableItemHandler.getInstance().select(tableItem);
-				Rectangle rectangle = tableItem.getBounds(column);
-				int x = rectangle.x + (rectangle.width / 2);
-				int y = rectangle.y + (rectangle.height / 2);
-				WidgetHandler.getInstance().notifyItemMouse(
-						SWT.MouseDoubleClick, SWT.NONE, tableItem.getParent(),
-						tableItem, x, y, 1);
-
-			}
-		});
-	}
-	
-	/**
-	 * Set default selection on specified table item.
-	 * 
-	 * @param tableItem table item to handle
-	 */
-	public void setDefaultSelection(final TableItem tableItem){
-		Display.syncExec(new Runnable() {
-
-			@Override
-			public void run() {
-				TableItemHandler.getInstance().select(tableItem);
-				WidgetHandler.getInstance().notifyItem(SWT.DefaultSelection, SWT.NONE, 
-						tableItem.getParent(), tableItem);
-
-			}
-		});
-	}
-	
-	/**
-	 * Click on specified column in specified table item.
-	 * 
-	 * @param tableItem table item to handle
-	 * @param column column to click on
-	 */
-	public void click(final TableItem tableItem, final int column) {
-		TableItemHandler.getInstance().select(tableItem);
-		Display.syncExec(new Runnable() {
-
-			@Override
-			public void run() {
-				Rectangle rectangle = tableItem.getBounds(column);
-				int x = rectangle.x + (rectangle.width / 2);
-				int y = rectangle.y + (rectangle.height / 2);
-				WidgetHandler.getInstance().notifyItemMouse(
-						SWT.MouseDown, SWT.NONE, tableItem.getParent(),
-						tableItem, x, y, 1);
-				WidgetHandler.getInstance().notifyItemMouse(
-						SWT.MouseUp, SWT.NONE, tableItem.getParent(),
-						tableItem, x, y, 1);
-
 			}
 		});
 	}
@@ -294,7 +186,7 @@ public class TableHandler {
 			public void run() {
 				if ((table.getStyle() & SWT.MULTI) != 0) {
 					table.selectAll();
-					WidgetHandler.getInstance().notify(SWT.Selection, table);
+					notifyWidget(SWT.Selection, table);
 				} else {
 					throw new CoreLayerException(
 							"Table does not support multi selection - it does not have "
@@ -317,7 +209,7 @@ public class TableHandler {
 			public void run() {
 				if ((table.getStyle() & SWT.MULTI) != 0) {
 					table.select(indices);
-					WidgetHandler.getInstance().notify(SWT.Selection, table);
+					notifyWidget(SWT.Selection, table);
 				} else {
 					throw new CoreLayerException(
 							"Table does not support multi selection - it does not have "
@@ -344,7 +236,7 @@ public class TableHandler {
 									+ " because it does not exist");
 				}
 				table.select(index);
-				WidgetHandler.getInstance().notify(SWT.Selection, table);
+				notifyWidget(SWT.Selection, table);
 			}
 		});
 	}

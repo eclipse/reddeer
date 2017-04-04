@@ -22,21 +22,17 @@ import org.jboss.reddeer.core.exception.CoreLayerException;
  * @author Lucia Jelinkova
  *
  */
-public class ListHandler {
-
+public class ListHandler extends ControlHandler{
+	
 	private static ListHandler instance;
-
-	private ListHandler() {
-
-	}
-
+	
 	/**
 	 * Gets instance of ListHandler.
 	 * 
 	 * @return instance of ListHandler
 	 */
-	public static ListHandler getInstance() {
-		if (instance == null) {
+	public static ListHandler getInstance(){
+		if(instance == null){
 			instance = new ListHandler();
 		}
 		return instance;
@@ -85,7 +81,7 @@ public class ListHandler {
 			public void run() {
 				if ((list.getStyle() & SWT.MULTI) != 0) {
 					list.selectAll();
-					WidgetHandler.getInstance().notify(SWT.Selection, list);
+					notifyWidget(SWT.Selection, list);
 				} else {
 					throw new CoreLayerException(
 							"List does not support multi selection - it does not have SWT MULTI style");
@@ -113,7 +109,7 @@ public class ListHandler {
 							+ " because it does not exist");
 				}
 				list.select(list.indexOf(item));
-				WidgetHandler.getInstance().sendClickNotifications(list);
+				sendClickNotifications(list);
 			}
 		});
 	}
@@ -140,7 +136,7 @@ public class ListHandler {
 											+ " because it does not exist");
 						}
 						list.select(list.indexOf(item));
-						WidgetHandler.getInstance().notify(SWT.Selection, list);
+						notifyWidget(SWT.Selection, list);
 					}
 				} else {
 					throw new CoreLayerException(
@@ -166,7 +162,7 @@ public class ListHandler {
 				list.deselectAll();
 				if ((list.getStyle() & SWT.MULTI) != 0) {
 					list.select(indices);
-					WidgetHandler.getInstance().notify(SWT.Selection, list);
+					notifyWidget(SWT.Selection, list);
 				} else {
 					throw new CoreLayerException(
 							"List does not support multi selection - it does not have SWT MULTI style");
@@ -194,7 +190,7 @@ public class ListHandler {
 				}
 				list.deselectAll();
 				list.select(index);
-				WidgetHandler.getInstance().notify(SWT.Selection, list);
+				notifyWidget(SWT.Selection, list);
 			}
 		});
 	}

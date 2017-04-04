@@ -38,12 +38,4 @@ public abstract class AbstractFormText extends AbstractControl<org.eclipse.ui.fo
 	public String getText() {
 		return FormTextHandler.getInstance().getText(swtWidget);
 	}
-
-	public boolean hasFocus() {
-		return FormTextHandler.getInstance().hasFocus(swtWidget);
-	}
-
-	public String getTooltipText() {
-		return FormTextHandler.getInstance().getTooltipText(swtWidget);
-	}
 }

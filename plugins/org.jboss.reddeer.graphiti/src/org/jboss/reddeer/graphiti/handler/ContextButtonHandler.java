@@ -30,20 +30,15 @@ import org.jboss.reddeer.graphiti.impl.contextbutton.internal.BasicContextButton
 public class ContextButtonHandler {
 
 	protected final Logger log = Logger.getLogger(this.getClass());
-
 	private static ContextButtonHandler instance;
-
-	private ContextButtonHandler() {
-
-	}
-
+	
 	/**
-	 * Gets the single instance of ContextButtonHandler.
-	 *
-	 * @return single instance of ContextButtonHandler
+	 * Gets instance of ContextButtonHandler.
+	 * 
+	 * @return instance of ContextButtonHandler
 	 */
-	public static ContextButtonHandler getInstance() {
-		if (instance == null) {
+	public static ContextButtonHandler getInstance(){
+		if(instance == null){
 			instance = new ContextButtonHandler();
 		}
 		return instance;

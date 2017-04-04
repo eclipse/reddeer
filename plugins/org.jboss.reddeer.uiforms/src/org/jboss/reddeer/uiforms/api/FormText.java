@@ -10,7 +10,7 @@
  ******************************************************************************/ 
 package org.jboss.reddeer.uiforms.api;
 
-import org.jboss.reddeer.swt.api.Widget;
+import org.jboss.reddeer.swt.api.Control;
 
 /**
  * Represents FormText @see{
@@ -19,7 +19,7 @@ import org.jboss.reddeer.swt.api.Widget;
  *
  */
 
-public interface FormText extends Widget<org.eclipse.ui.forms.widgets.FormText> {
+public interface FormText extends Control<org.eclipse.ui.forms.widgets.FormText> {
 
 	/**
 	 * Returns whole text of this FormText.
@@ -40,23 +40,4 @@ public interface FormText extends Widget<org.eclipse.ui.forms.widgets.FormText> 
 	 * Clicks on this formText (invokes linkActivated HyperlinkEvent).
 	 */
 	public void click();
-
-	/**
-	 * Checks for focus.
-	 *
-	 * @return true if this FormText is focused
-	 */
-	public boolean hasFocus();
-
-	/**
-	 * Returns tooltip text of this FormText.
-	 *
-	 * @return the tooltip text
-	 */
-	public String getTooltipText();
-
-	/**
-	 * Sets focus to this widget.
-	 */
-	public void setFocus();
 }

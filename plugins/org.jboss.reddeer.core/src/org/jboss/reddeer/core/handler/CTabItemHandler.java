@@ -28,17 +28,21 @@ import org.jboss.reddeer.common.util.ResultRunnable;
  * @author Vlado Pakan
  *
  */
-public class CTabItemHandler {
-
-	private static final Logger logger = Logger
-			.getLogger(CTabItemHandler.class);
-
+public class CTabItemHandler extends ItemHandler{
+	private static final Logger logger = Logger.getLogger(CTabItemHandler.class);
 	private static CTabItemHandler instance;
-
-	private CTabItemHandler() {
-
+	
+	/**
+	 * Gets instance of CTabItemHandler.
+	 * 
+	 * @return instance of CTabItemHandler
+	 */
+	public static CTabItemHandler getInstance(){
+		if(instance == null){
+			instance = new CTabItemHandler();
+		}
+		return instance;
 	}
-
 	/**
 	 * Gets {@link CTabFolder} containing specified {@link CTabItem}.
 	 * 
@@ -53,18 +57,6 @@ public class CTabItemHandler {
 						return swtCTabItem.getParent();
 					}
 				});
-	}
-
-	/**
-	 * Gets instance of CTabItemHandler.
-	 * 
-	 * @return instance of CTabItemHandler
-	 */
-	public static CTabItemHandler getInstance() {
-		if (instance == null) {
-			instance = new CTabItemHandler();
-		}
-		return instance;
 	}
 	
 	/**
@@ -230,8 +222,8 @@ public class CTabItemHandler {
 	 * 
 	 * @param ctabItem CTab item to handle
 	 */
-	public void setFocus(final CTabItem ctabItem) {
-		ControlHandler.getInstance().setFocus(getParent(ctabItem));
+	public void setFocus(CTabItem ctabItem) {
+		ControlHandler.getInstance().setFocus((getParent(ctabItem)));
 	}
 	
 	/**

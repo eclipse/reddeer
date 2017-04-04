@@ -30,21 +30,17 @@ import org.jboss.reddeer.core.exception.CoreLayerException;
  * @author Lucia Jelinkova, rhopp
  *
  */
-public class LinkHandler {
-
+public class LinkHandler extends ControlHandler{
+	
 	private static LinkHandler instance;
-
-	private LinkHandler() {
-
-	}
-
+	
 	/**
 	 * Gets instance of LinkHandler.
 	 * 
 	 * @return instance of LinkHandler
 	 */
-	public static LinkHandler getInstance() {
-		if (instance == null) {
+	public static LinkHandler getInstance(){
+		if(instance == null){
 			instance = new LinkHandler();
 		}
 		return instance;
@@ -144,9 +140,9 @@ public class LinkHandler {
 			@Override
 			public void run() {
 				link.setFocus();
-				WidgetHandler.getInstance().notify(SWT.MouseDown, link);
+				notifyWidget(SWT.MouseDown, link);
 				notifySelection(link, text);
-				WidgetHandler.getInstance().notify(SWT.MouseUp, link);
+				notifyWidget(SWT.MouseUp, link);
 			}
 		});
 	}

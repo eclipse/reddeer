@@ -38,20 +38,15 @@ import org.jboss.reddeer.gef.impl.palette.internal.BasicPalette;
 public class ViewerHandler {
 
 	protected final Logger log = Logger.getLogger(this.getClass());
-
 	private static ViewerHandler instance;
-
-	private ViewerHandler() {
-
-	}
-
+	
 	/**
-	 * Gets the single instance of ViewerHandler.
-	 *
-	 * @return single instance of ViewerHandler
+	 * Gets instance of ViewerHandler.
+	 * 
+	 * @return instance of ViewerHandler
 	 */
-	public static ViewerHandler getInstance() {
-		if (instance == null) {
+	public static ViewerHandler getInstance(){
+		if(instance == null){
 			instance = new ViewerHandler();
 		}
 		return instance;
@@ -115,11 +110,10 @@ public class ViewerHandler {
 	 */
 	public void click(final EditPartViewer viewer, final int x, final int y) {
 		log.info("Click at [" + x + ", " + y + "]");
-		WidgetHandler handler = WidgetHandler.getInstance();
 		FigureCanvas figureCanvas = getFigureCanvas(viewer);
-		handler.notifyItemMouse(SWT.MouseMove, 0, figureCanvas, null, x, y, 0);
-		handler.notifyItemMouse(SWT.MouseDown, 0, figureCanvas, null, x, y, 1);
-		handler.notifyItemMouse(SWT.MouseUp, 0, figureCanvas, null, x, y, 1);
+		WidgetHandler.getInstance().notifyItemMouse(SWT.MouseMove, 0, figureCanvas, null, x, y, 0);
+		WidgetHandler.getInstance().notifyItemMouse(SWT.MouseDown, 0, figureCanvas, null, x, y, 1);
+		WidgetHandler.getInstance().notifyItemMouse(SWT.MouseUp, 0, figureCanvas, null, x, y, 1);
 	}
 
 	/**

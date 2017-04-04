@@ -16,7 +16,6 @@ import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.swt.api.Table;
 import org.jboss.reddeer.swt.api.TableItem;
 import org.jboss.reddeer.swt.api.TreeItem;
-import org.jboss.reddeer.core.handler.TableHandler;
 import org.jboss.reddeer.core.handler.TableItemHandler;
 import org.jboss.reddeer.core.reference.ReferencedComposite;
 import org.jboss.reddeer.swt.widgets.AbstractItem;
@@ -82,7 +81,7 @@ public abstract class AbstractTableItem extends AbstractItem<org.eclipse.swt.wid
 	 */
 	@Override
 	public boolean isGrayed() {
-		return TableHandler.getInstance().isGrayed(swtWidget);
+		return TableItemHandler.getInstance().isGrayed(swtWidget);
 	}
 	
 	/* (non-Javadoc)
@@ -90,7 +89,7 @@ public abstract class AbstractTableItem extends AbstractItem<org.eclipse.swt.wid
 	 */
 	@Override
 	public Image getImage(int imageIndex) {
-		return TableHandler.getInstance().getItemImage(swtWidget, imageIndex);
+		return TableItemHandler.getInstance().getImage(swtWidget, imageIndex);
 	}
 
 	/* (non-Javadoc)
@@ -107,7 +106,7 @@ public abstract class AbstractTableItem extends AbstractItem<org.eclipse.swt.wid
 	@Override
 	public void doubleClick(){
 		log.info("Double click table item " + getText());
-		TableHandler.getInstance().doubleClick(swtWidget, 0);
+		TableItemHandler.getInstance().doubleClick(swtWidget, 0);
 	}
 	
 	/* (non-Javadoc)
@@ -124,7 +123,7 @@ public abstract class AbstractTableItem extends AbstractItem<org.eclipse.swt.wid
 	@Override
 	public void click(int column){
 		log.info("Double click table item " + getText());
-		TableHandler.getInstance().click(swtWidget, column);
+		TableItemHandler.getInstance().click(swtWidget, column);
 	}
 	
 	/* (non-Javadoc)
@@ -133,6 +132,6 @@ public abstract class AbstractTableItem extends AbstractItem<org.eclipse.swt.wid
 	@Override
 	public void doubleClick(int column){
 		log.info("Double click column " + column + " of table item " + getText());
-		TableHandler.getInstance().doubleClick(swtWidget, column);
+		TableItemHandler.getInstance().doubleClick(swtWidget, column);
 	}
 }

@@ -24,20 +24,17 @@ import org.jboss.reddeer.core.exception.CoreLayerException;
  * @author Vlado Pakan
  * 
  */
-public class StyledTextHandler {
-
+public class StyledTextHandler extends ControlHandler{
+	
 	private static StyledTextHandler instance;
-
-	private StyledTextHandler() {
-	}
-
+	
 	/**
-	 * Gets instance of StyledText.
+	 * Gets instance of StyledTextHandler.
 	 * 
-	 * @return instance of StyledText
+	 * @return instance of StyledTextHandler
 	 */
-	public static StyledTextHandler getInstance() {
-		if (instance == null) {
+	public static StyledTextHandler getInstance(){
+		if(instance == null){
 			instance = new StyledTextHandler();
 		}
 		return instance;

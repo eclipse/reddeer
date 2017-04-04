@@ -18,7 +18,6 @@ import org.hamcrest.Matcher;
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.common.wait.WaitUntil;
 import org.jboss.reddeer.core.handler.ButtonHandler;
-import org.jboss.reddeer.core.handler.ControlHandler;
 import org.jboss.reddeer.core.matcher.WithStyleMatcher;
 import org.jboss.reddeer.core.reference.ReferencedComposite;
 import org.jboss.reddeer.swt.api.Button;
@@ -41,7 +40,6 @@ public abstract class AbstractButton extends AbstractControl<org.eclipse.swt.wid
 
 	protected AbstractButton (ReferencedComposite refComposite, int index, int style, Matcher<?>... matchers){
         super(org.eclipse.swt.widgets.Button.class, refComposite, index, createMatchers(style, matchers));
-        ControlHandler.getInstance().setFocus(swtWidget);
 	}
 	
 	public static Matcher<?>[] createMatchers(int style, Matcher<?>... matchers) {
@@ -75,5 +73,10 @@ public abstract class AbstractButton extends AbstractControl<org.eclipse.swt.wid
 		return getText() != null ? getText() : (
 				getToolTipText() != null ? getToolTipText()
 				: "with no text or tooltip");
+	}
+	
+	@Override
+	public void setFocus(){
+		ButtonHandler.getInstance().setFocus(swtWidget);
 	}
 }

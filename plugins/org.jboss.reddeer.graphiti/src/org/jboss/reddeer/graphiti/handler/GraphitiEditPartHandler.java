@@ -39,20 +39,15 @@ import org.jboss.reddeer.graphiti.lookup.DiagramEditorLookup;
 public class GraphitiEditPartHandler {
 
 	protected final Logger log = Logger.getLogger(this.getClass());
-
 	private static GraphitiEditPartHandler instance;
-
-	private GraphitiEditPartHandler() {
-
-	}
-
+	
 	/**
-	 * Gets the single instance of GraphitiEditPartHandler.
-	 *
-	 * @return single instance of GraphitiEditPartHandler
+	 * Gets instance of GraphitiEditPartHandler.
+	 * 
+	 * @return instance of GraphitiEditPartHandler
 	 */
-	public static GraphitiEditPartHandler getInstance() {
-		if (instance == null) {
+	public static GraphitiEditPartHandler getInstance(){
+		if(instance == null){
 			instance = new GraphitiEditPartHandler();
 		}
 		return instance;

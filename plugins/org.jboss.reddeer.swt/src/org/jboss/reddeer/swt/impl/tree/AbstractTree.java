@@ -27,8 +27,6 @@ public abstract class AbstractTree extends AbstractControl<org.eclipse.swt.widge
 
 	private static final Logger logger = Logger.getLogger(AbstractTree.class);
 
-	private TreeHandler treeHandler = TreeHandler.getInstance();
-	private TreeItemHandler treeItemHandler = TreeItemHandler.getInstance();
 
 	protected AbstractTree(ReferencedComposite refComposite, int index, Matcher<?>... matchers){
 		super(org.eclipse.swt.widgets.Tree.class, refComposite, index, matchers);
@@ -52,7 +50,7 @@ public abstract class AbstractTree extends AbstractControl<org.eclipse.swt.widge
 	 */
 	public List<TreeItem> getItems() {
 		LinkedList<TreeItem> items = new LinkedList<TreeItem>();
-		List<org.eclipse.swt.widgets.TreeItem> eclipseItems = treeHandler.getSWTItems(swtWidget);
+		List<org.eclipse.swt.widgets.TreeItem> eclipseItems = TreeHandler.getInstance().getSWTItems(swtWidget);
 		for (org.eclipse.swt.widgets.TreeItem swtTreeItem : eclipseItems) {
 			items.addLast(new DefaultTreeItem(swtTreeItem));
 		}
@@ -67,13 +65,13 @@ public abstract class AbstractTree extends AbstractControl<org.eclipse.swt.widge
 		for (int i=0; i < treeItems.length; i++) {
 			items[i] = treeItems[i].getSWTWidget();
 		}
-		treeItemHandler.selectItems(items);
+		TreeItemHandler.getInstance().selectItems(items);
 	}
 
 	@Override
 	public List<TreeItem> getSelectedItems() {
 		List<TreeItem> selectedItems = new ArrayList<TreeItem>();
-		for (org.eclipse.swt.widgets.TreeItem swtItem : treeHandler.getSelection(swtWidget)) {
+		for (org.eclipse.swt.widgets.TreeItem swtItem : TreeHandler.getInstance().getSelection(swtWidget)) {
 			selectedItems.add(new DefaultTreeItem(swtItem));
 		}
 		return selectedItems;
@@ -83,7 +81,7 @@ public abstract class AbstractTree extends AbstractControl<org.eclipse.swt.widge
 	 * @see org.jboss.reddeer.swt.api.Tree#setFocus()
 	 */
 	public void setFocus() {
-		treeHandler.setFocus(swtWidget);
+		TreeHandler.getInstance().setFocus(swtWidget);
 	}
 
 	/**
@@ -93,14 +91,14 @@ public abstract class AbstractTree extends AbstractControl<org.eclipse.swt.widge
 	 * @see Tree#getColumnCount()
 	 */
 	public int getColumnCount() {
-		return treeHandler.getColumnCount(swtWidget);
+		return TreeHandler.getInstance().getColumnCount(swtWidget);
 	}
 	
 	/* (non-Javadoc)
 	 * @see org.jboss.reddeer.swt.api.Tree#getHeaderColumns()
 	 */
 	public List<String> getHeaderColumns() {
-		return treeHandler.getHeaderColumns(swtWidget);
+		return TreeHandler.getInstance().getHeaderColumns(swtWidget);
 	}
 
 	/* (non-Javadoc)
@@ -108,7 +106,7 @@ public abstract class AbstractTree extends AbstractControl<org.eclipse.swt.widge
 	 */
 	public void unselectAllItems() {
 		logger.info("Unselect all tree items");
-		treeHandler.unselectAllItems(swtWidget);
+		TreeHandler.getInstance().unselectAllItems(swtWidget);
 	}
 	
 	private List<TreeItem> getAllItemsRecursive(List<TreeItem> parentItems) {

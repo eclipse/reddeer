@@ -24,23 +24,18 @@ import org.jboss.reddeer.core.handler.ShellHandler;
  * @author Jiri Peterka
  *
  */
-public class ShellHandler {
-
-	private static ShellHandler instance;
+public class ShellHandler extends ControlHandler{
 	
 	private static final Logger log = Logger.getLogger(ShellHandler.class);
-
-	private ShellHandler() {
-
-	}
-
+	private static ShellHandler instance;
+	
 	/**
 	 * Gets instance of ShellHandler.
 	 * 
 	 * @return instance of ShellHandler
 	 */
-	public static ShellHandler getInstance() {
-		if (instance == null) {
+	public static ShellHandler getInstance(){
+		if(instance == null){
 			instance = new ShellHandler();
 		}
 		return instance;
@@ -54,7 +49,7 @@ public class ShellHandler {
 	 */
 	public void closeShell(final Shell swtShell) {
 		
-		if(!WidgetHandler.getInstance().isDisposed(swtShell)){
+		if(!isDisposed(swtShell)){
 			log.info("Closing shell '" +getText(swtShell)+ "'");
 		}
 		Display.syncExec(new Runnable() {

@@ -23,43 +23,61 @@ import org.jboss.reddeer.swt.api.Control;
  */
 public abstract class AbstractControl<T extends org.eclipse.swt.widgets.Control> extends AbstractWidget<T> implements Control<T>{
 	
-	protected ControlHandler controlHandler = ControlHandler.getInstance();
-	
-	protected AbstractControl(Class<T> widgetClass, ReferencedComposite refComposite, int index, Matcher<?>... matchers) {
-		super(widgetClass,refComposite,index,matchers);
+	/**
+	 * Finds control of specified class, within referenced composite with defined index and matching all matchers
+	 * @param controlClass class of control
+	 * @param refComposite composite where control should be found
+	 * @param index of control
+	 * @param matchers matchers matching control
+	 */
+	protected AbstractControl(Class<T> controlClass, ReferencedComposite refComposite, int index, Matcher<?>... matchers) {
+		super(controlClass,refComposite,index,matchers);
+		setFocus();
 	}
 
-	protected AbstractControl(T swtWidget) {
-		super(swtWidget);
-	}
-	
-	protected AbstractControl(T swtWidget, Runnable diagnostics) {
-		super(swtWidget, diagnostics);
+	/**
+	 * Constructs reddeer control with specified swt control
+	 * @param swtControl instance of swt control
+	 */
+	protected AbstractControl(T swtControl) {
+		super(swtControl);
+		setFocus();
 	}
 	
 	/**
-	 * Finds out whether a widget is enabled.
-	 * 
-	 * @return true if widget is enabled, false otherwise
+	 * Constructs reddeer control with specified swt control, if control is null diagnostics runnable is run 
+	 * (to provide additional debug output etc)
+	 * @param swtControl instance of swt control
+	 * @param diagnostics diagnostics runnable to run if control is null
 	 */
+	protected AbstractControl(T swtControl, Runnable diagnostics) {
+		super(swtControl, diagnostics);
+		setFocus();
+	}
+	
+	@Override
 	public boolean isEnabled(){
-		return controlHandler.isEnabled(swtWidget);
+		return ControlHandler.getInstance().isEnabled(swtWidget);
 	}
 	
+	@Override
 	public boolean isVisible(){
-		return controlHandler.isVisible(swtWidget);
+		return ControlHandler.getInstance().isVisible(swtWidget);
 	}
 	
+	@Override
 	public void setFocus(){
-		controlHandler.setFocus(swtWidget);
+		ControlHandler.getInstance().setFocus(swtWidget);
 	}
 	
+	@Override
 	public boolean isFocusControl(){
-		return controlHandler.isFocusControl(swtWidget);
+		return ControlHandler.getInstance().isFocusControl(swtWidget);
 	}
 	
+	@Override
 	public String getToolTipText(){
-		return controlHandler.getToolTipText(swtWidget);
+		return ControlHandler.getInstance().getToolTipText(swtWidget);
 	}
 
 }

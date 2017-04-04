@@ -29,11 +29,8 @@ public abstract class AbstractExpandItem extends AbstractItem<org.eclipse.swt.wi
 
 	private static final Logger logger = Logger.getLogger(AbstractExpandItem.class);
 
-	protected org.eclipse.swt.widgets.ExpandBar swtParent;
-
 	protected AbstractExpandItem(final org.eclipse.swt.widgets.ExpandItem swtExpandItem) {
 		super(swtExpandItem);
-		this.swtParent = ExpandItemHandler.getInstance().getParent(swtExpandItem);
 	}
 
 	/**
@@ -62,7 +59,7 @@ public abstract class AbstractExpandItem extends AbstractItem<org.eclipse.swt.wi
 	public void expand(TimePeriod timePeriod) {
 		logger.debug("Expand Expand Bar Item " + getText());
 		if (!isExpanded()) {
-			ExpandItemHandler.getInstance().expand(getSWTWidget(), getSWTParent());
+			ExpandItemHandler.getInstance().expand(getSWTWidget(), getParent().getSWTWidget());
 			AbstractWait.sleep(timePeriod);
 			logger.info("Expand Bar Item " + getText()
 					+ " has been expanded");
@@ -79,7 +76,7 @@ public abstract class AbstractExpandItem extends AbstractItem<org.eclipse.swt.wi
 	public void collapse() {
 		logger.debug("Collapse Expand Bar Item " + getText());
 		if (isExpanded()) {
-			ExpandItemHandler.getInstance().collapse(getSWTWidget(), getSWTParent());
+			ExpandItemHandler.getInstance().collapse(getSWTWidget(), getParent().getSWTWidget());
 			logger.info("Expand Bar Item " + getText()
 					+ " has been collapsed");
 		} else {
@@ -97,13 +94,6 @@ public abstract class AbstractExpandItem extends AbstractItem<org.eclipse.swt.wi
 	public Control getControl() {
 		return swtWidget.getControl();
 	}
-
-	/* (non-Javadoc)
-	 * @see org.jboss.reddeer.swt.api.ExpandBarItem#getSWTParent()
-	 */
-	public org.eclipse.swt.widgets.ExpandBar getSWTParent() {
-		return swtParent;
-	}
 	
 	/**
 	 * See {@link ExpandItem}.
@@ -112,7 +102,7 @@ public abstract class AbstractExpandItem extends AbstractItem<org.eclipse.swt.wi
 	 */
 	@Override
 	public ExpandBar getParent() {
-		return new DefaultExpandBar(swtParent);
+		return new DefaultExpandBar(ExpandItemHandler.getInstance().getParent(swtWidget));
 	}
 	
 	/**

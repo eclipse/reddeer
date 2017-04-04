@@ -35,12 +35,7 @@ import org.jboss.reddeer.workbench.core.lookup.WorkbenchPartLookup;
 public class ViewHandler {
 	
 	protected final Logger log = Logger.getLogger(this.getClass());
-	
 	private static ViewHandler instance;
-	
-	private ViewHandler(){
-		
-	}
 	
 	/**
 	 * Gets instance of ViewHandler.

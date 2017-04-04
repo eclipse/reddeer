@@ -23,21 +23,17 @@ import org.jboss.reddeer.common.util.ResultRunnable;
  * @author Vlado Pakan
  *
  */
-public class BrowserHandler {
-
+public class BrowserHandler extends ControlHandler{
+	
 	private static BrowserHandler instance;
-
-	private BrowserHandler() {
-
-	}
-
+	
 	/**
 	 * Gets instance of BrowserHandler.
 	 * 
 	 * @return instance of BrowserHandler
 	 */
-	public static BrowserHandler getInstance() {
-		if (instance == null) {
+	public static BrowserHandler getInstance(){
+		if(instance == null){
 			instance = new BrowserHandler();
 		}
 		return instance;

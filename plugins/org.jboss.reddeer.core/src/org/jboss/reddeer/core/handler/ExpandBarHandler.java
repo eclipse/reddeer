@@ -24,26 +24,22 @@ import org.jboss.reddeer.common.util.ResultRunnable;
  * @author Vlado Pakan
  *
  */
-public class ExpandBarHandler {
+public class ExpandBarHandler extends ControlHandler{
 
 	private static ExpandBarHandler instance;
-
-	private ExpandBarHandler() {
-
-	}
-
+	
 	/**
 	 * Gets instance of ExpandBarHandler.
 	 * 
 	 * @return instance of ExpandBarHandler
 	 */
-	public static ExpandBarHandler getInstance() {
-		if (instance == null) {
+	public static ExpandBarHandler getInstance(){
+		if(instance == null){
 			instance = new ExpandBarHandler();
 		}
 		return instance;
 	}
-
+	
 	/**
 	 * Gets SWT items nested in specified {@link org.eclipse.swt.widgets.ExpandBar}.
 	 * 

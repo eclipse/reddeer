@@ -20,24 +20,21 @@ import org.jboss.reddeer.common.util.ResultRunnable;
  * @author rhopp
  *
  */
-public class ProgressBarHandler {
+public class ProgressBarHandler extends ControlHandler{
 	
 	private static ProgressBarHandler instance;
 	
-	private ProgressBarHandler() { }
-	
 	/**
-	 * Creates and returns instance of ProgressBarHandler class.
-	 *
-	 * @return single instance of ProgressBarHandler
+	 * Gets instance of ProgressBarHandler.
+	 * 
+	 * @return instance of ProgressBarHandler
 	 */
 	public static ProgressBarHandler getInstance(){
-		if (instance == null){
+		if(instance == null){
 			instance = new ProgressBarHandler();
 		}
 		return instance;
 	}
-	
 	
 	/**
 	 * Returns state of {@link ProgressBar}.

@@ -97,7 +97,7 @@ public class DefaultFormTextTest {
 	public void hasFocusTrueTest() {
 		FormText formText = new DefaultFormText();
 		formText.setFocus();
-		assertTrue(formText.hasFocus());
+		assertTrue(formText.isFocusControl());
 	}
 
 	@Test
@@ -105,13 +105,13 @@ public class DefaultFormTextTest {
 		FormText formText0 = new DefaultFormText(0);
 		FormText formText1 = new DefaultFormText(1);
 		formText1.setFocus();
-		assertFalse(formText0.hasFocus());
+		assertFalse(formText0.isFocusControl());
 	}
 
 	@Test
 	public void getTooltipTest() {
 		FormText formText = new DefaultFormText();
-		assertThat(formText.getTooltipText(), is(FormView.FORMTEXT_PREFIX
+		assertThat(formText.getToolTipText(), is(FormView.FORMTEXT_PREFIX
 				+ FormView.SECTION_A + "tooltip"));
 	}
 

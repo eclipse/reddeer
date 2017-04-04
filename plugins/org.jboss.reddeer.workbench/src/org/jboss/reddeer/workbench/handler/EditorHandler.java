@@ -45,22 +45,19 @@ public class EditorHandler {
 
     protected final Logger log = Logger.getLogger(this.getClass());
 
-    private static EditorHandler instance;
-
-    private EditorHandler() {
-
-    }
-
-    /**
-     * Creates or returns already existing instance.
-     * @return EditorHandler instance
-     */
-    public static EditorHandler getInstance() {
-        if (instance == null) {
-            instance = new EditorHandler();
-        }
-        return instance;
-    }
+	private static EditorHandler instance;
+	
+	/**
+	 * Gets instance of EditorHandler.
+	 * 
+	 * @return instance of EditorHandler
+	 */
+	public static EditorHandler getInstance(){
+		if(instance == null){
+			instance = new EditorHandler();
+		}
+		return instance;
+	}
 
     /**
      * Save editor.
@@ -100,8 +97,7 @@ public class EditorHandler {
      */
     public void activate(final IEditorPart editor) {
         if (!isActive(editor)) {
-            log.debug("Activating editor "
-                    + WorkbenchPartHandler.getInstance().getTitle(editor));
+            log.debug("Activating editor " + WorkbenchPartHandler.getInstance().getTitle(editor));
             Display.syncExec(new Runnable() {
 
                 @Override
@@ -136,8 +132,7 @@ public class EditorHandler {
      */
     public void close(final boolean save, final IEditorPart editor) {
 
-        log.debug("Closing editor "
-                + WorkbenchPartHandler.getInstance().getTitle(editor));
+        log.debug("Closing editor "+WorkbenchPartHandler.getInstance().getTitle(editor));
         if (isDirty(editor) && save) {
             Display.asyncExec(new Runnable() {
 
@@ -164,9 +159,7 @@ public class EditorHandler {
                 }
             });
         }
-        log.debug("Editor "
-                + WorkbenchPartHandler.getInstance().getTitle(editor)
-                + " is closed");
+        log.debug("Editor " + WorkbenchPartHandler.getInstance().getTitle(editor) + " is closed");
 
     }
 
