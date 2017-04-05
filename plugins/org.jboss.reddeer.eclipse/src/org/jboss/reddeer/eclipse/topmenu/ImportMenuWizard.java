@@ -10,33 +10,34 @@
  ******************************************************************************/ 
 package org.jboss.reddeer.eclipse.topmenu;
 
-import org.hamcrest.Matcher;
-import org.jboss.reddeer.core.matcher.WithTextMatcher;
 import org.jboss.reddeer.eclipse.ui.dialogs.ImportExportWizard;
+import org.jboss.reddeer.eclipse.ui.dialogs.ImportPage;
 import org.jboss.reddeer.jface.wizard.WizardDialog;
-import org.jboss.reddeer.swt.api.Shell;
-import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
-import org.jboss.reddeer.workbench.api.TopMenuOpenable;
 
 /**
- * Represents wizard which can be found in import wizard dialog
+ * Represents wizard which can be found in import wizard dialog (menu 'File -&gt; Import...').
  * @author rawagner
  *
  */
-public abstract class ImportMenuWizard extends WizardDialog implements TopMenuOpenable{
-	
-	protected Matcher<String> matcher;
-	private String[] path;
+public abstract class ImportMenuWizard extends AbstractSelectionWizardDialog{
 	
 	/**
-	 * Constructor set path to the specific item in new wizard dialog.
-	 * @param text dialog text
-	 * @param path to the specific item in new wizard dialog
+	 * Constructs new import Wizard that can be found in ImportExportWizard.
+	 * @param shellText import wizard text when next is clicked (ie 'Import Maven Projects')
+	 * @param wizardCategory import wizard category (ie 'Maven')
+	 * @param wizardName import wizard name (ie 'Existing Maven Projects')
 	 */
-	public ImportMenuWizard(String text, String... path) {
-		super((Shell)null);
-		this.matcher = new WithTextMatcher(text);
-		this.path = path;
+	public ImportMenuWizard(String shellText, String wizardCategory, String wizardName) {
+		super(shellText, wizardCategory, wizardName);
+	}
+	
+	/**
+	 * Constructs new import Wizard that can be found in ImportExportWizard.
+	 * @param shellText import wizard text when next is clicked (ie 'Import Maven Projects')
+	 * @param wizardPath wizard path in import wizard (ie 'Maven, Existing Maven Projects')
+	 */
+	public ImportMenuWizard(String shellText, String[] wizardPath) {
+		super(shellText, wizardPath);
 	}
 	
 	@Override
@@ -44,20 +45,11 @@ public abstract class ImportMenuWizard extends WizardDialog implements TopMenuOp
 		if(!isOpen()){
 			ImportExportWizard ieWizard = new ImportExportWizard(true);
 			ieWizard.open();
-			new DefaultTreeItem(path).select();
+			ImportPage importPage = new ImportPage();
+			importPage.selectProject(wizardPath);
 			ieWizard.next();
 			setShell(new WizardDialog(matcher).getShell());
 		}
-	}
-	
-	@Override
-	public Matcher<String> getShellMatcher() {
-		return matcher;
-	}
-	
-	@Override
-	public String[] getMenuPath(){
-		return path;
 	}
 
 }

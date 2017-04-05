@@ -10,34 +10,34 @@
  ******************************************************************************/ 
 package org.jboss.reddeer.eclipse.topmenu;
 
-import org.hamcrest.Matcher;
-import org.jboss.reddeer.core.matcher.WithTextMatcher;
 import org.jboss.reddeer.eclipse.ui.dialogs.NewWizard;
+import org.jboss.reddeer.eclipse.ui.dialogs.NewWizardSelectionPage;
 import org.jboss.reddeer.jface.wizard.WizardDialog;
-import org.jboss.reddeer.swt.api.Shell;
-import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
-import org.jboss.reddeer.workbench.api.TopMenuOpenable;
 
 /**
- * Represents wizard which can be found in new wizard dialog
+ * Represents wizard which can be found in new wizard dialog (menu 'File -&gt; New -&gt; Other...').
  * @author rawagner
  *
  */
-public abstract class NewMenuWizard extends WizardDialog implements TopMenuOpenable{
-	
-	protected Matcher<String> matcher;
-	protected String[] path;
+public abstract class NewMenuWizard extends AbstractSelectionWizardDialog{
 	
 	/**
-	 * Constructor set path to the specific item in new wizard dialog.
-	 * @param text dialog text
-	 * @param path to the specific item in new wizard dialog
+	 * Constructs new Wizard that can be found in NewWizard.
+	 * @param shellText new wizard text when next is clicked (ie 'New File')
+	 * @param wizardCategory new wizard category (ie 'General')
+	 * @param wizardName new wizard name (ie 'File')
 	 */
-	public NewMenuWizard(String text, String... path) {
-		super((Shell)null);
-		this.matcher = new WithTextMatcher(text);
-		this.path = path;
-		isOpen();
+	public NewMenuWizard(String shellText, String wizardCategory, String wizardName) {
+		super(shellText, wizardCategory, wizardName);
+	}
+	
+	/**
+	 * Constructs new Wizard that can be found in NewWizard.
+	 * @param shellText new wizard text when next is clicked (ie 'New File')
+	 * @param wizardPath wizard path in new wizard (ie 'General, File')
+	 */
+	public NewMenuWizard(String shellText, String[] wizardPath) {
+		super(shellText,wizardPath);
 	}
 	
 	@Override
@@ -45,19 +45,10 @@ public abstract class NewMenuWizard extends WizardDialog implements TopMenuOpena
 		if(!isOpen()){
 			NewWizard nw = new NewWizard();
 			nw.open();
-			new DefaultTreeItem(path).select();
+			NewWizardSelectionPage selectionPage = new NewWizardSelectionPage();
+			selectionPage.selectProject(wizardPath);
 			nw.next();
 			setShell(new WizardDialog(matcher).getShell());
 		}
-	}
-	
-	@Override
-	public Matcher<String> getShellMatcher() {
-		return matcher;
-	}
-	
-	@Override
-	public String[] getMenuPath(){
-		return path;
 	}
 }
