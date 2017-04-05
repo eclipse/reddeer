@@ -21,7 +21,6 @@ import org.jboss.reddeer.eclipse.wst.server.ui.wizard.NewServerWizard;
 import org.jboss.reddeer.swt.api.Tree;
 import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.swt.impl.menu.ContextMenu;
-import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.jboss.reddeer.swt.impl.tree.DefaultTree;
 import org.jboss.reddeer.workbench.impl.view.WorkbenchView;
 
@@ -98,7 +97,7 @@ public class ServersView2 extends WorkbenchView {
 	 * @param name Server name
 	 * @return Server of specified type with a given name
 	 */
-	public <T extends Server> Server getServer(Class<T> clazz, String name) {
+	public <T extends Server> T getServer(Class<T> clazz, String name) {
 		for (Server server : getServers()){
 			if (server.isValid() && server.getLabel().getName().equals(name)){
 				return server.getAdapter(clazz);
