@@ -16,9 +16,9 @@ import org.jboss.reddeer.common.wait.AbstractWait;
 import org.jboss.reddeer.common.wait.TimePeriod;
 import org.jboss.reddeer.common.wait.WaitUntil;
 import org.jboss.reddeer.common.wait.WaitWhile;
-import org.jboss.reddeer.core.condition.ShellWithTextIsAvailable;
 import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.swt.condition.ControlIsEnabled;
+import org.jboss.reddeer.swt.condition.ShellIsAvailable;
 import org.jboss.reddeer.swt.impl.button.OkButton;
 import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.menu.ContextMenu;
@@ -58,7 +58,7 @@ public class BreakpointsView extends WorkbenchView {
 		new DefaultText().setText(exception);
 		new WaitUntil(new ControlIsEnabled(new OkButton()), TimePeriod.LONG);
 		new OkButton().click();
-		new WaitWhile(new ShellWithTextIsAvailable("Add Java Exception Breakpoint"));
+		new WaitWhile(new ShellIsAvailable("Add Java Exception Breakpoint"));
 	};
 	
 	/**
@@ -119,6 +119,6 @@ public class BreakpointsView extends WorkbenchView {
 		new DefaultShell("Import Breakpoints");
 		new LabeledText("From file:").setText(path);
 		new PushButton("Finish").click();
-		new WaitWhile(new ShellWithTextIsAvailable("Import Breakpoints"));
+		new WaitWhile(new ShellIsAvailable("Import Breakpoints"));
 	}
 }

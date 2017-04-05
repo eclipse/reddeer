@@ -11,29 +11,30 @@
 package org.jboss.reddeer.core.condition;
 
 import org.eclipse.swt.widgets.Shell;
-import org.hamcrest.Matcher;
 import org.jboss.reddeer.common.condition.AbstractWaitCondition;
 import org.jboss.reddeer.common.matcher.AndMatcher;
 import org.jboss.reddeer.core.util.InstanceValidator;
 import org.jboss.reddeer.core.lookup.ShellLookup;
 
 /**
- * Condition is met when a shell matching title with the specified matcher is available.  
+ * Condition is met when a shell with specified text (title) is active.
  * 
- * @author mlabuda@redhat.com
- *
+ * @author Vlado Pakan
+ * @author jniederm
  */
-public class ShellMatchingMatcherIsAvailable extends AbstractWaitCondition {
 
-	private AndMatcher matcher;
-	private Shell foundShell;
+public class ShellMatchingMatcherIsActive extends AbstractWaitCondition {
 	
+	private AndMatcher matcher;
+
 	/**
-	 * Creates new ShellMatchingMatcherIsAvailable wait condition with specified matcher.
-	 * @param matchers matchers to match shell
+	 * Constructs ShellWithTextIsActive wait condition. Condition is met when
+	 * a shell matching matcher is active.
+	 * 
+	 * @param matchers matchers matching shell
 	 */
-	public ShellMatchingMatcherIsAvailable(Matcher<?>... matchers) {
-		InstanceValidator.checkNotNull(matchers, "matcher");
+	public ShellMatchingMatcherIsActive(org.hamcrest.Matcher<?>... matchers) {
+		InstanceValidator.checkNotNull(matchers, "matchers");
 		AndMatcher am  = new AndMatcher(matchers);
 		this.matcher = am;
 	}
@@ -43,22 +44,13 @@ public class ShellMatchingMatcherIsAvailable extends AbstractWaitCondition {
 	 */
 	@Override
 	public boolean test() {
-		Shell[] availableShells = ShellLookup.getInstance().getShells();
-		for (Shell shell: availableShells) { 
-			if (matcher.matches(shell)) {
-				foundShell = shell;
+		Shell currentActiveShell = ShellLookup.getInstance().getCurrentActiveShell();
+		if(currentActiveShell != null){
+			if(matcher.matches(currentActiveShell)){
 				return true;
 			}
 		}
 		return false;
-	}
-	
-	/**
-	 * Returns found shell or null if no shell was found
-	 * @return found shell
-	 */
-	public Shell getResult(){
-		return foundShell;
 	}
 
 	/* (non-Javadoc)
@@ -66,16 +58,7 @@ public class ShellMatchingMatcherIsAvailable extends AbstractWaitCondition {
 	 */
 	@Override
 	public String description() {
-		return "shell matching "+matcher+" is available.";
+		return "shell matching " + matcher.toString() + " is active";
 	}
-	
-	@Override
-	public String errorMessageWhile() {
-		return "shell matching "+matcher+" is still available.";
-	}
-	
-	@Override
-	public String errorMessageUntil() {
-		return "shell matching "+matcher+" not found.";
-	}
+
 }

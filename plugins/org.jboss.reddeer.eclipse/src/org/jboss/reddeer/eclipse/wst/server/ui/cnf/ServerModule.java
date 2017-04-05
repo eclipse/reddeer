@@ -19,7 +19,6 @@ import org.jboss.reddeer.common.matcher.RegexMatcher;
 import org.jboss.reddeer.common.wait.TimePeriod;
 import org.jboss.reddeer.common.wait.WaitUntil;
 import org.jboss.reddeer.common.wait.WaitWhile;
-import org.jboss.reddeer.core.condition.ShellWithTextIsAvailable;
 import org.jboss.reddeer.core.condition.WidgetIsDisposed;
 import org.jboss.reddeer.core.matcher.WithTextMatcher;
 import org.jboss.reddeer.eclipse.condition.ServerModuleHasState;
@@ -88,8 +87,8 @@ public class ServerModule {
 				waitWhile(new JobIsRunning()), waitUntil(new WidgetIsDisposed(treeItem.getSWTWidget())));
 		treeItem = null;
 		WithTextMatcher shellMatcher = new WithTextMatcher(new RegexMatcher("Publishing to .*"));
-		new WaitUntil(new ShellWithTextIsAvailable(shellMatcher), TimePeriod.NORMAL,false);
-		new WaitWhile(new ShellWithTextIsAvailable(shellMatcher), TimePeriod.LONG);
+		new WaitUntil(new ShellIsAvailable(shellMatcher), TimePeriod.NORMAL,false);
+		new WaitWhile(new ShellIsAvailable(shellMatcher), TimePeriod.LONG);
 	}
 	
 	/**

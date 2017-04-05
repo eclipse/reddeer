@@ -33,7 +33,6 @@ import org.jboss.reddeer.common.util.Display;
 import org.jboss.reddeer.common.wait.AbstractWait;
 import org.jboss.reddeer.common.wait.TimePeriod;
 import org.jboss.reddeer.common.wait.WaitUntil;
-import org.jboss.reddeer.core.condition.ShellWithTextIsAvailable;
 import org.jboss.reddeer.eclipse.core.resources.ProjectItem;
 import org.jboss.reddeer.eclipse.ui.dialogs.WizardNewFileCreationPage;
 import org.jboss.reddeer.eclipse.ui.navigator.resources.ProjectExplorer;
@@ -46,6 +45,7 @@ import org.jboss.reddeer.jface.text.contentassist.ContentAssistant;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.requirements.cleanworkspace.CleanWorkspaceRequirement;
 import org.jboss.reddeer.requirements.cleanworkspace.CleanWorkspaceRequirement.CleanWorkspace;
+import org.jboss.reddeer.swt.condition.ShellIsAvailable;
 import org.jboss.reddeer.swt.keyboard.KeyboardFactory;
 import org.jboss.reddeer.workbench.exception.WorkbenchLayerException;
 import org.jboss.reddeer.workbench.handler.EditorHandler;
@@ -206,7 +206,7 @@ public class TextEditorTest {
 		ca.close();
 
 		try {
-			new WaitUntil(new ShellWithTextIsAvailable(""), TimePeriod.NONE);
+			new WaitUntil(new ShellIsAvailable(""), TimePeriod.NONE);
 			fail("ContentAssistant wasn't close");
 		} catch (RedDeerException e) {
 			// ok, this is expected
@@ -220,7 +220,7 @@ public class TextEditorTest {
 		WorkbenchShellHandler.getInstance().closeAllNonWorbenchShells();
 
 		try {
-			new WaitUntil(new ShellWithTextIsAvailable(""), TimePeriod.NONE);
+			new WaitUntil(new ShellIsAvailable(""), TimePeriod.NONE);
 			// if content assistant is still available then close it
 			ca.close();
 			fail("ContentAssistant wasn't close");
@@ -247,7 +247,7 @@ public class TextEditorTest {
 		WorkbenchShellHandler.getInstance().closeAllNonWorbenchShells();
 
 		try {
-			new WaitUntil(new ShellWithTextIsAvailable(""), TimePeriod.NONE);
+			new WaitUntil(new ShellIsAvailable(""), TimePeriod.NONE);
 			// if content assistant is still available then close it
 			ca.close();
 			fail("OpenOn ContentAssistant wasn't close");

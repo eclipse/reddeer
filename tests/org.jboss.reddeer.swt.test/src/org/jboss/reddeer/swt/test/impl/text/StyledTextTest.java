@@ -18,11 +18,11 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Shell;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.swt.api.StyledText;
+import org.jboss.reddeer.swt.condition.ShellIsAvailable;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.jboss.reddeer.swt.impl.styledtext.DefaultStyledText;
 import org.jboss.reddeer.common.util.Display;
 import org.jboss.reddeer.common.wait.WaitWhile;
-import org.jboss.reddeer.core.condition.ShellWithTextIsAvailable;
 import org.jboss.reddeer.workbench.impl.view.WorkbenchView;
 import org.junit.After;
 import org.junit.BeforeClass;
@@ -105,7 +105,7 @@ public class StyledTextTest {
 				}
 			}
 		});
-		new WaitWhile(new ShellWithTextIsAvailable("Testing shell"));
+		new WaitWhile(new ShellIsAvailable("Testing shell"));
 	}
 
 }

@@ -13,7 +13,6 @@ package org.jboss.reddeer.eclipse.test.jdt.ui.junit;
 import static org.junit.Assert.assertEquals;
 
 import org.jboss.reddeer.common.wait.WaitWhile;
-import org.jboss.reddeer.core.condition.ShellWithTextIsAvailable;
 import org.jboss.reddeer.eclipse.jdt.junit.ui.TestRunnerViewPart;
 import org.jboss.reddeer.eclipse.jdt.ui.packageview.PackageExplorerPart;
 import org.jboss.reddeer.eclipse.jdt.ui.wizards.JavaProjectWizard;
@@ -22,6 +21,7 @@ import org.jboss.reddeer.eclipse.jdt.ui.wizards.NewClassWizardPage;
 import org.jboss.reddeer.eclipse.jdt.ui.wizards.NewJavaProjectWizardPageOne;
 import org.jboss.reddeer.eclipse.utils.DeleteUtils;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
+import org.jboss.reddeer.swt.condition.ShellIsAvailable;
 import org.jboss.reddeer.swt.impl.button.FinishButton;
 import org.jboss.reddeer.swt.impl.button.NextButton;
 import org.jboss.reddeer.swt.impl.list.DefaultList;
@@ -64,7 +64,7 @@ public class JUnitRunTest {
 		new DefaultList().select("JUnit");
 		new NextButton().click();
 		new FinishButton().click();
-		new WaitWhile(new ShellWithTextIsAvailable("Add Library"));
+		new WaitWhile(new ShellIsAvailable("Add Library"));
 
 		explorer.getProject("hellotest").getProjectItem("src", "hellotest", "HelloTest.java").open();
 		TextEditor editor = new TextEditor("HelloTest.java");

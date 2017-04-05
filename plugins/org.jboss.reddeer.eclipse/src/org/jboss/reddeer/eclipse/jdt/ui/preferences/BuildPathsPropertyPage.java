@@ -16,12 +16,12 @@ import java.util.List;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.common.wait.WaitWhile;
-import org.jboss.reddeer.core.condition.ShellWithTextIsAvailable;
 import org.jboss.reddeer.core.matcher.TreeItemTextMatcher;
 import org.jboss.reddeer.eclipse.ui.dialogs.PropertyPage;
 import org.jboss.reddeer.swt.api.Shell;
 import org.jboss.reddeer.swt.api.Tree;
 import org.jboss.reddeer.swt.api.TreeItem;
+import org.jboss.reddeer.swt.condition.ShellIsAvailable;
 import org.jboss.reddeer.swt.impl.button.CancelButton;
 import org.jboss.reddeer.swt.impl.button.OkButton;
 import org.jboss.reddeer.swt.impl.button.PushButton;
@@ -105,7 +105,7 @@ public class BuildPathsPropertyPage extends PropertyPage {
 		preferencesDialog.ok();
 		new DefaultShell("New Variable Classpath Entry");
 		new OkButton().click();
-		new WaitWhile(new ShellWithTextIsAvailable("New Variable Classpath Entry"));
+		new WaitWhile(new ShellIsAvailable("New Variable Classpath Entry"));
 		new WaitWhile(new JobIsRunning());
 		propertiesDialogShell.setFocus();
 		new PushButton("Apply").click();
@@ -134,10 +134,10 @@ public class BuildPathsPropertyPage extends PropertyPage {
 			new OkButton().click();
 			new DefaultShell("Classpath Variables Changed");
 			new YesButton().click();
-			new WaitWhile(new ShellWithTextIsAvailable("Classpath Variables Changed"));
+			new WaitWhile(new ShellIsAvailable("Classpath Variables Changed"));
 			new DefaultShell("New Variable Classpath Entry");
 			new CancelButton().click();
-			new WaitWhile(new ShellWithTextIsAvailable("New Variable Classpath Entry"));
+			new WaitWhile(new ShellIsAvailable("New Variable Classpath Entry"));
 			new WaitWhile(new JobIsRunning());
 		}
 		propertiesDialogShell.setFocus();

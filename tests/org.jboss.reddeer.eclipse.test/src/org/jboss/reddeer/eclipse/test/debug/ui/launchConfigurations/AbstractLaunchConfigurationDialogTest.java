@@ -16,12 +16,12 @@ import static org.junit.Assert.fail;
 import org.jboss.reddeer.common.exception.RedDeerException;
 import org.jboss.reddeer.common.wait.TimePeriod;
 import org.jboss.reddeer.common.wait.WaitUntil;
-import org.jboss.reddeer.core.condition.ShellWithTextIsAvailable;
 import org.jboss.reddeer.eclipse.debug.ui.launchConfigurations.LaunchConfiguration;
 import org.jboss.reddeer.eclipse.debug.ui.launchConfigurations.LaunchConfigurationsDialog;
 import org.jboss.reddeer.eclipse.ui.perspectives.JavaPerspective;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.requirements.openperspective.OpenPerspectiveRequirement.OpenPerspective;
+import org.jboss.reddeer.swt.condition.ShellIsAvailable;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
 import org.junit.After;
@@ -39,7 +39,7 @@ public abstract class AbstractLaunchConfigurationDialogTest {
 	@After
 	public void closeDialog(){
 		try {
-			new WaitUntil(new ShellWithTextIsAvailable(dialog.getTitle()), TimePeriod.NONE);
+			new WaitUntil(new ShellIsAvailable(dialog.getTitle()), TimePeriod.NONE);
 			new DefaultShell(dialog.getTitle()).close();
 		} catch (RedDeerException e){
 			// already closed

@@ -16,11 +16,11 @@ import java.util.List;
 
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.common.wait.WaitWhile;
-import org.jboss.reddeer.core.condition.ShellWithTextIsAvailable;
 import org.jboss.reddeer.core.matcher.WithTextMatcher;
 import org.jboss.reddeer.jface.preference.PreferencePage;
 import org.jboss.reddeer.swt.api.Table;
 import org.jboss.reddeer.swt.api.TableItem;
+import org.jboss.reddeer.swt.condition.ShellIsAvailable;
 import org.jboss.reddeer.swt.impl.button.OkButton;
 import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
@@ -103,7 +103,7 @@ public class ClasspathVariablesPreferencePage extends PreferencePage {
 			new LabeledText("Path:").setText(value);
 		}
 		new OkButton().click();
-		new WaitWhile(new ShellWithTextIsAvailable(variableSetShellTitle));
+		new WaitWhile(new ShellIsAvailable(variableSetShellTitle));
 		new DefaultShell(preferencesShellTitle);
 		return new DefaultTable().getSelectetItems().get(0).getText();
 	}

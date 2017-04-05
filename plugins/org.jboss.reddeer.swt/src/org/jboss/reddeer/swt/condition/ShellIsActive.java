@@ -10,9 +10,11 @@
  ******************************************************************************/ 
 package org.jboss.reddeer.swt.condition;
 
-import org.jboss.reddeer.common.condition.AbstractWaitCondition;
+import org.hamcrest.Matcher;
 import org.jboss.reddeer.common.logging.Logger;
+import org.jboss.reddeer.core.condition.ShellMatchingMatcherIsActive;
 import org.jboss.reddeer.core.lookup.ShellLookup;
+import org.jboss.reddeer.core.matcher.WithTextMatcher;
 import org.jboss.reddeer.core.util.InstanceValidator;
 import org.jboss.reddeer.swt.api.Shell;
 
@@ -22,7 +24,7 @@ import org.jboss.reddeer.swt.api.Shell;
  * 
  * @author rhopp, mlabuda@redhat.com
  */
-public class ShellIsActive extends AbstractWaitCondition {
+public class ShellIsActive extends ShellMatchingMatcherIsActive {
 	
 	private Shell shell;
 	private static final Logger log = Logger.getLogger(ShellIsActive.class);
@@ -37,11 +39,27 @@ public class ShellIsActive extends AbstractWaitCondition {
 		this.shell = shell;
 	}
 	
+	/**
+	 * Fulfilled, when active shell is matching given matchers.
+	 * 
+	 * @param matchers matchers to match active shell
+	 */
+	public ShellIsActive(Matcher<?>... matchers){
+		super(matchers);
+	}
+	
+	/**
+	 * Fulfilled, when active shell's text is matching given text.
+	 * 
+	 * @param shellText text of shell
+	 */
+	public ShellIsActive(String shellText){
+		super(new WithTextMatcher(shellText));
+	}
+	
 	@Override
 	public boolean test() {
-		if (shell == null){
-			return ShellLookup.getInstance().getCurrentActiveShell() != null;
-		}else{
+		if (shell != null){
 			org.eclipse.swt.widgets.Shell currentActiveShell = ShellLookup.getInstance()
 					.getCurrentActiveShell();
 			if (currentActiveShell == null) {
@@ -50,10 +68,14 @@ public class ShellIsActive extends AbstractWaitCondition {
 			}
 			return currentActiveShell.equals(shell.getSWTWidget());
 		}
+		return super.test();
 	}
 
 	@Override
 	public String description() {
-		return "shell is active";
+		if(shell != null){
+			return "shell is active";
+		}
+		return super.description();
 	}
 }

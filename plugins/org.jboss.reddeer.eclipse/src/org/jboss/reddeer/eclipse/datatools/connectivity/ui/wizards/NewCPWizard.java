@@ -15,7 +15,6 @@ import java.util.Map;
 
 import org.jboss.reddeer.common.wait.TimePeriod;
 import org.jboss.reddeer.common.wait.WaitUntil;
-import org.jboss.reddeer.core.condition.ShellWithTextIsAvailable;
 import org.jboss.reddeer.eclipse.datatools.connectivity.db.generic.ui.GenericJDBCDBProfileDetailsWizardPage;
 import org.jboss.reddeer.eclipse.datatools.connectivity.oda.flatfile.ui.wizards.FolderSelectionWizardPage;
 import org.jboss.reddeer.eclipse.datatools.enablement.msft.sqlserver.ui.connection.SQLServerDBProfileDetailsWizardPage;
@@ -25,6 +24,7 @@ import org.jboss.reddeer.eclipse.datatools.ui.DriverDefinition;
 import org.jboss.reddeer.eclipse.datatools.ui.FlatFileProfile;
 import org.jboss.reddeer.eclipse.exception.EclipseLayerException;
 import org.jboss.reddeer.eclipse.topmenu.NewMenuWizard;
+import org.jboss.reddeer.swt.condition.ShellIsAvailable;
 import org.jboss.reddeer.swt.impl.button.OkButton;
 import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
@@ -86,7 +86,7 @@ public class NewCPWizard extends NewMenuWizard {
 		if (test) {
 			String success = "Success";
 			new PushButton("Test Connection").click();
-			new WaitUntil(new ShellWithTextIsAvailable(success), TimePeriod.NORMAL, false);
+			new WaitUntil(new ShellIsAvailable(success), TimePeriod.NORMAL, false);
 			String text = new DefaultShell().getText();
 			new OkButton().click();
 			if (!text.equals(success)) {

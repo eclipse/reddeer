@@ -14,9 +14,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.jboss.reddeer.common.wait.WaitWhile;
-import org.jboss.reddeer.core.condition.ShellWithTextIsAvailable;
 import org.jboss.reddeer.eclipse.ui.dialogs.PropertyPage;
 import org.jboss.reddeer.swt.api.TreeItem;
+import org.jboss.reddeer.swt.condition.ShellIsAvailable;
 import org.jboss.reddeer.swt.impl.button.OkButton;
 import org.jboss.reddeer.swt.impl.combo.LabeledCombo;
 import org.jboss.reddeer.swt.impl.menu.ContextMenu;
@@ -93,7 +93,7 @@ public class FacetsPropertyPage extends PropertyPage {
 	 */
 	public void apply() {
 		super.apply();
-		new WaitWhile(new ShellWithTextIsAvailable("Progress Information"));
+		new WaitWhile(new ShellIsAvailable("Progress Information"));
 	}
 	
 	

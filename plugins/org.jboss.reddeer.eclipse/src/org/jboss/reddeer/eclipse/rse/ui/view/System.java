@@ -15,7 +15,6 @@ import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.common.wait.TimePeriod;
 import org.jboss.reddeer.common.wait.WaitUntil;
 import org.jboss.reddeer.common.wait.WaitWhile;
-import org.jboss.reddeer.core.condition.ShellWithTextIsAvailable;
 import org.jboss.reddeer.core.exception.CoreLayerException;
 import org.jboss.reddeer.eclipse.condition.RemoteSystemExists;
 import org.jboss.reddeer.eclipse.condition.RemoteSystemIsConnected;
@@ -99,7 +98,7 @@ public class System {
 		systemPassDialog.OK();
 		
 		//accept public key may be requested
-		new WaitUntil(new ShellWithTextIsAvailable("Warning"),timeout,false);
+		new WaitUntil(new ShellIsAvailable("Warning"),timeout,false);
 		try{
 			Shell authenticityShell = new DefaultShell("Warning");
 			//accept public key

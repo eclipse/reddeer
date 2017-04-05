@@ -16,7 +16,6 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import org.jboss.reddeer.common.exception.RedDeerException;
 import org.jboss.reddeer.common.wait.TimePeriod;
 import org.jboss.reddeer.common.wait.WaitUntil;
-import org.jboss.reddeer.core.condition.ShellWithTextIsAvailable;
 import org.jboss.reddeer.eclipse.debug.ui.launchConfigurations.JUnitLaunchConfiguration;
 import org.jboss.reddeer.eclipse.debug.ui.launchConfigurations.JUnitLaunchConfigurationTab;
 import org.jboss.reddeer.eclipse.debug.ui.launchConfigurations.LaunchConfigurationsDialog;
@@ -24,6 +23,7 @@ import org.jboss.reddeer.eclipse.debug.ui.launchConfigurations.RunConfigurations
 import org.jboss.reddeer.eclipse.ui.perspectives.JavaPerspective;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.requirements.openperspective.OpenPerspectiveRequirement.OpenPerspective;
+import org.jboss.reddeer.swt.condition.ShellIsAvailable;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.junit.After;
 import org.junit.Before;
@@ -47,7 +47,7 @@ public class JUnitLaunchConfigurationTabTest {
 	@After
 	public void closeDialog(){
 		try {
-			new WaitUntil(new ShellWithTextIsAvailable(dialog.getTitle()), TimePeriod.NONE);
+			new WaitUntil(new ShellIsAvailable(dialog.getTitle()), TimePeriod.NONE);
 			new DefaultShell(dialog.getTitle()).close();
 		} catch (RedDeerException e){
 			// already closed

@@ -19,7 +19,6 @@ import org.jboss.reddeer.common.wait.TimePeriod;
 import org.jboss.reddeer.common.wait.WaitUntil;
 import org.jboss.reddeer.common.wait.WaitWhile;
 import org.jboss.reddeer.workbench.core.condition.JobIsRunning;
-import org.jboss.reddeer.core.condition.ShellWithTextIsAvailable;
 import org.jboss.reddeer.core.matcher.TreeItemRegexMatcher;
 import org.jboss.reddeer.eclipse.datatools.connectivity.ui.dialogs.DriverDialog;
 import org.jboss.reddeer.eclipse.datatools.connectivity.ui.dse.views.DataSourceExplorerView;
@@ -129,8 +128,8 @@ public class ResultViewTest {
 		new WaitWhile(new JobIsRunning());
 		new ContextMenu("Execute All").select();
 		
-		new WaitUntil(new ShellWithTextIsAvailable("SQL Statement Execution"),TimePeriod.LONG, false);
-		new WaitWhile(new ShellWithTextIsAvailable("SQL Statement Execution"),TimePeriod.LONG, false);
+		new WaitUntil(new ShellIsAvailable("SQL Statement Execution"),TimePeriod.LONG, false);
+		new WaitWhile(new ShellIsAvailable("SQL Statement Execution"),TimePeriod.LONG, false);
 		
 		scrapbook.close(false);
 	}

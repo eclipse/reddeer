@@ -24,13 +24,13 @@ import org.jboss.reddeer.common.condition.AbstractWaitCondition;
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.common.matcher.RegexMatcher;
 import org.jboss.reddeer.common.wait.GroupWait;
-import org.jboss.reddeer.core.condition.ShellWithTextIsAvailable;
 import org.jboss.reddeer.core.handler.ItemHandler;
 import org.jboss.reddeer.core.lookup.WidgetLookup;
 import org.jboss.reddeer.core.matcher.WithTextMatcher;
 import org.jboss.reddeer.core.matcher.WithTextMatchers;
 import org.jboss.reddeer.swt.api.CTabItem;
 import org.jboss.reddeer.swt.api.Menu;
+import org.jboss.reddeer.swt.condition.ShellIsAvailable;
 import org.jboss.reddeer.swt.impl.button.OkButton;
 import org.jboss.reddeer.swt.impl.ctab.DefaultCTabItem;
 import org.jboss.reddeer.swt.impl.menu.ShellMenu;
@@ -207,7 +207,7 @@ public class AbstractView implements View {
 		new DefaultShell(SHOW_VIEW);
 		new DefaultTreeItem(path).select();
 		new OkButton().click();
-		new GroupWait(waitWhile(new ShellWithTextIsAvailable(SHOW_VIEW)),
+		new GroupWait(waitWhile(new ShellIsAvailable(SHOW_VIEW)),
 				waitUntil(new ViewCTabIsAvailable()));
 	}
 

@@ -14,7 +14,6 @@ import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.common.util.Display;
 import org.jboss.reddeer.common.wait.WaitUntil;
 import org.jboss.reddeer.common.wait.WaitWhile;
-import org.jboss.reddeer.core.condition.ShellWithTextIsAvailable;
 import org.jboss.reddeer.eclipse.datatools.ui.DriverDefinition;
 import org.jboss.reddeer.eclipse.datatools.ui.DriverTemplate;
 import org.jboss.reddeer.swt.api.Tree;
@@ -114,7 +113,7 @@ public class DriverDialog extends DefaultShell {
 		new DefaultTreeItem("General","Driver Class").doubleClick();
 		new PushButton("...").click();
 		String dlgTitle = "Available Classes from Jar List";
-		new WaitUntil(new ShellWithTextIsAvailable(dlgTitle));
+		new WaitUntil(new ShellIsAvailable(dlgTitle));
 		new DefaultShell(dlgTitle);
 		new RadioButton(0).click();
 		new DefaultText("").setText(driverClass);

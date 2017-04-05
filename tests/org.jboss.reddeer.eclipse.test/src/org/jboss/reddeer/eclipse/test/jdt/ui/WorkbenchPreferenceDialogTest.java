@@ -16,11 +16,10 @@ import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
 import org.jboss.reddeer.workbench.ui.dialogs.WorkbenchPreferenceDialog;
-import org.jboss.reddeer.core.condition.ShellWithTextIsAvailable;
 import org.jboss.reddeer.jface.preference.PreferencePage;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.swt.api.Shell;
-import org.jboss.reddeer.swt.exception.SWTLayerException;
+import org.jboss.reddeer.swt.condition.ShellIsAvailable;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.junit.After;
 import org.junit.Before;
@@ -46,11 +45,11 @@ public class WorkbenchPreferenceDialogTest {
 
 	@After
 	public void cleanup(){
-		ShellWithTextIsAvailable condition = new ShellWithTextIsAvailable(DIALOG_TITLE);
+		ShellIsAvailable condition = new ShellIsAvailable(DIALOG_TITLE);
 		if(condition.test()){
 			new DefaultShell(condition.getResult()).close();
 		}
-		if(new ShellWithTextIsAvailable(DIALOG_TITLE).test()){
+		if(new ShellIsAvailable(DIALOG_TITLE).test()){
 			
 		}
 	}
