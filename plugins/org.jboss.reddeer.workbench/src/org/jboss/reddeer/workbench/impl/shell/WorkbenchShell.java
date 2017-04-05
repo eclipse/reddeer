@@ -29,7 +29,6 @@ public class WorkbenchShell extends AbstractShell {
 	 */
 	public WorkbenchShell() {
 		super(WorkbenchShellLookup.getInstance().getWorkbenchShell());
-		setFocus();
 		log.debug("Workbench shell has title '" + getText() + "'");
 	}
 }

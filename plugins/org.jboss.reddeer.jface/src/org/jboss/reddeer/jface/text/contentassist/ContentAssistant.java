@@ -19,7 +19,7 @@ import org.jboss.reddeer.swt.api.Table;
 import org.jboss.reddeer.swt.api.TableItem;
 import org.jboss.reddeer.swt.condition.ShellIsAvailable;
 import org.jboss.reddeer.swt.impl.shell.AbstractShell;
-import org.jboss.reddeer.core.handler.TableHandler;
+import org.jboss.reddeer.core.handler.TableItemHandler;
 import org.jboss.reddeer.core.lookup.ShellLookup;
 
 /**
@@ -67,7 +67,7 @@ public class ContentAssistant extends AbstractShell{
 	 */
 	public void chooseProposal(String proposal){
 		log.debug("Choose content assist proposal - "+proposal);
-		TableHandler.getInstance().setDefaultSelection(contentAssistTable.getItem(proposal).getSWTWidget());
+		TableItemHandler.getInstance().setDefaultSelection(contentAssistTable.getItem(proposal).getSWTWidget());
 		new WaitWhile(new ShellIsAvailable(this));
 	}
 

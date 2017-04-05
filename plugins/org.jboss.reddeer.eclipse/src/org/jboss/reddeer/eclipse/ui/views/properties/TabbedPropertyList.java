@@ -75,8 +75,8 @@ public class TabbedPropertyList extends AbstractWidget<org.eclipse.swt.widgets.C
 	public void selectTab(final String label) {
 		for (Control control : getChildren()) {
 			if (label.equals(control.toString())) {
-				WidgetHandler.getInstance().notify(SWT.MouseDown, control);
-				WidgetHandler.getInstance().notify(SWT.MouseUp, control);
+				WidgetHandler.getInstance().notifyWidget(SWT.MouseDown, control);
+				WidgetHandler.getInstance().notifyWidget(SWT.MouseUp, control);
 				return;
 			}
 		}

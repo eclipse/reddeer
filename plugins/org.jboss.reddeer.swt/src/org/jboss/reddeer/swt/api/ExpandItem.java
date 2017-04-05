@@ -39,14 +39,6 @@ public interface ExpandItem extends ReferencedComposite, Item<org.eclipse.swt.wi
 	void collapse();
 
 	/**
-	 * Returns encapsulated parent expand bar. Parent expand bar is
-	 * Eclipse implementation of expand bar. 
-	 * 
-	 * @return parent Eclipse expand bar 
-	 */
-	org.eclipse.swt.widgets.ExpandBar getSWTParent();
-
-	/**
 	 * Returns parent expand bar.
 	 * 
 	 * @return parent RedDeer expand bar

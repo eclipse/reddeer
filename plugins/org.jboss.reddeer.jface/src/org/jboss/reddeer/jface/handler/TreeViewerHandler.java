@@ -30,17 +30,13 @@ public class TreeViewerHandler {
 	
 	private static TreeViewerHandler instance;
 	
-	private TreeViewerHandler() {
-	}
-	
 	/**
-	 * Returns instance of TreeViewerHandler class. If instance is not 
-	 * existing yet, new instance is created and returned.
+	 * Gets instance of TreeViewerHandler.
 	 * 
-	 * @return instance of class TreeViewerHandler
+	 * @return instance of TreeViewerHandler
 	 */
-	public static TreeViewerHandler getInstance() {
-		if (instance == null) {
+	public static TreeViewerHandler getInstance(){
+		if(instance == null){
 			instance = new TreeViewerHandler();
 		}
 		return instance;

@@ -11,6 +11,8 @@
 package org.jboss.reddeer.core.handler;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Table;
@@ -29,26 +31,22 @@ import org.jboss.reddeer.core.exception.CoreLayerException;
  * @author Lucia Jelinkova
  *
  */
-public class TableItemHandler {
-
+public class TableItemHandler extends ItemHandler{
+	
 	private static TableItemHandler instance;
-
-	private TableItemHandler() {
-
-	}
-
+	
 	/**
 	 * Gets instance of TableItemHandler.
 	 * 
 	 * @return instance of TableItemHandler
 	 */
-	public static TableItemHandler getInstance() {
-		if (instance == null) {
+	public static TableItemHandler getInstance(){
+		if(instance == null){
 			instance = new TableItemHandler();
 		}
 		return instance;
 	}
-
+	
 	/**
 	 * Checks whether specified {@link TableItem} is selected or not.
 	 * 
@@ -102,8 +100,7 @@ public class TableItemHandler {
 			public void run() {
 				swtTableItem.getParent().setFocus();
 				swtTableItem.getParent().setSelection(swtTableItem);
-				WidgetHandler.getInstance().notifyItem(SWT.Selection, SWT.NONE,
-						swtTableItem.getParent(), swtTableItem);
+				notifyItem(SWT.Selection, SWT.NONE,	swtTableItem.getParent(), swtTableItem);
 			}
 		});
 	}
@@ -177,6 +174,23 @@ public class TableItemHandler {
 			}
 		});
 	}
+	
+	/**
+	 * Gets image of specified {@link TableItem} on the position specified by index.
+	 *  
+	 * @param tableItem table item to handle
+	 * @param imageIndex index of image to get
+	 * @return image on position specified by index.
+	 */
+	public Image getImage(final TableItem tableItem, final int imageIndex) {
+		return Display.syncExec(new ResultRunnable<Image>() {
+
+			@Override
+			public Image run() {
+				return tableItem.getImage(imageIndex);
+			}
+		});
+	}
 
 	/**
 	 * Gets parent {@link Table} of specified {@link TableItem}.
@@ -200,6 +214,83 @@ public class TableItemHandler {
 	 */
 	public void setFocus(final TableItem tableItem) {
 		ControlHandler.getInstance().setFocus(getParent(tableItem));
+	}
+	
+	/**
+	 * Finds out whether specified {@link TableItem} is grayed or not.
+	 * 
+	 * @param tableItem table item to handle
+	 * @return true if specified table item is grayed, false otherwise
+	 */
+	public boolean isGrayed(final TableItem tableItem) {
+		return Display.syncExec(new ResultRunnable<Boolean>() {
+
+			@Override
+			public Boolean run() {
+				return tableItem.getGrayed();
+			}
+		});
+	}
+	
+	/**
+	 * Set default selection on specified table item.
+	 * 
+	 * @param tableItem table item to handle
+	 */
+	public void setDefaultSelection(final TableItem tableItem){
+		Display.syncExec(new Runnable() {
+
+			@Override
+			public void run() {
+				select(tableItem);
+				notifyItem(SWT.DefaultSelection, SWT.NONE, tableItem.getParent(), tableItem);
+
+			}
+		});
+	}
+	
+	/**
+	 * Click on specified column in specified table item.
+	 * 
+	 * @param tableItem table item to handle
+	 * @param column column to click on
+	 */
+	public void click(final TableItem tableItem, final int column) {
+		select(tableItem);
+		Display.syncExec(new Runnable() {
+
+			@Override
+			public void run() {
+				Rectangle rectangle = tableItem.getBounds(column);
+				int x = rectangle.x + (rectangle.width / 2);
+				int y = rectangle.y + (rectangle.height / 2);
+				notifyItemMouse(SWT.MouseDown, SWT.NONE, tableItem.getParent(),	tableItem, x, y, 1);
+				notifyItemMouse(SWT.MouseUp, SWT.NONE, tableItem.getParent(), tableItem, x, y, 1);
+
+			}
+		});
+	}
+	
+	/**
+	 * Clicks twice on specified column in specified table item.
+	 * 
+	 * @param tableItem table item to handle
+	 * @param column column to click on
+	 */
+	public void doubleClick(final TableItem tableItem, final int column) {
+		Display.syncExec(new Runnable() {
+
+			@Override
+			public void run() {
+				select(tableItem);
+				Rectangle rectangle = tableItem.getBounds(column);
+				int x = rectangle.x + (rectangle.width / 2);
+				int y = rectangle.y + (rectangle.height / 2);
+				notifyItemMouse(SWT.MouseDoubleClick, SWT.NONE, tableItem.getParent(),
+						tableItem, x, y, 1);
+
+			}
+		});
 	}
 	
 	
@@ -232,8 +323,7 @@ public class TableItemHandler {
 
 		@Override
 		public boolean test() {
-			WidgetHandler.getInstance().notifyItem(SWT.Selection,
-					SWT.CHECK, getParent(tableItem), tableItem);
+			notifyItem(SWT.Selection, SWT.CHECK, getParent(tableItem), tableItem);
 			return listener.isHeard();
 		}
 

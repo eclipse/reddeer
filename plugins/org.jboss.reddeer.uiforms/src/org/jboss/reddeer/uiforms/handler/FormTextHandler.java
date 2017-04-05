@@ -18,9 +18,8 @@ import org.eclipse.ui.forms.widgets.FormText;
 import org.eclipse.ui.internal.forms.widgets.FormTextModel;
 import org.eclipse.ui.internal.forms.widgets.IHyperlinkSegment;
 import org.jboss.reddeer.common.util.Display;
-import org.jboss.reddeer.common.util.ResultRunnable;
 import org.jboss.reddeer.core.exception.CoreLayerException;
-import org.jboss.reddeer.core.handler.WidgetHandler;
+import org.jboss.reddeer.core.handler.ControlHandler;
 
 /**
  * Contains methods for handling UI operations on {@link FormText} widgets.
@@ -30,19 +29,17 @@ import org.jboss.reddeer.core.handler.WidgetHandler;
  */
 
 @SuppressWarnings("restriction")
-public class FormTextHandler {
-
+public class FormTextHandler extends ControlHandler{
+	
 	private static FormTextHandler instance;
-
-	private FormTextHandler() { }
 	
 	/**
 	 * Gets instance of FormTextHandler.
 	 * 
 	 * @return instance of FormTextHandler
 	 */
-	public static FormTextHandler getInstance() {
-		if (instance == null) {
+	public static FormTextHandler getInstance(){
+		if(instance == null){
 			instance = new FormTextHandler();
 		}
 		return instance;
@@ -83,22 +80,6 @@ public class FormTextHandler {
 	}
 
 	/**
-	 * Finds out whether specified {@link FormText} has control or not.
-	 * 
-	 * @param widget form text widget to handle
-	 * @return true if specified form text widget has control, false otherwise
-	 */
-	public boolean hasFocus(final FormText widget) {
-		return Display.syncExec(new ResultRunnable<Boolean>() {
-
-			@Override
-			public Boolean run() {
-				return Display.getDisplay().getFocusControl() == widget;
-			}
-		});
-	}
-
-	/**
 	 * Gets text of specified {@link FormText} widget.
 	 * 
 	 * @param widget form text widget to handle
@@ -110,25 +91,9 @@ public class FormTextHandler {
 
 	}
 
-	/**
-	 * Gets tool tip text of specified {@link FormText} widget.
-	 * 
-	 * @param widget widget to handle
-	 * @return tool tip text of specified form text widget
-	 */
-	public String getTooltipText(final FormText widget) {
-		return Display.syncExec(new ResultRunnable<String>() {
-
-			@Override
-			public String run() {
-				return widget.getToolTipText();
-			}
-		});
-	}
-
 	private void notifyWidget(int eventType, FormText widget) {
 		Event event = createEvent(widget);
-		WidgetHandler.getInstance().notify(eventType, event, widget);
+		notifyWidget(eventType, event, widget);
 	}
 
 	private Event createEvent(FormText widget) {

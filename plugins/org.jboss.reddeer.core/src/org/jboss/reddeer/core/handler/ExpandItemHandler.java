@@ -27,24 +27,18 @@ import org.jboss.reddeer.common.wait.TimePeriod;
  * @author Vlado Pakan
  *
  */
-public class ExpandItemHandler {
-
-	private static final Logger logger = Logger
-			.getLogger(ExpandItemHandler.class);
-
+public class ExpandItemHandler extends ItemHandler{
+	
+	private static final Logger logger = Logger.getLogger(ExpandItemHandler.class);
 	private static ExpandItemHandler instance;
-
-	private ExpandItemHandler() {
-
-	}
-
+	
 	/**
-	 * Gets instance of ExpandBarItemHandler.
+	 * Gets instance of ExpandItemHandler.
 	 * 
-	 * @return instance of ExpandBarItemHandler
+	 * @return instance of ExpandItemHandler
 	 */
-	public static ExpandItemHandler getInstance() {
-		if (instance == null) {
+	public static ExpandItemHandler getInstance(){
+		if(instance == null){
 			instance = new ExpandItemHandler();
 		}
 		return instance;
@@ -56,12 +50,11 @@ public class ExpandItemHandler {
 	 * @param timePeriod time period to wait for after expanding
 	 * @param expandItem expand item to handle
 	 */
-	public static void expand(TimePeriod timePeriod,
+	public void expand(TimePeriod timePeriod,
 			final ExpandItem expandItem) {
-		logger.debug("Expand Expand Bar Item " + ItemHandler.getInstance().getText(expandItem));
-		if (!ExpandItemHandler.getInstance().isExpanded(expandItem)) {
-			ExpandItemHandler.notifyExpandBar(ExpandItemHandler
-					.createEventForExpandBar(SWT.Expand, expandItem),
+		logger.debug("Expand Expand Bar Item " + getText(expandItem));
+		if (!isExpanded(expandItem)) {
+			notifyExpandBar(createEventForExpandBar(SWT.Expand, expandItem),
 					expandItem);
 			Display.syncExec(new Runnable() {
 				@Override
@@ -70,10 +63,10 @@ public class ExpandItemHandler {
 				}
 			});
 			AbstractWait.sleep(timePeriod);
-			logger.info("Expand Bar Item " + ItemHandler.getInstance().getText(expandItem)
+			logger.info("Expand Bar Item " + getText(expandItem)
 					+ " has been expanded");
 		} else {
-			logger.debug("Expand Bar Item " + ItemHandler.getInstance().getText(expandItem)
+			logger.debug("Expand Bar Item " + getText(expandItem)
 					+ " is already expanded. No action performed");
 		}
 	}
@@ -83,22 +76,21 @@ public class ExpandItemHandler {
 	 * 
 	 * @param expandItem expand item to handle
 	 */
-	public static void collapse(final ExpandItem expandItem) {
-		logger.debug("Collapse Expand Bar Item " + ItemHandler.getInstance().getText(expandItem));
-		if (ExpandItemHandler.getInstance().isExpanded(expandItem)) {
+	public void collapse(final ExpandItem expandItem) {
+		logger.debug("Collapse Expand Bar Item " + getText(expandItem));
+		if (isExpanded(expandItem)) {
 			Display.syncExec(new Runnable() {
 				@Override
 				public void run() {
 					expandItem.setExpanded(false);
 				}
 			});
-			ExpandItemHandler.notifyExpandBar(ExpandItemHandler
-					.createEventForExpandBar(SWT.Collapse, expandItem),
+			notifyExpandBar(createEventForExpandBar(SWT.Collapse, expandItem),
 					expandItem);
-			logger.info("Expand Bar Item " + ItemHandler.getInstance().getText(expandItem)
+			logger.info("Expand Bar Item " + getText(expandItem)
 					+ " has been collapsed");
 		} else {
-			logger.debug("Expand Bar Item " + ItemHandler.getInstance().getText(expandItem)
+			logger.debug("Expand Bar Item " + getText(expandItem)
 					+ " is already collapsed. No action performed");
 		}
 	}
@@ -110,7 +102,7 @@ public class ExpandItemHandler {
 	 * @param event event to notify about
 	 * @param expandBarItem expand bar item to handle
 	 */
-	private static void notifyExpandBar(final Event event,
+	private void notifyExpandBar(final Event event,
 			final ExpandItem expandItem) {
 		Display.syncExec(new Runnable() {
 			public void run() {
@@ -127,7 +119,7 @@ public class ExpandItemHandler {
 	 * @param expandBarItem expand bar item to handle
 	 * @return event for specified expand bar
 	 */
-	private static Event createEventForExpandBar(int type,
+	private Event createEventForExpandBar(int type,
 			ExpandItem expandItem) {
 		return createEventForExpandBar(type, SWT.NONE, expandItem);
 	}
@@ -141,14 +133,14 @@ public class ExpandItemHandler {
 	 * @param expandBarItem expand bar item to handle
 	 * @return event for specified expand bar
 	 */
-	private static Event createEventForExpandBar(int type, int detail,
+	private Event createEventForExpandBar(int type, int detail,
 			ExpandItem expandItem) {
 		Event event = new Event();
 		event.type = type;
 		event.display = Display.getDisplay();
 		event.time = (int) System.currentTimeMillis();
 		event.item = expandItem;
-		event.widget = ExpandItemHandler.getInstance().getParent(expandItem);
+		event.widget = getParent(expandItem);
 		event.detail = detail;
 		return event;
 	}

@@ -12,7 +12,6 @@ package org.jboss.reddeer.swt.api;
 
 import java.util.List;
 
-import org.eclipse.swt.graphics.Image;
 import org.jboss.reddeer.common.wait.TimePeriod;
 
 /**
@@ -22,13 +21,6 @@ import org.jboss.reddeer.common.wait.TimePeriod;
  *
  */
 public interface TreeItem extends Item<org.eclipse.swt.widgets.TreeItem> {
-
-	/**
-	 * Gets whole text of the tree item.
-	 * 
-	 * @return whole text of the tree item
-	 */
-	String getText();
 	
 	/**
 	 * Returns ToolTip text of the tree item.
@@ -168,10 +160,4 @@ public interface TreeItem extends Item<org.eclipse.swt.widgets.TreeItem> {
 	  * @param text text to set
 	  */
 	 void setText(String text);
-
-	 /**
-	  * Gets image from the tree item.
-	  * @return tree item image
-	  */
-	 Image getImage();
 }

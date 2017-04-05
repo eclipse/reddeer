@@ -23,21 +23,17 @@ import org.jboss.reddeer.common.util.ResultRunnable;
  * @author Lucia Jelinkova
  *
  */
-public class ToolItemHandler {
-
+public class ToolItemHandler extends ItemHandler{
+	
 	private static ToolItemHandler instance;
-
-	private ToolItemHandler() {
-
-	}
-
+	
 	/**
 	 * Gets instance of ToolItemHandler.
 	 * 
 	 * @return instance of ToolItemHandler
 	 */
-	public static ToolItemHandler getInstance() {
-		if (instance == null) {
+	public static ToolItemHandler getInstance(){
+		if(instance == null){
 			instance = new ToolItemHandler();
 		}
 		return instance;
@@ -60,7 +56,7 @@ public class ToolItemHandler {
 			}
 		});
 
-		WidgetHandler.getInstance().sendClickNotifications(toolItem);
+		sendClickNotifications(toolItem);
 	}
 	
 	/**
@@ -121,8 +117,7 @@ public class ToolItemHandler {
 	 */
 
 	public void clickDropDown(final ToolItem item) {
-		WidgetHandler.getInstance().notifyItem(SWT.Selection, SWT.ARROW, item,
-				item);
+		notifyItem(SWT.Selection, SWT.ARROW, item, item);
 	}
 	
 	/**

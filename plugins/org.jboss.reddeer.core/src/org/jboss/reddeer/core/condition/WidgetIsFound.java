@@ -10,19 +10,13 @@
  ******************************************************************************/ 
 package org.jboss.reddeer.core.condition;
 
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.Item;
 import org.eclipse.swt.widgets.Widget;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.common.condition.AbstractWaitCondition;
 import org.jboss.reddeer.common.matcher.AndMatcher;
 import org.jboss.reddeer.common.matcher.MatcherBuilder;
-import org.jboss.reddeer.common.platform.RunningPlatform;
 import org.jboss.reddeer.core.handler.ControlHandler;
-import org.jboss.reddeer.core.handler.ItemHandler;
-import org.jboss.reddeer.core.handler.WidgetHandler;
 import org.jboss.reddeer.core.lookup.WidgetLookup;
 import org.jboss.reddeer.core.matcher.ClassMatcher;
 
@@ -38,7 +32,7 @@ public class WidgetIsFound extends AbstractWaitCondition {
 	private AndMatcher am;
 	private int index;
 	private Widget properWidget;
-	WidgetLookup widgetLookup = WidgetLookup.getInstance();
+	private WidgetLookup widgetLookup = WidgetLookup.getInstance();
 	
 	/**
 	 * Looks for widgets under given parent control with given index and matching specified matchers.
@@ -113,9 +107,6 @@ public class WidgetIsFound extends AbstractWaitCondition {
 	 * @return found widget
 	 */
 	public Widget getWidget(){
-		if (properWidget != null) {
-			setFocus();
-		}
 		return properWidget;
 	}
 	
@@ -127,14 +118,6 @@ public class WidgetIsFound extends AbstractWaitCondition {
 	@Override
 	public String description() {
 		return "widget is found";
-	}
-
-	private void setFocus(){
-		if(properWidget instanceof Item){
-			ItemHandler.getInstance().setFocus((Item)properWidget);
-		} else if (properWidget instanceof Control){
-			ControlHandler.getInstance().setFocus((Control)properWidget);
-		}
 	}
 	
 	/**

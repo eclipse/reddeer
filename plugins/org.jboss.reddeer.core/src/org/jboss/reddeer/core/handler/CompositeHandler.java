@@ -21,14 +21,13 @@ import org.jboss.reddeer.common.util.ResultRunnable;
  * @author rawagner
  *
  */
-public class CompositeHandler {
+public class CompositeHandler extends ControlHandler{
 	
-	public static CompositeHandler instance;
-	
-	private CompositeHandler(){}
+	private static CompositeHandler instance;
 	
 	/**
-	 * Gets instance of CompositeHandler
+	 * Gets instance of CompositeHandler.
+	 * 
 	 * @return instance of CompositeHandler
 	 */
 	public static CompositeHandler getInstance(){

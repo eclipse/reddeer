@@ -24,19 +24,17 @@ import org.jboss.reddeer.common.util.ResultRunnable;
  * @author Andrej Podhradsky
  *
  */
-public class TabFolderHandler {
-
+public class TabFolderHandler extends ControlHandler{
+	
 	private static TabFolderHandler instance;
-
-	private TabFolderHandler() { }
 	
 	/**
-	 * Gets instance of TabItemHandler.
+	 * Gets instance of TabFolderHandler.
 	 * 
 	 * @return instance of TabFolderHandler
 	 */
-	public static TabFolderHandler getInstance() {
-		if (instance == null) {
+	public static TabFolderHandler getInstance(){
+		if(instance == null){
 			instance = new TabFolderHandler();
 		}
 		return instance;

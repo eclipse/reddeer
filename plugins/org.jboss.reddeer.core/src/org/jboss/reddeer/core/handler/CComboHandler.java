@@ -25,23 +25,18 @@ import org.jboss.reddeer.core.exception.CoreLayerException;
  * @author Andrej Podhradsky
  *
  */
-public class CComboHandler {
-
-	private static CComboHandler instance;
+public class CComboHandler extends ControlHandler{
 
 	private static final Logger log = Logger.getLogger(CComboHandler.class);
-
-	private CComboHandler() {
-
-	}
-
+	private static CComboHandler instance;
+	
 	/**
 	 * Gets instance of CComboHandler.
 	 * 
 	 * @return instance of CComboHandler
 	 */
-	public static CComboHandler getInstance() {
-		if (instance == null) {
+	public static CComboHandler getInstance(){
+		if(instance == null){
 			instance = new CComboHandler();
 		}
 		return instance;

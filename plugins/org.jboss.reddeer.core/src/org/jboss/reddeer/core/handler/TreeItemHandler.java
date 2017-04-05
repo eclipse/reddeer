@@ -15,7 +15,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
@@ -37,23 +36,18 @@ import org.jboss.reddeer.core.exception.CoreLayerException;
  * @author Lucia Jelinkova
  *
  */
-public class TreeItemHandler {
+public class TreeItemHandler extends ItemHandler{
 
 	private static final Logger logger = Logger.getLogger(TreeItemHandler.class);
-
 	private static TreeItemHandler instance;
-
-	private TreeItemHandler() {
-
-	}
-
+	
 	/**
 	 * Gets instance of TreeItemHandler.
 	 * 
 	 * @return instance of TreeItemHandler
 	 */
-	public static TreeItemHandler getInstance() {
-		if (instance == null) {
+	public static TreeItemHandler getInstance(){
+		if(instance == null){
 			instance = new TreeItemHandler();
 		}
 		return instance;
@@ -157,7 +151,7 @@ public class TreeItemHandler {
 		TreeHandler.getInstance().notifySelect(swtTree);
 		logger.debug("Selected Tree Items:");
 		for (TreeItem treeItem : selection) {
-			logger.debug("  " + ItemHandler.getInstance().getText(treeItem));
+			logger.debug("  " + getText(treeItem));
 		}
 	}
 
@@ -176,10 +170,9 @@ public class TreeItemHandler {
 				swtTreeItem.getParent().setSelection(swtTreeItem);
 			}
 		});
-		logger.debug("Notify tree item " + ItemHandler.getInstance().getText(swtTreeItem) + " about selection");
-		TreeHandler.getInstance().notifyTree(swtTreeItem,
-				TreeHandler.getInstance().createEventForTree(swtTreeItem, SWT.Selection));
-		logger.info("Selected tree item: " + ItemHandler.getInstance().getText(swtTreeItem));
+		logger.debug("Notify tree item " + getText(swtTreeItem) + " about selection");
+		TreeHandler.getInstance().notifyTree(swtTreeItem, TreeHandler.getInstance().createEventForTree(swtTreeItem, SWT.Selection));
+		logger.info("Selected tree item: " + getText(swtTreeItem));
 	}
 
 	/**
@@ -192,8 +185,7 @@ public class TreeItemHandler {
 	 * @return child item of specified tree item
 	 */
 	public TreeItem getItem(final TreeItem swtTreeItem, final String text) {
-		logger.debug(
-				"Get child tree item " + text + " of tree item " + ItemHandler.getInstance().getText(swtTreeItem));
+		logger.debug("Get child tree item " + text + " of tree item " + getText(swtTreeItem));
 		expand(swtTreeItem);
 		TreeItem result = Display.syncExec(new ResultRunnable<TreeItem>() {
 			@Override
@@ -310,7 +302,7 @@ public class TreeItemHandler {
 	 */
 	public void setChecked(final TreeItem swtTreeItem, final boolean check) {
 		logger.debug(
-				(check ? "Check" : "Uncheck") + "Tree Item " + ItemHandler.getInstance().getText(swtTreeItem) + ":");
+				(check ? "Check" : "Uncheck") + "Tree Item " + getText(swtTreeItem) + ":");
 		Display.syncExec(new Runnable() {
 			@Override
 			public void run() {
@@ -318,9 +310,8 @@ public class TreeItemHandler {
 			}
 		});
 		logger.debug("Notify tree about check event");
-		TreeHandler.getInstance().notifyTree(swtTreeItem,
-				TreeHandler.getInstance().createEventForTree(swtTreeItem, SWT.Selection, SWT.CHECK));
-		logger.info((check ? "Checked: " : "Unchecked: ") + ItemHandler.getInstance().getText(swtTreeItem));
+		TreeHandler.getInstance().notifyTree(swtTreeItem,TreeHandler.getInstance().createEventForTree(swtTreeItem, SWT.Selection, SWT.CHECK));
+		logger.info((check ? "Checked: " : "Unchecked: ") + getText(swtTreeItem));
 	}
 
 	/**
@@ -346,7 +337,7 @@ public class TreeItemHandler {
 	 *            tree item to handle
 	 */
 	public void collapse(final TreeItem swtTreeItem) {
-		logger.debug("Collapse Tree Item " + ItemHandler.getInstance().getText(swtTreeItem));
+		logger.debug("Collapse Tree Item " + getText(swtTreeItem));
 		if (isExpanded(swtTreeItem)) {
 			Display.syncExec(new Runnable() {
 				@Override
@@ -356,13 +347,12 @@ public class TreeItemHandler {
 				}
 			});
 			logger.debug("Notify tree about collapse event");
-			TreeHandler.getInstance().notifyTree(swtTreeItem,
-					TreeHandler.getInstance().createEventForTree(swtTreeItem, SWT.Collapse));
+			TreeHandler.getInstance().notifyTree(swtTreeItem,TreeHandler.getInstance().createEventForTree(swtTreeItem, SWT.Collapse));
 		} else {
-			logger.debug("Tree Item " + ItemHandler.getInstance().getText(swtTreeItem)
+			logger.debug("Tree Item " + getText(swtTreeItem)
 					+ " is already collapsed. No action performed");
 		}
-		logger.info("Collapsed: " + ItemHandler.getInstance().getText(swtTreeItem));
+		logger.info("Collapsed: " + getText(swtTreeItem));
 	}
 
 	/**
@@ -384,7 +374,7 @@ public class TreeItemHandler {
 	 *            time period to wait for
 	 */
 	public void expand(final TreeItem swtTreeItem, TimePeriod timePeriod) {
-		logger.debug("Expand Tree Item " + ItemHandler.getInstance().getText(swtTreeItem));
+		logger.debug("Expand Tree Item " + getText(swtTreeItem));
 
 		final TreeExpandListener tel = new TreeExpandListener();
 
@@ -400,7 +390,7 @@ public class TreeItemHandler {
 		} catch (WaitTimeoutExpiredException ex) {
 			new WaitUntil(new TreeHeardExpandNotification(swtTreeItem, tel, true), timePeriod);
 		}
-		logger.info("Expanded: " + ItemHandler.getInstance().getText(swtTreeItem));
+		logger.info("Expanded: " + getText(swtTreeItem));
 
 		Display.syncExec(new Runnable() {
 			@Override
@@ -437,18 +427,6 @@ public class TreeItemHandler {
 				return swtTreeItem.getBounds();
 			}
 		});
-	}
-
-	/**
-	 * Get image of specified TreeItem.
-	 *
-	 * @param swtTreeItem the swt tree item
-	 * @return tree item image
-	 */
-	public Image getImage(final TreeItem swtTreeItem) {
-		return Display.syncExec((ResultRunnable<Image>) 
-				swtTreeItem::getImage
-		);
 	}
 
 	/**
@@ -526,15 +504,13 @@ public class TreeItemHandler {
 		public boolean test() {
 			if (!isExpanded(treeItem)) {
 				if (sync) {
-					TreeHandler.getInstance().notifyTreeSync(treeItem,
-							TreeHandler.getInstance().createEventForTree(treeItem, SWT.Expand));
+					TreeHandler.getInstance().notifyTreeSync(treeItem, TreeHandler.getInstance().createEventForTree(treeItem, SWT.Expand));
 				} else {
-					TreeHandler.getInstance().notifyTree(treeItem,
-							TreeHandler.getInstance().createEventForTree(treeItem, SWT.Expand));
+					TreeHandler.getInstance().notifyTree(treeItem, TreeHandler.getInstance().createEventForTree(treeItem, SWT.Expand));
 				}
 				return listener.isHeard();
 			} else {
-				logger.debug("Tree Item " + ItemHandler.getInstance().getText(treeItem)
+				logger.debug("Tree Item " + getText(treeItem)
 						+ " is already expanded. No action performed");
 			}
 			return true;
@@ -552,7 +528,7 @@ public class TreeItemHandler {
 	 * @param swtItem to handle
 	 */
 	public void setFocus(TreeItem swtItem) {
-		ControlHandler.getInstance().setFocus(getParent(swtItem));
+		new ControlHandler().setFocus(getParent(swtItem));
 		
 	}
 }

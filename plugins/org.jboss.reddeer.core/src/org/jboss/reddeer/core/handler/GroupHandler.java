@@ -19,15 +19,14 @@ import org.jboss.reddeer.common.util.ResultRunnable;
  * @author rawagner
  *
  */
-public class GroupHandler {
+public class GroupHandler extends ControlHandler{
 	
 	private static GroupHandler instance;
 	
-	private GroupHandler(){}
-	
 	/**
-	 * Gets instance of GroupHandler
-	 * @return instance of GroupHander
+	 * Gets instance of GroupHandler.
+	 * 
+	 * @return instance of GroupHandler
 	 */
 	public static GroupHandler getInstance(){
 		if(instance == null){

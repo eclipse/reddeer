@@ -16,7 +16,6 @@ import org.eclipse.swt.widgets.Widget;
 import org.jboss.reddeer.common.platform.RunningPlatform;
 import org.jboss.reddeer.common.util.Display;
 import org.jboss.reddeer.common.util.ResultRunnable;
-import org.jboss.reddeer.core.handler.WidgetHandler;
 
 /**
  * Contains methods for handling UI operations on {@link Button} widgets.
@@ -24,21 +23,17 @@ import org.jboss.reddeer.core.handler.WidgetHandler;
  * @author Lucia Jelinkova
  *
  */
-public class ButtonHandler {
-
+public class ButtonHandler extends ControlHandler{
+	
 	private static ButtonHandler instance;
-
-	private ButtonHandler() {
-
-	}
-
+	
 	/**
 	 * Gets instance of ButtonHandler.
 	 * 
 	 * @return instance of ButtonHandler
 	 */
-	public static ButtonHandler getInstance() {
-		if (instance == null) {
+	public static ButtonHandler getInstance(){
+		if(instance == null){
 			instance = new ButtonHandler();
 		}
 		return instance;
@@ -61,7 +56,7 @@ public class ButtonHandler {
 			}
 		});
 
-		WidgetHandler.getInstance().sendClickNotifications(button);
+		sendClickNotifications(button);
 
 		Display.syncExec(new Runnable() {
 			@Override
@@ -92,21 +87,20 @@ public class ButtonHandler {
 						Button sibling = (Button) widget;
 						if ((sibling.getStyle() & SWT.RADIO) != 0
 								&& sibling.getSelection()) {
-							WidgetHandler.getInstance().notify(SWT.Deactivate,
-									sibling);
+							notifyWidget(SWT.Deactivate,sibling);
 							sibling.setSelection(false);
-							WidgetHandler.getInstance().notify(SWT.Selection, sibling);
+							notifyWidget(SWT.Selection, sibling);
 						}
 					}
 				}
 			}
 
 			private void selectRadio(Button button) {
-				WidgetHandler.getInstance().notify(SWT.Activate, button);
-				WidgetHandler.getInstance().notify(SWT.MouseDown, button);
-				WidgetHandler.getInstance().notify(SWT.MouseUp, button);
+				notifyWidget(SWT.Activate, button);
+				notifyWidget(SWT.MouseDown, button);
+				notifyWidget(SWT.MouseUp, button);
 				button.setSelection(true);
-				WidgetHandler.getInstance().notify(SWT.Selection, button);
+				notifyWidget(SWT.Selection, button);
 			}
 
 		});
@@ -152,8 +146,7 @@ public class ButtonHandler {
 	 */
 	public void setFocus(final Button button){
 		// do not set focus because it also select radio button on Windows
-		if (!(RunningPlatform.isWindows()  && 
-				((WidgetHandler.getInstance().getStyle(button) & SWT.RADIO) != 0))){
+		if (!(RunningPlatform.isWindows() && ((getStyle(button) & SWT.RADIO) != 0))){
 			Display.syncExec(new Runnable() {
 			
 				@Override

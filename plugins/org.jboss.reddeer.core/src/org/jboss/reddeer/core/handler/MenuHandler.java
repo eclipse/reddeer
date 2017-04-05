@@ -29,19 +29,17 @@ import org.jboss.reddeer.core.exception.CoreLayerException;
  * @author Jiri Peterka
  *
  */
-public class MenuHandler {
+public class MenuHandler extends ItemHandler{
 	private static final Logger log = Logger.getLogger(MenuHandler.class);
-
-	private static MenuHandler instance = null;
-	
-	private MenuHandler() { }
+	private static MenuHandler instance;
 	
 	/**
-	 * Returns instance of MenuHandler.
-	 * @return instance of MenuHandler.
+	 * Gets instance of MenuHandler.
+	 * 
+	 * @return instance of MenuHandler
 	 */
-	public static MenuHandler getInstance() {
-		if (instance == null) {
+	public static MenuHandler getInstance(){
+		if(instance == null){
 			instance = new MenuHandler();
 		}
 		return instance;

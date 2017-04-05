@@ -26,20 +26,15 @@ import org.jboss.reddeer.common.util.Display;
 public class EditPartHandler {
 
 	protected final Logger log = Logger.getLogger(this.getClass());
-
 	private static EditPartHandler instance;
-
-	private EditPartHandler() {
-
-	}
-
+	
 	/**
-	 * Gets the single instance of EditPartHandler.
-	 *
-	 * @return single instance of EditPartHandler
+	 * Gets instance of EditPartHandler.
+	 * 
+	 * @return instance of EditPartHandler
 	 */
-	public static EditPartHandler getInstance() {
-		if (instance == null) {
+	public static EditPartHandler getInstance(){
+		if(instance == null){
 			instance = new EditPartHandler();
 		}
 		return instance;

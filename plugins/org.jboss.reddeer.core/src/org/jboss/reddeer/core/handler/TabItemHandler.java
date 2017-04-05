@@ -23,26 +23,22 @@ import org.jboss.reddeer.common.util.ResultRunnable;
  * @author Vlado Pakan
  *
  */
-public class TabItemHandler {
+public class TabItemHandler extends ItemHandler{
 
 	private static TabItemHandler instance;
-
-	private TabItemHandler() {
-
-	}
-
+	
 	/**
 	 * Gets instance of TabItemHandler.
 	 * 
 	 * @return instance of TabItemHandler
 	 */
-	public static TabItemHandler getInstance() {
-		if (instance == null) {
+	public static TabItemHandler getInstance(){
+		if(instance == null){
 			instance = new TabItemHandler();
 		}
 		return instance;
 	}
-
+	
 	/**
 	 * Gets {@link TabFolder} containing specified {@link TabItem}.
 	 * 

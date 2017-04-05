@@ -13,6 +13,7 @@ package org.jboss.reddeer.uiforms.handler;
 import org.eclipse.ui.forms.widgets.ExpandableComposite;
 import org.jboss.reddeer.common.util.Display;
 import org.jboss.reddeer.common.util.ResultRunnable;
+import org.jboss.reddeer.core.handler.ControlHandler;
 
 /**
  * Contains methods for handling UI operations on {@link ExpandableComposite} widgets.
@@ -20,21 +21,17 @@ import org.jboss.reddeer.common.util.ResultRunnable;
  * @author Radoslav Rabara
  *
  */
-public class ExpandableCompositeHandler {
-
+public class ExpandableCompositeHandler extends ControlHandler{
+	
 	private static ExpandableCompositeHandler instance;
-
-	private ExpandableCompositeHandler() {
-
-	}
-
+	
 	/**
-	 * Returns instance of this class.
-	 *
+	 * Gets instance of ExpandableCompositeHandler.
+	 * 
 	 * @return instance of ExpandableCompositeHandler
 	 */
-	public static ExpandableCompositeHandler getInstance() {
-		if (instance == null) {
+	public static ExpandableCompositeHandler getInstance(){
+		if(instance == null){
 			instance = new ExpandableCompositeHandler();
 		}
 		return instance;
