@@ -45,6 +45,7 @@ public class HyperLinkHandler extends ControlHandler{
 	 * @param hyperLink the hyper link
 	 */
 	public void activate(final Hyperlink hyperLink) {
+		checkModalShells(hyperLink);
 		Display.asyncExec(new Runnable() {
 
 			@Override

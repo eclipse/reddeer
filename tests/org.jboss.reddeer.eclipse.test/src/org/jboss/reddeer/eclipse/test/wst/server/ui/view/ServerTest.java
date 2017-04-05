@@ -233,9 +233,11 @@ public class ServerTest extends ServersViewTestCase {
 
 	@Test
 	public void addAndRemoveModule(){
-		server1.addAndRemoveModules();
+		ModifyModulesDialog mmd = server1.addAndRemoveModules();
 
 		assertThat(ModifyModulesDialog.DIALOG_TITLE, is(new DefaultShell().getText()));
+		mmd.cancel();
+		
 	}
 
 	@Test

@@ -119,6 +119,7 @@ public class TreeItemHandler extends ItemHandler{
 	 *            text to set
 	 */
 	public void setText(final TreeItem treeItem, final int cellIndex, final String text) {
+		ControlHandler.getInstance().checkModalShells(getParent(treeItem));
 		Display.syncExec(new Runnable() {
 
 			@Override
@@ -135,6 +136,7 @@ public class TreeItemHandler extends ItemHandler{
 	 *            the selection
 	 */
 	public void selectItems(final TreeItem... selection) {
+		ControlHandler.getInstance().checkModalShells(getParent(selection[0]));
 		logger.info("Select tree items: ");
 		final Tree swtTree = getParent(selection[0]);
 		TreeHandler.getInstance().setFocus(swtTree);
@@ -162,6 +164,7 @@ public class TreeItemHandler extends ItemHandler{
 	 *            tree item to handle
 	 */
 	public void select(final TreeItem swtTreeItem) {
+		ControlHandler.getInstance().checkModalShells(getParent(swtTreeItem));
 		Display.syncExec(new Runnable() {
 			@Override
 			public void run() {
@@ -301,6 +304,7 @@ public class TreeItemHandler extends ItemHandler{
 	 *            check value of specified tree item
 	 */
 	public void setChecked(final TreeItem swtTreeItem, final boolean check) {
+		ControlHandler.getInstance().checkModalShells(getParent(swtTreeItem));
 		logger.debug(
 				(check ? "Check" : "Uncheck") + "Tree Item " + getText(swtTreeItem) + ":");
 		Display.syncExec(new Runnable() {
@@ -337,6 +341,7 @@ public class TreeItemHandler extends ItemHandler{
 	 *            tree item to handle
 	 */
 	public void collapse(final TreeItem swtTreeItem) {
+		ControlHandler.getInstance().checkModalShells(getParent(swtTreeItem));
 		logger.debug("Collapse Tree Item " + getText(swtTreeItem));
 		if (isExpanded(swtTreeItem)) {
 			Display.syncExec(new Runnable() {
@@ -362,6 +367,7 @@ public class TreeItemHandler extends ItemHandler{
 	 *            tree item to handle
 	 */
 	public void expand(final TreeItem swtTreeItem) {
+		ControlHandler.getInstance().checkModalShells(getParent(swtTreeItem));
 		expand(swtTreeItem, TimePeriod.SHORT);
 	}
 
@@ -374,6 +380,7 @@ public class TreeItemHandler extends ItemHandler{
 	 *            time period to wait for
 	 */
 	public void expand(final TreeItem swtTreeItem, TimePeriod timePeriod) {
+		ControlHandler.getInstance().checkModalShells(getParent(swtTreeItem));
 		logger.debug("Expand Tree Item " + getText(swtTreeItem));
 
 		final TreeExpandListener tel = new TreeExpandListener();
@@ -408,6 +415,7 @@ public class TreeItemHandler extends ItemHandler{
 	 *            the swt tree item
 	 */
 	public void click(final TreeItem swtTreeItem) {
+		ControlHandler.getInstance().checkModalShells(getParent(swtTreeItem));
 		Rectangle bounds = getBounds(swtTreeItem);
 		notifyMouseClick(swtTreeItem, bounds.x + (bounds.width / 2), bounds.y + (bounds.height / 2));
 	}
@@ -528,6 +536,7 @@ public class TreeItemHandler extends ItemHandler{
 	 * @param swtItem to handle
 	 */
 	public void setFocus(TreeItem swtItem) {
+		ControlHandler.getInstance().checkModalShells(getParent(swtItem));
 		new ControlHandler().setFocus(getParent(swtItem));
 		
 	}

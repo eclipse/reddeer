@@ -135,6 +135,7 @@ public class LinkHandler extends ControlHandler{
 	 * @param text text of the notification event
 	 */
 	public void activate(final Link link, final String text) {
+		checkModalShells(link);
 		Display.asyncExec(new Runnable() {
 
 			@Override

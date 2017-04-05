@@ -54,20 +54,6 @@ public class TabFolderHandler extends ControlHandler{
 			}
 		});
 	}
-
-	/**
-	 * Sets focus on specified {@link TabFolder}.
-	 * 
-	 * @param folder folder to handle
-	 */
-	public void setFocus(final TabFolder folder) {
-		Display.syncExec(new Runnable() {
-			@Override
-			public void run() {
-				folder.forceFocus();
-			}
-		});
-	}
 	
 	/**
 	 * Gets list of selected tab items

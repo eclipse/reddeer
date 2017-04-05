@@ -10,7 +10,11 @@
  ******************************************************************************/ 
 package org.jboss.reddeer.core.handler;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.eclipse.swt.SWTException;
+import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Shell;
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.common.util.Display;
@@ -48,7 +52,7 @@ public class ShellHandler extends ControlHandler{
 	 * @param swtShell shell to close
 	 */
 	public void closeShell(final Shell swtShell) {
-		
+		checkModalShells(swtShell);
 		if(!isDisposed(swtShell)){
 			log.info("Closing shell '" +getText(swtShell)+ "'");
 		}
@@ -68,6 +72,7 @@ public class ShellHandler extends ControlHandler{
 	 * @param shell shell to focus
 	 */
 	public void setFocus(final Shell shell) {
+		checkModalShells(shell);
 		Display.syncExec(new Runnable() {
 			@Override
 			public void run() {
@@ -87,6 +92,7 @@ public class ShellHandler extends ControlHandler{
 	 * @param swtShell swt shell to maximize
 	 */
 	public void maximize(final Shell swtShell) {
+		checkModalShells(swtShell);
 		log.info("Maximize shell '" +getText(swtShell)+ "'");
 		Display.syncExec(new Runnable() {
 
@@ -102,6 +108,7 @@ public class ShellHandler extends ControlHandler{
 	 * @param swtShell swt shell to minimize
 	 */
 	public void minimize(final Shell swtShell) {
+		checkModalShells(swtShell);
 		log.info("Minimize shell '" +getText(swtShell)+ "'");
 		Display.syncExec(new Runnable() {
 
@@ -117,6 +124,7 @@ public class ShellHandler extends ControlHandler{
 	 * @param swtShell swt shell to restore
 	 */
 	public void restore(final Shell swtShell) {
+		checkModalShells(swtShell);
 		log.info("Restore shell '" +getText(swtShell)+ "'");
 		Display.syncExec(new Runnable() {
 
@@ -170,6 +178,37 @@ public class ShellHandler extends ControlHandler{
 				return shell.getText();
 			}
 		});
+	}
+	
+	/**
+	 * Returns an array containing all shells which are descendants of the specified shell.
+	 * @param shell to get descendants of
+	 * @return array of descendants of specified shell
+	 */
+	public Shell[] getShells(final Shell shell){
+		return Display.syncExec(new ResultRunnable<Shell[]>() {
+
+			@Override
+			public Shell[] run() {
+				return shell.getShells();
+			}
+		});
+	}
+	
+	/**
+	 * Returns all ancestor shells of given swt shell
+	 * @param shell swt shell to get parents of
+	 * @return list of all parent shells
+	 */
+	public List<Shell> getAllAncestorShells(final Shell shell){
+		List<Shell> allParentShells = new ArrayList<>();
+		Composite parent = getParent(shell);
+		while(parent != null){
+			allParentShells.add(getShell(parent));
+			parent = getParent(parent);
+		}
+		return allParentShells;
+		
 	}
 	
 	

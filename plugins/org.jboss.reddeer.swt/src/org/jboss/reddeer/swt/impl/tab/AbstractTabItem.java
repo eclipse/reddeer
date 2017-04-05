@@ -10,7 +10,6 @@
  ******************************************************************************/ 
 package org.jboss.reddeer.swt.impl.tab;
 
-import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Control;
 import org.hamcrest.Matcher;
 import org.jboss.reddeer.common.logging.Logger;
@@ -46,9 +45,6 @@ public abstract class AbstractTabItem extends AbstractItem<org.eclipse.swt.widge
 	public void activate() {
 		logger.info("Activate " + this.getText());
 		TabItemHandler.getInstance().select(swtWidget);
-		TabItemHandler.getInstance().notifyTabFolder(
-				TabItemHandler.getInstance().createEventForTabItem(swtWidget,SWT.Selection),
-			getTabFolder().getSWTWidget());
 	}
 	
 	@Override
