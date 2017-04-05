@@ -22,7 +22,6 @@ import org.hamcrest.Matcher;
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.common.wait.TimePeriod;
 import org.jboss.reddeer.common.wait.WaitWhile;
-import org.jboss.reddeer.core.condition.ShellWithTextIsAvailable;
 import org.jboss.reddeer.core.exception.CoreLayerException;
 import org.jboss.reddeer.core.handler.ButtonHandler;
 import org.jboss.reddeer.core.handler.IBeforeShellIsClosed;
@@ -31,6 +30,7 @@ import org.jboss.reddeer.core.lookup.ShellLookup;
 import org.jboss.reddeer.core.lookup.WidgetLookup;
 import org.jboss.reddeer.core.matcher.WithMnemonicTextMatcher;
 import org.jboss.reddeer.core.matcher.WithStyleMatcher;
+import org.jboss.reddeer.swt.condition.ShellIsAvailable;
 import org.jboss.reddeer.workbench.core.lookup.WorkbenchShellLookup;
 
 public class WorkbenchShellHandler {
@@ -140,7 +140,7 @@ public class WorkbenchShellHandler {
 			ShellHandler.getInstance().notifyWidget(SWT.Close, swtShell);
 			ShellHandler.getInstance().closeShell(swtShell);
 		}
-		new WaitWhile(new ShellWithTextIsAvailable(text));
+		new WaitWhile(new ShellIsAvailable(text));
 	}
 
 	private void clickCancelButton() {

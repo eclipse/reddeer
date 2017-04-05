@@ -1,7 +1,9 @@
 package org.jboss.reddeer.swt.condition;
 
-import org.jboss.reddeer.common.condition.AbstractWaitCondition;
+import org.hamcrest.Matcher;
+import org.jboss.reddeer.core.condition.ShellMatchingMatcherIsAvailable;
 import org.jboss.reddeer.core.lookup.ShellLookup;
+import org.jboss.reddeer.core.matcher.WithTextMatcher;
 import org.jboss.reddeer.core.util.InstanceValidator;
 import org.jboss.reddeer.swt.api.Shell;
 
@@ -10,7 +12,7 @@ import org.jboss.reddeer.swt.api.Shell;
  * 
  * @author rawagner
  */
-public class ShellIsAvailable extends AbstractWaitCondition {
+public class ShellIsAvailable extends ShellMatchingMatcherIsAvailable {
 	
 	private Shell shell;
 	
@@ -23,20 +25,58 @@ public class ShellIsAvailable extends AbstractWaitCondition {
 		InstanceValidator.checkNotNull(shell, "shell");
 		this.shell = shell;
 	}
+	
+	/**
+	 * Creates new ShellIsAvailable wait condition with specified matcher.
+	 * @param matchers matchers to match shell
+	 */
+	public ShellIsAvailable(Matcher<?>... matchers) {
+		super(matchers);
+	}
+	
+	/**
+	 * Creates new ShellIsAvailable wait condition with specified shell text.
+	 * @param shellText shell text
+	 */
+	public ShellIsAvailable(String shellText) {
+		super(new WithTextMatcher(shellText));
+	}
 
 	@Override
 	public boolean test() {
-		for(org.eclipse.swt.widgets.Shell s: ShellLookup.getInstance().getShells()){
-			if(shell.getSWTWidget().equals(s)){
-				return true;
+		if(shell != null){
+			for(org.eclipse.swt.widgets.Shell s: ShellLookup.getInstance().getShells()){
+				if(shell.getSWTWidget().equals(s)){
+					return true;
+				}
 			}
-		}
-		return false;
+			return false;
+		} 
+		return super.test();
 	}
 	
 	@Override
 	public String description() {
-		return "shell is available";
+		if(shell != null){
+			return "shell is available";
+		} 
+		return super.description();
+	}
+	
+	@Override
+	public String errorMessageWhile() {
+		if(shell != null){
+			return "shell is still available";
+		}
+		return super.errorMessageWhile();
+	}
+	
+	@Override
+	public String errorMessageUntil() {
+		if(shell != null){
+			return "shell is not available";
+		}
+		return super.errorMessageUntil();
 	}
 
 }

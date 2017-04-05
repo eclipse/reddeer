@@ -17,9 +17,9 @@ import static org.junit.Assert.fail;
 import org.jboss.reddeer.common.condition.AbstractWaitCondition;
 import org.jboss.reddeer.common.wait.WaitUntil;
 import org.jboss.reddeer.common.wait.WaitWhile;
-import org.jboss.reddeer.core.condition.ShellWithTextIsAvailable;
 import org.jboss.reddeer.core.exception.CoreLayerException;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
+import org.jboss.reddeer.swt.condition.ShellIsAvailable;
 import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.jboss.reddeer.swt.impl.text.DefaultText;
@@ -39,8 +39,8 @@ public class ViewMenuTest {
 		new ViewMenu("Filters...").select();
 		new DefaultShell("Log Filters");
 		new PushButton("OK").click();
-		new WaitWhile(new ShellWithTextIsAvailable("Log Filters"));
-		new WaitWhile(new ShellWithTextIsAvailable("Progress Information"));
+		new WaitWhile(new ShellIsAvailable("Log Filters"));
+		new WaitWhile(new ShellIsAvailable("Progress Information"));
 	}
 
 	@Test

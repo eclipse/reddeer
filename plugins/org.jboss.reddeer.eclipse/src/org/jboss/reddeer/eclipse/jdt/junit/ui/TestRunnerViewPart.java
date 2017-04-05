@@ -11,7 +11,7 @@
 package org.jboss.reddeer.eclipse.jdt.junit.ui;
 
 import org.jboss.reddeer.common.wait.WaitWhile;
-import org.jboss.reddeer.core.condition.ShellWithTextIsAvailable;
+import org.jboss.reddeer.swt.condition.ShellIsAvailable;
 import org.jboss.reddeer.swt.impl.button.OkButton;
 import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.label.DefaultLabel;
@@ -87,6 +87,6 @@ public class TestRunnerViewPart extends WorkbenchView {
 		new DefaultShell("Test Runs");
 		new PushButton("Remove All").click();
 		new OkButton().click();
-		new WaitWhile(new ShellWithTextIsAvailable("Test Runs"));
+		new WaitWhile(new ShellIsAvailable("Test Runs"));
 	}
 }

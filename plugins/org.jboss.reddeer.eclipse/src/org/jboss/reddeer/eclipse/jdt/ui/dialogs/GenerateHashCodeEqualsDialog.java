@@ -14,9 +14,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.jboss.reddeer.common.wait.WaitWhile;
-import org.jboss.reddeer.core.condition.ShellWithTextIsAvailable;
 import org.jboss.reddeer.swt.api.Shell;
 import org.jboss.reddeer.swt.api.TreeItem;
+import org.jboss.reddeer.swt.condition.ShellIsAvailable;
 import org.jboss.reddeer.swt.impl.button.CheckBox;
 import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.combo.LabeledCombo;
@@ -154,7 +154,7 @@ public class GenerateHashCodeEqualsDialog {
 	public void ok(){
 		String shellText = shell.getText();
 		new PushButton("OK").click();
-		new WaitWhile(new ShellWithTextIsAvailable(shellText));
+		new WaitWhile(new ShellIsAvailable(shellText));
 	}
 	
 	/**
@@ -163,7 +163,7 @@ public class GenerateHashCodeEqualsDialog {
 	public void cancel(){
 		String shellText = shell.getText();
 		new PushButton("Cancel").click();
-		new WaitWhile(new ShellWithTextIsAvailable(shellText));
+		new WaitWhile(new ShellIsAvailable(shellText));
 	}
 	
 	

@@ -20,7 +20,6 @@ import org.jboss.reddeer.common.exception.WaitTimeoutExpiredException;
 import org.jboss.reddeer.common.matcher.RegexMatcher;
 import org.jboss.reddeer.common.wait.TimePeriod;
 import org.jboss.reddeer.common.wait.WaitUntil;
-import org.jboss.reddeer.core.condition.ShellWithTextIsAvailable;
 import org.jboss.reddeer.eclipse.core.resources.DefaultProject;
 import org.jboss.reddeer.eclipse.exception.EclipseLayerException;
 import org.jboss.reddeer.eclipse.jdt.ui.packageview.PackageExplorerPart;
@@ -34,6 +33,7 @@ import org.jboss.reddeer.eclipse.wst.server.ui.cnf.ServersViewEnums.ServerState;
 import org.jboss.reddeer.eclipse.wst.server.ui.editor.ServerEditor;
 import org.jboss.reddeer.eclipse.wst.server.ui.wizard.ModifyModulesDialog;
 import org.jboss.reddeer.eclipse.wst.server.ui.wizard.ModifyModulesPage;
+import org.jboss.reddeer.swt.condition.ShellIsAvailable;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -91,7 +91,7 @@ public class ServerTest extends ServersViewTestCase {
 			// ok, already deleted
 		}
 		try {
-			new WaitUntil(new ShellWithTextIsAvailable(ModifyModulesDialog.DIALOG_TITLE), TimePeriod.NONE);
+			new WaitUntil(new ShellIsAvailable(ModifyModulesDialog.DIALOG_TITLE), TimePeriod.NONE);
 			new DefaultShell(ModifyModulesDialog.DIALOG_TITLE).close();
 		} catch (WaitTimeoutExpiredException e){
 			// ok, dialog is already closed

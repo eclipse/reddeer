@@ -17,11 +17,11 @@ import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.common.wait.TimePeriod;
 import org.jboss.reddeer.common.wait.WaitUntil;
 import org.jboss.reddeer.common.wait.WaitWhile;
-import org.jboss.reddeer.core.condition.ShellWithTextIsAvailable;
 import org.jboss.reddeer.jface.preference.PreferencePage;
 import org.jboss.reddeer.swt.api.Table;
 import org.jboss.reddeer.swt.api.TableItem;
 import org.jboss.reddeer.swt.api.Text;
+import org.jboss.reddeer.swt.condition.ShellIsAvailable;
 import org.jboss.reddeer.swt.impl.button.OkButton;
 import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.combo.DefaultCombo;
@@ -66,7 +66,7 @@ public class MavenArchetypesPreferencePage extends PreferencePage {
 	 */
 	public void addLocalCatalog(String catalogFile, String description) {
 		new PushButton(ADD_LOCAL_CATALOG).click();
-		new WaitUntil(new ShellWithTextIsAvailable(LOCAL_CATALOG_SHELL), TimePeriod.NORMAL);
+		new WaitUntil(new ShellIsAvailable(LOCAL_CATALOG_SHELL), TimePeriod.NORMAL);
 		new DefaultCombo().setText(catalogFile);
 		new LabeledText(CATALOG_DESCRIPTION).setText(description);
 		new OkButton().click();
@@ -101,7 +101,7 @@ public class MavenArchetypesPreferencePage extends PreferencePage {
 	public String addRemoteCatalog(String catalogFileURL, String description, boolean verify) {
 		String verificationResult = "";
 		new PushButton(ADD_REMOTE_CATALOG).click();
-		new WaitUntil(new ShellWithTextIsAvailable(REMOTE_CATALOG_SHELL), TimePeriod.NORMAL);
+		new WaitUntil(new ShellIsAvailable(REMOTE_CATALOG_SHELL), TimePeriod.NORMAL);
 		new DefaultCombo().setText(catalogFileURL);
 		new LabeledText(CATALOG_DESCRIPTION).setText(description);
 		if (verify) {

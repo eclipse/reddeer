@@ -16,7 +16,6 @@ import java.util.List;
 
 import org.jboss.reddeer.common.exception.RedDeerException;
 import org.jboss.reddeer.common.wait.WaitWhile;
-import org.jboss.reddeer.core.condition.ShellWithTextIsAvailable;
 import org.jboss.reddeer.core.exception.CoreLayerException;
 import org.jboss.reddeer.eclipse.exception.EclipseLayerException;
 import org.jboss.reddeer.eclipse.ui.markers.AbstractMarker;
@@ -24,6 +23,7 @@ import org.jboss.reddeer.eclipse.ui.markers.matcher.AbstractMarkerMatcher;
 import org.jboss.reddeer.swt.api.Tree;
 import org.jboss.reddeer.jface.handler.TreeViewerHandler;
 import org.jboss.reddeer.swt.api.TreeItem;
+import org.jboss.reddeer.swt.condition.ShellIsAvailable;
 import org.jboss.reddeer.swt.impl.button.OkButton;
 import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.workbench.impl.menu.ViewMenu;
@@ -115,7 +115,7 @@ public class AbstractMarkersSupportView extends WorkbenchView {
 	private void confirmChangesAndCloseConfigureColumnsShell() {
 		new OkButton().click();
 		
-		new WaitWhile(new ShellWithTextIsAvailable("Configure Columns"));
+		new WaitWhile(new ShellIsAvailable("Configure Columns"));
 	}
 	
 	/**

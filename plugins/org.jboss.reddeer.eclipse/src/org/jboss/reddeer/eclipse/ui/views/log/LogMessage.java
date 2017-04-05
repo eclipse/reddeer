@@ -14,8 +14,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.jboss.reddeer.common.wait.WaitUntil;
-import org.jboss.reddeer.core.condition.ShellWithTextIsAvailable;
 import org.jboss.reddeer.swt.api.TreeItem;
+import org.jboss.reddeer.swt.condition.ShellIsAvailable;
 import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.menu.ContextMenu;
 import org.jboss.reddeer.swt.impl.text.LabeledText;
@@ -86,7 +86,7 @@ public class LogMessage {
 	public String getStackTrace(){
 		treeItem.select();
 		new ContextMenu("Event Details").select();
-		new WaitUntil(new ShellWithTextIsAvailable("Event Details"));
+		new WaitUntil(new ShellIsAvailable("Event Details"));
 		String stackTrace = new LabeledText("Exception Stack Trace:").getText();
 		new PushButton("OK").click();
 		return stackTrace;
@@ -100,7 +100,7 @@ public class LogMessage {
 	public String getSessionData(){
 		treeItem.select();
 		new ContextMenu("Event Details").select();
-		new WaitUntil(new ShellWithTextIsAvailable("Event Details"));
+		new WaitUntil(new ShellIsAvailable("Event Details"));
 		String sessionData = new LabeledText("Session Data:").getText();
 		new PushButton("OK").click();
 		return sessionData;
