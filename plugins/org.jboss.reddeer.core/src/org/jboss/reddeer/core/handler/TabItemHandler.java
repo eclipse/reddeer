@@ -10,6 +10,7 @@
  ******************************************************************************/ 
 package org.jboss.reddeer.core.handler;
 
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.TabFolder;
@@ -71,21 +72,6 @@ public class TabItemHandler extends ItemHandler{
 	}
 
 	/**
-	 * Notifies {@link TabFolder} listeners about the event.
-	 * Field for event type in specified event has to be set properly.
-	 * 
-	 * @param event event to notify about
-	 * @param swtTabFolder encapsulating parent tab folder
-	 */
-	public void notifyTabFolder(final Event event, final TabFolder swtTabFolder) {
-		Display.syncExec(new Runnable() {
-			public void run() {
-				swtTabFolder.notifyListeners(event.type, event);
-			}
-		});
-	}
-
-	/**
 	 * Creates the event of specified type for specified {@link TabItem}.
 	 * 
 	 * @param swtTabItem tab item to handle
@@ -108,11 +94,13 @@ public class TabItemHandler extends ItemHandler{
 	 * @param swtTabItem tab item to select
 	 */
 	public void select(final TabItem swtTabItem) {
+		ControlHandler.getInstance().checkModalShells(getParent(swtTabItem));
 		Display.syncExec(new Runnable() {
 			public void run() {
 				swtTabItem.getParent().setSelection(swtTabItem);
 			}
 		});
+		notifyTabFolder(createEventForTabItem(swtTabItem,SWT.Selection), getParent(swtTabItem));
 	}
 
 	/**
@@ -121,6 +109,7 @@ public class TabItemHandler extends ItemHandler{
 	 * @param tabItem tab item to focus
 	 */
 	public void setFocus(final TabItem tabItem) {
+		ControlHandler.getInstance().checkModalShells(getParent(tabItem));
 		ControlHandler.getInstance().setFocus(getParent(tabItem));
 	}
 	
@@ -153,4 +142,20 @@ public class TabItemHandler extends ItemHandler{
 			}
 		});
 	}
+	
+	/**
+	 * Notifies {@link TabFolder} listeners about the event.
+	 * Field for event type in specified event has to be set properly.
+	 * 
+	 * @param event event to notify about
+	 * @param swtTabFolder encapsulating parent tab folder
+	 */
+	private void notifyTabFolder(final Event event, final TabFolder swtTabFolder) {
+		Display.syncExec(new Runnable() {
+			public void run() {
+				swtTabFolder.notifyListeners(event.type, event);
+			}
+		});
+	}
+
 }

@@ -60,6 +60,7 @@ public class ListHandler extends ControlHandler{
 	 * @param list list to handle
 	 */
 	public void deselectAll(final List list) {
+		checkModalShells(list);
 		Display.syncExec(new Runnable() {
 
 			@Override
@@ -75,6 +76,7 @@ public class ListHandler extends ControlHandler{
 	 * @param list list to handle
 	 */
 	public void selectAll(final List list) {
+		checkModalShells(list);
 		Display.syncExec(new Runnable() {
 
 			@Override
@@ -98,6 +100,7 @@ public class ListHandler extends ControlHandler{
 	 * @param item item to select
 	 */
 	public void select(final List list, final String item) {
+		checkModalShells(list);
 		Display.syncExec(new Runnable() {
 
 			@Override
@@ -122,6 +125,7 @@ public class ListHandler extends ControlHandler{
 	 * @param items items to select
 	 */
 	public void select(final List list, final String[] items) {
+		checkModalShells(list);
 		Display.syncExec(new Runnable() {
 
 			@Override
@@ -155,6 +159,7 @@ public class ListHandler extends ControlHandler{
 	 * @param indices indices of items to select
 	 */
 	public void select(final List list, final int[] indices) {
+		checkModalShells(list);
 		Display.syncExec(new Runnable() {
 
 			@Override
@@ -179,6 +184,7 @@ public class ListHandler extends ControlHandler{
 	 * @param index index of item to select
 	 */
 	public void select(final List list, final int index) {
+		checkModalShells(list);
 		Display.syncExec(new Runnable() {
 
 			@Override

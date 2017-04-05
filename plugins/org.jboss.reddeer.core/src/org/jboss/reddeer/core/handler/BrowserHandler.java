@@ -75,6 +75,7 @@ public class BrowserHandler extends ControlHandler{
 	 * @param browser browser to handle
 	 */
 	public void refresh(final org.eclipse.swt.browser.Browser browser) {
+		checkModalShells(browser);
 		Display.syncExec(new Runnable() {
 			@Override
 			public void run() {
@@ -90,6 +91,7 @@ public class BrowserHandler extends ControlHandler{
 	 * @return true if the operation was successful, false otherwise
 	 */
 	public boolean back(final org.eclipse.swt.browser.Browser browser) {
+		checkModalShells(browser);
 		return Display.syncExec(new ResultRunnable<Boolean>() {
 			@Override
 			public Boolean run() {
@@ -105,6 +107,7 @@ public class BrowserHandler extends ControlHandler{
 	 * @return true if the operation was successful, false otherwise
 	 */
 	public boolean forward(final org.eclipse.swt.browser.Browser browser) {
+		checkModalShells(browser);
 		return Display.syncExec(new ResultRunnable<Boolean>() {
 			@Override
 			public Boolean run() {
@@ -156,6 +159,7 @@ public class BrowserHandler extends ControlHandler{
 	 */
 	public boolean setURL(final org.eclipse.swt.browser.Browser browser,
 			final String url) {
+		checkModalShells(browser);
 		boolean result = Display.syncExec(new ResultRunnable<Boolean>() {
 			@Override
 			public Boolean run() {

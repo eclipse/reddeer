@@ -51,6 +51,7 @@ public class FormTextHandler extends ControlHandler{
 	 * @param widget form text widget to click
 	 */
 	public void click(final FormText widget) {
+		checkModalShells(widget);
 		click(widget, 0);
 	}
 
@@ -61,6 +62,7 @@ public class FormTextHandler extends ControlHandler{
 	 * @param hyperlinkSegmentIndex index of hyperlink to click
 	 */
 	public void click(final FormText widget, final int hyperlinkSegmentIndex) {
+		checkModalShells(widget);
 		final FormTextModel model = getModel(widget);
 		if (hyperlinkSegmentIndex > model.getHyperlinkCount()) {
 			throw new CoreLayerException("FormText with text \""

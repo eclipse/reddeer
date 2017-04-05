@@ -101,6 +101,7 @@ public class CTabItemHandler extends ItemHandler{
 	 * @param event event to notify
 	 */
 	public void notifyCTabFolder(final CTabItem swtCTabItem, final Event event) {
+		ControlHandler.getInstance().checkModalShells(getParent(swtCTabItem));
 		Display.syncExec(new Runnable() {
 			public void run() {
 				swtCTabItem.getParent().notifyListeners(event.type, event);
@@ -114,6 +115,7 @@ public class CTabItemHandler extends ItemHandler{
 	 * @param swtCTabItem CTab item to handle
 	 */
 	public void clickCloseButton(final CTabItem swtCTabItem) {
+		ControlHandler.getInstance().checkModalShells(getParent(swtCTabItem));
 		Rectangle rectangleCloseBox = Display
 				.syncExec(new ResultRunnable<Rectangle>() {
 					public Rectangle run() {
@@ -200,6 +202,7 @@ public class CTabItemHandler extends ItemHandler{
 	 * @param cTabItem CTab item to handle
 	 */
 	public void select(final CTabItem cTabItem) {
+		ControlHandler.getInstance().checkModalShells(getParent(cTabItem));
 		Display.syncExec(new Runnable() {
 			public void run() {
 				cTabItem.getParent().setSelection(cTabItem);
@@ -213,6 +216,7 @@ public class CTabItemHandler extends ItemHandler{
 	 * @param item CTabItem to handle
 	 */
 	public void activate(CTabItem item){
+		ControlHandler.getInstance().checkModalShells(getParent(item));
 		select(item);
 		notifyCTabFolder(item, createEventForCTabItem(item,SWT.Selection));
 	}
@@ -223,6 +227,7 @@ public class CTabItemHandler extends ItemHandler{
 	 * @param ctabItem CTab item to handle
 	 */
 	public void setFocus(CTabItem ctabItem) {
+		ControlHandler.getInstance().checkModalShells(getParent(ctabItem));
 		ControlHandler.getInstance().setFocus((getParent(ctabItem)));
 	}
 	

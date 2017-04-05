@@ -124,6 +124,8 @@ public class LogView extends WorkbenchView {
 		getViewTree();
 		Menu cm = new ContextMenu(RESTORE_LOG);
 		cm.select();
+		new WaitUntil(new ShellIsAvailable("Progress Information"), TimePeriod.SHORT,false);
+		new WaitWhile(new ShellIsAvailable("Progress Information"));
 	}
 
 	private Tree getViewTree() {

@@ -63,7 +63,7 @@ public class TabbedPropertiesTest {
 		new DefaultTreeItem("XML", "XML Schema File").select();
 		new PushButton("Next >").click();
 		new PushButton("Finish").click();
-		new WaitWhile(new ShellIsAvailable("New"));
+		new WaitWhile(new ShellIsAvailable("Create XML Schema"));
 		new WaitWhile(new JobIsRunning());
 	}
 

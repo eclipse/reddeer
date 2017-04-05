@@ -87,8 +87,7 @@ public class TableHandler extends ControlHandler{
 	 * @param columnIndex index of column where to look up
 	 * @return index of specified table item in specified table
 	 */
-	public int indexOf(final Table table, final String item,
-			final int columnIndex) {
+	public int indexOf(final Table table, final String item, final int columnIndex) {
 		final TableItem[] tableItems = getSWTItems(table);
 
 		for (int i = 0; i < tableItems.length; i++) {
@@ -165,6 +164,7 @@ public class TableHandler extends ControlHandler{
 	 * @param table table to handle
 	 */
 	public void deselectAll(final Table table) {
+		checkModalShells(table);
 		Display.syncExec(new Runnable() {
 
 			@Override
@@ -180,6 +180,7 @@ public class TableHandler extends ControlHandler{
 	 * @param table table to handle
 	 */
 	public void selectAll(final Table table) {
+		checkModalShells(table);
 		Display.syncExec(new Runnable() {
 
 			@Override
@@ -203,6 +204,7 @@ public class TableHandler extends ControlHandler{
 	 * @param indices indices of items to select
 	 */
 	public void select(final Table table, final int[] indices) {
+		checkModalShells(table);
 		Display.syncExec(new Runnable() {
 
 			@Override
@@ -226,6 +228,7 @@ public class TableHandler extends ControlHandler{
 	 * @param index of item to select
 	 */
 	public void select(final Table table, final int index) {
+		checkModalShells(table);
 		Display.syncExec(new Runnable() {
 
 			@Override

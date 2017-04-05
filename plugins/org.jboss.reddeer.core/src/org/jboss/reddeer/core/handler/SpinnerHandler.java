@@ -59,6 +59,7 @@ public class SpinnerHandler extends ControlHandler{
 	 * @param value value to set
 	 */
 	public void setValue(final Spinner spinner, final int value) {
+		checkModalShells(spinner);
 		Display.syncExec(new Runnable() {
 
 			@Override

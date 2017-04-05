@@ -50,8 +50,8 @@ public class ExpandItemHandler extends ItemHandler{
 	 * @param timePeriod time period to wait for after expanding
 	 * @param expandItem expand item to handle
 	 */
-	public void expand(TimePeriod timePeriod,
-			final ExpandItem expandItem) {
+	public void expand(TimePeriod timePeriod, final ExpandItem expandItem) {
+		ControlHandler.getInstance().checkModalShells(getParent(expandItem));
 		logger.debug("Expand Expand Bar Item " + getText(expandItem));
 		if (!isExpanded(expandItem)) {
 			notifyExpandBar(createEventForExpandBar(SWT.Expand, expandItem),
@@ -77,6 +77,7 @@ public class ExpandItemHandler extends ItemHandler{
 	 * @param expandItem expand item to handle
 	 */
 	public void collapse(final ExpandItem expandItem) {
+		ControlHandler.getInstance().checkModalShells(getParent(expandItem));
 		logger.debug("Collapse Expand Bar Item " + getText(expandItem));
 		if (isExpanded(expandItem)) {
 			Display.syncExec(new Runnable() {
@@ -102,8 +103,7 @@ public class ExpandItemHandler extends ItemHandler{
 	 * @param event event to notify about
 	 * @param expandBarItem expand bar item to handle
 	 */
-	private void notifyExpandBar(final Event event,
-			final ExpandItem expandItem) {
+	private void notifyExpandBar(final Event event,final ExpandItem expandItem) {
 		Display.syncExec(new Runnable() {
 			public void run() {
 				expandItem.getParent().notifyListeners(event.type, event);
@@ -152,6 +152,7 @@ public class ExpandItemHandler extends ItemHandler{
 	 * @param expandBar parent expand bar
 	 */
 	public void expand(final ExpandItem expandItem, final ExpandBar expandBar) {
+		ControlHandler.getInstance().checkModalShells(getParent(expandItem));
 		notifyExpandBar(createEventForExpandBar(SWT.Expand, expandItem, expandBar),
 				expandBar);
 		Display.syncExec(new Runnable() {
@@ -169,6 +170,7 @@ public class ExpandItemHandler extends ItemHandler{
 	 * @param expandBar parent expand bar
 	 */
 	public void collapse(final ExpandItem expandItem, final ExpandBar expandBar) {
+		ControlHandler.getInstance().checkModalShells(getParent(expandItem));
 		Display.syncExec(new Runnable() {
 			@Override
 			public void run() {
@@ -257,6 +259,7 @@ public class ExpandItemHandler extends ItemHandler{
 	 * @param expandItem to handle
 	 */
 	public void setFocus(ExpandItem expandItem) {
+		ControlHandler.getInstance().checkModalShells(getParent(expandItem));
 		ControlHandler.getInstance().setFocus(getParent(expandItem));
 	}
 }

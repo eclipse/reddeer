@@ -94,6 +94,7 @@ public class TableItemHandler extends ItemHandler{
 	 * 
 	 */
 	public void select(final TableItem swtTableItem) {
+		ControlHandler.getInstance().checkModalShells(getParent(swtTableItem));
 		Display.syncExec(new Runnable() {
 
 			@Override
@@ -112,7 +113,7 @@ public class TableItemHandler extends ItemHandler{
 	 * @param check whether to check or not specified table item
 	 */
 	public void setChecked(final TableItem swtTableItem, final boolean check) {
-		
+		ControlHandler.getInstance().checkModalShells(getParent(swtTableItem));
 		Display.syncExec(new Runnable() {
 			@Override
 			public void run() {
@@ -213,6 +214,7 @@ public class TableItemHandler extends ItemHandler{
 	 * @param tableItem the new focus
 	 */
 	public void setFocus(final TableItem tableItem) {
+		ControlHandler.getInstance().checkModalShells(getParent(tableItem));
 		ControlHandler.getInstance().setFocus(getParent(tableItem));
 	}
 	
@@ -238,6 +240,7 @@ public class TableItemHandler extends ItemHandler{
 	 * @param tableItem table item to handle
 	 */
 	public void setDefaultSelection(final TableItem tableItem){
+		ControlHandler.getInstance().checkModalShells(getParent(tableItem));
 		Display.syncExec(new Runnable() {
 
 			@Override
@@ -256,6 +259,7 @@ public class TableItemHandler extends ItemHandler{
 	 * @param column column to click on
 	 */
 	public void click(final TableItem tableItem, final int column) {
+		ControlHandler.getInstance().checkModalShells(getParent(tableItem));
 		select(tableItem);
 		Display.syncExec(new Runnable() {
 
@@ -278,6 +282,7 @@ public class TableItemHandler extends ItemHandler{
 	 * @param column column to click on
 	 */
 	public void doubleClick(final TableItem tableItem, final int column) {
+		ControlHandler.getInstance().checkModalShells(getParent(tableItem));
 		Display.syncExec(new Runnable() {
 
 			@Override

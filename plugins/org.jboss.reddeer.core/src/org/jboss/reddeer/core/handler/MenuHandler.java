@@ -69,7 +69,6 @@ public class MenuHandler extends ItemHandler{
 	 * @param item given item which is going to be selected (clicked)
 	 */
 	public void select(final MenuItem item) {
-
 		Boolean enabled = Display.syncExec(new ResultRunnable<Boolean>() {
 
 			@Override

@@ -87,8 +87,8 @@ public class ScaleHandler extends ControlHandler{
 	 * @param scale scale to handle
 	 * @param value value to set
 	 */
-	public void setSelection(final org.eclipse.swt.widgets.Scale scale,
-			final int value) {
+	public void setSelection(final org.eclipse.swt.widgets.Scale scale, final int value) {
+		checkModalShells(scale);
 		Display.syncExec(new Runnable() {
 			@Override
 			public void run() {

@@ -10,11 +10,16 @@
  ******************************************************************************/
 package org.jboss.reddeer.core.handler;
 
+import java.util.List;
+
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Shell;
 import org.jboss.reddeer.common.util.Display;
 import org.jboss.reddeer.common.util.ResultRunnable;
+import org.jboss.reddeer.core.exception.CoreLayerException;
+import org.jboss.reddeer.core.lookup.ShellLookup;
 
 /**
  * Contains methods for handling UI operations on {@link Control} widgets.
@@ -74,6 +79,7 @@ public class ControlHandler extends WidgetHandler{
 	 * @param control to handle
 	 */
 	public void setFocus(final Control control) {
+		checkModalShells(control);
 		Display.syncExec(new Runnable() {
 			@Override
 			public void run() {
@@ -118,6 +124,7 @@ public class ControlHandler extends WidgetHandler{
 	 * @return true if control was focused, false otherwise
 	 */
 	public boolean forceFocus(final org.eclipse.swt.widgets.Control control) {
+		checkModalShells(control);
 		return Display.syncExec(new ResultRunnable<Boolean>() {
 			@Override
 			public Boolean run() {
@@ -151,5 +158,61 @@ public class ControlHandler extends WidgetHandler{
 			}
 		});
 	}
+	
+	/**
+	 * Checks if modal shell that blocks shell in which specified control is located exists 
+	 * and throws exception if it does
+	 * @param control which shell should be checked if it is blocked by some other shell
+	 * @throws CoreLayerException if modal shell that blocks current shell exists
+	 */
+	public void checkModalShells(final org.eclipse.swt.widgets.Control control){
+		if(!isDisposed(control)){
+			Shell shell = getBlockingModalShell(control);
+			if(shell!= null){
+				throw new CoreLayerException("Unable to execute action because modal shell '"+
+						ShellHandler.getInstance().getText(shell)+"' exists");
+			}
+		}
+	}
+	
+	/**
+	 * Gets modal shell that blocks shell in which specified control is located
+	 * @param control which shell should be checked if it is blocked by some other shell
+	 * @return modal shell that blocks shell in which specified control is located or null
+	 */
+	public Shell getBlockingModalShell(final org.eclipse.swt.widgets.Control control){
+		//The PRIMARY_MODAL style allows an instance to block input to its parent
+		//The APPLICATION_MODAL style allows an instance to block input to every other shell in the display
+		//SYSTEM_MODAL is the same as APPLICATION_MODAL because SYSTEM_MODAL is not supported in most (any?)desktop environments
+		Shell[] allShells = ShellLookup.getInstance().getShells();
+		Shell controlShell = getShell(control);
+		List<Shell> allAncestorShells = ShellHandler.getInstance().getAllAncestorShells(controlShell);
+		for(Shell shell: allShells){
+			if(!isDisposed(shell)){
+				int style = getStyle(shell);
+				if(!shell.equals(controlShell)){ //check shells which are not parent of given control
+					// check shells which are not among parents of given control
+					if(!allAncestorShells.contains(shell)){
+						if((style & SWT.APPLICATION_MODAL)!=0 || (style & SWT.SYSTEM_MODAL)!=0){
+							return shell;
+						}
+					}
+					if((style & SWT.PRIMARY_MODAL) != 0){
+						Composite compositeParent = getParent(shell);
+						if(compositeParent != null && !isDisposed(compositeParent)){
+							//only direct parent shell is blocked by PRIMARY_MODAL
+							Shell shellParent = getShell(compositeParent);
+							if(shellParent != null && !isDisposed(shellParent) && shellParent.equals(controlShell)){
+								return shell;
+							}
+						}
+					}
+				}
+			}
+			
+		}
+		return null;
+	}
+	
 
 }

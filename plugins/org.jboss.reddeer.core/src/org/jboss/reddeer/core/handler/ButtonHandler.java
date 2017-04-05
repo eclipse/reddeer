@@ -45,7 +45,7 @@ public class ButtonHandler extends ControlHandler{
 	 * @param button button to handle
 	 */
 	public void click(final Button button) {
-
+		checkModalShells(button);
 		Display.syncExec(new Runnable() {
 			@Override
 			public void run() {
@@ -145,6 +145,7 @@ public class ButtonHandler extends ControlHandler{
 	 * @param button to handle
 	 */
 	public void setFocus(final Button button){
+		checkModalShells(button);
 		// do not set focus because it also select radio button on Windows
 		if (!(RunningPlatform.isWindows() && ((getStyle(button) & SWT.RADIO) != 0))){
 			Display.syncExec(new Runnable() {
