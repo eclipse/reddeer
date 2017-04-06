@@ -133,8 +133,14 @@ public class DiagnosticTool {
 		StringBuffer result = new StringBuffer();
 		result.append(widget.getClass());
 		Shell controlShell = ControlHandler.getInstance().getShell(widget);
-		if(controlShell != null){
-			result.append("[shell: '"+ShellHandler.getInstance().getText(controlShell)+"']");
+		if(controlShell != null && !controlShell.isDisposed()){
+			String shellText = null;
+			try{
+				shellText = ShellHandler.getInstance().getText(controlShell);
+				result.append("[shell: '"+shellText+"']");
+			} catch (Exception e) {
+				// ignore, just provide as much information as possible
+			}
 		}
 		
 		try {
