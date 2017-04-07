@@ -24,4 +24,13 @@
             id="org.jboss.reddeer.workbench.test.ui.editor.SimpleEditor">
       </editor>
    </extension>
+   <extension
+     point="org.eclipse.ui.editors">
+  <editor
+        name="Custom Content Assist"
+        extensions="ca"
+        class="org.jboss.reddeer.workbench.test.editor.EditorWithCustomContentAssist"
+        id="org.jboss.reddeer.workbench.test.editor.EditorWithCustomContentAssist">
+  </editor>
+</extension>
 </plugin>
