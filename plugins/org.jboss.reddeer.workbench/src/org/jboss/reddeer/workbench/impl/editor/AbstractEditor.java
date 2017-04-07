@@ -24,6 +24,7 @@ import org.eclipse.ui.actions.ActionFactory;
 import org.eclipse.ui.keys.IBindingService;
 import org.eclipse.ui.texteditor.ITextEditorActionDefinitionIds;
 import org.hamcrest.Matcher;
+import org.jboss.reddeer.common.exception.RedDeerException;
 import org.jboss.reddeer.common.exception.WaitTimeoutExpiredException;
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.common.wait.AbstractWait;
@@ -155,13 +156,19 @@ public abstract class AbstractEditor implements Editor {
 
     @Override
     public ContentAssistant openContentAssistant() {
-    	Menu assistMenu = new ShellMenu("Edit", "Content Assist");
+    	Menu assistMenu = null;
+    	try{
+    		assistMenu = new ShellMenu("Edit", "Content Assist");
+    	}catch (RedDeerException e) {
+    		log.info("Content assist menu not found, open via keyboard shortcut");
+    		return openContentAssistantViaKeyboard();
+		}
     	boolean hasAssistMenuChildren = MenuHandler.getInstance().getMenuFromMenuItem(assistMenu.getSWTWidget()) != null;
     	
-    	if (hasAssistMenuChildren)
+    	if (hasAssistMenuChildren){
     		return openContentAssistant(ContentAssistantEnum.DEFAULT);
-    	else
-    		return openContentAssistant("Edit", "Content Assist");
+    	} 
+    	return openContentAssistant("Edit", "Content Assist");
     }
     
 	public ContentAssistant openContentAssistant(ContentAssistantEnum assistantType) {
@@ -178,22 +185,44 @@ public abstract class AbstractEditor implements Editor {
     	activate();
     	log.info("Open editor's " + assistantLabel + " content assistant");
         AbstractWait.sleep(TimePeriod.SHORT);
-        Shell[] shells = ShellLookup.getInstance().getShells();
+        
         
         ShellMenu menu;
         try {
-        	menu = new ShellMenu(assistantMenuPath);        	
-        } catch (Throwable e) {
+        	menu = new ShellMenu(assistantMenuPath);     
+        } catch (RedDeerException e) {
         	throw new WorkbenchLayerException("Content assistant " + assistantLabel + " does not exist!", e);
+        	
 		}
-        
         if(!menu.isEnabled()){
-        	throw new WorkbenchLayerException("Content assistant " + assistantLabel + " is disabled!");
+           	throw new WorkbenchLayerException("Content assistant " + assistantLabel + " is disabled!");
         }
-        
-        menu.select();        
-        ContentAssistantShellIsOpened caw = new ContentAssistantShellIsOpened(
-                shells);
+        Shell[] shells = ShellLookup.getInstance().getShells();
+        menu.select();  
+        return getContentAssistantShell(shells);
+    }
+    
+    private ContentAssistant openContentAssistantViaKeyboard(){
+    	Shell[] shells = ShellLookup.getInstance().getShells();
+    	IBindingService bindingService = (IBindingService) PlatformUI.getWorkbench().getAdapter(IBindingService.class);
+        TriggerSequence[] sequence = 
+        		 bindingService.getActiveBindingsFor(ITextEditorActionDefinitionIds.CONTENT_ASSIST_PROPOSALS);
+         
+         if (sequence.length > 0 && sequence[0].getTriggers().length > 0) {
+             if (sequence[0].getTriggers()[0] instanceof KeyStroke) {
+                 KeyStroke k = ((KeyStroke) sequence[0].getTriggers()[0]);
+                 KeyboardFactory.getKeyboard().invokeKeyCombination(k.getModifierKeys(), k.getNaturalKey());
+             } else {
+                 throw new WorkbenchLayerException("Unable to find key combination which invokes Content Assistant");
+             }
+         } else {
+             throw new WorkbenchLayerException("Unable to find key combination which invokes Content Assistant");
+         }
+         return getContentAssistantShell(shells);
+    }
+    
+    private ContentAssistant getContentAssistantShell(Shell[] shells){
+    	ContentAssistantShellIsOpened caw = new ContentAssistantShellIsOpened(shells);
         new WaitUntil(caw);
         return new ContentAssistant(caw.getContentAssistTable());
     }
