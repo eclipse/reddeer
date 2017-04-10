@@ -12,13 +12,13 @@ package org.eclipse.reddeer.eclipse.test.ui.ide;
 
 import static org.junit.Assert.assertTrue;
 
+import org.eclipse.reddeer.eclipse.equinox.security.ui.storage.PasswordProvider;
 import org.eclipse.reddeer.eclipse.equinox.security.ui.storage.StoragePreferencePage;
 import org.eclipse.reddeer.eclipse.mylyn.tasks.ui.views.TaskRepositoriesView;
 import org.eclipse.reddeer.eclipse.mylyn.tasks.ui.views.TaskRepository;
 import org.eclipse.reddeer.eclipse.mylyn.tasks.ui.wizards.TaskRepositoryWizardDialog;
 import org.eclipse.reddeer.workbench.ui.dialogs.WorkbenchPreferenceDialog;
 import org.eclipse.reddeer.junit.runner.RedDeerSuite;
-import org.eclipse.reddeer.swt.api.TableItem;
 import org.eclipse.reddeer.swt.impl.text.LabeledText;
 import org.junit.After;
 import org.junit.Before;
@@ -74,8 +74,8 @@ public class RepoConnectionDialogTest  {
 		preferenceDialog.open();
 		preferenceDialog.select(storagePage);
 		
-		for (TableItem item: storagePage.getMasterPasswordProviders()) {
-			item.setChecked(enabled);
+		for (PasswordProvider provider: storagePage.getMasterPasswordProviders()) {
+			provider.setEnabled(enabled);
 		}
 		storagePage.apply();
 		preferenceDialog.ok();

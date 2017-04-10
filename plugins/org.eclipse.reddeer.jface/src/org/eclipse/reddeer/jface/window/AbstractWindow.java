@@ -124,4 +124,9 @@ public abstract class AbstractWindow implements Window{
 		log.trace("Shell "+shell.getText()+" is not null and is not disposed");
 	}
 
+	@Override
+	public Class<?> getEclipseClass() {
+		return org.eclipse.jface.window.Window.class;
+	}
+
 }
