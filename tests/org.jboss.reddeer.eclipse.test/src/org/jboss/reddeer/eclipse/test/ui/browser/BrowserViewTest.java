@@ -10,8 +10,7 @@
  ******************************************************************************/ 
 package org.jboss.reddeer.eclipse.test.ui.browser;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.*;
 
 import org.jboss.reddeer.eclipse.ui.browser.WebBrowserView;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
@@ -60,7 +59,7 @@ public class BrowserViewTest {
 	}
 	
 	private void assertPageIsOpened(String url) {
-		assertThat(browserView.getPageURL(), is(url));
+		assertTrue(browserView.getPageURL().contains(url));
 	}
 	
 }
