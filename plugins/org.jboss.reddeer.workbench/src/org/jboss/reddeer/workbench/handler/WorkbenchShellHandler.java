@@ -132,15 +132,23 @@ public class WorkbenchShellHandler {
 	 *            the swt shell
 	 */
 	private void closeShellSafely(Shell swtShell) {
-		String text = ShellHandler.getInstance().getText(swtShell);
-		log.info("Close shell " + text);
-		try {
-			clickCancelButton();
+		try{
+			String text = ShellHandler.getInstance().getText(swtShell);
+			log.info("Close shell " + text);
+			try {
+				clickCancelButton();
+			} catch (Exception e) {
+				ShellHandler.getInstance().notifyWidget(SWT.Close, swtShell);
+				ShellHandler.getInstance().closeShell(swtShell);
+			}
+			new WaitWhile(new ShellIsAvailable(text));
 		} catch (Exception e) {
-			ShellHandler.getInstance().notifyWidget(SWT.Close, swtShell);
-			ShellHandler.getInstance().closeShell(swtShell);
+			if(swtShell.isDisposed()){
+				//ok, shell is disposed
+			} else {
+				throw e;
+			}
 		}
-		new WaitWhile(new ShellIsAvailable(text));
 	}
 
 	private void clickCancelButton() {
