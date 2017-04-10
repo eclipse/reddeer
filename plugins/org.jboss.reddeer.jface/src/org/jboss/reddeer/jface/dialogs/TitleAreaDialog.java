@@ -116,6 +116,17 @@ public class TitleAreaDialog extends AbstractWindow{
 		return new DefaultLabel((Label)imageControl).getImage();
 	}
 	
+	/**
+	 * Returns title image
+	 * @return title image
+	 */
+	public Image getTitleImage(){
+		checkShell();
+		// Title Image is 1st Label within first Composite of TitleAreaDialog and is inactive
+		Control imageControl = handler.getChildren(getShellComposite())[1];
+		return new DefaultLabel((Label)imageControl).getImage();
+	}
+	
 	protected org.jboss.reddeer.swt.api.Text getMessageLabel(){
 		// Page Message is 5th Text within first Composite of TitleAreaDialog and is inactive 
 		Control textControl = handler.getChildren(getShellComposite())[4];

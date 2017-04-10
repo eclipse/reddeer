@@ -12,12 +12,15 @@ package org.jboss.reddeer.jface.test.dialogs;
 
 import static org.junit.Assert.*;
 
+import org.eclipse.jface.dialogs.Dialog;
+import org.eclipse.jface.resource.JFaceResources;
 import org.eclipse.swt.widgets.Shell;
 import org.jboss.reddeer.common.util.Display;
 import org.jboss.reddeer.core.exception.CoreLayerException;
 import org.jboss.reddeer.eclipse.topmenu.NewMenuWizard;
 import org.jboss.reddeer.jface.dialogs.MessageTypeEnum;
 import org.jboss.reddeer.jface.dialogs.TitleAreaDialog;
+import org.jboss.reddeer.jface.test.Activator;
 import org.jboss.reddeer.jface.test.dialogs.impl.TestingNewWizard;
 import org.jboss.reddeer.jface.test.dialogs.impl.TestingTitleAreaDialog;
 import org.jboss.reddeer.swt.impl.button.PushButton;
@@ -37,22 +40,28 @@ public class TitleAreaDialogTest {
 		assertEquals(TestingTitleAreaDialog.DEFAULT_MESSAGE, dialog.getMessage());
 		assertEquals(MessageTypeEnum.NONE, dialog.getMessageType());
 		assertEquals(TestingTitleAreaDialog.TITLE, dialog.getTitle());
+		assertNull(dialog.getMessageImage());
+		assertEquals(Activator.getDefault().getImageRegistry().get(Activator.REDDEER_ICON), dialog.getTitleImage());
 
 		dialog.errorButton();
 		assertEquals(TestingTitleAreaDialog.ERROR_MESSAGE, dialog.getMessage());
 		assertEquals(MessageTypeEnum.ERROR, dialog.getMessageType());
+		assertEquals(JFaceResources.getImage(Dialog.DLG_IMG_MESSAGE_ERROR), dialog.getMessageImage());
 
 		dialog.warningButton();
 		assertEquals(TestingTitleAreaDialog.WARNING_MESSAGE, dialog.getMessage());
 		assertEquals(MessageTypeEnum.WARNING, dialog.getMessageType());
+		assertEquals(JFaceResources.getImage(Dialog.DLG_IMG_MESSAGE_WARNING), dialog.getMessageImage());
 
 		dialog.infoButton();
 		assertEquals(TestingTitleAreaDialog.INFO_MESSAGE, dialog.getMessage());
 		assertEquals(MessageTypeEnum.INFO, dialog.getMessageType());
+		assertEquals(JFaceResources.getImage(Dialog.DLG_IMG_MESSAGE_INFO), dialog.getMessageImage());
 
 		dialog.noneButton();
 		assertEquals(TestingTitleAreaDialog.NONE_MESSAGE, dialog.getMessage());
 		assertEquals(MessageTypeEnum.NONE, dialog.getMessageType());
+		assertNull(dialog.getMessageImage());
 
 		dialog.errorWithoutProviderButton();
 		assertEquals(TestingTitleAreaDialog.ERROR_MESSAGE_WITHOUT_PROVIDER, dialog.getMessage());

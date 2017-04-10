@@ -21,6 +21,7 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Shell;
+import org.jboss.reddeer.jface.test.Activator;
 
 public class TestingTitleAreaDialog extends TitleAreaDialog{
 	
@@ -105,6 +106,7 @@ public class TestingTitleAreaDialog extends TitleAreaDialog{
 		});
         
         errorButton.setText(ERROR_MESSAGE);
+        setTitleImage(Activator.getDefault().getImageRegistry().get(Activator.REDDEER_ICON));
         return area;
 	}
 	
