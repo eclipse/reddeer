@@ -15,6 +15,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.hamcrest.Matcher;
+import org.jboss.reddeer.common.exception.RedDeerException;
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.swt.api.Tree;
 import org.jboss.reddeer.swt.api.TreeItem;
@@ -52,7 +53,16 @@ public abstract class AbstractTree extends AbstractControl<org.eclipse.swt.widge
 		LinkedList<TreeItem> items = new LinkedList<TreeItem>();
 		List<org.eclipse.swt.widgets.TreeItem> eclipseItems = TreeHandler.getInstance().getSWTItems(swtWidget);
 		for (org.eclipse.swt.widgets.TreeItem swtTreeItem : eclipseItems) {
-			items.addLast(new DefaultTreeItem(swtTreeItem));
+			DefaultTreeItem item = null;
+			try{
+				item = new DefaultTreeItem(swtTreeItem);
+				items.addLast(item);
+			} catch (RedDeerException e) {
+				if(TreeHandler.getInstance().isDisposed(swtTreeItem)){
+					continue;
+				} 
+				throw e;
+			} 
 		}
 		return items;
 	}
@@ -72,7 +82,16 @@ public abstract class AbstractTree extends AbstractControl<org.eclipse.swt.widge
 	public List<TreeItem> getSelectedItems() {
 		List<TreeItem> selectedItems = new ArrayList<TreeItem>();
 		for (org.eclipse.swt.widgets.TreeItem swtItem : TreeHandler.getInstance().getSelection(swtWidget)) {
-			selectedItems.add(new DefaultTreeItem(swtItem));
+			DefaultTreeItem item = null;
+			try{
+				item = new DefaultTreeItem(swtItem);
+				selectedItems.add(item);
+			} catch (RedDeerException e) {
+				if(TreeHandler.getInstance().isDisposed(swtItem)){
+					continue;
+				} 
+				throw e;
+			}
 		}
 		return selectedItems;
 	}
