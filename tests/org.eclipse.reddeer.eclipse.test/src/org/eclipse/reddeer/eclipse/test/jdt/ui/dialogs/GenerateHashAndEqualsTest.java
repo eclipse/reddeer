@@ -13,16 +13,13 @@ package org.eclipse.reddeer.eclipse.test.jdt.ui.dialogs;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import org.eclipse.reddeer.eclipse.core.resources.DefaultProject;
-import org.eclipse.reddeer.eclipse.exception.EclipseLayerException;
 import org.eclipse.reddeer.eclipse.jdt.ui.dialogs.GenerateHashCodeEqualsDialog;
-import org.eclipse.reddeer.eclipse.jdt.ui.packageview.PackageExplorerPart;
 import org.eclipse.reddeer.eclipse.jdt.ui.wizards.JavaProjectWizard;
 import org.eclipse.reddeer.eclipse.jdt.ui.wizards.NewClassCreationWizard;
 import org.eclipse.reddeer.eclipse.jdt.ui.wizards.NewClassWizardPage;
 import org.eclipse.reddeer.eclipse.jdt.ui.wizards.NewJavaProjectWizardPageOne;
-import org.eclipse.reddeer.eclipse.utils.DeleteUtils;
 import org.eclipse.reddeer.junit.runner.RedDeerSuite;
+import org.eclipse.reddeer.requirements.cleanworkspace.CleanWorkspaceRequirement;
 import org.eclipse.reddeer.requirements.cleanworkspace.CleanWorkspaceRequirement.CleanWorkspace;
 import org.eclipse.reddeer.workbench.impl.shell.WorkbenchShell;
 import org.eclipse.reddeer.workbench.impl.editor.TextEditor;
@@ -36,14 +33,7 @@ public class GenerateHashAndEqualsTest {
 	
 	@AfterClass
 	public static void deleteProject(){
-		PackageExplorerPart pe = new PackageExplorerPart();
-		pe.open();
-		try{
-			DefaultProject testProject = pe.getProject("GenHashProject");
-			DeleteUtils.forceProjectDeletion(testProject,true);
-		} catch (EclipseLayerException ele){
-			// do nothing
-		}
+		new CleanWorkspaceRequirement().fulfill();
 	}
 	
 	@Test

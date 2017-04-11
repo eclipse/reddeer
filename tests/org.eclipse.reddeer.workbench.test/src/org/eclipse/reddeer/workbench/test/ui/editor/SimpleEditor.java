@@ -14,6 +14,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
+import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
@@ -23,6 +24,7 @@ import org.eclipse.ui.IEditorSite;
 import org.eclipse.ui.IWorkbenchPartConstants;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.part.EditorPart;
+import org.eclipse.reddeer.workbench.test.Activator;
 
 public class SimpleEditor extends EditorPart{
 
@@ -30,6 +32,7 @@ public class SimpleEditor extends EditorPart{
 	public Boolean dirty=false;
 	private Button buttonDirty;
 	private Button buttonSave;
+	public static final String TITLE_TOOLTIP = "titleToolTip";
 	
 	@Override
 	public String getTitle() {
@@ -39,6 +42,16 @@ public class SimpleEditor extends EditorPart{
 			setPartName(getEditorInput().getName());
 			return getEditorInput().getName();
 		}
+	}
+
+	@Override
+	public String getTitleToolTip() {
+		return TITLE_TOOLTIP;
+	}
+	
+	@Override
+	public Image getTitleImage() {
+		return Activator.getDefault().getImageRegistry().get(Activator.REDDEER_ICON);
 	}
 	
 	@Override

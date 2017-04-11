@@ -10,8 +10,7 @@
  *******************************************************************************/
 package org.eclipse.reddeer.workbench.test.view.impl;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import org.eclipse.reddeer.junit.runner.RedDeerSuite;
 import org.eclipse.reddeer.workbench.api.View;
@@ -45,25 +44,6 @@ public class WorkbenchViewTest  {
 		} catch (WorkbenchLayerException uoe) {
 			// Project Explorer view is not opened, do nothing here
 		}
-	}
-
-	@Test
-	public void testNotActiveView() {
-
-		markersView.open();
-		markersView.close();
-		
-	}
-	
-	@Test(expected=UnsupportedOperationException.class)
-	public void testIsActiveView() {
-
-		markersView.open();
-		assertTrue(markersView.isActive());
-		
-		projectExplorerView.open();
-		assertFalse(markersView.isActive());
-		
 	}
 
 	@Test

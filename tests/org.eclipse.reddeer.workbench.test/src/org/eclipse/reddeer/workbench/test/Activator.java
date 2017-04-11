@@ -10,6 +10,13 @@
  *******************************************************************************/
 package org.eclipse.reddeer.workbench.test;
 
+import java.net.URL;
+import java.util.Collections;
+
+import org.eclipse.core.runtime.FileLocator;
+import org.eclipse.core.runtime.Path;
+import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.jface.resource.ImageRegistry;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
@@ -23,6 +30,8 @@ public class Activator extends AbstractUIPlugin {
 
 	// The shared instance
 	private static Activator plugin;
+	
+	public static final String REDDEER_ICON = "reddeer_icon1";
 	
 	/**
 	 * The constructor
@@ -55,6 +64,18 @@ public class Activator extends AbstractUIPlugin {
 	 */
 	public static Activator getDefault() {
 		return plugin;
+	}
+	
+	@Override
+	protected void initializeImageRegistry(ImageRegistry reg) {
+		super.initializeImageRegistry(reg);
+		initializeImageRegistry(reg, REDDEER_ICON);
+	}
+
+	private void initializeImageRegistry(ImageRegistry reg, String icon) {
+		Path iconPath = new Path("resources/"+icon+".png");
+		URL iconURL = FileLocator.find(Activator.getDefault().getBundle(), iconPath, Collections.emptyMap());
+		reg.put(icon, ImageDescriptor.createFromURL(iconURL));
 	}
 
 }

@@ -25,6 +25,8 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.Event;
+import org.eclipse.swt.widgets.Listener;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.texteditor.ITextEditor;
 import org.eclipse.reddeer.common.exception.RedDeerException;
@@ -52,7 +54,6 @@ import org.eclipse.reddeer.workbench.handler.EditorHandler;
 import org.eclipse.reddeer.workbench.handler.WorkbenchShellHandler;
 import org.eclipse.reddeer.workbench.impl.editor.AbstractEditor.ContentAssistantEnum;
 import org.eclipse.reddeer.workbench.impl.editor.TextEditor;
-import org.eclipse.reddeer.workbench.impl.shell.WorkbenchShell;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -68,6 +69,27 @@ public class TextEditorTest {
 
 	@BeforeClass
 	public static void setup() {
+		Listener l = new Listener() {
+			
+			@Override
+			public void handleEvent(Event event) {
+				System.out.println(event);
+				
+			}
+		};
+		Display.getDisplay().syncExec(new Runnable() {
+			
+			@Override
+			public void run() {
+				Display.getDisplay().addFilter(SWT.MouseDown, l);
+				
+			}
+		});
+		
+		
+		
+		
+		
 		EditorHandler.getInstance().closeAll(true);
 		BasicNewProjectResourceWizard projectWizard = new BasicNewProjectResourceWizard();
 		projectWizard.open();
@@ -82,7 +104,6 @@ public class TextEditorTest {
 		KeyboardFactory.getKeyboard().type("a");
 		javaTextEditor.save();
 		javaTextEditor.close();
-		new WorkbenchShell().maximize();
 		// set java class file content to original
 		javaTextEditor = TextEditorTest.openJavaFile();
 		javaTextEditor.setText(TextEditorTest.ORIGINAL_JAVA_FILE_TEXT);
