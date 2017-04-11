@@ -14,6 +14,7 @@ import java.util.List;
 
 import org.eclipse.reddeer.jface.text.contentassist.ContentAssistant;
 import org.eclipse.reddeer.workbench.impl.editor.Marker;
+import org.eclipse.reddeer.workbench.impl.editor.AbstractEditor.ContentAssistantEnum;
 
 /**
  * Interface with base operations which can be performed with editor.
@@ -21,11 +22,6 @@ import org.eclipse.reddeer.workbench.impl.editor.Marker;
  * @author rawagner
  */
 public interface Editor extends WorkbenchPart {
-    /**
-     * Returns editor title tooltip.
-     * @return editor title tooltip
-     */
-    String getTitleToolTip();
 
     /**
      * Checks if editor is dirty.
@@ -45,22 +41,30 @@ public interface Editor extends WorkbenchPart {
     void close(boolean save);
 
     /**
-     * Closes all editors.
-     * @param save If true, content will be saved
-     */
-    void closeAll(boolean save); 
-
-    /**
-     * Checks if editor is active.
-     * @return whether is this editor currently active and has focus.
-     */
-    boolean isActive();
-
-    /**
      * Opens content assistant.
      * @return Content assistant shell
      */
     ContentAssistant openContentAssistant();
+    
+    /**
+     * Opens content assistant of specified type
+     * @param assistantType type of content assistant to open
+     * @return Content assistant shell
+     */
+    ContentAssistant openContentAssistant(ContentAssistantEnum assistantType);
+    
+    /**
+     * Opens content assistant of specified type
+     * @param assistantLabel type of content assistant to open
+     * @return Content assistant shell
+     */
+    ContentAssistant openContentAssistant(String assistantLabel);
+    
+    /**
+	 * Retrieves callable content assistants.
+	 * @return List of assistants enums.
+	 */
+    List<ContentAssistantEnum> getAvailableContentAssistants();
 
     /**
      * Opens quickfix content assistant.

@@ -13,23 +13,30 @@ package org.eclipse.reddeer.workbench.handler;
 import java.util.Iterator;
 import java.util.List;
 
+import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.custom.CTabItem;
+import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Widget;
 import org.eclipse.ui.IWorkbenchPart;
+import org.eclipse.ui.IWorkbenchPartReference;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.actions.ActionFactory;
 import org.eclipse.ui.actions.ActionFactory.IWorkbenchAction;
+import org.eclipse.reddeer.common.exception.RedDeerException;
 import org.eclipse.reddeer.common.logging.Logger;
 import org.eclipse.reddeer.common.util.Display;
 import org.eclipse.reddeer.common.util.ResultRunnable;
 import org.eclipse.reddeer.core.handler.CTabItemHandler;
+import org.eclipse.reddeer.core.handler.ControlHandler;
 import org.eclipse.reddeer.core.lookup.WidgetLookup;
+import org.eclipse.reddeer.core.util.TextWidgetUtil;
+import org.eclipse.reddeer.workbench.core.lookup.WorkbenchPartLookup;
 import org.eclipse.reddeer.workbench.exception.WorkbenchLayerException;
 
 /**
- * WorkbenchPartHandler handles operations common for both editor and view instances.
+ * WorkbenchPartHandler handles operations common for workbench part.
  * 
  * @author rawagner
  *
@@ -84,6 +91,136 @@ public class WorkbenchPartHandler {
 	}
 	
 	/**
+	 * Gets title image of specified {@link IWorkbenchPart}.
+	 *
+	 * @param workbenchPart the workbench part
+	 * @return title image of specified workbench part
+	 */
+	public Image getTitleImage(final IWorkbenchPart workbenchPart) {
+		return Display.syncExec(new ResultRunnable<Image>() {
+
+			@Override
+			public Image run() {
+				return workbenchPart.getTitleImage();
+			}
+		});
+	}
+	
+	/**
+	 * Calls set focus on specified workbench part. This should focus control inside workbench part
+	 * @param workbenchPart to call focus on
+	 */
+	protected void setFocus(final IWorkbenchPart workbenchPart) {
+		Display.syncExec(new Runnable() {
+			
+			@Override
+			public void run() {
+				workbenchPart.setFocus();
+				
+			}
+		});
+	}
+	
+	
+	/**
+	 * Focus child control.
+	 */
+	public void focusChildControl(IWorkbenchPart workbenchPart) {
+		IWorkbenchPartReference workbenchPartReferece = getWorkbenchReference(workbenchPart);
+		if(workbenchPartReferece != null){
+			final Control workbenchControl = WorkbenchPartLookup.getInstance().getWorkbenchControl(workbenchPartReferece);
+			log.debug("Active workbench control=" + 
+					(workbenchControl == null ? "null" : getControlDesc(workbenchControl)));
+			final Control focusedControl = WidgetLookup.getInstance().getFocusControl();
+			log.debug("Focused control="
+					+ (focusedControl == null ? "null" : getControlDesc(focusedControl)));
+			if (hasControlSpecificParent(focusedControl, workbenchControl)) {
+				return;
+			}
+			log.debug("No control in opened view has a focus!");
+			log.debug("Setting implicit focus...");
+			setFocusOnControlChild(workbenchControl);
+		}
+	}
+	
+	private IWorkbenchPartReference getWorkbenchReference(IWorkbenchPart workbenchPart) {
+		return Display.syncExec(new ResultRunnable<IWorkbenchPartReference>() {
+
+			@Override
+			public IWorkbenchPartReference run() {
+				return workbenchPart.getSite().getPage().getReference(workbenchPart);
+			}
+		});
+	}
+	
+	private void setFocusOnControlChild(final Control workbenchControl) {
+		Display.syncExec(new Runnable() {
+			@Override
+			public void run() {
+				Control[] childrenControls= ((Composite) workbenchControl).getChildren();
+				if (childrenControls.length > 0) {
+					Control firstChildControl = childrenControls[0];
+					firstChildControl.setFocus();
+				} else {
+					log.debug("View with title '" + workbenchControl.getToolTipText() + "' has "
+							+ "no children!");
+				}
+			}
+		});
+	}
+	
+	private boolean hasControlSpecificParent(final Control focusedControl, final Control workbenchControl) {
+		Control parent = Display.syncExec(new ResultRunnable<Control>() {
+			@Override
+			public Control run() {
+				Control parent = focusedControl;
+				while (parent != null && !parent.equals(workbenchControl) && !parent.isDisposed()) {
+					parent = parent.getParent();
+				}
+				return parent; 
+			}
+		});
+		return workbenchControl.equals(parent);
+	}
+	
+	private String getControlDesc(Control control) {
+		StringBuffer sbDesc = new StringBuffer("Class=");
+		sbDesc.append(control.getClass().getName());
+		sbDesc.append(" Text=");
+		String value;
+		try {
+			value = TextWidgetUtil.getText(control);
+		} catch (RedDeerException e) {
+			value = "<unavailable>";
+		}
+		sbDesc.append(value);
+		sbDesc.append(" TooltipText=");
+		sbDesc.append(ControlHandler.getInstance().getToolTipText(control));
+		
+		return sbDesc.toString();
+	}
+
+	
+    /**
+     * Activates workbench part.
+     * @param workbenchPart to activate
+     */
+    public void activate(final IWorkbenchPart workbenchPart) {
+        if (!isActive(workbenchPart)) {
+            log.debug("Activating workbench part " + getTitle(workbenchPart));
+            Display.syncExec(new Runnable() {
+
+                @Override
+                public void run() {
+                    PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().activate(workbenchPart);
+                }
+            });
+        }
+        setFocus(workbenchPart);
+      	focusChildControl(workbenchPart);
+    }
+	
+	/**
 	 * Perform action created from specified {@link ActionFactory}.
 	 * 
 	 * @param actionFactory action factory to create action to perform
@@ -98,6 +235,38 @@ public class WorkbenchPartHandler {
 			}
 		});
 	}
+	
+	/**
+	 * Finds out whether specified {@link IWorkbenchPart} is visible on active workbench window or not.
+	 * 
+	 * @param workbenchPart workbench part to handle
+	 * @return true if specified workbench part is visible on active workbench window, false otherwise
+	 */
+	public boolean isWorkbenchPartVisible(final IWorkbenchPart workbenchPart) {
+		return Display.syncExec(new ResultRunnable<Boolean>() {
+			@Override
+			public Boolean run() {
+				return workbenchPart != null && PlatformUI.getWorkbench().getActiveWorkbenchWindow()
+						.getActivePage().isPartVisible(workbenchPart);
+			}
+		});
+				
+	}
+	
+	/**
+     * Checks if workbench part is active.
+     * @param workbenchPart to be checked if it is active
+     * @return true if workbench part is active, false otherwise
+     */
+    public boolean isActive(final IWorkbenchPart workbenchPart) {
+        return Display.syncExec(new ResultRunnable<Boolean>() {
+            @Override
+            public Boolean run() {
+                return workbenchPart == PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
+                		.getActivePart();
+            }
+        });
+    }
 	
 	/**
 	 * Activates workbench part containing specified widget.

@@ -32,7 +32,7 @@ public class ViewIsOpen extends AbstractWaitCondition{
 
 	@Override
 	public boolean test() {
-		return view.isOpened();
+		return view.isOpen();
 	}
 	
 	@Override

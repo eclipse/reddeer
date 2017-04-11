@@ -31,6 +31,7 @@ import org.eclipse.reddeer.workbench.api.Editor;
 import org.eclipse.reddeer.workbench.core.exception.WorkbenchCoreLayerException;
 import org.eclipse.reddeer.workbench.handler.EditorHandler;
 import org.eclipse.reddeer.workbench.impl.editor.DefaultEditor;
+import org.eclipse.reddeer.workbench.test.Activator;
 import org.eclipse.reddeer.workbench.test.ui.editor.SimpleEditor;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -86,7 +87,7 @@ public class EditorTest {
 
 	@Test(expected = WorkbenchCoreLayerException.class)
 	public void noEditorsOpenedTest() {
-		new DefaultEditor().closeAll(false);
+		EditorHandler.getInstance().closeAll(false);
 		new DefaultEditor();
 	}
 
@@ -94,6 +95,18 @@ public class EditorTest {
 	public void noEditorOpenedTest() {
 		new DefaultEditor().close(false);
 		new DefaultEditor();
+	}
+	
+	@Test
+	public void testTitleImage(){
+		assertNotNull(new DefaultEditor().getTitleImage());
+		assertEquals(Activator.getDefault().getImageRegistry().get(Activator.REDDEER_ICON),
+				new DefaultEditor().getTitleImage());
+	}
+	
+	@Test
+	public void testTitleToolTip(){
+		assertEquals(SimpleEditor.TITLE_TOOLTIP, new DefaultEditor().getTitleToolTip());
 	}
 
 	@Test
@@ -112,7 +125,7 @@ public class EditorTest {
 		new PushButton("Make Dirty").click();
 		SimpleEditor editorPart = getEditorPart(editor);
 		assertTrue(editorPart.dirty);
-		editor.closeAll(true);
+		EditorHandler.getInstance().closeAll(true);
 		assertFalse(editorPart.dirty);
 	}
 
@@ -122,7 +135,7 @@ public class EditorTest {
 		new PushButton("Make Dirty").click();
 		SimpleEditor editorPart = getEditorPart(editor);
 		assertTrue(editorPart.dirty);
-		editor.closeAll(false);
+		EditorHandler.getInstance().closeAll(false);
 		assertTrue(editorPart.dirty);
 	}
 
@@ -152,7 +165,6 @@ public class EditorTest {
 	@Test
 	public void getTitleTest() {
 		DefaultEditor editor = new DefaultEditor();
-		System.out.println(editor.isDirty());
 		assertEquals("Editor does not have expected title", "editorTest.min", editor.getTitle());
 	}
 
@@ -164,6 +176,32 @@ public class EditorTest {
 		assertTrue(editor.isDirty());
 		new PushButton("Save").click();
 		assertFalse(editor.isDirty());
+	}
+	
+	@Test
+	public void saveEditor(){
+		DefaultEditor editor = new DefaultEditor();
+		assertFalse(editor.isDirty());
+		new PushButton("Make Dirty").click();
+		editor.save();
+		assertFalse(editor.isDirty());
+	}
+	
+	@Test
+	public void findDirtyEditor(){
+		DefaultEditor editor = new DefaultEditor();
+		String title = editor.getTitle();
+		new PushButton("Make Dirty").click();
+		assertTrue(editor.isDirty());
+
+		new DefaultEditor(title);
+	}
+	
+	@Test
+	public void testEditorAsReferencedComposite(){
+		DefaultEditor editor = new DefaultEditor();
+		//editor used as referenced composite
+		new PushButton(editor);
 	}
 
 	@Test
@@ -203,14 +241,6 @@ public class EditorTest {
 		packageExplorer.getProject(PROJECT_NAME).getProjectItem("editorTest1.min").open();
 		editor.close(false);
 		new DefaultEditor("editorTest.min"); // should be closed now
-	}
-
-	@Test
-	public void isNotActiveTest() {
-		DefaultEditor editor = new DefaultEditor();
-		new ProblemsView().open();
-		assertFalse(editor.isActive());
-		assertTrue(new DefaultEditor().isActive());
 	}
 
 	@Test

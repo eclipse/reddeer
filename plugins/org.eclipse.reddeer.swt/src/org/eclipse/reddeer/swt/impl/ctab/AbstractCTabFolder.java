@@ -40,7 +40,11 @@ public abstract class AbstractCTabFolder extends AbstractControl<org.eclipse.swt
 	 */
 	@Override
 	public CTabItem getSelection() {
-		return new DefaultCTabItem(swtWidget.getSelection());
+		org.eclipse.swt.custom.CTabItem selectedItem = CTabFolderHandler.getInstance().getSelection(swtWidget);
+		if(selectedItem == null){
+			return null;
+		}
+		return new DefaultCTabItem(selectedItem);
 	}
 	
 	/* (non-Javadoc)

@@ -53,4 +53,10 @@ public interface CTabItem extends Item<org.eclipse.swt.custom.CTabItem>, Referen
 	 * @return tooltip text of CTabItem
 	 */
 	String getToolTipText();
+	
+	/**
+	 * Checks if tab item is active
+	 * @return
+	 */
+	boolean isActive();
 }

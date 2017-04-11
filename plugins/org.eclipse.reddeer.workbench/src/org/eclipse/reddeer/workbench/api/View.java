@@ -23,24 +23,11 @@ public interface View extends WorkbenchPart {
     void open();
     
     /**
-     * Returns true of view is visible.
-     *
-     * @return true, if is visible
-     */
-    boolean isVisible();
-    
-    /**
-     * Returns true of view is opened
+     * Returns true of view is open
      * View is available in workbench but not necessary visible.
      *
      * @return true, if is opened
      */
-    boolean isOpened();
+    boolean isOpen();
     
-    /**
-     * Returns true of view is active.
-     *
-     * @return true, if is active
-     */
-    boolean isActive();
 }

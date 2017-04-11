@@ -41,7 +41,7 @@ import org.eclipse.reddeer.workbench.impl.editor.Marker;
  * @author rawagner
  */
 @SuppressWarnings("restriction")
-public class EditorHandler {
+public class EditorHandler extends WorkbenchPartHandler {
 
     protected final Logger log = Logger.getLogger(this.getClass());
 
@@ -64,7 +64,6 @@ public class EditorHandler {
      * @param editor to save
      */
     public void save(final IEditorPart editor) {
-        activate(editor);
         log.debug("Saving editor");
         Display.syncExec(new Runnable() {
 
@@ -73,41 +72,6 @@ public class EditorHandler {
                 editor.doSave(new NullProgressMonitor());
             }
         });
-    }
-
-    /**
-     * Checks if editor is active.
-     * @param editor to be checked if it is active
-     * @return true if editor is active, false otherwise
-     */
-    public boolean isActive(final IEditorPart editor) {
-        return Display.syncExec(new ResultRunnable<Boolean>() {
-            @Override
-            public Boolean run() {
-                return (editor == PlatformUI.getWorkbench()
-                        .getActiveWorkbenchWindow().getActivePage()
-                        .getActivePart());
-            }
-        });
-    }
-
-    /**
-     * Activates editor.
-     * @param editor to activate
-     */
-    public void activate(final IEditorPart editor) {
-        if (!isActive(editor)) {
-            log.debug("Activating editor " + WorkbenchPartHandler.getInstance().getTitle(editor));
-            Display.syncExec(new Runnable() {
-
-                @Override
-                public void run() {
-                    PlatformUI.getWorkbench().getActiveWorkbenchWindow()
-                            .getActivePage().activate(editor);
-                    editor.setFocus();
-                }
-            });
-        }
     }
 
     /**
@@ -138,10 +102,8 @@ public class EditorHandler {
 
                 @Override
                 public void run() {
-                    IWorkbenchWindow activeWorkbenchWindow = PlatformUI
-                            .getWorkbench().getActiveWorkbenchWindow();
-                    activeWorkbenchWindow.getActivePage().closeEditor(editor,
-                            save);
+                    IWorkbenchWindow activeWorkbenchWindow = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
+                    activeWorkbenchWindow.getActivePage().closeEditor(editor, save);
                 }
             });
             new DefaultShell("Save Resource");
@@ -152,10 +114,8 @@ public class EditorHandler {
 
                 @Override
                 public void run() {
-                    IWorkbenchWindow activeWorkbenchWindow = PlatformUI
-                            .getWorkbench().getActiveWorkbenchWindow();
-                    activeWorkbenchWindow.getActivePage().closeEditor(editor,
-                            save);
+                    IWorkbenchWindow activeWorkbenchWindow = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
+                    activeWorkbenchWindow.getActivePage().closeEditor(editor, save);
                 }
             });
         }
@@ -170,18 +130,15 @@ public class EditorHandler {
      */
     public List<Marker> getMarkers(final IEditorPart editor) {
         List<Marker> markers = new ArrayList<Marker>();
-        ITextEditor textEditor = (ITextEditor) editor
-                .getAdapter(ITextEditor.class);
+        ITextEditor textEditor = (ITextEditor) editor.getAdapter(ITextEditor.class);
         if (textEditor == null) {
             return markers;
         }
-        final IDocumentProvider documentProvider = textEditor
-                .getDocumentProvider();
+        final IDocumentProvider documentProvider = textEditor.getDocumentProvider();
         if (documentProvider == null) {
             return markers;
         }
-        IAnnotationModel model = documentProvider.getAnnotationModel(textEditor
-                .getEditorInput());
+        IAnnotationModel model = documentProvider.getAnnotationModel(textEditor.getEditorInput());
         List<Marker> problemAnnotationMarkers = new ArrayList<Marker>();
         List<Marker> simpleAnnotationMarkers = new ArrayList<Marker>();
         Iterator<?> it = model.getAnnotationIterator();
@@ -222,22 +179,20 @@ public class EditorHandler {
      */
 	public void closeAll(final boolean save) {
 		log.trace("Closing all editors");
-		IEditorReference[] editors = Display
-				.syncExec(new ResultRunnable<IEditorReference[]>() {
+		IEditorReference[] editors = Display.syncExec(new ResultRunnable<IEditorReference[]>() {
 
-					@Override
-					public IEditorReference[] run() {
-						IWorkbenchWindow activeWorkbenchWindow = PlatformUI
-								.getWorkbench().getActiveWorkbenchWindow();
-						IEditorReference[] editors = activeWorkbenchWindow
-								.getActivePage().getEditorReferences();
-						log.debug(editors.length + " editor(s) found");
-						return editors;
-					}
-				});
-
-		for (IEditorReference editor : editors) {
-			close(save, (IEditorPart) editor.getPart(true));
+			@Override
+			public IEditorReference[] run() {
+				IWorkbenchWindow activeWorkbenchWindow = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
+				IEditorReference[] editors = activeWorkbenchWindow.getActivePage().getEditorReferences();
+				log.debug(editors.length + " editor(s) found");
+				return editors;
+			}
+		});
+		if(editors != null){
+			for (IEditorReference editor : editors) {
+				close(save, (IEditorPart) editor.getPart(true));
+			}
 		}
 	}
 }
