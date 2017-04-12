@@ -87,7 +87,7 @@ public class ServerModule {
 				waitWhile(new JobIsRunning()), waitUntil(new WidgetIsDisposed(treeItem.getSWTWidget())));
 		treeItem = null;
 		WithTextMatcher shellMatcher = new WithTextMatcher(new RegexMatcher("Publishing to .*"));
-		new WaitUntil(new ShellIsAvailable(shellMatcher), TimePeriod.NORMAL,false);
+		new WaitUntil(new ShellIsAvailable(shellMatcher), TimePeriod.DEFAULT,false);
 		new WaitWhile(new ShellIsAvailable(shellMatcher), TimePeriod.LONG);
 	}
 	

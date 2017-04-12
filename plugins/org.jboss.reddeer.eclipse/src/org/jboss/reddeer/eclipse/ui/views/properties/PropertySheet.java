@@ -107,7 +107,7 @@ public class PropertySheet extends WorkbenchView{
 			//probably not rendered yet
 		}
 		if (!old.contains(label)) {
-			new WaitUntil(new AnotherTabsRendered(old), TimePeriod.NORMAL, false);	
+			new WaitUntil(new AnotherTabsRendered(old), TimePeriod.DEFAULT, false);	
 		}
 		
 		new TabbedPropertyList(cTabItem, 0).selectTab(label);

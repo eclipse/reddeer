@@ -120,7 +120,7 @@ public abstract class JobTestBase {
 			public boolean test() {
 				return isRunning(job);
 			}
-		}, TimePeriod.NORMAL);
+		}, TimePeriod.DEFAULT);
 	}
 	
 	private boolean isRunning(final String name) {

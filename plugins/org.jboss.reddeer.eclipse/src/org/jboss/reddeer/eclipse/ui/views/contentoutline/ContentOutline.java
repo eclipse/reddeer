@@ -107,7 +107,7 @@ public class ContentOutline extends WorkbenchView {
 	private Collection<TreeItem>getTreeForView() {
 		try {
 			DefaultTree tree = new DefaultTree(cTabItem);
-			new WaitUntil(new TreeHasChildren(tree),TimePeriod.NORMAL,false);
+			new WaitUntil(new TreeHasChildren(tree),TimePeriod.DEFAULT,false);
 
 			return tree.getItems();
 		} catch (CoreLayerException exc) {

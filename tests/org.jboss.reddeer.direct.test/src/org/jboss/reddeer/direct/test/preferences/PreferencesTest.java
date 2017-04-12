@@ -59,7 +59,7 @@ public class PreferencesTest {
 		String newLocation = location.replaceFirst(".xml", "_new.xml");
 		page.setUserSettingsLocation(newLocation);
 		dialog.ok();
-		new WaitWhile(new JobIsRunning(), TimePeriod.NORMAL);
+		new WaitWhile(new JobIsRunning(), TimePeriod.DEFAULT);
 		assertEquals(newLocation, Preferences.get(M2E_PLUGIN, M2E_USER_SETTINGS));
 	}
 
@@ -94,7 +94,7 @@ public class PreferencesTest {
 		String location = page.getUserSettingsLocation();
 		page.setUserSettingsLocation(location.replaceFirst(".xml", "_new.xml"));
 		dialog.ok();
-		new WaitWhile(new JobIsRunning(), TimePeriod.NORMAL);
+		new WaitWhile(new JobIsRunning(), TimePeriod.DEFAULT);
 		Preferences.setDefault(M2E_PLUGIN, M2E_USER_SETTINGS);
 		dialog.open();
 		dialog.select(page);

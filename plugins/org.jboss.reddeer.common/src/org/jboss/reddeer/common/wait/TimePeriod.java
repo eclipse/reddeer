@@ -27,9 +27,12 @@ public class TimePeriod {
 
 	/** Time period 1 second. */
 	public static final TimePeriod SHORT = new TimePeriod(1);
+	
+	/** Time period 3 seconds. */
+	public static final TimePeriod MEDIUM = new TimePeriod(3);
 
 	/** Time period 10 seconds. */
-	public static final TimePeriod NORMAL = new TimePeriod(10);
+	public static final TimePeriod DEFAULT = new TimePeriod(10);
 
 	/** Time period 60 seconds. */
 	public static final TimePeriod LONG = new TimePeriod(60);

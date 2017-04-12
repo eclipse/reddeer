@@ -66,8 +66,8 @@ public class MavenImportWizard extends ImportMenuWizard {
 	public void finish(TimePeriod timeout, boolean waitForResolve){
 		Shell shell = new DefaultShell(TITLE);
 		new PushButton("Finish").click();
-		new WaitWhile(new ShellIsAvailable(shell), TimePeriod.NORMAL);
-		new WaitUntil(new JobIsRunning(), TimePeriod.NORMAL, false);
+		new WaitWhile(new ShellIsAvailable(shell), TimePeriod.DEFAULT);
+		new WaitUntil(new JobIsRunning(), TimePeriod.DEFAULT, false);
 		new WaitWhile(new JobIsRunning(), timeout);
 		
 		if(waitForResolve){
@@ -87,7 +87,7 @@ public class MavenImportWizard extends ImportMenuWizard {
 				// ok, it means that the warning wasn't displayed
 			}
 
-			new WaitUntil(new JobIsRunning(), TimePeriod.NORMAL, false);
+			new WaitUntil(new JobIsRunning(), TimePeriod.DEFAULT, false);
 			new WaitWhile(new JobIsRunning(), timeout);
 		}
 	}

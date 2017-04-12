@@ -71,7 +71,7 @@ public class GenericConnectionProfileTest {
 		DataSourceExplorerView dse = new DataSourceExplorerView();
 		dse.open();
 		DefaultTreeItem item = new DefaultTreeItem("Database Connections");
-		item.expand(TimePeriod.NORMAL);
+		item.expand(TimePeriod.DEFAULT);
 		List<TreeItem> cpitems = item.getItems();
 		for (TreeItem i : cpitems) {
 			i.select();

@@ -86,7 +86,7 @@ public class NewCPWizard extends NewMenuWizard {
 		if (test) {
 			String success = "Success";
 			new PushButton("Test Connection").click();
-			new WaitUntil(new ShellIsAvailable(success), TimePeriod.NORMAL, false);
+			new WaitUntil(new ShellIsAvailable(success), TimePeriod.DEFAULT, false);
 			String text = new DefaultShell().getText();
 			new OkButton().click();
 			if (!text.equals(success)) {

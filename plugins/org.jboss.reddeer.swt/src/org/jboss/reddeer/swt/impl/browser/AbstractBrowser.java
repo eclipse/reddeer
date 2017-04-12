@@ -90,7 +90,7 @@ public abstract class AbstractBrowser extends AbstractControl<org.eclipse.swt.br
 		if (BrowserHandler.getInstance().setURL(this.getSWTWidget(), url)){
 			new WaitUntil(new PageIsLoaded(this), TimePeriod.LONG);
 			// Unfortunately Browser needs some time to get ready even when page is fully loaded
-			AbstractWait.sleep(TimePeriod.NORMAL);
+			AbstractWait.sleep(TimePeriod.DEFAULT);
 		} else {
 			throw new SWTLayerException("setUrl action was not successful");
 		}

@@ -78,7 +78,7 @@ public class System {
 	 * @param password the password
 	 */
 	public void connect(String username, String password){
-		connect(username,password, TimePeriod.NORMAL);
+		connect(username,password, TimePeriod.DEFAULT);
 	}
 	
 	/**

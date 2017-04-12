@@ -28,10 +28,10 @@ public class ConsoleHasNoChange extends AbstractWaitCondition {
 	private long consoleTime;
 
 	/**
-	 * Construct the condition with {@link TimePeriod#NORMAL}.
+	 * Construct the condition with {@link TimePeriod#DEFAULT}.
 	 */
 	public ConsoleHasNoChange() {
-		this(TimePeriod.NORMAL);
+		this(TimePeriod.DEFAULT);
 	}
 
 	/**
