@@ -1,13 +1,13 @@
 package org.reddeer.test;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
-import org.jboss.reddeer.eclipse.jdt.ui.NewJavaClassWizardDialog;
-import org.jboss.reddeer.eclipse.jdt.ui.NewJavaClassWizardPage;
-import org.jboss.reddeer.eclipse.jdt.ui.ide.NewJavaProjectWizardDialog;
-import org.jboss.reddeer.eclipse.jdt.ui.ide.NewJavaProjectWizardPage;
-import org.jboss.reddeer.eclipse.ui.problems.ProblemsView;
-import org.jboss.reddeer.eclipse.ui.problems.ProblemsView.ProblemType;
+import org.jboss.reddeer.eclipse.jdt.ui.wizards.JavaProjectWizard;
+import org.jboss.reddeer.eclipse.jdt.ui.wizards.NewClassCreationWizard;
+import org.jboss.reddeer.eclipse.jdt.ui.wizards.NewClassWizardPage;
+import org.jboss.reddeer.eclipse.jdt.ui.wizards.NewJavaProjectWizardPageOne;
+import org.jboss.reddeer.eclipse.ui.views.markers.ProblemsView;
+import org.jboss.reddeer.eclipse.ui.views.markers.ProblemsView.ProblemType;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.workbench.impl.editor.TextEditor;
 import org.junit.Test;
@@ -23,16 +23,16 @@ public class RedDeerTest {
 	public void redDeerTestExample() {
 		
 		// Create Java Project
-		NewJavaProjectWizardDialog projectDlg = new NewJavaProjectWizardDialog();
+		JavaProjectWizard projectDlg = new JavaProjectWizard();
 		projectDlg.open();
-		NewJavaProjectWizardPage ppage = new NewJavaProjectWizardPage();
-		ppage.setProjectName("testProject");
+		NewJavaProjectWizardPageOne projectPage = new NewJavaProjectWizardPageOne();
+		projectPage.setProjectName("testProject");
 		projectDlg.finish();
 		
 		// Create Java class
-		NewJavaClassWizardDialog classDlg = new NewJavaClassWizardDialog();
+		NewClassCreationWizard classDlg = new NewClassCreationWizard();
 		classDlg.open();
-		NewJavaClassWizardPage classPage = new NewJavaClassWizardPage();
+		NewClassWizardPage classPage = new NewClassWizardPage();
 		classPage.setName("RedDeerDemo");
 		classPage.setPackage("org.reddeer.demo");
 		classDlg.finish();
@@ -45,6 +45,6 @@ public class RedDeerTest {
 		// Check ProblemsView
 		ProblemsView problemsView = new ProblemsView();
 		problemsView.open();
-		assertTrue(!problemsView.getProblems(ProblemType.ERROR).isEmpty());
+		assertFalse(problemsView.getProblems(ProblemType.ERROR).isEmpty());
 	}
 }
