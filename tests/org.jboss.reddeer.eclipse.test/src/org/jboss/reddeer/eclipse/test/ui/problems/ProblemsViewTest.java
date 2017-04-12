@@ -196,7 +196,7 @@ public class ProblemsViewTest {
 	@Test
 	public void testNoErrorNoWarning() {
 		problemsView.open();
-		new WaitUntil(new ProblemsViewIsEmpty(), TimePeriod.NORMAL);
+		new WaitUntil(new ProblemsViewIsEmpty(), TimePeriod.DEFAULT);
 		assertTrue("Errors node should be empty, but:\n" + getProblems(),
 				problemsView.getProblems(ProblemType.ERROR).isEmpty());
 		assertTrue("Warnings node should be empty, but:\n" + getProblems(),
@@ -206,9 +206,9 @@ public class ProblemsViewTest {
 	@Test
 	public void testOneErrorNoWarning() {
 		createError();		
-		new WaitUntil(new ProblemExists(ProblemType.ERROR), TimePeriod.NORMAL);
+		new WaitUntil(new ProblemExists(ProblemType.ERROR), TimePeriod.DEFAULT);
 		new WaitWhile(new ProblemExists(ProblemType.WARNING),
-				TimePeriod.NORMAL);
+				TimePeriod.DEFAULT);
 		assertEquals("Errors node should contain one error, but:\n"
 		+ getProblems(), 1, problemsView.getProblems(ProblemType.ERROR).size());
 		assertTrue("Warnings node should be empty, but:\n" + getProblems(),
@@ -218,9 +218,9 @@ public class ProblemsViewTest {
 	@Test
 	public void testNoErrorOneWarning() {
 		createWarning();
-		new WaitWhile(new ProblemExists(ProblemType.ERROR), TimePeriod.NORMAL);
+		new WaitWhile(new ProblemExists(ProblemType.ERROR), TimePeriod.DEFAULT);
 		new WaitUntil(new ProblemExists(ProblemType.WARNING),
-				TimePeriod.NORMAL);
+				TimePeriod.DEFAULT);
 		assertTrue("Errors node should be empty, but:\n" + getProblems(),
 				problemsView.getProblems(ProblemType.ERROR).isEmpty());
 		assertEquals("Warnings node should contain one warning, but:\n"
@@ -231,8 +231,8 @@ public class ProblemsViewTest {
 	public void testOneErrorOneWarning() {
 		createError();
 		createWarning();
-		new WaitUntil(new ProblemExists(ProblemType.ERROR), TimePeriod.NORMAL);
-		new WaitUntil(new ProblemExists(ProblemType.WARNING), TimePeriod.NORMAL);
+		new WaitUntil(new ProblemExists(ProblemType.ERROR), TimePeriod.DEFAULT);
+		new WaitUntil(new ProblemExists(ProblemType.WARNING), TimePeriod.DEFAULT);
 		assertEquals("Errors node should contain one error, but:\n"
 		+ getProblems(), 1, problemsView.getProblems(ProblemType.ERROR).size());
 		assertEquals("Warnings node should contain one warning, but:\n"
@@ -243,7 +243,7 @@ public class ProblemsViewTest {
 	public void testOneErrorExists() {
 		createError();
 		try {
-			new WaitUntil(new ExactNumberOfProblemsExists(ProblemType.ERROR, 1), TimePeriod.NORMAL);
+			new WaitUntil(new ExactNumberOfProblemsExists(ProblemType.ERROR, 1), TimePeriod.DEFAULT);
 		} catch (WaitTimeoutExpiredException ex) {
 			fail("Wait condition exact number of problems exists did not pass altough it should. There is "
 				+ "following amount of errors: " + problemsView.getProblems(ProblemType.ERROR)
@@ -255,7 +255,7 @@ public class ProblemsViewTest {
 	public void testOneWarningExists() {
 		createWarning();
 		try {
-			new WaitUntil(new ExactNumberOfProblemsExists(ProblemType.WARNING, 1), TimePeriod.NORMAL);
+			new WaitUntil(new ExactNumberOfProblemsExists(ProblemType.WARNING, 1), TimePeriod.DEFAULT);
 		} catch (WaitTimeoutExpiredException ex) {
 			fail("Wait condition exact number of problems exists did not pass altough it should. There is "
 					+ "following amount of warnings: " + problemsView.getProblems(ProblemType.WARNING)
@@ -268,7 +268,7 @@ public class ProblemsViewTest {
 		createWarning();
 		createError();
 		try {
-			new WaitUntil(new ExactNumberOfProblemsExists(ProblemType.ALL, 2), TimePeriod.NORMAL);
+			new WaitUntil(new ExactNumberOfProblemsExists(ProblemType.ALL, 2), TimePeriod.DEFAULT);
 		} catch (WaitTimeoutExpiredException ex) {
 			fail("Wait condition exact number of problems exists did not pass altough it should. There is "
 					+ "following amount of problems: " + problemsView.getProblems(ProblemType.ALL) 
@@ -406,9 +406,9 @@ public class ProblemsViewTest {
 		
 		problemsView.open();
 		if (error) {
-			new WaitUntil(new ProblemExists(ProblemType.ERROR), TimePeriod.NORMAL);
+			new WaitUntil(new ProblemExists(ProblemType.ERROR), TimePeriod.DEFAULT);
 		} else {
-			new WaitUntil(new ProblemExists(ProblemType.WARNING), TimePeriod.NORMAL);
+			new WaitUntil(new ProblemExists(ProblemType.WARNING), TimePeriod.DEFAULT);
 		}
 	}
 

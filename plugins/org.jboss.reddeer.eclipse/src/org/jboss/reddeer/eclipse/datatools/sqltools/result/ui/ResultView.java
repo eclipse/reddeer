@@ -65,7 +65,7 @@ public class ResultView extends WorkbenchView {
 	public void removeAllResults() {
 		open();
 		Tree tree = getViewTree();
-		new WaitUntil(new TreeHasChildren(tree),TimePeriod.NORMAL, false);
+		new WaitUntil(new TreeHasChildren(tree),TimePeriod.DEFAULT, false);
 		String tooltip = "Remove All Visible Results (Shift+Delete)";
 		if (RunningPlatform.isOSX()) {
 			tooltip = "Remove All Visible Results (⇧⌦)";

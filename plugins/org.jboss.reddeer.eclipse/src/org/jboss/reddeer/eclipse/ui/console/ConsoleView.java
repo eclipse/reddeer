@@ -54,7 +54,7 @@ public class ConsoleView extends WorkbenchView {
 	public String getConsoleText() {
 		activate();
 		WidgetIsFound widgetIsFound = new WidgetIsFound(org.eclipse.swt.custom.StyledText.class, cTabItem.getControl());
-		new WaitUntil(widgetIsFound, TimePeriod.NORMAL, false);
+		new WaitUntil(widgetIsFound, TimePeriod.DEFAULT, false);
 		// Check whether there is a console to display or not
 		if (widgetIsFound.getWidget() == null) {
 			return null;

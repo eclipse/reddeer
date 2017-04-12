@@ -46,7 +46,7 @@ public abstract class AbstractWait implements Wait {
 	 *            wait condition to met
 	 */
 	public AbstractWait(WaitCondition condition) {
-		this(condition, TimePeriod.NORMAL);
+		this(condition, TimePeriod.DEFAULT);
 	}
 
 	/**

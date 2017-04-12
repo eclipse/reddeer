@@ -66,7 +66,7 @@ public class MavenArchetypesPreferencePage extends PreferencePage {
 	 */
 	public void addLocalCatalog(String catalogFile, String description) {
 		new PushButton(ADD_LOCAL_CATALOG).click();
-		new WaitUntil(new ShellIsAvailable(LOCAL_CATALOG_SHELL), TimePeriod.NORMAL);
+		new WaitUntil(new ShellIsAvailable(LOCAL_CATALOG_SHELL), TimePeriod.DEFAULT);
 		new DefaultCombo().setText(catalogFile);
 		new LabeledText(CATALOG_DESCRIPTION).setText(description);
 		new OkButton().click();
@@ -101,7 +101,7 @@ public class MavenArchetypesPreferencePage extends PreferencePage {
 	public String addRemoteCatalog(String catalogFileURL, String description, boolean verify) {
 		String verificationResult = "";
 		new PushButton(ADD_REMOTE_CATALOG).click();
-		new WaitUntil(new ShellIsAvailable(REMOTE_CATALOG_SHELL), TimePeriod.NORMAL);
+		new WaitUntil(new ShellIsAvailable(REMOTE_CATALOG_SHELL), TimePeriod.DEFAULT);
 		new DefaultCombo().setText(catalogFileURL);
 		new LabeledText(CATALOG_DESCRIPTION).setText(description);
 		if (verify) {

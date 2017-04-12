@@ -145,7 +145,7 @@ public class TreeItemLookup {
 	private List<TreeItem> getChildItems(List<TreeItem> parentItems) {
 		List<TreeItem> children = new ArrayList<TreeItem>();
 		for (TreeItem parentItem : parentItems){
-			new WaitUntil(new TreeItemHasChildren(parentItem), TimePeriod.NORMAL, false);	
+			new WaitUntil(new TreeItemHasChildren(parentItem), TimePeriod.DEFAULT, false);	
 			children.addAll(TreeItemHandler.getInstance().getChildrenItems(parentItem));
 		}
 		return children;

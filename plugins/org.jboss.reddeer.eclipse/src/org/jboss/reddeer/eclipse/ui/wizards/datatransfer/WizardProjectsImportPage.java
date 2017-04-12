@@ -161,7 +161,7 @@ public class WizardProjectsImportPage extends WizardPage {
 			new DefaultCombo(1).setText(path);
 		}
 		new PushButton("Refresh").click();
-		new WaitUntil(new ProjectIsLoaded(getProjectsTree()), TimePeriod.NORMAL);
+		new WaitUntil(new ProjectIsLoaded(getProjectsTree()), TimePeriod.DEFAULT);
 	}
 	
 	private boolean isFileSystem() {

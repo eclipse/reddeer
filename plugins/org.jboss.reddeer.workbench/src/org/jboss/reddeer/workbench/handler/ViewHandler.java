@@ -73,7 +73,7 @@ public class ViewHandler {
 				viewPart.setFocus();
 			}
 		});
-		new WaitUntil(new ActiveFocusControlIsInActiveView(),TimePeriod.NORMAL,false);
+		new WaitUntil(new ActiveFocusControlIsInActiveView(),TimePeriod.DEFAULT,false);
 		focusChildControl();
 	}
 	

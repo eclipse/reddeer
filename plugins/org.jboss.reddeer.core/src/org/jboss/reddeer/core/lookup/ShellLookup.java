@@ -168,7 +168,7 @@ public class ShellLookup {
 	 * @return shell matching specified matcher
 	 */
 	public Shell getShell(Matcher<?>... matchers) {
-		return getShell(TimePeriod.NORMAL, matchers); 
+		return getShell(TimePeriod.DEFAULT, matchers); 
 	}
 	
 	/**
@@ -189,7 +189,7 @@ public class ShellLookup {
 	 * @return shell with specified title
 	 */
 	public Shell getShell(String title) {
-		return getShell(TimePeriod.NORMAL, new WithTextMatcher(title));		
+		return getShell(TimePeriod.DEFAULT, new WithTextMatcher(title));		
 	}
 	
 	private Shell getLastVisibleShell() {

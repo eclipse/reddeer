@@ -56,7 +56,7 @@ public class GroupWait {
 	 * @param waitings waiting to wait
 	 */
 	public GroupWait(WaitWrapper... waitings) {
-		this(TimePeriod.NORMAL, waitings);
+		this(TimePeriod.DEFAULT, waitings);
 	}
 	
 	/**

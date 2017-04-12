@@ -90,7 +90,7 @@ public abstract class LaunchConfigurationsDialog {
 		TreeItem t = new DefaultTreeItem(configuration.getType(), name);
 		t.select();
 
-		new WaitUntil(new WidgetIsFound(org.eclipse.swt.custom.CLabel.class, new WithTextMatcher(name)), TimePeriod.NORMAL, false);
+		new WaitUntil(new WidgetIsFound(org.eclipse.swt.custom.CLabel.class, new WithTextMatcher(name)), TimePeriod.DEFAULT, false);
 	}
 
 	/**

@@ -304,7 +304,7 @@ public abstract class AbstractEditor implements Editor {
         execute.run();
         ContentAssistantShellIsOpened caw = new ContentAssistantShellIsOpened(
                 shells1);
-        new WaitUntil(caw,TimePeriod.NORMAL,false);
+        new WaitUntil(caw,TimePeriod.DEFAULT,false);
         return caw.getContentAssistTable() == null ? null : new ContentAssistant(caw.getContentAssistTable());
 	}
 
