@@ -16,6 +16,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
 
+import org.eclipse.swt.SWTException;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.layout.FormData;
 import org.eclipse.swt.widgets.Control;
@@ -356,7 +357,16 @@ public class WidgetLookup {
 
 				@Override
 				public List<Widget> run() {
-					return WidgetResolver.getInstance().getChildren(parentWidget);
+					List<Widget> children = null;
+					try{
+						children = WidgetResolver.getInstance().getChildren(parentWidget);
+					} catch (SWTException e) {
+						if(!parentWidget.isDisposed()){
+							throw e;
+						}
+						//otherwise ok, parentWidget is disposed so it has no children
+					}
+					return children;
 				}
 			});
 			controls.addAll(findControlsUI(children, matcher, recursive));
