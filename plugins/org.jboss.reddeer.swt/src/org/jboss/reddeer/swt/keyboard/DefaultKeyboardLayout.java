@@ -13,12 +13,16 @@ package org.jboss.reddeer.swt.keyboard;
 import java.awt.HeadlessException;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
+import java.awt.im.InputContext;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import org.eclipse.swt.SWT;
@@ -48,15 +52,21 @@ public class DefaultKeyboardLayout {
 	private static Map<Character, int[]> keyMap;
 	
 	private static Toolkit toolkit;
+	
+	/**
+	 * Name of the system property used to specify the keyboard file to be loaded. Used by generator.
+	 * 
+	 * @see KeyboardLayoutGenerator
+	 */
+	public static final String KEYBOARD_LAYOUT = DefaultKeyboardLayout.class.getPackage().getName() + ".keyboardLayout";
 
 	/**
 	 * Constructor of the class.
 	 */
 	public DefaultKeyboardLayout() {
 		ClassLoader classLoader = DefaultKeyboardLayout.class.getClassLoader();
-		InputStream in = classLoader.getResourceAsStream(toFolder(myPackage()
-				+ "/default")
-				+ ".keyboard");
+		String keyboardName = getName(myPackage());
+		InputStream in = classLoader.getResourceAsStream(keyboardName + ".keyboard");
 		BufferedReader br = null;
 		try {
 			br = new BufferedReader(new InputStreamReader(in, "UTF-8"));
@@ -72,6 +82,22 @@ public class DefaultKeyboardLayout {
 		}
 	}
 
+	private String getName(String prefix) {
+	    String layout = System.getProperty(KEYBOARD_LAYOUT);
+	    if (layout == null) {
+	        Locale locale = InputContext.getInstance().getLocale();
+	        if (locale == null) {
+	            locale = Locale.getDefault();
+	        }
+	        StringBuilder builder = new StringBuilder();
+	        layout = builder.append(locale.getLanguage()).append('_').append(locale.getCountry()).append('_').append(locale.getVariant()).toString();
+	        layout = layout.replaceAll("\\_\\_", "_");
+	        layout = layout.replaceAll("\\_$", "").toUpperCase();
+	    }
+	    layout = toFolder(prefix) + '/' + layout;
+        return layout;
+	}
+	
 	/**
 	 * Gets the single instance of DefaultKeyboardLayout.
 	 *
@@ -127,13 +153,13 @@ public class DefaultKeyboardLayout {
 
 	private int[] getKeyStroke(String keystrokeString) {
 		String[] split = keystrokeString.split("\\+");
-		int modifierKeys = 0;
+		int[] keys = new int[split.length];
 		ModifierKeysBinding modifierKeysBinding = new ModifierKeysBinding();
 		for (int i=0; i<split.length-1; i++){
-			modifierKeys |= modifierKeysBinding.getModifierKeyFromString(split[i]);
+			keys[i] = modifierKeysBinding.getModifierKeyFromString(split[i]);
 		}
-		char naturalKey = split[split.length-1].charAt(0);
-		return new int[] {modifierKeys, naturalKey};
+		keys[keys.length - 1] = split[split.length-1].charAt(0);
+		return keys;
 	}
 
 	private String myPackage() {

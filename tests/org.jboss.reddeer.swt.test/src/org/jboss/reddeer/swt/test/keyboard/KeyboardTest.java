@@ -58,7 +58,42 @@ public class KeyboardTest {
 		assertEquals("test123", getText());
 	}
 	
-	@Test
+    @Test
+    public void typingNumericTest() {
+        openTestingShell();
+        KeyboardFactory.getKeyboard().type("0123456789");
+        assertEquals("0123456789", getText());
+    }
+
+    @Test
+    public void typingLowercaseTest() {
+        openTestingShell();
+        KeyboardFactory.getKeyboard().type("abcdefghijklmnopqrstuvwxyz");
+        assertEquals("abcdefghijklmnopqrstuvwxyz", getText());
+    }
+
+    @Test
+    public void typingUppercaseTest() {
+        openTestingShell();
+        KeyboardFactory.getKeyboard().type("ABCDEFGHIJKLMNOPQRSTUVWXYZ");
+        assertEquals("ABCDEFGHIJKLMNOPQRSTUVWXYZ", getText());
+    }
+
+    @Test
+    public void typingPonctuationTest() {
+        openTestingShell();
+        KeyboardFactory.getKeyboard().type("&\"'{([-|`_\\^@*,?;.:/!");
+        assertEquals("&\"'{([-|`_\\^@*,?;.:/!", getText());
+    }
+    
+    @Test
+    public void typingCurrencyTest() {
+        openTestingShell();
+        KeyboardFactory.getKeyboard().type("€$£");
+        assertEquals("€$£", getText());
+    }
+
+    @Test
 	public void keyCombinationTest(){
 		new DefaultShell();
 		KeyboardFactory.getKeyboard().invokeKeyCombination(SWT.CONTROL, 'h');
