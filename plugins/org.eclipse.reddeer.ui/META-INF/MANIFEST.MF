@@ -1,0 +1,24 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: RedDeer UI
+Bundle-SymbolicName: org.eclipse.reddeer.ui;singleton:=true
+Bundle-Version: 2.0.0.qualifier
+Bundle-Activator: org.eclipse.reddeer.ui.Activator
+Bundle-Vendor: Eclipse.org - RedDeer
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.eclipse.debug.core,
+ org.eclipse.pde.ui,
+ org.eclipse.debug.ui,
+ org.eclipse.core.variables,
+ org.eclipse.jdt.core,
+ org.eclipse.jdt.junit,
+ org.eclipse.jdt.junit.runtime,
+ org.eclipse.jdt.launching,
+ org.eclipse.jdt.ui,
+ org.eclipse.jdt.junit.runtime,
+ org.eclipse.jdt.debug.ui,
+ org.eclipse.ui.ide,
+ org.eclipse.reddeer.common;bundle-version="[2.0,2.1)"

@@ -1,0 +1,108 @@
+<!--
+    Copyright (c) 2017 Red Hat, Inc and others.
+    All rights reserved. This program and the accompanying materials
+    are made available under the terms of the Eclipse Public License v1.0
+    which accompanies this distribution, and is available at
+    http://www.eclipse.org/legal/epl-v10.html
+   
+    Contributors:
+        Red Hat Inc. - initial API and implementation
+ -->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>org.eclipse.reddeer.requirements.test</artifactId>
+	<name>RedDeer Requirements Tests</name>
+	<packaging>eclipse-test-plugin</packaging>
+
+	<parent>
+		<groupId>org.eclipse.reddeer</groupId>
+		<artifactId>tests</artifactId>
+		<version>2.0.0-SNAPSHOT</version>
+	</parent>
+	
+	<properties>
+		<apache-tomcat-7.version>7.0.56</apache-tomcat-7.version>
+		<apache-tomcat-7.mirror>http://archive.apache.org/dist/tomcat/tomcat-7/</apache-tomcat-7.mirror>
+		<apache-tomcat-7.home>${project.build.directory}/apache-tomcat-${apache-tomcat-7.version}</apache-tomcat-7.home>
+		<customArgLine>-Drd.config=${basedir}/bin/requirements.xml</customArgLine>
+	</properties>
+
+	<profiles>
+		<profile>
+			<id>add-jdt-feature</id>
+			<activation>
+				<os>
+					<family>mac</family>
+				</os>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.eclipse.tycho</groupId>
+						<artifactId>tycho-surefire-plugin</artifactId>
+						<configuration>
+							<dependencies combine.children="append">
+								<!-- This entry should enable creating of default JDK on Mac -->
+								<dependency>
+									<type>p2-installable-unit</type>
+									<artifactId>org.eclipse.jdt.feature.group</artifactId>
+									<version>0.0.0</version>
+								</dependency>
+							</dependencies>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+
+	<build>
+		<resources>
+			<resource>
+				<!-- Directory where to look for server requirement xml --> 
+				<directory>${basedir}/../../plugins/org.eclipse.reddeer.requirements/resources</directory>
+				<!-- Filtering enables substitution of variables defined in xml files -->
+				<filtering>true</filtering>
+			</resource>
+		</resources>
+		
+		<plugins>
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-surefire-plugin</artifactId>
+				<configuration>
+					<useUIThread>false</useUIThread>
+					<dependencies combine.children="append">
+								<!-- This entry should enable creating of default JDK on Mac -->
+								<dependency>
+									<type>p2-installable-unit</type>
+									<artifactId>org.eclipse.jst.server_adapters.ext.feature.feature.group</artifactId>
+									<version>0.0.0</version>
+								</dependency>
+					</dependencies>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>com.googlecode.maven-download-plugin</groupId>
+				<artifactId>download-maven-plugin</artifactId>
+				<version>${download-plugin-version}</version>
+				<executions>
+					<execution>
+						<id>install-apache-tomcat-7</id>
+						<phase>pre-integration-test</phase>
+						<goals>
+							<goal>wget</goal>
+						</goals>
+						<configuration>
+							<url>${apache-tomcat-7.mirror}/v${apache-tomcat-7.version}/bin/apache-tomcat-${apache-tomcat-7.version}.zip</url>
+							<outputFileName>apache-tomcat-${apache-tomcat-7.version}.zip</outputFileName>
+							<unpack>true</unpack>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+</project>

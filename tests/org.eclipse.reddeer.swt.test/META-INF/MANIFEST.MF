@@ -1,0 +1,23 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: RedDeer SWT Tests
+Bundle-Vendor: Eclipse.org - RedDeer
+Bundle-SymbolicName: org.eclipse.reddeer.swt.test;singleton:=true
+Bundle-Version: 2.0.0.qualifier
+Bundle-Activator: org.eclipse.reddeer.swt.test.Activator
+Require-Bundle: org.eclipse.reddeer.go;bundle-version="[2.0,2.1)",
+ org.eclipse.core.expressions,
+ org.eclipse.ui.views.log,
+ org.eclipse.m2e.core.ui,
+ org.eclipse.core.databinding,
+ org.eclipse.jface.databinding,
+ org.eclipse.core.databinding.beans,
+ org.eclipse.core.databinding.observable,
+ org.eclipse.core.databinding.property;bundle-version="1.5.0"
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Export-Package: org.eclipse.reddeer.swt.test,
+ org.eclipse.reddeer.swt.test.impl.table,
+ org.eclipse.reddeer.swt.test.impl.tree,
+ org.eclipse.reddeer.swt.test.utils
+Import-Package: org.eclipse.ui.texteditor

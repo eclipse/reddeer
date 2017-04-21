@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) 2017 Red Hat, Inc and others.
+    All rights reserved. This program and the accompanying materials
+    are made available under the terms of the Eclipse Public License v1.0
+    which accompanies this distribution, and is available at
+    http://www.eclipse.org/legal/epl-v10.html
+   
+    Contributors:
+        Red Hat Inc. - initial API and implementation
+ -->
+
+<reddeer xmlns="http://www.jboss.org/NS/Req" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:db="http://www.jboss.org/NS/db-schema" xmlns:server="http://www.jboss.org/NS/ServerReq"
+	xmlns:jre="http://www.jboss.org/NS/jre-schema"
+	xsi:schemaLocation="http://www.jboss.org/NS/Req http://www.jboss.org/schema/reddeer/v1/RedDeerSchema.xsd
+                            http://www.jboss.org/NS/ServerReq http://www.jboss.org/schema/reddeer/v1/ApacheServerRequirements.xsd
+                            http://www.jboss.org/NS/db-schema http://www.jboss.org/schema/reddeer/v1/DatabaseRequirement.xsd
+                            http://www.jboss.org/NS/jre-schema http://www.jboss.org/schema/reddeer/v1/JRERequirement.xsd">
+
+	<requirements>
+		<!-- Example server configuration -->
+		<server:server-requirement name="Tomcat7">
+			<server:type>
+				<server:familyApacheTomcat version="7.0" />
+			</server:type>
+			<server:runtime>${apache-tomcat-7.home}</server:runtime>
+		</server:server-requirement>
+
+		<!-- Example DB configuration -->
+        <db:database-requirement name="h2-sakila">
+            <db:driverName>My H2 Driver</db:driverName>
+            <db:driverType>Generic JDBC</db:driverType>
+            <db:driverTypeVersion>1.0</db:driverTypeVersion>
+            <db:driverPath>/opt/sakila-db/h2-1.3.161.jar</db:driverPath>
+            <db:driverClass>org.h2.Driver</db:driverClass>
+            <db:driverVendor>Generic JDBC</db:driverVendor>
+            <db:profileName>dbProfile</db:profileName>
+            <db:jdbcString>jdbc:h2:db://localhost/sakila</db:jdbcString>
+            <db:databaseName></db:databaseName>
+            <db:portNumber></db:portNumber>
+            <db:username>sa</db:username>
+            <db:password></db:password>
+        </db:database-requirement>
+        
+        <!-- Example JRE configuration -->
+        
+        <jre:jre-requirement name="test">
+        	<jre:name>testName</jre:name>
+        	<jre:version>1.7</jre:version>
+        	<jre:path>${java.home}</jre:path>
+        </jre:jre-requirement>
+	</requirements>
+</reddeer>

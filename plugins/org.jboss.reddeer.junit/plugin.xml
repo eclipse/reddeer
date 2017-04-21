@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<?eclipse version="3.4"?>
-<plugin>
-   <extension-point id="org.jboss.reddeer.junit.before.test" name="BeforeTest" schema="schema/org.jboss.reddeer.junit.before.test.exsd"/>
-   <extension-point id="org.jboss.reddeer.junit.after.test" name="AfterTest" schema="schema/org.jboss.reddeer.junit.after.test.exsd"/>
-   <extension-point id="org.jboss.reddeer.junit.issue.tracker" name="IssueTracker" schema="schema/org.jboss.reddeer.junit.issue.tracker.exsd"/>
-</plugin>

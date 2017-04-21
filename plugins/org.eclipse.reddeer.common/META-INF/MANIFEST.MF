@@ -1,0 +1,21 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: RedDeer Common
+Bundle-Vendor: Eclipse.org - RedDeer
+Bundle-SymbolicName: org.eclipse.reddeer.common
+Bundle-Version: 2.0.0.qualifier
+Require-Bundle: org.eclipse.swt,
+ org.hamcrest.core;bundle-version="1.3.0"
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Export-Package: org.eclipse.reddeer.common.adaptable,
+ org.eclipse.reddeer.common.condition,
+ org.eclipse.reddeer.common.context,
+ org.eclipse.reddeer.common.exception,
+ org.eclipse.reddeer.common.logging,
+ org.eclipse.reddeer.common.matcher,
+ org.eclipse.reddeer.common.platform,
+ org.eclipse.reddeer.common.properties,
+ org.eclipse.reddeer.common.userprofile,
+ org.eclipse.reddeer.common.util,
+ org.eclipse.reddeer.common.wait

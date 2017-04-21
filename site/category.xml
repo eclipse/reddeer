@@ -1,4 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) 2017 Red Hat, Inc and others.
+    All rights reserved. This program and the accompanying materials
+    are made available under the terms of the Eclipse Public License v1.0
+    which accompanies this distribution, and is available at
+    http://www.eclipse.org/legal/epl-v10.html
+   
+    Contributors:
+        Red Hat Inc. - initial API and implementation
+ -->
+
 <site>
 	<description>To install these features, point Eclipse at this site.</description>
 	<category-def label="1. RedDeer Runtime/API" name="RuntimeAPIFeatures">
@@ -17,76 +28,76 @@
 		<description>RedDeer Graphiti: Graphiti, GEF features, tools and its sources</description>
 	</category-def>
 
-	<feature url="org.jboss.reddeer.eclipse.feature.qualifier" id="org.jboss.reddeer.eclipse.feature" version="0.0.0">
+	<feature url="org.eclipse.reddeer.eclipse.feature.qualifier" id="org.eclipse.reddeer.eclipse.feature" version="0.0.0">
 		<category name="RuntimeAPIFeatures"/>
 	</feature>
 
-	<feature url="org.jboss.reddeer.swt.feature.qualifier" id="org.jboss.reddeer.swt.feature" version="0.0.0">
+	<feature url="org.eclipse.reddeer.swt.feature.qualifier" id="org.eclipse.reddeer.swt.feature" version="0.0.0">
 		<category name="RuntimeAPIFeatures"/>
 	</feature>
 
-	<feature url="org.jboss.reddeer.recorder.feature.qualifier" id="org.jboss.reddeer.recorder.feature" version="0.0.0">
+	<feature url="org.eclipse.reddeer.recorder.feature.qualifier" id="org.eclipse.reddeer.recorder.feature" version="0.0.0">
 		<category name="ToolFeatures"/>
 	</feature>
 	
-	<feature url="org.jboss.reddeer.spy.feature.qualifier" id="org.jboss.reddeer.spy.feature" version="0.0.0">
+	<feature url="org.eclipse.reddeer.spy.feature.qualifier" id="org.eclipse.reddeer.spy.feature" version="0.0.0">
 		<category name="ToolFeatures"/>
 	</feature>
 
-	<feature url="org.jboss.reddeer.gef.spy.feature.qualifier" id="org.jboss.reddeer.gef.spy.feature" version="0.0.0">
+	<feature url="org.eclipse.reddeer.gef.spy.feature.qualifier" id="org.eclipse.reddeer.gef.spy.feature" version="0.0.0">
 		<category name="GraphitiFeatures"/>
 	</feature>
 
-    <feature url="org.jboss.reddeer.logparser.feature.qualifier" id="org.jboss.reddeer.logparser.feature" version="0.0.0">
+    <feature url="org.eclipse.reddeer.logparser.feature.qualifier" id="org.eclipse.reddeer.logparser.feature" version="0.0.0">
             <category name="ToolFeatures"/>
     </feature>
 
-	<feature url="org.jboss.reddeer.tests.feature.qualifier" id="org.jboss.reddeer.tests.feature" version="0.0.0">
+	<feature url="org.eclipse.reddeer.tests.feature.qualifier" id="org.eclipse.reddeer.tests.feature" version="0.0.0">
 	</feature>
 
-	<feature url="org.jboss.reddeer.ui.feature.qualifier" id="org.jboss.reddeer.ui.feature" version="0.0.0">
+	<feature url="org.eclipse.reddeer.ui.feature.qualifier" id="org.eclipse.reddeer.ui.feature" version="0.0.0">
 		<category name="UIFeatures"/>
 	</feature>
 
-	<feature url="org.jboss.reddeer.junit.extension.feature.qualifier" id="org.jboss.reddeer.junit.extension.feature" version="0.0.0">
+	<feature url="org.eclipse.reddeer.junit.extension.feature.qualifier" id="org.eclipse.reddeer.junit.extension.feature" version="0.0.0">
 		<category name="RuntimeAPIFeatures"/>
 	</feature>
 
-	<feature url="org.jboss.reddeer.graphiti.feature.qualifier" id="org.jboss.reddeer.graphiti.feature" version="0.0.0">
+	<feature url="org.eclipse.reddeer.graphiti.feature.qualifier" id="org.eclipse.reddeer.graphiti.feature" version="0.0.0">
 		<category name="GraphitiFeatures"/>
 	</feature>
 
-	<feature url="org.jboss.reddeer.eclipse.feature.source.qualifier" id="org.jboss.reddeer.eclipse.feature.source" version="0.0.0">
+	<feature url="org.eclipse.reddeer.eclipse.feature.source.qualifier" id="org.eclipse.reddeer.eclipse.feature.source" version="0.0.0">
 		<category name="AllSources"/>
 	</feature>
 
-	<feature url="org.jboss.reddeer.swt.feature.source.qualifier" id="org.jboss.reddeer.swt.feature.source" version="0.0.0">
+	<feature url="org.eclipse.reddeer.swt.feature.source.qualifier" id="org.eclipse.reddeer.swt.feature.source" version="0.0.0">
 		<category name="AllSources"/>
 	</feature>
 
-	<feature url="org.jboss.reddeer.tests.feature.source.qualifier" id="org.jboss.reddeer.tests.feature.source" version="0.0.0">
+	<feature url="org.eclipse.reddeer.tests.feature.source.qualifier" id="org.eclipse.reddeer.tests.feature.source" version="0.0.0">
 	</feature>
 
-	<feature url="org.jboss.reddeer.ui.feature.source.qualifier" id="org.jboss.reddeer.ui.feature.source" version="0.0.0">
+	<feature url="org.eclipse.reddeer.ui.feature.source.qualifier" id="org.eclipse.reddeer.ui.feature.source" version="0.0.0">
 		<category name="AllSources"/>
 	</feature>
 
-	<feature url="org.jboss.reddeer.recorder.feature.source.qualifier" id="org.jboss.reddeer.recorder.feature.source" version="0.0.0">
+	<feature url="org.eclipse.reddeer.recorder.feature.source.qualifier" id="org.eclipse.reddeer.recorder.feature.source" version="0.0.0">
 		<category name="AllSources"/>
 	</feature>
 
-	<feature url="org.jboss.reddeer.junit.extension.feature.source.qualifier" id="org.jboss.reddeer.junit.extension.feature.source" version="0.0.0">
+	<feature url="org.eclipse.reddeer.junit.extension.feature.source.qualifier" id="org.eclipse.reddeer.junit.extension.feature.source" version="0.0.0">
 		<category name="AllSources"/>
 	</feature>
 
-	<feature url="org.jboss.reddeer.graphiti.feature.source.qualifier" id="org.jboss.reddeer.graphiti.feature.source" version="0.0.0">
+	<feature url="org.eclipse.reddeer.graphiti.feature.source.qualifier" id="org.eclipse.reddeer.graphiti.feature.source" version="0.0.0">
 		<category name="GraphitiFeatures"/>
 	</feature>
 
-	<feature url="org.jboss.reddeer.selenium.feature.qualifier" id="org.jboss.reddeer.selenium.feature" version="0.0.0">
+	<feature url="org.eclipse.reddeer.selenium.feature.qualifier" id="org.eclipse.reddeer.selenium.feature" version="0.0.0">
 	</feature>
 
-        <feature url="org.jboss.reddeer.logparser.feature.source.qualifier" id="org.jboss.reddeer.logparser.feature.source" version="0.0.0">
+        <feature url="org.eclipse.reddeer.logparser.feature.source.qualifier" id="org.eclipse.reddeer.logparser.feature.source" version="0.0.0">
                 <category name="AllSources"/>
         </feature>
 </site>

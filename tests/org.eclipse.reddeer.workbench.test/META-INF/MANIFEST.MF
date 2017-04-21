@@ -1,0 +1,16 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: RedDeer Workbench Tests
+Bundle-Vendor: Eclipse.org - RedDeer
+Bundle-SymbolicName: org.eclipse.reddeer.workbench.test;singleton:=true
+Bundle-Version: 2.0.0.qualifier
+Bundle-Activator: org.eclipse.reddeer.workbench.test.Activator
+Require-Bundle: org.eclipse.reddeer.go;bundle-version="[2.0,2.1)",
+ org.eclipse.jface.text,
+ org.eclipse.jdt,
+ org.eclipse.core.resources,
+ org.eclipse.ui.editors,
+ org.eclipse.jdt.ui
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Import-Package: org.eclipse.ui.texteditor
