@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<!--
+    Copyright (c) 2017 Red Hat, Inc and others.
+    All rights reserved. This program and the accompanying materials
+    are made available under the terms of the Eclipse Public License v1.0
+    which accompanies this distribution, and is available at
+    http://www.eclipse.org/legal/epl-v10.html
+   
+    Contributors:
+        Red Hat Inc. - initial API and implementation
+ -->
+
+<plugin>
+   <extension point="org.eclipse.wst.server.core.runtimeTypes">
+   		<runtimeType id="org.eclipse.reddeer.eclipse.test.wst.server.testserverruntime" name="Test runtime" description="Testing runtime" facetRuntimeComponent="org.eclipse.wst.server.http.runtime" facetRuntimeVersion="1.0" class="org.eclipse.reddeer.eclipse.test.wst.server.ui.TestServerRuntime">
+   			<moduleType types="PHP" versions="1.0"/>
+   			<moduleType types="wst.web" versions="1.0"/>
+   		</runtimeType>
+   	</extension>
+   	<extension point="org.eclipse.wst.server.core.serverTypes">
+   		<serverType
+           behaviourClass="org.eclipse.reddeer.eclipse.test.wst.server.ui.view.TestServerBehaviour"
+           class="org.eclipse.reddeer.eclipse.test.wst.server.ui.view.TestServer"
+           description="Test server"
+           hasConfiguration="false"
+           id="org.eclipse.reddeer.eclipse.test.wst.server.ui.view.testserver"
+           initialState="stopped"
+           name="Test server"
+           launchModes="run,debug,profile"
+		   launchConfigId="org.eclipse.reddeer.eclipse.test.wst.server.ui.view.testlaunchconfiguratindelegate"
+           runtime="true"
+           runtimeTypeId="org.eclipse.reddeer.eclipse.test.wst.server.testserverruntime"
+           supportsRemoteHosts="true"/>
+   	</extension>
+	<extension point="org.eclipse.debug.core.launchConfigurationTypes">
+ 		<launchConfigurationType
+ 			id="org.eclipse.reddeer.eclipse.test.wst.server.ui.view.testlaunchconfiguratindelegate"
+ 			name="Test Configuration"
+ 			delegate="org.eclipse.reddeer.eclipse.test.wst.server.ui.view.TestLaunchConfigurationDelegate"
+ 			modes="run,debug,profile"/>
+ 	</extension>
+ 	<extension point = "org.eclipse.ui.propertyPages">
+        <page
+           id="org.eclipse.reddeer.eclipse.ui.dialogs.ProjectPropertyPageTest"
+           name="Property page test"
+		   class="org.eclipse.reddeer.eclipse.test.ui.dialogs.TestPropertyPage">
+			<enabledWhen>
+	           <instanceof
+	                value="org.eclipse.jdt.core.IJavaProject">
+	           </instanceof>
+	        </enabledWhen>   
+		</page>
+    </extension> 
+       <extension point="org.eclipse.ui.preferencePages">
+     <page
+           class="org.eclipse.reddeer.eclipse.test.jdt.ui.TestingPreferencePage$TestTopCategory"
+           id="org.eclipse.reddeer.eclipse.test.jdt.ui.TestingPreferencePage.TestTopCategory"
+           name="Testing top category"/>
+           
+     <page
+           category="org.eclipse.reddeer.eclipse.test.jdt.ui.TestingPreferencePage.TestTopCategory"
+           class="org.eclipse.reddeer.eclipse.test.jdt.ui.TestingPreferencePage$TestCategory"
+           id="org.eclipse.reddeer.eclipse.test.jdt.ui.TestingPreferencePage.TestCategory"
+           name="Testing category"/>
+           
+      <page
+           category="org.eclipse.reddeer.eclipse.test.jdt.ui.TestingPreferencePage.TestCategory"
+           class="org.eclipse.reddeer.eclipse.test.jdt.ui.TestingPreferencePage"
+           id="org.eclipse.reddeer.eclipse.test.jdt.ui.TestingPreferencePage"
+           name="Testing preference page"/>
+   </extension>
+</plugin>

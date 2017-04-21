@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<!--
+    Copyright (c) 2017 Red Hat, Inc and others.
+    All rights reserved. This program and the accompanying materials
+    are made available under the terms of the Eclipse Public License v1.0
+    which accompanies this distribution, and is available at
+    http://www.eclipse.org/legal/epl-v10.html
+   
+    Contributors:
+        Red Hat Inc. - initial API and implementation
+ -->
+
+<plugin>
+   <extension
+         point="org.eclipse.reddeer.junit.before.test">
+      <client
+            class="org.eclipse.reddeer.junit.extension.before.test.impl.CloseWelcomeScreenExt">
+      </client>
+      <client
+            class="org.eclipse.reddeer.junit.extension.before.test.impl.DoNotDownloadMavenIndexesExt">
+      </client>
+      <client
+            class="org.eclipse.reddeer.junit.extension.before.test.impl.SetOpenAssociatedPerspectiveExt">
+      </client>
+      <client
+            class="org.eclipse.reddeer.junit.extension.before.test.impl.MaximizeAndFocusWorkbench">
+      </client>
+      <client
+      		class="org.eclipse.reddeer.junit.extension.log.collector.BeforesLogCollector">
+      </client>
+   </extension>
+   <extension
+         point="org.eclipse.reddeer.junit.after.test">
+      <client
+            class="org.eclipse.reddeer.junit.extension.after.test.impl.CloseAllShellsExt">
+      </client>
+      <client
+      		class="org.eclipse.reddeer.junit.extension.log.collector.AftersLogCollector">
+      </client>
+   </extension>
+   <extension
+         point="org.eclipse.reddeer.junit.issue.tracker">
+      <client
+            class="org.eclipse.reddeer.junit.extension.issue.tracker.impl.GitHubIssueTracker">
+      </client>
+   </extension>
+</plugin>

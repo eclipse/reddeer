@@ -1,16 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) 2017 Red Hat, Inc and others.
+    All rights reserved. This program and the accompanying materials
+    are made available under the terms of the Eclipse Public License v1.0
+    which accompanies this distribution, and is available at
+    http://www.eclipse.org/legal/epl-v10.html
+   
+    Contributors:
+        Red Hat Inc. - initial API and implementation
+ -->
+
 <project
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
 	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>org.jboss.reddeer</groupId>
+	<groupId>org.eclipse.reddeer</groupId>
 	<version>2.0.0-SNAPSHOT</version>
-	<artifactId>jboss-reddeer-archetype</artifactId>
+	<artifactId>eclipse-reddeer-archetype</artifactId>
 	<packaging>maven-archetype</packaging>
-	<name>Red Deer Archetype</name>
+	<name>RedDeer Archetype</name>
 
-	<description>Red Deer Archetype</description>
-	<url>https://github.com/jboss-reddeer/reddeer</url>
+	<description>RedDeer Archetype</description>
+	<url>https://github.com/eclipse/reddeer</url>
 
 	<licenses>
 		<license>
@@ -21,10 +32,10 @@
 	</licenses>
 
 	<scm>
-		<connection>scm:git:git://github.com/jboss-reddeer/reddeer.git</connection>
-		<developerConnection>scm:git:git://github.com/jboss-reddeer/reddeer.git</developerConnection>
+		<connection>scm:git:git://github.com/eclipse/reddeer.git</connection>
+		<developerConnection>scm:git:git://github.com/eclipse/reddeer.git</developerConnection>
 		<tag>HEAD</tag>
-		<url>https://github.com/jboss-reddeer/reddeer</url>
+		<url>https://github.com/eclipse/reddeer</url>
 	</scm>
 
 	<developers>

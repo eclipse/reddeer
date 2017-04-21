@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) 2017 Red Hat, Inc and others.
+    All rights reserved. This program and the accompanying materials
+    are made available under the terms of the Eclipse Public License v1.0
+    which accompanies this distribution, and is available at
+    http://www.eclipse.org/legal/epl-v10.html
+   
+    Contributors:
+        Red Hat Inc. - initial API and implementation
+ -->
+
+<reddeer 
+        xmlns="http://www.jboss.org/NS/Req" 
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:user="http://www.jboss.org/NS/user-schema"
+        xsi:schemaLocation="http://www.jboss.org/NS/Req http://www.jboss.org/schema/reddeer/v1/RedDeerSchema.xsd http://www.jboss.org/NS/user-schema user-schema.xsd">
+
+        <requirements>
+                <user:user-requirement name="user-requirement">
+                        <user:db-name>USERS_ADMINISTRATION</user:db-name>
+                        <user:ip>127.0.0.1</user:ip>
+                </user:user-requirement>
+        </requirements>
+</reddeer>

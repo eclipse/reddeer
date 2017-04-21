@@ -1,0 +1,12 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: RedDeer GEF Tests
+Bundle-Vendor: Eclipse.org - RedDeer
+Bundle-SymbolicName: org.eclipse.reddeer.gef.test
+Bundle-Version: 2.0.0.qualifier
+Bundle-Activator: org.eclipse.reddeer.gef.test.Activator
+Require-Bundle: org.eclipse.reddeer.go;bundle-version="[2.0,2.1)",
+ org.eclipse.reddeer.gef;bundle-version="[2.0,2.1)",
+ org.eclipse.gef
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8

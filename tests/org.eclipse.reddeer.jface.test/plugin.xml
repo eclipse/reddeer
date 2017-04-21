@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<!--
+    Copyright (c) 2017 Red Hat, Inc and others.
+    All rights reserved. This program and the accompanying materials
+    are made available under the terms of the Eclipse Public License v1.0
+    which accompanies this distribution, and is available at
+    http://www.eclipse.org/legal/epl-v10.html
+   
+    Contributors:
+        Red Hat Inc. - initial API and implementation
+ -->
+
+<plugin>
+   
+   <extension point="org.eclipse.ui.newWizards">
+   	  <category id="org.eclipse.reddeer.jface.test.wizard.category.new" name="Testing new category"></category> 
+      <wizard 
+          id="org.eclipse.reddeer.jface.test.wizard.TestingNewWizard" 
+          name="Testing new wizard" 
+          category="org.eclipse.reddeer.jface.test.wizard.category.new" 
+          class="org.eclipse.reddeer.jface.test.dialogs.impl.TestingNewWizard"> 
+          <selection class="org.eclipse.core.resources.IResource"/>          
+      </wizard> 
+   </extension>
+   
+   <extension point="org.eclipse.ui.importWizards">
+   	  <category id="org.eclipse.reddeer.jface.test.wizard.category.import" name="Testing import category"></category> 
+      <wizard 
+          id="org.eclipse.reddeer.jface.test.wizard.TestingImportWizard" 
+          name="Testing import wizard" 
+          category="org.eclipse.reddeer.jface.test.wizard.category.import" 
+          class="org.eclipse.reddeer.jface.test.dialogs.impl.TestingImportWizard"> 
+          <selection class="org.eclipse.core.resources.IResource"/>          
+      </wizard> 
+   </extension>
+   
+    <extension point="org.eclipse.ui.exportWizards">
+   	  <category id="org.eclipse.reddeer.jface.test.wizard.category.export" name="Testing export category"></category> 
+      <wizard 
+          id="org.eclipse.reddeer.jface.test.wizard.TestingExportWizard" 
+          name="Testing export wizard" 
+          category="org.eclipse.reddeer.jface.test.wizard.category.export" 
+          class="org.eclipse.reddeer.jface.test.dialogs.impl.TestingExportWizard"> 
+          <selection class="org.eclipse.core.resources.IResource"/>          
+      </wizard> 
+   </extension>
+</plugin>

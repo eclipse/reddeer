@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<!--
+    Copyright (c) 2017 Red Hat, Inc and others.
+    All rights reserved. This program and the accompanying materials
+    are made available under the terms of the Eclipse Public License v1.0
+    which accompanies this distribution, and is available at
+    http://www.eclipse.org/legal/epl-v10.html
+   
+    Contributors:
+        Red Hat Inc. - initial API and implementation
+ -->
+
+<plugin>
+
+   <extension
+         point="org.eclipse.ui.views">
+      <category
+            name="RedDeer Tools"
+            id="org.eclipse.reddeer.tools">
+      </category>
+      <view
+            name="Log Parser"
+            icon="icons/logparser.gif"
+            category="org.eclipse.reddeer.tools"
+            class="org.eclipse.reddeer.logparser.views.LogParserView"
+            id="org.eclipse.reddeer.logparser.views.LogParserView">
+      </view>
+   </extension>
+   <extension
+         point="org.eclipse.ui.preferencePages">
+      <page
+            class="org.eclipse.reddeer.logparser.preferences.RedDeerToolsPreferecesPage"
+            id="org.eclipse.reddeer.tools.preferences"
+            name="RedDeer Tools">
+      </page>
+   </extension>
+   <extension
+         point="org.eclipse.ui.preferencePages">
+      <page
+      		category="org.eclipse.reddeer.tools.preferences"
+            class="org.eclipse.reddeer.logparser.preferences.LogParserPreferecesPage"
+            id="org.eclipse.reddeer.logparser.preferences.LogParserPreferencesPage"
+            name="Log Parser">
+      </page>
+   </extension>
+   <extension
+         point="org.eclipse.ui.editors">
+      <editor
+            class="org.eclipse.reddeer.logparser.editors.LogParserEditor"
+            default="false"
+            extensions="log,txt"
+            icon="icons/logparser.gif"
+            id="org.eclipse.reddeer.logparser.editors.LogParserEditor"
+            name="LogParser Editor">
+      </editor>
+   </extension>
+   <extension
+         point="org.eclipse.ui.handlers">
+      <handler
+            class="org.eclipse.reddeer.logparser.handlers.FindReplaceHandler"
+            commandId="org.eclipse.ui.edit.findReplace">
+         <activeWhen>
+            <with
+                  variable="activeEditorId">
+               <equals
+                     value="org.eclipse.reddeer.logparser.editors.LogParserEditor">
+               </equals>
+            </with>
+         </activeWhen>
+      </handler>
+   </extension>
+   <extension point="org.eclipse.ui.commands">
+   		<category
+			description="Commands related to the Log Parser"
+			id="org.eclipse.reddeer.logparser.commands.category"
+ 			name="Favorites">
+		</category>
+   		<command
+            categoryId="org.eclipse.reddeer.logparser.commands.category"
+            description="Navigates from selected line within parsed log to the same line in original log"
+            id="org.eclipse.reddeer.logparser.commands.showinoriglog"
+            name="Show in original log"
+            defaultHandler="org.eclipse.reddeer.logparser.handlers.ShowInOriginalLogHandler">
+		</command>
+   </extension>
+   <extension
+         point="org.eclipse.ui.menus">
+         <menuContribution
+             locationURI="popup:org.eclipse.reddeer.logparser.editors.LogParserEditor?after=edit">
+         <command
+               commandId="org.eclipse.reddeer.logparser.commands.showinoriglog"
+               icon="icons/showinoriglog.gif"
+               style="push">
+         </command>
+      </menuContribution>
+      </extension>
+      
+</plugin>
