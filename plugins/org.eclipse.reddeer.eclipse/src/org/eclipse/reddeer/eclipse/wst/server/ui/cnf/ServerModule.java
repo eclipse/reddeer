@@ -26,6 +26,7 @@ import org.eclipse.reddeer.eclipse.exception.EclipseLayerException;
 import org.eclipse.reddeer.eclipse.wst.server.ui.cnf.ServersViewEnums.ServerState;
 import org.eclipse.reddeer.swt.api.Shell;
 import org.eclipse.reddeer.swt.api.TreeItem;
+import org.eclipse.reddeer.swt.condition.MenuIsEnabled;
 import org.eclipse.reddeer.swt.condition.ShellIsAvailable;
 import org.eclipse.reddeer.swt.impl.button.PushButton;
 import org.eclipse.reddeer.swt.impl.menu.ContextMenu;
@@ -80,6 +81,8 @@ public class ServerModule {
 			throw new EclipseLayerException("ServerModule was already removed");
 		}
 		log.info("Remove server module with name '" + getLabel().getName() + "'");
+
+		new WaitUntil(new MenuIsEnabled(new ShellMenu("Edit", "Delete")), TimePeriod.LONG);
 		new ShellMenu("Edit", "Delete").select();
 		Shell serverShell = new DefaultShell("Server");
 		new PushButton("OK").click();
