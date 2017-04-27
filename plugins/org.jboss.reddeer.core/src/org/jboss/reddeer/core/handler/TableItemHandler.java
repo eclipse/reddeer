@@ -283,11 +283,11 @@ public class TableItemHandler extends ItemHandler{
 	 */
 	public void doubleClick(final TableItem tableItem, final int column) {
 		ControlHandler.getInstance().checkModalShells(getParent(tableItem));
+		select(tableItem);
 		Display.syncExec(new Runnable() {
 
 			@Override
 			public void run() {
-				select(tableItem);
 				Rectangle rectangle = tableItem.getBounds(column);
 				int x = rectangle.x + (rectangle.width / 2);
 				int y = rectangle.y + (rectangle.height / 2);

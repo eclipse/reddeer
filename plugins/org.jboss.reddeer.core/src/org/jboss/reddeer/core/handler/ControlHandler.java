@@ -16,6 +16,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Shell;
+import org.jboss.reddeer.common.exception.RedDeerException;
 import org.jboss.reddeer.common.util.Display;
 import org.jboss.reddeer.common.util.ResultRunnable;
 import org.jboss.reddeer.core.exception.CoreLayerException;
@@ -23,31 +24,34 @@ import org.jboss.reddeer.core.lookup.ShellLookup;
 
 /**
  * Contains methods for handling UI operations on {@link Control} widgets.
+ * 
  * @author rawagner
  *
  */
-public class ControlHandler extends WidgetHandler{
-	
+public class ControlHandler extends WidgetHandler {
+
 	private static ControlHandler instance;
-	
+
 	/**
 	 * Gets instance of ControlHandler.
 	 * 
 	 * @return instance of ControlHandler
 	 */
-	public static ControlHandler getInstance(){
-		if(instance == null){
+	public static ControlHandler getInstance() {
+		if (instance == null) {
 			instance = new ControlHandler();
 		}
 		return instance;
 	}
-	
+
 	/**
 	 * Checks if control is enabled
-	 * @param control to handle
+	 * 
+	 * @param control
+	 *            to handle
 	 * @return true if control is enabled, false otherwise
 	 */
-	public boolean isEnabled(Control control){
+	public boolean isEnabled(Control control) {
 		return Display.syncExec(new ResultRunnable<Boolean>() {
 
 			@Override
@@ -56,13 +60,15 @@ public class ControlHandler extends WidgetHandler{
 			}
 		});
 	}
-	
+
 	/**
 	 * Checks if control is visible
-	 * @param control to handle
+	 * 
+	 * @param control
+	 *            to handle
 	 * @return true if control is visible, false otherwise
 	 */
-	public boolean isVisible(Control control){
+	public boolean isVisible(Control control) {
 		return Display.syncExec(new ResultRunnable<Boolean>() {
 
 			@Override
@@ -70,13 +76,14 @@ public class ControlHandler extends WidgetHandler{
 				return control.isVisible();
 			}
 		});
-		
+
 	}
-	
+
 	/**
 	 * Sets focus to specified control
 	 *
-	 * @param control to handle
+	 * @param control
+	 *            to handle
 	 */
 	public void setFocus(final Control control) {
 		checkModalShells(control);
@@ -87,13 +94,15 @@ public class ControlHandler extends WidgetHandler{
 			}
 		});
 	}
-	
+
 	/**
 	 * Checks if control is focused
-	 * @param control to handle
+	 * 
+	 * @param control
+	 *            to handle
 	 * @return true if control is focused, false otherwise
 	 */
-	public boolean isFocusControl(Control control){
+	public boolean isFocusControl(Control control) {
 		return Display.syncExec(new ResultRunnable<Boolean>() {
 
 			@Override
@@ -102,13 +111,15 @@ public class ControlHandler extends WidgetHandler{
 			}
 		});
 	}
-	
+
 	/**
 	 * Gets tooltip text of control
-	 * @param control to get tooltip text from
+	 * 
+	 * @param control
+	 *            to get tooltip text from
 	 * @return tooltip text of spepcified control
 	 */
-	public String getToolTipText(Control control){
+	public String getToolTipText(Control control) {
 		return Display.syncExec(new ResultRunnable<String>() {
 
 			@Override
@@ -117,10 +128,12 @@ public class ControlHandler extends WidgetHandler{
 			}
 		});
 	}
-	
+
 	/**
 	 * Force focus to SWT Control. Use with caution
-	 * @param control SWT Control
+	 * 
+	 * @param control
+	 *            SWT Control
 	 * @return true if control was focused, false otherwise
 	 */
 	public boolean forceFocus(final org.eclipse.swt.widgets.Control control) {
@@ -131,15 +144,17 @@ public class ControlHandler extends WidgetHandler{
 				boolean ret = control.forceFocus();
 				return ret;
 			}
-		});		
+		});
 	}
-	
+
 	/**
 	 * Gets control's shell
-	 * @param control to handle
+	 * 
+	 * @param control
+	 *            to handle
 	 * @return control's shell
 	 */
-	public Shell getShell(final org.eclipse.swt.widgets.Control control){
+	public Shell getShell(final org.eclipse.swt.widgets.Control control) {
 		return Display.syncExec(new ResultRunnable<Shell>() {
 
 			@Override
@@ -148,8 +163,8 @@ public class ControlHandler extends WidgetHandler{
 			}
 		});
 	}
-	
-	public Composite getParent(final org.eclipse.swt.widgets.Control control){
+
+	public Composite getParent(final org.eclipse.swt.widgets.Control control) {
 		return Display.syncExec(new ResultRunnable<Composite>() {
 
 			@Override
@@ -158,61 +173,80 @@ public class ControlHandler extends WidgetHandler{
 			}
 		});
 	}
-	
+
 	/**
-	 * Checks if modal shell that blocks shell in which specified control is located exists 
-	 * and throws exception if it does
-	 * @param control which shell should be checked if it is blocked by some other shell
-	 * @throws CoreLayerException if modal shell that blocks current shell exists
+	 * Checks if modal shell that blocks shell in which specified control is
+	 * located exists and throws exception if it does
+	 * 
+	 * @param control
+	 *            which shell should be checked if it is blocked by some other
+	 *            shell
+	 * @throws CoreLayerException
+	 *             if modal shell that blocks current shell exists
 	 */
-	public void checkModalShells(final org.eclipse.swt.widgets.Control control){
-		if(!isDisposed(control)){
+	public void checkModalShells(final org.eclipse.swt.widgets.Control control) {
+		if (!isDisposed(control)) {
 			Shell shell = getBlockingModalShell(control);
-			if(shell!= null){
-				throw new CoreLayerException("Unable to execute action because modal shell '"+
-						ShellHandler.getInstance().getText(shell)+"' exists");
+			if (shell != null) {
+				throw new CoreLayerException("Unable to execute action because modal shell '"
+						+ ShellHandler.getInstance().getText(shell) + "' exists");
 			}
 		}
 	}
-	
+
 	/**
 	 * Gets modal shell that blocks shell in which specified control is located
-	 * @param control which shell should be checked if it is blocked by some other shell
-	 * @return modal shell that blocks shell in which specified control is located or null
+	 * 
+	 * @param control
+	 *            which shell should be checked if it is blocked by some other
+	 *            shell
+	 * @return modal shell that blocks shell in which specified control is
+	 *         located or null
 	 */
-	public Shell getBlockingModalShell(final org.eclipse.swt.widgets.Control control){
-		//The PRIMARY_MODAL style allows an instance to block input to its parent
-		//The APPLICATION_MODAL style allows an instance to block input to every other shell in the display
-		//SYSTEM_MODAL is the same as APPLICATION_MODAL because SYSTEM_MODAL is not supported in most (any?)desktop environments
-		Shell[] allShells = ShellLookup.getInstance().getShells();
+	public Shell getBlockingModalShell(final org.eclipse.swt.widgets.Control control) {
+		// The PRIMARY_MODAL style allows an instance to block input to its parent
+		// The APPLICATION_MODAL style allows an instance to block input to every other shell in the display
+		// SYSTEM_MODAL is the same as APPLICATION_MODAL because SYSTEM_MODAL is not supported in most (any?)desktop environments
 		Shell controlShell = getShell(control);
+		Shell activeShell = ShellLookup.getInstance().getActiveShell();
+		if(controlShell.equals(activeShell)){
+			return null;
+		}
+		Shell[] allShells = ShellLookup.getInstance().getShells();
 		List<Shell> allAncestorShells = ShellHandler.getInstance().getAllAncestorShells(controlShell);
-		for(Shell shell: allShells){
-			if(!isDisposed(shell)){
-				int style = getStyle(shell);
-				if(!shell.equals(controlShell)){ //check shells which are not parent of given control
-					// check shells which are not among parents of given control
-					if(!allAncestorShells.contains(shell)){
-						if((style & SWT.APPLICATION_MODAL)!=0 || (style & SWT.SYSTEM_MODAL)!=0){
-							return shell;
-						}
-					}
-					if((style & SWT.PRIMARY_MODAL) != 0){
-						Composite compositeParent = getParent(shell);
-						if(compositeParent != null && !isDisposed(compositeParent)){
-							//only direct parent shell is blocked by PRIMARY_MODAL
-							Shell shellParent = getShell(compositeParent);
-							if(shellParent != null && !isDisposed(shellParent) && shellParent.equals(controlShell)){
+		for (Shell shell : allShells) {
+			if (!isDisposed(shell)) {
+				try {
+					int style = getStyle(shell);
+					if (!shell.equals(controlShell)) { // check shells which are not parent of given control
+						// check shells which are not among parents of given control
+						if (!allAncestorShells.contains(shell)) {
+							if ((style & SWT.APPLICATION_MODAL) != 0 || (style & SWT.SYSTEM_MODAL) != 0) {
 								return shell;
 							}
 						}
+						if ((style & SWT.PRIMARY_MODAL) != 0) {
+							Composite compositeParent = getParent(shell);
+							if (compositeParent != null && !isDisposed(compositeParent)) {
+								// only direct parent shell is blocked by PRIMARY_MODAL
+								Shell shellParent = getShell(compositeParent);
+								if (shellParent != null && !isDisposed(shellParent) && shellParent.equals(controlShell)) {
+									return shell;
+								}
+							}
+						}
 					}
+				} catch (RedDeerException e) {
+					if (shell.isDisposed()) {
+						continue; // ok, shell is disposed
+					}
+					throw e;
 				}
 			}
-			
+
 		}
 		return null;
 	}
-	
 
 }
+
