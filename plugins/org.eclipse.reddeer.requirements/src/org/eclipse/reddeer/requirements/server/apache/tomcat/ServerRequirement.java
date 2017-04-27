@@ -77,7 +77,7 @@ public class ServerRequirement extends ServerReqBase
 		if(lastServerConfiguration == null || !isLastConfiguredServerPresent()) {
 			LOGGER.info("Setup server");
 			setupServerAdapter();
-			lastServerConfiguration = new ConfiguredServerInfo(getServerNameLabelText(), config);
+			lastServerConfiguration = new ConfiguredServerInfo(getServerNameLabelText(), getRuntimeNameLabelText(), config);
 		}
 		setupServerState(server.state());
 	}
@@ -165,7 +165,7 @@ public class ServerRequirement extends ServerReqBase
 	@Override
 	public void cleanUp() {
 		if(server.cleanup() && config != null){
-			removeLastRequiredServerAndRuntime();
+			removeServerAndRuntime(lastServerConfiguration);
 			lastServerConfiguration = null;
 		}
 	}

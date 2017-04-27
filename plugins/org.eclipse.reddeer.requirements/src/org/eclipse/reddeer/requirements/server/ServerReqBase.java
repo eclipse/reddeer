@@ -72,25 +72,21 @@ public abstract class ServerReqBase {
 	/**
 	 * Removes given server and its runtime.
 	 */
-	protected void removeLastRequiredServerAndRuntime() {
-		try {
+	protected void removeServerAndRuntime(ConfiguredServerInfo config) {
+		try{
 			org.eclipse.reddeer.eclipse.wst.server.ui.cnf.Server serverInView = getConfiguredServer();
 			//remove server added by last requirement
 			serverInView.delete(true);
-			removeRuntime();
+			//remove runtime
+			WorkbenchPreferenceDialog preferenceDialog = new WorkbenchPreferenceDialog();
+			preferenceDialog.open();
+			RuntimePreferencePage runtimePage = new RuntimePreferencePage();
+			preferenceDialog.select(runtimePage);
+			runtimePage.removeRuntime(new Runtime(config.getRuntimeName(), "test"));
+			preferenceDialog.ok();
 		} catch(ConfiguredServerNotFoundException e) {
 			//server had been already removed
 		}
-	}
-
-	private void removeRuntime() {
-		WorkbenchPreferenceDialog preferenceDialog = new WorkbenchPreferenceDialog();
-		preferenceDialog.open();
-		RuntimePreferencePage runtimePage = new RuntimePreferencePage();
-		preferenceDialog.select(runtimePage);
-		String runtimeName = getRuntimeNameLabelText();
-		runtimePage.removeRuntime(new Runtime(runtimeName, "test"));
-		preferenceDialog.ok();
 	}
 	
 	/**
