@@ -23,6 +23,7 @@ import org.eclipse.reddeer.requirements.server.apache.tomcat.ServerRequirementCo
 public class ConfiguredServerInfo {
 	
 	private String serverName;
+	private String runtimeName;
 	private IServerReqConfig config;
 	
 	/**
@@ -31,8 +32,9 @@ public class ConfiguredServerInfo {
 	 * @param serverName is the name of the configured server
 	 * @param config configuration which was used to configure server
 	 */
-	public ConfiguredServerInfo(String serverName, IServerReqConfig config) {
+	public ConfiguredServerInfo(String serverName, String runtimeName, IServerReqConfig config) {
 		this.serverName = serverName;
+		this.runtimeName = runtimeName;
 		this.config = config;
 	}
 	
@@ -43,6 +45,14 @@ public class ConfiguredServerInfo {
 	 */
 	public String getServerName() {
 		return serverName;
+	}
+	
+	/**
+	 * Gets the runtime name
+	 * @return the runtime name
+	 */
+	public String getRuntimeName(){
+		return runtimeName;
 	}
 	
 	/**
