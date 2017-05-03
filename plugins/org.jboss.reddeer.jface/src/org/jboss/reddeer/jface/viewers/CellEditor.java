@@ -119,13 +119,14 @@ public class CellEditor implements ReferencedComposite {
 	 * @return JFace cell editor
 	 */
 	protected org.eclipse.jface.viewers.CellEditor getJFaceCellEditor() {
+		org.eclipse.swt.widgets.Table swtTable = tableItem.getParent().getSWTWidget();
 		return Display.syncExec(new ResultRunnable<org.eclipse.jface.viewers.CellEditor>() {
 
 			@Override
 			public org.eclipse.jface.viewers.CellEditor run() {
 				org.eclipse.jface.viewers.CellEditor cellEditor = null;
 
-				TableColumn col = ((org.eclipse.swt.widgets.Table) tableItem.getParent().getSWTWidget()).getColumn(index);
+				TableColumn col = swtTable.getColumn(index);
 				Object colData = col.getData(COLUMN_VIEWER_ID);
 				ViewerColumn viewCol = (ViewerColumn) colData;
 				ColumnViewerEditor colViewerEditor = viewCol.getViewer().getColumnViewerEditor();
