@@ -123,6 +123,14 @@
 				<configuration>
 					<sourcepath>${basedir}/plugins</sourcepath>
 				</configuration>
+				<executions>
+					<execution>
+						<phase>install</phase>
+						<goals>
+							<goal>aggregate</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>
