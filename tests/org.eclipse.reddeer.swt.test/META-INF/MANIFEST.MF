@@ -8,7 +8,6 @@ Bundle-Activator: org.eclipse.reddeer.swt.test.Activator
 Require-Bundle: org.eclipse.reddeer.go;bundle-version="[2.0,2.1)",
  org.eclipse.core.expressions,
  org.eclipse.ui.views.log,
- org.eclipse.m2e.core.ui,
  org.eclipse.core.databinding,
  org.eclipse.jface.databinding,
  org.eclipse.core.databinding.beans,
