@@ -101,7 +101,6 @@ public class TreeHandler extends ControlHandler{
 	 * @param swtTree tree to handle
 	 */
 	public void unselectAllItems(final org.eclipse.swt.widgets.Tree swtTree) {
-		checkModalShells(swtTree);
 		Display.syncExec(new Runnable() {
 			public void run() {
 				logger.debug("Unselect all tree items");
@@ -135,7 +134,6 @@ public class TreeHandler extends ControlHandler{
 	 * @param swtTree the swt tree
 	 */
 	public void notifySelect(final org.eclipse.swt.widgets.Tree swtTree) {
-		checkModalShells(swtTree);
 		Display.syncExec(new Runnable() {
 			public void run() {
 				logger.debug("Notify Tree about selection event");
@@ -195,7 +193,6 @@ public class TreeHandler extends ControlHandler{
 	 * @param event event for specified tree item
 	 */
 	public void notifyTree(final org.eclipse.swt.widgets.TreeItem swtTreeItem, final Event event) {
-		checkModalShells(TreeItemHandler.getInstance().getParent(swtTreeItem));
 		Display.asyncExec(new Runnable() {
 			public void run() {
 				swtTreeItem.getParent().notifyListeners(event.type, event);
@@ -213,7 +210,6 @@ public class TreeHandler extends ControlHandler{
 	 * @param event event for specified tree item
 	 */
 	public void notifyTree(final org.eclipse.swt.widgets.TreeItem swtTreeItem, final int eventType , final Event event) {
-		checkModalShells(TreeItemHandler.getInstance().getParent(swtTreeItem));
 		Display.asyncExec(new Runnable() {
 			public void run() {
 				swtTreeItem.getParent().notifyListeners(eventType, event);
@@ -230,7 +226,6 @@ public class TreeHandler extends ControlHandler{
 	 * @param event event for specified tree item
 	 */
 	public void notifyTreeSync(final org.eclipse.swt.widgets.TreeItem swtTreeItem, final Event event) {
-		checkModalShells(TreeItemHandler.getInstance().getParent(swtTreeItem));
 		Display.syncExec(new Runnable() {
 			public void run() {
 				swtTreeItem.getParent().notifyListeners(event.type, event);

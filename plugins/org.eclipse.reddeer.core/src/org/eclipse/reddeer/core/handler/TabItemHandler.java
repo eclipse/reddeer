@@ -94,7 +94,6 @@ public class TabItemHandler extends ItemHandler{
 	 * @param swtTabItem tab item to select
 	 */
 	public void select(final TabItem swtTabItem) {
-		ControlHandler.getInstance().checkModalShells(getParent(swtTabItem));
 		Display.syncExec(new Runnable() {
 			public void run() {
 				swtTabItem.getParent().setSelection(swtTabItem);
@@ -109,7 +108,6 @@ public class TabItemHandler extends ItemHandler{
 	 * @param tabItem tab item to focus
 	 */
 	public void setFocus(final TabItem tabItem) {
-		ControlHandler.getInstance().checkModalShells(getParent(tabItem));
 		ControlHandler.getInstance().setFocus(getParent(tabItem));
 	}
 	

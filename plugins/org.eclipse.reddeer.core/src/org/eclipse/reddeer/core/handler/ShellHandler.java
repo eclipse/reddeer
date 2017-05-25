@@ -52,7 +52,6 @@ public class ShellHandler extends ControlHandler{
 	 * @param swtShell shell to close
 	 */
 	public void closeShell(final Shell swtShell) {
-		checkModalShells(swtShell);
 		if(!isDisposed(swtShell)){
 			log.info("Closing shell '" +getText(swtShell)+ "'");
 		}
@@ -72,7 +71,6 @@ public class ShellHandler extends ControlHandler{
 	 * @param shell shell to focus
 	 */
 	public void setFocus(final Shell shell) {
-		checkModalShells(shell);
 		Display.syncExec(new Runnable() {
 			@Override
 			public void run() {
@@ -92,7 +90,6 @@ public class ShellHandler extends ControlHandler{
 	 * @param swtShell swt shell to maximize
 	 */
 	public void maximize(final Shell swtShell) {
-		checkModalShells(swtShell);
 		log.info("Maximize shell '" +getText(swtShell)+ "'");
 		Display.syncExec(new Runnable() {
 
@@ -108,7 +105,6 @@ public class ShellHandler extends ControlHandler{
 	 * @param swtShell swt shell to minimize
 	 */
 	public void minimize(final Shell swtShell) {
-		checkModalShells(swtShell);
 		log.info("Minimize shell '" +getText(swtShell)+ "'");
 		Display.syncExec(new Runnable() {
 
@@ -124,7 +120,6 @@ public class ShellHandler extends ControlHandler{
 	 * @param swtShell swt shell to restore
 	 */
 	public void restore(final Shell swtShell) {
-		checkModalShells(swtShell);
 		log.info("Restore shell '" +getText(swtShell)+ "'");
 		Display.syncExec(new Runnable() {
 

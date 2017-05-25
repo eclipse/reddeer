@@ -66,7 +66,6 @@ public class ComboHandler extends ControlHandler{
 	 * @param index index of item to select
 	 */
 	public void setSelection(final Combo combo, final int index) {
-		checkModalShells(combo);
 		Display.syncExec(new Runnable() {
 
 			@Override
@@ -91,7 +90,6 @@ public class ComboHandler extends ControlHandler{
 	 * @param text text to set
 	 */
 	public void setSelection(final Combo combo, final String text) {
-		checkModalShells(combo);
 		Display.syncExec(new Runnable() {
 
 			@Override
@@ -161,7 +159,6 @@ public class ComboHandler extends ControlHandler{
 	 * @param text that should be set to specified combo
 	 */
 	public void setText(final Combo combo, String text){
-		checkModalShells(combo);
 		Display.syncExec(new Runnable() {
 			
 			@Override

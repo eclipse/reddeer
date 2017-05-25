@@ -45,7 +45,6 @@ public class TextHandler extends ControlHandler{
 	 * @param text text to be set
 	 */
 	public void setText(final Text textWidget, final String text) {
-		checkModalShells(textWidget);
 		Display.syncExec(new Runnable() {
 
 			@Override

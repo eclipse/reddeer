@@ -48,7 +48,6 @@ public class StyledTextHandler extends ControlHandler{
 	 * @param column column of selection
 	 */
 	public void setSelectionWithinLine(final StyledText styledText, final int line,final int column) {
-		checkModalShells(styledText);
 		Display.syncExec(new Runnable() {
 
 			@Override
@@ -69,7 +68,6 @@ public class StyledTextHandler extends ControlHandler{
 	 * @param end selection end offset
 	 */
 	public void setSelection(final StyledText styledText, final int start, final int end) {
-		checkModalShells(styledText);
 		Display.syncExec(new Runnable() {
 
 			@Override
@@ -87,7 +85,6 @@ public class StyledTextHandler extends ControlHandler{
 	 * @param text text to insert
 	 */
 	public void insertText(final StyledText styledText, final String text) {
-		checkModalShells(styledText);
 		Display.syncExec(new Runnable() {
 
 			@Override
@@ -106,7 +103,6 @@ public class StyledTextHandler extends ControlHandler{
 	 * @param text text to insert
 	 */
 	public void insertText(StyledText styledText, int line, int column, String text) {
-		checkModalShells(styledText);
 		setSelectionWithinLine(styledText, line, column);
 		insertText(styledText, text);
 	}
@@ -135,7 +131,6 @@ public class StyledTextHandler extends ControlHandler{
 	 * @param text to select
 	 */
 	public void selectText(final StyledText styledText, final String text) {
-		checkModalShells(styledText);
 		final int position = getPositionOfText(styledText, text);
 		if (position == -1) { 
 			throw new CoreLayerException("Unable to find text " + text + " in styled text");
@@ -156,7 +151,6 @@ public class StyledTextHandler extends ControlHandler{
 	 * @param position position to select in specified styled text
 	 */
 	public void selectPosition(final StyledText styledText, final int position) {
-		checkModalShells(styledText);
 		Display.syncExec(new Runnable() {
 
 			@Override
@@ -244,7 +238,6 @@ public class StyledTextHandler extends ControlHandler{
 	 * @param text to set to specified styled text
 	 */
 	public void setText(final StyledText styledText, String text){
-		checkModalShells(styledText);
 		Display.syncExec(new Runnable() {
 			
 			@Override

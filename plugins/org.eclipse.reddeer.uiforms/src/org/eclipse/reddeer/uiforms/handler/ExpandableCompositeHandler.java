@@ -44,7 +44,6 @@ public class ExpandableCompositeHandler extends ControlHandler{
 	 * @param expanded the new expanded state
 	 */
 	public void setExpanded(final ExpandableComposite composite, final boolean expanded) {
-		checkModalShells(composite);
 		Display.syncExec(new Runnable() {
 			@Override
 			public void run() {

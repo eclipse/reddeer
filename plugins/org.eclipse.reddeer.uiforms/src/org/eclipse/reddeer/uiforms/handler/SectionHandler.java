@@ -45,7 +45,6 @@ public class SectionHandler extends ControlHandler{
 	 * @param expanded true for expand specified section, false for collapse
 	 */
 	public void setExpanded(final Section section, final boolean expanded) {
-		checkModalShells(section);
 		Display.syncExec(new Runnable() {
 			
 			@Override

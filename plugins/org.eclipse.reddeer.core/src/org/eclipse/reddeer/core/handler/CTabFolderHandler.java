@@ -43,7 +43,6 @@ public class CTabFolderHandler extends ControlHandler{
 	 * @param folder folder to handle
 	 */
 	public void setFocus(final CTabFolder folder) {
-		checkModalShells(folder);
 		Display.syncExec(new Runnable() {
 			@Override
 			public void run() {

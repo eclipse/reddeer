@@ -45,7 +45,6 @@ public class ToolItemHandler extends ItemHandler{
 	 * @param toolItem tool item to handle
 	 */
 	public void click(final ToolItem toolItem) {
-		ControlHandler.getInstance().checkModalShells(getParent(toolItem));
 		Display.syncExec(new Runnable() {
 			@Override
 			public void run() {
@@ -118,7 +117,6 @@ public class ToolItemHandler extends ItemHandler{
 	 */
 
 	public void clickDropDown(final ToolItem item) {
-		ControlHandler.getInstance().checkModalShells(getParent(item));
 		notifyItem(SWT.Selection, SWT.ARROW, item, item);
 	}
 	
@@ -157,7 +155,6 @@ public class ToolItemHandler extends ItemHandler{
 	 * @param swtItem to handle
 	 */
 	public void setFocus(ToolItem swtItem) {
-		ControlHandler.getInstance().checkModalShells(getParent(swtItem));
 		ControlHandler.getInstance().setFocus(getParent(swtItem));
 		
 	}

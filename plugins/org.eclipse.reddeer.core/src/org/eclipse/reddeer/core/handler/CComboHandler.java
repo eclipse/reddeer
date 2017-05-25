@@ -69,7 +69,6 @@ public class CComboHandler extends ControlHandler{
 	 *            index of item to select
 	 */
 	public void setSelection(final CCombo ccombo, final int index) {
-		checkModalShells(ccombo);
 		Display.syncExec(new Runnable() {
 
 			@Override
@@ -95,7 +94,6 @@ public class CComboHandler extends ControlHandler{
 	 *            text to set
 	 */
 	public void setSelection(final CCombo ccombo, final String text) {
-		checkModalShells(ccombo);
 		Display.syncExec(new Runnable() {
 
 			@Override
@@ -180,7 +178,6 @@ public class CComboHandler extends ControlHandler{
 	 * @param text which should be set to specified ccombo
 	 */
 	public void setText(final CCombo ccombo, final String text){
-		checkModalShells(ccombo);
 		Display.syncExec(new Runnable() {
 			
 			@Override

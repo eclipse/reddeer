@@ -17,7 +17,6 @@ import org.eclipse.reddeer.junit.runner.RedDeerSuite;
 import org.eclipse.reddeer.workbench.api.View;
 import org.eclipse.reddeer.workbench.exception.WorkbenchLayerException;
 import org.eclipse.reddeer.workbench.impl.view.WorkbenchView;
-import org.eclipse.reddeer.workbench.ui.dialogs.WorkbenchPreferenceDialog;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -89,20 +88,5 @@ public class WorkbenchViewTest  {
 		markersView.close();
 		markersView.close();
 		
-	}
-	
-	@Test
-	public void testModalShellOverView(){
-		markersView.open();
-		WorkbenchPreferenceDialog wp = new WorkbenchPreferenceDialog();
-		wp.open();
-		boolean wasActivated = false;
-		try{
-			markersView.activate();
-		}catch (Exception e) {
-			wasActivated = true;
-		} 
-		wp.cancel();
-		assertTrue("View cannot be activated because modal shell exists",wasActivated);
 	}
 }
