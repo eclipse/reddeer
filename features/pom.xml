@@ -30,7 +30,6 @@
 		<module>org.eclipse.reddeer.tests.feature</module>
 		<module>org.eclipse.reddeer.ui.feature</module>
 		<module>org.eclipse.reddeer.recorder.feature</module>
-		<module>org.eclipse.reddeer.junit.extension.feature</module>
 		<module>org.eclipse.reddeer.graphiti.feature</module>
 		<module>org.eclipse.reddeer.spy.feature</module>
 		<module>org.eclipse.reddeer.logparser.feature</module>
