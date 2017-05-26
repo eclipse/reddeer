@@ -59,10 +59,6 @@
 		<category name="UIFeatures"/>
 	</feature>
 
-	<feature url="org.eclipse.reddeer.junit.extension.feature.qualifier" id="org.eclipse.reddeer.junit.extension.feature" version="0.0.0">
-		<category name="RuntimeAPIFeatures"/>
-	</feature>
-
 	<feature url="org.eclipse.reddeer.graphiti.feature.qualifier" id="org.eclipse.reddeer.graphiti.feature" version="0.0.0">
 		<category name="GraphitiFeatures"/>
 	</feature>
@@ -83,10 +79,6 @@
 	</feature>
 
 	<feature url="org.eclipse.reddeer.recorder.feature.source.qualifier" id="org.eclipse.reddeer.recorder.feature.source" version="0.0.0">
-		<category name="AllSources"/>
-	</feature>
-
-	<feature url="org.eclipse.reddeer.junit.extension.feature.source.qualifier" id="org.eclipse.reddeer.junit.extension.feature.source" version="0.0.0">
 		<category name="AllSources"/>
 	</feature>
 
