@@ -21,7 +21,6 @@
 	<properties>
 		<tycho-version>0.26.0</tycho-version>
 		<tychoExtrasVersion>${tycho-version}</tychoExtrasVersion>
-		<jbossTychoPluginsVersion>0.26.0</jbossTychoPluginsVersion>
 		<eclipse-target-site>http://download.eclipse.org/releases/neon</eclipse-target-site>
 		<swtbot-update-site>http://download.eclipse.org/technology/swtbot/releases/2.2.1</swtbot-update-site>
 		<eclipse-orbit-update-site>http://download.eclipse.org/tools/orbit/downloads/drops/R20150821153341/repository/</eclipse-orbit-update-site>
@@ -32,8 +31,8 @@
 			Stable Release, or set to &amp;shy; (soft hyphen) to leave blank -->
 		<update.site.description>&amp;shy;</update.site.description>
 		<targetEclipseVersion>4.6 (Neon)</targetEclipseVersion>
-		<BUILD_TIMESTAMP>${maven.build.timestamp}</BUILD_TIMESTAMP>
-		<maven.build.timestamp.format>yyyy-MM-dd_HH-mm-ss</maven.build.timestamp.format>
+		<BUILD_ALIAS>CI</BUILD_ALIAS>
+		<BUILD_TIMESTAMP>yyyyMMdd-HHmm</BUILD_TIMESTAMP>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
 	</properties>
@@ -124,6 +123,22 @@
 					<sourcepath>${basedir}/plugins</sourcepath>
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-packaging-plugin</artifactId>
+				<version>${tycho-version}</version>
+				<dependencies>
+					<dependency>
+						<groupId>org.eclipse.tycho.extras</groupId>
+						<artifactId>tycho-buildtimestamp-jgit</artifactId>
+						<version>${tychoExtrasVersion}</version>
+					</dependency>
+				</dependencies>
+				<configuration>
+					<strictBinIncludes>false</strictBinIncludes>
+					<format>'${BUILD_ALIAS}-v'${BUILD_TIMESTAMP}</format>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 
@@ -156,5 +171,5 @@
 			<layout>p2</layout>
 		</repository>
 	</repositories>
-
+	
 </project>
