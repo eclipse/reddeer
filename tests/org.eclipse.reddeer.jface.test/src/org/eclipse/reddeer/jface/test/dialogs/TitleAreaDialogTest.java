@@ -17,7 +17,7 @@ import org.eclipse.jface.resource.JFaceResources;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.reddeer.common.util.Display;
 import org.eclipse.reddeer.core.exception.CoreLayerException;
-import org.eclipse.reddeer.eclipse.topmenu.NewMenuWizard;
+import org.eclipse.reddeer.eclipse.selectionwizard.NewMenuWizard;
 import org.eclipse.reddeer.jface.dialogs.MessageTypeEnum;
 import org.eclipse.reddeer.jface.dialogs.TitleAreaDialog;
 import org.eclipse.reddeer.jface.test.Activator;

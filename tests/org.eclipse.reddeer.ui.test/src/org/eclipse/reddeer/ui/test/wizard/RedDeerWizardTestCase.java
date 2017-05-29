@@ -14,7 +14,7 @@ package org.eclipse.reddeer.ui.test.wizard;
 import java.util.logging.Logger;
 
 import org.eclipse.reddeer.core.exception.CoreLayerException;
-import org.eclipse.reddeer.eclipse.topmenu.NewMenuWizard;
+import org.eclipse.reddeer.eclipse.selectionwizard.NewMenuWizard;
 import org.eclipse.reddeer.eclipse.ui.navigator.resources.ProjectExplorer;
 import org.eclipse.reddeer.eclipse.utils.DeleteUtils;
 import org.eclipse.reddeer.junit.runner.RedDeerSuite;

@@ -10,7 +10,7 @@
  *******************************************************************************/
 package org.eclipse.reddeer.eclipse.ui.dialogs;
 
-import org.eclipse.reddeer.workbench.topmenu.TopMenuWizardDialog;
+import org.eclipse.reddeer.workbench.workbenchmenu.WorkbenchMenuWizardDialog;
 
 /**
  * Represents Eclipse NewWizard that can be found in File, New, Other... menu
@@ -19,7 +19,7 @@ import org.eclipse.reddeer.workbench.topmenu.TopMenuWizardDialog;
  * @since 0.6
  *
  */
-public class NewWizard extends TopMenuWizardDialog{
+public class NewWizard extends WorkbenchMenuWizardDialog{
 	
 	public static final String DIALOG_TITLE = "New";
 	

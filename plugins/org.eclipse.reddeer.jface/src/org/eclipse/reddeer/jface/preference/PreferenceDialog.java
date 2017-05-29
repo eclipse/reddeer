@@ -20,6 +20,7 @@ import org.eclipse.reddeer.core.lookup.ShellLookup;
 import org.eclipse.reddeer.core.matcher.WithMnemonicTextMatcher;
 import org.eclipse.reddeer.core.matcher.WithTextMatcher;
 import org.eclipse.reddeer.jface.window.AbstractWindow;
+import org.eclipse.reddeer.jface.window.Openable;
 import org.eclipse.reddeer.swt.api.Button;
 import org.eclipse.reddeer.swt.api.Shell;
 import org.eclipse.reddeer.swt.api.TreeItem;
@@ -50,6 +51,10 @@ public class PreferenceDialog extends AbstractWindow{
 
 	public PreferenceDialog(Matcher<?>...matchers) {
 		super(matchers);
+	}
+	
+	public PreferenceDialog() {
+		super();
 	}
 	
 	/**
@@ -126,5 +131,10 @@ public class PreferenceDialog extends AbstractWindow{
 	@Override
 	public Class<?> getEclipseClass() {
 		return org.eclipse.jface.preference.PreferenceDialog.class;
+	}
+
+	@Override
+	protected Openable getOpenAction() {
+		return null;
 	}
 }

@@ -8,20 +8,18 @@
  * Contributors:
  *     Red Hat Inc. - initial API and implementation
  *******************************************************************************/
-package org.eclipse.reddeer.eclipse.topmenu;
+package org.eclipse.reddeer.eclipse.selectionwizard;
 
 import org.hamcrest.Matcher;
 import org.eclipse.reddeer.core.matcher.WithTextMatcher;
-import org.eclipse.reddeer.jface.wizard.WizardDialog;
-import org.eclipse.reddeer.swt.api.Shell;
-import org.eclipse.reddeer.workbench.api.TopMenuOpenable;
+import org.eclipse.reddeer.workbench.workbenchmenu.WorkbenchMenuWizardDialog;
 
 /**
  * Abstract class for wizard dialogs with selection page (such as NewWizard, ImportExportWizard)
  * @author rawagner
  *
  */
-public abstract class AbstractSelectionWizardDialog extends WizardDialog implements TopMenuOpenable{
+public abstract class AbstractSelectionWizardDialog extends WorkbenchMenuWizardDialog {
 	
 	protected Matcher<String> matcher;
 	protected String[] wizardPath;
@@ -42,20 +40,10 @@ public abstract class AbstractSelectionWizardDialog extends WizardDialog impleme
 	 * @param wizardPath wizard path in selection page
 	 */
 	public AbstractSelectionWizardDialog(String shellText, String[] wizardPath) {
-		super((Shell)null);
+		super();
 		this.matcher = new WithTextMatcher(shellText);
 		this.wizardPath = wizardPath;
 		isOpen();
-	}
-	
-	@Override
-	public Matcher<String> getShellMatcher() {
-		return matcher;
-	}
-	
-	@Override
-	public String[] getMenuPath(){
-		return wizardPath;
 	}
 
 }

@@ -8,11 +8,10 @@
  * Contributors:
  *     Red Hat Inc. - initial API and implementation
  *******************************************************************************/
-package org.eclipse.reddeer.eclipse.topmenu;
+package org.eclipse.reddeer.eclipse.selectionwizard;
 
-import org.eclipse.reddeer.eclipse.ui.dialogs.ExportPage;
 import org.eclipse.reddeer.eclipse.ui.dialogs.ImportExportWizard;
-import org.eclipse.reddeer.jface.wizard.WizardDialog;
+import org.eclipse.reddeer.jface.window.Openable;
 
 /**
  * Represents wizard which can be found in export wizard dialog (menu 'File -&gt; Export...').
@@ -41,15 +40,8 @@ public abstract class ExportMenuWizard extends AbstractSelectionWizardDialog{
 	}
 	
 	@Override
-	public void open(){
-		if(!isOpen()){
-			ImportExportWizard ieWizard = new ImportExportWizard(false);
-			ieWizard.open();
-			ExportPage exportPage = new ExportPage();
-			exportPage.selectProject(wizardPath);
-			ieWizard.next();
-			setShell(new WizardDialog(matcher).getShell());
-		}
+	protected Openable getOpenAction() {
+		return new SelectionWizardOpenable(new ImportExportWizard(false), wizardPath, matcher);
 	}
 
 }

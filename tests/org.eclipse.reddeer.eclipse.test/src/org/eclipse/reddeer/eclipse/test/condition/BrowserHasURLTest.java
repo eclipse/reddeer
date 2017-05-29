@@ -9,9 +9,6 @@
  *     Red Hat Inc. - initial API and implementation
  *******************************************************************************/
 package org.eclipse.reddeer.eclipse.test.condition;
-
-import static org.eclipse.reddeer.common.wait.WaitProvider.waitUntil;
-import static org.eclipse.reddeer.common.wait.WaitProvider.waitWhile;
 import static org.junit.Assert.*;
 
 import java.net.MalformedURLException;
@@ -19,21 +16,12 @@ import java.net.URL;
 
 import org.eclipse.reddeer.common.matcher.RegexMatcher;
 import org.eclipse.reddeer.common.util.Display;
-import org.eclipse.reddeer.common.wait.GroupWait;
 import org.eclipse.reddeer.core.matcher.WithTextMatcher;
-import org.eclipse.reddeer.core.matcher.WithTextMatchers;
 import org.eclipse.reddeer.eclipse.condition.BrowserHasURL;
 import org.eclipse.reddeer.eclipse.exception.EclipseLayerException;
 import org.eclipse.reddeer.eclipse.ui.browser.BrowserEditor;
 import org.eclipse.reddeer.eclipse.ui.browser.WebBrowserView;
 import org.eclipse.reddeer.junit.runner.RedDeerSuite;
-import org.eclipse.reddeer.swt.condition.ShellIsAvailable;
-import org.eclipse.reddeer.swt.impl.button.OkButton;
-import org.eclipse.reddeer.swt.impl.menu.ShellMenu;
-import org.eclipse.reddeer.swt.impl.shell.DefaultShell;
-import org.eclipse.reddeer.swt.impl.tree.DefaultTreeItem;
-import org.eclipse.reddeer.workbench.condition.ViewIsOpen;
-import org.eclipse.reddeer.workbench.impl.view.WorkbenchView;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.browser.IWorkbenchBrowserSupport;
@@ -89,18 +77,6 @@ public class BrowserHasURLTest {
 	}
 	
 	public void openInternalBrowserViaMenu() {
-		WithTextMatchers m = new WithTextMatchers(new RegexMatcher[] {
-				new RegexMatcher("Window.*"),
-				new RegexMatcher("Show View.*"),
-				new RegexMatcher("Other...*") });
-		ShellMenu menu = new ShellMenu(m.getMatchers());
-		menu.select();
-		new DefaultShell("Show View");
-		new DefaultTreeItem("General", "Internal Web Browser").select();
-		new OkButton().click();
-		new GroupWait(waitWhile(new ShellIsAvailable("Show View")),
-				waitUntil(new ViewIsOpen(new WorkbenchView("Internal Web Browser"))));
-
 		browser = new WebBrowserView();
 		browser.open();
 		browser.openPageURL(URL);

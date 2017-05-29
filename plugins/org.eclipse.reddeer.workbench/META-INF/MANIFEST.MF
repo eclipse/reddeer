@@ -34,5 +34,6 @@ Export-Package: org.eclipse.reddeer.workbench,
  org.eclipse.reddeer.workbench.lookup,
  org.eclipse.reddeer.workbench.matcher,
  org.eclipse.reddeer.workbench.ui.dialogs,
- org.eclipse.reddeer.workbench.topmenu,
+ org.eclipse.reddeer.workbench.workbenchmenu,
  org.eclipse.reddeer.workbench.part
+ 

@@ -18,7 +18,7 @@ import org.eclipse.reddeer.common.util.Display;
 import org.eclipse.reddeer.core.matcher.WithTextMatcher;
 import org.eclipse.reddeer.swt.impl.shell.DefaultShell;
 import org.eclipse.reddeer.workbench.impl.shell.WorkbenchShell;
-import org.eclipse.reddeer.workbench.topmenu.TopMenuPreferencesDialog;
+import org.eclipse.reddeer.workbench.workbenchmenu.WorkbenchMenuPreferencesDialog;
 
 /**
  * Workbench Preference Dialog implementation that is opened via shell menu
@@ -28,7 +28,7 @@ import org.eclipse.reddeer.workbench.topmenu.TopMenuPreferencesDialog;
  * @author Radoslav Rabara
  * @since 0.6
  */
-public class WorkbenchPreferenceDialog extends TopMenuPreferencesDialog {
+public class WorkbenchPreferenceDialog extends WorkbenchMenuPreferencesDialog {
 
 	private final Logger log = Logger.getLogger(WorkbenchPreferenceDialog.class);
 	
@@ -42,7 +42,7 @@ public class WorkbenchPreferenceDialog extends TopMenuPreferencesDialog {
 				log.info("Open Preferences directly on Mac OSX");
 				new WorkbenchShell();
 				handleMacMenu();
-				setShell(new DefaultShell(getShellMatcher()));
+				setShell(new DefaultShell(matcher));
 			} else {
 				super.open();
 			}

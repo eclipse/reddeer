@@ -8,11 +8,12 @@
  * Contributors:
  *     Red Hat Inc. - initial API and implementation
  *******************************************************************************/
-package org.eclipse.reddeer.eclipse.topmenu;
+package org.eclipse.reddeer.eclipse.selectionwizard;
 
 import org.eclipse.reddeer.eclipse.ui.dialogs.ImportExportWizard;
-import org.eclipse.reddeer.eclipse.ui.dialogs.ImportPage;
-import org.eclipse.reddeer.jface.wizard.WizardDialog;
+
+import org.eclipse.reddeer.jface.window.Openable;
+
 
 /**
  * Represents wizard which can be found in import wizard dialog (menu 'File -&gt; Import...').
@@ -41,15 +42,8 @@ public abstract class ImportMenuWizard extends AbstractSelectionWizardDialog{
 	}
 	
 	@Override
-	public void open(){
-		if(!isOpen()){
-			ImportExportWizard ieWizard = new ImportExportWizard(true);
-			ieWizard.open();
-			ImportPage importPage = new ImportPage();
-			importPage.selectProject(wizardPath);
-			ieWizard.next();
-			setShell(new WizardDialog(matcher).getShell());
-		}
+	protected Openable getOpenAction() {
+		return new SelectionWizardOpenable(new ImportExportWizard(true), wizardPath, matcher);
 	}
 
 }

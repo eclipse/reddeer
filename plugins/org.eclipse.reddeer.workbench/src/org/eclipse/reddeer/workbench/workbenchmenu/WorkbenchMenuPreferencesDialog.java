@@ -8,51 +8,54 @@
  * Contributors:
  *     Red Hat Inc. - initial API and implementation
  *******************************************************************************/
-package org.eclipse.reddeer.workbench.topmenu;
+package org.eclipse.reddeer.workbench.workbenchmenu;
 
 import org.hamcrest.Matcher;
 import org.eclipse.reddeer.core.matcher.WithTextMatcher;
 import org.eclipse.reddeer.jface.preference.PreferenceDialog;
+import org.eclipse.reddeer.jface.window.Openable;
 import org.eclipse.reddeer.swt.api.Shell;
-import org.eclipse.reddeer.workbench.api.TopMenuOpenable;
 
 /**
  * Represents all Preference dialogs openable from workbench shell menu
  * @author rawagner
  *
  */
-public abstract class TopMenuPreferencesDialog extends PreferenceDialog implements TopMenuOpenable{
+public abstract class WorkbenchMenuPreferencesDialog extends PreferenceDialog {
 	
-	private String[] path;
-	private Matcher<String> matcher;
+	protected String[] path;
+	protected Matcher<String> matcher;
 	
 	/**
 	 * @param text of preference dialog
 	 * @param path workbench shell menu item path
 	 */
-	public TopMenuPreferencesDialog(String text, String... path){
+	public WorkbenchMenuPreferencesDialog(String text, String... path){
 		this(new WithTextMatcher(text),path);
+	}
+	
+	/**
+	 * Implementations are responsible for making sure given shell is Eclipse PreferenceDialog.
+	 * @param shell instance of Eclipse PreferenceDialog
+	 */
+	public WorkbenchMenuPreferencesDialog(Shell shell){
+		super(shell);
 	}
 	
 	/**
 	 * @param matcher to match preference dialog
 	 * @param path workbench shell menu item path
 	 */
-	public TopMenuPreferencesDialog(Matcher<String> matcher, String... path){
-		super((Shell)null);
+	public WorkbenchMenuPreferencesDialog(Matcher<String> matcher, String... path){
+		super();
 		this.matcher = matcher;
 		this.path = path;
 		isOpen();
 	}
 	
 	@Override
-	public Matcher<String> getShellMatcher() {
-		return matcher;
-	};
-	
-	@Override
-	public String[] getMenuPath() {
-		return path;
+	protected Openable getOpenAction() {
+		return new WorkbenchMenuOpenable(matcher, path);
 	}
 
 }

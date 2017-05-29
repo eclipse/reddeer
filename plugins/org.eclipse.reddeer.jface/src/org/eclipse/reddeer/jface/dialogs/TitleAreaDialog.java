@@ -19,6 +19,7 @@ import org.eclipse.swt.widgets.Text;
 import org.hamcrest.Matcher;
 import org.eclipse.reddeer.core.handler.CompositeHandler;
 import org.eclipse.reddeer.jface.window.AbstractWindow;
+import org.eclipse.reddeer.jface.window.Openable;
 import org.eclipse.reddeer.swt.api.Shell;
 import org.eclipse.reddeer.swt.impl.label.DefaultLabel;
 import org.eclipse.reddeer.swt.impl.text.DefaultText;
@@ -57,6 +58,10 @@ public class TitleAreaDialog extends AbstractWindow{
 	 */
 	public TitleAreaDialog(String text){
 		super(text);
+	}
+	
+	public TitleAreaDialog() {
+		super();
 	}
 	
 	/**
@@ -140,6 +145,11 @@ public class TitleAreaDialog extends AbstractWindow{
 	@Override
 	public Class<?> getEclipseClass(){
 		return org.eclipse.jface.dialogs.TitleAreaDialog.class;
+	}
+
+	@Override
+	protected Openable getOpenAction() {
+		return null;
 	}
 	
 	

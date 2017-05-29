@@ -8,22 +8,23 @@
  * Contributors:
  *     Red Hat Inc. - initial API and implementation
  *******************************************************************************/
-package org.eclipse.reddeer.eclipse.wst.html.ui.wizard;
+package org.eclipse.reddeer.jface.test.window;
 
-import org.eclipse.reddeer.eclipse.selectionwizard.NewMenuWizard;
+import org.eclipse.jface.window.Window;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Shell;
 
-/**
- * New HTML Wizard.
- * @author rawagner
- *
- */
-public class NewHTMLWizard extends NewMenuWizard{
+public class EclipseWindow extends Window{
+
+	protected EclipseWindow(Shell parentShell) {
+		super(parentShell);
+	}
 	
-	/**
-	 * Default constructor.
-	 */
-	public NewHTMLWizard(){
-		super("New HTML File","Web","HTML File");
+	@Override
+	protected Control createContents(Composite parent) {
+		parent.getShell().setText("Eclipse Window");
+		return super.createContents(parent);
 	}
 
 }
