@@ -10,7 +10,7 @@
  *******************************************************************************/
 package org.eclipse.reddeer.eclipse.ui.wizards.newresource;
 
-import org.eclipse.reddeer.eclipse.topmenu.NewMenuWizard;
+import org.eclipse.reddeer.eclipse.selectionwizard.NewMenuWizard;
 /**
  * Represents new file creation wizard dialog (General &gt; File)
  * 

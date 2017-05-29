@@ -11,7 +11,7 @@
 
 package org.eclipse.reddeer.ui.test.wizard.impl;
 
-import org.eclipse.reddeer.eclipse.topmenu.NewMenuWizard;
+import org.eclipse.reddeer.eclipse.selectionwizard.NewMenuWizard;
 
 /**
  * This class represents a new RedDeer Test Plug-in wizard

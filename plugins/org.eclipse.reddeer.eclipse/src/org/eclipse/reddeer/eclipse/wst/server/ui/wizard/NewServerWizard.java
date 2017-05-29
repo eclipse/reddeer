@@ -12,7 +12,7 @@ package org.eclipse.reddeer.eclipse.wst.server.ui.wizard;
 
 import org.eclipse.reddeer.common.wait.TimePeriod;
 import org.eclipse.reddeer.common.wait.WaitUntil;
-import org.eclipse.reddeer.eclipse.topmenu.NewMenuWizard;
+import org.eclipse.reddeer.eclipse.selectionwizard.NewMenuWizard;
 import org.eclipse.reddeer.workbench.core.condition.JobIsKilled;
 
 /**

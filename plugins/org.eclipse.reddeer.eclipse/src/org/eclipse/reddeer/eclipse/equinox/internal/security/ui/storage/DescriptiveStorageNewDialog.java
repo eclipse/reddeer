@@ -12,6 +12,7 @@ package org.eclipse.reddeer.eclipse.equinox.internal.security.ui.storage;
 
 import org.eclipse.reddeer.common.wait.WaitWhile;
 import org.eclipse.reddeer.jface.window.AbstractWindow;
+import org.eclipse.reddeer.jface.window.Openable;
 import org.eclipse.reddeer.swt.condition.ShellIsAvailable;
 import org.eclipse.reddeer.swt.impl.button.CancelButton;
 import org.eclipse.reddeer.swt.impl.button.OkButton;
@@ -43,6 +44,11 @@ public class DescriptiveStorageNewDialog extends AbstractWindow {
 	public void cancel(){
 		new CancelButton().click();
 		new WaitWhile(new ShellIsAvailable(SHELL_TITLE));
+	}
+
+	@Override
+	protected Openable getOpenAction() {
+		return null;
 	}
 
 }

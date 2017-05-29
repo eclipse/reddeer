@@ -11,15 +11,14 @@
 package org.eclipse.reddeer.eclipse.ui.dialogs;
 
 import org.eclipse.reddeer.core.matcher.WithTextMatcher;
-import org.eclipse.reddeer.workbench.api.TopMenuOpenable;
-import org.eclipse.reddeer.workbench.topmenu.TopMenuWizardDialog;
+import org.eclipse.reddeer.workbench.workbenchmenu.WorkbenchMenuWizardDialog;
 
 /**
  * Represents Eclipse ImportExportWizard
  * @author rawagner
  *
  */
-public class ImportExportWizard extends TopMenuWizardDialog implements TopMenuOpenable {
+public class ImportExportWizard extends WorkbenchMenuWizardDialog {
 	
 	private static WithTextMatcher importTitle = new WithTextMatcher("Import");
 	private static WithTextMatcher exportTitle = new WithTextMatcher("Export");

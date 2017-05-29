@@ -10,7 +10,7 @@
  *******************************************************************************/
 package org.eclipse.reddeer.eclipse.jdt.ui.wizards;
 
-import org.eclipse.reddeer.eclipse.topmenu.NewMenuWizard;
+import org.eclipse.reddeer.eclipse.selectionwizard.NewMenuWizard;
 
 /**
  * Represents new enum wizard

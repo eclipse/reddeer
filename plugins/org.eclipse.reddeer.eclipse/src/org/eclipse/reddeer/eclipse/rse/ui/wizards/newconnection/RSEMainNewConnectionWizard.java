@@ -10,7 +10,7 @@
  *******************************************************************************/
 package org.eclipse.reddeer.eclipse.rse.ui.wizards.newconnection;
 
-import org.eclipse.reddeer.eclipse.topmenu.NewMenuWizard;
+import org.eclipse.reddeer.eclipse.selectionwizard.NewMenuWizard;
 
 /**
  * This class represents the New Connection wizard dialog.

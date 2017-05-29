@@ -45,4 +45,29 @@
           <selection class="org.eclipse.core.resources.IResource"/>          
       </wizard> 
    </extension>
+   
+   <extension point="org.eclipse.ui.menus">
+    <menuContribution
+          locationURI="toolbar:org.eclipse.ui.main.toolbar?after=org.eclipse.ui.workbench.help">
+       <toolbar
+             id="org.eclipse.reddeer.toolbar">
+          <command
+                commandId="org.eclipse.reddeer.window.open"
+                id="org.eclipse.reddeer.jface.test.window.OpenEclipseWindow"
+                style="push"
+                label="openEclipseWindow"
+                tooltip="openEclipseWindowTitleTooltip">
+              <visibleWhen checkEnabled="false" />
+          </command>
+       </toolbar>
+    </menuContribution> 
+   </extension>
+   
+   <extension point="org.eclipse.ui.commands">
+      <command
+      		defaultHandler="org.eclipse.reddeer.jface.test.window.OpenEclipseWindow"
+            name="Open Eclipse Window"
+            id="org.eclipse.reddeer.window.open">
+      </command>
+   </extension>
 </plugin>

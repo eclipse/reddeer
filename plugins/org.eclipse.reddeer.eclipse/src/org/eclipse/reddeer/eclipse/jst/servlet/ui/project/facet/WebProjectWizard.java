@@ -10,7 +10,7 @@
  *******************************************************************************/
 package org.eclipse.reddeer.eclipse.jst.servlet.ui.project.facet;
 
-import org.eclipse.reddeer.eclipse.topmenu.NewMenuWizard;
+import org.eclipse.reddeer.eclipse.selectionwizard.NewMenuWizard;
 
 /**
  * Wizard dialog for creating web project.

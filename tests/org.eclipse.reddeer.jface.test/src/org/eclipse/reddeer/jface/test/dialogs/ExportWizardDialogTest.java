@@ -13,7 +13,7 @@ package org.eclipse.reddeer.jface.test.dialogs;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
-import org.eclipse.reddeer.eclipse.topmenu.ExportMenuWizard;
+import org.eclipse.reddeer.eclipse.selectionwizard.ExportMenuWizard;
 import org.eclipse.reddeer.jface.test.dialogs.impl.TestingExportWizard;
 import org.eclipse.reddeer.junit.runner.RedDeerSuite;
 import org.eclipse.reddeer.swt.impl.shell.DefaultShell;

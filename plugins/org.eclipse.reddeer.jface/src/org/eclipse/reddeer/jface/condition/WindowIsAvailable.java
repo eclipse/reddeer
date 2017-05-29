@@ -44,7 +44,7 @@ public class WindowIsAvailable extends AbstractWaitCondition{
 	 * @param matchers to match window
 	 */
 	public WindowIsAvailable(Class<?> windowClass, Matcher<?>...matchers){
-		WindowMatcher wm = new WindowMatcher(windowClass);
+		WindowMatcher<?> wm = new WindowMatcher(windowClass);
 		Matcher<?>[] allMatchers = MatcherBuilder.getInstance().addMatcher(matchers, wm);
 		this.matcher  = new AndMatcher(allMatchers);
 	}

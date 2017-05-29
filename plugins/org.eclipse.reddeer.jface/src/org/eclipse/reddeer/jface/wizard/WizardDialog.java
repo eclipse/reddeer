@@ -61,6 +61,10 @@ public class WizardDialog extends TitleAreaDialog{
 	public WizardDialog(Matcher<?>... matchers) {
 		super(matchers);
 	}
+	
+	public WizardDialog() {
+		super();
+	}
 
 	/**
 	 * Click the finish button in wizard dialog.

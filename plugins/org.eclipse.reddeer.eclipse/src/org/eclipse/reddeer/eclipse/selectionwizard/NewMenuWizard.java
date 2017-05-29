@@ -8,11 +8,10 @@
  * Contributors:
  *     Red Hat Inc. - initial API and implementation
  *******************************************************************************/
-package org.eclipse.reddeer.eclipse.topmenu;
+package org.eclipse.reddeer.eclipse.selectionwizard;
 
 import org.eclipse.reddeer.eclipse.ui.dialogs.NewWizard;
-import org.eclipse.reddeer.eclipse.ui.dialogs.NewWizardSelectionPage;
-import org.eclipse.reddeer.jface.wizard.WizardDialog;
+import org.eclipse.reddeer.jface.window.Openable;
 
 /**
  * Represents wizard which can be found in new wizard dialog (menu 'File -&gt; New -&gt; Other...').
@@ -41,14 +40,7 @@ public abstract class NewMenuWizard extends AbstractSelectionWizardDialog{
 	}
 	
 	@Override
-	public void open(){
-		if(!isOpen()){
-			NewWizard nw = new NewWizard();
-			nw.open();
-			NewWizardSelectionPage selectionPage = new NewWizardSelectionPage();
-			selectionPage.selectProject(wizardPath);
-			nw.next();
-			setShell(new WizardDialog(matcher).getShell());
-		}
+	protected Openable getOpenAction() {
+		return new SelectionWizardOpenable(new NewWizard(), wizardPath, matcher);
 	}
 }

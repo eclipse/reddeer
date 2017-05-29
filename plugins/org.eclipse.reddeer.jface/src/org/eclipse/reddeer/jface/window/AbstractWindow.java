@@ -13,11 +13,11 @@ package org.eclipse.reddeer.jface.window;
 import org.hamcrest.Matcher;
 import org.eclipse.reddeer.common.logging.Logger;
 import org.eclipse.reddeer.common.matcher.MatcherBuilder;
-import org.eclipse.reddeer.core.handler.ShellHandler;
 import org.eclipse.reddeer.core.handler.WidgetHandler;
 import org.eclipse.reddeer.core.lookup.ShellLookup;
 import org.eclipse.reddeer.core.matcher.WithTextMatcher;
 import org.eclipse.reddeer.jface.api.Window;
+import org.eclipse.reddeer.jface.condition.WindowIsAvailable;
 import org.eclipse.reddeer.jface.exception.JFaceLayerException;
 import org.eclipse.reddeer.jface.matcher.WindowMatcher;
 import org.eclipse.reddeer.swt.api.Shell;
@@ -33,6 +33,7 @@ public abstract class AbstractWindow implements Window{
 	protected final Logger log = Logger.getLogger(this.getClass());
 	
 	private Shell shell;
+	private Matcher<?>[] windowMatchers;
 
 	/**
 	 * Finds shell with given text. Found shell must be instance of Eclipse
@@ -42,8 +43,7 @@ public abstract class AbstractWindow implements Window{
 	 *            shell's text
 	 */
 	public AbstractWindow(String text) {
-		WindowMatcher wm = new WindowMatcher(getEclipseClass());
-		shell = new DefaultShell(ShellLookup.getInstance().getShell(new WithTextMatcher(text), wm));
+		this(new WithTextMatcher(text));
 	}
 
 	/**
@@ -54,7 +54,13 @@ public abstract class AbstractWindow implements Window{
 	 *            instance of Eclipse Window
 	 */
 	public AbstractWindow(Shell shell) {
+		if(shell == null){
+			throw new JFaceLayerException("Shell cannot be null");
+		}
 		this.shell = shell;
+	}
+	
+	public AbstractWindow(){
 	}
 
 	/**
@@ -65,9 +71,10 @@ public abstract class AbstractWindow implements Window{
 	 *            to match shell
 	 */
 	public AbstractWindow(Matcher<?>...matchers) {
-		WindowMatcher wm = new WindowMatcher(getEclipseClass());
+		WindowMatcher<?> wm = new WindowMatcher(getEclipseClass());
 		Matcher<?>[] allMatchers = MatcherBuilder.getInstance().addMatcher(matchers, wm);
-		shell = new DefaultShell(ShellLookup.getInstance().getShell(allMatchers));
+		this.windowMatchers = matchers;
+		this.shell = new DefaultShell(ShellLookup.getInstance().getShell(allMatchers));
 	}
 
 	/**
@@ -78,6 +85,51 @@ public abstract class AbstractWindow implements Window{
 	public Shell getShell() {
 		return shell;
 	}
+	
+	public void open(){
+		if(getOpenAction() == null){
+			throw new JFaceLayerException("Unable to open window because open action is not defined");
+		}
+		if(!isOpen()){
+			getOpenAction().run();
+			setShell(new DefaultShell(getOpenAction().getShellMatchers()));
+		}
+	}
+	
+	/**
+	 * Checks if window is open. If window is already open, it will be focused.
+	 * @return true if window is open, false otherwise
+	 */
+	public boolean isOpen(){
+		if(shell != null){
+			if(!shell.isDisposed() && shell.isVisible()){
+				shell.setFocus();
+				return true;			
+			}
+			return false;
+		}
+		
+		WindowIsAvailable cond = null;
+		if(getWindowMatchers() != null){
+			cond = new WindowIsAvailable(getEclipseClass(), getWindowMatchers());
+		} else if(getOpenAction() != null){
+			cond = new WindowIsAvailable(getEclipseClass(), getOpenAction().getShellMatchers());
+		} else {
+			throw new JFaceLayerException("Unable to check if window is open");
+		}
+		
+		boolean open = cond.test();
+		if(open){
+			setShell(new DefaultShell(cond.getResult()));
+		}
+		return open;
+	}
+	
+	/**
+	 * Set Openable action which will be called on open()
+	 * @return Openable action
+	 */
+	protected abstract Openable getOpenAction();
 
 	private boolean isWindow(Shell shell) {
 		return getEclipseClass().isInstance(WidgetHandler.getInstance().getData(shell.getSWTWidget()));
@@ -86,15 +138,15 @@ public abstract class AbstractWindow implements Window{
 	public void setShell(Shell swtShell) {
 		checkShell(swtShell);
 		if (!isWindow(swtShell)) {
-			String msg = "Provided shell type is '" + getShellType() + "' and expected is '" + getEclipseClass() + "'";
+			String msg = "Provided shell type is '" + getShellType(swtShell) + "' and expected is '" + getEclipseClass() + "'";
 			throw new JFaceLayerException(msg);
 		}
 
 		this.shell = swtShell;
 	}
 
-	private String getShellType() {
-		Object shellData = WidgetHandler.getInstance().getData(shell.getSWTWidget());
+	private String getShellType(Shell swtShell) {
+		Object shellData = WidgetHandler.getInstance().getData(swtShell.getSWTWidget());
 		String shellType;
 		if (shellData == null) {
 			shellType = Shell.class.toString();
@@ -127,6 +179,14 @@ public abstract class AbstractWindow implements Window{
 	@Override
 	public Class<?> getEclipseClass() {
 		return org.eclipse.jface.window.Window.class;
+	}
+	
+	/**
+	 * Returns matchers which matches this window
+	 * @return
+	 */
+	public Matcher<?>[] getWindowMatchers(){
+		return windowMatchers;
 	}
 
 }

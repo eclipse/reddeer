@@ -10,7 +10,7 @@
  *******************************************************************************/
 package org.eclipse.reddeer.eclipse.ui.dialogs;
 
-import org.eclipse.reddeer.workbench.topmenu.TopMenuPreferencesDialog;
+import org.eclipse.reddeer.workbench.workbenchmenu.WorkbenchMenuPreferencesDialog;
 
 /**
  * Property dialog implementation
@@ -18,7 +18,7 @@ import org.eclipse.reddeer.workbench.topmenu.TopMenuPreferencesDialog;
  * @author Lucia Jelinkova
  *
  */
-public class PropertyDialog extends TopMenuPreferencesDialog {
+public class PropertyDialog extends WorkbenchMenuPreferencesDialog {
 	
 	public PropertyDialog(String resourceName) {
 		super("Properties for "+resourceName,"File","Properties");

@@ -10,7 +10,7 @@
  *******************************************************************************/
 package org.eclipse.reddeer.eclipse.ui.wizards.datatransfer;
 
-import org.eclipse.reddeer.eclipse.topmenu.ImportMenuWizard;
+import org.eclipse.reddeer.eclipse.selectionwizard.ImportMenuWizard;
 
 /**
  * Wizard for importing external projects into the workspace. 

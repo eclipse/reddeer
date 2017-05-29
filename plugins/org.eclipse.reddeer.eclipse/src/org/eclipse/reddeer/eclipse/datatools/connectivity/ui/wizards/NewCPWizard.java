@@ -23,7 +23,7 @@ import org.eclipse.reddeer.eclipse.datatools.ui.DatabaseProfile;
 import org.eclipse.reddeer.eclipse.datatools.ui.DriverDefinition;
 import org.eclipse.reddeer.eclipse.datatools.ui.FlatFileProfile;
 import org.eclipse.reddeer.eclipse.exception.EclipseLayerException;
-import org.eclipse.reddeer.eclipse.topmenu.NewMenuWizard;
+import org.eclipse.reddeer.eclipse.selectionwizard.NewMenuWizard;
 import org.eclipse.reddeer.swt.condition.ShellIsAvailable;
 import org.eclipse.reddeer.swt.impl.button.OkButton;
 import org.eclipse.reddeer.swt.impl.button.PushButton;

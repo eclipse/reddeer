@@ -38,5 +38,16 @@ public interface Window {
 	 * @param shell to set
 	 */
 	void setShell(Shell shell);
+	
+	/**
+	 * Opens the window
+	 */
+	void open();
+	
+	/**
+	 * Checks if window if open
+	 * @return true if window is open, false otherwise
+	 */
+	boolean isOpen();
 
 }
