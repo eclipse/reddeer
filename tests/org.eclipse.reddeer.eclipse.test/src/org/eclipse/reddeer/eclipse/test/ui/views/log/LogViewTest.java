@@ -23,6 +23,7 @@ import org.eclipse.reddeer.eclipse.test.Activator;
 import org.eclipse.reddeer.eclipse.ui.views.log.LogMessage;
 import org.eclipse.reddeer.eclipse.ui.views.log.LogView;
 import org.eclipse.reddeer.junit.runner.RedDeerSuite;
+import org.eclipse.reddeer.workbench.impl.menu.ViewMenu;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -170,6 +171,18 @@ public class LogViewTest {
 		assertTrue("There should be no messages", logView.getErrorMessages().isEmpty());
 	}
 
+	@Test
+	public void testSetActivateOnNewEvents() {
+		logView = new LogView();
+		logView.open();
+		logView.setActivateOnNewEvents(true);
+		ViewMenu menu = new ViewMenu("Activate on new events");
+		assertTrue("'Activate on new events' option should be selected", menu.isSelected());
+		logView.setActivateOnNewEvents(false);
+		assertFalse("'Activate on new events' option should NOT be selected", menu.isSelected());
+		logView.setActivateOnNewEvents(true);
+		assertTrue("'Activate on new events' option should be selected", menu.isSelected());
+	}
 	
 	private boolean messageIsAvailable(List<LogMessage> messages, int severity, String plugin, String message,String stackTrace) {
 		for (LogMessage m : messages) {
