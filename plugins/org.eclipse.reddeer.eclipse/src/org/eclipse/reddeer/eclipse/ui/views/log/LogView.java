@@ -15,9 +15,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.eclipse.core.runtime.IStatus;
-import org.eclipse.swt.graphics.Image;
-import org.eclipse.swt.widgets.Widget;
-import org.eclipse.ui.internal.views.log.SharedImages;
 import org.eclipse.reddeer.common.wait.TimePeriod;
 import org.eclipse.reddeer.common.wait.WaitUntil;
 import org.eclipse.reddeer.common.wait.WaitWhile;
@@ -30,7 +27,11 @@ import org.eclipse.reddeer.swt.impl.button.OkButton;
 import org.eclipse.reddeer.swt.impl.menu.ContextMenu;
 import org.eclipse.reddeer.swt.impl.shell.DefaultShell;
 import org.eclipse.reddeer.swt.impl.tree.DefaultTree;
+import org.eclipse.reddeer.workbench.impl.menu.ViewMenu;
 import org.eclipse.reddeer.workbench.impl.view.WorkbenchView;
+import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.widgets.Widget;
+import org.eclipse.ui.internal.views.log.SharedImages;
 
 /**
  * Represents Error Log view
@@ -126,6 +127,18 @@ public class LogView extends WorkbenchView {
 		cm.select();
 		new WaitUntil(new ShellIsAvailable("Progress Information"), TimePeriod.SHORT,false);
 		new WaitWhile(new ShellIsAvailable("Progress Information"));
+	}
+
+	/**
+	 * Sets 'Activate on new events' option in Error Log View
+	 * @param value true - select the option, false - deselect the option
+	 */
+	public void setActivateOnNewEvents(boolean value) {
+		activate();
+		ViewMenu menu = new ViewMenu("Activate on new events");
+		if ((value && !menu.isSelected()) || (!value && menu.isSelected())) {
+			menu.select();
+		}
 	}
 
 	private Tree getViewTree() {
