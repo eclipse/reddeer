@@ -21,6 +21,7 @@ import org.eclipse.reddeer.eclipse.wst.server.ui.wizard.NewServerWizard;
 import org.eclipse.reddeer.swt.api.Tree;
 import org.eclipse.reddeer.swt.api.TreeItem;
 import org.eclipse.reddeer.swt.impl.menu.ContextMenu;
+import org.eclipse.reddeer.swt.impl.shell.DefaultShell;
 import org.eclipse.reddeer.swt.impl.tree.DefaultTree;
 import org.eclipse.reddeer.workbench.impl.view.WorkbenchView;
 
@@ -54,6 +55,7 @@ public class ServersView2 extends WorkbenchView {
 		activate();
 		log.info("Create new server");
 		new ContextMenu("New","Server").select();
+		new DefaultShell(NewServerWizard.TITLE);
 		return new NewServerWizard();
 	}
 

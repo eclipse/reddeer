@@ -16,19 +16,18 @@ import static org.eclipse.reddeer.common.wait.WaitProvider.waitWhile;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Shell;
 import org.hamcrest.Matcher;
-import org.eclipse.reddeer.common.condition.AbstractWaitCondition;
 import org.eclipse.reddeer.common.logging.Logger;
 import org.eclipse.reddeer.common.matcher.RegexMatcher;
 import org.eclipse.reddeer.common.wait.GroupWait;
 import org.eclipse.reddeer.core.condition.WidgetIsFound;
-import org.eclipse.reddeer.core.handler.ItemHandler;
-import org.eclipse.reddeer.core.lookup.WidgetLookup;
+import org.eclipse.reddeer.core.matcher.WithMnemonicTextMatcher;
 import org.eclipse.reddeer.core.matcher.WithTextMatcher;
 import org.eclipse.reddeer.core.matcher.WithTextMatchers;
-import org.eclipse.reddeer.swt.api.CTabItem;
+import org.eclipse.reddeer.swt.api.Button;
 import org.eclipse.reddeer.swt.api.Menu;
 import org.eclipse.reddeer.swt.condition.ShellIsAvailable;
 import org.eclipse.reddeer.swt.impl.button.OkButton;
+import org.eclipse.reddeer.swt.impl.button.PushButton;
 import org.eclipse.reddeer.swt.impl.ctab.DefaultCTabItem;
 import org.eclipse.reddeer.swt.impl.menu.ShellMenu;
 import org.eclipse.reddeer.swt.impl.shell.DefaultShell;
@@ -38,7 +37,6 @@ import org.eclipse.reddeer.workbench.condition.ViewIsOpen;
 import org.eclipse.reddeer.workbench.core.lookup.WorkbenchPartLookup;
 import org.eclipse.reddeer.workbench.core.lookup.WorkbenchShellLookup;
 import org.eclipse.reddeer.workbench.exception.WorkbenchLayerException;
-import org.eclipse.reddeer.workbench.handler.ViewHandler;
 import org.eclipse.reddeer.workbench.handler.WorkbenchPartHandler;
 import org.eclipse.reddeer.workbench.impl.shell.WorkbenchShell;
 import org.eclipse.reddeer.workbench.lookup.ViewLookup;
@@ -141,10 +139,23 @@ public abstract class AbstractView extends AbstractWorkbenchPart implements View
 		// set focus to workbench shell
 		Menu menu = new ShellMenu(new WorkbenchShell(), m.getMatchers());
 		menu.select();
-		new DefaultShell(SHOW_VIEW);
+		org.eclipse.reddeer.swt.api.Shell showView = new DefaultShell(SHOW_VIEW);
 		new DefaultTreeItem(path).select();
-		new OkButton().click();
-		new GroupWait(waitWhile(new ShellIsAvailable(SHOW_VIEW)), waitUntil(new ViewIsOpen(this)));
+		
+		WidgetIsFound openButton = new WidgetIsFound(org.eclipse.swt.widgets.Button.class,
+				new WithMnemonicTextMatcher("Open"));
+		
+		
+		Button button;
+		if(openButton.test()){
+			button = new PushButton("Open"); //oxygen changed button text
+		} else {
+			button = new OkButton();	
+		}
+		button.click();
+		
+		new GroupWait(waitWhile(new ShellIsAvailable(showView)),
+				waitUntil(new ViewIsOpen(this)));
 	}
 
 	@Override

@@ -16,8 +16,11 @@ import java.util.List;
 import org.hamcrest.Matcher;
 import org.eclipse.reddeer.common.logging.Logger;
 import org.eclipse.reddeer.common.wait.WaitWhile;
+import org.eclipse.reddeer.core.condition.WidgetIsFound;
 import org.eclipse.reddeer.core.matcher.TreeItemTextMatcher;
+import org.eclipse.reddeer.core.matcher.WithMnemonicTextMatcher;
 import org.eclipse.reddeer.eclipse.ui.dialogs.PropertyPage;
+import org.eclipse.reddeer.swt.api.Button;
 import org.eclipse.reddeer.swt.api.Shell;
 import org.eclipse.reddeer.swt.api.Tree;
 import org.eclipse.reddeer.swt.api.TreeItem;
@@ -129,12 +132,25 @@ public class BuildPathsPropertyPage extends PropertyPage {
 			new DefaultShell("New Variable Classpath Entry");
 			new DefaultTableItem(label).select();
 			new PushButton("Configure Variables...").click();
-			new WorkbenchPreferenceDialog().open();
+			WorkbenchPreferenceDialog workbenchDialog = new WorkbenchPreferenceDialog();
+			workbenchDialog.open();
 			new ClasspathVariablesPreferencePage().removeVariable(label);
-			new OkButton().click();
-			new DefaultShell("Classpath Variables Changed");
+			
+			WidgetIsFound applyAndCloseButton = new WidgetIsFound(org.eclipse.swt.widgets.Button.class,
+					new WithMnemonicTextMatcher("Apply and Close"));
+			
+			
+			Button button;
+			if(applyAndCloseButton.test()){
+				button = new PushButton("Apply and Close"); //oxygen changed button text
+			} else {
+				button = new OkButton();	
+			}
+			button.click();
+			
+			Shell varaiblesChanged = new DefaultShell("Classpath Variables Changed");
 			new YesButton().click();
-			new WaitWhile(new ShellIsAvailable("Classpath Variables Changed"));
+			new WaitWhile(new ShellIsAvailable(varaiblesChanged));
 			new DefaultShell("New Variable Classpath Entry");
 			new CancelButton().click();
 			new WaitWhile(new ShellIsAvailable("New Variable Classpath Entry"));
