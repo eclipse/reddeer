@@ -27,12 +27,18 @@ import org.eclipse.ui.texteditor.IDocumentProvider;
 import org.eclipse.ui.texteditor.ITextEditor;
 import org.eclipse.ui.texteditor.SimpleMarkerAnnotation;
 import org.eclipse.reddeer.common.logging.Logger;
+import org.eclipse.reddeer.common.matcher.RegexMatcher;
 import org.eclipse.reddeer.common.util.Display;
 import org.eclipse.reddeer.common.util.ResultRunnable;
+import org.eclipse.reddeer.swt.api.Button;
+import org.eclipse.reddeer.swt.api.Shell;
 import org.eclipse.reddeer.swt.condition.ShellIsAvailable;
 import org.eclipse.reddeer.swt.impl.button.PushButton;
 import org.eclipse.reddeer.swt.impl.shell.DefaultShell;
 import org.eclipse.reddeer.common.wait.WaitWhile;
+import org.eclipse.reddeer.core.condition.WidgetIsFound;
+import org.eclipse.reddeer.core.matcher.WithMnemonicTextMatcher;
+import org.eclipse.reddeer.core.matcher.WithTextMatcher;
 import org.eclipse.reddeer.workbench.exception.WorkbenchLayerException;
 import org.eclipse.reddeer.workbench.impl.editor.Marker;
 
@@ -106,9 +112,21 @@ public class EditorHandler extends WorkbenchPartHandler {
                     activeWorkbenchWindow.getActivePage().closeEditor(editor, save);
                 }
             });
-            new DefaultShell("Save Resource");
-            new PushButton("Yes").click();
-            new WaitWhile(new ShellIsAvailable("Save Resource"));
+            Shell saveShell = new DefaultShell(new WithTextMatcher(new RegexMatcher("Save .*")));
+            
+            WidgetIsFound openButton = new WidgetIsFound(org.eclipse.swt.widgets.Button.class,
+            		new WithMnemonicTextMatcher("Save"));
+    		
+    		
+    		Button button;
+    		if(openButton.test()){
+    			button = new PushButton("Save"); //oxygen changed button text
+    		} else {
+    			button = new PushButton("Yes");	
+    		}
+    		button.click();
+    		
+            new WaitWhile(new ShellIsAvailable(saveShell));
         } else {
             Display.syncExec(new Runnable() {
 

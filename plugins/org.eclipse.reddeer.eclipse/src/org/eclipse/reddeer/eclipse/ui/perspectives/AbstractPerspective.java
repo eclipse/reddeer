@@ -16,10 +16,17 @@ import org.eclipse.reddeer.common.logging.Logger;
 import org.eclipse.reddeer.common.matcher.RegexMatcher;
 import org.eclipse.reddeer.common.util.Display;
 import org.eclipse.reddeer.common.util.ResultRunnable;
+import org.eclipse.reddeer.common.wait.WaitWhile;
+import org.eclipse.reddeer.core.condition.WidgetIsFound;
 import org.eclipse.reddeer.core.exception.CoreLayerException;
+import org.eclipse.reddeer.core.matcher.WithMnemonicTextMatcher;
 import org.eclipse.reddeer.core.matcher.WithTextMatchers;
 import org.eclipse.reddeer.eclipse.exception.EclipseLayerException;
+import org.eclipse.reddeer.swt.api.Button;
 import org.eclipse.reddeer.swt.api.Menu;
+import org.eclipse.reddeer.swt.api.Shell;
+import org.eclipse.reddeer.swt.condition.ShellIsAvailable;
+import org.eclipse.reddeer.swt.impl.button.OkButton;
 import org.eclipse.reddeer.swt.impl.button.PushButton;
 import org.eclipse.reddeer.swt.impl.button.YesButton;
 import org.eclipse.reddeer.swt.impl.menu.ShellMenu;
@@ -61,9 +68,9 @@ public abstract class AbstractPerspective {
 			log.debug("Perspective '" + getPerspectiveLabel() + "' is already opened.");
 		}
 		else{
-			log.debug("Tryyying to open perspective: '" + getPerspectiveLabel() + "'");
+			log.debug("Trying to open perspective: '" + getPerspectiveLabel() + "'");
 			new DefaultToolItem(new DefaultShell(),"Open Perspective").click();
-			new DefaultShell("Open Perspective");
+			Shell perspectiveShell = new DefaultShell("Open Perspective");
 			DefaultTable table = new DefaultTable();
 			try{
 				// Try to select perspective label within available perspectives
@@ -72,7 +79,19 @@ public abstract class AbstractPerspective {
 				// Try to select perspective label within available perspectives with "(default)" suffix
 				table.select(getPerspectiveLabel() + " (default)");
 			}
-			new PushButton("OK").click();
+			
+			WidgetIsFound openButton = new WidgetIsFound(org.eclipse.swt.widgets.Button.class,
+					new WithMnemonicTextMatcher("Open"));
+			
+			
+			Button button;
+			if(openButton.test()){
+				button = new PushButton("Open"); //oxygen changed button text
+			} else {
+				button = new OkButton();	
+			}
+			button.click();
+			new WaitWhile(new ShellIsAvailable(perspectiveShell));
 		}
 	}
 

@@ -29,7 +29,7 @@ public class ShellTestUtils {
 	public static void closeShell(String title){
 		for (Shell shell : org.eclipse.reddeer.common.util.Display.getDisplay().getShells()) {
 			if (shell.getText().equals(title)) {
-				shell.dispose();
+				shell.close();
 				break;
 			}
 		}

@@ -226,6 +226,9 @@ public class WidgetLookup {
 		}
 		
 		Shell activeShell = ShellLookup.getInstance().getActiveShell();
+		if(activeShell == null){
+			logger.trace("No active shell found");
+		}
 
 		if ((activeWorkbenchParentShell == null || !activeWorkbenchParentShell.equals(activeShell))
 				&& activeShell != null){

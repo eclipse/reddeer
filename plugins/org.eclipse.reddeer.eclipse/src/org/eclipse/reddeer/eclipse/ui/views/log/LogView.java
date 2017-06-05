@@ -19,11 +19,15 @@ import org.eclipse.reddeer.common.wait.TimePeriod;
 import org.eclipse.reddeer.common.wait.WaitUntil;
 import org.eclipse.reddeer.common.wait.WaitWhile;
 import org.eclipse.reddeer.core.condition.WidgetIsFound;
+import org.eclipse.reddeer.core.matcher.WithMnemonicTextMatcher;
+import org.eclipse.reddeer.swt.api.Button;
 import org.eclipse.reddeer.swt.api.Menu;
+import org.eclipse.reddeer.swt.api.Shell;
 import org.eclipse.reddeer.swt.api.Tree;
 import org.eclipse.reddeer.swt.api.TreeItem;
 import org.eclipse.reddeer.swt.condition.ShellIsAvailable;
 import org.eclipse.reddeer.swt.impl.button.OkButton;
+import org.eclipse.reddeer.swt.impl.button.PushButton;
 import org.eclipse.reddeer.swt.impl.menu.ContextMenu;
 import org.eclipse.reddeer.swt.impl.shell.DefaultShell;
 import org.eclipse.reddeer.swt.impl.tree.DefaultTree;
@@ -112,9 +116,19 @@ public class LogView extends WorkbenchView {
 			return;
 		}
 		cm.select();
-		new DefaultShell(CONFIRM_DLG);
-		new OkButton().click();
-		new WaitWhile(new ShellIsAvailable(CONFIRM_DLG));
+		Shell configDialog = new DefaultShell(CONFIRM_DLG);
+		WidgetIsFound openButton = new WidgetIsFound(org.eclipse.swt.widgets.Button.class, 
+				new WithMnemonicTextMatcher("Delete All Events"));
+		
+		
+		Button button;
+		if(openButton.test()){
+			button = new PushButton("Delete All Events"); //oxygen changed button text
+		} else {
+			button = new OkButton();	
+		}
+		button.click();
+		new WaitWhile(new ShellIsAvailable(configDialog));
 	}
 
 	/**

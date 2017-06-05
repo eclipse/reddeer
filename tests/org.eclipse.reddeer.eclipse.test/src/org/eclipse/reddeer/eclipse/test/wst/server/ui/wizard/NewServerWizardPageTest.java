@@ -21,7 +21,6 @@ import org.eclipse.reddeer.eclipse.wst.server.ui.cnf.ServersView2;
 import org.eclipse.reddeer.eclipse.wst.server.ui.wizard.NewServerWizard;
 import org.eclipse.reddeer.eclipse.wst.server.ui.wizard.NewServerWizardPage;
 import org.eclipse.reddeer.junit.runner.RedDeerSuite;
-import org.eclipse.reddeer.swt.impl.shell.DefaultShell;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -74,7 +73,7 @@ public class NewServerWizardPageTest {
 	
 	@After
 	public void tearDown(){
-		if (wizard != null && NewServerWizard.TITLE.equals(new DefaultShell().getText())){
+		if (wizard != null && !wizard.getShell().isDisposed()){
 			wizard.cancel();
 		}
 

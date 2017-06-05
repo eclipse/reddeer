@@ -17,13 +17,16 @@ import org.eclipse.reddeer.common.wait.WaitUntil;
 import org.eclipse.reddeer.common.wait.WaitWhile;
 import org.eclipse.reddeer.core.condition.WidgetIsFound;
 import org.eclipse.reddeer.core.lookup.ShellLookup;
+import org.eclipse.reddeer.core.matcher.WithMnemonicTextMatcher;
 import org.eclipse.reddeer.core.matcher.WithTextMatcher;
 import org.eclipse.reddeer.jface.window.AbstractWindow;
+import org.eclipse.reddeer.swt.api.Button;
 import org.eclipse.reddeer.swt.api.Shell;
 import org.eclipse.reddeer.swt.api.TreeItem;
 import org.eclipse.reddeer.swt.condition.ShellIsAvailable;
 import org.eclipse.reddeer.swt.impl.button.CancelButton;
 import org.eclipse.reddeer.swt.impl.button.OkButton;
+import org.eclipse.reddeer.swt.impl.button.PushButton;
 import org.eclipse.reddeer.swt.impl.clabel.DefaultCLabel;
 import org.eclipse.reddeer.swt.impl.shell.DefaultShell;
 import org.eclipse.reddeer.swt.impl.tree.DefaultTreeItem;
@@ -93,8 +96,17 @@ public class PreferenceDialog extends AbstractWindow{
 	public void ok() {
 		org.eclipse.swt.widgets.Shell parentShell = ShellLookup.getInstance().getParentShell(getShell().getSWTWidget());
 		
-		OkButton ok = new OkButton();
-		ok.click();
+		WidgetIsFound applyAndCloseButton = new WidgetIsFound(org.eclipse.swt.widgets.Button.class,
+				new WithMnemonicTextMatcher("Apply and Close"));
+		
+		
+		Button button;
+		if(applyAndCloseButton.test()){
+			button = new PushButton("Apply and Close"); //oxygen changed button text
+		} else {
+			button = new OkButton();	
+		}
+		button.click();
 		new WaitWhile(new ShellIsAvailable(getShell())); 
 		new DefaultShell(parentShell);
 	}
