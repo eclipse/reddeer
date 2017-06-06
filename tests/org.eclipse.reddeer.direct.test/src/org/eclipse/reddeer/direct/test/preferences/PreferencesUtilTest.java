@@ -11,10 +11,12 @@
 package org.eclipse.reddeer.direct.test.preferences;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import org.eclipse.reddeer.direct.preferences.PreferencesUtil;
+import org.eclipse.reddeer.eclipse.debug.ui.preferences.ConsolePreferencePage;
 import org.eclipse.reddeer.eclipse.ui.ide.dialogs.IDEPerspectivesPreferencePage;
 import org.eclipse.reddeer.junit.runner.RedDeerSuite;
 import org.eclipse.reddeer.swt.api.Menu;
@@ -42,6 +44,14 @@ public class PreferencesUtilTest {
 	@After
 	public void resetPreferences() {
 		PreferencesUtil.setOpenAssociatedPerspective(openAssosiatedPerspective);
+
+		ConsolePreferencePage consolePreferencePage = new ConsolePreferencePage();
+		WorkbenchPreferenceDialog preferenceDialog = new WorkbenchPreferenceDialog();
+		preferenceDialog.open();
+		preferenceDialog.select(consolePreferencePage);
+		consolePreferencePage.restoreDefaults();
+		consolePreferencePage.apply();
+		preferenceDialog.ok();
 	}
 
 	@Test
@@ -111,6 +121,61 @@ public class PreferencesUtilTest {
 		} catch (IllegalArgumentException e) {
 			assertEquals("Expected one of [always, never, prompt] but was '" + incorrectOption + "'", e.getMessage());
 		}
+	}
+
+	@Test
+	public void testLimitingConsoleOutput() {
+		ConsolePreferencePage consolePreferencePage = new ConsolePreferencePage();
+		WorkbenchPreferenceDialog preferenceDialog = new WorkbenchPreferenceDialog();
+		preferenceDialog.open();
+		preferenceDialog.select(consolePreferencePage);
+		assertEquals(consolePreferencePage.isConsoleOutputLimited(), PreferencesUtil.isConsoleOutputLimited());
+		assertEquals(consolePreferencePage.getConsoleOutputSize(), PreferencesUtil.getConsoleOutputSize());
+		preferenceDialog.cancel();
+
+		PreferencesUtil.setConsoleOutputLimited(false);
+
+		preferenceDialog.open();
+		preferenceDialog.select(consolePreferencePage);
+		assertEquals(false, consolePreferencePage.isConsoleOutputLimited());
+		preferenceDialog.cancel();
+
+		PreferencesUtil.setConsoleOutputSize(100000);
+
+		preferenceDialog.open();
+		preferenceDialog.select(consolePreferencePage);
+		assertEquals(true, consolePreferencePage.isConsoleOutputLimited());
+		assertEquals(100000, consolePreferencePage.getConsoleOutputSize());
+		preferenceDialog.cancel();
+	}
+
+	@Test
+	public void testSettingConsoleShow() {
+		ConsolePreferencePage consolePreferencePage = new ConsolePreferencePage();
+		WorkbenchPreferenceDialog preferenceDialog = new WorkbenchPreferenceDialog();
+		preferenceDialog.open();
+		preferenceDialog.select(consolePreferencePage);
+		assertEquals(consolePreferencePage.isConsoleOpenedOnError(), PreferencesUtil.isConsoleOpenedOnError());
+		assertEquals(consolePreferencePage.isConsoleOpenedOnOutput(), PreferencesUtil.isConsoleOpenedOnOutput());
+		preferenceDialog.cancel();
+
+		PreferencesUtil.setConsoleOpenedOnError(true);
+		PreferencesUtil.setConsoleOpenedOnOutput(false);
+
+		preferenceDialog.open();
+		preferenceDialog.select(consolePreferencePage);
+		assertTrue(consolePreferencePage.isConsoleOpenedOnError());
+		assertFalse(consolePreferencePage.isConsoleOpenedOnOutput());
+		preferenceDialog.cancel();
+
+		PreferencesUtil.setConsoleOpenedOnError(false);
+		PreferencesUtil.setConsoleOpenedOnOutput(true);
+
+		preferenceDialog.open();
+		preferenceDialog.select(consolePreferencePage);
+		assertFalse(consolePreferencePage.isConsoleOpenedOnError());
+		assertTrue(consolePreferencePage.isConsoleOpenedOnOutput());
+		preferenceDialog.cancel();
 	}
 
 }

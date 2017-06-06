@@ -26,6 +26,12 @@ public class PreferencesUtil {
 	public static final String AUTO_BUILDING_KEY = "description.autobuilding";
 	public static final String OPEN_ASSOCIATED_PERSPECTIVE_PLUGIN = "org.eclipse.ui.ide";
 	public static final String OPEN_ASSOCIATED_PERSPECTIVE_KEY = "SWITCH_PERSPECTIVE_ON_PROJECT_CREATION";
+	public static final String CONSOLE_PLUGIN = "org.eclipse.debug.ui";
+	public static final String CONSOLE_LIMIT_OUTPUT_KEY = "Console.limitConsoleOutput";
+	public static final String CONSOLE_LIMIT_OUTPUT_LOW_KEY = "Console.lowWaterMark";
+	public static final String CONSOLE_LIMIT_OUTPUT_HIGH_KEY = "Console.highWaterMark";
+	public static final String CONSOLE_OPEN_ON_ERR_KEY = "DEBUG.consoleOpenOnErr";
+	public static final String CONSOLE_OPEN_ON_OUT_KEY = "DEBUG.consoleOpenOnOut";
 
 	private static final Logger log = Logger.getLogger(PreferencesUtil.class);
 
@@ -72,6 +78,79 @@ public class PreferencesUtil {
 	public static void setOpenAssociatedPerspective(String value) {
 		oneOf(value, "always", "never", "prompt");
 		Preferences.set(OPEN_ASSOCIATED_PERSPECTIVE_PLUGIN, OPEN_ASSOCIATED_PERSPECTIVE_KEY, value);
+	}
+
+	/**
+	 * Decides whether the console output is limited.
+	 * 
+	 * @return true if the console output is limited; false otherwise
+	 */
+	public static boolean isConsoleOutputLimited() {
+		return "true".equalsIgnoreCase(Preferences.get(CONSOLE_PLUGIN, CONSOLE_LIMIT_OUTPUT_KEY));
+	}
+
+	/**
+	 * Sets the console output to limited or unlimited.
+	 * 
+	 * @param limited
+	 */
+	public static void setConsoleOutputLimited(boolean limited) {
+		Preferences.set(CONSOLE_PLUGIN, CONSOLE_LIMIT_OUTPUT_KEY, String.valueOf(limited));
+	}
+
+	/**
+	 * Gets the console output size.
+	 * 
+	 * @return console output size
+	 */
+	public static int getConsoleOutputSize() {
+		return Integer.valueOf(Preferences.get(CONSOLE_PLUGIN, CONSOLE_LIMIT_OUTPUT_LOW_KEY));
+	}
+
+	/**
+	 * Sets the console output size.
+	 * 
+	 * @param size
+	 */
+	public static void setConsoleOutputSize(int size) {
+		setConsoleOutputLimited(true);
+		Preferences.set(CONSOLE_PLUGIN, CONSOLE_LIMIT_OUTPUT_LOW_KEY, String.valueOf(size));
+		// This is how eclipse does it
+		Preferences.set(CONSOLE_PLUGIN, CONSOLE_LIMIT_OUTPUT_HIGH_KEY, String.valueOf(size + 8000));
+	}
+
+	/**
+	 * Decides whether the console is opened on error.
+	 * 
+	 * @return true if the console is opened on error; false otherwise
+	 */
+	public static boolean isConsoleOpenedOnError() {
+		return "true".equalsIgnoreCase(Preferences.get(CONSOLE_PLUGIN, CONSOLE_OPEN_ON_ERR_KEY));
+	}
+
+	/**
+	 * Decides whether the console is opened on standard output.
+	 * 
+	 * @return true if the console is opened on standard output; false otherwise
+	 */
+	public static boolean isConsoleOpenedOnOutput() {
+		return "true".equalsIgnoreCase(Preferences.get(CONSOLE_PLUGIN, CONSOLE_OPEN_ON_OUT_KEY));
+	}
+
+	/**
+	 * Sets the console open on standard output
+	 */
+	public static void setConsoleOpenedOnError(boolean openOnError) {
+		log.info("Sets the console open on error to '" + openOnError + "'");
+		Preferences.set(CONSOLE_PLUGIN, CONSOLE_OPEN_ON_ERR_KEY, String.valueOf(openOnError));
+	}
+
+	/**
+	 * Sets the console open on standard output
+	 */
+	public static void setConsoleOpenedOnOutput(boolean openOnOutput) {
+		log.info("Sets the console open on error to '" + openOnOutput + "'");
+		Preferences.set(CONSOLE_PLUGIN, CONSOLE_OPEN_ON_OUT_KEY, String.valueOf(openOnOutput));
 	}
 
 	/**
