@@ -1,0 +1,16 @@
+{
+	"org.eclipse.reddeer.junit.test.requirement.configuration.resources.JavaRequirementConfig": [
+		{
+			"version": "1.7",
+			"runtime": "/home/java_1.7.0"
+		},
+		{
+			"version": "1.8",
+			"runtime": "/home/java_1.8.0"
+		},
+		{
+			"version": "1.9",
+			"runtime": "/home/java_1.9.0"
+		}
+	]
+}

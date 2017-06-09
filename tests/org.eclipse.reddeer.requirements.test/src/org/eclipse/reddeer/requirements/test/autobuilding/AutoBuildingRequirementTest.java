@@ -14,8 +14,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import org.eclipse.reddeer.direct.preferences.PreferencesUtil;
-import org.eclipse.reddeer.junit.internal.configuration.NullTestRunConfiguration;
-import org.eclipse.reddeer.junit.internal.configuration.TestRunConfiguration;
+import org.eclipse.reddeer.junit.internal.configuration.RequirementConfigurationSet;
 import org.eclipse.reddeer.junit.internal.requirement.Requirements;
 import org.eclipse.reddeer.junit.internal.requirement.RequirementsBuilder;
 import org.eclipse.reddeer.junit.runner.RedDeerSuite;
@@ -52,7 +51,6 @@ public class AutoBuildingRequirementTest {
 	public void autoBuildRequirementOnTest() {
 		PreferencesUtil.setAutoBuildingOff();
 		Requirements requirements = getRequirements(AutoBuildingRequirementOnTest.class);
-		assertTrue(requirements.canFulfill());
 		requirements.fulfill();
 		assertTrue(PreferencesUtil.isAutoBuildingOn());
 		requirements.cleanUp();
@@ -63,7 +61,6 @@ public class AutoBuildingRequirementTest {
 	public void autoBuildRequirementOffTest() {
 		PreferencesUtil.setAutoBuildingOn();
 		Requirements requirements = getRequirements(AutoBuildingRequirementOffTest.class);
-		assertTrue(requirements.canFulfill());
 		requirements.fulfill();
 		assertFalse(PreferencesUtil.isAutoBuildingOn());
 		requirements.cleanUp();
@@ -74,7 +71,6 @@ public class AutoBuildingRequirementTest {
 	public void autoBuildRequirementOffWithoutCleanupTest() {
 		PreferencesUtil.setAutoBuildingOff();
 		Requirements requirements = getRequirements(AutoBuildingRequirementWithoutCleanupTest.class);
-		assertTrue(requirements.canFulfill());
 		requirements.fulfill();
 		assertTrue(PreferencesUtil.isAutoBuildingOn());
 		requirements.cleanUp();
@@ -83,8 +79,8 @@ public class AutoBuildingRequirementTest {
 
 	private Requirements getRequirements(Class<?> klass) {
 		RequirementsBuilder reqBuilder = new RequirementsBuilder();
-		TestRunConfiguration config = new NullTestRunConfiguration();
-		return reqBuilder.build(klass, config.getRequirementConfiguration(), config.getId());
+		RequirementConfigurationSet configSet = new RequirementConfigurationSet();
+		return reqBuilder.build(configSet, klass);
 	}
 
 }

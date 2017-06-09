@@ -10,6 +10,8 @@
  *******************************************************************************/
 package org.eclipse.reddeer.junit.test.internal.requirement.parameterized.inject;
 
+import static org.junit.Assert.*;
+
 import java.util.Arrays;
 import java.util.Collection;
 
@@ -35,13 +37,19 @@ public class ParameterizedStaticReqTestClazz {
 		return Arrays.asList(new Object[] { 1, 2 });
 	}
 
+	private int number;
+	
+	public ParameterizedStaticReqTestClazz(int number) {
+		this.number = number;
+	}
+	
 	public static RequirementImpl getReq() {
 		return requirementImpl;
 	}
 
 	@Test
 	public void baseTest() {
-
+		assertTrue("Number passed from parametrized test should be either 1 or 2", number == 1 || number == 2);
 	}
 
 }

@@ -10,28 +10,23 @@
  *******************************************************************************/
 package org.eclipse.reddeer.junit.test.internal.requirement;
 
-import static org.hamcrest.Matchers.hasItem;
-import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
-import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
+import static org.junit.Assert.assertTrue;
 
 import java.lang.annotation.Annotation;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
-import org.hamcrest.Description;
-import org.hamcrest.TypeSafeMatcher;
-import org.eclipse.reddeer.junit.internal.annotation.AnnotationsFinder;
-import org.eclipse.reddeer.junit.internal.configuration.RequirementsConfiguration;
+import org.eclipse.reddeer.junit.internal.configuration.RequirementConfigurationSet;
 import org.eclipse.reddeer.junit.internal.requirement.Requirements;
 import org.eclipse.reddeer.junit.internal.requirement.RequirementsBuilder;
 import org.eclipse.reddeer.junit.requirement.Requirement;
+import org.eclipse.reddeer.junit.requirement.configuration.MissingRequirementConfiguration;
+import org.eclipse.reddeer.junit.requirement.configuration.RequirementConfiguration;
 import org.eclipse.reddeer.junit.test.internal.requirement.TestRequirementA.TestRequirementAAnnotation;
 import org.eclipse.reddeer.junit.test.internal.requirement.TestRequirementB.TestRequirementBAnnotation;
+import org.eclipse.reddeer.junit.test.requirement.configuration.resources.JavaRequirement.CustomConfigJavaRequirementAAnnotation;
+import org.eclipse.reddeer.junit.test.requirement.configuration.resources.JavaRequirementConfig;
+import org.hamcrest.Description;
+import org.hamcrest.TypeSafeMatcher;
 import org.junit.Test;
 
 public class RequirementsBuilderTest {
@@ -39,54 +34,64 @@ public class RequirementsBuilderTest {
 	private RequirementsBuilder builder = new RequirementsBuilder();
 
 	@Test(expected=IllegalArgumentException.class)
-	public void nullClass() {
-		builder.build(null, mock(RequirementsConfiguration.class), null);
+	public void testNullClassArgument() {
+		builder.build(new RequirementConfigurationSet(), null);
 	}
 	
 	@Test(expected=IllegalArgumentException.class)
-	public void nullConfig() {
-		builder.build(this.getClass(), null, null);
+	public void testNullConfigArgument() {
+		builder.build(null, this.getClass());
 	}
 
 	@Test
-	public void noAnnotation() {
-		builder.setFinder(new TestAnnotationsFinder(new ArrayList<Annotation>()));
-		RequirementsConfiguration config = mock(RequirementsConfiguration.class);
+	public void testBuildNoRequirements() {
+		RequirementConfigurationSet configurationSet = new RequirementConfigurationSet();
+		configurationSet.setConfigurations(new ArrayList<RequirementConfiguration>());
+		Requirements requirements = builder.build(configurationSet, this.getClass());
 		
-		Requirements requirements = builder.build(String.class, config, null);
-
-		assertThat(requirements.size(), is(0));
+		assertTrue("There should be no requirements, but there are some.", requirements.size() == 0);
 	}
-
+	
 	@Test
-	public void annotations() {
-		RequirementsConfiguration requirementConfig = mock(RequirementsConfiguration.class);
-
-		builder.setFinder(new TestAnnotationsFinder(getRequirementAnnotations()));
+	public void testBuildRequirements() {
+		RequirementConfigurationSet configurationSet = new RequirementConfigurationSet();
+		configurationSet.setConfigurations(new ArrayList<RequirementConfiguration>());
+		Requirements requirements = builder.build(configurationSet, RequirementClass.class);
 		
-		Requirements requirements = builder.build(String.class, requirementConfig, null);
+		assertTrue("There should be precisely 2 requirements, but there is/are " + requirements.size(), requirements.size() == 2);
+	}
+	
+	@Test
+	public void testBuildRequirementsWithConfigurableRequirementWithoutConfiguration() {
+		RequirementConfigurationSet configurationSet = new RequirementConfigurationSet();
+		configurationSet.addConfiguration(new MissingRequirementConfiguration());
 		
-		assertThat(requirements.size(), is(2));
-		assertThat(requirements, hasItem(new RequirementClassMatcher(TestRequirementA.class, TestRequirementAAnnotation.class)));
-		assertThat(requirements, hasItem(new RequirementClassMatcher(TestRequirementB.class, TestRequirementBAnnotation.class)));
-		verify(requirementConfig, times(2)).configure(any(Requirement.class));
+		Requirements requirements = builder.build(configurationSet, ConfigurableRequirementClass.class);
+		
+		assertTrue("There should be no requirement, but there is/are " + requirements.size(), requirements.size() == 0);
 	}
-
-	class TestAnnotationsFinder extends AnnotationsFinder {
-
-		private List<Annotation> annotations;
-
-		public TestAnnotationsFinder(List<Annotation> annotations) {
-			super(null);
-			this.annotations = annotations;
-		}
-
-		@Override
-		public List<Annotation> find(Class<?> clazz) {
-			return annotations;
-		}
+	
+	@Test
+	public void testBuildRequirementsWithConfiguredRequirement() {
+		RequirementConfigurationSet configurationSet = new RequirementConfigurationSet();
+		configurationSet.addConfiguration(new JavaRequirementConfig());
+		
+		Requirements requirements = builder.build(configurationSet, ConfigurableRequirementClass.class);
+		assertTrue("There should be precisely 1 requirements, but there is/are " + requirements.size(), requirements.size() == 1);
 	}
-
+	
+	@Test
+	public void testBuildRequiremenetsWithMixedRequirements() {
+		RequirementConfigurationSet configurationSet = new RequirementConfigurationSet();
+		configurationSet.addConfiguration(new JavaRequirementConfig());
+		configurationSet.addConfiguration(new JavaRequirementConfig());
+		
+		Requirements requirements = builder.build(configurationSet, CombinedRequirementsClass.class);
+		
+		assertTrue("There should be precisely 2 requirements, but there is/are " + requirements.size(), requirements.size() == 2);
+		
+	}
+	
 	class RequirementClassMatcher extends TypeSafeMatcher<Requirement<?>> {
 		
 		private Class<?> requirementClass;
@@ -120,13 +125,14 @@ public class RequirementsBuilderTest {
 		}
 	}
 	
-	private List<Annotation> getRequirementAnnotations() {
-		return Arrays.asList(RequirementClass.class.getAnnotations());
-	}
-
 	@TestRequirementAAnnotation
 	@TestRequirementBAnnotation
-	class RequirementClass {
-
-	}
+	class RequirementClass {}
+	
+	@TestRequirementAAnnotation
+	@CustomConfigJavaRequirementAAnnotation
+	class CombinedRequirementsClass {}
+	
+	@CustomConfigJavaRequirementAAnnotation
+	class ConfigurableRequirementClass {}
 }

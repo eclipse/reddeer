@@ -28,7 +28,7 @@ import java.util.List;
 import org.eclipse.reddeer.junit.internal.configuration.SuiteConfiguration;
 import org.eclipse.reddeer.junit.test.integration.runner.IAfterTestImpl;
 import org.eclipse.reddeer.junit.test.integration.runner.IBeforeTestImpl;
-import org.eclipse.reddeer.junit.test.integration.runner.RunnerIntegrationPropertyRequirement;
+import org.eclipse.reddeer.junit.test.integration.runner.injection.RunnerIntegrationRequirement;
 import org.eclipse.reddeer.junit.test.integration.runner.order.TestSequenceRedDeerSuite;
 import org.junit.runners.model.InitializationError;
 import org.junit.runners.model.RunnerBuilder;
@@ -39,17 +39,18 @@ public class RequirementsRunnerSuite extends TestSequenceRedDeerSuite {
 
 	static {
 		expectedSequence = new ArrayList<Object>();
-		// suite 1
 		expectedSequence.add(createIBeforeClass(IBeforeTestImpl.class));
-		expectedSequence.add(createFulfill(RunnerIntegrationPropertyRequirement.class));
+		expectedSequence.add(createFulfill(RunnerIntegrationRequirement.class));
 		expectedSequence.add(createBeforeClass(RequirementsRunnerTest.class));
+		
 		expectedSequence.add(createIBefore(IBeforeTestImpl.class));
 		expectedSequence.add(createBefore(RequirementsRunnerTest.class));
 		expectedSequence.add(createTest(RequirementsRunnerTest.class));
 		expectedSequence.add(createAfter(RequirementsRunnerTest.class));
 		expectedSequence.add(createIAfter(IAfterTestImpl.class));
+		
 		expectedSequence.add(createAfterClass(RequirementsRunnerTest.class));
-		expectedSequence.add(createCleanup(RunnerIntegrationPropertyRequirement.class));
+		expectedSequence.add(createCleanup(RunnerIntegrationRequirement.class));
 		expectedSequence.add(createIAfterClass(IAfterTestImpl.class));
 	}
 	

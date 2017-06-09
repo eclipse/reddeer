@@ -26,7 +26,7 @@
 		<apache-tomcat-7.version>7.0.56</apache-tomcat-7.version>
 		<apache-tomcat-7.mirror>http://archive.apache.org/dist/tomcat/tomcat-7/</apache-tomcat-7.mirror>
 		<apache-tomcat-7.home>${project.build.directory}/apache-tomcat-${apache-tomcat-7.version}</apache-tomcat-7.home>
-		<customArgLine>-Drd.config=${basedir}/bin/requirements.xml</customArgLine>
+		<customArgLine>-Drd.config=${basedir}/resources/requirements.json -Dapache-tomcat-7.home=${apache-tomcat-7.home}</customArgLine>
 	</properties>
 
 	<profiles>
@@ -61,9 +61,9 @@
 	<build>
 		<resources>
 			<resource>
-				<!-- Directory where to look for server requirement xml --> 
+				<!-- Directory where to look for requirements --> 
 				<directory>${basedir}/../../plugins/org.eclipse.reddeer.requirements/resources</directory>
-				<!-- Filtering enables substitution of variables defined in xml files -->
+				<!-- Filtering enables substitution of variables defined in files -->
 				<filtering>true</filtering>
 			</resource>
 		</resources>

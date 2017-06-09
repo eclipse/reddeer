@@ -13,10 +13,8 @@ package org.eclipse.reddeer.junit.test.integration.runner.order;
 import java.util.Iterator;
 import java.util.List;
 
-import org.eclipse.reddeer.common.properties.RedDeerProperties;
 import org.eclipse.reddeer.junit.internal.configuration.SuiteConfiguration;
 import org.eclipse.reddeer.junit.runner.RedDeerSuite;
-import org.eclipse.reddeer.junit.test.integration.runner.order.suite.RequirementsSequenceTest;
 import org.junit.runner.Description;
 import org.junit.runner.notification.Failure;
 import org.junit.runner.notification.RunNotifier;
@@ -27,11 +25,9 @@ import junit.framework.AssertionFailedError;
 
 public abstract class TestSequenceRedDeerSuite extends RedDeerSuite {
 
-	protected static final String LOCATIONS_ROOT_DIR = "resources/org/eclipse/reddeer/junit/integration/runner/order/fileC.xml";
-	
 	public TestSequenceRedDeerSuite(Class<?> clazz, RunnerBuilder builder)
 			throws InitializationError {
-		super(heck(clazz), builder);
+		super(clazz, builder);
 	}
 
 	protected TestSequenceRedDeerSuite(Class<?> clazz, RunnerBuilder builder,
@@ -46,20 +42,23 @@ public abstract class TestSequenceRedDeerSuite extends RedDeerSuite {
 		TestSequence.getRealSequence().clear();
 		super.run(notifier);
 		if (!getExpectedSequence().equals(TestSequence.getRealSequence())){
-			notifier.fireTestFailure(new Failure(Description.createSuiteDescription(RequirementsSequenceTest.class), createException()));
+			notifier.fireTestFailure(new Failure(Description.createSuiteDescription(this.getClass()), createException()));
 		}
 	}
 
 	private Throwable createException() {
-		Iterator<?> realSequenceIterator = TestSequence.getRealSequence().iterator();
-		Iterator<?> expectedSequenceIterator = getExpectedSequence().iterator();
+		List<?> realList = TestSequence.getRealSequence();
+		List<?> expectedList = getExpectedSequence();
+		Iterator<?> realSequenceIterator = realList.iterator();
+		Iterator<?> expectedSequenceIterator = expectedList.iterator();
 		
 		int i = 0;
 		while (realSequenceIterator.hasNext() && expectedSequenceIterator.hasNext()){
 			Object real = realSequenceIterator.next();
 			Object expected = expectedSequenceIterator.next();
 			if (!real.equals(expected)){
-				return new AssertionFailedError("Expected and real sequence differ at index " + i + ".  Expected: " + expected + ", real: " + real);
+				return new AssertionFailedError("Expected and real sequence differ at index " + i + ".  Expected: " + expected + ", real: " + real
+						+ "\n" + "Whole sequences: \n" + "REAL:" + realList + "\n" + "EXPECTED:" + expectedList);
 			}
 			i++;
 		}
@@ -70,13 +69,4 @@ public abstract class TestSequenceRedDeerSuite extends RedDeerSuite {
 		}
 	}
 	
-	/**
-	 * Hecky hook for setting the system property.
-	 * @param clazz
-	 * @return
-	 */
-	private static Class<?> heck(Class<?> clazz){
-		System.setProperty(RedDeerProperties.CONFIG_FILE.getName(), LOCATIONS_ROOT_DIR);
-		return clazz;
-	}
 }

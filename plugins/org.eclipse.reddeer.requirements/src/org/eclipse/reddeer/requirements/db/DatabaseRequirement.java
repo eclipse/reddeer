@@ -16,8 +16,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 import org.eclipse.reddeer.common.logging.Logger;
-import org.eclipse.reddeer.junit.requirement.CustomConfiguration;
-import org.eclipse.reddeer.junit.requirement.Requirement;
+import org.eclipse.reddeer.junit.requirement.ConfigurableRequirement;
 import org.eclipse.reddeer.requirements.db.DatabaseRequirement.Database;
 
 /**
@@ -25,7 +24,7 @@ import org.eclipse.reddeer.requirements.db.DatabaseRequirement.Database;
  * @author Jiri Peterka
  *
  */
-public class DatabaseRequirement implements Requirement<Database>, CustomConfiguration<DatabaseConfiguration> {
+public class DatabaseRequirement implements ConfigurableRequirement<DatabaseConfiguration, Database> {
 	
 	@Retention(RetentionPolicy.RUNTIME)
 	@Target(ElementType.TYPE)
@@ -65,20 +64,6 @@ public class DatabaseRequirement implements Requirement<Database>, CustomConfigu
 	}
 
 	/**
-	 * Returns true when database requirement can be fullfilled 
-	 * Always returns true for Database Requirement.
-	 *
-	 * @return true, if successful
-	 */
-	@Override
-	public boolean canFulfill() {
-		log.trace("Database requirement canFullfill performed");
-		log.debug("JDBC:" + configuration.getJdbcString());
-		log.debug("Requirement name:" + database.name());
-		return true;
-	}
-
-	/**
 	 * Fulfills database requirement
 	 * It doesn't nothing for database requirement intentionally.
 	 */
@@ -113,5 +98,15 @@ public class DatabaseRequirement implements Requirement<Database>, CustomConfigu
 	@Override
 	public void cleanUp() {
 
+	}
+
+	@Override
+	public Database getDeclaration() {
+		return database;
+	}
+
+	@Override
+	public String getDescription() {
+		return configuration.getId();
 	}
 }

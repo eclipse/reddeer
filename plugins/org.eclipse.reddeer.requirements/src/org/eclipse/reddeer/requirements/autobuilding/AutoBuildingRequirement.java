@@ -50,21 +50,6 @@ public class AutoBuildingRequirement implements Requirement<AutoBuilding> {
 		boolean cleanup() default true;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.reddeer.junit.requirement.Requirement#canFulfill()
-	 */
-	@Override
-	public boolean canFulfill() {
-		return true;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.reddeer.junit.requirement.Requirement#fulfill()
-	 */
 	@Override
 	public void fulfill() {
 		autoBuildingOriginalValue = PreferencesUtil.isAutoBuildingOn();
@@ -75,21 +60,11 @@ public class AutoBuildingRequirement implements Requirement<AutoBuilding> {
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.reddeer.junit.requirement.Requirement#setDeclaration(java.lang. annotation.Annotation)
-	 */
 	@Override
 	public void setDeclaration(AutoBuilding autoBuilding) {
 		this.autoBuilding = autoBuilding;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.reddeer.junit.requirement.Requirement#cleanUp()
-	 */
 	@Override
 	public void cleanUp() {
 		if (!autoBuilding.cleanup()) {
@@ -100,5 +75,10 @@ public class AutoBuildingRequirement implements Requirement<AutoBuilding> {
 		} else {
 			PreferencesUtil.setAutoBuildingOff();
 		}
+	}
+
+	@Override
+	public AutoBuilding getDeclaration() {
+		return autoBuilding;
 	}
 }

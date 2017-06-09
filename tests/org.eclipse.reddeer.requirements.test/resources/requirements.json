@@ -1,0 +1,32 @@
+{
+	"org.eclipse.reddeer.requirements.jre.JREConfiguration": [
+		{
+			"name": "testName",
+			"version": "1.7",
+			"path": "${java.home}"
+		}
+	],
+	"org.eclipse.reddeer.requirements.db.DatabaseConfiguration": [
+		{
+			"driverName": "My H2 Driver",
+			"driverType": "Generic JDBC",
+			"driverTypeVersion": "1.0",
+			"driverPath": "/opt/sakila-db/h2-1.3.161.jar",
+			"driverClass": "org.h2.Driver",
+			"driverVendor": "Generic JDBC",
+			"profileName": "dbProfile",
+			"jdbcString": "jdbc:h2:db://localhost/sakila",
+			"username": "sa"
+		}
+	],
+	"org.eclipse.reddeer.requirements.server.apache.tomcat.ServerRequirementConfiguration": [
+		{
+			"runtime": "${apache-tomcat-7.home}",
+			"family": {
+				"category": "Apache",
+				"label": "Tomcat",
+				"version": "7.0"
+			}
+		}
+	]
+}

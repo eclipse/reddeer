@@ -15,9 +15,9 @@ import org.eclipse.reddeer.junit.requirement.inject.InjectRequirement;
 public class ChildRequirementTestMock extends ParentRequirementTestMock {
 
 	@InjectRequirement
-	private RequirementA requirementA1;
+	private RequirementA requirementA4;
 	
-	public RequirementA getRequirementA1() {
-		return requirementA1;
+	public RequirementA getRequirementA4() {
+		return requirementA4;
 	}
 }

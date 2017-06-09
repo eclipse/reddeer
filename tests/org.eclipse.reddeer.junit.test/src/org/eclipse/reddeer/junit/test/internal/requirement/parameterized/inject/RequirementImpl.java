@@ -27,12 +27,6 @@ public class RequirementImpl implements Requirement<RequirementAnnot> {
 	}
 
 	@Override
-	public boolean canFulfill() {
-		// TODO Auto-generated method stub
-		return true;
-	}
-
-	@Override
 	public void fulfill() {
 		// TODO Auto-generated method stub
 
@@ -48,6 +42,12 @@ public class RequirementImpl implements Requirement<RequirementAnnot> {
 	public void cleanUp() {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public RequirementAnnot getDeclaration() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

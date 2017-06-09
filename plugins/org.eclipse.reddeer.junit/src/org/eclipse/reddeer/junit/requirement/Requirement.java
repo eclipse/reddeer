@@ -19,41 +19,37 @@ import org.eclipse.reddeer.junit.execution.IExecutionPriority;
  * Represents one requirement that should be fulfilled before the test runs. 
  * If it cannot be fulfilled the test should be ignored.
  * 
- * @author Lucia Jelinkova, Ondrej Dockal
+ * @author Lucia Jelinkova, Ondrej Dockal, mlabuda@redhat.com
  *
  */
 public interface Requirement<T extends Annotation> extends IExecutionPriority {
 	
 	/**
-	 * Can fulfill.
-	 *
-	 * @return true, if successful
-	 */
-	boolean canFulfill();
-
-	/**
-	 * Fulfill.
+	 * Executes requirement.
 	 */
 	void fulfill();
 	
 	/**
-	 * Sets the declaration.
+	 * Sets an annotation used for declaring a requirement.
+	 * Declaration could contain requirement instance settings, such as
+	 * customization of its fulfilling.
 	 *
-	 * @param declaration the new declaration
+	 * @param declaration declaration of a requirement
 	 */
 	void setDeclaration(T declaration);
+	
+	/**
+	 * Gets declaration of a requirement
+	 * @return declaration of requirement
+	 */
+	T getDeclaration();
 	
 	/**
 	 * Clean up after requirement.
 	 */
 	void cleanUp();
 	
-	/**
-	 * Decides whether it is possible to accept specific requirement's configuration object or not
-	 * @return true, if declaration fits in
-	 */
-	default boolean isDeclarationAcceptable() { return true; }
-	
+
 	@Override
 	default long getPriority() {
 		return 0;

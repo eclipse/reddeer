@@ -15,11 +15,11 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import org.eclipse.ui.PlatformUI;
 import org.eclipse.reddeer.common.util.Display;
 import org.eclipse.reddeer.junit.requirement.Requirement;
 import org.eclipse.reddeer.junit.requirement.RequirementException;
 import org.eclipse.reddeer.requirements.closeeditors.CloseAllEditorsRequirement.CloseAllEditors;
+import org.eclipse.ui.PlatformUI;
 
 /**
  * Closes all open editors
@@ -43,17 +43,6 @@ public class CloseAllEditorsRequirement implements Requirement<CloseAllEditors> 
 	
 	private CloseAllEditors declaration;
 	
-	/* (non-Javadoc)
-	 * @see org.eclipse.reddeer.junit.requirement.Requirement#canFulfill()
-	 */
-	@Override
-	public boolean canFulfill() {
-		return true;
-	}
-
-	/* (non-Javadoc)
-	 * @see org.eclipse.reddeer.junit.requirement.Requirement#fulfill()
-	 */
 	@Override
 	public void fulfill() {
 		Display.syncExec(new Runnable() {
@@ -70,19 +59,18 @@ public class CloseAllEditorsRequirement implements Requirement<CloseAllEditors> 
 		});
 	}
 
-	/* (non-Javadoc)
-	 * @see org.eclipse.reddeer.junit.requirement.Requirement#setDeclaration(java.lang.annotation.Annotation)
-	 */
 	@Override
 	public void setDeclaration(CloseAllEditors declaration) {
 		this.declaration = declaration;
 	}
 	
-	/* (non-Javadoc)
-	 * @see org.eclipse.reddeer.junit.requirement.Requirement#cleanUp()
-	 */
 	@Override
 	public void cleanUp() {
 		// nothing to do
+	}
+
+	@Override
+	public CloseAllEditors getDeclaration() {
+		return declaration;
 	}
 }

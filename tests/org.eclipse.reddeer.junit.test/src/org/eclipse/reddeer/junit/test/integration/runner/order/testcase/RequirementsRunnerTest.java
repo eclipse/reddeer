@@ -10,8 +10,7 @@
  *******************************************************************************/
 package org.eclipse.reddeer.junit.test.integration.runner.order.testcase;
 
-import org.eclipse.reddeer.junit.test.integration.runner.RunnerIntegrationPropertyRequirement.RequirementAAnnotation;
-import org.eclipse.reddeer.junit.test.integration.runner.RunnerIntegrationPropertyRequirement2.RequirementAAnnotation2;
+import org.eclipse.reddeer.junit.test.integration.runner.injection.RunnerIntegrationRequirement.RequirementAAnnotation;
 import org.eclipse.reddeer.junit.test.integration.runner.order.TestSequence;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -22,7 +21,6 @@ import org.junit.runner.RunWith;
 
 @RunWith(RequirementsRunnerSuite.class)
 @RequirementAAnnotation
-@RequirementAAnnotation2
 public class RequirementsRunnerTest {
 
 	@BeforeClass

@@ -10,13 +10,9 @@
  *******************************************************************************/
 package org.eclipse.reddeer.requirements.test.openperspective;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
 import org.eclipse.reddeer.common.properties.RedDeerProperties;
 import org.eclipse.reddeer.eclipse.ui.perspectives.JavaPerspective;
-import org.eclipse.reddeer.junit.internal.configuration.NullTestRunConfiguration;
-import org.eclipse.reddeer.junit.internal.configuration.TestRunConfiguration;
+import org.eclipse.reddeer.junit.internal.configuration.RequirementConfigurationSet;
 import org.eclipse.reddeer.junit.internal.requirement.Requirements;
 import org.eclipse.reddeer.junit.internal.requirement.RequirementsBuilder;
 import org.eclipse.reddeer.junit.runner.RedDeerSuite;
@@ -32,18 +28,6 @@ public class OpenPerspectiveRequirementTest{
 	private String oldCaptureScreenshotPropertyValue = null;
 	private boolean propertyHasChanged = false;
 	
-	@Test
-	public void canFulfillJavaPerspectiveTest() {
-		Requirements requirements = getRequirements(JavaPerspectiveTestClass.class);
-		assertTrue(requirements.canFulfill());
-	}
-
-	@Test
-	public void canFulfillNonExistingPerspectiveTest() {
-		Requirements requirements = getRequirements(NonExistingPerspectiveTestClass.class);
-		assertFalse(requirements.canFulfill());
-	}
-
 	@Test
 	public void fulfillJavaPerspectiveTest() {
 		Requirements requirements = getRequirements(JavaPerspectiveTestClass.class);
@@ -76,8 +60,8 @@ public class OpenPerspectiveRequirementTest{
 	
 	private Requirements getRequirements(Class<?> klass) {
 		RequirementsBuilder reqBuilder = new RequirementsBuilder();
-		TestRunConfiguration config = new NullTestRunConfiguration();
-		return reqBuilder.build(klass, config.getRequirementConfiguration(), config.getId());
+		RequirementConfigurationSet config = new RequirementConfigurationSet();
+		return reqBuilder.build(config, klass);
 	}
 
 	@OpenPerspective(JavaPerspective.class)

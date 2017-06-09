@@ -54,9 +54,6 @@ public class Requirements implements Requirement<Annotation>, Iterable<Requireme
 		this.configID = configID;
 	}
 
-	/* (non-Javadoc)
-	 * @see java.lang.Iterable#iterator()
-	 */
 	@Override
 	public Iterator<Requirement<?>> iterator() {
 		return requirements.iterator();
@@ -70,29 +67,7 @@ public class Requirements implements Requirement<Annotation>, Iterable<Requireme
 	public int size(){
 		return requirements.size();
 	}
-	
-	/* (non-Javadoc)
-	 * @see org.eclipse.reddeer.junit.requirement.Requirement#canFulfill()
-	 */
-	@Override
-	public boolean canFulfill() {
-		boolean canFulfill = true;
-		for (Requirement<?> r : requirements) {
-			try {
-				boolean canFulfillReq = r.canFulfill();
-				log.info("Requirement " + r.getClass() + " can be fulfilled: " + canFulfillReq);
-				canFulfill = canFulfill && canFulfillReq;
-			} catch (Throwable ex) {
-				handleException(ex, r);
-				throw ex;
-			}
-		}
-		return canFulfill;
-	}
-	
-	/* (non-Javadoc)
-	 * @see org.eclipse.reddeer.junit.requirement.Requirement#fulfill()
-	 */
+
 	@Override
 	public void fulfill() {
 		for (Requirement<?> r : requirements) {
@@ -106,17 +81,11 @@ public class Requirements implements Requirement<Annotation>, Iterable<Requireme
 		}
 	}
 	
-	/* (non-Javadoc)
-	 * @see org.eclipse.reddeer.junit.requirement.Requirement#setDeclaration(java.lang.annotation.Annotation)
-	 */
 	@Override
 	public void setDeclaration(Annotation declaration) {
 		throw new IllegalStateException("This method should never be called on wrapper object");
 	}
 
-	/* (non-Javadoc)
-	 * @see org.eclipse.reddeer.junit.requirement.Requirement#cleanUp()
-	 */
 	@Override
 	public void cleanUp() {
 		for (Requirement<?> r : requirements) {
@@ -141,5 +110,10 @@ public class Requirements implements Requirement<Annotation>, Iterable<Requireme
 				e.printInfo(log);
 			}
 		}
+	}
+
+	@Override
+	public Annotation getDeclaration() {
+		throw new IllegalStateException("This method should never be called on wrapper object");
 	}
 }

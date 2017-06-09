@@ -10,7 +10,7 @@
  *******************************************************************************/
 package org.eclipse.reddeer.requirements.server;
 
-import org.eclipse.reddeer.requirements.server.apache.tomcat.ServerRequirementConfig;
+import org.eclipse.reddeer.requirements.server.apache.tomcat.ServerRequirementConfiguration;
 
 /**
  * Contains informations about configured server via server requirement.
@@ -18,13 +18,13 @@ import org.eclipse.reddeer.requirements.server.apache.tomcat.ServerRequirementCo
  * and configuration (ServerRequirementConfig).
  * 
  * @author Pavol Srna, Radoslav Rabara
- * @see ServerRequirementConfig
+ * @see ServerRequirementConfiguration
  */
 public class ConfiguredServerInfo {
 	
 	private String serverName;
 	private String runtimeName;
-	private IServerReqConfig config;
+	private ServerRequirementConfiguration config;
 	
 	/**
 	 * Define configured server by its name and configuration.
@@ -32,7 +32,7 @@ public class ConfiguredServerInfo {
 	 * @param serverName is the name of the configured server
 	 * @param config configuration which was used to configure server
 	 */
-	public ConfiguredServerInfo(String serverName, String runtimeName, IServerReqConfig config) {
+	public ConfiguredServerInfo(String serverName, String runtimeName, ServerRequirementConfiguration config) {
 		this.serverName = serverName;
 		this.runtimeName = runtimeName;
 		this.config = config;
@@ -60,7 +60,7 @@ public class ConfiguredServerInfo {
 	 *
 	 * @return the config
 	 */
-	public IServerReqConfig getConfig() {
+	public ServerRequirementConfiguration getConfig() {
 		return config;
 	}
 }

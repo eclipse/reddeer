@@ -14,10 +14,8 @@ import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 
 import org.eclipse.reddeer.junit.requirement.inject.InjectRequirement;
-import org.eclipse.reddeer.junit.test.integration.runner.RunnerIntegrationPropertyRequirement;
-import org.eclipse.reddeer.junit.test.integration.runner.RunnerIntegrationPropertyRequirement2;
-import org.eclipse.reddeer.junit.test.integration.runner.RunnerIntegrationPropertyRequirement.RequirementAAnnotation;
-import org.eclipse.reddeer.junit.test.integration.runner.RunnerIntegrationPropertyRequirement2.RequirementAAnnotation2;
+import org.eclipse.reddeer.junit.test.integration.runner.injection.RunnerIntegrationRequirement.RequirementAAnnotation;
+import org.eclipse.reddeer.junit.test.integration.runner.injection.RunnerIntegrationRequirement2.RequirementAAnnotation2;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -28,14 +26,14 @@ import org.junit.runner.RunWith;
 public class InjectRequirementsTest {
 
 	@InjectRequirement
-	private static RunnerIntegrationPropertyRequirement staticRequirement;
+	private static RunnerIntegrationRequirement staticRequirement;
 	
-	private static RunnerIntegrationPropertyRequirement previousStaticRequirement;
+	private static RunnerIntegrationRequirement previousStaticRequirement;
 
 	@InjectRequirement
-	private RunnerIntegrationPropertyRequirement2 requirement;
+	private RunnerIntegrationRequirement2 requirement;
 	
-	private RunnerIntegrationPropertyRequirement2 previousRequirement;
+	private RunnerIntegrationRequirement2 previousRequirement;
 	
 	private static int run;
 	
