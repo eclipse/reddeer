@@ -35,9 +35,9 @@ public class JRERequirementTest {
 
 	@Test
 	public void testConfigurationValues() {
-		assertEquals("testName", requirement.getJREName());
-		assertEquals(1.7, requirement.getJREVersion(), 0);
-		File file = new File(requirement.getJREPath());
+		assertEquals("testName", requirement.getConfiguration().getName());
+		assertEquals("1.7", requirement.getConfiguration().getVersion(), "1.7");
+		File file = new File(requirement.getPath());
 		assertTrue(file.exists());
 		assertTrue(file.isDirectory());
 	}
@@ -49,7 +49,7 @@ public class JRERequirementTest {
 		dialog.open();
 		dialog.select(page);
 		List<JREItem> jres = page.getJREs();
-		assertTrue(matchJREs(jres, requirement.getJREName(), requirement.getJREPath()));
+		assertTrue(matchJREs(jres, requirement.getConfiguration().getName(), requirement.getPath()));
 		dialog.cancel();
 	}
 	

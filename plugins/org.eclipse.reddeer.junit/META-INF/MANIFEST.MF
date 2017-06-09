@@ -12,27 +12,30 @@ Require-Bundle: org.eclipse.ui,
  org.hamcrest.core;bundle-version="1.3.0",
  org.eclipse.reddeer.common;bundle-version="[2.0,2.1)",
  org.apache.commons.logging;bundle-version="1.1.1",
- org.apache.commons.beanutils
+ org.apache.commons.beanutils,
+ com.fasterxml.jackson.core.jackson-annotations,
+ com.fasterxml.jackson.core.jackson-core,
+ com.fasterxml.jackson.core.jackson-databind
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ClassPath: .
+Eclipse-BuddyPolicy: registered
 Export-Package: org.eclipse.reddeer.junit,
+ org.eclipse.reddeer.junit.annotation,
  org.eclipse.reddeer.junit.configuration,
  org.eclipse.reddeer.junit.execution,
  org.eclipse.reddeer.junit.execution.annotation,
  org.eclipse.reddeer.junit.execution.impl,
  org.eclipse.reddeer.junit.extensionpoint,
- org.eclipse.reddeer.junit.internal.annotation,
  org.eclipse.reddeer.junit.internal.configuration,
- org.eclipse.reddeer.junit.internal.configuration.configurator,
- org.eclipse.reddeer.junit.internal.configuration.entity,
  org.eclipse.reddeer.junit.internal.configuration.reader,
- org.eclipse.reddeer.junit.internal.configuration.setter,
  org.eclipse.reddeer.junit.internal.requirement,
  org.eclipse.reddeer.junit.internal.requirement.inject,
  org.eclipse.reddeer.junit.internal.runner,
  org.eclipse.reddeer.junit.requirement,
+ org.eclipse.reddeer.junit.requirement.configuration,
  org.eclipse.reddeer.junit.requirement.inject,
+ org.eclipse.reddeer.junit.requirement.matcher,
  org.eclipse.reddeer.junit.runner,
  org.eclipse.reddeer.junit.screenshot,
  org.eclipse.reddeer.junit.watcher

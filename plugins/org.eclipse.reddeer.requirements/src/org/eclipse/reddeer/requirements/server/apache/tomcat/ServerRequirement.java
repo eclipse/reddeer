@@ -18,41 +18,41 @@ import java.lang.annotation.Target;
 import org.eclipse.reddeer.common.logging.Logger;
 import org.eclipse.reddeer.eclipse.wst.server.ui.wizard.NewServerWizard;
 import org.eclipse.reddeer.eclipse.wst.server.ui.wizard.NewServerWizardPage;
-import org.eclipse.reddeer.junit.requirement.CustomConfiguration;
-import org.eclipse.reddeer.junit.requirement.Requirement;
+import org.eclipse.reddeer.junit.requirement.ConfigurableRequirement;
+import org.eclipse.reddeer.requirements.property.RequirementPropertyExpandor;
 import org.eclipse.reddeer.requirements.server.ConfiguredServerInfo;
 import org.eclipse.reddeer.requirements.server.ServerReqBase;
 import org.eclipse.reddeer.requirements.server.ServerReqState;
 import org.eclipse.reddeer.requirements.server.apache.tomcat.ServerRequirement.ApacheTomcatServer;
 import org.eclipse.reddeer.swt.impl.text.DefaultText;
 
-
 /**
  * 
  * @author Pavol Srna
  *
  */
-public class ServerRequirement extends ServerReqBase 
-			implements Requirement<ApacheTomcatServer>, CustomConfiguration<ServerRequirementConfig> {
+public class ServerRequirement extends ServerReqBase
+		implements ConfigurableRequirement<ServerRequirementConfiguration, ApacheTomcatServer> {
 
 	private static final Logger LOGGER = Logger.getLogger(ServerRequirement.class);
-	
-	
-	private ServerRequirementConfig config;
+
+	private ServerRequirementConfiguration config;
 	private static ConfiguredServerInfo lastServerConfiguration;
 	private ApacheTomcatServer server;
-	
+
 	@Retention(RetentionPolicy.RUNTIME)
 	@Target(ElementType.TYPE)
 	public @interface ApacheTomcatServer {
-		
+
 		/**
 		 * State.
 		 *
 		 * @return the server req state
 		 */
-		ServerReqState state() default ServerReqState.RUNNING;
-		
+		ServerReqState state()
+
+		default ServerReqState.RUNNING;
+
 		/**
 		 * Cleanup.
 		 *
@@ -60,111 +60,80 @@ public class ServerRequirement extends ServerReqBase
 		 */
 		boolean cleanup() default true;
 	}
-	
-	/* (non-Javadoc)
-	 * @see org.eclipse.reddeer.junit.requirement.Requirement#canFulfill()
-	 */
-	@Override
-	public boolean canFulfill() {
-		return true;
-	}
 
-	/* (non-Javadoc)
-	 * @see org.eclipse.reddeer.junit.requirement.Requirement#fulfill()
-	 */
 	@Override
 	public void fulfill() {
-		if(lastServerConfiguration == null || !isLastConfiguredServerPresent()) {
+		if (lastServerConfiguration == null || !isLastConfiguredServerPresent()) {
 			LOGGER.info("Setup server");
 			setupServerAdapter();
-			lastServerConfiguration = new ConfiguredServerInfo(getServerNameLabelText(), getRuntimeNameLabelText(), config);
+			lastServerConfiguration = new ConfiguredServerInfo(getServerNameLabelText(), getRuntimeNameLabelText(),
+					config);
 		}
 		setupServerState(server.state());
 	}
 
-	/* (non-Javadoc)
-	 * @see org.eclipse.reddeer.requirements.server.ServerReqBase#getServerTypeLabelText(org.eclipse.reddeer.requirements.server.IServerReqConfig)
-	 */
 	@Override
 	public String getServerTypeLabelText() {
-		return config.getServerFamily().getLabel() + " v" + 
-				config.getServerFamily().getVersion() + " Server";
+		return config.getFamily().getLabel() + " v" + config.getFamily().getVersion() + " Server";
 	}
-	
-	/* (non-Javadoc)
-	 * @see org.eclipse.reddeer.requirements.server.ServerReqBase#getServerNameLabelText(org.eclipse.reddeer.requirements.server.IServerReqConfig)
-	 */
+
 	@Override
 	public String getServerNameLabelText() {
 		return getServerTypeLabelText() + " at localhost";
 	}
 
-	/* (non-Javadoc)
-	 * @see org.eclipse.reddeer.requirements.server.ServerReqBase#getRuntimeNameLabelText(org.eclipse.reddeer.requirements.server.IServerReqConfig)
-	 */
 	@Override
 	public String getRuntimeNameLabelText() {
-		return config.getServerFamily().getCategory() + " " + 
-				config.getServerFamily().getLabel() + " v" + 
-				config.getServerFamily().getVersion() + " Runtime";
+		return config.getFamily().getCategory() + " " + config.getFamily().getLabel() + " v"
+				+ config.getFamily().getVersion() + " Runtime";
 	}
-	
-	private void setupServerAdapter(){
-		
+
+	private void setupServerAdapter() {
+
 		NewServerWizard swd = new NewServerWizard();
 		swd.open();
-		
+
 		NewServerWizardPage swpage = new NewServerWizardPage();
-		
-		swpage.selectType(config.getServerFamily().getCategory(), getServerTypeLabelText());
+
+		swpage.selectType(config.getFamily().getCategory(), getServerTypeLabelText());
 		swpage.setName(getServerNameLabelText());
 		swd.next();
-		
+
 		new DefaultText(0).setText(getRuntimeNameLabelText());
-		new DefaultText(1).setText(config.getRuntime());
-	
+		new DefaultText(1).setText(getRuntimeName());
+
 		swd.finish();
 	}
-	
-	/* (non-Javadoc)
-	 * @see org.eclipse.reddeer.junit.requirement.Requirement#setDeclaration(java.lang.annotation.Annotation)
+
+	/**
+	 * Gets runtime name. If name is a property in configuration, then it is
+	 * expanded to its real value. Otherwise value in configuration is returned.
+	 * 
+	 * @return runtime name, if it is property, then expanded, otherwise String
+	 *         from configuration
 	 */
+	public String getRuntimeName() {
+		return RequirementPropertyExpandor.getProperty(getConfiguration().getRuntime());
+	}
+
 	@Override
 	public void setDeclaration(ApacheTomcatServer server) {
 		this.server = server;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.eclipse.reddeer.junit.requirement.CustomConfiguration#getConfigurationClass()
-	 */
 	@Override
-	public Class<ServerRequirementConfig> getConfigurationClass() {
-		return ServerRequirementConfig.class;
+	public Class<ServerRequirementConfiguration> getConfigurationClass() {
+		return ServerRequirementConfiguration.class;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.eclipse.reddeer.junit.requirement.CustomConfiguration#setConfiguration(java.lang.Object)
-	 */
 	@Override
-	public void setConfiguration(ServerRequirementConfig config) {
+	public void setConfiguration(ServerRequirementConfiguration config) {
 		this.config = config;
 	}
 
-	/**
-	 * Gets the config.
-	 *
-	 * @return the config
-	 */
-	public ServerRequirementConfig getConfig() {
-		return this.config;
-	}
-
-	/* (non-Javadoc)
-	 * @see org.eclipse.reddeer.junit.requirement.Requirement#cleanUp()
-	 */
 	@Override
 	public void cleanUp() {
-		if(server.cleanup() && config != null){
+		if (server.cleanup() && config != null) {
 			removeServerAndRuntime(lastServerConfiguration);
 			lastServerConfiguration = null;
 		}
@@ -173,5 +142,25 @@ public class ServerRequirement extends ServerReqBase
 	@Override
 	public ConfiguredServerInfo getConfiguredConfig() {
 		return lastServerConfiguration;
-	}	
+	}
+
+	@Override
+	public ApacheTomcatServer getDeclaration() {
+		return server;
+	}
+
+	@Override
+	public ServerRequirementConfiguration getConfiguration() {
+		return config;
+	}
+
+	@Override
+	public String getDescription() {
+		return config.getId();
+	}
+
+	@Override
+	public ServerRequirementConfiguration getConfig() {
+		return config;
+	}
 }

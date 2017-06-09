@@ -36,11 +36,8 @@ public class SecureStorageRequirement implements Requirement<DisableSecureStorag
 	public @interface DisableSecureStorage {
 		
 	}
-
-	@Override
-	public boolean canFulfill() {
-		return true;
-	}
+	
+	private DisableSecureStorage declaration;
 
 	@Override
 	public void fulfill() {
@@ -62,10 +59,16 @@ public class SecureStorageRequirement implements Requirement<DisableSecureStorag
 
 	@Override
 	public void setDeclaration(DisableSecureStorage declaration) {
+		this.declaration = declaration;
 	}
 
 	@Override
 	public void cleanUp() {
+	}
+
+	@Override
+	public DisableSecureStorage getDeclaration() {
+		return declaration;
 	}
 	
 }

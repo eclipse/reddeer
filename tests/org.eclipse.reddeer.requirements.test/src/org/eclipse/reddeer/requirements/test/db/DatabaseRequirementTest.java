@@ -48,7 +48,7 @@ public class DatabaseRequirementTest {
 		assertEquals("dbProfile", conf.getProfileName());
 		assertEquals("jdbc:h2:db://localhost/sakila", conf.getJdbcString());
 		assertEquals("sa", conf.getUsername());
-		assertEquals("", conf.getPassword());
+		assertEquals(null, conf.getPassword());
 	}
 	
 }

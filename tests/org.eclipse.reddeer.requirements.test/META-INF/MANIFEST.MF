@@ -7,4 +7,5 @@ Bundle-Version: 2.0.0.qualifier
 Bundle-Activator: org.eclipse.reddeer.requirements.test.Activator
 Require-Bundle: org.eclipse.reddeer.go;bundle-version="[2.0,2.1)"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Eclipse-RegisterBuddy: org.eclipse.reddeer.junit
 Bundle-ActivationPolicy: lazy

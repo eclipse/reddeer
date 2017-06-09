@@ -10,13 +10,13 @@
  *******************************************************************************/
 package org.eclipse.reddeer.junit.test.internal.requirement;
 
+import java.lang.annotation.Annotation;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 import org.eclipse.reddeer.junit.requirement.Requirement;
-import java.lang.annotation.Annotation;
 
 public class TestRequirementC implements Requirement<Annotation> {
 
@@ -27,12 +27,6 @@ public class TestRequirementC implements Requirement<Annotation> {
 	}	
 	
 	private Annotation declaration;
-	
-	@Override
-	public boolean canFulfill() {
-		// TODO Auto-generated method stub
-		return false;
-	}
 
 	@Override
 	public void fulfill() {

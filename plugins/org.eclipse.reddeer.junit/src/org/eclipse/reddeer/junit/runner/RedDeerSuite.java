@@ -11,6 +11,7 @@
 package org.eclipse.reddeer.junit.runner;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -19,9 +20,8 @@ import org.eclipse.reddeer.common.logging.Logger;
 import org.eclipse.reddeer.junit.extensionpoint.IAfterTest;
 import org.eclipse.reddeer.junit.extensionpoint.IBeforeTest;
 import org.eclipse.reddeer.junit.extensionpoint.IIssueTracker;
+import org.eclipse.reddeer.junit.internal.configuration.RequirementConfigurationSet;
 import org.eclipse.reddeer.junit.internal.configuration.SuiteConfiguration;
-import org.eclipse.reddeer.junit.internal.configuration.TestClassRequirementMap;
-import org.eclipse.reddeer.junit.internal.configuration.TestRunConfiguration;
 import org.eclipse.reddeer.junit.internal.extensionpoint.AfterTestInitialization;
 import org.eclipse.reddeer.junit.internal.extensionpoint.BeforeTestInitialization;
 import org.eclipse.reddeer.junit.internal.extensionpoint.IssueTrackerInitialization;
@@ -30,6 +30,7 @@ import org.eclipse.reddeer.junit.internal.runner.NamedSuite;
 import org.eclipse.reddeer.junit.internal.runner.RequirementsRunnerBuilder;
 import org.eclipse.reddeer.junit.internal.runner.TestsExecutionManager;
 import org.eclipse.reddeer.junit.internal.runner.TestsWithoutExecutionSuite;
+import org.eclipse.reddeer.junit.requirement.configuration.MissingRequirementConfiguration;
 import org.junit.runner.Runner;
 import org.junit.runner.notification.RunListener;
 import org.junit.runners.Suite;
@@ -43,6 +44,7 @@ import org.junit.runners.model.RunnerBuilder;
  * 
  * @author Lucia Jelinkova
  * @author Ondrej Dockal
+ * @author mlabuda@redhat.com
  * 
  */
 public class RedDeerSuite extends Suite {
@@ -58,8 +60,9 @@ public class RedDeerSuite extends Suite {
 	private static List<IAfterTest> afterTestExtensions = RedDeerSuite.initializeAfterTestExtensions();
 
 	private static List<IIssueTracker> issueTrackerExtensions;
-	private String suiteName;
 	
+	private String suiteName;
+
 	/**
 	 * Called by the JUnit framework.
 	 *
@@ -94,29 +97,35 @@ public class RedDeerSuite extends Suite {
 	}
 
 	/**
-	 * Creates a new suite for each configuration file found.
+	 * Creates a new suite for each configuration set obtained from suite configuration.
 	 *
 	 * @param clazz
-	 *            the clazz
+	 *            class to build tests without execution suite (if class should not be executed)
 	 * @param config
-	 *            the config
-	 * @return the list
+	 *            suite configuration
+	 * @return list of runners
 	 * @throws InitializationError
 	 *             the initialization error
 	 */
 	public static List<Runner> createSuites(Class<?> clazz, SuiteConfiguration config) throws InitializationError {
-		log.info("Creating RedDeer suite...");
 		TestsExecutionManager testsManager = new TestsExecutionManager();
 		List<Runner> configuredSuites = new ArrayList<Runner>();
 		boolean isSuite = isSuite(clazz);
-		
-		Map<TestClassRequirementMap, List<TestRunConfiguration>> testRunConfigMatrix = config.getTestRunConfigurations();
-		for (TestClassRequirementMap testRunClasses : testRunConfigMatrix.keySet()) {
-			for (TestRunConfiguration testRunConfig : testRunConfigMatrix.get(testRunClasses)) {
-				RequirementsRunnerBuilder reqRunnerBuilder = buildRequirementRunnerBuilder(testsManager, testRunConfig);
-				configuredSuites.add(new NamedSuite(testRunClasses.getClassesAsArray(), reqRunnerBuilder, testRunConfig.getId()));
+
+		// Revamp creation of suites
+		Map<RequirementConfigurationSet, List<Class<?>>> configurationSetsMap = config.getConfigurationSetsSuites();
+		for (RequirementConfigurationSet configurationSet : configurationSetsMap.keySet()) {
+			List<Class<?>> testClasses = configurationSetsMap.get(configurationSet);
+			RequirementsRunnerBuilder requirementsRunnerBuilder = new RequirementsRunnerBuilder(configurationSet,
+					runListeners, beforeTestExtensions, afterTestExtensions, testsManager);
+			if (configurationSet.getConfigurationSet().contains(new MissingRequirementConfiguration())) {
+				configuredSuites.add(new TestsWithoutExecutionSuite(testClasses.toArray(new Class<?>[] {}), testsManager));
+			} else {
+				configuredSuites.add(new NamedSuite(testClasses.toArray(new Class<?>[] {}), requirementsRunnerBuilder,
+						configurationSet.getId()));
 			}
 		}
+
 		if (!testsManager.allTestsAreExecuted()) {
 			if (isSuite) {
 				configuredSuites.add(new TestsWithoutExecutionSuite(clazz, testsManager));
@@ -127,23 +136,12 @@ public class RedDeerSuite extends Suite {
 		log.info("RedDeer suite created");
 		return configuredSuites;
 	}
-	
-	private static RequirementsRunnerBuilder buildRequirementRunnerBuilder(TestsExecutionManager manager, TestRunConfiguration testRunConfig) {
-		log.info("Adding config with name " + testRunConfig.getId() + " to RedDeer suite");
-		return new RequirementsRunnerBuilder(testRunConfig, runListeners,
-				beforeTestExtensions, afterTestExtensions, manager);	
-	}
-	
+
 	private static boolean isSuite(Class<?> clazz) {
 		SuiteClasses annotation = clazz.getAnnotation(SuiteClasses.class);
 		return annotation != null;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.junit.runners.ParentRunner#getName()
-	 */
 	@Override
 	protected String getName() {
 		return suiteName;

@@ -10,37 +10,56 @@
  *******************************************************************************/
 package org.eclipse.reddeer.junit.test.internal.requirement.inject;
 
-import java.lang.annotation.Annotation;
+import org.eclipse.reddeer.junit.requirement.ConfigurableRequirement;
+import org.eclipse.reddeer.junit.test.internal.requirement.inject.RequirementA.ReqA;
+import org.eclipse.reddeer.requirements.property.PropertyConfiguration;
 
-import org.eclipse.reddeer.junit.requirement.PropertyConfiguration;
-import org.eclipse.reddeer.junit.requirement.Requirement;
+public class RequirementA implements ConfigurableRequirement<PropertyConfiguration, ReqA> {
 
-public class RequirementA implements Requirement<Annotation>, PropertyConfiguration {
-
-	private String a;
+	private ReqA declaration;
+	private PropertyConfiguration config;
 	
-	public boolean canFulfill() {
-		return false;
+	public @interface ReqA {
+		
 	}
 
-	public void fulfill() {
-	}
-	
-	public void setA(String a) {
-		this.a = a;
-	}
-	
-	public String getA() {
-		return a;
-	}
-	
 	@Override
-	public void setDeclaration(Annotation declaration) {
+	public void fulfill() {
+		// nothing
+	}
+
+	@Override
+	public void setDeclaration(ReqA declaration) {
+		this.declaration = declaration;
+		
+	}
+
+	@Override
+	public ReqA getDeclaration() {
+		return declaration;
 	}
 
 	@Override
 	public void cleanUp() {
-		// TODO Auto-generated method stub
-		
+	}
+
+	@Override
+	public Class<PropertyConfiguration> getConfigurationClass() {
+		return PropertyConfiguration.class;
+	}
+
+	@Override
+	public void setConfiguration(PropertyConfiguration configuration) {
+		config = configuration;
+	}
+
+	@Override
+	public PropertyConfiguration getConfiguration() {
+		return config;
+	}
+
+	@Override
+	public String getDescription() {
+		return config.getId();
 	}
 }

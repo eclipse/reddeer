@@ -14,8 +14,7 @@ import java.util.Arrays;
 import java.util.Collection;
 
 import org.eclipse.reddeer.junit.internal.runner.ParameterizedRequirementsRunnerFactory;
-import org.eclipse.reddeer.junit.test.integration.runner.RunnerIntegrationPropertyRequirement.RequirementAAnnotation;
-import org.eclipse.reddeer.junit.test.integration.runner.RunnerIntegrationPropertyRequirement2.RequirementAAnnotation2;
+import org.eclipse.reddeer.junit.test.integration.runner.injection.RunnerIntegrationRequirement.RequirementAAnnotation;
 import org.eclipse.reddeer.junit.test.integration.runner.order.TestSequence;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -30,7 +29,6 @@ import org.junit.runners.Parameterized.UseParametersRunnerFactory;
 @RunWith(ParametrizedTestRunner.class)
 @UseParametersRunnerFactory(ParameterizedRequirementsRunnerFactory.class)
 @RequirementAAnnotation
-@RequirementAAnnotation2
 public class ParametrizedTest {
 
 	@Parameters
@@ -40,7 +38,7 @@ public class ParametrizedTest {
 
 	@Parameter
 	public int fInput;
-
+	
 	@BeforeClass
 	public static void beforeClass(){
 		TestSequence.addBeforeClass(ParametrizedTest.class);

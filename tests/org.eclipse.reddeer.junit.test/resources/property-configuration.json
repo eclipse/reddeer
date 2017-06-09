@@ -1,0 +1,7 @@
+{
+	"org.eclipse.reddeer.requirements.property.PropertyConfiguration": {
+		"key1" : "value1",
+		"key2" : "value2",
+		"key3" : "value3"	
+	}
+}

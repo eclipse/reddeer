@@ -17,7 +17,7 @@ import java.util.List;
 import org.eclipse.reddeer.common.logging.Logger;
 import org.eclipse.reddeer.junit.extensionpoint.IAfterTest;
 import org.eclipse.reddeer.junit.extensionpoint.IBeforeTest;
-import org.eclipse.reddeer.junit.internal.configuration.TestRunConfiguration;
+import org.eclipse.reddeer.junit.internal.configuration.RequirementConfigurationSet;
 import org.eclipse.reddeer.junit.internal.requirement.Requirements;
 import org.eclipse.reddeer.junit.internal.requirement.RequirementsBuilder;
 import org.junit.Ignore;
@@ -28,10 +28,10 @@ import org.junit.runners.Suite;
 import org.junit.runners.model.RunnerBuilder;
 
 /**
- * Checks if the requirements on the test class can be fulfilled and creates a runner for the test class or
- * ignores the test. 
+ * Checks if the requirements on the test class can be fulfilled and creates a
+ * runner for the test class or ignores the test.
  * 
- * @author Lucia Jelinkova
+ * @author Lucia Jelinkova, mlabuda@redhat.com
  *
  */
 public class RequirementsRunnerBuilder extends RunnerBuilder {
@@ -39,104 +39,100 @@ public class RequirementsRunnerBuilder extends RunnerBuilder {
 	public TestsExecutionManager testsManager;
 
 	private Logger log = Logger.getLogger(RequirementsRunnerBuilder.class);
-	
+
 	private RequirementsBuilder requirementsBuilder = new RequirementsBuilder();
-	
+
 	private List<IBeforeTest> beforeTestExtensions;
 	private List<IAfterTest> afterTestExtensions;
-	
-	private TestRunConfiguration config;
-	
+
 	private RunListener[] runListeners;
-	
+
+	private RequirementConfigurationSet configurationSet;
+
 	/**
-	 * Instantiates a new requirements runner builder.
-	 *
-	 * @param config the config
+	 * Instantiates a new requirements runner builder
+	 * 
+	 * @param configurationSet
 	 */
-	public RequirementsRunnerBuilder(TestRunConfiguration config) {
-		this(config, null, null, null, null);
+	public RequirementsRunnerBuilder(RequirementConfigurationSet configurationSet) {
+		this(configurationSet, null, null, null, null);
 	}
-	
+
 	/**
 	 * Instantiates a new requirements runner builder.
 	 *
-	 * @param config the config
-	 * @param runListeners the run listeners
-	 * @param beforeTestExtensions the before test extensions
+	 * @param configurationSet
+	 *            configuration set
+	 * @param runListeners
+	 *            the run listeners
+	 * @param beforeTestExtensions
+	 *            the before test extensions
 	 */
-	public RequirementsRunnerBuilder(TestRunConfiguration config , RunListener[] runListeners , List<IBeforeTest> beforeTestExtensions) {
-		this(config, runListeners, beforeTestExtensions, null, null);
+	public RequirementsRunnerBuilder(RequirementConfigurationSet configurationSet, RunListener[] runListeners,
+			List<IBeforeTest> beforeTestExtensions) {
+		this(configurationSet, runListeners, beforeTestExtensions, null, null);
 	}
-	
+
 	/**
 	 * Instantiates a new requirements runner builder.
 	 *
-	 * @param config the config
-	 * @param runListeners the run listeners
-	 * @param beforeTestExtensions the before test extensions
-	 * @param afterTestExtensions the after test extensions
-	 * @param testsManager the tests manager
+	 * @param configurationSet
+	 *            configuration set
+	 * @param runListeners
+	 *            the run listeners
+	 * @param beforeTestExtensions
+	 *            the before test extensions
+	 * @param afterTestExtensions
+	 *            the after test extensions
+	 * @param testsManager
+	 *            the tests manager
 	 */
-	public RequirementsRunnerBuilder(TestRunConfiguration config , RunListener[] runListeners , List<IBeforeTest> beforeTestExtensions, List<IAfterTest> afterTestExtensions, TestsExecutionManager testsManager) {
-		this.config = config;
+	public RequirementsRunnerBuilder(RequirementConfigurationSet configurationSet, RunListener[] runListeners,
+			List<IBeforeTest> beforeTestExtensions, List<IAfterTest> afterTestExtensions,
+			TestsExecutionManager testsManager) {
+		this.configurationSet = configurationSet;
 		this.runListeners = runListeners;
 		this.beforeTestExtensions = beforeTestExtensions;
 		this.afterTestExtensions = afterTestExtensions;
 		this.testsManager = testsManager;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.junit.runners.model.RunnerBuilder#runnerForClass(java.lang.Class)
-	 */
 	@Override
 	public Runner runnerForClass(Class<?> clazz) throws Throwable {
 		if (clazz.getAnnotation(Ignore.class) != null) {
 			return new IgnoredClassRunner(clazz);
 		}
-		if(clazz.getAnnotation(Suite.SuiteClasses.class) != null) { 
+		if (clazz.getAnnotation(Suite.SuiteClasses.class) != null) {
 			return new Suite(clazz, this);
 		}
 		log.info("Found test " + clazz);
-		if(testsManager != null) {
+		if (testsManager != null) {
 			testsManager.addTest(clazz);
 		}
-		// here comes all the logic of loading a config and connecting them with requirements
-		Requirements requirements = requirementsBuilder.build(clazz, config.getRequirementConfiguration(), config.getId());
-		if (requirements.canFulfill()){
-			log.info("All requirements can be fulfilled, the test will run");
-			if(testsManager != null) {
-				testsManager.addExecutedTest(clazz);
-			}
-			if (isParameterized(clazz)){
-				return new ParameterizedRunner(clazz, requirements, config.getId(),runListeners, beforeTestExtensions, afterTestExtensions);
-			}else{
-				return new RequirementsRunner(clazz, requirements, config.getId(),runListeners, beforeTestExtensions, afterTestExtensions);
-			}
+		Requirements requirements = requirementsBuilder.build(configurationSet, clazz);
+		if (testsManager != null) {
+			testsManager.addExecutedTest(clazz);
+		}
+		if (isParameterized(clazz)) {
+			return new ParameterizedRunner(clazz, requirements, configurationSet.getId(), runListeners, beforeTestExtensions,
+					afterTestExtensions);
 		} else {
-			log.info("All requirements cannot be fulfilled, the test will NOT run");
-			return null;
+			return new RequirementsRunner(clazz, requirements, configurationSet.getId(), runListeners, beforeTestExtensions,
+					afterTestExtensions);
 		}
 	}
 
 	/**
-	 * Sets the requirements builder.
-	 *
-	 * @param requirementsBuilder the new requirements builder
-	 */
-	public void setRequirementsBuilder(RequirementsBuilder requirementsBuilder) {
-		this.requirementsBuilder = requirementsBuilder;
-	}
-	
-	/**
 	 * Check, whether class is parameterized or not.
-	 * @param clazz class to check for.
+	 * 
+	 * @param clazz
+	 *            class to check for.
 	 * @return true if some of class methods has @Parameters annotation.
 	 */
-	private boolean isParameterized(Class<?> clazz){
-		for (Method method : clazz.getDeclaredMethods()){
-			if (method.getAnnotation(Parameters.class) != null){
-				if (Modifier.isPublic(method.getModifiers()) && Modifier.isStatic(method.getModifiers())){
+	private boolean isParameterized(Class<?> clazz) {
+		for (Method method : clazz.getDeclaredMethods()) {
+			if (method.getAnnotation(Parameters.class) != null) {
+				if (Modifier.isPublic(method.getModifiers()) && Modifier.isStatic(method.getModifiers())) {
 					return true;
 				}
 			}

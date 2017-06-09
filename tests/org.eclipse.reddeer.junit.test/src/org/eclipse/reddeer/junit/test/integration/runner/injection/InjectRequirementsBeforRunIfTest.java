@@ -19,7 +19,6 @@ import org.eclipse.reddeer.common.properties.RedDeerProperties;
 import org.eclipse.reddeer.junit.execution.TestMethodShouldRun;
 import org.eclipse.reddeer.junit.execution.annotation.RunIf;
 import org.eclipse.reddeer.junit.internal.configuration.SuiteConfiguration;
-import org.eclipse.reddeer.junit.requirement.PropertyConfiguration;
 import org.eclipse.reddeer.junit.requirement.Requirement;
 import org.eclipse.reddeer.junit.requirement.inject.InjectRequirement;
 import org.eclipse.reddeer.junit.runner.RedDeerSuite;
@@ -74,7 +73,7 @@ public class InjectRequirementsBeforRunIfTest {
 		}
 	}
 
-	public static class ARequirementImpl implements Requirement<ARequirement>, PropertyConfiguration {
+	public static class ARequirementImpl implements Requirement<ARequirement> {
 
 		@Retention(RetentionPolicy.RUNTIME)
 		@Target(ElementType.TYPE)
@@ -108,6 +107,11 @@ public class InjectRequirementsBeforRunIfTest {
 
 		public void setA(String a) {
 			this.a = a;
+		}
+
+		@Override
+		public ARequirement getDeclaration() {
+			return null;
 		}
 
 	}

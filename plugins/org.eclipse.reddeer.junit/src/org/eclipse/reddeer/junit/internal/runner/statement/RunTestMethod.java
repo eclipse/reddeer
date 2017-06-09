@@ -17,7 +17,7 @@ import org.junit.runners.model.FrameworkMethod;
 import org.junit.runners.model.TestClass;
 
 /**
- * Runs the test method and screates screenshot upon unexpected failure. 
+ * Runs the test method and creates a screenshot upon unexpected failure. 
  * 
  * @author Lucia Jelinkova
  *

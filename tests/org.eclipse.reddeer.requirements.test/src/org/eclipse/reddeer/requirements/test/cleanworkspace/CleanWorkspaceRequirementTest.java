@@ -18,7 +18,7 @@ import java.lang.reflect.Field;
 import org.eclipse.reddeer.eclipse.jdt.ui.packageview.PackageExplorerPart;
 import org.eclipse.reddeer.eclipse.jdt.ui.wizards.JavaProjectWizard;
 import org.eclipse.reddeer.eclipse.jdt.ui.wizards.NewJavaProjectWizardPageOne;
-import org.eclipse.reddeer.junit.internal.configuration.NullTestRunConfiguration;
+import org.eclipse.reddeer.junit.internal.configuration.RequirementConfigurationSet;
 import org.eclipse.reddeer.junit.internal.requirement.Requirements;
 import org.eclipse.reddeer.junit.internal.runner.RequirementsRunner;
 import org.eclipse.reddeer.junit.internal.runner.RequirementsRunnerBuilder;
@@ -37,7 +37,7 @@ public class CleanWorkspaceRequirementTest {
 
 	@Before
 	public void setUp() {
-		builder = new RequirementsRunnerBuilder(new NullTestRunConfiguration());
+		builder = new RequirementsRunnerBuilder(new RequirementConfigurationSet());
 		Runner runner = null;
 		try {
 			runner = builder.runnerForClass(TestClass.class);

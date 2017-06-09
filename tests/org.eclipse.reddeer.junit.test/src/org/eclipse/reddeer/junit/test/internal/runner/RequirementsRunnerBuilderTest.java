@@ -13,73 +13,36 @@ package org.eclipse.reddeer.junit.test.internal.runner;
 import static org.hamcrest.Matchers.isA;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import org.eclipse.reddeer.junit.internal.configuration.RequirementsConfiguration;
-import org.eclipse.reddeer.junit.internal.configuration.TestRunConfiguration;
-import org.eclipse.reddeer.junit.internal.requirement.Requirements;
-import org.eclipse.reddeer.junit.internal.requirement.RequirementsBuilder;
+import org.eclipse.reddeer.junit.internal.configuration.RequirementConfigurationSet;
 import org.eclipse.reddeer.junit.internal.runner.ParameterizedRequirementsRunner;
 import org.eclipse.reddeer.junit.internal.runner.ParameterizedRequirementsRunnerFactory;
 import org.eclipse.reddeer.junit.internal.runner.ParameterizedRunner;
-import org.eclipse.reddeer.junit.internal.runner.RequirementsRunner;
 import org.eclipse.reddeer.junit.internal.runner.RequirementsRunnerBuilder;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.Runner;
-import org.junit.runners.ParentRunner;
 import org.junit.runners.Parameterized.Parameters;
 import org.junit.runners.Parameterized.UseParametersRunnerFactory;
+import org.junit.runners.ParentRunner;
 
 public class RequirementsRunnerBuilderTest {
 
 	private RequirementsRunnerBuilder runnerBuilder;
 	
-	private Requirements requirements;
-	
 	@Before
 	public void setup(){
-		TestRunConfiguration testRunConfig = mock(TestRunConfiguration.class);
-
-		requirements = mock(Requirements.class);
-		RequirementsBuilder requirementsBuilder = mock(RequirementsBuilder.class);
-		when(requirementsBuilder.build(any(Class.class), any(RequirementsConfiguration.class), any(String.class))).thenReturn(requirements);
-				
-		runnerBuilder = new RequirementsRunnerBuilder(testRunConfig);
-		runnerBuilder.setRequirementsBuilder(requirementsBuilder);
-	}
-	
-	@Test
-	public void canFulfill() throws Throwable {
-		when(requirements.canFulfill()).thenReturn(true);
-		
-		Runner runner = runnerBuilder.runnerForClass(TestCase.class);
-		
-		assertNotNull(runner);
-		assertTrue(isA(RequirementsRunner.class).matches(runner));
-	}
-
-	@Test
-	public void cannotFulfill() throws Throwable {
-		when(requirements.canFulfill()).thenReturn(false);
-		
-		Runner runner = runnerBuilder.runnerForClass(TestCase.class);
-		
-		assertNull(runner);
+		runnerBuilder = new RequirementsRunnerBuilder(new RequirementConfigurationSet());
 	}
 	
 	@Test
 	public void parameterizedRunnerTest() throws Throwable{
-		when(requirements.canFulfill()).thenReturn(true);
 		Runner runner = runnerBuilder.runnerForClass(ParameterizedSuite.class);
 		assertNotNull(runner);
 		assertTrue(isA(ParameterizedRunner.class).matches(runner));

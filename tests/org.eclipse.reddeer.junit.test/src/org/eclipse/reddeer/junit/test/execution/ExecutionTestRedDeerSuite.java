@@ -15,9 +15,8 @@ import java.util.List;
 
 import org.eclipse.reddeer.junit.extensionpoint.IAfterTest;
 import org.eclipse.reddeer.junit.extensionpoint.IBeforeTest;
-import org.eclipse.reddeer.junit.internal.configuration.NullTestRunConfiguration;
+import org.eclipse.reddeer.junit.internal.configuration.RequirementConfigurationSet;
 import org.eclipse.reddeer.junit.internal.configuration.SuiteConfiguration;
-import org.eclipse.reddeer.junit.internal.configuration.TestRunConfiguration;
 import org.eclipse.reddeer.junit.internal.runner.EmptySuite;
 import org.eclipse.reddeer.junit.internal.runner.NamedSuite;
 import org.eclipse.reddeer.junit.internal.runner.RequirementsRunnerBuilder;
@@ -48,10 +47,9 @@ public class ExecutionTestRedDeerSuite extends Suite {
 		TestsExecutionManager testsManager = new TestsExecutionManager();
 		List<Runner> configuredSuites = new ArrayList<Runner>();
 
-		TestRunConfiguration nullTestRunConfig = new NullTestRunConfiguration();
 		configuredSuites.add(new NamedSuite(new Class[] { clazz },
-				new RequirementsRunnerBuilder(nullTestRunConfig, runListeners, new ArrayList<IBeforeTest>(),
-						new ArrayList<IAfterTest>(), testsManager), nullTestRunConfig.getId()));
+				new RequirementsRunnerBuilder(new RequirementConfigurationSet(), runListeners, new ArrayList<IBeforeTest>(),
+						new ArrayList<IAfterTest>(), testsManager), "noconfig"));
 
 		if (!testsManager.allTestsAreExecuted()) {
 			configuredSuites.add(new TestsWithoutExecutionSuite(

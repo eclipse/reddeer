@@ -17,6 +17,7 @@ import org.eclipse.reddeer.eclipse.wst.server.ui.Runtime;
 import org.eclipse.reddeer.eclipse.wst.server.ui.RuntimePreferencePage;
 import org.eclipse.reddeer.eclipse.wst.server.ui.cnf.ServersView2;
 import org.eclipse.reddeer.eclipse.wst.server.ui.cnf.ServersViewEnums.ServerState;
+import org.eclipse.reddeer.requirements.server.apache.tomcat.ServerRequirementConfiguration;
 import org.eclipse.reddeer.workbench.ui.dialogs.WorkbenchPreferenceDialog;
 
 /**
@@ -48,7 +49,7 @@ public abstract class ServerReqBase {
 	 * @throws ConfiguredServerNotFoundException the configured server not found exception
 	 */
 	protected void setupServerState(ServerReqState requiredState) throws ConfiguredServerNotFoundException {
-		LOGGER.info("Checking the state of the server '"+getConfiguredConfig().getServerName()+"'");
+		LOGGER.info("Checking the state of the server '" + getConfiguredConfig().getServerName() + "'");
 		
 		org.eclipse.reddeer.eclipse.wst.server.ui.cnf.Server serverInView = getConfiguredServer();
 		
@@ -131,8 +132,8 @@ public abstract class ServerReqBase {
 	 * @return server type label text.
 	 */
 	public String getServerTypeLabelText() {
-		return getConfig().getServerFamily().getLabel() + " "
-				+ getConfig().getServerFamily().getVersion();
+		return getConfig().getFamily().getLabel() + " "
+				+ getConfig().getFamily().getVersion();
 	}
 	
 	/**
@@ -175,7 +176,7 @@ public abstract class ServerReqBase {
 		return new ServersView2();
 	}
 	
-	public abstract IServerReqConfig getConfig();
+	public abstract ServerRequirementConfiguration getConfig();
 	
 	public abstract ConfiguredServerInfo getConfiguredConfig();
 

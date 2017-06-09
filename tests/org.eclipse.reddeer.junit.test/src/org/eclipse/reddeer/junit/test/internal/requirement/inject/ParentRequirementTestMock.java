@@ -15,10 +15,10 @@ import org.eclipse.reddeer.junit.requirement.inject.InjectRequirement;
 public class ParentRequirementTestMock extends GrandParentRequirementTestMock{
 
 	@InjectRequirement
-	private RequirementA requirementA1;
+	private RequirementA requirementA3;
 	
-	public RequirementA getRequirementA1() {
-		return requirementA1;
+	public RequirementA getRequirementA3() {
+		return requirementA3;
 	}
 
 }

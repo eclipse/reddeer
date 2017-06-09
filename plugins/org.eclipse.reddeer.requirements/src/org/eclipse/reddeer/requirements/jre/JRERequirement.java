@@ -17,9 +17,9 @@ import java.lang.annotation.Target;
 
 import org.eclipse.reddeer.common.logging.Logger;
 import org.eclipse.reddeer.eclipse.jdt.debug.ui.jres.JREsPreferencePage;
-import org.eclipse.reddeer.junit.requirement.CustomConfiguration;
-import org.eclipse.reddeer.junit.requirement.Requirement;
+import org.eclipse.reddeer.junit.requirement.ConfigurableRequirement;
 import org.eclipse.reddeer.requirements.jre.JRERequirement.JRE;
+import org.eclipse.reddeer.requirements.property.RequirementPropertyExpandor;
 import org.eclipse.reddeer.workbench.ui.dialogs.WorkbenchPreferenceDialog;
 
 /**
@@ -29,8 +29,7 @@ import org.eclipse.reddeer.workbench.ui.dialogs.WorkbenchPreferenceDialog;
  * @author rhopp
  *
  */
-
-public class JRERequirement implements Requirement<JRE>, CustomConfiguration<JREConfiguration> {
+public class JRERequirement implements ConfigurableRequirement<JREConfiguration, JRE> {
 
 	private Logger log = Logger.getLogger(JRERequirement.class);
 	private JRE jre;
@@ -39,7 +38,7 @@ public class JRERequirement implements Requirement<JRE>, CustomConfiguration<JRE
 	@Retention(RetentionPolicy.RUNTIME)
 	@Target(ElementType.TYPE)
 	public @interface JRE {
-		
+
 		/**
 		 * Value.
 		 *
@@ -56,37 +55,8 @@ public class JRERequirement implements Requirement<JRE>, CustomConfiguration<JRE
 	}
 
 	/**
-	 * This requirement can be fulfilled, when versions configured in
-	 * configuration file and annotation are matching and when New JRE wizard
-	 * throws no error.
-	 *
-	 * @return true, if successful
-	 */
-	@Override
-	public boolean canFulfill() {
-		if ((jre.value() > 0) && (jre.value() != Double.valueOf(configuration.getVersion()))) {
-			log.error("Unable to fulfill JRE requirement: Configured JRE version(" + configuration.getVersion()
-					+ ") does not match version in JRE annotation(" + jre.value() + ").");
-			return false;
-		}
-		log.info("JRE Requirement canFulfill performed");
-		log.debug("Configuration (name,version,path): %s, %s, %s", configuration.getName(), configuration.getVersion(),
-				configuration.getPath());
-		JREsPreferencePage page = new JREsPreferencePage();
-		WorkbenchPreferenceDialog dialog = new WorkbenchPreferenceDialog();
-		dialog.open();
-		dialog.select(page);
-		String errorMessage = page.validateJRELocation(configuration.getPath(), configuration.getName());
-		if (errorMessage == null) {
-			return true;
-		} else {
-			log.error("Unable to fulfill JRE requirement: " + errorMessage);
-			return false;
-		}
-	}
-	
-	/**
-	 * Adds new JRE using Preferences &gt; Java &gt; Installed JRE's, Add JRE wizard.
+	 * Adds new JRE using Preferences &gt; Java &gt; Installed JRE's, Add JRE
+	 * wizard.
 	 */
 	@Override
 	public void fulfill() {
@@ -98,7 +68,7 @@ public class JRERequirement implements Requirement<JRE>, CustomConfiguration<JRE
 		WorkbenchPreferenceDialog dialog = new WorkbenchPreferenceDialog();
 		dialog.open();
 		dialog.select(page);
-		page.addJRE(configuration.getPath(), configuration.getName());
+		page.addJRE(getPath(), configuration.getName());
 		dialog.ok();
 	}
 
@@ -131,31 +101,28 @@ public class JRERequirement implements Requirement<JRE>, CustomConfiguration<JRE
 
 	}
 
-	/**
-	 * Gets the JRE path.
-	 *
-	 * @return the JRE path
-	 */
-	public String getJREPath() {
-		return configuration.getPath();
+	@Override
+	public JRE getDeclaration() {
+		return jre;
 	}
 
 	/**
-	 * Gets the JRE name.
-	 *
-	 * @return the JRE name
+	 * Gets JRE path from configuration. It can be either a specific value or a
+	 * property. Property would be expanded to its real value.
+	 * 
+	 * @return path to JRE
 	 */
-	public String getJREName() {
-		return configuration.getName();
+	public String getPath() {
+		return RequirementPropertyExpandor.getProperty(configuration.getPath());
 	}
 
-	/**
-	 * Gets the JRE version.
-	 *
-	 * @return the JRE version
-	 */
-	public double getJREVersion() {
-		return configuration.getVersion();
+	@Override
+	public JREConfiguration getConfiguration() {
+		return configuration;
 	}
 
+	@Override
+	public String getDescription() {
+		return configuration.getId();
+	}
 }

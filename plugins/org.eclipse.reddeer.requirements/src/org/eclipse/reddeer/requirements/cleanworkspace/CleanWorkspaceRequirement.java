@@ -49,6 +49,8 @@ public class CleanWorkspaceRequirement implements Requirement<CleanWorkspace> {
 	
 	private static final Logger log = Logger.getLogger(CleanWorkspaceRequirement.class);
 
+	private CleanWorkspace cleanWorkspace;
+	
 	/**
 	 * Marks test class, which requires clean workspace before test cases are executed.
 	 */
@@ -59,16 +61,6 @@ public class CleanWorkspaceRequirement implements Requirement<CleanWorkspace> {
 		
 	}
 	
-	/**
-	 * Always returns true because cleaning workspace should be possible every time.
-	 * 
-	 * @return true
-	 */
-	@Override
-	public boolean canFulfill() {
-		return true; 
-	}
-
 	/**
 	 * Save all editors and delete all projects from workspace.
 	 */
@@ -98,8 +90,8 @@ public class CleanWorkspaceRequirement implements Requirement<CleanWorkspace> {
 	 * @param declaration the new declaration
 	 */
 	@Override
-	public void setDeclaration(CleanWorkspace declaration) {
-		// nothing to do here
+	public void setDeclaration(CleanWorkspace cleanWorkspace) {
+		this.cleanWorkspace = cleanWorkspace;
 	}
 
 	/* (non-Javadoc)
@@ -108,6 +100,11 @@ public class CleanWorkspaceRequirement implements Requirement<CleanWorkspace> {
 	@Override
 	public void cleanUp() {
 
+	}
+
+	@Override
+	public CleanWorkspace getDeclaration() {
+		return cleanWorkspace;
 	}
 
 }

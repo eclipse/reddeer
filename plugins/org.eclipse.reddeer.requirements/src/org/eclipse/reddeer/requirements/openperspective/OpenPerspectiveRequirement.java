@@ -16,7 +16,6 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import org.eclipse.reddeer.eclipse.exception.EclipseLayerException;
 import org.eclipse.reddeer.eclipse.ui.perspectives.AbstractPerspective;
 import org.eclipse.reddeer.junit.requirement.Requirement;
 import org.eclipse.reddeer.requirements.exception.RequirementsLayerException;
@@ -70,28 +69,6 @@ public class OpenPerspectiveRequirement implements Requirement<OpenPerspective> 
 	private OpenPerspective openPerspective;
 
 	/**
-	 * Tests if a new instance of the given perspective can be created.
-	 * 
-	 * @return true if the given perspective is valid, otherwise false
-	 */
-	@Override
-	public boolean canFulfill() {
-		try {
-			getPerspectiveInstance();
-		} catch (InstantiationException ex) {
-			throw new RequirementsLayerException(
-					"There was problem initializing perspective", ex);
-		} catch (IllegalAccessException e) {
-			throw new RequirementsLayerException(
-					"There was problem initializing perspective", e);
-		} catch (EclipseLayerException ex) {
-			return false; // this exception means, that perspective couldn't be
-							// found
-		}
-		return true;
-	}
-
-	/**
 	 * Opens the given perspective.
 	 * 
 	 * @throws RequirementsLayerException when the given perspective can't be opened
@@ -135,6 +112,11 @@ public class OpenPerspectiveRequirement implements Requirement<OpenPerspective> 
 	@Override
 	public void cleanUp() {
 
+	}
+
+	@Override
+	public OpenPerspective getDeclaration() {
+		return openPerspective;
 	}
 
 }

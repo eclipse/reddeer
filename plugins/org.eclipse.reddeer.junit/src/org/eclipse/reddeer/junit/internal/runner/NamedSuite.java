@@ -40,7 +40,7 @@ public class NamedSuite extends Suite {
 	}
 	
 	/**
-	 * Constructor used for separate undependent classes. 
+	 * Constructor used for separate independent classes. 
 	 *
 	 * @param classes the classes
 	 * @param builder the builder

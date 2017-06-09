@@ -1,0 +1,37 @@
+{
+	"org.eclipse.reddeer.junit.test.internal.requirement.CustomJavaTestConfiguration": [
+		{
+			"name": "java 7",
+			"path": "/some/path/jdk7",
+			"version": "1.7"
+		},
+		{
+			"name": "java 8",
+			"path": "/some/path/jdk8",
+			"version": "1.8"
+		},
+		{
+			"name": "java 9",
+			"path": "/some/path/jdk9",
+			"version": "1.9"
+		}
+	],
+	"org.eclipse.reddeer.junit.test.internal.requirement.CustomServerTestConfiguration": [
+		{
+			"runtime": "tomcat2",
+			"family": {
+				"category": "apache",
+				"version": "2.0",
+				"label": "tomcat"
+			}
+		},
+		{
+			"runtime": "tomcat3",
+			"family": {
+				"category": "apache",
+				"version": "3.0",
+				"label": "tomcat"
+			}
+		}
+	]
+}

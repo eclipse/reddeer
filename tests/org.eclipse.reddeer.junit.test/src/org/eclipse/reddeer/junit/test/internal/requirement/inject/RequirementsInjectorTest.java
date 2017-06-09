@@ -10,97 +10,96 @@
  *******************************************************************************/
 package org.eclipse.reddeer.junit.test.internal.requirement.inject;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertTrue;
 
 import java.util.Arrays;
-import java.util.List;
 
 import org.eclipse.reddeer.junit.internal.requirement.Requirements;
 import org.eclipse.reddeer.junit.internal.requirement.inject.RequirementsInjector;
-import org.eclipse.reddeer.junit.requirement.Requirement;
+import org.eclipse.reddeer.requirements.property.PropertyConfiguration;
 import org.junit.Before;
 import org.junit.Test;
 
 public class RequirementsInjectorTest {
-	
-	private RequirementsInjector requirementsInjection = new RequirementsInjector();
-	
-	private RequirementA requirementA; 
-	
+
+	private RequirementsInjector injector = new RequirementsInjector();
+
+	private RequirementA requirementA;
+
 	private Requirements requirements;
-	
+
+	private static final String PROPERTY_NAME = "key";
+	private static final String PROPERTY_VALUE = "value";
+	private static final String NO_CONFIG = "no-configuration";
+
 	@Before
-	public void setup() {
+	public void setupRequirement() {
+		PropertyConfiguration propertyConfig = new PropertyConfiguration();
+		propertyConfig.addProperty(PROPERTY_NAME, PROPERTY_VALUE);
+
 		requirementA = new RequirementA();
-		requirementA.setA("1");
-		
-		requirements = new Requirements(asList(requirementA), String.class, null); 
+		requirementA.setConfiguration(propertyConfig);
 	}
-	
+
 	@Test
-	public void testNonAnnotatedFields() {
-		NoRequirementTestMock testInstance = new NoRequirementTestMock();
-		
-		requirementsInjection.inject(testInstance, requirements);
-		
-		assertThat(testInstance.getParam1(), is("0"));
+	public void testInjectingToGrandParent() {
+		GrandParentRequirementTestMock grandParent = new GrandParentRequirementTestMock();
+		requirements = new Requirements(Arrays.asList(requirementA), GrandParentRequirementTestMock.class, NO_CONFIG);
+		injector.inject(grandParent, requirements);
+
+		assertTrue("Grand parent's requirementA1 should have injected property, but it does not have it.",
+				PROPERTY_VALUE
+						.equals(grandParent.getRequirementA1().getConfiguration().getPropertyValue(PROPERTY_NAME)));
+		assertTrue("Grand parent's requirementA2 should have injected property, but it does not have it.",
+				PROPERTY_VALUE
+						.equals(grandParent.getRequirementA2().getConfiguration().getPropertyValue(PROPERTY_NAME)));
 	}
-	
+
 	@Test
-	public void testPropertyRequirementInjection() {
-		PropertyRequirementTestMock testInstance = new PropertyRequirementTestMock();
-		
-		requirementsInjection.inject(testInstance, requirements);
-		
-		assertThat(testInstance.getRequirementA().getA(), is("1"));
+	public void testInjectingToParent() {
+		ParentRequirementTestMock parent = new ParentRequirementTestMock();
+		requirements = new Requirements(Arrays.asList(requirementA), ParentRequirementTestMock.class, NO_CONFIG);
+		injector.inject(parent, requirements);
+
+		assertTrue("Grand parent's requirementA1 should have injected property, but it does not have it.",
+				PROPERTY_VALUE.equals(parent.getRequirementA1().getConfiguration().getPropertyValue(PROPERTY_NAME)));
+		assertTrue("Grand parent's requirementA2 should have injected property, but it does not have it.",
+				PROPERTY_VALUE.equals(parent.getRequirementA2().getConfiguration().getPropertyValue(PROPERTY_NAME)));
+		assertTrue("Parent's requirementA3 should have injected property, but it does not have it.",
+				PROPERTY_VALUE.equals(parent.getRequirementA3().getConfiguration().getPropertyValue(PROPERTY_NAME)));
 	}
-	
+
 	@Test
-	public void testMultiplePropertyRequirementInjection() {
-		MultiplePropertyRequirementTestMock testInstance = new MultiplePropertyRequirementTestMock();
-		
-		requirementsInjection.inject(testInstance, requirements);
-		
-		assertThat(testInstance.getRequirementA1().getA(), is("1"));
-		
-		assertThat(testInstance.getRequirementA2().getA(), is("1"));
+	public void testInjectingToChild() {
+		ChildRequirementTestMock child = new ChildRequirementTestMock();
+		requirements = new Requirements(Arrays.asList(requirementA), ChildRequirementTestMock.class, NO_CONFIG);
+		injector.inject(child, requirements);
+
+		assertTrue("Grand parent's requirementA1 should have injected property, but it does not have it.",
+				PROPERTY_VALUE.equals(child.getRequirementA1().getConfiguration().getPropertyValue(PROPERTY_NAME)));
+		assertTrue("Grand parent's requirementA2 should have injected property, but it does not have it.",
+				PROPERTY_VALUE.equals(child.getRequirementA2().getConfiguration().getPropertyValue(PROPERTY_NAME)));
+		assertTrue("Parent's requirementA3 should have injected property, but it does not have it.",
+				PROPERTY_VALUE.equals(child.getRequirementA3().getConfiguration().getPropertyValue(PROPERTY_NAME)));
+		assertTrue("Child's requirementA4 should have injected property, but it does not have it.",
+				PROPERTY_VALUE.equals(child.getRequirementA4().getConfiguration().getPropertyValue(PROPERTY_NAME)));
 	}
-	
+
 	@Test
-	public void testClassHierarchyRequirementInjection() {
-		ChildRequirementTestMock testInstance = new ChildRequirementTestMock();
-		
-		requirementsInjection.inject(testInstance, requirements);
-		
-		assertThat(testInstance.getRequirementA1().getA(), is("1"));
-		
-		assertThat(testInstance.getRequirementA2().getA(), is("1"));
+	public void testInjectToStatic() {
+		requirements = new Requirements(Arrays.asList(requirementA), StaticRequirementTestMock.class, NO_CONFIG);
+		injector.inject(StaticRequirementTestMock.class, requirements);
+
+		assertTrue("Requirement is not injected to static field, although it should be.", PROPERTY_VALUE.equals(
+				StaticRequirementTestMock.getRequirementA().getConfiguration().getPropertyValue(PROPERTY_NAME)));
 	}
-	
-	@Test(expected=org.eclipse.reddeer.junit.requirement.inject.RequirementInjectionException.class)
-	public void testNonConfiguredRequirementInjection() {
-		NoRequirementConfigTestMock testInstance = new NoRequirementConfigTestMock();
-		
-		requirementsInjection.inject(testInstance, requirements);
-	}
-	
-	@Test(expected=org.eclipse.reddeer.junit.requirement.inject.RequirementInjectionException.class)
+
+	@Test(expected = org.eclipse.reddeer.junit.requirement.inject.RequirementInjectionException.class)
 	public void testNoRequirementFieldInjection() {
 		NonExistedRequirementTestMock testInstance = new NonExistedRequirementTestMock();
-		
-		requirementsInjection.inject(testInstance, requirements);
-	}
-	
-	@Test
-	public void testStaticRequirementInjection() {
-		requirementsInjection.inject(StaticRequirementTestMock.class, requirements);
+		requirements = new Requirements(Arrays.asList(requirementA), NonExistedRequirementTestMock.class, NO_CONFIG);
 
-		assertThat(StaticRequirementTestMock.getRequirementA().getA(), is("1"));
+		injector.inject(testInstance, requirements);
 	}
 
-	private static List<Requirement<?>> asList(Requirement<?>... requirements) {
-		return Arrays.asList(requirements);
-	}
-	
 }

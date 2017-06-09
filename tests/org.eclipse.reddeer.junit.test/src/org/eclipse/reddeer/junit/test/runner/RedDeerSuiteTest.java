@@ -13,27 +13,27 @@ package org.eclipse.reddeer.junit.test.runner;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.io.File;
 import java.util.List;
 
-import org.hamcrest.Description;
-import org.hamcrest.TypeSafeMatcher;
 import org.eclipse.reddeer.common.properties.RedDeerProperties;
+import org.eclipse.reddeer.junit.annotation.RequirementRestriction;
 import org.eclipse.reddeer.junit.internal.configuration.SuiteConfiguration;
 import org.eclipse.reddeer.junit.internal.runner.NamedSuite;
 import org.eclipse.reddeer.junit.internal.runner.TestsWithoutExecutionSuite;
+import org.eclipse.reddeer.junit.requirement.configuration.RequirementConfigurationPool;
+import org.eclipse.reddeer.junit.requirement.matcher.RequirementVersionMatcher;
 import org.eclipse.reddeer.junit.runner.RedDeerSuite;
-import org.eclipse.reddeer.junit.test.internal.requirement.TestCustomJavaConfiguration;
-import org.eclipse.reddeer.junit.test.internal.requirement.TestCustomServerConfiguration;
-import org.eclipse.reddeer.junit.test.internal.requirement.TestCustomJavaRequirement.CustomJavaAnnotation;
-import org.eclipse.reddeer.junit.test.internal.requirement.TestCustomServerRequirement.CustomServerAnnotation;
-import org.eclipse.reddeer.junit.test.internal.requirement.TestPropertyRequirementA.PropertyAnnotationA;
-import org.eclipse.reddeer.junit.test.internal.requirement.TestPropertyRequirementB.PropertyAnnotationB;
-import org.eclipse.reddeer.junit.test.runner.UnfulfillableRequirement.Unfulfillable;
+import org.eclipse.reddeer.junit.test.internal.requirement.CustomJavaTestConfiguration;
+import org.eclipse.reddeer.junit.test.internal.requirement.CustomJavaTestRequirement.CustomJavaAnnotation;
+import org.eclipse.reddeer.junit.test.internal.requirement.CustomServerTestRequirement.CustomServerAnnotation;
+import org.hamcrest.Description;
+import org.hamcrest.Matcher;
+import org.hamcrest.TypeSafeMatcher;
 import org.junit.After;
-import org.junit.BeforeClass;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.Runner;
 import org.junit.runners.Suite.SuiteClasses;
@@ -41,29 +41,17 @@ import org.junit.runners.model.InitializationError;
 
 public class RedDeerSuiteTest {
 
-	private static final String LOCATIONS_ROOT_DIR;
+	// 3x java configuration, 2x server configuration
+	public static final String REDDEER_SUITE_CONFIG = "resources" + File.separator + "reddeersuitetest-config.json";
 	
-	static{
-		StringBuffer sbRootDir = new StringBuffer("");
-		sbRootDir.append("resources");
-		sbRootDir.append(File.separator);
-		sbRootDir.append("org");
-		sbRootDir.append(File.separator);
-		sbRootDir.append("eclipse");
-		sbRootDir.append(File.separator);
-		sbRootDir.append("reddeer");
-		sbRootDir.append(File.separator);
-		sbRootDir.append("junit");
-		sbRootDir.append(File.separator);
-		sbRootDir.append("test");
-		sbRootDir.append(File.separator);
-		sbRootDir.append("runner");
-		LOCATIONS_ROOT_DIR = sbRootDir.toString();
-	}
+	// 3x java configuration, no server configuration
+	public static final String REDDEER_SUITE_CONFIG2 = "resources" + File.separator + "reddeersuitetest-config2.json";
+
 	
-	@BeforeClass
-	public static void setUp() {
+	@Before
+	public void setUp() {
 		System.clearProperty(RedDeerProperties.CONFIG_FILE.getName());
+		RequirementConfigurationPool.destroyPool();
 	}
 	
 	@After
@@ -71,183 +59,89 @@ public class RedDeerSuiteTest {
 		System.clearProperty(RedDeerProperties.CONFIG_FILE.getName());
 	}
 	
-	@Test
-	public void getChildren_noConfiguration() throws InitializationError {
-		SuiteConfiguration config = new SuiteConfiguration(SimpleTest.class);
-		
-		List<Runner> runners = RedDeerSuite.createSuites(SimpleSuite.class, config);
-		
-		// will create one test run defined by NullTestRunConfiguration
-		assertThat(runners.size(), is(1));
-	}
 	
 	@Test
-	public void getChildren_suiteWithRequirements() throws InitializationError {
-		System.setProperty(RedDeerProperties.CONFIG_FILE.getName(), 
-				LOCATIONS_ROOT_DIR + File.separator + "requirements.xml");
+	public void testSingleTestWithoutConfiguration() throws InitializationError {
+		System.setProperty(RedDeerProperties.CONFIG_FILE.getName(), REDDEER_SUITE_CONFIG);		
+		SuiteConfiguration config = new SuiteConfiguration(SimpleTestClass.class);
 		
-		SuiteConfiguration config = new SuiteConfiguration(CustomRequirementsSuite.class);
-		
-		List<Runner> runners = RedDeerSuite.createSuites(CustomRequirementsSuite.class, config);
+		List<Runner> runners = RedDeerSuite.createSuites(SimpleTestClass.class, config);
 
-		assertThat(runners.size(), is(4));
-		
-		String server = TestCustomServerConfiguration.class.getSimpleName();
-		String java = TestCustomJavaConfiguration.class.getSimpleName();
-		
-		boolean hasComplexSuite = false;
-		for (Runner run : runners) {
-			String suiteName = run.getDescription().getDisplayName();
-			if ((server + " " + java).equalsIgnoreCase(suiteName) ||
-				(java + " " + server).equalsIgnoreCase(suiteName)) {
-				hasComplexSuite = true;
-				break;
-			}
-		}
-		
-		assertTrue("Test runners do not contain suite with name " + server + " " + java + " or vice versa", hasComplexSuite);
-		assertThat(runners, hasItem(new NamedSuiteMatcher(server)));
-		assertThat(runners, hasItem(new NamedSuiteMatcher(java)));
-		assertThat(runners, hasItem(new NamedSuiteMatcher("default")));
+		assertThat(runners.size(), is(1));
+		assertThat(runners, hasItem(new NamedSuiteMatcher("no-configuration")));
 	}
 	
 	@Test
-	public void getChildren_suite() throws InitializationError {
+	public void testSimpleSuiteWithoutConfiguration() throws InitializationError {
 		SuiteConfiguration config = new SuiteConfiguration(SimpleSuite.class);
 		
 		List<Runner> runners = RedDeerSuite.createSuites(SimpleSuite.class, config);
 		
-		assertThat(runners, hasItem(new NamedSuiteMatcher("default")));
+		assertThat(runners.size(), is(1));
+		assertThat(runners, hasItem(new NamedSuiteMatcher("no-configuration")));
 	}
 	
 	@Test
-	public void getChildren_nestedSuite() throws InitializationError {
-		SuiteConfiguration config = new SuiteConfiguration(NestedSuite.class);
-		
-		List<Runner> runners = RedDeerSuite.createSuites(SimpleSuite.class, config);
-		
-		assertThat(runners, hasItem(new NamedSuiteMatcher("default")));
-	}
-
-	@Test
-	public void getChildren_test() throws InitializationError {
-		System.setProperty(RedDeerProperties.CONFIG_FILE.getName(), 
-				LOCATIONS_ROOT_DIR + File.separator + "requirements.xml");		
-		SuiteConfiguration config = new SuiteConfiguration(SimpleTest.class);
-		
-		List<Runner> runners = RedDeerSuite.createSuites(SimpleTest.class, config);
-
-		assertThat(runners.size(), is(1));
-		assertThat(runners, hasItem(new NamedSuiteMatcher("default")));
-		
-		config = null;
-		runners.clear();
-		
-		config = new SuiteConfiguration(CustomRequirementTest1.class);
-		
-		runners = RedDeerSuite.createSuites(CustomRequirementTest1.class, config);
-
-		assertThat(runners.size(), is(1));
-		assertThat(runners, hasItem(new NamedSuiteMatcher(TestCustomJavaConfiguration.class.getSimpleName())));
+	public void testSimpleSuiteWithMoreTestClassesWithoutConfiguration() throws Throwable {
+		assertEquals(2, getTestCount(SimpleSuite2.class));
 	}
 	
 	@Test
-	public void testsWithoutExecution_suite() throws InitializationError {
-		System.setProperty(RedDeerProperties.CONFIG_FILE.getName(), 
-				LOCATIONS_ROOT_DIR + File.separator + "requirements.xml");
-		SuiteConfiguration config = new SuiteConfiguration(UnfillableSuite.class);
-		
-		List<Runner> runners = RedDeerSuite.createSuites(UnfillableSuite.class, config);
-		
-		assertThat(runners.size(), is(3));
-		assertThat(runners, hasItem(new NamedSuiteMatcher("default")));
-		assertThat(runners, hasItem(new NamedSuiteMatcher(TestCustomJavaConfiguration.class.getSimpleName())));
-		
-		Runner runner = runners.get(runners.size()-1);
-		assertTrue(runner.getClass().toString(), runner instanceof TestsWithoutExecutionSuite);
-	}
-
-	@Test
-	public void testsWithoutExecution_test() throws InitializationError {
-		SuiteConfiguration config = new SuiteConfiguration(SimpleTest.class);
-		
-		List<Runner> runners = RedDeerSuite.createSuites(SimpleTest.class, config);
-		
-		assertThat(runners.size(), is(1));
-		assertThat(runners, hasItem(new NamedSuiteMatcher("default")));
-		
-		Runner runner = runners.get(runners.size()-1);
-		assertFalse(runner instanceof TestsWithoutExecutionSuite);
-		
-		config = new SuiteConfiguration(UnfillableTestClass.class);
-		runners = RedDeerSuite.createSuites(UnfillableTestClass.class, config);
-		
-		assertThat(runners.size(), is(2));
-		assertThat(runners, hasItem(new NamedSuiteMatcher("default")));
-		
-		runner = runners.get(runners.size()-1);
-		assertTrue(runner instanceof TestsWithoutExecutionSuite);
-	}
-	
-	@Test
-	public void testNestedSuite() throws Throwable {
+	public void testNestedSuiteWithoutConfiguration() throws Throwable {
 		assertEquals(1, getTestCount(ParentSuite.class));
 	}
 	
 	@Test
-	public void testNestedSuiteWithTests() throws Throwable {
-		assertEquals(2, getTestCount(ParentSuite1.class));
+	public void testNestedSuiteAndTestClassWithoutConfiguration() throws Throwable {
+		assertEquals(2, getTestCount(ParentSuite2.class));
 	}
 	
 	@Test
-	public void testRequirementsSuite() throws Throwable {
-		assertEquals(4, getTestCount(CustomRequirementsSuite.class));
-	}
-	
-	@Test
-	public void testRequirementsSuite_withConfig() throws Throwable {
-		System.setProperty(RedDeerProperties.CONFIG_FILE.getName(), 
-				LOCATIONS_ROOT_DIR + File.separator + "requirements2.xml");
+	public void testRequirementsSuiteWithConfiguration() throws InitializationError {
+		System.setProperty(RedDeerProperties.CONFIG_FILE.getName(), REDDEER_SUITE_CONFIG);
 		
-		assertEquals(9, getTestCount(CustomRequirementsSuite.class));
-	}
-	
-	@Test
-	public void testPropertyRequirementsSuite() throws Throwable {
-		assertEquals(4, getTestCount(PropertyRequirementsSuite.class));
-	}
+		SuiteConfiguration config = new SuiteConfiguration(RequirementSuite.class);
+		
+		List<Runner> runners = RedDeerSuite.createSuites(RequirementSuite.class, config);
 
-	@Test
-	public void testPropertyRequirementsSuite_withConfig() throws Throwable {
-		System.setProperty(RedDeerProperties.CONFIG_FILE.getName(), 
-				LOCATIONS_ROOT_DIR + File.separator + "requirements3.xml");
+	    String java7config = "java-1.7";
+		String tomcat2 = "server-tomcat2";
+		assertThat(runners.size(), is(6));
 		
-		assertEquals(6, getTestCount(PropertyRequirementsSuite.class));
+		assertThat(runners, hasItem(new NamedSuiteMatcher(java7config)));
+		assertThat(runners, hasItem(new NamedSuiteMatcher(tomcat2)));
+		assertThat(runners, hasItem(new NamedSuiteMatcher("no-configuration")));
 	}
 	
 	@Test
-	public void testMixedRequirementsSuite() throws Throwable {
-		assertEquals(6, getTestCount(MixedRequirementsSuite.class));
-		// set rd.config property
-		System.setProperty(RedDeerProperties.CONFIG_FILE.getName(), 
-				LOCATIONS_ROOT_DIR + File.separator + "requirements4.xml");
-		assertEquals(23, getTestCount(MixedRequirementsSuite.class));
+	public void testJavaServerTestWithConfiguration() throws Throwable {
+		System.setProperty(RedDeerProperties.CONFIG_FILE.getName(), REDDEER_SUITE_CONFIG);	
+		assertEquals(6, getTestCount(JavaServerTestClass.class));
 	}
 	
 	@Test
-	public void testUnfillableSuite() throws Throwable {
-		assertEquals(3, getTestCount(UnfillableSuite.class));
+	public void testJavaServerTestWithRestrictedConfiguration() throws Throwable {
+		System.setProperty(RedDeerProperties.CONFIG_FILE.getName(), REDDEER_SUITE_CONFIG);	
+		assertEquals(2, getTestCount(RestrictedJavaTestClass.class));
 	}
 	
 	@Test
-	public void testMixedTestClasses() throws Throwable {
-		System.setProperty(RedDeerProperties.CONFIG_FILE.getName(), 
-				LOCATIONS_ROOT_DIR + File.separator + "requirements4.xml");
-		assertEquals(2, getTestCount(MixedTest1.class));
-		assertEquals(4, getTestCount(MixedTest2.class));
-		assertEquals(4, getTestCount(MixedTest3.class));
-		assertEquals(8, getTestCount(MixedTest4.class));
-		assertEquals(8, getTestCount(MixedTest5.class));
+	public void testJavaServerTestWithRestrictedConfiguration2() throws Throwable {
+		System.setProperty(RedDeerProperties.CONFIG_FILE.getName(), REDDEER_SUITE_CONFIG);	
+		assertEquals(2, getTestCount(RestrictedJavaTestClass2.class));
+	}
+	
+	@Test
+	public void testJavaServerTestWithPartialConfiguration() throws Throwable {
+		System.setProperty(RedDeerProperties.CONFIG_FILE.getName(), REDDEER_SUITE_CONFIG2);	
+		assertEquals(0, getTestCount(JavaServerTestClass.class));
+	}
+	
+	@Test
+	public void testRequirementsSuite_withPartialConfig() throws Throwable {
+		System.setProperty(RedDeerProperties.CONFIG_FILE.getName(), REDDEER_SUITE_CONFIG2);
+		
+		assertEquals(4, getTestCount(RequirementSuite.class));
 	}
 	
 	private int getTestCount(@SuppressWarnings("rawtypes") Class suiteClass) throws Throwable {
@@ -268,6 +162,11 @@ public class RedDeerSuiteTest {
 
 		private String name;
 		
+		/**
+		 * Check whether named suite contains a name
+		 * 
+		 * @param name name to check whether named suite contains it or not
+		 */
 		public NamedSuiteMatcher(String name) {
 			this.name = name;
 		}
@@ -278,127 +177,62 @@ public class RedDeerSuiteTest {
 
 		@Override
 		public boolean matchesSafely(Runner item) {
-			return item instanceof NamedSuite && ((NamedSuite) item).getName().equals(name);
+			return item instanceof NamedSuite && ((NamedSuite) item).getName().contains(name);
+		}
+	}
+
+	////////////////////////////////
+	// TEST CLASSES AND SUITES ////
+	///////////////////////////////
+
+	public static class SimpleTestClass {}
+	
+	public static class SimpleTestClass2 {}
+
+	@CustomJavaAnnotation
+	public static class JavaTestClass {}
+	
+	@CustomServerAnnotation
+	public static class ServerTestClass {}
+	
+	@CustomJavaAnnotation
+	@CustomServerAnnotation
+	public static class JavaServerTestClass {}
+	
+	@CustomJavaAnnotation
+	public static class RestrictedJavaTestClass {
+		@RequirementRestriction
+		public static Matcher getRestrictionMatcher() {
+			return new RequirementVersionMatcher(CustomJavaTestConfiguration.class, "version" , ">1.7");
 		}
 	}
 	
-	// TEST SUITES
-	
-	@SuiteClasses({SimpleTest.class})
-	public static class SimpleSuite {
-		
+	@CustomJavaAnnotation
+	public static class RestrictedJavaTestClass2 {
+		@RequirementRestriction
+		public static Matcher getRestrictionMatcher() {
+			return new RequirementVersionMatcher(CustomJavaTestConfiguration.class, "version" , "[1.8;1.9]");
+		}
 	}
+
+	@SuiteClasses({SimpleTestClass.class})
+	public static class SimpleSuite {}
+	
+	@SuiteClasses({SimpleTestClass.class, SimpleTestClass2.class})
+	public static class SimpleSuite2 {}
 	
 	//suite that includes only other suites
-	@SuiteClasses({NestedSuite.class})
-	public static class ParentSuite {
-		
-	}
-	
-	@SuiteClasses({SimpleTest.class})
-	public static class NestedSuite {
-		
-	
-	}
+	@SuiteClasses({SimpleSuite.class})
+	public static class ParentSuite {}
 	
 	//suite that includes other suites & test classes
-	@SuiteClasses({NestedSuite.class, SimpleTest1.class})
-	public static class ParentSuite1 {
-		
-	}
+	@SuiteClasses({SimpleSuite.class, SimpleTestClass.class})
+	public static class ParentSuite2 {}
 	
 	@SuiteClasses({
-		CustomRequirementTest1.class,
-		CustomRequirementTest2.class,
-		CustomRequirementTest3.class,
-		NoRequirementTest4.class
+		JavaTestClass.class,
+		ServerTestClass.class,
+		SimpleTestClass.class
 	})
-	public static class CustomRequirementsSuite {
-		
-	}
-	
-	@SuiteClasses({
-		SimpleTest.class,
-		SimpleTest1.class,
-		UnfillableTestClass.class,
-		CustomRequirementTest1.class
-	})
-	public static class UnfillableSuite {}
-	
-	@SuiteClasses({
-		PropertyTest1.class,
-		PropertyTest2.class,
-		PropertyTest3.class,
-		NoRequirementTest4.class
-	})
-	public static class PropertyRequirementsSuite {
-
-	}
-	
-	@SuiteClasses({
-		MixedTest1.class,
-		MixedTest2.class,
-		MixedTest3.class,
-		MixedTest4.class,
-		MixedTest5.class,
-		NoRequirementTest4.class
-	})
-	public static class MixedRequirementsSuite {}
-	
-	// TEST CLASSES
-	
-	@Unfulfillable
-	public static class UnfillableTestClass {}
-	
-	public static class SimpleTest {}
-	
-	public static class SimpleTest1 {}
-	
-	@CustomJavaAnnotation
-	public static class CustomRequirementTest1 {}
-	
-	@CustomServerAnnotation
-	public static class CustomRequirementTest2 {}
-	
-	@CustomJavaAnnotation
-	@CustomServerAnnotation
-	public static class CustomRequirementTest3 {}
-	
-	public static class NoRequirementTest4 {}
-	
-	@PropertyAnnotationA
-	public static class PropertyTest1 {}
-	
-	@PropertyAnnotationB
-	public static class PropertyTest2 {}
-	
-	@PropertyAnnotationA
-	@PropertyAnnotationB
-	public static class PropertyTest3 {}
-	
-	@PropertyAnnotationA
-	@CustomJavaAnnotation
-	public static class MixedTest1 {}
-	
-	@PropertyAnnotationA
-	@PropertyAnnotationB
-	@CustomJavaAnnotation
-	public static class MixedTest2 {}
-	
-	@PropertyAnnotationA
-	@PropertyAnnotationB
-	@CustomJavaAnnotation
-	public static class MixedTest3 {}
-	
-	@PropertyAnnotationB
-	@CustomJavaAnnotation
-	@CustomServerAnnotation
-	public static class MixedTest4 {}
-	
-	@PropertyAnnotationA
-	@PropertyAnnotationB
-	@CustomJavaAnnotation
-	@CustomServerAnnotation
-	public static class MixedTest5 {}
-	
+	public static class RequirementSuite {}
 }
