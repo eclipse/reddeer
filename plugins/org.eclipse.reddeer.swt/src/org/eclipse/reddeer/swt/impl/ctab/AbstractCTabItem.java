@@ -13,13 +13,13 @@ package org.eclipse.reddeer.swt.impl.ctab;
 import org.eclipse.swt.widgets.Control;
 import org.hamcrest.Matcher;
 import org.eclipse.reddeer.common.logging.Logger;
+import org.eclipse.reddeer.core.handler.CTabFolderHandler;
 import org.eclipse.reddeer.core.handler.CTabItemHandler;
 import org.eclipse.reddeer.core.reference.ReferencedComposite;
 import org.eclipse.reddeer.swt.api.CTabFolder;
 import org.eclipse.reddeer.swt.api.CTabItem;
 import org.eclipse.reddeer.swt.exception.SWTLayerException;
 import org.eclipse.reddeer.swt.widgets.AbstractItem;
-
 /**
  * Abstract class for all CTabItem implementations
  * 
@@ -106,6 +106,12 @@ public abstract class AbstractCTabItem extends AbstractItem<org.eclipse.swt.cust
 	@Override
 	public Control getControl(){
 		return cTabItemHandler.getControl(swtWidget);
+	}
+	
+	@Override
+	public boolean isActive() {
+		org.eclipse.swt.custom.CTabItem selectedItem = CTabFolderHandler.getInstance().getSelection(swtParent);
+		return swtWidget.equals(selectedItem);
 	}
 
 	/* (non-Javadoc)

@@ -196,7 +196,7 @@ public abstract class AbstractTable extends AbstractControl<org.eclipse.swt.widg
 	}
 
 	private void waitUntilTableHasRows() {
-		new WaitUntil(new TableHasRows(this), TimePeriod.DEFAULT, false);
+		new WaitUntil(new TableHasRows(this), TimePeriod.SHORT, false);
 	}
 	
 	/* (non-Javadoc)

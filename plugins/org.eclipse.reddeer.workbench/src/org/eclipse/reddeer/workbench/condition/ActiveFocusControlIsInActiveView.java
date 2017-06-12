@@ -32,7 +32,7 @@ public class ActiveFocusControlIsInActiveView extends AbstractWaitCondition {
 	public boolean test() {
 		// get active workbench part control (active view)
 		final Control workbenchControl = WorkbenchPartLookup.getInstance()
-				.getWorkbenchControl(WorkbenchPartLookup.getInstance().findActiveWorkbenchPartReference());
+				.getWorkbenchControl(WorkbenchPartLookup.getInstance().getActiveWorkbenchPartReference());
 		
 		// get focused control
 		final Control focusedControl = WidgetLookup.getInstance().getFocusControl();

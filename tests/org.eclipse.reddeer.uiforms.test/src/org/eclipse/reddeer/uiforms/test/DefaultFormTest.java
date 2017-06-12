@@ -85,7 +85,7 @@ public class DefaultFormTest {
 	
 	@After
 	public void tearDown(){
-		if (errorLogView.isOpened()){
+		if (errorLogView.isOpen()){
 			errorLogView.close();
 		}
 	}

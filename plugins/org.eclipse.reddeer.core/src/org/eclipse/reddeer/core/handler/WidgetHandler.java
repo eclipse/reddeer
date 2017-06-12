@@ -212,4 +212,21 @@ public class WidgetHandler {
 			}
 		});
 	}
+	
+	/**
+	 * Returns widget data object with given key
+	 * @param swtWidget widget to get data from
+	 * @param key data key
+	 * @return widget data
+	 */
+	public Object getData(final Widget swtWidget, final String key) {
+		log.debug("Get widget data with key "+key);
+		return Display.syncExec(new ResultRunnable<Object>() {
+
+			@Override
+			public Object run() {
+				return swtWidget.getData(key);
+			}
+		});
+	}
 }

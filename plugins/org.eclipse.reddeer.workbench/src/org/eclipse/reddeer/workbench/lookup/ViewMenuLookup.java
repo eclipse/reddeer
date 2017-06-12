@@ -38,9 +38,6 @@ public class ViewMenuLookup {
 	private static ViewMenuLookup instance;
 	private MenuLookup ml = MenuLookup.getInstance();
 
-	private ViewMenuLookup() {
-	}
-
 	public static ViewMenuLookup getInstance() {
 		if (instance == null) {
 			instance = new ViewMenuLookup();

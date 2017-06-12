@@ -65,6 +65,20 @@ public class CTabFolderHandler extends ControlHandler{
 			}
 		});
 	}
+	
+	/**
+	 * Gets selected tab item 
+	 * @param tabFolder to get selected item of
+	 * @return selected tab item or null if none is selected
+	 */
+	public CTabItem getSelection(final CTabFolder tabFolder) {
+		return Display.syncExec(new ResultRunnable<CTabItem>() {
+			@Override
+			public CTabItem run() {
+				return tabFolder.getSelection();
+			}
+		});
+	}
 }
 
 

@@ -33,7 +33,7 @@ public class SearchViewTest {
 	@After
 	public void tearDown() {
 		if (searchView != null) {
-			if (searchView.isOpened()){
+			if (searchView.isOpen()){
 				searchView.close();
 			}
 		}
