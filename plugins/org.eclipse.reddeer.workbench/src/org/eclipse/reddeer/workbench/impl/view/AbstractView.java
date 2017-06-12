@@ -24,6 +24,7 @@ import org.eclipse.reddeer.common.condition.AbstractWaitCondition;
 import org.eclipse.reddeer.common.logging.Logger;
 import org.eclipse.reddeer.common.matcher.RegexMatcher;
 import org.eclipse.reddeer.common.wait.GroupWait;
+import org.eclipse.reddeer.core.exception.CoreLayerException;
 import org.eclipse.reddeer.core.handler.ItemHandler;
 import org.eclipse.reddeer.core.lookup.WidgetLookup;
 import org.eclipse.reddeer.core.matcher.WithTextMatcher;
@@ -32,6 +33,7 @@ import org.eclipse.reddeer.swt.api.CTabItem;
 import org.eclipse.reddeer.swt.api.Menu;
 import org.eclipse.reddeer.swt.condition.ShellIsAvailable;
 import org.eclipse.reddeer.swt.impl.button.OkButton;
+import org.eclipse.reddeer.swt.impl.button.OpenButton;
 import org.eclipse.reddeer.swt.impl.ctab.DefaultCTabItem;
 import org.eclipse.reddeer.swt.impl.menu.ShellMenu;
 import org.eclipse.reddeer.swt.impl.shell.DefaultShell;
@@ -206,7 +208,11 @@ public class AbstractView implements View {
 		menu.select();
 		new DefaultShell(SHOW_VIEW);
 		new DefaultTreeItem(path).select();
-		new OkButton().click();
+		try {
+			new OpenButton().click(); // Oxygen
+		} catch (CoreLayerException cle) {
+			new OkButton().click(); // Neon
+		}
 		new GroupWait(waitWhile(new ShellIsAvailable(SHOW_VIEW)),
 				waitUntil(new ViewCTabIsAvailable()));
 	}

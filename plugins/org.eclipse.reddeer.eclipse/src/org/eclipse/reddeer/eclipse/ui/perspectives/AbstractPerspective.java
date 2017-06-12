@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.reddeer.eclipse.ui.perspectives;
 
-import org.eclipse.ui.IPerspectiveDescriptor;
-import org.eclipse.ui.PlatformUI;
 import org.eclipse.reddeer.common.logging.Logger;
 import org.eclipse.reddeer.common.matcher.RegexMatcher;
 import org.eclipse.reddeer.common.util.Display;
@@ -20,12 +18,15 @@ import org.eclipse.reddeer.core.exception.CoreLayerException;
 import org.eclipse.reddeer.core.matcher.WithTextMatchers;
 import org.eclipse.reddeer.eclipse.exception.EclipseLayerException;
 import org.eclipse.reddeer.swt.api.Menu;
-import org.eclipse.reddeer.swt.impl.button.PushButton;
+import org.eclipse.reddeer.swt.impl.button.OkButton;
+import org.eclipse.reddeer.swt.impl.button.OpenButton;
 import org.eclipse.reddeer.swt.impl.button.YesButton;
 import org.eclipse.reddeer.swt.impl.menu.ShellMenu;
 import org.eclipse.reddeer.swt.impl.shell.DefaultShell;
 import org.eclipse.reddeer.swt.impl.table.DefaultTable;
 import org.eclipse.reddeer.swt.impl.toolbar.DefaultToolItem;
+import org.eclipse.ui.IPerspectiveDescriptor;
+import org.eclipse.ui.PlatformUI;
 
 /**
  * Abstract parent for each Perspective implementation
@@ -61,7 +62,7 @@ public abstract class AbstractPerspective {
 			log.debug("Perspective '" + getPerspectiveLabel() + "' is already opened.");
 		}
 		else{
-			log.debug("Tryyying to open perspective: '" + getPerspectiveLabel() + "'");
+			log.debug("Trying to open perspective: '" + getPerspectiveLabel() + "'");
 			new DefaultToolItem(new DefaultShell(),"Open Perspective").click();
 			new DefaultShell("Open Perspective");
 			DefaultTable table = new DefaultTable();
@@ -72,7 +73,11 @@ public abstract class AbstractPerspective {
 				// Try to select perspective label within available perspectives with "(default)" suffix
 				table.select(getPerspectiveLabel() + " (default)");
 			}
-			new PushButton("OK").click();
+			try {
+				new OpenButton().click(); // Oxygen
+			} catch (CoreLayerException cle) {
+				new OkButton().click(); // Neon
+			}
 		}
 	}
 

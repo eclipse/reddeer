@@ -16,12 +16,14 @@ import org.eclipse.reddeer.common.wait.TimePeriod;
 import org.eclipse.reddeer.common.wait.WaitUntil;
 import org.eclipse.reddeer.common.wait.WaitWhile;
 import org.eclipse.reddeer.core.condition.WidgetIsFound;
+import org.eclipse.reddeer.core.exception.CoreLayerException;
 import org.eclipse.reddeer.core.lookup.ShellLookup;
 import org.eclipse.reddeer.core.matcher.WithTextMatcher;
 import org.eclipse.reddeer.jface.window.AbstractWindow;
 import org.eclipse.reddeer.swt.api.Shell;
 import org.eclipse.reddeer.swt.api.TreeItem;
 import org.eclipse.reddeer.swt.condition.ShellIsAvailable;
+import org.eclipse.reddeer.swt.impl.button.ApplyAndCloseButton;
 import org.eclipse.reddeer.swt.impl.button.CancelButton;
 import org.eclipse.reddeer.swt.impl.button.OkButton;
 import org.eclipse.reddeer.swt.impl.clabel.DefaultCLabel;
@@ -88,13 +90,26 @@ public class PreferenceDialog extends AbstractWindow{
 	}
 	
 	/**
-	 * Presses Ok button on Property Dialog. 
+	 * Presses 'Ok' button on Property Dialog.
+	 * 
+	 *  @deprecated Since oxygen you should use method applyAndClose()
 	 */
+	@Deprecated
 	public void ok() {
+		applyAndClose();
+	}
+	
+	/**
+	 * Presses 'Apply and Close' button on Property Dialog. 
+	 */
+	public void applyAndClose() {
 		org.eclipse.swt.widgets.Shell parentShell = ShellLookup.getInstance().getParentShell(getShell().getSWTWidget());
 		
-		OkButton ok = new OkButton();
-		ok.click();
+		try {
+			new ApplyAndCloseButton().click(); //Oxygen
+		} catch (CoreLayerException cle) {
+			new OkButton().click(); // Neon
+		}
 		new WaitWhile(new ShellIsAvailable(getShell())); 
 		new DefaultShell(parentShell);
 	}
