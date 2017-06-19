@@ -13,12 +13,16 @@ package org.eclipse.reddeer.eclipse.wst.server.ui;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.reddeer.common.exception.RedDeerException;
 import org.eclipse.reddeer.common.logging.Logger;
+import org.eclipse.reddeer.common.wait.TimePeriod;
+import org.eclipse.reddeer.common.wait.WaitUntil;
+import org.eclipse.reddeer.common.wait.WaitWhile;
 import org.eclipse.reddeer.eclipse.exception.EclipseLayerException;
 import org.eclipse.reddeer.eclipse.wst.server.ui.wizard.NewRuntimeWizardDialog;
 import org.eclipse.reddeer.jface.preference.PreferencePage;
+import org.eclipse.reddeer.swt.api.Shell;
 import org.eclipse.reddeer.swt.api.Table;
+import org.eclipse.reddeer.swt.condition.ShellIsAvailable;
 import org.eclipse.reddeer.swt.impl.button.OkButton;
 import org.eclipse.reddeer.swt.impl.button.PushButton;
 import org.eclipse.reddeer.swt.impl.shell.DefaultShell;
@@ -75,10 +79,12 @@ public class RuntimePreferencePage extends PreferencePage {
 		log.info("Removing runtime '" + runtime + "'");
 		selectRuntime(runtime.getName());
 		new PushButton("Remove").click();
-		try{
-			new DefaultShell("Server");
+		new WaitUntil(new ShellIsAvailable("Server"),TimePeriod.MEDIUM, false);
+		if(new ShellIsAvailable("Server").test()){
+			Shell serverShell = new DefaultShell("Server");
 			new OkButton().click();
-		} catch (RedDeerException e) {
+			new WaitWhile(new ShellIsAvailable(serverShell));
+		} else {
 			log.debug("Server shell was not opened");
 		}
 	}
