@@ -233,7 +233,7 @@ public class ConsoleViewTest {
 		JavaProjectWizard javaProject = new JavaProjectWizard();
 		javaProject.open();
 
-		NewJavaProjectWizardPageOne javaWizardPage = new NewJavaProjectWizardPageOne();
+		NewJavaProjectWizardPageOne javaWizardPage = new NewJavaProjectWizardPageOne(javaProject);
 		javaWizardPage.setProjectName(TEST_PROJECT_NAME);
 
 		javaProject.finish();
@@ -243,7 +243,7 @@ public class ConsoleViewTest {
 		NewClassCreationWizard javaClassDialog = new NewClassCreationWizard();
 		javaClassDialog.open();
 
-		NewClassWizardPage wizardPage = new NewClassWizardPage();
+		NewClassWizardPage wizardPage = new NewClassWizardPage(javaClassDialog);
 		wizardPage.setName(name);
 		wizardPage.setPackage("test");
 		wizardPage.setStaticMainMethod(true);

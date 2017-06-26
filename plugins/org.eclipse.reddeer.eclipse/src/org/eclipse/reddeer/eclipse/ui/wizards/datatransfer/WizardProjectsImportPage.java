@@ -17,6 +17,7 @@ import org.eclipse.reddeer.common.condition.AbstractWaitCondition;
 import org.eclipse.reddeer.common.logging.Logger;
 import org.eclipse.reddeer.common.wait.TimePeriod;
 import org.eclipse.reddeer.common.wait.WaitUntil;
+import org.eclipse.reddeer.core.reference.ReferencedComposite;
 import org.eclipse.reddeer.eclipse.exception.EclipseLayerException;
 import org.eclipse.reddeer.jface.wizard.WizardPage;
 import org.eclipse.reddeer.swt.api.Tree;
@@ -40,8 +41,8 @@ public class WizardProjectsImportPage extends WizardPage {
 	/**
 	 * Instantiates a new wizard projects import page.
 	 */
-	public WizardProjectsImportPage() {
-		super();
+	public WizardProjectsImportPage(ReferencedComposite referencedComposite) {
+		super(referencedComposite);
 	}
 	
 	/**
@@ -90,7 +91,7 @@ public class WizardProjectsImportPage extends WizardPage {
 	public void copyProjectsIntoWorkspace(boolean copy){
 		log.info("Setting copy checkbox to " + copy);
 		if (isFileSystem()){
-			new CheckBox("Copy projects into workspace").toggle(copy);
+			new CheckBox(referencedComposite, "Copy projects into workspace").toggle(copy);
 		} else {
 			throw new EclipseLayerException("You cannot set Copy projects into workspace checkbox when you're importing from ZIP file");
 		}
@@ -136,7 +137,7 @@ public class WizardProjectsImportPage extends WizardPage {
 	 */
 	public void selectAllProjects(){
 		log.info("Selecting all projects");
-		new PushButton("Select All").click();
+		new PushButton(referencedComposite, "Select All").click();
 	}
 	
 	/**
@@ -144,7 +145,7 @@ public class WizardProjectsImportPage extends WizardPage {
 	 */
 	public void deselectAllProjects(){
 		log.info("Deselecting all projects");
-		new PushButton("Deselect All").click();
+		new PushButton(referencedComposite, "Deselect All").click();
 	}
 	
 	/**
@@ -154,22 +155,22 @@ public class WizardProjectsImportPage extends WizardPage {
 	 * @param path the path
 	 */
 	protected void setPath(String radioText, String path){
-		new RadioButton(radioText).click();
+		new RadioButton(referencedComposite, radioText).click();
 		if(radioText.equals("Select root directory:")){
-			new DefaultCombo(0).setText(path);
+			new DefaultCombo(referencedComposite, 0).setText(path);
 		} else {
-			new DefaultCombo(1).setText(path);
+			new DefaultCombo(referencedComposite, 1).setText(path);
 		}
-		new PushButton("Refresh").click();
+		new PushButton(referencedComposite, "Refresh").click();
 		new WaitUntil(new ProjectIsLoaded(getProjectsTree()), TimePeriod.DEFAULT);
 	}
 	
 	private boolean isFileSystem() {
-		return new RadioButton("Select root directory:").isSelected();
+		return new RadioButton(referencedComposite, "Select root directory:").isSelected();
 	}
 	
 	private Tree getProjectsTree() {
-		return new DefaultTree();
+		return new DefaultTree(referencedComposite);
 	}
 	
 	private TreeItem getProjectTreeItem(Tree projectsTree, String projectName) {

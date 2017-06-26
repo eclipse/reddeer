@@ -13,6 +13,7 @@ package org.eclipse.reddeer.eclipse.jdt.debug.ui.jres;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.reddeer.core.reference.ReferencedComposite;
 import org.eclipse.reddeer.eclipse.exception.EclipseLayerException;
 import org.eclipse.reddeer.eclipse.jdt.ui.preferences.JREItem;
 import org.eclipse.reddeer.eclipse.jdt.ui.preferences.internal.StandardVMPage;
@@ -20,7 +21,6 @@ import org.eclipse.reddeer.eclipse.jdt.ui.preferences.internal.VMTypePage;
 import org.eclipse.reddeer.jface.preference.PreferencePage;
 import org.eclipse.reddeer.jface.wizard.WizardDialog;
 import org.eclipse.reddeer.swt.api.TableItem;
-import org.eclipse.reddeer.swt.impl.button.FinishButton;
 import org.eclipse.reddeer.swt.impl.button.PushButton;
 import org.eclipse.reddeer.swt.impl.table.DefaultTable;
 
@@ -36,8 +36,8 @@ public class JREsPreferencePage extends PreferencePage {
 	/**
 	 * Instantiates a new JR es preference page.
 	 */
-	public JREsPreferencePage() {
-		super(new String[] { "Java", "Installed JREs" });
+	public JREsPreferencePage(ReferencedComposite referencedComposite) {
+		super(referencedComposite, new String[] { "Java", "Installed JREs" });
 	}
 
 	/**
@@ -66,8 +66,8 @@ public class JREsPreferencePage extends PreferencePage {
 
 	public void addJRE(String path, String name) {
 		WizardDialog wizard = openAddJREWizard();
-		StandardVMPage vmPage = fillJREDialog(path, name);
-		if (!new FinishButton().isEnabled()) {
+		StandardVMPage vmPage = fillJREDialog(wizard, path, name);
+		if (!wizard.isFinishEnabled()) {
 			String errorMessage = vmPage.getErrorMessage();
 			wizard.cancel();
 			throw new EclipseLayerException(errorMessage);
@@ -87,8 +87,8 @@ public class JREsPreferencePage extends PreferencePage {
 
 	public String validateJRELocation(String path, String name) {
 		WizardDialog wizard = openAddJREWizard();
-		StandardVMPage vmPage = fillJREDialog(path, name);
-		if (!new FinishButton().isEnabled()) {
+		StandardVMPage vmPage = fillJREDialog(wizard, path, name);
+		if (!wizard.isFinishEnabled()) {
 			String errorMessage = vmPage.getErrorMessage();
 			wizard.cancel();
 			return errorMessage;
@@ -105,7 +105,7 @@ public class JREsPreferencePage extends PreferencePage {
 
 	public List<JREItem> getJREs() {
 		ArrayList<JREItem> resultList = new ArrayList<JREItem>();
-		DefaultTable table = new DefaultTable();
+		DefaultTable table = new DefaultTable(referencedComposite);
 		for (TableItem item : table.getItems()) {
 			resultList.add(new JREItem(item.getText(0), item.getText(1), item.getText(2)));
 		}
@@ -120,21 +120,21 @@ public class JREsPreferencePage extends PreferencePage {
 	 */
 
 	public void deleteJRE(String name) {
-		DefaultTable table = new DefaultTable();
+		DefaultTable table = new DefaultTable(referencedComposite);
 		table.getItem(name, 0).select();
-		new PushButton("Remove").click();
+		new PushButton(referencedComposite, "Remove").click();
 	}
 
 	private AddVMInstallWizard openAddJREWizard() {
-		new PushButton("Add...").click();
+		new PushButton(referencedComposite, "Add...").click();
 		AddVMInstallWizard wizard = new AddVMInstallWizard();
-		new VMTypePage().selectType("Standard VM");
+		new VMTypePage(wizard).selectType("Standard VM");
 		wizard.next();
 		return wizard;
 	}
 
-	private StandardVMPage fillJREDialog(String path, String name) {
-		StandardVMPage standardVMPage = new StandardVMPage();
+	private StandardVMPage fillJREDialog(WizardDialog wizard, String path, String name) {
+		StandardVMPage standardVMPage = new StandardVMPage(wizard);
 		standardVMPage.setJREHome(path);
 		if (name != null) {
 			standardVMPage.setName(name);

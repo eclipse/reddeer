@@ -19,12 +19,12 @@ import org.eclipse.reddeer.swt.impl.toolbar.DefaultToolItem;
 import org.eclipse.reddeer.workbench.handler.WorkbenchShellHandler;
 import org.eclipse.reddeer.workbench.impl.shell.WorkbenchShell;
 import org.eclipse.reddeer.jface.exception.JFaceLayerException;
-import org.junit.Before;
+import org.junit.After;
 import org.junit.Test;
 
 public class WindowTest {
 	
-	@Before
+	@After
 	public void closeShells(){
 		WorkbenchShellHandler.getInstance().closeAllNonWorbenchShells();
 	}

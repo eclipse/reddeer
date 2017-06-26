@@ -13,6 +13,7 @@ package org.eclipse.reddeer.eclipse.m2e.core.ui.wizard;
 import org.eclipse.reddeer.common.condition.AbstractWaitCondition;
 import org.eclipse.reddeer.common.wait.TimePeriod;
 import org.eclipse.reddeer.common.wait.WaitUntil;
+import org.eclipse.reddeer.core.reference.ReferencedComposite;
 import org.eclipse.reddeer.jface.wizard.WizardPage;
 import org.eclipse.reddeer.swt.impl.button.PushButton;
 import org.eclipse.reddeer.swt.impl.combo.LabeledCombo;
@@ -31,8 +32,8 @@ public class MavenImportWizardPage extends WizardPage {
 	/**
 	 * Default constructor.
 	 */
-	public MavenImportWizardPage() {
-
+	public MavenImportWizardPage(ReferencedComposite referencedComposite) {
+		super(referencedComposite);
 	}
 
 	/**
@@ -50,7 +51,7 @@ public class MavenImportWizardPage extends WizardPage {
 	 */
 	public void setRootDirectory(String path) {
 		activate();
-		new LabeledCombo("Root Directory:").setText(path);
+		new LabeledCombo(referencedComposite, "Root Directory:").setText(path);
 	}
 
 	/**
@@ -58,7 +59,7 @@ public class MavenImportWizardPage extends WizardPage {
 	 */
 	public void refresh() {
 		activate();
-		new PushButton("Refresh").click();
+		new PushButton(referencedComposite, "Refresh").click();
 	}
 
 	/**
@@ -82,7 +83,7 @@ public class MavenImportWizardPage extends WizardPage {
 
 		@Override
 		public boolean test() {
-			return new PushButton("Finish").isEnabled() || new PushButton("Next >").isEnabled();
+			return new PushButton(referencedComposite, "Finish").isEnabled() || new PushButton(referencedComposite, "Next >").isEnabled();
 		}
 
 		@Override

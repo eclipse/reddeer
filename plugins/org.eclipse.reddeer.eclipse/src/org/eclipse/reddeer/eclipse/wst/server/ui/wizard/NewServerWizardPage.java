@@ -16,6 +16,9 @@ import org.hamcrest.core.StringContains;
 import org.eclipse.reddeer.common.wait.GroupWait;
 import org.eclipse.reddeer.common.wait.WaitUntil;
 import org.eclipse.reddeer.core.condition.NamedThreadHasStatus;
+import org.eclipse.reddeer.core.handler.WidgetHandler;
+import org.eclipse.reddeer.core.reference.ReferencedComposite;
+import org.eclipse.reddeer.jface.wizard.WizardDialog;
 import org.eclipse.reddeer.jface.wizard.WizardPage;
 import org.eclipse.reddeer.swt.condition.TreeContainsItem;
 import org.eclipse.reddeer.swt.condition.ControlIsEnabled;
@@ -32,6 +35,10 @@ import org.eclipse.reddeer.swt.impl.tree.DefaultTreeItem;
  *
  */
 public class NewServerWizardPage extends WizardPage {
+	
+	public NewServerWizardPage(ReferencedComposite referencedComposite) {
+		super(referencedComposite);
+	}
 
 	/**
 	 * Select type.
@@ -41,9 +48,9 @@ public class NewServerWizardPage extends WizardPage {
 	 */
 	public void selectType(String... type) {
 		new GroupWait(waitUntil(new NamedThreadHasStatus(new StringContains("Initializing Servers view"), Thread.State.TERMINATED, true)),
-				waitUntil(new TreeContainsItem(new DefaultTree(), type)));
-		new DefaultTreeItem(type).select();
-		new WaitUntil(new ControlIsEnabled(new NextButton()));
+				waitUntil(new TreeContainsItem(new DefaultTree(referencedComposite), type)));
+		new DefaultTreeItem(new DefaultTree(referencedComposite), type).select();
+		new WaitUntil(new ControlIsEnabled(new NextButton(referencedComposite)));
 	}
 
 	/**
@@ -53,7 +60,14 @@ public class NewServerWizardPage extends WizardPage {
 	 *            the new name
 	 */
 	public void setName(String name) {
-		new LabeledText("Server name:").setText(name);
+		log.info("Set server name to "+name);
+		log.info("parent is "+referencedComposite.getClass());
+		log.info("null? "+(referencedComposite.getControl() == null));
+		if(referencedComposite.getControl() != null){
+			log.info("disposed? "+WidgetHandler.getInstance().isDisposed(referencedComposite.getControl()));
+			log.info("class "+referencedComposite.getControl().getClass());
+		}
+		new LabeledText(referencedComposite, "Server name:").setText(name);
 	}
 
 	/**
@@ -63,6 +77,6 @@ public class NewServerWizardPage extends WizardPage {
 	 *            the new host name
 	 */
 	public void setHostName(String name) {
-		new LabeledText("Server's host name:").setText(name);
+		new LabeledText(referencedComposite, "Server's host name:").setText(name);
 	}
 }

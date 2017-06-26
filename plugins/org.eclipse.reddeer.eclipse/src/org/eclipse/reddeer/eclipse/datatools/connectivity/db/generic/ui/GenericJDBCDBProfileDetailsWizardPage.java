@@ -11,6 +11,7 @@
 package org.eclipse.reddeer.eclipse.datatools.connectivity.db.generic.ui;
 
 import org.eclipse.reddeer.eclipse.datatools.connectivity.ui.wizards.ExtensibleProfileDetailsWizardPage;
+import org.eclipse.reddeer.jface.wizard.WizardDialog;
 
 /**
  * A wizard page for creating new Generic JDBC (H2,..) profile.
@@ -33,8 +34,8 @@ public class GenericJDBCDBProfileDetailsWizardPage extends ExtensibleProfileDeta
 	/**
 	 * Initialize connection profile for generic type.
 	 */
-	public GenericJDBCDBProfileDetailsWizardPage() {
-		super();
+	public GenericJDBCDBProfileDetailsWizardPage(WizardDialog dialog) {
+		super(dialog);
 	}
 	
 	@Override

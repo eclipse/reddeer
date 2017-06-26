@@ -31,7 +31,7 @@ public class HTMLWizardTest {
 	public static void prepareWorkspace(){
 		WebProjectWizard wd = new WebProjectWizard();
 		wd.open();
-		WebProjectFirstPage wp =  new WebProjectFirstPage();
+		WebProjectFirstPage wp =  new WebProjectFirstPage(wd);
 		wp.setProjectName("HTMLProjectTest");
 		wd.finish();
 	}
@@ -45,14 +45,14 @@ public class HTMLWizardTest {
 	public void createHTMLFile(){
 		NewHTMLWizard hw = new NewHTMLWizard();
 		hw.open();
-		NewHTMLFileWizardPage hp = new NewHTMLFileWizardPage();
+		NewHTMLFileWizardPage hp = new NewHTMLFileWizardPage(hw);
 		hp.setFileName("testHTML");
 		assertEquals("testHTML", hp.getFileName());
 		assertEquals("WebContent", hp.getSelectedParentFolder().getText());
 		hp.selectParentFolder("HTMLProjectTest","src");
 		assertEquals("src", hp.getSelectedParentFolder().getText());
 		hw.next();
-		NewHTMLTemplatesWizardPage tp = new NewHTMLTemplatesWizardPage();
+		NewHTMLTemplatesWizardPage tp = new NewHTMLTemplatesWizardPage(hw);
 		tp.toggleUseHTMLTemplate(false);
 		assertFalse(tp.isUseHTMLTeplate());
 		tp.toggleUseHTMLTemplate(true);

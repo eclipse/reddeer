@@ -32,7 +32,7 @@ public class JavaProjectTest {
 	public static void setUp(){
 		JavaProjectWizard dialog = new JavaProjectWizard();
 		dialog.open();
-		NewJavaProjectWizardPageOne page1 = new NewJavaProjectWizardPageOne();
+		NewJavaProjectWizardPageOne page1 = new NewJavaProjectWizardPageOne(dialog);
 		page1.setProjectName(PROJECT_NAME_0);
 		dialog.finish();
 

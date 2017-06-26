@@ -16,6 +16,7 @@ import java.util.Properties;
 
 import org.eclipse.reddeer.common.exception.WaitTimeoutExpiredException;
 import org.eclipse.reddeer.common.wait.WaitUntil;
+import org.eclipse.reddeer.core.reference.ReferencedComposite;
 import org.eclipse.reddeer.eclipse.equinox.internal.security.ui.storage.PasswordRecoveryDialog;
 import org.eclipse.reddeer.eclipse.equinox.internal.security.ui.storage.ChangePasswordWizardDialog;
 import org.eclipse.reddeer.eclipse.exception.EclipseLayerException;
@@ -43,29 +44,29 @@ public class StoragePreferencePage extends PreferencePage {
 	/**
 	 * Instantiates a new storage preference page.
 	 */
-	public StoragePreferencePage() {
-		super("General", "Security", "Secure Storage");
+	public StoragePreferencePage(ReferencedComposite referencedComposite) {
+		super(referencedComposite, "General", "Security", "Secure Storage");
 	}
 
 	/**
 	 * Select Password tab in Security storage page containing general secure storage options.
 	 */
 	public void selectPasswordsTab() {
-		new DefaultTabItem("Password").activate();
+		new DefaultTabItem(referencedComposite, "Password").activate();
 	}
 	
 	/**
 	 * Select Contents tab in Storage preference page containing stored passwords with related user names/accounts.
 	 */
 	public void selectContentTab() {
-		new DefaultTabItem("Contents").activate();
+		new DefaultTabItem(referencedComposite, "Contents").activate();
 	}
 	
 	/**
 	 * Select Advanced tab in Storage preference page containing decryption of stored passwords.
 	 */
 	public void selectAdvancedTab() {
-		new DefaultTabItem("Advanced").activate();
+		new DefaultTabItem(referencedComposite, "Advanced").activate();
 	}
 	
 	/**
@@ -75,7 +76,7 @@ public class StoragePreferencePage extends PreferencePage {
 	 */
 	public List<PasswordProvider> getMasterPasswordProviders() {
 		ArrayList<PasswordProvider> providers = new ArrayList<>();
-		for (TableItem item : new DefaultTable().getItems()) {
+		for (TableItem item : new DefaultTable(referencedComposite).getItems()) {
 			providers.add(new PasswordProvider(item));
 		}
 		return providers;
@@ -87,7 +88,7 @@ public class StoragePreferencePage extends PreferencePage {
 	 * @return password recover dialog
 	 */
 	public PasswordRecoveryDialog recoverMasterPassword() {
-		new PushButton("Recover Password...").click();
+		new PushButton(referencedComposite, "Recover Password...").click();
 		return new PasswordRecoveryDialog();
 	}
 
@@ -97,7 +98,7 @@ public class StoragePreferencePage extends PreferencePage {
 	 * @return password change dialog
 	 */
 	public ChangePasswordWizardDialog changeMasterPassword() {
-		new PushButton("Change Password...").click();
+		new PushButton(referencedComposite, "Change Password...").click();
 		return new ChangePasswordWizardDialog();
 	}
 
@@ -108,8 +109,8 @@ public class StoragePreferencePage extends PreferencePage {
 	 */
 	public boolean clearCachedPasswords() {
 		try {
-			new WaitUntil(new ControlIsEnabled(new PushButton("Clear Passwords")));
-			new PushButton("Clear Passwords").click();
+			new WaitUntil(new ControlIsEnabled(new PushButton(referencedComposite, "Clear Passwords")));
+			new PushButton(referencedComposite, "Clear Passwords").click();
 			return true;
 		} catch(WaitTimeoutExpiredException ex) {
 			return false;
@@ -124,11 +125,11 @@ public class StoragePreferencePage extends PreferencePage {
 	 */
 	public boolean passwordExists(String... pathToPassword) {
 		selectContentTab();
-		new DefaultTreeItem(new DefaultTree(1), pathToPassword).select();
+		new DefaultTreeItem(new DefaultTree(referencedComposite, 1), pathToPassword).select();
 		
 		// Reactivation required
 		selectContentTab();
-		return new DefaultTable(0).getItems().size() > 0;
+		return new DefaultTable(referencedComposite).getItems().size() > 0;
 	}
 
 	/**
@@ -139,11 +140,11 @@ public class StoragePreferencePage extends PreferencePage {
 	 */
 	public Properties getPasswordsByPath(String... pathToPasswords) {
 		selectContentTab();
-		new DefaultTreeItem(new DefaultTree(1), pathToPasswords).select();
+		new DefaultTreeItem(new DefaultTree(referencedComposite, 1), pathToPasswords).select();
 
 		// Reactivation required
 		selectContentTab();
-		return getPasswordsFromTable(new DefaultTable(0));
+		return getPasswordsFromTable(new DefaultTable(referencedComposite));
 	}
 
 	/**
@@ -152,7 +153,7 @@ public class StoragePreferencePage extends PreferencePage {
 	 */
 	public String getStorageLocation() {
 		selectContentTab();
-		return new LabeledText("Storage location:").getText();
+		return new LabeledText(referencedComposite, "Storage location:").getText();
 	}
 
 	private Properties getPasswordsFromTable(DefaultTable table) {
@@ -171,7 +172,7 @@ public class StoragePreferencePage extends PreferencePage {
 	 */
 	public List<String> getAvailableEncryptionAlgorithms() {
 		selectAdvancedTab();
-		return new DefaultCombo().getItems();
+		return new DefaultCombo(referencedComposite).getItems();
 	}
 
 	/**
@@ -180,7 +181,7 @@ public class StoragePreferencePage extends PreferencePage {
 	 */
 	public String getEncryptionAlgorithm() {
 		selectAdvancedTab();
-		return new DefaultCombo().getSelection();
+		return new DefaultCombo(referencedComposite).getSelection();
 	}
 
 	/**
@@ -190,7 +191,7 @@ public class StoragePreferencePage extends PreferencePage {
 	public void setEncryptionAlgorithm(String algorithmName) {
 		selectAdvancedTab();
 		if(getAvailableEncryptionAlgorithms().contains(algorithmName)) {
-			new DefaultCombo().setSelection(algorithmName);
+			new DefaultCombo(referencedComposite).setSelection(algorithmName);
 		} else {
 			throw new EclipseLayerException("Algorithm " + algorithmName + " not found!");
 		}

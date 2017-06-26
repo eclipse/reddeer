@@ -33,7 +33,7 @@ public class NewEnumCreationWizard extends NewMenuWizard {
 	 * @return the first page
 	 */
 	public NewEnumWizardPage getFirstPage() {
-		return new NewEnumWizardPage();
+		return new NewEnumWizardPage(this);
 	}
 
 }

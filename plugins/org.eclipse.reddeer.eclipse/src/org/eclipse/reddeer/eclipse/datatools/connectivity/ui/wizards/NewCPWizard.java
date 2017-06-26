@@ -48,9 +48,9 @@ public class NewCPWizard extends NewMenuWizard {
 		super("New Connection Profile","Connection Profiles", "Connection Profile");
 
 		wizardMap = new HashMap<String, ExtensibleProfileDetailsWizardPage>();
-		wizardMap.put("Oracle", new OracleDBProfileDetailsWizardPage());
-		wizardMap.put("SQL Server", new SQLServerDBProfileDetailsWizardPage());
-		wizardMap.put("Generic JDBC", new GenericJDBCDBProfileDetailsWizardPage());
+		wizardMap.put("Oracle", new OracleDBProfileDetailsWizardPage(this));
+		wizardMap.put("SQL Server", new SQLServerDBProfileDetailsWizardPage(this));
+		wizardMap.put("Generic JDBC", new GenericJDBCDBProfileDetailsWizardPage(this));
 	}
 
 	/**
@@ -68,7 +68,7 @@ public class NewCPWizard extends NewMenuWizard {
 	 * @param test set to true if ping needs to be done
 	 */
 	public void createDatabaseProfile(DatabaseProfile dbProfile, boolean test) {
-		CPWizardSelectionPage selectPage = new CPWizardSelectionPage();
+		CPWizardSelectionPage selectPage = new CPWizardSelectionPage(this);
 		selectPage.setConnectionProfile(dbProfile.getVendor());
 		selectPage.setName(dbProfile.getName());
 
@@ -104,13 +104,13 @@ public class NewCPWizard extends NewMenuWizard {
 	 *            Flat file profile
 	 */
 	public void createFlatFileProfile(FlatFileProfile flatProfile) {
-		CPWizardSelectionPage selectPage = new CPWizardSelectionPage();
+		CPWizardSelectionPage selectPage = new CPWizardSelectionPage(this);
 		selectPage.setConnectionProfile("Flat File Data Source");
 		selectPage.setName(flatProfile.getName());
 
 		next();
 
-		FolderSelectionWizardPage flatPage = new FolderSelectionWizardPage();
+		FolderSelectionWizardPage flatPage = new FolderSelectionWizardPage(this);
 		flatPage.setHomeFolder(flatProfile.getFolder());
 		flatPage.setCharset(flatProfile.getCharset());
 		flatPage.setStyle(flatProfile.getStyle());

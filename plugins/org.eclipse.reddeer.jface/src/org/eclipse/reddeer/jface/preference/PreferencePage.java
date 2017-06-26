@@ -11,6 +11,7 @@
 package org.eclipse.reddeer.jface.preference;
 
 import org.eclipse.reddeer.common.logging.Logger;
+import org.eclipse.reddeer.core.reference.ReferencedComposite;
 import org.eclipse.reddeer.swt.api.Button;
 import org.eclipse.reddeer.swt.impl.button.PushButton;
 import org.eclipse.reddeer.swt.impl.clabel.DefaultCLabel;
@@ -26,18 +27,20 @@ public abstract class PreferencePage {
 	private final Logger log = Logger.getLogger(PreferencePage.class);
 
 	private String[] path;
+	protected ReferencedComposite referencedComposite;
 	
 	/**
 	 * Constructor sets path to specific preference item.
 	 * @param path path in preference shell tree to specific preference
 	 */
-	public PreferencePage(String... path) {
+	public PreferencePage(ReferencedComposite referencedComposite, String... path) {
 		if (path == null) {
 			throw new IllegalArgumentException("path can't be null");
 		}
 		if (path.length == 0) {
 			throw new IllegalArgumentException("path can't be empty");
 		}
+		this.referencedComposite = referencedComposite;
 		this.path = path;
 	}
 
@@ -47,7 +50,7 @@ public abstract class PreferencePage {
 	 * @return name of preference page
 	 */
 	public String getName() {
-		DefaultCLabel cl = new DefaultCLabel();
+		DefaultCLabel cl = new DefaultCLabel(referencedComposite);
 		return cl.getText();
 	}
 	
@@ -64,7 +67,7 @@ public abstract class PreferencePage {
 	 * Apply preference page changes.
 	 */
 	public void apply() {
-		Button b = new PushButton("Apply");
+		Button b = new PushButton(referencedComposite, "Apply");
 		log.info("Apply changes in Preferences dialog");
 		b.click();
 	}
@@ -73,7 +76,7 @@ public abstract class PreferencePage {
 	 * Restore default preference page settings.
 	 */
 	public void restoreDefaults() {
-		Button b = new PushButton("Restore Defaults");
+		Button b = new PushButton(referencedComposite, "Restore Defaults");
 		log.info("Restore default values in Preferences dialog");
 		b.click();
 	}

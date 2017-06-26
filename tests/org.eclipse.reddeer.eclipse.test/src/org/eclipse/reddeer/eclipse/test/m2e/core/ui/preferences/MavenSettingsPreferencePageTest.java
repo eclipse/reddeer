@@ -24,7 +24,7 @@ public class MavenSettingsPreferencePageTest{
 	
 	private WorkbenchPreferenceDialog preferencesDialog = new WorkbenchPreferenceDialog();
 	
-	private MavenSettingsPreferencePage page = new MavenSettingsPreferencePage();
+	private MavenSettingsPreferencePage page = new MavenSettingsPreferencePage(preferencesDialog);
 	
 	@After
 	public void tearDown(){

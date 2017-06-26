@@ -45,7 +45,7 @@ public static final File ZIP_FILE = new File(Activator.getTestResourcesLocation(
 		ExternalProjectImportWizardDialog wizard  = new ExternalProjectImportWizardDialog();
 		wizard.open();
 
-		WizardProjectsImportPage wizardPage = new WizardProjectsImportPage();
+		WizardProjectsImportPage wizardPage = new WizardProjectsImportPage(wizard);
 		wizardPage.setArchiveFile(ZIP_FILE.getAbsolutePath());
 		wizardPage.selectProjects(PROJECT_NAME);
 

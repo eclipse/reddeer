@@ -156,7 +156,7 @@ public class LogView extends WorkbenchView {
 	}
 
 	private Tree getViewTree() {
-		return new DefaultTree(cTabItem);
+		return new DefaultTree(this);
 	}
 
 	private List<LogMessage> getMessages(Severity severity) {

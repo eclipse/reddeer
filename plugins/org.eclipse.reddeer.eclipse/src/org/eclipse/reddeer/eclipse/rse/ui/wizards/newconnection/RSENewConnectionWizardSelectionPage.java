@@ -10,7 +10,10 @@
  *******************************************************************************/
 package org.eclipse.reddeer.eclipse.rse.ui.wizards.newconnection;
 
+import org.eclipse.reddeer.core.reference.ReferencedComposite;
+import org.eclipse.reddeer.jface.wizard.WizardDialog;
 import org.eclipse.reddeer.jface.wizard.WizardPage;
+import org.eclipse.reddeer.swt.impl.tree.DefaultTree;
 import org.eclipse.reddeer.swt.impl.tree.DefaultTreeItem;
 
 /**
@@ -21,6 +24,10 @@ import org.eclipse.reddeer.swt.impl.tree.DefaultTreeItem;
  */
 public class RSENewConnectionWizardSelectionPage extends WizardPage{
 	
+	public RSENewConnectionWizardSelectionPage(ReferencedComposite referencedComposite) {
+		super(referencedComposite);
+	}
+	
 	
 	/**
 	 * Select remote system type in tree.
@@ -28,7 +35,7 @@ public class RSENewConnectionWizardSelectionPage extends WizardPage{
 	 * @param type the type
 	 */
 	public void selectSystemType(SystemType type){
-		new DefaultTreeItem("General", type.getLabel()).select(); 
+		new DefaultTreeItem(new DefaultTree(referencedComposite), "General", type.getLabel()).select(); 
 	}
 	
 	/**

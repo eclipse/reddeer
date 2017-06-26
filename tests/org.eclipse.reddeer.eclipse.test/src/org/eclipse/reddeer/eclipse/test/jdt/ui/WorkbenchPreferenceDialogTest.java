@@ -16,6 +16,7 @@ import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
 import org.eclipse.reddeer.workbench.ui.dialogs.WorkbenchPreferenceDialog;
+import org.eclipse.reddeer.jface.preference.PreferenceDialog;
 import org.eclipse.reddeer.jface.preference.PreferencePage;
 import org.eclipse.reddeer.junit.runner.RedDeerSuite;
 import org.eclipse.reddeer.swt.api.Shell;
@@ -40,7 +41,7 @@ public class WorkbenchPreferenceDialogTest {
 	@Before
 	public void setup(){
 		dialog = new WorkbenchPreferenceDialog();
-		preferencePage = new PreferencePageImpl();
+		preferencePage = new PreferencePageImpl(dialog);
 	}
 
 	@After
@@ -125,8 +126,8 @@ public class WorkbenchPreferenceDialogTest {
 
 	class PreferencePageImpl extends PreferencePage {
 
-		public PreferencePageImpl() {
-			super(new String[]{TestingPreferencePage.TestTopCategory.TOP_CATEGORY,
+		public PreferencePageImpl(PreferenceDialog dialog) {
+			super(dialog, new String[]{TestingPreferencePage.TestTopCategory.TOP_CATEGORY,
 					TestingPreferencePage.TestCategory.CATEGORY, PAGE_NAME});
 		}
 	}

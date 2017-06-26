@@ -10,6 +10,8 @@
  *******************************************************************************/
 package org.eclipse.reddeer.eclipse.m2e.core.ui.wizard;
 
+import org.eclipse.reddeer.core.reference.ReferencedComposite;
+import org.eclipse.reddeer.jface.wizard.WizardDialog;
 import org.eclipse.reddeer.jface.wizard.WizardPage;
 import org.eclipse.reddeer.swt.impl.combo.LabeledCombo;
 import org.eclipse.reddeer.swt.impl.group.DefaultGroup;
@@ -22,13 +24,17 @@ import org.eclipse.reddeer.swt.impl.text.LabeledText;
  */
 public class MavenProjectWizardArtifactPage extends WizardPage{
 	
+	public MavenProjectWizardArtifactPage(ReferencedComposite referencedComposite) {
+		super(referencedComposite);
+	}
+	
 	/**
 	 * Set project package.
 	 *
 	 * @param projectPackage the new package
 	 */
 	public void setPackage(String projectPackage){
-		new LabeledCombo(new DefaultGroup("Artifact"),"Packaging:").setText(projectPackage);
+		new LabeledCombo(new DefaultGroup(referencedComposite, "Artifact"),"Packaging:").setText(projectPackage);
 	}
 	
 	/**
@@ -37,7 +43,7 @@ public class MavenProjectWizardArtifactPage extends WizardPage{
 	 * @param groupId the new group id
 	 */
 	public void setGroupId(String groupId){
-		new LabeledCombo(new DefaultGroup("Artifact"),"Group Id:").setText(groupId);
+		new LabeledCombo(new DefaultGroup(referencedComposite, "Artifact"),"Group Id:").setText(groupId);
 	}
 	
 	/**
@@ -46,7 +52,7 @@ public class MavenProjectWizardArtifactPage extends WizardPage{
 	 * @param name the new name
 	 */
 	public void setName(String name){
-		new LabeledCombo(new DefaultGroup("Artifact"),"Name:").setText(name);
+		new LabeledCombo(new DefaultGroup(referencedComposite, "Artifact"),"Name:").setText(name);
 	}
 
 	/**
@@ -55,7 +61,7 @@ public class MavenProjectWizardArtifactPage extends WizardPage{
 	 * @param description the new description
 	 */
 	public void setDescription(String description){
-		new LabeledText(new DefaultGroup("Artifact"),"Description:").setText(description);
+		new LabeledText(new DefaultGroup(referencedComposite, "Artifact"),"Description:").setText(description);
 	}
 	
 	/**
@@ -64,7 +70,7 @@ public class MavenProjectWizardArtifactPage extends WizardPage{
 	 * @param groupId the new parent group id
 	 */
 	public void setParentGroupId(String groupId){
-		new LabeledCombo(new DefaultGroup("Parent Project"),"Group Id:").setText(groupId);
+		new LabeledCombo(new DefaultGroup(referencedComposite, "Parent Project"),"Group Id:").setText(groupId);
 	}
 
 	/**
@@ -73,7 +79,7 @@ public class MavenProjectWizardArtifactPage extends WizardPage{
 	 * @param artifactid the new parent artifact id
 	 */
 	public void setParentArtifactId(String artifactid){
-		new LabeledText(new DefaultGroup("Parent Project"),"Artifact Id:").setText(artifactid);
+		new LabeledText(new DefaultGroup(referencedComposite, "Parent Project"),"Artifact Id:").setText(artifactid);
 	}
 	
 	/**
@@ -82,7 +88,7 @@ public class MavenProjectWizardArtifactPage extends WizardPage{
 	 * @param version the new parent version
 	 */
 	public void setParentVersion(String version){
-		new LabeledText(new DefaultGroup("Parent Project"),"Version:").setText(version);
+		new LabeledText(new DefaultGroup(referencedComposite, "Parent Project"),"Version:").setText(version);
 	}
 
 	/**
@@ -91,7 +97,7 @@ public class MavenProjectWizardArtifactPage extends WizardPage{
 	 * @param artifactId the new artifact id
 	 */
 	public void setArtifactId(String artifactId){
-		new LabeledCombo(new DefaultGroup("Artifact"),"Artifact Id:").setText(artifactId);
+		new LabeledCombo(new DefaultGroup(referencedComposite, "Artifact"),"Artifact Id:").setText(artifactId);
 	}
 	
 	/**
@@ -100,7 +106,7 @@ public class MavenProjectWizardArtifactPage extends WizardPage{
 	 * @param version the new version
 	 */
 	public void setVersion(String version){
-		new LabeledCombo(new DefaultGroup("Artifact"),"Version:").setText(version);
+		new LabeledCombo(new DefaultGroup(referencedComposite, "Artifact"),"Version:").setText(version);
 	}
 	
 	/**
@@ -109,7 +115,7 @@ public class MavenProjectWizardArtifactPage extends WizardPage{
 	 * @return project package
 	 */
 	public String getPackage(){
-		return new LabeledCombo(new DefaultGroup("Artifact"),"Package:").getText();
+		return new LabeledCombo(new DefaultGroup(referencedComposite, "Artifact"),"Package:").getText();
 	}
 	
 	/**
@@ -118,7 +124,7 @@ public class MavenProjectWizardArtifactPage extends WizardPage{
 	 * @return project group id
 	 */
 	public String getGroupId(){
-		return new LabeledCombo(new DefaultGroup("Artifact"),"Group Id:").getText();
+		return new LabeledCombo(new DefaultGroup(referencedComposite, "Artifact"),"Group Id:").getText();
 	}
 	
 	/**
@@ -127,7 +133,7 @@ public class MavenProjectWizardArtifactPage extends WizardPage{
 	 * @return project artifact id
 	 */
 	public String getArtifactId(){
-		return new LabeledCombo(new DefaultGroup("Artifact"),"Artifact Id:").getText();
+		return new LabeledCombo(new DefaultGroup(referencedComposite, "Artifact"),"Artifact Id:").getText();
 	}
 	
 	/**
@@ -136,7 +142,7 @@ public class MavenProjectWizardArtifactPage extends WizardPage{
 	 * @return project version
 	 */
 	public String getVersion(){
-		return new LabeledCombo(new DefaultGroup("Artifact"),"Version:").getText();
+		return new LabeledCombo(new DefaultGroup(referencedComposite, "Artifact"),"Version:").getText();
 	}
 
 }

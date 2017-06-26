@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.reddeer.jface.api;
 
+import org.eclipse.reddeer.core.reference.ReferencedComposite;
 import org.eclipse.reddeer.swt.api.Shell;
 
 /**
@@ -17,7 +18,7 @@ import org.eclipse.reddeer.swt.api.Shell;
  * @author rawagner
  *
  */
-public interface Window {
+public interface Window extends ReferencedComposite{
 	
 	/**
 	 * Gets the control.

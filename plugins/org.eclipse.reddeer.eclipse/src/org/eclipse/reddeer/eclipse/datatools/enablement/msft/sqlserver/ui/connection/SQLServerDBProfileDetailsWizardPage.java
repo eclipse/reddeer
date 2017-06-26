@@ -11,6 +11,7 @@
 package org.eclipse.reddeer.eclipse.datatools.enablement.msft.sqlserver.ui.connection;
 
 import org.eclipse.reddeer.eclipse.datatools.connectivity.ui.wizards.ExtensibleProfileDetailsWizardPage;
+import org.eclipse.reddeer.jface.wizard.WizardDialog;
 
 /**
  * A wizard page for creating new SQL Server database profile.
@@ -33,8 +34,8 @@ public class SQLServerDBProfileDetailsWizardPage extends ExtensibleProfileDetail
 	/**
 	 * Instantiates a new connection profile sql server page.
 	 */
-	public SQLServerDBProfileDetailsWizardPage() {
-		super();
+	public SQLServerDBProfileDetailsWizardPage(WizardDialog dialog) {
+		super(dialog);
 	}
 	
 	@Override

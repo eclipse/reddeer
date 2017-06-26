@@ -42,7 +42,7 @@ public class RuntimePreferencePageTest {
 	@Before
 	public void openPreference(){
 		preferencesDialog = new WorkbenchPreferenceDialog();
-		preferencePage = new RuntimePreferencePage();
+		preferencePage = new RuntimePreferencePage(preferencesDialog);
 		
 		preferencesDialog.open();
 		preferencesDialog.select(preferencePage);
@@ -58,12 +58,12 @@ public class RuntimePreferencePageTest {
 	@Test
 	public void addAndRemoveRuntime() {
 		NewRuntimeWizardDialog wizardDialog = preferencePage.addRuntime(); 
-		NewRuntimeWizardPage wizardPage = new NewRuntimeWizardPage();
+		NewRuntimeWizardPage wizardPage = new NewRuntimeWizardPage(wizardDialog);
 		wizardPage.selectType(SERVER_PATH, SERVER_NAME);
 		wizardDialog.finish();
 		
 		wizardDialog = preferencePage.addRuntime();
-		wizardPage = new NewRuntimeWizardPage();
+		wizardPage = new NewRuntimeWizardPage(wizardDialog);
 		wizardPage.selectType(SERVER_PATH, SERVER_NAME);
 		wizardDialog.finish();
 		
@@ -85,12 +85,12 @@ public class RuntimePreferencePageTest {
 	@Test
 	public void removeAllRuntime() {
 		NewRuntimeWizardDialog wizardDialog = preferencePage.addRuntime(); 
-		NewRuntimeWizardPage wizardPage = new NewRuntimeWizardPage();
+		NewRuntimeWizardPage wizardPage = new NewRuntimeWizardPage(wizardDialog);
 		wizardPage.selectType(SERVER_PATH, SERVER_NAME);
 		wizardDialog.finish();
 		
 		wizardDialog = preferencePage.addRuntime();
-		wizardPage = new NewRuntimeWizardPage();
+		wizardPage = new NewRuntimeWizardPage(wizardDialog);
 		wizardPage.selectType(SERVER_PATH, SERVER_NAME);
 		wizardDialog.finish();
 		
@@ -105,7 +105,7 @@ public class RuntimePreferencePageTest {
 	@Test
 	public void editRuntime(){
 		NewRuntimeWizardDialog wizardDialog = preferencePage.addRuntime(); 
-		NewRuntimeWizardPage wizardPage = new NewRuntimeWizardPage();
+		NewRuntimeWizardPage wizardPage = new NewRuntimeWizardPage(wizardDialog);
 		wizardPage.selectType(SERVER_PATH, SERVER_NAME);
 		wizardDialog.finish();
 

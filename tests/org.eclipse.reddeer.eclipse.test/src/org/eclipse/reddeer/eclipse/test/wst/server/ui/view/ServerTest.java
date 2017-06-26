@@ -80,7 +80,7 @@ public class ServerTest extends ServersViewTestCase {
 		
 		if (!server1.getModules().isEmpty()){
 			ModifyModulesDialog dialog = server1.addAndRemoveModules();
-			ModifyModulesPage page = new ModifyModulesPage();
+			ModifyModulesPage page = new ModifyModulesPage(dialog);
 			page.removeAll();
 			dialog.finish();
 		}
@@ -250,7 +250,7 @@ public class ServerTest extends ServersViewTestCase {
 	@Test
 	public void getModule(){
 		ModifyModulesDialog dialog = server1.addAndRemoveModules();
-		ModifyModulesPage page = new ModifyModulesPage();
+		ModifyModulesPage page = new ModifyModulesPage(dialog);
 		page.addAll();
 		dialog.finish();
 

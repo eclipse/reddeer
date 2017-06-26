@@ -64,9 +64,9 @@ public class JRERequirement implements ConfigurableRequirement<JREConfiguration,
 		log.debug("Configuration (name,version,path): %s, %s, %s", configuration.getName(), configuration.getVersion(),
 				configuration.getPath());
 
-		JREsPreferencePage page = new JREsPreferencePage();
 		WorkbenchPreferenceDialog dialog = new WorkbenchPreferenceDialog();
 		dialog.open();
+		JREsPreferencePage page = new JREsPreferencePage(dialog);
 		dialog.select(page);
 		page.addJRE(getPath(), configuration.getName());
 		dialog.ok();
@@ -81,9 +81,9 @@ public class JRERequirement implements ConfigurableRequirement<JREConfiguration,
 	@Override
 	public void cleanUp() {
 		if (jre.cleanup()) {
-			JREsPreferencePage page = new JREsPreferencePage();
 			WorkbenchPreferenceDialog dialog = new WorkbenchPreferenceDialog();
 			dialog.open();
+			JREsPreferencePage page = new JREsPreferencePage(dialog);
 			dialog.select(page);
 			page.deleteJRE(configuration.getName());
 			dialog.ok();

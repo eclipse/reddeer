@@ -11,6 +11,7 @@
 package org.eclipse.reddeer.eclipse.datatools.enablement.oracle.ui;
 
 import org.eclipse.reddeer.eclipse.datatools.connectivity.ui.wizards.ExtensibleProfileDetailsWizardPage;
+import org.eclipse.reddeer.jface.wizard.WizardDialog;
 
 /**
  * A wizard page for creating new Oracle database profile.
@@ -34,8 +35,8 @@ public class OracleDBProfileDetailsWizardPage extends ExtensibleProfileDetailsWi
 	/**
 	 * Instantiates a new connection profile oracle page.
 	 */
-	public OracleDBProfileDetailsWizardPage() {
-		super();
+	public OracleDBProfileDetailsWizardPage(WizardDialog dialog) {
+		super(dialog);
 	}
 
 	@Override

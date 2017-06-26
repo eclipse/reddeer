@@ -11,6 +11,7 @@
 
 package org.eclipse.reddeer.ui.test.wizard.impl;
 
+import org.eclipse.reddeer.core.reference.ReferencedComposite;
 import org.eclipse.reddeer.jface.wizard.WizardPage;
 import org.eclipse.reddeer.swt.impl.button.CheckBox;
 import org.eclipse.reddeer.swt.impl.button.RadioButton;
@@ -22,6 +23,10 @@ import org.eclipse.reddeer.swt.impl.text.LabeledText;
  *
  */
 public class RedDeerTestCaseWizardPageOne extends WizardPage {
+	
+	public RedDeerTestCaseWizardPageOne(ReferencedComposite referencedComposite) {
+		super(referencedComposite);
+	}
 	
 	/**
 	 * Sets the source folder
@@ -108,7 +113,7 @@ public class RedDeerTestCaseWizardPageOne extends WizardPage {
 	 * @param checked true to select, false otherwise
 	 */
 	public void setJUnit3(boolean select) {
-		new RadioButton("New JUnit 3 test").toggle(select);
+		new RadioButton(referencedComposite, "New JUnit 3 test").toggle(select);
 	}
 	
 	/**
@@ -116,7 +121,7 @@ public class RedDeerTestCaseWizardPageOne extends WizardPage {
 	 * @param checked true to select, false otherwise
 	 */
 	public void setJUnit4(boolean select) {
-		new RadioButton("New JUnit 4 test").toggle(select);
+		new RadioButton(referencedComposite, "New JUnit 4 test").toggle(select);
 	}
 	
 	/**
@@ -128,10 +133,10 @@ public class RedDeerTestCaseWizardPageOne extends WizardPage {
 	}
 	
 	private void toggleCheckBox(String text, boolean checked) {
-		new CheckBox(text).toggle(checked);
+		new CheckBox(referencedComposite, text).toggle(checked);
 	}
 	
 	private void setTextToLabeledText(String label, String text) {
-		new LabeledText(label).setText(text);
+		new LabeledText(referencedComposite, label).setText(text);
 	}
 }

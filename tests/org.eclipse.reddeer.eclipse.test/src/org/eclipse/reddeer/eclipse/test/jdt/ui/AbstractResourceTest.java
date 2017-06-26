@@ -64,7 +64,7 @@ public abstract class AbstractResourceTest {
 	public static void importProject() {
 		JavaProjectWizard dialog = new JavaProjectWizard();
 		dialog.open();
-		NewJavaProjectWizardPageOne page1 = new NewJavaProjectWizardPageOne();
+		NewJavaProjectWizardPageOne page1 = new NewJavaProjectWizardPageOne(dialog);
 		page1.setProjectName(PROJECT_NAME);
 		dialog.finish();		
 
@@ -129,7 +129,13 @@ public abstract class AbstractResourceTest {
 	public void asyncDelete() throws Exception {
 		projectItem.select();
 		// Create new text file test.txt
-		new NewFileCreationWizard().createFile("files", "text.txt");
+		BasicNewFileResourceWizard wizard = new BasicNewFileResourceWizard();
+		wizard.open();
+		WizardNewFileCreationPage filePage = new WizardNewFileCreationPage(wizard);
+		filePage.setFileName("text.txt");
+		filePage.setFolderPath(PROJECT_NAME, PROJECT_ITEM_TEXT, "files");
+		wizard.finish();
+		
 		new DefaultEditor("text.txt").close();
 		// Edit the file outside the Eclipse IDE
 		String rootPath = ResourcesPlugin.getWorkspace().getRoot().getLocationURI().getPath();
@@ -161,21 +167,10 @@ public abstract class AbstractResourceTest {
 		NewClassCreationWizard newJavaClassDialog = new NewClassCreationWizard();
 		newJavaClassDialog.open();
 
-		NewClassWizardPage wizardPage = new NewClassWizardPage();
+		NewClassWizardPage wizardPage = new NewClassWizardPage(newJavaClassDialog);
 		wizardPage.setName(javaClassName);
 		newJavaClassDialog.finish();
 
 		new WaitWhile(new JobIsRunning(), TimePeriod.LONG);
-	}
-
-	private class NewFileCreationWizard extends WizardNewFileCreationPage {
-
-		public void createFile(String folder, String fileName) {
-			BasicNewFileResourceWizard wizard = new BasicNewFileResourceWizard();
-			wizard.open();
-			setFileName(fileName);
-			setFolderPath(PROJECT_NAME, PROJECT_ITEM_TEXT, folder);
-			wizard.finish();
-		}
 	}
 }

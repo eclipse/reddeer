@@ -93,7 +93,7 @@ public class TextEditorTest {
 		EditorHandler.getInstance().closeAll(true);
 		BasicNewProjectResourceWizard projectWizard = new BasicNewProjectResourceWizard();
 		projectWizard.open();
-		new BasicNewProjectResourceWizardFirstPage().setProjectName("testProject");
+		new BasicNewProjectResourceWizardFirstPage(projectWizard).setProjectName("testProject");
 		projectWizard.finish();
 		TextEditorTest.importTestProject();
 		TextEditor javaTextEditor = TextEditorTest.openJavaFile();
@@ -145,7 +145,7 @@ public class TextEditorTest {
 
 		BasicNewFileResourceWizard newFileDialog = new BasicNewFileResourceWizard();
 		newFileDialog.open();
-		WizardNewFileCreationPage page = new WizardNewFileCreationPage();
+		WizardNewFileCreationPage page = new WizardNewFileCreationPage(newFileDialog);
 		page.setFileName("editorTest.min");
 		page.setFolderPath("testProject");
 		newFileDialog.finish();
@@ -156,7 +156,7 @@ public class TextEditorTest {
 	public void getTextTest() throws AWTException {
 		BasicNewFileResourceWizard newFileDialog = new BasicNewFileResourceWizard();
 		newFileDialog.open();
-		WizardNewFileCreationPage page = new WizardNewFileCreationPage();
+		WizardNewFileCreationPage page = new WizardNewFileCreationPage(newFileDialog);
 		page.setFileName("textEditor.txt");
 		page.setFolderPath("testProject");
 		newFileDialog.finish();
@@ -467,8 +467,8 @@ public class TextEditorTest {
 		}
 		ExternalProjectImportWizardDialog epw = new ExternalProjectImportWizardDialog();
 		epw.open();
-		new WizardProjectsImportPage().setRootDirectory(resourceURL.getFile() + "resources/TextEditorTestProject/");
-		new WizardProjectsImportPage().copyProjectsIntoWorkspace(true);
+		new WizardProjectsImportPage(epw).setRootDirectory(resourceURL.getFile() + "resources/TextEditorTestProject/");
+		new WizardProjectsImportPage(epw).copyProjectsIntoWorkspace(true);
 		epw.finish();
 	}
 

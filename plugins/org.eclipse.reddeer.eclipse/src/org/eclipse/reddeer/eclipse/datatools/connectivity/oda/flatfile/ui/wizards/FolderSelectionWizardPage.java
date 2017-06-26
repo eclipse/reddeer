@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.reddeer.eclipse.datatools.connectivity.oda.flatfile.ui.wizards;
 
+import org.eclipse.reddeer.core.reference.ReferencedComposite;
 import org.eclipse.reddeer.jface.wizard.WizardPage;
 import org.eclipse.reddeer.swt.impl.button.CheckBox;
 import org.eclipse.reddeer.swt.impl.combo.LabeledCombo;
@@ -34,8 +35,8 @@ public class FolderSelectionWizardPage extends WizardPage {
 	/**
 	 * Instantiates a new connection profile flat file page.
 	 */
-	public FolderSelectionWizardPage() {
-		super();
+	public FolderSelectionWizardPage(ReferencedComposite referencedComposite) {
+		super(referencedComposite);
 	}
 	
 	/**
@@ -44,7 +45,7 @@ public class FolderSelectionWizardPage extends WizardPage {
 	 * @param folder the new home folder
 	 */
 	public void setHomeFolder(String folder) {
-		new DefaultText(0).setText(folder);
+		new DefaultText(referencedComposite, 0).setText(folder);
 	}
 
 	/**
@@ -53,7 +54,7 @@ public class FolderSelectionWizardPage extends WizardPage {
 	 * @param charset the new charset
 	 */
 	public void setCharset(String charset) {
-		new LabeledCombo(LABEL_CHARSET).setSelection(charset);
+		new LabeledCombo(referencedComposite, LABEL_CHARSET).setSelection(charset);
 	}
 
 	/**
@@ -62,7 +63,7 @@ public class FolderSelectionWizardPage extends WizardPage {
 	 * @param style the new style
 	 */
 	public void setStyle(String style) {
-		new LabeledCombo(LABEL_STYLE).setSelection(style);
+		new LabeledCombo(referencedComposite, LABEL_STYLE).setSelection(style);
 	}
 
 	/**
@@ -84,7 +85,7 @@ public class FolderSelectionWizardPage extends WizardPage {
 	}
 
 	private void useProperty(String property, boolean use) {
-		new CheckBox("property").toggle(use);
+		new CheckBox(referencedComposite, "property").toggle(use);
 	}
 
 }

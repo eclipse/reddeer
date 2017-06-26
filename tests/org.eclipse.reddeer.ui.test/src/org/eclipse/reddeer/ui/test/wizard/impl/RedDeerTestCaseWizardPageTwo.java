@@ -14,6 +14,7 @@ package org.eclipse.reddeer.ui.test.wizard.impl;
 import org.hamcrest.Matcher;
 import org.hamcrest.Matchers;
 import org.hamcrest.core.IsEqual;
+import org.eclipse.reddeer.core.reference.ReferencedComposite;
 import org.eclipse.reddeer.jface.wizard.WizardPage;
 import org.eclipse.reddeer.swt.api.TreeItem;
 import org.eclipse.reddeer.swt.impl.button.CheckBox;
@@ -27,18 +28,22 @@ import org.eclipse.reddeer.swt.impl.tree.DefaultTree;
  */
 public class RedDeerTestCaseWizardPageTwo extends WizardPage {
 	
+	public RedDeerTestCaseWizardPageTwo(ReferencedComposite referencedComposite) {
+		super(referencedComposite);
+	}
+	
 	/**
 	 * Clicks the Select All button
 	 */
 	public void selectAll() {
-		new PushButton("Select All").click();
+		new PushButton(referencedComposite, "Select All").click();
 	}
 	
 	/**
 	 * Clicks the Deselect All button
 	 */
 	public void deselectAll() {
-		new PushButton("Deselect All").click();
+		new PushButton(referencedComposite, "Deselect All").click();
 	}
 	
 	/**
@@ -46,7 +51,7 @@ public class RedDeerTestCaseWizardPageTwo extends WizardPage {
 	 * @param checked true to check, false otherwise
 	 */
 	public void setCreateFinalMethodStubs(boolean checked) {
-		new CheckBox("Create final method stubs").toggle(checked);
+		new CheckBox(referencedComposite, "Create final method stubs").toggle(checked);
 	}
 	
 	/**
@@ -54,7 +59,7 @@ public class RedDeerTestCaseWizardPageTwo extends WizardPage {
 	 * @param checked true to check, false otherwise
 	 */
 	public void setCreateTasksForMethods(boolean checked) {
-		new CheckBox("Create tasks for generated test methods").toggle(checked);
+		new CheckBox(referencedComposite, "Create tasks for generated test methods").toggle(checked);
 	}
 	
 	/**
@@ -73,7 +78,7 @@ public class RedDeerTestCaseWizardPageTwo extends WizardPage {
 	@SuppressWarnings("unchecked")
 	public void selectMatchingItems(Matcher<String>... matchers) {
 		Matcher<String> matcher = Matchers.allOf(matchers);
-		for (TreeItem treeItem : new DefaultTree().getAllItems()) {
+		for (TreeItem treeItem : new DefaultTree(referencedComposite).getAllItems()) {
 			if (matcher.matches(treeItem.getText())) {
 				treeItem.setChecked(true);
 			}

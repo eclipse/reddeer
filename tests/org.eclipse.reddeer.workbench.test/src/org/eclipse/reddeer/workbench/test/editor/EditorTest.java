@@ -19,7 +19,6 @@ import java.lang.reflect.Field;
 
 import org.eclipse.reddeer.eclipse.jdt.ui.packageview.PackageExplorerPart;
 import org.eclipse.reddeer.eclipse.ui.dialogs.WizardNewFileCreationPage;
-import org.eclipse.reddeer.eclipse.ui.views.markers.ProblemsView;
 import org.eclipse.reddeer.eclipse.ui.wizards.newresource.BasicNewFileResourceWizard;
 import org.eclipse.reddeer.eclipse.ui.wizards.newresource.BasicNewProjectResourceWizard;
 import org.eclipse.reddeer.eclipse.ui.wizards.newresource.BasicNewProjectResourceWizardFirstPage;
@@ -50,18 +49,18 @@ public class EditorTest {
 	public static void setupClass() {
 		BasicNewProjectResourceWizard projectWizard = new BasicNewProjectResourceWizard();
 		projectWizard.open();
-		new BasicNewProjectResourceWizardFirstPage().setProjectName(PROJECT_NAME);
+		new BasicNewProjectResourceWizardFirstPage(projectWizard).setProjectName(PROJECT_NAME);
 		projectWizard.finish();
 		BasicNewFileResourceWizard newFileDialog = new BasicNewFileResourceWizard();
 		newFileDialog.open();
-		WizardNewFileCreationPage page = new WizardNewFileCreationPage();
+		WizardNewFileCreationPage page = new WizardNewFileCreationPage(newFileDialog);
 		page.setFileName("editorTest.min");
 		page.setFolderPath(PROJECT_NAME);
 		newFileDialog.finish();
 		new DefaultEditor().close(false);
 		newFileDialog = new BasicNewFileResourceWizard();
 		newFileDialog.open();
-		page = new WizardNewFileCreationPage();
+		page = new WizardNewFileCreationPage(newFileDialog);
 		page.setFileName("editorTest1.min");
 		page.setFolderPath(PROJECT_NAME);
 		newFileDialog.finish();

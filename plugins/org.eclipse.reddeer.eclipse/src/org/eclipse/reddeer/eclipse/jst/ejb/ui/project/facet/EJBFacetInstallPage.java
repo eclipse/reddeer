@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.reddeer.eclipse.jst.ejb.ui.project.facet;
 
+import org.eclipse.reddeer.core.reference.ReferencedComposite;
 import org.eclipse.reddeer.jface.wizard.WizardPage;
 import org.eclipse.reddeer.swt.impl.button.CheckBox;
 
@@ -20,12 +21,16 @@ import org.eclipse.reddeer.swt.impl.button.CheckBox;
  */
 public class EJBFacetInstallPage extends WizardPage {
 	
+	public EJBFacetInstallPage(ReferencedComposite referencedComposite) {
+		super(referencedComposite);
+	}
+	
 	/**
 	 * Enables/disables generation of ejb-jar.xml.
 	 * @param toggle toggle generation
 	 */
 	public void toggleGenerateEjbJarXml(final boolean toggle) {
-		new CheckBox("Generate ejb-jar.xml deployment descriptor").toggle(toggle);
+		new CheckBox(referencedComposite, "Generate ejb-jar.xml deployment descriptor").toggle(toggle);
 	}
 	
 	/**
@@ -33,7 +38,7 @@ public class EJBFacetInstallPage extends WizardPage {
 	 * @return true if generation of ejb-jar.xml is enabled, false otherwise
 	 */
 	public boolean isGenerateEjbJarXml() {
-		return new CheckBox("Generate ejb-jar.xml deployment descriptor").isChecked();
+		return new CheckBox(referencedComposite, "Generate ejb-jar.xml deployment descriptor").isChecked();
 	}
 
 }

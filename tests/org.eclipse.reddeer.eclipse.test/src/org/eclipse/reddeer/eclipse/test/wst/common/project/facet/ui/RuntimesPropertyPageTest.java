@@ -47,7 +47,7 @@ public class RuntimesPropertyPageTest {
 		ExternalProjectImportWizardDialog wizard  = new ExternalProjectImportWizardDialog();
 		wizard.open();
 
-		WizardProjectsImportPage wizardPage = new WizardProjectsImportPage();
+		WizardProjectsImportPage wizardPage = new WizardProjectsImportPage(wizard);
 		wizardPage.setArchiveFile(ServersViewTestCase.ZIP_FILE.getAbsolutePath());
 		wizardPage.selectProjects(PROJECT);
 
@@ -57,13 +57,13 @@ public class RuntimesPropertyPageTest {
 	@Before
 	public void createRuntime(){
 		WorkbenchPreferenceDialog preferencesDialog = new WorkbenchPreferenceDialog();
-		RuntimePreferencePage runtimePreference = new RuntimePreferencePage();
+		RuntimePreferencePage runtimePreference = new RuntimePreferencePage(preferencesDialog);
 
 		preferencesDialog.open();
 		preferencesDialog.select(runtimePreference);
 		
 		NewRuntimeWizardDialog dialog = runtimePreference.addRuntime();
-		NewRuntimeWizardPage page = new NewRuntimeWizardPage();
+		NewRuntimeWizardPage page = new NewRuntimeWizardPage(dialog);
 		page.selectType(TestServerRuntime.CATEGORY, TestServerRuntime.NAME);
 		dialog.finish();
 		
@@ -79,7 +79,7 @@ public class RuntimesPropertyPageTest {
 		DeleteUtils.forceProjectDeletion(getProject(),true);
 		
 		WorkbenchPreferenceDialog preferencesDialog = new WorkbenchPreferenceDialog();
-		RuntimePreferencePage runtimePreference = new RuntimePreferencePage();
+		RuntimePreferencePage runtimePreference = new RuntimePreferencePage(preferencesDialog);
 
 		preferencesDialog.open();
 		preferencesDialog.select(runtimePreference);
@@ -91,7 +91,7 @@ public class RuntimesPropertyPageTest {
 	@Test
 	public void selectRuntime() {
 		dialog = getProject().openProperties();
-		RuntimesPropertyPage propertyPage = new RuntimesPropertyPage();
+		RuntimesPropertyPage propertyPage = new RuntimesPropertyPage(dialog);
 
 		dialog.select(propertyPage);
 		propertyPage.selectRuntime(TestServerRuntime.NAME);
@@ -99,6 +99,7 @@ public class RuntimesPropertyPageTest {
 		dialog.ok();
 		
 		dialog = getProject().openProperties();
+		propertyPage = new RuntimesPropertyPage(dialog);
 		dialog.select(propertyPage);
  		assertThat(propertyPage.getSelectedRuntimes().get(0), is(TestServerRuntime.NAME));
  	}

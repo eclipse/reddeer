@@ -41,7 +41,7 @@ public class MavenImportWizard extends ImportMenuWizard {
 	 */
 	public MavenImportWizard() {
 		super(TITLE, "Maven", "Existing Maven Projects");
-		page = new MavenImportWizardPage();
+		page = new MavenImportWizardPage(this);
 	}
 
 	public MavenImportWizardPage getWizardPage() {

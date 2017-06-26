@@ -75,7 +75,7 @@ public class DoNotDownloadMavenIndexesExt implements IBeforeTest {
 				+ "via Windows > Preferences > Maven");
 
 		WorkbenchPreferenceDialog preferencesDialog = new WorkbenchPreferenceDialog();
-		MavenPreferencePage mavenPreferencePage = new MavenPreferencePage();
+		MavenPreferencePage mavenPreferencePage = new MavenPreferencePage(preferencesDialog);
 
 		preferencesDialog.open();
 		try {

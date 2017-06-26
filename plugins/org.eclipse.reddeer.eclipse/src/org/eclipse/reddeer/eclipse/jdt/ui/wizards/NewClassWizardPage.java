@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.reddeer.eclipse.jdt.ui.wizards;
 
+import org.eclipse.reddeer.core.reference.ReferencedComposite;
 import org.eclipse.reddeer.jface.wizard.WizardPage;
 import org.eclipse.reddeer.swt.impl.button.CheckBox;
 import org.eclipse.reddeer.swt.impl.text.LabeledText;
@@ -22,8 +23,8 @@ public class NewClassWizardPage extends WizardPage {
 	/**
 	 * Instantiates a new new java class wizard page.
 	 */
-	public NewClassWizardPage() {
-		super();
+	public NewClassWizardPage(ReferencedComposite referencedComposite) {
+		super(referencedComposite);
 	}
 	
 	/**
@@ -32,7 +33,7 @@ public class NewClassWizardPage extends WizardPage {
 	 * @param name Name
 	 */
 	public void setName(String name){
-		new LabeledText("Name:").setText(name);
+		new LabeledText(referencedComposite, "Name:").setText(name);
 	}
 	
 	/**
@@ -41,7 +42,7 @@ public class NewClassWizardPage extends WizardPage {
 	 * @param packageName Package name
 	 */
 	public void setPackage(String packageName) {
-		new LabeledText("Package:").setText(packageName);
+		new LabeledText(referencedComposite, "Package:").setText(packageName);
 	}
 	
 	/**
@@ -50,7 +51,7 @@ public class NewClassWizardPage extends WizardPage {
 	 * @param sourceFolder Source folder
 	 */
 	public void setSourceFolder(String sourceFolder){
-		new LabeledText("Source folder:").setText(sourceFolder);
+		new LabeledText(referencedComposite, "Source folder:").setText(sourceFolder);
 	}
 	
 	/**
@@ -59,7 +60,7 @@ public class NewClassWizardPage extends WizardPage {
 	 * @param setMainMethod Indicates whether to generate static main method
 	 */
 	public void setStaticMainMethod(boolean setMainMethod) {
-		new CheckBox("public static void main(String[] args)").toggle(setMainMethod);
+		new CheckBox(referencedComposite, "public static void main(String[] args)").toggle(setMainMethod);
 	}
 	
 	/**
@@ -68,7 +69,7 @@ public class NewClassWizardPage extends WizardPage {
 	 * @return package name
 	 */
 	public String getPackage(){
-		return new LabeledText("Package:").getText();
+		return new LabeledText(referencedComposite, "Package:").getText();
 	}
 	
 	/**
@@ -77,7 +78,7 @@ public class NewClassWizardPage extends WizardPage {
 	 * @return Class name
 	 */
 	public String getName(){
-		return new LabeledText("Name:").getText();
+		return new LabeledText(referencedComposite, "Name:").getText();
 	}
 	
 	/**
@@ -86,6 +87,6 @@ public class NewClassWizardPage extends WizardPage {
 	 * @return Source folder
 	 */
 	public String getSourceFolder(){
-		return new LabeledText("Source folder:").getText();
+		return new LabeledText(referencedComposite, "Source folder:").getText();
 	}
 }

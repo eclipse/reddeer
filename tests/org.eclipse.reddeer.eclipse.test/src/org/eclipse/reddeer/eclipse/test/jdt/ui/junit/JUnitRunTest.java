@@ -47,12 +47,12 @@ public class JUnitRunTest {
 	public static void createTestProject() {
 		JavaProjectWizard projectWizard = new JavaProjectWizard();
 		projectWizard.open();
-		new NewJavaProjectWizardPageOne().setProjectName(PROJECT_NAME);
+		new NewJavaProjectWizardPageOne(projectWizard).setProjectName(PROJECT_NAME);
 		projectWizard.finish();
 
 		NewClassCreationWizard classWizard = new NewClassCreationWizard();
 		classWizard.open();
-		new NewClassWizardPage().setName("HelloTest");
+		new NewClassWizardPage(classWizard).setName("HelloTest");
 		classWizard.finish();
 
 		PackageExplorerPart explorer = new PackageExplorerPart();

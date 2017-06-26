@@ -121,7 +121,7 @@ public class RedDeerTestCaseWizardTest extends RedDeerWizardTestCase {
 	}
 
 	private void fillInWizard() {
-		RedDeerTestCaseWizardPageOne pageOne = new RedDeerTestCaseWizardPageOne();
+		RedDeerTestCaseWizardPageOne pageOne = new RedDeerTestCaseWizardPageOne(wizard);
 		pageOne.setAfterClassTearDown(true);
 		pageOne.setBeforeClassSetup(true);
 		pageOne.setSetupMethod(true);
@@ -132,7 +132,7 @@ public class RedDeerTestCaseWizardTest extends RedDeerWizardTestCase {
 		pageOne.setPackage(PACKAGE);
 
 		wizard.next();
-		RedDeerTestCaseWizardPageTwo pageTwo = new RedDeerTestCaseWizardPageTwo();
+		RedDeerTestCaseWizardPageTwo pageTwo = new RedDeerTestCaseWizardPageTwo(wizard);
 		pageTwo.selectAll();
 
 		// save the names of selected methods
@@ -181,12 +181,12 @@ public class RedDeerTestCaseWizardTest extends RedDeerWizardTestCase {
 	private static void createTestProject() {
 		JavaProjectWizard dialog = new JavaProjectWizard();
 		dialog.open();
-		new NewJavaProjectWizardPageOne().setProjectName(PROJECT_NAME);
+		new NewJavaProjectWizardPageOne(dialog).setProjectName(PROJECT_NAME);
 		dialog.finish();
 
 		NewClassCreationWizard classDialog = new NewClassCreationWizard();
 		classDialog.open();
-		NewClassWizardPage classPage = new NewClassWizardPage();
+		NewClassWizardPage classPage = new NewClassWizardPage(classDialog);
 		classPage.setName(CLASS_NAME);
 		classPage.setPackage(PACKAGE);
 		classDialog.finish();

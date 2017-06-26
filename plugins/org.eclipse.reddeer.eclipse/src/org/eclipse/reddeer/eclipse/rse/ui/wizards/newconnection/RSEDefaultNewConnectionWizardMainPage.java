@@ -13,6 +13,7 @@ package org.eclipse.reddeer.eclipse.rse.ui.wizards.newconnection;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.eclipse.reddeer.core.reference.ReferencedComposite;
 import org.eclipse.reddeer.jface.wizard.WizardPage;
 import org.eclipse.reddeer.swt.api.Combo;
 import org.eclipse.reddeer.swt.impl.combo.DefaultCombo;
@@ -26,6 +27,10 @@ import org.eclipse.reddeer.swt.impl.text.DefaultText;
  *
  */
 public class RSEDefaultNewConnectionWizardMainPage extends WizardPage {
+	
+	public RSEDefaultNewConnectionWizardMainPage(ReferencedComposite referencedComposite) {
+		super(referencedComposite);
+	}
 
 	/**
 	 * Sets Host name.
@@ -42,7 +47,7 @@ public class RSEDefaultNewConnectionWizardMainPage extends WizardPage {
 	 * @param name the new connection name
 	 */
 	public void setConnectionName(String name){
-		new DefaultText(0).setText(name);
+		new DefaultText(referencedComposite, 0).setText(name);
 	}
 	
 	/**
@@ -56,6 +61,6 @@ public class RSEDefaultNewConnectionWizardMainPage extends WizardPage {
 	}
 	
 	private Combo getHostNameCombo(){
-		return new DefaultCombo(1);
+		return new DefaultCombo(referencedComposite, 1);
 	}	
 }

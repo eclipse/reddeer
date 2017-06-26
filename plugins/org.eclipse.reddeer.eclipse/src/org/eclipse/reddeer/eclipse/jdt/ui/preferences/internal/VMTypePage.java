@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.reddeer.eclipse.jdt.ui.preferences.internal;
 
+import org.eclipse.reddeer.core.reference.ReferencedComposite;
 import org.eclipse.reddeer.jface.wizard.WizardPage;
 import org.eclipse.reddeer.swt.impl.list.DefaultList;
 
@@ -22,6 +23,10 @@ import org.eclipse.reddeer.swt.impl.list.DefaultList;
  */
 
 public class VMTypePage extends WizardPage {
+	
+	public VMTypePage(ReferencedComposite referencedComposite) {
+		super(referencedComposite);
+	}
 
 	/**
 	 * Selects desired type.
@@ -30,7 +35,7 @@ public class VMTypePage extends WizardPage {
 	 */
 	
 	public void selectType(String type){
-		new DefaultList().select(type);
+		new DefaultList(referencedComposite).select(type);
 	}
 	
 }

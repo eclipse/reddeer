@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.reddeer.eclipse.datatools.connectivity.ui.wizards;
 
+import org.eclipse.reddeer.core.reference.ReferencedComposite;
 import org.eclipse.reddeer.jface.wizard.WizardPage;
 import org.eclipse.reddeer.swt.impl.table.DefaultTable;
 import org.eclipse.reddeer.swt.impl.text.LabeledText;
@@ -29,8 +30,8 @@ public class CPWizardSelectionPage extends WizardPage {
 	/**
 	 * Instantiates a new connection profile select page.
 	 */
-	public CPWizardSelectionPage() {
-		super();
+	public CPWizardSelectionPage(ReferencedComposite referencedComposite) {
+		super(referencedComposite);
 	}
 
 	/**
@@ -40,7 +41,7 @@ public class CPWizardSelectionPage extends WizardPage {
 	 *            Connection profile
 	 */
 	public void setConnectionProfile(String connectionProfile) {
-		new DefaultTable().select(connectionProfile);
+		new DefaultTable(referencedComposite).select(connectionProfile);
 	}
 
 	/**
@@ -50,7 +51,7 @@ public class CPWizardSelectionPage extends WizardPage {
 	 *            Name
 	 */
 	public void setName(String name) {
-		new LabeledText(LABEL_NAME).setText(name);
+		new LabeledText(referencedComposite, LABEL_NAME).setText(name);
 	}
 
 	/**
@@ -60,6 +61,6 @@ public class CPWizardSelectionPage extends WizardPage {
 	 *            Description
 	 */
 	public void setDescription(String description) {
-		new LabeledText(LABEL_DESCRIPTION).setText(description);
+		new LabeledText(referencedComposite, LABEL_DESCRIPTION).setText(description);
 	}
 }

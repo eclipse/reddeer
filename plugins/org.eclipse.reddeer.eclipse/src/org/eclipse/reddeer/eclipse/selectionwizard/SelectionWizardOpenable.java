@@ -29,7 +29,7 @@ public class SelectionWizardOpenable extends Openable{
 	@Override
 	public void run() {
 		selectionWizard.open();
-		WorkbenchWizardSelectionPage selectionPage = new WorkbenchWizardSelectionPage(){};
+		WorkbenchWizardSelectionPage selectionPage = new WorkbenchWizardSelectionPage(selectionWizard){};
 		selectionPage.selectProject(wizardPath);
 		selectionWizard.next();
 	}

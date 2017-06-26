@@ -35,7 +35,7 @@ public class CloseAllEditorsRequirementTest {
 		for(int i=0;i<3;i++){
 			NewWizard newWizard = new NewWizard();
 			newWizard.open();
-			NewWizardSelectionPage nwp = new NewWizardSelectionPage();
+			NewWizardSelectionPage nwp = new NewWizardSelectionPage(newWizard);
 			nwp.selectProject("General","Untitled Text File");
 			newWizard.finish();
 		}

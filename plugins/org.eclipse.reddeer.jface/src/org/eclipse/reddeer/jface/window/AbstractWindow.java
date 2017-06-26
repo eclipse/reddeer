@@ -22,6 +22,7 @@ import org.eclipse.reddeer.jface.exception.JFaceLayerException;
 import org.eclipse.reddeer.jface.matcher.WindowMatcher;
 import org.eclipse.reddeer.swt.api.Shell;
 import org.eclipse.reddeer.swt.impl.shell.DefaultShell;
+import org.eclipse.swt.widgets.Control;
 /**
  * Represends JFace Window
  * 
@@ -187,6 +188,14 @@ public abstract class AbstractWindow implements Window{
 	 */
 	public Matcher<?>[] getWindowMatchers(){
 		return windowMatchers;
+	}
+
+	@Override
+	public Control getControl() {
+		if(shell.isDisposed()){
+			throw new JFaceLayerException("Window is disposed");
+		}
+		return shell.getSWTWidget();
 	}
 
 }

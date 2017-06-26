@@ -11,6 +11,7 @@
 package org.eclipse.reddeer.swt.impl.text;
 
 import org.eclipse.reddeer.swt.api.Text;
+import org.eclipse.reddeer.common.logging.Logger;
 import org.eclipse.reddeer.core.matcher.WithLabelMatcher;
 import org.eclipse.reddeer.core.reference.ReferencedComposite;
 

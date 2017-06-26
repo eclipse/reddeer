@@ -34,7 +34,7 @@ public class DriverDefinitionTest {
 		WorkbenchPreferenceDialog dialog = new WorkbenchPreferenceDialog();
 		dialog.open();
 		
-		DriverPreferences preferencePage = new DriverPreferences();
+		DriverPreferences preferencePage = new DriverPreferences(dialog);
 		dialog.select(preferencePage);
 		preferencePage.addDriverDefinition().create(createTestDriverDefinition());
 		// test if a driver was successfully created

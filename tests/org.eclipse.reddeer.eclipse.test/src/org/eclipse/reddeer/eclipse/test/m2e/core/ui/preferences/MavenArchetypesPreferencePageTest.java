@@ -32,7 +32,7 @@ public class MavenArchetypesPreferencePageTest {
 	private static final String EMPTY_CATALOG_MESSAGE = "Remote catalog is empty";
 
 	private WorkbenchPreferenceDialog preferencesDialog = new WorkbenchPreferenceDialog();
-	private MavenArchetypesPreferencePage page = new MavenArchetypesPreferencePage();
+	private MavenArchetypesPreferencePage page = new MavenArchetypesPreferencePage(preferencesDialog);
 
 	private File path = new File(Activator.getTestResourcesLocation(MavenArchetypesPreferencePageTest.class),
 			"archetype-catalog.xml");

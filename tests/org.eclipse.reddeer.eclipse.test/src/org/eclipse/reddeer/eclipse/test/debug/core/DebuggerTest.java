@@ -66,10 +66,10 @@ public class DebuggerTest {
 		MavenProjectWizard mavenProjectWizard = new MavenProjectWizard();
 		mavenProjectWizard.open();
 		mavenProjectWizard.next();
-		MavenProjectWizardArchetypePage archetypePage = new MavenProjectWizardArchetypePage();
+		MavenProjectWizardArchetypePage archetypePage = new MavenProjectWizardArchetypePage(mavenProjectWizard);
 		archetypePage.selectArchetype("org.apache.maven.archetypes", "maven-archetype-quickstart", "1.1");
 		mavenProjectWizard.next();
-		MavenProjectWizardArchetypeParametersPage artifactPage = new MavenProjectWizardArchetypeParametersPage();
+		MavenProjectWizardArchetypeParametersPage artifactPage = new MavenProjectWizardArchetypeParametersPage(mavenProjectWizard);
 		artifactPage.setGroupId("com.example");
 		artifactPage.setArtifactId("debugger");
 		mavenProjectWizard.finish(TimePeriod.VERY_LONG);

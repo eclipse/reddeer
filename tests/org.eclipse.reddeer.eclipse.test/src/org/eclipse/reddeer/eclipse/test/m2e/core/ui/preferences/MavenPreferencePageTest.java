@@ -26,7 +26,7 @@ public class MavenPreferencePageTest {
 
 	private WorkbenchPreferenceDialog preferencesDialog = new WorkbenchPreferenceDialog();
 	
-	private MavenPreferencePage mavenPreferencePage = new MavenPreferencePage();
+	private MavenPreferencePage mavenPreferencePage = new MavenPreferencePage(preferencesDialog);
 
 	@Test
 	public void checkAllPreferences() {

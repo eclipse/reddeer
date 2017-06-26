@@ -42,7 +42,7 @@ public class SecureStorageRequirement implements Requirement<DisableSecureStorag
 	@Override
 	public void fulfill() {
 		WorkbenchPreferenceDialog dialog = new WorkbenchPreferenceDialog();
-		StoragePreferencePage page = new StoragePreferencePage();
+		StoragePreferencePage page = new StoragePreferencePage(dialog);
 		
 		dialog.open();
 		dialog.select(page);

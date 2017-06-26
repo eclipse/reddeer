@@ -11,6 +11,7 @@
 
 package org.eclipse.reddeer.ui.test.wizard.impl;
 
+import org.eclipse.reddeer.core.reference.ReferencedComposite;
 import org.eclipse.reddeer.jface.wizard.WizardPage;
 import org.eclipse.reddeer.swt.impl.button.CheckBox;
 import org.eclipse.reddeer.swt.impl.button.RadioButton;
@@ -24,12 +25,16 @@ import org.eclipse.reddeer.swt.impl.text.LabeledText;
  */
 public class RedDeerTestPluginWizardPage extends WizardPage {
 	
+	public RedDeerTestPluginWizardPage(ReferencedComposite referencedComposite) {
+		super(referencedComposite);
+	}
+	
 	/**
 	 * Sets the plug-in name
 	 * @param name
 	 */
 	public void setPluginName(String name) {
-		new LabeledText("Plug-in Name:").setText(name);
+		new LabeledText(referencedComposite, "Plug-in Name:").setText(name);
 	}
 	
 	/**
@@ -37,7 +42,7 @@ public class RedDeerTestPluginWizardPage extends WizardPage {
 	 * @param id
 	 */
 	public void setPluginId(String id) {
-		new LabeledText("Plug-in id:").setText(id);
+		new LabeledText(referencedComposite, "Plug-in id:").setText(id);
 	}
 	
 	/**
@@ -45,7 +50,7 @@ public class RedDeerTestPluginWizardPage extends WizardPage {
 	 * @param version
 	 */
 	public void setVersion(String version) {
-		new LabeledText("Version:").setText(version);
+		new LabeledText(referencedComposite, "Version:").setText(version);
 	}
 	
 	/**
@@ -53,7 +58,7 @@ public class RedDeerTestPluginWizardPage extends WizardPage {
 	 * @param provider
 	 */
 	public void setProvider(String provider) {
-		new LabeledText("Provider:").setText(provider);
+		new LabeledText(referencedComposite, "Provider:").setText(provider);
 	}
 	
 	/**
@@ -61,7 +66,7 @@ public class RedDeerTestPluginWizardPage extends WizardPage {
 	 * @param checked true to check, false to uncheck
 	 */
 	public void toggleExampleTest(boolean checked) {
-		new CheckBox().toggle(checked);
+		new CheckBox(referencedComposite).toggle(checked);
 	}
 	
 	/**
@@ -69,7 +74,7 @@ public class RedDeerTestPluginWizardPage extends WizardPage {
 	 * @param isProduct
 	 */
 	public void setProduct(boolean isProduct) {
-		new RadioButton("Product id:").toggle(isProduct);
+		new RadioButton(referencedComposite, "Product id:").toggle(isProduct);
 	}
 	
 	/**
@@ -77,7 +82,7 @@ public class RedDeerTestPluginWizardPage extends WizardPage {
 	 * @param isApplication
 	 */
 	public void setApplication(boolean isApplication) {
-		new RadioButton("Application id:").toggle(isApplication);
+		new RadioButton(referencedComposite, "Application id:").toggle(isApplication);
 	}
 	
 	/**
@@ -85,7 +90,7 @@ public class RedDeerTestPluginWizardPage extends WizardPage {
 	 * @param product id of the product to select
 	 */
 	public void selectProduct(String product) {
-		new DefaultCombo().setSelection(product);
+		new DefaultCombo(referencedComposite).setSelection(product);
 	}
 	
 	/**
@@ -93,6 +98,6 @@ public class RedDeerTestPluginWizardPage extends WizardPage {
 	 * @param application id of the application to select
 	 */
 	public void selectApplication(String application) {
-		new DefaultCombo(1).setSelection(application);
+		new DefaultCombo(referencedComposite, 1).setSelection(application);
 	}
 }

@@ -45,8 +45,8 @@ public class PreferencesUtilTest {
 	public void resetPreferences() {
 		PreferencesUtil.setOpenAssociatedPerspective(openAssosiatedPerspective);
 
-		ConsolePreferencePage consolePreferencePage = new ConsolePreferencePage();
 		WorkbenchPreferenceDialog preferenceDialog = new WorkbenchPreferenceDialog();
+		ConsolePreferencePage consolePreferencePage = new ConsolePreferencePage(preferenceDialog);
 		preferenceDialog.open();
 		preferenceDialog.select(consolePreferencePage);
 		consolePreferencePage.restoreDefaults();
@@ -69,7 +69,7 @@ public class PreferencesUtilTest {
 	@Test
 	public void getOpenAssociatedPerspectiveTest() {
 		WorkbenchPreferenceDialog preferencesDialog = new WorkbenchPreferenceDialog();
-		IDEPerspectivesPreferencePage perspectivesPreferencePage = new IDEPerspectivesPreferencePage();
+		IDEPerspectivesPreferencePage perspectivesPreferencePage = new IDEPerspectivesPreferencePage(preferencesDialog);
 		preferencesDialog.open();
 		preferencesDialog.select(perspectivesPreferencePage);
 
@@ -93,7 +93,7 @@ public class PreferencesUtilTest {
 		PreferencesUtil.setOpenAssociatedPerspective("always");
 
 		WorkbenchPreferenceDialog preferencesDialog = new WorkbenchPreferenceDialog();
-		IDEPerspectivesPreferencePage perspectivesPreferencePage = new IDEPerspectivesPreferencePage();
+		IDEPerspectivesPreferencePage perspectivesPreferencePage = new IDEPerspectivesPreferencePage(preferencesDialog);
 		preferencesDialog.open();
 		preferencesDialog.select(perspectivesPreferencePage);
 		assertTrue(perspectivesPreferencePage.isAlwaysOpenAssociatedPerspective());
@@ -125,9 +125,9 @@ public class PreferencesUtilTest {
 
 	@Test
 	public void testLimitingConsoleOutput() {
-		ConsolePreferencePage consolePreferencePage = new ConsolePreferencePage();
 		WorkbenchPreferenceDialog preferenceDialog = new WorkbenchPreferenceDialog();
 		preferenceDialog.open();
+		ConsolePreferencePage consolePreferencePage = new ConsolePreferencePage(preferenceDialog);
 		preferenceDialog.select(consolePreferencePage);
 		assertEquals(consolePreferencePage.isConsoleOutputLimited(), PreferencesUtil.isConsoleOutputLimited());
 		assertEquals(consolePreferencePage.getConsoleOutputSize(), PreferencesUtil.getConsoleOutputSize());
@@ -151,9 +151,9 @@ public class PreferencesUtilTest {
 
 	@Test
 	public void testSettingConsoleShow() {
-		ConsolePreferencePage consolePreferencePage = new ConsolePreferencePage();
 		WorkbenchPreferenceDialog preferenceDialog = new WorkbenchPreferenceDialog();
 		preferenceDialog.open();
+		ConsolePreferencePage consolePreferencePage = new ConsolePreferencePage(preferenceDialog);
 		preferenceDialog.select(consolePreferencePage);
 		assertEquals(consolePreferencePage.isConsoleOpenedOnError(), PreferencesUtil.isConsoleOpenedOnError());
 		assertEquals(consolePreferencePage.isConsoleOpenedOnOutput(), PreferencesUtil.isConsoleOpenedOnOutput());

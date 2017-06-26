@@ -25,6 +25,7 @@ import org.eclipse.reddeer.common.wait.WaitUntil;
 import org.eclipse.reddeer.core.condition.ActiveShellExists;
 import org.eclipse.reddeer.core.condition.ShellMatchingMatcherIsAvailable;
 import org.eclipse.reddeer.core.exception.CoreLayerException;
+import org.eclipse.reddeer.core.handler.ControlHandler;
 import org.eclipse.reddeer.core.matcher.WithTextMatcher;
 import org.eclipse.reddeer.core.util.DiagnosticTool;
 
@@ -212,7 +213,7 @@ public class ShellLookup {
 	 * @return the parent shell
 	 */
 	public Shell getParentShell(Shell shell){
-		Control parent = WidgetLookup.getInstance().getParent(shell);
+		Control parent = ControlHandler.getInstance().getParent(shell);
 		return parent == null ? null : (Shell)parent;
 	}
 	

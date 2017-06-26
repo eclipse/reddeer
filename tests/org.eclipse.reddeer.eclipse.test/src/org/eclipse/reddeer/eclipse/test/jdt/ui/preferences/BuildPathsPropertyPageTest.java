@@ -55,7 +55,7 @@ public class BuildPathsPropertyPageTest {
 	public static void setupClass(){
 		JavaProjectWizard javaProject = new JavaProjectWizard();
 		javaProject.open();
-		NewJavaProjectWizardPageOne javaWizardPage = new NewJavaProjectWizardPageOne();
+		NewJavaProjectWizardPageOne javaWizardPage = new NewJavaProjectWizardPageOne(javaProject);
 		javaWizardPage.setProjectName(TEST_PROJECT_NAME);
 		javaProject.finish();
 	}
@@ -72,7 +72,7 @@ public class BuildPathsPropertyPageTest {
 	@Before
 	public void setUp(){
 		propertiesDialog = getProject().openProperties();
-		buildPathsPropertyPage = new BuildPathsPropertyPage();
+		buildPathsPropertyPage = new BuildPathsPropertyPage(propertiesDialog);
 		propertiesDialog.select(buildPathsPropertyPage);
 	}
 	
@@ -105,6 +105,7 @@ public class BuildPathsPropertyPageTest {
 		new WaitWhile(new JobIsRunning());
 		new PackageExplorerPart().open();
 		propertiesDialog = getProject().openProperties();
+		buildPathsPropertyPage = new BuildPathsPropertyPage(propertiesDialog);
 		propertiesDialog.select(buildPathsPropertyPage);
 		buildPathsPropertyPage.removeVariable(addedVariableLabel,true);
 		assertFalse("Libraries should not contain item:'" + addedVariableLabel + "'",

@@ -11,6 +11,7 @@
 package org.eclipse.reddeer.eclipse.jst.ejb.ui.project.facet;
 
 import org.eclipse.reddeer.eclipse.wst.web.ui.wizards.DataModelFacetCreationWizardPage;
+import org.eclipse.reddeer.jface.wizard.WizardDialog;
 import org.eclipse.reddeer.swt.impl.combo.DefaultCombo;
 import org.eclipse.reddeer.swt.impl.group.DefaultGroup;
 
@@ -21,12 +22,16 @@ import org.eclipse.reddeer.swt.impl.group.DefaultGroup;
  */
 public class EjbProjectFirstPage extends DataModelFacetCreationWizardPage {
 	
+	public EjbProjectFirstPage(WizardDialog dialog) {
+		super(dialog);
+	}
+	
 	/**
 	 * Sets Ejb module version.
 	 * @param version to set
 	 */
 	public void setEJBModuleVersion(final String version) {
-		new DefaultCombo(new DefaultGroup("EJB module version")).setSelection(version);
+		new DefaultCombo(new DefaultGroup(referencedComposite, "EJB module version")).setSelection(version);
 	}
 	
 	/**
@@ -34,7 +39,7 @@ public class EjbProjectFirstPage extends DataModelFacetCreationWizardPage {
 	 * @return ejb module version
 	 */
 	public String getEJBModuleVersion() {
-		return new DefaultCombo(new DefaultGroup("EJB module version")).getSelection();
+		return new DefaultCombo(new DefaultGroup(referencedComposite, "EJB module version")).getSelection();
 	}
 
 }

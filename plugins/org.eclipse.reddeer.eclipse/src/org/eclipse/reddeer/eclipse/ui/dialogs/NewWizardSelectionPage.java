@@ -10,11 +10,17 @@
  *******************************************************************************/
 package org.eclipse.reddeer.eclipse.ui.dialogs;
 
+import org.eclipse.reddeer.jface.wizard.WizardDialog;
+
 /**
  * Represends first page of NewWizard
  * @author rawagner
  *
  */
 public class NewWizardSelectionPage extends WorkbenchWizardSelectionPage{
+	
+	public NewWizardSelectionPage(WizardDialog dialog) {
+		super(dialog);
+	}
 
 }

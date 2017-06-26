@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.reddeer.eclipse.jdt.ui.wizards;
 
+import org.eclipse.reddeer.core.reference.ReferencedComposite;
 import org.eclipse.reddeer.jface.wizard.WizardPage;
 import org.eclipse.reddeer.swt.impl.button.CheckBox;
 import org.eclipse.reddeer.swt.impl.button.RadioButton;
@@ -22,13 +23,17 @@ import org.eclipse.reddeer.swt.impl.text.LabeledText;
  */
 public class NewEnumWizardPage extends WizardPage{
 	
+	public NewEnumWizardPage(ReferencedComposite referencedComposite) {
+		super(referencedComposite);
+	}
+	
 	/**
 	 * Sets name .
 	 *
 	 * @param name of enum
 	 */
 	public void setName(String name){
-		new LabeledText("Name:").setText(name);
+		new LabeledText(referencedComposite, "Name:").setText(name);
 	}
 	
 	/**
@@ -37,7 +42,7 @@ public class NewEnumWizardPage extends WizardPage{
 	 * @param packageName of enum
 	 */
 	public void setPackage(String packageName) {
-		new LabeledText("Package:").setText(packageName);
+		new LabeledText(referencedComposite, "Package:").setText(packageName);
 	}
 	
 	/**
@@ -46,7 +51,7 @@ public class NewEnumWizardPage extends WizardPage{
 	 * @param sourceFolder of enum
 	 */
 	public void setSourceFolder(String sourceFolder){
-		new LabeledText("Source folder:").setText(sourceFolder);
+		new LabeledText(referencedComposite, "Source folder:").setText(sourceFolder);
 	}
 	
 	/**
@@ -55,7 +60,7 @@ public class NewEnumWizardPage extends WizardPage{
 	 * @param toggle generate comments checkbox
 	 */
 	public void toggleGenerateComments(boolean toggle){
-		new CheckBox("Generate comments").toggle(toggle);
+		new CheckBox(referencedComposite, "Generate comments").toggle(toggle);
 	}
 	
 	/**
@@ -64,7 +69,7 @@ public class NewEnumWizardPage extends WizardPage{
 	 * @param toggle enclosing type checkbox
 	 */
 	public void toggleEnclosingType(boolean toggle){
-		new CheckBox("Enclosing type").toggle(toggle);
+		new CheckBox(referencedComposite, "Enclosing type").toggle(toggle);
 	}
 	
 	/**
@@ -73,7 +78,7 @@ public class NewEnumWizardPage extends WizardPage{
 	 * @param enclosingType of enum
 	 */
 	public void setEnclosingType(String enclosingType){
-		new LabeledText("Enclosing type").setText(enclosingType);
+		new LabeledText(referencedComposite, "Enclosing type").setText(enclosingType);
 	}
 	
 	/**
@@ -82,7 +87,7 @@ public class NewEnumWizardPage extends WizardPage{
 	 * @param toggle public modifier radio button
 	 */
 	public void togglePublicModifier(boolean toggle){
-		new RadioButton("public").toggle(toggle);
+		new RadioButton(referencedComposite, "public").toggle(toggle);
 	}
 	
 	/**
@@ -91,7 +96,7 @@ public class NewEnumWizardPage extends WizardPage{
 	 * @param toggle default modifier radio button
 	 */
 	public void toggleDefaultModifier(boolean toggle){
-		new RadioButton("default").toggle(toggle);
+		new RadioButton(referencedComposite, "default").toggle(toggle);
 	}
 	
 	/**
@@ -100,7 +105,7 @@ public class NewEnumWizardPage extends WizardPage{
 	 * @param toggle private modifier radio button
 	 */
 	public void togglePrivateModifier(boolean toggle){
-		new RadioButton("private").toggle(toggle);
+		new RadioButton(referencedComposite, "private").toggle(toggle);
 	}
 	
 	/**
@@ -109,7 +114,7 @@ public class NewEnumWizardPage extends WizardPage{
 	 * @param toggle protected modifier radio button
 	 */
 	public void toggleProtectedModifier(boolean toggle){
-		new RadioButton("protected").toggle(toggle);
+		new RadioButton(referencedComposite, "protected").toggle(toggle);
 	}
 	
 	/**
@@ -118,7 +123,7 @@ public class NewEnumWizardPage extends WizardPage{
 	 * @return enum name
 	 */
 	public String getName(){
-		return new LabeledText("Name:").getText();
+		return new LabeledText(referencedComposite, "Name:").getText();
 	}
 
 	/**
@@ -127,7 +132,7 @@ public class NewEnumWizardPage extends WizardPage{
 	 * @return package of enum
 	 */
 	public String getPackage() {
-		return new LabeledText("Package:").getText();
+		return new LabeledText(referencedComposite, "Package:").getText();
 	}
 	
 	/**
@@ -136,7 +141,7 @@ public class NewEnumWizardPage extends WizardPage{
 	 * @return true if wizard should generate comments, false otherwise
 	 */
 	public boolean isGenerateComments(){
-		return new CheckBox("Generate comments").isChecked();
+		return new CheckBox(referencedComposite, "Generate comments").isChecked();
 	}
 	
 	/**
@@ -145,7 +150,7 @@ public class NewEnumWizardPage extends WizardPage{
 	 * @return true if enclosing type is checked, false otherwise
 	 */
 	public boolean isEnclosingType(){
-		return new CheckBox("Enclosing type").isChecked();
+		return new CheckBox(referencedComposite, "Enclosing type").isChecked();
 	}
 	
 	/**
@@ -154,7 +159,7 @@ public class NewEnumWizardPage extends WizardPage{
 	 * @return enclosing type
 	 */
 	public String getEnclosingType(){
-		return new LabeledText("Enclosing type").getText();
+		return new LabeledText(referencedComposite, "Enclosing type").getText();
 	}
 	
 	/**
@@ -163,7 +168,7 @@ public class NewEnumWizardPage extends WizardPage{
 	 * @return true if public modifier is selected, false otherwise
 	 */
 	public boolean isPublicModifier(){
-		return new RadioButton("public").isSelected();
+		return new RadioButton(referencedComposite, "public").isSelected();
 	}
 	
 	/**
@@ -172,7 +177,7 @@ public class NewEnumWizardPage extends WizardPage{
 	 * @return true if default modifier is selected, false otherwise
 	 */
 	public boolean isDefaultModifier(){
-		return new RadioButton("default").isSelected();
+		return new RadioButton(referencedComposite, "default").isSelected();
 	}
 	
 	/**
@@ -181,7 +186,7 @@ public class NewEnumWizardPage extends WizardPage{
 	 * @return true if private modifier is selected, false otherwise
 	 */
 	public boolean isPrivateModifier(){
-		return new RadioButton("private").isSelected();
+		return new RadioButton(referencedComposite, "private").isSelected();
 	}
 	
 	/**
@@ -190,6 +195,6 @@ public class NewEnumWizardPage extends WizardPage{
 	 * @return true if protected modifier is selected, false otherwise
 	 */
 	public boolean isProtectedModifier(){
-		return new RadioButton("protected").isSelected();
+		return new RadioButton(referencedComposite, "protected").isSelected();
 	}
 }

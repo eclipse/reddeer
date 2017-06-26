@@ -11,6 +11,7 @@
 package org.eclipse.reddeer.eclipse.jst.j2ee.ui.project.facet;
 
 import org.eclipse.reddeer.eclipse.wst.web.ui.wizards.DataModelFacetCreationWizardPage;
+import org.eclipse.reddeer.jface.wizard.WizardDialog;
 import org.eclipse.reddeer.swt.impl.combo.DefaultCombo;
 import org.eclipse.reddeer.swt.impl.group.DefaultGroup;
 
@@ -19,13 +20,17 @@ import org.eclipse.reddeer.swt.impl.group.DefaultGroup;
  */
 public class EarProjectFirstPage extends DataModelFacetCreationWizardPage{
 	
+	public EarProjectFirstPage(WizardDialog dialog) {
+		super(dialog);
+	}
+	
 	/**
 	 * Sets EAR verion.
 	 * 
 	 * @param version EAR version
 	 */
 	public void setEARVersion(String version){
-		new DefaultCombo(new DefaultGroup("EAR version")).setSelection(version);
+		new DefaultCombo(new DefaultGroup(referencedComposite, "EAR version")).setSelection(version);
 	}
 	
 	/**
@@ -34,7 +39,7 @@ public class EarProjectFirstPage extends DataModelFacetCreationWizardPage{
 	 * @return EAR version
 	 */
 	public String getEARVersion(){
-		return new DefaultCombo(new DefaultGroup("EAR version")).getSelection();
+		return new DefaultCombo(new DefaultGroup(referencedComposite, "EAR version")).getSelection();
 	}
 	
 

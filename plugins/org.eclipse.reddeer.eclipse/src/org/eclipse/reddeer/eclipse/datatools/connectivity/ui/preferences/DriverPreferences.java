@@ -12,6 +12,7 @@ package org.eclipse.reddeer.eclipse.datatools.connectivity.ui.preferences;
 
 import java.util.List;
 
+import org.eclipse.reddeer.core.reference.ReferencedComposite;
 import org.eclipse.reddeer.eclipse.datatools.connectivity.ui.dialogs.DriverDialog;
 import org.eclipse.reddeer.eclipse.datatools.ui.DriverDefinition;
 import org.eclipse.reddeer.jface.preference.PreferencePage;
@@ -29,8 +30,8 @@ public class DriverPreferences extends PreferencePage {
 	/**
 	 * Construct a preference page with Data Management &gt; Connectivity &gt; Driver Definitions.
 	 */
-	public DriverPreferences() {
-		super(new String[] {"Data Management", "Connectivity", "Driver Definitions"});
+	public DriverPreferences(ReferencedComposite referencedComposite) {
+		super(referencedComposite, new String[] {"Data Management", "Connectivity", "Driver Definitions"});
 	}
 
 	/**
@@ -48,7 +49,7 @@ public class DriverPreferences extends PreferencePage {
 	 * @return a wizard for creating a driver definition
 	 */
 	public DriverDialog addDriverDefinition() {
-		new PushButton("Add...").click();
+		new PushButton(referencedComposite, "Add...").click();
 		new DefaultShell("New Driver Definition");
 		return new DriverDialog();
 	}

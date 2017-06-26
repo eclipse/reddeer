@@ -45,7 +45,7 @@ public class StoragePreferencePageTest {
 	
 	@Test
 	public void openStoragePreferencePageTest() {
-		workbenchPreferenceDialog.select(new StoragePreferencePage());
+		workbenchPreferenceDialog.select(new StoragePreferencePage(workbenchPreferenceDialog));
 		
 		assertTrue("Secure storage preference page has" + "not been opened.", 
 				"Secure Storage".equals(workbenchPreferenceDialog.getPageName()));
@@ -53,8 +53,8 @@ public class StoragePreferencePageTest {
 	
 	@Test
 	public void selectDifferentTabsOnPreferencePageTest() {
-		StoragePreferencePage storagePage = new StoragePreferencePage();
-		workbenchPreferenceDialog.select(new StoragePreferencePage());
+		StoragePreferencePage storagePage = new StoragePreferencePage(workbenchPreferenceDialog);
+		workbenchPreferenceDialog.select(storagePage);
 		
 		TabFolder tabFolder = new DefaultTabItem("Contents").getTabFolder();
 		storagePage.selectContentTab();
@@ -72,8 +72,8 @@ public class StoragePreferencePageTest {
 	
 	@Test
 	public void getMasterPasswordProvidersTest() {
-		StoragePreferencePage storagePage = new StoragePreferencePage();
-		workbenchPreferenceDialog.select(new StoragePreferencePage());
+		StoragePreferencePage storagePage = new StoragePreferencePage(workbenchPreferenceDialog);
+		workbenchPreferenceDialog.select(storagePage);
 		
 		assertTrue("Obtained number of master password providers is not same as in the table on the Password tab", 
 				storagePage.getMasterPasswordProviders().size() == new DefaultTable(0).getItems().size());
@@ -81,15 +81,15 @@ public class StoragePreferencePageTest {
 
 	@Test
 	public void getStorageLocationTest() {
-		StoragePreferencePage storagePage = new StoragePreferencePage();
-		workbenchPreferenceDialog.select(new StoragePreferencePage());
+		StoragePreferencePage storagePage = new StoragePreferencePage(workbenchPreferenceDialog);
+		workbenchPreferenceDialog.select(storagePage);
 		assertFalse(storagePage.getStorageLocation().isEmpty());
 	}
 
 	@Test
 	public void getEncryptionAlgorithmTest() {
-		StoragePreferencePage storagePage = new StoragePreferencePage();
-		workbenchPreferenceDialog.select(new StoragePreferencePage());
+		StoragePreferencePage storagePage = new StoragePreferencePage(workbenchPreferenceDialog);
+		workbenchPreferenceDialog.select(storagePage);
 
 		String algorithm = storagePage.getEncryptionAlgorithm();
 		assertNotNull(algorithm);
@@ -98,8 +98,8 @@ public class StoragePreferencePageTest {
 
 	@Test
 	public void getAvailableEncryptionAlgorithmsTest() {
-		StoragePreferencePage storagePage = new StoragePreferencePage();
-		workbenchPreferenceDialog.select(new StoragePreferencePage());
+		StoragePreferencePage storagePage = new StoragePreferencePage(workbenchPreferenceDialog);
+		workbenchPreferenceDialog.select(storagePage);
 
 		List<String> availableAlgorithms = storagePage.getAvailableEncryptionAlgorithms();
 		assertFalse(availableAlgorithms.isEmpty());
@@ -108,8 +108,8 @@ public class StoragePreferencePageTest {
 
 	@Test
 	public void availableAlgorithmsContainsCurrentAlgorithmTest() {
-		StoragePreferencePage storagePage = new StoragePreferencePage();
-		workbenchPreferenceDialog.select(new StoragePreferencePage());
+		StoragePreferencePage storagePage = new StoragePreferencePage(workbenchPreferenceDialog);
+		workbenchPreferenceDialog.select(storagePage);
 
 		List<String> availableAlgorithms = storagePage.getAvailableEncryptionAlgorithms();
 		assertTrue(availableAlgorithms.contains(storagePage.getEncryptionAlgorithm()));
@@ -117,8 +117,8 @@ public class StoragePreferencePageTest {
 
 	@Test
 	public void setEncryptionAlgorithmTest() {
-		StoragePreferencePage storagePage = new StoragePreferencePage();
-		workbenchPreferenceDialog.select(new StoragePreferencePage());
+		StoragePreferencePage storagePage = new StoragePreferencePage(workbenchPreferenceDialog);
+		workbenchPreferenceDialog.select(storagePage);
 
 		List<String> availableAlgorithms = storagePage.getAvailableEncryptionAlgorithms();
 		String lastAlgorithm = availableAlgorithms.get(availableAlgorithms.size() - 1);
@@ -136,8 +136,8 @@ public class StoragePreferencePageTest {
 	@Ignore
 	//Can be executed with debugger
 	public void recoverMasterPasswordTest() {
-		StoragePreferencePage storagePage = new StoragePreferencePage();
-		workbenchPreferenceDialog.select(new StoragePreferencePage());
+		StoragePreferencePage storagePage = new StoragePreferencePage(workbenchPreferenceDialog);
+		workbenchPreferenceDialog.select(storagePage);
 
 		PasswordRecoveryDialog recoveryDialog = storagePage.recoverMasterPassword();
 		assertTrue(new ShellIsAvailable("Password Recovery").test());
@@ -153,8 +153,8 @@ public class StoragePreferencePageTest {
 	@Ignore
 	//Can be executed with debugger
 	public void changeMasterPasswordTest() {
-		StoragePreferencePage storagePage = new StoragePreferencePage();
-		workbenchPreferenceDialog.select(new StoragePreferencePage());
+		StoragePreferencePage storagePage = new StoragePreferencePage(workbenchPreferenceDialog);
+		workbenchPreferenceDialog.select(storagePage);
 
 		ChangePasswordWizardDialog changePassDialog = storagePage.changeMasterPassword();
 		assertTrue(new ShellIsAvailable(changePassDialog.getShell()).test());

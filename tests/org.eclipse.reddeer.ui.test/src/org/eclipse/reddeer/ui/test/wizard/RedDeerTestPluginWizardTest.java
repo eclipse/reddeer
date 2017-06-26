@@ -123,7 +123,7 @@ public class RedDeerTestPluginWizardTest extends RedDeerWizardTestCase {
 	}
 
 	private void fillInWizard() {
-		RedDeerTestPluginWizardPage page = new RedDeerTestPluginWizardPage();
+		RedDeerTestPluginWizardPage page = new RedDeerTestPluginWizardPage(wizard);
 		page.setPluginName(PLUGIN_NAME);
 		page.setPluginId(PLUGIN_ID);
 		page.setVersion(VERSION);

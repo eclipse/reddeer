@@ -48,7 +48,7 @@ public class BasicNewProjectResourceWizardTest {
 		packageExplorer.open();
 		BasicNewProjectResourceWizard wizardDialog = new BasicNewProjectResourceWizard();
 		wizardDialog.open();
-		BasicNewProjectResourceWizardFirstPage projectPage = new BasicNewProjectResourceWizardFirstPage();
+		BasicNewProjectResourceWizardFirstPage projectPage = new BasicNewProjectResourceWizardFirstPage(wizardDialog);
 		projectPage
 				.setProjectName(BasicNewProjectResourceWizardTest.DEFAULT_PROJECT_NAME);
 		wizardDialog.finish();
@@ -71,7 +71,7 @@ public class BasicNewProjectResourceWizardTest {
 			// defined but all widgets were found
 		}
 		wizardDialog.next();
-		new WizardNewProjectReferencePage()
+		new WizardNewProjectReferencePage(wizardDialog)
 				.setProjectReferences(BasicNewProjectResourceWizardTest.DEFAULT_PROJECT_NAME);
 		wizardDialog.finish();
 		assertTrue(
@@ -87,7 +87,7 @@ public class BasicNewProjectResourceWizardTest {
 		// create default project
 		BasicNewProjectResourceWizard wizardDialog = new BasicNewProjectResourceWizard();
 		wizardDialog.open();
-		BasicNewProjectResourceWizardFirstPage projectPage = new BasicNewProjectResourceWizardFirstPage();
+		BasicNewProjectResourceWizardFirstPage projectPage = new BasicNewProjectResourceWizardFirstPage(wizardDialog);
 		projectPage
 				.setProjectName(BasicNewProjectResourceWizardTest.DEFAULT_PROJECT_NAME);
 		wizardDialog.finish();

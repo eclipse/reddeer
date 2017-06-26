@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.reddeer.eclipse.ui.dialogs;
 
+import org.eclipse.reddeer.core.reference.ReferencedComposite;
 import org.eclipse.reddeer.jface.preference.PreferencePage;
 
 /**
@@ -25,7 +26,7 @@ public abstract class PropertyPage extends PreferencePage {
 	 *
 	 * @param path the path
 	 */
-	public PropertyPage(String... path) {
-		super(path);
+	public PropertyPage(ReferencedComposite referencedComposite, String... path) {
+		super(referencedComposite, path);
 	}
 }

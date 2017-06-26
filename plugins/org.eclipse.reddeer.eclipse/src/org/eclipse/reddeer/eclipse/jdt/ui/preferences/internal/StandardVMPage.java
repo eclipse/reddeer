@@ -11,6 +11,7 @@
 package org.eclipse.reddeer.eclipse.jdt.ui.preferences.internal;
 
 import org.eclipse.reddeer.core.matcher.WithLabelMatcher;
+import org.eclipse.reddeer.core.reference.ReferencedComposite;
 import org.eclipse.reddeer.jface.wizard.WizardPage;
 import org.eclipse.reddeer.swt.impl.text.DefaultText;
 
@@ -20,6 +21,10 @@ import org.eclipse.reddeer.swt.impl.text.DefaultText;
  * 
  */
 public class StandardVMPage extends WizardPage {
+	
+	public StandardVMPage(ReferencedComposite referencedComposite) {
+		super(referencedComposite);
+	}
 
 	/**
 	 * Sets JRE home field.
@@ -29,7 +34,7 @@ public class StandardVMPage extends WizardPage {
 
 	public void setJREHome(String path) {
 		// no need to check whether file exists, Wizard will do it for us.
-		new DefaultText(new WithLabelMatcher("JRE home:")).setText(path);
+		new DefaultText(referencedComposite, new WithLabelMatcher("JRE home:")).setText(path);
 	}
 
 	/**
@@ -39,7 +44,7 @@ public class StandardVMPage extends WizardPage {
 	 */
 
 	public void setName(String name) {
-		new DefaultText(new WithLabelMatcher("JRE name:")).setText(name);
+		new DefaultText(referencedComposite, new WithLabelMatcher("JRE name:")).setText(name);
 	}
 
 	/**
@@ -49,6 +54,6 @@ public class StandardVMPage extends WizardPage {
 	 */
 
 	public String getErrorMessage() {
-		return new DefaultText(new WithLabelMatcher("JRE Definition")).getText();
+		return new DefaultText(referencedComposite, new WithLabelMatcher("JRE Definition")).getText();
 	}
 }
