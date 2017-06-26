@@ -17,6 +17,7 @@ import java.util.List;
 import org.hamcrest.Matcher;
 import org.eclipse.reddeer.common.wait.WaitWhile;
 import org.eclipse.reddeer.core.matcher.WithTextMatcher;
+import org.eclipse.reddeer.core.reference.ReferencedComposite;
 import org.eclipse.reddeer.jface.preference.PreferencePage;
 import org.eclipse.reddeer.swt.api.Table;
 import org.eclipse.reddeer.swt.api.TableItem;
@@ -37,8 +38,8 @@ public class ClasspathVariablesPreferencePage extends PreferencePage {
 	/**
 	 * Constructor for classpath variables preference in preference shell.
 	 */
-	public ClasspathVariablesPreferencePage() {
-		super(new String[] {"Java", "Build Path", "Classpath Variables"});
+	public ClasspathVariablesPreferencePage(ReferencedComposite referencedComposite) {
+		super(referencedComposite, new String[] {"Java", "Build Path", "Classpath Variables"});
 	}
 	
 	/**
@@ -67,7 +68,7 @@ public class ClasspathVariablesPreferencePage extends PreferencePage {
 	 * @return
 	 */
 	private Table getClasspathVariablesTable () {
-		return new DefaultTable();
+		return new DefaultTable(referencedComposite);
 	}	
 	
 	/**
@@ -115,6 +116,6 @@ public class ClasspathVariablesPreferencePage extends PreferencePage {
 	 */
 	public void removeVariable(String label){
 		selectVariable(new WithTextMatcher(label));
-		new PushButton("Remove").click();
+		new PushButton(referencedComposite, "Remove").click();
 	}
 }

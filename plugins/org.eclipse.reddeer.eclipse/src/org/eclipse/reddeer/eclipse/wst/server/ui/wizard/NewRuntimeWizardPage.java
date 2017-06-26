@@ -13,7 +13,9 @@ package org.eclipse.reddeer.eclipse.wst.server.ui.wizard;
 import org.hamcrest.core.StringContains;
 import org.eclipse.reddeer.common.wait.WaitUntil;
 import org.eclipse.reddeer.core.condition.NamedThreadHasStatus;
+import org.eclipse.reddeer.core.reference.ReferencedComposite;
 import org.eclipse.reddeer.jface.wizard.WizardPage;
+import org.eclipse.reddeer.swt.impl.tree.DefaultTree;
 import org.eclipse.reddeer.swt.impl.tree.DefaultTreeItem;
 
 /**
@@ -27,8 +29,8 @@ public class NewRuntimeWizardPage extends WizardPage {
 	/**
 	 * Instantiates a new new runtime wizard page.
 	 */
-	public NewRuntimeWizardPage(){
-		super();
+	public NewRuntimeWizardPage(ReferencedComposite referencedComposite){
+		super(referencedComposite);
 	}
 	
 	/**
@@ -38,6 +40,6 @@ public class NewRuntimeWizardPage extends WizardPage {
 	 */
 	public void selectType(String... type) {
 		new WaitUntil(new NamedThreadHasStatus(new StringContains("Initializing Servers view"), Thread.State.TERMINATED, true));
-		new DefaultTreeItem(type).select();
+		new DefaultTreeItem(new DefaultTree(referencedComposite), type).select();
 	}
 }

@@ -30,6 +30,7 @@ import org.eclipse.reddeer.swt.impl.button.OkButton;
 import org.eclipse.reddeer.swt.impl.button.PushButton;
 import org.eclipse.reddeer.swt.impl.clabel.DefaultCLabel;
 import org.eclipse.reddeer.swt.impl.shell.DefaultShell;
+import org.eclipse.reddeer.swt.impl.tree.DefaultTree;
 import org.eclipse.reddeer.swt.impl.tree.DefaultTreeItem;
 
 /**
@@ -79,10 +80,11 @@ public class PreferenceDialog extends AbstractWindow{
 		if (path.length == 0) {
 			throw new IllegalArgumentException("path can't be empty");
 		}
-		TreeItem t = new DefaultTreeItem(path);
+		TreeItem t = new DefaultTreeItem(new DefaultTree(getShell()), path);
 		t.select();
 		
-		new WaitUntil(new WidgetIsFound(CLabel.class, new WithTextMatcher(path[path.length-1])), TimePeriod.SHORT, false);
+		new WaitUntil(new WidgetIsFound(CLabel.class, getShell().getControl(), 
+				new WithTextMatcher(path[path.length-1])), TimePeriod.SHORT, false);
 	}
 	
 	/**
@@ -91,7 +93,7 @@ public class PreferenceDialog extends AbstractWindow{
 	 * @return name of preference page
 	 */
 	public String getPageName() {
-		DefaultCLabel cl = new DefaultCLabel();
+		DefaultCLabel cl = new DefaultCLabel(getShell());
 		return cl.getText();
 	}
 	
@@ -101,15 +103,15 @@ public class PreferenceDialog extends AbstractWindow{
 	public void ok() {
 		org.eclipse.swt.widgets.Shell parentShell = ShellLookup.getInstance().getParentShell(getShell().getSWTWidget());
 		
-		WidgetIsFound applyAndCloseButton = new WidgetIsFound(org.eclipse.swt.widgets.Button.class,
+		WidgetIsFound applyAndCloseButton = new WidgetIsFound(org.eclipse.swt.widgets.Button.class, getShell().getControl(),
 				new WithMnemonicTextMatcher("Apply and Close"));
 		
 		
 		Button button;
 		if(applyAndCloseButton.test()){
-			button = new PushButton("Apply and Close"); //oxygen changed button text
+			button = new PushButton(getShell(), "Apply and Close"); //oxygen changed button text
 		} else {
-			button = new OkButton();	
+			button = new OkButton(getShell());	
 		}
 		button.click();
 		new WaitWhile(new ShellIsAvailable(getShell())); 
@@ -122,7 +124,7 @@ public class PreferenceDialog extends AbstractWindow{
 	public void cancel() {
 		org.eclipse.swt.widgets.Shell parentShell = ShellLookup.getInstance().getParentShell(getShell().getSWTWidget());
 		
-		CancelButton cancel = new CancelButton();
+		CancelButton cancel = new CancelButton(getShell());
 		cancel.click();
 		new WaitWhile(new ShellIsAvailable(getShell())); 
 		new DefaultShell(parentShell);

@@ -45,7 +45,7 @@ public class JRERequirementTest {
 	@Test
 	public void testConfiguredValues(){
 		WorkbenchPreferenceDialog dialog = new WorkbenchPreferenceDialog();
-		JREsPreferencePage page = new JREsPreferencePage();
+		JREsPreferencePage page = new JREsPreferencePage(dialog);
 		dialog.open();
 		dialog.select(page);
 		List<JREItem> jres = page.getJREs();

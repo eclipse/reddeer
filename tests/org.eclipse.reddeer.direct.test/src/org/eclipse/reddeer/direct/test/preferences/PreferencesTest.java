@@ -48,7 +48,7 @@ public class PreferencesTest {
 	@Test
 	public void getPreferenceTest() {
 		WorkbenchPreferenceDialog dialog = new WorkbenchPreferenceDialog();
-		MavenSettingsPreferencePage page = new MavenSettingsPreferencePage();
+		MavenSettingsPreferencePage page = new MavenSettingsPreferencePage(dialog);
 		dialog.open();
 		dialog.select(page);
 		String location = page.getUserSettingsLocation();
@@ -71,7 +71,7 @@ public class PreferencesTest {
 	@Test
 	public void setPreferenceTest() {
 		WorkbenchPreferenceDialog dialog = new WorkbenchPreferenceDialog();
-		MavenSettingsPreferencePage page = new MavenSettingsPreferencePage();
+		MavenSettingsPreferencePage page = new MavenSettingsPreferencePage(dialog);
 		dialog.open();
 		dialog.select(page);
 		String location = page.getUserSettingsLocation();
@@ -88,7 +88,7 @@ public class PreferencesTest {
 	@Test
 	public void setDefaultPreferenceTest() {
 		WorkbenchPreferenceDialog dialog = new WorkbenchPreferenceDialog();
-		MavenSettingsPreferencePage page = new MavenSettingsPreferencePage();
+		MavenSettingsPreferencePage page = new MavenSettingsPreferencePage(dialog);
 		dialog.open();
 		dialog.select(page);
 		String location = page.getUserSettingsLocation();

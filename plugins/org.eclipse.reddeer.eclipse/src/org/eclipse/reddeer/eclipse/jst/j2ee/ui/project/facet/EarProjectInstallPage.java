@@ -13,6 +13,7 @@ package org.eclipse.reddeer.eclipse.jst.j2ee.ui.project.facet;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.reddeer.core.reference.ReferencedComposite;
 import org.eclipse.reddeer.eclipse.jst.j2ee.wizard.DefaultJ2EEComponentCreationWizard;
 import org.eclipse.reddeer.jface.wizard.WizardPage;
 import org.eclipse.reddeer.swt.api.TableItem;
@@ -26,12 +27,16 @@ import org.eclipse.reddeer.swt.impl.text.LabeledText;
  */
 public class EarProjectInstallPage extends WizardPage{
 	
+	public EarProjectInstallPage(ReferencedComposite referencedComposite) {
+		super(referencedComposite);
+	}
+	
 	/**
 	 * Opens a wizard page for adding new module.
 	 * @return Wizard page for adding new module
 	 */
 	public DefaultJ2EEComponentCreationWizard newModule(){
-		new PushButton("New Module...").click();
+		new PushButton(referencedComposite, "New Module...").click();
 		return new DefaultJ2EEComponentCreationWizard();
 	}
 	
@@ -39,14 +44,14 @@ public class EarProjectInstallPage extends WizardPage{
 	 * Selects all.
 	 */
 	public void selectAll(){
-		new PushButton("Select All").click();
+		new PushButton(referencedComposite, "Select All").click();
 	}
 	
 	/**
 	 * Deselects all.
 	 */
 	public void deselectAll(){
-		new PushButton("Deselect All").click();
+		new PushButton(referencedComposite, "Deselect All").click();
 	}
 	
 	/**
@@ -56,7 +61,7 @@ public class EarProjectInstallPage extends WizardPage{
 	 */
 	public List<String> getJavaEEModuleDependencies(){
 		List<String> modules = new ArrayList<String>();
-		for(TableItem i: new DefaultTable().getItems()){
+		for(TableItem i: new DefaultTable(referencedComposite).getItems()){
 			modules.add(i.getText());
 		}
 		return modules;
@@ -69,7 +74,7 @@ public class EarProjectInstallPage extends WizardPage{
 	 * @param toggle Whether to select the dependency
 	 */
 	public void toggleJavaEEModuleDependency(String dependency, boolean toggle){
-		new DefaultTable().getItem(dependency).setChecked(toggle);
+		new DefaultTable(referencedComposite).getItem(dependency).setChecked(toggle);
 	}
 	
 	/**
@@ -79,7 +84,7 @@ public class EarProjectInstallPage extends WizardPage{
 	 * @return Whether the dependency is selected
 	 */
 	public boolean isJavaEEModuleDependency(String dependency){
-		return new DefaultTable().getItem(dependency).isChecked();
+		return new DefaultTable(referencedComposite).getItem(dependency).isChecked();
 	}
 	
 	/**
@@ -88,7 +93,7 @@ public class EarProjectInstallPage extends WizardPage{
 	 * @param directory Content directory
 	 */
 	public void setContentDirectory(String directory){
-		new LabeledText("Content directory:").setText(directory);
+		new LabeledText(referencedComposite, "Content directory:").setText(directory);
 	}
 	
 	/**
@@ -97,7 +102,7 @@ public class EarProjectInstallPage extends WizardPage{
 	 * @param toggle Indicates whether to generate application XML
 	 */
 	public void toggleGenerateApplicationXML(boolean toggle){
-		new CheckBox("Generate application.xml deployment descriptor").toggle(toggle);
+		new CheckBox(referencedComposite, "Generate application.xml deployment descriptor").toggle(toggle);
 	}
 	
 	/**
@@ -106,7 +111,7 @@ public class EarProjectInstallPage extends WizardPage{
 	 * @return Whether application.xml is generated
 	 */
 	public boolean isGenerateApplicationXML(){
-		return new CheckBox("Generate application.xml deployment descriptor").isChecked();
+		return new CheckBox(referencedComposite, "Generate application.xml deployment descriptor").isChecked();
 	}
 
 }

@@ -12,6 +12,7 @@ package org.eclipse.reddeer.eclipse.epp.logging.aeri.ide.dialogs;
 
 import java.util.List;
 
+import org.eclipse.reddeer.core.reference.ReferencedComposite;
 import org.eclipse.reddeer.swt.api.Combo;
 import org.eclipse.reddeer.swt.api.Group;
 import org.eclipse.reddeer.swt.api.Text;
@@ -32,8 +33,8 @@ public class PreferencePage extends org.eclipse.reddeer.jface.preference.Prefere
 	public static final String CATEGORY = "General";
 	public static final String PAGE_NAME = "Error Reporting";
 
-	public PreferencePage() {
-		super(CATEGORY, PAGE_NAME);
+	public PreferencePage(ReferencedComposite referencedComposite) {
+		super(referencedComposite, CATEGORY, PAGE_NAME);
 	}
 
 	public void setName(String name) {
@@ -97,16 +98,16 @@ public class PreferencePage extends org.eclipse.reddeer.jface.preference.Prefere
 	}
 
 	public SetupWizard openConfigureProjects() {
-		new PushButton("Configure Projects…").click();
+		new PushButton(referencedComposite, "Configure Projects…").click();
 		return new SetupWizard();
 	}
 
 	protected Group getSendOptionsGroup() {
-		return new DefaultGroup("Send Options");
+		return new DefaultGroup(referencedComposite, "Send Options");
 	}
 
 	protected Group getContactGroup() {
-		return new DefaultGroup("Contact Information");
+		return new DefaultGroup(referencedComposite, "Contact Information");
 	}
 
 	protected Text getNameWidget() {
@@ -130,11 +131,11 @@ public class PreferencePage extends org.eclipse.reddeer.jface.preference.Prefere
 	}
 
 	protected CheckBox getDebugModeWidget() {
-		return new CheckBox("Enable debug mode");
+		return new CheckBox(referencedComposite, "Enable debug mode");
 	}
 
 	protected Combo getSendModeWidget() {
-		return new LabeledCombo("Send mode:");
+		return new LabeledCombo(referencedComposite, "Send mode:");
 	}
 
 }

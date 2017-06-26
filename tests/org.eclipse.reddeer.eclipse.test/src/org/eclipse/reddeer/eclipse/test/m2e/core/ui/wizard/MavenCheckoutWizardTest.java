@@ -26,7 +26,7 @@ public class MavenCheckoutWizardTest {
 	public void openMavenSCMWizard(){
 		MavenCheckoutWizard mc = new MavenCheckoutWizard();
 		mc.open();
-		MavenCheckoutLocationPage ml = new MavenCheckoutLocationPage();
+		MavenCheckoutLocationPage ml = new MavenCheckoutLocationPage(mc);
 		assertTrue(ml.isCheckoutAllProjects());
 		assertTrue(ml.isCheckoutHeadRevision());
 		mc.cancel();

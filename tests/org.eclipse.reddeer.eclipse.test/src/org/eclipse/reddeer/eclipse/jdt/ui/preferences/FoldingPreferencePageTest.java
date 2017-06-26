@@ -23,13 +23,14 @@ import org.junit.runner.RunWith;
 @RunWith(RedDeerSuite.class)
 public class FoldingPreferencePageTest {
 
-	private static FoldingPreferencePage page = new FoldingPreferencePage();
+	private static FoldingPreferencePage page;
 
 	private WorkbenchPreferenceDialog dialog = new WorkbenchPreferenceDialog();
 	
 	@Before
 	public void setUp() {
 		dialog.open();
+		page = new FoldingPreferencePage(dialog);
 		dialog.select(page);
 	}
 

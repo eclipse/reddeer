@@ -11,7 +11,9 @@
 package org.eclipse.reddeer.eclipse.wst.web.ui.wizards;
 
 import org.eclipse.reddeer.common.wait.WaitWhile;
+import org.eclipse.reddeer.core.reference.ReferencedComposite;
 import org.eclipse.reddeer.jface.wizard.WizardPage;
+import org.eclipse.reddeer.swt.api.Shell;
 import org.eclipse.reddeer.swt.condition.ShellIsAvailable;
 import org.eclipse.reddeer.swt.impl.button.CheckBox;
 import org.eclipse.reddeer.swt.impl.button.PushButton;
@@ -21,6 +23,7 @@ import org.eclipse.reddeer.swt.impl.group.DefaultGroup;
 import org.eclipse.reddeer.swt.impl.menu.ContextMenu;
 import org.eclipse.reddeer.swt.impl.shell.DefaultShell;
 import org.eclipse.reddeer.swt.impl.text.LabeledText;
+import org.eclipse.reddeer.swt.impl.tree.DefaultTree;
 import org.eclipse.reddeer.swt.impl.tree.DefaultTreeItem;
 
 /**
@@ -31,12 +34,16 @@ import org.eclipse.reddeer.swt.impl.tree.DefaultTreeItem;
  */
 public class DataModelFacetCreationWizardPage extends WizardPage {
 	
+	public DataModelFacetCreationWizardPage(ReferencedComposite referencedComposite) {
+		super(referencedComposite);
+	}
+	
 	/**
 	 * Sets project name.
 	 * @param projectName project name to set
 	 */
 	public void setProjectName(final String projectName) {
-		new LabeledText("Project name:").setText(projectName);
+		new LabeledText(referencedComposite, "Project name:").setText(projectName);
 	}
 	
 	/**
@@ -44,7 +51,7 @@ public class DataModelFacetCreationWizardPage extends WizardPage {
 	 * @return project name
 	 */
 	public String getProjectName() {
-		return new LabeledText("Project name:").getText();
+		return new LabeledText(referencedComposite, "Project name:").getText();
 	}
 	
 	/**
@@ -52,7 +59,7 @@ public class DataModelFacetCreationWizardPage extends WizardPage {
 	 * @param useDefaultLocation true or false
 	 */
 	public void setUseDefaultLocation(final boolean useDefaultLocation) {
-		new CheckBox(new DefaultGroup("Project location"),"Use default location").toggle(useDefaultLocation);
+		new CheckBox(new DefaultGroup(referencedComposite, "Project location"),"Use default location").toggle(useDefaultLocation);
 	}
 	
 	/**
@@ -60,7 +67,7 @@ public class DataModelFacetCreationWizardPage extends WizardPage {
 	 * @return true if default location is used, false otherwise
 	 */
 	public boolean isUseDefaultLocation() {
-		return new CheckBox(new DefaultGroup("Project location"),"Use default location").isChecked();
+		return new CheckBox(new DefaultGroup(referencedComposite, "Project location"),"Use default location").isChecked();
 	}
 	
 	/**
@@ -68,7 +75,7 @@ public class DataModelFacetCreationWizardPage extends WizardPage {
 	 * @param location to set
 	 */
 	public void setLocation(final String location) {
-		new LabeledText("Location:").setText(location);
+		new LabeledText(referencedComposite, "Location:").setText(location);
 	}
 	
 	/**
@@ -76,7 +83,7 @@ public class DataModelFacetCreationWizardPage extends WizardPage {
 	 * @return location
 	 */
 	public String getLocation() {
-		return new LabeledText("Location:").getText();
+		return new LabeledText(referencedComposite, "Location:").getText();
 	}
 	
 	/**
@@ -84,7 +91,7 @@ public class DataModelFacetCreationWizardPage extends WizardPage {
 	 * @param targetRuntime to be set
 	 */
 	public void setTargetRuntime(final String targetRuntime) {
-		new DefaultCombo(new DefaultGroup("Target runtime")).setSelection(targetRuntime);
+		new DefaultCombo(new DefaultGroup(referencedComposite, "Target runtime")).setSelection(targetRuntime);
 	}
 	
 	/**
@@ -92,7 +99,7 @@ public class DataModelFacetCreationWizardPage extends WizardPage {
 	 * @return current target runtime
 	 */
 	public String getTargetRuntime() {
-		return new DefaultCombo(new DefaultGroup("Target runtime")).getSelection();
+		return new DefaultCombo(new DefaultGroup(referencedComposite, "Target runtime")).getSelection();
 	}
 	
 	/**
@@ -108,7 +115,7 @@ public class DataModelFacetCreationWizardPage extends WizardPage {
 	 * @return configuration
 	 */
 	public String getConfiguration() {
-		return new DefaultCombo(new DefaultGroup("Configuration")).getSelection();
+		return new DefaultCombo(new DefaultGroup(referencedComposite, "Configuration")).getSelection();
 	}
 	
 	/**
@@ -116,7 +123,7 @@ public class DataModelFacetCreationWizardPage extends WizardPage {
 	 * @param membership if EAR membership should be enabled
 	 */
 	public void setEARMembership(final boolean membership) {
-		new CheckBox(new DefaultGroup("EAR membership"),"Add project to an EAR").toggle(membership);
+		new CheckBox(new DefaultGroup(referencedComposite, "EAR membership"),"Add project to an EAR").toggle(membership);
 	}
 	
 	/**
@@ -124,7 +131,7 @@ public class DataModelFacetCreationWizardPage extends WizardPage {
 	 * @return true if EAR membership is enabled, false otherwise
 	 */
 	public boolean isEARMembership() {
-		return new CheckBox(new DefaultGroup("EAR membership"),"Add project to an EAR").isChecked();
+		return new CheckBox(new DefaultGroup(referencedComposite, "EAR membership"),"Add project to an EAR").isChecked();
 	}
 	
 	/**
@@ -132,7 +139,7 @@ public class DataModelFacetCreationWizardPage extends WizardPage {
 	 * @param name project name
 	 */
 	public void setEARProjectName(final String name) {
-		new LabeledCombo(new DefaultGroup("EAR membership"),"EAR project name:").setText(name);
+		new LabeledCombo(new DefaultGroup(referencedComposite, "EAR membership"),"EAR project name:").setText(name);
 	}
 	
 	/**
@@ -140,7 +147,7 @@ public class DataModelFacetCreationWizardPage extends WizardPage {
 	 * @return EAR project name
 	 */
 	public String getEARProjectName() {
-		return new LabeledCombo(new DefaultGroup("EAR membership"),"EAR project name:").getText();
+		return new LabeledCombo(new DefaultGroup(referencedComposite, "EAR membership"),"EAR project name:").getText();
 	}
 	
 	/**
@@ -148,7 +155,7 @@ public class DataModelFacetCreationWizardPage extends WizardPage {
 	 * @param workingSets to be set
 	 */
 	public void setWorkingSets(final boolean workingSets) {
-		new CheckBox(new DefaultGroup("Working sets"),"Add project to working sets").toggle(workingSets);
+		new CheckBox(new DefaultGroup(referencedComposite, "Working sets"),"Add project to working sets").toggle(workingSets);
 	}
 	
 	/**
@@ -156,7 +163,7 @@ public class DataModelFacetCreationWizardPage extends WizardPage {
 	 * @param workingSets to be set
 	 */
 	public void setWorkingSets(final String workingSets) {
-		new LabeledCombo(new DefaultGroup("Working sets"),"Working sets:").setSelection(workingSets);
+		new LabeledCombo(new DefaultGroup(referencedComposite, "Working sets"),"Working sets:").setSelection(workingSets);
 	}
 	
 	/**
@@ -164,7 +171,7 @@ public class DataModelFacetCreationWizardPage extends WizardPage {
 	 * @return working sets
 	 */
 	public String getWorkingSets() {
-		return new LabeledCombo(new DefaultGroup("Working sets"),"Working sets:").getSelection();
+		return new LabeledCombo(new DefaultGroup(referencedComposite, "Working sets"),"Working sets:").getSelection();
 	}
 	
 	/**
@@ -173,20 +180,20 @@ public class DataModelFacetCreationWizardPage extends WizardPage {
 	 * @param version facet version, can be null - than version is left default
 	 */
 	public void activateFacet(final String version, final String... facetPath) {
-		new PushButton("Modify...").click();
-		new DefaultShell("Project Facets");
-		DefaultTreeItem facetTreeItem = new DefaultTreeItem(facetPath);
+		new PushButton(referencedComposite, "Modify...").click();
+		Shell facetsShell = new DefaultShell("Project Facets");
+		DefaultTreeItem facetTreeItem = new DefaultTreeItem(new DefaultTree(facetsShell), facetPath);
 		facetTreeItem.select();
 		facetTreeItem.setChecked(true);
 		if (version != null) {
 			new ContextMenu("Change Version...").select();
-			new DefaultShell("Change Version");
-			new LabeledCombo("Version:").setSelection(version);
-			new PushButton("OK").click();
-			new DefaultShell("Project Facets");
+			Shell versionShell = new DefaultShell("Change Version");
+			new LabeledCombo(versionShell, "Version:").setSelection(version);
+			new PushButton(versionShell, "OK").click();
+			new WaitWhile(new ShellIsAvailable(versionShell));
 		}
-		new PushButton("OK").click();
-		new WaitWhile(new ShellIsAvailable("Project Facets"));
+		new PushButton(facetsShell, "OK").click();
+		new WaitWhile(new ShellIsAvailable(facetsShell));
 	}
 
 }

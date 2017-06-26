@@ -63,7 +63,7 @@ public class ResultViewTest {
 		// Driver definitions removal
 		WorkbenchPreferenceDialog preferenceDialog = new WorkbenchPreferenceDialog();
 		preferenceDialog.open();
-		DriverPreferences preferencePage = new DriverPreferences();
+		DriverPreferences preferencePage = new DriverPreferences(preferenceDialog);
 		preferenceDialog.select(preferencePage);
 		
 		List<TableItem> items = new DefaultTable().getItems();
@@ -150,7 +150,7 @@ public class ResultViewTest {
 		WorkbenchPreferenceDialog d = new WorkbenchPreferenceDialog();
 		d.open();
 		d.select("Data Management", "Connectivity", "Driver Definitions");
-		DriverPreferences preferencePage = new DriverPreferences();		
+		DriverPreferences preferencePage = new DriverPreferences(d);		
 		DriverDialog wizard = preferencePage
 				.addDriverDefinition();
 		wizard.selectDriverTemplate("Generic JDBC Driver", "1.0");

@@ -84,7 +84,7 @@ public class ResourceNavigatorTest {
 		NewClassCreationWizard classDialog = new NewClassCreationWizard();
 		classDialog.open();
 		
-		NewClassWizardPage page = new NewClassWizardPage();
+		NewClassWizardPage page = new NewClassWizardPage(classDialog);
 		page.setName(className);
 		page.setPackage(packageName);
 		page.setSourceFolder(projectName+"/"+SOURCE_FOLDER);
@@ -99,7 +99,7 @@ public class ResourceNavigatorTest {
 	private void createProject(String projectName) {
 		JavaProjectWizard dialog = new JavaProjectWizard();
 		dialog.open();
-		new NewJavaProjectWizardPageOne().setProjectName(projectName);
+		new NewJavaProjectWizardPageOne(dialog).setProjectName(projectName);
 		dialog.finish();
 	}
 	

@@ -11,6 +11,7 @@
 package org.eclipse.reddeer.jface.wizard;
 
 import org.eclipse.reddeer.common.logging.Logger;
+import org.eclipse.reddeer.core.reference.ReferencedComposite;
 
 /**
  * Superclass of wizard page represent single page in wizard dialog.
@@ -22,11 +23,12 @@ import org.eclipse.reddeer.common.logging.Logger;
 public abstract class WizardPage {
 
 	protected final Logger log = Logger.getLogger(this.getClass());
+	protected ReferencedComposite referencedComposite;
 
 	/**
 	 * Instantiates a new wizard page.
 	 */
-	protected WizardPage() {
-
+	public WizardPage(ReferencedComposite referencedComposite) {
+		this.referencedComposite = referencedComposite;
 	}
 }

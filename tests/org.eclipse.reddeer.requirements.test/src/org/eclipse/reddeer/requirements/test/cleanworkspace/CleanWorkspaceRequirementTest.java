@@ -75,7 +75,7 @@ public class CleanWorkspaceRequirementTest {
 	public void fulfillWithProjectsTest() {
 		JavaProjectWizard projectWizard = new JavaProjectWizard();
 		projectWizard.open();
-		new NewJavaProjectWizardPageOne().setProjectName("TestProject");
+		new NewJavaProjectWizardPageOne(projectWizard).setProjectName("TestProject");
 		projectWizard.finish();
 		PackageExplorerPart packageExplorer = new PackageExplorerPart();
 		packageExplorer.open();

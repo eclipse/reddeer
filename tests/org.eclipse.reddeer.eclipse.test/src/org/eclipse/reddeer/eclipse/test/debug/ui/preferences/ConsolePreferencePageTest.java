@@ -34,10 +34,10 @@ public class ConsolePreferencePageTest {
 
 	@Before
 	public void openConsolePreferencePage() {
-		consolePreferencePage = new ConsolePreferencePage();
 
 		WorkbenchPreferenceDialog dialog = new WorkbenchPreferenceDialog();
 		dialog.open();
+		consolePreferencePage = new ConsolePreferencePage(dialog);
 		dialog.select(consolePreferencePage);
 
 		consolePreferencePage.restoreDefaults();

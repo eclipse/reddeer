@@ -69,6 +69,9 @@ public abstract class AbstractWidget<T extends org.eclipse.swt.widgets.Widget> i
 	 * @param matchers matchers to match widget
 	 */
 	protected AbstractWidget(Class<T> widgetClass, ReferencedComposite refComposite, int index, Matcher<?>... matchers) {
+		if(refComposite != null && WidgetHandler.getInstance().isDisposed(refComposite.getControl())){
+			throw new SWTLayerException("Given referenced composite is disposed");
+		}
 		swtWidget = WidgetLookup.getInstance().activeWidget(refComposite, widgetClass, index, matchers);
 	}
 	

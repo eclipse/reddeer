@@ -19,6 +19,7 @@ import org.eclipse.reddeer.common.wait.WaitWhile;
 import org.eclipse.reddeer.core.condition.WidgetIsFound;
 import org.eclipse.reddeer.core.matcher.TreeItemTextMatcher;
 import org.eclipse.reddeer.core.matcher.WithMnemonicTextMatcher;
+import org.eclipse.reddeer.core.reference.ReferencedComposite;
 import org.eclipse.reddeer.eclipse.ui.dialogs.PropertyPage;
 import org.eclipse.reddeer.swt.api.Button;
 import org.eclipse.reddeer.swt.api.Shell;
@@ -51,15 +52,15 @@ public class BuildPathsPropertyPage extends PropertyPage {
 	/**
 	 * Constructs a new Build Path property page.
 	 */
-	public BuildPathsPropertyPage() {
-		super(NAME);
+	public BuildPathsPropertyPage(ReferencedComposite referencedComposite) {
+		super(referencedComposite, NAME);
 	}
 	
 	/**
 	 * Activates Source tab.
 	 */
 	public void activateSourceTab(){
-		new DefaultTabItem("Source").activate();
+		new DefaultTabItem(referencedComposite, "Source").activate();
 		new WaitWhile(new JobIsRunning());
 	}
 	
@@ -67,7 +68,7 @@ public class BuildPathsPropertyPage extends PropertyPage {
 	 * Activates Projects tab.
 	 */
 	public void activateProjectsTab(){
-		new DefaultTabItem("Projects").activate();
+		new DefaultTabItem(referencedComposite, "Projects").activate();
 		new WaitWhile(new JobIsRunning());
 	}
 	
@@ -75,7 +76,7 @@ public class BuildPathsPropertyPage extends PropertyPage {
 	 * Activates Libraries tab.
 	 */
 	public void activateLibrariesTab(){
-		new DefaultTabItem("Libraries").activate();
+		new DefaultTabItem(referencedComposite, "Libraries").activate();
 		new WaitWhile(new JobIsRunning());
 	}
 	
@@ -83,7 +84,7 @@ public class BuildPathsPropertyPage extends PropertyPage {
 	 * Activates Order and Export tab.
 	 */
 	public void activateOrderAndExportTab(){
-		new DefaultTabItem("Order and Export").activate();
+		new DefaultTabItem(referencedComposite, "Order and Export").activate();
 		new WaitWhile(new JobIsRunning());
 	}
 	
@@ -96,22 +97,19 @@ public class BuildPathsPropertyPage extends PropertyPage {
 	 * @return added variable label
 	 */
 	public String addVariable(String name , String value , boolean overwriteIfExists){
-		Shell propertiesDialogShell = new DefaultShell();
 		log.info("Adding variable: " + name + "=" + value);
 		activateLibrariesTab();	
-		new PushButton("Add Variable...").click();
-		new DefaultShell("New Variable Classpath Entry");
-		new PushButton("Configure Variables...").click();
+		new PushButton(referencedComposite, "Add Variable...").click();
+		Shell variableEntryShell = new DefaultShell("New Variable Classpath Entry");
+		new PushButton(variableEntryShell, "Configure Variables...").click();
 		WorkbenchPreferenceDialog preferencesDialog = new WorkbenchPreferenceDialog();
 		preferencesDialog.open();
-		String result = new ClasspathVariablesPreferencePage().addVariable(name, value, overwriteIfExists);
+		String result = new ClasspathVariablesPreferencePage(preferencesDialog).addVariable(name, value, overwriteIfExists);
 		preferencesDialog.ok();
-		new DefaultShell("New Variable Classpath Entry");
-		new OkButton().click();
-		new WaitWhile(new ShellIsAvailable("New Variable Classpath Entry"));
+		new OkButton(variableEntryShell).click();
+		new WaitWhile(new ShellIsAvailable(variableEntryShell));
 		new WaitWhile(new JobIsRunning());
-		propertiesDialogShell.setFocus();
-		new PushButton("Apply").click();
+		new PushButton(referencedComposite, "Apply").click();
 		new WaitWhile(new JobIsRunning());
 		return result;
 	}
@@ -124,17 +122,16 @@ public class BuildPathsPropertyPage extends PropertyPage {
 	 */
 	public void removeVariable(String label, boolean removeGlobally){
 		log.info("Removing variable: " + label);
-		Shell propertiesDialogShell = new DefaultShell();
 		selectLibrary(new TreeItemTextMatcher(label));
-		new PushButton("Remove").click();
+		new PushButton(referencedComposite, "Remove").click();
 		if (removeGlobally) {
-			new PushButton("Add Variable...").click();
-			new DefaultShell("New Variable Classpath Entry");
-			new DefaultTableItem(label).select();
-			new PushButton("Configure Variables...").click();
+			new PushButton(referencedComposite, "Add Variable...").click();
+			Shell variableEntryShell = new DefaultShell("New Variable Classpath Entry");
+			new DefaultTableItem(variableEntryShell, label).select();
+			new PushButton(variableEntryShell, "Configure Variables...").click();
 			WorkbenchPreferenceDialog workbenchDialog = new WorkbenchPreferenceDialog();
 			workbenchDialog.open();
-			new ClasspathVariablesPreferencePage().removeVariable(label);
+			new ClasspathVariablesPreferencePage(workbenchDialog).removeVariable(label);
 			
 			WidgetIsFound applyAndCloseButton = new WidgetIsFound(org.eclipse.swt.widgets.Button.class,
 					new WithMnemonicTextMatcher("Apply and Close"));
@@ -149,15 +146,13 @@ public class BuildPathsPropertyPage extends PropertyPage {
 			button.click();
 			
 			Shell varaiblesChanged = new DefaultShell("Classpath Variables Changed");
-			new YesButton().click();
+			new YesButton(varaiblesChanged).click();
 			new WaitWhile(new ShellIsAvailable(varaiblesChanged));
-			new DefaultShell("New Variable Classpath Entry");
-			new CancelButton().click();
-			new WaitWhile(new ShellIsAvailable("New Variable Classpath Entry"));
+			new CancelButton(variableEntryShell).click();
+			new WaitWhile(new ShellIsAvailable(variableEntryShell));
 			new WaitWhile(new JobIsRunning());
 		}
-		propertiesDialogShell.setFocus();
-		new PushButton("Apply").click();
+		new PushButton(referencedComposite, "Apply").click();
 		new WaitWhile(new JobIsRunning());
 	}
 	
@@ -188,6 +183,6 @@ public class BuildPathsPropertyPage extends PropertyPage {
 	 */
 	private Tree getLibraryTree () {
 		activateLibrariesTab();
-		return new DefaultTree(1);
+		return new DefaultTree(referencedComposite, 1);
 	}
 }

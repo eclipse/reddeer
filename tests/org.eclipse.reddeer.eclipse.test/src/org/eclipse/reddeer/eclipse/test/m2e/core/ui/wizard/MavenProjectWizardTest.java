@@ -38,13 +38,13 @@ public class MavenProjectWizardTest {
 		MavenProjectWizard mw = new MavenProjectWizard();
 		mw.open();
 		mw.next();
-		MavenProjectWizardArchetypePage mp1 = new MavenProjectWizardArchetypePage();
+		MavenProjectWizardArchetypePage mp1 = new MavenProjectWizardArchetypePage(mw);
 		assertEquals("All Catalogs",mp1.getArchetypeCatalog());
 		mp1.selectArchetypeCatalog("Internal");
 		assertEquals("Internal",mp1.getArchetypeCatalog());
 		mp1.selectArchetype("org.apache.maven.archetypes","maven-archetype-quickstart",null);
 		mw.next();
-		MavenProjectWizardArchetypeParametersPage mp2 = new MavenProjectWizardArchetypeParametersPage();
+		MavenProjectWizardArchetypeParametersPage mp2 = new MavenProjectWizardArchetypeParametersPage(mw);
 		mp2.setArtifactId("artifact");
 		mp2.setGroupId("group");
 		mp2.setVersion("1.0.0");
@@ -61,10 +61,10 @@ public class MavenProjectWizardTest {
 	public void createCleanMavenProject(){
 		MavenProjectWizard mw = new MavenProjectWizard();
 		mw.open();
-		MavenProjectWizardPage mp = new MavenProjectWizardPage();
+		MavenProjectWizardPage mp = new MavenProjectWizardPage(mw);
 		mp.createSimpleProject(true);
 		mw.next();
-		MavenProjectWizardArtifactPage ma = new MavenProjectWizardArtifactPage();
+		MavenProjectWizardArtifactPage ma = new MavenProjectWizardArtifactPage(mw);
 		ma.setGroupId("g");
 		ma.setArtifactId("a");
 		mw.finish();

@@ -38,7 +38,7 @@ public class FacetsPropertyPageTest {
 		ExternalProjectImportWizardDialog wizard = new ExternalProjectImportWizardDialog();
 		wizard.open();
 
-		WizardProjectsImportPage wizardPage = new WizardProjectsImportPage();
+		WizardProjectsImportPage wizardPage = new WizardProjectsImportPage(wizard);
 		wizardPage.setArchiveFile(ServersViewTestCase.ZIP_FILE
 				.getAbsolutePath());
 		wizardPage.selectProjects(PROJECT);
@@ -63,7 +63,7 @@ public class FacetsPropertyPageTest {
 	@Test
 	public void selectFacet() {
 		PropertyDialog dialog = new PackageExplorerPart().getProject(PROJECT).openProperties();
-		FacetsPropertyPage facetsPage = new FacetsPropertyPage();
+		FacetsPropertyPage facetsPage = new FacetsPropertyPage(dialog);
 		
 		dialog.select(facetsPage);
 		facetsPage.selectFacet(FACET1);
@@ -71,6 +71,7 @@ public class FacetsPropertyPageTest {
 		dialog.ok();
 
 		dialog = new PackageExplorerPart().getProject(PROJECT).openProperties();
+		facetsPage = new FacetsPropertyPage(dialog);
 		dialog.select(facetsPage);
 		assertThat(facetsPage.getSelectedFacets().get(0).getText(),
 				is(FACET1));
@@ -81,7 +82,7 @@ public class FacetsPropertyPageTest {
 	@Test
 	public void selectVersion() {
 		PropertyDialog dialog = new PackageExplorerPart().getProject(PROJECT).openProperties();
-		FacetsPropertyPage facetsPage = new FacetsPropertyPage();
+		FacetsPropertyPage facetsPage = new FacetsPropertyPage(dialog);
 		
 		dialog.select(facetsPage);
 		facetsPage.selectFacet(FACET1);
@@ -90,6 +91,7 @@ public class FacetsPropertyPageTest {
 		dialog.ok();
 		
 		dialog = new PackageExplorerPart().getProject(PROJECT).openProperties();
+		facetsPage = new FacetsPropertyPage(dialog);
 		dialog.select(facetsPage);
 		assertThat(facetsPage.getSelectedVersion(FACET1), is(FACET1_VERSION));
 

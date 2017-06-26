@@ -36,7 +36,7 @@ public class AeriTest {
 	public void testAeriServers() {
 		WorkbenchPreferenceDialog wp = new WorkbenchPreferenceDialog();
 		wp.open();
-		PreferencePage aeriPage = new PreferencePage();
+		PreferencePage aeriPage = new PreferencePage(wp);
 		wp.select(aeriPage);
 		SetupWizard sWizard = aeriPage.openConfigureProjects();
 		List<ReportingProject> reportingProjects = sWizard.getProjects();
@@ -80,7 +80,7 @@ public class AeriTest {
 	public void testSetupWizard() {
 		WorkbenchPreferenceDialog wp = new WorkbenchPreferenceDialog();
 		wp.open();
-		PreferencePage aeriPage = new PreferencePage();
+		PreferencePage aeriPage = new PreferencePage(wp);
 		wp.select(aeriPage);
 		SetupWizard sWizard = aeriPage.openConfigureProjects();
 		ReportingProject rp = sWizard.getProject("Eclipse RedDeer Test Connector");
@@ -106,7 +106,7 @@ public class AeriTest {
 	public void testAeriPrefPage() {
 		WorkbenchPreferenceDialog wp = new WorkbenchPreferenceDialog();
 		wp.open();
-		PreferencePage aeriPage = new PreferencePage();
+		PreferencePage aeriPage = new PreferencePage(wp);
 		wp.select(aeriPage);
 
 		aeriPage.anonymizeErrorLogMessages(true);

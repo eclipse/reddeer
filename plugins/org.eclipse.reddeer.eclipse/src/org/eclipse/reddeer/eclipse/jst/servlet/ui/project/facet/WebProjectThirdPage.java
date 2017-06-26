@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.reddeer.eclipse.jst.servlet.ui.project.facet;
 
+import org.eclipse.reddeer.core.reference.ReferencedComposite;
 import org.eclipse.reddeer.jface.wizard.WizardPage;
 import org.eclipse.reddeer.swt.impl.button.CheckBox;
 import org.eclipse.reddeer.swt.impl.text.LabeledText;
@@ -18,6 +19,10 @@ import org.eclipse.reddeer.swt.impl.text.LabeledText;
  * The third wizard page for creating web project.
  */
 public class WebProjectThirdPage extends WizardPage{
+	
+	public WebProjectThirdPage(ReferencedComposite referencedComposite) {
+		super(referencedComposite);
+	}
 
 	/**
 	 * Sets the context root.
@@ -25,7 +30,7 @@ public class WebProjectThirdPage extends WizardPage{
 	 * @param contextRoot the new context root
 	 */
 	public void setContextRoot(String contextRoot){
-		new LabeledText("Context root:").setText(contextRoot);
+		new LabeledText(referencedComposite, "Context root:").setText(contextRoot);
 	}
 	
 	/**
@@ -34,7 +39,7 @@ public class WebProjectThirdPage extends WizardPage{
 	 * @return the context root
 	 */
 	public String getContextRoot(){
-		return new LabeledText("Context root:").getText();
+		return new LabeledText(referencedComposite, "Context root:").getText();
 	}
 	
 	/**
@@ -43,7 +48,7 @@ public class WebProjectThirdPage extends WizardPage{
 	 * @param contentDirectory the new content directory
 	 */
 	public void setContentDirectory(String contentDirectory){
-		new LabeledText("Content directory:").setText(contentDirectory);
+		new LabeledText(referencedComposite, "Content directory:").setText(contentDirectory);
 	}
 	
 	/**
@@ -52,7 +57,7 @@ public class WebProjectThirdPage extends WizardPage{
 	 * @return the content directory
 	 */
 	public String getContentDirectory(){
-		return new LabeledText("Content directory:").getText();
+		return new LabeledText(referencedComposite, "Content directory:").getText();
 	}
 	
 	/**
@@ -61,7 +66,7 @@ public class WebProjectThirdPage extends WizardPage{
 	 * @param generate the new generate web xml deployment descriptor
 	 */
 	public void setGenerateWebXmlDeploymentDescriptor(boolean generate){
-		new CheckBox("Generate web.xml deployment descriptor").toggle(generate);
+		new CheckBox(referencedComposite, "Generate web.xml deployment descriptor").toggle(generate);
 	}
 	
 	/**
@@ -70,7 +75,7 @@ public class WebProjectThirdPage extends WizardPage{
 	 * @return true, if is generate web xml deployment descriptor
 	 */
 	public boolean isGenerateWebXmlDeploymentDescriptor(){
-		return new CheckBox("Generate web.xml deployment descriptor").isChecked();
+		return new CheckBox(referencedComposite, "Generate web.xml deployment descriptor").isChecked();
 	}
 	
 	

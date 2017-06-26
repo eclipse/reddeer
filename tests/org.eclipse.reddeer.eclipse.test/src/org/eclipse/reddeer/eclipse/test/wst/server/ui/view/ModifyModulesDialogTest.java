@@ -56,7 +56,7 @@ public class ModifyModulesDialogTest extends ServersViewTestCase{
 	@Test
 	public void addAll_removeTwo(){
 		ModifyModulesDialog dialog = server.addAndRemoveModules();
-		ModifyModulesPage page = new ModifyModulesPage();
+		ModifyModulesPage page = new ModifyModulesPage(dialog);
 		page.addAll();
 		dialog.finish();
 
@@ -67,7 +67,7 @@ public class ModifyModulesDialogTest extends ServersViewTestCase{
 		assertThat(modules.get(2).getLabel().getName(), is(PROJECT_3));
 		
 		dialog = server.addAndRemoveModules();
-		page = new ModifyModulesPage();
+		page = new ModifyModulesPage(dialog);
 		page.remove(PROJECT_1, PROJECT_3);
 		dialog.finish();
 		
@@ -79,7 +79,7 @@ public class ModifyModulesDialogTest extends ServersViewTestCase{
 	@Test
 	public void addTwo_removeAll(){
 		ModifyModulesDialog dialog = server.addAndRemoveModules();
-		ModifyModulesPage page = new ModifyModulesPage();
+		ModifyModulesPage page = new ModifyModulesPage(dialog);
 		page.add(PROJECT_1, PROJECT_3);
 		dialog.finish();
 
@@ -89,7 +89,7 @@ public class ModifyModulesDialogTest extends ServersViewTestCase{
 		assertThat(modules.get(1).getLabel().getName(), is(PROJECT_3));
 		
 		dialog = server.addAndRemoveModules();
-		page = new ModifyModulesPage();
+		page = new ModifyModulesPage(dialog);
 		page.removeAll();
 		dialog.finish();
 		
@@ -100,7 +100,7 @@ public class ModifyModulesDialogTest extends ServersViewTestCase{
 	@Test
 	public void testRemoveConfiguredModules() {
 		ModifyModulesDialog dialog = server.addAndRemoveModules();
-		ModifyModulesPage page = new ModifyModulesPage();
+		ModifyModulesPage page = new ModifyModulesPage(dialog);
 		page.add(PROJECT_1, PROJECT_3);
 		if (!page.getConfiguredModules().isEmpty()) {
 		   page.removeAll();
@@ -111,7 +111,7 @@ public class ModifyModulesDialogTest extends ServersViewTestCase{
 	@Test
 	public void getAvailableModules() {
 		ModifyModulesDialog dialog = server.addAndRemoveModules();
-		ModifyModulesPage page = new ModifyModulesPage();
+		ModifyModulesPage page = new ModifyModulesPage(dialog);
 
 		List<String> availableModules = page.getAvailableModules();
 
@@ -127,7 +127,7 @@ public class ModifyModulesDialogTest extends ServersViewTestCase{
 	@Test
 	public void getConfiguredModules() {
 		ModifyModulesDialog dialog = server.addAndRemoveModules();
-		ModifyModulesPage page = new ModifyModulesPage();
+		ModifyModulesPage page = new ModifyModulesPage(dialog);
 		page.addAll();
 
 		List<String> configuredModules = page.getConfiguredModules();

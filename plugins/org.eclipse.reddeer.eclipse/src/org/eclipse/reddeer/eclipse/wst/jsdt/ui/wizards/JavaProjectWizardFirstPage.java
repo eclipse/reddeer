@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.reddeer.eclipse.wst.jsdt.ui.wizards;
 
+import org.eclipse.reddeer.core.reference.ReferencedComposite;
 import org.eclipse.reddeer.jface.wizard.WizardPage;
 import org.eclipse.reddeer.swt.impl.text.LabeledText;
 
@@ -20,6 +21,10 @@ import org.eclipse.reddeer.swt.impl.text.LabeledText;
  *
  */
 public class JavaProjectWizardFirstPage  extends WizardPage {
+	
+	public JavaProjectWizardFirstPage(ReferencedComposite referencedComposite) {
+		super(referencedComposite);
+	}
 
 	/**
 	 * Sets project name.
@@ -27,6 +32,6 @@ public class JavaProjectWizardFirstPage  extends WizardPage {
 	 * @param name the new name
 	 */
 	public void setName(String name){
-		new LabeledText("Project name:").setText(name);
+		new LabeledText(referencedComposite, "Project name:").setText(name);
 	}
 }

@@ -71,7 +71,7 @@ public class ServerModuleTest extends ServersViewTestCase {
 	@Test
 	public void removeServerModule() {
 		ModifyModulesDialog dialog = server.addAndRemoveModules();
-		ModifyModulesPage page = new ModifyModulesPage();
+		ModifyModulesPage page = new ModifyModulesPage(dialog);
 		page.addAll();
 		dialog.finish();
 
@@ -109,7 +109,7 @@ public class ServerModuleTest extends ServersViewTestCase {
 	
 	private ServerModule addServerModule(){
 		ModifyModulesDialog mmDialog = server.addAndRemoveModules();
-		ModifyModulesPage mmPage = new ModifyModulesPage();
+		ModifyModulesPage mmPage = new ModifyModulesPage(mmDialog);
 		mmPage.add(PROJECT_1);
 		mmDialog.finish();
 		return server.getModules().get(0);

@@ -69,7 +69,7 @@ public class RepoConnectionDialogTest  {
 	
 	private void setEnabledMasterPasswordPrompt(boolean enabled) {
 		WorkbenchPreferenceDialog preferenceDialog = new WorkbenchPreferenceDialog();
-		StoragePreferencePage storagePage = new StoragePreferencePage();
+		StoragePreferencePage storagePage = new StoragePreferencePage(preferenceDialog);
 		
 		preferenceDialog.open();
 		preferenceDialog.select(storagePage);

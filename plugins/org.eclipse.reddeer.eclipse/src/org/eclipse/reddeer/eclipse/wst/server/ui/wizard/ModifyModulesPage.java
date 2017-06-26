@@ -13,6 +13,7 @@ package org.eclipse.reddeer.eclipse.wst.server.ui.wizard;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.reddeer.core.reference.ReferencedComposite;
 import org.eclipse.reddeer.jface.wizard.WizardPage;
 import org.eclipse.reddeer.swt.api.TreeItem;
 import org.eclipse.reddeer.swt.impl.button.PushButton;
@@ -26,6 +27,10 @@ import org.eclipse.reddeer.swt.impl.tree.DefaultTreeItem;
  * @author Radoslav Rabara
  */
 public class ModifyModulesPage extends WizardPage {
+	
+	public ModifyModulesPage(ReferencedComposite referencedComposite) {
+		super(referencedComposite);
+	}
 
 	/**
 	 * Adds modules with the specified names.
@@ -34,8 +39,8 @@ public class ModifyModulesPage extends WizardPage {
 	 */
 	public void add(String... projectNames) {
 		for (String project : projectNames) {
-			new DefaultTreeItem(new DefaultTree(), project).select();
-			new PushButton("Add >").click();
+			new DefaultTreeItem(new DefaultTree(referencedComposite), project).select();
+			new PushButton(referencedComposite, "Add >").click();
 		}
 	}
 
@@ -44,7 +49,7 @@ public class ModifyModulesPage extends WizardPage {
 	 *
 	 */
 	public void addAll() {
-		new PushButton("Add All >>").click();
+		new PushButton(referencedComposite, "Add All >>").click();
 	}
 
 	/**
@@ -54,8 +59,8 @@ public class ModifyModulesPage extends WizardPage {
 	 */
 	public void remove(String... projectNames) {
 		for (String project : projectNames) {
-			new DefaultTreeItem(new DefaultTree(1), project).select();
-			new PushButton("< Remove").click();
+			new DefaultTreeItem(new DefaultTree(referencedComposite, 1), project).select();
+			new PushButton(referencedComposite, "< Remove").click();
 		}
 	}
 
@@ -63,7 +68,7 @@ public class ModifyModulesPage extends WizardPage {
 	 * Removes all modules from the server.
 	 */
 	public void removeAll() {
-		new PushButton("<< Remove All").click();
+		new PushButton(referencedComposite, "<< Remove All").click();
 	}
 
 	/**
@@ -90,7 +95,7 @@ public class ModifyModulesPage extends WizardPage {
 
 	private List<String> getItemsFromTable(int tableIndex) {
 		List<String> items = new ArrayList<String>();
-		for (TreeItem ti : new DefaultTree(tableIndex).getAllItems()) {
+		for (TreeItem ti : new DefaultTree(referencedComposite, tableIndex).getAllItems()) {
 			items.add(ti.getText());
 		}
 		return items;

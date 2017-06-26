@@ -17,6 +17,7 @@ import org.eclipse.reddeer.common.logging.Logger;
 import org.eclipse.reddeer.common.wait.TimePeriod;
 import org.eclipse.reddeer.common.wait.WaitUntil;
 import org.eclipse.reddeer.common.wait.WaitWhile;
+import org.eclipse.reddeer.core.reference.ReferencedComposite;
 import org.eclipse.reddeer.eclipse.exception.EclipseLayerException;
 import org.eclipse.reddeer.eclipse.wst.server.ui.wizard.NewRuntimeWizardDialog;
 import org.eclipse.reddeer.jface.preference.PreferencePage;
@@ -46,8 +47,8 @@ public class RuntimePreferencePage extends PreferencePage {
 	/**
 	 * Constructs the preference page with "Server" &gt; {@value #PAGE_NAME}.
 	 */
-	public RuntimePreferencePage() {
-		super(new String[] {"Server", PAGE_NAME});
+	public RuntimePreferencePage(ReferencedComposite referencedComposite) {
+		super(referencedComposite, new String[] {"Server", PAGE_NAME});
 	}
 	
 	/**
@@ -58,7 +59,7 @@ public class RuntimePreferencePage extends PreferencePage {
 	public List<Runtime> getServerRuntimes(){
 		List<Runtime> runtimes = new ArrayList<Runtime>();
 		
-		Table table = new DefaultTable();
+		Table table = new DefaultTable(referencedComposite);
 		int rows = table.rowCount();
 		
 		for (int i = 0; i < rows; i++){
@@ -78,11 +79,11 @@ public class RuntimePreferencePage extends PreferencePage {
 	public void removeRuntime(Runtime runtime){
 		log.info("Removing runtime '" + runtime + "'");
 		selectRuntime(runtime.getName());
-		new PushButton("Remove").click();
+		new PushButton(referencedComposite, "Remove").click();
 		new WaitUntil(new ShellIsAvailable("Server"),TimePeriod.MEDIUM, false);
 		if(new ShellIsAvailable("Server").test()){
 			Shell serverShell = new DefaultShell("Server");
-			new OkButton().click();
+			new OkButton(serverShell).click();
 			new WaitWhile(new ShellIsAvailable(serverShell));
 		} else {
 			log.debug("Server shell was not opened");
@@ -101,7 +102,7 @@ public class RuntimePreferencePage extends PreferencePage {
 	
 	private void selectRuntime(String name){
 		
-		Table table = new DefaultTable();
+		Table table = new DefaultTable(referencedComposite);
 		log.debug("Selecting runtime '" + name + "'");
 		for (int i = 0; i < table.rowCount(); i++){
 			String runtimeName = table.getItem(i).getText();
@@ -122,7 +123,8 @@ public class RuntimePreferencePage extends PreferencePage {
 	 */
 	public NewRuntimeWizardDialog addRuntime(){
 		log.info("Adding new runtime");
-		new PushButton("Add...").click();
+		new PushButton(referencedComposite, "Add...").click();
+		new DefaultShell(NewRuntimeWizardDialog.DIALOG_TITLE);
 		return new NewRuntimeWizardDialog();
 	}
 	
@@ -134,6 +136,6 @@ public class RuntimePreferencePage extends PreferencePage {
 	 */
 	public void editRuntime(String name){
 		selectRuntime(name);
-		new PushButton(EDIT_BUTTON_NAME).click();
+		new PushButton(referencedComposite, EDIT_BUTTON_NAME).click();
 	}
 }

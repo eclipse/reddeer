@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.reddeer.eclipse.wst.html.ui.wizard;
 
+import org.eclipse.reddeer.core.reference.ReferencedComposite;
 import org.eclipse.reddeer.jface.wizard.WizardPage;
 import org.eclipse.reddeer.swt.impl.button.CheckBox;
 import org.eclipse.reddeer.swt.impl.table.DefaultTable;
@@ -22,12 +23,16 @@ import org.eclipse.reddeer.swt.impl.table.DefaultTableItem;
  */
 public class NewHTMLTemplatesWizardPage extends WizardPage{
 	
+	public NewHTMLTemplatesWizardPage(ReferencedComposite referencedComposite) {
+		super(referencedComposite);
+	}
+	
 	/**
 	 * Toggles Use HTML Templates checkbox
 	 * @param toggle true to enable checkbox, false otherwise 
 	 */
 	public void toggleUseHTMLTemplate(boolean toggle){
-		new CheckBox("Use HTML Template").toggle(toggle);
+		new CheckBox(referencedComposite, "Use HTML Template").toggle(toggle);
 	}
 	
 	/**
@@ -35,7 +40,7 @@ public class NewHTMLTemplatesWizardPage extends WizardPage{
 	 * @param template template name
 	 */
 	public void setTemplate(String template){
-		new DefaultTableItem(template).select();
+		new DefaultTableItem(referencedComposite, template).select();
 	}
 	
 	/**
@@ -43,14 +48,14 @@ public class NewHTMLTemplatesWizardPage extends WizardPage{
 	 * @return true if checkbox Use HTML Template is checked, false otherwise
 	 */
 	public boolean isUseHTMLTeplate(){
-		return new CheckBox("Use HTML Template").isChecked();
+		return new CheckBox(referencedComposite, "Use HTML Template").isChecked();
 	}
 	
 	/**
 	 * @return selected HTML template
 	 */
 	public String getHTMLTemplate(){
-		return new DefaultTable().getSelectetItems().get(0).getText();
+		return new DefaultTable(referencedComposite).getSelectetItems().get(0).getText();
 	}
 	
 	

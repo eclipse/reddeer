@@ -38,7 +38,7 @@ public class UtilityProjectWizardTest {
 	public void createProject(){
 		UtilityProjectWizard uw = new UtilityProjectWizard();
 		uw.open();
-		UtilityProjectFirstPage up = new UtilityProjectFirstPage();
+		UtilityProjectFirstPage up = new UtilityProjectFirstPage(uw);
 		up.setProjectName(PROJECT_NAME);
 		uw.finish();
 		ProjectExplorer pe = new ProjectExplorer();

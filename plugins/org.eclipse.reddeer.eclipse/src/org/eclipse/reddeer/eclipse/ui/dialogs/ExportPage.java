@@ -10,11 +10,17 @@
  *******************************************************************************/
 package org.eclipse.reddeer.eclipse.ui.dialogs;
 
+import org.eclipse.reddeer.jface.wizard.WizardDialog;
+
 /**
  * Represents export page of export wizard dialog
  * @author rawagner
  *
  */
 public class ExportPage extends WorkbenchWizardSelectionPage{
+	
+	public ExportPage(WizardDialog dialog) {
+		super(dialog);
+	}
 
 }

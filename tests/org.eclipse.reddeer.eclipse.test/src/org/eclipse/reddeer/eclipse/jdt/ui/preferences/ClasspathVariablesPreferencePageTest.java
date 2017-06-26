@@ -40,7 +40,7 @@ public class ClasspathVariablesPreferencePageTest {
 	public void getVariables() {
 		WorkbenchPreferenceDialog preferencesDialog = new WorkbenchPreferenceDialog();
 		preferencesDialog.open();
-		ClasspathVariablesPreferencePage classpathVariablesPreferencePage = new ClasspathVariablesPreferencePage(); 
+		ClasspathVariablesPreferencePage classpathVariablesPreferencePage = new ClasspathVariablesPreferencePage(preferencesDialog); 
 		preferencesDialog.select(classpathVariablesPreferencePage);
 		List<String> variables = classpathVariablesPreferencePage.getVariables();
 		preferencesDialog.cancel();
@@ -50,7 +50,7 @@ public class ClasspathVariablesPreferencePageTest {
 	public void addRemoveVariable() {
 		WorkbenchPreferenceDialog preferencesDialog = new WorkbenchPreferenceDialog();
 		preferencesDialog.open();
-		ClasspathVariablesPreferencePage classpathVariablesPreferencePage = new ClasspathVariablesPreferencePage(); 
+		ClasspathVariablesPreferencePage classpathVariablesPreferencePage = new ClasspathVariablesPreferencePage(preferencesDialog); 
 		preferencesDialog.select(classpathVariablesPreferencePage);
 		String addedVariableLabel = classpathVariablesPreferencePage.addVariable("VN", getJarVariableLocation(), true);
 		List<String> variables = classpathVariablesPreferencePage.getVariables();

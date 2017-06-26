@@ -81,7 +81,7 @@ public class WizardDialog extends TitleAreaDialog{
 		checkShell();
 		log.info("Finish wizard");
 
-		Button button = new FinishButton();
+		Button button = new FinishButton(getShell());
 		button.click();
 
 		new WaitWhile(new ShellIsAvailable(getShell()), timeout);
@@ -99,7 +99,7 @@ public class WizardDialog extends TitleAreaDialog{
 		checkShell();
 		log.info("Cancel wizard");
 
-		new CancelButton().click();
+		new CancelButton(getShell()).click();
 
 		new WaitWhile(new ShellIsAvailable(getShell()));
 		try{
@@ -116,7 +116,7 @@ public class WizardDialog extends TitleAreaDialog{
 		checkShell();
 		log.info("Go to next wizard page");
 
-		Button button = new NextButton();
+		Button button = new NextButton(getShell());
 		button.click();
 	}
 
@@ -126,7 +126,7 @@ public class WizardDialog extends TitleAreaDialog{
 	public void back() {
 		checkShell();
 		log.info("Go to previous wizard page");
-		Button button = new BackButton();
+		Button button = new BackButton(getShell());
 		button.click();
 	}
 	
@@ -137,7 +137,7 @@ public class WizardDialog extends TitleAreaDialog{
 	 */	
 	public boolean isFinishEnabled() {
 		checkShell();
-		return new FinishButton().isEnabled();
+		return new FinishButton(getShell()).isEnabled();
 	}
 	
 	/**
@@ -147,7 +147,7 @@ public class WizardDialog extends TitleAreaDialog{
 	 */
 	public boolean isNextEnabled() {
 		checkShell();
-		return new NextButton().isEnabled();
+		return new NextButton(getShell()).isEnabled();
 	}
 	
 	/**
@@ -157,7 +157,7 @@ public class WizardDialog extends TitleAreaDialog{
 	 */
 	public boolean isBackEnabled() {
 		checkShell();
-		return new BackButton().isEnabled();
+		return new BackButton(getShell()).isEnabled();
 	}
 	
 	@Override

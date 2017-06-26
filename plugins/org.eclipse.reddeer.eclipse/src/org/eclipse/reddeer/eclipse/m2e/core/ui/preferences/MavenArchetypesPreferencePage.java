@@ -14,10 +14,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.reddeer.common.logging.Logger;
+import org.eclipse.reddeer.common.matcher.RegexMatcher;
 import org.eclipse.reddeer.common.wait.TimePeriod;
-import org.eclipse.reddeer.common.wait.WaitUntil;
 import org.eclipse.reddeer.common.wait.WaitWhile;
+import org.eclipse.reddeer.core.matcher.WithTextMatcher;
+import org.eclipse.reddeer.core.reference.ReferencedComposite;
 import org.eclipse.reddeer.jface.preference.PreferencePage;
+import org.eclipse.reddeer.swt.api.Shell;
 import org.eclipse.reddeer.swt.api.Table;
 import org.eclipse.reddeer.swt.api.TableItem;
 import org.eclipse.reddeer.swt.api.Text;
@@ -25,6 +28,7 @@ import org.eclipse.reddeer.swt.condition.ShellIsAvailable;
 import org.eclipse.reddeer.swt.impl.button.OkButton;
 import org.eclipse.reddeer.swt.impl.button.PushButton;
 import org.eclipse.reddeer.swt.impl.combo.DefaultCombo;
+import org.eclipse.reddeer.swt.impl.shell.DefaultShell;
 import org.eclipse.reddeer.swt.impl.table.DefaultTable;
 import org.eclipse.reddeer.swt.impl.text.LabeledText;
 import org.eclipse.reddeer.workbench.core.condition.JobIsRunning;
@@ -52,8 +56,8 @@ public class MavenArchetypesPreferencePage extends PreferencePage {
 	/**
 	 * Construct the preference page with "Maven" &gt; "Archetypes".
 	 */
-	public MavenArchetypesPreferencePage() {
-		super(new String[] { "Maven", "Archetypes" });
+	public MavenArchetypesPreferencePage(ReferencedComposite referencedComposite) {
+		super(referencedComposite, new String[] { "Maven", "Archetypes" });
 	}
 
 	/**
@@ -65,11 +69,12 @@ public class MavenArchetypesPreferencePage extends PreferencePage {
 	 *            description of the local catalog
 	 */
 	public void addLocalCatalog(String catalogFile, String description) {
-		new PushButton(ADD_LOCAL_CATALOG).click();
-		new WaitUntil(new ShellIsAvailable(LOCAL_CATALOG_SHELL), TimePeriod.DEFAULT);
-		new DefaultCombo().setText(catalogFile);
-		new LabeledText(CATALOG_DESCRIPTION).setText(description);
-		new OkButton().click();
+		new PushButton(referencedComposite, ADD_LOCAL_CATALOG).click();
+		Shell localCatalogShell = new DefaultShell(LOCAL_CATALOG_SHELL);
+		new DefaultCombo(localCatalogShell).setText(catalogFile);
+		new LabeledText(localCatalogShell, CATALOG_DESCRIPTION).setText(description);
+		new OkButton(localCatalogShell).click();
+		new WaitWhile(new ShellIsAvailable(localCatalogShell));
 	}
 
 	/**
@@ -100,15 +105,16 @@ public class MavenArchetypesPreferencePage extends PreferencePage {
 	 */
 	public String addRemoteCatalog(String catalogFileURL, String description, boolean verify) {
 		String verificationResult = "";
-		new PushButton(ADD_REMOTE_CATALOG).click();
-		new WaitUntil(new ShellIsAvailable(REMOTE_CATALOG_SHELL), TimePeriod.DEFAULT);
-		new DefaultCombo().setText(catalogFileURL);
-		new LabeledText(CATALOG_DESCRIPTION).setText(description);
+		new PushButton(referencedComposite, ADD_REMOTE_CATALOG).click();
+		Shell remoteCatalogShell = new DefaultShell(REMOTE_CATALOG_SHELL);
+		new DefaultCombo(remoteCatalogShell).setText(catalogFileURL);
+		new LabeledText(remoteCatalogShell, CATALOG_DESCRIPTION).setText(description);
 		if (verify) {
-			verificationResult = verifyURL();
+			verificationResult = verifyURL(remoteCatalogShell);
 		}
 		log.info(verificationResult);
-		new OkButton().click();
+		new OkButton(remoteCatalogShell).click();
+		new WaitWhile(new ShellIsAvailable(remoteCatalogShell));
 		return verificationResult;
 	}
 
@@ -119,7 +125,7 @@ public class MavenArchetypesPreferencePage extends PreferencePage {
 	 * @return list of TableItems with catalogs from table
 	 */
 	public List<TableItem> getCatalogs() {
-		Table table = new DefaultTable();
+		Table table = new DefaultTable(referencedComposite);
 		return table.getItems();
 	}
 
@@ -145,7 +151,7 @@ public class MavenArchetypesPreferencePage extends PreferencePage {
 	 */
 	public void removeCatalog(String catalogName) {
 		selectCatalog(catalogName);
-		new PushButton(REMOVE_CATALOG).click();
+		new PushButton(referencedComposite, REMOVE_CATALOG).click();
 	}
 
 	/**
@@ -215,14 +221,16 @@ public class MavenArchetypesPreferencePage extends PreferencePage {
 	private String editCatalog(String catalogName, String catalogFile, String description, boolean verify) {
 		String verificationResult = "";
 		selectCatalog(catalogName);
-		new PushButton(EDIT_CATALOG).click();
-		new DefaultCombo().setText(catalogFile);
-		new LabeledText(CATALOG_DESCRIPTION).setText(description);
+		new PushButton(referencedComposite, EDIT_CATALOG).click();
+		Shell editShell = new DefaultShell(new WithTextMatcher(new RegexMatcher(".* Archetype Catalog")));
+		new DefaultCombo(editShell).setText(catalogFile);
+		new LabeledText(editShell, CATALOG_DESCRIPTION).setText(description);
 		if (verify) {
-			verificationResult = verifyURL();
+			verificationResult = verifyURL(editShell);
 		}
 		log.info(verificationResult);
-		new OkButton().click();
+		new OkButton(editShell).click();
+		new WaitWhile(new ShellIsAvailable(editShell));
 		return verificationResult;
 	}
 
@@ -260,10 +268,10 @@ public class MavenArchetypesPreferencePage extends PreferencePage {
 	 * 
 	 * @return result of verification
 	 */
-	protected String verifyURL() {
-		new PushButton(VERIFY_BUTTON).click();
+	protected String verifyURL(ReferencedComposite composite) {
+		new PushButton(composite, VERIFY_BUTTON).click();
 		new WaitWhile(new JobIsRunning(), TimePeriod.LONG);
-		Text labeledText = new LabeledText(REMOTE_CATALOG_SHELL);
+		Text labeledText = new LabeledText(composite, REMOTE_CATALOG_SHELL);
 		String text = labeledText.getText();
 		return text;
 	}

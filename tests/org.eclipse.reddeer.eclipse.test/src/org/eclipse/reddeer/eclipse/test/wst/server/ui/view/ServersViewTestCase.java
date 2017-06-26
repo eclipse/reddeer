@@ -12,6 +12,8 @@ package org.eclipse.reddeer.eclipse.test.wst.server.ui.view;
 
 import java.io.File;
 
+import org.eclipse.reddeer.common.wait.AbstractWait;
+import org.eclipse.reddeer.common.wait.TimePeriod;
 import org.eclipse.reddeer.common.wait.WaitUntil;
 import org.eclipse.reddeer.eclipse.condition.ServerExists;
 import org.eclipse.reddeer.eclipse.test.Activator;
@@ -65,7 +67,7 @@ public class ServersViewTestCase {
 	protected static void createServer(String name) {
 		wizardDialog = getServersView().newServer();
 
-		NewServerWizardPage newServerPage = new NewServerWizardPage();
+		NewServerWizardPage newServerPage = new NewServerWizardPage(wizardDialog);
 		newServerPage.selectType("Basic", TestServer.NAME);
 		newServerPage.setName(name);		
 
@@ -78,7 +80,7 @@ public class ServersViewTestCase {
 		ExternalProjectImportWizardDialog wizard  = new ExternalProjectImportWizardDialog();
 		wizard.open();
 
-		WizardProjectsImportPage wizardPage = new WizardProjectsImportPage();
+		WizardProjectsImportPage wizardPage = new WizardProjectsImportPage(wizard);
 		wizardPage.setArchiveFile(ZIP_FILE.getAbsolutePath());
 		wizardPage.selectProjects("server-project", "server-project-2", "server-project-3");
 

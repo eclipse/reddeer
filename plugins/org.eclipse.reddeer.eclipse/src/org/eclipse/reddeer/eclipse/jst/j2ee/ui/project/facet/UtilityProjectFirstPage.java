@@ -11,6 +11,7 @@
 package org.eclipse.reddeer.eclipse.jst.j2ee.ui.project.facet;
 
 import org.eclipse.reddeer.eclipse.wst.web.ui.wizards.DataModelFacetCreationWizardPage;
+import org.eclipse.reddeer.jface.wizard.WizardDialog;
 
 /**
  * Represents first page of Utility Project Wizard
@@ -18,5 +19,9 @@ import org.eclipse.reddeer.eclipse.wst.web.ui.wizards.DataModelFacetCreationWiza
  *
  */
 public class UtilityProjectFirstPage extends DataModelFacetCreationWizardPage{
+	
+	public UtilityProjectFirstPage(WizardDialog dialog) {
+		super(dialog);
+	}
 
 }

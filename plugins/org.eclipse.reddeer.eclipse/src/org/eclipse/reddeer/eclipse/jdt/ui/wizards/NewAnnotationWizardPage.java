@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.reddeer.eclipse.jdt.ui.wizards;
 
+import org.eclipse.reddeer.core.reference.ReferencedComposite;
 import org.eclipse.reddeer.jface.wizard.WizardPage;
 import org.eclipse.reddeer.swt.impl.button.CheckBox;
 import org.eclipse.reddeer.swt.impl.button.RadioButton;
@@ -19,6 +20,10 @@ import org.eclipse.reddeer.swt.impl.text.LabeledText;
  * Wizard page for creating an annotation.
  */
 public class NewAnnotationWizardPage extends WizardPage {
+	
+	public NewAnnotationWizardPage(ReferencedComposite referencedComposite) {
+		super(referencedComposite);
+	}
 
 	/**
 	 * Sets a given package name.
@@ -27,7 +32,7 @@ public class NewAnnotationWizardPage extends WizardPage {
 	 *            Package name
 	 */
 	public void setPackage(String packageName) {
-		new LabeledText("Package:").setText(packageName);
+		new LabeledText(referencedComposite, "Package:").setText(packageName);
 	}
 
 	/**
@@ -37,7 +42,7 @@ public class NewAnnotationWizardPage extends WizardPage {
 	 *            Source folder
 	 */
 	public void setSourceFolder(String sourceFolder) {
-		new LabeledText("Source folder:").setText(sourceFolder);
+		new LabeledText(referencedComposite, "Source folder:").setText(sourceFolder);
 	}
 
 	/**
@@ -47,7 +52,7 @@ public class NewAnnotationWizardPage extends WizardPage {
 	 *            Eclosing type
 	 */
 	public void setEnclosingType(boolean enclosing) {
-		new CheckBox("Enclosing type:").toggle(enclosing);
+		new CheckBox(referencedComposite, "Enclosing type:").toggle(enclosing);
 	}
 
 	/**
@@ -57,7 +62,7 @@ public class NewAnnotationWizardPage extends WizardPage {
 	 *            Name
 	 */
 	public void setName(String name) {
-		new LabeledText("Name:").setText(name);
+		new LabeledText(referencedComposite, "Name:").setText(name);
 	}
 
 	/**
@@ -67,7 +72,7 @@ public class NewAnnotationWizardPage extends WizardPage {
 	 *            Indicates whether to generate comments
 	 */
 	public void setGenerateComments(boolean generate) {
-		new CheckBox("Generate comments").toggle(generate);
+		new CheckBox(referencedComposite, "Generate comments").toggle(generate);
 	}
 
 	/**
@@ -76,7 +81,7 @@ public class NewAnnotationWizardPage extends WizardPage {
 	 * @param isPublic            Is public?
 	 */
 	public void setPublic(boolean isPublic) {
-		new RadioButton("public").toggle(isPublic);
+		new RadioButton(referencedComposite, "public").toggle(isPublic);
 	}
 
 	/**
@@ -86,7 +91,7 @@ public class NewAnnotationWizardPage extends WizardPage {
 	 *            Is default?
 	 */
 	public void setDefault(boolean isDefault) {
-		new RadioButton("default").toggle(isDefault);
+		new RadioButton(referencedComposite, "default").toggle(isDefault);
 	}
 
 	/**
@@ -96,7 +101,7 @@ public class NewAnnotationWizardPage extends WizardPage {
 	 *            Is private?
 	 */
 	public void setPrivate(boolean isPrivate) {
-		new RadioButton("private").toggle(isPrivate);
+		new RadioButton(referencedComposite, "private").toggle(isPrivate);
 	}
 
 	/**
@@ -106,7 +111,7 @@ public class NewAnnotationWizardPage extends WizardPage {
 	 *            Is protected?
 	 */
 	public void setProtected(boolean isProtected) {
-		new RadioButton("protected").toggle(isProtected);
+		new RadioButton(referencedComposite, "protected").toggle(isProtected);
 	}
 
 }

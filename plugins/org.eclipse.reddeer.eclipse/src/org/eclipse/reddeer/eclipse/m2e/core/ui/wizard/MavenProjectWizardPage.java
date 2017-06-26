@@ -10,11 +10,16 @@
  *******************************************************************************/
 package org.eclipse.reddeer.eclipse.m2e.core.ui.wizard;
 
+import org.eclipse.reddeer.core.reference.ReferencedComposite;
 import org.eclipse.reddeer.jface.wizard.WizardPage;
 import org.eclipse.reddeer.swt.impl.button.CheckBox;
 import org.eclipse.reddeer.swt.impl.combo.LabeledCombo;
 
 public class MavenProjectWizardPage extends WizardPage{
+	
+	public MavenProjectWizardPage(ReferencedComposite referencedComposite) {
+		super(referencedComposite);
+	}
 	
 	/**
 	 * Creates the simple project.
@@ -22,7 +27,7 @@ public class MavenProjectWizardPage extends WizardPage{
 	 * @param toggle the toggle
 	 */
 	public void createSimpleProject(boolean toggle){
-		new CheckBox("Create a simple project (skip archetype selection)").toggle(toggle);
+		new CheckBox(referencedComposite, "Create a simple project (skip archetype selection)").toggle(toggle);
 	}
 	
 	/**
@@ -31,7 +36,7 @@ public class MavenProjectWizardPage extends WizardPage{
 	 * @return true, if is creates the simple project
 	 */
 	public boolean isCreateSimpleProject(){
-		return new CheckBox("Create a simple project (skip archetype selection)").isChecked();
+		return new CheckBox(referencedComposite, "Create a simple project (skip archetype selection)").isChecked();
 	}
 	
 	/**
@@ -40,7 +45,7 @@ public class MavenProjectWizardPage extends WizardPage{
 	 * @param toggle the toggle
 	 */
 	public void useDefaultWorkspaceLocation(boolean toggle){
-		new CheckBox("Use default Workspace location").toggle(toggle);
+		new CheckBox(referencedComposite, "Use default Workspace location").toggle(toggle);
 	}
 	
 	/**
@@ -49,7 +54,7 @@ public class MavenProjectWizardPage extends WizardPage{
 	 * @return true, if is use default workspace location
 	 */
 	public boolean isUseDefaultWorkspaceLocation(){
-		return new CheckBox("Use default Workspace location").isChecked();
+		return new CheckBox(referencedComposite, "Use default Workspace location").isChecked();
 	}
 	
 	/**
@@ -58,7 +63,7 @@ public class MavenProjectWizardPage extends WizardPage{
 	 * @param location the new location
 	 */
 	public void setLocation(String location){
-		new LabeledCombo("Location:").setText(location);
+		new LabeledCombo(referencedComposite, "Location:").setText(location);
 	}
 	
 	/**
@@ -67,7 +72,7 @@ public class MavenProjectWizardPage extends WizardPage{
 	 * @return the location
 	 */
 	public String getLocation(){
-		return new LabeledCombo("Location:").getText();
+		return new LabeledCombo(referencedComposite, "Location:").getText();
 	}
 	
 	/**
@@ -76,7 +81,7 @@ public class MavenProjectWizardPage extends WizardPage{
 	 * @param toggle the toggle
 	 */
 	public void addToWorkingSet(boolean toggle){
-		new CheckBox("Add project(s) to working set").toggle(toggle);
+		new CheckBox(referencedComposite, "Add project(s) to working set").toggle(toggle);
 	}
 	
 	/**
@@ -85,7 +90,7 @@ public class MavenProjectWizardPage extends WizardPage{
 	 * @return true, if is adds the to working set
 	 */
 	public boolean isAddToWorkingSet(){
-		return new CheckBox("Add project(s) to working set").isChecked();
+		return new CheckBox(referencedComposite, "Add project(s) to working set").isChecked();
 	}
 	
 	/**
@@ -94,7 +99,7 @@ public class MavenProjectWizardPage extends WizardPage{
 	 * @param workingSet the new working set
 	 */
 	public void setWorkingSet(String workingSet){
-		new LabeledCombo("Working set:").setText(workingSet);
+		new LabeledCombo(referencedComposite, "Working set:").setText(workingSet);
 	}
 	
 	/**
@@ -103,7 +108,7 @@ public class MavenProjectWizardPage extends WizardPage{
 	 * @return the working set
 	 */
 	public String getWorkingSet(){
-		return new LabeledCombo("Working set:").getText();
+		return new LabeledCombo(referencedComposite, "Working set:").getText();
 	}
 	
 	

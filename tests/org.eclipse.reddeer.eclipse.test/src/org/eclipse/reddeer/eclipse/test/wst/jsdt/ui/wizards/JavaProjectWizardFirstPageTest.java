@@ -30,7 +30,7 @@ public class JavaProjectWizardFirstPageTest {
 	public void setName() {
 		JavaProjectWizard dialog = new JavaProjectWizard();
 		dialog.open();
-		JavaProjectWizardFirstPage dialogPage = new JavaProjectWizardFirstPage();
+		JavaProjectWizardFirstPage dialogPage = new JavaProjectWizardFirstPage(dialog);
 		dialogPage.setName(PROJECT_NAME);
 		dialog.finish();
 		assertTrue("Project '" + PROJECT_NAME + "'not found", new ProjectExplorer().containsProject(PROJECT_NAME));

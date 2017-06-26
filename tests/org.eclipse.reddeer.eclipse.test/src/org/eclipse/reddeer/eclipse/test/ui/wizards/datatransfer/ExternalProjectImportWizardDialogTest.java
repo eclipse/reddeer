@@ -51,7 +51,7 @@ public class ExternalProjectImportWizardDialogTest {
 		wizard  = new ExternalProjectImportWizardDialog();
 		wizard.open();
 		
-		wizardPage = new WizardProjectsImportPage();
+		wizardPage = new WizardProjectsImportPage(wizard);
 	}
 	
 	@Test

@@ -41,13 +41,13 @@ public class CustomContentAssistTest {
 	public void testCustomContentAssist(){
 		BasicNewProjectResourceWizard projectWizard = new BasicNewProjectResourceWizard();
 		projectWizard.open();
-		BasicNewProjectResourceWizardFirstPage pPage = new BasicNewProjectResourceWizardFirstPage();
+		BasicNewProjectResourceWizardFirstPage pPage = new BasicNewProjectResourceWizardFirstPage(projectWizard);
 		pPage.setProjectName("project");
 		projectWizard.finish();
 		
 		BasicNewFileResourceWizard fileWizard = new BasicNewFileResourceWizard();
 		fileWizard.open();
-		WizardNewFileCreationPage page = new WizardNewFileCreationPage();
+		WizardNewFileCreationPage page = new WizardNewFileCreationPage(fileWizard);
 		page.setFolderPath("project");
 		page.setFileName("abc.ca");
 		fileWizard.finish();

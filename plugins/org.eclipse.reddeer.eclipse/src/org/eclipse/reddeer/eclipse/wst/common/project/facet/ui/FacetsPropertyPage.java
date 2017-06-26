@@ -14,7 +14,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.reddeer.common.wait.WaitWhile;
+import org.eclipse.reddeer.core.reference.ReferencedComposite;
 import org.eclipse.reddeer.eclipse.ui.dialogs.PropertyPage;
+import org.eclipse.reddeer.swt.api.Shell;
 import org.eclipse.reddeer.swt.api.TreeItem;
 import org.eclipse.reddeer.swt.condition.ShellIsAvailable;
 import org.eclipse.reddeer.swt.impl.button.OkButton;
@@ -36,8 +38,8 @@ public class FacetsPropertyPage extends PropertyPage {
 	/**
 	 * Constructs a new Facets property page.
 	 */
-	public FacetsPropertyPage() {
-		super(NAME);
+	public FacetsPropertyPage(ReferencedComposite referencedComposite) {
+		super(referencedComposite, NAME);
 	}
 	
 	/**
@@ -46,7 +48,7 @@ public class FacetsPropertyPage extends PropertyPage {
 	 * @param facetName the facet name
 	 */
 	public void selectFacet(String facetName){
-		new DefaultTreeItem(new DefaultTree(1), facetName).setChecked(true);
+		new DefaultTreeItem(new DefaultTree(referencedComposite, 1), facetName).setChecked(true);
 	}
 	
 	/**
@@ -56,7 +58,7 @@ public class FacetsPropertyPage extends PropertyPage {
 	 * @return version
 	 */
 	public String getSelectedVersion(String facetName){
-		return new DefaultTreeItem(new DefaultTree(1), facetName).getCell(1);
+		return new DefaultTreeItem(new DefaultTree(referencedComposite, 1), facetName).getCell(1);
 	}
 	
 	/**
@@ -66,12 +68,13 @@ public class FacetsPropertyPage extends PropertyPage {
 	 * @param version the version
 	 */
 	public void selectVersion(String facetName, String version){
-		TreeItem facet = new DefaultTreeItem(new DefaultTree(1), facetName);
+		TreeItem facet = new DefaultTreeItem(new DefaultTree(referencedComposite, 1), facetName);
 		facet.select();
 		new ContextMenu("Change Version...").select();
-		new DefaultShell("Change Version");
-		new LabeledCombo("Version:").setSelection(version);
-		new OkButton().click();
+		Shell versionChangeShell = new DefaultShell("Change Version");
+		new LabeledCombo(versionChangeShell, "Version:").setSelection(version);
+		new OkButton(versionChangeShell).click();
+		new WaitWhile(new ShellIsAvailable(versionChangeShell));
 	}
 	
 	/**
@@ -81,7 +84,7 @@ public class FacetsPropertyPage extends PropertyPage {
 	 */
 	public List<TreeItem> getSelectedFacets(){
 		List<TreeItem> facets = new ArrayList<TreeItem>();
-		for(TreeItem i : new DefaultTree(1).getItems()){
+		for(TreeItem i : new DefaultTree(referencedComposite, 1).getItems()){
 			if(i.isChecked())
 				facets.add(i);
 		}

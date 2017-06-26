@@ -9,6 +9,7 @@
  *     Red Hat Inc. - initial API and implementation
  *******************************************************************************/
 package org.eclipse.reddeer.eclipse.test.condition;
+
 import static org.junit.Assert.*;
 
 import java.net.MalformedURLException;

@@ -43,19 +43,19 @@ public class ProjectTest {
 	public static void setUp(){
 		JavaProjectWizard dialog = new JavaProjectWizard();
 		dialog.open();
-		NewJavaProjectWizardPageOne page1 = new NewJavaProjectWizardPageOne(); 
+		NewJavaProjectWizardPageOne page1 = new NewJavaProjectWizardPageOne(dialog); 
 		page1.setProjectName(ProjectTest.PROJECT_NAME_0);
 		dialog.finish();
 		
 		dialog = new JavaProjectWizard();
 		dialog.open();
-		page1 = new NewJavaProjectWizardPageOne();
+		page1 = new NewJavaProjectWizardPageOne(dialog);
 		page1.setProjectName(ProjectTest.PROJECT_NAME_1);
 		dialog.finish();
 		
 		dialog = new JavaProjectWizard();
 		dialog.open();
-		page1 = new NewJavaProjectWizardPageOne();
+		page1 = new NewJavaProjectWizardPageOne(dialog);
 		page1.setProjectName(ProjectTest.PROJECT_NAME_2);
 		dialog.finish();
 		
@@ -90,7 +90,7 @@ public class ProjectTest {
 	public void delete(){
 		JavaProjectWizard dialog = new JavaProjectWizard();
 		dialog.open();
-		NewJavaProjectWizardPageOne page1 = new NewJavaProjectWizardPageOne(); 
+		NewJavaProjectWizardPageOne page1 = new NewJavaProjectWizardPageOne(dialog); 
 		page1.setProjectName(ProjectTest.PROJECT_NAME_3);
 		dialog.finish();
 		

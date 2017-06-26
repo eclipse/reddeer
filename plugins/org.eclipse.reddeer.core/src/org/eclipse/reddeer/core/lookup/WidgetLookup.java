@@ -38,6 +38,7 @@ import org.eclipse.reddeer.common.wait.TimePeriod;
 import org.eclipse.reddeer.common.wait.WaitUntil;
 import org.eclipse.reddeer.core.condition.WidgetIsFound;
 import org.eclipse.reddeer.core.exception.CoreLayerException;
+import org.eclipse.reddeer.core.handler.ControlHandler;
 import org.eclipse.reddeer.core.handler.ShellHandler;
 import org.eclipse.reddeer.core.matcher.ClassMatcher;
 import org.eclipse.reddeer.core.reference.ReferencedComposite;
@@ -226,9 +227,6 @@ public class WidgetLookup {
 		}
 		
 		Shell activeShell = ShellLookup.getInstance().getActiveShell();
-		if(activeShell == null){
-			logger.trace("No active shell found");
-		}
 
 		if ((activeWorkbenchParentShell == null || !activeWorkbenchParentShell.equals(activeShell))
 				&& activeShell != null){
@@ -475,28 +473,6 @@ public class WidgetLookup {
 		}
 		return sb.toString();
 	}
-
-	/**
-	 * Find all parent widgets.
-	 *
-	 * @return the list
-	 */
-	public List<Control> findAllParentWidgets() {
-		List<Control> allWidgets = findControls(findParent(), new BaseMatcher<Control>() {
-
-			@Override
-			public boolean matches(Object obj) {
-				return true;
-			}
-
-			@Override
-			public void describeTo(Description desc) {
-				
-			}
-			
-		}, true);
-		return allWidgets;
-	}
 	
 	private WorkbenchPartLookup getWorkbenchLookup(){
 		try{
@@ -509,31 +485,33 @@ public class WidgetLookup {
 	}
 	
 	/**
-	 * Gets label of specified widget.
+	 * Gets label of specified control.
 	 *
 	 * @param <T> the generic type
-	 * @param w widget to handle
+	 * @param control control to handle
 	 * @return label of specified widget
 	 */
-	public <T extends Widget> String getLabel(final T w) {
+	public <T extends Control> String getLabel(final T control) {
 		String label = Display.syncExec(new ResultRunnable<String>() {
 
 			@Override
 			public String run() {
-				Control parent = ((Control) w).getParent();
-				java.util.List<Widget> children = WidgetResolver.getInstance()
-						.getChildren(parent);
-				// check whether a label is defined using form data layout
-				for (Widget child : children) {
-					if (child instanceof Label || child instanceof CLabel) {
-						Object layoutData = ((Control) child).getLayoutData();
-						if (layoutData instanceof FormData) {
-							FormData formData = (FormData) layoutData;
-							if (formData.right != null && w.equals(formData.right.control)) {
-								if (child instanceof Label) {
-									return ((Label) child).getText();
-								} else if (child instanceof CLabel) {
-									return ((CLabel) child).getText();
+				Control parent = control.getParent();
+				if(parent != null){
+					java.util.List<Widget> children = WidgetResolver.getInstance()
+							.getChildren(parent);
+					// check whether a label is defined using form data layout
+					for (Widget child : children) {
+						if (child instanceof Label || child instanceof CLabel) {
+							Object layoutData = ((Control) child).getLayoutData();
+							if (layoutData instanceof FormData) {
+								FormData formData = (FormData) layoutData;
+								if (formData.right != null && control.equals(formData.right.control)) {
+									if (child instanceof Label) {
+										return ((Label) child).getText();
+									} else if (child instanceof CLabel) {
+										return ((CLabel) child).getText();
+									}
 								}
 							}
 						}
@@ -543,13 +521,13 @@ public class WidgetLookup {
 			}
 		});
 		
-		if(label == null){
-			final List<Control> allWidgets = WidgetLookup.getInstance().findAllParentWidgets();
+		if(label == null && ControlHandler.getInstance().getParent(control) != null){
+			java.util.List<Control> allWidgets = findAllParentWidgets(ControlHandler.getInstance().getParent(control));
 			label = Display.syncExec(new ResultRunnable<String>() {
 
 				@Override
 				public String run() {
-					int widgetIndex = allWidgets.indexOf(w);
+					int widgetIndex = allWidgets.indexOf(control);
 					if (widgetIndex < 0) {
 						return null;
 					}
@@ -577,6 +555,43 @@ public class WidgetLookup {
 			label = label.replaceAll("&", "").split("\t")[0];
 		}
 		return label;
+	}
+	
+	/**
+	 * Find all parent widgets.
+	 *
+	 * @return the list
+	 */
+	public List<Control> findAllParentWidgets(Control control) {
+		Control parent = null;
+		
+		Shell controlShell = ControlHandler.getInstance().getShell(control);
+		Shell activeWorkbenchParentShell = null;
+		
+		if(getWorkbenchLookup() != null){
+			activeWorkbenchParentShell = getWorkbenchLookup().getShellForActiveWorkbench();
+		}
+		
+		if(controlShell.equals(activeWorkbenchParentShell)){
+			parent = getWorkbenchLookup().getActiveWorkbenchPartControl();
+		} else {
+			parent = controlShell;
+		}
+		
+		List<Control> allWidgets = findControls(parent, new BaseMatcher<Control>() {
+
+			@Override
+			public boolean matches(Object obj) {
+				return true;
+			}
+
+			@Override
+			public void describeTo(Description desc) {
+				
+			}
+			
+		}, true);
+		return allWidgets;
 	}
 	
 	/**
@@ -633,7 +648,7 @@ public class WidgetLookup {
 	 * @param widget widget to find parent
 	 * @return parent widget of specified widget
 	 */
-	public Control getParent(final Widget widget) {
+	private Control getParent(final Widget widget) {
 		Object o = ObjectUtil.invokeMethod(widget, "getParent");
 
 		if (o == null){

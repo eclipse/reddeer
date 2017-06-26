@@ -37,8 +37,8 @@ public class MavenSettingsPreferencePage extends PreferencePage {
 	/**
 	 * Construct the preference page with "Maven" &gt; "User Settings".
 	 */
-	public MavenSettingsPreferencePage() {
-		super(new String[] {"Maven", "User Settings"});
+	public MavenSettingsPreferencePage(ReferencedComposite referencedComposite) {
+		super(referencedComposite, new String[] {"Maven", "User Settings"});
 	}
 
 	/**
@@ -47,7 +47,7 @@ public class MavenSettingsPreferencePage extends PreferencePage {
 	 * 
 	 */
 	public void updateSettings() {
-		new PushButton(UPDATE_SETTINGS).click();
+		new PushButton(referencedComposite, UPDATE_SETTINGS).click();
 		new WaitUntil(new JobIsRunning(), TimePeriod.LONG);
 	}
 
@@ -75,7 +75,7 @@ public class MavenSettingsPreferencePage extends PreferencePage {
 	 * 
 	 */
 	public void reindex() {
-		new PushButton(REINDEX).click();
+		new PushButton(referencedComposite, REINDEX).click();
 		new WaitWhile(new JobIsRunning(), TimePeriod.VERY_LONG);
 	}
 
@@ -86,7 +86,7 @@ public class MavenSettingsPreferencePage extends PreferencePage {
 	 * @return default text of settings xml
 	 */
 	private DefaultText getSettingsXMLTextWidget() {
-		final PushButton button = new PushButton(UPDATE_SETTINGS);
+		final PushButton button = new PushButton(referencedComposite, UPDATE_SETTINGS);
 		return Display.syncExec(new ResultRunnable<DefaultText>() {
 
 			@Override

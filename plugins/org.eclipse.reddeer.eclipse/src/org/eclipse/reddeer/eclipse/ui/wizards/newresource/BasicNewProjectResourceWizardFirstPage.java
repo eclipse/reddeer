@@ -11,6 +11,7 @@
 package org.eclipse.reddeer.eclipse.ui.wizards.newresource;
 
 import org.eclipse.reddeer.common.logging.Logger;
+import org.eclipse.reddeer.core.reference.ReferencedComposite;
 import org.eclipse.reddeer.eclipse.exception.EclipseLayerException;
 import org.eclipse.reddeer.jface.wizard.WizardPage;
 import org.eclipse.reddeer.swt.impl.button.CheckBox;
@@ -27,6 +28,10 @@ public class BasicNewProjectResourceWizardFirstPage extends WizardPage{
 
 	private final Logger log = Logger
 			.getLogger(BasicNewProjectResourceWizardFirstPage.class);
+	
+	public BasicNewProjectResourceWizardFirstPage(ReferencedComposite referencedComposite) {
+		super(referencedComposite);
+	}
 
 	/**
 	 * Sets a given project name.
@@ -35,7 +40,7 @@ public class BasicNewProjectResourceWizardFirstPage extends WizardPage{
 	 */
 	public void setProjectName(String projectName) {
 		log.debug("Set General Project name to '" + projectName + "'");
-		new LabeledText("Project name:").setText(projectName);
+		new LabeledText(referencedComposite, "Project name:").setText(projectName);
 	}
 
 	/**
@@ -45,8 +50,8 @@ public class BasicNewProjectResourceWizardFirstPage extends WizardPage{
 	 */
 	public void setProjectLocation(String projectLocation) {
 		log.debug("Set Project location to '" + projectLocation + "'");
-		new CheckBox("Use default location").toggle(false);
-		new LabeledText("Location:").setText(projectLocation);
+		new CheckBox(referencedComposite, "Use default location").toggle(false);
+		new LabeledText(referencedComposite, "Location:").setText(projectLocation);
 	}
 
 	/**
@@ -56,8 +61,8 @@ public class BasicNewProjectResourceWizardFirstPage extends WizardPage{
 	 */
 	public void addProjectToWorkingSet(String workingSet) {
 		log.debug("Add Project to working set '" + workingSet + "'");
-		new CheckBox("Add project to working sets").toggle(true);
-		LabeledCombo cmbWorkingSet = new LabeledCombo("Working sets:");
+		new CheckBox(referencedComposite, "Add project to working sets").toggle(true);
+		LabeledCombo cmbWorkingSet = new LabeledCombo(referencedComposite, "Working sets:");
 		if (cmbWorkingSet.isEnabled()) {
 			cmbWorkingSet.setText(workingSet);
 		} else {

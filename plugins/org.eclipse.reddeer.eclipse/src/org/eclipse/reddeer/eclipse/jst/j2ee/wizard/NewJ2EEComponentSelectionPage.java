@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.reddeer.eclipse.jst.j2ee.wizard;
 
+import org.eclipse.reddeer.core.reference.ReferencedComposite;
 import org.eclipse.reddeer.eclipse.jst.servlet.ui.project.facet.WebProjectWizard;
 import org.eclipse.reddeer.jface.wizard.WizardPage;
 import org.eclipse.reddeer.swt.impl.button.CheckBox;
@@ -19,13 +20,17 @@ import org.eclipse.reddeer.swt.impl.text.DefaultText;
 
 public class NewJ2EEComponentSelectionPage extends WizardPage{
 	
+	public NewJ2EEComponentSelectionPage(ReferencedComposite referencedComposite) {
+		super(referencedComposite);
+	}
+	
 	/**
 	 * Toggle create default modules.
 	 *
 	 * @param toggle the toggle
 	 */
 	public void toggleCreateDefaultModules(boolean toggle){
-		new CheckBox("Create default modules").toggle(toggle);
+		new CheckBox(referencedComposite, "Create default modules").toggle(toggle);
 	}
 	
 	/**
@@ -34,7 +39,7 @@ public class NewJ2EEComponentSelectionPage extends WizardPage{
 	 * @return true, if is creates the default modules
 	 */
 	public boolean isCreateDefaultModules(){
-		return new CheckBox("Create default modules").isChecked();
+		return new CheckBox(referencedComposite, "Create default modules").isChecked();
 	}
 	
 	/**
@@ -42,8 +47,8 @@ public class NewJ2EEComponentSelectionPage extends WizardPage{
 	 * use swt layer in following steps.
 	 */
 	public void addEnterpriseJavaBean(){
-		new RadioButton("Enterprise Java Bean").click();
-		new PushButton("Next >").click();
+		new RadioButton(referencedComposite, "Enterprise Java Bean").click();
+		new PushButton(referencedComposite, "Next >").click();
 		//should return wizard when it will be implemented
 	}
 	
@@ -53,8 +58,8 @@ public class NewJ2EEComponentSelectionPage extends WizardPage{
 	 * @return the web project wizard
 	 */
 	public WebProjectWizard addWeb(){
-		new RadioButton("Web").click();
-		new PushButton("Next >").click();
+		new RadioButton(referencedComposite, "Web").click();
+		new PushButton(referencedComposite, "Next >").click();
 		return new WebProjectWizard();
 	}
 	
@@ -63,8 +68,8 @@ public class NewJ2EEComponentSelectionPage extends WizardPage{
 	 * use swt layer in following steps.
 	 */
 	public void addConnector(){
-		new RadioButton("Connector").click();
-		new PushButton("Next >").click();
+		new RadioButton(referencedComposite, "Connector").click();
+		new PushButton(referencedComposite, "Next >").click();
 		//should return wizard when it will be implemented
 	}
 	
@@ -73,8 +78,8 @@ public class NewJ2EEComponentSelectionPage extends WizardPage{
 	 * use swt layer in following steps.
 	 */
 	public void addApplicationClient(){
-		new RadioButton("Application Client").click();
-		new PushButton("Next >").click();
+		new RadioButton(referencedComposite, "Application Client").click();
+		new PushButton(referencedComposite, "Next >").click();
 		//should return wizard when it will be implemented
 	}
 	
@@ -84,7 +89,7 @@ public class NewJ2EEComponentSelectionPage extends WizardPage{
 	 * @param toggle the toggle
 	 */
 	public void toggleApplicationClientModule(boolean toggle){
-		new CheckBox("Application client module").toggle(toggle);
+		new CheckBox(referencedComposite, "Application client module").toggle(toggle);
 	}
 	
 	/**
@@ -93,7 +98,7 @@ public class NewJ2EEComponentSelectionPage extends WizardPage{
 	 * @param toggle the toggle
 	 */
 	public void toggleEJBModule(boolean toggle){
-		new CheckBox("EJB module").toggle(toggle);
+		new CheckBox(referencedComposite, "EJB module").toggle(toggle);
 	}
 	
 	/**
@@ -102,7 +107,7 @@ public class NewJ2EEComponentSelectionPage extends WizardPage{
 	 * @param toggle the toggle
 	 */
 	public void toggleWebModule(boolean toggle){
-		new CheckBox("Web module").toggle(toggle);
+		new CheckBox(referencedComposite, "Web module").toggle(toggle);
 	}
 	
 	/**
@@ -111,7 +116,7 @@ public class NewJ2EEComponentSelectionPage extends WizardPage{
 	 * @param toggle the toggle
 	 */
 	public void toggleConnectionModule(boolean toggle){
-		new CheckBox("Connector module").toggle(toggle);
+		new CheckBox(referencedComposite, "Connector module").toggle(toggle);
 	}
 	
 	/**
@@ -120,7 +125,7 @@ public class NewJ2EEComponentSelectionPage extends WizardPage{
 	 * @return true, if is application client module
 	 */
 	public boolean isApplicationClientModule(){
-		return new CheckBox("Application client module").isChecked();
+		return new CheckBox(referencedComposite, "Application client module").isChecked();
 	}
 	
 	/**
@@ -129,7 +134,7 @@ public class NewJ2EEComponentSelectionPage extends WizardPage{
 	 * @return true, if is EJB module
 	 */
 	public boolean isEJBModule(){
-		return new CheckBox("EJB module").isChecked();
+		return new CheckBox(referencedComposite, "EJB module").isChecked();
 	}
 	
 	/**
@@ -138,7 +143,7 @@ public class NewJ2EEComponentSelectionPage extends WizardPage{
 	 * @return true, if is web module
 	 */
 	public boolean isWebModule(){
-		return new CheckBox("Web module").isChecked();
+		return new CheckBox(referencedComposite, "Web module").isChecked();
 	}
 	
 	/**
@@ -147,7 +152,7 @@ public class NewJ2EEComponentSelectionPage extends WizardPage{
 	 * @return true, if is connection module
 	 */
 	public boolean isConnectionModule(){
-		return new CheckBox("Connector module").isChecked();
+		return new CheckBox(referencedComposite, "Connector module").isChecked();
 	}
 	
 	/**
@@ -156,7 +161,7 @@ public class NewJ2EEComponentSelectionPage extends WizardPage{
 	 * @param name the new application client module name
 	 */
 	public void setApplicationClientModuleName(String name){
-		new DefaultText(0).setText(name);
+		new DefaultText(referencedComposite, 0).setText(name);
 	}
 	
 	/**
@@ -165,7 +170,7 @@ public class NewJ2EEComponentSelectionPage extends WizardPage{
 	 * @param name the new EJB module name
 	 */
 	public void setEJBModuleName(String name){
-		new DefaultText(1).setText(name);
+		new DefaultText(referencedComposite, 1).setText(name);
 	}
 	
 	/**
@@ -174,7 +179,7 @@ public class NewJ2EEComponentSelectionPage extends WizardPage{
 	 * @param name the new web module name
 	 */
 	public void setWebModuleName(String name){
-		new DefaultText(2).setText(name);
+		new DefaultText(referencedComposite, 2).setText(name);
 	}
 	
 	/**
@@ -183,7 +188,7 @@ public class NewJ2EEComponentSelectionPage extends WizardPage{
 	 * @param name the new connector module name
 	 */
 	public void setConnectorModuleName(String name){
-		new DefaultText(3).setText(name);
+		new DefaultText(referencedComposite, 3).setText(name);
 	}
 	
 	/**
@@ -192,7 +197,7 @@ public class NewJ2EEComponentSelectionPage extends WizardPage{
 	 * @return the application client module name
 	 */
 	public String getApplicationClientModuleName(){
-		return new DefaultText(0).getText();
+		return new DefaultText(referencedComposite, 0).getText();
 	}
 	
 	/**
@@ -201,7 +206,7 @@ public class NewJ2EEComponentSelectionPage extends WizardPage{
 	 * @return the EJB module name
 	 */
 	public String getEJBModuleName(){
-		return new DefaultText(1).getText();
+		return new DefaultText(referencedComposite, 1).getText();
 	}
 	
 	/**
@@ -210,7 +215,7 @@ public class NewJ2EEComponentSelectionPage extends WizardPage{
 	 * @return the web module name
 	 */
 	public String getWebModuleName(){
-		return new DefaultText(2).getText();
+		return new DefaultText(referencedComposite, 2).getText();
 	}
 	
 	/**
@@ -219,7 +224,7 @@ public class NewJ2EEComponentSelectionPage extends WizardPage{
 	 * @return the connector module name
 	 */
 	public String getConnectorModuleName(){
-		return new DefaultText(3).getText();
+		return new DefaultText(referencedComposite, 3).getText();
 	}
 	
 	

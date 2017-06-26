@@ -50,7 +50,7 @@ public class WebProjectTest {
 	public void createWebProject(){
 		WebProjectWizard ww = new WebProjectWizard();
 		ww.open();
-		WebProjectFirstPage fp = new WebProjectFirstPage();
+		WebProjectFirstPage fp = new WebProjectFirstPage(ww);
 		fp.setProjectName(projectName);
 		ww.finish();
 		assertTrue(packageExplorer.containsProject(projectName));
@@ -60,17 +60,17 @@ public class WebProjectTest {
 	public void createWebProject1(){
 		WebProjectWizard ww = new WebProjectWizard();
 		ww.open();
-		WebProjectFirstPage fp = new WebProjectFirstPage();
+		WebProjectFirstPage fp = new WebProjectFirstPage(ww);
 		fp.setProjectName(projectName);
 		assertEquals(projectName, fp.getProjectName());
 		ww.next();
-		WebProjectSecondPage sp = new WebProjectSecondPage();
+		WebProjectSecondPage sp = new WebProjectSecondPage(ww);
 		sp.addSourceFoldersOnBuildPath("source");
 		sp.removeSourceFoldersOnBuildPath("src");
 		assertEquals(1,sp.getSourceFolders().size());
 		assertEquals("source", sp.getSourceFolders().get(0));
 		ww.next();
-		WebProjectThirdPage tp = new WebProjectThirdPage();
+		WebProjectThirdPage tp = new WebProjectThirdPage(ww);
 		tp.setGenerateWebXmlDeploymentDescriptor(true);
 		ww.finish();
 		assertTrue(packageExplorer.containsProject(projectName));

@@ -81,7 +81,7 @@ public abstract class ServerReqBase {
 			//remove runtime
 			WorkbenchPreferenceDialog preferenceDialog = new WorkbenchPreferenceDialog();
 			preferenceDialog.open();
-			RuntimePreferencePage runtimePage = new RuntimePreferencePage();
+			RuntimePreferencePage runtimePage = new RuntimePreferencePage(preferenceDialog);
 			preferenceDialog.select(runtimePage);
 			runtimePage.removeRuntime(new Runtime(config.getRuntimeName(), "test"));
 			preferenceDialog.ok();

@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.reddeer.common.logging.Logger;
+import org.eclipse.reddeer.core.reference.ReferencedComposite;
 import org.eclipse.reddeer.eclipse.ui.dialogs.PropertyPage;
 import org.eclipse.reddeer.swt.api.TableItem;
 import org.eclipse.reddeer.swt.impl.table.DefaultTable;
@@ -35,8 +36,8 @@ public class RuntimesPropertyPage extends PropertyPage {
 	/**
 	 * Constructs a new Runtimes property page.
 	 */
-	public RuntimesPropertyPage() {
-		super(NAME);
+	public RuntimesPropertyPage(ReferencedComposite referencedComposite) {
+		super(referencedComposite, NAME);
 	}
 	
 	/**
@@ -46,7 +47,7 @@ public class RuntimesPropertyPage extends PropertyPage {
 	 */
 	public void selectRuntime(String runtimeName){
 		log.info("Select runtime '" + runtimeName + "'");
-		new DefaultTableItem(runtimeName).setChecked(true);
+		new DefaultTableItem(referencedComposite, runtimeName).setChecked(true);
 	}
 	
 	/**
@@ -56,7 +57,7 @@ public class RuntimesPropertyPage extends PropertyPage {
 	 */
 	public List<String> getSelectedRuntimes(){
 		List<String> runtimes = new ArrayList<String>();
-		for (TableItem tableItem : new DefaultTable().getItems(new CheckedTableItemMatcher())){
+		for (TableItem tableItem : new DefaultTable(referencedComposite).getItems(new CheckedTableItemMatcher())){
 			runtimes.add(tableItem.getText());
 		}
 		return runtimes;

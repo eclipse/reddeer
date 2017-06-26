@@ -12,6 +12,7 @@ package org.eclipse.reddeer.eclipse.wst.html.ui.wizard;
 
 import java.util.List;
 
+import org.eclipse.reddeer.core.reference.ReferencedComposite;
 import org.eclipse.reddeer.jface.wizard.WizardPage;
 import org.eclipse.reddeer.swt.api.TreeItem;
 import org.eclipse.reddeer.swt.impl.text.LabeledText;
@@ -25,12 +26,16 @@ import org.eclipse.reddeer.swt.impl.tree.DefaultTreeItem;
  */
 public class NewHTMLFileWizardPage extends WizardPage{
 	
+	public NewHTMLFileWizardPage(ReferencedComposite referencedComposite) {
+		super(referencedComposite);
+	}
+	
 	/**
 	 * Enter parent folder
 	 * @param parentFolder to be set
 	 */
 	public void enterParentFolder(String parentFolder){
-		new LabeledText("Enter or select the parent folder:").setText(parentFolder);
+		new LabeledText(referencedComposite, "Enter or select the parent folder:").setText(parentFolder);
 	}
 	
 	/**
@@ -38,7 +43,7 @@ public class NewHTMLFileWizardPage extends WizardPage{
 	 * @param path to be selected
 	 */
 	public void selectParentFolder(String... path){
-		new DefaultTreeItem(path).select();
+		new DefaultTreeItem(new DefaultTree(referencedComposite), path).select();
 	}
 	
 	/**
@@ -46,7 +51,7 @@ public class NewHTMLFileWizardPage extends WizardPage{
 	 * @param fileName name of page
 	 */
 	public void setFileName(String fileName){
-		new LabeledText("File name:").setText(fileName);
+		new LabeledText(referencedComposite, "File name:").setText(fileName);
 	}
 	
 	/**
@@ -54,7 +59,7 @@ public class NewHTMLFileWizardPage extends WizardPage{
 	 * @return parent folder name
 	 */
 	public String getParentFolder(){
-		return new LabeledText("Enter or select the parent folder:").getText();
+		return new LabeledText(referencedComposite, "Enter or select the parent folder:").getText();
 	}
 	
 	/**
@@ -62,7 +67,7 @@ public class NewHTMLFileWizardPage extends WizardPage{
 	 * @return selected parent folder
 	 */
 	public TreeItem getSelectedParentFolder(){
-		List<TreeItem> ti = new DefaultTree().getSelectedItems();
+		List<TreeItem> ti = new DefaultTree(referencedComposite).getSelectedItems();
 		if(ti.isEmpty()){
 			return null;
 		}
@@ -74,7 +79,7 @@ public class NewHTMLFileWizardPage extends WizardPage{
 	 * @return HTML page name
 	 */
 	public String getFileName(){
-		return new LabeledText("File name:").getText();
+		return new LabeledText(referencedComposite, "File name:").getText();
 	}
 
 }

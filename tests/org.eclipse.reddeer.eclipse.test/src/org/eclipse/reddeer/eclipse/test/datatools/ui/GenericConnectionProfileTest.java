@@ -52,7 +52,7 @@ public class GenericConnectionProfileTest {
 		// Driver definition removal
 		WorkbenchPreferenceDialog preferenceDialog = new WorkbenchPreferenceDialog();
 		preferenceDialog.open();
-		DriverPreferences preferencePage = new DriverPreferences();
+		DriverPreferences preferencePage = new DriverPreferences(preferenceDialog);
 		preferenceDialog.select(preferencePage);
 
 		List<TableItem> items = new DefaultTable().getItems();
@@ -101,7 +101,7 @@ public class GenericConnectionProfileTest {
 		WorkbenchPreferenceDialog dialog = new WorkbenchPreferenceDialog();
 		dialog.open();
 
-		DriverPreferences preferencePage = new DriverPreferences();
+		DriverPreferences preferencePage = new DriverPreferences(dialog);
 		dialog.select(preferencePage);
 
 		DriverDialog wizard = preferencePage.addDriverDefinition();

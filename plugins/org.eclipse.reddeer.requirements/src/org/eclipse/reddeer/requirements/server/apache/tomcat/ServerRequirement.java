@@ -93,8 +93,8 @@ public class ServerRequirement extends ServerReqBase
 		NewServerWizard swd = new NewServerWizard();
 		swd.open();
 
-		NewServerWizardPage swpage = new NewServerWizardPage();
-
+		NewServerWizardPage swpage = new NewServerWizardPage(swd);
+		
 		swpage.selectType(config.getFamily().getCategory(), getServerTypeLabelText());
 		swpage.setName(getServerNameLabelText());
 		swd.next();

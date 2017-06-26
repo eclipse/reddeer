@@ -42,7 +42,7 @@ public class ExtendedFileEditorsPreferencePageTest {
 
     @Before
     public void setup() {
-	prefPage = new ExtendedFileEditorsPreferencePage();
+	prefPage = new ExtendedFileEditorsPreferencePage(prefDialog);
 	prefDialog = new WorkbenchPreferenceDialog();
 	prefDialog.open();
 	prefDialog.select(prefPage);

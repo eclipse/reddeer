@@ -31,7 +31,7 @@ import org.junit.runner.RunWith;
 public class MavenErrorPreferencePageTest {
 
 	private WorkbenchPreferenceDialog preferencesDialog = new WorkbenchPreferenceDialog();	
-	private WarningsPreferencePage mavenPreferencePage = new WarningsPreferencePage();
+	private WarningsPreferencePage mavenPreferencePage = new WarningsPreferencePage(preferencesDialog);
 
 	@Test
 	public void checkAllPreferences() {

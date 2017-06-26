@@ -55,12 +55,12 @@ public class ContextMenuTest {
 	public static void createProject() {
 		JavaProjectWizard projectWizard = new JavaProjectWizard();
 		projectWizard.open();
-		new NewJavaProjectWizardPageOne().setProjectName(projectName);
+		new NewJavaProjectWizardPageOne(projectWizard).setProjectName(projectName);
 		projectWizard.finish();
 		
 		NewClassCreationWizard classWizard = new NewClassCreationWizard();
 		classWizard.open();
-		NewClassWizardPage page = new NewClassWizardPage();
+		NewClassWizardPage page = new NewClassWizardPage(classWizard);
 		page.setName("TestClass");
 		page.setStaticMainMethod(true);
 		classWizard.finish();

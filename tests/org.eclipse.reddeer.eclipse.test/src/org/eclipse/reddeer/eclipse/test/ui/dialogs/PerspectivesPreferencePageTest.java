@@ -30,7 +30,7 @@ public class PerspectivesPreferencePageTest {
 
 		preferencesDialog.open();
 		IDEPerspectivesPreferencePage perspectivesPreferencePage = 
-			new IDEPerspectivesPreferencePage();
+			new IDEPerspectivesPreferencePage(preferencesDialog);
 		preferencesDialog.select(perspectivesPreferencePage);
 
 		perspectivesPreferencePage.checkAlwaysOpenAssociatedPerspective();

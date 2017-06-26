@@ -10,9 +10,11 @@
  *******************************************************************************/
 package org.eclipse.reddeer.eclipse.ui.dialogs;
 
+import org.eclipse.reddeer.core.reference.ReferencedComposite;
 import org.eclipse.reddeer.jface.wizard.WizardPage;
 import org.eclipse.reddeer.swt.impl.button.CheckBox;
 import org.eclipse.reddeer.swt.impl.text.LabeledText;
+import org.eclipse.reddeer.swt.impl.tree.DefaultTree;
 import org.eclipse.reddeer.swt.impl.tree.DefaultTreeItem;
 
 /**
@@ -22,12 +24,16 @@ import org.eclipse.reddeer.swt.impl.tree.DefaultTreeItem;
  */
 public abstract class WorkbenchWizardSelectionPage extends WizardPage{
 	
+	public WorkbenchWizardSelectionPage(ReferencedComposite referencedComposite) {
+		super(referencedComposite);
+	}
+	
 	/**
 	 * Toggles show all wizards checkbox
 	 * @param toggle true to check, false to uncheck
 	 */
 	public void showAllWizards(boolean toggle){
-		new CheckBox("Show All Wizards.").toggle(toggle);
+		new CheckBox(referencedComposite, "Show All Wizards.").toggle(toggle);
 	}
 	
 	/**
@@ -35,7 +41,7 @@ public abstract class WorkbenchWizardSelectionPage extends WizardPage{
 	 * @return true if show all wizards checkbox is checked, false otherwise
 	 */
 	public boolean isShowAllWizards(){
-		return new CheckBox("Show All Wizards.").isChecked();
+		return new CheckBox(referencedComposite, "Show All Wizards.").isChecked();
 	}
 	
 	/**
@@ -43,7 +49,7 @@ public abstract class WorkbenchWizardSelectionPage extends WizardPage{
 	 * @param text to filter wizards
 	 */
 	public void filterWizards(String text){
-		new LabeledText("Wizards:").setText(text);
+		new LabeledText(referencedComposite, "Wizards:").setText(text);
 	}
 	
 	/**
@@ -51,7 +57,7 @@ public abstract class WorkbenchWizardSelectionPage extends WizardPage{
 	 * @param projectPath path to project (ie category, project name)
 	 */
 	public void selectProject(String... projectPath){
-		new DefaultTreeItem(projectPath).select();
+		new DefaultTreeItem(new DefaultTree(referencedComposite), projectPath).select();
 	}
 
 }

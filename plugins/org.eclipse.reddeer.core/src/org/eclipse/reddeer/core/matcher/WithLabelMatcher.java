@@ -10,12 +10,7 @@
  *******************************************************************************/
 package org.eclipse.reddeer.core.matcher;
 
-import org.eclipse.swt.custom.CCombo;
-import org.eclipse.swt.widgets.Button;
-import org.eclipse.swt.widgets.Combo;
-import org.eclipse.swt.widgets.List;
-import org.eclipse.swt.widgets.Spinner;
-import org.eclipse.swt.widgets.Text;
+import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Widget;
 import org.hamcrest.BaseMatcher;
 import org.hamcrest.Description;
@@ -72,9 +67,8 @@ public class WithLabelMatcher extends BaseMatcher<String> {
 	 */
 	@Override
 	public boolean matches(Object item) {		
-		if ((item instanceof List) || (item instanceof Text) || (item instanceof Button)
-				|| (item instanceof Combo) || (item instanceof CCombo) || (item instanceof Spinner)) {
-			String widgetLabel = WidgetLookup.getInstance().getLabel((Widget)item);
+		if ((item instanceof Control)) {
+			String widgetLabel = WidgetLookup.getInstance().getLabel((Control)item);
 			if (widgetLabel != null) {
 				// Ignore asterisk and spaces
 				String widgetLabel2 = widgetLabel.trim();

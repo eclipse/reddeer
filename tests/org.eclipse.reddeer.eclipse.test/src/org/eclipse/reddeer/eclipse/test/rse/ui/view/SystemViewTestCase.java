@@ -42,11 +42,11 @@ public class SystemViewTestCase {
 		remoteSystemView.open();
 		wizardDialog = remoteSystemView.newConnection();
 		
-		RSENewConnectionWizardSelectionPage selectionPage = new RSENewConnectionWizardSelectionPage();
+		RSENewConnectionWizardSelectionPage selectionPage = new RSENewConnectionWizardSelectionPage(wizardDialog);
 		selectionPage.selectSystemType(type);
 		wizardDialog.next();
 		
-		RSEDefaultNewConnectionWizardMainPage mainPage = new RSEDefaultNewConnectionWizardMainPage();
+		RSEDefaultNewConnectionWizardMainPage mainPage = new RSEDefaultNewConnectionWizardMainPage(wizardDialog);
 		
 		mainPage.setHostName(hostname);
 		mainPage.setConnectionName(connectionName);

@@ -88,7 +88,7 @@ public class ProblemsViewTest {
 	public void setUp() {
 		JavaProjectWizard dialog = new JavaProjectWizard();
 		dialog.open();
-		NewJavaProjectWizardPageOne page1 = new NewJavaProjectWizardPageOne(); 
+		NewJavaProjectWizardPageOne page1 = new NewJavaProjectWizardPageOne(dialog); 
 		page1.setProjectName(PROJECT_NAME);
 		dialog.finish();
 		problemsView = new ProblemsView();
@@ -382,7 +382,7 @@ public class ProblemsViewTest {
 				new NewClassCreationWizard();
 		newJavaClassDialog.open();
 		
-		NewClassWizardPage wizardPage = new NewClassWizardPage();
+		NewClassWizardPage wizardPage = new NewClassWizardPage(newJavaClassDialog);
 		wizardPage.setName(newClassName);
 		newJavaClassDialog.finish();
 		new WaitWhile(new JobIsRunning(), TimePeriod.LONG);

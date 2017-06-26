@@ -13,8 +13,12 @@ package org.eclipse.reddeer.eclipse.jst.servlet.ui.project.facet;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.reddeer.common.wait.WaitWhile;
+import org.eclipse.reddeer.core.reference.ReferencedComposite;
 import org.eclipse.reddeer.jface.wizard.WizardPage;
+import org.eclipse.reddeer.swt.api.Shell;
 import org.eclipse.reddeer.swt.api.TreeItem;
+import org.eclipse.reddeer.swt.condition.ShellIsAvailable;
 import org.eclipse.reddeer.swt.impl.button.OkButton;
 import org.eclipse.reddeer.swt.impl.button.PushButton;
 import org.eclipse.reddeer.swt.impl.shell.DefaultShell;
@@ -28,6 +32,10 @@ import org.eclipse.reddeer.swt.impl.tree.DefaultTreeItem;
  */
 public class WebProjectSecondPage extends WizardPage{
 	
+	public WebProjectSecondPage(ReferencedComposite referencedComposite) {
+		super(referencedComposite);
+	}
+	
 	/**
 	 * Edits the source folders on build path.
 	 *
@@ -35,11 +43,12 @@ public class WebProjectSecondPage extends WizardPage{
 	 * @param newVaule the new vaule
 	 */
 	public void editSourceFoldersOnBuildPath(String sourceFolder, String newVaule){
-		new DefaultTreeItem(sourceFolder).select();
-		new PushButton("Edit...").click();
-		new DefaultShell("Edit Source Folder");
-		new DefaultText().setText(newVaule);
-		new OkButton().click();
+		new DefaultTreeItem(new DefaultTree(referencedComposite), sourceFolder).select();
+		new PushButton(referencedComposite, "Edit...").click();
+		Shell editShell = new DefaultShell("Edit Source Folder");
+		new DefaultText(editShell).setText(newVaule);
+		new OkButton(editShell).click();
+		new WaitWhile(new ShellIsAvailable(editShell));
 	}
 	
 	/**
@@ -48,8 +57,8 @@ public class WebProjectSecondPage extends WizardPage{
 	 * @param sourceFolder the source folder
 	 */
 	public void removeSourceFoldersOnBuildPath(String sourceFolder){
-		new DefaultTreeItem(sourceFolder).select();
-		new PushButton("Remove").click();
+		new DefaultTreeItem(new DefaultTree(referencedComposite), sourceFolder).select();
+		new PushButton(referencedComposite, "Remove").click();
 	}
 	
 	/**
@@ -58,10 +67,11 @@ public class WebProjectSecondPage extends WizardPage{
 	 * @param newVaule the new vaule
 	 */
 	public void addSourceFoldersOnBuildPath(String newVaule){
-		new PushButton("Add Folder...").click();
-		new DefaultShell("Add Source Folder");
-		new DefaultText().setText(newVaule);
-		new OkButton().click();
+		new PushButton(referencedComposite, "Add Folder...").click();
+		Shell addShell = new DefaultShell("Add Source Folder");
+		new DefaultText(addShell).setText(newVaule);
+		new OkButton(addShell).click();
+		new WaitWhile(new ShellIsAvailable(addShell));
 	}
 	
 	/**
@@ -70,7 +80,7 @@ public class WebProjectSecondPage extends WizardPage{
 	 * @param folder the new default output folder
 	 */
 	public void setDefaultOutputFolder(String folder){
-		new LabeledText("Default output folder:").setText(folder);
+		new LabeledText(referencedComposite, "Default output folder:").setText(folder);
 	}
 	
 	/**
@@ -80,7 +90,7 @@ public class WebProjectSecondPage extends WizardPage{
 	 */
 	public List<String> getSourceFolders(){
 		List<String> toReturn = new ArrayList<String>();
-		for(TreeItem item: new DefaultTree().getAllItems()){
+		for(TreeItem item: new DefaultTree(referencedComposite).getAllItems()){
 			toReturn.add(item.getText());
 		}
 		return toReturn;

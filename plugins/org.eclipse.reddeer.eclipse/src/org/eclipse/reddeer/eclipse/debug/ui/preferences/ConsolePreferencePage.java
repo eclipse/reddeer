@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.reddeer.eclipse.debug.ui.preferences;
 
+import org.eclipse.reddeer.core.reference.ReferencedComposite;
 import org.eclipse.reddeer.jface.preference.PreferencePage;
 import org.eclipse.reddeer.swt.impl.button.CheckBox;
 import org.eclipse.reddeer.swt.impl.text.LabeledText;
@@ -30,8 +31,8 @@ public class ConsolePreferencePage extends PreferencePage {
 	public static final String SHOW_ON_OUTPUT = "Show when program writes to standard out";
 	public static final String SHOW_ON_ERROR = "Show when program writes to standard error";
 
-	public ConsolePreferencePage() {
-		super(CATEGORY, PAGE_NAME);
+	public ConsolePreferencePage(ReferencedComposite referencedComposite) {
+		super(referencedComposite, CATEGORY, PAGE_NAME);
 	}
 
 	/**
@@ -40,7 +41,7 @@ public class ConsolePreferencePage extends PreferencePage {
 	 * @return true if the check box checked; false otherwise
 	 */
 	public boolean isConsoleOutputLimited() {
-		return new CheckBox(LIMIT_OUTPUT).isChecked();
+		return new CheckBox(referencedComposite, LIMIT_OUTPUT).isChecked();
 	}
 
 	/**
@@ -49,7 +50,7 @@ public class ConsolePreferencePage extends PreferencePage {
 	 * @param checked
 	 */
 	public void toggleConsoleOutputLimited(boolean checked) {
-		new CheckBox(LIMIT_OUTPUT).toggle(checked);
+		new CheckBox(referencedComposite, LIMIT_OUTPUT).toggle(checked);
 	}
 
 	/**
@@ -58,7 +59,7 @@ public class ConsolePreferencePage extends PreferencePage {
 	 * @return console output size
 	 */
 	public int getConsoleOutputSize() {
-		return Integer.valueOf(new LabeledText(CONSOLE_SIZE).getText());
+		return Integer.valueOf(new LabeledText(referencedComposite, CONSOLE_SIZE).getText());
 	}
 
 	/**
@@ -68,7 +69,7 @@ public class ConsolePreferencePage extends PreferencePage {
 	 */
 	public void setConsoleOutputSize(int size) {
 		toggleConsoleOutputLimited(true);
-		new LabeledText(CONSOLE_SIZE).setText(String.valueOf(size));
+		new LabeledText(referencedComposite, CONSOLE_SIZE).setText(String.valueOf(size));
 	}
 
 	/**
@@ -77,7 +78,7 @@ public class ConsolePreferencePage extends PreferencePage {
 	 * @return true if the check box is checked; false otherwise
 	 */
 	public boolean isConsoleOpenedOnOutput() {
-		return new CheckBox(SHOW_ON_OUTPUT).isChecked();
+		return new CheckBox(referencedComposite, SHOW_ON_OUTPUT).isChecked();
 	}
 
 	/**
@@ -86,7 +87,7 @@ public class ConsolePreferencePage extends PreferencePage {
 	 * @param checked
 	 */
 	public void toggleShowConsoleOnOutput(boolean checked) {
-		new CheckBox(SHOW_ON_OUTPUT).toggle(checked);
+		new CheckBox(referencedComposite, SHOW_ON_OUTPUT).toggle(checked);
 	}
 
 	/**
@@ -95,7 +96,7 @@ public class ConsolePreferencePage extends PreferencePage {
 	 * @return true if the check box is checked; false otherwise
 	 */
 	public boolean isConsoleOpenedOnError() {
-		return new CheckBox(SHOW_ON_ERROR).isChecked();
+		return new CheckBox(referencedComposite, SHOW_ON_ERROR).isChecked();
 	}
 
 	/**
@@ -104,7 +105,7 @@ public class ConsolePreferencePage extends PreferencePage {
 	 * @param checked
 	 */
 	public void toggleShowConsoleErrorWrite(boolean checked) {
-		new CheckBox(SHOW_ON_ERROR).toggle(checked);
+		new CheckBox(referencedComposite, SHOW_ON_ERROR).toggle(checked);
 	}
 
 }

@@ -31,7 +31,7 @@ public class EnumWizardTest {
 	public void createEnumClass(){
 		JavaProjectWizard jp = new JavaProjectWizard();
 		jp.open();
-		new NewJavaProjectWizardPageOne().setProjectName("EnumProject");
+		new NewJavaProjectWizardPageOne(jp).setProjectName("EnumProject");
 		jp.finish();
 		
 		NewEnumCreationWizard ed = new NewEnumCreationWizard();

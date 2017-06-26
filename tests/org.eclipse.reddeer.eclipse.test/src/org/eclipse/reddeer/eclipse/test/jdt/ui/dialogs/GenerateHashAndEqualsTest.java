@@ -41,12 +41,12 @@ public class GenerateHashAndEqualsTest {
 		new WorkbenchShell().maximize();
 		JavaProjectWizard jp = new JavaProjectWizard();
 		jp.open();
-		new NewJavaProjectWizardPageOne().setProjectName("GenHashProject");
+		new NewJavaProjectWizardPageOne(jp).setProjectName("GenHashProject");
 		jp.finish();
 		
 		NewClassCreationWizard jc = new NewClassCreationWizard();
 		jc.open();
-		NewClassWizardPage jpp = new NewClassWizardPage();
+		NewClassWizardPage jpp = new NewClassWizardPage(jc);
 		jpp.setName("GenHash");
 		jc.finish();
 		

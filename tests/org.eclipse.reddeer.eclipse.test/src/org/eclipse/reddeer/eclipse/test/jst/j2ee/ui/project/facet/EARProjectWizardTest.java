@@ -45,10 +45,10 @@ public class EARProjectWizardTest {
 	public void createProject(){
 		EarProjectWizard ear = new EarProjectWizard();
 		ear.open();
-		EarProjectFirstPage fp = new EarProjectFirstPage();
+		EarProjectFirstPage fp = new EarProjectFirstPage(ear);
 		fp.setProjectName(projectName);
 		ear.next();
-		EarProjectInstallPage ip = new EarProjectInstallPage();
+		EarProjectInstallPage ip = new EarProjectInstallPage(ear);
 		assertFalse(ip.isGenerateApplicationXML());
 		ear.finish();
 		
@@ -61,13 +61,13 @@ public class EARProjectWizardTest {
 	public void createProjectWithDefaultModules(){
 		EarProjectWizard ear = new EarProjectWizard();
 		ear.open();
-		EarProjectFirstPage fp = new EarProjectFirstPage();
+		EarProjectFirstPage fp = new EarProjectFirstPage(ear);
 		fp.setProjectName(projectName);
 		ear.next();
-		EarProjectInstallPage ip = new EarProjectInstallPage();
+		EarProjectInstallPage ip = new EarProjectInstallPage(ear);
 		assertFalse(ip.isGenerateApplicationXML());
 		DefaultJ2EEComponentCreationWizard componentWizard = ip.newModule();
-		NewJ2EEComponentSelectionPage jee= new NewJ2EEComponentSelectionPage();
+		NewJ2EEComponentSelectionPage jee= new NewJ2EEComponentSelectionPage(componentWizard);
 		String ejb = jee.getEJBModuleName();
 		String conn = jee.getConnectorModuleName();
 		String web = jee.getWebModuleName();
@@ -88,16 +88,16 @@ public class EARProjectWizardTest {
 	public void createProjectWithWebModule(){
 		EarProjectWizard ear = new EarProjectWizard();
 		ear.open();
-		EarProjectFirstPage fp = new EarProjectFirstPage();
+		EarProjectFirstPage fp = new EarProjectFirstPage(ear);
 		fp.setProjectName(projectName);
 		ear.next();
-		EarProjectInstallPage ip = new EarProjectInstallPage();
+		EarProjectInstallPage ip = new EarProjectInstallPage(ear);
 		assertFalse(ip.isGenerateApplicationXML());
-		ip.newModule();
-		NewJ2EEComponentSelectionPage jee= new NewJ2EEComponentSelectionPage();
+		DefaultJ2EEComponentCreationWizard jeeWizard = ip.newModule();
+		NewJ2EEComponentSelectionPage jee= new NewJ2EEComponentSelectionPage(jeeWizard);
 		jee.toggleCreateDefaultModules(false);
 		WebProjectWizard ww = jee.addWeb();
-		WebProjectFirstPage wp = new WebProjectFirstPage();
+		WebProjectFirstPage wp = new WebProjectFirstPage(ww);
 		wp.setProjectName("CreatedWebProjectModule");
 		ww.finish();
 		ear.finish();

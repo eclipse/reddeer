@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.reddeer.eclipse.ui.dialogs;
 
+import org.eclipse.reddeer.core.reference.ReferencedComposite;
 import org.eclipse.reddeer.jface.wizard.WizardPage;
 import org.eclipse.reddeer.swt.impl.text.LabeledText;
 
@@ -24,8 +25,8 @@ public class WizardNewFileCreationPage extends WizardPage {
 	/**
 	 * Instantiates a new new file creation wizard page.
 	 */
-	public WizardNewFileCreationPage() {
-		super();
+	public WizardNewFileCreationPage(ReferencedComposite referencedComposite) {
+		super(referencedComposite);
 	}
 	
 	/**
@@ -34,7 +35,7 @@ public class WizardNewFileCreationPage extends WizardPage {
 	 * @param fileName File name
 	 */
 	public void setFileName(String fileName) {
-		new LabeledText("File name:").setText(fileName);
+		new LabeledText(referencedComposite, "File name:").setText(fileName);
 	}
 	
 	/**
@@ -48,7 +49,7 @@ public class WizardNewFileCreationPage extends WizardPage {
 			builder.append(pathElement);
 			builder.append("/");
 		}
-		new LabeledText("Enter or select the parent folder:").setText(builder.toString());
+		new LabeledText(referencedComposite, "Enter or select the parent folder:").setText(builder.toString());
 	}
 	
 }

@@ -47,7 +47,7 @@ public class ExplorerItemPropertyDialogTest {
 	public static void createProject(){
 		JavaProjectWizard wizardDialog = new JavaProjectWizard();
 		wizardDialog.open();
-		NewJavaProjectWizardPageOne page1 = new NewJavaProjectWizardPageOne();
+		NewJavaProjectWizardPageOne page1 = new NewJavaProjectWizardPageOne(wizardDialog);
 		page1.setProjectName(PROJECT_NAME);
 		wizardDialog.finish();		
 		
@@ -59,7 +59,7 @@ public class ExplorerItemPropertyDialogTest {
 	@Before
 	public void setup() {
 		dialog = project.openProperties();
-		page = new TestPropertyPageRedDeer();
+		page = new TestPropertyPageRedDeer(dialog);
 	}
 
 	@After 
@@ -145,8 +145,8 @@ public class ExplorerItemPropertyDialogTest {
 	}
 
 	private class TestPropertyPageRedDeer extends PropertyPage {
-		public TestPropertyPageRedDeer() {
-			super(TestPropertyPage.PAGE_TITLE);
+		public TestPropertyPageRedDeer(PropertyDialog dialog) {
+			super(dialog,TestPropertyPage.PAGE_TITLE);
 		}
 	}
 }

@@ -15,6 +15,7 @@ import static org.eclipse.reddeer.common.wait.WaitProvider.waitWhile;
 
 import org.eclipse.reddeer.common.wait.GroupWait;
 import org.eclipse.reddeer.common.wait.TimePeriod;
+import org.eclipse.reddeer.core.reference.ReferencedComposite;
 import org.eclipse.reddeer.eclipse.exception.EclipseLayerException;
 import org.eclipse.reddeer.jface.wizard.WizardPage;
 import org.eclipse.reddeer.swt.api.Table;
@@ -31,6 +32,10 @@ import org.eclipse.reddeer.workbench.core.condition.JobIsRunning;
  */
 public class MavenProjectWizardArchetypePage extends WizardPage{
 	
+	public MavenProjectWizardArchetypePage(ReferencedComposite referencedComposite) {
+		super(referencedComposite);
+	}
+	
 	/**
 	 * Select archetype.
 	 *
@@ -39,7 +44,7 @@ public class MavenProjectWizardArchetypePage extends WizardPage{
 	 * @param version if null then archetype version is ignored
 	 */
 	public void selectArchetype(String groupId, String artifactId, String version){
-		Table t = new DefaultTable();
+		Table t = new DefaultTable(referencedComposite);
 		int groupColumn = t.getHeaderIndex("Group Id");
 		int artColumn = t.getHeaderIndex("Artifact Id");
 		int verColumn =  t.getHeaderIndex("Version");
@@ -67,9 +72,9 @@ public class MavenProjectWizardArchetypePage extends WizardPage{
 	 * @param catalog to choose archetype from
 	 */
 	public void selectArchetypeCatalog(String catalog){
-		new DefaultCombo(0).setSelection(catalog);
+		new DefaultCombo(referencedComposite, 0).setSelection(catalog);
 		new GroupWait(TimePeriod.VERY_LONG, waitWhile(new JobIsRunning()),
-				waitUntil(new TableHasRows(new DefaultTable())));
+				waitUntil(new TableHasRows(new DefaultTable(referencedComposite))));
 	}
 	
 	/**
@@ -78,7 +83,7 @@ public class MavenProjectWizardArchetypePage extends WizardPage{
 	 * @return catalog name
 	 */
 	public String getArchetypeCatalog(){
-		return new DefaultCombo(0).getText();
+		return new DefaultCombo(referencedComposite, 0).getText();
 	}
 
 }

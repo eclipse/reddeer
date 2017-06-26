@@ -42,11 +42,11 @@ public class NewRuntimeWizardPageTest {
 	public void setUp(){
 		workbenchPreferencesDialog = new WorkbenchPreferenceDialog();
 		workbenchPreferencesDialog.open();
-		preference = new RuntimePreferencePage();
+		preference = new RuntimePreferencePage(workbenchPreferencesDialog);
 		workbenchPreferencesDialog.select(preference);
 		preference.removeAllRuntimes();
 		wizard = preference.addRuntime();
-		wizardPage = new NewRuntimeWizardPage();
+		wizardPage = new NewRuntimeWizardPage(wizard);
 	}
 	
 	@Test

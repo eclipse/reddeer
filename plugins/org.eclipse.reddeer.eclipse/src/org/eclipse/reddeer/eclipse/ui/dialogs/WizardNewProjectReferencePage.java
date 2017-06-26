@@ -11,6 +11,7 @@
 package org.eclipse.reddeer.eclipse.ui.dialogs;
 
 import org.eclipse.reddeer.common.logging.Logger;
+import org.eclipse.reddeer.core.reference.ReferencedComposite;
 import org.eclipse.reddeer.jface.wizard.WizardPage;
 import org.eclipse.reddeer.swt.api.TableItem;
 import org.eclipse.reddeer.swt.impl.table.DefaultTable;
@@ -25,6 +26,10 @@ public class WizardNewProjectReferencePage extends WizardPage {
 	
 	private final Logger log = Logger
 			.getLogger(WizardNewProjectReferencePage.class);
+	
+	public WizardNewProjectReferencePage(ReferencedComposite referencedComposite) {
+		super(referencedComposite);
+	}
 
 	/**
 	 * Sets a given project references.
@@ -33,7 +38,7 @@ public class WizardNewProjectReferencePage extends WizardPage {
 	 */
 	public void setProjectReferences(String... referencedProjects) {
 		log.debug("Set Project references to: ");
-		DefaultTable tbProjectReferences = new DefaultTable();
+		DefaultTable tbProjectReferences = new DefaultTable(referencedComposite);
 		for (String tableItemLabel : referencedProjects) {
 			log.debug(tableItemLabel);
 			TableItem tiReferencedProject = tbProjectReferences
