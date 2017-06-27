@@ -8,15 +8,16 @@
  * Contributors:
  *     Red Hat Inc. - initial API and implementation
  *******************************************************************************/
-package org.eclipse.reddeer.junit.requirement.matcher;
+package org.eclipse.reddeer.common.matcher;
 
 import java.util.stream.Collectors;
 
-import org.eclipse.reddeer.junit.requirement.configuration.RequirementConfiguration;
+import org.eclipse.reddeer.common.matcher.VersionComparator;
 import org.hamcrest.Description;
+import org.hamcrest.TypeSafeMatcher;
 
 /**
- * Requirement version attribute matcher. Useful for matching version of
+ * Version matcher. Useful for matching version of
  * attributes with various operators. Supported operators and formats:<br>
  * 
  * <pre>
@@ -34,21 +35,12 @@ import org.hamcrest.Description;
  * @author mlabuda@redhat.com
  *
  */
-public class RequirementVersionMatcher extends AbstractRequirementMatcher {
+public class VersionMatcher extends TypeSafeMatcher<String> {
+	
+	private String matchingValue;
 
-	public RequirementVersionMatcher(Class<? extends RequirementConfiguration> clazz, String attribute, String matchingValue) {
-		super(clazz, attribute, matchingValue);
-	}
-
-	@Override
-	public boolean matches(Object item) {
-		if (getConfigurationClass().isAssignableFrom(item.getClass())) {
-			RequirementConfiguration config = (RequirementConfiguration) item;
-			String matchingValue = getMatchingValue();
-			String version = config.getNestedAttribute(getAttributeName());
-			return compareVersions(version, extractOperands(matchingValue), extractOperator(matchingValue));
-		}
-		return false;
+	public VersionMatcher(String matchingValue) {
+		this.matchingValue = matchingValue;
 	}
 
 	/**
@@ -135,7 +127,13 @@ public class RequirementVersionMatcher extends AbstractRequirementMatcher {
 	
 	@Override
 	public void describeTo(Description description) {
-		description.appendText(" matches requirement's attribute to version.");
+		description.appendText(" matches string to version '"+matchingValue+"'.");
+	}
+
+
+	@Override
+	protected boolean matchesSafely(String attributeValue) {
+		return compareVersions(attributeValue, extractOperands(matchingValue), extractOperator(matchingValue));
 	}
 
 }

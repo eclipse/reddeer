@@ -12,6 +12,7 @@ package org.eclipse.reddeer.junit.internal.requirement;
 
 import java.lang.annotation.Annotation;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import org.eclipse.reddeer.junit.annotation.AnnotationUtils;
@@ -20,6 +21,7 @@ import org.eclipse.reddeer.junit.requirement.Requirement;
 import org.eclipse.reddeer.junit.requirement.RequirementException;
 import org.eclipse.reddeer.junit.requirement.configuration.RequirementConfiguration;
 import org.eclipse.reddeer.junit.requirement.configuration.RequirementConfigurationPool;
+import org.eclipse.reddeer.junit.requirement.matcher.RequirementMatcher;
 import org.hamcrest.Matcher;
 
 /**
@@ -87,13 +89,28 @@ public class RequirementHelper {
 	 */
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public static List<RequirementConfiguration> getRequirementConfigurations(ConfigurableRequirement requirement,
-			Matcher matcher) {
+			Collection<RequirementMatcher> matchers) {
 		List<RequirementConfiguration> result = new ArrayList<>();
 		List<org.eclipse.reddeer.junit.requirement.configuration.RequirementConfiguration> configurations = RequirementConfigurationPool
 				.getInstance().getConfigurations(requirement.getConfigurationClass());
-		for (RequirementConfiguration configuration : configurations) {
-			if (matcher == null || (matcher != null && matcher.matches(configuration))) {
-				result.add(configuration);
+		if(matchers == null){ //no restriction is defined
+			result.addAll(configurations);
+		} else {
+			for (RequirementConfiguration configuration : configurations) {
+				boolean matcherIsDefined = false;
+				for(RequirementMatcher m: matchers){
+					if(m.getConfigurationClass().equals(requirement.getDeclaration().annotationType()) && 
+						configuration.getClass().equals(requirement.getConfigurationClass())){
+							matcherIsDefined = true;
+							if(m.matches(configuration)){
+								result.add(configuration);
+							}
+					}
+				}
+				//no matcher is defined to restrict the given config, therefore we add it to result.
+				if(!matcherIsDefined){ 
+					result.add(configuration); 
+				}
 			}
 		}
 		return result;

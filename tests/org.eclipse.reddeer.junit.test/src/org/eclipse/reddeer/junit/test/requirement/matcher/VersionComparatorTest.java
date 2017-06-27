@@ -12,7 +12,7 @@ package org.eclipse.reddeer.junit.test.requirement.matcher;
 
 import static org.junit.Assert.*;
 
-import org.eclipse.reddeer.junit.requirement.matcher.VersionComparator;
+import org.eclipse.reddeer.common.matcher.VersionComparator;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
