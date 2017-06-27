@@ -12,12 +12,16 @@ package org.eclipse.reddeer.junit.internal.configuration;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
+import org.eclipse.reddeer.common.exception.RedDeerException;
 import org.eclipse.reddeer.junit.annotation.AnnotationUtils;
 import org.eclipse.reddeer.junit.annotation.RequirementRestriction;
 import org.eclipse.reddeer.junit.internal.requirement.RequirementHelper;
@@ -25,7 +29,7 @@ import org.eclipse.reddeer.junit.requirement.ConfigurableRequirement;
 import org.eclipse.reddeer.junit.requirement.Requirement;
 import org.eclipse.reddeer.junit.requirement.configuration.MissingRequirementConfiguration;
 import org.eclipse.reddeer.junit.requirement.configuration.RequirementConfiguration;
-import org.hamcrest.Matcher;
+import org.eclipse.reddeer.junit.requirement.matcher.RequirementMatcher;
 import org.junit.runners.Suite.SuiteClasses;
 import org.junit.runners.model.InitializationError;
 
@@ -89,16 +93,17 @@ public class SuiteConfiguration {
 			List<Requirement<?>> requirements = RequirementHelper.getRequirements(clazz);
 			List<List<RequirementConfiguration>> requirementConfigurationsLists = new ArrayList<>();
 			boolean shouldHaveConfig = false;
+			Collection<RequirementMatcher> matchers = getRequirementRestrictions(clazz);
+			checkMatchersAreValid(matchers);
 			for (Requirement<?> requirement : requirements) {
 				if (ConfigurableRequirement.class.isAssignableFrom(requirement.getClass())) {
 					shouldHaveConfig = true;
 					requirementConfigurationsLists
 							.add(RequirementHelper.getRequirementConfigurations((ConfigurableRequirement) requirement,
-									AnnotationUtils.invokeStaticMethodWithAnnotation(clazz,
-											RequirementRestriction.class, Matcher.class)));
+									matchers));
 				}
 			}
-			if (shouldHaveConfig == true && requirementConfigurationsLists.get(0).isEmpty()) {
+			if (shouldHaveConfig  && requirementConfigurationsLists.get(0).isEmpty()) {
 				Set<RequirementConfiguration> configSet = new HashSet<>();
 				configSet.add(new MissingRequirementConfiguration());
 				updateMap(new RequirementConfigurationSet(configSet), clazz);
@@ -113,6 +118,29 @@ public class SuiteConfiguration {
 				}
 			}
 		}
+	}
+	
+	@SuppressWarnings("unchecked")
+	private Collection<RequirementMatcher> getRequirementRestrictions(Class<?> clazz){
+		Object obj =  AnnotationUtils.invokeStaticMethodWithAnnotation(clazz,
+				RequirementRestriction.class, Collection.class, RequirementMatcher.class);
+		
+		if(obj instanceof RequirementMatcher){
+			return Collections.singletonList((RequirementMatcher)obj);
+		}
+		return (Collection<RequirementMatcher>) obj;
+	}
+	
+	private void checkMatchersAreValid(Collection<RequirementMatcher> matchers){
+		if(matchers != null){
+			matchers.stream().collect(Collectors.groupingBy(RequirementMatcher::getConfigurationClass))
+			.forEach((confClass, withSameConfClass) -> {
+				if(withSameConfClass.size() > 1){
+					throw new RedDeerException("More than one matcher is defined for the '"+confClass+"' requirement.");
+				}
+			});
+		}
+		
 	}
 
 	private void updateMap(RequirementConfigurationSet requirementConfigurationSet, Class<?> clazz) {

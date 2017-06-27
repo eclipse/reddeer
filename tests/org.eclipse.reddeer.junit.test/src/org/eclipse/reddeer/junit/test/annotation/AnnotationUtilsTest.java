@@ -30,6 +30,8 @@ import org.eclipse.reddeer.junit.test.annotation.resources.DefaultTestRequiremen
 import org.eclipse.reddeer.junit.test.annotation.resources.GrandChildClass;
 import org.eclipse.reddeer.junit.test.annotation.resources.SampleAnnotation;
 import org.eclipse.reddeer.junit.test.annotation.resources.SimpleTestClassWithAnnotatedMethod;
+import org.eclipse.reddeer.junit.test.annotation.resources.SimpleTestClassWithMorePossibilities1;
+import org.eclipse.reddeer.junit.test.annotation.resources.SimpleTestClassWithMorePossibilities2;
 import org.eclipse.reddeer.junit.test.annotation.resources.TestClassWithDefRequirement;
 import org.eclipse.reddeer.junit.test.annotation.resources.TestClassWithTwoRequirements;
 import org.eclipse.reddeer.junit.test.annotation.resources.TopClass;
@@ -121,7 +123,7 @@ public class AnnotationUtilsTest {
 
 	@Test
 	public void testGetValueOfStaticAnnotatedMethod() {
-		String value = AnnotationUtils.invokeStaticMethodWithAnnotation(
+		String value = (String)AnnotationUtils.invokeStaticMethodWithAnnotation(
 				SimpleTestClassWithAnnotatedMethod.class, CustomMethodAnnotation.class, String.class);
 
 		assertTrue("Value of invoked method should be 'value'.", value.equals("value"));
@@ -129,9 +131,22 @@ public class AnnotationUtilsTest {
 
 	@Test
 	public void testGetValueOfStaticAnnotatedMethodWhichDoesNotExist() {
-		String value = AnnotationUtils.invokeStaticMethodWithAnnotation(
+		String value = (String)AnnotationUtils.invokeStaticMethodWithAnnotation(
 				SimpleTestClassWithAnnotatedMethod.class, CustomMethodAnnotation2.class, String.class);
 		assertNull(value);
+	}
+	
+	@Test
+	public void testGetValueOfStaticAnnotatedMethodTwoPossibilities() {
+		String value = (String)AnnotationUtils.invokeStaticMethodWithAnnotation(
+				SimpleTestClassWithMorePossibilities1.class, CustomMethodAnnotation.class, String.class, Integer.class);
+
+		assertTrue("Value of invoked method should be 'value'.", value.equals("value"));
+		
+		Integer value1 = (Integer)AnnotationUtils.invokeStaticMethodWithAnnotation(
+				SimpleTestClassWithMorePossibilities2.class, CustomMethodAnnotation.class, String.class, Integer.class);
+
+		assertTrue("Value of invoked method should be '1'.", value1.equals(1));
 	}
 
 	@Test(expected=RedDeerException.class)

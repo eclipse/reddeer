@@ -14,7 +14,9 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.eclipse.reddeer.common.exception.RedDeerException;
 import org.eclipse.reddeer.junit.requirement.Requirement;
@@ -87,32 +89,37 @@ public class AnnotationUtils {
 	 * Executes a static non-parametric method with annotation, if exists.
 	 * Otherwise do nothing and return null.
 	 * 
-	 * @param clazz
+	 * @param clazzWithMethod
 	 *            class where to obtain and execute a method with a specified
 	 *            annotation
 	 * @param annotationClass
 	 *            annotation class
-	 * @param <T>
-	 *            annotation type
+	 * @param methodReturnTypes array of possible return types for annotated class
+	 *
 	 * @return object returned from invoked static method annotated with an
 	 *         annotation, null if such object does not exist
 	 */
-	@SuppressWarnings("unchecked")
-	public static <T extends Annotation, K extends Object> K invokeStaticMethodWithAnnotation(Class<?> clazzWithMethod,
-			Class<T> annotationClass, Class<K> methodReturnType) {
+	public static <T extends Annotation> Object invokeStaticMethodWithAnnotation(Class<?> clazzWithMethod,
+			Class<T> annotationClass, Class<?>... methodReturnTypes) {
 
-		for (Method method : clazzWithMethod.getDeclaredMethods()) {
-			if (method.isAnnotationPresent(annotationClass)) {
-				try {
-					if (!method.getReturnType().isAssignableFrom(methodReturnType)) {
-						throw new RedDeerException("Method annotated with annotation " + annotationClass
-								+ " does not have specified return type " + methodReturnType);
+		List<Method> annotatedMethods = Arrays.stream(clazzWithMethod.getDeclaredMethods()).filter(
+				method -> method.isAnnotationPresent(annotationClass)).collect(Collectors.toList());
+		
+		if(annotatedMethods.size() > 1){
+			throw new RedDeerException("More than one method is annotated with "+annotationClass);
+		}
+		if(annotatedMethods.size() == 1){
+			try {
+				for(Class<?> methodReturnType: methodReturnTypes){
+					if (annotatedMethods.get(0).getReturnType().isAssignableFrom(methodReturnType)) {
+						return annotatedMethods.get(0).invoke(null, (Object[]) null);
 					}
-					return (K) method.invoke(null, (Object[]) null);
-				} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-					throw new RedDeerException("Something were wrong when executing a method annotated with "
-							+ " annotation " + annotationClass, e);
 				}
+				throw new RedDeerException("Method annotated with annotation " + annotationClass
+						+ " does not have specified return type " + methodReturnTypes);
+			} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+				throw new RedDeerException("Something were wrong when executing a method annotated with "
+						+ " annotation " + annotationClass, e);
 			}
 		}
 		return null;

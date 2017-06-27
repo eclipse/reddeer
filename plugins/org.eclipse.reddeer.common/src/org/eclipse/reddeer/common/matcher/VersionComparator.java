@@ -8,7 +8,7 @@
  * Contributors:
  *     Red Hat Inc. - initial API and implementation
  *******************************************************************************/
-package org.eclipse.reddeer.junit.requirement.matcher;
+package org.eclipse.reddeer.common.matcher;
 
 import java.util.Comparator;
 
