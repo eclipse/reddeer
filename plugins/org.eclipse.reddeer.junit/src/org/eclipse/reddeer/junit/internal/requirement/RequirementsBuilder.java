@@ -11,7 +11,6 @@
 package org.eclipse.reddeer.junit.internal.requirement;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import org.eclipse.reddeer.common.logging.Logger;
@@ -49,8 +48,8 @@ public class RequirementsBuilder {
 			throw new IllegalArgumentException("Configuration set nor clazz cannot be null.");
 		}
 		List<Requirement<?>> requirements = new ArrayList<>();
-		if (configurationSet.getConfigurationSet().equals(Arrays.asList(new MissingRequirementConfiguration()))) {
-			// DO NOTHING
+		if (configurationSet.getConfigurationSet().contains(new MissingRequirementConfiguration())) {
+			// Do nothing
 		} else {
 			List<Requirement<?>> rawRequirements = RequirementHelper.getRequirements(clazz);
 			for (Requirement<?> requirement : rawRequirements) {

@@ -20,7 +20,7 @@ import org.hamcrest.BaseMatcher;
  * @author mlabuda@redhat.com
  *
  */
-public abstract class RequirementMatcher extends BaseMatcher<String> {
+public abstract class AbstractRequirementMatcher extends BaseMatcher<String> {
 
 	private String attributeName;
 	private String matchingValue;
@@ -32,7 +32,7 @@ public abstract class RequirementMatcher extends BaseMatcher<String> {
 	 * @param attribute requirement attribute name
 	 * @param matchingValue matched value
 	 */
-	public RequirementMatcher(Class<? extends RequirementConfiguration> clazz, String attribute, String matchingValue) {
+	public AbstractRequirementMatcher(Class<? extends RequirementConfiguration> clazz, String attribute, String matchingValue) {
 		this.attributeName = attribute;
 		this.matchingValue = matchingValue;
 		configurationClass = clazz;

@@ -62,6 +62,6 @@ public class ServerRequirementConfiguration implements RequirementConfiguration 
 
 	@Override
 	public String getId() {
-		return runtime + "-" + family.toString();
+		return family.getId();
 	}
 }

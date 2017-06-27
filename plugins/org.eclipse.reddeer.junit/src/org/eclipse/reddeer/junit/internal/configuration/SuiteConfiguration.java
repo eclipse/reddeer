@@ -13,8 +13,10 @@ package org.eclipse.reddeer.junit.internal.configuration;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.eclipse.reddeer.junit.annotation.AnnotationUtils;
 import org.eclipse.reddeer.junit.annotation.RequirementRestriction;
@@ -96,22 +98,35 @@ public class SuiteConfiguration {
 											RequirementRestriction.class, Matcher.class)));
 				}
 			}
-			if (shouldHaveConfig == true && requirementConfigurationsLists.isEmpty()) {
-				configurationSetSuites.put(
-						new RequirementConfigurationSet(Arrays.asList(new MissingRequirementConfiguration())),
-						Arrays.asList(clazz));
+			if (shouldHaveConfig == true && requirementConfigurationsLists.get(0).isEmpty()) {
+				Set<RequirementConfiguration> configSet = new HashSet<>();
+				configSet.add(new MissingRequirementConfiguration());
+				updateMap(new RequirementConfigurationSet(configSet), clazz);
 			} else if (requirementConfigurationsLists.isEmpty()) {
-				configurationSetSuites.put(new RequirementConfigurationSet(), Arrays.asList(clazz));
+				updateMap(new RequirementConfigurationSet(), clazz);
 			} else {
 				for (List<RequirementConfiguration> configurationList : getCartesianProduct(
 						requirementConfigurationsLists)) {
-					configurationSetSuites.put(new RequirementConfigurationSet(configurationList),
-							Arrays.asList(clazz));
+					Set<RequirementConfiguration> configSet = new HashSet<>();
+					configSet.addAll(configurationList);
+					updateMap(new RequirementConfigurationSet(configSet), clazz);
 				}
 			}
 		}
 	}
 
+	private void updateMap(RequirementConfigurationSet requirementConfigurationSet, Class<?> clazz) {
+		if (configurationSetSuites.containsKey(requirementConfigurationSet)) {
+			List<Class<?>> classes = configurationSetSuites.get(requirementConfigurationSet);
+			List<Class<?>> updatedList = new ArrayList<>();
+			updatedList.addAll(classes);
+			updatedList.add(clazz);;
+			configurationSetSuites.put(requirementConfigurationSet, updatedList);
+		} else {
+			configurationSetSuites.put(requirementConfigurationSet, Arrays.asList(clazz));
+		}
+	}
+	
 	/**
 	 * Gets Cartesian product of given lists.
 	 * 

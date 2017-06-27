@@ -23,7 +23,7 @@ public class JREConfiguration implements RequirementConfiguration {
 	
 	private String path;
 	
-	private double version;
+	private String version;
 
 	public String getName() {
 		return name;
@@ -41,16 +41,16 @@ public class JREConfiguration implements RequirementConfiguration {
 		this.path = path;
 	}
 
-	public double getVersion() {
+	public String getVersion() {
 		return version;
 	}
 
-	public void setVersion(double version) {
+	public void setVersion(String version) {
 		this.version = version;
 	}
 
 	@Override
 	public String getId() {
-		return name + "-" + "path" + "-" + version;
+		return "jre-" + version;
 	}
 }

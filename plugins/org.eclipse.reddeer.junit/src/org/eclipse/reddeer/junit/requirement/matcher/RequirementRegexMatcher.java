@@ -20,7 +20,7 @@ import org.hamcrest.Description;
  * @author mlabuda@redhat.com
  *
  */
-public class RequirementRegexMatcher extends RequirementMatcher {
+public class RequirementRegexMatcher extends AbstractRequirementMatcher {
 
 	public RequirementRegexMatcher(Class<? extends RequirementConfiguration> clazz, String attribute, String matchingValue) {
 		super(clazz, attribute, matchingValue);

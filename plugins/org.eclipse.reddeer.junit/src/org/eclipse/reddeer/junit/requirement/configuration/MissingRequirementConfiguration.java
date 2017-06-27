@@ -29,9 +29,14 @@ public class MissingRequirementConfiguration implements RequirementConfiguration
 		if (o == null) {
 			return false;
 		}
-		if (o instanceof MissingRequirementConfiguration) {
+		if (o.getClass().isAssignableFrom(MissingRequirementConfiguration.class)) {
 			return true;
 		}
 		return false;
+	}
+	
+	@Override
+	public int hashCode() {
+		return 5;
 	}
 }

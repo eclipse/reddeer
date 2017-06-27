@@ -10,7 +10,9 @@
  *******************************************************************************/
 package org.eclipse.reddeer.requirements.server;
 
-public class ServerFamily {
+import org.eclipse.reddeer.junit.requirement.configuration.RequirementConfiguration;
+
+public class ServerFamily implements RequirementConfiguration {
 
 	public static final String CATEGORY_TOMCAT = "Apache";
 	public static final String LABEL_TOMCAT = "Tomcat";
@@ -69,5 +71,10 @@ public class ServerFamily {
 		ServerFamily family = (ServerFamily) obj;
 		return category.equals(family.getCategory()) && version.equals(family.version)
 				&& label.equals(family.getLabel());
+	}
+
+	@Override
+	public String getId() {
+		return category + "-" + label + "-" + version;
 	}
 }

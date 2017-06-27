@@ -13,7 +13,7 @@ package org.eclipse.reddeer.junit.test.internal.requirement;
 import static org.junit.Assert.assertTrue;
 
 import java.lang.annotation.Annotation;
-import java.util.ArrayList;
+import java.util.HashSet;
 
 import org.eclipse.reddeer.junit.internal.configuration.RequirementConfigurationSet;
 import org.eclipse.reddeer.junit.internal.requirement.Requirements;
@@ -46,7 +46,7 @@ public class RequirementsBuilderTest {
 	@Test
 	public void testBuildNoRequirements() {
 		RequirementConfigurationSet configurationSet = new RequirementConfigurationSet();
-		configurationSet.setConfigurations(new ArrayList<RequirementConfiguration>());
+		configurationSet.setConfigurations(new HashSet<RequirementConfiguration>());
 		Requirements requirements = builder.build(configurationSet, this.getClass());
 		
 		assertTrue("There should be no requirements, but there are some.", requirements.size() == 0);
@@ -55,7 +55,7 @@ public class RequirementsBuilderTest {
 	@Test
 	public void testBuildRequirements() {
 		RequirementConfigurationSet configurationSet = new RequirementConfigurationSet();
-		configurationSet.setConfigurations(new ArrayList<RequirementConfiguration>());
+		configurationSet.setConfigurations(new HashSet<RequirementConfiguration>());
 		Requirements requirements = builder.build(configurationSet, RequirementClass.class);
 		
 		assertTrue("There should be precisely 2 requirements, but there is/are " + requirements.size(), requirements.size() == 2);
@@ -67,7 +67,7 @@ public class RequirementsBuilderTest {
 		configurationSet.addConfiguration(new MissingRequirementConfiguration());
 		
 		Requirements requirements = builder.build(configurationSet, ConfigurableRequirementClass.class);
-		
+
 		assertTrue("There should be no requirement, but there is/are " + requirements.size(), requirements.size() == 0);
 	}
 	

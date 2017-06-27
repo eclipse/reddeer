@@ -10,8 +10,9 @@
  *******************************************************************************/
 package org.eclipse.reddeer.junit.internal.configuration;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
 
 import org.eclipse.reddeer.junit.requirement.configuration.RequirementConfiguration;
 
@@ -25,14 +26,14 @@ public class RequirementConfigurationSet {
 	
 	public static final String EMPTY_SET_ID = "no-configuration";
 	
-	private List<RequirementConfiguration> list;
+	private Set<RequirementConfiguration> set;
 
 	public RequirementConfigurationSet() {
-		list = new ArrayList<>();
+		set = new HashSet<>();
 	}
 
-	public RequirementConfigurationSet(List<RequirementConfiguration> list) {	
-		this.list = list;
+	public RequirementConfigurationSet(Set<RequirementConfiguration> set) {	
+		this.set = set;
 	}
 	
 	/**
@@ -40,8 +41,8 @@ public class RequirementConfigurationSet {
 	 * 
 	 * @param list list of requirements configurations
 	 */
-	public void setConfigurations(List<RequirementConfiguration> list) {
-		this.list = list;
+	public void setConfigurations(Set<RequirementConfiguration> set) {
+		this.set = set;
 	}
 	
 	/**
@@ -51,7 +52,7 @@ public class RequirementConfigurationSet {
 	 *            requirement configuration to add to this set
 	 */
 	public void addConfiguration(RequirementConfiguration configuration) {
-		list.add(configuration);
+		set.add(configuration);
 	}
 
 	/**
@@ -60,8 +61,8 @@ public class RequirementConfigurationSet {
 	 * 
 	 * @return
 	 */
-	public List<RequirementConfiguration> getConfigurationSet() {
-		return list;
+	public Set<RequirementConfiguration> getConfigurationSet() {
+		return set;
 	}
 
 	/**
@@ -71,8 +72,13 @@ public class RequirementConfigurationSet {
 	 */
 	public String getId() {
 		StringBuilder sb = new StringBuilder();
-		for (RequirementConfiguration configuration: list) {
+		Iterator<RequirementConfiguration> iterator = set.iterator();
+		while (iterator.hasNext()) {
+			RequirementConfiguration configuration = iterator.next();
 			sb.append(configuration.getId());
+			if (iterator.hasNext()) {
+				sb.append("_");
+			}
 		}
 		if (sb.length() > 0) {
 			return sb.toString();
@@ -81,25 +87,32 @@ public class RequirementConfigurationSet {
 		}
 		
 	}
-	
+
 	@Override
-	public boolean equals(Object o) {
-		if (o == null) {
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((set == null) ? 0 : set.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		} if (obj == null) {
+			return false;
+		} if (getClass() != obj.getClass()) {
 			return false;
 		}
-		if (o instanceof RequirementConfigurationSet) {
-			RequirementConfigurationSet configSet = (RequirementConfigurationSet) o;
-			if (configSet.getConfigurationSet().size() != list.size()) {
+		RequirementConfigurationSet other = (RequirementConfigurationSet) obj;
+		if (set == null) {
+			if (other.set != null) {
 				return false;
 			}
-			for (RequirementConfiguration configuration: configSet.getConfigurationSet()) {
-				if (!list.contains(configuration)) {
-					return false;
-				}
-			}
-			return true;
-		} else {
+		} else if (!set.equals(other.set)) {
 			return false;
 		}
+		return true;
 	}
 }

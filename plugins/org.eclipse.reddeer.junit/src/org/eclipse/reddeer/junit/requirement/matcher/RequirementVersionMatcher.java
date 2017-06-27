@@ -34,7 +34,7 @@ import org.hamcrest.Description;
  * @author mlabuda@redhat.com
  *
  */
-public class RequirementVersionMatcher extends RequirementMatcher {
+public class RequirementVersionMatcher extends AbstractRequirementMatcher {
 
 	public RequirementVersionMatcher(Class<? extends RequirementConfiguration> clazz, String attribute, String matchingValue) {
 		super(clazz, attribute, matchingValue);

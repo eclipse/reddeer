@@ -118,10 +118,10 @@ public class RedDeerSuite extends Suite {
 			List<Class<?>> testClasses = configurationSetsMap.get(configurationSet);
 			RequirementsRunnerBuilder requirementsRunnerBuilder = new RequirementsRunnerBuilder(configurationSet,
 					runListeners, beforeTestExtensions, afterTestExtensions, testsManager);
-			if (configurationSet.getConfigurationSet().contains(Arrays.asList(new MissingRequirementConfiguration()))) {
-				configuredSuites.add(new TestsWithoutExecutionSuite((Class[]) testClasses.toArray(), testsManager));
+			if (configurationSet.getConfigurationSet().contains(new MissingRequirementConfiguration())) {
+				configuredSuites.add(new TestsWithoutExecutionSuite(testClasses.toArray(new Class<?>[] {}), testsManager));
 			} else {
-				configuredSuites.add(new NamedSuite((Class[]) testClasses.toArray(), requirementsRunnerBuilder,
+				configuredSuites.add(new NamedSuite(testClasses.toArray(new Class<?>[] {}), requirementsRunnerBuilder,
 						configurationSet.getId()));
 			}
 		}
