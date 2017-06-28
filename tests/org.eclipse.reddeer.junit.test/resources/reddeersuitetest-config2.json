@@ -1,5 +1,5 @@
 {
-	"org.eclipse.reddeer.junit.test.internal.requirement.CustomJavaTestConfiguration": [
+	"org.eclipse.reddeer.junit.test.internal.requirement.CustomJavaTestRequirement.CustomJavaAnnotation": [
 		{
 			"name": "java 7",
 			"path": "/some/path/jdk7",

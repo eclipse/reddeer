@@ -1,5 +1,5 @@
 {
-	"org.eclipse.reddeer.junit.test.requirement.configuration.resources.SimpleConfiguration": [
+	"org.eclipse.reddeer.junit.test.requirement.configuration.resources.SimpleRequirement.SimpleReq": [
 		{
 			"name": "name1",
 			"version": "1.0",
@@ -26,7 +26,7 @@
 			"type": "type1"
 		}
 	],
-	"org.eclipse.reddeer.junit.test.requirement.configuration.resources.ComplexConfiguration": [
+	"org.eclipse.reddeer.junit.test.requirement.configuration.resources.ComplexRequirement.ComplexReq": [
 		{
 			"complexName": "complexName1",
 			"complexType": "complexType1",
