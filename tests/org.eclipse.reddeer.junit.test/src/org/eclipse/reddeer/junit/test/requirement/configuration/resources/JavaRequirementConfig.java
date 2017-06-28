@@ -15,7 +15,7 @@ import org.eclipse.reddeer.junit.requirement.configuration.RequirementConfigurat
 public class JavaRequirementConfig implements RequirementConfiguration {
 
 	private String version;
-	
+
 	private String runtime;
 
 	public String getVersion() {

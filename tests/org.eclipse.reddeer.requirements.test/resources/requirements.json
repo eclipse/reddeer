@@ -1,12 +1,12 @@
 {
-	"org.eclipse.reddeer.requirements.jre.JREConfiguration": [
+	"org.eclipse.reddeer.requirements.jre.JRERequirement.JRE": [
 		{
 			"name": "testName",
 			"version": "1.7",
 			"path": "${java.home}"
 		}
 	],
-	"org.eclipse.reddeer.requirements.db.DatabaseConfiguration": [
+	"org.eclipse.reddeer.requirements.db.DatabaseRequirement.Database": [
 		{
 			"driverName": "My H2 Driver",
 			"driverType": "Generic JDBC",
@@ -19,7 +19,7 @@
 			"username": "sa"
 		}
 	],
-	"org.eclipse.reddeer.requirements.server.apache.tomcat.ServerRequirementConfiguration": [
+	"org.eclipse.reddeer.requirements.server.apache.tomcat.ServerRequirement.ApacheTomcatServer": [
 		{
 			"runtime": "${apache-tomcat-7.home}",
 			"family": {

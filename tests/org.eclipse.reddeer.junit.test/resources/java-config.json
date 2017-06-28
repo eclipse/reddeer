@@ -1,5 +1,5 @@
 {
-	"org.eclipse.reddeer.junit.test.requirement.configuration.resources.JavaRequirementConfig": [
+	"org.eclipse.reddeer.junit.test.requirement.configuration.resources.JavaRequirement.CustomConfigJavaRequirementAAnnotation": [
 		{
 			"version": "1.7",
 			"runtime": "/home/java_1.7.0"
