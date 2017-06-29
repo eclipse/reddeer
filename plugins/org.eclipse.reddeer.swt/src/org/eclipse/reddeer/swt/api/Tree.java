@@ -12,6 +12,8 @@ package org.eclipse.reddeer.swt.api;
 
 import java.util.List;
 
+import org.hamcrest.Matcher;
+
 /**
  * API for tree manipulation.
  * 
@@ -33,6 +35,20 @@ public interface Tree extends Control<org.eclipse.swt.widgets.Tree> {
 	 * @return all tree items
 	 */
 	List<TreeItem> getAllItems();
+	
+	/**
+	 * Returns tree item with given path
+	 * @param itemPath path of tree item to get
+	 * @return tree item with given path
+	 */
+	TreeItem getItem(String... itemPath);
+	
+	/**
+	 * Returns tree item matching given matchers
+	 * @param itemMatchers matchers matching tree item
+	 * @return tree item matching given matchers
+	 */
+	TreeItem getItem(Matcher<org.eclipse.swt.widgets.TreeItem>... itemMatchers);
 
 	/**
 	 * Selects one or more tree items.

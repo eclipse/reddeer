@@ -66,6 +66,14 @@ public abstract class AbstractTree extends AbstractControl<org.eclipse.swt.widge
 		}
 		return items;
 	}
+	
+	public TreeItem getItem(String... itemPath){
+		return new DefaultTreeItem(this, itemPath);
+	}
+	
+	public TreeItem getItem(Matcher<org.eclipse.swt.widgets.TreeItem>... itemMatchers){
+		return new DefaultTreeItem(this, itemMatchers);
+	}
 
 	public void selectItems(final TreeItem... treeItems) {
 		// Tree items should be logged, however, the names needs to 
