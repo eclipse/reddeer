@@ -63,6 +63,15 @@ public class DefaultTreeItemTest extends AbstractTreeTest {
 				+ " but has " + dfi.getText(),
 				dfi.getText().equals(expectedTreeItemText));
 	}
+	
+	@Test
+	public void testGetParentItem(){
+		createTreeItems(tree.getSWTWidget());
+		DefaultTreeItem dfi = new DefaultTreeItem("A","AA");
+		TreeItem parentItem = dfi.getParentItem();
+		assertEquals("A",parentItem.getText());
+		
+	}
 
 	@SuppressWarnings("unused")
 	@Test(expected = CoreLayerException.class)
