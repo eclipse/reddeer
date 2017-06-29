@@ -34,10 +34,10 @@ public class ShellHasChildrenOrIsNotAvailable extends AbstractWaitCondition {
 
 	/**
 	 * Default constructor.
-	 * @param deleteShell instance of shell to test
+	 * @param shell instance of shell to test
 	 */
-	public ShellHasChildrenOrIsNotAvailable(Shell deleteShell) {
-		this.shell = deleteShell;
+	public ShellHasChildrenOrIsNotAvailable(Shell shell) {
+		this.shell = shell;
 		this.resultChildren = new ArrayList<>();
 	}
 
