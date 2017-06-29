@@ -253,6 +253,22 @@ public class TreeItemHandler extends ItemHandler{
 			}
 		});
 	}
+	
+	/**
+	 * Gets parent item of specified swt tree item.
+	 * 
+	 * @param swtTreeItem
+	 *            tree item to handle
+	 * @return parent tree item of specified item
+	 */
+	public TreeItem getParentItem(final TreeItem swtTreeItem){
+		return Display.syncExec(new ResultRunnable<TreeItem>() {
+			@Override
+			public TreeItem run() {
+				return swtTreeItem.getParentItem();
+			}
+		});
+	}
 
 	/**
 	 * Gets path to specified swt tree item.

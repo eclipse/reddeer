@@ -124,6 +124,18 @@ public abstract class AbstractTreeItem extends AbstractItem<org.eclipse.swt.widg
 		return new DefaultTreeItem(treeItemHandler.getItem(swtWidget, text));
 	}
 	
+	/**
+	 * Returns parent tree item
+	 * @return parent tree item
+	 */
+	public TreeItem getParentItem(){
+		org.eclipse.swt.widgets.TreeItem parentItem = treeItemHandler.getParentItem(swtWidget);
+		if(parentItem == null){
+			return null;
+		}
+		return new DefaultTreeItem(parentItem);
+	}
+	
 	/* (non-Javadoc)
 	 * @see org.eclipse.reddeer.swt.api.TreeItem#getItem(java.lang.String[])
 	 */
