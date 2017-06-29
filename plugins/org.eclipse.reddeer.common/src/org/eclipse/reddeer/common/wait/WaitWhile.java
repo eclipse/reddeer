@@ -46,6 +46,18 @@ public class WaitWhile extends AbstractWait {
 	public WaitWhile(WaitCondition condition, TimePeriod timeout) {
 		super(condition, timeout);
 	}
+	
+	/**
+	 * Waits while condition is fulfilled for specified time period. Can throw
+	 * WaitTimeoutExpiredException if condition is still met and time period expires.
+	 * 
+	 * @param condition condition to be met while waiting
+	 * @param throwWaitTimeoutExpiredException whether exception
+	 * should be thrown or not
+	 */
+	public WaitWhile(WaitCondition condition, boolean throwWaitTimeoutExpiredException) {
+		super(condition, throwWaitTimeoutExpiredException);
+	}
 
 	/**
 	 * Waits while condition is fulfilled for specified time period. Can throw
