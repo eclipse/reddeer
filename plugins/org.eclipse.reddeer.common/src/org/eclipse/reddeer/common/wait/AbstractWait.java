@@ -62,6 +62,21 @@ public abstract class AbstractWait implements Wait {
 	public AbstractWait(WaitCondition condition, TimePeriod timePeriod) {
 		this(condition, timePeriod, true);
 	}
+	
+	/**
+	 * Waits till condition is met for specified timeout period. Throws
+	 * WaitTimeoutExpiredException after waiting for specified time period and
+	 * wait condition is not met.
+	 * 
+	 * @param condition
+	 *            wait condition to met
+	 * @param throwRuntimeException
+	 *            whether exception should be thrown after expiration of the
+	 *            period
+	 */
+	public AbstractWait(WaitCondition condition, boolean throwRuntimeException) {
+		this(condition, TimePeriod.DEFAULT, throwRuntimeException);
+	}
 
 	/**
 	 * Waits till condition is met for specified timeout period. There is a
