@@ -36,4 +36,10 @@ public interface TabItem extends Item<org.eclipse.swt.widgets.TabItem>, Referenc
 	 * @return TabFolder which is parent of tab item
 	 */
 	TabFolder getTabFolder();
+	
+	/**
+	 * Checks if TabItem is selected
+	 * @return true if tabItem is selected, false otherwise
+	 */
+	boolean isSelected();
 }

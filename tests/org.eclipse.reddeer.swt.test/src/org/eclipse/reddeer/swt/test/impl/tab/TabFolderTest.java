@@ -12,11 +12,13 @@ package org.eclipse.reddeer.swt.test.impl.tab;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.reddeer.core.exception.CoreLayerException;
+import org.eclipse.reddeer.swt.api.TabItem;
 import org.eclipse.reddeer.swt.impl.tab.DefaultTabFolder;
 import org.eclipse.reddeer.swt.impl.tab.DefaultTabItem;
 import org.eclipse.reddeer.swt.impl.text.DefaultText;
@@ -100,5 +102,20 @@ public class TabFolderTest extends SWTLayerTestCase {
 	public void getAllFolderItems(){
 		assertTrue(new DefaultTabFolder().getItems().size() == 4);
 	}
+	
+	@Test
+	public void isTabItemSelected(){
+		TabItem tab1 = new DefaultTabItem(TabFolderTest.ITEM_LABEL_PREFIX+0);
+		TabItem tab2 = new DefaultTabItem(TabFolderTest.ITEM_LABEL_PREFIX+1);
+		tab2.activate();
+		assertFalse(tab1.isSelected());
+		assertTrue(tab2.isSelected());
+		tab1.activate();
+		assertTrue(tab1.isSelected());
+		assertFalse(tab2.isSelected());
+		
+	}
+	
+	
 
 }

@@ -52,11 +52,18 @@ public abstract class AbstractTabItem extends AbstractItem<org.eclipse.swt.widge
 		return TabItemHandler.getInstance().getControl(swtWidget);
 	}
 	
+	@Override
 	public String getToolTipText(){
 		return TabItemHandler.getInstance().getToolTipText(swtWidget);
 	}
 	
+	@Override
 	public TabFolder getTabFolder(){
 		return new DefaultTabFolder(TabItemHandler.getInstance().getTabFolder(swtWidget));
+	}
+	
+	@Override
+	public boolean isSelected() {
+		return TabItemHandler.getInstance().isSelected(swtWidget);
 	}
 }

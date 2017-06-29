@@ -101,6 +101,25 @@ public class TabItemHandler extends ItemHandler{
 		});
 		notifyTabFolder(createEventForTabItem(swtTabItem,SWT.Selection), getParent(swtTabItem));
 	}
+	
+	/**
+	 * Checks if given tab item is selected
+	 * @param swtTabItem to handle
+	 * @return true if tab item is selected, false otherwise
+	 */
+	public boolean isSelected(final TabItem swtTabItem){
+		return Display.syncExec(new ResultRunnable<Boolean>() {
+			public Boolean run() {
+				TabItem[] selectedItems = swtTabItem.getParent().getSelection();
+				for(TabItem i: selectedItems){
+					if(i.equals(swtTabItem)){
+						return true;
+					}
+				}
+				return false;
+			}
+		});
+	}
 
 	/**
 	 * Focuses specified {@link TabItem}.
