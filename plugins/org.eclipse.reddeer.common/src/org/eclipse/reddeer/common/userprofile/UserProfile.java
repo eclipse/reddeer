@@ -15,7 +15,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
 
-import org.eclipse.reddeer.common.logging.Logger;
 /**
  * Handles User Profile logic
  * @author vlado pakan
@@ -27,26 +26,25 @@ public class UserProfile {
 	public static final String PROGRAM_ARGS_KEY = "programArgs";
 	private Properties userProfileProps = null;
 	private static UserProfile userProfile = null;
-	private static final Logger log = Logger.getLogger(UserProfile.class);
 	
 	private UserProfile() {
 		File userProfileFile = new File(System.getProperty("user.home"), ".reddeer");
 		if (userProfileFile.exists()) {
-			log.info("Loading RedDeer properties from user profile file: " + userProfileFile.getAbsolutePath());
+			System.out.println("Loading RedDeer properties from user profile file: " + userProfileFile.getAbsolutePath());
 			FileInputStream fis = null;
 			try {
 				fis = new FileInputStream(userProfileFile);
 				userProfileProps = new Properties();
 				userProfileProps.load(fis);
 			} catch (IOException ioe) {
-				log.error("Error while loading RedDeer properties from user profile file: " + userProfileFile.getAbsolutePath());
+				System.err.println("Error while loading RedDeer properties from user profile file: " + userProfileFile.getAbsolutePath());
 				ioe.printStackTrace();
 			} finally {
 				if (fis != null) {
 					try {
 						fis.close();
 					} catch (IOException ioe) {
-						log.error("Error while loading RedDeer properties from user profile file: " + userProfileFile.getAbsolutePath());
+						System.err.println("Error while loading RedDeer properties from user profile file: " + userProfileFile.getAbsolutePath());
 						ioe.printStackTrace();
 					}
 				}
