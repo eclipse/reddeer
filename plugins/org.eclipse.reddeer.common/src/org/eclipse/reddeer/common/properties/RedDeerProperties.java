@@ -11,7 +11,6 @@
 package org.eclipse.reddeer.common.properties;
 
 import org.eclipse.reddeer.common.exception.RedDeerException;
-import org.eclipse.reddeer.common.logging.Logger;
 import org.eclipse.reddeer.common.logging.LoggingUtils;
 import org.eclipse.reddeer.common.userprofile.UserProfile;
 
@@ -51,8 +50,6 @@ public enum RedDeerProperties {
 	OPEN_ASSOCIATED_PERSPECTIVE("rd.openAssociatedPerspective", "never"),
 
 	TIME_PERIOD_FACTOR("rd.timePeriodFactor", 1.f);
-
-	private static final Logger log = Logger.getLogger(RedDeerProperties.class);
 
 	private String name;
 
@@ -198,8 +195,6 @@ public enum RedDeerProperties {
 				Float.parseFloat(systemValue);
 				return;
 			} catch (Exception e) {
-				log.error("System property '" + getName() + "' has unsupported value '" 
-						+ systemValue + "'. Value has to be floating point number");
 				throw new RedDeerException("System property '" + getName() + "' has unsupported value '" 
 						+ systemValue + "'. Value has to be floating point number");
 			}
@@ -214,9 +209,6 @@ public enum RedDeerProperties {
 				return;
 			}
 		}
-
-		log.error("System property '" + getName() + "' has unsupported value '" 
-				+ systemValue + "'. Supported values are: " + LoggingUtils.format(getSupportedValues()));
 		throw new RedDeerException("System property '" + getName() + "' has unsupported value '" 
 				+ systemValue + "'. Supported values are: " + LoggingUtils.format(getSupportedValues()));
 	}
