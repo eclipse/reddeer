@@ -40,14 +40,6 @@ public class ActiveShellExistsTest {
 		assertTrue(exists.test());
 		assertEquals(shell.getSWTWidget(), exists.getResult());
 	}
-
-	@Test
-	public void testNoActiveShellExists() {
-		tearDown();
-		ActiveShellExists exists = new ActiveShellExists();
-		assertFalse(exists.test());
-		assertNull(exists.getResult());
-	}
 	
 	@After
 	public void tearDown() {
