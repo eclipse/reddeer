@@ -30,6 +30,7 @@ public class JobIsKilled extends AbstractWaitCondition {
 	private Job[] currentJobs;
 	private Set<String> jobsToBeKilled;
 	private Set<String> killedJobs;
+	private Job jobToKill;
 
 	/**
 	 * Constructs JobIsKilled condition using the specified jobs which should be killed.
@@ -44,15 +45,26 @@ public class JobIsKilled extends AbstractWaitCondition {
 			this.jobsToBeKilled.add(jobToBeKilled);
 		}
 	}
+	
+	public JobIsKilled(Job jobToKill){
+		this.jobToKill = jobToKill;
+		this.killedJobs = new HashSet<>();
+	}
 
 	@Override
 	public boolean test() {
-		currentJobs = Job.getJobManager().find(null);
-		for (Job job : currentJobs) {
-			if (jobsToBeKilled.contains(job.getName())) {
-				log.info("Job '" + job.getName() + "' will be killed");
-				job.cancel();
-				killedJobs.add(job.getName());
+		if(jobToKill != null){
+			log.info("Job '" + jobToKill.getName() + "' will be killed");
+			jobToKill.cancel();
+			killedJobs.add(jobToKill.getName());
+		} else {
+			currentJobs = Job.getJobManager().find(null);
+			for (Job job : currentJobs) {
+				if (jobsToBeKilled.contains(job.getName())) {
+					log.info("Job '" + job.getName() + "' will be killed");
+					job.cancel();
+					killedJobs.add(job.getName());
+				}
 			}
 		}
 		currentJobs = Job.getJobManager().find(null);
@@ -61,6 +73,9 @@ public class JobIsKilled extends AbstractWaitCondition {
 				log.info("The job '" + job.getName() + "' is still alive");
 				return false;
 			}
+		}
+		if(jobToKill != null){
+			return killedJobs.contains(jobToKill.getName());
 		}
 		return killedJobs.equals(jobsToBeKilled);
 	}
@@ -78,6 +93,9 @@ public class JobIsKilled extends AbstractWaitCondition {
 	 */
 	@Override
 	public String errorMessageWhile() {
+		if(jobToKill != null){
+			return "The following job was not killed " + jobToKill.getName();
+		}
 		return "The following jobs were not killed " + jobsToBeKilled;
 	}
 	
@@ -86,6 +104,9 @@ public class JobIsKilled extends AbstractWaitCondition {
 	 */
 	@Override
 	public String errorMessageUntil() {
+		if(jobToKill != null){
+			return "The following job was not killed " + jobToKill.getName();
+		}
 		return "The following jobs has not been found: " + jobsToBeKilled;
 	}
 
