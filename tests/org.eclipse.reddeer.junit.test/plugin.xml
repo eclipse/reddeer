@@ -24,4 +24,13 @@
             class="org.eclipse.reddeer.junit.test.integration.runner.IAfterTestImpl">
       </client>
    </extension>
+   <extension point="org.eclipse.reddeer.junit.requirement">
+   	<requirement class="org.eclipse.reddeer.junit.test.requirement.configuration.resources.JavaRequirement"/>
+   	<requirement class="org.eclipse.reddeer.requirements.property.PropertyRequirement"/>
+   	<requirement class="org.eclipse.reddeer.junit.test.internal.requirement.CustomJavaTestRequirement"/>
+   	<requirement class="org.eclipse.reddeer.junit.test.internal.requirement.CustomServerTestRequirement"/>
+   	<requirement class="org.eclipse.reddeer.junit.test.requirement.configuration.resources.ComplexRequirement"/>
+   	<requirement class="org.eclipse.reddeer.junit.test.requirement.configuration.resources.SimpleRequirement"/>
+   	
+   </extension>
 </plugin>
