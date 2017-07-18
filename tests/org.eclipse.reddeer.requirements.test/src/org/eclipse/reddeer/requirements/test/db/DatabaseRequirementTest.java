@@ -25,7 +25,7 @@ import org.junit.runner.RunWith;
  * @author Jiri Peterka
  *
  */
-@Database(name = "mydbtest")
+@Database
 @RunWith(RedDeerSuite.class)
 public class DatabaseRequirementTest {
 	/**

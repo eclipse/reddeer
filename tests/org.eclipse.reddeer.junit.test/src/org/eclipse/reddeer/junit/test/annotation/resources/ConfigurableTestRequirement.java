@@ -52,9 +52,4 @@ public class ConfigurableTestRequirement implements ConfigurableRequirement<Requ
 	public RequirementTestConfiguration getConfiguration() {
 		return null;
 	}
-
-	@Override
-	public String getDescription() {
-		return "Custom req";
-	}
 }

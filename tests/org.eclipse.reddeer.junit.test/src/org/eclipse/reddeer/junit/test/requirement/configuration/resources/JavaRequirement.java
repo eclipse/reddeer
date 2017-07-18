@@ -52,11 +52,6 @@ public class JavaRequirement implements ConfigurableRequirement<JavaRequirementC
 	}
 
 	@Override
-	public String getDescription() {
-		return config.getId();
-	}
-
-	@Override
 	public void fulfill() {
 		// do nothing
 	}

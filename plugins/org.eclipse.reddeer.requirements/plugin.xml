@@ -21,6 +21,6 @@
 	   <requirement class="org.eclipse.reddeer.requirements.openperspective.OpenPerspectiveRequirement"/>
 	   <requirement class="org.eclipse.reddeer.requirements.property.PropertyRequirement"/>
 	   <requirement class="org.eclipse.reddeer.requirements.securestorage.SecureStorageRequirement"/>
-	   <requirement class="org.eclipse.reddeer.requirements.server.apache.tomcat.ServerRequirement"/>
+	   <requirement class="org.eclipse.reddeer.requirements.server.apache.tomcat.ApacheTomcatServerRequirement"/>
    </extension>
 </plugin>

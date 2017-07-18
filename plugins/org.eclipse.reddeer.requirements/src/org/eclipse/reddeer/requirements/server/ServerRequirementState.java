@@ -16,6 +16,6 @@ package org.eclipse.reddeer.requirements.server;
  * @author Radoslav Rabara
  *
  */
-public enum ServerReqState {
+public enum ServerRequirementState {
 	RUNNING, STOPPED, PRESENT
 }

@@ -30,12 +30,6 @@ public class DatabaseRequirement implements ConfigurableRequirement<DatabaseConf
 	@Target(ElementType.TYPE)
 	public @interface Database {
 		
-		/**
-		 * Name.
-		 *
-		 * @return the string
-		 */
-		String name();
 	}
 	
 	private Logger log = Logger.getLogger(DatabaseRequirement.class);
@@ -103,10 +97,5 @@ public class DatabaseRequirement implements ConfigurableRequirement<DatabaseConf
 	@Override
 	public Database getDeclaration() {
 		return database;
-	}
-
-	@Override
-	public String getDescription() {
-		return configuration.getId();
 	}
 }

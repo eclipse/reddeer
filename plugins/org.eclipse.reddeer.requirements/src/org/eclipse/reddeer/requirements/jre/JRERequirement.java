@@ -40,13 +40,6 @@ public class JRERequirement implements ConfigurableRequirement<JREConfiguration,
 	public @interface JRE {
 
 		/**
-		 * Value.
-		 *
-		 * @return the double
-		 */
-		double value() default -1;
-
-		/**
 		 * Cleanup.
 		 *
 		 * @return true, if successful
@@ -119,10 +112,5 @@ public class JRERequirement implements ConfigurableRequirement<JREConfiguration,
 	@Override
 	public JREConfiguration getConfiguration() {
 		return configuration;
-	}
-
-	@Override
-	public String getDescription() {
-		return configuration.getId();
 	}
 }

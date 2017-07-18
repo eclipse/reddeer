@@ -317,7 +317,7 @@ public class RedDeerSuiteTest {
 			return Arrays.asList(new RequirementMatcher(CustomJavaAnnotation.class, 
 					"version" , new VersionMatcher("[1.8;1.9]")),
 					new RequirementMatcher(CustomServerAnnotation.class, 
-							"family.version" , new VersionMatcher(">2.0")));
+							"version" , new VersionMatcher(">2.0")));
 		}
 	}
 	

@@ -19,19 +19,15 @@
 	"org.eclipse.reddeer.junit.test.internal.requirement.CustomServerTestRequirement.CustomServerAnnotation": [
 		{
 			"runtime": "tomcat2",
-			"family": {
-				"category": "apache",
-				"version": "2.0",
-				"label": "tomcat"
-			}
+			"category": "apache",
+			"version": "2.0",
+			"type": "tomcat"
 		},
 		{
 			"runtime": "tomcat3",
-			"family": {
-				"category": "apache",
-				"version": "3.0",
-				"label": "tomcat"
-			}
+			"category": "apache",
+			"version": "3.0",
+			"type": "tomcat"
 		}
 	]
 }

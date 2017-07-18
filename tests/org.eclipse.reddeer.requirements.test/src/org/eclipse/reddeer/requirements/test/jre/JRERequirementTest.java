@@ -26,7 +26,7 @@ import org.eclipse.reddeer.workbench.ui.dialogs.WorkbenchPreferenceDialog;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-@JRE(1.7)
+@JRE
 @RunWith(RedDeerSuite.class)
 public class JRERequirementTest {
 

@@ -49,13 +49,4 @@ public interface ConfigurableRequirement<T extends RequirementConfiguration, K e
 	 * @return configuration of a requirement.
 	 */
 	T getConfiguration();
-
-	/**
-	 * Gets description of this custom requirement. Description should be
-	 * instance specific. E.g. it could be based on some value from requirement
-	 * configuration.
-	 * 
-	 * @return description of this instance of configurable requirement
-	 */
-	String getDescription();
 }

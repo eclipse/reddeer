@@ -19,14 +19,10 @@
 			"username": "sa"
 		}
 	],
-	"org.eclipse.reddeer.requirements.server.apache.tomcat.ServerRequirement.ApacheTomcatServer": [
+	"org.eclipse.reddeer.requirements.server.apache.tomcat.ApacheTomcatServerRequirement.ApacheTomcatServer": [
 		{
 			"runtime": "${apache-tomcat-7.home}",
-			"family": {
-				"category": "Apache",
-				"label": "Tomcat",
-				"version": "7.0"
-			}
+			"version": "7.0"
 		}
 	]
 }

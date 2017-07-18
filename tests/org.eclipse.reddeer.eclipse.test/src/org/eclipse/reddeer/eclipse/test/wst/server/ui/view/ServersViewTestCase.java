@@ -19,7 +19,7 @@ import org.eclipse.reddeer.eclipse.condition.ServerExists;
 import org.eclipse.reddeer.eclipse.test.Activator;
 import org.eclipse.reddeer.eclipse.ui.wizards.datatransfer.ExternalProjectImportWizardDialog;
 import org.eclipse.reddeer.eclipse.ui.wizards.datatransfer.WizardProjectsImportPage;
-import org.eclipse.reddeer.eclipse.wst.server.ui.cnf.DefaultServer;
+import org.eclipse.reddeer.eclipse.wst.server.ui.cnf.Server;
 import org.eclipse.reddeer.eclipse.wst.server.ui.cnf.ServersView2;
 import org.eclipse.reddeer.eclipse.wst.server.ui.wizard.NewServerWizard;
 import org.eclipse.reddeer.eclipse.wst.server.ui.wizard.NewServerWizardPage;
@@ -53,7 +53,7 @@ public class ServersViewTestCase {
 	
 	@AfterClass
 	public static void deleteServers(){
-		for (DefaultServer server : getServersView().getServers()){
+		for (Server server : getServersView().getServers()){
 			server.delete(false);
 		}
 	}
