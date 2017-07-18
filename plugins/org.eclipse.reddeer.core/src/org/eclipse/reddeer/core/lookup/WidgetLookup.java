@@ -464,7 +464,7 @@ public class WidgetLookup {
 		}
 
 		for (int ind = 0 ; ind < matchers.length ; ind++ ){
-			sb.append(matchers[ind].getClass());
+			sb.append(matchers[ind].toString());
 			if (ind < matchers.length - 1){
 				sb.append(", ");
 			} else {
