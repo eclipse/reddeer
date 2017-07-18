@@ -11,7 +11,6 @@
 package org.eclipse.reddeer.core.condition;
 
 import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Widget;
 import org.hamcrest.Matcher;
 import org.eclipse.reddeer.common.condition.AbstractWaitCondition;
