@@ -69,9 +69,4 @@ public class PropertyRequirement implements ConfigurableRequirement<PropertyConf
 	public PropertyConfiguration getConfiguration() {
 		return config;
 	}
-
-	@Override
-	public String getDescription() {
-		return config.getId();
-	}
 }

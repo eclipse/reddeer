@@ -65,10 +65,5 @@ public class ComplexRequirement implements ConfigurableRequirement<ComplexConfig
 	public ComplexConfiguration getConfiguration() {
 		return config;
 	}
-
-	@Override
-	public String getDescription() {
-		return config.getId();
-	}
 	
 }

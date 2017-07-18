@@ -67,9 +67,4 @@ public class CustomJavaTestRequirement implements ConfigurableRequirement<Custom
 		return config;
 	}
 
-	@Override
-	public String getDescription() {
-		return config.getId();
-	}
-
 }

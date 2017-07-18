@@ -63,9 +63,4 @@ public class CustomServerTestRequirement
 		return config;
 	}
 
-	@Override
-	public String getDescription() {
-		return config.getId();
-	}
-
 }

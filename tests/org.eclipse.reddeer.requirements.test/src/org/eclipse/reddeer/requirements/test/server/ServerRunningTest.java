@@ -17,19 +17,19 @@ import org.eclipse.reddeer.eclipse.wst.server.ui.cnf.ServersView2;
 import org.eclipse.reddeer.eclipse.wst.server.ui.cnf.ServersViewEnums.ServerState;
 import org.eclipse.reddeer.junit.requirement.inject.InjectRequirement;
 import org.eclipse.reddeer.junit.runner.RedDeerSuite;
-import org.eclipse.reddeer.requirements.server.ServerReqState;
-import org.eclipse.reddeer.requirements.server.apache.tomcat.ServerRequirement;
-import org.eclipse.reddeer.requirements.server.apache.tomcat.ServerRequirement.ApacheTomcatServer;
+import org.eclipse.reddeer.requirements.server.ServerRequirementState;
+import org.eclipse.reddeer.requirements.server.apache.tomcat.ApacheTomcatServerRequirement;
+import org.eclipse.reddeer.requirements.server.apache.tomcat.ApacheTomcatServerRequirement.ApacheTomcatServer;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 
 @RunWith(RedDeerSuite.class)
-@ApacheTomcatServer(state=ServerReqState.RUNNING)
+@ApacheTomcatServer(state=ServerRequirementState.RUNNING)
 public class ServerRunningTest {
 	
 	@InjectRequirement
-	protected ServerRequirement requirement;
+	protected ApacheTomcatServerRequirement requirement;
 	
 	
 	@Test

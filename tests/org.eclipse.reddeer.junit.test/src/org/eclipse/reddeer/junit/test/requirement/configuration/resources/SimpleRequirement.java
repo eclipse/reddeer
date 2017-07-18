@@ -63,10 +63,5 @@ public class SimpleRequirement implements ConfigurableRequirement<SimpleConfigur
 	public SimpleConfiguration getConfiguration() {
 		return config;
 	}
-
-	@Override
-	public String getDescription() {
-		return config.getId();
-	}
 	
 }

@@ -21,9 +21,9 @@ import org.eclipse.reddeer.eclipse.wst.server.ui.wizard.NewServerWizardPage;
 import org.eclipse.reddeer.junit.requirement.ConfigurableRequirement;
 import org.eclipse.reddeer.requirements.property.RequirementPropertyExpandor;
 import org.eclipse.reddeer.requirements.server.ConfiguredServerInfo;
-import org.eclipse.reddeer.requirements.server.ServerReqBase;
-import org.eclipse.reddeer.requirements.server.ServerReqState;
-import org.eclipse.reddeer.requirements.server.apache.tomcat.ServerRequirement.ApacheTomcatServer;
+import org.eclipse.reddeer.requirements.server.AbstractServerRequirement;
+import org.eclipse.reddeer.requirements.server.ServerRequirementState;
+import org.eclipse.reddeer.requirements.server.apache.tomcat.ApacheTomcatServerRequirement.ApacheTomcatServer;
 import org.eclipse.reddeer.swt.impl.text.DefaultText;
 
 /**
@@ -31,12 +31,12 @@ import org.eclipse.reddeer.swt.impl.text.DefaultText;
  * @author Pavol Srna
  *
  */
-public class ServerRequirement extends ServerReqBase
-		implements ConfigurableRequirement<ServerRequirementConfiguration, ApacheTomcatServer> {
+public class ApacheTomcatServerRequirement extends AbstractServerRequirement
+		implements ConfigurableRequirement<ApacheTomcatServerConfiguration, ApacheTomcatServer> {
 
-	private static final Logger LOGGER = Logger.getLogger(ServerRequirement.class);
+	private static final Logger LOGGER = Logger.getLogger(ApacheTomcatServerRequirement.class);
 
-	private ServerRequirementConfiguration config;
+	private ApacheTomcatServerConfiguration config;
 	private static ConfiguredServerInfo lastServerConfiguration;
 	private ApacheTomcatServer server;
 
@@ -49,9 +49,9 @@ public class ServerRequirement extends ServerReqBase
 		 *
 		 * @return the server req state
 		 */
-		ServerReqState state()
+		ServerRequirementState state()
 
-		default ServerReqState.RUNNING;
+		default ServerRequirementState.RUNNING;
 
 		/**
 		 * Cleanup.
@@ -64,7 +64,7 @@ public class ServerRequirement extends ServerReqBase
 	@Override
 	public void fulfill() {
 		if (lastServerConfiguration == null || !isLastConfiguredServerPresent()) {
-			LOGGER.info("Setup server");
+			LOGGER.info("Setup Apache Tomcat server");
 			setupServerAdapter();
 			lastServerConfiguration = new ConfiguredServerInfo(getServerNameLabelText(), getRuntimeNameLabelText(),
 					config);
@@ -73,19 +73,13 @@ public class ServerRequirement extends ServerReqBase
 	}
 
 	@Override
-	public String getServerTypeLabelText() {
-		return config.getFamily().getLabel() + " v" + config.getFamily().getVersion() + " Server";
-	}
-
-	@Override
 	public String getServerNameLabelText() {
-		return getServerTypeLabelText() + " at localhost";
+		return "Apache Tomcat v"+ config.getVersion()+" Server at localhost";
 	}
 
 	@Override
 	public String getRuntimeNameLabelText() {
-		return config.getFamily().getCategory() + " " + config.getFamily().getLabel() + " v"
-				+ config.getFamily().getVersion() + " Runtime";
+		return "Apache Tomcat v"+ config.getVersion()+" Runtime";
 	}
 
 	private void setupServerAdapter() {
@@ -94,13 +88,13 @@ public class ServerRequirement extends ServerReqBase
 		swd.open();
 
 		NewServerWizardPage swpage = new NewServerWizardPage(swd);
-		
-		swpage.selectType(config.getFamily().getCategory(), getServerTypeLabelText());
+
+		swpage.selectType("Apache","Tomcat v"+config.getVersion()+" Server");
 		swpage.setName(getServerNameLabelText());
 		swd.next();
 
 		new DefaultText(0).setText(getRuntimeNameLabelText());
-		new DefaultText(1).setText(getRuntimeName());
+		new DefaultText(1).setText(getRuntime());
 
 		swd.finish();
 	}
@@ -112,8 +106,8 @@ public class ServerRequirement extends ServerReqBase
 	 * @return runtime name, if it is property, then expanded, otherwise String
 	 *         from configuration
 	 */
-	public String getRuntimeName() {
-		return RequirementPropertyExpandor.getProperty(getConfiguration().getRuntime());
+	public String getRuntime() {
+		return RequirementPropertyExpandor.getProperty(config.getRuntime());
 	}
 
 	@Override
@@ -122,12 +116,12 @@ public class ServerRequirement extends ServerReqBase
 	}
 
 	@Override
-	public Class<ServerRequirementConfiguration> getConfigurationClass() {
-		return ServerRequirementConfiguration.class;
+	public Class<ApacheTomcatServerConfiguration> getConfigurationClass() {
+		return ApacheTomcatServerConfiguration.class;
 	}
 
 	@Override
-	public void setConfiguration(ServerRequirementConfiguration config) {
+	public void setConfiguration(ApacheTomcatServerConfiguration config) {
 		this.config = config;
 	}
 
@@ -150,17 +144,7 @@ public class ServerRequirement extends ServerReqBase
 	}
 
 	@Override
-	public ServerRequirementConfiguration getConfiguration() {
-		return config;
-	}
-
-	@Override
-	public String getDescription() {
-		return config.getId();
-	}
-
-	@Override
-	public ServerRequirementConfiguration getConfig() {
+	public ApacheTomcatServerConfiguration getConfiguration() {
 		return config;
 	}
 }

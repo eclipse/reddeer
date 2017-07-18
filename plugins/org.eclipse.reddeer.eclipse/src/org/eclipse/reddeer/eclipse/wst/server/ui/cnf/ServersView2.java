@@ -64,14 +64,14 @@ public class ServersView2 extends WorkbenchView {
 	 * 
 	 * @return list of default servers
 	 */
-	public List<DefaultServer> getServers() {
-		List<DefaultServer> servers = new ArrayList<DefaultServer>();
+	public List<Server> getServers() {
+		List<Server> servers = new ArrayList<Server>();
 
 		Tree tree;
 		try {
 			tree = getServersTree();
 		} catch (CoreLayerException e){
-			return new ArrayList<DefaultServer>();
+			return new ArrayList<Server>();
 		}
 		for (TreeItem item : tree.getItems()){
 			if (item != null && !item.isDisposed()){
@@ -121,7 +121,7 @@ public class ServersView2 extends WorkbenchView {
 	}
 	
 	private Object[] getServersNames() {
-		List<DefaultServer> servers = getServers();
+		List<Server> servers = getServers();
 		Object[] names = new Object[servers.size()];
 		
 		for (int i = 0; i < servers.size(); i++){
