@@ -31,6 +31,7 @@ import org.eclipse.reddeer.core.lookup.WidgetLookup;
 import org.eclipse.reddeer.core.matcher.WithMnemonicTextMatcher;
 import org.eclipse.reddeer.core.matcher.WithStyleMatcher;
 import org.eclipse.reddeer.swt.condition.ShellIsAvailable;
+import org.eclipse.reddeer.swt.impl.shell.DefaultShell;
 import org.eclipse.reddeer.workbench.core.lookup.WorkbenchShellLookup;
 
 public class WorkbenchShellHandler {
@@ -136,23 +137,21 @@ public class WorkbenchShellHandler {
 			String text = ShellHandler.getInstance().getText(swtShell);
 			log.info("Close shell " + text);
 			try {
-				clickCancelButton();
+				clickCancelButton(swtShell);
 			} catch (Exception e) {
 				ShellHandler.getInstance().notifyWidget(SWT.Close, swtShell);
 				ShellHandler.getInstance().closeShell(swtShell);
 			}
-			new WaitWhile(new ShellIsAvailable(text));
+			new WaitWhile(new ShellIsAvailable(new DefaultShell(swtShell)));
 		} catch (Exception e) {
-			if(swtShell.isDisposed()){
-				//ok, shell is disposed
-			} else {
+			if(!swtShell.isDisposed()){
 				throw e;
 			}
 		}
 	}
 
-	private void clickCancelButton() {
-		Button button = WidgetLookup.getInstance().activeWidget(null, Button.class, 0,
+	private void clickCancelButton(Shell shell) {
+		Button button = WidgetLookup.getInstance().activeWidget(new DefaultShell(shell), Button.class, 0,
 				createMatchers(SWT.PUSH, new WithMnemonicTextMatcher("Cancel")));
 		ButtonHandler.getInstance().click(button);
 	}
