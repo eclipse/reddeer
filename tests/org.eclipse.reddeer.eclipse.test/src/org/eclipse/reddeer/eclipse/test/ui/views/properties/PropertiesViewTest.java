@@ -22,7 +22,7 @@ import org.eclipse.reddeer.eclipse.jdt.ui.wizards.JavaProjectWizard;
 import org.eclipse.reddeer.eclipse.jdt.ui.wizards.NewJavaProjectWizardPageOne;
 import org.eclipse.reddeer.eclipse.ui.perspectives.JavaPerspective;
 import org.eclipse.reddeer.eclipse.ui.views.properties.PropertySheet;
-import org.eclipse.reddeer.eclipse.ui.views.properties.PropertiesViewProperty;
+import org.eclipse.reddeer.eclipse.ui.views.properties.PropertySheetProperty;
 import org.eclipse.reddeer.eclipse.utils.DeleteUtils;
 import org.eclipse.reddeer.junit.runner.RedDeerSuite;
 import org.eclipse.reddeer.requirements.openperspective.OpenPerspectiveRequirement.OpenPerspective;
@@ -68,11 +68,11 @@ public class PropertiesViewTest {
 		PropertySheet propertiesView = new PropertySheet();
 		propertiesView.open();
 		propertiesView.toggleShowCategories(true);
-		List<PropertiesViewProperty> properties = propertiesView.getProperties();
+		List<PropertySheetProperty> properties = propertiesView.getProperties();
 		assertTrue("Expected cound of properties was 8 but is" + properties.size() ,
 			properties.size() == 8);
 		LinkedList<String> propNames = new LinkedList<String>();
-		for (PropertiesViewProperty prop : properties){
+		for (PropertySheetProperty prop : properties){
 			propNames.add(prop.getPropertyName());
 		}
 		String propName = "name";

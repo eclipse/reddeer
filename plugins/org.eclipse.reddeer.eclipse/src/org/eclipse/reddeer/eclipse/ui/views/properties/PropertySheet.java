@@ -49,11 +49,11 @@ public class PropertySheet extends WorkbenchView{
 	 *
 	 * @return list of Properties
 	 */
-	public List<PropertiesViewProperty> getProperties(){
+	public List<PropertySheetProperty> getProperties(){
 		activate();
-		LinkedList<PropertiesViewProperty> properties = new LinkedList<PropertiesViewProperty>();
+		LinkedList<PropertySheetProperty> properties = new LinkedList<PropertySheetProperty>();
 		for (TreeItem treeItem : new DefaultTree(cTabItem).getAllItems()){
-			properties.add(new PropertiesViewProperty(treeItem));
+			properties.add(new PropertySheetProperty(treeItem));
 		}
 		return properties;
 	}
@@ -64,9 +64,9 @@ public class PropertySheet extends WorkbenchView{
 	 * @param propertyNamePath the property name path
 	 * @return ViewProperty with propertyName
 	 */
-	public PropertiesViewProperty getProperty(String... propertyNamePath){
+	public PropertySheetProperty getProperty(String... propertyNamePath){
 		activate();
-		return new PropertiesViewProperty(new DefaultTreeItem(new DefaultTree(cTabItem), propertyNamePath));
+		return new PropertySheetProperty(new DefaultTreeItem(new DefaultTree(cTabItem), propertyNamePath));
 	}
 	
 	/**

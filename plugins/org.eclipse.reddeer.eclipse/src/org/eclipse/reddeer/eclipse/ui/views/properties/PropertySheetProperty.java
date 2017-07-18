@@ -17,7 +17,7 @@ import org.eclipse.reddeer.swt.api.TreeItem;
  * @author Vlado Pakan
  *
  */
-public class PropertiesViewProperty {
+public class PropertySheetProperty {
 	private TreeItem treeItem;
 	
 	/**
@@ -25,7 +25,7 @@ public class PropertiesViewProperty {
 	 *
 	 * @param treeItem the tree item
 	 */
-	public PropertiesViewProperty(TreeItem treeItem){
+	public PropertySheetProperty(TreeItem treeItem){
 		this.treeItem = treeItem;
 	}
 	
@@ -87,7 +87,7 @@ public class PropertiesViewProperty {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		PropertiesViewProperty other = (PropertiesViewProperty) obj;
+		PropertySheetProperty other = (PropertySheetProperty) obj;
 		if (treeItem == null) {
 			if (other.treeItem != null)
 				return false;
