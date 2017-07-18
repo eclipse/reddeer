@@ -25,6 +25,7 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.ui.IEditorPart;
@@ -194,6 +195,19 @@ public class TextEditorTest {
 
 		assertTrue("Editor doesn't contain expected text at expected position\n" + text,
 				text.startsWith(firstLine + firstLineAppend));
+	}
+	
+	@Test
+	public void getCursorPosition() {
+		final String firstLine = "package test;";
+		TextEditor textEditor = TextEditorTest.openJavaFile();
+		textEditor.activate();
+		int line = textEditor.getLineOfText(firstLine);
+		textEditor.setCursorPosition(line, firstLine.length());
+		Point position = textEditor.getCursorPosition();
+		assertTrue("expected "+line+" but was "+position.x,line == position.x);
+		assertTrue("expected "+firstLine.length()+" but was "+position.y, 
+				firstLine.length() == position.y);
 	}
 
 	@Test

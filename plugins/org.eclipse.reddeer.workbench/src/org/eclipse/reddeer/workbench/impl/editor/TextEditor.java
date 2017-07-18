@@ -19,7 +19,6 @@ import org.eclipse.reddeer.common.logging.Logger;
 import org.eclipse.reddeer.core.matcher.WithTextMatcher;
 import org.eclipse.reddeer.workbench.matcher.EditorPartClassMatcher;
 import org.eclipse.reddeer.workbench.matcher.EditorPartTitleMatcher;
-import org.eclipse.reddeer.swt.impl.styledtext.DefaultStyledText;
 import org.eclipse.reddeer.workbench.api.Editor;
 import org.eclipse.reddeer.workbench.core.lookup.EditorPartLookup;
 import org.eclipse.reddeer.workbench.exception.WorkbenchLayerException;
@@ -282,7 +281,7 @@ public class TextEditor extends AbstractEditor implements Editor {
 	 */	
 	public Point getCursorPosition(){
 		activate();
-		return new DefaultStyledText().getCursorPosition();
+		return TextEditorHandler.getInstance().getCursorPosition((ITextEditor)getEditorPart());
 	}
 	
 	/**

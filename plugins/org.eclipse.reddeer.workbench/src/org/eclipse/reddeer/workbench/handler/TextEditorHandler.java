@@ -18,7 +18,8 @@ import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.ui.texteditor.ITextEditor;
 import org.eclipse.reddeer.common.util.Display;
 import org.eclipse.reddeer.common.util.ResultRunnable;
-import org.eclipse.reddeer.core.exception.CoreLayerException;
+import org.eclipse.reddeer.workbench.exception.WorkbenchLayerException;
+import org.eclipse.swt.graphics.Point;
 
 /**
  * TextEditor handler handles operations for TextEditor instances.
@@ -85,7 +86,7 @@ public class TextEditorHandler extends EditorHandler{
                     }
 
                 } catch (BadLocationException e) {
-                    throw new CoreLayerException(
+                    throw new WorkbenchLayerException(
                             "Line provided is invalid for this editor", e);
                 }
             }
@@ -126,7 +127,7 @@ public class TextEditorHandler extends EditorHandler{
                             getDocument(editor).getLineOffset(line) + offset,
                             0, text);
                 } catch (BadLocationException e) {
-                    throw new CoreLayerException(
+                    throw new WorkbenchLayerException(
                             "Provided line or offset are invalid for this editor",
                             e);
                 }
@@ -149,7 +150,7 @@ public class TextEditorHandler extends EditorHandler{
                 try {
                     getDocument(editor).replace(offset,0, text);
                 } catch (BadLocationException e) {
-                    throw new CoreLayerException("Provided offset is invalid for this editor",e);
+                    throw new WorkbenchLayerException("Provided offset is invalid for this editor",e);
                 }
             }
         });
@@ -172,7 +173,7 @@ public class TextEditorHandler extends EditorHandler{
                 } else if (selection instanceof IBlockTextSelection) {
                     return ((IBlockTextSelection) selection).getText();
                 }
-                throw new CoreLayerException("Unsuported ISelection type.");
+                throw new WorkbenchLayerException("Unsuported ISelection type.");
             }
         });
     }
@@ -219,7 +220,7 @@ public class TextEditorHandler extends EditorHandler{
                     offset = getDocument(editor).getLineOffset(lineNumber);
                     length = getDocument(editor).getLineLength(lineNumber);
                 } catch (BadLocationException e) {
-                    throw new CoreLayerException("Unable to select line "
+                    throw new WorkbenchLayerException("Unable to select line "
                             + lineNumber, e);
                 }
                 editor.selectAndReveal(offset, length);
@@ -276,12 +277,12 @@ public class TextEditorHandler extends EditorHandler{
                         offset = getDocument(editor).getLineOffset(iRow)
                                 + iStartIndex;
                     } catch (BadLocationException e) {
-                        throw new CoreLayerException("Unable to find "
+                        throw new WorkbenchLayerException("Unable to find "
                                 + text + " in editor", e);
                     }
                     editor.selectAndReveal(offset, text.length());
                 } else {
-                    throw new CoreLayerException("Unable to find " + text
+                    throw new WorkbenchLayerException("Unable to find " + text
                             + " in editor");
                 }
             }
@@ -348,13 +349,36 @@ public class TextEditorHandler extends EditorHandler{
 				try {
 					lineOffset = getDocument(editor).getLineOffset(line);
 				} catch (BadLocationException e) {
-					throw new CoreLayerException("Unable to select line"
+					throw new WorkbenchLayerException("Unable to select line"
 							+ line + " and column " + column);
 				}
 				editor.selectAndReveal(lineOffset + column, 0);
 			}
 
 		});
+	}
+	
+	/**
+	 * Gets the current position of the cursor.
+	 *
+	 * @param editor
+	 *            editor to handle
+	 * @return zero based position of the cursor in the editor.
+	 */
+	public Point getCursorPosition(final ITextEditor editor) {
+		Integer offset = Display.syncExec(new ResultRunnable<Integer>() {
+			public Integer run() {
+				ISelection selection = editor.getSelectionProvider().getSelection();
+				if (selection instanceof ITextSelection) {
+					return ((ITextSelection) selection).getOffset();
+				} else {
+					throw new WorkbenchLayerException("Unsuported ISelection type.");
+				}
+			}
+		});
+		int line = getLineOfOffest(editor, offset);
+		int column = offset - getLineOffset(editor, line);
+		return new Point(line, column);
 	}
 	
 	/**
@@ -388,7 +412,28 @@ public class TextEditorHandler extends EditorHandler{
 				try {
 					return getDocument(editor).getLineOffset(line);
 				} catch (BadLocationException e) {
-					throw new CoreLayerException("Unable to get offset of line");
+					throw new WorkbenchLayerException("Unable to get offset of line");
+				}
+			}
+
+		});
+	}
+	
+	/**
+	 * Returns line of offset within specified text editor.
+	 *
+	 * @param editor editor to handle
+	 * @param offset offset to line of
+	 * @return the line
+	 */
+	public int getLineOfOffest(final ITextEditor editor, final int offset){
+		return Display.syncExec(new ResultRunnable<Integer>() {
+			@Override
+			public Integer run() {
+				try {
+					return getDocument(editor).getLineOfOffset(offset);
+				} catch (BadLocationException e) {
+					throw new WorkbenchLayerException("Unable to get line of offset");
 				}
 			}
 
