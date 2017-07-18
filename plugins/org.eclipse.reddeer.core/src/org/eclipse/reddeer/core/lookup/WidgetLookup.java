@@ -98,7 +98,8 @@ public class WidgetLookup {
 	 */
 	@SuppressWarnings({ "rawtypes","unchecked" })
 	public <T extends Widget> T activeWidget(ReferencedComposite refComposite, Class<T> clazz, int index, TimePeriod timePeriod, Matcher... matchers) {				
-		logger.debug("Looking up active widget with class type " + clazz.getName() +  ", index " + index + " and " + createMatcherDebugMsg(matchers));
+		logger.debug("Looking up active widget with class type " + clazz.getName() + createRererencedCompositeDebugMsg(refComposite) +
+				", index " + index + " and " + createMatcherDebugMsg(matchers));
 
 		Control parentControl = getParentControl(refComposite);
 		WidgetIsFound found = new WidgetIsFound(clazz, parentControl, index, matchers);
@@ -112,6 +113,17 @@ public class WidgetLookup {
 		}
 		logger.debug("Active widget with class type " + clazz.getName() +  " and index " + index + " was found");
 		return (T)found.getResult();
+	}
+	
+	private String createRererencedCompositeDebugMsg(ReferencedComposite refComposite){
+		StringBuilder sb = new StringBuilder();
+
+		if (refComposite == null){
+			sb.append(" with no referenced composite specified");
+		} else {
+			sb.append(" with referenced composite "+refComposite.getClass());
+		}
+		return sb.toString();
 	}
 	
 	/**
