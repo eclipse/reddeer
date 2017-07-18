@@ -16,9 +16,7 @@ import org.hamcrest.core.StringContains;
 import org.eclipse.reddeer.common.wait.GroupWait;
 import org.eclipse.reddeer.common.wait.WaitUntil;
 import org.eclipse.reddeer.core.condition.NamedThreadHasStatus;
-import org.eclipse.reddeer.core.handler.WidgetHandler;
 import org.eclipse.reddeer.core.reference.ReferencedComposite;
-import org.eclipse.reddeer.jface.wizard.WizardDialog;
 import org.eclipse.reddeer.jface.wizard.WizardPage;
 import org.eclipse.reddeer.swt.condition.TreeContainsItem;
 import org.eclipse.reddeer.swt.condition.ControlIsEnabled;
@@ -60,13 +58,6 @@ public class NewServerWizardPage extends WizardPage {
 	 *            the new name
 	 */
 	public void setName(String name) {
-		log.info("Set server name to "+name);
-		log.info("parent is "+referencedComposite.getClass());
-		log.info("null? "+(referencedComposite.getControl() == null));
-		if(referencedComposite.getControl() != null){
-			log.info("disposed? "+WidgetHandler.getInstance().isDisposed(referencedComposite.getControl()));
-			log.info("class "+referencedComposite.getControl().getClass());
-		}
 		new LabeledText(referencedComposite, "Server name:").setText(name);
 	}
 
