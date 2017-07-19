@@ -44,14 +44,14 @@ This is the example test created by RedDeer wizard:
 ```java
 import static org.junit.Assert.*;
 
-import org.jboss.reddeer.eclipse.jdt.ui.wizards.JavaProjectWizard;
-import org.jboss.reddeer.eclipse.jdt.ui.wizards.NewClassCreationWizard;
-import org.jboss.reddeer.eclipse.jdt.ui.wizards.NewClassWizardPage;
-import org.jboss.reddeer.eclipse.jdt.ui.wizards.NewJavaProjectWizardPageOne;
-import org.jboss.reddeer.eclipse.ui.views.markers.ProblemsView;
-import org.jboss.reddeer.eclipse.ui.views.markers.ProblemsView.ProblemType;
-import org.jboss.reddeer.junit.runner.RedDeerSuite;
-import org.jboss.reddeer.workbench.impl.editor.TextEditor;
+import org.eclipse.reddeer.eclipse.jdt.ui.wizards.JavaProjectWizard;
+import org.eclipse.reddeer.eclipse.jdt.ui.wizards.NewClassCreationWizard;
+import org.eclipse.reddeer.eclipse.jdt.ui.wizards.NewClassWizardPage;
+import org.eclipse.reddeer.eclipse.jdt.ui.wizards.NewJavaProjectWizardPageOne;
+import org.eclipse.reddeer.eclipse.ui.views.markers.ProblemsView;
+import org.eclipse.reddeer.eclipse.ui.views.markers.ProblemsView.ProblemType;
+import org.eclipse.reddeer.junit.runner.RedDeerSuite;
+import org.eclipse.reddeer.workbench.impl.editor.TextEditor;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -67,14 +67,14 @@ public class RedDeerTest {
 		// Create Java Project
 		JavaProjectWizard projectDlg = new JavaProjectWizard();
 		projectDlg.open();
-		NewJavaProjectWizardPageOne projectPage = new NewJavaProjectWizardPageOne();
+		NewJavaProjectWizardPageOne projectPage = new NewJavaProjectWizardPageOne(projectDlg);
 		projectPage.setProjectName("testProject");
 		projectDlg.finish();
 		
 		// Create Java class
 		NewClassCreationWizard classDlg = new NewClassCreationWizard();
 		classDlg.open();
-		NewClassWizardPage classPage = new NewClassWizardPage();
+		NewClassWizardPage classPage = new NewClassWizardPage(classDlg);
 		classPage.setName("RedDeerDemo");
 		classPage.setPackage("org.reddeer.demo");
 		classDlg.finish();
