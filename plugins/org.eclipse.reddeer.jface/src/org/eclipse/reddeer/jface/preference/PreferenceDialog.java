@@ -80,10 +80,10 @@ public class PreferenceDialog extends AbstractWindow{
 		if (path.length == 0) {
 			throw new IllegalArgumentException("path can't be empty");
 		}
-		TreeItem t = new DefaultTreeItem(new DefaultTree(getShell()), path);
+		TreeItem t = new DefaultTreeItem(new DefaultTree(this), path);
 		t.select();
 		
-		new WaitUntil(new WidgetIsFound(CLabel.class, getShell().getControl(), 
+		new WaitUntil(new WidgetIsFound(CLabel.class, this.getControl(), 
 				new WithTextMatcher(path[path.length-1])), TimePeriod.SHORT, false);
 	}
 	
@@ -93,7 +93,7 @@ public class PreferenceDialog extends AbstractWindow{
 	 * @return name of preference page
 	 */
 	public String getPageName() {
-		DefaultCLabel cl = new DefaultCLabel(getShell());
+		DefaultCLabel cl = new DefaultCLabel(this);
 		return cl.getText();
 	}
 	
@@ -103,19 +103,37 @@ public class PreferenceDialog extends AbstractWindow{
 	public void ok() {
 		org.eclipse.swt.widgets.Shell parentShell = ShellLookup.getInstance().getParentShell(getShell().getSWTWidget());
 		
-		WidgetIsFound applyAndCloseButton = new WidgetIsFound(org.eclipse.swt.widgets.Button.class, getShell().getControl(),
+		WidgetIsFound applyAndCloseButton = new WidgetIsFound(org.eclipse.swt.widgets.Button.class, this.getControl(),
 				new WithMnemonicTextMatcher("Apply and Close"));
 		
 		
 		Button button;
 		if(applyAndCloseButton.test()){
-			button = new PushButton(getShell(), "Apply and Close"); //oxygen changed button text
+			button = new PushButton(this, "Apply and Close"); //oxygen changed button text
 		} else {
-			button = new OkButton(getShell());	
+			button = new OkButton(this);	
 		}
 		button.click();
 		new WaitWhile(new ShellIsAvailable(getShell())); 
 		new DefaultShell(parentShell);
+	}
+	
+	/**
+	 * Checks if PreferenceDialog can finish - Apply and Close or OK button is enabled
+	 * @return true if PreferenceDialog can finish, false otherwise
+	 */
+	public boolean canFinish(){
+		WidgetIsFound applyAndCloseButton = new WidgetIsFound(org.eclipse.swt.widgets.Button.class, this.getControl(),
+				new WithMnemonicTextMatcher("Apply and Close"));
+		
+		
+		Button button;
+		if(applyAndCloseButton.test()){
+			button = new PushButton(this, "Apply and Close"); //oxygen changed button text
+		} else {
+			button = new OkButton(this);	
+		}
+		return button.isEnabled();
 	}
 	
 	/**
@@ -124,7 +142,7 @@ public class PreferenceDialog extends AbstractWindow{
 	public void cancel() {
 		org.eclipse.swt.widgets.Shell parentShell = ShellLookup.getInstance().getParentShell(getShell().getSWTWidget());
 		
-		CancelButton cancel = new CancelButton(getShell());
+		CancelButton cancel = new CancelButton(this);
 		cancel.click();
 		new WaitWhile(new ShellIsAvailable(getShell())); 
 		new DefaultShell(parentShell);

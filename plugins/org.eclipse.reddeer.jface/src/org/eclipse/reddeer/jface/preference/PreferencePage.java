@@ -22,7 +22,7 @@ import org.eclipse.reddeer.swt.impl.clabel.DefaultCLabel;
  * @author Lucia Jelinkova
  * @since 0.6
  */
-public abstract class PreferencePage {
+public class PreferencePage {
 
 	private final Logger log = Logger.getLogger(PreferencePage.class);
 
