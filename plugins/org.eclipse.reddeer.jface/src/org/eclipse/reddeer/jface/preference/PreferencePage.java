@@ -66,18 +66,20 @@ public class PreferencePage {
 	/**
 	 * Apply preference page changes.
 	 */
-	public void apply() {
+	public PreferencePage apply() {
 		Button b = new PushButton(referencedComposite, "Apply");
 		log.info("Apply changes in Preferences dialog");
 		b.click();
+		return this;
 	}
 
 	/**
 	 * Restore default preference page settings.
 	 */
-	public void restoreDefaults() {
+	public PreferencePage restoreDefaults() {
 		Button b = new PushButton(referencedComposite, "Restore Defaults");
 		log.info("Restore default values in Preferences dialog");
 		b.click();
+		return this;
 	}
 }

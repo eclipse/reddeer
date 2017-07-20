@@ -60,8 +60,9 @@ public class ClasspathVariablesPreferencePage extends PreferencePage {
 	 *
 	 * @param matcher the matcher
 	 */
-	public void selectVariable (Matcher<?> matcher){
+	public ClasspathVariablesPreferencePage selectVariable (Matcher<?> matcher){
 		new DefaultTableItem(getClasspathVariablesTable(),matcher).select();
+		return this;
 	}
 	/**
 	 * Returns classpath variable table
@@ -114,8 +115,9 @@ public class ClasspathVariablesPreferencePage extends PreferencePage {
 	 *
 	 * @param label the label
 	 */
-	public void removeVariable(String label){
+	public ClasspathVariablesPreferencePage removeVariable(String label){
 		selectVariable(new WithTextMatcher(label));
 		new PushButton(referencedComposite, "Remove").click();
+		return this;
 	}
 }

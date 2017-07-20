@@ -37,12 +37,14 @@ public class PreferencePage extends org.eclipse.reddeer.jface.preference.Prefere
 		super(referencedComposite, CATEGORY, PAGE_NAME);
 	}
 
-	public void setName(String name) {
+	public PreferencePage setName(String name) {
 		getNameWidget().setText(name);
+		return this;
 	}
 
-	public void setEmail(String email) {
+	public PreferencePage setEmail(String email) {
 		getEmailWidget().setText(email);
+		return this;
 	}
 
 	public String getName() {
@@ -53,40 +55,45 @@ public class PreferencePage extends org.eclipse.reddeer.jface.preference.Prefere
 		return getEmailWidget().getText();
 	}
 
-	public void anonymizePackageClassMethodNames(boolean toggle) {
+	public PreferencePage anonymizePackageClassMethodNames(boolean toggle) {
 		getAnonymizePackageWidget().toggle(toggle);
+		return this;
 	}
 
 	public boolean isAnonymizePackageClassMethodNames() {
 		return getAnonymizePackageWidget().isChecked();
 	}
 
-	public void anonymizeErrorLogMessages(boolean toggle) {
+	public PreferencePage anonymizeErrorLogMessages(boolean toggle) {
 		getAnonymizeErrorWidget().toggle(toggle);
+		return this;
 	}
 
 	public boolean isAnonymizeErrorLogMessages() {
 		return getAnonymizeErrorWidget().isChecked();
 	}
 
-	public void disableExtendedClasspathAnalysis(boolean toggle) {
+	public PreferencePage disableExtendedClasspathAnalysis(boolean toggle) {
 		getDisableAnalysisWidget().toggle(toggle);
+		return this;
 	}
 
 	public boolean isDisableExtendedClasspathAnalysis() {
 		return getDisableAnalysisWidget().isChecked();
 	}
 
-	public void enableDebugMode(boolean toggle) {
+	public PreferencePage enableDebugMode(boolean toggle) {
 		getDebugModeWidget().toggle(toggle);
+		return this;
 	}
 
 	public boolean isEnableDebugMode() {
 		return getDebugModeWidget().isChecked();
 	}
 
-	public void setSendMode(String sendMode) {
+	public PreferencePage setSendMode(String sendMode) {
 		getSendModeWidget().setSelection(sendMode);
+		return this;
 	}
 
 	public String getSendMode() {

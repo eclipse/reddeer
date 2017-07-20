@@ -68,7 +68,8 @@ public class GenericJDBCDBProfileDetailsWizardPage extends ExtensibleProfileDeta
 	 * @param port do not use this method
 	 */
 	@Override
-	public void setPort(String port) {
+	public ExtensibleProfileDetailsWizardPage setPort(String port) {
+		return this;
 		// do nothing, there are no ports for generic profile
 	}
 	

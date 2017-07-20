@@ -44,8 +44,9 @@ public class FolderSelectionWizardPage extends WizardPage {
 	 *
 	 * @param folder the new home folder
 	 */
-	public void setHomeFolder(String folder) {
+	public FolderSelectionWizardPage setHomeFolder(String folder) {
 		new DefaultText(referencedComposite, 0).setText(folder);
+		return this;
 	}
 
 	/**
@@ -53,8 +54,9 @@ public class FolderSelectionWizardPage extends WizardPage {
 	 *
 	 * @param charset the new charset
 	 */
-	public void setCharset(String charset) {
+	public FolderSelectionWizardPage setCharset(String charset) {
 		new LabeledCombo(referencedComposite, LABEL_CHARSET).setSelection(charset);
+		return this;
 	}
 
 	/**
@@ -62,8 +64,9 @@ public class FolderSelectionWizardPage extends WizardPage {
 	 *
 	 * @param style the new style
 	 */
-	public void setStyle(String style) {
+	public FolderSelectionWizardPage setStyle(String style) {
 		new LabeledCombo(referencedComposite, LABEL_STYLE).setSelection(style);
+		return this;
 	}
 
 	/**
@@ -71,8 +74,9 @@ public class FolderSelectionWizardPage extends WizardPage {
 	 *
 	 * @param use the use
 	 */
-	public void useFirstLineAsNameIndicator(boolean use) {
+	public FolderSelectionWizardPage useFirstLineAsNameIndicator(boolean use) {
 		useProperty(LABEL_FISRT_LINE_NAME, use);
+		return this;
 	}
 
 	/**
@@ -80,12 +84,14 @@ public class FolderSelectionWizardPage extends WizardPage {
 	 *
 	 * @param use the use
 	 */
-	public void useSecondLineAsTypeIndicator(boolean use) {
+	public FolderSelectionWizardPage useSecondLineAsTypeIndicator(boolean use) {
 		useProperty(LABEL_SECOND_LINE_TYPE, use);
+		return this;
 	}
 
-	private void useProperty(String property, boolean use) {
+	private FolderSelectionWizardPage useProperty(String property, boolean use) {
 		new CheckBox(referencedComposite, "property").toggle(use);
+		return this;
 	}
 
 }

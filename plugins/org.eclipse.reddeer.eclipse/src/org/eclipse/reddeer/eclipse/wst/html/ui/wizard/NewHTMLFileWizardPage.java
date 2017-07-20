@@ -34,24 +34,27 @@ public class NewHTMLFileWizardPage extends WizardPage{
 	 * Enter parent folder
 	 * @param parentFolder to be set
 	 */
-	public void enterParentFolder(String parentFolder){
+	public NewHTMLFileWizardPage enterParentFolder(String parentFolder){
 		new LabeledText(referencedComposite, "Enter or select the parent folder:").setText(parentFolder);
+		return this;
 	}
 	
 	/**
 	 * Select parent folder
 	 * @param path to be selected
 	 */
-	public void selectParentFolder(String... path){
+	public NewHTMLFileWizardPage selectParentFolder(String... path){
 		new DefaultTreeItem(new DefaultTree(referencedComposite), path).select();
+		return this;
 	}
 	
 	/**
 	 * Set HTML page name
 	 * @param fileName name of page
 	 */
-	public void setFileName(String fileName){
+	public NewHTMLFileWizardPage setFileName(String fileName){
 		new LabeledText(referencedComposite, "File name:").setText(fileName);
+		return this;
 	}
 	
 	/**

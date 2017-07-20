@@ -42,13 +42,14 @@ public class WebProjectSecondPage extends WizardPage{
 	 * @param sourceFolder the source folder
 	 * @param newVaule the new vaule
 	 */
-	public void editSourceFoldersOnBuildPath(String sourceFolder, String newVaule){
+	public WebProjectSecondPage editSourceFoldersOnBuildPath(String sourceFolder, String newVaule){
 		new DefaultTreeItem(new DefaultTree(referencedComposite), sourceFolder).select();
 		new PushButton(referencedComposite, "Edit...").click();
 		Shell editShell = new DefaultShell("Edit Source Folder");
 		new DefaultText(editShell).setText(newVaule);
 		new OkButton(editShell).click();
 		new WaitWhile(new ShellIsAvailable(editShell));
+		return this;
 	}
 	
 	/**
@@ -56,9 +57,10 @@ public class WebProjectSecondPage extends WizardPage{
 	 *
 	 * @param sourceFolder the source folder
 	 */
-	public void removeSourceFoldersOnBuildPath(String sourceFolder){
+	public WebProjectSecondPage removeSourceFoldersOnBuildPath(String sourceFolder){
 		new DefaultTreeItem(new DefaultTree(referencedComposite), sourceFolder).select();
 		new PushButton(referencedComposite, "Remove").click();
+		return this;
 	}
 	
 	/**
@@ -66,12 +68,13 @@ public class WebProjectSecondPage extends WizardPage{
 	 *
 	 * @param newVaule the new vaule
 	 */
-	public void addSourceFoldersOnBuildPath(String newVaule){
+	public WebProjectSecondPage addSourceFoldersOnBuildPath(String newVaule){
 		new PushButton(referencedComposite, "Add Folder...").click();
 		Shell addShell = new DefaultShell("Add Source Folder");
 		new DefaultText(addShell).setText(newVaule);
 		new OkButton(addShell).click();
 		new WaitWhile(new ShellIsAvailable(addShell));
+		return this;
 	}
 	
 	/**
@@ -79,8 +82,9 @@ public class WebProjectSecondPage extends WizardPage{
 	 *
 	 * @param folder the new default output folder
 	 */
-	public void setDefaultOutputFolder(String folder){
+	public WebProjectSecondPage setDefaultOutputFolder(String folder){
 		new LabeledText(referencedComposite, "Default output folder:").setText(folder);
+		return this;
 	}
 	
 	/**

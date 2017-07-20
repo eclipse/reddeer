@@ -43,7 +43,7 @@ public class MavenProjectWizardArchetypePage extends WizardPage{
 	 * @param artifactId if null then archetype artifact id is ignored
 	 * @param version if null then archetype version is ignored
 	 */
-	public void selectArchetype(String groupId, String artifactId, String version){
+	public MavenProjectWizardArchetypePage selectArchetype(String groupId, String artifactId, String version){
 		Table t = new DefaultTable(referencedComposite);
 		int groupColumn = t.getHeaderIndex("Group Id");
 		int artColumn = t.getHeaderIndex("Artifact Id");
@@ -63,6 +63,7 @@ public class MavenProjectWizardArchetypePage extends WizardPage{
 			throw new EclipseLayerException("Unable to find archetype with GAV: "+groupId +","+artifactId+
 					","+version);
 		}
+		return this;
 		
 	}
 	
@@ -71,10 +72,11 @@ public class MavenProjectWizardArchetypePage extends WizardPage{
 	 *
 	 * @param catalog to choose archetype from
 	 */
-	public void selectArchetypeCatalog(String catalog){
+	public MavenProjectWizardArchetypePage selectArchetypeCatalog(String catalog){
 		new DefaultCombo(referencedComposite, 0).setSelection(catalog);
 		new GroupWait(TimePeriod.VERY_LONG, waitWhile(new JobIsRunning()),
 				waitUntil(new TableHasRows(new DefaultTable(referencedComposite))));
+		return this;
 	}
 	
 	/**

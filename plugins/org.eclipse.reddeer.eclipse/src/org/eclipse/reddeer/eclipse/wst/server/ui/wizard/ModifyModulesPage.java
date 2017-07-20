@@ -37,19 +37,21 @@ public class ModifyModulesPage extends WizardPage {
 	 *
 	 * @param projectNames names of the modules to be added
 	 */
-	public void add(String... projectNames) {
+	public ModifyModulesPage add(String... projectNames) {
 		for (String project : projectNames) {
 			new DefaultTreeItem(new DefaultTree(referencedComposite), project).select();
 			new PushButton(referencedComposite, "Add >").click();
 		}
+		return this;
 	}
 
 	/**
 	 * Adds all available modules to the server.
 	 *
 	 */
-	public void addAll() {
+	public ModifyModulesPage addAll() {
 		new PushButton(referencedComposite, "Add All >>").click();
+		return this;
 	}
 
 	/**
@@ -57,18 +59,20 @@ public class ModifyModulesPage extends WizardPage {
 	 *
 	 * @param projectNames names of the modules to be removed from the server
 	 */
-	public void remove(String... projectNames) {
+	public ModifyModulesPage remove(String... projectNames) {
 		for (String project : projectNames) {
 			new DefaultTreeItem(new DefaultTree(referencedComposite, 1), project).select();
 			new PushButton(referencedComposite, "< Remove").click();
 		}
+		return this;
 	}
 
 	/**
 	 * Removes all modules from the server.
 	 */
-	public void removeAll() {
+	public ModifyModulesPage removeAll() {
 		new PushButton(referencedComposite, "<< Remove All").click();
+		return this;
 	}
 
 	/**

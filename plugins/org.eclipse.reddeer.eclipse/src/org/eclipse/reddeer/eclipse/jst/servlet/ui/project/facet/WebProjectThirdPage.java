@@ -29,8 +29,9 @@ public class WebProjectThirdPage extends WizardPage{
 	 *
 	 * @param contextRoot the new context root
 	 */
-	public void setContextRoot(String contextRoot){
+	public WebProjectThirdPage setContextRoot(String contextRoot){
 		new LabeledText(referencedComposite, "Context root:").setText(contextRoot);
+		return this;
 	}
 	
 	/**
@@ -47,8 +48,9 @@ public class WebProjectThirdPage extends WizardPage{
 	 *
 	 * @param contentDirectory the new content directory
 	 */
-	public void setContentDirectory(String contentDirectory){
+	public WebProjectThirdPage setContentDirectory(String contentDirectory){
 		new LabeledText(referencedComposite, "Content directory:").setText(contentDirectory);
+		return this;
 	}
 	
 	/**
@@ -65,8 +67,9 @@ public class WebProjectThirdPage extends WizardPage{
 	 *
 	 * @param generate the new generate web xml deployment descriptor
 	 */
-	public void setGenerateWebXmlDeploymentDescriptor(boolean generate){
+	public WebProjectThirdPage setGenerateWebXmlDeploymentDescriptor(boolean generate){
 		new CheckBox(referencedComposite, "Generate web.xml deployment descriptor").toggle(generate);
+		return this;
 	}
 	
 	/**

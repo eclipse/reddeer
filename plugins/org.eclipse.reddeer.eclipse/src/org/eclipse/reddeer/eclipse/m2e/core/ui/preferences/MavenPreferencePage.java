@@ -52,8 +52,9 @@ public class MavenPreferencePage extends PreferencePage {
 	 *
 	 * @param check the new offline
 	 */
-	public void setOffline(boolean check) {
+	public MavenPreferencePage setOffline(boolean check) {
 		new CheckBox(referencedComposite, MavenPreferencePage.OFFLINE).toggle(check);
+		return this;
 	}
 	
 	/**
@@ -70,8 +71,9 @@ public class MavenPreferencePage extends PreferencePage {
 	 *
 	 * @param check the new do not auto update deps
 	 */
-	public void setDoNotAutoUpdateDeps(boolean check) {
+	public MavenPreferencePage setDoNotAutoUpdateDeps(boolean check) {
 		new CheckBox(referencedComposite, MavenPreferencePage.DO_NOT_AUTO_UPDATE_DEPS).toggle(check);
+		return this;
 	}
 	
 	/**
@@ -88,8 +90,9 @@ public class MavenPreferencePage extends PreferencePage {
 	 *
 	 * @param check the new debug output
 	 */
-	public void setDebugOutput(boolean check) {
+	public MavenPreferencePage setDebugOutput(boolean check) {
 		new CheckBox(referencedComposite, MavenPreferencePage.DEBUG_OUTPUT).toggle(check);
+		return this;
 	}
 	
 	/**
@@ -106,8 +109,9 @@ public class MavenPreferencePage extends PreferencePage {
 	 *
 	 * @param check the new download artifact sources
 	 */	
-	public void setDownloadArtifactSources(boolean check) {
+	public MavenPreferencePage setDownloadArtifactSources(boolean check) {
 		new CheckBox(referencedComposite, MavenPreferencePage.DOWNLOAD_ARTIFACT_SOURCES).toggle(check);
+		return this;
 	}
 	
 	/**
@@ -124,8 +128,9 @@ public class MavenPreferencePage extends PreferencePage {
 	 *
 	 * @param check the new download artifact javadoc
 	 */
-	public void setDownloadArtifactJavadoc(boolean check) {
+	public MavenPreferencePage setDownloadArtifactJavadoc(boolean check) {
 		new CheckBox(referencedComposite, MavenPreferencePage.DOWNLOAD_ARTIFACT_JAVADOC).toggle(check);
+		return this;
 	}
 	
 	/**
@@ -142,8 +147,9 @@ public class MavenPreferencePage extends PreferencePage {
 	 *
 	 * @param check the new download repo index on startup
 	 */
-	public void setDownloadRepoIndexOnStartup(boolean check) {
+	public MavenPreferencePage setDownloadRepoIndexOnStartup(boolean check) {
 		new CheckBox(referencedComposite, MavenPreferencePage.DOWNLOAD_REPO_INDEX_UPDATES_ON_STARTUP).toggle(check);
+		return this;
 	}
 	
 	/**
@@ -160,8 +166,9 @@ public class MavenPreferencePage extends PreferencePage {
 	 *
 	 * @param check the new update maven projects on startup
 	 */
-	public void setUpdateMavenProjectsOnStartup(boolean check) {
+	public MavenPreferencePage setUpdateMavenProjectsOnStartup(boolean check) {
 		new CheckBox(referencedComposite, MavenPreferencePage.UPDATE_MAVEN_PROJECTS_ON_STARTUP).toggle(check);
+		return this;
 	}
 	
 	/**
@@ -178,7 +185,8 @@ public class MavenPreferencePage extends PreferencePage {
 	 *
 	 * @param check the new hide folders of physicaly nested modules
 	 */
-	public void setHideFoldersOfPhysicalyNestedModules(boolean check) {
+	public MavenPreferencePage setHideFoldersOfPhysicalyNestedModules(boolean check) {
 		new CheckBox(referencedComposite, MavenPreferencePage.HIDE_FOLDERS_OF_PHYSICALLY_NESTED_MODULES).toggle(check);
+		return this;
 	}
 }

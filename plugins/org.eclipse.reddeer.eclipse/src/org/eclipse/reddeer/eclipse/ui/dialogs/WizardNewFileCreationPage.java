@@ -34,8 +34,9 @@ public class WizardNewFileCreationPage extends WizardPage {
 	 * 
 	 * @param fileName File name
 	 */
-	public void setFileName(String fileName) {
+	public WizardNewFileCreationPage setFileName(String fileName) {
 		new LabeledText(referencedComposite, "File name:").setText(fileName);
+		return this;
 	}
 	
 	/**
@@ -43,13 +44,14 @@ public class WizardNewFileCreationPage extends WizardPage {
 	 * 
 	 * @param folderPath Folder path
 	 */
-	public void setFolderPath(String... folderPath) {
+	public WizardNewFileCreationPage setFolderPath(String... folderPath) {
 		StringBuilder builder = new StringBuilder();
 		for (String pathElement : folderPath) {
 			builder.append(pathElement);
 			builder.append("/");
 		}
 		new LabeledText(referencedComposite, "Enter or select the parent folder:").setText(builder.toString());
+		return this;
 	}
 	
 }

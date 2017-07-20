@@ -68,13 +68,14 @@ public class MavenArchetypesPreferencePage extends PreferencePage {
 	 * @param description
 	 *            description of the local catalog
 	 */
-	public void addLocalCatalog(String catalogFile, String description) {
+	public MavenArchetypesPreferencePage addLocalCatalog(String catalogFile, String description) {
 		new PushButton(referencedComposite, ADD_LOCAL_CATALOG).click();
 		Shell localCatalogShell = new DefaultShell(LOCAL_CATALOG_SHELL);
 		new DefaultCombo(localCatalogShell).setText(catalogFile);
 		new LabeledText(localCatalogShell, CATALOG_DESCRIPTION).setText(description);
 		new OkButton(localCatalogShell).click();
 		new WaitWhile(new ShellIsAvailable(localCatalogShell));
+		return this;
 	}
 
 	/**
@@ -149,9 +150,10 @@ public class MavenArchetypesPreferencePage extends PreferencePage {
 	 * @param catalogName
 	 *            name of the catalog to be deleted
 	 */
-	public void removeCatalog(String catalogName) {
+	public MavenArchetypesPreferencePage removeCatalog(String catalogName) {
 		selectCatalog(catalogName);
 		new PushButton(referencedComposite, REMOVE_CATALOG).click();
+		return this;
 	}
 
 	/**
@@ -164,8 +166,9 @@ public class MavenArchetypesPreferencePage extends PreferencePage {
 	 * @param description
 	 *            description of the edited catalog
 	 */
-	public void editLocalCatalog(String catalogName, String catalogFile, String description) {
+	public MavenArchetypesPreferencePage editLocalCatalog(String catalogName, String catalogFile, String description) {
 		editCatalog(catalogName, catalogFile, description, false);
+		return this;
 	}
 
 	/**
@@ -255,12 +258,13 @@ public class MavenArchetypesPreferencePage extends PreferencePage {
 	 * @param catalogName
 	 *            name of the catalog file
 	 */
-	public void selectCatalog(String catalogName) {
+	public MavenArchetypesPreferencePage selectCatalog(String catalogName) {
 		for (TableItem item : getCatalogs()) {
 			if (item.getText().equals(catalogName)) {
 				item.select();
 			}
 		}
+		return this;
 	}
 
 	/**

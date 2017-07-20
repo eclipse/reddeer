@@ -29,8 +29,9 @@ public class EJBFacetInstallPage extends WizardPage {
 	 * Enables/disables generation of ejb-jar.xml.
 	 * @param toggle toggle generation
 	 */
-	public void toggleGenerateEjbJarXml(final boolean toggle) {
+	public EJBFacetInstallPage toggleGenerateEjbJarXml(final boolean toggle) {
 		new CheckBox(referencedComposite, "Generate ejb-jar.xml deployment descriptor").toggle(toggle);
+		return this;
 	}
 	
 	/**

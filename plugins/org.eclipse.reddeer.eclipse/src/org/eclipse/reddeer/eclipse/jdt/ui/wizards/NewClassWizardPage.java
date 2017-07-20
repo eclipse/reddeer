@@ -32,8 +32,9 @@ public class NewClassWizardPage extends WizardPage {
 	 * 
 	 * @param name Name
 	 */
-	public void setName(String name){
+	public NewClassWizardPage setName(String name){
 		new LabeledText(referencedComposite, "Name:").setText(name);
+		return this;
 	}
 	
 	/**
@@ -41,8 +42,9 @@ public class NewClassWizardPage extends WizardPage {
 	 * 
 	 * @param packageName Package name
 	 */
-	public void setPackage(String packageName) {
+	public NewClassWizardPage setPackage(String packageName) {
 		new LabeledText(referencedComposite, "Package:").setText(packageName);
+		return this;
 	}
 	
 	/**
@@ -50,8 +52,9 @@ public class NewClassWizardPage extends WizardPage {
 	 * 
 	 * @param sourceFolder Source folder
 	 */
-	public void setSourceFolder(String sourceFolder){
+	public NewClassWizardPage setSourceFolder(String sourceFolder){
 		new LabeledText(referencedComposite, "Source folder:").setText(sourceFolder);
+		return this;
 	}
 	
 	/**
@@ -59,8 +62,9 @@ public class NewClassWizardPage extends WizardPage {
 	 * 
 	 * @param setMainMethod Indicates whether to generate static main method
 	 */
-	public void setStaticMainMethod(boolean setMainMethod) {
+	public NewClassWizardPage setStaticMainMethod(boolean setMainMethod) {
 		new CheckBox(referencedComposite, "public static void main(String[] args)").toggle(setMainMethod);
+		return this;
 	}
 	
 	/**

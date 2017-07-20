@@ -46,9 +46,10 @@ public class MavenSettingsPreferencePage extends PreferencePage {
 	 * (max. 1 minute)
 	 * 
 	 */
-	public void updateSettings() {
+	public MavenSettingsPreferencePage updateSettings() {
 		new PushButton(referencedComposite, UPDATE_SETTINGS).click();
 		new WaitUntil(new JobIsRunning(), TimePeriod.LONG);
+		return this;
 	}
 
 	/**
@@ -56,8 +57,9 @@ public class MavenSettingsPreferencePage extends PreferencePage {
 	 * 
 	 * @param path Path to settings.xml file
 	 */
-	public void setUserSettingsLocation(String path) {
+	public MavenSettingsPreferencePage setUserSettingsLocation(String path) {
 		getSettingsXMLTextWidget().setText(path);
+		return this;
 	}
 
 	/**
@@ -74,9 +76,10 @@ public class MavenSettingsPreferencePage extends PreferencePage {
 	 * minutes)
 	 * 
 	 */
-	public void reindex() {
+	public MavenSettingsPreferencePage reindex() {
 		new PushButton(referencedComposite, REINDEX).click();
 		new WaitWhile(new JobIsRunning(), TimePeriod.VERY_LONG);
+		return this;
 	}
 
 	
