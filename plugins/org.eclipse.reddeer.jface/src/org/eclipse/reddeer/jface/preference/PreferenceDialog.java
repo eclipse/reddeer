@@ -150,7 +150,7 @@ public class PreferenceDialog extends AbstractWindow{
 	}
 
 	@Override
-	public Class<?> getEclipseClass() {
+	public Class<? extends org.eclipse.jface.window.Window> getEclipseClass() {
 		return org.eclipse.jface.preference.PreferenceDialog.class;
 	}
 

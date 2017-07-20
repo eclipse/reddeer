@@ -32,7 +32,7 @@ public interface Window extends ReferencedComposite{
 	 * 
 	 * @return Eclipse counterpart class
 	 */
-	Class<?> getEclipseClass();
+	Class<? extends org.eclipse.jface.window.Window> getEclipseClass();
 	
 	/**
 	 * Sets shell which is encapsulated by window

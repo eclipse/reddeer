@@ -163,7 +163,7 @@ public class WizardDialog extends TitleAreaDialog{
 	}
 	
 	@Override
-	public Class<?> getEclipseClass(){
+	public Class<? extends org.eclipse.jface.window.Window> getEclipseClass(){
 		return org.eclipse.jface.wizard.WizardDialog.class;
 	}
 }
