@@ -17,16 +17,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.wst.server.core.IModule;
+import org.eclipse.wst.server.core.IPublishListener;
+import org.eclipse.wst.server.core.IServer;
+import org.eclipse.wst.server.core.IServerListener;
+import org.eclipse.wst.server.core.ServerEvent;
 import org.eclipse.wst.server.ui.IServerModule;
 import org.hamcrest.Matcher;
 import org.hamcrest.core.IsEqual;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.reddeer.common.adaptable.RedDeerAdaptable;
+import org.eclipse.reddeer.common.condition.AbstractWaitCondition;
 import org.eclipse.reddeer.common.logging.Logger;
 import org.eclipse.reddeer.common.util.Display;
 import org.eclipse.reddeer.common.wait.GroupWait;
 import org.eclipse.reddeer.common.wait.TimePeriod;
-import org.eclipse.reddeer.common.wait.WaitUntil;
 import org.eclipse.reddeer.common.wait.WaitWhile;
+import org.eclipse.reddeer.core.handler.WidgetHandler;
 import org.eclipse.reddeer.eclipse.condition.ServerExists;
 import org.eclipse.reddeer.eclipse.condition.ServerHasPublishState;
 import org.eclipse.reddeer.eclipse.condition.ServerHasState;
@@ -50,7 +56,7 @@ import org.eclipse.reddeer.workbench.core.condition.JobIsRunning;
  * @author Lucia Jelinkova, mlabuda@redhat.com
  * 
  */
-public class AbstractServer implements Server, RedDeerAdaptable<Server> {
+public abstract class AbstractServer implements Server, RedDeerAdaptable<Server> {
 	
 	private TimePeriod stateChangeTimeout = TimePeriod.getCustom(600);
 	
@@ -180,20 +186,53 @@ public class AbstractServer implements Server, RedDeerAdaptable<Server> {
 	public void publish() {
 		select();
 		log.info("Publish server '" + getLabel().getName() + "'");
-		new ContextMenu("Publish").select();
-		waitForPublish();
+		
+		PublishListenerCondition listenerCondition = new PublishListenerCondition();
+		try{
+			new ContextMenu("Publish").select();
+			waitForPublish(listenerCondition);
+		} finally {
+			cleanupPublishListener(listenerCondition.getPublishListener());
+		}
 	}
-
+	
 	@Override
 	public void clean() {
 		select();
 		log.info("Clean server '" + getLabel().getName() + "'");
-		new ContextMenu("Clean...").select();
-		Shell serverShell = new DefaultShell("Server");
-		new PushButton("OK").click();
-		new WaitWhile(new ShellIsAvailable(serverShell));
-		waitForPublish();
+		
+		PublishListenerCondition listenerCondition = new PublishListenerCondition();
+		
+		try{
+			new ContextMenu("Clean...").select();
+			Shell serverShell = new DefaultShell("Server");
+			new PushButton("OK").click();
+			new WaitWhile(new ShellIsAvailable(serverShell));
+			
+			waitForPublish(listenerCondition);
+		} finally {
+			cleanupPublishListener(listenerCondition.getPublishListener());
+		}
 	}
+	
+	@SuppressWarnings("restriction")
+	private void cleanupServerListener(IServerListener listener){
+		if(listener != null){
+			org.eclipse.wst.server.core.internal.Server srv = getEclipseServer();
+			srv.removeServerListener(listener);
+		}
+	}
+	
+	
+	@SuppressWarnings("restriction")
+	private void cleanupPublishListener(IPublishListener listener){
+		if(listener != null){
+			org.eclipse.wst.server.core.internal.Server srv = getEclipseServer();
+			srv.removePublishListener(listener);
+		}
+	}
+	
+	
 
 	@Override
 	public void delete() {
@@ -303,14 +342,103 @@ public class AbstractServer implements Server, RedDeerAdaptable<Server> {
 		return new Class<?>[] {TreeItem.class};
 	}
 	
+	
+	class ServerListenerCondition extends AbstractWaitCondition {
+		
+		private int serverState;
+		private String mode;
+		
+		private boolean finished = false;
+		private IServerListener serverListener;
+		
+		@SuppressWarnings("restriction")
+		public ServerListenerCondition(int serverState, String mode) {
+			this.serverState = serverState;
+			this.mode = mode;
+			
+			org.eclipse.wst.server.core.internal.Server srv = getEclipseServer();
+			serverListener = new IServerListener() {
+				
+				@Override
+				public void serverChanged(ServerEvent arg0) {
+					if(serverState == arg0.getServer().getServerState() && 
+						(mode == null || mode.equals(arg0.getServer().getMode()))){
+						finished = true;
+					}
+					
+				}
+			};
+			
+			srv.addServerListener(serverListener);
+		}
+		
+		public IServerListener getServerListener(){
+			return serverListener;
+		}
+
+		@Override
+		public boolean test() {
+			return finished;
+		}
+		
+		@Override
+		public String description() {
+			if(mode != null){
+				return "Server has state "+serverState+" and mode "+mode;
+			}
+			return "Server has state "+serverState;
+		}
+		
+	}
+	
+	class PublishListenerCondition extends AbstractWaitCondition {
+		
+		private boolean finished = false;
+		private IPublishListener publishListener;
+		
+		@SuppressWarnings("restriction")
+		public PublishListenerCondition() {
+			org.eclipse.wst.server.core.internal.Server srv = getEclipseServer();
+			publishListener = new IPublishListener() {
+				
+				@Override
+				public void publishStarted(IServer arg0) {
+					
+				}
+				
+				@Override
+				public void publishFinished(IServer arg0, IStatus arg1) {
+					finished = true;
+					
+				}
+			};
+			
+			srv.addPublishListener(publishListener);
+		}
+		
+		public IPublishListener getPublishListener(){
+			return publishListener;
+		}
+
+		@Override
+		public boolean test() {
+			return finished;
+		}
+		
+		@Override
+		public String description() {
+			return "Server publish finished";
+		}
+		
+	}
+	
 	/**
 	 * Wait for publish.
 	 */
-	protected void waitForPublish() {
-		new GroupWait(getServerPublishTimeout(), waitUntil(new JobIsRunning()),
-				waitWhile(new ServerHasPublishState(this, ServerPublishState.PUBLISHING)),
-				waitUntil(new ServerHasPublishState(this, ServerPublishState.SYNCHRONIZED)),
-				waitWhile(new JobIsRunning()));
+	protected void waitForPublish(PublishListenerCondition listenerCondition) {
+		new GroupWait(getServerPublishTimeout(), waitUntil(listenerCondition), 
+				waitUntil(new ServerHasPublishState(this, ServerPublishState.SYNCHRONIZED)), 
+						waitWhile(new JobIsRunning()));
 	}	
 	
 	/**
@@ -323,32 +451,30 @@ public class AbstractServer implements Server, RedDeerAdaptable<Server> {
 	 */
 	protected void operateServerState(String menuItem, ServerState resultState) {
 		log.debug("Triggering action: " + menuItem + " on server " + getLabel().getName());
-		ServerState currentState = getLabel().getState();
-		TimePeriod remainingTimeout = getServerStateChangeTimeout();
 		
 		select();
-		new ContextMenu(menuItem).select();
-
-		log.trace("Action on server triggered. Waiting while current state of server gets changed");
-		// Wait while server state change takes effect and then wait while state
-		// changing job is running
-		remainingTimeout = new GroupWait(remainingTimeout, waitWhile(new ServerHasState(this, currentState)), 
-				waitWhile(new JobIsRunning())).getRemainingTimeout();
+		ServerListenerCondition listenerCondition = null;
+		switch(resultState) {
+			case STARTED: listenerCondition = new ServerListenerCondition(IServer.STATE_STARTED, "run");
+				break;
+			case STOPPED: listenerCondition = new ServerListenerCondition(IServer.STATE_STOPPED, null);
+				break;
+			case DEBUGGING: listenerCondition = new ServerListenerCondition(IServer.STATE_STARTED, "debug");
+				break;
+			case PROFILING: listenerCondition = new ServerListenerCondition(IServer.STATE_STARTED, "profile");
+				break;
+			default: throw new EclipseLayerException("Unknown state "+resultState);
+		}
+		try{
+			new ContextMenu(menuItem).select();
 		
-		log.trace("Waiting until server state gets to result state.");
-		// Wait until server gets to correct state and then wait for running
-		// jobs
-		new GroupWait(remainingTimeout, waitUntil(new ServerHasState(this, resultState)), 
-				waitWhile(new JobIsRunning()));
-
-		log.trace("Performing final check on correct server state.");
-		// Test state one more time, because state is depending on settings e.g.
-		// port accessibility and something
-		// could go wrong at changing state and server could fail to get to the
-		// state
-		new WaitUntil(new ServerHasState(this, resultState), TimePeriod.NONE);
-
-		log.debug("Operate server's state finished, the result server's state is: '" + getLabel().getState() + "'");
+			new GroupWait(getServerStateChangeTimeout(), waitUntil(listenerCondition), 
+					waitUntil(new ServerHasState(this, resultState)), waitWhile(new JobIsRunning()));
+			
+			log.debug("Operate server's state finished, the result server's state is: '" + getLabel().getState() + "'");
+		} finally {
+			cleanupServerListener(listenerCondition.getServerListener());
+		}
 	}
 
 	/**
@@ -373,5 +499,11 @@ public class AbstractServer implements Server, RedDeerAdaptable<Server> {
 	
 	private ServerEditor createServerEditor(String title) {
 		return new ServerEditor(title);
+	}
+	
+	@SuppressWarnings("restriction")
+	private org.eclipse.wst.server.core.internal.Server getEclipseServer(){
+		Object o = WidgetHandler.getInstance().getData(treeItem.getSWTWidget());
+		return (org.eclipse.wst.server.core.internal.Server)o;
 	}
 }
