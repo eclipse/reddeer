@@ -36,7 +36,7 @@ public class WizardNewProjectReferencePage extends WizardPage {
 	 * 
 	 * @param referencedProjects Project references
 	 */
-	public void setProjectReferences(String... referencedProjects) {
+	public WizardNewProjectReferencePage setProjectReferences(String... referencedProjects) {
 		log.debug("Set Project references to: ");
 		DefaultTable tbProjectReferences = new DefaultTable(referencedComposite);
 		for (String tableItemLabel : referencedProjects) {
@@ -45,5 +45,6 @@ public class WizardNewProjectReferencePage extends WizardPage {
 					.getItem(tableItemLabel);
 			tiReferencedProject.setChecked(true);
 		}
+		return this;
 	}
 }

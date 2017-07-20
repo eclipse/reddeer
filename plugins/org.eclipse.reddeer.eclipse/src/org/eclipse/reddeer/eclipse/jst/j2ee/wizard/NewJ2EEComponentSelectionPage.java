@@ -29,8 +29,9 @@ public class NewJ2EEComponentSelectionPage extends WizardPage{
 	 *
 	 * @param toggle the toggle
 	 */
-	public void toggleCreateDefaultModules(boolean toggle){
+	public NewJ2EEComponentSelectionPage toggleCreateDefaultModules(boolean toggle){
 		new CheckBox(referencedComposite, "Create default modules").toggle(toggle);
+		return this;
 	}
 	
 	/**
@@ -88,8 +89,9 @@ public class NewJ2EEComponentSelectionPage extends WizardPage{
 	 *
 	 * @param toggle the toggle
 	 */
-	public void toggleApplicationClientModule(boolean toggle){
+	public NewJ2EEComponentSelectionPage toggleApplicationClientModule(boolean toggle){
 		new CheckBox(referencedComposite, "Application client module").toggle(toggle);
+		return this;
 	}
 	
 	/**
@@ -97,8 +99,9 @@ public class NewJ2EEComponentSelectionPage extends WizardPage{
 	 *
 	 * @param toggle the toggle
 	 */
-	public void toggleEJBModule(boolean toggle){
+	public NewJ2EEComponentSelectionPage toggleEJBModule(boolean toggle){
 		new CheckBox(referencedComposite, "EJB module").toggle(toggle);
+		return this;
 	}
 	
 	/**
@@ -106,8 +109,9 @@ public class NewJ2EEComponentSelectionPage extends WizardPage{
 	 *
 	 * @param toggle the toggle
 	 */
-	public void toggleWebModule(boolean toggle){
+	public NewJ2EEComponentSelectionPage toggleWebModule(boolean toggle){
 		new CheckBox(referencedComposite, "Web module").toggle(toggle);
+		return this;
 	}
 	
 	/**
@@ -115,8 +119,9 @@ public class NewJ2EEComponentSelectionPage extends WizardPage{
 	 *
 	 * @param toggle the toggle
 	 */
-	public void toggleConnectionModule(boolean toggle){
+	public NewJ2EEComponentSelectionPage toggleConnectionModule(boolean toggle){
 		new CheckBox(referencedComposite, "Connector module").toggle(toggle);
+		return this;
 	}
 	
 	/**
@@ -160,8 +165,9 @@ public class NewJ2EEComponentSelectionPage extends WizardPage{
 	 *
 	 * @param name the new application client module name
 	 */
-	public void setApplicationClientModuleName(String name){
+	public NewJ2EEComponentSelectionPage setApplicationClientModuleName(String name){
 		new DefaultText(referencedComposite, 0).setText(name);
+		return this;
 	}
 	
 	/**
@@ -169,8 +175,9 @@ public class NewJ2EEComponentSelectionPage extends WizardPage{
 	 *
 	 * @param name the new EJB module name
 	 */
-	public void setEJBModuleName(String name){
+	public NewJ2EEComponentSelectionPage setEJBModuleName(String name){
 		new DefaultText(referencedComposite, 1).setText(name);
+		return this;
 	}
 	
 	/**
@@ -178,8 +185,9 @@ public class NewJ2EEComponentSelectionPage extends WizardPage{
 	 *
 	 * @param name the new web module name
 	 */
-	public void setWebModuleName(String name){
+	public NewJ2EEComponentSelectionPage setWebModuleName(String name){
 		new DefaultText(referencedComposite, 2).setText(name);
+		return this;
 	}
 	
 	/**
@@ -187,8 +195,9 @@ public class NewJ2EEComponentSelectionPage extends WizardPage{
 	 *
 	 * @param name the new connector module name
 	 */
-	public void setConnectorModuleName(String name){
+	public NewJ2EEComponentSelectionPage setConnectorModuleName(String name){
 		new DefaultText(referencedComposite, 3).setText(name);
+		return this;
 	}
 	
 	/**

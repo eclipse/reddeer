@@ -40,8 +40,9 @@ public class CPWizardSelectionPage extends WizardPage {
 	 * @param connectionProfile
 	 *            Connection profile
 	 */
-	public void setConnectionProfile(String connectionProfile) {
+	public CPWizardSelectionPage setConnectionProfile(String connectionProfile) {
 		new DefaultTable(referencedComposite).select(connectionProfile);
+		return this;
 	}
 
 	/**
@@ -50,8 +51,9 @@ public class CPWizardSelectionPage extends WizardPage {
 	 * @param name
 	 *            Name
 	 */
-	public void setName(String name) {
+	public CPWizardSelectionPage setName(String name) {
 		new LabeledText(referencedComposite, LABEL_NAME).setText(name);
+		return this;
 	}
 
 	/**
@@ -60,7 +62,8 @@ public class CPWizardSelectionPage extends WizardPage {
 	 * @param description
 	 *            Description
 	 */
-	public void setDescription(String description) {
+	public CPWizardSelectionPage setDescription(String description) {
 		new LabeledText(referencedComposite, LABEL_DESCRIPTION).setText(description);
+		return this;
 	}
 }

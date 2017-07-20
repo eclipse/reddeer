@@ -26,8 +26,9 @@ public class MavenProjectWizardPage extends WizardPage{
 	 *
 	 * @param toggle the toggle
 	 */
-	public void createSimpleProject(boolean toggle){
+	public MavenProjectWizardPage createSimpleProject(boolean toggle){
 		new CheckBox(referencedComposite, "Create a simple project (skip archetype selection)").toggle(toggle);
+		return this;
 	}
 	
 	/**
@@ -44,8 +45,9 @@ public class MavenProjectWizardPage extends WizardPage{
 	 *
 	 * @param toggle the toggle
 	 */
-	public void useDefaultWorkspaceLocation(boolean toggle){
+	public MavenProjectWizardPage useDefaultWorkspaceLocation(boolean toggle){
 		new CheckBox(referencedComposite, "Use default Workspace location").toggle(toggle);
+		return this;
 	}
 	
 	/**
@@ -62,8 +64,9 @@ public class MavenProjectWizardPage extends WizardPage{
 	 *
 	 * @param location the new location
 	 */
-	public void setLocation(String location){
+	public MavenProjectWizardPage setLocation(String location){
 		new LabeledCombo(referencedComposite, "Location:").setText(location);
+		return this;
 	}
 	
 	/**
@@ -80,8 +83,9 @@ public class MavenProjectWizardPage extends WizardPage{
 	 *
 	 * @param toggle the toggle
 	 */
-	public void addToWorkingSet(boolean toggle){
+	public MavenProjectWizardPage addToWorkingSet(boolean toggle){
 		new CheckBox(referencedComposite, "Add project(s) to working set").toggle(toggle);
+		return this;
 	}
 	
 	/**
@@ -98,8 +102,9 @@ public class MavenProjectWizardPage extends WizardPage{
 	 *
 	 * @param workingSet the new working set
 	 */
-	public void setWorkingSet(String workingSet){
+	public MavenProjectWizardPage setWorkingSet(String workingSet){
 		new LabeledCombo(referencedComposite, "Working set:").setText(workingSet);
+		return this;
 	}
 	
 	/**

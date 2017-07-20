@@ -112,22 +112,24 @@ public class WizardDialog extends TitleAreaDialog{
 	/**
 	 * Click the next button in wizard dialog.
 	 */
-	public void next() {
+	public WizardDialog next() {
 		checkShell();
 		log.info("Go to next wizard page");
 
 		Button button = new NextButton(getShell());
 		button.click();
+		return this;
 	}
 
 	/**
 	 * Click the back button in wizard dialog.
 	 */
-	public void back() {
+	public WizardDialog back() {
 		checkShell();
 		log.info("Go to previous wizard page");
 		Button button = new BackButton(getShell());
 		button.click();
+		return this;
 	}
 	
 	/**

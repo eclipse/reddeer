@@ -70,9 +70,10 @@ public class WarningsPreferencePage extends PreferencePage {
 	 * Sets message severity level of {@value #GROUP_ID} from Maven Error/Warning Preference page
 	 * @param groupIdSeverity group id severity
 	 */
-	public void setGroupId (MavenErrorSeverity groupIdSeverity) {
+	public WarningsPreferencePage setGroupId (MavenErrorSeverity groupIdSeverity) {
 		new LabeledCombo(referencedComposite, GROUP_ID).setSelection(groupIdSeverity.getValue());
 		log.info("Set Maven error/warning Group ID to: " + groupIdSeverity.getValue());
+		return this;
 	}
 		
 	/**
@@ -87,9 +88,10 @@ public class WarningsPreferencePage extends PreferencePage {
 	 * Sets message severity level of {@value #VERSION} from Maven Error/Warning Preference page
 	 * @param versionSeverity version severity
 	 */
-	public void setVersion (MavenErrorSeverity versionSeverity) {
+	public WarningsPreferencePage setVersion (MavenErrorSeverity versionSeverity) {
 		new LabeledCombo(referencedComposite, VERSION).setSelection(versionSeverity.getValue());
 		log.info("Set Maven error/warning Version to: " + versionSeverity);
+		return this;
 	}
 	
 	/**
@@ -105,9 +107,10 @@ public class WarningsPreferencePage extends PreferencePage {
 	 * from Maven Error/Warning Preference page
 	 * @param projectConfigSeverity project configuration severity
 	 */
-	public void setProjectConfig(MavenErrorSeverity projectConfigSeverity) {
+	public WarningsPreferencePage setProjectConfig(MavenErrorSeverity projectConfigSeverity) {
 		new LabeledCombo(referencedComposite, PROJECT_CONFIG).setSelection(projectConfigSeverity.getValue());
 		log.info("Set Maven error/warning Project Config to: " + projectConfigSeverity);
+		return this;
 	}
 	
 	/**
@@ -123,9 +126,10 @@ public class WarningsPreferencePage extends PreferencePage {
 	 * from Maven Error/Warning Preference page
 	 * @param pluginExecutionSeverity plugin execution severity
 	 */
-	public void setPluginExecution (MavenErrorSeverity pluginExecutionSeverity) {
+	public WarningsPreferencePage setPluginExecution (MavenErrorSeverity pluginExecutionSeverity) {
 		new LabeledCombo(referencedComposite, PLUGIN_EXECUTION).setSelection(pluginExecutionSeverity.getValue());
 		log.info("Set Maven error/warning Plugin Execution to: " + pluginExecutionSeverity);
+		return this;
 	}
 	
 	/**
@@ -141,9 +145,10 @@ public class WarningsPreferencePage extends PreferencePage {
 	 * from Maven Error/Warning Preference page
 	 * @param managedVersionSeverity severity of managedVersion
 	 */
-	public void setManagedVersion (MavenErrorSeverity managedVersionSeverity) {
+	public WarningsPreferencePage setManagedVersion (MavenErrorSeverity managedVersionSeverity) {
 		new LabeledCombo(referencedComposite, MANAGED_VERSION).setSelection(managedVersionSeverity.getValue());
 		log.info("Set Maven error/warning Managed Version to: " + managedVersionSeverity);
+		return this;
 	}
 
 

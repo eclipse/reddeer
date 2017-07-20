@@ -62,18 +62,18 @@ public class PreferenceDialog extends AbstractWindow{
 	 * Selects the specified preference page <var>page</var>.
 	 * @param page preference page to be opened
 	 */
-	public void select(PreferencePage page) {
+	public PreferenceDialog select(PreferencePage page) {
 		if (page == null) {
 			throw new IllegalArgumentException("page can't be null");
 		}
-		select(page.getPath());
+		return select(page.getPath());
 	}
 
 	/**
 	 * Selects preference page with the specified <var>path</var>.
 	 * @param path path in preference shell tree to specific preference page
 	 */
-	public void select(String... path) {
+	public PreferenceDialog select(String... path) {
 		if (path == null) {
 			throw new IllegalArgumentException("path can't be null");
 		}
@@ -85,6 +85,7 @@ public class PreferenceDialog extends AbstractWindow{
 		
 		new WaitUntil(new WidgetIsFound(CLabel.class, this.getControl(), 
 				new WithTextMatcher(path[path.length-1])), TimePeriod.SHORT, false);
+		return this;
 	}
 	
 	/**

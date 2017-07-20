@@ -43,15 +43,17 @@ public class EarProjectInstallPage extends WizardPage{
 	/**
 	 * Selects all.
 	 */
-	public void selectAll(){
+	public EarProjectInstallPage selectAll(){
 		new PushButton(referencedComposite, "Select All").click();
+		return this;
 	}
 	
 	/**
 	 * Deselects all.
 	 */
-	public void deselectAll(){
+	public EarProjectInstallPage deselectAll(){
 		new PushButton(referencedComposite, "Deselect All").click();
+		return this;
 	}
 	
 	/**
@@ -73,8 +75,9 @@ public class EarProjectInstallPage extends WizardPage{
 	 * @param dependency Dependency
 	 * @param toggle Whether to select the dependency
 	 */
-	public void toggleJavaEEModuleDependency(String dependency, boolean toggle){
+	public EarProjectInstallPage toggleJavaEEModuleDependency(String dependency, boolean toggle){
 		new DefaultTable(referencedComposite).getItem(dependency).setChecked(toggle);
+		return this;
 	}
 	
 	/**
@@ -92,8 +95,9 @@ public class EarProjectInstallPage extends WizardPage{
 	 * 
 	 * @param directory Content directory
 	 */
-	public void setContentDirectory(String directory){
+	public EarProjectInstallPage setContentDirectory(String directory){
 		new LabeledText(referencedComposite, "Content directory:").setText(directory);
+		return this;
 	}
 	
 	/**
@@ -101,8 +105,9 @@ public class EarProjectInstallPage extends WizardPage{
 	 * 
 	 * @param toggle Indicates whether to generate application XML
 	 */
-	public void toggleGenerateApplicationXML(boolean toggle){
+	public EarProjectInstallPage toggleGenerateApplicationXML(boolean toggle){
 		new CheckBox(referencedComposite, "Generate application.xml deployment descriptor").toggle(toggle);
+		return this;
 	}
 	
 	/**

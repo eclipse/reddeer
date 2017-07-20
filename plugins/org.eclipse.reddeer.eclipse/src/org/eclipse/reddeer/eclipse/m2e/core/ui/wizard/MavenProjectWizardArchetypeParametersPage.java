@@ -30,8 +30,9 @@ public class MavenProjectWizardArchetypeParametersPage extends WizardPage{
 	 *
 	 * @param projectPackage the new package
 	 */
-	public void setPackage(String projectPackage){
+	public MavenProjectWizardArchetypeParametersPage setPackage(String projectPackage){
 		new LabeledCombo(referencedComposite, "Package:").setText(projectPackage);
+		return this;
 	}
 	
 	/**
@@ -39,8 +40,9 @@ public class MavenProjectWizardArchetypeParametersPage extends WizardPage{
 	 *
 	 * @param groupId the new group id
 	 */
-	public void setGroupId(String groupId){
+	public MavenProjectWizardArchetypeParametersPage setGroupId(String groupId){
 		new LabeledCombo(referencedComposite, "Group Id:").setText(groupId);
+		return this;
 	}
 
 	/**
@@ -48,8 +50,9 @@ public class MavenProjectWizardArchetypeParametersPage extends WizardPage{
 	 *
 	 * @param artifactId the new artifact id
 	 */
-	public void setArtifactId(String artifactId){
+	public MavenProjectWizardArchetypeParametersPage setArtifactId(String artifactId){
 		new LabeledCombo(referencedComposite, "Artifact Id:").setText(artifactId);
+		return this;
 	}
 	
 	/**
@@ -57,8 +60,9 @@ public class MavenProjectWizardArchetypeParametersPage extends WizardPage{
 	 *
 	 * @param version the new version
 	 */
-	public void setVersion(String version){
+	public MavenProjectWizardArchetypeParametersPage setVersion(String version){
 		new LabeledCombo(referencedComposite, "Version:").setText(version);
+		return this;
 	}
 	
 	/**

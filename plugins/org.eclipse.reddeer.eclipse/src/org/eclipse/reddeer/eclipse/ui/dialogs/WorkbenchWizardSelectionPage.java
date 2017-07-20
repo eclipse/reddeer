@@ -32,8 +32,9 @@ public abstract class WorkbenchWizardSelectionPage extends WizardPage{
 	 * Toggles show all wizards checkbox
 	 * @param toggle true to check, false to uncheck
 	 */
-	public void showAllWizards(boolean toggle){
+	public WorkbenchWizardSelectionPage showAllWizards(boolean toggle){
 		new CheckBox(referencedComposite, "Show All Wizards.").toggle(toggle);
+		return this;
 	}
 	
 	/**
@@ -48,8 +49,9 @@ public abstract class WorkbenchWizardSelectionPage extends WizardPage{
 	 * Filters wizard according to specified text
 	 * @param text to filter wizards
 	 */
-	public void filterWizards(String text){
+	public WorkbenchWizardSelectionPage filterWizards(String text){
 		new LabeledText(referencedComposite, "Wizards:").setText(text);
+		return this;
 	}
 	
 	/**

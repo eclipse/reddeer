@@ -49,8 +49,9 @@ public class ConsolePreferencePage extends PreferencePage {
 	 * 
 	 * @param checked
 	 */
-	public void toggleConsoleOutputLimited(boolean checked) {
+	public ConsolePreferencePage toggleConsoleOutputLimited(boolean checked) {
 		new CheckBox(referencedComposite, LIMIT_OUTPUT).toggle(checked);
+		return this;
 	}
 
 	/**
@@ -67,9 +68,10 @@ public class ConsolePreferencePage extends PreferencePage {
 	 * 
 	 * @param size
 	 */
-	public void setConsoleOutputSize(int size) {
+	public ConsolePreferencePage setConsoleOutputSize(int size) {
 		toggleConsoleOutputLimited(true);
 		new LabeledText(referencedComposite, CONSOLE_SIZE).setText(String.valueOf(size));
+		return this;
 	}
 
 	/**
@@ -86,8 +88,9 @@ public class ConsolePreferencePage extends PreferencePage {
 	 * 
 	 * @param checked
 	 */
-	public void toggleShowConsoleOnOutput(boolean checked) {
+	public ConsolePreferencePage toggleShowConsoleOnOutput(boolean checked) {
 		new CheckBox(referencedComposite, SHOW_ON_OUTPUT).toggle(checked);
+		return this;
 	}
 
 	/**
@@ -104,8 +107,9 @@ public class ConsolePreferencePage extends PreferencePage {
 	 * 
 	 * @param checked
 	 */
-	public void toggleShowConsoleErrorWrite(boolean checked) {
+	public ConsolePreferencePage toggleShowConsoleErrorWrite(boolean checked) {
 		new CheckBox(referencedComposite, SHOW_ON_ERROR).toggle(checked);
+		return this;
 	}
 
 }

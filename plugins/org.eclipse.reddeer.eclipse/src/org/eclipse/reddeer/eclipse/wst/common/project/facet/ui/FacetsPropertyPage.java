@@ -47,8 +47,9 @@ public class FacetsPropertyPage extends PropertyPage {
 	 *
 	 * @param facetName the facet name
 	 */
-	public void selectFacet(String facetName){
+	public FacetsPropertyPage selectFacet(String facetName){
 		new DefaultTreeItem(new DefaultTree(referencedComposite, 1), facetName).setChecked(true);
+		return this;
 	}
 	
 	/**
@@ -67,7 +68,7 @@ public class FacetsPropertyPage extends PropertyPage {
 	 * @param facetName the facet name
 	 * @param version the version
 	 */
-	public void selectVersion(String facetName, String version){
+	public FacetsPropertyPage selectVersion(String facetName, String version){
 		TreeItem facet = new DefaultTreeItem(new DefaultTree(referencedComposite, 1), facetName);
 		facet.select();
 		new ContextMenu("Change Version...").select();
@@ -75,6 +76,7 @@ public class FacetsPropertyPage extends PropertyPage {
 		new LabeledCombo(versionChangeShell, "Version:").setSelection(version);
 		new OkButton(versionChangeShell).click();
 		new WaitWhile(new ShellIsAvailable(versionChangeShell));
+		return this;
 	}
 	
 	/**
@@ -94,9 +96,10 @@ public class FacetsPropertyPage extends PropertyPage {
 	/**
 	 * Apply preference page changes.
 	 */
-	public void apply() {
+	public PropertyPage apply() {
 		super.apply();
 		new WaitWhile(new ShellIsAvailable("Progress Information"));
+		return this;
 	}
 	
 	

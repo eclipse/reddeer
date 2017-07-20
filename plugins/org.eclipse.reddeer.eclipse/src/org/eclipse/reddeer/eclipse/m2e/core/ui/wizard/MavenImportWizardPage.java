@@ -39,8 +39,9 @@ public class MavenImportWizardPage extends WizardPage {
 	/**
 	 * Activates the wizard.
 	 */
-	public void activate() {
+	public MavenImportWizardPage activate() {
 		new DefaultShell(TITLE);
+		return this;
 	}
 
 	/**
@@ -49,17 +50,19 @@ public class MavenImportWizardPage extends WizardPage {
 	 * @param path
 	 *            Path
 	 */
-	public void setRootDirectory(String path) {
+	public MavenImportWizardPage setRootDirectory(String path) {
 		activate();
 		new LabeledCombo(referencedComposite, "Root Directory:").setText(path);
+		return this;
 	}
 
 	/**
 	 * Clicks on 'Refresh' button.
 	 */
-	public void refresh() {
+	public MavenImportWizardPage refresh() {
 		activate();
 		new PushButton(referencedComposite, "Refresh").click();
+		return this;
 	}
 
 	/**
@@ -68,9 +71,10 @@ public class MavenImportWizardPage extends WizardPage {
 	 * @param timeout
 	 *            Timeout
 	 */
-	public void waitUntilProjectIsLoaded(TimePeriod timeout) {
+	public MavenImportWizardPage waitUntilProjectIsLoaded(TimePeriod timeout) {
 		activate();
 		new WaitUntil(new ProjectsIsLoaded(), timeout);
+		return this;
 	}
 
 	/**

@@ -45,9 +45,10 @@ public class RuntimesPropertyPage extends PropertyPage {
 	 *
 	 * @param runtimeName the runtime name
 	 */
-	public void selectRuntime(String runtimeName){
+	public RuntimesPropertyPage selectRuntime(String runtimeName){
 		log.info("Select runtime '" + runtimeName + "'");
 		new DefaultTableItem(referencedComposite, runtimeName).setChecked(true);
+		return this;
 	}
 	
 	/**

@@ -34,8 +34,9 @@ public class RSENewConnectionWizardSelectionPage extends WizardPage{
 	 *
 	 * @param type the type
 	 */
-	public void selectSystemType(SystemType type){
+	public RSENewConnectionWizardSelectionPage selectSystemType(SystemType type){
 		new DefaultTreeItem(new DefaultTree(referencedComposite), "General", type.getLabel()).select(); 
+		return this;
 	}
 	
 	/**

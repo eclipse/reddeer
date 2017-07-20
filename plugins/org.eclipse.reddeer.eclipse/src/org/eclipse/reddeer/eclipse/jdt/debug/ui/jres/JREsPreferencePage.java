@@ -49,8 +49,9 @@ public class JREsPreferencePage extends PreferencePage {
 	 *             if Add JRE wizard cannot be completed.
 	 */
 
-	public void addJRE(String path) {
+	public JREsPreferencePage addJRE(String path) {
 		addJRE(path, null);
+		return this;
 	}
 
 	/**
@@ -64,7 +65,7 @@ public class JREsPreferencePage extends PreferencePage {
 	 *             if Add JRE wizard cannot be completed.
 	 */
 
-	public void addJRE(String path, String name) {
+	public JREsPreferencePage addJRE(String path, String name) {
 		WizardDialog wizard = openAddJREWizard();
 		StandardVMPage vmPage = fillJREDialog(wizard, path, name);
 		if (!wizard.isFinishEnabled()) {
@@ -73,6 +74,7 @@ public class JREsPreferencePage extends PreferencePage {
 			throw new EclipseLayerException(errorMessage);
 		}
 		wizard.finish();
+		return this;
 	}
 
 	/**
@@ -119,10 +121,11 @@ public class JREsPreferencePage extends PreferencePage {
 	 *            Name of JRE to be deleted.
 	 */
 
-	public void deleteJRE(String name) {
+	public JREsPreferencePage deleteJRE(String name) {
 		DefaultTable table = new DefaultTable(referencedComposite);
 		table.getItem(name, 0).select();
 		new PushButton(referencedComposite, "Remove").click();
+		return this;
 	}
 
 	private AddVMInstallWizard openAddJREWizard() {

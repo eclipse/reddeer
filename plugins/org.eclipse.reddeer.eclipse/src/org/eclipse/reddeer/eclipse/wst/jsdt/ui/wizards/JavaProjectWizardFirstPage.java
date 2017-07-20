@@ -31,7 +31,8 @@ public class JavaProjectWizardFirstPage  extends WizardPage {
 	 *
 	 * @param name the new name
 	 */
-	public void setName(String name){
+	public JavaProjectWizardFirstPage setName(String name){
 		new LabeledText(referencedComposite, "Project name:").setText(name);
+		return this;
 	}
 }

@@ -59,33 +59,37 @@ public class BuildPathsPropertyPage extends PropertyPage {
 	/**
 	 * Activates Source tab.
 	 */
-	public void activateSourceTab(){
+	public BuildPathsPropertyPage activateSourceTab(){
 		new DefaultTabItem(referencedComposite, "Source").activate();
 		new WaitWhile(new JobIsRunning());
+		return this;
 	}
 	
 	/**
 	 * Activates Projects tab.
 	 */
-	public void activateProjectsTab(){
+	public BuildPathsPropertyPage activateProjectsTab(){
 		new DefaultTabItem(referencedComposite, "Projects").activate();
 		new WaitWhile(new JobIsRunning());
+		return this;
 	}
 	
 	/**
 	 * Activates Libraries tab.
 	 */
-	public void activateLibrariesTab(){
+	public BuildPathsPropertyPage activateLibrariesTab(){
 		new DefaultTabItem(referencedComposite, "Libraries").activate();
 		new WaitWhile(new JobIsRunning());
+		return this;
 	}
 	
 	/**
 	 * Activates Order and Export tab.
 	 */
-	public void activateOrderAndExportTab(){
+	public BuildPathsPropertyPage activateOrderAndExportTab(){
 		new DefaultTabItem(referencedComposite, "Order and Export").activate();
 		new WaitWhile(new JobIsRunning());
+		return this;
 	}
 	
 	/**
@@ -120,7 +124,7 @@ public class BuildPathsPropertyPage extends PropertyPage {
 	 * @param label the label
 	 * @param removeGlobally the remove globally
 	 */
-	public void removeVariable(String label, boolean removeGlobally){
+	public BuildPathsPropertyPage removeVariable(String label, boolean removeGlobally){
 		log.info("Removing variable: " + label);
 		selectLibrary(new TreeItemTextMatcher(label));
 		new PushButton(referencedComposite, "Remove").click();
@@ -154,6 +158,7 @@ public class BuildPathsPropertyPage extends PropertyPage {
 		}
 		new PushButton(referencedComposite, "Apply").click();
 		new WaitWhile(new JobIsRunning());
+		return this;
 	}
 	
 	/**
@@ -161,8 +166,9 @@ public class BuildPathsPropertyPage extends PropertyPage {
 	 *
 	 * @param matcher the matcher
 	 */
-	public void selectLibrary (Matcher<org.eclipse.swt.widgets.TreeItem> matcher){
+	public BuildPathsPropertyPage selectLibrary (Matcher<org.eclipse.swt.widgets.TreeItem> matcher){
 		new DefaultTreeItem(getLibraryTree(),matcher).select();
+		return this;
 	}
 	
 	/**

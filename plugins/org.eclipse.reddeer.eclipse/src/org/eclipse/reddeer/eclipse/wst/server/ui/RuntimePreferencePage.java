@@ -76,7 +76,7 @@ public class RuntimePreferencePage extends PreferencePage {
 	 * 
 	 * @param runtime Runtime
 	 */
-	public void removeRuntime(Runtime runtime){
+	public RuntimePreferencePage removeRuntime(Runtime runtime){
 		log.info("Removing runtime '" + runtime + "'");
 		selectRuntime(runtime.getName());
 		new PushButton(referencedComposite, "Remove").click();
@@ -88,19 +88,21 @@ public class RuntimePreferencePage extends PreferencePage {
 		} else {
 			log.debug("Server shell was not opened");
 		}
+		return this;
 	}
 	
 	/**
 	 * Removes all runtimes.
 	 */
-	public void removeAllRuntimes(){
+	public RuntimePreferencePage removeAllRuntimes(){
 		log.info("Removing all runtimes");
 		for (Runtime runtime : getServerRuntimes()){
 			removeRuntime(runtime);
 		}
+		return this;
 	}
 	
-	private void selectRuntime(String name){
+	private RuntimePreferencePage selectRuntime(String name){
 		
 		Table table = new DefaultTable(referencedComposite);
 		log.debug("Selecting runtime '" + name + "'");
@@ -110,7 +112,7 @@ public class RuntimePreferencePage extends PreferencePage {
 			if (runtimeName.equals(name)){
 				log.debug("'" + runtimeName + "' matched '" + name + "'! Selecting...");
 				table.select(i);
-				return;
+				return this;
 			}
 		}
 		throw new EclipseLayerException("Unable to find runtime "+name);
@@ -134,8 +136,9 @@ public class RuntimePreferencePage extends PreferencePage {
 	 *
 	 * @param name the name
 	 */
-	public void editRuntime(String name){
+	public RuntimePreferencePage editRuntime(String name){
 		selectRuntime(name);
 		new PushButton(referencedComposite, EDIT_BUTTON_NAME).click();
+		return this;
 	}
 }

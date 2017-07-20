@@ -42,8 +42,9 @@ public class DataModelFacetCreationWizardPage extends WizardPage {
 	 * Sets project name.
 	 * @param projectName project name to set
 	 */
-	public void setProjectName(final String projectName) {
+	public DataModelFacetCreationWizardPage setProjectName(final String projectName) {
 		new LabeledText(referencedComposite, "Project name:").setText(projectName);
+		return this;
 	}
 	
 	/**
@@ -58,8 +59,9 @@ public class DataModelFacetCreationWizardPage extends WizardPage {
 	 * Use default location.
 	 * @param useDefaultLocation true or false
 	 */
-	public void setUseDefaultLocation(final boolean useDefaultLocation) {
+	public DataModelFacetCreationWizardPage setUseDefaultLocation(final boolean useDefaultLocation) {
 		new CheckBox(new DefaultGroup(referencedComposite, "Project location"),"Use default location").toggle(useDefaultLocation);
+		return this;
 	}
 	
 	/**
@@ -74,8 +76,9 @@ public class DataModelFacetCreationWizardPage extends WizardPage {
 	 * Sets location.
 	 * @param location to set
 	 */
-	public void setLocation(final String location) {
+	public DataModelFacetCreationWizardPage setLocation(final String location) {
 		new LabeledText(referencedComposite, "Location:").setText(location);
+		return this;
 	}
 	
 	/**
@@ -90,8 +93,9 @@ public class DataModelFacetCreationWizardPage extends WizardPage {
 	 * Sets target runtime.
 	 * @param targetRuntime to be set
 	 */
-	public void setTargetRuntime(final String targetRuntime) {
+	public DataModelFacetCreationWizardPage setTargetRuntime(final String targetRuntime) {
 		new DefaultCombo(new DefaultGroup(referencedComposite, "Target runtime")).setSelection(targetRuntime);
+		return this;
 	}
 	
 	/**
@@ -106,8 +110,9 @@ public class DataModelFacetCreationWizardPage extends WizardPage {
 	 * Sets configuration.
 	 * @param configuration to be set
 	 */
-	public void setConfiguration(final String configuration) {
+	public DataModelFacetCreationWizardPage setConfiguration(final String configuration) {
 		new DefaultCombo(new DefaultGroup("Configuration")).setSelection(configuration);
+		return this;
 	}
 	
 	/**
@@ -122,8 +127,9 @@ public class DataModelFacetCreationWizardPage extends WizardPage {
 	 * Sets EAR membership.
 	 * @param membership if EAR membership should be enabled
 	 */
-	public void setEARMembership(final boolean membership) {
+	public DataModelFacetCreationWizardPage setEARMembership(final boolean membership) {
 		new CheckBox(new DefaultGroup(referencedComposite, "EAR membership"),"Add project to an EAR").toggle(membership);
+		return this;
 	}
 	
 	/**
@@ -138,8 +144,9 @@ public class DataModelFacetCreationWizardPage extends WizardPage {
 	 * Sets EAR project name in EAR membership.
 	 * @param name project name
 	 */
-	public void setEARProjectName(final String name) {
+	public DataModelFacetCreationWizardPage setEARProjectName(final String name) {
 		new LabeledCombo(new DefaultGroup(referencedComposite, "EAR membership"),"EAR project name:").setText(name);
+		return this;
 	}
 	
 	/**
@@ -154,16 +161,18 @@ public class DataModelFacetCreationWizardPage extends WizardPage {
 	 * Enables/Disables working sets.
 	 * @param workingSets to be set
 	 */
-	public void setWorkingSets(final boolean workingSets) {
+	public DataModelFacetCreationWizardPage setWorkingSets(final boolean workingSets) {
 		new CheckBox(new DefaultGroup(referencedComposite, "Working sets"),"Add project to working sets").toggle(workingSets);
+		return this;
 	}
 	
 	/**
 	 * Sets working sets.
 	 * @param workingSets to be set
 	 */
-	public void setWorkingSets(final String workingSets) {
+	public DataModelFacetCreationWizardPage setWorkingSets(final String workingSets) {
 		new LabeledCombo(new DefaultGroup(referencedComposite, "Working sets"),"Working sets:").setSelection(workingSets);
+		return this;
 	}
 	
 	/**
@@ -179,7 +188,7 @@ public class DataModelFacetCreationWizardPage extends WizardPage {
 	 * @param facetPath path to Facet in tree of facets.
 	 * @param version facet version, can be null - than version is left default
 	 */
-	public void activateFacet(final String version, final String... facetPath) {
+	public DataModelFacetCreationWizardPage activateFacet(final String version, final String... facetPath) {
 		new PushButton(referencedComposite, "Modify...").click();
 		Shell facetsShell = new DefaultShell("Project Facets");
 		DefaultTreeItem facetTreeItem = new DefaultTreeItem(new DefaultTree(facetsShell), facetPath);
@@ -194,6 +203,7 @@ public class DataModelFacetCreationWizardPage extends WizardPage {
 		}
 		new PushButton(facetsShell, "OK").click();
 		new WaitWhile(new ShellIsAvailable(facetsShell));
+		return this;
 	}
 
 }

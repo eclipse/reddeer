@@ -51,22 +51,25 @@ public class StoragePreferencePage extends PreferencePage {
 	/**
 	 * Select Password tab in Security storage page containing general secure storage options.
 	 */
-	public void selectPasswordsTab() {
+	public StoragePreferencePage selectPasswordsTab() {
 		new DefaultTabItem(referencedComposite, "Password").activate();
+		return this;
 	}
 	
 	/**
 	 * Select Contents tab in Storage preference page containing stored passwords with related user names/accounts.
 	 */
-	public void selectContentTab() {
+	public StoragePreferencePage selectContentTab() {
 		new DefaultTabItem(referencedComposite, "Contents").activate();
+		return this;
 	}
 	
 	/**
 	 * Select Advanced tab in Storage preference page containing decryption of stored passwords.
 	 */
-	public void selectAdvancedTab() {
+	public StoragePreferencePage selectAdvancedTab() {
 		new DefaultTabItem(referencedComposite, "Advanced").activate();
+		return this;
 	}
 	
 	/**

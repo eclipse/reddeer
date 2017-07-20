@@ -41,15 +41,17 @@ public class FoldingPreferencePage extends PreferencePage {
 	/**
 	 * Enable folding. If folding is enabled, nothing happen.
 	 */
-	public void enableFolding() {
+	public FoldingPreferencePage enableFolding() {
 		new CheckBox(referencedComposite, 0).toggle(true);
+		return this;
 	}
 	
 	/**
 	 * Disable folding. If folding is disabled, nothing happen.
 	 */
-	public void disableFolding() {
+	public FoldingPreferencePage disableFolding() {
 		new CheckBox(referencedComposite, 0).toggle(false);
+		return this;
 	}
 	
 	/**
@@ -64,15 +66,17 @@ public class FoldingPreferencePage extends PreferencePage {
 	/**
 	 * Enable comments folding. If comments folding is enabled, nothing happen.
 	 */
-	public void enableComments() {
+	public FoldingPreferencePage enableComments() {
 		new CheckBox(referencedComposite, 1).toggle(true);
+		return this;
 	}
 	
 	/**
 	 * Disable comments folding. If comments folding is disabled, nothing happen.
 	 */
-	public void disableComments() {
+	public FoldingPreferencePage disableComments() {
 		new CheckBox(referencedComposite, 1).toggle(false);
+		return this;
 	}
 	
 	/**
@@ -86,15 +90,17 @@ public class FoldingPreferencePage extends PreferencePage {
 	/** 
 	 * Enable header comments folding. If header comments folding is enabled, nothing happen.
 	 */
-	public void enableHeaderComments() {
+	public FoldingPreferencePage enableHeaderComments() {
 		new CheckBox(referencedComposite, 2).toggle(true);
+		return this;
 	}
 	
 	/**
 	 * Disable header comments folding. If header comments folding is disabled, nothing happen.
 	 */
-	public void disableHeaderComments() {
+	public FoldingPreferencePage disableHeaderComments() {
 		new CheckBox(referencedComposite, 2).toggle(false);
+		return this;
 	}
 	
 	/**
@@ -108,15 +114,17 @@ public class FoldingPreferencePage extends PreferencePage {
 	/**
 	 * Enable inner types folding. If inner types folding is enabled, nothing happen.
 	 */
-	public void enableInnerTypes() {
+	public FoldingPreferencePage enableInnerTypes() {
 		new CheckBox(referencedComposite, 3).toggle(true);
+		return this;
 	}
 	
 	/**
 	 * Disable inner types folding. If inner types folding is disabled, nothing happen.
 	 */
-	public void disableInnerTypes() {
+	public FoldingPreferencePage disableInnerTypes() {
 		new CheckBox(referencedComposite, 3).toggle(false);
+		return this;
 	}
 	
 	/**
@@ -130,15 +138,17 @@ public class FoldingPreferencePage extends PreferencePage {
 	/**
 	 * Enable members folding. If members folding is enabled, nothing happen.
 	 */
-	public void enableMembers() {
+	public FoldingPreferencePage enableMembers() {
 		new CheckBox(referencedComposite, 4).toggle(true);
+		return this;
 	}
 	
 	/**
 	 * Disable members folding. If members folding is disabled, nothing happen.
 	 */
-	public void disableMembers() {
+	public FoldingPreferencePage disableMembers() {
 		new CheckBox(referencedComposite, 4).toggle(false);
+		return this;
 	}
 	
 	/**
@@ -152,15 +162,17 @@ public class FoldingPreferencePage extends PreferencePage {
 	/**
 	 * Enable imports folding. If imports folding is enabled, nothing happen.
 	 */
-	public void enableImports() {
+	public FoldingPreferencePage enableImports() {
 		new CheckBox(referencedComposite, 5).toggle(true);
+		return this;
 	}
 	
 	/**
 	 * Disable imports folding. If imports folding is disabled, nothing happen.
 	 */
-	public void disableImports() {
+	public FoldingPreferencePage disableImports() {
 		new CheckBox(referencedComposite, 5).toggle(false);
+		return this;
 	}
 
 }

@@ -44,11 +44,12 @@ public class NewServerWizardPage extends WizardPage {
 	 * @param type
 	 *            the type
 	 */
-	public void selectType(String... type) {
+	public NewServerWizardPage selectType(String... type) {
 		new GroupWait(waitUntil(new NamedThreadHasStatus(new StringContains("Initializing Servers view"), Thread.State.TERMINATED, true)),
 				waitUntil(new TreeContainsItem(new DefaultTree(referencedComposite), type)));
 		new DefaultTreeItem(new DefaultTree(referencedComposite), type).select();
 		new WaitUntil(new ControlIsEnabled(new NextButton(referencedComposite)));
+		return this;
 	}
 
 	/**
@@ -57,8 +58,9 @@ public class NewServerWizardPage extends WizardPage {
 	 * @param name
 	 *            the new name
 	 */
-	public void setName(String name) {
+	public NewServerWizardPage setName(String name) {
 		new LabeledText(referencedComposite, "Server name:").setText(name);
+		return this;
 	}
 
 	/**
@@ -67,7 +69,8 @@ public class NewServerWizardPage extends WizardPage {
 	 * @param name
 	 *            the new host name
 	 */
-	public void setHostName(String name) {
+	public NewServerWizardPage setHostName(String name) {
 		new LabeledText(referencedComposite, "Server's host name:").setText(name);
+		return this;
 	}
 }

@@ -85,8 +85,9 @@ public abstract class ExtensibleProfileDetailsWizardPage extends WizardPage {
 	 * @param driver
 	 *            Driver name
 	 */
-	public void setDriver(String driver) {
+	public ExtensibleProfileDetailsWizardPage setDriver(String driver) {
 		new LabeledCombo(referencedComposite, LABEL_DRIVER).setSelection(driver);
+		return this;
 	}
 
 	/**
@@ -104,8 +105,9 @@ public abstract class ExtensibleProfileDetailsWizardPage extends WizardPage {
 	 * @param database
 	 *            Database
 	 */
-	public void setDatabase(String database) {
+	public ExtensibleProfileDetailsWizardPage setDatabase(String database) {
 		new LabeledText(referencedComposite, getDatabaseLabel()).setText(database);
+		return this;
 	}
 
 	/**
@@ -123,8 +125,9 @@ public abstract class ExtensibleProfileDetailsWizardPage extends WizardPage {
 	 * @param hostname
 	 *            Hostname
 	 */
-	public void setHostname(String hostname) {
+	public ExtensibleProfileDetailsWizardPage setHostname(String hostname) {
 		new LabeledText(referencedComposite, getHostnameLabel()).setText(hostname);
+		return this;
 	}
 
 	/**
@@ -140,8 +143,9 @@ public abstract class ExtensibleProfileDetailsWizardPage extends WizardPage {
 	 * Sets database URL.
 	 * @param URL URL of database
 	 */
-	public void setURL(String URL) {
+	public ExtensibleProfileDetailsWizardPage setURL(String URL) {
 		new LabeledText(referencedComposite, getURLLabel()).setText(URL);
+		return this;
 	}
 	
 	/**
@@ -159,8 +163,9 @@ public abstract class ExtensibleProfileDetailsWizardPage extends WizardPage {
 	 * @param userName
 	 *            User name
 	 */
-	public void setUsername(String userName) {
+	public ExtensibleProfileDetailsWizardPage setUsername(String userName) {
 		new LabeledText(referencedComposite, getUsernameLabel()).setText(userName);
+		return this;
 	}
 	
 	/**
@@ -178,8 +183,9 @@ public abstract class ExtensibleProfileDetailsWizardPage extends WizardPage {
 	 * @param port
 	 *            Port
 	 */
-	public void setPort(String port) {
+	public ExtensibleProfileDetailsWizardPage setPort(String port) {
 		new LabeledText(referencedComposite, getPortLabel()).setText(port);
+		return this;
 	}
 	
 	/**
@@ -197,8 +203,9 @@ public abstract class ExtensibleProfileDetailsWizardPage extends WizardPage {
 	 * @param password
 	 *            Password
 	 */
-	public void setPassword(String password) {
+	public ExtensibleProfileDetailsWizardPage setPassword(String password) {
 		new LabeledText(referencedComposite, getPasswordLabel()).setText(password);
+		return this;
 	}
 	
 	/**
@@ -206,8 +213,9 @@ public abstract class ExtensibleProfileDetailsWizardPage extends WizardPage {
 	 * 
 	 * @param toggle set to true to save password, false otherwise
 	 */
-	public void toggleSavePassword(boolean toggle) {
+	public ExtensibleProfileDetailsWizardPage toggleSavePassword(boolean toggle) {
 		new CheckBox(referencedComposite, getSavePasswordLabel()).click(); 
+		return this;
 	}
 	
 	/**

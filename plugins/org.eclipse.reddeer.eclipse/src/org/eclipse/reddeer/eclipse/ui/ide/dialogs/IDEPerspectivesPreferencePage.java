@@ -136,35 +136,40 @@ public class IDEPerspectivesPreferencePage extends PreferencePage {
 	/** 
 	 * Check Open a new perspective in the same window.
 	 */
-	public void checkOpenNewPerspectiveInSameWindow() {
+	public IDEPerspectivesPreferencePage checkOpenNewPerspectiveInSameWindow() {
 		getOpenNewPerspectiveInSameWindowRadioButton().toggle(true);
+		return this;
 	}
 
 	/**
 	 *  Checks Open a new perspective in new window.
 	 */
-	public void checkOpenNewPerspectiveInNewWindow() {
+	public IDEPerspectivesPreferencePage checkOpenNewPerspectiveInNewWindow() {
 		getOpenNewPerspectiveInNewWindowRadioButton().toggle(true);
+		return this;
 	}
 
 	/**
 	 *  Checks Always Open the associated perspective when creating a new project.
 	 */
-	public void checkAlwaysOpenAssociatedPerspective() {
+	public IDEPerspectivesPreferencePage checkAlwaysOpenAssociatedPerspective() {
 		getAlwaysOpenAssociatedPerspectiveRadioButton().toggle(true);
+		return this;
 	}
 
 	/** 
 	 * Checks Newer Open the associated perspective when creating a new project.
 	 */
-	public void checkNeverOpenAssociatedPerspective() {
+	public IDEPerspectivesPreferencePage checkNeverOpenAssociatedPerspective() {
 		getNeverOpenAssociatedPerspectiveRadioButton().toggle(true);
+		return this;
 	}
 
 	/** 
 	 * Checks Prompt Open the associated perspective when creating a new project.
 	 */
-	public void checkPromptOpenAssociatedPerspective() {
+	public IDEPerspectivesPreferencePage checkPromptOpenAssociatedPerspective() {
 		getPromptOpenAssociatedPerspectiveRadioButton().toggle(true);
+		return this;
 	}
 }

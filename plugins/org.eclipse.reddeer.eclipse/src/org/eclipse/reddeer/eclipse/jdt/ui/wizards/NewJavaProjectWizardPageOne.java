@@ -34,9 +34,10 @@ public class NewJavaProjectWizardPageOne extends WizardPage {
 	 * @param projectName
 	 *            Project name
 	 */
-	public void setProjectName(String projectName) {
+	public NewJavaProjectWizardPageOne setProjectName(String projectName) {
 		log.debug("Set General Project name to '" + projectName + "'");
 		new LabeledText(referencedComposite, "Project name:").setText(projectName);
+		return this;
 	}
 
 	/**
@@ -45,10 +46,11 @@ public class NewJavaProjectWizardPageOne extends WizardPage {
 	 * @param check
 	 *            Indicates whether to use dafualt location
 	 */
-	public void useDefaultLocation(boolean check) {
+	public NewJavaProjectWizardPageOne useDefaultLocation(boolean check) {
 		CheckBox box = new CheckBox(referencedComposite, "Use default location");
 		log.debug("Setting default location to " + check);
 		box.toggle(check);
+		return this;
 	}
 
 	/**
@@ -57,10 +59,11 @@ public class NewJavaProjectWizardPageOne extends WizardPage {
 	 * @param location
 	 *            Location
 	 */
-	public void setLocation(String location) {
+	public NewJavaProjectWizardPageOne setLocation(String location) {
 		log.debug("Setting Location to '" + location + "'");
 		LabeledText text = new LabeledText(referencedComposite, "Location:");
 		text.setText(location);
+		return this;
 	}
 
 }

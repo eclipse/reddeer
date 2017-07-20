@@ -32,8 +32,9 @@ public class NewEnumWizardPage extends WizardPage{
 	 *
 	 * @param name of enum
 	 */
-	public void setName(String name){
+	public NewEnumWizardPage setName(String name){
 		new LabeledText(referencedComposite, "Name:").setText(name);
+		return this;
 	}
 	
 	/**
@@ -41,8 +42,9 @@ public class NewEnumWizardPage extends WizardPage{
 	 *
 	 * @param packageName of enum
 	 */
-	public void setPackage(String packageName) {
+	public NewEnumWizardPage setPackage(String packageName) {
 		new LabeledText(referencedComposite, "Package:").setText(packageName);
+		return this;
 	}
 	
 	/**
@@ -50,8 +52,9 @@ public class NewEnumWizardPage extends WizardPage{
 	 *
 	 * @param sourceFolder of enum
 	 */
-	public void setSourceFolder(String sourceFolder){
+	public NewEnumWizardPage setSourceFolder(String sourceFolder){
 		new LabeledText(referencedComposite, "Source folder:").setText(sourceFolder);
+		return this;
 	}
 	
 	/**
@@ -59,8 +62,9 @@ public class NewEnumWizardPage extends WizardPage{
 	 *
 	 * @param toggle generate comments checkbox
 	 */
-	public void toggleGenerateComments(boolean toggle){
+	public NewEnumWizardPage toggleGenerateComments(boolean toggle){
 		new CheckBox(referencedComposite, "Generate comments").toggle(toggle);
+		return this;
 	}
 	
 	/**
@@ -68,8 +72,9 @@ public class NewEnumWizardPage extends WizardPage{
 	 *
 	 * @param toggle enclosing type checkbox
 	 */
-	public void toggleEnclosingType(boolean toggle){
+	public NewEnumWizardPage toggleEnclosingType(boolean toggle){
 		new CheckBox(referencedComposite, "Enclosing type").toggle(toggle);
+		return this;
 	}
 	
 	/**
@@ -77,8 +82,9 @@ public class NewEnumWizardPage extends WizardPage{
 	 *
 	 * @param enclosingType of enum
 	 */
-	public void setEnclosingType(String enclosingType){
+	public NewEnumWizardPage setEnclosingType(String enclosingType){
 		new LabeledText(referencedComposite, "Enclosing type").setText(enclosingType);
+		return this;
 	}
 	
 	/**
@@ -86,8 +92,9 @@ public class NewEnumWizardPage extends WizardPage{
 	 *
 	 * @param toggle public modifier radio button
 	 */
-	public void togglePublicModifier(boolean toggle){
+	public NewEnumWizardPage togglePublicModifier(boolean toggle){
 		new RadioButton(referencedComposite, "public").toggle(toggle);
+		return this;
 	}
 	
 	/**
@@ -95,8 +102,9 @@ public class NewEnumWizardPage extends WizardPage{
 	 *
 	 * @param toggle default modifier radio button
 	 */
-	public void toggleDefaultModifier(boolean toggle){
+	public NewEnumWizardPage toggleDefaultModifier(boolean toggle){
 		new RadioButton(referencedComposite, "default").toggle(toggle);
+		return this;
 	}
 	
 	/**
@@ -104,8 +112,9 @@ public class NewEnumWizardPage extends WizardPage{
 	 *
 	 * @param toggle private modifier radio button
 	 */
-	public void togglePrivateModifier(boolean toggle){
+	public NewEnumWizardPage togglePrivateModifier(boolean toggle){
 		new RadioButton(referencedComposite, "private").toggle(toggle);
+		return this;
 	}
 	
 	/**
@@ -113,8 +122,9 @@ public class NewEnumWizardPage extends WizardPage{
 	 *
 	 * @param toggle protected modifier radio button
 	 */
-	public void toggleProtectedModifier(boolean toggle){
+	public NewEnumWizardPage toggleProtectedModifier(boolean toggle){
 		new RadioButton(referencedComposite, "protected").toggle(toggle);
+		return this;
 	}
 	
 	/**
