@@ -43,8 +43,8 @@ public class WindowIsAvailable extends AbstractWaitCondition{
 	 * @param windowClass if you need to specify window class (found in shell's data)
 	 * @param matchers to match window
 	 */
-	public WindowIsAvailable(Class<?> windowClass, Matcher<?>...matchers){
-		WindowMatcher<?> wm = new WindowMatcher(windowClass);
+	public <T extends org.eclipse.jface.window.Window> WindowIsAvailable(Class<T> windowClass, Matcher<?>...matchers){
+		WindowMatcher wm = new WindowMatcher(windowClass);
 		Matcher<?>[] allMatchers = MatcherBuilder.getInstance().addMatcher(matchers, wm);
 		this.matcher  = new AndMatcher(allMatchers);
 	}

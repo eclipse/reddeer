@@ -72,7 +72,7 @@ public abstract class AbstractWindow implements Window{
 	 *            to match shell
 	 */
 	public AbstractWindow(Matcher<?>...matchers) {
-		WindowMatcher<?> wm = new WindowMatcher(getEclipseClass());
+		WindowMatcher wm = new WindowMatcher(getEclipseClass());
 		Matcher<?>[] allMatchers = MatcherBuilder.getInstance().addMatcher(matchers, wm);
 		this.windowMatchers = matchers;
 		this.shell = new DefaultShell(ShellLookup.getInstance().getShell(allMatchers));
@@ -178,7 +178,7 @@ public abstract class AbstractWindow implements Window{
 	}
 
 	@Override
-	public Class<?> getEclipseClass() {
+	public Class<? extends org.eclipse.jface.window.Window> getEclipseClass() {
 		return org.eclipse.jface.window.Window.class;
 	}
 	

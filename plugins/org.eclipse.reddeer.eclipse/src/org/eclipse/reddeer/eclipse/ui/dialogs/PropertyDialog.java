@@ -25,7 +25,7 @@ public class PropertyDialog extends WorkbenchMenuPreferencesDialog {
 	}
 	
 	@Override
-	public Class<?> getEclipseClass() {
+	public Class<? extends org.eclipse.jface.window.Window> getEclipseClass() {
 		return org.eclipse.ui.internal.dialogs.PropertyDialog.class;
 	}
 }
