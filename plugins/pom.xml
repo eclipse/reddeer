@@ -46,6 +46,7 @@
 		<module>org.eclipse.reddeer.recorder</module>
 		<module>org.eclipse.reddeer.go</module>
 		<module>org.eclipse.reddeer.logparser</module>
+		<module>org.eclipse.reddeer.codegen</module>
 	</modules>
 
 </project>

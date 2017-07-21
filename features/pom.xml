@@ -34,6 +34,7 @@
 		<module>org.eclipse.reddeer.spy.feature</module>
 		<module>org.eclipse.reddeer.logparser.feature</module>
 		<module>org.eclipse.reddeer.selenium.feature</module>
+		<module>org.eclipse.reddeer.codegen.feature</module>
 	</modules>
 	
 </project>

@@ -40,6 +40,10 @@
 		<category name="ToolFeatures"/>
 	</feature>
 	
+	<feature url="org.eclipse.reddeer.codegen.feature.qualifier" id="org.eclipse.reddeer.codegen.feature" version="0.0.0">
+		<category name="ToolFeatures"/>
+	</feature>
+	
 	<feature url="org.eclipse.reddeer.spy.feature.qualifier" id="org.eclipse.reddeer.spy.feature" version="0.0.0">
 		<category name="ToolFeatures"/>
 	</feature>
