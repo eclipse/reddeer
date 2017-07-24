@@ -23,8 +23,8 @@ import org.eclipse.reddeer.swt.api.TreeItem;
 import org.eclipse.reddeer.swt.condition.ShellIsAvailable;
 import org.eclipse.reddeer.swt.exception.SWTLayerException;
 import org.eclipse.reddeer.swt.impl.button.PushButton;
-import org.eclipse.reddeer.swt.impl.menu.ContextMenu;
-import org.eclipse.reddeer.swt.impl.menu.ShellMenu;
+import org.eclipse.reddeer.swt.impl.menu.ContextMenuItem;
+import org.eclipse.reddeer.swt.impl.menu.ShellMenuItem;
 import org.eclipse.reddeer.swt.impl.shell.DefaultShell;
 import org.eclipse.reddeer.swt.impl.text.DefaultText;
 import org.eclipse.reddeer.swt.impl.tree.DefaultTree;
@@ -53,7 +53,7 @@ public class TaskRepositoriesView extends WorkbenchView {
 	 * Saves the task.
 	 */
 	public void saveTask () {
-		new ShellMenu("File", "Save").select(); 
+		new ShellMenuItem("File", "Save").select(); 
 	}
 	
 	/**
@@ -67,7 +67,7 @@ public class TaskRepositoriesView extends WorkbenchView {
 		log.info("Found Local Task Repo: '" + repoItems.get(elementIndex).getText() + "'");	
 		repoItems.get(elementIndex).select();	
 		
-		new ShellMenu("File", "New", "Other...").select();  
+		new ShellMenuItem("File", "New", "Other...").select();  
 		new DefaultTree();
 		DefaultTreeItem theNewTask = new DefaultTreeItem ("Tasks", "Task");
 		theNewTask.select();	
@@ -86,7 +86,7 @@ public class TaskRepositoriesView extends WorkbenchView {
 	 * @param taskName Task name
 	 */
 	public void activateTask (String taskName) {		
-		new ShellMenu("Navigate", "Activate Task...").select(); 
+		new ShellMenuItem("Navigate", "Activate Task...").select(); 
 		DefaultShell shellThatTakesLongTimeToClose = new DefaultShell("Activate Task");
 		new DefaultText().setText(taskName);
 		new PushButton("OK").click();	
@@ -99,7 +99,7 @@ public class TaskRepositoriesView extends WorkbenchView {
 	 * @param taskName Task name
 	 */
 	public void openTask (String taskName) {		
-		new ShellMenu("Navigate", "Open Task...").select();  
+		new ShellMenuItem("Navigate", "Open Task...").select();  
 		DefaultShell shellThatTakesLongTimeToClose = new DefaultShell("Open Task");
 		new DefaultText().setText(taskName);
 		new PushButton("OK").click();	
@@ -110,14 +110,14 @@ public class TaskRepositoriesView extends WorkbenchView {
 	 * Deactivates the task.
 	 */
 	public void deactivateTask () {		
-		new ShellMenu("Navigate", "Deactivate Task").select();  
+		new ShellMenuItem("Navigate", "Deactivate Task").select();  
 	}
 	
 	/**
 	 * Deletes the task.
 	 */
 	public void deleteTask () {		
-		new ShellMenu("Edit", "Delete").select();  
+		new ShellMenuItem("Edit", "Delete").select();  
 		new PushButton("Yes").click();	
 	}
 	
@@ -128,7 +128,7 @@ public class TaskRepositoriesView extends WorkbenchView {
 	 */
 	public NewRepositoryWizard newTaskRepositories(){		
 		log.info("Creating new repository");
-		new ContextMenu("New","Add Task Repository...").select();
+		new ContextMenuItem("New","Add Task Repository...").select();
 		new DefaultShell("Add Task Repository...");
 		return new NewRepositoryWizard();
 	}

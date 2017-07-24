@@ -10,61 +10,34 @@
  *******************************************************************************/
 package org.eclipse.reddeer.swt.api;
 
-import java.util.List;
-import org.eclipse.swt.widgets.MenuItem;
+import org.hamcrest.Matcher;
 
 /**
- * API for menu (menu item) manipulation.
- * 
- * @author Jiri Peterka
+ * API for menu manipulation
+ * @author rawagner
  *
  */
-
-public interface Menu extends Item<MenuItem> {
-
-	/**
-	 * Selects the menu.
-	 */
-	void select();
-
-	/**
-	 * Checks whether menu is selected or not - related only to CHECK and RADIO
-	 * styled menus.
-	 * 
-	 * @return true if menu is selected, false otherwise
-	 */
-	boolean isSelected();
-
-	/**
-	 * Returns title text of the menu.
-	 * 
-	 * @return menu text
-	 */
-	String getText();	
+public interface Menu extends Widget<org.eclipse.swt.widgets.Menu>{
 	
 	/**
-	 * Returns text of child items of the menu.
-	 * 
-	 * @return text of child items of the menu
+	 * Gets menu items of the menu
+	 * @return menu items of the menu
 	 */
-	List<String> getChildItems();
+	java.util.List<MenuItem> getItems();
 	
 	/**
-	 * Returns menu items (child elements).
-	 * @return List of inner Menus.
+	 * Finds menu item with given path
+	 * @param path of menu item to find
+	 * @return menu item
 	 */
-	List<Menu> getMenuItems();
-
-	/**
-	 * Retrieves available menu items.
-	 * @return List of enabled child menus.
-	 */
-	List<Menu> getAvailableChildItems();
+	MenuItem getItem(String... path);
 	
 	/**
-	 * Checks if menu is enabled
-	 * @return true if menu is enabled, false otherwise
+	 * Finds menu item matching given matchers
+	 * @param matchers 
+	 * @return menu item
 	 */
-	boolean isEnabled();
+	@SuppressWarnings("unchecked")
+	MenuItem getItem(Matcher<String>... matchers);
 
 }

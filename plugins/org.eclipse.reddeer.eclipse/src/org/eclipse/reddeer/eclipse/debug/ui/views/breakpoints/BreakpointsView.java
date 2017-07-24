@@ -21,7 +21,7 @@ import org.eclipse.reddeer.swt.condition.ControlIsEnabled;
 import org.eclipse.reddeer.swt.condition.ShellIsAvailable;
 import org.eclipse.reddeer.swt.impl.button.OkButton;
 import org.eclipse.reddeer.swt.impl.button.PushButton;
-import org.eclipse.reddeer.swt.impl.menu.ContextMenu;
+import org.eclipse.reddeer.swt.impl.menu.ContextMenuItem;
 import org.eclipse.reddeer.swt.impl.shell.DefaultShell;
 import org.eclipse.reddeer.swt.impl.text.DefaultText;
 import org.eclipse.reddeer.swt.impl.text.LabeledText;
@@ -115,7 +115,7 @@ public class BreakpointsView extends WorkbenchView {
 		log.info("Importing breakpoints from '" + path + "'");
 		open();
 		new DefaultTree(cTabItem).setFocus();
-		new ContextMenu("Import Breakpoints...").select();
+		new ContextMenuItem("Import Breakpoints...").select();
 		new DefaultShell("Import Breakpoints");
 		new LabeledText("From file:").setText(path);
 		new PushButton("Finish").click();

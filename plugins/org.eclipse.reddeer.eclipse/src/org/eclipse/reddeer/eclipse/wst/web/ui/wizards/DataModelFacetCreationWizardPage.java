@@ -20,7 +20,7 @@ import org.eclipse.reddeer.swt.impl.button.PushButton;
 import org.eclipse.reddeer.swt.impl.combo.DefaultCombo;
 import org.eclipse.reddeer.swt.impl.combo.LabeledCombo;
 import org.eclipse.reddeer.swt.impl.group.DefaultGroup;
-import org.eclipse.reddeer.swt.impl.menu.ContextMenu;
+import org.eclipse.reddeer.swt.impl.menu.ContextMenuItem;
 import org.eclipse.reddeer.swt.impl.shell.DefaultShell;
 import org.eclipse.reddeer.swt.impl.text.LabeledText;
 import org.eclipse.reddeer.swt.impl.tree.DefaultTree;
@@ -195,7 +195,7 @@ public class DataModelFacetCreationWizardPage extends WizardPage {
 		facetTreeItem.select();
 		facetTreeItem.setChecked(true);
 		if (version != null) {
-			new ContextMenu("Change Version...").select();
+			new ContextMenuItem("Change Version...").select();
 			Shell versionShell = new DefaultShell("Change Version");
 			new LabeledCombo(versionShell, "Version:").setSelection(version);
 			new PushButton(versionShell, "OK").click();

@@ -104,6 +104,11 @@ public abstract class AbstractCTabItem extends AbstractItem<org.eclipse.swt.cust
 	}
 	
 	@Override
+	public org.eclipse.reddeer.swt.api.Control<?> getParentControl() {
+		return getFolder();
+	}
+	
+	@Override
 	public Control getControl(){
 		return cTabItemHandler.getControl(swtWidget);
 	}

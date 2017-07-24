@@ -13,6 +13,7 @@ package org.eclipse.reddeer.swt.impl.table;
 import org.eclipse.swt.graphics.Image;
 import org.hamcrest.Matcher;
 import org.eclipse.reddeer.common.logging.Logger;
+import org.eclipse.reddeer.swt.api.Control;
 import org.eclipse.reddeer.swt.api.Table;
 import org.eclipse.reddeer.swt.api.TableItem;
 import org.eclipse.reddeer.swt.api.TreeItem;
@@ -133,5 +134,10 @@ public abstract class AbstractTableItem extends AbstractItem<org.eclipse.swt.wid
 	public void doubleClick(int column){
 		log.info("Double click column " + column + " of table item " + getText());
 		TableItemHandler.getInstance().doubleClick(swtWidget, column);
+	}
+	
+	@Override
+	public Control<?> getParentControl() {
+		return getParent();
 	}
 }

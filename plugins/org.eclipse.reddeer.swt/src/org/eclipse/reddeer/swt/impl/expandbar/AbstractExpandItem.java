@@ -105,6 +105,11 @@ public abstract class AbstractExpandItem extends AbstractItem<org.eclipse.swt.wi
 		return new DefaultExpandBar(ExpandItemHandler.getInstance().getParent(swtWidget));
 	}
 	
+	@Override
+	public org.eclipse.reddeer.swt.api.Control<?> getParentControl() {
+		return getParent();
+	}
+	
 	/**
 	 * See {@link ExpandItem}.
 	 *

@@ -14,7 +14,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.eclipse.reddeer.junit.runner.RedDeerSuite;
 import org.eclipse.reddeer.requirements.autobuilding.AutoBuildingRequirement.AutoBuilding;
-import org.eclipse.reddeer.swt.impl.menu.ShellMenu;
+import org.eclipse.reddeer.swt.impl.menu.ShellMenuItem;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -29,7 +29,7 @@ public class AutoBuildingRequirementWithoutCleanupTest {
 
 	@Test
 	public void autoBuildRequirementOnTest() {
-		assertTrue(new ShellMenu("Project", "Build Automatically").isSelected());
+		assertTrue(new ShellMenuItem("Project", "Build Automatically").isSelected());
 	}
 
 }

@@ -21,7 +21,7 @@ import org.eclipse.reddeer.gef.impl.editpart.LabeledEditPart;
 import org.eclipse.reddeer.junit.runner.RedDeerSuite;
 import org.eclipse.reddeer.swt.condition.ShellIsAvailable;
 import org.eclipse.reddeer.swt.impl.button.PushButton;
-import org.eclipse.reddeer.swt.impl.menu.ShellMenu;
+import org.eclipse.reddeer.swt.impl.menu.ShellMenuItem;
 import org.eclipse.reddeer.swt.impl.shell.DefaultShell;
 import org.eclipse.reddeer.swt.impl.text.LabeledText;
 import org.eclipse.reddeer.swt.impl.tree.DefaultTreeItem;
@@ -47,7 +47,7 @@ public class TabbedPropertiesTest {
 		new ProjectExplorer().open();
 		new PropertySheet().open();
 
-		new ShellMenu("File", "New", "Project...").select();
+		new ShellMenuItem("File", "New", "Project...").select();
 		new DefaultShell("New Project");
 		new DefaultTreeItem("General", "Project").select();
 		new PushButton("Next >").click();
@@ -58,7 +58,7 @@ public class TabbedPropertiesTest {
 
 		new ProjectExplorer().getProject("test").select();
 
-		new ShellMenu("File", "New", "Other...").select();
+		new ShellMenuItem("File", "New", "Other...").select();
 		new DefaultShell("New");
 		new DefaultTreeItem("XML", "XML Schema File").select();
 		new PushButton("Next >").click();

@@ -15,7 +15,7 @@ import org.eclipse.reddeer.swt.api.Shell;
 import org.eclipse.reddeer.swt.api.TreeItem;
 import org.eclipse.reddeer.swt.condition.ShellIsAvailable;
 import org.eclipse.reddeer.swt.impl.button.OkButton;
-import org.eclipse.reddeer.swt.impl.menu.ContextMenu;
+import org.eclipse.reddeer.swt.impl.menu.ContextMenuItem;
 import org.eclipse.reddeer.swt.impl.shell.DefaultShell;
 import org.eclipse.reddeer.swt.impl.tree.DefaultTreeItem;
 
@@ -35,7 +35,7 @@ public abstract class AbstractProjectItem extends DefaultResource implements Pro
 	@Override
 	public void openWith(String editor) {
 		select();
-		new ContextMenu("Open With", "Other...").select();
+		new ContextMenuItem("Open With", "Other...").select();
 		Shell shell = new DefaultShell("Editor Selection");
 		new DefaultTreeItem(editor).select();
 		new OkButton().click();

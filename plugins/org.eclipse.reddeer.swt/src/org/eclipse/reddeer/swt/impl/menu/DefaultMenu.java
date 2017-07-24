@@ -10,12 +10,17 @@
  *******************************************************************************/
 package org.eclipse.reddeer.swt.impl.menu;
 
-import org.eclipse.swt.widgets.MenuItem;
+import org.eclipse.swt.widgets.Menu;
 
-public class DefaultMenu extends AbstractMenu {
-
-	public DefaultMenu(MenuItem item){
-		super(item);
-	}
+/**
+ * Default Menu implementation
+ * @author rawagner
+ *
+ */
+public class DefaultMenu extends AbstractMenu{
 	
+	public DefaultMenu(Menu menu) {
+		super(menu);
+	}
+
 }

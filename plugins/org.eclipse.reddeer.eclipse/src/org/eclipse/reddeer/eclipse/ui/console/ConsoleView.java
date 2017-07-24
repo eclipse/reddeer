@@ -23,7 +23,7 @@ import org.eclipse.reddeer.core.matcher.WithTextMatcher;
 import org.eclipse.reddeer.eclipse.condition.ConsoleHasLabel;
 import org.eclipse.reddeer.eclipse.condition.ConsoleHasLaunch;
 import org.eclipse.reddeer.eclipse.condition.ConsoleIsTerminated;
-import org.eclipse.reddeer.swt.impl.menu.ToolItemMenu;
+import org.eclipse.reddeer.swt.impl.menu.ToolItemMenuItem;
 import org.eclipse.reddeer.swt.impl.styledtext.DefaultStyledText;
 import org.eclipse.reddeer.swt.impl.toolbar.DefaultToolItem;
 import org.eclipse.reddeer.workbench.impl.view.WorkbenchView;
@@ -198,7 +198,7 @@ public class ConsoleView extends WorkbenchView {
 	@SuppressWarnings("unchecked")
 	public void switchConsole(Matcher<String> textMatcher){
 		activate();
-		ToolItemMenu menu = new ToolItemMenu(new DefaultToolItem(cTabItem.getFolder(), "Display Selected Console"), textMatcher);
+		ToolItemMenuItem menu = new ToolItemMenuItem(new DefaultToolItem(cTabItem.getFolder(), "Display Selected Console"), textMatcher);
 		menu.select();
 		new WaitUntil(new ConsoleHasLabel(textMatcher));
 	}

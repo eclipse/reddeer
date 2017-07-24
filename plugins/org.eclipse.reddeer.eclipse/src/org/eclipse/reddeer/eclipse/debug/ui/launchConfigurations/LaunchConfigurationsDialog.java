@@ -19,13 +19,13 @@ import org.eclipse.reddeer.core.condition.WidgetIsFound;
 import org.eclipse.reddeer.core.lookup.WidgetLookup;
 import org.eclipse.reddeer.core.matcher.WithTextMatcher;
 import org.eclipse.reddeer.swt.api.Button;
-import org.eclipse.reddeer.swt.api.Menu;
+import org.eclipse.reddeer.swt.api.MenuItem;
 import org.eclipse.reddeer.swt.api.TreeItem;
 import org.eclipse.reddeer.swt.condition.ShellIsAvailable;
 import org.eclipse.reddeer.swt.impl.button.PushButton;
 import org.eclipse.reddeer.swt.impl.button.YesButton;
-import org.eclipse.reddeer.swt.impl.menu.ContextMenu;
-import org.eclipse.reddeer.swt.impl.menu.ShellMenu;
+import org.eclipse.reddeer.swt.impl.menu.ContextMenuItem;
+import org.eclipse.reddeer.swt.impl.menu.ShellMenuItem;
 import org.eclipse.reddeer.swt.impl.shell.DefaultShell;
 import org.eclipse.reddeer.swt.impl.tree.DefaultTreeItem;
 import org.eclipse.reddeer.workbench.core.condition.JobIsRunning;
@@ -62,7 +62,7 @@ public abstract class LaunchConfigurationsDialog {
 	public void open() {
 		log.info("Open launch configuration dialog");
 
-		Menu menu = new ShellMenu("Run", getMenuItemName());
+		MenuItem menu = new ShellMenuItem("Run", getMenuItemName());
 		menu.select();
 
 		new DefaultShell(getTitle());
@@ -116,7 +116,7 @@ public abstract class LaunchConfigurationsDialog {
 
 		new WaitUntil(new TreeIsSelectedAndHasFocus(t));
 
-		new ContextMenu("New").select();
+		new ContextMenuItem("New").select();
 		if (name != null) {
 			configuration.setName(name);
 			configuration.apply();
@@ -134,7 +134,7 @@ public abstract class LaunchConfigurationsDialog {
 		TreeItem t = new DefaultTreeItem(configuration.getType(), name);
 		t.select();
 
-		new ContextMenu("Delete").select();
+		new ContextMenuItem("Delete").select();
 		new YesButton().click();
 	}
 	

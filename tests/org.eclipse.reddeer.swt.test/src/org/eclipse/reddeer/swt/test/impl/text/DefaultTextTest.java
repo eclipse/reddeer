@@ -16,7 +16,7 @@ import static org.junit.Assert.assertTrue;
 import org.eclipse.reddeer.junit.runner.RedDeerSuite;
 import org.eclipse.reddeer.swt.api.Text;
 import org.eclipse.reddeer.swt.impl.button.PushButton;
-import org.eclipse.reddeer.swt.impl.menu.ShellMenu;
+import org.eclipse.reddeer.swt.impl.menu.ShellMenuItem;
 import org.eclipse.reddeer.swt.impl.shell.DefaultShell;
 import org.eclipse.reddeer.swt.impl.text.DefaultText;
 import org.eclipse.reddeer.workbench.impl.view.WorkbenchView;
@@ -46,7 +46,7 @@ public class DefaultTextTest {
 	
 	@Test
 	public void testInDialog() {
-		new ShellMenu("File","New","Other...").select();
+		new ShellMenuItem("File","New","Other...").select();
 		new DefaultShell("New");
 		Text t = new DefaultText(0);
 		t.setText("myvalue");

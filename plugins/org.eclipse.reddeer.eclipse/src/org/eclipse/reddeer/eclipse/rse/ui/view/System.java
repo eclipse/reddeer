@@ -24,7 +24,7 @@ import org.eclipse.reddeer.swt.api.TreeItem;
 import org.eclipse.reddeer.swt.condition.ShellIsAvailable;
 import org.eclipse.reddeer.swt.impl.button.PushButton;
 import org.eclipse.reddeer.swt.impl.button.YesButton;
-import org.eclipse.reddeer.swt.impl.menu.ContextMenu;
+import org.eclipse.reddeer.swt.impl.menu.ContextMenuItem;
 import org.eclipse.reddeer.swt.impl.shell.DefaultShell;
 import org.eclipse.reddeer.workbench.core.condition.JobIsRunning;
 
@@ -91,7 +91,7 @@ public class System {
 	public void connect(String username, String password, TimePeriod timeout){
 		log.info("Connecting to remote system " + getLabel());
 		select();
-		new ContextMenu("Connect").select();
+		new ContextMenuItem("Connect").select();
 		SystemPasswordPromptDialog systemPassDialog = new SystemPasswordPromptDialog();
 		systemPassDialog.setUserID(username);
 		systemPassDialog.setPassword(password);
@@ -127,7 +127,7 @@ public class System {
 	public void disconnect(){
 		log.info("Disconnecting from remote system " + getLabel());
 		select();
-		new ContextMenu("Disconnect").select();
+		new ContextMenuItem("Disconnect").select();
 		new WaitWhile(new RemoteSystemIsConnected(this));
 	}
 	
@@ -139,7 +139,7 @@ public class System {
 	public boolean isConnected(){
 		select();
 		try{
-			new ContextMenu("Disconnect");
+			new ContextMenuItem("Disconnect");
 		}
 		catch(CoreLayerException e){
 			return false;
@@ -166,7 +166,7 @@ public class System {
 		select();
 		if(isConnected())
 			disconnect();
-		new ContextMenu("Delete...").select();	
+		new ContextMenuItem("Delete...").select();	
 		Shell deleteShell = new DefaultShell("Delete Confirmation");
 		new PushButton("Delete").click();
 		new WaitWhile(new ShellIsAvailable(deleteShell));

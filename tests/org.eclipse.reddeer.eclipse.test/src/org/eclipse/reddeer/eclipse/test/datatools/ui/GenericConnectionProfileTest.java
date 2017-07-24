@@ -33,7 +33,7 @@ import org.eclipse.reddeer.swt.api.TreeItem;
 import org.eclipse.reddeer.swt.condition.ShellIsAvailable;
 import org.eclipse.reddeer.swt.impl.button.PushButton;
 import org.eclipse.reddeer.swt.impl.button.YesButton;
-import org.eclipse.reddeer.swt.impl.menu.ContextMenu;
+import org.eclipse.reddeer.swt.impl.menu.ContextMenuItem;
 import org.eclipse.reddeer.swt.impl.shell.DefaultShell;
 import org.eclipse.reddeer.swt.impl.table.DefaultTable;
 import org.eclipse.reddeer.swt.impl.table.DefaultTableItem;
@@ -75,7 +75,7 @@ public class GenericConnectionProfileTest {
 		List<TreeItem> cpitems = item.getItems();
 		for (TreeItem i : cpitems) {
 			i.select();
-			new ContextMenu("Delete").select();
+			new ContextMenuItem("Delete").select();
 			Shell deleteShell = new DefaultShell("Delete confirmation");
 			new YesButton().click();
 			new WaitWhile(new ShellIsAvailable(deleteShell));

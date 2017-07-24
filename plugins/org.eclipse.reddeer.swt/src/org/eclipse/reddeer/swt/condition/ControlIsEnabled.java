@@ -50,7 +50,7 @@ public class ControlIsEnabled extends AbstractWaitCondition {
 	
 	@SuppressWarnings("unchecked")
 	@Override 
-	public Control getResult() {
+	public Control<?> getResult() {
 		return this.resultControl;
 	}
 

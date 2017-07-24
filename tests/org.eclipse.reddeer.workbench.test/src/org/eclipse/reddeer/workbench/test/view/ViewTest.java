@@ -11,7 +11,7 @@
 package org.eclipse.reddeer.workbench.test.view;
 
 import org.eclipse.reddeer.junit.runner.RedDeerSuite;
-import org.eclipse.reddeer.swt.impl.menu.ShellMenu;
+import org.eclipse.reddeer.swt.impl.menu.ShellMenuItem;
 import org.eclipse.reddeer.swt.impl.text.LabeledText;
 import org.eclipse.reddeer.workbench.api.View;
 import org.eclipse.reddeer.workbench.exception.WorkbenchLayerException;
@@ -218,7 +218,7 @@ public class ViewTest {
 		customView.open();
 		new LabeledText("Test field: ").setText("hello");
 		customView.activate();
-		new ShellMenu("File", "Save").select();
+		new ShellMenuItem("File", "Save").select();
 		customView.activate();
 		customView.close();
 	}

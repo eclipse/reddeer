@@ -10,8 +10,10 @@
  *******************************************************************************/
 package org.eclipse.reddeer.core.handler;
 
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.reddeer.common.util.Display;
 import org.eclipse.reddeer.common.util.ResultRunnable;
@@ -141,12 +143,34 @@ public class ControlHandler extends WidgetHandler{
 		});
 	}
 	
+	/**
+	 * Gets parent of given control
+	 * @param control to handle
+	 * @return parent of given control
+	 */
 	public Composite getParent(final org.eclipse.swt.widgets.Control control){
 		return Display.syncExec(new ResultRunnable<Composite>() {
 
 			@Override
 			public Composite run() {
 				return control.getParent();
+			}
+		});
+	}
+	
+	/**
+	 * Gets menu of given control
+ 	 * @param control to handle
+	 * @return menu of given control
+	 */
+	public Menu getMenu(final org.eclipse.swt.widgets.Control control) {
+		//Send MenuDetect event. Some menus doesn't exist before that..
+		notifyWidget(SWT.MenuDetect, control);
+		return Display.syncExec(new ResultRunnable<Menu>() {
+
+			@Override
+			public Menu run() {
+				return control.getMenu();
 			}
 		});
 	}

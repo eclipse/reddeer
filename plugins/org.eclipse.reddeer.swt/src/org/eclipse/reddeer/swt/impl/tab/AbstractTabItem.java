@@ -63,6 +63,11 @@ public abstract class AbstractTabItem extends AbstractItem<org.eclipse.swt.widge
 	}
 	
 	@Override
+	public org.eclipse.reddeer.swt.api.Control<?> getParentControl() {
+		return getTabFolder();
+	}
+	
+	@Override
 	public boolean isSelected() {
 		return TabItemHandler.getInstance().isSelected(swtWidget);
 	}

@@ -49,4 +49,10 @@ public interface ToolItem extends Item<org.eclipse.swt.widgets.ToolItem> {
 	 * @return true if tool item is enabled, false otherwise
 	 */
 	boolean isEnabled();
+	
+	/**
+	 * Returns parent toolbar
+	 * @return parent toolbar
+	 */
+	ToolBar getParent();
 }

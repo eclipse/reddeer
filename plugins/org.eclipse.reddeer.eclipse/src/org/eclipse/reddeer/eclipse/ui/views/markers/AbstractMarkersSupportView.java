@@ -26,7 +26,7 @@ import org.eclipse.reddeer.swt.api.TreeItem;
 import org.eclipse.reddeer.swt.condition.ShellIsAvailable;
 import org.eclipse.reddeer.swt.impl.button.OkButton;
 import org.eclipse.reddeer.swt.impl.button.PushButton;
-import org.eclipse.reddeer.workbench.impl.menu.ViewMenu;
+import org.eclipse.reddeer.workbench.impl.menu.WorkbenchPartMenuItem;
 import org.eclipse.reddeer.swt.impl.shell.DefaultShell;
 import org.eclipse.reddeer.swt.impl.table.DefaultTable;
 import org.eclipse.reddeer.swt.impl.tree.DefaultTree;
@@ -107,7 +107,7 @@ public class AbstractMarkersSupportView extends WorkbenchView {
 	
 	private void openConfigureColumnsShell() {
 		activate();
-		new ViewMenu("Configure Columns...").select();
+		new WorkbenchPartMenuItem("Configure Columns...").select();
 		
 		new DefaultShell("Configure Columns");
 	}

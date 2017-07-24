@@ -19,7 +19,7 @@ import org.eclipse.reddeer.eclipse.exception.EclipseLayerException;
 import org.eclipse.reddeer.eclipse.rse.ui.wizards.newconnection.RSEMainNewConnectionWizard;
 import org.eclipse.reddeer.swt.api.Tree;
 import org.eclipse.reddeer.swt.api.TreeItem;
-import org.eclipse.reddeer.swt.impl.menu.ContextMenu;
+import org.eclipse.reddeer.swt.impl.menu.ContextMenuItem;
 import org.eclipse.reddeer.swt.impl.shell.DefaultShell;
 import org.eclipse.reddeer.swt.impl.tree.DefaultTree;
 import org.eclipse.reddeer.workbench.impl.view.WorkbenchView;
@@ -51,7 +51,7 @@ public class SystemViewPart extends WorkbenchView {
 		log.info("Creating new connection");
 		activate();
 		getSystem("Local").select();
-		new ContextMenu("New","Connection...").select();
+		new ContextMenuItem("New","Connection...").select();
 		new DefaultShell("New Connection");
 		
 		return new RSEMainNewConnectionWizard();

@@ -12,33 +12,28 @@ package org.eclipse.reddeer.swt.test.impl.menu;
 
 import static org.junit.Assert.assertEquals;
 
-import org.eclipse.reddeer.core.exception.CoreLayerException;
+import org.eclipse.reddeer.common.matcher.RegexMatcher;
+import org.eclipse.reddeer.core.matcher.WithTooltipTextMatcher;
+import org.eclipse.reddeer.eclipse.ui.perspectives.JavaPerspective;
 import org.eclipse.reddeer.junit.runner.RedDeerSuite;
-import org.eclipse.reddeer.swt.api.Menu;
-import org.eclipse.reddeer.swt.impl.menu.ToolItemMenu;
+import org.eclipse.reddeer.requirements.openperspective.OpenPerspectiveRequirement.OpenPerspective;
+import org.eclipse.reddeer.swt.api.ToolItem;
 import org.eclipse.reddeer.swt.impl.menu.ToolItemMenuItem;
 import org.eclipse.reddeer.swt.impl.toolbar.DefaultToolItem;
+import org.eclipse.reddeer.workbench.impl.shell.WorkbenchShell;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(RedDeerSuite.class)
-public class ToolItemMenuTest extends AbstractMenuTest{
-	
-	
-	@Test
-	public void toolItemMenuItem() {
-		new ToolItemMenuItem(new DefaultToolItem("toolItemMenu"), "ToolItemMenuItem1");
-	}
+@OpenPerspective(JavaPerspective.class)
+public class WorkbenchToolItemMenuTest {
 	
 	@Test
-	public void toolItemMenu() {
-		Menu toolItemMenu = new ToolItemMenu(new DefaultToolItem("toolItemMenu"));
-		assertEquals(3, toolItemMenu.getItems().size());
+	public void WorkbenchToolItemMultiLayeredMenuTest() {
+		ToolItem ti = new DefaultToolItem(new WorkbenchShell(),
+				new WithTooltipTextMatcher(new RegexMatcher("Run.*")));
+		ToolItemMenuItem menu = new ToolItemMenuItem(ti, "Run As", "(none applicable)");
+		assertEquals("(none applicable)", menu.getText());
 	}
-	
-	@Test(expected=CoreLayerException.class)
-	public void toolItemMenuWrongStyle() {
-		new ToolItemMenu(new DefaultToolItem("genericToolItem"));
-	}
-	
+
 }

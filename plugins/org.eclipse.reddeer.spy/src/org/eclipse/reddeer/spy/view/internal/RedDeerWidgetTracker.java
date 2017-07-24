@@ -267,7 +267,7 @@ public class RedDeerWidgetTracker implements Runnable {
 		} else if (clazz.equals(org.eclipse.swt.widgets.List.class)) {
 			widgets.add(org.eclipse.reddeer.swt.api.List.class.getCanonicalName());
 		} else if (clazz.equals(Menu.class)) {
-			widgets.add(org.eclipse.reddeer.swt.api.Menu.class.getCanonicalName());
+			widgets.add(org.eclipse.reddeer.swt.api.MenuItem.class.getCanonicalName());
 		} else if (clazz.equals(ProgressBar.class)) {
 			widgets.add(org.eclipse.reddeer.swt.api.ProgressBar.class.getCanonicalName());
 		} else if (clazz.equals(Scale.class)) {

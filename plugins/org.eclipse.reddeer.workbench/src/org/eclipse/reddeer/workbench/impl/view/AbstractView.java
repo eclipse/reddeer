@@ -24,12 +24,12 @@ import org.eclipse.reddeer.core.matcher.WithMnemonicTextMatcher;
 import org.eclipse.reddeer.core.matcher.WithTextMatcher;
 import org.eclipse.reddeer.core.matcher.WithTextMatchers;
 import org.eclipse.reddeer.swt.api.Button;
-import org.eclipse.reddeer.swt.api.Menu;
+import org.eclipse.reddeer.swt.api.MenuItem;
 import org.eclipse.reddeer.swt.condition.ShellIsAvailable;
 import org.eclipse.reddeer.swt.impl.button.OkButton;
 import org.eclipse.reddeer.swt.impl.button.PushButton;
 import org.eclipse.reddeer.swt.impl.ctab.DefaultCTabItem;
-import org.eclipse.reddeer.swt.impl.menu.ShellMenu;
+import org.eclipse.reddeer.swt.impl.menu.ShellMenuItem;
 import org.eclipse.reddeer.swt.impl.shell.DefaultShell;
 import org.eclipse.reddeer.swt.impl.tree.DefaultTreeItem;
 import org.eclipse.reddeer.workbench.api.View;
@@ -137,7 +137,7 @@ public abstract class AbstractView extends AbstractWorkbenchPart implements View
 		WithTextMatchers m = new WithTextMatchers(new RegexMatcher[] { new RegexMatcher("Window.*"),
 				new RegexMatcher("Show View.*"), new RegexMatcher("Other...*") });
 		// set focus to workbench shell
-		Menu menu = new ShellMenu(new WorkbenchShell(), m.getMatchers());
+		MenuItem menu = new ShellMenuItem(new WorkbenchShell(), m.getMatchers());
 		menu.select();
 		org.eclipse.reddeer.swt.api.Shell showView = new DefaultShell(SHOW_VIEW);
 		new DefaultTreeItem(path).select();

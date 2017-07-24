@@ -19,8 +19,8 @@ import org.eclipse.reddeer.direct.preferences.PreferencesUtil;
 import org.eclipse.reddeer.eclipse.debug.ui.preferences.ConsolePreferencePage;
 import org.eclipse.reddeer.eclipse.ui.ide.dialogs.IDEPerspectivesPreferencePage;
 import org.eclipse.reddeer.junit.runner.RedDeerSuite;
-import org.eclipse.reddeer.swt.api.Menu;
-import org.eclipse.reddeer.swt.impl.menu.ShellMenu;
+import org.eclipse.reddeer.swt.api.MenuItem;
+import org.eclipse.reddeer.swt.impl.menu.ShellMenuItem;
 import org.eclipse.reddeer.workbench.ui.dialogs.WorkbenchPreferenceDialog;
 import org.junit.After;
 import org.junit.Test;
@@ -56,7 +56,7 @@ public class PreferencesUtilTest {
 
 	@Test
 	public void autoBuildingTest() {
-		Menu menu = new ShellMenu("Project", "Build Automatically");
+		MenuItem menu = new ShellMenuItem("Project", "Build Automatically");
 		assertEquals(menu.isSelected(), PreferencesUtil.isAutoBuildingOn());
 		PreferencesUtil.setAutoBuildingOff();
 		assertEquals(menu.isSelected(), false);

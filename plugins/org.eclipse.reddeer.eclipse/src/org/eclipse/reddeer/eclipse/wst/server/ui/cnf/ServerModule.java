@@ -29,8 +29,8 @@ import org.eclipse.reddeer.swt.api.TreeItem;
 import org.eclipse.reddeer.swt.condition.MenuIsEnabled;
 import org.eclipse.reddeer.swt.condition.ShellIsAvailable;
 import org.eclipse.reddeer.swt.impl.button.PushButton;
-import org.eclipse.reddeer.swt.impl.menu.ContextMenu;
-import org.eclipse.reddeer.swt.impl.menu.ShellMenu;
+import org.eclipse.reddeer.swt.impl.menu.ContextMenuItem;
+import org.eclipse.reddeer.swt.impl.menu.ShellMenuItem;
 import org.eclipse.reddeer.swt.impl.shell.DefaultShell;
 import org.eclipse.reddeer.workbench.core.condition.JobIsRunning;
 
@@ -82,8 +82,8 @@ public class ServerModule {
 		}
 		log.info("Remove server module with name '" + getLabel().getName() + "'");
 
-		new WaitUntil(new MenuIsEnabled(new ShellMenu("Edit", "Delete")), TimePeriod.LONG);
-		new ShellMenu("Edit", "Delete").select();
+		new WaitUntil(new MenuIsEnabled(new ShellMenuItem("Edit", "Delete")), TimePeriod.LONG);
+		new ShellMenuItem("Edit", "Delete").select();
 		Shell serverShell = new DefaultShell("Server");
 		new PushButton("OK").click();
 		new GroupWait(waitWhile(new ShellIsAvailable(serverShell)),
@@ -115,7 +115,7 @@ public class ServerModule {
 	 */
 	public boolean canStart(){
 		select();
-		return new ContextMenu("Start").isEnabled();
+		return new ContextMenuItem("Start").isEnabled();
 	}
 	
 	/**
@@ -124,7 +124,7 @@ public class ServerModule {
 	 */
 	public boolean canRestart(){
 		select();
-		return new ContextMenu("Restart").isEnabled();
+		return new ContextMenuItem("Restart").isEnabled();
 	}
 	
 	/**
@@ -133,7 +133,7 @@ public class ServerModule {
 	 */
 	public boolean canStop(){
 		select();
-		return new ContextMenu("Stop").isEnabled();
+		return new ContextMenuItem("Stop").isEnabled();
 	}
 	
 	/**
@@ -142,7 +142,7 @@ public class ServerModule {
 	public void start(){
 		log.info("Start server module with name '" + getLabel().getName() + "'");
 		select();
-		new ContextMenu("Start").select();
+		new ContextMenuItem("Start").select();
 		new WaitWhile(new JobIsRunning());
 		new WaitUntil(new ServerModuleHasState(this, ServerState.STARTED));
 		new WaitWhile(new JobIsRunning());
@@ -154,7 +154,7 @@ public class ServerModule {
 	public void stop(){
 		log.info("Stop server module with name '" + getLabel().getName() + "'");
 		select();
-		new ContextMenu("Stop").select();
+		new ContextMenuItem("Stop").select();
 		new WaitWhile(new JobIsRunning());
 		new WaitUntil(new ServerModuleHasState(this, ServerState.STOPPED));
 		new WaitWhile(new JobIsRunning());
@@ -166,7 +166,7 @@ public class ServerModule {
 	public void restart(){
 		log.info("Restart server module with name '" + getLabel().getName() + "'");
 		select();
-		new ContextMenu("Restart").select();
+		new ContextMenuItem("Restart").select();
 		new WaitWhile(new JobIsRunning());
 		new WaitUntil(new ServerModuleHasState(this, ServerState.STARTED));
 		new WaitWhile(new JobIsRunning());

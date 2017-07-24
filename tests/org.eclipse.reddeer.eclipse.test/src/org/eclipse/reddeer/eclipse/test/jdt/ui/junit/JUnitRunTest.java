@@ -25,7 +25,7 @@ import org.eclipse.reddeer.swt.condition.ShellIsAvailable;
 import org.eclipse.reddeer.swt.impl.button.FinishButton;
 import org.eclipse.reddeer.swt.impl.button.NextButton;
 import org.eclipse.reddeer.swt.impl.list.DefaultList;
-import org.eclipse.reddeer.swt.impl.menu.ContextMenu;
+import org.eclipse.reddeer.swt.impl.menu.ContextMenuItem;
 import org.eclipse.reddeer.swt.impl.shell.DefaultShell;
 import org.eclipse.reddeer.workbench.impl.editor.TextEditor;
 import org.junit.AfterClass;
@@ -59,7 +59,7 @@ public class JUnitRunTest {
 		explorer.open();
 
 		explorer.getProject(PROJECT_NAME).select();
-		new ContextMenu("Build Path", "Add Libraries...").select();
+		new ContextMenuItem("Build Path", "Add Libraries...").select();
 		new DefaultShell("Add Library");
 		new DefaultList().select("JUnit");
 		new NextButton().click();

@@ -18,7 +18,7 @@ import org.eclipse.reddeer.junit.runner.RedDeerSuite;
 import org.eclipse.reddeer.swt.api.Shell;
 import org.eclipse.reddeer.swt.condition.ShellIsAvailable;
 import org.eclipse.reddeer.swt.impl.button.PushButton;
-import org.eclipse.reddeer.swt.impl.menu.ShellMenu;
+import org.eclipse.reddeer.swt.impl.menu.ShellMenuItem;
 import org.eclipse.reddeer.swt.impl.shell.DefaultShell;
 import org.eclipse.reddeer.workbench.impl.shell.WorkbenchShell;
 import org.eclipse.reddeer.swt.impl.text.LabeledText;
@@ -43,7 +43,7 @@ public class EditorBarTest {
 	public void prepare() {
 		// new DefaultShell("Spring Tool Tips").close();
 		new WorkbenchShell();
-		new ShellMenu("File","New","Other...").select();
+		new ShellMenuItem("File","New","Other...").select();
 		new DefaultShell("New");
 		new DefaultTreeItem("General","Project").select();
 		new PushButton("Next >").click();
@@ -59,7 +59,7 @@ public class EditorBarTest {
 		pe.selectProjects(projectName);
 
 
-		new ShellMenu("File","New","File").select();
+		new ShellMenuItem("File","New","File").select();
 		Shell fileShell = new DefaultShell("New File");
 		new LabeledText("File name:").setText("test.tlb");
 		new PushButton("Finish").click();

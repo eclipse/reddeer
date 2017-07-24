@@ -141,6 +141,7 @@ public interface Table extends Control<org.eclipse.swt.widgets.Table>, Reference
 	 * @param matchers array of matchers for items matching
 	 * @return table items matching the matcher
 	 */
+	@SuppressWarnings("unchecked")
 	List<TableItem> getItems(Matcher<TableItem>... matchers);
 	
 	/**

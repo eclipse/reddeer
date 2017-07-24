@@ -21,7 +21,7 @@ import org.eclipse.reddeer.swt.api.TreeItem;
 import org.eclipse.reddeer.swt.condition.TreeItemHasMinChildren;
 import org.eclipse.reddeer.swt.exception.SWTLayerException;
 import org.eclipse.reddeer.swt.impl.button.PushButton;
-import org.eclipse.reddeer.swt.impl.menu.ShellMenu;
+import org.eclipse.reddeer.swt.impl.menu.ShellMenuItem;
 import org.eclipse.reddeer.swt.impl.tree.DefaultTree;
 import org.eclipse.reddeer.swt.impl.tree.DefaultTreeItem;
 import org.eclipse.reddeer.workbench.impl.view.WorkbenchView;
@@ -116,7 +116,7 @@ public class TaskListView extends WorkbenchView {
 	public void createLocalTaskTest () {
 				
 		activate();
-		new ShellMenu("File", "New", "Other...").select();  
+		new ShellMenuItem("File", "New", "Other...").select();  
 		new DefaultTree();
 		DefaultTreeItem theNewTask = new DefaultTreeItem ("Tasks", "Task");
 		theNewTask.select();	

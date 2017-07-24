@@ -12,7 +12,6 @@ package org.eclipse.reddeer.swt.impl.shell;
 
 import org.eclipse.swt.widgets.Shell;
 import org.hamcrest.Matcher;
-import org.eclipse.reddeer.common.logging.Logger;
 import org.eclipse.reddeer.core.lookup.ShellLookup;
 
 /**
@@ -23,7 +22,6 @@ import org.eclipse.reddeer.core.lookup.ShellLookup;
  * 
  */
 public class DefaultShell extends AbstractShell {
-	private static final Logger log = Logger.getLogger(DefaultShell.class);
 	
 	/**
 	 * Instantiates a new default shell.
