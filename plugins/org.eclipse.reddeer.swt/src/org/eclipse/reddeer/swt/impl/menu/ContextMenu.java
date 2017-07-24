@@ -10,42 +10,28 @@
  *******************************************************************************/
 package org.eclipse.reddeer.swt.impl.menu;
 
-import org.hamcrest.Matcher;
-import org.eclipse.reddeer.common.logging.Logger;
-import org.eclipse.reddeer.swt.api.Menu;
 import org.eclipse.reddeer.core.lookup.MenuLookup;
-import org.eclipse.reddeer.core.matcher.WithMnemonicTextMatchers;
+import org.eclipse.reddeer.swt.api.Control;
+import org.eclipse.reddeer.swt.api.Item;
 
 /**
- * Context Menu implementation for all context menu related to some Control.
- * Control must have focus to provide context menu
- * 
- * @author Jiri Peterka
- * @author Rastislav Wagner
- * 
+ * Context Menu
+ * @author rawagner
+ *
  */
-public class ContextMenu extends AbstractMenu implements Menu {
-	private static final Logger log = Logger.getLogger(ContextMenu.class);
-
-	/**
-	 * Context menu given by String path
-	 * Uses WithMnemonicMatcher to match menu item label. It means that all ampersands
-	 * and shortcuts within menu item label are ignored when searching for menu
-	 *
-	 * @param path the path
-	 */
-	public ContextMenu(String... path) {
-		this(new WithMnemonicTextMatchers(path).getMatchers());		
+public class ContextMenu extends AbstractMenu{
+	
+	public ContextMenu() {
+		super(MenuLookup.getInstance().getMenuFromFocusControl());
 	}
 	
-	/**
-	 * Context menu given by matchers.
-	 *
-	 * @param matchers the matchers
-	 */
-	@SuppressWarnings("unchecked")
-	public ContextMenu(Matcher<String>... matchers) {
-		super(MenuLookup.getInstance().lookFor(MenuLookup.getInstance().getTopMenuMenuItemsFromFocus(),matchers));
-		
+	public ContextMenu(Control<?> control) {
+		super(MenuLookup.getInstance().getControlMenu(control.getSWTWidget()));
 	}
+	
+	public ContextMenu(Item<?> item) {
+		super(MenuLookup.getInstance().getItemMenu(item.getSWTWidget(), item.getParentControl().getSWTWidget()));
+	}
+
+
 }

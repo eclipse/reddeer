@@ -19,7 +19,7 @@ import org.eclipse.reddeer.common.wait.GroupWait;
 import org.eclipse.reddeer.common.wait.TimePeriod;
 import org.eclipse.reddeer.swt.api.TreeItem;
 import org.eclipse.reddeer.swt.impl.button.PushButton;
-import org.eclipse.reddeer.swt.impl.menu.ContextMenu;
+import org.eclipse.reddeer.swt.impl.menu.ContextMenuItem;
 import org.eclipse.reddeer.workbench.core.condition.JobIsRunning;
 
 /**
@@ -60,7 +60,7 @@ public class TaskList {
 	public void delete(boolean stopFirst) {
 		log.info("Deleting Repository");
 		select();
-		new ContextMenu("Delete").select();
+		new ContextMenuItem("Delete").select();
 		new PushButton("OK").click();
 		new GroupWait(TIMEOUT, waitUntil(new TreeItemIsDisposed(treeItem)), waitWhile(new JobIsRunning()));
 	}

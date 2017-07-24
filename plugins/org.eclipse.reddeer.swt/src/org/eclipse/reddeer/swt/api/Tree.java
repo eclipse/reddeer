@@ -48,6 +48,7 @@ public interface Tree extends Control<org.eclipse.swt.widgets.Tree> {
 	 * @param itemMatchers matchers matching tree item
 	 * @return tree item matching given matchers
 	 */
+	@SuppressWarnings("unchecked")
 	TreeItem getItem(Matcher<org.eclipse.swt.widgets.TreeItem>... itemMatchers);
 
 	/**

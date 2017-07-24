@@ -12,6 +12,8 @@ package org.eclipse.reddeer.swt.impl.toolbar;
 
 import org.hamcrest.Matcher;
 import org.eclipse.reddeer.common.logging.Logger;
+import org.eclipse.reddeer.swt.api.Control;
+import org.eclipse.reddeer.swt.api.ToolBar;
 import org.eclipse.reddeer.swt.api.ToolItem;
 import org.eclipse.reddeer.swt.widgets.AbstractItem;
 import org.eclipse.reddeer.core.exception.Thrower;
@@ -87,5 +89,15 @@ public abstract class AbstractToolItem extends AbstractItem<org.eclipse.swt.widg
 	@Override
 	public boolean isEnabled() {
 		return ToolItemHandler.getInstance().isEnabled(swtWidget);
+	}
+	
+	@Override
+	public ToolBar getParent() {
+		return new DefaultToolBar(ToolItemHandler.getInstance().getParent(swtWidget));
+	}
+	
+	@Override
+	public Control<?> getParentControl() {
+		return getParent();
 	}
 }

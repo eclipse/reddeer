@@ -21,7 +21,7 @@ import org.eclipse.reddeer.swt.api.TreeItem;
 import org.eclipse.reddeer.swt.condition.ShellIsAvailable;
 import org.eclipse.reddeer.swt.impl.button.OkButton;
 import org.eclipse.reddeer.swt.impl.combo.LabeledCombo;
-import org.eclipse.reddeer.swt.impl.menu.ContextMenu;
+import org.eclipse.reddeer.swt.impl.menu.ContextMenuItem;
 import org.eclipse.reddeer.swt.impl.shell.DefaultShell;
 import org.eclipse.reddeer.swt.impl.tree.DefaultTree;
 import org.eclipse.reddeer.swt.impl.tree.DefaultTreeItem;
@@ -71,7 +71,7 @@ public class FacetsPropertyPage extends PropertyPage {
 	public FacetsPropertyPage selectVersion(String facetName, String version){
 		TreeItem facet = new DefaultTreeItem(new DefaultTree(referencedComposite, 1), facetName);
 		facet.select();
-		new ContextMenu("Change Version...").select();
+		new ContextMenuItem("Change Version...").select();
 		Shell versionChangeShell = new DefaultShell("Change Version");
 		new LabeledCombo(versionChangeShell, "Version:").setSelection(version);
 		new OkButton(versionChangeShell).click();

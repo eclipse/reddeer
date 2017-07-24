@@ -27,7 +27,7 @@ import org.eclipse.reddeer.swt.api.Shell;
 import org.eclipse.reddeer.swt.api.TreeItem;
 import org.eclipse.reddeer.swt.impl.button.CheckBox;
 import org.eclipse.reddeer.swt.impl.button.PushButton;
-import org.eclipse.reddeer.swt.impl.menu.ContextMenu;
+import org.eclipse.reddeer.swt.impl.menu.ContextMenuItem;
 import org.eclipse.reddeer.swt.impl.shell.DefaultShell;
 import org.eclipse.reddeer.swt.impl.tree.DefaultTree;
 import org.eclipse.reddeer.workbench.core.condition.JobIsRunning;
@@ -155,9 +155,9 @@ public class AbstractExplorer extends WorkbenchView {
 		activate();
 		if(getProjects().size() > 0){
 			selectAllProjects();
-			new ContextMenu("Refresh").select();
+			new ContextMenuItem("Refresh").select();
 			new WaitWhile(new JobIsRunning(), timeout);
-			new ContextMenu("Delete").select();
+			new ContextMenuItem("Delete").select();
 			Shell s = new DefaultShell("Delete Resources");
 			new CheckBox().toggle(deleteFromFileSystem);
 			new PushButton("OK").click();

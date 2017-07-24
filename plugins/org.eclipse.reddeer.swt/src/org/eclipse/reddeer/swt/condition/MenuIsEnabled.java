@@ -11,7 +11,7 @@
 package org.eclipse.reddeer.swt.condition;
 
 import org.eclipse.reddeer.common.condition.AbstractWaitCondition;
-import org.eclipse.reddeer.swt.api.Menu;
+import org.eclipse.reddeer.swt.api.MenuItem;
 
 /**
  * Condition is met when specified menu is enabled.
@@ -21,9 +21,9 @@ import org.eclipse.reddeer.swt.api.Menu;
  */
 public class MenuIsEnabled extends AbstractWaitCondition {
 	
-	private Menu menu;
+	private MenuItem menu;
 
-	public MenuIsEnabled(Menu menu) {
+	public MenuIsEnabled(MenuItem menu) {
 		this.menu = menu;
 	}
 

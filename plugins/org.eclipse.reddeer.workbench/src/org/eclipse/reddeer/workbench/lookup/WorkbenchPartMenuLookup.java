@@ -13,16 +13,13 @@ package org.eclipse.reddeer.workbench.lookup;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.swt.widgets.Menu;
-import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.IWorkbenchPartReference;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
-import org.eclipse.reddeer.common.logging.Logger;
 import org.eclipse.reddeer.workbench.core.lookup.WorkbenchShellLookup;
-import org.eclipse.reddeer.core.lookup.MenuLookup;
 import org.eclipse.reddeer.common.util.Display;
 import org.eclipse.reddeer.common.util.ResultRunnable;
 import org.eclipse.ui.IViewSite;
@@ -32,29 +29,27 @@ import org.eclipse.ui.IViewSite;
  * @author rawagner
  *
  */
-public class ViewMenuLookup {
+public class WorkbenchPartMenuLookup {
+	
+	private static WorkbenchPartMenuLookup instance;
 
-	private static final Logger log = Logger.getLogger(ViewMenuLookup.class);
-	private static ViewMenuLookup instance;
-	private MenuLookup ml = MenuLookup.getInstance();
-
-	public static ViewMenuLookup getInstance() {
+	public static WorkbenchPartMenuLookup getInstance() {
 		if (instance == null) {
-			instance = new ViewMenuLookup();
+			instance = new WorkbenchPartMenuLookup();
 		}
 		return instance;
 	}
 	
 	/**
-	 * Returns MenuItems of currently active view
-	 * @return Array of Menu Items of currently active view
+	 * Returns Menu of currently active view
+	 * @return Menu of currently active view
 	 */
-	public MenuItem[] getViewMenuItems(){
+	public Menu getViewMenu() {
 		IWorkbenchPart part = getActivePart(false);
 		IMenuManager m = ((IViewSite) part.getSite()).getActionBars().getMenuManager();
 		
 		if (m instanceof MenuManager) {
-			Menu men =  Display.syncExec(new ResultRunnable<Menu>() {
+			return  Display.syncExec(new ResultRunnable<Menu>() {
 				
 				@Override
 				public Menu run() {
@@ -65,7 +60,6 @@ public class ViewMenuLookup {
 					
 				}
 			});
-			return ml.getItemsFromMenu(men);
 		}
 		return null;
 	}

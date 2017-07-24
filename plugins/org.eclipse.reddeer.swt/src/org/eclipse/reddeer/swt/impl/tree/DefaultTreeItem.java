@@ -12,7 +12,6 @@ package org.eclipse.reddeer.swt.impl.tree;
 
 
 import org.hamcrest.Matcher;
-import org.eclipse.reddeer.common.logging.Logger;
 import org.eclipse.reddeer.core.lookup.TreeItemLookup;
 import org.eclipse.reddeer.core.matcher.TreeItemTextMatcher;
 import org.eclipse.reddeer.swt.api.Tree;
@@ -25,8 +24,6 @@ import org.eclipse.reddeer.swt.api.Tree;
  */
 @SuppressWarnings("unchecked")
 public class DefaultTreeItem extends AbstractTreeItem {
-
-	private static final Logger logger = Logger.getLogger(DefaultTreeItem.class);
 	
 	/**
 	 * Tree item with specified path will be constructed .

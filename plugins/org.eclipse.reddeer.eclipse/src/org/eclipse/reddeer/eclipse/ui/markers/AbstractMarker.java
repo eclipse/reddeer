@@ -13,7 +13,7 @@ package org.eclipse.reddeer.eclipse.ui.markers;
 import org.eclipse.reddeer.eclipse.ui.views.markers.QuickFixWizard;
 import org.eclipse.reddeer.eclipse.ui.views.markers.AbstractMarkersSupportView.Column;
 import org.eclipse.reddeer.swt.api.TreeItem;
-import org.eclipse.reddeer.swt.impl.menu.ContextMenu;
+import org.eclipse.reddeer.swt.impl.menu.ContextMenuItem;
 
 /**
  * Abstract marker item in view supporting markers. Get methods return values of a specific column
@@ -105,7 +105,7 @@ public abstract class AbstractMarker {
 	 */
 	public QuickFixWizard openQuickFix(){
 		markerItem.select();
-		new ContextMenu("Quick Fix").select();
+		new ContextMenuItem("Quick Fix").select();
 		return new QuickFixWizard();
 	}
 	

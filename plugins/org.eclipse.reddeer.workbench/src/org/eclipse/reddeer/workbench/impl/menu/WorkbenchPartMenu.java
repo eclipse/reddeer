@@ -8,25 +8,23 @@
  * Contributors:
  *     Red Hat Inc. - initial API and implementation
  *******************************************************************************/
-package org.eclipse.reddeer.swt.impl.menu;
+package org.eclipse.reddeer.workbench.impl.menu;
 
-import org.eclipse.reddeer.core.handler.ShellHandler;
-import org.eclipse.reddeer.core.lookup.MenuLookup;
-import org.eclipse.reddeer.swt.api.Shell;
+import org.eclipse.reddeer.swt.impl.menu.AbstractMenu;
+import org.eclipse.reddeer.workbench.lookup.WorkbenchPartMenuLookup;
 
 /**
- * Shell Menu
+ * Represents View menu
  * @author rawagner
  *
  */
-public class ShellMenu extends AbstractMenu{
+public class WorkbenchPartMenu extends AbstractMenu{
 	
-	public ShellMenu() {
-		super(MenuLookup.getInstance().getMenuFromActiveShell());
-	}
-	
-	public ShellMenu(Shell shell) {
-		super(ShellHandler.getInstance().getMenuBar(shell.getSWTWidget()));
+	/**
+	 * Default constructor. Takes menu from currently active workbench part
+	 */
+	public WorkbenchPartMenu() {
+		super(WorkbenchPartMenuLookup.getInstance().getViewMenu());
 	}
 
 }

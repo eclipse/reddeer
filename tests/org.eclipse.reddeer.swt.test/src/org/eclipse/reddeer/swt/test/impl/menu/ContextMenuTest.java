@@ -10,178 +10,159 @@
  *******************************************************************************/
 package org.eclipse.reddeer.swt.test.impl.menu;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.MenuDetectEvent;
-import org.eclipse.swt.events.MenuDetectListener;
-import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.events.SelectionListener;
-import org.eclipse.swt.widgets.Menu;
-import org.eclipse.swt.widgets.MenuItem;
-import org.eclipse.swt.widgets.Shell;
-import org.eclipse.swt.widgets.Text;
-import org.eclipse.reddeer.common.util.Display;
+import java.util.List;
+
+import org.eclipse.reddeer.common.matcher.RegexMatcher;
 import org.eclipse.reddeer.core.exception.CoreLayerException;
-import org.eclipse.reddeer.eclipse.jdt.ui.packageview.PackageExplorerPart;
-import org.eclipse.reddeer.eclipse.jdt.ui.wizards.JavaProjectWizard;
-import org.eclipse.reddeer.eclipse.jdt.ui.wizards.NewClassCreationWizard;
-import org.eclipse.reddeer.eclipse.jdt.ui.wizards.NewClassWizardPage;
-import org.eclipse.reddeer.eclipse.jdt.ui.wizards.NewJavaProjectWizardPageOne;
-import org.eclipse.reddeer.eclipse.ui.navigator.resources.ProjectExplorer;
-import org.eclipse.reddeer.eclipse.ui.perspectives.JavaPerspective;
-import org.eclipse.reddeer.eclipse.utils.DeleteUtils;
+import org.eclipse.reddeer.core.matcher.WithMnemonicTextMatcher;
 import org.eclipse.reddeer.junit.runner.RedDeerSuite;
-import org.eclipse.reddeer.requirements.openperspective.OpenPerspectiveRequirement.OpenPerspective;
-import org.eclipse.reddeer.swt.impl.button.PushButton;
+import org.eclipse.reddeer.swt.api.Menu;
+import org.eclipse.reddeer.swt.api.MenuItem;
 import org.eclipse.reddeer.swt.impl.menu.ContextMenu;
+import org.eclipse.reddeer.swt.impl.menu.ContextMenuItem;
 import org.eclipse.reddeer.swt.impl.shell.DefaultShell;
 import org.eclipse.reddeer.swt.impl.text.DefaultText;
-import org.eclipse.reddeer.swt.test.utils.ShellTestUtils;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
+import org.eclipse.reddeer.swt.impl.tree.DefaultTree;
+import org.eclipse.reddeer.swt.impl.tree.DefaultTreeItem;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(RedDeerSuite.class)
-@OpenPerspective(JavaPerspective.class)
-public class ContextMenuTest {
-
-	private static int limit = 20;
-	private static String projectName = "ContextMenuTest-test";
+public class ContextMenuTest extends AbstractMenuTest{
 	
-	@BeforeClass
-	public static void createProject() {
-		JavaProjectWizard projectWizard = new JavaProjectWizard();
-		projectWizard.open();
-		new NewJavaProjectWizardPageOne(projectWizard).setProjectName(projectName);
-		projectWizard.finish();
-		
-		NewClassCreationWizard classWizard = new NewClassCreationWizard();
-		classWizard.open();
-		NewClassWizardPage page = new NewClassWizardPage(classWizard);
-		page.setName("TestClass");
-		page.setStaticMainMethod(true);
-		classWizard.finish();
+	@Test
+	public void getAllMenuItems() {
+		new DefaultTreeItem(new DefaultTree(new DefaultShell(SHELL_TEXT)),"TreeItem1").select();
+		org.eclipse.reddeer.swt.api.Menu menu = new ContextMenu();
+		List<org.eclipse.reddeer.swt.api.MenuItem> items = menu.getItems();
+		assertNotNull(items);
+		assertTrue(items.size() == 5);
 	}
 	
-	@AfterClass
-	public static void deleteProject(){
-		ProjectExplorer pe = new ProjectExplorer();
-		pe.open();
-		DeleteUtils.forceProjectDeletion(pe.getProject(projectName),true);
+	@Test
+	public void getAllMenuItems_viaConstructor() {
+		org.eclipse.reddeer.swt.api.Menu menu = 
+				new ContextMenu(new DefaultTreeItem(new DefaultTree(new DefaultShell(SHELL_TEXT)),"TreeItem1"));
+		List<org.eclipse.reddeer.swt.api.MenuItem> items = menu.getItems();
+		assertNotNull(items);
+		assertTrue(items.size() == 5);
+	}
+	
+	@Test
+	public void getMenuItemByPath() {
+		new DefaultTreeItem(new DefaultTree(new DefaultShell(SHELL_TEXT)),"TreeItem1").select();
+		org.eclipse.reddeer.swt.api.Menu menu = new ContextMenu();
+		menu.getItem("TreeItem1MenuItem1");
 	}
 	
 	@Test(expected=CoreLayerException.class)
-	public void disabledAction() throws InterruptedException {
-		PackageExplorerPart pex = new PackageExplorerPart();
-		pex.open();
-		pex.getProject(projectName).select();
-		new ContextMenu("Compare With","Each Other").select();
+	public void getMenuItemByPathNonexisting() {
+		new DefaultTreeItem(new DefaultTree(new DefaultShell(SHELL_TEXT)),"TreeItem1").select();
+		org.eclipse.reddeer.swt.api.Menu menu = new ContextMenu();
+		menu.getItem("New1");
 	}
 	
 	@Test
-	public void dynamicEnabledAction() throws InterruptedException{
-		PackageExplorerPart pex = new PackageExplorerPart();
-		pex.open();
-		pex.getProject(projectName).select();
-		new ContextMenu("Configure","Convert to Maven Project").select();
-		new DefaultShell("Create new POM");
-		new PushButton("Cancel").click();
+	public void getMenuItemByMatcher() {
+		new DefaultTreeItem(new DefaultTree(new DefaultShell(SHELL_TEXT)),"TreeItem1").select();
+		org.eclipse.reddeer.swt.api.Menu menu = new ContextMenu();
+		menu.getItem(new WithMnemonicTextMatcher(new RegexMatcher("TreeItem1Menu.*")));
+	}
+	
+	@Test(expected=CoreLayerException.class)
+	public void getMenuItemByMatcherNonExisting() {
+		new DefaultTreeItem(new DefaultTree(new DefaultShell(SHELL_TEXT)),"TreeItem1").select();
+		org.eclipse.reddeer.swt.api.Menu menu = new ContextMenu();
+		menu.getItem(new WithMnemonicTextMatcher(new RegexMatcher("TreeItem2Menu.*")));
 	}
 	
 	@Test
-	public void testOpenWithCheck(){
-		PackageExplorerPart pex = new PackageExplorerPart();
-		pex.open();
-		pex.getProject(projectName).getProjectItem("src","(default package)","TestClass.java").select();
-		new ContextMenu("Open With","Text Editor").select();
-		assertTrue(new ContextMenu("Open With","Text Editor").isSelected());
+	public void menuItemGetText() {
+		new DefaultTreeItem(new DefaultTree(new DefaultShell(SHELL_TEXT)),"TreeItem1").select();
+		ContextMenuItem item = new ContextMenuItem("TreeItem1MenuItem1");
+		assertEquals("TreeItem1MenuItem1", item.getText());
 	}
 	
 	@Test
-	public void notifyMenuListenerTest(){
-		createTestShell();
-		
-		DefaultText text = new DefaultText();
-		new ContextMenu("menuItem1").select();
-		assertEquals("Notified", text.getText());
-		
-		closeTestShell();
-	}
-
-	@Test
-	public void contextMenuTest() {
-
-		ProjectExplorer pe = new ProjectExplorer();
-		pe.open();
-
-		org.eclipse.reddeer.swt.api.Menu menu = new ContextMenu("New", "Project...");
-		menu.select();
-		org.eclipse.reddeer.swt.api.Shell s = new DefaultShell("New Project");
-		s.close();
-	}
-
-	@Test
-	public void hundertscontextMenuTest() {
-		for (int i = 0; i < limit; i++) {
-			contextMenuTest();
-		}
-	}
-
-	@Test
-	public void contextMenuItemTextTest() {
-		// make sure shell is focused
-		new DefaultShell();
-
-		ProjectExplorer pe = new ProjectExplorer();
-		pe.open();
-
-		org.eclipse.reddeer.swt.api.Menu menu = new ContextMenu("New", "Project...");
-		assertTrue("Menuitem text not expected to be empty", !menu.getText().equals(""));
+	public void menuItemGetMenu() {
+		new DefaultTreeItem(new DefaultTree(new DefaultShell(SHELL_TEXT)),"TreeItem1").select();
+		ContextMenuItem item = new ContextMenuItem("TreeItem1MenuItem1");
+		assertNotNull(item.getParent());
+		Menu menu = item.getParent();
+		assertEquals("TreeItem1MenuItem1", menu.getItems().get(0).getText());
+		assertEquals("TreeItem1MenuItem2",menu.getItems().get(1).getText());
 	}
 	
-	private void closeTestShell() {
-		new DefaultShell("myShell").close();
-	}
-
-	private void createTestShell() {
-		Display.syncExec(new Runnable() {
-			@Override
-			public void run() {
-				Shell shell = ShellTestUtils.createShell("myShell");
-				createControls(shell);
-				shell.layout();
-			}
-		});
+	@Test
+	public void menuItemGetAvailableChildItems() {
+		new DefaultTreeItem(new DefaultTree(new DefaultShell(SHELL_TEXT)),"TreeItem1").select();
+		ContextMenuItem item = new ContextMenuItem("TreeItem1MenuItemWithMenu");
+		List<MenuItem> avChildItems = item.getAvailableChildItems();
+		assertTrue(avChildItems.size()==1);
+		assertEquals("TreeItem1MenuItemWithMenuEnabledChild", avChildItems.get(0).getText());
+		assertTrue(avChildItems.get(0).isEnabled());
 	}
 	
-	private void createControls(Shell shell){
-		final Text text = new Text(shell, 0);
-		text.setText("Test");
-		text.setSize(100, 100);
-		final Menu menu = new Menu(shell, SWT.POP_UP);
-		MenuItem menuItem1 = new MenuItem(menu, SWT.PUSH);
-		menuItem1.setText("menuItem1");
-		menuItem1.addSelectionListener(new SelectionListener() {
-			
-			@Override
-			public void widgetSelected(SelectionEvent arg0) {
-				new DefaultText().setText("Notified");
-			}
-			
-			@Override
-			public void widgetDefaultSelected(SelectionEvent arg0) {
-				// nothing
-			}
-		});
-		text.addMenuDetectListener(new MenuDetectListener() {
-			
-			@Override
-			public void menuDetected(MenuDetectEvent arg0) {
-				text.setMenu(menu);
-			}
-		});
+	@Test
+	public void menuItemGetAllChildItems() {
+		new DefaultTreeItem(new DefaultTree(new DefaultShell(SHELL_TEXT)),"TreeItem1").select();
+		ContextMenuItem item = new ContextMenuItem("TreeItem1MenuItemWithMenu");
+		List<MenuItem> childItems = item.getChildItems();
+		assertTrue(childItems.size()==2);
+		assertEquals("TreeItem1MenuItemWithMenuEnabledChild", childItems.get(0).getText());
+		assertEquals("TreeItem1MenuItemWithMenuDisabledChild", childItems.get(1).getText());
+		assertTrue(childItems.get(0).isEnabled());
+		assertFalse(childItems.get(1).isEnabled());
 	}
+	
+	@Test
+	public void menuItemConstructor() {
+		ContextMenuItem item = new ContextMenuItem(
+				new DefaultTreeItem(new DefaultTree(new DefaultShell(SHELL_TEXT)),"TreeItem1"), "TreeItem1MenuItemWithMenu");
+		assertEquals("TreeItem1MenuItemWithMenu", item.getText());
+	}
+	
+	@Test
+	public void menuItemConstructor1() {
+		ContextMenuItem item = new ContextMenuItem(
+				new DefaultTreeItem(new DefaultTree(new DefaultShell(SHELL_TEXT)),"TreeItem1"), 
+				"TreeItem1MenuItemWithMenu", "TreeItem1MenuItemWithMenuEnabledChild");
+		assertEquals("TreeItem1MenuItemWithMenuEnabledChild", item.getText());
+	}
+	
+	@Test
+	public void selectMenuItem() {
+		new DefaultTreeItem(new DefaultTree(new DefaultShell(SHELL_TEXT)),"TreeItem1").select();
+		ContextMenuItem item = new ContextMenuItem("TreeItem1MenuItem1");
+		item.select();
+		assertEquals("selected "+item.getText(), new DefaultText().getText());
+	}
+	
+	@Test
+	public void checkMenuItem() {
+		new DefaultTreeItem(new DefaultTree(new DefaultShell(SHELL_TEXT)),"TreeItem1").select();
+		ContextMenuItem item = new ContextMenuItem("TreeItem1MenuItemCheck");
+		assertFalse(item.isSelected());
+		item.select();
+		assertTrue(item.isSelected());
+	}
+	
+	@Test
+	public void radioMenuItem() {
+		new DefaultTreeItem(new DefaultTree(new DefaultShell(SHELL_TEXT)),"TreeItem1").select();
+		ContextMenuItem item = new ContextMenuItem("TreeItem1MenuItemRadio");
+		assertFalse(item.isSelected());
+		item.select();
+		assertTrue(item.isSelected());
+	}
+	
+	@Test
+	public void shellContextMenu() {
+		new ContextMenuItem(new DefaultShell(SHELL_TEXT),"ShellContextMenuItem");
+	}
+
+
+
 }

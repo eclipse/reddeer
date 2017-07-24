@@ -37,8 +37,8 @@ import org.eclipse.reddeer.swt.api.TreeItem;
 import org.eclipse.reddeer.swt.exception.SWTLayerException;
 import org.eclipse.reddeer.swt.impl.button.CheckBox;
 import org.eclipse.reddeer.swt.impl.button.OkButton;
-import org.eclipse.reddeer.swt.impl.menu.ContextMenu;
-import org.eclipse.reddeer.swt.impl.menu.ShellMenu;
+import org.eclipse.reddeer.swt.impl.menu.ContextMenuItem;
+import org.eclipse.reddeer.swt.impl.menu.ShellMenuItem;
 import org.eclipse.reddeer.swt.impl.shell.DefaultShell;
 import org.eclipse.reddeer.workbench.core.condition.JobIsRunning;
 import org.eclipse.reddeer.workbench.handler.WorkbenchPartHandler;
@@ -78,7 +78,7 @@ public abstract class AbstractResource implements Resource, RedDeerAdaptable<Res
 	@Override
 	public void refresh() {
 		select();
-		new ContextMenu("Refresh").select();
+		new ContextMenuItem("Refresh").select();
 		new WaitWhile(new JobIsRunning(), TimePeriod.LONG);
 	}
 
@@ -129,7 +129,7 @@ public abstract class AbstractResource implements Resource, RedDeerAdaptable<Res
 		select();
 
 		Matcher<String> launcherMatcher = new WithMnemonicTextMatcher(new RegexMatcher("[0-9]* " + launcher));
-		new ContextMenu(new WithMnemonicTextMatcher("Run As"), new WithMnemonicTextMatcher(launcherMatcher)).select();
+		new ContextMenuItem(new WithMnemonicTextMatcher("Run As"), new WithMnemonicTextMatcher(launcherMatcher)).select();
 	}
 	
 	@Override
@@ -160,7 +160,7 @@ public abstract class AbstractResource implements Resource, RedDeerAdaptable<Res
 		select();
 
 		Matcher<String> launcherMatcher = new WithMnemonicTextMatcher(new RegexMatcher("[0-9]* " + launcher));
-		new ContextMenu(new WithMnemonicTextMatcher("Debug As"), new WithMnemonicTextMatcher(launcherMatcher)).select();
+		new ContextMenuItem(new WithMnemonicTextMatcher("Debug As"), new WithMnemonicTextMatcher(launcherMatcher)).select();
 	}
 	
 	@Override
@@ -188,14 +188,14 @@ public abstract class AbstractResource implements Resource, RedDeerAdaptable<Res
 
 		// delete via context menu
 		select();
-		new ContextMenu("Delete").select();
+		new ContextMenuItem("Delete").select();
 		Shell sDeleteResources = handleDeleteResourcesShell(deleteFromFileSystem);
 		// delete via workbench menu
 		if (sDeleteResources == null && treeItem != null
 				&& !treeItem.isDisposed()) {
 			logger.debug("Delete resource '" + getName() + "' via Workbench menu");
 			treeItem.select();
-			new ShellMenu("Edit", "Delete").select();
+			new ShellMenuItem("Edit", "Delete").select();
 			sDeleteResources = handleDeleteResourcesShell(deleteFromFileSystem);
 		}
 		if (sDeleteResources != null) {
@@ -256,7 +256,7 @@ public abstract class AbstractResource implements Resource, RedDeerAdaptable<Res
 	@Override
 	public PropertyDialog openProperties() {
 		select();
-		new ContextMenu("Properties").select();
+		new ContextMenuItem("Properties").select();
 		return new PropertyDialog(getText());
 	}
 	

@@ -23,13 +23,13 @@ import org.eclipse.reddeer.core.matcher.WithMnemonicTextMatcher;
 import org.eclipse.reddeer.core.matcher.WithTextMatchers;
 import org.eclipse.reddeer.eclipse.exception.EclipseLayerException;
 import org.eclipse.reddeer.swt.api.Button;
-import org.eclipse.reddeer.swt.api.Menu;
+import org.eclipse.reddeer.swt.api.MenuItem;
 import org.eclipse.reddeer.swt.api.Shell;
 import org.eclipse.reddeer.swt.condition.ShellIsAvailable;
 import org.eclipse.reddeer.swt.impl.button.OkButton;
 import org.eclipse.reddeer.swt.impl.button.PushButton;
 import org.eclipse.reddeer.swt.impl.button.YesButton;
-import org.eclipse.reddeer.swt.impl.menu.ShellMenu;
+import org.eclipse.reddeer.swt.impl.menu.ShellMenuItem;
 import org.eclipse.reddeer.swt.impl.shell.DefaultShell;
 import org.eclipse.reddeer.swt.impl.table.DefaultTable;
 import org.eclipse.reddeer.swt.impl.toolbar.DefaultToolItem;
@@ -106,16 +106,16 @@ public abstract class AbstractPerspective {
 		WithTextMatchers m = new WithTextMatchers(new RegexMatcher[] {
 				new RegexMatcher("Window.*"),
 				new RegexMatcher("Reset Perspective...")});
-		Menu menu;
+		MenuItem menu;
 		try {
-			menu = new ShellMenu(m.getMatchers());	
+			menu = new ShellMenuItem(m.getMatchers());	
 		} catch (CoreLayerException swtle) {
 			// Try menu path for Mars and higher versions
 			m = new WithTextMatchers(new RegexMatcher[] {
 					new RegexMatcher("Window.*"),
 					new RegexMatcher("Perspective.*"),
 					new RegexMatcher("Reset Perspective...")});
-			menu = new ShellMenu(m.getMatchers());
+			menu = new ShellMenuItem(m.getMatchers());
 		}
 		
 		menu.select();

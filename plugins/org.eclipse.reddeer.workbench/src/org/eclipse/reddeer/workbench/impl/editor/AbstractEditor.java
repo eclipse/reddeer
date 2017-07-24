@@ -32,15 +32,15 @@ import org.eclipse.reddeer.common.wait.AbstractWait;
 import org.eclipse.reddeer.common.wait.TimePeriod;
 import org.eclipse.reddeer.common.wait.WaitUntil;
 import org.eclipse.reddeer.common.wait.WaitWhile;
-import org.eclipse.reddeer.core.handler.MenuHandler;
+import org.eclipse.reddeer.core.handler.MenuItemHandler;
 import org.eclipse.reddeer.core.lookup.ShellLookup;
 import org.eclipse.reddeer.core.matcher.WithTextMatcher;
 import org.eclipse.reddeer.core.reference.ReferencedComposite;
 import org.eclipse.reddeer.core.util.InstanceValidator;
 import org.eclipse.reddeer.jface.text.contentassist.ContentAssistant;
-import org.eclipse.reddeer.swt.api.Menu;
+import org.eclipse.reddeer.swt.api.MenuItem;
 import org.eclipse.reddeer.swt.impl.ctab.DefaultCTabItem;
-import org.eclipse.reddeer.swt.impl.menu.ShellMenu;
+import org.eclipse.reddeer.swt.impl.menu.ShellMenuItem;
 import org.eclipse.reddeer.swt.keyboard.KeyboardFactory;
 import org.eclipse.reddeer.workbench.api.Editor;
 import org.eclipse.reddeer.workbench.api.EditorFile;
@@ -122,7 +122,7 @@ public abstract class AbstractEditor extends AbstractWorkbenchPart implements Ed
 	public void save() {
 		activate();
 		log.info("Save editor");
-		new ShellMenu(new WorkbenchShell(), "File", "Save").select();
+		new ShellMenuItem(new WorkbenchShell(), "File", "Save").select();
 		new WaitWhile(new EditorIsDirty(this));
 		activate();
 	}
@@ -157,14 +157,14 @@ public abstract class AbstractEditor extends AbstractWorkbenchPart implements Ed
 
 	@Override
 	public ContentAssistant openContentAssistant() {
-		Menu assistMenu = null;
+		MenuItem assistMenu = null;
 		try {
-			assistMenu = new ShellMenu("Edit", "Content Assist");
+			assistMenu = new ShellMenuItem("Edit", "Content Assist");
 		} catch (RedDeerException e) {
 			log.info("Content assist menu not found, open via keyboard shortcut");
 			return openContentAssistantViaKeyboard();
 		}
-		boolean hasAssistMenuChildren = MenuHandler.getInstance()
+		boolean hasAssistMenuChildren = MenuItemHandler.getInstance()
 				.getMenuFromMenuItem(assistMenu.getSWTWidget()) != null;
 
 		if (hasAssistMenuChildren) {
@@ -188,9 +188,9 @@ public abstract class AbstractEditor extends AbstractWorkbenchPart implements Ed
 		log.info("Open editor's " + assistantLabel + " content assistant");
 		AbstractWait.sleep(TimePeriod.SHORT);
 
-		ShellMenu menu;
+		ShellMenuItem menu;
 		try {
-			menu = new ShellMenu(assistantMenuPath);
+			menu = new ShellMenuItem(assistantMenuPath);
 		} catch (RedDeerException e) {
 			throw new WorkbenchLayerException("Content assistant " + assistantLabel + " does not exist!", e);
 
@@ -237,11 +237,11 @@ public abstract class AbstractEditor extends AbstractWorkbenchPart implements Ed
 		activate();
 		AbstractWait.sleep(TimePeriod.SHORT);
 
-		List<Menu> availableMenus = new ShellMenu("Edit", "Content Assist").getAvailableChildItems();
+		List<MenuItem> availableMenus = new ShellMenuItem("Edit", "Content Assist").getAvailableChildItems();
 		List<ContentAssistantEnum> result = new ArrayList<>(availableMenus.size());
 
-		for (Menu availableMenu : availableMenus) {
-			String label = MenuHandler.getInstance().getLabelFromText(availableMenu.getText());
+		for (MenuItem availableMenu : availableMenus) {
+			String label = MenuItemHandler.getInstance().getLabelFromText(availableMenu.getText());
 			ContentAssistantEnum assistantType = ContentAssistantEnum.resolveLabel(label);
 			if (assistantType != null)
 				result.add(assistantType);
@@ -256,7 +256,7 @@ public abstract class AbstractEditor extends AbstractWorkbenchPart implements Ed
 		log.info("Open editor's open on assistant");
 		AbstractWait.sleep(TimePeriod.SHORT);
 		Shell[] shells1 = ShellLookup.getInstance().getShells();
-		new ShellMenu("Navigate", "Open Hyperlink").select();
+		new ShellMenuItem("Navigate", "Open Hyperlink").select();
 		try {
 			ContentAssistantShellIsOpened caw = new ContentAssistantShellIsOpened(shells1);
 			new WaitUntil(caw);

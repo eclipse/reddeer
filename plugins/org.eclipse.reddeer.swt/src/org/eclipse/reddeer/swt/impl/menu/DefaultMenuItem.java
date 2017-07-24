@@ -10,23 +10,17 @@
  *******************************************************************************/
 package org.eclipse.reddeer.swt.impl.menu;
 
-import org.eclipse.reddeer.core.handler.ShellHandler;
-import org.eclipse.reddeer.core.lookup.MenuLookup;
-import org.eclipse.reddeer.swt.api.Shell;
+import org.eclipse.swt.widgets.MenuItem;
 
 /**
- * Shell Menu
+ * Default MenuItem implementation
  * @author rawagner
  *
  */
-public class ShellMenu extends AbstractMenu{
-	
-	public ShellMenu() {
-		super(MenuLookup.getInstance().getMenuFromActiveShell());
-	}
-	
-	public ShellMenu(Shell shell) {
-		super(ShellHandler.getInstance().getMenuBar(shell.getSWTWidget()));
-	}
+public class DefaultMenuItem extends AbstractMenuItem {
 
+	public DefaultMenuItem(MenuItem item){
+		super(item);
+	}
+	
 }

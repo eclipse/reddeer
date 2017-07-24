@@ -32,5 +32,11 @@ public interface Item<T extends org.eclipse.swt.widgets.Item> extends Widget<T>{
 	 */
 	String getText();
 	
+	/**
+	 * Returns parent control
+	 * @return parent control
+	 */
+	Control<?> getParentControl();
+	
 
 }

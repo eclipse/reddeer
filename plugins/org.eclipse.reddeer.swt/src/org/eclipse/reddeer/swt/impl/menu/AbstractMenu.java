@@ -12,98 +12,53 @@ package org.eclipse.reddeer.swt.impl.menu;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
-import org.eclipse.swt.widgets.MenuItem;
-import org.eclipse.reddeer.swt.api.Menu;
-import org.eclipse.reddeer.swt.widgets.AbstractItem;
-import org.eclipse.reddeer.common.logging.Logger;
 import org.eclipse.reddeer.core.handler.MenuHandler;
-import org.eclipse.reddeer.core.handler.WidgetHandler;
-import org.eclipse.reddeer.core.lookup.MenuLookup;
+import org.eclipse.reddeer.core.lookup.MenuItemLookup;
+import org.eclipse.reddeer.core.matcher.WithMnemonicTextMatchers;
+import org.eclipse.reddeer.core.reference.ReferencedComposite;
+import org.eclipse.reddeer.swt.api.MenuItem;
+import org.eclipse.reddeer.swt.widgets.AbstractWidget;
+import org.eclipse.swt.widgets.Menu;
+import org.hamcrest.Matcher;
 
 /**
  * Abstract class for all Menu implementations
- * 
- * @author Jiri Peterka
- * 
+ * @author rawagner
+ *
  */
-public abstract class AbstractMenu extends AbstractItem<MenuItem> implements Menu {
+public abstract class AbstractMenu extends AbstractWidget<Menu> implements org.eclipse.reddeer.swt.api.Menu{
+	
+	public AbstractMenu(Menu swtMenu) {
+		super(swtMenu);
+	}
 
-	protected AbstractMenu(MenuItem swtWidget) {
-		super(swtWidget);
+	protected AbstractMenu(Class<Menu> widgetClass, ReferencedComposite refComposite, int index,
+			Matcher<?>[] matchers) {
+		super(widgetClass, refComposite, index, matchers);
 	}
-	
-	protected MenuLookup ml = MenuLookup.getInstance();
-	protected MenuHandler mh = MenuHandler.getInstance();
-	private static final Logger log = Logger.getLogger(AbstractMenu.class);
 
-
-	/* (non-Javadoc)
-	 * @see org.eclipse.reddeer.swt.api.Menu#select()
-	 */
 	@Override
-	public void select(){
-		log.info("Select menu item with text " + getText());
-		mh.select(swtWidget);
-	}
-	
-	/* (non-Javadoc)
-	 * @see org.eclipse.reddeer.swt.api.Menu#isSelected()
-	 */
-	@Override
-	public boolean isSelected(){
-		return mh.isSelected(swtWidget);
-	}
-	
-	@Override
-	public String getText() {
-		return mh.getMenuItemText(swtWidget).replace("&", "");
-	}
-	
-	@Override
-	public boolean isEnabled() {
-		return mh.isEnabled(swtWidget);
-	}
-	
-	@Override
-	public boolean isDisposed() {
-		return WidgetHandler.getInstance().isDisposed(swtWidget);
-	}
-	
-	@Override
-	public List<String> getChildItems() {
-		List<String> itemsText = new ArrayList<>();
-		MenuItem[] items = mh.getMenuItems(swtWidget);
-		if(items != null){
-			for(MenuItem i: items){
-				itemsText.add(mh.getMenuItemText(i).replace("&", ""));
-			}
+	public List<MenuItem> getItems() {
+		List<org.eclipse.swt.widgets.MenuItem> swtItems =  MenuHandler.getInstance().getItems(swtWidget);
+		if(swtItems == null) {
+			return new ArrayList<>();
 		}
-		return itemsText;
+		return swtItems.stream().map(DefaultMenuItem::new).collect(Collectors.toList());
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public MenuItem getItem(Matcher<String>... matchers) {
+		org.eclipse.swt.widgets.MenuItem swtItem = MenuItemLookup.getInstance().lookFor(getSWTWidget(),
+				matchers);
+		return new DefaultMenuItem(swtItem);
 	}
 	
 	@Override
-	public List<Menu> getMenuItems() {
-		MenuItem[] items = ml.getItemsFromMenu(mh.getMenuFromMenuItem(swtWidget));
-		List<Menu> menus = new ArrayList<>(items.length);
-		
-		for (MenuItem item : items){
-			if(mh.getMenuItemText(item).isEmpty())		
-				continue;
-
-			menus.add(new DefaultMenu(item));
-		}
-		return menus;
+	public MenuItem getItem(String... path) {
+		return getItem(new WithMnemonicTextMatchers(path).getMatchers());
 	}
-	
-	@Override
-	public List<Menu> getAvailableChildItems() {
-		List<Menu> availableItems = new ArrayList<>();
 
-		for (Menu item : getMenuItems()) {
-			if(item.isEnabled())
-				availableItems.add(item);
-		}
-		return availableItems;
-	}
 }

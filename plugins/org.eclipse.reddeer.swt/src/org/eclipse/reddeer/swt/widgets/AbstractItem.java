@@ -14,6 +14,7 @@ import org.eclipse.swt.graphics.Image;
 import org.hamcrest.Matcher;
 import org.eclipse.reddeer.core.handler.ItemHandler;
 import org.eclipse.reddeer.core.reference.ReferencedComposite;
+import org.eclipse.reddeer.swt.api.Control;
 import org.eclipse.reddeer.swt.api.Item;
 
 /**
@@ -41,5 +42,7 @@ public abstract class AbstractItem<T extends org.eclipse.swt.widgets.Item> exten
 	public String getText(){
 		return itemHandler.getText(swtWidget);
 	}
+	
+	public abstract Control<?> getParentControl();
 
 }

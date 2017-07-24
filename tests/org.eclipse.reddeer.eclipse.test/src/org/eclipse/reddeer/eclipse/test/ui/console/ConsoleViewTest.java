@@ -41,7 +41,7 @@ import org.eclipse.reddeer.eclipse.utils.DeleteUtils;
 import org.eclipse.reddeer.junit.runner.RedDeerSuite;
 import org.eclipse.reddeer.requirements.openperspective.OpenPerspectiveRequirement.OpenPerspective;
 import org.eclipse.reddeer.swt.api.StyledText;
-import org.eclipse.reddeer.swt.impl.menu.ShellMenu;
+import org.eclipse.reddeer.swt.impl.menu.ShellMenuItem;
 import org.eclipse.reddeer.swt.impl.styledtext.DefaultStyledText;
 import org.eclipse.reddeer.swt.impl.toolbar.DefaultToolItem;
 import org.eclipse.reddeer.workbench.impl.editor.DefaultEditor;
@@ -261,7 +261,7 @@ public class ConsoleViewTest {
 		RegexMatcher[] array = { new RegexMatcher("Run.*"), new RegexMatcher("Run As.*"),
 				new RegexMatcher(".*Java Application.*") };
 		WithTextMatchers m = new WithTextMatchers(array);
-		new ShellMenu(m.getMatchers()).select();
+		new ShellMenuItem(m.getMatchers()).select();
 		new GroupWait(TimePeriod.getCustom(20), waitUntil(new ConsoleHasLabel(new RegexMatcher(".*" + name	+ ".*"))),
 				waitWhile(new JobIsRunning()));		
 	}

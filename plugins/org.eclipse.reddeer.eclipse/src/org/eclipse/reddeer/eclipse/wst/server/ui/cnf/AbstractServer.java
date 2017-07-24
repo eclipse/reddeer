@@ -46,7 +46,7 @@ import org.eclipse.reddeer.swt.api.TreeItem;
 import org.eclipse.reddeer.swt.condition.ShellIsAvailable;
 import org.eclipse.reddeer.swt.impl.button.CheckBox;
 import org.eclipse.reddeer.swt.impl.button.PushButton;
-import org.eclipse.reddeer.swt.impl.menu.ContextMenu;
+import org.eclipse.reddeer.swt.impl.menu.ContextMenuItem;
 import org.eclipse.reddeer.swt.impl.shell.DefaultShell;
 import org.eclipse.reddeer.workbench.core.condition.JobIsRunning;
 
@@ -107,7 +107,7 @@ public abstract class AbstractServer implements Server, RedDeerAdaptable<Server>
 	public ServerEditor open() {
 		select();
 		log.info("Open server's editor");
-		new ContextMenu("Open").select();
+		new ContextMenuItem("Open").select();
 		return createServerEditor(getLabel().getName());
 	}
 	
@@ -189,7 +189,7 @@ public abstract class AbstractServer implements Server, RedDeerAdaptable<Server>
 		
 		PublishListenerCondition listenerCondition = new PublishListenerCondition();
 		try{
-			new ContextMenu("Publish").select();
+			new ContextMenuItem("Publish").select();
 			waitForPublish(listenerCondition);
 		} finally {
 			cleanupPublishListener(listenerCondition.getPublishListener());
@@ -204,7 +204,7 @@ public abstract class AbstractServer implements Server, RedDeerAdaptable<Server>
 		PublishListenerCondition listenerCondition = new PublishListenerCondition();
 		
 		try{
-			new ContextMenu("Clean...").select();
+			new ContextMenuItem("Clean...").select();
 			Shell serverShell = new DefaultShell("Server");
 			new PushButton("OK").click();
 			new WaitWhile(new ShellIsAvailable(serverShell));
@@ -247,7 +247,7 @@ public abstract class AbstractServer implements Server, RedDeerAdaptable<Server>
 		log.info("Delete server '" + name + "'. Stop server first: " + stopFirst);
 		ServerState state = getLabel().getState();
 
-		new ContextMenu("Delete").select();
+		new ContextMenuItem("Delete").select();
 		Shell deleteShell  =new DefaultShell("Delete Server");
 		if (!ServerState.STOPPED.equals(state) && !ServerState.NONE.equals(state)) {
 			new CheckBox().toggle(stopFirst);
@@ -285,7 +285,7 @@ public abstract class AbstractServer implements Server, RedDeerAdaptable<Server>
 	public ModifyModulesDialog addAndRemoveModules() {
 		select();
 		log.info("Add and remove modules of server");
-		new ContextMenu(ADD_AND_REMOVE).select();
+		new ContextMenuItem(ADD_AND_REMOVE).select();
 		return new ModifyModulesDialog();
 	}
 
@@ -466,7 +466,7 @@ public abstract class AbstractServer implements Server, RedDeerAdaptable<Server>
 			default: throw new EclipseLayerException("Unknown state "+resultState);
 		}
 		try{
-			new ContextMenu(menuItem).select();
+			new ContextMenuItem(menuItem).select();
 		
 			new GroupWait(getServerStateChangeTimeout(), waitUntil(listenerCondition), 
 					waitUntil(new ServerHasState(this, resultState)), waitWhile(new JobIsRunning()));

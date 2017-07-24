@@ -15,6 +15,7 @@ import java.util.List;
 
 import org.eclipse.swt.SWTException;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.reddeer.common.logging.Logger;
 import org.eclipse.reddeer.common.util.Display;
@@ -204,6 +205,22 @@ public class ShellHandler extends ControlHandler{
 		}
 		return allParentShells;
 		
+	}
+	
+	/**
+	 * Returns menu bar of given shell
+	 * @param shell to get menu bar of
+	 * @return menu bar of given shell
+	 */
+	public Menu getMenuBar(final Shell shell) {
+		log.info("Getting Menu Bar of shell '" + getText(shell) + "'");
+		return Display.syncExec(new ResultRunnable<Menu>() {
+
+			@Override
+			public Menu run() {
+				return shell.getMenuBar();
+			}
+		});
 	}
 	
 	

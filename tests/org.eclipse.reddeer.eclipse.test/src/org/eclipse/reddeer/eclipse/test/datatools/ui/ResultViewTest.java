@@ -39,7 +39,7 @@ import org.eclipse.reddeer.swt.impl.button.PushButton;
 import org.eclipse.reddeer.swt.impl.button.YesButton;
 import org.eclipse.reddeer.swt.impl.combo.DefaultCombo;
 import org.eclipse.reddeer.swt.impl.combo.LabeledCombo;
-import org.eclipse.reddeer.swt.impl.menu.ContextMenu;
+import org.eclipse.reddeer.swt.impl.menu.ContextMenuItem;
 import org.eclipse.reddeer.swt.impl.shell.DefaultShell;
 import org.eclipse.reddeer.swt.impl.styledtext.DefaultStyledText;
 import org.eclipse.reddeer.swt.impl.table.DefaultTable;
@@ -86,7 +86,7 @@ public class ResultViewTest {
 		List<TreeItem> cpitems = item.getItems();
 		for (TreeItem i : cpitems) {
 			i.select();
-			new ContextMenu("Delete").select();
+			new ContextMenuItem("Delete").select();
 			Shell deleteShell = new DefaultShell("Delete confirmation");
 			new YesButton().click();
 			new WaitWhile(new ShellIsAvailable(deleteShell));		
@@ -110,7 +110,7 @@ public class ResultViewTest {
 		TreeItem connectionItem = new DefaultTreeItem(new TreeItemRegexMatcher("Database Connections"), new TreeItemRegexMatcher(profile+".*"));
 		connectionItem.doubleClick();
 		connectionItem.expand();
-		new ContextMenu("Open SQL Scrapbook").select();
+		new ContextMenuItem("Open SQL Scrapbook").select();
 		DefaultEditor scrapbook = new DefaultEditor("SQL Scrapbook 0");
 		
 		List<String> items = new LabeledCombo("Type:").getItems();
@@ -126,7 +126,7 @@ public class ResultViewTest {
 		DefaultStyledText text = new DefaultStyledText();
 		text.setText(statement);
 		new WaitWhile(new JobIsRunning());
-		new ContextMenu("Execute All").select();
+		new ContextMenuItem("Execute All").select();
 		
 		new WaitUntil(new ShellIsAvailable("SQL Statement Execution"),TimePeriod.LONG, false);
 		new WaitWhile(new ShellIsAvailable("SQL Statement Execution"),TimePeriod.LONG, false);

@@ -10,43 +10,22 @@
  *******************************************************************************/
 package org.eclipse.reddeer.swt.impl.menu;
 
-import org.hamcrest.Matcher;
-import org.eclipse.reddeer.swt.api.ToolItem;
-import org.eclipse.reddeer.core.handler.ToolItemHandler;
 import org.eclipse.reddeer.core.lookup.MenuLookup;
-import org.eclipse.reddeer.core.matcher.WithMnemonicTextMatchers;
+import org.eclipse.reddeer.swt.api.ToolItem;
 
 /**
- * This class represents drop down menu for ToolItems.
- * 
- * @author rhopp
+ * Represents menu under ToolItem
+ * @author rawagner
  *
  */
-public class ToolItemMenu extends AbstractMenu {
-
-	protected ToolItemHandler tih = ToolItemHandler.getInstance();
-
-	/**
-	 * Constructor for desired menu for given ToolItem.
-	 * 
-	 * @param item ToolItem with SWT.DROP_DOWN style.
-	 * @param path Path to desired menu.
-	 */
-	public ToolItemMenu(ToolItem item, String... path) {
-		this(item, new WithMnemonicTextMatchers(path).getMatchers());
-	}
-
-	/**
-	 * Constructor for desired menu for given ToolItem.
-	 * 
-	 * @param item ToolItem with SWT.DROP_DOWN style.
-	 * @param path Path to desired menu.
-	 */
-	@SuppressWarnings("unchecked")
-	public ToolItemMenu(ToolItem item, Matcher<String>... path) {
-		super(MenuLookup.getInstance().lookFor(MenuLookup.getInstance().getToolItemMenuItems(item.getSWTWidget()),
-				path));
-	}
+public class ToolItemMenu extends AbstractMenu{
 	
-}
+	/**
+	 * Constructs this menu from specified tool item
+	 * @param item to get menu of
+	 */
+	public ToolItemMenu(ToolItem item) {
+		super(MenuLookup.getInstance().getToolItemMenu(item.getSWTWidget()));
+	}
 
+}

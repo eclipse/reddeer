@@ -16,7 +16,7 @@ import org.eclipse.reddeer.common.wait.WaitUntil;
 import org.eclipse.reddeer.core.exception.CoreLayerException;
 import org.eclipse.reddeer.swt.api.TreeItem;
 import org.eclipse.reddeer.swt.exception.SWTLayerException;
-import org.eclipse.reddeer.swt.impl.menu.ContextMenu;
+import org.eclipse.reddeer.swt.impl.menu.ContextMenuItem;
 import org.eclipse.reddeer.swt.impl.tree.AbstractTreeItem;
 
 /**
@@ -86,7 +86,7 @@ public class Breakpoint extends AbstractTreeItem {
 	public void doOperation(String operation) {
 		log.debug("Performing '" + operation + "' on breakpoint: " + getText());
 		select();
-		ContextMenu menuitem = new ContextMenu(operation);
+		ContextMenuItem menuitem = new ContextMenuItem(operation);
 		if (menuitem.isEnabled()) {
 			menuitem.select();
 			log.debug("Operation '" + operation + "' was performed");
@@ -115,7 +115,7 @@ public class Breakpoint extends AbstractTreeItem {
 		log.debug("Checking operation '" + operation + "' on breakpoint:" + getText());
 		select();
 		try {
-			ContextMenu menuitem = new ContextMenu(operation);
+			ContextMenuItem menuitem = new ContextMenuItem(operation);
 			return menuitem.isEnabled();
 		} catch (SWTLayerException | CoreLayerException ex) {
 			log.debug("Operation '" + operation + "' not found!");

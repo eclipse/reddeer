@@ -21,17 +21,17 @@ import org.eclipse.reddeer.common.wait.WaitWhile;
 import org.eclipse.reddeer.core.condition.WidgetIsFound;
 import org.eclipse.reddeer.core.matcher.WithMnemonicTextMatcher;
 import org.eclipse.reddeer.swt.api.Button;
-import org.eclipse.reddeer.swt.api.Menu;
+import org.eclipse.reddeer.swt.api.MenuItem;
 import org.eclipse.reddeer.swt.api.Shell;
 import org.eclipse.reddeer.swt.api.Tree;
 import org.eclipse.reddeer.swt.api.TreeItem;
 import org.eclipse.reddeer.swt.condition.ShellIsAvailable;
 import org.eclipse.reddeer.swt.impl.button.OkButton;
 import org.eclipse.reddeer.swt.impl.button.PushButton;
-import org.eclipse.reddeer.swt.impl.menu.ContextMenu;
+import org.eclipse.reddeer.swt.impl.menu.ContextMenuItem;
 import org.eclipse.reddeer.swt.impl.shell.DefaultShell;
 import org.eclipse.reddeer.swt.impl.tree.DefaultTree;
-import org.eclipse.reddeer.workbench.impl.menu.ViewMenu;
+import org.eclipse.reddeer.workbench.impl.menu.WorkbenchPartMenuItem;
 import org.eclipse.reddeer.workbench.impl.view.WorkbenchView;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Widget;
@@ -100,7 +100,7 @@ public class LogView extends WorkbenchView {
 	public void clearLog() {
 		activate();
 		getViewTree();
-		Menu cm = new ContextMenu(CLEAR_LOG);
+		MenuItem cm = new ContextMenuItem(CLEAR_LOG);
 		cm.select();
 	}
 
@@ -110,7 +110,7 @@ public class LogView extends WorkbenchView {
 	public void deleteLog() {
 		activate();
 		getViewTree();
-		Menu cm = new ContextMenu(DELETE_LOG);
+		MenuItem cm = new ContextMenuItem(DELETE_LOG);
 		if (!cm.isEnabled()) {
 			log.debug("Unable to delete log. \"" + DELETE_LOG + "\" menu item is not enabled.");
 			return;
@@ -137,7 +137,7 @@ public class LogView extends WorkbenchView {
 	public void restoreLog() {
 		activate();
 		getViewTree();
-		Menu cm = new ContextMenu(RESTORE_LOG);
+		MenuItem cm = new ContextMenuItem(RESTORE_LOG);
 		cm.select();
 		new WaitUntil(new ShellIsAvailable("Progress Information"), TimePeriod.SHORT,false);
 		new WaitWhile(new ShellIsAvailable("Progress Information"));
@@ -149,7 +149,7 @@ public class LogView extends WorkbenchView {
 	 */
 	public void setActivateOnNewEvents(boolean value) {
 		activate();
-		ViewMenu menu = new ViewMenu("Activate on new events");
+		WorkbenchPartMenuItem menu = new WorkbenchPartMenuItem("Activate on new events");
 		if ((value && !menu.isSelected()) || (!value && menu.isSelected())) {
 			menu.select();
 		}

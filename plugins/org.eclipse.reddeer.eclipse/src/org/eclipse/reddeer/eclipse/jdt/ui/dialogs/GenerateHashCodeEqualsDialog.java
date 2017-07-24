@@ -20,8 +20,8 @@ import org.eclipse.reddeer.swt.condition.ShellIsAvailable;
 import org.eclipse.reddeer.swt.impl.button.CheckBox;
 import org.eclipse.reddeer.swt.impl.button.PushButton;
 import org.eclipse.reddeer.swt.impl.combo.LabeledCombo;
-import org.eclipse.reddeer.swt.impl.menu.ContextMenu;
-import org.eclipse.reddeer.swt.impl.menu.ShellMenu;
+import org.eclipse.reddeer.swt.impl.menu.ContextMenuItem;
+import org.eclipse.reddeer.swt.impl.menu.ShellMenuItem;
 import org.eclipse.reddeer.swt.impl.shell.DefaultShell;
 import org.eclipse.reddeer.swt.impl.tree.DefaultTree;
 
@@ -42,9 +42,9 @@ public class GenerateHashCodeEqualsDialog {
 	 */
 	public void open(boolean viaShellMenu){
 		if(viaShellMenu){
-			new ShellMenu("Source","Generate hashCode() and equals()...").select();
+			new ShellMenuItem("Source","Generate hashCode() and equals()...").select();
 		} else {
-			new ContextMenu("Source","Generate hashCode() and equals()...").select();
+			new ContextMenuItem("Source","Generate hashCode() and equals()...").select();
 		}
 		shell = new DefaultShell("Generate hashCode() and equals()");
 	}

@@ -25,18 +25,18 @@ import org.eclipse.reddeer.swt.impl.shell.DefaultShell;
 import org.eclipse.reddeer.swt.impl.text.DefaultText;
 import org.eclipse.reddeer.swt.test.handler.ParameterizedHandler;
 import org.eclipse.reddeer.swt.test.handler.ViewActionWithId;
-import org.eclipse.reddeer.workbench.impl.menu.ViewMenu;
+import org.eclipse.reddeer.workbench.impl.menu.WorkbenchPartMenuItem;
 import org.eclipse.reddeer.workbench.impl.view.WorkbenchView;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(RedDeerSuite.class)
-public class ViewMenuTest {
+public class ViewMenuItemTest {
 
 	@Test
 	public void testErrorLogMenu() {
 		new WorkbenchView("Error Log").open();
-		new ViewMenu("Filters...").select();
+		new WorkbenchPartMenuItem("Filters...").select();
 		new DefaultShell("Log Filters");
 		new PushButton("OK").click();
 		new WaitWhile(new ShellIsAvailable("Log Filters"));
@@ -46,7 +46,7 @@ public class ViewMenuTest {
 	@Test
 	public void testCheckStyledMenus() {
 		new WorkbenchView("Error Log").open();
-		ViewMenu filter = new ViewMenu("Show text filter");
+		WorkbenchPartMenuItem filter = new WorkbenchPartMenuItem("Show text filter");
 		boolean selected = filter.isSelected();
 		if (selected) {
 			filter.select();
@@ -74,12 +74,12 @@ public class ViewMenuTest {
 		new WorkbenchView("RedDeer SWT").open();
 
 		// click menu item A
-		new ViewMenu("submenu", "parameterizedMenuA").select();
+		new WorkbenchPartMenuItem("submenu", "parameterizedMenuA").select();
 		assertTrue(ParameterizedHandler.isToggledA());
 		assertFalse(ParameterizedHandler.isToggledB());
 
 		// click menu item B
-		new ViewMenu("submenu", "parameterizedMenuB").select();
+		new WorkbenchPartMenuItem("submenu", "parameterizedMenuB").select();
 		assertTrue(ParameterizedHandler.isToggledA());
 		assertTrue(ParameterizedHandler.isToggledB());
 	}
@@ -91,7 +91,7 @@ public class ViewMenuTest {
 		
 		// click Action With Id Menu
 		assertFalse(ViewActionWithId.isToggled());
-		new ViewMenu("View Action with ID").select();
+		new WorkbenchPartMenuItem("View Action with ID").select();
 		new WaitUntil(new ViewWithActionIdIsToggled());
 		assertTrue(ViewActionWithId.isToggled());
 	}

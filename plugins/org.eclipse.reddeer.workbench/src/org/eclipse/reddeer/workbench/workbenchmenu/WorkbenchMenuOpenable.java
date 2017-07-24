@@ -13,7 +13,7 @@ package org.eclipse.reddeer.workbench.workbenchmenu;
 import org.hamcrest.Matcher;
 import org.eclipse.reddeer.core.matcher.WithTextMatcher;
 import org.eclipse.reddeer.jface.window.Openable;
-import org.eclipse.reddeer.swt.impl.menu.ShellMenu;
+import org.eclipse.reddeer.swt.impl.menu.ShellMenuItem;
 import org.eclipse.reddeer.workbench.impl.shell.WorkbenchShell;
 
 /**
@@ -37,7 +37,7 @@ public class WorkbenchMenuOpenable extends Openable{
 
 	@Override
 	public void run() {
-		new ShellMenu(new WorkbenchShell(), menuPath).select();
+		new ShellMenuItem(new WorkbenchShell(), menuPath).select();
 	}
 	
 	public String[] getMenuPath(){

@@ -23,6 +23,7 @@ import org.eclipse.reddeer.core.handler.TreeHandler;
 import org.eclipse.reddeer.core.handler.TreeItemHandler;
 import org.eclipse.reddeer.core.lookup.TreeItemLookup;
 import org.eclipse.reddeer.core.matcher.TreeItemTextMatcher;
+import org.eclipse.reddeer.swt.api.Control;
 import org.eclipse.reddeer.swt.api.Tree;
 import org.eclipse.reddeer.swt.api.TreeItem;
 import org.eclipse.reddeer.swt.condition.TreeItemHasMinChildren;
@@ -233,6 +234,11 @@ public abstract class AbstractTreeItem extends AbstractItem<org.eclipse.swt.widg
 	@Override
 	public Tree getParent() {
 		return new DefaultTree(treeItemHandler.getParent(swtWidget));
+	}
+	
+	@Override
+	public Control<?> getParentControl() {
+		return getParent();
 	}
 
 	/**

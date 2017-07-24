@@ -21,7 +21,7 @@ import org.eclipse.reddeer.gef.test.wizard.GeneralProjectWizard;
 import org.eclipse.reddeer.junit.runner.RedDeerSuite;
 import org.eclipse.reddeer.requirements.cleanworkspace.CleanWorkspaceRequirement;
 import org.eclipse.reddeer.requirements.cleanworkspace.CleanWorkspaceRequirement.CleanWorkspace;
-import org.eclipse.reddeer.swt.impl.menu.ContextMenu;
+import org.eclipse.reddeer.swt.impl.menu.ContextMenuItem;
 import org.eclipse.reddeer.workbench.impl.shell.WorkbenchShell;
 import org.junit.After;
 import org.junit.Before;
@@ -91,7 +91,7 @@ public class EditPartTest {
 
 		gefEditor.getPalette().activateTool("Select");
 		new DefaultConnection(0).select();
-		new ContextMenu("Delete").select();
+		new ContextMenuItem("Delete").select();
 
 		try {
 			new DefaultConnection(0).select();
@@ -117,7 +117,7 @@ public class EditPartTest {
 		new LabeledEditPart("Label").setLabel("Hello");
 		new LabeledEditPart("Foo").select();
 		new LabeledEditPart("Hello").select();
-		new ContextMenu("Delete").select();
+		new ContextMenuItem("Delete").select();
 		new LabeledEditPart("Hello").select();
 	}
 
