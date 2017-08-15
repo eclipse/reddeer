@@ -11,6 +11,7 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.core.resources;bundle-version="3.9.0"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
-Export-Package: org.eclipse.reddeer.direct.preferences,
+Export-Package: org.eclipse.reddeer.direct.platform,
+ org.eclipse.reddeer.direct.preferences,
  org.eclipse.reddeer.direct.project,
- org.eclipse.reddeer.direct.platform
+ org.eclipse.reddeer.direct.workspace
