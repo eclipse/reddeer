@@ -14,8 +14,12 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.reddeer.common.exception.RedDeerException;
 
 /**
  * Utils handling project via API
@@ -79,5 +83,34 @@ public class Project {
 	
 	private static IProject getProject(String projectName){
 		return ResourcesPlugin.getWorkspace().getRoot().getProject(projectName);
+	}
+
+	/**
+	 * Returns a location of the given project name.
+	 * 
+	 * @param projectName
+	 *            name of the project
+	 * @return location of the project
+	 */
+	public static String getLocation(String projectName) {
+		return ResourcesPlugin.getWorkspace().getRoot().getProject(projectName).getLocation().toString();
+	}
+
+	/**
+	 * Creates a project.
+	 * 
+	 * @param projectName
+	 *            name of the project
+	 */
+	public static void create(String projectName) {
+		IProgressMonitor progressMonitor = new NullProgressMonitor();
+		IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
+		IProject project = root.getProject(projectName);
+		try {
+			project.create(progressMonitor);
+			project.open(progressMonitor);
+		} catch (CoreException e) {
+			throw new RedDeerException("Cannot create a project '" + projectName + "'", e);
+		}
 	}
 }
