@@ -13,6 +13,7 @@ package org.eclipse.reddeer.junit.requirement.matcher;
 import java.lang.annotation.Annotation;
 
 import org.eclipse.reddeer.junit.requirement.configuration.RequirementConfiguration;
+import org.eclipse.reddeer.junit.util.ReflectionUtil;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
@@ -43,9 +44,7 @@ public class RequirementMatcher extends TypeSafeMatcher<RequirementConfiguration
 	}
 	
 	public RequirementMatcher(Class<? extends Annotation> clazz, String attributeName, String attributeValue) {
-		this.attributeValueMatcher = new IsEqual<String>(attributeValue);
-		this.attributeName = attributeName;
-		configurationClass = clazz;
+		this(clazz, attributeName, new IsEqual<String>(attributeValue));
 	}
 
 	/**
@@ -72,7 +71,7 @@ public class RequirementMatcher extends TypeSafeMatcher<RequirementConfiguration
 
 	@Override
 	protected boolean matchesSafely(RequirementConfiguration item) {
-		String value = item.getNestedAttribute(attributeName);
+		Object value = ReflectionUtil.getValue(item, attributeName);
 		return attributeValueMatcher.matches(value);
 	}	
 }

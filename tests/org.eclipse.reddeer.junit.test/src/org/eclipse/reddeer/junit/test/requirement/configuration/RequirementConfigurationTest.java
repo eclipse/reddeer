@@ -10,7 +10,8 @@
  *******************************************************************************/
 package org.eclipse.reddeer.junit.test.requirement.configuration;
 
-import static org.junit.Assert.*;
+import static org.eclipse.reddeer.junit.util.ReflectionUtil.getValue;
+import static org.junit.Assert.assertTrue;
 
 import org.eclipse.reddeer.junit.requirement.RequirementException;
 import org.eclipse.reddeer.junit.test.requirement.configuration.resources.ComplexConfiguration;
@@ -23,7 +24,7 @@ public class RequirementConfigurationTest {
 	private SimpleConfiguration simpleConfig;
 	private ComplexConfiguration complexConfig;
 	private SimpleConfiguration simpleConfig2;
-	
+
 	private String version1 = "version1";
 	private String name1 = "name1";
 	private String type1 = "type1";
@@ -33,68 +34,59 @@ public class RequirementConfigurationTest {
 	private String cname = "cname";
 	private String ctype = "ctype";
 	private String cversion = "cversion";
-	
+
 	@Before
 	public void setup() {
 		simpleConfig = new SimpleConfiguration();
 		simpleConfig.setName(name1);
 		simpleConfig.setType(type1);
 		simpleConfig.setVersion(version1);
-		
+
 		simpleConfig2 = new SimpleConfiguration();
 		simpleConfig2.setName(name2);
 		simpleConfig2.setType(type2);
 		simpleConfig2.setVersion(version2);
-		
+
 		complexConfig = new ComplexConfiguration();
 		complexConfig.setComplexName(cname);
 		complexConfig.setComplexType(ctype);
 		complexConfig.setComplexVersion(cversion);
 		complexConfig.setSimpleConfiguration(simpleConfig2);
 	}
-	
+
 	@Test
 	public void testGetStringAttribute() {
-		assertTrue(simpleConfig.getAttribute("version").equals(version1));
-		assertTrue(simpleConfig.getAttribute("name").equals(name1));
-		assertTrue(simpleConfig.getAttribute("type").equals(type1));
+		assertTrue(getValue(simpleConfig, "version").equals(version1));
+		assertTrue(getValue(simpleConfig, "name").equals(name1));
+		assertTrue(getValue(simpleConfig, "type").equals(type1));
 	}
-	
+
 	@Test
 	public void testGetObjectAttribute() {
-		SimpleConfiguration config = complexConfig.getAttribute(SimpleConfiguration.class, "simpleConfiguration");
+		SimpleConfiguration config = (SimpleConfiguration) getValue(complexConfig, "simpleConfiguration");
 		assertTrue(config.getName().equals(name2));
 		assertTrue(config.getVersion().equals(version2));
 		assertTrue(config.getType().equals(type2));
 	}
-	
+
 	@Test
 	public void testGetStringObjectAttributeInPlaceOfSimpleAttribute() {
-		simpleConfig.getAttribute(String.class, "name");
+		getValue(simpleConfig, "name");
 	}
-	
-	@Test(expected=RequirementException.class)
+
+	@Test(expected = RequirementException.class)
 	public void testGetAttributeOfComplexConfiguration() {
-		simpleConfig.getAttribute(ComplexConfiguration.class, "name");
+		getValue(complexConfig, "name");
 	}
-	
-	@Test(expected=RequirementException.class)
+
+	@Test(expected = RequirementException.class)
 	public void getNonexistingStringAttribute() {
-		simpleConfig.getAttribute("idontexist");
+		getValue(simpleConfig, "idontexist");
 	}
-	
-	@Test(expected=RequirementException.class)
+
+	@Test(expected = RequirementException.class)
 	public void testGetNonexistingObjectAttribute() {
-		simpleConfig.getAttribute(SimpleConfiguration.class, "simpleConfiguration");
+		getValue(simpleConfig, "simpleConfiguration");
 	}
-	
-	@Test(expected=RequirementException.class)
-	public void testGetAttributeWithWrongAttributeClassAndCorrectAttributeName() {
-		complexConfig.getAttribute(ComplexConfiguration.class, "simpleConfiguration");
-	}
-	
-	@Test(expected=RequirementException.class)
-	public void testGetAttributeWithWrongAttributeClassAndWrongAttributeName() {
-		complexConfig.getAttribute(ComplexConfiguration.class, "idontexist");
-	}
+
 }
