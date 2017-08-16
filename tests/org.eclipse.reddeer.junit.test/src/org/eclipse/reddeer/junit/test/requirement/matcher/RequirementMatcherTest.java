@@ -13,16 +13,19 @@ package org.eclipse.reddeer.junit.test.requirement.matcher;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import org.eclipse.reddeer.junit.test.requirement.configuration.resources.SimpleConfiguration;
-import org.eclipse.reddeer.junit.test.requirement.configuration.resources.SimpleRequirement;
-import org.eclipse.reddeer.junit.test.requirement.configuration.resources.ComplexConfiguration;
-import org.eclipse.reddeer.junit.test.requirement.configuration.resources.ComplexRequirement;
 import org.eclipse.reddeer.common.matcher.RegexMatcher;
 import org.eclipse.reddeer.common.matcher.VersionMatcher;
 import org.eclipse.reddeer.junit.requirement.RequirementException;
 import org.eclipse.reddeer.junit.requirement.matcher.RequirementMatcher;
+import org.eclipse.reddeer.junit.test.requirement.configuration.resources.ComplexConfiguration;
+import org.eclipse.reddeer.junit.test.requirement.configuration.resources.ComplexRequirement;
 import org.eclipse.reddeer.junit.test.requirement.configuration.resources.ComplexRequirement.ComplexReq;
+import org.eclipse.reddeer.junit.test.requirement.configuration.resources.SimpleConfiguration;
+import org.eclipse.reddeer.junit.test.requirement.configuration.resources.SimpleRequirement;
 import org.eclipse.reddeer.junit.test.requirement.configuration.resources.SimpleRequirement.SimpleReq;
+import org.eclipse.reddeer.junit.test.requirement.configuration.resources.SubConfiguration;
+import org.eclipse.reddeer.junit.test.requirement.configuration.resources.SubRequirement;
+import org.eclipse.reddeer.junit.test.requirement.configuration.resources.SubRequirement.SubReq;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -33,6 +36,9 @@ public class RequirementMatcherTest {
 	
 	private static ComplexRequirement complexReq;
 	private static ComplexConfiguration complexConfig;
+	
+	private static SubRequirement subReq;
+	private static SubConfiguration subConfig;
 
 	@BeforeClass
 	public static void setup() {
@@ -50,12 +56,26 @@ public class RequirementMatcherTest {
 		complexConfig.setComplexVersion("2.0");
 		complexConfig.setSimpleConfiguration(simpleConfig);
 		complexReq.setConfiguration(complexConfig);
+		
+		subReq = new SubRequirement();
+		subConfig = new SubConfiguration();
+		subConfig.setName("SimpleConfig");
+		subConfig.setSubName("SubConfig");
+		subReq.setConfiguration(subConfig);
 	}
 
 	@Test
 	public void testNestedAttributeOnPreciseMatch() {
 		RequirementMatcher matcher = new RequirementMatcher(ComplexReq.class, "simpleConfiguration.name", "SimpleConfig");
 		assertTrue("Name attribute of configuration should be matched on precise match", matcher.matches(complexConfig));
+	}
+	
+	@Test
+	public void testNestedAttributeOnPreciseMatchInSubClass() {
+		RequirementMatcher matcher = new RequirementMatcher(SubReq.class, "name", "SimpleConfig");
+		assertTrue("Name attribute of configuration should be matched on precise match", matcher.matches(subConfig));
+		matcher = new RequirementMatcher(SubReq.class, "subName", "SubConfig");
+		assertTrue("Name attribute of configuration should be matched on precise match", matcher.matches(subConfig));
 	}
 	
 	@Test
@@ -159,4 +179,5 @@ public class RequirementMatcherTest {
 		RequirementMatcher matcher = new RequirementMatcher(SimpleReq.class, "version", new VersionMatcher("[0.9.0;1.1.1)"));
 		assertTrue("Version attribute should match to version matcher with value [0.9.0;1.1.1)", matcher.matches(simpleConfig));
 	}
+
 }
