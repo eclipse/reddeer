@@ -80,6 +80,20 @@ public class RequirementConfigurationPoolTest {
 		List<RequirementConfiguration> list = RequirementConfigurationPool.getInstance().getConfigurations(ComplexConfiguration.class);
 		assertThat("There should be 3 complex requirement configurations, but there are " + list.size(), list.size() == 3);
 	}
+
+	@Test
+	public void getSimpleRequirementConfigurationsFromPoolYAML() {
+		System.setProperty(RedDeerProperties.CONFIG_FILE.getName(), JSONConfigurationReaderTest.CONFIG_FILE_YAML);
+		int size = RequirementConfigurationPool.getInstance().getConfigurations(SimpleConfiguration.class).size();
+		assertThat("There should be 5 simple requirement configurations, but there are " + size, size == 5);
+	}
+	
+	@Test
+	public void getComplexRequirementConfigurationsFromPoolYAML() {
+		System.setProperty(RedDeerProperties.CONFIG_FILE.getName(), JSONConfigurationReaderTest.CONFIG_FILE_YAML);
+		List<RequirementConfiguration> list = RequirementConfigurationPool.getInstance().getConfigurations(ComplexConfiguration.class);
+		assertThat("There should be 3 complex requirement configurations, but there are " + list.size(), list.size() == 3);
+	}
 	
 	@After
 	public void cleanup() {

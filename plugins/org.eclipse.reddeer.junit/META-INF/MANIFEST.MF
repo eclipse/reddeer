@@ -15,7 +15,9 @@ Require-Bundle: org.eclipse.ui,
  org.apache.commons.beanutils,
  com.fasterxml.jackson.core.jackson-annotations,
  com.fasterxml.jackson.core.jackson-core,
- com.fasterxml.jackson.core.jackson-databind
+ com.fasterxml.jackson.core.jackson-databind,
+ org.json;bundle-version="1.0.0",
+ org.yaml.snakeyaml;bundle-version="1.14.0"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ClassPath: .

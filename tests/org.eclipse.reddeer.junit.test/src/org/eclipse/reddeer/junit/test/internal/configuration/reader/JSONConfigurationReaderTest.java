@@ -27,6 +27,7 @@ public class JSONConfigurationReaderTest {
 
 	private static final String RESOURCES_DIR = "." + File.separator + "resources" + File.separator;
 	public static final String CONFIG_FILE = RESOURCES_DIR + "SimpleAndComplexTestConfigurations.json";
+	public static final String CONFIG_FILE_YAML = RESOURCES_DIR + "SimpleAndComplexTestConfigurations.yaml";
 	public static final String NONEXISTING_FILE = RESOURCES_DIR + "nada.json";
 	public static final String INVALID_FILE = RESOURCES_DIR + "InvalidTestConfiguration.json";
 	public static final String NOT_REGISTERED_FILE = RESOURCES_DIR + "reddeersuitetest-config-missing-extension.json";
