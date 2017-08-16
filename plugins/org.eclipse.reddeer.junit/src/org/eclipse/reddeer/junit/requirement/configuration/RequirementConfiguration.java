@@ -10,7 +10,8 @@
  *******************************************************************************/
 package org.eclipse.reddeer.junit.requirement.configuration;
 
-import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 import org.eclipse.reddeer.junit.requirement.RequirementException;
 
@@ -64,20 +65,24 @@ public interface RequirementConfiguration {
 	}
 
 	/**
-	 * Gets an object from configuration with given attribute name.
+	 * Gets an object from configuration with given attribute name by invocation the
+	 * appropriate "get" method.
 	 * 
 	 * @param attributeName
 	 *            attribute name
 	 * @return attribute object
 	 */
 	default Object getAttributeValue(String attributeName) {
+		String methodName = "get" + attributeName.substring(0, 1).toUpperCase() + attributeName.substring(1);
 		try {
-			Field attribute = this.getClass().getDeclaredField(attributeName);
-			attribute.setAccessible(true);
-			return attribute.get(this);
-		} catch (NoSuchFieldException nsfe) {
-			throw new RequirementException("Attribute " + attributeName + " does not exists in configuration class "
-					+ this.getClass().getName(), nsfe);
+			Method method = this.getClass().getMethod(methodName);
+			return method.invoke(this);
+		} catch (NoSuchMethodException nsfe) {
+			throw new RequirementException(
+					"Cannot find method " + methodName + " in configuration class " + this.getClass().getName(), nsfe);
+		} catch (InvocationTargetException ite) {
+			throw new RequirementException(
+					"Cannot invoke method " + methodName + " in configuration class " + this.getClass().getName(), ite);
 		} catch (IllegalArgumentException e) {
 			throw new RequirementException("Something went wrong when it should not get wrong.", e);
 		} catch (IllegalAccessException e) {
