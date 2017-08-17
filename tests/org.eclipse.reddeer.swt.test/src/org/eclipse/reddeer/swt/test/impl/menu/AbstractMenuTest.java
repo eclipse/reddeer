@@ -147,6 +147,11 @@ public class AbstractMenuTest {
 		
 		MenuItem item6= new MenuItem(menu, SWT.CHECK);
 		MenuItem item7= new MenuItem(menu, SWT.RADIO);
+		
+		MenuItem item8= new MenuItem(menu, SWT.CASCADE);
+		Menu menu3 = new Menu(menu);
+		item8.setMenu(menu3);
+		menu3.setEnabled(false);
 		menu.addMenuListener(new MenuAdapter() {
 			
 			@Override
@@ -160,9 +165,11 @@ public class AbstractMenuTest {
 				item5.setEnabled(false);
 				item6.setText(menuText+"MenuItemCheck");
 				item7.setText(menuText+"MenuItemRadio");
+				item8.setText("DisabledMenu");
 				super.menuShown(e);
 			}
 		});
+		
 		return menu;
 	}
 	

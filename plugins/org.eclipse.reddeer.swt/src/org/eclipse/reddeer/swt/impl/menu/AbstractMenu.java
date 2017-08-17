@@ -60,5 +60,24 @@ public abstract class AbstractMenu extends AbstractWidget<Menu> implements org.e
 	public MenuItem getItem(String... path) {
 		return getItem(new WithMnemonicTextMatchers(path).getMatchers());
 	}
+	
+	@Override
+	public boolean isEnabled() {
+		return MenuHandler.getInstance().isEnabled(swtWidget);
+	}
+	
+	@Override
+	public boolean isVisible() {
+		return MenuHandler.getInstance().isVisible(swtWidget);
+	}
+	
+	@Override
+	public org.eclipse.reddeer.swt.api.Menu getParentMenu() {
+		Menu parentMenu =  MenuHandler.getInstance().getParentMenu(swtWidget);
+		if(parentMenu == null) {
+			return null;
+		}
+		return new DefaultMenu(parentMenu);
+	}
 
 }
