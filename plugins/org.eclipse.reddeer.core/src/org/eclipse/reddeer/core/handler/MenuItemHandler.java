@@ -218,4 +218,19 @@ public class MenuItemHandler extends ItemHandler{
 		return event;
 	}
 
+	/**
+	 * Gets cascade menu of given menu item
+	 * @param swtWidget to handle
+	 * @return cascade menu of given menu item
+	 */
+	public Menu getMenu(MenuItem swtWidget) {
+		return Display.syncExec(new ResultRunnable<Menu>() {
+
+			@Override
+			public Menu run() {
+				return swtWidget.getMenu();
+			}
+		});
+	}
+
 }

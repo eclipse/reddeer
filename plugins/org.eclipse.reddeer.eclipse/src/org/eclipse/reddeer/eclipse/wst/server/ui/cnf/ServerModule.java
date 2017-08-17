@@ -26,7 +26,7 @@ import org.eclipse.reddeer.eclipse.exception.EclipseLayerException;
 import org.eclipse.reddeer.eclipse.wst.server.ui.cnf.ServersViewEnums.ServerState;
 import org.eclipse.reddeer.swt.api.Shell;
 import org.eclipse.reddeer.swt.api.TreeItem;
-import org.eclipse.reddeer.swt.condition.MenuIsEnabled;
+import org.eclipse.reddeer.swt.condition.MenuItemIsEnabled;
 import org.eclipse.reddeer.swt.condition.ShellIsAvailable;
 import org.eclipse.reddeer.swt.impl.button.PushButton;
 import org.eclipse.reddeer.swt.impl.menu.ContextMenuItem;
@@ -82,7 +82,7 @@ public class ServerModule {
 		}
 		log.info("Remove server module with name '" + getLabel().getName() + "'");
 
-		new WaitUntil(new MenuIsEnabled(new ShellMenuItem("Edit", "Delete")), TimePeriod.LONG);
+		new WaitUntil(new MenuItemIsEnabled(new ShellMenuItem("Edit", "Delete")), TimePeriod.LONG);
 		new ShellMenuItem("Edit", "Delete").select();
 		Shell serverShell = new DefaultShell("Server");
 		new PushButton("OK").click();

@@ -11,30 +11,30 @@
 package org.eclipse.reddeer.swt.condition;
 
 import org.eclipse.reddeer.common.condition.AbstractWaitCondition;
-import org.eclipse.reddeer.swt.api.Menu;
+import org.eclipse.reddeer.swt.api.MenuItem;
 
 /**
- * Condition is met when specified menu is enabled.
+ * Condition is met when specified menu item is enabled.
  * 
  * @author jnovak@redhat.com
  *
  */
-public class MenuIsEnabled extends AbstractWaitCondition {
+public class MenuItemIsEnabled extends AbstractWaitCondition {
 	
-	private Menu menu;
+	private MenuItem menuItem;
 
-	public MenuIsEnabled(Menu menu) {
-		this.menu = menu;
+	public MenuItemIsEnabled(MenuItem menu) {
+		this.menuItem = menu;
 	}
 
 	@Override
 	public boolean test() {
-		return menu.isEnabled();
+		return menuItem.isEnabled();
 	}
 	
 	@Override
 	public String description() {
-		return "menu is enabled";
+		return "menu item "+menuItem.getText()+"is enabled";
 	}
 
 }

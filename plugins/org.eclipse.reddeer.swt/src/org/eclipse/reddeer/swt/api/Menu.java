@@ -39,5 +39,23 @@ public interface Menu extends Widget<org.eclipse.swt.widgets.Menu>{
 	 */
 	@SuppressWarnings("unchecked")
 	MenuItem getItem(Matcher<String>... matchers);
+	
+	/**
+	 * Checks whether menu is enabled
+	 * @return true if menu is enabled, false otherwise
+	 */
+	boolean isEnabled();
+	
+	/**
+	 * Checks whether menu is visible
+	 * @return true if menu is visible, false otherwise
+	 */
+	boolean isVisible();
+	
+	/**
+	 * Returns parent menu
+	 * @return parent menu
+	 */
+	Menu getParentMenu();
 
 }

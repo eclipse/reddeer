@@ -38,7 +38,7 @@ public class ContextMenuTest extends AbstractMenuTest{
 		org.eclipse.reddeer.swt.api.Menu menu = new ContextMenu();
 		List<org.eclipse.reddeer.swt.api.MenuItem> items = menu.getItems();
 		assertNotNull(items);
-		assertTrue(items.size() == 5);
+		assertTrue(items.size() == 6);
 	}
 	
 	@Test
@@ -47,7 +47,7 @@ public class ContextMenuTest extends AbstractMenuTest{
 				new ContextMenu(new DefaultTreeItem(new DefaultTree(new DefaultShell(SHELL_TEXT)),"TreeItem1"));
 		List<org.eclipse.reddeer.swt.api.MenuItem> items = menu.getItems();
 		assertNotNull(items);
-		assertTrue(items.size() == 5);
+		assertTrue(items.size() == 6);
 	}
 	
 	@Test
@@ -130,6 +130,15 @@ public class ContextMenuTest extends AbstractMenuTest{
 				new DefaultTreeItem(new DefaultTree(new DefaultShell(SHELL_TEXT)),"TreeItem1"), 
 				"TreeItem1MenuItemWithMenu", "TreeItem1MenuItemWithMenuEnabledChild");
 		assertEquals("TreeItem1MenuItemWithMenuEnabledChild", item.getText());
+	}
+	
+	@Test
+	public void disabledMenu() {
+		Menu menu = new ContextMenuItem(
+				new DefaultTreeItem(new DefaultTree(new DefaultShell(SHELL_TEXT)),"TreeItem1"), 
+				"DisabledMenu").getMenu();
+		assertFalse(menu.isEnabled());
+		assertTrue(menu.getParentMenu().isEnabled());
 	}
 	
 	@Test

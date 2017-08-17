@@ -47,7 +47,7 @@ public class MenuHandler extends WidgetHandler{
 	
 	/**
 	 * Gets menu items
-	 * @param swtMenu to handler
+	 * @param swtMenu to handle
 	 * @return menu items of given menu
 	 */
 	public List<MenuItem> getItems(final Menu swtMenu){
@@ -60,6 +60,52 @@ public class MenuHandler extends WidgetHandler{
 			}
 		});
 		return Arrays.asList(items);
+	}
+	
+	/**
+	 * Checks whether menu is visible
+	 * @param swtMenu to handle
+	 * @return true if menu is visible, false otherwise
+	 */
+	public boolean isVisible(final Menu swtMenu) {
+		return Display.syncExec(new ResultRunnable<Boolean>() {
+
+			@Override
+			public Boolean run() {
+				return swtMenu.isVisible();
+			}
+		});
+	}
+	
+	/**
+	 * Checks whether menu is enabled
+	 * @param swtMenu to handle
+	 * @return true if menu is enabled, false otherwise
+	 */
+	public boolean isEnabled(final Menu swtMenu) {
+		return Display.syncExec(new ResultRunnable<Boolean>() {
+
+			@Override
+			public Boolean run() {
+				return swtMenu.isEnabled();
+			}
+		});
+		
+	}
+	
+	/**
+	 * Gets parent menu 
+	 * @param swtMenu to handle
+	 * @return parent menu
+	 */
+	public Menu getParentMenu(final Menu swtMenu) {
+		return Display.syncExec(new ResultRunnable<Menu>() {
+
+			@Override
+			public Menu run() {
+				return swtMenu.getParentMenu();
+			}
+		});
 	}
 	
 
