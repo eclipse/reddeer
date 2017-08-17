@@ -12,17 +12,17 @@ package org.eclipse.reddeer.workbench.impl.editor;
 
 import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.jface.text.ITextSelection;
-import org.eclipse.swt.graphics.Point;
-import org.eclipse.ui.texteditor.ITextEditor;
-import org.hamcrest.Matcher;
 import org.eclipse.reddeer.common.logging.Logger;
 import org.eclipse.reddeer.core.matcher.WithTextMatcher;
-import org.eclipse.reddeer.workbench.matcher.EditorPartClassMatcher;
-import org.eclipse.reddeer.workbench.matcher.EditorPartTitleMatcher;
 import org.eclipse.reddeer.workbench.api.Editor;
 import org.eclipse.reddeer.workbench.core.lookup.EditorPartLookup;
 import org.eclipse.reddeer.workbench.exception.WorkbenchLayerException;
 import org.eclipse.reddeer.workbench.handler.TextEditorHandler;
+import org.eclipse.reddeer.workbench.matcher.EditorPartClassMatcher;
+import org.eclipse.reddeer.workbench.matcher.EditorPartTitleMatcher;
+import org.eclipse.swt.graphics.Point;
+import org.eclipse.ui.texteditor.ITextEditor;
+import org.hamcrest.Matcher;
 
 /**
  * Represents text editors (implementing interface ITextEditor)
@@ -292,5 +292,10 @@ public class TextEditor extends AbstractEditor implements Editor {
 		ITextSelection textSelection = (ITextSelection) getEditorPart().getSite().getSelectionProvider().getSelection();
 		return textSelection.getOffset();
 	}
-	
+
+	@Override
+	public ITextEditor getEditorPart() {
+		return (ITextEditor) super.getEditorPart();
+	}
+
 }
