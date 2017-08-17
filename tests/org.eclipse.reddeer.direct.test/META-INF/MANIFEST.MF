@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: RedDeer Direct Tests
 Bundle-Vendor: Eclipse.org - RedDeer
 Bundle-SymbolicName: org.eclipse.reddeer.direct.test;singleton:=true
-Bundle-Version: 2.0.0.Beta
+Bundle-Version: 2.0.0.qualifier
 Bundle-Activator: org.eclipse.reddeer.direct.test.Activator
 Require-Bundle: org.eclipse.reddeer.go;bundle-version="[2.0,2.1)"
 Bundle-ActivationPolicy: lazy
