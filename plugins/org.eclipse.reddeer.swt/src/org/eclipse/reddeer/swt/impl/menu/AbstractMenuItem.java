@@ -104,4 +104,10 @@ public abstract class AbstractMenuItem extends AbstractItem<MenuItem> implements
 		throw new SWTLayerException("Menu item does not have parent control");
 	}
 	
+	@Override
+	public Menu getMenu() {
+		org.eclipse.swt.widgets.Menu menu = menuItemHandler.getMenu(swtWidget);
+		return menu == null ? null: new DefaultMenu(menu);
+	}
+	
 }

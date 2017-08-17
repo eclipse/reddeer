@@ -65,5 +65,11 @@ public interface MenuItem extends Item<org.eclipse.swt.widgets.MenuItem> {
 	 * @return menu where this menu item belongs
 	 */
 	Menu getParent();
+	
+	/**
+	 * Returns cascade menu
+	 * @return cascade menu or null
+	 */
+	Menu getMenu();
 
 }
