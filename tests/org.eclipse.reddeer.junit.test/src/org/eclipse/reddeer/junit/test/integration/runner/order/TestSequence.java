@@ -30,6 +30,14 @@ public class TestSequence {
 	
 	private static final String DECLARATION = "DECLARATION";
 	
+	private static final String REQ_BEFORE_CLASS = "REQ_BEFORE_CLASS";
+	
+	private static final String REQ_AFTER_CLASS = "REQ_AFTER_CLASS";
+	
+	private static final String REQ_BEFORE = "REQ_BEFORE";
+	
+	private static final String REQ_AFTER = "REQ_AFTER";
+	
 	private static final String BEFORE_CLASS = "BEFORE_CLASS";
 	
 	private static final String AFTER_CLASS = "AFTER_CLASS";
@@ -78,6 +86,22 @@ public class TestSequence {
 	
 	public static void addSetDeclaration(Class<?> c){
 		realSequence.add(createSetDeclaration(c));
+	}
+	
+	public static void addReqBeforeClass(Class<?> c){
+		realSequence.add(createReqBeforeClass(c));
+	}
+	
+	public static void addReqAfterClass(Class<?> c){
+		realSequence.add(createReqAfterClass(c));
+	}
+	
+	public static void addReqBefore(Class<?> c){
+		realSequence.add(createReqBefore(c));
+	}
+	
+	public static void addReqAfter(Class<?> c){
+		realSequence.add(createReqAfter(c));
 	}
 	
 	public static void addBeforeClass(Class<?> c){
@@ -139,6 +163,23 @@ public class TestSequence {
 	public static String createSetDeclaration(Class<?> c){
 		return c + " - " + DECLARATION;
 	}
+	
+	public static String createReqBeforeClass(Class<?> c){
+		return c + " - " + REQ_BEFORE_CLASS;
+	}
+	
+	public static String createReqAfterClass(Class<?> c){
+		return c + " - " + REQ_AFTER_CLASS;
+	}
+	
+	public static String createReqBefore(Class<?> c){
+		return c + " - " + REQ_BEFORE;
+	}
+	
+	public static String createReqAfter(Class<?> c){
+		return c + " - " + REQ_AFTER;
+	}
+	
 	
 	public static String createBeforeClass(Class<?> c){
 		return c + " - " + BEFORE_CLASS;

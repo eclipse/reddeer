@@ -20,6 +20,10 @@ import static org.eclipse.reddeer.junit.test.integration.runner.order.TestSequen
 import static org.eclipse.reddeer.junit.test.integration.runner.order.TestSequence.createIAfterClass;
 import static org.eclipse.reddeer.junit.test.integration.runner.order.TestSequence.createIBefore;
 import static org.eclipse.reddeer.junit.test.integration.runner.order.TestSequence.createIBeforeClass;
+import static org.eclipse.reddeer.junit.test.integration.runner.order.TestSequence.createReqAfter;
+import static org.eclipse.reddeer.junit.test.integration.runner.order.TestSequence.createReqAfterClass;
+import static org.eclipse.reddeer.junit.test.integration.runner.order.TestSequence.createReqBefore;
+import static org.eclipse.reddeer.junit.test.integration.runner.order.TestSequence.createReqBeforeClass;
 import static org.eclipse.reddeer.junit.test.integration.runner.order.TestSequence.createTest;
 
 import java.util.ArrayList;
@@ -43,24 +47,30 @@ public class ParametrizedTestRunner extends TestSequenceRedDeerSuite {
 		// Class level setup
 		expectedSequence.add(createIBeforeClass(IBeforeTestImpl.class));
 		expectedSequence.add(createFulfill(RunnerIntegrationRequirement.class));
+		expectedSequence.add(createReqBeforeClass(RunnerIntegrationRequirement.class));
 		expectedSequence.add(createBeforeClass(ParametrizedTest.class));
 		
 		// Param 1
 		expectedSequence.add(createIBefore(IBeforeTestImpl.class));
+		expectedSequence.add(createReqBefore(RunnerIntegrationRequirement.class));
 		expectedSequence.add(createBefore(ParametrizedTest.class));
 		expectedSequence.add(createTest(ParametrizedTest.class));
 		expectedSequence.add(createAfter(ParametrizedTest.class));
+		expectedSequence.add(createReqAfter(RunnerIntegrationRequirement.class));
 		expectedSequence.add(createIAfter(IAfterTestImpl.class));
 		
 		// param2
 		expectedSequence.add(createIBefore(IBeforeTestImpl.class));
+		expectedSequence.add(createReqBefore(RunnerIntegrationRequirement.class));
 		expectedSequence.add(createBefore(ParametrizedTest.class));
 		expectedSequence.add(createTest(ParametrizedTest.class));
 		expectedSequence.add(createAfter(ParametrizedTest.class));
+		expectedSequence.add(createReqAfter(RunnerIntegrationRequirement.class));
 		expectedSequence.add(createIAfter(IAfterTestImpl.class));
 		
 		// Class level destroy
 		expectedSequence.add(createAfterClass(ParametrizedTest.class));
+		expectedSequence.add(createReqAfterClass(RunnerIntegrationRequirement.class));
 		expectedSequence.add(createCleanup(RunnerIntegrationRequirement.class));
 		expectedSequence.add(createIAfterClass(IAfterTestImpl.class));
 	}

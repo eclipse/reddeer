@@ -22,17 +22,15 @@ import org.eclipse.reddeer.junit.internal.requirement.Requirements;
 import org.eclipse.reddeer.junit.internal.requirement.inject.RequirementsInjector;
 import org.eclipse.reddeer.junit.internal.runner.statement.CleanUpRequirementStatement;
 import org.eclipse.reddeer.junit.internal.runner.statement.FulfillRequirementsStatement;
+import org.eclipse.reddeer.junit.internal.runner.statement.RunAfterClasses;
 import org.eclipse.reddeer.junit.internal.runner.statement.RunAfters;
+import org.eclipse.reddeer.junit.internal.runner.statement.RunBeforeClasses;
 import org.eclipse.reddeer.junit.internal.runner.statement.RunBefores;
 import org.eclipse.reddeer.junit.internal.runner.statement.RunIAfterClassExtensions;
 import org.eclipse.reddeer.junit.internal.runner.statement.RunIAfterTestExtensions;
 import org.eclipse.reddeer.junit.internal.runner.statement.RunIBeforeClassExtensions;
 import org.eclipse.reddeer.junit.internal.runner.statement.RunIBeforeTestExtensions;
 import org.eclipse.reddeer.junit.internal.runner.statement.RunTestMethod;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.runner.Description;
 import org.junit.runner.notification.Failure;
@@ -185,12 +183,8 @@ public class RequirementsRunner extends BlockJUnit4ClassRunner {
 	 * @see org.junit.runners.BlockJUnit4ClassRunner#withAfters(org.junit.runners.model.FrameworkMethod, java.lang.Object, org.junit.runners.model.Statement)
 	 */
 	@Override
-	protected Statement withAfters(FrameworkMethod method, Object target,
-            Statement statement) {
-        
-		List<FrameworkMethod> afters = getTestClass().getAnnotatedMethods(After.class);
-
-        Statement runAfters = new RunAfters(configId, statement, getTestClass(), method, target, afters);
+	protected Statement withAfters(FrameworkMethod method, Object target, Statement statement) {
+        Statement runAfters = new RunAfters(configId, statement, getTestClass(), method, target, requirements);
         Statement runAftersExtensions = new RunIAfterTestExtensions(configId, runAfters, getTestClass(), method, target, afterTestExtensions);
 		return runAftersExtensions;
     }
@@ -199,13 +193,8 @@ public class RequirementsRunner extends BlockJUnit4ClassRunner {
 	 * @see org.junit.runners.BlockJUnit4ClassRunner#withBefores(org.junit.runners.model.FrameworkMethod, java.lang.Object, org.junit.runners.model.Statement)
 	 */
 	@Override
-	protected Statement withBefores(FrameworkMethod method, Object target,
-            Statement statement) {
-        
-		List<FrameworkMethod> beforeMethods = getTestClass().getAnnotatedMethods(
-                Before.class);
-        
-        Statement runBefores = new RunBefores(configId, statement, getTestClass(), method, target, beforeMethods);
+	protected Statement withBefores(FrameworkMethod method, Object target, Statement statement) {
+        Statement runBefores = new RunBefores(configId, statement, getTestClass(), method, target, requirements);
         Statement runBeforesExtensions = new RunIBeforeTestExtensions(configId, runBefores, getTestClass(), method, target, beforeTestExtensions);
 		return runBeforesExtensions;
     }
@@ -215,10 +204,8 @@ public class RequirementsRunner extends BlockJUnit4ClassRunner {
 	 */
 	@Override
 	 protected Statement withAfterClasses(Statement statement) {
-        List<FrameworkMethod> afterClassMethods = getTestClass().getAnnotatedMethods(AfterClass.class);
-
-        Statement runAfterClass = new RunAfters(configId, statement, getTestClass(), afterClassMethods);
-        Statement runRequirements = new CleanUpRequirementStatement(requirements, runAfterClass);
+        Statement runAfterClass = new RunAfterClasses(configId, statement, getTestClass(), requirements);
+		Statement runRequirements = new CleanUpRequirementStatement(requirements, runAfterClass);
         Statement runAfterClassExtensions = new RunIAfterClassExtensions(configId, runRequirements, getTestClass(), afterTestExtensions);
 		return runAfterClassExtensions;
     }
@@ -227,10 +214,8 @@ public class RequirementsRunner extends BlockJUnit4ClassRunner {
 	 * @see org.junit.runners.ParentRunner#withBeforeClasses(org.junit.runners.model.Statement)
 	 */
 	@Override
-	protected Statement withBeforeClasses(Statement statement) {		
-        List<FrameworkMethod> beforeClassMethods = getTestClass().getAnnotatedMethods(BeforeClass.class);
-        
-        Statement runBeforeClass = new RunBefores(configId, statement, getTestClass(), beforeClassMethods);
+	protected Statement withBeforeClasses(Statement statement) {
+        Statement runBeforeClass = new RunBeforeClasses(configId, statement, getTestClass(), requirements);
         Statement runRequirements = new FulfillRequirementsStatement(requirements, runBeforeClass);
         Statement runBeforeClassExtensions = new RunIBeforeClassExtensions(configId, runRequirements, getTestClass(), beforeTestExtensions);
 		return runBeforeClassExtensions;
