@@ -14,27 +14,28 @@ import java.util.List;
 
 import org.eclipse.reddeer.junit.internal.requirement.Requirements;
 import org.eclipse.reddeer.junit.screenshot.ScreenshotCapturer;
-import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.runners.model.FrameworkMethod;
 import org.junit.runners.model.Statement;
 import org.junit.runners.model.TestClass;
 
 /**
- * Statement which runs before a test. Upon failure a screenshot is captured.
+ * Statement which runs before a test class. Upon failure a screenshot is
+ * captured.
  * 
  * @author mlabuda@redhat.com
  * @author ljelinko
  * @author Andrej Podhradsky (apodhrad@redhat.com)
  *
  */
-public class RunBefores extends AbstractStatementWithScreenshot {
+public class RunBeforeClasses extends AbstractStatementWithScreenshot {
 
-	private final List<FrameworkMethod> befores;
+	private final List<FrameworkMethod> beforeClasses;
 	private Requirements requirements;
 
 	/**
-	 * Instantiates a new RunBefores. All requirements with runBefore() will be
-	 * evaluated before methods annotated by @Before.
+	 * Instantiates a new RunBeforeClasses. All requirements with runBeforeClass()
+	 * will be evaluated before methods annotated by @BeforeClass.
 	 * 
 	 * @param configId
 	 *            configuration id
@@ -42,17 +43,12 @@ public class RunBefores extends AbstractStatementWithScreenshot {
 	 *            next statement
 	 * @param testClass
 	 *            test class
-	 * @param method
-	 *            test method
-	 * @param target
-	 *            target object
 	 * @param requirements
 	 *            requirements
 	 */
-	public RunBefores(String configId, Statement next, TestClass testClass, FrameworkMethod method, Object target,
-			Requirements requirements) {
-		super(configId, next, testClass, method, target);
-		this.befores = testClass.getAnnotatedMethods(Before.class);
+	public RunBeforeClasses(String configId, Statement next, TestClass testClass, Requirements requirements) {
+		super(configId, next, testClass, null, null);
+		this.beforeClasses = testClass.getAnnotatedMethods(BeforeClass.class);
 		this.requirements = requirements;
 	}
 
@@ -65,8 +61,8 @@ public class RunBefores extends AbstractStatementWithScreenshot {
 	public void evaluate() throws Throwable {
 		FrameworkMethod before = null;
 		try {
-			requirements.runBefore();
-			for (FrameworkMethod bfr : befores) {
+			requirements.runBeforeClass();
+			for (FrameworkMethod bfr : beforeClasses) {
 				before = bfr;
 				before.invokeExplosively(target);
 			}
@@ -74,9 +70,9 @@ public class RunBefores extends AbstractStatementWithScreenshot {
 			if (ScreenshotCapturer.shouldCaptureScreenshotOnException(throwable)) {
 				if (isClassLevel()) {
 					frameworkMethod = before;
-					createScreenshot("Before");
+					createScreenshot("BeforeClass");
 				} else {
-					createScreenshot("Before_" + before.getName());
+					createScreenshot("BeforeClass_" + before.getName());
 				}
 			}
 			throw throwable;

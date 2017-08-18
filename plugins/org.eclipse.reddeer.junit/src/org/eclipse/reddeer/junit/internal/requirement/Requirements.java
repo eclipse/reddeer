@@ -13,6 +13,7 @@ package org.eclipse.reddeer.junit.internal.requirement;
 import java.lang.annotation.Annotation;
 import java.util.Iterator;
 import java.util.List;
+import java.util.function.Consumer;
 
 import org.eclipse.reddeer.common.logging.Logger;
 import org.eclipse.reddeer.junit.execution.PriorityComparator;
@@ -24,6 +25,7 @@ import org.eclipse.reddeer.junit.screenshot.ScreenshotCapturer;
  * Aggregates {@link Requirement} objects and allows to perform tasks on them easily.
  *  
  * @author Lucia Jelinkova
+ * @author Andrej Podhradsky (apodhrad@redhat.com)
  *
  */
 public class Requirements implements Requirement<Annotation>, Iterable<Requirement<?>>{
@@ -70,34 +72,50 @@ public class Requirements implements Requirement<Annotation>, Iterable<Requireme
 
 	@Override
 	public void fulfill() {
-		for (Requirement<?> r : requirements) {
-			try {
-				log.info("Fulfilling requirement of " + r.getClass());
-				r.fulfill();
-			} catch (Throwable ex) {
-				handleException(ex, r);
-				throw ex;
-			}
-		}
-	}
-	
-	@Override
-	public void setDeclaration(Annotation declaration) {
-		throw new IllegalStateException("This method should never be called on wrapper object");
+		runSafely(Requirement::fulfill);
 	}
 
 	@Override
 	public void cleanUp() {
-		for (Requirement<?> r : requirements) {
-			try {
-				log.info("Cleaning up requirement of " + r.getClass());
-				r.cleanUp();
-			} catch (Throwable ex) {
-				handleException(ex, r);
-				throw ex;
-			}
+		runSafely(Requirement::cleanUp);
+	}
+
+	@Override
+	public void runBefore() {
+		runSafely(Requirement::runBefore);
+	}
+
+	@Override
+	public void runBeforeClass() {
+		runSafely(Requirement::runBeforeClass);
+	}
+
+	@Override
+	public void runAfter() {
+		runSafely(Requirement::runAfter);
+	}
+
+	@Override
+	public void runAfterClass() {
+		runSafely(Requirement::runAfterClass);
+	}
+
+	private void runSafely(Consumer<Requirement<?>> run) {
+		requirements.forEach(requirement -> runSafely(run, requirement));
+	}
+
+	private void runSafely(Consumer<Requirement<?>> run, Requirement<?> requirement) {
+		try {
+			run.accept(requirement);
+		} catch (Throwable t) {
+			handleException(t, requirement);
+			throw t;
 		}
-		
+	}
+
+	@Override
+	public void setDeclaration(Annotation declaration) {
+		throw new IllegalStateException("This method should never be called on wrapper object");
 	}
 	
 	private void handleException(Throwable ex, Requirement<?> r) {

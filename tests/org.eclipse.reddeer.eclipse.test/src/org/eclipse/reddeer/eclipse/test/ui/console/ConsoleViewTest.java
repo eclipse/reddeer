@@ -10,20 +10,18 @@
  *******************************************************************************/
 package org.eclipse.reddeer.eclipse.test.ui.console;
 
-import static org.eclipse.reddeer.common.wait.WaitProvider.*;
+import static org.eclipse.reddeer.common.wait.WaitProvider.waitUntil;
+import static org.eclipse.reddeer.common.wait.WaitProvider.waitWhile;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
 
-import org.hamcrest.core.IsEqual;
-import org.hamcrest.core.IsNull;
 import org.eclipse.reddeer.common.matcher.RegexMatcher;
 import org.eclipse.reddeer.common.wait.AbstractWait;
 import org.eclipse.reddeer.common.wait.GroupWait;
 import org.eclipse.reddeer.common.wait.TimePeriod;
 import org.eclipse.reddeer.common.wait.WaitUntil;
 import org.eclipse.reddeer.common.wait.WaitWhile;
-import org.eclipse.reddeer.workbench.core.condition.JobIsRunning;
 import org.eclipse.reddeer.core.matcher.WithTextMatchers;
 import org.eclipse.reddeer.eclipse.condition.ConsoleHasLabel;
 import org.eclipse.reddeer.eclipse.condition.ConsoleHasLaunch;
@@ -44,7 +42,10 @@ import org.eclipse.reddeer.swt.api.StyledText;
 import org.eclipse.reddeer.swt.impl.menu.ShellMenuItem;
 import org.eclipse.reddeer.swt.impl.styledtext.DefaultStyledText;
 import org.eclipse.reddeer.swt.impl.toolbar.DefaultToolItem;
+import org.eclipse.reddeer.workbench.core.condition.JobIsRunning;
 import org.eclipse.reddeer.workbench.impl.editor.DefaultEditor;
+import org.hamcrest.core.IsEqual;
+import org.hamcrest.core.IsNull;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;

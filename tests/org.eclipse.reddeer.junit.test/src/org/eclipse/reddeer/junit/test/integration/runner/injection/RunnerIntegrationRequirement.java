@@ -43,6 +43,26 @@ public class RunnerIntegrationRequirement implements Requirement<RequirementAAnn
 	}
 
 	@Override
+	public void runBeforeClass() {
+		TestSequence.addReqBeforeClass(RunnerIntegrationRequirement.class);
+	}
+
+	@Override
+	public void runBefore() {
+		TestSequence.addReqBefore(RunnerIntegrationRequirement.class);
+	}
+
+	@Override
+	public void runAfterClass() {
+		TestSequence.addReqAfterClass(RunnerIntegrationRequirement.class);
+	}
+
+	@Override
+	public void runAfter() {
+		TestSequence.addReqAfter(RunnerIntegrationRequirement.class);
+	}
+
+	@Override
 	public RequirementAAnnotation getDeclaration() {
 		return null;
 	}
