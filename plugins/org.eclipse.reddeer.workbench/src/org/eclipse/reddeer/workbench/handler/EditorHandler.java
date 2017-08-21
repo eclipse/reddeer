@@ -15,32 +15,29 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.core.runtime.NullProgressMonitor;
-import org.eclipse.jdt.internal.ui.javaeditor.CompilationUnitDocumentProvider.ProblemAnnotation;
-import org.eclipse.jface.text.BadLocationException;
-import org.eclipse.jface.text.IDocument;
+import org.eclipse.jface.text.source.Annotation;
 import org.eclipse.jface.text.source.IAnnotationModel;
+import org.eclipse.jface.text.source.ILineDiffInfo;
+import org.eclipse.reddeer.common.logging.Logger;
+import org.eclipse.reddeer.common.matcher.RegexMatcher;
+import org.eclipse.reddeer.common.util.Display;
+import org.eclipse.reddeer.common.util.ResultRunnable;
+import org.eclipse.reddeer.common.wait.WaitWhile;
+import org.eclipse.reddeer.core.condition.WidgetIsFound;
+import org.eclipse.reddeer.core.matcher.WithMnemonicTextMatcher;
+import org.eclipse.reddeer.core.matcher.WithTextMatcher;
+import org.eclipse.reddeer.swt.api.Button;
+import org.eclipse.reddeer.swt.api.Shell;
+import org.eclipse.reddeer.swt.condition.ShellIsAvailable;
+import org.eclipse.reddeer.swt.impl.button.PushButton;
+import org.eclipse.reddeer.swt.impl.shell.DefaultShell;
+import org.eclipse.reddeer.workbench.impl.editor.Marker;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IEditorReference;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.texteditor.IDocumentProvider;
 import org.eclipse.ui.texteditor.ITextEditor;
-import org.eclipse.ui.texteditor.SimpleMarkerAnnotation;
-import org.eclipse.reddeer.common.logging.Logger;
-import org.eclipse.reddeer.common.matcher.RegexMatcher;
-import org.eclipse.reddeer.common.util.Display;
-import org.eclipse.reddeer.common.util.ResultRunnable;
-import org.eclipse.reddeer.swt.api.Button;
-import org.eclipse.reddeer.swt.api.Shell;
-import org.eclipse.reddeer.swt.condition.ShellIsAvailable;
-import org.eclipse.reddeer.swt.impl.button.PushButton;
-import org.eclipse.reddeer.swt.impl.shell.DefaultShell;
-import org.eclipse.reddeer.common.wait.WaitWhile;
-import org.eclipse.reddeer.core.condition.WidgetIsFound;
-import org.eclipse.reddeer.core.matcher.WithMnemonicTextMatcher;
-import org.eclipse.reddeer.core.matcher.WithTextMatcher;
-import org.eclipse.reddeer.workbench.exception.WorkbenchLayerException;
-import org.eclipse.reddeer.workbench.impl.editor.Marker;
 
 /**
  * Editor handler handles operations for Editor instances.
@@ -157,36 +154,13 @@ public class EditorHandler extends WorkbenchPartHandler {
             return markers;
         }
         IAnnotationModel model = documentProvider.getAnnotationModel(textEditor.getEditorInput());
-        List<Marker> problemAnnotationMarkers = new ArrayList<Marker>();
-        List<Marker> simpleAnnotationMarkers = new ArrayList<Marker>();
         Iterator<?> it = model.getAnnotationIterator();
         while (it.hasNext()) {
             Object o = it.next();
-            if (o instanceof SimpleMarkerAnnotation) {
-                simpleAnnotationMarkers.add(new Marker((SimpleMarkerAnnotation) o));
-            } else if (o instanceof ProblemAnnotation){
-            	ProblemAnnotation annotation = (ProblemAnnotation) o;
-            	IDocument doc = documentProvider.getDocument(editor.getEditorInput());
-            	int offset = model.getPosition(annotation).getOffset();
-            	int line = -1;
-            	try {
-            		line = doc.getLineOfOffset(offset) + 1;
-            	} catch (BadLocationException e) {
-            		throw new WorkbenchLayerException("Unable to find line number for AYT marker", e);
-            	}
-            	problemAnnotationMarkers.add(new Marker(annotation, line));
+            if (o instanceof Annotation && !(o instanceof ILineDiffInfo)) {
+            	Annotation annotation = (Annotation) o;
+            	markers.add(new Marker(annotation, editor));
             }
-        }
-        // add found SimpleMarkerAnnotation to result list
-        markers.addAll(simpleAnnotationMarkers);
-        // add found ProblemAnnotation to result but exclude duplicates from simpleAnnotationMarkers
-        for (Marker problemAnnotationMarker : problemAnnotationMarkers){
-        	if (simpleAnnotationMarkers.contains(problemAnnotationMarker)){
-        		simpleAnnotationMarkers.remove(problemAnnotationMarker);
-        	}
-        	else{
-        		markers.add(problemAnnotationMarker);
-        	}
         }
         return markers;
     }

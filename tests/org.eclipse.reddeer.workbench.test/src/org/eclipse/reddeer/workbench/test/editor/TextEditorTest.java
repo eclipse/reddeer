@@ -333,7 +333,7 @@ public class TextEditorTest {
 		textEditor.setText(textEditor.getText().replace("System", "Systemx"));
 		textEditor.save();
 		AbstractWait.sleep(TimePeriod.SHORT);
-		assertEquals(1, textEditor.getMarkers().size());
+		assertEquals(2, textEditor.getMarkers().size());
 		assertEquals("Systemx cannot be resolved", textEditor.getMarkers().get(0).getText());
 	}
 
