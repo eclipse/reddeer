@@ -10,84 +10,105 @@
  *******************************************************************************/
 package org.eclipse.reddeer.workbench.impl.editor;
 
-import org.eclipse.core.resources.IMarker;
-import org.eclipse.jdt.internal.ui.javaeditor.CompilationUnitDocumentProvider.ProblemAnnotation;
-import org.eclipse.ui.texteditor.SimpleMarkerAnnotation;
+import org.eclipse.jface.text.BadLocationException;
+import org.eclipse.jface.text.IDocument;
+import org.eclipse.jface.text.source.Annotation;
+import org.eclipse.jface.text.source.IAnnotationModel;
+import org.eclipse.reddeer.workbench.exception.WorkbenchLayerException;
+import org.eclipse.ui.IEditorPart;
+import org.eclipse.ui.texteditor.IDocumentProvider;
+import org.eclipse.ui.texteditor.ITextEditor;
 
 /**
  * Represents validation marker in editor.
+ * 
  * @author rawagner
+ * @author Andrej Podhradsky (apodhrad@redhat.com)
  */
-@SuppressWarnings("restriction")
 public class Marker {
-    
-	private String text;
-	private String type;
-	private int lineNumber;
-	
+
+	private Annotation annotation;
+	private IEditorPart editor;
+
 	/**
-	 * Default constructor needs SimpleAnnotationMarker to extract info.
-	 * @param annotation SimpleAnnotationMarker to extract info from
+	 * Constructs a marker instance.
+	 * 
+	 * @param annotation
+	 *            annotation
+	 * @param editorPart
+	 *            editor part
 	 */
-	public Marker(SimpleMarkerAnnotation annotation){
-		this.text = annotation.getText();
-		this.type = annotation.getType();
-		try {
-			this.lineNumber = Integer.parseInt((annotation.getMarker().getAttribute(IMarker.LINE_NUMBER).toString()));
-		} catch (Exception e){
-			this.lineNumber = -1;
-		}
+	public Marker(Annotation annotation, IEditorPart editorPart) {
+		this.annotation = annotation;
+		this.editor = editorPart;
 	}
-	
+
 	/**
-	 * Constructor used for AYT markers.
-	 * @param annotation AYT marker annotation
-	 * @param lineNumber line number where AYT marker is. Can't be extracted from annotation.
+	 * Returns an annotation associated to the marker.
+	 * 
+	 * @return annotation associated to the marker
 	 */
-	public Marker(ProblemAnnotation annotation, int lineNumber){
-		this.text = annotation.getText();
-		this.type = annotation.getType();
-		this.lineNumber = lineNumber;
+	protected Annotation getAnnotation() {
+		return annotation;
 	}
 
 	/**
 	 * Returns validation marker text.
+	 * 
 	 * @return validation marker text
 	 */
 	public String getText() {
-		return text;
+		return annotation.getText();
 	}
 
 	/**
 	 * Returns validation marker type.
+	 * 
 	 * @return validation marker type
 	 */
 	public String getType() {
-		return type;
+		return annotation.getType();
 	}
 
 	/**
 	 * Returns line number of validation marker.
+	 * 
 	 * @return line number of validation marker
 	 */
 	public int getLineNumber() {
-		return lineNumber;
+		ITextEditor textEditor = (ITextEditor) editor.getAdapter(ITextEditor.class);
+		if (textEditor == null) {
+			return -1;
+		}
+		final IDocumentProvider documentProvider = textEditor.getDocumentProvider();
+		if (documentProvider == null) {
+			return -1;
+		}
+		IAnnotationModel model = documentProvider.getAnnotationModel(textEditor.getEditorInput());
+		IDocument doc = documentProvider.getDocument(editor.getEditorInput());
+		int offset = model.getPosition(annotation).getOffset();
+		int line = -1;
+		try {
+			line = doc.getLineOfOffset(offset) + 1;
+		} catch (BadLocationException e) {
+			throw new WorkbenchLayerException("Unable to find line number for AYT marker", e);
+		}
+		return line;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
 	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + lineNumber;
-		result = prime * result + ((text == null) ? 0 : text.hashCode());
-		result = prime * result + ((type == null) ? 0 : type.hashCode());
-		return result;
+		return annotation.hashCode();
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
@@ -99,28 +120,17 @@ public class Marker {
 		if (getClass() != obj.getClass())
 			return false;
 		Marker other = (Marker) obj;
-		if (lineNumber != other.lineNumber)
-			return false;
-		if (text == null) {
-			if (other.text != null)
-				return false;
-		} else if (!text.equals(other.text))
-			return false;
-		if (type == null) {
-			if (other.type != null)
-				return false;
-		} else if (!type.equals(other.type))
-			return false;
-		return true;
+		return other.annotation.equals(this.annotation);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
-		return "Marker [text=" + text + ", type=" + type + ", lineNumber="
-				+ lineNumber + "]";
-	}	
-	
+		return "Marker [text=" + getText() + ", type=" + getType() + ", lineNumber=" + getLineNumber() + "]";
+	}
+
 }
