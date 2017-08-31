@@ -30,4 +30,5 @@ Export-Package: org.eclipse.reddeer.requirements.autobuilding,
  org.eclipse.reddeer.requirements.openperspective,
  org.eclipse.reddeer.requirements.property,
  org.eclipse.reddeer.requirements.server,
- org.eclipse.reddeer.requirements.server.apache.tomcat
+ org.eclipse.reddeer.requirements.server.apache.tomcat,
+ org.eclipse.reddeer.requirements.securestorage
