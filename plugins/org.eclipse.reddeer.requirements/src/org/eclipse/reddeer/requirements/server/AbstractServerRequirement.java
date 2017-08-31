@@ -38,7 +38,7 @@ public abstract class AbstractServerRequirement {
 	 * @throws ConfiguredServerNotFoundException the configured server not found exception
 	 */
 	protected void setupServerState(ServerRequirementState requiredState) {
-		LOGGER.info("Checking the state of the server '" + getConfiguredConfig().getServerName() + "'");
+		LOGGER.info("Checking the state of the server '" + getServerName() + "'");
 		
 		Server serverInView = getConfiguredServer();
 		
@@ -60,9 +60,9 @@ public abstract class AbstractServerRequirement {
 	}
 	
 	/**
-	 * Removes given server and its runtime.
+	 * Removes server and its runtime.
 	 */
-	protected void removeServerAndRuntime(ConfiguredServerInfo config) {
+	protected void removeServerAndRuntime() {
 		Server serverInView = getConfiguredServer();
 		if(serverInView == null){
 			return;
@@ -74,7 +74,7 @@ public abstract class AbstractServerRequirement {
 		preferenceDialog.open();
 		RuntimePreferencePage runtimePage = new RuntimePreferencePage(preferenceDialog);
 		preferenceDialog.select(runtimePage);
-		runtimePage.removeRuntime(new Runtime(config.getRuntimeName(), "test"));
+		runtimePage.removeRuntime(new Runtime(getRuntimeName(), "test"));
 		preferenceDialog.ok();
 	}
 	
@@ -84,18 +84,13 @@ public abstract class AbstractServerRequirement {
 	 * @return the configured server
 	 */
 	protected org.eclipse.reddeer.eclipse.wst.server.ui.cnf.Server getConfiguredServer() {
-		if(getConfiguredConfig() == null){
-			return null;//Server has already been removed
-		}
 		ServersView2 serversView = new ServersView2();
 		serversView.open();
-		final String serverName = getConfiguredConfig().getServerName();
 		for(Server server: serversView.getServers()){
-			if(serverName.equals(server.getLabel().getName())){
+			if(getServerName().equals(server.getLabel().getName())){
 				return server;
 			}
 		}
-		LOGGER.warn("Server \"" + serverName + "\" not found. It had been removed.");
 		return null;
 	}
 
@@ -113,16 +108,14 @@ public abstract class AbstractServerRequirement {
 	 *
 	 * @return server name label text
 	 */
-	public abstract String getServerNameLabelText();
+	public abstract String getServerName();
 
 	/**
 	 * Gets the runtime name label text.
 	 *
 	 * @return runtime name label text
 	 */
-	public abstract String getRuntimeNameLabelText();
+	public abstract String getRuntimeName();
 	
 	public abstract RequirementConfiguration getConfiguration();
-	
-	public abstract ConfiguredServerInfo getConfiguredConfig();
 }
