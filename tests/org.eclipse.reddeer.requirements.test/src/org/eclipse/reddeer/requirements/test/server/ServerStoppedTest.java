@@ -37,7 +37,7 @@ public class ServerStoppedTest {
 		
 		ServersView2 sw = new ServersView2();
 		sw.open();
-		Server s = sw.getServer(requirement.getServerNameLabelText());
+		Server s = sw.getServer(requirement.getServerName());
 		assertTrue(s.getLabel().getState().equals(ServerState.STOPPED));
 	}
 

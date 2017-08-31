@@ -20,7 +20,6 @@ import org.eclipse.reddeer.eclipse.wst.server.ui.wizard.NewServerWizard;
 import org.eclipse.reddeer.eclipse.wst.server.ui.wizard.NewServerWizardPage;
 import org.eclipse.reddeer.junit.requirement.ConfigurableRequirement;
 import org.eclipse.reddeer.requirements.property.RequirementPropertyExpandor;
-import org.eclipse.reddeer.requirements.server.ConfiguredServerInfo;
 import org.eclipse.reddeer.requirements.server.AbstractServerRequirement;
 import org.eclipse.reddeer.requirements.server.ServerRequirementState;
 import org.eclipse.reddeer.requirements.server.apache.tomcat.ApacheTomcatServerRequirement.ApacheTomcatServer;
@@ -37,7 +36,6 @@ public class ApacheTomcatServerRequirement extends AbstractServerRequirement
 	private static final Logger LOGGER = Logger.getLogger(ApacheTomcatServerRequirement.class);
 
 	private ApacheTomcatServerConfiguration config;
-	private static ConfiguredServerInfo lastServerConfiguration;
 	private ApacheTomcatServer server;
 
 	@Retention(RetentionPolicy.RUNTIME)
@@ -63,22 +61,20 @@ public class ApacheTomcatServerRequirement extends AbstractServerRequirement
 
 	@Override
 	public void fulfill() {
-		if (lastServerConfiguration == null || !isLastConfiguredServerPresent()) {
+		if (!isLastConfiguredServerPresent()) {
 			LOGGER.info("Setup Apache Tomcat server");
 			setupServerAdapter();
-			lastServerConfiguration = new ConfiguredServerInfo(getServerNameLabelText(), getRuntimeNameLabelText(),
-					config);
 		}
 		setupServerState(server.state());
 	}
 
 	@Override
-	public String getServerNameLabelText() {
+	public String getServerName() {
 		return "Apache Tomcat v"+ config.getVersion()+" Server at localhost";
 	}
 
 	@Override
-	public String getRuntimeNameLabelText() {
+	public String getRuntimeName() {
 		return "Apache Tomcat v"+ config.getVersion()+" Runtime";
 	}
 
@@ -90,10 +86,10 @@ public class ApacheTomcatServerRequirement extends AbstractServerRequirement
 		NewServerWizardPage swpage = new NewServerWizardPage(swd);
 
 		swpage.selectType("Apache","Tomcat v"+config.getVersion()+" Server");
-		swpage.setName(getServerNameLabelText());
+		swpage.setName(getServerName());
 		swd.next();
 
-		new DefaultText(0).setText(getRuntimeNameLabelText());
+		new DefaultText(0).setText(getRuntimeName());
 		new DefaultText(1).setText(getRuntime());
 
 		swd.finish();
@@ -127,15 +123,9 @@ public class ApacheTomcatServerRequirement extends AbstractServerRequirement
 
 	@Override
 	public void cleanUp() {
-		if (server.cleanup() && config != null) {
-			removeServerAndRuntime(lastServerConfiguration);
-			lastServerConfiguration = null;
+		if (server.cleanup()) {
+			removeServerAndRuntime();
 		}
-	}
-
-	@Override
-	public ConfiguredServerInfo getConfiguredConfig() {
-		return lastServerConfiguration;
 	}
 
 	@Override
