@@ -53,7 +53,7 @@ public class ExtendedFileEditorsPreferencePage extends PreferencePage {
 	 */
 	public List<String> getFileTypes() {
 		List<String> resultList = new ArrayList<String>();
-		DefaultTable fileTypesTable = new DefaultTable(referencedComposite);
+		DefaultTable fileTypesTable = new DefaultTable(this);
 		List<TableItem> fileTypeItems = fileTypesTable.getItems();
 		for (TableItem tableItem : fileTypeItems) {
 			resultList.add(tableItem.getText());
@@ -68,7 +68,7 @@ public class ExtendedFileEditorsPreferencePage extends PreferencePage {
 	 *            file type
 	 */
 	public ExtendedFileEditorsPreferencePage selectFileType(String fileType) {
-		DefaultTable fileTypesTable = new DefaultTable(referencedComposite);
+		DefaultTable fileTypesTable = new DefaultTable(this);
 		TableItem item = fileTypesTable.getItem(fileType);
 		item.select();
 		return this;
@@ -81,7 +81,7 @@ public class ExtendedFileEditorsPreferencePage extends PreferencePage {
 	 *            file type
 	 */
 	public ExtendedFileEditorsPreferencePage addFileType(String fileType) {
-		new PushButton(referencedComposite, "Add...").click();
+		new PushButton(this, "Add...").click();
 		Shell fileTypeShell = new DefaultShell("Add File Type");
 		new LabeledText(fileTypeShell, "File type:").setText(fileType);
 		new OkButton(fileTypeShell).click();
@@ -97,7 +97,7 @@ public class ExtendedFileEditorsPreferencePage extends PreferencePage {
 	 */
 	public ExtendedFileEditorsPreferencePage removeFileType(String fileType) {
 		selectFileType(fileType);
-		new PushButton(referencedComposite, "Remove").click();
+		new PushButton(this, "Remove").click();
 		return this;
 	}
 
@@ -108,7 +108,7 @@ public class ExtendedFileEditorsPreferencePage extends PreferencePage {
 	 */
 	public List<String> getAssociatedEditors() {
 		List<String> resultList = new ArrayList<String>();
-		DefaultTable editorsTable = new DefaultTable(referencedComposite, 1);
+		DefaultTable editorsTable = new DefaultTable(this, 1);
 		List<TableItem> editors = editorsTable.getItems();
 		for (TableItem editorTableItem : editors) {
 			resultList.add(editorTableItem.getText());
@@ -135,7 +135,7 @@ public class ExtendedFileEditorsPreferencePage extends PreferencePage {
 	 *            associated editor to select
 	 */
 	public ExtendedFileEditorsPreferencePage selectAssociatedEditor(String editor) {
-		DefaultTable editorsTable = new DefaultTable(referencedComposite, 1);
+		DefaultTable editorsTable = new DefaultTable(this, 1);
 		TableItem item = null;
 		try {
 			item = editorsTable.getItem(editor);
@@ -155,7 +155,7 @@ public class ExtendedFileEditorsPreferencePage extends PreferencePage {
 	 */
 	public ExtendedFileEditorsPreferencePage makeEditorDefault(String editor) {
 		selectAssociatedEditor(editor);
-		new PushButton(referencedComposite, "Default").click();
+		new PushButton(this, "Default").click();
 		return this;
 	}
 
@@ -166,7 +166,7 @@ public class ExtendedFileEditorsPreferencePage extends PreferencePage {
 	 *            associated editor to add
 	 */
 	public ExtendedFileEditorsPreferencePage addAssociatedEditor(String editor) {
-		new PushButton(referencedComposite, 1, new WithMnemonicTextMatcher("Add...")).click();
+		new PushButton(this, 1, new WithMnemonicTextMatcher("Add...")).click();
 		Shell editorShell = new DefaultShell("Editor Selection");
 		new DefaultTreeItem(new DefaultTree(editorShell), editor).select();
 		new OkButton(editorShell).click();
@@ -182,7 +182,7 @@ public class ExtendedFileEditorsPreferencePage extends PreferencePage {
 	 */
 	public ExtendedFileEditorsPreferencePage removeAssociatedEditor(String editor) {
 		selectAssociatedEditor(editor);
-		new PushButton(referencedComposite, 1, new WithMnemonicTextMatcher("Remove")).click();
+		new PushButton(this, 1, new WithMnemonicTextMatcher("Remove")).click();
 		return this;
 	}
 }

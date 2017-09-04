@@ -43,8 +43,8 @@ public class WebProjectSecondPage extends WizardPage{
 	 * @param newVaule the new vaule
 	 */
 	public WebProjectSecondPage editSourceFoldersOnBuildPath(String sourceFolder, String newVaule){
-		new DefaultTreeItem(new DefaultTree(referencedComposite), sourceFolder).select();
-		new PushButton(referencedComposite, "Edit...").click();
+		new DefaultTreeItem(new DefaultTree(this), sourceFolder).select();
+		new PushButton(this, "Edit...").click();
 		Shell editShell = new DefaultShell("Edit Source Folder");
 		new DefaultText(editShell).setText(newVaule);
 		new OkButton(editShell).click();
@@ -58,8 +58,8 @@ public class WebProjectSecondPage extends WizardPage{
 	 * @param sourceFolder the source folder
 	 */
 	public WebProjectSecondPage removeSourceFoldersOnBuildPath(String sourceFolder){
-		new DefaultTreeItem(new DefaultTree(referencedComposite), sourceFolder).select();
-		new PushButton(referencedComposite, "Remove").click();
+		new DefaultTreeItem(new DefaultTree(this), sourceFolder).select();
+		new PushButton(this, "Remove").click();
 		return this;
 	}
 	
@@ -69,7 +69,7 @@ public class WebProjectSecondPage extends WizardPage{
 	 * @param newVaule the new vaule
 	 */
 	public WebProjectSecondPage addSourceFoldersOnBuildPath(String newVaule){
-		new PushButton(referencedComposite, "Add Folder...").click();
+		new PushButton(this, "Add Folder...").click();
 		Shell addShell = new DefaultShell("Add Source Folder");
 		new DefaultText(addShell).setText(newVaule);
 		new OkButton(addShell).click();
@@ -83,7 +83,7 @@ public class WebProjectSecondPage extends WizardPage{
 	 * @param folder the new default output folder
 	 */
 	public WebProjectSecondPage setDefaultOutputFolder(String folder){
-		new LabeledText(referencedComposite, "Default output folder:").setText(folder);
+		new LabeledText(this, "Default output folder:").setText(folder);
 		return this;
 	}
 	
@@ -94,7 +94,7 @@ public class WebProjectSecondPage extends WizardPage{
 	 */
 	public List<String> getSourceFolders(){
 		List<String> toReturn = new ArrayList<String>();
-		for(TreeItem item: new DefaultTree(referencedComposite).getAllItems()){
+		for(TreeItem item: new DefaultTree(this).getAllItems()){
 			toReturn.add(item.getText());
 		}
 		return toReturn;

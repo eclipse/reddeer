@@ -40,7 +40,7 @@ public class BasicNewProjectResourceWizardFirstPage extends WizardPage{
 	 */
 	public BasicNewProjectResourceWizardFirstPage setProjectName(String projectName) {
 		log.debug("Set General Project name to '" + projectName + "'");
-		new LabeledText(referencedComposite, "Project name:").setText(projectName);
+		new LabeledText(this, "Project name:").setText(projectName);
 		return this;
 	}
 
@@ -51,8 +51,8 @@ public class BasicNewProjectResourceWizardFirstPage extends WizardPage{
 	 */
 	public BasicNewProjectResourceWizardFirstPage setProjectLocation(String projectLocation) {
 		log.debug("Set Project location to '" + projectLocation + "'");
-		new CheckBox(referencedComposite, "Use default location").toggle(false);
-		new LabeledText(referencedComposite, "Location:").setText(projectLocation);
+		new CheckBox(this, "Use default location").toggle(false);
+		new LabeledText(this, "Location:").setText(projectLocation);
 		return this;
 	}
 
@@ -63,8 +63,8 @@ public class BasicNewProjectResourceWizardFirstPage extends WizardPage{
 	 */
 	public BasicNewProjectResourceWizardFirstPage addProjectToWorkingSet(String workingSet) {
 		log.debug("Add Project to working set '" + workingSet + "'");
-		new CheckBox(referencedComposite, "Add project to working sets").toggle(true);
-		LabeledCombo cmbWorkingSet = new LabeledCombo(referencedComposite, "Working sets:");
+		new CheckBox(this, "Add project to working sets").toggle(true);
+		LabeledCombo cmbWorkingSet = new LabeledCombo(this, "Working sets:");
 		if (cmbWorkingSet.isEnabled()) {
 			cmbWorkingSet.setText(workingSet);
 		} else {

@@ -69,7 +69,7 @@ public class MavenArchetypesPreferencePage extends PreferencePage {
 	 *            description of the local catalog
 	 */
 	public MavenArchetypesPreferencePage addLocalCatalog(String catalogFile, String description) {
-		new PushButton(referencedComposite, ADD_LOCAL_CATALOG).click();
+		new PushButton(this, ADD_LOCAL_CATALOG).click();
 		Shell localCatalogShell = new DefaultShell(LOCAL_CATALOG_SHELL);
 		new DefaultCombo(localCatalogShell).setText(catalogFile);
 		new LabeledText(localCatalogShell, CATALOG_DESCRIPTION).setText(description);
@@ -106,7 +106,7 @@ public class MavenArchetypesPreferencePage extends PreferencePage {
 	 */
 	public String addRemoteCatalog(String catalogFileURL, String description, boolean verify) {
 		String verificationResult = "";
-		new PushButton(referencedComposite, ADD_REMOTE_CATALOG).click();
+		new PushButton(this, ADD_REMOTE_CATALOG).click();
 		Shell remoteCatalogShell = new DefaultShell(REMOTE_CATALOG_SHELL);
 		new DefaultCombo(remoteCatalogShell).setText(catalogFileURL);
 		new LabeledText(remoteCatalogShell, CATALOG_DESCRIPTION).setText(description);
@@ -126,7 +126,7 @@ public class MavenArchetypesPreferencePage extends PreferencePage {
 	 * @return list of TableItems with catalogs from table
 	 */
 	public List<TableItem> getCatalogs() {
-		Table table = new DefaultTable(referencedComposite);
+		Table table = new DefaultTable(this);
 		return table.getItems();
 	}
 
@@ -152,7 +152,7 @@ public class MavenArchetypesPreferencePage extends PreferencePage {
 	 */
 	public MavenArchetypesPreferencePage removeCatalog(String catalogName) {
 		selectCatalog(catalogName);
-		new PushButton(referencedComposite, REMOVE_CATALOG).click();
+		new PushButton(this, REMOVE_CATALOG).click();
 		return this;
 	}
 
@@ -224,7 +224,7 @@ public class MavenArchetypesPreferencePage extends PreferencePage {
 	private String editCatalog(String catalogName, String catalogFile, String description, boolean verify) {
 		String verificationResult = "";
 		selectCatalog(catalogName);
-		new PushButton(referencedComposite, EDIT_CATALOG).click();
+		new PushButton(this, EDIT_CATALOG).click();
 		Shell editShell = new DefaultShell(new WithTextMatcher(new RegexMatcher(".* Archetype Catalog")));
 		new DefaultCombo(editShell).setText(catalogFile);
 		new LabeledText(editShell, CATALOG_DESCRIPTION).setText(description);

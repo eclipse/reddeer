@@ -41,7 +41,7 @@ public class CPWizardSelectionPage extends WizardPage {
 	 *            Connection profile
 	 */
 	public CPWizardSelectionPage setConnectionProfile(String connectionProfile) {
-		new DefaultTable(referencedComposite).select(connectionProfile);
+		new DefaultTable(this).select(connectionProfile);
 		return this;
 	}
 
@@ -52,7 +52,7 @@ public class CPWizardSelectionPage extends WizardPage {
 	 *            Name
 	 */
 	public CPWizardSelectionPage setName(String name) {
-		new LabeledText(referencedComposite, LABEL_NAME).setText(name);
+		new LabeledText(this, LABEL_NAME).setText(name);
 		return this;
 	}
 
@@ -63,7 +63,7 @@ public class CPWizardSelectionPage extends WizardPage {
 	 *            Description
 	 */
 	public CPWizardSelectionPage setDescription(String description) {
-		new LabeledText(referencedComposite, LABEL_DESCRIPTION).setText(description);
+		new LabeledText(this, LABEL_DESCRIPTION).setText(description);
 		return this;
 	}
 }

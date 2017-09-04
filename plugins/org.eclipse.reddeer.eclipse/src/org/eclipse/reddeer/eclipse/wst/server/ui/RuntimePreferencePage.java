@@ -59,7 +59,7 @@ public class RuntimePreferencePage extends PreferencePage {
 	public List<Runtime> getServerRuntimes(){
 		List<Runtime> runtimes = new ArrayList<Runtime>();
 		
-		Table table = new DefaultTable(referencedComposite);
+		Table table = new DefaultTable(this);
 		int rows = table.rowCount();
 		
 		for (int i = 0; i < rows; i++){
@@ -79,7 +79,7 @@ public class RuntimePreferencePage extends PreferencePage {
 	public RuntimePreferencePage removeRuntime(Runtime runtime){
 		log.info("Removing runtime '" + runtime + "'");
 		selectRuntime(runtime.getName());
-		new PushButton(referencedComposite, "Remove").click();
+		new PushButton(this, "Remove").click();
 		new WaitUntil(new ShellIsAvailable("Server"),TimePeriod.MEDIUM, false);
 		if(new ShellIsAvailable("Server").test()){
 			Shell serverShell = new DefaultShell("Server");
@@ -104,7 +104,7 @@ public class RuntimePreferencePage extends PreferencePage {
 	
 	private RuntimePreferencePage selectRuntime(String name){
 		
-		Table table = new DefaultTable(referencedComposite);
+		Table table = new DefaultTable(this);
 		log.debug("Selecting runtime '" + name + "'");
 		for (int i = 0; i < table.rowCount(); i++){
 			String runtimeName = table.getItem(i).getText();
@@ -125,8 +125,7 @@ public class RuntimePreferencePage extends PreferencePage {
 	 */
 	public NewRuntimeWizardDialog addRuntime(){
 		log.info("Adding new runtime");
-		new PushButton(referencedComposite, "Add...").click();
-		new DefaultShell(NewRuntimeWizardDialog.DIALOG_TITLE);
+		new PushButton(this, "Add...").click();
 		return new NewRuntimeWizardDialog();
 	}
 	
@@ -138,7 +137,7 @@ public class RuntimePreferencePage extends PreferencePage {
 	 */
 	public RuntimePreferencePage editRuntime(String name){
 		selectRuntime(name);
-		new PushButton(referencedComposite, EDIT_BUTTON_NAME).click();
+		new PushButton(this, EDIT_BUTTON_NAME).click();
 		return this;
 	}
 }

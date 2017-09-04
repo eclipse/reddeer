@@ -45,7 +45,7 @@ public class FolderSelectionWizardPage extends WizardPage {
 	 * @param folder the new home folder
 	 */
 	public FolderSelectionWizardPage setHomeFolder(String folder) {
-		new DefaultText(referencedComposite, 0).setText(folder);
+		new DefaultText(this, 0).setText(folder);
 		return this;
 	}
 
@@ -55,7 +55,7 @@ public class FolderSelectionWizardPage extends WizardPage {
 	 * @param charset the new charset
 	 */
 	public FolderSelectionWizardPage setCharset(String charset) {
-		new LabeledCombo(referencedComposite, LABEL_CHARSET).setSelection(charset);
+		new LabeledCombo(this, LABEL_CHARSET).setSelection(charset);
 		return this;
 	}
 
@@ -65,7 +65,7 @@ public class FolderSelectionWizardPage extends WizardPage {
 	 * @param style the new style
 	 */
 	public FolderSelectionWizardPage setStyle(String style) {
-		new LabeledCombo(referencedComposite, LABEL_STYLE).setSelection(style);
+		new LabeledCombo(this, LABEL_STYLE).setSelection(style);
 		return this;
 	}
 
@@ -90,7 +90,7 @@ public class FolderSelectionWizardPage extends WizardPage {
 	}
 
 	private FolderSelectionWizardPage useProperty(String property, boolean use) {
-		new CheckBox(referencedComposite, "property").toggle(use);
+		new CheckBox(this, "property").toggle(use);
 		return this;
 	}
 

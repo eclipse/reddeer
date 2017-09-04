@@ -43,7 +43,7 @@ public class DataModelFacetCreationWizardPage extends WizardPage {
 	 * @param projectName project name to set
 	 */
 	public DataModelFacetCreationWizardPage setProjectName(final String projectName) {
-		new LabeledText(referencedComposite, "Project name:").setText(projectName);
+		new LabeledText(this, "Project name:").setText(projectName);
 		return this;
 	}
 	
@@ -52,7 +52,7 @@ public class DataModelFacetCreationWizardPage extends WizardPage {
 	 * @return project name
 	 */
 	public String getProjectName() {
-		return new LabeledText(referencedComposite, "Project name:").getText();
+		return new LabeledText(this, "Project name:").getText();
 	}
 	
 	/**
@@ -60,7 +60,7 @@ public class DataModelFacetCreationWizardPage extends WizardPage {
 	 * @param useDefaultLocation true or false
 	 */
 	public DataModelFacetCreationWizardPage setUseDefaultLocation(final boolean useDefaultLocation) {
-		new CheckBox(new DefaultGroup(referencedComposite, "Project location"),"Use default location").toggle(useDefaultLocation);
+		new CheckBox(new DefaultGroup(this, "Project location"),"Use default location").toggle(useDefaultLocation);
 		return this;
 	}
 	
@@ -69,7 +69,7 @@ public class DataModelFacetCreationWizardPage extends WizardPage {
 	 * @return true if default location is used, false otherwise
 	 */
 	public boolean isUseDefaultLocation() {
-		return new CheckBox(new DefaultGroup(referencedComposite, "Project location"),"Use default location").isChecked();
+		return new CheckBox(new DefaultGroup(this, "Project location"),"Use default location").isChecked();
 	}
 	
 	/**
@@ -77,7 +77,7 @@ public class DataModelFacetCreationWizardPage extends WizardPage {
 	 * @param location to set
 	 */
 	public DataModelFacetCreationWizardPage setLocation(final String location) {
-		new LabeledText(referencedComposite, "Location:").setText(location);
+		new LabeledText(this, "Location:").setText(location);
 		return this;
 	}
 	
@@ -86,7 +86,7 @@ public class DataModelFacetCreationWizardPage extends WizardPage {
 	 * @return location
 	 */
 	public String getLocation() {
-		return new LabeledText(referencedComposite, "Location:").getText();
+		return new LabeledText(this, "Location:").getText();
 	}
 	
 	/**
@@ -94,7 +94,7 @@ public class DataModelFacetCreationWizardPage extends WizardPage {
 	 * @param targetRuntime to be set
 	 */
 	public DataModelFacetCreationWizardPage setTargetRuntime(final String targetRuntime) {
-		new DefaultCombo(new DefaultGroup(referencedComposite, "Target runtime")).setSelection(targetRuntime);
+		new DefaultCombo(new DefaultGroup(this, "Target runtime")).setSelection(targetRuntime);
 		return this;
 	}
 	
@@ -103,7 +103,7 @@ public class DataModelFacetCreationWizardPage extends WizardPage {
 	 * @return current target runtime
 	 */
 	public String getTargetRuntime() {
-		return new DefaultCombo(new DefaultGroup(referencedComposite, "Target runtime")).getSelection();
+		return new DefaultCombo(new DefaultGroup(this, "Target runtime")).getSelection();
 	}
 	
 	/**
@@ -111,7 +111,7 @@ public class DataModelFacetCreationWizardPage extends WizardPage {
 	 * @param configuration to be set
 	 */
 	public DataModelFacetCreationWizardPage setConfiguration(final String configuration) {
-		new DefaultCombo(new DefaultGroup("Configuration")).setSelection(configuration);
+		new DefaultCombo(new DefaultGroup(this, "Configuration")).setSelection(configuration);
 		return this;
 	}
 	
@@ -120,7 +120,7 @@ public class DataModelFacetCreationWizardPage extends WizardPage {
 	 * @return configuration
 	 */
 	public String getConfiguration() {
-		return new DefaultCombo(new DefaultGroup(referencedComposite, "Configuration")).getSelection();
+		return new DefaultCombo(new DefaultGroup(this, "Configuration")).getSelection();
 	}
 	
 	/**
@@ -128,7 +128,7 @@ public class DataModelFacetCreationWizardPage extends WizardPage {
 	 * @param membership if EAR membership should be enabled
 	 */
 	public DataModelFacetCreationWizardPage setEARMembership(final boolean membership) {
-		new CheckBox(new DefaultGroup(referencedComposite, "EAR membership"),"Add project to an EAR").toggle(membership);
+		new CheckBox(new DefaultGroup(this, "EAR membership"),"Add project to an EAR").toggle(membership);
 		return this;
 	}
 	
@@ -137,7 +137,7 @@ public class DataModelFacetCreationWizardPage extends WizardPage {
 	 * @return true if EAR membership is enabled, false otherwise
 	 */
 	public boolean isEARMembership() {
-		return new CheckBox(new DefaultGroup(referencedComposite, "EAR membership"),"Add project to an EAR").isChecked();
+		return new CheckBox(new DefaultGroup(this, "EAR membership"),"Add project to an EAR").isChecked();
 	}
 	
 	/**
@@ -145,7 +145,7 @@ public class DataModelFacetCreationWizardPage extends WizardPage {
 	 * @param name project name
 	 */
 	public DataModelFacetCreationWizardPage setEARProjectName(final String name) {
-		new LabeledCombo(new DefaultGroup(referencedComposite, "EAR membership"),"EAR project name:").setText(name);
+		new LabeledCombo(new DefaultGroup(this, "EAR membership"),"EAR project name:").setText(name);
 		return this;
 	}
 	
@@ -154,7 +154,7 @@ public class DataModelFacetCreationWizardPage extends WizardPage {
 	 * @return EAR project name
 	 */
 	public String getEARProjectName() {
-		return new LabeledCombo(new DefaultGroup(referencedComposite, "EAR membership"),"EAR project name:").getText();
+		return new LabeledCombo(new DefaultGroup(this, "EAR membership"),"EAR project name:").getText();
 	}
 	
 	/**
@@ -162,7 +162,7 @@ public class DataModelFacetCreationWizardPage extends WizardPage {
 	 * @param workingSets to be set
 	 */
 	public DataModelFacetCreationWizardPage setWorkingSets(final boolean workingSets) {
-		new CheckBox(new DefaultGroup(referencedComposite, "Working sets"),"Add project to working sets").toggle(workingSets);
+		new CheckBox(new DefaultGroup(this, "Working sets"),"Add project to working sets").toggle(workingSets);
 		return this;
 	}
 	
@@ -171,7 +171,7 @@ public class DataModelFacetCreationWizardPage extends WizardPage {
 	 * @param workingSets to be set
 	 */
 	public DataModelFacetCreationWizardPage setWorkingSets(final String workingSets) {
-		new LabeledCombo(new DefaultGroup(referencedComposite, "Working sets"),"Working sets:").setSelection(workingSets);
+		new LabeledCombo(new DefaultGroup(this, "Working sets"),"Working sets:").setSelection(workingSets);
 		return this;
 	}
 	
@@ -180,7 +180,7 @@ public class DataModelFacetCreationWizardPage extends WizardPage {
 	 * @return working sets
 	 */
 	public String getWorkingSets() {
-		return new LabeledCombo(new DefaultGroup(referencedComposite, "Working sets"),"Working sets:").getSelection();
+		return new LabeledCombo(new DefaultGroup(this, "Working sets"),"Working sets:").getSelection();
 	}
 	
 	/**
@@ -189,7 +189,7 @@ public class DataModelFacetCreationWizardPage extends WizardPage {
 	 * @param version facet version, can be null - than version is left default
 	 */
 	public DataModelFacetCreationWizardPage activateFacet(final String version, final String... facetPath) {
-		new PushButton(referencedComposite, "Modify...").click();
+		new PushButton(this, "Modify...").click();
 		Shell facetsShell = new DefaultShell("Project Facets");
 		DefaultTreeItem facetTreeItem = new DefaultTreeItem(new DefaultTree(facetsShell), facetPath);
 		facetTreeItem.select();

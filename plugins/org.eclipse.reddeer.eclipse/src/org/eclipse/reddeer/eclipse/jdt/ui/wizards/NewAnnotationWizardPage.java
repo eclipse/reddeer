@@ -32,7 +32,7 @@ public class NewAnnotationWizardPage extends WizardPage {
 	 *            Package name
 	 */
 	public NewAnnotationWizardPage setPackage(String packageName) {
-		new LabeledText(referencedComposite, "Package:").setText(packageName);
+		new LabeledText(this, "Package:").setText(packageName);
 		return this;
 	}
 
@@ -43,7 +43,7 @@ public class NewAnnotationWizardPage extends WizardPage {
 	 *            Source folder
 	 */
 	public NewAnnotationWizardPage setSourceFolder(String sourceFolder) {
-		new LabeledText(referencedComposite, "Source folder:").setText(sourceFolder);
+		new LabeledText(this, "Source folder:").setText(sourceFolder);
 		return this;
 	}
 
@@ -54,7 +54,7 @@ public class NewAnnotationWizardPage extends WizardPage {
 	 *            Eclosing type
 	 */
 	public NewAnnotationWizardPage setEnclosingType(boolean enclosing) {
-		new CheckBox(referencedComposite, "Enclosing type:").toggle(enclosing);
+		new CheckBox(this, "Enclosing type:").toggle(enclosing);
 		return this;
 	}
 
@@ -65,7 +65,7 @@ public class NewAnnotationWizardPage extends WizardPage {
 	 *            Name
 	 */
 	public NewAnnotationWizardPage setName(String name) {
-		new LabeledText(referencedComposite, "Name:").setText(name);
+		new LabeledText(this, "Name:").setText(name);
 		return this;
 	}
 
@@ -76,7 +76,7 @@ public class NewAnnotationWizardPage extends WizardPage {
 	 *            Indicates whether to generate comments
 	 */
 	public NewAnnotationWizardPage setGenerateComments(boolean generate) {
-		new CheckBox(referencedComposite, "Generate comments").toggle(generate);
+		new CheckBox(this, "Generate comments").toggle(generate);
 		return this;
 	}
 
@@ -86,7 +86,7 @@ public class NewAnnotationWizardPage extends WizardPage {
 	 * @param isPublic            Is public?
 	 */
 	public NewAnnotationWizardPage setPublic(boolean isPublic) {
-		new RadioButton(referencedComposite, "public").toggle(isPublic);
+		new RadioButton(this, "public").toggle(isPublic);
 		return this;
 	}
 
@@ -97,7 +97,7 @@ public class NewAnnotationWizardPage extends WizardPage {
 	 *            Is default?
 	 */
 	public NewAnnotationWizardPage setDefault(boolean isDefault) {
-		new RadioButton(referencedComposite, "default").toggle(isDefault);
+		new RadioButton(this, "default").toggle(isDefault);
 		return this;
 	}
 
@@ -108,7 +108,7 @@ public class NewAnnotationWizardPage extends WizardPage {
 	 *            Is private?
 	 */
 	public NewAnnotationWizardPage setPrivate(boolean isPrivate) {
-		new RadioButton(referencedComposite, "private").toggle(isPrivate);
+		new RadioButton(this, "private").toggle(isPrivate);
 		return this;
 	}
 
@@ -119,7 +119,7 @@ public class NewAnnotationWizardPage extends WizardPage {
 	 *            Is protected?
 	 */
 	public NewAnnotationWizardPage setProtected(boolean isProtected) {
-		new RadioButton(referencedComposite, "protected").toggle(isProtected);
+		new RadioButton(this, "protected").toggle(isProtected);
 		return this;
 	}
 

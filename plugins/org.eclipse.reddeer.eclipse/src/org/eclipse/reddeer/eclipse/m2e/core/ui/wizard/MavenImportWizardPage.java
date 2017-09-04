@@ -52,7 +52,7 @@ public class MavenImportWizardPage extends WizardPage {
 	 */
 	public MavenImportWizardPage setRootDirectory(String path) {
 		activate();
-		new LabeledCombo(referencedComposite, "Root Directory:").setText(path);
+		new LabeledCombo(this, "Root Directory:").setText(path);
 		return this;
 	}
 
@@ -61,7 +61,7 @@ public class MavenImportWizardPage extends WizardPage {
 	 */
 	public MavenImportWizardPage refresh() {
 		activate();
-		new PushButton(referencedComposite, "Refresh").click();
+		new PushButton(this, "Refresh").click();
 		return this;
 	}
 
@@ -87,7 +87,7 @@ public class MavenImportWizardPage extends WizardPage {
 
 		@Override
 		public boolean test() {
-			return new PushButton(referencedComposite, "Finish").isEnabled() || new PushButton(referencedComposite, "Next >").isEnabled();
+			return new PushButton(MavenImportWizardPage.this, "Finish").isEnabled() || new PushButton(MavenImportWizardPage.this, "Next >").isEnabled();
 		}
 
 		@Override

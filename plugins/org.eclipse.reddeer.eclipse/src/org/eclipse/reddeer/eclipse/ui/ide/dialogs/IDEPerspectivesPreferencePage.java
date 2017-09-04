@@ -35,7 +35,7 @@ public class IDEPerspectivesPreferencePage extends PreferencePage {
 	 * @return RadioButton
 	 */
 	private RadioButton getOpenNewPerspectiveInSameWindowRadioButton() {
-		return new RadioButton(new DefaultGroup(referencedComposite, "Open a new perspective"),
+		return new RadioButton(new DefaultGroup(this, "Open a new perspective"),
 				"In the same window");
 	}
 
@@ -45,7 +45,7 @@ public class IDEPerspectivesPreferencePage extends PreferencePage {
 	 * @return RadioButton
 	 */
 	private RadioButton getOpenNewPerspectiveInNewWindowRadioButton() {
-		return new RadioButton(new DefaultGroup(referencedComposite, "Open a new perspective"),
+		return new RadioButton(new DefaultGroup(this, "Open a new perspective"),
 				"In a new window");
 	}
 
@@ -56,7 +56,7 @@ public class IDEPerspectivesPreferencePage extends PreferencePage {
 	 * @return RadioButton
 	 */
 	private RadioButton getAlwaysOpenAssociatedPerspectiveRadioButton() {
-		return new RadioButton(new DefaultGroup(referencedComposite, 
+		return new RadioButton(new DefaultGroup(this, 
 				"Open the associated perspective when creating a new project"),
 				"Always open");
 	}
@@ -68,7 +68,7 @@ public class IDEPerspectivesPreferencePage extends PreferencePage {
 	 * @return RadioButton
 	 */
 	private RadioButton getNeverOpenAssociatedPerspectiveRadioButton() {
-		return new RadioButton(new DefaultGroup(referencedComposite,
+		return new RadioButton(new DefaultGroup(this,
 				"Open the associated perspective when creating a new project"),
 				"Never open");
 	}
@@ -80,7 +80,7 @@ public class IDEPerspectivesPreferencePage extends PreferencePage {
 	 * @return RadioButton
 	 */
 	private RadioButton getPromptOpenAssociatedPerspectiveRadioButton() {
-		return new RadioButton(new DefaultGroup(referencedComposite,
+		return new RadioButton(new DefaultGroup(this,
 				"Open the associated perspective when creating a new project"),
 				"Prompt");
 	}

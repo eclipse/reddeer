@@ -49,7 +49,7 @@ public class DriverPreferences extends PreferencePage {
 	 * @return a wizard for creating a driver definition
 	 */
 	public DriverDialog addDriverDefinition() {
-		new PushButton(referencedComposite, "Add...").click();
+		new PushButton(this, "Add...").click();
 		new DefaultShell("New Driver Definition");
 		return new DriverDialog();
 	}

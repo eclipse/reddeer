@@ -15,6 +15,7 @@ import org.eclipse.reddeer.core.reference.ReferencedComposite;
 import org.eclipse.reddeer.swt.api.Button;
 import org.eclipse.reddeer.swt.impl.button.PushButton;
 import org.eclipse.reddeer.swt.impl.clabel.DefaultCLabel;
+import org.eclipse.swt.widgets.Control;
 
 /**
  * Represents a general preference page.
@@ -22,7 +23,7 @@ import org.eclipse.reddeer.swt.impl.clabel.DefaultCLabel;
  * @author Lucia Jelinkova
  * @since 0.6
  */
-public class PreferencePage {
+public class PreferencePage implements ReferencedComposite{
 
 	private final Logger log = Logger.getLogger(PreferencePage.class);
 
@@ -39,6 +40,12 @@ public class PreferencePage {
 		}
 		if (path.length == 0) {
 			throw new IllegalArgumentException("path can't be empty");
+		}
+		if(referencedComposite == null) {
+			throw new IllegalArgumentException("referencedComposite can't be null");
+		}
+		if(referencedComposite.getControl() != null && referencedComposite.getControl().isDisposed()) {
+			throw new IllegalArgumentException("referencedComposite is disposed");
 		}
 		this.referencedComposite = referencedComposite;
 		this.path = path;
@@ -81,5 +88,10 @@ public class PreferencePage {
 		log.info("Restore default values in Preferences dialog");
 		b.click();
 		return this;
+	}
+
+	@Override
+	public Control getControl() {
+		return referencedComposite.getControl();
 	}
 }

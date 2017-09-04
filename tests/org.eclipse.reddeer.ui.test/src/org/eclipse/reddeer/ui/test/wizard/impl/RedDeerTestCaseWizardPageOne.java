@@ -113,7 +113,7 @@ public class RedDeerTestCaseWizardPageOne extends WizardPage {
 	 * @param checked true to select, false otherwise
 	 */
 	public void setJUnit3(boolean select) {
-		new RadioButton(referencedComposite, "New JUnit 3 test").toggle(select);
+		new RadioButton(this, "New JUnit 3 test").toggle(select);
 	}
 	
 	/**
@@ -121,7 +121,7 @@ public class RedDeerTestCaseWizardPageOne extends WizardPage {
 	 * @param checked true to select, false otherwise
 	 */
 	public void setJUnit4(boolean select) {
-		new RadioButton(referencedComposite, "New JUnit 4 test").toggle(select);
+		new RadioButton(this, "New JUnit 4 test").toggle(select);
 	}
 	
 	/**
@@ -133,10 +133,10 @@ public class RedDeerTestCaseWizardPageOne extends WizardPage {
 	}
 	
 	private void toggleCheckBox(String text, boolean checked) {
-		new CheckBox(referencedComposite, text).toggle(checked);
+		new CheckBox(this, text).toggle(checked);
 	}
 	
 	private void setTextToLabeledText(String label, String text) {
-		new LabeledText(referencedComposite, label).setText(text);
+		new LabeledText(this, label).setText(text);
 	}
 }

@@ -31,7 +31,7 @@ public class MavenProjectWizardArchetypeParametersPage extends WizardPage{
 	 * @param projectPackage the new package
 	 */
 	public MavenProjectWizardArchetypeParametersPage setPackage(String projectPackage){
-		new LabeledCombo(referencedComposite, "Package:").setText(projectPackage);
+		new LabeledCombo(this, "Package:").setText(projectPackage);
 		return this;
 	}
 	
@@ -41,7 +41,7 @@ public class MavenProjectWizardArchetypeParametersPage extends WizardPage{
 	 * @param groupId the new group id
 	 */
 	public MavenProjectWizardArchetypeParametersPage setGroupId(String groupId){
-		new LabeledCombo(referencedComposite, "Group Id:").setText(groupId);
+		new LabeledCombo(this, "Group Id:").setText(groupId);
 		return this;
 	}
 
@@ -51,7 +51,7 @@ public class MavenProjectWizardArchetypeParametersPage extends WizardPage{
 	 * @param artifactId the new artifact id
 	 */
 	public MavenProjectWizardArchetypeParametersPage setArtifactId(String artifactId){
-		new LabeledCombo(referencedComposite, "Artifact Id:").setText(artifactId);
+		new LabeledCombo(this, "Artifact Id:").setText(artifactId);
 		return this;
 	}
 	
@@ -61,7 +61,7 @@ public class MavenProjectWizardArchetypeParametersPage extends WizardPage{
 	 * @param version the new version
 	 */
 	public MavenProjectWizardArchetypeParametersPage setVersion(String version){
-		new LabeledCombo(referencedComposite, "Version:").setText(version);
+		new LabeledCombo(this, "Version:").setText(version);
 		return this;
 	}
 	
@@ -71,7 +71,7 @@ public class MavenProjectWizardArchetypeParametersPage extends WizardPage{
 	 * @return project package
 	 */
 	public String getPackage(){
-		return new LabeledCombo(referencedComposite, "Package:").getText();
+		return new LabeledCombo(this, "Package:").getText();
 	}
 	
 	/**
@@ -80,7 +80,7 @@ public class MavenProjectWizardArchetypeParametersPage extends WizardPage{
 	 * @return project group id
 	 */
 	public String getGroupId(){
-		return new LabeledCombo(referencedComposite, "Group Id:").getText();
+		return new LabeledCombo(this, "Group Id:").getText();
 	}
 	
 	/**
@@ -89,7 +89,7 @@ public class MavenProjectWizardArchetypeParametersPage extends WizardPage{
 	 * @return project artifact id
 	 */
 	public String getArtifactId(){
-		return new LabeledCombo(referencedComposite, "Artifact Id:").getText();
+		return new LabeledCombo(this, "Artifact Id:").getText();
 	}
 	
 	/**
@@ -98,7 +98,7 @@ public class MavenProjectWizardArchetypeParametersPage extends WizardPage{
 	 * @return project version
 	 */
 	public String getVersion(){
-		return new LabeledCombo(referencedComposite, "Version:").getText();
+		return new LabeledCombo(this, "Version:").getText();
 	}
 
 

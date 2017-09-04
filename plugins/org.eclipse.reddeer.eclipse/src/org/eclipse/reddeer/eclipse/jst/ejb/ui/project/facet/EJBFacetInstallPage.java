@@ -30,7 +30,7 @@ public class EJBFacetInstallPage extends WizardPage {
 	 * @param toggle toggle generation
 	 */
 	public EJBFacetInstallPage toggleGenerateEjbJarXml(final boolean toggle) {
-		new CheckBox(referencedComposite, "Generate ejb-jar.xml deployment descriptor").toggle(toggle);
+		new CheckBox(this, "Generate ejb-jar.xml deployment descriptor").toggle(toggle);
 		return this;
 	}
 	
@@ -39,7 +39,7 @@ public class EJBFacetInstallPage extends WizardPage {
 	 * @return true if generation of ejb-jar.xml is enabled, false otherwise
 	 */
 	public boolean isGenerateEjbJarXml() {
-		return new CheckBox(referencedComposite, "Generate ejb-jar.xml deployment descriptor").isChecked();
+		return new CheckBox(this, "Generate ejb-jar.xml deployment descriptor").isChecked();
 	}
 
 }

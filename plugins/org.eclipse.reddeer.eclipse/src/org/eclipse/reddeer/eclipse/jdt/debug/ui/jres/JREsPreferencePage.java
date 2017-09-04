@@ -107,7 +107,7 @@ public class JREsPreferencePage extends PreferencePage {
 
 	public List<JREItem> getJREs() {
 		ArrayList<JREItem> resultList = new ArrayList<JREItem>();
-		DefaultTable table = new DefaultTable(referencedComposite);
+		DefaultTable table = new DefaultTable(this);
 		for (TableItem item : table.getItems()) {
 			resultList.add(new JREItem(item.getText(0), item.getText(1), item.getText(2)));
 		}
@@ -122,14 +122,14 @@ public class JREsPreferencePage extends PreferencePage {
 	 */
 
 	public JREsPreferencePage deleteJRE(String name) {
-		DefaultTable table = new DefaultTable(referencedComposite);
+		DefaultTable table = new DefaultTable(this);
 		table.getItem(name, 0).select();
 		new PushButton(referencedComposite, "Remove").click();
 		return this;
 	}
 
 	private AddVMInstallWizard openAddJREWizard() {
-		new PushButton(referencedComposite, "Add...").click();
+		new PushButton(this, "Add...").click();
 		AddVMInstallWizard wizard = new AddVMInstallWizard();
 		new VMTypePage(wizard).selectType("Standard VM");
 		wizard.next();

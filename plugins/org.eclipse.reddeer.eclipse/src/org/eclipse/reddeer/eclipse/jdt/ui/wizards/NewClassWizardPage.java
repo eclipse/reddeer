@@ -33,7 +33,7 @@ public class NewClassWizardPage extends WizardPage {
 	 * @param name Name
 	 */
 	public NewClassWizardPage setName(String name){
-		new LabeledText(referencedComposite, "Name:").setText(name);
+		new LabeledText(this, "Name:").setText(name);
 		return this;
 	}
 	
@@ -43,7 +43,7 @@ public class NewClassWizardPage extends WizardPage {
 	 * @param packageName Package name
 	 */
 	public NewClassWizardPage setPackage(String packageName) {
-		new LabeledText(referencedComposite, "Package:").setText(packageName);
+		new LabeledText(this, "Package:").setText(packageName);
 		return this;
 	}
 	
@@ -53,7 +53,7 @@ public class NewClassWizardPage extends WizardPage {
 	 * @param sourceFolder Source folder
 	 */
 	public NewClassWizardPage setSourceFolder(String sourceFolder){
-		new LabeledText(referencedComposite, "Source folder:").setText(sourceFolder);
+		new LabeledText(this, "Source folder:").setText(sourceFolder);
 		return this;
 	}
 	
@@ -63,7 +63,7 @@ public class NewClassWizardPage extends WizardPage {
 	 * @param setMainMethod Indicates whether to generate static main method
 	 */
 	public NewClassWizardPage setStaticMainMethod(boolean setMainMethod) {
-		new CheckBox(referencedComposite, "public static void main(String[] args)").toggle(setMainMethod);
+		new CheckBox(this, "public static void main(String[] args)").toggle(setMainMethod);
 		return this;
 	}
 	
@@ -73,7 +73,7 @@ public class NewClassWizardPage extends WizardPage {
 	 * @return package name
 	 */
 	public String getPackage(){
-		return new LabeledText(referencedComposite, "Package:").getText();
+		return new LabeledText(this, "Package:").getText();
 	}
 	
 	/**
@@ -82,7 +82,7 @@ public class NewClassWizardPage extends WizardPage {
 	 * @return Class name
 	 */
 	public String getName(){
-		return new LabeledText(referencedComposite, "Name:").getText();
+		return new LabeledText(this, "Name:").getText();
 	}
 	
 	/**
@@ -91,6 +91,6 @@ public class NewClassWizardPage extends WizardPage {
 	 * @return Source folder
 	 */
 	public String getSourceFolder(){
-		return new LabeledText(referencedComposite, "Source folder:").getText();
+		return new LabeledText(this, "Source folder:").getText();
 	}
 }

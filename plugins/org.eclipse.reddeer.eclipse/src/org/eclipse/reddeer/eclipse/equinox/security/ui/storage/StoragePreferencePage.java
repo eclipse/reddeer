@@ -52,7 +52,7 @@ public class StoragePreferencePage extends PreferencePage {
 	 * Select Password tab in Security storage page containing general secure storage options.
 	 */
 	public StoragePreferencePage selectPasswordsTab() {
-		new DefaultTabItem(referencedComposite, "Password").activate();
+		new DefaultTabItem(this, "Password").activate();
 		return this;
 	}
 	
@@ -60,7 +60,7 @@ public class StoragePreferencePage extends PreferencePage {
 	 * Select Contents tab in Storage preference page containing stored passwords with related user names/accounts.
 	 */
 	public StoragePreferencePage selectContentTab() {
-		new DefaultTabItem(referencedComposite, "Contents").activate();
+		new DefaultTabItem(this, "Contents").activate();
 		return this;
 	}
 	
@@ -68,7 +68,7 @@ public class StoragePreferencePage extends PreferencePage {
 	 * Select Advanced tab in Storage preference page containing decryption of stored passwords.
 	 */
 	public StoragePreferencePage selectAdvancedTab() {
-		new DefaultTabItem(referencedComposite, "Advanced").activate();
+		new DefaultTabItem(this, "Advanced").activate();
 		return this;
 	}
 	
@@ -79,7 +79,7 @@ public class StoragePreferencePage extends PreferencePage {
 	 */
 	public List<PasswordProvider> getMasterPasswordProviders() {
 		ArrayList<PasswordProvider> providers = new ArrayList<>();
-		for (TableItem item : new DefaultTable(referencedComposite).getItems()) {
+		for (TableItem item : new DefaultTable(this).getItems()) {
 			providers.add(new PasswordProvider(item));
 		}
 		return providers;
@@ -91,7 +91,7 @@ public class StoragePreferencePage extends PreferencePage {
 	 * @return password recover dialog
 	 */
 	public PasswordRecoveryDialog recoverMasterPassword() {
-		new PushButton(referencedComposite, "Recover Password...").click();
+		new PushButton(this, "Recover Password...").click();
 		return new PasswordRecoveryDialog();
 	}
 
@@ -101,7 +101,7 @@ public class StoragePreferencePage extends PreferencePage {
 	 * @return password change dialog
 	 */
 	public ChangePasswordWizardDialog changeMasterPassword() {
-		new PushButton(referencedComposite, "Change Password...").click();
+		new PushButton(this, "Change Password...").click();
 		return new ChangePasswordWizardDialog();
 	}
 
@@ -112,8 +112,8 @@ public class StoragePreferencePage extends PreferencePage {
 	 */
 	public boolean clearCachedPasswords() {
 		try {
-			new WaitUntil(new ControlIsEnabled(new PushButton(referencedComposite, "Clear Passwords")));
-			new PushButton(referencedComposite, "Clear Passwords").click();
+			new WaitUntil(new ControlIsEnabled(new PushButton(this, "Clear Passwords")));
+			new PushButton(this, "Clear Passwords").click();
 			return true;
 		} catch(WaitTimeoutExpiredException ex) {
 			return false;
@@ -128,11 +128,11 @@ public class StoragePreferencePage extends PreferencePage {
 	 */
 	public boolean passwordExists(String... pathToPassword) {
 		selectContentTab();
-		new DefaultTreeItem(new DefaultTree(referencedComposite, 1), pathToPassword).select();
+		new DefaultTreeItem(new DefaultTree(this, 1), pathToPassword).select();
 		
 		// Reactivation required
 		selectContentTab();
-		return new DefaultTable(referencedComposite).getItems().size() > 0;
+		return new DefaultTable(this).getItems().size() > 0;
 	}
 
 	/**
@@ -143,11 +143,11 @@ public class StoragePreferencePage extends PreferencePage {
 	 */
 	public Properties getPasswordsByPath(String... pathToPasswords) {
 		selectContentTab();
-		new DefaultTreeItem(new DefaultTree(referencedComposite, 1), pathToPasswords).select();
+		new DefaultTreeItem(new DefaultTree(this, 1), pathToPasswords).select();
 
 		// Reactivation required
 		selectContentTab();
-		return getPasswordsFromTable(new DefaultTable(referencedComposite));
+		return getPasswordsFromTable(new DefaultTable(this));
 	}
 
 	/**
@@ -156,7 +156,7 @@ public class StoragePreferencePage extends PreferencePage {
 	 */
 	public String getStorageLocation() {
 		selectContentTab();
-		return new LabeledText(referencedComposite, "Storage location:").getText();
+		return new LabeledText(this, "Storage location:").getText();
 	}
 
 	private Properties getPasswordsFromTable(DefaultTable table) {
@@ -175,7 +175,7 @@ public class StoragePreferencePage extends PreferencePage {
 	 */
 	public List<String> getAvailableEncryptionAlgorithms() {
 		selectAdvancedTab();
-		return new DefaultCombo(referencedComposite).getItems();
+		return new DefaultCombo(this).getItems();
 	}
 
 	/**
@@ -184,7 +184,7 @@ public class StoragePreferencePage extends PreferencePage {
 	 */
 	public String getEncryptionAlgorithm() {
 		selectAdvancedTab();
-		return new DefaultCombo(referencedComposite).getSelection();
+		return new DefaultCombo(this).getSelection();
 	}
 
 	/**
@@ -194,7 +194,7 @@ public class StoragePreferencePage extends PreferencePage {
 	public void setEncryptionAlgorithm(String algorithmName) {
 		selectAdvancedTab();
 		if(getAvailableEncryptionAlgorithms().contains(algorithmName)) {
-			new DefaultCombo(referencedComposite).setSelection(algorithmName);
+			new DefaultCombo(this).setSelection(algorithmName);
 		} else {
 			throw new EclipseLayerException("Algorithm " + algorithmName + " not found!");
 		}

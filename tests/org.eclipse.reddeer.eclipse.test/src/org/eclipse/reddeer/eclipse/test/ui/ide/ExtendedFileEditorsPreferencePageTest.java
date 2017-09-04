@@ -27,7 +27,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-
 /**
  * 
  * @author rhopp
@@ -36,87 +35,87 @@ import org.junit.runner.RunWith;
 @RunWith(RedDeerSuite.class)
 public class ExtendedFileEditorsPreferencePageTest {
 
-    private static final String TEST_FILE_TYPE = "myFileType";
-    private ExtendedFileEditorsPreferencePage prefPage;
-    private WorkbenchPreferenceDialog prefDialog;
+	private static final String TEST_FILE_TYPE = "myFileType";
+	private ExtendedFileEditorsPreferencePage prefPage;
+	private WorkbenchPreferenceDialog prefDialog;
 
-    @Before
-    public void setup() {
-	prefPage = new ExtendedFileEditorsPreferencePage(prefDialog);
-	prefDialog = new WorkbenchPreferenceDialog();
-	prefDialog.open();
-	prefDialog.select(prefPage);
-    }
+	@Before
+	public void setup() {
+		prefDialog = new WorkbenchPreferenceDialog();
+		prefPage = new ExtendedFileEditorsPreferencePage(prefDialog);
+		prefDialog.open();
+		prefDialog.select(prefPage);
+	}
 
-    @After
-    public void teardown() {
-	prefDialog.cancel();
-    }
+	@After
+	public void teardown() {
+		prefDialog.cancel();
+	}
 
-    @Test
-    public void selectFileTypeTest() {
-	prefPage.selectFileType("*.html");
-	DefaultTable defaultTable = new DefaultTable();
-	List<TableItem> selectetItems = defaultTable.getSelectetItems();
+	@Test
+	public void selectFileTypeTest() {
+		prefPage.selectFileType("*.html");
+		DefaultTable defaultTable = new DefaultTable();
+		List<TableItem> selectetItems = defaultTable.getSelectetItems();
 
-	assertEquals("Only one item should be selected", 1, selectetItems.size());
-	assertTrue("*.html file type should be selected", selectetItems.get(0).getText().equals("*.html"));
-    }
+		assertEquals("Only one item should be selected", 1, selectetItems.size());
+		assertTrue("*.html file type should be selected", selectetItems.get(0).getText().equals("*.html"));
+	}
 
-    @Test
-    public void addFileTypeTest() {
-	prefPage.addFileType(TEST_FILE_TYPE);
+	@Test
+	public void addFileTypeTest() {
+		prefPage.addFileType(TEST_FILE_TYPE);
 
-	assertTrue(new DefaultTable().containsItem(TEST_FILE_TYPE));
+		assertTrue(new DefaultTable().containsItem(TEST_FILE_TYPE));
 
-	new DefaultTable().getItem(TEST_FILE_TYPE).select();
-	new PushButton("Remove").click();
-    }
+		new DefaultTable().getItem(TEST_FILE_TYPE).select();
+		new PushButton("Remove").click();
+	}
 
-    @Test
-    public void removeFileTypeTest() {
-	prefPage.addFileType(TEST_FILE_TYPE);
-	prefPage.removeFileType(TEST_FILE_TYPE);
+	@Test
+	public void removeFileTypeTest() {
+		prefPage.addFileType(TEST_FILE_TYPE);
+		prefPage.removeFileType(TEST_FILE_TYPE);
 
-	assertFalse(new DefaultTable().containsItem(TEST_FILE_TYPE));
-    }
+		assertFalse(new DefaultTable().containsItem(TEST_FILE_TYPE));
+	}
 
-    @Test
-    public void addEditorTest() {
-	prefPage.addFileType(TEST_FILE_TYPE);
-	prefPage.selectFileType(TEST_FILE_TYPE);
+	@Test
+	public void addEditorTest() {
+		prefPage.addFileType(TEST_FILE_TYPE);
+		prefPage.selectFileType(TEST_FILE_TYPE);
 
-	assertEquals("There should be no editor.", 0, new DefaultTable(1).getItems().size());
+		assertEquals("There should be no editor.", 0, new DefaultTable(1).getItems().size());
 
-	prefPage.addAssociatedEditor("Java Editor");
+		prefPage.addAssociatedEditor("Java Editor");
 
-	assertEquals("There should be one editor.", 1, new DefaultTable(1).getItems().size());
-    }
-    
-    @Test
-    public void removeEditorTest() {
-	prefPage.addFileType(TEST_FILE_TYPE);
-	prefPage.selectFileType(TEST_FILE_TYPE);
-	prefPage.addAssociatedEditor("Java Editor");
-	
-	assertEquals("There should be no editor.", 1, new DefaultTable(1).getItems().size());
-	
-	prefPage.removeAssociatedEditor("Java Editor");
-	
-	assertEquals("There should be one editor.", 0, new DefaultTable(1).getItems().size());
-    }
+		assertEquals("There should be one editor.", 1, new DefaultTable(1).getItems().size());
+	}
 
-    @Test
-    public void getAssociatedEditorsTest() {
-	prefPage.selectFileType("*.html");
-	List<String> associatedEditors = prefPage.getAssociatedEditors();
-	assertEquals("There should be 4 associated editors to *.html", 4, associatedEditors.size());
-    }
+	@Test
+	public void removeEditorTest() {
+		prefPage.addFileType(TEST_FILE_TYPE);
+		prefPage.selectFileType(TEST_FILE_TYPE);
+		prefPage.addAssociatedEditor("Java Editor");
 
-    @Test
-    public void getAssociatedEditorsForFileTypeTest() {
-	List<String> associatedEditors = prefPage.getAssociatedEditorForFileType("*.html");
-	assertEquals("There should be 4 associated editors to *.html", 4, associatedEditors.size());
-    }
+		assertEquals("There should be no editor.", 1, new DefaultTable(1).getItems().size());
+
+		prefPage.removeAssociatedEditor("Java Editor");
+
+		assertEquals("There should be one editor.", 0, new DefaultTable(1).getItems().size());
+	}
+
+	@Test
+	public void getAssociatedEditorsTest() {
+		prefPage.selectFileType("*.html");
+		List<String> associatedEditors = prefPage.getAssociatedEditors();
+		assertEquals("There should be 4 associated editors to *.html", 4, associatedEditors.size());
+	}
+
+	@Test
+	public void getAssociatedEditorsForFileTypeTest() {
+		List<String> associatedEditors = prefPage.getAssociatedEditorForFileType("*.html");
+		assertEquals("There should be 4 associated editors to *.html", 4, associatedEditors.size());
+	}
 
 }

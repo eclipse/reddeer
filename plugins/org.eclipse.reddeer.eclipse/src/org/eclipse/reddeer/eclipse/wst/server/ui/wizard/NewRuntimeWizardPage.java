@@ -40,7 +40,7 @@ public class NewRuntimeWizardPage extends WizardPage {
 	 */
 	public NewRuntimeWizardPage selectType(String... type) {
 		new WaitUntil(new NamedThreadHasStatus(new StringContains("Initializing Servers view"), Thread.State.TERMINATED, true));
-		new DefaultTreeItem(new DefaultTree(referencedComposite), type).select();
+		new DefaultTreeItem(new DefaultTree(this), type).select();
 		return this;
 	}
 }
