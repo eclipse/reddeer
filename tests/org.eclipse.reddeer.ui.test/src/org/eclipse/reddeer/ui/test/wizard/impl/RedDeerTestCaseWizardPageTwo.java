@@ -36,14 +36,14 @@ public class RedDeerTestCaseWizardPageTwo extends WizardPage {
 	 * Clicks the Select All button
 	 */
 	public void selectAll() {
-		new PushButton(referencedComposite, "Select All").click();
+		new PushButton(this, "Select All").click();
 	}
 	
 	/**
 	 * Clicks the Deselect All button
 	 */
 	public void deselectAll() {
-		new PushButton(referencedComposite, "Deselect All").click();
+		new PushButton(this, "Deselect All").click();
 	}
 	
 	/**
@@ -51,7 +51,7 @@ public class RedDeerTestCaseWizardPageTwo extends WizardPage {
 	 * @param checked true to check, false otherwise
 	 */
 	public void setCreateFinalMethodStubs(boolean checked) {
-		new CheckBox(referencedComposite, "Create final method stubs").toggle(checked);
+		new CheckBox(this, "Create final method stubs").toggle(checked);
 	}
 	
 	/**
@@ -59,7 +59,7 @@ public class RedDeerTestCaseWizardPageTwo extends WizardPage {
 	 * @param checked true to check, false otherwise
 	 */
 	public void setCreateTasksForMethods(boolean checked) {
-		new CheckBox(referencedComposite, "Create tasks for generated test methods").toggle(checked);
+		new CheckBox(this, "Create tasks for generated test methods").toggle(checked);
 	}
 	
 	/**
@@ -78,7 +78,7 @@ public class RedDeerTestCaseWizardPageTwo extends WizardPage {
 	@SuppressWarnings("unchecked")
 	public void selectMatchingItems(Matcher<String>... matchers) {
 		Matcher<String> matcher = Matchers.allOf(matchers);
-		for (TreeItem treeItem : new DefaultTree(referencedComposite).getAllItems()) {
+		for (TreeItem treeItem : new DefaultTree(this).getAllItems()) {
 			if (matcher.matches(treeItem.getText())) {
 				treeItem.setChecked(true);
 			}

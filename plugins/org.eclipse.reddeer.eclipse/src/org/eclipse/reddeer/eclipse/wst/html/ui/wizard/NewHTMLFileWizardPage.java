@@ -35,7 +35,7 @@ public class NewHTMLFileWizardPage extends WizardPage{
 	 * @param parentFolder to be set
 	 */
 	public NewHTMLFileWizardPage enterParentFolder(String parentFolder){
-		new LabeledText(referencedComposite, "Enter or select the parent folder:").setText(parentFolder);
+		new LabeledText(this, "Enter or select the parent folder:").setText(parentFolder);
 		return this;
 	}
 	
@@ -44,7 +44,7 @@ public class NewHTMLFileWizardPage extends WizardPage{
 	 * @param path to be selected
 	 */
 	public NewHTMLFileWizardPage selectParentFolder(String... path){
-		new DefaultTreeItem(new DefaultTree(referencedComposite), path).select();
+		new DefaultTreeItem(new DefaultTree(this), path).select();
 		return this;
 	}
 	
@@ -53,7 +53,7 @@ public class NewHTMLFileWizardPage extends WizardPage{
 	 * @param fileName name of page
 	 */
 	public NewHTMLFileWizardPage setFileName(String fileName){
-		new LabeledText(referencedComposite, "File name:").setText(fileName);
+		new LabeledText(this, "File name:").setText(fileName);
 		return this;
 	}
 	
@@ -62,7 +62,7 @@ public class NewHTMLFileWizardPage extends WizardPage{
 	 * @return parent folder name
 	 */
 	public String getParentFolder(){
-		return new LabeledText(referencedComposite, "Enter or select the parent folder:").getText();
+		return new LabeledText(this, "Enter or select the parent folder:").getText();
 	}
 	
 	/**
@@ -70,7 +70,7 @@ public class NewHTMLFileWizardPage extends WizardPage{
 	 * @return selected parent folder
 	 */
 	public TreeItem getSelectedParentFolder(){
-		List<TreeItem> ti = new DefaultTree(referencedComposite).getSelectedItems();
+		List<TreeItem> ti = new DefaultTree(this).getSelectedItems();
 		if(ti.isEmpty()){
 			return null;
 		}
@@ -82,7 +82,7 @@ public class NewHTMLFileWizardPage extends WizardPage{
 	 * @return HTML page name
 	 */
 	public String getFileName(){
-		return new LabeledText(referencedComposite, "File name:").getText();
+		return new LabeledText(this, "File name:").getText();
 	}
 
 }

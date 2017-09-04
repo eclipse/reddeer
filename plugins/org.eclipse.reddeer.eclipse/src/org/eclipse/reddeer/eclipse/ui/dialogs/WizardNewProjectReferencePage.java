@@ -38,7 +38,7 @@ public class WizardNewProjectReferencePage extends WizardPage {
 	 */
 	public WizardNewProjectReferencePage setProjectReferences(String... referencedProjects) {
 		log.debug("Set Project references to: ");
-		DefaultTable tbProjectReferences = new DefaultTable(referencedComposite);
+		DefaultTable tbProjectReferences = new DefaultTable(this);
 		for (String tableItemLabel : referencedProjects) {
 			log.debug(tableItemLabel);
 			TableItem tiReferencedProject = tbProjectReferences

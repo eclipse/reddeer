@@ -55,7 +55,7 @@ public abstract class ExtensibleProfileDetailsWizardPage extends WizardPage {
 		org.eclipse.reddeer.swt.api.Shell shell;
 		try {
 			shell = new DefaultShell("Success");
-			new OkButton().click();
+			new OkButton(shell).click();
 			new WaitWhile(new ShellIsAvailable(shell));
 			return true;
 		} catch (WaitTimeoutExpiredException ex) {
@@ -76,7 +76,7 @@ public abstract class ExtensibleProfileDetailsWizardPage extends WizardPage {
 	 * @return Driver name.
 	 */
 	public String getDriver() {
-		return new LabeledCombo(referencedComposite, LABEL_DRIVER).getText();
+		return new LabeledCombo(this, LABEL_DRIVER).getText();
 	}
 
 	/**
@@ -86,7 +86,7 @@ public abstract class ExtensibleProfileDetailsWizardPage extends WizardPage {
 	 *            Driver name
 	 */
 	public ExtensibleProfileDetailsWizardPage setDriver(String driver) {
-		new LabeledCombo(referencedComposite, LABEL_DRIVER).setSelection(driver);
+		new LabeledCombo(this, LABEL_DRIVER).setSelection(driver);
 		return this;
 	}
 
@@ -96,7 +96,7 @@ public abstract class ExtensibleProfileDetailsWizardPage extends WizardPage {
 	 * @return the database 
 	 */
 	public String getDatabase() {
-		return new LabeledText(referencedComposite, getDatabaseLabel()).getText();
+		return new LabeledText(this, getDatabaseLabel()).getText();
 	}
 	
 	/**
@@ -106,7 +106,7 @@ public abstract class ExtensibleProfileDetailsWizardPage extends WizardPage {
 	 *            Database
 	 */
 	public ExtensibleProfileDetailsWizardPage setDatabase(String database) {
-		new LabeledText(referencedComposite, getDatabaseLabel()).setText(database);
+		new LabeledText(this, getDatabaseLabel()).setText(database);
 		return this;
 	}
 
@@ -116,7 +116,7 @@ public abstract class ExtensibleProfileDetailsWizardPage extends WizardPage {
 	 * @return the hostname
 	 */
 	public String getHostname() {
-		return new LabeledText(referencedComposite, getHostnameLabel()).getText();
+		return new LabeledText(this, getHostnameLabel()).getText();
 	}
 	
 	/**
@@ -126,7 +126,7 @@ public abstract class ExtensibleProfileDetailsWizardPage extends WizardPage {
 	 *            Hostname
 	 */
 	public ExtensibleProfileDetailsWizardPage setHostname(String hostname) {
-		new LabeledText(referencedComposite, getHostnameLabel()).setText(hostname);
+		new LabeledText(this, getHostnameLabel()).setText(hostname);
 		return this;
 	}
 
@@ -136,7 +136,7 @@ public abstract class ExtensibleProfileDetailsWizardPage extends WizardPage {
 	 * @return URL URL of database
 	 */
 	public String getURL() {
-		return new LabeledText(referencedComposite, getURLLabel()).getText();
+		return new LabeledText(this, getURLLabel()).getText();
 	}
 	
 	/**
@@ -144,7 +144,7 @@ public abstract class ExtensibleProfileDetailsWizardPage extends WizardPage {
 	 * @param URL URL of database
 	 */
 	public ExtensibleProfileDetailsWizardPage setURL(String URL) {
-		new LabeledText(referencedComposite, getURLLabel()).setText(URL);
+		new LabeledText(this, getURLLabel()).setText(URL);
 		return this;
 	}
 	
@@ -154,7 +154,7 @@ public abstract class ExtensibleProfileDetailsWizardPage extends WizardPage {
 	 * @return the username
 	 */
 	public String getUsername() {
-		return new LabeledText(referencedComposite, getUsernameLabel()).getText();
+		return new LabeledText(this, getUsernameLabel()).getText();
 	}
 	
 	/**
@@ -164,7 +164,7 @@ public abstract class ExtensibleProfileDetailsWizardPage extends WizardPage {
 	 *            User name
 	 */
 	public ExtensibleProfileDetailsWizardPage setUsername(String userName) {
-		new LabeledText(referencedComposite, getUsernameLabel()).setText(userName);
+		new LabeledText(this, getUsernameLabel()).setText(userName);
 		return this;
 	}
 	
@@ -174,7 +174,7 @@ public abstract class ExtensibleProfileDetailsWizardPage extends WizardPage {
 	 * @return database port
 	 */
 	public String getPort() {
-		return new LabeledText(referencedComposite, getPortLabel()).getText();
+		return new LabeledText(this, getPortLabel()).getText();
 	}
 	
 	/**
@@ -184,7 +184,7 @@ public abstract class ExtensibleProfileDetailsWizardPage extends WizardPage {
 	 *            Port
 	 */
 	public ExtensibleProfileDetailsWizardPage setPort(String port) {
-		new LabeledText(referencedComposite, getPortLabel()).setText(port);
+		new LabeledText(this, getPortLabel()).setText(port);
 		return this;
 	}
 	
@@ -194,7 +194,7 @@ public abstract class ExtensibleProfileDetailsWizardPage extends WizardPage {
 	 * @return the password
 	 */
 	public String getPassword() {
-		return new LabeledText(referencedComposite, getPasswordLabel()).getText();
+		return new LabeledText(this, getPasswordLabel()).getText();
 	}
 	
 	/**
@@ -204,7 +204,7 @@ public abstract class ExtensibleProfileDetailsWizardPage extends WizardPage {
 	 *            Password
 	 */
 	public ExtensibleProfileDetailsWizardPage setPassword(String password) {
-		new LabeledText(referencedComposite, getPasswordLabel()).setText(password);
+		new LabeledText(this, getPasswordLabel()).setText(password);
 		return this;
 	}
 	
@@ -214,7 +214,7 @@ public abstract class ExtensibleProfileDetailsWizardPage extends WizardPage {
 	 * @param toggle set to true to save password, false otherwise
 	 */
 	public ExtensibleProfileDetailsWizardPage toggleSavePassword(boolean toggle) {
-		new CheckBox(referencedComposite, getSavePasswordLabel()).click(); 
+		new CheckBox(this, getSavePasswordLabel()).click(); 
 		return this;
 	}
 	

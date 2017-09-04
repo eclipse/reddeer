@@ -32,7 +32,7 @@ public class NewHTMLTemplatesWizardPage extends WizardPage{
 	 * @param toggle true to enable checkbox, false otherwise 
 	 */
 	public NewHTMLTemplatesWizardPage toggleUseHTMLTemplate(boolean toggle){
-		new CheckBox(referencedComposite, "Use HTML Template").toggle(toggle);
+		new CheckBox(this, "Use HTML Template").toggle(toggle);
 		return this;
 	}
 	
@@ -41,7 +41,7 @@ public class NewHTMLTemplatesWizardPage extends WizardPage{
 	 * @param template template name
 	 */
 	public NewHTMLTemplatesWizardPage setTemplate(String template){
-		new DefaultTableItem(referencedComposite, template).select();
+		new DefaultTableItem(this, template).select();
 		return this;
 	}
 	
@@ -50,14 +50,14 @@ public class NewHTMLTemplatesWizardPage extends WizardPage{
 	 * @return true if checkbox Use HTML Template is checked, false otherwise
 	 */
 	public boolean isUseHTMLTeplate(){
-		return new CheckBox(referencedComposite, "Use HTML Template").isChecked();
+		return new CheckBox(this, "Use HTML Template").isChecked();
 	}
 	
 	/**
 	 * @return selected HTML template
 	 */
 	public String getHTMLTemplate(){
-		return new DefaultTable(referencedComposite).getSelectetItems().get(0).getText();
+		return new DefaultTable(this).getSelectetItems().get(0).getText();
 	}
 	
 	

@@ -34,7 +34,7 @@ public class StandardVMPage extends WizardPage {
 
 	public StandardVMPage setJREHome(String path) {
 		// no need to check whether file exists, Wizard will do it for us.
-		new DefaultText(referencedComposite, new WithLabelMatcher("JRE home:")).setText(path);
+		new DefaultText(this, new WithLabelMatcher("JRE home:")).setText(path);
 		return this;
 	}
 
@@ -45,7 +45,7 @@ public class StandardVMPage extends WizardPage {
 	 */
 
 	public StandardVMPage setName(String name) {
-		new DefaultText(referencedComposite, new WithLabelMatcher("JRE name:")).setText(name);
+		new DefaultText(this, new WithLabelMatcher("JRE name:")).setText(name);
 		return this;
 	}
 
@@ -56,6 +56,6 @@ public class StandardVMPage extends WizardPage {
 	 */
 
 	public String getErrorMessage() {
-		return new DefaultText(referencedComposite, new WithLabelMatcher("JRE Definition")).getText();
+		return new DefaultText(this, new WithLabelMatcher("JRE Definition")).getText();
 	}
 }

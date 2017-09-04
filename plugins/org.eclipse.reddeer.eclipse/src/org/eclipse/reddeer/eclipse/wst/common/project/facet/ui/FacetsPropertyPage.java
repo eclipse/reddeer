@@ -48,7 +48,7 @@ public class FacetsPropertyPage extends PropertyPage {
 	 * @param facetName the facet name
 	 */
 	public FacetsPropertyPage selectFacet(String facetName){
-		new DefaultTreeItem(new DefaultTree(referencedComposite, 1), facetName).setChecked(true);
+		new DefaultTreeItem(new DefaultTree(this, 1), facetName).setChecked(true);
 		return this;
 	}
 	
@@ -59,7 +59,7 @@ public class FacetsPropertyPage extends PropertyPage {
 	 * @return version
 	 */
 	public String getSelectedVersion(String facetName){
-		return new DefaultTreeItem(new DefaultTree(referencedComposite, 1), facetName).getCell(1);
+		return new DefaultTreeItem(new DefaultTree(this, 1), facetName).getCell(1);
 	}
 	
 	/**
@@ -69,7 +69,7 @@ public class FacetsPropertyPage extends PropertyPage {
 	 * @param version the version
 	 */
 	public FacetsPropertyPage selectVersion(String facetName, String version){
-		TreeItem facet = new DefaultTreeItem(new DefaultTree(referencedComposite, 1), facetName);
+		TreeItem facet = new DefaultTreeItem(new DefaultTree(this, 1), facetName);
 		facet.select();
 		new ContextMenuItem("Change Version...").select();
 		Shell versionChangeShell = new DefaultShell("Change Version");
@@ -86,7 +86,7 @@ public class FacetsPropertyPage extends PropertyPage {
 	 */
 	public List<TreeItem> getSelectedFacets(){
 		List<TreeItem> facets = new ArrayList<TreeItem>();
-		for(TreeItem i : new DefaultTree(referencedComposite, 1).getItems()){
+		for(TreeItem i : new DefaultTree(this, 1).getItems()){
 			if(i.isChecked())
 				facets.add(i);
 		}

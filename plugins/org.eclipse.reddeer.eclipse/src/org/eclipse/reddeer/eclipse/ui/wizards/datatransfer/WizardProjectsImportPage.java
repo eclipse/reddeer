@@ -93,7 +93,7 @@ public class WizardProjectsImportPage extends WizardPage {
 	public WizardProjectsImportPage copyProjectsIntoWorkspace(boolean copy){
 		log.info("Setting copy checkbox to " + copy);
 		if (isFileSystem()){
-			new CheckBox(referencedComposite, "Copy projects into workspace").toggle(copy);
+			new CheckBox(this, "Copy projects into workspace").toggle(copy);
 		} else {
 			throw new EclipseLayerException("You cannot set Copy projects into workspace checkbox when you're importing from ZIP file");
 		}
@@ -141,7 +141,7 @@ public class WizardProjectsImportPage extends WizardPage {
 	 */
 	public WizardProjectsImportPage selectAllProjects(){
 		log.info("Selecting all projects");
-		new PushButton(referencedComposite, "Select All").click();
+		new PushButton(this, "Select All").click();
 		return this;
 	}
 	
@@ -150,7 +150,7 @@ public class WizardProjectsImportPage extends WizardPage {
 	 */
 	public WizardProjectsImportPage deselectAllProjects(){
 		log.info("Deselecting all projects");
-		new PushButton(referencedComposite, "Deselect All").click();
+		new PushButton(this, "Deselect All").click();
 		return this;
 	}
 	
@@ -161,22 +161,22 @@ public class WizardProjectsImportPage extends WizardPage {
 	 * @param path the path
 	 */
 	protected void setPath(String radioText, String path){
-		new RadioButton(referencedComposite, radioText).click();
+		new RadioButton(this, radioText).click();
 		if(radioText.equals("Select root directory:")){
-			new DefaultCombo(referencedComposite, 0).setText(path);
+			new DefaultCombo(this, 0).setText(path);
 		} else {
-			new DefaultCombo(referencedComposite, 1).setText(path);
+			new DefaultCombo(this, 1).setText(path);
 		}
-		new PushButton(referencedComposite, "Refresh").click();
+		new PushButton(this, "Refresh").click();
 		new WaitUntil(new ProjectIsLoaded(getProjectsTree()), TimePeriod.DEFAULT);
 	}
 	
 	private boolean isFileSystem() {
-		return new RadioButton(referencedComposite, "Select root directory:").isSelected();
+		return new RadioButton(this, "Select root directory:").isSelected();
 	}
 	
 	private Tree getProjectsTree() {
-		return new DefaultTree(referencedComposite);
+		return new DefaultTree(this);
 	}
 	
 	private TreeItem getProjectTreeItem(Tree projectsTree, String projectName) {

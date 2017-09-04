@@ -105,16 +105,16 @@ public class PreferencePage extends org.eclipse.reddeer.jface.preference.Prefere
 	}
 
 	public SetupWizard openConfigureProjects() {
-		new PushButton(referencedComposite, "Configure Projects…").click();
+		new PushButton(this, "Configure Projects…").click();
 		return new SetupWizard();
 	}
 
 	protected Group getSendOptionsGroup() {
-		return new DefaultGroup(referencedComposite, "Send Options");
+		return new DefaultGroup(this, "Send Options");
 	}
 
 	protected Group getContactGroup() {
-		return new DefaultGroup(referencedComposite, "Contact Information");
+		return new DefaultGroup(this, "Contact Information");
 	}
 
 	protected Text getNameWidget() {
@@ -138,11 +138,11 @@ public class PreferencePage extends org.eclipse.reddeer.jface.preference.Prefere
 	}
 
 	protected CheckBox getDebugModeWidget() {
-		return new CheckBox(referencedComposite, "Enable debug mode");
+		return new CheckBox(this, "Enable debug mode");
 	}
 
 	protected Combo getSendModeWidget() {
-		return new LabeledCombo(referencedComposite, "Send mode:");
+		return new LabeledCombo(this, "Send mode:");
 	}
 
 }

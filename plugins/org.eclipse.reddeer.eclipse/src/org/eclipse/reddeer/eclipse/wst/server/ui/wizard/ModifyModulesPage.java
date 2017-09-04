@@ -39,8 +39,8 @@ public class ModifyModulesPage extends WizardPage {
 	 */
 	public ModifyModulesPage add(String... projectNames) {
 		for (String project : projectNames) {
-			new DefaultTreeItem(new DefaultTree(referencedComposite), project).select();
-			new PushButton(referencedComposite, "Add >").click();
+			new DefaultTreeItem(new DefaultTree(this), project).select();
+			new PushButton(this, "Add >").click();
 		}
 		return this;
 	}
@@ -50,7 +50,7 @@ public class ModifyModulesPage extends WizardPage {
 	 *
 	 */
 	public ModifyModulesPage addAll() {
-		new PushButton(referencedComposite, "Add All >>").click();
+		new PushButton(this, "Add All >>").click();
 		return this;
 	}
 
@@ -61,8 +61,8 @@ public class ModifyModulesPage extends WizardPage {
 	 */
 	public ModifyModulesPage remove(String... projectNames) {
 		for (String project : projectNames) {
-			new DefaultTreeItem(new DefaultTree(referencedComposite, 1), project).select();
-			new PushButton(referencedComposite, "< Remove").click();
+			new DefaultTreeItem(new DefaultTree(this, 1), project).select();
+			new PushButton(this, "< Remove").click();
 		}
 		return this;
 	}
@@ -71,7 +71,7 @@ public class ModifyModulesPage extends WizardPage {
 	 * Removes all modules from the server.
 	 */
 	public ModifyModulesPage removeAll() {
-		new PushButton(referencedComposite, "<< Remove All").click();
+		new PushButton(this, "<< Remove All").click();
 		return this;
 	}
 
@@ -99,7 +99,7 @@ public class ModifyModulesPage extends WizardPage {
 
 	private List<String> getItemsFromTable(int tableIndex) {
 		List<String> items = new ArrayList<String>();
-		for (TreeItem ti : new DefaultTree(referencedComposite, tableIndex).getAllItems()) {
+		for (TreeItem ti : new DefaultTree(this, tableIndex).getAllItems()) {
 			items.add(ti.getText());
 		}
 		return items;

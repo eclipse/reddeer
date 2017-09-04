@@ -19,6 +19,7 @@ import org.eclipse.reddeer.common.wait.WaitWhile;
 import org.eclipse.reddeer.core.matcher.WithTextMatcher;
 import org.eclipse.reddeer.core.reference.ReferencedComposite;
 import org.eclipse.reddeer.jface.preference.PreferencePage;
+import org.eclipse.reddeer.swt.api.Shell;
 import org.eclipse.reddeer.swt.api.Table;
 import org.eclipse.reddeer.swt.api.TableItem;
 import org.eclipse.reddeer.swt.condition.ShellIsAvailable;
@@ -69,7 +70,7 @@ public class ClasspathVariablesPreferencePage extends PreferencePage {
 	 * @return
 	 */
 	private Table getClasspathVariablesTable () {
-		return new DefaultTable(referencedComposite);
+		return new DefaultTable(this);
 	}	
 	
 	/**
@@ -90,24 +91,20 @@ public class ClasspathVariablesPreferencePage extends PreferencePage {
 				externalJarExists = true;
 			}
 		}
-		String variableSetShellTitle;
-		String preferencesShellTitle = new DefaultShell().getText();
+		Shell variableEntryShell = null;
 		if (externalJarExists && overwriteIfExists) {
-			new PushButton("Edit...").click();	
-			variableSetShellTitle = "Edit Variable Entry";
-			new DefaultShell(variableSetShellTitle);	
-			new LabeledText("Path:").setText(value);
+			new PushButton(this, "Edit...").click();
+			variableEntryShell = new DefaultShell("Edit Variable Entry");	
+			new LabeledText(variableEntryShell, "Path:").setText(value);
 		} else {
-			new PushButton("New...").click();
-			variableSetShellTitle = "New Variable Entry";
-			new DefaultShell(variableSetShellTitle);		
-			new LabeledText("Name:").setText(name);		
-			new LabeledText("Path:").setText(value);
+			new PushButton(this, "New...").click();
+			variableEntryShell = new DefaultShell("New Variable Entry");		
+			new LabeledText(variableEntryShell, "Name:").setText(name);		
+			new LabeledText(variableEntryShell, "Path:").setText(value);
 		}
-		new OkButton().click();
-		new WaitWhile(new ShellIsAvailable(variableSetShellTitle));
-		new DefaultShell(preferencesShellTitle);
-		return new DefaultTable().getSelectetItems().get(0).getText();
+		new OkButton(variableEntryShell).click();
+		new WaitWhile(new ShellIsAvailable(variableEntryShell));
+		return new DefaultTable(this).getSelectetItems().get(0).getText();
 	}
 	
 	/**
@@ -117,7 +114,7 @@ public class ClasspathVariablesPreferencePage extends PreferencePage {
 	 */
 	public ClasspathVariablesPreferencePage removeVariable(String label){
 		selectVariable(new WithTextMatcher(label));
-		new PushButton(referencedComposite, "Remove").click();
+		new PushButton(this, "Remove").click();
 		return this;
 	}
 }

@@ -48,7 +48,7 @@ public class RSEDefaultNewConnectionWizardMainPage extends WizardPage {
 	 * @param name the new connection name
 	 */
 	public RSEDefaultNewConnectionWizardMainPage setConnectionName(String name){
-		new DefaultText(referencedComposite, 0).setText(name);
+		new DefaultText(this, 0).setText(name);
 		return this;
 	}
 	
@@ -63,6 +63,6 @@ public class RSEDefaultNewConnectionWizardMainPage extends WizardPage {
 	}
 	
 	private Combo getHostNameCombo(){
-		return new DefaultCombo(referencedComposite, 1);
+		return new DefaultCombo(this, 1);
 	}	
 }

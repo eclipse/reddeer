@@ -192,6 +192,9 @@ public abstract class AbstractWindow implements Window{
 
 	@Override
 	public Control getControl() {
+		if(shell == null) {
+			return null;
+		}
 		if(shell.isDisposed()){
 			throw new JFaceLayerException("Window is disposed");
 		}

@@ -44,7 +44,7 @@ public class MavenProjectWizardArchetypePage extends WizardPage{
 	 * @param version if null then archetype version is ignored
 	 */
 	public MavenProjectWizardArchetypePage selectArchetype(String groupId, String artifactId, String version){
-		Table t = new DefaultTable(referencedComposite);
+		Table t = new DefaultTable(this);
 		int groupColumn = t.getHeaderIndex("Group Id");
 		int artColumn = t.getHeaderIndex("Artifact Id");
 		int verColumn =  t.getHeaderIndex("Version");
@@ -73,9 +73,9 @@ public class MavenProjectWizardArchetypePage extends WizardPage{
 	 * @param catalog to choose archetype from
 	 */
 	public MavenProjectWizardArchetypePage selectArchetypeCatalog(String catalog){
-		new DefaultCombo(referencedComposite, 0).setSelection(catalog);
+		new DefaultCombo(this, 0).setSelection(catalog);
 		new GroupWait(TimePeriod.VERY_LONG, waitWhile(new JobIsRunning()),
-				waitUntil(new TableHasRows(new DefaultTable(referencedComposite))));
+				waitUntil(new TableHasRows(new DefaultTable(this))));
 		return this;
 	}
 	
@@ -85,7 +85,7 @@ public class MavenProjectWizardArchetypePage extends WizardPage{
 	 * @return catalog name
 	 */
 	public String getArchetypeCatalog(){
-		return new DefaultCombo(referencedComposite, 0).getText();
+		return new DefaultCombo(this, 0).getText();
 	}
 
 }

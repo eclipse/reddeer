@@ -35,7 +35,7 @@ public class VMTypePage extends WizardPage {
 	 */
 	
 	public VMTypePage selectType(String type){
-		new DefaultList(referencedComposite).select(type);
+		new DefaultList(this).select(type);
 		return this;
 	}
 	

@@ -41,7 +41,7 @@ public class ConsolePreferencePage extends PreferencePage {
 	 * @return true if the check box checked; false otherwise
 	 */
 	public boolean isConsoleOutputLimited() {
-		return new CheckBox(referencedComposite, LIMIT_OUTPUT).isChecked();
+		return new CheckBox(this, LIMIT_OUTPUT).isChecked();
 	}
 
 	/**
@@ -50,7 +50,7 @@ public class ConsolePreferencePage extends PreferencePage {
 	 * @param checked
 	 */
 	public ConsolePreferencePage toggleConsoleOutputLimited(boolean checked) {
-		new CheckBox(referencedComposite, LIMIT_OUTPUT).toggle(checked);
+		new CheckBox(this, LIMIT_OUTPUT).toggle(checked);
 		return this;
 	}
 
@@ -60,7 +60,7 @@ public class ConsolePreferencePage extends PreferencePage {
 	 * @return console output size
 	 */
 	public int getConsoleOutputSize() {
-		return Integer.valueOf(new LabeledText(referencedComposite, CONSOLE_SIZE).getText());
+		return Integer.valueOf(new LabeledText(this, CONSOLE_SIZE).getText());
 	}
 
 	/**
@@ -70,7 +70,7 @@ public class ConsolePreferencePage extends PreferencePage {
 	 */
 	public ConsolePreferencePage setConsoleOutputSize(int size) {
 		toggleConsoleOutputLimited(true);
-		new LabeledText(referencedComposite, CONSOLE_SIZE).setText(String.valueOf(size));
+		new LabeledText(this, CONSOLE_SIZE).setText(String.valueOf(size));
 		return this;
 	}
 
@@ -80,7 +80,7 @@ public class ConsolePreferencePage extends PreferencePage {
 	 * @return true if the check box is checked; false otherwise
 	 */
 	public boolean isConsoleOpenedOnOutput() {
-		return new CheckBox(referencedComposite, SHOW_ON_OUTPUT).isChecked();
+		return new CheckBox(this, SHOW_ON_OUTPUT).isChecked();
 	}
 
 	/**
@@ -89,7 +89,7 @@ public class ConsolePreferencePage extends PreferencePage {
 	 * @param checked
 	 */
 	public ConsolePreferencePage toggleShowConsoleOnOutput(boolean checked) {
-		new CheckBox(referencedComposite, SHOW_ON_OUTPUT).toggle(checked);
+		new CheckBox(this, SHOW_ON_OUTPUT).toggle(checked);
 		return this;
 	}
 
@@ -99,7 +99,7 @@ public class ConsolePreferencePage extends PreferencePage {
 	 * @return true if the check box is checked; false otherwise
 	 */
 	public boolean isConsoleOpenedOnError() {
-		return new CheckBox(referencedComposite, SHOW_ON_ERROR).isChecked();
+		return new CheckBox(this, SHOW_ON_ERROR).isChecked();
 	}
 
 	/**
@@ -108,7 +108,7 @@ public class ConsolePreferencePage extends PreferencePage {
 	 * @param checked
 	 */
 	public ConsolePreferencePage toggleShowConsoleErrorWrite(boolean checked) {
-		new CheckBox(referencedComposite, SHOW_ON_ERROR).toggle(checked);
+		new CheckBox(this, SHOW_ON_ERROR).toggle(checked);
 		return this;
 	}
 

@@ -47,7 +47,7 @@ public class RuntimesPropertyPage extends PropertyPage {
 	 */
 	public RuntimesPropertyPage selectRuntime(String runtimeName){
 		log.info("Select runtime '" + runtimeName + "'");
-		new DefaultTableItem(referencedComposite, runtimeName).setChecked(true);
+		new DefaultTableItem(this, runtimeName).setChecked(true);
 		return this;
 	}
 	
@@ -58,7 +58,7 @@ public class RuntimesPropertyPage extends PropertyPage {
 	 */
 	public List<String> getSelectedRuntimes(){
 		List<String> runtimes = new ArrayList<String>();
-		for (TableItem tableItem : new DefaultTable(referencedComposite).getItems(new CheckedTableItemMatcher())){
+		for (TableItem tableItem : new DefaultTable(this).getItems(new CheckedTableItemMatcher())){
 			runtimes.add(tableItem.getText());
 		}
 		return runtimes;

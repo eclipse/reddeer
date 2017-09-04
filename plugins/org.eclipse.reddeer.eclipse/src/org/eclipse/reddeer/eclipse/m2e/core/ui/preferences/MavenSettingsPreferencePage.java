@@ -47,7 +47,7 @@ public class MavenSettingsPreferencePage extends PreferencePage {
 	 * 
 	 */
 	public MavenSettingsPreferencePage updateSettings() {
-		new PushButton(referencedComposite, UPDATE_SETTINGS).click();
+		new PushButton(this, UPDATE_SETTINGS).click();
 		new WaitUntil(new JobIsRunning(), TimePeriod.LONG);
 		return this;
 	}
@@ -77,7 +77,7 @@ public class MavenSettingsPreferencePage extends PreferencePage {
 	 * 
 	 */
 	public MavenSettingsPreferencePage reindex() {
-		new PushButton(referencedComposite, REINDEX).click();
+		new PushButton(this, REINDEX).click();
 		new WaitWhile(new JobIsRunning(), TimePeriod.VERY_LONG);
 		return this;
 	}
@@ -89,7 +89,7 @@ public class MavenSettingsPreferencePage extends PreferencePage {
 	 * @return default text of settings xml
 	 */
 	private DefaultText getSettingsXMLTextWidget() {
-		final PushButton button = new PushButton(referencedComposite, UPDATE_SETTINGS);
+		final PushButton button = new PushButton(this, UPDATE_SETTINGS);
 		return Display.syncExec(new ResultRunnable<DefaultText>() {
 
 			@Override

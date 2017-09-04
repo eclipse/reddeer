@@ -60,7 +60,7 @@ public class BuildPathsPropertyPage extends PropertyPage {
 	 * Activates Source tab.
 	 */
 	public BuildPathsPropertyPage activateSourceTab(){
-		new DefaultTabItem(referencedComposite, "Source").activate();
+		new DefaultTabItem(this, "Source").activate();
 		new WaitWhile(new JobIsRunning());
 		return this;
 	}
@@ -69,7 +69,7 @@ public class BuildPathsPropertyPage extends PropertyPage {
 	 * Activates Projects tab.
 	 */
 	public BuildPathsPropertyPage activateProjectsTab(){
-		new DefaultTabItem(referencedComposite, "Projects").activate();
+		new DefaultTabItem(this, "Projects").activate();
 		new WaitWhile(new JobIsRunning());
 		return this;
 	}
@@ -78,7 +78,7 @@ public class BuildPathsPropertyPage extends PropertyPage {
 	 * Activates Libraries tab.
 	 */
 	public BuildPathsPropertyPage activateLibrariesTab(){
-		new DefaultTabItem(referencedComposite, "Libraries").activate();
+		new DefaultTabItem(this, "Libraries").activate();
 		new WaitWhile(new JobIsRunning());
 		return this;
 	}
@@ -87,7 +87,7 @@ public class BuildPathsPropertyPage extends PropertyPage {
 	 * Activates Order and Export tab.
 	 */
 	public BuildPathsPropertyPage activateOrderAndExportTab(){
-		new DefaultTabItem(referencedComposite, "Order and Export").activate();
+		new DefaultTabItem(this, "Order and Export").activate();
 		new WaitWhile(new JobIsRunning());
 		return this;
 	}
@@ -103,7 +103,7 @@ public class BuildPathsPropertyPage extends PropertyPage {
 	public String addVariable(String name , String value , boolean overwriteIfExists){
 		log.info("Adding variable: " + name + "=" + value);
 		activateLibrariesTab();	
-		new PushButton(referencedComposite, "Add Variable...").click();
+		new PushButton(this, "Add Variable...").click();
 		Shell variableEntryShell = new DefaultShell("New Variable Classpath Entry");
 		new PushButton(variableEntryShell, "Configure Variables...").click();
 		WorkbenchPreferenceDialog preferencesDialog = new WorkbenchPreferenceDialog();
@@ -113,7 +113,7 @@ public class BuildPathsPropertyPage extends PropertyPage {
 		new OkButton(variableEntryShell).click();
 		new WaitWhile(new ShellIsAvailable(variableEntryShell));
 		new WaitWhile(new JobIsRunning());
-		new PushButton(referencedComposite, "Apply").click();
+		new PushButton(this, "Apply").click();
 		new WaitWhile(new JobIsRunning());
 		return result;
 	}
@@ -127,9 +127,9 @@ public class BuildPathsPropertyPage extends PropertyPage {
 	public BuildPathsPropertyPage removeVariable(String label, boolean removeGlobally){
 		log.info("Removing variable: " + label);
 		selectLibrary(new TreeItemTextMatcher(label));
-		new PushButton(referencedComposite, "Remove").click();
+		new PushButton(this, "Remove").click();
 		if (removeGlobally) {
-			new PushButton(referencedComposite, "Add Variable...").click();
+			new PushButton(this, "Add Variable...").click();
 			Shell variableEntryShell = new DefaultShell("New Variable Classpath Entry");
 			new DefaultTableItem(variableEntryShell, label).select();
 			new PushButton(variableEntryShell, "Configure Variables...").click();
@@ -156,7 +156,7 @@ public class BuildPathsPropertyPage extends PropertyPage {
 			new WaitWhile(new ShellIsAvailable(variableEntryShell));
 			new WaitWhile(new JobIsRunning());
 		}
-		new PushButton(referencedComposite, "Apply").click();
+		new PushButton(this, "Apply").click();
 		new WaitWhile(new JobIsRunning());
 		return this;
 	}
@@ -189,6 +189,6 @@ public class BuildPathsPropertyPage extends PropertyPage {
 	 */
 	private Tree getLibraryTree () {
 		activateLibrariesTab();
-		return new DefaultTree(referencedComposite, 1);
+		return new DefaultTree(this, 1);
 	}
 }

@@ -30,7 +30,7 @@ public class WebProjectThirdPage extends WizardPage{
 	 * @param contextRoot the new context root
 	 */
 	public WebProjectThirdPage setContextRoot(String contextRoot){
-		new LabeledText(referencedComposite, "Context root:").setText(contextRoot);
+		new LabeledText(this, "Context root:").setText(contextRoot);
 		return this;
 	}
 	
@@ -40,7 +40,7 @@ public class WebProjectThirdPage extends WizardPage{
 	 * @return the context root
 	 */
 	public String getContextRoot(){
-		return new LabeledText(referencedComposite, "Context root:").getText();
+		return new LabeledText(this, "Context root:").getText();
 	}
 	
 	/**
@@ -49,7 +49,7 @@ public class WebProjectThirdPage extends WizardPage{
 	 * @param contentDirectory the new content directory
 	 */
 	public WebProjectThirdPage setContentDirectory(String contentDirectory){
-		new LabeledText(referencedComposite, "Content directory:").setText(contentDirectory);
+		new LabeledText(this, "Content directory:").setText(contentDirectory);
 		return this;
 	}
 	
@@ -59,7 +59,7 @@ public class WebProjectThirdPage extends WizardPage{
 	 * @return the content directory
 	 */
 	public String getContentDirectory(){
-		return new LabeledText(referencedComposite, "Content directory:").getText();
+		return new LabeledText(this, "Content directory:").getText();
 	}
 	
 	/**
@@ -68,7 +68,7 @@ public class WebProjectThirdPage extends WizardPage{
 	 * @param generate the new generate web xml deployment descriptor
 	 */
 	public WebProjectThirdPage setGenerateWebXmlDeploymentDescriptor(boolean generate){
-		new CheckBox(referencedComposite, "Generate web.xml deployment descriptor").toggle(generate);
+		new CheckBox(this, "Generate web.xml deployment descriptor").toggle(generate);
 		return this;
 	}
 	
@@ -78,7 +78,7 @@ public class WebProjectThirdPage extends WizardPage{
 	 * @return true, if is generate web xml deployment descriptor
 	 */
 	public boolean isGenerateWebXmlDeploymentDescriptor(){
-		return new CheckBox(referencedComposite, "Generate web.xml deployment descriptor").isChecked();
+		return new CheckBox(this, "Generate web.xml deployment descriptor").isChecked();
 	}
 	
 	

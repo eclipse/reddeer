@@ -31,7 +31,7 @@ public class MavenCheckoutLocationPage extends WizardPage{
 	 * @return list of available SCM types
 	 */
 	public List<String> getAvailableSCMTypes(){
-		return new LabeledCombo(referencedComposite, "SCM URL:").getItems();
+		return new LabeledCombo(this, "SCM URL:").getItems();
 	}
 	
 	/**
@@ -40,7 +40,7 @@ public class MavenCheckoutLocationPage extends WizardPage{
 	 * @return selected SCM type
 	 */
 	public String getSelectedSCMType(){
-		return new LabeledCombo(referencedComposite, "SCM URL:").getSelection();
+		return new LabeledCombo(this, "SCM URL:").getSelection();
 	}
 	
 	/**
@@ -49,7 +49,7 @@ public class MavenCheckoutLocationPage extends WizardPage{
 	 * @param scmType to select
 	 */
 	public MavenCheckoutLocationPage setSCMType(String scmType){
-		new LabeledCombo(referencedComposite, "SCM URL:").setSelection(scmType);
+		new LabeledCombo(this, "SCM URL:").setSelection(scmType);
 		return this;
 	}
 	
@@ -59,7 +59,7 @@ public class MavenCheckoutLocationPage extends WizardPage{
 	 * @param scmURL to select
 	 */
 	public MavenCheckoutLocationPage setSCMURL(String scmURL){
-		new DefaultCombo(referencedComposite, 1).setText(scmURL);
+		new DefaultCombo(this, 1).setText(scmURL);
 		return this;
 	}
 	
@@ -69,7 +69,7 @@ public class MavenCheckoutLocationPage extends WizardPage{
 	 * @return selected SCM URL
 	 */
 	public String getSCMURL(){
-		return new DefaultCombo(referencedComposite, 1).getText();
+		return new DefaultCombo(this, 1).getText();
 	}
 	
 	/**
@@ -78,7 +78,7 @@ public class MavenCheckoutLocationPage extends WizardPage{
 	 * @return list of available SCM URLs
 	 */
 	public List<String> getAvailableSCMURLs(){
-		return new DefaultCombo(referencedComposite, 1).getItems();
+		return new DefaultCombo(this, 1).getItems();
 	}
 	
 	/**
@@ -87,7 +87,7 @@ public class MavenCheckoutLocationPage extends WizardPage{
 	 * @param toggle the toggle
 	 */
 	public MavenCheckoutLocationPage toggleCheckoutHeadRevision(boolean toggle){
-		 new CheckBox(referencedComposite, "Check out Head Revision").toggle(toggle);
+		 new CheckBox(this, "Check out Head Revision").toggle(toggle);
 		 return this;
 	}
 	
@@ -97,7 +97,7 @@ public class MavenCheckoutLocationPage extends WizardPage{
 	 * @return true if checkout head revision is checked, false otherwise
 	 */
 	public boolean isCheckoutHeadRevision(){
-		return new CheckBox(referencedComposite, "Check out Head Revision").isChecked();
+		return new CheckBox(this, "Check out Head Revision").isChecked();
 	}
 
 	/**
@@ -106,7 +106,7 @@ public class MavenCheckoutLocationPage extends WizardPage{
 	 * @param revision to set
 	 */
 	public MavenCheckoutLocationPage setRevision(String revision){
-		new LabeledText(referencedComposite, "Revision:").setText(revision);
+		new LabeledText(this, "Revision:").setText(revision);
 		return this;
 	}
 	
@@ -116,7 +116,7 @@ public class MavenCheckoutLocationPage extends WizardPage{
 	 * @param toggle the toggle
 	 */
 	public MavenCheckoutLocationPage toggleCheckoutAllProjects(boolean toggle){
-		new CheckBox(referencedComposite, "Check out All Projects").toggle(toggle);
+		new CheckBox(this, "Check out All Projects").toggle(toggle);
 		return this;
 	}
 	
@@ -126,6 +126,6 @@ public class MavenCheckoutLocationPage extends WizardPage{
 	 * @return true if checkout all projects is checked, false otherwise
 	 */
 	public boolean isCheckoutAllProjects(){
-		return new CheckBox(referencedComposite, "Check out All Projects").isChecked();
+		return new CheckBox(this, "Check out All Projects").isChecked();
 	}
 }
