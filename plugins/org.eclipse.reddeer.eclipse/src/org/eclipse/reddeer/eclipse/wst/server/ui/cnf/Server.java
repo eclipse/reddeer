@@ -178,6 +178,26 @@ public interface Server extends RedDeerAdaptable<Server> {
 	public ServerModule getModule(String name);
 	
 	/**
+	 * Gets a module with a given name and given type.
+	 * 
+	 * @param clazz class type of server module
+	 * @param name
+	 *            Module name
+	 * @return Module
+	 */
+	public <T extends ServerModule> T getModule(Class<T> clazz, String name);
+	
+	/**
+	 * Gets a module of given type and matching a matcher.
+	 * 
+	 * @param clazz class type of server module
+	 * @param stringMatcher
+	 *            matcher to match against module name.
+	 * @return Module
+	 */
+	public <T extends ServerModule> T getModule(Class<T> clazz, Matcher<String> stringMatcher);
+	
+	/**
 	 * Gets a module matching a matcher.
 	 * 
 	 * @param stringMatcher
@@ -192,6 +212,14 @@ public interface Server extends RedDeerAdaptable<Server> {
 	 * @return List of modules
 	 */
 	public List<ServerModule> getModules();
+	
+	/**
+	 * Gets a list of modules of given type.
+	 * 
+	 * @param clazz class type of server module
+	 * @return List of modules
+	 */
+	public <T extends ServerModule>  List<T> getModules(Class<T> clazz);
 	
 	
 }
