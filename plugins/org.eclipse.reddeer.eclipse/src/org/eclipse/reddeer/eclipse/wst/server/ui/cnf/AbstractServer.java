@@ -15,6 +15,7 @@ import static org.eclipse.reddeer.common.wait.WaitProvider.waitWhile;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.eclipse.wst.server.core.IModule;
 import org.eclipse.wst.server.core.IPublishListener;
@@ -28,10 +29,10 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.reddeer.common.adaptable.RedDeerAdaptable;
 import org.eclipse.reddeer.common.condition.AbstractWaitCondition;
 import org.eclipse.reddeer.common.logging.Logger;
-import org.eclipse.reddeer.common.util.Display;
 import org.eclipse.reddeer.common.wait.GroupWait;
 import org.eclipse.reddeer.common.wait.TimePeriod;
 import org.eclipse.reddeer.common.wait.WaitWhile;
+import org.eclipse.reddeer.core.handler.ItemHandler;
 import org.eclipse.reddeer.core.handler.WidgetHandler;
 import org.eclipse.reddeer.eclipse.condition.ServerExists;
 import org.eclipse.reddeer.eclipse.condition.ServerHasPublishState;
@@ -298,6 +299,17 @@ public abstract class AbstractServer implements Server, RedDeerAdaptable<Server>
 	public ServerModule getModule(String name) {
 		return getModule(new IsEqual<String>(name));
 	}
+	
+	@Override
+	public <T extends ServerModule> T getModule(Class<T> clazz, String name) {
+		return getModule(clazz, new IsEqual<String>(name));
+	}
+	
+	@Override
+	public <T extends ServerModule> T getModule(Class<T> clazz, Matcher<String> stringMatcher) {
+		ServerModule module = getModule(stringMatcher);
+		return module.getAdapter(clazz);
+	}
 
 	@Override
 	public ServerModule getModule(Matcher<String> stringMatcher) {
@@ -311,22 +323,21 @@ public abstract class AbstractServer implements Server, RedDeerAdaptable<Server>
 	}
 	
 	@Override
+	public <T extends ServerModule> List<T> getModules(Class<T> clazz) {
+		List<ServerModule> modules = getModules();
+		return modules.stream().map(t -> t.getAdapter(clazz)).collect(Collectors.toList());
+	}
+	
+	@Override
 	public List<ServerModule> getModules() {
 		activate();
 		final List<ServerModule> modules = new ArrayList<ServerModule>();
 
 		for (final TreeItem item : treeItem.getItems()) {
-			Display.syncExec(new Runnable() {
-
-				@Override
-				public void run() {
-					org.eclipse.swt.widgets.TreeItem swtItem = item.getSWTWidget();
-					Object data = swtItem.getData();
-					if (data instanceof IModule || data instanceof IServerModule) {
-						modules.add(createServerModule(item));
-					}
-				}
-			});
+			Object data = ItemHandler.getInstance().getData(item.getSWTWidget());
+			if (data instanceof IModule || data instanceof IServerModule) {
+				modules.add(createServerModule(item));
+			}
 		}
 
 		return modules;

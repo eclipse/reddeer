@@ -13,6 +13,7 @@ package org.eclipse.reddeer.eclipse.wst.server.ui.cnf;
 import static org.eclipse.reddeer.common.wait.WaitProvider.waitUntil;
 import static org.eclipse.reddeer.common.wait.WaitProvider.waitWhile;
 
+import org.eclipse.reddeer.common.adaptable.RedDeerAdaptable;
 import org.eclipse.reddeer.common.logging.Logger;
 import org.eclipse.reddeer.common.wait.GroupWait;
 import org.eclipse.reddeer.common.matcher.RegexMatcher;
@@ -40,7 +41,7 @@ import org.eclipse.reddeer.workbench.core.condition.JobIsRunning;
  * @author Lucia Jelinkova
  *
  */
-public class ServerModule { 
+public class ServerModule implements RedDeerAdaptable<ServerModule>{ 
 
 	private static final Logger log = Logger.getLogger(ServerModule.class);
 	
@@ -170,6 +171,18 @@ public class ServerModule {
 		new WaitWhile(new JobIsRunning());
 		new WaitUntil(new ServerModuleHasState(this, ServerState.STARTED));
 		new WaitWhile(new JobIsRunning());
+	}
+
+	@Override
+	public Object[] getAdapterConstructorArguments() {
+		Object[] args = {treeItem, view};
+		return args;
+	}
+
+	@Override
+	public Class<?>[] getAdapterConstructorClasses() {
+		Class<?>[] classes = {TreeItem.class, ServersView2.class};
+		return classes;
 	}
 }
 
