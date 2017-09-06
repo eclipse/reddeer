@@ -12,11 +12,11 @@ package org.eclipse.reddeer.eclipse.epp.logging.aeri.ide.dialogs;
 
 import org.eclipse.reddeer.common.matcher.RegexMatcher;
 import org.eclipse.reddeer.common.wait.WaitWhile;
+import org.eclipse.reddeer.jface.condition.WindowIsAvailable;
 import org.eclipse.reddeer.jface.dialogs.TitleAreaDialog;
 import org.eclipse.reddeer.jface.matcher.DialogWithTitleMatcher;
 import org.eclipse.reddeer.swt.api.Group;
 import org.eclipse.reddeer.swt.api.Text;
-import org.eclipse.reddeer.swt.condition.ShellIsAvailable;
 import org.eclipse.reddeer.swt.impl.button.CheckBox;
 import org.eclipse.reddeer.swt.impl.button.PushButton;
 import org.eclipse.reddeer.swt.impl.group.DefaultGroup;
@@ -36,12 +36,12 @@ public class ConfigureServerDialog extends TitleAreaDialog {
 
 	public void enable() {
 		new PushButton("Enable").click();
-		new WaitWhile(new ShellIsAvailable(getShell()));
+		new WaitWhile(new WindowIsAvailable(this));
 	}
 
 	public void disable() {
 		new PushButton("Disable").click();
-		new WaitWhile(new ShellIsAvailable(getShell()));
+		new WaitWhile(new WindowIsAvailable(this));
 	}
 
 	public void setName(String name) {

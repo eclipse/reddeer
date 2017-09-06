@@ -19,12 +19,12 @@ import org.eclipse.reddeer.core.condition.WidgetIsFound;
 import org.eclipse.reddeer.core.lookup.ShellLookup;
 import org.eclipse.reddeer.core.matcher.WithMnemonicTextMatcher;
 import org.eclipse.reddeer.core.matcher.WithTextMatcher;
+import org.eclipse.reddeer.jface.condition.WindowIsAvailable;
 import org.eclipse.reddeer.jface.window.AbstractWindow;
 import org.eclipse.reddeer.jface.window.Openable;
 import org.eclipse.reddeer.swt.api.Button;
 import org.eclipse.reddeer.swt.api.Shell;
 import org.eclipse.reddeer.swt.api.TreeItem;
-import org.eclipse.reddeer.swt.condition.ShellIsAvailable;
 import org.eclipse.reddeer.swt.impl.button.CancelButton;
 import org.eclipse.reddeer.swt.impl.button.OkButton;
 import org.eclipse.reddeer.swt.impl.button.PushButton;
@@ -115,7 +115,7 @@ public class PreferenceDialog extends AbstractWindow{
 			button = new OkButton(this);	
 		}
 		button.click();
-		new WaitWhile(new ShellIsAvailable(getShell())); 
+		new WaitWhile(new WindowIsAvailable(this)); 
 		new DefaultShell(parentShell);
 	}
 	
@@ -145,7 +145,7 @@ public class PreferenceDialog extends AbstractWindow{
 		
 		CancelButton cancel = new CancelButton(this);
 		cancel.click();
-		new WaitWhile(new ShellIsAvailable(getShell())); 
+		new WaitWhile(new WindowIsAvailable(this)); 
 		new DefaultShell(parentShell);
 	}
 
