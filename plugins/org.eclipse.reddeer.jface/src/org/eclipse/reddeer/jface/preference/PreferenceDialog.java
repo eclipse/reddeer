@@ -155,7 +155,7 @@ public class PreferenceDialog extends AbstractWindow{
 	}
 
 	@Override
-	protected Openable getOpenAction() {
+	public Openable getDefaultOpenAction() {
 		return null;
 	}
 }

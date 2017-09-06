@@ -54,7 +54,7 @@ public abstract class WorkbenchMenuPreferencesDialog extends PreferenceDialog {
 	}
 	
 	@Override
-	protected Openable getOpenAction() {
+	public Openable getDefaultOpenAction() {
 		return new WorkbenchMenuOpenable(matcher, path);
 	}
 

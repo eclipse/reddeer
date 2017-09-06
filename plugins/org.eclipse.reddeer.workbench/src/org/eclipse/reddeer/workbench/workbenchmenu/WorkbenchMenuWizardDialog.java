@@ -60,7 +60,7 @@ public abstract class WorkbenchMenuWizardDialog extends WizardDialog{
 	}
 	
 	@Override
-	protected Openable getOpenAction() {
+	public Openable getDefaultOpenAction() {
 		return new WorkbenchMenuOpenable(matcher, path);
 	}
 	

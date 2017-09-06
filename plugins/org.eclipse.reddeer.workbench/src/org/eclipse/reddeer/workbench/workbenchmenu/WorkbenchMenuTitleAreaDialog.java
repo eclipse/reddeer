@@ -56,7 +56,7 @@ public abstract class WorkbenchMenuTitleAreaDialog extends TitleAreaDialog {
 	}
 	
 	@Override
-	protected Openable getOpenAction() {
+	public Openable getDefaultOpenAction() {
 		return new WorkbenchMenuOpenable(matcher, path);
 	}
 
