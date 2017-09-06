@@ -19,11 +19,11 @@ import org.eclipse.reddeer.common.exception.RedDeerException;
 import org.eclipse.reddeer.common.logging.Logger;
 import org.eclipse.reddeer.common.wait.WaitWhile;
 import org.eclipse.reddeer.core.handler.CompositeHandler;
+import org.eclipse.reddeer.jface.condition.WindowIsAvailable;
 import org.eclipse.reddeer.jface.dialogs.TitleAreaDialog;
 import org.eclipse.reddeer.swt.api.Label;
 import org.eclipse.reddeer.swt.api.Link;
 import org.eclipse.reddeer.swt.api.ScrolledComposite;
-import org.eclipse.reddeer.swt.condition.ShellIsAvailable;
 import org.eclipse.reddeer.swt.impl.button.CheckBox;
 import org.eclipse.reddeer.swt.impl.button.PushButton;
 import org.eclipse.reddeer.swt.impl.composite.DefaultScrolledComposite;
@@ -99,12 +99,12 @@ public class SetupWizard extends TitleAreaDialog {
 				log.debug("alert shell did not open");
 			}
 		}
-		new WaitWhile(new ShellIsAvailable(getShell()));
+		new WaitWhile(new WindowIsAvailable(this));
 	}
 
 	public void disable() {
 		new PushButton("Disable").click();
-		new WaitWhile(new ShellIsAvailable(getShell()));
+		new WaitWhile(new WindowIsAvailable(this));
 	}
 
 }

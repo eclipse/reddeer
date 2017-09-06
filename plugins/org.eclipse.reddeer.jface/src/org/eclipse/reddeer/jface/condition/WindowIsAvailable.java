@@ -17,6 +17,9 @@ import org.eclipse.reddeer.common.logging.Logger;
 import org.eclipse.reddeer.common.matcher.AndMatcher;
 import org.eclipse.reddeer.common.matcher.MatcherBuilder;
 import org.eclipse.reddeer.core.lookup.ShellLookup;
+import org.eclipse.reddeer.core.matcher.WithTextMatcher;
+import org.eclipse.reddeer.core.util.InstanceValidator;
+import org.eclipse.reddeer.jface.api.Window;
 import org.eclipse.reddeer.jface.matcher.WindowMatcher;
 
 /**
@@ -29,6 +32,21 @@ public class WindowIsAvailable extends AbstractWaitCondition{
 	private Logger logger = Logger.getLogger(WindowIsAvailable.class);
 	private AndMatcher matcher;
 	private Shell foundShell;
+	private Window window;
+	
+	public WindowIsAvailable(Window window) {
+		InstanceValidator.checkNotNull(window, "window");
+		InstanceValidator.checkNotNull(window.getShell(), "window shell");
+		this.window = window;
+	}
+	
+	/**
+	 * 
+	 * @param windowTitle window title
+	 */
+	public WindowIsAvailable(String windowTitle) {
+		this(new WithTextMatcher(windowTitle));
+	}
 	
 	/**
 	 * 
@@ -51,12 +69,20 @@ public class WindowIsAvailable extends AbstractWaitCondition{
 	
 	@Override
 	public boolean test() {
-		logger.debug("Looking for Window matching "+matcher);
-		Shell[] availableShells = ShellLookup.getInstance().getShells();
-		for (Shell shell: availableShells) { 
-			if (matcher.matches(shell)) {
-				this.foundShell = shell;
-				return true;
+		if(window != null) {
+			for(org.eclipse.swt.widgets.Shell s: ShellLookup.getInstance().getShells()){
+				if(window.getShell().getSWTWidget().equals(s)){
+					return true;
+				}
+			}
+		} else {
+			logger.debug("Looking for Window matching "+matcher);
+			Shell[] availableShells = ShellLookup.getInstance().getShells();
+			for (Shell shell: availableShells) { 
+				if (matcher.matches(shell)) {
+					this.foundShell = shell;
+					return true;
+				}
 			}
 		}
 		return false;
@@ -77,6 +103,9 @@ public class WindowIsAvailable extends AbstractWaitCondition{
 	 */
 	@Override
 	public String description() {
+		if(window != null) {
+			return "window is available";
+		}
 		return "window matching "+matcher+" is available.";
 	}
 	

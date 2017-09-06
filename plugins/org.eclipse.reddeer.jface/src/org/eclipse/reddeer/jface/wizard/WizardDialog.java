@@ -14,11 +14,11 @@ import org.hamcrest.Matcher;
 import org.eclipse.reddeer.common.logging.Logger;
 import org.eclipse.reddeer.common.wait.TimePeriod;
 import org.eclipse.reddeer.common.wait.WaitWhile;
+import org.eclipse.reddeer.jface.condition.WindowIsAvailable;
 import org.eclipse.reddeer.jface.dialogs.TitleAreaDialog;
 import org.eclipse.reddeer.workbench.core.condition.JobIsRunning;
 import org.eclipse.reddeer.swt.api.Button;
 import org.eclipse.reddeer.swt.api.Shell;
-import org.eclipse.reddeer.swt.condition.ShellIsAvailable;
 import org.eclipse.reddeer.swt.impl.button.BackButton;
 import org.eclipse.reddeer.swt.impl.button.CancelButton;
 import org.eclipse.reddeer.swt.impl.button.FinishButton;
@@ -84,7 +84,7 @@ public class WizardDialog extends TitleAreaDialog{
 		Button button = new FinishButton(this);
 		button.click();
 
-		new WaitWhile(new ShellIsAvailable(getShell()), timeout);
+		new WaitWhile(new WindowIsAvailable(this), timeout);
 		try{
 			new WaitWhile(new JobIsRunning(), timeout);
 		} catch (NoClassDefFoundError e) {
@@ -101,7 +101,7 @@ public class WizardDialog extends TitleAreaDialog{
 
 		new CancelButton(this).click();
 
-		new WaitWhile(new ShellIsAvailable(getShell()));
+		new WaitWhile(new WindowIsAvailable(this));
 		try{
 			new WaitWhile(new JobIsRunning());
 		} catch (NoClassDefFoundError e) {
