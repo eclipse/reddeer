@@ -11,6 +11,7 @@
 package org.eclipse.reddeer.jface.api;
 
 import org.eclipse.reddeer.core.reference.ReferencedComposite;
+import org.eclipse.reddeer.jface.window.Openable;
 import org.eclipse.reddeer.swt.api.Shell;
 
 /**
@@ -50,5 +51,16 @@ public interface Window extends ReferencedComposite{
 	 * @return true if window is open, false otherwise
 	 */
 	boolean isOpen();
+	
+	/**
+	 * Sets open action to be used when {@link #open()} is called. Set to null if {@link #getDefaultOpenAction()} should be used.
+	 */
+	void setOpenAction(Openable openAction);
+	
+	/**
+	 * Returns default open action or null if there is none
+	 * @return default open action
+	 */
+	Openable getDefaultOpenAction();
 
 }

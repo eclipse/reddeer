@@ -41,6 +41,29 @@ public class WindowTest {
 	}
 	
 	@Test
+	public void openableEclipseWindowCustomAction(){
+		RedDeerEclipseWindow ew = new RedDeerEclipseWindow();
+		assertNull(ew.getShell());
+		assertFalse(ew.isOpen());
+		CustomWindowOpenable customAction = new CustomWindowOpenable();
+		ew.setOpenAction(customAction);
+		ew.open();
+		assertNotNull(ew.getShell());//getShell() should not be null because open will set it
+		assertTrue(ew.isOpen());
+		assertTrue(customAction.numOfCalls == 1); //action was called
+		
+		ew.getShell().close();
+		ew.setOpenAction(null);
+		ew.open();
+		assertNotNull(ew.getShell());//getShell() should not be null because open will set it
+		assertFalse(ew.getShell().isDisposed());
+		assertTrue(ew.isOpen());
+		assertTrue(customAction.numOfCalls == 1); //action was not called
+		
+		
+	}
+	
+	@Test
 	public void openEclipseWindow(){
 		new DefaultToolItem(new WorkbenchShell(),"openEclipseWindowTitleTooltip").click();
 		RedDeerEclipseWindow ew = new RedDeerEclipseWindow();
@@ -95,7 +118,7 @@ public class WindowTest {
 	class RedDeerEclipseWindowNotDefined extends AbstractWindow {
 
 		@Override
-		protected Openable getOpenAction() {
+		public Openable getDefaultOpenAction() {
 			return null;
 		}
 		
@@ -108,7 +131,7 @@ public class WindowTest {
 		}
 
 		@Override
-		protected Openable getOpenAction() {
+		public Openable getDefaultOpenAction() {
 			return null;
 		}
 		
@@ -121,7 +144,7 @@ public class WindowTest {
 		}
 
 		@Override
-		protected Openable getOpenAction() {
+		public Openable getDefaultOpenAction() {
 			return null;
 		}
 		
@@ -131,7 +154,7 @@ public class WindowTest {
 	class RedDeerEclipseWindow extends AbstractWindow {
 
 		@Override
-		protected Openable getOpenAction() {
+		public Openable getDefaultOpenAction() {
 			return new WindowOpenable();
 		}
 		
@@ -147,6 +170,22 @@ public class WindowTest {
 		public void run() {
 			new DefaultToolItem(new WorkbenchShell(),"openEclipseWindowTitleTooltip").click();
 			
+		}
+		
+	}
+	
+	class CustomWindowOpenable extends Openable {
+		
+		public int numOfCalls = 0;
+		
+		public CustomWindowOpenable() {
+			super(new WithTextMatcher("Eclipse Window"));
+		}
+
+		@Override
+		public void run() {
+			new DefaultToolItem(new WorkbenchShell(),"openEclipseWindowTitleTooltip").click();
+			numOfCalls++;
 		}
 		
 	}

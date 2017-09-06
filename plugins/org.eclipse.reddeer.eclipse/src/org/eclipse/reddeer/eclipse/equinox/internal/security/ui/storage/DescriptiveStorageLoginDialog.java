@@ -47,7 +47,7 @@ public class DescriptiveStorageLoginDialog extends AbstractWindow {
 	}
 
 	@Override
-	protected Openable getOpenAction() {
+	public Openable getDefaultOpenAction() {
 		return null;
 	}
 

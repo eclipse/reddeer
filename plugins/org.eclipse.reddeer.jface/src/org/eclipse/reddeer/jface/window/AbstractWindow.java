@@ -33,8 +33,9 @@ public abstract class AbstractWindow implements Window{
 	
 	protected final Logger log = Logger.getLogger(this.getClass());
 	
-	private Shell shell;
-	private Matcher<?>[] windowMatchers;
+	protected Shell shell;
+	protected Matcher<?>[] windowMatchers;
+	protected Openable openAction;
 
 	/**
 	 * Finds shell with given text. Found shell must be instance of Eclipse
@@ -126,11 +127,19 @@ public abstract class AbstractWindow implements Window{
 		return open;
 	}
 	
+	protected Openable getOpenAction() {
+		return openAction != null ? openAction:getDefaultOpenAction();
+	}
+	
+	public void setOpenAction(Openable openAction) {
+		this.openAction = openAction;
+	}
+	
 	/**
-	 * Set Openable action which will be called on open()
+	 * Set Default Openable action which will be called on open(). User can override by {@link #setOpenAction()}
 	 * @return Openable action
 	 */
-	protected abstract Openable getOpenAction();
+	public abstract Openable getDefaultOpenAction();
 
 	private boolean isWindow(Shell shell) {
 		return getEclipseClass().isInstance(WidgetHandler.getInstance().getData(shell.getSWTWidget()));
