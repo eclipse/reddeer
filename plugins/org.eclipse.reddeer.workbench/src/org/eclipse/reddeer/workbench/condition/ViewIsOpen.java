@@ -42,12 +42,12 @@ public class ViewIsOpen extends AbstractWaitCondition{
 	
 	@Override
 	public String description() {
-		return "'"+view.getTitle()+"' view is open";
+		return "'"+view.getClass()+"' view is open";
 	}
 	
 	@Override
 	public String errorMessageUntil() {
-		return "'"+view.getTitle()+"' view is not open";
+		return "'"+view.getClass()+"' view is not open";
 	}
 	
 	
