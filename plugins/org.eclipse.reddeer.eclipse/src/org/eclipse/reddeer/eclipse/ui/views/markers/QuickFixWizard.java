@@ -10,19 +10,20 @@
  *******************************************************************************/
 package org.eclipse.reddeer.eclipse.ui.views.markers;
 
+import org.eclipse.reddeer.common.wait.TimePeriod;
 import org.eclipse.reddeer.common.wait.WaitUntil;
-import org.eclipse.reddeer.common.wait.WaitWhile;
-import org.eclipse.reddeer.swt.condition.ShellHasChildrenOrIsNotAvailable;
-import org.eclipse.reddeer.swt.condition.ShellIsAvailable;
+import org.eclipse.reddeer.core.lookup.ShellLookup;
+import org.eclipse.reddeer.jface.wizard.WizardDialog;
+import org.eclipse.reddeer.swt.condition.NewShellIsOpenedOrIsNotAvailable;
 import org.eclipse.reddeer.swt.impl.button.PushButton;
-import org.eclipse.reddeer.swt.impl.shell.DefaultShell;
+import org.eclipse.swt.widgets.Shell;
 
 /**
  * Represents Quick Fix dialog
  * 
  *
  */
-public class QuickFixWizard extends DefaultShell {
+public class QuickFixWizard extends WizardDialog {
 
 	public static final String TITLE = "Quick Fix";
 	
@@ -35,19 +36,12 @@ public class QuickFixWizard extends DefaultShell {
 	}
 	
 	/**
-	 * Press Cancel button.
-	 */
-	public void cancel() {
-		new PushButton("Cancel").click();
-		new WaitWhile(new ShellIsAvailable(this));
-	}
-	
-	/**
 	 * Press Finish button.
 	 */
-	public void finish() {
+	public void finish(TimePeriod timeout) {
+		Shell[] shells = ShellLookup.getInstance().getShells();
 		new PushButton("Finish").click();
-		new WaitUntil(new ShellHasChildrenOrIsNotAvailable(this));
+		new WaitUntil(new NewShellIsOpenedOrIsNotAvailable(this.getShell().getSWTWidget(), shells), timeout);
 	}
 	
 }

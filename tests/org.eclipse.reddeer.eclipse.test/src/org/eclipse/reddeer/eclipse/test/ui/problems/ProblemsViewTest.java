@@ -50,6 +50,10 @@ import org.eclipse.reddeer.eclipse.ui.views.markers.ProblemsView.ProblemType;
 import org.eclipse.reddeer.eclipse.utils.DeleteUtils;
 import org.eclipse.reddeer.junit.runner.RedDeerSuite;
 import org.eclipse.reddeer.requirements.cleanworkspace.CleanWorkspaceRequirement.CleanWorkspace;
+import org.eclipse.reddeer.swt.api.Shell;
+import org.eclipse.reddeer.swt.condition.ShellIsAvailable;
+import org.eclipse.reddeer.swt.impl.button.FinishButton;
+import org.eclipse.reddeer.swt.impl.shell.DefaultShell;
 import org.eclipse.reddeer.workbench.core.condition.JobIsRunning;
 import org.eclipse.reddeer.workbench.impl.editor.TextEditor;
 import org.junit.After;
@@ -358,13 +362,41 @@ public class ProblemsViewTest {
 	public void testProblemQuickfix(){
 		createWarning();
 		QuickFixWizard qw = new ProblemsView().getProblems(ProblemType.WARNING).get(0).openQuickFix();
-		QuickFixPage qp = new QuickFixPage();
+		QuickFixPage qp = new QuickFixPage(qw);
 		List<String> problems = qp.getAvailableFixes();
 		assertTrue(problems.size() == 4);
 		qp.selectFix("Add @SuppressWarnings 'unused' to 'i'");
 		qw.finish();
 		TextEditor te = new TextEditor("WarningTestClass.java");
 		assertTrue(te.getText().contains("@SuppressWarnings(\"unused\")"));
+	}
+	
+	@Test
+	public void testProblemQuickfixWithNewDialog(){
+		pkgExplorer.open();
+		pkgExplorer.getProject(PROJECT_NAME).getProjectItem("src").select();
+		NewClassCreationWizard newJavaClassDialog =
+				new NewClassCreationWizard();
+		newJavaClassDialog.open();
+		
+		NewClassWizardPage wizardPage = new NewClassWizardPage(newJavaClassDialog);
+		wizardPage.setName("NonExistingImportQuickFix");
+		newJavaClassDialog.finish();
+		TextEditor textEditor = new TextEditor("NonExistingImportQuickFix.java");		
+		textEditor.insertLine(1, "import abc.efg.SomeClass;");
+		textEditor.save();
+		
+		new WaitUntil(new ProblemExists(ProblemType.ERROR));
+		
+		
+		QuickFixWizard qw = new ProblemsView().getProblems(ProblemType.ERROR).get(0).openQuickFix();
+		QuickFixPage qp = new QuickFixPage(qw);
+		qp.selectFix("Create class 'SomeClass' in package 'abc.efg'");
+		qw.finish();
+		Shell newShell = new DefaultShell("New");
+		new FinishButton().click();
+		new WaitWhile(new ShellIsAvailable(newShell));
+		new TextEditor("SomeClass.java");
 	}
 
 	private void createError() {
