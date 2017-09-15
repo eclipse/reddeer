@@ -16,7 +16,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 import org.eclipse.reddeer.common.logging.Logger;
-import org.eclipse.reddeer.junit.requirement.ConfigurableRequirement;
+import org.eclipse.reddeer.junit.requirement.AbstractConfigurableRequirement;
 import org.eclipse.reddeer.requirements.db.DatabaseRequirement.Database;
 
 /**
@@ -24,7 +24,7 @@ import org.eclipse.reddeer.requirements.db.DatabaseRequirement.Database;
  * @author Jiri Peterka
  *
  */
-public class DatabaseRequirement implements ConfigurableRequirement<DatabaseConfiguration, Database> {
+public class DatabaseRequirement extends AbstractConfigurableRequirement<DatabaseConfiguration, Database> {
 	
 	@Retention(RetentionPolicy.RUNTIME)
 	@Target(ElementType.TYPE)
@@ -33,8 +33,6 @@ public class DatabaseRequirement implements ConfigurableRequirement<DatabaseConf
 	}
 	
 	private Logger log = Logger.getLogger(DatabaseRequirement.class);
-	private Database database;
-	private DatabaseConfiguration configuration;
 
 	/**
 	 * Gets database configuration class.
@@ -47,17 +45,6 @@ public class DatabaseRequirement implements ConfigurableRequirement<DatabaseConf
 	}
 
 	/**
-	 * Sets database configuration.
-	 *
-	 * @param config the new configuration
-	 */
-	@Override
-	public void setConfiguration(DatabaseConfiguration config) {
-		this.configuration = config;
-		
-	}
-
-	/**
 	 * Fulfills database requirement
 	 * It doesn't nothing for database requirement intentionally.
 	 */
@@ -66,36 +53,11 @@ public class DatabaseRequirement implements ConfigurableRequirement<DatabaseConf
 		log.trace("Database requirement performed");
 	}
 
-	/**
-	 * Sets database declaration.
-	 *
-	 * @param declaration the new declaration
-	 */
-	@Override
-	public void setDeclaration(Database declaration) {
-		this.database = declaration;
-		
-	}
-	
-	/**
-	 * Gets database configuration for further use in tests.
-	 *
-	 * @return database configuration
-	 */
-	public DatabaseConfiguration getConfiguration() {
-		return configuration;
-	}
-
 	/* (non-Javadoc)
 	 * @see org.eclipse.reddeer.junit.requirement.Requirement#cleanUp()
 	 */
 	@Override
 	public void cleanUp() {
 
-	}
-
-	@Override
-	public Database getDeclaration() {
-		return database;
 	}
 }

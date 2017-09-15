@@ -18,7 +18,7 @@ import java.lang.annotation.Target;
 import org.eclipse.reddeer.common.wait.WaitWhile;
 import org.eclipse.reddeer.eclipse.equinox.security.ui.storage.PasswordProvider;
 import org.eclipse.reddeer.eclipse.equinox.security.ui.storage.StoragePreferencePage;
-import org.eclipse.reddeer.junit.requirement.Requirement;
+import org.eclipse.reddeer.junit.requirement.AbstractRequirement;
 import org.eclipse.reddeer.requirements.securestorage.SecureStorageRequirement.DisableSecureStorage;
 import org.eclipse.reddeer.swt.condition.ShellIsAvailable;
 import org.eclipse.reddeer.workbench.core.condition.JobIsRunning;
@@ -29,15 +29,13 @@ import org.eclipse.reddeer.workbench.ui.dialogs.WorkbenchPreferenceDialog;
  *
  * @author jnovak@redhat.com
  */
-public class SecureStorageRequirement implements Requirement<DisableSecureStorage>{
+public class SecureStorageRequirement extends AbstractRequirement<DisableSecureStorage>{
 	
 	@Retention(RetentionPolicy.RUNTIME)
 	@Target(ElementType.TYPE)
 	public @interface DisableSecureStorage {
 		
 	}
-	
-	private DisableSecureStorage declaration;
 
 	@Override
 	public void fulfill() {
@@ -58,17 +56,6 @@ public class SecureStorageRequirement implements Requirement<DisableSecureStorag
 	}
 
 	@Override
-	public void setDeclaration(DisableSecureStorage declaration) {
-		this.declaration = declaration;
-	}
-
-	@Override
 	public void cleanUp() {
 	}
-
-	@Override
-	public DisableSecureStorage getDeclaration() {
-		return declaration;
-	}
-	
 }

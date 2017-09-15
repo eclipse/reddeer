@@ -17,7 +17,7 @@ import java.lang.annotation.Target;
 
 import org.eclipse.reddeer.common.logging.Logger;
 import org.eclipse.reddeer.eclipse.jdt.debug.ui.jres.JREsPreferencePage;
-import org.eclipse.reddeer.junit.requirement.ConfigurableRequirement;
+import org.eclipse.reddeer.junit.requirement.AbstractConfigurableRequirement;
 import org.eclipse.reddeer.requirements.jre.JRERequirement.JRE;
 import org.eclipse.reddeer.requirements.property.RequirementPropertyExpandor;
 import org.eclipse.reddeer.workbench.ui.dialogs.WorkbenchPreferenceDialog;
@@ -29,11 +29,9 @@ import org.eclipse.reddeer.workbench.ui.dialogs.WorkbenchPreferenceDialog;
  * @author rhopp
  *
  */
-public class JRERequirement implements ConfigurableRequirement<JREConfiguration, JRE> {
+public class JRERequirement extends AbstractConfigurableRequirement<JREConfiguration, JRE> {
 
 	private Logger log = Logger.getLogger(JRERequirement.class);
-	private JRE jre;
-	private JREConfiguration configuration;
 
 	@Retention(RetentionPolicy.RUNTIME)
 	@Target(ElementType.TYPE)
@@ -66,14 +64,8 @@ public class JRERequirement implements ConfigurableRequirement<JREConfiguration,
 	}
 
 	@Override
-	public void setDeclaration(JRE declaration) {
-		this.jre = declaration;
-
-	}
-
-	@Override
 	public void cleanUp() {
-		if (jre.cleanup()) {
+		if (annotation.cleanup()) {
 			WorkbenchPreferenceDialog dialog = new WorkbenchPreferenceDialog();
 			dialog.open();
 			JREsPreferencePage page = new JREsPreferencePage(dialog);
@@ -88,17 +80,6 @@ public class JRERequirement implements ConfigurableRequirement<JREConfiguration,
 		return JREConfiguration.class;
 	}
 
-	@Override
-	public void setConfiguration(JREConfiguration config) {
-		this.configuration = config;
-
-	}
-
-	@Override
-	public JRE getDeclaration() {
-		return jre;
-	}
-
 	/**
 	 * Gets JRE path from configuration. It can be either a specific value or a
 	 * property. Property would be expanded to its real value.
@@ -109,8 +90,4 @@ public class JRERequirement implements ConfigurableRequirement<JREConfiguration,
 		return RequirementPropertyExpandor.getProperty(configuration.getPath());
 	}
 
-	@Override
-	public JREConfiguration getConfiguration() {
-		return configuration;
-	}
 }

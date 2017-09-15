@@ -15,7 +15,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import org.eclipse.reddeer.junit.requirement.ConfigurableRequirement;
+import org.eclipse.reddeer.junit.requirement.AbstractConfigurableRequirement;
 import org.eclipse.reddeer.requirements.property.PropertyRequirement.PropertyReq;
 
 /**
@@ -25,11 +25,7 @@ import org.eclipse.reddeer.requirements.property.PropertyRequirement.PropertyReq
  * @author mlabuda@redhat.com
  *
  */
-public class PropertyRequirement implements ConfigurableRequirement<PropertyConfiguration, PropertyReq> {
-
-	private PropertyConfiguration config;
-
-	private PropertyReq declaration;
+public class PropertyRequirement extends AbstractConfigurableRequirement<PropertyConfiguration, PropertyReq> {
 
 	@Retention(RetentionPolicy.RUNTIME)
 	@Target(ElementType.TYPE)
@@ -42,31 +38,11 @@ public class PropertyRequirement implements ConfigurableRequirement<PropertyConf
 	}
 
 	@Override
-	public void setDeclaration(PropertyReq declaration) {
-		this.declaration = declaration;
-	}
-
-	@Override
-	public PropertyReq getDeclaration() {
-		return declaration;
-	}
-
-	@Override
 	public void cleanUp() {
 	}
 
 	@Override
 	public Class<PropertyConfiguration> getConfigurationClass() {
 		return PropertyConfiguration.class;
-	}
-
-	@Override
-	public void setConfiguration(PropertyConfiguration configuration) {
-		config = configuration;
-	}
-
-	@Override
-	public PropertyConfiguration getConfiguration() {
-		return config;
 	}
 }
