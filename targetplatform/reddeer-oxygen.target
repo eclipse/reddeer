@@ -40,6 +40,8 @@
 <unit id="com.fasterxml.jackson.core.jackson-annotations" version="2.6.2.v20161117-2150"/>
 <unit id="com.fasterxml.jackson.core.jackson-core" version="2.6.2.v20161117-2150"/>
 <unit id="com.fasterxml.jackson.core.jackson-databind" version="2.6.2.v20161117-2150"/>
+<unit id="org.json" version="1.0.0.v201011060100"/>
+<unit id="org.yaml.snakeyaml" version="1.14.0.v201604211500"/>
 <repository location="http://download.eclipse.org/tools/orbit/R-builds/R20170516192513/repository"/>
 </location>
 <location includeAllPlatforms="false" includeConfigurePhase="false" includeMode="slicer" includeSource="true" type="InstallableUnit">
