@@ -20,6 +20,7 @@ import org.eclipse.reddeer.common.exception.RedDeerException;
 import org.eclipse.reddeer.common.logging.Logger;
 import org.eclipse.reddeer.eclipse.core.resources.DefaultProject;
 import org.eclipse.reddeer.eclipse.ui.navigator.resources.ProjectExplorer;
+import org.eclipse.reddeer.junit.requirement.AbstractRequirement;
 import org.eclipse.reddeer.junit.requirement.Requirement;
 import org.eclipse.reddeer.requirements.cleanworkspace.CleanWorkspaceRequirement.CleanWorkspace;
 import org.eclipse.reddeer.workbench.handler.EditorHandler;
@@ -45,11 +46,9 @@ import org.eclipse.reddeer.workbench.handler.EditorHandler;
  * @author rhopp
  * 
  */
-public class CleanWorkspaceRequirement implements Requirement<CleanWorkspace> {
+public class CleanWorkspaceRequirement extends AbstractRequirement<CleanWorkspace> {
 	
 	private static final Logger log = Logger.getLogger(CleanWorkspaceRequirement.class);
-
-	private CleanWorkspace cleanWorkspace;
 	
 	/**
 	 * Marks test class, which requires clean workspace before test cases are executed.
@@ -82,18 +81,6 @@ public class CleanWorkspaceRequirement implements Requirement<CleanWorkspace> {
 		pe.activate();
 	}
 
-	/**
-	 * This method is empty because annotation {@link CleanWorkspace} has no elements.
-	 * However, it is one of methods of {@link Requirement} interface so it has to be
-	 * overridden.
-	 *
-	 * @param declaration the new declaration
-	 */
-	@Override
-	public void setDeclaration(CleanWorkspace cleanWorkspace) {
-		this.cleanWorkspace = cleanWorkspace;
-	}
-
 	/* (non-Javadoc)
 	 * @see org.eclipse.reddeer.junit.requirement.Requirement#cleanUp()
 	 */
@@ -101,10 +88,4 @@ public class CleanWorkspaceRequirement implements Requirement<CleanWorkspace> {
 	public void cleanUp() {
 
 	}
-
-	@Override
-	public CleanWorkspace getDeclaration() {
-		return cleanWorkspace;
-	}
-
 }

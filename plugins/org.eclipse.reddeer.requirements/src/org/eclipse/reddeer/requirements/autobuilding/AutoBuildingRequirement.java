@@ -16,7 +16,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 import org.eclipse.reddeer.direct.preferences.PreferencesUtil;
-import org.eclipse.reddeer.junit.requirement.Requirement;
+import org.eclipse.reddeer.junit.requirement.AbstractRequirement;
 import org.eclipse.reddeer.requirements.autobuilding.AutoBuildingRequirement.AutoBuilding;
 
 /**
@@ -26,10 +26,9 @@ import org.eclipse.reddeer.requirements.autobuilding.AutoBuildingRequirement.Aut
  * @author Andrej Podhradsky
  *
  */
-public class AutoBuildingRequirement implements Requirement<AutoBuilding> {
+public class AutoBuildingRequirement extends AbstractRequirement<AutoBuilding> {
 
-	private AutoBuilding autoBuilding;
-	private boolean autoBuildingOriginalValue;
+	private boolean originalValue;
 
 	@Retention(RetentionPolicy.RUNTIME)
 	@Target(ElementType.TYPE)
@@ -52,33 +51,23 @@ public class AutoBuildingRequirement implements Requirement<AutoBuilding> {
 
 	@Override
 	public void fulfill() {
-		autoBuildingOriginalValue = PreferencesUtil.isAutoBuildingOn();
-		if (autoBuilding.value()) {
+		originalValue = PreferencesUtil.isAutoBuildingOn();
+		if (annotation.value()) {
 			PreferencesUtil.setAutoBuildingOn();
 		} else {
 			PreferencesUtil.setAutoBuildingOff();
 		}
-	}
-
-	@Override
-	public void setDeclaration(AutoBuilding autoBuilding) {
-		this.autoBuilding = autoBuilding;
 	}
 
 	@Override
 	public void cleanUp() {
-		if (!autoBuilding.cleanup()) {
+		if (!annotation.cleanup()) {
 			return;
 		}
-		if (autoBuildingOriginalValue) {
+		if (originalValue) {
 			PreferencesUtil.setAutoBuildingOn();
 		} else {
 			PreferencesUtil.setAutoBuildingOff();
 		}
-	}
-
-	@Override
-	public AutoBuilding getDeclaration() {
-		return autoBuilding;
 	}
 }

@@ -18,7 +18,7 @@ import java.lang.annotation.Target;
 
 import org.eclipse.reddeer.common.logging.Logger;
 import org.eclipse.reddeer.eclipse.ui.views.log.LogView;
-import org.eclipse.reddeer.junit.requirement.Requirement;
+import org.eclipse.reddeer.junit.requirement.AbstractRequirement;
 import org.eclipse.reddeer.requirements.cleanerrorlog.CleanErrorLogRequirement.CleanErrorLog;
 
 /**
@@ -27,11 +27,9 @@ import org.eclipse.reddeer.requirements.cleanerrorlog.CleanErrorLogRequirement.C
  * @author Andrej Podhradsky (apodhrad@redhat.com)
  * 
  */
-public class CleanErrorLogRequirement implements Requirement<CleanErrorLog> {
+public class CleanErrorLogRequirement extends AbstractRequirement<CleanErrorLog> {
 
 	private static final Logger log = Logger.getLogger(CleanErrorLogRequirement.class);
-
-	private CleanErrorLog cleanErrorLog;
 
 	/**
 	 * Marks test class, which requires cleaning Error Log before test cases are
@@ -52,16 +50,6 @@ public class CleanErrorLogRequirement implements Requirement<CleanErrorLog> {
 		log.info("Clean all records in Error Log");
 		new LogView().open();
 		new LogView().deleteLog();
-	}
-
-	@Override
-	public void setDeclaration(CleanErrorLog cleanErrorLog) {
-		this.cleanErrorLog = cleanErrorLog;
-	}
-
-	@Override
-	public CleanErrorLog getDeclaration() {
-		return cleanErrorLog;
 	}
 
 	@Override

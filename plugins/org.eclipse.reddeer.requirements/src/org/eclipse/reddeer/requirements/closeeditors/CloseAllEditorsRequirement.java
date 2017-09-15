@@ -16,7 +16,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 import org.eclipse.reddeer.common.util.Display;
-import org.eclipse.reddeer.junit.requirement.Requirement;
+import org.eclipse.reddeer.junit.requirement.AbstractRequirement;
 import org.eclipse.reddeer.junit.requirement.RequirementException;
 import org.eclipse.reddeer.requirements.closeeditors.CloseAllEditorsRequirement.CloseAllEditors;
 import org.eclipse.ui.PlatformUI;
@@ -27,7 +27,7 @@ import org.eclipse.ui.PlatformUI;
  * @author Lucia Jelinkova
  *
  */
-public class CloseAllEditorsRequirement implements Requirement<CloseAllEditors> {
+public class CloseAllEditorsRequirement extends AbstractRequirement<CloseAllEditors> {
 
 	@Retention(RetentionPolicy.RUNTIME)
     @Target(ElementType.TYPE)
@@ -41,8 +41,6 @@ public class CloseAllEditorsRequirement implements Requirement<CloseAllEditors> 
 		boolean save() default true;
 	}
 	
-	private CloseAllEditors declaration;
-	
 	@Override
 	public void fulfill() {
 		Display.syncExec(new Runnable() {
@@ -50,7 +48,7 @@ public class CloseAllEditorsRequirement implements Requirement<CloseAllEditors> 
 			@Override
 			public void run() {
 				boolean result = PlatformUI.getWorkbench().getActiveWorkbenchWindow()
-				.getActivePage().closeAllEditors(declaration.save());
+				.getActivePage().closeAllEditors(annotation.save());
 				
 				if (!result){
 					throw new RequirementException("Some editors remained open");
@@ -60,17 +58,7 @@ public class CloseAllEditorsRequirement implements Requirement<CloseAllEditors> 
 	}
 
 	@Override
-	public void setDeclaration(CloseAllEditors declaration) {
-		this.declaration = declaration;
-	}
-	
-	@Override
 	public void cleanUp() {
 		// nothing to do
-	}
-
-	@Override
-	public CloseAllEditors getDeclaration() {
-		return declaration;
 	}
 }
