@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: RedDeer JUnit
 Bundle-Vendor: Eclipse.org - RedDeer
 Bundle-SymbolicName: org.eclipse.reddeer.junit;singleton:=true
-Bundle-Version: 2.0.0.qualifier
+Bundle-Version: 2.0.0.Final
 Bundle-Activator: org.eclipse.reddeer.junit.Activator
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,

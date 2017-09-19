@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: RedDeer Workbench Tests
 Bundle-Vendor: Eclipse.org - RedDeer
 Bundle-SymbolicName: org.eclipse.reddeer.workbench.test;singleton:=true
-Bundle-Version: 2.0.0.qualifier
+Bundle-Version: 2.0.0.Final
 Bundle-Activator: org.eclipse.reddeer.workbench.test.Activator
 Require-Bundle: org.eclipse.reddeer.go;bundle-version="[2.0,2.1)",
  org.eclipse.jface.text,
