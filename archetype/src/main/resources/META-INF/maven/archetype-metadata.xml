@@ -15,7 +15,7 @@
       <defaultValue>0.22.0</defaultValue>
     </requiredProperty>
     <requiredProperty key="eclipse_platform">
-      <defaultValue>neon</defaultValue>
+      <defaultValue>oxygen</defaultValue>
     </requiredProperty>
     <requiredProperty key="reddeer_version">
       <defaultValue>2.0.0</defaultValue>

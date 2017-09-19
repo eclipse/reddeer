@@ -10,5 +10,5 @@
         Red Hat Inc. - initial API and implementation
  -->
 <archetype>
-  <id>jboss-reddeer-archetype</id>
+  <id>eclipse-reddeer-archetype</id>
 </archetype>
