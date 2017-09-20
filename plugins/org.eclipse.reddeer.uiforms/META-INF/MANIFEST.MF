@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: RedDeer UI Forms
 Bundle-SymbolicName: org.eclipse.reddeer.uiforms
-Bundle-Version: 2.0.0.Final
+Bundle-Version: 2.0.1.qualifier
 Bundle-Vendor: Eclipse.org - RedDeer
 Require-Bundle: org.eclipse.ui,
  org.eclipse.ui.forms,

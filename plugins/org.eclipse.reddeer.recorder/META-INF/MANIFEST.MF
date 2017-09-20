@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: RedDeer Recorder
 Bundle-SymbolicName: org.eclipse.reddeer.recorder;singleton:=true
-Bundle-Version: 2.0.0.Final
+Bundle-Version: 2.0.1.qualifier
 Bundle-Activator: org.eclipse.reddeer.recorder.core.Activator
 Bundle-Vendor: Eclipse.org - RedDeer
 Require-Bundle: org.eclipse.ui,
