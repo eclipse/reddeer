@@ -21,8 +21,13 @@ see [RedDeer Documentation](https://github.com/eclipse/reddeer/wiki)
 
 Copy-Paste this URL to Eclipse Help -> Install New Software...
 ```
-http://download.eclipse.org/reddeer/snapshots/
+http://download.eclipse.org/reddeer/releases/latest
 ```
+Or latest nightly build
+```
+http://download.eclipse.org/reddeer/snapshots
+```
+
 
 Install at least RedDeer Runtime/API and RedDeer UI features.
 
