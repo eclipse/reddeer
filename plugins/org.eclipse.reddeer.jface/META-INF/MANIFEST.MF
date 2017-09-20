@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: RedDeer JFace
 Bundle-Vendor: Eclipse.org - RedDeer
 Bundle-SymbolicName: org.eclipse.reddeer.jface
-Bundle-Version: 2.0.0.Final
+Bundle-Version: 2.0.1.qualifier
 Require-Bundle: org.eclipse.swt,
  org.eclipse.jface,
  org.eclipse.reddeer.swt;bundle-version="[2.0,2.1)",
