@@ -28,6 +28,7 @@ import org.eclipse.reddeer.requirements.cleanworkspace.CleanWorkspaceRequirement
 import org.eclipse.reddeer.swt.impl.button.PushButton;
 import org.eclipse.reddeer.workbench.api.Editor;
 import org.eclipse.reddeer.workbench.core.exception.WorkbenchCoreLayerException;
+import org.eclipse.reddeer.workbench.exception.WorkbenchLayerException;
 import org.eclipse.reddeer.workbench.handler.EditorHandler;
 import org.eclipse.reddeer.workbench.impl.editor.DefaultEditor;
 import org.eclipse.reddeer.workbench.test.Activator;
@@ -184,6 +185,13 @@ public class EditorTest {
 		new PushButton("Make Dirty").click();
 		editor.save();
 		assertFalse(editor.isDirty());
+	}
+	
+	@Test(expected = WorkbenchLayerException.class)
+	public void saveNotDirtyEditor(){
+		DefaultEditor editor = new DefaultEditor();
+		assertFalse(editor.isDirty());
+		editor.save();
 	}
 	
 	@Test

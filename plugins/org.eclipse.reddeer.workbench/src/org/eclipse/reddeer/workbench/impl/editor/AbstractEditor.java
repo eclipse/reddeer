@@ -32,6 +32,7 @@ import org.eclipse.reddeer.common.wait.AbstractWait;
 import org.eclipse.reddeer.common.wait.TimePeriod;
 import org.eclipse.reddeer.common.wait.WaitUntil;
 import org.eclipse.reddeer.common.wait.WaitWhile;
+import org.eclipse.reddeer.core.exception.CoreLayerException;
 import org.eclipse.reddeer.core.handler.MenuItemHandler;
 import org.eclipse.reddeer.core.lookup.ShellLookup;
 import org.eclipse.reddeer.core.matcher.WithTextMatcher;
@@ -122,7 +123,12 @@ public abstract class AbstractEditor extends AbstractWorkbenchPart implements Ed
 	public void save() {
 		activate();
 		log.info("Save editor");
-		new ShellMenuItem(new WorkbenchShell(), "File", "Save").select();
+		ShellMenuItem saveItem = new ShellMenuItem(new WorkbenchShell(), "File", "Save");
+		if (saveItem.isEnabled()) {
+			saveItem.select();
+		} else {
+			throw new WorkbenchLayerException("Menu item 'Save' is not enabled");
+		}
 		new WaitWhile(new EditorIsDirty(this));
 		activate();
 	}
