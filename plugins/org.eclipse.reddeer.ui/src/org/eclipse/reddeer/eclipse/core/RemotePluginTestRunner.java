@@ -100,7 +100,10 @@ public class RemotePluginTestRunner extends RemoteTestRunner {
 			if (isFlag(args, i, "-loaderpluginname")) //$NON-NLS-1$
 				fLoaderClassLoader = getClassLoader(args[i + 1]);
 			if (isFlag(args, i, "-test")) //$NON-NLS-1$
-				args[i + 1] += getConfigId();
+				// patch for running only one method 
+				if (!args[i + 1].contains(":")) {
+					args[i + 1] += getConfigId();
+				}
 		}
 
 		if (fTestPluginName == null)
