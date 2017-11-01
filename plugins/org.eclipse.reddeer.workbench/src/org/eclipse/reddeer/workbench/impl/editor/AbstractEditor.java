@@ -16,14 +16,6 @@ import java.util.List;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.jface.bindings.TriggerSequence;
 import org.eclipse.jface.bindings.keys.KeyStroke;
-import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.Shell;
-import org.eclipse.ui.IEditorInput;
-import org.eclipse.ui.IEditorPart;
-import org.eclipse.ui.PlatformUI;
-import org.eclipse.ui.keys.IBindingService;
-import org.eclipse.ui.texteditor.ITextEditorActionDefinitionIds;
-import org.hamcrest.Matcher;
 import org.eclipse.reddeer.common.exception.RedDeerException;
 import org.eclipse.reddeer.common.exception.WaitTimeoutExpiredException;
 import org.eclipse.reddeer.common.logging.Logger;
@@ -32,7 +24,6 @@ import org.eclipse.reddeer.common.wait.AbstractWait;
 import org.eclipse.reddeer.common.wait.TimePeriod;
 import org.eclipse.reddeer.common.wait.WaitUntil;
 import org.eclipse.reddeer.common.wait.WaitWhile;
-import org.eclipse.reddeer.core.exception.CoreLayerException;
 import org.eclipse.reddeer.core.handler.MenuItemHandler;
 import org.eclipse.reddeer.core.lookup.ShellLookup;
 import org.eclipse.reddeer.core.matcher.WithTextMatcher;
@@ -51,10 +42,17 @@ import org.eclipse.reddeer.workbench.core.lookup.EditorPartLookup;
 import org.eclipse.reddeer.workbench.core.lookup.WorkbenchShellLookup;
 import org.eclipse.reddeer.workbench.exception.WorkbenchLayerException;
 import org.eclipse.reddeer.workbench.handler.EditorHandler;
-import org.eclipse.reddeer.workbench.handler.WorkbenchPartHandler;
 import org.eclipse.reddeer.workbench.impl.shell.WorkbenchShell;
 import org.eclipse.reddeer.workbench.matcher.EditorPartTitleMatcher;
 import org.eclipse.reddeer.workbench.part.AbstractWorkbenchPart;
+import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Shell;
+import org.eclipse.ui.IEditorInput;
+import org.eclipse.ui.IEditorPart;
+import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.keys.IBindingService;
+import org.eclipse.ui.texteditor.ITextEditorActionDefinitionIds;
+import org.hamcrest.Matcher;
 
 /**
  * Abstract class for all Editor implementations.
@@ -151,9 +149,7 @@ public abstract class AbstractEditor extends AbstractWorkbenchPart implements Ed
 
 	@Override
 	public void activate() {
-		cTabItem.activate();
 		EditorHandler.getInstance().activate(editorPart);
-		WorkbenchPartHandler.getInstance().focusChildControl(editorPart);
 	}
 	
 	@Override
