@@ -10,13 +10,12 @@
  *******************************************************************************/
 package org.eclipse.reddeer.swt.impl.menu;
 
-import org.hamcrest.Matcher;
-
-import org.eclipse.reddeer.swt.api.Control;
-import org.eclipse.reddeer.swt.api.Item;
 import org.eclipse.reddeer.core.lookup.MenuItemLookup;
 import org.eclipse.reddeer.core.lookup.MenuLookup;
 import org.eclipse.reddeer.core.matcher.WithMnemonicTextMatchers;
+import org.eclipse.reddeer.core.reference.ReferencedComposite;
+import org.eclipse.reddeer.swt.api.Item;
+import org.hamcrest.Matcher;
 
 /**
  * Context MenuItem implementation for all context menu items related to some Control.
@@ -44,13 +43,13 @@ public class ContextMenuItem extends AbstractMenuItem {
 	 * Uses WithMnemonicMatcher to match menu item label. It means that all ampersands
 	 * and shortcuts within menu item label are ignored when searching for menu
 	 * 
-	 * @param control control to get menu of
+	 * @param referencedComposite reference composite to get menu of
 	 * @param path the path
 	 */
-	public ContextMenuItem(Control<?> control, String... path) {
-		this(control, new WithMnemonicTextMatchers(path).getMatchers());		
+	public ContextMenuItem(ReferencedComposite referencedComposite, String... path) {
+		this(referencedComposite, new WithMnemonicTextMatchers(path).getMatchers());		
 	}
-	
+
 	public ContextMenuItem(Item<?> item, String... path) {
 		super(MenuItemLookup.getInstance().lookFor(
 				MenuLookup.getInstance().getItemMenu(item.getSWTWidget(), item.getParentControl().getSWTWidget()),
@@ -71,15 +70,15 @@ public class ContextMenuItem extends AbstractMenuItem {
 	/**
 	 * Context menu given by matchers.
 	 *
-	 * @param control control to get menu of
+	 * @param referencedComposite reference composite to get menu of
 	 * @param matchers the matchers
 	 */
 	@SuppressWarnings("unchecked")
-	public ContextMenuItem(Control<?> control, Matcher<String>... matchers) {
+	public ContextMenuItem(ReferencedComposite referencedComposite, Matcher<String>... matchers) {
 		super(MenuItemLookup.getInstance().lookFor(
-				MenuLookup.getInstance().getControlMenu(control.getSWTWidget()),matchers));
+				MenuLookup.getInstance().getControlMenu(referencedComposite.getControl()),matchers));
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public ContextMenuItem(Item<?> item, Matcher<String>... matchers) {
 		super(MenuItemLookup.getInstance().lookFor(

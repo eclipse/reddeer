@@ -11,27 +11,27 @@
 package org.eclipse.reddeer.swt.impl.menu;
 
 import org.eclipse.reddeer.core.lookup.MenuLookup;
-import org.eclipse.reddeer.swt.api.Control;
+import org.eclipse.reddeer.core.reference.ReferencedComposite;
 import org.eclipse.reddeer.swt.api.Item;
 
 /**
  * Context Menu
+ * 
  * @author rawagner
  *
  */
-public class ContextMenu extends AbstractMenu{
-	
+public class ContextMenu extends AbstractMenu {
+
 	public ContextMenu() {
 		super(MenuLookup.getInstance().getMenuFromFocusControl());
 	}
-	
-	public ContextMenu(Control<?> control) {
-		super(MenuLookup.getInstance().getControlMenu(control.getSWTWidget()));
+
+	public ContextMenu(ReferencedComposite referencedComposite) {
+		super(MenuLookup.getInstance().getControlMenu(referencedComposite.getControl()));
 	}
-	
+
 	public ContextMenu(Item<?> item) {
 		super(MenuLookup.getInstance().getItemMenu(item.getSWTWidget(), item.getParentControl().getSWTWidget()));
 	}
-
 
 }
