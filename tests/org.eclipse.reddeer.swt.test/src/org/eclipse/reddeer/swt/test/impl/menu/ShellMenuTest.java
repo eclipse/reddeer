@@ -10,9 +10,14 @@
  *******************************************************************************/
 package org.eclipse.reddeer.swt.test.impl.menu;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import org.eclipse.reddeer.junit.runner.RedDeerSuite;
+import org.eclipse.reddeer.swt.api.Menu;
+import org.eclipse.reddeer.swt.api.Shell;
+import org.eclipse.reddeer.swt.impl.menu.ContextMenu;
 import org.eclipse.reddeer.swt.impl.menu.ShellMenu;
 import org.eclipse.reddeer.swt.impl.shell.DefaultShell;
 import org.junit.Test;
@@ -37,5 +42,26 @@ public class ShellMenuTest extends AbstractMenuTest{
 		assertEquals("ShellMenuBarItem",menu.getItems().get(0).getText());
 		menu.getItem("ShellMenuBarItem","ShellMenuBarItem1");
 	}
-	
+
+	@Test
+	public void hasExistingMenuItem() {
+		Shell shell = new DefaultShell(SHELL_TEXT);
+		Menu menu = new ShellMenu(shell);
+		assertTrue(menu.hasItem("ShellMenuBarItem"));
+	}
+
+	@Test
+	public void hasExistingMenuItemWithPath() {
+		Shell shell = new DefaultShell(SHELL_TEXT);
+		Menu menu = new ShellMenu(shell);
+		assertTrue(menu.hasItem("ShellMenuBarItem", "ShellMenuBarItem1"));
+	}
+
+	@Test
+	public void hasNonExistingMenuItem() {
+		Shell shell = new DefaultShell(SHELL_TEXT);
+		Menu menu = new ContextMenu(shell);
+		assertFalse(menu.hasItem("ShellMenuBarItemX"));
+	}
+
 }
