@@ -10,26 +10,34 @@
  *******************************************************************************/
 package org.eclipse.reddeer.swt.test.impl.text;
 
-
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import org.eclipse.reddeer.core.matcher.WithIdMatcher;
 import org.eclipse.reddeer.junit.runner.RedDeerSuite;
 import org.eclipse.reddeer.swt.api.Text;
 import org.eclipse.reddeer.swt.impl.button.PushButton;
 import org.eclipse.reddeer.swt.impl.menu.ShellMenuItem;
 import org.eclipse.reddeer.swt.impl.shell.DefaultShell;
 import org.eclipse.reddeer.swt.impl.text.DefaultText;
+import org.eclipse.reddeer.workbench.api.View;
 import org.eclipse.reddeer.workbench.impl.view.WorkbenchView;
-import org.junit.BeforeClass;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(RedDeerSuite.class)
 public class DefaultTextTest {
 
-	@BeforeClass
-	public static void openExplorer() {
-		new WorkbenchView("RedDeer SWT Controls").open();
+	private View view;
+
+	@Before
+	public void closeAndOpenRedDeerSWTControls() {
+		view = new WorkbenchView("RedDeer SWT Controls");
+		if (view.isOpen()) {
+			view.close();
+		}
+		view.open();
 	}
 
 	@Test
@@ -43,14 +51,21 @@ public class DefaultTextTest {
 		assertTrue(new DefaultText("New text").getText().equals("New text"));
 		text.setText("Original text");
 	}
-	
+
 	@Test
 	public void testInDialog() {
-		new ShellMenuItem("File","New","Other...").select();
+		new ShellMenuItem("File", "New", "Other...").select();
 		new DefaultShell("New");
 		Text t = new DefaultText(0);
 		t.setText("myvalue");
 		assertTrue(t.getText().equals("myvalue"));
 		new PushButton("Cancel").click();
 	}
+
+	@Test
+	public void testDeafaultTextWithId() {
+		Text text = new DefaultText(view, new WithIdMatcher("text1"));
+		assertEquals("Original text", text.getText());
+	}
+
 }

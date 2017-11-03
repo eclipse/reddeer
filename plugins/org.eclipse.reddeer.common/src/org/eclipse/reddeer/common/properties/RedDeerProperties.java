@@ -37,6 +37,8 @@ public enum RedDeerProperties {
 	LOG_COLLECTOR_ENABLED("rd.logCollectorEnabled", true),
 	
 	MAXIMIZE_WORKBENCH_ENABLED("rd.maximizeWorkbench", true),
+	
+	DEFAULT_KEY("rd.defaultKey", "org.eclipse.reddeer.widget.key"),
 
 	/**
 	 * System property pointing either to the configuration file or to the configuration directory. 

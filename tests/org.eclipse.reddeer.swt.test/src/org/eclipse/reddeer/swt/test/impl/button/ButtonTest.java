@@ -13,14 +13,10 @@ package org.eclipse.reddeer.swt.test.impl.button;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.events.SelectionListener;
-import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.Shell;
+import org.eclipse.reddeer.core.exception.CoreLayerException;
+import org.eclipse.reddeer.core.matcher.WithIdMatcher;
 import org.eclipse.reddeer.swt.api.Button;
 import org.eclipse.reddeer.swt.api.Text;
-import org.eclipse.reddeer.core.exception.CoreLayerException;
 import org.eclipse.reddeer.swt.impl.button.ArrowButton;
 import org.eclipse.reddeer.swt.impl.button.CheckBox;
 import org.eclipse.reddeer.swt.impl.button.PushButton;
@@ -28,25 +24,32 @@ import org.eclipse.reddeer.swt.impl.button.RadioButton;
 import org.eclipse.reddeer.swt.impl.button.ToggleButton;
 import org.eclipse.reddeer.swt.impl.text.DefaultText;
 import org.eclipse.reddeer.swt.test.SWTLayerTestCase;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.SelectionListener;
+import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.Shell;
 import org.junit.Test;
 
 public class ButtonTest extends SWTLayerTestCase {
 	private static final String PUSH_BUTTON_LABEL_PREFIX = "PUSH-BUTTON";
-	
+
 	private static final String RADIO_BUTTON_LABEL_PREFIX = "RADIO-BUTTON";
-	
+
 	private static final String TOGGLE_BUTTON_LABEL_PREFIX = "TOOGLE-BUTTON";
-	
+
 	private static final String CHECK_BOX_LABEL_PREFIX = "CHECK-BOX";
-	
+
 	private static final String ARROW_BUTTON_LABEL_PREFIX = "ARROW-BUTTON";
-	
+
 	private static final String TOOLTIP_PREFIX = "TOOLTIP FOR: ";
-	
+
+	private static final String BUTTON_TEST_KEY = "buttonTestId";
+
 	private static final int NUM_BUTTONS = 3;
-	
+
 	private Text selectionText = null;
-	
+
 	private SelectionListener selectionListener;
 	org.eclipse.swt.widgets.Text txSelection;
 
@@ -71,18 +74,17 @@ public class ButtonTest extends SWTLayerTestCase {
 		createButtons(ButtonTest.CHECK_BOX_LABEL_PREFIX, SWT.CHECK, shell);
 		createButtons(ButtonTest.ARROW_BUTTON_LABEL_PREFIX, SWT.ARROW, shell);
 
-		txSelection = new org.eclipse.swt.widgets.Text(
-				shell, SWT.BORDER);
+		txSelection = new org.eclipse.swt.widgets.Text(shell, SWT.BORDER);
 		txSelection.setText("<text of selected button>");
 	}
 
 	private void createButtons(String textPrefix, int style, Shell shell) {
 		for (int i = 0; i < ButtonTest.NUM_BUTTONS; i++) {
-			org.eclipse.swt.widgets.Button button = new org.eclipse.swt.widgets.Button(
-					shell, style);
+			org.eclipse.swt.widgets.Button button = new org.eclipse.swt.widgets.Button(shell, style);
 			button.setText(textPrefix + i);
 			button.setToolTipText(ButtonTest.TOOLTIP_PREFIX + textPrefix + i);
 			button.setData(textPrefix + i);
+			button.setData(BUTTON_TEST_KEY, textPrefix + "#" + i);
 			button.addSelectionListener(selectionListener);
 			if (style == SWT.RADIO && i == 0) {
 				button.setSelection(true);
@@ -91,77 +93,109 @@ public class ButtonTest extends SWTLayerTestCase {
 	}
 
 	/**
-	 * Finds Push Button by index and check getText(), getToolTipText() and
-	 * click() methods
+	 * Finds Push Button by index and check getText(), getToolTipText() and click() methods
 	 */
 	@Test
 	public void findPushButtonByIndexAndCheck() {
 		int index = 2;
-		checkButton(ButtonTest.PUSH_BUTTON_LABEL_PREFIX + index,
-				new PushButton(index));
+		checkButton(ButtonTest.PUSH_BUTTON_LABEL_PREFIX + index, new PushButton(index));
+	}
+
+	@Test
+	public void findPushButtonByIdAndCheck() {
+		int index = 2;
+		String id = ButtonTest.PUSH_BUTTON_LABEL_PREFIX + "#" + index;
+		checkButton(ButtonTest.PUSH_BUTTON_LABEL_PREFIX + index, new PushButton(withId(id)));
 	}
 
 	/**
-	 * Finds Radio Button by index and check getText(), getToolTipText() and
-	 * click() methods
+	 * Finds Radio Button by index and check getText(), getToolTipText() and click() methods
 	 */
 	@Test
 	public void findRadioButtonByIndexAndCheck() {
 		int index = 1;
 		RadioButton radioButton = new RadioButton(index);
 		checkButton(ButtonTest.RADIO_BUTTON_LABEL_PREFIX + index, radioButton);
-		assertTrue(
-				"Radio Button " + radioButton.getText() + " is not selected",
-				radioButton.isSelected());
+		assertTrue("Radio Button " + radioButton.getText() + " is not selected", radioButton.isSelected());
 		radioButton = new RadioButton(0);
-		assertFalse("Radio Button " + radioButton.getText() + " is selected",
-				radioButton.isSelected());
+		assertFalse("Radio Button " + radioButton.getText() + " is selected", radioButton.isSelected());
 		radioButton = new RadioButton(2);
-		assertFalse("Radio Button " + radioButton.getText() + " is selected",
-				radioButton.isSelected());
+		assertFalse("Radio Button " + radioButton.getText() + " is selected", radioButton.isSelected());
+	}
+
+	@Test
+	public void findRadioButtonByIdAndCheck() {
+		int index = 1;
+		String id = ButtonTest.RADIO_BUTTON_LABEL_PREFIX + "#" + index;
+		RadioButton radioButton = new RadioButton(withId(id));
+		checkButton(ButtonTest.RADIO_BUTTON_LABEL_PREFIX + index, radioButton);
+		assertTrue("Radio Button " + radioButton.getText() + " is not selected", radioButton.isSelected());
+		radioButton = new RadioButton(0);
+		assertFalse("Radio Button " + radioButton.getText() + " is selected", radioButton.isSelected());
+		radioButton = new RadioButton(2);
+		assertFalse("Radio Button " + radioButton.getText() + " is selected", radioButton.isSelected());
 	}
 
 	/**
-	 * Finds Toggle Button by index and check getText(), getToolTipText() and
-	 * click() methods
+	 * Finds Toggle Button by index and check getText(), getToolTipText() and click() methods
 	 */
 	@Test
 	public void findToggleButtonByIndexAndCheck() {
 		int index = 2;
 		ToggleButton toggleButton = new ToggleButton(index);
 		checkButton(ButtonTest.TOGGLE_BUTTON_LABEL_PREFIX + index, toggleButton);
-		assertTrue("Toggle Button " + toggleButton.getText()
-				+ " is not selected", toggleButton.isSelected());
+		assertTrue("Toggle Button " + toggleButton.getText() + " is not selected", toggleButton.isSelected());
+	}
+
+	@Test
+	public void findToggleButtonByIdAndCheck() {
+		int index = 2;
+		String id = ButtonTest.TOGGLE_BUTTON_LABEL_PREFIX + "#" + index;
+		ToggleButton toggleButton = new ToggleButton(withId(id));
+		checkButton(ButtonTest.TOGGLE_BUTTON_LABEL_PREFIX + index, toggleButton);
+		assertTrue("Toggle Button " + toggleButton.getText() + " is not selected", toggleButton.isSelected());
 	}
 
 	/**
-	 * Finds Check Box by index and check getText(), getToolTipText() and
-	 * click() methods
+	 * Finds Check Box by index and check getText(), getToolTipText() and click() methods
 	 */
 	@Test
 	public void findCheckBoxByIndexAndCheck() {
 		int index = 1;
 		CheckBox checkBox = new CheckBox(index);
 		checkButton(ButtonTest.CHECK_BOX_LABEL_PREFIX + index, checkBox);
-		assertTrue("Check Box " + checkBox.getText() + " is not selected",
-				checkBox.isChecked());
+		assertTrue("Check Box " + checkBox.getText() + " is not selected", checkBox.isChecked());
+
+	}
+
+	@Test
+	public void findCheckBoxByIdAndCheck() {
+		int index = 1;
+		String id = ButtonTest.CHECK_BOX_LABEL_PREFIX + "#" + index;
+		CheckBox checkBox = new CheckBox(withId(id));
+		checkButton(ButtonTest.CHECK_BOX_LABEL_PREFIX + index, checkBox);
+		assertTrue("Check Box " + checkBox.getText() + " is not selected", checkBox.isChecked());
 
 	}
 
 	/**
-	 * Finds Arrow Button by index and check getText(), getToolTipText() and
-	 * click() methods
+	 * Finds Arrow Button by index and check getText(), getToolTipText() and click() methods
 	 */
 	@Test
 	public void findArrowButtonByIndexAndCheck() {
 		int index = 2;
-		checkButton(ButtonTest.ARROW_BUTTON_LABEL_PREFIX + index,
-				new ArrowButton(index));
+		checkButton(ButtonTest.ARROW_BUTTON_LABEL_PREFIX + index, new ArrowButton(index));
+	}
+
+	@Test
+	public void findArrowButtonByIdAndCheck() {
+		int index = 2;
+		String id = ButtonTest.ARROW_BUTTON_LABEL_PREFIX + "#" + index;
+		checkButton(ButtonTest.ARROW_BUTTON_LABEL_PREFIX + index, new ArrowButton(withId(id)));
 	}
 
 	/**
-	 * Finds Push Button by label and check getText(), getToolTipText() and
-	 * click() methods
+	 * Finds Push Button by label and check getText(), getToolTipText() and click() methods
 	 */
 	@Test
 	public void findPushButtonByLabelAndCheck() {
@@ -176,8 +210,7 @@ public class ButtonTest extends SWTLayerTestCase {
 	}
 
 	/**
-	 * Finds Radio Button by label and check getText(), getToolTipText() and
-	 * click() methods
+	 * Finds Radio Button by label and check getText(), getToolTipText() and click() methods
 	 */
 	@Test
 	public void findRadioButtonByLabelAndCheck() {
@@ -186,8 +219,7 @@ public class ButtonTest extends SWTLayerTestCase {
 	}
 
 	/**
-	 * Finds Toggle Button by label and check getText(), getToolTipText() and
-	 * click() methods
+	 * Finds Toggle Button by label and check getText(), getToolTipText() and click() methods
 	 */
 	@Test
 	public void findToggleButtonByLabelAndCheck() {
@@ -196,8 +228,7 @@ public class ButtonTest extends SWTLayerTestCase {
 	}
 
 	/**
-	 * Finds Check Box by label and check getText(), getToolTipText() and
-	 * click() methods
+	 * Finds Check Box by label and check getText(), getToolTipText() and click() methods
 	 */
 	@Test
 	public void findCheckBoxByLabelAndCheck() {
@@ -264,31 +295,24 @@ public class ButtonTest extends SWTLayerTestCase {
 		if (radioButton.isSelected()) {
 			new RadioButton(index - 1).click();
 		}
-		assertTrue("Radio Button " + radioButton.getText() + " is selected",
-				!radioButton.isSelected());
+		assertTrue("Radio Button " + radioButton.getText() + " is selected", !radioButton.isSelected());
 		radioButton.toggle(true);
-		assertTrue(
-				"Radio Button " + radioButton.getText() + " is not selected",
-				radioButton.isSelected());
+		assertTrue("Radio Button " + radioButton.getText() + " is not selected", radioButton.isSelected());
 		// check selection listener invocation. It should be invoked by toggle()
 		// method
-		assertTrue("Selection Listener was not invoked", getSelectionText()
-				.getText().equals(ButtonTest.RADIO_BUTTON_LABEL_PREFIX + index));
+		assertTrue("Selection Listener was not invoked",
+				getSelectionText().getText().equals(ButtonTest.RADIO_BUTTON_LABEL_PREFIX + index));
 		// Invoke click on Push Button to set selection text to other button
 		// text
 		int pushButtonIndex = 0;
 		new PushButton(0).click();
-		assertTrue(
-				"Selection Listener was not invoked",
-				getSelectionText().getText().equals(
-						ButtonTest.PUSH_BUTTON_LABEL_PREFIX + pushButtonIndex));
+		assertTrue("Selection Listener was not invoked",
+				getSelectionText().getText().equals(ButtonTest.PUSH_BUTTON_LABEL_PREFIX + pushButtonIndex));
 		radioButton.toggle(true);
 		// check selection listener invocation. It should not be invoked by
 		// toggle() method
-		assertTrue(
-				"Selection Listener was invoked",
-				getSelectionText().getText().equals(
-						ButtonTest.PUSH_BUTTON_LABEL_PREFIX + pushButtonIndex));
+		assertTrue("Selection Listener was invoked",
+				getSelectionText().getText().equals(ButtonTest.PUSH_BUTTON_LABEL_PREFIX + pushButtonIndex));
 	}
 
 	@Test
@@ -298,30 +322,24 @@ public class ButtonTest extends SWTLayerTestCase {
 		if (checkBox.isChecked()) {
 			checkBox.click();
 		}
-		assertTrue("Check Box " + checkBox.getText() + " is checked",
-				!checkBox.isChecked());
+		assertTrue("Check Box " + checkBox.getText() + " is checked", !checkBox.isChecked());
 		checkBox.toggle(true);
-		assertTrue("Check Box " + checkBox.getText() + " is not checked",
-				checkBox.isChecked());
+		assertTrue("Check Box " + checkBox.getText() + " is not checked", checkBox.isChecked());
 		// check selection listener invocation. It should be invoked by toggle()
 		// method
-		assertTrue("Selection Listener was not invoked", getSelectionText()
-				.getText().equals(ButtonTest.CHECK_BOX_LABEL_PREFIX + index));
+		assertTrue("Selection Listener was not invoked",
+				getSelectionText().getText().equals(ButtonTest.CHECK_BOX_LABEL_PREFIX + index));
 		// Invoke click on Push Button to set selection text to other button
 		// text
 		int pushButtonIndex = 0;
 		new PushButton(0).click();
-		assertTrue(
-				"Selection Listener was not invoked",
-				getSelectionText().getText().equals(
-						ButtonTest.PUSH_BUTTON_LABEL_PREFIX + pushButtonIndex));
+		assertTrue("Selection Listener was not invoked",
+				getSelectionText().getText().equals(ButtonTest.PUSH_BUTTON_LABEL_PREFIX + pushButtonIndex));
 		checkBox.toggle(true);
 		// check selection listener invocation. It should not be invoked by
 		// toggle() method
-		assertTrue(
-				"Selection Listener was invoked",
-				getSelectionText().getText().equals(
-						ButtonTest.PUSH_BUTTON_LABEL_PREFIX + pushButtonIndex));
+		assertTrue("Selection Listener was invoked",
+				getSelectionText().getText().equals(ButtonTest.PUSH_BUTTON_LABEL_PREFIX + pushButtonIndex));
 	}
 
 	@Test
@@ -331,33 +349,26 @@ public class ButtonTest extends SWTLayerTestCase {
 		if (toggleButton.isSelected()) {
 			toggleButton.click();
 		}
-		assertTrue("Toggle Button " + toggleButton.getText() + " is checked",
-				!toggleButton.isSelected());
+		assertTrue("Toggle Button " + toggleButton.getText() + " is checked", !toggleButton.isSelected());
 		toggleButton.toggle(true);
-		assertTrue("Toggle Button " + toggleButton.getText()
-				+ " is not checked", toggleButton.isSelected());
+		assertTrue("Toggle Button " + toggleButton.getText() + " is not checked", toggleButton.isSelected());
 		// check selection listener invocation. It should be invoked by toggle()
 		// method
-		assertTrue("Selection Listener was not invoked", getSelectionText()
-				.getText()
-				.equals(ButtonTest.TOGGLE_BUTTON_LABEL_PREFIX + index));
+		assertTrue("Selection Listener was not invoked",
+				getSelectionText().getText().equals(ButtonTest.TOGGLE_BUTTON_LABEL_PREFIX + index));
 		// Invoke click on Push Button to set selection text to other button
 		// text
 		// Invoke click on Push Button to set selection text to other button
 		// text
 		int pushButtonIndex = 0;
 		new PushButton(0).click();
-		assertTrue(
-				"Selection Listener was not invoked",
-				getSelectionText().getText().equals(
-						ButtonTest.PUSH_BUTTON_LABEL_PREFIX + pushButtonIndex));
+		assertTrue("Selection Listener was not invoked",
+				getSelectionText().getText().equals(ButtonTest.PUSH_BUTTON_LABEL_PREFIX + pushButtonIndex));
 		toggleButton.toggle(true);
 		// check selection listener invocation. It should not be invoked by
 		// toggle() method
-		assertTrue(
-				"Selection Listener was invoked",
-				getSelectionText().getText().equals(
-						ButtonTest.PUSH_BUTTON_LABEL_PREFIX + pushButtonIndex));
+		assertTrue("Selection Listener was invoked",
+				getSelectionText().getText().equals(ButtonTest.PUSH_BUTTON_LABEL_PREFIX + pushButtonIndex));
 	}
 
 	/**
@@ -369,18 +380,18 @@ public class ButtonTest extends SWTLayerTestCase {
 	private void checkButton(String expectedText, Button button) {
 		// check button text except for ARROW Button
 		if (!expectedText.startsWith(ButtonTest.ARROW_BUTTON_LABEL_PREFIX)) {
-			assertTrue("Expected button text is " + expectedText
-					+ "\nbut Button text is " + button.getText(), button
-					.getText().equals(expectedText));
+			assertTrue("Expected button text is " + expectedText + "\nbut Button text is " + button.getText(),
+					button.getText().equals(expectedText));
 		}
-		final String expectedToolTipText = ButtonTest.TOOLTIP_PREFIX
-				+ expectedText;
-		assertTrue("Expected button tooltip text is " + expectedToolTipText
-				+ "\nbut Button tool tip text is " + button.getToolTipText(),
-				button.getToolTipText().equals(expectedToolTipText));
+		final String expectedToolTipText = ButtonTest.TOOLTIP_PREFIX + expectedText;
+		assertTrue("Expected button tooltip text is " + expectedToolTipText + "\nbut Button tool tip text is "
+				+ button.getToolTipText(), button.getToolTipText().equals(expectedToolTipText));
 		button.click();
 		// check selection listener invocation
-		assertTrue("Selection Listener was not invoked", getSelectionText()
-				.getText().equals(expectedText));
+		assertTrue("Selection Listener was not invoked", getSelectionText().getText().equals(expectedText));
+	}
+	
+	private static WithIdMatcher withId(Object obj) {
+		return new WithIdMatcher(BUTTON_TEST_KEY, obj);
 	}
 }

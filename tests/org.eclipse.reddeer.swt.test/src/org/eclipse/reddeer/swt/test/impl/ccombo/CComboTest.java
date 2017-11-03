@@ -21,6 +21,7 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.reddeer.core.exception.CoreLayerException;
+import org.eclipse.reddeer.core.matcher.WithIdMatcher;
 import org.eclipse.reddeer.swt.api.CCombo;
 import org.eclipse.reddeer.swt.impl.ccombo.DefaultCCombo;
 import org.eclipse.reddeer.swt.impl.ccombo.LabeledCCombo;
@@ -71,6 +72,7 @@ public class CComboTest extends SWTLayerTestCase {
 		for (int itemIndex = 0; itemIndex < comboItems.length; itemIndex++) {
 			combo.add(comboItems[itemIndex]);
 		}
+		combo.setData("coolId", comboIndex);
 	}
 
 	private String[] createSampleComboItems(int comboIndex) {
@@ -86,6 +88,17 @@ public class CComboTest extends SWTLayerTestCase {
 	public void findByIndex() {
 		int index = 1;
 		CCombo ccombo = new DefaultCCombo(index);
+		ccombo.setSelection(index);
+		String ccomboText = ccombo.getText();
+		String expectedCComboText = CComboTest.COMBO_ITEM_PREFIX + index + index;
+		assertTrue("CCombo text is " + ccomboText + "\nbut expected CCombo text is " + expectedCComboText,
+				ccomboText.equals(expectedCComboText));
+	}
+	
+	@Test
+	public void findById() {
+		int index = 1;
+		CCombo ccombo = new DefaultCCombo(new WithIdMatcher("coolId", index));
 		ccombo.setSelection(index);
 		String ccomboText = ccombo.getText();
 		String expectedCComboText = CComboTest.COMBO_ITEM_PREFIX + index + index;

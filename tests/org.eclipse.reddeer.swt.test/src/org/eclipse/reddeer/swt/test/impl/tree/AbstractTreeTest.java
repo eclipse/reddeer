@@ -28,6 +28,8 @@ import org.eclipse.reddeer.swt.test.SWTLayerTestCase;
  */
 public abstract class AbstractTreeTest extends SWTLayerTestCase {
 
+	public static final String TREE_ID = "tree001";
+	
 	/* Any number > 1 would do */
 	protected static final int TREE_COLUMN_COUNT = 3;
 	
@@ -36,6 +38,7 @@ public abstract class AbstractTreeTest extends SWTLayerTestCase {
 	@Override
 	protected void createControls(Shell shell) {
 		swtTree = new Tree(shell, SWT.BORDER|SWT.CHECK|SWT.MULTI);
+		swtTree.setData("id", TREE_ID);
 
 		TreeColumn column = new TreeColumn(swtTree, SWT.LEFT);
 		column.setText("Column1");

@@ -32,10 +32,13 @@ public class SWTControlsView extends ViewPart {
 		
 		label = new Label(composite, SWT.NONE);
 		label.setText("Name:");
+		label.setData("org.eclipse.reddeer.widget.key", "label1");
 		text = new Text(composite, SWT.NONE);
 		text.setText("Original text");
+		text.setData("org.eclipse.reddeer.widget.key", "text1");
 		styledText = new StyledText(composite, SWT.NONE);
 		styledText.setText("Styled text");
+		styledText.setData("org.eclipse.reddeer.widget.key", "styledText1");
 	}
 
 	@Override
