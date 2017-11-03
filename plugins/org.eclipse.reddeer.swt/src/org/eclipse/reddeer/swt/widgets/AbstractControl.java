@@ -79,4 +79,10 @@ public abstract class AbstractControl<T extends org.eclipse.swt.widgets.Control>
 	public String getToolTipText(){
 		return ControlHandler.getInstance().getToolTipText(swtWidget);
 	}
+
+	@Override
+	public org.eclipse.swt.widgets.Control getControl() {
+		return (org.eclipse.swt.widgets.Control) getSWTWidget();
+	}
+
 }

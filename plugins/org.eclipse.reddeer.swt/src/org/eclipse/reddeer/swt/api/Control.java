@@ -10,13 +10,15 @@
  *******************************************************************************/
 package org.eclipse.reddeer.swt.api;
 
+import org.eclipse.reddeer.core.reference.ReferencedComposite;
+
 /**
  * API for control manipulation
  * @author rawagner
  *
  * @param <T> extends swt Control
  */
-public interface Control<T extends org.eclipse.swt.widgets.Control> extends Widget<T> {
+public interface Control<T extends org.eclipse.swt.widgets.Control> extends Widget<T>, ReferencedComposite {
 	
 	/**
 	 * Finds out whether a control is enabled.
