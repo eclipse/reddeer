@@ -11,17 +11,17 @@
 package org.eclipse.reddeer.swt.test.impl.clabel;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import org.eclipse.reddeer.common.util.Display;
+import org.eclipse.reddeer.core.exception.CoreLayerException;
+import org.eclipse.reddeer.core.matcher.WithIdMatcher;
+import org.eclipse.reddeer.swt.api.CLabel;
+import org.eclipse.reddeer.swt.impl.clabel.DefaultCLabel;
+import org.eclipse.reddeer.swt.test.SWTLayerTestCase;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.reddeer.swt.api.CLabel;
-import org.eclipse.reddeer.common.util.Display;
-import org.eclipse.reddeer.core.exception.CoreLayerException;
-import org.eclipse.reddeer.swt.impl.clabel.DefaultCLabel;
-import org.eclipse.reddeer.swt.test.SWTLayerTestCase;
 import org.junit.Test;
 /**
  * Tests CLabel implementation
@@ -47,6 +47,7 @@ public class CLabelTest extends SWTLayerTestCase {
 		cLabel.setToolTipText(CLabelTest.CLABEL_TOOLTIP_PREFIX + text);
 		cLabel.setAlignment(align);
 		cLabel.setImage(image);
+		cLabel.setData("id#" + text);
 		return cLabel;
 	}
 	
@@ -55,7 +56,13 @@ public class CLabelTest extends SWTLayerTestCase {
 		CLabel cLabel = new DefaultCLabel(1);
 		assertEquals("Wrong cLabel widget was found", CLABEL_PREFIX + 1, cLabel.getText());
 	}
-	
+
+	@Test
+	public void findCLabelById(){
+		CLabel cLabel = new DefaultCLabel(new WithIdMatcher(null, "id#" + CLABEL_PREFIX + 1));
+		assertEquals("Wrong cLabel widget was found", CLABEL_PREFIX + 1, cLabel.getText());
+	}
+
 	@Test
 	public void findCLabelByText(){
 		CLabel cLabel = new DefaultCLabel(CLabelTest.CLABEL_PREFIX + 1);

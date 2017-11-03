@@ -12,6 +12,7 @@ package org.eclipse.reddeer.swt.test.impl.tree;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.core.IsCollectionContaining.hasItems;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
@@ -20,6 +21,8 @@ import java.util.List;
 import org.eclipse.swt.widgets.Shell;
 import org.hamcrest.Description;
 import org.hamcrest.TypeSafeMatcher;
+import org.eclipse.reddeer.core.matcher.WithIdMatcher;
+import org.eclipse.reddeer.swt.api.Tree;
 import org.eclipse.reddeer.swt.api.TreeItem;
 import org.eclipse.reddeer.swt.impl.tree.DefaultTree;
 import org.junit.Before;
@@ -37,6 +40,12 @@ public class DefaultTreeTest extends AbstractTreeTest {
 	@Before
 	public void initTree(){
 		tree = new DefaultTree();
+	}
+	
+	@Test
+	public void testFindingTreeById() {
+		Tree foundTree = new DefaultTree(new WithIdMatcher("id", TREE_ID));
+		assertEquals(tree.getSWTWidget(), foundTree.getSWTWidget());
 	}
 
 	@Test

@@ -44,6 +44,7 @@ public abstract class AbstractTableTest extends SWTLayerTestCase {
 		table1.setHeaderVisible (true);
 		table1.setLayout(new GridLayout());
 		table1.setLayoutData(data);
+		table1.setData("id", "table1");
 		String[] titles = {" ", "C", "!", "Description", "Resource", "In Folder", "Location"};
 		for (int i=0; i<titles.length; i++) {
 			TableColumn column = new TableColumn (table1, SWT.NONE);
@@ -74,6 +75,7 @@ public abstract class AbstractTableTest extends SWTLayerTestCase {
 		table2.setHeaderVisible (true);
 		table2.setLayout(new GridLayout());
 		table2.setLayoutData(data);
+		table2.setData("id", "table2");
 		String[] titles = {" ", "C", "!", "Description", "Resource", "In Folder", "Location"};
 		for (int i=0; i<titles.length; i++) {
 			TableColumn column = new TableColumn (table2, SWT.NONE);
@@ -124,6 +126,7 @@ public abstract class AbstractTableTest extends SWTLayerTestCase {
 		table3.setHeaderVisible (true);
 		table3.setLayout(new GridLayout());
 		table3.setLayoutData(data);
+		table3.setData("id", "table3");
 		String[] titles = {" ", "C", "!", "Description", "Resource", "In Folder", "Location"};
 		for (int i=0; i<titles.length; i++) {
 			TableColumn column = new TableColumn (table3, SWT.NONE);

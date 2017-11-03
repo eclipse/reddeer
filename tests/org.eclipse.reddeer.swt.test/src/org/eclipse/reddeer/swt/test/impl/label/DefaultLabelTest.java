@@ -10,8 +10,10 @@
  *******************************************************************************/
 package org.eclipse.reddeer.swt.test.impl.label;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import org.eclipse.reddeer.core.matcher.WithIdMatcher;
 import org.eclipse.reddeer.junit.runner.RedDeerSuite;
 import org.eclipse.reddeer.swt.api.Label;
 import org.eclipse.reddeer.swt.impl.label.DefaultLabel;
@@ -33,4 +35,11 @@ public class DefaultLabelTest {
 		Label defaultLabel = new DefaultLabel("Name:");
 		assertTrue("Widget must be visible:", defaultLabel.isVisible());
 	}
+
+	@Test
+	public void testFindingById() {
+		Label label = new DefaultLabel(new WithIdMatcher("label1"));
+		assertEquals("Name:", label.getText());
+	}
+
 }

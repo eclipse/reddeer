@@ -79,6 +79,6 @@ public class ArrowButton extends AbstractButton implements Button {
 	 * @param matchers the matchers
 	 */
 	public ArrowButton(ReferencedComposite referencedComposite, int index, Matcher<?>... matchers) {
-		super(referencedComposite, index, SWT.ARROW);
+		super(referencedComposite, index, SWT.ARROW, matchers);
 	}
 }

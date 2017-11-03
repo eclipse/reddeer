@@ -10,13 +10,17 @@
  *******************************************************************************/
 package org.eclipse.reddeer.swt.test.utils;
 
+import org.eclipse.reddeer.common.wait.TimePeriod;
+import org.eclipse.reddeer.common.wait.WaitUntil;
+import org.eclipse.reddeer.swt.condition.ShellIsAvailable;
+import org.eclipse.reddeer.swt.impl.shell.DefaultShell;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.Shell;
 
 public class ShellTestUtils {
 
-	public static Shell createShell(String title){
+	public static Shell createShell(String title) {
 		Shell shell = new Shell(org.eclipse.swt.widgets.Display.getDefault());
 		shell.setText(title);
 		shell.setLayout(new RowLayout(SWT.VERTICAL));
@@ -26,12 +30,12 @@ public class ShellTestUtils {
 		return shell;
 	}
 
-	public static void closeShell(String title){
-		for (Shell shell : org.eclipse.reddeer.common.util.Display.getDisplay().getShells()) {
-			if (shell.getText().equals(title)) {
-				shell.close();
-				break;
-			}
+	public static void closeShell(String title) {
+		ShellIsAvailable shellIsAvailable = new ShellIsAvailable(title);
+		new WaitUntil(shellIsAvailable, TimePeriod.DEFAULT);
+		Shell shell = shellIsAvailable.getResult();
+		if (shell != null) {
+			new DefaultShell(shell).close();
 		}
 	}
 }

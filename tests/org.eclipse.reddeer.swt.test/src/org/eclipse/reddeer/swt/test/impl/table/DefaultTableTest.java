@@ -18,41 +18,43 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
-import org.eclipse.reddeer.swt.condition.TableContainsItem;
-import org.eclipse.reddeer.swt.exception.SWTLayerException;
 import org.eclipse.reddeer.common.exception.RedDeerException;
 import org.eclipse.reddeer.common.exception.WaitTimeoutExpiredException;
+import org.eclipse.reddeer.common.wait.WaitUntil;
+import org.eclipse.reddeer.core.matcher.WithIdMatcher;
+import org.eclipse.reddeer.swt.api.Table;
+import org.eclipse.reddeer.swt.condition.TableContainsItem;
+import org.eclipse.reddeer.swt.exception.SWTLayerException;
 import org.eclipse.reddeer.swt.impl.table.DefaultTable;
 import org.eclipse.reddeer.swt.matcher.CheckedTableItemMatcher;
-import org.eclipse.reddeer.common.wait.WaitUntil;
 import org.junit.Test;
 
 public class DefaultTableTest extends AbstractTableTest {
 
 	@Test
-	public void testMultiSelectionTable(){
-		new DefaultTable().select(1,2,3,4,5);
+	public void testMultiSelectionTable() {
+		new DefaultTable().select(1, 2, 3, 4, 5);
 	}
-	
+
 	@Test
-	public void testMultiSelectionTableWithSingleSelection(){
+	public void testMultiSelectionTableWithSingleSelection() {
 		new DefaultTable().select(1);
 	}
-	
+
 	@Test(expected = RedDeerException.class)
-	public void testMultiSelectionTableCheck(){
+	public void testMultiSelectionTableCheck() {
 		new DefaultTable().getItem(2).setChecked(true);
 	}
-	
+
 	@Test
-	public void testSingleSelectionTable(){
+	public void testSingleSelectionTable() {
 		new DefaultTable(1).select(1);
 	}
-	
+
 	@Test
-	public void testTableContainsItem(){
+	public void testTableContainsItem() {
 		assertTrue(new DefaultTable(1).containsItem("x"));
-		assertTrue(new DefaultTable(1).containsItem("line 5 in nowhere",6));
+		assertTrue(new DefaultTable(1).containsItem("line 5 in nowhere", 6));
 		assertFalse(new DefaultTable(1).containsItem("this is not in table"));
 	}
 
@@ -65,7 +67,7 @@ public class DefaultTableTest extends AbstractTableTest {
 
 		int selected = 0;
 		List<org.eclipse.reddeer.swt.api.TableItem> items = table.getItems();
-		for(int i = 0; i < items.size(); i++)
+		for (int i = 0; i < items.size(); i++)
 			selected += (items.get(i).isSelected() ? 1 : 0);
 
 		assertTrue("Table should have at least one selected item", selected >= 1);
@@ -75,70 +77,70 @@ public class DefaultTableTest extends AbstractTableTest {
 
 		selected = 0;
 		items = table.getItems();
-		for(int i = 0; i < items.size(); i++)
+		for (int i = 0; i < items.size(); i++)
 			selected += (items.get(i).isSelected() ? 1 : 0);
 
 		assertTrue("Table should have no selected items", selected == 0);
 	}
 
 	@Test(expected = RedDeerException.class)
-	public void testSingleSelectionTableWithMultiSelection(){
-		new DefaultTable(1).select(1,2,3,4);
+	public void testSingleSelectionTableWithMultiSelection() {
+		new DefaultTable(1).select(1, 2, 3, 4);
 	}
-	
+
 	@Test(expected = RedDeerException.class)
-	public void testSingleSelectionTableCheck(){
+	public void testSingleSelectionTableCheck() {
 		new DefaultTable(1).getItem(1).setChecked(true);
 	}
 
 	@Test
-	public void testSelectTableItem(){
-		new DefaultTable(1).getItem("line " + 100 + " in nowhere",6).select();
-		assertTrue(new DefaultTable(1).getItem("line " + 100 + " in nowhere",6).isSelected());
+	public void testSelectTableItem() {
+		new DefaultTable(1).getItem("line " + 100 + " in nowhere", 6).select();
+		assertTrue(new DefaultTable(1).getItem("line " + 100 + " in nowhere", 6).isSelected());
 	}
-	
+
 	@Test
-	public void testCheckTableSelection(){
+	public void testCheckTableSelection() {
 		new DefaultTable(2).select(1);
 	}
-	
+
 	@Test(expected = RedDeerException.class)
-	public void testCheckTableWithMultiSelection(){
-		new DefaultTable(2).select(1,2,3,4);
+	public void testCheckTableWithMultiSelection() {
+		new DefaultTable(2).select(1, 2, 3, 4);
 	}
-	
+
 	@Test
-	public void testCheckTable(){
+	public void testCheckTable() {
 		DefaultTable t = new DefaultTable(2);
 		t.getItem(1).setChecked(true);
-		
+
 		assertThat(t.getItems(new CheckedTableItemMatcher()).size(), is(1));
 	}
-	
+
 	@Test
-	public void doubleClickOnTableItem(){
+	public void doubleClickOnTableItem() {
 		org.eclipse.reddeer.swt.api.TableItem item = new DefaultTable(1).getItem(0);
-		assertEquals("x",item.getText());
+		assertEquals("x", item.getText());
 		item.doubleClick();
-		assertEquals("double click",item.getText());
+		assertEquals("double click", item.getText());
 	}
-	
+
 	@Test
-	public void waitForTableItem(){
+	public void waitForTableItem() {
 		new WaitUntil(new TableContainsItem(new DefaultTable(1), "!", 2));
 	}
-	
+
 	@Test(expected = WaitTimeoutExpiredException.class)
-	public void waitForNonExistingTableItem(){
+	public void waitForNonExistingTableItem() {
 		new WaitUntil(new TableContainsItem(new DefaultTable(1), "this does not exist", 2));
 	}
-	
+
 	@Test
-	public void indexOfTest(){
+	public void indexOfTest() {
 		DefaultTable table = new DefaultTable();
 		assertEquals(1, table.indexOf(table.getItem(1)));
 	}
-	
+
 	@Test
 	public void testHeaders() {
 		DefaultTable table = new DefaultTable();
@@ -151,23 +153,19 @@ public class DefaultTableTest extends AbstractTableTest {
 		assertTrue("Header on index 5 is not correct", headers.get(5).equals("In Folder"));
 		assertTrue("Header on index 6 is not correct", headers.get(6).equals("Location"));
 	}
-	
+
 	@Test
 	public void testGetIndexOfHeader() {
 		DefaultTable table = new DefaultTable();
 		assertTrue("Header index is not correct for header ' '", table.getHeaderIndex(" ") == 0);
 		assertTrue("Header index is not correct for header 'C'", table.getHeaderIndex("C") == 1);
 		assertTrue("Header index is not correct for header '!'", table.getHeaderIndex("!") == 2);
-		assertTrue("Header index is not correct for header 'Description'", 
-				table.getHeaderIndex("Description") == 3);
-		assertTrue("Header index is not correct for header 'Resource'", 
-				table.getHeaderIndex("Resource") == 4);
-		assertTrue("Header index is not correct for header 'In Folder'", 
-				table.getHeaderIndex("In Folder") == 5);
-		assertTrue("Header index is not correct for header 'Location'", 
-				table.getHeaderIndex("Location") == 6);
+		assertTrue("Header index is not correct for header 'Description'", table.getHeaderIndex("Description") == 3);
+		assertTrue("Header index is not correct for header 'Resource'", table.getHeaderIndex("Resource") == 4);
+		assertTrue("Header index is not correct for header 'In Folder'", table.getHeaderIndex("In Folder") == 5);
+		assertTrue("Header index is not correct for header 'Location'", table.getHeaderIndex("Location") == 6);
 	}
-	
+
 	@Test
 	public void testGetHeaderOnSpecifiedIndex() {
 		DefaultTable table = new DefaultTable();
@@ -179,49 +177,59 @@ public class DefaultTableTest extends AbstractTableTest {
 		assertTrue("Header on index 5 is not correct", table.getHeader(5).equals("In Folder"));
 		assertTrue("Header on index 6 is not correct", table.getHeader(6).equals("Location"));
 	}
-	
-	@Test(expected=SWTLayerException.class)
+
+	@Test(expected = SWTLayerException.class)
 	public void testGetNegativeIndexHeader() {
 		new DefaultTable().getHeader(-1);
 	}
-	
-	@Test(expected=SWTLayerException.class)
+
+	@Test(expected = SWTLayerException.class)
 	public void testGetTooHighIndexHeader() {
 		new DefaultTable().getHeader(10);
 	}
-	
-	@Test(expected=SWTLayerException.class)
+
+	@Test(expected = SWTLayerException.class)
 	public void testGetIndexOfNonexistingHeader() {
 		new DefaultTable().getHeaderIndex("I do not exist");
 	}
+
 	@Test
-	public void testGetSelectedItemsSingle(){
+	public void testGetSelectedItemsSingle() {
 		org.eclipse.reddeer.swt.api.Table table = new DefaultTable();
 		table.select(2);
 		List<org.eclipse.reddeer.swt.api.TableItem> selectedTableItems = table.getSelectetItems();
 		int numSelected = selectedTableItems.size();
 		assertTrue("Only one Table Item has to be selected but " + numSelected + " are.", numSelected == 1);
-		org.eclipse.reddeer.swt.api.TableItem expectedSelectedItem = table.getItem(2); 
+		org.eclipse.reddeer.swt.api.TableItem expectedSelectedItem = table.getItem(2);
 		org.eclipse.reddeer.swt.api.TableItem selectedItem = selectedTableItems.get(0);
 		assertTrue("Selected tree item is not correct: " + selectedItem.getText(),
-			expectedSelectedItem.getText(6).equals(selectedItem.getText(6)));
+				expectedSelectedItem.getText(6).equals(selectedItem.getText(6)));
 	}
-	
+
 	@Test
-	public void testGetSelectedItemsMulti(){
+	public void testGetSelectedItemsMulti() {
 		org.eclipse.reddeer.swt.api.Table table = new DefaultTable();
-		table.select(1,3);
+		table.select(1, 3);
 		List<org.eclipse.reddeer.swt.api.TableItem> selectedTableItems = table.getSelectetItems();
 		int numSelected = selectedTableItems.size();
 		assertTrue("Two Table Item has to be selected but " + numSelected + " are.", numSelected == 2);
-		org.eclipse.reddeer.swt.api.TableItem expectedSelectedItem = table.getItem(1); 
+		org.eclipse.reddeer.swt.api.TableItem expectedSelectedItem = table.getItem(1);
 		org.eclipse.reddeer.swt.api.TableItem selectedItem = selectedTableItems.get(0);
-		assertTrue("Selected tree item is not correct: " + selectedItem.getText(), 
-			expectedSelectedItem.getText(6).equals(selectedItem.getText(6)));
-		expectedSelectedItem = table.getItem(3); 
+		assertTrue("Selected tree item is not correct: " + selectedItem.getText(),
+				expectedSelectedItem.getText(6).equals(selectedItem.getText(6)));
+		expectedSelectedItem = table.getItem(3);
 		selectedItem = selectedTableItems.get(1);
-		assertTrue("Selected tree item is not correct: " + selectedItem.getText(), 
-			expectedSelectedItem.getText(6).equals(selectedItem.getText(6)));
+		assertTrue("Selected tree item is not correct: " + selectedItem.getText(),
+				expectedSelectedItem.getText(6).equals(selectedItem.getText(6)));
 
 	}
+
+	@Test
+	public void testFindingTableBytId() {
+		// index is started by 0
+		Table expectedTable = new DefaultTable(1);
+		Table foundTable = new DefaultTable(new WithIdMatcher("id", "table2"));
+		assertEquals(expectedTable.getSWTWidget(), foundTable.getSWTWidget());
+	}
+
 }
