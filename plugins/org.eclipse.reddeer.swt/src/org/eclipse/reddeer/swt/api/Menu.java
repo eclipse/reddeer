@@ -24,7 +24,24 @@ public interface Menu extends Widget<org.eclipse.swt.widgets.Menu>{
 	 * @return menu items of the menu
 	 */
 	java.util.List<MenuItem> getItems();
-	
+
+	/**
+	 * Checks if a menu item with a given text exists
+	 * 
+	 * @param text
+	 *            menu item text
+	 * @return true if a menu item exists; false otherwise
+	 */
+	boolean hasItem(String... text);
+
+	/**
+	 * Checks if a menu item matching with a given matcher exists
+	 * 
+	 * @param matchers
+	 * @return true if a menu item exists; false otherwise
+	 */
+	boolean hasItem(Matcher<String>... matcher);
+
 	/**
 	 * Finds menu item with given path
 	 * @param path of menu item to find
@@ -39,7 +56,6 @@ public interface Menu extends Widget<org.eclipse.swt.widgets.Menu>{
 	 */
 	@SuppressWarnings("unchecked")
 	MenuItem getItem(Matcher<String>... matchers);
-	
 	/**
 	 * Checks whether menu is enabled
 	 * @return true if menu is enabled, false otherwise

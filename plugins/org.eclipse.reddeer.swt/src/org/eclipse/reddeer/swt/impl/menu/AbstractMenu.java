@@ -11,11 +11,13 @@
 package org.eclipse.reddeer.swt.impl.menu;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import org.eclipse.reddeer.core.handler.MenuHandler;
 import org.eclipse.reddeer.core.lookup.MenuItemLookup;
+import org.eclipse.reddeer.core.matcher.WithMnemonicTextMatcher;
 import org.eclipse.reddeer.core.matcher.WithMnemonicTextMatchers;
 import org.eclipse.reddeer.core.reference.ReferencedComposite;
 import org.eclipse.reddeer.swt.api.MenuItem;
@@ -37,6 +39,34 @@ public abstract class AbstractMenu extends AbstractWidget<Menu> implements org.e
 	protected AbstractMenu(Class<Menu> widgetClass, ReferencedComposite refComposite, int index,
 			Matcher<?>[] matchers) {
 		super(widgetClass, refComposite, index, matchers);
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public boolean hasItem(String... path) {
+		Matcher<String>[] matchers = new Matcher[path.length];
+		for (int i = 0; i < path.length; i++) {
+			matchers[i] = new WithMnemonicTextMatcher(path[i]);
+		}
+		return hasItem(matchers);
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public boolean hasItem(Matcher<String>... matchers) {
+		if (matchers == null || matchers.length == 0) {
+			throw new IllegalArgumentException("Path must contain at least one item");
+		}
+		Matcher<String> matcher = matchers[0];
+		for (MenuItem menuItem : getItems()) {
+			if (matcher.matches(menuItem.getText())) {
+				if (matchers.length > 1) {
+					return menuItem.getMenu().hasItem(Arrays.copyOfRange(matchers, 1, matchers.length));
+				}
+				return true;
+			}
+		}
+		return false;
 	}
 
 	@Override

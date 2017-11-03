@@ -13,6 +13,7 @@ package org.eclipse.reddeer.swt.test.impl.menu;
 import org.eclipse.jface.layout.RowDataFactory;
 import org.eclipse.jface.layout.RowLayoutFactory;
 import org.eclipse.reddeer.common.util.Display;
+import org.eclipse.reddeer.swt.impl.shell.DefaultShell;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.MenuAdapter;
 import org.eclipse.swt.events.MenuEvent;
@@ -34,9 +35,10 @@ import org.junit.Before;
 public class AbstractMenuTest {
 	
 	public final String SHELL_TEXT="MenuShell";
-	public Text text ;
-	public Shell shell ;
-	Tree tree;
+	protected Text text;
+	protected Shell swtShell;
+	protected Tree tree;
+	protected org.eclipse.reddeer.swt.api.Shell shell;
 	
 	@Before
 	public void createMenus() {
@@ -44,14 +46,14 @@ public class AbstractMenuTest {
 			
 			@Override
 			public void run() {
-				shell = new Shell();
-				shell.setMenuBar(getShellMenuBar(shell));
-				shell.setMenu(getShellContextMenu(shell));
-				shell.setText(SHELL_TEXT);
+				swtShell = new Shell();
+				swtShell.setMenuBar(getShellMenuBar(swtShell));
+				swtShell.setMenu(getShellContextMenu(swtShell));
+				swtShell.setText(SHELL_TEXT);
 				
-				tree = new Tree(shell, SWT.SINGLE);
+				tree = new Tree(swtShell, SWT.SINGLE);
 				
-				ToolBar toolbar = new ToolBar(shell, SWT.FLAT);
+				ToolBar toolbar = new ToolBar(swtShell, SWT.FLAT);
 				ToolItem toolItem = new ToolItem(toolbar, SWT.DROP_DOWN);
 				toolItem.setToolTipText("toolItemMenu");
 				
@@ -76,30 +78,33 @@ public class AbstractMenuTest {
 				
 				tree.setMenu(getTreeMenu(tree));
 				
-				text = new Text(shell, 0);
+				text = new Text(swtShell, 0);
 				text.setText("Test");
 				text.setSize(100, 100);
 				
 
-				RowLayoutFactory.fillDefaults().applyTo(shell);
+				RowLayoutFactory.fillDefaults().applyTo(swtShell);
 				RowDataFactory.swtDefaults().applyTo(tree);
 				RowDataFactory.swtDefaults().applyTo(text);
 				
-				shell.layout();
-				shell.open();
+				swtShell.layout();
+				swtShell.open();
 				
 			}
 		});
+		
+
+		shell = new DefaultShell(SHELL_TEXT);
 	}
-	
+
 	@After
 	public void closeShell() {
 		Display.syncExec(new Runnable() {
 			
 			@Override
 			public void run() {
-				if(shell != null && !shell.isDisposed()) {
-					shell.close();
+				if(swtShell != null && !swtShell.isDisposed()) {
+					swtShell.close();
 				}
 			}
 		});
