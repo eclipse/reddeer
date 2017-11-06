@@ -261,6 +261,13 @@ public class EditorTest {
 		assertEquals("/" + PROJECT_NAME + "/editorTest1.min", editor1.getAssociatedFile().getRelativePath());
 	}
 
+	@Test(expected = WorkbenchLayerException.class)
+	public void getContextMenuTest() {
+		openFile("editorTest.min");
+		DefaultEditor editor = new DefaultEditor("editorTest.min");
+		editor.getContextMenu();
+	}
+
 	private SimpleEditor getEditorPart(Editor editor) {
 		Field editorField = null;
 		try {
