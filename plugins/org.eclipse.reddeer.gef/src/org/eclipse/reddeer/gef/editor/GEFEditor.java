@@ -180,6 +180,11 @@ public class GEFEditor extends DefaultEditor implements ReferencedComposite {
 		return viewer.getControl();
 	}
 
+	@Override
+	protected Control getRegisteredControl() {
+		return getControl();
+	}
+
 	/**
 	 * Helper class for detecting changes in the viewer.
 	 * 

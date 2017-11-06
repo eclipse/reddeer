@@ -22,6 +22,7 @@ import org.eclipse.reddeer.gef.test.wizard.GeneralProjectWizard;
 import org.eclipse.reddeer.junit.runner.RedDeerSuite;
 import org.eclipse.reddeer.requirements.cleanworkspace.CleanWorkspaceRequirement;
 import org.eclipse.reddeer.requirements.cleanworkspace.CleanWorkspaceRequirement.CleanWorkspace;
+import org.eclipse.reddeer.swt.api.Menu;
 import org.eclipse.reddeer.workbench.impl.shell.WorkbenchShell;
 import org.junit.After;
 import org.junit.BeforeClass;
@@ -91,9 +92,13 @@ public class GEFEditorTest {
 
 		gefEditor.addToolFromPalette("HalfAdder", "Canned Parts", 100, 200);
 		gefEditor.addToolFromPalette("FullAdder", "Canned Parts", 200, 200);
-		
-		gefEditor.addToolFromPalette("Flow Container", 100, 200);
-		gefEditor.addToolFromPalette("LED", 105, 205);
+
+		gefEditor.addToolFromPalette("Flow Container", 100, 300);
+		gefEditor.addToolFromPalette("LED", 105, 305);
+		gefEditor.save();
+
+		Menu contextMenu = gefEditor.getContextMenu();
+		contextMenu.getItem("Undo Create Object").select();
 	}
 
 	@Test
@@ -120,6 +125,10 @@ public class GEFEditorTest {
 		gefEditor.addToolFromPalette("Rectangle", 100, 0);
 		gefEditor.addToolFromPalette("Ellipse", "Shapes", 0, 200);
 		gefEditor.addToolFromPalette("Rectangle", "Shapes", 100, 200);
+		gefEditor.save();
+
+		Menu contextMenu = gefEditor.getContextMenu();
+		contextMenu.getItem("Undo shape creation").select();
 	}
 
 	private static void assertContains(String text, Collection<String> collection) {
