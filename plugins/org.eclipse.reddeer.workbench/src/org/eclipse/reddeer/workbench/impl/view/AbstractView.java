@@ -13,6 +13,8 @@ package org.eclipse.reddeer.workbench.impl.view;
 import static org.eclipse.reddeer.common.wait.WaitProvider.waitUntil;
 import static org.eclipse.reddeer.common.wait.WaitProvider.waitWhile;
 
+import java.util.regex.Pattern;
+
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Shell;
 import org.hamcrest.Matcher;
@@ -66,7 +68,7 @@ public abstract class AbstractView extends AbstractWorkbenchPart implements View
 	 *            title of view to initialize
 	 */
 	public AbstractView(String viewTitle) {
-		this(new WithTextMatcher(new RegexMatcher("\\*?" + viewTitle)));
+		this(new WithTextMatcher(new RegexMatcher("\\*?" + Pattern.quote(viewTitle))));
 	}
 
 	/**

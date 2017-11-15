@@ -12,6 +12,7 @@ package org.eclipse.reddeer.workbench.impl.editor;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.jface.bindings.TriggerSequence;
@@ -109,7 +110,7 @@ public abstract class AbstractEditor extends AbstractWorkbenchPart implements Ed
 
 	protected AbstractEditor(IEditorPart part) {
 		// find also dirty editors
-		super(new DefaultCTabItem(new WorkbenchShellReferenced(), new WithTextMatcher(new RegexMatcher("\\*?" + part.getTitle()))));
+		super(new DefaultCTabItem(new WorkbenchShellReferenced(), new WithTextMatcher(new RegexMatcher("\\*?" + Pattern.quote(part.getTitle())))));
 		InstanceValidator.checkNotNull(part, "part");
 		this.editorPart = part;
 		activate();

@@ -65,6 +65,14 @@ public class EditorTest {
 		page.setFileName("editorTest1.min");
 		page.setFolderPath(PROJECT_NAME);
 		newFileDialog.finish();
+		
+		newFileDialog = new BasicNewFileResourceWizard();
+		newFileDialog.open();
+		page = new WizardNewFileCreationPage(newFileDialog);
+		page.setFileName("editorTest+.min");
+		page.setFolderPath(PROJECT_NAME);
+		newFileDialog.finish();
+		
 		new DefaultEditor().close(false);
 	}
 
@@ -221,6 +229,15 @@ public class EditorTest {
 		editor = new DefaultEditor("editorTest.min");
 		assertNotNull(editor);
 		editor = new DefaultEditor("editorTest1.min");
+		assertNotNull(editor);
+	}
+	
+	@Test
+	public void getEditorByTitleRegexTest() {
+		PackageExplorerPart packageExplorer = new PackageExplorerPart();
+		packageExplorer.open();
+		packageExplorer.getProject(PROJECT_NAME).getProjectItem("editorTest+.min").open();
+		DefaultEditor editor = new DefaultEditor("editorTest+.min");
 		assertNotNull(editor);
 	}
 

@@ -13,6 +13,8 @@ package org.eclipse.reddeer.eclipse.core.resources;
 import static org.eclipse.reddeer.common.wait.WaitProvider.waitUntil;
 import static org.eclipse.reddeer.common.wait.WaitProvider.waitWhile;
 
+import java.util.regex.Pattern;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Button;
 import org.hamcrest.Matcher;
@@ -128,7 +130,7 @@ public abstract class AbstractResource implements Resource, RedDeerAdaptable<Res
 	public void runAs(String launcher) {
 		select();
 
-		Matcher<String> launcherMatcher = new WithMnemonicTextMatcher(new RegexMatcher("[0-9]* " + launcher));
+		Matcher<String> launcherMatcher = new WithMnemonicTextMatcher(new RegexMatcher("[0-9]* " + Pattern.quote(launcher)));
 		new ContextMenuItem(new WithMnemonicTextMatcher("Run As"), new WithMnemonicTextMatcher(launcherMatcher)).select();
 	}
 	
@@ -159,7 +161,7 @@ public abstract class AbstractResource implements Resource, RedDeerAdaptable<Res
 	public void debugAs(String launcher) {
 		select();
 
-		Matcher<String> launcherMatcher = new WithMnemonicTextMatcher(new RegexMatcher("[0-9]* " + launcher));
+		Matcher<String> launcherMatcher = new WithMnemonicTextMatcher(new RegexMatcher("[0-9]* " + Pattern.quote(launcher)));
 		new ContextMenuItem(new WithMnemonicTextMatcher("Debug As"), new WithMnemonicTextMatcher(launcherMatcher)).select();
 	}
 	

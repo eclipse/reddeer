@@ -23,7 +23,6 @@ import org.eclipse.reddeer.swt.api.Browser;
 import org.eclipse.reddeer.swt.impl.browser.InternalBrowser;
 import org.eclipse.reddeer.swt.test.SWTLayerTestCase;
 import org.eclipse.reddeer.swt.test.utils.LabelTestUtils;
-import org.junit.Ignore;
 import org.junit.Test;
 
 public class BrowserTest extends SWTLayerTestCase {
@@ -59,7 +58,6 @@ public class BrowserTest extends SWTLayerTestCase {
 	}
 
 	@Test
-	@Ignore
 	public void findBrowserByLabel() {
 		new InternalBrowser(BrowserTest.BROWSER_LABEL);
 	}

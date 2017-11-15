@@ -46,7 +46,6 @@ import org.eclipse.reddeer.requirements.cleanworkspace.CleanWorkspaceRequirement
 import org.eclipse.reddeer.swt.api.Menu;
 import org.eclipse.reddeer.swt.api.MenuItem;
 import org.eclipse.reddeer.swt.condition.ShellIsAvailable;
-import org.eclipse.reddeer.swt.impl.menu.ContextMenu;
 import org.eclipse.reddeer.swt.keyboard.KeyboardFactory;
 import org.eclipse.reddeer.workbench.exception.WorkbenchLayerException;
 import org.eclipse.reddeer.workbench.handler.EditorHandler;
@@ -61,7 +60,6 @@ import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.texteditor.ITextEditor;
 import org.junit.After;
 import org.junit.AfterClass;
-import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -72,6 +70,7 @@ public class TextEditorTest {
 
 	private static String ORIGINAL_JAVA_FILE_TEXT = "";
 	private static final String JAVA_CLASS_FILE_NAME = "JavaClass.java";
+	private static final String JAVA_CLASS_REGEX_FILE_NAME = "JavaClass+.java";
 
 	@BeforeClass
 	public static void setup() {
@@ -91,10 +90,6 @@ public class TextEditorTest {
 				
 			}
 		});
-		
-		
-		
-		
 		
 		EditorHandler.getInstance().closeAll(true);
 		BasicNewProjectResourceWizard projectWizard = new BasicNewProjectResourceWizard();
@@ -459,6 +454,16 @@ public class TextEditorTest {
 		Menu contextMenu = textEditor.getContextMenu();
 		MenuItem preferences = contextMenu.getItem("Preferences...");
 		assertNotNull(preferences);
+	}
+	
+	@Test
+	public void openFileWithRegexInName () {
+		ProjectExplorer pe = new ProjectExplorer();
+		pe.open();
+		ProjectItem javaFile = pe.getProject("TextEditorTestProject").getProjectItem("src", "test",
+				TextEditorTest.JAVA_CLASS_REGEX_FILE_NAME);
+		javaFile.open();
+		new TextEditor(TextEditorTest.JAVA_CLASS_REGEX_FILE_NAME);
 	}
 
 	private void collapseTextInJavaFile() {
