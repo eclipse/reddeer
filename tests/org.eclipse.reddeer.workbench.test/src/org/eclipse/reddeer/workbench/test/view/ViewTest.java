@@ -40,6 +40,11 @@ public class ViewTest {
 		new WorkbenchView("Nonexist View");
 	}
 	
+	@Test(expected = WorkbenchLayerException.class)
+	public void testInitializeRegisteredViewWithRegex() {
+		new WorkbenchView("Workbench Test.*");
+	}
+	
 	@Test
 	public void getTitleTest(){
 		View customView = new WorkbenchView("Workbench Test");
