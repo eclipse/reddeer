@@ -12,8 +12,6 @@ package org.eclipse.reddeer.eclipse.test.wst.server.ui.view;
 
 import java.io.File;
 
-import org.eclipse.reddeer.common.wait.AbstractWait;
-import org.eclipse.reddeer.common.wait.TimePeriod;
 import org.eclipse.reddeer.common.wait.WaitUntil;
 import org.eclipse.reddeer.eclipse.condition.ServerExists;
 import org.eclipse.reddeer.eclipse.test.Activator;

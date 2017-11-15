@@ -20,8 +20,10 @@ import org.eclipse.reddeer.eclipse.jdt.ui.packageview.PackageExplorerPart;
 import org.eclipse.reddeer.eclipse.utils.DeleteUtils;
 import org.eclipse.reddeer.eclipse.wst.server.ui.cnf.Server;
 import org.eclipse.reddeer.eclipse.wst.server.ui.cnf.ServerModule;
+import org.eclipse.reddeer.eclipse.wst.server.ui.cnf.ServersViewEnums.ServerPublishState;
 import org.eclipse.reddeer.eclipse.wst.server.ui.wizard.ModifyModulesDialog;
 import org.eclipse.reddeer.eclipse.wst.server.ui.wizard.ModifyModulesPage;
+import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -43,6 +45,15 @@ public class ModifyModulesDialogTest extends ServersViewTestCase{
 		createServer(SERVER);
 		server = getServersView().getServer(SERVER);
 	}
+	
+	@After
+	public void removeModules() {
+		List<ServerModule> modules = server.getModules();
+		for(ServerModule module: modules){
+			module.remove();
+		}
+	}
+	
 	
 	@AfterClass
 	public static void removeProjects(){
@@ -139,5 +150,22 @@ public class ModifyModulesDialogTest extends ServersViewTestCase{
 		assertThat(configuredModules.get(0), is(PROJECT_1));
 		assertThat(configuredModules.get(1), is(PROJECT_2));
 		assertThat(configuredModules.get(2), is(PROJECT_3));
+	}
+	
+	@Test
+	public void testSwitchingOffPublishingChanges() {
+		ModifyModulesDialog dialog = server.addAndRemoveModules();
+		ModifyModulesPage page = new ModifyModulesPage(dialog);
+		page.add(PROJECT_1);
+		page.togglePublishChanges(false);
+
+		dialog.finish();
+
+		List<ServerModule> configuredModules = server.getModules();
+		
+		assertThat(configuredModules.size(), is(1));
+
+		assertThat(configuredModules.get(0).getLabel().getName(), is(PROJECT_1));
+		assertThat(configuredModules.get(0).getLabel().getPublishState(), is(ServerPublishState.NONE));
 	}
 }

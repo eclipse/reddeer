@@ -11,6 +11,7 @@
 package org.eclipse.reddeer.eclipse.wst.server.ui.cnf;
 
 import org.eclipse.reddeer.eclipse.wst.server.ui.cnf.ServersViewEnums.ServerPublishState;
+import org.eclipse.reddeer.eclipse.wst.server.ui.cnf.ServersViewEnums.ServerState;
 import org.eclipse.reddeer.swt.api.TreeItem;
 
 
@@ -37,6 +38,19 @@ public class ModuleLabel extends AbstractLabel{
 	 */
 	@Override
 	protected void parseSingleStateDecoration(String stateString) {
-			status = ServerPublishState.getByText(stateString);
+		for (ServerPublishState publishStatus : ServerPublishState.values()) {
+			if (publishStatus.getText().equals(stateString)) {
+				status = publishStatus;
+				return;
+			}
+		}
+		for (ServerState serverState : ServerState.values()) {
+			if (serverState.getText().equals(stateString)) {
+				state = serverState;
+				return;
+			}
+		}
+		throw new IllegalArgumentException("There is no enumeration with text " 
+				+ stateString + " in ServerPublishState or ServerState");
 	}
 }
