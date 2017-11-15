@@ -18,6 +18,7 @@ import java.util.List;
 
 import org.eclipse.reddeer.eclipse.wst.server.ui.cnf.Server;
 import org.eclipse.reddeer.eclipse.wst.server.ui.cnf.ServerModule;
+import org.eclipse.reddeer.eclipse.wst.server.ui.cnf.ServersViewEnums.ServerPublishState;
 import org.eclipse.reddeer.eclipse.wst.server.ui.cnf.ServersViewEnums.ServerState;
 import org.eclipse.reddeer.eclipse.wst.server.ui.wizard.ModifyModulesDialog;
 import org.eclipse.reddeer.eclipse.wst.server.ui.wizard.ModifyModulesPage;
@@ -29,7 +30,7 @@ import org.junit.Test;
 
 /**
  * 
- * @author Radoslav Rabara
+ * @author Radoslav Rabara, odockal@redhat.com
  *
  */
 public class ServerModuleTest extends ServersViewTestCase {
@@ -105,6 +106,58 @@ public class ServerModuleTest extends ServersViewTestCase {
 		assertTrue(module.canRestart());
 		module.restart();
 		assertTrue(module.getLabel().getState().equals(ServerState.STARTED));
+	}
+	
+	@Test
+	public void testGetServerModuleWithPublishState() {
+		ModifyModulesDialog dialog = server.addAndRemoveModules();
+		ModifyModulesPage page = new ModifyModulesPage(dialog);
+		page.addAll();
+		page.togglePublishChanges(true);
+		dialog.finish();
+
+		ServerModule thirdModule = server.getModule(PROJECT_1);
+		assertTrue(thirdModule.getLabel().getPublishState().equals(ServerPublishState.SYNCHRONIZED));
+	}
+	
+	@Test
+	public void testGetServerModuleWithServerState() {
+		ModifyModulesDialog dialog = server.addAndRemoveModules();
+		ModifyModulesPage page = new ModifyModulesPage(dialog);
+		page.add(PROJECT_2);
+		page.togglePublishChanges(false);
+		dialog.finish();
+
+		server.getModules().get(0).start();
+		ServerModule module = server.getModule(PROJECT_2);
+		assertTrue(module.getLabel().getState().equals(ServerState.STARTED));
+	}
+	
+	@Test
+	public void testGetServerModuleWithNoState() {
+		ModifyModulesDialog dialog = server.addAndRemoveModules();
+		ModifyModulesPage page = new ModifyModulesPage(dialog);
+		page.addAll();
+		page.togglePublishChanges(false);
+		dialog.finish();
+
+		ServerModule module = server.getModule(PROJECT_3);
+		assertThat(module.getLabel().getPublishState(), is(ServerPublishState.NONE));
+		assertThat(module.getLabel().getState(), is(ServerState.NONE));
+	}
+	
+	@Test
+	public void testGetServerModuleWithStates() {
+		ModifyModulesDialog dialog = server.addAndRemoveModules();
+		ModifyModulesPage page = new ModifyModulesPage(dialog);
+		page.add(PROJECT_3);
+		page.togglePublishChanges(true);
+		dialog.finish();
+
+		server.getModules().get(0).start();
+		ServerModule module = server.getModule(PROJECT_3);
+		assertThat(module.getLabel().getPublishState(), is(ServerPublishState.SYNCHRONIZED));
+		assertThat(module.getLabel().getState(), is(ServerState.STARTED));
 	}
 	
 	private ServerModule addServerModule(){

@@ -16,6 +16,7 @@ import java.util.List;
 import org.eclipse.reddeer.core.reference.ReferencedComposite;
 import org.eclipse.reddeer.jface.wizard.WizardPage;
 import org.eclipse.reddeer.swt.api.TreeItem;
+import org.eclipse.reddeer.swt.impl.button.CheckBox;
 import org.eclipse.reddeer.swt.impl.button.PushButton;
 import org.eclipse.reddeer.swt.impl.tree.DefaultTree;
 import org.eclipse.reddeer.swt.impl.tree.DefaultTreeItem;
@@ -95,6 +96,15 @@ public class ModifyModulesPage extends WizardPage {
 	 */
 	public List<String> getConfiguredModules() {
 		return getItemsFromTable(1);
+	}
+	
+	/**
+	 * Sets if changes are published immediately
+	 * 
+	 * @param checked value to toggle
+	 */
+	public void togglePublishChanges(boolean checked) {
+		new CheckBox(this, "If server is started, publish changes immediately").toggle(checked);
 	}
 
 	private List<String> getItemsFromTable(int tableIndex) {
