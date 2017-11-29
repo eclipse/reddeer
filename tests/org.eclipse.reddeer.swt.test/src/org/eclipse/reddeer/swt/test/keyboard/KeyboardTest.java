@@ -15,6 +15,7 @@ import static org.junit.Assert.assertEquals;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.reddeer.common.exception.RedDeerException;
 import org.eclipse.reddeer.common.util.Display;
 import org.eclipse.reddeer.common.util.ResultRunnable;
 import org.eclipse.reddeer.junit.runner.RedDeerSuite;
@@ -35,13 +36,17 @@ public class KeyboardTest {
 	
 	@After
 	public void cleanup() {
-		Display.syncExec(new Runnable() {
+		try {
+			Display.syncExec(new Runnable() {
 
-			@Override
-			public void run() {
-				ShellTestUtils.closeShell(SHELL_TITLE);
-			}
-		});
+				@Override
+				public void run() {
+					ShellTestUtils.closeShell(SHELL_TITLE);
+				}
+			});
+		} catch (RedDeerException ex) {
+			// keyCombinationTest does not open shell with title SHELL_TITLE
+		}
 	}
 	
 	@Test
