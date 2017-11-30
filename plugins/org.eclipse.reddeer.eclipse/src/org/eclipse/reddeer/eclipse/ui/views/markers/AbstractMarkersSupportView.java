@@ -16,7 +16,6 @@ import java.util.List;
 
 import org.eclipse.reddeer.common.exception.RedDeerException;
 import org.eclipse.reddeer.common.wait.WaitWhile;
-import org.eclipse.reddeer.core.exception.CoreLayerException;
 import org.eclipse.reddeer.eclipse.exception.EclipseLayerException;
 import org.eclipse.reddeer.eclipse.ui.markers.AbstractMarker;
 import org.eclipse.reddeer.eclipse.ui.markers.matcher.AbstractMarkerMatcher;
@@ -225,7 +224,7 @@ public class AbstractMarkersSupportView extends WorkbenchView {
 						itemFitsMatchers = false;
 						break;
 					}
-				} catch (CoreLayerException ex){
+				} catch (RedDeerException ex){
 					//if widget is disposed we can ignore it - problem disappeared
 					if(!item.isDisposed()){
 						throw ex;
