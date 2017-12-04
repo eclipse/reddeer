@@ -57,6 +57,7 @@ public class ShellIsAvailable extends ShellMatchingMatcherIsAvailable {
 		if(shell != null){
 			for(org.eclipse.swt.widgets.Shell s: ShellLookup.getInstance().getShells()){
 				if(shell.getSWTWidget().equals(s)){
+					foundShell = s;
 					return true;
 				}
 			}
