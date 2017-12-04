@@ -115,6 +115,13 @@ public class ShellIsAvailableTest {
 
 	@Test
 	public void testGetResultShell() {
+		ShellIsAvailable shellAvailable = new ShellIsAvailable(this.shell);
+		assertTrue(shellAvailable.test());
+		assertTrue(shellAvailable.getResult().equals(this.shell.getSWTWidget()));
+	}
+
+	@Test
+	public void testGetResultShellWithText() {
 		ShellIsAvailable shellAvailable = new ShellIsAvailable(this.shell.getText());
 		assertTrue(shellAvailable.test());
 		assertTrue(shellAvailable.getResult().equals(this.shell.getSWTWidget()));

@@ -26,7 +26,7 @@ import org.eclipse.reddeer.core.lookup.ShellLookup;
 public class ShellMatchingMatcherIsAvailable extends AbstractWaitCondition {
 
 	private AndMatcher matcher;
-	private Shell foundShell;
+	protected Shell foundShell;
 	
 	/**
 	 * Creates new ShellMatchingMatcherIsAvailable wait condition with specified matcher.
