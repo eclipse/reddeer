@@ -188,7 +188,8 @@ public abstract class AbstractWait implements Wait {
 	}
 	
 	private static void sleep(long milliseconds) {
-		if (Thread.currentThread().equals(Display.getDisplay().getThread())) {
+		org.eclipse.swt.widgets.Display display = Display.getDisplay();
+		if(display != null && Thread.currentThread().equals(display.getThread())) {
 			throw new RuntimeException("Tried to execute sleep in UI thread!");
 		}
 		try {
