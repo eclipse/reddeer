@@ -29,12 +29,23 @@ public class ConsoleHasText extends AbstractWaitCondition {
 	 * Creates new ConsoleHasText wait condition waiting until a console
 	 * contains specified text.
 	 * 
+	 * @param view console view to use
+	 * @param text Text
+	 */
+	public ConsoleHasText(ConsoleView view, String text) {
+		this.text = text;
+		consoleView = view;
+		view.open();
+	}
+	
+	/**
+	 * Creates new ConsoleHasText wait condition waiting until a console
+	 * contains specified text.
+	 * 
 	 * @param text Text
 	 */
 	public ConsoleHasText(String text) {
-		this.text = text;
-		consoleView = new ConsoleView();
-		consoleView.activate();
+		this(new ConsoleView(), text);
 	}
 
 	/**
