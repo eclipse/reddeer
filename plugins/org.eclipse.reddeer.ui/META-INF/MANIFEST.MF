@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: RedDeer UI
 Bundle-SymbolicName: org.eclipse.reddeer.ui;singleton:=true
-Bundle-Version: 2.0.1.qualifier
+Bundle-Version: 2.0.1.Final
 Bundle-Activator: org.eclipse.reddeer.ui.Activator
 Bundle-Vendor: Eclipse.org - RedDeer
 Bundle-ActivationPolicy: lazy
