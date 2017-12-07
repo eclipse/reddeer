@@ -2,19 +2,19 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: RedDeer GEF Spy
 Bundle-SymbolicName: org.eclipse.reddeer.gef.spy;singleton:=true
-Bundle-Version: 2.0.1.Final
+Bundle-Version: 2.1.0.qualifier
 Bundle-Activator: org.eclipse.reddeer.gef.spy.Activator
 Bundle-Vendor: Eclipse.org - RedDeer
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  org.eclipse.gef,
  org.hamcrest.core;bundle-version="1.3.0",
- org.eclipse.reddeer.swt;bundle-version="[2.0,2.1)",
- org.eclipse.reddeer.workbench;bundle-version="[2.0,2.1)",
- org.eclipse.reddeer.gef;bundle-version="[2.0,2.1)",
- org.eclipse.reddeer.core;bundle-version="[2.0,2.1)",
- org.eclipse.reddeer.common;bundle-version="[2.0,2.1)",
- org.eclipse.reddeer.workbench.core;bundle-version="[2.0,2.1)"
+ org.eclipse.reddeer.swt;bundle-version="[2.1,2.2)",
+ org.eclipse.reddeer.workbench;bundle-version="[2.1,2.2)",
+ org.eclipse.reddeer.gef;bundle-version="[2.1,2.2)",
+ org.eclipse.reddeer.core;bundle-version="[2.1,2.2)",
+ org.eclipse.reddeer.common;bundle-version="[2.1,2.2)",
+ org.eclipse.reddeer.workbench.core;bundle-version="[2.1,2.2)"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
 Export-Package: org.eclipse.reddeer.gef.spy,
