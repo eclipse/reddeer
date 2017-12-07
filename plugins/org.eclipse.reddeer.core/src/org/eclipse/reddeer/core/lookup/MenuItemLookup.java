@@ -11,7 +11,10 @@
 package org.eclipse.reddeer.core.lookup;
 
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.StringJoiner;
 
 import org.eclipse.reddeer.common.logging.Logger;
 import org.eclipse.reddeer.common.util.Display;
@@ -27,8 +30,13 @@ public class MenuItemLookup {
 	
 	private static final Logger log = Logger.getLogger(MenuItemLookup.class);
 	private static MenuItemLookup instance = null;
-	
-	private MenuItemLookup() { }
+
+	private StringBuilder foundPath;
+	private Set<String> foundMenuItems;
+
+	private MenuItemLookup() { 
+		foundMenuItems = new HashSet<>();
+	}
 	
 	/**
 	 * Gets singleton instance of MenuItemLookup.
@@ -49,11 +57,21 @@ public class MenuItemLookup {
 	 * @param matchers menu item text matchers
 	 * @return MenuItem matching matchers
 	 */
-	public MenuItem lookFor(Menu menu, Matcher<String>... matchers) {	
+	public MenuItem lookFor(Menu menu, Matcher<String>... matchers) {
 		List<MenuItem> items = MenuHandler.getInstance().getItems(menu);
 		MenuItem lastMenuItem = getMatchingMenuPath(items, matchers);
 		if (lastMenuItem == null) {
-			throw new CoreLayerException("No menu item matching specified path found");
+			StringJoiner stringOfMatchers = new StringJoiner(", ");
+			for (Matcher<String> matcher : matchers) {
+				stringOfMatchers.add(matcher.toString());
+			}
+			StringJoiner stringOfFoundMenuItems = new StringJoiner("\n", "\t", "");
+			for (String foundMenuItem : foundMenuItems) {
+				stringOfFoundMenuItems.add(foundMenuItem);
+			}
+			throw new CoreLayerException("No menu item matching " + stringOfMatchers
+					+ " was found.\nThe following items were found on path '" + foundPath + "':\n"
+					+ stringOfFoundMenuItems);
 		}
 		return lastMenuItem;
 	}
@@ -67,6 +85,8 @@ public class MenuItemLookup {
 	 */
 	private MenuItem getMatchingMenuPath(final List<MenuItem> topItems,
 			final Matcher<String>... matchers) {
+		foundPath = new StringBuilder("/");
+		foundMenuItems.clear();
 		MenuItem i = Display.syncExec(new ResultRunnable<MenuItem>() {
 
 			@Override
@@ -79,8 +99,11 @@ public class MenuItemLookup {
 					for (MenuItem i : menuItems) {
 						String normalized = i.getText().replace("&", "");
 						log.debug("Found menu:'" + normalized + "'");
+						foundMenuItems.add(normalized);
 						if (m.matches(normalized)) {
 							log.debug("Item match:" + normalized);
+							foundPath.append(normalized);
+							foundMenuItems.clear();
 							currentItem = i;
 							currentMenu = i.getMenu();
 							break;
