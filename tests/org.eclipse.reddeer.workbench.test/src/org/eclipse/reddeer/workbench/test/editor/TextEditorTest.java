@@ -20,6 +20,7 @@ import java.awt.AWTException;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.net.URL;
+import java.util.List;
 
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.Platform;
@@ -51,6 +52,7 @@ import org.eclipse.reddeer.workbench.exception.WorkbenchLayerException;
 import org.eclipse.reddeer.workbench.handler.EditorHandler;
 import org.eclipse.reddeer.workbench.handler.WorkbenchShellHandler;
 import org.eclipse.reddeer.workbench.impl.editor.AbstractEditor.ContentAssistantEnum;
+import org.eclipse.reddeer.workbench.impl.editor.Marker;
 import org.eclipse.reddeer.workbench.impl.editor.TextEditor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Point;
@@ -330,22 +332,31 @@ public class TextEditorTest {
 	@Test
 	public void getMarkers() {
 		TextEditor textEditor = TextEditorTest.openJavaFile();
-		textEditor.setText(textEditor.getText().replace("System", "Systemx"));
+		textEditor.setText(textEditor.getText().replace("System", "SystemX"));
+		// in case if the editor has been changed by the test getAYTMarkers()
+		textEditor.setText(textEditor.getText().replace("SystemY", "SystemX"));
 		textEditor.save();
 		AbstractWait.sleep(TimePeriod.SHORT);
-		assertEquals(2, textEditor.getMarkers().size());
-		assertEquals("Systemx cannot be resolved", textEditor.getMarkers().get(0).getText());
+		List<Marker> markers = textEditor.getMarkers(); 
+		assertEquals(2, markers.size());
+		assertEquals("SystemX cannot be resolved", markers.get(0).getText());
+		assertEquals(15, markers.get(0).getLineNumber());
 	}
 
 	@Test
 	public void getAYTMarkers() {
 		TextEditor textEditor = TextEditorTest.openJavaFile();
-		textEditor.setText(textEditor.getText().replace("System", "Systemx"));
-		// textEditor.save();
+		// in case if the editor has been changed by the test getMarkers()
+		textEditor.setText(textEditor.getText().replace("SystemX", "System"));
+		textEditor.save();
 		AbstractWait.sleep(TimePeriod.SHORT);
-		assertEquals(1, textEditor.getMarkers().size());
-		assertEquals("Systemx cannot be resolved", textEditor.getMarkers().get(0).getText());
-		assertEquals(15, textEditor.getMarkers().get(0).getLineNumber());
+		textEditor.setText(textEditor.getText().replace("System", "SystemY"));
+		// Wait and do not save the editor
+		AbstractWait.sleep(TimePeriod.SHORT);
+		List<Marker> markers = textEditor.getAYTMarkers();
+		assertEquals(1, markers.size());
+		assertEquals("SystemY cannot be resolved", markers.get(0).getText());
+		assertEquals(15, markers.get(0).getLineNumber());
 	}
 
 	@Test
