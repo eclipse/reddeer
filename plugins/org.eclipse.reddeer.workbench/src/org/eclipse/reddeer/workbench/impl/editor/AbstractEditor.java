@@ -300,6 +300,12 @@ public abstract class AbstractEditor extends AbstractWorkbenchPart implements Ed
 		activate();
 		return EditorHandler.getInstance().getMarkers(editorPart);
 	}
+	
+	@Override
+	public List<Marker> getAYTMarkers() {
+		activate();
+		return EditorHandler.getInstance().getMarkers(editorPart, false);
+	}
 
 	@Override
 	public ContentAssistant getAutoContentAssistant(Runnable execute) {

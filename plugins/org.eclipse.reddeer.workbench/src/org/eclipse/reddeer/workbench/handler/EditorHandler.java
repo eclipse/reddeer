@@ -138,33 +138,50 @@ public class EditorHandler extends WorkbenchPartHandler {
 
     }
 
-    /**
-     * Returns validation markers.
-     * @param editor to extract validation markers from
-     * @return list of validation markers
-     */
-    public List<Marker> getMarkers(final IEditorPart editor) {
-        List<Marker> markers = new ArrayList<Marker>();
-        ITextEditor textEditor = (ITextEditor) editor.getAdapter(ITextEditor.class);
-        if (textEditor == null) {
-            return markers;
-        }
-        final IDocumentProvider documentProvider = textEditor.getDocumentProvider();
-        if (documentProvider == null) {
-            return markers;
-        }
-        IAnnotationModel model = documentProvider.getAnnotationModel(textEditor.getEditorInput());
-        Iterator<?> it = model.getAnnotationIterator();
-        while (it.hasNext()) {
-            Object o = it.next();
-            if (o instanceof Annotation && !(o instanceof ILineDiffInfo)) {
-            	Annotation annotation = (Annotation) o;
-            	markers.add(new Marker(annotation, editor));
-            }
-        }
-        return markers;
-    }
-    
+	/**
+	 * Returns persistent validation markers.
+	 * 
+	 * @param editor
+	 *            to extract validation markers from
+	 * @return list of persistent validation markers
+	 */
+	public List<Marker> getMarkers(final IEditorPart editor) {
+		return getMarkers(editor, true);
+	}
+
+	/**
+	 * Returns validation markers.
+	 * 
+	 * @param editor
+	 *            editor to extract validation markers from
+	 * @param isPersistent
+	 *            common markers are persistent, AYT markers are not persistent
+	 * @return validation markers
+	 */
+	public List<Marker> getMarkers(final IEditorPart editor, boolean isPersistent) {
+		List<Marker> markers = new ArrayList<Marker>();
+		ITextEditor textEditor = (ITextEditor) editor.getAdapter(ITextEditor.class);
+		if (textEditor == null) {
+			return markers;
+		}
+		final IDocumentProvider documentProvider = textEditor.getDocumentProvider();
+		if (documentProvider == null) {
+			return markers;
+		}
+		IAnnotationModel model = documentProvider.getAnnotationModel(textEditor.getEditorInput());
+		Iterator<?> it = model.getAnnotationIterator();
+		while (it.hasNext()) {
+			Object o = it.next();
+			if (o instanceof Annotation && !(o instanceof ILineDiffInfo)) {
+				Annotation annotation = (Annotation) o;
+				if (annotation.isPersistent() == isPersistent) {
+					markers.add(new Marker(annotation, editor));
+				}
+			}
+		}
+		return markers;
+	}
+
     /**
      * Closes all editors.
      * @param save performs save operation before closing if true

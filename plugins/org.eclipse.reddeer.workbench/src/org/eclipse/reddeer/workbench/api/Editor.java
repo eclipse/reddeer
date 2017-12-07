@@ -99,6 +99,13 @@ public interface Editor extends WorkbenchPart {
 	List<Marker> getMarkers();
 
 	/**
+	 * Returns editor validation AYT (as you type) markers.
+	 * 
+	 * @return editor validation AYT (as you type) markers
+	 */
+	List<Marker> getAYTMarkers();
+
+	/**
 	 * Gets content assistant opened automatically by instructions defined within run method of execute parameter or
 	 * null in case Content Assistant shell was not opened.
 	 *
