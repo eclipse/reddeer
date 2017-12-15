@@ -30,11 +30,6 @@ public class Activator extends AbstractUIPlugin {
 	// The plug-in ID
 	public static final String PLUGIN_ID = "org.eclipse.reddeer.ui"; //$NON-NLS-1$
 
-	// The application ID of the RedDeer test application - part of make RedDeer
-	// independent from SWTBot.
-	public static final String APPLICATION_ID = PLUGIN_ID
-			+ ".reddeertestapplication"; //$NON-NLS-1$
-
 	public static final String REDDEER_ICON = "reddeer_icon";
 	public static final String REDDEER_RUNNER = "reddeer_runner";
 

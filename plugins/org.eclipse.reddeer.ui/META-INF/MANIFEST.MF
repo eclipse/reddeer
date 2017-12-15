@@ -21,4 +21,6 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.jdt.junit.runtime,
  org.eclipse.jdt.debug.ui,
  org.eclipse.ui.ide,
- org.eclipse.reddeer.common;bundle-version="[2.1,2.2)"
+ org.eclipse.reddeer.common;bundle-version="[2.1,2.2)",
+ org.eclipse.osgi,
+ org.eclipse.reddeer.jdt.junit

@@ -109,13 +109,13 @@ public class ExtendedFileEditorsPreferencePageTest {
 	public void getAssociatedEditorsTest() {
 		prefPage.selectFileType("*.html");
 		List<String> associatedEditors = prefPage.getAssociatedEditors();
-		assertEquals("There should be 4 associated editors to *.html", 4, associatedEditors.size());
+		assertEquals("There should be 3 associated editors to *.html", 3, associatedEditors.size());
 	}
 
 	@Test
 	public void getAssociatedEditorsForFileTypeTest() {
 		List<String> associatedEditors = prefPage.getAssociatedEditorForFileType("*.html");
-		assertEquals("There should be 4 associated editors to *.html", 4, associatedEditors.size());
+		assertEquals("There should be 3 associated editors to *.html", 3, associatedEditors.size());
 	}
 
 }

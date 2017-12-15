@@ -49,13 +49,14 @@ public abstract class AbstractPerspective {
 	/**
 	 * Constructs the perspective with a given label.
 	 * 
-	 * @param perspectiveLabel Perspective label
+	 * @param perspectiveLabel
+	 *            Perspective label
 	 */
 	public AbstractPerspective(String perspectiveLabel) {
 		super();
 		this.perspectiveLabel = perspectiveLabel;
-		if (!isPerspectiveAvailable()){
-			throw new EclipseLayerException("Perspective "+perspectiveLabel+" isn't available");
+		if (!isPerspectiveAvailable()) {
+			throw new EclipseLayerException("Perspective " + perspectiveLabel + " isn't available");
 		}
 	}
 
@@ -64,31 +65,30 @@ public abstract class AbstractPerspective {
 	 */
 	public void open() {
 		log.info("Open perspective: '" + getPerspectiveLabel() + "'");
-		if (isOpened()){
+		if (isOpened()) {
 			log.debug("Perspective '" + getPerspectiveLabel() + "' is already opened.");
-		}
-		else{
+		} else {
 			log.debug("Trying to open perspective: '" + getPerspectiveLabel() + "'");
-			new DefaultToolItem(new DefaultShell(),"Open Perspective").click();
+			new DefaultToolItem(new DefaultShell(), "Open Perspective").click();
 			Shell perspectiveShell = new DefaultShell("Open Perspective");
 			DefaultTable table = new DefaultTable();
-			try{
+			try {
 				// Try to select perspective label within available perspectives
 				table.select(getPerspectiveLabel());
-			} catch (CoreLayerException swtLayerException){
-				// Try to select perspective label within available perspectives with "(default)" suffix
+			} catch (CoreLayerException swtLayerException) {
+				// Try to select perspective label within available perspectives with
+				// "(default)" suffix
 				table.select(getPerspectiveLabel() + " (default)");
 			}
-			
+
 			WidgetIsFound openButton = new WidgetIsFound(org.eclipse.swt.widgets.Button.class,
 					new WithMnemonicTextMatcher("Open"));
-			
-			
+
 			Button button;
-			if(openButton.test()){
-				button = new PushButton("Open"); //oxygen changed button text
+			if (openButton.test()) {
+				button = new PushButton("Open"); // oxygen changed button text
 			} else {
-				button = new OkButton();	
+				button = new OkButton();
 			}
 			button.click();
 			new WaitWhile(new ShellIsAvailable(perspectiveShell));
@@ -98,26 +98,23 @@ public abstract class AbstractPerspective {
 	/**
 	 * Reset.
 	 */
-	public void reset(){
-		if (!isOpened()){
-			throw new EclipseLayerException("Trying to reset perspective that is not open") ;
+	public void reset() {
+		if (!isOpened()) {
+			throw new EclipseLayerException("Trying to reset perspective that is not open");
 		}
 		// Prior to Eclipse Mars path to Reset Perspective menu
-		WithTextMatchers m = new WithTextMatchers(new RegexMatcher[] {
-				new RegexMatcher("Window.*"),
-				new RegexMatcher("Reset Perspective...")});
+		WithTextMatchers m = new WithTextMatchers(
+				new RegexMatcher[] { new RegexMatcher("Window.*"), new RegexMatcher("Reset Perspective...") });
 		MenuItem menu;
 		try {
-			menu = new ShellMenuItem(m.getMatchers());	
+			menu = new ShellMenuItem(m.getMatchers());
 		} catch (CoreLayerException swtle) {
 			// Try menu path for Mars and higher versions
-			m = new WithTextMatchers(new RegexMatcher[] {
-					new RegexMatcher("Window.*"),
-					new RegexMatcher("Perspective.*"),
-					new RegexMatcher("Reset Perspective...")});
+			m = new WithTextMatchers(new RegexMatcher[] { new RegexMatcher("Window.*"),
+					new RegexMatcher("Perspective.*"), new RegexMatcher("Reset Perspective...") });
 			menu = new ShellMenuItem(m.getMatchers());
 		}
-		
+
 		menu.select();
 		new DefaultShell("Reset Perspective");
 		WidgetIsFound resetButton = new WidgetIsFound(org.eclipse.swt.widgets.Button.class,
@@ -147,7 +144,7 @@ public abstract class AbstractPerspective {
 	 * 
 	 * @return Whether the perspective is open
 	 */
-	public boolean isOpened(){
+	public boolean isOpened() {
 		return Display.syncExec(new ResultRunnable<Boolean>() {
 			@Override
 			public Boolean run() {
@@ -156,15 +153,16 @@ public abstract class AbstractPerspective {
 		});
 	}
 
-	private boolean isPerspectiveAvailable(){
-		IPerspectiveDescriptor perspective = PlatformUI.getWorkbench().getPerspectiveRegistry().findPerspectiveWithLabel(perspectiveLabel);
-		if (perspective == null){
+	private boolean isPerspectiveAvailable() {
+		IPerspectiveDescriptor perspective = PlatformUI.getWorkbench().getPerspectiveRegistry()
+				.findPerspectiveWithLabel(perspectiveLabel);
+		if (perspective == null) {
 			return false;
 		}
 		return true;
 	}
 
-	private IPerspectiveDescriptor getActivePerspective(){
+	private IPerspectiveDescriptor getActivePerspective() {
 		return PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getPerspective();
 	}
 }

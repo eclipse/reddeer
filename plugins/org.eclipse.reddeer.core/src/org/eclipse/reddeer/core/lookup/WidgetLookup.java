@@ -45,6 +45,7 @@ import org.eclipse.reddeer.core.reference.ReferencedComposite;
 import org.eclipse.reddeer.core.resolver.WidgetResolver;
 import org.eclipse.reddeer.core.util.DiagnosticTool;
 import org.eclipse.reddeer.workbench.core.lookup.WorkbenchPartLookup;
+import org.eclipse.reddeer.workbench.core.lookup.WorkbenchShellLookup;
 
 /**
  * Widget lookup provides methods for looking up eclipse widgets.
@@ -213,8 +214,8 @@ public class WidgetLookup {
 	 */
 	public boolean isExtraShellActive() {
 		Shell activeWorkbenchParentShell = null;
-		if(getWorkbenchLookup() != null){
-			activeWorkbenchParentShell = getWorkbenchLookup().getShellForActiveWorkbench();
+		if(getWorkbenchShellLookup() != null){
+			activeWorkbenchParentShell = getWorkbenchShellLookup().getWorkbenchShell();
 		}
 
 		Shell activeShell = ShellLookup.getInstance().getActiveShell();
@@ -234,8 +235,8 @@ public class WidgetLookup {
 		Control control = null;
 		
 		Shell activeWorkbenchParentShell = null;
-		if(getWorkbenchLookup() != null){
-			activeWorkbenchParentShell = getWorkbenchLookup().getShellForActiveWorkbench();
+		if(getWorkbenchShellLookup() != null){
+			activeWorkbenchParentShell = getWorkbenchShellLookup().getWorkbenchShell();
 		}
 		
 		Shell activeShell = ShellLookup.getInstance().getActiveShell();
@@ -392,7 +393,7 @@ public class WidgetLookup {
 		if ((parentWidget == null) || parentWidget.isDisposed() || !visible(parentWidget)) {
 			return null;
 		}
-
+		
 		if (matcher.matches(parentWidget))
 			try {
 				T control = (T) parentWidget;
@@ -496,6 +497,16 @@ public class WidgetLookup {
 		}
 	}
 	
+	private WorkbenchShellLookup getWorkbenchShellLookup(){
+		try{
+			WorkbenchShellLookup workbenchShellLookup = WorkbenchShellLookup.getInstance();
+			return workbenchShellLookup;
+		} catch (NoClassDefFoundError e) {
+			logger.trace("Workbench not available");
+			return null;
+		}
+	}
+	
 	/**
 	 * Gets label of specified control.
 	 *
@@ -580,11 +591,11 @@ public class WidgetLookup {
 		Shell controlShell = ControlHandler.getInstance().getShell(control);
 		Shell activeWorkbenchParentShell = null;
 		
-		if(getWorkbenchLookup() != null){
-			activeWorkbenchParentShell = getWorkbenchLookup().getShellForActiveWorkbench();
+		if(getWorkbenchShellLookup() != null){
+			activeWorkbenchParentShell = getWorkbenchShellLookup().getWorkbenchShell();
 		}
 		
-		if(controlShell.equals(activeWorkbenchParentShell)){
+		if(controlShell.equals(activeWorkbenchParentShell) && getWorkbenchLookup() != null){
 			parent = getWorkbenchLookup().getActiveWorkbenchPartControl();
 		} else {
 			parent = controlShell;

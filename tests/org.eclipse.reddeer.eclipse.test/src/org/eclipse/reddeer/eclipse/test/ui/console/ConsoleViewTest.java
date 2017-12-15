@@ -52,6 +52,7 @@ import org.hamcrest.core.IsNull;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -71,6 +72,10 @@ public class ConsoleViewTest {
 	@BeforeClass
 	public static void setupClass() {
 		createTestProject();
+		consoleView = new ConsoleView();
+		if(consoleView.isOpen()) {
+			consoleView.close();
+		}
 	}
 
 	@AfterClass

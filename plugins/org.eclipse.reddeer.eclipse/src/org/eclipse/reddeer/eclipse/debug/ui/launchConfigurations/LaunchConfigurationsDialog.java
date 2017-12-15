@@ -19,6 +19,7 @@ import org.eclipse.reddeer.core.condition.WidgetIsFound;
 import org.eclipse.reddeer.core.lookup.WidgetLookup;
 import org.eclipse.reddeer.core.matcher.WithMnemonicTextMatcher;
 import org.eclipse.reddeer.core.matcher.WithTextMatcher;
+import org.eclipse.reddeer.eclipse.exception.EclipseLayerException;
 import org.eclipse.reddeer.swt.api.Button;
 import org.eclipse.reddeer.swt.api.MenuItem;
 import org.eclipse.reddeer.swt.api.Shell;
@@ -26,6 +27,7 @@ import org.eclipse.reddeer.swt.api.TreeItem;
 import org.eclipse.reddeer.swt.condition.ShellIsAvailable;
 import org.eclipse.reddeer.swt.impl.button.PushButton;
 import org.eclipse.reddeer.swt.impl.button.YesButton;
+import org.eclipse.reddeer.swt.impl.menu.ContextMenu;
 import org.eclipse.reddeer.swt.impl.menu.ContextMenuItem;
 import org.eclipse.reddeer.swt.impl.menu.ShellMenuItem;
 import org.eclipse.reddeer.swt.impl.shell.DefaultShell;
@@ -126,7 +128,13 @@ public abstract class LaunchConfigurationsDialog {
 
 		new WaitUntil(new TreeIsSelectedAndHasFocus(t));
 
-		new ContextMenuItem("New").select();
+		//photon changed menu text to "New configuration"
+		MenuItem newMenuItem = new ContextMenu().getItems().stream()
+			.filter(menuItem -> menuItem.getText().equals("New") || menuItem.getText().toLowerCase().equals("new configuration")).findFirst().get();
+		if(newMenuItem == null) {
+			throw new EclipseLayerException("Cannot create new launch configuration");
+		}
+		newMenuItem.select();
 		if (name != null) {
 			configuration.setName(name);
 			configuration.apply();

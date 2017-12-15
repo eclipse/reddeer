@@ -78,7 +78,6 @@ public abstract class AbstractResourceTest {
 		projectItem = explorer.getProject(PROJECT_NAME).getProjectItem(PROJECT_ITEM_TEXT);
 
 		// to test if the explorer items are properly activated and selected
-		new ConsoleView().open();
 	}
 
 	@After

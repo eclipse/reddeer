@@ -20,7 +20,6 @@ import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
 import org.eclipse.pde.launching.JUnitLaunchConfigurationDelegate;
 import org.eclipse.reddeer.common.userprofile.UserProfile;
 import org.eclipse.reddeer.eclipse.jdt.debug.ui.launchConfigurations.RedDeerJavaArgumentsTab;
-import org.eclipse.reddeer.ui.Activator;
 
 /**
  * A launch delegate for launching JUnit Plug-in tests.
@@ -35,7 +34,7 @@ public class RedDeerLaunchConfigurationDelegate extends
 
 	@Override
 	protected String getApplication(ILaunchConfiguration configuration) {
-		return Activator.APPLICATION_ID;
+		return org.eclipse.reddeer.jdt.junit.Activator.APPLICATION_ID;
 	}
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })

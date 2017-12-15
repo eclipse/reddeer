@@ -30,6 +30,8 @@
 		<module>org.eclipse.reddeer.swt</module>
 		<module>org.eclipse.reddeer.workbench</module>
 		<module>org.eclipse.reddeer.workbench.core</module>
+		<module>org.eclipse.reddeer.e4.workbench.core</module>
+		<module>org.eclipse.reddeer.e4.workbench</module>
 		<module>org.eclipse.reddeer.uiforms</module>
 		<module>org.eclipse.reddeer.jface</module>
 		<module>org.eclipse.reddeer.eclipse</module>
@@ -38,6 +40,7 @@
 		<module>org.eclipse.reddeer.graphiti</module>
 		<module>org.eclipse.reddeer.direct</module>
 		<module>org.eclipse.reddeer.junit</module>
+                <module>org.eclipse.reddeer.jdt.junit</module>
 		<module>org.eclipse.reddeer.junit.extension</module>
 		<module>org.eclipse.reddeer.selenium</module>
 		<module>org.eclipse.reddeer.requirements</module>

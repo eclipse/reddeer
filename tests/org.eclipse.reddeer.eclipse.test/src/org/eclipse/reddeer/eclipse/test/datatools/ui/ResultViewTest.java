@@ -18,6 +18,7 @@ import java.util.List;
 import org.eclipse.reddeer.common.wait.TimePeriod;
 import org.eclipse.reddeer.common.wait.WaitUntil;
 import org.eclipse.reddeer.common.wait.WaitWhile;
+import org.eclipse.reddeer.workbench.core.condition.JobIsKilled;
 import org.eclipse.reddeer.workbench.core.condition.JobIsRunning;
 import org.eclipse.reddeer.core.matcher.TreeItemRegexMatcher;
 import org.eclipse.reddeer.eclipse.datatools.connectivity.ui.dialogs.DriverDialog;
@@ -47,6 +48,7 @@ import org.eclipse.reddeer.swt.impl.table.DefaultTableItem;
 import org.eclipse.reddeer.swt.impl.tree.DefaultTreeItem;
 import org.eclipse.reddeer.workbench.impl.editor.DefaultEditor;
 import org.eclipse.reddeer.workbench.ui.dialogs.WorkbenchPreferenceDialog;
+import org.junit.After;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -102,6 +104,11 @@ public class ResultViewTest {
 			createDatabaseProfile(profile);	
 		}
 	}		
+	
+	@After
+	public void cleanup() {
+		new WaitUntil(new JobIsKilled("SQL Statement Execution"), TimePeriod.DEFAULT, false);
+	}
 	
 	private static void performSQLStatement(String profile, String statement) {
 		DataSourceExplorerView dse = new DataSourceExplorerView();

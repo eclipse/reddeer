@@ -158,14 +158,4 @@
             project="true">
       </wizard>
    </extension>
-   
-	<extension
-         id="reddeertestapplication"
-         point="org.eclipse.core.runtime.applications">
-      <application visible="false">
-         <run
-               class="org.eclipse.reddeer.eclipse.core.UITestApplication">
-         </run>
-      </application>
-   	</extension>
 </plugin>
