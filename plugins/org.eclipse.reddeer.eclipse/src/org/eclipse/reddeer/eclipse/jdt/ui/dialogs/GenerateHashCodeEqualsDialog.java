@@ -14,39 +14,47 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.reddeer.common.wait.WaitWhile;
-import org.eclipse.reddeer.swt.api.Shell;
+import org.eclipse.reddeer.core.condition.WidgetIsFound;
+import org.eclipse.reddeer.core.matcher.WithMnemonicTextMatcher;
+import org.eclipse.reddeer.jface.window.AbstractWindow;
+import org.eclipse.reddeer.jface.window.Openable;
+import org.eclipse.reddeer.swt.api.Button;
 import org.eclipse.reddeer.swt.api.TreeItem;
 import org.eclipse.reddeer.swt.condition.ShellIsAvailable;
 import org.eclipse.reddeer.swt.impl.button.CheckBox;
+import org.eclipse.reddeer.swt.impl.button.OkButton;
 import org.eclipse.reddeer.swt.impl.button.PushButton;
 import org.eclipse.reddeer.swt.impl.combo.LabeledCombo;
 import org.eclipse.reddeer.swt.impl.menu.ContextMenuItem;
 import org.eclipse.reddeer.swt.impl.menu.ShellMenuItem;
 import org.eclipse.reddeer.swt.impl.shell.DefaultShell;
 import org.eclipse.reddeer.swt.impl.tree.DefaultTree;
+import org.eclipse.reddeer.workbench.workbenchmenu.WorkbenchMenuOpenable;
 
 /**
  * Represents Generate HashCode And Equals dialog
  * @author rawagner
  *
  */
-public class GenerateHashCodeEqualsDialog {
+public class GenerateHashCodeEqualsDialog extends AbstractWindow {
 	
-	private Shell shell;
+	public static final String[] MENU = new String[] {"Source", "Generate hashCode() and equals()..."};
+	public static final String DIALOG_TEXT = "Generate hashCode() and equals()";
 	
 	/**
 	 * Opens generate hashcode and equals dialog.
 	 *
 	 * @param viaShellMenu true if dialog should be opened via shell menu,
 	 * 	false if context menu should be used
+	 * @deprecated use open() and/or setOpenAction()
 	 */
 	public void open(boolean viaShellMenu){
 		if(viaShellMenu){
-			new ShellMenuItem("Source","Generate hashCode() and equals()...").select();
+			new ShellMenuItem(MENU).select();
 		} else {
-			new ContextMenuItem("Source","Generate hashCode() and equals()...").select();
+			new ContextMenuItem(MENU).select();
 		}
-		shell = new DefaultShell("Generate hashCode() and equals()");
+		setShell(new DefaultShell("Generate hashCode() and equals()"));
 	}
 	
 	/**
@@ -56,7 +64,7 @@ public class GenerateHashCodeEqualsDialog {
 	 */
 	public List<ClassField> getFields(){
 		List<ClassField> fields = new ArrayList<ClassField>();
-		for(TreeItem i: new DefaultTree().getAllItems()){
+		for(TreeItem i: new DefaultTree(shell).getAllItems()){
 			fields.add(new ClassField(i));
 		}
 		return fields;
@@ -68,7 +76,7 @@ public class GenerateHashCodeEqualsDialog {
 	 * @return list of possible insertion points
 	 */
 	public List<String> getInsertionPoint(){
-		return new LabeledCombo("Insertion points:").getItems();
+		return new LabeledCombo(shell,"Insertion points:").getItems();
 	}
 	
 	/**
@@ -77,7 +85,7 @@ public class GenerateHashCodeEqualsDialog {
 	 * @param insertionPoint to set
 	 */
 	public void setInsertionPoint(String insertionPoint){
-		new LabeledCombo("Insertion points:").setSelection(insertionPoint);
+		new LabeledCombo(shell,"Insertion points:").setSelection(insertionPoint);
 	}
 	
 	/**
@@ -86,7 +94,7 @@ public class GenerateHashCodeEqualsDialog {
 	 * @return true if dialog should generate comments, false otherwise
 	 */
 	public boolean isGenerateMethodComments(){
-		return new CheckBox("Generate method comments").isChecked();
+		return new CheckBox(shell,"Generate method comments").isChecked();
 	}
 	
 	/**
@@ -95,7 +103,7 @@ public class GenerateHashCodeEqualsDialog {
 	 * @return true if dialog should use instanceof, false otherwise
 	 */
 	public boolean isUseInstanceofToCompareTypes(){
-		return new CheckBox("Use 'instanceof' to compare types").isChecked();
+		return new CheckBox(shell,"Use 'instanceof' to compare types").isChecked();
 	}
 	
 	/**
@@ -104,7 +112,7 @@ public class GenerateHashCodeEqualsDialog {
 	 * @return true if dialog should use blocks in if statements, false otherwise
 	 */
 	public boolean isUseBlocksInIfStatements(){
-		return new CheckBox("Use blocks in 'if' statements").isChecked();
+		return new CheckBox(shell,"Use blocks in 'if' statements").isChecked();
 	}
 	
 	/**
@@ -113,7 +121,7 @@ public class GenerateHashCodeEqualsDialog {
 	 * @param toggle true if dialog should generate comments, false otherwise
 	 */
 	public void toggleGenerateMethodComments(boolean toggle){
-		new CheckBox("Generate method comments").toggle(toggle);
+		new CheckBox(shell,"Generate method comments").toggle(toggle);
 	}
 	
 	/**
@@ -122,7 +130,7 @@ public class GenerateHashCodeEqualsDialog {
 	 * @param toggle true if dialog should use instanceof, false otherwise
 	 */
 	public void toggleUseInstanceofToCompareTypes(boolean toggle){
-		new CheckBox("Use 'instanceof' to compare types").toggle(toggle);
+		new CheckBox(shell,"Use 'instanceof' to compare types").toggle(toggle);
 	}
 	
 	/**
@@ -131,39 +139,51 @@ public class GenerateHashCodeEqualsDialog {
 	 * @param toggle true if dialog should use blocks in if statements, false otherwise
 	 */
 	public void toggleUseBlocksInIfStatements(boolean toggle){
-		new CheckBox("Use blocks in 'if' statements").toggle(toggle);
+		new CheckBox(shell,"Use blocks in 'if' statements").toggle(toggle);
 	}
 	
 	/**
 	 * Selects all class fields.
 	 */
 	public void selectAll(){
-		new PushButton("Select All").click();
+		new PushButton(shell,"Select All").click();
 	}
 	
 	/**
 	 * Deselects all class fields.
 	 */
 	public void deselectAll(){
-		new PushButton("Deselect All").click();
+		new PushButton(shell,"Deselect All").click();
 	}
 	
 	/**
 	 * Press ok.
 	 */
 	public void ok(){
-		String shellText = shell.getText();
-		new PushButton("OK").click();
-		new WaitWhile(new ShellIsAvailable(shellText));
+		WidgetIsFound generateButton = new WidgetIsFound(org.eclipse.swt.widgets.Button.class, shell.getSWTWidget(),
+				new WithMnemonicTextMatcher("Generate"));
+		
+		Button button;
+		if(generateButton.test()){
+			button = new PushButton((org.eclipse.swt.widgets.Button)generateButton.getResult()); //photon changed button text
+		} else {
+			button = new OkButton(shell);	
+		}
+		button.click();
+		new WaitWhile(new ShellIsAvailable(shell));
 	}
 	
 	/**
 	 * Press cancel.
 	 */
 	public void cancel(){
-		String shellText = shell.getText();
-		new PushButton("Cancel").click();
-		new WaitWhile(new ShellIsAvailable(shellText));
+		new PushButton(shell, "Cancel").click();
+		new WaitWhile(new ShellIsAvailable(shell));
+	}
+
+	@Override
+	public Openable getDefaultOpenAction() {
+		return new WorkbenchMenuOpenable(DIALOG_TEXT, MENU);
 	}
 	
 	

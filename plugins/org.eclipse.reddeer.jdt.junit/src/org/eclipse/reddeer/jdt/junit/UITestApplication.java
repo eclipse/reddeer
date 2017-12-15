@@ -8,7 +8,7 @@
  * Contributors:
  *     Red Hat Inc. - initial API and implementation
  *******************************************************************************/
-package org.eclipse.reddeer.eclipse.core;
+package org.eclipse.reddeer.jdt.junit;
 
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.core.runtime.CoreException;
@@ -18,13 +18,13 @@ import org.eclipse.core.runtime.IProduct;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.equinox.app.IApplication;
 import org.eclipse.equinox.app.IApplicationContext;
+import org.eclipse.reddeer.common.exception.RedDeerException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.testing.ITestHarness;
 import org.eclipse.ui.testing.TestableObject;
 
 /**
- * Just a copy of
- * org.eclipse.pde.internal.junit.runtime.UITestApplication with
+ * Just a copy of org.eclipse.pde.internal.junit.runtime.UITestApplication with
  * {@link #runTests()} overridden so that the tests run in a non-UI thread.
  * 
  * @author Ketan Padegaonkar &lt;KetanPadegaonkar [at] gmail [dot] com&gt;
@@ -40,24 +40,34 @@ public class UITestApplication implements IApplication, ITestHarness {
 	/**
 	 * Starts UI Test application from context.
 	 * 
-	 * @param context context to start
+	 * @param context
+	 *            context to start
 	 */
 	public Object start(IApplicationContext context) throws Exception {
-		String[] args = (String[]) context.getArguments().get(
-				IApplicationContext.APPLICATION_ARGS);
+		String[] args = (String[]) context.getArguments().get(IApplicationContext.APPLICATION_ARGS);
 		Object app = getApplication(args);
 
-		Assert.isNotNull(app, "The application " + getApplicationToRun(args)
-				+ " could not be found.");
+		Assert.isNotNull(app, "The application " + getApplicationToRun(args) + " could not be found.");
 
-		fTestableObject = PlatformUI.getTestableObject();
+		Object testableObject = Activator.getDefault().getTestableObject();
+		if (testableObject != null) {
+			fTestableObject = (TestableObject) testableObject;
+		} else {
+			try {
+				fTestableObject = PlatformUI.getTestableObject();
+			} catch (NoClassDefFoundError e) {
+				// null check follows
+			}
+		}
+		if (fTestableObject == null) {
+			throw new RedDeerException("Could not find testable object");
+		}
 		fTestableObject.setTestHarness(this);
 		if (app instanceof IApplication) {
 			fApplication = (IApplication) app;
 			return fApplication.start(context);
 		}
-		throw new IllegalArgumentException("Could not execute application "
-				+ getApplicationToRun(args));
+		throw new IllegalArgumentException("Could not execute application " + getApplicationToRun(args));
 	}
 
 	/**
@@ -69,8 +79,8 @@ public class UITestApplication implements IApplication, ITestHarness {
 	}
 
 	/*
-	 * return the application to run, or null if not even the default
-	 * application is found.
+	 * return the application to run, or null if not even the default application is
+	 * found.
 	 */
 	private Object getApplication(String[] args) throws CoreException {
 		// Find the name of the application as specified by the PDE JUnit
@@ -79,13 +89,10 @@ public class UITestApplication implements IApplication, ITestHarness {
 		// is returned.
 		String applicationToRun = getApplicationToRun(args);
 
-		IExtension extension = Platform.getExtensionRegistry()
-				.getExtension(Platform.PI_RUNTIME, Platform.PT_APPLICATIONS,
-						applicationToRun);
+		IExtension extension = Platform.getExtensionRegistry().getExtension(Platform.PI_RUNTIME,
+				Platform.PT_APPLICATIONS, applicationToRun);
 
-		Assert.isNotNull(extension,
-				"Could not find IExtension for application: "
-						+ applicationToRun);
+		Assert.isNotNull(extension, "Could not find IExtension for application: " + applicationToRun);
 
 		// If the extension does not have the correct grammar, return null.
 		// Otherwise, return the application object.
@@ -102,10 +109,10 @@ public class UITestApplication implements IApplication, ITestHarness {
 	}
 
 	/*
-	 * The -testApplication argument specifies the application to be run. If the
-	 * PDE JUnit launcher did not set this argument, then return the name of the
-	 * default application. In 3.0, the default is the
-	 * "org.eclipse.ui.ide.worbench" application.
+	 * The -testApplication argument specifies the application to be run. If the PDE
+	 * JUnit launcher did not set this argument, then return the name of the default
+	 * application. In 3.0, the default is the "org.eclipse.ui.ide.worbench"
+	 * application.
 	 */
 	private String getApplicationToRun(String[] args) {
 		IProduct product = Platform.getProduct();

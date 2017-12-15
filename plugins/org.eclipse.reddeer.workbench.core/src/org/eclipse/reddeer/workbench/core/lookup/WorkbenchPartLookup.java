@@ -200,7 +200,8 @@ public class WorkbenchPartLookup {
 
 	/**
 	 * Gets the shell for active workbench.
-	 *
+	 *	
+	 * @deprecated will be removed in v3.0, use {@link WorkbenchShellLookup#getWorkbenchShell()}
 	 * @return the shell for active workbench
 	 */
 	public Shell getShellForActiveWorkbench() {

@@ -49,6 +49,7 @@
 		<module>org.eclipse.reddeer.junit.test</module>
 		<module>org.eclipse.reddeer.requirements.test</module>
 		<module>org.eclipse.reddeer.ui.test</module>
+		<module>org.eclipse.reddeer.e4.workbench.test</module>
 	</modules>
 	<build>
 		<plugins>

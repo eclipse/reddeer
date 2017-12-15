@@ -8,7 +8,7 @@
  * Contributors:
  *     Red Hat Inc. - initial API and implementation
  *******************************************************************************/
-package org.eclipse.reddeer.eclipse.core;
+package org.eclipse.reddeer.jdt.junit;
 
 import java.io.File;
 import java.io.IOException;
@@ -52,14 +52,15 @@ public class RemotePluginTestRunner extends RemoteTestRunner {
 	}
 
 	/**
-	 * The main entry point. Supported arguments in addition to the ones
-	 * supported by RemoteTestRunner:
+	 * The main entry point. Supported arguments in addition to the ones supported
+	 * by RemoteTestRunner:
 	 * 
 	 * <pre>
 	 * -testpluginname: the name of the plugin containing the tests.
 	 * </pre>
 	 * 
-	 * @param args arguments to run remote plugin test runner
+	 * @param args
+	 *            arguments to run remote plugin test runner
 	 * @see RemoteTestRunner
 	 */
 
@@ -82,8 +83,7 @@ public class RemotePluginTestRunner extends RemoteTestRunner {
 	public ClassLoader getClassLoader(final String pluginId) {
 		Bundle bundle = Platform.getBundle(pluginId);
 		if (bundle == null)
-			throw new IllegalArgumentException(
-					"No Classloader found for plug-in " + pluginId); //$NON-NLS-1$
+			throw new IllegalArgumentException("No Classloader found for plug-in " + pluginId); //$NON-NLS-1$
 		return new BundleClassLoader(bundle);
 	}
 
@@ -100,20 +100,19 @@ public class RemotePluginTestRunner extends RemoteTestRunner {
 			if (isFlag(args, i, "-loaderpluginname")) //$NON-NLS-1$
 				fLoaderClassLoader = getClassLoader(args[i + 1]);
 			if (isFlag(args, i, "-test")) //$NON-NLS-1$
-				// patch for running only one method 
+				// patch for running only one method
 				if (!args[i + 1].contains(":")) {
 					args[i + 1] += getConfigId();
 				}
 		}
 
 		if (fTestPluginName == null)
-			throw new IllegalArgumentException(
-					"Parameter -testpluginnname not specified."); //$NON-NLS-1$
+			throw new IllegalArgumentException("Parameter -testpluginnname not specified."); //$NON-NLS-1$
 
 		if (fLoaderClassLoader == null)
 			fLoaderClassLoader = getClass().getClassLoader();
 	}
-	
+
 	protected String getConfigId() {
 		String locationpath = RedDeerProperties.CONFIG_FILE.getValue();
 		if (locationpath != null) {
@@ -132,8 +131,7 @@ public class RemotePluginTestRunner extends RemoteTestRunner {
 		return " default";
 	}
 
-	protected Class loadTestLoaderClass(String className)
-			throws ClassNotFoundException {
+	protected Class loadTestLoaderClass(String className) throws ClassNotFoundException {
 		return fLoaderClassLoader.loadClass(className);
 	}
 

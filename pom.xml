@@ -21,7 +21,7 @@
 	<properties>
 		<tycho-version>0.26.0</tycho-version>
 		<tychoExtrasVersion>${tycho-version}</tychoExtrasVersion>
-		<eclipse-target-site>http://download.eclipse.org/releases/oxygen</eclipse-target-site>
+		<eclipse-target-site>http://download.eclipse.org/releases/photon/</eclipse-target-site>
 		<swtbot-update-site>http://download.eclipse.org/technology/swtbot/releases/2.2.1</swtbot-update-site>
 		<eclipse-orbit-update-site>http://download.eclipse.org/tools/orbit/downloads/drops/R20150821153341/repository/</eclipse-orbit-update-site>
 		<download-plugin-version>1.2.1</download-plugin-version>
@@ -45,6 +45,7 @@
 
 	<modules>
 		<module>plugins</module>
+		<module>test-apps</module>
 		<module>tests</module>
 		<module>features</module>
 		<module>site</module>
