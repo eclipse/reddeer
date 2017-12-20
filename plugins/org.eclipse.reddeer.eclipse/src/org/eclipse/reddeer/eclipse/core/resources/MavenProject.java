@@ -10,7 +10,10 @@
  *******************************************************************************/
 package org.eclipse.reddeer.eclipse.core.resources;
 
+import org.eclipse.reddeer.common.wait.TimePeriod;
+import org.eclipse.reddeer.eclipse.m2e.core.ui.internal.dialogs.UpdateMavenProjectsDialog;
 import org.eclipse.reddeer.swt.api.TreeItem;
+import org.eclipse.reddeer.swt.impl.menu.ContextMenu;
 
 /**
  * Represents a project with maven nature inside of explorer view.
@@ -27,5 +30,17 @@ public class MavenProject extends DefaultProject {
 	@Override
 	public String[] getNatureIds() {
 		return new String[] { "org.eclipse.m2e.core.maven2Nature" };
+	}
+	
+	public void updateMavenProject() {
+		updateMavenProject(TimePeriod.LONG);
+	}
+	
+	public void updateMavenProject(TimePeriod waitForJobs) {
+		this.select();
+		new ContextMenu().getItem("Maven", "Update Project...").select();
+		UpdateMavenProjectsDialog updateProject = new UpdateMavenProjectsDialog();
+		updateProject.clean(true);
+		updateProject.ok(waitForJobs);
 	}
 }
