@@ -29,6 +29,16 @@
 		<customArgLine>-Drd.config=${basedir}/resources/requirements.json -Dapache-tomcat-7.home=${apache-tomcat-7.home}</customArgLine>
 	</properties>
 
+	<!-- Used by JaCoCo to generate an aggregated report -->
+	<dependencies>
+		<dependency>
+			<groupId>org.eclipse.reddeer</groupId>
+			<artifactId>org.eclipse.reddeer.requirements</artifactId>
+			<version>${project.version}</version>
+			<scope>compile</scope>
+		</dependency>
+	</dependencies>
+
 	<profiles>
 		<profile>
 			<id>add-jdt-feature</id>

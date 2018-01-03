@@ -29,7 +29,17 @@
 			<layout>p2</layout>
 		</repository>
 	</repositories>
-	
+
+	<!-- Used by JaCoCo to generate an aggregated report -->
+	<dependencies>
+		<dependency>
+			<groupId>org.eclipse.reddeer</groupId>
+			<artifactId>org.eclipse.reddeer.gef</artifactId>
+			<version>${project.version}</version>
+			<scope>compile</scope>
+		</dependency>
+	</dependencies>
+
 	<build>
 		<plugins>
 			<plugin>
@@ -49,4 +59,5 @@
 			</plugin>
 		</plugins>
 	</build>
+
 </project>

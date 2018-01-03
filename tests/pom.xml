@@ -61,7 +61,7 @@
 					<useUIHarness>true</useUIHarness>
 					<useUIThread>false</useUIThread>
 					<!-- THE FOLLOWING LINE MUST NOT BE BROKEN BY AUTOFORMATTING -->
-					<argLine>-DlogMessageFilter=${logMessageFilter} -DpauseFailedTest=${pauseFailedTest} -DrelativeScreenshotDirectory=${relativeScreenshotDirectory} ${platformSystemProperties} ${customArgLine} ${junitExtensionsProperties} -XX:MaxPermSize=512m -Xmx512m</argLine>
+					<argLine>-DlogMessageFilter=${logMessageFilter} -DpauseFailedTest=${pauseFailedTest} -DrelativeScreenshotDirectory=${relativeScreenshotDirectory} ${platformSystemProperties} ${customArgLine} ${junitExtensionsProperties} ${tycho.testArgLine} -XX:MaxPermSize=512m -Xmx512m</argLine>
 					<product>org.eclipse.platform.ide</product>
 					<application>org.eclipse.ui.ide.workbench</application>
 					<dependencies combine.children="append">
@@ -103,7 +103,21 @@
 					</includes>
 				</configuration>
 			</plugin>
-
+			<!-- Java Code Coverage -->
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>${jacoco-version}</version>
+				<executions>
+					<execution>
+						<id>generate-jacoco-report</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>report-aggregate</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
 	</build>
 
