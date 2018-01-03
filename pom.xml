@@ -35,6 +35,11 @@
 		<BUILD_TIMESTAMP>yyyyMMdd-HHmm</BUILD_TIMESTAMP>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
+		<!-- Java Code Coverage -->
+		<jacoco-version>0.7.9</jacoco-version>
+		<!-- Sonar Properties -->
+		<sonar.code.codeCoveragePlugin>jacoco</sonar.code.codeCoveragePlugin>
+		<sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
 	</properties>
 
 	<modules>
@@ -139,6 +144,28 @@
 					<format>'${BUILD_ALIAS}-v'${BUILD_TIMESTAMP}</format>
 				</configuration>
 			</plugin>
+			<!-- Java Code Coverage -->
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>${jacoco-version}</version>
+				<configuration>
+					<append>true</append>
+				</configuration>
+				<executions>
+					<execution>
+						<id>prepare-agent-for-reddeer-tests</id>
+						<goals>
+							<goal>prepare-agent</goal>
+						</goals>
+						<configuration>
+							<includes>
+								<include>org.eclipse.reddeer.*</include>
+							</includes>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
 	</build>
 
@@ -171,5 +198,17 @@
 			<layout>p2</layout>
 		</repository>
 	</repositories>
-	
+
+	<profiles>
+		<profile>
+			<id>jacoco</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+			<modules>
+				<module>jacoco-report</module>
+			</modules>
+		</profile>
+	</profiles>
+
 </project>
