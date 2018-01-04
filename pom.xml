@@ -40,6 +40,7 @@
 		<!-- Sonar Properties -->
 		<sonar.code.codeCoveragePlugin>jacoco</sonar.code.codeCoveragePlugin>
 		<sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
+		<sonar.jacoco.reportPaths>../../tests/org.eclipse.reddeer.common.test/target/jacoco.exec,../../tests/org.eclipse.reddeer.core.test/target/jacoco.exec,../../tests/org.eclipse.reddeer.direct.test/target/jacoco.exec,../../tests/org.eclipse.reddeer.eclipse.test/target/jacoco.exec,../../tests/org.eclipse.reddeer.gef.test/target/jacoco.exec,../../tests/org.eclipse.reddeer.graphiti.test/target/jacoco.exec,../../tests/org.eclipse.reddeer.jface.test/target/jacoco.exec,../../tests/org.eclipse.reddeer.junit.test/target/jacoco.exec,../../tests/org.eclipse.reddeer.requirements.test/target/jacoco.exec,../../tests/org.eclipse.reddeer.swt.test/target/jacoco.exec,../../tests/org.eclipse.reddeer.ui.test/target/jacoco.exec,../../tests/org.eclipse.reddeer.uiforms.test/target/jacoco.exec,../../tests/org.eclipse.reddeer.workbench.test/target/jacoco.exec</sonar.jacoco.reportPaths>
 	</properties>
 
 	<modules>
