@@ -121,11 +121,4 @@ public interface Editor extends WorkbenchPart {
 	 * @return Editor file associated to the editor
 	 */
 	EditorFile getAssociatedFile();
-
-	/**
-	 * Returns a context menu associated to the editor.
-	 * 
-	 * @return Context menu associated to the editor
-	 */
-	Menu getContextMenu();
 }

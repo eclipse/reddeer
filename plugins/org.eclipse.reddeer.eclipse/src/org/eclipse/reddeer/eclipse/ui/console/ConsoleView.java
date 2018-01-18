@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.reddeer.eclipse.ui.console;
 
-import org.hamcrest.Matcher;
-import org.hamcrest.core.IsEqual;
 import org.eclipse.reddeer.common.condition.AbstractWaitCondition;
 import org.eclipse.reddeer.common.wait.TimePeriod;
 import org.eclipse.reddeer.common.wait.WaitUntil;
@@ -27,6 +25,9 @@ import org.eclipse.reddeer.swt.impl.menu.ToolItemMenuItem;
 import org.eclipse.reddeer.swt.impl.styledtext.DefaultStyledText;
 import org.eclipse.reddeer.swt.impl.toolbar.DefaultToolItem;
 import org.eclipse.reddeer.workbench.impl.view.WorkbenchView;
+import org.eclipse.swt.widgets.Control;
+import org.hamcrest.Matcher;
+import org.hamcrest.core.IsEqual;
 
 /**
  * Represents Console view in Eclipse
@@ -244,4 +245,23 @@ public class ConsoleView extends WorkbenchView {
 		org.eclipse.swt.widgets.Widget swtWidget = widgetIsFound.getResult();
 		return (swtWidget == null) ? null : LabelHandler.getInstance().getText((org.eclipse.swt.widgets.Label)swtWidget);
 	}
+
+	/**
+	 * Returns a control registered via adapters. This is usually StyledText or
+	 * Canvas.
+	 * 
+	 * @return registered control
+	 */
+	protected Control getRegisteredControl() {
+		activate();
+		WidgetIsFound widgetIsFound = new WidgetIsFound(org.eclipse.swt.custom.StyledText.class, cTabItem.getControl());
+		new WaitUntil(widgetIsFound, TimePeriod.SHORT, false);
+		// Check whether there is a console to display or not
+		if (widgetIsFound.getResult() == null) {
+			log.debug("There is no console in console view.");
+			return null;
+		}
+		return (org.eclipse.swt.custom.StyledText) widgetIsFound.getResult();
+	}
+
 }

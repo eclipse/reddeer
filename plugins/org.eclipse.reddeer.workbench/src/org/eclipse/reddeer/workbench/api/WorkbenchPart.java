@@ -10,8 +10,9 @@
  *******************************************************************************/
 package org.eclipse.reddeer.workbench.api;
 
-import org.eclipse.swt.graphics.Image;
 import org.eclipse.reddeer.core.reference.ReferencedComposite;
+import org.eclipse.reddeer.swt.api.Menu;
+import org.eclipse.swt.graphics.Image;
 
 /**
  * Interface with base operations which can be performed with workbench part.
@@ -70,4 +71,10 @@ public interface WorkbenchPart extends ReferencedComposite {
 	 */
 	void restore();
 
+	/**
+	 * Returns a context menu associated to the WorkbenchPart.
+	 * 
+	 * @return Context menu associated to the WorkbenchPart
+	 */
+	Menu getContextMenu();
 }
