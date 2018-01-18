@@ -14,6 +14,7 @@ import static org.eclipse.reddeer.common.wait.WaitProvider.waitUntil;
 import static org.eclipse.reddeer.common.wait.WaitProvider.waitWhile;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 
 import org.eclipse.reddeer.common.matcher.RegexMatcher;
@@ -38,6 +39,8 @@ import org.eclipse.reddeer.eclipse.ui.perspectives.JavaPerspective;
 import org.eclipse.reddeer.eclipse.utils.DeleteUtils;
 import org.eclipse.reddeer.junit.runner.RedDeerSuite;
 import org.eclipse.reddeer.requirements.openperspective.OpenPerspectiveRequirement.OpenPerspective;
+import org.eclipse.reddeer.swt.api.Menu;
+import org.eclipse.reddeer.swt.api.MenuItem;
 import org.eclipse.reddeer.swt.api.StyledText;
 import org.eclipse.reddeer.swt.impl.menu.ShellMenuItem;
 import org.eclipse.reddeer.swt.impl.styledtext.DefaultStyledText;
@@ -179,6 +182,19 @@ public class ConsoleViewTest {
 		consoleView.open();
 		consoleView.toggleShowConsoleOnStandardOutChange(true);
 		consoleView.toggleShowConsoleOnStandardOutChange(false);
+	}
+	
+	@Test
+	public void getContextMenuTest() {
+		ConsoleView consoleView = new ConsoleView();
+		consoleView.open();
+		
+		runTestClass(TEST_CLASS_NAME);
+		AbstractWait.sleep(TimePeriod.SHORT);
+		
+		Menu contextMenu = consoleView.getContextMenu();
+		MenuItem clear = contextMenu.getItem("Clear");
+		assertNotNull(clear);
 	}
 
 	@After

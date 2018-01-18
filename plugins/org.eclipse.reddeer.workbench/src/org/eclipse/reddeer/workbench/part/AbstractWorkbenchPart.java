@@ -10,13 +10,17 @@
  *******************************************************************************/
 package org.eclipse.reddeer.workbench.part;
 
+import org.eclipse.reddeer.common.logging.Logger;
+import org.eclipse.reddeer.core.lookup.MenuLookup;
+import org.eclipse.reddeer.swt.api.CTabItem;
+import org.eclipse.reddeer.swt.api.Menu;
+import org.eclipse.reddeer.swt.impl.menu.DefaultMenu;
+import org.eclipse.reddeer.workbench.api.WorkbenchPart;
+import org.eclipse.reddeer.workbench.exception.WorkbenchLayerException;
+import org.eclipse.reddeer.workbench.handler.WorkbenchPartHandler;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.ui.actions.ActionFactory;
-import org.eclipse.reddeer.common.logging.Logger;
-import org.eclipse.reddeer.swt.api.CTabItem;
-import org.eclipse.reddeer.workbench.api.WorkbenchPart;
-import org.eclipse.reddeer.workbench.handler.WorkbenchPartHandler;
 
 /**
  * Abstract class for all WorkbenchPart implementations
@@ -80,5 +84,36 @@ public abstract class AbstractWorkbenchPart implements WorkbenchPart {
 		// in order to restore maximized window maximized action has to be called
 		WorkbenchPartHandler.getInstance().performAction(ActionFactory.MAXIMIZE);
 	}
+	
+	/**
+	 * Returns a context menu associated to the workbench. The context menu is
+	 * obtained from a registered control. If this control doesn't meet your
+	 * requirements you can change it by overriding
+	 * {{@link #getRegisteredControl()}}.
+	 * 
+	 * @return Context menu associated to the editor
+	 */
+	@Override
+	public Menu getContextMenu() {
+		Control registeredControl = getRegisteredControl();
+		if (registeredControl == null) {
+			throw new WorkbenchLayerException("No control is registered with the workbench");
+		}
+		return new DefaultMenu(MenuLookup.getInstance().getControlMenu(registeredControl));
+	}
 
+	/**
+	 * Returns a control registered via adapters. This is usually StyledText or
+	 * Canvas.
+	 * 
+	 * @return registered control
+	 */
+	protected Control getRegisteredControl() {
+		CTabItem cTabItem = getCTabItem();
+		return cTabItem.getControl();
+	}
+	
+	public CTabItem getCTabItem() {
+		return cTabItem;
+	}
 }

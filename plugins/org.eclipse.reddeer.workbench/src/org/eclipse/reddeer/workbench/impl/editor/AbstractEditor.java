@@ -26,16 +26,13 @@ import org.eclipse.reddeer.common.wait.TimePeriod;
 import org.eclipse.reddeer.common.wait.WaitUntil;
 import org.eclipse.reddeer.common.wait.WaitWhile;
 import org.eclipse.reddeer.core.handler.MenuItemHandler;
-import org.eclipse.reddeer.core.lookup.MenuLookup;
 import org.eclipse.reddeer.core.lookup.ShellLookup;
 import org.eclipse.reddeer.core.matcher.WithTextMatcher;
 import org.eclipse.reddeer.core.reference.ReferencedComposite;
 import org.eclipse.reddeer.core.util.InstanceValidator;
 import org.eclipse.reddeer.jface.text.contentassist.ContentAssistant;
-import org.eclipse.reddeer.swt.api.Menu;
 import org.eclipse.reddeer.swt.api.MenuItem;
 import org.eclipse.reddeer.swt.impl.ctab.DefaultCTabItem;
-import org.eclipse.reddeer.swt.impl.menu.DefaultMenu;
 import org.eclipse.reddeer.swt.impl.menu.ShellMenuItem;
 import org.eclipse.reddeer.swt.keyboard.KeyboardFactory;
 import org.eclipse.reddeer.workbench.api.Editor;
@@ -325,21 +322,6 @@ public abstract class AbstractEditor extends AbstractWorkbenchPart implements Ed
 			throw new WorkbenchLayerException("No file is associated to the editor");
 		}
 		return new DefaultEditorFile(iFile);
-	}
-
-	/**
-	 * Returns a context menu associated to the editor. The context menu is obtained from a registered control. If this
-	 * control doesn't meet your requirements you can change it by overriding {{@link #getRegisteredControl()}}.
-	 * 
-	 * @return Context menu associated to the editor
-	 */
-	@Override
-	public Menu getContextMenu() {
-		Control registeredControl = getRegisteredControl();
-		if (registeredControl == null) {
-			throw new WorkbenchLayerException("No control is registered with the editor");
-		}
-		return new DefaultMenu(MenuLookup.getInstance().getControlMenu(registeredControl));
 	}
 
 	/**
