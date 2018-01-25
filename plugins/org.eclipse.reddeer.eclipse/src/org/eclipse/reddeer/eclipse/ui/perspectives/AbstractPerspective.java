@@ -120,7 +120,17 @@ public abstract class AbstractPerspective {
 		
 		menu.select();
 		new DefaultShell("Reset Perspective");
-		new YesButton().click();
+		WidgetIsFound resetButton = new WidgetIsFound(org.eclipse.swt.widgets.Button.class,
+				new WithMnemonicTextMatcher("Reset Perspective"));
+		
+		
+		Button button;
+		if(resetButton.test()){
+			button = new PushButton("Reset Perspective"); //photon changed button text
+		} else {
+			button = new YesButton();	
+		}
+		button.click();
 	}
 
 	/**
