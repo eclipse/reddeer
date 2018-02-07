@@ -24,6 +24,7 @@
 		<eclipse-target-site>http://download.eclipse.org/releases/oxygen</eclipse-target-site>
 		<swtbot-update-site>http://download.eclipse.org/technology/swtbot/releases/2.2.1</swtbot-update-site>
 		<eclipse-orbit-update-site>http://download.eclipse.org/tools/orbit/downloads/drops/R20150821153341/repository/</eclipse-orbit-update-site>
+		<wtp-photon-update-site>http://build.eclipse.org/webtools/committers/wtp-R3.10.0-I/20180201205936/I-3.10.0-20180201205936/repository</wtp-photon-update-site>
 		<download-plugin-version>1.2.1</download-plugin-version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<!-- In the update site's site/pom.xml (that calls jbosstools-maven-plugins/tycho-plugins/repository-utils) 
@@ -196,6 +197,11 @@
 		<repository>
 			<id>eclipse-orbit-update-site</id>
 			<url>${eclipse-orbit-update-site}</url>
+			<layout>p2</layout>
+		</repository>
+		<repository>
+			<id>wtp-photon-update-site</id>
+			<url>${wtp-photon-update-site}</url>
 			<layout>p2</layout>
 		</repository>
 	</repositories>
