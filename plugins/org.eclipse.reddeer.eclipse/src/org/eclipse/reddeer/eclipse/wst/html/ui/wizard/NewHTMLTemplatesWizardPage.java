@@ -57,7 +57,7 @@ public class NewHTMLTemplatesWizardPage extends WizardPage{
 	 * @return selected HTML template
 	 */
 	public String getHTMLTemplate(){
-		return new DefaultTable(this).getSelectetItems().get(0).getText();
+		return new DefaultTable(this).getSelectedItems().get(0).getText();
 	}
 	
 	

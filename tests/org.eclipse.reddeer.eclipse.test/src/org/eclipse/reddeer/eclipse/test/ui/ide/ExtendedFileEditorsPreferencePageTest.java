@@ -56,7 +56,7 @@ public class ExtendedFileEditorsPreferencePageTest {
 	public void selectFileTypeTest() {
 		prefPage.selectFileType("*.html");
 		DefaultTable defaultTable = new DefaultTable();
-		List<TableItem> selectetItems = defaultTable.getSelectetItems();
+		List<TableItem> selectetItems = defaultTable.getSelectedItems();
 
 		assertEquals("Only one item should be selected", 1, selectetItems.size());
 		assertTrue("*.html file type should be selected", selectetItems.get(0).getText().equals("*.html"));

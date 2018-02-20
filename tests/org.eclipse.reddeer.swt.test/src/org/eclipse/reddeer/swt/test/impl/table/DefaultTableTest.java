@@ -197,7 +197,7 @@ public class DefaultTableTest extends AbstractTableTest {
 	public void testGetSelectedItemsSingle() {
 		org.eclipse.reddeer.swt.api.Table table = new DefaultTable();
 		table.select(2);
-		List<org.eclipse.reddeer.swt.api.TableItem> selectedTableItems = table.getSelectetItems();
+		List<org.eclipse.reddeer.swt.api.TableItem> selectedTableItems = table.getSelectedItems();
 		int numSelected = selectedTableItems.size();
 		assertTrue("Only one Table Item has to be selected but " + numSelected + " are.", numSelected == 1);
 		org.eclipse.reddeer.swt.api.TableItem expectedSelectedItem = table.getItem(2);
@@ -210,7 +210,7 @@ public class DefaultTableTest extends AbstractTableTest {
 	public void testGetSelectedItemsMulti() {
 		org.eclipse.reddeer.swt.api.Table table = new DefaultTable();
 		table.select(1, 3);
-		List<org.eclipse.reddeer.swt.api.TableItem> selectedTableItems = table.getSelectetItems();
+		List<org.eclipse.reddeer.swt.api.TableItem> selectedTableItems = table.getSelectedItems();
 		int numSelected = selectedTableItems.size();
 		assertTrue("Two Table Item has to be selected but " + numSelected + " are.", numSelected == 2);
 		org.eclipse.reddeer.swt.api.TableItem expectedSelectedItem = table.getItem(1);

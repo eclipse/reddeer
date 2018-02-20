@@ -263,7 +263,7 @@ public abstract class AbstractTable extends AbstractControl<org.eclipse.swt.widg
 	 * @see org.eclipse.reddeer.swt.api.Table#getSelectetItems()
 	 */
 	@Override
-	public List<TableItem> getSelectetItems(){
+	public List<TableItem> getSelectedItems(){
 		LinkedList<TableItem> result = new LinkedList<TableItem>();
 		for (TableItem tableItem : getItems()){
 			if (tableItem.isSelected()){
@@ -272,4 +272,10 @@ public abstract class AbstractTable extends AbstractControl<org.eclipse.swt.widg
 		}
 		return result;
 	}
+
+	@Override
+	@Deprecated
+	public List<TableItem> getSelectetItems(){
+		return getSelectedItems();
+	}	
 }

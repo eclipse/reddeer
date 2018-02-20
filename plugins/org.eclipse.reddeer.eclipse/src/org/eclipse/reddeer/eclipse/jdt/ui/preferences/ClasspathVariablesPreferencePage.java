@@ -104,7 +104,7 @@ public class ClasspathVariablesPreferencePage extends PreferencePage {
 		}
 		new OkButton(variableEntryShell).click();
 		new WaitWhile(new ShellIsAvailable(variableEntryShell));
-		return new DefaultTable(this).getSelectetItems().get(0).getText();
+		return new DefaultTable(this).getSelectedItems().get(0).getText();
 	}
 	
 	/**

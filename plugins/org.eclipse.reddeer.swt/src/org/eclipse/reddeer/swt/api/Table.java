@@ -149,5 +149,13 @@ public interface Table extends Control<org.eclipse.swt.widgets.Table>, Reference
 	 * 
 	 * @return list of selected table items
 	 */
+	List<TableItem> getSelectedItems();
+
+	/**
+	 * @deprecated As of 2.1.0 because of typo in method name.
+	 * Use {@link #getSelectedItems()} instead.
+	 *
+	 */
+	@Deprecated
 	List<TableItem> getSelectetItems();
 }
