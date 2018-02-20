@@ -35,6 +35,7 @@ public class ScreenshotCapturer {
 	public static final String SEPARATOR = System.getProperty("file.separator");
 	
 	private static ScreenshotCapturer instance;
+	private static boolean noScreenshotCaptured = true;
 	
 	private ScreenshotCapturer() {}
 	
@@ -140,6 +141,15 @@ public class ScreenshotCapturer {
 					image = new Image(display, display.getBounds().width, display.getBounds().height);
 					gc.copyArea(image, display.getBounds().x, display.getBounds().y);
 
+					/*
+					 * The following paragraph is a workaround for REDDEER-1729, see
+					 * https://github.com/eclipse/reddeer/issues/1729
+					 */
+					if (noScreenshotCaptured) {
+						gc.copyArea(image, display.getBounds().x, display.getBounds().y);
+						noScreenshotCaptured = false;
+					}
+					
 					ImageLoader imageLoader = new ImageLoader();
 					imageLoader.data = new ImageData[] { image.getImageData() };
 					imageLoader.save(fileName, SWT.IMAGE_PNG);
