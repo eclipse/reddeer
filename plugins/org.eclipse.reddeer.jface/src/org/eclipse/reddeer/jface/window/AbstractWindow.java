@@ -10,9 +10,10 @@
  *******************************************************************************/
 package org.eclipse.reddeer.jface.window;
 
-import org.hamcrest.Matcher;
 import org.eclipse.reddeer.common.logging.Logger;
 import org.eclipse.reddeer.common.matcher.MatcherBuilder;
+import org.eclipse.reddeer.common.wait.TimePeriod;
+import org.eclipse.reddeer.common.wait.WaitUntil;
 import org.eclipse.reddeer.core.handler.WidgetHandler;
 import org.eclipse.reddeer.core.lookup.ShellLookup;
 import org.eclipse.reddeer.core.matcher.WithTextMatcher;
@@ -23,6 +24,7 @@ import org.eclipse.reddeer.jface.matcher.WindowMatcher;
 import org.eclipse.reddeer.swt.api.Shell;
 import org.eclipse.reddeer.swt.impl.shell.DefaultShell;
 import org.eclipse.swt.widgets.Control;
+import org.hamcrest.Matcher;
 /**
  * Represends JFace Window
  * 
@@ -78,6 +80,37 @@ public abstract class AbstractWindow implements Window{
 		this.windowMatchers = matchers;
 		this.shell = new DefaultShell(ShellLookup.getInstance().getShell(allMatchers));
 	}
+	
+	/**
+	 * Finds shell matching given matchers and set it as the shell of this window.
+	 * The matchers given as constructor parameters will be applied. If they are
+	 * not set, the matchers from OpenAction will be used.
+	 */
+	public void activate() {
+		activate(TimePeriod.DEFAULT);
+	}
+	
+	/**
+	 * Finds shell matching given matchers and set it as the shell of this window.
+	 * The matchers given as constructor parameters will be applied. If they are
+	 * not set, the matchers from OpenAction will be used.
+	 * 
+	 * @param timeout
+	 *            period to wait for
+	 */
+	public void activate(TimePeriod timeout) {		
+		WindowIsAvailable cond;
+		if(getWindowMatchers() != null){
+			cond = new WindowIsAvailable(getEclipseClass(), getWindowMatchers());
+		} else if(getOpenAction() != null){
+			cond = new WindowIsAvailable(getEclipseClass(), getOpenAction().getShellMatchers());
+		} else {
+			throw new JFaceLayerException("Unable to activate window. No matcher was set.");
+		}
+		
+		new WaitUntil(cond,timeout);
+		setShell(new DefaultShell(cond.getResult()));
+	}
 
 	/**
 	 * Gets the control.
@@ -111,7 +144,7 @@ public abstract class AbstractWindow implements Window{
 			return false;
 		}
 		
-		WindowIsAvailable cond = null;
+		WindowIsAvailable cond;
 		if(getWindowMatchers() != null){
 			cond = new WindowIsAvailable(getEclipseClass(), getWindowMatchers());
 		} else if(getOpenAction() != null){
