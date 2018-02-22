@@ -11,7 +11,11 @@
 package org.eclipse.reddeer.jface.test.dialogs;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 import org.eclipse.reddeer.eclipse.selectionwizard.NewMenuWizard;
 import org.eclipse.reddeer.jface.test.dialogs.impl.TestingNewWizard;
@@ -33,6 +37,29 @@ public class NewWizardDialogTest {
 		assertNotNull(newWizardDialog.getShell());
 		String wizardDialogText = new DefaultShell().getText();
 		assertThat(wizardDialogText, is(TestingNewWizard.NAME));
+	}
+	
+	@Test
+	public void useExistingWizard() {
+		newWizardDialog.open();
+		NewWizardDialogImpl secondNewWizardDialog = new NewWizardDialogImpl();
+		assertNotNull(secondNewWizardDialog.getShell());
+		String wizardDialogText = new DefaultShell().getText();
+		assertThat(wizardDialogText, is(TestingNewWizard.NAME));;
+	}
+	
+	@Test
+	public void activate() {
+		newWizardDialog.open();
+		NewWizardDialogImpl secondNewWizardDialog = new NewWizardDialogImpl();
+		newWizardDialog.cancel();
+		newWizardDialog.open();
+		assertTrue(secondNewWizardDialog.getShell().isDisposed());
+		secondNewWizardDialog.activate();
+		assertNotNull(secondNewWizardDialog.getShell());
+		assertFalse(secondNewWizardDialog.getShell().isDisposed());
+		String wizardDialogText = new DefaultShell().getText();
+		assertThat(wizardDialogText, is(TestingNewWizard.NAME));;
 	}
 
 	@After
