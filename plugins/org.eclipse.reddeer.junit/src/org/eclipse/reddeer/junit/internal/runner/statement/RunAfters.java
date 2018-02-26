@@ -72,25 +72,28 @@ public class RunAfters extends AbstractStatementWithScreenshot {
 		} catch (Throwable e) {
 			errors.add(e);
 		}
-
-		for (FrameworkMethod each : fAfters) {
-			try {
-				frameworkMethod = each;
-				frameworkMethod.invokeExplosively(target);
-			} catch (Throwable e) {
-				if (ScreenshotCapturer.shouldCaptureScreenshotOnException(e)) {
-					if (isClassLevel()) {
-						createScreenshot("AfterClass");
-					} else {
-						createScreenshot("After");
-					}
-				}
-				errors.add(e);
+		
+		try {
+			for (FrameworkMethod each : fAfters) {
+					frameworkMethod = each;
+					frameworkMethod.invokeExplosively(target);
 			}
+			
+			// Should be run before testing the failures in tests
+			requirements.runAfter();
+			
+		} catch (Throwable e) {
+			if (ScreenshotCapturer.shouldCaptureScreenshotOnException(e)) {
+				if (isClassLevel()) {
+					createScreenshot("AfterClass");
+				} else {
+					createScreenshot("After");
+				}
+			}
+			errors.add(e);
 		}
 
 		MultipleFailureException.assertEmpty(errors);
-
-		requirements.runAfter();
+	
 	}
 }
