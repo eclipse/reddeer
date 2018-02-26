@@ -44,7 +44,7 @@ public class InjectRequirementsTest {
 			previousStaticRequirement = staticRequirement;
 			run++;
 		} else {
-			assertNotEquals("Static requirement should be injected for every test before @BeboreClass method", 
+			assertNotEquals("Static requirement should be injected for every test before @BeforeClass method", 
 					previousStaticRequirement, staticRequirement);
 		}
 	}

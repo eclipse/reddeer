@@ -69,24 +69,28 @@ public class RunAfterClasses extends AbstractStatementWithScreenshot {
 			errors.add(e);
 		}
 
-		for (FrameworkMethod each : afterClasses) {
-			try {
-				frameworkMethod = each;
-				frameworkMethod.invokeExplosively(target);
-			} catch (Throwable e) {
-				if (ScreenshotCapturer.shouldCaptureScreenshotOnException(e)) {
-					if (isClassLevel()) {
-						createScreenshot("AfterClass");
-					} else {
-						createScreenshot("After");
-					}
-				}
-				errors.add(e);
+		try {
+			for (FrameworkMethod each : afterClasses) {
+				
+					frameworkMethod = each;
+					frameworkMethod.invokeExplosively(target);
 			}
+			
+			// Should be run before testing the failures in this context
+			requirements.runAfterClass();
+			
+		} catch (Throwable e) {
+			if (ScreenshotCapturer.shouldCaptureScreenshotOnException(e)) {
+				if (isClassLevel()) {
+					createScreenshot("AfterClass");
+				} else {
+					createScreenshot("After");
+				}
+			}
+			errors.add(e);
 		}
 
 		MultipleFailureException.assertEmpty(errors);
-
-		requirements.runAfterClass();
+		
 	}
 }
