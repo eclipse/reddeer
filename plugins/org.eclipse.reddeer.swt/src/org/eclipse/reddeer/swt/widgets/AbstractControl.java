@@ -10,10 +10,13 @@
  *******************************************************************************/
 package org.eclipse.reddeer.swt.widgets;
 
-import org.hamcrest.Matcher;
 import org.eclipse.reddeer.core.handler.ControlHandler;
+import org.eclipse.reddeer.core.lookup.MenuLookup;
 import org.eclipse.reddeer.core.reference.ReferencedComposite;
 import org.eclipse.reddeer.swt.api.Control;
+import org.eclipse.reddeer.swt.api.Menu;
+import org.eclipse.reddeer.swt.impl.menu.DefaultMenu;
+import org.hamcrest.Matcher;
 
 /**
  * Abstract class for all control 
@@ -78,5 +81,15 @@ public abstract class AbstractControl<T extends org.eclipse.swt.widgets.Control>
 	@Override
 	public String getToolTipText(){
 		return ControlHandler.getInstance().getToolTipText(swtWidget);
+	}
+
+	/**
+	 * Returns a context menu associated to the control.
+	 * 
+	 * @return Context menu associated to the control
+	 */
+	@Override
+	public Menu getContextMenu() {
+		return new DefaultMenu(MenuLookup.getInstance().getControlMenu(this.getSWTWidget()));
 	}
 }

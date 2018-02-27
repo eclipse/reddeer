@@ -48,4 +48,10 @@ public interface Control<T extends org.eclipse.swt.widgets.Control> extends Widg
 	 */
 	String getToolTipText();
 
+	/**
+	 * Returns a context menu associated to the control.
+	 * 
+	 * @return Context menu associated to the control
+	 */
+	Menu getContextMenu();
 }
