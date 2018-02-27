@@ -16,7 +16,6 @@ import org.eclipse.reddeer.common.wait.WaitUntil;
 import org.eclipse.reddeer.common.wait.WaitWhile;
 import org.eclipse.reddeer.jface.condition.WindowIsAvailable;
 import org.eclipse.reddeer.jface.wizard.WizardDialog;
-import org.eclipse.reddeer.swt.api.Shell;
 import org.eclipse.reddeer.swt.condition.ShellHasChildrenOrIsNotAvailable;
 import org.eclipse.reddeer.swt.condition.ShellIsAvailable;
 import org.eclipse.reddeer.swt.impl.button.FinishButton;
@@ -49,9 +48,12 @@ public class ModifyModulesDialog extends WizardDialog {
 		new FinishButton(this).click();
 		new WaitUntil(new ShellHasChildrenOrIsNotAvailable(getShell()));
 		if(!getShell().isDisposed()){
-			Shell serverShell = new DefaultShell("Server");
-			new OkButton(serverShell).click();
-			new WaitWhile(new ShellIsAvailable(serverShell));
+			ShellIsAvailable serverShell = new ShellIsAvailable("Server");
+			new WaitUntil(serverShell, TimePeriod.DEFAULT, false);
+			if (serverShell.getResult() != null) {
+				new	OkButton(new DefaultShell(serverShell.getResult())).click();
+				new WaitWhile(serverShell);
+			}
 			new WaitWhile(new WindowIsAvailable(this), timeout);
 		}
 		new WaitWhile(new JobIsRunning(), timeout);
