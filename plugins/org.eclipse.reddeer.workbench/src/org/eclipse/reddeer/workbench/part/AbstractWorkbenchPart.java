@@ -91,7 +91,7 @@ public abstract class AbstractWorkbenchPart implements WorkbenchPart {
 	 * requirements you can change it by overriding
 	 * {{@link #getRegisteredControl()}}.
 	 * 
-	 * @return Context menu associated to the editor
+	 * @return Context menu associated to the workbench
 	 */
 	@Override
 	public Menu getContextMenu() {

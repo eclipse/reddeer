@@ -11,11 +11,12 @@
 package org.eclipse.reddeer.swt.test.impl.styledtext;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
-import org.eclipse.swt.SWT;
 import org.eclipse.reddeer.swt.api.StyledText;
 import org.eclipse.reddeer.swt.impl.styledtext.DefaultStyledText;
 import org.eclipse.reddeer.swt.test.SWTLayerTestCase;
+import org.eclipse.swt.SWT;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -29,7 +30,9 @@ public class StyledTextTest extends SWTLayerTestCase{
 	
 	@Override
 	protected void createControls(org.eclipse.swt.widgets.Shell shell) {
-		new org.eclipse.swt.custom.StyledText(shell, SWT.FULL_SELECTION);
+		org.eclipse.swt.custom.StyledText t = new org.eclipse.swt.custom.StyledText(shell, SWT.FULL_SELECTION);
+		org.eclipse.swt.widgets.Menu menu = new org.eclipse.swt.widgets.Menu(t);
+		t.setMenu(menu);
 	}
 	
 	@Test
@@ -46,6 +49,13 @@ public class StyledTextTest extends SWTLayerTestCase{
 		assertEquals("st", t.getSelectionText());
 	}
 	
-	
-
+	@Test
+	public void openContextMenu() {
+		DefaultStyledText t = new DefaultStyledText();
+		try {
+			t.getContextMenu();
+		} catch (Exception e) {
+			fail("Can't open context menu.\n" + e.toString());
+		}
+	}
 }
