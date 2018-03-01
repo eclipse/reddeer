@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2017 Red Hat, Inc and others.
+ * Copyright (c) 2017 - 2018 Red Hat, Inc and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -85,7 +85,7 @@ public class ScreenshotCapturer {
 	 */
 	public void captureScreenshotOnFailure(String config, String name) throws CaptureScreenshotException {
 		if (RedDeerProperties.CAPTURE_SCREENSHOT.getBooleanValue()) {
-			String path = getPath(config);
+			String path = getScreenshotDirPath(config);
 			
 			createDirectories(path);
 			
@@ -103,7 +103,7 @@ public class ScreenshotCapturer {
 	 * @param config config of test suite.
 	 * @return path to a directory supposed to contain screenshots
 	 */
-	private String getPath(String config) {
+	public String getScreenshotDirPath(String config) {
 		String path;
 		if (RedDeerProperties.RELATIVE_SCREENSHOT_DIRECTORY.getValue() != null) {
 			path = RedDeerProperties.RELATIVE_SCREENSHOT_DIRECTORY.getValue();

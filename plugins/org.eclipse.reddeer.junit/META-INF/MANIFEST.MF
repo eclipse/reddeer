@@ -36,7 +36,9 @@ Export-Package: org.eclipse.reddeer.junit,
  org.eclipse.reddeer.junit.requirement.configuration,
  org.eclipse.reddeer.junit.requirement.inject,
  org.eclipse.reddeer.junit.requirement.matcher,
+ org.eclipse.reddeer.junit.rules,
  org.eclipse.reddeer.junit.runner,
  org.eclipse.reddeer.junit.screenshot,
  org.eclipse.reddeer.junit.util,
  org.eclipse.reddeer.junit.watcher
+ 
