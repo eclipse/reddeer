@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2017 Red Hat, Inc and others.
+ * Copyright (c) 2018 Red Hat, Inc and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -12,6 +12,7 @@ package org.eclipse.reddeer.eclipse.wst.server.ui;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.eclipse.reddeer.common.logging.Logger;
 import org.eclipse.reddeer.common.wait.TimePeriod;
@@ -72,6 +73,47 @@ public class RuntimePreferencePage extends PreferencePage {
 	}
 	
 	/**
+	 * Returns server runtime based on passed name and type
+	 * @param name string parameters representing name of the runtime
+	 * @param type string type of runtime
+	 * @return runtime object fulfilling conditions of equality
+	 */
+	public Runtime getServerRuntime(String name, String type) {
+		return getServerRuntime(new Runtime(name, type));
+	}
+	
+	/**
+	 * Returns server runtime based on passed runtime
+	 * @param runtime runtime object to find
+	 * @return runtime object if equals to passed parameter, null if there is none or
+	 *  throws an exception if there are more than one runtime found
+	 */
+	public Runtime getServerRuntime(Runtime runtime) {
+		List<Runtime> resultRuntimes = getServerRuntimes()
+				.stream()
+				.filter((run) -> run.equals(runtime))
+				.collect(Collectors.toList());
+		return resultRuntimes.isEmpty() ? null : resultRuntimes.get(0);
+	}
+	
+	/**
+	 * Returns server runtime based on its name.
+	 * @param name string name parameter
+	 * @return runtime object if equals to passed parameter, null if there is none or
+	 *  throws an exception if there are more than one runtime found
+	 */
+	public Runtime getServerRuntime(String name) {
+		List<Runtime> resultRuntimes = getServerRuntimes()
+				.stream()
+				.filter((runtime) -> runtime.getName().equals(name))
+				.collect(Collectors.toList());
+		if (resultRuntimes.size() > 1) {
+			throw new EclipseLayerException("There are more than one runtime fulfilling conditions. Result is ambiguous.");
+		}
+		return resultRuntimes.isEmpty() ? null : resultRuntimes.get(0);
+	}
+	
+	/**
 	 * Removes a given runtime.
 	 * 
 	 * @param runtime Runtime
@@ -115,7 +157,7 @@ public class RuntimePreferencePage extends PreferencePage {
 				return this;
 			}
 		}
-		throw new EclipseLayerException("Unable to find runtime "+name);
+		throw new EclipseLayerException("Unable to find runtime " + name);
 	}
 	
 	/**
