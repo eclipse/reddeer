@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2017 Red Hat, Inc and others.
+ * Copyright (c) 2018 Red Hat, Inc and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -13,9 +13,11 @@ package org.eclipse.reddeer.eclipse.test.wst.server.ui;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.fail;
 
 import java.util.List;
 
+import org.eclipse.reddeer.eclipse.exception.EclipseLayerException;
 import org.eclipse.reddeer.eclipse.wst.server.ui.Runtime;
 import org.eclipse.reddeer.eclipse.wst.server.ui.RuntimePreferencePage;
 import org.eclipse.reddeer.eclipse.wst.server.ui.wizard.NewRuntimeWizardDialog;
@@ -32,6 +34,8 @@ import org.junit.runner.RunWith;
 public class RuntimePreferencePageTest {
 
 	private static final String SERVER_NAME = TestServerRuntime.NAME;
+	
+	private static final String SERVER_NAME_2 = TestServerRuntime2.NAME;
 	
 	private static final String SERVER_PATH = "Basic";
 
@@ -110,5 +114,40 @@ public class RuntimePreferencePageTest {
 		wizardDialog.finish();
 
 		assertFalse(new PushButton(RuntimePreferencePage.EDIT_BUTTON_NAME).isEnabled());
+	}
+	
+	@Test
+	public void getServerRuntime() {
+		NewRuntimeWizardDialog wizardDialog = preferencePage.addRuntime(); 
+		NewRuntimeWizardPage wizardPage = new NewRuntimeWizardPage(wizardDialog);
+		wizardPage.selectType(SERVER_PATH, SERVER_NAME);
+		wizardDialog.finish();
+		
+		wizardDialog = preferencePage.addRuntime();
+		wizardPage = new NewRuntimeWizardPage(wizardDialog);
+		wizardPage.selectType(SERVER_PATH, SERVER_NAME_2);
+		wizardDialog.finish();
+		
+		wizardDialog = preferencePage.addRuntime();
+		wizardPage = new NewRuntimeWizardPage(wizardDialog);
+		wizardPage.selectType(SERVER_PATH, SERVER_NAME_2);
+		wizardDialog.finish();
+		
+		List<Runtime> runtimes = preferencePage.getServerRuntimes();
+		assertThat(runtimes.size(), is(3));
+		
+		Runtime runtime1 = preferencePage.getServerRuntime(SERVER_NAME, SERVER_NAME);
+		assertThat(runtime1, is(new Runtime(SERVER_NAME, SERVER_NAME)));
+		
+		Runtime runtime2 = preferencePage.getServerRuntime(new Runtime(SERVER_NAME_2, SERVER_NAME_2));
+		assertThat(runtime2, is(new Runtime(SERVER_NAME_2, SERVER_NAME_2)));
+		
+		Runtime runtime3 = null;
+		try {
+			runtime3 = preferencePage.getServerRuntime(SERVER_NAME_2);
+		} catch (EclipseLayerException exc) {
+			fail(exc.getMessage());
+		}
+		assertThat(runtime3, is(new Runtime(SERVER_NAME_2, SERVER_NAME_2)));		
 	}
 }
