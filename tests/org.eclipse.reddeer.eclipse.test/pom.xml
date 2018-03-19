@@ -172,4 +172,17 @@
 			</build>
 		</profile>
 	</profiles>
+	
+	<repositories>
+		<repository>
+			<id>datatools</id>
+			<layout>p2</layout>
+			<url>http://download.eclipse.org/datatools/updates/1.14.100-SNAPSHOT/repository</url>
+		</repository>
+		<repository>
+			<id>rse</id>
+			<layout>p2</layout>
+			<url>http://download.eclipse.org/tm/updates/3.7.100-SNAPSHOT/repository/</url>
+		</repository>
+	</repositories>
 </project>

@@ -26,7 +26,9 @@ import org.eclipse.reddeer.eclipse.jdt.ui.wizards.NewClassCreationWizard;
 import org.eclipse.reddeer.eclipse.jdt.ui.wizards.NewClassWizardPage;
 import org.eclipse.reddeer.eclipse.jdt.ui.wizards.NewJavaProjectWizardPageOne;
 import org.eclipse.reddeer.eclipse.ui.navigator.resources.ProjectExplorer;
+import org.eclipse.reddeer.eclipse.ui.perspectives.JavaPerspective;
 import org.eclipse.reddeer.junit.runner.RedDeerSuite;
+import org.eclipse.reddeer.requirements.openperspective.OpenPerspectiveRequirement.OpenPerspective;
 import org.eclipse.reddeer.swt.api.TableItem;
 import org.eclipse.reddeer.swt.condition.ShellIsActive;
 import org.eclipse.reddeer.swt.impl.menu.ShellMenuItem;
@@ -40,6 +42,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(RedDeerSuite.class)
+@OpenPerspective(JavaPerspective.class)
 public class OpenTypeSelectionDialogTest {
 
 	private static final String TEST_PROJECT_NAME = "OpenTypeSelectionDialogTest";
@@ -119,6 +122,7 @@ public class OpenTypeSelectionDialogTest {
 	@AfterClass
 	public static void cleanWorkspace() {
 		ProjectExplorer pe = new ProjectExplorer();
+		pe.open();
 		pe.deleteAllProjects();
 	}
 
@@ -138,6 +142,9 @@ public class OpenTypeSelectionDialogTest {
 
 		NewClassWizardPage wizardPage = new NewClassWizardPage(javaClassDialog);
 		wizardPage.setName(name);
+		if(wizardPage.getSourceFolder().isEmpty()) {
+			wizardPage.setSourceFolder(TEST_PROJECT_NAME+"/src");
+		}
 		wizardPage.setPackage("test");
 
 		javaClassDialog.finish();

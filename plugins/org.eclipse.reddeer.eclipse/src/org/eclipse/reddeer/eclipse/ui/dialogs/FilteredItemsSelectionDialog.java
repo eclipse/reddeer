@@ -11,13 +11,17 @@
 package org.eclipse.reddeer.eclipse.ui.dialogs;
 
 import org.eclipse.reddeer.common.wait.WaitWhile;
+import org.eclipse.reddeer.core.condition.WidgetIsFound;
 import org.eclipse.reddeer.core.matcher.WithMnemonicTextMatcher;
+import org.eclipse.reddeer.jface.condition.WindowIsAvailable;
 import org.eclipse.reddeer.jface.window.AbstractWindow;
 import org.eclipse.reddeer.jface.window.Openable;
+import org.eclipse.reddeer.swt.api.Button;
 import org.eclipse.reddeer.swt.api.Shell;
 import org.eclipse.reddeer.swt.api.Table;
 import org.eclipse.reddeer.swt.impl.button.CancelButton;
 import org.eclipse.reddeer.swt.impl.button.OkButton;
+import org.eclipse.reddeer.swt.impl.button.PushButton;
 import org.eclipse.reddeer.swt.impl.table.DefaultTable;
 import org.eclipse.reddeer.swt.impl.text.DefaultText;
 import org.eclipse.reddeer.workbench.core.condition.JobIsRunning;
@@ -73,7 +77,18 @@ public class FilteredItemsSelectionDialog extends AbstractWindow {
 	 * Click 'OK' button.
 	 */
 	public void ok() {
-		new OkButton(this).click();
+		WidgetIsFound openButtonTest = new WidgetIsFound(org.eclipse.swt.widgets.Button.class, this.getControl(),
+				new WithMnemonicTextMatcher("Open"));
+		
+		
+		Button button;
+		if(openButtonTest.test()){
+			button = new PushButton((org.eclipse.swt.widgets.Button)openButtonTest.getResult()); //photon changed button text
+		} else {
+			button = new OkButton(this);	
+		}
+		button.click();
+		new WaitWhile(new WindowIsAvailable(this));
 	}
 
 	/**
@@ -81,6 +96,7 @@ public class FilteredItemsSelectionDialog extends AbstractWindow {
 	 */
 	public void cancel() {
 		new CancelButton(this).click();
+		new WaitWhile(new WindowIsAvailable(this));
 	}
 
 	/**
