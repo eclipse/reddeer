@@ -11,6 +11,8 @@
  *******************************************************************************/
 package org.eclipse.reddeer.common.wait;
 
+import java.util.Arrays;
+
 import org.eclipse.reddeer.common.exception.WaitTimeoutExpiredException;
 
 /**
@@ -34,8 +36,8 @@ public class GroupWait {
 	 */
 	public GroupWait(TimePeriod timeout, WaitWrapper... waitings) {
 		remainingTimeout = timeout;
-		if (waitings == null || waitings.length == 0) {
-			throw new IllegalArgumentException("There are no waiting to wait for, pass one or more waitings "
+		if (waitings == null || waitings.length == 0 || !noneIsNull(waitings)) {
+			throw new IllegalArgumentException("There are no waiting to wait for, pass one or more waitings that are not null "
 					+ "as a constructor arguments to start waiting");
 		}
 		for (WaitWrapper waitWrapper: waitings) {
@@ -76,5 +78,15 @@ public class GroupWait {
 			return TimePeriod.NONE;
 		}
 		return TimePeriod.getCustom(remainingTimeout);
+	}
+	
+	/**
+	 * Checks whether none of passed objects (waits) in array is null
+	 * 
+	 * @param waits array of wait objects
+	 * @return true if none of passed waits is null
+	 */
+	private boolean noneIsNull(WaitWrapper... waits) {
+		return Arrays.asList(waits).stream().noneMatch(o -> o == null);
 	}
 }
