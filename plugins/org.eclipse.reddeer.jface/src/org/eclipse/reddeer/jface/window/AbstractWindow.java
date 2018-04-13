@@ -85,9 +85,11 @@ public abstract class AbstractWindow implements Window{
 	 * Finds shell matching given matchers and set it as the shell of this window.
 	 * The matchers given as constructor parameters will be applied. If they are
 	 * not set, the matchers from OpenAction will be used.
+	 * 
+	 * @return the activate window
 	 */
-	public void activate() {
-		activate(TimePeriod.DEFAULT);
+	public Window activate() {
+		return activate(TimePeriod.DEFAULT);
 	}
 	
 	/**
@@ -97,8 +99,9 @@ public abstract class AbstractWindow implements Window{
 	 * 
 	 * @param timeout
 	 *            period to wait for
+	 * @return the activate window
 	 */
-	public void activate(TimePeriod timeout) {		
+	public Window activate(TimePeriod timeout) {		
 		WindowIsAvailable cond;
 		if(getWindowMatchers() != null){
 			cond = new WindowIsAvailable(getEclipseClass(), getWindowMatchers());
@@ -110,6 +113,7 @@ public abstract class AbstractWindow implements Window{
 		
 		new WaitUntil(cond,timeout);
 		setShell(new DefaultShell(cond.getResult()));
+		return this;
 	}
 
 	/**
@@ -121,7 +125,7 @@ public abstract class AbstractWindow implements Window{
 		return shell;
 	}
 	
-	public void open(){
+	public Window open(){
 		if(getOpenAction() == null){
 			throw new JFaceLayerException("Unable to open window because open action is not defined");
 		}
@@ -129,6 +133,7 @@ public abstract class AbstractWindow implements Window{
 			getOpenAction().run();
 			setShell(new DefaultShell(getOpenAction().getShellMatchers()));
 		}
+		return this;
 	}
 	
 	/**
