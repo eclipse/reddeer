@@ -14,9 +14,11 @@ import static org.junit.Assert.assertNotNull;
 
 import java.util.List;
 
+import org.eclipse.reddeer.common.logging.Logger;
 import org.eclipse.reddeer.junit.extensionpoint.IAfterTest;
 import org.eclipse.reddeer.junit.extensionpoint.IBeforeTest;
 import org.eclipse.reddeer.junit.internal.requirement.Requirements;
+import org.eclipse.reddeer.junit.internal.requirement.inject.RequirementsInjector;
 import org.junit.runner.Runner;
 import org.junit.runner.notification.RunListener;
 import org.junit.runners.Parameterized;
@@ -32,6 +34,8 @@ import org.junit.runners.model.Statement;
  */
 
 public class ParameterizedRunner extends Parameterized {
+
+	private static final Logger log = Logger.getLogger(ParameterizedRunner.class);
 
 	private String configId;
 	private Requirements requirements;
@@ -54,13 +58,19 @@ public class ParameterizedRunner extends Parameterized {
 	 */
 	public ParameterizedRunner(Class<?> clazz, Requirements requirements, String configId, RunListener[] runListeners,
 			List<IBeforeTest> beforeTestExtensions, List<IAfterTest> afterTestExtensions) throws Throwable {
-		super(clazz);
+		super(injectRequirements(clazz, requirements));
 		
 		this.requirements = requirements;
 		this.configId = configId;
 		this.runListeners = runListeners;
 		this.beforeTestExtensions = beforeTestExtensions;
 		this.afterTestExtensions = afterTestExtensions;
+	}
+	
+	private static Class<?> injectRequirements(Class<?> clazz, Requirements requirements) {
+		log.debug("Injecting fulfilled requirements into static fields of test class");
+		new RequirementsInjector().inject(clazz, requirements);
+		return clazz;
 	}
 
 	/* (non-Javadoc)

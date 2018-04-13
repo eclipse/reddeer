@@ -54,14 +54,7 @@ public class ParameterizedRequirementsRunner extends RequirementsRunner {
                 new Object[test.getParameters().size()]);
         name = test.getName();
 	}
-	
-	@Override
-	protected Statement withBeforeClasses(Statement statement) {
-		log.debug("Injecting fulfilled requirements into static fields of test class");
-		requirementsInjector.inject(getTestClass().getJavaClass(), requirements);
-		return super.withBeforeClasses(statement);
-	}
-	
+
 	/**
 	 * Sets the config id.
 	 *
