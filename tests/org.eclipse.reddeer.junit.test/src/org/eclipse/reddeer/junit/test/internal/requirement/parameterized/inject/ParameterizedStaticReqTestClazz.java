@@ -10,7 +10,7 @@
  *******************************************************************************/
 package org.eclipse.reddeer.junit.test.internal.requirement.parameterized.inject;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -19,6 +19,8 @@ import org.eclipse.reddeer.junit.internal.runner.ParameterizedRequirementsRunner
 import org.eclipse.reddeer.junit.requirement.inject.InjectRequirement;
 import org.eclipse.reddeer.junit.runner.RedDeerSuite;
 import org.eclipse.reddeer.junit.test.internal.requirement.parameterized.inject.RequirementImpl.RequirementAnnot;
+import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized.Parameters;
@@ -30,10 +32,15 @@ import org.junit.runners.Parameterized.UseParametersRunnerFactory;
 public class ParameterizedStaticReqTestClazz {
 
 	@InjectRequirement
-	public static RequirementImpl requirementImpl;
+	private static RequirementImpl requirementImpl;
+	
+	static RequirementImpl reqInParameters;
+	static RequirementImpl reqInBeforeClass;
+	static RequirementImpl reqInBefore;
 
 	@Parameters
 	public static Collection<Object> data() {
+		reqInParameters = requirementImpl;
 		return Arrays.asList(new Object[] { 1, 2 });
 	}
 
@@ -41,6 +48,16 @@ public class ParameterizedStaticReqTestClazz {
 	
 	public ParameterizedStaticReqTestClazz(int number) {
 		this.number = number;
+	}
+	
+	@BeforeClass
+	public static void beforeClassSetup() {
+		reqInBeforeClass = requirementImpl;
+	}
+	
+	@Before
+	public void beforeSetup() {
+		reqInBefore = requirementImpl;
 	}
 	
 	public static RequirementImpl getReq() {
