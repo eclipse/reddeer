@@ -16,10 +16,15 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+import org.eclipse.reddeer.common.condition.AbstractWaitCondition;
+import org.eclipse.reddeer.common.logging.Logger;
+import org.eclipse.reddeer.common.wait.TimePeriod;
+import org.eclipse.reddeer.common.wait.WaitUntil;
 import org.eclipse.reddeer.eclipse.ui.perspectives.AbstractPerspective;
 import org.eclipse.reddeer.junit.requirement.Requirement;
 import org.eclipse.reddeer.requirements.exception.RequirementsLayerException;
 import org.eclipse.reddeer.requirements.openperspective.OpenPerspectiveRequirement.OpenPerspective;
+import org.eclipse.reddeer.swt.condition.MenuItemIsEnabled;
 
 /**
  * Open perspective requirement<br><br>
@@ -42,6 +47,8 @@ import org.eclipse.reddeer.requirements.openperspective.OpenPerspectiveRequireme
  * 
  */
 public class OpenPerspectiveRequirement implements Requirement<OpenPerspective> {
+	
+	protected final Logger log = Logger.getLogger(this.getClass());
 
 	/**
 	 * Marks test class, which requires opening of the specified perspective.
@@ -80,6 +87,18 @@ public class OpenPerspectiveRequirement implements Requirement<OpenPerspective> 
 			perspective.open();
 			
 			if (openPerspective.reset()){
+				new WaitUntil(new AbstractWaitCondition() {
+					
+					@Override
+					public boolean test() {
+						return perspective.isResetEnabled();
+					}
+					
+				}, TimePeriod.SHORT, false);
+				if(!perspective.isResetEnabled()) {
+					log.info("Reset Perspective menu is not enabled, skipping");
+					return;
+				}
 				perspective.reset();				
 			}
 		} catch (Exception e) {

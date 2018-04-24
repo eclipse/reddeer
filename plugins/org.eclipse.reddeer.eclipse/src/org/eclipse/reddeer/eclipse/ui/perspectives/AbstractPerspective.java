@@ -102,6 +102,30 @@ public abstract class AbstractPerspective {
 		if (!isOpened()) {
 			throw new EclipseLayerException("Trying to reset perspective that is not open");
 		}
+		MenuItem menu = getResetMenuItem();
+		menu.select();
+		new DefaultShell("Reset Perspective");
+		WidgetIsFound resetButton = new WidgetIsFound(org.eclipse.swt.widgets.Button.class,
+				new WithMnemonicTextMatcher("Reset Perspective"));
+
+		Button button;
+		if (resetButton.test()) {
+			button = new PushButton("Reset Perspective"); // photon changed button text
+		} else {
+			button = new YesButton();
+		}
+		button.click();
+	}
+
+	/**
+	 * Returns true if reset perspective menu item is enabled, false otherwise
+	 * @return true if reset perspective menu item is enabled, false otherwise
+	 */
+	public boolean isResetEnabled() {
+		return getResetMenuItem().isEnabled();
+	}
+
+	private MenuItem getResetMenuItem() {
 		// Prior to Eclipse Mars path to Reset Perspective menu
 		WithTextMatchers m = new WithTextMatchers(
 				new RegexMatcher[] { new RegexMatcher("Window.*"), new RegexMatcher("Reset Perspective...") });
@@ -114,20 +138,7 @@ public abstract class AbstractPerspective {
 					new RegexMatcher("Perspective.*"), new RegexMatcher("Reset Perspective...") });
 			menu = new ShellMenuItem(m.getMatchers());
 		}
-
-		menu.select();
-		new DefaultShell("Reset Perspective");
-		WidgetIsFound resetButton = new WidgetIsFound(org.eclipse.swt.widgets.Button.class,
-				new WithMnemonicTextMatcher("Reset Perspective"));
-		
-		
-		Button button;
-		if(resetButton.test()){
-			button = new PushButton("Reset Perspective"); //photon changed button text
-		} else {
-			button = new YesButton();	
-		}
-		button.click();
+		return menu;
 	}
 
 	/**
