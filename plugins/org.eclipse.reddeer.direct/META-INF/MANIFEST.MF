@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: RedDeer Direct
 Bundle-Vendor: Eclipse.org - RedDeer
 Bundle-SymbolicName: org.eclipse.reddeer.direct
-Bundle-Version: 2.1.0.Final
+Bundle-Version: 2.1.1.qualifier
 Bundle-Activator: org.eclipse.reddeer.direct.Activator
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,

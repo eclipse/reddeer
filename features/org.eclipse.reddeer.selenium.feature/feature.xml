@@ -13,7 +13,7 @@
 <feature
       id="org.eclipse.reddeer.selenium.feature"
       label="%featureName"
-      version="2.1.0.Final"
+      version="2.1.1.qualifier"
       provider-name="Eclipse.org - RedDeer">
 
     <description url="https://github.com/jboss-reddeer/reddeer/wiki">
