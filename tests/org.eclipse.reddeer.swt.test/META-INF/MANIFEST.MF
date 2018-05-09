@@ -3,9 +3,9 @@ Bundle-ManifestVersion: 2
 Bundle-Name: RedDeer SWT Tests
 Bundle-Vendor: Eclipse.org - RedDeer
 Bundle-SymbolicName: org.eclipse.reddeer.swt.test;singleton:=true
-Bundle-Version: 2.1.1.qualifier
+Bundle-Version: 2.1.1.Final
 Bundle-Activator: org.eclipse.reddeer.swt.test.Activator
-Require-Bundle: org.eclipse.reddeer.go;bundle-version="[2.1.0,2.2.0)",
+Require-Bundle: org.eclipse.reddeer.go;bundle-version="[2.1.1,2.2.0)",
  org.eclipse.core.expressions,
  org.eclipse.ui.views.log,
  org.eclipse.m2e.core.ui,
