@@ -11,9 +11,13 @@
  *******************************************************************************/
 package org.eclipse.reddeer.eclipse.m2e.core.ui.preferences;
 
+import org.eclipse.reddeer.core.matcher.WithTextMatcher;
 import org.eclipse.reddeer.core.reference.ReferencedComposite;
 import org.eclipse.reddeer.jface.preference.PreferencePage;
 import org.eclipse.reddeer.swt.impl.button.CheckBox;
+import org.hamcrest.Description;
+import org.hamcrest.TypeSafeMatcher;
+import org.hamcrest.core.IsEqual;
 
 /**
  * Class represents Maven preference page
@@ -121,7 +125,7 @@ public class MavenPreferencePage extends PreferencePage {
 	 * @return true, if is download artifact javadoc checked
 	 */
 	public boolean isDownloadArtifactJavadocChecked() {
-		return new CheckBox(this, MavenPreferencePage.DOWNLOAD_ARTIFACT_JAVADOC).isChecked();
+		return getDownloadArtifactJavadocButton().isChecked();
 	}
 	
 	/**
@@ -130,8 +134,27 @@ public class MavenPreferencePage extends PreferencePage {
 	 * @param check the new download artifact javadoc
 	 */
 	public MavenPreferencePage setDownloadArtifactJavadoc(boolean check) {
-		new CheckBox(this, MavenPreferencePage.DOWNLOAD_ARTIFACT_JAVADOC).toggle(check);
+		getDownloadArtifactJavadocButton().toggle(check);
 		return this;
+	}
+	
+	/**
+	 * Checkbox text is Download Artifact JavaDoc in Oxygen and Download Artifact Javadoc in Photon
+	 * @return
+	 */
+	private CheckBox getDownloadArtifactJavadocButton() {
+		return new CheckBox(this, new WithTextMatcher(new TypeSafeMatcher<String>() {
+			@Override
+			protected boolean matchesSafely(String text) {
+				return text.toLowerCase().replaceAll("&", "").split("\t")[0].equals(DOWNLOAD_ARTIFACT_JAVADOC.toLowerCase());
+			}
+
+			@Override
+			public void describeTo(Description desc) {
+				desc.appendText("Matcher matching text to "+DOWNLOAD_ARTIFACT_JAVADOC);
+				
+			}
+		}));
 	}
 	
 	/**
