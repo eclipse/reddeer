@@ -11,9 +11,7 @@
  *******************************************************************************/
 package org.eclipse.reddeer.junit.extension.before.test.impl;
 
-import org.eclipse.epp.logging.aeri.core.ISystemSettings;
-import org.eclipse.epp.logging.aeri.core.SendMode;
-import org.eclipse.epp.logging.aeri.core.SystemControl;
+import org.eclipse.reddeer.direct.preferences.PreferencesUtil;
 import org.eclipse.reddeer.junit.extensionpoint.IBeforeTest;
 import org.junit.runners.model.FrameworkMethod;
 import org.junit.runners.model.TestClass;
@@ -33,9 +31,7 @@ public class DisableAERI implements IBeforeTest {
 
 	@Override
 	public void runBeforeTestClass(String config, TestClass testClass) {
-		ISystemSettings settings = SystemControl.getSystemSettings();
-		settings.setSendMode(SendMode.NEVER);
-
+		PreferencesUtil.setAERISendMode("NEVER");
 	}
 
 	@Override

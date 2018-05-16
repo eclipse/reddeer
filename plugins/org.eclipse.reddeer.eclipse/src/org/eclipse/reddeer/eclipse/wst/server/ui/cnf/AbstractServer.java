@@ -26,7 +26,9 @@ import org.eclipse.wst.server.core.ServerEvent;
 import org.eclipse.wst.server.ui.IServerModule;
 import org.hamcrest.Matcher;
 import org.hamcrest.core.IsEqual;
+import org.osgi.framework.Bundle;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.reddeer.common.adaptable.RedDeerAdaptable;
 import org.eclipse.reddeer.common.condition.AbstractWaitCondition;
 import org.eclipse.reddeer.common.logging.Logger;
@@ -71,6 +73,11 @@ public abstract class AbstractServer implements Server, RedDeerAdaptable<Server>
 	protected TreeItem treeItem;
 
 	protected ServersView2 view;
+	
+	private static final boolean isServerBundlePresent = isServerBundlePresent();
+	
+	private static final String SERVER_CORE_BUNDLE="org.eclipse.wst.server.core";
+	private static final String SERVER_UI_BUNDLE="org.eclipse.wst.server.ui";
 
 	/**
 	 * Creates a new abstract server.
@@ -79,6 +86,10 @@ public abstract class AbstractServer implements Server, RedDeerAdaptable<Server>
 	 *            the tree item
 	 */
 	protected AbstractServer(TreeItem treeItem) {
+		if(!isServerBundlePresent) {
+			throw new EclipseLayerException("Server bundles '"+SERVER_CORE_BUNDLE+" "+ 
+					SERVER_UI_BUNDLE+"' are not present in running eclipse instance");
+		}
 		this.treeItem = treeItem;
 		view = new ServersView2();
 	}
@@ -517,5 +528,11 @@ public abstract class AbstractServer implements Server, RedDeerAdaptable<Server>
 	private org.eclipse.wst.server.core.internal.Server getEclipseServer(){
 		Object o = WidgetHandler.getInstance().getData(treeItem.getSWTWidget());
 		return (org.eclipse.wst.server.core.internal.Server)o;
+	}
+	
+	private static boolean isServerBundlePresent() {
+		Bundle serverCoreBundle = Platform.getBundle(SERVER_CORE_BUNDLE);
+		Bundle serverUIBundle = Platform.getBundle(SERVER_UI_BUNDLE);
+		return serverCoreBundle != null && serverUIBundle != null;
 	}
 }
