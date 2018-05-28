@@ -41,12 +41,14 @@ public interface Window extends ReferencedComposite{
 	 * @param shell to set
 	 */
 	void setShell(Shell shell);
-	
+
 	/**
 	 * Opens the window
+	 * 
+	 * @return the opened window
 	 */
-	void open();
-	
+	Window open();
+
 	/**
 	 * Checks if window if open
 	 * @return true if window is open, false otherwise
