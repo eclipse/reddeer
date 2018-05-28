@@ -23,8 +23,8 @@
 		<tycho-version>1.1.0</tycho-version>
 		<tychoExtrasVersion>${tycho-version}</tychoExtrasVersion>
 		<eclipse-target-site>http://download.eclipse.org/releases/photon/</eclipse-target-site>
-		<swtbot-update-site>http://download.eclipse.org/technology/swtbot/releases/2.2.1</swtbot-update-site>
-		<eclipse-orbit-update-site>http://download.eclipse.org/tools/orbit/downloads/drops/R20150821153341/repository/</eclipse-orbit-update-site>
+		<swtbot-update-site>http://download.eclipse.org/technology/swtbot/snapshots</swtbot-update-site>
+		<eclipse-orbit-update-site>http://download.eclipse.org/tools/orbit/downloads/drops/S20180302171354/repository</eclipse-orbit-update-site>
 		<download-plugin-version>1.2.1</download-plugin-version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<!-- In the update site's site/pom.xml (that calls jbosstools-maven-plugins/tycho-plugins/repository-utils) 
