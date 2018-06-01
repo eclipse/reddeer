@@ -23,15 +23,15 @@
 		<tycho-version>1.1.0</tycho-version>
 		<tychoExtrasVersion>${tycho-version}</tychoExtrasVersion>
 		<eclipse-target-site>http://download.eclipse.org/releases/photon/</eclipse-target-site>
-		<swtbot-update-site>http://download.eclipse.org/technology/swtbot/releases/2.2.1</swtbot-update-site>
-		<eclipse-orbit-update-site>http://download.eclipse.org/tools/orbit/downloads/drops/R20150821153341/repository/</eclipse-orbit-update-site>
+		<swtbot-update-site>http://download.eclipse.org/technology/swtbot/snapshots/</swtbot-update-site>
+		<eclipse-orbit-update-site>http://download.eclipse.org/tools/orbit/downloads/drops/R20180531190352/repository/</eclipse-orbit-update-site>
 		<download-plugin-version>1.2.1</download-plugin-version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<!-- In the update site's site/pom.xml (that calls jbosstools-maven-plugins/tycho-plugins/repository-utils) 
 			you can override this value to be Nightly Build, Development Milestone, or 
 			Stable Release, or set to &amp;shy; (soft hyphen) to leave blank -->
 		<update.site.description>&amp;shy;</update.site.description>
-		<targetEclipseVersion>4.6 (Neon)</targetEclipseVersion>
+		<targetEclipseVersion>4.8 (Photon)</targetEclipseVersion>
 		<BUILD_ALIAS>CI</BUILD_ALIAS>
 		<BUILD_TIMESTAMP>yyyyMMdd-HHmm</BUILD_TIMESTAMP>
 		<maven.compiler.source>1.8</maven.compiler.source>
