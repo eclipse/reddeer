@@ -19,31 +19,47 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.util.Collection;
+import java.util.List;
 
-import org.eclipse.reddeer.common.exception.RedDeerException;
 import org.eclipse.reddeer.eclipse.core.resources.DefaultProject;
-import org.eclipse.reddeer.eclipse.ui.navigator.resources.ProjectExplorer;
+import org.eclipse.reddeer.eclipse.selectionwizard.NewMenuWizard;
+import org.eclipse.reddeer.eclipse.ui.markers.matcher.MarkerResourceMatcher;
+import org.eclipse.reddeer.eclipse.ui.problems.Problem;
 import org.eclipse.reddeer.eclipse.ui.views.contentoutline.ContentOutline;
+import org.eclipse.reddeer.eclipse.ui.views.markers.ProblemsView;
+import org.eclipse.reddeer.eclipse.ui.views.markers.ProblemsView.ProblemType;
 import org.eclipse.reddeer.swt.api.TreeItem;
-import org.eclipse.reddeer.swt.impl.button.CheckBox;
 import org.eclipse.reddeer.swt.impl.button.FinishButton;
 import org.eclipse.reddeer.swt.impl.button.RadioButton;
 import org.eclipse.reddeer.swt.impl.combo.DefaultCombo;
 import org.eclipse.reddeer.swt.impl.shell.DefaultShell;
 import org.eclipse.reddeer.swt.impl.text.LabeledText;
 import org.eclipse.reddeer.ui.test.wizard.impl.RedDeerTestPluginWizard;
-import org.eclipse.reddeer.ui.test.wizard.impl.RedDeerTestPluginWizardPage;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class RedDeerTestPluginWizardTest extends RedDeerWizardTestCase {
 
-	private static final String APPLICATION = "org.eclipse.ui.ide.workbench";
-	private static final String PRODUCT = "org.eclipse.platform.ide";
-	private static final String PLUGIN_NAME = "reddeer.test.plugin";
-	private static final String PLUGIN_ID = "test.plugin";
-	private static final String PLUGIN_PROVIDER = "Eclipse.org - RedDeer";
-	private static final String VERSION = "8.2.9.qualifier";
+	private static final String BUNDLE_REDDEER_GO = "org.eclipse.reddeer.go";
+	private static final String BUNDLE_ORG_JUNIT = "org.junit";
+	protected static NewMenuWizard wizard;
+
+	@Override
+	public String getWizardText() {
+		return "New RedDeer Test Plugin";
+	}
+	
+	@Before
+	public void open() {
+		wizard.open();
+	}
+	
+	@After
+	public void closeWizard() {
+		closeOpenedWizard(wizard);
+	}
 	
 	@BeforeClass
 	public static void setup() {
@@ -66,25 +82,19 @@ public class RedDeerTestPluginWizardTest extends RedDeerWizardTestCase {
 	
 	@Test
 	public void testCreate() {
-		fillInWizard();
+		fillInWizard(wizard);
 		wizard.finish();
-
-		ProjectExplorer explorer = new ProjectExplorer();
-		explorer.open();
-		DefaultProject project = null;
-		try {
-			project = explorer.getProject(PLUGIN_ID);
-		} catch (RedDeerException ex) {
-			fail("Cannot retrieve created plug-in project");
-		}
+		
+		DefaultProject project = getProject(PLUGIN_ID);
 		
 		checkProjectResources(project);
 		checkManifest(project);
 		checkExampleTest(project);
+		checkForCompilationErrors(project);
 	}
 	
 	private void checkExampleTest(DefaultProject project) {
-		project.getProjectItem("src", "org.reddeer.test", "RedDeerTest.java").open();
+		project.getProjectItem(EXAMPLE_TEST_CLASS_PATH).open();
 		ContentOutline view = new ContentOutline();
 		view.open();
 		
@@ -110,6 +120,15 @@ public class RedDeerTestPluginWizardTest extends RedDeerWizardTestCase {
 		assertTrue(new LabeledText("Version:").getText().equals(VERSION));
 		assertTrue(new LabeledText("Name:").getText().equals(PLUGIN_NAME));
 		assertTrue(new LabeledText("Vendor:").getText().equals(PLUGIN_PROVIDER));
+		ContentOutline outline = new ContentOutline();
+		outline.open();
+		for (TreeItem item : outline.outlineElements()) {
+			if (item.getText().equals("Dependencies")) {
+				item.expand();
+				assertNotNull(item.getItem(BUNDLE_REDDEER_GO));
+				assertNotNull(item.getItem(BUNDLE_ORG_JUNIT));
+			}
+		}
 	}
 	
 	private void checkProjectResources(DefaultProject project) {
@@ -123,31 +142,18 @@ public class RedDeerTestPluginWizardTest extends RedDeerWizardTestCase {
 		assertTrue("Project does not contain RedDeerTest.launch file", project.containsResource("RedDeerTest.launch"));
 	}
 
-	private void fillInWizard() {
-		RedDeerTestPluginWizardPage page = new RedDeerTestPluginWizardPage(wizard);
-		page.setPluginName(PLUGIN_NAME);
-		page.setPluginId(PLUGIN_ID);
-		page.setVersion(VERSION);
-		page.setProvider(PLUGIN_PROVIDER);
-		
-		page.setApplication(true);
-		assertTrue("Application combo was not enabled", new DefaultCombo(1).isEnabled());
-		page.selectApplication(APPLICATION);
-		
-		page.toggleExampleTest(true);
-		assertTrue("'Example test' checkbox was not checked", new CheckBox().isChecked());
-		
-		page.setProduct(true);
-		assertFalse("Application combo was not disabled", new DefaultCombo(1).isEnabled());
-		assertTrue("Product combo was not enabled", new DefaultCombo().isEnabled());
-		page.selectProduct(PRODUCT);
-		
-		assertTrue("Finish button is not enabled", new FinishButton().isEnabled());
-	}
-
-	@Override
-	String getWizardText() {
-		return "New RedDeer Test Plugin";
+	private void checkForCompilationErrors(DefaultProject project) {
+		project.getProjectItem(EXAMPLE_TEST_CLASS_PATH).open();
+		ProblemsView view = new ProblemsView();
+		view.open();
+		List<Problem> problems = view.getProblems(ProblemType.ERROR, new MarkerResourceMatcher(EXAMPLE_TEST_CLASS_NAME + ".java"));
+		if (!problems.isEmpty()) {
+			String errors = "";
+			for (Problem problem : problems) {
+				errors = errors.concat(problem.toString() + "\r\n");
+			}
+			fail("There are compilation errors in " + EXAMPLE_TEST_CLASS_JAVA_NAME + " class: " + errors);
+		}
 	}
 	
 }

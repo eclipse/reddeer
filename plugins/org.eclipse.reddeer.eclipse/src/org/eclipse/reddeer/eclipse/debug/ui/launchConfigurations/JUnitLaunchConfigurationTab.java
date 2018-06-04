@@ -11,6 +11,9 @@
  *******************************************************************************/
 package org.eclipse.reddeer.eclipse.debug.ui.launchConfigurations;
 
+import org.eclipse.reddeer.swt.impl.button.CheckBox;
+import org.eclipse.reddeer.swt.impl.button.RadioButton;
+import org.eclipse.reddeer.swt.impl.combo.LabeledCombo;
 import org.eclipse.reddeer.swt.impl.text.LabeledText;
 
 /**
@@ -79,5 +82,29 @@ public class JUnitLaunchConfigurationTab extends LaunchConfigurationTab {
 	 */
 	public void setTestMethod(String text){
 		new LabeledText("Test method:").setText(text);
+	}
+	
+	public String getTestRunner() {
+		return new LabeledCombo("Test runner:").getText();
+	}
+	
+	public void setTestRunner(String runner) {
+		new LabeledText("Test runner:").setText(runner);
+	}
+	
+	public void toggleKeepJUnitRunningAfterTestRunWhenDebugging(boolean checked) {
+		new CheckBox("Keep JUnit running after a test run when debugging").toggle(checked);;
+	}
+	
+	public void toggleRunInUIThread(boolean checked) {
+		new CheckBox("Run in UI thread").toggle(checked);
+	}
+	
+	public RadioButton getRunSingleTestButton() {
+		return new RadioButton("Run a single test");
+	}
+	
+	public RadioButton getRunAllTestsInSelectedPackage() {
+		return new RadioButton("Run all tests in the selected project, package or source folder:");
 	}
 }
