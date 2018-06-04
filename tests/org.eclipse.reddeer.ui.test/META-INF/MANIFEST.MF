@@ -6,7 +6,14 @@ Bundle-SymbolicName: org.eclipse.reddeer.ui.test;singleton:=true
 Bundle-Version: 2.2.0.qualifier
 Bundle-Activator: org.eclipse.reddeer.ui.test.Activator
 Require-Bundle: org.eclipse.reddeer.go;bundle-version="[2.2.0,2.3.0)",
+ org.hamcrest.library,
  org.eclipse.reddeer.ui,
- org.hamcrest.library
+ org.eclipse.debug.core,
+ org.eclipse.debug.ui,
+ org.eclipse.pde.core,
+ org.eclipse.pde.ui,
+ org.eclipse.pde.junit.runtime,
+ org.eclipse.core.variables,
+ org.eclipse.osgi
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8

@@ -185,17 +185,35 @@ public abstract class LaunchConfigurationsDialog {
 	}
 
 	/**
-	 * Close the dialog.
+	 * Close the dialog with changes made.
 	 */
-	public void close() {
+	public void close(boolean saveChanges) {
 		log.info("Close the launch configuration dialog");
 
 		String shellText = new DefaultShell().getText();
 		Button button = new PushButton("Close");
 		button.click();
+		ShellIsAvailable saveChangeDialog = new ShellIsAvailable("Save Changes");
+		new WaitUntil(saveChangeDialog, TimePeriod.MEDIUM, false);
+		if (saveChangeDialog.getResult() != null) {
+			if (saveChanges) {
+				new PushButton("Save").click();		
+			} else {
+				new PushButton("Don't Save").click();	
+			}
+			new WaitWhile(saveChangeDialog);
+		}
 
 		new WaitWhile(new ShellIsAvailable(shellText));
 		new WaitWhile(new JobIsRunning());
+	}
+	
+	/**
+	 * Close the dialog withou saving changes.
+	 *
+	 */
+	public void close() {
+		close(false);
 	}
 
 	private class TreeIsSelectedAndHasFocus extends AbstractWaitCondition {

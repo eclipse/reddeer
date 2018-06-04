@@ -23,6 +23,7 @@ import org.eclipse.reddeer.eclipse.jdt.ui.wizards.JavaProjectWizard;
 import org.eclipse.reddeer.eclipse.jdt.ui.wizards.NewClassCreationWizard;
 import org.eclipse.reddeer.eclipse.jdt.ui.wizards.NewClassWizardPage;
 import org.eclipse.reddeer.eclipse.jdt.ui.wizards.NewJavaProjectWizardPageOne;
+import org.eclipse.reddeer.eclipse.selectionwizard.NewMenuWizard;
 import org.eclipse.reddeer.swt.api.Tree;
 import org.eclipse.reddeer.swt.api.TreeItem;
 import org.eclipse.reddeer.swt.impl.button.FinishButton;
@@ -34,18 +35,36 @@ import org.eclipse.reddeer.ui.test.wizard.impl.RedDeerTestCaseWizard;
 import org.eclipse.reddeer.ui.test.wizard.impl.RedDeerTestCaseWizardPageOne;
 import org.eclipse.reddeer.ui.test.wizard.impl.RedDeerTestCaseWizardPageTwo;
 import org.eclipse.reddeer.workbench.impl.editor.TextEditor;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class RedDeerTestCaseWizardTest extends RedDeerWizardTestCase {
 
-	private static final String PROJECT_NAME = "testproject";
-	private static final String CLASS_NAME = "TestClass";
-	private static final String TEST_CLASS_NAME = CLASS_NAME + "Test";
-	private static final String PACKAGE = "org.example.test";
-
+	protected static final String PROJECT_NAME = "testproject";
+	protected static final String CLASS_NAME = "TestClass";
+	protected static final String TEST_CLASS_NAME = CLASS_NAME + "Test";
+	protected static final String PACKAGE = "org.example.test";
+	protected static NewMenuWizard wizard;
+	
 	private List<String> methodNames = new ArrayList<>();
 
+	@Override
+	public String getWizardText() {
+		return "New RedDeer Test Case";
+	}
+	
+	@Before
+	public void open() {
+		wizard.open();
+	}
+	
+	@After
+	public void closeWizard() {
+		closeOpenedWizard(wizard);
+	}
+	
 	@BeforeClass
 	public static void setup() {
 		wizard = new RedDeerTestCaseWizard();
@@ -74,7 +93,7 @@ public class RedDeerTestCaseWizardTest extends RedDeerWizardTestCase {
 
 	@Test
 	public void testCreate() {
-		fillInWizard();
+		fillInTestCaseWizard(wizard);
 		wizard.finish();
 		parseMethodNames();
 		
@@ -120,8 +139,8 @@ public class RedDeerTestCaseWizardTest extends RedDeerWizardTestCase {
 		}
 		return false;
 	}
-
-	private void fillInWizard() {
+	
+	private void fillInTestCaseWizard(NewMenuWizard wizard) {
 		RedDeerTestCaseWizardPageOne pageOne = new RedDeerTestCaseWizardPageOne(wizard);
 		pageOne.setAfterClassTearDown(true);
 		pageOne.setBeforeClassSetup(true);
@@ -191,10 +210,5 @@ public class RedDeerTestCaseWizardTest extends RedDeerWizardTestCase {
 		classPage.setName(CLASS_NAME);
 		classPage.setPackage(PACKAGE);
 		classDialog.finish();
-	}
-
-	@Override
-	String getWizardText() {
-		return "New RedDeer Test Case";
 	}
 }
