@@ -9,7 +9,7 @@
  * Contributors:
  *     Red Hat, Inc - initial API and implementation
  *******************************************************************************/
-package org.eclipse.reddeer.eclipse.test.jdt;
+package org.eclipse.reddeer.eclipse.test.jdt.ui.wizards;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;

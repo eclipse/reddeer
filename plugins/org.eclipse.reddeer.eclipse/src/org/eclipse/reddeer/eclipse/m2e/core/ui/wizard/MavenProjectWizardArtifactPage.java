@@ -12,7 +12,6 @@
 package org.eclipse.reddeer.eclipse.m2e.core.ui.wizard;
 
 import org.eclipse.reddeer.core.reference.ReferencedComposite;
-import org.eclipse.reddeer.jface.wizard.WizardDialog;
 import org.eclipse.reddeer.jface.wizard.WizardPage;
 import org.eclipse.reddeer.swt.impl.combo.LabeledCombo;
 import org.eclipse.reddeer.swt.impl.group.DefaultGroup;

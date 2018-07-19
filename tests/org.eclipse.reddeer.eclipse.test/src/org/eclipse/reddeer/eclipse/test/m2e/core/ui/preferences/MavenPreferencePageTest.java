@@ -14,10 +14,9 @@ package org.eclipse.reddeer.eclipse.test.m2e.core.ui.preferences;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import org.eclipse.reddeer.workbench.ui.dialogs.WorkbenchPreferenceDialog;
 import org.eclipse.reddeer.eclipse.m2e.core.ui.preferences.MavenPreferencePage;
 import org.eclipse.reddeer.junit.runner.RedDeerSuite;
-import org.eclipse.reddeer.swt.exception.SWTLayerException;
+import org.eclipse.reddeer.workbench.ui.dialogs.WorkbenchPreferenceDialog;
 import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
