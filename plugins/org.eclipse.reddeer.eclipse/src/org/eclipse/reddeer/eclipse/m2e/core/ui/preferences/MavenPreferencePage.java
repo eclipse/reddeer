@@ -17,7 +17,6 @@ import org.eclipse.reddeer.jface.preference.PreferencePage;
 import org.eclipse.reddeer.swt.impl.button.CheckBox;
 import org.hamcrest.Description;
 import org.hamcrest.TypeSafeMatcher;
-import org.hamcrest.core.IsEqual;
 
 /**
  * Class represents Maven preference page

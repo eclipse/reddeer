@@ -35,7 +35,7 @@ import org.eclipse.reddeer.swt.impl.button.NextButton;
  * @since 0.6
  * 
  */
-public class WizardDialog extends TitleAreaDialog{
+public class WizardDialog extends TitleAreaDialog {
 
 	protected final Logger log = Logger.getLogger(this.getClass());
 	

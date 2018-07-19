@@ -26,7 +26,6 @@ import org.eclipse.reddeer.eclipse.jdt.ui.wizards.JavaProjectWizard;
 import org.eclipse.reddeer.eclipse.jdt.ui.wizards.NewClassCreationWizard;
 import org.eclipse.reddeer.eclipse.jdt.ui.wizards.NewClassWizardPage;
 import org.eclipse.reddeer.eclipse.jdt.ui.wizards.NewJavaProjectWizardPageOne;
-import org.eclipse.reddeer.eclipse.ui.console.ConsoleView;
 import org.eclipse.reddeer.eclipse.ui.dialogs.WizardNewFileCreationPage;
 import org.eclipse.reddeer.eclipse.ui.navigator.resources.AbstractExplorer;
 import org.eclipse.reddeer.eclipse.ui.perspectives.JavaPerspective;

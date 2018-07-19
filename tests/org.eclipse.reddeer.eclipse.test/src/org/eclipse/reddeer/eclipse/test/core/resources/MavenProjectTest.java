@@ -17,7 +17,6 @@ import org.eclipse.reddeer.eclipse.core.resources.MavenProject;
 import org.eclipse.reddeer.eclipse.m2e.core.ui.wizard.MavenProjectWizard;
 import org.eclipse.reddeer.eclipse.m2e.core.ui.wizard.MavenProjectWizardArchetypeParametersPage;
 import org.eclipse.reddeer.eclipse.m2e.core.ui.wizard.MavenProjectWizardPage;
-import org.eclipse.reddeer.eclipse.test.debug.core.DebuggerTest;
 import org.eclipse.reddeer.eclipse.ui.navigator.resources.ProjectExplorer;
 import org.eclipse.reddeer.junit.runner.RedDeerSuite;
 import org.eclipse.reddeer.swt.api.TreeItem;

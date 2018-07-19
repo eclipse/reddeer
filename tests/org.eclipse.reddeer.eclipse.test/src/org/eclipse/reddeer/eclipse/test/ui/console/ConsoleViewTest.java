@@ -18,6 +18,8 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 
+import java.util.List;
+
 import org.eclipse.reddeer.common.matcher.RegexMatcher;
 import org.eclipse.reddeer.common.wait.AbstractWait;
 import org.eclipse.reddeer.common.wait.GroupWait;
@@ -37,8 +39,13 @@ import org.eclipse.reddeer.eclipse.jdt.ui.wizards.NewClassWizardPage;
 import org.eclipse.reddeer.eclipse.jdt.ui.wizards.NewJavaProjectWizardPageOne;
 import org.eclipse.reddeer.eclipse.ui.console.ConsoleView;
 import org.eclipse.reddeer.eclipse.ui.perspectives.JavaPerspective;
+import org.eclipse.reddeer.eclipse.ui.problems.Problem;
+import org.eclipse.reddeer.eclipse.ui.views.markers.ProblemsView;
+import org.eclipse.reddeer.eclipse.ui.views.markers.ProblemsView.ProblemType;
 import org.eclipse.reddeer.eclipse.utils.DeleteUtils;
 import org.eclipse.reddeer.junit.runner.RedDeerSuite;
+import org.eclipse.reddeer.junit.screenshot.CaptureScreenshotException;
+import org.eclipse.reddeer.junit.screenshot.ScreenshotCapturer;
 import org.eclipse.reddeer.requirements.openperspective.OpenPerspectiveRequirement.OpenPerspective;
 import org.eclipse.reddeer.swt.api.Menu;
 import org.eclipse.reddeer.swt.api.MenuItem;
@@ -53,7 +60,6 @@ import org.hamcrest.core.IsNull;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -278,6 +284,21 @@ public class ConsoleViewTest {
 	}
 
 	private static void runTestClass(String name) {
+		ProblemsView view = new ProblemsView();
+		view.open();
+		List<Problem> problems = view.getProblems(ProblemType.ALL);
+		if (!problems.isEmpty()) {
+			System.out.println("### There are problems in problems view");
+			for (Problem problem : problems) {
+				System.out.println(problem.getProblemType() + " " + problem.getResource() + " " + problem.getDescription());
+			}
+		}
+		try {
+			ScreenshotCapturer.getInstance().captureScreenshot("Problems" + ConsoleViewTest.class.getName());
+		} catch (CaptureScreenshotException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		PackageExplorerPart explorer = new PackageExplorerPart();
 		explorer.open();
 		explorer.getProject(TEST_PROJECT_NAME).getProjectItem("src", "test", name + ".java").select();

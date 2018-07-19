@@ -12,7 +12,6 @@
 package org.eclipse.reddeer.eclipse.rse.ui.wizards.newconnection;
 
 import org.eclipse.reddeer.core.reference.ReferencedComposite;
-import org.eclipse.reddeer.jface.wizard.WizardDialog;
 import org.eclipse.reddeer.jface.wizard.WizardPage;
 import org.eclipse.reddeer.swt.impl.tree.DefaultTree;
 import org.eclipse.reddeer.swt.impl.tree.DefaultTreeItem;
