@@ -1,8 +1,8 @@
 #set( $symbol_pound = '#' )
 #set( $symbol_dollar = '$' )
 #set( $symbol_escape = '\' )
-#if ($reddeer_version == "2.2.0")
-#set ($rd_repository = 'http://download.eclipse.org/reddeer/releases/2.2.0/')
+#if ($reddeer_version == "2.3.0")
+#set ($rd_repository = 'http://download.eclipse.org/reddeer/releases/2.3.0/')
 #else
 #set ($rd_repository = 'http://download.eclipse.org/reddeer/snapshots/')
 #end
