@@ -13,10 +13,10 @@
 <archetype-descriptor name="eclipse.plugin.archetype">
   <requiredProperties>
     <requiredProperty key="tycho_version">
-      <defaultValue>0.22.0</defaultValue>
+      <defaultValue>0.26.0</defaultValue>
     </requiredProperty>
     <requiredProperty key="eclipse_platform">
-      <defaultValue>photon</defaultValue>
+      <defaultValue>2018-09</defaultValue>
     </requiredProperty>
     <requiredProperty key="reddeer_version">
       <defaultValue>2.3.0-SNAPSHOT</defaultValue>

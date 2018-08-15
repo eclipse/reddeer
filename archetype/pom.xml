@@ -26,9 +26,9 @@
 
 	<licenses>
 		<license>
-			<name>Eclipse Public License, Version 1.0</name>
+			<name>Eclipse Public License, Version 2.0</name>
 			<distribution>repo</distribution>
-			<url>http://www.eclipse.org/org/documents/epl-v10.php</url>
+			<url>https://www.eclipse.org/legal/epl-2.0/</url>
 		</license>
 	</licenses>
 
