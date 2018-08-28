@@ -31,7 +31,7 @@
 			you can override this value to be Nightly Build, Development Milestone, or 
 			Stable Release, or set to &amp;shy; (soft hyphen) to leave blank -->
 		<update.site.description>&amp;shy;</update.site.description>
-		<targetEclipseVersion>4.8 (Photon)</targetEclipseVersion>
+		<targetEclipseVersion>4.9 (2018-09)</targetEclipseVersion>
 		<BUILD_ALIAS>CI</BUILD_ALIAS>
 		<BUILD_TIMESTAMP>yyyyMMdd-HHmm</BUILD_TIMESTAMP>
 		<maven.compiler.source>1.8</maven.compiler.source>
