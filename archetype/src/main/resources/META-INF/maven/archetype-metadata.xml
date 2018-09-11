@@ -19,7 +19,7 @@
       <defaultValue>2018-09</defaultValue>
     </requiredProperty>
     <requiredProperty key="reddeer_version">
-      <defaultValue>2.3.0-SNAPSHOT</defaultValue>
+      <defaultValue>2.3.0.Final</defaultValue>
     </requiredProperty>
     <requiredProperty key="version">
        <defaultValue>1.0.0-SNAPSHOT</defaultValue>
