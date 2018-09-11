@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: RedDeer Graphiti Tests
 Bundle-Vendor: Eclipse.org - RedDeer
 Bundle-SymbolicName: org.eclipse.reddeer.graphiti.test
-Bundle-Version: 2.3.0.qualifier
+Bundle-Version: 2.3.0.Final
 Bundle-Activator: org.eclipse.reddeer.graphiti.test.Activator
 Require-Bundle: org.eclipse.reddeer.go;bundle-version="[2.2.0,2.3.1)",
  org.eclipse.reddeer.gef;bundle-version="[2.2.0,2.3.1)",
