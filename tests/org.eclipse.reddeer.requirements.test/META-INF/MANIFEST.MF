@@ -3,8 +3,8 @@ Bundle-ManifestVersion: 2
 Bundle-Name: RedDeer Requirements Test
 Bundle-Vendor: Eclipse.org - RedDeer
 Bundle-SymbolicName: org.eclipse.reddeer.requirements.test
-Bundle-Version: 2.3.0.Final
+Bundle-Version: 2.4.0.qualifier
 Bundle-Activator: org.eclipse.reddeer.requirements.test.Activator
-Require-Bundle: org.eclipse.reddeer.go;bundle-version="[2.2.0,2.3.1)"
+Require-Bundle: org.eclipse.reddeer.go;bundle-version="[2.2.0,2.4.1)"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
