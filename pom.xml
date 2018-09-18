@@ -20,18 +20,18 @@
 	<packaging>pom</packaging>
 
 	<properties>
-		<tycho-version>1.1.0</tycho-version>
+		<tycho-version>1.2.0</tycho-version>
 		<tychoExtrasVersion>${tycho-version}</tychoExtrasVersion>
-		<eclipse-target-site>http://download.eclipse.org/staging/2018-09/</eclipse-target-site>
+		<eclipse-target-site>http://download.eclipse.org/staging/2018-12/</eclipse-target-site>
 		<swtbot-update-site>http://download.eclipse.org/technology/swtbot/snapshots/</swtbot-update-site>
-		<eclipse-orbit-update-site>http://download.eclipse.org/tools/orbit/downloads/drops/R20180905201904/repository</eclipse-orbit-update-site>
+		<eclipse-orbit-update-site>http://download.eclipse.org/tools/orbit/downloads/drops/S20181010170940/repository</eclipse-orbit-update-site>
 		<download-plugin-version>1.2.1</download-plugin-version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<!-- In the update site's site/pom.xml (that calls jbosstools-maven-plugins/tycho-plugins/repository-utils) 
 			you can override this value to be Nightly Build, Development Milestone, or 
 			Stable Release, or set to &amp;shy; (soft hyphen) to leave blank -->
 		<update.site.description>&amp;shy;</update.site.description>
-		<targetEclipseVersion>4.9 (2018-09)</targetEclipseVersion>
+		<targetEclipseVersion>4.10 (2018-12)</targetEclipseVersion>
 		<BUILD_ALIAS>CI</BUILD_ALIAS>
 		<BUILD_TIMESTAMP>yyyyMMdd-HHmm</BUILD_TIMESTAMP>
 		<maven.compiler.source>1.8</maven.compiler.source>
@@ -72,6 +72,17 @@
 				<groupId>org.eclipse.tycho</groupId>
 				<artifactId>tycho-packaging-plugin</artifactId>
 				<version>${tycho-version}</version>
+				<dependencies>
+					<dependency>
+						<groupId>org.eclipse.tycho.extras</groupId>
+						<artifactId>tycho-buildtimestamp-jgit</artifactId>
+						<version>${tychoExtrasVersion}</version>
+					</dependency>
+				</dependencies>
+				<configuration>
+					<strictBinIncludes>false</strictBinIncludes>
+                    <format>'${BUILD_ALIAS}v'${BUILD_TIMESTAMP}</format>
+				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.eclipse.tycho</groupId>
@@ -107,6 +118,15 @@
 							<arch>x86_64</arch>
 						</environment>
 					</environments>
+                    <dependency-resolution>
+                        <extraRequirements>
+                            <requirement>
+								<type>eclipse-plugin</type>
+								<id>org.eclipse.equinox.ds</id>
+								<versionRange>1.0.0</versionRange>
+							</requirement>
+                        </extraRequirements>
+                    </dependency-resolution>
 				</configuration>
 			</plugin>
 			<!-- source for bundles -->
@@ -129,22 +149,6 @@
 				<version>2.9.1</version>	
 				<configuration>
 					<sourcepath>${basedir}/plugins</sourcepath>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.eclipse.tycho</groupId>
-				<artifactId>tycho-packaging-plugin</artifactId>
-				<version>${tycho-version}</version>
-				<dependencies>
-					<dependency>
-						<groupId>org.eclipse.tycho.extras</groupId>
-						<artifactId>tycho-buildtimestamp-jgit</artifactId>
-						<version>${tychoExtrasVersion}</version>
-					</dependency>
-				</dependencies>
-				<configuration>
-					<strictBinIncludes>false</strictBinIncludes>
-					<format>'${BUILD_ALIAS}-v'${BUILD_TIMESTAMP}</format>
 				</configuration>
 			</plugin>
 			<!-- Java Code Coverage -->
