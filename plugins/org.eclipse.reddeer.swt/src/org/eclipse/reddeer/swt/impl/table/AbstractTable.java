@@ -138,6 +138,24 @@ public abstract class AbstractTable extends AbstractControl<org.eclipse.swt.widg
 		org.eclipse.swt.widgets.TableItem tItem = TableHandler.getInstance().getSWTItem(swtWidget, row);
 		return new DefaultTableItem(tItem);
 	}
+	
+	/* (non-Javadoc)
+	 * @see org.eclipse.reddeer.swt.api.Table#getItems(java.lang.String...)
+	 */
+	public List<TableItem> getItems(String... itemTexts) {
+		waitUntilTableHasRows();		
+		List<TableItem> matchedItems = new ArrayList<TableItem>();		
+		for (TableItem item : getItems()){
+			int index = 0;		
+			while (index < itemTexts.length && item.getText(index).equals((itemTexts[index]))){
+				index++;
+			}
+			if (index == itemTexts.length){
+				matchedItems.add(item);
+			}
+		}
+		return matchedItems;
+	}
 
 	/* (non-Javadoc)
 	 * @see org.eclipse.reddeer.swt.api.Table#rowCount()

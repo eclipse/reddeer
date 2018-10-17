@@ -232,5 +232,20 @@ public class DefaultTableTest extends AbstractTableTest {
 		Table foundTable = new DefaultTable(new WithIdMatcher("id", "table2"));
 		assertEquals(expectedTable.getSWTWidget(), foundTable.getSWTWidget());
 	}
+	
+	@Test
+	public void testGetItemsByStrings() {
+		Table table = new DefaultTable();
+		List<org.eclipse.reddeer.swt.api.TableItem> selectedTableItems = table.getItems("x", "y", "!", "this stuff behaves the way I expect", "almost everywhere", "some.folder");
+		int numSelected = selectedTableItems.size();
+		assertTrue("Only 128 Table Items have to be selected but " + numSelected + " are.", numSelected == 128);
+		selectedTableItems = table.getItems("x", "y", "!", "this stuff behaves the way I expect", "almost everywhere", "some.folder", "line " + 127 + " in nowhere");
+		numSelected = selectedTableItems.size();
+		assertTrue("Only one Table Item has to be selected but " + numSelected + " are.", numSelected == 1);
+		selectedTableItems = table.getItems("x", "y", "!", "this stuff behaves the way I expect", "almost everywhere", "some.folder", "line " + 127 + " in nowhere", "something");
+		numSelected = selectedTableItems.size();
+		assertTrue("No Table Item has to be selected but " + numSelected + " are.", numSelected == 0);
+		
+	}
 
 }
