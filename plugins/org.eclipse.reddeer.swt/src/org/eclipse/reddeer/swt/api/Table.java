@@ -146,6 +146,16 @@ public interface Table extends Control<org.eclipse.swt.widgets.Table>, Reference
 	List<TableItem> getItems(Matcher<TableItem>... matchers);
 	
 	/**
+	 * Returns table items matching the strings in columns(fixed order).
+	 * Returns empty array, if array of string is longer than number of columns.
+	 * If array of strings is shorter, then returns all matching TableItems. 
+	 * 
+	 * @param tableTexts array of strings for items matching
+	 * @return table items matching the strings in columns
+	 */
+	List<TableItem> getItems(String... tableTexts);
+	
+	/**
 	 * Gets currently selected table items.
 	 * 
 	 * @return list of selected table items
