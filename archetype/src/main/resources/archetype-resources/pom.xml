@@ -1,115 +1,127 @@
+
 #set( $symbol_pound = '#' )
 #set( $symbol_dollar = '$' )
 #set( $symbol_escape = '\' )
-#if ($reddeer_version == "2.3.0")
-#set ($rd_repository = 'http://download.eclipse.org/reddeer/releases/2.3.0/')
+#if ($reddeer_version == "2.4.0" )
+#set( $rd_repository = 'http://download.eclipse.org/reddeer/releases/2.4.0/' )
 #else
-#set ($rd_repository = 'http://download.eclipse.org/reddeer/snapshots/')
+#set ( $rd_repository = 'http://download.eclipse.org/reddeer/snapshots/' )
 #end
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>${groupId}</groupId>
-  <artifactId>${artifactId}</artifactId>
-  <version>${version}</version>
-  <name>${artifactId} :: test</name>
-  <description>${artifactId} test plugin</description>
-  <packaging>eclipse-test-plugin</packaging>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>${groupId}</groupId>
+	<artifactId>${artifactId}</artifactId>
+	<version>${version}</version>
+	<name>${artifactId} :: test</name>
+	<description>${artifactId} test plugin</description>
+	<packaging>eclipse-test-plugin</packaging>
 
-  <prerequisites>
-    <maven>3.0</maven>
-  </prerequisites>
+	<prerequisites>
+		<maven>3.0</maven>
+	</prerequisites>
 
-  <properties>
-    <java.version>1.5</java.version>
-  	<maven.version>3.0</maven.version>
-  	<tycho.version>${tycho_version}</tycho.version>
-  	<tycho.test.jvmArgs>-Xmx512m -XX:MaxPermSize=256m</tycho.test.jvmArgs>
-	<surefire.timeout>1200</surefire.timeout>
-	<platformSystemProperties></platformSystemProperties>
-  </properties>
+	<properties>
+		<java.version>1.8</java.version>
+		<maven.version>3.0</maven.version>
+		<tycho.version>${tycho_version}</tycho.version>
+		<tycho.test.jvmArgs>-Xmx512m -XX:MaxPermSize=256m</tycho.test.jvmArgs>
+		<surefire.timeout>1200</surefire.timeout>
+		<platformSystemProperties></platformSystemProperties>
+	</properties>
 
-  <repositories>
-    <repository>
-      <id>${eclipse_platform}</id>
-      <layout>p2</layout>
-      <url>http://download.eclipse.org/releases/${eclipse_platform}</url>
-    </repository>
-    <repository>
-      <id>RedDeer</id>
-      <layout>p2</layout>
-      <url>${rd_repository}</url>
-    </repository>
-  </repositories>
+	<repositories>
+		<repository>
+			<id>${eclipse_platform}</id>
+			<layout>p2</layout>
+			<url>http://download.eclipse.org/releases/${eclipse_platform}</url>
+		</repository>
+		<repository>
+			<id>RedDeer</id>
+			<layout>p2</layout>
+			<url>${rd_repository}</url>
+		</repository>
+	</repositories>
 
-  <pluginRepositories>
-    <pluginRepository>
-      <id>sonatype-public</id>
-      <url>http://repository.sonatype.org/content/groups/sonatype-public-grid</url>
-    </pluginRepository>
-  </pluginRepositories>
+	<pluginRepositories>
+		<pluginRepository>
+			<id>sonatype-public</id>
+			<url>http://repository.sonatype.org/content/groups/sonatype-public-grid</url>
+		</pluginRepository>
+	</pluginRepositories>
 
 
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.eclipse.tycho</groupId>
-		<artifactId>tycho-maven-plugin</artifactId>
-        <version>${symbol_dollar}{tycho.version}</version>
-        <extensions>true</extensions>
-      </plugin>
-      <plugin>
-        <groupId>org.eclipse.tycho</groupId>
-        <artifactId>target-platform-configuration</artifactId>
-        <version>${symbol_dollar}{tycho.version}</version>
-        <configuration>
-          <resolver>p2</resolver>
-          <pomDependencies>consider</pomDependencies>
-          <ignoreTychoRepositories>true</ignoreTychoRepositories>
-        </configuration>
-      </plugin>
-    </plugins>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-maven-plugin</artifactId>
+				<version>${symbol_dollar}{tycho.version}</version>
+				<extensions>true</extensions>
+			</plugin>
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>target-platform-configuration</artifactId>
+				<version>${symbol_dollar}{tycho.version}</version>
+				<configuration>
+					<resolver>p2</resolver>
+					<pomDependencies>consider</pomDependencies>
+					<ignoreTychoRepositories>true</ignoreTychoRepositories>
+					<dependency-resolution>
+						<extraRequirements>
+							<requirement>
+								<type>eclipse-plugin</type>
+								<id>org.eclipse.equinox.ds</id>
+								<versionRange>1.0.0</versionRange>
+							</requirement>
+						</extraRequirements>
+					</dependency-resolution>
+				</configuration>
+			</plugin>
+		</plugins>
 
-    <pluginManagement>
-      <plugins>
-        <plugin>
-          <groupId>org.eclipse.tycho</groupId>
-          <artifactId>tycho-packaging-plugin</artifactId>
-          <version>${symbol_dollar}{tycho.version}</version>
-          <configuration>
-            <format>yyyyMMdd-HHmm</format>
-          </configuration>
-        </plugin>
-        <plugin>
-          <groupId>org.eclipse.tycho</groupId>
-          <artifactId>tycho-surefire-plugin</artifactId>
-          <version>${symbol_dollar}{tycho.version}</version>
-          <configuration>
-            <useUIHarness>true</useUIHarness>
-            <useUIThread>false</useUIThread>
-            <testSuite>${artifactId}</testSuite>
-            <testClass>${package}.AllRedDeerTests</testClass>
-            <!-- THE FOLLOWING LINE MUST NOT BE BROKEN BY AUTOFORMATTING -->
-            <argLine>${symbol_dollar}{tycho.test.jvmArgs} ${symbol_dollar}{platformSystemProperties}</argLine>
-	    	<includes>
-                <include>**/AllTests.class</include>
-                <include>**/*AllTests*.class</include>
-				<include>**/*AllBotTests*.class</include>
-                <include>**/*AllRedDeerTests*.class</include>
-                <include>**/*TestSuite*.class</include>
-            </includes>
-          </configuration>
-        </plugin>
-        <plugin>
-        	<groupId>org.apache.maven.plugins</groupId>
-        	<artifactId>maven-assembly-plugin</artifactId>
-        	<version>2.3</version>
-        </plugin>
-      </plugins>
-    </pluginManagement>
-  </build>
-  
-  <profiles>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.eclipse.tycho</groupId>
+					<artifactId>tycho-packaging-plugin</artifactId>
+					<version>${symbol_dollar}{tycho.version}</version>
+					<configuration>
+						<format>yyyyMMdd-HHmm</format>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.eclipse.tycho</groupId>
+					<artifactId>tycho-surefire-plugin</artifactId>
+					<version>${symbol_dollar}{tycho.version}</version>
+					<configuration>
+						<useUIHarness>true</useUIHarness>
+						<useUIThread>false</useUIThread>
+						<testSuite>${artifactId}</testSuite>
+						<testClass>${package}.AllRedDeerTests</testClass>
+						<!-- THE FOLLOWING LINE MUST NOT BE BROKEN BY AUTOFORMATTING -->
+						<argLine>${symbol_dollar}{tycho.test.jvmArgs} ${symbol_dollar}{platformSystemProperties}</argLine>
+						<includes>
+							<include>**/AllTests.class</include>
+							<include>**/*AllTests*.class</include>
+							<include>**/*AllBotTests*.class</include>
+							<include>**/*AllRedDeerTests*.class</include>
+							<include>**/*TestSuite*.class</include>
+						</includes>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-assembly-plugin</artifactId>
+					<version>2.3</version>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+
+	<profiles>
 		<profile>
 			<!-- Workaround for https://bugs.eclipse.org/bugs/show_bug.cgi?id=388084 -->
 			<id>osx</id>

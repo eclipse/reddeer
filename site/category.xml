@@ -28,8 +28,11 @@
 	<category-def label="5. RedDeer Graphiti" name="GraphitiFeatures">
 		<description>RedDeer Graphiti: Graphiti, GEF features, tools and its sources</description>
 	</category-def>
-    	<category-def label="6. RedDeer Tests" name="TestFeatures">
+    <category-def label="6. RedDeer Tests" name="TestFeatures">
 		<description>RedDeer Tests: Contains RedDeer tests and tools.</description>
+	</category-def>
+    <category-def label="7. RedDeer E4 Support" name="E4Features">
+		<description>RedDeer E4: Contains RedDeer E4 support.</description>
 	</category-def>
 
 	<feature url="org.eclipse.reddeer.eclipse.feature.qualifier" id="org.eclipse.reddeer.eclipse.feature" version="0.0.0">
@@ -102,5 +105,13 @@
 
     <feature url="org.eclipse.reddeer.logparser.feature.source.qualifier" id="org.eclipse.reddeer.logparser.feature.source" version="0.0.0">
         <category name="AllSources"/>
+    </feature>
+    
+    <feature url="org.eclipse.reddeer.e4.feature.source.qualifier" id="org.eclipse.reddeer.e4.feature.source" version="0.0.0">
+        <category name="AllSources"/>
+    </feature>
+    
+    <feature url="org.eclipse.reddeer.e4.feature.qualifier" id="org.eclipse.reddeer.e4.feature" version="0.0.0">
+        <category name="E4Features"/>
     </feature>
 </site>
