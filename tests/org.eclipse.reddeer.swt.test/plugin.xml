@@ -16,18 +16,18 @@
    <extension
          point="org.eclipse.ui.views">
       <category
-            id="org.eclipse.reddeer.swt.test.swtcat"
+            id="org.eclipse.reddeer.swt.test"
             name="RedDeer SWT">
       </category>
       <view
-            category="org.eclipse.reddeer.swt.test.swtcat"
+            category="org.eclipse.reddeer.swt.test"
             class="org.eclipse.reddeer.swt.test.prereq.PrereqView"
             id="org.eclipse.reddeer.swt.test.swtview"
             name="RedDeer SWT"
             restorable="true">
       </view>
       <view
-            category="org.eclipse.reddeer.swt.test.swtcat"
+            category="org.eclipse.reddeer.swt.test"
             class="org.eclipse.reddeer.swt.test.ui.views.SWTControlsView"
             id="org.eclipse.reddeer.swt.test.swtview.controls"
             name="RedDeer SWT Controls"
@@ -171,7 +171,6 @@
          id="org.hibernate.eclipse.console.actions.ExecuteHQLActionCommand"
          name="Run Query command"/>
  	<command
-            categoryId="org.eclipse.reddeer.swt.test.swtcat"
             id="org.eclipse.reddeer.swt.test.command.testParameterizedCommand"
             name="Parameterized Contribution Item Command">
             <commandParameter
