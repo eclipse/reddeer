@@ -102,18 +102,3 @@ public class RedDeerTest {
 To run a test, open context menu Run As -> RedDeer Test on a project:
 
 <img src=https://github.com/eclipse/reddeer/wiki/img/2/run_reddeer.png />
-
-# Code Coverage
-
-You can generate a code coverage for the whole project by
-
-    mvn clean verify -Pjacoco
-
-which will execute all tests. The coverage results can be found at jacoco-result/target/site.
-
-It is also possible to generate code coverage for one tests bundle. For examle
-
-    mvn clean verify -pl tests/org.eclipse.reddeer.common.test -am
-
-which will execute only tests from org.eclipse.reddeer.common.test and generate the code coverage for org.eclipse.reddeer.common.
-Such results can be found at tests/org.eclipse.reddeer.common.test/target/site.
