@@ -15,16 +15,16 @@
 <plugin>
    	<extension point="org.eclipse.ui.views">
    		<category 
-           id="org.eclipse.reddeer.workbench.test.ui.category"
+           id="org.eclipse.reddeer.workbench.test.ui"
            name="RedDeer Test Workbench">
         </category>
     	<view id="org.eclipse.reddeer.workbench.test.ui.views.labelview"
         	name="Workbench Test"
-        	category="org.eclipse.reddeer.workbench.test.ui.category"
+        	category="org.eclipse.reddeer.workbench.test.ui"
         	class="org.eclipse.reddeer.workbench.test.ui.views.LabelView" />
     	<view id="org.eclipse.reddeer.workbench.test.ui.views.dirtylabelview"
         	name="Workbench Dirty Test"
-        	category="org.eclipse.reddeer.workbench.test.ui.category"
+        	category="org.eclipse.reddeer.workbench.test.ui"
         	class="org.eclipse.reddeer.workbench.test.ui.views.DirtyLabelView" />
 	</extension>
 	<extension
