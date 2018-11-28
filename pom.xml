@@ -37,11 +37,11 @@
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<!-- Java Code Coverage -->
-		<jacoco-version>0.7.9</jacoco-version>
+		<jacoco-version>0.8.2</jacoco-version>
 		<!-- Sonar Properties -->
 		<sonar.code.codeCoveragePlugin>jacoco</sonar.code.codeCoveragePlugin>
 		<sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
-		<sonar.jacoco.reportPaths>../../tests/org.eclipse.reddeer.common.test/target/jacoco.exec,../../tests/org.eclipse.reddeer.core.test/target/jacoco.exec,../../tests/org.eclipse.reddeer.direct.test/target/jacoco.exec,../../tests/org.eclipse.reddeer.eclipse.test/target/jacoco.exec,../../tests/org.eclipse.reddeer.gef.test/target/jacoco.exec,../../tests/org.eclipse.reddeer.graphiti.test/target/jacoco.exec,../../tests/org.eclipse.reddeer.jface.test/target/jacoco.exec,../../tests/org.eclipse.reddeer.junit.test/target/jacoco.exec,../../tests/org.eclipse.reddeer.requirements.test/target/jacoco.exec,../../tests/org.eclipse.reddeer.swt.test/target/jacoco.exec,../../tests/org.eclipse.reddeer.ui.test/target/jacoco.exec,../../tests/org.eclipse.reddeer.uiforms.test/target/jacoco.exec,../../tests/org.eclipse.reddeer.workbench.test/target/jacoco.exec</sonar.jacoco.reportPaths>
+		<sonar.jacoco.reportPaths>../../tests/org.eclipse.reddeer.common.test/target/jacoco.exec,../../tests/org.eclipse.reddeer.core.test/target/jacoco.exec,../../tests/org.eclipse.reddeer.direct.test/target/jacoco.exec,../../tests/org.eclipse.reddeer.eclipse.test/target/jacoco.exec,../../tests/org.eclipse.reddeer.gef.test/target/jacoco.exec,../../tests/org.eclipse.reddeer.graphiti.test/target/jacoco.exec,../../tests/org.eclipse.reddeer.jface.test/target/jacoco.exec,../../tests/org.eclipse.reddeer.junit.test/target/jacoco.exec,../../tests/org.eclipse.reddeer.requirements.test/target/jacoco.exec,../../tests/org.eclipse.reddeer.swt.test/target/jacoco.exec,../../tests/org.eclipse.reddeer.ui.test/target/jacoco.exec,../../tests/org.eclipse.reddeer.uiforms.test/target/jacoco.exec,../../tests/org.eclipse.reddeer.workbench.test/target/jacoco.exec,../../tests/org.eclipse.reddeer.e4.workbench.test/target/jacoco.exec</sonar.jacoco.reportPaths>
 	</properties>
 
 	<modules>
@@ -100,17 +100,7 @@
 						<environment>
 							<os>win32</os>
 							<ws>win32</ws>
-							<arch>x86</arch>
-						</environment>
-						<environment>
-							<os>win32</os>
-							<ws>win32</ws>
 							<arch>x86_64</arch>
-						</environment>
-						<environment>
-							<os>linux</os>
-							<ws>gtk</ws>
-							<arch>x86</arch>
 						</environment>
 						<environment>
 							<os>linux</os>
@@ -118,15 +108,15 @@
 							<arch>x86_64</arch>
 						</environment>
 					</environments>
-                    <dependency-resolution>
-                        <extraRequirements>
-                            <requirement>
+					<dependency-resolution>
+						<extraRequirements>
+							<requirement>
 								<type>eclipse-plugin</type>
 								<id>org.eclipse.equinox.ds</id>
 								<versionRange>1.0.0</versionRange>
 							</requirement>
-                        </extraRequirements>
-                    </dependency-resolution>
+						</extraRequirements>
+					</dependency-resolution>
 				</configuration>
 			</plugin>
 			<!-- source for bundles -->
@@ -169,6 +159,9 @@
 							<includes>
 								<include>org.eclipse.reddeer.*</include>
 							</includes>
+							<excludes>
+								<exclude>org.eclipse.reddeer.e4.workbench.core/**/*</exclude>
+							</excludes>
 						</configuration>
 					</execution>
 				</executions>
