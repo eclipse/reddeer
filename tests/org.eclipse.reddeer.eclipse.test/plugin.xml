@@ -73,4 +73,20 @@
            id="org.eclipse.reddeer.eclipse.test.jdt.ui.TestingPreferencePage"
            name="Testing preference page"/>
    </extension>
+    <extension
+         point="org.eclipse.epp.logging.aeri.ide.servers">
+      <server
+            id="org.eclipse.reddeer"
+            class="org.eclipse.epp.internal.logging.aeri.ide.server.mars.ServerConnection"
+            icon16="resources/icons/reddeer_icon.png"
+            icon32="resources/icons/reddeer_icon.png"
+            name="Eclipse RedDeer Test Connector"
+            description="Eclipse RedDeer connector description">
+             <link
+               href="https://github.com/eclipse/reddeer"
+               rel="provider"
+               title="RedDeer link">
+         </link>
+      </server>
+   </extension>
 </plugin>
