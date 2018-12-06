@@ -179,7 +179,7 @@ public class CComboTest extends SWTLayerTestCase {
 			CCombo[] ccombos = new CCombo[] { new LabeledCCombo(CComboTest.COMBO_LABEL_PREFIX + ccomboIndex),
 					new DefaultCCombo(ccomboIndex) };
 			for (int i = 0; i < ccombos.length; i++) {
-				String[] items = (String[]) ccombos[i].getItems().toArray();
+				String[] items = ccombos[i].getItems().toArray(new String[ccombos[i].getItems().size()]);
 
 				assertTrue("Retrieved items are: " + Arrays.toString(items) + "\nbut expected are: "
 						+ Arrays.toString(expectedItems) + "\nItems were retrieved from " + ccombos[i].getClass(),

@@ -180,7 +180,7 @@ public class ComboTest extends SWTLayerTestCase {
 				new LabeledCombo(ComboTest.COMBO_LABEL_PREFIX + comboIndex),
 				new DefaultCombo(comboIndex) };
 			for (int i = 0; i < combos.length; i++) {
-				String[] items = (String[]) combos[i].getItems().toArray();
+				String[] items = combos[i].getItems().toArray(new String[combos[i].getItems().size()]);
 
 				assertTrue("Retrieved items are: " + Arrays.toString(items) + "\nbut expected are: "
 						+ Arrays.toString(expectedItems) + "\nItems were retrieved from " + combos[i].getClass(),
