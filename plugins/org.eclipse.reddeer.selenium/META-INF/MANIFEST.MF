@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: RedDeer Selenium
 Bundle-Vendor: Eclipse.org - RedDeer
 Bundle-SymbolicName: org.eclipse.reddeer.selenium
-Bundle-Version: 2.4.0.qualifier
+Bundle-Version: 2.5.0.qualifier
 Bundle-Activator: org.eclipse.reddeer.bot.selenium.Activator
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime

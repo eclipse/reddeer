@@ -16,10 +16,10 @@
       <defaultValue>0.26.0</defaultValue>
     </requiredProperty>
     <requiredProperty key="eclipse_platform">
-      <defaultValue>2018-09</defaultValue>
+      <defaultValue>2018-12</defaultValue>
     </requiredProperty>
     <requiredProperty key="reddeer_version">
-      <defaultValue>2.3.0.Final</defaultValue>
+      <defaultValue>2.4.0.Final</defaultValue>
     </requiredProperty>
     <requiredProperty key="version">
        <defaultValue>1.0.0-SNAPSHOT</defaultValue>
