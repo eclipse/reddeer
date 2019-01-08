@@ -16,7 +16,7 @@
 	<parent>
 		<groupId>org.eclipse.reddeer</groupId>
 		<artifactId>parent</artifactId>
-		<version>2.4.0-SNAPSHOT</version>
+		<version>2.5.0-SNAPSHOT</version>
 	</parent>
 	<artifactId>tests</artifactId>
 	<name>RedDeer Tests</name>
@@ -63,7 +63,7 @@
 					<useUIHarness>true</useUIHarness>
 					<useUIThread>false</useUIThread>
 					<!-- THE FOLLOWING LINE MUST NOT BE BROKEN BY AUTOFORMATTING -->
-					<argLine>-DlogMessageFilter=${logMessageFilter} -DpauseFailedTest=${pauseFailedTest} -DrelativeScreenshotDirectory=${relativeScreenshotDirectory} ${platformSystemProperties} ${customArgLine} ${junitExtensionsProperties} ${tycho.testArgLine} -XX:MaxPermSize=512m -Xmx512m</argLine>
+					<argLine>-DlogMessageFilter=${logMessageFilter} -DpauseFailedTest=${pauseFailedTest} -DrelativeScreenshotDirectory=${relativeScreenshotDirectory} ${platformSystemProperties} ${customArgLine} ${junitExtensionsProperties} ${tycho.testArgLine} -Xmx512m</argLine>
 					<product>org.eclipse.platform.ide</product>
 					<application>org.eclipse.ui.ide.workbench</application>
 					<dependencies combine.children="append">
