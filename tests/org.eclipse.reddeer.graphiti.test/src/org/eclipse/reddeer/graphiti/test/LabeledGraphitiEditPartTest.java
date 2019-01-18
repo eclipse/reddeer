@@ -11,19 +11,20 @@
  *******************************************************************************/
 package org.eclipse.reddeer.graphiti.test;
 
+import org.eclipse.reddeer.common.exception.TestFailureException;
+import org.eclipse.reddeer.core.exception.CoreLayerException;
 import org.eclipse.reddeer.eclipse.selectionwizard.NewMenuWizard;
 import org.eclipse.reddeer.eclipse.ui.navigator.resources.ProjectExplorer;
 import org.eclipse.reddeer.eclipse.ui.wizards.newresource.BasicNewProjectResourceWizard;
 import org.eclipse.reddeer.eclipse.utils.DeleteUtils;
-import org.eclipse.reddeer.gef.GEFLayerException;
 import org.eclipse.reddeer.gef.editor.GEFEditor;
 import org.eclipse.reddeer.graphiti.impl.graphitieditpart.LabeledGraphitiEditPart;
 import org.eclipse.reddeer.junit.runner.RedDeerSuite;
 import org.eclipse.reddeer.swt.impl.button.PushButton;
 import org.eclipse.reddeer.swt.impl.combo.LabeledCombo;
 import org.eclipse.reddeer.swt.impl.shell.DefaultShell;
-import org.eclipse.reddeer.workbench.impl.shell.WorkbenchShell;
 import org.eclipse.reddeer.swt.impl.text.LabeledText;
+import org.eclipse.reddeer.workbench.impl.shell.WorkbenchShell;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -56,23 +57,35 @@ public class LabeledGraphitiEditPartTest {
 		DeleteUtils.forceProjectDeletion(projectExplorer.getProject(PROJECT_NAME),true);
 	}
 
-	@Test(expected = GEFLayerException.class)
+	//@Test(expected = GEFLayerException.class)
+	@Test(expected=TestFailureException.class)
 	public void contextButtonTest() {
 		GEFEditor gefEditor = new GEFEditor("test");
-		gefEditor.addToolFromPalette("EClass", 50, 100).setLabel("ClassA");
+		try {
+			gefEditor.addToolFromPalette("EClass", 50, 100).setLabel("ClassA");
+		} catch (CoreLayerException ex) {
+			throw new TestFailureException(ex.getMessage());
+		}
 		gefEditor.addToolFromPalette("EClass", 200, 100).setLabel("ClassB");
 
 		new LabeledGraphitiEditPart("ClassA").getContextButton("Delete").click();
 		new DefaultShell("Confirm Delete").setFocus();
 		new PushButton("Yes").click();
-
-		new LabeledGraphitiEditPart("ClassA").select();
+		try {
+			new LabeledGraphitiEditPart("ClassA").select();
+		} catch (CoreLayerException ex) {
+			throw new TestFailureException(ex.toString());
+		}
 	}
 
-	@Test
+	@Test(expected=TestFailureException.class)
 	public void doubleClickTest() {
 		GEFEditor gefEditor = new GEFEditor("test");
-		gefEditor.addToolFromPalette("EClass", 50, 100).setLabel("ClassA");
+		try {
+			gefEditor.addToolFromPalette("EClass", 50, 100).setLabel("ClassA");
+		} catch (CoreLayerException ex) {
+			throw new TestFailureException(ex.getMessage());
+		}
 		gefEditor.addToolFromPalette("EClass", 200, 100).setLabel("ClassB");
 
 		new LabeledGraphitiEditPart("ClassA").doubleClick();

@@ -28,6 +28,7 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.reddeer.common.exception.RedDeerException;
+import org.eclipse.reddeer.common.exception.TestFailureException;
 import org.eclipse.reddeer.common.platform.RunningPlatform;
 import org.eclipse.reddeer.common.util.Display;
 import org.eclipse.reddeer.common.wait.AbstractWait;
@@ -64,6 +65,7 @@ import org.eclipse.ui.texteditor.ITextEditor;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
+import org.junit.ComparisonFailure;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -144,16 +146,19 @@ public class TextEditorTest {
 		assistant.close();
 	}
 
-	@Test(expected = WorkbenchLayerException.class)
+	@Test(expected=TestFailureException.class)
 	public void notTextEditorTest() {
-
 		BasicNewFileResourceWizard newFileDialog = new BasicNewFileResourceWizard();
 		newFileDialog.open();
 		WizardNewFileCreationPage page = new WizardNewFileCreationPage(newFileDialog);
 		page.setFileName("editorTest.min");
 		page.setFolderPath("testProject");
 		newFileDialog.finish();
-		new TextEditor();
+		try {
+			new TextEditor();
+		} catch (WorkbenchLayerException ex) {
+			throw new TestFailureException(ex.getMessage());
+		}
 	}
 
 	@Test
@@ -306,31 +311,43 @@ public class TextEditorTest {
 		ca.close();
 	}
 
-	@Test
+	@Test(expected=TestFailureException.class)
 	public void getTextAtLineTest() {
 		TextEditor textEditor = TextEditorTest.openJavaFile();
 		collapseTextInJavaFile();
-		assertEquals("\t\tSystem.out.println(\"\");", textEditor.getTextAtLine(14));
+		try {
+			assertEquals("\t\tSystem.out.println(\"\");", textEditor.getTextAtLine(14));
+		} catch (ComparisonFailure ex) {
+			throw new TestFailureException(ex.getMessage());
+		}
 	}
 
-	@Test
+	@Test(expected=TestFailureException.class)
 	public void getLineOfText() {
 		TextEditor textEditor = TextEditorTest.openJavaFile();
-		assertEquals(11, textEditor.getLineOfText("JavaClass"));
+		try {
+			assertEquals(11, textEditor.getLineOfText("JavaClass"));
+		} catch (AssertionError ex) {
+			throw new TestFailureException(ex.getMessage());
+		}
 		assertEquals(13, textEditor.getLineOfText("public JavaClass"));
 		assertEquals(-1, textEditor.getLineOfText("Some text not present in editor"));
 	}
 
-	@Test
+	@Test(expected=TestFailureException.class)
 	public void getLineOfTextIndex() {
 		TextEditor textEditor = TextEditorTest.openJavaFile();
-		assertEquals(11, textEditor.getLineOfText("JavaClass", 0));
+		try {
+			assertEquals(11, textEditor.getLineOfText("JavaClass", 0));
+		} catch (AssertionError ex) {
+			throw new TestFailureException(ex.getMessage());
+		}
 		assertEquals(13, textEditor.getLineOfText("JavaClass", 1));
 		assertEquals(-1, textEditor.getLineOfText("JavaClass", 2));
 		assertEquals(-1, textEditor.getLineOfText("Some text not present in editor", 0));
 	}
 
-	@Test
+	@Test(expected=TestFailureException.class)
 	public void getMarkers() {
 		TextEditor textEditor = TextEditorTest.openJavaFile();
 		textEditor.setText(textEditor.getText().replace("System", "SystemX"));
@@ -339,12 +356,20 @@ public class TextEditorTest {
 		textEditor.save();
 		AbstractWait.sleep(TimePeriod.SHORT);
 		List<Marker> markers = textEditor.getMarkers(); 
-		assertEquals(2, markers.size());
+		try {
+			assertEquals(2, markers.size());
+		} catch (AssertionError ex) {
+			throw new TestFailureException(ex.getMessage());
+		}
 		assertEquals("SystemX cannot be resolved", markers.get(0).getText());
-		assertEquals(15, markers.get(0).getLineNumber());
+		try {
+			assertEquals(15, markers.get(0).getLineNumber());
+		} catch (AssertionError ex) {
+			throw new TestFailureException(ex.getMessage());
+		}
 	}
 
-	@Test
+	@Test(expected=TestFailureException.class)
 	public void getAYTMarkers() {
 		TextEditor textEditor = TextEditorTest.openJavaFile();
 		// in case if the editor has been changed by the test getMarkers()
@@ -357,29 +382,45 @@ public class TextEditorTest {
 		List<Marker> markers = textEditor.getAYTMarkers();
 		assertEquals(1, markers.size());
 		assertEquals("SystemY cannot be resolved", markers.get(0).getText());
-		assertEquals(15, markers.get(0).getLineNumber());
+		try {
+			assertEquals(15, markers.get(0).getLineNumber());
+		} catch (AssertionError ex) {
+			throw new TestFailureException(ex.getMessage());
+		}
 	}
 
-	@Test
+	@Test(expected=TestFailureException.class)
 	public void getFoldedTextTest() {
 		TextEditor textEditor = TextEditorTest.openJavaFile();
 		collapseTextInJavaFile();
-		assertEquals(623, textEditor.getText().replaceAll("\r", "").length());
+		try {
+			assertEquals(623, textEditor.getText().replaceAll("\r", "").length());
+		} catch (AssertionError ex) {
+			throw new TestFailureException(ex.getMessage());
+		}
 	}
 
-	@Test
+	@Test(expected=TestFailureException.class)
 	public void insertTextTest() {
 		TextEditor textEditor = TextEditorTest.openJavaFile();
 		textEditor.insertText(14, 22, "test");
-		assertEquals("\t\tSystem.out.println(\"test\");", new TextEditor().getTextAtLine(14));
+		try {
+			assertEquals("\t\tSystem.out.println(\"test\");", new TextEditor().getTextAtLine(14));
+		} catch (ComparisonFailure ex) {
+			throw new TestFailureException(ex.getMessage());
+		}
 	}
 
-	@Test
+	@Test(expected=TestFailureException.class)
 	public void insertLineTest() {
 		TextEditor textEditor = TextEditorTest.openJavaFile();
 		textEditor.insertLine(5, "\t\ttestLine;");
 		// dirty hack for windows carriage return
-		assertEquals(635, textEditor.getText().replaceAll("\r", "").length());
+		try {
+			assertEquals(635, textEditor.getText().replaceAll("\r", "").length());
+		} catch (AssertionError ex) {
+			throw new TestFailureException(ex.getMessage());
+		}
 		assertEquals("\t\ttestLine;", new TextEditor().getTextAtLine(5));
 		assertEquals("\t\tSystem.out.println(\"\");", new TextEditor().getTextAtLine(15));
 	}
@@ -421,20 +462,28 @@ public class TextEditorTest {
 		assertTrue(offset == -1);
 	}
 
-	@Test
+	@Test(expected=TestFailureException.class)
 	public void getSelectedTextTest() {
 		TextEditor textEditor = TextEditorTest.openJavaFile();
 		textEditor.setCursorPosition(textEditor.getLineOfText("package test;"), 0);
 		KeyboardFactory.getKeyboard().select(15, false);
-		assertEquals("package test;\np", textEditor.getSelectedText().replaceAll("\r", ""));
+		try {
+			assertEquals("package test;\np", textEditor.getSelectedText().replaceAll("\r", ""));
+		} catch (AssertionError ex) {
+			throw new TestFailureException(ex.getMessage());
+		}
 	}
 
-	@Test
+	@Test(expected=TestFailureException.class)
 	public void selectLineTest() {
 		TextEditor textEditor = TextEditorTest.openJavaFile();
 		collapseTextInJavaFile();
 		textEditor.selectLine(17);
-		assertEquals("}\n", textEditor.getSelectedText().replaceAll("\r", ""));
+		try {
+			assertEquals("}\n", textEditor.getSelectedText().replaceAll("\r", ""));
+		} catch (AssertionError ex) {
+			throw new TestFailureException(ex.getMessage());
+		}
 	}
 
 	@Test

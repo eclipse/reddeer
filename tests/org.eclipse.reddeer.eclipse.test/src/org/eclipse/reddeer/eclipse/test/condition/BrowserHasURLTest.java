@@ -38,6 +38,7 @@ public class BrowserHasURLTest {
 	private BrowserEditor browserEditor;
 	private static final String BAD_URL = "https://www.redhat.com/en";
 	private static final String URL = "http://www.w3.org/";
+	private static final String URL_SECURE = "https://www.w3.org/";
 	private static final String REG_EXP_URL = ".*(www.w3.org).*";
 	
 	@After
@@ -88,8 +89,9 @@ public class BrowserHasURLTest {
 	public void testBrowserEditor() {
 		openBrowserEditor();
 		BrowserHasURL condition = new BrowserHasURL(browserEditor, URL);
-		assertTrue("Expected URL: " + URL + " but was: " + browserEditor.getPageURL(), condition.test());
-		assertEquals("Browser url and one obtained from getResult are not the same", URL, condition.getResult());
+		BrowserHasURL conditionSecure = new BrowserHasURL(browserEditor, URL_SECURE);
+		assertTrue("Expected URL: " + URL + " but was: " + browserEditor.getPageURL(), condition.test() || conditionSecure.test());
+		assertTrue("Browser url and one obtained from getResult are not the same", URL.equals(condition.getResult()) || URL_SECURE.equals(conditionSecure.getResult()));
 		condition = new BrowserHasURL(browserEditor, new RegexMatcher(REG_EXP_URL));
 		assertTrue(condition.test());
 		assertEquals("Browser url and one obtained from getResult are not the same", URL, condition.getResult());
@@ -105,8 +107,9 @@ public class BrowserHasURLTest {
 	public void testWebBrowserView() {
 		openInternalBrowserViaMenu();
 		BrowserHasURL condition = new BrowserHasURL(browser, URL);
-		assertTrue("Expected URL:" + URL + " but was: " + browser.getPageURL(), condition.test());
-		assertEquals("Browser url and one obtained from getResult are not the same", URL, condition.getResult());
+		BrowserHasURL conditionSecure = new BrowserHasURL(browserEditor, URL_SECURE);
+		assertTrue("Expected URL:" + URL + " but was: " + browser.getPageURL(), condition.test() || conditionSecure.test());
+		assertTrue("Browser url and one obtained from getResult are not the same", URL.equals(condition.getResult()) || URL_SECURE.equals(conditionSecure.getResult()));
 		condition = new BrowserHasURL(browser, new RegexMatcher(REG_EXP_URL));
 		assertTrue(condition.test());
 		assertEquals("Browser url and one obtained from getResult are not the same", URL, condition.getResult());

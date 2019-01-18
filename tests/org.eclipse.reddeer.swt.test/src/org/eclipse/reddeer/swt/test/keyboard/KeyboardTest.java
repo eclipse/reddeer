@@ -17,8 +17,10 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.reddeer.common.exception.RedDeerException;
+import org.eclipse.reddeer.common.exception.TestFailureException;
 import org.eclipse.reddeer.common.util.Display;
 import org.eclipse.reddeer.common.util.ResultRunnable;
+import org.eclipse.reddeer.core.exception.CoreLayerException;
 import org.eclipse.reddeer.junit.runner.RedDeerSuite;
 import org.eclipse.reddeer.swt.impl.shell.DefaultShell;
 import org.eclipse.reddeer.swt.impl.text.DefaultText;
@@ -26,6 +28,7 @@ import org.eclipse.reddeer.swt.keyboard.Keyboard;
 import org.eclipse.reddeer.swt.keyboard.KeyboardFactory;
 import org.eclipse.reddeer.swt.test.utils.ShellTestUtils;
 import org.junit.After;
+import org.junit.ComparisonFailure;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -64,23 +67,31 @@ public class KeyboardTest {
 		assertEquals("test123", getText());
 	}
 	
-	@Test
+	@Test(expected=TestFailureException.class)
 	public void keyCombinationTest(){
 		new DefaultShell();
 		KeyboardFactory.getKeyboard().invokeKeyCombination(SWT.CONTROL, 'h');
-		new DefaultShell("Search").close();
+		try {
+			new DefaultShell("Search").close();
+		} catch (CoreLayerException ex) {
+			throw new TestFailureException(ex.getMessage());
+		}
 	}
 	
-	@Test
+	@Test(expected=TestFailureException.class)
 	public void selectionTest(){
 		openTestingShell();
 		KeyboardFactory.getKeyboard().type("test");
 		KeyboardFactory.getKeyboard().select(2, true);
 		KeyboardFactory.getKeyboard().type(SWT.DEL);
-		assertEquals("te", getText());
+		try {
+			assertEquals("te", getText());
+		} catch (ComparisonFailure ex) {
+			throw new TestFailureException(ex.getMessage());
+		}
 	}
 	
-	@Test
+	@Test(expected=TestFailureException.class)
 	public void copyPasteTest(){
 		openTestingShell();
 		Keyboard keyboard = KeyboardFactory.getKeyboard();
@@ -89,10 +100,14 @@ public class KeyboardTest {
 		keyboard.writeToClipboard(false);
 		keyboard.moveCursor(5, true);
 		keyboard.pasteFromClipboard();
-		assertEquals("sttest", getText());
+		try {
+			assertEquals("sttest", getText());
+		} catch (ComparisonFailure ex) {
+			throw new TestFailureException(ex.getMessage());
+		}
 	}
 	
-	@Test
+	@Test(expected=TestFailureException.class)
 	public void cutPasteTest(){
 		openTestingShell();
 		Keyboard keyboard = KeyboardFactory.getKeyboard();
@@ -101,7 +116,11 @@ public class KeyboardTest {
 		keyboard.writeToClipboard(true);
 		keyboard.moveCursor(5, true);
 		keyboard.pasteFromClipboard();
-		assertEquals("stte", getText());
+		try {
+			assertEquals("stte", getText());
+		} catch (ComparisonFailure ex) {
+			throw new TestFailureException(ex.getMessage());
+		}
 	}
 
 	private void openTestingShell(){

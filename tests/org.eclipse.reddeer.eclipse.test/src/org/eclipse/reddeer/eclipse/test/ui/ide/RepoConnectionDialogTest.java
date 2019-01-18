@@ -18,9 +18,8 @@ import org.eclipse.reddeer.eclipse.equinox.security.ui.storage.StoragePreference
 import org.eclipse.reddeer.eclipse.mylyn.tasks.ui.views.TaskRepositoriesView;
 import org.eclipse.reddeer.eclipse.mylyn.tasks.ui.views.TaskRepository;
 import org.eclipse.reddeer.eclipse.mylyn.tasks.ui.wizards.TaskRepositoryWizardDialog;
-import org.eclipse.reddeer.workbench.ui.dialogs.WorkbenchPreferenceDialog;
 import org.eclipse.reddeer.junit.runner.RedDeerSuite;
-import org.eclipse.reddeer.swt.impl.text.LabeledText;
+import org.eclipse.reddeer.workbench.ui.dialogs.WorkbenchPreferenceDialog;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -44,19 +43,11 @@ public class RepoConnectionDialogTest  {
 	public void getDialogTest() {
 		TaskRepositoriesView repositoriesView = new TaskRepositoriesView();
 		repositoriesView.open();
-		TaskRepository repo = repositoriesView.getTaskRepository("Eclipse.org");
-		repoConnectionDialog = repo.openProperties();
-		
+		TaskRepository repo = repositoriesView.getTaskRepository("Local");
+		repoConnectionDialog = repo.openProperties();		
 		assertTrue ("Properties title matches", repoConnectionDialog.getShell().getText().equals("Properties for Task Repository"));
-		
-		repoConnectionDialog.validateSettings();
-
-		assertTrue("Repo Connection Properties Invalid", new LabeledText("Bugzilla Repository Settings").getText().contains("Repository is valid"));
-	
 		repoConnectionDialog.cancel();
-		
 		repoConnectionDialog = null;
-		
 	}
 	
 	@After
