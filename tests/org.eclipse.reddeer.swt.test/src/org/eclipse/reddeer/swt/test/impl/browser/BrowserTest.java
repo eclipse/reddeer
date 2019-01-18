@@ -82,11 +82,11 @@ public class BrowserTest extends SWTLayerTestCase {
 	public void navigate() {
 		Browser browser = new InternalBrowser(0);
 		browser.setURL("http://www.eclipse.org/swt/snippets/");
-		final String snippetsPageContent = "<title>SWT Snippets</title>";
+		final String snippetsPageContent = "<title>SWT Snippets | The Eclipse Foundation</title>";
 		assertTrue("Browser has to contain text '" + snippetsPageContent + "' but it doesn't",
 				browser.getText().contains(snippetsPageContent));
 		browser.setURL("http://www.eclipse.org/swt/widgets/");
-		final String widgetsPageContent = "<title>SWT Widgets</title>";
+		final String widgetsPageContent = "<title>SWT Widgets | The Eclipse Foundation</title>";
 		assertTrue("Browser has to contain text '" + widgetsPageContent + "' but it doesn't",
 				browser.getText().contains(widgetsPageContent));
 		browser.back();

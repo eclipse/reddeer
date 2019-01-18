@@ -11,9 +11,15 @@
  *******************************************************************************/
 package org.eclipse.reddeer.eclipse.test.epp.logging.aeri.ide.dialogs;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.util.List;
+
+import org.eclipse.reddeer.common.exception.TestFailureException;
+import org.eclipse.reddeer.core.exception.CoreLayerException;
 import org.eclipse.reddeer.eclipse.epp.logging.aeri.ide.dialogs.ConfigureServerDialog;
 import org.eclipse.reddeer.eclipse.epp.logging.aeri.ide.dialogs.PreferencePage;
 import org.eclipse.reddeer.eclipse.epp.logging.aeri.ide.dialogs.ReportingProject;
@@ -33,12 +39,16 @@ public class AeriTest {
 		WorkbenchShellHandler.getInstance().closeAllNonWorbenchShells();
 	}
 
-	@Test
+	@Test(expected=TestFailureException.class)
 	public void testAeriServers() {
 		WorkbenchPreferenceDialog wp = new WorkbenchPreferenceDialog();
 		wp.open();
 		PreferencePage aeriPage = new PreferencePage(wp);
-		wp.select(aeriPage);
+		try {
+			wp.select(aeriPage);
+		} catch (CoreLayerException ex) {
+			throw new TestFailureException(ex.getMessage());
+		}
 		SetupWizard sWizard = aeriPage.openConfigureProjects();
 		List<ReportingProject> reportingProjects = sWizard.getProjects();
 		assertNotNull(reportingProjects);
@@ -77,12 +87,16 @@ public class AeriTest {
 		sWizard.getShell().close();
 	}
 
-	@Test
+	@Test(expected=TestFailureException.class)
 	public void testSetupWizard() {
 		WorkbenchPreferenceDialog wp = new WorkbenchPreferenceDialog();
 		wp.open();
 		PreferencePage aeriPage = new PreferencePage(wp);
-		wp.select(aeriPage);
+		try {
+			wp.select(aeriPage);
+		} catch (CoreLayerException ex) {
+			throw new TestFailureException(ex.getMessage());
+		}
 		SetupWizard sWizard = aeriPage.openConfigureProjects();
 		ReportingProject rp = sWizard.getProject("Eclipse RedDeer Test Connector");
 		rp.toggleEnable(true); // enable external reporting server
@@ -103,12 +117,16 @@ public class AeriTest {
 		sWizard.disable();
 	}
 
-	@Test
+	@Test(expected=TestFailureException.class)
 	public void testAeriPrefPage() {
 		WorkbenchPreferenceDialog wp = new WorkbenchPreferenceDialog();
 		wp.open();
 		PreferencePage aeriPage = new PreferencePage(wp);
-		wp.select(aeriPage);
+		try {
+			wp.select(aeriPage);
+		} catch (CoreLayerException ex) {
+			throw new TestFailureException(ex.getMessage());
+		}
 
 		aeriPage.anonymizeErrorLogMessages(true);
 		assertTrue(aeriPage.isAnonymizeErrorLogMessages());
