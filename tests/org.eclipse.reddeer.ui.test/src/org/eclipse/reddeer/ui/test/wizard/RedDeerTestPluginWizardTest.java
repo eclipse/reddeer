@@ -22,6 +22,7 @@ import java.util.Collection;
 import java.util.List;
 
 import org.eclipse.reddeer.eclipse.core.resources.DefaultProject;
+import org.eclipse.reddeer.eclipse.core.resources.Resource;
 import org.eclipse.reddeer.eclipse.selectionwizard.NewMenuWizard;
 import org.eclipse.reddeer.eclipse.ui.markers.matcher.MarkerResourceMatcher;
 import org.eclipse.reddeer.eclipse.ui.problems.Problem;
@@ -88,9 +89,16 @@ public class RedDeerTestPluginWizardTest extends RedDeerWizardTestCase {
 		DefaultProject project = getProject(PLUGIN_ID);
 		
 		checkProjectResources(project);
+		checkJavaVersion(project);
 		checkManifest(project);
 		checkExampleTest(project);
 		checkForCompilationErrors(project);
+	}
+	
+	private void checkJavaVersion(DefaultProject project) {
+		assertTrue(project.containsResource("JRE System Library"));
+		Resource resource = project.getResource("JRE System Library");
+		assertTrue("Cannot find proper java version", resource.getDecoratedParts()[0].toString().contains("JavaSE-1.8"));
 	}
 	
 	private void checkExampleTest(DefaultProject project) {
