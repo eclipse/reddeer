@@ -15,6 +15,8 @@ import java.lang.annotation.Annotation;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.stream.Collectors;
 
 import org.eclipse.reddeer.junit.annotation.AnnotationUtils;
 import org.eclipse.reddeer.junit.requirement.ConfigurableRequirement;
@@ -98,18 +100,29 @@ public class RequirementHelper {
 			result.addAll(configurations);
 		} else {
 			for (RequirementConfiguration configuration : configurations) {
-				boolean matcherIsDefined = false;
-				for(RequirementMatcher m: matchers){
-					if(m.getConfigurationClass().equals(requirement.getDeclaration().annotationType()) && 
-						configuration.getClass().equals(requirement.getConfigurationClass())){
-							matcherIsDefined = true;
-							if(m.matches(configuration)){
+				AtomicBoolean matcherIsDefined = new AtomicBoolean(false);
+				
+				// aggragete same req. configurations -> 1 req. config : M matchers(attributes)
+				matchers.stream()
+					.collect(Collectors.groupingBy(RequirementMatcher::getConfigurationClass))
+					.forEach((config, listOfMatchers) -> {
+						if (config.equals(requirement.getDeclaration().annotationType()) && 
+						configuration.getClass().equals(requirement.getConfigurationClass())) {
+							matcherIsDefined.set(true);
+							AtomicBoolean matchersPassed = new AtomicBoolean(true);
+							// test that each matchers matches
+							listOfMatchers.forEach((matcher) -> {
+								if (!matcher.matches(configuration)) {
+									matchersPassed.set(false);
+								}
+							});	
+							if (matchersPassed.get()) {
 								result.add(configuration);
 							}
-					}
-				}
+						}
+					});
 				//no matcher is defined to restrict the given config, therefore we add it to result.
-				if(!matcherIsDefined){ 
+				if(!matcherIsDefined.get()){ 
 					result.add(configuration); 
 				}
 			}
