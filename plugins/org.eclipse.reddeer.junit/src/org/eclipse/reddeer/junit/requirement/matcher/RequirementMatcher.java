@@ -55,6 +55,15 @@ public class RequirementMatcher extends TypeSafeMatcher<RequirementConfiguration
 	public Class<? extends Annotation> getConfigurationClass() {
 		return configurationClass;
 	}
+	
+	/**
+	 * Returns attribute attributeName, this method is required to be public to be used in
+	 * req. matcher.
+	 * @return attributeName string
+	 */
+	public String getAttributeName() {
+		return this.attributeName;
+	}
 
 	/**
 	 * Sets configuration class for matching.
