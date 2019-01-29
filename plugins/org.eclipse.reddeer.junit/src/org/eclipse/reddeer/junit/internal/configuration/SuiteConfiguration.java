@@ -134,11 +134,19 @@ public class SuiteConfiguration {
 	
 	private void checkMatchersAreValid(Collection<RequirementMatcher> matchers){
 		if(matchers != null){
-			matchers.stream().collect(Collectors.groupingBy(RequirementMatcher::getConfigurationClass))
+			// it should be allowed to have more than one requirement matcher 
+			// with the same configuration class and different attributes
+			// but not more than one requirement matcher with the same config class and
+			// the same attributes
+			matchers.stream().collect(
+					Collectors.groupingBy(RequirementMatcher::getConfigurationClass, 
+					Collectors.groupingBy(RequirementMatcher::getAttributeName)))
 			.forEach((confClass, withSameConfClass) -> {
-				if(withSameConfClass.size() > 1){
-					throw new RedDeerException("More than one matcher is defined for the '"+confClass+"' requirement.");
-				}
+				withSameConfClass.forEach((attribute, values) -> {
+					if ( values.size() > 1) {
+						throw new RedDeerException("More than one same attribute is used in requirement matchers for config. class '" + confClass + "'.");
+					}
+				});
 			});
 		}
 		

@@ -161,12 +161,24 @@ public class RedDeerSuiteTest {
 	}
 	
 	@Test
-	public void testIncorrectRestriction2() throws Throwable {
+	public void testSameReqClassIncorrectRestrictionSameAttributes() throws Throwable {
 		try{
-			new SuiteConfiguration(RestrictedJavaTestClassWithCollectionTwoRequirementsIncorrect.class);
+			new SuiteConfiguration(RestrictedJavaTestClassWithCollectionTwoRequirementsSameAttributesIncorrect.class);
 		} catch (RedDeerException e) {
-			assertTrue(e.getMessage().contains("More than one matcher is defined for the"));
+			assertTrue(e.getMessage().contains("More than one same attribute is used"));
 		}
+	}
+	
+	@Test
+	public void testSameReqClassRestrictionDiffAttributes() throws Throwable {
+		System.setProperty(RedDeerProperties.CONFIG_FILE.getName(), REDDEER_SUITE_CONFIG);
+		assertEquals(1, getTestCount(RestrictedJavaTestClassWithCollectionTwoRequirementsCorrect.class));
+	}
+	
+	@Test
+	public void testCorrectRestrictionDiffAttributes() throws Throwable {
+		System.setProperty(RedDeerProperties.CONFIG_FILE.getName(), REDDEER_SUITE_CONFIG);
+		assertEquals(2, getTestCount(RestrictedJavaServerTestClassWithCollectionTwoRequirementsCorrect.class));
 	}
 	
 	@Test
@@ -298,15 +310,42 @@ public class RedDeerSuiteTest {
 	}
 	
 	@CustomJavaAnnotation
-	@CustomServerAnnotation
 	//has two matchers both for @CustomJavaAnnotation, AndMatcher should be used instead
-	public static class RestrictedJavaTestClassWithCollectionTwoRequirementsIncorrect {
+	public static class RestrictedJavaTestClassWithCollectionTwoRequirementsCorrect {
 		@RequirementRestriction
 		public static Collection<RequirementMatcher> getRestrictionMatcher() {
-			return Arrays.asList(new RequirementMatcher(CustomJavaAnnotation.class, 
-					"version" , new VersionMatcher("[1.8;1.9]")),
+			return Arrays.asList(
 					new RequirementMatcher(CustomJavaAnnotation.class, 
-							"name" , new RegexMatcher("name.*")));
+						"version" , new VersionMatcher("[1.8;1.9]")),
+					new RequirementMatcher(CustomJavaAnnotation.class, 
+						"name" , new RegexMatcher("java 9")));
+		}
+	}
+	
+	@CustomJavaAnnotation
+	@CustomServerAnnotation
+	//has two matchers both for @CustomJavaAnnotation, AndMatcher should be used instead
+	public static class RestrictedJavaServerTestClassWithCollectionTwoRequirementsCorrect {
+		@RequirementRestriction
+		public static Collection<RequirementMatcher> getRestrictionMatcher() {
+			return Arrays.asList(
+					new RequirementMatcher(CustomJavaAnnotation.class,
+						"version" , new VersionMatcher("[1.8;1.9]")),
+					new RequirementMatcher(CustomJavaAnnotation.class,
+						"name" , new RegexMatcher("java 9")));
+		}
+	}
+	
+	@CustomJavaAnnotation
+	//has two matchers both for @CustomJavaAnnotation, AndMatcher should be used instead
+	public static class RestrictedJavaTestClassWithCollectionTwoRequirementsSameAttributesIncorrect {
+		@RequirementRestriction
+		public static Collection<RequirementMatcher> getRestrictionMatcher() {
+			return Arrays.asList(
+					new RequirementMatcher(CustomJavaAnnotation.class, 
+						"version" , new VersionMatcher("[1.8;1.9]")),
+					new RequirementMatcher(CustomJavaAnnotation.class, 
+						"version" , new VersionMatcher("1.6")));
 		}
 	}
 	
@@ -315,10 +354,11 @@ public class RedDeerSuiteTest {
 	public static class RestrictedJavaTestClassWithCollectionTwoRequirements {
 		@RequirementRestriction
 		public static Collection<RequirementMatcher> CustomJavaAnnotation() {
-			return Arrays.asList(new RequirementMatcher(CustomJavaAnnotation.class, 
-					"version" , new VersionMatcher("[1.8;1.9]")),
+			return Arrays.asList(
+					new RequirementMatcher(CustomJavaAnnotation.class, 
+						"version" , new VersionMatcher("[1.8;1.9]")),
 					new RequirementMatcher(CustomServerAnnotation.class, 
-							"version" , new VersionMatcher(">2.0")));
+						"version" , new VersionMatcher(">2.0")));
 		}
 	}
 	
