@@ -65,7 +65,7 @@ public class NewRedDeerTestWizardPageOne extends NewTestCaseWizardPageOne {
 		
 		char[] source = buf.getCharacters();
 		IScanner scanner = ToolFactory.createScanner( 
-				false, false, false, JavaCore.VERSION_1_5 );
+				false, false, false, JavaCore.VERSION_1_8 );
 		scanner.setSource( source );
 		int offset = range.getOffset();
 		
