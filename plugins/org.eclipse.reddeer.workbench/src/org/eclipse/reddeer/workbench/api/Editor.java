@@ -14,7 +14,6 @@ package org.eclipse.reddeer.workbench.api;
 import java.util.List;
 
 import org.eclipse.reddeer.jface.text.contentassist.ContentAssistant;
-import org.eclipse.reddeer.swt.api.Menu;
 import org.eclipse.reddeer.workbench.impl.editor.AbstractEditor.ContentAssistantEnum;
 import org.eclipse.reddeer.workbench.impl.editor.Marker;
 

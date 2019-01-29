@@ -44,7 +44,6 @@ import org.eclipse.ui.texteditor.ITextEditor;
  * Editor handler handles operations for Editor instances.
  * @author rawagner
  */
-@SuppressWarnings("restriction")
 public class EditorHandler extends WorkbenchPartHandler {
 
     protected final Logger log = Logger.getLogger(this.getClass());
