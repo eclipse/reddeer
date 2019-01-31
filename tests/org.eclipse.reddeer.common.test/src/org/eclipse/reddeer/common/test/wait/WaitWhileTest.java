@@ -11,8 +11,8 @@
  *******************************************************************************/
 package org.eclipse.reddeer.common.test.wait;
 
-import static org.junit.Assert.fail;
 import static org.eclipse.reddeer.common.test.wait.CustomWaitCondition.sleep;
+import static org.junit.Assert.fail;
 
 import org.eclipse.reddeer.common.condition.WaitCondition;
 import org.eclipse.reddeer.common.exception.WaitTimeoutExpiredException;
@@ -52,7 +52,7 @@ public class WaitWhileTest {
 	
 	@Test(expected=WaitTimeoutExpiredException.class)
 	public void test_ThrowingException() {
-		new WaitWhile(trueCondition, TimePeriod.MEDIUM);
+		new WaitWhile(trueCondition, TimePeriod.SHORT);
 	}
 	
 	@Test
