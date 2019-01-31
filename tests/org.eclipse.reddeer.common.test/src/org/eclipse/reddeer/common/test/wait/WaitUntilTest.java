@@ -11,8 +11,8 @@
  *******************************************************************************/
 package org.eclipse.reddeer.common.test.wait;
 
-import static org.junit.Assert.fail;
 import static org.eclipse.reddeer.common.test.wait.CustomWaitCondition.sleep;
+import static org.junit.Assert.fail;
 
 import org.eclipse.reddeer.common.condition.WaitCondition;
 import org.eclipse.reddeer.common.exception.WaitTimeoutExpiredException;
@@ -32,7 +32,7 @@ public class WaitUntilTest {
 	
 	@Before
 	public void setupCondition() {
-		falseCondition = new CustomWaitCondition(false, 5, () -> sleep(1000));
+		falseCondition = new CustomWaitCondition(false, 5, () ->  sleep(1000));
 	}
 	
 	@Test(expected=IllegalArgumentException.class)
@@ -52,7 +52,7 @@ public class WaitUntilTest {
 	
 	@Test(expected=WaitTimeoutExpiredException.class)
 	public void test_ThrowingException() {
-		new WaitUntil(falseCondition, TimePeriod.MEDIUM);
+		new WaitUntil(falseCondition, TimePeriod.SHORT);
 	}
 	
 	@Test

@@ -103,13 +103,13 @@ public class GroupWaitTest {
 	
 	@Test(expected=WaitTimeoutExpiredException.class)
 	public void test_groupWaitBothConditionsFailed() {
-		new GroupWait(TimePeriod.MEDIUM, waitUntil, waitWhile);
+		new GroupWait(TimePeriod.SHORT, waitUntil, waitWhile);
 	}
 	
 	@Test(expected=WaitTimeoutExpiredException.class)
 	public void test_groupWaitOneFailed() {
 		waitWhile = waitWhile(new CustomWaitCondition(true, 1, () -> sleep(1000)));
-		waitUntil = waitUntil(new CustomWaitCondition(false, 5, () -> sleep(1000)));
+		waitUntil = waitUntil(new CustomWaitCondition(false, 10, () -> sleep(1000)));
 		new GroupWait(TimePeriod.MEDIUM, waitUntil, waitWhile);
 	}
 }
