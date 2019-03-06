@@ -2,22 +2,30 @@
 
 Eclipse [RedDeer](http://www.eclipse.org/reddeer) project is an extensible framework used for development of automated SWT/Eclipse tests which interacts with application’s user interface. RedDeer provides the PageObjects API for comfortable testing of standard SWT (Buttons, Trees..), JFace (UIForms), Workbench (Views, Editors, ..) and Eclipse (Wizards, Preferences,...) components and also allows creating and extending your own components. RedDeer also provides capabilities to work with graphical editors based on GEF or Graphiti.
 
-Eclipse RedDeer is extensively tested on 3 major platforms - Windows, MacOSX and Linux to ensure that all nuances in the SWT implementations are handled correctly. Examination of test results in CI environment is easier thanks to capturing screenshots on test failures and collecting Eclipse Platform log.
+Eclipse RedDeer is extensively tested on Linux/CentOS platform. Examination of test results in CI environment is easier thanks to capturing screenshots on test failures and collecting Eclipse Platform log.
 
-# Documentation
+# Get the code
 
-see [RedDeer Documentation](https://github.com/eclipse/reddeer/wiki)
+The easiest way to get started with the code is to [create your own fork](https://help.github.com/en/articles/fork-a-repo), 
+and then clone your fork:
 
-# Contact us
+    $ git clone git@github.com:<you>/reddeer.git
+    $ cd reddeer
+    $ git remote add upstream http://github.com/eclipse/reddeer.git
+    
+# Build RedDeer locally
 
-* Chat on [Eclipse Mattermost RedDeer channel](https://mattermost.eclipse.org/eclipse/channels/reddeer)
-* Contact us on [Mailing List](https://dev.eclipse.org/mailman/listinfo/reddeer-dev)
-* Open issue on [GitHub](https://github.com/eclipse/reddeer/issues)
-* Our [Homepage](http://www.eclipse.org/reddeer)
+In case that you have the git repo cloned locally, you can build it using maven.
 
-# Getting Started
+    $ mvn clean install
+    
+If you just want to build the base and not to run tests, use this:
 
-## Step 1 - Install RedDeer to Eclipse IDE
+    $ mvn clean install -DskipTests=true
+
+# Installation
+
+## Using RedDeer eclipse update site
 
 Copy-Paste this URL to Eclipse Help -> Install New Software...
 ```
@@ -27,78 +35,37 @@ Or latest nightly build
 ```
 http://download.eclipse.org/reddeer/snapshots
 ```
+Finish the installation, restart IDE.
 
+## Using locally built artifacts
 
-Install at least RedDeer Runtime/API and RedDeer UI features.
+Search your repo for path-to-your-git/reddeer/site/repository and paste this path to Eclipse Help -> Install New Software...
 
-Or you can also start with [RedDeer Maven Archetype](https://mvnrepository.com/artifact/org.jboss.reddeer/jboss-reddeer-archetype)
+# Documentation
 
+See [RedDeer Documentation](https://github.com/eclipse/reddeer/wiki)
 
-## Step 2 - Create a new RedDeer test project
-To create a new RedDeer test project, navigate through workbench shell menu File -> New -> Other and select RedDeer - RedDeer Test Plug-in
+# Contact us
 
-<img src=https://github.com/eclipse/reddeer/wiki/img/2/new_reddeer_project.png />
+* Chat on [Eclipse Mattermost RedDeer channel](https://mattermost.eclipse.org/eclipse/channels/reddeer)
+* Contact us on [Mailing List](https://dev.eclipse.org/mailman/listinfo/reddeer-dev)
+* Our [Homepage](http://www.eclipse.org/reddeer)
 
-When you fill out the required fields do not forget to check the Example test checkbox and click Finish.
+# Getting Started
 
-<img src=https://github.com/eclipse/reddeer/wiki/img/2/new_reddeer_example.png />
+Go through [getting started guide](https://github.com/eclipse/reddeer/wiki/Getting-Started)
 
-## Step 3 - Write and run your first test
-This is the example test created by RedDeer wizard:
+# Contributing
 
-```java
-import static org.junit.Assert.*;
+First, if you find any bugs or areas to improve, please open [issue on GitHub](https://github.com/eclipse/reddeer/issues).
+In case you would like to implement a patch, note that RedDeer is Eclipse project and one have to have created an account under [Eclipse Foundation](https://accounts.eclipse.org/) and signed [Eclipse License Agreement](https://www.eclipse.org/legal/ECA.php). Moreover, if you are making a contributinon within your work position, you should read [Eclipse Foundation Legal FAQ](https://www.eclipse.org/legal/legalfaq.php).
 
-import org.eclipse.reddeer.eclipse.jdt.ui.wizards.JavaProjectWizard;
-import org.eclipse.reddeer.eclipse.jdt.ui.wizards.NewClassCreationWizard;
-import org.eclipse.reddeer.eclipse.jdt.ui.wizards.NewClassWizardPage;
-import org.eclipse.reddeer.eclipse.jdt.ui.wizards.NewJavaProjectWizardPageOne;
-import org.eclipse.reddeer.eclipse.ui.views.markers.ProblemsView;
-import org.eclipse.reddeer.eclipse.ui.views.markers.ProblemsView.ProblemType;
-import org.eclipse.reddeer.junit.runner.RedDeerSuite;
-import org.eclipse.reddeer.workbench.impl.editor.TextEditor;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+    $ git pull upstream master
+    $ git checkout -b name-of-our-branch # ideally, branch name should corresponds to reddeer github issue, ie. rd-1699
 
-/**
- * RedDeer Test example generated by RedDeer Test Plug-in wizard
- */
-@RunWith(RedDeerSuite.class)
-public class RedDeerTest {
+Implement your changes/patch or bug fix...
+In any case, it is a best way to verify your changes that you run build with tests before you actually make a pull request.
 
-	@Test
-	public void redDeerTestExample() {
-		
-		// Create Java Project
-		JavaProjectWizard projectDlg = new JavaProjectWizard();
-		projectDlg.open();
-		NewJavaProjectWizardPageOne projectPage = new NewJavaProjectWizardPageOne(projectDlg);
-		projectPage.setProjectName("testProject");
-		projectDlg.finish();
-		
-		// Create Java class
-		NewClassCreationWizard classDlg = new NewClassCreationWizard();
-		classDlg.open();
-		NewClassWizardPage classPage = new NewClassWizardPage(classDlg);
-		classPage.setName("RedDeerDemo");
-		classPage.setPackage("org.reddeer.demo");
-		classDlg.finish();
-		
-		// Edit Java class
-		TextEditor textEditor = new TextEditor("RedDeerDemo.java");
-		textEditor.setText("Written by RedDeer");
-		textEditor.save();
-		
-		// Check ProblemsView
-		ProblemsView problemsView = new ProblemsView();
-		problemsView.open();
-		assertFalse(problemsView.getProblems(ProblemType.ERROR).isEmpty());
-	}
-}
-
-```
-
-## Step 4 - Test execution
-To run a test, open context menu Run As -> RedDeer Test on a project:
-
-<img src=https://github.com/eclipse/reddeer/wiki/img/2/run_reddeer.png />
+    $ git push origin name-of-your-branch
+    
+Then you can [generate a pull-request](https://help.github.com/en/articles/about-pull-requests) and we will make review, discuss, etc. If code is good enough, it can be merged into master.
