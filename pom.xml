@@ -24,7 +24,7 @@
 		<tychoExtrasVersion>${tycho-version}</tychoExtrasVersion>
 		<eclipse-target-site>http://download.eclipse.org/staging/2019-03/</eclipse-target-site>
 		<swtbot-update-site>http://download.eclipse.org/technology/swtbot/snapshots/</swtbot-update-site>
-		<eclipse-orbit-update-site>http://download.eclipse.org/tools/orbit/downloads/drops/S20190219190953/repository</eclipse-orbit-update-site>
+		<eclipse-orbit-update-site>http://download.eclipse.org/tools/orbit/downloads/drops/R20190226160451/repository</eclipse-orbit-update-site>
 		<download-plugin-version>1.2.1</download-plugin-version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<!-- In the update site's site/pom.xml (that calls jbosstools-maven-plugins/tycho-plugins/repository-utils) 
