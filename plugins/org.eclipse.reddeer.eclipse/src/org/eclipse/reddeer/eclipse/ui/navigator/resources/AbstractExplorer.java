@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2017 Red Hat, Inc and others.
+ * Copyright (c) 2017-2019 Red Hat, Inc and others.
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
  * http://www.eclipse.org/legal/epl-2.0.
@@ -16,7 +16,10 @@ import java.util.List;
 
 import org.eclipse.reddeer.common.logging.Logger;
 import org.eclipse.reddeer.common.wait.TimePeriod;
+import org.eclipse.reddeer.common.wait.WaitUntil;
 import org.eclipse.reddeer.common.wait.WaitWhile;
+import org.eclipse.reddeer.core.condition.WidgetIsFound;
+import org.eclipse.reddeer.core.matcher.WithTextMatcher;
 import org.eclipse.reddeer.eclipse.core.resources.AbstractProject;
 import org.eclipse.reddeer.eclipse.core.resources.DefaultProject;
 import org.eclipse.reddeer.eclipse.core.resources.DefaultProjectItem;
@@ -40,6 +43,7 @@ import org.eclipse.reddeer.workbench.impl.view.WorkbenchView;
  * 
  * @author Jiri Peterka
  * @author mlabuda@redhat.com
+ * @author Ondrej Dockal, odockal@redhat.com
  *
  */
 public class AbstractExplorer extends WorkbenchView {
@@ -75,8 +79,8 @@ public class AbstractExplorer extends WorkbenchView {
 			for (DefaultProject project: projects) {
 				projectsItems.add(project.getTreeItem());
 			}
+			getTree().selectItems(projectsItems.toArray(new TreeItem[projectsItems.size()]));
 		}
-		getTree().selectItems(projectsItems.toArray(new TreeItem[projectsItems.size()]));
 	}
 	
 	/**
@@ -106,7 +110,8 @@ public class AbstractExplorer extends WorkbenchView {
 
 		TreeViewerHandler treeViewerHandler = TreeViewerHandler.getInstance();
 		
-		for (TreeItem item : getTree().getItems()){
+		
+		for (TreeItem item : getExplorerTreeItems()){
 			String projectName = treeViewerHandler.getNonStyledText(item);
 			log.debug("Getting project with name "+projectName);
 			if (org.eclipse.reddeer.direct.project.Project.isProject(projectName)) {
@@ -123,7 +128,7 @@ public class AbstractExplorer extends WorkbenchView {
 	public List<ProjectItem> getProjectItems() {
 		List<ProjectItem> items = new ArrayList<ProjectItem>();
 		
-		for (TreeItem item : getTree().getItems()) {
+		for (TreeItem item : getExplorerTreeItems()) {
 			items.add(new DefaultProjectItem(item));
 		}		
 		return items;
@@ -196,7 +201,7 @@ public class AbstractExplorer extends WorkbenchView {
 	 * @return project of specific type with defined name
 	 */
 	public <T extends AbstractProject> T getProject(final String projectName, Class<T> projectType) {		
-		for (TreeItem item : getTree().getItems()){
+		for (TreeItem item : getExplorerTreeItems()){
 			try {
 				T project =  projectType.getDeclaredConstructor(TreeItem.class).newInstance(item);
 				if (project.getName().equals(projectName)) {
@@ -213,5 +218,25 @@ public class AbstractExplorer extends WorkbenchView {
 		// There is no such project
 		throw new EclipseLayerException("Required project does not exist. Make sure you are using correct project type"
 				+ " and desired project exists.");
+	}
+	
+	/**
+	 * Since 2019-03 Eclipse there is text and link in package/project explorer views when no project available
+	 * https://github.com/eclipse/reddeer/issues/2003
+	 * @returns list of TreeItem objects if there is any Tree available in explorer view, 
+	 * if there are link for creating or import new project into workspace, it returns an empty list.
+	 */
+	private List<TreeItem> getExplorerTreeItems() {
+		List<TreeItem> items = new ArrayList<TreeItem>();
+		
+		WidgetIsFound widget = new WidgetIsFound(
+				org.eclipse.ui.forms.widgets.Hyperlink.class, 
+				cTabItem.getControl(), 
+				new WithTextMatcher("Create a project..."));
+		new WaitUntil(widget, TimePeriod.SHORT, false);
+		if (widget.getResult() != null) {
+			return items;
+		}
+		return getTree().getItems();
 	}
 }
