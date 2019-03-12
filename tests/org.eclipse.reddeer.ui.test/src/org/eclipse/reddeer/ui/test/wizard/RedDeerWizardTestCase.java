@@ -32,7 +32,10 @@ import org.eclipse.pde.core.target.ITargetPlatformService;
 import org.eclipse.pde.core.target.LoadTargetDefinitionJob;
 import org.eclipse.pde.internal.core.target.TargetPlatformService;
 import org.eclipse.reddeer.common.exception.RedDeerException;
+import org.eclipse.reddeer.common.wait.TimePeriod;
+import org.eclipse.reddeer.common.wait.WaitUntil;
 import org.eclipse.reddeer.core.exception.CoreLayerException;
+import org.eclipse.reddeer.eclipse.condition.ProjectExists;
 import org.eclipse.reddeer.eclipse.core.resources.DefaultProject;
 import org.eclipse.reddeer.eclipse.jdt.ui.packageview.PackageExplorerPart;
 import org.eclipse.reddeer.eclipse.selectionwizard.NewMenuWizard;
@@ -131,6 +134,7 @@ public abstract class RedDeerWizardTestCase {
 	protected DefaultProject getProject(String name) {
 		PackageExplorerPart explorer = new PackageExplorerPart();
 		explorer.open();
+		new WaitUntil(new ProjectExists(name), TimePeriod.MEDIUM, false);
 		DefaultProject project = null;
 		try {
 			project = explorer.getProject(name);

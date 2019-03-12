@@ -12,7 +12,10 @@
 package org.eclipse.reddeer.graphiti.test;
 
 import org.eclipse.reddeer.common.exception.TestFailureException;
+import org.eclipse.reddeer.common.wait.TimePeriod;
+import org.eclipse.reddeer.common.wait.WaitUntil;
 import org.eclipse.reddeer.core.exception.CoreLayerException;
+import org.eclipse.reddeer.eclipse.condition.ProjectExists;
 import org.eclipse.reddeer.eclipse.selectionwizard.NewMenuWizard;
 import org.eclipse.reddeer.eclipse.ui.navigator.resources.ProjectExplorer;
 import org.eclipse.reddeer.eclipse.ui.wizards.newresource.BasicNewProjectResourceWizard;
@@ -45,6 +48,7 @@ public class LabeledGraphitiEditPartTest {
 	public void createProject() {
 		new GeneralProjectWizard().create(PROJECT_NAME);
 		new ProjectExplorer().open();
+		new WaitUntil(new ProjectExists(PROJECT_NAME), TimePeriod.MEDIUM, false);
 		new ProjectExplorer().getProject("test").select();
 		new TutorialDiagramWizard().create("test");
 	}

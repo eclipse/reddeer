@@ -11,6 +11,9 @@
  *******************************************************************************/
 package org.eclipse.reddeer.gef.test;
 
+import org.eclipse.reddeer.common.wait.TimePeriod;
+import org.eclipse.reddeer.common.wait.WaitUntil;
+import org.eclipse.reddeer.eclipse.condition.ProjectExists;
 import org.eclipse.reddeer.eclipse.ui.navigator.resources.ProjectExplorer;
 import org.eclipse.reddeer.gef.GEFLayerException;
 import org.eclipse.reddeer.gef.editor.GEFEditor;
@@ -49,6 +52,10 @@ public class EditPartTest {
 	@Before
 	public void createProject() {
 		new GeneralProjectWizard().create(PROJECT_NAME);
+
+		new ProjectExplorer().open();
+		new WaitUntil(new ProjectExists(PROJECT_NAME), TimePeriod.MEDIUM, false);
+		new ProjectExplorer().getProject(PROJECT_NAME).select();
 	}
 
 	@After
@@ -58,9 +65,6 @@ public class EditPartTest {
 
 	@Test
 	public void selectEditPartTest() {
-		new ProjectExplorer().open();
-		new ProjectExplorer().getProject(PROJECT_NAME).select();
-
 		ExampleWizard.createLogicDiagram("test");
 
 		GEFEditor gefEditor = new GEFEditor("test.logic");
@@ -77,9 +81,6 @@ public class EditPartTest {
 
 	@Test
 	public void clickEditPartTest() {
-		new ProjectExplorer().open();
-		new ProjectExplorer().getProject(PROJECT_NAME).select();
-
 		ExampleWizard.createLogicDiagram("test");
 
 		GEFEditor gefEditor = new GEFEditor("test.logic");
@@ -103,9 +104,6 @@ public class EditPartTest {
 
 	@Test(expected = GEFLayerException.class)
 	public void nonExistingEditPartTest() {
-		new ProjectExplorer().open();
-		new ProjectExplorer().getProject(PROJECT_NAME).select();
-
 		ExampleWizard.createLogicDiagram("test");
 
 		GEFEditor gefEditor = new GEFEditor("test.logic");

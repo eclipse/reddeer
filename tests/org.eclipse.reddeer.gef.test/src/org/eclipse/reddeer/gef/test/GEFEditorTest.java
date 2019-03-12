@@ -16,6 +16,9 @@ import static org.junit.Assert.fail;
 import java.util.Collection;
 import java.util.List;
 
+import org.eclipse.reddeer.common.wait.TimePeriod;
+import org.eclipse.reddeer.common.wait.WaitUntil;
+import org.eclipse.reddeer.eclipse.condition.ProjectExists;
 import org.eclipse.reddeer.eclipse.ui.navigator.resources.ProjectExplorer;
 import org.eclipse.reddeer.gef.editor.GEFEditor;
 import org.eclipse.reddeer.gef.test.wizard.ExampleWizard;
@@ -26,6 +29,7 @@ import org.eclipse.reddeer.requirements.cleanworkspace.CleanWorkspaceRequirement
 import org.eclipse.reddeer.swt.api.Menu;
 import org.eclipse.reddeer.workbench.impl.shell.WorkbenchShell;
 import org.junit.After;
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -46,6 +50,15 @@ public class GEFEditorTest {
 		new WorkbenchShell().maximize();
 	}
 
+	@Before
+	public void createProject() {
+		new GeneralProjectWizard().create(PROJECT_NAME);
+
+		new ProjectExplorer().open();
+		new WaitUntil(new ProjectExists(PROJECT_NAME), TimePeriod.MEDIUM, false);
+		new ProjectExplorer().getProject(PROJECT_NAME).select();
+	}
+	
 	@After
 	public void deleteAllProjects() {
 		new CleanWorkspaceRequirement().fulfill();
@@ -53,11 +66,6 @@ public class GEFEditorTest {
 
 	@Test
 	public void logicDiagramTest() {
-		new GeneralProjectWizard().create(PROJECT_NAME);
-
-		new ProjectExplorer().open();
-		new ProjectExplorer().getProject(PROJECT_NAME).select();
-
 		ExampleWizard.createLogicDiagram("test");
 
 		GEFEditor gefEditor = new GEFEditor("test.logic");
@@ -104,11 +112,6 @@ public class GEFEditorTest {
 
 	@Test
 	public void shapesDiagramTest() {
-		new GeneralProjectWizard().create(PROJECT_NAME);
-
-		new ProjectExplorer().open();
-		new ProjectExplorer().getProject(PROJECT_NAME).select();
-
 		ExampleWizard.createShapesDiagram("test");
 
 		GEFEditor gefEditor = new GEFEditor("test.shapes");
