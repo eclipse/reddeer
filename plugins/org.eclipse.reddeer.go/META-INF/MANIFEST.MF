@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: RedDeer Go
 Bundle-Vendor: Eclipse.org - RedDeer
 Bundle-SymbolicName: org.eclipse.reddeer.go
-Bundle-Version: 2.5.0.qualifier
+Bundle-Version: 2.6.0.qualifier
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Require-Bundle: org.eclipse.ui;visibility:=reexport,
@@ -12,15 +12,15 @@ Require-Bundle: org.eclipse.ui;visibility:=reexport,
  org.eclipse.ui.forms;visibility:=reexport,
  org.junit;visibility:=reexport,
  org.hamcrest.core;bundle-version="1.3.0";visibility:=reexport,
- org.eclipse.reddeer.common;bundle-version="[2.2.0,2.5.1)";visibility:=reexport,
- org.eclipse.reddeer.core;bundle-version="[2.2.0,2.5.1)";visibility:=reexport,
- org.eclipse.reddeer.direct;bundle-version="[2.2.0,2.5.1)";visibility:=reexport,
- org.eclipse.reddeer.eclipse;bundle-version="[2.2.0,2.5.1)";visibility:=reexport,
- org.eclipse.reddeer.jface;bundle-version="[2.2.0,2.5.1)";visibility:=reexport,
- org.eclipse.reddeer.junit;bundle-version="[2.2.0,2.5.1)";visibility:=reexport,
- org.eclipse.reddeer.junit.extension;bundle-version="[2.2.0,2.5.1)";visibility:=reexport,
- org.eclipse.reddeer.requirements;bundle-version="[2.2.0,2.5.1)";visibility:=reexport,
- org.eclipse.reddeer.swt;bundle-version="[2.2.0,2.5.1)";visibility:=reexport,
- org.eclipse.reddeer.uiforms;bundle-version="[2.2.0,2.5.1)";visibility:=reexport,
- org.eclipse.reddeer.workbench;bundle-version="[2.2.0,2.5.1)";visibility:=reexport,
- org.eclipse.reddeer.workbench.core;bundle-version="[2.2.0,2.5.1)";visibility:=reexport
+ org.eclipse.reddeer.common;bundle-version="[2.2.0,2.6.1)";visibility:=reexport,
+ org.eclipse.reddeer.core;bundle-version="[2.2.0,2.6.1)";visibility:=reexport,
+ org.eclipse.reddeer.direct;bundle-version="[2.2.0,2.6.1)";visibility:=reexport,
+ org.eclipse.reddeer.eclipse;bundle-version="[2.2.0,2.6.1)";visibility:=reexport,
+ org.eclipse.reddeer.jface;bundle-version="[2.2.0,2.6.1)";visibility:=reexport,
+ org.eclipse.reddeer.junit;bundle-version="[2.2.0,2.6.1)";visibility:=reexport,
+ org.eclipse.reddeer.junit.extension;bundle-version="[2.2.0,2.6.1)";visibility:=reexport,
+ org.eclipse.reddeer.requirements;bundle-version="[2.2.0,2.6.1)";visibility:=reexport,
+ org.eclipse.reddeer.swt;bundle-version="[2.2.0,2.6.1)";visibility:=reexport,
+ org.eclipse.reddeer.uiforms;bundle-version="[2.2.0,2.6.1)";visibility:=reexport,
+ org.eclipse.reddeer.workbench;bundle-version="[2.2.0,2.6.1)";visibility:=reexport,
+ org.eclipse.reddeer.workbench.core;bundle-version="[2.2.0,2.6.1)";visibility:=reexport
