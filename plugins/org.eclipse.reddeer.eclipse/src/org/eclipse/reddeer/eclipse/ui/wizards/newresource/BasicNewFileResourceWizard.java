@@ -23,6 +23,6 @@ public class BasicNewFileResourceWizard extends NewMenuWizard {
 	 * Constructs the wizard with "General" &gt; "File".
 	 */
 	public BasicNewFileResourceWizard() {
-		super("New File","General", "File");
+		super("Create New File","General", "File");
 	}
 }

@@ -61,7 +61,7 @@ public class EditorBarTest {
 
 
 		new ShellMenuItem("File","New","File").select();
-		Shell fileShell = new DefaultShell("New File");
+		Shell fileShell = new DefaultShell("Create New File");
 		new LabeledText("File name:").setText("test.tlb");
 		new PushButton("Finish").click();
 		new WaitWhile(new ShellIsAvailable(fileShell));
