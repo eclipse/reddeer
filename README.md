@@ -7,7 +7,7 @@ Eclipse RedDeer is extensively tested on Linux/CentOS platform. Examination of t
 # Get the code
 
 The easiest way to get started with the code is to [create your own fork](https://help.github.com/en/articles/fork-a-repo), 
-and then clone your fork:
+then clone your fork and finally add upstream:
 
     $ git clone git@github.com:<you>/reddeer.git
     $ cd reddeer
@@ -15,7 +15,7 @@ and then clone your fork:
     
 # Build RedDeer locally
 
-In case that you have the git repo cloned locally, you can build it using maven.
+In case that you have the git repo cloned locally, you can build it using maven:
 
     $ mvn clean install
     
@@ -27,15 +27,15 @@ If you just want to build the base and not to run tests, use this:
 
 ## Using RedDeer eclipse update site
 
-Copy-Paste this URL to Eclipse Help -> Install New Software...
+Copy-Paste this URL to Eclipse Help -> Install New Software...:
 ```
 http://download.eclipse.org/reddeer/releases/latest
 ```
-Or latest nightly build
+Or latest nightly build:
 ```
 http://download.eclipse.org/reddeer/snapshots
 ```
-Finish the installation, restart IDE.
+Finish the installation & restart IDE.
 
 ## Using locally built artifacts
 
@@ -43,7 +43,7 @@ Search your repo for path-to-your-git/reddeer/site/repository and paste this pat
 
 # Documentation
 
-See [RedDeer Documentation](https://github.com/eclipse/reddeer/wiki)
+See [RedDeer Documentation](https://github.com/eclipse/reddeer/wiki).
 
 # Contact us
 
@@ -53,12 +53,12 @@ See [RedDeer Documentation](https://github.com/eclipse/reddeer/wiki)
 
 # Getting Started
 
-Go through [getting started guide](https://github.com/eclipse/reddeer/wiki/Getting-Started)
+Go through [Getting Started guide](https://github.com/eclipse/reddeer/wiki/Getting-Started).
 
 # Contributing
 
 First, if you find any bugs or areas to improve, please open [issue on GitHub](https://github.com/eclipse/reddeer/issues).
-In case you would like to implement a patch, note that RedDeer is Eclipse project and one have to have created an account under [Eclipse Foundation](https://accounts.eclipse.org/) and signed [Eclipse License Agreement](https://www.eclipse.org/legal/ECA.php). Moreover, if you are making a contributinon within your work position, you should read [Eclipse Foundation Legal FAQ](https://www.eclipse.org/legal/legalfaq.php).
+In case you would like to implement a patch, note that RedDeer is Eclipse project and you have to have created an account under [Eclipse Foundation](https://accounts.eclipse.org/) and signed [Eclipse Contributor Agreement](https://www.eclipse.org/legal/ECA.php). Moreover, if you are making a contributinon within your work position, you should read [Eclipse Foundation Legal FAQ](https://www.eclipse.org/legal/legalfaq.php).
 
     $ git pull upstream master
     $ git checkout -b name-of-our-branch # ideally, branch name should corresponds to reddeer github issue, ie. rd-1699
