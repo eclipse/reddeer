@@ -11,15 +11,25 @@
  *******************************************************************************/
 package org.eclipse.reddeer.eclipse.jdt.ui.wizards;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.eclipse.reddeer.common.exception.RedDeerException;
+import org.eclipse.reddeer.common.wait.AbstractWait;
+import org.eclipse.reddeer.common.wait.TimePeriod;
 import org.eclipse.reddeer.core.reference.ReferencedComposite;
-import org.eclipse.reddeer.jface.wizard.WizardPage;
+import org.eclipse.reddeer.swt.api.TableItem;
 import org.eclipse.reddeer.swt.impl.button.CheckBox;
+import org.eclipse.reddeer.swt.impl.button.PushButton;
+import org.eclipse.reddeer.swt.impl.shell.DefaultShell;
+import org.eclipse.reddeer.swt.impl.table.DefaultTable;
+import org.eclipse.reddeer.swt.impl.text.DefaultText;
 import org.eclipse.reddeer.swt.impl.text.LabeledText;
 
 /**
  * Wizard page for creating a java class.
  */
-public class NewClassWizardPage extends WizardPage {
+public class NewClassWizardPage extends AbstractJavaWizardPage {
 
 	/**
 	 * Instantiates a new new java class wizard page.
@@ -27,37 +37,7 @@ public class NewClassWizardPage extends WizardPage {
 	public NewClassWizardPage(ReferencedComposite referencedComposite) {
 		super(referencedComposite);
 	}
-	
-	/**
-	 * Sets a given name.
-	 * 
-	 * @param name Name
-	 */
-	public NewClassWizardPage setName(String name){
-		new LabeledText(this, "Name:").setText(name);
-		return this;
-	}
-	
-	/**
-	 * Sets a given package name.
-	 * 
-	 * @param packageName Package name
-	 */
-	public NewClassWizardPage setPackage(String packageName) {
-		new LabeledText(this, "Package:").setText(packageName);
-		return this;
-	}
-	
-	/**
-	 * Sets a given source folder.
-	 * 
-	 * @param sourceFolder Source folder
-	 */
-	public NewClassWizardPage setSourceFolder(String sourceFolder){
-		new LabeledText(this, "Source folder:").setText(sourceFolder);
-		return this;
-	}
-	
+
 	/**
 	 * Sets generating static main method.
 	 * 
@@ -67,31 +47,120 @@ public class NewClassWizardPage extends WizardPage {
 		new CheckBox(this, "public static void main(String[] args)").toggle(setMainMethod);
 		return this;
 	}
-	
+
 	/**
-	 * Returns a package name.
-	 * 
-	 * @return package name
+	 * Return the create static main method checkbox state.
+	 *
+	 * @return boolean state of the create static main method checkbox
 	 */
-	public String getPackage(){
-		return new LabeledText(this, "Package:").getText();
+	public boolean getStaticMainMethodCheckboxState() {
+		return new CheckBox(this, "public static void main(String[] args)").isChecked();
 	}
-	
+
 	/**
-	 * Returns a class name.
-	 * 
-	 * @return Class name
+	 * Return the abstract modifier checkbox state.
+	 *
+	 * @return boolean state of the abstract checkbox
 	 */
-	public String getName(){
-		return new LabeledText(this, "Name:").getText();
+	public boolean getAbstractModifierCheckboxState() {
+		return new CheckBox(this, "abstract").isChecked();
 	}
-	
+
 	/**
-	 * Returns a source folder.
-	 * 
-	 * @return Source folder
+	 * Check/Uncheck abstract modifier checkbox.
+	 *
+	 * @param toggle abstract modifier checkbox
 	 */
-	public String getSourceFolder(){
-		return new LabeledText(this, "Source folder:").getText();
+	public NewClassWizardPage toggleAbstractModifierCheckbox(boolean toggle) {
+		new CheckBox(this, "abstract").toggle(toggle);
+		return this;
+	}
+
+	/**
+	 * Return the final modifier checkbox state.
+	 *
+	 * @return boolean state of the final checkbox
+	 */
+	public boolean getFinalModifierCheckboxState() {
+		return new CheckBox(this, "final").isChecked();
+	}
+
+	/**
+	 * Check/Uncheck final modifier checkbox.
+	 *
+	 * @param toggle final modifier checkbox
+	 */
+	public NewClassWizardPage toggleFinalModifierCheckbox(boolean toggle) {
+		new CheckBox(this, "final").toggle(toggle);
+		return this;
+	}
+
+	/**
+	 * Sets a given superclass.
+	 * 
+	 * @param name superclassName
+	 */
+	public NewClassWizardPage setSuperclassName(String superclassName) {
+		new LabeledText(this, "Superclass:").setText(superclassName);
+		return this;
+	}
+
+	/**
+	 * Returns a superclass.
+	 * 
+	 * @return Superclass value
+	 */
+	public String getSuperclassName() {
+		return new LabeledText(this, "Superclass:").getText();
+	}
+
+	/**
+	 * Add extended interface.
+	 * 
+	 * @param interfaceName String with name of interface to add
+	 */
+	public void addExtendedInterface(String interfaceName) {
+		new PushButton("Add...").click();
+		new DefaultShell("Implemented Interfaces Selection");
+		new DefaultText(0).setText(interfaceName);
+		AbstractWait.sleep(TimePeriod.getCustom(2));
+
+		switch (new DefaultTable(0).getItems().size()) {
+		case 0:
+			throw new RedDeerException("No item was found for given interface name '" + interfaceName + "'.");
+		case 1:
+			new PushButton("OK").click();
+			break;
+		default:
+			throw new RedDeerException("More than 1 item was found for given interface name '" + interfaceName + "'.");
+		}
+	}
+
+	/**
+	 * Remove extended interface.
+	 * 
+	 * @param interfaceName String with name of interface to remove
+	 */
+	public void removeExtendedInterface(String interfaceName) {
+		DefaultTable table = new DefaultTable(0);
+		table.getItem(interfaceName).select();
+		new PushButton("Remove").click();
+	}
+
+	/**
+	 * Returns list of names of extended interfaces.
+	 * 
+	 * @return List of extended interfaces
+	 */
+	public ArrayList<String> getExtendedInterfaces() {
+		DefaultTable table = new DefaultTable(0);
+		List<TableItem> tableItems = table.getItems();
+		ArrayList<String> tableItemNames = new ArrayList<String>();
+
+		for (TableItem item : tableItems) {
+			tableItemNames.add(item.getText());
+		}
+
+		return tableItemNames;
 	}
 }
