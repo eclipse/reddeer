@@ -99,7 +99,7 @@ public class NewInterfaceCreationWizardTest {
 		interfaceDialog.open();
 		NewInterfaceCreationWizardPage interfacePage = new NewInterfaceCreationWizardPage(interfaceDialog);
 		interfacePage.setPackage(PACKAGE_NAME + "2").setName(INTERFACE_NAME + "2");
-		interfacePage.setPackageModifier();
+		interfacePage.togglePackageModifier(true);
 		interfacePage.addExtendedInterface("javax.accessibility.AccessibleAction");
 		interfacePage.toggleGenerateCommentsCheckbox(true);
 		interfaceDialog.finish();
@@ -153,13 +153,13 @@ public class NewInterfaceCreationWizardTest {
 		interfacePage.setEnclosingType(enclosingTypeDefaultValue);
 
 		assertTrue("Currently set modifier should be 'public', but is '" + interfacePage.getCurrentModifier() + "'.",
-				interfacePage.setPublicModifier().getCurrentModifier().equals("public"));
+				interfacePage.togglePublicModifier(true).getCurrentModifier().equals("public"));
 		assertTrue("Currently set modifier should be 'package', but is '" + interfacePage.getCurrentModifier() + "'.",
-				interfacePage.setPackageModifier().getCurrentModifier().equals("package"));
+				interfacePage.togglePackageModifier(true).getCurrentModifier().equals("package"));
 		assertTrue("Currently set modifier should be 'private', but is '" + interfacePage.getCurrentModifier() + "'.",
-				interfacePage.setPrivateModifier().getCurrentModifier().equals("private"));
+				interfacePage.togglePrivateModifier(true).getCurrentModifier().equals("private"));
 		assertTrue("Currently set modifier should be 'protected', but is '" + interfacePage.getCurrentModifier() + "'.",
-				interfacePage.setProtectedModifier().getCurrentModifier().equals("protected"));
+				interfacePage.toggleProtectedModifier(true).getCurrentModifier().equals("protected"));
 
 		interfacePage.toggleEnclosingTypeCheckbox(false);
 

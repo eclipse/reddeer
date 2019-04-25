@@ -41,7 +41,7 @@ public class EnumWizardTest {
 		ep.setName("MyEnum");
 		ep.setPackage("enumPackage");
 		assertTrue(ep.isPublicModifier());
-		assertFalse(ep.isGenerateComments());
+		assertFalse(ep.isGenerateCommentsCheckboxChecked());
 		ed.finish();
 		TextEditor te = new TextEditor("MyEnum.java");
 		assertTrue(te.getText().contains("public enum MyEnum"));
