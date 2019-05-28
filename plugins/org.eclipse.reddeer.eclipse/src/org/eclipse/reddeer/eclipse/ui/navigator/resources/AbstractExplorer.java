@@ -60,6 +60,7 @@ public class AbstractExplorer extends WorkbenchView {
 	 * @param projectName names of projects
 	 */
 	public void selectProjects(String... projectName){
+		activate();
 		ArrayList<TreeItem> selectTreeItems = new ArrayList<TreeItem>();
 		for(String pname: projectName){
 			selectTreeItems.add(getProject(pname).getTreeItem()); //check if project exists
@@ -227,6 +228,7 @@ public class AbstractExplorer extends WorkbenchView {
 	 * if there are link for creating or import new project into workspace, it returns an empty list.
 	 */
 	private List<TreeItem> getExplorerTreeItems() {
+		activate();
 		List<TreeItem> items = new ArrayList<TreeItem>();
 		
 		WidgetIsFound widget = new WidgetIsFound(
