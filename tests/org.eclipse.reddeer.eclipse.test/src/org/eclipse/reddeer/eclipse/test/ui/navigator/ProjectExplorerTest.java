@@ -14,9 +14,11 @@ package org.eclipse.reddeer.eclipse.test.ui.navigator;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
+import org.eclipse.reddeer.common.wait.TimePeriod;
 import org.eclipse.reddeer.eclipse.exception.EclipseLayerException;
 import org.eclipse.reddeer.eclipse.ui.navigator.resources.ProjectExplorer;
 import org.eclipse.reddeer.junit.runner.RedDeerSuite;
+import org.eclipse.reddeer.workbench.exception.WorkbenchLayerException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -34,7 +36,9 @@ public class ProjectExplorerTest {
 	
 	@After
 	public void after() {
-		projectExplorer.close();
+		if (projectExplorer.isOpen()) {
+			projectExplorer.close();
+		}
 	}
 	
 	@Test
@@ -63,5 +67,27 @@ public class ProjectExplorerTest {
 	public void selectProjectWithEmptyExplorer() {
 		projectExplorer.open();
 		projectExplorer.selectProjects("non-existing-project");
+	}
+	
+	@Test(expected=WorkbenchLayerException.class)
+	public void getProjectsWhenExplorerIsClosed() {
+		if (projectExplorer.isOpen()) {
+			projectExplorer.close();
+		}
+		new ProjectExplorer().getProjects();
+	}
+	
+	@Test
+	public void testGetProjectsItemsEmpty() {
+		projectExplorer.open();
+		assertEquals(projectExplorer.getProjectItems().size(), 0);
+	}
+	
+	@Test
+	public void testDeleteAllEmpty() {
+		projectExplorer.open();
+		projectExplorer.deleteAllProjects();
+		projectExplorer.deleteAllProjects(true);
+		projectExplorer.deleteAllProjects(false, TimePeriod.MEDIUM);
 	}
 }
