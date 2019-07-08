@@ -16,22 +16,22 @@
 	<groupId>org.eclipse.reddeer</groupId>
 	<artifactId>parent</artifactId>
 	<name>RedDeer Parent POM File</name>
-	<version>2.6.0-SNAPSHOT</version>
+	<version>2.7.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<properties>
 		<tycho-version>1.4.0</tycho-version>
 		<tychoExtrasVersion>${tycho-version}</tychoExtrasVersion>
-		<eclipse-target-site>http://download.eclipse.org/staging/2019-06/</eclipse-target-site>
+		<eclipse-target-site>http://download.eclipse.org/staging/2019-09/</eclipse-target-site>
 		<swtbot-update-site>http://download.eclipse.org/technology/swtbot/snapshots/</swtbot-update-site>
-		<eclipse-orbit-update-site>https://download.eclipse.org/tools/orbit/downloads/drops/R20190602212107/repository</eclipse-orbit-update-site>
+		<eclipse-orbit-update-site>https://download.eclipse.org/tools/orbit/downloads/drops/I20190708070108/repository</eclipse-orbit-update-site>
 		<download-plugin-version>1.2.1</download-plugin-version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<!-- In the update site's site/pom.xml (that calls jbosstools-maven-plugins/tycho-plugins/repository-utils) 
 			you can override this value to be Nightly Build, Development Milestone, or 
 			Stable Release, or set to &amp;shy; (soft hyphen) to leave blank -->
 		<update.site.description>&amp;shy;</update.site.description>
-		<targetEclipseVersion>4.12 (2019-06)</targetEclipseVersion>
+		<targetEclipseVersion>4.13 (2019-09)</targetEclipseVersion>
 		<BUILD_ALIAS></BUILD_ALIAS>
 		<BUILD_TIMESTAMP>yyyyMMdd-HHmm</BUILD_TIMESTAMP>
 		<maven.compiler.source>1.8</maven.compiler.source>
