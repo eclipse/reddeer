@@ -17,6 +17,7 @@
    		<runtimeType id="org.eclipse.reddeer.eclipse.test.wst.server.testserverruntime" name="Test runtime" description="Testing runtime" facetRuntimeComponent="org.eclipse.wst.server.http.runtime" facetRuntimeVersion="1.0" class="org.eclipse.reddeer.eclipse.test.wst.server.ui.TestServerRuntime">
    			<moduleType types="PHP" versions="1.0"/>
    			<moduleType types="wst.web" versions="1.0"/>
+   			<moduleType types="jst.ear" versions="7.0"/>
    		</runtimeType>
    		<runtimeType id="org.eclipse.reddeer.eclipse.test.wst.server.testserverruntime2" name="Test runtime 2" description="Second testing runtime" facetRuntimeComponent="org.eclipse.wst.server.http.runtime" facetRuntimeVersion="1.0" class="org.eclipse.reddeer.eclipse.test.wst.server.ui.TestServerRuntime2">
    		</runtimeType>

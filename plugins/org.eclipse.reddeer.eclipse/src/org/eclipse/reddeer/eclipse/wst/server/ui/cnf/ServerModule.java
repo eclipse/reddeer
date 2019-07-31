@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2017 Red Hat, Inc and others.
+ * Copyright (c) 2017-2020 Red Hat, Inc and others.
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
  * http://www.eclipse.org/legal/epl-2.0.
@@ -13,6 +13,9 @@ package org.eclipse.reddeer.eclipse.wst.server.ui.cnf;
 
 import static org.eclipse.reddeer.common.wait.WaitProvider.waitUntil;
 import static org.eclipse.reddeer.common.wait.WaitProvider.waitWhile;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import org.eclipse.reddeer.common.adaptable.RedDeerAdaptable;
 import org.eclipse.reddeer.common.logging.Logger;
@@ -184,6 +187,29 @@ public class ServerModule implements RedDeerAdaptable<ServerModule>{
 	public Class<?>[] getAdapterConstructorClasses() {
 		Class<?>[] classes = {TreeItem.class, ServersView2.class};
 		return classes;
+	}
+	
+	/**
+	 * Get direct child modules
+	 * 
+	 * @return List of modules, which are direct module children
+	 */
+	public List<ServerModule> getModules() {
+		List<ServerModule> childModules = new ArrayList<ServerModule>();
+		List<TreeItem> childModuleTreeItems = getTreeItem().getItems();
+		for (TreeItem item : childModuleTreeItems) {
+			childModules.add(new ServerModule(item, view));
+		}
+		return childModules;
+	}
+	
+	/**
+	 * Returns module's TreeItem object
+	 * 
+	 * @return the module's TreeItem object
+	 */
+	public TreeItem getTreeItem() {
+		return this.treeItem;
 	}
 }
 
