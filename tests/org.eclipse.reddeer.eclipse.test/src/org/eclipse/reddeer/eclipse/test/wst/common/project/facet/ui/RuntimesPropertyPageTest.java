@@ -49,7 +49,7 @@ public class RuntimesPropertyPageTest {
 		wizard.open();
 
 		WizardProjectsImportPage wizardPage = new WizardProjectsImportPage(wizard);
-		wizardPage.setArchiveFile(ServersViewTestCase.ZIP_FILE.getAbsolutePath());
+		wizardPage.setArchiveFile(ServersViewTestCase.PROJECTS_ZIP_FILE.getAbsolutePath());
 		wizardPage.selectProjects(PROJECT);
 
 		wizard.finish();

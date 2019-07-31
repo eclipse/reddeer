@@ -40,7 +40,7 @@ public class FacetsPropertyPageTest {
 		wizard.open();
 
 		WizardProjectsImportPage wizardPage = new WizardProjectsImportPage(wizard);
-		wizardPage.setArchiveFile(ServersViewTestCase.ZIP_FILE
+		wizardPage.setArchiveFile(ServersViewTestCase.PROJECTS_ZIP_FILE
 				.getAbsolutePath());
 		wizardPage.selectProjects(PROJECT);
 

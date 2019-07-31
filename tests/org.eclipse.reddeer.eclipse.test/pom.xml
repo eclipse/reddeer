@@ -135,7 +135,7 @@
 							<goal>wget</goal>
 						</goals>
 						<configuration>
-							<url>https://repo1.maven.org//maven2/com/h2database/h2/1.4.199/h2-1.4.199.jar</url>
+							<url>https://repo1.maven.org/maven2/com/h2database/h2/1.4.199/h2-1.4.199.jar</url>
 							<outputFileName>h2-1.4.199.jar</outputFileName>
 							<unpack>false</unpack>
 						</configuration>

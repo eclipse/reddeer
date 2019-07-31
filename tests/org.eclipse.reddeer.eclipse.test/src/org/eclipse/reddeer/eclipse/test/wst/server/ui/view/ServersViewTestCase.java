@@ -31,7 +31,9 @@ import org.junit.runner.RunWith;
 @RunWith(RedDeerSuite.class)
 public class ServersViewTestCase {
 
-	public static final File ZIP_FILE = new File(Activator.getTestResourcesLocation(ServersViewTest.class), "server-project.zip");
+	public static final File PROJECTS_ZIP_FILE = new File(Activator.getTestResourcesLocation(ServersViewTest.class), "server-project.zip");
+	
+	public static final File MULTIMODULAR_PROJECT_ZIP_FILE = new File(Activator.getTestResourcesLocation(ServersViewTest.class).getAbsolutePath(), "server-multimodular-project.zip");
 	
 	protected static final String PROJECT_1 = "server-project";
 	
@@ -74,15 +76,23 @@ public class ServersViewTestCase {
 		
 		new WaitUntil(new ServerExists(name));	
 	}
+
+	protected static void importProjects() {
+		importProjects(false);
+	}
 	
-	protected static void importProjects(){
-		ExternalProjectImportWizardDialog wizard  = new ExternalProjectImportWizardDialog();
+	protected static void importProjects(boolean importMultimodular) {
+		ExternalProjectImportWizardDialog wizard = new ExternalProjectImportWizardDialog();
 		wizard.open();
 
 		WizardProjectsImportPage wizardPage = new WizardProjectsImportPage(wizard);
-		wizardPage.setArchiveFile(ZIP_FILE.getAbsolutePath());
-		wizardPage.selectProjects("server-project", "server-project-2", "server-project-3");
+
+		String file = importMultimodular ? MULTIMODULAR_PROJECT_ZIP_FILE.getAbsolutePath()
+				: PROJECTS_ZIP_FILE.getAbsolutePath();
+		wizardPage.setArchiveFile(file);
+		wizardPage.selectAllProjects();
 
 		wizard.finish();
 	}
 }
+
