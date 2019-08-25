@@ -18,7 +18,7 @@ import org.eclipse.reddeer.core.reference.ReferencedComposite;
  * @author rawagner
  *
  */
-public class NewEnumWizardPage extends AbstractJavaWizardPage {
+public class NewEnumWizardPage extends AbstractJavaWizardPage implements CanImplement {
 	
 	public NewEnumWizardPage(ReferencedComposite referencedComposite) {
 		super(referencedComposite);
