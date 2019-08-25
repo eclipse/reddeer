@@ -24,6 +24,7 @@ public class JREItem {
 	private String name;
 	private String location;
 	private String type;
+	private boolean isDefault;
 
 	/**
 	 * Instantiates a new JRE item.
@@ -36,6 +37,39 @@ public class JREItem {
 		this.name = name;
 		this.location = location;
 		this.type = type;
+		this.isDefault = false;
+	}
+	
+	/**
+	 * Instantiates a new JRE item.
+	 *
+	 * @param name the name
+	 * @param location the location
+	 * @param type the type
+	 * @param isDefault the default
+	 */
+	public JREItem(String name, String location, String type, boolean checked) {
+		this.name = name;
+		this.location = location;
+		this.type = type;
+		this.isDefault = checked;
+	}
+
+	/**
+	 * Gets if is checked/default
+	 * @return the checked
+	 */
+	public boolean isDefault() {
+		return isDefault;
+	}
+
+	/**
+	 * Sets the default.
+	 * 
+	 * @param isDefault if it is default setup
+	 */
+	public void setDefault(boolean isDefault) {
+		this.isDefault = isDefault;
 	}
 
 	/**

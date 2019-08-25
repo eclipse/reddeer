@@ -12,6 +12,7 @@
 package org.eclipse.reddeer.requirements.test.jre;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
@@ -51,9 +52,9 @@ public class JRERequirementTest {
 		dialog.select(page);
 		List<JREItem> jres = page.getJREs();
 		assertTrue(matchJREs(jres, requirement.getConfiguration().getName(), requirement.getPath()));
+		assertFalse(page.getJREItem(requirement.getConfiguration().getName()).isDefault());
 		dialog.cancel();
 	}
-	
 	
 	/**
 	 * 

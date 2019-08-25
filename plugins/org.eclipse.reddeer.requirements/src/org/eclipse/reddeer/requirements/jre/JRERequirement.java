@@ -44,6 +44,12 @@ public class JRERequirement extends AbstractConfigurableRequirement<JREConfigura
 		 * @return true, if successful
 		 */
 		boolean cleanup() default false;
+		
+		/**
+		 * Sets new JRE as default. 
+		 * @return 
+		 */
+		boolean setDefault() default false;
 	}
 
 	/**
@@ -61,6 +67,9 @@ public class JRERequirement extends AbstractConfigurableRequirement<JREConfigura
 		JREsPreferencePage page = new JREsPreferencePage(dialog);
 		dialog.select(page);
 		page.addJRE(getPath(), configuration.getName());
+		if (annotation.setDefault()) {
+			page.setDefaultJRE(configuration.getName());
+		}
 		dialog.ok();
 	}
 

@@ -14,6 +14,7 @@ package org.eclipse.reddeer.eclipse.jdt.debug.ui.jres;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.reddeer.core.exception.CoreLayerException;
 import org.eclipse.reddeer.core.reference.ReferencedComposite;
 import org.eclipse.reddeer.eclipse.exception.EclipseLayerException;
 import org.eclipse.reddeer.eclipse.jdt.ui.preferences.JREItem;
@@ -28,7 +29,7 @@ import org.eclipse.reddeer.swt.impl.table.DefaultTable;
 /**
  * Class representing JRE Preference page (Java &gt; Installed JREs).
  * 
- * @author rhopp
+ * @author rhopp, odockal
  *
  */
 
@@ -123,10 +124,67 @@ public class JREsPreferencePage extends PreferencePage {
 	 */
 
 	public JREsPreferencePage deleteJRE(String name) {
-		DefaultTable table = new DefaultTable(this);
-		table.getItem(name, 0).select();
+		selectJRE(name);
 		new PushButton(referencedComposite, "Remove").click();
 		return this;
+	}
+	
+	/**
+	 * Set given JRE to default by toggling checkbox on.
+	 * @return JREsPreferencePage object
+	 */
+	public JREsPreferencePage toggleJRE(String name, boolean toggle) {
+		getJRETableItem(name).setChecked(toggle);
+		// we need to check if at least one java is chosen, otherwise apply is disabled
+		// and error is shown
+		if (!(new PushButton(referencedComposite, "Apply").isEnabled())) {
+			throw new EclipseLayerException("At least one valid JRE must be chosen - expected default JRE for workspace");
+		}
+		return this;
+	}
+	
+	/**
+	 * Selects given JRE.
+	 * @param name JRE name in string
+	 * @return
+	 */
+	public JREsPreferencePage selectJRE(String name) {
+		getJRETableItem(name).select();
+		return this;
+	}
+	
+	/**
+	 * Return existing JRE.
+	 * @param name jre's name
+	 * @return existing JRE item object in table
+	 */
+	public TableItem getJRETableItem(String name) {
+		DefaultTable table = new DefaultTable(this);
+		try {
+			return table.getItem(name);
+		} catch (CoreLayerException exc) {
+			// if set to default, name is changed to "${name} (default)"
+			return table.getItem(name + " (default)");
+		}
+	}
+	
+	/**
+	 * Return existing JRE.
+	 * @param name jre's name
+	 * @return existing JRE item object in table
+	 */
+	public JREItem getJREItem(String name) {
+		TableItem item = getJRETableItem(name);
+		return new JREItem(item.getText(0), item.getText(1), item.getText(2), item.isChecked());
+	}
+	
+	/**
+	 * Toggle given JRE on and sets it to default.
+	 * @param name JRE name to search for
+	 * @return JREsPreferencePage object
+	 */
+	public JREsPreferencePage setDefaultJRE(String name) {
+		return toggleJRE(name, true);
 	}
 
 	private AddVMInstallWizard openAddJREWizard() {
