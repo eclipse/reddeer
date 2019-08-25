@@ -11,25 +11,14 @@
  *******************************************************************************/
 package org.eclipse.reddeer.eclipse.jdt.ui.wizards;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.eclipse.reddeer.common.exception.RedDeerException;
-import org.eclipse.reddeer.common.wait.AbstractWait;
-import org.eclipse.reddeer.common.wait.TimePeriod;
 import org.eclipse.reddeer.core.reference.ReferencedComposite;
-import org.eclipse.reddeer.swt.api.TableItem;
 import org.eclipse.reddeer.swt.impl.button.CheckBox;
-import org.eclipse.reddeer.swt.impl.button.PushButton;
-import org.eclipse.reddeer.swt.impl.shell.DefaultShell;
-import org.eclipse.reddeer.swt.impl.table.DefaultTable;
-import org.eclipse.reddeer.swt.impl.text.DefaultText;
 import org.eclipse.reddeer.swt.impl.text.LabeledText;
 
 /**
  * Wizard page for creating a java class.
  */
-public class NewClassWizardPage extends AbstractJavaWizardPage {
+public class NewClassWizardPage extends AbstractJavaWizardPage implements CanImplement {
 
 	/**
 	 * Instantiates a new new java class wizard page.
@@ -112,55 +101,5 @@ public class NewClassWizardPage extends AbstractJavaWizardPage {
 	 */
 	public String getSuperclassName() {
 		return new LabeledText(this, "Superclass:").getText();
-	}
-
-	/**
-	 * Add extended interface.
-	 * 
-	 * @param interfaceName String with name of interface to add
-	 */
-	public void addExtendedInterface(String interfaceName) {
-		new PushButton("Add...").click();
-		new DefaultShell("Implemented Interfaces Selection");
-		new DefaultText(0).setText(interfaceName);
-		AbstractWait.sleep(TimePeriod.getCustom(2));
-
-		switch (new DefaultTable(0).getItems().size()) {
-		case 0:
-			throw new RedDeerException("No item was found for given interface name '" + interfaceName + "'.");
-		case 1:
-			new PushButton("OK").click();
-			break;
-		default:
-			throw new RedDeerException("More than 1 item was found for given interface name '" + interfaceName + "'.");
-		}
-	}
-
-	/**
-	 * Remove extended interface.
-	 * 
-	 * @param interfaceName String with name of interface to remove
-	 */
-	public void removeExtendedInterface(String interfaceName) {
-		DefaultTable table = new DefaultTable(0);
-		table.getItem(interfaceName).select();
-		new PushButton("Remove").click();
-	}
-
-	/**
-	 * Returns list of names of extended interfaces.
-	 * 
-	 * @return List of extended interfaces
-	 */
-	public ArrayList<String> getExtendedInterfaces() {
-		DefaultTable table = new DefaultTable(0);
-		List<TableItem> tableItems = table.getItems();
-		ArrayList<String> tableItemNames = new ArrayList<String>();
-
-		for (TableItem item : tableItems) {
-			tableItemNames.add(item.getText());
-		}
-
-		return tableItemNames;
 	}
 }
