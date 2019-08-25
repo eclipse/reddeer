@@ -24,8 +24,9 @@
 		<tychoExtrasVersion>${tycho-version}</tychoExtrasVersion>
 		<eclipse-target-site>http://download.eclipse.org/staging/2019-09/</eclipse-target-site>
 		<swtbot-update-site>http://download.eclipse.org/technology/swtbot/snapshots/</swtbot-update-site>
-		<eclipse-orbit-update-site>https://download.eclipse.org/tools/orbit/downloads/drops/S20190726194335/repository</eclipse-orbit-update-site>
+		<eclipse-orbit-update-site>https://download.eclipse.org/tools/orbit/downloads/drops/S20190819183153/repository</eclipse-orbit-update-site>
 		<download-plugin-version>1.2.1</download-plugin-version>
+		<java.target.version>1.8</java.target.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<!-- In the update site's site/pom.xml (that calls jbosstools-maven-plugins/tycho-plugins/repository-utils) 
 			you can override this value to be Nightly Build, Development Milestone, or 
@@ -34,8 +35,8 @@
 		<targetEclipseVersion>4.13 (2019-09)</targetEclipseVersion>
 		<BUILD_ALIAS></BUILD_ALIAS>
 		<BUILD_TIMESTAMP>yyyyMMdd-HHmm</BUILD_TIMESTAMP>
-		<maven.compiler.source>1.8</maven.compiler.source>
-		<maven.compiler.target>1.8</maven.compiler.target>
+		<maven.compiler.source>${java.target.version}</maven.compiler.source>
+		<maven.compiler.target>${java.target.version}</maven.compiler.target>
 		<!-- Java Code Coverage -->
 		<jacoco-version>0.8.2</jacoco-version>
 		<!-- Sonar Properties -->
