@@ -35,6 +35,7 @@ import org.eclipse.reddeer.common.logging.Logger;
 import org.eclipse.reddeer.common.wait.GroupWait;
 import org.eclipse.reddeer.common.wait.TimePeriod;
 import org.eclipse.reddeer.common.wait.WaitWhile;
+import org.eclipse.reddeer.core.exception.CoreLayerException;
 import org.eclipse.reddeer.core.handler.ItemHandler;
 import org.eclipse.reddeer.core.handler.WidgetHandler;
 import org.eclipse.reddeer.eclipse.condition.ServerExists;
@@ -495,6 +496,9 @@ public abstract class AbstractServer implements Server, RedDeerAdaptable<Server>
 					waitUntil(new ServerHasState(this, resultState)), waitWhile(new JobIsRunning()));
 			
 			log.debug("Operate server's state finished, the result server's state is: '" + getLabel().getState() + "'");
+		} catch (CoreLayerException exc) {
+			exc.printStackTrace();
+			throw exc;
 		} finally {
 			cleanupServerListener(listenerCondition.getServerListener());
 		}
