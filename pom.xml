@@ -24,7 +24,8 @@
 		<tychoExtrasVersion>${tycho-version}</tychoExtrasVersion>
 		<eclipse-target-site>http://download.eclipse.org/staging/2019-09/</eclipse-target-site>
 		<swtbot-update-site>http://download.eclipse.org/technology/swtbot/snapshots/</swtbot-update-site>
-		<eclipse-orbit-update-site>https://download.eclipse.org/tools/orbit/downloads/drops/S20190819183153/repository</eclipse-orbit-update-site>
+		<eclipse-orbit-update-site>https://download.eclipse.org/tools/orbit/downloads/drops/S20190827152740/repository</eclipse-orbit-update-site>
+		<cbi-repo-site>https://repo.eclipse.org/content/repositories/cbi-releases/</cbi-repo-site>
 		<download-plugin-version>1.2.1</download-plugin-version>
 		<java.target.version>1.8</java.target.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -109,6 +110,7 @@
 							<arch>x86_64</arch>
 						</environment>
 					</environments>
+					<includePackedArtifacts>false</includePackedArtifacts>
 					<dependency-resolution>
 						<extraRequirements>
 							<requirement>
@@ -199,6 +201,13 @@
 			<layout>p2</layout>
 		</repository>
 	</repositories>
+	
+	<pluginRepositories>
+		<pluginRepository>
+			<id>cbi-release</id>
+			<url>${cbi-repo-site}</url>
+		</pluginRepository>
+	</pluginRepositories>
 
 	<profiles>
 		<profile>
@@ -209,6 +218,72 @@
 			<modules>
 				<module>jacoco-report</module>
 			</modules>
+		</profile>
+		<profile>
+			<id>eclipse-sign</id>
+			<build>
+			    <plugins>
+					<plugin>
+						<groupId>org.eclipse.tycho.extras</groupId>
+						<artifactId>tycho-pack200a-plugin</artifactId>
+						<version>${tychoExtrasVersion}</version>
+						<executions>
+							<execution>
+								<id>pack200-normalize</id>
+								<goals>
+									<goal>normalize</goal>
+								</goals>
+								<phase>verify</phase>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.eclipse.cbi.maven.plugins</groupId>
+						<artifactId>eclipse-jarsigner-plugin</artifactId>
+						<version>1.1.5</version>
+						<executions>
+							<execution>
+								<id>sign</id>
+								<goals>
+									<goal>sign</goal>
+								</goals>
+								<phase>verify</phase>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.eclipse.tycho.extras</groupId>
+						<artifactId>tycho-pack200b-plugin</artifactId>
+						<version>${tychoExtrasVersion}</version>
+						<executions>
+							<execution>
+								<id>pack200-pack</id>
+								<goals>
+									<goal>pack</goal>
+								</goals>
+								<phase>verify</phase>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.eclipse.tycho</groupId>
+						<artifactId>tycho-p2-plugin</artifactId>
+						<version>${tycho-version}</version>
+						<executions>
+							<execution>
+								<id>p2-metadata</id>
+								<goals>
+									<goal>p2-metadata</goal>
+								</goals>
+								<phase>verify</phase>
+							</execution>
+						</executions>
+						<configuration>
+							<defaultP2Metadata>false</defaultP2Metadata>
+						</configuration>
+					</plugin>
+			    </plugins>
+		    </build>			
 		</profile>
 	</profiles>
 
