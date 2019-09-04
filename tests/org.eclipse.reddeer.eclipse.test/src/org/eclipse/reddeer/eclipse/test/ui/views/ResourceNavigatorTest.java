@@ -53,8 +53,8 @@ public class ResourceNavigatorTest {
 		
 		navigator.open();
 		String activeViewTitle = WorkbenchPartLookup.getInstance().getActiveWorkbenchPartTitle();
-		assertTrue("Active view have to be Navigator but is"
-				+activeViewTitle, activeViewTitle.equals("Navigator"));
+		assertTrue("Active view have to be Navigator or Navigator (Deprecated) but is "
+				+ activeViewTitle, activeViewTitle.equals("Navigator") || activeViewTitle.equals("Navigator (Deprecated)"));
 	}
 	
 	/**
