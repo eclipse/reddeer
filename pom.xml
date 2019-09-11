@@ -24,7 +24,7 @@
 		<tychoExtrasVersion>${tycho-version}</tychoExtrasVersion>
 		<eclipse-target-site>http://download.eclipse.org/staging/2019-09/</eclipse-target-site>
 		<swtbot-update-site>http://download.eclipse.org/technology/swtbot/snapshots/</swtbot-update-site>
-		<eclipse-orbit-update-site>https://download.eclipse.org/tools/orbit/downloads/drops/S20190827152740/repository</eclipse-orbit-update-site>
+		<eclipse-orbit-update-site>https://download.eclipse.org/tools/orbit/downloads/drops/R20190827152740/repository</eclipse-orbit-update-site>
 		<cbi-repo-site>https://repo.eclipse.org/content/repositories/cbi-releases/</cbi-repo-site>
 		<download-plugin-version>1.2.1</download-plugin-version>
 		<java.target.version>1.8</java.target.version>
