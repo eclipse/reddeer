@@ -3,8 +3,8 @@ Bundle-ManifestVersion: 2
 Bundle-Name: RedDeer E4 Workbench Core
 Bundle-Vendor: Eclipse.org - RedDeer
 Bundle-SymbolicName: org.eclipse.reddeer.e4.workbench.core
-Bundle-Version: 2.7.0.qualifier
-Require-Bundle: org.eclipse.reddeer.common;bundle-version="[2.2.0,2.7.1)",
+Bundle-Version: 2.8.0.qualifier
+Require-Bundle: org.eclipse.reddeer.common;bundle-version="[2.2.0,2.8.1)",
  org.eclipse.swt,
  org.eclipse.e4.ui.workbench,
  org.eclipse.e4.ui.model.workbench,
