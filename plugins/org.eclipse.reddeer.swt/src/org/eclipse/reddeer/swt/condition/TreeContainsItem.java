@@ -15,6 +15,7 @@ import java.util.Arrays;
 
 import org.eclipse.reddeer.common.condition.AbstractWaitCondition;
 import org.eclipse.reddeer.swt.api.Tree;
+import org.eclipse.reddeer.swt.impl.tree.DefaultTree;
 import org.eclipse.reddeer.swt.impl.tree.DefaultTreeItem;
 
 public class TreeContainsItem extends AbstractWaitCondition {
@@ -23,6 +24,17 @@ public class TreeContainsItem extends AbstractWaitCondition {
 	private String[] itemPath;
 	private DefaultTreeItem resultItem;
 
+	/**
+	 * Constructs TreeContainsItem wait condition. Condition is met when the
+	 * default tree contains the tree item with specified text.
+	 * 
+	 * @param itemPath path to an item
+	 */
+	public TreeContainsItem(String... itemPath) {
+		this.tree = new DefaultTree();
+		this.itemPath = itemPath;
+	}
+	
 	/**
 	 * Constructs TreeContainsItem wait condition. Condition is met when the
 	 * specified tree contains the tree item with specified text.
@@ -34,7 +46,7 @@ public class TreeContainsItem extends AbstractWaitCondition {
 		this.tree = tree;
 		this.itemPath = itemPath;
 	}
-
+	
 	@Override
 	public boolean test() {
 		try{
