@@ -14,8 +14,6 @@ package org.eclipse.reddeer.junit.extension.after.test.impl;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.swt.widgets.Shell;
-import org.eclipse.reddeer.common.logging.Logger;
 import org.eclipse.reddeer.common.properties.RedDeerProperties;
 import org.eclipse.reddeer.core.handler.IBeforeShellIsClosed;
 import org.eclipse.reddeer.core.handler.ShellHandler;
@@ -24,10 +22,11 @@ import org.eclipse.reddeer.junit.extension.ExtensionPriority;
 import org.eclipse.reddeer.junit.extensionpoint.IAfterTest;
 import org.eclipse.reddeer.junit.screenshot.CaptureScreenshotException;
 import org.eclipse.reddeer.junit.screenshot.ScreenshotCapturer;
+import org.eclipse.reddeer.workbench.handler.WorkbenchShellHandler;
+import org.eclipse.swt.widgets.Shell;
 import org.junit.Assert;
 import org.junit.runners.model.FrameworkMethod;
 import org.junit.runners.model.TestClass;
-import org.eclipse.reddeer.workbench.handler.WorkbenchShellHandler;
 
 /**
  * Extension for Extension point org.eclipse.reddeer.junit.after.test. It closes
@@ -42,8 +41,6 @@ import org.eclipse.reddeer.workbench.handler.WorkbenchShellHandler;
 public class CloseAllShellsExt implements IAfterTest {
 
 	public static final boolean CLOSE_ALL_SHELLS = RedDeerProperties.CLOSE_ALL_SHELLS.getBooleanValue();
-	private static final Logger log = Logger.getLogger(CloseAllShellsExt.class);
-
 	private String config;
 
 	private TestClass testClass;
