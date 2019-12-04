@@ -41,6 +41,10 @@ Finish the installation & restart IDE.
 
 Search your repo for path-to-your-git/reddeer/site/repository and paste this path to Eclipse Help -> Install New Software...
 
+# Getting Started
+
+Go through [Getting Started guide](https://github.com/eclipse/reddeer/wiki/Getting-Started).
+
 # Documentation
 
 See [RedDeer Documentation](https://github.com/eclipse/reddeer/wiki).
@@ -50,22 +54,3 @@ See [RedDeer Documentation](https://github.com/eclipse/reddeer/wiki).
 * Chat on [Eclipse Mattermost RedDeer channel](https://mattermost.eclipse.org/eclipse/channels/reddeer)
 * Contact us on [Mailing List](https://dev.eclipse.org/mailman/listinfo/reddeer-dev)
 * Our [Homepage](http://www.eclipse.org/reddeer)
-
-# Getting Started
-
-Go through [Getting Started guide](https://github.com/eclipse/reddeer/wiki/Getting-Started).
-
-# Contributing
-
-First, if you find any bugs or areas to improve, please open [issue on GitHub](https://github.com/eclipse/reddeer/issues).
-In case you would like to implement a patch, note that RedDeer is Eclipse project and you have to have created an account under [Eclipse Foundation](https://accounts.eclipse.org/) and signed [Eclipse Contributor Agreement](https://www.eclipse.org/legal/ECA.php). Moreover, if you are making a contributinon within your work position, you should read [Eclipse Foundation Legal FAQ](https://www.eclipse.org/legal/legalfaq.php).
-
-    $ git pull upstream master
-    $ git checkout -b name-of-our-branch # ideally, branch name should corresponds to reddeer github issue, ie. rd-1699
-
-Implement your changes/patch or bug fix...
-In any case, it is a best way to verify your changes that you run build with tests before you actually make a pull request.
-
-    $ git push origin name-of-your-branch
-    
-Then you can [generate a pull-request](https://help.github.com/en/articles/about-pull-requests) and we will make review, discuss, etc. If code is good enough, it can be merged into master.
