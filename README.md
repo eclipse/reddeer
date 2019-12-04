@@ -49,6 +49,10 @@ Go through [Getting Started guide](https://github.com/eclipse/reddeer/wiki/Getti
 
 See [RedDeer Documentation](https://github.com/eclipse/reddeer/wiki).
 
+# Contributing
+
+See [how to contribute](https://github.com/eclipse/reddeer/blob/master/CONTRIBUTING.md) to the project.
+
 # Contact us
 
 * Chat on [Eclipse Mattermost RedDeer channel](https://mattermost.eclipse.org/eclipse/channels/reddeer)
