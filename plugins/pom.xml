@@ -41,7 +41,7 @@
 		<module>org.eclipse.reddeer.graphiti</module>
 		<module>org.eclipse.reddeer.direct</module>
 		<module>org.eclipse.reddeer.junit</module>
-                <module>org.eclipse.reddeer.jdt.junit</module>
+        <module>org.eclipse.reddeer.jdt.junit</module>
 		<module>org.eclipse.reddeer.junit.extension</module>
 		<module>org.eclipse.reddeer.selenium</module>
 		<module>org.eclipse.reddeer.requirements</module>

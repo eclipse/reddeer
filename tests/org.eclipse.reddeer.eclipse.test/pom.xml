@@ -123,25 +123,25 @@
 					</dependencies>
 				</configuration>
 			</plugin>
-	<plugin>
-		<groupId>com.googlecode.maven-download-plugin</groupId>
-		<artifactId>download-maven-plugin</artifactId>
-		<version>${download-plugin-version}</version>
-		<executions>
-			<execution>
-				<id>install-h2-driver</id>
-				<phase>pre-integration-test</phase>
-				<goals>
-					<goal>wget</goal>
-				</goals>
-				<configuration>
-					<url>http://central.maven.org/maven2/com/h2database/h2/1.4.178/h2-1.4.178.jar</url>
-					<outputFileName>h2-1.4.178.jar</outputFileName>
-					<unpack>false</unpack>
-				</configuration>
-			</execution>
-		</executions>
-	</plugin>           
+			<plugin>
+				<groupId>com.googlecode.maven-download-plugin</groupId>
+				<artifactId>download-maven-plugin</artifactId>
+				<version>${download-plugin-version}</version>
+				<executions>
+					<execution>
+						<id>install-h2-driver</id>
+						<phase>pre-integration-test</phase>
+						<goals>
+							<goal>wget</goal>
+						</goals>
+						<configuration>
+							<url>http://central.maven.org/maven2/com/h2database/h2/1.4.199/h2-1.4.199.jar</url>
+							<outputFileName>h2-1.4.199.jar</outputFileName>
+							<unpack>false</unpack>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>           
         </plugins>
 	</build>
 
