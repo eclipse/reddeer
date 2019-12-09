@@ -57,7 +57,7 @@ import org.junit.runner.RunWith;
 @RunWith(RedDeerSuite.class)
 public class ResultViewTest {
 
-	private static String fileName = "h2-1.4.178.jar";
+	private static String fileName = "h2-1.4.199.jar";
 	private static String profile = "myDBProfile";
 
 	@BeforeClass

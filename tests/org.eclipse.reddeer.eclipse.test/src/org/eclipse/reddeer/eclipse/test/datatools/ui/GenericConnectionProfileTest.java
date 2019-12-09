@@ -46,7 +46,7 @@ import org.junit.runner.RunWith;
 @RunWith(RedDeerSuite.class)
 public class GenericConnectionProfileTest {
 
-	private String fileName = "h2-1.4.178.jar";
+	private String fileName = "h2-1.4.199.jar";
 
 	@Before
 	public void prepare() {
