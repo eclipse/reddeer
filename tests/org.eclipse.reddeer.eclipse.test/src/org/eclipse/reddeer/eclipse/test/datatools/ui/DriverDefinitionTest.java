@@ -47,7 +47,7 @@ public class DriverDefinitionTest {
 		DriverDefinition dd = new DriverDefinition();
 		dd.setDriverTemplate(new DriverTemplate("HSQLDB JDBC Driver", "1.8"));
 		dd.setDriverName("Test HSLQDB Driver");
-		dd.setDriverLibrary(new File("target/lib/hsqldb-1.8.0.10.jar").getAbsolutePath());
+		dd.setDriverLibrary(new File("target/lib/hsqldb-2.3.0.jar").getAbsolutePath());
 		return dd;
 	}
 }
