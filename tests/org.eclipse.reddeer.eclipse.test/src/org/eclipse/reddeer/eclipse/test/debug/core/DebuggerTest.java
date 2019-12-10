@@ -19,6 +19,8 @@ import java.io.File;
 
 import org.eclipse.reddeer.common.wait.TimePeriod;
 import org.eclipse.reddeer.common.wait.WaitUntil;
+import org.eclipse.reddeer.common.wait.WaitWhile;
+import org.eclipse.reddeer.core.matcher.WithTextMatcher;
 import org.eclipse.reddeer.eclipse.condition.LaunchIsSuspended;
 import org.eclipse.reddeer.eclipse.condition.LaunchIsTerminated;
 import org.eclipse.reddeer.eclipse.core.resources.Project;
@@ -36,6 +38,7 @@ import org.eclipse.reddeer.eclipse.ui.perspectives.DebugPerspective;
 import org.eclipse.reddeer.eclipse.utils.DeleteUtils;
 import org.eclipse.reddeer.junit.runner.RedDeerSuite;
 import org.eclipse.reddeer.requirements.openperspective.OpenPerspectiveRequirement.OpenPerspective;
+import org.eclipse.reddeer.workbench.core.condition.JobIsRunning;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Assert;
@@ -68,6 +71,11 @@ public class DebuggerTest {
 		mavenProjectWizard.open();
 		mavenProjectWizard.next();
 		MavenProjectWizardArchetypePage archetypePage = new MavenProjectWizardArchetypePage(mavenProjectWizard);
+		new WaitUntil(new JobIsRunning(new WithTextMatcher("Retrieving archetypes:")), TimePeriod.MEDIUM, false);
+		new WaitWhile(new JobIsRunning(new WithTextMatcher("Retrieving archetypes:")), TimePeriod.DEFAULT);
+		archetypePage.setFilterText("org.apache.maven");
+		archetypePage.toggleShowLatestArchetypeVersion(false);
+		new WaitWhile(new JobIsRunning(new WithTextMatcher("Retrieving archetypes:")), TimePeriod.DEFAULT);
 		archetypePage.selectArchetype("org.apache.maven.archetypes", "maven-archetype-quickstart", "1.1");
 		mavenProjectWizard.next();
 		MavenProjectWizardArchetypeParametersPage artifactPage = new MavenProjectWizardArchetypeParametersPage(mavenProjectWizard);

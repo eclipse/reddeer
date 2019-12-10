@@ -136,7 +136,7 @@ public class ResultViewTest {
 		new WaitWhile(new JobIsRunning());
 		new ContextMenuItem("Execute All").select();
 		
-		new WaitUntil(new ShellIsAvailable("SQL Statement Execution"),TimePeriod.LONG, false);
+		new WaitUntil(new ShellIsAvailable("SQL Statement Execution"),TimePeriod.DEFAULT, false);
 		new WaitWhile(new ShellIsAvailable("SQL Statement Execution"),TimePeriod.LONG, false);
 		
 		scrapbook.close(false);
@@ -226,7 +226,7 @@ public class ResultViewTest {
 	
 	private void removeResults() {
 		ResultView view = new ResultView();
-		view.open();		
+		view.open();
 
 		view.removeAllResults();
 		List<SQLResult> result = view.getResults();
