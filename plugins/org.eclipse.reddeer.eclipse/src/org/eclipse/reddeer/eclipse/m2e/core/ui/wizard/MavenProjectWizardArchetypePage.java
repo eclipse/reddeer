@@ -16,14 +16,17 @@ import static org.eclipse.reddeer.common.wait.WaitProvider.waitWhile;
 
 import org.eclipse.reddeer.common.wait.GroupWait;
 import org.eclipse.reddeer.common.wait.TimePeriod;
+import org.eclipse.reddeer.core.matcher.WithTextMatcher;
 import org.eclipse.reddeer.core.reference.ReferencedComposite;
 import org.eclipse.reddeer.eclipse.exception.EclipseLayerException;
 import org.eclipse.reddeer.jface.wizard.WizardPage;
 import org.eclipse.reddeer.swt.api.Table;
 import org.eclipse.reddeer.swt.api.TableItem;
 import org.eclipse.reddeer.swt.condition.TableHasRows;
+import org.eclipse.reddeer.swt.impl.button.CheckBox;
 import org.eclipse.reddeer.swt.impl.combo.DefaultCombo;
 import org.eclipse.reddeer.swt.impl.table.DefaultTable;
+import org.eclipse.reddeer.swt.impl.text.DefaultText;
 import org.eclipse.reddeer.workbench.core.condition.JobIsRunning;
 
 /**
@@ -87,6 +90,26 @@ public class MavenProjectWizardArchetypePage extends WizardPage{
 	 */
 	public String getArchetypeCatalog(){
 		return new DefaultCombo(this, 0).getText();
+	}
+	
+	/**
+	 * Toggle 'Show the last version of Archetype only' checkbox.
+	 * @param toggle boolean value to toogle to.
+	 */
+	public MavenProjectWizardArchetypePage toggleShowLatestArchetypeVersion(boolean toggle) {
+		CheckBox box = new CheckBox(this, new WithTextMatcher("&Show the last version of Archetype only"));
+		box.toggle(false);
+		return this;
+	}
+	
+	/**
+	 * Sets given string parameter text into Filter text field
+	 * @param text string to use for filter
+	 */
+	public MavenProjectWizardArchetypePage setFilterText(String text) {
+		DefaultText filter = new DefaultText(0);
+		filter.setText(text);
+		return this;
 	}
 
 }

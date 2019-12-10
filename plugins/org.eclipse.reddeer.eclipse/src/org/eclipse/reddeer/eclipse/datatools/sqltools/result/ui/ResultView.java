@@ -73,6 +73,9 @@ public class ResultView extends WorkbenchView {
 		}
 		DefaultToolItem item = new DefaultToolItem(cTabItem.getFolder(), tooltip);
 		item.click();
+		for (TreeItem treeitem : tree.getAllItems()) {
+			log.debug(treeitem.getText());
+		}
 		new WaitWhile(new TreeHasChildren(tree), TimePeriod.LONG);
 	}
 	
