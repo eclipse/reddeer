@@ -32,7 +32,9 @@ The project maintains the following source code repositories:
 
 This project leverages the following third party content.
 
-None
+HSQLDB (2.3.0) - New BSD license
+
+H2 (1.4.199) - EPL-1.0, MPL-2.0
 
 ## Cryptography
 
