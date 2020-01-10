@@ -3,18 +3,18 @@ Bundle-ManifestVersion: 2
 Bundle-Name: RedDeer E4 Workbench
 Bundle-Vendor: Eclipse.org - RedDeer
 Bundle-SymbolicName: org.eclipse.reddeer.e4.workbench
-Bundle-Version: 2.8.0.qualifier
-Require-Bundle: org.eclipse.reddeer.common;bundle-version="[2.2.0,2.8.1)",
+Bundle-Version: 2.9.0.qualifier
+Require-Bundle: org.eclipse.reddeer.common;bundle-version="[2.2.0,2.9.1)",
  org.eclipse.swt,
  org.eclipse.e4.ui.workbench,
  org.eclipse.e4.ui.model.workbench,
  org.eclipse.e4.core.contexts,
  org.eclipse.core.runtime,
  org.hamcrest.core,
- org.eclipse.reddeer.swt;bundle-version="[2.2.0,2.8.1)",
- org.eclipse.reddeer.jface;bundle-version="[2.2.0,2.8.1)",
- org.eclipse.reddeer.core;bundle-version="[2.2.0,2.8.1)",
- org.eclipse.reddeer.e4.workbench.core;bundle-version="[2.2.0,2.8.1)"
+ org.eclipse.reddeer.swt;bundle-version="[2.2.0,2.9.1)",
+ org.eclipse.reddeer.jface;bundle-version="[2.2.0,2.9.1)",
+ org.eclipse.reddeer.core;bundle-version="[2.2.0,2.9.1)",
+ org.eclipse.reddeer.e4.workbench.core;bundle-version="[2.2.0,2.9.1)"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Export-Package: org.eclipse.reddeer.workbench.exception,
