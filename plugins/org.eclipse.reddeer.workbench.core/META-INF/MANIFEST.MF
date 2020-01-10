@@ -8,7 +8,7 @@ Require-Bundle: org.eclipse.reddeer.common;bundle-version="[2.2.0,2.9.1)",
  org.eclipse.swt,
  org.eclipse.ui,
  org.eclipse.core.runtime,
- org.hamcrest.core
+ org.hamcrest.core;bundle-version="1.3.0"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Export-Package: org.eclipse.reddeer.workbench.core.condition,
