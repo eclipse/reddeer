@@ -1,0 +1,81 @@
+<!--
+    Copyright (c) 2020 Red Hat, Inc and others.
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Public License 2.0 which is available at
+    http://www.eclipse.org/legal/epl-2.0.
+   
+    SPDX-License-Identifier: EPL-2.0
+   
+    Contributors:
+        Red Hat, Inc - initial API and implementation
+ -->
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>org.eclipse.reddeer.integration.test</artifactId>
+	<name>RedDeer Integration and Eclipse Installation Tests</name>
+	<packaging>eclipse-test-plugin</packaging>
+	
+	<parent>
+		<groupId>org.eclipse.reddeer</groupId>
+		<artifactId>tests</artifactId>
+		<version>2.9.0-SNAPSHOT</version>
+	</parent>
+
+	<properties>
+		<customArgLine>-Dupdate.site=${update.site}</customArgLine>
+		<update.site></update.site>
+		<eclipseProfile>epp.package.jee</eclipseProfile>
+		<testProduct>org.eclipse.platform.ide</testProduct>
+		<skipITests>true</skipITests>
+	</properties>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-surefire-plugin</artifactId>
+				<configuration>
+					<skipTests>${skipITests}</skipTests>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+	
+	
+	<profiles>
+		<profile>
+			<id>integration-tests</id>
+			<activation>
+				<property>
+					<name>eclipseBase</name>
+				</property>
+			</activation>
+			<properties>
+				<skipITests>false</skipITests>
+			</properties>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.eclipse.tycho</groupId>
+						<artifactId>tycho-surefire-plugin</artifactId>
+						<configuration>
+							<testRuntime>p2Installed</testRuntime>
+							<work>${eclipseBase}</work>
+							<useUIThread>false</useUIThread>
+							<profileName>${eclipseProfile}</profileName>
+							<showEclipseLog>true</showEclipseLog>
+							<product>${testProduct}</product>
+							<includes>
+								<include>**/*Test.java</include>
+							</includes>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+
+</project>
