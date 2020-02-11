@@ -36,7 +36,7 @@
 		<repository>
 			<id>${eclipse_platform}</id>
 			<layout>p2</layout>
-			<url>http://download.eclipse.org/releases/${eclipse_platform}</url>
+			<url>https://download.eclipse.org/releases/${eclipse_platform}</url>
 		</repository>
 		<repository>
 			<id>RedDeer</id>
@@ -48,7 +48,7 @@
 	<pluginRepositories>
 		<pluginRepository>
 			<id>sonatype-public</id>
-			<url>http://repository.sonatype.org/content/groups/sonatype-public-grid</url>
+			<url>https://repository.sonatype.org/content/groups/sonatype-public-grid</url>
 		</pluginRepository>
 	</pluginRepositories>
 
