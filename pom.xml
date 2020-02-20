@@ -20,11 +20,11 @@
 	<packaging>pom</packaging>
 
 	<properties>
-		<tycho-version>1.5.1</tycho-version>
+		<tycho-version>1.6.0</tycho-version>
 		<tychoExtrasVersion>${tycho-version}</tychoExtrasVersion>
 		<eclipse-target-site>http://download.eclipse.org/staging/2020-03/</eclipse-target-site>
 		<swtbot-update-site>http://download.eclipse.org/technology/swtbot/snapshots/</swtbot-update-site>
-		<eclipse-orbit-update-site>https://download.eclipse.org/tools/orbit/downloads/drops/S20200128200239/repository</eclipse-orbit-update-site>
+		<eclipse-orbit-update-site>https://download.eclipse.org/tools/orbit/downloads/drops/S20200219023850/repository</eclipse-orbit-update-site>
 		<cbi-repo-site>https://repo.eclipse.org/content/repositories/cbi-releases/</cbi-repo-site>
 		<download-plugin-version>1.2.1</download-plugin-version>
 		<java.target.version>1.8</java.target.version>
