@@ -32,9 +32,50 @@ The project maintains the following source code repositories:
 
 This project leverages the following third party content.
 
-HSQLDB (2.3.0) - New BSD license
+Apache Lucene Core (8.0.0)
 
-H2 (1.4.199) - EPL-1.0, MPL-2.0
+* License: Apache-2.0 AND MIT AND BSD-3-Clause
+
+Apache Lucene Misc (8.0.0)
+
+* License: Apache-2.0
+
+com.fasterxml.jackson.core:jackson-annotations:2.9.9 (2.9.9)
+
+* License: Apache-2.0 AND EPL-1.0
+
+com.fasterxml.jackson.core:jackson-core:2.9.9 (2.9.9)
+
+* License: Apache-2.0 AND EPL-1.0
+
+com.fasterxml.jackson.core:jackson-databind:2.9.9 (2.9.9)
+
+* License: Apache-2.0 AND EPL-1.0
+
+H2 (1.4.199)
+
+* License: (EPL-1.0 OR MPL-2.0) AND (EPL-1.0 OR MPL-2.0 OR LGPL-3.0-or-later)
+   AND BSD-3-Clause AND LicenseRef-Public-Domain
+
+hamcrest-all (1.3)
+
+* License: New BSD License
+
+hsqldb (2.3.0)
+
+* License: New BSD license
+
+Mockito (2.23.0)
+
+* License: MIT
+
+org.junit (4.13)
+
+* License: EPL-1.0 AND EPL-2.0
+
+snakeyaml (1.14)
+
+* License: Apache License, 2.0
 
 ## Cryptography
 
