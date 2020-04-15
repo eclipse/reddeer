@@ -14,7 +14,7 @@
 <feature
       id="org.eclipse.reddeer.recorder.feature"
       label="%featureName"
-      version="2.9.0.qualifier"
+      version="3.0.0.qualifier"
       provider-name="Eclipse.org - RedDeer">
 
    <description url="https://github.com/jboss-reddeer/reddeer/wiki">
