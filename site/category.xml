@@ -99,10 +99,6 @@
 		<category name="GraphitiFeatures"/>
 	</feature>
 
-	<feature url="org.eclipse.reddeer.selenium.feature.qualifier" id="org.eclipse.reddeer.selenium.feature" version="0.0.0">
-        <category name="TestFeatures"/>
-	</feature>
-
     <feature url="org.eclipse.reddeer.logparser.feature.source.qualifier" id="org.eclipse.reddeer.logparser.feature.source" version="0.0.0">
         <category name="AllSources"/>
     </feature>

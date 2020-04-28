@@ -171,12 +171,6 @@
 		</dependency>
 		<dependency>
 			<groupId>org.eclipse.reddeer</groupId>
-			<artifactId>org.eclipse.reddeer.selenium</artifactId>
-			<version>${project.version}</version>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.eclipse.reddeer</groupId>
 			<artifactId>org.eclipse.reddeer.spy</artifactId>
 			<version>${project.version}</version>
 			<scope>compile</scope>
