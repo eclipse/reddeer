@@ -20,6 +20,8 @@ import org.eclipse.core.runtime.ILog;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.reddeer.common.wait.AbstractWait;
+import org.eclipse.reddeer.common.wait.TimePeriod;
 import org.eclipse.reddeer.eclipse.test.Activator;
 import org.eclipse.reddeer.eclipse.ui.views.log.LogMessage;
 import org.eclipse.reddeer.eclipse.ui.views.log.LogView;
@@ -83,6 +85,7 @@ public class LogViewTest {
 		
 		log.log(new Status(IStatus.INFO,INFO_ID_1,INFO_MESSAGE_1,null));
 		log.log(new Status(IStatus.INFO,INFO_ID_2,INFO_MESSAGE_2,new NullPointerException(INFO_STACK_2)));
+		AbstractWait.sleep(TimePeriod.getCustom(3));
 	}
 	
 	@Test
@@ -98,7 +101,7 @@ public class LogViewTest {
 
 		//test OK Message no.2
 		assertTrue(messageIsAvailable(messages, IStatus.OK, OK_ID_2,
-				OK_MESSAGE_2, OK_STACK_2));		
+				OK_MESSAGE_2, OK_STACK_2));
 	}
 	
 	@Test
@@ -185,19 +188,21 @@ public class LogViewTest {
 		assertTrue("'Activate on new events' option should be selected", menu.isSelected());
 	}
 	
-	private boolean messageIsAvailable(List<LogMessage> messages, int severity, String plugin, String message,String stackTrace) {
+	private boolean messageIsAvailable(List<LogMessage> messages, int severity, String plugin, String message, String stackTrace) {
 		for (LogMessage m : messages) {
 			if (m.getSeverity() == severity && m.getPlugin().equals(plugin) && m.getMessage().equals(message)) {
 				return true;
 			}
 		}
-		
 		return false;
 	}
 	
 	@After
-	public void cleanup() {
-		Platform.getLogFileLocation().toFile().delete();
+	public void cleanup() throws Exception {
+		if (!Platform.getLogFileLocation().toFile().delete()) {
+			System.out.println("Log file not deleted properly");
+		}
+		AbstractWait.sleep(TimePeriod.getCustom(3));
 	}
 	
 }

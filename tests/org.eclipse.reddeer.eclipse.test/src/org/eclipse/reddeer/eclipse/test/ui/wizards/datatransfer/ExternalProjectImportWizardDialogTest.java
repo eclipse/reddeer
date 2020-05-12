@@ -19,14 +19,16 @@ import static org.junit.Assert.assertTrue;
 import java.io.File;
 import java.util.List;
 
-import org.hamcrest.Description;
-import org.hamcrest.TypeSafeMatcher;
 import org.eclipse.reddeer.eclipse.exception.EclipseLayerException;
 import org.eclipse.reddeer.eclipse.test.Activator;
 import org.eclipse.reddeer.eclipse.ui.wizards.datatransfer.ExternalProjectImportWizardDialog;
 import org.eclipse.reddeer.eclipse.ui.wizards.datatransfer.WizardProjectsImportPage;
 import org.eclipse.reddeer.eclipse.ui.wizards.datatransfer.WizardProjectsImportPage.ImportProject;
 import org.eclipse.reddeer.junit.runner.RedDeerSuite;
+import org.eclipse.reddeer.swt.impl.button.RadioButton;
+import org.eclipse.reddeer.swt.impl.combo.DefaultCombo;
+import org.hamcrest.Description;
+import org.hamcrest.TypeSafeMatcher;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -134,6 +136,8 @@ public class ExternalProjectImportWizardDialogTest {
 	
 	@Test
 	public void getProjects_none(){
+		new RadioButton(wizardPage, "Select root directory:").click();
+		new DefaultCombo(wizardPage, 0).setText("");
 		List<ImportProject> projects = wizardPage.getProjects();
 
 		assertTrue(projects.isEmpty());

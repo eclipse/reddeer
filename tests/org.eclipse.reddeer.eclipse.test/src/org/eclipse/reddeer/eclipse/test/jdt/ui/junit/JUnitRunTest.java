@@ -13,6 +13,7 @@ package org.eclipse.reddeer.eclipse.test.jdt.ui.junit;
 
 import static org.junit.Assert.assertEquals;
 
+import org.eclipse.reddeer.common.wait.TimePeriod;
 import org.eclipse.reddeer.common.wait.WaitWhile;
 import org.eclipse.reddeer.eclipse.jdt.junit.ui.TestRunnerViewPart;
 import org.eclipse.reddeer.eclipse.jdt.ui.packageview.PackageExplorerPart;
@@ -26,6 +27,7 @@ import org.eclipse.reddeer.requirements.cleanworkspace.CleanWorkspaceRequirement
 import org.eclipse.reddeer.swt.condition.ShellIsAvailable;
 import org.eclipse.reddeer.swt.impl.button.FinishButton;
 import org.eclipse.reddeer.swt.impl.button.NextButton;
+import org.eclipse.reddeer.swt.impl.combo.DefaultCombo;
 import org.eclipse.reddeer.swt.impl.list.DefaultList;
 import org.eclipse.reddeer.swt.impl.menu.ContextMenuItem;
 import org.eclipse.reddeer.swt.impl.shell.DefaultShell;
@@ -66,6 +68,7 @@ public class JUnitRunTest {
 		new DefaultShell("Add Library");
 		new DefaultList().select("JUnit");
 		new NextButton().click();
+		new DefaultCombo().setSelection("JUnit 4");
 		new FinishButton().click();
 		new WaitWhile(new ShellIsAvailable("Add Library"));
 
@@ -92,7 +95,7 @@ public class JUnitRunTest {
 	public void junitRunTest() {
 		PackageExplorerPart explorer = new PackageExplorerPart();
 		explorer.open();
-		explorer.getProject(PROJECT_NAME).getProjectItem("src", "hellotest", "HelloTest.java").runAsJUnitTest();
+		explorer.getProject(PROJECT_NAME).getProjectItem("src", "hellotest", "HelloTest.java").runAsJUnitTest(TimePeriod.getCustom(90));
 
 		TestRunnerViewPart junitView = new TestRunnerViewPart();
 		junitView.open();
