@@ -12,6 +12,7 @@
 package org.eclipse.reddeer.swt.test.keyboard;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Shell;
@@ -67,14 +68,14 @@ public class KeyboardTest {
 		assertEquals("test123", getText());
 	}
 	
-	@Test(expected=TestFailureException.class)
+	@Test
 	public void keyCombinationTest(){
 		new DefaultShell();
 		KeyboardFactory.getKeyboard().invokeKeyCombination(SWT.CONTROL, 'h');
 		try {
 			new DefaultShell("Search").close();
 		} catch (CoreLayerException ex) {
-			throw new TestFailureException(ex.getMessage());
+			fail("Expected shell 'Search' did not appear, got exception instead: " + ex.getMessage());
 		}
 	}
 	
