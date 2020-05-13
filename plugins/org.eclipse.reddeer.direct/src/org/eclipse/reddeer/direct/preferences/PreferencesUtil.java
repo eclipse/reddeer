@@ -33,8 +33,6 @@ public class PreferencesUtil {
 	public static final String CONSOLE_LIMIT_OUTPUT_HIGH_KEY = "Console.highWaterMark";
 	public static final String CONSOLE_OPEN_ON_ERR_KEY = "DEBUG.consoleOpenOnErr";
 	public static final String CONSOLE_OPEN_ON_OUT_KEY = "DEBUG.consoleOpenOnOut";
-	public static final String AERI_PLUGIN = "org.eclipse.epp.logging.aeri.ide";
-	public static final String AERI_SEND_MODE_KEY = "sendMode";
 
 	private static final Logger log = Logger.getLogger(PreferencesUtil.class);
 
@@ -154,15 +152,6 @@ public class PreferencesUtil {
 	public static void setConsoleOpenedOnOutput(boolean openOnOutput) {
 		log.info("Sets the console open on error to '" + openOnOutput + "'");
 		Preferences.set(CONSOLE_PLUGIN, CONSOLE_OPEN_ON_OUT_KEY, String.valueOf(openOnOutput));
-	}
-	
-	/**
-	 * Sets AERI reporting send mode
-	 * @param mode possible values are NOTIFY, NEVER and BACKGROUND
-	 */
-	public static void setAERISendMode(String mode) {
-		log.info("Setting the aeri reporting to never send.");
-		Preferences.set(AERI_PLUGIN, AERI_SEND_MODE_KEY, mode);
 	}
 
 	/**
