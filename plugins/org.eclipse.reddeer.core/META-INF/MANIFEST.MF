@@ -19,3 +19,4 @@ Export-Package: org.eclipse.reddeer.core.condition,
  org.eclipse.reddeer.core.reference,
  org.eclipse.reddeer.core.resolver,
  org.eclipse.reddeer.core.util
+Automatic-Module-Name: org.eclipse.reddeer.core

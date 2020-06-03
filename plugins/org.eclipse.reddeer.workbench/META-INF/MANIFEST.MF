@@ -35,4 +35,5 @@ Export-Package: org.eclipse.reddeer.workbench,
  org.eclipse.reddeer.workbench.ui.dialogs,
  org.eclipse.reddeer.workbench.workbenchmenu,
  org.eclipse.reddeer.workbench.part
+Automatic-Module-Name: org.eclipse.reddeer.workbench
  

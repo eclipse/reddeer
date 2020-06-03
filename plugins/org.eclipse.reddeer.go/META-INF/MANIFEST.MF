@@ -5,7 +5,6 @@ Bundle-Vendor: Eclipse.org - RedDeer
 Bundle-SymbolicName: org.eclipse.reddeer.go
 Bundle-Version: 3.1.0.qualifier
 Bundle-ActivationPolicy: lazy
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Require-Bundle: org.eclipse.ui;visibility:=reexport,
  org.eclipse.core.runtime;visibility:=reexport,
  org.eclipse.equinox.event;visibility:=reexport,
@@ -24,3 +23,5 @@ Require-Bundle: org.eclipse.ui;visibility:=reexport,
  org.eclipse.reddeer.uiforms;bundle-version="[2.2.0,3.1.1)";visibility:=reexport,
  org.eclipse.reddeer.workbench;bundle-version="[2.2.0,3.1.1)";visibility:=reexport,
  org.eclipse.reddeer.workbench.core;bundle-version="[2.2.0,3.1.1)";visibility:=reexport
+Automatic-Module-Name: org.eclipse.reddeer.go
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8

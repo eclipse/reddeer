@@ -24,4 +24,5 @@ Export-Package: org.eclipse.reddeer.jface.exception,
  org.eclipse.reddeer.jface.window,
  org.eclipse.reddeer.jface.condition,
  org.eclipse.reddeer.jface.api
+Automatic-Module-Name: org.eclipse.reddeer.jface
 

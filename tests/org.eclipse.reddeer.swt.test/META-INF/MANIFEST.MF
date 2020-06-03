@@ -21,3 +21,4 @@ Export-Package: org.eclipse.reddeer.swt.test,
  org.eclipse.reddeer.swt.test.impl.tree,
  org.eclipse.reddeer.swt.test.utils
 Import-Package: org.eclipse.ui.texteditor
+Automatic-Module-Name: org.eclipse.reddeer.swt.test

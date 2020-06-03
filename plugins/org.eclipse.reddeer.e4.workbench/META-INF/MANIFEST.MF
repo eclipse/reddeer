@@ -22,4 +22,5 @@ Export-Package: org.eclipse.reddeer.workbench.exception,
  org.eclipse.reddeer.workbench.impl.shell,
  org.eclipse.reddeer.workbench.handler,
  org.eclipse.reddeer.workbench.api
+Automatic-Module-Name: org.eclipse.reddeer.e4.workbench
 

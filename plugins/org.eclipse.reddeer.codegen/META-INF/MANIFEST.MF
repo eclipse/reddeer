@@ -26,3 +26,4 @@ Require-Bundle: org.eclipse.ui.ide,
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Export-Package: org.eclipse.reddeer.codegen.builder
+Automatic-Module-Name: org.eclipse.reddeer.codegen

@@ -19,3 +19,4 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
 Export-Package: org.eclipse.reddeer.gef.spy,
  org.eclipse.reddeer.gef.spy.view
+Automatic-Module-Name: org.eclipse.reddeer.gef.spy

@@ -18,7 +18,9 @@ Require-Bundle: org.eclipse.reddeer.go;bundle-version="[2.2.0,3.1.1)",
  org.eclipse.datatools.connectivity.dbdefinition.genericJDBC,
  org.eclipse.datatools.sqltools.sqlscrapbook;bundle-version="1.0.2",
  org.eclipse.datatools.sqltools.result.ui;bundle-version="1.1.3",
- org.eclipse.jdt.ui
+ org.eclipse.jdt.ui,
+ org.eclipse.jdt.junit4.runtime
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Import-Package: org.hamcrest.core
+Automatic-Module-Name: org.eclipse.reddeer.eclipse.test

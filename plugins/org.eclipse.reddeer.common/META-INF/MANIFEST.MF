@@ -19,3 +19,4 @@ Export-Package: org.eclipse.reddeer.common.adaptable,
  org.eclipse.reddeer.common.userprofile,
  org.eclipse.reddeer.common.util,
  org.eclipse.reddeer.common.wait
+Automatic-Module-Name: org.eclipse.reddeer.common

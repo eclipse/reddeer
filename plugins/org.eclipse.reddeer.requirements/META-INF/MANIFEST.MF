@@ -32,3 +32,4 @@ Export-Package: org.eclipse.reddeer.requirements.autobuilding,
  org.eclipse.reddeer.requirements.server,
  org.eclipse.reddeer.requirements.server.apache.tomcat,
  org.eclipse.reddeer.requirements.securestorage
+Automatic-Module-Name: org.eclipse.reddeer.requirements

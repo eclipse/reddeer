@@ -38,4 +38,5 @@ Export-Package: org.eclipse.reddeer.junit,
  org.eclipse.reddeer.junit.screenshot,
  org.eclipse.reddeer.junit.util,
  org.eclipse.reddeer.junit.watcher
+Automatic-Module-Name: org.eclipse.reddeer.junit
  

@@ -24,3 +24,4 @@ Export-Package: org.eclipse.reddeer.graphiti,
  org.eclipse.reddeer.graphiti.impl.contextbutton,
  org.eclipse.reddeer.graphiti.impl.graphitieditpart,
  org.eclipse.reddeer.graphiti.lookup
+Automatic-Module-Name: org.eclipse.reddeer.graphiti

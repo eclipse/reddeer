@@ -21,3 +21,4 @@ Export-Package: org.eclipse.reddeer.integration.test.installation.common.conditi
  org.eclipse.reddeer.integration.test.installation.common.page,
  org.eclipse.reddeer.integration.test.installation.common.util,
  org.eclipse.reddeer.integration.test.installation.common.wait
+Automatic-Module-Name: org.eclipse.reddeer.integration.test

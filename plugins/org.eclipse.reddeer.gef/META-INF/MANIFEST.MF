@@ -29,3 +29,4 @@ Export-Package: org.eclipse.reddeer.gef,
  org.eclipse.reddeer.gef.matcher,
  org.eclipse.reddeer.gef.util,
  org.eclipse.reddeer.gef.view
+Automatic-Module-Name: org.eclipse.reddeer.gef
