@@ -24,7 +24,7 @@
 		<tychoExtrasVersion>${tycho-version}</tychoExtrasVersion>
 		<eclipse-target-site>https://download.eclipse.org/staging/2020-09/</eclipse-target-site>
 		<swtbot-update-site>https://download.eclipse.org/technology/swtbot/snapshots/</swtbot-update-site>
-		<eclipse-orbit-update-site>https://download.eclipse.org/tools/orbit/downloads/drops/S20200707174545/repository</eclipse-orbit-update-site>
+		<eclipse-orbit-update-site>https://download.eclipse.org/tools/orbit/downloads/drops/S20200727174946/repository</eclipse-orbit-update-site>
 		<cbi-repo-site>https://repo.eclipse.org/content/repositories/cbi-releases/</cbi-repo-site>
 		<download-plugin-version>1.2.1</download-plugin-version>
 		<java.target.version>1.8</java.target.version>
@@ -33,7 +33,7 @@
 			you can override this value to be Nightly Build, Development Milestone, or 
 			Stable Release, or set to &amp;shy; (soft hyphen) to leave blank -->
 		<update.site.description>&amp;shy;</update.site.description>
-		<targetEclipseVersion>4.17 (2020-07)</targetEclipseVersion>
+		<targetEclipseVersion>4.17 (2020-09)</targetEclipseVersion>
 		<BUILD_ALIAS></BUILD_ALIAS>
 		<BUILD_TIMESTAMP>yyyyMMdd-HHmm</BUILD_TIMESTAMP>
 		<maven.compiler.source>${java.target.version}</maven.compiler.source>

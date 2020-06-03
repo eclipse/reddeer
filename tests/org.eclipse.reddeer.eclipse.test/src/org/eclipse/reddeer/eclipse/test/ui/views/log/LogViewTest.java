@@ -20,8 +20,10 @@ import org.eclipse.core.runtime.ILog;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.reddeer.common.condition.AbstractWaitCondition;
 import org.eclipse.reddeer.common.wait.AbstractWait;
 import org.eclipse.reddeer.common.wait.TimePeriod;
+import org.eclipse.reddeer.common.wait.WaitUntil;
 import org.eclipse.reddeer.eclipse.test.Activator;
 import org.eclipse.reddeer.eclipse.ui.views.log.LogMessage;
 import org.eclipse.reddeer.eclipse.ui.views.log.LogView;
@@ -86,12 +88,13 @@ public class LogViewTest {
 		log.log(new Status(IStatus.INFO,INFO_ID_1,INFO_MESSAGE_1,null));
 		log.log(new Status(IStatus.INFO,INFO_ID_2,INFO_MESSAGE_2,new NullPointerException(INFO_STACK_2)));
 		AbstractWait.sleep(TimePeriod.getCustom(3));
+
+		logView = new LogView();
+		logView.open();
 	}
 	
 	@Test
 	public void getOKMessage(){
-		logView = new LogView();
-		logView.open();
 		List<LogMessage> messages = logView.getOKMessages();
 		assertTrue("No OK messages found!", !messages.isEmpty());
 		
@@ -106,8 +109,6 @@ public class LogViewTest {
 	
 	@Test
 	public void getInfoMessage(){
-		logView = new LogView();
-		logView.open();
 		List<LogMessage> messages = logView.getInfoMessages();
 		assertTrue("No INFO messages found!", !messages.isEmpty());
 		
@@ -122,8 +123,6 @@ public class LogViewTest {
 	
 	@Test
 	public void getWarningMessage(){
-		logView = new LogView();
-		logView.open();
 		List<LogMessage> messages = logView.getWarningMessages();
 		assertTrue("No WARNING messages found!", !messages.isEmpty());
 		
@@ -138,8 +137,6 @@ public class LogViewTest {
 	
 	@Test
 	public void getErrorMessage(){
-		logView = new LogView();
-		logView.open();
 		List<LogMessage> messages = logView.getErrorMessages();
 		assertTrue("No ERROR messages found!", !messages.isEmpty());
 		
@@ -153,9 +150,7 @@ public class LogViewTest {
 	}
 
 	@Test
-	public void testClearAndRestore(){ 
-		logView = new LogView();
-		logView.open();
+	public void testClearAndRestore(){
 		assertFalse("There must be messages", logView.getErrorMessages().isEmpty());
 		logView.clearLog();				
 		assertTrue("There should be messages", logView.getErrorMessages().isEmpty());
@@ -164,9 +159,7 @@ public class LogViewTest {
 	}
 	
 	@Test
-	public void testDelete(){ 
-		logView = new LogView();
-		logView.open();
+	public void testDelete(){
 		assertFalse("There must be messages", logView.getErrorMessages().isEmpty());
 		logView.deleteLog();				
 		assertTrue("There should be no messages", logView.getErrorMessages().isEmpty());
@@ -177,8 +170,6 @@ public class LogViewTest {
 
 	@Test
 	public void testSetActivateOnNewEvents() {
-		logView = new LogView();
-		logView.open();
 		logView.setActivateOnNewEvents(true);
 		WorkbenchPartMenuItem menu = new WorkbenchPartMenuItem("Activate on new events");
 		assertTrue("'Activate on new events' option should be selected", menu.isSelected());
@@ -199,10 +190,32 @@ public class LogViewTest {
 	
 	@After
 	public void cleanup() throws Exception {
-		if (!Platform.getLogFileLocation().toFile().delete()) {
-			System.out.println("Log file not deleted properly");
+//		if (!Platform.getLogFileLocation().toFile().delete()) {
+//			System.out.println("Log file not deleted properly");
+//		}
+
+		LogView logView2 = new LogView();
+		logView2.open();
+		logView2.deleteLog();
+		new WaitUntil(new LogViewIsEmpty(), TimePeriod.DEFAULT);
+	}
+	
+	private class LogViewIsEmpty extends AbstractWaitCondition {
+
+		@Override
+		public boolean test() {
+			LogView view = new LogView();
+			if (!view.isOpen()) {
+				view.open();
+			}
+			if (view.getOKMessages().isEmpty() 
+					&& view.getErrorMessages().isEmpty() 
+					&& view.getWarningMessages().isEmpty()
+					&& view.getInfoMessages().isEmpty()) {
+				return true;
+			}
+			return false;
 		}
-		AbstractWait.sleep(TimePeriod.getCustom(3));
 	}
 	
 }

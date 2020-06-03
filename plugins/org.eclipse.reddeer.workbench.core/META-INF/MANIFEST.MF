@@ -14,3 +14,4 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Export-Package: org.eclipse.reddeer.workbench.core.condition,
  org.eclipse.reddeer.workbench.core.exception,
  org.eclipse.reddeer.workbench.core.lookup
+Automatic-Module-Name: org.eclipse.reddeer.workbench.core

@@ -19,3 +19,4 @@ Export-Package: org.eclipse.reddeer.swt.generator.framework.referencedComposite,
  org.eclipse.reddeer.swt.generator.framework.rules.annotation,
  org.eclipse.reddeer.swt.generator.framework.rules.complex,
  org.eclipse.reddeer.swt.generator.framework.rules.simple
+Automatic-Module-Name: org.eclipse.reddeer.recorder

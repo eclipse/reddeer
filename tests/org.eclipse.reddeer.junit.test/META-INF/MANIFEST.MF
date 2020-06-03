@@ -14,3 +14,4 @@ Export-Package: org.eclipse.reddeer.junit.test.internal.requirement,
  org.eclipse.reddeer.junit.test.requirement.configuration.resources
 Import-Package: org.mockito,
  org.mockito.stubbing
+Automatic-Module-Name: org.eclipse.reddeer.junit.test

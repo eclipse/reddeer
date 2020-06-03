@@ -21,3 +21,4 @@ Export-Package: org.eclipse.reddeer.uiforms.api,
  org.eclipse.reddeer.uiforms.impl.section,
  org.eclipse.reddeer.uiforms.matcher,
  org.eclipse.reddeer.uiforms.handler
+Automatic-Module-Name: org.eclipse.reddeer.uiforms

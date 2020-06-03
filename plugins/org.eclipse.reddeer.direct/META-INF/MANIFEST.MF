@@ -15,3 +15,4 @@ Export-Package: org.eclipse.reddeer.direct.platform,
  org.eclipse.reddeer.direct.preferences,
  org.eclipse.reddeer.direct.project,
  org.eclipse.reddeer.direct.workspace
+Automatic-Module-Name: org.eclipse.reddeer.direct

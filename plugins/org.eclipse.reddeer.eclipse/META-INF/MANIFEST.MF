@@ -102,3 +102,4 @@ Export-Package: org.eclipse.reddeer.eclipse,
  org.eclipse.reddeer.eclipse.wst.server.ui.wizard,
  org.eclipse.reddeer.eclipse.wst.web.ui.wizards,
  org.eclipse.reddeer.eclipse.wst.xml.ui.tabletree
+Automatic-Module-Name: org.eclipse.reddeer.eclipse

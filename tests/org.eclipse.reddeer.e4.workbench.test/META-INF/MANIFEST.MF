@@ -16,5 +16,6 @@ Require-Bundle: org.eclipse.reddeer.common,
  org.eclipse.e4.ui.model.workbench,
  org.eclipse.swt,
  org.eclipse.reddeer.e4
+Automatic-Module-Name: org.eclipse.reddeer.e4.workbench.test
 
 
