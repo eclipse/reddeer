@@ -16,10 +16,10 @@ import static org.eclipse.reddeer.common.wait.WaitProvider.waitWhile;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertThat;
 
 import java.util.List;
 
+import org.eclipse.reddeer.common.exception.RedDeerException;
 import org.eclipse.reddeer.common.matcher.RegexMatcher;
 import org.eclipse.reddeer.common.wait.AbstractWait;
 import org.eclipse.reddeer.common.wait.GroupWait;
@@ -55,8 +55,6 @@ import org.eclipse.reddeer.swt.impl.styledtext.DefaultStyledText;
 import org.eclipse.reddeer.swt.impl.toolbar.DefaultToolItem;
 import org.eclipse.reddeer.workbench.core.condition.JobIsRunning;
 import org.eclipse.reddeer.workbench.impl.editor.DefaultEditor;
-import org.hamcrest.core.IsEqual;
-import org.hamcrest.core.IsNull;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -118,12 +116,10 @@ public class ConsoleViewTest {
 		runTestClass(TEST_CLASS_NAME2);
 		consoleView.switchConsole(new RegexMatcher(".*" + TEST_CLASS_NAME1
 				+ ".*"));
-		assertThat(consoleView.getConsoleText(),
-				IsEqual.equalTo("Hello World1"));
+		assertEquals(consoleView.getConsoleText(),"Hello World1");
 		consoleView.switchConsole(new RegexMatcher(".*" + TEST_CLASS_NAME2
 				+ ".*"));
-		assertThat(consoleView.getConsoleText(),
-				IsEqual.equalTo("Hello World2"));
+		assertEquals(consoleView.getConsoleText(),"Hello World2");
 		consoleView.toggleShowConsoleOnStandardOutChange(true);
 	}
 
@@ -187,6 +183,11 @@ public class ConsoleViewTest {
 		assertEquals("StartHelloApplication", consoleView.getConsoleText().replaceAll("\\s", ""));
 	}
 	
+	@Test(expected = RedDeerException.class)
+	public void consoleHasTextTest() {
+		new WaitUntil(new ConsoleHasText(null));
+	}
+	
 	@Test
 	public void toggleShowConsoleOnStandardOutChange() {
 		runTestClassAndWaitToFinish();
@@ -225,8 +226,8 @@ public class ConsoleViewTest {
 		consoleView = new ConsoleView();
 		consoleView.open();
 		String text = consoleView.getConsoleText();
-		assertThat(text, IsNull.notNullValue());
-		assertThat(text, IsEqual.equalTo("Hello World"));
+		assertNotNull(text);
+		assertEquals(text,"Hello World");
 	}
 
 	private void testClearConsole() {
@@ -234,7 +235,7 @@ public class ConsoleViewTest {
 		consoleView.open();
 		consoleView.clearConsole();
 		String text = consoleView.getConsoleText();
-		assertThat(text, IsEqual.equalTo(""));
+		assertEquals(text,"");
 	}
 
 	private static void createTestProject() {

@@ -12,6 +12,7 @@
 package org.eclipse.reddeer.eclipse.condition;
 
 import org.eclipse.reddeer.common.condition.AbstractWaitCondition;
+import org.eclipse.reddeer.common.exception.RedDeerException;
 import org.eclipse.reddeer.eclipse.ui.console.ConsoleView;
 
 /**
@@ -32,8 +33,12 @@ public class ConsoleHasText extends AbstractWaitCondition {
 	 * 
 	 * @param view console view to use
 	 * @param text Text
+	 * @throws RedDeerException when text parameter is null
 	 */
 	public ConsoleHasText(ConsoleView view, String text) {
+		if (text == null) {
+			throw new RedDeerException("String parameter is null!");
+		}
 		this.text = text;
 		consoleView = view;
 		view.open();
