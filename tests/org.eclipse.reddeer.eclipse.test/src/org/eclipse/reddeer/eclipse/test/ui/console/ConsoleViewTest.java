@@ -17,6 +17,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.eclipse.reddeer.common.exception.RedDeerException;
@@ -89,6 +90,19 @@ public class ConsoleViewTest {
 		explorer.open();
 		DeleteUtils.forceProjectDeletion(explorer.getProject(TEST_PROJECT_NAME),true);
 	}
+	
+	@After
+	public void tearDown(){
+		consoleView = new ConsoleView();
+		consoleView.open();
+		// clean up all launches
+		while (consoleView.consoleHasLaunch()){
+			consoleView.toggleShowConsoleOnStandardOutChange(true);
+			consoleView.terminateConsole();
+			consoleView.removeLaunch();
+		}
+		killRunningJavaProcesses();
+	}
 
 	private void runTestClassAndWaitToFinish() {
 		runTestClass(TEST_CLASS_NAME);
@@ -98,6 +112,7 @@ public class ConsoleViewTest {
 	@Test
 	public void testConsoleHasAnyText() {
 		consoleView = new ConsoleView();
+		consoleView.open();
 		while (consoleView.consoleHasLaunch()) {
 			consoleView.terminateConsole();
 			consoleView.removeLaunch();
@@ -155,7 +170,7 @@ public class ConsoleViewTest {
 	public void testTerminateConsole() {
 
 		runTestClass(TEST_CLASS_LOOP_NAME);
-		AbstractWait.sleep(TimePeriod.SHORT);
+		AbstractWait.sleep(TimePeriod.MEDIUM);
 
 		consoleView = new ConsoleView();
 		consoleView.open();
@@ -209,18 +224,6 @@ public class ConsoleViewTest {
 		MenuItem clear = contextMenu.getItem("Clear");
 		assertNotNull(clear);
 	}
-
-	@After
-	public void tearDown(){
-		consoleView = new ConsoleView();
-		consoleView.open();
-		// clean up all launches
-		while (consoleView.consoleHasLaunch()){
-			consoleView.toggleShowConsoleOnStandardOutChange(true);
-			consoleView.terminateConsole();
-			consoleView.removeLaunch();
-		}		
-	}
 	
 	private void testGettingConsoleTest() {
 		consoleView = new ConsoleView();
@@ -236,6 +239,18 @@ public class ConsoleViewTest {
 		consoleView.clearConsole();
 		String text = consoleView.getConsoleText();
 		assertEquals(text,"");
+	}
+	
+	private static void killRunningJavaProcesses() {
+		ProcessHandle.allProcesses()
+		.filter(process -> 
+			process.info()
+			.commandLine()
+			.map(proc -> Arrays
+					.asList(TEST_CLASS_NAME, TEST_CLASS_NAME1, TEST_CLASS_NAME2, TEST_CLASS_LOOP_NAME, TEST_CLASS_LOOP2_NAME)
+					.contains(proc)).orElse(false))
+		.findFirst()
+		.ifPresent(ProcessHandle::destroy);
 	}
 
 	private static void createTestProject() {
