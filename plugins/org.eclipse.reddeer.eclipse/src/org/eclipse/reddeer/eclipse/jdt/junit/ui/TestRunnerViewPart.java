@@ -11,7 +11,9 @@
  *******************************************************************************/
 package org.eclipse.reddeer.eclipse.jdt.junit.ui;
 
+import org.eclipse.reddeer.common.matcher.RegexMatcher;
 import org.eclipse.reddeer.common.wait.WaitWhile;
+import org.eclipse.reddeer.core.matcher.WithLabelMatcher;
 import org.eclipse.reddeer.swt.condition.ShellIsAvailable;
 import org.eclipse.reddeer.swt.impl.button.OkButton;
 import org.eclipse.reddeer.swt.impl.button.PushButton;
@@ -44,7 +46,7 @@ public class TestRunnerViewPart extends WorkbenchView {
 	 */
 	public String getRunStatus() {
 		activate();
-		return new LabeledText(cTabItem, "Runs: ").getText().trim();
+		return new LabeledText(cTabItem, new WithLabelMatcher(new RegexMatcher("Runs:.*"))).getText().trim();
 	}
 
 	/**
@@ -54,7 +56,7 @@ public class TestRunnerViewPart extends WorkbenchView {
 	 */
 	public int getNumberOfErrors() {
 		activate();
-		String errorStatus = new LabeledText(cTabItem, "Errors: ").getText().trim();
+		String errorStatus = new LabeledText(cTabItem, new WithLabelMatcher(new RegexMatcher("Errors:.*"))).getText().trim();
 		return Integer.valueOf(errorStatus);
 	}
 
@@ -65,7 +67,7 @@ public class TestRunnerViewPart extends WorkbenchView {
 	 */
 	public int getNumberOfFailures() {
 		activate();
-		String errorStatus = new LabeledText(cTabItem, "Failures: ").getText().trim();
+		String errorStatus = new LabeledText(cTabItem, new WithLabelMatcher(new RegexMatcher("Failures:.*"))).getText().trim();
 		return Integer.valueOf(errorStatus);
 	}
 

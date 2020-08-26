@@ -12,6 +12,7 @@
 package org.eclipse.reddeer.swt.impl.text;
 
 import org.eclipse.reddeer.swt.api.Text;
+import org.hamcrest.Matcher;
 import org.eclipse.reddeer.core.matcher.WithLabelMatcher;
 import org.eclipse.reddeer.core.reference.ReferencedComposite;
 
@@ -39,5 +40,15 @@ public class LabeledText extends AbstractText implements Text {
 	 */
 	public LabeledText(ReferencedComposite referencedComposite, String label) {
 		super(referencedComposite, 0, new WithLabelMatcher(label));
+	}
+	
+	/**
+	 * Default text with a label matcher inside given composite.
+	 *
+	 * @param referencedComposite the referenced composite
+	 * @param matcher matcher for the label matching
+	 */
+	public LabeledText(ReferencedComposite referencedComposite, Matcher<?>... matcher) {
+		super(referencedComposite, 0, matcher);
 	}
 }
