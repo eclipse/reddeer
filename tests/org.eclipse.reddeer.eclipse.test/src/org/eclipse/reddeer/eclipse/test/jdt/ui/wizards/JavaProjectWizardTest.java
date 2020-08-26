@@ -14,6 +14,9 @@ package org.eclipse.reddeer.eclipse.test.jdt.ui.wizards;
 import static org.junit.Assert.assertTrue;
 
 import org.eclipse.reddeer.common.exception.WaitTimeoutExpiredException;
+import org.eclipse.reddeer.common.wait.TimePeriod;
+import org.eclipse.reddeer.common.wait.WaitUntil;
+import org.eclipse.reddeer.common.wait.WaitWhile;
 import org.eclipse.reddeer.eclipse.jdt.ui.wizards.JavaProjectWizard;
 import org.eclipse.reddeer.eclipse.jdt.ui.wizards.NewJavaProjectWizardPageOne;
 import org.eclipse.reddeer.eclipse.jdt.ui.wizards.NewJavaProjectWizardPageTwo;
@@ -22,6 +25,7 @@ import org.eclipse.reddeer.junit.runner.RedDeerSuite;
 import org.eclipse.reddeer.requirements.cleanworkspace.CleanWorkspaceRequirement.CleanWorkspace;
 import org.eclipse.reddeer.swt.impl.button.RadioButton;
 import org.eclipse.reddeer.swt.impl.combo.DefaultCombo;
+import org.eclipse.reddeer.workbench.core.condition.JobIsRunning;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -108,6 +112,8 @@ public class JavaProjectWizardTest {
 		dialog.next();
 		
 		NewJavaProjectWizardPageTwo pageTwo = new NewJavaProjectWizardPageTwo(dialog);
+		new WaitUntil(new JobIsRunning(), TimePeriod.MEDIUM, false);
+		new WaitWhile(new JobIsRunning(), TimePeriod.MEDIUM, false);
 		pageTwo.createModuleInfoFile(true);
 		
 		dialog.finish(true, JAVA_MODULE_NAME);

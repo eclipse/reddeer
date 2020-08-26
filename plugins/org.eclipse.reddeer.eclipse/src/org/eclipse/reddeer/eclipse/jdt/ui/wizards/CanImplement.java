@@ -25,6 +25,7 @@ import org.eclipse.reddeer.swt.impl.button.PushButton;
 import org.eclipse.reddeer.swt.impl.shell.DefaultShell;
 import org.eclipse.reddeer.swt.impl.table.DefaultTable;
 import org.eclipse.reddeer.swt.impl.text.DefaultText;
+import org.eclipse.reddeer.workbench.core.condition.JobIsRunning;
 
 /**
  * Interface that brings default behavior for Class/Interface/Enum wizards that can 'implement'.
@@ -42,6 +43,7 @@ public interface CanImplement {
 		new PushButton("Add...").click();
 		new DefaultShell(new WithTextMatcher(new RegexMatcher("[Extended|Implemented].*Interfaces Selection")));
 		new DefaultText(0).setText(interfaceName);
+		new WaitUntil(new JobIsRunning(), TimePeriod.MEDIUM, false);
 		new WaitUntil(new TableHasRows(new DefaultTable(0)), TimePeriod.DEFAULT, false);
 
 		switch (new DefaultTable(0).getItems().size()) {
