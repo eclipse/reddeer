@@ -11,11 +11,11 @@
  *******************************************************************************/
 package org.eclipse.reddeer.jface.test.dialogs;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.resource.JFaceResources;
-import org.eclipse.swt.widgets.Shell;
 import org.eclipse.reddeer.common.util.Display;
 import org.eclipse.reddeer.core.exception.CoreLayerException;
 import org.eclipse.reddeer.eclipse.selectionwizard.NewMenuWizard;
@@ -25,6 +25,7 @@ import org.eclipse.reddeer.jface.test.Activator;
 import org.eclipse.reddeer.jface.test.dialogs.impl.TestingNewWizard;
 import org.eclipse.reddeer.jface.test.dialogs.impl.TestingTitleAreaDialog;
 import org.eclipse.reddeer.swt.impl.button.PushButton;
+import org.eclipse.swt.widgets.Shell;
 import org.junit.After;
 import org.junit.Test;
 
