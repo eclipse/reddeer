@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: RedDeer UI
 Bundle-SymbolicName: org.eclipse.reddeer.ui;singleton:=true
-Bundle-Version: 3.1.0.qualifier
+Bundle-Version: 3.2.0.qualifier
 Bundle-Activator: org.eclipse.reddeer.ui.Activator
 Bundle-Vendor: Eclipse.org - RedDeer
 Bundle-ActivationPolicy: lazy
@@ -21,7 +21,7 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.jdt.junit.runtime,
  org.eclipse.jdt.debug.ui,
  org.eclipse.ui.ide,
- org.eclipse.reddeer.common;bundle-version="[2.2.0,3.1.1)",
+ org.eclipse.reddeer.common;bundle-version="[2.2.0,3.2.1)",
  org.eclipse.osgi,
  org.eclipse.reddeer.jdt.junit
 Automatic-Module-Name: org.eclipse.reddeer.ui

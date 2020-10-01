@@ -1,0 +1,21 @@
+#
+# A fatal error has been detected by the Java Runtime Environment:
+#
+#  SIGSEGV (0xb) at pc=0x00007f3b86ad214d, pid=2453687, tid=2453705
+#
+# JRE version: OpenJDK Runtime Environment (11.0.7+10) (build 11.0.7+10)
+# Java VM: OpenJDK 64-Bit Server VM (11.0.7+10, mixed mode, sharing, tiered, compressed oops, g1 gc, linux-amd64)
+# Problematic frame:
+# C  [libjimage.so+0x314d]  ImageStrings::find(Endian*, char const*, int*, unsigned int)+0x6d
+#
+# Core dump will be written. Default location: Core dumps may be processed with "/usr/lib/systemd/systemd-coredump %P %u %g %s %t %c %h" (or dumping to /home/odockal/git/reddeer/tests/org.eclipse.reddeer.eclipse.test/core.2453687)
+#
+# If you would like to submit a bug report, please visit:
+#   http://bugreport.java.com/bugreport/crash.jsp
+#
+
+---------------  S U M M A R Y ------------
+
+Command Line: -agentlib:jdwp=transport=dt_socket,suspend=y,address=localhost:36301 -Dusage_reporting_enabled=false -Declipse.pde.launch=true -Declipse.p2.data.area=@config.dir/p2 --add-modules=ALL-SYSTEM -Drd.captureScreenshot=true -Drd.closeShells=true -Drd.closeWelcomeScreen=true -Drd.defaultKey=org.eclipse.reddeer.widget.key -Drd.disableMavenIndex=true -Drd.logCollectorEnabled=true -Drd.logLevel=ALL -Drd.logMessageFilter=ALL -Drd.maximizeWorkbench=true -Drd.openAssociatedPerspective=never -Drd.pauseFailedTest=false -Drd.timePeriodFactor=1.0 -Dfile.encoding=UTF-8 org.eclipse.equinox.launcher.Main -os linux -ws gtk -arch x86_64 -nl en_US -consoleLog -version 3 -port 46059 -testLoaderClass org.eclipse.jdt.internal.junit4.runner.JUnit4TestLoader -loaderpluginname org.eclipse.jdt.junit4.runtime -classNames org.eclipse.reddeer.eclipse.test.jdt.ui.wizards.JavaProjectWizardTest -application org.eclipse.reddeer.jdt.junit.reddeertestapplication -product com.jboss.devstudio.core.product -data /home/odockal/workspace_12170AM1-0819/../junit-workspace -configuration file:/home/odockal/workspace_12170AM1-0819/.metadata/.plugins/org.eclipse.pde.core/pde-junit/ -dev file:/home/odockal/workspace_12170AM1-0819/.metadata/.plugins/org.eclipse.pde.core/pde-junit/dev.properties -os linux -ws gtk -arch x86_64 -nl en_US -consoleLog -testpluginname org.eclipse.reddeer.eclipse.test
+
+Host: 
