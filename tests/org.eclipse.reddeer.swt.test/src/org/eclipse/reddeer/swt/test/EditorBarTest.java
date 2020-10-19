@@ -45,7 +45,7 @@ public class EditorBarTest {
 		// new DefaultShell("Spring Tool Tips").close();
 		new WorkbenchShell();
 		new ShellMenuItem("File","New","Other...").select();
-		new DefaultShell("New");
+		new DefaultShell("Select a wizard");
 		new DefaultTreeItem("General","Project").select();
 		new PushButton("Next >").click();
 		Shell projectShell = new DefaultShell("New Project");

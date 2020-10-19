@@ -55,7 +55,7 @@ public class JavaProjectWizardFirstPageTest {
 	
 	@After
 	public void closeAll() {
-		ShellIsAvailable shell = new ShellIsAvailable("New");
+		ShellIsAvailable shell = new ShellIsAvailable("Select a wizard");
 		new WaitUntil(shell, TimePeriod.SHORT, false);
 		if (shell.getResult() != null) {
 			new DefaultShell().close();

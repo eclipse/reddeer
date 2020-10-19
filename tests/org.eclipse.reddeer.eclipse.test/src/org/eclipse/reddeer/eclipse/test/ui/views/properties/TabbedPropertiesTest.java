@@ -60,7 +60,7 @@ public class TabbedPropertiesTest {
 		new ProjectExplorer().getProject("test").select();
 
 		new ShellMenuItem("File", "New", "Other...").select();
-		new DefaultShell("New");
+		new DefaultShell("Select a wizard");
 		new DefaultTreeItem("XML", "XML Schema File").select();
 		new PushButton("Next >").click();
 		new PushButton("Finish").click();
