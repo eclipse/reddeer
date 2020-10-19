@@ -22,7 +22,7 @@ import org.eclipse.reddeer.workbench.workbenchmenu.WorkbenchMenuWizardDialog;
  */
 public class NewWizard extends WorkbenchMenuWizardDialog{
 	
-	public static final String DIALOG_TITLE = "New";
+	public static final String DIALOG_TITLE = "Select a wizard";
 	
 	public NewWizard() {
 		super(DIALOG_TITLE,"File","New","Other...");
