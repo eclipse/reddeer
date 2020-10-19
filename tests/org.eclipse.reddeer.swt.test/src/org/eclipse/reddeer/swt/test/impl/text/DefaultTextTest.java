@@ -56,7 +56,7 @@ public class DefaultTextTest {
 	@Test
 	public void testInDialog() {
 		new ShellMenuItem("File", "New", "Other...").select();
-		new DefaultShell("New");
+		new DefaultShell("Select a wizard");
 		Text t = new DefaultText(0);
 		t.setText("myvalue");
 		assertTrue(t.getText().equals("myvalue"));
