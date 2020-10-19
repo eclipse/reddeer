@@ -20,11 +20,11 @@ import org.eclipse.reddeer.common.wait.TimePeriod;
 import org.eclipse.reddeer.common.wait.WaitWhile;
 import org.eclipse.reddeer.core.matcher.WithTextMatcher;
 import org.eclipse.reddeer.core.reference.ReferencedComposite;
+import org.eclipse.reddeer.jface.dialogs.TitleAreaDialog;
 import org.eclipse.reddeer.jface.preference.PreferencePage;
 import org.eclipse.reddeer.swt.api.Shell;
 import org.eclipse.reddeer.swt.api.Table;
 import org.eclipse.reddeer.swt.api.TableItem;
-import org.eclipse.reddeer.swt.api.Text;
 import org.eclipse.reddeer.swt.condition.ShellIsAvailable;
 import org.eclipse.reddeer.swt.impl.button.OkButton;
 import org.eclipse.reddeer.swt.impl.button.PushButton;
@@ -108,7 +108,7 @@ public class MavenArchetypesPreferencePage extends PreferencePage {
 	public String addRemoteCatalog(String catalogFileURL, String description, boolean verify) {
 		String verificationResult = "";
 		new PushButton(this, ADD_REMOTE_CATALOG).click();
-		Shell remoteCatalogShell = new DefaultShell(REMOTE_CATALOG_SHELL);
+		TitleAreaDialog remoteCatalogShell = new TitleAreaDialog(REMOTE_CATALOG_SHELL);
 		new DefaultCombo(remoteCatalogShell).setText(catalogFileURL);
 		new LabeledText(remoteCatalogShell, CATALOG_DESCRIPTION).setText(description);
 		if (verify) {
@@ -116,7 +116,7 @@ public class MavenArchetypesPreferencePage extends PreferencePage {
 		}
 		log.info(verificationResult);
 		new OkButton(remoteCatalogShell).click();
-		new WaitWhile(new ShellIsAvailable(remoteCatalogShell));
+		new WaitWhile(new ShellIsAvailable(remoteCatalogShell.getShell()));
 		return verificationResult;
 	}
 
@@ -226,7 +226,7 @@ public class MavenArchetypesPreferencePage extends PreferencePage {
 		String verificationResult = "";
 		selectCatalog(catalogName);
 		new PushButton(this, EDIT_CATALOG).click();
-		Shell editShell = new DefaultShell(new WithTextMatcher(new RegexMatcher(".* Archetype Catalog")));
+		TitleAreaDialog editShell = new TitleAreaDialog(new WithTextMatcher(new RegexMatcher(".* Archetype Catalog")));
 		new DefaultCombo(editShell).setText(catalogFile);
 		new LabeledText(editShell, CATALOG_DESCRIPTION).setText(description);
 		if (verify) {
@@ -234,7 +234,7 @@ public class MavenArchetypesPreferencePage extends PreferencePage {
 		}
 		log.info(verificationResult);
 		new OkButton(editShell).click();
-		new WaitWhile(new ShellIsAvailable(editShell));
+		new WaitWhile(new ShellIsAvailable(editShell.getShell()));
 		return verificationResult;
 	}
 
@@ -273,11 +273,10 @@ public class MavenArchetypesPreferencePage extends PreferencePage {
 	 * 
 	 * @return result of verification
 	 */
-	protected String verifyURL(ReferencedComposite composite) {
+	protected String verifyURL(TitleAreaDialog composite) {
 		new PushButton(composite, VERIFY_BUTTON).click();
 		new WaitWhile(new JobIsRunning(), TimePeriod.LONG);
-		Text labeledText = new LabeledText(composite, REMOTE_CATALOG_SHELL);
-		String text = labeledText.getText();
+		String text = composite.getMessage();
 		return text;
 	}
 

@@ -84,7 +84,14 @@ public class TitleAreaDialog extends AbstractWindow{
 	 */
 	public String getMessage() {
 		checkShell();
-		String message = getMessageLabel().getText();
+		// Page Message is 5th Text within first Composite of TitleAreaDialog and is inactive 
+		Control textControl = handler.getChildren(getShellComposite())[4];
+		String message = "";
+		if (textControl instanceof org.eclipse.swt.widgets.Label) {
+			message = getMessageLabel(textControl).getText();
+		} else {
+			message = getMessageText(textControl).getText();
+		}
 		if(getMessageImage() != null){ //if image is shown TitleAreaDialog adds whitespace before message
 			message = message.substring(1);
 		}
@@ -133,10 +140,12 @@ public class TitleAreaDialog extends AbstractWindow{
 		return new DefaultLabel((Label)imageControl).getImage();
 	}
 	
-	protected org.eclipse.reddeer.swt.api.Text getMessageLabel(){
-		// Page Message is 5th Text within first Composite of TitleAreaDialog and is inactive 
-		Control textControl = handler.getChildren(getShellComposite())[4];
-		return new DefaultText((Text)textControl);
+	protected org.eclipse.reddeer.swt.api.Label getMessageLabel(Control control){
+		return new DefaultLabel((Label)control);
+	}
+	
+	protected org.eclipse.reddeer.swt.api.Text getMessageText(Control control){
+		return new DefaultText((Text)control);
 	}
 	
 	protected Composite getShellComposite(){

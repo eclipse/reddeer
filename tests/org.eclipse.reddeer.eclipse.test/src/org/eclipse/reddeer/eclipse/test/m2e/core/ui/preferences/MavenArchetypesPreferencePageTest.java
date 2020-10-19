@@ -28,7 +28,7 @@ import org.junit.runner.RunWith;
 public class MavenArchetypesPreferencePageTest {
 
 	private static final String LOCAL_CATALOG_DESCRIPTION = "Local Test Catalog";
-	private static final String REMOTE_CATALOG_FILE = "http://repo1.maven.org/maven2/archetype-catalog.xml";
+	private static final String REMOTE_CATALOG_FILE = "https://repo1.maven.org/maven2/archetype-catalog.xml";
 	private static final String REMOTE_CATALOG_DESCRIPTION = "Remote Test Catalog";
 	private static final String EMPTY_CATALOG_MESSAGE = "Remote catalog is empty";
 
