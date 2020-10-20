@@ -15,17 +15,17 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.eclipse.swt.widgets.Shell;
 import org.eclipse.reddeer.common.condition.AbstractWaitCondition;
 import org.eclipse.reddeer.core.exception.CoreLayerException;
 import org.eclipse.reddeer.core.handler.ShellHandler;
 import org.eclipse.reddeer.core.lookup.ShellLookup;
 import org.eclipse.reddeer.swt.api.Table;
 import org.eclipse.reddeer.swt.impl.table.DefaultTable;
+import org.eclipse.swt.widgets.Shell;
 
 /**
- * Checks if content assistant shell is open.
- * @author rawagner
+ * Checks if content assistant shell is open and computing of proposals is done.
+ * @author rawagner, odockal
  *
  */
 public class ContentAssistantShellIsOpened extends AbstractWaitCondition {
@@ -57,6 +57,11 @@ public class ContentAssistantShellIsOpened extends AbstractWaitCondition {
                 ShellHandler.getInstance().setFocus(s);
                 try {
                     table = new DefaultTable();
+                    // Eclipse 2020-09(12) added informative string when loading proposals
+                    // https://github.com/eclipse/reddeer/issues/2094
+                    if (table.getItem(0).getText().contains("Computing proposals")) {
+                    	return false;
+                    }
                     this.resultShell = s;
                     return true;
                 } catch (CoreLayerException ex) {
