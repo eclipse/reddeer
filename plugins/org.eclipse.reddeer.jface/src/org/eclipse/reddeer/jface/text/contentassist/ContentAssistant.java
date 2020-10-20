@@ -16,12 +16,12 @@ import java.util.List;
 
 import org.eclipse.reddeer.common.logging.Logger;
 import org.eclipse.reddeer.common.wait.WaitWhile;
+import org.eclipse.reddeer.core.handler.TableItemHandler;
+import org.eclipse.reddeer.core.lookup.ShellLookup;
 import org.eclipse.reddeer.swt.api.Table;
 import org.eclipse.reddeer.swt.api.TableItem;
 import org.eclipse.reddeer.swt.condition.ShellIsAvailable;
 import org.eclipse.reddeer.swt.impl.shell.AbstractShell;
-import org.eclipse.reddeer.core.handler.TableItemHandler;
-import org.eclipse.reddeer.core.lookup.ShellLookup;
 
 /**
  * This class represents content assistant

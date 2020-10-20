@@ -11,8 +11,6 @@
  *******************************************************************************/
 package org.eclipse.reddeer.workbench.test.view.impl;
 
-import static org.junit.Assert.*;
-
 import org.eclipse.reddeer.junit.runner.RedDeerSuite;
 import org.eclipse.reddeer.workbench.api.View;
 import org.eclipse.reddeer.workbench.exception.WorkbenchLayerException;
