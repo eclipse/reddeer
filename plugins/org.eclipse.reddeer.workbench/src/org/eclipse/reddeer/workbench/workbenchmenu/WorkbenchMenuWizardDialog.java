@@ -22,7 +22,7 @@ import org.eclipse.reddeer.swt.api.Shell;
  * @author rawagner
  *
  */
-public abstract class WorkbenchMenuWizardDialog extends WizardDialog{
+public abstract class WorkbenchMenuWizardDialog extends WizardDialog {
 	
 	protected Matcher<String> matcher;
 	protected String[] path;
