@@ -11,6 +11,8 @@
  *******************************************************************************/
 package org.eclipse.reddeer.eclipse.ui.dialogs;
 
+import org.eclipse.reddeer.common.matcher.RegexMatcher;
+import org.eclipse.reddeer.core.matcher.WithTextMatcher;
 import org.eclipse.reddeer.workbench.workbenchmenu.WorkbenchMenuWizardDialog;
 
 /**
@@ -25,7 +27,8 @@ public class NewWizard extends WorkbenchMenuWizardDialog{
 	public static final String DIALOG_TITLE = "Select a wizard";
 	
 	public NewWizard() {
-		super(DIALOG_TITLE,"File","New","Other...");
+		// super(DIALOG_TITLE,"File","New","Other...");
+		super(new WithTextMatcher(new RegexMatcher("New|" + DIALOG_TITLE)),"File","New","Other...");
 	}
 
 	
