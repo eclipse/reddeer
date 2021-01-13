@@ -49,7 +49,7 @@ public class HTMLWizardTest {
 		NewHTMLFileWizardPage hp = new NewHTMLFileWizardPage(hw);
 		hp.setFileName("testHTML");
 		assertEquals("testHTML", hp.getFileName());
-		assertEquals("WebContent", hp.getSelectedParentFolder().getText());
+		assertEquals("webapp", hp.getSelectedParentFolder().getText());
 		hp.selectParentFolder("HTMLProjectTest","src");
 		assertEquals("src", hp.getSelectedParentFolder().getText());
 		hw.next();

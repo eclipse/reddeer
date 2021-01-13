@@ -12,9 +12,9 @@
 package org.eclipse.reddeer.eclipse.test.jst.servlet.ui;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import org.eclipse.reddeer.core.exception.CoreLayerException;
 import org.eclipse.reddeer.eclipse.jdt.ui.packageview.PackageExplorerPart;
 import org.eclipse.reddeer.eclipse.jst.servlet.ui.project.facet.WebProjectFirstPage;
 import org.eclipse.reddeer.eclipse.jst.servlet.ui.project.facet.WebProjectSecondPage;
@@ -67,7 +67,12 @@ public class WebProjectTest {
 		ww.next();
 		WebProjectSecondPage sp = new WebProjectSecondPage(ww);
 		sp.addSourceFoldersOnBuildPath("source");
-		sp.removeSourceFoldersOnBuildPath("src");
+		try {
+			sp.removeSourceFoldersOnBuildPath("src");
+		} catch (CoreLayerException error) {
+			// source folder could be src/main/java
+			sp.removeSourceFoldersOnBuildPath("src/main/java");
+		}
 		assertEquals(1,sp.getSourceFolders().size());
 		assertEquals("source", sp.getSourceFolders().get(0));
 		ww.next();
@@ -76,8 +81,7 @@ public class WebProjectTest {
 		ww.finish();
 		assertTrue(packageExplorer.containsProject(projectName));
 		assertTrue(packageExplorer.getProject(projectName).containsResource("source"));
-		assertFalse(packageExplorer.getProject(projectName).containsResource("src"));
-		assertTrue(packageExplorer.getProject(projectName).containsResource("WebContent","WEB-INF","web.xml"));
+		assertTrue(packageExplorer.getProject(projectName).containsResource("src", "main", "webapp", "WEB-INF","web.xml"));
 	}
 
 }

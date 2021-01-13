@@ -48,6 +48,7 @@ public class EARProjectWizardTest {
 		ear.open();
 		EarProjectFirstPage fp = new EarProjectFirstPage(ear);
 		fp.setProjectName(projectName);
+		fp.setEARVersion("7.0");
 		ear.next();
 		EarProjectInstallPage ip = new EarProjectInstallPage(ear);
 		assertFalse(ip.isGenerateApplicationXML());
@@ -64,6 +65,7 @@ public class EARProjectWizardTest {
 		ear.open();
 		EarProjectFirstPage fp = new EarProjectFirstPage(ear);
 		fp.setProjectName(projectName);
+		fp.setEARVersion("7.0");
 		ear.next();
 		EarProjectInstallPage ip = new EarProjectInstallPage(ear);
 		assertFalse(ip.isGenerateApplicationXML());
@@ -91,6 +93,7 @@ public class EARProjectWizardTest {
 		ear.open();
 		EarProjectFirstPage fp = new EarProjectFirstPage(ear);
 		fp.setProjectName(projectName);
+		fp.setEARVersion("8.0");
 		ear.next();
 		EarProjectInstallPage ip = new EarProjectInstallPage(ear);
 		assertFalse(ip.isGenerateApplicationXML());
