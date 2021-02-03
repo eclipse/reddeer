@@ -7,7 +7,7 @@ Bundle-Version: 3.3.0.qualifier
 Require-Bundle: org.eclipse.swt,
  org.hamcrest.core;bundle-version="1.3.0"
 Bundle-ActivationPolicy: lazy
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-RequiredExecutionEnvironment: JavaSE-11
 Export-Package: org.eclipse.reddeer.common.adaptable,
  org.eclipse.reddeer.common.condition,
  org.eclipse.reddeer.common.context,
