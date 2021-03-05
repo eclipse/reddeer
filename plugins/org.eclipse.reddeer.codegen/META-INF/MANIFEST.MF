@@ -24,6 +24,6 @@ Require-Bundle: org.eclipse.ui.ide,
  org.hamcrest.core,
  org.junit
 Bundle-ActivationPolicy: lazy
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-RequiredExecutionEnvironment: JavaSE-11
 Export-Package: org.eclipse.reddeer.codegen.builder
 Automatic-Module-Name: org.eclipse.reddeer.codegen

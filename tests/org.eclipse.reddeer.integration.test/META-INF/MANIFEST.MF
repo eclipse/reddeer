@@ -15,7 +15,7 @@ Require-Bundle: org.eclipse.reddeer.core;bundle-version="[2.9.0,3.5.1)",
  org.eclipse.swt,
  org.eclipse.jface
 Bundle-ActivationPolicy: lazy
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-RequiredExecutionEnvironment: JavaSE-11
 Export-Package: org.eclipse.reddeer.integration.test.installation.common.condition,
  org.eclipse.reddeer.integration.test.installation.common.dialog,
  org.eclipse.reddeer.integration.test.installation.common.page,

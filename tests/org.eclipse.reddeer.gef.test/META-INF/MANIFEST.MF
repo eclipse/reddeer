@@ -9,5 +9,5 @@ Require-Bundle: org.eclipse.reddeer.go;bundle-version="[2.2.0,3.5.1)",
  org.eclipse.reddeer.gef;bundle-version="[2.2.0,3.5.1)",
  org.eclipse.gef
 Bundle-ActivationPolicy: lazy
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-RequiredExecutionEnvironment: JavaSE-11
 Automatic-Module-Name: org.eclipse.reddeer.gef.test

@@ -16,7 +16,7 @@ Require-Bundle: org.eclipse.reddeer.common;bundle-version="[2.2.0,3.5.1)",
  org.eclipse.reddeer.core;bundle-version="[2.2.0,3.5.1)",
  org.eclipse.reddeer.e4.workbench.core;bundle-version="[2.2.0,3.5.1)"
 Bundle-ActivationPolicy: lazy
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-RequiredExecutionEnvironment: JavaSE-11
 Export-Package: org.eclipse.reddeer.workbench.exception,
  org.eclipse.reddeer.workbench.impl.part,
  org.eclipse.reddeer.workbench.impl.shell,

@@ -13,8 +13,6 @@ package org.eclipse.reddeer.common.wait;
 
 import org.eclipse.reddeer.common.condition.WaitCondition;
 import org.eclipse.reddeer.common.exception.WaitTimeoutExpiredException;
-import org.eclipse.reddeer.common.wait.AbstractWait;
-import org.eclipse.reddeer.common.wait.TimePeriod;
 
 /**
  * WaitUntil condition represents a wait condition waiting until specific

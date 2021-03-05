@@ -11,11 +11,10 @@
  *******************************************************************************/
 package org.eclipse.reddeer.core.matcher;
 
+import org.eclipse.reddeer.core.handler.LinkHandler;
 import org.eclipse.swt.widgets.Link;
 import org.eclipse.swt.widgets.Widget;
 import org.hamcrest.Matcher;
-import org.eclipse.reddeer.core.handler.LinkHandler;
-import org.eclipse.reddeer.core.matcher.WithTextMatcher;
 
 /**
  * Matcher matching text of {@link Link} to specified text. 

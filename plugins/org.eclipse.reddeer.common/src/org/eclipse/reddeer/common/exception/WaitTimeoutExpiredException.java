@@ -11,8 +11,6 @@
  *******************************************************************************/
 package org.eclipse.reddeer.common.exception;
 
-import org.eclipse.reddeer.common.exception.RedDeerException;
-
 /**
  * WaitTimeoutExpiredException indicates reaching timeout time period.
  * 

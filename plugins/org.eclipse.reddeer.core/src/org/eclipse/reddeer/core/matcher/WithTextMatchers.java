@@ -12,7 +12,6 @@
 package org.eclipse.reddeer.core.matcher;
 
 import org.hamcrest.Matcher;
-import org.eclipse.reddeer.core.matcher.WithTextMatcher;
 
 
 /**

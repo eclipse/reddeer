@@ -13,10 +13,9 @@ package org.eclipse.reddeer.core.matcher;
 
 import java.util.List;
 
+import org.eclipse.reddeer.core.handler.LinkHandler;
 import org.eclipse.swt.widgets.Link;
 import org.eclipse.swt.widgets.Widget;
-import org.eclipse.reddeer.core.handler.LinkHandler;
-import org.eclipse.reddeer.core.matcher.WithTextMatcher;
 
 /**
  * Matcher matching {@link org.eclipse.swt.widgets.Link} with specified anchor text. 

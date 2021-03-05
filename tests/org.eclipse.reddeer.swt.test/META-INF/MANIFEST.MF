@@ -15,7 +15,7 @@ Require-Bundle: org.eclipse.reddeer.go;bundle-version="[2.2.0,3.5.1)",
  org.eclipse.core.databinding.observable,
  org.eclipse.core.databinding.property;bundle-version="1.5.0"
 Bundle-ActivationPolicy: lazy
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-RequiredExecutionEnvironment: JavaSE-11
 Export-Package: org.eclipse.reddeer.swt.test,
  org.eclipse.reddeer.swt.test.impl.table,
  org.eclipse.reddeer.swt.test.impl.tree,

@@ -14,6 +14,6 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.reddeer.swt;bundle-version="[2.2.0,3.5.1)",
  org.eclipse.reddeer.core;bundle-version="[2.2.0,3.5.1)",
  org.eclipse.reddeer.common;bundle-version="[2.2.0,3.5.1)"
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-RequiredExecutionEnvironment: JavaSE-11
 Bundle-ActivationPolicy: lazy
 Automatic-Module-Name: org.eclipse.reddeer.spy

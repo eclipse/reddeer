@@ -67,12 +67,12 @@
 		<outputDirectory>bin</outputDirectory>
 		<plugins>
 			<plugin>
-			   <groupId>org.eclipse.tycho</groupId>
-			   <artifactId>tycho-compiler-plugin</artifactId>
-			   <version>${tycho-version}</version>
-			   <configuration>
-			      <useProjectSettings>false</useProjectSettings>
-			   </configuration>
+   				<groupId>org.eclipse.tycho</groupId>
+   				<artifactId>tycho-compiler-plugin</artifactId>
+			   	<version>${tycho-version}</version>
+			   	<configuration>
+			    	<useProjectSettings>false</useProjectSettings>
+			   	</configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.eclipse.tycho</groupId>
