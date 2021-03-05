@@ -7,6 +7,6 @@ Bundle-Version: 3.5.0.qualifier
 Bundle-Activator: org.eclipse.reddeer.direct.test.Activator
 Require-Bundle: org.eclipse.reddeer.go;bundle-version="[2.2.0,3.5.1)"
 Bundle-ActivationPolicy: lazy
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-RequiredExecutionEnvironment: JavaSE-11
 Export-Package: org.eclipse.reddeer.direct.test
 Automatic-Module-Name: org.eclipse.reddeer.direct.test

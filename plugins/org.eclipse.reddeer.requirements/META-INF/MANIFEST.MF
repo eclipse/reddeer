@@ -17,7 +17,7 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.reddeer.core;bundle-version="[2.2.0,3.5.1)",
  org.eclipse.reddeer.direct;bundle-version="[2.2.0,3.5.1)",
  com.fasterxml.jackson.core.jackson-annotations
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-RequiredExecutionEnvironment: JavaSE-11
 Bundle-ActivationPolicy: lazy
 Bundle-Vendor: Eclipse.org - RedDeer
 Export-Package: org.eclipse.reddeer.requirements.autobuilding,

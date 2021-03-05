@@ -13,7 +13,6 @@ package org.eclipse.reddeer.common.matcher;
 
 import java.util.stream.Collectors;
 
-import org.eclipse.reddeer.common.matcher.VersionComparator;
 import org.hamcrest.Description;
 import org.hamcrest.TypeSafeMatcher;
 

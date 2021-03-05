@@ -12,6 +12,6 @@ Require-Bundle: org.eclipse.reddeer.go;bundle-version="[2.2.0,3.5.1)",
  org.eclipse.ui.editors,
  org.eclipse.jdt.ui
 Bundle-ActivationPolicy: lazy
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-RequiredExecutionEnvironment: JavaSE-11
 Import-Package: org.eclipse.ui.texteditor
 Automatic-Module-Name: org.eclipse.reddeer.workbench.test

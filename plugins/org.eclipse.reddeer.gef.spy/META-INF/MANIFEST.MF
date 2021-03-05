@@ -15,7 +15,7 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.reddeer.core;bundle-version="[2.2.0,3.5.1)",
  org.eclipse.reddeer.common;bundle-version="[2.2.0,3.5.1)",
  org.eclipse.reddeer.workbench.core;bundle-version="[2.2.0,3.5.1)"
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-RequiredExecutionEnvironment: JavaSE-11
 Bundle-ActivationPolicy: lazy
 Export-Package: org.eclipse.reddeer.gef.spy,
  org.eclipse.reddeer.gef.spy.view

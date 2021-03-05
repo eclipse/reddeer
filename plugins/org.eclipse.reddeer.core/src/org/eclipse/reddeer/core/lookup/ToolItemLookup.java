@@ -11,16 +11,15 @@
  *******************************************************************************/
 package org.eclipse.reddeer.core.lookup;
 
+import org.eclipse.reddeer.common.logging.Logger;
+import org.eclipse.reddeer.common.util.Display;
+import org.eclipse.reddeer.common.util.ResultRunnable;
+import org.eclipse.reddeer.core.reference.ReferencedComposite;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.ToolItem;
 import org.hamcrest.Matcher;
-import org.eclipse.reddeer.common.logging.Logger;
-import org.eclipse.reddeer.common.util.Display;
-import org.eclipse.reddeer.common.util.ResultRunnable;
-import org.eclipse.reddeer.core.lookup.WidgetLookup;
-import org.eclipse.reddeer.core.reference.ReferencedComposite;
 
 /**
  * Tool item lookup provides methods for looking up various tool items.

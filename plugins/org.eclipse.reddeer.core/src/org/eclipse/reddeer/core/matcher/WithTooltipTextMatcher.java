@@ -11,13 +11,12 @@
  *******************************************************************************/
 package org.eclipse.reddeer.core.matcher;
 
+import org.eclipse.reddeer.core.exception.CoreLayerException;
+import org.eclipse.reddeer.core.util.TextWidgetUtil;
 import org.eclipse.swt.widgets.Widget;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.core.IsEqual;
-import org.eclipse.reddeer.core.exception.CoreLayerException;
-import org.eclipse.reddeer.core.matcher.AbstractWidgetWithTextMatcher;
-import org.eclipse.reddeer.core.util.TextWidgetUtil;
 
 /**
  * Matcher matching tool tip of {@link Widget}.

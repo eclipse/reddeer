@@ -14,10 +14,9 @@ package org.eclipse.reddeer.core.lookup;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.reddeer.core.exception.CoreLayerException;
-import org.eclipse.reddeer.core.lookup.WidgetLookup;
 import org.eclipse.reddeer.core.reference.ReferencedComposite;
+import org.eclipse.swt.widgets.ToolBar;
 
 /**
  * Tool bar lookup provides methods for looking up various tool bars. 
