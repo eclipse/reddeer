@@ -55,6 +55,10 @@
 			<organizationUrl>http://www.redhat.com</organizationUrl>
 		</developer>
 	</developers>
+	
+	<properties>
+		<tycho-version>2.2.0</tycho-version>
+	</properties>
 
 	<build>
 		<extensions>
@@ -72,6 +76,14 @@
 				<configuration>
 					<skip>${skipTests}</skip>
 				</configuration>
+			</plugin>
+			<plugin>
+			   <groupId>org.eclipse.tycho</groupId>
+			   <artifactId>tycho-compiler-plugin</artifactId>
+			   <version>${tycho-version}</version>
+			   <configuration>
+			      <useProjectSettings>false</useProjectSettings>
+			   </configuration>
 			</plugin>
 		</plugins>
 	</build>
