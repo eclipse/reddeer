@@ -21,8 +21,8 @@
 	],
 	"org.eclipse.reddeer.requirements.server.apache.tomcat.ApacheTomcatServerRequirement.ApacheTomcatServer": [
 		{
-			"runtime": "${apache-tomcat-7.home}",
-			"version": "7.0"
+			"runtime": "${apache-tomcat-10.home}",
+			"version": "10.0"
 		}
 	]
 }
