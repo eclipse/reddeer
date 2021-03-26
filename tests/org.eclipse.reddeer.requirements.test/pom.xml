@@ -24,10 +24,10 @@
 	</parent>
 	
 	<properties>
-		<apache-tomcat-7.version>7.0.56</apache-tomcat-7.version>
-		<apache-tomcat-7.mirror>http://archive.apache.org/dist/tomcat/tomcat-7/</apache-tomcat-7.mirror>
-		<apache-tomcat-7.home>${project.build.directory}/apache-tomcat-${apache-tomcat-7.version}</apache-tomcat-7.home>
-		<customArgLine>-Drd.config=${basedir}/resources/requirements.json -Dapache-tomcat-7.home=${apache-tomcat-7.home}</customArgLine>
+		<apache-tomcat-10.version>10.0.4</apache-tomcat-10.version>
+		<apache-tomcat-10.mirror>http://archive.apache.org/dist/tomcat/tomcat-10/</apache-tomcat-10.mirror>
+		<apache-tomcat-10.home>${project.build.directory}/apache-tomcat-${apache-tomcat-10.version}</apache-tomcat-10.home>
+		<customArgLine>-Drd.config=${basedir}/resources/requirements.json -Dapache-tomcat-10.home=${apache-tomcat-10.home}</customArgLine>
 	</properties>
 
 	<!-- Used by JaCoCo to generate an aggregated report -->
@@ -101,14 +101,14 @@
 				<version>${download-plugin-version}</version>
 				<executions>
 					<execution>
-						<id>install-apache-tomcat-7</id>
+						<id>install-apache-tomcat-10</id>
 						<phase>pre-integration-test</phase>
 						<goals>
 							<goal>wget</goal>
 						</goals>
 						<configuration>
-							<url>${apache-tomcat-7.mirror}/v${apache-tomcat-7.version}/bin/apache-tomcat-${apache-tomcat-7.version}.zip</url>
-							<outputFileName>apache-tomcat-${apache-tomcat-7.version}.zip</outputFileName>
+							<url>${apache-tomcat-10.mirror}/v${apache-tomcat-10.version}/bin/apache-tomcat-${apache-tomcat-10.version}.zip</url>
+							<outputFileName>apache-tomcat-${apache-tomcat-10.version}.zip</outputFileName>
 							<unpack>true</unpack>
 						</configuration>
 					</execution>
