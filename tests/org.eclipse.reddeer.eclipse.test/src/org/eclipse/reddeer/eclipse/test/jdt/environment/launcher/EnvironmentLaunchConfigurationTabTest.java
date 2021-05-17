@@ -15,7 +15,7 @@ import static org.junit.Assert.assertTrue;
 import org.eclipse.reddeer.common.exception.RedDeerException;
 import org.eclipse.reddeer.common.wait.TimePeriod;
 import org.eclipse.reddeer.common.wait.WaitUntil;
-import org.eclipse.reddeer.eclipse.debug.ui.launchConfigurations.EnvironmentLaunchConfigurationTab;
+import org.eclipse.reddeer.eclipse.debug.ui.launchConfigurations.EnvironmentTab;
 import org.eclipse.reddeer.eclipse.debug.ui.launchConfigurations.JUnitLaunchConfiguration;
 import org.eclipse.reddeer.eclipse.debug.ui.launchConfigurations.LaunchConfigurationsDialog;
 import org.eclipse.reddeer.eclipse.debug.ui.launchConfigurations.RunConfigurationsDialog;
@@ -59,24 +59,24 @@ public class EnvironmentLaunchConfigurationTabTest {
 	public void testEnvironmentTab() {
 		dialog.create(new JUnitLaunchConfiguration(), CONFIGURATION_NAME);
 
-		EnvironmentLaunchConfigurationTab envTab = new EnvironmentLaunchConfigurationTab();
+		EnvironmentTab envTab = new EnvironmentTab();
 		envTab.activate();
-		int should_be_var_count = envTab.get_variables().size();
+		int should_be_var_count = envTab.getVariables().size();
 
 		envTab.add("test_name", "test_value");
 		should_be_var_count++;
-		int add_env_count = envTab.get_variables().size();
+		int add_env_count = envTab.getVariables().size();
 		assertTrue(should_be_var_count == add_env_count);
 
 		envTab.select(0);
 		should_be_var_count++;
-		int select_env_count = envTab.get_variables().size();
+		int select_env_count = envTab.getVariables().size();
 		assertTrue(should_be_var_count == select_env_count);
 
 		new DefaultTable().select(0);
 		envTab.remove();
 		should_be_var_count--;
-		int remove_env_count = envTab.get_variables().size();
+		int remove_env_count = envTab.getVariables().size();
 		assertTrue(should_be_var_count == remove_env_count);
 
 		new DefaultTable().select(0);
@@ -88,16 +88,16 @@ public class EnvironmentLaunchConfigurationTabTest {
 		envTab.copy();
 		envTab.remove();
 		should_be_var_count--;
-		int copy_env_count = envTab.get_variables().size();
+		int copy_env_count = envTab.getVariables().size();
 		assertTrue(should_be_var_count == copy_env_count);
 		envTab.paste();
 		should_be_var_count++;
-		int paste_env_count = envTab.get_variables().size();
+		int paste_env_count = envTab.getVariables().size();
 		assertTrue(should_be_var_count == paste_env_count);
 
-		envTab.replace();
+		envTab.getReplaceRadioButton().click();
 		assertTrue(new RadioButton("Replace native environment with specified environment").isSelected());
-		envTab.append();
+		envTab.getAppendRadioButton().click();
 		assertTrue(new RadioButton("Append environment to native environment").isSelected());
 	}
 }
