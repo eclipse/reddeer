@@ -25,7 +25,6 @@ import org.eclipse.reddeer.requirements.openperspective.OpenPerspectiveRequireme
 import org.eclipse.reddeer.swt.condition.ShellIsAvailable;
 import org.eclipse.reddeer.swt.impl.button.RadioButton;
 import org.eclipse.reddeer.swt.impl.shell.DefaultShell;
-import org.eclipse.reddeer.swt.impl.table.DefaultTable;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -63,38 +62,57 @@ public class EnvironmentTabTest {
 		envTab.activate();
 		int should_be_var_count = envTab.getAllVariables().size();
 
+		addTest(envTab, should_be_var_count++);
+		selectTest(envTab, should_be_var_count++);
+		removeTest(envTab, should_be_var_count--);
+		editTest(envTab);
+		copyTest(envTab, should_be_var_count--);
+		pasteTest(envTab, should_be_var_count++);
+		appendReplaceTest(envTab);
+	}
+
+	private void addTest(EnvironmentTab envTab, int should_be_var_count) {
 		envTab.add("test_name", "test_value");
-		should_be_var_count++;
 		int add_env_count = envTab.getAllVariables().size();
 		assertTrue(should_be_var_count == add_env_count);
+	}
 
+	private void selectTest(EnvironmentTab envTab, int should_be_var_count) {
 		envTab.selectEnvironmentVariable(0);
-		should_be_var_count++;
 		int select_env_count = envTab.getAllVariables().size();
 		assertTrue(should_be_var_count == select_env_count);
+	}
 
+	private void removeTest(EnvironmentTab envTab, int should_be_var_count) {
 		envTab.getVariable(0).select();
 		envTab.remove();
-		should_be_var_count--;
 		int remove_env_count = envTab.getAllVariables().size();
 		assertTrue(should_be_var_count == remove_env_count);
+	}
 
+	private void editTest(EnvironmentTab envTab) {
 		envTab.getVariable("test_name").select();
 		envTab.edit("test_new", "test_new");
-		String item_text = new DefaultTable().getItem(0).getText();
+		String item_text = envTab.getVariable("test_new").getText();
 		assertTrue(item_text.contains("test_new"));
+	}
 
+	private void copyTest(EnvironmentTab envTab, int should_be_var_count) {
 		envTab.getVariable("test_new").select();
 		envTab.copy();
 		envTab.remove();
-		should_be_var_count--;
 		int copy_env_count = envTab.getAllVariables().size();
 		assertTrue(should_be_var_count == copy_env_count);
+	}
+
+	private void pasteTest(EnvironmentTab envTab, int should_be_var_count) {
 		envTab.paste();
 		should_be_var_count++;
 		int paste_env_count = envTab.getAllVariables().size();
 		assertTrue(should_be_var_count == paste_env_count);
+	}
 
+	private void appendReplaceTest(EnvironmentTab envTab) {
 		envTab.getReplaceRadioButton().click();
 		assertTrue(new RadioButton("Replace native environment with specified environment").isSelected());
 		envTab.getAppendRadioButton().click();
