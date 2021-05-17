@@ -33,9 +33,9 @@ import org.junit.runner.RunWith;
 
 @RunWith(RedDeerSuite.class)
 @OpenPerspective(JavaPerspective.class)
-public class EnvironmentLaunchConfigurationTabTest {
+public class EnvironmentTabTest {
 
-	private static final String CONFIGURATION_NAME = EnvironmentLaunchConfigurationTabTest.class + "_test_config";
+	private static final String CONFIGURATION_NAME = EnvironmentTabTest.class + "_test_config";
 
 	protected LaunchConfigurationsDialog dialog;
 
@@ -61,38 +61,38 @@ public class EnvironmentLaunchConfigurationTabTest {
 
 		EnvironmentTab envTab = new EnvironmentTab();
 		envTab.activate();
-		int should_be_var_count = envTab.getVariables().size();
+		int should_be_var_count = envTab.getAllVariables().size();
 
 		envTab.add("test_name", "test_value");
 		should_be_var_count++;
-		int add_env_count = envTab.getVariables().size();
+		int add_env_count = envTab.getAllVariables().size();
 		assertTrue(should_be_var_count == add_env_count);
 
-		envTab.select(0);
+		envTab.selectEnvironmentVariable(0);
 		should_be_var_count++;
-		int select_env_count = envTab.getVariables().size();
+		int select_env_count = envTab.getAllVariables().size();
 		assertTrue(should_be_var_count == select_env_count);
 
-		new DefaultTable().select(0);
+		envTab.getVariable(0).select();
 		envTab.remove();
 		should_be_var_count--;
-		int remove_env_count = envTab.getVariables().size();
+		int remove_env_count = envTab.getAllVariables().size();
 		assertTrue(should_be_var_count == remove_env_count);
 
-		new DefaultTable().select(0);
+		envTab.getVariable("test_name").select();
 		envTab.edit("test_new", "test_new");
 		String item_text = new DefaultTable().getItem(0).getText();
 		assertTrue(item_text.contains("test_new"));
 
-		new DefaultTable().select(0);
+		envTab.getVariable("test_new").select();
 		envTab.copy();
 		envTab.remove();
 		should_be_var_count--;
-		int copy_env_count = envTab.getVariables().size();
+		int copy_env_count = envTab.getAllVariables().size();
 		assertTrue(should_be_var_count == copy_env_count);
 		envTab.paste();
 		should_be_var_count++;
-		int paste_env_count = envTab.getVariables().size();
+		int paste_env_count = envTab.getAllVariables().size();
 		assertTrue(should_be_var_count == paste_env_count);
 
 		envTab.getReplaceRadioButton().click();
