@@ -12,12 +12,15 @@ package org.eclipse.reddeer.eclipse.debug.ui.launchConfigurations;
 
 import java.util.List;
 
+import org.eclipse.reddeer.common.exception.WaitTimeoutExpiredException;
+import org.eclipse.reddeer.common.wait.TimePeriod;
 import org.eclipse.reddeer.common.wait.WaitUntil;
 import org.eclipse.reddeer.swt.api.TableItem;
 import org.eclipse.reddeer.swt.condition.ShellIsAvailable;
 import org.eclipse.reddeer.swt.impl.button.OkButton;
 import org.eclipse.reddeer.swt.impl.button.PushButton;
 import org.eclipse.reddeer.swt.impl.button.RadioButton;
+import org.eclipse.reddeer.swt.impl.button.YesButton;
 import org.eclipse.reddeer.swt.impl.table.DefaultTable;
 import org.eclipse.reddeer.swt.impl.table.DefaultTableItem;
 import org.eclipse.reddeer.swt.impl.text.LabeledText;
@@ -33,6 +36,7 @@ public class EnvironmentTab extends LaunchConfigurationTab {
 	private static final String ADD_SHELL_TITLE = "New Environment Variable";
 	private static final String SELECT_SHELL_TITLE = "Select Environment Variables";
 	private static final String EDIT_SHELL_TITLE = "Edit Environment Variable";
+	private static final String OVERWRITE_SHELL_TITLE = "Overwrite variable?";
 
 	public EnvironmentTab() {
 		super("Environment");
@@ -43,15 +47,33 @@ public class EnvironmentTab extends LaunchConfigurationTab {
 	 *
 	 * @return list of items
 	 */
-	public List<TableItem> getVariables() {
+	public List<TableItem> getAllVariables() {
 		return new DefaultTable().getItems();
+	}
+
+	/**
+	 * Return the environment variable by name
+	 *
+	 * @return Environment Tab item
+	 */
+	public TableItem getVariable(String variableName) {
+		return new DefaultTable().getItem(variableName);
+	}
+
+	/**
+	 * Return the environment variable by id
+	 *
+	 * @return Environment Tab item
+	 */
+	public TableItem getVariable(int variableId) {
+		return new DefaultTable().getItem(variableId);
 	}
 
 	/**
 	 * Add new environment variable
 	 *
-	 * @param Name  variable name
-	 * @param Value variable value
+	 * @param name  variable name
+	 * @param value variable value
 	 */
 	public void add(String name, String nalue) {
 		new PushButton("Add...").click();
@@ -59,30 +81,41 @@ public class EnvironmentTab extends LaunchConfigurationTab {
 		new LabeledText("Name:").setText(name);
 		new LabeledText("Value:").setText(nalue);
 		new OkButton().click();
+		try {
+			new WaitUntil(new ShellIsAvailable(OVERWRITE_SHELL_TITLE), TimePeriod.SHORT);
+			new YesButton().click();
+		} catch (WaitTimeoutExpiredException e) {
+		}
 	}
 
 	/**
 	 * Select environment variable by name
 	 *
-	 * @param selectVariable variable name for select
+	 * @param variableName variable name for select
 	 */
-	public void select(String selectVariable) {
+	public void selectEnvironmentVariable(String variableName) {
 		new PushButton("Select...").click();
 		new WaitUntil(new ShellIsAvailable(SELECT_SHELL_TITLE));
-		new DefaultTableItem(selectVariable).setChecked(true);
-		new OkButton().click();
+		new DefaultTableItem(variableName).setChecked(true);
+		OkButton oB = new OkButton();
+		if (oB.isEnabled()) {
+			oB.click();
+		}
 	}
 
 	/**
 	 * Select environment variable by id
 	 *
-	 * @param id variable index
+	 * @param variableId variable index for select
 	 */
-	public void select(int id) {
+	public void selectEnvironmentVariable(int variableId) {
 		new PushButton("Select...").click();
 		new WaitUntil(new ShellIsAvailable(SELECT_SHELL_TITLE));
-		new DefaultTable().getItem(id).setChecked(true);
-		new OkButton().click();
+		new DefaultTable().getItem(variableId).setChecked(true);
+		OkButton oB = new OkButton();
+		if (oB.isEnabled()) {
+			oB.click();
+		}
 	}
 
 	/**
@@ -90,7 +123,7 @@ public class EnvironmentTab extends LaunchConfigurationTab {
 	 *
 	 * @param selectAllBool true if need to select all variables, false for deselect
 	 */
-	public void select(boolean selectAllBool) {
+	public void selectEnvironmentVariable(boolean selectAllBool) {
 		new PushButton("Select...").click();
 		new WaitUntil(new ShellIsAvailable(SELECT_SHELL_TITLE));
 		if (selectAllBool) {
@@ -98,7 +131,10 @@ public class EnvironmentTab extends LaunchConfigurationTab {
 		} else {
 			new PushButton("Deselect All").click();
 		}
-		new OkButton().click();
+		OkButton oB = new OkButton();
+		if (oB.isEnabled()) {
+			oB.click();
+		}
 	}
 
 	/**
