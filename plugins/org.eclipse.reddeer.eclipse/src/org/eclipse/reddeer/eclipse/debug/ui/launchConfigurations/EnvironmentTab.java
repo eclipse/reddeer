@@ -12,7 +12,9 @@ package org.eclipse.reddeer.eclipse.debug.ui.launchConfigurations;
 
 import java.util.List;
 
+import org.eclipse.reddeer.common.wait.WaitUntil;
 import org.eclipse.reddeer.swt.api.TableItem;
+import org.eclipse.reddeer.swt.condition.ShellIsAvailable;
 import org.eclipse.reddeer.swt.impl.button.OkButton;
 import org.eclipse.reddeer.swt.impl.button.PushButton;
 import org.eclipse.reddeer.swt.impl.button.RadioButton;
@@ -26,9 +28,13 @@ import org.eclipse.reddeer.swt.impl.text.LabeledText;
  * @author Oleksii Korniienko olkornii@redhat.com
  *
  */
-public class EnvironmentLaunchConfigurationTab extends LaunchConfigurationTab {
+public class EnvironmentTab extends LaunchConfigurationTab {
 
-	public EnvironmentLaunchConfigurationTab() {
+	private static final String ADD_SHELL_TITLE = "New Environment Variable";
+	private static final String SELECT_SHELL_TITLE = "Select Environment Variables";
+	private static final String EDIT_SHELL_TITLE = "Edit Environment Variable";
+
+	public EnvironmentTab() {
 		super("Environment");
 	}
 
@@ -37,7 +43,7 @@ public class EnvironmentLaunchConfigurationTab extends LaunchConfigurationTab {
 	 *
 	 * @return list of items
 	 */
-	public List<TableItem> get_variables() {
+	public List<TableItem> getVariables() {
 		return new DefaultTable().getItems();
 	}
 
@@ -47,21 +53,23 @@ public class EnvironmentLaunchConfigurationTab extends LaunchConfigurationTab {
 	 * @param Name  variable name
 	 * @param Value variable value
 	 */
-	public void add(String Name, String Value) {
+	public void add(String name, String nalue) {
 		new PushButton("Add...").click();
-		new LabeledText("Name:").setText(Name);
-		new LabeledText("Value:").setText(Value);
+		new WaitUntil(new ShellIsAvailable(ADD_SHELL_TITLE));
+		new LabeledText("Name:").setText(name);
+		new LabeledText("Value:").setText(nalue);
 		new OkButton().click();
 	}
 
 	/**
 	 * Select environment variable by name
 	 *
-	 * @param Name variable name
+	 * @param selectVariable variable name for select
 	 */
-	public void select(String Name) {
+	public void select(String selectVariable) {
 		new PushButton("Select...").click();
-		new DefaultTableItem(Name).setChecked(true);
+		new WaitUntil(new ShellIsAvailable(SELECT_SHELL_TITLE));
+		new DefaultTableItem(selectVariable).setChecked(true);
 		new OkButton().click();
 	}
 
@@ -72,6 +80,7 @@ public class EnvironmentLaunchConfigurationTab extends LaunchConfigurationTab {
 	 */
 	public void select(int id) {
 		new PushButton("Select...").click();
+		new WaitUntil(new ShellIsAvailable(SELECT_SHELL_TITLE));
 		new DefaultTable().getItem(id).setChecked(true);
 		new OkButton().click();
 	}
@@ -79,10 +88,11 @@ public class EnvironmentLaunchConfigurationTab extends LaunchConfigurationTab {
 	/**
 	 * Select/deselect all environment variables in select button list
 	 *
-	 * @param id variable index
+	 * @param selectAllBool true if need to select all variables, false for deselect
 	 */
 	public void select(boolean selectAllBool) {
 		new PushButton("Select...").click();
+		new WaitUntil(new ShellIsAvailable(SELECT_SHELL_TITLE));
 		if (selectAllBool) {
 			new PushButton("Select All").click();
 		} else {
@@ -94,13 +104,14 @@ public class EnvironmentLaunchConfigurationTab extends LaunchConfigurationTab {
 	/**
 	 * edit environment variable
 	 *
-	 * @param Name  new variable name
-	 * @param Value new variable value
+	 * @param name  new variable name
+	 * @param value new variable value
 	 */
-	public void edit(String Name, String Value) {
+	public void edit(String name, String value) {
 		new PushButton("Edit...").click();
-		new LabeledText("Name:").setText(Name);
-		new LabeledText("Value:").setText(Value);
+		new WaitUntil(new ShellIsAvailable(EDIT_SHELL_TITLE));
+		new LabeledText("Name:").setText(name);
+		new LabeledText("Value:").setText(value);
 		new OkButton().click();
 	}
 
@@ -127,15 +138,19 @@ public class EnvironmentLaunchConfigurationTab extends LaunchConfigurationTab {
 
 	/**
 	 * Append environment to native environment
+	 * 
+	 * @return append radio button
 	 */
-	public void append() {
-		new RadioButton("Append environment to native environment").click();
+	public RadioButton getAppendRadioButton() {
+		return new RadioButton("Append environment to native environment");
 	}
 
 	/**
 	 * Replace native environment with specified environment
+	 * 
+	 * @return replace radio button
 	 */
-	public void replace() {
-		new RadioButton("Replace native environment with specified environment").click();
+	public RadioButton getReplaceRadioButton() {
+		return new RadioButton("Replace native environment with specified environment");
 	}
 }
