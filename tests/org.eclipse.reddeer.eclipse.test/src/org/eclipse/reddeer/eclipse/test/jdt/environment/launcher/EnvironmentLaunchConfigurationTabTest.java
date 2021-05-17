@@ -16,8 +16,8 @@ import org.eclipse.reddeer.common.exception.RedDeerException;
 import org.eclipse.reddeer.common.wait.TimePeriod;
 import org.eclipse.reddeer.common.wait.WaitUntil;
 import org.eclipse.reddeer.eclipse.debug.ui.launchConfigurations.EnvironmentLaunchConfigurationTab;
+import org.eclipse.reddeer.eclipse.debug.ui.launchConfigurations.JUnitLaunchConfiguration;
 import org.eclipse.reddeer.eclipse.debug.ui.launchConfigurations.LaunchConfigurationsDialog;
-import org.eclipse.reddeer.eclipse.debug.ui.launchConfigurations.QuarkusLaunchConfiguration;
 import org.eclipse.reddeer.eclipse.debug.ui.launchConfigurations.RunConfigurationsDialog;
 import org.eclipse.reddeer.eclipse.ui.perspectives.JavaPerspective;
 import org.eclipse.reddeer.junit.runner.RedDeerSuite;
@@ -57,7 +57,7 @@ public class EnvironmentLaunchConfigurationTabTest {
 
 	@Test
 	public void testEnvironmentTab() {
-		dialog.create(new QuarkusLaunchConfiguration(), CONFIGURATION_NAME);
+		dialog.create(new JUnitLaunchConfiguration(), CONFIGURATION_NAME);
 
 		EnvironmentLaunchConfigurationTab envTab = new EnvironmentLaunchConfigurationTab();
 		envTab.activate();
