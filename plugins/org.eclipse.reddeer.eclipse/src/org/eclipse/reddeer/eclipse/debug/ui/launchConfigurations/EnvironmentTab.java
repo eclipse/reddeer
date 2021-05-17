@@ -141,28 +141,48 @@ public class EnvironmentTab extends LaunchConfigurationTab {
 	/**
 	 * edit environment variable
 	 *
-	 * @param name  new variable name
-	 * @param value new variable value
+	 * @param variableName  variable name
+	 * @param newValue new variable value
 	 */
-	public void edit(String name, String value) {
+	public void edit(String variableName, String newValue) {
+		getVariable(variableName).select();
 		new PushButton("Edit...").click();
 		new WaitUntil(new ShellIsAvailable(EDIT_SHELL_TITLE));
-		new LabeledText("Name:").setText(name);
-		new LabeledText("Value:").setText(value);
+		new LabeledText("Value:").setText(newValue);
+		new OkButton().click();
+	}
+	
+	/**
+	 * edit environment variable
+	 *
+	 * @param variableName  variable name
+	 * @param newName new variable name
+	 * @param newValue new variable value
+	 */
+	public void edit(String variableName, String newName, String newValue) {
+		getVariable(variableName).select();
+		new PushButton("Edit...").click();
+		new WaitUntil(new ShellIsAvailable(EDIT_SHELL_TITLE));
+		new LabeledText("Name:").setText(newName);
+		new LabeledText("Value:").setText(newValue);
 		new OkButton().click();
 	}
 
 	/**
 	 * Remove environment variable
+	 * @param variableName variable name
 	 */
-	public void remove() {
+	public void remove(String variableName) {
+		getVariable(variableName).select();
 		new PushButton("Remove").click();
 	}
 
 	/**
 	 * Copy environment variable
+	 * @param variableName variable name
 	 */
-	public void copy() {
+	public void copy(String variableName) {
+		getVariable(variableName).select();
 		new PushButton("Copy").click();
 	}
 

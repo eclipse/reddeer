@@ -19,33 +19,38 @@ import org.eclipse.reddeer.eclipse.debug.ui.launchConfigurations.EnvironmentTab;
 import org.eclipse.reddeer.eclipse.debug.ui.launchConfigurations.JUnitLaunchConfiguration;
 import org.eclipse.reddeer.eclipse.debug.ui.launchConfigurations.LaunchConfigurationsDialog;
 import org.eclipse.reddeer.eclipse.debug.ui.launchConfigurations.RunConfigurationsDialog;
-import org.eclipse.reddeer.eclipse.ui.perspectives.JavaPerspective;
-import org.eclipse.reddeer.junit.runner.RedDeerSuite;
-import org.eclipse.reddeer.requirements.openperspective.OpenPerspectiveRequirement.OpenPerspective;
 import org.eclipse.reddeer.swt.condition.ShellIsAvailable;
 import org.eclipse.reddeer.swt.impl.button.RadioButton;
 import org.eclipse.reddeer.swt.impl.shell.DefaultShell;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 
-@RunWith(RedDeerSuite.class)
-@OpenPerspective(JavaPerspective.class)
+import org.junit.Test;
+
+/**
+ * Tests for Environment Tab in Launch Configuration
+ * 
+ * @author Oleksii Korniienko olkornii@redhat.com
+ *
+ */
 public class EnvironmentTabTest {
 
 	private static final String CONFIGURATION_NAME = EnvironmentTabTest.class + "_test_config";
 
-	protected LaunchConfigurationsDialog dialog;
+	protected static LaunchConfigurationsDialog dialog;
+	protected static EnvironmentTab envTab;
 
-	@Before
-	public void openDialog() {
+	@BeforeClass
+	public static void beforeClass() throws Exception {
 		dialog = new RunConfigurationsDialog();
 		dialog.open();
+		dialog.create(new JUnitLaunchConfiguration(), CONFIGURATION_NAME);
+		envTab = new EnvironmentTab();
+		envTab.activate();
 	}
 
-	@After
-	public void closeDialog() {
+	@AfterClass
+	public static void closeDialog() {
 		try {
 			new WaitUntil(new ShellIsAvailable(dialog.getTitle()), TimePeriod.NONE);
 			new DefaultShell(dialog.getTitle()).close();
@@ -55,64 +60,54 @@ public class EnvironmentTabTest {
 	}
 
 	@Test
-	public void testEnvironmentTab() {
-		dialog.create(new JUnitLaunchConfiguration(), CONFIGURATION_NAME);
-
-		EnvironmentTab envTab = new EnvironmentTab();
-		envTab.activate();
-		int should_be_var_count = envTab.getAllVariables().size();
-
-		addTest(envTab, should_be_var_count++);
-		selectTest(envTab, should_be_var_count++);
-		removeTest(envTab, should_be_var_count--);
-		editTest(envTab);
-		copyTest(envTab, should_be_var_count--);
-		pasteTest(envTab, should_be_var_count++);
-		appendReplaceTest(envTab);
-	}
-
-	private void addTest(EnvironmentTab envTab, int should_be_var_count) {
+	public void addTest() {
+		int prev_env_count = envTab.getAllVariables().size();
 		envTab.add("test_name", "test_value");
 		int add_env_count = envTab.getAllVariables().size();
-		assertTrue(should_be_var_count == add_env_count);
+		assertTrue((prev_env_count + 1) == add_env_count);
 	}
 
-	private void selectTest(EnvironmentTab envTab, int should_be_var_count) {
+	@Test
+	public void selectTest() {
+		int prev_env_count = envTab.getAllVariables().size();
 		envTab.selectEnvironmentVariable(0);
 		int select_env_count = envTab.getAllVariables().size();
-		assertTrue(should_be_var_count == select_env_count);
+		assertTrue((prev_env_count + 1) == select_env_count);
 	}
 
-	private void removeTest(EnvironmentTab envTab, int should_be_var_count) {
-		envTab.getVariable(0).select();
-		envTab.remove();
+	@Test
+	public void removeTest() {
+		int prev_env_count = envTab.getAllVariables().size();
+		String first_var_name = envTab.getVariable(0).getText();
+		envTab.remove(first_var_name);
 		int remove_env_count = envTab.getAllVariables().size();
-		assertTrue(should_be_var_count == remove_env_count);
+		assertTrue((prev_env_count - 1) == remove_env_count);
 	}
 
-	private void editTest(EnvironmentTab envTab) {
-		envTab.getVariable("test_name").select();
-		envTab.edit("test_new", "test_new");
+	@Test
+	public void editTest() {
+		envTab.edit("test_name", "test_new", "test_new");
 		String item_text = envTab.getVariable("test_new").getText();
 		assertTrue(item_text.contains("test_new"));
 	}
 
-	private void copyTest(EnvironmentTab envTab, int should_be_var_count) {
-		envTab.getVariable("test_new").select();
-		envTab.copy();
-		envTab.remove();
+	@Test
+	public void copyPasteTest() {
+		envTab.add("test_copy", "test_copy");
+		int prev_env_count = envTab.getAllVariables().size();
+
+		envTab.copy("test_copy");
+		envTab.remove("test_copy");
 		int copy_env_count = envTab.getAllVariables().size();
-		assertTrue(should_be_var_count == copy_env_count);
-	}
+		assertTrue((prev_env_count - 1) == copy_env_count);
 
-	private void pasteTest(EnvironmentTab envTab, int should_be_var_count) {
 		envTab.paste();
-		should_be_var_count++;
 		int paste_env_count = envTab.getAllVariables().size();
-		assertTrue(should_be_var_count == paste_env_count);
+		assertTrue(prev_env_count == paste_env_count);
 	}
 
-	private void appendReplaceTest(EnvironmentTab envTab) {
+	@Test
+	public void appendReplaceTest() {
 		envTab.getReplaceRadioButton().click();
 		assertTrue(new RadioButton("Replace native environment with specified environment").isSelected());
 		envTab.getAppendRadioButton().click();
