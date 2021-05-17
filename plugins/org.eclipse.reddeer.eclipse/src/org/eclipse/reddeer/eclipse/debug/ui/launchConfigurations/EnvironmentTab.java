@@ -85,6 +85,7 @@ public class EnvironmentTab extends LaunchConfigurationTab {
 			new WaitUntil(new ShellIsAvailable(OVERWRITE_SHELL_TITLE), TimePeriod.SHORT);
 			new YesButton().click();
 		} catch (WaitTimeoutExpiredException e) {
+			// variable is new, dont need to overwrite
 		}
 	}
 
@@ -98,7 +99,7 @@ public class EnvironmentTab extends LaunchConfigurationTab {
 		new WaitUntil(new ShellIsAvailable(SELECT_SHELL_TITLE));
 		new DefaultTableItem(variableName).setChecked(true);
 		OkButton oB = new OkButton();
-		if (oB.isEnabled()) {
+		if (oB.isEnabled()) { // no need to select if already selected
 			oB.click();
 		}
 	}
@@ -113,7 +114,7 @@ public class EnvironmentTab extends LaunchConfigurationTab {
 		new WaitUntil(new ShellIsAvailable(SELECT_SHELL_TITLE));
 		new DefaultTable().getItem(variableId).setChecked(true);
 		OkButton oB = new OkButton();
-		if (oB.isEnabled()) {
+		if (oB.isEnabled()) { // no need to select if already selected
 			oB.click();
 		}
 	}
@@ -132,7 +133,7 @@ public class EnvironmentTab extends LaunchConfigurationTab {
 			new PushButton("Deselect All").click();
 		}
 		OkButton oB = new OkButton();
-		if (oB.isEnabled()) {
+		if (oB.isEnabled()) { // no need to select if already selected
 			oB.click();
 		}
 	}
