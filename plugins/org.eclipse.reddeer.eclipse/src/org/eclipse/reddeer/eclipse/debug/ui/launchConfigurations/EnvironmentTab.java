@@ -17,6 +17,7 @@ import org.eclipse.reddeer.common.wait.TimePeriod;
 import org.eclipse.reddeer.common.wait.WaitUntil;
 import org.eclipse.reddeer.swt.api.TableItem;
 import org.eclipse.reddeer.swt.condition.ShellIsAvailable;
+import org.eclipse.reddeer.swt.impl.button.NoButton;
 import org.eclipse.reddeer.swt.impl.button.OkButton;
 import org.eclipse.reddeer.swt.impl.button.PushButton;
 import org.eclipse.reddeer.swt.impl.button.RadioButton;
@@ -83,7 +84,32 @@ public class EnvironmentTab extends LaunchConfigurationTab {
 		new OkButton().click();
 		try {
 			new WaitUntil(new ShellIsAvailable(OVERWRITE_SHELL_TITLE), TimePeriod.SHORT);
-			new YesButton().click();
+			new NoButton().click();
+		} catch (WaitTimeoutExpiredException e) {
+			// variable is new, dont need to overwrite
+		}
+	}
+	
+	/**
+	 * Add new environment variable
+	 *
+	 * @param name  variable name
+	 * @param value variable value
+	 * @param overwrite if variable with the same name exists, then true for overwrite, else false
+	 */
+	public void add(String name, String nalue, boolean overwrite) {
+		new PushButton("Add...").click();
+		new WaitUntil(new ShellIsAvailable(ADD_SHELL_TITLE));
+		new LabeledText("Name:").setText(name);
+		new LabeledText("Value:").setText(nalue);
+		new OkButton().click();
+		try {
+			new WaitUntil(new ShellIsAvailable(OVERWRITE_SHELL_TITLE), TimePeriod.SHORT);
+			if (overwrite) {
+				new YesButton().click();
+			} else {
+				new NoButton().click();
+			}
 		} catch (WaitTimeoutExpiredException e) {
 			// variable is new, dont need to overwrite
 		}
