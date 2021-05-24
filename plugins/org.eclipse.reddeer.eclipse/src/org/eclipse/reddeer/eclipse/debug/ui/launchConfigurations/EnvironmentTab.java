@@ -80,7 +80,7 @@ public class EnvironmentTab extends LaunchConfigurationTab {
 		new PushButton("Add...").click();
 		new WaitUntil(new ShellIsAvailable(ADD_SHELL_TITLE));
 		new LabeledText("Name:").setText(name);
-		new LabeledText("Value:").setText(nalue);
+		new LabeledText("Value:").setText(value);
 		new OkButton().click();
 		try {
 			new WaitUntil(new ShellIsAvailable(OVERWRITE_SHELL_TITLE), TimePeriod.SHORT);
