@@ -76,7 +76,7 @@ public class EnvironmentTab extends LaunchConfigurationTab {
 	 * @param name  variable name
 	 * @param value variable value
 	 */
-	public void add(String name, String nalue) {
+	public void add(String name, String value) {
 		new PushButton("Add...").click();
 		new WaitUntil(new ShellIsAvailable(ADD_SHELL_TITLE));
 		new LabeledText("Name:").setText(name);
