@@ -89,13 +89,14 @@ public class EnvironmentTab extends LaunchConfigurationTab {
 			// variable is new, dont need to overwrite
 		}
 	}
-	
+
 	/**
 	 * Add new environment variable
 	 *
-	 * @param name  variable name
-	 * @param value variable value
-	 * @param overwrite if variable with the same name exists, then true for overwrite, else false
+	 * @param name      variable name
+	 * @param value     variable value
+	 * @param overwrite if variable with the same name exists, then true for
+	 *                  overwrite, else false
 	 */
 	public void add(String name, String nalue, boolean overwrite) {
 		new PushButton("Add...").click();
@@ -167,35 +168,26 @@ public class EnvironmentTab extends LaunchConfigurationTab {
 	/**
 	 * edit environment variable
 	 *
-	 * @param variableName  variable name
-	 * @param newValue new variable value
-	 */
-	public void edit(String variableName, String newValue) {
-		getVariable(variableName).select();
-		new PushButton("Edit...").click();
-		new WaitUntil(new ShellIsAvailable(EDIT_SHELL_TITLE));
-		new LabeledText("Value:").setText(newValue);
-		new OkButton().click();
-	}
-	
-	/**
-	 * edit environment variable
-	 *
-	 * @param variableName  variable name
-	 * @param newName new variable name
-	 * @param newValue new variable value
+	 * @param variableName variable name
+	 * @param newName      new variable name, null for leave same
+	 * @param newValue     new variable value, null for leave same
 	 */
 	public void edit(String variableName, String newName, String newValue) {
 		getVariable(variableName).select();
 		new PushButton("Edit...").click();
 		new WaitUntil(new ShellIsAvailable(EDIT_SHELL_TITLE));
-		new LabeledText("Name:").setText(newName);
-		new LabeledText("Value:").setText(newValue);
+		if (newName != null) {
+			new LabeledText("Name:").setText(newName);
+		}
+		if (newValue != null) {
+			new LabeledText("Value:").setText(newValue);
+		}
 		new OkButton().click();
 	}
 
 	/**
 	 * Remove environment variable
+	 * 
 	 * @param variableName variable name
 	 */
 	public void remove(String variableName) {
@@ -205,6 +197,7 @@ public class EnvironmentTab extends LaunchConfigurationTab {
 
 	/**
 	 * Copy environment variable
+	 * 
 	 * @param variableName variable name
 	 */
 	public void copy(String variableName) {
