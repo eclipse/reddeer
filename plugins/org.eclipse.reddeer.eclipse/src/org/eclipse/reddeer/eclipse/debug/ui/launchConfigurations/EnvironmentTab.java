@@ -98,11 +98,11 @@ public class EnvironmentTab extends LaunchConfigurationTab {
 	 * @param overwrite if variable with the same name exists, then true for
 	 *                  overwrite, else false
 	 */
-	public void add(String name, String nalue, boolean overwrite) {
+	public void add(String name, String value, boolean overwrite) {
 		new PushButton("Add...").click();
 		new WaitUntil(new ShellIsAvailable(ADD_SHELL_TITLE));
 		new LabeledText("Name:").setText(name);
-		new LabeledText("Value:").setText(nalue);
+		new LabeledText("Value:").setText(value);
 		new OkButton().click();
 		try {
 			new WaitUntil(new ShellIsAvailable(OVERWRITE_SHELL_TITLE), TimePeriod.SHORT);
