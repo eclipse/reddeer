@@ -28,11 +28,13 @@ public class NewJavaProjectWizardPageTwo extends WizardPage {
 	}
 	
 	/**
-	 * Sets whether to create module-info.java file 
+	 * Sets whether to create module-info.java file. Section was moved to 
+	 * the first page of Java Project creation wizard. 
 	 * @param check
 	 * 			Indicates whether to create module-info.java file
 	 * @return
 	 */
+	@Deprecated
 	public NewJavaProjectWizardPageTwo createModuleInfoFile(boolean check) {
 		CheckBox box = new CheckBox(this, "Create module-info.java file");
 		log.debug("Setting 'Create module-info.java file' to " + check);
