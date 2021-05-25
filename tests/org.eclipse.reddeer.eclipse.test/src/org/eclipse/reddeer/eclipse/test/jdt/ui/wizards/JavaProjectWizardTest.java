@@ -107,14 +107,10 @@ public class JavaProjectWizardTest {
 		
 		NewJavaProjectWizardPageOne pageOne = new NewJavaProjectWizardPageOne(dialog);
 		pageOne.setProjectName(JAVA_PROJECT);
-		pageOne.useExecutionEnvironmentJRE("JavaSE-9");
-		
-		dialog.next();
-		
-		NewJavaProjectWizardPageTwo pageTwo = new NewJavaProjectWizardPageTwo(dialog);
+		pageOne.useExecutionEnvironmentJRE("JavaSE-11");
 		new WaitUntil(new JobIsRunning(), TimePeriod.MEDIUM, false);
 		new WaitWhile(new JobIsRunning(), TimePeriod.MEDIUM, false);
-		pageTwo.createModuleInfoFile(true);
+		pageOne.createModuleInfoFile(true);
 		
 		dialog.finish(true, JAVA_MODULE_NAME);
 		
@@ -132,12 +128,8 @@ public class JavaProjectWizardTest {
 		
 		NewJavaProjectWizardPageOne pageOne = new NewJavaProjectWizardPageOne(dialog);
 		pageOne.setProjectName(JAVA_PROJECT);
-		pageOne.useExecutionEnvironmentJRE("JavaSE-10");
-		
-		dialog.next();
-		
-		NewJavaProjectWizardPageTwo pageTwo = new NewJavaProjectWizardPageTwo(dialog);
-		pageTwo.createModuleInfoFile(true);
+		pageOne.useExecutionEnvironmentJRE("JavaSE-11");
+		pageOne.createModuleInfoFile(true);
 		
 		dialog.finish();
 		
@@ -156,12 +148,8 @@ public class JavaProjectWizardTest {
 		NewJavaProjectWizardPageOne pageOne = new NewJavaProjectWizardPageOne(dialog);
 		pageOne.setProjectName(JAVA_PROJECT);
 		pageOne.useExecutionEnvironmentJRE("JavaSE-1.8");
-		
-		dialog.next();
-		
-		NewJavaProjectWizardPageTwo pageTwo = new NewJavaProjectWizardPageTwo(dialog);
 		try {
-			pageTwo.createModuleInfoFile(true);
+			pageOne.createModuleInfoFile(true);
 		} catch (WaitTimeoutExpiredException exc) {
 			// exception expected
 		}

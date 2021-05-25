@@ -21,7 +21,7 @@ import org.eclipse.reddeer.swt.impl.text.LabeledText;
 /**
  * Represents first page of New Java Project Wizard.
  * 
- * @author rhopp
+ * @author rhopp, odockal
  *
  */
 
@@ -96,6 +96,19 @@ public class NewJavaProjectWizardPageOne extends WizardPage {
 		new RadioButton(referencedComposite, "Use an execution environment JRE:").toggle(true);
 		log.debug("Selecting '" + env + "'");
 		new DefaultCombo(referencedComposite, 0).setSelection(env);
+		return this;
+	}
+	
+	/**
+	 * Sets whether to create module-info.java file 
+	 * @param check
+	 * 			Indicates whether to create module-info.java file
+	 * @return
+	 */
+	public NewJavaProjectWizardPageOne createModuleInfoFile(boolean check) {
+		CheckBox box = new CheckBox(this, "Create module-info.java file");
+		log.debug("Setting 'Create module-info.java file' to " + check);
+		box.toggle(check);
 		return this;
 	}
 
