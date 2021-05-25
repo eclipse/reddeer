@@ -73,6 +73,16 @@ public class EnvironmentTabTest {
 		envTab.selectEnvironmentVariable(0);
 		int select_env_count = envTab.getAllVariables().size();
 		assertTrue((prev_env_count + 1) == select_env_count);
+
+		int prev_env_name_count = envTab.getAllVariables().size();
+		envTab.selectEnvironmentVariable("USER");
+		int select_env_name_count = envTab.getAllVariables().size();
+		assertTrue((prev_env_name_count + 1) == select_env_name_count);
+
+		prev_env_count = envTab.getAllVariables().size();
+		envTab.selectEnvironmentVariable(true);
+		int select_all_env_count = envTab.getAllVariables().size();
+		assertTrue(prev_env_count < select_all_env_count);
 	}
 
 	@Test

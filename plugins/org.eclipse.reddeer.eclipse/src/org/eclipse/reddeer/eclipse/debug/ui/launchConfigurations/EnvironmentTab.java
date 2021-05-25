@@ -12,6 +12,7 @@ package org.eclipse.reddeer.eclipse.debug.ui.launchConfigurations;
 
 import java.util.List;
 
+import org.eclipse.reddeer.common.exception.RedDeerException;
 import org.eclipse.reddeer.common.exception.WaitTimeoutExpiredException;
 import org.eclipse.reddeer.common.wait.TimePeriod;
 import org.eclipse.reddeer.common.wait.WaitUntil;
@@ -22,8 +23,8 @@ import org.eclipse.reddeer.swt.impl.button.OkButton;
 import org.eclipse.reddeer.swt.impl.button.PushButton;
 import org.eclipse.reddeer.swt.impl.button.RadioButton;
 import org.eclipse.reddeer.swt.impl.button.YesButton;
+import org.eclipse.reddeer.swt.impl.shell.DefaultShell;
 import org.eclipse.reddeer.swt.impl.table.DefaultTable;
-import org.eclipse.reddeer.swt.impl.table.DefaultTableItem;
 import org.eclipse.reddeer.swt.impl.text.LabeledText;
 
 /**
@@ -77,17 +78,7 @@ public class EnvironmentTab extends LaunchConfigurationTab {
 	 * @param value variable value
 	 */
 	public void add(String name, String value) {
-		new PushButton("Add...").click();
-		new WaitUntil(new ShellIsAvailable(ADD_SHELL_TITLE));
-		new LabeledText("Name:").setText(name);
-		new LabeledText("Value:").setText(value);
-		new OkButton().click();
-		try {
-			new WaitUntil(new ShellIsAvailable(OVERWRITE_SHELL_TITLE), TimePeriod.SHORT);
-			new NoButton().click();
-		} catch (WaitTimeoutExpiredException e) {
-			// variable is new, dont need to overwrite
-		}
+		add(name, value, true);
 	}
 
 	/**
@@ -122,13 +113,21 @@ public class EnvironmentTab extends LaunchConfigurationTab {
 	 * @param variableName variable name for select
 	 */
 	public void selectEnvironmentVariable(String variableName) {
-		new PushButton("Select...").click();
-		new WaitUntil(new ShellIsAvailable(SELECT_SHELL_TITLE));
-		new DefaultTableItem(variableName).setChecked(true);
-		OkButton oB = new OkButton();
-		if (oB.isEnabled()) { // no need to select if already selected
-			oB.click();
+		selectEnvironmentVariableImpl(() -> {
+			int varId = getEvnironmentIdByName(variableName);
+			new DefaultTable().getItem(varId).setChecked(true);
+		});
+	}
+
+	private int getEvnironmentIdByName(String namePart) {
+		List<TableItem> allEnvironments = new DefaultTable().getItems();
+		for (TableItem environment : allEnvironments) {
+			if (environment.getText().contains(namePart)) {
+				return allEnvironments.indexOf(environment);
+			}
 		}
+		new DefaultShell(SELECT_SHELL_TITLE).close();
+		throw new RedDeerException("Environment variable name does not exists!");
 	}
 
 	/**
@@ -137,13 +136,9 @@ public class EnvironmentTab extends LaunchConfigurationTab {
 	 * @param variableId variable index for select
 	 */
 	public void selectEnvironmentVariable(int variableId) {
-		new PushButton("Select...").click();
-		new WaitUntil(new ShellIsAvailable(SELECT_SHELL_TITLE));
-		new DefaultTable().getItem(variableId).setChecked(true);
-		OkButton oB = new OkButton();
-		if (oB.isEnabled()) { // no need to select if already selected
-			oB.click();
-		}
+		selectEnvironmentVariableImpl(() -> {
+			new DefaultTable().getItem(variableId).setChecked(true);
+		});
 	}
 
 	/**
@@ -152,13 +147,19 @@ public class EnvironmentTab extends LaunchConfigurationTab {
 	 * @param selectAllBool true if need to select all variables, false for deselect
 	 */
 	public void selectEnvironmentVariable(boolean selectAllBool) {
+		selectEnvironmentVariableImpl(() -> {
+			if (selectAllBool) {
+				new PushButton("Select All").click();
+			} else {
+				new PushButton("Deselect All").click();
+			}
+		});
+	}
+
+	private void selectEnvironmentVariableImpl(Runnable selectedImpl) {
 		new PushButton("Select...").click();
 		new WaitUntil(new ShellIsAvailable(SELECT_SHELL_TITLE));
-		if (selectAllBool) {
-			new PushButton("Select All").click();
-		} else {
-			new PushButton("Deselect All").click();
-		}
+		selectedImpl.run();
 		OkButton oB = new OkButton();
 		if (oB.isEnabled()) { // no need to select if already selected
 			oB.click();
