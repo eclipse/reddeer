@@ -13,13 +13,13 @@
 <archetype-descriptor name="eclipse.plugin.archetype">
   <requiredProperties>
     <requiredProperty key="tycho_version">
-      <defaultValue>0.26.0</defaultValue>
+      <defaultValue>2.2.0</defaultValue>
     </requiredProperty>
     <requiredProperty key="eclipse_platform">
-      <defaultValue>2018-12</defaultValue>
+      <defaultValue>2021-03</defaultValue>
     </requiredProperty>
     <requiredProperty key="reddeer_version">
-      <defaultValue>2.4.0.Final</defaultValue>
+      <defaultValue>3.3.0.Final</defaultValue>
     </requiredProperty>
     <requiredProperty key="version">
        <defaultValue>1.0.0-SNAPSHOT</defaultValue>

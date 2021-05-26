@@ -24,7 +24,7 @@
 	</prerequisites>
 
 	<properties>
-		<java.version>1.8</java.version>
+		<java.version>11</java.version>
 		<maven.version>3.5</maven.version>
 		<tycho.version>${tycho_version}</tycho.version>
 		<tycho.test.jvmArgs>-Xmx512m</tycho.test.jvmArgs>

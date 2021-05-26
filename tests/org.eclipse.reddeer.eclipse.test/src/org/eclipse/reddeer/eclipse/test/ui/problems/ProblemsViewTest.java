@@ -32,6 +32,7 @@ import org.eclipse.reddeer.common.wait.WaitWhile;
 import org.eclipse.reddeer.eclipse.condition.ExactNumberOfProblemsExists;
 import org.eclipse.reddeer.eclipse.condition.ProblemExists;
 import org.eclipse.reddeer.eclipse.condition.ProblemsViewIsEmpty;
+import org.eclipse.reddeer.eclipse.condition.ProjectExists;
 import org.eclipse.reddeer.eclipse.jdt.ui.packageview.PackageExplorerPart;
 import org.eclipse.reddeer.eclipse.jdt.ui.wizards.JavaProjectWizard;
 import org.eclipse.reddeer.eclipse.jdt.ui.wizards.NewClassCreationWizard;
@@ -42,6 +43,7 @@ import org.eclipse.reddeer.eclipse.ui.markers.matcher.MarkerLocationMatcher;
 import org.eclipse.reddeer.eclipse.ui.markers.matcher.MarkerPathMatcher;
 import org.eclipse.reddeer.eclipse.ui.markers.matcher.MarkerResourceMatcher;
 import org.eclipse.reddeer.eclipse.ui.markers.matcher.MarkerTypeMatcher;
+import org.eclipse.reddeer.eclipse.ui.navigator.resources.ProjectExplorer;
 import org.eclipse.reddeer.eclipse.ui.problems.Problem;
 import org.eclipse.reddeer.eclipse.ui.views.markers.ProblemsView;
 import org.eclipse.reddeer.eclipse.ui.views.markers.QuickFixPage;
@@ -50,7 +52,10 @@ import org.eclipse.reddeer.eclipse.ui.views.markers.AbstractMarkersSupportView.C
 import org.eclipse.reddeer.eclipse.ui.views.markers.ProblemsView.ProblemType;
 import org.eclipse.reddeer.eclipse.utils.DeleteUtils;
 import org.eclipse.reddeer.junit.runner.RedDeerSuite;
+import org.eclipse.reddeer.junit.screenshot.CaptureScreenshotException;
+import org.eclipse.reddeer.junit.screenshot.ScreenshotCapturer;
 import org.eclipse.reddeer.requirements.cleanworkspace.CleanWorkspaceRequirement.CleanWorkspace;
+import org.eclipse.reddeer.requirements.closeeditors.CloseAllEditorsRequirement;
 import org.eclipse.reddeer.swt.api.Shell;
 import org.eclipse.reddeer.swt.condition.ShellIsAvailable;
 import org.eclipse.reddeer.swt.impl.button.FinishButton;
@@ -75,8 +80,8 @@ import org.junit.runner.RunWith;
 @CleanWorkspace
 public class ProblemsViewTest {
 
-	private PackageExplorerPart pkgExplorer;
-	private ProblemsView problemsView;	
+	private ProjectExplorer prjExplorer;
+	private ProblemsView problemsView;
 
 	private static final String JAVA_PROBLEM = "Java Problem";
 	private static final String PROJECT_NAME = "ProblemsViewTestProject";
@@ -91,22 +96,28 @@ public class ProblemsViewTest {
 
 	@Before
 	public void setUp() {
+		problemsView = new ProblemsView();
+		problemsView.open();
+		prjExplorer = new ProjectExplorer();
+		prjExplorer.open();
+		if (prjExplorer.containsProject(PROJECT_NAME)) {
+			// DeleteUtils.forceProjectDeletion(prjExplorer.getProject(PROJECT_NAME), true);
+			prjExplorer.getProject(PROJECT_NAME).delete(true);
+		}
 		JavaProjectWizard dialog = new JavaProjectWizard();
 		dialog.open();
 		NewJavaProjectWizardPageOne page1 = new NewJavaProjectWizardPageOne(dialog); 
 		page1.setProjectName(PROJECT_NAME);
-		dialog.finish();
-		problemsView = new ProblemsView();
-		problemsView.open();
-		pkgExplorer = new PackageExplorerPart();
-		pkgExplorer.open();
+		dialog.finish(TimePeriod.LONG, false, null);
+		new WaitUntil(new ProjectExists(PROJECT_NAME), TimePeriod.DEFAULT, false);
 	}
 	
 	@After
 	public void tearDown() {
 		problemsView.showDefaultProblemColumns();
-		pkgExplorer.open();
-		DeleteUtils.forceProjectDeletion(pkgExplorer.getProject(PROJECT_NAME),true);
+		prjExplorer.open();
+		// DeleteUtils.forceProjectDeletion(prjExplorer.getProject(PROJECT_NAME),true);
+		prjExplorer.getProject(PROJECT_NAME).delete(true);
 	}
 	
 	@Test
@@ -185,7 +196,7 @@ public class ProblemsViewTest {
 	
 	@Test
 	public void testGetProblemColumns() {
-		pkgExplorer.open();
+		prjExplorer.open();
 		createError();
 		List<String> foundColumns = problemsView.getProblemColumns();		
 		List<String> requiredColumns = new ArrayList<String>(Arrays.asList(
@@ -374,8 +385,8 @@ public class ProblemsViewTest {
 	
 	@Test
 	public void testProblemQuickfixWithNewDialog(){
-		pkgExplorer.open();
-		pkgExplorer.getProject(PROJECT_NAME).getProjectItem("src").select();
+		prjExplorer.open();
+		prjExplorer.getProject(PROJECT_NAME).getProjectItem("src").select();
 		NewClassCreationWizard newJavaClassDialog =
 				new NewClassCreationWizard();
 		newJavaClassDialog.open();
@@ -409,8 +420,8 @@ public class ProblemsViewTest {
 	}
 
 	private void createProblem(boolean error, final String newClassName) {
-		pkgExplorer.open();
-		pkgExplorer.getProject(PROJECT_NAME).getProjectItem("src").select();
+		prjExplorer.open();
+		prjExplorer.getProject(PROJECT_NAME).getProjectItem("src").select();
 		NewClassCreationWizard newJavaClassDialog =
 				new NewClassCreationWizard();
 		newJavaClassDialog.open();
