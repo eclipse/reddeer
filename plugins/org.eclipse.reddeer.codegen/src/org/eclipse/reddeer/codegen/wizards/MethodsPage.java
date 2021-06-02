@@ -18,7 +18,8 @@ import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.jdt.internal.junit.util.LayoutUtil;
-import org.eclipse.jdt.internal.junit.wizards.MethodStubsSelectionButtonGroup;
+//import org.eclipse.jdt.internal.junit.wizards.MethodStubsSelectionButtonGroup;
+//import org.eclipse.jdt.junit.wizards.NewTestCaseWizardPageOne.JUnitVersion;
 import org.eclipse.jdt.ui.wizards.NewTypeWizardPage;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.resource.ImageDescriptor;
@@ -97,7 +98,7 @@ public class MethodsPage extends NewTypeWizardPage {
 		GridLayout layout = new GridLayout();
 		layout.numColumns = nColumns;
 		composite.setLayout(layout);
-
+		
 		String[] optionalButtonNames = new String[] { GETTER, SETTER, ACTION, CONSTANTS, INCLUDE_ALL, INHERITING };
 		fMethodOptionStubsButtons = new MethodStubsSelectionButtonGroup(SWT.CHECK, optionalButtonNames, 1) {
 			@Override
