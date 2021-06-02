@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2017 Red Hat, Inc and others.
+ * Copyright (c) 2017-2021 Red Hat, Inc and others.
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
  * http://www.eclipse.org/legal/epl-2.0.
@@ -12,6 +12,7 @@
 
 package org.eclipse.reddeer.ui.test.wizard.impl;
 
+import org.eclipse.reddeer.core.exception.CoreLayerException;
 import org.eclipse.reddeer.core.reference.ReferencedComposite;
 import org.eclipse.reddeer.jface.wizard.WizardPage;
 import org.eclipse.reddeer.swt.impl.button.CheckBox;
@@ -20,7 +21,7 @@ import org.eclipse.reddeer.swt.impl.text.LabeledText;
 
 /**
  * First page of the new RedDeer Test Case wizard
- * @author jrichter
+ * @author jrichter, odockal
  *
  */
 public class RedDeerTestCaseWizardPageOne extends WizardPage {
@@ -74,7 +75,7 @@ public class RedDeerTestCaseWizardPageOne extends WizardPage {
 	 * @param checked true to check, false otherwise
 	 */
 	public void setSetupMethod(boolean checked) {
-		toggleCheckBox("setUp()", checked);
+		toggleCheckBox("setUp()", "@Before setUp()", checked);
 	}
 	
 	/**
@@ -82,7 +83,7 @@ public class RedDeerTestCaseWizardPageOne extends WizardPage {
 	 * @param checked true to check, false otherwise
 	 */
 	public void setBeforeClassSetup(boolean checked) {
-		toggleCheckBox("setUpBeforeClass()", checked);
+		toggleCheckBox("setUpBeforeClass()", "@BeforeClass setUpBeforeClass()", checked);
 	}
 	
 	/**
@@ -90,7 +91,7 @@ public class RedDeerTestCaseWizardPageOne extends WizardPage {
 	 * @param checked true to check, false otherwise
 	 */
 	public void setTearDownMethod(boolean checked) {
-		toggleCheckBox("tearDown()", checked);
+		toggleCheckBox("tearDown()", "@After tearDown()", checked);
 	}
 	
 	/**
@@ -98,7 +99,7 @@ public class RedDeerTestCaseWizardPageOne extends WizardPage {
 	 * @param checked true to check, false otherwise
 	 */
 	public void setAfterClassTearDown(boolean checked) {
-		toggleCheckBox("tearDownAfterClass()", checked);
+		toggleCheckBox("tearDownAfterClass()", "@AfterClass tearDownAfterClass()", checked);
 	}
 	
 	/**
@@ -106,7 +107,7 @@ public class RedDeerTestCaseWizardPageOne extends WizardPage {
 	 * @param checked true to check, false otherwise
 	 */
 	public void setConstructor(boolean checked) {
-		toggleCheckBox("constructor", checked);
+		toggleCheckBox("constructor", "&constructor", checked);
 	}
 	
 	/**
@@ -130,11 +131,17 @@ public class RedDeerTestCaseWizardPageOne extends WizardPage {
 	 * @param checked true to check, false otherwise
 	 */
 	public void setGenerateComments(boolean checked) {
-		toggleCheckBox("Generate comments", checked);
+		toggleCheckBox("Generate comments", "&Generate comments", checked);
 	}
 	
-	private void toggleCheckBox(String text, boolean checked) {
-		new CheckBox(this, text).toggle(checked);
+	private void toggleCheckBox(String text, String alternateText, boolean checked) {
+		CheckBox checkBox;
+		try {
+			checkBox = new CheckBox(this, text);
+		} catch (CoreLayerException exc) {
+			checkBox = new CheckBox(this, alternateText);
+		}
+		checkBox.toggle(checked);
 	}
 	
 	private void setTextToLabeledText(String label, String text) {
