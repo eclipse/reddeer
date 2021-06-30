@@ -16,7 +16,7 @@
 	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.eclipse.reddeer</groupId>
-	<version>3.4.0-SNAPSHOT</version>
+	<version>3.5.0-SNAPSHOT</version>
 	<artifactId>eclipse-reddeer-archetype</artifactId>
 	<packaging>maven-archetype</packaging>
 	<name>RedDeer Archetype</name>
@@ -45,14 +45,14 @@
 			<name>Rastislav Wagner</name>
 			<email>rawagner@redhat.com</email>
 			<organization>Red Hat</organization>
-			<organizationUrl>http://www.redhat.com</organizationUrl>
+			<organizationUrl>https://www.redhat.com</organizationUrl>
 		</developer>
 		<developer>
 			<id>odockal</id>
 			<name>Ondrej Dockal</name>
 			<email>odockal@redhat.com</email>
 			<organization>Red Hat</organization>
-			<organizationUrl>http://www.redhat.com</organizationUrl>
+			<organizationUrl>https://www.redhat.com</organizationUrl>
 		</developer>
 	</developers>
 	

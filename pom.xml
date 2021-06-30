@@ -16,7 +16,7 @@
 	<groupId>org.eclipse.reddeer</groupId>
 	<artifactId>parent</artifactId>
 	<name>RedDeer Parent POM File</name>
-	<version>3.4.0-SNAPSHOT</version>
+	<version>3.5.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<properties>
@@ -25,8 +25,8 @@
 		<eclipse-target-site>https://download.eclipse.org/releases/2021-06/</eclipse-target-site>
 		<swtbot-update-site>https://download.eclipse.org/technology/swtbot/snapshots/</swtbot-update-site>
         <!-- when making final release, switch from S to R latest update site - https://github.com/eclipse/reddeer/issues/2100 -->
-        <eclipse-orbit-update-site>https://download.eclipse.org/tools/orbit/downloads/latest-R/</eclipse-orbit-update-site>
-		<!--eclipse-orbit-update-site>https://download.eclipse.org/tools/orbit/downloads/latest-S/</eclipse-orbit-update-site-->
+        <!--eclipse-orbit-update-site>https://download.eclipse.org/tools/orbit/downloads/latest-R/</eclipse-orbit-update-site-->
+		<eclipse-orbit-update-site>https://download.eclipse.org/tools/orbit/downloads/latest-S/</eclipse-orbit-update-site>
 		<cbi-repo-site>https://repo.eclipse.org/content/repositories/cbi-releases/</cbi-repo-site>
 		<download-plugin-version>1.2.1</download-plugin-version>
 		<java.target.version>11</java.target.version>
@@ -35,7 +35,7 @@
 			you can override this value to be Nightly Build, Development Milestone, or 
 			Stable Release, or set to &amp;shy; (soft hyphen) to leave blank -->
 		<update.site.description>&amp;shy;</update.site.description>
-		<targetEclipseVersion>4.20 (2021-06)</targetEclipseVersion>
+		<targetEclipseVersion>4.21 (2021-09)</targetEclipseVersion>
 		<BUILD_ALIAS></BUILD_ALIAS>
 		<BUILD_TIMESTAMP>yyyyMMdd-HHmm</BUILD_TIMESTAMP>
 		<maven.compiler.source>${java.target.version}</maven.compiler.source>
