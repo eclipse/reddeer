@@ -11,6 +11,7 @@ target
 *.swp
 *.out
 .*
+!.github
 !.gitignore
 # Eclipse files
 .project
