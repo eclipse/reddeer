@@ -158,4 +158,28 @@ public class DefaultTableItemTest extends SWTLayerTestCase{
 		ti.click();
 		assertEquals("single click",ti.getText());
 	}
+	
+	@Test
+	public void setText(){
+		new DefaultTableItem(new DefaultTable(0), 6).setText("some text");
+		assertThat(new DefaultTableItem(6).getText(), is("some text"));
+	}
+	
+	@Test
+	public void setTextColumn(){
+		new DefaultTableItem(7).setText(6, "some text in column");
+		assertThat(new DefaultTableItem(7).getText(6), is("some text in column"));
+	}
+	
+	@Test
+	public void setTextStrings(){
+		String[] strings = new String[] {"some", "texts", "in", "columns"};
+		DefaultTableItem tableItem = new DefaultTableItem(new DefaultTable(0), 7);
+		tableItem.setText(strings);
+		
+		for (int i=0; i<strings.length; i++) {
+			String string = strings [i];
+			assertThat(tableItem.getText(i), is(string));
+		}
+	}
 }
