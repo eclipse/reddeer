@@ -100,4 +100,26 @@ public interface TableItem extends Item<org.eclipse.swt.widgets.TableItem> {
 	 * @param column to click on
 	 */
 	void doubleClick(int column);
+	
+	/**
+	 * Sets text
+	 * 
+	 * @param string the new text
+	 */
+	void setText (String text);
+	
+	/**
+	 * Sets text at a column
+	 * 
+	 * @param index the column index
+	 * @param string the new text
+	 */
+	void setText (int index, String text);
+	
+	/**
+	 * Sets the text for multiple columns in the table.
+	 * 
+	 * @param strings the array of new strings
+	 */
+	void setText (String [] strings);
 }

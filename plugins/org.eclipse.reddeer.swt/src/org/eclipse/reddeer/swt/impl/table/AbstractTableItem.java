@@ -137,6 +137,33 @@ public abstract class AbstractTableItem extends AbstractItem<org.eclipse.swt.wid
 		TableItemHandler.getInstance().doubleClick(swtWidget, column);
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.eclipse.reddeer.swt.api.TableItem#setText(String)
+	 */
+	@Override
+	public void setText (String text) {
+		log.info("Set text " + text);
+		TableItemHandler.getInstance().setText(swtWidget, text);
+	}
+	
+	/* (non-Javadoc)
+	 * @see org.eclipse.reddeer.swt.api.TableItem#setText(String, int)
+	 */
+	@Override
+	public void setText (int index, String text){
+		log.info("Set text " + text + "in column " + index);
+		TableItemHandler.getInstance().setText(swtWidget, index, text);
+	}
+	
+	/* (non-Javadoc)
+	 * @see org.eclipse.reddeer.swt.api.TableItem#setText(String [])
+	 */
+	@Override
+	public void setText (String [] strings) {
+		log.info("Set text array: " + strings.toString());
+		TableItemHandler.getInstance().setText(swtWidget, strings);
+	}
+	
 	@Override
 	public Control<?> getParentControl() {
 		return getParent();

@@ -293,6 +293,52 @@ public class TableItemHandler extends ItemHandler{
 		});
 	}
 	
+	/**
+	 * Sets text in specified table item in column 0.
+	 * 
+	 * @param tableItem table item to handle
+	 * @param text text to set
+	 */
+	public void setText (final TableItem tableItem, String text) {
+		Display.syncExec(new Runnable() {
+			@Override
+			public void run() {
+				tableItem.setText(text);
+			}
+		});
+	}
+	
+	/**
+	 * Sets text in specified table item and in specific column.
+	 * 
+	 * @param tableItem table item to handle
+	 * @param column column to click on
+	 * @param text text to set
+	 */
+	public void setText (final TableItem tableItem, int column, String text) {
+		Display.syncExec(new Runnable() {
+			@Override
+			public void run() {
+				tableItem.setText(column, text);
+			}
+		});
+	}
+	
+	/**
+	 * Sets texts in specified table item.
+	 * 
+	 * @param tableItem table item to handle
+	 * @param strings string to set in table item
+	 */
+	public void setText (final TableItem tableItem, String [] strings) {
+		Display.syncExec(new Runnable() {
+			@Override
+			public void run() {
+				tableItem.setText(strings);
+			}
+		});
+	}
+	
 	
 	private class TableCheckListener implements Listener {
 
