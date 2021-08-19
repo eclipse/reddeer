@@ -4,6 +4,9 @@ on:
   pull_request:
     branches: [master]
 
+env:
+  SWT_GTK3: "0"
+
 jobs:
   test:
     runs-on: ${{ matrix.os }} # compiles and test on Ubuntu
@@ -38,11 +41,24 @@ jobs:
         restore-keys: |
           reddeer-${{ runner.os }}-maven-
 
+    - name: Install WebKit on linux
+      if: matrix.os == 'ubuntu-latest'
+      run: |
+        sudo apt-get update -y
+        sudo apt-get install libwebkit2gtk-4.0-37
+
+    - name: Echo SWT_GTK3 Env. variable
+      run: echo "SWT_GTK3 is set to '${SWT_GTK3}'"
+
     # Build and compile using Maven
-    - name: Build/Compile and run unit tests
+    - name: Build and compile
+      run: mvn clean install -DskipTests=true -B
+
+    # Run Test Maven
+    - name: Run unit tests
       uses: GabrielBB/xvfb-action@v1
       with:
-        run: mvn clean verify -U -fae -Dmaven.test.error.ignore=true -Dmaven.test.failure.ignore=true --quiet
+        run: mvn verify -U -fae -Dmaven.test.error.ignore=true -Dmaven.test.failure.ignore=true
 
     # Archive artifacts to be applied in Publish Reports workflow
     - name: Archiving test artifacts
@@ -53,3 +69,4 @@ jobs:
           *tests/*/target/surefire-reports/
           */*tests/*/target/surefire-reports/
           **/*.log
+          **/*.png
