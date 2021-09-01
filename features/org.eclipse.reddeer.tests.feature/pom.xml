@@ -37,6 +37,11 @@
 						</goals>
 					</execution>
 				</executions>
+                <configuration>
+                    <excludes>
+                   		<plugin id="org.json" />
+                    </excludes>
+                </configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.eclipse.tycho</groupId>
