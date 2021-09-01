@@ -30,6 +30,16 @@
    </license>
 
    <plugin
+         id="org.eclipse.emf.validation"
+         version="0.0.0"
+         unpack="false"/>
+   
+   <plugin
+         id="org.eclipse.emf.workspace"
+         version="0.0.0"
+         unpack="false"/>
+   
+   <plugin
          id="org.eclipse.reddeer.gef.spy"
          download-size="0"
          install-size="0"

@@ -28,7 +28,47 @@
    <license url="%licenseURL">
       %license
    </license>
+   
+   <plugin
+         id="org.mockito"
+         version="0.0.0"
+         unpack="false"/>
+   
+   <plugin
+         id="org.objenesis"
+         version="0.0.0"
+         unpack="false"/>
 
+   <plugin
+         id="net.bytebuddy.byte-buddy"
+         version="0.0.0"
+         unpack="false"/>   
+   
+   <plugin
+         id="net.bytebuddy.byte-buddy-agent"
+         version="0.0.0"
+         unpack="false"/>
+   
+   <plugin
+         id="org.json"
+         version="0.0.0"
+         unpack="false"/>
+   
+   <plugin
+         id="org.yaml.snakeyaml"
+         version="0.0.0"
+         unpack="false"/>
+   
+   <plugin
+         id="org.hamcrest.core"
+         version="0.0.0"
+         unpack="false"/>
+
+    <plugin
+         id="org.hamcrest.library"
+         version="0.0.0"
+         unpack="false"/>
+   
    <plugin
          id="org.eclipse.reddeer.eclipse.test"
          download-size="0"
