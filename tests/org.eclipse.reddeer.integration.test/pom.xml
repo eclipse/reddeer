@@ -25,8 +25,9 @@
 	</parent>
 
 	<properties>
-		<customArgLine>-Dupdate.site=${update.site}</customArgLine>
+		<customArgLine>-Dupdate.site=${update.site} -Dp2.only=${p2.only}</customArgLine>
 		<update.site></update.site>
+		<p2.only></p2.only>
 		<eclipseProfile>epp.package.jee</eclipseProfile>
 		<testProduct>org.eclipse.platform.ide</testProduct>
 		<skipITests>true</skipITests>
