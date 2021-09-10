@@ -19,8 +19,12 @@ import java.net.URL;
 
 import org.eclipse.reddeer.integration.test.installation.common.dialog.InstallNewSoftwareDialog;
 import org.eclipse.reddeer.integration.test.installation.common.page.AvailableSoftwarePage;
+import org.eclipse.reddeer.integration.test.installation.common.preferences.AvailableSoftwareSitesPreferencePage;
 import org.eclipse.reddeer.integration.test.installation.common.util.InstallationOperator;
+import org.eclipse.reddeer.jface.preference.PreferencePage;
 import org.eclipse.reddeer.junit.runner.RedDeerSuite;
+import org.eclipse.reddeer.workbench.ui.dialogs.WorkbenchPreferenceDialog;
+import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ErrorCollector;
@@ -30,9 +34,24 @@ import org.junit.runner.RunWith;
 public class InstallSoftwareFromUpdateSiteTest {
 	
 	private static final String UPDATE_SITE = System.getProperty("update.site");
+	private static final String P2_ONLY_PROP = "p2.only";
 	
 	@Rule
 	public ErrorCollector collector = new ErrorCollector();
+	
+	@BeforeClass
+	public static void prepareTestEnv() {
+		if(Boolean.getBoolean(P2_ONLY_PROP)) {
+			System.out.println("System prop. p2.only: " + Boolean.getBoolean(P2_ONLY_PROP));
+			WorkbenchPreferenceDialog dialog = new WorkbenchPreferenceDialog();
+			dialog.open();
+			AvailableSoftwareSitesPreferencePage page = new AvailableSoftwareSitesPreferencePage(dialog);
+			dialog.select(page);
+			page.getItems().stream().forEach(item -> System.out.println(item.getText()));
+			page.toggleAllItems(false);
+			dialog.ok();
+		}
+	}
 
 	@Test
 	public void testInstallFromUpdateSite() {
