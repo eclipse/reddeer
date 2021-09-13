@@ -110,4 +110,9 @@
     <feature url="org.eclipse.reddeer.e4.feature.qualifier" id="org.eclipse.reddeer.e4.feature" version="0.0.0">
         <category name="E4Features"/>
     </feature>
+    
+    <!--Change the site to releases once doing final release -->
+    <!--repository-reference location="http://download.eclipse.org/releases/2021-12/" enabled="true" /-->
+    <repository-reference location="http://download.eclipse.org/staging/2021-12/" enabled="true" />
+    <repository-reference location="http://download.eclipse.org/eclipse/updates/4.22" enabled="true" />
 </site>

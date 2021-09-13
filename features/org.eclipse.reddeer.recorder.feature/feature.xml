@@ -29,21 +29,6 @@
    <license url="%licenseURL">
       %license
    </license>
-
-   <plugin
-         id="org.eclipse.swtbot.generator"
-         version="0.0.0"
-         unpack="false"/>
-   
-       <plugin
-         id="org.eclipse.swtbot.generator.ui"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.swtbot.generator.jdt"
-         version="0.0.0"
-         unpack="false"/>
    
    <plugin
          id="org.eclipse.reddeer.recorder"

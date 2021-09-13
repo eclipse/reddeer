@@ -30,26 +30,6 @@
    </license>
    
    <plugin
-         id="org.eclipse.graphiti"
-         version="0.0.0"
-         unpack="false"/>
-   
-   <plugin
-         id="org.eclipse.graphiti.mm"
-         version="0.0.0"
-         unpack="false"/>
-   
-   <plugin
-         id="org.eclipse.graphiti.ui"
-         version="0.0.0"
-         unpack="false"/>
-   
-   <plugin
-         id="org.eclipse.emf.transaction"
-         version="0.0.0"
-         unpack="false"/>
-   
-   <plugin
          id="org.eclipse.reddeer.swt"
          download-size="0"
          install-size="0"

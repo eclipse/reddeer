@@ -28,16 +28,6 @@
    <license url="%licenseURL">
       %license
    </license>
-
-   <plugin
-         id="org.eclipse.emf.validation"
-         version="0.0.0"
-         unpack="false"/>
-   
-   <plugin
-         id="org.eclipse.emf.workspace"
-         version="0.0.0"
-         unpack="false"/>
    
    <plugin
          id="org.eclipse.reddeer.gef.spy"
