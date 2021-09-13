@@ -31,21 +31,6 @@
    </license>
    
    <plugin
-         id="com.fasterxml.jackson.core.jackson-core"
-         version="0.0.0"
-         unpack="false"/>
-   
-   <plugin
-         id="com.fasterxml.jackson.core.jackson-databind"
-         version="0.0.0"
-         unpack="false"/>
-   
-   <plugin
-         id="com.fasterxml.jackson.core.jackson-annotations"
-         version="0.0.0"
-         unpack="false"/>
-   
-   <plugin
          id="org.eclipse.reddeer.swt"
          download-size="0"
          install-size="0"
