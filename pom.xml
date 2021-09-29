@@ -16,13 +16,13 @@
 	<groupId>org.eclipse.reddeer</groupId>
 	<artifactId>parent</artifactId>
 	<name>RedDeer Parent POM File</name>
-	<version>3.5.0-SNAPSHOT</version>
+	<version>4.0.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<properties>
 		<tycho-version>2.2.0</tycho-version>
 		<tychoExtrasVersion>${tycho-version}</tychoExtrasVersion>
-		<eclipse-target-site>https://download.eclipse.org/releases/2021-09/</eclipse-target-site>
+		<eclipse-target-site>https://download.eclipse.org/staging/2021-12/</eclipse-target-site>
 		<swtbot-update-site>https://download.eclipse.org/technology/swtbot/snapshots/</swtbot-update-site>
         <!-- when making final release, switch from S to R latest update site - https://github.com/eclipse/reddeer/issues/2100 -->
         <eclipse-orbit-update-site>https://download.eclipse.org/tools/orbit/downloads/latest-R/</eclipse-orbit-update-site>
@@ -35,13 +35,13 @@
 			you can override this value to be Nightly Build, Development Milestone, or 
 			Stable Release, or set to &amp;shy; (soft hyphen) to leave blank -->
 		<update.site.description>&amp;shy;</update.site.description>
-		<targetEclipseVersion>4.21 (2021-09)</targetEclipseVersion>
+		<targetEclipseVersion>4.22 (2021-12)</targetEclipseVersion>
 		<BUILD_ALIAS></BUILD_ALIAS>
 		<BUILD_TIMESTAMP>yyyyMMdd-HHmm</BUILD_TIMESTAMP>
 		<maven.compiler.source>${java.target.version}</maven.compiler.source>
 		<maven.compiler.target>${java.target.version}</maven.compiler.target>
 		<!-- Java Code Coverage -->
-		<jacoco-version>0.8.2</jacoco-version>
+		<jacoco-version>0.8.4</jacoco-version>
 		<!-- Sonar Properties -->
 		<sonar.code.codeCoveragePlugin>jacoco</sonar.code.codeCoveragePlugin>
 		<sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>

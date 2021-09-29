@@ -3,11 +3,11 @@ Bundle-ManifestVersion: 2
 Bundle-Name: RedDeer Direct
 Bundle-Vendor: Eclipse.org - RedDeer
 Bundle-SymbolicName: org.eclipse.reddeer.direct
-Bundle-Version: 3.5.0.qualifier
+Bundle-Version: 4.0.0.qualifier
 Bundle-Activator: org.eclipse.reddeer.direct.Activator
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
- org.eclipse.reddeer.common;bundle-version="[2.2.0,3.5.1)",
+ org.eclipse.reddeer.common;bundle-version="[2.2.0,4.0.1)",
  org.eclipse.core.resources;bundle-version="3.9.0"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-11
