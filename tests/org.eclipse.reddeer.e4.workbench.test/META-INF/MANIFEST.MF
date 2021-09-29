@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: E4 Workbench Reddeer Test
 Bundle-SymbolicName: org.eclipse.reddeer.e4.workbench.test
-Bundle-Version: 3.5.0.qualifier
+Bundle-Version: 4.0.0.qualifier
 Bundle-RequiredExecutionEnvironment: JavaSE-11
 Require-Bundle: org.eclipse.reddeer.common,
  org.eclipse.reddeer.core,

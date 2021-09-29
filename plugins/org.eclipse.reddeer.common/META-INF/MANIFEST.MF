@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: RedDeer Common
 Bundle-Vendor: Eclipse.org - RedDeer
 Bundle-SymbolicName: org.eclipse.reddeer.common
-Bundle-Version: 3.5.0.qualifier
+Bundle-Version: 4.0.0.qualifier
 Require-Bundle: org.eclipse.swt,
  org.hamcrest.core;bundle-version="1.3.0"
 Bundle-ActivationPolicy: lazy
