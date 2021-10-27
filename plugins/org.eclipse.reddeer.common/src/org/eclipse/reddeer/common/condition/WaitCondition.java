@@ -59,3 +59,4 @@ public interface WaitCondition {
 	String errorMessageUntil();
 	
 }
+
