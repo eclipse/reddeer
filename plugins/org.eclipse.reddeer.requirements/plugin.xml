@@ -15,6 +15,7 @@
 <plugin>
    <extension point="org.eclipse.reddeer.junit.requirement">
 	   <requirement class="org.eclipse.reddeer.requirements.autobuilding.AutoBuildingRequirement"/>
+	   <requirement class="org.eclipse.reddeer.requirements.browser.InternalBrowserRequirement"/>
 	   <requirement class="org.eclipse.reddeer.requirements.cleanworkspace.CleanWorkspaceRequirement"/>
 	   <requirement class="org.eclipse.reddeer.requirements.closeeditors.CloseAllEditorsRequirement"/>
 	   <requirement class="org.eclipse.reddeer.requirements.db.DatabaseRequirement"/>

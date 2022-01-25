@@ -21,6 +21,7 @@ Bundle-RequiredExecutionEnvironment: JavaSE-11
 Bundle-ActivationPolicy: lazy
 Bundle-Vendor: Eclipse.org - RedDeer
 Export-Package: org.eclipse.reddeer.requirements.autobuilding,
+ org.eclipse.reddeer.requirements.browser,
  org.eclipse.reddeer.requirements.cleanerrorlog,
  org.eclipse.reddeer.requirements.cleanworkspace,
  org.eclipse.reddeer.requirements.closeeditors,
