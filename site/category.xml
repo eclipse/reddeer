@@ -113,8 +113,8 @@
     
     <!--Change the site to releases once doing final release -->
     <!--repository-reference location="http://download.eclipse.org/releases/2021-12/" enabled="true" /-->
-    <repository-reference location="http://download.eclipse.org/staging/2022-03/" enabled="true" />
-    <repository-reference location="http://download.eclipse.org/eclipse/updates/4.23" enabled="true" />
+    <repository-reference location="https://download.eclipse.org/staging/2022-03/" enabled="true" />
+    <repository-reference location="https://download.eclipse.org/eclipse/updates/4.23" enabled="true" />
     <repository-reference location="https://download.eclipse.org/tools/orbit/downloads/drops/S20220215213605/repository" enabled="true" />
     
 </site>
