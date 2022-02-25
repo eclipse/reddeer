@@ -14,28 +14,32 @@ import org.junit.runner.RunWith;
 @RunWith(RedDeerSuite.class)
 public class ConsoleHasLabelTest {
 
+	@SuppressWarnings("unchecked")
 	@Test
-	public void testReinitiatingCondition() {
-		Matcher<String> textMatcher = StringEndsWith.endsWith("Java Stack Trace Console");
-
-		Matcher<String> textMatcher2 = StringEndsWith.endsWith("CVS");
-
+	public void testConsole() {
 		
-		ConsoleHasLabel condition = new ConsoleHasLabel(textMatcher);
-		// First run
-		ConsoleView console1 = new ConsoleView();
-		console1.open();
-		var menu = new ToolItemMenuItem(new DefaultToolItem(console1.getCTabItem().getFolder(), "Open Console"), textMatcher);
-		menu.select();
-		new WaitUntil(condition);
-		console1.close();
+	    Matcher<String> textMatcher = StringEndsWith.endsWith("Java Stack Trace Console");
 
-		// Second run
-		ConsoleView console2 = new ConsoleView();
-		console2.open();
-		var menu2 = new ToolItemMenuItem(new DefaultToolItem(console2.getCTabItem().getFolder(), "Open Console"), textMatcher2);
-		menu2.select();
-		new WaitUntil(new ConsoleHasLabel(textMatcher2)); // Will fail because ConsoleHasLabel still refers to console1
+	    Matcher<String> textMatcher2 = StringEndsWith.endsWith("Maven Console");
+
+	    // First run
+	    ConsoleView console1 = new ConsoleView();
+	    console1.open();
+	    var menu = new ToolItemMenuItem(new DefaultToolItem(console1.getCTabItem().getFolder(), "Open Console"), textMatcher);
+	    menu.select();
+	    new WaitUntil(new ConsoleHasLabel(textMatcher));
+	    new DefaultToolItem(console1.getCTabItem().getFolder(), "Close Console").click();
+	    console1.close();
+
+	    // Second run
+	    ConsoleView console2 = new ConsoleView();
+	    console2.open();
+	    var menu2 = new ToolItemMenuItem(new DefaultToolItem(console2.getCTabItem().getFolder(), "Open Console"), textMatcher2);
+	    menu2.select();
+	    // we need to change condition to adjust to the new expected label
+	    new WaitUntil(new ConsoleHasLabel(textMatcher2));
+		
 	}
 
+	
 }
