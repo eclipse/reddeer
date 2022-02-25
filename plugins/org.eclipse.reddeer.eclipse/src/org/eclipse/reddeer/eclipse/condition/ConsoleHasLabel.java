@@ -26,7 +26,7 @@ import org.eclipse.reddeer.eclipse.ui.console.ConsoleView;
 public class ConsoleHasLabel extends AbstractWaitCondition {
 
 	private Matcher<String> matcher;
-	private static ConsoleView consoleView = null;
+	private ConsoleView consoleView;
 	private String resultLabel;
 
 	/**
@@ -53,7 +53,7 @@ public class ConsoleHasLabel extends AbstractWaitCondition {
 	 */
 	@Override
 	public boolean test() {
-		String consoleLabel = ConsoleHasLabel.getConsoleLabel();
+		String consoleLabel = getConsoleLabel();
 		if (matcher.matches(consoleLabel)) {
 			this.resultLabel = consoleLabel;
 			return true;
@@ -69,11 +69,13 @@ public class ConsoleHasLabel extends AbstractWaitCondition {
 		return "console label matches '" + matcher ;
 	}
 
-	private static String getConsoleLabel() {
+	private String getConsoleLabel() {
 		if (consoleView == null){
 			consoleView = new ConsoleView();
 		}
-		consoleView.open();
+		if (!consoleView.isOpen()) {
+			consoleView.open();
+		}
 		return consoleView.getConsoleLabel();
 	}
 
