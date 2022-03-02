@@ -92,7 +92,7 @@ public class TitleAreaDialog extends AbstractWindow{
 		} else {
 			message = getMessageText(textControl).getText();
 		}
-		if(getMessageImage() != null){ //if image is shown TitleAreaDialog adds whitespace before message
+		if(getMessageImage() != null && !message.isEmpty()) { //if image is shown TitleAreaDialog adds whitespace before message
 			message = message.substring(1);
 		}
 		return message;
