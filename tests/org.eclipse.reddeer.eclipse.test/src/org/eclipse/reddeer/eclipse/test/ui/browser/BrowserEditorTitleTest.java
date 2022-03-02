@@ -23,11 +23,13 @@ import org.eclipse.reddeer.common.util.Display;
 import org.eclipse.reddeer.eclipse.exception.EclipseLayerException;
 import org.eclipse.reddeer.eclipse.ui.browser.BrowserEditor;
 import org.eclipse.reddeer.junit.runner.RedDeerSuite;
+import org.eclipse.reddeer.requirements.browser.InternalBrowserRequirement.UseInternalBrowser;
 import org.eclipse.reddeer.workbench.impl.editor.DefaultEditor;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+@UseInternalBrowser
 @RunWith(RedDeerSuite.class)
 public class BrowserEditorTitleTest {
 	
