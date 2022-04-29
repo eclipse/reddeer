@@ -3,9 +3,9 @@ Bundle-ManifestVersion: 2
 Bundle-Name: RedDeer JUnit Tests
 Bundle-Vendor: Eclipse.org - RedDeer
 Bundle-SymbolicName: org.eclipse.reddeer.junit.test;singleton:=true
-Bundle-Version: 4.1.0.qualifier
+Bundle-Version: 4.2.0.qualifier
 Bundle-Activator: org.eclipse.reddeer.junit.test.Activator
-Require-Bundle: org.eclipse.reddeer.go;bundle-version="[2.2.0,4.1.1)",
+Require-Bundle: org.eclipse.reddeer.go;bundle-version="[2.2.0,4.2.1)",
  org.hamcrest.library;bundle-version="1.3.0",
  com.fasterxml.jackson.core.jackson-annotations
 Bundle-ActivationPolicy: lazy
