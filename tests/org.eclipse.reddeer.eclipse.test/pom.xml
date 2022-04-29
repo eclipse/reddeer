@@ -185,5 +185,10 @@
 			<layout>p2</layout>
 			<url>https://download.eclipse.org/tm/updates/3.7.100-SNAPSHOT/repository/</url>
 		</repository>
+		<repository>
+			<id>mylyn</id>
+			<layout>p2</layout>
+			<url>https://download.eclipse.org/mylyn/releases/latest/</url>
+		</repository>
 	</repositories>
 </project>
