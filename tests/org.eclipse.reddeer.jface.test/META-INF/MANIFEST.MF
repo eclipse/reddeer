@@ -3,10 +3,10 @@ Bundle-ManifestVersion: 2
 Bundle-Name: RedDeer JFace Tests
 Bundle-Vendor: Eclipse.org - RedDeer
 Bundle-SymbolicName: org.eclipse.reddeer.jface.test;singleton:=true
-Bundle-Version: 4.1.0.qualifier
+Bundle-Version: 4.2.0.qualifier
 Bundle-Activator: org.eclipse.reddeer.jface.test.Activator
-Require-Bundle: org.eclipse.reddeer.go;bundle-version="[2.2.0,4.1.1)",
- org.eclipse.reddeer.swt.test;bundle-version="[2.2.0,4.1.1)"
+Require-Bundle: org.eclipse.reddeer.go;bundle-version="[2.2.0,4.2.1)",
+ org.eclipse.reddeer.swt.test;bundle-version="[2.2.0,4.2.1)"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-11
 Automatic-Module-Name: org.eclipse.reddeer.jface.test
