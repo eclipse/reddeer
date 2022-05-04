@@ -18,6 +18,7 @@ import org.eclipse.reddeer.common.condition.AbstractWaitCondition;
 import org.eclipse.reddeer.common.logging.Logger;
 import org.eclipse.reddeer.common.wait.TimePeriod;
 import org.eclipse.reddeer.common.wait.WaitUntil;
+import org.eclipse.reddeer.core.exception.CoreLayerException;
 import org.eclipse.reddeer.core.reference.ReferencedComposite;
 import org.eclipse.reddeer.eclipse.exception.EclipseLayerException;
 import org.eclipse.reddeer.jface.wizard.WizardPage;
@@ -113,6 +114,8 @@ public class WizardProjectsImportPage extends WizardPage {
 		for (TreeItem item : projectsTree.getItems()){
 			ImportProject project = new ImportProject();
 			project.isChecked = item.isChecked();
+			// workaround to force wait for treeItem to get visible
+			item.expand();
 			project.name = getProjectLabel(item.getText());
 			projects.add(project);
 		}
@@ -177,7 +180,12 @@ public class WizardProjectsImportPage extends WizardPage {
 	}
 	
 	private Tree getProjectsTree() {
-		return new DefaultTree(this);
+		DefaultTree tree = new DefaultTree(this);
+		if (tree.isEnabled() && tree.isFocusControl() && tree.isVisible()) {
+			return tree;
+		} else {
+			return new DefaultTree(this);
+		}
 	}
 	
 	private TreeItem getProjectTreeItem(Tree projectsTree, String projectName) {
@@ -190,7 +198,17 @@ public class WizardProjectsImportPage extends WizardPage {
 	}
 	
 	private String getProjectLabel(String project){
-		return project.substring(0, project.indexOf('(')).trim();
+		// we expect this form of the project string: my.project (/path/to/my.project)
+		if (project.isBlank()) {
+			throw new CoreLayerException("Project " + project + " is not available in the imported projects");
+		}
+		if (project.indexOf('(') == -1) {
+			// if there is missing '(' we and project is non empty, return trimmed project string
+			return project.trim();
+		} else {
+			// return trimmed project without its path in brackets
+			return project.substring(0, project.indexOf('(')).trim();
+		}
 	}
 	
 	private class ProjectIsLoaded extends AbstractWaitCondition {
