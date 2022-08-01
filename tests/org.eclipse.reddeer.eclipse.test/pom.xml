@@ -20,7 +20,7 @@
 	<parent>
 		<groupId>org.eclipse.reddeer</groupId>
 		<artifactId>tests</artifactId>
-		<version>4.2.0-SNAPSHOT</version>
+		<version>4.3.0-SNAPSHOT</version>
 	</parent>
 
 	<properties>
