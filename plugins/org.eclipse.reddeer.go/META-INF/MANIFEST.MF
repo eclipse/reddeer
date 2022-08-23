@@ -24,4 +24,4 @@ Require-Bundle: org.eclipse.ui;visibility:=reexport,
  org.eclipse.reddeer.workbench;bundle-version="[2.2.0,4.3.1)";visibility:=reexport,
  org.eclipse.reddeer.workbench.core;bundle-version="[2.2.0,4.3.1)";visibility:=reexport
 Automatic-Module-Name: org.eclipse.reddeer.go
-Bundle-RequiredExecutionEnvironment: JavaSE-11
+Bundle-RequiredExecutionEnvironment: JavaSE-17

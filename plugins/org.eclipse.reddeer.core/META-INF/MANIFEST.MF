@@ -10,7 +10,7 @@ Require-Bundle: org.eclipse.reddeer.common;bundle-version="[2.2.0,4.3.1)",
  org.eclipse.reddeer.workbench.core;bundle-version="[2.2.0,4.3.1)";resolution:=optional,
  org.eclipse.reddeer.e4.workbench.core;bundle-version="[2.2.0,4.3.1)";resolution:=optional
 Bundle-ActivationPolicy: lazy
-Bundle-RequiredExecutionEnvironment: JavaSE-11
+Bundle-RequiredExecutionEnvironment: JavaSE-17
 Export-Package: org.eclipse.reddeer.core.condition,
  org.eclipse.reddeer.core.exception,
  org.eclipse.reddeer.core.handler,

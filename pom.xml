@@ -20,7 +20,7 @@
 	<packaging>pom</packaging>
 
 	<properties>
-		<tycho-version>2.4.0</tycho-version>
+		<tycho-version>2.7.0</tycho-version>
 		<tychoExtrasVersion>${tycho-version}</tychoExtrasVersion>
 		<eclipse-target-site>https://download.eclipse.org/releases/2022-09/</eclipse-target-site>
 		<swtbot-update-site>https://download.eclipse.org/technology/swtbot/snapshots/</swtbot-update-site>
@@ -126,7 +126,7 @@
 							<requirement>
 								<type>eclipse-plugin</type>
 								<id>org.apache.felix.scr</id>
-								<versionRange>1.0.0</versionRange>
+								<versionRange>2.2.2</versionRange>
 							</requirement>
 						</extraRequirements>
 					</dependency-resolution>

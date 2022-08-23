@@ -23,6 +23,6 @@ Require-Bundle: org.eclipse.reddeer.go;bundle-version="[2.2.0,4.3.1)",
  org.eclipse.jdt.junit4.runtime,
  org.eclipse.jdt.junit
 Bundle-ActivationPolicy: lazy
-Bundle-RequiredExecutionEnvironment: JavaSE-11
+Bundle-RequiredExecutionEnvironment: JavaSE-17
 Import-Package: org.hamcrest.core
 Automatic-Module-Name: org.eclipse.reddeer.eclipse.test
