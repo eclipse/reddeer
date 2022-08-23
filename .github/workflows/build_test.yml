@@ -1,4 +1,4 @@
-name: Build and Test
+name: Build
 
 on:
   pull_request:
@@ -37,28 +37,27 @@ jobs:
       uses: actions/cache@v2
       with:
         path: ~/.m2/repository
-        key: reddeer-${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+        key: reddeer-${{ runner.java }}-maven-${{ hashFiles('**/pom.xml') }}
         restore-keys: |
-          reddeer-${{ runner.os }}-maven-
+          reddeer-${{ runner.java }}-maven-
 
-    - name: Install WebKit on linux
-      if: matrix.os == 'ubuntu-latest'
-      run: |
-        sudo apt-get update -y
-        sudo apt-get install libwebkit2gtk-4.0-37
+#     - name: Install WebKit on linux
+#       if: matrix.os == 'ubuntu-latest'
+#       run: |
+#         sudo apt-get update -y
+#         sudo apt-get install libwebkit2gtk-4.0-37
 
-    - name: Echo SWT_GTK3 Env. variable
-      run: echo "SWT_GTK3 is set to '${SWT_GTK3}'"
+#     - name: Echo SWT_GTK3 Env. variable
+#       run: echo "SWT_GTK3 is set to '${SWT_GTK3}'"
 
     # Build and compile using Maven
     - name: Build and compile
       run: mvn clean install -DskipTests=true -B
 
     # Run Test Maven
-    - name: Run unit tests
-      uses: GabrielBB/xvfb-action@v1
-      with:
-        run: mvn install -U -fae -DskipTests=true
+#     - name: Run unit tests
+#       uses: GabrielBB/xvfb-action@v1
+#       with:
 #         run: mvn verify -U -fae -Dmaven.test.error.ignore=true -Dmaven.test.failure.ignore=true
 
     # Archive artifacts to be applied in Publish Reports workflow
