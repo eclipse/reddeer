@@ -6,7 +6,7 @@ Bundle-Version: 4.3.0.qualifier
 Bundle-Activator: org.eclipse.reddeer.jdt.junit.Activator
 Bundle-Vendor: Eclipse.org - RedDeer
 Bundle-ActivationPolicy: lazy
-Bundle-RequiredExecutionEnvironment: JavaSE-11
+Bundle-RequiredExecutionEnvironment: JavaSE-17
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.jdt.junit.runtime,
  org.eclipse.reddeer.common,

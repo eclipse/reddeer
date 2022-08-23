@@ -12,6 +12,6 @@ Bundle-Name: ${artifactId} Reddeer Test
 Bundle-SymbolicName: ${artifactId}
 Bundle-Version: ${futureVersion}.qualifier
 Bundle-Activator: ${package}.Activator
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-RequiredExecutionEnvironment: JavaSE-17
 Require-Bundle: org.eclipse.reddeer.go,
  javax.annotation
