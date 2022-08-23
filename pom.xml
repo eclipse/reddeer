@@ -29,7 +29,7 @@
 		<!-- eclipse-orbit-update-site>https://download.eclipse.org/tools/orbit/downloads/latest-S/</eclipse-orbit-update-site -->
 		<cbi-repo-site>https://repo.eclipse.org/content/repositories/cbi-releases/</cbi-repo-site>
 		<download-plugin-version>1.2.1</download-plugin-version>
-		<java.target.version>11</java.target.version>
+		<java.target.version>17</java.target.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<!-- In the update site's site/pom.xml (that calls jbosstools-maven-plugins/tycho-plugins/repository-utils) 
 			you can override this value to be Nightly Build, Development Milestone, or 
