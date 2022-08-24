@@ -36,7 +36,7 @@ import org.junit.runner.RunWith;
 @RunWith(RedDeerSuite.class)
 public class ExplorerItemPropertyDialogTest {
 
-	private static final String PROJECT_NAME = "Property test project";
+	private static final String PROJECT_NAME = "PropertyTestProject";
 
 	private static DefaultProject project;
 
