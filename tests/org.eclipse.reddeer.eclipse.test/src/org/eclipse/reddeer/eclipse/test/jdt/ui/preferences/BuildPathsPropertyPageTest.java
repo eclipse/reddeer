@@ -36,6 +36,7 @@ import org.eclipse.reddeer.eclipse.utils.DeleteUtils;
 import org.eclipse.reddeer.junit.execution.annotation.RunIf;
 import org.eclipse.reddeer.junit.runner.RedDeerSuite;
 import org.eclipse.reddeer.requirements.openperspective.OpenPerspectiveRequirement.OpenPerspective;
+import org.eclipse.reddeer.requirements.preferences.OomphRecorderRequirement.DisableOomphRecorder;
 import org.eclipse.reddeer.workbench.core.condition.JobIsRunning;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -51,6 +52,7 @@ import org.junit.runner.RunWith;
  */
 @RunWith(RedDeerSuite.class)
 @OpenPerspective(JavaPerspective.class)
+@DisableOomphRecorder
 public class BuildPathsPropertyPageTest {
 
 	private static final String TEST_PROJECT_NAME = "buildpathspropertypagetest";

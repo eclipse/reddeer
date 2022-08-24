@@ -21,6 +21,7 @@
 	   <requirement class="org.eclipse.reddeer.requirements.db.DatabaseRequirement"/>
 	   <requirement class="org.eclipse.reddeer.requirements.jre.JRERequirement"/>
 	   <requirement class="org.eclipse.reddeer.requirements.openperspective.OpenPerspectiveRequirement"/>
+	   <requirement class="org.eclipse.reddeer.requirements.preferences.OomphRecorderRequirement"/>
 	   <requirement class="org.eclipse.reddeer.requirements.property.PropertyRequirement"/>
 	   <requirement class="org.eclipse.reddeer.requirements.securestorage.SecureStorageRequirement"/>
 	   <requirement class="org.eclipse.reddeer.requirements.server.apache.tomcat.ApacheTomcatServerRequirement"/>
