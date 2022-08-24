@@ -34,6 +34,7 @@ import org.eclipse.reddeer.workbench.impl.view.WorkbenchView;
 
 
 /**
+ * @deprecated
  * Represents the TaskRepositories view. 
  *
  */

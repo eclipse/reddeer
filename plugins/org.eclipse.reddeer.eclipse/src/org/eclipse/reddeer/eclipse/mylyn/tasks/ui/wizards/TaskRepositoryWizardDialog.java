@@ -17,6 +17,7 @@ import org.eclipse.reddeer.swt.condition.ControlIsEnabled;
 import org.eclipse.reddeer.swt.impl.button.PushButton;
 
 /**
+ * @deprecated
  * Represents Mylyn Task Repository Properties dialog
  * 
  * @author ldimaggi

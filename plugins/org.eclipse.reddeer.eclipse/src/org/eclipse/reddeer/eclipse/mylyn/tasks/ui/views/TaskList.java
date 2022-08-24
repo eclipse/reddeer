@@ -24,6 +24,7 @@ import org.eclipse.reddeer.swt.impl.menu.ContextMenuItem;
 import org.eclipse.reddeer.workbench.core.condition.JobIsRunning;
 
 /**
+ * @deprecated
  * Represents a TaskList on {@link TaskListView}.
  * 
  * @author ldimaggi

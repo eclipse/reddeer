@@ -26,6 +26,7 @@ import org.eclipse.reddeer.swt.impl.menu.ShellMenuItem;
 import org.eclipse.reddeer.workbench.core.condition.JobIsRunning;
 
 	/**
+	 * @deprecated
 	 * Represents a TaskRepository on {@link TaskRepositoriesView}. 
 	 * 
 	 * @author ldimaggi

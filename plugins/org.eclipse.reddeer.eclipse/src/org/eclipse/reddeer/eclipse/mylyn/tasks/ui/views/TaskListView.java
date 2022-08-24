@@ -28,6 +28,7 @@ import org.eclipse.reddeer.swt.impl.tree.DefaultTreeItem;
 import org.eclipse.reddeer.workbench.impl.view.WorkbenchView;
 
 /**
+ * @deprecated
  * Represents the Task List view - to support Mylyn automated tests. 
  *  
  * @author ldimaggi

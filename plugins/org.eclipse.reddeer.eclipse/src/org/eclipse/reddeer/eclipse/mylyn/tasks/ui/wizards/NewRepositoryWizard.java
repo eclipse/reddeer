@@ -14,6 +14,7 @@ package org.eclipse.reddeer.eclipse.mylyn.tasks.ui.wizards;
 import org.eclipse.reddeer.jface.wizard.WizardDialog;
 
 /**
+ * @deprecated
  * Represents new Mylyn Add Task Repository wizard
  * 
  * @author ldimaggi
