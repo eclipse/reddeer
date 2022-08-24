@@ -17,6 +17,7 @@ import java.util.List;
 import org.eclipse.reddeer.common.logging.Logger;
 import org.eclipse.reddeer.common.wait.WaitWhile;
 import org.eclipse.reddeer.core.condition.WidgetIsFound;
+import org.eclipse.reddeer.core.exception.CoreLayerException;
 import org.eclipse.reddeer.core.matcher.TreeItemTextMatcher;
 import org.eclipse.reddeer.core.matcher.WithMnemonicTextMatcher;
 import org.eclipse.reddeer.core.reference.ReferencedComposite;
@@ -30,6 +31,7 @@ import org.eclipse.reddeer.swt.impl.button.CancelButton;
 import org.eclipse.reddeer.swt.impl.button.OkButton;
 import org.eclipse.reddeer.swt.impl.button.PushButton;
 import org.eclipse.reddeer.swt.impl.button.YesButton;
+import org.eclipse.reddeer.swt.impl.ctab.DefaultCTabItem;
 import org.eclipse.reddeer.swt.impl.shell.DefaultShell;
 import org.eclipse.reddeer.swt.impl.tab.DefaultTabItem;
 import org.eclipse.reddeer.swt.impl.table.DefaultTableItem;
@@ -65,7 +67,13 @@ public class BuildPathsPropertyPage extends PropertyPage {
 	 * Activates Source tab.
 	 */
 	public BuildPathsPropertyPage activateSourceTab() {
-		new DefaultTabItem(this, "Source").activate();
+		try {
+			new DefaultCTabItem(this, "Source").activate();
+		}
+		catch (CoreLayerException exc) {
+			// fallback for Eclipse older than 2022-09 where DefaultTabItem must be used
+			new DefaultTabItem(this, "Source").activate();
+		}
 		new WaitWhile(new JobIsRunning());
 		return this;
 	}
@@ -74,7 +82,13 @@ public class BuildPathsPropertyPage extends PropertyPage {
 	 * Activates Projects tab.
 	 */
 	public BuildPathsPropertyPage activateProjectsTab() {
-		new DefaultTabItem(this, "Projects").activate();
+		try {
+			new DefaultCTabItem(this, "Projects").activate();
+		}
+		catch (CoreLayerException exc) {
+			// fallback for Eclipse older than 2022-09 where DefaultTabItem must be used
+			new DefaultTabItem(this, "Projects").activate();
+		}
 		new WaitWhile(new JobIsRunning());
 		return this;
 	}
@@ -83,7 +97,13 @@ public class BuildPathsPropertyPage extends PropertyPage {
 	 * Activates Libraries tab.
 	 */
 	public BuildPathsPropertyPage activateLibrariesTab() {
-		new DefaultTabItem(this, "Libraries").activate();
+		try {
+			new DefaultCTabItem(this, "Libraries").activate();
+		}
+		catch (CoreLayerException exc) {
+			// fallback for Eclipse older than 2022-09 where DefaultTabItem must be used
+			new DefaultTabItem(this, "Libraries").activate();
+		}
 		new WaitWhile(new JobIsRunning());
 		return this;
 	}
@@ -92,7 +112,13 @@ public class BuildPathsPropertyPage extends PropertyPage {
 	 * Activates Order and Export tab.
 	 */
 	public BuildPathsPropertyPage activateOrderAndExportTab() {
-		new DefaultTabItem(this, "Order and Export").activate();
+		try {
+			new DefaultCTabItem(this, "Order and Export").activate();
+		}
+		catch (CoreLayerException exc) {
+			// fallback for Eclipse older than 2022-09 where DefaultTabItem must be used
+			new DefaultTabItem(this, "Order and Export").activate();
+		}
 		new WaitWhile(new JobIsRunning());
 		return this;
 	}
