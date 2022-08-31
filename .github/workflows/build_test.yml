@@ -33,13 +33,13 @@ jobs:
         architecture: x64
 
     # Try to find and apply jbosstools cache
-    - name: Cache local Maven repository for RedDeer components
-      uses: actions/cache@v2
-      with:
-        path: ~/.m2/repository
-        key: reddeer-${{ runner.java }}-maven-${{ hashFiles('**/pom.xml') }}
-        restore-keys: |
-          reddeer-${{ runner.java }}-maven-
+#     - name: Cache local Maven repository for RedDeer components
+#       uses: actions/cache@v2
+#       with:
+#         path: ~/.m2/repository
+#         key: reddeer-${{ runner.java }}-maven-${{ hashFiles('**/pom.xml') }}
+#         restore-keys: |
+#           reddeer-${{ runner.java }}-maven-
 
 #     - name: Install WebKit on linux
 #       if: matrix.os == 'ubuntu-latest'
