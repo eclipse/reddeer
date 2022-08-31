@@ -108,6 +108,7 @@ public class ProblemsViewTest {
 		dialog.open();
 		NewJavaProjectWizardPageOne page1 = new NewJavaProjectWizardPageOne(dialog); 
 		page1.setProjectName(PROJECT_NAME);
+		page1.createModuleInfoFile(false);
 		dialog.finish(TimePeriod.LONG, false, null);
 		new WaitUntil(new ProjectExists(PROJECT_NAME), TimePeriod.DEFAULT, false);
 	}
