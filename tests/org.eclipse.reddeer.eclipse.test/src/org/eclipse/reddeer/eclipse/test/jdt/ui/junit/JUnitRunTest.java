@@ -52,7 +52,9 @@ public class JUnitRunTest {
 	public static void createTestProject() {
 		JavaProjectWizard projectWizard = new JavaProjectWizard();
 		projectWizard.open();
-		new NewJavaProjectWizardPageOne(projectWizard).setProjectName(PROJECT_NAME);
+		NewJavaProjectWizardPageOne page = new NewJavaProjectWizardPageOne(projectWizard);
+		page.setProjectName(PROJECT_NAME);
+		page.createModuleInfoFile(false);
 		projectWizard.finish();
 
 		NewClassCreationWizard classWizard = new NewClassCreationWizard();

@@ -13,6 +13,7 @@ package org.eclipse.reddeer.eclipse.jdt.ui.wizards;
 
 import org.eclipse.reddeer.core.reference.ReferencedComposite;
 import org.eclipse.reddeer.swt.impl.button.CheckBox;
+import org.eclipse.reddeer.swt.impl.button.LabeledCheckBox;
 import org.eclipse.reddeer.swt.impl.text.LabeledText;
 
 /**

@@ -111,6 +111,7 @@ public class JavaProjectWizardTest {
 		new WaitUntil(new JobIsRunning(), TimePeriod.MEDIUM, false);
 		new WaitWhile(new JobIsRunning(), TimePeriod.MEDIUM, false);
 		pageOne.createModuleInfoFile(true);
+		pageOne.setModuleInfoFileName(JAVA_MODULE_NAME);
 		
 		dialog.finish(true, JAVA_MODULE_NAME);
 		
@@ -137,7 +138,7 @@ public class JavaProjectWizardTest {
 		explorer.open();
 		
 		assertTrue(explorer.containsProject(JAVA_PROJECT));
-		assertTrue(!explorer.getProject(JAVA_PROJECT).containsResource("src", JAVA_MODULE_INFO, JAVA_PROJECT));
+		assertTrue(explorer.getProject(JAVA_PROJECT).containsResource("src", JAVA_MODULE_INFO, JAVA_PROJECT));
 	}
 	
 	@Test

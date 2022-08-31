@@ -111,5 +111,18 @@ public class NewJavaProjectWizardPageOne extends WizardPage {
 		box.toggle(check);
 		return this;
 	}
+	
+	/**
+	 * Sets module name
+	 * @param String name
+	 * 			sets default module name labeled text input.
+	 * @return
+	 */
+	public NewJavaProjectWizardPageOne setModuleInfoFileName(String name) {
+		LabeledText moduleInput = new LabeledText(this, "Module name:");
+		log.debug("Setting 'Module name:' to " + name);
+		moduleInput.setText(name);
+		return this;
+	}
 
 }

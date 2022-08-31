@@ -18,6 +18,7 @@ import org.eclipse.reddeer.common.exception.RedDeerException;
 import org.eclipse.reddeer.common.matcher.RegexMatcher;
 import org.eclipse.reddeer.common.wait.TimePeriod;
 import org.eclipse.reddeer.common.wait.WaitUntil;
+import org.eclipse.reddeer.common.wait.WaitWhile;
 import org.eclipse.reddeer.core.matcher.WithTextMatcher;
 import org.eclipse.reddeer.swt.api.TableItem;
 import org.eclipse.reddeer.swt.condition.TableHasRows;
@@ -44,6 +45,7 @@ public interface CanImplement {
 		new DefaultShell(new WithTextMatcher(new RegexMatcher("[Extended|Implemented].*Interfaces Selection")));
 		new DefaultText(0).setText(interfaceName);
 		new WaitUntil(new JobIsRunning(), TimePeriod.MEDIUM, false);
+		new WaitWhile(new JobIsRunning(), TimePeriod.MEDIUM, false);
 		new WaitUntil(new TableHasRows(new DefaultTable(0)), TimePeriod.DEFAULT, false);
 
 		switch (new DefaultTable(0).getItems().size()) {
