@@ -13,7 +13,9 @@ package org.eclipse.reddeer.eclipse.test.wst.server.ui.view;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.Assert.assertTrue;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.eclipse.reddeer.eclipse.core.resources.DefaultProject;
@@ -71,12 +73,14 @@ public class ModifyModulesDialogTest extends ServersViewTestCase{
 		ModifyModulesPage page = new ModifyModulesPage(dialog);
 		page.addAll();
 		dialog.finish();
+		List<String> expectedBefore = Arrays.asList(PROJECT_1, PROJECT_2, PROJECT_3);
 
 		List<ServerModule> modules = server.getModules();
 		assertThat(modules.size(), is(3));
-		assertThat(modules.get(0).getLabel().getName(), is(PROJECT_1));
-		assertThat(modules.get(1).getLabel().getName(), is(PROJECT_2));
-		assertThat(modules.get(2).getLabel().getName(), is(PROJECT_3));
+		
+		modules.stream().forEach(mod -> {
+			assertTrue(expectedBefore.contains(mod.getLabel().getName()));
+		});
 		
 		dialog = server.addAndRemoveModules();
 		page = new ModifyModulesPage(dialog);

@@ -78,6 +78,4 @@ public class TestServerBehaviour extends ServerBehaviourDelegate {
 		AbstractWait.sleep(TimePeriod.SHORT);
 		setModuleState(module, IServer.STATE_STOPPED);
 	}
-	
-	
 }

@@ -70,7 +70,7 @@ public class ServersViewTestCase {
 
 		NewServerWizardPage newServerPage = new NewServerWizardPage(wizardDialog);
 		newServerPage.selectType("Basic", TestServer.NAME);
-		newServerPage.setName(name);		
+		newServerPage.setName(name);
 
 		wizardDialog.finish();
 		

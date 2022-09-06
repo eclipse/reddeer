@@ -13,7 +13,7 @@ package org.eclipse.reddeer.eclipse.jdt.ui.wizards;
 
 import org.eclipse.reddeer.core.reference.ReferencedComposite;
 import org.eclipse.reddeer.swt.impl.button.CheckBox;
-import org.eclipse.reddeer.swt.impl.button.LabeledCheckBox;
+import org.eclipse.reddeer.swt.impl.button.RadioButton;
 import org.eclipse.reddeer.swt.impl.text.LabeledText;
 
 /**
@@ -53,7 +53,7 @@ public class NewClassWizardPage extends AbstractJavaWizardPage implements CanImp
 	 * @return boolean state of the abstract checkbox
 	 */
 	public boolean getAbstractModifierCheckboxState() {
-		return new CheckBox(this, "abstract").isChecked();
+		return getAbstactModifierCheckBox().isChecked();
 	}
 
 	/**
@@ -62,7 +62,7 @@ public class NewClassWizardPage extends AbstractJavaWizardPage implements CanImp
 	 * @param toggle abstract modifier checkbox
 	 */
 	public NewClassWizardPage toggleAbstractModifierCheckbox(boolean toggle) {
-		new CheckBox(this, "abstract").toggle(toggle);
+		getAbstactModifierCheckBox().toggle(toggle);
 		return this;
 	}
 
@@ -72,7 +72,7 @@ public class NewClassWizardPage extends AbstractJavaWizardPage implements CanImp
 	 * @return boolean state of the final checkbox
 	 */
 	public boolean getFinalModifierCheckboxState() {
-		return new CheckBox(this, "final").isChecked();
+		return getFinalModifierCheckBox().isChecked();
 	}
 
 	/**
@@ -81,7 +81,7 @@ public class NewClassWizardPage extends AbstractJavaWizardPage implements CanImp
 	 * @param toggle final modifier checkbox
 	 */
 	public NewClassWizardPage toggleFinalModifierCheckbox(boolean toggle) {
-		new CheckBox(this, "final").toggle(toggle);
+		getFinalModifierCheckBox().toggle(toggle);
 		return this;
 	}
 
@@ -102,5 +102,53 @@ public class NewClassWizardPage extends AbstractJavaWizardPage implements CanImp
 	 */
 	public String getSuperclassName() {
 		return new LabeledText(this, "Superclass:").getText();
+	}
+	
+	/**
+	 * Return "abstract" check box object
+	 * @return CheckBox for abstract modifier
+	 */
+	public CheckBox getAbstactModifierCheckBox() {
+		return new CheckBox(this, "abstract");
+	}
+	
+	/**
+	 * Return "final" check box object
+	 * @return CheckBox for final modifier
+	 */
+	public CheckBox getFinalModifierCheckBox() {
+		return new CheckBox(this, "final");
+	}
+	
+	/**
+	 * Return "final" radio button object
+	 * @return RadioButton for final modifier
+	 */
+	public RadioButton getFinalModifierRadioButton() {
+		return new RadioButton(this, "final");
+	}
+	
+	/**
+	 * Return "none" radio button object
+	 * @return RadioButton for none modifier
+	 */
+	public RadioButton getNoneModifierRadioButton() {
+		return new RadioButton(this, "none");
+	}
+	
+	/**
+	 * Return "sealed" radio button object
+	 * @return RadioButton for sealed modifier
+	 */
+	public RadioButton getSealedModifierRadioButton() {
+		return new RadioButton(this, "sealed");
+	}
+	
+	/**
+	 * Return "non-sealed" radio button object
+	 * @return RadioButton for non-sealed modifier
+	 */
+	public RadioButton getNonSealedModifierRadioButton() {
+		return new RadioButton(this, "non-sealed");
 	}
 }

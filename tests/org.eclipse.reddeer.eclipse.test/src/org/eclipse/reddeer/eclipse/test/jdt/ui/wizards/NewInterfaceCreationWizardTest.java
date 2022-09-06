@@ -19,8 +19,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.reddeer.common.exception.RedDeerException;
+import org.eclipse.reddeer.common.matcher.RegexMatcher;
 import org.eclipse.reddeer.common.wait.TimePeriod;
 import org.eclipse.reddeer.common.wait.WaitUntil;
+import org.eclipse.reddeer.common.wait.WaitWhile;
+import org.eclipse.reddeer.core.matcher.WithTextMatcher;
 import org.eclipse.reddeer.eclipse.jdt.ui.wizards.JavaProjectWizard;
 import org.eclipse.reddeer.eclipse.jdt.ui.wizards.NewInterfaceCreationWizard;
 import org.eclipse.reddeer.eclipse.jdt.ui.wizards.NewInterfaceCreationWizardPage;
@@ -29,6 +32,7 @@ import org.eclipse.reddeer.eclipse.ui.navigator.resources.ProjectExplorer;
 import org.eclipse.reddeer.eclipse.ui.perspectives.JavaPerspective;
 import org.eclipse.reddeer.junit.runner.RedDeerSuite;
 import org.eclipse.reddeer.requirements.openperspective.OpenPerspectiveRequirement.OpenPerspective;
+import org.eclipse.reddeer.swt.condition.ShellIsAvailable;
 import org.eclipse.reddeer.swt.impl.button.PushButton;
 import org.eclipse.reddeer.workbench.condition.EditorWithTitleIsActive;
 import org.eclipse.reddeer.workbench.handler.EditorHandler;
@@ -62,6 +66,11 @@ public class NewInterfaceCreationWizardTest {
 
 	@After
 	public void closeAllEditors() {
+		ShellIsAvailable shell = new ShellIsAvailable(new WithTextMatcher(new RegexMatcher("[Extended|Implemented].*Interfaces Selection")));
+		new WaitWhile(shell, TimePeriod.SHORT, false);
+		if (shell.getResult() != null) {
+			shell.getResult().close();
+		}
 		EditorHandler.getInstance().closeAll(true);
 	}
 
@@ -222,14 +231,6 @@ public class NewInterfaceCreationWizardTest {
 		try {
 			interfacePage.addExtendedInterface("nonexisting.interface.name");
 			fail("RedDeer exception was not thrown when trying to add a non-existing extended interface.");
-		} catch (RedDeerException e) {
-			new PushButton("Cancel").click();
-		}
-
-		// try to add an extended interface, that is not fully specified by its name
-		try {
-			interfacePage.addExtendedInterface("Acl");
-			fail("RedDeer exception was not thrown when trying to add an extended interface, that is not fully specified by its name.");
 		} catch (RedDeerException e) {
 			new PushButton("Cancel").click();
 		}

@@ -42,7 +42,6 @@ public class WebBrowserPreferencePageTest {
 	
 	@Test
 	public void testBrowserPreferencePage() {
-		assertEquals("1", Preferences.get(BROWSER_PLUGIN, BROWSER_KEY));
 		page.toggleExternalBrowser();
 		page.apply();
 		assertEquals("1", Preferences.get(BROWSER_PLUGIN, BROWSER_KEY));
