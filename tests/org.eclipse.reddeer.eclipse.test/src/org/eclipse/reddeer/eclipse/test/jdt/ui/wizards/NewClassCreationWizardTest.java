@@ -12,6 +12,8 @@
 
 package org.eclipse.reddeer.eclipse.test.jdt.ui.wizards;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
@@ -173,10 +175,20 @@ public class NewClassCreationWizardTest {
 				classPage.toggleAbstractModifierCheckbox(true).getAbstractModifierCheckboxState());
 		assertTrue("State of abstract modifier should be 'false', but is not.",
 				!classPage.toggleAbstractModifierCheckbox(false).getAbstractModifierCheckboxState());
-		assertTrue("State of final modifier should be 'true', but is not.",
-				classPage.toggleFinalModifierCheckbox(true).getFinalModifierCheckboxState());
-		assertTrue("State of final modifier should be 'false', but is not.",
-				!classPage.toggleFinalModifierCheckbox(false).getFinalModifierCheckboxState());
+		
+		classPage.getFinalModifierRadioButton().click();
+		assertTrue("State of final modifier should be 'true', but is not.", 
+				classPage.getFinalModifierRadioButton().isSelected());
+		classPage.getNoneModifierRadioButton().click();
+		assertTrue("State of none modifier should be 'true', but is not.",
+				classPage.getNoneModifierRadioButton().isSelected());
+		assertFalse("State of final modifier should be 'false', but is not.",
+				classPage.getFinalModifierRadioButton().isSelected());
+		
+		// check some modifier objects creation
+		assertNotNull(classPage.getAbstactModifierCheckBox());
+		assertNotNull(classPage.getNonSealedModifierRadioButton());
+		assertNotNull(classPage.getFinalModifierCheckBox());
 
 		// test toggling the checkbox for creating main method in newly created class
 		assertTrue("State of checkbox for creating main method should be 'disabled', but is not.",
@@ -243,14 +255,6 @@ public class NewClassCreationWizardTest {
 		try {
 			classPage.addExtendedInterface("nonexisting.interface.name");
 			fail("RedDeer exception was not thrown when trying to add a non-existing extended interface.");
-		} catch (RedDeerException e) {
-			new PushButton("Cancel").click();
-		}
-
-		// try to add an extended interface, that is not fully specified by its name
-		try {
-			classPage.addExtendedInterface("Acl");
-			fail("RedDeer exception was not thrown when trying to add an extended interface, that is not fully specified by its name.");
 		} catch (RedDeerException e) {
 			new PushButton("Cancel").click();
 		}
