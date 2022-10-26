@@ -18,23 +18,23 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
 import org.eclipse.core.databinding.DataBindingContext;
-import org.eclipse.core.databinding.beans.BeanProperties;
+import org.eclipse.core.databinding.beans.typed.BeanProperties;
 import org.eclipse.core.databinding.observable.ChangeEvent;
 import org.eclipse.core.databinding.observable.IChangeListener;
 import org.eclipse.core.databinding.observable.value.IObservableValue;
 import org.eclipse.core.databinding.observable.value.SelectObservableValue;
 import org.eclipse.jface.databinding.swt.ISWTObservableValue;
-import org.eclipse.jface.databinding.swt.WidgetProperties;
+import org.eclipse.jface.databinding.swt.typed.WidgetProperties;
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.GridLayoutFactory;
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.Shell;
 import org.eclipse.reddeer.swt.api.Text;
 import org.eclipse.reddeer.swt.impl.button.RadioButton;
 import org.eclipse.reddeer.swt.impl.text.LabeledText;
 import org.eclipse.reddeer.swt.test.SWTLayerTestCase;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Shell;
 import org.junit.Test;
 
 /**
@@ -77,7 +77,7 @@ public class DataBindingRadioButtonTest extends SWTLayerTestCase {
 		org.eclipse.swt.widgets.Button buttonA = new org.eclipse.swt.widgets.Button(group, SWT.RADIO);
 		buttonA.setText(RADIO_BUTTON_LABEL_PREFIX + "A");
 		GridDataFactory.fillDefaults().align(SWT.FILL, SWT.CENTER).span(COLUMNS, 1).applyTo(buttonA);
-		selectedRadioButtonObservable.addOption("Selected: " + "A", WidgetProperties.selection().observe(buttonA));
+		selectedRadioButtonObservable.addOption("Selected: " + "A", WidgetProperties.buttonSelection().observe(buttonA));
 		org.eclipse.swt.widgets.Label labelA = new org.eclipse.swt.widgets.Label(group, SWT.NONE);
 		labelA.setText("Label " + "A");
 		GridDataFactory.fillDefaults().align(SWT.FILL, SWT.CENTER).indent(INDENT, 0).applyTo(labelA);
@@ -89,7 +89,7 @@ public class DataBindingRadioButtonTest extends SWTLayerTestCase {
 		org.eclipse.swt.widgets.Button buttonB = new org.eclipse.swt.widgets.Button(group, SWT.RADIO);
 		buttonB.setText(RADIO_BUTTON_LABEL_PREFIX + "B");
 		GridDataFactory.fillDefaults().align(SWT.FILL, SWT.CENTER).span(COLUMNS, 1).applyTo(buttonB);
-		selectedRadioButtonObservable.addOption("Selected: " + "B", WidgetProperties.selection().observe(buttonB));
+		selectedRadioButtonObservable.addOption("Selected: " + "B", WidgetProperties.buttonSelection().observe(buttonB));
 		org.eclipse.swt.widgets.Label labelB = new org.eclipse.swt.widgets.Label(group, SWT.NONE);
 		labelB.setText("Label " + "B");
 		GridDataFactory.fillDefaults().align(SWT.FILL, SWT.CENTER).indent(INDENT, 0).applyTo(labelB);
@@ -101,7 +101,7 @@ public class DataBindingRadioButtonTest extends SWTLayerTestCase {
 		org.eclipse.swt.widgets.Button buttonC = new org.eclipse.swt.widgets.Button(group, SWT.RADIO);
 		buttonC.setText(RADIO_BUTTON_LABEL_PREFIX + "C");
 		GridDataFactory.fillDefaults().align(SWT.FILL, SWT.CENTER).span(COLUMNS, 1).applyTo(buttonC);
-		selectedRadioButtonObservable.addOption("Selected: " + "C", WidgetProperties.selection().observe(buttonC));
+		selectedRadioButtonObservable.addOption("Selected: " + "C", WidgetProperties.buttonSelection().observe(buttonC));
 		org.eclipse.swt.widgets.Label labelC = new org.eclipse.swt.widgets.Label(group, SWT.NONE);
 		labelC.setText("Label " + "C");
 		GridDataFactory.fillDefaults().align(SWT.FILL, SWT.CENTER).indent(INDENT, 0).applyTo(labelC);
@@ -137,11 +137,11 @@ public class DataBindingRadioButtonTest extends SWTLayerTestCase {
 		buttonCModeModelObservable.addChangeListener(onButtonCSelection(buttonCControls));
 
 		// bindings
-		dbc.bindValue(WidgetProperties.selection().observe(buttonA), buttonAModeModelObservable);
+		dbc.bindValue(WidgetProperties.buttonSelection().observe(buttonA), buttonAModeModelObservable);
 		dbc.bindValue(WidgetProperties.text(SWT.Modify).observe(textA), buttonATextModelObservable);
-		dbc.bindValue(WidgetProperties.selection().observe(buttonB), buttonBModeModelObservable);
+		dbc.bindValue(WidgetProperties.buttonSelection().observe(buttonB), buttonBModeModelObservable);
 		dbc.bindValue(WidgetProperties.text(SWT.Modify).observe(textB), buttonBTextModelObservable);
-		dbc.bindValue(WidgetProperties.selection().observe(buttonC), buttonCModeModelObservable);
+		dbc.bindValue(WidgetProperties.buttonSelection().observe(buttonC), buttonCModeModelObservable);
 		dbc.bindValue(WidgetProperties.text(SWT.Modify).observe(textC), buttonCTextModelObservable);
 		
 		//shows selected radio button
