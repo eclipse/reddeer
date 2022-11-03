@@ -7,6 +7,7 @@ import static org.junit.Assert.assertTrue;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import org.eclipse.reddeer.common.wait.TimePeriod;
 import org.eclipse.reddeer.common.wait.WaitUntil;
 import org.eclipse.reddeer.integration.test.installation.common.preferences.AvailableSoftwareSitesPreferencePage;
 import org.eclipse.reddeer.jface.preference.PreferenceDialog;
@@ -179,10 +180,10 @@ public class AvailableSoftwareSitesPreferencePageTest {
 	@Test
 	public void clickReloadTest() {
 		page.selectItem(ECLIPSE);
-		page.clickRemove();
-		new WaitUntil(new ShellIsAvailable("Progress Information"));
+		page.clickReload();
 		shell = new DefaultShell();
-		assertTrue("Shell with title Reload is not opened", shell.getText().contains("Reload"));
+		assertTrue("Progress Information shell did not open", shell.getText().contains("Progress Information"));
+		new PushButton(shell, "Cancel").click();
 	}
 	
 	@Test
