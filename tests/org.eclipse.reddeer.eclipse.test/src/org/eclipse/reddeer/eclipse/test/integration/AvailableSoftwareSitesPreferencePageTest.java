@@ -1,3 +1,14 @@
+/*******************************************************************************
+ * Copyright (c) 2017 Red Hat, Inc and others.
+ * This program and the accompanying materials are made available under the
+ * terms of the Eclipse Public License 2.0 which is available at
+ * http://www.eclipse.org/legal/epl-2.0.
+ *
+ * SPDX-License-Identifier: EPL-2.0
+ *
+ * Contributors:
+ *     Red Hat, Inc - initial API and implementation
+ *******************************************************************************/
 package org.eclipse.reddeer.eclipse.test.integration;
 
 import static org.junit.Assert.assertFalse;
@@ -23,6 +34,13 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+/**
+ * Tests which check if implementation of AvailableSoftwareSitesPreferencePage
+ * works as expected
+ * 
+ * @author Lukas Grossmann
+ */
 
 @RunWith(RedDeerSuite.class)
 public class AvailableSoftwareSitesPreferencePageTest {
@@ -157,7 +175,7 @@ public class AvailableSoftwareSitesPreferencePageTest {
 	@Test
 	public void clickAddTest() {
 		page.clickAdd();
-		shell = new DefaultShell();
+		shell = new DefaultShell("Add Site");
 		assertTrue("Shell with title Add Site is not opened", shell.getText().contains("Add Site"));
 	}
 	
@@ -165,7 +183,7 @@ public class AvailableSoftwareSitesPreferencePageTest {
 	public void clickEditTest() {
 		page.selectItem(ECLIPSE);
 		page.clickEdit();
-		shell = new DefaultShell();
+		shell = new DefaultShell("Edit Site");
 		assertTrue("Shell with title Edit Site is not opened", shell.getText().contains("Edit Site"));
 	}
 	
@@ -173,7 +191,7 @@ public class AvailableSoftwareSitesPreferencePageTest {
 	public void clickRemoveTest() {
 		page.selectItem(REDDEER);
 		page.clickRemove();
-		shell = new DefaultShell();
+		shell = new DefaultShell("Remove Sites");
 		assertTrue("Shell with title Remove Sites is not opened", shell.getText().contains("Remove Sites"));
 	}
 	
@@ -181,7 +199,7 @@ public class AvailableSoftwareSitesPreferencePageTest {
 	public void clickReloadTest() {
 		page.selectItem(ECLIPSE);
 		page.clickReload();
-		shell = new DefaultShell();
+		shell = new DefaultShell("Progress Information");
 		assertTrue("Progress Information shell did not open", shell.getText().contains("Progress Information"));
 		new PushButton(shell, "Cancel").click();
 	}
