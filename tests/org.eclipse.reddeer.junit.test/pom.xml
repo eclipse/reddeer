@@ -31,6 +31,13 @@
 			<version>${project.version}</version>
 			<scope>compile</scope>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.mockito/mockito-core -->
+		<dependency>
+		    <groupId>org.mockito</groupId>
+		    <artifactId>mockito-core</artifactId>
+		    <version>4.6.1</version>
+		    <scope>compile</scope>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -40,11 +47,6 @@
 				<artifactId>tycho-surefire-plugin</artifactId>
 				<configuration>
 					<dependencies combine.children="append">
-						<dependency>
-							<type>p2-installable-unit</type>
-							<artifactId>org.mockito</artifactId>
-							<version>1.9.5</version>
-						</dependency>
 						<dependency>
 							<type>p2-installable-unit</type>
 							<artifactId>org.hamcrest</artifactId>
