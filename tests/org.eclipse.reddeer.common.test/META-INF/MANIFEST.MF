@@ -3,9 +3,9 @@ Bundle-ManifestVersion: 2
 Bundle-Name: RedDeer Common Tests
 Bundle-Vendor: Eclipse.org - RedDeer
 Bundle-SymbolicName: org.eclipse.reddeer.common.test;singleton:=true
-Bundle-Version: 4.4.0.qualifier
+Bundle-Version: 4.5.0.qualifier
 Bundle-Activator: org.eclipse.reddeer.common.test.Activator
-Require-Bundle: org.eclipse.reddeer.go;bundle-version="[2.2.0,4.4.1)"
+Require-Bundle: org.eclipse.reddeer.go;bundle-version="[2.2.0,4.5.1)"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-17
 Automatic-Module-Name: org.eclipse.reddeer.common.test
