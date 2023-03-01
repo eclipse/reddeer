@@ -17,12 +17,16 @@ import static org.junit.Assert.fail;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import org.eclipse.reddeer.common.wait.TimePeriod;
+import org.eclipse.reddeer.common.wait.WaitWhile;
 import org.eclipse.reddeer.integration.test.installation.common.dialog.InstallNewSoftwareDialog;
 import org.eclipse.reddeer.integration.test.installation.common.page.AvailableSoftwarePage;
 import org.eclipse.reddeer.integration.test.installation.common.preferences.AvailableSoftwareSitesPreferencePage;
 import org.eclipse.reddeer.integration.test.installation.common.util.InstallationOperator;
-import org.eclipse.reddeer.jface.preference.PreferencePage;
 import org.eclipse.reddeer.junit.runner.RedDeerSuite;
+import org.eclipse.reddeer.swt.condition.ShellIsAvailable;
+import org.eclipse.reddeer.swt.impl.button.PushButton;
+import org.eclipse.reddeer.swt.impl.shell.DefaultShell;
 import org.eclipse.reddeer.workbench.ui.dialogs.WorkbenchPreferenceDialog;
 import org.junit.BeforeClass;
 import org.junit.Rule;
@@ -47,8 +51,13 @@ public class InstallSoftwareFromUpdateSiteTest {
 			dialog.open();
 			AvailableSoftwareSitesPreferencePage page = new AvailableSoftwareSitesPreferencePage(dialog);
 			dialog.select(page);
-			page.getItems().stream().forEach(item -> System.out.println(item.getText()));
-			page.toggleAllItems(false);
+			for (int i = 0; i < page.getItems().size(); i++) {
+				page.getItems().get(0).select();
+				page.clickRemove();
+				DefaultShell removeSites = new DefaultShell("Remove Sites");
+				new PushButton("Yes").click();
+				new WaitWhile(new ShellIsAvailable(removeSites), TimePeriod.SHORT);
+			}
 			dialog.ok();
 		}
 	}

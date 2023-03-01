@@ -12,6 +12,8 @@
 
 package org.eclipse.reddeer.integration.test.installation.common.util;
 
+import static org.junit.Assert.fail;
+
 import org.eclipse.reddeer.common.logging.Logger;
 import org.eclipse.reddeer.common.matcher.RegexMatcher;
 import org.eclipse.reddeer.common.wait.TimePeriod;
@@ -52,6 +54,9 @@ public class InstallationOperator {
 	public void completeInstallation() {
 		if (new WithTextMatcher(new RegexMatcher(RemediationActionPage.PAGE_TITLE)).matches(installWizard.getTitle())) {
 			dealWithRemediationPage();
+			if (Boolean.getBoolean("fail.on.remediation")) {
+				fail("Remediation page was shown, see the logs");
+			}
 		}
 
 		if (installWizard.getTitle().equals(InstallDetailsPage.PAGE_TITLE)) {
@@ -186,23 +191,23 @@ public class InstallationOperator {
 	public void dealWithRemediationPage() {
 		LOG.warn("Remediation Action page has been displayed.");
 
-		RemediationActionPage remetiationPage = new RemediationActionPage(installWizard);
+		RemediationActionPage remediationPage = new RemediationActionPage(installWizard);
 
-		if (remetiationPage.isEnabledShowOriginalErrors()) {
-			remetiationPage.chooseShowOriginalErrors();
+		if (remediationPage.isEnabledShowOriginalErrors()) {
+			remediationPage.chooseShowOriginalErrors();
 			capture("Remediation_Page_Show_Original_Errors");
-			LOG.warn("Remediation Action needed. Original error:\n" + remetiationPage.getOriginalError());
+			LOG.warn("Remediation Action needed. Original error:\n" + remediationPage.getOriginalError());
 		}
 
-		if (remetiationPage.isEnabledKeepMyInstallation()) {
-			remetiationPage.chooseKeepMyInstallation();
+		if (remediationPage.isEnabledKeepMyInstallation()) {
+			remediationPage.chooseKeepMyInstallation();
 			capture("Remediation_Page_Keep_My_Installation");
 		}
 
-		if (remetiationPage.isEnabledUpdateMyInstallation()) {
-			remetiationPage.chooseUpdateMyInstallation();
+		if (remediationPage.isEnabledUpdateMyInstallation()) {
+			remediationPage.chooseUpdateMyInstallation();
 			capture("Remediation_Page_Update_My_Installation");
-			RemediationActionValidator.validateSolution(remetiationPage, collector);
+			RemediationActionValidator.validateSolution(remediationPage, collector);
 		} else {
 			//collector.addError(new AssertionError("Remediation Action is needed and 'Update' choice is not available."));
 			LOG.warn("Remediation Action is needed and 'Update' choice is not available.");
