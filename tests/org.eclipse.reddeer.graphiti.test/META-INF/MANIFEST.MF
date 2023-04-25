@@ -3,11 +3,11 @@ Bundle-ManifestVersion: 2
 Bundle-Name: RedDeer Graphiti Tests
 Bundle-Vendor: Eclipse.org - RedDeer
 Bundle-SymbolicName: org.eclipse.reddeer.graphiti.test
-Bundle-Version: 4.5.0.qualifier
+Bundle-Version: 4.6.0.qualifier
 Bundle-Activator: org.eclipse.reddeer.graphiti.test.Activator
-Require-Bundle: org.eclipse.reddeer.go;bundle-version="[2.2.0,4.5.1)",
- org.eclipse.reddeer.gef;bundle-version="[2.2.0,4.5.1)",
- org.eclipse.reddeer.graphiti;bundle-version="[2.2.0,4.5.1)"
+Require-Bundle: org.eclipse.reddeer.go;bundle-version="[2.2.0,4.6.1)",
+ org.eclipse.reddeer.gef;bundle-version="[2.2.0,4.6.1)",
+ org.eclipse.reddeer.graphiti;bundle-version="[2.2.0,4.6.1)"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-17
 Automatic-Module-Name: org.eclipse.reddeer.graphiti.test

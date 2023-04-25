@@ -113,8 +113,8 @@
     
     <!--Change the site to releases once doing final release -->
     <!--repository-reference location="http://download.eclipse.org/releases/2021-12/" enabled="true" /-->
-    <repository-reference location="https://download.eclipse.org/releases/2023-03/" enabled="true" />
-    <repository-reference location="https://download.eclipse.org/eclipse/updates/4.27/" enabled="true" />
-    <repository-reference location="https://download.eclipse.org/tools/orbit/downloads/latest-R/" enabled="true" />
+    <repository-reference location="https://download.eclipse.org/releases/2023-06/" enabled="true" />
+    <repository-reference location="https://download.eclipse.org/eclipse/updates/4.28/" enabled="true" />
+    <repository-reference location="https://download.eclipse.org/tools/orbit/downloads/latest-S/" enabled="true" />
     
 </site>
