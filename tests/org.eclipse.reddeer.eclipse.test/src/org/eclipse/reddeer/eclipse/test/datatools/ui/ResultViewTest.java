@@ -137,7 +137,7 @@ public class ResultViewTest {
 		new ContextMenuItem("Execute All").select();
 		
 		new WaitUntil(new ShellIsAvailable("SQL Statement Execution"),TimePeriod.DEFAULT, false);
-		new WaitWhile(new ShellIsAvailable("SQL Statement Execution"),TimePeriod.LONG, false);
+		new WaitWhile(new ShellIsAvailable("SQL Statement Execution"),TimePeriod.VERY_LONG);
 		
 		scrapbook.close(false);
 	}

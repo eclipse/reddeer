@@ -76,7 +76,11 @@ public class MavenImportWizard extends ImportMenuWizard {
 			try {
 				ResolveDialog dialog = new ResolveDialog();
 				dialog.resolveAllLater();
-				dialog.finish();
+				try { // workaround for https://github.com/eclipse-m2e/m2e-core/issues/1371
+					dialog.finish();
+				} catch (org.eclipse.reddeer.common.exception.WaitTimeoutExpiredException e) {
+					dialog.cancel();
+				}
 			} catch (Exception e) {
 				// ok, it means that the warning wasn't displayed
 			}
@@ -138,6 +142,11 @@ public class MavenImportWizard extends ImportMenuWizard {
 
 		public void finish() {
 			new PushButton("Finish").click();
+			new WaitWhile(new ShellIsAvailable(this));
+		}
+		
+		public void cancel() {
+			new PushButton("Cancel").click();
 			new WaitWhile(new ShellIsAvailable(this));
 		}
 

@@ -75,7 +75,7 @@ public class TextEditorTest {
 
 	private static String ORIGINAL_JAVA_FILE_TEXT = "";
 	private static final String JAVA_CLASS_FILE_NAME = "JavaClass.java";
-	private static final String JAVA_CLASS_REGEX_FILE_NAME = "JavaClass+.java";
+	private static final String JAVA_CLASS_REGEX_FILE_NAME = "JavaClass1+.java";
 
 	@BeforeClass
 	public static void setup() {

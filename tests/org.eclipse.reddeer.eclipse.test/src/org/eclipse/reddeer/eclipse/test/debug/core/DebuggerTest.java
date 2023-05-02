@@ -25,6 +25,8 @@ import org.eclipse.reddeer.eclipse.condition.LaunchIsSuspended;
 import org.eclipse.reddeer.eclipse.condition.LaunchIsTerminated;
 import org.eclipse.reddeer.eclipse.core.resources.Project;
 import org.eclipse.reddeer.eclipse.core.resources.ProjectItem;
+import org.eclipse.reddeer.eclipse.debug.ui.launchConfigurations.JUnitLaunchConfiguration;
+import org.eclipse.reddeer.eclipse.debug.ui.launchConfigurations.RunConfigurationsDialog;
 import org.eclipse.reddeer.eclipse.debug.ui.views.breakpoints.Breakpoint;
 import org.eclipse.reddeer.eclipse.debug.ui.views.breakpoints.BreakpointsView;
 import org.eclipse.reddeer.eclipse.debug.ui.views.launch.LaunchView;
@@ -57,6 +59,8 @@ import org.junit.runner.RunWith;
 @RunWith(RedDeerSuite.class)
 public class DebuggerTest {
 
+	private static final String JAVA_FILE_NAME = "AppTest";
+	
 	public static final File BREAKPOINST_FILE = new File(getTestResourcesLocation(DebuggerTest.class), "AppTest.bkpt");
 
 	public static final String BREAKPOINT_1 = "AppTest [line: 28]";
@@ -92,7 +96,22 @@ public class DebuggerTest {
 	@After
 	public void tearDown(){
 		removeAllBreakpoints();
+		removeJunitLaunchConfiguration(); // remove launch configuration after every run,
+										  // because it changes the item name from "JUnit Test" to
+										  // the name of file in context menu
 	}
+	
+	private void removeJunitLaunchConfiguration() {
+	RunConfigurationsDialog launchConf = new RunConfigurationsDialog();
+	launchConf.open();
+	try {
+		launchConf.delete(new JUnitLaunchConfiguration(), JAVA_FILE_NAME);
+	} catch (org.eclipse.reddeer.core.exception.CoreLayerException e) {
+		// Launch configuration does not exist. No need to remove.
+	}
+	launchConf.close();
+}
+	
 	@AfterClass
 	public static void removeProjext(){
 		DebuggerTest.projectExplorer.open();
@@ -112,7 +131,7 @@ public class DebuggerTest {
 
 		DebuggerTest.projectExplorer.open();
 		Project appProject = new ProjectExplorer().getProject("debugger");
-		ProjectItem appTest = appProject.getProjectItem("src/test/java", "com.example.debugger", "AppTest.java");
+		ProjectItem appTest = appProject.getProjectItem("src/test/java", "com.example.debugger", JAVA_FILE_NAME + ".java");
 		appTest.debugAs("JUnit Test");
 
 		new WaitUntil(new LaunchIsSuspended());
@@ -139,7 +158,7 @@ public class DebuggerTest {
 
 		DebuggerTest.projectExplorer.open();
 		Project appProject = new ProjectExplorer().getProject("debugger");
-		ProjectItem appTest = appProject.getProjectItem("src/test/java", "com.example.debugger", "AppTest.java");
+		ProjectItem appTest = appProject.getProjectItem("src/test/java", "com.example.debugger", JAVA_FILE_NAME + ".java");
 		appTest.debugAs("JUnit Test");
 
 		new WaitUntil(new LaunchIsSuspended());
@@ -162,7 +181,7 @@ public class DebuggerTest {
 
 		DebuggerTest.projectExplorer.open();
 		Project appProject = new ProjectExplorer().getProject("debugger");
-		ProjectItem appTest = appProject.getProjectItem("src/test/java", "com.example.debugger", "AppTest.java");
+		ProjectItem appTest = appProject.getProjectItem("src/test/java", "com.example.debugger", JAVA_FILE_NAME + ".java");
 		appTest.debugAs("JUnit Test");
 
 		new WaitUntil(new LaunchIsSuspended());

@@ -10,9 +10,9 @@
  *     Red Hat, Inc - initial API and implementation
  *******************************************************************************/
 package test;
-public class JavaClass {
+public class JavaClass1 {
 
-	public JavaClass() {
+	public JavaClass1() {
 		System.out.println("");
 	}
 
