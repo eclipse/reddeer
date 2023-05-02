@@ -49,20 +49,26 @@ public class RedDeerTestClassRunMenuOptionsTest extends RedDeerWizardTestCase {
 	public void testContextMenu() {
 		DefaultProject project = getProject(PLUGIN_ID);
 		project.getProjectItem(EXAMPLE_TEST_CLASS_PATH).select();
+
 		try {
-			new ContextMenuItem(new DefaultTree(),
+			try {
+				new ContextMenuItem(new DefaultTree(),
 				new WithTextMatcher(new RegexMatcher(".*Run As.*")), 
-				new WithTextMatcher(new RegexMatcher(".*RedDeer Test.*")));
+				new WithTextMatcher(new RegexMatcher(".*RedDeer Test.*"))); // if it's the first run
+			} catch (CoreLayerException e) { // Launch configuration create with the same NAME as FILE NAME after first run
+				new ContextMenuItem(new DefaultTree(),
+				new WithTextMatcher(new RegexMatcher(".*Run As.*")), 
+				new WithTextMatcher(new RegexMatcher(".*"+ EXAMPLE_TEST_CLASS_NAME + ".*"))); // if the launch configuration exists
+			}
 		} catch (CoreLayerException exc) {
-			fail("ContextMenuItem Run As -> RedDeer Test is missing");
+			fail("ContextMenuItem Run As -> RedDeer Test (" + EXAMPLE_TEST_CLASS_NAME + ") is missing");
 		}
-		
 		try {
 			new ContextMenuItem(new DefaultTree(),
 				new WithTextMatcher(new RegexMatcher(".*Debug As.*")), 
-				new WithTextMatcher(new RegexMatcher(".*RedDeer Test.*")));
+				new WithTextMatcher(new RegexMatcher(".*"+ EXAMPLE_TEST_CLASS_NAME + ".*")));
 		} catch (CoreLayerException exc) {
-			fail("ContextMenuItem Debug As -> RedDeer Test is missing");
+			fail("ContextMenuItem Debug As -> RedDeer Test (" + EXAMPLE_TEST_CLASS_NAME + ") is missing");
 		}
 	}
 	
