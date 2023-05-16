@@ -129,7 +129,7 @@ public class GEFSpyView extends ViewPart {
 		}
 		if (obj instanceof IFigure) {
 			IFigure figure = (IFigure) obj;
-			List<Object> children = figure.getChildren();
+			List<Object> children = (List<Object>) figure.getChildren();
 			for (Object child : children) {
 				TreeNodeExt newNode = new TreeNodeExt(child);
 				createTree(newNode);
