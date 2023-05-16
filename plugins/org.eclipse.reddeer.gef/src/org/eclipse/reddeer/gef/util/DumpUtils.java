@@ -92,7 +92,7 @@ public class DumpUtils {
 			dump("> Tooltip: " + ((Label) tooltip).getText(), indent + 1);
 		}
 		@SuppressWarnings("unchecked")
-		List<IFigure> list = parent.getChildren();
+		List<IFigure> list = (List<IFigure>) parent.getChildren();
 		for (IFigure figure : list) {
 			dump(figure, indent + 1);
 		}

@@ -28,7 +28,7 @@ public class FigureFinder extends Finder<IFigure> {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<IFigure> getChildren(IFigure child) {
-		return child.getChildren();
+		return (List<IFigure>) child.getChildren();
 	}
 
 }
