@@ -13,7 +13,7 @@ Require-Bundle: org.eclipse.core.runtime,
  com.fasterxml.jackson.core.jackson-core,
  com.fasterxml.jackson.core.jackson-databind,
  org.json;bundle-version="1.0.0",
- org.yaml.snakeyaml;bundle-version="1.14.0"
+ org.yaml.snakeyaml;bundle-version="2.0.0"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-17
 Bundle-ClassPath: .

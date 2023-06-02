@@ -101,8 +101,8 @@
 				<artifactId>target-platform-configuration</artifactId>
 				<version>${tycho-version}</version>
 				<configuration>
+					<pomDependencies>consider</pomDependencies>
 					<resolver>p2</resolver>
-					<ignoreTychoRepositories>true</ignoreTychoRepositories>
 					<environments>
 						<environment>
 							<os>macosx</os>
@@ -210,6 +210,12 @@
 			<url>${eclipse-orbit-update-site}</url>
 			<layout>p2</layout>
 		</repository>
+		<repository>
+			<id>maven-central-snakeyaml</id>
+			<url>https://repo.maven.apache.org/maven2/org/snakeyaml/snakeyaml-engine/</url>
+			<layout>default</layout>
+		</repository>
+		
 	</repositories>
 	
 	<pluginRepositories>
