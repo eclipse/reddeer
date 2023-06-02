@@ -114,7 +114,7 @@ public class GEFSpyView extends ViewPart {
 		Object obj = node.getValue();
 		if (obj instanceof EditPart) {
 			EditPart editPart = (EditPart) obj;
-			List<Object> children = editPart.getChildren();
+			List<Object> children = (List<Object>) editPart.getChildren();
 			for (Object child : children) {
 				TreeNodeExt newNode = new TreeNodeExt(child);
 				createTree(newNode);

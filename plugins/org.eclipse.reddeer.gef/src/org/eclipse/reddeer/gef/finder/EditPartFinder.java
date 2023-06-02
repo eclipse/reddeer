@@ -28,7 +28,7 @@ public class EditPartFinder extends Finder<EditPart> {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<EditPart> getChildren(EditPart child) {
-		return child.getChildren();
+		return (List<EditPart>) child.getChildren();
 	}
 
 }
