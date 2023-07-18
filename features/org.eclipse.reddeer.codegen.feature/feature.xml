@@ -14,7 +14,7 @@
 <feature
       id="org.eclipse.reddeer.codegen.feature"
       label="%featureName"
-      version="4.6.0.qualifier"
+      version="4.7.0.qualifier"
       provider-name="Eclipse.org - RedDeer">
 
    <description>

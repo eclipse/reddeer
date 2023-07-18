@@ -3,11 +3,11 @@ Bundle-ManifestVersion: 2
 Bundle-Name: RedDeer Eclipse Tests
 Bundle-Vendor: Eclipse.org - RedDeer
 Bundle-SymbolicName: org.eclipse.reddeer.eclipse.test;singleton:=true
-Bundle-Version: 4.6.0.qualifier
+Bundle-Version: 4.7.0.qualifier
 Bundle-Activator: org.eclipse.reddeer.eclipse.test.Activator
 Require-Bundle: org.eclipse.equinox.p2.ui.sdk,
- org.eclipse.reddeer.go;bundle-version="[2.2.0,4.6.1)",
- org.eclipse.reddeer.gef;bundle-version="[2.2.0,4.6.1)",
+ org.eclipse.reddeer.go;bundle-version="[2.2.0,4.7.1)",
+ org.eclipse.reddeer.gef;bundle-version="[2.2.0,4.7.1)",
  org.eclipse.jst.servlet.ui,
  org.eclipse.jdt.debug.ui,
  org.eclipse.ui.forms,
