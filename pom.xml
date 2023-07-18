@@ -16,17 +16,17 @@
 	<groupId>org.eclipse.reddeer</groupId>
 	<artifactId>parent</artifactId>
 	<name>RedDeer Parent POM File</name>
-	<version>4.6.0-SNAPSHOT</version>
+	<version>4.7.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<properties>
 		<tycho-version>2.7.5</tycho-version>
 		<tychoExtrasVersion>${tycho-version}</tychoExtrasVersion>
-		<eclipse-target-site>https://download.eclipse.org/releases/2023-06/</eclipse-target-site>
+		<eclipse-target-site>https://download.eclipse.org/releases/2023-09/</eclipse-target-site>
 		<swtbot-update-site>https://download.eclipse.org/technology/swtbot/snapshots/</swtbot-update-site>
         <!-- when making final release, switch from S to R latest update site - https://github.com/eclipse/reddeer/issues/2100 -->
-        <eclipse-orbit-update-site>https://download.eclipse.org/tools/orbit/downloads/latest-R/</eclipse-orbit-update-site>
-        <!--eclipse-orbit-update-site>https://download.eclipse.org/tools/orbit/downloads/latest-S/</eclipse-orbit-update-site-->
+        <!--eclipse-orbit-update-site>https://download.eclipse.org/tools/orbit/downloads/latest-R/</eclipse-orbit-update-site-->
+        <eclipse-orbit-update-site>https://download.eclipse.org/tools/orbit/downloads/latest-S/</eclipse-orbit-update-site>
 		<cbi-repo-site>https://repo.eclipse.org/content/repositories/cbi-releases/</cbi-repo-site>
 		<download-plugin-version>1.2.1</download-plugin-version>
 		<java.target.version>17</java.target.version>
@@ -35,13 +35,13 @@
 			you can override this value to be Nightly Build, Development Milestone, or 
 			Stable Release, or set to &amp;shy; (soft hyphen) to leave blank -->
 		<update.site.description>&amp;shy;</update.site.description>
-		<targetEclipseVersion>4.28 (2023-06)</targetEclipseVersion>
+		<targetEclipseVersion>4.29 (2023-09)</targetEclipseVersion>
 		<BUILD_ALIAS></BUILD_ALIAS>
 		<BUILD_TIMESTAMP>yyyyMMdd-HHmm</BUILD_TIMESTAMP>
 		<maven.compiler.source>${java.target.version}</maven.compiler.source>
 		<maven.compiler.target>${java.target.version}</maven.compiler.target>
 		<!-- Java Code Coverage -->
-		<jacoco-version>0.8.9</jacoco-version>
+		<jacoco-version>0.8.10</jacoco-version>
 		<!-- Sonar Properties -->
 		<sonar.code.codeCoveragePlugin>jacoco</sonar.code.codeCoveragePlugin>
 		<sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
