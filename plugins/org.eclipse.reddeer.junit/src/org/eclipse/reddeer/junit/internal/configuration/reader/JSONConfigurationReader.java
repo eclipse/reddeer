@@ -29,8 +29,9 @@ import org.eclipse.reddeer.junit.requirement.Requirement;
 import org.eclipse.reddeer.junit.requirement.RequirementException;
 import org.eclipse.reddeer.junit.requirement.configuration.RequirementConfiguration;
 import org.json.JSONObject;
+import org.yaml.snakeyaml.LoaderOptions;
 import org.yaml.snakeyaml.Yaml;
-import org.yaml.snakeyaml.constructor.SafeConstructor;
+import org.yaml.snakeyaml.constructor.Constructor;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -86,7 +87,7 @@ public class JSONConfigurationReader implements ConfigurationReader {
 	
 	@SuppressWarnings("unchecked")
 	private String convertYamlToJson(File file) throws FileNotFoundException {
-		Map<String,Object> map= (Map<String, Object>) new Yaml(new SafeConstructor()).load(new FileReader(file));
+		Map<String,Object> map= (Map<String, Object>) new Yaml(new Constructor(new LoaderOptions())).load(new FileReader(file));
 		JSONObject jsonObject = new JSONObject(map);
 		return jsonObject.toString();
 	}

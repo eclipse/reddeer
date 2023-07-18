@@ -26,8 +26,8 @@
 		<swtbot-update-site>https://download.eclipse.org/technology/swtbot/snapshots/</swtbot-update-site>
         <!-- when making final release, switch from S to R latest update site - https://github.com/eclipse/reddeer/issues/2100 -->
         <!--eclipse-orbit-update-site>https://download.eclipse.org/tools/orbit/downloads/latest-R/</eclipse-orbit-update-site-->
-        <eclipse-orbit-update-site>https://download.eclipse.org/tools/orbit/downloads/latest-S/</eclipse-orbit-update-site>
-        <!--eclipse-oomph-update-site>https://download.eclipse.org/oomph/simrel-orbit/2023-09/</eclipse-oomph-update-site-->
+        <!--eclipse-orbit-update-site>https://download.eclipse.org/tools/orbit/downloads/latest-S/</eclipse-orbit-update-site-->
+        <eclipse-oomph-update-site>https://download.eclipse.org/oomph/simrel-orbit/2023-09/</eclipse-oomph-update-site>
 		<cbi-repo-site>https://repo.eclipse.org/content/repositories/cbi-releases/</cbi-repo-site>
 		<download-plugin-version>1.2.1</download-plugin-version>
 		<java.target.version>17</java.target.version>
@@ -207,15 +207,10 @@
 			</releases>
 		</repository>
 		<repository>
-			<id>eclipse-orbit-update-site</id>
-			<url>${eclipse-orbit-update-site}</url>
-			<layout>p2</layout>
-		</repository>
-		<!--repository>
 			<id>eclipse-oomph-update-site</id>
 			<url>${eclipse-oomph-update-site}</url>
 			<layout>p2</layout>
-		</repository-->
+		</repository>
 	</repositories>
 	
 	<pluginRepositories>
