@@ -65,7 +65,7 @@ public class DumpUtils {
 			dump(((GraphicalEditPart) parent).getFigure(), indent + 1);
 		}
 		@SuppressWarnings("unchecked")
-		List<EditPart> editParts = parent.getChildren();
+		List<EditPart> editParts = (List<EditPart>) parent.getChildren();
 		for (EditPart editPart : editParts) {
 			dump(editPart, indent + 1);
 		}
