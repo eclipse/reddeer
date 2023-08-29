@@ -34,7 +34,7 @@ public class MavenPreferencePageTest {
 		preferencesDialog.select(mavenPreferencePage);
 		
 		mavenPreferencePage.setDebugOutput(true);
-		mavenPreferencePage.setDoNotAutoUpdateDeps(true);
+//		mavenPreferencePage.setDoNotAutoUpdateDeps(true); # is not a part of 2023-09 Eclipse
 		mavenPreferencePage.setDownloadArtifactJavadoc(true);
 		mavenPreferencePage.setDownloadArtifactSources(true);
 		mavenPreferencePage.setDownloadRepoIndexOnStartup(true);
@@ -43,7 +43,7 @@ public class MavenPreferencePageTest {
 		mavenPreferencePage.setUpdateMavenProjectsOnStartup(true);
 		
 		assertTrue(mavenPreferencePage.isDebugOutputChecked());
-		assertTrue(mavenPreferencePage.isDoNotAutoUpdateDepsChecked());
+//		assertTrue(mavenPreferencePage.isDoNotAutoUpdateDepsChecked()); # is not a part of 2023-09 Eclipse
 		assertTrue(mavenPreferencePage.isDownloadArtifactJavadocChecked());
 		assertTrue(mavenPreferencePage.isDownloadArtifactSourcesChecked());
 		assertTrue(mavenPreferencePage.isDownloadRepoIndexOnStartupChecked());
@@ -60,7 +60,7 @@ public class MavenPreferencePageTest {
 		preferencesDialog.select(mavenPreferencePage);
 		
 		mavenPreferencePage.setDebugOutput(false);
-		mavenPreferencePage.setDoNotAutoUpdateDeps(false);
+//		mavenPreferencePage.setDoNotAutoUpdateDeps(false); # is not a part of 2023-09 Eclipse
 		mavenPreferencePage.setDownloadArtifactJavadoc(false);
 		mavenPreferencePage.setDownloadArtifactSources(false);
 		mavenPreferencePage.setDownloadRepoIndexOnStartup(false);
@@ -69,7 +69,7 @@ public class MavenPreferencePageTest {
 		mavenPreferencePage.setUpdateMavenProjectsOnStartup(false);
 		
 		assertFalse(mavenPreferencePage.isDebugOutputChecked());
-		assertFalse(mavenPreferencePage.isDoNotAutoUpdateDepsChecked());
+//		assertFalse(mavenPreferencePage.isDoNotAutoUpdateDepsChecked()); # is not a part of 2023-09 Eclipse
 		assertFalse(mavenPreferencePage.isDownloadArtifactJavadocChecked());
 		assertFalse(mavenPreferencePage.isDownloadArtifactSourcesChecked());
 		assertFalse(mavenPreferencePage.isDownloadRepoIndexOnStartupChecked());
