@@ -20,7 +20,7 @@
 	<packaging>pom</packaging>
 
 	<properties>
-		<tycho-version>2.7.5</tycho-version>
+		<tycho-version>4.0.2</tycho-version>
 		<tychoExtrasVersion>${tycho-version}</tychoExtrasVersion>
 		<eclipse-target-site>https://download.eclipse.org/releases/2023-09/</eclipse-target-site>
 		<swtbot-update-site>https://download.eclipse.org/technology/swtbot/snapshots/</swtbot-update-site>
