@@ -14,8 +14,6 @@ package org.eclipse.reddeer.eclipse.test.jst.j2ee.ui.project.facet;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import org.eclipse.reddeer.common.wait.AbstractWait;
-import org.eclipse.reddeer.common.wait.TimePeriod;
 import org.eclipse.reddeer.eclipse.jst.j2ee.ui.project.facet.EarProjectFirstPage;
 import org.eclipse.reddeer.eclipse.jst.j2ee.ui.project.facet.EarProjectInstallPage;
 import org.eclipse.reddeer.eclipse.jst.j2ee.ui.project.facet.EarProjectWizard;
