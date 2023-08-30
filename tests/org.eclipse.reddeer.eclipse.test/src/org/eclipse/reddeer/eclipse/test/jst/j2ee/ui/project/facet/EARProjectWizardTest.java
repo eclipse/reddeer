@@ -14,6 +14,8 @@ package org.eclipse.reddeer.eclipse.test.jst.j2ee.ui.project.facet;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import org.eclipse.reddeer.common.wait.AbstractWait;
+import org.eclipse.reddeer.common.wait.TimePeriod;
 import org.eclipse.reddeer.eclipse.jst.j2ee.ui.project.facet.EarProjectFirstPage;
 import org.eclipse.reddeer.eclipse.jst.j2ee.ui.project.facet.EarProjectInstallPage;
 import org.eclipse.reddeer.eclipse.jst.j2ee.ui.project.facet.EarProjectWizard;
@@ -93,7 +95,7 @@ public class EARProjectWizardTest {
 		ear.open();
 		EarProjectFirstPage fp = new EarProjectFirstPage(ear);
 		fp.setProjectName(projectName);
-		fp.setEARVersion("8.0");
+		fp.setEARVersion("10.0");
 		ear.next();
 		EarProjectInstallPage ip = new EarProjectInstallPage(ear);
 		assertFalse(ip.isGenerateApplicationXML());
