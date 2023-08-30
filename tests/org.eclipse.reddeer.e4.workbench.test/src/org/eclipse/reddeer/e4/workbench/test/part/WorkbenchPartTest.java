@@ -15,11 +15,12 @@ import static org.junit.Assert.*;
 
 import org.eclipse.reddeer.common.exception.RedDeerException;
 import org.eclipse.reddeer.common.matcher.RegexMatcher;
-import org.eclipse.reddeer.common.wait.WaitWhile;
+import org.eclipse.reddeer.common.wait.WaitUntil;
 import org.eclipse.reddeer.core.matcher.WithTextMatcher;
 import org.eclipse.reddeer.junit.runner.RedDeerSuite;
 import org.eclipse.reddeer.swt.condition.ShellIsAvailable;
 import org.eclipse.reddeer.swt.impl.menu.ShellMenuItem;
+import org.eclipse.reddeer.swt.impl.shell.DefaultShell;
 import org.eclipse.reddeer.swt.impl.table.DefaultTable;
 import org.eclipse.reddeer.swt.impl.table.DefaultTableItem;
 import org.eclipse.reddeer.swt.impl.text.DefaultText;
@@ -98,13 +99,14 @@ public class WorkbenchPartTest {
 	
 	@Test
 	public void getWidgetFromPartWhenOtherShellIsActive() {
-		new ShellMenuItem("Help","About");
-		new WaitWhile(new ShellIsAvailable("About"));
+		new ShellMenuItem("Help","About").select();
+		new WaitUntil(new ShellIsAvailable("About"));
 		
 		try {
 			new DefaultTableItem("Sample item 1");
 		} catch (RedDeerException e) {
 			//not found which is ok because About shell is open
+			new DefaultShell("About").close();
 			return;
 		}
 		fail();
