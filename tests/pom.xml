@@ -64,7 +64,7 @@
 					<useUIHarness>true</useUIHarness>
 					<useUIThread>false</useUIThread>
 					<!-- THE FOLLOWING LINE MUST NOT BE BROKEN BY AUTOFORMATTING -->
-					<argLine>-DlogMessageFilter=${logMessageFilter} -DpauseFailedTest=${pauseFailedTest} -DrelativeScreenshotDirectory=${relativeScreenshotDirectory} ${platformSystemProperties} ${customArgLine} ${junitExtensionsProperties} ${tycho.testArgLine} -Xmx512m</argLine>
+					<argLine>-DlogMessageFilter=${logMessageFilter} -DpauseFailedTest=${pauseFailedTest} -DrelativeScreenshotDirectory=${relativeScreenshotDirectory} ${platformSystemProperties} ${customArgLine} ${junitExtensionsProperties} ${tycho.testArgLine} -Xmx1024m</argLine>
 					<product>org.eclipse.platform.ide</product>
 					<application>org.eclipse.ui.ide.workbench</application>
 					<dependencies combine.children="append">
