@@ -107,7 +107,7 @@ public class JavaProjectWizardTest {
 		
 		NewJavaProjectWizardPageOne pageOne = new NewJavaProjectWizardPageOne(dialog);
 		pageOne.setProjectName(JAVA_PROJECT);
-		pageOne.useExecutionEnvironmentJRE("JavaSE-11");
+		pageOne.useExecutionEnvironmentJRE("JavaSE-17");
 		new WaitUntil(new JobIsRunning(), TimePeriod.MEDIUM, false);
 		new WaitWhile(new JobIsRunning(), TimePeriod.MEDIUM, false);
 		pageOne.createModuleInfoFile(true);
@@ -129,7 +129,7 @@ public class JavaProjectWizardTest {
 		
 		NewJavaProjectWizardPageOne pageOne = new NewJavaProjectWizardPageOne(dialog);
 		pageOne.setProjectName(JAVA_PROJECT);
-		pageOne.useExecutionEnvironmentJRE("JavaSE-11");
+		pageOne.useExecutionEnvironmentJRE("JavaSE-17");
 		pageOne.createModuleInfoFile(true);
 		
 		dialog.finish();
@@ -148,7 +148,7 @@ public class JavaProjectWizardTest {
 		
 		NewJavaProjectWizardPageOne pageOne = new NewJavaProjectWizardPageOne(dialog);
 		pageOne.setProjectName(JAVA_PROJECT);
-		pageOne.useExecutionEnvironmentJRE("JavaSE-1.8");
+		pageOne.useExecutionEnvironmentJRE("JavaSE-17");
 		try {
 			pageOne.createModuleInfoFile(true);
 		} catch (WaitTimeoutExpiredException exc) {
