@@ -18,15 +18,25 @@ import org.eclipse.reddeer.eclipse.jdt.ui.wizards.JavaProjectWizard;
 import org.eclipse.reddeer.eclipse.jdt.ui.wizards.NewEnumCreationWizard;
 import org.eclipse.reddeer.eclipse.jdt.ui.wizards.NewEnumWizardPage;
 import org.eclipse.reddeer.eclipse.jdt.ui.wizards.NewJavaProjectWizardPageOne;
+import org.eclipse.reddeer.eclipse.ui.navigator.resources.ProjectExplorer;
 import org.eclipse.reddeer.junit.runner.RedDeerSuite;
 import org.eclipse.reddeer.requirements.cleanworkspace.CleanWorkspaceRequirement.CleanWorkspace;
 import org.eclipse.reddeer.workbench.impl.editor.TextEditor;
+import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @CleanWorkspace
 @RunWith(RedDeerSuite.class)
 public class EnumWizardTest {
+	
+	@After
+	public void cleanUp() {
+		ProjectExplorer explorer = new ProjectExplorer();
+		explorer.open();
+		
+		explorer.deleteAllProjects(true);
+	}
 	
 	@Test
 	public void createEnumClass(){
