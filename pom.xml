@@ -22,7 +22,7 @@
 	<properties>
 		<tycho-version>2.7.5</tycho-version>
 		<tychoExtrasVersion>${tycho-version}</tychoExtrasVersion>
-		<eclipse-target-site>https://download.eclipse.org/staging/2023-09/</eclipse-target-site>
+		<eclipse-target-site>https://download.eclipse.org/releases/2023-09/</eclipse-target-site>
 		<swtbot-update-site>https://download.eclipse.org/technology/swtbot/snapshots/</swtbot-update-site>
         <!-- when making final release, switch from S to R latest update site - https://github.com/eclipse/reddeer/issues/2100 -->
         <!--eclipse-orbit-update-site>https://download.eclipse.org/tools/orbit/downloads/latest-R/</eclipse-orbit-update-site-->
