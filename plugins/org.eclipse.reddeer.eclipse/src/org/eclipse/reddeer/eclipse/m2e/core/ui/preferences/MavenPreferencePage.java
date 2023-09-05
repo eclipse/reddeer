@@ -15,6 +15,7 @@ import org.eclipse.reddeer.core.matcher.WithTextMatcher;
 import org.eclipse.reddeer.core.reference.ReferencedComposite;
 import org.eclipse.reddeer.jface.preference.PreferencePage;
 import org.eclipse.reddeer.swt.impl.button.CheckBox;
+import org.eclipse.reddeer.swt.impl.combo.LabeledCombo;
 import org.hamcrest.Description;
 import org.hamcrest.TypeSafeMatcher;
 
@@ -34,6 +35,7 @@ public class MavenPreferencePage extends PreferencePage {
 	private static final String DOWNLOAD_REPO_INDEX_UPDATES_ON_STARTUP="Download repository index updates on startup";
 	private static final String UPDATE_MAVEN_PROJECTS_ON_STARTUP="Update Maven projects on startup";
 	private static final String HIDE_FOLDERS_OF_PHYSICALLY_NESTED_MODULES="Hide folders of physically nested modules (experimental)";
+	private static final String GLOBAL_UPDATE_POLICY="Global Update Policy:";
 
 	/**
 	 * Constructs the preference page with "Maven".
@@ -67,7 +69,11 @@ public class MavenPreferencePage extends PreferencePage {
 	 * @return true, if is do not auto update deps checked
 	 */
 	public boolean isDoNotAutoUpdateDepsChecked() {
-		return new CheckBox(this, MavenPreferencePage.DO_NOT_AUTO_UPDATE_DEPS).isChecked();
+		try {
+			return new CheckBox(this, MavenPreferencePage.DO_NOT_AUTO_UPDATE_DEPS).isChecked();
+		} catch (org.eclipse.reddeer.core.exception.CoreLayerException e) { // there is no CheckBox "Do Not Auto update..." starting 2023-09-M3 Eclipse
+			return "Never".equals(getGlobalUpdatePolicy());
+		}
 	}
 	
 	/**
@@ -76,7 +82,15 @@ public class MavenPreferencePage extends PreferencePage {
 	 * @param check the new do not auto update deps
 	 */
 	public MavenPreferencePage setDoNotAutoUpdateDeps(boolean check) {
-		new CheckBox(this, MavenPreferencePage.DO_NOT_AUTO_UPDATE_DEPS).toggle(check);
+		try {
+			new CheckBox(this, MavenPreferencePage.DO_NOT_AUTO_UPDATE_DEPS).toggle(check);
+		} catch (org.eclipse.reddeer.core.exception.CoreLayerException e) { // there is no CheckBox "Do Not Auto update..." starting 2023-09-M3 Eclipse
+			if (check) {
+				setGlobalUpdatePolicy("Never");
+			} else {
+				setGlobalUpdatePolicy("Default");
+			}
+		}
 		return this;
 	}
 	
@@ -210,6 +224,25 @@ public class MavenPreferencePage extends PreferencePage {
 	 */
 	public MavenPreferencePage setHideFoldersOfPhysicalyNestedModules(boolean check) {
 		new CheckBox(this, MavenPreferencePage.HIDE_FOLDERS_OF_PHYSICALLY_NESTED_MODULES).toggle(check);
+		return this;
+	}
+	
+	/**
+	 * Returns String with selected Global Update Policy combo item .
+	 *
+	 * @return selected Global Update Policy combo item 
+	 */
+	public String getGlobalUpdatePolicy() {
+		return new LabeledCombo(MavenPreferencePage.GLOBAL_UPDATE_POLICY).getSelection();
+	}
+	
+	/**
+	 * Sets Global Update Policy .
+	 *
+	 * @param updatePolicyType type of Global Update Policy to select
+	 */
+	public MavenPreferencePage setGlobalUpdatePolicy(String updatePolicyType) {
+		new LabeledCombo(MavenPreferencePage.GLOBAL_UPDATE_POLICY).setSelection(updatePolicyType);
 		return this;
 	}
 }
