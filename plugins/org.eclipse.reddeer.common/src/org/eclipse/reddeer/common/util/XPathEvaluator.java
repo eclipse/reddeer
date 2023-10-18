@@ -69,6 +69,13 @@ public class XPathEvaluator {
 	public XPathEvaluator(InputStream inputStream, boolean namespaceAware)
 			throws ParserConfigurationException, SAXException, IOException {
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+		String FEATURE = "http://apache.org/xml/features/disallow-doctype-decl";
+		try {
+			factory.setFeature(FEATURE, true);
+		} catch (ParserConfigurationException e) {
+			throw new IllegalStateException("ParserConfigurationException was thrown. The feature '"
+		+ FEATURE + "' is not supported by your XML processor.", e);
+		}
 		factory.setNamespaceAware(namespaceAware);
 		DocumentBuilder builder = factory.newDocumentBuilder();
 		doc = builder.parse(new InputSource(inputStream));
@@ -115,6 +122,9 @@ public class XPathEvaluator {
 	 */
 	public void printDocument(Result target) throws IOException, TransformerException {
 		TransformerFactory tf = TransformerFactory.newInstance();
+		tf.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+		tf.setAttribute(XMLConstants.ACCESS_EXTERNAL_STYLESHEET, "");
+		tf.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
 		Transformer transformer = tf.newTransformer();
 		transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "no");
 		transformer.setOutputProperty(OutputKeys.METHOD, "xml");
