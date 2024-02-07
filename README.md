@@ -55,6 +55,5 @@ See [how to contribute](https://github.com/eclipse/reddeer/blob/master/CONTRIBUT
 
 # Contact us
 
-* Chat on [Eclipse Mattermost RedDeer channel](https://mattermost.eclipse.org/eclipse/channels/reddeer)
 * Contact us on [Mailing List](https://dev.eclipse.org/mailman/listinfo/reddeer-dev)
 * Our [Homepage](http://www.eclipse.org/reddeer)
