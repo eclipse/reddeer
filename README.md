@@ -4,6 +4,10 @@ Eclipse [RedDeer](http://www.eclipse.org/reddeer) project is an extensible frame
 
 Eclipse RedDeer is extensively tested on Linux/CentOS platform. Examination of test results in CI environment is easier thanks to capturing screenshots on test failures and collecting Eclipse Platform log.
 
+## At this time RedDeer is not actively maintained
+
+We are not currently actively developing and maintaining the framework, in case that you are interested in the maintaining the project, please contact the [project leads](https://projects.eclipse.org/projects/technology.reddeer/who).
+
 # Get the code
 
 The easiest way to get started with the code is to [create your own fork](https://help.github.com/en/articles/fork-a-repo), 
